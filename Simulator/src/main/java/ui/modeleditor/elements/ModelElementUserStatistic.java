@@ -21,6 +21,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import javax.swing.Icon;
 import javax.swing.JMenu;
@@ -58,6 +60,80 @@ import ui.modeleditor.fastpaint.Shapes;
  * @see Statistics#userStatisticsContinuous
  */
 public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
+	/**
+	 * Art der Erfassung der Kenngrößen
+	 */
+	public enum RecordMode {
+		/** Nur global über alle Kundentypen hinweg */
+		GLOBAL(true,false,true,()->Language.trPrimary("Surface.UserStatistic.XML.Mode.Global"),()->Language.trAll("Surface.UserStatistic.XML.Mode.Global")),
+		/** Nur pro Kundentyp */
+		CLIENT_TYPE(false,true,false,()->Language.trPrimary("Surface.UserStatistic.XML.Mode.ClientType"),()->Language.trAll("Surface.UserStatistic.XML.Mode.ClientType")),
+		/** Sowohl global als auch pro Kundentyp */
+		BOTH(true,true,false,()->Language.trPrimary("Surface.UserStatistic.XML.Mode.Both"),()->Language.trAll("Surface.UserStatistic.XML.Mode.Both"));
+
+		/** Enthält der Eintrag eine globale Erfassung? */
+		public final boolean containsGlobal;
+		/** Enthält der Eintrag eine Erfassung pro Kundentyp? */
+		public final boolean containsClientType;
+		/** Handelt es sich um den standardmäßig aktiven Eintrag? */
+		public final boolean isDefaultMode;
+
+		/** Liefert den primären xml-Namen in der aktiven Sprache für den Eintrag */
+		private final Supplier<String> nameGetter;
+		/** Liefert alle xml-Namen in allen Sprachen für den Eintrag */
+		private final Supplier<String[]> allNamesGetter;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param containsGlobal	Enthält der Eintrag eine globale Erfassung?
+		 * @param containsClientType	Enthält der Eintrag eine Erfassung pro Kundentyp?
+		 * @param isDefaultMode	Handelt es sich um den standardmäßig aktiven Eintrag?
+		 * @param nameGetter	Liefert den primären xml-Namen in der aktiven Sprache für den Eintrag
+		 * @param allNamesGetter	Liefert alle xml-Namen in allen Sprachen für den Eintrag
+		 */
+		RecordMode(final boolean containsGlobal, final boolean containsClientType, final boolean isDefaultMode, final Supplier<String> nameGetter, final Supplier<String[]> allNamesGetter) {
+			this.containsGlobal=containsGlobal;
+			this.containsClientType=containsClientType;
+			this.isDefaultMode=isDefaultMode;
+			this.nameGetter=nameGetter;
+			this.allNamesGetter=allNamesGetter;
+		}
+
+		/**
+		 * Liefert den xml-Namen des Eintrags (in der aktuellen Sprache).
+		 * @return	xml-Name des Eintrags (in der aktuellen Sprache)
+		 */
+		public String getName() {
+			return nameGetter.get();
+		}
+
+		/**
+		 * Liefert den Eintrag zu einem xml-Namen
+		 * @param name	xml-Name zu dem der zugehörige Eintrag ermittelt werden soll
+		 * @return	Eintrag zu dem Namen oder Vorgabe-Eintrag, wenn kein Eintrag zu dem Namen passt
+		 */
+		public static RecordMode byName(final String name) {
+			for (RecordMode mode: values()) {
+				final String[] names=mode.allNamesGetter.get();
+				for (String test: names) if (test.equalsIgnoreCase(name)) return mode;
+			}
+			return getDefault();
+		}
+
+		/**
+		 * Liefert den standardmäßig aktiven Eintrag.
+		 * @return	Standardmäßig aktiver Eintrag
+		 */
+		public static RecordMode getDefault() {
+			return Stream.of(values()).filter(mode->mode.isDefaultMode).findFirst().get();
+		}
+	}
+
+	/**
+	 * Art der Erfassung der Kenngrößen
+	 * @see RecordMode
+	 */
+	private RecordMode recordMode;
 
 	/**
 	 * Liste mit den Statistikbezeichnern
@@ -90,6 +166,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	 */
 	public ModelElementUserStatistic(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_RECTANGLE);
+		recordMode=RecordMode.getDefault();
 		key=new ArrayList<>();
 		isTime=new ArrayList<>();
 		expression=new ArrayList<>();
@@ -112,6 +189,26 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	@Override
 	public String getToolTip() {
 		return Language.tr("Surface.UserStatistic.Tooltip");
+	}
+
+	/**
+	 * Liefert den Erfassungsmodus für die Kenngrößen.
+	 * @return	Erfassungsmodus für die Kenngrößen
+	 * @see RecordMode
+	 * @see #setRecordMode(RecordMode)
+	 */
+	public RecordMode getRecordMode() {
+		return recordMode;
+	}
+
+	/**
+	 * Stellt den Erfassungsmodus für die Kenngrößen ein.
+	 * @param recordMode	Erfassungsmodus für die Kenngrößen
+	 * @see RecordMode
+	 * @see #getRecordMode()
+	 */
+	public void setRecordMode(RecordMode recordMode) {
+		this.recordMode=(recordMode==null)?RecordMode.GLOBAL:recordMode;
 	}
 
 	/**
@@ -205,7 +302,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 		if (!(element instanceof ModelElementUserStatistic)) return false;
 		final ModelElementUserStatistic otherStation=(ModelElementUserStatistic)element;
 
-
+		if (recordMode!=otherStation.recordMode) return false;
 		if (key.size()!=otherStation.key.size()) return false;
 		if (isTime.size()!=otherStation.isTime.size()) return false;
 		if (expression.size()!=otherStation.expression.size()) return false;
@@ -227,6 +324,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementUserStatistic) {
 			final ModelElementUserStatistic copySource=(ModelElementUserStatistic)element;
+			recordMode=copySource.recordMode;
 			key.addAll(copySource.key);
 			isTime.addAll(copySource.isTime);
 			expression.addAll(copySource.expression);
@@ -339,6 +437,11 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 
 		Element sub;
 
+		if (!recordMode.isDefaultMode) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.UserStatistic.XML.Mode")));
+			sub.setTextContent(recordMode.getName());
+		}
+
 		for (int i=0;i<Math.min(Math.min(Math.min(key.size(),expression.size()),isTime.size()),isContinuous.size());i++) {
 			final String k=key.get(i);
 			final String e=expression.get(i);
@@ -362,6 +465,11 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	protected String loadProperty(final String name, final String content, final Element node) {
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
+
+		if (Language.trAll("Surface.UserStatistic.XML.Mode",name)) {
+			recordMode=RecordMode.byName(content);
+			return null;
+		}
 
 		if (Language.trAll("Surface.UserStatistic.XML.Record",name)) {
 			final String keyString=Language.trAllAttribute("Surface.UserStatistic.XML.Record.Key",node);

@@ -2300,6 +2300,7 @@
   <xs:element ref="StatistikLaufzeitWert" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatistikBenutzerdefiniert"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element name="StatistikBenutzerdefiniertModus" type="xs:string"/>
   <xs:element ref="StatistikBenutzerdefiniertDatensatz" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatistikBenutzerdefiniertDatensatz" type="StatistikBasis"/>
@@ -4701,6 +4702,7 @@
   <xs:element ref="StatisticsRunTimeValue" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatisticsUserDefined"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element name="StatisticsUserDefinedMode" type="xs:string"/>
   <xs:element ref="StatisticsUserDefinedRecord" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatisticsUserDefinedRecord" type="StatisticsBase"/>

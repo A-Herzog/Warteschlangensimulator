@@ -2445,7 +2445,8 @@
 <!ELEMENT StatistikRessourcenAuslastungsKosten (StatistikKosten)*>
 <!ELEMENT StatistikRessourcenLeerlaufKosten (StatistikKosten)*>
 <!ELEMENT StatistikLaufzeitWerte (StatistikLaufzeitWert)*>
-<!ELEMENT StatistikBenutzerdefiniert (StatistikBenutzerdefiniertDatensatz)*>
+<!ELEMENT StatistikBenutzerdefiniert (StatistikBenutzerdefiniertModus | StatistikBenutzerdefiniertDatensatz)*>
+<!ELEMENT StatistikBenutzerdefiniertModus (#PCDATA)>
 <!ELEMENT StatistikBenutzerdefiniertDatensatz (#PCDATA)>
 <!ATTLIST StatistikBenutzerdefiniertDatensatz
   Anzahl						CDATA	#IMPLIED
@@ -5069,7 +5070,8 @@
 <!ELEMENT StatisticsResourcesWorkTimeCosts (StatisticsCosts)*>
 <!ELEMENT StatisticsResourcesIdleTimeCosts (StatisticsCosts)*>
 <!ELEMENT StatisticsRunTimeValues (StatisticsRunTimeValue)*>
-<!ELEMENT StatisticsUserDefined (StatisticsUserDefinedRecord)*>
+<!ELEMENT StatisticsUserDefined (StatisticsUserDefinedMode | StatisticsUserDefinedRecord)*>
+<!ELEMENT StatisticsUserDefinedMode (#PCDATA)>
 <!ELEMENT StatisticsUserDefinedRecord (#PCDATA)>
 <!ATTLIST StatisticsUserDefinedRecord
   Count						CDATA	#IMPLIED

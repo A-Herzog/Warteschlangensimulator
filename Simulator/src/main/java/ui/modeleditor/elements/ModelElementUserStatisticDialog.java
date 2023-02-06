@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -50,6 +52,12 @@ public class ModelElementUserStatisticDialog extends ModelElementBaseDialog {
 	 * Tabellenmodell der in dem Dialog darzustellenden Tabelle
 	 */
 	private UserStatisticTableModel tableModel;
+
+	/**
+	 * Combobox zur Auswahl des Erfassungsmodus (nur global, nur pro Kundentyp, beides)
+	 * @see	ModelElementUserStatistic.RecordMode
+	 */
+	private JComboBox<?> recordMode;
 
 	/**
 	 * Konstruktor der Klasse
@@ -84,6 +92,25 @@ public class ModelElementUserStatisticDialog extends ModelElementBaseDialog {
 			table.getColumnModel().getColumn(0).setMinWidth(200);
 			table.setEnabled(!readOnly);
 			content.add(new JScrollPane(table),BorderLayout.CENTER);
+
+			final JPanel settingsArea=new JPanel();
+			settingsArea.setLayout(new BoxLayout(settingsArea,BoxLayout.PAGE_AXIS));
+			content.add(settingsArea,BorderLayout.SOUTH);
+			final Object[] data=getComboBoxPanel(Language.tr("Surface.UserStatistic.Dialog.RecordMode")+":",new String[] {
+					Language.tr("Surface.UserStatistic.Dialog.RecordMode.Global"),
+					Language.tr("Surface.UserStatistic.Dialog.RecordMode.ClientType"),
+					Language.tr("Surface.UserStatistic.Dialog.RecordMode.Both")
+			});
+			settingsArea.add((JPanel)data[0]);
+			recordMode=(JComboBox<?>)data[1];
+			recordMode.setEnabled(!readOnly);
+
+			switch (station.getRecordMode()) {
+			case GLOBAL: recordMode.setSelectedIndex(0); break;
+			case CLIENT_TYPE: recordMode.setSelectedIndex(1); break;
+			case BOTH: recordMode.setSelectedIndex(2); break;
+			default: recordMode.setSelectedIndex(0); break;
+			}
 		}
 
 		return content;
@@ -129,6 +156,12 @@ public class ModelElementUserStatisticDialog extends ModelElementBaseDialog {
 			isTime.addAll(tableModel.getIsTime());
 			expressions.addAll(tableModel.getExpressions());
 			isContinuous.addAll(tableModel.getIsContinuous());
+
+			switch (recordMode.getSelectedIndex()) {
+			case 0: ((ModelElementUserStatistic)element).setRecordMode(ModelElementUserStatistic.RecordMode.GLOBAL); break;
+			case 1: ((ModelElementUserStatistic)element).setRecordMode(ModelElementUserStatistic.RecordMode.CLIENT_TYPE); break;
+			case 2: ((ModelElementUserStatistic)element).setRecordMode(ModelElementUserStatistic.RecordMode.BOTH); break;
+			}
 		}
 
 		/* Formate für alle Schlüssel auflisten */

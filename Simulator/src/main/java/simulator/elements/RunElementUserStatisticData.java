@@ -35,6 +35,14 @@ import statistics.StatisticsTimeContinuousPerformanceIndicator;
  * @see RunElementData
  */
 public class RunElementUserStatisticData extends RunElementData {
+	/** Erfassung der Statistikdaten global über alle Kundentypen hinweg? */
+	private final boolean recordModeGlobal;
+	/** Erfassung der Statistikdaten pro Kundentyp? */
+	private final boolean recordModeClientType;
+
+	/** Liste der Namen der Kundentypen im System */
+	private String[] clientTypes;
+
 	/** Diskrete Werte: Array der Nutzerdaten-Statistik-Bezeichner unter denen die Werte erfasst werden sollen */
 	private final String[] keysDiscrete;
 	/** Diskrete Werte: Array der Angaben, ob die Nutzerdaten Zeitangaben sind oder nicht */
@@ -56,8 +64,14 @@ public class RunElementUserStatisticData extends RunElementData {
 	/** Statistikobjekte für die verschiedenen Bezeichner {@link #keysDiscrete} (wird von {@link #processClient(SimulationData, RunDataClient)} nach Bedarf gefüllt) */
 	private final StatisticsDataPerformanceIndicatorWithNegativeValues[] indicatorsDiscrete;
 
+	/** Statistikobjekte für die verschiedenen Bezeichner pro Kundentyp {@link #keysDiscrete} (wird von {@link #processClient(SimulationData, RunDataClient)} nach Bedarf gefüllt) */
+	private final StatisticsDataPerformanceIndicatorWithNegativeValues[][] indicatorsDiscreteClientType;
+
 	/** Statistikobjekte für die verschiedenen Bezeichner {@link #keysContinuous} (wird von {@link #processClient(SimulationData, RunDataClient)} nach Bedarf gefüllt) */
 	private final StatisticsTimeContinuousPerformanceIndicator[] indicatorsContinuous;
+
+	/** Statistikobjekte für die verschiedenen Bezeichner pro Kundentyp {@link #keysContinuous} (wird von {@link #processClient(SimulationData, RunDataClient)} nach Bedarf gefüllt) */
+	private final StatisticsTimeContinuousPerformanceIndicator[][] indicatorsContinuousClientType;
 
 	/** Statistikobjekte für alle Bezeichner (wird von {@link #processClient(SimulationData, RunDataClient)} nach Bedarf gefüllt) */
 	private final StatisticsPerformanceIndicator[] indicatorsAll;
@@ -65,14 +79,22 @@ public class RunElementUserStatisticData extends RunElementData {
 	/**
 	 * Konstruktor der Klasse <code>RunElementUserStatisticData</code>
 	 * @param station	Station zu diesem Datenelement
+	 * @param recordModeGlobal	Erfassung der Statistikdaten global über alle Kundentypen hinweg?
+	 * @param recordModeClientType	Erfassung der Statistikdaten pro Kundentyp?
 	 * @param keys	Array der Nutzerdaten-Statistik-Bezeichner unter denen die Werte erfasst werden sollen
 	 * @param isTime	Array der Angaben, ob die Nutzerdaten Zeitangaben sind oder nicht
 	 * @param expressions	Array der Ausdrücke die ausgewertet und in der Nutzerdaten-Statistik erfasst werden sollen
 	 * @param isContinuous	Array der Angaben, ob die Nutzerdaten diskret oder kontinuierlich erfasst werden sollen
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param clientTypes	Liste der Namen der Kundentypen im System
 	 */
-	public RunElementUserStatisticData(final RunElement station, final String[] keys, final boolean[] isTime, final String[] expressions, final boolean[] isContinuous, final String[] variableNames) {
+	public RunElementUserStatisticData(final RunElement station, final boolean recordModeGlobal, final boolean recordModeClientType, final String[] keys, final boolean[] isTime, final String[] expressions, final boolean[] isContinuous, final String[] variableNames, final String[] clientTypes) {
 		super(station);
+
+		this.clientTypes=clientTypes;
+
+		this.recordModeGlobal=recordModeGlobal;
+		this.recordModeClientType=recordModeClientType;
 
 		final List<String> keysDiscrete=new ArrayList<>();
 		final List<Boolean> isTimeDiscrete=new ArrayList<>();
@@ -113,8 +135,12 @@ public class RunElementUserStatisticData extends RunElementData {
 		this.indexContinuous=indexContinuous.stream().mapToInt(I->I.intValue()).toArray();
 
 		indicatorsDiscrete=new StatisticsDataPerformanceIndicatorWithNegativeValues[this.expressionsDiscrete.length];
+		indicatorsDiscreteClientType=new StatisticsDataPerformanceIndicatorWithNegativeValues[this.expressionsDiscrete.length][];
+		for (int i=0;i<indicatorsDiscreteClientType.length;i++) indicatorsDiscreteClientType[i]=new StatisticsDataPerformanceIndicatorWithNegativeValues[clientTypes.length];
 
 		indicatorsContinuous=new StatisticsTimeContinuousPerformanceIndicator[this.expressionsContinuous.length];
+		indicatorsContinuousClientType=new StatisticsTimeContinuousPerformanceIndicator[this.expressionsContinuous.length][];
+		for (int i=0;i<indicatorsContinuousClientType.length;i++) indicatorsContinuousClientType[i]=new StatisticsTimeContinuousPerformanceIndicator[clientTypes.length];
 
 		indicatorsAll=new StatisticsPerformanceIndicator[this.expressionsDiscrete.length+this.expressionsContinuous.length];
 	}
@@ -146,14 +172,28 @@ public class RunElementUserStatisticData extends RunElementData {
 
 			if (Double.isNaN(value)) continue;
 
-			/* Indikator holen wenn nötig */
-			if (indicatorsDiscrete[i]==null) {
-				indicatorsDiscrete[i]=(StatisticsDataPerformanceIndicatorWithNegativeValues)simData.statistics.userStatistics.get(keysDiscrete[i]);
-				indicatorsAll[indexDiscrete[i]]=indicatorsDiscrete[i];
+			/* Erfassung über alle Kundentypen hinweg */
+			if (recordModeGlobal) {
+				/* Indikator holen wenn nötig */
+				if (indicatorsDiscrete[i]==null) {
+					indicatorsDiscrete[i]=(StatisticsDataPerformanceIndicatorWithNegativeValues)simData.statistics.userStatistics.get(keysDiscrete[i]);
+					indicatorsAll[indexDiscrete[i]]=indicatorsDiscrete[i];
+				}
+
+				/* Wert eintragen */
+				indicatorsDiscrete[i].add(value);
 			}
 
-			/* Wert eintragen */
-			indicatorsDiscrete[i].add(value);
+			/* Erfassung pro Kundentyp */
+			if (recordModeClientType) {
+				/* Indikator holen wenn nötig */
+				if (indicatorsDiscreteClientType[i][client.type]==null) {
+					indicatorsDiscreteClientType[i][client.type]=(StatisticsDataPerformanceIndicatorWithNegativeValues)simData.statistics.userStatistics.get(keysDiscrete[i]+" "+clientTypes[client.type]);
+				}
+
+				/* Wert eintragen */
+				indicatorsDiscreteClientType[i][client.type].add(value);
+			}
 		}
 
 		/* Zeitkontinuierliche Werte */
@@ -170,14 +210,28 @@ public class RunElementUserStatisticData extends RunElementData {
 
 			if (Double.isNaN(value)) continue;
 
-			/* Indikator holen wenn nötig */
-			if (indicatorsContinuous[i]==null) {
-				indicatorsContinuous[i]=(StatisticsTimeContinuousPerformanceIndicator)simData.statistics.userStatisticsContinuous.get(keysContinuous[i]);
-				indicatorsAll[indexContinuous[i]]=indicatorsContinuous[i];
+			/* Erfassung über alle Kundentypen hinweg */
+			if (recordModeGlobal) {
+				/* Indikator holen wenn nötig */
+				if (indicatorsContinuous[i]==null) {
+					indicatorsContinuous[i]=(StatisticsTimeContinuousPerformanceIndicator)simData.statistics.userStatisticsContinuous.get(keysContinuous[i]);
+					indicatorsAll[indexContinuous[i]]=indicatorsContinuous[i];
+				}
+
+				/* Wert eintragen */
+				indicatorsContinuous[i].set(simData.currentTime*scaleToSec,value);
 			}
 
-			/* Wert eintragen */
-			indicatorsContinuous[i].set(simData.currentTime*scaleToSec,value);
+			/* Erfassung pro Kundentyp */
+			if (recordModeClientType) {
+				/* Indikator holen wenn nötig */
+				if (indicatorsContinuousClientType[i][client.type]==null) {
+					indicatorsContinuousClientType[i][client.type]=(StatisticsTimeContinuousPerformanceIndicator)simData.statistics.userStatisticsContinuous.get(keysContinuous[i]+" "+clientTypes[client.type]);
+				}
+
+				/* Wert eintragen */
+				indicatorsContinuousClientType[i][client.type].set(simData.currentTime*scaleToSec,value);
+			}
 		}
 	}
 

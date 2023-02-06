@@ -36,6 +36,11 @@ import ui.modeleditor.elements.ModelElementUserStatistic;
  * @see ModelElementUserStatistic
  */
 public class RunElementUserStatistic extends RunElementPassThrough {
+	/** Erfassung der Statistikdaten global über alle Kundentypen hinweg? */
+	private boolean recordModeGlobal;
+	/** Erfassung der Statistikdaten pro Kundentyp? */
+	private boolean recordModeClientType;
+
 	/** Array der Nutzerdaten-Statistik-Bezeichner unter denen die Werte erfasst werden sollen */
 	private String[] keys;
 	/** Array der Angaben, ob die Nutzerdaten Zeitangaben sind oder nicht */
@@ -64,6 +69,8 @@ public class RunElementUserStatistic extends RunElementPassThrough {
 		if (edgeError!=null) return edgeError;
 
 		/* Statistikgrößen */
+		userStatistic.recordModeGlobal=userStatisticElement.getRecordMode().containsGlobal;
+		userStatistic.recordModeClientType=userStatisticElement.getRecordMode().containsClientType;
 		final List<String> keys=userStatisticElement.getKeys();
 		final List<Boolean> isTime=userStatisticElement.getIsTime();
 		final List<String> expressions=userStatisticElement.getExpressions();
@@ -118,7 +125,7 @@ public class RunElementUserStatistic extends RunElementPassThrough {
 		RunElementUserStatisticData data;
 		data=(RunElementUserStatisticData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementUserStatisticData(this,keys,isTime,expressions,isContinuous,simData.runModel.variableNames);
+			data=new RunElementUserStatisticData(this,recordModeGlobal,recordModeClientType,keys,isTime,expressions,isContinuous,simData.runModel.variableNames,simData.runModel.clientTypes);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

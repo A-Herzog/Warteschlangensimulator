@@ -25,8 +25,16 @@ kann dabei in Form von diskreten Werten (Standardfall) oder zeitkontinuierlich
 erfolgen. Sollen tatsächliche Kundeneigenschaften (wie z.B. Wartezeiten usw.) erfasst
 werden, so handelt es sich um diskrete Werte. Eine kontinuierliche Erfassung ist nur
 dann sinnvoll, wenn die Ankunft eines Kunden an der Station genutzt werden soll,
-die Veränderung eines Wertes, der nicht unbedingt etwas mit dem jeweiligen Kuden
+die Veränderung eines Wertes, der nicht unbedingt etwas mit dem jeweiligen Kunden
 zu tun hat, zu erfassen.
+</p>
+<p>
+Im Normalfall wird pro Datensatz ein Statistikeintrag angelegt, in dem die Daten
+aller Kunden, die die Station passieren, erfasst werden. Es kann allerdings auch
+eine kundentypspezifische Erfassung eingestellt werden. In diesem Fall wird für
+jeden Kundentyp, der die Station passiert, ein individueller Datensatz, dessen
+Name sich ein aus angegebenen Datensatznamen und dem Namen des Kundentyps
+zusammensetzt, erstellt.
 </p>
  
 </body>

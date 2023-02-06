@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-04 11:13+0100\n"
+"POT-Creation-Date: 2023-02-05 00:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33838,6 +33838,18 @@ msgstr "The specified value \"%s\" for the failure time for the transporter grou
 msgid "Surface.Transporter.ErrorInterDistribution"
 msgstr "The specified value \"%s\" for the distribution of the times between two down times for the transporter group \"%s\" is invalid."
 
+msgid "Surface.UserStatistic.Dialog.RecordMode"
+msgstr "Recording mode"
+
+msgid "Surface.UserStatistic.Dialog.RecordMode.Both"
+msgstr "Global and per client type"
+
+msgid "Surface.UserStatistic.Dialog.RecordMode.ClientType"
+msgstr "Per client type"
+
+msgid "Surface.UserStatistic.Dialog.RecordMode.Global"
+msgstr "Global"
+
 msgid "Surface.UserStatistic.Dialog.Title"
 msgstr "Edit user-defined statistics"
 
@@ -33906,6 +33918,18 @@ msgstr "Move record up"
 
 msgid "Surface.UserStatistic.Tooltip"
 msgstr "Allows to record user-defined statistic data"
+
+msgid "Surface.UserStatistic.XML.Mode"
+msgstr "StatisticsUserDefinedMode"
+
+msgid "Surface.UserStatistic.XML.Mode.Both"
+msgstr "GlobalAndClientType"
+
+msgid "Surface.UserStatistic.XML.Mode.ClientType"
+msgstr "ClientType"
+
+msgid "Surface.UserStatistic.XML.Mode.Global"
+msgstr "Global"
 
 msgid "Surface.UserStatistic.XML.Record"
 msgstr "ModelElementUserStatisticsRecord"
