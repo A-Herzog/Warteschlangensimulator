@@ -19868,6 +19868,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45761] = "Die angegebene Bildgr\u00f6\u00dfe ist ung\u00fcltig. Die Gr\u00f6\u00dfe muss eine nat\u00fcrliche Zahl sein.";
     t[45766] = "Surface.AssignString.XML.Condition";
     t[45767] = "ModellElementZuweisungTextBedingung";
+    t[45768] = "Examples.BatchTransport";
+    t[45769] = "Einfluss der Batch-Gr\u00f6\u00dfe der Transporte auf die Systemleistung";
     t[45774] = "Statistic.FastAccess.Template.StatisticsXMLCV.Hint";
     t[45775] = "Liefert den Variationskoeffizient einer in einem XML-Element gespeicherten Verteilung.";
     t[45778] = "Animation.Toolbar.Export.Copy";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[46201] = "Deaktivieren";
     t[46206] = "Statistics.StdDevUserTime";
     t[46207] = "Standardabweichung";
-    t[46212] = "ParameterCompare.Toolbar.ProcessResults.SaveStatistics.Log.Failed";
-    t[46213] = "Speichern von Statistik zu Modell %s in Datei %s ist fehlgeschlagen.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[46212] = "ParameterCompare.Toolbar.ProcessResults.SaveStatistics.Log.Failed";
+    t[46213] = "Speichern von Statistik zu Modell %s in Datei %s ist fehlgeschlagen.";
     t[46214] = "CalculatorDialog.Tab.Calculator";
     t[46215] = "Rechner";
     t[46220] = "Surface.LogicEndWhile.Tooltip";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50763] = "Die Simulation wurde abgeschlossen.";
     t[50764] = "Server.Status.ServerAddress";
     t[50765] = "Server-Adresse";
-    t[50768] = "Elements.Catalog.Decoration";
-    t[50769] = "Optische Gestaltung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50768] = "Elements.Catalog.Decoration";
+    t[50769] = "Optische Gestaltung";
     t[50770] = "Help.Search.ResultCountPlural";
     t[50771] = "auf %d Seiten gefunden";
     t[50774] = "Surface.AnimationClock.XML.Expression";

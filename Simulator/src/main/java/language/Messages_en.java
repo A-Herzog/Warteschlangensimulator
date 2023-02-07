@@ -19868,6 +19868,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45761] = "The entered image size is invalid. The image size has to be a positive integer.";
     t[45766] = "Surface.AssignString.XML.Condition";
     t[45767] = "ModelElementAssignmentTextCondition";
+    t[45768] = "Examples.BatchTransport";
+    t[45769] = "Effect of the batch size of the transports on the system performance";
     t[45774] = "Statistic.FastAccess.Template.StatisticsXMLCV.Hint";
     t[45775] = "Returns the coefficient of variation of a distribution stored in an XML element.";
     t[45778] = "Animation.Toolbar.Export.Copy";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46201] = "Deactivate";
     t[46206] = "Statistics.StdDevUserTime";
     t[46207] = "Standard deviation";
-    t[46212] = "ParameterCompare.Toolbar.ProcessResults.SaveStatistics.Log.Failed";
-    t[46213] = "Statistics for model \"%s\" has been saved in file %s.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[46212] = "ParameterCompare.Toolbar.ProcessResults.SaveStatistics.Log.Failed";
+    t[46213] = "Statistics for model \"%s\" has been saved in file %s.";
     t[46214] = "CalculatorDialog.Tab.Calculator";
     t[46215] = "Calculator";
     t[46220] = "Surface.LogicEndWhile.Tooltip";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50763] = "Simulation is completed.";
     t[50764] = "Server.Status.ServerAddress";
     t[50765] = "Server address";
-    t[50768] = "Elements.Catalog.Decoration";
-    t[50769] = "Optical decorations";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50768] = "Elements.Catalog.Decoration";
+    t[50769] = "Optical decorations";
     t[50770] = "Help.Search.ResultCountPlural";
     t[50771] = "found on %d pages";
     t[50774] = "Surface.AnimationClock.XML.Expression";

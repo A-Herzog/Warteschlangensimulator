@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
+  <ModelName>Effect of the batch size of the transports on the system performance</ModelName>
+  <ModelDescription>At each station, there are 1+4/batch-size seconds of service time per document.
+For rho&lt;1, the batch size has to be &gt;8. However, increasing the batch size
+beyond the necessary number of 9 does not automatically mean a further
+improvement.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="0">10000000</ModelClients>
+  <ModelWarmUpPhase>0</ModelWarmUpPhase>
+  <ModelTerminationTime Active="1">1:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Documents</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="150"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Uniform distribution (1;2)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="2">
+      <ModelElementName>Station A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="150"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">One point distribution (1)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Batch">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Documents">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Dokumente">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Operator A"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementTransportOrigin id="3">
+      <ModelElementSize h="50" w="100" x="250" y="350"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementExpression TimeBase="Seconds" Type="TransferTime">transport</ModelElementExpression>
+      <ModelElementTransportRoute>B</ModelElementTransportRoute>
+      <ModelElementTransportResource Count="1" Name="Operator A"/>
+      <ModelElementTransportResourcePriority>1000</ModelElementTransportResourcePriority>
+      <ModelElementTransportResourceDelayedRelease TimeBase="Seconds">
+        <ModelElementExpression>transport</ModelElementExpression>
+      </ModelElementTransportResourceDelayedRelease>
+    </ModelElementTransportOrigin>
+    <ModelElementBatch id="4">
+      <ModelElementSize h="50" w="100" x="250" y="250"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+      <ModelElementBatchMode>Temporary</ModelElementBatchMode>
+      <ModelElementClientType>Batch</ModelElementClientType>
+      <ModelElementBatchData Size="batch"/>
+    </ModelElementBatch>
+    <ModelElementTransportDestination id="5">
+      <ModelElementName>B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="500" y="150"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+    </ModelElementTransportDestination>
+    <ModelElementSeparate id="6">
+      <ModelElementSize h="50" w="100" x="500" y="250"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+    </ModelElementSeparate>
+    <ModelElementEdge id="7">
+      <ModelElementName>Arrivals (Documents)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="8">
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="9">
+      <ModelElementName>New client type "Batch"</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="10">
+      <ModelElementConnection Element1="5" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="11">
+      <ModelElementName>Station B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="500" y="350"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">One point distribution (1)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Batch">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Documents">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Dokumente">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Operator B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="6" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementTransportOrigin id="13">
+      <ModelElementSize h="50" w="100" x="500" y="550"/>
+      <ModelElementConnection Element="28" Type="In"/>
+      <ModelElementExpression TimeBase="Seconds" Type="TransferTime">transport</ModelElementExpression>
+      <ModelElementTransportRoute>C</ModelElementTransportRoute>
+      <ModelElementTransportResource Count="1" Name="Operator B"/>
+      <ModelElementTransportResourcePriority>1000</ModelElementTransportResourcePriority>
+      <ModelElementTransportResourceDelayedRelease TimeBase="Seconds">
+        <ModelElementExpression>transport</ModelElementExpression>
+      </ModelElementTransportResourceDelayedRelease>
+    </ModelElementTransportOrigin>
+    <ModelElementTransportDestination id="15">
+      <ModelElementName>C</ModelElementName>
+      <ModelElementSize h="50" w="100" x="750" y="150"/>
+      <ModelElementConnection Element="17" Type="Out"/>
+    </ModelElementTransportDestination>
+    <ModelElementSeparate id="16">
+      <ModelElementSize h="50" w="100" x="750" y="250"/>
+      <ModelElementConnection Element="17" Type="In"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+    </ModelElementSeparate>
+    <ModelElementEdge id="17">
+      <ModelElementConnection Element1="15" Element2="16" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="18">
+      <ModelElementName>Station C</ModelElementName>
+      <ModelElementSize h="50" w="100" x="750" y="350"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="29" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">One point distribution (1)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Batch">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Documents">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Dokumente">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Operator C"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="19">
+      <ModelElementConnection Element1="16" Element2="18" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementTransportOrigin id="20">
+      <ModelElementSize h="50" w="100" x="750" y="550"/>
+      <ModelElementConnection Element="30" Type="In"/>
+      <ModelElementExpression TimeBase="Seconds" Type="TransferTime">transport</ModelElementExpression>
+      <ModelElementTransportRoute>D</ModelElementTransportRoute>
+      <ModelElementTransportResource Count="1" Name="Operator C"/>
+      <ModelElementTransportResourcePriority>1000</ModelElementTransportResourcePriority>
+      <ModelElementTransportResourceDelayedRelease TimeBase="Seconds">
+        <ModelElementExpression>transport</ModelElementExpression>
+      </ModelElementTransportResourceDelayedRelease>
+    </ModelElementTransportOrigin>
+    <ModelElementTransportDestination id="22">
+      <ModelElementName>D</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1000" y="150"/>
+      <ModelElementConnection Element="24" Type="Out"/>
+    </ModelElementTransportDestination>
+    <ModelElementSeparate id="23">
+      <ModelElementSize h="50" w="100" x="1000" y="250"/>
+      <ModelElementConnection Element="24" Type="In"/>
+      <ModelElementConnection Element="26" Type="Out"/>
+    </ModelElementSeparate>
+    <ModelElementEdge id="24">
+      <ModelElementConnection Element1="22" Element2="23" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="25">
+      <ModelElementName>Station D</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1000" y="350"/>
+      <ModelElementConnection Element="26" Type="In"/>
+      <ModelElementConnection Element="32" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">One point distribution (1)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Batch">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Documents">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Dokumente">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Operator D"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="26">
+      <ModelElementConnection Element1="23" Element2="25" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementBatch id="14">
+      <ModelElementSize h="50" w="100" x="500" y="450"/>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection Element="28" Type="Out"/>
+      <ModelElementBatchMode>Temporary</ModelElementBatchMode>
+      <ModelElementClientType>Batch</ModelElementClientType>
+      <ModelElementBatchData Size="batch"/>
+    </ModelElementBatch>
+    <ModelElementBatch id="21">
+      <ModelElementSize h="50" w="100" x="750" y="450"/>
+      <ModelElementConnection Element="29" Type="In"/>
+      <ModelElementConnection Element="30" Type="Out"/>
+      <ModelElementBatchMode>Temporary</ModelElementBatchMode>
+      <ModelElementClientType>Batch</ModelElementClientType>
+      <ModelElementBatchData Size="batch"/>
+    </ModelElementBatch>
+    <ModelElementEdge id="27">
+      <ModelElementConnection Element1="11" Element2="14" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="28">
+      <ModelElementName>New client type "Batch"</ModelElementName>
+      <ModelElementConnection Element1="14" Element2="13" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="29">
+      <ModelElementConnection Element1="18" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="30">
+      <ModelElementName>New client type "Batch"</ModelElementName>
+      <ModelElementConnection Element1="21" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="31">
+      <ModelElementSize h="50" w="100" x="1200" y="350"/>
+      <ModelElementConnection Element="32" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="32">
+      <ModelElementConnection Element1="25" Element2="31" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="33">
+      <ModelElementSize h="350" w="200" x="200" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="34">
+      <ModelElementSize h="550" w="200" x="450" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="35">
+      <ModelElementSize h="550" w="200" x="700" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="36">
+      <ModelElementSize h="350" w="200" x="950" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="37">
+      <ModelElementSize h="19" w="61" x="205" y="105"/>
+      <ModelElementTextLine>Station A</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="38">
+      <ModelElementSize h="19" w="61" x="455" y="105"/>
+      <ModelElementTextLine>Station B</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="39">
+      <ModelElementSize h="19" w="61" x="705" y="105"/>
+      <ModelElementTextLine>Station C</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="40">
+      <ModelElementSize h="19" w="61" x="955" y="105"/>
+      <ModelElementTextLine>Station D</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="41">
+      <ModelElementSize h="30" w="82" x="50" y="220"/>
+      <ModelElementTextLine>Inter-arrival time:</ModelElementTextLine>
+      <ModelElementTextLine>uniform 1-2 sec.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="42">
+      <ModelElementSize h="135" w="218" x="200" y="455"/>
+      <ModelElementTextLine>Service time: 1 Sek.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>One operator works at each station.</ModelElementTextLine>
+      <ModelElementTextLine>The operator both processes the documents</ModelElementTextLine>
+      <ModelElementTextLine>and as well as transports them.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>The operator needs not only a transport time,</ModelElementTextLine>
+      <ModelElementTextLine>but also an equally long return time time</ModelElementTextLine>
+      <ModelElementTextLine>before the next operation can begin.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="43">
+      <ModelElementSize h="38" w="97" x="1205" y="455"/>
+      <ModelElementTextLine>Average times</ModelElementTextLine>
+      <ModelElementTextLine>per document</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="44">
+      <ModelElementName>Waiting time</ModelElementName>
+      <ModelElementSize h="30" w="51" x="1205" y="500"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">Wartezeit_avg()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="45">
+      <ModelElementName>Transport time</ModelElementName>
+      <ModelElementSize h="30" w="61" x="1205" y="550"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">Transferzeit_avg()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="46">
+      <ModelElementName>Service time</ModelElementName>
+      <ModelElementSize h="30" w="51" x="1205" y="600"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">Bedienzeit_avg()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="47">
+      <ModelElementName>Processed documents</ModelElementName>
+      <ModelElementSize h="30" w="93" x="1205" y="255"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">NumberIn(31)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="48">
+      <ModelElementName>Documents in system</ModelElementName>
+      <ModelElementSize h="30" w="89" x="1205" y="205"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WIP()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationClock id="49">
+      <ModelElementSize h="100" w="105" x="50" y="300"/>
+      <ModelElementColor>240,240,240</ModelElementColor>
+      <ModelElementExpression>TNow()</ModelElementExpression>
+    </ModelElementAnimationClock>
+    <ModelElementAnimationText id="50">
+      <ModelElementName>Current time</ModelElementName>
+      <ModelElementSize h="30" w="94" x="50" y="420"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Simulation time"/>
+    </ModelElementAnimationText>
+    <ModelElementLine id="51">
+      <ModelElementSize h="-165" w="125" x="365" y="375"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementLineType>2</ModelElementLineType>
+      <ModelElementLineArrowEnd>2</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementLine id="52">
+      <ModelElementSize h="-350" w="130" x="610" y="560"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementLineType>2</ModelElementLineType>
+      <ModelElementLineArrowEnd>2</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementLine id="53">
+      <ModelElementSize h="-350" w="130" x="860" y="560"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementLineType>2</ModelElementLineType>
+      <ModelElementLineArrowEnd>2</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementAnimationText id="54">
+      <ModelElementName>Residence time</ModelElementName>
+      <ModelElementSize h="30" w="65" x="1205" y="650"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">Verweilzeit_avg()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementRectangle id="55">
+      <ModelElementSize h="240" w="200" x="1200" y="450"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementBackgroundColor Alpha="0.07">255,0,0</ModelElementBackgroundColor>
+    </ModelElementRectangle>
+    <ModelElementText id="56">
+      <ModelElementSize h="23" w="597" x="50" y="50"/>
+      <ModelElementTextLine>Effect of the batch size of the transports on the system performance</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="57">
+      <ModelElementSize h="100" w="150" x="1200" y="200"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementBackgroundColor Alpha="0.07">0,0,255</ModelElementBackgroundColor>
+    </ModelElementRectangle>
+    <ModelElementAnimationLineDiagram id="58">
+      <ModelElementName>WIP()</ModelElementName>
+      <ModelElementSize h="250" w="700" x="200" y="700"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="200" Minimum="0">WIP()</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>21600</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels Text="Documents in system">2</ModelElementAxisLabels>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementAnimationText id="59">
+      <ModelElementName>Batch size</ModelElementName>
+      <ModelElementSize h="30" w="47" x="55" y="530"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">batch</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementRectangle id="60">
+      <ModelElementSize h="105" w="105" x="50" y="500"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementBackgroundColor Alpha="0.07">0,180,0</ModelElementBackgroundColor>
+    </ModelElementRectangle>
+    <ModelElementAnimationText id="61">
+      <ModelElementName>Transport time (sec.)</ModelElementName>
+      <ModelElementSize h="30" w="88" x="55" y="570"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">transport</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="62">
+      <ModelElementName>Theoretical target value</ModelElementName>
+      <ModelElementSize h="30" w="100" x="1455" y="550"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">transport*3</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="63">
+      <ModelElementName>Theoretical target value</ModelElementName>
+      <ModelElementSize h="30" w="100" x="1455" y="600"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">4</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementRectangle id="64">
+      <ModelElementSize h="150" w="205" x="1450" y="500"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementBackgroundColor Alpha="0.07">0,180,0</ModelElementBackgroundColor>
+    </ModelElementRectangle>
+    <ModelElementText id="65">
+      <ModelElementSize h="38" w="117" x="1455" y="505"/>
+      <ModelElementTextLine>Values calculated</ModelElementTextLine>
+      <ModelElementTextLine>from settings</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="66">
+      <ModelElementSize h="19" w="55" x="55" y="505"/>
+      <ModelElementTextLine>Settings</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationTrafficLights id="67">
+      <ModelElementSize h="100" w="50" x="50" y="700"/>
+      <ModelElementAnimationTrafficLightsCondition Light="red">1+2*transport/batch&gt;=1,5</ModelElementAnimationTrafficLightsCondition>
+    </ModelElementAnimationTrafficLights>
+    <ModelElementText id="68">
+      <ModelElementSize h="21" w="43" x="55" y="675"/>
+      <ModelElementTextLine>\rho&lt;1 ?</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementLine id="69">
+      <ModelElementSize h="0" w="160" x="1285" y="570"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>180,180,180</ModelElementColor>
+      <ModelElementLineType>4</ModelElementLineType>
+      <ModelElementLineArrowStart>1</ModelElementLineArrowStart>
+      <ModelElementLineArrowEnd>1</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementLine id="70">
+      <ModelElementSize h="0" w="160" x="1285" y="620"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>180,180,180</ModelElementColor>
+      <ModelElementLineType>4</ModelElementLineType>
+      <ModelElementLineArrowStart>1</ModelElementLineArrowStart>
+      <ModelElementLineArrowEnd>1</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementText id="71">
+      <ModelElementSize h="165" w="118" x="50" y="815"/>
+      <ModelElementTextLine>For \rho&lt;1, an operator</ModelElementTextLine>
+      <ModelElementTextLine>has to be able to</ModelElementTextLine>
+      <ModelElementTextLine>process and transport</ModelElementTextLine>
+      <ModelElementTextLine>(and return) a document</ModelElementTextLine>
+      <ModelElementTextLine>in less than 1.5 sec.</ModelElementTextLine>
+      <ModelElementTextLine>on average.</ModelElementTextLine>
+      <ModelElementTextLine>For batch transports,</ModelElementTextLine>
+      <ModelElementTextLine>transport and return</ModelElementTextLine>
+      <ModelElementTextLine>times are calculated</ModelElementTextLine>
+      <ModelElementTextLine>proportionally for the</ModelElementTextLine>
+      <ModelElementTextLine>individual documents.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="72">
+      <ModelElementSize h="160" w="437" x="950" y="750"/>
+      <ModelElementTextLine>**Research question:**</ModelElementTextLine>
+      <ModelElementTextLine>At each station, there are 1+4/batch-size seconds of service time per document.</ModelElementTextLine>
+      <ModelElementTextLine>For \rho&lt;1, the batch size has to be &gt;8. How does the average number of documents</ModelElementTextLine>
+      <ModelElementTextLine>in the system or also the average waiting time of the documents behave if the</ModelElementTextLine>
+      <ModelElementTextLine>batch size is increased further?</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>The question can be visualized well by a parameter series. To do this, right-click</ModelElementTextLine>
+      <ModelElementTextLine>on an empty space in the drawing surface and select</ModelElementTextLine>
+      <ModelElementTextLine>"Parameter series: Initial variable values - batch". Then select e.g. 8...20</ModelElementTextLine>
+      <ModelElementTextLine>(with step size 1) as examination range.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Icon="status_online" Name="Operator A" Type="Number" Value="1"/>
+    <Resource Icon="status_online" Name="Operator B" Type="Number" Value="1"/>
+    <Resource Icon="status_online" Name="Operator C" Type="Number" Value="1"/>
+    <Resource Icon="status_online" Name="Operator D" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="icon_package" Name="Batch"/>
+    <ClientData Icon="folder-red" Name="Documents"/>
+    <ClientData Icon="folder-red" Name="Dokumente"/>
+    <ClientData Icon="folder-red" Name="Kunden"/>
+  </ClientTypeData>
+  <InitialVariable Name="batch">9</InitialVariable>
+  <InitialVariable Name="transport">2</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

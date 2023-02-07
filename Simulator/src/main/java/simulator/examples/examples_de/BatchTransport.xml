@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
+  <ModellName>Einfluss der Batch-Größe der Transporte auf die Systemleistung</ModellName>
+  <ModellBeschreibung>An jeder Station fallen 1+4/Batch-Größe Sekunden Bediendauer pro Dokument an.
+Damit rho&lt;1 ist, muss Batch-Größe&gt;8 sein. Allerdings bedeutet eine Erhöhung
+der Batch-Größe über das notwendige Maß von 9 hinaus nicht automatisch eine
+weitere Verbesserung.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="0">10000000</ModellKunden>
+  <ModellAufwaermphase>0</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="1">1:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Dokumente</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="150"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Gleichverteilung (1;2)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="2">
+      <ModellElementName>Station A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="250" y="150"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Ein-Punkt-Verteilung (1)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Batch">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Dokumente">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener A"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementTransportStart id="3">
+      <ModellElementGroesse h="50" w="100" x="250" y="350"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementAusdruck Typ="Transferzeit" Zeitbasis="Sekunden">transport</ModellElementAusdruck>
+      <ModellElementTransportRoute>B</ModellElementTransportRoute>
+      <ModellElementTransportRessource Anzahl="1" Name="Bediener A"/>
+      <ModellElementTransportRessourcePrioritaet>1000</ModellElementTransportRessourcePrioritaet>
+      <ModellElementTransportRessourceVerzoegerteFreigabe Zeitbasis="Sekunden">
+        <ModellElementAusdruck>transport</ModellElementAusdruck>
+      </ModellElementTransportRessourceVerzoegerteFreigabe>
+    </ModellElementTransportStart>
+    <ModellElementZusammenfassen id="4">
+      <ModellElementGroesse h="50" w="100" x="250" y="250"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Zeitweise</ModellElementBatchModus>
+      <ModellElementKundentyp>Batch</ModellElementKundentyp>
+      <ModellElementBatch Groesse="batch"/>
+    </ModellElementZusammenfassen>
+    <ModellElementTransportZiel id="5">
+      <ModellElementName>B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="500" y="150"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+    </ModellElementTransportZiel>
+    <ModellElementTrennen id="6">
+      <ModellElementGroesse h="50" w="100" x="500" y="250"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+    </ModellElementTrennen>
+    <ModellElementKante id="7">
+      <ModellElementName>Ankünfte (Dokumente)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementName>Neuer Kundentyp "Batch"</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="10">
+      <ModellElementVerbindung Element1="5" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="11">
+      <ModellElementName>Station B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="500" y="350"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Ein-Punkt-Verteilung (1)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Batch">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Dokumente">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener B"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="6" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementTransportStart id="13">
+      <ModellElementGroesse h="50" w="100" x="500" y="550"/>
+      <ModellElementVerbindung Element="28" Typ="Einlaufend"/>
+      <ModellElementAusdruck Typ="Transferzeit" Zeitbasis="Sekunden">transport</ModellElementAusdruck>
+      <ModellElementTransportRoute>C</ModellElementTransportRoute>
+      <ModellElementTransportRessource Anzahl="1" Name="Bediener B"/>
+      <ModellElementTransportRessourcePrioritaet>1000</ModellElementTransportRessourcePrioritaet>
+      <ModellElementTransportRessourceVerzoegerteFreigabe Zeitbasis="Sekunden">
+        <ModellElementAusdruck>transport</ModellElementAusdruck>
+      </ModellElementTransportRessourceVerzoegerteFreigabe>
+    </ModellElementTransportStart>
+    <ModellElementTransportZiel id="15">
+      <ModellElementName>C</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="750" y="150"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+    </ModellElementTransportZiel>
+    <ModellElementTrennen id="16">
+      <ModellElementGroesse h="50" w="100" x="750" y="250"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+    </ModellElementTrennen>
+    <ModellElementKante id="17">
+      <ModellElementVerbindung Element1="15" Element2="16" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="18">
+      <ModellElementName>Station C</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="750" y="350"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="29" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Ein-Punkt-Verteilung (1)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Batch">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Dokumente">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener C"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="19">
+      <ModellElementVerbindung Element1="16" Element2="18" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementTransportStart id="20">
+      <ModellElementGroesse h="50" w="100" x="750" y="550"/>
+      <ModellElementVerbindung Element="30" Typ="Einlaufend"/>
+      <ModellElementAusdruck Typ="Transferzeit" Zeitbasis="Sekunden">transport</ModellElementAusdruck>
+      <ModellElementTransportRoute>D</ModellElementTransportRoute>
+      <ModellElementTransportRessource Anzahl="1" Name="Bediener C"/>
+      <ModellElementTransportRessourcePrioritaet>1000</ModellElementTransportRessourcePrioritaet>
+      <ModellElementTransportRessourceVerzoegerteFreigabe Zeitbasis="Sekunden">
+        <ModellElementAusdruck>transport</ModellElementAusdruck>
+      </ModellElementTransportRessourceVerzoegerteFreigabe>
+    </ModellElementTransportStart>
+    <ModellElementTransportZiel id="22">
+      <ModellElementName>D</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1000" y="150"/>
+      <ModellElementVerbindung Element="24" Typ="Auslaufend"/>
+    </ModellElementTransportZiel>
+    <ModellElementTrennen id="23">
+      <ModellElementGroesse h="50" w="100" x="1000" y="250"/>
+      <ModellElementVerbindung Element="24" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
+    </ModellElementTrennen>
+    <ModellElementKante id="24">
+      <ModellElementVerbindung Element1="22" Element2="23" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="25">
+      <ModellElementName>Station D</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1000" y="350"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="32" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Ein-Punkt-Verteilung (1)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Batch">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Dokumente">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener D"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="26">
+      <ModellElementVerbindung Element1="23" Element2="25" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZusammenfassen id="14">
+      <ModellElementGroesse h="50" w="100" x="500" y="450"/>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="28" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Zeitweise</ModellElementBatchModus>
+      <ModellElementKundentyp>Batch</ModellElementKundentyp>
+      <ModellElementBatch Groesse="batch"/>
+    </ModellElementZusammenfassen>
+    <ModellElementZusammenfassen id="21">
+      <ModellElementGroesse h="50" w="100" x="750" y="450"/>
+      <ModellElementVerbindung Element="29" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="30" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Zeitweise</ModellElementBatchModus>
+      <ModellElementKundentyp>Batch</ModellElementKundentyp>
+      <ModellElementBatch Groesse="batch"/>
+    </ModellElementZusammenfassen>
+    <ModellElementKante id="27">
+      <ModellElementVerbindung Element1="11" Element2="14" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="28">
+      <ModellElementName>Neuer Kundentyp "Batch"</ModellElementName>
+      <ModellElementVerbindung Element1="14" Element2="13" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="29">
+      <ModellElementVerbindung Element1="18" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="30">
+      <ModellElementName>Neuer Kundentyp "Batch"</ModellElementName>
+      <ModellElementVerbindung Element1="21" Element2="20" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="31">
+      <ModellElementGroesse h="50" w="100" x="1200" y="350"/>
+      <ModellElementVerbindung Element="32" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="32">
+      <ModellElementVerbindung Element1="25" Element2="31" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="33">
+      <ModellElementGroesse h="350" w="200" x="200" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="34">
+      <ModellElementGroesse h="550" w="200" x="450" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="35">
+      <ModellElementGroesse h="550" w="200" x="700" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="36">
+      <ModellElementGroesse h="350" w="200" x="950" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="37">
+      <ModellElementGroesse h="19" w="61" x="205" y="105"/>
+      <ModellElementTextzeile>Station A</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="38">
+      <ModellElementGroesse h="19" w="61" x="455" y="105"/>
+      <ModellElementTextzeile>Station B</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="39">
+      <ModellElementGroesse h="19" w="61" x="705" y="105"/>
+      <ModellElementTextzeile>Station C</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="40">
+      <ModellElementGroesse h="19" w="61" x="955" y="105"/>
+      <ModellElementTextzeile>Station D</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="41">
+      <ModellElementGroesse h="30" w="106" x="50" y="220"/>
+      <ModellElementTextzeile>Zwischenankunftszeit:</ModellElementTextzeile>
+      <ModellElementTextzeile>gleichverteilt 1-2 Sek.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="42">
+      <ModellElementGroesse h="150" w="246" x="200" y="455"/>
+      <ModellElementTextzeile>Bediendauer: 1 Sek.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>An jeder Station arbeitet ein Bediener,</ModellElementTextzeile>
+      <ModellElementTextzeile>der sowohl die Bearbeitung der Dokumente</ModellElementTextzeile>
+      <ModellElementTextzeile>als auch deren Weitertransport durchführt.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Der Bediener benötigt nicht nur eine Transportzeit,</ModellElementTextzeile>
+      <ModellElementTextzeile>sondern zusätzlich noch eine genauso lange</ModellElementTextzeile>
+      <ModellElementTextzeile>Rückkehrzeit, bevor die nächste Bedienung</ModellElementTextzeile>
+      <ModellElementTextzeile>beginnen kann.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="43">
+      <ModellElementGroesse h="38" w="141" x="1205" y="455"/>
+      <ModellElementTextzeile>Durchschnittliche</ModellElementTextzeile>
+      <ModellElementTextzeile>Zeiten pro Dokument</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="44">
+      <ModellElementName>Wartezeit</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="1205" y="500"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">Wartezeit_avg()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="45">
+      <ModellElementName>Transportzeit</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="1205" y="550"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">Transferzeit_avg()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="46">
+      <ModellElementName>Bedienzeit</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="1205" y="600"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">Bedienzeit_avg()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="47">
+      <ModellElementName>Bearbeitete Dokumente</ModellElementName>
+      <ModellElementGroesse h="30" w="99" x="1205" y="255"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">NumberIn(31)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="48">
+      <ModellElementName>Dokumente im System</ModellElementName>
+      <ModellElementGroesse h="30" w="93" x="1205" y="205"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WIP()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationUhr id="49">
+      <ModellElementGroesse h="100" w="105" x="50" y="300"/>
+      <ModellElementFarbe>240,240,240</ModellElementFarbe>
+      <ModellElementAusdruck>TNow()</ModellElementAusdruck>
+    </ModellElementAnimationUhr>
+    <ModellElementAnimationText id="50">
+      <ModellElementName>Aktuelle Zeit</ModellElementName>
+      <ModellElementGroesse h="30" w="93" x="50" y="420"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Simulationszeit"/>
+    </ModellElementAnimationText>
+    <ModellElementLinie id="51">
+      <ModellElementGroesse h="-165" w="125" x="365" y="375"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+      <ModellElementLinienTyp>2</ModellElementLinienTyp>
+      <ModellElementLiniePfeilEnde>2</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementLinie id="52">
+      <ModellElementGroesse h="-350" w="130" x="610" y="560"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+      <ModellElementLinienTyp>2</ModellElementLinienTyp>
+      <ModellElementLiniePfeilEnde>2</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementLinie id="53">
+      <ModellElementGroesse h="-350" w="130" x="860" y="560"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+      <ModellElementLinienTyp>2</ModellElementLinienTyp>
+      <ModellElementLiniePfeilEnde>2</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementAnimationText id="54">
+      <ModellElementName>Verweilzeit</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="1205" y="650"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">Verweilzeit_avg()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementKasten id="55">
+      <ModellElementGroesse h="240" w="200" x="1200" y="450"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementHintergrundfarbe Alpha="0.07">255,0,0</ModellElementHintergrundfarbe>
+    </ModellElementKasten>
+    <ModellElementText id="56">
+      <ModellElementGroesse h="23" w="563" x="50" y="50"/>
+      <ModellElementTextzeile>Einfluss der Batch-Größe der Transporte auf die Systemleistung</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="57">
+      <ModellElementGroesse h="100" w="150" x="1200" y="200"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementHintergrundfarbe Alpha="0.07">0,0,255</ModellElementHintergrundfarbe>
+    </ModellElementKasten>
+    <ModellElementAnimationLinienDiagramm id="58">
+      <ModellElementName>WIP()</ModellElementName>
+      <ModellElementGroesse h="250" w="700" x="200" y="700"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="200" Minimum="0">WIP()</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>21600</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung Text="Dokumente im System">2</ModellElementAchsenbeschriftung>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementAnimationText id="59">
+      <ModellElementName>Batch-Größe</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="55" y="530"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">batch</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementKasten id="60">
+      <ModellElementGroesse h="105" w="105" x="50" y="500"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementHintergrundfarbe Alpha="0.07">0,180,0</ModellElementHintergrundfarbe>
+    </ModellElementKasten>
+    <ModellElementAnimationText id="61">
+      <ModellElementName>Transportzeit (Sek.)</ModellElementName>
+      <ModellElementGroesse h="30" w="83" x="55" y="570"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">transport</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="62">
+      <ModellElementName>Theoretischer Soll-Wert</ModellElementName>
+      <ModellElementGroesse h="30" w="100" x="1455" y="550"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">transport*3</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="63">
+      <ModellElementName>Theoretischer Soll-Wert</ModellElementName>
+      <ModellElementGroesse h="30" w="100" x="1455" y="600"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">4</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementKasten id="64">
+      <ModellElementGroesse h="150" w="205" x="1450" y="500"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementHintergrundfarbe Alpha="0.07">0,180,0</ModellElementHintergrundfarbe>
+    </ModellElementKasten>
+    <ModellElementText id="65">
+      <ModellElementGroesse h="38" w="171" x="1455" y="505"/>
+      <ModellElementTextzeile>Berechnete Werte gemäß</ModellElementTextzeile>
+      <ModellElementTextzeile>Modelleinstellungen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="66">
+      <ModellElementGroesse h="19" w="91" x="55" y="505"/>
+      <ModellElementTextzeile>Einstellungen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationAmpel id="67">
+      <ModellElementGroesse h="100" w="50" x="50" y="700"/>
+      <ModellElementAmpelBedingung Licht="rot">1+2*transport/batch&gt;=1,5</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+    <ModellElementText id="68">
+      <ModellElementGroesse h="21" w="43" x="55" y="675"/>
+      <ModellElementTextzeile>\rho&lt;1 ?</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementLinie id="69">
+      <ModellElementGroesse h="0" w="160" x="1285" y="570"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>180,180,180</ModellElementFarbe>
+      <ModellElementLinienTyp>4</ModellElementLinienTyp>
+      <ModellElementLiniePfeilStart>1</ModellElementLiniePfeilStart>
+      <ModellElementLiniePfeilEnde>1</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementLinie id="70">
+      <ModellElementGroesse h="0" w="160" x="1285" y="620"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>180,180,180</ModellElementFarbe>
+      <ModellElementLinienTyp>4</ModellElementLinienTyp>
+      <ModellElementLiniePfeilStart>1</ModellElementLiniePfeilStart>
+      <ModellElementLiniePfeilEnde>1</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementText id="71">
+      <ModellElementGroesse h="195" w="120" x="50" y="815"/>
+      <ModellElementTextzeile>Für \rho&lt;1 muss ein</ModellElementTextzeile>
+      <ModellElementTextzeile>Bediener in der Lage</ModellElementTextzeile>
+      <ModellElementTextzeile>sein, im Durchschnitt</ModellElementTextzeile>
+      <ModellElementTextzeile>in weniger als 1,5 Sek.</ModellElementTextzeile>
+      <ModellElementTextzeile>ein Dokument zu</ModellElementTextzeile>
+      <ModellElementTextzeile>bearbeiten und zu</ModellElementTextzeile>
+      <ModellElementTextzeile>transportieren (und</ModellElementTextzeile>
+      <ModellElementTextzeile>wieder zurückzukehren).</ModellElementTextzeile>
+      <ModellElementTextzeile>Bei Batch-Transporten</ModellElementTextzeile>
+      <ModellElementTextzeile>werden Transport- und</ModellElementTextzeile>
+      <ModellElementTextzeile>Rückkehrzeiten anteilig</ModellElementTextzeile>
+      <ModellElementTextzeile>für die einzelnen</ModellElementTextzeile>
+      <ModellElementTextzeile>Dokumente gerechnet.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="72">
+      <ModellElementGroesse h="160" w="439" x="950" y="750"/>
+      <ModellElementTextzeile>**Untersuchungsfragestellung:**</ModellElementTextzeile>
+      <ModellElementTextzeile>An jeder Station fallen 1+4/Batch-Größe Sekunden Bediendauer pro Dokument an.</ModellElementTextzeile>
+      <ModellElementTextzeile>Damit \rho&lt;1 ist, muss Batch-Größe&gt;8 sein. Wie verhält sich die mittlere Anzahl</ModellElementTextzeile>
+      <ModellElementTextzeile>an Dokumenten im System oder auch die mittlere Wartezeit der Dokumente, wenn</ModellElementTextzeile>
+      <ModellElementTextzeile>die Batch-Größe weiter erhöht wird?</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Die Frage lässt sich gut über eine Parameterreihe visualisieren. Dafür mit der</ModellElementTextzeile>
+      <ModellElementTextzeile>rechten Maustaste auf eine leere Stelle der Zeichenfläche klicken und</ModellElementTextzeile>
+      <ModellElementTextzeile>"Parameterreihe: Initiale Variablenwerte - batch" wählen. Dann als</ModellElementTextzeile>
+      <ModellElementTextzeile>Untersuchungsbereich z.B. 8...20 (mit Schrittweite 1) wählen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Icon="status_online" Name="Bediener A" Typ="Anzahl" Wert="1"/>
+    <Ressource Icon="status_online" Name="Bediener B" Typ="Anzahl" Wert="1"/>
+    <Ressource Icon="status_online" Name="Bediener C" Typ="Anzahl" Wert="1"/>
+    <Ressource Icon="status_online" Name="Bediener D" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Icon="icon_package" Name="Batch"/>
+    <KundenDaten Icon="folder-red" Name="Dokumente"/>
+    <KundenDaten Icon="folder-red" Name="Kunden"/>
+  </KundentypenDaten>
+  <InitialeVariable Name="batch">9</InitialeVariable>
+  <InitialeVariable Name="transport">2</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>
