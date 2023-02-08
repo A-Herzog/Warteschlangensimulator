@@ -64,6 +64,41 @@ public class CalcSymbolPreOperatorAllenCunneen extends CalcSymbolPreOperator {
 		return result;
 	}
 
+	/**
+	 * lambda beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private double lastLambda;
+
+	/**
+	 * mu beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private double lastMu;
+
+	/**
+	 * cvI beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private double lastCvI;
+
+	/**
+	 * cvS beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private double lastCvS;
+
+	/**
+	 * c beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private int lastC;
+
+	/**
+	 * mode beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private int lastMode;
+
+	/**
+	 * Rechenergebnis beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private double lastResult;
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=6) throw error();
@@ -74,6 +109,10 @@ public class CalcSymbolPreOperatorAllenCunneen extends CalcSymbolPreOperator {
 		double cvS=parameters[3]; if (cvS<=0) throw error();
 		int c=(int)Math.round(parameters[4]); if (c<=0) throw error();
 		int mode=(int)Math.round(-parameters[5]); if (mode<1 || mode>4) throw error();
+
+		if (lambda==lastLambda && mu==lastMu && cvI==lastCvI && cvS==lastCvS && c==lastC && mode==lastMode) {
+			return lastResult;
+		}
 
 		double rho=lambda/mu/c;
 
@@ -87,12 +126,40 @@ public class CalcSymbolPreOperatorAllenCunneen extends CalcSymbolPreOperator {
 		double EV=EW+1/mu;
 
 		switch (mode) {
-		case 1: return ENQ;
-		case 2: return EN;
-		case 3: return EW;
-		case 4: return EV;
+		case 1:
+			lastLambda=lambda;
+			lastMu=mu;
+			lastCvI=cvI;
+			lastCvS=cvS;
+			lastC=c;
+			lastMode=mode;
+			return lastResult=ENQ;
+		case 2:
+			lastLambda=lambda;
+			lastMu=mu;
+			lastCvI=cvI;
+			lastCvS=cvS;
+			lastC=c;
+			lastMode=mode;
+			return lastResult=EN;
+		case 3:
+			lastLambda=lambda;
+			lastMu=mu;
+			lastCvI=cvI;
+			lastCvS=cvS;
+			lastC=c;
+			lastMode=mode;
+			return lastResult=EW;
+		case 4:
+			lastLambda=lambda;
+			lastMu=mu;
+			lastCvI=cvI;
+			lastCvS=cvS;
+			lastC=c;
+			lastMode=mode;
+			return lastResult=EV;
+		default:
+			throw error();
 		}
-
-		throw error();
 	}
 }

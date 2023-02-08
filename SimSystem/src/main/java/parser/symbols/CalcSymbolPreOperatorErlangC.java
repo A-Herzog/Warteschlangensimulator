@@ -56,6 +56,46 @@ public class CalcSymbolPreOperatorErlangC extends CalcSymbolPreOperator {
 		return names;
 	}
 
+	/**
+	 * lambda beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private double lastLambda;
+
+	/**
+	 * mu beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private double lastMu;
+
+	/**
+	 * nu beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private double lastNu;
+
+	/**
+	 * c beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private int lastC;
+
+	/**
+	 * K beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private int lastK;
+
+	/**
+	 * t beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private double lastT;
+
+	/**
+	 * mode beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private int lastMode;
+
+	/**
+	 * Rechenergebnis beim letzten Aufruf von {@link #calc(double[])}
+	 */
+	private double lastResult;
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=6) throw error();
@@ -65,11 +105,16 @@ public class CalcSymbolPreOperatorErlangC extends CalcSymbolPreOperator {
 		double nu=parameters[2]; if (nu<0) nu=0;
 		int c=(int)Math.round(parameters[3]); if (c<=0) throw error();
 		int K=(int)Math.round(parameters[4]); if (K<=0) K=100000000;
-		double t=0; int mode;
+		double t=0;
+		int mode;
 		if (parameters[5]>=0) {
 			mode=0; t=parameters[5];
 		} else {
 			mode=(int)Math.round(-parameters[5]); if (mode<1 || mode>5) throw error();
+		}
+
+		if (lambda==lastLambda && mu==lastMu && nu==lastNu && c==lastC && K==lastK && t==lastT && mode==lastMode) {
+			return lastResult;
 		}
 
 		double[] Cn=ErlangC.extErlangCCn(lambda,mu,nu,c,K);
@@ -92,14 +137,62 @@ public class CalcSymbolPreOperatorErlangC extends CalcSymbolPreOperator {
 		double PA=ENQ*nu/lambda;
 
 		switch (mode) {
-		case 0: return Pt;
-		case 1: return ENQ;
-		case 2: return EN;
-		case 3: return EW;
-		case 4: return EV;
-		case 5: return 1-PA;
+		case 0:
+			lastLambda=lambda;
+			lastMu=mu;
+			lastNu=nu;
+			lastC=c;
+			lastK=K;
+			lastT=t;
+			lastMode=mode;
+			return lastResult=Pt;
+		case 1:
+			lastLambda=lambda;
+			lastMu=mu;
+			lastNu=nu;
+			lastC=c;
+			lastK=K;
+			lastT=t;
+			lastMode=mode;
+			return lastResult=ENQ;
+		case 2:
+			lastLambda=lambda;
+			lastMu=mu;
+			lastNu=nu;
+			lastC=c;
+			lastK=K;
+			lastT=t;
+			lastMode=mode;
+			return lastResult=EN;
+		case 3:
+			lastLambda=lambda;
+			lastMu=mu;
+			lastNu=nu;
+			lastC=c;
+			lastK=K;
+			lastT=t;
+			lastMode=mode;
+			return lastResult=EW;
+		case 4:
+			lastLambda=lambda;
+			lastMu=mu;
+			lastNu=nu;
+			lastC=c;
+			lastK=K;
+			lastT=t;
+			lastMode=mode;
+			return lastResult=EV;
+		case 5:
+			lastLambda=lambda;
+			lastMu=mu;
+			lastNu=nu;
+			lastC=c;
+			lastK=K;
+			lastT=t;
+			lastMode=mode;
+			return lastResult=1-PA;
+		default:
+			throw error();
 		}
-
-		throw error();
 	}
 }
