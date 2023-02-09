@@ -9,7 +9,7 @@ Diese Readme-Datei beschreibt, wie die Skripte in diesem Verzeichnis verwendet w
 # docker-web-build
 
 Builds a docker image for running Warteschlangensimulator
-in web server mode on port 81.
+in web server mode on port 8000.
 
 
 

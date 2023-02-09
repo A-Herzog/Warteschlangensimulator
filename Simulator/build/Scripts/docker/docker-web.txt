@@ -1,8 +1,8 @@
-FROM adoptopenjdk:11-jre-hotspot
+FROM eclipse-temurin:17
 RUN mkdir /opt/app
 COPY Simulator.jar /opt/app
 RUN mkdir /opt/app/libs
 COPY libs/*.jar /opt/app/libs/
 WORKDIR /opt/app
-CMD ["java", "-jar", "Simulator.jar","serverweb","81"]
-EXPOSE 81
+CMD ["java", "-jar", "Simulator.jar","serverweb","8000"]
+EXPOSE 8000

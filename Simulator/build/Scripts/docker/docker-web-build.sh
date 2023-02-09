@@ -18,7 +18,7 @@ then
 	docker build -t qs:web -f ./tools/docker/docker-web.txt .
 	echo
 	echo Run:
-	echo docker run -d -p 81:81 qs:web
+	echo docker run -d -p 8000:8000 qs:web
 else
 	echo Simulator.jar not found.
 fi
