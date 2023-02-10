@@ -209,6 +209,13 @@ die jedem neu erstellten Kunden automatisch zugewiesen werden sollen.
 Auf dieser Registerkarte können Textzuweisungen vom Typ Schlüssel:=Text eingetragen werden,
 die jedem neu erstellten Kunden automatisch zugewiesen werden sollen.
 
+\subsubsection*{Modus der Teil-Quellen}
+
+Es kann eingestellt werden, ob alle Teil-Quellen gleichzeitig aktiv sein sollen, d.h. die Mehrfachquelle
+so agiert, als würde sie aus mehreren einzelnen, unabhängigen Kundenquellen bestehen, oder ob die Teil-Quellen
+jeweils reihum zum Zuge kommen sollen. Im zweiteren Modus müssen die Zwischenankunftszeiten für die Teil-Quellen
+durchgängig über Wahrscheinlichkeitsverteilungen oder Rechenausdrücke definiert sein.
+
 \subsection*{Kundentypen laden}
 
 Sollen in einem Modell sehr viele Kundentypen verwendet werden, so können über diese Funktion mehrere
@@ -762,6 +769,9 @@ Der Name des Kosten-Elements hat keine weitere Bedeutung. Die angegebenen Kunden
 das die Station passiert, erfasst. Des Weiteren können Kosten angegeben werden, die für die Station selber verbucht
 werden.
 
+Die optionale Bedingung ermöglicht es, dass nur unter bestimmten Voraussetzungen eine Zuweisung erfolgt,
+wenn ein Kunde die Station passiert.
+
 
 \section{Kundenstatistik}
 \label{ref:ModelElementSetStatisticsMode}
@@ -893,6 +903,9 @@ sie in dem Element definiert sind, abgearbeitet, wenn ein Kunde das Element durc
 und die Bedienzeit des aktuellen Kunden (jeweils auf Sekundenbasis) zugegriffen werden. Außerdem kann statt eines
 Variablennamens ein Kundenobjekt-Datenfeld über ,,ClientData(index)'' beschrieben werden.
 
+Die optionale Bedingung ermöglicht es, dass nur unter bestimmten Voraussetzungen eine Zuweisung erfolgt,
+wenn ein Kunde die Station passiert.
+
 \subsection*{Alternative}
 
 Mit dem Javascript-Element (siehe Seite \pageref{ref:ModelElementSetJS}) besteht die Möglichkeit, weit komplexere
@@ -1002,8 +1015,7 @@ Die Verzweigung kann dabei nach folgenden Kriterien erfolgen:
   \item 
     \textbf{Kürzeste Warteschlange an der nächsten Station:}
     Leitet den Kunden über den Pfad weiter, bei dem an der direkten Folgestation
-    die Warteschlangenlänge minimal ist. Bei Gleichstand zwischen zwei Pfaden wird
-    zufällig entschieden.
+    die Warteschlangenlänge minimal ist.
 
   \item 
     \textbf{Kürzeste Warteschlange an der nächsten Bedienstation:}
@@ -1011,14 +1023,12 @@ Die Verzweigung kann dabei nach folgenden Kriterien erfolgen:
     darin auftretenden Bedienstation die Warteschlangenlänge minimal ist.
     Andere Stationen, die zwischen dem Verzweigen-Element und der
     Bedienstation liegen, werden bei der Bestimmung der Warteschlangenlänge
-    nicht berücksichtigt. Bei Gleichstand zwischen zwei Pfaden wird
-    zufällig entschieden.
+    nicht berücksichtigt.
 
   \item 
     \textbf{Geringste Anzahl an Kunden an der nächsten Station:}
     Leitet den Kunden über den Pfad weiter, bei dem sich an der direkten Folgestation
-    die geringste Anzahl an Kunden befinden. Bei Gleichstand zwischen zwei Pfaden wird
-    zufällig entschieden.
+    die geringste Anzahl an Kunden befinden.
 
   \item 
     \textbf{Geringste Anzahl an Kunden an der nächsten Bedienstation:}
@@ -1026,8 +1036,7 @@ Die Verzweigung kann dabei nach folgenden Kriterien erfolgen:
     darin auftretenden Bedienstation die geringste Anzahl an Kunden befinden.
     Andere Stationen, die zwischen dem Verzweigen-Element und der
     Bedienstation liegen, werden bei der Bestimmung der Anzahl an Kunden
-    nicht berücksichtigt. Bei Gleichstand zwischen zwei Pfaden wird
-    zufällig entschieden.
+    nicht berücksichtigt.
 
   \item 
     \textbf{Texteigenschaft:}
@@ -1433,6 +1442,10 @@ das Netz an dieser Stelle endet (weil die beiden Kunden z.B. Teilkomponenten dar
 zusammengesetzt werden) und statt dessen ein neues Kundenobjekt erzeugt und ab diesem Punkt gestartet wird.
 Kunden, für deren Typ keine Batch-Bildungsregel definiert ist, passieren die Station ohne weitere Verzögerung.
 
+Werden die eintreffenden Kunden zu einem temporären oder einem permanenten Batch verbunden, so kann eingestellt werden
+ob und wenn ja auf welche Weise die Zeitdauern (Wartezeit, Bedienzeit, ...) sowie die nutzerdefinierten Datenfelder
+der Einzelkunden auf das Batch-Objekt übertragen werden sollen.
+
 \subsection*{Hinweis zu den Batch-Größen}
 
 Batch-Größen müssen positive Ganzzahlen sein.
@@ -1561,6 +1574,10 @@ wieder aufgelöst werden kann) oder ob für die Kunden der Weg durch
 das Netz an dieser Stelle endet (weil die beiden Kunden z.B. Teilkomponenten darstellen, die zu einem größeren Element
 zusammengesetzt werden) und statt dessen ein neues Kundenobjekt erzeugt und ab diesem Punkt gestartet wird.
 
+Werden die eintreffenden Kunden zu einem temporären oder einem permanenten Batch verbunden, so kann eingestellt werden
+ob und wenn ja auf welche Weise die Zeitdauern (Wartezeit, Bedienzeit, ...) sowie die nutzerdefinierten Datenfelder
+der Einzelkunden auf das Batch-Objekt übertragen werden sollen.
+
 \subsection*{Hinweis zu den Batch-Größen}
 
 Batch-Größen müssen positive Ganzzahlen sein.
@@ -1585,7 +1602,8 @@ Das Zusammenführen-Element besitzt zwei oder mehr Eingänge. Wenn an jedem der 
 werden diese zeitgleich gemeinsam weitergeleitet oder zu einen temporären oder dauerhaften Batch zusammengefasst.
 Sind nur an einem Eingang Kunden vorhanden, so müssen diese warten, bis auch an den anderen Eingängen Kunden eingetroffen sind.
 Zusätzlich kann als Einschränkung eingestellt werden, dass nur Kunden zusammengeführt werden, bei denen ein bestimmtes
-Kundendatenfeld denselben Zahlen- oder Textwert aufweist.
+Kundendatenfeld denselben Zahlen- oder Textwert aufweist und es kann eine optionale Bedingung definiert werden,
+die für das Zusammenführen erfüllt sein muss.
 
 \subsection*{Einstellungen}
 
@@ -1596,7 +1614,12 @@ wieder aufgelöst werden kann) oder ob für die Kunden der Weg durch das Netz an
 dieser Stelle endet (weil die beiden Kunden z.B. Teilkomponenten darstellen, die zu einem größeren Element zusammengesetzt
 werden) und statt dessen ein neues Kundenobjekt erzeugt und ab diesem Punkt gestartet wird.
 Außerdem kann optional ein Kundendatenfeld angegeben werden, welches beim Abgleich der Kunden berücksichtigt werden soll,
-so dass Kunden nur dann gemeinsam weitergeleitet werden, wenn für sie der Wert dieses Feldes identisch ist.
+so dass Kunden nur dann gemeinsam weitergeleitet werden, wenn für sie der Wert dieses Feldes identisch ist und es kann
+optional eine Bedingung, die erfüllt sein muss, wenn Kundenobjekte zusammengeführt werden sollen.
+
+Werden die eintreffenden Kunden zu einem temporären oder einem permanenten Batch verbunden, so kann eingestellt werden
+ob und wenn ja auf welche Weise die Zeitdauern (Wartezeit, Bedienzeit, ...) sowie die nutzerdefinierten Datenfelder
+der Einzelkunden auf das Batch-Objekt übertragen werden sollen.
 
 
 
@@ -2000,8 +2023,7 @@ Die Verzweigung kann dabei nach folgenden Kriterien erfolgen:
   \item 
     \textbf{Kürzeste Warteschlange an der nächsten Station:}
     Leitet den Kunden über den Pfad weiter, bei dem an der direkten Folgestation
-    die Warteschlangenlänge minimal ist. Bei Gleichstand zwischen zwei Pfaden wird
-    zufällig entschieden.
+    die Warteschlangenlänge minimal ist.
 
   \item 
     \textbf{Kürzeste Warteschlange an der nächsten Bedienstation:}
@@ -2009,14 +2031,12 @@ Die Verzweigung kann dabei nach folgenden Kriterien erfolgen:
     darin auftretenden Bedienstation die Warteschlangenlänge minimal ist.
     Andere Stationen, die zwischen dem Verzweigen-Element und der
     Bedienstation liegen, werden bei der Bestimmung der Warteschlangenlänge
-    nicht berücksichtigt. Bei Gleichstand zwischen zwei Pfaden wird
-    zufällig entschieden.
+    nicht berücksichtigt.
 
   \item 
     \textbf{Geringste Anzahl an Kunden an der nächsten Station:}
     Leitet den Kunden über den Pfad weiter, bei dem sich an der direkten Folgestation
-    die geringste Anzahl an Kunden befinden. Bei Gleichstand zwischen zwei Pfaden wird
-    zufällig entschieden.
+    die geringste Anzahl an Kunden befinden.
 
   \item 
     \textbf{Geringste Anzahl an Kunden an der nächsten Bedienstation:}
@@ -2024,8 +2044,7 @@ Die Verzweigung kann dabei nach folgenden Kriterien erfolgen:
     darin auftretenden Bedienstation die geringste Anzahl an Kunden befinden.
     Andere Stationen, die zwischen dem Verzweigen-Element und der
     Bedienstation liegen, werden bei der Bestimmung der Anzahl an Kunden
-    nicht berücksichtigt. Bei Gleichstand zwischen zwei Pfaden wird
-    zufällig entschieden.
+    nicht berücksichtigt.
 
   \item 
     \textbf{Texteigenschaft:}
@@ -2776,7 +2795,8 @@ Im Simulations-Modus führt ein Alarm-Element keine Handlungen aus.
 \subsection*{Einstellungen}
 
 Der Name des ,,Alarm''-Elements besitzt keine weitere Bedeutung für die Simulation.
-Es kann eingestellt werden, welche Sound-Datei bzw. welcher System-Sound abgespielt werden soll,
+Es kann eingestellt werden, unter welchen Bedingungen die Sound-Ausgabe erfolgen soll
+und welche Sound-Datei bzw. welcher System-Sound abgespielt werden soll,
 wenn ein Kunde die Station im Animations-Modus erreicht.
 
 
@@ -2874,6 +2894,9 @@ Das Icon-Element weist den Kunden, die es passieren, ein neues Animationsicon zu
 
 Der Name des Icon-Elements hat keine weitere Bedeutung. Über das Icon-Auswahlfeld kann das Icon,
 welches den Kunden beim Passieren dieses Elements zugewiesen werden soll, ausgewählt werden.
+
+Die optionale Bedingung ermöglicht es, dass nur unter bestimmten Voraussetzungen eine Zuweisung erfolgt,
+wenn ein Kunde die Station passiert.
 
 
 \section{LCD-Anzeige}
@@ -3154,6 +3177,25 @@ interpretiert werden sollen.
 
 \chapter{Animation - Interaktiv}
 
+\section{Animation pausieren}
+\label{ref:ModelElementAnimationPause}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementAnimationPause.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+Passiert ein Kunde im Animations-Modus ein Animation pausieren-Element, so wird die Animation angehalten.
+Im Simulations-Modus führt ein Animation pausieren-Element keine Handlungen aus.
+
+\subsection*{Einstellungen}
+
+Der Name der Station besitzt keine Bedeutung für die Simulation.
+Es kann eingestellt werden, unter welchen Bedingungen die Station als Haltepunkt
+für die Animation fungieren soll.
+
+
 \section{Checkbox}
 \label{ref:ModelElementInteractiveCheckbox}
 
@@ -3279,8 +3321,9 @@ Beschreibungstexte besitzen für den Ablauf der Simulation keine Funktion und di
 Neben dem Text selbst können für jedes Beschreibungstext-Element auch eine Schriftart und eine Schriftgröße eingestellt werden.
 
 Des Weiteren kann eingestellt werden, ob einige besondere HTML- und LaTeX-Symbole (siehe Seite \pageref{ref:TextEntities}) entsprechend
-interpretiert werden sollen und ob Formatierungen gemäß der Markdown-Symbole \texttt{\#}, \texttt{\#\#}, \texttt{\#\#\#}, \texttt{*}
-und \texttt{**} durchgeführt werden sollen.
+interpretiert werden sollen, ob Formatierungen gemäß der Markdown-Symbole \texttt{\#}, \texttt{\#\#}, \texttt{\#\#\#}, \texttt{*}
+und \texttt{**} durchgeführt werden sollen und ob die LaTeX-Symbole \texttt{_{...}}, \texttt{^{...}},
+\texttt{\frac{...}{...}} und \texttt{\binom{...}{...}} interpretiert werden sollen.
 
 
 \section{Bild}

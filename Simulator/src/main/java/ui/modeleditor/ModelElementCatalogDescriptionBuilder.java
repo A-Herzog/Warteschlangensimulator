@@ -497,6 +497,10 @@ public class ModelElementCatalogDescriptionBuilder {
 		final int index1=line.toLowerCase().indexOf(oldA.toLowerCase());
 		final int index2=line.toLowerCase().indexOf(oldB.toLowerCase());
 		if (index1<0 || index2<0) return null;
+		if (index2<index1) {
+			System.out.println("Fehlerhafte Tags in Zeile: "+line);
+			return null;
+		}
 
 		final StringBuilder result=new StringBuilder();
 		if (index1>0) result.append(line.substring(0,index1));
