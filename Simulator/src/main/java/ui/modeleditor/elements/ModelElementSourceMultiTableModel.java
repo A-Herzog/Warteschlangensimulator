@@ -296,7 +296,25 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 						);
 			}
 		case 1:
-			return makePanel(getInfoText(record),null);
+			if (records.size()==1) {
+				return makePanel(getInfoText(record),null);
+			} else {
+				final List<Icon> icons=new ArrayList<>();
+				final List<String> hints=new ArrayList<>();
+				final List<ActionListener> listener=new ArrayList<>();
+				if (rowIndex>0) {
+					icons.add(Images.ARROW_UP.getIcon());
+					hints.add(Language.tr("Surface.MultiSourceTable.MoveUp"));
+					listener.add(e->moveUp(rowIndex));
+				}
+				if (rowIndex<records.size()-1) {
+					icons.add(Images.ARROW_DOWN.getIcon());
+					hints.add(Language.tr("Surface.MultiSourceTable.MoveDown"));
+					listener.add(e->moveDown(rowIndex));
+				}
+				return makeEditPanelSmallBorderIcon(null,getInfoText(record),icons.toArray(new Icon[0]),hints.toArray(new String[0]),listener.toArray(new ActionListener[0]));
+
+			}
 		default:
 			return null;
 		}
@@ -314,6 +332,30 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 		case 1: return Language.tr("Surface.MultiSourceTable.ColumnData");
 		default: return super.getColumnName(column);
 		}
+	}
+
+	/**
+	 * Verschiebt einen Eintrag um einen Platz nach oben.
+	 * @param nr	Index des zu verschiebenden Eintrags
+	 */
+	private void moveUp(final int nr) {
+		if (nr<=0) return;
+		final ModelElementSourceRecord record=records.get(nr-1);
+		records.set(nr-1,records.get(nr));
+		records.set(nr,record);
+		updateTable();
+	}
+
+	/**
+	 * Verschiebt einen Eintrag um einen Platz nach unten.
+	 * @param nr	Index des zu verschiebenden Eintrags
+	 */
+	private void moveDown(final int nr) {
+		if (nr<0 || nr>=records.size()-1) return;
+		final ModelElementSourceRecord record=records.get(nr+1);
+		records.set(nr+1,records.get(nr));
+		records.set(nr,record);
+		updateTable();
 	}
 
 	/**
