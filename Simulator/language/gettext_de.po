@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-10 09:01+0100\n"
+"POT-Creation-Date: 2023-02-11 10:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32544,6 +32544,15 @@ msgstr "ModellElementDDEQuelleTabelle"
 msgid "Surface.SourceDDE.XML.Workbook"
 msgstr "ModellElementDDEQuelleArbeitsmappe"
 
+msgid "Surface.SourceMulti.Dialog.Limit"
+msgstr "Gesamtanzahl der generierten Kunden begrenzen"
+
+msgid "Surface.SourceMulti.Dialog.Limit.Error.Info"
+msgstr "Die angegebene Gesamtanzahl an Kundenankünften \"%s\" ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
+
+msgid "Surface.SourceMulti.Dialog.Limit.Error.Title"
+msgstr "Gesamtanzahl an Kundenankünften"
+
 msgid "Surface.SourceMulti.Dialog.Mode"
 msgstr "Modus"
 
@@ -32564,6 +32573,9 @@ msgstr "Mehrfachquelle"
 
 msgid "Surface.SourceMulti.Tooltip"
 msgstr "Quelle, die Ankünfte mehrerer Typen generiert."
+
+msgid "Surface.SourceMulti.XML.MaxClientArrival"
+msgstr "ModellElementMehrfachQuelleMaximaleAnzahl"
 
 msgid "Surface.SourceMulti.XML.Mode"
 msgstr "ModellElementMehrfachQuelleModus"

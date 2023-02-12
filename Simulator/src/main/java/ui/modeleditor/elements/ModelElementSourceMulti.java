@@ -124,6 +124,13 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 	private MultiSourceMode multiSourceMode;
 
 	/**
+	 * Maximale Anzahl an Kunden, die die Quelle generieren soll
+	 * @see #getMaxClientArrival()
+	 * @see #setMaxClientArrival(long)
+	 */
+	private long maxClientArrival;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementSource</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -132,6 +139,7 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 		super(model,surface,Shapes.ShapeType.SHAPE_ARROW_RIGHT_DOUBLE);
 		records=new ArrayList<>();
 		multiSourceMode=MultiSourceMode.ALL;
+		maxClientArrival=-1;
 	}
 
 	/**
@@ -182,6 +190,22 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 	}
 
 	/**
+	 * Liefert die maximale Anzahl an Kunden, die die Quelle generieren soll.
+	 * @return	Maximale Anzahl an Kunden, die die Quelle generieren soll (-1 für nicht global begrenzt)
+	 */
+	public long getMaxClientArrival() {
+		return (maxClientArrival<=0)?-1:maxClientArrival;
+	}
+
+	/**
+	 * Stellt die maximale Anzahl an Kunden, die die Quelle generieren soll, ein.
+	 * @param maxClientArrival	Maximale Anzahl an Kunden, die die Quelle generieren soll (-1 für nicht global begrenzt)
+	 */
+	public void setMaxClientArrival(final long maxClientArrival) {
+		this.maxClientArrival=(maxClientArrival<=0)?-1:maxClientArrival;
+	}
+
+	/**
 	 * Fügt einen Datensatz zur Liste der Datensätze hinzu
 	 * (und stellt dabei auch den Change-Listener des Datensatzes korrekt ein).
 	 * @param record	Hinzuzufügender Datensatz
@@ -213,6 +237,7 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 		for (int i=0;i<records.size();i++) if (!((ModelElementSourceMulti)element).records.get(i).equalsRecord(records.get(i))) return false;
 
 		if (multiSourceMode!=((ModelElementSourceMulti)element).multiSourceMode) return false;
+		if (maxClientArrival!=((ModelElementSourceMulti)element).maxClientArrival) return false;
 
 		return true;
 	}
@@ -233,6 +258,7 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 				records.add(record);
 			}
 			multiSourceMode=((ModelElementSourceMulti)element).multiSourceMode;
+			maxClientArrival=((ModelElementSourceMulti)element).maxClientArrival;
 		}
 	}
 
@@ -407,6 +433,11 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceMulti.XML.Mode")));
 			sub.setTextContent(multiSourceMode.getName());
 		}
+
+		if (maxClientArrival>0) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceMulti.XML.MaxClientArrival")));
+			sub.setTextContent(""+maxClientArrival);
+		}
 	}
 
 	/**
@@ -442,6 +473,13 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 
 		if (Language.trAll("Surface.SourceMulti.XML.Mode",name)) {
 			multiSourceMode=MultiSourceMode.byName(content);
+			return null;
+		}
+
+		if (Language.trAll("Surface.SourceMulti.XML.MaxClientArrival",name)) {
+			final Long L=NumberTools.getPositiveLong(content);
+			if (L==null) return String.format(Language.tr("Surface.XML.ElementSubError"),node.getNodeName(),node.getParentNode().getNodeName());
+			maxClientArrival=L;
 			return null;
 		}
 

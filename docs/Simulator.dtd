@@ -576,7 +576,7 @@
   Kundenanzahl				CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementMehrfachQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementMehrfachQuelleDaten | ModellElementMehrfachQuelleModus)*>
+<!ELEMENT ModellElementMehrfachQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementMehrfachQuelleDaten | ModellElementMehrfachQuelleModus | ModellElementMehrfachQuelleMaximaleAnzahl)*>
 <!ATTLIST ModellElementMehrfachQuelle
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -586,6 +586,7 @@
 <!ELEMENT ModellElementMehrfachQuelleDaten (ModellElementQuelleAktiv | ModellElementName | ModellElementVerteilung | ModellElementAusdruck | ModellElementZeitplan | ModellElementAnkunftsbedingung | ModellElementAnkunftsschwellenwert | ModellElementAnkunftssignal | ModellElementIntervallAnzahl | ModellElementIntervallAnzahlEinstellungen | ModellElementIntervallVerteilung | ModellElementIntervallVerteilungEinstellungen | ModellElemenZahlenwerte | ModellElementBatch | ModellElementStartZeitpunkt | ModellElementVariablenzuweisung | ModellElementZuweisungTextEintrag)*>
 <!ELEMENT ModellElementQuelleAktiv (#PCDATA)>
 <!ELEMENT ModellElementMehrfachQuelleModus (#PCDATA)>
+<!ELEMENT ModellElementMehrfachQuelleMaximaleAnzahl (#PCDATA)>
 
 <!ELEMENT ModellElementTabellenQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementTabellenDatei | ModellElementTabellenImportModus | ModellElementTabellenKundentyp)*>
 <!ATTLIST ModellElementTabellenQuelle
@@ -3202,7 +3203,7 @@
   ClientCount		CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementMultiSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementMultiSourceData | ModelElementMultiSourceMode)*>
+<!ELEMENT ModelElementMultiSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementMultiSourceData | ModelElementMultiSourceMode | ModelElementMultiSourceMaximumArrival)*>
 <!ATTLIST ModelElementMultiSource
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3212,6 +3213,7 @@
 <!ELEMENT ModelElementMultiSourceData (ModelElementSourceActive | ModelElementName | ModelElementDistribution | ModelElementExpression | ModelElementSchedule | ModelElementArrivalCondition | ModelElementArrivalSignal | ModelElementCountPerInterval | ModelElementCountPerIntervalSetup | ModelElementInterArrivalPerInterval | ModelElementInterArrivalPerIntervalSetup | ModelElementDataStream | ModelElementBatchData | ModelElementStartTime | ModelElementAssignmentData | ModelElementAssignmentTextRecord)*>
 <!ELEMENT ModelElementSourceActive (#PCDATA)>
 <!ELEMENT ModelElementMultiSourceMode (#PCDATA)>
+<!ELEMENT ModelElementMultiSourceMaximumArrival (#PCDATA)>
 
 <!ELEMENT ModelElementTableSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementTableFile | ModelElementTableImportMode | ModelElementTableClientType)*>
 <!ATTLIST ModelElementTableSource

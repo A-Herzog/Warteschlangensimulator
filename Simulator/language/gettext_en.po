@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-10 09:01+0100\n"
+"POT-Creation-Date: 2023-02-11 10:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32519,6 +32519,15 @@ msgstr "ModelElementDDESourceTable"
 msgid "Surface.SourceDDE.XML.Workbook"
 msgstr "ModelElementDDESourceWorkbook"
 
+msgid "Surface.SourceMulti.Dialog.Limit"
+msgstr "Limit total number of clients to be generated"
+
+msgid "Surface.SourceMulti.Dialog.Limit.Error.Info"
+msgstr "The specified total number of client arrivals \"%s\" is invalid. A positive integer number has to be specified."
+
+msgid "Surface.SourceMulti.Dialog.Limit.Error.Title"
+msgstr "Total number of clients to be generated"
+
 msgid "Surface.SourceMulti.Dialog.Mode"
 msgstr "Mode"
 
@@ -32539,6 +32548,9 @@ msgstr "Multi source"
 
 msgid "Surface.SourceMulti.Tooltip"
 msgstr "Source that generates arrivals for multiple types."
+
+msgid "Surface.SourceMulti.XML.MaxClientArrival"
+msgstr "ModelElementMultiSourceMaximumArrival"
 
 msgid "Surface.SourceMulti.XML.Mode"
 msgstr "ModelElementMultiSourceMode"

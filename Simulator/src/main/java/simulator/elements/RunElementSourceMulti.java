@@ -53,6 +53,9 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 	/** Modus wie mit den Teil-Ankunftsströmen umgegangen werden soll */
 	private ModelElementSourceMulti.MultiSourceMode mode;
 
+	/** Maximale Anzahl an Kunden, die die Quelle generieren soll (-1 für nicht global begrenzt) */
+	private long maxClientArrival;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param element	Zugehöriges Editor-Element
@@ -89,6 +92,7 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 		run.records=list.toArray(new RunElementSourceRecord[0]);
 
 		run.mode=edit.getMode();
+		run.maxClientArrival=edit.getMaxClientArrival();
 
 		run.connectionId=findNextId(edit.getEdgeOut());
 		if (run.connectionId<0) return String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId());
@@ -158,6 +162,10 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 	 */
 	public boolean scheduleNextArrival(final SimulationData simData, final boolean isFirstArrival, final int index) {
 		final RunElementSourceMultiData data=getData(simData);
+
+		/* Globale Begrenzung erreicht? */
+		if (maxClientArrival>0 && data.clients>=maxClientArrival) return false;
+
 		final int count=records[index].scheduleNextArrival(simData,isFirstArrival,data.recordData[index],this,name);
 		if (count>0) {
 			data.recordData[index].arrivalCount+=count;
