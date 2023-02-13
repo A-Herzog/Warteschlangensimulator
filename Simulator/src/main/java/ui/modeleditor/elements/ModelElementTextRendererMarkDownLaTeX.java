@@ -20,6 +20,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,6 +29,11 @@ import java.util.List;
  * @see ModelElementText
  */
 public class ModelElementTextRendererMarkDownLaTeX extends ModelElementTextRenderer {
+	/**
+	 * Beim letzten Aufruf von {@link #setText(String, boolean)} zugewiesene Zeilen.
+	 */
+	private String[] lastText;
+
 	/**
 	 * Sollen Markdown-Formatierungen interpretiert werden?
 	 */
@@ -115,24 +121,27 @@ public class ModelElementTextRendererMarkDownLaTeX extends ModelElementTextRende
 	 * @param renderLaTeX	Sollen LaTeX-Brüche, -Binomialkoeffizienten und Hoch- und Tiefstellungen interpretiert werden?
 	 */
 	public void setRenderMode(final boolean renderMarkDown, final boolean renderLaTeX) {
+		if (this.renderMarkDown!=renderMarkDown || this.renderMarkDown!=renderMarkDown) setNeedRecalc();
 		this.renderMarkDown=renderMarkDown;
 		this.renderLaTeX=renderLaTeX;
-		setNeedRecalc();
 	}
 
 	@Override
 	public void setStyle(final int fontSize, final boolean bold, final boolean italic, final String fontFamily, final ModelElementText.TextAlign textAlign) {
-		if (fontSize==this.fontSize && fontFamily.equals(this.fontFamily) && textAlign==this.textAlign) return;
+		if (fontSize==this.fontSize && fontFamily.equals(this.fontFamily) && textAlign==this.textAlign && bold==this.bold && italic==this.italic) return;
 		this.fontSize=fontSize;
 		this.bold=bold;
 		this.italic=italic;
 		this.fontFamily=fontFamily;
 		this.textAlign=textAlign;
+		lines.clear(); /* Neuaufbau der Tokens beim nächsten Aufruf von #calcIntern(Graphics, double) erzwingen. */
 		setNeedRecalc();
 	}
 
 	@Override
 	protected void processLines(String[] lines) {
+		lastText=Arrays.copyOf(lines,lines.length);
+
 		this.lines.clear();
 
 		for (String line: lines) {
@@ -336,6 +345,13 @@ public class ModelElementTextRendererMarkDownLaTeX extends ModelElementTextRende
 
 	@Override
 	protected void calcIntern(Graphics graphics, double zoom) {
+		/* Von setStyle werden die gerenderten Zeilen gelöscht. Dann müssen diese hier neu aufgebaut werden. */
+		if (lines.size()==0) {
+			for (String line: lastText) {
+				this.lines.add(processLine(line));
+			}
+		}
+
 		width=0;
 		height=0;
 		lineWidth.clear();
