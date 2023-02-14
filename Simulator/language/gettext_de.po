@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-11 10:22+0100\n"
+"POT-Creation-Date: 2023-02-13 08:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14996,7 +14996,7 @@ msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Option.Replace"
 msgstr "Modell ersetzen"
 
 msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Option.Replace.Info"
-msgstr "Verwirft das Modell in der Parameterreihe und ersetztes es durch das Modell im Editor."
+msgstr "Verwirft das Modell in der Parameterreihe und ersetzt es durch das Modell im Editor."
 
 msgid "ParameterCompare.Toolbar.Load.ReplaceHint.Title"
 msgstr "Parameterreihe laden"
@@ -17712,6 +17712,9 @@ msgstr "Jetzt prüfen"
 
 msgid "SettingsDialog.UseLastFiles"
 msgstr "Zuletzt verwendete Modelle zum Laden anbieten"
+
+msgid "SettingsDialog.UseNextStationData"
+msgstr "Häufig verwendete Folgestationen über Kontextmenü anbieten"
 
 msgid "SettingsDialog.WindowSizeProgrmStart"
 msgstr "Fenstergröße beim Programmstart"
@@ -34910,6 +34913,9 @@ msgstr "Die Zahlen geben an, wie viele Übergänge von welcher Station zu welche
 
 msgid "SystemInfo.Tools.NextStationTraining.ShowData.Title"
 msgstr "Trainingsdaten für Folgestationen"
+
+msgid "SystemInfo.Tools.NextStationTraining.UseNextStationData"
+msgstr "Verwendete Folgestationen aufzeichnen"
 
 msgid "SystemInfo.Tools.Simulation"
 msgstr "Simulation"

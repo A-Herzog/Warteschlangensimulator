@@ -327,7 +327,7 @@ public abstract class EditorPanelBase extends JPanel {
 
 		if (!model.saveToFile(file)) return SAVE_MODEL_ERROR;
 
-		EditModelProcessor.getInstance().processModel(model);
+		if (SetupData.getSetup().collectNextStationData) EditModelProcessor.getInstance().processModel(model);
 		GitTools.saveFile(this,model.author,model.authorEMail,file,GitSetup.GitSaveMode.MODELS);
 
 		lastFile=file;
@@ -354,7 +354,7 @@ public abstract class EditorPanelBase extends JPanel {
 
 		if (!model.saveToFile(file)) return SAVE_MODEL_ERROR;
 
-		EditModelProcessor.getInstance().processModel(model);
+		if (SetupData.getSetup().collectNextStationData) EditModelProcessor.getInstance().processModel(model);
 		GitTools.saveFile(this,model.author,model.authorEMail,file,GitSetup.GitSaveMode.MODELS);
 
 		return null;

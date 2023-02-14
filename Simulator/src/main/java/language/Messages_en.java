@@ -244,6 +244,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[549] = "Select expression by dialog";
     t[562] = "Surface.AnimationBarChart.XML.Root";
     t[563] = "ModelElementAnimationBarDiagram";
+    t[564] = "SystemInfo.Tools.NextStationTraining.UseNextStationData";
+    t[565] = "Record used follow up stations";
     t[570] = "Surface.ExpressionTableModelText.Delete.Confirmation.Title";
     t[571] = "Remove confition";
     t[576] = "Surface.AnimationPause.XML.Condition.ClientType";
@@ -2008,14 +2010,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4757] = "Percent value";
     t[4758] = "ExpressionBuilder.AnalyticalQueueingModels.AllenCunneen.Info";
     t[4759] = "<p>Calculates a queueing characteristic according to the Allen-Cunneen model. The parameters have the following meaning:</p>\n<ol>\n  <li>Arrival rate &lambda;</li>\n  <li>Service rate &mu;</li>\n  <li>Coefficient of variation of the inter-arrival times CV[I]</li>\n  <li>Coefficient of variation of the service times CV[S]</li>\n  <li>Number of operators c</li>\n  <li>Characteristic to be retrieved:</li>\n</ol>\n<ul>\n  <li>t=-1: average queue lenght E[N<sub>Q</sub>]</li>\n  <li>t=-2: average number of clients in the system E[N]</li>\n  <li>t=-3: average waiting time E[W]</li>\n  <li>t=-4: average residence time E[V]</li>\n</ul>";
-    t[4760] = "Editor.DialogBase.OpenModelSchedules.InfoYes";
-    t[4761] = "Close dialog and open schedules list.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_1 (java.lang.String[] t) {
+    t[4760] = "Editor.DialogBase.OpenModelSchedules.InfoYes";
+    t[4761] = "Close dialog and open schedules list.";
     t[4762] = "Surface.Barrier.Dialog.ClientsPerRelease.Error.Info";
     t[4763] = "The specified number of clients to be released on signal is invalid.";
     t[4764] = "Surface.InteractiveCheckbox.Dialog.ValueUnchecked.ErrorTitle";
@@ -4014,14 +4016,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9477] = "Java";
     t[9480] = "Surface.Process.Dialog.TimeIs.WaitingTime";
     t[9481] = "waiting time";
-    t[9484] = "ModelDescription.Process.SetupTime";
-    t[9485] = "Set up time from client type \"%s\" to \"%s\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9484] = "ModelDescription.Process.SetupTime";
+    t[9485] = "Set up time from client type \"%s\" to \"%s\"";
     t[9486] = "ExpressionBuilder.ProbabilityDistributions.ParetoDistribution.RandomNumberInfo";
     t[9487] = "<p>Generates a random number according to the Pareto distribution with the parameters according to the first (scale) and second (shape) parameters.</p>";
     t[9490] = "Editor.Dialog.Title";
@@ -6020,14 +6022,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14109] = "StatisticsClientsAtStationProcess";
     t[14134] = "Optimizer.ControlVariableEdit.Error.InvalidInitialValue.InfoInteger";
     t[14135] = "The specified initial value is invalid. A number has to be entered.";
-    t[14138] = "Surface.TransportTransporterSource.Dialog.SectionEnd.SectionStart";
-    t[14139] = "Section to be left";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
+    t[14138] = "Surface.TransportTransporterSource.Dialog.SectionEnd.SectionStart";
+    t[14139] = "Section to be left";
     t[14140] = "Resources.Group.EditName.Dialog.CostsPerIdleHour.Error.Info";
     t[14141] = "The specified costs per idle hour are invalid. You have to enter a number.";
     t[14146] = "SoundSelectDialog.AllSupportedFormats";
@@ -8026,14 +8028,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18785] = "Adds a sub model.";
     t[18786] = "Statistics.XML.PartSuccess";
     t[18787] = "PartSuccess";
-    t[18800] = "Surface.Set.Table.Edit.Mode.Expression.Error.Info";
-    t[18801] = "The specified expression \"%s\" is invalid at character %d.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18800] = "Surface.Set.Table.Edit.Mode.Expression.Error.Info";
+    t[18801] = "The specified expression \"%s\" is invalid at character %d.";
     t[18808] = "Surface.Connection.LineMode";
     t[18809] = "Edge display mode";
     t[18810] = "Surface.AnimationDiagram.Dialog.Data.TimeRange.Seconds";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23425] = "Arrival batch size";
     t[23428] = "Surface.Text.XML.TextAlign";
     t[23429] = "ModelElementTextAlign";
-    t[23444] = "Surface.InteractiveSlider.Dialog.MinMaxErrorTitle";
-    t[23445] = "Invalid range";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23444] = "Surface.InteractiveSlider.Dialog.MinMaxErrorTitle";
+    t[23445] = "Invalid range";
     t[23464] = "Surface.OutputDB.Table.EditExpression";
     t[23465] = "Edit expression";
     t[23466] = "Editor.Dialog.Tab.RunTimeStatistics.Info";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28025] = "Prime number check";
     t[28026] = "Surface.AnimationPieChart.XML.LineColor";
     t[28027] = "ModelElementLineColor";
-    t[28044] = "Surface.Action.XML.Record";
-    t[28045] = "ModelElementActionRecord";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[28044] = "Surface.Action.XML.Record";
+    t[28045] = "ModelElementActionRecord";
     t[28048] = "Surface.Popup.AddNextStation.Info";
     t[28049] = "If shift is held down when<br>\nthe context menu is opend,<br>\nthis will menu appear directly.";
     t[28050] = "Examples.PASTA";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32557] = "Show advises for adding elements from menu";
     t[32560] = "Surface.AnimationRecord.Dialog.Data";
     t[32561] = "Frame width";
-    t[32562] = "Surface.PopupMenu.BreakPoint.Condition.Error.Title";
-    t[32563] = "Invalid condition";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32562] = "Surface.PopupMenu.BreakPoint.Condition.Error.Title";
+    t[32563] = "Invalid condition";
     t[32564] = "Window.Layers.List.Active";
     t[32565] = "<b>target for new elements</b>";
     t[32568] = "LoadCalculator.WorkingRateCV";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37175] = "Target value";
     t[37176] = "Wait.Status.LongRunNoEstimationM.WIPZero";
     t[37177] = "%sK client arrivals simulated / %sM events / %sK events per second";
-    t[37180] = "Editor.DialogBase.LineWidth.No";
-    t[37181] = "no line";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37180] = "Editor.DialogBase.LineWidth.No";
+    t[37181] = "no line";
     t[37182] = "Statistics.MaximalInterArrivalTime";
     t[37183] = "Maximal inter-arrival time";
     t[37186] = "Surface.XML.Transporter.IconLeft";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41667] = "client";
     t[41668] = "Surface.XML.ErrorAdditionalStatistics";
     t[41669] = "While loading the %d th run time statistics setup in a \"%s\" element.";
-    t[41670] = "FindBatchSizeSimulation.Title";
-    t[41671] = "Determine statistics batch size";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41670] = "FindBatchSizeSimulation.Title";
+    t[41671] = "Determine statistics batch size";
     t[41672] = "Surface.AnimationBarStack.Dialog.Add";
     t[41673] = "Add partial bar";
     t[41678] = "Surface.AnimationPause.Dialog.Title";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46173] = "State statistics";
     t[46176] = "Surface.Batch.BatchSize";
     t[46177] = "Batch size";
-    t[46178] = "Surface.AnimationPause.Dialog.CounterPart2";
-    t[46179] = "client arrivals";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[46178] = "Surface.AnimationPause.Dialog.CounterPart2";
+    t[46179] = "client arrivals";
     t[46180] = "ParameterCompare.Table.AddModelByAssistant.Column.Active";
     t[46181] = "Vary parameter";
     t[46182] = "ExpressionBuilder.ClientsAtQueue";
@@ -21496,6 +21498,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49485] = "Show current message";
     t[49486] = "Animation.Toolbar.Speed.Normal";
     t[49487] = "Default";
+    t[49496] = "SettingsDialog.UseNextStationData";
+    t[49497] = "Offer frequently used next stations via context menu";
     t[49498] = "Surface.Action.Dialog.MoveUp";
     t[49499] = "Move up";
     t[49500] = "GenerateArrivalDataStream.NumberOfRandomNumbers.ErrorInfo";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50705] = "Maximum throughput interval lengths";
     t[50716] = "Surface.Text.Dialog.FontSize.LaTeX.Info";
     t[50717] = "Interpret LaTeX formatings in input";
-    t[50718] = "FileType.Load.JS";
-    t[50719] = "Load Javascript";
-    t[50724] = "ExpressionBuilder.ClientsInSystem";
-    t[50725] = "Client in the system";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50718] = "FileType.Load.JS";
+    t[50719] = "Load Javascript";
+    t[50724] = "ExpressionBuilder.ClientsInSystem";
+    t[50725] = "Client in the system";
     t[50728] = "Surface.InteractiveCheckbox.Name";
     t[50729] = "Checkbox";
     t[50744] = "Surface.Throughput.Name";

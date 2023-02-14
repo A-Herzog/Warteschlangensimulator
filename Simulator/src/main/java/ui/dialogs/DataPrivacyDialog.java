@@ -34,6 +34,7 @@ import javax.swing.SwingUtilities;
 
 import language.Language;
 import mathtools.distribution.swing.JOpenURL;
+import simulator.editmodel.EditModelProcessor;
 import systemtools.BaseDialog;
 import tools.IconListCellRenderer;
 import tools.SetupData;
@@ -66,6 +67,9 @@ public class DataPrivacyDialog extends BaseDialog {
 
 	/** Zuletzt verwendete Dateien merken? */
 	private final JCheckBox useLastFiles;
+
+	/** Häufig verwendete Folgestationen merken? */
+	private final JCheckBox useNextStationData;
 
 	/** Modelle mit Skripten signieren */
 	private final JCheckBox signModels;
@@ -121,6 +125,10 @@ public class DataPrivacyDialog extends BaseDialog {
 		/* Zuletzt verwendete Dateien merken? */
 		addLine(content).add(useLastFiles=new JCheckBox(Language.tr("SettingsDialog.UseLastFiles")));
 		useLastFiles.setSelected(setup.useLastFiles);
+
+		/* Häufig verwendete Folgestationen merken? */
+		addLine(content).add(useNextStationData=new JCheckBox(Language.tr("SettingsDialog.UseNextStationData")));
+		useNextStationData.setSelected(setup.collectNextStationData);
 
 		/* Modelle mit Skripten signieren */
 		addLine(content).add(signModels=new JCheckBox(Language.tr("SettingsDialog.ModellSecurity.SignModels")));
@@ -231,12 +239,21 @@ public class DataPrivacyDialog extends BaseDialog {
 		setup.defaultUserName=defaultUserName.getText().trim();
 		setup.defaultUserEMail=defaultUserEMail.getText().trim();
 		setup.useLastFiles=useLastFiles.isSelected();
+		setup.collectNextStationData=useNextStationData.isSelected();
 		setup.signModels=signModels.isSelected();
 		setup.allowToOpenLinks=allowToOpenLinks.getSelectedIndex()==0;
 		switch (autoUpdate.getSelectedIndex()) {
 		case 0: setup.autoUpdate=SetupData.AutoUpdate.OFF; break;
 		case 1: setup.autoUpdate=SetupData.AutoUpdate.SEARCH; break;
 		case 2: setup.autoUpdate=SetupData.AutoUpdate.INSTALL; break;
+		}
+
+		if (!setup.useLastFiles) {
+			setup.lastFiles=new String[0];
+		}
+
+		if (!setup.collectNextStationData) {
+			EditModelProcessor.getInstance().reset();
 		}
 	}
 }

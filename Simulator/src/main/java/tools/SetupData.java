@@ -41,6 +41,7 @@ import language.Messages_Java11;
 import mathtools.NumberTools;
 import scripting.java.SimDynamicSetup;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.EditModelProcessor;
 import simulator.simparser.ExpressionCalcUserFunctionsManager;
 import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.GUITools;
@@ -54,6 +55,7 @@ import ui.infopanel.InfoPanel;
 import ui.modeleditor.HeatMapImage;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
+import ui.modeleditor.elements.NextStationHelper;
 import ui.script.ScriptEditorAreaBuilder;
 import ui.statistics.StatisticViewerOverviewText;
 import ui.tools.BatchPanel;
@@ -1402,6 +1404,15 @@ public class SetupData extends SetupBase {
 	public boolean allowSpellCheck;
 
 	/**
+	 * Wird dieser Wert auf <code>false</code> gesetzt, so erfolgt keine Erfassung,
+	 * welche Stationen jeweils wie häufig mit welchen Folgestationen verknüpft wurden
+	 * (um dann passende Folgestationen anbieten zu können).
+	 * @see EditModelProcessor
+	 * @see NextStationHelper
+	 */
+	public boolean collectNextStationData;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1640,6 +1651,7 @@ public class SetupData extends SetupBase {
 		if (userDefinedCalculationFunctions==null) userDefinedCalculationFunctions=new ArrayList<>();
 		userDefinedCalculationFunctions.clear();
 		allowSpellCheck=true;
+		collectNextStationData=true;
 		lastError=null;
 	}
 
@@ -2706,6 +2718,11 @@ public class SetupData extends SetupBase {
 				allowSpellCheck=loadBoolean(e.getTextContent(),true);
 				continue;
 			}
+
+			if (name.equals("collectnextstationdata")) {
+				collectNextStationData=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -3471,6 +3488,11 @@ public class SetupData extends SetupBase {
 
 		if (!allowSpellCheck) {
 			root.appendChild(node=doc.createElement("AllowSpellCheck"));
+			node.setTextContent("0");
+		}
+
+		if (!collectNextStationData) {
+			root.appendChild(node=doc.createElement("CollectNextStationData"));
 			node.setTextContent("0");
 		}
 

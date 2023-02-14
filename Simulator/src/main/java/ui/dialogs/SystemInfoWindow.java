@@ -657,6 +657,9 @@ public class SystemInfoWindow extends JFrame {
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.NextStationTraining")+"</b></html>"));
 		label.setEnabled(false);
 
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.NextStationTraining.UseNextStationData"),setup.collectNextStationData));
+		check.addActionListener(e->{setup.collectNextStationData=!setup.collectNextStationData; setup.saveSetup();});
+
 		menu.add(item=new JMenuItem(Language.tr("SystemInfo.Tools.NextStationTraining.ShowData"),Images.MODEL_ADD_STATION.getIcon()));
 		item.addActionListener(e->new SystemInfoWindowTrainingData(this));
 

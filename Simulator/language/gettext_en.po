@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-11 10:22+0100\n"
+"POT-Creation-Date: 2023-02-13 08:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17703,6 +17703,9 @@ msgstr "Check now"
 msgid "SettingsDialog.UseLastFiles"
 msgstr "Offer recently used files for loading"
 
+msgid "SettingsDialog.UseNextStationData"
+msgstr "Offer frequently used next stations via context menu"
+
 msgid "SettingsDialog.WindowSizeProgrmStart"
 msgstr "Window size on program start"
 
@@ -34884,6 +34887,9 @@ msgstr "The numbers indicate how many connections from which station to which st
 
 msgid "SystemInfo.Tools.NextStationTraining.ShowData.Title"
 msgstr "Training data for next stations"
+
+msgid "SystemInfo.Tools.NextStationTraining.UseNextStationData"
+msgstr "Record used follow up stations"
 
 msgid "SystemInfo.Tools.Simulation"
 msgstr "Simulation"
