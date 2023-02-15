@@ -617,6 +617,8 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * @return Bearbeiten-Schaltfläche
 	 */
 	public static final JButton getExpressionEditButton(final Container owner, final JTextField inputLine, final boolean isCompare, final String[] variableNames, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final boolean hasClientData, final boolean statisticsOnly) {
+
+
 		final JButton button=new JButton();
 		button.setToolTipText(Language.tr("Editor.DialogBase.ExpressionEditTooltip"));
 		button.setIcon(Images.EXPRESSION_BUILDER.getIcon());
@@ -633,7 +635,8 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		final Dimension size=button.getPreferredSize();
 		button.setPreferredSize(new Dimension(size.height,size.height));
 
-		ExpressionBuilderAutoComplete.process(new ExpressionBuilder(owner,inputLine.getText(),isCompare,variableNames,initialVariableValues,stationIDs,stationNameIDs,hasClientData,statisticsOnly,false),inputLine);
+		final ExpressionBuilder.ExpressionBuilderSettings expressionBuilderSettings=new ExpressionBuilder.ExpressionBuilderSettings(isCompare,variableNames,initialVariableValues,stationIDs,stationNameIDs,hasClientData,statisticsOnly,false,true);
+		ExpressionBuilderAutoComplete.process(expressionBuilderSettings,inputLine);
 
 		return button;
 	}
