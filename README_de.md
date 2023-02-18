@@ -20,7 +20,7 @@ Die Windows-Version kann sowohl mit als auch ohne Admin-Rechte installiert werde
 
 * [Versionshinweise](https://github.com/A-Herzog/Warteschlangensimulator/wiki/Release-notes "Versionshinweise und Pläne für die nächsten Versionen im GitHub-Wiki")
 * Systemvoraussetzung: [Java 8 oder höher](https://adoptium.net/ "Java von adoptopenjdk.net herunterladen") (Wird ein hochauflösender Bildschirm, bei dem eine Skalierung &gt;100% eingestellt ist, verwendet, wird Java 11 oder höher empfohlen.)
-* Lizenz: [Apache License 2.0](https://opensource.org/licenses/Apache-2.0) (für den Warteschlangensimulator, die verwendeten Bibliotheken unterliegen zum Teil abweichenden Opensource-Lizenzen)
+* Lizenz: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) (für den Warteschlangensimulator, die verwendeten Bibliotheken unterliegen zum Teil abweichenden Opensource-Lizenzen)
 
 ## Wesentliche Eigenschaften
 
@@ -81,7 +81,6 @@ Der Warteschlangensimulator ermöglicht die Modellierung, Simulation und Optimie
   
 [<img src="Images/Screenshot_de_flowchart.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_de_flowchart.png "Anklicken für große Ansicht")  
 Komplexe Produktions- und Logistikprozesse können im Warteschlangensimulator auf einfache Weise in Form von Fließbildern als Simulationsmodelle abgebildet werden.
-[Mehr Informationen](#ModelingCapabilities)
 <br clear="both">
 
 #### Animation
@@ -100,7 +99,6 @@ Während der Simulation eines Modells werden automatisch alle relevanten Kenngr�
 
 [<img src="Images/Screenshot_de_parameterseries.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_de_parameterseries.png "Anklicken für große Ansicht")
 Zur Untersuchungen der Auswirkungen von Veränderungen einzelner Parameter können diese automatisiert in einem bestimmten Bereich variiert werden und die Simulationsergebnisse in Tabellen- oder Grafikform dargestellt werden.
-[Mehr Informationen](#Automation)
 <br clear="both">
 
 #### Netze und komplexe Steuerungsregeln
@@ -111,7 +109,7 @@ Verzweigungen und Schranken können über komplexe Regeln, die weit über die M�
   
 ---
   
-## <a name="ModelingCapabilities"></a>Modellierungsmöglichkeiten
+## Modellierungsmöglichkeiten
 
 Im Warteschlangensimulator stehen 100 verschiedene Vorlagenelemente zur Erstellung der Warteschlangenmodelle zur Verfügung.
 
@@ -121,7 +119,7 @@ Im Warteschlangensimulator stehen 100 verschiedene Vorlagenelemente zur Erstellu
 
 ---
 
-## <a name="Automation"></a> Automatisierung von Simulationen
+## Automatisierung von Simulationen
 
 In vielen Fällen interessiert man sich nicht nur für die Simulationsergebnisse zu einem Warteschlangenmodell, sondern möchte untersuchen, welche quantitativen Auswirkungen die Veränderung eines Parameters auf die Kenngrößen des Systems hat. Dies kann zwei mögliche Gründe haben:
 

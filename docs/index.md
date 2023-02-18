@@ -16,13 +16,13 @@ The Windows version can be installed with or without admin rights. The zip file 
 
 * [Release notes](https://github.com/A-Herzog/Warteschlangensimulator/wiki/Release-notes "Release notes and plans in the GitHub Wiki")
 * System requirements: [Java 8 or higher](https://adoptium.net/ "Download Java from adoptium.net") (when using a high DPI display, Java 11 or higher is recommended)
-* License: [Apache License 2.0](https://opensource.org/licenses/Apache-2.0) (for Warteschlangensimulator, the used libraries are partly subject to different open source licenses)
+* License: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) (for Warteschlangensimulator, the used libraries are partly subject to different open source licenses)
 
 ## Key features
 
 🌏 Extensive modelling capabilities (>100 different station types)
 
-🚀 Fast simulation (>100.000 arrivales/second/core, multicore capable)
+🚀 Fast simulation (>100.000 arrivals/second/core, multicore capable)
 
 🎬 Animation of the models possible (incl. optional recording as video)
 
@@ -77,7 +77,6 @@ Warteschlangensimulator enables modeling, simulation and optimization of many qu
   
 [<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_flowchart.png" style="float: right; max-width: 30%; padding-left: 5px;">](https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_flowchart.png "Click for large view")
 Complex production and logistics processes can easily be modelled for simulation in Warteschlangensimulator in the form of flowcharts. 
-[Further information](#ModelingCapabilities)
 <br clear="both">
 
 #### Animation
@@ -96,7 +95,6 @@ During the simulation of a model, all relevant performance indicators are automa
 
 [<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_parameterseries.png" style="float: right; max-width: 30%; padding-left: 5px;">](https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_parameterseries.png "Click for large view")
 To investigate the effects of changes in individual parameters, these can be varied automatically within a certain range and the simulation results for these parameter series can be displayed in table or graphic form.
-[Further information](#Automation)
 <br clear="both">
 
 #### Queueing networks and complex control strategies
@@ -107,7 +105,7 @@ Branching and barriers can be modelled using complex rules that go far beyond th
   
 ---
   
-## <a name="ModelingCapabilities"></a>Modeling capabilities
+## Modeling capabilities
 
 Warteschlangensimulator provides 100 different template elements for creating the queueing models.
 
@@ -117,7 +115,7 @@ Warteschlangensimulator provides 100 different template elements for creating th
 
 ---
 
-## <a name="Automation"></a> Automation of simulations
+## Automation of simulations
 
 In many cases one is not only interested in the simulation results for an individual queueing model, but also wants to investigate the quantitative effects of the change of a parameter on the characteristics of the system. This can have two possible reasons:
 
