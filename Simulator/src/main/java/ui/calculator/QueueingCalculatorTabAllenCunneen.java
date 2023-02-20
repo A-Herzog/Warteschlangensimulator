@@ -55,6 +55,12 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 	private final QueueingCalculatorInputPanel cvIInput;
 	/** cvS (Variationskoeffizient der Bedienzeiten) */
 	private final QueueingCalculatorInputPanel cvSInput;
+	/** PUp (Verfügbarkeit) */
+	private final QueueingCalculatorInputPanel PUpInput;
+	/** EDt (Mittlere Ausfallzeit) */
+	private final QueueingCalculatorInputPanel EDtInput;
+	/** cvDt (Variationskoeffizient der Ausfallzeiten) */
+	private final QueueingCalculatorInputPanel cvDtInput;
 
 	/** KLB-Korrektur verwenden? */
 	private final JCheckBox useKLBCorrection;
@@ -156,6 +162,17 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 		cvSInput.addDefault("CV[S]=",QueueingCalculatorInputPanel.NumberMode.NOT_NEGATIVE_DOUBLE,1,null);
 		add(cvSInput.get());
 
+		/* Verfügbarkeit und Ausfallzeiten */
+		PUpInput=getPanel(Language.tr("LoadCalculator.Uptime"),false);
+		PUpInput.addDefault("P(Up)=",QueueingCalculatorInputPanel.NumberMode.PROBABILITY,1,null);
+		add(PUpInput.get());
+		EDtInput=getPanel(Language.tr("LoadCalculator.AverageDownTime"),false);
+		EDtInput.addDefault("E[Dt]=",QueueingCalculatorInputPanel.NumberMode.NOT_NEGATIVE_DOUBLE,1,null);
+		add(EDtInput.get());
+		cvDtInput=getPanel(Language.tr("LoadCalculator.DownTimeCV"),false);
+		cvDtInput.addDefault("CV[Dt]=",QueueingCalculatorInputPanel.NumberMode.NOT_NEGATIVE_DOUBLE,1,null);
+		add(cvDtInput.get());
+
 		/* Korrekturfaktoren */
 		addSection("Korrekturfaktoren");
 		useKLBCorrection=addCheckBox(Language.tr("LoadCalculator.OptionKLB"),Language.tr("LoadCalculator.OptionKLB.Paper"),"http://content.ikr.uni-stuttgart.de/en/Content/Publications/Archive/Kraemer_ITC8_40421.pdf");
@@ -174,6 +191,20 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 		if (!cvIInput.isValueOk()) {setError(); return;}
 		if (!cvSInput.isValueOk()) {setError(); return;}
 
+		if (!PUpInput.isValueOk()) {setError(); return;}
+		final double PUp=PUpInput.getDouble();
+		final double EDt;
+		final double cvDt;
+		if (PUp==1.0) {
+			EDt=1;
+			cvDt=1;
+		} else {
+			if (!EDtInput.isValueOk()) {setError(); return;}
+			if (!cvDtInput.isValueOk()) {setError(); return;}
+			EDt=EDtInput.getDouble();
+			cvDt=cvDtInput.getDouble();
+		}
+
 		lambda=lambdaInput.getDouble();
 		bI=(int)bIInput.getLong();
 		mu=muInput.getDouble();
@@ -190,7 +221,10 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 		/* Umrechnung von Arrival-Batches auf einzelne Kunden */
 		lambda=lambda*bI;
 
-		final double a=lambda/mu;
+		/* Berücksichtigung der verringerten Uptime */
+		mu=mu*PUp;
+
+		final double a=lambda/mu/bS;
 		final double rho=lambda/mu/(bS*c);
 
 		final double scvI=cvI*cvI;
@@ -207,13 +241,15 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 		double PC=0; for(int i=0;i<=c-1;i++) PC+=powerFactorial(c*rho,i);
 		PC=PC1/(PC1+PC);
 
+		final double scvScompl=scvS+PUp*(1-PUp)*EDt*(1+cvDt*cvDt)*mu;
+
 		double KLB=1; /* W. Kraemer, M. Langenbach-Belz, Approximate formulae for the delay in the queueing system G/G/1. in: Proceedings of the Eighth International Teletraffic Congress, Melbourne, 1976, pp. 235.1–235.8. */
 		if (useKLBCorrection.isSelected()) {
 			final double scvIstar=bI/((double)bS)*scvI;
 			if (scvIstar<=1) {
-				KLB=Math.exp(-2/3*(1-rho)/PC*Math.pow(1-scvIstar,2)/(scvIstar+scvS));
+				KLB=Math.exp(-2/3*(1-rho)/PC*Math.pow(1-scvIstar,2)/(scvIstar+scvScompl));
 			} else {
-				KLB=Math.exp(-(1-rho)*(scvIstar-1)/(scvIstar+4*scvS));
+				KLB=Math.exp(-(1-rho)*(scvIstar-1)/(scvIstar+4*scvScompl));
 			}
 		}
 
@@ -222,7 +258,7 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 			H=Math.max(bI-bS*c,0)*rho/2;
 		}
 
-		final double ENQ=rho/(1-rho)*PC*(bI*scvI+bS*scvS)/2*KLB+(((double)bI)-1)/2+(((double)bS)-1)/2+H;
+		final double ENQ=rho/(1-rho)*PC*(bI*scvI+bS*scvScompl)/2*KLB+(((double)bI)-1)/2+(((double)bS)-1)/2+H;
 		final double EN=ENQ+((double)bS)*(c)*rho;
 		final double EW=ENQ/lambda;
 		final double EV=EW+1/mu;

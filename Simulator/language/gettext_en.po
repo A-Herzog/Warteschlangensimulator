@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-13 08:10+0100\n"
+"POT-Creation-Date: 2023-02-18 01:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9814,6 +9814,9 @@ msgstr "Average inter-arrival time or Arrival rate"
 msgid "LoadCalculator.ArrivalRateCV"
 msgstr "Coefficient of variation of arrival rate"
 
+msgid "LoadCalculator.AverageDownTime"
+msgstr "Average downtime"
+
 msgid "LoadCalculator.AverageHoldingAndPostProcessingTime"
 msgstr "Average holding and post processing time or service rate"
 
@@ -9843,6 +9846,9 @@ msgstr "Copy results"
 
 msgid "LoadCalculator.CopyResults.Info"
 msgstr "Copies the calculation results to clipboard"
+
+msgid "LoadCalculator.DownTimeCV"
+msgstr "Coefficient of variation of the downtimes"
 
 msgid "LoadCalculator.ErlangCNotCalculateable"
 msgstr "not calculateable (to few agents)"
@@ -10017,6 +10023,9 @@ msgstr "Seconds"
 
 msgid "LoadCalculator.Units.Time"
 msgstr "Time"
+
+msgid "LoadCalculator.Uptime"
+msgstr "Uptime"
 
 msgid "LoadCalculator.WaitingTime"
 msgstr "Waiting time"
