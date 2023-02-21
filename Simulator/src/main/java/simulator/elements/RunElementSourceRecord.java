@@ -1007,16 +1007,19 @@ public class RunElementSourceRecord {
 					if (index==len-3) {
 						/* Pseudovariable: Wartezeit */
 						client.waitingTime=FastMath.max(0,FastMath.round(d*1000));
+						client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 						done=true;
 					}
 					if (index==len-2) {
 						/* Pseudovariable: Transferzeit */
 						client.transferTime=FastMath.max(0,FastMath.round(d*1000));
+						client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 						done=true;
 					}
 					if (index==len-1) {
 						/* Pseudovariable: Bedienzeit */
 						client.processTime=FastMath.max(0,FastMath.round(d*1000));
+						client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 						done=true;
 					}
 					if (!done) {

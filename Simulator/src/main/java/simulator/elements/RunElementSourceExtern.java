@@ -420,6 +420,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			case -5: client.transferAdditionalCosts=value; break;
 			case -6: client.processAdditionalCosts=value; break;
 			}
+			client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 		}
 	}
 

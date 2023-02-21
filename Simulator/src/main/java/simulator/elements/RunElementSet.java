@@ -199,18 +199,21 @@ public class RunElementSet extends RunElementPassThrough {
 						/* Pseudovariable: Wartezeit */
 						final long l=(long)(d*1000+0.5);
 						client.waitingTime=(l>0)?l:0;
+						client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 						done=true;
 					}
 					if (index==len-2) {
 						/* Pseudovariable: Transferzeit */
 						final long l=(long)(d*1000+0.5);
 						client.transferTime=(l>0)?l:0;
+						client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 						done=true;
 					}
 					if (index==len-1) {
 						/* Pseudovariable: Bedienzeit */
 						final long l=(long)(d*1000+0.5);
 						client.processTime=(l>0)?l:0;
+						client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 						done=true;
 					}
 					if (!done) {

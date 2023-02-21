@@ -288,16 +288,19 @@ public class RunElementInputDB extends RunElementPassThrough {
 			if (variableIndex==len-3) {
 				/* Pseudovariable: Wartezeit */
 				client.waitingTime=FastMath.max(0,FastMath.round(valueDouble*1000));
+				client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 				done=true;
 			}
 			if (variableIndex==len-2) {
 				/* Pseudovariable: Transferzeit */
 				client.transferTime=FastMath.max(0,FastMath.round(valueDouble*1000));
+				client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 				done=true;
 			}
 			if (variableIndex==len-1) {
 				/* Pseudovariable: Bedienzeit */
 				client.processTime=FastMath.max(0,FastMath.round(valueDouble*1000));
+				client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 				done=true;
 			}
 			if (!done) {
