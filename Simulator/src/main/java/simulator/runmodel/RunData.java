@@ -1602,6 +1602,17 @@ public class RunData {
 	private List<Integer> secondaryPriority;
 
 	/**
+	 * Vorab angelegte Integer-Werte für die bestIndex-Liste (um Speicherbelegungen zu vermeiden)
+	 * @see #fireReleasedResourcesNotify(SimulationData)
+	 * @see #getSecondaryPriorityIndex(SimulationData, List)
+	 */
+	private static final Integer[] boxedInts=new Integer[20_000];
+
+	static {
+		for (int i=0;i<boxedInts.length;i++) boxedInts[i]=Integer.valueOf(i);
+	}
+
+	/**
 	 * Ermittlung des zu erst zu benachrichtigenden Listeners bei Prioritätsgleichstand in der ersten Ebene
 	 * (es werden dann z.B. die Prioritäten der wartenden Kunden ausgewertet).
 	 * @param simData	Simulationsdatenobjekt
@@ -1629,11 +1640,13 @@ public class RunData {
 					final Integer I=indexList.get(i);
 					final double priority=freeResourcesListener[I.intValue()].getSecondaryResourcePriority(simData);
 					if (priority>bestPriority) {
-						bestIndex.clear();
-						bestIndex.add(i);
+						if (i>0) bestIndex.clear(); /* Im Falle i==0, also ganz am Anfang können wir uns das clear() sparen. */
+						final Integer Iboxed=(i<boxedInts.length)?boxedInts[i]:Integer.valueOf(i);
+						bestIndex.add(Iboxed);
 						bestPriority=priority;
 					} else {
-						if (priority==bestPriority) bestIndex.add(i);
+						final Integer Iboxed=(i<boxedInts.length)?boxedInts[i]:Integer.valueOf(i);
+						if (priority==bestPriority) bestIndex.add(Iboxed);
 					}
 				}
 				if (bestIndex.size()==1) {
@@ -1689,6 +1702,7 @@ public class RunData {
 			freeResourcesListenerCurrentPriority=new double[freeResourcesListener.length];
 			maxIndex=new ArrayList<>(freeResourcesListenerPriority.length);
 		}
+
 		canUseGlobalFreeResourcesListenerCurrentPriority=false;
 		boolean allTheSamePriority=true;
 		double samePriorityValue=0;
@@ -1704,7 +1718,7 @@ public class RunData {
 					}
 				} else {
 					try {
-						final double value=NumberTools.fastBoxedValue(freeResourcesListenerPriority[i].calc(variableValues,simData,null));
+						final double value=freeResourcesListenerPriority[i].calc(variableValues,simData,null);
 						freeResourcesListenerCurrentPriority[i]=value;
 						if (allTheSamePriority) {
 							if (i==0) samePriorityValue=value; else {
@@ -1722,19 +1736,24 @@ public class RunData {
 				double maxValue=-Double.MAX_VALUE;
 				maxIndex.clear();
 				if (allTheSamePriority) {
-					for (int i=0;i<freeResourcesListenerCurrentPriority.length;i++) if (freeResourcesListenerCurrentPriority[i]>-Double.MAX_VALUE) maxIndex.add(i);
+					for (int i=0;i<freeResourcesListenerCurrentPriority.length;i++) if (freeResourcesListenerCurrentPriority[i]>-Double.MAX_VALUE) {
+						final Integer I=(i<boxedInts.length)?boxedInts[i]:Integer.valueOf(i); /* Muss so aufwendig formuliert werden, da sonst doch noch ein Boxing erfolgt. */
+						maxIndex.add(I);
+					}
 				} else {
 					for (int i=0;i<freeResourcesListenerCurrentPriority.length;i++) {
 						if (freeResourcesListenerCurrentPriority[i]>maxValue) {
 							maxValue=freeResourcesListenerCurrentPriority[i];
 							if (maxIndex.size()==1) {
-								maxIndex.set(0,i);
+								final Integer I=(i<boxedInts.length)?boxedInts[i]:Integer.valueOf(i);
+								maxIndex.set(0,I);
 							} else {
-								maxIndex.clear();
-								maxIndex.add(i);
+								if (i>0) maxIndex.clear(); /* Im Falle i==0, also ganz am Anfang können wir uns das clear() sparen. */
+								final Integer I=(i<boxedInts.length)?boxedInts[i]:Integer.valueOf(i);
+								maxIndex.add(I);
 							}
 						} else {
-							if (freeResourcesListenerCurrentPriority[i]==maxValue && maxValue>-Double.MAX_VALUE) maxIndex.add(i);
+							if (freeResourcesListenerCurrentPriority[i]==maxValue && maxValue>-Double.MAX_VALUE) maxIndex.add((i<boxedInts.length)?boxedInts[i]:i);
 						}
 					}
 				}
@@ -1747,7 +1766,7 @@ public class RunData {
 					} else {
 						select=getSecondaryPriorityIndex(simData,maxIndex);
 					}
-					final int index=maxIndex.remove(select);
+					final int index=maxIndex.remove((select<boxedInts.length)?boxedInts[select]:select);
 					freeResourcesListener[index].releasedResourcesNotify(simData);
 					freeResourcesListenerCurrentPriority[index]=-Double.MAX_VALUE;
 				}
