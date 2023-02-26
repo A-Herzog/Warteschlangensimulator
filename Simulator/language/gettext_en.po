@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-02-18 01:18+0100\n"
+"POT-Creation-Date: 2023-02-25 00:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27512,6 +27512,9 @@ msgstr "The %d th transition rate is invalid at character %d."
 
 msgid "Surface.Decide.Dialog.OutgoingEdge.Rate.Error.Title"
 msgstr "Invalid transition rate"
+
+msgid "Surface.Decide.Dialog.OutgoingEdge.To"
+msgstr "to"
 
 msgid "Surface.Decide.Dialog.OutgoingEdge.Value"
 msgstr "Value"

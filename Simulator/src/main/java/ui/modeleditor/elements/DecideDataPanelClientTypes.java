@@ -90,7 +90,7 @@ public class DecideDataPanelClientTypes extends JPanel {
 	/**
 	 * Auswahlboxen für die Kundentypen
 	 */
-	private final List<List<JComboBox<String>>> clientTypeCombos;
+	private final List<List<JComboBox<?>>> clientTypeCombos;
 
 	/**
 	 * Konstruktor der Klasse
@@ -205,7 +205,7 @@ public class DecideDataPanelClientTypes extends JPanel {
 			buttonRemove.setToolTipText(Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.Remove"));
 			parent.add(buttonRemove);
 			buttonRemove.addActionListener(e->{
-				final List<JComboBox<String>> combos=clientTypeCombos.get(destination);
+				final List<JComboBox<?>> combos=clientTypeCombos.get(destination);
 				combos.remove(combos.size()-1);
 				needUpdate.run();
 			});
@@ -216,7 +216,6 @@ public class DecideDataPanelClientTypes extends JPanel {
 	 * Lädt die Daten in das Panel.
 	 * @param clientTypes	Kundentypen für die verschiedenen Richtungen
 	 */
-	@SuppressWarnings("unchecked")
 	public void loadData(final List<List<String>> clientTypes) {
 		for (int i=0;i<destinations.size();i++) {
 			final JPanel section=addSection(destinations.get(i));
@@ -228,7 +227,7 @@ public class DecideDataPanelClientTypes extends JPanel {
 					final String clientType=(i>=clientTypes.size() || j>=clientTypes.get(i).size())?"":clientTypes.get(i).get(j);
 					final Object[] obj=buildComboLine(section,clientType);
 					final JPanel line=(JPanel)obj[0];
-					clientTypeCombos.get(i).add((JComboBox<String>)obj[1]);
+					clientTypeCombos.get(i).add((JComboBox<?>)obj[1]);
 					if (j==size-1) addButtons(line,i,size>1);
 				}
 			}
@@ -239,7 +238,6 @@ public class DecideDataPanelClientTypes extends JPanel {
 	 * Lädt die Daten in das Panel.
 	 * @param oldPanel	Ausgangspanel dem die Daten entnommen werden sollen
 	 */
-	@SuppressWarnings("unchecked")
 	public void loadData(final DecideDataPanelClientTypes oldPanel) {
 		labels.clear();
 		for (int i=0;i<destinations.size();i++) {
@@ -252,7 +250,7 @@ public class DecideDataPanelClientTypes extends JPanel {
 					final String clientType=(i>=oldPanel.clientTypeCombos.size() || j>=oldPanel.clientTypeCombos.get(i).size())?"":(String)oldPanel.clientTypeCombos.get(i).get(j).getSelectedItem();
 					final Object[] obj=buildComboLine(section,clientType);
 					final JPanel line=(JPanel)obj[0];
-					clientTypeCombos.get(i).add((JComboBox<String>)obj[1]);
+					clientTypeCombos.get(i).add((JComboBox<?>)obj[1]);
 					if (j==size-1) addButtons(line,i,size>1);
 				}
 
@@ -268,7 +266,7 @@ public class DecideDataPanelClientTypes extends JPanel {
 		final List<String> usedClientTypes=new ArrayList<>();
 
 		for (int i=0;i<clientTypeCombos.size()-1;i++) for (int j=0;j<clientTypeCombos.get(i).size();j++) {
-			final JComboBox<String> comboBox=clientTypeCombos.get(i).get(j);
+			final JComboBox<?> comboBox=clientTypeCombos.get(i).get(j);
 			if (comboBox.getSelectedIndex()<0) {
 				MsgBox.error(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorMissing.Title"),String.format(Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorMissing.Info"),i+1));
 				return false;

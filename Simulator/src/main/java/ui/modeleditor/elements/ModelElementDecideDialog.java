@@ -99,10 +99,10 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 				continue;
 			}
 
-
 			String name;
 			if (edgeEnd instanceof ModelElementBox) {
 				name=((ModelElementBox)edgeEnd).getTypeName();
+				if (!edgeEnd.getName().trim().isEmpty()) name+=" \""+edgeEnd.getName()+"\"";
 			} else {
 				name=edgeEnd.getName();
 			}
@@ -137,7 +137,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 		for (int i=0;i<edges.length;i++) {
 			String name=Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1);
 			final String destination=getDestination(edges[i]);
-			if (destination!=null) name+=" zu "+destination;
+			if (destination!=null) name+=" "+Language.tr("Surface.Decide.Dialog.OutgoingEdge.To")+" "+destination;
 			destinations.add(name);
 		}
 
