@@ -297,7 +297,7 @@ public class EditModelExamples {
 		caption.setEnabled(false);
 		caption.setForeground(Color.BLACK);
 
-		for (Example example: list) if (example.type==group) {
+		list.stream().filter(example->example.type==group).sorted((e1,e2)->String.CASE_INSENSITIVE_ORDER.compare(e1.names[0],e2.names[0])).forEach(example->{
 			final JMenuItem item=new JMenuItem(example.names[0]);
 			item.addActionListener(e->{
 				final EditModel editModel=new EditModel();
@@ -316,7 +316,7 @@ public class EditModelExamples {
 				} catch (IOException e1) {}
 			});
 			menu.add(item);
-		}
+		});
 	}
 
 	/**
@@ -331,7 +331,7 @@ public class EditModelExamples {
 		final JMenu sub=new JMenu(getGroupName(group));
 		menu.add(sub);
 
-		for (Example example: list) if (example.type==group) {
+		list.stream().filter(example->example.type==group).sorted((e1,e2)->String.CASE_INSENSITIVE_ORDER.compare(e1.names[0],e2.names[0])).forEach(example->{
 			final JMenuItem item=new JMenuItem(example.names[0]);
 			item.addActionListener(e->{
 				final EditModel editModel=new EditModel();
@@ -350,7 +350,7 @@ public class EditModelExamples {
 				} catch (IOException e1) {}
 			});
 			sub.add(item);
-		}
+		});
 	}
 
 	/**
