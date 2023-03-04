@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
+  <ModelName>Interval-dependent inter-arrival times</ModelName>
+  <ModelDescription>Die mittlere Zwischenankunftszeit wechselt alle 3 Stunden von E[I]=140
+Sekunden auf E[I]=85 Sekunden und nach weiteren 3 Stunden wieder zurück.
+An der Bedienstation gelten c=1 und E[S]=80 Sekunden. Damit ergeben sich
+Auslastungen von rho=80/140=57,14% und rho=80/85=94,12%.
+
+The mean inter-arrival time changes every 3 hours from E[I]=140 seconds
+to E[I]=85 seconds and back again after another 3 hours. At the
+process station, c=1 and E[S]=80 seconds apply. This results in
+utilizations of rho=80/140=57,14% and rho=80/85=94,12%.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="4" Type="Out"/>
+      <ModelElementInterArrivalPerInterval IntervalDuration="10800">ExpDist(140)</ModelElementInterArrivalPerInterval>
+      <ModelElementInterArrivalPerInterval>ExpDist(85)</ModelElementInterArrivalPerInterval>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="2">
+      <ModelElementSize h="50" w="100" x="300" y="100"/>
+      <ModelElementConnection Element="4" Type="In"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (80)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Operator"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDispose id="3">
+      <ModelElementSize h="50" w="100" x="550" y="100"/>
+      <ModelElementConnection Element="5" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="4">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="5">
+      <ModelElementConnection Element1="2" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="6">
+      <ModelElementSize h="23" w="325" x="50" y="50"/>
+      <ModelElementTextLine>Interval-dependent inter-arrival times</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationLineDiagram id="7">
+      <ModelElementSize h="230" w="600" x="50" y="320"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="10" Minimum="0">WIP()</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="3" Maximum="10" Minimum="0">WIP_avg()</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>18000</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>1</ModelElementAxisLabels>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="8">
+      <ModelElementSize h="19" w="539" x="50" y="300"/>
+      <ModelElementTextLine>Number of clients in the system (current value and average over the complete run time)</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationLineDiagram id="9">
+      <ModelElementSize h="230" w="600" x="50" y="620"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementDiagramElement LineColor="0,180,0" LineWidth="2" Maximum="1" Minimum="0">80/If(mod(TNow();3*2*3600)-3*3600;85;140)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>18000</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>1</ModelElementAxisLabels>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="10">
+      <ModelElementSize h="19" w="315" x="50" y="600"/>
+      <ModelElementTextLine>Utilization (quotient of arrival rate and service rate)</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="11">
+      <ModelElementName>Calculated utilization</ModelElementName>
+      <ModelElementSize h="34" w="119" x="700" y="620"/>
+      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">80/If(mod(TNow();3*2*3600)-3*3600;85;140)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="12">
+      <ModelElementSize h="114" w="322" x="700" y="700"/>
+      <ModelElementTextLine>The calculated capacity utilization is the quotient of</ModelElementTextLine>
+      <ModelElementTextLine>arrival rate and service rate (\rho=\frac{\lambda}{\mu}). This utilization</ModelElementTextLine>
+      <ModelElementTextLine>does not correspond to the current actual utilization</ModelElementTextLine>
+      <ModelElementTextLine>at the process station, but to the utilization in the</ModelElementTextLine>
+      <ModelElementTextLine>long-term average based on the mean values of</ModelElementTextLine>
+      <ModelElementTextLine>inter-arrival and service times.</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="13">
+      <ModelElementSize h="57" w="530" x="50" y="200"/>
+      <ModelElementTextLine>The mean inter-arrival time changes every 3 hours from E[I]=140 seconds to E[I]=85</ModelElementTextLine>
+      <ModelElementTextLine>seconds and back again after another 3 hours. At the process station, c=1 and</ModelElementTextLine>
+      <ModelElementTextLine>E[S]=80 seconds apply. This results in utilizations of \rho=\frac{80}{140}\approx57% and \rho=\frac{80}{85}\approx94%.</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Icon="status_online" Name="Operator" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

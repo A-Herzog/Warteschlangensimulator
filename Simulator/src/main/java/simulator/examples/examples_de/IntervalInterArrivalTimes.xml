@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
+  <ModellName>Intervallabhängige Zwischenankunftszeiten</ModellName>
+  <ModellBeschreibung>Die mittlere Zwischenankunftszeit wechselt alle 3 Stunden von E[I]=140
+Sekunden auf E[I]=85 Sekunden und nach weiteren 3 Stunden wieder zurück.
+An der Bedienstation gelten c=1 und E[S]=80 Sekunden. Damit ergeben sich
+Auslastungen von rho=80/140=57,14% und rho=80/85=94,12%.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementIntervallVerteilung Intervalldauer="10800">ExpDist(140)</ModellElementIntervallVerteilung>
+      <ModellElementIntervallVerteilung>ExpDist(85)</ModellElementIntervallVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="2">
+      <ModellElementGroesse h="50" w="100" x="300" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (80)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEnde id="3">
+      <ModellElementGroesse h="50" w="100" x="550" y="100"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="6">
+      <ModellElementGroesse h="23" w="379" x="50" y="50"/>
+      <ModellElementTextzeile>Intervallabhängige Zwischenankunftszeiten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationLinienDiagramm id="7">
+      <ModellElementGroesse h="230" w="600" x="50" y="320"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="10" Minimum="0">WIP()</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="0,0,255" Maximum="10" Minimum="0">WIP_avg()</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>18000</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>1</ModellElementAchsenbeschriftung>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="8">
+      <ModellElementGroesse h="19" w="533" x="50" y="300"/>
+      <ModellElementTextzeile>Anzahl an Kunden im System (aktueller Wert und Mittelwert über die gesamte Laufzeit)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationLinienDiagramm id="9">
+      <ModellElementGroesse h="230" w="600" x="50" y="620"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,180,0" Maximum="1" Minimum="0">80/If(mod(TNow();3*2*3600)-3*3600;85;140)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>18000</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>1</ModellElementAchsenbeschriftung>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="10">
+      <ModellElementGroesse h="19" w="339" x="50" y="600"/>
+      <ModellElementTextzeile>Auslastung (Quotient aus Ankunftsrate und Bedienrate)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="11">
+      <ModellElementName>Rechnerische Auslastung</ModellElementName>
+      <ModellElementGroesse h="34" w="107" x="700" y="620"/>
+      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">80/If(mod(TNow();3*2*3600)-3*3600;85;140)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="12">
+      <ModellElementGroesse h="114" w="334" x="700" y="700"/>
+      <ModellElementTextzeile>Die rechnerische Auslastung ist der Quotient aus</ModellElementTextzeile>
+      <ModellElementTextzeile>Ankunftsrate und Bedienrate (\rho=\frac{\lambda}{\mu}). Diese Auslastung</ModellElementTextzeile>
+      <ModellElementTextzeile>entspricht dabei nicht der aktuellen tatsächlichen</ModellElementTextzeile>
+      <ModellElementTextzeile>Auslastung an der Bedienstation, sondern der</ModellElementTextzeile>
+      <ModellElementTextzeile>Auslastung im langfristigen Mittel auf Basis der</ModellElementTextzeile>
+      <ModellElementTextzeile>Mittelwerte von Zwischenankunfts- und Bedienzeiten.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse LaTeX="1" Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="13">
+      <ModellElementGroesse h="57" w="593" x="50" y="200"/>
+      <ModellElementTextzeile>Die mittlere Zwischenankunftszeit wechselt alle 3 Stunden von E[I]=140 Sekunden auf</ModellElementTextzeile>
+      <ModellElementTextzeile>E[I]=85 Sekunden und nach weiteren 3 Stunden wieder zurück. An der Bedienstation gelten</ModellElementTextzeile>
+      <ModellElementTextzeile>c=1 und E[S]=80 Sekunden. Damit ergeben sich Auslastungen von \rho=\frac{80}{140}\approx57% und \rho=\frac{80}{85}\approx94%.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse LaTeX="1" Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>
