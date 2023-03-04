@@ -557,7 +557,7 @@ public class LanguageStaticLoader {
 		XMLTools.fileTypeJSON=Language.tr("FileType.json");
 		XMLTools.fileTypeEncryptedXML=Language.tr("FileType.cs");
 		XMLTools.fileTypeAll=Language.tr("FileType.AllSupportedFiles");
-		XMLTools.xmlComment=String.format(Language.tr("XML.Comment"),MainFrame.PROGRAM_NAME,"https://"+MainPanel.WEB_URL);
+		XMLTools.xmlComment=String.format(Language.tr("XML.Comment"),MainFrame.PROGRAM_NAME,"https://"+MainPanel.REPOSITORY_URL);
 
 		/* Elementenkatalog */
 		ModelElementCatalog.GROUP_INPUTOUTPUT=Language.tr("Elements.Catalog.InputOutput");

@@ -247,9 +247,14 @@ public class MainPanel extends MainPanelBase {
 	public static final String HOME_URL="a-herzog.github.io";
 
 	/**
+	 * Homepage-Adresse zum GitHub-Repository (z.B. als Basis für die Wiki-URL)
+	 */
+	public static final String REPOSITORY_URL="github.com/A-Herzog/Warteschlangensimulator";
+
+	/**
 	 * Homepage-Adresse für Webbrowseraufrufe
 	 */
-	public static final String WEB_URL="github.com/A-Herzog/Warteschlangensimulator";
+	public static final String WEB_URL="a-herzog.github.io/Warteschlangensimulator";
 
 	/**
 	 * Basis-Homepage-Adresse für das Updates
@@ -4137,7 +4142,7 @@ public class MainPanel extends MainPanelBase {
 	 * Befehl: Hilfe - Warteschlangensimulator Wiki
 	 */
 	private void commandHelpWiki() {
-		openWebpage("https://"+WEB_URL+"/wiki");
+		openWebpage("https://"+REPOSITORY_URL+"/wiki");
 	}
 
 	/**

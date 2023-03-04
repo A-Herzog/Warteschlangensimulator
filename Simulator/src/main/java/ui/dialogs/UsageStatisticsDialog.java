@@ -78,7 +78,7 @@ public class UsageStatisticsDialog extends BaseDialog {
 			content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			final JTextPane label=new JTextPane();
 			label.setContentType("text/html");
-			label.setText("<html><body style=\"margin: 0px; padding: 0px; font-family: sans; background-color: transparent; font-size: "+Math.round(100*GUITools.getScaleFactor())+"%;\"><a href=\"https://"+MainPanel.WEB_URL+"\">"+MainFrame.PROGRAM_NAME+" GitHub Repository</a></body></html>");
+			label.setText("<html><body style=\"margin: 0px; padding: 0px; font-family: sans; background-color: transparent; font-size: "+Math.round(100*GUITools.getScaleFactor())+"%;\"><a href=\"https://"+MainPanel.REPOSITORY_URL+"\">"+MainFrame.PROGRAM_NAME+" GitHub Repository</a></body></html>");
 			label.setEditable(false);
 			label.setOpaque(false);
 			label.setBackground(new Color(0,0,0,0));
