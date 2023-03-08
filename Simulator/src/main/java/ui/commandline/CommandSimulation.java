@@ -147,7 +147,7 @@ public class CommandSimulation extends AbstractSimulationCommand {
 		}
 
 		/* Simulation durchführen, Ergebnisse speichern */
-		final Statistics statistics=singleSimulation(editModel,false,Integer.MAX_VALUE,out,withTimeout,timeout);
+		final Statistics statistics=singleSimulation(editModel,modelFile.getParent(),false,Integer.MAX_VALUE,out,withTimeout,timeout);
 		if (statistics!=null) saveStatistics(statistics,statisticsFile,out);
 	}
 }

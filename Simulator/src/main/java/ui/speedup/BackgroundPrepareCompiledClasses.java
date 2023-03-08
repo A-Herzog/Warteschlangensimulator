@@ -81,7 +81,7 @@ public class BackgroundPrepareCompiledClasses {
 		model.distributionRecordHours=0;
 		model.distributionRecordClientDataValues=0;
 
-		final Simulator simulator=new Simulator(1,model,null,null,Simulator.logTypeFull);
+		final Simulator simulator=new Simulator(1,model,null,null,null,Simulator.logTypeFull);
 		if (simulator.prepare()==null) {
 			simulator.doNotRecordSimulatedClientsToStatistics();
 			simulator.start();

@@ -60,6 +60,11 @@ public class ThreadCalibrationDialog extends BaseDialog {
 	private final EditModel model;
 
 	/**
+	 * Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
+	 */
+	private final String editModelPath;
+
+	/**
 	 * Auswahlbox: Art des Modells
 	 */
 	private final JComboBox<String> selectModel;
@@ -106,10 +111,12 @@ public class ThreadCalibrationDialog extends BaseDialog {
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param model	Zu verwendendes Modell (kann <code>null</code> sein, dann wird das eingebaute Callcenter-Beispielmodell verwendet)
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 */
-	public ThreadCalibrationDialog(final Component owner, final EditModel model) {
+	public ThreadCalibrationDialog(final Component owner, final EditModel model, final String editModelPath) {
 		super(owner,Language.tr("ThreadCalibration.Dialog.Title"));
 		this.model=model;
+		this.editModelPath=editModelPath;
 
 		/* GUI */
 		addUserButton(Language.tr("ThreadCalibration.Dialog.Start"),Images.SIMULATION.getIcon());
@@ -236,7 +243,7 @@ public class ThreadCalibrationDialog extends BaseDialog {
 			/* Run/Pause */
 			if (threadCalibration==null || !threadCalibration.isRunning()) {
 				threadCalibration=new ThreadCalibration(
-						(selectModel==null || selectModel.getSelectedIndex()==0)?null:model,
+						(selectModel==null || selectModel.getSelectedIndex()==0)?null:model,editModelPath,
 								line->{
 									output.setText(output.getText()+line+"\n");
 									output.setCaretPosition(output.getDocument().getLength());

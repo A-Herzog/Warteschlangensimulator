@@ -860,7 +860,7 @@ public class CalcWebServer extends WebServer {
 		changedEditModel=model.modelLoadData.changeModel(model,multi,"URLdata",true);
 
 		/* Simulation durchführen */
-		final StartAnySimulator starter=new StartAnySimulator(changedEditModel,null,null,Simulator.logTypeFull);
+		final StartAnySimulator starter=new StartAnySimulator(changedEditModel,null,null,null,Simulator.logTypeFull);
 		final StartAnySimulator.PrepareError prepareError=starter.prepare();
 		if (prepareError!=null) {
 			final WebServerResponse response=new WebServerResponse();

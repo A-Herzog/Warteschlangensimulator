@@ -146,7 +146,7 @@ public class CommandFolderSimulation extends AbstractCommand {
 		}
 
 		/* Vorbereiten und starten */
-		final Object obj=AbstractSimulationCommand.prepare(Integer.MAX_VALUE,model,out);
+		final Object obj=AbstractSimulationCommand.prepare(Integer.MAX_VALUE,model,folder.toString(),out);
 		if (!(obj instanceof AnySimulator)) return false;
 		simulator=(AnySimulator)obj;
 
@@ -193,7 +193,7 @@ public class CommandFolderSimulation extends AbstractCommand {
 			return false;
 		}
 		runner=new ParameterCompareRunner(null,null,log->out.println(log));
-		final String error=runner.check(setup);
+		final String error=runner.check(setup,file.getParent());
 		if (error!=null) {
 			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+error);

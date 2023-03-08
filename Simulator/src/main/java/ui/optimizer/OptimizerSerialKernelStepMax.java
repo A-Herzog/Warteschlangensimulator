@@ -68,9 +68,10 @@ public class OptimizerSerialKernelStepMax extends OptimizerSerialKernelBase {
 	 * Konstruktor der Klasse
 	 * @param setup	Zu verwendende Optimierereinstellungen
 	 * @param startModel	Ausgangs-Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 */
-	public OptimizerSerialKernelStepMax(final OptimizerSetup setup, final EditModel startModel) {
-		super(setup,startModel);
+	public OptimizerSerialKernelStepMax(final OptimizerSetup setup, final EditModel startModel, final String editModelPath) {
+		super(setup,startModel,editModelPath);
 
 		alreadyVisitedStates=new ArrayList<>();
 		currentStatus=Status.STATUS_START;

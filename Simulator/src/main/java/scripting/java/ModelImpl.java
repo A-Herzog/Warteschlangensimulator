@@ -43,6 +43,8 @@ public class ModelImpl implements ModelInterface {
 	private final EditModel original;
 	/** Arbeitskopie des Ausgangsmodells */
 	private EditModel model;
+	/** Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen) */
+	private String editModelPath;
 	/** Statistik-Objekt, welches die Simulationsergebnisse später bereitstellen soll */
 	private final StatisticsImpl statisticsConnect;
 
@@ -50,13 +52,15 @@ public class ModelImpl implements ModelInterface {
 	 * Konstruktor der Klasse
 	 * @param output	Wird aufgerufen, wenn Meldungen usw. ausgegeben werden sollen
 	 * @param original	Ausgangsmodell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param statisticsConnect	Statistik-Objekt, welches die Simulationsergebnisse später bereitstellen soll
 	 */
-	public ModelImpl(final Consumer<String> output, final EditModel original, final StatisticsImpl statisticsConnect) {
+	public ModelImpl(final Consumer<String> output, final EditModel original, final String editModelPath, final StatisticsImpl statisticsConnect) {
 		canceled=false;
 		this.output=output;
 		this.original=original;
 		this.model=(original==null)?null:original.clone();
+		this.editModelPath=editModelPath;
 		this.statisticsConnect=statisticsConnect;
 	}
 
@@ -286,7 +290,7 @@ public class ModelImpl implements ModelInterface {
 		if (canceled) return false;
 
 		if (model.modelLoadData.willChangeModel()) addOutput(Language.tr("ModelLoadData.IncompatibleWarning.ScriptRunner"));
-		final StartAnySimulator starter=new StartAnySimulator(model);
+		final StartAnySimulator starter=new StartAnySimulator(model,editModelPath);
 		final StartAnySimulator.PrepareError error=starter.prepare();
 		if (error!=null) {
 			addOutput(error.error);

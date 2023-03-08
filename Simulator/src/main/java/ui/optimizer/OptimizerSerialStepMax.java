@@ -38,7 +38,7 @@ public final class OptimizerSerialStepMax extends OptimizerSerialBase implements
 
 	@Override
 	protected OptimizerSerialKernelBase getOptimizerKernel() {
-		return new OptimizerSerialKernelStepMax(setup,model);
+		return new OptimizerSerialKernelStepMax(setup,model,editModelPath);
 	}
 
 	@Override

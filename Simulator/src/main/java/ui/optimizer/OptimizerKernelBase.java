@@ -48,13 +48,20 @@ public class OptimizerKernelBase {
 	protected final EditModel startModel;
 
 	/**
+	 * Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
+	 */
+	protected final String editModelPath;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param setup	Zu verwendende Optimierereinstellungen
 	 * @param startModel	Ausgangs-Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 */
-	public OptimizerKernelBase(final OptimizerSetup setup, final EditModel startModel) {
+	public OptimizerKernelBase(final OptimizerSetup setup, final EditModel startModel, final String editModelPath) {
 		this.setup=setup;
 		this.startModel=startModel;
+		this.editModelPath=editModelPath;
 		messages=new ArrayList<>();
 	}
 

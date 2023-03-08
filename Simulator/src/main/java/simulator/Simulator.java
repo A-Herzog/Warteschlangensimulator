@@ -108,6 +108,11 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	protected EditModel editModel;
 
 	/**
+	 * Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
+	 */
+	protected String editModelPath;
+
+	/**
 	 * Steht hier ein Wert ungleich <code>null</code>, so wird in den Single-Core-Modus geschaltet und der Lauf wird in der angegebenen Log-Datei aufgezeichnet
 	 */
 	protected final SimLogging logging;
@@ -190,13 +195,15 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * Konstruktor der Klasse <code>Simulator</code>
 	 * @param multiCore	Wird hier <code>true</code> übergeben, so wird auf allen verfügbaren CPU-Kernen gerechnet. (Ausnahme: Wird in <code>logFile</code> ein Wert ungleich <code>null</code> übergeben, so wird stets nur ein Kern verwendet.)
 	 * @param editModel	Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 */
-	public Simulator(final boolean multiCore, final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<LogType> logType) {
+	public Simulator(final boolean multiCore, final EditModel editModel, final String editModelPath, final SimLogging logging, final int[] loggingIDs, final Set<LogType> logType) {
 		super(getAllowMaxCore(editModel,multiCore && logging==null,Integer.MAX_VALUE),false,getNUMAAware());
 		this.editModel=editModel;
+		this.editModelPath=editModelPath;
 		this.logging=logging;
 		this.loggingIDs=loggingIDs;
 		this.logType=logType;
@@ -206,13 +213,15 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * Konstruktor der Klasse <code>Simulator</code>
 	 * @param maxCoreCount	Gibt die maximale Anzahl an zu verwendenden Threads an. (Wird in <code>logFile</code> ein Wert ungleich <code>null</code> übergeben, so wird stets nur ein Kern verwendet.)
 	 * @param editModel	Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 */
-	public Simulator(final int maxCoreCount, final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<LogType> logType) {
+	public Simulator(final int maxCoreCount, final EditModel editModel, final String editModelPath, final SimLogging logging, final int[] loggingIDs, final Set<LogType> logType) {
 		super(getAllowMaxCore(editModel,logging==null,maxCoreCount),false,getNUMAAware());
 		this.editModel=editModel;
+		this.editModelPath=editModelPath;
 		this.logging=logging;
 		this.loggingIDs=loggingIDs;
 		this.logType=logType;
@@ -221,12 +230,13 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	/**
 	 * Konstruktor der Klasse <code>Simulator</code>
 	 * @param editModel	Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 */
-	public Simulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<LogType> logType) {
-		this(SetupData.getSetup().useMultiCoreSimulation && (editModel.allowMultiCore() || editModel.repeatCount>1),editModel,logging,loggingIDs,logType);
+	public Simulator(final EditModel editModel, final String editModelPath, final SimLogging logging, final int[] loggingIDs, final Set<LogType> logType) {
+		this(SetupData.getSetup().useMultiCoreSimulation && (editModel.allowMultiCore() || editModel.repeatCount>1),editModel,editModelPath,logging,loggingIDs,logType);
 	}
 
 	/**
@@ -257,7 +267,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	public PrepareError prepare(final boolean allowLoadBalancer) {
 		prepareStatic(editModel.useFixedSeed);
 
-		final Object obj=RunModel.getRunModel(editModel,false,SetupData.getSetup().useMultiCoreSimulation);
+		final Object obj=RunModel.getRunModel(editModel,editModelPath,false,SetupData.getSetup().useMultiCoreSimulation);
 		if (obj instanceof StartAnySimulator.PrepareError) return (StartAnySimulator.PrepareError)obj;
 		runModel=(RunModel)obj;
 
@@ -450,7 +460,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		final SimData data;
 		final RunModel runModel;
 		if (numaAware && threadCount>1) {
-			final Object obj=RunModel.getRunModel(editModel,false,SetupData.getSetup().useMultiCoreSimulation);
+			final Object obj=RunModel.getRunModel(editModel,editModelPath,false,SetupData.getSetup().useMultiCoreSimulation);
 			runModel=(RunModel)obj;
 		} else {
 			runModel=this.runModel;
@@ -584,7 +594,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 */
 	public static SimulationData getSimulationDataFromStatistics(final Statistics statistics) {
 		if (statistics==null) return null;
-		final Simulator simulator=new Simulator(statistics.editModel,null,null,logTypeFull);
+		final Simulator simulator=new Simulator(statistics.editModel,null,null,null,logTypeFull);
 		if (simulator.prepare()!=null) return null;
 		final SimulationData simData=new SimulationData(0,simulator.threads.length,simulator,simulator.runModel,statistics,null);
 

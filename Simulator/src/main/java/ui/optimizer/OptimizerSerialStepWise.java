@@ -39,7 +39,7 @@ public final class OptimizerSerialStepWise extends OptimizerSerialBase implement
 
 	@Override
 	protected OptimizerSerialKernelBase getOptimizerKernel() {
-		return new OptimizerSerialKernelStepWise(setup,model);
+		return new OptimizerSerialKernelStepWise(setup,model,editModelPath);
 	}
 
 	@Override

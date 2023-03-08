@@ -73,7 +73,7 @@ import ui.modeleditor.elements.ModelElementSub;
  * Bediensationen sind per Referenzen verknüpft, nicht mehr nur durch Freitextfelder.
  * @author Alexander Herzog
  * @see EditModel
- * @see RunModel#getRunModel(EditModel, boolean, boolean)
+ * @see RunModel#getRunModel(EditModel, String, boolean, boolean)
  */
 public class RunModel {
 	/**
@@ -367,11 +367,17 @@ public class RunModel {
 	public ImportSettingsBuilder javaImports;
 
 	/**
+	 * Pfad zur zugehörigen Modelldatei
+	 * (als Basis für relative Pfade in Ausgabeelementen)
+	 */
+	public String modelPath;
+
+	/**
 	 * Ein <code>RunModel</code> kann nicht direkt erzeugt werden, sondern es kann nur ein <code>EditModel</code>
 	 * mittels der Funktion <code>getRunModel</code> in ein <code>RunModel</code> umgeformt werden. Dabei wird das
 	 * Modell auf Konsistenz geprüft und alle notwendigen Verknüpfungen werden hergestellt.
 	 * @see EditModel
-	 * @see RunModel#getRunModel(EditModel, boolean, boolean)
+	 * @see RunModel#getRunModel(EditModel, String, boolean, boolean)
 	 */
 	private RunModel() {
 		elements=new HashMap<>();
@@ -395,7 +401,7 @@ public class RunModel {
 	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
 	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #getRunModel(EditModel, boolean, boolean)
+	 * @see #getRunModel(EditModel, String, boolean, boolean)
 	 */
 	private static String initVariables(final EditModel editModel, final RunModel runModel) {
 		/* Variablenliste aufstellen */
@@ -449,11 +455,12 @@ public class RunModel {
 	 * Es werden zunächst nur die Daten übertragen, die keine Stationen im Laufzeit-Modell voraussetzen. Die weiteren globalen
 	 * Daten werden nach der Erstellung der Stationen von {@link #initGeneralData2(EditModel, RunModel)} übertragen.
 	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
+	 * @param modelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #getRunModel(EditModel, boolean, boolean)
+	 * @see #getRunModel(EditModel, String, boolean, boolean)
 	 */
-	private static String initGeneralData(final EditModel editModel, final RunModel runModel) {
+	private static String initGeneralData(final EditModel editModel, final String modelPath, final RunModel runModel) {
 		/* Auch Modelle ohne explizites Ende-Kriterium zulassen. In ModelPropertiesDialogPageSimulation erfolgt hierzu eine Warnung. */
 		/* if (!editModel.useClientCount && !editModel.useFinishTime && !(editModel.useTerminationCondition && !editModel.terminationCondition.trim().isEmpty()) && !editModel.useFinishConfidence) return Language.tr("Simulation.Creator.NoEndCriteria"); */
 
@@ -571,6 +578,9 @@ public class RunModel {
 		/* Optionale nutzerdefinierte Imports */
 		runModel.javaImports=new ImportSettingsBuilder(editModel);
 
+		/* Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen) */
+		runModel.modelPath=modelPath;
+
 		return null;
 	}
 
@@ -599,7 +609,7 @@ public class RunModel {
 	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
 	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #getRunModel(EditModel, boolean, boolean)
+	 * @see #getRunModel(EditModel, String, boolean, boolean)
 	 */
 	private static String initGeneralData2(final EditModel editModel, final RunModel runModel) {
 		/* Evtl. treffen weniger Kunden ein, als eingestellt ist (nämlich wenn nur Tabellenquellen verwendet werden). */
@@ -709,7 +719,7 @@ public class RunModel {
 	 * @param testOnly	Wird hier <code>true</code> übergeben, so werden externe Datenquellen nicht wirklich geladen
 	 * @param allowBackgroundProcessing	Darf die Vorbereitung von benutzerdefiniertem Java-Code und von externen Tabellenquelle in eigene Threads ausgelagert werden?
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #getRunModel(EditModel, boolean, boolean)
+	 * @see #getRunModel(EditModel, String, boolean, boolean)
 	 */
 	private static StartAnySimulator.PrepareError initElementsData(final EditModel editModel, final RunModel runModel, final boolean testOnly, final boolean allowBackgroundProcessing) {
 		final RunModelCreator creator=new RunModelCreator(editModel,runModel,testOnly);
@@ -833,7 +843,7 @@ public class RunModel {
 	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
 	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #getRunModel(EditModel, boolean, boolean)
+	 * @see #getRunModel(EditModel, String, boolean, boolean)
 	 */
 	private static String initAdditionalStatistics(final EditModel editModel, final RunModel runModel) {
 		if (!editModel.longRunStatistics.isActive()) return null;
@@ -846,17 +856,18 @@ public class RunModel {
 	 * Wandelt ein <code>EditModel</code> in ein <code>RunModel</code> um. Dabei wird das Modell auf Konsistenz geprüft
 	 * und alle notwendigen Verknüpfungen werden hergestellt.
 	 * @param editModel	Editor-Modell, welches in ein Laufzeit-Modell umgewandelt werden soll
+	 * @param modelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param testOnly	Wird hier <code>true</code> übergeben, so werden externe Datenquellen nicht wirklich geladen
 	 * @param allowBackgroundProcessing	Darf die Vorbereitung von benutzerdefiniertem Java-Code und von externen Tabellenquelle in eigene Threads ausgelagert werden?
 	 * @return	Gibt im Erfolgsfall ein Objekt vom Typ <code>RunModel</code> zurück, sonst <code>PrepareError</code>-Objekt mit einer Fehlermeldung.
 	 * @see EditModel
 	 */
-	public static Object getRunModel(final EditModel editModel, final boolean testOnly, final boolean allowBackgroundProcessing) {
+	public static Object getRunModel(final EditModel editModel, final String modelPath, final boolean testOnly, final boolean allowBackgroundProcessing) {
 		RunModel runModel=new RunModel();
 
 		String error;
 		error=initVariables(editModel,runModel); if (error!=null) return new StartAnySimulator.PrepareError(error,-1);
-		error=initGeneralData(editModel,runModel); if (error!=null) return new StartAnySimulator.PrepareError(error,-1);
+		error=initGeneralData(editModel,modelPath,runModel); if (error!=null) return new StartAnySimulator.PrepareError(error,-1);
 		final StartAnySimulator.PrepareError prepareError=initElementsData(editModel,runModel,testOnly,allowBackgroundProcessing); if (prepareError!=null) return prepareError;
 		error=initGeneralData2(editModel,runModel); if (error!=null) return new StartAnySimulator.PrepareError(error,-1); /* Hier brauchen wir die Variablennamen und die werden erst in initElementsData gesetzt. */
 		error=initAdditionalStatistics(editModel,runModel); if (error!=null) return new StartAnySimulator.PrepareError(error,-1);

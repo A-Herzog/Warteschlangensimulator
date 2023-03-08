@@ -37,6 +37,11 @@ public class JSRunComplexScript {
 	private final EditModel model;
 
 	/**
+	 * Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
+	 */
+	private final String editModelPath;
+
+	/**
 	 * Verändertes Modell
 	 * @see #getChangedModel()
 	 */
@@ -76,10 +81,12 @@ public class JSRunComplexScript {
 	/**
 	 * Konstruktor der Klasse
 	 * @param model	Ausgangsmodell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param outputCallback	Callback für Ausgaben
 	 */
-	public JSRunComplexScript(final EditModel model, final Consumer<String> outputCallback) {
+	public JSRunComplexScript(final EditModel model, final String editModelPath, final Consumer<String> outputCallback) {
 		this.model=model;
+		this.editModelPath=editModelPath;
 		this.outputCallback=outputCallback;
 		this.modelChanged=model;
 		lastSuccess=false;
@@ -92,6 +99,14 @@ public class JSRunComplexScript {
 	 */
 	public EditModel getChangedModel() {
 		return modelChanged;
+	}
+
+	/**
+	 * Liefert den Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen).
+	 * @return	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
+	 */
+	public String getEditModelPath() {
+		return editModelPath;
 	}
 
 	/**

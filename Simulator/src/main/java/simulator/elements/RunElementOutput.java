@@ -90,7 +90,7 @@ public class RunElementOutput extends RunElementPassThrough {
 
 		/* Ausgabedatei */
 		if (outputElement.getOutputFile().trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoOutputFile"),element.getId());
-		output.outputFile=new File(outputElement.getOutputFile());
+		output.outputFile=outputElement.getOutputFileWithFullPath(runModel.modelPath);
 		output.outputFileOverwrite=outputElement.isOutputFileOverwrite();
 
 		/* Ausgaben */

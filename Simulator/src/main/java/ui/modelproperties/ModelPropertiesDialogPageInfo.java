@@ -38,13 +38,13 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 	 * @param readOnly	Nur-Lese-Status
 	 * @param help	Hilfe-Callback
 	 */
-	public ModelPropertiesDialogPageInfo(ModelPropertiesDialog dialog, EditModel model, boolean readOnly, Runnable help) {
+	public ModelPropertiesDialogPageInfo(final ModelPropertiesDialog dialog, final EditModel model, final boolean readOnly, final Runnable help) {
 		super(dialog,model,readOnly,help);
 	}
 
 	@Override
 	public void build(JPanel content) {
-		final StartAnySimulator.PrepareError error=StartAnySimulator.testModel(model);
+		final StartAnySimulator.PrepareError error=StartAnySimulator.testModel(model,null);
 		final StringBuilder sb=new StringBuilder();
 		sb.append("<html><body style=\"margin: 10px;\">");
 		if (error!=null) {

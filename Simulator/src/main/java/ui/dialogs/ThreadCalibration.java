@@ -49,6 +49,11 @@ public class ThreadCalibration {
 	private final EditModel model;
 
 	/**
+	 * Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
+	 */
+	private final String editModelPath;
+
+	/**
 	 * Ausgabe-Callback für Statusmeldungen (kann <code>null</code> sein)
 	 * @see #output(String)
 	 */
@@ -97,19 +102,22 @@ public class ThreadCalibration {
 
 	/**
 	 * Konstruktor der Klasse
-	 * @param model	Für die Kalibrierung zu verwendendes Modell (wird <code>null</code> übergeben, so wird das Callcenter-Beispielmodell verwende)
+	 * @param model	Für die Kalibrierung zu verwendendes Modell (wird <code>null</code> übergeben, so wird das Callcenter-Beispielmodell verwendet)
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param output	Ausgabe-Callback für Statusmeldungen (kann <code>null</code> sein)
 	 * @param baseRunTime	Angestrebte Laufzeit in Sekunden bei Nutzung von allen Kernen
 	 */
-	public ThreadCalibration(final EditModel model, final Consumer<String> output, final int baseRunTime) {
+	public ThreadCalibration(final EditModel model, final String editModelPath, final Consumer<String> output, final int baseRunTime) {
 		setup=SetupData.getSetup();
 		progress=0;
 
 		if (model==null) {
 			final int exampleIndex=EditModelExamples.getExampleIndexFromName(Language.tr("Examples.Callcenter"));
 			this.model=EditModelExamples.getExampleByIndex(null,exampleIndex);
+			this.editModelPath=null;
 		} else {
 			this.model=model;
+			this.editModelPath=editModelPath;
 		}
 
 		this.output=output;
@@ -122,7 +130,7 @@ public class ThreadCalibration {
 	 * @param baseRunTime	Angestrebte Laufzeit in Sekunden bei Nutzung von allen Kernen
 	 */
 	public ThreadCalibration(final Consumer<String> output, final int baseRunTime) {
-		this(null,output,baseRunTime);
+		this(null,null,output,baseRunTime);
 	}
 
 	/**
@@ -186,7 +194,7 @@ public class ThreadCalibration {
 		setThreads(threadCount);
 
 		/* Modell vorbereiten */
-		final Simulator simulator=new Simulator(setup.useMultiCoreSimulationMaxCount,model,null,null,null);
+		final Simulator simulator=new Simulator(setup.useMultiCoreSimulationMaxCount,model,editModelPath,null,null,null);
 		final StartAnySimulator.PrepareError error=simulator.prepare();
 		if (error!=null) {
 			output(error.error);

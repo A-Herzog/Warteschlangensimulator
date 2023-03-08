@@ -90,11 +90,17 @@ public class BackgroundSystem {
 	private long lastUsage;
 
 	/**
+	 * Übergeordnetes Editor-Panel
+	 */
+	private final EditorPanel owner;
+
+	/**
 	 * Konstruktor der Klasse.<br>
 	 * Kann nicht direkt aufgerufen werden, stattdessen ist {@link BackgroundSystem#getBackgroundSystem(EditorPanel)} zu verwenden.
+	 * @param owner	Übergeordnetes Editor-Panel
 	 * @see BackgroundSystem#getBackgroundSystem(EditorPanel)
 	 */
-	private BackgroundSystem() {
+	private BackgroundSystem(final EditorPanel owner) {
 		lastBackgroundMode=SetupData.BackgroundProcessingMode.BACKGROUND_NOTHING;
 		timer=null;
 		lastModel=null;
@@ -102,6 +108,7 @@ public class BackgroundSystem {
 		lastCompileThread=null;
 		lastStarter=null;
 		lastUsage=System.currentTimeMillis();
+		this.owner=owner;
 	}
 
 	/**
@@ -130,7 +137,7 @@ public class BackgroundSystem {
 		/* Hintergrund-System anlegen oder liefern */
 		if (system==null) system=new HashMap<>();
 		BackgroundSystem backgroundSystem=system.get(owner);
-		if (backgroundSystem==null) system.put(owner,backgroundSystem=new BackgroundSystem());
+		if (backgroundSystem==null) system.put(owner,backgroundSystem=new BackgroundSystem(owner));
 		backgroundSystem.lastUsage=System.currentTimeMillis();
 
 		/* Evtl. alte Systeme beenden */
@@ -303,7 +310,8 @@ public class BackgroundSystem {
 
 		/* Prüfen */
 
-		final Object obj=RunModel.getRunModel(model,!canBackgroundProcess,setup.useMultiCoreSimulation); /* !canBackgroundProcess == testOnly: Wenn wir später sowieso nicht simulieren können, dann hier auch keine Daten laden */
+		final String editModelPath=(owner.getLastFile()==null)?null:owner.getLastFile().getParent();
+		final Object obj=RunModel.getRunModel(model,editModelPath,!canBackgroundProcess,setup.useMultiCoreSimulation); /* !canBackgroundProcess == testOnly: Wenn wir später sowieso nicht simulieren können, dann hier auch keine Daten laden */
 		if (obj instanceof StartAnySimulator.PrepareError) return ((StartAnySimulator.PrepareError)obj).error;
 
 		/* Simulieren */
@@ -318,7 +326,7 @@ public class BackgroundSystem {
 
 		if (!startProcessing) return null;
 		lastModel=model.clone();
-		final StartAnySimulator.PrepareError error=StartAnySimulator.testModel(lastModel);
+		final StartAnySimulator.PrepareError error=StartAnySimulator.testModel(lastModel,editModelPath);
 		/* lastStarter=new StartAnySimulator(lastModel);
 		final String error=lastStarter.prepare(); */
 		if (error!=null) {
@@ -329,7 +337,7 @@ public class BackgroundSystem {
 			return error.error;
 		}
 
-		lastStarter=new StartAnySimulator(lastModel);
+		lastStarter=new StartAnySimulator(lastModel,editModelPath);
 
 		long delay=DELAY_NORMAL;
 		if (setup.backgroundSimulation==SetupData.BackgroundProcessingMode.BACKGROUND_SIMULATION_ALWAYS) delay=DELAY_FAST;
@@ -385,7 +393,8 @@ public class BackgroundSystem {
 	 */
 	public Object getNewStartedSimulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
 		lastUsage=System.currentTimeMillis();
-		final StartAnySimulator starter=new StartAnySimulator(editModel,logging,loggingIDs,logType);
+		final String editModelPath=(owner.getLastFile()==null)?null:owner.getLastFile().getParent();
+		final StartAnySimulator starter=new StartAnySimulator(editModel,editModelPath,logging,loggingIDs,logType);
 		final StartAnySimulator.PrepareError error=starter.prepare();
 		if (error!=null) return error;
 		return starter.start();

@@ -438,7 +438,7 @@ public class CalcFuture {
 			return;
 		}
 
-		final StartAnySimulator starter=new StartAnySimulator(model,null,null,Simulator.logTypeFull);
+		final StartAnySimulator starter=new StartAnySimulator(model,null,null,null,Simulator.logTypeFull);
 		final StartAnySimulator.PrepareError prepareError=starter.prepare();
 		if (prepareError!=null) {
 			setError(prepareError.error);
@@ -464,7 +464,7 @@ public class CalcFuture {
 	private void runSeries(final ParameterCompareSetup setup) {
 		runner=new ParameterCompareRunner(null,null,msg->addMessage(msg));
 		try {
-			final String error=runner.check(setup);
+			final String error=runner.check(setup,null);
 			if (error!=null) {setError(error); return;}
 			runner.start();
 			if (runner.waitForFinish()) {

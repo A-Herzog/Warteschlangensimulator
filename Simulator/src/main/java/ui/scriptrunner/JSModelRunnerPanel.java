@@ -50,6 +50,8 @@ public class JSModelRunnerPanel extends SpecialPanel {
 
 	/** Editor-Modell auf dessen Basis die Skript-Datenreihe erstellt werden soll */
 	private final EditModel model;
+	/** Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen) */
+	private final String editModelPath;
 
 	/** Schaltfläche "Start" */
 	private final JButton startButton;
@@ -68,13 +70,15 @@ public class JSModelRunnerPanel extends SpecialPanel {
 	 * Konstruktor der Klasse <code>JSModelRunnerPanel</code>
 	 * @param owner	Übergeordnetes Fenster
 	 * @param model	Editor-Modell auf dessen Basis die Skript-Datenreihe erstellt werden soll
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param miniStatistics	Minimales Statistik-Objekt, um XML-Elemente auswählen zu können
 	 * @param doneNotify	Wird aufgerufen, wenn sich das Panel schließen möchte
 	 * @param fullMode	Anzeige als vollwertigem Skriptrunner, der das Fenster als alleiniges Element füllt, (<code>true</code>) oder als einfaches Panel z.B. als Tab innerhalb eines Dialogs (<code>false</code>).
 	 */
-	public JSModelRunnerPanel(final Window owner, final EditModel model, final Statistics miniStatistics, final Runnable doneNotify, final boolean fullMode) {
+	public JSModelRunnerPanel(final Window owner, final EditModel model, final String editModelPath, final Statistics miniStatistics, final Runnable doneNotify, final boolean fullMode) {
 		super(doneNotify);
 		this.model=model;
+		this.editModelPath=editModelPath;
 		this.fullMode=fullMode;
 
 		/* Haupttoolbar */
@@ -191,7 +195,7 @@ public class JSModelRunnerPanel extends SpecialPanel {
 				setup.saveSetup();
 			}
 
-			final JSModelRunner newRunner=new JSModelRunner(model,scriptPanel.getEditorMode(),scriptPanel.getEditorScript(),text->scriptPanel.addOutput(text),()->commandRun(false));
+			final JSModelRunner newRunner=new JSModelRunner(model,editModelPath,scriptPanel.getEditorMode(),scriptPanel.getEditorScript(),text->scriptPanel.addOutput(text),()->commandRun(false));
 			String error=newRunner.check();
 			if (error!=null) {
 				MsgBox.error(this,Language.tr("Dialog.Title.Error"),error);

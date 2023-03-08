@@ -35,7 +35,7 @@ public final class OptimizerParallelGenetic extends OptimizerParallelBase implem
 
 	@Override
 	protected OptimizerParallelKernelBase getOptimizerKernel() {
-		return new OptimizerParallelKernelGenetic(setup,this,model);
+		return new OptimizerParallelKernelGenetic(setup,this,model,editModelPath);
 	}
 
 	@Override

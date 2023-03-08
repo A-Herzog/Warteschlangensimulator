@@ -2852,7 +2852,8 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandModelCompareTwoInit() {
 		EditModel model=editorPanel.getModel();
-		Object obj=RunModel.getRunModel(model,true,setup.useMultiCoreSimulation);
+		final String editModelPath=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParent();
+		Object obj=RunModel.getRunModel(model,editModelPath,true,setup.useMultiCoreSimulation);
 		if (obj instanceof StartAnySimulator.PrepareError) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Compare.Error.ModelError.Title"),Language.tr("Compare.Error.ModelError.CannotCompare"));
 			return;
@@ -2880,8 +2881,9 @@ public class MainPanel extends MainPanelBase {
 				return;
 			}
 
-			EditModel model=editorPanel.getModel();
-			Object obj=RunModel.getRunModel(model,true,setup.useMultiCoreSimulation);
+			final EditModel model=editorPanel.getModel();
+			final String editModelPath=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParent();
+			Object obj=RunModel.getRunModel(model,editModelPath,true,setup.useMultiCoreSimulation);
 			if (obj instanceof StartAnySimulator.PrepareError) {
 				MsgBox.error(getOwnerWindow(),Language.tr("Compare.Error.ModelError.Title"),Language.tr("Compare.Error.ModelError.CannotKeep"));
 				return;
@@ -2991,12 +2993,13 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Versucht ein {@link StartAnySimulator}-Objekt basierend auf einem Editor-Modell zu erstellen.
 	 * @param editModel	Ausgangs-Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 * @return	Liefert im Erfolgsfall den noch nicht gestarteten Simulator, sonst <code>null</code>
 	 */
-	private StartAnySimulator getSimulator(EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
+	private StartAnySimulator getSimulator(EditModel editModel, final String editModelPath, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
 		final File folder=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParentFile();
 		final EditModel changedEditModel=editModel.modelLoadData.changeModel(editModel,folder);
 		if (changedEditModel!=null) {
@@ -3008,7 +3011,7 @@ public class MainPanel extends MainPanelBase {
 			editModel=changedEditModel;
 		}
 
-		final StartAnySimulator starter=new StartAnySimulator(editModel,logging,loggingIDs,logType);
+		final StartAnySimulator starter=new StartAnySimulator(editModel,editModelPath,logging,loggingIDs,logType);
 		final StartAnySimulator.PrepareError error=(StartAnySimulator.PrepareError)WaitDialog.workObject(this,()->starter.prepare(),WaitDialog.Mode.MODEL_PREPARE);
 		if (error!=null) {
 			SwingUtilities.invokeLater(()->{
@@ -3124,7 +3127,7 @@ public class MainPanel extends MainPanelBase {
 		final boolean fastWarmUp=animationPanel.makeAnimationModel(editModel);
 		final CallbackLoggerWithJS logger=new CallbackLoggerWithJS();
 		if (logging!=null) logger.setNextLogger(logging);
-		final Simulator simulator=new Simulator(editModel,logger,loggingIDs,logType);
+		final Simulator simulator=new Simulator(editModel,(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParent(),logger,loggingIDs,logType);
 
 		final StartAnySimulator.PrepareError error=(StartAnySimulator.PrepareError)WaitDialog.workObject(this,()->simulator.prepare(),WaitDialog.Mode.MODEL_PREPARE);
 		if (error!=null) {
@@ -3204,7 +3207,7 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandSimulationAnimationLog() {
 		final EditModel editModel=editorPanel.getModel();
-		final StartAnySimulator starter=getSimulator(editModel,null,null,Simulator.logTypeFull);
+		final StartAnySimulator starter=getSimulator(editModel,(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParent(),null,null,Simulator.logTypeFull);
 		if (starter==null) return;
 
 		if (editModel.clientCount>1000 && editModel.useClientCount) {
@@ -3370,7 +3373,7 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandSimulationSimulationLog() {
 		final EditModel editModel=editorPanel.getModel();
-		final StartAnySimulator starter=getSimulator(editModel,null,null,Simulator.logTypeFull);
+		final StartAnySimulator starter=getSimulator(editModel,(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParent(),null,null,Simulator.logTypeFull);
 		if (starter==null) return;
 
 		if (editModel.useClientCount || editModel.useFinishTime) {
@@ -3442,7 +3445,7 @@ public class MainPanel extends MainPanelBase {
 
 		BackgroundSystem.getBackgroundSystem(editorPanel).stop(); /* Das Modell wird in der vorherigen Zeile verändert, kann daher ganz sicher nicht per Background gestartet werden. */
 
-		final StartAnySimulator starter=getSimulator(editModel,null,null,Simulator.logTypeFull);
+		final StartAnySimulator starter=getSimulator(editModel,(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParent(),null,null,Simulator.logTypeFull);
 		if (starter==null) return;
 
 		final AnySimulator simulator=starter.start();
@@ -3514,7 +3517,7 @@ public class MainPanel extends MainPanelBase {
 
 		BackgroundSystem.getBackgroundSystem(editorPanel).stop(); /* Das Modell wird in der vorherigen Zeile verändert, kann daher ganz sicher nicht per Background gestartet werden. */
 
-		final StartAnySimulator starter=getSimulator(editModel,null,null,Simulator.logTypeFull);
+		final StartAnySimulator starter=getSimulator(editModel,(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParent(),null,null,Simulator.logTypeFull);
 		if (starter==null) return;
 
 		final AnySimulator simulator=starter.start();
@@ -3639,7 +3642,8 @@ public class MainPanel extends MainPanelBase {
 			MsgBox.warning(this,Language.tr("ModelLoadData.IncompatibleWarning.Title"),Language.tr("ModelLoadData.IncompatibleWarning.ParameterSeries"));
 		}
 
-		final Statistics miniStatistics=ParameterComparePanel.generateMiniStatistics(this,editModel,statisticsPanel.getStatistics());
+		final String editModelPath=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParent();
+		final Statistics miniStatistics=ParameterComparePanel.generateMiniStatistics(this,editModel,editModelPath,statisticsPanel.getStatistics());
 		if (miniStatistics==null) return false;
 
 		final ParameterComparePanel parameterComparePanel=getParameterComparePanel(editModel,miniStatistics,template);
@@ -3687,8 +3691,9 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private boolean commandSimulationParameterSeriesVariance() {
 		final EditModel editModel=editorPanel.getModel();
+		final String editModelPath=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParent();
 
-		final Statistics miniStatistics=ParameterComparePanel.generateMiniStatistics(this,editModel,statisticsPanel.getStatistics());
+		final Statistics miniStatistics=ParameterComparePanel.generateMiniStatistics(this,editModel,editModelPath,statisticsPanel.getStatistics());
 		if (miniStatistics==null) return false;
 
 		final VarianceAnalysisDialog dialog=new VarianceAnalysisDialog(this);
@@ -3710,8 +3715,9 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandSimulationScriptRunner() {
 		final EditModel editModel=editorPanel.getModel();
+		final String editModelPath=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParent();
 
-		final OptimizerPanelPrepareDialog dialog=new OptimizerPanelPrepareDialog(this,editModel,statisticsPanel.getStatistics(),OptimizerPanelPrepareDialog.Mode.MODE_JAVASCRIPT);
+		final OptimizerPanelPrepareDialog dialog=new OptimizerPanelPrepareDialog(this,editModel,editModelPath,statisticsPanel.getStatistics(),OptimizerPanelPrepareDialog.Mode.MODE_JAVASCRIPT);
 		final Statistics miniStatistics=dialog.getMiniStatistics();
 		if (miniStatistics==null) {
 			MsgBox.error(getOwnerWindow(),Language.tr("JSRunner.PreparationFailed"),dialog.getError());
@@ -3723,7 +3729,7 @@ public class MainPanel extends MainPanelBase {
 		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 
 		enableMenuBar(false);
-		setCurrentPanel(new JSModelRunnerPanel(getOwnerWindow(),editModel,miniStatistics,()->{
+		setCurrentPanel(new JSModelRunnerPanel(getOwnerWindow(),editModel,editModelPath,miniStatistics,()->{
 			setCurrentPanel(editorPanel);
 			enableMenuBar(true);
 		},true));
@@ -3735,12 +3741,13 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private boolean commandSimulationOptimizer() {
 		final EditModel editModel=editorPanel.getModel();
+		final String editModelPath=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParent();
 
 		if (editModel.modelLoadData.willChangeModel()) {
 			MsgBox.warning(this,Language.tr("ModelLoadData.IncompatibleWarning.Title"),Language.tr("ModelLoadData.IncompatibleWarning.Optimization"));
 		}
 
-		final OptimizerPanelPrepareDialog dialog=new OptimizerPanelPrepareDialog(this,editModel,statisticsPanel.getStatistics(),OptimizerPanelPrepareDialog.Mode.MODE_OPTIMIZATION);
+		final OptimizerPanelPrepareDialog dialog=new OptimizerPanelPrepareDialog(this,editModel,editModelPath,statisticsPanel.getStatistics(),OptimizerPanelPrepareDialog.Mode.MODE_OPTIMIZATION);
 		final Statistics miniStatistics=dialog.getMiniStatistics();
 		if (miniStatistics==null) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Optimizer.PreparationFailed"),dialog.getError());
@@ -3752,7 +3759,7 @@ public class MainPanel extends MainPanelBase {
 		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 
 		enableMenuBar(false);
-		setCurrentPanel(new OptimizerPanel(getOwnerWindow(),editModel,miniStatistics,()->{
+		setCurrentPanel(new OptimizerPanel(getOwnerWindow(),editModel,editModelPath,miniStatistics,()->{
 			setCurrentPanel(editorPanel);
 			enableMenuBar(true);
 		}));

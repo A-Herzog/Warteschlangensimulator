@@ -69,6 +69,11 @@ public abstract class OptimizerBase {
 	protected EditModel model;
 
 	/**
+	 * Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
+	 */
+	protected String editModelPath;
+
+	/**
 	 * Setup des Optimierers
 	 */
 	protected OptimizerSetup setup;
@@ -111,7 +116,7 @@ public abstract class OptimizerBase {
 
 	/**
 	 * Erstellt eine Kopie des Optimierer-Objektes.<br>
-	 * Diese Methode darf nur vor der Initialisierung per {@link #check(EditModel, OptimizerSetup, Consumer, Consumer, Runnable)} aufgerufen werden bzw. kopiert nur das Basis-Objekt.
+	 * Diese Methode darf nur vor der Initialisierung per {@link #check(EditModel, String, OptimizerSetup, Consumer, Consumer, Runnable)} aufgerufen werden bzw. kopiert nur das Basis-Objekt.
 	 */
 	@Override
 	public abstract OptimizerBase clone();
@@ -119,14 +124,16 @@ public abstract class OptimizerBase {
 	/**
 	 * Prüft die Konfiguration und initialisiert den Optimierer
 	 * @param model	Basis-Editor-Modell für die Optimierung
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param setup	Optimierer-Setup
 	 * @param logOutput	Callback, welches aufgerufen wird, wenn Statusinformationen ausgegeben werden sollen.
 	 * @param whenDone	Callback, welches aufgerufen wird, wenn die Optimierung beendet wurde (egal ob erfolgreich oder per Abbruch-Knopf)
 	 * @param whenStepDone	Callback, welches aufgerufen wird, wenn ein Optimierungsschritt abgeschlossen wurde
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
-	public String check(final EditModel model, final OptimizerSetup setup, final Consumer<String> logOutput, final Consumer<Boolean> whenDone, final Runnable whenStepDone) {
+	public String check(final EditModel model, final String editModelPath, final OptimizerSetup setup, final Consumer<String> logOutput, final Consumer<Boolean> whenDone, final Runnable whenStepDone) {
 		this.model=model.clone();
+		this.editModelPath=editModelPath;
 		this.setup=setup.clone();
 		this.logOutput=logOutput;
 		this.whenDone=whenDone;

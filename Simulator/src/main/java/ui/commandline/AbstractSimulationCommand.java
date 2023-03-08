@@ -154,10 +154,11 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 	 * Versucht basierend auf einem {@link EditModel} eine Simulation vorzubereiten und zu starten
 	 *  @param maxThreads Gibt an, wie viele Threads maximal verwendet werden sollen.
 	 * @param editModel	Editor-Modell, welches verwendet werden soll (darf nicht <code>null</code> sein)
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param out	Optionale Ausgabe von Meldungen
 	 * @return	Liefert im Erfolgsfall ein {@link AnySimulator}-Objekt, sonst einen String mit einer Fehlermeldung
 	 */
-	public static final Object prepare(final int maxThreads, final EditModel editModel, final PrintStream out) {
+	public static final Object prepare(final int maxThreads, final EditModel editModel, final String editModelPath, final PrintStream out) {
 		/* Modell vorbereiten */
 		if (EditModelBase.isNewerVersionSystem(editModel.version,EditModel.systemVersion)) {
 			if (out!=null) out.println(Language.tr("Dialog.Title.Warning").toUpperCase()+": "+Language.tr("Editor.NewerVersion.Info.Short"));
@@ -166,7 +167,7 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 				if (out!=null) out.println(Language.tr("Dialog.Title.Warning").toUpperCase()+": "+Language.tr("Editor.UnknownElements.Info.Short"));
 			}
 		}
-		final StartAnySimulator starter=new StartAnySimulator(maxThreads,editModel);
+		final StartAnySimulator starter=new StartAnySimulator(maxThreads,editModel,editModelPath);
 		final StartAnySimulator.PrepareError error=starter.prepare();
 		if (error!=null) {
 			if (out!=null) out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.PreparationOfModel")+": "+error.error);
@@ -197,6 +198,7 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 	/**
 	 * Führt eine Simulation aus und liefert das Ergebnis-Statistik-Objekt zurück
 	 * @param editModel	Zu simulierendes Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param minimalOutput	Wird hier <code>false</code> übergeben, so werden Fortschrittsmeldungen ausgegeben.
 	 * @param maxThreads Gibt an, wie viele Threads maximal verwendet werden sollen.
 	 * @param out	Ein <code>PrintStream</code>-Objekt, über das Texte ausgegeben werden können.
@@ -204,9 +206,9 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 	 * @param timeout	Abbruchzeit in Sekunden; wird ein negativer Wert übergeben, so gibt es zwar kein Timeout, aber für mit Fehler abgeschlossene Simulationen wird keine Statistik erzeugt
 	 * @return	Gibt im Erfolgsfall das Statistik-Objekt zurück, sonst <code>null</code>
 	 */
-	protected final Statistics singleSimulation(final EditModel editModel, final boolean minimalOutput, final int maxThreads, final PrintStream out, final boolean withTimeout, final double timeout) {
+	protected final Statistics singleSimulation(final EditModel editModel, final String editModelPath, final boolean minimalOutput, final int maxThreads, final PrintStream out, final boolean withTimeout, final double timeout) {
 		/* Vorbereiten und starten */
-		final Object obj=prepare(maxThreads,editModel,out);
+		final Object obj=prepare(maxThreads,editModel,editModelPath,out);
 		if (!(obj instanceof AnySimulator)) return null;
 		simulator=(AnySimulator)obj;
 
@@ -234,12 +236,13 @@ public abstract class AbstractSimulationCommand extends AbstractCommand {
 	/**
 	 * Führt eine Simulation aus und liefert das Ergebnis-Statistik-Objekt zurück
 	 * @param editModel	Zu simulierendes Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param minimalOutput	Wird hier <code>false</code> übergeben, so werden Fortschrittsmeldungen ausgegeben.
 	 * @param out Ein <code>PrintStream</code>-Objekt, über das Texte ausgegeben werden können.
 	 * @return	Gibt im Erfolgsfall das Statistik-Objekt zurück, sonst <code>null</code>
 	 */
-	protected final Statistics singleSimulation(final EditModel editModel, final boolean minimalOutput, final PrintStream out) {
-		return singleSimulation(editModel,minimalOutput,Integer.MAX_VALUE,out,false,-1);
+	protected final Statistics singleSimulation(final EditModel editModel, final String editModelPath, final boolean minimalOutput, final PrintStream out) {
+		return singleSimulation(editModel,editModelPath,minimalOutput,Integer.MAX_VALUE,out,false,-1);
 	}
 
 	/**

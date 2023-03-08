@@ -130,6 +130,8 @@ public class OptimizerPanel extends SpecialPanel {
 	private final Statistics miniStatistics;
 	/** Editor-Modell auf dessen Basis die Optimierung durchgeführt werden soll */
 	private final EditModel model;
+	/** Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen) */
+	private final String editModelPath;
 
 	/** Aktuelles Optimierer-Setup */
 	private OptimizerSetup setup;
@@ -247,13 +249,15 @@ public class OptimizerPanel extends SpecialPanel {
 	 * Konstruktor der Klasse {@link OptimizerPanel}
 	 * @param owner	Übergeordnetes Fenster
 	 * @param model	Editor-Modell auf dessen Basis die Optimierung durchgeführt werden soll
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param miniStatistics	Statistikdaten bezogen auf einen kurzen Lauf über das angegebene Editor-Modell (zur Auswahl von XML-Elementen als Zielwerte)
 	 * @param doneNotify	Wird aufgerufen, wenn sich das Panel schließen möchte
 	 */
-	public OptimizerPanel(final Window owner, final EditModel model, final Statistics miniStatistics, final Runnable doneNotify) {
+	public OptimizerPanel(final Window owner, final EditModel model, final String editModelPath, final Statistics miniStatistics, final Runnable doneNotify) {
 		super(doneNotify);
 		this.owner=owner;
 		this.model=model;
+		this.editModelPath=editModelPath;
 		this.miniStatistics=miniStatistics;
 
 		newSetupButton=addUserButton(Language.tr("Optimizer.Toolbar.New"),Language.tr("Optimizer.Toolbar.New.Hint"),Images.OPTIMIZER_SETUP_NEW.getIcon());
@@ -1362,7 +1366,7 @@ public class OptimizerPanel extends SpecialPanel {
 			if (runSetup==null) return;
 			optimizer=new OptimizerCatalog(this).getOptimizer(optimizerName);
 			final long optimizationStartTime=System.currentTimeMillis();
-			String error=optimizer.check(model,runSetup,text->addStatusLine(text),b->{setGUIRunMode(false); if (b) Notifier.run(Notifier.Message.OPTIMIZATION_DONE,optimizationStartTime);},()->updateDiagram());
+			String error=optimizer.check(model,editModelPath,runSetup,text->addStatusLine(text),b->{setGUIRunMode(false); if (b) Notifier.run(Notifier.Message.OPTIMIZATION_DONE,optimizationStartTime);},()->updateDiagram());
 			if (error!=null) {
 				optimizer=null;
 				MsgBox.error(OptimizerPanel.this,Language.tr("Optimizer.Error.CouldNotStart.Title"),Language.tr("Optimizer.Error.CouldNotStart")+":\n"+error);

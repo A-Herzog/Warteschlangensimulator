@@ -49,9 +49,10 @@ public abstract class OptimizerSerialKernelBase extends OptimizerKernelBase {
 	 * Konstruktor der Klasse
 	 * @param setup	Zu verwendende Optimierereinstellungen
 	 * @param startModel	Ausgangs-Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 */
-	public OptimizerSerialKernelBase(final OptimizerSetup setup, final EditModel startModel) {
-		super(setup,startModel);
+	public OptimizerSerialKernelBase(final OptimizerSetup setup, final EditModel startModel, final String editModelPath) {
+		super(setup,startModel,editModelPath);
 		controlValues=getInitialControlVariables();
 		isFirstStep=true;
 	}

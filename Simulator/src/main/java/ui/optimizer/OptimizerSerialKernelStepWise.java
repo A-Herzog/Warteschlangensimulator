@@ -67,9 +67,10 @@ public class OptimizerSerialKernelStepWise extends OptimizerSerialKernelBase {
 	 * Konstruktor der Klasse
 	 * @param setup	Zu verwendende Optimierereinstellungen
 	 * @param startModel	Ausgangs-Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 */
-	public OptimizerSerialKernelStepWise(OptimizerSetup setup, EditModel startModel) {
-		super(setup,startModel);
+	public OptimizerSerialKernelStepWise(OptimizerSetup setup, EditModel startModel, final String editModelPath) {
+		super(setup,startModel,editModelPath);
 
 		alreadyVisitedStates=new ArrayList<>();
 		currentStatus=Status.STATUS_START;

@@ -94,7 +94,7 @@ public class CommandParameterCompare extends AbstractCommand {
 		}
 
 		runner=new ParameterCompareRunner(null,null,log->out.println(log));
-		error=runner.check(setup);
+		error=runner.check(setup,inFile.getParent());
 		if (error!=null) {
 			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+error);

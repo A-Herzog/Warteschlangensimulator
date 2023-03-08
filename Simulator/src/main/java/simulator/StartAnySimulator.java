@@ -41,6 +41,8 @@ public class StartAnySimulator {
 	private final int maxThreads;
 	/** Editor-Modell */
 	private final EditModel editModel;
+	/** Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen) */
+	private final String editModelPath;
 	/** Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik */
 	private final SimLogging logging;
 	/** Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst) */
@@ -66,13 +68,15 @@ public class StartAnySimulator {
 	 * Konstruktor der Klasse
 	 * @param maxThreads	Maximalanzahl an Rechenthreads (wird nur berücksichtigt, wenn ein lokaler Simulator gestartet wird)
 	 * @param editModel	Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 */
-	public StartAnySimulator(final int maxThreads, final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
+	public StartAnySimulator(final int maxThreads, final EditModel editModel, final String editModelPath, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
 		this.maxThreads=maxThreads;
 		this.editModel=editModel;
+		this.editModelPath=editModelPath;
 		this.logging=logging;
 		this.loggingIDs=loggingIDs;
 		this.logType=logType;
@@ -81,12 +85,13 @@ public class StartAnySimulator {
 	/**
 	 * Konstruktor der Klasse
 	 * @param editModel	Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param logging	Wird hier ein Wert ungleich <code>null</code> übergeben, so wird der Lauf durch den angegebenen Logger aufgezeichnet; ansonsten erfolgt nur die normale Aufzeichnung in der Statistik
 	 * @param loggingIDs	Liste der Stations-IDs deren Ereignisse beim Logging erfasst werden sollen (nur von Bedeutung, wenn das Logging als solches aktiv ist; kann <code>null</code> sein, dann werden die Ereignisse aller Stationen erfasst)
 	 * @param logType	Welche Arten von Ereignissen sollen erfasst werden? (<code>null</code> bedeutet: alles erfassen)
 	 */
-	public StartAnySimulator(final EditModel editModel, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
-		this(Integer.MAX_VALUE,editModel,logging,loggingIDs,logType);
+	public StartAnySimulator(final EditModel editModel, final String editModelPath, final SimLogging logging, final int[] loggingIDs, final Set<Simulator.LogType> logType) {
+		this(Integer.MAX_VALUE,editModel,editModelPath,logging,loggingIDs,logType);
 	}
 
 	/**
@@ -94,18 +99,20 @@ public class StartAnySimulator {
 	 * Es erfolgt kein Logging
 	 * @param maxThreads	Maximalanzahl an Rechenthreads (wird nur berücksichtigt, wenn ein lokaler Simulator gestartet wird)
 	 * @param editModel	Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 */
-	public StartAnySimulator(final int maxThreads, final EditModel editModel) {
-		this(maxThreads,editModel,null,null,Simulator.logTypeFull);
+	public StartAnySimulator(final int maxThreads, final EditModel editModel, final String editModelPath) {
+		this(maxThreads,editModel,editModelPath,null,null,Simulator.logTypeFull);
 	}
 
 	/**
 	 * Konstruktor der Klasse<br>
 	 * Es erfolgt kein Logging
 	 * @param editModel	Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 */
-	public StartAnySimulator(final EditModel editModel) {
-		this(Integer.MAX_VALUE,editModel,null,null,Simulator.logTypeFull);
+	public StartAnySimulator(final EditModel editModel, final String editModelPath) {
+		this(Integer.MAX_VALUE,editModel,editModelPath,null,null,Simulator.logTypeFull);
 	}
 
 	/**
@@ -144,7 +151,7 @@ public class StartAnySimulator {
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
 	public PrepareError prepare(final boolean allowLoadBalancer) {
-		final PrepareError prepareError=testModel(editModel);
+		final PrepareError prepareError=testModel(editModel,editModelPath);
 		if (prepareError!=null) return prepareError;
 
 		if (isRemoveSimulateable(editModel)) {
@@ -164,7 +171,7 @@ public class StartAnySimulator {
 		}
 		maxThreadsReal=Math.max(maxThreadsReal,1);
 
-		localSimulator=new Simulator(maxThreadsReal,editModel,logging,loggingIDs,logType);
+		localSimulator=new Simulator(maxThreadsReal,editModel,editModelPath,logging,loggingIDs,logType);
 		return localSimulator.prepare(allowLoadBalancer);
 	}
 
@@ -180,7 +187,7 @@ public class StartAnySimulator {
 				return remoteSimulator;
 			} else {
 				remoteSimulator=null;
-				localSimulator=new Simulator(editModel,logging,loggingIDs,logType);
+				localSimulator=new Simulator(editModel,editModelPath,logging,loggingIDs,logType);
 				if (localSimulator.prepare()!=null) localSimulator=null;
 			}
 		}
@@ -193,16 +200,17 @@ public class StartAnySimulator {
 	/**
 	 * Prüft ein Modell.
 	 * @param editModel	Zu prüfendes Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
-	public static PrepareError testModel(final EditModel editModel) {
+	public static PrepareError testModel(final EditModel editModel, final String editModelPath) {
 		/*
 		Evtl. langsam, weil Quelltabellen unnötiger Weise komplett geladen werden:
 		Simulator simulator=new Simulator(editModel,null);
 		return simulator.prepare();
 		 */
 
-		final Object obj=RunModel.getRunModel(editModel,true,SetupData.getSetup().useMultiCoreSimulation);
+		final Object obj=RunModel.getRunModel(editModel,editModelPath,true,SetupData.getSetup().useMultiCoreSimulation);
 		if (obj instanceof StartAnySimulator.PrepareError) return (StartAnySimulator.PrepareError)obj;
 		return null;
 	}

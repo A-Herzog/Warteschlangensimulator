@@ -103,6 +103,7 @@ public final class CommandBenchmark extends AbstractSimulationCommand {
 	@Override
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
 		EditModel editModel=null;
+		String editModelPath=null;
 
 		style.setColor(Color.GREEN);
 		switch (speedTestMode) {
@@ -113,6 +114,7 @@ public final class CommandBenchmark extends AbstractSimulationCommand {
 			break;
 		case 1:
 			editModel=new EditModel();
+			editModelPath=modelFile.getParent();
 			String s=editModel.loadFromFile(modelFile);
 			if (s!=null) {
 				style.setErrorStyle();
@@ -145,7 +147,7 @@ public final class CommandBenchmark extends AbstractSimulationCommand {
 				out.println(Language.tr("CommandLine.Benchmark.SimulaionRun")+" "+(i+1));
 				style.setBold(false);
 			}
-			final Statistics statistics=singleSimulation(editModel,true,maxThreads,out,false,-1);
+			final Statistics statistics=singleSimulation(editModel,editModelPath,true,maxThreads,out,false,-1);
 			if (statistics==null) {
 				style.setErrorStyle();
 				out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Benchmark.SimulaionFailed"));

@@ -126,6 +126,8 @@ public class ParameterComparePanel extends SpecialPanel {
 	private File modelFromEditorFileName;
 	/** Statistikdaten bezogen auf einen kurzen Lauf über das angegebene Editor-Modell (zur Auswahl von XML-Elementen als Zielwerte) */
 	private Statistics miniStatistics;
+	/** Dateiname der Parameterreihen-Datei beim letzten Laden oder Speichern */
+	private File lastParameterSeriesSetupFile;
 
 	/** Übergeordnetes Fenster */
 	private final Window owner;
@@ -483,7 +485,8 @@ public class ParameterComparePanel extends SpecialPanel {
 
 		final long simulationStartTime=System.currentTimeMillis();
 		runner=new ParameterCompareRunner(owner,row->table.updateTableContentOnly(row),b->{setGUIRunMode(false); if (b) Notifier.run(Notifier.Message.PARAMETER_SERIES_DONE,simulationStartTime);},s->logOutput(s));
-		String error=runner.check(setup);
+		final String editModelPath=(lastParameterSeriesSetupFile==null)?null:lastParameterSeriesSetupFile.getParent();
+		String error=runner.check(setup,editModelPath);
 		if (error!=null) {
 			runner=null;
 			MsgBox.error(ParameterComparePanel.this,Language.tr("ParameterCompare.Error.CouldNotStart.Title"),Language.tr("ParameterCompare.Error.CouldNotStart")+":\n"+error);
@@ -835,7 +838,8 @@ public class ParameterComparePanel extends SpecialPanel {
 		if (newModel!=null) modelFromEditor=newModel;
 		if (modelFromEditorFileName!=null) FilePathHelper.checkFilePaths(modelFromEditor,modelFromEditorFileName);
 
-		final Statistics miniStatistics=ParameterComparePanel.generateMiniStatistics(this,modelFromEditor,null);
+		final String editModelPath=(modelFromEditorFileName==null)?null:modelFromEditorFileName.getParent();
+		final Statistics miniStatistics=ParameterComparePanel.generateMiniStatistics(this,modelFromEditor,editModelPath,null);
 		if (miniStatistics==null) return;
 		this.miniStatistics=miniStatistics;
 
@@ -1079,7 +1083,8 @@ public class ParameterComparePanel extends SpecialPanel {
 
 		final long simulationStartTime=System.currentTimeMillis();
 		runner=new ParameterCompareRunner(owner,index,row->table.updateTableContentOnly(row),b->{setGUIRunMode(false); if (b) Notifier.run(Notifier.Message.PARAMETER_SERIES_DONE,simulationStartTime);},s->logOutput(s));
-		String error=runner.check(setup);
+		final String editModelPath=(lastParameterSeriesSetupFile==null)?null:lastParameterSeriesSetupFile.getParent();
+		String error=runner.check(setup,editModelPath);
 		if (error!=null) {
 			runner=null;
 			MsgBox.error(ParameterComparePanel.this,Language.tr("ParameterCompare.Error.CouldNotStart.Title"),Language.tr("ParameterCompare.Error.CouldNotStart")+":\n"+error);
@@ -1156,7 +1161,8 @@ public class ParameterComparePanel extends SpecialPanel {
 			if (newModel!=null) model=newModel;
 			if (fileName!=null) FilePathHelper.checkFilePaths(model,fileName);
 
-			final Statistics miniStatistics=ParameterComparePanel.generateMiniStatistics(this,model,null);
+			final String editModelPath=(fileName==null)?null:fileName.getParent();
+			final Statistics miniStatistics=ParameterComparePanel.generateMiniStatistics(this,model,editModelPath,null);
 			if (miniStatistics==null) return;
 			this.miniStatistics=miniStatistics;
 
@@ -1245,19 +1251,22 @@ public class ParameterComparePanel extends SpecialPanel {
 			final EditModel newModel=EditorPanelRepair.autoFix(this,modelFromEditor);
 			if (newModel!=null) modelFromEditor=newModel;
 			if (modelFromEditorFileName!=null) FilePathHelper.checkFilePaths(modelFromEditor,modelFromEditorFileName);
-			miniStatistics=ParameterComparePanel.generateMiniStatistics(this,modelFromEditor,null);
+			final String editModelPath=(fileName==null)?null:fileName.getParent();
+			miniStatistics=ParameterComparePanel.generateMiniStatistics(this,modelFromEditor,editModelPath,null);
 			if (miniStatistics!=null) setup.setEditModel(modelFromEditor.clone());
 		} else {
 			final EditModel newModel=EditorPanelRepair.autoFix(this,setup.getEditModel());
 			if (newModel!=null) setup.setEditModel(newModel);
 			if (fileName!=null) FilePathHelper.checkFilePaths(setup.getEditModel(),fileName);
-			miniStatistics=generateMiniStatistics(owner,setup.getEditModel(),null);
+			final String editModelPath=(lastParameterSeriesSetupFile==null)?null:lastParameterSeriesSetupFile.getParent();
+			miniStatistics=generateMiniStatistics(owner,setup.getEditModel(),editModelPath,null);
 		}
 
 		if (miniStatistics==null) {
 			if (!forceLoad) return false;
 		}
 		this.miniStatistics=miniStatistics;
+		this.lastParameterSeriesSetupFile=fileName;
 
 		loadSetupToGUI(setup);
 		return true;
@@ -1290,6 +1299,8 @@ public class ParameterComparePanel extends SpecialPanel {
 			MsgBox.error(this,Language.tr("ParameterCompare.Settings.Save.Error.Title"),String.format(Language.tr("ParameterCompare.Settings.Save.Error.Info"),file.toString()));
 			return false;
 		}
+
+		lastParameterSeriesSetupFile=file;
 
 		GitTools.saveFile(this,setup.getEditModel().author,setup.getEditModel().authorEMail,file,GitSetup.GitSaveMode.PARAMETER_SERIES);
 
@@ -1442,11 +1453,12 @@ public class ParameterComparePanel extends SpecialPanel {
 	 * Versucht eine Minimalstatistik auf Basis eines Modells zu erstellen
 	 * @param owner	Übergeordnetes Element (zur Ausrichtung des Wartedialogs)
 	 * @param editModel	Editormodell zu dem Minimalstatistik erstellt werden soll
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param alreadyAvailableStatistics	Schon verfügbare Statistik (kann <code>null</code> sein). Passt diese zu dem Modell, so wird sie direkt zurückgeliefert.
 	 * @return	Minimalstatistik für das Modell oder ein String mit einer Fehlermeldung, wenn diese nicht berechnet werden konnte
 	 */
-	private static Object generateMiniStatisticsIntern(final Component owner, final EditModel editModel, final Statistics alreadyAvailableStatistics) {
-		final OptimizerPanelPrepareDialog dialog=new OptimizerPanelPrepareDialog(owner,editModel,alreadyAvailableStatistics,OptimizerPanelPrepareDialog.Mode.MODE_PARAMETER_COMPARE);
+	private static Object generateMiniStatisticsIntern(final Component owner, final EditModel editModel, final String editModelPath, final Statistics alreadyAvailableStatistics) {
+		final OptimizerPanelPrepareDialog dialog=new OptimizerPanelPrepareDialog(owner,editModel,editModelPath,alreadyAvailableStatistics,OptimizerPanelPrepareDialog.Mode.MODE_PARAMETER_COMPARE);
 		final Statistics miniStatistics=dialog.getMiniStatistics();
 		if (miniStatistics==null) return dialog.getError(); else return miniStatistics;
 	}
@@ -1455,11 +1467,12 @@ public class ParameterComparePanel extends SpecialPanel {
 	 * Versucht eine Minimalstatistik auf Basis eines Modells zu erstellen
 	 * @param owner	Übergeordnetes Element (zur Ausrichtung des Wartedialogs)
 	 * @param editModel	Editormodell zu dem Minimalstatistik erstellt werden soll
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param alreadyAvailableStatistics	Schon verfügbare Statistik (kann <code>null</code> sein). Passt diese zu dem Modell, so wird sie direkt zurückgeliefert.
 	 * @return	Minimalstatistik für das Modell oder <code>null</code>, wenn diese nicht berechnet werden konnte (eine Fehlermeldung wurde dann schon ausgegeben)
 	 */
-	public static Statistics generateMiniStatistics(final Component owner, final EditModel editModel, final Statistics alreadyAvailableStatistics) {
-		final Object result=generateMiniStatisticsIntern(owner,editModel,alreadyAvailableStatistics);
+	public static Statistics generateMiniStatistics(final Component owner, final EditModel editModel, final String editModelPath, final Statistics alreadyAvailableStatistics) {
+		final Object result=generateMiniStatisticsIntern(owner,editModel,editModelPath,alreadyAvailableStatistics);
 		if (result instanceof String) {
 			MsgBox.error(owner,Language.tr("ParameterCompare.PreparationFailed"),(String)result);
 			return null;

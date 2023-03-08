@@ -327,6 +327,27 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 		if (outputFile!=null) this.outputFile=outputFile;
 	}
 
+	/**
+	 * Liefert den Dateinamen der Datei, die für die Speicherung der Ausgaben verwendet werden soll.
+	 * Der Dateiname wird dabei gegenüber {@link #getOutputFile()} wenn nötig um einen Pfad ergänzt.
+	 * @param modelPath	Pfad zur aktuellen Modelldatei (dient als Basis für relative Pfade)
+	 * @return	Dateiname der Datei für die Ausgaben
+	 */
+	public File getOutputFileWithFullPath(String modelPath) {
+		if (modelPath==null) modelPath="";
+		modelPath=modelPath.trim();
+		if (!modelPath.endsWith("\\")) modelPath=modelPath+"\\";
+
+
+		if (this.outputFile==null) return new File(modelPath+"output.txt");
+		String outputFile=this.outputFile.trim();
+
+		if (outputFile.startsWith("\\\\") || (outputFile.length()>1 && outputFile.charAt(1)==':')) return new File(outputFile);
+
+		if (outputFile.startsWith("\\")) outputFile=outputFile.substring(1);
+
+		return new File(modelPath+outputFile);
+	}
 
 	/**
 	 * Soll die Ausgabedatei beim Start einer Simulation überschrieben werden?

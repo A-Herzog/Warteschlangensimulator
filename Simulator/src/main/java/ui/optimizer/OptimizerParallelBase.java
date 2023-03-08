@@ -61,8 +61,8 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	/**
 	 * Simulatoren für die parallel auszuführenden
 	 * Optimierungsschritten
-	 * @see #runModelsParallel(EditModel[])
-	 * @see #runModelsSerial(EditModel[])
+	 * @see #runModelsParallel(EditModel[], String)
+	 * @see #runModelsSerial(EditModel[], String)
 	 */
 	private volatile Object[] simulator;
 
@@ -71,15 +71,15 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 
 	/**
 	 * Welche Simulation läuft gerade?
-	 * @see #runModelsSerial(EditModel[])
+	 * @see #runModelsSerial(EditModel[], String)
 	 */
 	private volatile AtomicInteger runningSimulatorNr=new AtomicInteger();
 
 	/**
 	 * Timer, der prüft, welche Simulationen laufen und ggf.
 	 * weitere Simulationen startet.
-	 * @see #runModelsParallel(EditModel[])
-	 * @see #runModelsSerial(EditModel[])
+	 * @see #runModelsParallel(EditModel[], String)
+	 * @see #runModelsSerial(EditModel[], String)
 	 * @see #cancel()
 	 */
 	private volatile Timer timer;
@@ -121,10 +121,10 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	}
 
 	@Override
-	public String check(final EditModel model, final OptimizerSetup setup, final Consumer<String> logOutput, final Consumer<Boolean> whenDone, final Runnable whenStepDone) {
+	public String check(final EditModel model, final String editModelPath, final OptimizerSetup setup, final Consumer<String> logOutput, final Consumer<Boolean> whenDone, final Runnable whenStepDone) {
 		String error;
 
-		error=super.check(model,setup,logOutput,whenDone,whenStepDone);
+		error=super.check(model,editModelPath,setup,logOutput,whenDone,whenStepDone);
 		if (error!=null) return error;
 
 		kernel=getOptimizerKernel();
@@ -157,17 +157,18 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	 * Legt Simulator-Starter Objekte in {@link #simulator} für die
 	 * Modelle an.
 	 * @param model	Modelle deren Start vorbereitet werden soll
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @return	Liefert im Erfolgsfall <code>true</code>
 	 * @see #simulator
-	 * @see #runModelsParallel(EditModel[])
-	 * @see #runModelsSerial(EditModel[])
+	 * @see #runModelsParallel(EditModel[], String)
+	 * @see #runModelsSerial(EditModel[], String)
 	 */
-	private boolean prepareModels(final EditModel[] model) {
+	private boolean prepareModels(final EditModel[] model, final String editModelPath) {
 		simulator=new Object[model.length];
 		for (int i=0;i<model.length;i++) {
 			if (model[i]==null) continue;
-			final StartAnySimulator starter=new StartAnySimulator(model[i]);
-			final StartAnySimulator.PrepareError error=StartAnySimulator.testModel(model[i]);
+			final StartAnySimulator starter=new StartAnySimulator(model[i],editModelPath);
+			final StartAnySimulator.PrepareError error=StartAnySimulator.testModel(model[i],editModelPath);
 			if (error!=null) {
 				logOutput("  "+Language.tr("Optimizer.Error.ErrorStartingSimulation")+":");
 				logOutput("  "+error.error);
@@ -185,11 +186,12 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	 * Simuliert eine Reihe von Modellen.<br>
 	 * Da die Simulation der Modelle nicht inherent parallelisiert werden kann, werden stets mehrere Simulation gleichzeitig durchgeführt.
 	 * @param model	Zu simulierende Modelle
-	 * @see #runModels(EditModel[])
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
+	 * @see #runModels(EditModel[], String)
 	 */
 
-	private synchronized void runModelsParallel(final EditModel[] model) {
-		if (!prepareModels(model)) return;
+	private synchronized void runModelsParallel(final EditModel[] model, final String editModelPath) {
+		if (!prepareModels(model,editModelPath)) return;
 
 		final Runtime rt=Runtime.getRuntime();
 		final int maxThreadMemory=(int)Math.max(1,(rt.maxMemory())/1024/1024/100);
@@ -221,7 +223,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 
 	/**
 	 * Wartet auf den Abschluss der parallelen Simulationen.
-	 * @see OptimizerParallelBase#runModelsParallel(EditModel[])
+	 * @see OptimizerParallelBase#runModelsParallel(EditModel[], String)
 	 */
 	private class ParallelTimerTask extends TimerTask {
 		/** Anzahl an parallelen Threads */
@@ -281,10 +283,11 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	 * Simuliert eine Reihe von Modellen.<br>
 	 * Da die Simulation der Modelle inherent parallelisiert werden kann, wird immer nur eine Simulation gleichzeitig durchgeführt.
 	 * @param model	Zu simulierende Modelle
-	 * @see #runModels(EditModel[])
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
+	 * @see #runModels(EditModel[], String)
 	 */
-	private synchronized void runModelsSerial(final EditModel[] model) {
-		if (!prepareModels(model)) return;
+	private synchronized void runModelsSerial(final EditModel[] model, final String editModelPath) {
+		if (!prepareModels(model,editModelPath)) return;
 
 		runningSimulatorNr.set(0);
 		while (true) {
@@ -317,7 +320,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 
 	/**
 	 * Wartet auf den Abschluss einzelner Simulationen.
-	 * @see OptimizerParallelBase#runModelsSerial(EditModel[])
+	 * @see OptimizerParallelBase#runModelsSerial(EditModel[], String)
 	 */
 	private class SerialTimerTask extends TimerTask {
 		/** Timeout in Millisekunden */
@@ -381,22 +384,23 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	/**
 	 * Simuliert eine Reihe von Modellen.
 	 * @param models	Zu simulierende Modelle
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 */
-	private synchronized void runModels(final EditModel[] models) {
+	private synchronized void runModels(final EditModel[] models, final String editModelPath) {
 		final boolean hasMultiCoreModel=Stream.of(models).filter(model->model!=null && model.getSingleCoreReason().size()==0).findFirst().isPresent();
 
 		if (hasMultiCoreModel) {
-			runModelsSerial(models);
+			runModelsSerial(models,editModelPath);
 		} else {
-			runModelsParallel(models);
+			runModelsParallel(models,editModelPath);
 		}
 	}
 
 	/**
 	 * Schließt die Simulationen in einer Optimierungssrunde ab
 	 * @param statistics	Simulationsergebnisse in der aktuellen Runde
-	 * @see #runModelsParallel(EditModel[])
-	 * @see #runModelsSerial(EditModel[])
+	 * @see #runModelsParallel(EditModel[], String)
+	 * @see #runModelsSerial(EditModel[], String)
 	 */
 	private synchronized void runDone(final Statistics[] statistics) {
 		if (canceled) return;
@@ -529,7 +533,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	 * Bereitet die Simulationen der nächsten Modelle vor und startet diese ggf.
 	 * @param lastResults	Letzte Ergebniswerte
 	 * @param simulationWasEmergencyStopped	Wurden einzelne Simulationen im letzten Schritt abgebrochen?
-	 * @see #runModels(EditModel[])
+	 * @see #runModels(EditModel[], String)
 	 * @see #done(boolean)
 	 */
 	private void initNextRun(final double[] lastResults, final boolean[] simulationWasEmergencyStopped) {
@@ -562,7 +566,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 				if (removeCount>0) logOutput("("+String.format(Language.tr("Optimizer.KnownResult.Info"),removeCount)+")");
 			}
 
-			runModels(currentModels);
+			runModels(currentModels,kernel.editModelPath);
 		}
 	}
 

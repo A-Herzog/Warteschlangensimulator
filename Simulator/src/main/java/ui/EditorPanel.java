@@ -1277,7 +1277,8 @@ public final class EditorPanel extends EditorPanelBase {
 				status+="<span style=\"color: red\"><b>"+Language.tr("Window.Check.CannotFix")+"</b></span>";
 			}
 		} else {
-			final StartAnySimulator.PrepareError prepareError=StartAnySimulator.testModel(getModel());
+			final String editModelPath=(getLastFile()==null)?null:getLastFile().getParent();
+			final StartAnySimulator.PrepareError prepareError=StartAnySimulator.testModel(getModel(),editModelPath);
 			if (prepareError==null) {
 				status="<span style=\"color: green;\">"+Language.tr("Window.Check.Ok")+"</span>";
 			} else {

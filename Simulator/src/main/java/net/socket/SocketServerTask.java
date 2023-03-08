@@ -246,7 +246,7 @@ public class SocketServerTask {
 			return;
 		}
 
-		final StartAnySimulator starter=new StartAnySimulator(model,null,null,Simulator.logTypeFull);
+		final StartAnySimulator starter=new StartAnySimulator(model,null,null,null,Simulator.logTypeFull);
 		final StartAnySimulator.PrepareError prepareError=starter.prepare();
 		if (prepareError!=null) {setResult(prepareError.error.getBytes()); return;}
 		synchronized(SocketServerTask.this) {
@@ -288,7 +288,7 @@ public class SocketServerTask {
 		}
 
 		try {
-			final String error=runner.check(series);
+			final String error=runner.check(series,null);
 			if (error!=null) {setResult(error.getBytes()); return;}
 			runner.start();
 

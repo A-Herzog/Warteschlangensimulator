@@ -686,7 +686,7 @@ public class SystemInfoWindow extends JFrame {
 		menu.addSeparator();
 
 		menu.add(item=new JMenuItem(Language.tr("ThreadCalibration.Menu"),Images.SIMULATION.getIcon()));
-		item.addActionListener(e->new ThreadCalibrationDialog(this,null));
+		item.addActionListener(e->new ThreadCalibrationDialog(this,null,null));
 
 		menu.show(parent,0,parent.getHeight());
 	}

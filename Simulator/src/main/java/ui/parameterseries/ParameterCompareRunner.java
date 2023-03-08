@@ -159,13 +159,14 @@ public class ParameterCompareRunner {
 	/**
 	 * Prüft das Modell
 	 * @param setup	Parameterreihen-Setup
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
-	 * @see #check(ParameterCompareSetup)
+	 * @see #check(ParameterCompareSetup, String)
 	 */
-	private String checkIntern(final ParameterCompareSetup setup) {
+	private String checkIntern(final ParameterCompareSetup setup, final String editModelPath) {
 		/* Modell testen */
 		final EditModel editModel=setup.getEditModel();
-		final StartAnySimulator.PrepareError error=StartAnySimulator.testModel(editModel);
+		final StartAnySimulator.PrepareError error=StartAnySimulator.testModel(editModel,editModelPath);
 		if (error!=null) return error.error;
 
 		/* Prüfen, ob Parameterreihen-Modelle vorhanden sind */
@@ -224,7 +225,7 @@ public class ParameterCompareRunner {
 			/* Nur ein bestimmtes Modell simulieren */
 			final ParameterCompareSetupModel model=setup.getModels().get(modelToSimulate);
 			modelRunner[modelToSimulate]=new ParameterCompareRunnerModel(modelToSimulate,true,r->modelDone(r),s->logOutput(s),setup,outputScripts);
-			final String err=modelRunner[modelToSimulate].prepare(editModel,model);
+			final String err=modelRunner[modelToSimulate].prepare(editModel,editModelPath,model);
 			if (err!=null) return err+" ("+String.format(Language.tr("ParameterCompare.Run.Error.PreparingModel"),modelToSimulate+1,model.getName())+")";
 		} else {
 			/* Alle Modelle simulieren */
@@ -232,7 +233,7 @@ public class ParameterCompareRunner {
 				final ParameterCompareSetupModel model=setup.getModels().get(i);
 				if (model.isStatisticsAvailable()) continue;
 				modelRunner[i]=new ParameterCompareRunnerModel(i,false,r->modelDone(r),s->logOutput(s),setup,outputScripts);
-				final String err=modelRunner[i].prepare(editModel,model);
+				final String err=modelRunner[i].prepare(editModel,editModelPath,model);
 				if (err!=null) return err+" ("+String.format(Language.tr("ParameterCompare.Run.Error.PreparingModel"),i+1,model.getName())+")";
 			}
 		}
@@ -243,10 +244,11 @@ public class ParameterCompareRunner {
 	/**
 	 * Prüft das Modell
 	 * @param setup	Parameterreihen-Setup
+	 * 	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
-	public String check(final ParameterCompareSetup setup) {
-		final String error=checkIntern(setup);
+	public String check(final ParameterCompareSetup setup, final String editModelPath) {
+		final String error=checkIntern(setup,editModelPath);
 		if (error!=null) logOutput(error);
 		return error;
 	}

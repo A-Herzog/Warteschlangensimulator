@@ -264,7 +264,7 @@ public final class JSRunComplexScriptModel extends JSBaseCommand {
 
 		final EditModel editModel=runner.getChangedModel();
 		if (editModel.modelLoadData.willChangeModel()) addOutput(Language.tr("ModelLoadData.IncompatibleWarning.ScriptRunner"));
-		final StartAnySimulator starter=new StartAnySimulator(editModel);
+		final StartAnySimulator starter=new StartAnySimulator(editModel,runner.getEditModelPath());
 		final StartAnySimulator.PrepareError error=starter.prepare();
 		if (error!=null) {
 			addOutput(error.error);

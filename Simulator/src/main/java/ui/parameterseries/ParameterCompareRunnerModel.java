@@ -79,14 +79,19 @@ public class ParameterCompareRunnerModel {
 
 	/**
 	 * Zu verwendende Variationsstudien-Einstellungen
-	 * @see #prepare(EditModel, ParameterCompareSetupModel)
+	 * @see #prepare(EditModel, String, ParameterCompareSetupModel)
 	 */
 	private ParameterCompareSetupModel model;
 
 	/**
+	 * Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
+	 */
+	private String editModelPath;
+
+	/**
 	 * Gegenüber dem Ausgangsmodell auf Basis von {@link #model}
 	 * variiertes Simulationsmodell.
-	 * @see #prepare(EditModel, ParameterCompareSetupModel)
+	 * @see #prepare(EditModel, String, ParameterCompareSetupModel)
 	 */
 	private EditModel changedModel;
 
@@ -291,11 +296,13 @@ public class ParameterCompareRunnerModel {
 	/**
 	 * Bereitet ein Modell für die Simulation vor
 	 * @param baseModel	Ausgangs-Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param model	Zu verwendende Variationsstudien-Einstellungen
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
-	public String prepare(final EditModel baseModel, final ParameterCompareSetupModel model) {
+	public String prepare(final EditModel baseModel, final String editModelPath, final ParameterCompareSetupModel model) {
 		this.model=model;
+		this.editModelPath=editModelPath;
 
 		/* Bisherige Ergebnisse löschen */
 		model.clearOutputs();
@@ -324,7 +331,7 @@ public class ParameterCompareRunnerModel {
 	 * @return Fehlermeldung oder im Erfolgsfall <code>null</code>
 	 */
 	public String start() {
-		final StartAnySimulator starter=new StartAnySimulator(changedModel);
+		final StartAnySimulator starter=new StartAnySimulator(changedModel,editModelPath);
 		final StartAnySimulator.PrepareError error=starter.prepare();
 		if (error!=null) {
 			simulator=null;

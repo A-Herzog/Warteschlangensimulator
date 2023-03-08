@@ -49,14 +49,14 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 
 	/**
 	 * Simulator für den aktuellen Optimierungsschritt
-	 * @see #runModel(int, EditModel)
+	 * @see #runModel(int, EditModel, String)
 	 */
 	private volatile AnySimulator simulator;
 
 	/**
 	 * Timer, der prüft, welche Simulationen laufen und ggf.
 	 * weitere Simulationen startet.
-	 * @see #runModel(int, EditModel)
+	 * @see #runModel(int, EditModel, String)
 	 * @see #cancel()
 	 */
 	private volatile Timer timer;
@@ -85,10 +85,10 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 	}
 
 	@Override
-	public String check(final EditModel model, final OptimizerSetup setup, final Consumer<String> logOutput, final Consumer<Boolean> whenDone, final Runnable whenStepDone) {
+	public String check(final EditModel model, final String editModelPath, final OptimizerSetup setup, final Consumer<String> logOutput, final Consumer<Boolean> whenDone, final Runnable whenStepDone) {
 		String error;
 
-		error=super.check(model,setup,logOutput,whenDone,whenStepDone);
+		error=super.check(model,editModelPath,setup,logOutput,whenDone,whenStepDone);
 		if (error!=null) return error;
 
 		kernel=getOptimizerKernel();
@@ -117,9 +117,10 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 	 * Simuliert ein Modell.
 	 * @param stepNr	Optimierungsschritt
 	 * @param model	Zu simulierendes Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 */
-	private synchronized void runModel(final int stepNr, final EditModel model) {
-		final StartAnySimulator starter=new StartAnySimulator(model);
+	private synchronized void runModel(final int stepNr, final EditModel model, final String editModelPath) {
+		final StartAnySimulator starter=new StartAnySimulator(model,editModelPath);
 		final StartAnySimulator.PrepareError error=starter.prepare();
 		if (error!=null) {
 			logOutput("  "+Language.tr("Optimizer.Error.ErrorStartingSimulation")+":");
@@ -135,7 +136,7 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 
 	/**
 	 * Wartet auf den Abschluss einer Simulation.
-	 * @see OptimizerSerialBase#runModel(int, EditModel)
+	 * @see OptimizerSerialBase#runModel(int, EditModel, String)
 	 */
 	private class SimTimerTask extends TimerTask {
 		/** Optimierungsschritt */
@@ -185,7 +186,7 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 	 * Wird beim Abschluss einer Simulation aufgerufen.
 	 * @param stepNr	Optimierungsschritt
 	 * @param statistics	Statistikergebnisse
-	 * @see #runModel(int, EditModel)
+	 * @see #runModel(int, EditModel, String)
 	 */
 	private synchronized void runDone(final int stepNr, final Statistics statistics) {
 		if (canceled) return;
@@ -276,7 +277,7 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 	 * @param stepNr	Optimierungsschritt
 	 * @param lastResult	Letzter Ergebniswert
 	 * @param simulationWasEmergencyStopped	Wurde die Simulation im letzten Schritt abgebrochen?
-	 * @see #runModel(int, EditModel)
+	 * @see #runModel(int, EditModel, String)
 	 * @see #done(boolean)
 	 */
 	private void initNextRun(final int stepNr, final double lastResult, final boolean simulationWasEmergencyStopped) {
@@ -288,7 +289,7 @@ public abstract class OptimizerSerialBase extends OptimizerBase {
 		if (currentModel==null) {
 			done(true);
 		} else {
-			runModel(stepNr,currentModel);
+			runModel(stepNr,currentModel,kernel.editModelPath);
 		}
 	}
 

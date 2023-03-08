@@ -48,7 +48,7 @@ public class CalculatorWindowPageScript extends CalculatorWindowPage {
 	public CalculatorWindowPageScript(final Window window, final JTabbedPane tabs) {
 		super(tabs);
 
-		add(scriptEditor=new JSModelRunnerPanel(window,null,null,null,false));
+		add(scriptEditor=new JSModelRunnerPanel(window,null,null,null,null,false));
 		scriptEditor.setScript(SetupData.getSetup().scriptCalculator);
 	}
 

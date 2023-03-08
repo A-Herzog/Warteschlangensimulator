@@ -38,9 +38,10 @@ public abstract class OptimizerParallelKernelBase extends OptimizerKernelBase {
 	 * @param setup	Zu verwendende Optimierereinstellungen
 	 * @param optimizer	Optimierer-Objekt, welches diesen Kernel verwendet
 	 * @param startModel	Ausgangs-Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 */
-	public OptimizerParallelKernelBase(final OptimizerSetup setup, final OptimizerBase optimizer, final EditModel startModel) {
-		super(setup,startModel);
+	public OptimizerParallelKernelBase(final OptimizerSetup setup, final OptimizerBase optimizer, final EditModel startModel, final String editModelPath) {
+		super(setup,startModel,editModelPath);
 		this.optimizer=optimizer;
 	}
 

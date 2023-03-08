@@ -47,9 +47,10 @@ public class OptimizerParallelKernelGenetic extends OptimizerParallelKernelBase 
 	 * @param setup	Zu verwendende Optimierereinstellungen
 	 * @param optimizer	Optimierer-Objekt, welches diesen Kernel verwendet
 	 * @param startModel	Ausgangs-Editor-Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 */
-	public OptimizerParallelKernelGenetic(final OptimizerSetup setup, final OptimizerBase optimizer, final EditModel startModel) {
-		super(setup,optimizer,startModel);
+	public OptimizerParallelKernelGenetic(final OptimizerSetup setup, final OptimizerBase optimizer, final EditModel startModel, final String editModelPath) {
+		super(setup,optimizer,startModel,editModelPath);
 
 		this.populationSize=Math.max(2,setup.geneticPopulationSize);
 		double d=1-Math.min(0.95,Math.max(0.1,setup.geneticEvolutionPressure));

@@ -127,10 +127,11 @@ public final class OptimizerPanelPrepareDialog extends JDialog {
 	 * der Dialog wieder ausgeblendet wurde und Ergebnisse vorliegen.
 	 * @param owner	Übergeordnetes Fenster
 	 * @param model	Zu prüfendes und zu simulierendes Modell
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param statistics	Optionales Statistik-Objekt (kann auch <code>null</code> sein). Wenn diese Statistik zu dem Modell passt, wird dieses Objekt zurückgegeben und nicht erst eine Mini-Simulation gestartet
 	 * @param mode	Gibt an, für welchen Zweck die Modellvorbereitung durchgeführt werden soll (Anpassung des Dialogtitels)
 	 */
-	public OptimizerPanelPrepareDialog(final Component owner, final EditModel model, final Statistics statistics, final Mode mode) {
+	public OptimizerPanelPrepareDialog(final Component owner, final EditModel model, final String editModelPath, final Statistics statistics, final Mode mode) {
 		super(getOwnerWindow(owner),getTitle(mode),Dialog.ModalityType.DOCUMENT_MODAL);
 
 		if (statistics!=null && statistics.editModel.equalsEditModel(model)) {
@@ -179,7 +180,7 @@ public final class OptimizerPanelPrepareDialog extends JDialog {
 
 		/* Simulation starten */
 
-		final StartAnySimulator starter=new StartAnySimulator(simpleModel);
+		final StartAnySimulator starter=new StartAnySimulator(simpleModel,editModelPath);
 		final StartAnySimulator.PrepareError prepareError=starter.prepare(false); /* false = keinen LoadBalancer für wenige Kunden */
 		if (prepareError!=null) {
 			if (prepareError.error!=null) error=prepareError.error;

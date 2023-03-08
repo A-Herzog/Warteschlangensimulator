@@ -47,6 +47,8 @@ public class JSModelRunner {
 	private final String script;
 	/** Editor-Modell auf dessen Basis die JS-Datenreihe erstellt werden soll */
 	private final EditModel model;
+	/** Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen) */
+	private final String editModelPath;
 	/** Einstellungen zu Import und Classpath für Skripte */
 	private final ImportSettingsBuilder scriptSettings;
 	/** Wird aufgerufen, wenn Log-Ausgaben erfolgen sollen. */
@@ -67,14 +69,16 @@ public class JSModelRunner {
 	/**
 	 * Konstruktor der Klasse <code>JSModelRunner</code>
 	 * @param model	Editor-Modell auf dessen Basis die JS-Datenreihe erstellt werden soll
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @param mode	Skriptmodus
 	 * @param script	Auszuführendes Skript
 	 * @param outputNotify	Wird aufgerufen, wenn Log-Ausgaben erfolgen sollen.
 	 * @param doneNotify	Wird aufgerufen, wenn die Skriptausführung abgeschlossen wurde.
 	 */
-	public JSModelRunner(final EditModel model, final ScriptEditorPanel.ScriptMode mode, final String script, final Consumer<String> outputNotify, final Runnable doneNotify) {
+	public JSModelRunner(final EditModel model, final String editModelPath, final ScriptEditorPanel.ScriptMode mode, final String script, final Consumer<String> outputNotify, final Runnable doneNotify) {
 		canceled=false;
 		this.model=model;
+		this.editModelPath=editModelPath;
 		scriptSettings=new ImportSettingsBuilder(model);
 		this.mode=mode;
 		this.script=script;
@@ -89,7 +93,7 @@ public class JSModelRunner {
 	public String check() {
 		if (model==null) return null;
 
-		Object obj=RunModel.getRunModel(model,true,SetupData.getSetup().useMultiCoreSimulation);
+		Object obj=RunModel.getRunModel(model,editModelPath,true,SetupData.getSetup().useMultiCoreSimulation);
 		if (obj instanceof StartAnySimulator.PrepareError) return ((StartAnySimulator.PrepareError)obj).error;
 
 		return null;
@@ -103,7 +107,7 @@ public class JSModelRunner {
 			pendingOutput.setLength(0);
 			switch (mode) {
 			case Javascript:
-				scriptRunner=new JSRunComplexScript(model,line->output(line));
+				scriptRunner=new JSRunComplexScript(model,editModelPath,line->output(line));
 				scriptRunner.run(script);
 				break;
 			case Java:
@@ -115,7 +119,7 @@ public class JSModelRunner {
 					runner.parameter.fileoutput=new OutputImpl(line->output(line),true);
 					runner.parameter.statistics=new StatisticsImpl(line->output(line),null,null,true);
 					if (model!=null) {
-						runner.parameter.model=new ModelImpl(line->output(line),model,runner.parameter.statistics);
+						runner.parameter.model=new ModelImpl(line->output(line),model,editModelPath,runner.parameter.statistics);
 					}
 					runner.run();
 					if (runner.getStatus()!=DynamicStatus.OK) output(DynamicFactory.getLongStatusText(runner));
