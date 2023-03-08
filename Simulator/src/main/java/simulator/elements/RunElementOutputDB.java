@@ -43,6 +43,8 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementOutputDB
  */
 public class RunElementOutputDB extends RunElementPassThrough {
+	/** Ausgabe aktiv? */
+	private boolean outputActive;
 	/** Liste mit den Modi der Ausgabeelemente */
 	private ModelElementOutputDB.OutputMode[] mode;
 	/** Zusätzliche Daten zu den jeweiligen Ausgabe-Datensätzen in {@link #mode} */
@@ -72,8 +74,10 @@ public class RunElementOutputDB extends RunElementPassThrough {
 		final String edgeError=output.buildEdgeOut(outputElement);
 		if (edgeError!=null) return edgeError;
 
-		/* Datenbank & Tabelle */
+		/* Ausgabe aktiv? */
+		output.outputActive=outputElement.isOutputActive();
 
+		/* Datenbank & Tabelle */
 		output.settings=outputElement.getDb();
 		output.tableName=outputElement.getTable();
 		try (DBConnect connect=new DBConnect(output.settings,false)) {
@@ -84,7 +88,6 @@ public class RunElementOutputDB extends RunElementPassThrough {
 		}
 
 		/* Ausgaben */
-
 		final List<ModelElementOutputDB.OutputMode> modeList=outputElement.getModes();
 		final List<String> columnList=outputElement.getColumns();
 		final List<String> dataList=outputElement.getData();
@@ -217,7 +220,7 @@ public class RunElementOutputDB extends RunElementPassThrough {
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.OutputDB"),String.format(Language.tr("Simulation.Log.OutputDB.Info"),client.logInfo(simData),name));
 
-		if (!client.isWarmUp && client.inStatistics) {
+		if (!client.isWarmUp && client.inStatistics && outputActive) {
 			/* Ausgabe durchführen */
 			processOutput(simData,client);
 		}

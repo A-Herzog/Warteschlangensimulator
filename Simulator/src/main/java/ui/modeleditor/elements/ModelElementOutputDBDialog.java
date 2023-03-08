@@ -25,6 +25,7 @@ import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -50,6 +51,11 @@ public class ModelElementOutputDBDialog extends ModelElementBaseDialog {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID = -4202107646574026037L;
+
+	/**
+	 * Checkbox: Ausgabe aktiv?
+	 */
+	private JCheckBox outputActive;
 
 	/**
 	 * Panel zur Konfiguration der Datenbankverbindung
@@ -122,8 +128,11 @@ public class ModelElementOutputDBDialog extends ModelElementBaseDialog {
 			JPanel line;
 			JLabel label;
 
-			/* Datenbank */
+			/* Aktiv? */
+			upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(outputActive=new JCheckBox("<html><body><b>"+Language.tr("Surface.OutputDB.Dialog.OutputActive")+"</b></body></html>",((ModelElementOutputDB)element).isOutputActive()));
 
+			/* Datenbank */
 			upperPanel.add(db=new DBSettingsPanel(((ModelElementOutputDB)element).getDb(),readOnly));
 			db.addChangeListener(()->dbSettingsChanged());
 
@@ -132,7 +141,6 @@ public class ModelElementOutputDBDialog extends ModelElementBaseDialog {
 			errorLabel.setVisible(false);
 
 			/* Datenbanktabelle */
-
 			upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(label=new JLabel(Language.tr("Surface.OutputDB.Dialog.Table")+":"));
 			line.add(comboTable=new JComboBox<>(new String[]{((ModelElementOutputDB)element).getTable()}));
@@ -140,9 +148,7 @@ public class ModelElementOutputDBDialog extends ModelElementBaseDialog {
 			comboTable.addActionListener(e->tableChanged());
 
 			/* Main-Area */
-
 			final JTableExt table=new JTableExt();
-
 			table.setModel(tableModel=new OutputDBTableModel(table,((ModelElementOutputDB)element).getModes(),((ModelElementOutputDB)element).getColumns(),((ModelElementOutputDB)element).getData(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),readOnly));
 			table.setIsPanelCellTable(0);
 			table.setIsPanelCellTable(1);
@@ -155,7 +161,6 @@ public class ModelElementOutputDBDialog extends ModelElementBaseDialog {
 			content.add(new JScrollPane(table),BorderLayout.CENTER);
 
 			/* Start */
-
 			dbSettingsChanged();
 		}
 
@@ -254,6 +259,8 @@ public class ModelElementOutputDBDialog extends ModelElementBaseDialog {
 		super.storeData();
 
 		if (element instanceof ModelElementOutputDB) {
+
+			((ModelElementOutputDB)element).setOutputActive(outputActive.isSelected());
 
 			/* Datenbank */
 

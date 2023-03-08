@@ -97,6 +97,13 @@ public class ModelElementOutputDB extends ModelElementMultiInSingleOutBox implem
 	}
 
 	/**
+	 * Ist die Ausgabe als Ganzes aktiv?
+	 * @see #isOutputActive()
+	 * @see #setOutputActive(boolean)
+	 */
+	private boolean outputActive;
+
+	/**
 	 * Einstellungen zur Verbindung zur Datenbank
 	 * @see #getDb()
 	 */
@@ -134,6 +141,7 @@ public class ModelElementOutputDB extends ModelElementMultiInSingleOutBox implem
 	 */
 	public ModelElementOutputDB(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_DOCUMENT);
+		outputActive=true;
 		db=new DBSettings();
 		table="";
 		mode=new ArrayList<>();
@@ -180,6 +188,24 @@ public class ModelElementOutputDB extends ModelElementMultiInSingleOutBox implem
 	@Override
 	public String getToolTip() {
 		return Language.tr("Surface.OutputDB.Tooltip");
+	}
+
+	/**
+	 * Ist die Ausgabe als Ganzes aktiv?
+	 * @return	Ausgabe aktiv
+	 * @see #setOutputActive(boolean)
+	 */
+	public boolean isOutputActive() {
+		return outputActive;
+	}
+
+	/**
+	 * Stellt ein, ob die Ausgabe aktiv sein soll.
+	 * @param outputActive	Ausgabe aktiv
+	 * @see #isOutputActive()
+	 */
+	public void setOutputActive(boolean outputActive) {
+		this.outputActive=outputActive;
 	}
 
 	/**
@@ -240,15 +266,17 @@ public class ModelElementOutputDB extends ModelElementMultiInSingleOutBox implem
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementOutputDB)) return false;
+		final ModelElementOutputDB otherOutput=(ModelElementOutputDB)element;
 
-		if (!db.equalsDBSettings(((ModelElementOutputDB)element).db)) return false;
-		if (!table.equals(((ModelElementOutputDB)element).table)) return false;
-		if (mode.size()!=((ModelElementOutputDB)element).mode.size()) return false;
-		if (column.size()!=((ModelElementOutputDB)element).column.size()) return false;
-		if (data.size()!=((ModelElementOutputDB)element).data.size()) return false;
-		for (int i=0;i<mode.size();i++) if (!((ModelElementOutputDB)element).mode.get(i).equals(mode.get(i))) return false;
-		for (int i=0;i<column.size();i++) if (!((ModelElementOutputDB)element).column.get(i).equals(column.get(i))) return false;
-		for (int i=0;i<data.size();i++) if (!((ModelElementOutputDB)element).data.get(i).equals(data.get(i))) return false;
+		if (outputActive!=otherOutput.outputActive) return false;
+		if (!db.equalsDBSettings(otherOutput.db)) return false;
+		if (!table.equals(otherOutput.table)) return false;
+		if (mode.size()!=otherOutput.mode.size()) return false;
+		if (column.size()!=otherOutput.column.size()) return false;
+		if (data.size()!=otherOutput.data.size()) return false;
+		for (int i=0;i<mode.size();i++) if (!otherOutput.mode.get(i).equals(mode.get(i))) return false;
+		for (int i=0;i<column.size();i++) if (!otherOutput.column.get(i).equals(column.get(i))) return false;
+		for (int i=0;i<data.size();i++) if (!otherOutput.data.get(i).equals(data.get(i))) return false;
 
 		return true;
 	}
@@ -261,11 +289,13 @@ public class ModelElementOutputDB extends ModelElementMultiInSingleOutBox implem
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementOutputDB) {
-			db=((ModelElementOutputDB)element).db.clone();
-			table=((ModelElementOutputDB)element).table;
-			mode.addAll(((ModelElementOutputDB)element).mode);
-			column.addAll(((ModelElementOutputDB)element).column);
-			data.addAll(((ModelElementOutputDB)element).data);
+			final ModelElementOutputDB source=(ModelElementOutputDB)element;
+			outputActive=source.outputActive;
+			db=source.db.clone();
+			table=source.table;
+			mode.addAll(source.mode);
+			column.addAll(source.column);
+			data.addAll(source.data);
 		}
 	}
 
@@ -298,6 +328,16 @@ public class ModelElementOutputDB extends ModelElementMultiInSingleOutBox implem
 	@Override
 	public String getTypeName() {
 		return Language.tr("Surface.OutputDB.Name.Short");
+	}
+
+	/**
+	 * Liefert optional eine zusätzliche Bezeichnung des Typs des Elemente (zur Anzeige in der Element-Box in einer zweiten Zeile)
+	 * @return	Zusätzlicher Name des Typs (kann <code>null</code> oder leer sein)
+	 */
+	@Override
+	public String getSubTypeName() {
+		if (surface==null || outputActive) return null;
+		return Language.tr("Surface.OutputDB.Disabled");
 	}
 
 	/**
@@ -374,6 +414,11 @@ public class ModelElementOutputDB extends ModelElementMultiInSingleOutBox implem
 
 		Element sub;
 
+		if (!outputActive) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.OutputDB.XML.Active")));
+			sub.setTextContent("0");
+		}
+
 		db.saveToXML(doc,node);
 
 		if (table!=null && !table.trim().isEmpty()) {
@@ -417,6 +462,11 @@ public class ModelElementOutputDB extends ModelElementMultiInSingleOutBox implem
 	protected String loadProperty(final String name, final String content, final Element node) {
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
+
+		if (Language.trAll("Surface.OutputDB.XML.Active",name)) {
+			outputActive=!content.equals("0");
+			return null;
+		}
 
 		if (DBSettings.isDBSettingsNode(node)) {
 			return db.loadFromXML(node);
@@ -498,6 +548,10 @@ public class ModelElementOutputDB extends ModelElementMultiInSingleOutBox implem
 			if (m==OutputMode.MODE_TEXT || m==OutputMode.MODE_EXPRESSION || m==OutputMode.MODE_STRING) value=text+": "+data.get(i); else value=text;
 			final String output=value+" ("+Language.tr("ModelDescription.OutputDB.Column")+": "+column.get(i)+")";
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDB.Property"),output,3000);
+		}
+
+		if (!outputActive) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDB.Active"),Language.tr("ModelDescription.OutputDB.Active.Off"),10000);
 		}
 	}
 

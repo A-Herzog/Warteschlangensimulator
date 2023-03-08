@@ -144,6 +144,13 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	}
 
 	/**
+	 * Ist die Ausgabe als Ganzes aktiv?
+	 * @see #isOutputActive()
+	 * @see #setOutputActive(boolean)
+	 */
+	private boolean outputActive;
+
+	/**
 	 * Dateiname der Datei für die Ausgaben
 	 * @see #getOutputFile()
 	 * @see #setOutputFile(String)
@@ -192,6 +199,7 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	 */
 	public ModelElementOutput(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_DOCUMENT);
+		outputActive=true;
 		output=new ArrayList<>();
 		headingMode=HeadingMode.AUTO;
 		outputHeading=new ArrayList<>();
@@ -241,6 +249,24 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	@Override
 	public String getToolTip() {
 		return Language.tr("Surface.Output.Tooltip");
+	}
+
+	/**
+	 * Ist die Ausgabe als Ganzes aktiv?
+	 * @return	Ausgabe aktiv
+	 * @see #setOutputActive(boolean)
+	 */
+	public boolean isOutputActive() {
+		return outputActive;
+	}
+
+	/**
+	 * Stellt ein, ob die Ausgabe aktiv sein soll.
+	 * @param outputActive	Ausgabe aktiv
+	 * @see #isOutputActive()
+	 */
+	public void setOutputActive(boolean outputActive) {
+		this.outputActive=outputActive;
 	}
 
 	/**
@@ -347,6 +373,8 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 		if (!(element instanceof ModelElementOutput)) return false;
 		final ModelElementOutput other=(ModelElementOutput)element;
 
+		if (outputActive!=other.outputActive) return false;
+
 		if (outputFile!=null) {
 			if (!outputFile.equals(other.outputFile)) return false;
 			final String outputFileLower=outputFile.toLowerCase();
@@ -378,6 +406,7 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementOutput) {
 			final ModelElementOutput source=(ModelElementOutput)element;
+			outputActive=source.outputActive;
 			outputFile=source.outputFile;
 			outputFileOverwrite=source.outputFileOverwrite;
 			systemFormat=source.systemFormat;
@@ -416,6 +445,16 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	@Override
 	public String getTypeName() {
 		return Language.tr("Surface.Output.Name.Short");
+	}
+
+	/**
+	 * Liefert optional eine zusätzliche Bezeichnung des Typs des Elemente (zur Anzeige in der Element-Box in einer zweiten Zeile)
+	 * @return	Zusätzlicher Name des Typs (kann <code>null</code> oder leer sein)
+	 */
+	@Override
+	public String getSubTypeName() {
+		if (surface==null || outputActive) return null;
+		return Language.tr("Surface.Output.Disabled");
 	}
 
 	/**
@@ -547,6 +586,11 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 
 		Element sub;
 
+		if (!outputActive) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Output.XML.Active")));
+			sub.setTextContent("0");
+		}
+
 		if (!outputFile.isEmpty()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Output.XML.File")));
 			sub.setTextContent(outputFile);
@@ -619,6 +663,11 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	protected String loadProperty(final String name, final String content, final Element node) {
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
+
+		if (Language.trAll("Surface.Output.XML.Active",name)) {
+			outputActive=!content.equals("0");
+			return null;
+		}
 
 		if (Language.trAll("Surface.Output.XML.File",name)) {
 			outputFile=content;
@@ -712,6 +761,10 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 
 		if (!outputFile.trim().isEmpty()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Output.File"),outputFile,3000);
+		}
+
+		if (!outputActive) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Output.Active"),Language.tr("ModelDescription.Output.Active.Off"),10000);
 		}
 	}
 

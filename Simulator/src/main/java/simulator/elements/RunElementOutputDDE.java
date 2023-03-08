@@ -43,6 +43,8 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementOutputDDE
  */
 public class RunElementOutputDDE extends RunElementPassThrough {
+	/** Ausgabe aktiv? */
+	private boolean outputActive;
 	/** Ausgabe-DDE-Arbeitsmappe */
 	private String workbook;
 	/** Ausgabe-DDE-Tabelle in Arbeitsmappe {@link #workbook} */
@@ -74,6 +76,9 @@ public class RunElementOutputDDE extends RunElementPassThrough {
 		/* Auslaufende Kante */
 		final String edgeError=output.buildEdgeOut(outputElement);
 		if (edgeError!=null) return edgeError;
+
+		/* Ausgabe aktiv? */
+		output.outputActive=outputElement.isOutputActive();
 
 		/* DDE im Allgemeinen */
 		if (!new DDEConnect().available()) return String.format(Language.tr("Simulation.Creator.DDENotAvailable"),element.getId());
@@ -234,7 +239,7 @@ public class RunElementOutputDDE extends RunElementPassThrough {
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.OutputDDE"),String.format(Language.tr("Simulation.Log.OutputDDE.Info"),client.logInfo(simData),name));
 
-		if (!client.isWarmUp && client.inStatistics) {
+		if (!client.isWarmUp && client.inStatistics && outputActive) {
 			/* Ausgabe durchführen */
 			processOutput(simData,client);
 		}

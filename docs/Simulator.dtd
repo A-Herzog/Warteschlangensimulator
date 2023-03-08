@@ -1093,13 +1093,14 @@
 <!ELEMENT ModellElementAufzeichnungAusdruck1 (#PCDATA)>
 <!ELEMENT ModellElementAufzeichnungAusdruck2 (#PCDATA)>
 
-<!ELEMENT ModellElementDateiausgabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabedatei | ModellElementAusgabeElement | ModellElementAusgabeElementUeberschrift)*>
+<!ELEMENT ModellElementDateiausgabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementDateiausgabeAktiv | ModellElementAusgabedatei | ModellElementAusgabeElement | ModellElementAusgabeElementUeberschrift)*>
 <!ATTLIST ModellElementDateiausgabe
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
   statistik		CDATA	#IMPLIED
   SymbolSpiegeln	CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementDateiausgabeAktiv (#PCDATA)>
 <!ELEMENT ModellElementAusgabedatei (#PCDATA)>
 <!ATTLIST ModellElementAusgabedatei
   SystemFormat		CDATA	#IMPLIED
@@ -1117,26 +1118,28 @@
   Wert	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementScriptDateiausgabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabedatei | ModellElementAusgabeskript | ModellElementAusgabeskriptUeberschrift)*>
+<!ELEMENT ModellElementScriptDateiausgabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementScriptDateiausgabeAktiv | ModellElementAusgabedatei | ModellElementAusgabeskript | ModellElementAusgabeskriptUeberschrift)*>
 <!ATTLIST ModellElementScriptDateiausgabe
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
   statistik		CDATA	#IMPLIED
   SymbolSpiegeln	CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementScriptDateiausgabeAktiv (#PCDATA)>
 <!ELEMENT ModellElementAusgabeskript (#PCDATA)>
 <!ELEMENT ModellElementAusgabeskriptUeberschrift (#PCDATA)>
 <!ATTLIST ModellElementAusgabeskriptUeberschrift
   Aktiv	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementDatenbankausgabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | DatenbankVerbindung | ModellElementDatenbankausgabeTabelle | ModellElementDatenbankausgabeElement)*>
+<!ELEMENT ModellElementDatenbankausgabe (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementDatenbankausgabeAktiv | DatenbankVerbindung | ModellElementDatenbankausgabeTabelle | ModellElementDatenbankausgabeElement)*>
 <!ATTLIST ModellElementDatenbankausgabe
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
   statistik		CDATA	#IMPLIED
   SymbolSpiegeln	CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementDatenbankausgabeAktiv (#PCDATA)>
 <!ELEMENT ModellElementDatenbankausgabeTabelle (#PCDATA)>
 <!ELEMENT ModellElementDatenbankausgabeElement EMPTY>
 <!ATTLIST ModellElementDatenbankausgabeElement
@@ -1145,13 +1148,14 @@
   Typ		CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementAusgabeDDE (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabeDDEArbeitsmappe | ModellElementAusgabeDDETabelle | ModellElementAusgabeDDEStartSpalte | ModellElementAusgabeDDEStartzeile | ModellElementAusgabeDDEElement)*>
+<!ELEMENT ModellElementAusgabeDDE (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabeDDEAktiv | ModellElementAusgabeDDEArbeitsmappe | ModellElementAusgabeDDETabelle | ModellElementAusgabeDDEStartSpalte | ModellElementAusgabeDDEStartzeile | ModellElementAusgabeDDEElement)*>
 <!ATTLIST ModellElementAusgabeDDE
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
   statistik		CDATA	#IMPLIED
   SymbolSpiegeln	CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementAusgabeDDEAktiv (#PCDATA)>
 <!ELEMENT ModellElementAusgabeDDEArbeitsmappe (#PCDATA)>
 <!ELEMENT ModellElementAusgabeDDETabelle (#PCDATA)>
 <!ELEMENT ModellElementAusgabeDDEStartSpalte (#PCDATA)>
@@ -1162,13 +1166,14 @@
   Typ		CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementAusgabeLog (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabeElement)*>
+<!ELEMENT ModellElementAusgabeLog (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementAusgabeLogAktiv | ModellElementAusgabeElement)*>
 <!ATTLIST ModellElementAusgabeLog
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
   statistik		CDATA	#IMPLIED
   SymbolSpiegeln	CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementAusgabeLogAktiv (#PCDATA)>
 
 <!ELEMENT ModellElementBenutzerstatistik (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBenutzerstatistikEintrag)*>
 <!ATTLIST ModellElementBenutzerstatistik
@@ -3719,13 +3724,14 @@
 <!ELEMENT ModelElementRecordExpression1 (#PCDATA)>
 <!ELEMENT ModelElementRecordExpression2 (#PCDATA)>
 
-<!ELEMENT ModelElementOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOutputFile | ModelElementOutputElement | ModelElementOutputElementHeading)*>
+<!ELEMENT ModelElementOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOutputActive | ModelElementOutputFile | ModelElementOutputElement | ModelElementOutputElementHeading)*>
 <!ATTLIST ModelElementOutput
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
   statistics	CDATA	#IMPLIED
   MirrorSymbol	CDATA	#IMPLIED
 >
+<!ELEMENT ModelElementOutputActive (#PCDATA)>
 <!ELEMENT ModelElementOutputFile (#PCDATA)>
 <!ATTLIST ModelElementOutputFile
   SystemFormat	CDATA	#IMPLIED
@@ -3743,26 +3749,28 @@
   Value	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementScriptOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOutputFile | ModelElementOutputScript | ModelElementOutputScriptHeading)*>
+<!ELEMENT ModelElementScriptOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementScriptOutputActive | ModelElementOutputFile | ModelElementOutputScript | ModelElementOutputScriptHeading)*>
 <!ATTLIST ModelElementScriptOutput
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
   statistics	CDATA	#IMPLIED
   MirrorSymbol	CDATA	#IMPLIED
 >
+<!ELEMENT ModelElementScriptOutputActive (#PCDATA)>
 <!ELEMENT ModelElementOutputScript (#PCDATA)>
 <!ELEMENT ModelElementOutputScriptHeading (#PCDATA)>
 <!ATTLIST ModelElementOutputScriptHeading
   Active	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementDatabaseOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | DatabaseConnection | ModelElementDatabaseOutputTable | ModelElementDatabaseOutputElement)*>
+<!ELEMENT ModelElementDatabaseOutput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDatabaseOutputActive | DatabaseConnection | ModelElementDatabaseOutputTable | ModelElementDatabaseOutputElement)*>
 <!ATTLIST ModelElementDatabaseOutput
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
   statistics	CDATA	#IMPLIED
   MirrorSymbol	CDATA	#IMPLIED
 >
+<!ELEMENT ModelElementDatabaseOutputActive (#PCDATA)>
 <!ELEMENT ModelElementDatabaseOutputTable (#PCDATA)>
 <!ELEMENT ModelElementDatabaseOutputElement EMPTY>
 <!ATTLIST ModelElementDatabaseOutputElement
@@ -3771,13 +3779,14 @@
   Type		CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementOutputDDE (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOutputDDEWorkbook | ModelElementOutputDDETable | ModelElementOutputDDEStartColumn | ModelElementOutputDDEStartRow | ModelElementOutputDDEElement)*>
+<!ELEMENT ModelElementOutputDDE (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOutputDDEActive | ModelElementOutputDDEWorkbook | ModelElementOutputDDETable | ModelElementOutputDDEStartColumn | ModelElementOutputDDEStartRow | ModelElementOutputDDEElement)*>
 <!ATTLIST ModelElementOutputDDE
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
   statistics	CDATA	#IMPLIED
   MirrorSymbol	CDATA	#IMPLIED
 >
+<!ELEMENT ModelElementOutputDDEActive (#PCDATA)>
 <!ELEMENT ModelElementOutputDDEWorkbook (#PCDATA)>
 <!ELEMENT ModelElementOutputDDETable (#PCDATA)>
 <!ELEMENT ModelElementOutputDDEStartColumn (#PCDATA)>
@@ -3788,13 +3797,14 @@
   Type		CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementOutputLog (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOutputElement)*>
+<!ELEMENT ModelElementOutputLog (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementOutputLogActive | ModelElementOutputElement)*>
 <!ATTLIST ModelElementOutputLog
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
   statistics	CDATA	#IMPLIED
   MirrorSymbol	CDATA	#IMPLIED
 >
+<!ELEMENT ModelElementOutputLogActive (#PCDATA)>
 
 <!ELEMENT ModelElementUserStatistics (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementUserStatisticsRecord)*>
 <!ATTLIST ModelElementUserStatistics

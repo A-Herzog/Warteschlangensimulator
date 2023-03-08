@@ -41,6 +41,8 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementOutputJS
  */
 public class RunElementOutputJS extends RunElementPassThrough {
+	/** Ausgabe aktiv? */
+	private boolean outputActive;
 	/** Ausgabedatei */
 	private File outputFile;
 	/** Wenn die Ausgabedatei schon besteht, soll diese überschrieben werden (anstatt Daten anzuhängen)? */
@@ -77,6 +79,9 @@ public class RunElementOutputJS extends RunElementPassThrough {
 		/* Auslaufende Kante */
 		final String edgeError=output.buildEdgeOut(outputElement);
 		if (edgeError!=null) return edgeError;
+
+		/* Ausgabe aktiv? */
+		output.outputActive=outputElement.isOutputActive();
 
 		/* Ausgabedatei */
 		if (outputElement.getOutputFile().trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoOutputFile"),element.getId());
@@ -230,7 +235,7 @@ public class RunElementOutputJS extends RunElementPassThrough {
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.OutputJS"),String.format(Language.tr("Simulation.Log.OutputJS.Info"),client.logInfo(simData),name));
 
-		if (!client.isWarmUp && client.inStatistics) {
+		if (!client.isWarmUp && client.inStatistics && outputActive) {
 			/* Ausgabe durchführen */
 			processOutput(simData,client);
 		}

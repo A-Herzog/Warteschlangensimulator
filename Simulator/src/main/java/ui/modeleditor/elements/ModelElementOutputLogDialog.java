@@ -17,10 +17,12 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -41,6 +43,11 @@ public class ModelElementOutputLogDialog extends ModelElementBaseDialog {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID=6523288780221631523L;
+
+	/**
+	 * Checkbox: Ausgabe aktiv?
+	 */
+	private JCheckBox outputActive;
 
 	/**
 	 * Tabelle zur Konfiguration der auszugebenden Daten
@@ -70,10 +77,18 @@ public class ModelElementOutputLogDialog extends ModelElementBaseDialog {
 	protected JComponent getContentPanel() {
 		final JPanel content=new JPanel(new BorderLayout());
 
+		JPanel line;
+
 		if (element instanceof ModelElementOutputLog) {
 			final JPanel upperPanel=new JPanel();
 			upperPanel.setLayout(new BoxLayout(upperPanel,BoxLayout.PAGE_AXIS));
+			content.add(upperPanel,BorderLayout.NORTH);
 
+			/* Aktiv? */
+			upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(outputActive=new JCheckBox("<html><body><b>"+Language.tr("Surface.OutputLog.Dialog.OutputActive")+"</b></body></html>",((ModelElementOutputLog)element).isOutputActive()));
+
+			/* Main-Area */
 			final JTableExt table=new JTableExt();
 			table.setModel(tableModel=new OutputLogTableModel(table,element.getModel(),((ModelElementOutputLog)element).getModes(),((ModelElementOutputLog)element).getData(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),readOnly));
 			table.setIsPanelCellTable(0);
@@ -115,6 +130,7 @@ public class ModelElementOutputLogDialog extends ModelElementBaseDialog {
 		super.storeData();
 
 		if (element instanceof ModelElementOutputLog) {
+			((ModelElementOutputLog)element).setOutputActive(outputActive.isSelected());
 			final List<ModelElementOutputLog.OutputMode> modes=((ModelElementOutputLog)element).getModes();
 			modes.clear();
 			modes.addAll(tableModel.getModes());

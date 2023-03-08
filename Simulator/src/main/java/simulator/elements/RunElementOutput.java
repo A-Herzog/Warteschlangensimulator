@@ -46,6 +46,8 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementOutput
  */
 public class RunElementOutput extends RunElementPassThrough {
+	/** Ausgabe aktiv? */
+	private boolean outputActive;
 	/** Gibt an, ob die Ausgabe zeilenweise (<code>false</code>) oder über ein {@link Table}-Objekt (<code>true</code>) erfolgen soll */
 	private boolean tableMode;
 	/** Zahlen im lokalen Format (<code>false</code>) oder im System-Format (<code>true</code>) ausgeben? */
@@ -82,6 +84,9 @@ public class RunElementOutput extends RunElementPassThrough {
 		/* Auslaufende Kante */
 		final String edgeError=output.buildEdgeOut(outputElement);
 		if (edgeError!=null) return edgeError;
+
+		/* Ausgabe aktiv? */
+		output.outputActive=outputElement.isOutputActive();
 
 		/* Ausgabedatei */
 		if (outputElement.getOutputFile().trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoOutputFile"),element.getId());
@@ -413,7 +418,7 @@ public class RunElementOutput extends RunElementPassThrough {
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Output"),String.format(Language.tr("Simulation.Log.Output.Info"),client.logInfo(simData),name));
 
-		if (!client.isWarmUp && client.inStatistics) {
+		if (!client.isWarmUp && client.inStatistics && outputActive) {
 			/* Ausgabe durchführen */
 			processOutput(simData,client);
 		}

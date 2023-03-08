@@ -57,6 +57,11 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = -1828468870634988424L;
 
 	/**
+	 * Checkbox: Ausgabe aktiv?
+	 */
+	private JCheckBox outputActive;
+
+	/**
 	 * Eingabefeld für den Dateinamen der Ausgabedatei
 	 */
 	private JTextField fileNameEdit;
@@ -119,6 +124,8 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 	protected JComponent getContentPanel() {
 		final JPanel content=new JPanel(new BorderLayout());
 
+		JPanel line;
+
 		if (element instanceof ModelElementOutput) {
 			final ModelElementOutput output=(ModelElementOutput)element;
 
@@ -127,9 +134,13 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 			upperPanel.setLayout(new BoxLayout(upperPanel,BoxLayout.PAGE_AXIS));
 			content.add(upperPanel,BorderLayout.NORTH);
 
+			/* Aktiv? */
+			upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(outputActive=new JCheckBox("<html><body><b>"+Language.tr("Surface.Output.Dialog.OutputActive")+"</b></body></html>",output.isOutputActive()));
+
 			/* Eingabefeld: Dateiname */
 			Object[] data=getInputPanel(Language.tr("Surface.Output.Dialog.FileName")+":",output.getOutputFile());
-			JPanel line=(JPanel)data[0];
+			line=(JPanel)data[0];
 			fileNameEdit=(JTextField)data[1];
 			upperPanel.add(line);
 			fileNameEdit.setEditable(!readOnly);
@@ -253,6 +264,8 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 
 		if (element instanceof ModelElementOutput) {
 			final ModelElementOutput output=(ModelElementOutput)element;
+
+			output.setOutputActive(outputActive.isSelected());
 
 			output.setOutputFile(fileNameEdit.getText());
 			output.setOutputFileOverwrite(fileOverwrite.isSelected());

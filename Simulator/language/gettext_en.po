@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-01 23:53+0100\n"
+"POT-Creation-Date: 2023-03-05 01:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12128,6 +12128,12 @@ msgstr "Text property \"%s\""
 msgid "ModelDescription.NextElement"
 msgstr "Next station"
 
+msgid "ModelDescription.Output.Active"
+msgstr "Status"
+
+msgid "ModelDescription.Output.Active.Off"
+msgstr "Output disabled"
+
 msgid "ModelDescription.Output.File"
 msgstr "Output file"
 
@@ -12137,6 +12143,12 @@ msgstr "Output property"
 msgid "ModelDescription.Output.PropertyHeading"
 msgstr "Output heading property"
 
+msgid "ModelDescription.OutputDB.Active"
+msgstr "Status"
+
+msgid "ModelDescription.OutputDB.Active.Off"
+msgstr "Output disabled"
+
 msgid "ModelDescription.OutputDB.Column"
 msgstr "table column"
 
@@ -12145,6 +12157,12 @@ msgstr "Output property"
 
 msgid "ModelDescription.OutputDB.Table"
 msgstr "Table"
+
+msgid "ModelDescription.OutputDDE.Active"
+msgstr "Status"
+
+msgid "ModelDescription.OutputDDE.Active.Off"
+msgstr "Output disabled"
 
 msgid "ModelDescription.OutputDDE.Column"
 msgstr "Start column"
@@ -12161,8 +12179,20 @@ msgstr "Table"
 msgid "ModelDescription.OutputDDE.Workbook"
 msgstr "Workbook"
 
+msgid "ModelDescription.OutputJS.Active"
+msgstr "Status"
+
+msgid "ModelDescription.OutputJS.Active.Off"
+msgstr "Output disabled"
+
 msgid "ModelDescription.OutputJS.File"
 msgstr "Output file"
+
+msgid "ModelDescription.OutputLog.Active"
+msgstr "Status"
+
+msgid "ModelDescription.OutputLog.Active.Off"
+msgstr "Output disabled"
 
 msgid "ModelDescription.PickUp.Mode"
 msgstr "Mode"
@@ -29435,6 +29465,9 @@ msgstr "File name"
 msgid "Surface.Output.Dialog.FileName.Select"
 msgstr "Select output file"
 
+msgid "Surface.Output.Dialog.OutputActive"
+msgstr "Output active?"
+
 msgid "Surface.Output.Dialog.Overwrite"
 msgstr "Overwrite existing data"
 
@@ -29476,6 +29509,9 @@ msgstr "Note: When using Excel spreadsheets the output can not be written succes
 
 msgid "Surface.Output.Dialog.Title"
 msgstr "Edit output"
+
+msgid "Surface.Output.Disabled"
+msgstr "Disabled"
 
 msgid "Surface.Output.Infotext"
 msgstr "If a client passes this station, one or more current values are appended to a file."
@@ -29527,6 +29563,9 @@ msgstr "Move output element up"
 
 msgid "Surface.Output.Tooltip"
 msgstr "Writes one or more expressions to a file."
+
+msgid "Surface.Output.XML.Active"
+msgstr "ModelElementOutputActive"
 
 msgid "Surface.Output.XML.Element"
 msgstr "ModelElementOutputElement"
@@ -29657,11 +29696,17 @@ msgstr "ModelElementOutput"
 msgid "Surface.OutputDB.Dialog.NoConnection"
 msgstr "No connection to database available."
 
+msgid "Surface.OutputDB.Dialog.OutputActive"
+msgstr "Output active?"
+
 msgid "Surface.OutputDB.Dialog.Table"
 msgstr "Table"
 
 msgid "Surface.OutputDB.Dialog.Title"
 msgstr "Edit database output"
+
+msgid "Surface.OutputDB.Disabled"
+msgstr "Disabled"
 
 msgid "Surface.OutputDB.Infotext"
 msgstr "If a client passes this station, one or more current values are appended as a new row to a database table."
@@ -29714,6 +29759,9 @@ msgstr "Move output element up"
 msgid "Surface.OutputDB.Tooltip"
 msgstr "Writes one or more expressions to a database table."
 
+msgid "Surface.OutputDB.XML.Active"
+msgstr "ModelElementDatabaseOutputActive"
+
 msgid "Surface.OutputDB.XML.Element"
 msgstr "ModelElementDatabaseOutputElement"
 
@@ -29732,8 +29780,14 @@ msgstr "ModelElementDatabaseOutput"
 msgid "Surface.OutputDB.XML.Table"
 msgstr "ModelElementDatabaseOutputTable"
 
+msgid "Surface.OutputDDE.Dialog.OutputActive"
+msgstr "Output active?"
+
 msgid "Surface.OutputDDE.Dialog.Title"
 msgstr "Edit DDE output"
+
+msgid "Surface.OutputDDE.Disabled"
+msgstr "Disabled"
 
 msgid "Surface.OutputDDE.Infotext"
 msgstr "If a client passes this station, one or more current values are send via a DDE connection to a running Excel instance."
@@ -29780,6 +29834,9 @@ msgstr "Move output element up"
 msgid "Surface.OutputDDE.Tooltip"
 msgstr "Writes one or more expressions via DDE to an Excel table."
 
+msgid "Surface.OutputDDE.XML.Active"
+msgstr "ModelElementOutputDDEActive"
+
 msgid "Surface.OutputDDE.XML.Column"
 msgstr "ModelElementOutputDDEStartColumn"
 
@@ -29804,8 +29861,14 @@ msgstr "ModelElementOutputDDETable"
 msgid "Surface.OutputDDE.XML.Workbook"
 msgstr "ModelElementOutputDDEWorkbook"
 
+msgid "Surface.OutputJS.Dialog.OutputActive"
+msgstr "Output active?"
+
 msgid "Surface.OutputJS.Dialog.Title"
 msgstr "Edit Script-based output"
+
+msgid "Surface.OutputJS.Disabled"
+msgstr "Disabled"
 
 msgid "Surface.OutputJS.Infotext"
 msgstr "If a client passes this station, a script is executed and the result is appended to an external file."
@@ -29818,6 +29881,9 @@ msgstr "Output (Script)"
 
 msgid "Surface.OutputJS.Tooltip"
 msgstr "Writes the results of a script program to a file."
+
+msgid "Surface.OutputJS.XML.Active"
+msgstr "ModelElementScriptOutputActive"
 
 msgid "Surface.OutputJS.XML.File"
 msgstr "ModelElementOutputFile"
@@ -29846,8 +29912,14 @@ msgstr "ModelElementOutputScriptHeading"
 msgid "Surface.OutputJS.XML.ScriptHeading.Active"
 msgstr "Active"
 
+msgid "Surface.OutputLog.Dialog.OutputActive"
+msgstr "Output active?"
+
 msgid "Surface.OutputLog.Dialog.Title"
 msgstr "Edit logging output"
+
+msgid "Surface.OutputLog.Disabled"
+msgstr "Disabled"
 
 msgid "Surface.OutputLog.Infotext"
 msgstr "If a client passes this station, one or more current values are appended to the log output. If loggig is not activated, no output will happen."
@@ -29860,6 +29932,9 @@ msgstr "Output (Log)"
 
 msgid "Surface.OutputLog.Tooltip"
 msgstr "Writes one or more expressions to the logging output."
+
+msgid "Surface.OutputLog.XML.Active"
+msgstr "ModelElementOutputLogActive"
 
 msgid "Surface.OutputLog.XML.Root"
 msgstr "ModelElementOutputLog"

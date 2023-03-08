@@ -101,6 +101,13 @@ public class ModelElementOutputLog extends ModelElementMultiInSingleOutBox imple
 	}
 
 	/**
+	 * Ist die Ausgabe als Ganzes aktiv?
+	 * @see #isOutputActive()
+	 * @see #setOutputActive(boolean)
+	 */
+	private boolean outputActive;
+
+	/**
 	 * Liste mit den Modi der Ausgabeelemente
 	 * @see #getModes()
 	 */
@@ -119,6 +126,7 @@ public class ModelElementOutputLog extends ModelElementMultiInSingleOutBox imple
 	 */
 	public ModelElementOutputLog(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_DOCUMENT);
+		outputActive=true;
 		mode=new ArrayList<>();
 		data=new ArrayList<>();
 	}
@@ -167,6 +175,24 @@ public class ModelElementOutputLog extends ModelElementMultiInSingleOutBox imple
 	}
 
 	/**
+	 * Ist die Ausgabe als Ganzes aktiv?
+	 * @return	Ausgabe aktiv
+	 * @see #setOutputActive(boolean)
+	 */
+	public boolean isOutputActive() {
+		return outputActive;
+	}
+
+	/**
+	 * Stellt ein, ob die Ausgabe aktiv sein soll.
+	 * @param outputActive	Ausgabe aktiv
+	 * @see #isOutputActive()
+	 */
+	public void setOutputActive(boolean outputActive) {
+		this.outputActive=outputActive;
+	}
+
+	/**
 	 * Liefert die Liste mit den Modi der einzelnen Ausgabeelemente
 	 * @return	Liste mit den Modi der Ausgabeelemente
 	 */
@@ -191,11 +217,13 @@ public class ModelElementOutputLog extends ModelElementMultiInSingleOutBox imple
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementOutputLog)) return false;
+		final ModelElementOutputLog otherOutput=(ModelElementOutputLog)element;
 
-		if (mode.size()!=((ModelElementOutputLog)element).mode.size()) return false;
-		if (data.size()!=((ModelElementOutputLog)element).data.size()) return false;
-		for (int i=0;i<mode.size();i++) if (!((ModelElementOutputLog)element).mode.get(i).equals(mode.get(i))) return false;
-		for (int i=0;i<data.size();i++) if (!((ModelElementOutputLog)element).data.get(i).equals(data.get(i))) return false;
+		if (outputActive!=otherOutput.outputActive) return false;
+		if (mode.size()!=otherOutput.mode.size()) return false;
+		if (data.size()!=otherOutput.data.size()) return false;
+		for (int i=0;i<mode.size();i++) if (!otherOutput.mode.get(i).equals(mode.get(i))) return false;
+		for (int i=0;i<data.size();i++) if (!otherOutput.data.get(i).equals(data.get(i))) return false;
 
 		return true;
 	}
@@ -208,8 +236,10 @@ public class ModelElementOutputLog extends ModelElementMultiInSingleOutBox imple
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementOutputLog) {
-			mode.addAll(((ModelElementOutputLog)element).mode);
-			data.addAll(((ModelElementOutputLog)element).data);
+			final ModelElementOutputLog source=(ModelElementOutputLog)element;
+			outputActive=source.outputActive;
+			mode.addAll(source.mode);
+			data.addAll(source.data);
 		}
 	}
 
@@ -242,6 +272,16 @@ public class ModelElementOutputLog extends ModelElementMultiInSingleOutBox imple
 	@Override
 	public String getTypeName() {
 		return Language.tr("Surface.OutputLog.Name.Short");
+	}
+
+	/**
+	 * Liefert optional eine zusätzliche Bezeichnung des Typs des Elemente (zur Anzeige in der Element-Box in einer zweiten Zeile)
+	 * @return	Zusätzlicher Name des Typs (kann <code>null</code> oder leer sein)
+	 */
+	@Override
+	public String getSubTypeName() {
+		if (surface==null || outputActive) return null;
+		return Language.tr("Surface.OutputLog.Disabled");
 	}
 
 	/**
@@ -318,6 +358,11 @@ public class ModelElementOutputLog extends ModelElementMultiInSingleOutBox imple
 
 		Element sub;
 
+		if (!outputActive) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.OutputLog.XML.Active")));
+			sub.setTextContent("0");
+		}
+
 		for (int i=0;i<Math.min(mode.size(),data.size());i++) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Output.XML.Element")));
 
@@ -355,6 +400,11 @@ public class ModelElementOutputLog extends ModelElementMultiInSingleOutBox imple
 	protected String loadProperty(final String name, final String content, final Element node) {
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
+
+		if (Language.trAll("Surface.OutputLog.XML.Active",name)) {
+			outputActive=!content.equals("0");
+			return null;
+		}
 
 		if (Language.trAll("Surface.Output.XML.Element",name)) {
 			final String m=Language.trAllAttribute("Surface.Output.XML.Element.Type",node);
@@ -423,6 +473,10 @@ public class ModelElementOutputLog extends ModelElementMultiInSingleOutBox imple
 
 			if (m==OutputMode.MODE_TEXT || m==OutputMode.MODE_EXPRESSION || m==OutputMode.MODE_STRING) value=text+": "+data.get(i); else value=text;
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Output.Property"),value,1000);
+		}
+
+		if (!outputActive) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputLog.Active"),Language.tr("ModelDescription.OutputLog.Active.Off"),10000);
 		}
 	}
 

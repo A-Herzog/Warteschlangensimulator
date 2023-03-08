@@ -1291,6 +1291,7 @@
 
 <xs:element name="ModellElementDateiausgabe"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModellElementDateiausgabeAktiv" type="xs:string"/>
     <xs:element ref="ModellElementAusgabedatei"/>
 	<xs:element ref="ModellElementAusgabeElement"/>
 	<xs:element ref="ModellElementAusgabeElementUeberschrift"/>
@@ -1314,6 +1315,7 @@
 
 <xs:element name="ModellElementScriptDateiausgabe"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModellElementScriptDateiausgabeAktiv" type="xs:string"/>
     <xs:element ref="ModellElementAusgabedatei"/>
     <xs:element name="ModellElementAusgabeskript" type="xs:string"/>
 	<xs:element ref="ModellElementAusgabeskriptUeberschrift"/>
@@ -1328,6 +1330,7 @@
 <xs:element name="ModellElementDatenbankausgabe"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="DatenbankVerbindung"/>
+	<xs:element name="ModellElementDatenbankausgabeAktiv" type="xs:string"/>
     <xs:element name="ModellElementDatenbankausgabeTabelle" type="xs:string"/>
 	<xs:element ref="ModellElementDatenbankausgabeElement"/>
   </xs:choice></xs:sequence>
@@ -1340,6 +1343,7 @@
 
 <xs:element name="ModellElementAusgabeDDE"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModellElementAusgabeDDEAktiv" type="xs:string"/>
     <xs:element name="ModellElementAusgabeDDEArbeitsmappe" type="xs:string"/>
     <xs:element name="ModellElementAusgabeDDETabelle" type="xs:string"/>
     <xs:element name="ModellElementAusgabeDDEStartSpalte" type="xs:string"/>
@@ -1354,6 +1358,7 @@
 
 <xs:element name="ModellElementAusgabeLog"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModellElementAusgabeLogAktiv" type="xs:string"/>
 	<xs:element ref="ModellElementAusgabeElement"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
@@ -3681,7 +3686,7 @@
 	<xs:element name="ModelElementInputDDEColumn" type="xs:string"/>
 	<xs:element name="ModelElementInputDDEVariable" type="xs:string"/>
 	<xs:element name="ModelElementInputDDEDefaultValue" type="xs:string"/>
-	<xs:element name="ModelElementInputDDEEndOfTable" type="xs:string"/>	
+	<xs:element name="ModelElementInputDDEEndOfTable" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3694,6 +3699,7 @@
 
 <xs:element name="ModelElementOutput"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModelElementOutputActive" type="xs:string"/>
     <xs:element ref="ModelElementOutputFile"/>
 	<xs:element ref="ModelElementOutputElement"/>
 	<xs:element ref="ModelElementOutputElementHeading"/>
@@ -3717,6 +3723,7 @@
 
 <xs:element name="ModelElementScriptOutput"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModelElementScriptOutputActive" type="xs:string"/>
     <xs:element ref="ModelElementOutputFile"/>
     <xs:element name="ModelElementOutputScript" type="xs:string"/>
 	<xs:element ref="ModelElementOutputScriptHeading"/>
@@ -3731,6 +3738,7 @@
 <xs:element name="ModelElementDatabaseOutput"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="DatabaseConnection"/>
+	<xs:element name="ModelElementDatabaseOutputActive" type="xs:string"/>
     <xs:element name="ModelElementDatabaseOutputTable" type="xs:string"/>
 	<xs:element ref="ModelElementDatabaseOutputElement"/>
   </xs:choice></xs:sequence>
@@ -3743,6 +3751,7 @@
 
 <xs:element name="ModelElementOutputDDE"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModelElementOutputDDEActive" type="xs:string"/>
     <xs:element name="ModelElementOutputDDEWorkbook" type="xs:string"/>
     <xs:element name="ModelElementOutputDDETable" type="xs:string"/>
     <xs:element name="ModelElementOutputDDEStartColumn" type="xs:string"/>
@@ -3757,6 +3766,7 @@
 
 <xs:element name="ModelElementOutputLog"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModelElementOutputLogActive" type="xs:string"/>
 	<xs:element ref="ModelElementOutputElement"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-01 23:53+0100\n"
+"POT-Creation-Date: 2023-03-05 01:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12125,6 +12125,12 @@ msgstr "Texteigenschaft \"%s\""
 msgid "ModelDescription.NextElement"
 msgstr "Folgestation"
 
+msgid "ModelDescription.Output.Active"
+msgstr "Status"
+
+msgid "ModelDescription.Output.Active.Off"
+msgstr "Ausgabe deaktiviert"
+
 msgid "ModelDescription.Output.File"
 msgstr "Ausgabedatei"
 
@@ -12134,6 +12140,12 @@ msgstr "Ausgabeeigenschaft"
 msgid "ModelDescription.Output.PropertyHeading"
 msgstr "Ausgabeeigenschaft für die Überschrift"
 
+msgid "ModelDescription.OutputDB.Active"
+msgstr "Status"
+
+msgid "ModelDescription.OutputDB.Active.Off"
+msgstr "Ausgabe deaktiviert"
+
 msgid "ModelDescription.OutputDB.Column"
 msgstr "Tabellenspalte"
 
@@ -12142,6 +12154,12 @@ msgstr "Ausgabeeigenschaft"
 
 msgid "ModelDescription.OutputDB.Table"
 msgstr "Table"
+
+msgid "ModelDescription.OutputDDE.Active"
+msgstr "Status"
+
+msgid "ModelDescription.OutputDDE.Active.Off"
+msgstr "Ausgabe deaktiviert"
 
 msgid "ModelDescription.OutputDDE.Column"
 msgstr "Startspalte"
@@ -12158,8 +12176,20 @@ msgstr "Tabelle"
 msgid "ModelDescription.OutputDDE.Workbook"
 msgstr "Arbeitsmappe"
 
+msgid "ModelDescription.OutputJS.Active"
+msgstr "Status"
+
+msgid "ModelDescription.OutputJS.Active.Off"
+msgstr "Ausgabe deaktiviert"
+
 msgid "ModelDescription.OutputJS.File"
 msgstr "Ausgabedatei"
+
+msgid "ModelDescription.OutputLog.Active"
+msgstr "Status"
+
+msgid "ModelDescription.OutputLog.Active.Off"
+msgstr "Ausgabe deaktiviert"
 
 msgid "ModelDescription.PickUp.Mode"
 msgstr "Modus"
@@ -29457,6 +29487,9 @@ msgstr "Dateiname"
 msgid "Surface.Output.Dialog.FileName.Select"
 msgstr "Ausgabedatei auswählen"
 
+msgid "Surface.Output.Dialog.OutputActive"
+msgstr "Ausgabe aktiv?"
+
 msgid "Surface.Output.Dialog.Overwrite"
 msgstr "Bestehende Daten überschreiben"
 
@@ -29498,6 +29531,9 @@ msgstr "Hinweis: In Excel-Tabellen kann die Ausgabe nicht sukzessive während de
 
 msgid "Surface.Output.Dialog.Title"
 msgstr "Ausgabe bearbeiten"
+
+msgid "Surface.Output.Disabled"
+msgstr "Deaktiviert"
 
 msgid "Surface.Output.Infotext"
 msgstr "Passiert ein Kunde diese Station, so werden ein oder mehrere aktuelle Werte an eine Datei angehängt."
@@ -29549,6 +29585,9 @@ msgstr "Ausgabeelement nach oben verschieben"
 
 msgid "Surface.Output.Tooltip"
 msgstr "Schreibt einen oder mehrere Ausdrücke in eine Datei."
+
+msgid "Surface.Output.XML.Active"
+msgstr "ModellElementDateiausgabeAktiv"
 
 msgid "Surface.Output.XML.Element"
 msgstr "ModellElementAusgabeElement"
@@ -29679,11 +29718,17 @@ msgstr "ModellElementDateiausgabe"
 msgid "Surface.OutputDB.Dialog.NoConnection"
 msgstr "Keine Verbindung zu Datenbank möglich."
 
+msgid "Surface.OutputDB.Dialog.OutputActive"
+msgstr "Ausgabe aktiv?"
+
 msgid "Surface.OutputDB.Dialog.Table"
 msgstr "Tabelle"
 
 msgid "Surface.OutputDB.Dialog.Title"
 msgstr "Datenbankausgabe bearbeiten"
+
+msgid "Surface.OutputDB.Disabled"
+msgstr "Deaktiviert"
 
 msgid "Surface.OutputDB.Infotext"
 msgstr "Passiert ein Kunde diese Station, so werden ein oder mehrere aktuelle Werte als neuer Datensatz an eine Datenbanktabelle angehängt."
@@ -29736,6 +29781,9 @@ msgstr "Ausgabeelement nach oben verschieben"
 msgid "Surface.OutputDB.Tooltip"
 msgstr "Schreibt einen oder mehrere Ausdrücke in eine Datenbanktabelle."
 
+msgid "Surface.OutputDB.XML.Active"
+msgstr "ModellElementDatenbankausgabeAktiv"
+
 msgid "Surface.OutputDB.XML.Element"
 msgstr "ModellElementDatenbankausgabeElement"
 
@@ -29754,8 +29802,14 @@ msgstr "ModellElementDatenbankausgabe"
 msgid "Surface.OutputDB.XML.Table"
 msgstr "ModellElementDatenbankausgabeTabelle"
 
+msgid "Surface.OutputDDE.Dialog.OutputActive"
+msgstr "Ausgabe aktiv?"
+
 msgid "Surface.OutputDDE.Dialog.Title"
 msgstr "DDE-Ausgabe bearbeiten"
+
+msgid "Surface.OutputDDE.Disabled"
+msgstr "Deaktiviert"
 
 msgid "Surface.OutputDDE.Infotext"
 msgstr "Passiert ein Kunde diese Station, so werden ein oder mehrere aktuelle Werte über eine DDE-Verbindung in eine laufende Excel-Instanz übertragen."
@@ -29802,6 +29856,9 @@ msgstr "Ausgabeelement nach oben verschieben"
 msgid "Surface.OutputDDE.Tooltip"
 msgstr "Schreibt einen oder mehrere Ausdrücke per DDE in eine Excel-Tabelle."
 
+msgid "Surface.OutputDDE.XML.Active"
+msgstr "ModellElementAusgabeDDEAktiv"
+
 msgid "Surface.OutputDDE.XML.Column"
 msgstr "ModellElementAusgabeDDEStartspalte"
 
@@ -29826,8 +29883,14 @@ msgstr "ModellElementAusgabeDDETabelle"
 msgid "Surface.OutputDDE.XML.Workbook"
 msgstr "ModellElementAusgabeDDEArbeitsmappe"
 
+msgid "Surface.OutputJS.Dialog.OutputActive"
+msgstr "Ausgabe aktiv?"
+
 msgid "Surface.OutputJS.Dialog.Title"
 msgstr "Skript-basierte Ausgabe bearbeiten"
+
+msgid "Surface.OutputJS.Disabled"
+msgstr "Deaktiviert"
 
 msgid "Surface.OutputJS.Infotext"
 msgstr "Passiert ein Kunde diese Station, so wird ein Skript ausgeführt und das Ergebnis an eine externe Datei angehängt."
@@ -29840,6 +29903,9 @@ msgstr "Ausgabe (Skript)"
 
 msgid "Surface.OutputJS.Tooltip"
 msgstr "Schreibt die Ergebnisses eines Skriptes in eine Datei."
+
+msgid "Surface.OutputJS.XML.Active"
+msgstr "ModellElementScriptDateiausgabeAktiv"
 
 msgid "Surface.OutputJS.XML.File"
 msgstr "ModellElementAusgabedatei"
@@ -29868,8 +29934,14 @@ msgstr "ModellElementAusgabeskriptUeberschrift"
 msgid "Surface.OutputJS.XML.ScriptHeading.Active"
 msgstr "Aktiv"
 
+msgid "Surface.OutputLog.Dialog.OutputActive"
+msgstr "Ausgabe aktiv?"
+
 msgid "Surface.OutputLog.Dialog.Title"
 msgstr "Logging-Ausgabe bearbeiten"
+
+msgid "Surface.OutputLog.Disabled"
+msgstr "Deaktiviert"
 
 msgid "Surface.OutputLog.Infotext"
 msgstr "Passiert ein Kunde diese Station, so werden ein oder mehrere aktuelle Werte in das Logging-System ausgegeben. Ist das Logging nicht aktiviert, so erfolgt keine Ausgabe."
@@ -29882,6 +29954,9 @@ msgstr "Ausgabe (Log)"
 
 msgid "Surface.OutputLog.Tooltip"
 msgstr "Schreibt einen oder mehrere Ausdrücke in die Logging-Ausgabe."
+
+msgid "Surface.OutputLog.XML.Active"
+msgstr "ModellElementAusgabeLogAktiv"
 
 msgid "Surface.OutputLog.XML.Root"
 msgstr "ModellElementAusgabeLog"

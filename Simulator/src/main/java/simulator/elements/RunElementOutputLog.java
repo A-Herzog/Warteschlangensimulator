@@ -41,6 +41,8 @@ import ui.modeleditor.elements.ModelElementSub;
  * @see ModelElementOutputLog
  */
 public class RunElementOutputLog extends RunElementPassThrough {
+	/** Ausgabe aktiv? */
+	private boolean outputActive;
 	/** Liste mit den Modi der Ausgabeelemente */
 	private ModelElementOutputLog.OutputMode[] mode;
 	/** Zusätzliche Daten zu den jeweiligen Ausgabe-Datensätzen in {@link #mode} */
@@ -63,6 +65,9 @@ public class RunElementOutputLog extends RunElementPassThrough {
 		/* Auslaufende Kante */
 		final String edgeError=output.buildEdgeOut(outputElement);
 		if (edgeError!=null) return edgeError;
+
+		/* Ausgabe aktiv? */
+		output.outputActive=outputElement.isOutputActive();
 
 		/* Ausgaben */
 		final List<ModelElementOutputLog.OutputMode> modeList=outputElement.getModes();
@@ -195,7 +200,7 @@ public class RunElementOutputLog extends RunElementPassThrough {
 			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.OutputLog"),String.format(Language.tr("Simulation.Log.OutputLog.Info"),client.logInfo(simData),name));
 		}
 
-		if (!client.isWarmUp && client.inStatistics) {
+		if (!client.isWarmUp && client.inStatistics && outputActive) {
 			/* Ausgabe durchführen */
 			if (simData.loggingActive) processOutput(simData,client);
 		}

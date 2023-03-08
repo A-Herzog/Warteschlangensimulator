@@ -49,6 +49,13 @@ import ui.modeleditor.fastpaint.Shapes;
  */
 public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implements ElementNoRemoteSimulation, ElementWithScript, ElementWithOutputFile {
 	/**
+	 * Ist die Ausgabe als Ganzes aktiv?
+	 * @see #isOutputActive()
+	 * @see #setOutputActive(boolean)
+	 */
+	private boolean outputActive;
+
+	/**
 	 * Skript
 	 * @see #getScript()
 	 * @see #setScript(String)
@@ -100,6 +107,7 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 	 */
 	public ModelElementOutputJS(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_DOCUMENT);
+		outputActive=true;
 		script="";
 		mode=ScriptMode.Javascript;
 		scriptHeading="";
@@ -124,6 +132,24 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 	@Override
 	public String getToolTip() {
 		return Language.tr("Surface.OutputJS.Tooltip");
+	}
+
+	/**
+	 * Ist die Ausgabe als Ganzes aktiv?
+	 * @return	Ausgabe aktiv
+	 * @see #setOutputActive(boolean)
+	 */
+	public boolean isOutputActive() {
+		return outputActive;
+	}
+
+	/**
+	 * Stellt ein, ob die Ausgabe aktiv sein soll.
+	 * @param outputActive	Ausgabe aktiv
+	 * @see #isOutputActive()
+	 */
+	public void setOutputActive(boolean outputActive) {
+		this.outputActive=outputActive;
 	}
 
 	/**
@@ -264,6 +290,7 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 		if (!(element instanceof ModelElementOutputJS)) return false;
 		final ModelElementOutputJS other=(ModelElementOutputJS)element;
 
+		if (outputActive!=other.outputActive) return false;
 		if (!script.equals(other.script)) return false;
 		if (other.mode!=mode) return false;
 		if (useHeadingScript!=other.useHeadingScript) return false;
@@ -284,6 +311,7 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementOutputJS) {
 			final ModelElementOutputJS source=(ModelElementOutputJS)element;
+			outputActive=source.outputActive;
 			script=source.script;
 			mode=source.mode;
 			useHeadingScript=source.useHeadingScript;
@@ -323,6 +351,16 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 	@Override
 	public String getTypeName() {
 		return Language.tr("Surface.OutputJS.Name.Short");
+	}
+
+	/**
+	 * Liefert optional eine zusätzliche Bezeichnung des Typs des Elemente (zur Anzeige in der Element-Box in einer zweiten Zeile)
+	 * @return	Zusätzlicher Name des Typs (kann <code>null</code> oder leer sein)
+	 */
+	@Override
+	public String getSubTypeName() {
+		if (surface==null || outputActive) return null;
+		return Language.tr("Surface.OutputJS.Disabled");
 	}
 
 	/**
@@ -399,6 +437,11 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 
 		Element sub;
 
+		if (!outputActive) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.OutputJS.XML.Active")));
+			sub.setTextContent("0");
+		}
+
 		if (!script.isEmpty()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.OutputJS.XML.Script")));
 			switch (mode) {
@@ -449,6 +492,11 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
 
+		if (Language.trAll("Surface.OutputJS.XML.Active",name)) {
+			outputActive=!content.equals("0");
+			return null;
+		}
+
 		if (Language.trAll("Surface.OutputJS.XML.Script",name)) {
 			script=content;
 			final String langName=Language.trAllAttribute("Surface.OutputJS.XML.Script.Language",node);
@@ -492,6 +540,10 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 
 		if (!outputFile.trim().isEmpty()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputJS.File"),outputFile,2000);
+		}
+
+		if (!outputActive) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputJS.Active"),Language.tr("ModelDescription.OutputJS.Active.Off"),10000);
 		}
 	}
 

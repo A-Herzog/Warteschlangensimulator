@@ -98,6 +98,13 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 	}
 
 	/**
+	 * Ist die Ausgabe als Ganzes aktiv?
+	 * @see #isOutputActive()
+	 * @see #setOutputActive(boolean)
+	 */
+	private boolean outputActive;
+
+	/**
 	 * Name der Arbeitsmappe in die die Daten geschrieben werden sollen
 	 * @see #getWorkbook()
 	 * @see #setWorkbook(String)
@@ -144,6 +151,7 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 	 */
 	public ModelElementOutputDDE(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_DOCUMENT);
+		outputActive=true;
 		mode=new ArrayList<>();
 		data=new ArrayList<>();
 		workbook="";
@@ -191,6 +199,24 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 	@Override
 	public String getToolTip() {
 		return Language.tr("Surface.OutputDDE.Tooltip");
+	}
+
+	/**
+	 * Ist die Ausgabe als Ganzes aktiv?
+	 * @return	Ausgabe aktiv
+	 * @see #setOutputActive(boolean)
+	 */
+	public boolean isOutputActive() {
+		return outputActive;
+	}
+
+	/**
+	 * Stellt ein, ob die Ausgabe aktiv sein soll.
+	 * @param outputActive	Ausgabe aktiv
+	 * @see #isOutputActive()
+	 */
+	public void setOutputActive(boolean outputActive) {
+		this.outputActive=outputActive;
 	}
 
 	/**
@@ -291,15 +317,17 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementOutputDDE)) return false;
+		final ModelElementOutputDDE otherOutput=(ModelElementOutputDDE)element;
 
-		if (!Objects.equals(workbook,((ModelElementOutputDDE)element).workbook)) return false;
-		if (!Objects.equals(table,((ModelElementOutputDDE)element).table)) return false;
-		if (startRow!=((ModelElementOutputDDE)element).startRow) return false;
-		if (!Objects.equals(startColumn,((ModelElementOutputDDE)element).startColumn)) return false;
-		if (mode.size()!=((ModelElementOutputDDE)element).mode.size()) return false;
-		if (data.size()!=((ModelElementOutputDDE)element).data.size()) return false;
-		for (int i=0;i<mode.size();i++) if (!((ModelElementOutputDDE)element).mode.get(i).equals(mode.get(i))) return false;
-		for (int i=0;i<data.size();i++) if (!((ModelElementOutputDDE)element).data.get(i).equals(data.get(i))) return false;
+		if (outputActive!=otherOutput.outputActive) return false;
+		if (!Objects.equals(workbook,otherOutput.workbook)) return false;
+		if (!Objects.equals(table,otherOutput.table)) return false;
+		if (startRow!=otherOutput.startRow) return false;
+		if (!Objects.equals(startColumn,otherOutput.startColumn)) return false;
+		if (mode.size()!=otherOutput.mode.size()) return false;
+		if (data.size()!=otherOutput.data.size()) return false;
+		for (int i=0;i<mode.size();i++) if (!otherOutput.mode.get(i).equals(mode.get(i))) return false;
+		for (int i=0;i<data.size();i++) if (!otherOutput.data.get(i).equals(data.get(i))) return false;
 
 		return true;
 	}
@@ -312,12 +340,14 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementOutputDDE) {
-			workbook=((ModelElementOutputDDE)element).workbook;
-			table=((ModelElementOutputDDE)element).table;
-			startRow=((ModelElementOutputDDE)element).startRow;
-			startColumn=((ModelElementOutputDDE)element).startColumn;
-			mode.addAll(((ModelElementOutputDDE)element).mode);
-			data.addAll(((ModelElementOutputDDE)element).data);
+			final ModelElementOutputDDE source=(ModelElementOutputDDE)element;
+			outputActive=source.outputActive;
+			workbook=source.workbook;
+			table=source.table;
+			startRow=source.startRow;
+			startColumn=source.startColumn;
+			mode.addAll(source.mode);
+			data.addAll(source.data);
 		}
 	}
 
@@ -350,6 +380,16 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 	@Override
 	public String getTypeName() {
 		return Language.tr("Surface.OutputDDE.Name");
+	}
+
+	/**
+	 * Liefert optional eine zusätzliche Bezeichnung des Typs des Elemente (zur Anzeige in der Element-Box in einer zweiten Zeile)
+	 * @return	Zusätzlicher Name des Typs (kann <code>null</code> oder leer sein)
+	 */
+	@Override
+	public String getSubTypeName() {
+		if (surface==null || outputActive) return null;
+		return Language.tr("Surface.OutputDDE.Disabled");
 	}
 
 	/**
@@ -426,6 +466,11 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 
 		Element sub;
 
+		if (!outputActive) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.OutputDDE.XML.Active")));
+			sub.setTextContent("0");
+		}
+
 		if (workbook!=null && !workbook.trim().isEmpty()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.OutputDDE.XML.Workbook")));
 			sub.setTextContent(workbook);
@@ -481,6 +526,11 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 	protected String loadProperty(final String name, final String content, final Element node) {
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
+
+		if (Language.trAll("Surface.OutputDDE.XML.Active",name)) {
+			outputActive=!content.equals("0");
+			return null;
+		}
 
 		if (Language.trAll("Surface.OutputDDE.XML.Workbook",name)) {
 			workbook=content;
@@ -573,6 +623,10 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 		if (table!=null && !table.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDDE.Table"),table,2000);
 		if (startRow>0) descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDDE.StartRow"),""+startRow,3000);
 		if (startColumn!=null && !startColumn.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDDE.Column"),table,4000);
+
+		if (!outputActive) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDDE.Active"),Language.tr("ModelDescription.OutputDDE.Active.Off"),10000);
+		}
 	}
 
 	@Override

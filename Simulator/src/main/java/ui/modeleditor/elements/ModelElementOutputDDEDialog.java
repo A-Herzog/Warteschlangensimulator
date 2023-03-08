@@ -17,9 +17,12 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -40,6 +43,11 @@ public class ModelElementOutputDDEDialog extends ModelElementBaseDialog {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID = 4133614521655543844L;
+
+	/**
+	 * Checkbox: Ausgabe aktiv?
+	 */
+	private JCheckBox outputActive;
 
 	/**
 	 * Panel zur Konfiguration der DDE-Verbindung
@@ -89,14 +97,20 @@ public class ModelElementOutputDDEDialog extends ModelElementBaseDialog {
 		final JPanel content=new JPanel(new BorderLayout());
 
 		if (element instanceof ModelElementOutputDDE) {
-			/* DDE */
+			final JPanel upperPanel=new JPanel();
+			content.add(upperPanel,BorderLayout.NORTH);
+			upperPanel.setLayout(new BoxLayout(upperPanel,BoxLayout.PAGE_AXIS));
 
-			content.add(editDDE=new DDEEditPanel(this,(ElementWithDDEInputOutput)element,readOnly,helpRunnable),BorderLayout.NORTH);
+			/* Aktiv? */
+			final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+			upperPanel.add(line);
+			line.add(outputActive=new JCheckBox("<html><body><b>"+Language.tr("Surface.OutputDDE.Dialog.OutputActive")+"</b></body></html>",((ModelElementOutputDDE)element).isOutputActive()));
+
+			/* DDE */
+			upperPanel.add(editDDE=new DDEEditPanel(this,(ElementWithDDEInputOutput)element,readOnly,helpRunnable));
 
 			/* Main-Area */
-
 			final JTableExt table=new JTableExt();
-
 			table.setModel(tableModel=new OutputDDETableModel(table,((ModelElementOutputDDE)element).getModes(),((ModelElementOutputDDE)element).getData(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),readOnly));
 			table.setIsPanelCellTable(0);
 			table.setIsPanelCellTable(1);
@@ -107,7 +121,6 @@ public class ModelElementOutputDDEDialog extends ModelElementBaseDialog {
 			content.add(new JScrollPane(table),BorderLayout.CENTER);
 
 			/* Start */
-
 			checkData(false);
 		}
 
@@ -142,6 +155,8 @@ public class ModelElementOutputDDEDialog extends ModelElementBaseDialog {
 	@Override
 	protected void storeData() {
 		super.storeData();
+
+		((ModelElementOutputDDE)element).setOutputActive(outputActive.isSelected());
 
 		/* DDE */
 
