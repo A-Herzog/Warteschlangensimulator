@@ -41,6 +41,7 @@ import java.util.function.Supplier;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -101,6 +102,18 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @see #addDescription(URL, Consumer)
 	 */
 	private DescriptionViewer descriptionPane=null;
+
+	/**
+	 * Erzeugte Tabelle
+	 * @see #getViewer(boolean)
+	 */
+	private JTable viewerTable;
+
+	/**
+	 * Datenmodell für die erzeugte Tabelle
+	 * @see #getViewer(boolean)
+	 */
+	private StatisticViewerTableModel viewerTableModel;
 
 	/**
 	 * Konstruktor der Klasse <code>StatisticViewerTable</code>
@@ -217,6 +230,7 @@ public class StatisticViewerTable implements StatisticViewer {
 		case CAN_DO_COPY: return true;
 		case CAN_DO_PRINT: return true;
 		case CAN_DO_SAVE: return true;
+		case CAN_DO_SEARCH: return true;
 		default: return false;
 		}
 	}
@@ -452,29 +466,28 @@ public class StatisticViewerTable implements StatisticViewer {
 
 		if (columnNames.isEmpty() || needReInit) buildTable();
 
-		final TableModel dataModel;
 		if (table==null) {
-			dataModel=new StatisticViewerTableModel(data,columnNames);
+			viewerTableModel=new StatisticViewerTableModel(data,columnNames);
 		} else {
-			dataModel=new StatisticViewerTableModel(table,columnNames);
+			viewerTableModel=new StatisticViewerTableModel(table,columnNames);
 		}
 
-		final JTable table=new JTable(dataModel);
-		table.getTableHeader().setReorderingAllowed(false);
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		viewerTable=new JTable(viewerTableModel);
+		viewerTable.getTableHeader().setReorderingAllowed(false);
+		viewerTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
 		SwingUtilities.invokeLater(()->{
-			for (int i=0;i<table.getColumnCount();i++) autoSizeColumn(table,i,true);
+			for (int i=0;i<viewerTable.getColumnCount();i++) autoSizeColumn(viewerTable,i,true);
 		});
 
-		table.getTableHeader().addMouseListener(new MouseAdapter() {
+		viewerTable.getTableHeader().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				final int col=table.columnAtPoint(e.getPoint());
+				final int col=viewerTable.columnAtPoint(e.getPoint());
 				if (col<0) return;
 
 				if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) {
-					autoSizeColumn(table,col,true);
+					autoSizeColumn(viewerTable,col,true);
 					return;
 				}
 
@@ -483,7 +496,7 @@ public class StatisticViewerTable implements StatisticViewer {
 					boolean hasItems=false;
 					JMenuItem item;
 
-					final StatisticsBasePanel owner=getParentStatisticPanel(table);
+					final StatisticsBasePanel owner=getParentStatisticPanel(viewerTable);
 					if (owner!=null) {
 						hasItems=extendPopupMenu(owner,popup);
 					}
@@ -494,13 +507,13 @@ public class StatisticViewerTable implements StatisticViewer {
 					item.setEnabled(false);
 
 					popup.add(item=new JMenuItem(StatisticsBasePanel.contextColWidthDefault));
-					item.addActionListener(e2->setColWidth(table,col,50));
+					item.addActionListener(e2->setColWidth(viewerTable,col,50));
 
 					popup.add(item=new JMenuItem(StatisticsBasePanel.contextColWidthByContent));
-					item.addActionListener(e2->autoSizeColumn(table,col,false));
+					item.addActionListener(e2->autoSizeColumn(viewerTable,col,false));
 
 					popup.add(item=new JMenuItem(StatisticsBasePanel.contextColWidthByContentAndHeader));
-					item.addActionListener(e2->autoSizeColumn(table,col,true));
+					item.addActionListener(e2->autoSizeColumn(viewerTable,col,true));
 
 					popup.addSeparator();
 
@@ -509,28 +522,28 @@ public class StatisticViewerTable implements StatisticViewer {
 
 					popup.add(item=new JMenuItem(StatisticsBasePanel.contextColWidthDefault));
 					item.addActionListener(e2->{
-						autoSizeColumn(table,0,false);
-						for (int i=1;i<table.getColumnCount();i++) setColWidth(table,i,50);
+						autoSizeColumn(viewerTable,0,false);
+						for (int i=1;i<viewerTable.getColumnCount();i++) setColWidth(viewerTable,i,50);
 					});
 
 					popup.add(item=new JMenuItem(StatisticsBasePanel.contextColWidthByWindowWidth));
 					item.addActionListener(e2->{
-						if (table.getParent() instanceof JViewport) {
-							final JViewport viewport=(JViewport)table.getParent();
-							final int w=viewport.getWidth()/table.getColumnCount();
-							final int spacing=getSpacing(table);
-							for (int i=0;i<table.getColumnCount();i++) setColWidth(table,i,w-2*spacing);
+						if (viewerTable.getParent() instanceof JViewport) {
+							final JViewport viewport=(JViewport)viewerTable.getParent();
+							final int w=viewport.getWidth()/viewerTable.getColumnCount();
+							final int spacing=getSpacing(viewerTable);
+							for (int i=0;i<viewerTable.getColumnCount();i++) setColWidth(viewerTable,i,w-2*spacing);
 						}
 					});
 
 					popup.add(item=new JMenuItem(StatisticsBasePanel.contextColWidthByContent));
 					item.addActionListener(e2->{
-						for (int i=0;i<table.getColumnCount();i++) autoSizeColumn(table,i,false);
+						for (int i=0;i<viewerTable.getColumnCount();i++) autoSizeColumn(viewerTable,i,false);
 					});
 
 					popup.add(item=new JMenuItem(StatisticsBasePanel.contextColWidthByContentAndHeader));
 					item.addActionListener(e2->{
-						for (int i=0;i<table.getColumnCount();i++) autoSizeColumn(table,i,true);
+						for (int i=0;i<viewerTable.getColumnCount();i++) autoSizeColumn(viewerTable,i,true);
 					});
 
 					popup.show(e.getComponent(),e.getX(),e.getY());
@@ -539,11 +552,11 @@ public class StatisticViewerTable implements StatisticViewer {
 			}
 		});
 
-		table.addMouseListener(new MouseAdapter() {
+		viewerTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (SwingUtilities.isRightMouseButton(e)) {
-					final StatisticsBasePanel owner=getParentStatisticPanel(table);
+					final StatisticsBasePanel owner=getParentStatisticPanel(viewerTable);
 					if (owner==null) return;
 					final JPopupMenu popup=new JPopupMenu();
 					if (!extendPopupMenu(owner,popup)) return;
@@ -552,11 +565,20 @@ public class StatisticViewerTable implements StatisticViewer {
 			}
 		});
 
-		final JScrollPane tableScroller=new JScrollPane(table);
+		final JScrollPane tableScroller=new JScrollPane(viewerTable);
 
 		initDescriptionPane();
 		if (descriptionPane==null) return viewer=tableScroller;
 		return viewer=descriptionPane.getSplitPanel(tableScroller);
+	}
+
+	@Override
+	public void search(final Component owner) {
+		getViewer(false);
+
+		final String search=JOptionPane.showInputDialog(owner,StatisticsBasePanel.viewersToolbarSearchTitle);
+		viewerTableModel.setSearchString(search);
+		viewerTableModel.fireTableDataChanged();
 	}
 
 	@Override
@@ -629,11 +651,6 @@ public class StatisticViewerTable implements StatisticViewer {
 
 		save(owner,file);
 	}
-
-	@Override
-	public void search(Component owner) {
-	}
-
 
 	@Override
 	public boolean save(Component owner, File file) {
