@@ -8910,6 +8910,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20845] = "Model and statistical data";
     t[20852] = "ParameterCompare.Settings.Input.Name.ErrorInfo";
     t[20853] = "No name for the input parameter was specified.";
+    t[20856] = "Statistic.Viewer.Toolbar.Navigation";
+    t[20857] = "Navigation";
     t[20864] = "Surface.Decide.Dialog.DecideBy.ClientType";
     t[20865] = "Client type";
     t[20868] = "DistributionFitter.PValue";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23329] = "ModelElementMultiSourceMode";
     t[23334] = "Simulation.Log.BatchingDisposeForOldClients.Info";
     t[23335] = "Client: %s, station: %s, batch size matched, current clients will end here: %s";
-    t[23352] = "Batch.Parameter.Changed.UnknownResource";
-    t[23353] = "There is not resource with the specified name \"%s\".";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23352] = "Batch.Parameter.Changed.UnknownResource";
+    t[23353] = "There is not resource with the specified name \"%s\".";
     t[23358] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.MaximalTime";
     t[23359] = "<p>Returns the maximal duration over all waiting times for all clients.</p>";
     t[23364] = "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DistributionFunctionInfo";
@@ -11866,6 +11868,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27493] = "Level sensor for a tank";
     t[27496] = "Main.Menu.Help.AutomaticHelpWindow";
     t[27497] = "Show help for current element";
+    t[27498] = "Statistic.Viewer.Toolbar.Navigation.Hint";
+    t[27499] = "Allows direct navigation to a heading on this page.";
     t[27514] = "Surface.Balking.XML.Expression.ClientType";
     t[27515] = "ClientType";
     t[27516] = "ModelDescription.TransportTimeRecord.TimeClientType";
@@ -12036,16 +12040,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27925] = "The table to be pasted is not square.";
     t[27926] = "Optimizer.XML.RangeMinimum";
     t[27927] = "RangeMinimum";
-    t[27932] = "Editor.DialogBase.OpenModelTranporters.InfoNo";
-    t[27933] = "Do not close dialog.";
-    t[27934] = "Wait.Status.DayK.WIPZero";
-    t[27935] = "%s of %s repeats simulated / %sK events / %sK events per second";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27932] = "Editor.DialogBase.OpenModelTranporters.InfoNo";
+    t[27933] = "Do not close dialog.";
+    t[27934] = "Wait.Status.DayK.WIPZero";
+    t[27935] = "%s of %s repeats simulated / %sK events / %sK events per second";
     t[27938] = "Surface.AnimationDiagram.Dialog.Appearance.FrameColor";
     t[27939] = "Frame color";
     t[27940] = "Surface.InputDB.Dialog.Variable.ProcessTime";
@@ -14042,16 +14046,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32471] = "There is no element with id %d.";
     t[32472] = "Surface.Tank.XML.Root";
     t[32473] = "ModelElementTank";
-    t[32474] = "Distribution.Cauchy";
-    t[32475] = "Cauchy distribution";
-    t[32478] = "ParameterCompare.Table.SortModels.SortAscending";
-    t[32479] = "Sort ascending";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32474] = "Distribution.Cauchy";
+    t[32475] = "Cauchy distribution";
+    t[32478] = "ParameterCompare.Table.SortModels.SortAscending";
+    t[32479] = "Sort ascending";
     t[32486] = "Git.List.Tab.Server.Auth.Key.InfoKeyFilesDoesNotExist";
     t[32487] = "The specified private key file does not exist.";
     t[32492] = "FastAccessBuilder.Add.Java";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37073] = "Range";
     t[37080] = "Color.FFF8DC";
     t[37081] = "Cornsilk";
-    t[37082] = "Simulation.Log.Batching.MinMaxInfo";
-    t[37083] = "Client: %s, station: %s, waiting clients: %d/%d - minimum batch size reached but not yet maximum batch size";
-    t[37084] = "Main.Menu.File.ImportImage.Mnemonic";
-    t[37085] = "I";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37082] = "Simulation.Log.Batching.MinMaxInfo";
+    t[37083] = "Client: %s, station: %s, waiting clients: %d/%d - minimum batch size reached but not yet maximum batch size";
+    t[37084] = "Main.Menu.File.ImportImage.Mnemonic";
+    t[37085] = "I";
     t[37086] = "Animation.Icon.Key";
     t[37087] = "Key";
     t[37088] = "Optimizer.Error.CouldNotSaveResults";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41543] = "Flow factors by stations and client types";
     t[41552] = "ExternalConnect.Dialog.Compile.StatusDone";
     t[41553] = "Processing completed.";
-    t[41554] = "Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.NoInfo";
-    t[41555] = "Keep expression.";
-    t[41556] = "Statistics.FailureTime.Kurt";
-    t[41557] = "Excess kurtosis of the number of operators in down time";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41554] = "Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.NoInfo";
+    t[41555] = "Keep expression.";
+    t[41556] = "Statistics.FailureTime.Kurt";
+    t[41557] = "Excess kurtosis of the number of operators in down time";
     t[41558] = "Color.D2691E";
     t[41559] = "Chocolate";
     t[41560] = "Surface.MultiSourceTable.Activate";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46027] = "Threshold";
     t[46034] = "Surface.XML.RootName.ResourceFailure";
     t[46035] = "ResourceFailure";
-    t[46040] = "Surface.Reference.Dialog.Element";
-    t[46041] = "Element to be referenced";
-    t[46042] = "Surface.Record.Name";
-    t[46043] = "Data recording";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[46040] = "Surface.Reference.Dialog.Element";
+    t[46041] = "Element to be referenced";
+    t[46042] = "Surface.Record.Name";
+    t[46043] = "Data recording";
     t[46052] = "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect.DistributionFunctionInfo";
     t[46053] = "<p>Calculates the value of the distribution function of the left sawtooth distribution at the location specified as the first parameter with the parameters according to the second (mean) and third (standard deviation) parameters.</p>";
     t[46054] = "Surface.Hold.Dialog.Condition.Error.Info";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50615] = "trigger when values exceeds threshold";
     t[50616] = "ParameterCompare.ConnectParameters.NoModels.Title";
     t[50617] = "No models";
-    t[50618] = "Statistics.ErlangCompare.Info.Process.CancelDistribution";
-    t[50619] = "Clients are only willing to wait for a limited time. This is not considered in the formula.";
-    t[50620] = "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Settings.Hint";
-    t[50621] = "Oprns the diagram format settings dialog.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50618] = "Statistics.ErlangCompare.Info.Process.CancelDistribution";
+    t[50619] = "Clients are only willing to wait for a limited time. This is not considered in the formula.";
+    t[50620] = "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Settings.Hint";
+    t[50621] = "Oprns the diagram format settings dialog.";
     t[50626] = "Simulation.Log.BatchingDisposeForOldClients";
     t[50627] = "Batching - disposing old clients";
     t[50630] = "Surface.Costs.Tooltip";

@@ -61,6 +61,9 @@ public enum SimToolsImages {
 	/** Symbol "Speichern" */
 	SAVE("disk.png"),
 
+	/** Symbol "Navigation" */
+	NAVIGATION("page_white_find.png"),
+
 	/** Symbol "Suchen" */
 	SEARCH("find.png"),
 

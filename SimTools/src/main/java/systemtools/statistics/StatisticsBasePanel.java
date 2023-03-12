@@ -356,6 +356,10 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String viewersToolbarSaveDefaultSize="In Standardgröße (%dx%d Pixel) speichern";
 	/** Popupmenü Bezeichner für Speichern in Fenstergröße */
 	public static String viewersToolbarSaveWindowSize="In Fenstergröße (%dx%d Pixel) speichern";
+	/** Bezeichner für das Toolbar-Button "Navigation" */
+	public static String viewersToolbarNavigation="Navigation";
+	/** Bezeichner für den Tooltip für das Toolbar-Button "Speichern" */
+	public static String viewersToolbarNavigationHint="Ermöglicht die direkte Navigation zu einer Überschrift auf dieser Seite.";
 	/** Bezeichner für das Toolbar-Button "Suchen" */
 	public static String viewersToolbarSearch="Suchen";
 	/** Bezeichner für den Tooltip für das Toolbar-Button "Suchen" */
@@ -589,6 +593,9 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	/** "Speichern"-Schaltflächen über den einzelnen Viewern */
 	private final JButton[] save;
 
+	/** "Navigation"-Schaltflächen über den einzelnen Viewern */
+	private final JButton[] nav;
+
 	/** "Suchen"-Schaltflächen über den einzelnen Viewern */
 	private final JButton[] search;
 
@@ -739,6 +746,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		copy=new JButton[dataToolBar.length];
 		print=new JButton[dataToolBar.length];
 		save=new JButton[dataToolBar.length];
+		nav=new JButton[dataToolBar.length];
 		search=new JButton[dataToolBar.length];
 		settings=new JButton[dataToolBar.length];
 		selectAll=new JButton[dataToolBar.length];
@@ -767,6 +775,11 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			save[i].addActionListener(new ButtonListener());
 			save[i].setIcon(SimToolsImages.SAVE.getIcon());
 			dataToolBar[i].add(save[i]);
+			nav[i]=new JButton(viewersToolbarNavigation);
+			nav[i].setToolTipText(viewersToolbarNavigationHint);
+			nav[i].addActionListener(new ButtonListener());
+			nav[i].setIcon(SimToolsImages.NAVIGATION.getIcon());
+			dataToolBar[i].add(nav[i]);
 			search[i]=new JButton(viewersToolbarSearch);
 			search[i].setToolTipText(viewersToolbarSearchHint);
 			search[i].addActionListener(new ButtonListener());
@@ -1570,6 +1583,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			print[i].setVisible(container!=null && viewer[i].getCanDo(CanDoAction.CAN_DO_PRINT));
 			save[i].setVisible(container!=null && viewer[i].getCanDo(CanDoAction.CAN_DO_SAVE));
 			search[i].setVisible(container!=null && viewer[i].getCanDo(CanDoAction.CAN_DO_SEARCH));
+			nav[i].setVisible(container!=null && viewer[i].getCanDo(CanDoAction.CAN_DO_NAVIGATION));
 
 			for (JButton oldButton: userToolbarButtons[i]) dataToolBar[i].remove(oldButton);
 			userToolbarButtons[i].clear();
@@ -1818,6 +1832,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 				if (sender==copy[i]) dataViewer[i].copyToClipboard(Toolkit.getDefaultToolkit().getSystemClipboard());
 				if (sender==print[i]) dataViewer[i].print();
 				if (sender==save[i]) dataViewer[i].save(getOwnerWindow());
+				if (sender==nav[i]) dataViewer[i].navigation(nav[i]);
 				if (sender==search[i]) dataViewer[i].search(getOwnerWindow());
 				if (sender==settings[i]) settingsMenu[i].show(settings[i],0,settings[i].getHeight());
 				if (sender==selectAll[i] && dataViewer[i] instanceof StatisticViewerReport) ((StatisticViewerReport)dataViewer[i]).selectAll();

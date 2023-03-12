@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -52,7 +53,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
+import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
@@ -67,6 +70,10 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -94,6 +101,29 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	 * @see #initTextPane()
 	 */
 	private JTextPane textPane=null;
+
+	/**
+	 * Navigationsbaumstruktur
+	 * @see #getViewer(boolean)
+	 * @see #getSelectedNavLine()
+	 */
+	private JTree tree;
+
+	/**
+	 * Scroll-Komponente um die Baumstruktur {@link #tree}
+	 */
+	private JScrollPane treeScroller;
+
+	/**
+	 * Splitter zwischen Navigationsstruktur links
+	 * und Text auf der rechten Seite
+	 */
+	private JSplitPane split;
+
+	/**
+	 * Standardbreite des Trenners in {@link #split}
+	 */
+	private int splitDividerSize;
 
 	/**
 	 * Auszugebende Zeilen
@@ -201,6 +231,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		case CAN_DO_PRINT: return true;
 		case CAN_DO_SAVE: return true;
 		case CAN_DO_SEARCH: return true;
+		case CAN_DO_NAVIGATION: return true;
 		default: return false;
 		}
 	}
@@ -374,6 +405,97 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	}
 
 	/**
+	 * Maximal zu berücksichtigende Anzahl an Navigationsebenen
+	 * @see #getNavigationTree()
+	 */
+	private static final int MAX_NAV_LEVELS=10;
+
+	/**
+	 * Baut die Navigationsbaumstruktur auf.
+	 * @return	Navigationsbaumstruktur
+	 * @see #getViewer(boolean)
+	 */
+	private DefaultMutableTreeNode getNavigationTree() {
+		final DefaultMutableTreeNode root=new DefaultMutableTreeNode();
+
+		final DefaultMutableTreeNode[] headings=new DefaultMutableTreeNode[MAX_NAV_LEVELS+1];
+		for (int j=0;j<MAX_NAV_LEVELS;j++) headings[j]=root;
+
+		final int size=lines.size();
+		for (int i=0;i<size;i++) {
+			final int level=lineTypes.get(i);
+			if (level<=0 || level>MAX_NAV_LEVELS) continue;
+
+			final DefaultMutableTreeNode node=new DefaultMutableTreeNode(new NavRecord(lines.get(i),i));
+
+			headings[level-1].add(node);
+			for (int j=level;j<MAX_NAV_LEVELS+1;j++) headings[j]=node;
+		}
+
+		return root;
+	}
+
+	/**
+	 * Navigationsdatensatz
+	 * @see StatisticViewerText#getNavigationTree()
+	 *
+	 */
+	private static class NavRecord {
+		/**
+		 * Name des Eintrags
+		 */
+		private final String name;
+
+		/**
+		 * Zeilennummer
+		 */
+		private final int lineNr;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param name	Name des Eintrags
+		 * @param lineNr	Zeilennummer
+		 */
+		public NavRecord(final String name, final int lineNr) {
+			this.name=name;
+			this.lineNr=lineNr;
+		}
+
+		@Override
+		public String toString() {
+			return name;
+		}
+	}
+
+	/**
+	 * Aktualisiert die Breite der Navigationsbaumstruktur.
+	 */
+	private void updateTreeSize() {
+		Dimension d=tree.getPreferredSize();
+		d.width=Math.min(d.width,Math.max(250,split.getBounds().width/5));
+		d=tree.getMinimumSize();
+		d.width=Math.max(d.width,250);
+		tree.setMinimumSize(d);
+		if (d.width!=split.getDividerLocation()) split.setDividerLocation(d.width);
+	}
+
+	/**
+	 * Liefert die Zeilennummer zu dem in der Baumstruktur ausgewählten Navigationsdatensatz
+	 * @return	0-basierte Zeilennummer oder -1, wenn keine Datensatz gewählt ist
+	 */
+	public int getSelectedNavLine() {
+		final TreePath path=tree.getSelectionPath();
+		if (path==null) return -1;
+		final Object last=path.getLastPathComponent();
+		if (!(last instanceof DefaultMutableTreeNode)) return -1;
+		final DefaultMutableTreeNode node=(DefaultMutableTreeNode)last;
+		final Object userObject=node.getUserObject();
+		if (!(userObject instanceof NavRecord)) return -1;
+
+		return ((NavRecord)userObject).lineNr;
+	}
+
+	/**
 	 * Initialisiert die Anzeige der zusätzlichen Beschreibung.
 	 * @see #addDescription(URL, Consumer)
 	 * @see #descriptionURL
@@ -401,6 +523,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	public Container getViewer(final boolean needReInit) {
 		if (viewer!=null && !needReInit) return viewer;
 
+		/* Split zwischen Navigation und Text */
+		split=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		split.setResizeWeight(0.25);
+		splitDividerSize=split.getDividerSize();
+
+		/* Text */
 		if (textPane==null || needReInit) {
 			textPane=null;
 			lines.clear();
@@ -415,10 +543,26 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		final JScrollPane textScroller=new JScrollPane(textPane);
 		textPane.setSelectionStart(0);
 		textPane.setSelectionEnd(0);
+		split.setRightComponent(textScroller);
 
-		if (descriptionPane==null) return viewer=textScroller;
+		/* Navigationsstruktur */
+		tree=new JTree(new DefaultTreeModel(getNavigationTree()));
+		split.setLeftComponent(treeScroller=new JScrollPane(tree));
+		tree.setRootVisible(false);
+		tree.getParent().setMinimumSize(new Dimension(150,0));
+		tree.addTreeSelectionListener(e->gotoStartOfLine(getSelectedNavLine()+1));
+		((DefaultTreeCellRenderer)tree.getCellRenderer()).setLeafIcon(SimToolsImages.STATISTICS_TEXT.getIcon());
+		for (int i=0;i<tree.getRowCount();i++) tree.expandRow(i);
+		if (!isDark) tree.setBackground(new Color(0xFF,0xFF,0xF8));
+		split.addPropertyChangeListener("ancestor",e->updateTreeSize());
+		treeScroller.setVisible(false);
 
-		return viewer=descriptionPane.getSplitPanel(textScroller);
+		split.setDividerLocation(0);
+		split.setDividerSize(0);
+
+		/* Hinweistext unten */
+		if (descriptionPane==null) return viewer=split;
+		return viewer=descriptionPane.getSplitPanel(split);
 	}
 
 	@Override
@@ -1739,6 +1883,37 @@ public abstract class StatisticViewerText implements StatisticViewer {
 
 		final List<Integer> hits=getCaretPositions(search);
 		processSearchResults(owner,search,hits);
+	}
+
+	public void navigation(final JButton button) {
+		treeScroller.setVisible(!treeScroller.isVisible());
+		if (!treeScroller.isVisible()) {
+			split.setDividerLocation(0);
+			split.setDividerSize(0);
+		} else {
+			split.setDividerSize(splitDividerSize);
+			updateTreeSize();
+		}
+	}
+
+	/**
+	 * Scrollt den Text zu einer bestimmten Zeile.
+	 * @param line	1-basierte Zeilennummer (Werte &le;0 führen zu keiner Scroll-Veränderung)
+	 */
+	public void gotoStartOfLine(int line) {
+		if (line<=0) return;
+
+		if (textPane==null) {
+			buildText();
+			initTextPane();
+			initDescriptionPane();
+		}
+
+		final Element root=textPane.getDocument().getDefaultRootElement();
+		line=Math.max(line,1);
+		line=Math.min(line,root.getElementCount());
+		int startOfLineOffset=root.getElement(line-1).getStartOffset();
+		textPane.setCaretPosition(startOfLineOffset);
 	}
 
 	/**

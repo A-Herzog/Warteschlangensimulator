@@ -46,6 +46,7 @@ import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileFilter;
@@ -1016,9 +1017,12 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	}
 
 	@Override
-	public void search(Component owner) {
+	public void navigation(JButton button) {
 	}
 
+	@Override
+	public void search(Component owner) {
+	}
 
 	@Override
 	public boolean getCanDo(CanDoAction canDoType) {

@@ -573,6 +573,10 @@ public class StatisticViewerTable implements StatisticViewer {
 	}
 
 	@Override
+	public void navigation(JButton button) {
+	}
+
+	@Override
 	public void search(final Component owner) {
 		getViewer(false);
 

@@ -129,7 +129,13 @@ public interface StatisticViewer {
 		 * Gibt an, ob in dem Viewer gesucht werden kann
 		 * @see StatisticViewer#search(Component)
 		 */
-		CAN_DO_SEARCH
+		CAN_DO_SEARCH,
+
+		/**
+		 * Gibt an, ob eine Navigation zwischen den Überschriften möglich ist
+		 * @see StatisticViewer#navigation(JButton)
+		 */
+		CAN_DO_NAVIGATION
 	}
 
 	/**
@@ -189,6 +195,12 @@ public interface StatisticViewer {
 	 * @param owner	Übergeordnete Komponente für die Anzeige von Dialogen
 	 */
 	void save(Component owner);
+
+	/**
+	 * Blendet die Navigationsbaumstruktur ein oder aus.
+	 * @param button	Schaltfläche von der die Aktion ausging
+	 */
+	void navigation(final JButton button);
 
 	/**
 	 * Führt eine Suche im aktuellen Viewer durch.

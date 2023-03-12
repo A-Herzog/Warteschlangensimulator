@@ -8910,6 +8910,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20845] = "Modell und ggf. Statistikdaten";
     t[20852] = "ParameterCompare.Settings.Input.Name.ErrorInfo";
     t[20853] = "Es wurde kein Name f\u00fcr den Eingangsparameter angegeben.";
+    t[20856] = "Statistic.Viewer.Toolbar.Navigation";
+    t[20857] = "Navigation";
     t[20864] = "Surface.Decide.Dialog.DecideBy.ClientType";
     t[20865] = "Kundentyp";
     t[20868] = "DistributionFitter.PValue";
@@ -10032,14 +10034,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23329] = "ModellElementMehrfachQuelleModus";
     t[23334] = "Simulation.Log.BatchingDisposeForOldClients.Info";
     t[23335] = "Kunde: %s, Station: %s, Batch-Gr\u00f6\u00dfe erreicht, bisherige Kunden enden hier: %s";
-    t[23352] = "Batch.Parameter.Changed.UnknownResource";
-    t[23353] = "Es existiert keine Ressource mit dem angegebenen Namen \"%s\".";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23352] = "Batch.Parameter.Changed.UnknownResource";
+    t[23353] = "Es existiert keine Ressource mit dem angegebenen Namen \"%s\".";
     t[23358] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.MaximalTime";
     t[23359] = "<p>Liefert die maximale bisher entstandene Wartezeit (\u00fcber alle Kundentypen).</p>";
     t[23364] = "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DistributionFunctionInfo";
@@ -11866,6 +11868,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27493] = "F\u00fcllstandssensor f\u00fcr einen Tank";
     t[27496] = "Main.Menu.Help.AutomaticHelpWindow";
     t[27497] = "Hilfe zu aktuellem Element anzeigen";
+    t[27498] = "Statistic.Viewer.Toolbar.Navigation.Hint";
+    t[27499] = "Erm\u00f6glicht die direkte Navigation zu einer \u00dcberschrift auf dieser Seite.";
     t[27514] = "Surface.Balking.XML.Expression.ClientType";
     t[27515] = "Kundentyp";
     t[27516] = "ModelDescription.TransportTimeRecord.TimeClientType";
@@ -12036,16 +12040,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27925] = "Die einzuf\u00fcgende Tabelle ist nicht quadratisch.";
     t[27926] = "Optimizer.XML.RangeMinimum";
     t[27927] = "BereichMinimum";
-    t[27932] = "Editor.DialogBase.OpenModelTranporters.InfoNo";
-    t[27933] = "Dialog nicht schlie\u00dfen.";
-    t[27934] = "Wait.Status.DayK.WIPZero";
-    t[27935] = "%s von %s Wiederholungen simuliert / %sK Ereignisse / %sK Ereignisse pro Sekunde";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27932] = "Editor.DialogBase.OpenModelTranporters.InfoNo";
+    t[27933] = "Dialog nicht schlie\u00dfen.";
+    t[27934] = "Wait.Status.DayK.WIPZero";
+    t[27935] = "%s von %s Wiederholungen simuliert / %sK Ereignisse / %sK Ereignisse pro Sekunde";
     t[27938] = "Surface.AnimationDiagram.Dialog.Appearance.FrameColor";
     t[27939] = "Rahmenfarbe";
     t[27940] = "Surface.InputDB.Dialog.Variable.ProcessTime";
@@ -14042,16 +14046,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32471] = "Es existiert kein Element mit der ID %d.";
     t[32472] = "Surface.Tank.XML.Root";
     t[32473] = "ModellElementTank";
-    t[32474] = "Distribution.Cauchy";
-    t[32475] = "Cauchy-Verteilung";
-    t[32478] = "ParameterCompare.Table.SortModels.SortAscending";
-    t[32479] = "Aufsteigend sortieren";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32474] = "Distribution.Cauchy";
+    t[32475] = "Cauchy-Verteilung";
+    t[32478] = "ParameterCompare.Table.SortModels.SortAscending";
+    t[32479] = "Aufsteigend sortieren";
     t[32486] = "Git.List.Tab.Server.Auth.Key.InfoKeyFilesDoesNotExist";
     t[32487] = "Die angegebe Datei f\u00fcr den privaten Schl\u00fcssel existiert nicht.";
     t[32492] = "FastAccessBuilder.Add.Java";
@@ -16048,16 +16052,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[37073] = "Wertebereich";
     t[37080] = "Color.FFF8DC";
     t[37081] = "Cornsilk";
-    t[37082] = "Simulation.Log.Batching.MinMaxInfo";
-    t[37083] = "Kunde: %s, Station: %s, wartende Kunden: %d/%d - Minimale Batchgr\u00f6\u00dfe erreicht, aber maximale Batch-Gr\u00f6\u00dfe noch nicht";
-    t[37084] = "Main.Menu.File.ImportImage.Mnemonic";
-    t[37085] = "B";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[37082] = "Simulation.Log.Batching.MinMaxInfo";
+    t[37083] = "Kunde: %s, Station: %s, wartende Kunden: %d/%d - Minimale Batchgr\u00f6\u00dfe erreicht, aber maximale Batch-Gr\u00f6\u00dfe noch nicht";
+    t[37084] = "Main.Menu.File.ImportImage.Mnemonic";
+    t[37085] = "B";
     t[37086] = "Animation.Icon.Key";
     t[37087] = "Schl\u00fcssel";
     t[37088] = "Optimizer.Error.CouldNotSaveResults";
@@ -18054,16 +18058,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41543] = "Flussgrade nach Stationen und Kundentypen";
     t[41552] = "ExternalConnect.Dialog.Compile.StatusDone";
     t[41553] = "Verarbeitung abgeschlossen.";
-    t[41554] = "Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.NoInfo";
-    t[41555] = "Ausdruck beibehalten.";
-    t[41556] = "Statistics.FailureTime.Kurt";
-    t[41557] = "Exzess (W\u00f6lbung) der Anzahl an Bedienern in Pausezeit";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41554] = "Editor.Dialog.Tab.RunTimeStatisticsTable.Delete.NoInfo";
+    t[41555] = "Ausdruck beibehalten.";
+    t[41556] = "Statistics.FailureTime.Kurt";
+    t[41557] = "Exzess (W\u00f6lbung) der Anzahl an Bedienern in Pausezeit";
     t[41558] = "Color.D2691E";
     t[41559] = "Schokolade";
     t[41560] = "Surface.MultiSourceTable.Activate";
@@ -20060,16 +20064,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[46027] = "Schwellenwert";
     t[46034] = "Surface.XML.RootName.ResourceFailure";
     t[46035] = "RessourceAusfall";
-    t[46040] = "Surface.Reference.Dialog.Element";
-    t[46041] = "Zu referenzierendes Element";
-    t[46042] = "Surface.Record.Name";
-    t[46043] = "Datenaufzeichnung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[46040] = "Surface.Reference.Dialog.Element";
+    t[46041] = "Zu referenzierendes Element";
+    t[46042] = "Surface.Record.Name";
+    t[46043] = "Datenaufzeichnung";
     t[46052] = "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect.DistributionFunctionInfo";
     t[46053] = "<p>Berechnet den Wert der Verteilungsfunktion der linken S\u00e4gezahnverteilung an der als ersten Parameter angegebenen Stelle mit dem Parameter gem\u00e4\u00df dem zweiten (Mittelwert) und dritten (Standardabweichung) Parameter.</p>";
     t[46054] = "Surface.Hold.Dialog.Condition.Error.Info";
@@ -22066,16 +22070,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50615] = "beim \u00dcberschreiten des Schwellenwerts ausl\u00f6sen";
     t[50616] = "ParameterCompare.ConnectParameters.NoModels.Title";
     t[50617] = "Keine Modelle vorhanden";
-    t[50618] = "Statistics.ErlangCompare.Info.Process.CancelDistribution";
-    t[50619] = "Die Kunden sind nur begrenzt lange bereit zu warten. Dies wird in der Formel nicht ber\u00fccksichtigt.";
-    t[50620] = "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Settings.Hint";
-    t[50621] = "\u00d6ffnet den Dialog zur Konfiguration des Aussehens des Diagrams.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50618] = "Statistics.ErlangCompare.Info.Process.CancelDistribution";
+    t[50619] = "Die Kunden sind nur begrenzt lange bereit zu warten. Dies wird in der Formel nicht ber\u00fccksichtigt.";
+    t[50620] = "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Settings.Hint";
+    t[50621] = "\u00d6ffnet den Dialog zur Konfiguration des Aussehens des Diagrams.";
     t[50626] = "Simulation.Log.BatchingDisposeForOldClients";
     t[50627] = "Zusammenfassen - Ende f\u00fcr bisherige Kunden";
     t[50630] = "Surface.Costs.Tooltip";

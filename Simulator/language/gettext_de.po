@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-05 01:35+0100\n"
+"POT-Creation-Date: 2023-03-09 19:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21402,6 +21402,12 @@ msgstr "Tabelle in Excel anzeigen"
 
 msgid "Statistic.Viewer.Toolbar.Excel.Prefix"
 msgstr "QS_Temp"
+
+msgid "Statistic.Viewer.Toolbar.Navigation"
+msgstr "Navigation"
+
+msgid "Statistic.Viewer.Toolbar.Navigation.Hint"
+msgstr "Ermöglicht die direkte Navigation zu einer Überschrift auf dieser Seite."
 
 msgid "Statistic.Viewer.Toolbar.NewWindow"
 msgstr "Fenster"

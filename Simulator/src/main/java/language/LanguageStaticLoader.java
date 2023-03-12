@@ -720,6 +720,8 @@ public class LanguageStaticLoader {
 		StatisticsBasePanel.viewersToolbarSaveHint=Language.tr("Statistic.Viewer.Toolbar.Save.Hint");
 		StatisticsBasePanel.viewersToolbarSaveDefaultSize=Language.tr("Statistic.Viewer.Toolbar.Save.DefaultSize");
 		StatisticsBasePanel.viewersToolbarSaveWindowSize=Language.tr("Statistic.Viewer.Toolbar.Save.WindowSize");
+		StatisticsBasePanel.viewersToolbarNavigation=Language.tr("Statistic.Viewer.Toolbar.Navigation");
+		StatisticsBasePanel.viewersToolbarNavigationHint=Language.tr("Statistic.Viewer.Toolbar.Navigation.Hint");
 		StatisticsBasePanel.viewersToolbarSearch=Language.tr("Statistic.Viewer.Toolbar.Search");
 		StatisticsBasePanel.viewersToolbarSearchHint=Language.tr("Statistic.Viewer.Toolbar.Search.Hint");
 		StatisticsBasePanel.viewersToolbarSearchTitle=Language.tr("Statistic.Viewer.Toolbar.Search.DialogTitle");

@@ -231,6 +231,10 @@ class StatisticViewerHTMLText implements StatisticViewer {
 	}
 
 	@Override
+	public void navigation(JButton button) {
+	}
+
+	@Override
 	public void search(Component owner) {
 	}
 

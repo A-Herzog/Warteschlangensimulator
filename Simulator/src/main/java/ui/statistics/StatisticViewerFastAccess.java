@@ -23,6 +23,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 
+import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
@@ -163,6 +164,10 @@ public class StatisticViewerFastAccess extends StatisticViewerSpecialBase {
 		}
 
 		JSRunDataFilterTools.saveText(results.getText(),file,false);
+	}
+
+	@Override
+	public void navigation(JButton button) {
 	}
 
 	@Override

@@ -21,6 +21,8 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 
+import javax.swing.JButton;
+
 import systemtools.statistics.StatisticViewerSpecialBase;
 
 /**
@@ -84,6 +86,10 @@ public abstract class StatisticViewerSpecialBasePlain extends StatisticViewerSpe
 
 	@Override
 	public void save(Component owner) {
+	}
+
+	@Override
+	public void navigation(JButton button) {
 	}
 
 	@Override
