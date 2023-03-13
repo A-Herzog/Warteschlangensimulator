@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-09 19:12+0100\n"
+"POT-Creation-Date: 2023-03-12 01:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3963,6 +3963,9 @@ msgstr "Mit Hilfe von Fertigungsplänen können einzelne Kunden der Reihe nach z
 msgid "Editor.Dialog.Tab.Simulation"
 msgstr "Simulation"
 
+msgid "Editor.Dialog.Tab.Simulation.ClientData"
+msgstr "Kundendaten"
+
 msgid "Editor.Dialog.Tab.Simulation.Condition"
 msgstr "Bedingung für Simulationsende"
 
@@ -4046,6 +4049,12 @@ msgstr "Erfassung mittels Welfords online Algorithmus"
 
 msgid "Editor.Dialog.Tab.Simulation.Precision.Welford.Info"
 msgstr "Der Welford-Algorithmus ist deutlich langsamer aber liefert bei sehr kleinen Variationskoeffizienten eine bessere Präzision."
+
+msgid "Editor.Dialog.Tab.Simulation.RecordClientTextData"
+msgstr "Text-Kundendatenfelder in der Statistik erfassen"
+
+msgid "Editor.Dialog.Tab.Simulation.RecordClientTextData.Hint"
+msgstr "Erfasst die Häufigkeiten pro Wert der Text-Kundendatenfelder"
 
 msgid "Editor.Dialog.Tab.Simulation.RecordIncompleteClients"
 msgstr "Kunden, die am Simulationsende das System noch nicht verlassen haben, erfassen"
@@ -21894,6 +21903,21 @@ msgstr "Pfad"
 msgid "Statistics.ClientPathRecording.PathLength"
 msgstr "Pfadlänge"
 
+msgid "Statistics.ClientTextData"
+msgstr "Kundendatentextfelder"
+
+msgid "Statistics.ClientTextData.Frequency.absolute"
+msgstr "Häufigkeit (absolut)"
+
+msgid "Statistics.ClientTextData.Frequency.relative"
+msgstr "Häufigkeit (relativ)"
+
+msgid "Statistics.ClientTextData.Key"
+msgstr "Schlüssel"
+
+msgid "Statistics.ClientTextData.Value"
+msgstr "Wert"
+
 msgid "Statistics.ClientType"
 msgstr "Kundentyp"
 
@@ -23868,6 +23892,18 @@ msgstr "StatistikKundenpfade"
 
 msgid "Statistics.XML.Element.ClientPaths.Path"
 msgstr "Pfad"
+
+msgid "Statistics.XML.Element.ClientTextData"
+msgstr "StatistikKundentextdaten"
+
+msgid "Statistics.XML.Element.ClientTextData.Key"
+msgstr "StatistikKundentextdatenschluessel"
+
+msgid "Statistics.XML.Element.ClientTextDataByClientTypes"
+msgstr "StatistikKundentextdatenNachKundentyp"
+
+msgid "Statistics.XML.Element.ClientTextDataByClientTypes.Key"
+msgstr "StatistikKundentextdatenschluessel"
 
 msgid "Statistics.XML.Element.ClientsAtStation"
 msgstr "StatistikKundenAnStation"
@@ -34526,6 +34562,9 @@ msgstr "KlassenLadenZulaessig"
 
 msgid "Surface.XML.QueueAnimationComplete"
 msgstr "ModellElementWarteschlangeAnimationVollstaendig"
+
+msgid "Surface.XML.RecordClientTextData"
+msgstr "ModellKundenTextDatenAufzeichnen"
 
 msgid "Surface.XML.RecordIncompleteClients"
 msgstr "ModellUnvollstaendigeKundenAufzeichnung"

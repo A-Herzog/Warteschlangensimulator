@@ -20,6 +20,7 @@ import java.awt.FlowLayout;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -40,12 +41,22 @@ import ui.modeleditor.ModelElementBaseDialog;
 public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPage {
 	/** Eingabefeld "In Verteilung aufzuzeichnende Stunden" */
 	private JTextField distributionRecordHours;
+
+	/** Option "Kunden, die am Simulationsende das System noch nicht verlassen haben, erfassen" */
+	private JCheckBox recordIncompleteClients;
+
 	/** Eingabefeld "In Verteilung aufzuzeichnende Werte der Kundendatenfelder" */
 	private JTextField distributionRecordClientDataValues;
+
+	/** Eingabefeld "Erfassung der Text-Kundendatenfelder in der Statistik" */
+	private JCheckBox recordClientTextData;
+
 	/** Varianzerfassung über Momente */
 	private JRadioButton optionPrecisionMoments;
 	/** Varianzerfassung über Welfords Algorithmus */
 	private JRadioButton optionPrecisionWelford;
+
+
 
 	/**
 	 * Konstruktor der Klasse
@@ -84,6 +95,21 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 		addKeyListener(distributionRecordHours,()->checkDistributionRecordHours());
 		sub.add(new JLabel(" ("+Language.tr("Editor.Dialog.Tab.Simulation.DistributionRecordHours.Info")+")"));
 
+		/* Zwischenüberschrift: "Kundendaten" */
+
+		lines.add(Box.createVerticalStrut(25));
+
+		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(new JLabel("<html><b>"+Language.tr("Editor.Dialog.Tab.Simulation.ClientData")+"</b></html>"));
+
+		/* Kunden, die am Simulationsende das System noch nicht verlassen haben, erfassen */
+
+		sub=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		lines.add(sub);
+		sub.add(recordIncompleteClients=new JCheckBox(Language.tr("Editor.Dialog.Tab.Simulation.RecordIncompleteClients"),model.recordIncompleteClients));
+		recordIncompleteClients.setToolTipText(Language.tr("Editor.Dialog.Tab.Simulation.RecordIncompleteClients.Hint"));
+		recordIncompleteClients.setEnabled(!readOnly);
+
 		/* Kundendatenfelder */
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.Simulation.DistributionRecordClientDataValues.Value")+":",""+model.distributionRecordClientDataValues,10);
@@ -93,6 +119,14 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 		distributionRecordClientDataValues.setEditable(!readOnly);
 		addKeyListener(distributionRecordClientDataValues,()->checkDistributionRecordClientDataValues());
 		sub.add(new JLabel(" ("+Language.tr("Editor.Dialog.Tab.Simulation.DistributionRecordHours.Info")+")"));
+
+		/* Text-Kundendatenfelder */
+
+		sub=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		lines.add(sub);
+		sub.add(recordClientTextData=new JCheckBox(Language.tr("Editor.Dialog.Tab.Simulation.RecordClientTextData"),model.recordClientTextData));
+		recordClientTextData.setToolTipText(Language.tr("Editor.Dialog.Tab.Simulation.RecordClientTextData.Hint"));
+		recordClientTextData.setEnabled(!readOnly);
 
 		/* Zwischenüberschrift: "Präzision der Varianzerfassung" */
 
@@ -160,8 +194,14 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 	public void storeData() {
 		Long L=NumberTools.getNotNegativeLong(distributionRecordHours,true);
 		if (L!=null) model.distributionRecordHours=(int)L.longValue();
+
+		model.recordIncompleteClients=recordIncompleteClients.isSelected();
+
 		L=NumberTools.getNotNegativeLong(distributionRecordClientDataValues,true);
 		if (L!=null) model.distributionRecordClientDataValues=(int)L.longValue();
+
+		model.recordClientTextData=recordClientTextData.isSelected();
+
 		model.useWelford=optionPrecisionWelford.isSelected();
 	}
 }

@@ -409,6 +409,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public boolean recordStationTotalClientTimes;
 
 	/**
+	 * Erfassung der Text-Kundendatenfelder in der Statistik
+	 */
+	public boolean recordClientTextData;
+
+	/**
 	 * Sollen auch Kunden, die das System am Ende noch nicht verlassen haben, in der Statistik erfasst werden?
 	 */
 	public boolean recordIncompleteClients;
@@ -482,6 +487,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		recordStationTransitions=false;
 		recordClientPaths=false;
 		recordStationTotalClientTimes=false;
+		recordClientTextData=false;
 		recordIncompleteClients=false;
 		modelLoadData=new ModelLoadData();
 		pluginsFolder="";
@@ -573,6 +579,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		recordStationTransitions=false;
 		recordClientPaths=false;
 		recordStationTotalClientTimes=false;
+		recordClientTextData=false;
 		recordIncompleteClients=false;
 		templates=null;
 		modelLoadData.clear();
@@ -642,6 +649,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.recordStationTransitions=recordStationTransitions;
 		clone.recordClientPaths=recordClientPaths;
 		clone.recordStationTotalClientTimes=recordStationTotalClientTimes;
+		clone.recordClientTextData=recordClientTextData;
 		clone.recordIncompleteClients=recordIncompleteClients;
 		if (templates!=null) clone.templates=templates.clone();
 		clone.modelLoadData.copyDataFrom(modelLoadData);
@@ -727,6 +735,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (recordStationTransitions!=otherModel.recordStationTransitions) return false;
 		if (recordClientPaths!=otherModel.recordClientPaths) return false;
 		if (recordStationTotalClientTimes!=otherModel.recordStationTotalClientTimes) return false;
+		if (recordClientTextData!=otherModel.recordClientTextData) return false;
 		if (recordIncompleteClients!=otherModel.recordIncompleteClients) return false;
 		if (!modelLoadData.equalsModelLoadData(otherModel.modelLoadData)) return false;
 		if (!pluginsFolder.equalsIgnoreCase(otherModel.pluginsFolder)) return false;
@@ -1121,6 +1130,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			return null;
 		}
 
+		if (Language.trAll("Surface.XML.RecordClientTextData",name)) {
+			recordClientTextData=!text.trim().isEmpty() && !text.equals("0");
+			return null;
+		}
+
 		if (Language.trAll("Surface.XML.RecordIncompleteClients",name)) {
 			recordIncompleteClients=!text.trim().isEmpty() && !text.equals("0");
 			return null;
@@ -1355,6 +1369,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		if (recordStationTotalClientTimes) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.RecordStationTotalClientTimes")));
+			sub.setTextContent("1");
+		}
+
+		if (recordClientTextData) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.RecordClientTextData")));
 			sub.setTextContent("1");
 		}
 

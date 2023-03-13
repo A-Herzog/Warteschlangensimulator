@@ -151,19 +151,6 @@ This slows down the simulation process considerably, but also makes it possible
 to correctly map conditions in which the simulation time is used directly.
 </p>
 
-<h3>Record clients in statistic that have not left the system at simulation end</h3>
-<p>
-In the default case, the statistical data of the clients is transferred to the
-statistics record when the client leaves the system. Clients that are still in
-the system at the end of the simulation are not recorded. This ensures that only
-the data for those clients that have passed through the system correctly and
-completely is recorded. However, in closed queueing systems, it can happen that
-clients never leave the system and are therefore not recorded. In this case,
-it may make sense to activate this option so that the statistical data of the
-clients remaining in the system is also transferred to the statistics recording.
-However, this function slows down the simulation itself.
-</p>
-
 
 
 <h2><img src="../images/sum.png">&nbsp; Simulation</h2>
@@ -178,6 +165,25 @@ large values can be recorded in the distribution of the values but
 also the more memory will be needed for simulation. The recording of
 the performance indicators (like mean etc.) will always be exact
 independent of the size of the values distribution.
+</p>
+
+<h3>Record clients in statistic that have not left the system at simulation end</h3>
+<p>
+In the default case, the statistical data of the clients is transferred to the
+statistics record when the client leaves the system. Clients that are still in
+the system at the end of the simulation are not recorded. This ensures that only
+the data for those clients that have passed through the system correctly and
+completely is recorded. However, in closed queueing systems, it can happen that
+clients never leave the system and are therefore not recorded. In this case,
+it may make sense to activate this option so that the statistical data of the
+clients remaining in the system is also transferred to the statistics recording.
+However, this function slows down the simulation itself.
+</p>
+
+<h3>Record text client data fields in statistics</h3>
+<p>
+If this option is activated, it is counted which client data text key was
+assigned how often (when leaving the system) with which value.
 </p>
 
 <h3>Values to be recorded in client data distributions</h3>

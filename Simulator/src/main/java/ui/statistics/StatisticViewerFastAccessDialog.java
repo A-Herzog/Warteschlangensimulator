@@ -392,7 +392,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 	}
 
 	/**
-	 * Wrapper zur Darstellung der Daten im Inhaltsberich
+	 * Wrapper zur Darstellung der Daten im Inhaltsbereich
 	 * zu einem XML-Element
 	 * @see StatisticViewerFastAccessDialog#setTableData(XMLNodeWrapper)
 	 */
@@ -452,6 +452,10 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				/* Kundendatenfelder */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientData")+","+Language.trPrimary("Statistics.XML.ClientDataRecord"),
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientDataByClientTypes")+","+Language.trPrimary("Statistics.XML.ClientDataRecord"),
+
+				/* Text-Kundendatenfelder */
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientTextData")+","+Language.trPrimary("Statistics.XML.Element.ClientTextData.Key"),
+				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.ClientTextDataByClientTypes")+","+Language.trPrimary("Statistics.XML.Element.ClientTextDataByClientTypes.Key"),
 
 				/* Zeiten auf Seiten der Stationen */
 				Language.trPrimary("XML.Statistic.BaseElement")+","+Language.trPrimary("Statistics.XML.Element.WaitingStations")+","+Language.trPrimary("Statistics.XML.Station"),

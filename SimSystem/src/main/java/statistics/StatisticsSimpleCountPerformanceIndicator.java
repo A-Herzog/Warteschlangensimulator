@@ -24,7 +24,7 @@ import mathtools.NumberTools;
  * eingetreten ist (und sonst nichts).<br>
  * Die Zählung wird über die Funktion {@link StatisticsSimpleCountPerformanceIndicator#add()} realisiert.
  * @author Alexander Herzog
- * @version 1.3
+ * @version 1.4
  */
 public final class StatisticsSimpleCountPerformanceIndicator extends StatisticsPerformanceIndicator implements Cloneable {
 	/** XML-Attribut für "Anzahl" */
@@ -46,12 +46,19 @@ public final class StatisticsSimpleCountPerformanceIndicator extends StatisticsP
 	private boolean useGrouping;
 
 	/**
+	 * Ist {@link #useGrouping} aktiv: An welchem Bindestrich soll
+	 * in Bezug auf den Namen nach Gruppenname und Zählername getrennt werden?
+	 */
+	private int splitAtDash;
+
+	/**
 	 * Konstruktor der Klasse <code>StatisticsSimpleCountPerformanceIndicator</code>
 	 * @param xmlNodeNames	Name des xml-Knotens, in dem die Daten gespeichert werden sollen
 	 */
 	public StatisticsSimpleCountPerformanceIndicator(final String[] xmlNodeNames) {
 		super(xmlNodeNames);
 		useGrouping=true;
+		splitAtDash=1;
 		reset();
 	}
 
@@ -63,6 +70,19 @@ public final class StatisticsSimpleCountPerformanceIndicator extends StatisticsP
 	public StatisticsSimpleCountPerformanceIndicator(final String[] xmlNodeNames, final boolean useGrouping) {
 		super(xmlNodeNames);
 		this.useGrouping=useGrouping;
+		splitAtDash=1;
+		reset();
+	}
+
+	/**
+	 * Konstruktor der Klasse <code>StatisticsSimpleCountPerformanceIndicator</code>
+	 * @param xmlNodeNames	Name des xml-Knotens, in dem die Daten gespeichert werden sollen
+	 * @param splitAtDash	An welchem Bindestrich soll in Bezug auf den Namen nach Gruppenname und Zählername getrennt werden?
+	 */
+	public StatisticsSimpleCountPerformanceIndicator(final String[] xmlNodeNames, final int splitAtDash) {
+		super(xmlNodeNames);
+		useGrouping=true;
+		this.splitAtDash=splitAtDash;
 		reset();
 	}
 
@@ -101,6 +121,7 @@ public final class StatisticsSimpleCountPerformanceIndicator extends StatisticsP
 	protected void copyDataFrom(final StatisticsPerformanceIndicator indicator) {
 		if (!(indicator instanceof StatisticsSimpleCountPerformanceIndicator)) return;
 		useGrouping=((StatisticsSimpleCountPerformanceIndicator)indicator).useGrouping;
+		splitAtDash=((StatisticsSimpleCountPerformanceIndicator)indicator).splitAtDash;
 		count=((StatisticsSimpleCountPerformanceIndicator)indicator).count;
 	}
 
@@ -124,6 +145,7 @@ public final class StatisticsSimpleCountPerformanceIndicator extends StatisticsP
 	public StatisticsSimpleCountPerformanceIndicator cloneEmpty() {
 		final StatisticsSimpleCountPerformanceIndicator indicator=new StatisticsSimpleCountPerformanceIndicator(xmlNodeNames);
 		indicator.useGrouping=useGrouping;
+		indicator.splitAtDash=splitAtDash;
 		return indicator;
 	}
 
@@ -144,8 +166,15 @@ public final class StatisticsSimpleCountPerformanceIndicator extends StatisticsP
 		if (!useGrouping) return null;
 		if (name==null || name.isEmpty()) return null;
 		final String[] parts=name.split("-");
-		if (parts.length<2) return null;
-		return parts[0];
+		if (parts.length<splitAtDash+1) return null;
+		if (splitAtDash==1) return parts[0];
+		final StringBuilder result=new StringBuilder();
+		result.append(parts[0]);
+		for (int i=1;i<splitAtDash;i++) {
+			result.append("-");
+			result.append(parts[i]);
+		}
+		return result.toString();
 	}
 
 	/**

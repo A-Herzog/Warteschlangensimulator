@@ -203,6 +203,21 @@ public class Statistics extends StatisticsBase {
 	public final StatisticsMultiPerformanceIndicator clientDataByClientTypes;
 
 	/* ====================================================
+	 * Text-Kundendatenfelder
+	 * ====================================================
+	 */
+
+	/**
+	 * Kundenspezifische Text-Werte
+	 */
+	public final StatisticsMultiPerformanceIndicator clientTextData;
+
+	/**
+	 * Kundenspezifische Text-Werte (nach Kundentypen)
+	 */
+	public final StatisticsMultiPerformanceIndicator clientTextDataByClientTypes;
+
+	/* ====================================================
 	 * Zeiten auf Seiten der Stationen
 	 * ====================================================
 	 */
@@ -635,6 +650,10 @@ public class Statistics extends StatisticsBase {
 		/* Kundendatenfelder */
 		addPerformanceIndicator(clientData=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientData"),new StatisticsDataPerformanceIndicatorWithNegativeValues(nameClientData,dataToRecordInClientDataDistribution,dataToRecordInClientDataDistribution,1,useWelford,true)));
 		addPerformanceIndicator(clientDataByClientTypes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientDataByClientTypes"),new StatisticsDataPerformanceIndicatorWithNegativeValues(nameClientData,dataToRecordInClientDataDistribution,dataToRecordInClientDataDistribution,1,useWelford,true)));
+
+		/* Text-Kundendatenfelder */
+		addPerformanceIndicator(clientTextData=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientTextData"),new StatisticsSimpleCountPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientTextData.Key"))));
+		addPerformanceIndicator(clientTextDataByClientTypes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientTextDataByClientTypes"),new StatisticsSimpleCountPerformanceIndicator(Language.trAll("Statistics.XML.Element.ClientTextDataByClientTypes.Key"),2)));
 
 		/* Zeiten auf Seiten der Stationen */
 		addPerformanceIndicator(stationsWaitingTimes=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.WaitingStations"),new StatisticsDataPerformanceIndicator(nameStation,secondsToRecordInDistributions,timeSteps,rangeFull,batchSize,useWelford,true)));

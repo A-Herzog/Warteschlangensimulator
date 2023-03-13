@@ -304,6 +304,11 @@ public final class RunDataClients {
 		/* Werte der Eigenschaften erfassen */
 		client.writeUserDataToStatistics(name,statistics.clientData,statistics.clientDataByClientTypes);
 
+		/* Text-Werte der Eigenschaften erfassen */
+		if (simData.runModel.recordClientTextData) {
+			client.writeUserTextDataToStatistics(name,statistics.clientTextData,statistics.clientTextDataByClientTypes);
+		}
+
 		/* Pfad erfassen */
 		client.storePathToStatistics(simData);
 

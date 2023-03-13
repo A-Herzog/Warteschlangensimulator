@@ -646,6 +646,24 @@ public class RunDataClient {
 	}
 
 	/**
+	 * Erfasst die Werte der Text-Nutzerdaten-Felder in der Statistik.
+	 * @param clientTypeName	Name des Kundentyps
+	 * @param indicators	Statistikobjekt (welches Unterobjekte vom Typ {@link StatisticsSimpleCountPerformanceIndicator} enthält), in dem die Text-Daten globalen über alle Kundentypen erfasst werden sollen
+	 * @param indicatorsByClientType	Statistikobjekt (welches Unterobjekte vom Typ {@link StatisticsSimpleCountPerformanceIndicator} enthält), in dem die Text-Daten pro Kundentyp erfasst werden sollen
+	 */
+	public void writeUserTextDataToStatistics(String clientTypeName, final StatisticsMultiPerformanceIndicator indicators, final StatisticsMultiPerformanceIndicator indicatorsByClientType) {
+		if (userDataStrings==null) return;
+
+		clientTypeName=clientTypeName.replace('-','_');
+		for (Map.Entry<String,String> entry: userDataStrings.entrySet()) {
+			final String group=entry.getKey().replace('-','_');
+			final String counter=entry.getValue().replace('-','_');
+			((StatisticsSimpleCountPerformanceIndicator)indicators.get(group+"-"+counter)).add();
+			((StatisticsSimpleCountPerformanceIndicator)indicatorsByClientType.get(clientTypeName+"-"+group+"-"+counter)).add();
+		}
+	}
+
+	/**
 	 * Liefert den Wert eines bestimmten Nutzerdaten-Text-Feldes.
 	 * @param key	Name des Feldes
 	 * @return	Liefert den Wert des Feldes oder einen leeren String, wenn noch kein Wert für dieses Feld gesetzt wurde.

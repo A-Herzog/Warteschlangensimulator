@@ -34,6 +34,7 @@ import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsPerformanceIndicator;
+import statistics.StatisticsSimpleCountPerformanceIndicator;
 import statistics.StatisticsSimpleValueMaxPerformanceIndicator;
 import statistics.StatisticsSimpleValuePerformanceIndicator;
 import statistics.StatisticsTimeContinuousPerformanceIndicator;
@@ -193,6 +194,9 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		MODE_CLIENT_DATA,
 		/** Kundendatenfelder (Tabelle mit Verteilung der Werte) */
 		MODE_CLIENT_DATA_DISTRIBUTION,
+
+		/** Kundendatentextfelder (Übersichtstabelle) */
+		MODE_CLIENT_TEXT_DATA,
 
 		/** Tabelle mit den an den Datenaufzeichnung-Stationen erfassten Werten */
 		MODE_VALUE_RECORDING,
@@ -1142,6 +1146,104 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	}
 
 	/**
+	 * Ausgabe der
+	 * Kundendatentextfelder (Übersichtstabelle)
+	 * @see Mode#MODE_CLIENT_TEXT_DATA
+	 */
+	private void buildClientDataTextTable() {
+		final Table table=new Table();
+
+		String[] names;
+		Set<String> clientTypes;
+		Set<String> keys;
+
+		/* Daten über alles */
+
+		keys=new HashSet<>();
+		names=statistics.clientTextData.getNames();
+		for (String name: names) {
+			final String[] parts=name.split("-",2);
+			if (parts.length==2) keys.add(parts[0]);
+		}
+		for (String key: keys.stream().sorted().toArray(String[]::new)) {
+			long sum=0;
+			for (String name: names) {
+				final String[] parts=name.split("-",2);
+				if (parts.length!=2) continue;
+				if (!parts[0].equals(key)) continue;
+				final StatisticsSimpleCountPerformanceIndicator indicator=(StatisticsSimpleCountPerformanceIndicator)statistics.clientTextData.get(name);
+				sum+=indicator.get();
+			}
+			final String[] line=new String[5];
+			line[0]=Language.tr("Statistics.TotalBig");
+			line[1]=key;
+			for (String name: names) {
+				final String[] parts=name.split("-",2);
+				if (parts.length!=2) continue;
+				if (!parts[0].equals(key)) continue;
+				final StatisticsSimpleCountPerformanceIndicator indicator=(StatisticsSimpleCountPerformanceIndicator)statistics.clientTextData.get(name);
+				final long value=indicator.get();
+				line[2]=parts[1];
+				line[3]=NumberTools.formatLongNoGrouping(value);
+				line[4]=StatisticTools.formatPercent(((double)value)/sum);
+				table.addLine(line);
+			}
+		}
+
+		/* Daten pro Kundentyp */
+
+		clientTypes=new HashSet<>();
+		names=statistics.clientTextDataByClientTypes.getNames();
+		for (String name: names) {
+			final String[] parts=name.split("-",3);
+			if (parts.length==3) clientTypes.add(parts[0]);
+		}
+
+		for (String clientType: clientTypes.stream().sorted().toArray(String[]::new)) {
+			final String[] line=new String[5];
+			line[0]=clientType;
+
+			keys=new HashSet<>();
+			for (String name: names) {
+				final String[] parts=name.split("-",3);
+				if (parts.length==3 && parts[0].equals(clientType)) keys.add(parts[1]);
+			}
+			for (String key: keys.stream().sorted().toArray(String[]::new)) {
+				long sum=0;
+				for (String name: names) {
+					final String[] parts=name.split("-",3);
+					if (parts.length!=3) continue;
+					if (!parts[0].equals(clientType)) continue;
+					if (!parts[1].equals(key)) continue;
+					final StatisticsSimpleCountPerformanceIndicator indicator=(StatisticsSimpleCountPerformanceIndicator)statistics.clientTextDataByClientTypes.get(name);
+					sum+=indicator.get();
+				}
+				line[1]=key;
+				for (String name: names) {
+					final String[] parts=name.split("-",3);
+					if (parts.length!=3) continue;
+					if (!parts[0].equals(clientType)) continue;
+					if (!parts[1].equals(key)) continue;
+					final StatisticsSimpleCountPerformanceIndicator indicator=(StatisticsSimpleCountPerformanceIndicator)statistics.clientTextDataByClientTypes.get(name);
+					final long value=indicator.get();
+					line[2]=parts[2];
+					line[3]=NumberTools.formatLongNoGrouping(value);
+					line[4]=StatisticTools.formatPercent(((double)value)/sum);
+					table.addLine(line);
+				}
+			}
+		}
+
+		setData(table,new String[] {
+				Language.tr("Statistics.ClientType"),
+				Language.tr("Statistics.ClientTextData.Key"),
+				Language.tr("Statistics.ClientTextData.Value"),
+				Language.tr("Statistics.ClientTextData.Frequency.absolute"),
+				Language.tr("Statistics.ClientTextData.Frequency.relative")
+		});
+	}
+
+	/**
 	 * Liefert eine {@link ModelElementRecord}-Station mit einem bestimmten Namen
 	 * @param surface	Zeichenfläche auf der und auf deren Unterzeichenflächen gesucht werden soll
 	 * @param data	Name der Station
@@ -1339,6 +1441,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		case MODE_TRANSPORTER_DOWNTIMES: buildTransporterDownTimesTable(); break;
 		case MODE_CLIENT_DATA: buildClientDataTable(); break;
 		case MODE_CLIENT_DATA_DISTRIBUTION: buildClientDataDistributionTable(); break;
+		case MODE_CLIENT_TEXT_DATA: buildClientDataTextTable(); break;
 		case MODE_VALUE_RECORDING: buildValueRecordingTable(); break;
 		case MODE_USER_VARIABLES: buildUserVariablesTable(); break;
 		case MODE_SYSTEM_INFO_THREAD_BALANCE: buildThreadBalanceInfoTable(); break;

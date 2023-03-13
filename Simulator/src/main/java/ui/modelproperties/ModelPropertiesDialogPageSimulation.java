@@ -81,8 +81,6 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 	private JCheckBox useTimedChecks;
 	/** Eingabefeld "Zeitabstand" */
 	private JTextField editTimedChecks;
-	/** Option "Kunden, die am Simulationsende das System noch nicht verlassen haben, erfassen" */
-	private JCheckBox recordIncompleteClients;
 
 	/**
 	 * Konstruktor der Klasse
@@ -288,12 +286,6 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 			checkTimedChecks();
 		});
 		sub.add(new JLabel(Language.tr("Editor.Dialog.Tab.Simulation.TimedChecks.Seconds")));
-
-		sub=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		lines.add(sub);
-		sub.add(recordIncompleteClients=new JCheckBox(Language.tr("Editor.Dialog.Tab.Simulation.RecordIncompleteClients"),model.recordIncompleteClients));
-		recordIncompleteClients.setToolTipText(Language.tr("Editor.Dialog.Tab.Simulation.RecordIncompleteClients.Hint"));
-		recordIncompleteClients.setEnabled(!readOnly);
 	}
 
 	/**
@@ -458,8 +450,6 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		} else {
 			model.timedChecksDelta=-1;
 		}
-
-		model.recordIncompleteClients=recordIncompleteClients.isSelected();
 	}
 
 	/**

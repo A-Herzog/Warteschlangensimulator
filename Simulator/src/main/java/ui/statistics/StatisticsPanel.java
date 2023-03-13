@@ -714,6 +714,19 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	}
 
 	/**
+	 * Sind kundenspezifische Text-Werte in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt kundenspezifische Werte enthalten sind
+	 */
+	private boolean testClientTextData(final Statistics[] statistics) {
+		for (Statistics statistic: statistics) {
+			if (statistic.clientTextData.size()>0) return true;
+			if (statistic.clientTextDataByClientTypes.size()>0) return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Sind Kosten in den Statistiken enthalten?
 	 * @param statistics	Zu prüfende Statistikdaten
 	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Kosten enthalten sind
@@ -1451,33 +1464,45 @@ public class StatisticsPanel extends StatisticsBasePanel {
 
 		/* Kundendatenfelder */
 
-		if (testClientData(statistics)) {
+		if (testClientData(statistics) || testClientTextData(statistics)) {
 
 			root.addChild(group=new StatisticNode(Language.tr("Statistics.ClientData")));
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerOverviewText(statistic,StatisticViewerOverviewText.Mode.MODE_CLIENT_DATA,(m,s)->fastAccess.addXML(m,s)));
-			group.addChild(new StatisticNode(Language.tr("Statistics.ClientData"),viewer));
+			if (testClientData(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerOverviewText(statistic,StatisticViewerOverviewText.Mode.MODE_CLIENT_DATA,(m,s)->fastAccess.addXML(m,s)));
+				group.addChild(new StatisticNode(Language.tr("Statistics.ClientData"),viewer));
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_CLIENT_DATA));
-			group.addChild(new StatisticNode(Language.tr("Statistics.ClientData"),viewer));
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_CLIENT_DATA));
+				group.addChild(new StatisticNode(Language.tr("Statistics.ClientData"),viewer));
 
-			/* (Untergruppe) Verteilungen */
+				/* (Untergruppe) Verteilungen */
 
-			group.addChild(sub=new StatisticNode(Language.tr("Statistics.DistributionsValues"),!setup.expandAllStatistics));
+				group.addChild(sub=new StatisticNode(Language.tr("Statistics.DistributionsValues"),!setup.expandAllStatistics));
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_CLIENT_DATA_DISTRIBUTION));
-			sub.addChild(new StatisticNode(Language.tr("Statistics.ClientData.Distribution"),viewer));
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_CLIENT_DATA_DISTRIBUTION));
+				sub.addChild(new StatisticNode(Language.tr("Statistics.ClientData.Distribution"),viewer));
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_CLIENT_DATA_DISTRIBUTION));
-			sub.addChild(new StatisticNode(Language.tr("Statistics.ClientData.Distribution"),viewer));
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_CLIENT_DATA_DISTRIBUTION));
+				sub.addChild(new StatisticNode(Language.tr("Statistics.ClientData.Distribution"),viewer));
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_CLIENT_DATA_DISTRIBUTION_BY_CLIENT_TYPES));
-			sub.addChild(new StatisticNode(Language.tr("Statistics.ClientData.DistributionByClientTypes"),viewer));
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_CLIENT_DATA_DISTRIBUTION_BY_CLIENT_TYPES));
+				sub.addChild(new StatisticNode(Language.tr("Statistics.ClientData.DistributionByClientTypes"),viewer));
+			}
+
+			if (testClientTextData(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerOverviewText(statistic,StatisticViewerOverviewText.Mode.MODE_CLIENT_TEXT_DATA,(m,s)->fastAccess.addXML(m,s)));
+				group.addChild(new StatisticNode(Language.tr("Statistics.ClientTextData"),viewer));
+
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_CLIENT_TEXT_DATA));
+				group.addChild(new StatisticNode(Language.tr("Statistics.ClientTextData"),viewer));
+			}
 		}
 
 		/* Warte- und Bedienzeiten an den Stationen */

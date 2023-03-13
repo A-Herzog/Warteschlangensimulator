@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-09 19:12+0100\n"
+"POT-Creation-Date: 2023-03-12 01:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3956,6 +3956,9 @@ msgstr "By using sequences clients can be routed in sequence to different transp
 msgid "Editor.Dialog.Tab.Simulation"
 msgstr "Simulation"
 
+msgid "Editor.Dialog.Tab.Simulation.ClientData"
+msgstr "Client data"
+
 msgid "Editor.Dialog.Tab.Simulation.Condition"
 msgstr "Condition for end of simulation"
 
@@ -4039,6 +4042,12 @@ msgstr "Record using Welfords online algorithm"
 
 msgid "Editor.Dialog.Tab.Simulation.Precision.Welford.Info"
 msgstr "The Welford algorithm is significantly slower but provides better precision for very small coefficients of variation."
+
+msgid "Editor.Dialog.Tab.Simulation.RecordClientTextData"
+msgstr "Record text client data fields in statistics"
+
+msgid "Editor.Dialog.Tab.Simulation.RecordClientTextData.Hint"
+msgstr "Records the frequencies of the client data text fields"
 
 msgid "Editor.Dialog.Tab.Simulation.RecordIncompleteClients"
 msgstr "Record clients in statistic that have not left the system at simulation end"
@@ -21878,6 +21887,21 @@ msgstr "Path"
 msgid "Statistics.ClientPathRecording.PathLength"
 msgstr "Path length"
 
+msgid "Statistics.ClientTextData"
+msgstr "Client data text fields"
+
+msgid "Statistics.ClientTextData.Frequency.absolute"
+msgstr "Frequency (absolute)"
+
+msgid "Statistics.ClientTextData.Frequency.relative"
+msgstr "Frequency (relative)"
+
+msgid "Statistics.ClientTextData.Key"
+msgstr "Key"
+
+msgid "Statistics.ClientTextData.Value"
+msgstr "Value"
+
 msgid "Statistics.ClientType"
 msgstr "Client type"
 
@@ -23852,6 +23876,18 @@ msgstr "StatisticsClientPaths"
 
 msgid "Statistics.XML.Element.ClientPaths.Path"
 msgstr "Path"
+
+msgid "Statistics.XML.Element.ClientTextData"
+msgstr "StatisticsClientTextData"
+
+msgid "Statistics.XML.Element.ClientTextData.Key"
+msgstr "StatisticsClientTextDataKey"
+
+msgid "Statistics.XML.Element.ClientTextDataByClientTypes"
+msgstr "StatisticsClientTextDataByClientType"
+
+msgid "Statistics.XML.Element.ClientTextDataByClientTypes.Key"
+msgstr "StatisticsClientTextDataKey"
 
 msgid "Statistics.XML.Element.ClientsAtStation"
 msgstr "StatisticsClientsAtStation"
@@ -34500,6 +34536,9 @@ msgstr "AllowClassLoading"
 
 msgid "Surface.XML.QueueAnimationComplete"
 msgstr "ModelElementQueueAnimationComplete"
+
+msgid "Surface.XML.RecordClientTextData"
+msgstr "ModelRecordClientTextData"
 
 msgid "Surface.XML.RecordIncompleteClients"
 msgstr "ModelRecordIncompleteClients"

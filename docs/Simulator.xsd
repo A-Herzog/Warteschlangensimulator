@@ -47,6 +47,7 @@
   <xs:element name="ModellZeitabhaengigePruefungen" type="xs:string"/>
   <xs:element ref="ModellPfadaufzeichnung"/>
   <xs:element name="ModellKundenStationenZeitSummeAufzeichnen" type="xs:string"/>
+  <xs:element name="ModellKundenTextDatenAufzeichnen" type="xs:string"/>
   <xs:element name="ModellUnvollstaendigeKundenAufzeichnung" type="xs:string"/>
   <xs:element ref="Benutzervorlagen"/>
   <xs:element ref="ExterneDaten"/>
@@ -2072,6 +2073,8 @@
   <xs:element ref="StatistikWerteaufzeichnung"/>
   <xs:element ref="StatistikKundendaten"/>
   <xs:element ref="StatistikKundendatenNachKundentyp"/>
+  <xs:element ref="StatistikKundentextdaten"/>
+  <xs:element ref="StatistikKundentextdatenNachKundentyp"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
 <xs:element name="Simulation"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -2169,6 +2172,8 @@
 </xs:complexType></xs:element>
 
 <xs:element name="StatistikKundendatenfeld" type="StatistikBasis"/>
+
+<xs:element name="StatistikKundentextdatenschluessel" type="StatistikBasis"/>
 
 <xs:element name="StatistikRessourceAnzahl" type="StatistikBasis"/>
 
@@ -2350,6 +2355,12 @@
 <xs:element name="StatistikKundendatenNachKundentyp"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatistikKundendatenfeld" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatistikKundentextdaten"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatistikKundentextdatenschluessel" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatistikKundentextdatenNachKundentyp"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatistikKundentextdatenschluessel" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
 
 
 
@@ -2459,6 +2470,7 @@
   <xs:element name="ModelTimedChecks" type="xs:string"/>
   <xs:element ref="ModelPathRecording"/>
   <xs:element name="ModelRecordClientStationTimeSum" type="xs:string"/>
+  <xs:element name="ModelRecordClientTextData" type="xs:string"/>
   <xs:element name="ModelRecordIncompleteClients" type="xs:string"/>
   <xs:element ref="UserTemplates"/>
   <xs:element ref="ExternalData"/>
@@ -4480,6 +4492,8 @@
   <xs:element ref="StatisticsValueRecording"/>
   <xs:element ref="StatisticsClientData"/>
   <xs:element ref="StatisticsClientDataByClientType"/>
+  <xs:element ref="StatisticsClientTextData"/>
+  <xs:element ref="StatisticsClientTextDataByClientType"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
 <xs:element name="SimulationData"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -4577,6 +4591,8 @@
 </xs:complexType></xs:element>
 
 <xs:element name="StatisticsClientDataField" type="StatisticsBase"/>
+
+<xs:element name="StatisticsClientTextDataKey" type="StatisticsBase"/>
 
 <xs:element name="StatisticsResourceNumber" type="StatisticsBase"/>
 
@@ -4757,6 +4773,12 @@
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatisticsClientDataByClientType"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatisticsClientDataField" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatisticsClientTextData"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatisticsClientTextDataKey" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatisticsClientTextDataByClientType"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatisticsClientTextDataKey" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
 

@@ -345,6 +345,11 @@ public class RunModel {
 	public boolean recordStationTotalClientTimes;
 
 	/**
+	 * Erfassung der Text-Kundendatenfelder in der Statistik
+	 */
+	public boolean recordClientTextData;
+
+	/**
 	 * Simulation bei einem Scripting-Fehler abbrechen
 	 */
 	public boolean cancelSimulationOnScriptError;
@@ -565,6 +570,9 @@ public class RunModel {
 		runModel.recordStationTransitions=editModel.recordStationTransitions;
 		runModel.recordClientPaths=editModel.recordClientPaths;
 		runModel.recordStationTotalClientTimes=editModel.recordStationTotalClientTimes;
+
+		/* Aufzeichnung der Text-Kundendatenfelder */
+		runModel.recordClientTextData=editModel.recordClientTextData;
 
 		/* Scripting */
 		runModel.cancelSimulationOnScriptError=SetupData.getSetup().cancelSimulationOnScriptError;

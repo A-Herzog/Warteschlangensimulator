@@ -143,6 +143,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		MODE_TRANSPORTER_UTILIZATION,
 		/** Statistik über die Kundendatenfelder */
 		MODE_CLIENT_DATA,
+		/** Statistik über die Kundendatentextfelder */
+		MODE_CLIENT_TEXT_DATA,
 		/** Statistik über die globalen Variablen */
 		MODE_USER_VARIABLES
 	}
@@ -4151,6 +4153,95 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 	/**
 	 * Ausgabe von
+	 * Statistik über die Kundendatentextfelder
+	 * @see Mode#MODE_CLIENT_DATA
+	 */
+	private void buildClientTextData() {
+		addHeading(1,Language.tr("Statistics.ClientTextData"));
+
+		String[] names;
+		Set<String> clientTypes;
+		Set<String> keys;
+
+		/* Daten über alles */
+
+		addHeading(2,Language.tr("Statistics.TotalBig"));
+
+		keys=new HashSet<>();
+		names=statistics.clientTextData.getNames();
+		for (String name: names) {
+			final String[] parts=name.split("-",2);
+			if (parts.length==2) keys.add(parts[0]);
+		}
+		for (String key: keys.stream().sorted().toArray(String[]::new)) {
+			long sum=0;
+			for (String name: names) {
+				final String[] parts=name.split("-",2);
+				if (parts.length!=2) continue;
+				if (!parts[0].equals(key)) continue;
+				final StatisticsSimpleCountPerformanceIndicator indicator=(StatisticsSimpleCountPerformanceIndicator)statistics.clientTextData.get(name);
+				sum+=indicator.get();
+			}
+			final String field=String.format(Language.tr("Statistics.ClientData.Field"),key);
+			addHeading(3,field);
+			beginParagraph();
+			for (String name: names) {
+				final String[] parts=name.split("-",2);
+				if (parts.length!=2) continue;
+				if (!parts[0].equals(key)) continue;
+				final StatisticsSimpleCountPerformanceIndicator indicator=(StatisticsSimpleCountPerformanceIndicator)statistics.clientTextData.get(name);
+				final long value=indicator.get();
+				addLine(parts[1]+": "+NumberTools.formatLong(value)+" ("+StatisticTools.formatPercent(((double)value)/sum)+")");
+			}
+			endParagraph();
+		}
+
+		/* Daten pro Kundentyp */
+
+		clientTypes=new HashSet<>();
+		names=statistics.clientTextDataByClientTypes.getNames();
+		for (String name: names) {
+			final String[] parts=name.split("-",3);
+			if (parts.length==3) clientTypes.add(parts[0]);
+		}
+
+		for (String clientType: clientTypes.stream().sorted().toArray(String[]::new)) {
+			addHeading(2,Language.tr("Statistics.ClientType")+" \""+clientType+"\"");
+
+			keys=new HashSet<>();
+			for (String name: names) {
+				final String[] parts=name.split("-",3);
+				if (parts.length==3 && parts[0].equals(clientType)) keys.add(parts[1]);
+			}
+			for (String key: keys.stream().sorted().toArray(String[]::new)) {
+				long sum=0;
+				for (String name: names) {
+					final String[] parts=name.split("-",3);
+					if (parts.length!=3) continue;
+					if (!parts[0].equals(clientType)) continue;
+					if (!parts[1].equals(key)) continue;
+					final StatisticsSimpleCountPerformanceIndicator indicator=(StatisticsSimpleCountPerformanceIndicator)statistics.clientTextDataByClientTypes.get(name);
+					sum+=indicator.get();
+				}
+				final String field=String.format(Language.tr("Statistics.ClientData.Field"),key);
+				addHeading(3,field);
+				beginParagraph();
+				for (String name: names) {
+					final String[] parts=name.split("-",3);
+					if (parts.length!=3) continue;
+					if (!parts[0].equals(clientType)) continue;
+					if (!parts[1].equals(key)) continue;
+					final StatisticsSimpleCountPerformanceIndicator indicator=(StatisticsSimpleCountPerformanceIndicator)statistics.clientTextDataByClientTypes.get(name);
+					final long value=indicator.get();
+					addLine(parts[2]+": "+NumberTools.formatLong(value)+" ("+StatisticTools.formatPercent(((double)value)/sum)+")");
+				}
+				endParagraph();
+			}
+		}
+	}
+
+	/**
+	 * Ausgabe von
 	 * Statistik über die globalen Variablen
 	 * @see Mode#MODE_USER_VARIABLES
 	 */
@@ -4205,6 +4296,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		case MODE_USER_STATISTICS: buildUserStatistics(); break;
 		case MODE_TRANSPORTER_UTILIZATION: buildTransporterUtilization(); break;
 		case MODE_CLIENT_DATA: buildClientData(); break;
+		case MODE_CLIENT_TEXT_DATA: buildClientTextData(); break;
 		case MODE_USER_VARIABLES: buildUserVariables(); break;
 		}
 	}
