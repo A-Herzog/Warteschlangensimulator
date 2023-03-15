@@ -154,6 +154,9 @@ Var
 begin
   fJavaPath:='';
 
+  { 0 - in QS_JAVA_HOME environment variable }
+  If IsJavaPath(GetEnvironmentVariable('QS_JAVA_HOME')) then Exit;
+
   { 1a- in .\jdk directory (JRE Installed with application) }
   If IsJavaPath(SimPath+'jdk') then Exit;
 

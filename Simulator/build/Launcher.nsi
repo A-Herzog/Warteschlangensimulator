@@ -168,6 +168,7 @@ FunctionEnd
  
 Function GetJRE
   ;  Find JRE (javaw.exe)
+  ;  0 - in QS_JAVA_HOME environment variable
   ;  1a- in .\jdk directory (JRE Installed with application)
   ;  1b- in .\jre directory (JRE Installed with application)
   ;  2 - in JAVA_HOME environment variable
@@ -187,6 +188,14 @@ Function GetJRE
  
   Push $R0
   Push $R1
+  
+  ; Umgebungsvariable "QS_JAVA_HOME"
+  ClearErrors
+  ReadEnvStr $R0 "QS_JAVA_HOME"
+  DetailPrint "QS_JAVA_HOME=$R0"
+  StrCpy $R0 "$R0\bin\javaw.exe"
+  IfErrors +2 0
+  IfFileExists $R0 JreFound
  
   ; Unterverzeichnis "jdk" 
   ClearErrors
