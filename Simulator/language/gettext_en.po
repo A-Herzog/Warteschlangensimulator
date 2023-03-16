@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-15 08:17+0100\n"
+"POT-Creation-Date: 2023-03-16 11:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5060,6 +5060,30 @@ msgstr "Interval-dependent inter-arrival times"
 
 msgid "Examples.Jockeying"
 msgstr "Queues with jockeying"
+
+msgid "Examples.KeyWords.All"
+msgstr "All"
+
+msgid "Examples.KeyWords.Batch"
+msgstr "Batch arrival and service"
+
+msgid "Examples.KeyWords.Math"
+msgstr "Illustration of mathematical conexpts"
+
+msgid "Examples.KeyWords.Priorities"
+msgstr "Priorities (including FIFO/LIFO)"
+
+msgid "Examples.KeyWords.PushPull"
+msgstr "Push and pull strategies"
+
+msgid "Examples.KeyWords.Routing"
+msgstr "Client routing"
+
+msgid "Examples.KeyWords.Schedules"
+msgstr "Schedules (both arrivals and shift plans)"
+
+msgid "Examples.KeyWords.Transport"
+msgstr "Transports"
 
 msgid "Examples.LawOfLargeNumbers"
 msgstr "Law of large numbers"
@@ -17014,6 +17038,9 @@ msgstr "No example selected"
 
 msgid "SelectExampleWithPreview.ExampleCountInfo"
 msgstr "A total of %d sample models are available:"
+
+msgid "SelectExampleWithPreview.KeyWord"
+msgstr "Example category"
 
 msgid "SelectExampleWithPreview.Title"
 msgstr "Select example"

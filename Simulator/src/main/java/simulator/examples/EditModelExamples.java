@@ -27,8 +27,13 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -56,7 +61,6 @@ import ui.tools.FlatLaFHelper;
 public class EditModelExamples {
 	/**
 	 * Kategorien für die Beispiele
-	 * @author Alexander Herzog
 	 */
 	public enum ExampleType {
 		/**
@@ -86,8 +90,79 @@ public class EditModelExamples {
 	}
 
 	/**
+	 * Schlüsselwörter für die Beispiele
+	 */
+	public enum ExampleKeyWord {
+		/**
+		 * Batch-Ankünfte oder -Bedienungen
+		 */
+		BATCH(()->Language.tr("Examples.KeyWords.Batch")),
+
+		/**
+		 * Prioritäten (inkl. FIFO/LIFO)
+		 */
+		PRIORITIES(()->Language.tr("Examples.KeyWords.Priorities")),
+
+		/**
+		 * Routing der Kunden
+		 */
+		ROUTING(()->Language.tr("Examples.KeyWords.Routing")),
+
+		/**
+		 * Zeitpläne (sowohl für Ankünfte als auch Schichtpläne)
+		 */
+		SCHEDULES(()->Language.tr("Examples.KeyWords.Schedules")),
+
+		/**
+		 * Push- und Pull-Strategien
+		 */
+		PUSH_PULL(()->Language.tr("Examples.KeyWords.PushPull")),
+
+		/**
+		 * Transporte
+		 */
+		TRANSPORT(()->Language.tr("Examples.KeyWords.Transport")),
+
+		/**
+		 * Darstellung mathematischer Zusammenhänge
+		 */
+		MATH(()->Language.tr("Examples.KeyWords.Math"));
+
+		/**
+		 * Callback zum Abruf des Namens in der aktuellen Sprache
+		 */
+		private final Supplier<String> nameGetter;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param nameGetter	Callback zum Abruf des Namens in der aktuellen Sprache
+		 */
+		ExampleKeyWord(final Supplier<String> nameGetter) {
+			this.nameGetter=nameGetter;
+		}
+
+		/**
+		 * Liefert den Namen es Enum-Eintrags.
+		 * @return	Name es Enum-Eintrags
+		 */
+		public String getName() {
+			return nameGetter.get();
+		}
+
+		/**
+		 * Liefert eine Liste mit allen Schlüsselwörtern und dem Begriff "Alle" der Liste vorangestellt.
+		 * @return	Liste mit allen Schlüsselwörtern zzgl. "Alle"
+		 */
+		public static String[] getNames() {
+			final List<String> list=Stream.of(values()).map(keyWord->keyWord.getName()).collect(Collectors.toList());
+			list.add(0,Language.tr("Examples.KeyWords.All"));
+			return list.toArray(new String[0]);
+		}
+	}
+
+	/**
 	 * Liste mit den Beispielen.
-	 * @see #addExample(String[], String, ExampleType)
+	 * @see #addExample(String[], String, ExampleType, ExampleKeyWord...)
 	 */
 	private final List<Example> list;
 
@@ -131,9 +206,19 @@ public class EditModelExamples {
 	 * @return	Liste der Namen der Beispiele in der gewählten Gruppe
 	 */
 	public static List<String> getExampleNames(final ExampleType group) {
+		return getExampleNames(group,null);
+	}
+
+	/**
+	 * Liefert die Namen der Beispiele in einer bestimmten Gruppe
+	 * @param group	Gruppe für die die Beispiele aufgelistet werden sollen
+	 * @param keyWord	Zusätzliches Schlüsselwort, welches ein Beispiel beinhalten muss, um zurückgeliefert zu werden (darf <code>null</code> sein, dann ist die Schlüsselwort-Filterung inaktiv)
+	 * @return	Liste der Namen der Beispiele in der gewählten Gruppe
+	 */
+	public static List<String> getExampleNames(final ExampleType group, final ExampleKeyWord keyWord) {
 		final EditModelExamples examples=new EditModelExamples();
 		final List<String> result=new ArrayList<>();
-		for (Example example: examples.list) if (example.type==group) result.add(example.names[0]);
+		for (Example example: examples.list) if (example.type==group && (keyWord==null || example.keyWords.contains(keyWord))) result.add(example.names[0]);
 		return result;
 	}
 
@@ -142,9 +227,10 @@ public class EditModelExamples {
 	 * @param names	Namen für das Beispiel in den verschiedenen Sprachen
 	 * @param file	Beispieldateiname
 	 * @param type	Gruppe in die das Beispiel fällt
+	 * @param keyWords	Optionale Schlüsselwörter für das Beispiel
 	 */
-	private void addExample(final String[] names, final String file, final ExampleType type) {
-		list.add(new Example(names,file,type));
+	private void addExample(final String[] names, final String file, final ExampleType type, final ExampleKeyWord... keyWords) {
+		list.add(new Example(names,file,type,new HashSet<>(Arrays.asList(keyWords))));
 	}
 
 	/**
@@ -156,52 +242,52 @@ public class EditModelExamples {
 		addExample(Language.trAll("Examples.ErlangC"),"ErlangC1.xml",ExampleType.TYPE_DEFAULT);
 
 		/* Beispiele, die sich auf reale Modelle bzw. Fragen beziehen */
-		addExample(Language.trAll("Examples.Callcenter"),"Callcenter.xml",ExampleType.TYPE_REAL_MODELS);
+		addExample(Language.trAll("Examples.Callcenter"),"Callcenter.xml",ExampleType.TYPE_REAL_MODELS,ExampleKeyWord.ROUTING);
 		addExample(Language.trAll("Examples.Restaurant"),"Restaurant.xml",ExampleType.TYPE_REAL_MODELS);
 		addExample(Language.trAll("Examples.Baustellenampel"),"Baustellenampel.xml",ExampleType.TYPE_REAL_MODELS);
 
 		/* Beispiele, die bestimmte Modellierungseigenschaften verdeutlichen */
-		addExample(Language.trAll("Examples.ClientTypePriorities"),"Kundentypen.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.ImpatientClientsAndRetry"),"Warteabbrecher.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.ClientTypePriorities"),"Kundentypen.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.PRIORITIES);
+		addExample(Language.trAll("Examples.ImpatientClientsAndRetry"),"Warteabbrecher.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.ROUTING);
 		addExample(Language.trAll("Examples.SharedResources"),"SharedResources.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.LimitedNumberOfClientsAtAStation"),"Variable.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.LimitedNumberOfClientsAtAStation"),"Variable.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.PUSH_PULL);
 		addExample(Language.trAll("Examples.OperatorsAsSimulationObjects"),"BedienerAlsSimulationsobjekte.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Transport"),"Transport.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Transporter"),"Transporter.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Transport"),"Transport.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.TRANSPORT);
+		addExample(Language.trAll("Examples.Transporter"),"Transporter.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.TRANSPORT);
 		addExample(Language.trAll("Examples.CombiningOrdersAndItems"),"MultiSignalBarrier.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Batch"),"Batch.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Batch"),"Batch.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.BATCH);
 		addExample(Language.trAll("Examples.Failure"),"Failure.xml",ExampleType.TYPE_PROPERTIES);
 		addExample(Language.trAll("Examples.SetUpTimes"),"SetUpTimes.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Rework"),"Rework.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.HoldJS"),"HoldJS.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.RestrictedBuffer"),"RestriktierterPuffer.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Rework"),"Rework.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.HoldJS"),"HoldJS.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.PUSH_PULL);
+		addExample(Language.trAll("Examples.RestrictedBuffer"),"RestriktierterPuffer.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.PUSH_PULL);
 		addExample(Language.trAll("Examples.Analog"),"Analog.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Jockeying"),"Jockeying.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Jockeying"),"Jockeying.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.ROUTING);
 		addExample(Language.trAll("Examples.QueueingDiscipline"),"QueueingDiscipline.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Shiftplan"),"Shiftplan.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Shiftplan"),"Shiftplan.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.SCHEDULES);
 		addExample(Language.trAll("Examples.ArrivalAndServiceBatch"),"ArrivalAndServiceBatch.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.BatchTransport"),"BatchTransport.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.IntervalInterArrivalTimes"),"IntervalInterArrivalTimes.xml",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.BatchTransport"),"BatchTransport.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.BATCH,ExampleKeyWord.TRANSPORT);
+		addExample(Language.trAll("Examples.IntervalInterArrivalTimes"),"IntervalInterArrivalTimes.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.SCHEDULES);
 
 		/* Beispiele zum Vergleich verschiedener Steuerungsstrategien */
-		addExample(Language.trAll("Examples.SystemDesign"),"Vergleiche2.xml",ExampleType.TYPE_COMPARE);
-		addExample(Language.trAll("Examples.SystemDesignWithControl"),"Vergleiche3.xml",ExampleType.TYPE_COMPARE);
-		addExample(Language.trAll("Examples.PushAndPullProduction"),"PushPull.xml",ExampleType.TYPE_COMPARE);
-		addExample(Language.trAll("Examples.PushAndPullProductionMultiBarriers"),"PushPullMulti.xml",ExampleType.TYPE_COMPARE);
-		addExample(Language.trAll("Examples.PushPullThroughput"),"PushPullThroughput.xml",ExampleType.TYPE_COMPARE);
+		addExample(Language.trAll("Examples.SystemDesign"),"Vergleiche2.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.SystemDesignWithControl"),"Vergleiche3.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.PushAndPullProduction"),"PushPull.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
+		addExample(Language.trAll("Examples.PushAndPullProductionMultiBarriers"),"PushPullMulti.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
+		addExample(Language.trAll("Examples.PushPullThroughput"),"PushPullThroughput.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
 		addExample(Language.trAll("Examples.ChangeResourceCountCompare"),"ChangeResourceCountCompare.xml",ExampleType.TYPE_COMPARE);
 		addExample(Language.trAll("Examples.DelayJS"),"DelayJS.xml",ExampleType.TYPE_COMPARE);
 		addExample(Language.trAll("Examples.ParallelSerial"),"ParallelSerial.xml",ExampleType.TYPE_COMPARE);
-		addExample(Language.trAll("Examples.FIFO-LIFO-Switch"),"FIFO-LIFO-Switch.xml",ExampleType.TYPE_COMPARE);
+		addExample(Language.trAll("Examples.FIFO-LIFO-Switch"),"FIFO-LIFO-Switch.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PRIORITIES);
 
 		/* Beispiele, die mathematische Zusammenhänge verdeutlichen */
-		addExample(Language.trAll("Examples.LawOfLargeNumbers"),"GesetzDerGroßenZahlen.xml",ExampleType.TYPE_MATH);
-		addExample(Language.trAll("Examples.Galton"),"Galton.xml",ExampleType.TYPE_MATH);
-		addExample(Language.trAll("Examples.CoefficientOfVariation"),"CoefficientOfVariation.xml",ExampleType.TYPE_MATH);
-		addExample(Language.trAll("Examples.PASTA"),"PASTA.xml",ExampleType.TYPE_MATH);
-		addExample(Language.trAll("Examples.ZentralerGrenzwertsatz"),"ZentralerGrenzwertsatz.xml",ExampleType.TYPE_MATH);
-		addExample(Language.trAll("Examples.BusStoppParadoxon"),"BusStoppParadoxon.xml",ExampleType.TYPE_MATH);
-		addExample(Language.trAll("Examples.RandomNumberGenerators"),"RandomNumberGenerators.xml",ExampleType.TYPE_MATH);
+		addExample(Language.trAll("Examples.LawOfLargeNumbers"),"GesetzDerGroßenZahlen.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.Galton"),"Galton.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.CoefficientOfVariation"),"CoefficientOfVariation.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.PASTA"),"PASTA.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.ZentralerGrenzwertsatz"),"ZentralerGrenzwertsatz.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.BusStoppParadoxon"),"BusStoppParadoxon.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.RandomNumberGenerators"),"RandomNumberGenerators.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
 	}
 
 	/**
@@ -493,15 +579,22 @@ public class EditModelExamples {
 		public final ExampleType type;
 
 		/**
+		 * Menge der optionalen Schlüsselwörter für das Beispiel
+		 */
+		public final Set<ExampleKeyWord> keyWords;
+
+		/**
 		 * Konstruktor der Klasse
 		 * @param names	Namen für das Beispiel in den verschiedenen Sprachen
 		 * @param file	Beispieldateiname
 		 * @param type	Gruppe in die das Beispiel fällt
+		 * @param keyWords	Menge der optionalen Schlüsselwörter für das Beispiel
 		 */
-		private Example(final String[] names, final String file, final ExampleType type) {
+		private Example(final String[] names, final String file, final ExampleType type, final Set<ExampleKeyWord> keyWords) {
 			this.names=names;
 			this.file=file;
 			this.type=type;
+			this.keyWords=keyWords;
 		}
 	}
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-15 08:17+0100\n"
+"POT-Creation-Date: 2023-03-16 11:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5067,6 +5067,30 @@ msgstr "Intervallabhängige Zwischenankunftszeiten"
 
 msgid "Examples.Jockeying"
 msgstr "Warteschlangen mit Jockeying"
+
+msgid "Examples.KeyWords.All"
+msgstr "Alle"
+
+msgid "Examples.KeyWords.Batch"
+msgstr "Batch-Ankünfte oder -Bedienungen"
+
+msgid "Examples.KeyWords.Math"
+msgstr "Darstellung mathematischer Zusammenhänge"
+
+msgid "Examples.KeyWords.Priorities"
+msgstr "Prioritäten (inklusive FIFO/LIFO)"
+
+msgid "Examples.KeyWords.PushPull"
+msgstr "Push- und Pull-Strategien"
+
+msgid "Examples.KeyWords.Routing"
+msgstr "Routing der Kunden"
+
+msgid "Examples.KeyWords.Schedules"
+msgstr "Zeitpläne (sowohl für Ankünfte als auch Schichtpläne)"
+
+msgid "Examples.KeyWords.Transport"
+msgstr "Transporte"
 
 msgid "Examples.LawOfLargeNumbers"
 msgstr "Gesetz der großen Zahlen"
@@ -17023,6 +17047,9 @@ msgstr "Kein Beispiel ausgewählt"
 
 msgid "SelectExampleWithPreview.ExampleCountInfo"
 msgstr "Es stehen insgesamt %d Beispielmodelle zur Verfügung:"
+
+msgid "SelectExampleWithPreview.KeyWord"
+msgstr "Beispielkategorie"
 
 msgid "SelectExampleWithPreview.Title"
 msgstr "Beispiel auswählen"

@@ -24,6 +24,8 @@ import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -60,14 +62,12 @@ public final class SelectExampleDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -4553266650939654301L;
 
-	/**
-	 * Zählung der Anzahl an Beispielmodellen
-	 * @see #buildTree()
-	 */
-	private int exampleCount;
+	/** Label zur Anzeige der Anzahl an Beispielmodellen */
+	private final JLabel topLabel;
 
 	/** Baumstruktur in der die Beispielmodelle nach Themen gruppiert aufgelistet werden */
 	private final JTree tree;
+
 	/** Vorschaubereich für das ausgewählte Beispiel */
 	private final EditorPanel viewer;
 
@@ -86,11 +86,19 @@ public final class SelectExampleDialog extends BaseDialog {
 		final JPanel content=new JPanel(new BorderLayout());
 		contentOuter.add(content,BorderLayout.CENTER);
 
-		/* Infozeile oben */
-		final JPanel topArea=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		/* Infobereich oben */
+		final JPanel topArea=new JPanel();
+		topArea.setLayout(new BoxLayout(topArea,BoxLayout.PAGE_AXIS));
 		content.add(topArea,BorderLayout.NORTH);
-		final JLabel topLabel=new JLabel();
-		topArea.add(topLabel);
+
+		JPanel line;
+
+		topArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel(Language.tr("SelectExampleWithPreview.KeyWord")+":"));
+		final JComboBox<String> keyWordSelect=new JComboBox<>(EditModelExamples.ExampleKeyWord.getNames());
+		line.add(keyWordSelect);
+		topArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(topLabel=new JLabel());
 
 		/* Hauptbereich */
 		final JSplitPane main=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
@@ -102,7 +110,7 @@ public final class SelectExampleDialog extends BaseDialog {
 		viewer.setMinimumSize(new Dimension(400,0));
 
 		/* Baumstruktur links */
-		main.setLeftComponent(new JScrollPane(tree=new JTree(new DefaultTreeModel(buildTree()))));
+		main.setLeftComponent(new JScrollPane(tree=new JTree()));
 		tree.setRootVisible(false);
 		tree.getParent().setMinimumSize(new Dimension(200,0));
 		tree.addTreeSelectionListener(e->viewer.setModel(getExample()));
@@ -113,10 +121,16 @@ public final class SelectExampleDialog extends BaseDialog {
 				if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e) && getExample()!=null) close(BaseDialog.CLOSED_BY_OK);
 			}
 		});
+		tree.setModel(new DefaultTreeModel(buildTree(null)));
 		for (int i=0;i<tree.getRowCount();i++) tree.expandRow(i);
 
-		/* Infozeile oben füllen (erst nach buildTree()-Aufruf möglich) */
-		topLabel.setText(String.format(Language.tr("SelectExampleWithPreview.ExampleCountInfo"),exampleCount));
+		/* Listener zur Auswahl des Schlüsselwortes */
+		keyWordSelect.addActionListener(e->{
+			final int index=keyWordSelect.getSelectedIndex();
+			EditModelExamples.ExampleKeyWord keyWord=(index==0)?null:EditModelExamples.ExampleKeyWord.values()[index-1];
+			tree.setModel(new DefaultTreeModel(buildTree(keyWord)));
+			for (int i=0;i<tree.getRowCount();i++) tree.expandRow(i);
+		});
 
 		/* Split einstellen */
 		main.setDividerLocation(0.2);
@@ -130,14 +144,15 @@ public final class SelectExampleDialog extends BaseDialog {
 
 	/**
 	 * Erstellt die Baumstruktur, die alle Beispiele enthält.
+	 * @param keyWord	Schlüsselwort, welches ein Beispiel enthalten muss, um in die Auflistung aufgenommen zu werden (kann <code>null</code> sein für "alle Beispiele")
 	 * @return	Baumstruktur, die alle Beispiele enthält
 	 */
-	private TreeNode buildTree() {
-		exampleCount=0;
+	private TreeNode buildTree(final EditModelExamples.ExampleKeyWord keyWord) {
+		int exampleCount=0;
 		final DefaultMutableTreeNode root=new DefaultMutableTreeNode("");
 
 		for (EditModelExamples.ExampleType type: EditModelExamples.ExampleType.values()) {
-			final List<String> names=EditModelExamples.getExampleNames(type);
+			final List<String> names=EditModelExamples.getExampleNames(type,keyWord);
 			if (names.size()==0) continue;
 			names.sort(null);
 			final DefaultMutableTreeNode group=new DefaultMutableTreeNode(EditModelExamples.getGroupName(type));
@@ -148,6 +163,8 @@ public final class SelectExampleDialog extends BaseDialog {
 				exampleCount++;
 			}
 		}
+
+		topLabel.setText(String.format(Language.tr("SelectExampleWithPreview.ExampleCountInfo"),exampleCount));
 
 		return root;
 	}
@@ -179,7 +196,7 @@ public final class SelectExampleDialog extends BaseDialog {
 
 	/**
 	 * Datensatz für ein Beispiel
-	 * @see SelectExampleDialog#buildTree()
+	 * @see SelectExampleDialog#buildTree(simulator.examples.EditModelExamples.ExampleKeyWord)
 	 */
 	private class ExampleData {
 		/** Name des Beispiels */
