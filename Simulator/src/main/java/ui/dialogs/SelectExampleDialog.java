@@ -18,11 +18,13 @@ package ui.dialogs;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -58,6 +60,12 @@ public final class SelectExampleDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -4553266650939654301L;
 
+	/**
+	 * Zählung der Anzahl an Beispielmodellen
+	 * @see #buildTree()
+	 */
+	private int exampleCount;
+
 	/** Baumstruktur in der die Beispielmodelle nach Themen gruppiert aufgelistet werden */
 	private final JTree tree;
 	/** Vorschaubereich für das ausgewählte Beispiel */
@@ -71,9 +79,20 @@ public final class SelectExampleDialog extends BaseDialog {
 		super(owner,Language.tr("SelectExampleWithPreview.Title"));
 
 		/* GUI erstellen */
-		final JPanel content=createGUI(()->Help.topicModal(this,"SelectExampleWithPreview"));
-		content.setLayout(new BorderLayout());
-		InfoPanel.addTopPanel(content,InfoPanel.globalSelectExample);
+		final JPanel contentOuter=createGUI(()->Help.topicModal(this,"SelectExampleWithPreview"));
+
+		contentOuter.setLayout(new BorderLayout());
+		InfoPanel.addTopPanel(contentOuter,InfoPanel.globalSelectExample);
+		final JPanel content=new JPanel(new BorderLayout());
+		contentOuter.add(content,BorderLayout.CENTER);
+
+		/* Infozeile oben */
+		final JPanel topArea=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		content.add(topArea,BorderLayout.NORTH);
+		final JLabel topLabel=new JLabel();
+		topArea.add(topLabel);
+
+		/* Hauptbereich */
 		final JSplitPane main=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		content.add(main,BorderLayout.CENTER);
 
@@ -96,6 +115,9 @@ public final class SelectExampleDialog extends BaseDialog {
 		});
 		for (int i=0;i<tree.getRowCount();i++) tree.expandRow(i);
 
+		/* Infozeile oben füllen (erst nach buildTree()-Aufruf möglich) */
+		topLabel.setText(String.format(Language.tr("SelectExampleWithPreview.ExampleCountInfo"),exampleCount));
+
 		/* Split einstellen */
 		main.setDividerLocation(0.2);
 
@@ -111,16 +133,19 @@ public final class SelectExampleDialog extends BaseDialog {
 	 * @return	Baumstruktur, die alle Beispiele enthält
 	 */
 	private TreeNode buildTree() {
+		exampleCount=0;
 		final DefaultMutableTreeNode root=new DefaultMutableTreeNode("");
 
 		for (EditModelExamples.ExampleType type: EditModelExamples.ExampleType.values()) {
+			final List<String> names=EditModelExamples.getExampleNames(type);
+			if (names.size()==0) continue;
+			names.sort(null);
 			final DefaultMutableTreeNode group=new DefaultMutableTreeNode(EditModelExamples.getGroupName(type));
 			root.add(group);
-			final List<String> names=EditModelExamples.getExampleNames(type);
-			names.sort(null);
 			for (String name: names) {
 				final DefaultMutableTreeNode node=new DefaultMutableTreeNode(new ExampleData(name));
 				group.add(node);
+				exampleCount++;
 			}
 		}
 

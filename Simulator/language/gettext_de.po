@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-12 01:54+0100\n"
+"POT-Creation-Date: 2023-03-15 08:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17020,6 +17020,9 @@ msgstr "Es wurde kein zu ladendes Beispiel ausgewählt."
 
 msgid "SelectExampleWithPreview.ErrorNoExampleSelected.Title"
 msgstr "Kein Beispiel ausgewählt"
+
+msgid "SelectExampleWithPreview.ExampleCountInfo"
+msgstr "Es stehen insgesamt %d Beispielmodelle zur Verfügung:"
 
 msgid "SelectExampleWithPreview.Title"
 msgstr "Beispiel auswählen"

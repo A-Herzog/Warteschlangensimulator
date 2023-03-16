@@ -22594,6 +22594,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[51715] = "Fehler bei der Skriptausf\u00fchrung";
     t[51718] = "Surface.StateStatistics.Infotext";
     t[51719] = "Durchl\u00e4uft ein Kunde diese Station, so wird der zugeh\u00f6rige Systemstatus in der Statistik gesetzt. Mit Hilfe von mehreren Zustandsstatistik-Elementen kann erfasst werden, wie lange sich das System jeweils in einem bestimmten Zustand befunden hat.";
+    t[51724] = "SelectExampleWithPreview.ExampleCountInfo";
+    t[51725] = "Es stehen insgesamt %d Beispielmodelle zur Verf\u00fcgung:";
     t[51726] = "ParameterCompare.Table.DeleteModel.Confirm.InfoAllYes";
     t[51727] = "Alle Modelle l\u00f6schen.";
     t[51730] = "Surface.Seize.XML.Priority";

@@ -22594,6 +22594,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51715] = "Error executing the script";
     t[51718] = "Surface.StateStatistics.Infotext";
     t[51719] = "If a client passes through this station, the associated system state is set in the statistics. By using multiple state statistics elements it can be recorded how long the system was in which state.";
+    t[51724] = "SelectExampleWithPreview.ExampleCountInfo";
+    t[51725] = "A total of %d sample models are available:";
     t[51726] = "ParameterCompare.Table.DeleteModel.Confirm.InfoAllYes";
     t[51727] = "Clear list.";
     t[51730] = "Surface.Seize.XML.Priority";
