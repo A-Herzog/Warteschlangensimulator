@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
+  <ModelName>Strategies for avoiding setup times</ModelName>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementRectangle id="85">
+      <ModelElementSize h="75" w="160" x="1070" y="890"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementBackgroundColor Alpha="0.1">0,165,0</ModelElementBackgroundColor>
+    </ModelElementRectangle>
+    <ModelElementDecide id="3">
+      <ModelElementSize h="50" w="100" x="900" y="250"/>
+      <ModelElementDecideMode>MinimumN</ModelElementDecideMode>
+      <ModelElementDecideAtTie>Random</ModelElementDecideAtTie>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="11" Type="Out"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementProcessStation id="6">
+      <ModelElementName>A1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1100" y="150"/>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">8</ModelElementExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients" ClientType2="Clients X">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients" ClientType2="Clients Y">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients X" ClientType2="Clients">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients X" ClientType2="Clients Y">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients Y" ClientType2="Clients">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients Y" ClientType2="Clients X">4,5</ModelElementSetupTimesExpression>
+      <ModelElementPriority ClientType="A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients X">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients Y">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden X">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden Y">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener A1"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="7">
+      <ModelElementName>A2</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1100" y="250"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="15" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">8</ModelElementExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients" ClientType2="Clients X">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients" ClientType2="Clients Y">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients X" ClientType2="Clients">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients X" ClientType2="Clients Y">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients Y" ClientType2="Clients">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients Y" ClientType2="Clients X">4,5</ModelElementSetupTimesExpression>
+      <ModelElementPriority ClientType="A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients X">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients Y">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden X">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden Y">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener A2"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="8">
+      <ModelElementName>A3</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1100" y="350"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">8</ModelElementExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients" ClientType2="Clients X">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients" ClientType2="Clients Y">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients X" ClientType2="Clients">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients X" ClientType2="Clients Y">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients Y" ClientType2="Clients">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients Y" ClientType2="Clients X">4,5</ModelElementSetupTimesExpression>
+      <ModelElementPriority ClientType="A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients X">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients Y">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden X">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden Y">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener A3"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementThroughput id="9">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1300" y="250"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Element="17" Type="Out"/>
+    </ModelElementThroughput>
+    <ModelElementDispose id="10">
+      <ModelElementSize h="50" w="100" x="1500" y="250"/>
+      <ModelElementConnection Element="17" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="11">
+      <ModelElementConnection Element1="3" Element2="6" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="3" Element2="7" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="13">
+      <ModelElementConnection Element1="3" Element2="8" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementConnection Element1="6" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="15">
+      <ModelElementConnection Element1="7" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="16">
+      <ModelElementConnection Element1="8" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="17">
+      <ModelElementConnection Element1="9" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecide id="4">
+      <ModelElementSize h="50" w="100" x="300" y="250"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="20" Type="In"/>
+      <ModelElementConnection Element="21" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="22" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementAssignment id="18">
+      <ModelElementName>Clients X</ModelElementName>
+      <ModelElementSize h="50" w="100" x="300" y="150"/>
+      <ModelElementConnection Element="21" Type="In"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementAssignment id="19">
+      <ModelElementName>Clients Y</ModelElementName>
+      <ModelElementSize h="50" w="100" x="300" y="350"/>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Element="24" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementEdge id="20">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="21">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="18" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="22">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="19" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementHold id="2">
+      <ModelElementSize h="50" w="100" x="750" y="250"/>
+      <ModelElementConnection Element="62" Type="In"/>
+      <ModelElementConnection Element="23" Type="Out"/>
+      <ModelElementHoldCondition>WIP(6)==0 || WIP(7)==0 || WIP(8)==0</ModelElementHoldCondition>
+      <ModelElementPriority ClientType="A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+    </ModelElementHold>
+    <ModelElementEdge id="23">
+      <ModelElementConnection Element1="2" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementSource id="26">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="800"/>
+      <ModelElementConnection Element="43" Type="Out"/>
+      <ModelElementArrivalCondition MinimumDistance="1">WIP(48)+WIP(46)&lt;1</ModelElementArrivalCondition>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDecide id="27">
+      <ModelElementSize h="50" w="100" x="1100" y="700"/>
+      <ModelElementDecideMode>MinimumN</ModelElementDecideMode>
+      <ModelElementDecideAtTie>Random</ModelElementDecideAtTie>
+      <ModelElementConnection Element="55" Type="In"/>
+      <ModelElementConnection Element="60" Type="In"/>
+      <ModelElementConnection Element="33" Type="Out"/>
+      <ModelElementConnection Element="34" Type="Out"/>
+      <ModelElementConnection Element="35" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementProcessStation id="28">
+      <ModelElementName>B1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1400" y="700"/>
+      <ModelElementConnection Element="33" Type="In"/>
+      <ModelElementConnection Element="57" Type="In"/>
+      <ModelElementConnection Element="36" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">8</ModelElementExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients" ClientType2="Clients X">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients" ClientType2="Clients Y">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients X" ClientType2="Clients">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients X" ClientType2="Clients Y">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients Y" ClientType2="Clients">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients Y" ClientType2="Clients X">4,5</ModelElementSetupTimesExpression>
+      <ModelElementPriority ClientType="A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients X">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients Y">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden X">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden Y">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener B1"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="29">
+      <ModelElementName>B2</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1400" y="800"/>
+      <ModelElementConnection Element="34" Type="In"/>
+      <ModelElementConnection Element="58" Type="In"/>
+      <ModelElementConnection Element="37" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">8</ModelElementExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients" ClientType2="Clients X">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients" ClientType2="Clients Y">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients X" ClientType2="Clients">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients X" ClientType2="Clients Y">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients Y" ClientType2="Clients">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients Y" ClientType2="Clients X">4,5</ModelElementSetupTimesExpression>
+      <ModelElementPriority ClientType="A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients X">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients Y">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden X">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden Y">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener B2"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="30">
+      <ModelElementName>B3</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1400" y="900"/>
+      <ModelElementConnection Element="35" Type="In"/>
+      <ModelElementConnection Element="59" Type="In"/>
+      <ModelElementConnection Element="38" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">8</ModelElementExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients" ClientType2="Clients X">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients" ClientType2="Clients Y">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients X" ClientType2="Clients">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients X" ClientType2="Clients Y">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients Y" ClientType2="Clients">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients Y" ClientType2="Clients X">4,5</ModelElementSetupTimesExpression>
+      <ModelElementPriority ClientType="A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients X">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients Y">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden X">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden Y">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener B3"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementThroughput id="31">
+      <ModelElementName>B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1600" y="800"/>
+      <ModelElementConnection Element="36" Type="In"/>
+      <ModelElementConnection Element="37" Type="In"/>
+      <ModelElementConnection Element="38" Type="In"/>
+      <ModelElementConnection Element="39" Type="Out"/>
+    </ModelElementThroughput>
+    <ModelElementDispose id="32">
+      <ModelElementSize h="50" w="100" x="1800" y="800"/>
+      <ModelElementConnection Element="39" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="33">
+      <ModelElementConnection Element1="27" Element2="28" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="34">
+      <ModelElementConnection Element1="27" Element2="29" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="35">
+      <ModelElementConnection Element1="27" Element2="30" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="36">
+      <ModelElementConnection Element1="28" Element2="31" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="37">
+      <ModelElementConnection Element1="29" Element2="31" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="38">
+      <ModelElementConnection Element1="30" Element2="31" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="39">
+      <ModelElementConnection Element1="31" Element2="32" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecide id="40">
+      <ModelElementSize h="50" w="100" x="300" y="800"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="43" Type="In"/>
+      <ModelElementConnection Element="44" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="45" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementAssignment id="41">
+      <ModelElementName>Clients X</ModelElementName>
+      <ModelElementSize h="50" w="100" x="300" y="700"/>
+      <ModelElementConnection Element="44" Type="In"/>
+      <ModelElementConnection Element="49" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementAssignment id="42">
+      <ModelElementName>Clients Y</ModelElementName>
+      <ModelElementSize h="50" w="100" x="300" y="900"/>
+      <ModelElementConnection Element="45" Type="In"/>
+      <ModelElementConnection Element="63" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementEdge id="43">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="26" Element2="40" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="44">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="40" Element2="41" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="45">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="40" Element2="42" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementHold id="46">
+      <ModelElementSize h="50" w="100" x="750" y="800"/>
+      <ModelElementConnection Element="64" Type="In"/>
+      <ModelElementConnection Element="47" Type="Out"/>
+      <ModelElementHoldCondition>WIP(28)==0 || WIP(29)==0 || WIP(30)==0</ModelElementHoldCondition>
+      <ModelElementPriority ClientType="A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden X">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden Y">w</ModelElementPriority>
+    </ModelElementHold>
+    <ModelElementAnimationText id="51">
+      <ModelElementName>Throughput (clients/hour)</ModelElementName>
+      <ModelElementSize h="32" w="107" x="1300" y="200"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">Counter(9)*3600</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="52">
+      <ModelElementName>Throughput (clients/hour)</ModelElementName>
+      <ModelElementSize h="32" w="107" x="1600" y="750"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">Counter(31)*3600</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementDecide id="53">
+      <ModelElementSize h="50" w="100" x="900" y="800"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="47" Type="In"/>
+      <ModelElementConnection Condition="WIP(28)+WIP(29)+WIP(30)==2" Element="55" Type="Out"/>
+      <ModelElementConnection Element="56" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="47">
+      <ModelElementConnection Element1="46" Element2="53" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecideJS id="54">
+      <ModelElementSize h="50" w="100" x="1100" y="900"/>
+      <ModelElementDecideScript Language="Javascript">let clientName=Simulation.clientTypeName();
+let station1ClientType=Simulation.getLastClientTypeName(28);
+let station2ClientType=Simulation.getLastClientTypeName(29);
+let station3ClientType=Simulation.getLastClientTypeName(30);
+
+Simulation.log("Kundentypname: "+clientName);
+Simulation.log("Stationen: "+station1ClientType+", "+station2ClientType+", "+station3ClientType);
+
+let select=-1;
+
+if (Simulation.getWIP(28)==0 &amp;&amp; Simulation.getLastClientTypeName(28)==clientName &amp;&amp; select==-1) select=1;
+if (Simulation.getWIP(29)==0 &amp;&amp; Simulation.getLastClientTypeName(29)==clientName &amp;&amp; select==-1) select=2;
+if (Simulation.getWIP(30)==0 &amp;&amp; Simulation.getLastClientTypeName(30)==clientName &amp;&amp; select==-1) select=3;
+
+if (select==-1) select=4;
+
+Simulation.log("Select: "+select);
+
+Output.print(select);</ModelElementDecideScript>
+      <ModelElementConnection Element="56" Type="In"/>
+      <ModelElementConnection Element="57" Type="Out"/>
+      <ModelElementConnection Element="58" Type="Out"/>
+      <ModelElementConnection Element="59" Type="Out"/>
+      <ModelElementConnection Element="60" Type="Out"/>
+    </ModelElementDecideJS>
+    <ModelElementEdge id="55">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="53" Element2="27" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="56">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="53" Element2="54" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="57">
+      <ModelElementName>Exit 1</ModelElementName>
+      <ModelElementConnection Element1="54" Element2="28" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="58">
+      <ModelElementName>Exit 2</ModelElementName>
+      <ModelElementConnection Element1="54" Element2="29" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="59">
+      <ModelElementName>Exit 3</ModelElementName>
+      <ModelElementConnection Element1="54" Element2="30" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="60">
+      <ModelElementName>Exit 4</ModelElementName>
+      <ModelElementConnection Element1="54" Element2="27" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementDelay id="61">
+      <ModelElementSize h="50" w="100" x="550" y="250"/>
+      <ModelElementConnection Element="5" Type="In"/>
+      <ModelElementConnection Element="24" Type="In"/>
+      <ModelElementConnection Element="62" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (360)</ModelElementDistribution>
+    </ModelElementDelay>
+    <ModelElementEdge id="5">
+      <ModelElementName>New client type: Clients X</ModelElementName>
+      <ModelElementConnection Element1="18" Element2="61" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="24">
+      <ModelElementName>New client type: Clients Y</ModelElementName>
+      <ModelElementConnection Element1="19" Element2="61" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="62">
+      <ModelElementConnection Element1="61" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDelay id="48">
+      <ModelElementSize h="50" w="100" x="550" y="800"/>
+      <ModelElementConnection Element="49" Type="In"/>
+      <ModelElementConnection Element="63" Type="In"/>
+      <ModelElementConnection Element="64" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (360)</ModelElementDistribution>
+    </ModelElementDelay>
+    <ModelElementEdge id="49">
+      <ModelElementName>New client type: Clients X</ModelElementName>
+      <ModelElementConnection Element1="41" Element2="48" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="63">
+      <ModelElementName>New client type: Clients Y</ModelElementName>
+      <ModelElementConnection Element1="42" Element2="48" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="64">
+      <ModelElementConnection Element1="48" Element2="46" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="65">
+      <ModelElementSize h="30" w="191" x="750" y="325"/>
+      <ModelElementTextLine>A waiting client is only released</ModelElementTextLine>
+      <ModelElementTextLine>if at least one process station is idle.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="66">
+      <ModelElementSize h="30" w="191" x="750" y="875"/>
+      <ModelElementTextLine>A waiting client is only released</ModelElementTextLine>
+      <ModelElementTextLine>if at least one process station is idle.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="67">
+      <ModelElementSize h="30" w="144" x="900" y="200"/>
+      <ModelElementTextLine>Client is randomly assigned</ModelElementTextLine>
+      <ModelElementTextLine>to an idle process station.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">11</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="68">
+      <ModelElementSize h="350" w="650" x="50" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="69">
+      <ModelElementSize h="76" w="611" x="50" y="500"/>
+      <ModelElementTextLine>The source produces an arrival whenever at delay+condition together at most one client is waiting.</ModelElementTextLine>
+      <ModelElementTextLine>The clients are each 50% of type "Clients X" and "Clients Y". Before a client can wait for one of</ModelElementTextLine>
+      <ModelElementTextLine>the three process stations to become free, he is held up at the delay station for an average of</ModelElementTextLine>
+      <ModelElementTextLine>6 minutes. Therefore, it can happen that several process stations are getting idle.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="70">
+      <ModelElementSize h="350" w="650" x="50" y="650"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="71">
+      <ModelElementSize h="350" w="600" x="1050" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="72">
+      <ModelElementSize h="76" w="583" x="1050" y="500"/>
+      <ModelElementTextLine>There is c=1 operator at each process station. Each service process takes exactly 8 minutes.</ModelElementTextLine>
+      <ModelElementTextLine>When the client type is changed, an additional 4.5 minutes of setup time are required.</ModelElementTextLine>
+      <ModelElementTextLine>Therefore, if several stations are idle, it would make sense to assign an arriving client</ModelElementTextLine>
+      <ModelElementTextLine>according to his client type, if possible, to a station where no setup time is necessary.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="73">
+      <ModelElementSize h="350" w="600" x="1350" y="650"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="74">
+      <ModelElementSize h="75" w="131" x="870" y="710"/>
+      <ModelElementTextLine>If only one station is idle,</ModelElementTextLine>
+      <ModelElementTextLine>assign client to it (upper</ModelElementTextLine>
+      <ModelElementTextLine>output). Otherwise, use</ModelElementTextLine>
+      <ModelElementTextLine>complex control strategy</ModelElementTextLine>
+      <ModelElementTextLine>(lower output).</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">11</ModelElementFontSize>
+      <ModelElementColor>0,165,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="75">
+      <ModelElementSize h="90" w="185" x="1075" y="975"/>
+      <ModelElementTextLine>If more than one station is idle,</ModelElementTextLine>
+      <ModelElementTextLine>assign clients to the station that</ModelElementTextLine>
+      <ModelElementTextLine>does not require any setup time for</ModelElementTextLine>
+      <ModelElementTextLine>the client type. If this is not</ModelElementTextLine>
+      <ModelElementTextLine>possible, randomly assign clients</ModelElementTextLine>
+      <ModelElementTextLine>to a station that is idle (output 4).</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">11</ModelElementFontSize>
+      <ModelElementColor>0,165,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="25">
+      <ModelElementSize h="23" w="62" x="55" y="105"/>
+      <ModelElementTextLine>Source</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="50">
+      <ModelElementSize h="23" w="62" x="55" y="655"/>
+      <ModelElementTextLine>Source</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="76">
+      <ModelElementSize h="23" w="557" x="1055" y="105"/>
+      <ModelElementTextLine>Three process stations with setup times for client type changes</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="77">
+      <ModelElementSize h="23" w="557" x="1355" y="655"/>
+      <ModelElementTextLine>Three process stations with setup times for client type changes</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="78">
+      <ModelElementSize h="46" w="221" x="750" y="100"/>
+      <ModelElementTextLine>Common queue</ModelElementTextLine>
+      <ModelElementTextLine>(without control strategy)</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="79">
+      <ModelElementSize h="23" w="339" x="750" y="650"/>
+      <ModelElementTextLine>Common queue (with control strategy)</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="80">
+      <ModelElementName>Average setup time per service process (in min.)</ModelElementName>
+      <ModelElementSize h="32" w="203" x="1300" y="350"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">(Rüstzeit_avg(6)+Rüstzeit_avg(7)+Rüstzeit_avg(8))/3/60</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="81">
+      <ModelElementName>Average setup time per service process (in min.)</ModelElementName>
+      <ModelElementSize h="32" w="203" x="1600" y="900"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">(Rüstzeit_avg(28)+Rüstzeit_avg(29)+Rüstzeit_avg(30))/3/60</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="82">
+      <ModelElementSize h="30" w="113" x="1300" y="400"/>
+      <ModelElementTextLine>The setup time is either</ModelElementTextLine>
+      <ModelElementTextLine>4.5 or 0 minutes.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="83">
+      <ModelElementSize h="30" w="113" x="1600" y="950"/>
+      <ModelElementTextLine>The setup time is either</ModelElementTextLine>
+      <ModelElementTextLine>4.5 or 0 minutes.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="84">
+      <ModelElementSize h="23" w="307" x="50" y="50"/>
+      <ModelElementTextLine>Strategies for avoiding setup times</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="250"/>
+      <ModelElementConnection Element="20" Type="Out"/>
+      <ModelElementArrivalCondition MinimumDistance="1">WIP(61)+WIP(2)&lt;1</ModelElementArrivalCondition>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementAnimationText id="86">
+      <ModelElementName>Frequency setup time</ModelElementName>
+      <ModelElementSize h="32" w="103" x="1510" y="350"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">(Rüstzeit_avg(6)+Rüstzeit_avg(7)+Rüstzeit_avg(8))/3/60/4,5</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="87">
+      <ModelElementName>Frequency setup time</ModelElementName>
+      <ModelElementSize h="32" w="103" x="1810" y="900"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">(Rüstzeit_avg(28)+Rüstzeit_avg(29)+Rüstzeit_avg(30))/3/60/4,5</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="88">
+      <ModelElementSize h="45" w="189" x="1455" y="400"/>
+      <ModelElementTextLine>Since the clients are distributed</ModelElementTextLine>
+      <ModelElementTextLine>50%:50%, a client type change occurs</ModelElementTextLine>
+      <ModelElementTextLine>on average after every 2nd service.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="89">
+      <ModelElementName>Average utilization of the operators</ModelElementName>
+      <ModelElementSize h="30" w="147" x="1300" y="150"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">(Resource_avg(1)+Resource_avg(2)+Resource_avg(3))/3</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="90">
+      <ModelElementName>Average utilization of the operators</ModelElementName>
+      <ModelElementSize h="30" w="147" x="1600" y="700"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">(Resource_avg(4)+Resource_avg(5)+Resource_avg(6))/3</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="91">
+      <ModelElementSize h="48" w="307" x="50" y="1050"/>
+      <ModelElementTextLine>**Possible research question:**</ModelElementTextLine>
+      <ModelElementTextLine>If the delay time is reduced at the two delay stations, the</ModelElementTextLine>
+      <ModelElementTextLine>setup time frequency changes in the second model. Why?</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Bediener A1" Type="Number" Value="1"/>
+    <Resource Name="Bediener A2" Type="Number" Value="1"/>
+    <Resource Name="Bediener A3" Type="Number" Value="1"/>
+    <Resource Name="Bediener B1" Type="Number" Value="1"/>
+    <Resource Name="Bediener B2" Type="Number" Value="1"/>
+    <Resource Name="Bediener B3" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="user_red" Name="B"/>
+    <ClientData Icon="questionmark" Name="Clients"/>
+    <ClientData Icon="user_red" Name="Clients Y"/>
+    <ClientData Icon="questionmark" Name="Kunden"/>
+    <ClientData Icon="user_red" Name="Kunden Y"/>
+  </ClientTypeData>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <CriticalStationsSignature>
+    <SignatureStation Hash="iMwcRMHjsKXfYIifO64PfBmXUrif+o1GkXmEUqPtAA0=" Signature="LTUXDO2gjkCDJ7gIbC6BTcRvl+KAv6VGS8uYGzuaikb2d9ROlyyIWZYvD66ubCc7u6NHsgU3DjKglZspdzs+MU5tHqnntHXhoGry74nLfXHwaTNWaaBEffNcjvbIC3Mod5nXbqcPJEOdxOBcSdffQUuHLtE5oqzYhCztmkygNyQ4DVJK8fQoCEoDPuvojG83+BgJ1QJsvJz0Eh3SiKCdrwD+ipqwFyhq9T++yxQXSiAE6bRvIqKK7tNznsK0va6fMiUAzzPsYGDZlHZ7g2Ajfw5dmfjy/3x9S8YuwkU6mE1E5FZk+TQ+O/bx8J1qv8wFMurXLRtSdzdJVg8P38PJ4xoq/7+Ivd/3lhQ0X5YmEQoe8K7awEu8BwofaYKoMUFzoIk7vFrwTac/2PXhNDPfIoyvYPXsierw3vsd8HBIWEKB70lCRMUMwbxppWFf5RJe92YdVmUPv7c37dlw7matEYPmAMuy2iLzkVmBAmWG2UIpfbQCquf02XXl5Wikni06b/jpm0KcN1xOv0SKlBKVPF2Liv26OeDAjLjuLYnF9NTylwlppR7DEqsvbx6GqsOhuQbI4tgePEzit3aHYZbWXyWbQz907dg0aTETvhLgYmRhHqed1uVcI8IB+LHa4m3qJcKRw/pqmD8kbRjNd2wrKHQzcdr7rkLsdigA/meWtC0=" id="54"/>
+    <SignatureUserName Signature="XkYku6zTX13zuQjd3RvuPJdBkoWYzyy/55FfTzsvCtW5lmYtwtTawDFQCgxZDY9yOOZFfiH9xkTSpi4mFjFhxYyxphr1z/WdS40n6sVzYjfxgYBd3wfoSB0jMMlJTVgBxq6FBUFWwqLbXCYHUMj+3QuHiosT31TLtAS+k3/k/puLnUkCCjHUOsV6Yi8bbqOqJ6YOPeg1xpfk7UTVVl8gINpDiNn7T255dGpokE1W9aahmUv8yeATcqhoDV5iJHce2DHQNwAADR2GScnwSDXtrwIrk1B8ZPcbCpL4vsN+xNyr24EUyvx4RsAvvf3URVsHjVg5O/zosyfkOVTWreFUIDeiUd7befieVhwmJos8xzrSwy/LEop3H6BDW77HrWJWRjlLy8CapIAs5KrmsLjzsR5/4IhvICt57jbIDVEqacOdxCsmsRfoBGxXN37jDajRJPPZ018acu343GsoRHE0TX/SH1vrrLftigXfkO9YQAU7PmO2zvoOtt5Zh8aZmdErTHLjiWp333T5iwxsdFfD2kXca6VUkQYYlWS5MUAN3o2yGnxjw1pRUynG9ucw5kC/waHHLVEMe6WXHNfOUsOsWWZEthHCHiz/4Uif3uBOJk8ucNft9SM1b60YYut74JG/5C0CNhzVQQi6OXaBa5Xwev/Q7qiJKo/ez+bqMXwJOhI=">Alexander Herzog</SignatureUserName>
+    <SignaturePublicKey>MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAi9Dd2kqC9Kha2/jfGKX5cWmqSDpgqUW1dBmGaA0LvYb1/mDMPwXbBx3xrmsvaRm3VtgCktftPAEhGqec0isrN1HLefxNyYN0g71OAAYkxvd8wv+QbhZidHMONLabBRAfT+nqlr4r78gGcSlcE1QVQMAxSQAsR8pKdV3QDGuP6qjh3xZRO3TSatAqIfZx5HJZSFVez5KMk6kLY16kw4BTdao2Ubsm7Rh3zF1/u2RP6jrRDprkOgSRZJSJWgmWFGvrOJ8UwTWRElPSoAyrJ5ySCNzEu/Q+j1Uz4BwaOo88D4bCHP3L41fFr0T42m/D8H/k7ngmC3SzKD1HM3D510gK2pG0vmIRQg2SwI8Yg7/upD0MtsZAIBThkweJ1Xgd1AV1deSTWAhOgwUQ+6ULCDA/qy7K8Hm7D+pZ1N1a4jpNxno5nGuhIrU8ztJ2wffQ2mDIgqRHhfhUxcptxtkKyOMFyWPYUGAfNSuu/0caOb06jaEGlL0ZqtlYWKZgiaxQylMeEyF+29t2KghJt9O+sUf33r10maOmbnz/asRfCtyqg9JkH0K4H/5Ojap3tlt8NpmteVnZbQSc7wL+CkWXtdXHIBcFqt/otBp6qQKZgUX27SS16untBS/pUC5bl6eSRok1WjrMSacY29tZ5Yjz0gCMiiussTRaA6ICcC+JbAuzWK0CAwEAAQ==</SignaturePublicKey>
+  </CriticalStationsSignature>
+</Model>

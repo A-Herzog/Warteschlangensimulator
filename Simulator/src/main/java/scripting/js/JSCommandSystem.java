@@ -1120,6 +1120,22 @@ public final class JSCommandSystem extends JSBaseCommand {
 	}
 
 	/**
+	 * Liefert den Namen des Kundentypen, der als letztes an der Bedienstation bedient wurde.
+	 * @param id	ID der Bedienstation
+	 * @return	Name des Kundentypen oder ein leerer String, wenn die Bedienstation noch keinen Kunden bedient hat, Batch-Bedienungen durchführt oder die ID nicht zu einer Bedienstation gehört
+	 */
+	public String getLastClientTypeName(final int id) {
+		if (simData==null) return "";
+		if (id<0 || id>=simData.runModel.elementsFast.length) return "";
+		final RunElement element=simData.runModel.elementsFast[id];
+		if (!(element instanceof RunElementProcess)) return "";
+
+		final int type=((RunElementProcess)element).getData(simData).lastClientIndex;
+		if (type<0) return "";
+		return simData.runModel.clientTypes[type];
+	}
+
+	/**
 	 * Löst ein Signal aus.
 	 * @param signalName Name des Signal
 	 */

@@ -371,6 +371,7 @@ public class ScriptPopup {
 		String systemResourceSet="";
 		String systemResourceDown="";
 		String systemAllResourceDown="";
+		String systemGetLastClientTypeName="";
 		String systemSignal="";
 		String systemTriggerScript="";
 		String systemLog="";
@@ -425,6 +426,7 @@ public class ScriptPopup {
 			systemResourceSet="Simulation.setResourceCount(resourceId,123)";
 			systemResourceDown="Simulation.getResourceDown(resourceId)";
 			systemAllResourceDown="Simulation.getAllResourceDown();";
+			systemGetLastClientTypeName="Simulation.getLastClientTypeName(%s)";
 			systemSignal="Simulation.signal(\"signalName\");";
 			systemTriggerScript="sim.getSystem().triggerScriptExecution(%s,Simulation.time()+delta);";
 			systemLog="Simulation.log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
@@ -479,6 +481,7 @@ public class ScriptPopup {
 			systemResourceSet="sim.getSystem().setResourceCount(resourceId,123);";
 			systemResourceDown="sim.getSystem().getResourceDown(resourceId);";
 			systemAllResourceDown="sim.getSystem().getAllResourceDown();";
+			systemGetLastClientTypeName="sim.getSystem().getLastClientTypeName(%s)";
 			systemSignal="sim.getSystem().signal(\"signalName\");";
 			systemTriggerScript="sim.getSystem().triggerScriptExecution(%s,sim.getSystem().getTime()+delta);";
 			systemLog="sim.getSystem().log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
@@ -583,6 +586,8 @@ public class ScriptPopup {
 		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.TransferTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.TransferTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueTransferTime,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
 		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Number"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Number.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueProcessSeconds,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
 		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Clients.ProcessTime")+" - "+Language.tr("ScriptPopup.Client.Time.Text"),Language.tr("ScriptPopup.Clients.ProcessTime.Hint")+" - "+Language.tr("ScriptPopup.Client.Time.Text.Hint"),Images.SCRIPT_RECORD_TIME.getIcon(),clientsProcessQueueProcessTime,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
+
+		sub.addChild(new ScriptPopupItemCommandID(Language.tr("ScriptPopup.Simulation.LastClientType"),Language.tr("ScriptPopup.Simulation.LastClientType.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),systemGetLastClientTypeName,owner,model,help,new Class<?>[]{ModelElementProcess.class}));
 
 		/* Bediener */
 

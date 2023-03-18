@@ -254,7 +254,7 @@ public class RunElementDecideByStation extends RunElement {
 				nr=bestIndices[bestIndicesUsed-1];
 				break;
 			case RANDOM: /* Bei gleichem Wert Ziel zufällig wählen. */
-				nr=(int)FastMath.round(FastMath.floor(bestIndicesUsed*DistributionRandomNumber.nextDouble()));
+				nr=bestIndices[(int)FastMath.round(FastMath.floor(bestIndicesUsed*DistributionRandomNumber.nextDouble()))];
 				break;
 			default:
 				nr=bestIndices[(int)FastMath.round(FastMath.floor(bestIndicesUsed*DistributionRandomNumber.nextDouble()))];

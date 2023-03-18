@@ -27,8 +27,10 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -46,6 +48,7 @@ import javax.swing.event.HyperlinkEvent.EventType;
 
 import org.fife.ui.autocomplete.AutoCompletion;
 import org.fife.ui.autocomplete.BasicCompletion;
+import org.fife.ui.autocomplete.Completion;
 import org.fife.ui.autocomplete.CompletionCellRenderer;
 import org.fife.ui.autocomplete.DefaultCompletionProvider;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -146,6 +149,14 @@ public class ScriptEditorAreaBuilder {
 	private Set<ScriptPopup.ScriptFeature> features;
 	/** System für AutoComplete-Vorschläge */
 	private DefaultCompletionProvider autoCompleteProvider;
+
+	/**
+	 * Sammelt die AutoComplete-Vorschläge für {@link #autoCompleteProvider},
+	 * um diese dann gesammelt einfügen zu können.
+	 * @see #addAutoComplete(String, String, Icon, String)
+	 * @see #get()
+	 */
+	private List<Completion> autoCompleteCollector;
 
 	/**
 	 * Konstruktor der Klasse
@@ -274,12 +285,14 @@ public class ScriptEditorAreaBuilder {
 		}
 
 		/* AutoComplete */
+		autoCompleteCollector=new ArrayList<>();
 		autoCompleteProvider=new DefaultCompletionProvider() {
 			@Override
 			protected boolean isValidChar(char ch) {
 				return super.isValidChar(ch) || ch=='.' || ch=='(' || ch==')'; /* Autovervollständigung nicht abbrechen, wenn ein "." getippt wird. */
 			}
 		};
+
 		if (language==ScriptMode.Javascript) {
 			addAutoComplete(Language.tr("Statistic.FastAccess.Template.JSEngineName"),Language.tr("Statistic.FastAccess.Template.JSEngineName.Hint"),Images.SCRIPT_RECORD_TEXT.getIcon(),"JS_ENGINE_NAME");
 		}
@@ -297,6 +310,8 @@ public class ScriptEditorAreaBuilder {
 			buildStatisticsTools(true);
 		}
 		buildStatistics();
+
+		autoCompleteProvider.addCompletions(autoCompleteCollector);
 		final AutoCompletion autoComplete=new AutoCompletion(autoCompleteProvider);
 		autoComplete.setListCellRenderer(new CompletionCellRenderer());
 		autoComplete.setShowDescWindow(true);
@@ -557,7 +572,7 @@ public class ScriptEditorAreaBuilder {
 		if (icon!=null) completion.setIcon(icon);
 		completion.setShortDescription(shortDescription);
 		completion.setSummary(summary);
-		autoCompleteProvider.addCompletion(completion);
+		autoCompleteCollector.add(completion);
 	}
 
 	/**
@@ -633,6 +648,7 @@ public class ScriptEditorAreaBuilder {
 		String systemResourceSet="";
 		String systemResourceDown="";
 		String systemAllResourceDown="";
+		String systemGetLastClientTypeName="";
 		String systemSignal="";
 		String systemTriggerScript="";
 		String systemLog="";
@@ -690,6 +706,7 @@ public class ScriptEditorAreaBuilder {
 			systemResourceSet="Simulation.setResourceCount(resourceId,123);";
 			systemResourceDown="Simulation.getResourceDown(resourceId);";
 			systemAllResourceDown="Simulation.getAllResourceDown();";
+			systemGetLastClientTypeName="Simulation.getLastClientTypeName(id);";
 			systemSignal="Simulation.signal(\"signalName\");";
 			systemTriggerScript="Simulation.triggerScriptExecution(id,Simulation.time()+delta);";
 			systemLog="Simulation.log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
@@ -745,6 +762,7 @@ public class ScriptEditorAreaBuilder {
 			systemResourceSet="sim.getSystem().setResourceCount(resourceId,123);";
 			systemResourceDown="sim.getSystem().getResourceDown(resourceId);";
 			systemAllResourceDown="sim.getSystem().getAllResourceDown();";
+			systemGetLastClientTypeName="sim.getSystem().getLastClientTypeName(id);";
 			systemSignal="sim.getSystem().signal(\"signalName\");";
 			systemTriggerScript="sim.getSystem().triggerScriptExecution(id,sim.getSystem().getTime()+delta);";
 			systemLog="sim.getSystem().log(\""+Language.tr("ScriptPopup.Simulation.Log.ExampleMessage")+"\");";
@@ -804,6 +822,8 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.setResourceCount"),Language.tr("ScriptPopup.Simulation.setResourceCount.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemResourceSet);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getResourceDown"),Language.tr("ScriptPopup.Simulation.getResourceDown.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemResourceDown);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getAllResourceDown"),Language.tr("ScriptPopup.Simulation.getAllResourceDown.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemAllResourceDown);
+
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.LastClientType"),Language.tr("ScriptPopup.Simulation.LastClientType.Hint"),Images.SCRIPT_RECORD_DATA_CLIENT.getIcon(),systemGetLastClientTypeName);
 
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.Signal"),Language.tr("ScriptPopup.Simulation.Signal.Hint"),Images.SCRIPT_RECORD_DATA_SIGNAL.getIcon(),systemSignal);
 

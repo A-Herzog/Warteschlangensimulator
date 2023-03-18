@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-16 11:35+0100\n"
+"POT-Creation-Date: 2023-03-17 00:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5130,6 +5130,9 @@ msgstr "Begrenzter Puffer zwischen Maschinen"
 
 msgid "Examples.Rework"
 msgstr "Auswirkungen von Nacharbeit auf die Durchlaufzeiten"
+
+msgid "Examples.SetUpTimeReduction"
+msgstr "Strategien zur Vermeidung von Rüstzeiten"
 
 msgid "Examples.SetUpTimes"
 msgstr "Maschine mit Rüstzeiten"
@@ -16864,6 +16867,12 @@ msgstr "System in Einschwingphase"
 
 msgid "ScriptPopup.Simulation.IsWarmUp.Hint"
 msgstr "Befindet sich das System in der Einschwingphase?"
+
+msgid "ScriptPopup.Simulation.LastClientType"
+msgstr "Letzter Kundentyp"
+
+msgid "ScriptPopup.Simulation.LastClientType.Hint"
+msgstr "Liefert den Namen des Kundentypen, der als letztes an der Bedienstation bedient wurde."
 
 msgid "ScriptPopup.Simulation.Log"
 msgstr "Logging-Ausgabe"

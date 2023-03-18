@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-16 11:35+0100\n"
+"POT-Creation-Date: 2023-03-17 00:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5123,6 +5123,9 @@ msgstr "Restricted buffer between the stations"
 
 msgid "Examples.Rework"
 msgstr "Effects of rework on the residence times"
+
+msgid "Examples.SetUpTimeReduction"
+msgstr "Strategies for avoiding setup times"
 
 msgid "Examples.SetUpTimes"
 msgstr "Machine with set up times"
@@ -16855,6 +16858,12 @@ msgstr "Warm-up phase"
 
 msgid "ScriptPopup.Simulation.IsWarmUp.Hint"
 msgstr "Is the system currently in the warm-up phase?"
+
+msgid "ScriptPopup.Simulation.LastClientType"
+msgstr "Last client type"
+
+msgid "ScriptPopup.Simulation.LastClientType.Hint"
+msgstr "Returns the name of the client type that has been served last at the process station."
 
 msgid "ScriptPopup.Simulation.Log"
 msgstr "Log message"

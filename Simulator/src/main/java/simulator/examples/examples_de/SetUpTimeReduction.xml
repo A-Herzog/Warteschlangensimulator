@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
+  <ModellName>Strategien zur Vermeidung von Rüstzeiten</ModellName>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementKasten id="85">
+      <ModellElementGroesse h="75" w="160" x="1070" y="890"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementHintergrundfarbe Alpha="0.1">0,165,0</ModellElementHintergrundfarbe>
+    </ModellElementKasten>
+    <ModellElementVerzweigen id="3">
+      <ModellElementGroesse h="50" w="100" x="900" y="250"/>
+      <ModellElementVerzweigungsmodus>MinimumN</ModellElementVerzweigungsmodus>
+      <ModellElementVerzweigBeiGleichstand>Zufällig</ModellElementVerzweigBeiGleichstand>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementBedienstation id="6">
+      <ModellElementName>A1</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1100" y="150"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">8</ModellElementAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden" Kundentyp2="Kunden X">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden" Kundentyp2="Kunden Y">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden X" Kundentyp2="Kunden">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden X" Kundentyp2="Kunden Y">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden Y" Kundentyp2="Kunden">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden Y" Kundentyp2="Kunden X">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementPrioritaet Kundentyp="A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden X">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden Y">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener A1"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="7">
+      <ModellElementName>A2</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1100" y="250"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">8</ModellElementAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden" Kundentyp2="Kunden X">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden" Kundentyp2="Kunden Y">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden X" Kundentyp2="Kunden">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden X" Kundentyp2="Kunden Y">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden Y" Kundentyp2="Kunden">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden Y" Kundentyp2="Kunden X">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementPrioritaet Kundentyp="A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden X">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden Y">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener A2"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="8">
+      <ModellElementName>A3</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1100" y="350"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">8</ModellElementAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden" Kundentyp2="Kunden X">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden" Kundentyp2="Kunden Y">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden X" Kundentyp2="Kunden">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden X" Kundentyp2="Kunden Y">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden Y" Kundentyp2="Kunden">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden Y" Kundentyp2="Kunden X">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementPrioritaet Kundentyp="A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden X">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden Y">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener A3"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementDurchsatz id="9">
+      <ModellElementName>A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1300" y="250"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+    </ModellElementDurchsatz>
+    <ModellElementEnde id="10">
+      <ModellElementGroesse h="50" w="100" x="1500" y="250"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="11">
+      <ModellElementVerbindung Element1="3" Element2="6" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="3" Element2="7" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="3" Element2="8" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementVerbindung Element1="6" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="15">
+      <ModellElementVerbindung Element1="7" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="16">
+      <ModellElementVerbindung Element1="8" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="17">
+      <ModellElementVerbindung Element1="9" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzweigen id="4">
+      <ModellElementGroesse h="50" w="100" x="300" y="250"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="21" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="22" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementZuweisung id="18">
+      <ModellElementName>Kunden X</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="300" y="150"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementZuweisung id="19">
+      <ModellElementName>Kunden Y</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="300" y="350"/>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementKante id="20">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="21">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="18" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="22">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="19" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedingung id="2">
+      <ModellElementGroesse h="50" w="100" x="750" y="250"/>
+      <ModellElementVerbindung Element="62" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Auslaufend"/>
+      <ModellElementBedingungText>WIP(6)==0 || WIP(7)==0 || WIP(8)==0</ModellElementBedingungText>
+      <ModellElementPrioritaet Kundentyp="A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+    </ModellElementBedingung>
+    <ModellElementKante id="23">
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementQuelle id="26">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="800"/>
+      <ModellElementVerbindung Element="43" Typ="Auslaufend"/>
+      <ModellElementAnkunftsbedingung MinimalerAbstand="1">WIP(48)+WIP(46)&lt;1</ModellElementAnkunftsbedingung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVerzweigen id="27">
+      <ModellElementGroesse h="50" w="100" x="1100" y="700"/>
+      <ModellElementVerzweigungsmodus>MinimumN</ModellElementVerzweigungsmodus>
+      <ModellElementVerzweigBeiGleichstand>Zufällig</ModellElementVerzweigBeiGleichstand>
+      <ModellElementVerbindung Element="55" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="60" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="33" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="34" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="35" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementBedienstation id="28">
+      <ModellElementName>B1</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1400" y="700"/>
+      <ModellElementVerbindung Element="33" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="57" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="36" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">8</ModellElementAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden" Kundentyp2="Kunden X">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden" Kundentyp2="Kunden Y">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden X" Kundentyp2="Kunden">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden X" Kundentyp2="Kunden Y">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden Y" Kundentyp2="Kunden">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden Y" Kundentyp2="Kunden X">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementPrioritaet Kundentyp="A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden X">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden Y">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener B1"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="29">
+      <ModellElementName>B2</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1400" y="800"/>
+      <ModellElementVerbindung Element="34" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="58" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="37" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">8</ModellElementAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden" Kundentyp2="Kunden X">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden" Kundentyp2="Kunden Y">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden X" Kundentyp2="Kunden">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden X" Kundentyp2="Kunden Y">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden Y" Kundentyp2="Kunden">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden Y" Kundentyp2="Kunden X">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementPrioritaet Kundentyp="A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden X">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden Y">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener B2"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="30">
+      <ModellElementName>B3</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1400" y="900"/>
+      <ModellElementVerbindung Element="35" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="59" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="38" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">8</ModellElementAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden" Kundentyp2="Kunden X">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden" Kundentyp2="Kunden Y">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden X" Kundentyp2="Kunden">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden X" Kundentyp2="Kunden Y">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden Y" Kundentyp2="Kunden">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementRuestzeitAusdruck Kundentyp1="Kunden Y" Kundentyp2="Kunden X">4,5</ModellElementRuestzeitAusdruck>
+      <ModellElementPrioritaet Kundentyp="A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden X">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden Y">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener B3"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementDurchsatz id="31">
+      <ModellElementName>B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1600" y="800"/>
+      <ModellElementVerbindung Element="36" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="37" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="38" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="39" Typ="Auslaufend"/>
+    </ModellElementDurchsatz>
+    <ModellElementEnde id="32">
+      <ModellElementGroesse h="50" w="100" x="1800" y="800"/>
+      <ModellElementVerbindung Element="39" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="33">
+      <ModellElementVerbindung Element1="27" Element2="28" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="34">
+      <ModellElementVerbindung Element1="27" Element2="29" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="35">
+      <ModellElementVerbindung Element1="27" Element2="30" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="36">
+      <ModellElementVerbindung Element1="28" Element2="31" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="37">
+      <ModellElementVerbindung Element1="29" Element2="31" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="38">
+      <ModellElementVerbindung Element1="30" Element2="31" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="39">
+      <ModellElementVerbindung Element1="31" Element2="32" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzweigen id="40">
+      <ModellElementGroesse h="50" w="100" x="300" y="800"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="43" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="44" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="45" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementZuweisung id="41">
+      <ModellElementName>Kunden X</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="300" y="700"/>
+      <ModellElementVerbindung Element="44" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="49" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementZuweisung id="42">
+      <ModellElementName>Kunden Y</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="300" y="900"/>
+      <ModellElementVerbindung Element="45" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="63" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementKante id="43">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="26" Element2="40" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="44">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="40" Element2="41" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="45">
+      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementVerbindung Element1="40" Element2="42" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedingung id="46">
+      <ModellElementGroesse h="50" w="100" x="750" y="800"/>
+      <ModellElementVerbindung Element="64" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="47" Typ="Auslaufend"/>
+      <ModellElementBedingungText>WIP(28)==0 || WIP(29)==0 || WIP(30)==0</ModellElementBedingungText>
+      <ModellElementPrioritaet Kundentyp="A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden X">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden Y">w</ModellElementPrioritaet>
+    </ModellElementBedingung>
+    <ModellElementAnimationText id="51">
+      <ModellElementName>Durchsatz (Kunden/Stunde)</ModellElementName>
+      <ModellElementGroesse h="32" w="117" x="1300" y="200"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">Counter(9)*3600</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="52">
+      <ModellElementName>Durchsatz (Kunden/Stunde)</ModellElementName>
+      <ModellElementGroesse h="32" w="117" x="1600" y="750"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">Counter(31)*3600</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementVerzweigen id="53">
+      <ModellElementGroesse h="50" w="100" x="900" y="800"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="47" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="WIP(28)+WIP(29)+WIP(30)==2" Element="55" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="56" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="47">
+      <ModellElementVerbindung Element1="46" Element2="53" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzweigenJS id="54">
+      <ModellElementGroesse h="50" w="100" x="1100" y="900"/>
+      <ModellElementVerzweigenSkript Sprache="Javascript">let clientName=Simulation.clientTypeName();
+let station1ClientType=Simulation.getLastClientTypeName(28);
+let station2ClientType=Simulation.getLastClientTypeName(29);
+let station3ClientType=Simulation.getLastClientTypeName(30);
+
+Simulation.log("Kundentypname: "+clientName);
+Simulation.log("Stationen: "+station1ClientType+", "+station2ClientType+", "+station3ClientType);
+
+let select=-1;
+
+if (Simulation.getWIP(28)==0 &amp;&amp; Simulation.getLastClientTypeName(28)==clientName &amp;&amp; select==-1) select=1;
+if (Simulation.getWIP(29)==0 &amp;&amp; Simulation.getLastClientTypeName(29)==clientName &amp;&amp; select==-1) select=2;
+if (Simulation.getWIP(30)==0 &amp;&amp; Simulation.getLastClientTypeName(30)==clientName &amp;&amp; select==-1) select=3;
+
+if (select==-1) select=4;
+
+Simulation.log("Select: "+select);
+
+Output.print(select);</ModellElementVerzweigenSkript>
+      <ModellElementVerbindung Element="56" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="57" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="58" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="59" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="60" Typ="Auslaufend"/>
+    </ModellElementVerzweigenJS>
+    <ModellElementKante id="55">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="53" Element2="27" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="56">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="53" Element2="54" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="57">
+      <ModellElementName>Ausgang 1</ModellElementName>
+      <ModellElementVerbindung Element1="54" Element2="28" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="58">
+      <ModellElementName>Ausgang 2</ModellElementName>
+      <ModellElementVerbindung Element1="54" Element2="29" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="59">
+      <ModellElementName>Ausgang 3</ModellElementName>
+      <ModellElementVerbindung Element1="54" Element2="30" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="60">
+      <ModellElementName>Ausgang 4</ModellElementName>
+      <ModellElementVerbindung Element1="54" Element2="27" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementVerzoegerung id="61">
+      <ModellElementGroesse h="50" w="100" x="550" y="250"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="62" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (360)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementKante id="5">
+      <ModellElementName>Neuer Kundentyp: Kunden X</ModellElementName>
+      <ModellElementVerbindung Element1="18" Element2="61" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="24">
+      <ModellElementName>Neuer Kundentyp: Kunden Y</ModellElementName>
+      <ModellElementVerbindung Element1="19" Element2="61" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="62">
+      <ModellElementVerbindung Element1="61" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzoegerung id="48">
+      <ModellElementGroesse h="50" w="100" x="550" y="800"/>
+      <ModellElementVerbindung Element="49" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="63" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="64" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (360)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementKante id="49">
+      <ModellElementName>Neuer Kundentyp: Kunden X</ModellElementName>
+      <ModellElementVerbindung Element1="41" Element2="48" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="63">
+      <ModellElementName>Neuer Kundentyp: Kunden Y</ModellElementName>
+      <ModellElementVerbindung Element1="42" Element2="48" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="64">
+      <ModellElementVerbindung Element1="48" Element2="46" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="65">
+      <ModellElementGroesse h="45" w="189" x="750" y="325"/>
+      <ModellElementTextzeile>Ein wartender Kunde wird nur</ModellElementTextzeile>
+      <ModellElementTextzeile>dann freigegeben, wenn mindestens</ModellElementTextzeile>
+      <ModellElementTextzeile>eine Bedienstation im Leerlauf ist.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="66">
+      <ModellElementGroesse h="45" w="189" x="750" y="875"/>
+      <ModellElementTextzeile>Ein wartender Kunde wird nur</ModellElementTextzeile>
+      <ModellElementTextzeile>dann freigegeben, wenn mindestens</ModellElementTextzeile>
+      <ModellElementTextzeile>eine Bedienstation im Leerlauf ist.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="67">
+      <ModellElementGroesse h="45" w="133" x="900" y="200"/>
+      <ModellElementTextzeile>Kunde wird zufällig einer</ModellElementTextzeile>
+      <ModellElementTextzeile>Bedienstation im Leerlauf</ModellElementTextzeile>
+      <ModellElementTextzeile>zugewiesen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="68">
+      <ModellElementGroesse h="350" w="650" x="50" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="69">
+      <ModellElementGroesse h="95" w="647" x="50" y="500"/>
+      <ModellElementTextzeile>Die Quelle produziert immer dann eine Ankunft, wenn an Verzögerung+Bedingung zusammen höchstens</ModellElementTextzeile>
+      <ModellElementTextzeile>ein Kunde wartet. Die Kunden sind jeweils zu 50% von Typ "Kunden X" und "Kunden Y". Bevor ein Kunde</ModellElementTextzeile>
+      <ModellElementTextzeile>auf das Freiwerden einer der drei Bedienstationen warten kann, wird er an der Verzögerungstation</ModellElementTextzeile>
+      <ModellElementTextzeile>für im Mittel 6 Minuten aufgehalten. Daher kann es passieren, dass mehrere Bedienstationen in</ModellElementTextzeile>
+      <ModellElementTextzeile>Leerlauf geraten.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="70">
+      <ModellElementGroesse h="350" w="650" x="50" y="650"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="71">
+      <ModellElementGroesse h="350" w="600" x="1050" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="72">
+      <ModellElementGroesse h="95" w="567" x="1050" y="500"/>
+      <ModellElementTextzeile>An jeder Bedienstation befindet sich c=1 Bediener. Jede Bedienung dauert exakt 8 Minuten.</ModellElementTextzeile>
+      <ModellElementTextzeile>Bei einem Wechsel des Kundentyps fallen zusätzliche 4,5 Minuten Rüstzeit an.</ModellElementTextzeile>
+      <ModellElementTextzeile>Daher wäre es, wenn mehrere Stationen frei sind, sinnvoll, einen eintreffenden</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden gemäß seinem Kundentyp wenn möglich an eine Station zuzuweisen, an der</ModellElementTextzeile>
+      <ModellElementTextzeile>keine Rüstzeit notwendig ist.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="73">
+      <ModellElementGroesse h="350" w="600" x="1350" y="650"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="74">
+      <ModellElementGroesse h="75" w="182" x="840" y="710"/>
+      <ModellElementTextzeile>Ist nur eine Station im Leerlauf,</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden an diese zuweisen</ModellElementTextzeile>
+      <ModellElementTextzeile>(oberer Ausgang). Sonst komplexe</ModellElementTextzeile>
+      <ModellElementTextzeile>Steuerungsstrategie</ModellElementTextzeile>
+      <ModellElementTextzeile>(unterer Ausgang) anwenden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,165,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="75">
+      <ModellElementGroesse h="90" w="194" x="1075" y="975"/>
+      <ModellElementTextzeile>Sind mehrere Stationen im Leerlauf,</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden an die Station zuweisen,</ModellElementTextzeile>
+      <ModellElementTextzeile>die keine Rüstzeit für den Kundentyp</ModellElementTextzeile>
+      <ModellElementTextzeile>benötigt. Ist dies nicht möglich,</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden zufällig an eine Station</ModellElementTextzeile>
+      <ModellElementTextzeile>im Leerlauf zuweisen (Ausgang 4).</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,165,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="25">
+      <ModellElementGroesse h="23" w="56" x="55" y="105"/>
+      <ModellElementTextzeile>Quelle</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="50">
+      <ModellElementGroesse h="23" w="56" x="55" y="655"/>
+      <ModellElementTextzeile>Quelle</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="76">
+      <ModellElementGroesse h="23" w="520" x="1055" y="105"/>
+      <ModellElementTextzeile>Drei Bedienstationen mit Rüstzeiten bei Kundentypwechsel</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="77">
+      <ModellElementGroesse h="23" w="520" x="1355" y="655"/>
+      <ModellElementTextzeile>Drei Bedienstationen mit Rüstzeiten bei Kundentypwechsel</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="78">
+      <ModellElementGroesse h="46" w="250" x="750" y="100"/>
+      <ModellElementTextzeile>Gemeinsame Warteschlange</ModellElementTextzeile>
+      <ModellElementTextzeile>(ohne Steuerungsstrategie)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="79">
+      <ModellElementGroesse h="23" w="478" x="750" y="650"/>
+      <ModellElementTextzeile>Gemeinsame Warteschlange (mit Steuerungsstrategie)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="80">
+      <ModellElementName>Mittlere Rüstzeit pro Bedienvorgang (in Min.)</ModellElementName>
+      <ModellElementGroesse h="32" w="189" x="1300" y="350"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">(Rüstzeit_avg(6)+Rüstzeit_avg(7)+Rüstzeit_avg(8))/3/60</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="81">
+      <ModellElementName>Mittlere Rüstzeit pro Bedienvorgang (in Min.)</ModellElementName>
+      <ModellElementGroesse h="32" w="187" x="1600" y="900"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">(Rüstzeit_avg(28)+Rüstzeit_avg(29)+Rüstzeit_avg(30))/3/60</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="82">
+      <ModellElementGroesse h="30" w="142" x="1300" y="400"/>
+      <ModellElementTextzeile>Die Rüstzeit beträgt entweder</ModellElementTextzeile>
+      <ModellElementTextzeile>4,5 oder 0 Minuten.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="83">
+      <ModellElementGroesse h="30" w="142" x="1600" y="950"/>
+      <ModellElementTextzeile>Die Rüstzeit beträgt entweder</ModellElementTextzeile>
+      <ModellElementTextzeile>4,5 oder 0 Minuten.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="84">
+      <ModellElementGroesse h="23" w="371" x="50" y="50"/>
+      <ModellElementTextzeile>Strategien zur Vermeidung von Rüstzeiten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="250"/>
+      <ModellElementVerbindung Element="20" Typ="Auslaufend"/>
+      <ModellElementAnkunftsbedingung MinimalerAbstand="1">WIP(61)+WIP(2)&lt;1</ModellElementAnkunftsbedingung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementAnimationText id="86">
+      <ModellElementName>Häufigkeit Rüstzeit</ModellElementName>
+      <ModellElementGroesse h="32" w="91" x="1510" y="350"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">(Rüstzeit_avg(6)+Rüstzeit_avg(7)+Rüstzeit_avg(8))/3/60/4,5</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="87">
+      <ModellElementName>Häufigkeit Rüstzeit</ModellElementName>
+      <ModellElementGroesse h="32" w="91" x="1810" y="900"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">(Rüstzeit_avg(28)+Rüstzeit_avg(29)+Rüstzeit_avg(30))/3/60/4,5</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="88">
+      <ModellElementGroesse h="45" w="184" x="1465" y="400"/>
+      <ModellElementTextzeile>Da die Kunden 50%:50% verteilt sind,</ModellElementTextzeile>
+      <ModellElementTextzeile>tritt im Mittel nach jeder 2. Bedienung</ModellElementTextzeile>
+      <ModellElementTextzeile>ein Kundentypwechsel statt.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="89">
+      <ModellElementName>Mittlere Auslastung der Bediener</ModellElementName>
+      <ModellElementGroesse h="30" w="137" x="1300" y="150"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">(Resource_avg(1)+Resource_avg(2)+Resource_avg(3))/3</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="90">
+      <ModellElementName>Mittlere Auslastung der Bediener</ModellElementName>
+      <ModellElementGroesse h="30" w="137" x="1600" y="700"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">(Resource_avg(4)+Resource_avg(5)+Resource_avg(6))/3</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="91">
+      <ModellElementGroesse h="48" w="396" x="50" y="1050"/>
+      <ModellElementTextzeile>**Mögliche Untersuchungsfragestellung:**</ModellElementTextzeile>
+      <ModellElementTextzeile>Wird die Verzögerungszeit an den beiden Verzögerungsstationen reduziert,</ModellElementTextzeile>
+      <ModellElementTextzeile>so verändert sich die Rüstzeiten-Häufigkeit im zweiten Modell. Warum?</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener A1" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener A2" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener A3" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener B1" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener B2" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener B3" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Icon="user_red" Name="B"/>
+    <KundenDaten Icon="questionmark" Name="Kunden"/>
+    <KundenDaten Icon="user_red" Name="Kunden Y"/>
+  </KundentypenDaten>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <KiritischeStationenSignatur>
+    <SignaturStation Hash="iMwcRMHjsKXfYIifO64PfBmXUrif+o1GkXmEUqPtAA0=" Signatur="LTUXDO2gjkCDJ7gIbC6BTcRvl+KAv6VGS8uYGzuaikb2d9ROlyyIWZYvD66ubCc7u6NHsgU3DjKglZspdzs+MU5tHqnntHXhoGry74nLfXHwaTNWaaBEffNcjvbIC3Mod5nXbqcPJEOdxOBcSdffQUuHLtE5oqzYhCztmkygNyQ4DVJK8fQoCEoDPuvojG83+BgJ1QJsvJz0Eh3SiKCdrwD+ipqwFyhq9T++yxQXSiAE6bRvIqKK7tNznsK0va6fMiUAzzPsYGDZlHZ7g2Ajfw5dmfjy/3x9S8YuwkU6mE1E5FZk+TQ+O/bx8J1qv8wFMurXLRtSdzdJVg8P38PJ4xoq/7+Ivd/3lhQ0X5YmEQoe8K7awEu8BwofaYKoMUFzoIk7vFrwTac/2PXhNDPfIoyvYPXsierw3vsd8HBIWEKB70lCRMUMwbxppWFf5RJe92YdVmUPv7c37dlw7matEYPmAMuy2iLzkVmBAmWG2UIpfbQCquf02XXl5Wikni06b/jpm0KcN1xOv0SKlBKVPF2Liv26OeDAjLjuLYnF9NTylwlppR7DEqsvbx6GqsOhuQbI4tgePEzit3aHYZbWXyWbQz907dg0aTETvhLgYmRhHqed1uVcI8IB+LHa4m3qJcKRw/pqmD8kbRjNd2wrKHQzcdr7rkLsdigA/meWtC0=" id="54"/>
+    <SignaturNutzername Signatur="XkYku6zTX13zuQjd3RvuPJdBkoWYzyy/55FfTzsvCtW5lmYtwtTawDFQCgxZDY9yOOZFfiH9xkTSpi4mFjFhxYyxphr1z/WdS40n6sVzYjfxgYBd3wfoSB0jMMlJTVgBxq6FBUFWwqLbXCYHUMj+3QuHiosT31TLtAS+k3/k/puLnUkCCjHUOsV6Yi8bbqOqJ6YOPeg1xpfk7UTVVl8gINpDiNn7T255dGpokE1W9aahmUv8yeATcqhoDV5iJHce2DHQNwAADR2GScnwSDXtrwIrk1B8ZPcbCpL4vsN+xNyr24EUyvx4RsAvvf3URVsHjVg5O/zosyfkOVTWreFUIDeiUd7befieVhwmJos8xzrSwy/LEop3H6BDW77HrWJWRjlLy8CapIAs5KrmsLjzsR5/4IhvICt57jbIDVEqacOdxCsmsRfoBGxXN37jDajRJPPZ018acu343GsoRHE0TX/SH1vrrLftigXfkO9YQAU7PmO2zvoOtt5Zh8aZmdErTHLjiWp333T5iwxsdFfD2kXca6VUkQYYlWS5MUAN3o2yGnxjw1pRUynG9ucw5kC/waHHLVEMe6WXHNfOUsOsWWZEthHCHiz/4Uif3uBOJk8ucNft9SM1b60YYut74JG/5C0CNhzVQQi6OXaBa5Xwev/Q7qiJKo/ez+bqMXwJOhI=">Alexander Herzog</SignaturNutzername>
+    <SignaturOeffentlicherSchluessel>MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAi9Dd2kqC9Kha2/jfGKX5cWmqSDpgqUW1dBmGaA0LvYb1/mDMPwXbBx3xrmsvaRm3VtgCktftPAEhGqec0isrN1HLefxNyYN0g71OAAYkxvd8wv+QbhZidHMONLabBRAfT+nqlr4r78gGcSlcE1QVQMAxSQAsR8pKdV3QDGuP6qjh3xZRO3TSatAqIfZx5HJZSFVez5KMk6kLY16kw4BTdao2Ubsm7Rh3zF1/u2RP6jrRDprkOgSRZJSJWgmWFGvrOJ8UwTWRElPSoAyrJ5ySCNzEu/Q+j1Uz4BwaOo88D4bCHP3L41fFr0T42m/D8H/k7ngmC3SzKD1HM3D510gK2pG0vmIRQg2SwI8Yg7/upD0MtsZAIBThkweJ1Xgd1AV1deSTWAhOgwUQ+6ULCDA/qy7K8Hm7D+pZ1N1a4jpNxno5nGuhIrU8ztJ2wffQ2mDIgqRHhfhUxcptxtkKyOMFyWPYUGAfNSuu/0caOb06jaEGlL0ZqtlYWKZgiaxQylMeEyF+29t2KghJt9O+sUf33r10maOmbnz/asRfCtyqg9JkH0K4H/5Ojap3tlt8NpmteVnZbQSc7wL+CkWXtdXHIBcFqt/otBp6qQKZgUX27SS16untBS/pUC5bl6eSRok1WjrMSacY29tZ5Yjz0gCMiiussTRaA6ICcC+JbAuzWK0CAwEAAQ==</SignaturOeffentlicherSchluessel>
+  </KiritischeStationenSignatur>
+</Modell>

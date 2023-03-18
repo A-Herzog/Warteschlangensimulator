@@ -157,6 +157,13 @@ public interface SystemInterface {
 	 * @return	Number of operators
 	 */
 	int getAllResourceDown();
+	
+	/**
+	 * Returns the name of the client type that has been served last at the process station.
+	 * @param id	ID of the process station
+	 * @return	Name of the client type or an empty string, if the process station has not served any client yet, is working in batch mode or the ID does not belong to a process station
+	 */
+	String getLastClientTypeName(final int id);
 
 	/**
 	 * Triggers a signal.

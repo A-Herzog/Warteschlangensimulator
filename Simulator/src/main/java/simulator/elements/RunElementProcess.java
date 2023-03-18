@@ -435,12 +435,10 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 	 * @see #processArrival(SimulationData, RunDataClient)
 	 */
 	private void startProcessingSingle(final SimulationData simData, final RunElementProcessData data, final int resourceAlternative, final double additionalPrepareTime) {
-		final RunElementProcessData processData=getData(simData);
-
 		RunDataClient selected=null;
 		int bestIndex=0;
 
-		if (processData.allFirstComeFirstServe && !campaignMode) {
+		if (data.allFirstComeFirstServe && !campaignMode) {
 			/* Ganzes System ist FCFS */
 			selected=data.waitingClients.get(0);
 		} else {
@@ -452,19 +450,19 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				for (int i=0;i<count;i++) {
 					final RunDataClient client=data.waitingClients.get(i);
 					if (client.type!=campaignClientIndex) continue; /* Erstmal nur passende Kunden */
-					if (processData.allFirstComeFirstServe) { /* Wenn innerhalb der Kampagne FIFO gilt, dann ersten passenden Kunden wählen */
+					if (data.allFirstComeFirstServe) { /* Wenn innerhalb der Kampagne FIFO gilt, dann ersten passenden Kunden wählen */
 						bestIndex=i;
 						selected=client;
 						break;
 					}
-					final double score=getClientScore(simData,processData,client);
+					final double score=getClientScore(simData,data,client);
 					if (score>bestScore) {
 						/* Ein Kunde weiter hinten in der Liste (=spätere Ankunft) braucht eine höhere Score, um den vorherigen zu überbieten. D.h. bei Score-Gleichstand zwischen zwei Kunden gilt FIFO. */
 						bestIndex=i;
 						selected=client;
 					}
 				}
-				if (selected==null && processData.allFirstComeFirstServe) { /* Wenn es keinen passenden Kunden gibt, aber FIFO gilt, ersten Kunden in Warteschlange wählen. */
+				if (selected==null && data.allFirstComeFirstServe) { /* Wenn es keinen passenden Kunden gibt, aber FIFO gilt, ersten Kunden in Warteschlange wählen. */
 					selected=data.waitingClients.get(0);
 				}
 			}
@@ -474,7 +472,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				double bestScore=-Double.MAX_VALUE;
 				if (count>1) for (int i=1;i<count;i++) {
 					final RunDataClient client=data.waitingClients.get(i);
-					final double score=getClientScore(simData,processData,client);
+					final double score=getClientScore(simData,data,client);
 					if (score>bestScore) {
 						/* Ein Kunde weiter hinten in der Liste (=spätere Ankunft) braucht eine höhere Score, um den vorherigen zu überbieten. D.h. bei Score-Gleichstand zwischen zwei Kunden gilt FIFO. */
 						bestScore=score;
@@ -486,9 +484,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		}
 
 		/* Bedienzeit bestimmen */
-		double setupTime=processData.getSetupTime(simData,selected);
-		double processingTime=processData.getProcessTime(simData,selected)+additionalPrepareTime;
-		double postProcessingTime=processData.getPostProcessTime(simData,selected);
+		double setupTime=data.getSetupTime(simData,selected);
+		double processingTime=data.getProcessTime(simData,selected)+additionalPrepareTime;
+		double postProcessingTime=data.getPostProcessTime(simData,selected);
 		long setupTimeMS=FastMath.round(setupTime*1000);
 		long processingTimeMS=FastMath.round(processingTime*1000);
 		long postProcessingTimeMS=FastMath.round(postProcessingTime*1000);
@@ -523,19 +521,19 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 
 		/* Rüstzeiten in Statistik */
 		if (!simData.runData.isWarmUp) {
-			if (processData.setupTimes==null) processData.setupTimes=(StatisticsDataPerformanceIndicator)simData.statistics.stationsSetupTimes.get(name);
-			processData.setupTimes.add(setupTime);
+			if (data.setupTimes==null) data.setupTimes=(StatisticsDataPerformanceIndicator)simData.statistics.stationsSetupTimes.get(name);
+			data.setupTimes.add(setupTime);
 		}
 
 		/* Weiterleitung zu nächster Station nach Bedienzeit-Ende */
 		final StationLeaveEvent leaveEvent=StationLeaveEvent.addLeaveEvent(simData,selected,this,setupTimeMS+processingTimeMS);
 
 		/* Kunden als "in Bedienung" erfassen */
-		simData.runData.logClientEntersStationProcess(simData,this,processData,selected);
+		simData.runData.logClientEntersStationProcess(simData,this,data,selected);
 
 		/* Kosten in Statistik erfassen */
-		if (processData.hasCosts) {
-			logCosts(simData,processData,selected,setupTime+processingTime,postProcessingTime);
+		if (data.hasCosts) {
+			logCosts(simData,data,selected,setupTime+processingTime,postProcessingTime);
 		}
 
 		/* Erfassung der Zwischenabgangszeiten auf Batch-Basis (bei dynamischen Bedien-Batches - hier also einzelnen Kunden) */
@@ -558,46 +556,44 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 	 * @see #processArrival(SimulationData, RunDataClient)
 	 */
 	private void startProcessingBatch(final SimulationData simData, final RunElementProcessData data, final int resourceAlternative, final double additionalPrepareTime) {
-		final RunElementProcessData processData=getData(simData);
-
 		final int count=data.waitingClients.size();
 
-		if (!processData.allFirstComeFirstServe) {
+		if (!data.allFirstComeFirstServe) {
 			/* Scorewerte für alle wartenden Kunden berechnen */
-			if (processData.score==null || processData.score.length<count) processData.score=new double[count];
+			if (data.score==null || data.score.length<count) data.score=new double[count];
 
 			for (int i=0;i<count;i++) {
 				final RunDataClient client=data.waitingClients.get(i);
-				final ExpressionCalc calc=processData.priority[client.type];
+				final ExpressionCalc calc=data.priority[client.type];
 				if (calc==null) { /* = Text war "w", siehe RunElementProcessData()  */
 					final double waitingTime=(((double)simData.currentTime)-client.lastWaitingStart)*toSecFactor;
-					processData.score[i]=waitingTime;
+					data.score[i]=waitingTime;
 				} else {
 					simData.runData.setClientVariableValues(simData.currentTime-client.lastWaitingStart,client.transferTime,client.processTime);
 					try {
-						processData.score[i]=calc.calc(simData.runData.variableValues,simData,client);
+						data.score[i]=calc.calc(simData.runData.variableValues,simData,client);
 					} catch (MathCalcError e) {
 						simData.calculationErrorStation(calc,this);
-						processData.score[i]=0;
+						data.score[i]=0;
 					}
 				}
 			}
 		}
 
 		List<RunDataClient> selectedForService;
-		if (processData.canUseGlobalSelectedForService) {
-			if (processData.globalSelectedForService==null) processData.globalSelectedForService=new ArrayList<>(batchMaxSize);
-			selectedForService=processData.globalSelectedForService;
+		if (data.canUseGlobalSelectedForService) {
+			if (data.globalSelectedForService==null) data.globalSelectedForService=new ArrayList<>(batchMaxSize);
+			selectedForService=data.globalSelectedForService;
 		} else {
 			selectedForService=new ArrayList<>(batchMaxSize);
 		}
-		processData.canUseGlobalSelectedForService=false;
+		data.canUseGlobalSelectedForService=false;
 
 		try {
 			/* Die maximal batchMaxSize Kunden mit den höchsten Scorewerten bestimmen */
 			selectedForService.clear();
 			while (selectedForService.size()<batchMaxSize && selectedForService.size()<data.waitingClients.size()) {
-				if (processData.allFirstComeFirstServe) {
+				if (data.allFirstComeFirstServe) {
 					selectedForService.add(data.waitingClients.get(selectedForService.size()));
 				} else {
 					double maxScore=-Double.MAX_VALUE;
@@ -605,22 +601,22 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 					for (int i=0;i<count;i++) {
 						final RunDataClient client=data.waitingClients.get(i);
 						if (selectedForService.indexOf(client)>=0) continue;
-						if (processData.score[i]>maxScore) {maxScore=processData.score[i]; maxScoreClient=client;}
+						if (data.score[i]>maxScore) {maxScore=data.score[i]; maxScoreClient=client;}
 					}
 					selectedForService.add(maxScoreClient);
 				}
 			}
 
 			/* Bedienzeiten bestimmen */
-			if (processData.processingTimes==null) processData.processingTimes=new double[simData.runModel.clientTypes.length]; else Arrays.fill(processData.processingTimes,0.0);
-			if (processData.postProcessingTimes==null) processData.postProcessingTimes=new double[simData.runModel.clientTypes.length]; else Arrays.fill(processData.postProcessingTimes,0.0);
+			if (data.processingTimes==null) data.processingTimes=new double[simData.runModel.clientTypes.length]; else Arrays.fill(data.processingTimes,0.0);
+			if (data.postProcessingTimes==null) data.postProcessingTimes=new double[simData.runModel.clientTypes.length]; else Arrays.fill(data.postProcessingTimes,0.0);
 			for (int i=0;i<selectedForService.size();i++) {
 				final RunDataClient client=selectedForService.get(i);  /* Iterator würde mehr Arbeitsspeicher brauchen */
 				final int type=client.type;
-				if (processData.processingTimes[type]!=0.0) continue;
+				if (data.processingTimes[type]!=0.0) continue;
 				/* hier keine Rüstzeiten; wird schon im Builder ausgeschlossen */
-				processData.processingTimes[type]=processData.getProcessTime(simData,client)+additionalPrepareTime;
-				processData.postProcessingTimes[type]=processData.getPostProcessTime(simData,client);
+				data.processingTimes[type]=data.getProcessTime(simData,client)+additionalPrepareTime;
+				data.postProcessingTimes[type]=data.getPostProcessTime(simData,client);
 			}
 
 			/* Kunden aus der Warteschlange entfernen */
@@ -630,7 +626,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 
 				/* Bedien- und Nachbearbeitungszeit aus Liste (s.o.) wählen */
 				final long waitingTime=data.removeClientFromQueue(client,-1,simData.currentTime,true,simData);
-				final long processingTime=FastMath.round(processData.processingTimes[type]*1000);
+				final long processingTime=FastMath.round(data.processingTimes[type]*1000);
 
 				/* Logging */
 				if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.ProcessService"),String.format(Language.tr("Simulation.Log.ProcessService.Info"),client.logInfo(simData),name,TimeTools.formatTime(processingTime/1000)));
@@ -652,24 +648,24 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				client.lastAlternative=resourceAlternative+1;
 
 				/* Kunden als "in Bedienung" erfassen */
-				simData.runData.logClientEntersStationProcess(simData,this,processData,client);
+				simData.runData.logClientEntersStationProcess(simData,this,data,client);
 
 				/* Weiterleitung zu nächster Station nach Bedienzeit-Ende */
 				StationLeaveEvent.addLeaveEvent(simData,client,this,processingTime);
 			}
 		} finally {
-			if (selectedForService==processData.globalSelectedForService) processData.canUseGlobalSelectedForService=true;
+			if (selectedForService==data.globalSelectedForService) data.canUseGlobalSelectedForService=true;
 		}
 
 		/* Zeit bestimmen, die die Bediener blockiert sind */
 		double resourcesBlockedTimeProcessing=0;
 		double resourcesBlockedTimePostProcessing=0;
-		for (double d: processData.processingTimes) resourcesBlockedTimeProcessing=FastMath.max(resourcesBlockedTimeProcessing,d);
-		for (double d: processData.postProcessingTimes) resourcesBlockedTimePostProcessing=FastMath.max(resourcesBlockedTimePostProcessing,d);
+		for (double d: data.processingTimes) resourcesBlockedTimeProcessing=FastMath.max(resourcesBlockedTimeProcessing,d);
+		for (double d: data.postProcessingTimes) resourcesBlockedTimePostProcessing=FastMath.max(resourcesBlockedTimePostProcessing,d);
 
 		/* Kosten in Statistik erfassen */
-		if (processData.hasCosts) {
-			logCosts(simData,processData,null,resourcesBlockedTimeProcessing,resourcesBlockedTimePostProcessing);
+		if (data.hasCosts) {
+			logCosts(simData,data,null,resourcesBlockedTimeProcessing,resourcesBlockedTimePostProcessing);
 		}
 
 		/* Erfassung der Zwischenabgangszeiten auf Batch-Basis (bei dynamischen Bedien-Batches) */

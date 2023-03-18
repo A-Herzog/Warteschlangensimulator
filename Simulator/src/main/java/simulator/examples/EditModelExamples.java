@@ -279,6 +279,7 @@ public class EditModelExamples {
 		addExample(Language.trAll("Examples.DelayJS"),"DelayJS.xml",ExampleType.TYPE_COMPARE);
 		addExample(Language.trAll("Examples.ParallelSerial"),"ParallelSerial.xml",ExampleType.TYPE_COMPARE);
 		addExample(Language.trAll("Examples.FIFO-LIFO-Switch"),"FIFO-LIFO-Switch.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PRIORITIES);
+		addExample(Language.trAll("Examples.SetUpTimeReduction"),"SetUpTimeReduction.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
 
 		/* Beispiele, die mathematische Zusammenh‰nge verdeutlichen */
 		addExample(Language.trAll("Examples.LawOfLargeNumbers"),"GesetzDerGroﬂenZahlen.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);

@@ -154,6 +154,7 @@ public class SystemImpl implements SystemInterface {
 		return element.getData(simData).reportedClientsAtStation(simData);
 	}
 
+	@Override
 	public int getWIP(final String stationName) {
 		final RunElement element=elementFromName(stationName);
 		if (element==null) return 0;
@@ -168,6 +169,7 @@ public class SystemImpl implements SystemInterface {
 		return element.getData(simData).clientsAtStationQueue;
 	}
 
+	@Override
 	public int getNQ(final String stationName) {
 		final RunElement element=elementFromName(stationName);
 		if (element==null) return 0;
@@ -182,6 +184,7 @@ public class SystemImpl implements SystemInterface {
 		return element.getData(simData).clientsAtStationProcess;
 	}
 
+	@Override
 	public int getNS(final String stationName) {
 		final RunElement element=elementFromName(stationName);
 		if (element==null) return 0;
@@ -361,6 +364,18 @@ public class SystemImpl implements SystemInterface {
 	@Override
 	public int getAllResourceDown() {
 		return simData.runData.resources.getAllDown(simData);
+	}
+
+	@Override
+	public String getLastClientTypeName(final int id) {
+		if (simData==null) return "";
+		if (id<0 || id>=simData.runModel.elementsFast.length) return "";
+		final RunElement element=simData.runModel.elementsFast[id];
+		if (!(element instanceof RunElementProcess)) return "";
+
+		final int type=((RunElementProcess)element).getData(simData).lastClientIndex;
+		if (type<0) return "";
+		return simData.runModel.clientTypes[type];
 	}
 
 	@Override

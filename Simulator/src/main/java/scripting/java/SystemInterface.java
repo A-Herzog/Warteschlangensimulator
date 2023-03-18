@@ -166,6 +166,13 @@ public interface SystemInterface {
 	int getAllResourceDown();
 
 	/**
+	 * Liefert den Namen des Kundentypen, der als letztes an der Bedienstation bedient wurde.
+	 * @param id	ID der Bedienstation
+	 * @return	Name des Kundentypen oder ein leerer String, wenn die Bedienstation noch keinen Kunden bedient hat, Batch-Bedienungen durchführt oder die ID nicht zu einer Bedienstation gehört
+	 */
+	String getLastClientTypeName(final int id);
+
+	/**
 	 * Löst ein Signal aus.
 	 * @param signalName	Name des Signal
 	 */
