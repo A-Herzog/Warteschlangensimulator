@@ -1,0 +1,105 @@
+WEBVTT
+
+00:00.000 --> 00:05.000
+In diesem Video wird der ereignisorientierte,
+stochastische Simulator Warteschlangensimulator
+vorgestellt
+
+00:05.100 --> 00:10.000
+und es wird gezeigt, wie darin ein erstes Modell
+erstellt und animiert werden kann.
+
+00:12.000 --> 00:17.000
+Warteschlangensimulator ermöglicht es,
+Warteschlangennetzwerke in Form von
+Fließbildern zu modellieren.
+
+00:17.100 --> 00:21.500
+Diese Fließbilder können animiert werden
+und auch zur Untersuchung der Kenngrößen
+simuliert werden.
+
+00:22.000 --> 00:29.000
+Beginnen wir mit einem einfachen M/M/1-Modell.
+
+00:30.000 --> 00:40.000
+Dafür benötigen wir drei Stationen:
+Source (Quelle)
+Process station (Bedienstation)
+Exit (Ausgang)
+
+00:40.000 --> 00:50.000
+Diese Stationen befinden sich in der Vorlagenleiste
+und können von dort auf die Zeichenfläche gezogen werden.
+
+01:10.000 --> 01:20.000
+Als nächstes müssen die Stationen mit Kanten verbunden werden.
+
+01:20.000 --> 01:30.000
+Kanten werden hinzugefügt, in dem als erstes
+auf die Start- und dann auf die Zielstation
+der Verbindungskante geklickt wird.
+
+01:37.000 --> 01:47.000
+Nun muss noch 1 Bediener zur
+Bedienstation hinzugefügt werden.
+
+02:07.000 --> 02:12.000
+Als letzten Schritt vor der Animation überprüfen
+wir die Zwischenankunfts- und die Bedienzeiten.
+
+02:12.100 --> 02:18.000
+In dem Modell existiert c=1 Bediener, d.h.
+es muss lambda&lt;mu gelten, damit rho&lt;1 erfüllt ist.
+Das bedeutet, dass die mittlere Zwischenankunftszeit E[I]
+größer als die mittlere Bediendauer E[S] sein muss.
+
+02:18.500 --> 02:36.000
+Wir können E[I] und E[S] direkt über dass
+Rechtsklick-Kontextmenü einsehen.
+
+02:38.000 --> 02:52.000
+Es sind E[I]=60 und E[S]=50 eingestellt, d.h. alles ist in Ordnung.
+Wir können die Animation starten.
+
+02:58.000 --> 03:06.000
+Die Geschwindigkeit einer laufenden Animation
+kann variiert werden.
+
+03:13.000 --> 03:20.000
+Im Einzelschrittmodus zeigt der Simulator
+Detailinformationen zu den gerade ausgeführten
+Ereignissen an.
+
+03:28.000 --> 03:32.000
+Während die Animation hauptsächlich dazu dient,
+die Zusammenhänge im Modell zu verstehen
+(und weil sie Spaß macht),
+
+03:32.100 --> 03:37.000
+ist der Simulationsmodus primär hilfreich,
+um viele Ankünfte schnell zu simulieren.
+
+03:42.000 --> 03:47.000
+Wenn die Simulation abgeschlossen ist
+(in diesem Beispiel die Simulation von
+10.000.000 Ankünften in weniger als
+2 Sekunden),
+
+03:47.500 --> 03:55.000
+werden die aufgezeichneten Kenngrößen
+automatisch angezeigt.
+
+04:09.000 --> 04:16.000
+Das Hinzufügen von Visualisierungen zur Anzeige
+von aktuellen Werten während einer Animation
+ist ebenfalls sehr einfach.
+
+04:58.000 --> 05:01.000
+Vielen Dank für das Ansehen dieses Videos.
+
+05:01.500 --> 05:07.000
+Wenn Sie sich für den Warteschlangensimulator
+interessieren, können Sie ihn kostenlos von
+folgender Adresse herunterladen:
+github.com/A-Herzog/Warteschlangensimulator

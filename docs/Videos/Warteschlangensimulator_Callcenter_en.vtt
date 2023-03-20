@@ -1,0 +1,29 @@
+WEBVTT
+
+00:00.000 --> 00:05.000
+This video shows the animation
+of a call center model in
+Warteschlangensimulator.
+
+00:05.100 --> 00:11.000
+The animated call center model consists
+of 3 different caller types and 3 call centers
+with single and multi skill agents.
+
+00:11.100 --> 00:18.000
+Additionally the clients will have a limited
+waiting time tolerance, will retry if they
+canceled waiting and may get forwarded after
+talking to an agent.
+
+00:18.100 --> 00:24.000
+This model is a built-in example.
+It can be loaded via File|Load example.
+
+01:49.000 --> 01:52.000
+Thank you for watching this video.
+
+01:52.500 --> 02:00.000
+If you are interested in Warteschlangensimulator,
+you can download it for free from:
+github.com/A-Herzog/Warteschlangensimulator

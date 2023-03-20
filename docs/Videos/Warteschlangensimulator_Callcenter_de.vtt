@@ -1,0 +1,30 @@
+WEBVTT
+
+00:00.000 --> 00:05.000
+In diesem Video wird die Animation
+eines Callcenter-Modells im
+Warteschlangensimulator gezeigt.
+
+00:05.100 --> 00:11.000
+Das animiert Callcenter-Modell besteht aus
+3 verschiedenen Anrufergruppen und 3 Callcentern
+mit Single- und Multiskill-Agenten.
+
+00:11.100 --> 00:18.000
+Zusätzlich besitzen die Anrufer eine begrenzte
+Wartezeittoleranz, starten nach einem Warteabbruch
+einen weiteren Anrufversuch und werden teilweise
+nach einem Gespräch mit einem Agenten weitergeleitet.
+
+00:18.100 --> 00:24.000
+Dies ist ein eingebautes Beispielmodell.
+Es kann über Datei|Beispiel laden aufgerufen werden.
+
+01:49.000 --> 01:52.000
+Vielen Dank für das Ansehen dieses Videos.
+
+01:52.500 --> 02:00.000
+Wenn Sie sich für den Warteschlangensimulator
+interessieren, können Sie ihn kostenlos von
+folgender Adresse herunterladen:
+github.com/A-Herzog/Warteschlangensimulator
