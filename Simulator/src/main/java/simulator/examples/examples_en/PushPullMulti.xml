@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>1.3.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
   <ModelName>Push and pull production with multiple segments</ModelName>
   <ModelDescription>In the case of push production, incoming clients are immediately led
 into the operating process, resulting in a higher volume of clients.
@@ -12,21 +13,21 @@ a smaller number of clients in the productive portion of the system.</ModelDescr
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">10000000</ModelClients>
   <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
-  <ModelTerminationCondition Active="0"/>
   <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
-  <ModelRandomNumbersSeed Active="0">0</ModelRandomNumbersSeed>
   <ModelElements>
     <ModelElementSource id="1">
       <ModelElementName>Clients</ModelElementName>
       <ModelElementSize h="50" w="100" x="50" y="100"/>
       <ModelElementConnection Element="7" Type="Out"/>
       <ModelElementArrivalSignal>Source signal</ModelElementArrivalSignal>
+      <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementSource id="2">
       <ModelElementName>Clients</ModelElementName>
       <ModelElementSize h="50" w="100" x="50" y="200"/>
       <ModelElementConnection Element="4" Type="Out"/>
       <ModelElementDistribution Count="10" TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementIcon id="3">
       <ModelElementSize h="50" w="100" x="250" y="200"/>
@@ -130,9 +131,12 @@ a smaller number of clients in the productive portion of the system.</ModelDescr
       <ModelElementSize h="200" w="600" x="1100" y="450"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
       <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="4" Minimum="0">N(14)+N(15)</ModelElementDiagramElement>
       <ModelElementDiagramElement LineColor="255,0,0" LineWidth="1" Maximum="4" Minimum="0">N(17)</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>18000</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementRectangle id="23">
       <ModelElementSize h="150" w="200" x="1500" y="50"/>
@@ -147,13 +151,13 @@ a smaller number of clients in the productive portion of the system.</ModelDescr
     <ModelElementText id="25">
       <ModelElementSize h="15" w="131" x="50" y="160"/>
       <ModelElementTextLine>Generates clients by signal</ModelElementTextLine>
-      <ModelElementFontSize>11</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="26">
-      <ModelElementSize h="15" w="179" x="50" y="260"/>
+      <ModelElementSize h="15" w="180" x="50" y="260"/>
       <ModelElementTextLine>Generates at the beginning 10 clients</ModelElementTextLine>
-      <ModelElementFontSize>11</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementRectangle id="27">
@@ -162,75 +166,69 @@ a smaller number of clients in the productive portion of the system.</ModelDescr
       <ModelElementColor>0,195,0</ModelElementColor>
     </ModelElementRectangle>
     <ModelElementText id="28">
-      <ModelElementSize h="19" w="93" x="555" y="175"/>
+      <ModelElementSize h="19" w="94" x="555" y="175"/>
       <ModelElementTextLine>Max. 10 clients</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="29">
-      <ModelElementSize h="19" w="85" x="1105" y="175"/>
+      <ModelElementSize h="19" w="86" x="1105" y="175"/>
       <ModelElementTextLine>Max. 3 clients</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="30">
-      <ModelElementSize h="19" w="85" x="1505" y="175"/>
+      <ModelElementSize h="19" w="86" x="1505" y="175"/>
       <ModelElementTextLine>Max. 3 clients</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="31">
       <ModelElementName>N(8)+N(9)</ModelElementName>
-      <ModelElementSize h="30" w="49" x="825" y="165"/>
+      <ModelElementSize h="30" w="47" x="825" y="165"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">N(8)+N(9)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="63">
       <ModelElementName>N(14)+N(15)</ModelElementName>
-      <ModelElementSize h="30" w="51" x="1375" y="165"/>
+      <ModelElementSize h="30" w="52" x="1375" y="165"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">N(14)+N(15)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="32">
       <ModelElementName>N(17)</ModelElementName>
-      <ModelElementSize h="30" w="49" x="1625" y="165"/>
+      <ModelElementSize h="30" w="47" x="1625" y="165"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">N(17)</ModelElementAnimationMode>
     </ModelElementAnimationText>
-    <ModelElementText id="35">
-      <ModelElementSize h="19" w="8" x="1705" y="490"/>
-      <ModelElementTextLine>3</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
-      <ModelElementColor>0,0,0</ModelElementColor>
-    </ModelElementText>
     <ModelElementText id="36">
-      <ModelElementSize h="38" w="231" x="555" y="55"/>
+      <ModelElementSize h="38" w="221" x="555" y="55"/>
       <ModelElementTextLine>Segment A</ModelElementTextLine>
       <ModelElementTextLine>(controlled by source and signal)</ModelElementTextLine>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,180,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="37">
-      <ModelElementSize h="38" w="183" x="1105" y="55"/>
+      <ModelElementSize h="38" w="173" x="1105" y="55"/>
       <ModelElementTextLine>Segment B</ModelElementTextLine>
       <ModelElementTextLine>(controlled by "Barrier B")</ModelElementTextLine>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="38">
-      <ModelElementSize h="38" w="157" x="1505" y="55"/>
+      <ModelElementSize h="38" w="150" x="1505" y="55"/>
       <ModelElementTextLine>Segment C (controlled</ModelElementTextLine>
       <ModelElementTextLine>by "Barrier C")</ModelElementTextLine>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="40">
-      <ModelElementSize h="19" w="269" x="1100" y="430"/>
+      <ModelElementSize h="19" w="270" x="1100" y="430"/>
       <ModelElementTextLine>Number of clients in the segments B and C</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementDuplicate id="11">
@@ -300,58 +298,55 @@ a smaller number of clients in the productive portion of the system.</ModelDescr
       <ModelElementSize h="200" w="600" x="350" y="450"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
       <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="4" Minimum="0">N(34)</ModelElementDiagramElement>
       <ModelElementDiagramElement LineColor="255,0,0" LineWidth="1" Maximum="4" Minimum="0">N(41)</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>18000</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="49">
       <ModelElementSize h="19" w="233" x="350" y="430"/>
       <ModelElementTextLine>Number of clients at stations E and F</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
-      <ModelElementColor>0,0,0</ModelElementColor>
-    </ModelElementText>
-    <ModelElementText id="50">
-      <ModelElementSize h="19" w="8" x="955" y="490"/>
-      <ModelElementTextLine>3</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="51">
-      <ModelElementSize h="19" w="346" x="435" y="300"/>
+      <ModelElementSize h="19" w="331" x="435" y="300"/>
       <ModelElementTextLine>For comparision: push production without barrier</ModelElementTextLine>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="52">
-      <ModelElementSize h="19" w="314" x="435" y="320"/>
+      <ModelElementSize h="19" w="309" x="435" y="320"/>
       <ModelElementTextLine>By the arrivals will still be limited by the pull signal.</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="53">
       <ModelElementSize h="30" w="339" x="550" y="205"/>
       <ModelElementTextLine>"Barrier B" will only release a client for processing at station A, if after</ModelElementTextLine>
       <ModelElementTextLine>this in segment B and at station A there are no more than 3 clients.</ModelElementTextLine>
-      <ModelElementFontSize>11</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="54">
-      <ModelElementSize h="30" w="338" x="1100" y="205"/>
+      <ModelElementSize h="30" w="339" x="1100" y="205"/>
       <ModelElementTextLine>"Barrier C" will only release a client for processing at station B, if after</ModelElementTextLine>
       <ModelElementTextLine>this in segment C and at station B there are no more than 3 clients.</ModelElementTextLine>
-      <ModelElementFontSize>11</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="55">
       <ModelElementName>Variationskoeffizient WIP an Station C</ModelElementName>
-      <ModelElementSize h="30" w="161" x="1100" y="300"/>
+      <ModelElementSize h="30" w="158" x="1100" y="300"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WIP_cv(17)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="56">
       <ModelElementName>Variationskoeffizient WIP an Station F</ModelElementName>
-      <ModelElementSize h="30" w="160" x="1100" y="350"/>
+      <ModelElementSize h="30" w="157" x="1100" y="350"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WIP_cv(41)</ModelElementAnimationMode>
@@ -362,13 +357,13 @@ a smaller number of clients in the productive portion of the system.</ModelDescr
       <ModelElementTextLine>signal, at the source</ModelElementTextLine>
       <ModelElementTextLine>a client arrival will</ModelElementTextLine>
       <ModelElementTextLine>be triggered.</ModelElementTextLine>
-      <ModelElementFontSize>11</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="81">
-      <ModelElementSize h="23" w="427" x="50" y="50"/>
+      <ModelElementSize h="23" w="434" x="50" y="50"/>
       <ModelElementTextLine>Push and pull production with multiple segments</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationTrafficLights id="124">
@@ -384,7 +379,7 @@ a smaller number of clients in the productive portion of the system.</ModelDescr
       <ModelElementAnimationTrafficLightsCondition Light="red">N(8)+N(9)&gt;=10</ModelElementAnimationTrafficLightsCondition>
     </ModelElementAnimationTrafficLights>
   </ModelElements>
-  <Resources>
+  <Resources SecondaryPriority="Random">
     <Resource Name="Bediener A" Type="Number" Value="1"/>
     <Resource Name="Bediener B" Type="Number" Value="1"/>
     <Resource Name="Bediener C" Type="Number" Value="1"/>
@@ -393,4 +388,7 @@ a smaller number of clients in the productive portion of the system.</ModelDescr
     <Resource Name="Bediener F" Type="Number" Value="1"/>
   </Resources>
   <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
 </Model>

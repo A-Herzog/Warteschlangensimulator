@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>3.3.0</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Gesetz der großen Zahlen</ModellName>
   <ModellBeschreibung>Nach langer Laufzeit sollten sich die Anteile aller 4 Zähler
 gegen jeweils 25% stabilisieren.</ModellBeschreibung>
@@ -25,9 +26,9 @@ gegen jeweils 25% stabilisieren.</ModellBeschreibung>
       <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
     </ModellElementEnde>
     <ModellElementText id="6">
-      <ModellElementGroesse h="23" w="221" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="226" x="50" y="50"/>
       <ModellElementTextzeile>Gesetz der großen Zahlen</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementVerzweigen id="1">
@@ -111,18 +112,21 @@ gegen jeweils 25% stabilisieren.</ModellBeschreibung>
       <ModellElementGroesse h="200" w="400" x="50" y="400"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
       <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="1" Minimum="0">Part(4)</ModellElementDiagrammElement>
       <ModellElementDiagrammZeitbereich>10800</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>2</ModellElementAchsenbeschriftung>
     </ModellElementAnimationLinienDiagramm>
     <ModellElementText id="19">
-      <ModellElementGroesse h="19" w="263" x="50" y="380"/>
+      <ModellElementGroesse h="19" w="257" x="50" y="380"/>
       <ModellElementTextzeile>Anteil der Kunden, die Weg 1 beschreiten</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationText id="20">
       <ModellElementName>Weg 1</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="750" y="605"/>
+      <ModellElementGroesse h="30" w="74" x="750" y="605"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Part(4)</ModellElementAnimationsmodus>
@@ -131,14 +135,17 @@ gegen jeweils 25% stabilisieren.</ModellBeschreibung>
       <ModellElementGroesse h="38" w="198" x="500" y="500"/>
       <ModellElementTextzeile>Nach langer Laufzeit stabilisiert</ModellElementTextzeile>
       <ModellElementTextzeile>sich der Wert gegen 25%.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationBalkenDiagramm id="22">
       <ModellElementGroesse h="200" w="200" x="750" y="400"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
       <ModellElementMaximalwert>1</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung>2</ModellElementAchsenbeschriftung>
       <ModellElementDiagrammElement Balkenfarbe="0,0,255">Part(4)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Balkenfarbe="0,195,0">Part(5)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Balkenfarbe="255,0,0">Part(7)</ModellElementDiagrammElement>
@@ -146,21 +153,21 @@ gegen jeweils 25% stabilisieren.</ModellBeschreibung>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementAnimationText id="23">
       <ModellElementName>Weg 2</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="805" y="605"/>
+      <ModellElementGroesse h="30" w="74" x="805" y="605"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,195,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Part(5)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="24">
       <ModellElementName>Weg 3</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="860" y="605"/>
+      <ModellElementGroesse h="30" w="74" x="860" y="605"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Part(7)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="25">
       <ModellElementName>Weg 4</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="915" y="605"/>
+      <ModellElementGroesse h="30" w="74" x="915" y="605"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,165,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Part(8)</ModellElementAnimationsmodus>

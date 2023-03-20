@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>1.0.0</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>PASTA (Poisson arrivals see time averages)</ModellName>
   <ModellBeschreibung>Kenngrößen des Modells (für die Erlang-C-Formel):
 
@@ -26,9 +27,7 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">5000000</ModellKunden>
   <ModellAufwaermphase>0.01</ModellAufwaermphase>
-  <ModellAbbruchbedingung Aktiv="0"/>
   <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
-  <ModellZufallszahlenStartwert Aktiv="0">0</ModellZufallszahlenStartwert>
   <ModellElemente>
     <ModellElementBedienstation id="1">
       <ModellElementGroesse h="50" w="100" x="550" y="100"/>
@@ -46,6 +45,7 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
       <ModellElementGroesse h="50" w="100" x="50" y="100"/>
       <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
       <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
     </ModellElementQuelle>
     <ModellElementEnde id="3">
       <ModellElementGroesse h="50" w="100" x="800" y="100"/>
@@ -55,22 +55,22 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
       <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="6">
-      <ModellElementGroesse h="23" w="385" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="384" x="50" y="50"/>
       <ModellElementTextzeile>PASTA (Poisson arrivals see time averages)</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="7">
-      <ModellElementGroesse h="19" w="756" x="50" y="180"/>
+      <ModellElementGroesse h="19" w="755" x="50" y="180"/>
       <ModellElementTextzeile>Die mittlere Anzahl an Kunden an der Bedienstation kann über die Erlang-C-Formel exakt berechnet werden: 4 Kunden.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementBenutzerstatistik id="4">
       <ModellElementGroesse h="50" w="100" x="300" y="100"/>
       <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
-      <ModellElementBenutzerstatistikEintrag Bezeichner="Kunden an Bedienstation" IstZeitangabe="0">WIP(1)</ModellElementBenutzerstatistikEintrag>
+      <ModellElementBenutzerstatistikEintrag Bezeichner="Kunden an Bedienstation" IstKontinuierlich="0" IstZeitangabe="0">WIP(1)</ModellElementBenutzerstatistikEintrag>
     </ModellElementBenutzerstatistik>
     <ModellElementKante id="13">
       <ModellElementName>Ankünfte (Kunden)</ModellElementName>
@@ -83,53 +83,58 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
       <ModellElementGroesse h="250" w="750" x="50" y="250"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
       <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="0,0,255" Maximum="10" Minimum="0">WIP_avg(1)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="10" Minimum="0">WIP(1)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="255,0,0" Maximum="10" Minimum="0">Statistik_avg(4;1)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,0,0" Maximum="10" Minimum="0">Statistik(4;1)</ModellElementDiagrammElement>
       <ModellElementDiagrammZeitbereich>7200</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>2</ModellElementAchsenbeschriftung>
     </ModellElementAnimationLinienDiagramm>
     <ModellElementText id="24">
-      <ModellElementGroesse h="19" w="610" x="50" y="230"/>
+      <ModellElementGroesse h="19" w="597" x="50" y="230"/>
       <ModellElementTextzeile>Anzahl an Kunden an der Bedienstation (aktueller Wert und Mittelwert über die gesamte Laufzeit)</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="37">
-      <ModellElementGroesse h="16" w="687" x="50" y="500"/>
+      <ModellElementGroesse h="16" w="670" x="50" y="520"/>
       <ModellElementTextzeile>(blau=Zeitmittel, rot=an Kundenankunftszeitpunkten ermittelt, dicke Linien=Mittelwerte, dünne Linien=aktuelle Beobachtungen)</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="9">
-      <ModellElementGroesse h="114" w="852" x="50" y="550"/>
+      <ModellElementGroesse h="114" w="851" x="50" y="550"/>
       <ModellElementTextzeile>Immer wenn ein Kunde am System eintrifft wird über das "Statistik"-Element die mittlere Anzahl an Kunden an der Bedienstation erfasst.</ModellElementTextzeile>
       <ModellElementTextzeile>Der Mittelwert über diese (nur zu bestimmten Zeitpunkten ermittelte) Kenngröße entspricht exakt dem Gesamt-Mittelwert.</ModellElementTextzeile>
       <ModellElementTextzeile/>
       <ModellElementTextzeile>Dies ist die Aussage des PASTA-Theorems: Kunden, deren Zwischenankunftszeiten exponentiell verteilt sind</ModellElementTextzeile>
       <ModellElementTextzeile>(d.h. die Zeitpunkte der Ankünfte der Poisson-Verteilung genügen) "sehen" das System im Mittel in den Werten,</ModellElementTextzeile>
       <ModellElementTextzeile>die den Zeit-Mittelwerten entsprechen.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationText id="10">
       <ModellElementName>WIP_avg(1)</ModellElementName>
-      <ModellElementGroesse h="30" w="78" x="820" y="250"/>
+      <ModellElementGroesse h="30" w="73" x="820" y="250"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">WIP_avg(1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="48">
       <ModellElementName>Statistik_avg(4;1)</ModellElementName>
-      <ModellElementGroesse h="30" w="78" x="820" y="320"/>
+      <ModellElementGroesse h="30" w="73" x="820" y="320"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">Statistik_avg(4;1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
   </ModellElemente>
-  <Ressourcen>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
     <Ressource Name="Bedienergruppe" Typ="Anzahl" Wert="1"/>
   </Ressourcen>
   <KundentypenDaten/>
-  <ModellZeitplaene/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
 </Modell>

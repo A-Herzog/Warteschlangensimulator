@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>3.3.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
   <ModelName>Law of large numbers</ModelName>
   <ModelDescription>After a long period of time, the shares of all 4 counters should converge
 to 25% each.</ModelDescription>
@@ -25,9 +26,9 @@ to 25% each.</ModelDescription>
       <ModelElementConnection Element="17" Type="In"/>
     </ModelElementDispose>
     <ModelElementText id="6">
-      <ModelElementSize h="23" w="186" x="50" y="50"/>
+      <ModelElementSize h="23" w="191" x="50" y="50"/>
       <ModelElementTextLine>Law of large numbers</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementDecide id="1">
@@ -111,25 +112,28 @@ to 25% each.</ModelDescription>
       <ModelElementSize h="200" w="400" x="50" y="400"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
       <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="1" Minimum="0">Part(4)</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>10800</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="19">
-      <ModelElementSize h="19" w="200" x="50" y="380"/>
+      <ModelElementSize h="19" w="199" x="50" y="380"/>
       <ModelElementTextLine>Share of clients choosing way 1</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="21">
-      <ModelElementSize h="38" w="148" x="500" y="500"/>
+      <ModelElementSize h="38" w="149" x="500" y="500"/>
       <ModelElementTextLine>After a long term, the</ModelElementTextLine>
       <ModelElementTextLine>value stabilizes to 25%.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="42">
       <ModelElementName>Way 1</ModelElementName>
-      <ModelElementSize h="30" w="87" x="750" y="605"/>
+      <ModelElementSize h="30" w="86" x="750" y="605"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">Part(4)</ModelElementAnimationMode>
@@ -138,7 +142,10 @@ to 25% each.</ModelDescription>
       <ModelElementSize h="200" w="200" x="750" y="400"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementUse3D>1</ModelElementUse3D>
       <ModelElementMaximumValue>1</ModelElementMaximumValue>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
       <ModelElementDiagramElement BarColor="0,0,255">Part(4)</ModelElementDiagramElement>
       <ModelElementDiagramElement BarColor="0,195,0">Part(5)</ModelElementDiagramElement>
       <ModelElementDiagramElement BarColor="255,0,0">Part(7)</ModelElementDiagramElement>
@@ -146,21 +153,21 @@ to 25% each.</ModelDescription>
     </ModelElementAnimationBarDiagram>
     <ModelElementAnimationText id="45">
       <ModelElementName>Way 2</ModelElementName>
-      <ModelElementSize h="30" w="87" x="805" y="605"/>
+      <ModelElementSize h="30" w="86" x="805" y="605"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,195,0</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">Part(5)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="46">
       <ModelElementName>Way 3</ModelElementName>
-      <ModelElementSize h="30" w="87" x="860" y="605"/>
+      <ModelElementSize h="30" w="86" x="860" y="605"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">Part(7)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="47">
       <ModelElementName>Way 4</ModelElementName>
-      <ModelElementSize h="30" w="87" x="915" y="605"/>
+      <ModelElementSize h="30" w="86" x="915" y="605"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>255,165,0</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">Part(8)</ModelElementAnimationMode>

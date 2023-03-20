@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>2.2.0</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Lastabhängige Anzahl an Bedienern</ModellName>
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">5000000</ModellKunden>
@@ -25,22 +26,23 @@
       <ModellElementGroesse h="50" w="100" x="50" y="250"/>
       <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
       <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (55)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
     </ModellElementQuelle>
     <ModellElementEnde id="3">
       <ModellElementGroesse h="50" w="100" x="900" y="150"/>
       <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
     </ModellElementEnde>
     <ModellElementText id="6">
-      <ModellElementGroesse h="23" w="314" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="317" x="50" y="50"/>
       <ModellElementTextzeile>Lastabhängige Anzahl an Bedienern</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="7">
-      <ModellElementGroesse h="32" w="499" x="450" y="100"/>
+      <ModellElementGroesse h="32" w="487" x="450" y="100"/>
       <ModellElementTextzeile>Anzahl an eingesetzten Bedienern: 5 oder weniger Kunden an der Station: 1 Bediener,</ModellElementTextzeile>
       <ModellElementTextzeile>6 bis 9 Kunden an der Station: 2 Bediener, 10 oder mehr Kunden an der Station: 3 Bediener</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationLinienDiagramm id="8">
@@ -53,25 +55,27 @@
       <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,0,255" Maximum="15" Minimum="0">WIP(20)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="255,0,255" Maximum="15" Minimum="0">WIP_avg(20)</ModellElementDiagrammElement>
       <ModellElementDiagrammZeitbereich>18000</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>2</ModellElementAchsenbeschriftung>
     </ModellElementAnimationLinienDiagramm>
     <ModellElementText id="9">
-      <ModellElementGroesse h="19" w="640" x="50" y="480"/>
+      <ModellElementGroesse h="19" w="626" x="50" y="480"/>
       <ModellElementTextzeile>Anzahl an Kunden an den Bedienstationen (aktuelle Werte und Mittelwerte über die gesamte Laufzeit)</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
-    <ModellElementJavascript id="4">
+    <ModellElementSkript id="4">
       <ModellElementGroesse h="50" w="100" x="450" y="150"/>
       <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
-      <ModellElementSkript>var wip=Simulation.getWIP(1);
+      <ModellElementSkriptText Sprache="Javascript">var wip=Simulation.getWIP(1);
 
 var count=1;
 if (wip&gt;=5) count=2;
 if (wip&gt;=10) count=3;
 
-Simulation.setResourceCount(1,count);</ModellElementSkript>
-    </ModellElementJavascript>
+Simulation.setResourceCount(1,count);</ModellElementSkriptText>
+    </ModellElementSkript>
     <ModellElementKante id="11">
       <ModellElementVerbindung Element1="4" Element2="1" Typ="Kante"/>
     </ModellElementKante>
@@ -83,54 +87,56 @@ Simulation.setResourceCount(1,count);</ModellElementSkript>
       <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,0,0" Maximum="4" Minimum="0">Resource(1)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="4" Minimum="0">Resource_count(1)</ModellElementDiagrammElement>
       <ModellElementDiagrammZeitbereich>18000</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>2</ModellElementAchsenbeschriftung>
     </ModellElementAnimationLinienDiagramm>
     <ModellElementText id="13">
-      <ModellElementGroesse h="19" w="384" x="50" y="780"/>
+      <ModellElementGroesse h="19" w="374" x="50" y="780"/>
       <ModellElementTextzeile>Aktuelle Anzahl an Bedienern an der Bedienstation "variabel"</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationText id="14">
       <ModellElementName>Anzahl Bediener</ModellElementName>
-      <ModellElementGroesse h="30" w="78" x="600" y="220"/>
+      <ModellElementGroesse h="30" w="73" x="600" y="220"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Resource_count(1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="15">
       <ModellElementName>Arbeitende Bediener</ModellElementName>
-      <ModellElementGroesse h="30" w="83" x="700" y="220"/>
+      <ModellElementGroesse h="30" w="87" x="700" y="220"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Resource(1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementText id="16">
-      <ModellElementGroesse h="16" w="278" x="50" y="1000"/>
+      <ModellElementGroesse h="16" w="271" x="50" y="1020"/>
       <ModellElementTextzeile>(blau=vorhandene Bediener, rot=belegte Bediener)</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="17">
-      <ModellElementGroesse h="56" w="266" x="800" y="225"/>
+      <ModellElementGroesse h="56" w="242" x="800" y="225"/>
       <ModellElementTextzeile>(Wird ein Bediener aus der Station abgezogen, so führt</ModellElementTextzeile>
       <ModellElementTextzeile>er die aktuelle Bedienung dennoch zu Ende, so dass die</ModellElementTextzeile>
       <ModellElementTextzeile>aktuelle Anzahl an Bedienern niedriger sein kann, als</ModellElementTextzeile>
       <ModellElementTextzeile>die Anzahl an aktuell arbeitenden Bedienern.)</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>10</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">10</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
-    <ModellElementJavascript id="5">
+    <ModellElementSkript id="5">
       <ModellElementGroesse h="50" w="100" x="750" y="150"/>
       <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
-      <ModellElementSkript>var wip=Simulation.getWIP(1);
+      <ModellElementSkriptText Sprache="Javascript">var wip=Simulation.getWIP(1);
 
 var count=1;
 if (wip&gt;=5) count=2;
 if (wip&gt;=10) count=3;
 
-Simulation.setResourceCount(1,count);</ModellElementSkript>
-    </ModellElementJavascript>
+Simulation.setResourceCount(1,count);</ModellElementSkriptText>
+    </ModellElementSkript>
     <ModellElementKante id="18">
       <ModellElementVerbindung Element1="1" Element2="5" Typ="Kante"/>
     </ModellElementKante>
@@ -173,85 +179,94 @@ Simulation.setResourceCount(1,count);</ModellElementSkript>
       <ModellElementVerbindung Element1="20" Element2="24" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="26">
-      <ModellElementGroesse h="16" w="446" x="50" y="700"/>
+      <ModellElementGroesse h="16" w="433" x="50" y="720"/>
       <ModellElementTextzeile>(blau=Station mit variabler Bedieneranzahl, lila=Station mit fester Bedieneranzahl)</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationText id="27">
       <ModellElementName>Anzahl Bediener</ModellElementName>
-      <ModellElementGroesse h="30" w="78" x="600" y="420"/>
+      <ModellElementGroesse h="30" w="73" x="600" y="420"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Resource_count(2)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="28">
       <ModellElementName>Arbeitende Bediener</ModellElementName>
-      <ModellElementGroesse h="30" w="83" x="700" y="420"/>
+      <ModellElementGroesse h="30" w="87" x="700" y="420"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Resource(2)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="29">
       <ModellElementName>E[N_variabel]</ModellElementName>
-      <ModellElementGroesse h="30" w="78" x="800" y="500"/>
+      <ModellElementGroesse h="30" w="73" x="800" y="500"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">N_Avg(1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="30">
       <ModellElementName>CV[N_variabel]</ModellElementName>
-      <ModellElementGroesse h="30" w="78" x="900" y="500"/>
+      <ModellElementGroesse h="30" w="73" x="900" y="500"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">N_cv(1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="60">
       <ModellElementName>E[N_fix]</ModellElementName>
-      <ModellElementGroesse h="30" w="78" x="800" y="575"/>
+      <ModellElementGroesse h="30" w="73" x="800" y="575"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">N_Avg(20)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="61">
       <ModellElementName>CV[N_fix]</ModellElementName>
-      <ModellElementGroesse h="30" w="78" x="900" y="575"/>
+      <ModellElementGroesse h="30" w="73" x="900" y="575"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">N_cv(20)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="31">
       <ModellElementName>E[W_variabel]</ModellElementName>
-      <ModellElementGroesse h="30" w="78" x="1000" y="500"/>
+      <ModellElementGroesse h="30" w="73" x="1000" y="500"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_Avg(1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="32">
       <ModellElementName>CV[W_variabel]</ModellElementName>
-      <ModellElementGroesse h="30" w="78" x="1100" y="500"/>
+      <ModellElementGroesse h="30" w="73" x="1100" y="500"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_cv(1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="122">
       <ModellElementName>E[W_fix]</ModellElementName>
-      <ModellElementGroesse h="30" w="78" x="1000" y="570"/>
+      <ModellElementGroesse h="30" w="73" x="1000" y="570"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_Avg(20)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="123">
       <ModellElementName>CV[W_fix]</ModellElementName>
-      <ModellElementGroesse h="30" w="78" x="1100" y="570"/>
+      <ModellElementGroesse h="30" w="73" x="1100" y="570"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_cv(20)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
   </ModellElemente>
-  <Ressourcen>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
     <Ressource Icon="status_online" Name="Gruppe variabel" Typ="Anzahl" Wert="1"/>
     <Ressource Icon="status_online" Name="Gruppe fix" Typ="Anzahl" Wert="2"/>
   </Ressourcen>
   <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <KiritischeStationenSignatur>
+    <SignaturStation Hash="gxS41v8ESRNlQCxrQ6v2vN3Dqj86xKZSEoSKLng/dUs=" Signatur="cyCSMZoLhi9yBaTQxURQcKc0aAJPdMFoUwX3iI2jbvteNrmjjdhXwhw+sRSnv9OvEjShULeYHQYdidJVjQRr7uVBV/6+M2ZL1wzHt52Brnm6zUghHQ4XBIcPeSpky2sKp4OMekHpqp5z/1n19006hf7xrszNQO+mFYB7WxpXPNVIqoz3d1n60VaJJxYgQVqklE147yDmC9QCo6AWuI8uGgihcs3PVWnVPlkELXj62X6LrkJW9bF1qm0qOwq29g8aWq4gArDRe+MQFOrk8r8WziTeN+DQLOcf3h1Vv8OLO75F+K+dmG6j6bUGoWzT0jKrmdzreMF6cq5FZ1G3WbgLJTpLauhoT5i87TIEXkHCb7LugVGvlZO+jllfD9Bodn6WkligNG0dyTihKogVgvN6HrXq6J6fF7s7ESPfrfcvnTbFGd9tdY4jWaF71Uma72WsjjYYq3AbWw8GTw63ipBsPQdWeJy0I5kbxpkrS8uiX4AnsY26zrlCuEdsjEtxyhhRWk/YE/5UfVBdkrMjWzdiH8QH5WRKeFnhl2djgcWOm13/AJMdpCwdmtNziToZ5yfM0X1epbu4uOuQj54brffqCKQDlbMycDa6962dYlVETrdO4xrOcdPVCWBAD5Ek7bduz4nlK029JjNN/IC7y0xGRqXQLd72+4vXUaTMKqYf2kM=" id="4"/>
+    <SignaturStation Hash="gxS41v8ESRNlQCxrQ6v2vN3Dqj86xKZSEoSKLng/dUs=" Signatur="cyCSMZoLhi9yBaTQxURQcKc0aAJPdMFoUwX3iI2jbvteNrmjjdhXwhw+sRSnv9OvEjShULeYHQYdidJVjQRr7uVBV/6+M2ZL1wzHt52Brnm6zUghHQ4XBIcPeSpky2sKp4OMekHpqp5z/1n19006hf7xrszNQO+mFYB7WxpXPNVIqoz3d1n60VaJJxYgQVqklE147yDmC9QCo6AWuI8uGgihcs3PVWnVPlkELXj62X6LrkJW9bF1qm0qOwq29g8aWq4gArDRe+MQFOrk8r8WziTeN+DQLOcf3h1Vv8OLO75F+K+dmG6j6bUGoWzT0jKrmdzreMF6cq5FZ1G3WbgLJTpLauhoT5i87TIEXkHCb7LugVGvlZO+jllfD9Bodn6WkligNG0dyTihKogVgvN6HrXq6J6fF7s7ESPfrfcvnTbFGd9tdY4jWaF71Uma72WsjjYYq3AbWw8GTw63ipBsPQdWeJy0I5kbxpkrS8uiX4AnsY26zrlCuEdsjEtxyhhRWk/YE/5UfVBdkrMjWzdiH8QH5WRKeFnhl2djgcWOm13/AJMdpCwdmtNziToZ5yfM0X1epbu4uOuQj54brffqCKQDlbMycDa6962dYlVETrdO4xrOcdPVCWBAD5Ek7bduz4nlK029JjNN/IC7y0xGRqXQLd72+4vXUaTMKqYf2kM=" id="5"/>
+    <SignaturNutzername Signatur="XkYku6zTX13zuQjd3RvuPJdBkoWYzyy/55FfTzsvCtW5lmYtwtTawDFQCgxZDY9yOOZFfiH9xkTSpi4mFjFhxYyxphr1z/WdS40n6sVzYjfxgYBd3wfoSB0jMMlJTVgBxq6FBUFWwqLbXCYHUMj+3QuHiosT31TLtAS+k3/k/puLnUkCCjHUOsV6Yi8bbqOqJ6YOPeg1xpfk7UTVVl8gINpDiNn7T255dGpokE1W9aahmUv8yeATcqhoDV5iJHce2DHQNwAADR2GScnwSDXtrwIrk1B8ZPcbCpL4vsN+xNyr24EUyvx4RsAvvf3URVsHjVg5O/zosyfkOVTWreFUIDeiUd7befieVhwmJos8xzrSwy/LEop3H6BDW77HrWJWRjlLy8CapIAs5KrmsLjzsR5/4IhvICt57jbIDVEqacOdxCsmsRfoBGxXN37jDajRJPPZ018acu343GsoRHE0TX/SH1vrrLftigXfkO9YQAU7PmO2zvoOtt5Zh8aZmdErTHLjiWp333T5iwxsdFfD2kXca6VUkQYYlWS5MUAN3o2yGnxjw1pRUynG9ucw5kC/waHHLVEMe6WXHNfOUsOsWWZEthHCHiz/4Uif3uBOJk8ucNft9SM1b60YYut74JG/5C0CNhzVQQi6OXaBa5Xwev/Q7qiJKo/ez+bqMXwJOhI=">Alexander Herzog</SignaturNutzername>
+    <SignaturOeffentlicherSchluessel>MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAi9Dd2kqC9Kha2/jfGKX5cWmqSDpgqUW1dBmGaA0LvYb1/mDMPwXbBx3xrmsvaRm3VtgCktftPAEhGqec0isrN1HLefxNyYN0g71OAAYkxvd8wv+QbhZidHMONLabBRAfT+nqlr4r78gGcSlcE1QVQMAxSQAsR8pKdV3QDGuP6qjh3xZRO3TSatAqIfZx5HJZSFVez5KMk6kLY16kw4BTdao2Ubsm7Rh3zF1/u2RP6jrRDprkOgSRZJSJWgmWFGvrOJ8UwTWRElPSoAyrJ5ySCNzEu/Q+j1Uz4BwaOo88D4bCHP3L41fFr0T42m/D8H/k7ngmC3SzKD1HM3D510gK2pG0vmIRQg2SwI8Yg7/upD0MtsZAIBThkweJ1Xgd1AV1deSTWAhOgwUQ+6ULCDA/qy7K8Hm7D+pZ1N1a4jpNxno5nGuhIrU8ztJ2wffQ2mDIgqRHhfhUxcptxtkKyOMFyWPYUGAfNSuu/0caOb06jaEGlL0ZqtlYWKZgiaxQylMeEyF+29t2KghJt9O+sUf33r10maOmbnz/asRfCtyqg9JkH0K4H/5Ojap3tlt8NpmteVnZbQSc7wL+CkWXtdXHIBcFqt/otBp6qQKZgUX27SS16untBS/pUC5bl6eSRok1WjrMSacY29tZ5Yjz0gCMiiussTRaA6ICcC+JbAuzWK0CAwEAAQ==</SignaturOeffentlicherSchluessel>
+  </KiritischeStationenSignatur>
 </Modell>

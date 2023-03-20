@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>2.2.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
   <ModelName>Workload depending number of operators</ModelName>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">5000000</ModelClients>
@@ -26,22 +27,23 @@
       <ModelElementSize h="50" w="100" x="50" y="250"/>
       <ModelElementConnection Element="10" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds">Exponential distribution (55)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementDispose id="3">
       <ModelElementSize h="50" w="100" x="900" y="150"/>
       <ModelElementConnection Element="19" Type="In"/>
     </ModelElementDispose>
     <ModelElementText id="6">
-      <ModelElementSize h="23" w="364" x="50" y="50"/>
+      <ModelElementSize h="23" w="369" x="50" y="50"/>
       <ModelElementTextLine>Workload depending number of operators</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="7">
-      <ModelElementSize h="32" w="458" x="450" y="100"/>
+      <ModelElementSize h="32" w="447" x="450" y="100"/>
       <ModelElementTextLine>Number of available operators: 5 or less clients: 1 operator,</ModelElementTextLine>
       <ModelElementTextLine>6 to 9 clients at the station: 2 operators, 10 or more clients at the station: 3 operators</ModelElementTextLine>
-      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationLineDiagram id="8">
@@ -54,25 +56,27 @@
       <ModelElementDiagramElement LineColor="255,0,255" LineWidth="1" Maximum="15" Minimum="0">WIP(20)</ModelElementDiagramElement>
       <ModelElementDiagramElement LineColor="255,0,255" LineWidth="3" Maximum="15" Minimum="0">WIP_avg(20)</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>18000</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="9">
-      <ModelElementSize h="19" w="437" x="50" y="480"/>
+      <ModelElementSize h="19" w="430" x="50" y="480"/>
       <ModelElementTextLine>Number of clients at the process stations (current value and average)</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
-    <ModelElementJavascript id="4">
+    <ModelElementScript id="4">
       <ModelElementSize h="50" w="100" x="450" y="150"/>
       <ModelElementConnection Element="22" Type="In"/>
       <ModelElementConnection Element="11" Type="Out"/>
-      <ModelElementScript>var wip=Simulation.getWIP(1);
+      <ModelElementScriptText Language="Javascript">var wip=Simulation.getWIP(1);
 
 var count=1;
 if (wip&gt;=5) count=2;
 if (wip&gt;=10) count=3;
 
-Simulation.setResourceCount(1,count);</ModelElementScript>
-    </ModelElementJavascript>
+Simulation.setResourceCount(1,count);</ModelElementScriptText>
+    </ModelElementScript>
     <ModelElementEdge id="11">
       <ModelElementConnection Element1="4" Element2="1" Type="Edge"/>
     </ModelElementEdge>
@@ -84,11 +88,13 @@ Simulation.setResourceCount(1,count);</ModelElementScript>
       <ModelElementDiagramElement LineColor="255,0,0" LineWidth="1" Maximum="4" Minimum="0">Resource(1)</ModelElementDiagramElement>
       <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="4" Minimum="0">Resource_count(1)</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>18000</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="13">
-      <ModelElementSize h="19" w="385" x="50" y="780"/>
+      <ModelElementSize h="19" w="377" x="50" y="780"/>
       <ModelElementTextLine>Current number of operators at the process station "variabel"</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="14">
@@ -100,38 +106,38 @@ Simulation.setResourceCount(1,count);</ModelElementScript>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="15">
       <ModelElementName>Working operators</ModelElementName>
-      <ModelElementSize h="30" w="76" x="700" y="220"/>
+      <ModelElementSize h="30" w="78" x="700" y="220"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Resource(1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementText id="16">
-      <ModelElementSize h="16" w="274" x="50" y="1000"/>
+      <ModelElementSize h="16" w="266" x="50" y="1020"/>
       <ModelElementTextLine>(blue=available operators, red=working operators)</ModelElementTextLine>
-      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="17">
-      <ModelElementSize h="56" w="272" x="800" y="225"/>
+      <ModelElementSize h="56" w="249" x="800" y="225"/>
       <ModelElementTextLine>(If an operator is removed from a station, he will finish</ModelElementTextLine>
       <ModelElementTextLine>this current service task anyway. So for a short amount of</ModelElementTextLine>
       <ModelElementTextLine>time the current number of operators at the station can be</ModelElementTextLine>
       <ModelElementTextLine>smaller than the number of working operators.)</ModelElementTextLine>
-      <ModelElementFontSize>10</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">10</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
-    <ModelElementJavascript id="5">
+    <ModelElementScript id="5">
       <ModelElementSize h="50" w="100" x="750" y="150"/>
       <ModelElementConnection Element="18" Type="In"/>
       <ModelElementConnection Element="19" Type="Out"/>
-      <ModelElementScript>var wip=Simulation.getWIP(1);
+      <ModelElementScriptText Language="Javascript">var wip=Simulation.getWIP(1);
 
 var count=1;
 if (wip&gt;=5) count=2;
 if (wip&gt;=10) count=3;
 
-Simulation.setResourceCount(1,count);</ModelElementScript>
-    </ModelElementJavascript>
+Simulation.setResourceCount(1,count);</ModelElementScriptText>
+    </ModelElementScript>
     <ModelElementEdge id="18">
       <ModelElementConnection Element1="1" Element2="5" Type="Edge"/>
     </ModelElementEdge>
@@ -175,9 +181,9 @@ Simulation.setResourceCount(1,count);</ModelElementScript>
       <ModelElementConnection Element1="20" Element2="24" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="26">
-      <ModelElementSize h="16" w="515" x="50" y="700"/>
+      <ModelElementSize h="16" w="500" x="50" y="720"/>
       <ModelElementTextLine>(blue=station with variable number of operators, purple=station with fixed number of operators)</ModelElementTextLine>
-      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="27">
@@ -189,35 +195,35 @@ Simulation.setResourceCount(1,count);</ModelElementScript>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="28">
       <ModelElementName>Working operators</ModelElementName>
-      <ModelElementSize h="30" w="76" x="700" y="420"/>
+      <ModelElementSize h="30" w="78" x="700" y="420"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Resource(2)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="29">
       <ModelElementName>E[N_variabel]</ModelElementName>
-      <ModelElementSize h="30" w="57" x="800" y="500"/>
+      <ModelElementSize h="30" w="56" x="800" y="500"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">N_Avg(1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="30">
       <ModelElementName>CV[N_variabel]</ModelElementName>
-      <ModelElementSize h="30" w="64" x="900" y="500"/>
+      <ModelElementSize h="30" w="63" x="900" y="500"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">N_cv(1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="60">
       <ModelElementName>E[N_fixed]</ModelElementName>
-      <ModelElementSize h="30" w="55" x="800" y="575"/>
+      <ModelElementSize h="30" w="53" x="800" y="575"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">N_Avg(20)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="61">
       <ModelElementName>CV[N_fixed]</ModelElementName>
-      <ModelElementSize h="30" w="55" x="900" y="575"/>
+      <ModelElementSize h="30" w="53" x="900" y="575"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">N_cv(20)</ModelElementAnimationMode>
@@ -231,29 +237,38 @@ Simulation.setResourceCount(1,count);</ModelElementScript>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="32">
       <ModelElementName>CV[W_variabel]</ModelElementName>
-      <ModelElementSize h="30" w="66" x="1100" y="500"/>
+      <ModelElementSize h="30" w="65" x="1100" y="500"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WaitingTime_cv(1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="122">
       <ModelElementName>E[W_fixed]</ModelElementName>
-      <ModelElementSize h="30" w="55" x="1000" y="570"/>
+      <ModelElementSize h="30" w="53" x="1000" y="570"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WaitingTime_Avg(20)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="123">
       <ModelElementName>CV[W_fixed]</ModelElementName>
-      <ModelElementSize h="30" w="55" x="1100" y="570"/>
+      <ModelElementSize h="30" w="53" x="1100" y="570"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WaitingTime_cv(20)</ModelElementAnimationMode>
     </ModelElementAnimationText>
   </ModelElements>
-  <Resources>
+  <Resources SecondaryPriority="Random">
     <Resource Icon="status_online" Name="Group variabel" Type="Number" Value="1"/>
     <Resource Icon="status_online" Name="Group fix" Type="Number" Value="2"/>
   </Resources>
   <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <CriticalStationsSignature>
+    <SignatureStation Hash="gxS41v8ESRNlQCxrQ6v2vN3Dqj86xKZSEoSKLng/dUs=" Signature="cyCSMZoLhi9yBaTQxURQcKc0aAJPdMFoUwX3iI2jbvteNrmjjdhXwhw+sRSnv9OvEjShULeYHQYdidJVjQRr7uVBV/6+M2ZL1wzHt52Brnm6zUghHQ4XBIcPeSpky2sKp4OMekHpqp5z/1n19006hf7xrszNQO+mFYB7WxpXPNVIqoz3d1n60VaJJxYgQVqklE147yDmC9QCo6AWuI8uGgihcs3PVWnVPlkELXj62X6LrkJW9bF1qm0qOwq29g8aWq4gArDRe+MQFOrk8r8WziTeN+DQLOcf3h1Vv8OLO75F+K+dmG6j6bUGoWzT0jKrmdzreMF6cq5FZ1G3WbgLJTpLauhoT5i87TIEXkHCb7LugVGvlZO+jllfD9Bodn6WkligNG0dyTihKogVgvN6HrXq6J6fF7s7ESPfrfcvnTbFGd9tdY4jWaF71Uma72WsjjYYq3AbWw8GTw63ipBsPQdWeJy0I5kbxpkrS8uiX4AnsY26zrlCuEdsjEtxyhhRWk/YE/5UfVBdkrMjWzdiH8QH5WRKeFnhl2djgcWOm13/AJMdpCwdmtNziToZ5yfM0X1epbu4uOuQj54brffqCKQDlbMycDa6962dYlVETrdO4xrOcdPVCWBAD5Ek7bduz4nlK029JjNN/IC7y0xGRqXQLd72+4vXUaTMKqYf2kM=" id="4"/>
+    <SignatureStation Hash="gxS41v8ESRNlQCxrQ6v2vN3Dqj86xKZSEoSKLng/dUs=" Signature="cyCSMZoLhi9yBaTQxURQcKc0aAJPdMFoUwX3iI2jbvteNrmjjdhXwhw+sRSnv9OvEjShULeYHQYdidJVjQRr7uVBV/6+M2ZL1wzHt52Brnm6zUghHQ4XBIcPeSpky2sKp4OMekHpqp5z/1n19006hf7xrszNQO+mFYB7WxpXPNVIqoz3d1n60VaJJxYgQVqklE147yDmC9QCo6AWuI8uGgihcs3PVWnVPlkELXj62X6LrkJW9bF1qm0qOwq29g8aWq4gArDRe+MQFOrk8r8WziTeN+DQLOcf3h1Vv8OLO75F+K+dmG6j6bUGoWzT0jKrmdzreMF6cq5FZ1G3WbgLJTpLauhoT5i87TIEXkHCb7LugVGvlZO+jllfD9Bodn6WkligNG0dyTihKogVgvN6HrXq6J6fF7s7ESPfrfcvnTbFGd9tdY4jWaF71Uma72WsjjYYq3AbWw8GTw63ipBsPQdWeJy0I5kbxpkrS8uiX4AnsY26zrlCuEdsjEtxyhhRWk/YE/5UfVBdkrMjWzdiH8QH5WRKeFnhl2djgcWOm13/AJMdpCwdmtNziToZ5yfM0X1epbu4uOuQj54brffqCKQDlbMycDa6962dYlVETrdO4xrOcdPVCWBAD5Ek7bduz4nlK029JjNN/IC7y0xGRqXQLd72+4vXUaTMKqYf2kM=" id="5"/>
+    <SignatureUserName Signature="XkYku6zTX13zuQjd3RvuPJdBkoWYzyy/55FfTzsvCtW5lmYtwtTawDFQCgxZDY9yOOZFfiH9xkTSpi4mFjFhxYyxphr1z/WdS40n6sVzYjfxgYBd3wfoSB0jMMlJTVgBxq6FBUFWwqLbXCYHUMj+3QuHiosT31TLtAS+k3/k/puLnUkCCjHUOsV6Yi8bbqOqJ6YOPeg1xpfk7UTVVl8gINpDiNn7T255dGpokE1W9aahmUv8yeATcqhoDV5iJHce2DHQNwAADR2GScnwSDXtrwIrk1B8ZPcbCpL4vsN+xNyr24EUyvx4RsAvvf3URVsHjVg5O/zosyfkOVTWreFUIDeiUd7befieVhwmJos8xzrSwy/LEop3H6BDW77HrWJWRjlLy8CapIAs5KrmsLjzsR5/4IhvICt57jbIDVEqacOdxCsmsRfoBGxXN37jDajRJPPZ018acu343GsoRHE0TX/SH1vrrLftigXfkO9YQAU7PmO2zvoOtt5Zh8aZmdErTHLjiWp333T5iwxsdFfD2kXca6VUkQYYlWS5MUAN3o2yGnxjw1pRUynG9ucw5kC/waHHLVEMe6WXHNfOUsOsWWZEthHCHiz/4Uif3uBOJk8ucNft9SM1b60YYut74JG/5C0CNhzVQQi6OXaBa5Xwev/Q7qiJKo/ez+bqMXwJOhI=">Alexander Herzog</SignatureUserName>
+    <SignaturePublicKey>MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAi9Dd2kqC9Kha2/jfGKX5cWmqSDpgqUW1dBmGaA0LvYb1/mDMPwXbBx3xrmsvaRm3VtgCktftPAEhGqec0isrN1HLefxNyYN0g71OAAYkxvd8wv+QbhZidHMONLabBRAfT+nqlr4r78gGcSlcE1QVQMAxSQAsR8pKdV3QDGuP6qjh3xZRO3TSatAqIfZx5HJZSFVez5KMk6kLY16kw4BTdao2Ubsm7Rh3zF1/u2RP6jrRDprkOgSRZJSJWgmWFGvrOJ8UwTWRElPSoAyrJ5ySCNzEu/Q+j1Uz4BwaOo88D4bCHP3L41fFr0T42m/D8H/k7ngmC3SzKD1HM3D510gK2pG0vmIRQg2SwI8Yg7/upD0MtsZAIBThkweJ1Xgd1AV1deSTWAhOgwUQ+6ULCDA/qy7K8Hm7D+pZ1N1a4jpNxno5nGuhIrU8ztJ2wffQ2mDIgqRHhfhUxcptxtkKyOMFyWPYUGAfNSuu/0caOb06jaEGlL0ZqtlYWKZgiaxQylMeEyF+29t2KghJt9O+sUf33r10maOmbnz/asRfCtyqg9JkH0K4H/5Ojap3tlt8NpmteVnZbQSc7wL+CkWXtdXHIBcFqt/otBp6qQKZgUX27SS16untBS/pUC5bl6eSRok1WjrMSacY29tZ5Yjz0gCMiiussTRaA6ICcC+JbAuzWK0CAwEAAQ==</SignaturePublicKey>
+  </CriticalStationsSignature>
 </Model>
