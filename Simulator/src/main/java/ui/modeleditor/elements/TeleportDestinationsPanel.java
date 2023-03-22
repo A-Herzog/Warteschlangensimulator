@@ -27,6 +27,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -37,6 +38,8 @@ import javax.swing.SpinnerNumberModel;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import systemtools.MsgBox;
+import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.coreelements.ModelElement;
 
@@ -193,7 +196,7 @@ public class TeleportDestinationsPanel extends JPanel {
 				for (int i=0;i<count;i++) {
 					final JComboBox<String> comboBox=destinationsComboBoxes.get(i);
 					String dest="";
-					if (comboBox.getItemCount()>0) dest=destinationNames.get(comboBox.getSelectedIndex());
+					if (comboBox.getItemCount()>0 && comboBox.getSelectedIndex()>=0 && comboBox.getSelectedIndex()<destinationNames.size()) dest=destinationNames.get(comboBox.getSelectedIndex());
 					if (!dest.equals(destinations.get(i))) {changed=true; break;}
 				}
 				if (!changed) return;
@@ -202,7 +205,11 @@ public class TeleportDestinationsPanel extends JPanel {
 			/* Bisherige Einstellungen aus GUI sichern */
 			for (int i=0;i<Math.min(destinations.size(),destinationsComboBoxes.size());i++) {
 				final JComboBox<String> comboBox=destinationsComboBoxes.get(i);
-				if (comboBox.getItemCount()==0) destinations.set(i,""); else destinations.set(i,destinationNames.get(comboBox.getSelectedIndex()));
+				if (comboBox.getItemCount()==0) {
+					destinations.set(i,"");
+				} else {
+					if (comboBox.getSelectedIndex()>=0) destinations.set(i,destinationNames.get(comboBox.getSelectedIndex())); else destinations.set(i,destinationNames.get(0));
+				}
 			}
 
 			/* Überzählige Einträge entfernen */
@@ -222,6 +229,12 @@ public class TeleportDestinationsPanel extends JPanel {
 				@SuppressWarnings("unchecked")
 				final JComboBox<String> comboBox=(JComboBox<String>)data[1];
 				mainPanel.add(panel);
+				final JButton button=new JButton();
+				button.setIcon(Images.EDIT_DELETE.getIcon());
+				button.setToolTipText(Language.tr("Surface.TeleportSourceMulti.Dialog.RemoveDestination"));
+				final int nr=destinationsLines.size();
+				button.addActionListener(e->removeTarget(nr));
+				panel.add(button);
 				destinationsLines.add(panel);
 				destinationsComboBoxes.add(comboBox);
 				comboBox.setEnabled(!readOnly && destinationNames.size()>0);
@@ -249,6 +262,30 @@ public class TeleportDestinationsPanel extends JPanel {
 		}
 
 		fireDataChanged();
+	}
+
+	/**
+	 * Entfernt eine Ziel-Zeile.
+	 * @param nr	0-basierte Nummer der Ziel-Zeile
+	 */
+	private void removeTarget(final int nr) {
+		if (destinationsLines.size()==1) {
+			MsgBox.error(this,Language.tr("Surface.TeleportSourceMulti.Dialog.RemoveDestination"),Language.tr("Surface.TeleportSourceMulti.Dialog.RemoveDestination.Error"));
+			return;
+		}
+
+		/* Zeile entfernen */
+		mainPanel.remove(destinationsLines.get(nr));
+		destinationsLines.remove(nr);
+		destinationsComboBoxes.remove(nr);
+
+		/* Spinner-Wert reduzieren */
+		updateDataRunning=true;
+		try {
+			countField.setValue(destinationsLines.size());
+		} finally {
+			updateDataRunning=false;
+		}
 	}
 
 	/**

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-17 00:56+0100\n"
+"POT-Creation-Date: 2023-03-22 08:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33479,6 +33479,12 @@ msgstr "Anzahl an Teleport-Ausgängen"
 
 msgid "Surface.TeleportSourceMulti.Dialog.DestinationNr"
 msgstr "Ziel %d"
+
+msgid "Surface.TeleportSourceMulti.Dialog.RemoveDestination"
+msgstr "Ziel entfernen"
+
+msgid "Surface.TeleportSourceMulti.Dialog.RemoveDestination.Error"
+msgstr "Es können nicht alle Ziele entfernt werden."
 
 msgid "Surface.TeleportSourceMulti.Dialog.Target"
 msgstr "Teleportationsziel"

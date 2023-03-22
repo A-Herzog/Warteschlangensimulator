@@ -9126,6 +9126,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[21253] = "Ergebnis\u00fcbersicht";
     t[21254] = "Surface.Process.Infotext";
     t[21255] = "An Bedienstationen werden eintreffende Kunden durch einen oder mehrere Bediener einer oder mehrerer Bedienergruppen bedient. Es k\u00f6nnen dabei komplexe Regeln f\u00fcr R\u00fcstzeiten, Bedienzeiten, usw. definiert werden. ";
+    t[21256] = "Surface.TeleportSourceMulti.Dialog.RemoveDestination.Error";
+    t[21257] = "Es k\u00f6nnen nicht alle Ziele entfernt werden.";
     t[21258] = "Simulation.Log.BatchNewClient.Info";
     t[21259] = "Kunde: %s, Station: %s";
     t[21260] = "Surface.ScriptEditor.Search.NotHit";
@@ -10032,14 +10034,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23273] = "<p>Liefert den maximal gemessenen Durchsatz in Ank\u00fcnften pro Sekunden an der Station, deren ID in dem Parameter angegeben wurde.</p>";
     t[23274] = "FindWarmUp.Info.No";
     t[23275] = "Bisherigen Einschwingphasen-Wert %s beibehalten.";
-    t[23276] = "Window.Layers.Rename.Title";
-    t[23277] = "Umbenennen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23276] = "Window.Layers.Rename.Title";
+    t[23277] = "Umbenennen";
     t[23282] = "Surface.Decide.XML.Mode.ByQueueLengthNext";
     t[23283] = "MinimumN";
     t[23284] = "Compare.Kept.Title";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27851] = "Zahlenwert";
     t[27854] = "Schedule.Dialog.Name.InUse";
     t[27855] = "Der gew\u00e4hlte Name ist bereits vergeben.";
-    t[27858] = "ModelDescription.OutputDDE.StartRow";
-    t[27859] = "Startzeile";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27858] = "ModelDescription.OutputDDE.StartRow";
+    t[27859] = "Startzeile";
     t[27860] = "Surface.InputDB.Dialog.Mode.Loop";
     t[27861] = "Tabelle nach Ende erneut von vorne einlesen.";
     t[27862] = "Surface.Match.Dialog.TransferData";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32369] = "Textzuweisung";
     t[32374] = "Editor.SavedViews.Delete.InfoYes";
     t[32375] = "Ansicht l\u00f6schen.";
-    t[32388] = "Main.Menu.View.Mnemonic";
-    t[32389] = "A";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32388] = "Main.Menu.View.Mnemonic";
+    t[32389] = "A";
     t[32394] = "Statistic.Viewer.Toolbar.Search.Hint";
     t[32395] = "Sucht nach einem Text auf der aktuellen Seite";
     t[32398] = "Surface.Release.Name";
@@ -14566,6 +14568,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33541] = "F\u00fcr Element id=%d wurden keine Signale f\u00fcr die Freigabe von wartenden Kunden definiert.";
     t[33546] = "Editor.Dialog.Sequences.Edit.Assignments.Edit.ExpressionError.Title";
     t[33547] = "Ung\u00fcltiger Ausdruck";
+    t[33552] = "Surface.TeleportSourceMulti.Dialog.RemoveDestination";
+    t[33553] = "Ziel entfernen";
     t[33554] = "ExpressionBuilder.SimulationCharacteristics.ClientData.Alternative.Info";
     t[33555] = "<p>Gibt an, welche Bedieneralternative an der letzten Bedienstation, die dieser Kunde durchlaufen hat, gew\u00e4hlt wurde.</p>\n\n<p>Hat der Kunde noch keine Bedienstation durchlaufen, so liefert die Funktion 0. Ansonsten einen Wert gr\u00f6\u00dfer oder gleich 1.</p>";
     t[33558] = "SettingsDialog.ImageAnimation.Home";
@@ -16048,16 +16052,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36983] = "Gesamtkosten";
     t[36984] = "ModelDescription.Decide.Mode.LeastClientsNextProcessStation";
     t[36985] = "Pfad zur Bedienstation mit den wenigsten Kunden w\u00e4hlen";
-    t[36990] = "Surface.ExpressionTableModel.SetupAppearance";
-    t[36991] = "Aussehen der Datenreihe einstellen";
-    t[36992] = "ScriptPopup.SelectIDDialog.ErrorMatchingNoStations.Title";
-    t[36993] = "Keine passenden Stationen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36990] = "Surface.ExpressionTableModel.SetupAppearance";
+    t[36991] = "Aussehen der Datenreihe einstellen";
+    t[36992] = "ScriptPopup.SelectIDDialog.ErrorMatchingNoStations.Title";
+    t[36993] = "Keine passenden Stationen";
     t[37000] = "ExpressionCalculator.Tab.Map.Add";
     t[37001] = "Hinzuf\u00fcgen";
     t[37006] = "Surface.Database.Config.InfoSQLite";
@@ -18054,16 +18058,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41427] = "Arcus Cosinus hyperbolicus";
     t[41434] = "ExpressionBuilder.ClientsAtStationService";
     t[41435] = "Kunden in Bedienung";
-    t[41436] = "Animation.Icon.ColorYelow";
-    t[41437] = "Farbe - Gelb";
-    t[41442] = "Surface.PickUp.Dialog.Mode.Forward";
-    t[41443] = "Kunden nach Zusammenfassen weiterleiten";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41436] = "Animation.Icon.ColorYelow";
+    t[41437] = "Farbe - Gelb";
+    t[41442] = "Surface.PickUp.Dialog.Mode.Forward";
+    t[41443] = "Kunden nach Zusammenfassen weiterleiten";
     t[41450] = "Statistics.XML.Sum.Error";
     t[41451] = "Das \"Summe\"-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\".";
     t[41454] = "QuickAccess.Book";
@@ -20060,16 +20064,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45913] = "Zwischenankunftszeitenverteilung";
     t[45916] = "Surface.AnimationText.Type.Error";
     t[45917] = "Fehler";
-    t[45918] = "Server.Status.MemoryUsage";
-    t[45919] = "Speicherbedarf";
-    t[45920] = "Statistics.Dashboard.ResetTiles.Info";
-    t[45921] = "Soll wirklich alle Einstellungen verworfen und durch die Vorgabewerte ersetzt werden?";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45918] = "Server.Status.MemoryUsage";
+    t[45919] = "Speicherbedarf";
+    t[45920] = "Statistics.Dashboard.ResetTiles.Info";
+    t[45921] = "Soll wirklich alle Einstellungen verworfen und durch die Vorgabewerte ersetzt werden?";
     t[45922] = "Statistics.XML.Sum3.Error";
     t[45923] = "Das \"Summe3\"-Attribut im \"%s\"-Element muss eine Zahl sein, ist aber \"%s\".";
     t[45930] = "UserTemplates.TemplatesDialog.Delete.ConfirmTitle";
@@ -22066,16 +22070,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50517] = "Aktuelles Modell aus dem Editor";
     t[50518] = "CommandLine.FolderFilter.Description.Long";
     t[50519] = "Dieser Befehl erwartet genau drei weitere Parameter:\n1. Name des Verzeichnisses\n2. Name der Eingabe-Filterkonfigurationsdatei\n3. Name der Ausgabedatei, die die Filterergebnisse aufnehmen soll\nWenn die Ausgabedatei bereits existiert, werden die neuen Ergebnisse angeh\u00e4ngt.\nAnsonsten wird die Datei neu angelegt.";
-    t[50522] = "Surface.SectionEnd.Infotext";
-    t[50523] = "Passiert ein Kunde eine Bereich verlassen Station, so wird der Kunde aus dem zugeh\u00f6rigen Bereich (f\u00fcr die Statistik) ausgetragen.";
-    t[50528] = "SystemInfo.Tools.UserInterface.GradientTemplates";
-    t[50529] = "Hintergrundfarbe f\u00fcr Elementenvorlagenleiste";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50522] = "Surface.SectionEnd.Infotext";
+    t[50523] = "Passiert ein Kunde eine Bereich verlassen Station, so wird der Kunde aus dem zugeh\u00f6rigen Bereich (f\u00fcr die Statistik) ausgetragen.";
+    t[50528] = "SystemInfo.Tools.UserInterface.GradientTemplates";
+    t[50529] = "Hintergrundfarbe f\u00fcr Elementenvorlagenleiste";
     t[50530] = "Optimizer.Tab.Target.DialogHint";
     t[50531] = "Der Zielwert ist diejenige Kenngr\u00f6\u00dfe, die optimiert werden soll. D.h. der Zielwert soll m\u00f6glichst gro\u00df sein, m\u00f6glichst klein sein oder in einem bestimmten Bereich liegen soll.";
     t[50538] = "Editor.DialogBase.Search.TableClientTypeColumn";
