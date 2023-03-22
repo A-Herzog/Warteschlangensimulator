@@ -104,7 +104,6 @@ public class ModelElementDecideAndTeleportDialog extends ModelElementBaseDialog 
 		/* Teleportziele */
 		tabs.addTab("Teleportziele",tab=new JPanel(new BorderLayout()));
 		tab.add(teleportDestinations=new TeleportDestinationsPanel(decide.getDestinations(),element.getModel(),readOnly));
-		teleportDestinations.addDataChangedListener(()->rebuildDecidePanel());
 
 		/* Verzweigungsregeln */
 		tabs.addTab("Verzweigungsregeln",tab=new JPanel(new BorderLayout()));
@@ -115,6 +114,9 @@ public class ModelElementDecideAndTeleportDialog extends ModelElementBaseDialog 
 		tabs.setIconAt(1,Images.MODELEDITOR_ELEMENT_DECIDE.getIcon());
 
 		lastDestinationCount=teleportDestinations.getDestinations().size();
+
+		/* Starten */
+		teleportDestinations.addDataChangedListener(()->rebuildDecidePanel());
 
 		return content;
 	}
@@ -196,7 +198,7 @@ public class ModelElementDecideAndTeleportDialog extends ModelElementBaseDialog 
 		}
 
 		rebuildDecidePanelTimer=new Timer(200,e->{
-			rebuildDecidePanelTimer.stop();
+			((Timer)e.getSource()).stop();
 			rebuildDecidePanelTimer=null;
 			rebuildDecidePanelNow();
 		});
