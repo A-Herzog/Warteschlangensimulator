@@ -10,14 +10,14 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.derby/derbyclient
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://db.apache.org/derby/
 
 ### Apache FOP All In One
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/fop
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 
 ### Autocomplete
@@ -52,7 +52,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/com.formdev/flatlaf
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://github.com/JFormDesigner/FlatLaf
 
 ### Gettext Commons
@@ -73,7 +73,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/com.gitlab.dumonts/hunspell
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://gitlab.com/dumonts/hunspell-java
 
 ### HyperSQL Database
@@ -101,7 +101,7 @@ This file lists the third-party components used by "Simulator" project and their
 ### JDDE
 
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://jdde.pretty-tools.com/
 
 ### JGit Core
@@ -183,7 +183,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/net.sf.ucanaccess/ucanaccess
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://ucanaccess.sourceforge.net/site.html
 
 ### VectorGraphics2D
@@ -209,7 +209,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.ant/ant
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://ant.apache.org/
 - Used by: Apache FOP Events and Apache FOP Core
 
@@ -217,7 +217,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.ant/ant-launcher
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://ant.apache.org/
 - Used by: Apache Ant Core
 
@@ -225,7 +225,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/commons-io/commons-io
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://commons.apache.org/proper/commons-io/ 
 - Used by: Apache XML Graphics Commons, Apache FOP Events and Apache FOP Core
 
@@ -233,7 +233,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/commons-logging/commons-logging
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://commons.apache.org/proper/commons-logging/ 
 - Used by: Apache XML Graphics Commons and Apache FOP Core
 
@@ -241,7 +241,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.pdfbox/fontbox
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://pdfbox.apache.org/ 
 - Used by: Apache FOP Core
 
@@ -249,7 +249,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/fop-core
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Apache FOP All In One
 
@@ -257,7 +257,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/fop-events 
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Apache FOP All In One and Apache FOP Core
 
@@ -265,7 +265,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/fop-util
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Apache FOP All In One, Apache FOP Events and  Apache FOP Core
 
@@ -273,7 +273,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/xmlgraphics-commons
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://xmlgraphics.apache.org/commons/
 - Used by: Apache FOP All In One, Apache FOP Events, Apache FOP Core and Batik CSS
 
@@ -289,7 +289,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-anim
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Apache FOP Core
 
@@ -297,7 +297,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-awt-util
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Apache FOP Core, Batik Anim, Batik Parser and Batik SVG DOM
 
@@ -305,7 +305,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-bridge
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Apache FOP Core
 
@@ -313,7 +313,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-constants
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Batik Utilities
 
@@ -321,7 +321,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-css
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Batik Anim, Batik DOM and Batik SVG DOM
 
@@ -329,7 +329,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-dom
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Batik Anim, Batik SVG DOM
 
@@ -337,7 +337,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-codec
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Batik Ext
 
@@ -345,7 +345,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-ext
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Batik DOM, Batik Anim and Batik SVG DOM)
 
@@ -353,7 +353,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-extension
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Apache FOP Core
 
@@ -361,7 +361,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-gvt
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Apache FOP Core
 
@@ -369,7 +369,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-i18n
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Batik Utilities
 
@@ -377,7 +377,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-parser
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Batik Anim, Batik SVG DOM
 
@@ -385,7 +385,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-svg-dom
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Batik Anim
 
@@ -393,7 +393,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-transcoder
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Apache FOP Core
 
@@ -401,7 +401,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-util
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Batik CSS, Batik DOM, Batik Parser, Batik SVG DOM and Batik Anim
 
@@ -409,7 +409,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-xml
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xmlgraphics.apache.org/
 - Used by: Batik DOM and Batik Parser
 
@@ -417,7 +417,7 @@ This file lists the third-party components used by "Simulator" project and their
 
 - Repository: https://mvnrepository.com/artifact/com.healthmarketscience.jackcess/jackcess
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://jackcess.sourceforge.io/
 - Used by: UCanAccess
 
@@ -452,7 +452,7 @@ http://java.sun.com/products/java-media/jai
 
 - Repository: https://mvnrepository.com/artifact/com.googlecode.javaewah/JavaEWAH
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://github.com/lemire/javaewah
 - Used by: JGit Core
 
@@ -468,7 +468,7 @@ http://java.sun.com/products/java-media/jai
 
 - Repository: https://mvnrepository.com/artifact/com.thoughtworks.qdox/qdox
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://github.com/paul-hammant/qdox 
 - Used by: Apache FOP Events
 
@@ -492,7 +492,7 @@ http://java.sun.com/products/java-media/jai
 
 - Repository: https://mvnrepository.com/artifact/xalan/xalan
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://xml.apache.org/xalan-j/ 
 - Used by: Batik DOM
 
@@ -500,7 +500,7 @@ http://java.sun.com/products/java-media/jai
 
 - Repository: https://mvnrepository.com/artifact/xalan/serializer
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://xml.apache.org/xalan-j/ 
 - Used by: Xalan Java
 
@@ -508,7 +508,7 @@ http://java.sun.com/products/java-media/jai
 
 - Repository: https://mvnrepository.com/artifact/xml-apis/xml-apis
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Used by: Batik Anim, Batik CSS, Batik DOM, Batik Parser, Batik SVG DOM and Xalan Java Serializer
 
 ---
@@ -584,7 +584,7 @@ http://java.sun.com/products/java-media/jai
 ### Font "OpenSans-Regular"
 
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://fonts.google.com/specimen/Open+Sans
 
 ### Javascript library "jQuery"
@@ -618,7 +618,7 @@ http://java.sun.com/products/java-media/jai
 
 Short name used above: `Apache 2.0`
 
-URL: https://opensource.org/licenses/Apache-2.0
+URL: https://www.apache.org/licenses/LICENSE-2.0
 
 ```
                                 Apache License

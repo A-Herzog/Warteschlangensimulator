@@ -10,14 +10,14 @@ This file lists the third-party components used by "SimTools" project and their 
 
 - Repository: https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://pdfbox.apache.org/
 
 ### Apache XmpBox
 
 - Repository: https://mvnrepository.com/artifact/org.apache.pdfbox/xmpbox
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://pdfbox.apache.org/
 
 ### JFreeChart
@@ -49,7 +49,7 @@ This file lists the third-party components used by "SimTools" project and their 
 
 - Repository: https://mvnrepository.com/artifact/commons-logging/commons-logging
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://commons.apache.org/proper/commons-logging/ 
 - Used by: Apache FontBox, Apache PDFBox and Apache XmpBox
 
@@ -57,7 +57,7 @@ This file lists the third-party components used by "SimTools" project and their 
 
 - Repository: https://mvnrepository.com/artifact/org.apache.pdfbox/fontbox
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://pdfbox.apache.org/ 
 - Used by: Apache PDFBox
 
@@ -104,7 +104,7 @@ This file lists the third-party components used by "SimTools" project and their 
 
 Short name used above: `Apache 2.0`
 
-URL: https://opensource.org/licenses/Apache-2.0
+URL: https://www.apache.org/licenses/LICENSE-2.0
 
 ```
                                 Apache License

@@ -10,14 +10,14 @@ This file lists the third-party components used by "SimSystem" project and their
 
 - Repository: https://mvnrepository.com/artifact/commons-io/commons-io
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://commons.apache.org/proper/commons-io/ 
 
 ### Apache Commons Math
 
 - Repository: https://mvnrepository.com/artifact/org.apache.commons/commons-math3
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://commons.apache.org/proper/commons-math/ 
 
 ### Apache POI
@@ -26,7 +26,7 @@ This file lists the third-party components used by "SimSystem" project and their
 - Repository: https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
 - Repository: https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml-full
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://poi.apache.org/ 
 
 ### JavaDBF
@@ -41,7 +41,7 @@ This file lists the third-party components used by "SimSystem" project and their
 - Repository: https://mvnrepository.com/artifact/org.odftoolkit/simple-odf
 - Repository: https://mvnrepository.com/artifact/org.odftoolkit/odfdom-java
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://odftoolkit.org/simple/index.html 
 
 ### SLF4J NOP Binding
@@ -55,7 +55,7 @@ This file lists the third-party components used by "SimSystem" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://github.com/xerial/sqlite-jdbc
 
 ---
@@ -66,7 +66,7 @@ This file lists the third-party components used by "SimSystem" project and their
 
 - Repository: https://mvnrepository.com/artifact/commons-codec/commons-codec
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://commons.apache.org/proper/commons-codec/ 
 - Used by: Apache POI
 
@@ -74,7 +74,7 @@ This file lists the third-party components used by "SimSystem" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://commons.apache.org/proper/commons-collections/
 - Used by: Apache POI, Apache Commons BeanUtils
 
@@ -82,7 +82,7 @@ This file lists the third-party components used by "SimSystem" project and their
 
 - Repository: https://commons.apache.org/proper/commons-compress/ 
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://commons.apache.org/proper/commons-compress/ 
 - Used by: Apache POI, Apache Jena
 
@@ -90,7 +90,7 @@ This file lists the third-party components used by "SimSystem" project and their
 
 - Repository: https://mvnrepository.com/artifact/commons-cli/commons-cli
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://commons.apache.org/proper/commons-cli/ 
 - Used by: Apache Jena
 
@@ -98,14 +98,14 @@ This file lists the third-party components used by "SimSystem" project and their
 
 - Repository: https://mvnrepository.com/artifact/org.apache.commons/commons-csv
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Used by: Apache Jena
 
 ### Apache Commons Lang
 
 - Repository: https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://commons.apache.org/proper/commons-lang/
 - Used by: Apache Jena
 
@@ -113,7 +113,7 @@ This file lists the third-party components used by "SimSystem" project and their
 
 - Repository: https://mvnrepository.com/artifact/commons-logging/commons-logging
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://commons.apache.org/proper/commons-logging/ 
 - Used by: Apache Commons Validator
 
@@ -121,7 +121,7 @@ This file lists the third-party components used by "SimSystem" project and their
 
 - Repository: https://mvnrepository.com/artifact/commons-validator/commons-validator
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://commons.apache.org/proper/commons-validator/
 - Used by: Simple Java API For ODF (Simple ODF)
 
@@ -129,7 +129,7 @@ This file lists the third-party components used by "SimSystem" project and their
 
 - Repository: https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://commons.apache.org/proper/commons-beanutils/
 - Used by: Apache Commons Validator
 
@@ -137,7 +137,7 @@ This file lists the third-party components used by "SimSystem" project and their
 
 - Repository: https://mvnrepository.com/artifact/commons-digester/commons-digester
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://commons.apache.org/digester/
 - Used by: Apache Commons Validator
 
@@ -148,7 +148,7 @@ This file lists the third-party components used by "SimSystem" project and their
 - Repository: https://mvnrepository.com/artifact/org.apache.jena/jena-shaded-guava
 - Repository: https://mvnrepository.com/artifact/org.apache.jena/jena-iri
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://jena.apache.org/
 - Used by: Simple Java API For ODF (Simple ODF)
 
@@ -157,7 +157,7 @@ This file lists the third-party components used by "SimSystem" project and their
 - Repository: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
 - Repository: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://poi.apache.org/ 
 - Used by: Apache POI, XmlBeans
 
@@ -165,7 +165,7 @@ This file lists the third-party components used by "SimSystem" project and their
 
 - Repository: https://mvnrepository.com/artifact/commons-digester/commons-digester
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://commons.apache.org/digester/
 - Used by: Apache Commons Validator
 
@@ -205,7 +205,7 @@ This file lists the third-party components used by "SimSystem" project and their
 
 - Repository: https://mvnrepository.com/artifact/com.zaxxer/SparseBitSet
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://github.com/brettwooldridge/SparseBitSet
 - Used by: Apache POI
 
@@ -214,7 +214,7 @@ This file lists the third-party components used by "SimSystem" project and their
 - Repository: https://mvnrepository.com/artifact/xerces/xercesImpl
 - Repository: https://mvnrepository.com/artifact/xml-apis/xml-apis
 - License: Apache 2.0
-- License URL: https://opensource.org/licenses/Apache-2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://xerces.apache.org/xerces2-j/
 - Used by: Simple Java API For ODF (Simple ODF)
 
@@ -252,7 +252,7 @@ This file lists the third-party components used by "SimSystem" project and their
 
 Short name used above: `Apache 2.0`
 
-URL: https://opensource.org/licenses/Apache-2.0
+URL: https://www.apache.org/licenses/LICENSE-2.0
 
 ```
                                 Apache License
