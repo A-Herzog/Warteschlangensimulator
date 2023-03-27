@@ -281,7 +281,7 @@ public class StationLeaveEvent extends Event {
 		final StationLeaveEvent leaveStation=(StationLeaveEvent)simData.getEvent(StationLeaveEvent.class);
 
 		/* ... und initialisieren */
-		leaveStation.init(simData.currentTime+timeDelta);
+		leaveStation.init(simData.currentTime+Math.max(0,timeDelta));
 
 		/* Konfiguration in Element eintragen */
 		leaveStation.station=station;

@@ -32,6 +32,7 @@
   <li>The values of client data fields are now also recorded differentiated by client types in the statistics.</li>
   <li>Files used at table sources and input stations can now optionally be read from bottom to top.</li>
   <li>[Fix] When branching clients by shortest queue or by least number of clients at the next station, random selection did not work correctly when there was a tie for more than two stations.</li>
+  <li>[Fix] At delay (script) stations there was no check if the value returned by the user-defined script was greater than or equal to zero.</li>
   <li>[Fix] The alarm station did not work correctly until now.</li>
   <li>[Fix] The calculation commands for querying the station-specific histogram data for time values during a running animation did not work correctly.</li>
 </ul>
