@@ -1605,11 +1605,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		/* Dateiausgaben */
 		for (ModelElement element: surface.getElements()) {
-			if ((element instanceof ModelElementOutput) && ((ModelElementOutput)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
-			if ((element instanceof ModelElementOutputJS) && ((ModelElementOutputJS)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
-			if ((element instanceof ModelElementOutputDB) && ((ModelElementOutputDB)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
-			if ((element instanceof ModelElementOutputDDE) && ((ModelElementOutputDDE)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
-			if ((element instanceof ModelElementOutputLog) && ((ModelElementOutputLog)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
+			if ((element instanceof ModelElementOutput) && ((ModelElementOutput)element).inputConnected() && ((ModelElementOutput)element).isOutputActive()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
+			if ((element instanceof ModelElementOutputJS) && ((ModelElementOutputJS)element).inputConnected() && ((ModelElementOutputJS)element).isOutputActive()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
+			if ((element instanceof ModelElementOutputDB) && ((ModelElementOutputDB)element).inputConnected() && ((ModelElementOutputDB)element).isOutputActive()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
+			if ((element instanceof ModelElementOutputDDE) && ((ModelElementOutputDDE)element).inputConnected() && ((ModelElementOutputDDE)element).isOutputActive()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
+			if ((element instanceof ModelElementOutputLog) && ((ModelElementOutputLog)element).inputConnected() && ((ModelElementOutputLog)element).isOutputActive()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
 			if ((element instanceof ModelElementRecord) && ((ModelElementRecord)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
 			if ((element instanceof ModelElementDisposeWithTable) && ((ModelElementDisposeWithTable)element).inputConnected()) return String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId());
 		}
