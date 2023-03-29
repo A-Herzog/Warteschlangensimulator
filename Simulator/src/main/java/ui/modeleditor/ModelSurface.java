@@ -1953,7 +1953,12 @@ public final class ModelSurface {
 		if (index<0) return;
 
 		if (index==elements.size()-1) return;
-		if (max) swapElementsInList(index,elements.size()-1); else swapElementsInList(index,index+1);
+		if (max) {
+			elements.remove(index);
+			elements.add(element);
+		} else {
+			swapElementsInList(index,index+1);
+		}
 
 		fireRedraw();
 	}
@@ -1969,7 +1974,12 @@ public final class ModelSurface {
 		if (index<0) return;
 
 		if (index==0) return;
-		if (max) swapElementsInList(index,0); else swapElementsInList(index,index-1);
+		if (max) {
+			elements.remove(index);
+			elements.add(0,element);
+		} else {
+			swapElementsInList(index,index-1);
+		}
 
 		fireRedraw();
 	}
