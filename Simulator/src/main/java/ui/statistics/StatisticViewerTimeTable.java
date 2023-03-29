@@ -238,10 +238,24 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	 * @return	Spaltenüberschriften
 	 */
 	private String[] getColumnNames(final String col1, final String col2, String info, final double[] confidenceLevels) {
+		return getColumnNames(col1,col2,null,info,confidenceLevels);
+	}
+
+	/**
+	 * Liefert die Spaltenüberschriften.
+	 * @param col1	Optionale erste Spalte (kann <code>null</code> sein)
+	 * @param col2	Optionale zweite Spalte (kann <code>null</code> sein)
+	 * @param col3	Optionale dritte Spalte (kann <code>null</code> sein)
+	 * @param info	Optionaler Wert, der an die Indikatoren angehängt wird (kann <code>null</code> sein; üblich sowas wie "[X]")
+	 * @param confidenceLevels	Konfidenzlevels für die Spalten vorgesehen werden solle (kann <code>null</code> sein)
+	 * @return	Spaltenüberschriften
+	 */
+	private String[] getColumnNames(final String col1, final String col2, final String col3, String info, final double[] confidenceLevels) {
 		final List<String> columns=new ArrayList<>();
 
 		if (col1!=null) columns.add(col1);
 		if (col2!=null) columns.add(col2);
+		if (col3!=null) columns.add(col3);
 
 		if (info==null) info="";
 		columns.add("E"+info);
@@ -274,9 +288,22 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	 * @return	Datenzeile
 	 */
 	private String[] getDataLine(final String col1, final StatisticsDataPerformanceIndicator data, final double[] confidenceLevels) {
+		return getDataLine(col1,null,data,confidenceLevels);
+	}
+
+	/**
+	 * Erzeugt eine Datenzeile.
+	 * @param col1	Inhalt für Spalte 1 (kann <code>null</code> sein)
+	 * @param col2	Inhalt für Spalte 2 (kann <code>null</code> sein)
+	 * @param data	Statistikobjekt dem Mittelwert usw. entnommen werden sollen
+	 * @param confidenceLevels	Niveaus zu denen Konfidenzintervallgrößen ausgegeben werden sollen (kann <code>null</code> sein)
+	 * @return	Datenzeile
+	 */
+	private String[] getDataLine(final String col1, final String col2, final StatisticsDataPerformanceIndicator data, final double[] confidenceLevels) {
 		final List<String> line=new ArrayList<>();
 
 		if (col1!=null) line.add(col1);
+		if (col2!=null) line.add(col2);
 
 		line.add(NumberTools.formatLongNoGrouping(data.getCount()));
 		line.add(StatisticTools.formatNumber(data.getMean()));
@@ -459,7 +486,12 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			StatisticsDataPerformanceIndicator data;
 			data=(StatisticsDataPerformanceIndicator)(indicator1.get(type));
 			final String typeName=isStationsList?fullStationName(type):type;
-			String[] line=getDataLine(((type1!=null && !type1.isEmpty())?(type1+" "):"")+typeName,data,hasConfidence?confidenceLevels:null);
+			String[] line;
+			if (type1!=null && !type1.isEmpty()) {
+				line=getDataLine(type1,typeName,data,hasConfidence?confidenceLevels:null);
+			} else {
+				line=getDataLine(typeName,data,hasConfidence?confidenceLevels:null);
+			}
 			if (addThroughput) {
 				line=Arrays.copyOf(line,line.length+2);
 				final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(data.getCount(),statistics);
@@ -479,7 +511,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			table.addLine(line);
 			if (indicator2!=null && type2!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator2.get(type));
-				line=getDataLine(type2+" "+typeName,data,hasConfidence?confidenceLevels:null);
+				line=getDataLine(type2,typeName,data,hasConfidence?confidenceLevels:null);
 				if (addThroughput) {
 					line=Arrays.copyOf(line,line.length+2);
 					final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(data.getCount(),statistics);
@@ -500,7 +532,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			}
 			if (indicator3!=null && type3!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator3.get(type));
-				line=getDataLine(type3+" "+typeName,data,hasConfidence?confidenceLevels:null);
+				line=getDataLine(type3,typeName,data,hasConfidence?confidenceLevels:null);
 				if (addThroughput) {
 					line=Arrays.copyOf(line,line.length+2);
 					final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(data.getCount(),statistics);
@@ -521,7 +553,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			}
 			if (indicator4!=null && type4!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator4.get(type));
-				line=getDataLine(type4+" "+typeName,data,hasConfidence?confidenceLevels:null);
+				line=getDataLine(type4,typeName,data,hasConfidence?confidenceLevels:null);
 				if (addThroughput) {
 					line=Arrays.copyOf(line,line.length+2);
 					final String[] throughput=StatisticViewerOverviewText.getThroughputColumns(data.getCount(),statistics);
@@ -544,9 +576,17 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 
 		String[] columnNames;
 		if (isInterArrival) {
-			columnNames=getColumnNames(label,Language.tr("Statistics.Number"),"[I]",hasConfidence?confidenceLevels:null);
+			if (type1!=null && !type1.isEmpty()) {
+				columnNames=getColumnNames(Language.tr("Statistics.Type"),label,Language.tr("Statistics.Number"),"[I]",hasConfidence?confidenceLevels:null);
+			} else {
+				columnNames=getColumnNames(label,Language.tr("Statistics.Number"),"[I]",hasConfidence?confidenceLevels:null);
+			}
 		} else {
-			columnNames=getColumnNames(label,Language.tr("Statistics.Number"),"[.]",hasConfidence?confidenceLevels:null);
+			if (type1!=null && !type1.isEmpty()) {
+				columnNames=getColumnNames(Language.tr("Statistics.Type"),label,Language.tr("Statistics.Number"),"[.]",hasConfidence?confidenceLevels:null);
+			} else {
+				columnNames=getColumnNames(label,Language.tr("Statistics.Number"),"[.]",hasConfidence?confidenceLevels:null);
+			}
 		}
 		if (addThroughput) {
 			columnNames=Arrays.copyOf(columnNames,columnNames.length+2);

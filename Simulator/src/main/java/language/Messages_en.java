@@ -2374,6 +2374,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5555] = "Moves the current list record one position down.";
     t[5560] = "ThreadCalibration.Dialog.Start";
     t[5561] = "Start";
+    t[5562] = "Statistics.Type";
+    t[5563] = "Type";
     t[5564] = "Surface.Resource.ErrorMoveTimeDistribution";
     t[5565] = "The specified set up time \"%s\" for resource %s is invalid.";
     t[5566] = "JSRunner.Templates.Empty";
@@ -4014,14 +4016,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9429] = "<p>Returns the variance over all processing times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
     t[9446] = "Surface.TankValveSetup.Table.Edit.Valve.ErrorInfo";
     t[9447] = "No valve at which the maximum flow is to be changed has been selected.";
-    t[9448] = "ProblemReporter.Item.ProgramInfo";
-    t[9449] = "Warteschlangensimulator installation information";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9448] = "ProblemReporter.Item.ProgramInfo";
+    t[9449] = "Warteschlangensimulator installation information";
     t[9452] = "UserTemplates.AddDialog.Global";
     t[9453] = "Save template global (instead of at the model)";
     t[9454] = "UserDefinedFunctions.List.DeleteConfirmInfo";
@@ -6020,14 +6022,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14009] = "Transfer time";
     t[14014] = "Statistics.SystemData.Version";
     t[14015] = "Used simulator version";
-    t[14016] = "SettingsDialog.NotifyMode.Off";
-    t[14017] = "Never";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
+    t[14016] = "SettingsDialog.NotifyMode.Off";
+    t[14017] = "Never";
     t[14018] = "ModelDescription.OutputJS.Active.Off";
     t[14019] = "Output disabled";
     t[14028] = "Surface.Balking.Dialog.Expression.Error.Info";
@@ -8026,14 +8028,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18687] = "StatisticsClientsAtStationByClientType";
     t[18696] = "Surface.SourceTable.Dialog.Table.Preview.Header.Time";
     t[18697] = "Time stamp";
-    t[18702] = "Statistics.NumberOfClientsInTheSystemAndAtTheStations";
-    t[18703] = "Number of clients in the system and at the stations";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18702] = "Statistics.NumberOfClientsInTheSystemAndAtTheStations";
+    t[18703] = "Number of clients in the system and at the stations";
     t[18704] = "Surface.Database.User";
     t[18705] = "User name";
     t[18708] = "Surface.Tank.Dialog.Valve.Delete,NoInfo";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23265] = "Edit client variable assignments";
     t[23272] = "ExpressionBuilder.SimulationCharacteristics.StationInputOutput.ThroughputMax.Info";
     t[23273] = "<p>Gets the maximum measured throughput measured in arrivals per second at station id.</p>";
-    t[23274] = "FindWarmUp.Info.No";
-    t[23275] = "Keep the current value %s for the warm-up phase in the model.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[23274] = "FindWarmUp.Info.No";
+    t[23275] = "Keep the current value %s for the warm-up phase in the model.";
     t[23276] = "Window.Layers.Rename.Title";
     t[23277] = "Rename";
     t[23282] = "Surface.Decide.XML.Mode.ByQueueLengthNext";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27849] = "%d files compiled successfully.";
     t[27850] = "Surface.AnimationText.XML.Mode.Type.Number";
     t[27851] = "Number";
-    t[27854] = "Schedule.Dialog.Name.InUse";
-    t[27855] = "The selected name is already in use.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27854] = "Schedule.Dialog.Name.InUse";
+    t[27855] = "The selected name is already in use.";
     t[27858] = "ModelDescription.OutputDDE.StartRow";
     t[27859] = "Start row";
     t[27860] = "Surface.InputDB.Dialog.Mode.Loop";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32365] = "Variance of the inter-arrival times";
     t[32368] = "Surface.AssignString.Name";
     t[32369] = "Assign string";
-    t[32374] = "Editor.SavedViews.Delete.InfoYes";
-    t[32375] = "Delete view.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32374] = "Editor.SavedViews.Delete.InfoYes";
+    t[32375] = "Delete view.";
     t[32388] = "Main.Menu.View.Mnemonic";
     t[32389] = "V";
     t[32394] = "Statistic.Viewer.Toolbar.Search.Hint";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36979] = "Local folder";
     t[36982] = "Statistics.Costs.Total";
     t[36983] = "Total costs";
-    t[36984] = "ModelDescription.Decide.Mode.LeastClientsNextProcessStation";
-    t[36985] = "Select path to process station with least clients";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36984] = "ModelDescription.Decide.Mode.LeastClientsNextProcessStation";
+    t[36985] = "Select path to process station with least clients";
     t[36990] = "Surface.ExpressionTableModel.SetupAppearance";
     t[36991] = "Setup appearance of the data row";
     t[36992] = "ScriptPopup.SelectIDDialog.ErrorMatchingNoStations.Title";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41421] = "Average delay time";
     t[41426] = "ExpressionBuilder.TrigonometricFunctions.ArcusCosinusHyperbolicus";
     t[41427] = "Arcus cosine hyperbolicus";
-    t[41434] = "ExpressionBuilder.ClientsAtStationService";
-    t[41435] = "Clients in service process";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41434] = "ExpressionBuilder.ClientsAtStationService";
+    t[41435] = "Clients in service process";
     t[41436] = "Animation.Icon.ColorYelow";
     t[41437] = "Color - Yellow";
     t[41442] = "Surface.PickUp.Dialog.Mode.Forward";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45911] = "The expression describing the time between two down times is invalid.";
     t[45912] = "Editor.DialogBase.Search.InterarrivalArrival.Distribution";
     t[45913] = "Inter-arrival distribution";
-    t[45916] = "Surface.AnimationText.Type.Error";
-    t[45917] = "Error";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45916] = "Surface.AnimationText.Type.Error";
+    t[45917] = "Error";
     t[45918] = "Server.Status.MemoryUsage";
     t[45919] = "Memory usage";
     t[45920] = "Statistics.Dashboard.ResetTiles.Info";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50515] = "In step %d (model %s) the value of the input parameter %d (%s) could not be changed.";
     t[50516] = "ThreadCalibration.Dialog.ModelToUse.CurrentModelInEditor";
     t[50517] = "Current model in editor";
-    t[50518] = "CommandLine.FolderFilter.Description.Long";
-    t[50519] = "The command expects exactly three additional parameters:\n1. Name of the input folder\n2. Name of the input filter configuration file\n3. Name of the output file which will contain the filtered results\nIf the output file already exists, the new results will be added.\nOtherwise the file will be created.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50518] = "CommandLine.FolderFilter.Description.Long";
+    t[50519] = "The command expects exactly three additional parameters:\n1. Name of the input folder\n2. Name of the input filter configuration file\n3. Name of the output file which will contain the filtered results\nIf the output file already exists, the new results will be added.\nOtherwise the file will be created.";
     t[50522] = "Surface.SectionEnd.Infotext";
     t[50523] = "If a client passes a section end station, he will leave the corresponding station (for the statistics).";
     t[50528] = "SystemInfo.Tools.UserInterface.GradientTemplates";
