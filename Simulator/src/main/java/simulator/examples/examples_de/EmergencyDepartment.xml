@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
+  <ModellName>Patientenbehandlung beim Arzt</ModellName>
+  <ModellBeschreibung>Die Patienten verbringen mehr Zeit mit dem Warten auf einen Behandlungsraum
+als anschließend in dem Behandlungsraum selbst. Daher wirkt es naheliegend,
+die Anzahl an Räumen zu erhöhen. Bei 8 statt 4 Behandlungsräumen sinkt
+tatsächlich die Wartezeit im Wartezimmer - dafür wird nun mehr in den
+Behandlungsräumen gewartet. In Summe werden die Kennzahlen nicht nennenswert
+besser. Könnten jedoch Tätigkeiten vom Arzt zur Pflege verlagert werden
+(11, 23 und 11 Minuten statt bisher 9, 27 und 9 Minuten), so wären
+beide Personen gleichmäßiger ausgelastet. Da die hohe Auslastung einer
+Person (in diesem Fall des Arztes) vermieden wird, sinkt die Wartezeit.
+Mehr Räume werden dafür nicht benötigt.
+
+Dieses Beispiel entspricht dem auf den Seiten 151 und 152 in
+"The Definitive Guide to Emergency Department Operational Improvement"
+(Second Edition) vorgestellten Modell.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementKasten id="31">
+      <ModellElementGroesse h="115" w="150" x="845" y="160"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+      <ModellElementHintergrundfarbe Alpha="0.2">255,165,0</ModellElementHintergrundfarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="29">
+      <ModellElementGroesse h="115" w="150" x="695" y="160"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementHintergrundfarbe Alpha="0.2">0,180,0</ModellElementHintergrundfarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="30">
+      <ModellElementGroesse h="115" w="150" x="545" y="160"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+      <ModellElementHintergrundfarbe Alpha="0.2">255,165,0</ModellElementHintergrundfarbe>
+    </ModellElementKasten>
+    <ModellElementRessourceBelegen id="2">
+      <ModellElementName>Raum</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="300" y="200"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementBediener Anzahl="1" Gruppe="Behandlungsraum"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementRessourceBelegen>
+    <ModellElementBedienstation id="3">
+      <ModellElementName>Pflege 1</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="200"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">LogNormalDist(ZeitPflege;ZeitPflege*0,67)</ModellElementAusdruck>
+      <ModellElementPrioritaet Kundentyp="Patienten">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Pflege"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="4">
+      <ModellElementName>Arzt</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="200"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">LogNormalDist(ZeitArzt;ZeitArzt*0,67)</ModellElementAusdruck>
+      <ModellElementPrioritaet Kundentyp="Patienten">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Arzt"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementRessourceFreigeben id="5">
+      <ModellElementName>Raum</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1050" y="200"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+      <ModellElementBelegteRessource>Raum</ModellElementBelegteRessource>
+    </ModellElementRessourceFreigeben>
+    <ModellElementEnde id="6">
+      <ModellElementGroesse h="50" w="100" x="1200" y="200"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="7">
+      <ModellElementName>Ankünfte (Patienten)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementVerbindung Element1="3" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="11">
+      <ModellElementVerbindung Element1="5" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Patienten</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Minuten">Exponentialverteilung (30)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementKante id="10">
+      <ModellElementVerbindung Element1="4" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="12" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="14">
+      <ModellElementName>Mittlere Wartezeit (in Stunden)</ModellElementName>
+      <ModellElementGroesse h="30" w="127" x="255" y="315"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(2)/3600</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="15">
+      <ModellElementName>Mittlere Zeitdauer im Behandlungsraum (in Stunden)</ModellElementName>
+      <ModellElementGroesse h="30" w="219" x="505" y="315"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">(ResidenceTime_avg(3)+ResidenceTime_avg(4)+ResidenceTime_avg(12))/3600</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="16">
+      <ModellElementName>Anzahl an Behandlungsräumen</ModellElementName>
+      <ModellElementGroesse h="30" w="131" x="700" y="105"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Resource_count(1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="17">
+      <ModellElementName>Gesamte Verweilzeit (in Stunden)</ModellElementName>
+      <ModellElementGroesse h="30" w="139" x="1200" y="320"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">ResidenceTime_avg(1)/3600</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="18">
+      <ModellElementGroesse h="23" w="277" x="50" y="50"/>
+      <ModellElementTextzeile>Patientenbehandlung beim Arzt</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="19">
+      <ModellElementName>Mittlere Bediendauer (in Minuten)</ModellElementName>
+      <ModellElementGroesse h="30" w="140" x="550" y="165"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">ZeitPflege</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="20">
+      <ModellElementName>Mittlere Bediendauer (in Minuten)</ModellElementName>
+      <ModellElementGroesse h="30" w="140" x="700" y="165"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">ZeitArzt</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="21">
+      <ModellElementName>Mittlere Bediendauer (in Minuten)</ModellElementName>
+      <ModellElementGroesse h="30" w="140" x="850" y="165"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">ZeitPflege</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="22">
+      <ModellElementName>Auslastung Pflege</ModellElementName>
+      <ModellElementGroesse h="30" w="80" x="850" y="370"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">Resource_avg(3)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="23">
+      <ModellElementName>Auslastung Arzt</ModellElementName>
+      <ModellElementGroesse h="30" w="80" x="700" y="370"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">Resource_avg(2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="24">
+      <ModellElementGroesse h="190" w="531" x="50" y="400"/>
+      <ModellElementTextzeile>Die Patienten verbringen mehr Zeit mit dem Warten auf einen Behandlungsraum</ModellElementTextzeile>
+      <ModellElementTextzeile>als anschließend in dem Behandlungsraum selbst. Daher wirkt es naheliegend,</ModellElementTextzeile>
+      <ModellElementTextzeile>die Anzahl an Räumen zu erhöhen. Bei 8 statt 4 Behandlungsräumen sinkt</ModellElementTextzeile>
+      <ModellElementTextzeile>tatsächlich die Wartezeit im Wartezimmer - dafür wird nun mehr in den</ModellElementTextzeile>
+      <ModellElementTextzeile>Behandlungsräumen gewartet. In Summe werden die Kennzahlen nicht nennenswert</ModellElementTextzeile>
+      <ModellElementTextzeile>besser. Könnten jedoch Tätigkeiten vom Arzt zur Pflege verlagert werden</ModellElementTextzeile>
+      <ModellElementTextzeile>(11, 23 und 11 Minuten statt bisher 9, 27 und 9 Minuten), so wären</ModellElementTextzeile>
+      <ModellElementTextzeile>beide Personen gleichmäßiger ausgelastet. Da die hohe Auslastung einer</ModellElementTextzeile>
+      <ModellElementTextzeile>Person (in diesem Fall des Arztes) vermieden wird, sinkt die Wartezeit.</ModellElementTextzeile>
+      <ModellElementTextzeile>Mehr Räume werden dafür nicht benötigt.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="25">
+      <ModellElementGroesse h="250" w="500" x="500" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="26">
+      <ModellElementGroesse h="250" w="200" x="250" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="27">
+      <ModellElementGroesse h="21" w="99" x="255" y="105"/>
+      <ModellElementTextzeile>Wartezimmer</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="28">
+      <ModellElementGroesse h="21" w="141" x="505" y="105"/>
+      <ModellElementTextzeile>Behandlungsraum</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementBedienstation id="12">
+      <ModellElementName>Pflege 2</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="850" y="200"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Minuten">LogNormalDist(ZeitPflege;ZeitPflege*0,67)</ModellElementAusdruck>
+      <ModellElementPrioritaet Kundentyp="Patienten">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Pflege"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementText id="32">
+      <ModellElementGroesse h="80" w="377" x="50" y="650"/>
+      <ModellElementTextzeile>**Hinweis:**</ModellElementTextzeile>
+      <ModellElementTextzeile>Die verschiedenen Steuerungsvarianten können über die Registerkarte</ModellElementTextzeile>
+      <ModellElementTextzeile>"Bediener" (Anzahl an Behandlungsräumen) und über die Registerkarte</ModellElementTextzeile>
+      <ModellElementTextzeile>"Initiale Variablenwerte" (Bediendauern Pflege und Arzt) im</ModellElementTextzeile>
+      <ModellElementTextzeile>Modelleigenschaftendialog eingestellt werden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Behandlungsraum" Typ="Anzahl" Wert="4"/>
+    <Ressource Name="Arzt" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Pflege" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <InitialeVariable Name="ZeitPflege">9</InitialeVariable>
+  <InitialeVariable Name="ZeitArzt">27</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

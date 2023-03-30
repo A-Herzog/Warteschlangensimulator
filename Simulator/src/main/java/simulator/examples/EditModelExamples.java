@@ -245,6 +245,7 @@ public class EditModelExamples {
 		addExample(Language.trAll("Examples.Callcenter"),"Callcenter.xml",ExampleType.TYPE_REAL_MODELS,ExampleKeyWord.ROUTING);
 		addExample(Language.trAll("Examples.Restaurant"),"Restaurant.xml",ExampleType.TYPE_REAL_MODELS);
 		addExample(Language.trAll("Examples.Baustellenampel"),"Baustellenampel.xml",ExampleType.TYPE_REAL_MODELS);
+		addExample(Language.trAll("Examples.EmergencyDepartment"),"EmergencyDepartment.xml",ExampleType.TYPE_REAL_MODELS);
 
 		/* Beispiele, die bestimmte Modellierungseigenschaften verdeutlichen */
 		addExample(Language.trAll("Examples.ClientTypePriorities"),"Kundentypen.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.PRIORITIES);

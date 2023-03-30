@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
+  <ModelName>Patient treatment at the doctor's office</ModelName>
+  <ModelDescription>Patients spend more time waiting for a treatment room than they do afterwards
+in the treatment room itself. Therefore, it seems obvious to increase the
+number of rooms. With 8 instead of 4 treatment rooms, the waiting time in the
+waiting room actually decreases - but more time is now spent waiting in the
+treatment rooms. In total, the key performance indicators do not improve
+significantly. However, if activities could be shifted from the physician to
+care (11, 23 and 11 minutes instead of the previous 9, 27 and 9 minutes),
+both persons would be more evenly utilized. Since the high utilization of one
+person (in this case the physician) is avoided, the waiting time decreases.
+More rooms are not needed for this.
+
+This example is consistent with the model presented on pages 151 and 152
+in "The Definitive Guide to Emergency Department Operational Improvement"
+(second edition).</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementRectangle id="31">
+      <ModelElementSize h="115" w="150" x="845" y="160"/>
+      <ModelElementLineWidth>0</ModelElementLineWidth>
+      <ModelElementColor>255,165,0</ModelElementColor>
+      <ModelElementBackgroundColor Alpha="0.2">255,165,0</ModelElementBackgroundColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="29">
+      <ModelElementSize h="115" w="150" x="695" y="160"/>
+      <ModelElementLineWidth>0</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementBackgroundColor Alpha="0.2">0,180,0</ModelElementBackgroundColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="30">
+      <ModelElementSize h="115" w="150" x="545" y="160"/>
+      <ModelElementLineWidth>0</ModelElementLineWidth>
+      <ModelElementColor>255,165,0</ModelElementColor>
+      <ModelElementBackgroundColor Alpha="0.2">255,165,0</ModelElementBackgroundColor>
+    </ModelElementRectangle>
+    <ModelElementSeizeResource id="2">
+      <ModelElementName>Room</ModelElementName>
+      <ModelElementSize h="50" w="100" x="300" y="200"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+      <ModelElementOperators Count="1" Group="Treatment room"/>
+      <ModelElementOperatorPriority>1</ModelElementOperatorPriority>
+    </ModelElementSeizeResource>
+    <ModelElementProcessStation id="3">
+      <ModelElementName>Care 1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="200"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">LogNormalDist(TimeCare;TimeCare*0,67)</ModelElementExpression>
+      <ModelElementPriority ClientType="Patienten">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Patients">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Care"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="4">
+      <ModelElementName>Physician</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="200"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">LogNormalDist(TimePhysician;TimePhysician*0,67)</ModelElementExpression>
+      <ModelElementPriority ClientType="Patienten">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Patients">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Physician"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementReleaseResource id="5">
+      <ModelElementName>Room</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1050" y="200"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="11" Type="Out"/>
+      <ModelElementSeizedResource>Room</ModelElementSeizedResource>
+    </ModelElementReleaseResource>
+    <ModelElementDispose id="6">
+      <ModelElementSize h="50" w="100" x="1200" y="200"/>
+      <ModelElementConnection Element="11" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="7">
+      <ModelElementName>Arrivals (Patients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="8">
+      <ModelElementConnection Element1="2" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="9">
+      <ModelElementConnection Element1="3" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="11">
+      <ModelElementConnection Element1="5" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementSource id="1">
+      <ModelElementName>Patients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="200"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementDistribution TimeBase="Minutes">Exponential distribution (30)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementEdge id="10">
+      <ModelElementConnection Element1="4" Element2="12" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="13">
+      <ModelElementConnection Element1="12" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="14">
+      <ModelElementName>Average waiting time (in hours)</ModelElementName>
+      <ModelElementSize h="30" w="130" x="255" y="315"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg(2)/3600</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="15">
+      <ModelElementName>Average time in treatment room (in hours)</ModelElementName>
+      <ModelElementSize h="30" w="175" x="505" y="315"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">(ResidenceTime_avg(3)+ResidenceTime_avg(4)+ResidenceTime_avg(12))/3600</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="16">
+      <ModelElementName>Number of treatment rooms</ModelElementName>
+      <ModelElementSize h="30" w="115" x="700" y="105"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Resource_count(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="17">
+      <ModelElementName>Total residence time (in hours)</ModelElementName>
+      <ModelElementSize h="30" w="129" x="1200" y="320"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">ResidenceTime_avg(1)/3600</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="18">
+      <ModelElementSize h="23" w="335" x="50" y="50"/>
+      <ModelElementTextLine>Patient treatment at the doctor's office</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="19">
+      <ModelElementName>Average service time (in minutes)</ModelElementName>
+      <ModelElementSize h="30" w="140" x="550" y="165"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">TimeCare</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="20">
+      <ModelElementName>Average service time (in minutes)</ModelElementName>
+      <ModelElementSize h="30" w="140" x="700" y="165"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">TimePhysician</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="21">
+      <ModelElementName>Average service time (in minutes)</ModelElementName>
+      <ModelElementSize h="30" w="140" x="850" y="165"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">TimeCare</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="22">
+      <ModelElementName>Utilization care</ModelElementName>
+      <ModelElementSize h="30" w="93" x="850" y="370"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,165,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">Resource_avg(3)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="23">
+      <ModelElementName>Utilization physician</ModelElementName>
+      <ModelElementSize h="30" w="93" x="700" y="370"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">Resource_avg(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="24">
+      <ModelElementSize h="190" w="489" x="50" y="400"/>
+      <ModelElementTextLine>Patients spend more time waiting for a treatment room than they do afterwards</ModelElementTextLine>
+      <ModelElementTextLine>in the treatment room itself. Therefore, it seems obvious to increase the</ModelElementTextLine>
+      <ModelElementTextLine>number of rooms. With 8 instead of 4 treatment rooms, the waiting time in the</ModelElementTextLine>
+      <ModelElementTextLine>waiting room actually decreases - but more time is now spent waiting in the</ModelElementTextLine>
+      <ModelElementTextLine>treatment rooms. In total, the key performance indicators do not improve</ModelElementTextLine>
+      <ModelElementTextLine>significantly. However, if activities could be shifted from the physician to</ModelElementTextLine>
+      <ModelElementTextLine>care (11, 23 and 11 minutes instead of the previous 9, 27 and 9 minutes),</ModelElementTextLine>
+      <ModelElementTextLine>both persons would be more evenly utilized. Since the high utilization of one</ModelElementTextLine>
+      <ModelElementTextLine>person (in this case the physician) is avoided, the waiting time decreases.</ModelElementTextLine>
+      <ModelElementTextLine>More rooms are not needed for this.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="25">
+      <ModelElementSize h="250" w="500" x="500" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="26">
+      <ModelElementSize h="250" w="200" x="250" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="27">
+      <ModelElementSize h="21" w="103" x="255" y="105"/>
+      <ModelElementTextLine>Waiting room</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="28">
+      <ModelElementSize h="21" w="121" x="505" y="105"/>
+      <ModelElementTextLine>Treatment room</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementProcessStation id="12">
+      <ModelElementName>Care 2</ModelElementName>
+      <ModelElementSize h="50" w="100" x="850" y="200"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">LogNormalDist(TimeCare;TimeCare*0,67)</ModelElementExpression>
+      <ModelElementPriority ClientType="Patienten">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Patients">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Care"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementText id="32">
+      <ModelElementSize h="64" w="381" x="50" y="650"/>
+      <ModelElementTextLine>**Note:**</ModelElementTextLine>
+      <ModelElementTextLine>The different control variants can be set via the "Operators" tab</ModelElementTextLine>
+      <ModelElementTextLine>(number of treatment rooms) and via the "Initial variable values"</ModelElementTextLine>
+      <ModelElementTextLine>tab (service times for care and physician) in the model properties dialog.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Icon="status_online" Name="Treatment room" Type="Number" Value="4"/>
+    <Resource Icon="status_online" Name="Physician" Type="Number" Value="1"/>
+    <Resource Icon="status_online" Name="Care" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <InitialVariable Name="TimeCare">9</InitialVariable>
+  <InitialVariable Name="TimePhysician">27</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>
