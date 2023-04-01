@@ -11,7 +11,7 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'none'; connect-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: github.com a-herzog.github.io raw.githubusercontent.com img.shields.io; media-src a-herzog.github.io;">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-  <link href="./libs/bootstrap.min.css" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+  <link href="./libs/bootstrap.min.css" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" rel="stylesheet">
   <link href="./libs/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
   <script defer src="./libs/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"></script>
   <style>
@@ -32,7 +32,10 @@
 <body class="bg-light bg-gradient">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top" id="navbar_main"><div class="container-fluid">
-  <span class="navbar-brand mb-0 h1"><img src="./favicon.ico" id="logo" alt="Warteschlangensimulator" title="Warteschlangensimulator"> Warteschlangensimulator</span>
+  <span class="navbar-brand mb-0 h1">
+    <img src=" data:image/webp;base64,UklGRoIBAABXRUJQVlA4WAoAAAAIAAAAIAAAIAAAVlA4TIYAAAAvIAAIACcgEEhSn3wNAkmbLfqK/wKCouuWm/+Axu6vAkdtJElS9kFghsGUmkE2gJQ2+aMaVc1e/4j+T0CUe+Z84CrFcXdkr6eyR1TOqxal+yecXGFHdCRlwNHFsSmOTWETKydy5LBJ6j0iyfEBM4VNUqVXTiLn6vK05WkLNlZHUgGs6FH+X0VYSUbWAAAASUkqAAgAAAAGABIBAwABAAAAAQAAABoBBQABAAAAVgAAABsBBQABAAAAXgAAACgBAwABAAAAAgAAADEBAgAQAAAAZgAAAGmHBAABAAAAdgAAAAAAAABgAAAAAQAAAGAAAAABAAAAcGFpbnQubmV0IDUuMC4yAAUAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAAAqAEAAEAAAAhAAAAA6AEAAEAAAAhAAAABaAEAAEAAAC4AAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAAA==" id="logo" alt="Warteschlangensimulator" title="Warteschlangensimulator"> 
+	Warteschlangensimulator
+  </span>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav me-auto mb-2 mb-lg-0">
     <li class="nav-item"><a class="nav-link bi-house-door" href="#Home" data-bs-target="#Home"> Home</a></li>
@@ -78,7 +81,7 @@ Available languages in program and for documentation: English, German
 </p>
 </div>
 <div class="col-md-6">
-<img src="https://github.com/A-Herzog/Warteschlangensimulator/raw/master/Images/Screenshot_en.webp" class="rounded shadow zoom" alt="Screenshot Warteschlangensimulator" title="Screenshot Warteschlangensimulator" width="100%">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_small.webp" data-large-src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en.webp" class="rounded shadow zoom" alt="Screenshot Warteschlangensimulator" title="Screenshot Warteschlangensimulator" width="100%" style="aspect-ratio: 506 / 381">
 </div>
 </div>
 
@@ -102,8 +105,9 @@ tables and diagrams and can also be exported. Also a configurable report generat
 <div class="col-lg-4">
 <div class="h4 bi-rocket-takeoff"> Fast simulation</div>
 Warteschlangensimulator has a very fast, multicore capable simulation engine. On desktop systems for many simulation models
-&gt;100.000 arrivals/second/core are possible. This makes the simulator fast enough to be used in an interactive way.
-Also for high precision research questions models with more than 1 billion arrivals can be simulated within seconds to few minutes.
+&gt;100.000 arrivals/second/core are possible. This makes the simulator fast enough to be used in an interactive way for
+exploratory model analysis. Also for high precision research questions models with more than 1 billion arrivals can be simulated
+within seconds to few minutes.
 </div>
 </div>
 </div>
@@ -118,11 +122,11 @@ Also for high precision research questions models with more than 1 billion arriv
 
 <div class="row" style="margin-top: 30px;"><div class="col">
 Latest version:
-<img src="https://img.shields.io/github/v/release/a-herzog/warteschlangensimulator" loading="lazy" alt="Latest Warteschlangensimulator release" title="Latest Warteschlangensimulator release">
-<img src="https://img.shields.io/github/release-date/a-herzog/warteschlangensimulator" loading="lazy" alt="Release date of latest Warteschlangensimulator version" title="Release date of latest Warteschlangensimulator version">
+<img src="https://img.shields.io/github/v/release/a-herzog/warteschlangensimulator" loading="lazy" alt="Latest Warteschlangensimulator release" title="Latest Warteschlangensimulator release" height="20">
+<img src="https://img.shields.io/github/release-date/a-herzog/warteschlangensimulator" loading="lazy" alt="Release date of latest Warteschlangensimulator version" title="Release date of latest Warteschlangensimulator version" height="20">
 (<a href="https://github.com/A-Herzog/Warteschlangensimulator/wiki/Release-notes" target="_blank" alt="Release notes in Warteschlangensimulator GitHub wiki" title="Release notes in Warteschlangensimulator GitHub wiki">Release notes &amp; roadmap</a>)
 <br>
-Total downloads: <img src="https://img.shields.io/github/downloads/a-herzog/warteschlangensimulator/total" loading="lazy" alt="Download counter" title="Download counter">
+Total downloads: <img src="https://img.shields.io/github/downloads/a-herzog/warteschlangensimulator/total" loading="lazy" alt="Download counter" title="Download counter" height="20">
 <br><br>
 <strong>100% free and open source:</strong>
 </div></div>
@@ -229,13 +233,13 @@ Total downloads: <img src="https://img.shields.io/github/downloads/a-herzog/wart
 Warteschlangensimulator enables modelling, simulation and optimization of many questions from the field of production planning. Especially problems in the area of production and logistics systems can be analyzed very well with the help of Warteschlangensimulator.
 
 <div class="clearfix">
-<img src="https://github.com/A-Herzog/Warteschlangensimulator/raw/master/Images/Screenshot_en_flowchart.webp" loading="lazy" class="rounded shadow col-md-8 ms-3 mb-3 float-md-end mw-100 zoom" alt="Warteschlangensimulator - Modelling" title="Warteschlangensimulator - Modelling">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_flowchart.webp" loading="lazy" class="rounded shadow col-md-8 ms-3 mb-3 float-md-end mw-100 zoom" alt="Warteschlangensimulator - Modelling" title="Warteschlangensimulator - Modelling" style="aspect-ratio: 506 / 381">
 <h3 class="h4">Modelling of queueing systems in the form of flowcharts</h3>
 Complex production and logistics processes can easily be modelled for simulation in Warteschlangensimulator in the form of flowcharts.
 </div>
 
 <div class="clearfix">
-<img src="https://github.com/A-Herzog/Warteschlangensimulator/raw/master/Images/Screenshot_en_animation.webp" loading="lazy" class="rounded shadow col-md-8 me-3 mb-3 float-md-start mw-100 zoom" alt="Warteschlangensimulator - Animation" title="Warteschlangensimulator - Animation">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_animation.webp" loading="lazy" class="rounded shadow col-md-8 me-3 mb-3 float-md-start mw-100 zoom" alt="Warteschlangensimulator - Animation" title="Warteschlangensimulator - Animation" style="aspect-ratio: 506 / 381">
 <h3 class="h4">Animation</h3>
 All queueing models created as flowcharts can be visualized as animation. During the animation the changes in certain values can be followed live (both in the form of text values and in the form of continuously updated diagrams). Certain station types can be used to directly intervene in the control system during a running animation.
 <br><br>
@@ -245,13 +249,13 @@ See also <a href="#AnimationVideo">video showing a running animation</a>.
 </div>
 
 <div class="clearfix anchor" id="StatisticsRecording">
-<img src="https://github.com/A-Herzog/Warteschlangensimulator/raw/master/Images/Screenshot_en_statistics.webp" loading="lazy" class="rounded shadow col-md-8 ms-3 mb-3 float-md-end mw-100 zoom" alt="Warteschlangensimulator - Statistics" title="Warteschlangensimulator - Statistics">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_statistics.webp" loading="lazy" class="rounded shadow col-md-8 ms-3 mb-3 float-md-end mw-100 zoom" alt="Warteschlangensimulator - Statistics" title="Warteschlangensimulator - Statistics" style="aspect-ratio: 506 / 381">
 <h3 class="h4">Statistics recording</h3>
 During the simulation of a model, all relevant performance indicators are automatically recorded and are available for evaluation when the simulation is completed. For easy further processing of the data, Warteschlangensimulator uses open file formats, but can also export e.g. tables in formats for common spreadsheet applications.
 </div>
 
 <div class="clearfix anchor" id="AutomationOfStudies">
-<img src="https://github.com/A-Herzog/Warteschlangensimulator/raw/master/Images/Screenshot_en_parameterseries.webp" loading="lazy" class="rounded shadow col-md-8 me-3 mb-3 float-md-start mw-100 zoom" alt="Warteschlangensimulator - Parameter studies" title="Warteschlangensimulator - Parameter studies">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_parameterseries.webp" loading="lazy" class="rounded shadow col-md-8 me-3 mb-3 float-md-start mw-100 zoom" alt="Warteschlangensimulator - Parameter studies" title="Warteschlangensimulator - Parameter studies" style="aspect-ratio: 506 / 381">
 <h3 class="h4">Automation of studies</h3>
 To investigate the effects of changes in individual parameters, these can be varied automatically within a certain range and the simulation results for these parameter series can be displayed in table or graphic form.
 <br><br>
@@ -261,7 +265,7 @@ See also <a href="#ParameterStudyVideo">video showing a parameter study</a>.
 </div>
 
 <div class="clearfix">
-<img src="https://github.com/A-Herzog/Warteschlangensimulator/raw/master/Images/Screenshot_en_net.webp" loading="lazy" class="rounded shadow col-md-8 ms-3 mb-3 float-md-end mw-100 zoom" alt="Warteschlangensimulator - Queueing networks" title="Warteschlangensimulator - Queueing networks">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_net.webp" loading="lazy" class="rounded shadow col-md-8 ms-3 mb-3 float-md-end mw-100 zoom" alt="Warteschlangensimulator - Queueing networks" title="Warteschlangensimulator - Queueing networks" style="aspect-ratio: 506 / 381">
 <h3 class="h4">Queueing networks and complex control strategies</h3>
 Branching and barriers can be modelled using complex rules that go far beyond the possibilities of analytical models. Even user-defined scripts can be used to delay or branch clients.
 <br><br>
@@ -269,7 +273,7 @@ Push/pull production, batching, choosing queues by conditions, impatience of cli
 </div>
 
 <div class="clearfix anchor" id="ModellingCapabilities">
-<img src="https://github.com/A-Herzog/Warteschlangensimulator/raw/master/Images/Screenshot_en_stations.webp" loading="lazy" class="rounded border shadow col-md-8 me-3 mb-3 float-md-start mw-100 zoom" alt="Warteschlangensimulator - Station types" title="Warteschlangensimulator - Station types">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_stations.webp" loading="lazy" class="rounded border shadow col-md-8 me-3 mb-3 float-md-start mw-100 zoom" alt="Warteschlangensimulator - Station types" title="Warteschlangensimulator - Station types" style="aspect-ratio: 376 / 229">
 <h3 class="h4">Modelling capabilities</h3>
 Warteschlangensimulator provides more than 100 different template elements for creating queueing models.
 <br><br>
@@ -392,13 +396,13 @@ Citing "Simulation mit dem Warteschlangensimulator" using BibTeX:
 </div>
 <div class="col-md-3">
 <a href="https://a-herzog.github.io/Warteschlangensimulator/IntroducingWarteschlangensimulator.pdf" target="_blank">
-<img src="https://github.com/A-Herzog/Warteschlangensimulator/raw/master/docs/IntroducingWarteschlangensimulator.png" loading="lazy" class="border rounded shadow mb-5 w-100" alt="Introduction slides for Warteschlangensimulator (pdf)" title="Introduction slides for Warteschlangensimulator (pdf)">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/docs/IntroducingWarteschlangensimulator.png" loading="lazy" class="border rounded shadow mb-5 w-100" alt="Introduction slides for Warteschlangensimulator (pdf)" title="Introduction slides for Warteschlangensimulator (pdf)" style="aspect-ratio: 600 / 337">
 </a>
 <a href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Features.pdf" target="_blank">
-<img src="https://github.com/A-Herzog/Warteschlangensimulator/raw/master/docs/Warteschlangensimulator-Features.png" loading="lazy" class="border rounded shadow mb-5 w-100" alt="Feature overview slides for Warteschlangensimulator (pdf)" title="Feature overview slides for Warteschlangensimulator (pdf)">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/docs/Warteschlangensimulator-Features.png" loading="lazy" class="border rounded shadow mb-5 w-100" alt="Feature overview slides for Warteschlangensimulator (pdf)" title="Feature overview slides for Warteschlangensimulator (pdf)" style="aspect-ratio: 600 / 338">
 </a>
 <a href="https://www.springer.com/gp/book/9783658346676" target="_blank">
-<img src="https://github.com/A-Herzog/Warteschlangensimulator/raw/master/Images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.webp" loading="lazy" class="border rounded shadow w-100" alt='Textbook "Simulation mit dem Warteschlangensimulator"' title='Textbook "Simulation mit dem Warteschlangensimulator"'>
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.webp" loading="lazy" class="border rounded shadow w-100" alt='Textbook "Simulation mit dem Warteschlangensimulator"' title='Textbook "Simulation mit dem Warteschlangensimulator"' style="aspect-ratio: 400 / 610">
 </a>
 </div>
 </div>
@@ -412,14 +416,17 @@ Citing "Simulation mit dem Warteschlangensimulator" using BibTeX:
 
 <footer class="text-center text-lg-start bg-secondary text-muted text-white pt-2 pb-2 mt-5"><div class="ps-2 text-white">
 &copy; <a href="https://github.com/A-Herzog" target="_blank" title="Alexander Herzog at GitHub" class="text-white">Alexander Herzog</a>
-&nbsp;&middot;&nbsp; <a href="https://github.com/A-Herzog/Warteschlangensimulator" target="_blank" title="Warteschlangensimulator GitHub repository" class="text-white">GitHub</a>
+&nbsp;&middot;&nbsp; <a href="https://queueingsimulation.de" target="_blank" class="text-white">queueingsimulation.de</a>
+&nbsp;&middot;&nbsp; <a href="https://github.com/A-Herzog/Warteschlangensimulator" target="_blank" title="Warteschlangensimulator GitHub repository" class="text-white">GitHub repository</a>
+&nbsp;&middot;&nbsp; <a href="https://aka.ms/impressum" target="_blank" class="text-white">GitHub imprint</a>
+&nbsp;&middot;&nbsp; <a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" target="_blank" title="GitHub privacy" class="text-white">GitHub privacy</a>
 &nbsp;&middot;&nbsp; <a href="https://github.com/A-Herzog/Warteschlangensimulator" target="_blank"><img src="https://img.shields.io/github/stars/a-herzog/warteschlangensimulator?style=social" loading="lazy" alt="GitHub stars for Warteschlangensimulator" title="GitHub stars for Warteschlangensimulator"></a>
 </div>
 </footer>
 
 <div class="modal fade" id="imagemodal" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" data-dismiss="modal"><div class="modal-content">
   <div class="modal-header"><div class="modal-title h5">Warteschlangensimulator</div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-  <div class="modal-body"><img style="width: 100%;" ></div>
+  <div class="modal-body"><img style="width: 100%;" alt="Modal image"></div>
   <div class="modal-footer"><p></p></div>
 </div></div></div>
 
@@ -427,7 +434,7 @@ Citing "Simulation mit dem Warteschlangensimulator" using BibTeX:
 for (let element of document.querySelectorAll("img.zoom")) {
   element.style.cursor="pointer";
   element.onclick=e=>{
-    imagemodal.querySelector(".modal-content img").src=e.target.src;
+    imagemodal.querySelector(".modal-content img").src=(typeof(e.target.dataset.largeSrc)!='undefined')?e.target.dataset.largeSrc:e.target.src;
     imagemodal.querySelector(".modal-footer p").innerText=e.target.title;
     new bootstrap.Modal(imagemodal).show();
   };
