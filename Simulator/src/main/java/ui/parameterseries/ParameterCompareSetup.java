@@ -689,6 +689,12 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 	}
 
 	/**
+	 * Thread-Pool zur parallelen Berechnung der Laufzeitstatistikdaten
+	 * @see #getLongRunData(double[])
+	 */
+	private ExecutorService executor;
+
+	/**
 	 * Berechnet die zusammengefassten Laufzeitstatistikdaten für die einzelnen Laufzeitstatistikindikatoren
 	 * @param quantilLevels	Auszugebende Quantilwerte (darf nicht <code>null</code> sein)
 	 * @return	Zuordnung von Laufzeitstatistikindikatorennamen zu den jeweiligen Daten
@@ -698,7 +704,7 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 		final Map<String,LongRunData> data=new HashMap<>();
 
 		/* Threading-System vorbereiten */
-		final ExecutorService executor=getExecutorService();
+		executor=getExecutorService();
 
 		/* Parallele Verarbeitung starten */
 		final List<Future<Map<String,LongRunData>>> results=new ArrayList<>();
@@ -730,6 +736,13 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 		return data;
 	}
 
+
+	/**
+	 * Thread-Pool zur parallelen Berechnung der Laufzeitstatistikdaten
+	 * @see #getLongRunDetailsData()
+	 */
+	private ExecutorService executor2;
+
 	/**
 	 * Liefer die Laufzeitstatistikdaten für die einzelnen Laufzeitstatistikindikatoren
 	 * @return	Zuordnung von Laufzeitstatistikindikatorennamen zu den jeweiligen Daten
@@ -738,14 +751,14 @@ public final class ParameterCompareSetup extends XMLData implements Cloneable {
 		final Map<String,Map<String,double[]>> data=new HashMap<>();
 
 		/* Threading-System vorbereiten */
-		final ExecutorService executor=getExecutorService();
+		executor2=getExecutorService();
 
 		/* Parallele Verarbeitung starten */
 		final List<Future<Map<String,double[]>>> results=new ArrayList<>();
 		final List<String> names=new ArrayList<>();
 		for (ParameterCompareSetupModel model: models) if (model.isStatisticsAvailable()) {
 			names.add(model.getName());
-			results.add(executor.submit(()->{
+			results.add(executor2.submit(()->{
 				final Map<String,double[]> subData=new HashMap<>();
 				final StatisticsMultiPerformanceIndicator longRunStatistics=model.getStatistics().longRunStatistics;
 				for (String name: longRunStatistics.getNames()) {

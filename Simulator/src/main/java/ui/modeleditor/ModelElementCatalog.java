@@ -84,6 +84,10 @@ public final class ModelElementCatalog {
 	 */
 	private Map<String,ModelElement> elementsLoad;
 
+	/**
+	 * Thread-Pool für die Katalogerstellung
+	 */
+	private ExecutorService executor;
 
 	/**
 	 * Alle Elemente nach Gruppen sortiert
@@ -142,7 +146,7 @@ public final class ModelElementCatalog {
 	 */
 	private boolean initCatalog() {
 		final int coreCount=Runtime.getRuntime().availableProcessors();
-		final ExecutorService executor=new ThreadPoolExecutor(coreCount,coreCount,5,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
+		executor=new ThreadPoolExecutor(coreCount,coreCount,5,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
 			private final AtomicInteger threadNumber=new AtomicInteger(1);
 			@Override
 			public Thread newThread(Runnable r) {

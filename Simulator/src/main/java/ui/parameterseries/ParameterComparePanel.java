@@ -179,6 +179,11 @@ public class ParameterComparePanel extends SpecialPanel {
 	private List<Statistics> compareModels=null;
 
 	/**
+	 * Thread-Pool zur parallelen Neuberechnung der Ergebnisse der Modelle
+	 */
+	private ExecutorService executor;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param modelFromEditor	Editor-Modell auf dessen Basis die Parameterreihe erstellt werden soll
@@ -415,7 +420,7 @@ public class ParameterComparePanel extends SpecialPanel {
 
 		/* Threading-System vorbereiten */
 		final int coreCount=Runtime.getRuntime().availableProcessors();
-		final ExecutorService executor=new ThreadPoolExecutor(coreCount,coreCount,5,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
+		executor=new ThreadPoolExecutor(coreCount,coreCount,5,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
 			private final AtomicInteger threadNumber=new AtomicInteger(1);
 			@Override
 			public Thread newThread(Runnable r) {

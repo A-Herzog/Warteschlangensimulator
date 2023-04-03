@@ -112,6 +112,11 @@ public class InfoDialog extends JDialog {
 	public boolean showLicenses;
 
 	/**
+	 * Hintergrund-Bild-Loader
+	 */
+	private ExecutorService executor;
+
+	/**
 	 * Liefert eine Zusammenstellung der System-Informationen.
 	 * @param showRAM	Auch Informationen zur Speicherbelegung ausgeben?
 	 * @return	Liste mit System-Informationen
@@ -187,7 +192,7 @@ public class InfoDialog extends JDialog {
 		image.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		final URL imageURL=MainFrame.class.getResource("res/Warteschlangennetz.png");
-		final ExecutorService executor=new ThreadPoolExecutor(0,1,1,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r->new Thread(r,"Image loader"));
+		executor=new ThreadPoolExecutor(0,1,1,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r->new Thread(r,"Image loader"));
 		executor.execute(new FutureTask<Integer>(()->{
 			if (imageURL!=null) image.setIcon(new ImageIcon(imageURL)); else image.setVisible(false);
 			return null;

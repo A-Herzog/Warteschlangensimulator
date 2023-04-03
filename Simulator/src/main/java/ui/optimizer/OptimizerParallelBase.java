@@ -113,6 +113,11 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	private boolean canceled;
 
 	/**
+	 * Thread-Pool zum parallelen Erstellen der XML-Daten
+	 */
+	private ThreadPoolExecutor executorPool;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element (kann <code>null</code> sein, wenn kein solches vorhanden ist)
 	 */
@@ -410,7 +415,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 
 		/* Paralleles Erstellen der XML-Dokumente */
 		final int maxThreads=Math.min(10,Runtime.getRuntime().availableProcessors());
-		final ThreadPoolExecutor executorPool=new ThreadPoolExecutor(maxThreads,maxThreads,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>());
+		executorPool=new ThreadPoolExecutor(maxThreads,maxThreads,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>());
 		executorPool.allowCoreThreadTimeOut(true);
 		final List<Future<Document>> documents=new ArrayList<>();
 		for (int i=0;i<statistics.length;i++) if (statistics[i]==null) {

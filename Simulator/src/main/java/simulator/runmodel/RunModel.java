@@ -721,6 +721,11 @@ public class RunModel {
 	private static int prepareThreadNr=0;
 
 	/**
+	 * Thread-Pool zur parallelen Vorbereitung des Modells
+	 */
+	private static ThreadPoolExecutor executorPool;
+
+	/**
 	 * Überträgt die Stationen aus dem Editor-Modell in das Laufzeit-Modell.
 	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
 	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
@@ -738,7 +743,7 @@ public class RunModel {
 		final int coreCount=Runtime.getRuntime().availableProcessors();
 		final int maxThreadsByMemory=(int)Math.max(1,Runtime.getRuntime().maxMemory()/1024/1024/100); /* min. 100 MB pro Thread */
 		final int threadCount=Math.min(coreCount,maxThreadsByMemory);
-		final ThreadPoolExecutor executorPool=new ThreadPoolExecutor(threadCount,threadCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r-> {
+		executorPool=new ThreadPoolExecutor(threadCount,threadCount,2,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r-> {
 			prepareThreadNr++;
 			return new Thread(r,"Prepare model for simulation "+prepareThreadNr);
 		});

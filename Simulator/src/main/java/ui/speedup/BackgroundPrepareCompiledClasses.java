@@ -38,6 +38,11 @@ public class BackgroundPrepareCompiledClasses {
 	private static final int START_DELAY=5_000;
 
 	/**
+	 * Vorab-Kompilierung verzögert starten
+	 */
+	private ScheduledExecutorService scheduler;
+
+	/**
 	 * Konstruktor der Klasse
 	 */
 	private BackgroundPrepareCompiledClasses() {
@@ -45,7 +50,7 @@ public class BackgroundPrepareCompiledClasses {
 		final SetupData.BackgroundProcessingMode backgroundMode=setup.backgroundSimulation;
 		if (!setup.serverUse && (backgroundMode==SetupData.BackgroundProcessingMode.BACKGROUND_SIMULATION || backgroundMode==SetupData.BackgroundProcessingMode.BACKGROUND_SIMULATION_ALWAYS)) {
 
-			final ScheduledExecutorService scheduler=new ScheduledThreadPoolExecutor(1,(ThreadFactory)r-> {
+			scheduler=new ScheduledThreadPoolExecutor(1,(ThreadFactory)r-> {
 				final Thread t=new Thread(r,"Precompile Simulator classes");
 				t.setDaemon(true);
 				return t;
