@@ -147,7 +147,7 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 	@Override
 	public void setStatistics(final Statistics statistics) {
 		super.setStatistics(statistics);
-		dataFilter=new JSRunDataFilter(statistics.saveToXMLDocument(),statistics.loadedStatistics);
+		dataFilter=new JSRunDataFilter(statistics.saveToXMLDocument(),statistics,statistics.loadedStatistics);
 	}
 
 	/**
@@ -213,7 +213,7 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 			executionNr++;
 			final int ownEexecutionNr=executionNr;
 			executor.submit(()->{
-				if (dataFilter==null) dataFilter=new JSRunDataFilter(statistics.saveToXMLDocument(),statistics.loadedStatistics);
+				if (dataFilter==null) dataFilter=new JSRunDataFilter(statistics.saveToXMLDocument(),statistics,statistics.loadedStatistics);
 				dataFilter.run(text);
 				final String result=dataFilter.getResults();
 				if (executionNr==ownEexecutionNr) {

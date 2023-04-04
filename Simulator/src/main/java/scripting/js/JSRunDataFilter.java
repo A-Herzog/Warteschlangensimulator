@@ -35,6 +35,11 @@ public final class JSRunDataFilter {
 	private final Document xml;
 
 	/**
+	 * Statistikdaten, die den XML-Daten entsprechen (darf <code>null</code> sein)
+	 */
+	private final Statistics statisticsData;
+
+	/**
 	 * Optional: Name der Datei aus der die XML-Statistik-Daten stammen
 	 */
 	private File xmlFile;
@@ -57,7 +62,18 @@ public final class JSRunDataFilter {
 	 * @param xmlFile	Optional: Name der Datei aus der die XML-Statistik-Daten stammen
 	 */
 	public JSRunDataFilter(final Document xml, final File xmlFile) {
+		this(xml,null,xmlFile);
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param xml	XMl-Statistik-Daten, die gefiltert werden sollen
+	 * @param statisticsData	Optionales Statistikobjekt (darf <code>null</code> sein), welches den XML-Daten entspricht (wird sonst - langsamer - aus den XML-Daten geladen)
+	 * @param xmlFile	Optional: Name der Datei aus der die XML-Statistik-Daten stammen
+	 */
+	public JSRunDataFilter(final Document xml, final Statistics statisticsData, final File xmlFile) {
 		this.xml=xml;
+		this.statisticsData=statisticsData;
 		this.xmlFile=xmlFile;
 		lastSuccess=false;
 		lastResults="";
@@ -70,8 +86,13 @@ public final class JSRunDataFilter {
 	 */
 	public boolean run(final String script) {
 		final JSBuilder builder=new JSBuilder(SetupData.getSetup().maxJSRunTimeSeconds*1_000);
-		final Statistics statistics=new Statistics();
-		statistics.loadFromXML(xml.getDocumentElement());
+		final Statistics statistics;
+		if (statisticsData==null) {
+			statistics=new Statistics();
+			statistics.loadFromXML(xml.getDocumentElement());
+		} else {
+			statistics=statisticsData;
+		}
 		statistics.loadedStatistics=xmlFile;
 		final JSCommandSystem commandSystem;
 		builder.addBinding("System",commandSystem=new JSCommandSystem());
