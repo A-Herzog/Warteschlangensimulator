@@ -121,7 +121,7 @@ public class ModelElementTextRendererMarkDownLaTeX extends ModelElementTextRende
 	 * @param renderLaTeX	Sollen LaTeX-Brüche, -Binomialkoeffizienten und Hoch- und Tiefstellungen interpretiert werden?
 	 */
 	public void setRenderMode(final boolean renderMarkDown, final boolean renderLaTeX) {
-		if (this.renderMarkDown!=renderMarkDown || this.renderMarkDown!=renderMarkDown) setNeedRecalc();
+		if (this.renderMarkDown!=renderMarkDown || this.renderLaTeX!=renderLaTeX) setNeedRecalc();
 		this.renderMarkDown=renderMarkDown;
 		this.renderLaTeX=renderLaTeX;
 	}
@@ -362,16 +362,32 @@ public class ModelElementTextRendererMarkDownLaTeX extends ModelElementTextRende
 		int defaultDescent=-1;
 
 		for (List<Token> line: lines) {
+			/* Elemente in der Zeile */
 			int lWidth=0;
 			int lAscent=0;
 			int lDescent=0;
+			boolean lastIsSupSub=false;
+			int storedWidth=0;
 			for (Token element: line) {
 				element.setupFont(fontSize,fontFamily,zoom);
 				final int[] info=element.calcSize(graphics);
-				lWidth+=info[0];
+				if (lastIsSupSub && !element.isSupSub()) {
+					lWidth+=storedWidth;
+					lastIsSupSub=false;
+					storedWidth=0;
+				}
+				if (element.isSupSub()) {
+					lastIsSupSub=true;
+					storedWidth=Math.max(storedWidth,info[0]);
+				} else {
+					lWidth+=info[0];
+				}
 				lAscent=Math.max(lAscent,info[1]);
 				lDescent=Math.max(lDescent,info[2]);
 			}
+			if (lastIsSupSub) lWidth+=storedWidth;
+
+			/* Leerzeile? */
 			if (line.size()==0) {
 				if (defaultAscent<0) {
 					int style=Font.PLAIN;
@@ -386,6 +402,8 @@ public class ModelElementTextRendererMarkDownLaTeX extends ModelElementTextRende
 				lAscent=defaultAscent;
 				lDescent=defaultDescent;
 			}
+
+			/* Daten zu Zählung hinzufügen */
 			lineWidth.add(lWidth);
 			lineAscent.add(lAscent);
 			lineDescent.add(lDescent);
@@ -412,9 +430,12 @@ public class ModelElementTextRendererMarkDownLaTeX extends ModelElementTextRende
 			}
 
 			int lineY=y+ascent;
+			int storedW=0;
 			for (Token token: line) {
+				final boolean isSupSub=token.isSupSub();
+				if (!isSupSub) {lineX+=storedW; storedW=0;}
 				final int w=token.draw(graphics,lineX,lineY);
-				lineX+=w;
+				if (isSupSub) storedW=Math.max(storedW,w); else lineX+=w;
 			}
 			y+=ascent+descent;
 		}
@@ -622,6 +643,14 @@ public class ModelElementTextRendererMarkDownLaTeX extends ModelElementTextRende
 
 				return new int[] {0,0,0};
 			}
+		}
+
+		/**
+		 * Handelt es sich bei dem Element um eine Hoch- oder Tiefstellung?
+		 * @return	Hoch- oder Tiefstellung?
+		 */
+		public boolean isSupSub() {
+			return text.equals("^") || text.equals("_");
 		}
 
 		/**
