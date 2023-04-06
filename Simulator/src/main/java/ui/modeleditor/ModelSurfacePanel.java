@@ -3685,7 +3685,7 @@ public final class ModelSurfacePanel extends JPanel {
 					JViewport viewport=(JViewport)getParent();
 					Point point=viewport.getViewPosition();
 					if (e.isAltDown() || e.isAltGraphDown()) {
-						if (Math.abs(e.getWheelRotation())==1) {
+						if (Math.abs(e.getWheelRotation())==1 && !e.isShiftDown()) {
 							/* Rad */
 							point.x+=viewport.getWidth()/WHEEL_SCROLL_FRACTION*e.getWheelRotation();
 							if (point.x<0) point.x=0;
@@ -3695,7 +3695,7 @@ public final class ModelSurfacePanel extends JPanel {
 							if (point.y<0) point.y=0;
 						}
 					} else {
-						if (Math.abs(e.getWheelRotation())==1) {
+						if (Math.abs(e.getWheelRotation())==1 && !e.isShiftDown()) {
 							/* Rad */
 							point.y+=viewport.getHeight()/WHEEL_SCROLL_FRACTION*e.getWheelRotation();
 							if (point.y<0) point.y=0;
