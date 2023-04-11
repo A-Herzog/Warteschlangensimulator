@@ -18,6 +18,7 @@ package ui.modeleditor.coreelements;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -412,6 +413,12 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	private Font lastFontDefaultBox;
 
 	/**
+	 * Cache für eine etwas kleinere Version der normalen Schriftart
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private Font lastFontDefaultBoxSmaller;
+
+	/**
 	 * Cache für fette Schriftart
 	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
 	 */
@@ -461,6 +468,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			lastBoxFontLarge=new Font(boxFontLarge.getName(),boxFontLarge.getStyle(),boxFontLarge.getSize());
 			lastBoxFontSmall=new Font(boxFontSmall.getName(),boxFontSmall.getStyle(),boxFontSmall.getSize());
 			lastFontDefaultBox=new Font(boxFontSmall.getName(),setup.useHighContrasts?Font.BOLD:boxFontSmall.getStyle(),(int)FastMath.round(boxFontSmall.getSize()*zoom));
+			lastFontDefaultBoxSmaller=new Font(boxFontSmall.getName(),setup.useHighContrasts?Font.BOLD:boxFontSmall.getStyle(),(int)FastMath.round(boxFontSmall.getSize()*zoom*0.85));
 			lastFontBoldBox=new Font(boxFontLarge.getName(),boxFontLarge.getStyle(),(int)FastMath.round(boxFontLarge.getSize()*zoom));
 			lastZoomFontBox=zoom;
 			lastUseHighContrasts=setup.useHighContrasts;
@@ -473,39 +481,55 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 
 		setClip(graphics,drawRect,objectRect);
 
-		if (drawText  && getUserBackgroundImage()==null) {
+		if (drawText && getUserBackgroundImage()==null) {
 
 			int x,y;
 			String textType=getTypeName();
 			final String textName=getName();
+			final boolean hasName=(textName!=null && !textName.isEmpty());
 
 			int yStart;
+
 			graphics.setFont(lastFontDefaultBox);
+			FontMetrics metrics=graphics.getFontMetrics();
+
 			if (textType!=null && !textType.isEmpty()) {
 				final String subType=getSubTypeName();
 				if (subType!=null && !subType.isEmpty()) {
-					x=objectRect.x+(objectRect.width-graphics.getFontMetrics().stringWidth(textType))/2;
-					if (textName!=null && !textName.isEmpty()) {
-						y=objectRect.y+2*objectRect.height/3-2*graphics.getFontMetrics().getDescent()-graphics.getFontMetrics().getAscent();
+					int w=metrics.stringWidth(textType);
+					if (objectRect.width-2<w) {
+						graphics.setFont(lastFontDefaultBoxSmaller);
+						metrics=graphics.getFontMetrics();
+						w=metrics.stringWidth(textType);
+					}
+					x=objectRect.x+(objectRect.width-w)/2;
+					if (hasName) {
+						y=objectRect.y+2*objectRect.height/3-2*metrics.getDescent()-graphics.getFontMetrics().getAscent();
 					} else {
-						y=objectRect.y+objectRect.height/2-graphics.getFontMetrics().getDescent();
+						y=objectRect.y+objectRect.height/2-metrics.getDescent();
 					}
 					graphics.drawString(textType,x,y);
 					final String textSub="("+subType+")";
-					x=objectRect.x+(objectRect.width-graphics.getFontMetrics().stringWidth(textSub))/2;
-					if (textName!=null && !textName.isEmpty()) {
-						y=objectRect.y+2*objectRect.height/3-graphics.getFontMetrics().getDescent();
+					x=objectRect.x+(objectRect.width-metrics.stringWidth(textSub))/2;
+					if (hasName) {
+						y=objectRect.y+2*objectRect.height/3-metrics.getDescent();
 					} else {
-						y=objectRect.y+objectRect.height/2+graphics.getFontMetrics().getAscent();
+						y=objectRect.y+objectRect.height/2+metrics.getAscent();
 					}
 					graphics.drawString(textSub,x,y);
 					yStart=objectRect.y+2*objectRect.height/3;
 				} else {
-					x=objectRect.x+(objectRect.width-graphics.getFontMetrics().stringWidth(textType))/2;
-					if (textName!=null && !textName.isEmpty()) {
-						y=objectRect.y+objectRect.height/2-graphics.getFontMetrics().getDescent();
+					int w=metrics.stringWidth(textType);
+					if (objectRect.width-2<w) {
+						graphics.setFont(lastFontDefaultBoxSmaller);
+						metrics=graphics.getFontMetrics();
+						w=metrics.stringWidth(textType);
+					}
+					x=objectRect.x+(objectRect.width-w)/2;
+					if (hasName) {
+						y=objectRect.y+objectRect.height/2-metrics.getDescent();
 					} else {
-						y=objectRect.y+objectRect.height/2+(graphics.getFontMetrics().getAscent()-graphics.getFontMetrics().getDescent())/2;
+						y=objectRect.y+objectRect.height/2+(metrics.getAscent()-metrics.getDescent())/2;
 					}
 					graphics.drawString(textType,x,y);
 					yStart=objectRect.y+objectRect.height/2;
@@ -514,10 +538,11 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 				yStart=objectRect.y+objectRect.height/2;
 			}
 
-			if (textName!=null && !textName.isEmpty()) {
+			if (hasName) {
 				graphics.setFont(lastFontBoldBox);
-				x=objectRect.x+(objectRect.width-graphics.getFontMetrics().stringWidth(textName))/2;
-				y=yStart+graphics.getFontMetrics().getAscent();
+				metrics=graphics.getFontMetrics();
+				x=objectRect.x+(objectRect.width-metrics.stringWidth(textName))/2;
+				y=yStart+metrics.getAscent();
 				graphics.drawString(textName,x,y);
 			}
 		}
