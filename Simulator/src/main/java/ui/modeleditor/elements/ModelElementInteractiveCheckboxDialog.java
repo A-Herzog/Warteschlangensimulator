@@ -112,7 +112,7 @@ public class ModelElementInteractiveCheckboxDialog extends ModelElementBaseDialo
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
 
-		data=getInputPanel(Language.tr("Surface.InteractiveCheckbox.Dialog.ValueUnchecked")+":",NumberTools.formatNumber(checkbox.getValueChecked()));
+		data=getInputPanel(Language.tr("Surface.InteractiveCheckbox.Dialog.ValueUnchecked")+":",NumberTools.formatNumber(checkbox.getValueUnchecked()));
 		setup.add((JPanel)data[0]);
 		editValueUnchecked=(JTextField)data[1];
 		editValueUnchecked.addKeyListener(new KeyListener() {
