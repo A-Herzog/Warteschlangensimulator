@@ -2113,8 +2113,8 @@ public class MainPanel extends MainPanelBase {
 		try {major=Integer.parseInt(ver[0]);} catch (Exception e) {major=0;}
 		if (major==0) return new int[]{7,0};
 		int security=0;
-		if (ver.length>1) try {
-			final String part=ver[ver.length-1].split("\\-")[0];
+		if (ver.length>=3) try {
+			final String part=ver[2].split("\\-")[0];
 			security=Integer.parseInt(part);
 		} catch (Exception e) {security=0;}
 		return new int[]{major,security};
