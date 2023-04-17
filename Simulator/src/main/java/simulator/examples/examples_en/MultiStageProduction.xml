@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
+  <ModelName>Multi-stage production</ModelName>
+  <ModelDescription>This model corresponds to the example model used in
+
+Lang, S., Reggelin, T., Müller, M., &amp; Nahhas, A.:
+Open-source discrete-event simulation software for applications in
+production and logistics: An alternative to commercial tools?.
+Procedia Computer Science, 2021, 180, S. 978-987..</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="250"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementDistribution TimeBase="Minutes">Exponential distribution (10)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDecide id="2">
+      <ModelElementSize h="50" w="100" x="250" y="250"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="5" Type="In"/>
+      <ModelElementConnection Element="6" Rate="7" Type="Out"/>
+      <ModelElementConnection Element="7" Rate="3" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementAssignment id="3">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="150"/>
+      <ModelElementConnection Element="6" Type="In"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementAssignment id="4">
+      <ModelElementName>B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="350"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementEdge id="5">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementEdge id="6">
+      <ModelElementName>Rate 7 (70%)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="7">
+      <ModelElementName>Rate 3 (30%)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="8">
+      <ModelElementSize h="10" w="10" x="445" y="270"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="9">
+      <ModelElementName>New client type: A</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="10">
+      <ModelElementName>New client type: B</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="11">
+      <ModelElementName>Pre</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="250"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="23" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">Normal distribution (6;2.5)</ModelElementDistribution>
+      <ModelElementPriority ClientType="A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="PreProcess"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementRectangle id="12">
+      <ModelElementSize h="350" w="400" x="50" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="13">
+      <ModelElementSize h="21" w="55" x="55" y="105"/>
+      <ModelElementTextLine>Source</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementEdge id="14">
+      <ModelElementConnection Element1="8" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="15">
+      <ModelElementSize h="16" w="235" x="55" y="430"/>
+      <ModelElementTextLine>E[I]=10 minutes, 70% type "A", 30% type "B"</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="16">
+      <ModelElementSize h="350" w="200" x="500" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="17">
+      <ModelElementSize h="21" w="116" x="505" y="105"/>
+      <ModelElementTextLine>Pre processing</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="18">
+      <ModelElementSize h="32" w="170" x="505" y="415"/>
+      <ModelElementTextLine>S=Normal(\mu=6, \sigma=2,5 minutes)</ModelElementTextLine>
+      <ModelElementTextLine>c=1</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="19">
+      <ModelElementSize h="350" w="200" x="750" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,180,180</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="20">
+      <ModelElementSize h="21" w="126" x="755" y="105"/>
+      <ModelElementTextLine>Main processing</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,180,180</ModelElementColor>
+    </ModelElementText>
+    <ModelElementProcessStation id="21">
+      <ModelElementName>Main</ModelElementName>
+      <ModelElementSize h="50" w="100" x="800" y="250"/>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">8</ModelElementExpression>
+      <ModelElementSetupTimesExpression ClientType1="A" ClientType2="B">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="A" ClientType2="Clients">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="B" ClientType2="A">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="B" ClientType2="Clients">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients" ClientType2="A">4,5</ModelElementSetupTimesExpression>
+      <ModelElementSetupTimesExpression ClientType1="Clients" ClientType2="B">4,5</ModelElementSetupTimesExpression>
+      <ModelElementPriority ClientType="A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="MainProcess"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementText id="22">
+      <ModelElementSize h="48" w="148" x="755" y="400"/>
+      <ModelElementTextLine>S=8 minutes + setup times</ModelElementTextLine>
+      <ModelElementTextLine>Setup time=4.5 minutes</ModelElementTextLine>
+      <ModelElementTextLine>c=3</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,180,180</ModelElementColor>
+    </ModelElementText>
+    <ModelElementEdge id="23">
+      <ModelElementConnection Element1="11" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecide id="24">
+      <ModelElementSize h="50" w="100" x="1050" y="250"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection ClientType="A" Element="28" Type="Out"/>
+      <ModelElementConnection Element="29" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementProcessStation id="25">
+      <ModelElementName>Post A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1050" y="150"/>
+      <ModelElementConnection Element="28" Type="In"/>
+      <ModelElementConnection Element="31" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">Triangular distribution (6;10;16)</ModelElementDistribution>
+      <ModelElementPriority ClientType="A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="PostProcessA"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="26">
+      <ModelElementName>Post B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1050" y="350"/>
+      <ModelElementConnection Element="29" Type="In"/>
+      <ModelElementConnection Element="32" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Minutes" Type="ProcessingTime">Triangular distribution (6;10;16)</ModelElementDistribution>
+      <ModelElementPriority ClientType="A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="PostProcessB"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="27">
+      <ModelElementConnection Element1="21" Element2="24" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="28">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementConnection Element1="24" Element2="25" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="29">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="24" Element2="26" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="30">
+      <ModelElementSize h="50" w="100" x="1200" y="250"/>
+      <ModelElementConnection Element="31" Type="In"/>
+      <ModelElementConnection Element="32" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="31">
+      <ModelElementConnection Element1="25" Element2="30" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="32">
+      <ModelElementConnection Element1="26" Element2="30" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="33">
+      <ModelElementSize h="350" w="350" x="1000" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>210,0,210</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="34">
+      <ModelElementSize h="21" w="125" x="1005" y="105"/>
+      <ModelElementTextLine>Post processing</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
+      <ModelElementColor>210,0,210</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="36">
+      <ModelElementSize h="32" w="194" x="1005" y="415"/>
+      <ModelElementTextLine>**Each:**</ModelElementTextLine>
+      <ModelElementTextLine>S=Triangular(6;10;16) minutes, c=1</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>210,0,210</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationBarDiagram id="35">
+      <ModelElementSize h="200" w="150" x="1200" y="500"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementUse3D>1</ModelElementUse3D>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMaximumValue>1</ModelElementMaximumValue>
+      <ModelElementAxisLabels Text="Utilization">2</ModelElementAxisLabels>
+      <ModelElementDiagramElement BarColor="0,0,255">Resource_avg(1)/Resource_count(1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,180,180">Resource_avg(2)/Resource_count(2)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="210,0,210">Resource_avg(3)/Resource_count(3)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="210,0,210">Resource_avg(4)/Resource_count(4)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementAnimationText id="38">
+      <ModelElementName>E[S] (in minutes)</ModelElementName>
+      <ModelElementSize h="30" w="70" x="550" y="200"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">ProcessTime_avg(11)/60</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="39">
+      <ModelElementName>E[S] (in minutes)</ModelElementName>
+      <ModelElementSize h="30" w="70" x="800" y="200"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">ProcessTime_avg(21)/60</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="40">
+      <ModelElementName>E[S] (in minutes)</ModelElementName>
+      <ModelElementSize h="30" w="70" x="1200" y="150"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">ProcessTime_avg(25)/60</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="41">
+      <ModelElementName>E[S] (in minutes)</ModelElementName>
+      <ModelElementSize h="30" w="70" x="1200" y="370"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">ProcessTime_avg(26)/60</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="37">
+      <ModelElementSize h="19" w="131" x="1200" y="480"/>
+      <ModelElementTextLine>Average utilization</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationLineDiagram id="42">
+      <ModelElementSize h="200" w="750" x="350" y="500"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="5" Minimum="0">WIP(11)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="3" Maximum="5" Minimum="0">WIP_avg(11)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,180,180" LineWidth="1" Maximum="5" Minimum="0">WIP(21)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,180,180" LineWidth="3" Maximum="5" Minimum="0">WIP_avg(21)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="210,0,210" LineWidth="1" Maximum="5" Minimum="0">WIP(25)+WIP(26)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="210,0,210" LineWidth="3" Maximum="5" Minimum="0">WIP_avg(25)+WIP_avg(26)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>43200</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels Text="Number of clients at the stations">2</ModelElementAxisLabels>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="43">
+      <ModelElementSize h="19" w="228" x="350" y="480"/>
+      <ModelElementTextLine>Number of clients at the stations</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="44">
+      <ModelElementSize h="16" w="293" x="350" y="720"/>
+      <ModelElementTextLine>(thin lines=current values; thick lines=average values)</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="45">
+      <ModelElementSize h="228" w="237" x="50" y="480"/>
+      <ModelElementTextLine>**Notes:**</ModelElementTextLine>
+      <ModelElementTextLine>The normal distribution is selected</ModelElementTextLine>
+      <ModelElementTextLine>for the services times  at the</ModelElementTextLine>
+      <ModelElementTextLine>pre processing station. In principle,</ModelElementTextLine>
+      <ModelElementTextLine>this can also deliver negative values.</ModelElementTextLine>
+      <ModelElementTextLine>These are truncated. Therefore, the</ModelElementTextLine>
+      <ModelElementTextLine>actual mean service time is somewhat</ModelElementTextLine>
+      <ModelElementTextLine>higher than the value set via \mu.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>The displayed average service time</ModelElementTextLine>
+      <ModelElementTextLine>at the main process station also</ModelElementTextLine>
+      <ModelElementTextLine>includes the setup times.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="46">
+      <ModelElementSize h="23" w="195" x="50" y="50"/>
+      <ModelElementTextLine>Multi-stage production</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="PreProcess" Type="Number" Value="1"/>
+    <Resource Name="MainProcess" Type="Number" Value="3"/>
+    <Resource Name="PostProcessA" Type="Number" Value="1"/>
+    <Resource Name="PostProcessB" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="bricks" Name="A"/>
+    <ClientData Icon="traffic-cone" Name="B"/>
+    <ClientData Icon="Ball_white" Name="Clients"/>
+    <ClientData Icon="Ball_white" Name="Kunden"/>
+  </ClientTypeData>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

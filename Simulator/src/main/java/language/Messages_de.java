@@ -14258,6 +14258,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32861] = "V";
     t[32862] = "Main.Menu.File.GitSettings";
     t[32863] = "Git-Konfigurationen...";
+    t[32872] = "Examples.MultiStageProduction";
+    t[32873] = "Mehrstufige Fertigung";
     t[32874] = "Surface.Barrier.XML.InitialRelease";
     t[32875] = "ModellElementInitialeFreigabe";
     t[32878] = "Simulation.Log.TeleportDestination.Info";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36973] = "DDE-Server automatisch starten, wenn das Programm gestartet wird.";
     t[36976] = "Statistic.FastAccess.Template.StatisticsXMLSD.Hint";
     t[36977] = "Liefert die Standardabweichung einer in einem XML-Element gespeicherten Verteilung.";
-    t[36978] = "Git.List.Tab.LocalFolder";
-    t[36979] = "Lokaler Ordner";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36978] = "Git.List.Tab.LocalFolder";
+    t[36979] = "Lokaler Ordner";
     t[36982] = "Statistics.Costs.Total";
     t[36983] = "Gesamtkosten";
     t[36984] = "ModelDescription.Decide.Mode.LeastClientsNextProcessStation";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41417] = "ModellElementZusammenfuehren";
     t[41418] = "Optimizer.Tab.Optimization.Kernel.SimpleStepWise";
     t[41419] = "Variablen reihnum ver\u00e4ndern";
-    t[41420] = "Surface.PopupMenu.ParameterCompare.ChangeDelayTime.Short";
-    t[41421] = "Mittlere Verz\u00f6gerung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41420] = "Surface.PopupMenu.ParameterCompare.ChangeDelayTime.Short";
+    t[41421] = "Mittlere Verz\u00f6gerung";
     t[41426] = "ExpressionBuilder.TrigonometricFunctions.ArcusCosinusHyperbolicus";
     t[41427] = "Arcus Cosinus hyperbolicus";
     t[41434] = "ExpressionBuilder.ClientsAtStationService";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45907] = "kursiv";
     t[45908] = "Simulation.Creator.StatisticExpressionMissing";
     t[45909] = "F\u00fcr den %d. Datensatz in Element id=%d ist kein auszuwertender Ausdruck definiert.";
-    t[45910] = "Resources.Group.EditName.Dialog.Failure.Expression.Error.Info";
-    t[45911] = "Der angegebene Ausdruck f\u00fcr die Abst\u00e4nde zwischen zwei Ausf\u00e4llen ist ung\u00fcltig.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45910] = "Resources.Group.EditName.Dialog.Failure.Expression.Error.Info";
+    t[45911] = "Der angegebene Ausdruck f\u00fcr die Abst\u00e4nde zwischen zwei Ausf\u00e4llen ist ung\u00fcltig.";
     t[45912] = "Editor.DialogBase.Search.InterarrivalArrival.Distribution";
     t[45913] = "Zwischenankunftszeitenverteilung";
     t[45916] = "Surface.AnimationText.Type.Error";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50507] = "Tomate";
     t[50508] = "ModelDescription.TransportTargetSystem.Mode.Sequence";
     t[50509] = "nach Fertigungsplan";
-    t[50514] = "ParameterCompare.Run.Error.WriteValue";
-    t[50515] = "In Schritt %d (Modell %s) konnte der Wert des Eingabeparameters %d \"%s\" nicht ver\u00e4ndert werden.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50514] = "ParameterCompare.Run.Error.WriteValue";
+    t[50515] = "In Schritt %d (Modell %s) konnte der Wert des Eingabeparameters %d \"%s\" nicht ver\u00e4ndert werden.";
     t[50516] = "ThreadCalibration.Dialog.ModelToUse.CurrentModelInEditor";
     t[50517] = "Aktuelles Modell aus dem Editor";
     t[50518] = "CommandLine.FolderFilter.Description.Long";

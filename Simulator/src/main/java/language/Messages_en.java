@@ -14258,6 +14258,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32861] = "F";
     t[32862] = "Main.Menu.File.GitSettings";
     t[32863] = "Git configurations...";
+    t[32872] = "Examples.MultiStageProduction";
+    t[32873] = "Multi-stage production";
     t[32874] = "Surface.Barrier.XML.InitialRelease";
     t[32875] = "ModelElementInitialRelease";
     t[32878] = "Simulation.Log.TeleportDestination.Info";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36973] = "Auto start DDE server when program is started.";
     t[36976] = "Statistic.FastAccess.Template.StatisticsXMLSD.Hint";
     t[36977] = "Returns the standard deviation of a distribution stored in an XML element.";
-    t[36978] = "Git.List.Tab.LocalFolder";
-    t[36979] = "Local folder";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36978] = "Git.List.Tab.LocalFolder";
+    t[36979] = "Local folder";
     t[36982] = "Statistics.Costs.Total";
     t[36983] = "Total costs";
     t[36984] = "ModelDescription.Decide.Mode.LeastClientsNextProcessStation";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41417] = "ModelElementMatch";
     t[41418] = "Optimizer.Tab.Optimization.Kernel.SimpleStepWise";
     t[41419] = "Chance each variable one step each";
-    t[41420] = "Surface.PopupMenu.ParameterCompare.ChangeDelayTime.Short";
-    t[41421] = "Average delay time";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[41420] = "Surface.PopupMenu.ParameterCompare.ChangeDelayTime.Short";
+    t[41421] = "Average delay time";
     t[41426] = "ExpressionBuilder.TrigonometricFunctions.ArcusCosinusHyperbolicus";
     t[41427] = "Arcus cosine hyperbolicus";
     t[41434] = "ExpressionBuilder.ClientsAtStationService";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45907] = "italic";
     t[45908] = "Simulation.Creator.StatisticExpressionMissing";
     t[45909] = "For the %dth statistic record of id=%d no expression is specified.";
-    t[45910] = "Resources.Group.EditName.Dialog.Failure.Expression.Error.Info";
-    t[45911] = "The expression describing the time between two down times is invalid.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45910] = "Resources.Group.EditName.Dialog.Failure.Expression.Error.Info";
+    t[45911] = "The expression describing the time between two down times is invalid.";
     t[45912] = "Editor.DialogBase.Search.InterarrivalArrival.Distribution";
     t[45913] = "Inter-arrival distribution";
     t[45916] = "Surface.AnimationText.Type.Error";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50507] = "Tomato";
     t[50508] = "ModelDescription.TransportTargetSystem.Mode.Sequence";
     t[50509] = "by production plan sequence";
-    t[50514] = "ParameterCompare.Run.Error.WriteValue";
-    t[50515] = "In step %d (model %s) the value of the input parameter %d (%s) could not be changed.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50514] = "ParameterCompare.Run.Error.WriteValue";
+    t[50515] = "In step %d (model %s) the value of the input parameter %d (%s) could not be changed.";
     t[50516] = "ThreadCalibration.Dialog.ModelToUse.CurrentModelInEditor";
     t[50517] = "Current model in editor";
     t[50518] = "CommandLine.FolderFilter.Description.Long";
