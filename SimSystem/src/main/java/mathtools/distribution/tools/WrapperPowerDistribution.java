@@ -45,6 +45,11 @@ public class WrapperPowerDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistPowerWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final PowerDistributionImpl powerDist=(PowerDistributionImpl)distribution;
 		final double a=powerDist.a;

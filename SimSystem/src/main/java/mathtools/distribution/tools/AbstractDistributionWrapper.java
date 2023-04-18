@@ -109,6 +109,12 @@ public abstract class AbstractDistributionWrapper {
 	protected abstract String getThumbnailImageName();
 
 	/**
+	 * Liefert den Link zur Wikipedia-Seite für diese Verteilung.
+	 * @return	URL zur Wikipedia-Seite für diese Verteilung (oder <code>null</code>, wenn keine passende Adresse vorliegt)
+	 */
+	protected abstract String getWikipediaURL();
+
+	/**
 	 * Soll die Verteilung in der Auswahlliste angezeigt werden?
 	 * @return	Verteilung anzeigen
 	 */

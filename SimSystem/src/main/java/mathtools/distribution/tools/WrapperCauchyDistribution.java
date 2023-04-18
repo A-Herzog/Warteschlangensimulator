@@ -45,6 +45,11 @@ public class WrapperCauchyDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistCauchyWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final CauchyDistribution dist=(CauchyDistribution)distribution;
 		final String info2=DistributionTools.DistScale+"="+NumberTools.formatNumber(dist.getScale(),3);

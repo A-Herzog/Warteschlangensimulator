@@ -45,6 +45,11 @@ public class WrapperExponentialDistribution extends AbstractDistributionWrapper 
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistExpWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		return new DistributionWrapperInfo(distribution,2.0,0.0); /* Schiefe=2 immer */
 	}

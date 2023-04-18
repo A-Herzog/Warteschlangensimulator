@@ -44,6 +44,11 @@ public class WrapperMaxwellBoltzmannDistribution extends AbstractDistributionWra
 		return "maxwellboltzmann.png";
 	}
 
+	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistMaxwellBoltzmannWikipedia;
+	}
+
 	/**
 	 * Konstante Schiefe der Maxwell-Boltzmann-Verteilung
 	 * @see #getInfoInt(AbstractRealDistribution)

@@ -45,6 +45,11 @@ public class WrapperPoissonDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistPoissonWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final DiscretePoissonDistributionImpl dist=(DiscretePoissonDistributionImpl)distribution;
 		final String info="lambda="+NumberTools.formatNumber(dist.lambda,3);

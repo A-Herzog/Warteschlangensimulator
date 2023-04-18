@@ -45,6 +45,11 @@ public class WrapperJohnsonDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistJohnsonWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final double gamma=((JohnsonDistributionImpl)distribution).gamma;
 		final double xi=((JohnsonDistributionImpl)distribution).xi;

@@ -44,6 +44,11 @@ public class WrapperDataDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistDataWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(final AbstractRealDistribution distribution) {
 		final DataDistributionImpl dataDist=(DataDistributionImpl)distribution;
 		final int c=dataDist.densityData.length;

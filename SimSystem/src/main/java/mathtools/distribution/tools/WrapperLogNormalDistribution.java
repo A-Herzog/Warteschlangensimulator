@@ -45,6 +45,11 @@ public class WrapperLogNormalDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistLogNormalWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final LogNormalDistributionImpl dist=(LogNormalDistributionImpl)distribution;
 		return new DistributionWrapperInfo(distribution,dist.getSkewness(),dist.getMode());

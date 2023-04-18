@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-15 20:40+0200\n"
+"POT-Creation-Date: 2023-04-17 10:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3037,8 +3037,14 @@ msgstr "Warnung"
 msgid "Distribution.Beta"
 msgstr "Beta-Verteilung"
 
+msgid "Distribution.BetaWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Beta-Verteilung"
+
 msgid "Distribution.Binomial"
 msgstr "Binomialverteilung"
+
+msgid "Distribution.BinomialWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Binomialverteilung"
 
 msgid "Distribution.CV"
 msgstr "Variationskoeffizient"
@@ -3046,11 +3052,20 @@ msgstr "Variationskoeffizient"
 msgid "Distribution.Cauchy"
 msgstr "Cauchy-Verteilung"
 
+msgid "Distribution.CauchyWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Cauchy-Verteilung"
+
 msgid "Distribution.Chi"
 msgstr "Chi-Verteilung"
 
-msgid "Distribution.ChiQuare"
+msgid "Distribution.ChiSquare"
 msgstr "Chi^2-Verteilung"
+
+msgid "Distribution.ChiSquareWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Chi-Quadrat-Verteilung"
+
+msgid "Distribution.ChiWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Chi_distribution"
 
 msgid "Distribution.Data"
 msgstr "Empirische Daten"
@@ -3060,6 +3075,9 @@ msgstr "Datenpunkt"
 
 msgid "Distribution.DataPoints"
 msgstr "Datenpunkte"
+
+msgid "Distribution.DataWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Empirische_Verteilungsfunktion"
 
 msgid "Distribution.DegreesOfFreedom"
 msgstr "Freiheitsgrade"
@@ -3073,8 +3091,14 @@ msgstr "Freiheitsgrade (Zähler)"
 msgid "Distribution.DiscreteUniform"
 msgstr "Diskrete Gleichverteilung"
 
+msgid "Distribution.DiscreteUniformWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Diskrete_Gleichverteilung"
+
 msgid "Distribution.DistJohnsonSU"
 msgstr "Johnson-SU-Verteilung"
+
+msgid "Distribution.DistJohnsonSUWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Johnson%27s_SU-distribution"
 
 msgid "Distribution.E"
 msgstr "Erwartungswert"
@@ -3082,29 +3106,56 @@ msgstr "Erwartungswert"
 msgid "Distribution.Erlang"
 msgstr "Erlang-Verteilung"
 
+msgid "Distribution.ErlangWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Erlang-Verteilung"
+
 msgid "Distribution.Exp"
 msgstr "Exponentialverteilung"
+
+msgid "Distribution.ExpWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Exponentialverteilung"
 
 msgid "Distribution.F"
 msgstr "F-Verteilung"
 
+msgid "Distribution.FWikipedia"
+msgstr "https://de.wikipedia.org/wiki/F-Verteilung"
+
 msgid "Distribution.FatigueLife"
 msgstr "Fatigue-Life-Verteilung"
+
+msgid "Distribution.FatigueLifeWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Birnbaum%E2%80%93Saunders_distribution"
 
 msgid "Distribution.Frechet"
 msgstr "Frechet-Verteilung"
 
+msgid "Distribution.FrechetWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Frechet-Verteilung"
+
 msgid "Distribution.Gamma"
 msgstr "Gamma-Verteilung"
+
+msgid "Distribution.GammaWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Gammaverteilung"
 
 msgid "Distribution.Gumbel"
 msgstr "Gumbel-Verteilung"
 
+msgid "Distribution.GumbelWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Gumbel-Verteilung"
+
 msgid "Distribution.HyperGeom"
 msgstr "Hypergeometrische Verteilung"
 
+msgid "Distribution.HyperGeomWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Hypergeometrische_Verteilung"
+
 msgid "Distribution.HyperbolicSecant"
 msgstr "Hyperbolische Sekanten-Verteilung"
+
+msgid "Distribution.HyperbolicSecantWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Hyperbolic_secant_distribution"
 
 msgid "Distribution.Infinite"
 msgstr "unendlich"
@@ -3112,14 +3163,23 @@ msgstr "unendlich"
 msgid "Distribution.InverseGaussian"
 msgstr "Inverse Gauß-Verteilung"
 
+msgid "Distribution.InverseGaussianWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Inverse_Normalverteilung"
+
 msgid "Distribution.Kurt"
 msgstr "Exzess (Wölbung)"
 
 msgid "Distribution.Laplace"
 msgstr "Laplace-Verteilung"
 
+msgid "Distribution.LaplaceWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Laplace-Verteilung"
+
 msgid "Distribution.Levy"
 msgstr "Levy-Verteilung"
+
+msgid "Distribution.LevyWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Levy-Verteilung"
 
 msgid "Distribution.Location"
 msgstr "Lage"
@@ -3127,14 +3187,26 @@ msgstr "Lage"
 msgid "Distribution.LogLogistic"
 msgstr "Log-Logistische Verteilung"
 
+msgid "Distribution.LogLogisticWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Log-logistic_distribution"
+
 msgid "Distribution.LogNormal"
 msgstr "Lognormalverteilung"
+
+msgid "Distribution.LogNormalWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Logarithmische_Normalverteilung"
 
 msgid "Distribution.Logistic"
 msgstr "Logistische Verteilung"
 
+msgid "Distribution.LogisticWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Logistische_Verteilung"
+
 msgid "Distribution.MaxwellBoltzmann"
 msgstr "Maxwell-Boltzmann-Verteilung"
+
+msgid "Distribution.MaxwellBoltzmannWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Maxwell-Boltzmann-Verteilung"
 
 msgid "Distribution.Mean"
 msgstr "Mittelwert"
@@ -3148,6 +3220,9 @@ msgstr "Am wahrscheinlichsten"
 msgid "Distribution.NegativeBinomial"
 msgstr "Negative Binomialverteilung"
 
+msgid "Distribution.NegativeBinomialWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Negative_Binomialverteilung"
+
 msgid "Distribution.Never"
 msgstr "Niemals;nie"
 
@@ -3157,14 +3232,23 @@ msgstr "Keine Verteilung angegeben"
 msgid "Distribution.Normal"
 msgstr "Normalverteilung"
 
+msgid "Distribution.NormalWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Normalverteilung"
+
 msgid "Distribution.Parameter"
 msgstr "Parameter"
 
 msgid "Distribution.Pareto"
 msgstr "Pareto-Verteilung"
 
+msgid "Distribution.ParetoWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Pareto-Verteilung"
+
 msgid "Distribution.Pert"
 msgstr "Pert-Verteilung"
+
+msgid "Distribution.PertWikipedia"
+msgstr "https://en.wikipedia.org/wiki/PERT_distribution"
 
 msgid "Distribution.Point"
 msgstr "Ein-Punkt-Verteilung"
@@ -3172,8 +3256,14 @@ msgstr "Ein-Punkt-Verteilung"
 msgid "Distribution.Poisson"
 msgstr "Poisson-Verteilung"
 
+msgid "Distribution.PoissonWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Poisson-Verteilung"
+
 msgid "Distribution.Power"
 msgstr "Potenzverteilung"
+
+msgid "Distribution.PowerWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Pareto_distribution#Inverse-Pareto_Distribution_/_Power_Distribution"
 
 msgid "Distribution.Range"
 msgstr "Bereich"
@@ -3190,11 +3280,20 @@ msgstr "bis"
 msgid "Distribution.Rayleigh"
 msgstr "Rayleigh-Verteilung"
 
+msgid "Distribution.RayleighWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Rayleigh-Verteilung"
+
 msgid "Distribution.SawtoothLeft"
 msgstr "Linke Sägezahnverteilung"
 
+msgid "Distribution.SawtoothLeftWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Dreiecksverteilung"
+
 msgid "Distribution.SawtoothRight"
 msgstr "Rechte Sägezahnverteilung"
+
+msgid "Distribution.SawtoothRightWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Dreiecksverteilung"
 
 msgid "Distribution.Scale"
 msgstr "Skalierung"
@@ -3223,6 +3322,9 @@ msgstr "Standardabweichung"
 msgid "Distribution.Triangular"
 msgstr "Dreiecksverteilung"
 
+msgid "Distribution.TriangularWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Dreiecksverteilung"
+
 msgid "Distribution.Uniform"
 msgstr "Gleichverteilung"
 
@@ -3232,14 +3334,23 @@ msgstr "Ende"
 msgid "Distribution.Uniform.Start"
 msgstr "Start"
 
+msgid "Distribution.UniformWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Stetige_Gleichverteilung"
+
 msgid "Distribution.Unknown"
 msgstr "unbekannte Verteilung"
 
 msgid "Distribution.Weibull"
 msgstr "Weibull-Verteilung"
 
+msgid "Distribution.WeibullWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Weibull-Verteilung"
+
 msgid "Distribution.Zeta"
 msgstr "Zeta-Verteilung"
+
+msgid "Distribution.ZetaWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Zeta-Verteilung"
 
 msgid "DistributionFitter.BestFitFor"
 msgstr "Beste Übereinstimmung für"
@@ -9759,9 +9870,6 @@ msgstr "Erhöht den Wert des Parameters um %s"
 
 msgid "JDistributionEditor.Wikipedia.Info"
 msgstr "Öffnet ein Browserfenster mit weiteren Informationen zu dem gewählten Verteilungstyp"
-
-msgid "JDistributionEditor.Wikipedia.Link"
-msgstr "https://de.wikipedia.org/wiki/"
 
 msgid "JSRunner.DialogHint"
 msgstr "Die Skriptausführung ermöglicht es, Parameter in einem Simulationsmodell gezielt auf verschiedene Werte zu setzen. Für jede der möglichen Parametervarianten können dann eine Simulation durchgeführt und die Ergebnisse ebenfalls per Skript ausgewertet werden."
@@ -36488,6 +36596,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 #~ msgid "BookData.NoBook.Title"
 #~ msgstr "E-Book-pdf nicht verfügbar"
 
+#~ msgid "Distribution.ChiQuare"
+#~ msgstr "Chi^2-Verteilung"
+
 #~ msgid "Editor.AddEdge"
 #~ msgstr "Kante"
 
@@ -36562,6 +36673,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "InfoDialog.ShowVersionHistory.Tooltip"
 #~ msgstr "Zeigt die Versionsgeschichte an."
+
+#~ msgid "JDistributionEditor.Wikipedia.Link"
+#~ msgstr "https://de.wikipedia.org/wiki/"
 
 #~ msgid "License.Name.Full"
 #~ msgstr "Lizensierte Vollversion"

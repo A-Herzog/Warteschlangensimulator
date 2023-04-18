@@ -47,6 +47,11 @@ public class WrapperGumbelDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistGumbelWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final GumbelDistribution dist=(GumbelDistribution)distribution;
 		final double location=dist.getLocation();

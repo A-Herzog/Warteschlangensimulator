@@ -45,6 +45,11 @@ public class WrapperLogLogisticDistribution extends AbstractDistributionWrapper 
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistLogLogisticWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final LogLogisticDistributionImpl dist=(LogLogisticDistributionImpl)distribution;
 		final double alpha=dist.alpha;

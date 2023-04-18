@@ -45,6 +45,11 @@ public class WrapperFDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistFWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final FDistribution dist=(FDistribution)distribution;
 		final double m=dist.getNumeratorDegreesOfFreedom();

@@ -46,6 +46,11 @@ public class WrapperErlangDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistErlangWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final ErlangDistributionImpl dist=(ErlangDistributionImpl)distribution;
 		final double n=dist.getShape();

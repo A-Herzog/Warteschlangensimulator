@@ -45,6 +45,11 @@ public class WrapperHyperbolicSecantDistribution extends AbstractDistributionWra
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistHyperbolicSecantWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final HyperbolicSecantDistributionImpl dist=(HyperbolicSecantDistributionImpl)distribution;
 		return new DistributionWrapperInfo(distribution,0.0,dist.mu); /* Schiefe=0 immer */

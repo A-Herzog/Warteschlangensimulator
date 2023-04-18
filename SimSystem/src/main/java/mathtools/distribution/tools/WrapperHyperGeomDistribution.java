@@ -44,6 +44,11 @@ public class WrapperHyperGeomDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistHyperGeomWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final DiscreteHyperGeomDistributionImpl dist=(DiscreteHyperGeomDistributionImpl)distribution;
 		final double sk=dist.getSkewness();

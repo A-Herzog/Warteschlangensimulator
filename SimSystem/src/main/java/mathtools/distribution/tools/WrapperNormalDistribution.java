@@ -45,6 +45,11 @@ public class WrapperNormalDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistNormalWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final double mean=((NormalDistribution)distribution).getMean();
 		return new DistributionWrapperInfo(distribution,0.0,mean);  /* Schiefe=0 immer */

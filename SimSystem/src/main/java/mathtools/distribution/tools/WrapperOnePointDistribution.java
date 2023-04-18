@@ -45,6 +45,11 @@ public class WrapperOnePointDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistPointWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(final AbstractRealDistribution distribution) {
 		final double point=((OnePointDistributionImpl)distribution).point;
 		return new DistributionWrapperInfo(distribution,0.0,point);

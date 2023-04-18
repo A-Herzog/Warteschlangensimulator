@@ -45,6 +45,11 @@ public class WrapperParetoDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistParetoWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final ParetoDistributionImpl dist=(ParetoDistributionImpl)distribution;
 		final double xmin=dist.xmin;

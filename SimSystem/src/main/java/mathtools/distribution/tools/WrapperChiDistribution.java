@@ -45,6 +45,11 @@ public class WrapperChiDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistChiWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final ChiDistributionImpl chiDist=(ChiDistributionImpl)distribution;
 		final String info1=DistributionTools.DistDegreesOfFreedom+"="+NumberTools.formatNumber(chiDist.degreesOfFreedom);

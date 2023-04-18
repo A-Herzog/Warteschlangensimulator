@@ -45,6 +45,11 @@ public class WrapperTriangularDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistTriangularWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final double A=((TriangularDistributionImpl)distribution).lowerBound;
 		final double B=((TriangularDistributionImpl)distribution).upperBound;

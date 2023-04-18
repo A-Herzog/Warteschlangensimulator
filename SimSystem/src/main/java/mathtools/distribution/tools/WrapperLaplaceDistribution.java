@@ -45,6 +45,11 @@ public class WrapperLaplaceDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistLaplaceWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final double mu=((LaplaceDistributionImpl)distribution).mu;
 		final double b=((LaplaceDistributionImpl)distribution).b;

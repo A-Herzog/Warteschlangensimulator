@@ -45,6 +45,11 @@ public class WrapperFatigueLifeDistribution extends AbstractDistributionWrapper 
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistFatigueLifeWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final FatigueLifeDistributionImpl fatigueDist=(FatigueLifeDistributionImpl)distribution;
 		final double mu=fatigueDist.mu;

@@ -44,6 +44,11 @@ public class WrapperDiscreteUniformDistribution extends AbstractDistributionWrap
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistDiscreteUniformWikipedia;
+	}
+
+	@Override
 	protected boolean canSetMeanExact() {
 		return false;
 	}

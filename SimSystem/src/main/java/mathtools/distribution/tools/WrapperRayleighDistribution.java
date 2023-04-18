@@ -45,6 +45,11 @@ public class WrapperRayleighDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistRayleighWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final double sigma=((RayleighDistributionImpl)distribution).mean;
 		final String info="sigma="+NumberTools.formatNumber(sigma,3);

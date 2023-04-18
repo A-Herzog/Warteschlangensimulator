@@ -48,6 +48,11 @@ public class WrapperWeibullDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistWeibullWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final WeibullDistribution dist=(WeibullDistribution)distribution;
 		final double beta=dist.getShape();

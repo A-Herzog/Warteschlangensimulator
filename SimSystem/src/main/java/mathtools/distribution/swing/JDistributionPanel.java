@@ -39,10 +39,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -124,8 +121,6 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	public static String FileTypeBMP="bmp-Dateien";
 	/** Bezeichner für Dateiformat tiff (im Dateiauswahldialog) */
 	public static String FileTypeTIFF="tiff-Dateien";
-	/** Wikipedia-Link für Hilfe zu Verteilungen */
-	public static String DistributionWikipedia="https://de.wikipedia.org/wiki/";
 	/** Überschreibwarnung für Grafiken (Text der Meldung) */
 	public static String GraphicsFileOverwriteWarning="Die Datei %s existiert bereits. Soll die Datei jetzt überschrieben werden?";
 	/** Überschreibwarnung für Grafiken (Titel der Meldung) */
@@ -301,7 +296,9 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	 * @see #setDistribution(AbstractRealDistribution)
 	 * @see #setDistribution(double)
 	 */
-	public AbstractRealDistribution getDistribution() {return distribution;}
+	public AbstractRealDistribution getDistribution() {
+		return distribution;
+	}
 
 	/**
 	 * Setzen einer neuen Verteilung
@@ -311,7 +308,8 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	public void setDistribution(AbstractRealDistribution distribution) {
 		this.distribution=distribution;
 		setInfoText();
-		repaint(); plotter.repaint();
+		repaint();
+		plotter.repaint();
 	}
 
 	/**
@@ -780,21 +778,6 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	}
 
 	/**
-	 * Liefert die zur aktuellen Verteilung passende Wikipedia-Seite
-	 * @return	URL der zur aktuellen Verteilung passenden Wikipedia-Seite
-	 */
-	private URI getDistributionWikipediaURI() {
-		String distName=DistributionTools.getDistributionName(distribution);
-		URL url;
-		try {
-			url=new URL(DistributionWikipedia+distName.replace(' ','+'));
-			try {
-				return url.toURI();
-			} catch (URISyntaxException e) {return null;}
-		} catch (MalformedURLException e) {return null;}
-	}
-
-	/**
 	 * Wird aufgerufen, wenn auf die "Bearbeiten"-Schaltfläche geklickt wurde,
 	 * um die Verteilung zu bearbeiten.
 	 * @return	Gibt an, ob Änderungen an der Verteilung vorgenommen wurden.
@@ -843,7 +826,8 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	 * @see #wiki
 	 */
 	private void actionWiki() {
-		JOpenURL.open(this,getDistributionWikipediaURI());
+		final URI link=DistributionTools.getDistributionWikipediaLink(distribution);
+		if (link!=null) JOpenURL.open(this,link);
 	}
 
 	/**

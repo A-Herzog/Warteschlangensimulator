@@ -45,6 +45,11 @@ public class WrapperPertDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistPertWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final PertDistributionImpl pertDist=(PertDistributionImpl)distribution;
 		final double A=pertDist.lowerBound;

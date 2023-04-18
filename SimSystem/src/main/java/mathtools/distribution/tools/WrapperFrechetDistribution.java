@@ -45,6 +45,11 @@ public class WrapperFrechetDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistFrechetWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final FrechetDistributionImpl frechetDist=(FrechetDistributionImpl)distribution;
 		final double delta=frechetDist.delta;

@@ -45,6 +45,11 @@ public class WrapperNegativeBinomialDistribution extends AbstractDistributionWra
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistNegativeBinomialWikipedia;
+	}
+
+	@Override
 	protected boolean canSetMeanExact() {
 		return false;
 	}

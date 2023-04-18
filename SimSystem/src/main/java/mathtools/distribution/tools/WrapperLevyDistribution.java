@@ -45,6 +45,11 @@ public class WrapperLevyDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistLevyWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		return new DistributionWrapperInfo(null,null,null,null,null,null);
 	}

@@ -15,6 +15,8 @@
  */
 package mathtools.distribution.tools;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.stream.Stream;
 
 import javax.swing.ImageIcon;
@@ -35,122 +37,242 @@ public final class DistributionTools {
 	/** Empirische Daten */
 	public static String[] DistData=new String[]{"Empirische Daten"};
 
+	/** Wikipedia-Seite Empirische Daten */
+	public static String DistDataWikipedia="https://de.wikipedia.org/wiki/Empirische_Verteilungsfunktion";
+
 	/** Niemals-Verteilung */
 	public static String[] DistNever=new String[]{"Niemals","nie"};
+
+	/** Wikipedia-Seite Niemals-Verteilung */
+	public static String DistNeverWikipedia=null;
 
 	/** Punkt "unendlich" */
 	public static String[] DistInfinite=new String[]{"unendlich"};
 
+	/** Wikipedia-Seite Punkt "unendlich" */
+	public static String DistInfiniteWikipedia=null;
+
 	/** Ein-Punkt-Verteilung */
 	public static String[] DistPoint=new String[]{"Ein-Punkt-Verteilung"};
+
+	/** Wikipedia-Seite Ein-Punkt-Verteilung */
+	public static String DistPointWikipedia=null;
 
 	/** Gleichverteilung */
 	public static String[] DistUniform=new String[]{"Gleichverteilung"};
 
+	/** Wikipedia-Seite Gleichverteilung */
+	public static String DistUniformWikipedia="https://de.wikipedia.org/wiki/Stetige_Gleichverteilung";
+
 	/** Exponentialverteilung */
 	public static String[] DistExp=new String[]{"Exponentialverteilung"};
+
+	/** Wikipedia-Seite Exponentialverteilung */
+	public static String DistExpWikipedia="https://de.wikipedia.org/wiki/Exponentialverteilung";
 
 	/** Normalverteilung */
 	public static String[] DistNormal=new String[]{"Normalverteilung"};
 
+	/** Wikipedia-Seite Normalverteilung */
+	public static String DistNormalWikipedia="https://de.wikipedia.org/wiki/Normalverteilung";
+
 	/** Lognormalverteilung */
 	public static String[] DistLogNormal=new String[]{"Lognormalverteilung"};
+
+	/** Wikipedia-Seite Lognormalverteilung */
+	public static String DistLogNormalWikipedia="https://de.wikipedia.org/wiki/Logarithmische_Normalverteilung";
 
 	/** Erlang-Verteilung */
 	public static String[] DistErlang=new String[]{"Erlang-Verteilung"};
 
+	/** Wikipedia-Seite Erlang-Verteilung */
+	public static String DistErlangWikipedia="https://de.wikipedia.org/wiki/Erlang-Verteilung";
+
 	/** Gamma-Verteilung */
 	public static String[] DistGamma=new String[]{"Gamma-Verteilung"};
+
+	/** Wikipedia-Seite Gamma-Verteilung */
+	public static String DistGammaWikipedia="https://de.wikipedia.org/wiki/Gammaverteilung";
 
 	/** Beta-Verteilung */
 	public static String[] DistBeta=new String[]{"Beta-Verteilung"};
 
+	/** Wikipedia-Seite Beta-Verteilung */
+	public static String DistBetaWikipedia="https://de.wikipedia.org/wiki/Beta-Verteilung";
+
 	/** Cauchy-Verteilung */
 	public static String[] DistCauchy=new String[]{"Cauchy-Verteilung"};
+
+	/** Wikipedia-Seite Cauchy-Verteilung */
+	public static String DistCauchyWikipedia="https://de.wikipedia.org/wiki/Cauchy-Verteilung";
 
 	/** Weibull-Verteilung */
 	public static String[] DistWeibull=new String[]{"Weibull-Verteilung"};
 
+	/** Wikipedia-Seite Weibull-Verteilung */
+	public static String DistWeibullWikipedia="https://de.wikipedia.org/wiki/Weibull-Verteilung";
+
 	/** Chi-Verteilung */
 	public static String[] DistChi=new String[]{"Chi-Verteilung"};
 
+	/** Wikipedia-Seite Chi-Verteilung */
+	public static String DistChiWikipedia="https://en.wikipedia.org/wiki/Chi_distribution"; /* Keine deutsche Wikipedia-Seite vorhanden */
+
 	/** Chi^2-Verteilung */
-	public static String[] DistChiQuare=new String[]{"Chi^2-Verteilung"};
+	public static String[] DistChiSquare=new String[]{"Chi^2-Verteilung"};
+
+	/** Wikipedia-Seite Chi^2-Verteilung */
+	public static String DistChiSquareWikipedia="https://de.wikipedia.org/wiki/Chi-Quadrat-Verteilung";
 
 	/** F-Verteilung */
 	public static String[] DistF=new String[]{"F-Verteilung"};
 
+	/** Wikipedia-Seite F-Verteilung */
+	public static String DistFWikipedia="https://de.wikipedia.org/wiki/F-Verteilung";
+
 	/** Jonhson-SU-Verteilung */
 	public static String[] DistJohnson=new String[]{"Jonhson-SU-Verteilung"};
+
+	/** Wikipedia-Seite Jonhson-SU-Verteilung */
+	public static String DistJohnsonWikipedia="https://en.wikipedia.org/wiki/Johnson%27s_SU-distribution"; /* Keine deutsche Wikipedia-Seite vorhanden */
 
 	/** Dreiecksverteilung */
 	public static String[] DistTriangular=new String[]{"Dreiecksverteilung"};
 
+	/** Wikipedia-Seite Dreiecksverteilung */
+	public static String DistTriangularWikipedia="https://de.wikipedia.org/wiki/Dreiecksverteilung";
+
 	/** Pert-Verteilung */
 	public static String[] DistPert=new String[]{"Pert-Verteilung"};
+
+	/** Wikipedia-Seite Pert-Verteilung */
+	public static String DistPertWikipedia="https://en.wikipedia.org/wiki/PERT_distribution"; /* Keine deutsche Wikipedia-Seite vorhanden */
 
 	/** Laplace-Verteilung */
 	public static String[] DistLaplace=new String[]{"Laplace-Verteilung"};
 
+	/** Wikipedia-Seite Laplace-Verteilung */
+	public static String DistLaplaceWikipedia="https://de.wikipedia.org/wiki/Laplace-Verteilung";
+
 	/** Pareto-Verteilung */
 	public static String[] DistPareto=new String[]{"Pareto-Verteilung"};
+
+	/** Wikipedia-Seite Pareto-Verteilung */
+	public static String DistParetoWikipedia="https://de.wikipedia.org/wiki/Pareto-Verteilung";
 
 	/** Logistische Verteilung */
 	public static String[] DistLogistic=new String[]{"Logistische Verteilung"};
 
+	/** Wikipedia-Seite Logistische Verteilung */
+	public static String DistLogisticWikipedia="https://de.wikipedia.org/wiki/Logistische_Verteilung";
+
 	/** Inverse Gauﬂ-Verteilung */
 	public static String[] DistInverseGaussian=new String[]{"Inverse Gauﬂ-Verteilung"};
+
+	/** Wikipedia-Seite Inverse Gauﬂ-Verteilung */
+	public static String DistInverseGaussianWikipedia="https://de.wikipedia.org/wiki/Inverse_Normalverteilung";
 
 	/** Rayleigh-Verteilung */
 	public static String[] DistRayleigh=new String[]{"Rayleigh-Verteilung"};
 
+	/** Wikipedia-Seite Rayleigh-Verteilung */
+	public static String DistRayleighWikipedia="https://de.wikipedia.org/wiki/Rayleigh-Verteilung";
+
 	/** Log-Logistische Verteilung */
 	public static String[] DistLogLogistic=new String[]{"Log-Logistische Verteilung"};
+
+	/** Wikipedia-Seite Log-Logistische Verteilung */
+	public static String DistLogLogisticWikipedia="https://en.wikipedia.org/wiki/Log-logistic_distribution"; /* Keine deutsche Wikipedia-Seite vorhanden */
 
 	/** Potenzverteilung */
 	public static String[] DistPower=new String[]{"Potenzverteilung"};
 
+	/** Wikipedia-Seite Potenzverteilung */
+	public static String DistPowerWikipedia="https://en.wikipedia.org/wiki/Pareto_distribution#Inverse-Pareto_Distribution_/_Power_Distribution"; /* Keine deutsche Wikipedia-Seite vorhanden */
+
 	/** Gumbel-Verteilung */
 	public static String[] DistGumbel=new String[]{"Gumbel-Verteilung"};
+
+	/** Wikipedia-Seite Gumbel-Verteilung */
+	public static String DistGumbelWikipedia="https://de.wikipedia.org/wiki/Gumbel-Verteilung";
 
 	/** Fatigue-Life-Verteilung */
 	public static String[] DistFatigueLife=new String[]{"Fatigue-Life-Verteilung"};
 
+	/** Wikipedia-Seite Fatigue-Life-Verteilung */
+	public static String DistFatigueLifeWikipedia="https://en.wikipedia.org/wiki/Birnbaum%E2%80%93Saunders_distribution"; /* Keine deutsche Wikipedia-Seite vorhanden */
+
 	/** Frechet-Verteilung */
 	public static String[] DistFrechet=new String[]{"Frechet-Verteilung"};
+
+	/** Wikipedia-Seite Frechet-Verteilung */
+	public static String DistFrechetWikipedia="https://de.wikipedia.org/wiki/Frechet-Verteilung";
 
 	/** Hyperbolische Sekanten-Verteilung */
 	public static String[] DistHyperbolicSecant=new String[]{"Hyperbolische Sekanten-Verteilung"};
 
+	/** Wikipedia-Seite Hyperbolische Sekanten-Verteilung */
+	public static String DistHyperbolicSecantWikipedia="https://en.wikipedia.org/wiki/Hyperbolic_secant_distribution"; /* Keine deutsche Wikipedia-Seite vorhanden */
+
 	/** S‰gezahnverteilung (links) */
 	public static String[] DistSawtoothLeft=new String[]{"Linke S‰gezahn-Verteilung"};
+
+	/** Wikipedia-Seite S‰gezahnverteilung (links) */
+	public static String DistSawtoothLeftWikipedia="https://de.wikipedia.org/wiki/Dreiecksverteilung";
 
 	/** S‰gezahnverteilung (rechts) */
 	public static String[] DistSawtoothRight=new String[]{"Rechte S‰gezahn-Verteilung"};
 
+	/** Wikipedia-Seite S‰gezahnverteilung (rechts) */
+	public static String DistSawtoothRightWikipedia="https://de.wikipedia.org/wiki/Dreiecksverteilung";
+
 	/** Levy-Verteilung */
 	public static String[] DistLevy=new String[]{"Levy-Verteilung"};
+
+	/** Wikipedia-Seite Levy-Verteilung */
+	public static String DistLevyWikipedia="https://de.wikipedia.org/wiki/Levy-Verteilung";
 
 	/** Maxwell-Boltzmann-Verteilung */
 	public static String[] DistMaxwellBoltzmann=new String[]{"Maxwell-Boltzmann-Verteilung"};
 
+	/** Wikipedia-Seite Maxwell-Boltzmann-Verteilung */
+	public static String DistMaxwellBoltzmannWikipedia="https://de.wikipedia.org/wiki/Maxwell-Boltzmann-Verteilung";
+
 	/** Hypergeometrische Verteilung */
 	public static String[] DistHyperGeom=new String[]{"Hypergeometrische Verteilung"};
+
+	/** Wikipedia-Seite Hypergeometrische Verteilung */
+	public static String DistHyperGeomWikipedia="https://de.wikipedia.org/wiki/Hypergeometrische_Verteilung";
 
 	/** Binomialverteilung */
 	public static String[] DistBinomial=new String[]{"Binomialverteilung"};
 
+	/** Wikipedia-Seite Binomialverteilung */
+	public static String DistBinomialWikipedia="https://de.wikipedia.org/wiki/Binomialverteilung";
+
 	/** Poisson-Verteilung */
 	public static String[] DistPoisson=new String[]{"Poisson-Verteilung"};
+
+	/** Wikipedia-Seite Poisson-Verteilung */
+	public static String DistPoissonWikipedia="https://de.wikipedia.org/wiki/Poisson-Verteilung";
 
 	/** Negative Binomialverteilung */
 	public static String[] DistNegativeBinomial=new String[]{"Negative Binomialverteilung"};
 
+	/** Wikipedia-Seite Negative Binomialverteilung */
+	public static String DistNegativeBinomialWikipedia="https://de.wikipedia.org/wiki/Negative_Binomialverteilung";
+
 	/** Zeta-Verteilung */
 	public static String[] DistZeta=new String[]{"Zeta-Verteilung"};
 
+	/** Wikipedia-Seite Zeta-Verteilung */
+	public static String DistZetaWikipedia="https://de.wikipedia.org/wiki/Zeta-Verteilung";
+
 	/** Diskrete Gleichverteilung */
 	public static String[] DistDiscreteUniform=new String[]{"Diskrete Gleichverteilung"};
+
+	/** Wikipedia-Seite Diskrete Gleichverteilung */
+	public static String DistDiscreteUniformWikipedia="https://de.wikipedia.org/wiki/Diskrete_Gleichverteilung";
 
 	/** Warnung "unbekannte Verteilung" */
 	public static String DistUnknown="unbekannte Verteilung";
@@ -266,6 +388,7 @@ public final class DistributionTools {
 	 * @return	Passender Wrapper oder <code>null</code> wenn f¸r die Verteilungsklasse kein Wrapper vorhanden ist
 	 */
 	public static AbstractDistributionWrapper getWrapper(final AbstractRealDistribution distribution) {
+		if (distribution==null) return null;
 		for (AbstractDistributionWrapper wrapper: wrappers) if (wrapper.isForDistribution(distribution)) return wrapper;
 		return null;
 	}
@@ -345,6 +468,23 @@ public final class DistributionTools {
 		final AbstractDistributionWrapper wrapper=getWrapper(distribution);
 		if (wrapper==null) return "";
 		return wrapper.getInfo(distribution).getLongInfo();
+	}
+
+	/**
+	 * Liefert den Link zur Wikipedia-Seite zu einer Verteilung.
+	 * @param distribution Verteilungsobjekt, zu dem der Wikipedia-Link geliefert werden soll
+	 * @return	URL zur Wikipedia-Seite zu der Verteilung (oder <code>null</code>, wenn keine passende Adresse vorliegt)
+	 */
+	public static URI getDistributionWikipediaLink(final AbstractRealDistribution distribution) {
+		final AbstractDistributionWrapper wrapper=getWrapper(distribution);
+		if (wrapper==null) return null;
+		String url=wrapper.getWikipediaURL();
+		if (url==null || url.trim().isEmpty()) return null;
+		try {
+			return new URI(url);
+		} catch (URISyntaxException e) {
+			return null;
+		}
 	}
 
 	/**

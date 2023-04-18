@@ -45,6 +45,11 @@ public class WrapperBetaDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistBetaWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final ExtBetaDistributionImpl betaDist=(ExtBetaDistributionImpl)distribution;
 		final double alpha=betaDist.getAlpha();

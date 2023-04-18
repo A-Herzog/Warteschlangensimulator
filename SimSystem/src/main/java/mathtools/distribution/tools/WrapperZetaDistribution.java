@@ -45,6 +45,11 @@ public class WrapperZetaDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistZetaWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final DiscreteZetaDistributionImpl dist=(DiscreteZetaDistributionImpl)distribution;
 

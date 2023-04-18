@@ -36,12 +36,17 @@ public class WrapperChiSquaredDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected String[] getNames() {
-		return DistributionTools.DistChiQuare;
+		return DistributionTools.DistChiSquare;
 	}
 
 	@Override
 	protected String getThumbnailImageName() {
 		return "chisquare.png";
+	}
+
+	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistChiSquareWikipedia;
 	}
 
 	@Override

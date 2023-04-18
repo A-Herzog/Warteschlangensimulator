@@ -45,6 +45,11 @@ public class WrapperUniformRealDistribution extends AbstractDistributionWrapper 
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistUniformWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(final AbstractRealDistribution distribution) {
 		return new DistributionWrapperInfo(distribution,0.0,null); /* Schiefe=0 immer */
 	}

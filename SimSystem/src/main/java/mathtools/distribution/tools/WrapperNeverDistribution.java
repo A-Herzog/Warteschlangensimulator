@@ -44,6 +44,11 @@ public class WrapperNeverDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistNeverWikipedia;
+	}
+
+	@Override
 	public boolean isHiddenInNamesList() {
 		return true;
 	}

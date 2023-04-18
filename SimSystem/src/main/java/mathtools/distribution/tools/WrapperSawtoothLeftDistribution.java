@@ -45,6 +45,11 @@ public class WrapperSawtoothLeftDistribution extends AbstractDistributionWrapper
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistSawtoothLeftWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final SawtoothLeftDistribution sawtooth=(SawtoothLeftDistribution)distribution;
 		final double A=sawtooth.a;

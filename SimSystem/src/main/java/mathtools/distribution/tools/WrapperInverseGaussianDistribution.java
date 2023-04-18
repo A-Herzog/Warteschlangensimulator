@@ -45,6 +45,11 @@ public class WrapperInverseGaussianDistribution extends AbstractDistributionWrap
 	}
 
 	@Override
+	protected String getWikipediaURL() {
+		return DistributionTools.DistInverseGaussianWikipedia;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final InverseGaussianDistributionImpl inverseGaussianDist=(InverseGaussianDistributionImpl)distribution;
 		final double lambda=inverseGaussianDist.lambda;
