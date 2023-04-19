@@ -93,8 +93,13 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		/* Ausdruck */
-		this.expression=new AnimationExpression(expression);
-		content.add(editExpression=new AnimationExpressionPanel(element,this.expression,readOnly,helpRunnable));
+		if (expression!=null) {
+			this.expression=new AnimationExpression(expression);
+			content.add(editExpression=new AnimationExpressionPanel(element,this.expression,readOnly,helpRunnable));
+		} else {
+			this.expression=null;
+			editExpression=null;
+		}
 
 		/* Minimaler Wert */
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.ExpressionTableModel.Dialog.MinimalValue")+":",NumberTools.formatNumber(minValue));
@@ -161,7 +166,7 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 		boolean ok=true;
 
 		/* Ausdruck */
-		if (!editExpression.checkData(showErrorMessages)) {
+		if (editExpression!=null && !editExpression.checkData(showErrorMessages)) {
 			ok=false;
 			if (showErrorMessages) return false;
 		}
@@ -212,6 +217,7 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 	 * @return	Neuer Ausdruck
 	 */
 	public AnimationExpression getExpression() {
+		if (editExpression==null) return null;
 		editExpression.storeData();
 		return expression;
 	}

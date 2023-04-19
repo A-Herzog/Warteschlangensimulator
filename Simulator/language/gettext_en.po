@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-17 10:16+0200\n"
+"POT-Creation-Date: 2023-04-18 09:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28373,6 +28373,9 @@ msgstr "Move row down"
 
 msgid "Surface.ExpressionTableModel.MoveUp"
 msgstr "Move row up"
+
+msgid "Surface.ExpressionTableModel.SetRangeForAll"
+msgstr "Set range for all"
 
 msgid "Surface.ExpressionTableModel.SetupAppearance"
 msgstr "Setup appearance of the data row"

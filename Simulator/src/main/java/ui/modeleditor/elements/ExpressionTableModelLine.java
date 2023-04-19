@@ -137,11 +137,20 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==expression.size()) {
-			if (columnIndex>0) return "";
-			return makeButtonPanel(
-					new String[]{Language.tr("Surface.ExpressionTableModel.Add"),Language.tr("Surface.ExpressionTableModel.DeleteAll")},
-					new Icon[]{Images.MODELEDITOR_ELEMENT_ANIMATION_DIAGRAM_ADD.getIcon(),Images.EDIT_DELETE.getIcon()},
-					new ActionListener[]{new EditButtonListener(0,-1),new DeleteButtonListener(-1)});
+			switch (columnIndex) {
+			case 0:
+				return makeButtonPanel(
+						new String[]{Language.tr("Surface.ExpressionTableModel.Add"),Language.tr("Surface.ExpressionTableModel.DeleteAll")},
+						new Icon[]{Images.MODELEDITOR_ELEMENT_ANIMATION_DIAGRAM_ADD.getIcon(),Images.EDIT_DELETE.getIcon()},
+						new ActionListener[]{new EditButtonListener(0,-1),new DeleteButtonListener(-1)});
+			case 1:
+				return makeButtonPanel(
+						new String[] {Language.tr("Surface.ExpressionTableModel.SetRangeForAll")},
+						new Icon[] {Images.AXIS_FULL.getIcon()},
+						new ActionListener[]{new EditButtonListener(1,-1)});
+			default:
+				return "";
+			}
 		}
 
 		switch (columnIndex) {
@@ -300,12 +309,27 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 				}
 				break;
 			case 1: /* Bereich */
-				dialog1=new ExpressionTableModelDialog1(table,element,expression.get(row),minValue.get(row),maxValue.get(row),help,ExpressionTableModelBar.IconMode.BAR);
-				if (dialog1.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
-					expression.set(row,dialog1.getExpression());
-					minValue.set(row,dialog1.getMinValue());
-					maxValue.set(row,dialog1.getMaxValue());
-					updateTable();
+				if (row<0) {
+					if (expression.size()>0) {
+						final double min=minValue.stream().min(Double::compare).get();
+						final double max=maxValue.stream().max(Double::compare).get();
+						dialog1=new ExpressionTableModelDialog1(table,element,null,min,max,help,ExpressionTableModelBar.IconMode.BAR);
+						if (dialog1.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+							for (int i=0;i<expression.size();i++) {
+								minValue.set(i,dialog1.getMinValue());
+								maxValue.set(i,dialog1.getMaxValue());
+							}
+							updateTable();
+						}
+					}
+				} else {
+					dialog1=new ExpressionTableModelDialog1(table,element,expression.get(row),minValue.get(row),maxValue.get(row),help,ExpressionTableModelBar.IconMode.BAR);
+					if (dialog1.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+						expression.set(row,dialog1.getExpression());
+						minValue.set(row,dialog1.getMinValue());
+						maxValue.set(row,dialog1.getMaxValue());
+						updateTable();
+					}
 				}
 				break;
 			case 2: /* Linienfarbe und -breite */

@@ -23530,6 +23530,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53623] = "Anzahl der wartenden Kunden";
     t[53628] = "Server.Log.SimulationCanceled";
     t[53629] = "Simulation abgebrochen";
+    t[53630] = "Surface.ExpressionTableModel.SetRangeForAll";
+    t[53631] = "F\u00fcr alle einstellen";
     t[53632] = "SystemInfo.Tools.UserInterface.ActivateSpellCheckingSystem";
     t[53633] = "Rechtschreibpr\u00fcfungssystem aktivieren";
     t[53634] = "Main.Menu.Extras.Calculator";
