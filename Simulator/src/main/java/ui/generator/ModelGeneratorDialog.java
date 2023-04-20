@@ -46,6 +46,8 @@ public class ModelGeneratorDialog extends BaseDialog {
 	private final ModelGeneratorPanel setup;
 	/** Vorschau auf das zu erstellende Modell */
 	private final EditorPanel viewer;
+	/** Besonderes Modell statt über das Panel erzeugtes Modell zurückliefern */
+	private EditModel specialModel=null;
 
 	/**
 	 * Konstruktor der Klasse
@@ -62,20 +64,34 @@ public class ModelGeneratorDialog extends BaseDialog {
 		content.add(main,BorderLayout.CENTER);
 		final JPanel left=new JPanel();
 		main.add(left,BorderLayout.WEST);
-		left.add(setup=new ModelGeneratorPanel(),BorderLayout.NORTH);
+		left.add(setup=new ModelGeneratorPanel(()->generateSpecialModel()),BorderLayout.NORTH);
 		main.add(viewer=new EditorPanel(this,setup.getModel(),true,true,false,false));
 		viewer.setSavedViewsButtonVisible(false);
 		setup.addModelChangeListener(()->{viewer.setModel(setup.getModel());});
 
 		/* setup.getModel() liefert erst dann ein Modell ohne Überlappungen der Elemente, wenn setup ein sichtbares Panel ist. */
-		SwingUtilities.invokeLater(()->viewer.setModel(setup.getModel()));
+		SwingUtilities.invokeLater(()->{
+			viewer.setModel(setup.getModel());
+			viewer.setZoom(1.0);
+		});
 
 		/* Dialog starten */
-		setMinSizeRespectingScreensize(1200,700);
+		setMinSizeRespectingScreensize(1200,750);
 		pack();
 		setResizable(true);
 		setLocationRelativeTo(this.owner);
 		setVisible(true);
+	}
+
+	/**
+	 * Schaltfläche: "Belastungstestmodelle..."
+	 */
+	private void generateSpecialModel() {
+		final ModelGeneratorLargeDialog dialog=new ModelGeneratorLargeDialog(this);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			specialModel=ModelGeneratorPanel.getLargeModel(dialog.getClientCount(),dialog.getStationCount(),dialog.isUseProcessStations());
+			close(BaseDialog.CLOSED_BY_OK);
+		}
 	}
 
 	/**
@@ -84,6 +100,7 @@ public class ModelGeneratorDialog extends BaseDialog {
 	 */
 	public EditModel getModel() {
 		if (getClosedBy()!=BaseDialog.CLOSED_BY_OK) return null;
+		if (specialModel!=null) return specialModel;
 		return viewer.getModel();
 	}
 }

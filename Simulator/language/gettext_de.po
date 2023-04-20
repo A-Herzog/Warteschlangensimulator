@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-18 09:36+0200\n"
+"POT-Creation-Date: 2023-04-19 09:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12757,6 +12757,27 @@ msgstr "Erfolg"
 
 msgid "ModelGenerator.DialogInfo"
 msgstr "Der Modellgenerator ermöglicht, einige einfache Modelle zur Untersuchung bestimmter typischer Forschungsfragestellungen mit wenigen Klicks direkt zu erstellen."
+
+msgid "ModelGenerator.LargeModel.ArrivalCount"
+msgstr "Anzahl an Kundenankünften"
+
+msgid "ModelGenerator.LargeModel.Button"
+msgstr "Belastungstestmodelle..."
+
+msgid "ModelGenerator.LargeModel.Description"
+msgstr "Automatisch erzeugtes Modell mit sehr vielen Stationen"
+
+msgid "ModelGenerator.LargeModel.StationCount"
+msgstr "Anzahl an Stationen"
+
+msgid "ModelGenerator.LargeModel.StationType.Delay"
+msgstr "Verzögerungsstationen verwenden"
+
+msgid "ModelGenerator.LargeModel.StationType.Process"
+msgstr "Bedienstationen verwenden"
+
+msgid "ModelGenerator.LargeModel.Title"
+msgstr "Belastungstestmodell erzeugen"
 
 msgid "ModelGenerator.Model.Description"
 msgstr "Einfaches mit dem Modellgenerator automatisch erzeugtes Modell"
@@ -35982,9 +36003,6 @@ msgstr "Lädt dieses Modell einem neuen Fenster in den Modell-Editor."
 msgid "Viewer.Title"
 msgstr "Modell betrachten"
 
-msgid "Wait.Info.Day"
-msgstr "Bisherige Laufzeit: %s Sekunden. Geschätzte Restzeit: %s Sekunden."
-
 msgid "Wait.Info.LongRun"
 msgstr "Bisherige Laufzeit: %s Sekunden. Geschätzte Restzeit: %s Sekunden."
 
@@ -35999,24 +36017,6 @@ msgstr "Die Simulation läuft lokal. Der Server \"%s\" ist nicht verfügbar."
 
 msgid "Wait.Info.StartRemote"
 msgstr "Die Simulation läuft auf Rechner \"%s\"."
-
-msgid "Wait.Status.Day"
-msgstr "%s von %s Wiederholungen simuliert / %s Kunden im System / %sM Ereignisse / %sK Ereignisse pro Sekunde"
-
-msgid "Wait.Status.Day.WIPOne"
-msgstr "%s von %s Wiederholungen simuliert / 1 Kunde im System / %sM Ereignisse / %sK Ereignisse pro Sekunde"
-
-msgid "Wait.Status.Day.WIPZero"
-msgstr "%s von %s Wiederholungen simuliert / %sM Ereignisse / %sK Ereignisse pro Sekunde"
-
-msgid "Wait.Status.DayK"
-msgstr "%s von %s Wiederholungen simuliert / %s Kunden im System / %sK Ereignisse / %sK Ereignisse pro Sekunde"
-
-msgid "Wait.Status.DayK.WIPOne"
-msgstr "%s von %s Wiederholungen simuliert / 1 Kunde im System / %sK Ereignisse / %sK Ereignisse pro Sekunde"
-
-msgid "Wait.Status.DayK.WIPZero"
-msgstr "%s von %s Wiederholungen simuliert / %sK Ereignisse / %sK Ereignisse pro Sekunde"
 
 msgid "Wait.Status.LongRun"
 msgstr "%sK von %sK Kundenankünfte simuliert / %s Kunden im System / %sM Ereignisse / %sK Ereignisse pro Sekunde"
@@ -37019,6 +37019,27 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "SystemInfo.Tools.Simulation.SecurityManager"
 #~ msgstr "Security-Manager bei benutzerdefiniertem Java-Code aktivieren"
+
+#~ msgid "Wait.Info.Day"
+#~ msgstr "Bisherige Laufzeit: %s Sekunden. Geschätzte Restzeit: %s Sekunden."
+
+#~ msgid "Wait.Status.Day"
+#~ msgstr "%s von %s Wiederholungen simuliert / %s Kunden im System / %sM Ereignisse / %sK Ereignisse pro Sekunde"
+
+#~ msgid "Wait.Status.Day.WIPOne"
+#~ msgstr "%s von %s Wiederholungen simuliert / 1 Kunde im System / %sM Ereignisse / %sK Ereignisse pro Sekunde"
+
+#~ msgid "Wait.Status.Day.WIPZero"
+#~ msgstr "%s von %s Wiederholungen simuliert / %sM Ereignisse / %sK Ereignisse pro Sekunde"
+
+#~ msgid "Wait.Status.DayK"
+#~ msgstr "%s von %s Wiederholungen simuliert / %s Kunden im System / %sK Ereignisse / %sK Ereignisse pro Sekunde"
+
+#~ msgid "Wait.Status.DayK.WIPOne"
+#~ msgstr "%s von %s Wiederholungen simuliert / 1 Kunde im System / %sK Ereignisse / %sK Ereignisse pro Sekunde"
+
+#~ msgid "Wait.Status.DayK.WIPZero"
+#~ msgstr "%s von %s Wiederholungen simuliert / %sK Ereignisse / %sK Ereignisse pro Sekunde"
 
 #~ msgid "Wait.Status.LongRunNoEstimation"
 #~ msgstr "%sK Kundenankünfte simuliert / %sM Ereignisse / %sK Ereignisse pro Sekunde"

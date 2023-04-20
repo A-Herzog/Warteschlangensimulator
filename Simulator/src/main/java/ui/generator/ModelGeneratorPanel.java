@@ -21,12 +21,15 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -41,6 +44,7 @@ import mathtools.NumberTools;
 import mathtools.distribution.LogNormalDistributionImpl;
 import mathtools.distribution.OnePointDistributionImpl;
 import simulator.editmodel.EditModel;
+import ui.images.Images;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -49,6 +53,7 @@ import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
 import ui.modeleditor.elements.ModelElementAnimationTextValue;
 import ui.modeleditor.elements.ModelElementCounter;
 import ui.modeleditor.elements.ModelElementDecide;
+import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementDispose;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementProcess;
@@ -98,8 +103,9 @@ public class ModelGeneratorPanel extends JPanel {
 
 	/**
 	 * Konstruktor der Klasse
+	 * @param specialModelCallback	Callback zur Erzeugung von besonders großen Modellen (kann <code>null</code> sein, dann wird die Funktion deaktiviert)
 	 */
-	public ModelGeneratorPanel() {
+	public ModelGeneratorPanel(final Runnable specialModelCallback) {
 		super();
 
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
@@ -189,6 +195,16 @@ public class ModelGeneratorPanel extends JPanel {
 		checkAddWIPVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.WIP"),true);
 		checkAddRhoVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.MeanRho"),true);
 		checkAddWVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.MeanWaitingTime"),true);
+
+		/* Besondere Modelle */
+		if (specialModelCallback!=null) {
+			add(Box.createVerticalStrut(30));
+			final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+			add(line);
+			final JButton specialModels=new JButton(Language.tr("ModelGenerator.LargeModel.Button"),Images.GENERAL_TOOLS.getIcon());
+			line.add(specialModels);
+			specialModels.addActionListener(e->specialModelCallback.run());
+		}
 	}
 
 	/**
@@ -318,7 +334,7 @@ public class ModelGeneratorPanel extends JPanel {
 	 * @param station2	Zielstation
 	 * @see #getModel()
 	 */
-	private void addEdge(final EditModel model, final ModelElementBox station1, final ModelElementBox station2) {
+	private static void addEdge(final EditModel model, final ModelElementBox station1, final ModelElementBox station2) {
 		addEdge(model,station1,station2,false);
 	}
 
@@ -330,7 +346,7 @@ public class ModelGeneratorPanel extends JPanel {
 	 * @param direct	 Soll die Verbindungskante normal (<code>false</code>) oder zwingend als gerade Linie (<code>true</code>) gezeichnet werden?
 	 * @see #getModel()
 	 */
-	private void addEdge(final EditModel model, final ModelElementBox station1, final ModelElementBox station2, final boolean direct) {
+	private static void addEdge(final EditModel model, final ModelElementBox station1, final ModelElementBox station2, final boolean direct) {
 		final ModelElementEdge edge=new ModelElementEdge(model,model.surface,station1,station2);
 		station1.addEdgeOut(edge);
 		station2.addEdgeIn(edge);
@@ -783,6 +799,98 @@ public class ModelGeneratorPanel extends JPanel {
 
 			if (addRhoVisualization) yPosition-=100;
 		}
+
+		return model;
+	}
+
+	/**
+	 * Erzeugt ein großes Testmodell zur Untersuchung des Verhaltens des Simulators
+	 * bei Modellen aus sehr vielen Stationen.
+	 * @param clientCount	Zu simulierende Kundenankünfte
+	 * @param stationCount	Anzahl an Stationen
+	 * @param useProcessStations	Sollen Bedienstationen (<code>true</code>) oder Verzögerungsstationen (<code>false</code>) verwendet werden?
+	 * @return	Testmodell
+	 */
+	public static EditModel getLargeModel(final long clientCount, final int stationCount, final boolean useProcessStations) {
+		final double meanInterArrivalTime=100;
+		final double delayTime=1;
+		final double meanServiceTime=10;
+		final int stationsPerRow=30;
+
+		/* Modell anlegen */
+		final EditModel model=new EditModel();
+		model.name=Language.tr("ModelGenerator.LargeModel.Description");
+		model.clientCount=clientCount;
+		model.warmUpTime=0.0;
+		model.distributionRecordHours=0;
+		model.distributionRecordClientDataValues=0;
+
+		/* Überschrift */
+		final ModelElementText label=new ModelElementText(model,model.surface);
+		model.surface.add(label);
+		label.setPosition(new Point(50,50));
+		label.setText(Language.tr("ModelGenerator.Model.Name"));
+		label.setTextBold(true);
+		label.setTextSize(label.getTextSize()+2);
+
+		/* x-Position für nächste Station */
+		int xPosition=50;
+		int yPosition=100;
+		int xDirection=1;
+
+		/* Quelle */
+		final ModelElementSource source=new ModelElementSource(model,model.surface);
+		model.surface.add(source);
+		source.setPosition(new Point(xPosition,yPosition));
+		source.getRecord().setInterarrivalTimeDistribution(new ExponentialDistribution(null,meanInterArrivalTime,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY));
+		xPosition+=200;
+
+		ModelElementBox lastStation=source;
+
+		/* Stationen */
+		model.surface.startFastMultiAdd();
+		try {
+			for (int i=0;i<stationCount-2;i++) {
+				final ModelElementBox station;
+				if (useProcessStations) {
+					final String operatorName="Operator "+(i+1);
+					final ModelElementProcess process=new ModelElementProcess(model,model.surface);
+					process.getWorking().set(new ExponentialDistribution(null,meanServiceTime,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY));
+					final Map<String,Integer> resourceRecord=new HashMap<>();
+					resourceRecord.put(operatorName,1);
+					process.getNeededResources().set(0,resourceRecord);
+					model.resources.add(new ModelResource(operatorName,1));
+					station=process;
+				} else {
+					final ModelElementDelay delay=new ModelElementDelay(model,model.surface);
+					delay.setDelayTime(new OnePointDistributionImpl(delayTime),null);
+					station=delay;
+				}
+				station.setPosition(new Point(xPosition,yPosition));
+				model.surface.add(station);
+				addEdge(model,lastStation,station);
+				lastStation=station;
+				if (xPosition>=200*stationsPerRow-50 && xDirection==1) {
+					yPosition+=100;
+					xDirection=-1;
+					continue;
+				}
+				if (xPosition<=200 && xDirection==-1) {
+					yPosition+=100;
+					xDirection=1;
+					continue;
+				}
+				xPosition+=200*xDirection;
+			}
+		} finally {
+			model.surface.endFastMultiAdd();
+		}
+
+		/* Ausgang */
+		final ModelElementDispose dispose=new ModelElementDispose(model,model.surface);
+		model.surface.add(dispose);
+		dispose.setPosition(new Point(xPosition,yPosition));
+		addEdge(model,lastStation,dispose);
 
 		return model;
 	}

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-18 09:36+0200\n"
+"POT-Creation-Date: 2023-04-19 09:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12760,6 +12760,27 @@ msgstr "Success"
 
 msgid "ModelGenerator.DialogInfo"
 msgstr "The model generator allows to create some simple models for examining specific typical research questions with just a few clicks."
+
+msgid "ModelGenerator.LargeModel.ArrivalCount"
+msgstr "Number of client arrivals"
+
+msgid "ModelGenerator.LargeModel.Button"
+msgstr "Load test models..."
+
+msgid "ModelGenerator.LargeModel.Description"
+msgstr "Automatically generated model with very many stations"
+
+msgid "ModelGenerator.LargeModel.StationCount"
+msgstr "Number of stations"
+
+msgid "ModelGenerator.LargeModel.StationType.Delay"
+msgstr "Use delay stations"
+
+msgid "ModelGenerator.LargeModel.StationType.Process"
+msgstr "Use process stations"
+
+msgid "ModelGenerator.LargeModel.Title"
+msgstr "Generate load test model"
 
 msgid "ModelGenerator.Model.Description"
 msgstr "Simple by the model generator automatically created model"
@@ -35955,9 +35976,6 @@ msgstr "Loads the model in a new window to the model editor."
 msgid "Viewer.Title"
 msgstr "View model"
 
-msgid "Wait.Info.Day"
-msgstr "Run time: %s seconds. Estimated remaining time: %s seconds."
-
 msgid "Wait.Info.LongRun"
 msgstr "Run time: %s seconds. Estimated remaining time: %s seconds."
 
@@ -35972,24 +35990,6 @@ msgstr "The simulation is running local. The server \"%s\" is not available."
 
 msgid "Wait.Info.StartRemote"
 msgstr "The simulation is running on computer \"%s\"."
-
-msgid "Wait.Status.Day"
-msgstr "%s of %s repeats simulated / %s clients in the system / %sM events / %sK events per second"
-
-msgid "Wait.Status.Day.WIPOne"
-msgstr "%s of %s repeats simulated / 1 client in the system / %sM events / %sK events per second"
-
-msgid "Wait.Status.Day.WIPZero"
-msgstr "%s of %s repeats simulated / %sM events / %sK events per second"
-
-msgid "Wait.Status.DayK"
-msgstr "%s of %s repeats simulated / %s clients in the system / %sK events / %sK events per second"
-
-msgid "Wait.Status.DayK.WIPOne"
-msgstr "%s of %s repeats simulated / 1 client in the system / %sK events / %sK events per second"
-
-msgid "Wait.Status.DayK.WIPZero"
-msgstr "%s of %s repeats simulated / %sK events / %sK events per second"
 
 msgid "Wait.Status.LongRun"
 msgstr "%sK of %sK client arrivals simulated / %s clients in the system / %sM events / %sK events per second"
@@ -36969,6 +36969,27 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "SystemInfo.Tools.Simulation.SecurityManager"
 #~ msgstr "Activate security manager on user-defined Java code"
+
+#~ msgid "Wait.Info.Day"
+#~ msgstr "Run time: %s seconds. Estimated remaining time: %s seconds."
+
+#~ msgid "Wait.Status.Day"
+#~ msgstr "%s of %s repeats simulated / %s clients in the system / %sM events / %sK events per second"
+
+#~ msgid "Wait.Status.Day.WIPOne"
+#~ msgstr "%s of %s repeats simulated / 1 client in the system / %sM events / %sK events per second"
+
+#~ msgid "Wait.Status.Day.WIPZero"
+#~ msgstr "%s of %s repeats simulated / %sM events / %sK events per second"
+
+#~ msgid "Wait.Status.DayK"
+#~ msgstr "%s of %s repeats simulated / %s clients in the system / %sK events / %sK events per second"
+
+#~ msgid "Wait.Status.DayK.WIPOne"
+#~ msgstr "%s of %s repeats simulated / 1 client in the system / %sK events / %sK events per second"
+
+#~ msgid "Wait.Status.DayK.WIPZero"
+#~ msgstr "%s of %s repeats simulated / %sK events / %sK events per second"
 
 #~ msgid "Wait.Status.LongRunNoEstimation"
 #~ msgstr "%sK client arrivals simulated / %sM events / %sK events per second"

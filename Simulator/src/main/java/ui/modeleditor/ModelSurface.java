@@ -881,13 +881,27 @@ public final class ModelSurface {
 	private boolean turnOffIDScanner=false;
 
 	/**
+	 * Ist der Modus zur schnelleren Suche nach freien IDs in {@link #getNextFreeId()} aktiv?
+	 * @see #getNextFreeId()
+	 * @see #startFastMultiAdd()
+	 * @see #endFastMultiAdd()
+	 */
+	private boolean fastMultiAdd=false;
+
+	/**
+	 * Zuletzt von {@link #getNextFreeId()} gelieferte ID
+	 * @see #getNextFreeId()
+	 */
+	private int lastFreeId;
+
+	/**
 	 * Liefert die nächste freie ID.<br>
 	 * Die Prüfung erfolgt dabei global, d.h. es wird zunächst die Kette zum primären Surface verfolgt und von diesem aus geprüft, welche IDs bereits vergeben sind
 	 * @return	Nächste globale freie ID
 	 */
 	public int getNextFreeId() {
 		if (turnOffIDScanner) return 1; /* Wenn das Element nur temporär initialisiert wird und gleich sowieso alles beim Laden überschrieben wird, brauchen wir auch keine ID zu suchen. */
-		int nextFreeId=1;
+		int nextFreeId=(fastMultiAdd)?Math.max(1,lastFreeId):1;
 		while (true) {
 			boolean ok=true;
 			ModelSurface surface=this;
@@ -895,9 +909,29 @@ public final class ModelSurface {
 				if (!surface.isFreeId(nextFreeId)) {ok=false; break;}
 				surface=surface.getParentSurface();
 			}
-			if (ok) return nextFreeId;
+			if (ok) return lastFreeId=nextFreeId;
 			nextFreeId++;
 		}
+	}
+
+	/**
+	 * Weist {@link #getNextFreeId()} stets nur ab der zuvor gewählten Id zu suchen.<br>
+	 * (So werden Lücken, die durch ein zwischenzeitliches Entfernen von Stationen entstanden sind, nicht gefunden,
+	 * dafür ist das direkt in Folge erfolgende Hinzufügen von vielen Stationen deutlich schneller.)
+	 * @see #endFastMultiAdd()
+	 * @see #getNextFreeId()
+	 */
+	public void startFastMultiAdd() {
+		fastMultiAdd=true;
+	}
+
+	/**
+	 * Beendet die reduzierte Suche in {@link #getNextFreeId()}
+	 * @see #startFastMultiAdd()
+	 * @see #getNextFreeId()
+	 */
+	public void endFastMultiAdd() {
+		fastMultiAdd=false;
 	}
 
 	/**
