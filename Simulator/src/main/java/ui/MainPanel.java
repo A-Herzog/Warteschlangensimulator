@@ -3043,7 +3043,7 @@ public class MainPanel extends MainPanelBase {
 	 * @param simulationStartTime	Startzeitpunkt der Simulation (in ms)
 	 */
 	private void processSimulationDone(final boolean successful, final AnySimulator simulator, final boolean isAnimation, final long simulationStartTime) {
-		enableMenuBar(true);
+
 
 		final Statistics statistics=simulator.getStatistic();
 
@@ -3051,6 +3051,7 @@ public class MainPanel extends MainPanelBase {
 			statisticsPanel.setStatistics(statistics);
 			for (AbstractButton button: enabledOnStatisticsAvailable) button.setEnabled(true);
 			setCurrentPanel(statisticsPanel);
+			enableMenuBar(true);
 			if (simulationStartTime>0) Notifier.run(Notifier.Message.SIMULATION_DONE,simulationStartTime);
 			return;
 		}
@@ -3077,6 +3078,7 @@ public class MainPanel extends MainPanelBase {
 				statisticsPanel.setStatistics(statistics);
 				for (AbstractButton button: enabledOnStatisticsAvailable) button.setEnabled(true);
 				setCurrentPanel(statisticsPanel);
+				enableMenuBar(true);
 				if (mode!=SetupData.CanceledSimulationStatistics.ASK) {
 					if (simulationStartTime>0) Notifier.run(Notifier.Message.SIMULATION_DONE,simulationStartTime);
 				}
@@ -3085,6 +3087,7 @@ public class MainPanel extends MainPanelBase {
 		}
 
 		setCurrentPanel(editorPanel);
+		enableMenuBar(true);
 	}
 
 	/**

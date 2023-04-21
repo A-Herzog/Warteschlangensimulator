@@ -58,19 +58,6 @@ public class WaitPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 3524929788005334671L;
 
-	/**
-	 * Art der Simulation
-	 */
-	private enum OperationMode {
-		/** Mehrere Tage */
-		MODE_MULTI_DAYS,
-		/** Ein langer Lauf */
-		MODE_SINGLE_LONG_RUN
-	}
-
-	/** Art der Simulation */
-	private static final OperationMode operationMode=OperationMode.MODE_SINGLE_LONG_RUN;
-
 	/** Übergeordnetes Fenster */
 	private Window parentWindow;
 
@@ -91,8 +78,10 @@ public class WaitPanel extends JPanel {
 	private JLabel info1;
 	/** Zeile 2 Informationstext */
 	private JLabel info2;
-	/** Statusleiste mit weiteren Informationen zu laufenden Simulation */
+	/** Statusleiste (linksbündig) mit weiteren Informationen zur laufenden Simulation */
 	private JLabel statusbar;
+	/** Statusleiste (rechtsbündig) mit weiteren Informationen zur laufenden Simulation */
+	private JLabel statusbarRight;
 	/** Fortschrittsbalken */
 	private JProgressBar progress;
 	/** Maximalwert für den Fortschrittsbalken */
@@ -101,6 +90,9 @@ public class WaitPanel extends JPanel {
 	private int clientScale;
 	/** "Abbrechen"-Schaltfläche */
 	private JButton cancel;
+
+	/** Zählt die Aufrufe des TimerTasks */
+	private long countTimerIntervals=0;
 
 	/** Timer zur Aktualisierung der Fortschrittsanzeige */
 	private Timer timer;
@@ -115,6 +107,9 @@ public class WaitPanel extends JPanel {
 	/** Wird aufgerufen, wenn die Simulation beendet wurde (erfolgreich oder per Nutzerabbruch). Wird hier <code>null</code> übergeben, so erfolgt keine Rückmeldung. */
 	private Runnable simulationDone;
 
+	/** System zur Ermittung der CPU-Auslastung und der Arbeitsspeicherbelegung */
+	private SystemInfoData sysInfo=new SystemInfoData();
+
 	/**
 	 * Konstruktor der Klasse {@link WaitPanel}
 	 */
@@ -126,9 +121,13 @@ public class WaitPanel extends JPanel {
 		final JPanel statusbarOuter=new JPanel(new BorderLayout());
 		add(statusbarOuter,BorderLayout.SOUTH);
 		statusbarOuter.setBorder(BorderFactory.createEtchedBorder());
-		statusbarOuter.add(statusbar=new JLabel(),BorderLayout.SOUTH);
-		statusbar.setPreferredSize(new Dimension(100,20));
+		statusbarOuter.add(statusbar=new JLabel(),BorderLayout.CENTER);
+		statusbar.setPreferredSize(new Dimension(200,20));
 		statusbar.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
+
+		statusbarOuter.add(statusbarRight=new JLabel(),BorderLayout.EAST);
+		statusbarRight.setBorder(BorderFactory.createEmptyBorder(0,0,0,5));
+		statusbarRight.setAlignmentX(1);
 
 		add(mainarea=new JPanel(),BorderLayout.CENTER);
 		mainarea.setLayout(new BoxLayout(mainarea,BoxLayout.Y_AXIS));
@@ -208,6 +207,7 @@ public class WaitPanel extends JPanel {
 		this.simulationDone=simulationDone;
 
 		statusbar.setText(Language.tr("Wait.Status.Start"));
+		statusbarRight.setText("");
 		if (simulator instanceof SimulationClient) {
 			info1.setText(String.format(Language.tr("Wait.Info.StartRemote"),((SimulationClient)simulator).getHost()));
 		} else {
@@ -219,20 +219,15 @@ public class WaitPanel extends JPanel {
 			}
 		}
 		info2.setText("");
-		switch (operationMode) {
-		case MODE_MULTI_DAYS:
-			progressMax=1000;
-			break;
-		case MODE_SINGLE_LONG_RUN:
-			if (simulator.getCountClients()>=100_000) {
-				clientScale=1000;
-				progressMax=Math.max(1,(int)(simulator.getCountClients()/1000));
-			} else {
-				clientScale=1;
-				progressMax=Math.max(1,(int)(simulator.getCountClients()));
-			}
-			break;
+
+		if (simulator.getCountClients()>=100_000) {
+			clientScale=1000;
+			progressMax=Math.max(1,(int)(simulator.getCountClients()/1000));
+		} else {
+			clientScale=1;
+			progressMax=Math.max(1,(int)(simulator.getCountClients()));
 		}
+
 		progress.setMaximum(progressMax);
 		progress.setValue(0);
 
@@ -244,8 +239,11 @@ public class WaitPanel extends JPanel {
 			/* Hintergrundsimulation ist schon fertig */
 			finalizeSimulation(true);
 		} else {
+			countTimerIntervals=0;
 			timer=new Timer("SimProgressBar",false);
-			timer.schedule(new UpdateInfoTask(operationMode),50,50);
+			timer.schedule(new TimerTask() {
+				@Override public void run() {try {runUpdate();} catch (Exception | OutOfMemoryError e) {abortRun=true;}}
+			},50,50);
 		}
 	}
 
@@ -264,207 +262,170 @@ public class WaitPanel extends JPanel {
 	}
 
 	/**
-	 * Aktualisierung der Daten im Falle einer Simulation über mehrere Simulations-Tage.
-	 * @see OperationMode#MODE_MULTI_DAYS
+	 * Aktualisiert die Info- und die Statuszeile im Falle eines über eine Zeitpunkt definierten Simulationsendes.
+	 * @param progressPercent	Simulationsfortschritt
+	 * @param arrivalCount	Anzahl an Kundenankünften bisher
+	 * @param wip	Aktuelle Anzahl an Kunden im System
+	 * @param delta	Zeit (in MS) seit dem Start der Simulation
 	 */
-	private void updateInfoDayMode() {
-		final long day=simulator.getSimDayCount();
-		final long days=simulator.getSimDaysCount();
-		final long time=System.currentTimeMillis();
-		final long events=simulator.getEventCount();
-		final int wip=simulator.getCurrentWIP();
-		if (time-startTime>3000) {
-			double gesamt=(time-startTime)/(((double)day)/days);
-			gesamt-=(time-startTime);
-			if (gesamt/1000<lastGesamt) lastGesamt=(int) Math.round(gesamt/1000);
+	private void updateStatusBarTime(final int progressPercent, final long arrivalCount, final int wip, final long delta) {
+		/* Informationen zur Restlaufzeit */
+		if (delta>3000 && progressPercent>0) {
+			double gesamt=delta*100.0/progressPercent;
+			gesamt-=delta;
+			if (gesamt/1000<lastGesamt) lastGesamt=(int)FastMath.round(gesamt/1000);
 			if (lastGesamt<86400) {
-				info2.setText(String.format(Language.tr("Wait.Info.Day"),NumberTools.formatLong((time-startTime)/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
+				info2.setText(String.format(Language.tr("Wait.Info.LongRun"),NumberTools.formatLong(delta/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
 			} else {
-				info2.setText("");
+				info2.setText(String.format(Language.tr("Wait.Info.LongRunNoEstimation"),NumberTools.formatLong(delta/1000)));
 			}
+		} else {
+			info2.setText(String.format(Language.tr("Wait.Info.LongRunNoEstimation"),NumberTools.formatLong(delta/1000)));
 		}
+
+		/* Statuszeile */
+		final String currentClientsKString=NumberTools.formatLong(arrivalCount/1000);
+		final long events=simulator.getEventCount();
+		final String eventsPerSecondKString=NumberTools.formatLong(simulator.getEventsPerSecond()/1000);
 		if (events<1_000_000) {
+			final String totalEventsKString=NumberTools.formatLong(events/1000);
 			if (wip==0) {
-				statusbar.setText(String.format(Language.tr("Wait.Status.DayK.WIPZero"),NumberTools.formatLong(day),NumberTools.formatLong(days),NumberTools.formatLong(events/1000),NumberTools.formatLong(simulator.getEventsPerSecond()/1000)));
+				statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationK.WIPZero"),currentClientsKString,totalEventsKString,eventsPerSecondKString));
 			} else {
 				if (wip==1) {
-					statusbar.setText(String.format(Language.tr("Wait.Status.DayK.WIPOne"),NumberTools.formatLong(day),NumberTools.formatLong(days),NumberTools.formatLong(events/1000),NumberTools.formatLong(simulator.getEventsPerSecond()/1000)));
+					statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationK.WIPOne"),currentClientsKString,totalEventsKString,eventsPerSecondKString));
 				} else {
 					final String wipString=NumberTools.formatLong(wip);
-					statusbar.setText(String.format(Language.tr("Wait.Status.DayK"),NumberTools.formatLong(day),NumberTools.formatLong(days),wipString,NumberTools.formatLong(events/1000),NumberTools.formatLong(simulator.getEventsPerSecond()/1000)));
+					statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationK"),currentClientsKString,wipString,totalEventsKString,eventsPerSecondKString));
 				}
 			}
 		} else {
+			final String totalEventsMString=NumberTools.formatLong(events/1_000_000);
 			if (wip==0) {
-				statusbar.setText(String.format(Language.tr("Wait.Status.Day.WIPZero"),NumberTools.formatLong(day),NumberTools.formatLong(days),NumberTools.formatLong(events/1000000),NumberTools.formatLong(simulator.getEventsPerSecond()/1000)));
+				statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationM.WIPZero"),currentClientsKString,totalEventsMString,eventsPerSecondKString));
 			} else {
 				if (wip==1) {
-					statusbar.setText(String.format(Language.tr("Wait.Status.Day.WIPOne"),NumberTools.formatLong(day),NumberTools.formatLong(days),NumberTools.formatLong(events/1000000),NumberTools.formatLong(simulator.getEventsPerSecond()/1000)));
+					statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationM.WIPOne"),currentClientsKString,totalEventsMString,eventsPerSecondKString));
 				} else {
 					final String wipString=NumberTools.formatLong(wip);
-					statusbar.setText(String.format(Language.tr("Wait.Status.Day"),NumberTools.formatLong(day),NumberTools.formatLong(days),wipString,NumberTools.formatLong(events/1000000),NumberTools.formatLong(simulator.getEventsPerSecond()/1000)));
+					statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationM"),currentClientsKString,wipString,totalEventsMString,eventsPerSecondKString));
 				}
 			}
 		}
+	}
 
-		final int c=(int)Math.round(1000.0*day/days);
-		progress.setValue(c);
-		if (parentWindow==null) findParentWindow();
-		Notifier.setSimulationProgress(parentWindow,100*c/progressMax);
+	/**
+	 * Aktualisiert die Info- und die Statuszeile im Falle eines über eine Anzahl an Ankünften definierten Simulationsendes.
+	 * @param arrivalCount	Anzahl an Kundenankünften bisher
+	 * @param arrivalSum	Geplante Gesamtanzahl an Kundenankünften
+	 * @param wip	Aktuelle Anzahl an Kunden im System
+	 * @param delta	Zeit (in MS) seit dem Start der Simulation
+	 */
+	private void updateStatusBarCount(final long arrivalCount, final long arrivalSum, final int wip, final long delta) {
+		/* Informationen zur Restlaufzeit */
+		if (delta>3000) {
+			double gesamt=delta/(((double)arrivalCount)/arrivalSum);
+			gesamt-=delta;
+			if (gesamt/1000<lastGesamt) lastGesamt=(int)FastMath.round(gesamt/1000);
+			if (lastGesamt<86400) {
+				info2.setText(String.format(Language.tr("Wait.Info.LongRun"),NumberTools.formatLong(delta/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
+			} else {
+				info2.setText(String.format(Language.tr("Wait.Info.LongRunNoEstimation"),NumberTools.formatLong(delta/1000)));
+			}
+		}
+
+		/* Statuszeile */
+		final long events=simulator.getEventCount();
+		final String currentClientsKString=NumberTools.formatLong(arrivalCount/1000);
+		final String totalClientsKString=NumberTools.formatLong(arrivalSum/1000);
+		final String eventsPerSecondKString=NumberTools.formatLong(simulator.getEventsPerSecond()/1000);
+		if (events<1_000_000) {
+			final String totalEventsKString=NumberTools.formatLong(events/1000);
+			if (wip==0) {
+				statusbar.setText(String.format(Language.tr("Wait.Status.LongRunK.WIPZero"),currentClientsKString,totalClientsKString,totalEventsKString,eventsPerSecondKString));
+			} else {
+				if (wip==1) {
+					statusbar.setText(String.format(Language.tr("Wait.Status.LongRunK.WIPOne"),currentClientsKString,totalClientsKString,totalEventsKString,eventsPerSecondKString));
+				} else {
+					final String wipString=NumberTools.formatLong(wip);
+					statusbar.setText(String.format(Language.tr("Wait.Status.LongRunK"),currentClientsKString,totalClientsKString,wipString,totalEventsKString,eventsPerSecondKString));
+				}
+			}
+		} else {
+			final String totalEventsMString=NumberTools.formatLong(events/1_000_000);
+			if (wip==0) {
+				statusbar.setText(String.format(Language.tr("Wait.Status.LongRun.WIPZero"),currentClientsKString,totalClientsKString,totalEventsMString,eventsPerSecondKString));
+			} else {
+				if (wip==1) {
+					statusbar.setText(String.format(Language.tr("Wait.Status.LongRun.WIPOne"),currentClientsKString,totalClientsKString,totalEventsMString,eventsPerSecondKString));
+				} else {
+					final String wipString=NumberTools.formatLong(wip);
+					statusbar.setText(String.format(Language.tr("Wait.Status.LongRun"),currentClientsKString,totalClientsKString,wipString,totalEventsMString,eventsPerSecondKString));
+				}
+			}
+		}
 	}
 
 	/**
 	 * Aktualisierung der Daten im Falle einer lang laufenden Simulation.
-	 * @see OperationMode#MODE_SINGLE_LONG_RUN
 	 */
-	private void updateInfoLongRun() {
-		final long current=simulator.getCurrentClients();
-		final long sum=simulator.getCountClients();
-		final int wip=simulator.getCurrentWIP();
-		final long time=System.currentTimeMillis();
-		final long delta=time-startTime;
-		if (sum<0) {
+	private void runUpdate() {
+		/* Auf Abbruch prüfen */
 
-			int timeProgressPercent=-1;
+		if (abortRun) simulator.cancel();
+		if (abortRun || !simulator.isRunning()) {finalizeSimulation(!abortRun); return;}
+		countTimerIntervals++;
+
+		/* Infozeile und Statuszeile */
+
+		if (countTimerIntervals%20!=0) return;
+
+		final long arrivalCount=simulator.getCurrentClients();
+		final long arrivalSum=simulator.getCountClients();
+		final int wip=simulator.getCurrentWIP();
+		final long delta=System.currentTimeMillis()-startTime;
+
+		int progressPercent;
+
+		if (arrivalSum<0) {
+			progressPercent=-1;
 			if (simulator instanceof Simulator) {
 				final Simulator localSimulator=(Simulator)simulator;
 				if (localSimulator.threadCount==1) {
 					final long terminationTime=localSimulator.getRunModel().terminationTime;
 					if (terminationTime>0) {
-						long currentTime=localSimulator.getSingleThreadCurrentTime();
-						if (currentTime>0) timeProgressPercent=(int)(currentTime/terminationTime/10);
+						final long currentTime=localSimulator.getSingleThreadCurrentTime();
+						if (currentTime>0) progressPercent=(int)(currentTime/terminationTime/10);
 					}
 				}
 			}
-			if (delta>3000 && timeProgressPercent>0) {
-				double gesamt=delta*100.0/timeProgressPercent;
-				gesamt-=delta;
-				if (gesamt/1000<lastGesamt) lastGesamt=(int)FastMath.round(gesamt/1000);
-				if (lastGesamt<86400) {
-					info2.setText(String.format(Language.tr("Wait.Info.LongRun"),NumberTools.formatLong(delta/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
-				} else {
-					info2.setText(String.format(Language.tr("Wait.Info.LongRunNoEstimation"),NumberTools.formatLong(delta/1000)));
-				}
-			} else {
-				info2.setText(String.format(Language.tr("Wait.Info.LongRunNoEstimation"),NumberTools.formatLong(delta/1000)));
-			}
-
-			final String currentClientsKString=NumberTools.formatLong(current/1000);
-			final long events=simulator.getEventCount();
-			final String eventsPerSecondKString=NumberTools.formatLong(simulator.getEventsPerSecond()/1000);
-			if (events<1_000_000) {
-				final String totalEventsKString=NumberTools.formatLong(events/1000);
-				if (wip==0) {
-					statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationK.WIPZero"),currentClientsKString,totalEventsKString,eventsPerSecondKString));
-				} else {
-					if (wip==1) {
-						statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationK.WIPOne"),currentClientsKString,totalEventsKString,eventsPerSecondKString));
-					} else {
-						final String wipString=NumberTools.formatLong(wip);
-						statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationK"),currentClientsKString,wipString,totalEventsKString,eventsPerSecondKString));
-					}
-				}
-			} else {
-				final String totalEventsMString=NumberTools.formatLong(events/1_000_000);
-				if (wip==0) {
-					statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationM.WIPZero"),currentClientsKString,totalEventsMString,eventsPerSecondKString));
-				} else {
-					if (wip==1) {
-						statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationM.WIPOne"),currentClientsKString,totalEventsMString,eventsPerSecondKString));
-					} else {
-						final String wipString=NumberTools.formatLong(wip);
-						statusbar.setText(String.format(Language.tr("Wait.Status.LongRunNoEstimationM"),currentClientsKString,wipString,totalEventsMString,eventsPerSecondKString));
-					}
-				}
-			}
-			if (timeProgressPercent<0) {
-				progress.setStringPainted(false);
-				progress.setIndeterminate(true);
-			} else {
-				progress.setStringPainted(true);
-				progress.setIndeterminate(false);
-				progress.setMaximum(progressMax=100);
-				progress.setValue(timeProgressPercent);
-			}
+			updateStatusBarTime(progressPercent,arrivalCount,wip,delta);
+			progressMax=100;
 		} else {
-			if (delta>3000) {
-				double gesamt=delta/(((double)current)/sum);
-				gesamt-=delta;
-				if (gesamt/1000<lastGesamt) lastGesamt=(int)FastMath.round(gesamt/1000);
-				if (lastGesamt<86400) {
-					info2.setText(String.format(Language.tr("Wait.Info.LongRun"),NumberTools.formatLong(delta/1000),NumberTools.formatLong(Math.max(0,lastGesamt))));
-				} else {
-					info2.setText(String.format(Language.tr("Wait.Info.LongRunNoEstimation"),NumberTools.formatLong(delta/1000)));
-				}
-			}
-			final long events=simulator.getEventCount();
-			final String currentClientsKString=NumberTools.formatLong(current/1000);
-			final String totalClientsKString=NumberTools.formatLong(sum/1000);
-			final String eventsPerSecondKString=NumberTools.formatLong(simulator.getEventsPerSecond()/1000);
-			if (events<1_000_000) {
-				final String totalEventsKString=NumberTools.formatLong(events/1000);
-				if (wip==0) {
-					statusbar.setText(String.format(Language.tr("Wait.Status.LongRunK.WIPZero"),currentClientsKString,totalClientsKString,totalEventsKString,eventsPerSecondKString));
-				} else {
-					if (wip==1) {
-						statusbar.setText(String.format(Language.tr("Wait.Status.LongRunK.WIPOne"),currentClientsKString,totalClientsKString,totalEventsKString,eventsPerSecondKString));
-					} else {
-						final String wipString=NumberTools.formatLong(wip);
-						statusbar.setText(String.format(Language.tr("Wait.Status.LongRunK"),currentClientsKString,totalClientsKString,wipString,totalEventsKString,eventsPerSecondKString));
-					}
-				}
-			} else {
-				final String totalEventsMString=NumberTools.formatLong(events/1_000_000);
-				if (wip==0) {
-					statusbar.setText(String.format(Language.tr("Wait.Status.LongRun.WIPZero"),currentClientsKString,totalClientsKString,totalEventsMString,eventsPerSecondKString));
-				} else {
-					if (wip==1) {
-						statusbar.setText(String.format(Language.tr("Wait.Status.LongRun.WIPOne"),currentClientsKString,totalClientsKString,totalEventsMString,eventsPerSecondKString));
-					} else {
-						final String wipString=NumberTools.formatLong(wip);
-						statusbar.setText(String.format(Language.tr("Wait.Status.LongRun"),currentClientsKString,totalClientsKString,wipString,totalEventsMString,eventsPerSecondKString));
-					}
-				}
-			}
-			final int c=(int)(current/clientScale);
-			progress.setValue(c);
+			updateStatusBarCount(arrivalCount,arrivalSum,wip,delta);
+			progressPercent=(int)(arrivalCount/clientScale);
+		}
+
+		if (progressPercent>=0) {
+			progress.setStringPainted(true);
+			progress.setIndeterminate(false);
+			progress.setMaximum(progressMax);
+			progress.setValue(progressPercent);
 			if (parentWindow==null) findParentWindow();
-			Notifier.setSimulationProgress(parentWindow,100*c/progressMax);
-		}
-	}
-
-	/**
-	 * Aktualisiert in regelmäßigen Abständen die Anzeige
-	 * @see WaitPanel#setSimulator(AnySimulator, Runnable)
-	 */
-	private class UpdateInfoTask extends TimerTask {
-		/** Zählt die Aufrufe der {@link #run()}-Methode */
-		private long countTimerIntervals=0;
-		/** Art der Simulation */
-		private final OperationMode mode;
-
-		/**
-		 * Konstruktor der Klasse
-		 * @param mode	Art der Simulation
-		 */
-		public UpdateInfoTask(final OperationMode mode) {
-			this.mode=mode;
+			Notifier.setSimulationProgress(parentWindow,100*progressPercent/progressMax);
+		} else {
+			progress.setStringPainted(false);
+			progress.setIndeterminate(true);
 		}
 
-		@Override
-		public void run() {
-			try {
-				if (abortRun) simulator.cancel();
-				if (abortRun || !simulator.isRunning()) {finalizeSimulation(!abortRun); return;}
+		/* Systemauslastung */
 
-				countTimerIntervals++;
-				if (countTimerIntervals%20!=0) return;
-
-				switch (mode) {
-				case MODE_MULTI_DAYS: updateInfoDayMode(); break;
-				case MODE_SINGLE_LONG_RUN: updateInfoLongRun(); break;
-				}
-			} catch (Exception | OutOfMemoryError e) {abortRun=true;}
+		if (countTimerIntervals%60!=0) return;
+		final double load=sysInfo.getLoad();
+		if (load>0.01) {
+			statusbarRight.setText("CPU: "+NumberTools.formatPercent(load,0)+", RAM: "+NumberTools.formatLong(sysInfo.getRAMUsage()/1024/1024)+" MB");
+		} else {
+			statusbarRight.setText("RAM: "+NumberTools.formatLong(sysInfo.getRAMUsage()/1024/1024)+" MB");
 		}
 	}
 }
