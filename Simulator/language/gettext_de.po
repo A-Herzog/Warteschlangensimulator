@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-19 09:35+0200\n"
+"POT-Creation-Date: 2023-04-21 23:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4836,6 +4836,9 @@ msgstr "Name des Modells"
 
 msgid "Editor.GeneralData.Name.NoName"
 msgstr "Es wurde kein Name vergeben."
+
+msgid "Editor.ImportWebQS.CounterGroup"
+msgstr "Zählergruppe"
 
 msgid "Editor.ModelOverview.Info"
 msgstr "Modellüberblick"

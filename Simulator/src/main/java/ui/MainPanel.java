@@ -117,6 +117,7 @@ import systemtools.help.HelpBase;
 import systemtools.help.IndexSystem;
 import systemtools.statistics.StatisticsBasePanel;
 import tools.ImagePrintable;
+import tools.MiniQSLoader;
 import tools.Notifier;
 import tools.SetupData;
 import tools.URLLoader;
@@ -2000,6 +2001,8 @@ public class MainPanel extends MainPanelBase {
 		final XMLTools xml=new XMLTools(file);
 		final Element root=xml.load();
 		if (root==null) {
+			final MiniQSLoader miniQSLoader=new MiniQSLoader(file);
+			if (miniQSLoader.load()) return commandFileModelLoad(miniQSLoader.getModelRootElement(),file);
 			if (errorMessageOnFail) MsgBox.error(getOwnerWindow(),Language.tr("XML.LoadErrorTitle"),xml.getError());
 			return false;
 		}
