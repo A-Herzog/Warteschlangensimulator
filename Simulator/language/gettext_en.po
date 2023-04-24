@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-21 23:05+0200\n"
+"POT-Creation-Date: 2023-04-23 11:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10112,7 +10112,7 @@ msgid "LoadCalculator.SystemLoad"
 msgstr "System load"
 
 msgid "LoadCalculator.TUCOnlineCalculator"
-msgstr "Online queue calculator of TU Clausthal"
+msgstr "Online queue calculator"
 
 msgid "LoadCalculator.Tab.AllenCunneen"
 msgstr "Extended Allen-Cunneen approximate formula for queuing systems"
@@ -10996,6 +10996,33 @@ msgstr "Usage statistics..."
 
 msgid "Main.Menu.Help.UsageStatistics.Mnemonic"
 msgstr "s"
+
+msgid "Main.Menu.Help.WebServices"
+msgstr "Web services"
+
+msgid "Main.Menu.Help.WebServices.Distributions"
+msgstr "Probability distributions"
+
+msgid "Main.Menu.Help.WebServices.Distributions.Mnemonic"
+msgstr "P"
+
+msgid "Main.Menu.Help.WebServices.MiniSimulator"
+msgstr "G/G/c/K+G simulator "
+
+msgid "Main.Menu.Help.WebServices.MiniSimulator.Mnemonic"
+msgstr "G"
+
+msgid "Main.Menu.Help.WebServices.MiniWarteschlangensimulator"
+msgstr "Mini Warteschlangensimulator"
+
+msgid "Main.Menu.Help.WebServices.MiniWarteschlangensimulator.Mnemonic"
+msgstr "W"
+
+msgid "Main.Menu.Help.WebServices.QueueCalc"
+msgstr "Queue calculator"
+
+msgid "Main.Menu.Help.WebServices.QueueCalc.Mnemonic"
+msgstr "Q"
 
 msgid "Main.Menu.Help.Wiki"
 msgstr "Warteschlangensimulator Wiki"

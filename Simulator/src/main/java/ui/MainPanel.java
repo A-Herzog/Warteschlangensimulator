@@ -816,6 +816,10 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpSupport",e->commandHelpSupport());
 		addAction("HelpSupportData",e->commandHelpSupportData());
 		addAction("HelpHomepage",e->commandHelpHomepage());
+		addAction("HelpWebServicesMiniWarteschlangensimulator",e->commandWebServicesMiniWarteschlangensimulator());
+		addAction("HelpWebServicesQueueCalc",e->commandWebServicesQueueCalc());
+		addAction("HelpWebServicesMiniSimulator",e->commandWebServicesMiniSimulator());
+		addAction("HelpWebServicesDistributions",e->commandWebServicesDistributions());
 		addAction("HelpUpdates",e->commandFileSetup(SetupDialog.Page.UPDATES));
 		addAction("HelpUsageStatistics",e->commandHelpUsageStatistics());
 		addAction("HelpDataPrivacy",e->commandHelpDataPrivacy());
@@ -1509,6 +1513,11 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Support"),Images.HELP_EMAIL.getIcon(),Language.tr("Main.Menu.Help.Support.Mnemonic"),"HelpSupport");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.SupportData"),Images.HELP_BUG_REPORT.getIcon(),Language.tr("Main.Menu.Help.SupportData.Mnemonic"),"HelpSupportData");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Homepage"),Images.HELP_HOMEPAGE.getIcon(),Language.tr("Main.Menu.Help.Homepage.Mnemonic"),"HelpHomepage");
+		menu.add(submenu=new JMenu(Language.tr("Main.Menu.Help.WebServices")));
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.WebServices.MiniWarteschlangensimulator"),Language.tr("Main.Menu.Help.WebServices.MiniWarteschlangensimulator.Mnemonic"),"HelpWebServicesMiniWarteschlangensimulator");
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.WebServices.QueueCalc"),Language.tr("Main.Menu.Help.WebServices.QueueCalc.Mnemonic"),"HelpWebServicesQueueCalc");
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.WebServices.MiniSimulator"),Language.tr("Main.Menu.Help.WebServices.MiniSimulator.Mnemonic"),"HelpWebServicesMiniSimulator");
+		createMenuItem(submenu,Language.tr("Main.Menu.Help.WebServices.Distributions"),Language.tr("Main.Menu.Help.WebServices.Distributions.Mnemonic"),"HelpWebServicesDistributions");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Updates"),Images.SETUP_PAGE_UPDATE.getIcon(),Language.tr("Main.Menu.Help.Updates.Mnemonic"),"HelpUpdates");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.DataPrivacy"),Images.HELP_DATA_PRIVACY.getIcon(),Language.tr("Main.Menu.Help.DataPrivacy.Mnemonic"),"HelpDataPrivacy");
 		menu.addSeparator();
@@ -4181,6 +4190,34 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandHelpHomepage() {
 		openWebpage("https://"+WEB_URL);
+	}
+
+	/**
+	 * Befehl: Hilfe - Webdienste - Mini Warteschlangensimulator
+	 */
+	private void commandWebServicesMiniWarteschlangensimulator() {
+		openWebpage("https://a-herzog.github.io/MiniWarteschlangensimulator");
+	}
+
+	/**
+	 * Befehl: Hilfe - Webdienste - Warteschlangenrechner
+	 */
+	private void commandWebServicesQueueCalc() {
+		openWebpage("https://a-herzog.github.io/QueueCalc");
+	}
+
+	/**
+	 * Befehl: Hilfe - Webdienste - G/G/c/K+G Simulator
+	 */
+	private void commandWebServicesMiniSimulator() {
+		openWebpage("https://a-herzog.github.io/MiniSimulator");
+	}
+
+	/**
+	 * Befehl: Hilfe - Webdienste -  Wahrscheinlichkeitsverteilungen
+	 */
+	private void commandWebServicesDistributions() {
+		openWebpage("https://a-herzog.github.io/Distributions");
 	}
 
 	/**

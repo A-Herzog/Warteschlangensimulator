@@ -113,7 +113,7 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 	 * Konstruktor der Klasse
 	 */
 	public QueueingCalculatorTabAllenCunneen() {
-		super("Allen-Cunneen",Language.tr("LoadCalculator.Tab.AllenCunneen"),Language.tr("LoadCalculator.TUCOnlineCalculator"),"https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/warteschlangenrechner/");
+		super("Allen-Cunneen",Language.tr("LoadCalculator.Tab.AllenCunneen"),Language.tr("LoadCalculator.TUCOnlineCalculator"),"https://a-herzog.github.io/QueueCalc");
 
 		/* Ankunftsrate (lambda) */
 		lambdaInput=getPanel(Language.tr("LoadCalculator.ArrivalRate"),true);
