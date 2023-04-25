@@ -15,6 +15,7 @@
  */
 package systemtools.statistics;
 
+import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -821,10 +822,12 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			final KeyStroke keyCtrlIns=KeyStroke.getKeyStroke(KeyEvent.VK_INSERT,InputEvent.CTRL_DOWN_MASK,true);  /* true=Beim Loslassen erkennen; muss gesetzt sein, da die Subviewer die anderen Hotkeys teilweise aufhalten */
 			final KeyStroke keyCtrlB=KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_DOWN_MASK);
 			final KeyStroke keyCtrlShiftB=KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK);
+			final KeyStroke keyCtrlF=KeyStroke.getKeyStroke(KeyEvent.VK_F,InputEvent.CTRL_DOWN_MASK);
 			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlC,"CopyViewer");
 			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlIns,"CopyViewer");
 			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlB,"NextBookmark");
 			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlShiftB,"ToggleBookmark");
+			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlF,"StatisticSearch");
 		});
 
 		getActionMap().put("CopyViewer",new AbstractAction() {
@@ -853,6 +856,17 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				tree.toggleBookmark();
+			}
+		});
+
+		getActionMap().put("StatisticSearch",new AbstractAction() {
+			private static final long serialVersionUID=-1716436949935713910L;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (search.length==1 && search[0].isVisible()) {
+					final ActionEvent ev=new ActionEvent(search[0],AWTEvent.RESERVED_ID_MAX+1,"search");
+					new ButtonListener().actionPerformed(ev);
+				}
 			}
 		});
 

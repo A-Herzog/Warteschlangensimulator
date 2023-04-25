@@ -111,6 +111,12 @@ public class StatisticViewerDialog extends BaseDialog {
 			toolbar.add(button=new JButton(StatisticsBasePanel.viewersToolbarSearch,SimToolsImages.SEARCH.getIcon()));
 			button.setToolTipText(StatisticsBasePanel.viewersToolbarSearchHint);
 			button.addActionListener(e->viewer.search(this));
+			final KeyStroke keyCtrlF=KeyStroke.getKeyStroke(KeyEvent.VK_F,InputEvent.CTRL_DOWN_MASK);
+			getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyCtrlF,"StatisticSearch");
+			getRootPane().getActionMap().put("StatisticSearch",new AbstractAction() {
+				private static final long serialVersionUID=8765042416268087967L;
+				@Override public void actionPerformed(ActionEvent e) {viewer.search(StatisticViewerDialog.this);}
+			});
 		}
 		final JButton[] additionalButtons=viewer.getAdditionalButton();
 		if (additionalButtons!=null) for (JButton b: additionalButtons) toolbar.add(b);
