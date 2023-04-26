@@ -367,6 +367,12 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String viewersToolbarSearchHint="Sucht nach einem Text auf der aktuellen Seite";
 	/** Titel für den Such-Dialog zum Suchen von Text innerhalb eines Viewers */
 	public static String viewersToolbarSearchTitle="Text suchen";
+	/** Beschriftung des Eingabefeldes im Such-Dialog */
+	public static String viewersToolbarSearchString="Suchbegriff";
+	/** Option "Groß- und Kleinschreibung berücksichtigen" im Such-Dialog */
+	public static String viewersToolbarSearchCaseSensitive="Groß- und Kleinschreibung berücksichtigen";
+	/** Option "Suchbegriff ist regulärer Ausdruck" im Such-Dialog */
+	public static String viewersToolbarSearchRegEx="Suchbegriff ist regulärer Ausdruck";
 	/** Meldung, dass die Suche nach einem Text keine Treffer ergab. */
 	public static String viewersToolbarSearchNotFound="Der Text \"%s\" wurde nicht gefunden.";
 	/** Bezeichner für das Toolbar-Button "Einstellungen" */

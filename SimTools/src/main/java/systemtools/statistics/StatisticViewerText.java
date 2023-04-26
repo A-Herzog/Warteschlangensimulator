@@ -44,13 +44,14 @@ import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 import java.util.function.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -85,6 +86,7 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TimeTools;
 import mathtools.distribution.swing.CommonVariables;
+import systemtools.BaseDialog;
 import systemtools.GUITools;
 import systemtools.MsgBox;
 import systemtools.images.SimToolsImages;
@@ -174,9 +176,28 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	private final boolean isDark;
 
 	/**
+	 * Suchbegriff beim letzten Aufruf der Suchfunktion
+	 * @see #search(Component)
+	 */
+	private String lastSearchString;
+	
+	/**
+	 * Status "Groß- und Kleinschreibung beachten" beim letzten Aufruf der Suchfunktion
+	 * @see #search(Component)
+	 */
+	private boolean lastCaseSensitive;
+	
+	/**
+	 * Status "Suchbegriff ist regulärer Ausdruck" beim letzten Aufruf der Suchfunktion
+	 * @see #search(Component)
+	 */
+	private boolean lastRegularExpression;
+
+	/**
 	 * Maximalanzahl an zurück zu liefernden Suchtreffern
 	 * @see #search(Component)
-	 * @see #searchInElement(Element, String, List)
+	 * @see #searchInElement(Element, String, boolean, List)
+	 * @see #searchInElementRegEx(Element, Pattern, List)
 	 */
 	private static final int MAX_SEARCH_HITS=1_000;
 
@@ -1797,17 +1818,38 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	}
 
 	/**
+	 * Speichert die Daten zu einem einzelnen Suchtreffer
+	 */
+	private static class Hit {
+		/** Startposition */
+		public final int start;
+		/** Endposition */
+		public final int end;
+
+		/**
+		 * Konstruktor
+		 * @param start	Startposition
+		 * @param end	Endposition
+		 */
+		public Hit(final int start, final int end) {
+			this.start=start;
+			this.end=end;
+		}
+	}
+
+	/**
 	 * Sucht einen Text in einem Element und seinen Unterelementen
 	 * @param element	Element von dem die Suche ausgehen soll
-	 * @param searchLower	Suchtext in Kleinschreibung
+	 * @param search	Bei Berücksichtigung von Groß- und Kleinschreibung: Suchtext; ohne Berücksichtigung von Groß- und Kleinschreibung: Suchtext in Kleinschreibung
+	 * @param caseSensitive	Soll die Groß- und Kleinschreibung berücksichtigt werden?
 	 * @param hits	Liste mit den Fundstellen (Cursorpositionen)
-	 * @see #getCaretPositions(String)
+	 * @see #getCaretPositions(String, boolean, boolean)
 	 */
-	private void searchInElement(final Element element, final String searchLower, final List<Integer> hits) {
+	private void searchInElement(final Element element, final String search, final boolean caseSensitive, final List<Hit> hits) {
 		if (hits.size()>=MAX_SEARCH_HITS) return;
 
 		for (int i=0;i<element.getElementCount();i++) {
-			searchInElement(element.getElement(i),searchLower,hits);
+			searchInElement(element.getElement(i),search,caseSensitive,hits);
 			if (hits.size()>=MAX_SEARCH_HITS) return;
 		}
 
@@ -1815,13 +1857,49 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			final LeafElement leaf=(LeafElement)element;
 			try {
 				final int start=leaf.getStartOffset();
-				final String textLower=textPane.getText(start,leaf.getEndOffset()-start).toLowerCase();
+				String text=textPane.getText(start,leaf.getEndOffset()-start);
+				if (text.isEmpty()) return;
+				if (!caseSensitive) text=text.toLowerCase();
 
 				int index=-1;
 				while (true) {
-					index=textLower.indexOf(searchLower,index+1);
+					index=text.indexOf(search,index+1);
 					if (index<0) break;
-					hits.add(start+index);
+					hits.add(new Hit(start+index,start+index+search.length()-1));
+					if (hits.size()>=MAX_SEARCH_HITS) return;
+				}
+			} catch (BadLocationException e) {}
+		}
+	}
+
+	/**
+	 * Sucht einen Text in einem Element und seinen Unterelementen
+	 * @param element	Element von dem die Suche ausgehen soll
+	 * @param pattern	Regulärer Ausdruck nach dem gesucht werden soll
+	 * @param hits	Liste mit den Fundstellen (Cursorpositionen)
+	 * @see #getCaretPositions(String, boolean, boolean)
+	 */
+	private void searchInElementRegEx(final Element element, final Pattern pattern, final List<Hit> hits) {
+		if (hits.size()>=MAX_SEARCH_HITS) return;
+
+		for (int i=0;i<element.getElementCount();i++) {
+			searchInElementRegEx(element.getElement(i),pattern,hits);
+			if (hits.size()>=MAX_SEARCH_HITS) return;
+		}
+
+		if (element instanceof LeafElement) {
+			final LeafElement leaf=(LeafElement)element;
+			try {
+				final int start=leaf.getStartOffset();
+				String text=textPane.getText(start,leaf.getEndOffset()-start);
+				if (text.isEmpty()) return;
+
+				final Matcher matcher=pattern.matcher(text);
+				int index=-1;
+				while (true) {
+					if (!matcher.find(index+1)) break;
+					index=matcher.start();
+					hits.add(new Hit(start+index,start+matcher.end()-1));
 					if (hits.size()>=MAX_SEARCH_HITS) return;
 				}
 			} catch (BadLocationException e) {}
@@ -1831,14 +1909,21 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	/**
 	 * Sucht in dem Viewer nach einem Text und liefert die Cursorpositionen der Fundstellen
 	 * @param search	Zu suchender Text
+	 * @param caseSensitive	Soll die Groß- und Kleinschreibung berücksichtigt werden?
+	 * @param regularExpression	Suchbegriff ist regulärer Ausdruck?
 	 * @return	Liste mit den Cursorpositionen der Fundstellen (kann leer sein, ist aber nie <code>null</code>)
 	 * @see #search(Component)
 	 */
-	private List<Integer> getCaretPositions(final String search) {
-		final List<Integer> hits=new ArrayList<>();
-		final String searchLower=search.toLowerCase();
-
-		searchInElement(textPane.getStyledDocument().getDefaultRootElement(),searchLower,hits);
+	private List<Hit> getCaretPositions(String search, final boolean caseSensitive, final boolean regularExpression) {
+		final List<Hit> hits=new ArrayList<>();
+		final Element root=textPane.getStyledDocument().getDefaultRootElement();
+		if (regularExpression) {
+			final Pattern pattern=Pattern.compile(search,caseSensitive?0:Pattern.CASE_INSENSITIVE);
+			searchInElementRegEx(root,pattern,hits);
+		} else {
+			if (!caseSensitive) search=search.toLowerCase();
+			searchInElement(root,search,caseSensitive,hits);
+		}
 
 		return hits;
 	}
@@ -1850,7 +1935,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	 * @param hits	Liste mit den Treffern
 	 * @see #search(Component)
 	 */
-	private void processSearchResults(final Component owner, final String search, final List<Integer> hits) {
+	private void processSearchResults(final Component owner, final String search, final List<Hit> hits) {
 		textPane.getHighlighter().removeAllHighlights();
 
 		if (hits==null || hits.isEmpty()) {
@@ -1859,12 +1944,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		}
 
 		final DefaultHighlighter.DefaultHighlightPainter highlightPainter=new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
-		for (Integer hit: hits) {
+		for (Hit hit: hits) {
 			try {
-				textPane.getHighlighter().addHighlight(hit,hit+search.length(),highlightPainter);
+				textPane.getHighlighter().addHighlight(hit.start,hit.end+1,highlightPainter);
 			} catch (BadLocationException e) {}
 		}
-		textPane.setCaretPosition(hits.get(0));
+		textPane.setCaretPosition(hits.get(0).start);
 	}
 
 	@Override
@@ -1875,16 +1960,21 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			initDescriptionPane();
 		}
 
-		final String search=JOptionPane.showInputDialog(owner,StatisticsBasePanel.viewersToolbarSearchTitle);
-		if (search==null || search.trim().isEmpty()) {
+		final StatisticViewerSearchDialog dialog=new StatisticViewerSearchDialog(owner,lastSearchString,lastCaseSensitive,lastRegularExpression);
+		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK || dialog.getSearchString().isEmpty()) {
 			textPane.getHighlighter().removeAllHighlights();
 			return;
 		}
 
-		final List<Integer> hits=getCaretPositions(search);
-		processSearchResults(owner,search,hits);
+		lastSearchString=dialog.getSearchString();
+		lastCaseSensitive=dialog.isCaseSensitive();
+		lastRegularExpression=dialog.isRegularExpression();
+
+		final List<Hit> hits=getCaretPositions(lastSearchString,lastCaseSensitive,lastRegularExpression);
+		processSearchResults(owner,lastSearchString,hits);
 	}
 
+	@Override
 	public void navigation(final JButton button) {
 		treeScroller.setVisible(!treeScroller.isVisible());
 		if (!treeScroller.isVisible()) {

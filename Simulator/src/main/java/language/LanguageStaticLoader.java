@@ -761,6 +761,9 @@ public class LanguageStaticLoader {
 		StatisticsBasePanel.viewersToolbarSearch=Language.tr("Statistic.Viewer.Toolbar.Search");
 		StatisticsBasePanel.viewersToolbarSearchHint=Language.tr("Statistic.Viewer.Toolbar.Search.Hint");
 		StatisticsBasePanel.viewersToolbarSearchTitle=Language.tr("Statistic.Viewer.Toolbar.Search.DialogTitle");
+		StatisticsBasePanel.viewersToolbarSearchString=Language.tr("Statistic.Viewer.Toolbar.Search.DialogSearchString");
+		StatisticsBasePanel.viewersToolbarSearchCaseSensitive=Language.tr("Statistic.Viewer.Toolbar.Search.DialogCaseSensitive");
+		StatisticsBasePanel.viewersToolbarSearchRegEx=Language.tr("Statistic.Viewer.Toolbar.Search.DialogRegEx");
 		StatisticsBasePanel.viewersToolbarSearchNotFound=Language.tr("Statistic.Viewer.Toolbar.Search.NotFound");
 		StatisticsBasePanel.viewersToolbarSettings=Language.tr("Statistic.Viewer.Toolbar.Settings");
 		StatisticsBasePanel.viewersToolbarSettingsHint=Language.tr("Statistic.Viewer.Toolbar.Settings.Hint");

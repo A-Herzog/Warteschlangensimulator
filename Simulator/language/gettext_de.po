@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-23 11:00+0200\n"
+"POT-Creation-Date: 2023-04-25 08:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21705,6 +21705,15 @@ msgstr "Speichert nur die ausgewählten Tabellen in einer gemeinsamen Arbeitsmap
 
 msgid "Statistic.Viewer.Toolbar.Search"
 msgstr "Suchen"
+
+msgid "Statistic.Viewer.Toolbar.Search.DialogCaseSensitive"
+msgstr "Groß- und Kleinschreibung berücksichtigen"
+
+msgid "Statistic.Viewer.Toolbar.Search.DialogRegEx"
+msgstr "Suchbegriff ist regulärer Ausdruck"
+
+msgid "Statistic.Viewer.Toolbar.Search.DialogSearchString"
+msgstr "Suchbegriff"
 
 msgid "Statistic.Viewer.Toolbar.Search.DialogTitle"
 msgstr "Text suchen"

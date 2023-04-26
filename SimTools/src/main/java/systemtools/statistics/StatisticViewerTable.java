@@ -41,7 +41,6 @@ import java.util.function.Supplier;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -57,6 +56,7 @@ import javax.swing.text.JTextComponent;
 import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TimeTools;
+import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import systemtools.images.SimToolsImages;
 
@@ -114,6 +114,24 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @see #getViewer(boolean)
 	 */
 	private StatisticViewerTableModel viewerTableModel;
+
+	/**
+	 * Suchbegriff beim letzten Aufruf der Suchfunktion
+	 * @see #search(Component)
+	 */
+	private String lastSearchString;
+
+	/**
+	 * Status "Groﬂ- und Kleinschreibung beachten" beim letzten Aufruf der Suchfunktion
+	 * @see #search(Component)
+	 */
+	private boolean lastCaseSensitive;
+
+	/**
+	 * Status "Suchbegriff ist regul‰rer Ausdruck" beim letzten Aufruf der Suchfunktion
+	 * @see #search(Component)
+	 */
+	private boolean lastRegularExpression;
 
 	/**
 	 * Konstruktor der Klasse <code>StatisticViewerTable</code>
@@ -580,8 +598,18 @@ public class StatisticViewerTable implements StatisticViewer {
 	public void search(final Component owner) {
 		getViewer(false);
 
-		final String search=JOptionPane.showInputDialog(owner,StatisticsBasePanel.viewersToolbarSearchTitle);
-		viewerTableModel.setSearchString(search);
+		final StatisticViewerSearchDialog dialog=new StatisticViewerSearchDialog(owner,lastSearchString,lastCaseSensitive,lastRegularExpression);
+		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK || dialog.getSearchString().isEmpty()) {
+			viewerTableModel.setSearchString(null,false,false);
+			viewerTableModel.fireTableDataChanged();
+			return;
+		}
+
+		lastSearchString=dialog.getSearchString();
+		lastCaseSensitive=dialog.isCaseSensitive();
+		lastRegularExpression=dialog.isRegularExpression();
+
+		viewerTableModel.setSearchString(lastSearchString,lastCaseSensitive,lastRegularExpression);
 		viewerTableModel.fireTableDataChanged();
 	}
 
