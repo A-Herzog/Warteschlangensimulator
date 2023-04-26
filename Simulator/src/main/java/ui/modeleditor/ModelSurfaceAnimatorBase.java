@@ -1599,7 +1599,7 @@ public class ModelSurfaceAnimatorBase {
 		 */
 		public AnimationPath(final RunDataClient client) {
 			data=client;
-			iconEast=(client.icon==null)?DEFAULT_CLIENT_ICON_NAME:client.iconLast;
+			iconEast=(client.icon==null)?DEFAULT_CLIENT_ICON_NAME:client.icon;
 			iconWest=iconEast;
 			x=new int[ANIMATION_STEPS+1];
 			y=new int[ANIMATION_STEPS+1];

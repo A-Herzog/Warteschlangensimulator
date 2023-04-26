@@ -123,6 +123,12 @@ public class RunElementClientIcon extends RunElementPassThrough {
 
 	@Override
 	public void processArrival(final SimulationData simData, final RunDataClient client) {
+		/* Kunde zur nächsten Station leiten */
+		StationLeaveEvent.addLeaveEvent(simData,client,this,0);
+	}
+
+	@Override
+	public void processLeave(SimulationData simData, RunDataClient client) {
 		final RunElementClientIconData data=getData(simData);
 
 		if (condition!=null) {
@@ -132,7 +138,6 @@ public class RunElementClientIcon extends RunElementPassThrough {
 			applyClientIcon(simData,client);
 		}
 
-		/* Kunde zur nächsten Station leiten */
-		StationLeaveEvent.addLeaveEvent(simData,client,this,0);
+		super.processLeave(simData,client);
 	}
 }
