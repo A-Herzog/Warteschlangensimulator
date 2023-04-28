@@ -4,17 +4,22 @@
 <head>
   <meta charset="utf-8">
   <title>Warteschlangensimulator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Warteschlangensimulator">
+  <meta name="description" content="Warteschlangensimulator: Fast and easy to use event-driven simulation">
+  <meta name="keywords" content="Warteschlangensimulator; Queueing simulation; Event-driven simulation; Queueing Theory">
   <meta name="author" content="Alexander Herzog">
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'none'; connect-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: github.com a-herzog.github.io raw.githubusercontent.com img.shields.io; media-src a-herzog.github.io;">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <link href="./libs/bootstrap.min.css" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" rel="stylesheet">
   <link href="./libs/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
   <script defer src="./libs/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"></script>
+  <script>
+    // const userLang=navigator.language || navigator.userLanguage;
+    // if (typeof(userLang)!='undefined' && userLang.startsWith("de")) document.location.href="index_de.html";
+  </script>
   <style>
+    .navbar-brand {font-size: 140%; font-weight: 600; padding-right: 30px;}
     #logo {width: 32px; height: 32px; background: white; padding: 5px; border-radius: 2px;}
     h2 {margin-top: 40px;}
     h3 {margin-top: 40px;}
@@ -26,6 +31,8 @@
     .container a {text-decoration: none;}
     .container a:hover {text-decoration: underline;}
     a.btn:hover {text-decoration: none;}
+    .nav-link {color: white;}
+    .active {background-color: #14E; border-radius: 4px;}
   </style>
 </head>
 
@@ -33,11 +40,11 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top" id="navbar_main"><div class="container-fluid">
   <span class="navbar-brand mb-0 h1">
-    <img src=" data:image/webp;base64,UklGRoIBAABXRUJQVlA4WAoAAAAIAAAAIAAAIAAAVlA4TIYAAAAvIAAIACcgEEhSn3wNAkmbLfqK/wKCouuWm/+Axu6vAkdtJElS9kFghsGUmkE2gJQ2+aMaVc1e/4j+T0CUe+Z84CrFcXdkr6eyR1TOqxal+yecXGFHdCRlwNHFsSmOTWETKydy5LBJ6j0iyfEBM4VNUqVXTiLn6vK05WkLNlZHUgGs6FH+X0VYSUbWAAAASUkqAAgAAAAGABIBAwABAAAAAQAAABoBBQABAAAAVgAAABsBBQABAAAAXgAAACgBAwABAAAAAgAAADEBAgAQAAAAZgAAAGmHBAABAAAAdgAAAAAAAABgAAAAAQAAAGAAAAABAAAAcGFpbnQubmV0IDUuMC4yAAUAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAAAqAEAAEAAAAhAAAAA6AEAAEAAAAhAAAABaAEAAEAAAC4AAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAAA==" id="logo" alt="Warteschlangensimulator" title="Warteschlangensimulator"> 
+    <img src=" data:image/webp;base64,UklGRoIBAABXRUJQVlA4WAoAAAAIAAAAIAAAIAAAVlA4TIYAAAAvIAAIACcgEEhSn3wNAkmbLfqK/wKCouuWm/+Axu6vAkdtJElS9kFghsGUmkE2gJQ2+aMaVc1e/4j+T0CUe+Z84CrFcXdkr6eyR1TOqxal+yecXGFHdCRlwNHFsSmOTWETKydy5LBJ6j0iyfEBM4VNUqVXTiLn6vK05WkLNlZHUgGs6FH+X0VYSUbWAAAASUkqAAgAAAAGABIBAwABAAAAAQAAABoBBQABAAAAVgAAABsBBQABAAAAXgAAACgBAwABAAAAAgAAADEBAgAQAAAAZgAAAGmHBAABAAAAdgAAAAAAAABgAAAAAQAAAGAAAAABAAAAcGFpbnQubmV0IDUuMC4yAAUAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAAAqAEAAEAAAAhAAAAA6AEAAEAAAAhAAAABaAEAAEAAAC4AAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAAA==" id="logo" alt="Warteschlangensimulator" title="Warteschlangensimulator">
 	Warteschlangensimulator
   </span>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav me-auto mb-4 mb-lg-0">
     <li class="nav-item"><a class="nav-link bi-house-door" href="#Home" data-bs-target="#Home"> Home</a></li>
     <li class="nav-item"><a class="nav-link bi-download" href="#Download" data-bs-target="#Download"> Download</a></li>
     <li class="nav-item"><a class="nav-link bi-card-checklist" href="#Features" data-bs-target="#Features"> Features</a></li>
@@ -88,26 +95,15 @@ Available languages in program and for documentation: English, German
 <div class="row mt-4">
 <div class="col-lg-4">
 <div class="h4 bi-display"> Graphical modelling</div>
-Warteschlangensimulator allows to build queueing models by dragging elements from a templates panel
-and connecting them by edges. There are more than 100 different station types available.
-Modelling is very easy and works similar like in many commercial discrete-event simulation tools.
-For most models no user-defined code is needed. But for modelling complex rules, models can be
-extended by JavaScript and Java code.
+Warteschlangensimulator allows to build queueing models by dragging elements from a templates panel and connecting them by edges. There are more than 100 different station types available. Modelling is very easy and works similar like in many commercial discrete-event simulation tools. For most models no user-defined code is needed. But for modelling complex rules, models can be extended by JavaScript and Java code.
 </div>
 <div class="col-lg-4">
 <div class="h4 bi-bar-chart-line"> Automatic statistic recording</div>
-When running an animation or a simulation, statistic data about all client types and all stations
-are recorded automatically. This includes waiting times, service times, queue lengths, number of
-clients at stations etc. For all performance indicators mean, standard deviation, minimum, maximum
-and histogram values are recorded. After a simulation the values are displayed in form of texts,
-tables and diagrams and can also be exported. Also a configurable report generator is available.
+When running an animation or a simulation, statistic data about all client types and all stations are recorded automatically. This includes waiting times, service times, queue lengths, number of clients at stations etc. For all performance indicators mean, standard deviation, minimum, maximum and histogram values are recorded. After a simulation the values are displayed in form of texts, tables and diagrams and can also be exported. Also a configurable report generator is available.
 </div>
 <div class="col-lg-4">
 <div class="h4 bi-rocket-takeoff"> Fast simulation</div>
-Warteschlangensimulator has a very fast, multicore capable simulation engine. On desktop systems for many simulation models
-&gt;100.000 arrivals/second/core are possible. This makes the simulator fast enough to be used in an interactive way for
-exploratory model analysis. Also for high precision research questions models with more than 1 billion arrivals can be simulated
-within seconds to few minutes.
+Warteschlangensimulator has a very fast, multicore capable simulation engine. On desktop systems for many simulation models &gt;100.000 arrivals/second/core are possible. This makes the simulator fast enough to be used in an interactive way for exploratory model analysis. Also for high precision research questions models with more than 1 billion arrivals can be simulated within seconds to few minutes.
 </div>
 </div>
 </div>
@@ -297,27 +293,27 @@ See also <a href="https://github.com/A-Herzog/Warteschlangensimulator/blob/maste
 <h2 class="bi-film"> Videos</h2>
 <div class="container clearfix">
 <h3 class="h4">Tutorial: Creation of a simple model</h3>
-<video width="90%" controls poster="https://a-herzog.github.io/Warteschlangensimulator/Videos/Warteschlangensimulator_Tutorial.webp" preload="none" class="border rounded shadow">
-  <source src="https://a-herzog.github.io/Warteschlangensimulator/Videos/Warteschlangensimulator_Tutorial.m4v" type="video/mp4">
-  <track src="https://a-herzog.github.io/Warteschlangensimulator/Videos/Warteschlangensimulator_Tutorial_en.vtt" kind="captions" srclang="en" label="English">
-  <track src="https://a-herzog.github.io/Warteschlangensimulator/Videos/Warteschlangensimulator_Tutorial_de.vtt" kind="captions" srclang="de" label="German / Deutsch">
+<video width="90%" controls poster="./Videos/Warteschlangensimulator_Tutorial.webp" preload="metadata" class="border rounded shadow" crossorigin="anonymous">
+  <source src="./Videos/Warteschlangensimulator_Tutorial.m4v" type="video/mp4">
+  <track src="./Videos/Warteschlangensimulator_Tutorial_en.vtt" kind="captions" srclang="en" label="English">
+  <track src="./Videos/Warteschlangensimulator_Tutorial_de.vtt" kind="captions" srclang="de" label="German / Deutsch">
   Your browser does not support the video tag.
 </video>
 <div id="AnimationVideo" class="anchor">
 <h3 class="h4">Animation of a larger model</h3>
-<video width="90%" controls poster="https://a-herzog.github.io/Warteschlangensimulator/Videos/Warteschlangensimulator_Callcenter.webp" preload="none" class="border rounded shadow">
-  <source src="https://a-herzog.github.io/Warteschlangensimulator/Videos/Warteschlangensimulator_Callcenter.m4v" type="video/mp4">
-  <track src="https://a-herzog.github.io/Warteschlangensimulator/Videos/Warteschlangensimulator_Callcenter_en.vtt" kind="captions" srclang="en" label="English">
-  <track src="https://a-herzog.github.io/Warteschlangensimulator/Videos/Warteschlangensimulator_Callcenter_de.vtt" kind="captions" srclang="de" label="German / Deutsch">
+<video width="90%" controls poster="./Videos/Warteschlangensimulator_Callcenter.webp" preload="metadata" class="border rounded shadow" crossorigin="anonymous">
+  <source src="./Videos/Warteschlangensimulator_Callcenter.m4v" type="video/mp4">
+  <track src="./Videos/Warteschlangensimulator_Callcenter_en.vtt" kind="captions" srclang="en" label="English">
+  <track src="./Videos/Warteschlangensimulator_Callcenter_de.vtt" kind="captions" srclang="de" label="German / Deutsch">
   Your browser does not support the video tag.
 </video>
 </div>
 <div id="ParameterStudyVideo" class="anchor">
 <h3 class="h4">Running a parameter study</h3>
-<video width="90%" controls poster="https://a-herzog.github.io/Warteschlangensimulator/Videos/Warteschlangensimulator_Series.webp" preload="none" class="border rounded shadow">
-  <source src="https://a-herzog.github.io/Warteschlangensimulator/Videos/Warteschlangensimulator_Series.m4v" type="video/mp4">
-  <track src="https://a-herzog.github.io/Warteschlangensimulator/Videos/Warteschlangensimulator_Series_en.vtt" kind="captions" srclang="en" label="English">
-  <track src="https://a-herzog.github.io/Warteschlangensimulator/Videos/Warteschlangensimulator_Series_de.vtt" kind="captions" srclang="de" label="German / Deutsch">
+<video width="90%" controls poster="./Videos/Warteschlangensimulator_Series.webp" preload="metadata" class="border rounded shadow" crossorigin="anonymous">
+  <source src="./Videos/Warteschlangensimulator_Series.m4v" type="video/mp4">
+  <track src="./Videos/Warteschlangensimulator_Series_en.vtt" kind="captions" srclang="en" label="English">
+  <track src="./Videos/Warteschlangensimulator_Series_de.vtt" kind="captions" srclang="de" label="German / Deutsch">
   Your browser does not support the video tag.
 </video>
 </div>

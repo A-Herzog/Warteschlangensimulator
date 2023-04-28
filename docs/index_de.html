@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="utf-8">
+  <title>Warteschlangensimulator</title>
+  <meta name="description" content="Warteschlangensimulator: Schnelle und einfach zu bedienende ereignisorientierte Simulation">
+  <meta name="keywords" content="Warteschlangensimulator; Warteschlangensimulation; Queueing simulation; Ereignisorientierte Simulation; Event-driven simulation; Warteschlangentheorie; Queueing Theory">
+  <meta name="author" content="Alexander Herzog">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <link href="./libs/bootstrap.min.css" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" rel="stylesheet">
+  <link href="./libs/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+  <script defer src="./libs/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"></script>
+  <script>
+    // const userLang=navigator.language || navigator.userLanguage;
+    // if (typeof(userLang)!='undefined' && !userLang.startsWith("de")) document.location.href="index.html";
+  </script>
+  <style>
+    .navbar-brand {font-size: 140%; font-weight: 600; padding-right: 30px;}
+    #logo {width: 32px; height: 32px; background: white; padding: 5px; border-radius: 2px;}
+    h2 {margin-top: 40px;}
+    h3 {margin-top: 40px;}
+    .h4 {margin-top: 40px;}
+    .card {margin-top: 30px;}
+    div.anchor {scroll-margin-top: 100px;}
+    .zoom {transition: all 0.1s ease-in-out;}
+    .zoom:hover {transform: scale(1.025);}
+    .container a {text-decoration: none;}
+    .container a:hover {text-decoration: underline;}
+    a.btn:hover {text-decoration: none;}
+    .nav-link {color: white;}
+    .active {background-color: #14E; border-radius: 4px;}
+  </style>
+</head>
+
+<body class="bg-light bg-gradient">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top" id="navbar_main"><div class="container-fluid">
+  <span class="navbar-brand mb-0 h1">
+    <img src=" data:image/webp;base64,UklGRoIBAABXRUJQVlA4WAoAAAAIAAAAIAAAIAAAVlA4TIYAAAAvIAAIACcgEEhSn3wNAkmbLfqK/wKCouuWm/+Axu6vAkdtJElS9kFghsGUmkE2gJQ2+aMaVc1e/4j+T0CUe+Z84CrFcXdkr6eyR1TOqxal+yecXGFHdCRlwNHFsSmOTWETKydy5LBJ6j0iyfEBM4VNUqVXTiLn6vK05WkLNlZHUgGs6FH+X0VYSUbWAAAASUkqAAgAAAAGABIBAwABAAAAAQAAABoBBQABAAAAVgAAABsBBQABAAAAXgAAACgBAwABAAAAAgAAADEBAgAQAAAAZgAAAGmHBAABAAAAdgAAAAAAAABgAAAAAQAAAGAAAAABAAAAcGFpbnQubmV0IDUuMC4yAAUAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAAAqAEAAEAAAAhAAAAA6AEAAEAAAAhAAAABaAEAAEAAAC4AAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAAA==" id="logo" alt="Warteschlangensimulator" title="Warteschlangensimulator">
+	Warteschlangensimulator
+  </span>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav me-auto mb-4 mb-lg-0">
+    <li class="nav-item"><a class="nav-link bi-house-door" href="#Home" data-bs-target="#Home"> Start</a></li>
+    <li class="nav-item"><a class="nav-link bi-download" href="#Download" data-bs-target="#Download"> Download</a></li>
+    <li class="nav-item"><a class="nav-link bi-card-checklist" href="#Features" data-bs-target="#Features"> Funktionen</a></li>
+    <li class="nav-item"><a class="nav-link bi-film" href="#Videos"> Videos</a></li>
+    <li class="nav-item"><a class="nav-link bi-question-circle" href="#Support" data-bs-target="#Support"> Unterstützung</a></li>
+    <li class="nav-item"><a class="nav-link bi-github" href="https://github.com/A-Herzog/Warteschlangensimulator" target="_blank" title="Warteschlangensimulator GitHub page"> GitHub</a></li>
+  </ul></div>
+</div></nav>
+
+<main>
+<div class="container" style="margin-top: 20px" data-bs-spy="scroll" data-bs-target="#navbar_main">
+
+
+
+<div id="Home" class="anchor">
+<h1 class="mb-4">Warteschlangensimulator: Schnelle und einfach zu bedienende ereignisorientierte Simulation</h1>
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+<p>Der Warteschlangensimulator ist ein quelloffener, freier, plattformunabhängiger, <a href="https://de.wikipedia.org/wiki/Ereignisorientierte_Simulation" targer="_blank" title='Wikipedia-Definition für "Ereignisorientierte Simulation"' target="_blank">ereignisorientierter, stochastischer</a>, Simulator.</p>
+<ul>
+  <li>Grafische Modellierung von Warteschlangensystemen</li>
+  <li>Modelle können als Animationen oder als schnelle Simulationen ausgeführt werden</li>
+  <li>Umfassende automatische <a href="#StatisticsRecording">Erfassung von Statistikdaten</a></li>
+  <li>Funktionen zur Durchführung von <a href="#AutomationOfStudies">Parameterstudien und Optimierungen</a></li>
+  <li>Es stehen mehr als <a href="#ModellingCapabilities">100 Stationstypen</a> zur Verfügung</li>
+  <li>Modellierungsumfang kann mit JavaScript- oder Java-Code erweitert werden</li>
+  <li>Daten können aus externen Dateien oder Datenbanken geladen oder in sie geschrieben werden</li>
+</ul>
+<p style="margin-top: 30px;">
+<a role="button" class="btn btn-primary bi-windows zoom" href="https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/SimulatorSetup.exe"> Windows-Installer herunterladen</a>
+</p>
+<p>
+<a class="small" href="#Download">Weitere Download-Optionen</a>
+</p>
+<p class="text-secondary small">
+Verfügbar für <a href="https://github.com/A-Herzog/Warteschlangensimulator/wiki/Supported-platforms" target="_blank" title="Auflistung der untersützten Plattformen im Warteschlangensimulator GitHub-Wiki">Windows, Linux und MacOS</a><br>
+Lizenz: <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" title="Vollständiger Text der Apache License 2.0">Apache License 2.0</a> (private und kommerzielle Nutzung ohne Einschränkungen)<br>
+Systemvoraussetzungen: <a href="https://adoptium.net/" target="_blank" title="OpenJDK-Installationspakete zum Herunterladen">Java 8 oder höher</a> (für Systeme mit hochauflösenden Bildschirmen wird Java 11 oder höher empfohlen)<br>
+Programm und Dokumentation sind auf Deutsch und auf Englisch verfügbar
+</p>
+</div>
+<div class="col-md-6">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_de_small.webp" data-large-src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_de.webp" class="rounded shadow zoom" alt="Screenshot Warteschlangensimulator" title="Screenshot Warteschlangensimulator" width="100%" style="aspect-ratio: 506 / 381">
+</div>
+</div>
+
+<div class="row mt-4">
+<div class="col-lg-4">
+<div class="h4 bi-display"> Grafische Modellierung</div>
+Im Warteschlangensimulator können Modelle erstellt werden indem Elemente aus einer Vorlagenleiste auf die Zeichenfläche gezogen und durch Kanten verbunden werden. Es stehen mehr als 100 verschiedene Elementtypen zur Verfügung. Die Modellierung unterscheidet sich nur wenig von den Abläufen bei vielen kommerziellen Simulationstools. Für die meisten Fragestellungen ist kein benutzerdefinierter Code erforderlich. Allerdings können Modelle für die Abbildung komplexer Regeln mit JavaScript- und Java-Code erweitert werden.
+</div>
+<div class="col-lg-4">
+<div class="h4 bi-bar-chart-line"> Automatische Statistikerfassung</div>
+Bei der Ausführung von Animation und Simulationen werden automatisch Statistikdaten für alle Kundentypen und alle Stationen aufgezeichnet. Dies umfasst Wartezeiten, Bedienzeiten, Warteschlangenlängen, Anzahlen an Kunden an den Stationen usw. Für alle Kenngrößen werden Mittelwerte, Standardabweichungen, Minima, Maxima sowie Häufigkeitsverteilungen aufgezeichnet. Nach einer Simulation stehen diese Werte in Form von Texten, Tabellen und Diagrammen zur Verfügung und können exportiert werden. Auch ein konfigurierbarer Berichtsgenerator ist integriert.
+</div>
+<div class="col-lg-4">
+<div class="h4 bi-rocket-takeoff"> Schnelle Simulation</div>
+Der Warteschlangensimulator verfügt über einen sehr schnellen, mehrkernfähigen Simulationskern. Auf Desktop-Systemen sind für viele Simulationsmodelle &gt;100.000 Ankünfte/Sekunde/Kern möglich. Damit ist der Simulator schnell genug für eine interaktive, explorative Modellanalyse. Zur Generierung von hochpräzisen Forschungsergebnissen können Modelle mit mehr als einer Milliarde Ankünften innerhalb von Sekunden bis wenigen Minuten simuliert werden.
+</div>
+</div>
+</div>
+
+</div>
+
+
+
+<div id="Download" class="anchor">
+<h2 class="bi-download"> Download</h2>
+<div class="container">
+
+<div class="row" style="margin-top: 30px;"><div class="col">
+Neuste Version:
+<img src="https://img.shields.io/github/v/release/a-herzog/warteschlangensimulator" loading="lazy" alt="Neuste Warteschlangensimulator-Version" title="Neuste Warteschlangensimulator-Version" height="20">
+<img src="https://img.shields.io/github/release-date/a-herzog/warteschlangensimulator" loading="lazy" alt="Veröffentlichugsdatum der neusten Warteschlangensimulator-Version" title="Veröffentlichugsdatum der neusten Warteschlangensimulator-Version" height="20">
+(<a href="https://github.com/A-Herzog/Warteschlangensimulator/wiki/Release-notes" target="_blank" alt="Versionshinweise im Warteschlangensimulator GitHub-Wiki" title="Versionshinweise im Warteschlangensimulator GitHub-Wiki">Versionshinweise &amp; Pläne</a>)
+<br>
+Gesamtanzahl an Downloads: <img src="https://img.shields.io/github/downloads/a-herzog/warteschlangensimulator/total" loading="lazy" alt="Download-Zähler" title="Download-Zähler" height="20">
+<br><br>
+<strong>100% frei und Open-Source:</strong>
+</div></div>
+
+<div class="row">
+<div class="col-md-4">
+<div class="card shadow">
+  <div class="card-header h5 bi-windows"> Windows-Installer</div>
+  <div class="card-body">
+  <a role="button" class="btn btn-primary bi-download zoom" href="https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/SimulatorSetup.exe"> Windows-Installer herunterladen</a>
+  <ul style="margin-top: 15px;">
+  <li>Für Windows 7 bis 11</li>
+  <li>32- und 64-Bit Unterstützung</li>
+  <li>Download-Größe: 130 MB</li>
+  <li>Installation mit oder ohne Adminrechten möglich (Installation für alle Benutzer / für den aktuellen Benutzer)</li>
+  <li>Installer verfügt über eine digitale Signatur</li>
+  </ul>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card shadow">
+  <div class="card-header h5 bi-file-zip"> Zip-Archiv</div>
+  <div class="card-body">
+  <a role="button" class="btn btn-primary bi-download zoom" href="https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator.zip"> Zip-Archiv herunterladen</a><br>
+  <ul style="margin-top: 15px;">
+  <li>Für <a href="https://github.com/A-Herzog/Warteschlangensimulator/wiki/Supported-platforms" target="_blank">Windows, Linux und MacOS</a></li>
+  <li>Entpacken &amp; starten</li>
+  <li>Portabel nutzbar</li>
+  <li>Download-Größe: 130 MB</li>
+  <li>Keine Adminrechte notwendig</li>
+  </ul>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card shadow">
+  <div class="card-header h5 bi-file-play"> Linux AppImage</div>
+  <div class="card-body">
+  <a role="button" class="btn btn-primary bi-download zoom" href="https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Warteschlangensimulator-x86_64.AppImage"> Linux AppImage herunterladen</a><br>
+  <ul style="margin-top: 15px;">
+  <li>Für Linux</li>
+  <li>Herunterladen &amp; ausführen</li>
+  <li>Portabel nutzbar</li>
+  <li>Download-Größe: 130 MB</li>
+  <li>Keine Adminrechte notwendig</li>
+  </ul>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card shadow">
+  <div class="card-header h5 bi-filetype-java"> Quellcode</div>
+  <div class="card-body">
+  <a role="button" class="btn btn-primary bi-github zoom" href="https://github.com/A-Herzog/Warteschlangensimulator" target="_blank"> Quellcode von GitHub laden</a>
+  <ul style="margin-top: 15px;">
+  <li>Der Warteschlangensimulator ist <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" title="Vollständiger Text der Apache License 2.0">Open-Source</a>. Der gesamte Quellcode kann frei heruntergeladen werden.</li>
+  <li>Der Quellcode wird für die Verwendung des Warteschlangensimulators <strong>nicht</strong> benötigt.</li>
+  <li><a href="https://github.com/A-Herzog/Warteschlangensimulator/blob/master/BUILD.md" target="_blank" title="Informationen zum Build-Prozess im Warteschlangensimulator GitHub-Wiki">Hinweise zum Build-Prozess</a></li>
+  </ul>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card shadow">
+  <div class="card-header h5 bi-fire"> Entwicklungsversionen</div>
+  <div class="card-body">
+  <a role="button" class="btn btn-primary bi-github zoom" href="https://github.com/A-Herzog/Warteschlangensimulator/releases" target="_blank"> Liste aller Veröffentlichungen</a>
+  <ul style="margin-top: 15px;">
+  <li>Hier gibt es es neusten Entwicklungsversionen.</li>
+  <li>Diese enthalten die aller neusten Features, die noch nicht unbedingt in der aktuellen offiziellen Version enthalten sind.</li>
+  <li>Allerdings sind die Entwicklungsversionen evtl. auch weniger stabil, als die offiziellen Versionen.</li>
+  </ul>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row" style="margin-top: 30px;"><div class="col">
+<ul>
+  <li>Der Installer, das Zip-Archiv und auch das AppImage enthalten jeweils die vollständige Dokumentation und beinhalten stets eine deutsche und eine englische Programmoberfläche.</li>
+  <li>Benötigter freier Speicherplatz für die Installation: 150 MB</li>
+  <li>Minimale Arbeitsspeicheranforderung: 4 GB</li>
+  <li>Plattformvoraussetzungen: <a href="https://adoptium.net/" target="_blank" title="OpenJDK-Installationspakete zum Herunterladen">Java 8 oder höher</a> (für Systeme mit hochauflösenden Bildschirmen wird Java 11 oder höher empfohlen)</li>
+  <li>Minimal getestete CPU: Raspberry Pi 4 (4 ARM-Kerne mit 1,5 GHz, 8 GB RAM)</li>
+  <li>Maximal getestete CPU: Dualsockel AMD Epyc 7502 System (64 physische x86-Kerne mit 2,5-3,35 GHz, 1 TB RAM)</li>
+</ul>
+</div>
+</div>
+
+<div class="row" style="margin-top: 15px;"><div class="col">
+<i class="bi-heart-fill" style="color: red; font-size: 120%; padding-right: 10px;"></i>
+<span class="text-secondary" title='Es gibt keinen "Donate"-Button und auch keine kommerzielle Version mit mehr Funktionen. Wenn Sie die Entwicklung des Warteschlangensimulators unterstützen wollen, geben Sie ihm einfach einen GitHub-Stern.'>Wenn Ihnen der Warteschlangensimulator gefällt und er für Sie nützlich ist, können Sie ihm einen <a href="https://github.com/A-Herzog/Warteschlangensimulator" target="_blank" title="Warteschlangensimulator GitHub-Repository">auf GitHub einen Stern</a> geben.</span>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div id="Features" class="anchor">
+<h2 class="bi-card-checklist"> Funktionen</h2>
+<div class="container">
+Der Warteschlangensimulator ermöglicht die Modellierung, Simulation und Optimierung von Modellen aus dem Bereich der Produktionsplanung. Insbesondere Fragestellungen zu Produktions- und Logistiksystemen können mit Hilfe des Warteschlangensimulators sehr gut analysiert werden.
+
+<div class="clearfix">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_de_flowchart.webp" loading="lazy" class="rounded shadow col-md-8 ms-3 mb-3 float-md-end mw-100 zoom" alt="Warteschlangensimulator - Modellierung" title="Warteschlangensimulator - Modellierung" style="aspect-ratio: 506 / 381">
+<h3 class="h4">Modellierung von Warteschlangennetzen in Form von Fließbildern</h3>
+Komplexe Produktions- und Logistikprozesse lassen sich für die Simulation im Warteschlangensimulator in Form von Fließbildern darstellen.
+</div>
+
+<div class="clearfix">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_de_animation.webp" loading="lazy" class="rounded shadow col-md-8 me-3 mb-3 float-md-start mw-100 zoom" alt="Warteschlangensimulator - Animation" title="Warteschlangensimulator - Animation" style="aspect-ratio: 506 / 381">
+<h3 class="h4">Animation</h3>
+Alle als Fließbilder erstellten Warteschlangenmodelle können als Animation visualisiert werden. Während der Animation können die Änderungen bestimmter Werte live verfolgt werden (sowohl in Form von Textwerten als auch in Form von laufend aktualisierten Diagrammen). Es existieren Stationstypen mit denen während einer laufenden Animation in den Kontrollfluss eingegriffen werden kann.
+<br><br>
+Debugging-Funktionen zur Unterbrechung einer laufenden Animationen und zur Anzeige und Änderung von Werten stehen ebenfalls zur Verfügung.
+<br><br>
+Siehe auch <a href="#AnimationVideo">Video einer laufenden Animation</a>.
+</div>
+
+<div class="clearfix anchor" id="StatisticsRecording">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_de_statistics.webp" loading="lazy" class="rounded shadow col-md-8 ms-3 mb-3 float-md-end mw-100 zoom" alt="Warteschlangensimulator - Statistik" title="Warteschlangensimulator - Statistik" style="aspect-ratio: 506 / 381">
+<h3 class="h4">Statistikaufzeichnung</h3>
+Während der Simulation eines Modells werden alle relevanten statistischen Kenngrößen automatisch erfasst und stehen nach Abschluss der Simulation direkt im Programm zur Auswertung zur Verfügung. Zur einfachen Weiterverarbeitung der Daten verwendet der Warteschlangensimulator offene Dateiformate, kann aber z.B. Tabellen auch in Dateiformaten für gängige Tabellenkalkulationsprogramme exportieren.
+</div>
+
+<div class="clearfix anchor" id="AutomationOfStudies">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_de_parameterseries.webp" loading="lazy" class="rounded shadow col-md-8 me-3 mb-3 float-md-start mw-100 zoom" alt="Warteschlangensimulator - Parameterstudien" title="Warteschlangensimulator - Parameterstudien" style="aspect-ratio: 506 / 381">
+<h3 class="h4">Automatisierung von Studien</h3>
+Um die Auswirkungen von Änderungen einzelner Parameter zu untersuchen, können diese innerhalb eines bestimmten Bereichs automatisch variiert und die Simulationsergebnisse für diese Parameterreihen tabellarisch oder grafisch dargestellt werden.
+<br><br>
+Wenn bereits bekannt ist, welche Kenngröße optimiert werden soll und durch die Variation welcher Parameter in welchem Bereich dies geschehen soll, kann der im Warteschlangensimulator eingebaute Optimierer verwendet werden. Neben den klassischen Methoden zur Variation der Parameter stehen hier auch genetische Algorithmen zur Verfügung.
+<br><br>
+Siehe auch <a href="#ParameterStudyVideo">Video zur Durchführung einer Parameterstudie</a>.
+</div>
+
+<div class="clearfix">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_de_net.webp" loading="lazy" class="rounded shadow col-md-8 ms-3 mb-3 float-md-end mw-100 zoom" alt="Warteschlangensimulator - Warteschlangennetzwerke" title="Warteschlangensimulator - Warteschlangennetzwerke" style="aspect-ratio: 506 / 381">
+<h3 class="h4">Warteschlangennetzwerke und komplexe Steuerungsstrategien</h3>
+Verzweigungen und Schranken können mit komplexen Regeln modelliert werden, die weit über die Möglichkeiten analytischer Modelle hinausgehen. Es können auch benutzerdefinierte Skripte  verwendet werden, um Kunden zu verzögern oder zu verzweigen.
+<br><br>
+Push/Pull-Produktion, Batch-Ankünfte und -Bedienungen, die Wahl einer Teil-Warteschlangen gemäß verschiedener Kriterien, Ungeduld von Kunden, Bedienprioritäten, Schichtpläne und viele weitere Eigenschaften können mit wenigen Klicks konfiguriert werden. Die Definition von Prozesslogik durch benutzerdefinierten Programmcode ist für die meisten Forschungsfragen nicht erforderlich, aber bei Bedarf möglich.
+</div>
+
+<div class="clearfix anchor" id="ModellingCapabilities">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_de_stations.webp" loading="lazy" class="rounded border shadow col-md-8 me-3 mb-3 float-md-start mw-100 zoom" alt="Warteschlangensimulator - Stationstypen" title="Warteschlangensimulator - Stationstypen" style="aspect-ratio: 376 / 229">
+<h3 class="h4">Modellierungsumfang</h3>
+Der Warteschlangensimulator bietet mehr als 100 verschiedene Elementenvorlagen zur Erstellung von Warteschlangenmodellen. Damit können selbst komplexe Steuerungsstrategien meist mit wenig Aufwand abgebildet werden.
+<br><br>
+Siehe auch <a href="https://github.com/A-Herzog/Warteschlangensimulator/blob/master/README_MODELING_de.md" target="_blank" title="Beschreibung der Stationstypen im Warteschlangensimulator GitHub-Wiki">Beschreibung der Stationstypen</a>.
+</div>
+
+<div class="clearfix">
+<h3 class="h4">Kommandozeilen- und Client-Server-Betrieb</h3>
+<ul>
+<li>Der Warteschlangensimulator kann auf einem performanten System im <strong>Servermodus</strong> gestartet werden. Wenn eine Client-Installation mit diesem Server verbunden ist, werden alle Simulationen völlig transparent auf dem Server durchgeführt.</li>
+<li>Alternativ können Parameterreihenkonfigurationen gespeichert und dann per <strong>Befehlszeile</strong> auf einem Berechnungsserver ohne grafische Oberfläche ausgeführt werden.</li>
+<li>Die <strong>Stapelverarbeitung</strong> aller Modelle in einem Ordner kann mit nur einem einzigen Befehl gestartet werden. Python-Skripte zum Ändern von Modellparametern eines Basismodells, um viele Modelle für die Simulation zu erzeugen, sind im Installationspaket enthalten.</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+
+<div id="Videos" class="anchor">
+<h2 class="bi-film"> Videos</h2>
+<div class="container clearfix">
+<h3 class="h4">Tutorial: Erstellung eines einfachen Modells <small class="text-secondary">(Englisch mit deutschen Untertiteln)</small></h3>
+<video width="90%" controls poster="./Videos/Warteschlangensimulator_Tutorial.webp" preload="metadata" class="border rounded shadow" crossorigin="anonymous">
+  <source src="./Videos/Warteschlangensimulator_Tutorial.m4v" type="video/mp4">
+  <track src="./Videos/Warteschlangensimulator_Tutorial_de.vtt" kind="captions" srclang="de" label="Deutsch" default>
+  <track src="./Videos/Warteschlangensimulator_Tutorial_en.vtt" kind="captions" srclang="en" label="Englisch">
+  Ihr Browser unterstützt das Video-Tag nicht.
+</video>
+<div id="AnimationVideo" class="anchor">
+<h3 class="h4">Animation eines komplexeren Modells <small class="text-secondary">(Englisch mit deutschen Untertiteln)</small></h3>
+<video width="90%" controls poster="./Videos/Warteschlangensimulator_Callcenter.webp" preload="metadata" class="border rounded shadow" crossorigin="anonymous">
+  <source src="./Videos/Warteschlangensimulator_Callcenter.m4v" type="video/mp4">
+  <track src="./Videos/Warteschlangensimulator_Callcenter_de.vtt" kind="captions" srclang="de" label="Deutsch" default>
+  <track src="./Videos/Warteschlangensimulator_Callcenter_en.vtt" kind="captions" srclang="en" label="Englisch">
+  Ihr Browser unterstützt das Video-Tag nicht.
+</video>
+</div>
+<div id="ParameterStudyVideo" class="anchor">
+<h3 class="h4">Durchführung einer Parameterstudie <small class="text-secondary">(Englisch mit deutschen Untertiteln)</small></h3>
+<video width="90%" controls poster="./Videos/Warteschlangensimulator_Series.webp" preload="metadata" class="border rounded shadow" crossorigin="anonymous">
+  <source src="./Videos/Warteschlangensimulator_Series.m4v" type="video/mp4">
+  <track src="./Videos/Warteschlangensimulator_Series_de.vtt" kind="captions" srclang="de" label="Deutsch" default>
+  <track src="./Videos/Warteschlangensimulator_Series_en.vtt" kind="captions" srclang="en" label="Englisch">
+  Ihr Browser unterstützt das Video-Tag nicht.
+</video>
+</div>
+</div>
+</div>
+
+
+
+<div id="Support" class="anchor">
+<h2 class="bi-question-circle"> Unterstützung</h2>
+<div class="container clearfix">
+<div class="row">
+
+
+<div class="col-md-8">
+<p>
+Der Warteschlangensimulator verfügt über eine vollständige deutsche und englische Online-Hilfe und Programmoberfläche.
+Die <a href="https://github.com/A-Herzog/Warteschlangensimulator/wiki/Examples" target="_blank" title="Bilder der Beispielmodelle im Warteschlangensimulator GitHub-Wiki">Beispielmodelle</a>, ein interaktives Tutorials und alle pdf-basierenden Nachschlagewerke stehen direkt im Programm zur Verfügung.
+</p>
+<p>
+Zusätzlich werden folgende Online-Ressourcen angeboten:
+</p>
+<h3 class="h5">Überblick</h3>
+<ul>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/IntroducingWarteschlangensimulator.pdf" target="_blank"> Introduction slides for Warteschlangensimulator</a> (pdf, Englisch)</li>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Features.pdf" target="_blank"> Feature overview slides for Warteschlangensimulator</a> (pdf, Englisch)</li>
+</ul>
+<h3 class="h5">Tutorials</h3>
+<ul>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-de.pdf" target="_blank"> Kurzeinführung Warteschlangensimulator</a> (pdf, Deutsch)</li>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-en.pdf" target="_blank"> Short introduction to Warteschlangensimulator</a> (pdf, Englisch)</li>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Tutorial-de.pdf" target="_blank"> Tutorial in Bildern</a> (pdf, Deutsch)</li>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Tutorial-en.pdf" target="_blank"> Tutorial in pictures</a> (pdf, Englisch)</li>
+<li><a class="bi-globe" href="https://a-herzog.github.io/Warteschlangensimulator/Tutorial_de/" target="_blank"> Online-Tutorial</a> (Deutsch)</li>
+<li><a class="bi-globe" href="https://a-herzog.github.io/Warteschlangensimulator/Tutorial_en/" target="_blank"> Online tutorial</a> (Englisch)</li>
+</ul>
+<p class="small text-secondary">(Alle Tutorial-PDFs sind auch in den Warteschlangensimulator-Downloadpaketen enthalten.)</p>
+<h3 class="h5">Nachschlagewerke</h3>
+<ul>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Reference-de.pdf" target="_blank"> Stationstypenreferenz</a> (pdf, Deutsch)</li>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Reference-en.pdf" target="_blank"> Station type reference</a> (pdf, Englisch)</li>
+<li><a class="bi-globe" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Reference-de.html" target="_blank"> Stationstypenreferenz</a> (Deutsch)</li>
+<li><a class="bi-globe" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Reference-en.html" target="_blank"> Station type reference</a> (Englisch)</li>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Glossary-de.pdf" target="_blank"> Glossar</a> (pdf, Deutsch)</li>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Glossary-en.pdf" target="_blank"> Glossary</a> (pdf, Englisch)</li>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Scripting-en.pdf" target="_blank"> Skripting-Referenz</a> (pdf, Deutsch)</li>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Scripting-de.pdf" target="_blank"> Scripting reference</a> (pdf, Englisch)</li>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Hotkeys-de.pdf" target="_blank"> Hotkeys</a> (pdf, Deutsch)</li>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Hotkeys-en.pdf" target="_blank"> Hotkeys</a> (pdf, Englisch)</li>
+</ul>
+<p class="small text-secondary">(Alle Nachschlagewerke-PDFs sind auch in den Warteschlangensimulator-Downloadpaketen enthalten.)</p>
+<h3 class="h5">Informationen für Dozenten</h3>
+<ul>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-LecturersGuide-de.pdf" target="_blank"> Informationen für Dozenten</a> (pdf, Deutsch)</li>
+<li><a class="bi-file-pdf" href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-LecturersGuide-en.pdf" target="_blank"> Lecturer's guide</a> (pdf, Englisch)</li>
+</ul>
+<p class="small text-secondary">(Die PDFs mit den Informationen für Dozenten sind auch in den Warteschlangensimulator-Downloadpaketen enthalten.)</p>
+<h3 class="h5">Weitere Informationen</h3>
+<ul>
+<li><a class="bi-book" href="https://www.springer.com/gp/book/9783658346676" target="_blank"> <strong>Lehrbuch</strong>: "Simulation mit dem Warteschlangensimulator" (auf Deutsch)</a></li>
+<li><a class="bi-wikipedia" href="https://github.com/A-Herzog/Warteschlangensimulator/wiki" target="_blank"> <strong>Wiki</strong> zum Warteschlangensimulator</a></li>
+</ul>
+<p>
+BibTex-Datensatz, um das Lehrbuch "Simulation mit dem Warteschlangensimulator" zu zitieren:
+</p>
+<pre class="border rounded" style="padding: 10px; background-color: #F3F3F3;">
+@book{herzog2021simulation,
+  title={Simulation mit dem Warteschlangensimulator},
+  author={Herzog, Alexander},
+  year={2021},
+  publisher={Springer},
+  location={Wiesbaden},
+  doi={10.1007/978-3-658-34668-3}
+}
+</pre>
+</div>
+<div class="col-md-3">
+<a href="https://a-herzog.github.io/Warteschlangensimulator/IntroducingWarteschlangensimulator.pdf" target="_blank">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/docs/IntroducingWarteschlangensimulator.png" loading="lazy" class="border rounded shadow mb-5 w-100" alt="Einführungsfolien für den Warteschlangensimulator (pdf, Englisch)" title="Einführungsfolien für den Warteschlangensimulator (pdf, Englisch)" style="aspect-ratio: 600 / 337">
+</a>
+<a href="https://a-herzog.github.io/Warteschlangensimulator/Warteschlangensimulator-Features.pdf" target="_blank">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/docs/Warteschlangensimulator-Features.png" loading="lazy" class="border rounded shadow mb-5 w-100" alt="Feature-Übersichtsfolien für den Warteschlangensimulator (pdf, Englisch)" title="Feature-Übersichtsfolien für den Warteschlangensimulator (pdf, Englisch)" style="aspect-ratio: 600 / 338">
+</a>
+<a href="https://www.springer.com/gp/book/9783658346676" target="_blank">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.webp" loading="lazy" class="border rounded shadow w-100" alt='Lehrbuch "Simulation mit dem Warteschlangensimulator"' title='Lehrbuch "Simulation mit dem Warteschlangensimulator"' style="aspect-ratio: 400 / 610">
+</a>
+</div>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</main>
+
+<footer class="text-center text-lg-start bg-secondary text-muted text-white pt-2 pb-2 mt-5"><div class="ps-2 text-white">
+&copy; <a href="https://github.com/A-Herzog" target="_blank" title="Alexander Herzog at GitHub" class="text-white">Alexander Herzog</a>
+&nbsp;&middot;&nbsp; <a href="https://warteschlangensimulation.de" target="_blank" class="text-white">warteschlangensimulation.de</a>
+&nbsp;&middot;&nbsp; <a href="https://github.com/A-Herzog/Warteschlangensimulator" target="_blank" title="Warteschlangensimulator GitHub repository" class="text-white">GitHub Repository</a>
+&nbsp;&middot;&nbsp; <a href="https://aka.ms/impressum" target="_blank" class="text-white">GitHub Impressum</a>
+&nbsp;&middot;&nbsp; <a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" target="_blank" title="GitHub privacy" class="text-white">GitHub Datenschutz</a>
+&nbsp;&middot;&nbsp; <a href="https://github.com/A-Herzog/Warteschlangensimulator" target="_blank"><img src="https://img.shields.io/github/stars/a-herzog/warteschlangensimulator?style=social" loading="lazy" alt="GitHub stars for Warteschlangensimulator" title="Warteschlangensimulator GitHub Sterne"></a>
+</div>
+</footer>
+
+<div class="modal fade" id="imagemodal" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" data-dismiss="modal"><div class="modal-content">
+  <div class="modal-header"><div class="modal-title h5">Warteschlangensimulator</div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+  <div class="modal-body"><img style="width: 100%;" alt="Modal image"></div>
+  <div class="modal-footer"><p></p></div>
+</div></div></div>
+
+<script>
+for (let element of document.querySelectorAll("img.zoom")) {
+  element.style.cursor="pointer";
+  element.onclick=e=>{
+    imagemodal.querySelector(".modal-content img").src=(typeof(e.target.dataset.largeSrc)!='undefined')?e.target.dataset.largeSrc:e.target.src;
+    imagemodal.querySelector(".modal-footer p").innerText=e.target.title;
+    new bootstrap.Modal(imagemodal).show();
+  };
+}
+</script>
+
+</body>
+</html>
