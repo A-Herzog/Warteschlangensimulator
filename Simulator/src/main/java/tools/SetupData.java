@@ -1493,7 +1493,7 @@ public class SetupData extends SetupBase {
 		useMultiCoreSimulationMaxCount=1024;
 		useMultiCoreAnimation=true;
 		useSlowModeAnimation=true;
-		useNUMAMode=false;
+		useNUMAMode=true;
 		useDynamicThreadBalance=true;
 		showStationRunTimeData=true;
 		showSingleStepLogData=true;

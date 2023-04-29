@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-25 08:33+0200\n"
+"POT-Creation-Date: 2023-04-28 18:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17797,6 +17797,9 @@ msgstr "Sekunden"
 msgid "SettingsDialog.Tabs.Simulation.PaintTimeStamp"
 msgstr "Simulationszeit in aufgezeichneter Animation einblenden"
 
+msgid "SettingsDialog.Tabs.Simulation.ReducedMemoryMode"
+msgstr "Gemeinsames Datenmodell für alle Threads zur Speichereinsparung"
+
 msgid "SettingsDialog.Tabs.Simulation.Remote"
 msgstr "Netzwerksimulation"
 
@@ -17844,21 +17847,6 @@ msgstr "Wiederholte Simulationen wenn sinnvoll aufteilen"
 
 msgid "SettingsDialog.Tabs.Simulation.UseMultiCoreOnRepeatedSimulations.Hint"
 msgstr "Teilt wiederholte Simulationen auf, wenn die Wiederholungsanzahl geringer ist als die Anzahl an verfügbaren CPU-Kernen."
-
-msgid "SettingsDialog.Tabs.Simulation.UseNUMA"
-msgstr "NUMA-Unterstützung für Simulation"
-
-msgid "SettingsDialog.Tabs.Simulation.UseNUMA.InfoLong"
-msgstr ""
-"Diese Option sollte nur bei Prozessoren, bei denen bestimmte Speicheranteile von\n"
-"bestimmten CPU-Kernen verschieden schnell angesprochen werden können, verwendet werden.\n"
-"Dies sind im Wesentlichen Prozessoren mit Zen 1 Architektur (Ryzen 1000 und Epyc 7001\n"
-"Baureihen). Bei der Verwendung dieser CPUs sollte außerdem eine Java-Version 14 oder\n"
-"höher verwendet werden. Bei der Aktivierung dieser Option bei anderen CPUs steigt\n"
-"lediglich der Speicherbedarf; Leistungssteigerungen sind nicht zu erwarten."
-
-msgid "SettingsDialog.Tabs.Simulation.UseNUMA.InfoShort"
-msgstr "Informationen zur NUMA-Unterstützung"
 
 msgid "SettingsDialog.Tabs.Simulation.UseSlowModeAnimation"
 msgstr "Animation verlangsamen um die Veränderung analoger Werte besser abzubilden"
@@ -23554,8 +23542,8 @@ msgstr "Die mit (*) gekennzeichneten Angaben geben jeweils die reale"
 msgid "Statistics.SystemData.Info2"
 msgstr "Rechenzeit auf einem CPU-Kern an."
 
-msgid "Statistics.SystemData.NUMAMode"
-msgstr "Die Simulation wurde im NUMA-Speichermodus durchgeführt."
+msgid "Statistics.SystemData.ReducedMemoryMode"
+msgstr "Alle Threads haben das selbe Datenmodell verwendet (zur Arbeitsspeichereinsparung)."
 
 msgid "Statistics.SystemData.RepeatCount"
 msgstr "Wiederholungen der Simulation"
@@ -36895,6 +36883,21 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 #~ msgid "SettingsDialog.Tabs.License.OfflineUsableUntil.Info"
 #~ msgstr "Der Simulator wird die lokale Lizenz rechtzeitig vor dem Ablauf vom Server aktualisieren."
 
+#~ msgid "SettingsDialog.Tabs.Simulation.UseNUMA"
+#~ msgstr "NUMA-Unterstützung für Simulation"
+
+#~ msgid "SettingsDialog.Tabs.Simulation.UseNUMA.InfoLong"
+#~ msgstr ""
+#~ "Diese Option sollte nur bei Prozessoren, bei denen bestimmte Speicheranteile von\n"
+#~ "bestimmten CPU-Kernen verschieden schnell angesprochen werden können, verwendet werden.\n"
+#~ "Dies sind im Wesentlichen Prozessoren mit Zen 1 Architektur (Ryzen 1000 und Epyc 7001\n"
+#~ "Baureihen). Bei der Verwendung dieser CPUs sollte außerdem eine Java-Version 14 oder\n"
+#~ "höher verwendet werden. Bei der Aktivierung dieser Option bei anderen CPUs steigt\n"
+#~ "lediglich der Speicherbedarf; Leistungssteigerungen sind nicht zu erwarten."
+
+#~ msgid "SettingsDialog.Tabs.Simulation.UseNUMA.InfoShort"
+#~ msgstr "Informationen zur NUMA-Unterstützung"
+
 #~ msgid "SettingsDilog.Tabs.License.GetLicense.Prompt"
 #~ msgstr "Globaler Schlüssel zur Lizensierung dieses Computers"
 
@@ -36927,6 +36930,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Statistics.StationsClientsWaitingTimes"
 #~ msgstr "Wartezeiten an den Stationen nach Kundentypen"
+
+#~ msgid "Statistics.SystemData.NUMAMode"
+#~ msgstr "Die Simulation wurde im NUMA-Speichermodus durchgeführt."
 
 #~ msgid "Statistics.WaitingTransferProcessTimesAtStationsClients"
 #~ msgstr "Warte-, Transfer- und Bedienzeiten an den Stationen nach Kundentypen"

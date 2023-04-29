@@ -35,7 +35,6 @@ import language.Language;
 import mathtools.NumberTools;
 import net.calc.ServerStatus;
 import scripting.js.JSEngineNames;
-import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import tools.SetupData;
 import ui.images.Images;
@@ -73,8 +72,8 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 	private final JCheckBox useMultiCoreAnimation;
 	/** Hohe Priorität für die Simulationsthreads verwenden? */
 	private final JCheckBox highPriority;
-	/** NUMA-Unterstützung für die Simulation aktivieren? */
-	private final JCheckBox useNUMAMode;
+	/** Gemeinsames Datenmodell für alle Threafs verwenden? */
+	private final JCheckBox useReducedMemoryMode;
 
 	/* Bereich: Scripting  */
 
@@ -159,15 +158,11 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 
 		/* NUMA-Unterstützung für die Simulation aktivieren? */
 		line=addLine();
-		line.add(useNUMAMode=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.UseNUMA")));
+		line.add(useReducedMemoryMode=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.ReducedMemoryMode")));
 		line.add(Box.createHorizontalStrut(5));
 		final JToolBar bar=new JToolBar();
 		bar.setFloatable(false);
 		line.add(bar);
-		bar.add(button=new JButton());
-		button.setIcon(Images.HELP.getIcon());
-		button.setToolTipText(Language.tr("SettingsDialog.Tabs.Simulation.UseNUMA.InfoShort"));
-		button.addActionListener(e->MsgBox.info(this,Language.tr("SettingsDialog.Tabs.Simulation.UseNUMA.InfoShort"),Language.tr("SettingsDialog.Tabs.Simulation.UseNUMA.InfoLong")));
 
 		/*
 		 * Bereich:
@@ -299,7 +294,7 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		useMultiCoreSimulationOnRepeatedSimulations.setSelected(setup.useMultiCoreSimulationOnRepeatedSimulations);
 		useMultiCoreAnimation.setSelected(setup.useMultiCoreAnimation);
 		highPriority.setSelected(setup.highPriority);
-		useNUMAMode.setSelected(setup.useNUMAMode);
+		useReducedMemoryMode.setSelected(!setup.useNUMAMode);
 		JSEngineNames engine=JSEngineNames.fromName(setup.jsEngine);
 		cancelSimulationOnScriptError.setSelected(setup.cancelSimulationOnScriptError);
 		maxJSRunTime.setValue(setup.maxJSRunTimeSeconds);
@@ -346,7 +341,7 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		setup.useMultiCoreSimulationOnRepeatedSimulations=useMultiCoreSimulationOnRepeatedSimulations.isSelected();
 		setup.useMultiCoreAnimation=useMultiCoreAnimation.isSelected();
 		setup.highPriority=highPriority.isSelected();
-		setup.useNUMAMode=useNUMAMode.isSelected();
+		setup.useNUMAMode=!useReducedMemoryMode.isSelected();
 		switch (jsEngine.getSelectedIndex()) {
 		case 0: setup.jsEngine=""; break;
 		case 1: setup.jsEngine=JSEngineNames.NASHORN.name; break;
@@ -381,7 +376,7 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		useMultiCoreSimulationOnRepeatedSimulations.setSelected(false);
 		useMultiCoreAnimation.setSelected(true);
 		highPriority.setSelected(false);
-		useNUMAMode.setSelected(false);
+		useReducedMemoryMode.setSelected(false);
 		jsEngine.setSelectedIndex(0);
 		cancelSimulationOnScriptError.setSelected(true);
 		serverPort.setValue(8183);

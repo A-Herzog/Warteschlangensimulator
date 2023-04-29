@@ -264,12 +264,12 @@ during the simulation.
 (This option is disabled by default.)
 </p>
 
-<h3>NUMA-aware simulation</h3>
+<h3>Common data model for all threads to reduce memory usage</h3> 
 <p>
-If this option is activated, the simulator uses a separate, independent data model for each simulation thread.
-This increases the memory consumption. But on the other side it allows to distribute the data in the memory in
-such a way that on systems where not all memory areas can be accessed by all CPU cores at the same speed
-(NUMA systems), the data can accessed as efficiently as possible.
+If this option is activated, the simulator uses a common data model for each simulation thread.
+This decreases the memory consumption at bit. But on the other side it reduces the performance
+on modern systems with different cache groups for the CPU cores. Therefore this option should
+only be enabled on older computers with little memory.
 </p>
 <p>
 (This option is disabled by default.)

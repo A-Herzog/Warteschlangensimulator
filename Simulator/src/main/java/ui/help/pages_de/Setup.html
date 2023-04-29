@@ -272,12 +272,13 @@ Anwendungen während der Simulation verzögert reagieren.
 (Diese Option ist als Vorgabewert deaktiviert.)
 </p>
 
-<h3>NUMA-Unterstützung für Simulation</h3>
+<h3>Gemeinsames Datenmodell für alle Threads zur Speichereinsparung</h3> 
 <p>
-Ist diese Option aktiviert, so verwendet der Simulator für jeden Simulationsthread ein eigenes, unabhängiges
-Datenmodell. Dadurch erhöht sich der Speicherverbrauch. Allerdings kann so auf Systemen, bei denen nicht alle
-Speicherbereiche von allen CPU-Kernen mit derselben Geschwindigkeit angesprochen werden können (NUMA-Systeme),
-die Daten so im Speicher verteilt werden, dass sie möglichst effizient angesprochen werden können.</p>
+Ist diese Option aktiviert, so verwendet der Simulator für alle Simulationsthread ein gemeinsames
+Datenmodell. Dadurch verringert sich der Speicherverbrauch etwas. Allerdings verringert sich auf
+modernen Systemen mit in Bezug auf die Cache-Zuordnung in Gruppen aufgeteilten CPU-Kernen die
+Leistung. Daher sollte diese Option nur auf älteren Rechnern mit wenig Arbeitsspeicher aktiviert werden.
+</p>
 <p>
 (Diese Option ist als Vorgabewert deaktiviert.)
 </p>

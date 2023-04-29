@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-25 08:33+0200\n"
+"POT-Creation-Date: 2023-04-28 18:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17788,6 +17788,9 @@ msgstr "seconds"
 msgid "SettingsDialog.Tabs.Simulation.PaintTimeStamp"
 msgstr "Show simulation time in recorded animation"
 
+msgid "SettingsDialog.Tabs.Simulation.ReducedMemoryMode"
+msgstr "Common data model for all threads to reduce memory usage"
+
 msgid "SettingsDialog.Tabs.Simulation.Remote"
 msgstr "Network simulation"
 
@@ -17835,20 +17838,6 @@ msgstr "Split repeated simulations if reasonable"
 
 msgid "SettingsDialog.Tabs.Simulation.UseMultiCoreOnRepeatedSimulations.Hint"
 msgstr "Splits repeated simulations if the number of repetitions is less than the number of available CPU cores."
-
-msgid "SettingsDialog.Tabs.Simulation.UseNUMA"
-msgstr "NUMA-aware simulation"
-
-msgid "SettingsDialog.Tabs.Simulation.UseNUMA.InfoLong"
-msgstr ""
-"This option should only be used on processors where certain memory portions can be\n"
-"accessed at different speeds by certain CPU cores. These are mainly processors with\n"
-"Zen 1 architecture (Ryzen 1000 and Epyc 7001 series). When using these CPUs, Java\n"
-"version 14 or higher should also be used. Enabling this option on other CPUs will\n"
-"only increase memory requirements; performance increases are not expected."
-
-msgid "SettingsDialog.Tabs.Simulation.UseNUMA.InfoShort"
-msgstr "Information on NUMA-aware simulation"
 
 msgid "SettingsDialog.Tabs.Simulation.UseSlowModeAnimation"
 msgstr "Slow down animation to better reflect the change of analog values"
@@ -23538,8 +23527,8 @@ msgstr "The data marked with (*) indicate the real"
 msgid "Statistics.SystemData.Info2"
 msgstr "computing time on a CPU core."
 
-msgid "Statistics.SystemData.NUMAMode"
-msgstr "The simulation was ran in NUMA-aware memory mode."
+msgid "Statistics.SystemData.ReducedMemoryMode"
+msgstr "All threads used a common data model (to reduce memory usage)."
 
 msgid "Statistics.SystemData.RepeatCount"
 msgstr "Repetitions of the simulation"
@@ -36845,6 +36834,20 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 #~ msgid "SettingsDialog.Tabs.License.OfflineUsableUntil.Info"
 #~ msgstr "The simulator will update the local license automatically from the server bevore it expires."
 
+#~ msgid "SettingsDialog.Tabs.Simulation.UseNUMA"
+#~ msgstr "NUMA-aware simulation"
+
+#~ msgid "SettingsDialog.Tabs.Simulation.UseNUMA.InfoLong"
+#~ msgstr ""
+#~ "This option should only be used on processors where certain memory portions can be\n"
+#~ "accessed at different speeds by certain CPU cores. These are mainly processors with\n"
+#~ "Zen 1 architecture (Ryzen 1000 and Epyc 7001 series). When using these CPUs, Java\n"
+#~ "version 14 or higher should also be used. Enabling this option on other CPUs will\n"
+#~ "only increase memory requirements; performance increases are not expected."
+
+#~ msgid "SettingsDialog.Tabs.Simulation.UseNUMA.InfoShort"
+#~ msgstr "Information on NUMA-aware simulation"
+
 #~ msgid "SettingsDilog.Tabs.License.GetLicense.Prompt"
 #~ msgstr "Global key to license this computer"
 
@@ -36877,6 +36880,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Statistics.StationsClientsWaitingTimes"
 #~ msgstr "Waiting times at the stations by client types"
+
+#~ msgid "Statistics.SystemData.NUMAMode"
+#~ msgstr "The simulation was ran in NUMA-aware memory mode."
 
 #~ msgid "Statistics.WaitingTransferProcessTimesAtStationsClients"
 #~ msgstr "Waiting, transfer and process times at the stations by client types"

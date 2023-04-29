@@ -2280,7 +2280,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				addLine(Language.tr("Statistics.SystemData.ThreadDynamicBalance")+": "+StatisticTools.formatPercent(statistics.simulationData.threadDynamicBalance));
 			}
 		}
-		if (statistics.simulationData.numaAwareMode) addLine(Language.tr("Statistics.SystemData.NUMAMode"));
+		if (!statistics.simulationData.numaAwareMode) addLine(Language.tr("Statistics.SystemData.ReducedMemoryMode"));
 		endParagraph();
 
 		/* Kunden */
