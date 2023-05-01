@@ -98,13 +98,15 @@ public class ModelElementClientIconDialog extends ModelElementBaseDialog {
 		final EditModel model=clientIcon.getModel();
 		final AnimationImageSource imageSource=new AnimationImageSource();
 
-		final JPanel content=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		final JPanel content=new JPanel(new BorderLayout());
 
 		JPanel line;
 		JLabel label;
 
-		content.add(label=new JLabel(Language.tr("Surface.ClientIcon.Dialog.IconForClient")+":"));
-		content.add(iconChooser=new JComboBox<>());
+		final JPanel centerArea=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		content.add(centerArea,BorderLayout.CENTER);
+		centerArea.add(label=new JLabel(Language.tr("Surface.ClientIcon.Dialog.IconForClient")+":"));
+		centerArea.add(iconChooser=new JComboBox<>());
 		iconChooserList=imageSource.getIconsComboBox(element.getModel().animationImages);
 		iconChooser.setModel(iconChooserList);
 		iconChooser.setRenderer(new AnimationImageSource.IconComboBoxCellRenderer());
