@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>3.3.0</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Zusammenführen von Kundenanfragen und Waren aus dem Lager</ModellName>
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">10000000</ModellKunden>
@@ -139,9 +140,9 @@
       <ModellElementFarbe>0,180,0</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementText id="24">
-      <ModellElementGroesse h="23" w="236" x="55" y="105"/>
+      <ModellElementGroesse h="23" w="241" x="55" y="105"/>
       <ModellElementTextzeile>Produktion und Warenlager</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,180,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementKasten id="25">
@@ -150,9 +151,9 @@
       <ModellElementFarbe>255,165,0</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementText id="26">
-      <ModellElementGroesse h="23" w="211" x="55" y="405"/>
+      <ModellElementGroesse h="23" w="215" x="55" y="405"/>
       <ModellElementTextzeile>Kunden bestellen Artikel</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,165,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementEcke id="12">
@@ -172,31 +173,34 @@
       <ModellElementFarbe>255,165,0</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementText id="30">
-      <ModellElementGroesse h="23" w="208" x="755" y="405"/>
+      <ModellElementGroesse h="23" w="211" x="755" y="405"/>
       <ModellElementTextzeile>Warten auf Auslieferung</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,165,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationBalkenDiagramm id="31">
       <ModellElementGroesse h="145" w="100" x="750" y="150"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
       <ModellElementMaximalwert>5</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung>0</ModellElementAchsenbeschriftung>
       <ModellElementDiagrammElement Balkenfarbe="0,180,0">WIP(3)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Balkenfarbe="0,0,255">WIP(9)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Balkenfarbe="255,0,0">WIP(17)</ModellElementDiagrammElement>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementText id="32">
-      <ModellElementGroesse h="38" w="123" x="750" y="110"/>
+      <ModellElementGroesse h="38" w="121" x="750" y="110"/>
       <ModellElementTextzeile>Wartende Produkte</ModellElementTextzeile>
       <ModellElementTextzeile>und Kunden</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="39">
-      <ModellElementGroesse h="23" w="566" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="581" x="50" y="50"/>
       <ModellElementTextzeile>Zusammenführen von Kundenanfragen und Waren aus dem Lager</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementBild id="36">
@@ -235,6 +239,24 @@
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACH0lEQVR4XtWR20vTYRzG/Vc66aYV0YWWs2Z5CEqXs5SoBVmmUjMLsbSNZtlBSlJikafKTlKWljps2jZXUzFdnrY5GzpaGZqmiy68Cj799huV2U130QMvfHmfw/t9eENC/jnct49POmtzGak+wuCNLOz6DHorVHSVpWMtVWI6v4PnugRaNfL2pV4RAfOMu41Po61MO5qZGm7k42ADk/Z6Pry+g6/nJu9sVTSdjGKpV8RQZQ7TrhZBWCkI9Xg7yxk3XcZjvMCYQcfosyImLNfYVvKShGILW7UvkBcav8XkG7LEALv+IH+D+DNmXrn9dLrmuWd9T2Tu0zkxINBXa5hgd/UQSv0AyVf72V7aS+LZbuI0NuQFVrLL+4ktasfkmGfqK3xZgPXZDcFKtitpYte3bedwt2hxNZ1ipOEEQ/VHGbh7GPutA4w265DlG+gb99PrmccvBKzJeBAMsFxU4OuqEbs6nuQz/PAYg/dzeFN3iP7a/fRV7cHZeDqwMt1jc9SYfHQ6Z5HsqwsGGIsT8VqvM26uwNNRJmxyCXdrifiqs0mD43EhjkcF4spW52fMI7N0DM+wMr02GJAev460uLXs2rKa1NhwlJslpGwKRRGzimTZCpKil5O0cRnhslSk0UokG1IIi9pJaKTi17dKpVJvZmYmarUaYV7Iy8tDpVIhkUjMP0WLdH9wERERMQLZE7gUzt4fc5iARf7fdEu5/xjfAY/giQeARl3IAAAAAElFTkSuQmCC</ModellElementBildDaten>
     </ModellElementBild>
+    <ModellElementText id="33">
+      <ModellElementGroesse h="57" w="519" x="50" y="700"/>
+      <ModellElementTextzeile>Die **Schranke** "Lager" gibt immer dann ein Objekt frei, wenn ein **Signal** ausgelöst</ModellElementTextzeile>
+      <ModellElementTextzeile>wurde. Es reagiert dabei unterschiedlich auf die Signale "Anfrage A" und "Anfrage B"</ModellElementTextzeile>
+      <ModellElementTextzeile>und gibt jeweils ein Objekt vom Typ "Produkt A" oder "Produkt B" frei.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="34">
+      <ModellElementGroesse h="95" w="437" x="750" y="700"/>
+      <ModellElementTextzeile>An den **Zusammenführen** Stationen muss jeweils ein Kunde und ein</ModellElementTextzeile>
+      <ModellElementTextzeile>Produkt eingetroffen sein, damit beide gleichzeitig freigegeben werden.</ModellElementTextzeile>
+      <ModellElementTextzeile>Die Identifikation erfolgt dabei über die verschiedenen Eingang.</ModellElementTextzeile>
+      <ModellElementTextzeile>Es wird jeweils ein Objekt aus dem oberen Eingang mit einem Objekt</ModellElementTextzeile>
+      <ModellElementTextzeile>aus dem unteren Eingang zusammengeführt.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
   <KundentypenDaten>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>3.3.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
   <ModelName>Combining client orders and items from the warehouse</ModelName>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">10000000</ModelClients>
@@ -139,9 +140,9 @@
       <ModelElementColor>0,180,0</ModelElementColor>
     </ModelElementRectangle>
     <ModelElementText id="24">
-      <ModelElementSize h="23" w="231" x="55" y="105"/>
+      <ModelElementSize h="23" w="236" x="55" y="105"/>
       <ModelElementTextLine>Production and warehouse</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,180,0</ModelElementColor>
     </ModelElementText>
     <ModelElementRectangle id="25">
@@ -150,9 +151,9 @@
       <ModelElementColor>255,165,0</ModelElementColor>
     </ModelElementRectangle>
     <ModelElementText id="26">
-      <ModelElementSize h="23" w="163" x="55" y="405"/>
+      <ModelElementSize h="23" w="168" x="55" y="405"/>
       <ModelElementTextLine>Clients order items</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>255,165,0</ModelElementColor>
     </ModelElementText>
     <ModelElementVertex id="12">
@@ -172,16 +173,19 @@
       <ModelElementColor>255,165,0</ModelElementColor>
     </ModelElementRectangle>
     <ModelElementText id="30">
-      <ModelElementSize h="23" w="167" x="755" y="405"/>
+      <ModelElementSize h="23" w="171" x="755" y="405"/>
       <ModelElementTextLine>Waiting for delivery</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>255,165,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationBarDiagram id="31">
       <ModelElementSize h="145" w="100" x="750" y="150"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementUse3D>1</ModelElementUse3D>
       <ModelElementMaximumValue>5</ModelElementMaximumValue>
+      <ModelElementAxisLabels>0</ModelElementAxisLabels>
       <ModelElementDiagramElement BarColor="0,180,0">WIP(3)</ModelElementDiagramElement>
       <ModelElementDiagramElement BarColor="0,0,255">WIP(9)</ModelElementDiagramElement>
       <ModelElementDiagramElement BarColor="255,0,0">WIP(17)</ModelElementDiagramElement>
@@ -190,13 +194,13 @@
       <ModelElementSize h="38" w="85" x="750" y="110"/>
       <ModelElementTextLine>Waiting items</ModelElementTextLine>
       <ModelElementTextLine>and clients</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="39">
-      <ModelElementSize h="23" w="472" x="50" y="50"/>
+      <ModelElementSize h="23" w="487" x="50" y="50"/>
       <ModelElementTextLine>Combining client orders and items from the warehouse</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementImage id="36">
@@ -235,6 +239,23 @@
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACH0lEQVR4XtWR20vTYRzG/Vc66aYV0YWWs2Z5CEqXs5SoBVmmUjMLsbSNZtlBSlJikafKTlKWljps2jZXUzFdnrY5GzpaGZqmiy68Cj799huV2U130QMvfHmfw/t9eENC/jnct49POmtzGak+wuCNLOz6DHorVHSVpWMtVWI6v4PnugRaNfL2pV4RAfOMu41Po61MO5qZGm7k42ADk/Z6Pry+g6/nJu9sVTSdjGKpV8RQZQ7TrhZBWCkI9Xg7yxk3XcZjvMCYQcfosyImLNfYVvKShGILW7UvkBcav8XkG7LEALv+IH+D+DNmXrn9dLrmuWd9T2Tu0zkxINBXa5hgd/UQSv0AyVf72V7aS+LZbuI0NuQFVrLL+4ktasfkmGfqK3xZgPXZDcFKtitpYte3bedwt2hxNZ1ipOEEQ/VHGbh7GPutA4w265DlG+gb99PrmccvBKzJeBAMsFxU4OuqEbs6nuQz/PAYg/dzeFN3iP7a/fRV7cHZeDqwMt1jc9SYfHQ6Z5HsqwsGGIsT8VqvM26uwNNRJmxyCXdrifiqs0mD43EhjkcF4spW52fMI7N0DM+wMr02GJAev460uLXs2rKa1NhwlJslpGwKRRGzimTZCpKil5O0cRnhslSk0UokG1IIi9pJaKTi17dKpVJvZmYmarUaYV7Iy8tDpVIhkUjMP0WLdH9wERERMQLZE7gUzt4fc5iARf7fdEu5/xjfAY/giQeARl3IAAAAAElFTkSuQmCC</ModelElementImageData>
     </ModelElementImage>
+    <ModelElementText id="33">
+      <ModelElementSize h="57" w="546" x="50" y="700"/>
+      <ModelElementTextLine>The **Barrier** "Store" releases an object when a **Signal** has been triggered. It reacts</ModelElementTextLine>
+      <ModelElementTextLine>differently to the signals "Request A" and "Request B" and releases an object of the type</ModelElementTextLine>
+      <ModelElementTextLine>"Product A" or "Product B" in each case.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="34">
+      <ModelElementSize h="76" w="421" x="750" y="700"/>
+      <ModelElementTextLine>A client and a product have to arrive at each of the **match** stations</ModelElementTextLine>
+      <ModelElementTextLine>so that both are released at the same time. The identification takes</ModelElementTextLine>
+      <ModelElementTextLine>place via the different inputs. In each case, an object from the upper</ModelElementTextLine>
+      <ModelElementTextLine>input is merged with an object from the lower input.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
   </ModelElements>
   <Resources SecondaryPriority="Random"/>
   <ClientTypeData>

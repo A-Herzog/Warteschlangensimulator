@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>2.3.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
   <ModelName>Limiting the number of clients at the process station by using a variable</ModelName>
   <ModelDescription>A counting variable ensures that a maximum of m clients are located
 in the process station. All other clients who have already arrived
@@ -16,6 +17,7 @@ have to wait at the condition "a&lt;m".</ModelDescription>
       <ModelElementSize h="50" w="100" x="50" y="100"/>
       <ModelElementConnection Element="7" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds">Exponential distribution (55)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementHold id="2">
       <ModelElementName>a&lt;m</ModelElementName>
@@ -73,29 +75,31 @@ have to wait at the condition "a&lt;m".</ModelDescription>
     <ModelElementText id="12">
       <ModelElementSize h="23" w="625" x="50" y="50"/>
       <ModelElementTextLine>Limiting the number of clients at the process station by using a variable</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="13">
-      <ModelElementSize h="38" w="387" x="200" y="300"/>
-      <ModelElementTextLine>A maximum of m clients can be located at the process station.</ModelElementTextLine>
+      <ModelElementSize h="38" w="388" x="200" y="300"/>
+      <ModelElementTextLine>A maximum of **m** clients can be located at the process station.</ModelElementTextLine>
       <ModelElementTextLine>All others have to wait on the condition.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Markdown="1" Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationLineDiagram id="15">
-      <ModelElementSize h="150" w="550" x="50" y="400"/>
+      <ModelElementSize h="200" w="550" x="50" y="400"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
       <ModelElementDiagramElement LineColor="255,0,0" LineWidth="2" Maximum="10" Minimum="0">a</ModelElementDiagramElement>
       <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="10" Minimum="0">m</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>9000</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="16">
-      <ModelElementSize h="19" w="144" x="50" y="380"/>
+      <ModelElementSize h="19" w="161" x="50" y="380"/>
       <ModelElementTextLine>Values of the variables</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationTrafficLights id="17">
@@ -110,29 +114,55 @@ have to wait at the condition "a&lt;m".</ModelDescription>
       <ModelElementSliderStepWide>1</ModelElementSliderStepWide>
     </ModelElementSlider>
     <ModelElementText id="52">
-      <ModelElementSize h="19" w="145" x="650" y="380"/>
+      <ModelElementSize h="19" w="161" x="650" y="380"/>
       <ModelElementTextLine>Value of the variable m</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="36">
       <ModelElementName>a=</ModelElementName>
-      <ModelElementSize h="30" w="55" x="650" y="475"/>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementSize h="32" w="61" x="650" y="475"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">a</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="71">
       <ModelElementName>m=</ModelElementName>
-      <ModelElementSize h="30" w="55" x="650" y="520"/>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementSize h="32" w="61" x="650" y="520"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">m</ModelElementAnimationMode>
     </ModelElementAnimationText>
+    <ModelElementAnimationLineDiagram id="14">
+      <ModelElementSize h="200" w="550" x="50" y="650"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="10" Minimum="0">WIP(4)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,210,210" LineWidth="2" Maximum="10" Minimum="0">WIP(2)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>9000</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="18">
+      <ModelElementSize h="19" w="228" x="50" y="630"/>
+      <ModelElementTextLine>Number of clients at the stations</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="19">
+      <ModelElementSize h="16" w="304" x="50" y="870"/>
+      <ModelElementTextLine>(dark blue=process station; light blue=condition station)</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
   </ModelElements>
   <Resources SecondaryPriority="Random">
     <Resource Name="Operators" Type="Number" Value="1"/>
   </Resources>
   <ClientTypeData/>
   <InitialVariable Name="m">5</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
 </Model>
