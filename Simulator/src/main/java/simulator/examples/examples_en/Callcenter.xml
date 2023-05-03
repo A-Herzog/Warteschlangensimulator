@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>4.5.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
   <ModelName>Model of a complex call center system</ModelName>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">10000000</ModelClients>
@@ -204,9 +205,9 @@
       <ModelElementConnection Element1="9" Element2="10" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="31">
-      <ModelElementSize h="23" w="95" x="55" y="255"/>
+      <ModelElementSize h="23" w="96" x="55" y="255"/>
       <ModelElementTextLine>Fresh calls</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,225,0</ModelElementColor>
     </ModelElementText>
     <ModelElementEdge id="32">
@@ -297,38 +298,38 @@
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementRectangle>
     <ModelElementText id="59">
-      <ModelElementSize h="23" w="329" x="455" y="995"/>
+      <ModelElementSize h="23" w="327" x="455" y="995"/>
       <ModelElementTextLine>Retryers (waiting outside the system)</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="60">
-      <ModelElementSize h="23" w="164" x="655" y="255"/>
+      <ModelElementSize h="23" w="163" x="655" y="255"/>
       <ModelElementTextLine>Call center system</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="61">
-      <ModelElementSize h="26" w="362" x="50" y="50"/>
+      <ModelElementSize h="26" w="363" x="50" y="50"/>
       <ModelElementTextLine>Model of a complex call center system</ModelElementTextLine>
-      <ModelElementFontSize bold="1">20</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">20</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="62">
-      <ModelElementSize h="95" w="235" x="50" y="750"/>
+      <ModelElementSize h="95" w="237" x="50" y="750"/>
       <ModelElementTextLine>Arrival rate of the fresh calls:</ModelElementTextLine>
-      <ModelElementTextLine>E[I_A]=1 clients/minute</ModelElementTextLine>
-      <ModelElementTextLine>E[I_B]=0.75 clients/minute</ModelElementTextLine>
-      <ModelElementTextLine>E[I_C]=2 clients/minute</ModelElementTextLine>
+      <ModelElementTextLine>E[I_{A}]=1 clients/minute</ModelElementTextLine>
+      <ModelElementTextLine>E[I_{B}]=0.75 clients/minute</ModelElementTextLine>
+      <ModelElementTextLine>E[I_{C}]=2 clients/minute</ModelElementTextLine>
       <ModelElementTextLine>(Inter-arrival times are exp distributed)</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize LaTeX="1" Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="63">
-      <ModelElementSize h="38" w="203" x="50" y="860"/>
-      <ModelElementTextLine>Possible extension of the model:</ModelElementTextLine>
+      <ModelElementSize h="32" w="193" x="50" y="860"/>
+      <ModelElementTextLine>**Possible extension of the model:**</ModelElementTextLine>
       <ModelElementTextLine>Arrivals by schedules</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>180,0,180</ModelElementColor>
     </ModelElementText>
     <ModelElementDecide id="55">
@@ -397,17 +398,17 @@
       <ModelElementConnection Element1="69" Element2="11" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="75">
-      <ModelElementSize h="38" w="222" x="1800" y="315"/>
-      <ModelElementTextLine>Possible extension of the model:</ModelElementTextLine>
+      <ModelElementSize h="32" w="193" x="1800" y="315"/>
+      <ModelElementTextLine>**Possible extension of the model:**</ModelElementTextLine>
       <ModelElementTextLine>Chance of forwarding by client type</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>180,0,180</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="76">
-      <ModelElementSize h="38" w="330" x="1600" y="65"/>
-      <ModelElementTextLine>Possible extension of the model:</ModelElementTextLine>
+      <ModelElementSize h="32" w="277" x="1600" y="65"/>
+      <ModelElementTextLine>**Possible extension of the model:**</ModelElementTextLine>
       <ModelElementTextLine>Client type change rate depending on the client type</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>180,0,180</ModelElementColor>
     </ModelElementText>
     <ModelElementVertex id="39">
@@ -448,61 +449,62 @@
     <ModelElementAnimationBar id="83">
       <ModelElementSize h="100" w="25" x="700" y="600"/>
       <ModelElementDataExpression>NQ(16)+NQ(17)+NQ(18)</ModelElementDataExpression>
-      <ModelElementDataArea Direction="up" Maximum="25" Minimum="0"/>
+      <ModelElementDataArea Direction="up" Labels="0" Maximum="25" Minimum="0"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
       <ModelElementBarColor>255,0,0</ModelElementBarColor>
     </ModelElementAnimationBar>
     <ModelElementText id="84">
-      <ModelElementSize h="32" w="41" x="700" y="700"/>
+      <ModelElementSize h="32" w="40" x="700" y="700"/>
       <ModelElementTextLine>Waiting</ModelElementTextLine>
       <ModelElementTextLine>clients</ModelElementTextLine>
-      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="85">
-      <ModelElementSize h="76" w="303" x="650" y="800"/>
-      <ModelElementTextLine>Possible extension of the model:</ModelElementTextLine>
+      <ModelElementSize h="64" w="256" x="650" y="800"/>
+      <ModelElementTextLine>**Possible extension of the model:**</ModelElementTextLine>
       <ModelElementTextLine>Costs</ModelElementTextLine>
       <ModelElementTextLine>Individual shift plans for the agents</ModelElementTextLine>
       <ModelElementTextLine>Multi skill agents which work on multiple stations</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>180,0,180</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="86">
-      <ModelElementSize h="247" w="221" x="1200" y="500"/>
-      <ModelElementTextLine>Service rates:</ModelElementTextLine>
-      <ModelElementTextLine>E[S_A]=0.2 clients/minute</ModelElementTextLine>
-      <ModelElementTextLine>E[S_B]=0.1 clients/minute</ModelElementTextLine>
-      <ModelElementTextLine>E[S_C]=0.33 clients/minute</ModelElementTextLine>
+      <ModelElementSize h="247" w="219" x="1200" y="500"/>
+      <ModelElementTextLine>Average service times:</ModelElementTextLine>
+      <ModelElementTextLine>E[S_{A}]=0.2 clients/minute</ModelElementTextLine>
+      <ModelElementTextLine>E[S_{B}]=0.1 clients/minute</ModelElementTextLine>
+      <ModelElementTextLine>E[S_{C}]=0.33 clients/minute</ModelElementTextLine>
       <ModelElementTextLine/>
-      <ModelElementTextLine>Post processing rates:</ModelElementTextLine>
-      <ModelElementTextLine>E[S2_A]=2 clients/minute</ModelElementTextLine>
-      <ModelElementTextLine>E[S2_B]=2 clients/minute</ModelElementTextLine>
-      <ModelElementTextLine>E[S2_C]=1 client/minute</ModelElementTextLine>
+      <ModelElementTextLine>Average post processing times:</ModelElementTextLine>
+      <ModelElementTextLine>E[S2_{A}]=2 clients/minute</ModelElementTextLine>
+      <ModelElementTextLine>E[S2_{B}]=2 clients/minute</ModelElementTextLine>
+      <ModelElementTextLine>E[S2_{C}]=1 client/minute</ModelElementTextLine>
       <ModelElementTextLine/>
       <ModelElementTextLine>(Service and post processing times</ModelElementTextLine>
       <ModelElementTextLine>are log-normal distributed with</ModelElementTextLine>
       <ModelElementTextLine>different CVs.)</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize LaTeX="1" Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="87">
-      <ModelElementSize h="19" w="201" x="900" y="1110"/>
+      <ModelElementSize h="19" w="198" x="900" y="1110"/>
       <ModelElementTextLine>Average retry delay: 15 minutes</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="88">
-      <ModelElementSize h="38" w="303" x="1800" y="900"/>
-      <ModelElementTextLine>Possible extension of the model:</ModelElementTextLine>
+      <ModelElementSize h="32" w="255" x="1800" y="900"/>
+      <ModelElementTextLine>**Possible extension of the model:**</ModelElementTextLine>
       <ModelElementTextLine>Counting success and cancelation by client type</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>180,0,180</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="90">
       <ModelElementName>Fraction cancelation</ModelElementName>
-      <ModelElementSize h="30" w="98" x="2050" y="750"/>
+      <ModelElementSize h="30" w="93" x="2050" y="750"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">Part(25)</ModelElementAnimationMode>
@@ -516,7 +518,7 @@
     </ModelElementAnimationText>
     <ModelElementAnimationText id="92">
       <ModelElementName>Number of fresh calls</ModelElementName>
-      <ModelElementSize h="30" w="92" x="310" y="400"/>
+      <ModelElementSize h="30" w="89" x="310" y="400"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,180,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Counter(4)</ModelElementAnimationMode>
@@ -525,99 +527,102 @@
       <ModelElementSize h="150" w="350" x="1250" y="900"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
       <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="1" Minimum="0">Resource()/(Resource_count(1)+Resource_count(2)+Resource_count(3)+Resource_count(4))</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>300</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>0</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>1</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="94">
-      <ModelElementSize h="19" w="164" x="1250" y="880"/>
+      <ModelElementSize h="19" w="163" x="1250" y="880"/>
       <ModelElementTextLine>Utilization of the operators</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="95">
       <ModelElementName>Number for forwardings</ModelElementName>
-      <ModelElementSize h="30" w="99" x="500" y="370"/>
+      <ModelElementSize h="30" w="98" x="500" y="370"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>255,165,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Counter(11)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="96">
       <ModelElementName>Number of retrys</ModelElementName>
-      <ModelElementSize h="30" w="73" x="500" y="550"/>
+      <ModelElementSize h="30" w="70" x="500" y="550"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Counter(10)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementText id="98">
-      <ModelElementSize h="19" w="162" x="350" y="750"/>
+      <ModelElementSize h="19" w="161" x="350" y="750"/>
       <ModelElementTextLine>Fractions of the call types</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="99">
       <ModelElementName>Fresh calls</ModelElementName>
-      <ModelElementSize h="30" w="87" x="350" y="910"/>
+      <ModelElementSize h="30" w="86" x="350" y="910"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,180,0</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">Part(4)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="100">
       <ModelElementName>Forwarding</ModelElementName>
-      <ModelElementSize h="30" w="87" x="455" y="910"/>
+      <ModelElementSize h="30" w="86" x="455" y="910"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>255,165,0</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">Part(11)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="101">
       <ModelElementName>Retrys</ModelElementName>
-      <ModelElementSize h="30" w="87" x="405" y="910"/>
+      <ModelElementSize h="30" w="86" x="405" y="910"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">Part(10)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="102">
       <ModelElementName>Average utilization</ModelElementName>
-      <ModelElementSize h="30" w="87" x="1250" y="1070"/>
+      <ModelElementSize h="30" w="86" x="1250" y="1070"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">Resource_avg()/(Resource_count(1)+Resource_count(2)+Resource_count(3)+Resource_count(4))</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="64">
       <ModelElementName>Single-skill A agents</ModelElementName>
-      <ModelElementSize h="30" w="84" x="785" y="320"/>
+      <ModelElementSize h="30" w="85" x="785" y="320"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Resource_count(1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="89">
       <ModelElementName>Single-skill B agents</ModelElementName>
-      <ModelElementSize h="30" w="84" x="1200" y="370"/>
+      <ModelElementSize h="30" w="85" x="1200" y="370"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Resource_count(2)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementText id="103">
-      <ModelElementSize h="19" w="89" x="785" y="295"/>
+      <ModelElementSize h="19" w="85" x="785" y="295"/>
       <ModelElementTextLine>Call center A</ModelElementTextLine>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="104">
-      <ModelElementSize h="19" w="90" x="1200" y="350"/>
+      <ModelElementSize h="19" w="85" x="1200" y="350"/>
       <ModelElementTextLine>Call center B</ModelElementTextLine>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="105">
       <ModelElementName>Multi-skill B+C agents (shared with call center C)</ModelElementName>
-      <ModelElementSize h="30" w="202" x="1200" y="405"/>
+      <ModelElementSize h="30" w="203" x="1200" y="405"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Resource_count(4)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="106">
       <ModelElementName>Multi-skill B+C agenten (shared with call center B)</ModelElementName>
-      <ModelElementSize h="30" w="206" x="785" y="715"/>
+      <ModelElementSize h="30" w="208" x="785" y="715"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Resource_count(4)</ModelElementAnimationMode>
@@ -630,9 +635,9 @@
       <ModelElementAnimationMode Type="Number">Resource_count(3)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementText id="108">
-      <ModelElementSize h="19" w="90" x="780" y="665"/>
+      <ModelElementSize h="19" w="85" x="780" y="665"/>
       <ModelElementTextLine>Call center C</ModelElementTextLine>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementDecide id="131">
@@ -747,10 +752,10 @@
       <ModelElementConnection Element1="40" Element2="163" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="368">
-      <ModelElementSize h="38" w="279" x="1500" y="650"/>
+      <ModelElementSize h="38" w="277" x="1500" y="650"/>
       <ModelElementTextLine>If the client was served by a multi-skill agent,</ModelElementTextLine>
       <ModelElementTextLine>he will be forwarded by a smaller probability.</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementEdge id="74">
@@ -761,6 +766,7 @@
       <ModelElementLineWidth>0</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementSegmentLabel>BigSegments</ModelElementSegmentLabel>
+      <ModelElementSegmentDisplay>CircleSegment</ModelElementSegmentDisplay>
       <ModelElementDiagramElement SegmentColor="0,180,0">Part(4)</ModelElementDiagramElement>
       <ModelElementDiagramElement SegmentColor="255,0,0">Part(10)</ModelElementDiagramElement>
       <ModelElementDiagramElement SegmentColor="255,165,0">Part(11)</ModelElementDiagramElement>
@@ -805,14 +811,15 @@
       <ModelElementLineWidth>0</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementSegmentLabel>BigSegments</ModelElementSegmentLabel>
+      <ModelElementSegmentDisplay>CircleSegment</ModelElementSegmentDisplay>
       <ModelElementDiagramElement SegmentColor="0,180,0">Part(24)</ModelElementDiagramElement>
       <ModelElementDiagramElement SegmentColor="0,255,0">Part(97)</ModelElementDiagramElement>
       <ModelElementDiagramElement SegmentColor="255,0,0">Part(25)</ModelElementDiagramElement>
     </ModelElementAnimationPieDiagram>
     <ModelElementText id="976">
-      <ModelElementSize h="19" w="196" x="2250" y="300"/>
+      <ModelElementSize h="19" w="194" x="2250" y="300"/>
       <ModelElementTextLine>Fraction success and canceled</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
   </ModelElements>

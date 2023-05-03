@@ -1,36 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModellVersion>5.0.0</ModellVersion>
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Baustellenampel</ModellName>
+  <ModellBeschreibung>Das Ampelsystem erkennt jeweils, ob sich Fahrzeuge in dem einspurigen
+Abschnitt befinden. Ist der Abschnitt in einer Fahrrichtung leer und
+warten Fahrzeuge für die Gegenrichtung, so schaltet das Ampelsystem
+jeweils die andere Fahrtrichtung frei.
+
+Übertragen auf ein Produktionssystem entspricht diese Vorgehensweise
+der Kampagnenfertigung.</ModellBeschreibung>
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">10000000</ModellKunden>
   <ModellAufwaermphase>0.01</ModellAufwaermphase>
   <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
   <ModellElemente>
     <ModellElementQuelle id="1">
-      <ModellElementName>KundenA</ModellElementName>
+      <ModellElementName>FahrzeugeA</ModellElementName>
       <ModellElementGroesse h="50" w="100" x="50" y="150"/>
       <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
       <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
       <ModellElementBatch Groesse="1"/>
     </ModellElementQuelle>
     <ModellElementAnimationAmpel id="2">
-      <ModellElementGroesse h="100" w="50" x="350" y="50"/>
+      <ModellElementGroesse h="50" w="25" x="325" y="100"/>
       <ModellElementAmpelBedingung Licht="rot">Richtung!=1</ModellElementAmpelBedingung>
     </ModellElementAnimationAmpel>
     <ModellElementAnimationAmpel id="3">
-      <ModellElementGroesse h="100" w="50" x="1200" y="300"/>
+      <ModellElementGroesse h="50" w="25" x="1350" y="200"/>
       <ModellElementAmpelBedingung Licht="rot">Richtung!=2</ModellElementAmpelBedingung>
     </ModellElementAnimationAmpel>
     <ModellElementEnde id="4">
-      <ModellElementGroesse h="50" w="100" x="1450" y="150"/>
+      <ModellElementGroesse h="50" w="100" x="1550" y="150"/>
       <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
     </ModellElementEnde>
     <ModellElementQuelle id="5">
-      <ModellElementName>KundenB</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="1450" y="250"/>
+      <ModellElementName>FahrzeugeB</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1550" y="250"/>
       <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
       <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
       <ModellElementBatch Groesse="1"/>
@@ -40,49 +47,57 @@
       <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
     </ModellElementEnde>
     <ModellElementBedingung id="13">
+      <ModellElementName>Ampel</ModellElementName>
       <ModellElementGroesse h="50" w="100" x="250" y="150"/>
       <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
       <ModellElementBedingungText>Richtung==1 || Resource(1)==0</ModellElementBedingungText>
+      <ModellElementPrioritaet Kundentyp="FahrzeugeA">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="FahrzeugeB">w</ModellElementPrioritaet>
     </ModellElementBedingung>
     <ModellElementBedingung id="14">
-      <ModellElementGroesse h="50" w="100" x="1250" y="250"/>
+      <ModellElementName>Ampel</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1350" y="250"/>
       <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
       <ModellElementBedingungText>Richtung==2 || Resource(1)==0</ModellElementBedingungText>
+      <ModellElementPrioritaet Kundentyp="FahrzeugeA">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="FahrzeugeB">w</ModellElementPrioritaet>
     </ModellElementBedingung>
     <ModellElementKante id="15">
-      <ModellElementName>Ankünfte (KundenA)</ModellElementName>
+      <ModellElementName>Ankünfte (FahrzeugeA)</ModellElementName>
       <ModellElementVerbindung Element1="1" Element2="13" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
     </ModellElementKante>
     <ModellElementKante id="18">
-      <ModellElementName>Ankünfte (KundenB)</ModellElementName>
+      <ModellElementName>Ankünfte (FahrzeugeB)</ModellElementName>
       <ModellElementVerbindung Element1="5" Element2="14" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
     </ModellElementKante>
     <ModellElementRessourceBelegen id="21">
       <ModellElementName>Richtung1</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="600" y="150"/>
+      <ModellElementGroesse h="50" w="100" x="650" y="150"/>
       <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
       <ModellElementBediener Anzahl="1" Gruppe="Straße"/>
       <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
     </ModellElementRessourceBelegen>
     <ModellElementRessourceFreigeben id="22">
-      <ModellElementGroesse h="50" w="100" x="900" y="150"/>
+      <ModellElementGroesse h="50" w="100" x="950" y="150"/>
       <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
       <ModellElementBelegteRessource>Richtung1</ModellElementBelegteRessource>
     </ModellElementRessourceFreigeben>
     <ModellElementRessourceBelegen id="7">
       <ModellElementName>Richtung2</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="900" y="250"/>
+      <ModellElementGroesse h="50" w="100" x="950" y="250"/>
       <ModellElementVerbindung Element="28" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="23" Typ="Auslaufend"/>
       <ModellElementBediener Anzahl="1" Gruppe="Straße"/>
       <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
     </ModellElementRessourceBelegen>
     <ModellElementRessourceFreigeben id="8">
-      <ModellElementGroesse h="50" w="100" x="600" y="250"/>
+      <ModellElementGroesse h="50" w="100" x="650" y="250"/>
       <ModellElementVerbindung Element="24" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
       <ModellElementBelegteRessource>Richtung2</ModellElementBelegteRessource>
@@ -94,13 +109,13 @@
       <ModellElementVerbindung Element1="8" Element2="6" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementVerzoegerung id="9">
-      <ModellElementGroesse h="50" w="100" x="750" y="150"/>
+      <ModellElementGroesse h="50" w="100" x="800" y="150"/>
       <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="20" Typ="Auslaufend"/>
       <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (25)</ModellElementVerteilung>
     </ModellElementVerzoegerung>
     <ModellElementVerzoegerung id="16">
-      <ModellElementGroesse h="50" w="100" x="750" y="250"/>
+      <ModellElementGroesse h="50" w="100" x="800" y="250"/>
       <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="24" Typ="Auslaufend"/>
       <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (25)</ModellElementVerteilung>
@@ -130,7 +145,7 @@
       <ModellElementVerbindung Element1="25" Element2="21" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementVariable id="11">
-      <ModellElementGroesse h="50" w="100" x="1100" y="250"/>
+      <ModellElementGroesse h="50" w="100" x="1200" y="250"/>
       <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="28" Typ="Auslaufend"/>
       <ModellElementVariablenzuweisung Variable="Richtung">2</ModellElementVariablenzuweisung>
@@ -144,47 +159,82 @@
     <ModellElementText id="59">
       <ModellElementGroesse h="23" w="147" x="50" y="50"/>
       <ModellElementTextzeile>Baustellenampel</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementKasten id="29">
-      <ModellElementGroesse h="250" w="500" x="550" y="100"/>
+      <ModellElementGroesse h="250" w="500" x="600" y="100"/>
       <ModellElementLinienBreite>2</ModellElementLinienBreite>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementText id="119">
-      <ModellElementGroesse h="23" w="235" x="555" y="105"/>
+      <ModellElementGroesse h="23" w="232" x="605" y="105"/>
       <ModellElementTextzeile>Einspuriger Straßenabschnitt</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationTextAuswahl id="30">
       <ModellElementName>Aktuelle Fahrtrichtung</ModellElementName>
-      <ModellElementGroesse h="32" w="93" x="750" y="370"/>
-      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
-      <ModellElementFarbe>0,0,0</ModellElementFarbe>
-      <TextAusdruck Ausdruck="Richtung==1">--&gt;</TextAusdruck>
-      <TextAusdruck Ausdruck="Richtung==2">&lt;--</TextAusdruck>
+      <ModellElementGroesse h="51" w="91" x="800" y="370"/>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">32</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <TextAusdruck Ausdruck="Richtung==1">\rightarrow \rightarrow \rightarrow</TextAusdruck>
+      <TextAusdruck Ausdruck="Richtung==2">\leftarrow \leftarrow \leftarrow</TextAusdruck>
     </ModellElementAnimationTextAuswahl>
     <ModellElementAnimationLinienDiagramm id="31">
-      <ModellElementGroesse h="155" w="500" x="550" y="450"/>
+      <ModellElementGroesse h="200" w="500" x="600" y="450"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
-      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="10" Minimum="0">wip(13)</ModellElementDiagrammElement>
-      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="165,165,165" Maximum="10" Minimum="0">wip(14)</ModellElementDiagrammElement>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="8" Minimum="0">wip(13)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="165,165,165" Maximum="8" Minimum="0">wip(14)</ModellElementDiagrammElement>
       <ModellElementDiagrammZeitbereich>3600</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>0</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>2</ModellElementAchsenbeschriftung>
     </ModellElementAnimationLinienDiagramm>
     <ModellElementText id="32">
-      <ModellElementGroesse h="19" w="240" x="550" y="430"/>
+      <ModellElementGroesse h="19" w="248" x="600" y="430"/>
       <ModellElementTextzeile>Wartende Fahrzeuge pro Fahrtrichtung</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
+    <ModellElementText id="33">
+      <ModellElementGroesse h="16" w="367" x="600" y="655"/>
+      <ModellElementTextzeile>(blau=links wartende Fahrzeuge, grau=rechts wartende Fahrzeuge)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="34">
+      <ModellElementGroesse h="152" w="352" x="50" y="350"/>
+      <ModellElementTextzeile>Das Ampelsystem erkennt jeweils, ob sich Fahrzeuge</ModellElementTextzeile>
+      <ModellElementTextzeile>in dem einspurigen Abschnitt befinden. Ist der Abschnitt</ModellElementTextzeile>
+      <ModellElementTextzeile>in einer Fahrrichtung leer und warten Fahrzeuge für</ModellElementTextzeile>
+      <ModellElementTextzeile>die Gegenrichtung, so schaltet das Ampelsystem jeweils</ModellElementTextzeile>
+      <ModellElementTextzeile>die andere Fahrtrichtung frei.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Übertragen auf ein Produktionssystem entspricht diese</ModellElementTextzeile>
+      <ModellElementTextzeile>Vorgehensweise der **Kampagnenfertigung**.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="35">
+      <ModellElementGroesse h="150" w="350" x="200" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementKasten id="36">
+      <ModellElementGroesse h="150" w="350" x="1150" y="200"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>150,150,150</ModellElementFarbe>
+    </ModellElementKasten>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig">
     <Ressource Name="Straße" Typ="Anzahl" Wert="1"/>
   </Ressourcen>
   <KundentypenDaten>
+    <KundenDaten Icon="car" Name="Fahrzeuge A"/>
+    <KundenDaten Icon="car" Name="FahrzeugeA"/>
+    <KundenDaten Icon="lorry-left" Name="FahrzeugeB"/>
     <KundenDaten Icon="car" Name="KundenA"/>
     <KundenDaten Icon="lorry-left" Name="KundenB"/>
   </KundentypenDaten>

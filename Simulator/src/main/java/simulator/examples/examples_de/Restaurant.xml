@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>3.3.0</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Restaurant als Bediensystem</ModellName>
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">10000000</ModellKunden>
@@ -112,7 +113,7 @@
     <ModellElementText id="21">
       <ModellElementGroesse h="23" w="40" x="55" y="205"/>
       <ModellElementTextzeile>Gast</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementKasten id="22">
@@ -121,9 +122,9 @@
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementText id="23">
-      <ModellElementGroesse h="23" w="61" x="505" y="105"/>
+      <ModellElementGroesse h="23" w="63" x="505" y="105"/>
       <ModellElementTextzeile>Kellner</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementKasten id="24">
@@ -132,9 +133,9 @@
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementText id="25">
-      <ModellElementGroesse h="23" w="55" x="1255" y="205"/>
+      <ModellElementGroesse h="23" w="56" x="1255" y="205"/>
       <ModellElementTextzeile>Küche</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementKasten id="26">
@@ -143,9 +144,9 @@
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementText id="27">
-      <ModellElementGroesse h="23" w="61" x="1505" y="205"/>
+      <ModellElementGroesse h="23" w="63" x="1505" y="205"/>
       <ModellElementTextzeile>Kellner</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementKasten id="28">
@@ -156,7 +157,7 @@
     <ModellElementText id="29">
       <ModellElementGroesse h="23" w="40" x="1755" y="205"/>
       <ModellElementTextzeile>Gast</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementKasten id="30">
@@ -165,9 +166,9 @@
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementText id="31">
-      <ModellElementGroesse h="23" w="61" x="2005" y="205"/>
+      <ModellElementGroesse h="23" w="63" x="2005" y="205"/>
       <ModellElementTextzeile>Kellner</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementKante id="32">
@@ -243,23 +244,26 @@
       <ModellElementGroesse h="150" w="450" x="500" y="550"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
       <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="3" Minimum="0">Resource(1)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,0,0" Maximum="3" Minimum="0">Resource(2)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="3" Minimum="0">Resource_avg(1)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Maximum="3" Minimum="0">Resource_avg(2)</ModellElementDiagrammElement>
-      <ModellElementDiagrammZeitbereich>1800</ModellElementDiagrammZeitbereich>
+      <ModellElementDiagrammZeitbereich>3600</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>2</ModellElementAchsenbeschriftung>
     </ModellElementAnimationLinienDiagramm>
     <ModellElementText id="40">
       <ModellElementGroesse h="19" w="357" x="55" y="325"/>
       <ModellElementTextzeile>Studium der Speisekarte ist aus Kundensicht Bedienzeit.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="42">
-      <ModellElementGroesse h="38" w="337" x="505" y="405"/>
+      <ModellElementGroesse h="38" w="338" x="505" y="405"/>
       <ModellElementTextzeile>Warten auf Bedienung ist aus Kundensicht Wartezeit.</ModellElementTextzeile>
       <ModellElementTextzeile>Bestellung ist aus Kundensicht Bedienzeit.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="43">
@@ -267,7 +271,7 @@
       <ModellElementTextzeile>Warten auf Zubereitung und</ModellElementTextzeile>
       <ModellElementTextzeile>Zubereitung des Essens sind</ModellElementTextzeile>
       <ModellElementTextzeile>aus Kundensicht Wartezeiten.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="44">
@@ -276,7 +280,7 @@
       <ModellElementTextzeile>aus Kundensicht Wartezeit.</ModellElementTextzeile>
       <ModellElementTextzeile>Bedienung ist aus</ModellElementTextzeile>
       <ModellElementTextzeile>Kundensicht Bedienzeit.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="45">
@@ -285,31 +289,31 @@
       <ModellElementTextzeile>aus Kundensicht Wartezeit.</ModellElementTextzeile>
       <ModellElementTextzeile>Der Bezahlvorgang ist aus</ModellElementTextzeile>
       <ModellElementTextzeile>Kundensicht Bedienzeit.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="46">
-      <ModellElementGroesse h="38" w="152" x="1755" y="355"/>
+      <ModellElementGroesse h="38" w="153" x="1755" y="355"/>
       <ModellElementTextzeile>Verzehr ist aus</ModellElementTextzeile>
       <ModellElementTextzeile>Kundensicht Bedienzeit.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="47">
-      <ModellElementGroesse h="19" w="462" x="500" y="530"/>
+      <ModellElementGroesse h="19" w="454" x="500" y="530"/>
       <ModellElementTextzeile>Auslastung der Kellner (2 vorhanden) und der Köche (3 vorhanden)</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,180,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="48">
-      <ModellElementGroesse h="23" w="251" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="256" x="50" y="50"/>
       <ModellElementTextzeile>Restaurant als Bediensystem</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationUhr id="49">
       <ModellElementGroesse h="100" w="100" x="50" y="450"/>
-      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementFarbe>210,210,210</ModellElementFarbe>
       <ModellElementAusdruck>TNow()</ModellElementAusdruck>
     </ModellElementAnimationUhr>
     <ModellElementAnimationText id="54">

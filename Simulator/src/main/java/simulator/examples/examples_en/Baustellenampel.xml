@@ -1,36 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModelVersion>5.0.0</ModelVersion>
-  <ModelName>Baustellenampel</ModelName>
+  <ModelVersion>5.3.0</ModelVersion>
+  <ModelName>Construction site traffic lights</ModelName>
+  <ModelDescription>The traffic light system detects whether there are vehicles in the
+single-lane section. If the section in one direction is empty and
+vehicles are waiting for the opposite direction, the traffic light
+system switches to the other direction.
+
+Transferred to a production system, this procedure corresponds
+to campaign production.</ModelDescription>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">10000000</ModelClients>
   <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
   <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
   <ModelElements>
     <ModelElementSource id="1">
-      <ModelElementName>ClientsA</ModelElementName>
+      <ModelElementName>VehiclesA</ModelElementName>
       <ModelElementSize h="50" w="100" x="50" y="150"/>
       <ModelElementConnection Element="15" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
       <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementAnimationTrafficLights id="2">
-      <ModelElementSize h="100" w="50" x="350" y="50"/>
+      <ModelElementSize h="50" w="25" x="325" y="100"/>
       <ModelElementAnimationTrafficLightsCondition Light="red">Direction!=1</ModelElementAnimationTrafficLightsCondition>
     </ModelElementAnimationTrafficLights>
     <ModelElementAnimationTrafficLights id="3">
-      <ModelElementSize h="100" w="50" x="1200" y="300"/>
+      <ModelElementSize h="50" w="25" x="1350" y="200"/>
       <ModelElementAnimationTrafficLightsCondition Light="red">Direction!=2</ModelElementAnimationTrafficLightsCondition>
     </ModelElementAnimationTrafficLights>
     <ModelElementDispose id="4">
-      <ModelElementSize h="50" w="100" x="1450" y="150"/>
+      <ModelElementSize h="50" w="100" x="1550" y="150"/>
       <ModelElementConnection Element="10" Type="In"/>
     </ModelElementDispose>
     <ModelElementSource id="5">
-      <ModelElementName>ClientsB</ModelElementName>
-      <ModelElementSize h="50" w="100" x="1450" y="250"/>
+      <ModelElementName>VehiclesB</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1550" y="250"/>
       <ModelElementConnection Element="18" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
       <ModelElementBatchData Size="1"/>
@@ -40,49 +47,57 @@
       <ModelElementConnection Element="12" Type="In"/>
     </ModelElementDispose>
     <ModelElementHold id="13">
+      <ModelElementName>Traffic lights</ModelElementName>
       <ModelElementSize h="50" w="100" x="250" y="150"/>
       <ModelElementConnection Element="15" Type="In"/>
       <ModelElementConnection Element="17" Type="Out"/>
       <ModelElementHoldCondition>Direction==1 || Resource(1)==0</ModelElementHoldCondition>
+      <ModelElementPriority ClientType="FahrzeugeA">w</ModelElementPriority>
+      <ModelElementPriority ClientType="FahrzeugeB">w</ModelElementPriority>
     </ModelElementHold>
     <ModelElementHold id="14">
-      <ModelElementSize h="50" w="100" x="1250" y="250"/>
+      <ModelElementName>Traffic lights</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1350" y="250"/>
       <ModelElementConnection Element="18" Type="In"/>
       <ModelElementConnection Element="27" Type="Out"/>
       <ModelElementHoldCondition>Direction==2 || Resource(1)==0</ModelElementHoldCondition>
+      <ModelElementPriority ClientType="FahrzeugeA">w</ModelElementPriority>
+      <ModelElementPriority ClientType="FahrzeugeB">w</ModelElementPriority>
     </ModelElementHold>
     <ModelElementEdge id="15">
-      <ModelElementName>Arrivals (ClientsA)</ModelElementName>
+      <ModelElementName>Arrivals (VehiclesA)</ModelElementName>
       <ModelElementConnection Element1="1" Element2="13" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
     </ModelElementEdge>
     <ModelElementEdge id="18">
-      <ModelElementName>Arrivals (ClientsB)</ModelElementName>
+      <ModelElementName>Arrivals (VehiclesB)</ModelElementName>
       <ModelElementConnection Element1="5" Element2="14" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
     </ModelElementEdge>
     <ModelElementSeizeResource id="21">
       <ModelElementName>Direction1</ModelElementName>
-      <ModelElementSize h="50" w="100" x="600" y="150"/>
+      <ModelElementSize h="50" w="100" x="650" y="150"/>
       <ModelElementConnection Element="26" Type="In"/>
       <ModelElementConnection Element="19" Type="Out"/>
-      <ModelElementOperators Count="1" Group="Straße"/>
+      <ModelElementOperators Count="1" Group="Road"/>
       <ModelElementOperatorPriority>1</ModelElementOperatorPriority>
     </ModelElementSeizeResource>
     <ModelElementReleaseResource id="22">
-      <ModelElementSize h="50" w="100" x="900" y="150"/>
+      <ModelElementSize h="50" w="100" x="950" y="150"/>
       <ModelElementConnection Element="20" Type="In"/>
       <ModelElementConnection Element="10" Type="Out"/>
       <ModelElementSeizedResource>Direction1</ModelElementSeizedResource>
     </ModelElementReleaseResource>
     <ModelElementSeizeResource id="7">
       <ModelElementName>Direction2</ModelElementName>
-      <ModelElementSize h="50" w="100" x="900" y="250"/>
+      <ModelElementSize h="50" w="100" x="950" y="250"/>
       <ModelElementConnection Element="28" Type="In"/>
       <ModelElementConnection Element="23" Type="Out"/>
-      <ModelElementOperators Count="1" Group="Straße"/>
+      <ModelElementOperators Count="1" Group="Road"/>
       <ModelElementOperatorPriority>1</ModelElementOperatorPriority>
     </ModelElementSeizeResource>
     <ModelElementReleaseResource id="8">
-      <ModelElementSize h="50" w="100" x="600" y="250"/>
+      <ModelElementSize h="50" w="100" x="650" y="250"/>
       <ModelElementConnection Element="24" Type="In"/>
       <ModelElementConnection Element="12" Type="Out"/>
       <ModelElementSeizedResource>Direction2</ModelElementSeizedResource>
@@ -94,13 +109,13 @@
       <ModelElementConnection Element1="8" Element2="6" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementDelay id="9">
-      <ModelElementSize h="50" w="100" x="750" y="150"/>
+      <ModelElementSize h="50" w="100" x="800" y="150"/>
       <ModelElementConnection Element="19" Type="In"/>
       <ModelElementConnection Element="20" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (25)</ModelElementDistribution>
     </ModelElementDelay>
     <ModelElementDelay id="16">
-      <ModelElementSize h="50" w="100" x="750" y="250"/>
+      <ModelElementSize h="50" w="100" x="800" y="250"/>
       <ModelElementConnection Element="23" Type="In"/>
       <ModelElementConnection Element="24" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (25)</ModelElementDistribution>
@@ -130,7 +145,7 @@
       <ModelElementConnection Element1="25" Element2="21" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementVariable id="11">
-      <ModelElementSize h="50" w="100" x="1100" y="250"/>
+      <ModelElementSize h="50" w="100" x="1200" y="250"/>
       <ModelElementConnection Element="27" Type="In"/>
       <ModelElementConnection Element="28" Type="Out"/>
       <ModelElementAssignmentData Variable="Direction">2</ModelElementAssignmentData>
@@ -142,53 +157,87 @@
       <ModelElementConnection Element1="11" Element2="7" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="59">
-      <ModelElementSize h="23" w="262" x="50" y="50"/>
+      <ModelElementSize h="23" w="257" x="50" y="50"/>
       <ModelElementTextLine>Construction site traffic lights</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementRectangle id="29">
-      <ModelElementSize h="250" w="500" x="550" y="100"/>
+      <ModelElementSize h="250" w="500" x="600" y="100"/>
       <ModelElementLineWidth>2</ModelElementLineWidth>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementRectangle>
     <ModelElementText id="119">
-      <ModelElementSize h="23" w="200" x="555" y="105"/>
+      <ModelElementSize h="23" w="197" x="605" y="105"/>
       <ModelElementTextLine>Single track road section</ModelElementTextLine>
-      <ModelElementFontSize>18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">18</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationTextSelect id="30">
       <ModelElementName>Current driving direction</ModelElementName>
-      <ModelElementSize h="32" w="101" x="750" y="370"/>
-      <ModelElementFontSize bold="1">16</ModelElementFontSize>
-      <ModelElementColor>0,0,0</ModelElementColor>
-      <TextExpression Expression="Direction==1">--&gt;</TextExpression>
-      <TextExpression Expression="Direction==2">&lt;--</TextExpression>
+      <ModelElementSize h="51" w="100" x="800" y="370"/>
+      <ModelElementFontSize Symbols="1" bold="1">32</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <TextExpression Expression="Direction==1">\rightarrow \rightarrow \rightarrow</TextExpression>
+      <TextExpression Expression="Direction==2">\leftarrow \leftarrow \leftarrow</TextExpression>
     </ModelElementAnimationTextSelect>
     <ModelElementAnimationLineDiagram id="31">
-      <ModelElementSize h="155" w="500" x="550" y="450"/>
+      <ModelElementSize h="200" w="500" x="600" y="450"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
-      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="10" Minimum="0">wip(13)</ModelElementDiagramElement>
-      <ModelElementDiagramElement LineColor="165,165,165" LineWidth="2" Maximum="10" Minimum="0">wip(14)</ModelElementDiagramElement>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="8" Minimum="0">wip(13)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="165,165,165" LineWidth="2" Maximum="8" Minimum="0">wip(14)</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>3600</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>0</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="32">
-      <ModelElementSize h="19" w="184" x="550" y="430"/>
+      <ModelElementSize h="19" w="185" x="600" y="430"/>
       <ModelElementTextLine>Waiting vehicles per direction</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
+    <ModelElementText id="33">
+      <ModelElementSize h="16" w="369" x="600" y="655"/>
+      <ModelElementTextLine>(blue=waiting vehicles on the left, gray=waiting vehicles on the right)</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="34">
+      <ModelElementSize h="133" w="371" x="50" y="350"/>
+      <ModelElementTextLine>The traffic light system detects whether there are vehicles</ModelElementTextLine>
+      <ModelElementTextLine>in the single-lane section. If the section in one direction</ModelElementTextLine>
+      <ModelElementTextLine>is empty and vehicles are waiting for the opposite direction,</ModelElementTextLine>
+      <ModelElementTextLine>the traffic light system switches to the other direction.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>Transferred to a production system, this procedure</ModelElementTextLine>
+      <ModelElementTextLine>corresponds to **campaign production**.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="35">
+      <ModelElementSize h="150" w="350" x="200" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementRectangle id="36">
+      <ModelElementSize h="150" w="350" x="1150" y="200"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>150,150,150</ModelElementColor>
+    </ModelElementRectangle>
   </ModelElements>
   <Resources SecondaryPriority="Random">
-    <Resource Name="Straße" Type="Number" Value="1"/>
+    <Resource Name="Road" Type="Number" Value="1"/>
   </Resources>
   <ClientTypeData>
-    <ClientData Icon="car" Name="ClientsA"/>
-    <ClientData Icon="lorry-left" Name="ClientsB"/>
+    <ClientData Icon="car" Name="Fahrzeuge A"/>
+    <ClientData Icon="car" Name="FahrzeugeA"/>
+    <ClientData Icon="lorry-left" Name="FahrzeugeB"/>
     <ClientData Icon="car" Name="KundenA"/>
     <ClientData Icon="lorry-left" Name="KundenB"/>
+    <ClientData Icon="car" Name="VehiclesA"/>
+    <ClientData Icon="lorry-left" Name="VehiclesB"/>
   </ClientTypeData>
   <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
   <ModelEdgesSelected Type="0" Width="1"/>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>3.3.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
   <ModelName>Restaurant as queueing system</ModelName>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">10000000</ModelClients>
@@ -131,7 +132,7 @@
     <ModelElementText id="21">
       <ModelElementSize h="23" w="51" x="55" y="205"/>
       <ModelElementTextLine>Guest</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementRectangle id="22">
@@ -142,7 +143,7 @@
     <ModelElementText id="23">
       <ModelElementSize h="23" w="55" x="505" y="105"/>
       <ModelElementTextLine>Waiter</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementRectangle id="24">
@@ -151,9 +152,9 @@
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementRectangle>
     <ModelElementText id="25">
-      <ModelElementSize h="23" w="66" x="1255" y="205"/>
+      <ModelElementSize h="23" w="67" x="1255" y="205"/>
       <ModelElementTextLine>Kitchen</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementRectangle id="26">
@@ -164,7 +165,7 @@
     <ModelElementText id="27">
       <ModelElementSize h="23" w="55" x="1505" y="205"/>
       <ModelElementTextLine>Waiter</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementRectangle id="28">
@@ -175,7 +176,7 @@
     <ModelElementText id="29">
       <ModelElementSize h="23" w="51" x="1755" y="205"/>
       <ModelElementTextLine>Guest</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementRectangle id="30">
@@ -186,7 +187,7 @@
     <ModelElementText id="31">
       <ModelElementSize h="23" w="55" x="2005" y="205"/>
       <ModelElementTextLine>Waiter</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementEdge id="32">
@@ -262,24 +263,27 @@
       <ModelElementSize h="150" w="450" x="500" y="550"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
       <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="3" Minimum="0">Resource(1)</ModelElementDiagramElement>
       <ModelElementDiagramElement LineColor="255,0,0" LineWidth="1" Maximum="3" Minimum="0">Resource(2)</ModelElementDiagramElement>
       <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="3" Minimum="0">Resource_avg(1)</ModelElementDiagramElement>
       <ModelElementDiagramElement LineColor="255,0,0" LineWidth="2" Maximum="3" Minimum="0">Resource_avg(2)</ModelElementDiagramElement>
-      <ModelElementDiagramTimeRange>1800</ModelElementDiagramTimeRange>
+      <ModelElementDiagramTimeRange>3600</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="40">
-      <ModelElementSize h="38" w="317" x="55" y="310"/>
+      <ModelElementSize h="38" w="315" x="55" y="310"/>
       <ModelElementTextLine>Reading the menu is process time from the clients</ModelElementTextLine>
       <ModelElementTextLine>point of view.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="42">
-      <ModelElementSize h="38" w="411" x="505" y="405"/>
+      <ModelElementSize h="38" w="409" x="505" y="405"/>
       <ModelElementTextLine>Waiting to be served is waiting time from the clients point of view.</ModelElementTextLine>
       <ModelElementTextLine>Ordering is process time from the clients point of view.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="43">
@@ -288,17 +292,17 @@
       <ModelElementTextLine>preparation of the food are</ModelElementTextLine>
       <ModelElementTextLine>waiting times from the</ModelElementTextLine>
       <ModelElementTextLine>clients point of view.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="44">
-      <ModelElementSize h="95" w="186" x="1505" y="305"/>
+      <ModelElementSize h="95" w="187" x="1505" y="305"/>
       <ModelElementTextLine>Waiting for delivery is waiting</ModelElementTextLine>
       <ModelElementTextLine>time from the clients point of</ModelElementTextLine>
       <ModelElementTextLine>view. Delivery is process time</ModelElementTextLine>
       <ModelElementTextLine>from the the clients point of</ModelElementTextLine>
       <ModelElementTextLine>view.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="45">
@@ -308,36 +312,36 @@
       <ModelElementTextLine>view. The payment process is</ModelElementTextLine>
       <ModelElementTextLine>process time from the clients</ModelElementTextLine>
       <ModelElementTextLine>point of view.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="46">
-      <ModelElementSize h="38" w="184" x="1755" y="360"/>
+      <ModelElementSize h="38" w="183" x="1755" y="360"/>
       <ModelElementTextLine>Consumption is process time</ModelElementTextLine>
       <ModelElementTextLine>from the clients point of view.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="47">
-      <ModelElementSize h="19" w="460" x="500" y="530"/>
+      <ModelElementSize h="19" w="445" x="500" y="530"/>
       <ModelElementTextLine>Utilization of the waiters (2 available) and of the cooks (3 available)</ModelElementTextLine>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,180,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="48">
-      <ModelElementSize h="23" w="271" x="50" y="50"/>
+      <ModelElementSize h="23" w="277" x="50" y="50"/>
       <ModelElementTextLine>Restaurant as queueing system</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationClock id="49">
       <ModelElementSize h="100" w="100" x="50" y="450"/>
-      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementColor>210,210,210</ModelElementColor>
       <ModelElementExpression>TNow()</ModelElementExpression>
     </ModelElementAnimationClock>
     <ModelElementAnimationText id="54">
       <ModelElementName>Average waiting time of the clients (min.)</ModelElementName>
-      <ModelElementSize h="34" w="171" x="1000" y="565"/>
+      <ModelElementSize h="34" w="169" x="1000" y="565"/>
       <ModelElementFontSize bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WaitingTime_avg()/60</ModelElementAnimationMode>
