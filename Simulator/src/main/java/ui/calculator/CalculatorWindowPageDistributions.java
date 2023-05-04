@@ -223,17 +223,66 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 	}
 
 	/**
+	 * Einzelner Rechenthread zur Erzeugung von Zufallszahlen
+	 * @see CalculatorWindowPageDistributions#randomNumbersIndicators()
+	 */
+	private static class RandomNumbersIndicatorsThread extends Thread {
+		/** Verteilung auf deren Basis Zufallszahlen erzeugt werden sollen */
+		private final AbstractRealDistribution distribution;
+		/** Anzahl an Zufallszahlen, die in diesem Thread erzeugt werden sollen */
+		private final long count;
+		/** Statistikobjekt zur Erfassung der Daten / zur Ermittlung der Kenngrößen */
+		private StatisticsDataPerformanceIndicatorWithNegativeValues indicator;
+
+		/**
+		 * Konstruktor
+		 * @param distribution	Verteilung auf deren Basis Zufallszahlen erzeugt werden sollen
+		 * @param count	Anzahl an Zufallszahlen, die in diesem Thread erzeugt werden sollen
+		 */
+		public RandomNumbersIndicatorsThread(final AbstractRealDistribution distribution, final long count) {
+			super();
+			this.distribution=distribution;
+			this.count=count;
+		}
+
+		/**
+		 * Grenze zur Aufzeichnung von Histogramm-Daten
+		 */
+		private static final int distSize=1_000_000;
+
+		@Override
+		public void run() {
+			indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(null,distSize,distSize);
+			for (long i=0;i<count;i++) {
+				indicator.add(DistributionRandomNumber.random(distribution));
+			}
+		}
+
+		/**
+		 * Liefert das thread-lokale Statistikobjekt zur Erfassung der Daten / zur Ermittlung der Kenngrößen.
+		 * @return	Statistikobjekt zur Erfassung der Daten / zur Ermittlung der Kenngrößen
+		 */
+		public StatisticsDataPerformanceIndicatorWithNegativeValues getIndicator() {
+			return indicator;
+		}
+	}
+
+	/**
 	 * Erzeugt eine Reihe von Zufallszahlen, ermittelt die Kenngrößen der Messreihe und zeigt diese an.
 	 */
 	private void randomNumbersIndicators() {
 		final AbstractRealDistribution distribution=distributionEditor.getDistribution();
 
-		final int distSize=1_000_000;
-		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(null,distSize,distSize);
-
-		for (int i=0;i<randomNumberCount;i++) {
-			indicator.add(DistributionRandomNumber.random(distribution));
+		final int threadCount=Math.min(32,Runtime.getRuntime().availableProcessors());
+		final RandomNumbersIndicatorsThread[] threads=new RandomNumbersIndicatorsThread[threadCount];
+		for (int i=0;i<threads.length;i++) {
+			final long count=randomNumberCount/threads.length;
+			threads[i]=new RandomNumbersIndicatorsThread(distribution,(i==threads.length-1)?(randomNumberCount-(threads.length-1)*count):count);
 		}
+		for (RandomNumbersIndicatorsThread thread: threads) thread.start();
+		for (RandomNumbersIndicatorsThread thread: threads) try {thread.join();} catch (InterruptedException e) {}
+		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=threads[0].indicator;
+		for (int i=1;i<threads.length;i++) indicator.add(threads[i].getIndicator());
 
 		final StringBuilder info=new StringBuilder();
 		info.append(String.format(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generated")+": %s",NumberTools.formatLong(indicator.getCount()))+"\n");
