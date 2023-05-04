@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>3.3.0</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Galtonbrett</ModellName>
   <ModellBeschreibung>siehe auch:
 https://de.wikipedia.org/wiki/Galtonbrett</ModellBeschreibung>
@@ -15,75 +16,75 @@ https://de.wikipedia.org/wiki/Galtonbrett</ModellBeschreibung>
       <ModellElementGroesse h="50" w="100" x="350" y="250"/>
       <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
       <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="19" Rate="1" Typ="Auslaufend"/>
-      <ModellElementVerbindung Element="20" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="19" Rate="1-right" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="20" Rate="right" Typ="Auslaufend"/>
     </ModellElementVerzweigen>
     <ModellElementVerzweigen id="3">
       <ModellElementName>Level 2b</ModellElementName>
       <ModellElementGroesse h="50" w="100" x="550" y="250"/>
       <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
       <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="17" Rate="1" Typ="Auslaufend"/>
-      <ModellElementVerbindung Element="21" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="17" Rate="1-right" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="21" Rate="right" Typ="Auslaufend"/>
     </ModellElementVerzweigen>
     <ModellElementVerzweigen id="4">
       <ModellElementName>Level 3a</ModellElementName>
       <ModellElementGroesse h="50" w="100" x="250" y="350"/>
       <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
       <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="26" Rate="1" Typ="Auslaufend"/>
-      <ModellElementVerbindung Element="27" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="26" Rate="1-right" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="27" Rate="right" Typ="Auslaufend"/>
     </ModellElementVerzweigen>
     <ModellElementVerzweigen id="5">
       <ModellElementName>Level 3b</ModellElementName>
       <ModellElementGroesse h="50" w="100" x="450" y="350"/>
       <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
       <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="24" Rate="1" Typ="Auslaufend"/>
-      <ModellElementVerbindung Element="25" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Rate="1-right" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="25" Rate="right" Typ="Auslaufend"/>
     </ModellElementVerzweigen>
     <ModellElementVerzweigen id="6">
       <ModellElementName>Level 3c</ModellElementName>
       <ModellElementGroesse h="50" w="100" x="650" y="350"/>
       <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
-      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="22" Rate="1" Typ="Auslaufend"/>
-      <ModellElementVerbindung Element="23" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="22" Rate="1-right" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="23" Rate="right" Typ="Auslaufend"/>
     </ModellElementVerzweigen>
     <ModellElementVerzweigen id="7">
       <ModellElementName>Level 4a</ModellElementName>
       <ModellElementGroesse h="50" w="100" x="150" y="450"/>
       <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
-      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="28" Rate="1" Typ="Auslaufend"/>
-      <ModellElementVerbindung Element="29" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="28" Rate="1-right" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="29" Rate="right" Typ="Auslaufend"/>
     </ModellElementVerzweigen>
     <ModellElementVerzweigen id="8">
       <ModellElementName>Level 4b</ModellElementName>
       <ModellElementGroesse h="50" w="100" x="350" y="450"/>
       <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
-      <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="30" Rate="1" Typ="Auslaufend"/>
-      <ModellElementVerbindung Element="31" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="30" Rate="1-right" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="31" Rate="right" Typ="Auslaufend"/>
     </ModellElementVerzweigen>
     <ModellElementVerzweigen id="9">
       <ModellElementName>Level 4c</ModellElementName>
       <ModellElementGroesse h="50" w="100" x="550" y="450"/>
       <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
-      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="24" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="32" Rate="1" Typ="Auslaufend"/>
-      <ModellElementVerbindung Element="33" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="32" Rate="1-right" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="33" Rate="right" Typ="Auslaufend"/>
     </ModellElementVerzweigen>
     <ModellElementVerzweigen id="10">
       <ModellElementName>Level 4d</ModellElementName>
       <ModellElementGroesse h="50" w="100" x="750" y="450"/>
       <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
-      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="34" Rate="1" Typ="Auslaufend"/>
-      <ModellElementVerbindung Element="35" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="34" Rate="1-right" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="35" Rate="right" Typ="Auslaufend"/>
     </ModellElementVerzweigen>
     <ModellElementZaehler id="11">
       <ModellElementName>A</ModellElementName>
@@ -123,92 +124,60 @@ https://de.wikipedia.org/wiki/Galtonbrett</ModellBeschreibung>
       <ModellElementVerbindung Element="44" Typ="Auslaufend"/>
       <ModellElementZaehlerGruppe>Zählergruppe</ModellElementZaehlerGruppe>
     </ModellElementZaehler>
-    <ModellElementKante id="17">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
-      <ModellElementVerbindung Element1="3" Element2="6" Typ="Kante"/>
-    </ModellElementKante>
     <ModellElementVerzweigen id="1">
       <ModellElementName>Level 1</ModellElementName>
       <ModellElementGroesse h="50" w="100" x="450" y="150"/>
       <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
       <ModellElementVerbindung Element="37" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="16" Rate="1" Typ="Auslaufend"/>
-      <ModellElementVerbindung Element="18" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="16" Rate="1-right" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="18" Rate="right" Typ="Auslaufend"/>
     </ModellElementVerzweigen>
     <ModellElementKante id="16">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementName>Rate 1-right</ModellElementName>
       <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementKante id="18">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementName>Rate right</ModellElementName>
       <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementKante id="19">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementName>Rate 1-right</ModellElementName>
       <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementKante id="20">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementName>Rate right</ModellElementName>
       <ModellElementVerbindung Element1="2" Element2="5" Typ="Kante"/>
     </ModellElementKante>
-    <ModellElementKante id="21">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
-      <ModellElementVerbindung Element1="3" Element2="5" Typ="Kante"/>
-    </ModellElementKante>
-    <ModellElementKante id="22">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
-      <ModellElementVerbindung Element1="6" Element2="10" Typ="Kante"/>
-    </ModellElementKante>
-    <ModellElementKante id="23">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
-      <ModellElementVerbindung Element1="6" Element2="9" Typ="Kante"/>
-    </ModellElementKante>
-    <ModellElementKante id="24">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
-      <ModellElementVerbindung Element1="5" Element2="9" Typ="Kante"/>
-    </ModellElementKante>
-    <ModellElementKante id="25">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
-      <ModellElementVerbindung Element1="5" Element2="8" Typ="Kante"/>
-    </ModellElementKante>
-    <ModellElementKante id="26">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
-      <ModellElementVerbindung Element1="4" Element2="8" Typ="Kante"/>
-    </ModellElementKante>
-    <ModellElementKante id="27">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
-      <ModellElementVerbindung Element1="4" Element2="7" Typ="Kante"/>
-    </ModellElementKante>
     <ModellElementKante id="28">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementName>Rate 1-right</ModellElementName>
       <ModellElementVerbindung Element1="7" Element2="11" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementKante id="29">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementName>Rate right</ModellElementName>
       <ModellElementVerbindung Element1="7" Element2="12" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementKante id="30">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementName>Rate 1-right</ModellElementName>
       <ModellElementVerbindung Element1="8" Element2="12" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementKante id="31">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementName>Rate right</ModellElementName>
       <ModellElementVerbindung Element1="8" Element2="13" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementKante id="32">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementName>Rate 1-right</ModellElementName>
       <ModellElementVerbindung Element1="9" Element2="13" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementKante id="33">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementName>Rate right</ModellElementName>
       <ModellElementVerbindung Element1="9" Element2="14" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementKante id="34">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementName>Rate 1-right</ModellElementName>
       <ModellElementVerbindung Element1="10" Element2="14" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementKante id="35">
-      <ModellElementName>Rate 1 (50%)</ModellElementName>
+      <ModellElementName>Rate right</ModellElementName>
       <ModellElementVerbindung Element1="10" Element2="15" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementQuelle id="36">
@@ -224,50 +193,53 @@ https://de.wikipedia.org/wiki/Galtonbrett</ModellBeschreibung>
     </ModellElementKante>
     <ModellElementAnimationText id="49">
       <ModellElementName>Anteil A</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="650" y="205"/>
+      <ModellElementGroesse h="30" w="74" x="750" y="205"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Part(11)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="50">
       <ModellElementName>Anteil B</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="700" y="205"/>
+      <ModellElementGroesse h="30" w="74" x="800" y="205"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Part(12)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="51">
       <ModellElementName>Anteil C</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="750" y="205"/>
+      <ModellElementGroesse h="30" w="74" x="850" y="205"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Part(13)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="52">
       <ModellElementName>Anteil D</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="800" y="205"/>
+      <ModellElementGroesse h="30" w="74" x="900" y="205"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Part(14)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="53">
       <ModellElementName>Anteil E</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="850" y="205"/>
+      <ModellElementGroesse h="30" w="74" x="950" y="205"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">Part(15)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementText id="54">
-      <ModellElementGroesse h="23" w="97" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="99" x="50" y="50"/>
       <ModellElementTextzeile>Galtonbrett</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationBalkenDiagramm id="55">
-      <ModellElementGroesse h="100" w="250" x="650" y="100"/>
+      <ModellElementGroesse h="100" w="250" x="750" y="100"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
       <ModellElementMaximalwert>1</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung>0</ModellElementAchsenbeschriftung>
       <ModellElementDiagrammElement Balkenfarbe="0,180,0">Part(11)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Balkenfarbe="255,165,0">Part(12)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Balkenfarbe="255,0,0">Part(13)</ModellElementDiagrammElement>
@@ -335,11 +307,105 @@ https://de.wikipedia.org/wiki/Galtonbrett</ModellBeschreibung>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementText id="60">
-      <ModellElementGroesse h="38" w="184" x="650" y="60"/>
+      <ModellElementGroesse h="38" w="185" x="750" y="60"/>
       <ModellElementTextzeile>Verteilung der Kugeln auf die</ModellElementTextzeile>
       <ModellElementTextzeile>verschiedenen Ausgänge</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKante id="17">
+      <ModellElementName>Rate 1-right</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="21">
+      <ModellElementName>Rate right</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="26">
+      <ModellElementName>Rate 1-right</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="27">
+      <ModellElementName>Rate right</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="24">
+      <ModellElementName>Rate 1-right</ModellElementName>
+      <ModellElementVerbindung Element1="5" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="25">
+      <ModellElementName>Rate right</ModellElementName>
+      <ModellElementVerbindung Element1="5" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="22">
+      <ModellElementName>Rate 1-right</ModellElementName>
+      <ModellElementVerbindung Element1="6" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="23">
+      <ModellElementName>Rate right</ModellElementName>
+      <ModellElementVerbindung Element1="6" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementSchieberegler id="61">
+      <ModellElementGroesse h="50" w="150" x="50" y="200"/>
+      <ModellElementSchiebereglerVariable>right</ModellElementSchiebereglerVariable>
+      <ModellElementSchiebereglerMinimum>0</ModellElementSchiebereglerMinimum>
+      <ModellElementSchiebereglerMaximum>1</ModellElementSchiebereglerMaximum>
+      <ModellElementSchiebereglerSchrittweite>0.05</ModellElementSchiebereglerSchrittweite>
+    </ModellElementSchieberegler>
+    <ModellElementText id="62">
+      <ModellElementGroesse h="38" w="150" x="50" y="160"/>
+      <ModellElementTextzeile>Wahrscheinlichkeit für</ModellElementTextzeile>
+      <ModellElementTextzeile>Verzweigung nach rechts</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="63">
+      <ModellElementGroesse h="19" w="74" x="50" y="250"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">1-right</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="64">
+      <ModellElementGroesse h="19" w="74" x="165" y="250"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">right</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="65">
+      <ModellElementGroesse h="19" w="74" x="750" y="270"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">BinomialDist(0;4;right)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="66">
+      <ModellElementGroesse h="19" w="74" x="800" y="270"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">BinomialDist(1;4;right)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="67">
+      <ModellElementGroesse h="19" w="74" x="850" y="270"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">BinomialDist(2;4;right)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="68">
+      <ModellElementGroesse h="19" w="74" x="900" y="270"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">BinomialDist(3;4;right)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="69">
+      <ModellElementGroesse h="19" w="74" x="950" y="270"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">BinomialDist(4;4;right)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="70">
+      <ModellElementGroesse h="15" w="250" x="750" y="250"/>
+      <ModellElementTextzeile>Wahrscheinlichkeiten gemäß Binomialverteilung</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
@@ -347,6 +413,7 @@ https://de.wikipedia.org/wiki/Galtonbrett</ModellBeschreibung>
     <KundenDaten Icon="emoticon_smile" Name="Kugeln"/>
     <KundenDaten Icon="emoticon_smile" Name="Kunden"/>
   </KundentypenDaten>
+  <InitialeVariable Name="right">0,5</InitialeVariable>
   <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
   <ModellKantenSelektiert Breite="1" Typ="0"/>
   <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
