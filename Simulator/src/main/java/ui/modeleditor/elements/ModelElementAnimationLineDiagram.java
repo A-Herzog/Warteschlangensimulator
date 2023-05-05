@@ -547,8 +547,13 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 				for (int j=1;j<valuesLength;j++) path.lineTo(drawCacheXValues[j],drawCacheYValues[j]);
 				g.draw(path);
 				 */
-				for (int j=1;j<valuesLength;j++) {
-					g.drawLine(drawCacheXValues[j-1],drawCacheYValues[j-1],drawCacheXValues[j],drawCacheYValues[j]);
+				if (valuesLength>0) {
+					int lastIndex=0;
+					for (int j=1;j<valuesLength;j++) {
+						if (drawCacheXValues[lastIndex]==drawCacheXValues[j] && drawCacheYValues[lastIndex]==drawCacheYValues[j]) continue;
+						g.drawLine(drawCacheXValues[lastIndex],drawCacheYValues[lastIndex],drawCacheXValues[j],drawCacheYValues[j]);
+						lastIndex=j;
+					}
 				}
 			}
 		} finally {
