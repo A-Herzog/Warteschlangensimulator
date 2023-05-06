@@ -91,7 +91,11 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 	 */
 	public ModelElementTextDialog(final Component owner, final ModelElementText element, final ModelElementBaseDialog.ReadOnlyMode readOnly) {
 		super(owner,Language.tr("Surface.Text.Dialog.Title"),element,"ModelElementText",readOnly,false);
-		setMinimumSize(getSize());
+		final Dimension size=getSize();
+		size.height+=50;
+		size.width+=250;
+		setMinSizeRespectingScreensize(size.width,size.height);
+		setSizeRespectingScreensize(size.width,size.height);
 		setResizable(true);
 		setVisible(true);
 	}
