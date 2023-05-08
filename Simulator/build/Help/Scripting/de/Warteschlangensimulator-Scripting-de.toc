@@ -121,13 +121,14 @@
 \contentsline {section}{\numberline {17.2}Zugriff auf kundenspezifische Daten}{72}{section.17.2}%
 \contentsline {section}{\numberline {17.3}Temporäre Batche}{74}{section.17.3}%
 \contentsline {section}{\numberline {17.4}Zugriff auf Parameter des Simulationsmodells}{75}{section.17.4}%
-\contentsline {section}{\numberline {17.5}Zugriff auf den aktuellen Eingabewert}{75}{section.17.5}%
+\contentsline {section}{\numberline {17.5}Zugriff auf den aktuellen Eingabewert}{76}{section.17.5}%
 \contentsline {section}{\numberline {17.6}Anzahl an Bedienern in einer Ressource}{76}{section.17.6}%
-\contentsline {section}{\numberline {17.7}Signale auslösen}{76}{section.17.7}%
-\contentsline {section}{\numberline {17.8}Löst die Skriptverarbeitung an einer Station aus}{76}{section.17.8}%
-\contentsline {section}{\numberline {17.9}Meldung in Logging ausgeben}{76}{section.17.9}%
-\contentsline {section}{\numberline {17.10}Kunden an Verzögerungen-Stationen freigeben}{76}{section.17.10}%
-\contentsline {section}{\numberline {17.11}Kunden in der Warteschlange an einer Bedienstation}{77}{section.17.11}%
+\contentsline {section}{\numberline {17.7}Letzter Kundentyp an einer Bedienstation}{76}{section.17.7}%
+\contentsline {section}{\numberline {17.8}Signale auslösen}{76}{section.17.8}%
+\contentsline {section}{\numberline {17.9}Löst die Skriptverarbeitung an einer Station aus}{76}{section.17.9}%
+\contentsline {section}{\numberline {17.10}Meldung in Logging ausgeben}{77}{section.17.10}%
+\contentsline {section}{\numberline {17.11}Kunden an Verzögerungen-Stationen freigeben}{77}{section.17.11}%
+\contentsline {section}{\numberline {17.12}Kunden in der Warteschlange an einer Bedienstation}{77}{section.17.12}%
 \contentsline {chapter}{\numberline {18}\texttt {Clients}-Objekt}{79}{chapter.18}%
 \contentsline {chapter}{\numberline {19}\texttt {Output}-Objekt}{81}{chapter.19}%
 \contentsline {chapter}{\numberline {20}\texttt {FileOutput}-Objekt}{83}{chapter.20}%
@@ -145,14 +146,15 @@
 \contentsline {section}{\numberline {25.1}Basisfunktionen}{97}{section.25.1}%
 \contentsline {section}{\numberline {25.2}Zugriff auf Parameter des Simulationsmodells}{98}{section.25.2}%
 \contentsline {section}{\numberline {25.3}Anzahl an Bedienern in einer Ressource}{98}{section.25.3}%
-\contentsline {section}{\numberline {25.4}Signale auslösen}{99}{section.25.4}%
-\contentsline {section}{\numberline {25.5}Löst die Skriptverarbeitung an einer Station aus}{99}{section.25.5}%
-\contentsline {section}{\numberline {25.6}Externen Code aufrufen}{99}{section.25.6}%
-\contentsline {section}{\numberline {25.7}Meldung in Logging ausgeben}{99}{section.25.7}%
-\contentsline {section}{\numberline {25.8}Kunden an Verzögerungen-Stationen freigeben}{99}{section.25.8}%
-\contentsline {section}{\numberline {25.9}Kunden in der Warteschlange an einer Bedienstation}{100}{section.25.9}%
+\contentsline {section}{\numberline {25.4}Letzter Kundentyp an einer Bedienstation}{99}{section.25.4}%
+\contentsline {section}{\numberline {25.5}Signale auslösen}{99}{section.25.5}%
+\contentsline {section}{\numberline {25.6}Löst die Skriptverarbeitung an einer Station aus}{99}{section.25.6}%
+\contentsline {section}{\numberline {25.7}Externen Code aufrufen}{99}{section.25.7}%
+\contentsline {section}{\numberline {25.8}Meldung in Logging ausgeben}{99}{section.25.8}%
+\contentsline {section}{\numberline {25.9}Kunden an Verzögerungen-Stationen freigeben}{100}{section.25.9}%
+\contentsline {section}{\numberline {25.10}Kunden in der Warteschlange an einer Bedienstation}{100}{section.25.10}%
 \contentsline {chapter}{\numberline {26}\texttt {ClientInterface} abrufbar über \texttt {sim.getClient()}}{101}{chapter.26}%
-\contentsline {section}{\numberline {26.1}Temporäre Batche}{102}{section.26.1}%
+\contentsline {section}{\numberline {26.1}Temporäre Batche}{103}{section.26.1}%
 \contentsline {chapter}{\numberline {27}\texttt {InputValueInterface} abrufbar über \texttt {sim.getInputValue()}}{105}{chapter.27}%
 \contentsline {chapter}{\numberline {28}\texttt {ClientsInterface} abrufbar über \texttt {sim.getClients()}}{107}{chapter.28}%
 \contentsline {chapter}{\numberline {29}\texttt {OutputInterface} abrufbar über \texttt {sim.getOutput()}}{109}{chapter.29}%

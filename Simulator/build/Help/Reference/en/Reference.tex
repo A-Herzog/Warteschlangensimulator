@@ -201,6 +201,11 @@ multiple source acts as if it consists of several individual, independent client
 or whether the sub-sources should be used in turn. In the second mode, the inter-arrival times
 for the sub-sources has to be consistently defined via probability distributions or calculation expressions.
 
+\subsubsection*{Limit total number of clients to be generated}
+
+Optionally, a limit for the number of clients to be generated in sum over
+all partial sources can be set.
+
 \subsection*{Load client types}
 
 If a large number of client types is to be used in a model, this function can be used
@@ -624,6 +629,9 @@ The assign string element assigns one or more text values to keys of all clients
 The name of the type assign string element has no further meaning for the simulation.
 For each assignment a non-empty key has to be choosen. The value can optionally be an empty string.
 
+The optional condition allows an assignment to be made only under certain conditions,
+when a client passes the station.
+
 
 \section{Batch counter}
 \label{ref:ModelElementCounterBatch}
@@ -871,6 +879,9 @@ The type assignment element assigns a new client type (for the statistics) to th
 \subsection*{Settings}
 
 The name of the type assignment element is at the same time the client type that all clients who pass through this element receive.
+
+The optional condition allows an assignment to be made only under certain conditions,
+when a client passes the station.
 
 
 \section{Variable}
@@ -2877,7 +2888,7 @@ The name of the simulation data element is displayed on the drawing area directl
 You can define any number of conditions and strings and also one default string which is displayed,
 if non of the conditions apply.
 
-Furthermore, you can set whether some special HTML and LaTeX symbols (see page \pageref{ref:TextEntities}) should
+Furthermore, you can set whether some special HTML and LaTeXsymbols should
 be interpreted accordingly.
 
 
@@ -3040,10 +3051,10 @@ and serve only for the optical design of the model
 
 In addition to the text itself, a font family and a font size can also be set for each description text element.
 
-Furthermore, you can set whether some special HTML and LaTeX symbols (see page \pageref{ref:TextEntities}) should
+Furthermore, you can set whether some special HTML and LaTeXsymbols should
 be interpreted accordingly, whether formatting should be performed according to the Markdown symbols
 \texttt{\#}, \texttt{\#\#}, \texttt{\#\#\#}, \texttt{*} and \texttt{**} and whether the LaTeX symbols
-\texttt{_{...}}, \texttt{^{...}}, \texttt{\frac{...}{...}} and \texttt{\binom{...}{...}}
+\texttt{\_\{...\}}, \texttt{\^{}\{...\}}, \texttt{\textbackslash frac\{...\}\{...\}} and \texttt{\textbackslash binom\{...\}\{...\}}
 are to be interpreted.
 
 
@@ -3218,6 +3229,13 @@ this station. The recording can take place in the form of discrete values
 Continuous recording only makes sense if the arrival of a client at the station
 is to be used to record the change in a value that does not necessarily have
 anything to do with the respective client.
+
+In the default case, one statistics entry is created per data record,
+in which the data of all clients passing through the station is recorded.
+However, a client type-specific recording can also be set. In this case,
+an individual data record is created for each client type that passes through
+the station, the name of which is composed of a specified data record name
+and the name of the client type.
 
 
 \section{Sub model}

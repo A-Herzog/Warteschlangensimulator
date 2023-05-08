@@ -510,6 +510,42 @@ public class ModelElementCatalogDescriptionBuilder {
 	}
 
 	/**
+	 * Ersetzt "\frac{" im HTML-Text durch "\\frac{"
+	 * @param line	html-Zeile in der der Tag ersetzt werden soll
+	 * @return	Textzeile mit angepasstem Tag
+	 */
+	private String tryReplaceLaTeXFracInHTML(final String line) {
+		return extReplace(line,"<tt>\\frac{...}{...}","<tt>\\textbackslash frac\\{...\\}\\{...\\}");
+	}
+
+	/**
+	 * Ersetzt "\binom{" im HTML-Text durch "\\binom{"
+	 * @param line	html-Zeile in der der Tag ersetzt werden soll
+	 * @return	Textzeile mit angepasstem Tag
+	 */
+	private String tryReplaceLaTeXBinomInHTML(final String line) {
+		return extReplace(line,"<tt>\\binom{...}{...}","<tt>\\textbackslash binom\\{...\\}\\{...\\}");
+	}
+
+	/**
+	 * Ersetzt "_{" im HTML-Text durch "\_{"
+	 * @param line	html-Zeile in der der Tag ersetzt werden soll
+	 * @return	Textzeile mit angepasstem Tag
+	 */
+	private String tryReplaceLaTeXSubInHTML(final String line) {
+		return extReplace(line,"<tt>_{...}","<tt>\\_\\{...\\}");
+	}
+
+	/**
+	 * Ersetzt "^{" im HTML-Text durch "\^{"
+	 * @param line	html-Zeile in der der Tag ersetzt werden soll
+	 * @return	Textzeile mit angepasstem Tag
+	 */
+	private String tryReplaceLaTeXSupInHTML(final String line) {
+		return extReplace(line,"<tt>^{...}","<tt>\\^{}\\{...\\}");
+	}
+
+	/**
 	 * Ersetzt &lt;b&gt; durch die LaTeX-Repräsentation
 	 * @param line	html-Zeile in der der Tag ersetzt werden soll
 	 * @return	Textzeile mit LaTeX-Befehl für den Tag
@@ -628,8 +664,31 @@ public class ModelElementCatalogDescriptionBuilder {
 					continue;
 				}
 
+				/* Lehrbuchverweise anpassen */
+				int index1=line.indexOf("<a href=\"book");
+				if (index1>=0) {
+					StringBuilder newLine=new StringBuilder();
+					final int index2=line.indexOf(">",index1+1);
+					final int index3=line.indexOf("</a>",index2+1);
+					newLine.append(line.substring(0,index1));
+					newLine.append("\\textbf{");
+					newLine.append(line.substring(index2+1,index3));
+					newLine.append("}");
+					newLine.append(line.substring(index3+4));
+					text.append(newLine+"\n\n");
+					continue;
+				}
+
+				/* Verweise auf nicht in der Referenz enthaltene Seiten entfernen */
+				final String replaceLink="<a href=\"TextEntities.html\">";
+				index1=line.indexOf(replaceLink);
+				if (index1>=0) {
+					final int index2=line.indexOf("</a>",index1+1);
+					line=line.substring(0,index1)+line.substring(index1+replaceLink.length(),index2)+line.substring(index2+4);
+				}
+
 				/* Absätze durch Leerzeilen */
-				if (line.trim().equalsIgnoreCase("<p>") || line.trim().equalsIgnoreCase("</p>")) {
+				if (line.trim().equalsIgnoreCase("<p>") || line.trim().equalsIgnoreCase("<p class=\"bookinfo\">") || line.trim().equalsIgnoreCase("</p>")) {
 					if (!lastWasEmpty) text.append("\n");
 					lastWasEmpty=true;
 					continue;
@@ -640,6 +699,10 @@ public class ModelElementCatalogDescriptionBuilder {
 				while (!done) {
 					done=true;
 					String sNew;
+					sNew=tryReplaceLaTeXFracInHTML(s); if (sNew!=null) {s=sNew; done=false;}
+					sNew=tryReplaceLaTeXBinomInHTML(s); if (sNew!=null) {s=sNew; done=false;}
+					sNew=tryReplaceLaTeXSubInHTML(s); if (sNew!=null) {s=sNew; done=false;}
+					sNew=tryReplaceLaTeXSupInHTML(s); if (sNew!=null) {s=sNew; done=false;}
 					sNew=tryReplaceB(s); if (sNew!=null) {s=sNew; done=false;}
 					sNew=tryReplaceU(s); if (sNew!=null) {s=sNew; done=false;}
 					sNew=tryReplaceTT(s); if (sNew!=null) {s=sNew; done=false;}
@@ -678,6 +741,21 @@ public class ModelElementCatalogDescriptionBuilder {
 						text.setLength(text.length()-1);
 					text.append('\n');
 					return;
+				}
+
+				/* Lehrbuchverweise anpassen */
+				int index1=line.indexOf("<a href=\"book");
+				if (index1>=0) {
+					StringBuilder newLine=new StringBuilder();
+					final int index2=line.indexOf(">",index1+1);
+					final int index3=line.indexOf("</a>",index2+1);
+					newLine.append(line.substring(0,index1));
+					newLine.append("<b>");
+					newLine.append(line.substring(index2+1,index3));
+					newLine.append("</b>");
+					newLine.append(line.substring(index3+4));
+					text.append(newLine+"\n");
+					continue;
 				}
 
 				/* <h1> weglassen */

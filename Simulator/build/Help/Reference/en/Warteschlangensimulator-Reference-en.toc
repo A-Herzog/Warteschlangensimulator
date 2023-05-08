@@ -14,14 +14,14 @@
 \contentsline {section}{\numberline {3.1}Assign string}{13}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Batch counter}{13}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Client statistics}{13}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Costs}{13}{section.3.4}%
+\contentsline {section}{\numberline {3.4}Costs}{14}{section.3.4}%
 \contentsline {section}{\numberline {3.5}Counter}{14}{section.3.5}%
 \contentsline {section}{\numberline {3.6}Difference counter}{14}{section.3.6}%
 \contentsline {section}{\numberline {3.7}Enter section}{14}{section.3.7}%
 \contentsline {section}{\numberline {3.8}Leave section}{15}{section.3.8}%
 \contentsline {section}{\numberline {3.9}Multi counter}{15}{section.3.9}%
 \contentsline {section}{\numberline {3.10}Script}{15}{section.3.10}%
-\contentsline {section}{\numberline {3.11}State}{15}{section.3.11}%
+\contentsline {section}{\numberline {3.11}State}{16}{section.3.11}%
 \contentsline {section}{\numberline {3.12}Throughput}{16}{section.3.12}%
 \contentsline {section}{\numberline {3.13}Type assignment}{16}{section.3.13}%
 \contentsline {section}{\numberline {3.14}Variable}{16}{section.3.14}%
@@ -106,8 +106,9 @@
 \contentsline {chapter}{\numberline {12}Animation - Interactive}{55}{chapter.12}%
 \contentsline {section}{\numberline {12.1}Button}{55}{section.12.1}%
 \contentsline {section}{\numberline {12.2}Checkbox}{55}{section.12.2}%
-\contentsline {section}{\numberline {12.3}Radiobutton}{55}{section.12.3}%
-\contentsline {section}{\numberline {12.4}Slider}{56}{section.12.4}%
+\contentsline {section}{\numberline {12.3}Pause animation}{55}{section.12.3}%
+\contentsline {section}{\numberline {12.4}Radiobutton}{56}{section.12.4}%
+\contentsline {section}{\numberline {12.5}Slider}{56}{section.12.5}%
 \contentsline {chapter}{\numberline {13}Optical decorations}{57}{chapter.13}%
 \contentsline {section}{\numberline {13.1}Connection vertex}{57}{section.13.1}%
 \contentsline {section}{\numberline {13.2}Description text}{57}{section.13.2}%
