@@ -15,8 +15,9 @@
   <link href="./libs/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
   <script defer src="./libs/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"></script>
   <script>
-    // const userLang=navigator.language || navigator.userLanguage;
-    // if (typeof(userLang)!='undefined' && userLang.startsWith("de")) document.location.href="index_de.html";
+    let selectedLanguage=localStorage.getItem('selectedLanguage');
+    if (selectedLanguage==null) selectedLanguage=navigator.language || navigator.userLanguage;
+    if (typeof(selectedLanguage)!='undefined' && selectedLanguage.startsWith("de")) document.location.href="index_de.html";
   </script>
   <style>
     .navbar-brand {font-size: 140%; font-weight: 600; padding-right: 30px;}
@@ -33,6 +34,10 @@
     a.btn:hover {text-decoration: none;}
     .nav-link {color: white;}
     .active {background-color: #14E; border-radius: 4px;}
+    .video_placeholder {position: relative;}
+    .video_placeholder img {aspect-ratio: 16/9; width: 90%; cursor: pointer;}
+    .video_placeholder div.playbutton {position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%); font-size: 800%; opacity: 33%; cursor: pointer; transition: 0.5s;}
+    .video_placeholder:hover div.playbutton {color: red; opacity: 90%;}
   </style>
 </head>
 
@@ -136,7 +141,7 @@ Total downloads: <img src="https://img.shields.io/github/downloads/a-herzog/wart
   <ul style="margin-top: 15px;">
   <li>For Windows 7 to 11</li>
   <li>32 bit and 64 bit supported</li>
-  <li>Download size: 130 MB</li>
+  <li>Download size: 135 MB</li>
   <li>Installation with or without admin rights (installation for all users / for current user)</li>
   <li>Installer has software signing certificate</li>
   </ul>
@@ -152,7 +157,7 @@ Total downloads: <img src="https://img.shields.io/github/downloads/a-herzog/wart
   <li>For <a href="https://github.com/A-Herzog/Warteschlangensimulator/wiki/Supported-platforms" target="_blank">Windows, Linux and MacOS</a></li>
   <li>Extract &amp; run</li>
   <li>Portable usage</li>
-  <li>Download size: 130 MB</li>
+  <li>Download size: 135 MB</li>
   <li>No admin rights needed</li>
   </ul>
 </div>
@@ -167,7 +172,7 @@ Total downloads: <img src="https://img.shields.io/github/downloads/a-herzog/wart
   <li>For Linux</li>
   <li>Download &amp; run</li>
   <li>Portable usage</li>
-  <li>Download size: 130 MB</li>
+  <li>Download size: 135 MB</li>
   <li>No admin rights needed</li>
   </ul>
 </div>
@@ -289,33 +294,28 @@ See also <a href="https://github.com/A-Herzog/Warteschlangensimulator/blob/maste
 </div>
 
 
+
 <div id="Videos" class="anchor">
 <h2 class="bi-film"> Videos</h2>
 <div class="container clearfix">
 <h3 class="h4">Tutorial: Creation of a simple model</h3>
-<video width="90%" controls poster="./Videos/Warteschlangensimulator_Tutorial.webp" preload="metadata" class="border rounded shadow" crossorigin="anonymous">
-  <source src="./Videos/Warteschlangensimulator_Tutorial.m4v" type="video/mp4">
-  <track src="./Videos/Warteschlangensimulator_Tutorial_en.vtt" kind="captions" srclang="en" label="English">
-  <track src="./Videos/Warteschlangensimulator_Tutorial_de.vtt" kind="captions" srclang="de" label="German / Deutsch">
-  Your browser does not support the video tag.
-</video>
+<div class="video_placeholder" onclick="loadVideo(this,'Warteschlangensimulator_Tutorial')">
+  <img src="./Videos/Warteschlangensimulator_Tutorial.webp" class="border rounded shadow" loading="lazy" alt="Tutorial: Creation of a simple model">
+  <div class="bi-play-circle-fill playbutton"></div>
+</div>
 <div id="AnimationVideo" class="anchor">
 <h3 class="h4">Animation of a larger model</h3>
-<video width="90%" controls poster="./Videos/Warteschlangensimulator_Callcenter.webp" preload="metadata" class="border rounded shadow" crossorigin="anonymous">
-  <source src="./Videos/Warteschlangensimulator_Callcenter.m4v" type="video/mp4">
-  <track src="./Videos/Warteschlangensimulator_Callcenter_en.vtt" kind="captions" srclang="en" label="English">
-  <track src="./Videos/Warteschlangensimulator_Callcenter_de.vtt" kind="captions" srclang="de" label="German / Deutsch">
-  Your browser does not support the video tag.
-</video>
+<div class="video_placeholder" onclick="loadVideo(this,'Warteschlangensimulator_Callcenter')">
+  <img src="./Videos/Warteschlangensimulator_Callcenter.webp" class="border rounded shadow" loading="lazy" alt="Animation of a larger model">
+  <div class="bi-play-circle-fill playbutton"></div>
+</div>
 </div>
 <div id="ParameterStudyVideo" class="anchor">
 <h3 class="h4">Running a parameter study</h3>
-<video width="90%" controls poster="./Videos/Warteschlangensimulator_Series.webp" preload="metadata" class="border rounded shadow" crossorigin="anonymous">
-  <source src="./Videos/Warteschlangensimulator_Series.m4v" type="video/mp4">
-  <track src="./Videos/Warteschlangensimulator_Series_en.vtt" kind="captions" srclang="en" label="English">
-  <track src="./Videos/Warteschlangensimulator_Series_de.vtt" kind="captions" srclang="de" label="German / Deutsch">
-  Your browser does not support the video tag.
-</video>
+<div class="video_placeholder" onclick="loadVideo(this,'Warteschlangensimulator_Series')">
+  <img src="./Videos/Warteschlangensimulator_Series.webp" class="border rounded shadow" loading="lazy" alt="Running a parameter study">
+  <div class="bi-play-circle-fill playbutton"></div>
+</div>
 </div>
 </div>
 </div>
@@ -417,6 +417,7 @@ Citing "Simulation mit dem Warteschlangensimulator" using BibTeX:
 &nbsp;&middot;&nbsp; <a href="https://aka.ms/impressum" target="_blank" class="text-white">GitHub imprint</a>
 &nbsp;&middot;&nbsp; <a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" target="_blank" title="GitHub privacy" class="text-white">GitHub privacy</a>
 &nbsp;&middot;&nbsp; <a href="https://github.com/A-Herzog/Warteschlangensimulator" target="_blank"><img src="https://img.shields.io/github/stars/a-herzog/warteschlangensimulator?style=social" loading="lazy" alt="GitHub stars for Warteschlangensimulator" title="GitHub stars for Warteschlangensimulator"></a>
+&nbsp;&middot;&nbsp; <span onclick="localStorage.setItem('selectedLanguage','de'); document.location.href='index_de.html';" class="bi-globe" style="cursor: pointer; text-decoration: underline;"> Switch to German</span>
 </div>
 </footer>
 
@@ -434,6 +435,43 @@ for (let element of document.querySelectorAll("img.zoom")) {
     imagemodal.querySelector(".modal-footer p").innerText=e.target.title;
     new bootstrap.Modal(imagemodal).show();
   };
+}
+
+function loadVideo(element,video) {
+  element.onclick="";
+  const isDe=document.documentElement.lang=='de';
+  const sourceElement=document.createElement('source');
+  sourceElement.src="./Videos/"+video+".m4v";
+  sourceElement.type="video/mp4";
+  const videoElement=document.createElement("video");
+  element.appendChild(videoElement);
+  videoElement.style.width="90%";
+  videoElement.controls=true;
+  videoElement.className="border rounded shadow";
+  videoElement.crossorigin="anonymous";
+  videoElement.appendChild(sourceElement);
+  const trackEnElement=document.createElement("track");
+  trackEnElement.src="./Videos/"+video+"_en.vtt";
+  trackEnElement.kind="captions";
+  trackEnElement.srclang="en";
+  trackEnElement.label=isDe?"Englisch":"English";
+  const trackDeElement=document.createElement("track");
+  trackDeElement.src="./Videos/"+video+"_de.vtt";
+  trackDeElement.kind="captions";
+  trackDeElement.srclang="de";
+  trackDeElement.label=isDe?"Deutsch":"German / Deutsch";
+  if (isDe) trackDeElement.default=true;
+  if (isDe) {
+    trackDeElement.default=true;
+    videoElement.appendChild(trackDeElement);
+    videoElement.appendChild(trackEnElement);
+  } else {
+    videoElement.appendChild(trackEnElement);
+    videoElement.appendChild(trackDeElement);
+  }
+  for (let img of element.querySelectorAll('img')) element.removeChild(img);
+  for (let div of element.querySelectorAll('div')) element.removeChild(div);
+  videoElement.play();
 }
 </script>
 
