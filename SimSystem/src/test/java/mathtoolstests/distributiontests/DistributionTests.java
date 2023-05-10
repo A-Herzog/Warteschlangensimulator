@@ -58,6 +58,7 @@ import mathtools.distribution.PowerDistributionImpl;
 import mathtools.distribution.RayleighDistributionImpl;
 import mathtools.distribution.SawtoothLeftDistribution;
 import mathtools.distribution.SawtoothRightDistribution;
+import mathtools.distribution.StudentTDistributionImpl;
 import mathtools.distribution.TriangularDistributionImpl;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
@@ -1595,6 +1596,62 @@ class DistributionTests {
 		double rnd=sawtooth.random(new DummyRandomGenerator(0.5));
 		assertTrue(rnd>=sawtooth.a);
 		assertTrue(rnd<=sawtooth.b);
+	}
+
+	/**
+	 * Test: Student t-Verteilung
+	 * @see StudentTDistributionImpl
+	 */
+	@Test
+	void testStudentTDistributionDistribution() {
+		StudentTDistributionImpl dist;
+
+		dist=new StudentTDistributionImpl(100,5);
+
+		assertEquals(100,dist.mu);
+		assertEquals(5,dist.nu);
+
+		assertTrue(dist.density(80)>0);
+		assertTrue(dist.density(120)>0);
+		assertTrue(dist.density(100)>0);
+
+		assertTrue(dist.cumulativeProbability(80)<0.5);
+		assertTrue(dist.cumulativeProbability(120)>0.5);
+		assertEquals(0.5,dist.cumulativeProbability(100),0.001);
+
+		assertTrue(dist.inverseCumulativeProbability(0.4)<100);
+		assertTrue(dist.inverseCumulativeProbability(0.6)>100);
+		assertEquals(100,dist.inverseCumulativeProbability(0.5),0.001);
+
+		assertEquals(100,dist.getNumericalMean());
+		assertEquals(5.0/(5.0-2),dist.getNumericalVariance(),0.001);
+
+		assertEquals(-Double.MAX_VALUE,dist.getSupportLowerBound());
+		assertEquals(Double.MAX_VALUE,dist.getSupportUpperBound());
+		assertFalse(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=dist.clone();
+
+		assertEquals(100,dist.mu);
+		assertEquals(5,dist.nu);
+
+		dist=new StudentTDistributionImpl(dist);
+
+		assertEquals(100,dist.mu);
+		assertEquals(5,dist.nu);
+
+		dist=(StudentTDistributionImpl)DistributionTools.cloneDistribution(dist);
+
+		assertEquals(100,dist.mu);
+		assertEquals(5,dist.nu);
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[] {100,5});
+
+		double rnd=dist.random(new DummyRandomGenerator(0.5));
+		assertEquals(100,rnd,0.001);
 	}
 
 	/**

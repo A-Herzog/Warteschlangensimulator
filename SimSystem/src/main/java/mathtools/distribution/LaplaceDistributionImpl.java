@@ -34,14 +34,12 @@ public final class LaplaceDistributionImpl extends AbstractRealDistribution impl
 	private static final long serialVersionUID = -7872838730639994363L;
 
 	/**
-	 * Lageparameter mu<br>
-	 * Schreibzugriff ist möglich
+	 * Lageparameter mu
 	 */
 	public final double mu;
 
 	/**
-	 * Skalierungsparameter b (b&gt;0)<br>
-	 * Schreibzugriff ist möglich
+	 * Skalierungsparameter b (b&gt;0)
 	 */
 	public final double b;
 

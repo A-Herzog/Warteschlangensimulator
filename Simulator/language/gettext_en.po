@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-28 18:50+0200\n"
+"POT-Creation-Date: 2023-05-09 11:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3313,6 +3313,12 @@ msgstr "Skewness"
 
 msgid "Distribution.StdDev"
 msgstr "Standard deviation"
+
+msgid "Distribution.StudentT"
+msgstr "Student t-distribution"
+
+msgid "Distribution.StudentTWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Student%27s_t-distribution"
 
 msgid "Distribution.Triangular"
 msgstr "Triangular distribution"
@@ -6635,6 +6641,18 @@ msgstr "<p>Calculates the value of the distribution function of the right sawtoo
 
 msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the right sawtooth distribution with the parameters according to the first (mean) and second (standard deviation) parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.StudentTDist"
+msgstr "Student t-distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.StudentTDist.DensityInfo"
+msgstr "<p>Calculates the value of the density of the Student t-distribution at the location specified as the first parameter. The expected value is defined in the secord parameter and the degress of freedom in the third parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.StudentTDist.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the Student t-distribution at the location specified as the first parameter. The expected value is defined in the secord parameter and the degress of freedom in the third parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.StudentTDist.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Student t-distribution. The expected value and the degrees of freedom are specified in the first and the second parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.TriangularDistribution"
 msgstr "Triangular distribution"

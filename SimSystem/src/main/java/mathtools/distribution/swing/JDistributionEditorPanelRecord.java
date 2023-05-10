@@ -56,6 +56,7 @@ import mathtools.distribution.PowerDistributionImpl;
 import mathtools.distribution.RayleighDistributionImpl;
 import mathtools.distribution.SawtoothLeftDistribution;
 import mathtools.distribution.SawtoothRightDistribution;
+import mathtools.distribution.StudentTDistributionImpl;
 import mathtools.distribution.TriangularDistributionImpl;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionTools;
@@ -93,6 +94,7 @@ import mathtools.distribution.tools.WrapperPowerDistribution;
 import mathtools.distribution.tools.WrapperRayleighDistribution;
 import mathtools.distribution.tools.WrapperSawtoothLeftDistribution;
 import mathtools.distribution.tools.WrapperSawtoothRightDistribution;
+import mathtools.distribution.tools.WrapperStudentTDistribution;
 import mathtools.distribution.tools.WrapperTriangularDistribution;
 import mathtools.distribution.tools.WrapperUniformRealDistribution;
 import mathtools.distribution.tools.WrapperWeibullDistribution;
@@ -284,6 +286,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new SawtoothRightDistributionPanel());
 		allRecords.add(new LevyDistributionPanel());
 		allRecords.add(new MaxwellBoltzmannDistributionPanel());
+		allRecords.add(new StudentTDistributionPanel());
 		allRecords.add(new HyperGeomDistributionPanel());
 		allRecords.add(new BinomialDistributionPanel());
 		allRecords.add(new PoissonDistributionPanel());
@@ -1303,6 +1306,41 @@ public abstract class JDistributionEditorPanelRecord {
 		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
 			final Double a=NumberTools.getPositiveDouble(fields[0],true); if (a==null) return null;
 			return new MaxwellBoltzmannDistribution(a);
+		}
+	}
+
+	/** Studentsche t-Verteilung */
+	private static class StudentTDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public StudentTDistributionPanel() {
+			super(new WrapperStudentTDistribution(),new String[] {DistributionTools.DistMean+" (mu)",DistributionTools.DistDegreesOfFreedom+" (nu)"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			final double nu;
+			if (stdD>1) {
+				final double variance=stdD*stdD;
+				nu=2*variance/(variance-1);
+			} else {
+				nu=5;
+			}
+			return new String[]{mean,NumberTools.formatNumberMax(nu)};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((StudentTDistributionImpl)distribution).mu),
+					NumberTools.formatNumberMax(((StudentTDistributionImpl)distribution).nu)
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double mu=NumberTools.getDouble(fields[0],true); if (mu==null) return null;
+			final Double nu=NumberTools.getPositiveDouble(fields[1],true); if (nu==null) return null;
+			return new StudentTDistributionImpl(mu,nu);
 		}
 	}
 

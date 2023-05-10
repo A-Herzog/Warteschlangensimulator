@@ -1327,7 +1327,7 @@ Generates a random number based on this distribution.
 \begin{itemize}
 
 \item
-\cmd{MaxwellBoltzmannDist(x;mu;c;0)}:
+\cmd{MaxwellBoltzmannDist(x;a;0)}:
 Calculates the probability density at $x$.
 
 \item
@@ -1336,6 +1336,26 @@ Calculates the cumulative distribution function at $x$.
 
 \item
 \cmd{MaxwellBoltzmannDist(a)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Student t-distribution with parameters \texorpdfstring{$\mu$}{mu} and \texorpdfstring{$\nu$}{nu}}
+
+\begin{itemize}
+
+\item
+\cmd{StudentTDist(x;mu;nu;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{StudentTDist(x;mu;nu;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{StudentTDist(mu;nu)}:
 Generates a random number based on this distribution.
 
 \end{itemize}

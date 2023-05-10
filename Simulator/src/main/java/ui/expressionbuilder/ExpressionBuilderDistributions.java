@@ -549,6 +549,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.MaxwellBoltzmannDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.MaxwellBoltzmannDistribution.RandomNumberInfo"));
 
+		/* Studentsche t-Verteilung */
+
+		addDist(group,filterUpper,"StudentTDist","mu;nu",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.StudentTDist"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.StudentTDist.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.StudentTDist.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.StudentTDist.RandomNumberInfo"));
+
 		/* Empirische Verteilung */
 
 		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution"));

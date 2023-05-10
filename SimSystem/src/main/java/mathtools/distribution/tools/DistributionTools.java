@@ -238,6 +238,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Maxwell-Boltzmann-Verteilung */
 	public static String DistMaxwellBoltzmannWikipedia="https://de.wikipedia.org/wiki/Maxwell-Boltzmann-Verteilung";
 
+	/** Studentsche t-Verteilung */
+	public static String[] DistStudentT=new String[] {"Studentsche t-Verteilung"};
+
+	/** Wikipedia-Seite Studentsche t-Verteilung */
+	public static String DistStudentTWikipedia="https://de.wikipedia.org/wiki/Studentsche_t-Verteilung";
+
 	/** Hypergeometrische Verteilung */
 	public static String[] DistHyperGeom=new String[]{"Hypergeometrische Verteilung"};
 
@@ -363,6 +369,7 @@ public final class DistributionTools {
 				new WrapperSawtoothRightDistribution(),
 				new WrapperLevyDistribution(),
 				new WrapperMaxwellBoltzmannDistribution(),
+				new WrapperStudentTDistribution(),
 				new WrapperHyperGeomDistribution(),
 				new WrapperBinomialDistribution(),
 				new WrapperPoissonDistribution(),

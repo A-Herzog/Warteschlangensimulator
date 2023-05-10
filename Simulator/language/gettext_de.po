@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-28 18:50+0200\n"
+"POT-Creation-Date: 2023-05-09 11:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3319,6 +3319,12 @@ msgstr "Schiefe"
 msgid "Distribution.StdDev"
 msgstr "Standardabweichung"
 
+msgid "Distribution.StudentT"
+msgstr "Studentsche t-Verteilung"
+
+msgid "Distribution.StudentTWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Studentsche_t-Verteilung"
+
 msgid "Distribution.Triangular"
 msgstr "Dreiecksverteilung"
 
@@ -6628,6 +6634,18 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der rechten Sägezahnverte
 
 msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der rechten Sägezahnverteilung mit den Parametern gemäß dem ersten (Mittelwert) und zweiten (Standardabweichung) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.StudentTDist"
+msgstr "Studentsche t-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.StudentTDist.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Studetschen t-Verteilung an der als ersten Parameter angegebenen Stelle. Der Erwartungswert wird im zweiten und die Freiheitsgrade werden im dritten Parameter angegeben.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.StudentTDist.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Studetschen t-Verteilung an der als ersten Parameter angegebenen Stelle. Der Erwartungswert wird im zweiten und die Freiheitsgrade werden im dritten Parameter angegeben.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.StudentTDist.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Studentschen t-Verteilung mit Erwartungswert gemäß des ersten Parameters und Freiheitsgraden gemäß des zweiten Parameters.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.TriangularDistribution"
 msgstr "Dreiecksverteilung"

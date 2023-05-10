@@ -238,9 +238,10 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		 * Konstruktor
 		 * @param distribution	Verteilung auf deren Basis Zufallszahlen erzeugt werden sollen
 		 * @param count	Anzahl an Zufallszahlen, die in diesem Thread erzeugt werden sollen
+		 * @param nr	1-basierte Nummer des Threads (zur Definition des Namens des Threads)
 		 */
-		public RandomNumbersIndicatorsThread(final AbstractRealDistribution distribution, final long count) {
-			super();
+		public RandomNumbersIndicatorsThread(final AbstractRealDistribution distribution, final long count, final int nr) {
+			super("Random number generator thread "+nr);
 			this.distribution=distribution;
 			this.count=count;
 		}
@@ -277,7 +278,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		final RandomNumbersIndicatorsThread[] threads=new RandomNumbersIndicatorsThread[threadCount];
 		for (int i=0;i<threads.length;i++) {
 			final long count=randomNumberCount/threads.length;
-			threads[i]=new RandomNumbersIndicatorsThread(distribution,(i==threads.length-1)?(randomNumberCount-(threads.length-1)*count):count);
+			threads[i]=new RandomNumbersIndicatorsThread(distribution,(i==threads.length-1)?(randomNumberCount-(threads.length-1)*count):count,i+1);
 		}
 		for (RandomNumbersIndicatorsThread thread: threads) thread.start();
 		for (RandomNumbersIndicatorsThread thread: threads) try {thread.join();} catch (InterruptedException e) {}
@@ -407,11 +408,11 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",info.getLongInfo()});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++])});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"","",Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters.Set"),Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.Parameters.Actual")});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Mean"),NumberTools.formatNumberMax(info.E),"=AVERAGE("+range+")"});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Variance"),NumberTools.formatNumberMax(info.Std*info.Std),"=_xlfn.VAR.S("+range+")"});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.StdDev"),NumberTools.formatNumberMax(info.Std),"=_xlfn.STDEV.S("+range+")"});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.CV"),NumberTools.formatNumberMax(info.Std/info.E),"=_xlfn.STDEV.S("+range+")/AVERAGE("+range+")"});
-		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Skewness"),NumberTools.formatNumberMax(info.Sk),"=SKEW("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Mean"),(info.E==null)?"":NumberTools.formatNumberMax(info.E),"=AVERAGE("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Variance"),(info.Std==null)?"":NumberTools.formatNumberMax(info.Std*info.Std),"=_xlfn.VAR.S("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.StdDev"),(info.Std==null)?"":NumberTools.formatNumberMax(info.Std),"=_xlfn.STDEV.S("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.CV"),(info.E==null || info.Std==null)?"":NumberTools.formatNumberMax(info.Std/info.E),"=_xlfn.STDEV.S("+range+")/AVERAGE("+range+")"});
+		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Skewness"),(info.Sk==null)?"":NumberTools.formatNumberMax(info.Sk),"=SKEW("+range+")"});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Distribution.Kurt"),"","=KURT("+range+")"});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Minimum"),minString,"=MIN("+range+")"});
 		table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",Language.tr("Statistics.Maximum"),maxString,"=MAX("+range+")"});

@@ -210,6 +210,8 @@ public class LanguageStaticLoader {
 		DistributionTools.DistLevyWikipedia=Language.tr("Distribution.LevyWikipedia");
 		DistributionTools.DistMaxwellBoltzmann=Language.trAll("Distribution.MaxwellBoltzmann");
 		DistributionTools.DistMaxwellBoltzmannWikipedia=Language.tr("Distribution.MaxwellBoltzmannWikipedia");
+		DistributionTools.DistStudentT=Language.trAll("Distribution.StudentT");
+		DistributionTools.DistStudentTWikipedia=Language.tr("Distribution.StudentTWikipedia");
 		DistributionTools.DistHyperGeom=Language.trAll("Distribution.HyperGeom");
 		DistributionTools.DistHyperGeomWikipedia=Language.tr("Distribution.HyperGeomWikipedia");
 		DistributionTools.DistBinomial=Language.trAll("Distribution.Binomial");
