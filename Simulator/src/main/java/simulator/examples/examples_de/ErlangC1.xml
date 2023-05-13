@@ -1,29 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModellVersion>5.1.0</ModellVersion>
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Erlang-C-Vergleichsmodell</ModellName>
   <ModellBeschreibung>Kenngrößen des Modells (für die Erlang-C-Formel):
 
-lambda=0,6 (pro Minute)
-1/mu=1,333 (Minuten)
-1/nu=infty (Minuten)
-c=1
+1/lambda=100 Sekunden (mittlere Zwischenankunftszeit)
+1/mu=80 Sekunden (mittlere Bediendauer)
+c=1 (Anzahl an Bedienern)
 
-Erlang-C-Rechner Vergleichswerte:
+Erlang-C-Vergleichswerte (siehe Menüpunkt Extras|Warteschlangenrechner):
 
 Arbeitslast a=0,8
-Auslastung (rho)=79,98%
-Auslastung (rho)=79,98% (real, nach Abzug der Abbrecher)
-Mittlere Warteschlangenlänge E[NQ]=3,19
-Mittlere Anzahl an Kunden im System E[N]=3,99
-Mittlere Wartezeit E[W]=319,5 (in Sekunden)
-Mittlere Verweilzeit E[V]=399,48 (in Sekunden)
-Abbrecherquote P(A)=0%
-
-siehe auch:
-https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c/</ModellBeschreibung>
+Auslastung rho=80%
+Mittlere Warteschlangenlänge E[NQ]=3,2
+Mittlere Anzahl an Kunden im System=4
+Mittlere Wartezeit E[W]=320 Sekunden
+Mittlere Verweilzeit E[V]=400 Sekunden
+Flussgrad E[V]/E[S]=5
+P(W&gt;=0)=80%</ModellBeschreibung>
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">5000000</ModellKunden>
   <ModellAufwaermphase>0.01</ModellAufwaermphase>
@@ -57,35 +53,38 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
       <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="6">
-      <ModellElementGroesse h="23" w="282" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="284" x="50" y="50"/>
       <ModellElementTextzeile>Erlang-C-Warteschlangenmodell</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="7">
-      <ModellElementGroesse h="19" w="561" x="50" y="180"/>
+      <ModellElementGroesse h="57" w="566" x="50" y="195"/>
+      <ModellElementTextzeile>Als Eingabeparameter sind E[I]:=100 Sek., E[S]:=80 Sek. und c:=1 gewählt.</ModellElementTextzeile>
       <ModellElementTextzeile>Dieses einfache Modell kann vollständig durch die Erlang-C-Formel beschrieben werden.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementTextzeile>Die analytischen Ergebnisse sind: E[W]=320 Sek., E[V]=400 Sek., E[N_{Q}]=3,2 und E[N]=4.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse LaTeX="1" Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationLinienDiagramm id="8">
-      <ModellElementGroesse h="230" w="600" x="50" y="270"/>
+      <ModellElementGroesse h="230" w="600" x="50" y="320"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
       <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="0,0,255" Maximum="10" Minimum="0">WIP()</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Linienbreite="3" Linienfarbe="0,0,255" Maximum="10" Minimum="0">WIP_avg()</ModellElementDiagrammElement>
       <ModellElementDiagrammZeitbereich>18000</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
       <ModellElementAchsenbeschriftung>1</ModellElementAchsenbeschriftung>
     </ModellElementAnimationLinienDiagramm>
     <ModellElementText id="9">
-      <ModellElementGroesse h="19" w="610" x="50" y="250"/>
-      <ModellElementTextzeile>Anzahl an Kunden an der Bedienstation (aktueller Wert und Mittelwert über die gesamte Laufzeit)</ModellElementTextzeile>
+      <ModellElementGroesse h="19" w="533" x="50" y="300"/>
+      <ModellElementTextzeile>Anzahl an Kunden im System (aktueller Wert und Mittelwert über die gesamte Laufzeit)</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationBalkenDiagramm id="10">
-      <ModellElementGroesse h="230" w="350" x="700" y="270"/>
+      <ModellElementGroesse h="230" w="350" x="700" y="320"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
@@ -106,15 +105,95 @@ https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/erlang-c
       <ModellElementDiagrammElement Balkenfarbe="255,165,0">WIP_hist(1;10;1000)</ModellElementDiagrammElement>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementText id="11">
-      <ModellElementGroesse h="19" w="360" x="700" y="250"/>
+      <ModellElementGroesse h="19" w="351" x="700" y="300"/>
       <ModellElementTextzeile>Zeitanteile der Anzahlen an Kunden an der Bedienstation</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="12">
-      <ModellElementGroesse h="16" w="220" x="700" y="500"/>
+      <ModellElementGroesse h="15" w="202" x="700" y="550"/>
       <ModellElementTextzeile>(blau=0, grün=1, rot=2..10, orange=11...)</ModellElementTextzeile>
-      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="13">
+      <ModellElementName>Mittlere Wartezeit E[W] (in Sek.)</ModellElementName>
+      <ModellElementGroesse h="30" w="133" x="750" y="100"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="14">
+      <ModellElementName>Mittlere Verweilzeit E[V] (in Sek.)</ModellElementName>
+      <ModellElementGroesse h="30" w="135" x="750" y="150"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">ResidenceTime_avg()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="15">
+      <ModellElementName>Mittlere Warteschlangenlänge E[NQ]</ModellElementName>
+      <ModellElementGroesse h="30" w="153" x="950" y="100"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">NQ_avg()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="16">
+      <ModellElementName>Mittlere Anzahl an Kunden im System E[N]</ModellElementName>
+      <ModellElementGroesse h="30" w="175" x="950" y="150"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">WIP_avg()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="17">
+      <ModellElementName>Abweichung Simulation zu exakt (bezogen auf E[NQ])</ModellElementName>
+      <ModellElementGroesse h="30" w="222" x="1150" y="100"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">abs(NQ_avg()-ErlangC(1/100;1/80;0;1;1000;-1))/ErlangC(1/100;1/80;0;1;1000;-1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="18">
+      <ModellElementName>Abweichung Simulation zu exakt (bezogen auf E[N])</ModellElementName>
+      <ModellElementGroesse h="30" w="215" x="1150" y="150"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">abs(WIP_avg()-ErlangC(1/100;1/80;0;1;1000;-2))/ErlangC(1/100;1/80;0;1;1000;-2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="19">
+      <ModellElementName>Anzahl simulierter Kunden (in Mio.)</ModellElementName>
+      <ModellElementGroesse h="30" w="146" x="1150" y="200"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="3">NumberIn(3)/1000000</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="20">
+      <ModellElementGroesse h="64" w="619" x="50" y="600"/>
+      <ModellElementTextzeile>**Mögliche Untersuchungsfragestellung:**</ModellElementTextzeile>
+      <ModellElementTextzeile>Wie verändern sich die Werte, wenn die Auslastung steigt oder fällt?</ModellElementTextzeile>
+      <ModellElementTextzeile>Dafür kann per Rechtsklick auf die Bedienstation eine Parameterreihe zur Variation der mittleren Bediendauer</ModellElementTextzeile>
+      <ModellElementTextzeile>angelegt werden. Mittlere Bediendauern von E[S]=60..95 Sekunden entsprechen einer Auslastung von &amp;rho;=60%..95%.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationTortenDiagramm id="21">
+      <ModellElementGroesse h="150" w="150" x="1100" y="320"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementSegmentBeschriftung>Aus</ModellElementSegmentBeschriftung>
+      <ModellElementSegmentDarstellung>Kreissegment</ModellElementSegmentDarstellung>
+      <ModellElementDiagrammElement Segmentfarbe="255,0,0">WaitingTime_avg()</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Segmentfarbe="0,180,0">ServiceTime_avg()</ModellElementDiagrammElement>
+    </ModellElementAnimationTortenDiagramm>
+    <ModellElementText id="22">
+      <ModellElementGroesse h="19" w="221" x="1100" y="300"/>
+      <ModellElementTextzeile>Verhältnis von Warte- zu Bedienzeit</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="23">
+      <ModellElementGroesse h="30" w="79" x="1100" y="470"/>
+      <ModellElementTextzeile>rot=Wartezeit</ModellElementTextzeile>
+      <ModellElementTextzeile>grün=Bedienzeit</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
   </ModellElemente>
