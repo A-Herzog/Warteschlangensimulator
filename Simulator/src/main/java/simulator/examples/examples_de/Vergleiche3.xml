@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>3.3.0</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Warteschlangensystemdesign - Warteschlangen mit Steuerung</ModellName>
-  <ModellBeschreibung>Vergleich mit diesen analytischen Modellen:
-https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/warteschlangenrechnerdesign/
-mit lambda=1,8 (Kunden/Minute) und mu=1 (Kunde/Minute).
-
-Analytische Ergebnisse:
+  <ModellBeschreibung>Mit dem Warteschlangenrechner (siehe Menüpunkt Extras|Warteschlangenrechner) lässt sich nachrechnen:
 
 Gemeinsame Warteschlange:
 Mittlere Anzahl an Kunden im System E[N]=9,47
@@ -93,27 +90,27 @@ keine analytischen Ergebnisse vorhanden</ModellBeschreibung>
       <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
     </ModellElementKante>
     <ModellElementText id="28">
-      <ModellElementGroesse h="19" w="217" x="50" y="350"/>
-      <ModellElementTextzeile>Zwischenankunftszeit E[I]=33 Sek.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementGroesse h="19" w="264" x="50" y="350"/>
+      <ModellElementTextzeile>Mittlere Zwischenankunftszeit E[I]=33 Sek.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="57">
-      <ModellElementGroesse h="19" w="350" x="655" y="55"/>
+      <ModellElementGroesse h="19" w="347" x="655" y="55"/>
       <ModellElementTextzeile>2 parallele Bediener, 1 Warteschlange, E[S]=60 Sek.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,150,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="29">
-      <ModellElementGroesse h="19" w="359" x="655" y="205"/>
+      <ModellElementGroesse h="19" w="355" x="655" y="205"/>
       <ModellElementTextzeile>2 parallele Bediener, 2 Warteschlangen, E[S]=60 Sek.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="32">
-      <ModellElementGroesse h="23" w="540" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="551" x="50" y="50"/>
       <ModellElementTextzeile>Warteschlangensystemdesign - Warteschlangen mit Steuerung</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementZuweisung id="33">
@@ -169,14 +166,14 @@ keine analytischen Ergebnisse vorhanden</ModellBeschreibung>
       <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
     </ModellElementBedienstation>
     <ModellElementText id="87">
-      <ModellElementGroesse h="19" w="359" x="705" y="455"/>
+      <ModellElementGroesse h="19" w="355" x="655" y="455"/>
       <ModellElementTextzeile>2 parallele Bediener, 2 Warteschlangen, E[S]=60 Sek.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,165,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementZuweisung id="92">
       <ModellElementName>Kunden C</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="550" y="535"/>
+      <ModellElementGroesse h="50" w="100" x="685" y="530"/>
       <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
     </ModellElementZuweisung>
@@ -194,18 +191,18 @@ keine analytischen Ergebnisse vorhanden</ModellBeschreibung>
       <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
     </ModellElementKante>
     <ModellElementText id="31">
-      <ModellElementGroesse h="19" w="158" x="920" y="370"/>
+      <ModellElementGroesse h="19" w="166" x="920" y="370"/>
       <ModellElementTextzeile>Zufällige Wahl der Kasse</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="35">
-      <ModellElementGroesse h="76" w="261" x="400" y="635"/>
+      <ModellElementGroesse h="76" w="261" x="510" y="725"/>
       <ModellElementTextzeile>Die Wahl der kürzeren Warteschlange</ModellElementTextzeile>
       <ModellElementTextzeile>(Kunden C) ist fast so gut, wie eine</ModellElementTextzeile>
       <ModellElementTextzeile>gemeinsame Warteschlange (Kunden A),</ModellElementTextzeile>
       <ModellElementTextzeile>aber nur fast so gut.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementVerzweigen id="36">
@@ -230,8 +227,9 @@ keine analytischen Ergebnisse vorhanden</ModellBeschreibung>
     </ModellElementKante>
     <ModellElementVerzweigen id="21">
       <ModellElementName>Kürzere Schl.</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="800" y="535"/>
+      <ModellElementGroesse h="50" w="100" x="950" y="530"/>
       <ModellElementVerzweigungsmodus>BedienstationMinimumNQ</ModellElementVerzweigungsmodus>
+      <ModellElementVerzweigBeiGleichstand>Zufällig</ModellElementVerzweigBeiGleichstand>
       <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
       <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
@@ -252,7 +250,7 @@ keine analytischen Ergebnisse vorhanden</ModellBeschreibung>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementKasten id="26">
-      <ModellElementGroesse h="200" w="650" x="700" y="450"/>
+      <ModellElementGroesse h="200" w="700" x="650" y="450"/>
       <ModellElementLinienBreite>2</ModellElementLinienBreite>
       <ModellElementFarbe>255,165,0</ModellElementFarbe>
     </ModellElementKasten>
@@ -262,7 +260,7 @@ keine analytischen Ergebnisse vorhanden</ModellBeschreibung>
       <ModellElementFarbe>0,150,0</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementAnimationLinienDiagramm id="361">
-      <ModellElementGroesse h="170" w="300" x="50" y="630"/>
+      <ModellElementGroesse h="170" w="450" x="50" y="630"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
@@ -270,13 +268,63 @@ keine analytischen Ergebnisse vorhanden</ModellBeschreibung>
       <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,0,0" Maximum="18" Minimum="0">NQ_avg(5)+NQ_avg(6)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Linienbreite="1" Linienfarbe="255,165,0" Maximum="18" Minimum="0">NQ_avg(63)+NQ_avg(64)</ModellElementDiagrammElement>
       <ModellElementDiagrammZeitbereich>1200</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>2</ModellElementAchsenbeschriftung>
     </ModellElementAnimationLinienDiagramm>
     <ModellElementText id="362">
-      <ModellElementGroesse h="19" w="333" x="50" y="610"/>
+      <ModellElementGroesse h="19" w="322" x="50" y="610"/>
       <ModellElementTextzeile>Mittlere Anzahlen an Kunden in den Warteschlangen</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
+    <ModellElementText id="17">
+      <ModellElementGroesse h="19" w="229" x="875" y="625"/>
+      <ModellElementTextzeile>Wahl der kürzeren Warteschlange</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="18">
+      <ModellElementName>Mittlere Wartezeit (in Min.)</ModellElementName>
+      <ModellElementGroesse h="32" w="109" x="1400" y="50"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">WaitingTime_avg(33)/60</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="20">
+      <ModellElementName>Mittlere Verweilzeit (in Min.)</ModellElementName>
+      <ModellElementGroesse h="32" w="114" x="1550" y="50"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">ResidenceTime_avg(33)/60</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="37">
+      <ModellElementName>Mittlere Wartezeit (in Min.)</ModellElementName>
+      <ModellElementGroesse h="32" w="109" x="1400" y="200"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">WaitingTime_avg(34)/60</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="39">
+      <ModellElementName>Mittlere Verweilzeit (in Min.)</ModellElementName>
+      <ModellElementGroesse h="32" w="114" x="1550" y="200"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">ResidenceTime_avg(34)/60</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="40">
+      <ModellElementName>Mittlere Wartezeit (in Min.)</ModellElementName>
+      <ModellElementGroesse h="32" w="109" x="1400" y="550"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">WaitingTime_avg(92)/60</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="41">
+      <ModellElementName>Mittlere Verweilzeit (in Min.)</ModellElementName>
+      <ModellElementGroesse h="32" w="114" x="1550" y="550"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,165,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="2">ResidenceTime_avg(92)/60</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig">
     <Ressource Name="Kasse1" Typ="Anzahl" Wert="2"/>

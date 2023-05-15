@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>3.3.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
   <ModelName>Queueing system design - queues with control</ModelName>
-  <ModelDescription>Comparison with these analytical models:
-https://www.mathematik.tu-clausthal.de/interaktiv/warteschlangentheorie/warteschlangenrechnerdesign/
-with lambda=1.8 (clients/minute) and mu=1 (clients/minute).
-
-Analytical results:
+  <ModelDescription>Using the queueing calculator (see menu item Extras|Queueing calculator)
+one can check:
 
 Common queue:
 Average number of clients in the system E[N]=9.47
@@ -114,27 +112,27 @@ no analytical results available</ModelDescription>
       <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
     </ModelElementEdge>
     <ModelElementText id="28">
-      <ModelElementSize h="19" w="183" x="50" y="350"/>
-      <ModelElementTextLine>Inter-arrival time E[I]=33 sec.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementSize h="19" w="237" x="50" y="350"/>
+      <ModelElementTextLine>Average Inter-arrival time E[I]=33 sec.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="57">
-      <ModelElementSize h="19" w="287" x="655" y="55"/>
+      <ModelElementSize h="19" w="283" x="655" y="55"/>
       <ModelElementTextLine>2 parallel operators, 1 queue, E[S]=60 sec.</ModelElementTextLine>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,150,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="29">
-      <ModelElementSize h="19" w="295" x="655" y="205"/>
+      <ModelElementSize h="19" w="291" x="655" y="205"/>
       <ModelElementTextLine>2 parallel operators, 2 queues, E[S]=60 sec.</ModelElementTextLine>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="32">
-      <ModelElementSize h="23" w="399" x="50" y="50"/>
+      <ModelElementSize h="23" w="409" x="50" y="50"/>
       <ModelElementTextLine>Queueing system design - queues with control</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAssignment id="33">
@@ -198,14 +196,14 @@ no analytical results available</ModelDescription>
       <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
     </ModelElementProcessStation>
     <ModelElementText id="87">
-      <ModelElementSize h="19" w="295" x="705" y="455"/>
+      <ModelElementSize h="19" w="291" x="655" y="455"/>
       <ModelElementTextLine>2 parallel operators, 2 queues, E[S]=60 sec.</ModelElementTextLine>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,165,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAssignment id="92">
       <ModelElementName>Clients C</ModelElementName>
-      <ModelElementSize h="50" w="100" x="550" y="535"/>
+      <ModelElementSize h="50" w="100" x="700" y="535"/>
       <ModelElementConnection Element="14" Type="In"/>
       <ModelElementConnection Element="10" Type="Out"/>
     </ModelElementAssignment>
@@ -223,18 +221,18 @@ no analytical results available</ModelDescription>
       <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
     </ModelElementEdge>
     <ModelElementText id="31">
-      <ModelElementSize h="19" w="215" x="920" y="370"/>
+      <ModelElementSize h="19" w="231" x="890" y="375"/>
       <ModelElementTextLine>Random choice of process station</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="35">
-      <ModelElementSize h="76" w="206" x="400" y="635"/>
+      <ModelElementSize h="76" w="205" x="510" y="725"/>
       <ModelElementTextLine>The choice of the shorter queue</ModelElementTextLine>
       <ModelElementTextLine>(clients C) is almost as good as</ModelElementTextLine>
       <ModelElementTextLine>a common queue (clients A), but</ModelElementTextLine>
       <ModelElementTextLine>only nearly as good.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementDecide id="36">
@@ -259,8 +257,9 @@ no analytical results available</ModelDescription>
     </ModelElementEdge>
     <ModelElementDecide id="21">
       <ModelElementName>Shortest Q.</ModelElementName>
-      <ModelElementSize h="50" w="100" x="800" y="535"/>
+      <ModelElementSize h="50" w="100" x="950" y="535"/>
       <ModelElementDecideMode>ProcessStationMinimumNQ</ModelElementDecideMode>
+      <ModelElementDecideAtTie>Random</ModelElementDecideAtTie>
       <ModelElementConnection Element="10" Type="In"/>
       <ModelElementConnection Element="11" Type="Out"/>
       <ModelElementConnection Element="15" Type="Out"/>
@@ -281,7 +280,7 @@ no analytical results available</ModelDescription>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementRectangle>
     <ModelElementRectangle id="26">
-      <ModelElementSize h="200" w="650" x="700" y="450"/>
+      <ModelElementSize h="200" w="700" x="650" y="450"/>
       <ModelElementLineWidth>2</ModelElementLineWidth>
       <ModelElementColor>255,165,0</ModelElementColor>
     </ModelElementRectangle>
@@ -291,7 +290,7 @@ no analytical results available</ModelDescription>
       <ModelElementColor>0,150,0</ModelElementColor>
     </ModelElementRectangle>
     <ModelElementAnimationLineDiagram id="361">
-      <ModelElementSize h="170" w="300" x="50" y="630"/>
+      <ModelElementSize h="170" w="450" x="50" y="630"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
@@ -299,13 +298,63 @@ no analytical results available</ModelDescription>
       <ModelElementDiagramElement LineColor="255,0,0" LineWidth="1" Maximum="18" Minimum="0">NQ_avg(5)+NQ_avg(6)</ModelElementDiagramElement>
       <ModelElementDiagramElement LineColor="255,165,0" LineWidth="1" Maximum="18" Minimum="0">NQ_avg(63)+NQ_avg(64)</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>1200</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="362">
-      <ModelElementSize h="19" w="256" x="50" y="610"/>
+      <ModelElementSize h="19" w="249" x="50" y="610"/>
       <ModelElementTextLine>Average number of clients in the queues</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
+    <ModelElementText id="17">
+      <ModelElementSize h="19" w="196" x="750" y="625"/>
+      <ModelElementTextLine>Choosing the shortest queue</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="18">
+      <ModelElementName>Average waiting time (in min.)</ModelElementName>
+      <ModelElementSize h="32" w="123" x="1400" y="50"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">WaitingTime_avg(33)/60</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="20">
+      <ModelElementName>Average waiting time (in min.)</ModelElementName>
+      <ModelElementSize h="32" w="123" x="1400" y="200"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">WaitingTime_avg(34)/60</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="37">
+      <ModelElementName>Average residence time (in min.)</ModelElementName>
+      <ModelElementSize h="32" w="136" x="1550" y="200"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">ResidenceTime_avg(34)/60</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="39">
+      <ModelElementName>Average waiting time (in min.)</ModelElementName>
+      <ModelElementSize h="32" w="123" x="1400" y="550"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>255,165,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">WaitingTime_avg(92)/60</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="40">
+      <ModelElementName>Average residence time (in min.)</ModelElementName>
+      <ModelElementSize h="32" w="136" x="1550" y="550"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>255,165,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">ResidenceTime_avg(92)/60</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="41">
+      <ModelElementName>Average residence time (in min.)</ModelElementName>
+      <ModelElementSize h="32" w="136" x="1550" y="50"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="2" Type="Number">ResidenceTime_avg(33)/60</ModelElementAnimationMode>
+    </ModelElementAnimationText>
   </ModelElements>
   <Resources SecondaryPriority="Random">
     <Resource Name="Kasse1" Type="Number" Value="2"/>
