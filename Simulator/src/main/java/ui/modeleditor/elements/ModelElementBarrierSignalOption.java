@@ -267,7 +267,7 @@ public final class ModelElementBarrierSignalOption implements Cloneable {
 		if (Language.trAll("Surface.Barrier.XML.InitialRelease",name)) {
 			final String count=Language.trAllAttribute("Surface.Barrier.XML.Count",node);
 			if (!count.isEmpty()) {
-				final Long L=NumberTools.getNotNegativeLong(node.getAttribute("Anzahl"));
+				final Long L=NumberTools.getNotNegativeLong(count);
 				if (L==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Barrier.XML.Count"),name,node.getParentNode().getNodeName());
 				initialClients=(int)((long)L);
 			}
