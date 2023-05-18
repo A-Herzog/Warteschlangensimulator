@@ -58,9 +58,10 @@
 \contentsline {section}{\numberline {10.40}Rechte Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{28}{section.10.40}%
 \contentsline {section}{\numberline {10.41}Levy-Verteilung mit Lageparameter $\mu $ und Formparameter $c$}{28}{section.10.41}%
 \contentsline {section}{\numberline {10.42}Maxwell-Boltzmann-Verteilung mit Parameter a}{28}{section.10.42}%
-\contentsline {section}{\numberline {10.43}Verteilung aus empirischen Daten}{29}{section.10.43}%
-\contentsline {section}{\numberline {10.44}Zufällige Auswahl eines von mehreren Werten}{29}{section.10.44}%
-\contentsline {section}{\numberline {10.45}Zufallszahlen gemäß benutzerdefinierter Verteilung}{29}{section.10.45}%
+\contentsline {section}{\numberline {10.43}Studentsche t-Verteilung mit Parametern $\mu $ und $\nu $}{29}{section.10.43}%
+\contentsline {section}{\numberline {10.44}Verteilung aus empirischen Daten}{29}{section.10.44}%
+\contentsline {section}{\numberline {10.45}Zufällige Auswahl eines von mehreren Werten}{29}{section.10.45}%
+\contentsline {section}{\numberline {10.46}Zufallszahlen gemäß benutzerdefinierter Verteilung}{30}{section.10.46}%
 \contentsline {chapter}{\numberline {11}Erlang-C-Rechner}{31}{chapter.11}%
 \contentsline {chapter}{\numberline {12}Allen-Cunneen-Approximationsformel}{33}{chapter.12}%
 \contentsline {chapter}{\numberline {13}Zugriff auf die Modelleigenschaften}{35}{chapter.13}%

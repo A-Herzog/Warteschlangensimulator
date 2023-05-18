@@ -57,7 +57,8 @@
 \contentsline {section}{\numberline {10.40}Right sawtooth distribution with mean $a$ and standard deviation $b$}{28}{section.10.40}%
 \contentsline {section}{\numberline {10.41}Levy distribution with location parameter $\mu $ and form parameter $c$}{28}{section.10.41}%
 \contentsline {section}{\numberline {10.42}Maxwell Boltzmann distribution with parameter a}{28}{section.10.42}%
-\contentsline {section}{\numberline {10.43}Distribution based on empirical values}{29}{section.10.43}%
+\contentsline {section}{\numberline {10.43}Student t-distribution with parameters $\mu $ and $\nu $}{29}{section.10.43}%
+\contentsline {section}{\numberline {10.44}Distribution based on empirical values}{29}{section.10.44}%
 \contentsline {chapter}{\numberline {11}Erlang C calculator}{31}{chapter.11}%
 \contentsline {section}{\numberline {11.1}Random selection of one of several values}{31}{section.11.1}%
 \contentsline {section}{\numberline {11.2}Random numbers according to a user-defined distribution}{32}{section.11.2}%

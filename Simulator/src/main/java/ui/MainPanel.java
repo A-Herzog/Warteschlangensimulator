@@ -275,7 +275,7 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Programmversion
 	 */
-	public static final String VERSION="5.4.0";
+	public static final String VERSION="5.4.1";
 
 	/**
 	 * Ist dies ein offizieller Release-Build?
@@ -283,13 +283,13 @@ public class MainPanel extends MainPanelBase {
 	public static final boolean RELEASE_BUILD=false;
 
 	/** Aktuelle Unterversionsnummer in der Java 8 Versionsreihe */
-	private static final int JAVA8_SECURE_MIN_VERSION=352;
+	private static final int JAVA8_SECURE_MIN_VERSION=372;
 	/** Aktuelle Unterversionsnummer in der Java 9 Versionsreihe */
 	private static final int JAVA9_SECURE_MIN_VERSION=4;
 	/** Aktuelle Unterversionsnummer in der Java 10 Versionsreihe */
 	private static final int JAVA10_SECURE_MIN_VERSION=2;
 	/** Aktuelle Unterversionsnummer in der Java 11 Versionsreihe */
-	private static final int JAVA11_SECURE_MIN_VERSION=17;
+	private static final int JAVA11_SECURE_MIN_VERSION=19;
 	/** Aktuelle Unterversionsnummer in der Java 12 Versionsreihe */
 	private static final int JAVA12_SECURE_MIN_VERSION=2;
 	/** Aktuelle Unterversionsnummer in der Java 13 Versionsreihe */
@@ -301,11 +301,13 @@ public class MainPanel extends MainPanelBase {
 	/** Aktuelle Unterversionsnummer in der Java 16 Versionsreihe */
 	private static final int JAVA16_SECURE_MIN_VERSION=2;
 	/** Aktuelle Unterversionsnummer in der Java 17 Versionsreihe */
-	private static final int JAVA17_SECURE_MIN_VERSION=5;
+	private static final int JAVA17_SECURE_MIN_VERSION=7;
 	/** Aktuelle Unterversionsnummer in der Java 18 Versionsreihe */
 	private static final int JAVA18_SECURE_MIN_VERSION=2;
 	/** Aktuelle Unterversionsnummer in der Java 19 Versionsreihe */
-	private static final int JAVA19_SECURE_MIN_VERSION=1;
+	private static final int JAVA19_SECURE_MIN_VERSION=2;
+	/** Aktuelle Unterversionsnummer in der Java 20 Versionsreihe */
+	private static final int JAVA20_SECURE_MIN_VERSION=0;
 
 	/**
 	 * Bezeichnung für "ungespeichertes Modell" in der Titelzeile für ein neues Modell, welches noch keinen Namen besitzt
@@ -2171,6 +2173,7 @@ public class MainPanel extends MainPanelBase {
 			if (ver[0]==17 && ver[1]<JAVA17_SECURE_MIN_VERSION) ok=false;
 			if (ver[0]==18 && ver[1]<JAVA18_SECURE_MIN_VERSION) ok=false;
 			if (ver[0]==19 && ver[1]<JAVA19_SECURE_MIN_VERSION) ok=false;
+			if (ver[0]==20 && ver[1]<JAVA20_SECURE_MIN_VERSION) ok=false;
 			if (ok) return;
 			setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),"https://"+MainPanel.JDK_URL,MessagePanelIcon.WARNING);
 			new Timer("HideSecurityInfoPanel").schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
