@@ -103,6 +103,9 @@ public abstract class DecideDataPanel extends JPanel {
 	/** Auswahlboxen für die Kundentypen */
 	private DecideDataPanelClientTypes clientTypesPanel;
 
+	/** Eingabefelder für die Vielfachheiten */
+	private List<JTextField> multiplicity;
+
 	/** Eingabefeld für den Schlüssel */
 	private JTextField key;
 
@@ -283,8 +286,35 @@ public abstract class DecideDataPanel extends JPanel {
 		/* Seite "Reihenfolge" */
 		contentCards.add(content=new JPanel(),modeSelect.getItemAt(3));
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		sub.add(new JLabel(Language.tr("Surface.Decide.Dialog.DecideBy.Sequence.Info")));
+
+		multiplicity=new ArrayList<>();
+		for (int i=0;i<destinations.size();i++) {
+			final String name=destinations.get(i);
+
+			final JPanel option=new JPanel(new BorderLayout()); content.add(option);
+
+			final JPanel labelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)); option.add(labelPanel,BorderLayout.NORTH);
+			label=new JLabel(HTML1+name+HTML2); labelPanel.add(label);
+			labels1.add(label);
+
+			final String decideText;
+			if (oldPanel!=null) {
+				decideText=(oldPanel.multiplicity.size()>i)?oldPanel.multiplicity.get(i).getText():"1";
+			} else {
+				decideText=(decide.getMultiplicity().size()<=i)?"1":(""+decide.getMultiplicity().get(i));
+			}
+			data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Multiplicity")+":",decideText,10);
+			option.add(line=(JPanel)data[0],BorderLayout.CENTER);
+			final JTextField input=(JTextField)data[1];
+			input.setEditable(!readOnly);
+			input.addKeyListener(new KeyListener(){
+				@Override public void keyTyped(KeyEvent e) {getMultiplicity(false);}
+				@Override public void keyPressed(KeyEvent e) {getMultiplicity(false);}
+				@Override public void keyReleased(KeyEvent e) {getMultiplicity(false);}
+			});
+
+			multiplicity.add(input);
+		}
 
 		/* Seite "Kürzeste Warteschlange an der nächsten Station" */
 		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(4));
@@ -411,6 +441,7 @@ public abstract class DecideDataPanel extends JPanel {
 
 		getRates(false);
 		getConditions(false);
+		getMultiplicity(false);
 		getCheckKeyValues(false);
 	}
 
@@ -577,6 +608,27 @@ public abstract class DecideDataPanel extends JPanel {
 	}
 
 	/**
+	 * Liefert die Vielfachheiten für die Verzweigungen gemäß den Einstellungen
+	 * @param showErrorDialog	Im Fehlerfall eine Meldung ausgeben?
+	 * @return	Liefert im Erfolgsfall die Vielfachheiten und im Fehlerfall <code>null</code>
+	 */
+	private List<Integer> getMultiplicity(final boolean showErrorDialog) {
+		final List<Integer> values=new ArrayList<>();
+
+		for (int i=0;i<multiplicity.size();i++) {
+			final JTextField field=multiplicity.get(i);
+			final Long L=NumberTools.getPositiveLong(field,true);
+			if (L==null) {
+				if (showErrorDialog) MsgBox.error(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge.Multiplicity.Error.Title"),String.format(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Multiplicity.Error.InfoInvalid"),i+1,field.getText()));
+				return null;
+			}
+			values.add(L.intValue());
+		}
+
+		return values;
+	}
+
+	/**
 	 * Prüft, ob ein Wert (ggf. bestehend aus mehreren Teilwerten, wenn dies zulässig ist) gültig ist.
 	 * @param value	Zu prüfender Wert einer Schlüssel-Wert-Zuweisung
 	 * @return	Gibt an, ob der Wert gültig ist
@@ -640,7 +692,7 @@ public abstract class DecideDataPanel extends JPanel {
 		case 0: return getRates(true)!=null;
 		case 1: return getConditions(true)!=null;
 		case 2: return clientTypesPanel.checkClientTypes();
-		case 3: return true;
+		case 3: return getMultiplicity(true)!=null;
 		case 4: return true;
 		case 5: return true;
 		case 6: return true;
@@ -686,7 +738,9 @@ public abstract class DecideDataPanel extends JPanel {
 			clientTypesList.addAll(clientTypesPanel.getClientTypes());
 			break;
 		case MODE_SEQUENCE:
-			/* nichts zurück zu schreiben */
+			final List<Integer> multiplicityList=decide.getMultiplicity();
+			multiplicityList.clear();
+			multiplicityList.addAll(getMultiplicity(false));
 			break;
 		case MODE_SHORTEST_QUEUE_NEXT_STATION:
 			switch (comboBoxAtTie1.getSelectedIndex()) {

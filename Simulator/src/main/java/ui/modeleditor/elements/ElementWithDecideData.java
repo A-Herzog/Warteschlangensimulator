@@ -49,6 +49,12 @@ public interface ElementWithDecideData {
 	List<String> getRates();
 
 	/**
+	 * Liefert die Vielfachheiten zur Ansteuerung einzelner Ausgänge im Reihum-Modus.
+	 * @return	Vielfachheiten für die einzelnen Ausgänge
+	 */
+	List<Integer> getMultiplicity();
+
+	/**
 	 * Liefert die Bedingungen, mit denen die Kunden zu den einzelnen Zielstationen der auslaufenden Kanten weitergeleitet werden.
 	 * @return	Liste der Bedingungen für die Verzweigungen
 	 */

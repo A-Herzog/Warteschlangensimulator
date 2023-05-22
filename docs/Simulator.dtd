@@ -319,6 +319,7 @@
   Bedingung	        		CDATA	#IMPLIED
   ZeitabhaengigePruefungen	CDATA	#IMPLIED
   Kundentyp	        		CDATA	#IMPLIED
+  Vielfachheit				CDATA	#IMPLIED
   Status	        		CDATA	#IMPLIED
   NeuerKundentyp    		CDATA	#IMPLIED
 >
@@ -2966,6 +2967,7 @@
   Condition		CDATA	#IMPLIED
   TimedChecks	CDATA	#IMPLIED
   ClientType	CDATA	#IMPLIED
+  Multiplicity	CDATA	#IMPLIED
   Status		CDATA	#IMPLIED
   NewClientType CDATA	#IMPLIED
 >

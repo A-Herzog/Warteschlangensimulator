@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-09 11:42+0200\n"
+"POT-Creation-Date: 2023-05-20 21:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27734,11 +27734,6 @@ msgstr ""
 msgid "Surface.Decide.Dialog.DecideBy.Sequence"
 msgstr "Reihenfolge"
 
-msgid "Surface.Decide.Dialog.DecideBy.Sequence.Info"
-msgstr ""
-"Es wird jeweils reihum ein Kunde an jeweils einen\n"
-"der Ausgänge geleitet."
-
 msgid "Surface.Decide.Dialog.DecideBy.ShortestQueueNextProcessStation"
 msgstr "Kürzeste Warteschlange an der nächsten Bedienstation"
 
@@ -27820,6 +27815,15 @@ msgstr "Mehrere durch \";\" getrennte Werte pro Werte-Feld"
 msgid "Surface.Decide.Dialog.OutgoingEdge.MultiValues.Hint"
 msgstr "Wenn aktiviert, können mehrere Werte pro Ausgang angegeben werden. Allerdings dürften die Werte selbst dann keine \";\" enthalten."
 
+msgid "Surface.Decide.Dialog.OutgoingEdge.Multiplicity"
+msgstr "Vielfachheit"
+
+msgid "Surface.Decide.Dialog.OutgoingEdge.Multiplicity.Error.InfoInvalid"
+msgstr "Die Vielfachheit für die %d. auslaufende Kante \"%s\" ist ungültig. Es muss eine positive ganze Zahl angegeben werden."
+
+msgid "Surface.Decide.Dialog.OutgoingEdge.Multiplicity.Error.Title"
+msgstr "Ungültige Vielfachheit"
+
 msgid "Surface.Decide.Dialog.OutgoingEdge.Rate"
 msgstr "Übergangsrate"
 
@@ -27873,6 +27877,9 @@ msgstr "Kundentyp"
 
 msgid "Surface.Decide.XML.Connection.Condition"
 msgstr "Bedingung"
+
+msgid "Surface.Decide.XML.Connection.Multiplicity"
+msgstr "Vielfachheit"
 
 msgid "Surface.Decide.XML.Connection.Rate"
 msgstr "Rate"
@@ -37043,6 +37050,11 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Surface.Costs.Condition.Error.Info"
 #~ msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
+
+#~ msgid "Surface.Decide.Dialog.DecideBy.Sequence.Info"
+#~ msgstr ""
+#~ "Es wird jeweils reihum ein Kunde an jeweils einen\n"
+#~ "der Ausgänge geleitet."
 
 #~ msgid "Surface.ExpressionTableModel.Dialog.Expression"
 #~ msgstr "Ausdruck"

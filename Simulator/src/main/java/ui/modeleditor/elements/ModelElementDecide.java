@@ -110,37 +110,50 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	/**
 	 * Liste der Raten für die Verzweigungen
 	 * @see #getRates()
+	 * @see DecideMode#MODE_CHANCE
 	 */
 	private final List<String> rates;
 
 	/**
 	 * Liste der Bedingungen für die Verzweigungen
 	 * @see #getConditions()
+	 * @see DecideMode#MODE_CONDITION
 	 */
 	private final List<String> conditions;
 
 	/**
 	 * Liste der Namen der Kundentypen für die Verzweigungen
 	 * @see #getClientTypes()
+	 * @see DecideMode#MODE_CLIENTTYPE
 	 */
 	private final List<List<String>> clientTypes;
+
+	/**
+	 * Liste der Vielfachheiten für die Verzweigungen
+	 * @see #getMultiplicity()
+	 * @see DecideMode#MODE_SEQUENCE
+	 */
+	private final List<Integer> multiplicity;
 
 	/**
 	 * Schlüssel gemäß dessen Werten die Verzweigung erfolgen soll
 	 * @see #getKey()
 	 * @see #setKey(String)
+	 * @see DecideMode#MODE_KEY_VALUE
 	 */
 	private String key;
 
 	/**
 	 * Verzweigungswerte
 	 * @see #getValues()
+	 * @see DecideMode#MODE_KEY_VALUE
 	 */
 	private final List<String> values;
 
 	/**
 	 * Kann jeweils ein {@link #values}-Eintrag mehrere, durch ";" getrennte Werte enthalten?
 	 * @see #values
+	 * @see DecideMode#MODE_KEY_VALUE
 	 */
 	private boolean multiTextValues;
 
@@ -171,6 +184,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		multiTextValues=true;
 		decideByStationOnTie=DecideByStationOnTie.RANDOM;
 		clientTypes=new ArrayList<>();
+		multiplicity=new ArrayList<>();
 	}
 
 	/**
@@ -230,6 +244,10 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			if (sum==0) sum=1;
 		}
 
+		if (mode==DecideMode.MODE_SEQUENCE) {
+			while (multiplicity.size()<connectionsOut.size()) multiplicity.add(1);
+		}
+
 		for (int i=0;i<connectionsOut.size();i++) {
 			final ModelElementEdge connection=connectionsOut.get(i);
 			String name="";
@@ -260,6 +278,8 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				break;
 			case MODE_SEQUENCE:
 				name=String.format(Language.tr("Surface.Decide.SequenceNumber"),i+1);
+				int mul=multiplicity.get(i);
+				if (mul>1) name+=" ("+mul+"x)";
 				break;
 			case MODE_SHORTEST_QUEUE_NEXT_STATION:
 				name="";
@@ -333,7 +353,12 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			}
 			break;
 		case MODE_SEQUENCE:
-			/* immer alles ok */
+			List<Integer> multiplicity2=decide.multiplicity;
+			for (int i=0;i<connectionsOut.size();i++) {
+				if (i>=multiplicity.size() && i>=multiplicity2.size()) continue;
+				if (i>=multiplicity.size() || i>=multiplicity2.size()) return false;
+				if (!multiplicity.get(i).equals(multiplicity2.get(i))) return false;
+			}
 			break;
 		case MODE_SHORTEST_QUEUE_NEXT_STATION:
 			if (decideByStationOnTie!=decide.decideByStationOnTie) return false;
@@ -410,7 +435,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				source.clientTypes.stream().map(l->{List<String> l2=new ArrayList<>(); l2.addAll(l); return l2;}).forEach(l->clientTypes.add(l));
 				break;
 			case MODE_SEQUENCE:
-				/* nichts zu kopieren */
+				multiplicity.addAll(source.multiplicity);
 				break;
 			case MODE_SHORTEST_QUEUE_NEXT_STATION:
 				/* nichts zu kopieren */
@@ -736,7 +761,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				}
 				break;
 			case MODE_SEQUENCE:
-				/* nichts zu speichern */
+				sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Connection.Multiplicity"),""+multiplicity.get(i));
 				break;
 			case MODE_SHORTEST_QUEUE_NEXT_STATION:
 				/* nichts zu speichern */
@@ -850,6 +875,16 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				}
 				if (type.length()>0) list.add(type.toString());
 				clientTypes.add(list);
+
+				/* Sequence */
+				final String multiplicityString=Language.trAllAttribute("Surface.Decide.XML.Connection.Multiplicity",node);
+				if (multiplicityString.isEmpty()) {
+					multiplicity.add(1);
+				} else {
+					final Long multiplicity=NumberTools.getPositiveLong(multiplicityString);
+					if (multiplicity==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Decide.XML.Connection.Multiplicity"),name,node.getParentNode().getNodeName());
+					this.multiplicity.add(multiplicity.intValue());
+				}
 
 				/* Key=Value */
 				values.add(Language.trAllAttribute("Surface.Decide.XML.Connection.Value",node));
@@ -987,6 +1022,15 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	@Override
 	public List<List<String>> getClientTypes() {
 		return clientTypes;
+	}
+
+	/**
+	 * Liefert die Vielfachheiten zur Ansteuerung einzelner Ausgänge im Reihum-Modus.
+	 * @return	Vielfachheiten für die einzelnen Ausgänge
+	 */
+	@Override
+	public List<Integer> getMultiplicity() {
+		return multiplicity;
 	}
 
 	/**
@@ -1159,8 +1203,9 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.Sequence"),1000);
 			for (int i=0;i<connectionsOut.size();i++) {
 				final ModelElementEdge edge=connectionsOut.get(i);
+				final String info=(i>=multiplicity.size() || multiplicity.get(i).intValue()==1)?"":(" ("+multiplicity.get(i).intValue()+"x)");
 				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
-				descriptionBuilder.addConditionalEdgeOut(Language.tr("ModelDescription.NextElement")+newClientType,edge);
+				descriptionBuilder.addConditionalEdgeOut(Language.tr("ModelDescription.NextElement")+info+newClientType,edge);
 			}
 			break;
 		case MODE_SHORTEST_QUEUE_NEXT_STATION:
@@ -1263,7 +1308,10 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			}
 			break;
 		case MODE_SEQUENCE:
-			/* Keine Konfiguration */
+			for (int i=0;i<multiplicity.size();i++) {
+				final int index=i;
+				searcher.testInteger(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1),multiplicity.get(i),newMul->multiplicity.set(index,newMul));
+			}
 			break;
 		case MODE_SHORTEST_QUEUE_NEXT_STATION:
 			/* Keine Konfiguration */

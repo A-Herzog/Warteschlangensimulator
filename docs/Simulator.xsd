@@ -402,6 +402,7 @@
   <xs:attribute name="Bedingung" type="xs:string"/>
   <xs:attribute name="ZeitabhaengigePruefungen" type="xs:string"/>
   <xs:attribute name="Kundentyp" type="xs:string"/>
+  <xs:attribute name="Vielfachheit" type="xs:integer"/>
   <xs:attribute name="Texteigenschaft" type="xs:string"/>
   <xs:attribute name="Status" type="xs:string"/>
   <xs:attribute name="NeuerKundentyp" type="xs:string"/>
@@ -2824,6 +2825,7 @@
   <xs:attribute name="Condition" type="xs:string"/>
   <xs:attribute name="TimedChecks" type="xs:string"/>
   <xs:attribute name="ClientType" type="xs:string"/>
+  <xs:attribute name="Multiplicity" type="xs:integer"/>
   <xs:attribute name="Value" type="xs:string"/>
   <xs:attribute name="Status" type="xs:string"/>
   <xs:attribute name="NewClientType" type="xs:string"/>

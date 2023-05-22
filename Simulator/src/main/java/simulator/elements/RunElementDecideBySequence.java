@@ -65,13 +65,17 @@ public class RunElementDecideBySequence extends RunElement {
 		final RunElementDecideBySequence decide=new RunElementDecideBySequence((ModelElementDecide)element);
 
 		decide.connectionIds=new ArrayList<>();
-		ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
+		final ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
 		if (edges.length==0) return String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId());
 
-		for (ModelElementEdge edge : edges) {
+		final List<Integer> edgesMultiplicity=((ModelElementDecide)element).getMultiplicity();
+
+		for (int i=0;i<edges.length;i++) {
+			final ModelElementEdge edge=edges[i];
+			final int mul=(i>=edgesMultiplicity.size())?1:edgesMultiplicity.get(i).intValue();
 			final int id=findNextId(edge);
 			if (id<0) return String.format(Language.tr("Simulation.Creator.EdgeToNowhere"),element.getId(),edge.getId());
-			decide.connectionIds.add(id);
+			for (int j=0;j<mul;j++) decide.connectionIds.add(id);
 		}
 
 		/* Kundentypzuweisungen */

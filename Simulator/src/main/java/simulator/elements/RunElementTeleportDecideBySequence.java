@@ -15,6 +15,7 @@
  */
 package simulator.elements;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -60,15 +61,20 @@ public class RunElementTeleportDecideBySequence extends RunElement {
 		final RunElementTeleportDecideBySequence decide=new RunElementTeleportDecideBySequence((ModelElementDecideAndTeleport)element);
 
 		decide.destinationStrings=decideElement.getDestinations().toArray(new String[0]);
-		decide.destinationIDs=new int[decide.destinationStrings.length];
-		int count=0;
+		final List<Integer> destinationIDs=new ArrayList<>();
 		if (decide.destinationStrings.length==0) return String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId());
-		for (String destination: decide.destinationStrings) {
+
+		final List<Integer> edgesMultiplicity=decideElement.getMultiplicity();
+
+		for (int i=0;i<decide.destinationStrings.length;i++) {
+			final String destination=decide.destinationStrings[i];
+			final int mul=(i>=edgesMultiplicity.size())?1:edgesMultiplicity.get(i).intValue();
+
 			final int destinationID=RunElementTeleportSource.getDestinationID(element.getModel(),destination);
-			if (destinationID<0) return String.format(Language.tr("Simulation.Creator.InvalidTeleportDestination"),element.getId(),decide.destinationStrings[count]);
-			decide.destinationIDs[count]=destinationID;
-			count++;
+			if (destinationID<0) return String.format(Language.tr("Simulation.Creator.InvalidTeleportDestination"),element.getId(),destination);
+			for (int j=0;j<mul;j++) destinationIDs.add(destinationID);
 		}
+		decide.destinationIDs=destinationIDs.stream().mapToInt(Integer::intValue).toArray();
 
 		return decide;
 	}

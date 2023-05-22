@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-09 11:42+0200\n"
+"POT-Creation-Date: 2023-05-20 21:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27717,9 +27717,6 @@ msgstr ""
 msgid "Surface.Decide.Dialog.DecideBy.Sequence"
 msgstr "Sequence"
 
-msgid "Surface.Decide.Dialog.DecideBy.Sequence.Info"
-msgstr "In each case, one Client is routed to one of the outputs."
-
 msgid "Surface.Decide.Dialog.DecideBy.ShortestQueueNextProcessStation"
 msgstr "Shortest queue at the next process station"
 
@@ -27799,6 +27796,15 @@ msgstr "Multiple values separated by \";\" per value field"
 msgid "Surface.Decide.Dialog.OutgoingEdge.MultiValues.Hint"
 msgstr "If enabled, multiple values can be specified per output edge. In this case the values themselves can not contain \";\"."
 
+msgid "Surface.Decide.Dialog.OutgoingEdge.Multiplicity"
+msgstr "Multiplicity"
+
+msgid "Surface.Decide.Dialog.OutgoingEdge.Multiplicity.Error.InfoInvalid"
+msgstr "The multiplicity for the %d. outgoing edge \"%s\" is invalid. A positive integer number has to be specified."
+
+msgid "Surface.Decide.Dialog.OutgoingEdge.Multiplicity.Error.Title"
+msgstr "Invalid multiplicity"
+
 msgid "Surface.Decide.Dialog.OutgoingEdge.Rate"
 msgstr "Transition rate"
 
@@ -27852,6 +27858,9 @@ msgstr "ClientType"
 
 msgid "Surface.Decide.XML.Connection.Condition"
 msgstr "Condition"
+
+msgid "Surface.Decide.XML.Connection.Multiplicity"
+msgstr "Multiplicity"
 
 msgid "Surface.Decide.XML.Connection.Rate"
 msgstr "Rate"
@@ -36993,6 +37002,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Surface.Costs.Condition.Error.Info"
 #~ msgstr "The specified condition \"%s\" is invalid at character %d."
+
+#~ msgid "Surface.Decide.Dialog.DecideBy.Sequence.Info"
+#~ msgstr "In each case, one Client is routed to one of the outputs."
 
 #~ msgid "Surface.ExpressionTableModel.Dialog.Expression"
 #~ msgstr "Expression"
