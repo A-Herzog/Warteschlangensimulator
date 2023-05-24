@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Alexander Herzog
+ * Copyright 2023 Alexander Herzog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,31 +15,29 @@
  */
 package parser.symbols;
 
-import org.apache.commons.math3.special.Gamma;
-
 import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
- * Gamma-Funktion
+ * Geometrischer Mittelwert der Datenreihe, die aus den übergebenen Parametern gebildet wird
  * @author Alexander Herzog
  */
-public class CalcSymbolPreOperatorGamma extends CalcSymbolPreOperator {
+public final class CalcSymbolPreOperatorMeanGeometric extends CalcSymbolPreOperator {
+	/**
+	 * Namen für das Symbol
+	 * @see #getNames()
+	 */
+	private static final String[] names=new String[]{"GeoMean","GeomMean","GeometricMean","GeometrischerMittelwert"};
+
 	/**
 	 * Konstruktor der Klasse
 	 */
-	public CalcSymbolPreOperatorGamma() {
+	public CalcSymbolPreOperatorMeanGeometric() {
 		/*
 		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
 		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
 		 */
 	}
-
-	/**
-	 * Namen für das Symbol
-	 * @see #getNames()
-	 */
-	private static final String[] names=new String[]{"Gamma"};
 
 	@Override
 	public String[] getNames() {
@@ -48,19 +46,17 @@ public class CalcSymbolPreOperatorGamma extends CalcSymbolPreOperator {
 
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
-		if (parameters.length!=1) throw error();
-		final double d=parameters[0];
-		if (d==0) throw error();
-		if (d<0 && (-d)%1==0.0) throw error();
-		return Gamma.gamma(d);
+		if (parameters.length==0) throw error();
+		double prod=1;
+		for (double d: parameters) prod*=d;
+		return Math.pow(prod,1.0/parameters.length);
 	}
 
 	@Override
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
-		if (parameters.length!=1) return fallbackValue;
-		final double d=parameters[0];
-		if (d==0) return fallbackValue;
-		if (d<0 && (-d)%1==0.0) return fallbackValue;
-		return Gamma.gamma(d);
+		if (parameters.length==0) return fallbackValue;
+		double prod=1;
+		for (double d: parameters) prod*=d;
+		return Math.pow(prod,1.0/parameters.length);
 	}
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-20 21:55+0200\n"
+"POT-Creation-Date: 2023-05-22 11:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5881,6 +5881,12 @@ msgstr "Absolutbetrag"
 msgid "ExpressionBuilder.MathematicalFunctions.AbsolutValue.Info"
 msgstr "<p>Berechnet den Absolutbetrag des als Parameter übergebenen Wertes.</p><p>Beispiel: <tt>abs(5)</tt> und <tt>abs(-5)</tt> liefern beide 5.</p>"
 
+msgid "ExpressionBuilder.MathematicalFunctions.Beta"
+msgstr "Beta-Funktion"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Beta.Info"
+msgstr "<p>Liefert den Wert des Beta-Funktion für die Parameter p und q. Es muss dabei p,q&gt;0 gelten.</p>"
+
 msgid "ExpressionBuilder.MathematicalFunctions.Binomial"
 msgstr "Binomialkoeffizient"
 
@@ -5911,6 +5917,18 @@ msgstr "Gamma-Funktion"
 msgid "ExpressionBuilder.MathematicalFunctions.GammaFunction.Info"
 msgstr "<p>Liefert den Wert des Gamma-Funktion für den als Parameter übergebenen Wert.</p><p>Beispiel: <tt>gamma(7)</tt> liefert 720.</p>"
 
+msgid "ExpressionBuilder.MathematicalFunctions.GammaPFunction"
+msgstr "Unvollständige, regularisierte obere Gamma-Funktion"
+
+msgid "ExpressionBuilder.MathematicalFunctions.GammaPFunction.Info"
+msgstr "<p>Berechnet den Wert der unvollständigen, regularisierten oberen Gamma-Funktion <tt>P(a;x)=gamma(a,x)/Gamma(x)</tt>.</p>"
+
+msgid "ExpressionBuilder.MathematicalFunctions.GammaQFunction"
+msgstr "Unvollständige, regularisierte untere Gamma-Funktion"
+
+msgid "ExpressionBuilder.MathematicalFunctions.GammaQFunction.Info"
+msgstr "<p>Berechnet den Wert der unvollständigen, regularisierten unteren Gamma-Funktion <tt>Q(a;x)=Gamma(a,x)/Gamma(x)</tt>.</p>"
+
 msgid "ExpressionBuilder.MathematicalFunctions.Gcd"
 msgstr "Größter gemeinsamer Teiler"
 
@@ -5922,6 +5940,12 @@ msgstr "Ganzzahl-Anteil"
 
 msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart.Info"
 msgstr "<p>Liefert den Ganzzahl-Anteil des als Parameters übergebenen Wertes.</p><p>Beispiel: <tt>int(3,4)</tt> liefert 3.</p>"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Inverse"
+msgstr "Inverse"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Inverse.Info"
+msgstr "<p>Berechnet die Inverse des übergebenen Parameters, d.h. <tt>Inverse(x)=1/x</tt>.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.IsPrime"
 msgstr "Primzahlprüfung"
@@ -8014,6 +8038,18 @@ msgstr "Mittelwert"
 msgid "ExpressionBuilder.StatisticalFunctions.Mean.Info"
 msgstr "<p>Berechnet den arithmetischen Mittelwert der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>mean(1;2;3;4)</tt> liefert 2,5.</p>"
 
+msgid "ExpressionBuilder.StatisticalFunctions.MeanGeometric"
+msgstr "Geometrisches Mittel"
+
+msgid "ExpressionBuilder.StatisticalFunctions.MeanGeometric.Info"
+msgstr "<p>Berechnet das geometrische Mittel der als Parameter übergebenen Werte.</p>"
+
+msgid "ExpressionBuilder.StatisticalFunctions.MeanHarmonic"
+msgstr "Harmonisches Mittel"
+
+msgid "ExpressionBuilder.StatisticalFunctions.MeanHarmonic.Info"
+msgstr "<p>Berechnet das harmonische Mittel der als Parameter übergebenen Werte.</p>"
+
 msgid "ExpressionBuilder.StatisticalFunctions.Median"
 msgstr "Median"
 
@@ -8025,6 +8061,12 @@ msgstr "Minimum"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Minimum.Info"
 msgstr "<p>Berechnet das Minimum der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>min(1;2;3)</tt> liefert 1.</p>"
+
+msgid "ExpressionBuilder.StatisticalFunctions.Range"
+msgstr "Spannweite"
+
+msgid "ExpressionBuilder.StatisticalFunctions.Range.Info"
+msgstr "<p>Berechnet die Spannweite der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>range(1;2;3;-4;5)</tt> liefert 9 (=Maximum der Werte minus Minimum der Werte).</p>"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Sk"
 msgstr "Schiefe"

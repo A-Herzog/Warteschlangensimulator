@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Alexander Herzog
+ * Copyright 2023 Alexander Herzog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +21,14 @@ import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
- * Gamma-Funktion
+ * Unvollständige, regularisierte obere Gamma-Funktion
  * @author Alexander Herzog
  */
-public class CalcSymbolPreOperatorGamma extends CalcSymbolPreOperator {
+public class CalcSymbolPreOperatorGammaP extends CalcSymbolPreOperator {
 	/**
 	 * Konstruktor der Klasse
 	 */
-	public CalcSymbolPreOperatorGamma() {
+	public CalcSymbolPreOperatorGammaP() {
 		/*
 		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
 		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
@@ -39,7 +39,7 @@ public class CalcSymbolPreOperatorGamma extends CalcSymbolPreOperator {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"Gamma"};
+	private static final String[] names=new String[]{"RegularizedGammaP"};
 
 	@Override
 	public String[] getNames() {
@@ -48,19 +48,23 @@ public class CalcSymbolPreOperatorGamma extends CalcSymbolPreOperator {
 
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
-		if (parameters.length!=1) throw error();
-		final double d=parameters[0];
-		if (d==0) throw error();
-		if (d<0 && (-d)%1==0.0) throw error();
-		return Gamma.gamma(d);
+		if (parameters.length!=2) throw error();
+		final double a=parameters[0];
+		if (a==0) throw error();
+		if (a<0 && (-a)%1==0.0) throw error();
+		final double x=parameters[1];
+		if (x<0) throw error();
+		return Gamma.regularizedGammaP(a,x);
 	}
 
 	@Override
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
-		if (parameters.length!=1) return fallbackValue;
-		final double d=parameters[0];
-		if (d==0) return fallbackValue;
-		if (d<0 && (-d)%1==0.0) return fallbackValue;
-		return Gamma.gamma(d);
+		if (parameters.length!=2) return fallbackValue;
+		final double a=parameters[0];
+		if (a==0) return fallbackValue;
+		if (a<0 && (-a)%1==0.0) return fallbackValue;
+		final double x=parameters[1];
+		if (x<0) return fallbackValue;
+		return Gamma.regularizedGammaP(a,x);
 	}
 }

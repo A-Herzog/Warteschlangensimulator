@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-20 21:55+0200\n"
+"POT-Creation-Date: 2023-05-22 11:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5878,6 +5878,12 @@ msgstr "Absolut value"
 msgid "ExpressionBuilder.MathematicalFunctions.AbsolutValue.Info"
 msgstr "<p>Calculates the absolute value of the parameter passed as parameter.</p> <p>Example: <tt>abs(5)</tt> and <tt>abs(-5)</tt> will both return 5.</p>"
 
+msgid "ExpressionBuilder.MathematicalFunctions.Beta"
+msgstr "Beta function"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Beta.Info"
+msgstr "<p>Returns the value of the Betafunction for the parameters p and q. p,q&gt;0 has to be fulfilled.</p>"
+
 msgid "ExpressionBuilder.MathematicalFunctions.Binomial"
 msgstr "Binomial coefficient"
 
@@ -5908,6 +5914,18 @@ msgstr "Gamma function"
 msgid "ExpressionBuilder.MathematicalFunctions.GammaFunction.Info"
 msgstr "<p>Returns the value of the Gamma function for the parameter passed as parameter.</p> <p>Example: <tt>gamma(7)</tt> returns 720.</p>"
 
+msgid "ExpressionBuilder.MathematicalFunctions.GammaPFunction"
+msgstr "Incomplete, regularized upper Gamma function"
+
+msgid "ExpressionBuilder.MathematicalFunctions.GammaPFunction.Info"
+msgstr "<p>Calculates the value of the incomplete regularized upper gamma function <tt>P(a;x)=gamma(a,x)/Gamma(x)</tt>.</p>"
+
+msgid "ExpressionBuilder.MathematicalFunctions.GammaQFunction"
+msgstr "Incomplete, regularized lower Gamma function"
+
+msgid "ExpressionBuilder.MathematicalFunctions.GammaQFunction.Info"
+msgstr "<p>Calculates the value of the incomplete regularized lower gamma function <tt>Q(a;x)=Gamma(a,x)/Gamma(x)</tt>.</p>"
+
 msgid "ExpressionBuilder.MathematicalFunctions.Gcd"
 msgstr "Greatest common divisor"
 
@@ -5919,6 +5937,12 @@ msgstr "Integer part"
 
 msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart.Info"
 msgstr "<p>Returns the integer part of the value passed as parameter.</p> <p>Example: <tt>int(3.4)</tt> returns 3.</p>"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Inverse"
+msgstr "Inverse"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Inverse.Info"
+msgstr "<p>Calculates the inverse of the passed parameter, i.e. <tt>Inverse(x)=1/x</tt>.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.IsPrime"
 msgstr "Prime number check"
@@ -8023,6 +8047,18 @@ msgstr "Mean"
 msgid "ExpressionBuilder.StatisticalFunctions.Mean.Info"
 msgstr "<p>Calculates the arithmetic mean of the values passed as parameters.</p> <p>Example: <tt>mean(1;2;3;4)</tt> returns 2.5.</p>"
 
+msgid "ExpressionBuilder.StatisticalFunctions.MeanGeometric"
+msgstr "Geometric mean"
+
+msgid "ExpressionBuilder.StatisticalFunctions.MeanGeometric.Info"
+msgstr "<p>Calculates the geometric mean of the values passed as parameters.</p>"
+
+msgid "ExpressionBuilder.StatisticalFunctions.MeanHarmonic"
+msgstr "Harmonic mean"
+
+msgid "ExpressionBuilder.StatisticalFunctions.MeanHarmonic.Info"
+msgstr "<p>Calculates the harmonic mean of the values passed as parameters.</p>"
+
 msgid "ExpressionBuilder.StatisticalFunctions.Median"
 msgstr "Median"
 
@@ -8034,6 +8070,12 @@ msgstr "Minimum"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Minimum.Info"
 msgstr "<p>Calculates the minimum value of the values passed as parameters.</p> <p> Example: <tt>min(1;2;3)</tt> returns 1.</p>"
+
+msgid "ExpressionBuilder.StatisticalFunctions.Range"
+msgstr "Rangr"
+
+msgid "ExpressionBuilder.StatisticalFunctions.Range.Info"
+msgstr "<p>Calculates the range of the values passed as parameters.</p> <p> Example: <tt>range(1;2;3;-4;5)</tt> returns 9 (=maximum of the values minus minimum of the values).</p>"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Sk"
 msgstr "Skewness"

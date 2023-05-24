@@ -134,8 +134,12 @@ public class ExpressionBuilderBasics {
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.IntegerPart")+" (int)","int("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.IntegerPart.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.FractionPart")+" (frac)","frac("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.FractionPart.info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Factorial")+" (!)","!",Language.tr("ExpressionBuilder.MathematicalFunctions.Factorial.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Inverse")+" (Inverse)","Inverse("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.Inverse.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Binomial")+" (binom)","binom(n;k)",Language.tr("ExpressionBuilder.MathematicalFunctions.Binomial.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Beta")+" (beta)","beta(p;q)",Language.tr("ExpressionBuilder.MathematicalFunctions.Beta.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.GammaFunction")+" (gamma)","gamma("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.GammaFunction.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.GammaPFunction")+" (gammaP)","gammaP(a;x)",Language.tr("ExpressionBuilder.MathematicalFunctions.GammaPFunction.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.GammaQFunction")+" (gammaQ)","gammaQ(a;x)",Language.tr("ExpressionBuilder.MathematicalFunctions.GammaQFunction.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.ZetaFunction")+" (zeta)","zeta("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.ZetaFunction.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Random")+" (random)","random()",Language.tr("ExpressionBuilder.MathematicalFunctions.Random.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.RandomRange")+" (randomRange)","randomRange("+value+";"+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.RandomRange.Info"));
@@ -202,8 +206,11 @@ public class ExpressionBuilderBasics {
 		group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.StatisticalFunctions"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Minimum")+" (min)","min("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Minimum.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Maximum")+" (max)","max("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Maximum.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Range")+" (range)","range("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Range.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Sum")+" (sum)","sum("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Sum.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Mean")+" (mean)","mean("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Mean.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.MeanGeometric")+" (geomean)","geomean("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.MeanGeometric.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.MeanHarmonic")+" (harmonicmean)","harmonicmean("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.MeanHarmonic.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Median")+" (median)","median("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Median.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Variance")+" (var)","var("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Variance.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.StandardDeviation")+" (sd)","sd("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.StandardDeviation.Info"));

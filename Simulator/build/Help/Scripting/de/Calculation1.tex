@@ -108,6 +108,10 @@ Warteschlangensimulator unterstützten Winkelfunktionen vorgestellt werden.)
 Absolutbetrag, z.B.\ \cm{abs(-5)=5}.
 
 \item
+\cmd{beta(p;q)}:
+Beta-Funktion mit $p,q>0$
+
+\item
 \cmd{binom(n;k)}:
 Binomialkoeffizient
 
@@ -140,8 +144,20 @@ Nachkommaanteil, z.B.\ \cm{frac(1{,}3)=0,3}
 Gamma-Funktion, z.B.\ \cm{gamma(5)=4!=24}
 
 \item
+\cmd{gammaP(a;x)}:
+Unvollständige, regularisierte obere Gamma-Funktion, \cm{gammaP(a;x)}$=\frac{\gamma(a,x)}{\Gamma(x)}$
+\item
+
+\cmd{gammaQ(a;x)}:
+Unvollständige, regularisierte untere Gamma-Funktion, \cm{gammaQ(a;x)}$=\frac{\Gamma(a,x)}{\Gamma(x)}$
+
+\item
 \cmd{int(x)}:
 Ganzzahlanteil, z.B.\ \cm{int(2{,}9)=2}
+
+\item
+\cmd{Inverse(x)}:
+Inverse, \cm{Inverse(x)=1/x}
 
 \item
 \cmd{ld(x)}:
@@ -360,12 +376,24 @@ Berechnet das Minimum der übergebenen Zahlen.
 Berechnet das Maximum der übergebenen Zahlen.
 
 \item
+\cmd{Range(a;b;c;...)}:
+Berechnet die Spannweite, d.h. die Differenz aus Maximum und Minimum, der übergebenen Zahlen.
+
+\item
 \cmd{Sum(a;b;c;...)}:
 Berechnet die Summe der übergebenen Zahlen.
 
 \item
 \cmd{Mean(a;b;c;...)}:
 Berechnet das arithmetische Mittel der übergebenen Zahlen.
+
+\item
+\cmd{GeomMean(a;b;c;...)}:
+Berechnet das geometrische Mittel der übergebenen Zahlen.
+
+\item
+\cmd{HarmonicMean(a;b;c;...)}:
+Berechnet das harmonische Mittel der übergebenen Zahlen.
 
 \item
 \cmd{Median(a;b;c;...)}:
