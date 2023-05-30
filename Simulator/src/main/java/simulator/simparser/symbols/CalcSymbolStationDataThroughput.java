@@ -30,7 +30,7 @@ public class CalcSymbolStationDataThroughput extends CalcSymbolStationData {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"Durchsatz","Throughput","ArrivalRate"}; // FIXME: Doku ergänzen
+	private static final String[] names=new String[]{"Durchsatz","Throughput","ArrivalRate"};
 
 	/**
 	 * Konstruktor der Klasse

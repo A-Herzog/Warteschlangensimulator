@@ -54,6 +54,16 @@ public class SystemInfoData {
 	private long lastTimeStamp;
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public SystemInfoData() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Liefert die aktuelle Auslastung der CPU durch Threads dieses Programms.
 	 * @return	Auslastung als Wert zwischen 0 und 1
 	 */

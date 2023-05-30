@@ -244,7 +244,7 @@ public class ParameterCompareRunner {
 	/**
 	 * Prüft das Modell
 	 * @param setup	Parameterreihen-Setup
-	 * 	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
+	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
 	public String check(final ParameterCompareSetup setup, final String editModelPath) {

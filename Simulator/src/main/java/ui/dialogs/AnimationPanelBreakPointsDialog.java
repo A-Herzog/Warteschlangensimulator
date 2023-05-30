@@ -382,6 +382,16 @@ public class AnimationPanelBreakPointsDialog extends BaseDialog {
 		 */
 		public static final String htmlFoot="</body></html>";
 
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public BreakpointListCellRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 			final Color[] backgroundColors=ElementRendererTools.getBackgroundColor(isSelected,ElementRendererTools.GradientStyle.OFF);
