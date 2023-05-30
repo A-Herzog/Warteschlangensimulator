@@ -24,6 +24,8 @@ import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
 import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
 import org.jfree.chart.renderer.category.BarRenderer;
@@ -207,11 +209,25 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 	 * @param processStationNames	Sollen die Stationsnamen gekürzt werden?
 	 */
 	private void chartRequest(final String title, final String type, final StatisticsMultiPerformanceIndicator indicator, final Map<String,Color> colorMap, final boolean processStationNames) {
-		initBarChart(title);
-		setupBarChart(title,type,title+" ("+Language.tr("Statistics.InSeconds")+")",false);
-
 		final String[] names=indicator.getNames();
 		final StatisticsDataPerformanceIndicator[] indicators=indicator.getAll(StatisticsDataPerformanceIndicator.class);
+		final double[] values=Stream.of(indicators).mapToDouble(in->in.getMean()).toArray();
+		double maxYValue=DoubleStream.of(values).max().orElse(0);
+
+		String unit=Language.tr("Statistics.InSeconds");
+		if (maxYValue>=1800) {
+			for (int i=0;i<values.length;i++) values[i]/=60;
+			maxYValue/=60;
+			unit=Language.tr("Statistics.InMinutes");
+		}
+		if (maxYValue>=1800) {
+			for (int i=0;i<values.length;i++) values[i]/=60;
+			maxYValue/=60;
+			unit=Language.tr("Statistics.InHours");
+		}
+
+		initBarChart(title);
+		setupBarChart(title,type,title+" ("+unit+")",false);
 
 		data.setNotify(false);
 		for (int i=0;i<Math.min(names.length,MAX_BARS);i++) {
@@ -221,7 +237,7 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			if (colorMap!=null) color=colorMap.get(name);
 			if (color==null) color=COLORS[i%COLORS.length];
 			if (i==names.length-1) data.setNotify(true);
-			data.addValue(indicators[i].getMean(),names[i],names[i]);
+			data.addValue(values[i],names[i],names[i]);
 			plot.getRendererForDataset(data).setSeriesPaint(i,getGradientPaint(color),i==name.length()-1);
 		}
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-22 11:59+0200\n"
+"POT-Creation-Date: 2023-05-25 17:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22882,6 +22882,12 @@ msgstr "Hours"
 
 msgid "Statistics.IdleShare"
 msgstr "Idle share (all operators)"
+
+msgid "Statistics.InHours"
+msgstr "in hours"
+
+msgid "Statistics.InMinutes"
+msgstr "in minutes"
 
 msgid "Statistics.InSeconds"
 msgstr "in seconds"
