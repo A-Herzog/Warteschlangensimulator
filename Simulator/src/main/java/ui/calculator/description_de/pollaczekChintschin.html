@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Pollaczek-Chintschin</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h2>Pollaczek-Chintschin</h2>
+
+<p>
+Die Pollaczek-Chintschin-Formel ermöglicht die Berechnung exakter Werte
+für die Kenngrößen in einem Warteschlangensystem mit
+nicht-exponential-verteilten Bedienzeiten. (Die Erlang-C-Formel setzt
+hingegen die Exponentialverteilung sowohl für die Zwischenankunfts-
+als auch die Bedienzeiten voraus. Bei der Allen-Cunneen-Formel auf der
+anderen Seite, die keine Vorgaben für den Verteilungstyp für 
+Zwischenankunfts- und Bedienzeiten vorsieht, handelt es sich nur noch
+um eine Näherungsformel.) Dafür ist die Pollaczek-Chintschin-Formel
+jedoch nur für den Fall eines Ein-Bediener-Systems (c=1) anwendbar.
+</p> 
+
+<h3>Kenngrößen</h3>
+
+<p>
+Auf Basis der Eingaben werden die folgenden Kenngrößen berechnet:
+</p>
+
+<ul>
+  <li><b>Verkehrsangebot a / Auslastung &rho;</b>:
+  Da es sich um ein Ein-Bediener-System handelt, gilt hier
+  a=&rho;=&lambda;/&mu;. Die Auslastung muss immer &lt;1 sein, damit der
+  Bediener die eintreffenden Kunden im langfristigen Mittel überhaupt bedienen
+  kann. Eine Auslastung von unter 1 allein ist jedoch noch keine Aussage,
+  dass das System sinnvoll dimensioniert ist, da die Auslastung keine 
+  Informationen darüber liefert, wie lang die Kunden in einem entsprechend
+  dimensionierten System im Mittel warten müssen.</li>
+  <li><b>Mittlere Anzahl an Kunden im System E[N]</b>:
+  Dieser Wert gibt die mittlere Gesamtanzahl an Kunden im System an,
+  d.h. es handelt sich hier um die Summe aus wartenden und in Bedienung
+  befindlichen Kunden.</li>
+  <li><b>Mittlere Wartezeit E[W]</b>:
+  Mit Hilfe der Formel von Little lässt sich aus der mittleren Warteschlangenlänge
+  E[N<sub>Q</sub>] (und der Ankunftsrate &lambda;) berechnen, wie lange die Kunden
+  im Mittel warten müssen, bevor sie bedient werden.</li>
+  <li><b>Mittlere Verweilzeit E[V]</b>:
+  Die Verweilzeit ist die Summe aus der mittleren Wartezeit E[W] und der mittleren
+  Bediendauer E[S]. Die mittlere Bediendauer ist dabei der Kehrwert der Bedienrate
+  (E[S]=1/&mu;).</li>
+  <li><b>Flussgrad E[V]/E[S]</b>:
+  Der Flussgrad gibt das Verhältnis von Verweilzeit zu Bedienzeit ein. Der Flussgrad ist folglich
+  immer größer oder gleich 1. Kleine Werte bedeuten, dass im Verhältnis zur Bedienzeit nur wenig
+  Wartezeiten angefallen sind. Große Werte deuten auf verhältnismäßig lange Wartezeiten hin.</li>
+</ul>
+  
+</body></html>

@@ -208,9 +208,9 @@ public class QueueingCalculatorInputPanel {
 		}
 		final String value;
 		if (records.get(currentIndex).isPercent) {
-			value=NumberTools.formatPercent(NumberTools.reduceDigits(defaulValue,11),10);
+			value=NumberTools.formatPercent(NumberTools.reduceDigits(defaulValue,9),10);
 		} else {
-			value=NumberTools.formatNumber(NumberTools.reduceDigits(defaulValue,12),14);
+			value=NumberTools.formatNumber(NumberTools.reduceDigits(defaulValue,10),14);
 		}
 		line.add(field=new JTextField(value,15));
 		final String infoText=records.get(lastFieldType).info;
@@ -251,9 +251,9 @@ public class QueueingCalculatorInputPanel {
 				}
 				final Record record=records.get(newFieldType);
 				if (record.isPercent) {
-					field.setText(NumberTools.formatPercent(NumberTools.reduceDigits(d,11),10));
+					field.setText(NumberTools.formatPercent(NumberTools.reduceDigits(d,9),10));
 				} else {
-					field.setText(NumberTools.formatNumber(NumberTools.reduceDigits(d,12),14));
+					field.setText(NumberTools.formatNumber(NumberTools.reduceDigits(d,10),14));
 				}
 			}
 			final Record record=records.get(newFieldType);

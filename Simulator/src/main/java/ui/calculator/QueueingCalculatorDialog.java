@@ -178,6 +178,9 @@ public class QueueingCalculatorDialog extends BaseDialog {
 		/* Dialogseite "Erlang C (erweitert)" */
 		addTab(new QueueingCalculatorTabErlangCExt());
 
+		/* Dialogseite "Pollaczek-Chintschin" */
+		addTab(new QueueingCalculatorTabPollaczekChintschin());
+
 		/* Dialogseite "Allen-Cunneen" */
 		addTab(new QueueingCalculatorTabAllenCunneen());
 

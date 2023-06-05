@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-25 17:20+0200\n"
+"POT-Creation-Date: 2023-05-30 10:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10156,6 +10156,9 @@ msgstr "Paper on the correction formula"
 msgid "LoadCalculator.PartOfLoadForTheCallcenter"
 msgstr "Part of the complete load for this call center"
 
+msgid "LoadCalculator.PollaczekChintschinInvalidWorkLoad"
+msgstr "invalid work load"
+
 msgid "LoadCalculator.ProbabilityOfBlocking"
 msgstr "Probability of blocking"
 
@@ -10197,6 +10200,18 @@ msgstr "Information about Erlang C formula"
 
 msgid "LoadCalculator.Tab.ErlangCext"
 msgstr "Erlang C (extended)"
+
+msgid "LoadCalculator.Tab.PollaczekChintschin"
+msgstr "Pollaczek–Khinchine formula"
+
+msgid "LoadCalculator.Tab.PollaczekChintschin.Link"
+msgstr "https://en.wikipedia.org/wiki/Pollaczek%E2%80%93Khinchine_formula"
+
+msgid "LoadCalculator.Tab.PollaczekChintschin.Link.Info"
+msgstr "Information about Pollaczek–Khinchine formula"
+
+msgid "LoadCalculator.Tab.PollaczekChintschinShort"
+msgstr "Pollaczek–Khinchine"
 
 msgid "LoadCalculator.Tab.WaitingTimeTolerance"
 msgstr "Waiting time tolerance"

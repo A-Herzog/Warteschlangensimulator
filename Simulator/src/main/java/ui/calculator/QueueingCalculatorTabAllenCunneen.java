@@ -310,12 +310,14 @@ public class QueueingCalculatorTabAllenCunneen extends QueueingCalculatorTabBase
 		addText(model,"E[S]="+NumberTools.formatNumber(meanServiceTime)+" "+Language.tr("LoadCalculator.Units.Seconds"),false,50,220);
 		addText(model,"c="+c,false,50,240);
 		addText(model,"&rho;="+NumberTools.formatPercent(meanServiceTime*bS/meanInterArrivalTime/bI/c),false,50,260);
+		addText(model,"CV[I]="+NumberTools.formatNumber(cvI),false,50,280);
+		addText(model,"CV[S]="+NumberTools.formatNumber(cvS),false,50,300);
 
-		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimRho"),"Resource_avg()/Resource_count()",50,300).setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT);
-		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEW"),"waitingTime_avg()",50,340);
-		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEV"),"residenceTime_avg()",50,380);
-		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimENQ"),"NQ_avg()",50,420);
-		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEN"),"WIP_avg()",50,460);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimRho"),"Resource_avg()/Resource_count()",50,340).setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEW"),"waitingTime_avg()",50,380);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEV"),"residenceTime_avg()",50,420);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimENQ"),"NQ_avg()",50,460);
+		addExpression(model,Language.tr("LoadCalculator.ModelBuilder.SimEN"),"WIP_avg()",50,500);
 
 		return model;
 	}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Pollaczek–Khinchine</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h2>Pollaczek–Khinchine</h2>
+
+<p>
+The Pollaczek–Khinchine formula allows the calculation of exact values
+for the characteristics in a queueing system with non-exponentially
+distributed service times. (The Erlang C formula assumes
+exponential distribution for both inter-arrival and service times.
+The Allen-Cunneen formula, on the other hand, which does not specify
+the distribution type for inter-arrival and service times, is only
+an approximation formula). For this, however,
+the Pollaczek–Khinchine formula is only applicable for the case of
+a single operator system (c=1).
+</p>
+
+<h3>Performance indicators</h3>
+
+<p>
+The following parameters are calculated on the basis of the inputs:
+</p>
+
+<ul>
+  <li><b>Offered work load a / work load &rho;</b>:
+  Since a single operator system is considered, we have
+  a=&rho;=&lambda;/&mu;. The work load has always be &lt;1, so that the
+  operator can serve the arriving clients on a long-term average. However,
+  a work load of less than 1 alone is not a statement that the system is sensibly
+  dimensioned, since the work load does not provide any information about how
+  long the clients will have to wait on average in the system.</li>
+  <li><b>Average number of clients in the system E[N]</b>:
+  This value indicates the average total number of clients in the system,
+  i.e. it is the sum of waiting and currently served clients.</li>
+  <li><b>Average waiting time E[W]</b>:
+  Using Little's formula, the average queue length E [N<sub>Q</sub>]
+  (and the arrival rate &lambda;) can be used to calculate how long clients
+  will have to wait on average before they are served.</li>
+  <li><b>Average residence time E[V]</b>:
+  The residence time is the sum of the average waiting time E[W] and the average
+  service time E[S]. The average service time is the reciprocal of the service rate
+  (E[S]=1/&mu;).</li>
+  <li><b>Flow factor E[V]/E[S]</b>:
+  The flow factor is the ratio of the residence time to the service time.
+  Consequently, the flow factor is always greater than or equal to 1.
+  Small values mean that in relation to the service time only little
+  waiting time has occurred. Large values indicate a relatively long waiting time.</li>
+</ul>
+  
+</body></html>

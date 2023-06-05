@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-25 17:20+0200\n"
+"POT-Creation-Date: 2023-05-30 10:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10153,6 +10153,9 @@ msgstr "Paper zur Korrekturformel"
 msgid "LoadCalculator.PartOfLoadForTheCallcenter"
 msgstr "Lastanteil des Callcenters"
 
+msgid "LoadCalculator.PollaczekChintschinInvalidWorkLoad"
+msgstr "ungültige Auslastung"
+
 msgid "LoadCalculator.ProbabilityOfBlocking"
 msgstr "Blockierwahrscheinlichkeit"
 
@@ -10175,25 +10178,37 @@ msgid "LoadCalculator.Tab.AllenCunneen"
 msgstr "Erweiterte Allen-Cunneen Näherungsformel für Warteschlangensysteme"
 
 msgid "LoadCalculator.Tab.ErlangB"
-msgstr "Erlang B"
+msgstr "Erlang-B"
 
 msgid "LoadCalculator.Tab.ErlangB.Link"
 msgstr "http://de.wikipedia.org/wiki/Erlang_B"
 
 msgid "LoadCalculator.Tab.ErlangB.Link.Info"
-msgstr "Informationen zur Erlang B Formel"
+msgstr "Informationen zur Erlang-B Formel"
 
 msgid "LoadCalculator.Tab.ErlangC"
-msgstr "Erlang C"
+msgstr "Erlang-C"
 
 msgid "LoadCalculator.Tab.ErlangC.Link"
 msgstr "http://de.wikipedia.org/wiki/Erlang_C"
 
 msgid "LoadCalculator.Tab.ErlangC.Link.Info"
-msgstr "Informationen zur Erlang C Formel"
+msgstr "Informationen zur Erlang-C-Formel"
 
 msgid "LoadCalculator.Tab.ErlangCext"
-msgstr "Erlang C (erweitert)"
+msgstr "Erlang-C (erweitert)"
+
+msgid "LoadCalculator.Tab.PollaczekChintschin"
+msgstr "Pollaczek-Chintschin-Formel"
+
+msgid "LoadCalculator.Tab.PollaczekChintschin.Link"
+msgstr "https://de.wikipedia.org/wiki/Pollaczek-Chintschin-Formel"
+
+msgid "LoadCalculator.Tab.PollaczekChintschin.Link.Info"
+msgstr "Informationen zur Pollaczek-Chintschin-Formel"
+
+msgid "LoadCalculator.Tab.PollaczekChintschinShort"
+msgstr "Pollaczek-Chintschin"
 
 msgid "LoadCalculator.Tab.WaitingTimeTolerance"
 msgstr "Wartezeittoleranz"
