@@ -618,8 +618,6 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		final Table table=new Table();
 		final String[] types=indicatorProcessing.getNames();
 
-		setData(table,columnNames);
-
 		for (String type : types) {
 			final StatisticsDataPerformanceIndicator processing=(StatisticsDataPerformanceIndicator)indicatorProcessing.get(type);
 			final StatisticsDataPerformanceIndicator residence=(StatisticsDataPerformanceIndicator)indicatorResidence.get(type);

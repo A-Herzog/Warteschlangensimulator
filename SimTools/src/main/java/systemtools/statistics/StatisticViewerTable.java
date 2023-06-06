@@ -32,7 +32,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
@@ -65,7 +67,7 @@ import systemtools.images.SimToolsImages;
  * Anzeige von Tabellen dar.
  * @author Alexander Herzog
  * @see StatisticViewer
- * @version 1.5
+ * @version 1.6
  */
 public class StatisticViewerTable implements StatisticViewer {
 	/**
@@ -74,15 +76,42 @@ public class StatisticViewerTable implements StatisticViewer {
 	private Table table;
 
 	/**
-	 * Inhalt der Tabelle (kann <code>null</code> sein, wenn die Daten noch nicht aus der Tabelle ausgelesen wurden)
-	 * @see #initData()
-	 */
-	private List<List<String>> data;
-
-	/**
 	 * Spaltentitel der Tabelle
 	 */
 	protected List<String> columnNames;
+
+	/**
+	 * Tabelle mit Daten in sortierter und/oder gefilterter Form
+	 * @see #buildTableModel()
+	 * @see #table
+	 */
+	private Table showTable;
+
+	/**
+	 * Spaltentitel der Tabelle inkl. möglicher Ergänzungen
+	 * @see #buildTableModel()
+	 * @see #columnNames
+	 */
+	protected List<String> showColumnNames;
+
+	/**
+	 * Spalte nach der aktuell sortiert werden soll (Werte &lt;0 für "keine Sortierung")
+	 * @see #buildTableModel()
+	 */
+	private int sortByColumn;
+
+	/**
+	 * Soll absteigend (<code>true</code>) oder aufsteigend (<code>false</code>) sortiert werden?
+	 * @see #sortByColumn
+	 * @see #buildTableModel()
+	 */
+	private boolean sortDescending;
+
+	/**
+	 * Filter für die Werte in den einzelnen Spalten
+	 * @see #buildTableModel()
+	 */
+	private List<Set<String>> filter;
 
 	/**
 	 * html-Seite mit einer zusätzlichen Erklärung zu dieser Statistikseite
@@ -143,8 +172,9 @@ public class StatisticViewerTable implements StatisticViewer {
 	 */
 	public StatisticViewerTable() {
 		table=null;
-		data=new ArrayList<>();
 		columnNames=new ArrayList<>();
+		sortByColumn=-1;
+		sortDescending=false;
 	}
 
 	/**
@@ -153,6 +183,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @param columnNames	List, die die anzuzeigenden Spaltentitel enthält
 	 */
 	public StatisticViewerTable(List<List<String>> data, List<String> columnNames) {
+		this();
 		setData(data,columnNames);
 	}
 
@@ -162,6 +193,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @param arrayColumnNames	String-Array, das die anzuzeigenden Spaltentitel enthält
 	 */
 	public StatisticViewerTable(String[][] arrayData, String[] arrayColumnNames) {
+		this();
 		setData(arrayData,arrayColumnNames);
 	}
 
@@ -171,6 +203,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @param arrayColumnNames	String-Array, das die anzuzeigenden Spaltentitel enthält
 	 */
 	public StatisticViewerTable(Table data, String[] arrayColumnNames) {
+		this();
 		setData(data,arrayColumnNames);
 	}
 
@@ -180,6 +213,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @param columnNames	List, die die anzuzeigenden Spaltentitel enthält
 	 */
 	public StatisticViewerTable(Table data, List<String> columnNames) {
+		this();
 		setData(data,columnNames);
 	}
 
@@ -189,9 +223,11 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @param columnNames	List, die die anzuzeigenden Spaltentitel enthält
 	 */
 	public void setData(List<List<String>> data, List<String> columnNames) {
-		table=null;
-		this.data=data;
+		table=new Table(Table.IndexMode.ROWS,data);
 		this.columnNames=columnNames;
+
+		filter=new ArrayList<>();
+		for (int i=0;i<columnNames.size();i++) filter.add(new HashSet<>());
 	}
 
 	/**
@@ -200,15 +236,11 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @param arrayColumnNames	String-Array, das die anzuzeigenden Spaltentitel enthält
 	 */
 	public void setData(String[][] arrayData, String[] arrayColumnNames) {
-		table=null;
-		data=new ArrayList<>();
-		for (int i=0;i<arrayData.length;i++) {
-			List<String> v=new ArrayList<>(); data.add(v);
-			for (int j=0;j<arrayData[i].length;j++) v.add(arrayData[i][j]);
-		}
+		table=new Table(Table.IndexMode.ROWS,arrayData);
+		columnNames=Arrays.asList(arrayColumnNames);
 
-		columnNames=new ArrayList<>();
-		for (int i=0;i<arrayColumnNames.length;i++) columnNames.add(arrayColumnNames[i]);
+		filter=new ArrayList<>();
+		for (int i=0;i<columnNames.size();i++) filter.add(new HashSet<>());
 	}
 
 	/**
@@ -227,8 +259,10 @@ public class StatisticViewerTable implements StatisticViewer {
 	 */
 	public void setData(Table table, List<String> columnNames) {
 		this.table=table;
-		data=null;
 		this.columnNames=columnNames;
+
+		filter=new ArrayList<>();
+		for (int i=0;i<columnNames.size();i++) filter.add(new HashSet<>());
 	}
 
 	@Override
@@ -478,25 +512,62 @@ public class StatisticViewerTable implements StatisticViewer {
 		return addOwnSettingsToPopup(owner,popup);
 	}
 
+	/**
+	 * Aktualisiert das Datenmodell für die Tabelle.
+	 * @see #getViewer(boolean)
+	 */
+	private void buildTableModel() {
+		/* Filtern */
+		final Table filterTable;
+		if (filter.stream().mapToInt(set->set.size()).max().orElse(0)==0) {
+			filterTable=table;
+		} else {
+			filterTable=new Table();
+			final int colsFilter=filter.size();
+			final int rows=table.getSize(0);
+			for (int i=0;i<rows;i++) {
+				final List<String> line=table.getLine(i);
+				final int cols=line.size();
+				boolean ok=true;
+				for (int j=0;j<colsFilter;j++) {
+					final Set<String> colFilter=filter.get(j);
+					if (colFilter.size()==0) continue;
+					final String cell=(j>=cols)?"":line.get(j);
+					if (!colFilter.contains(cell)) {ok=false; break;}
+				}
+				if (ok) filterTable.addLine(line);
+			}
+		}
+
+		/* Sortieren */
+		showTable=filterTable.getSorted(sortByColumn,sortDescending);
+
+		/* Spaltenüberschriftung mit Icons versehen */
+		showColumnNames=new ArrayList<>(columnNames);
+		if (sortByColumn>=0) showColumnNames.set(sortByColumn,showColumnNames.get(sortByColumn)+" "+new String(Character.toChars(sortDescending?9660:9650)));
+		for (int i=0;i<showColumnNames.size();i++) if (filter.get(i).size()>0) showColumnNames.set(i,showColumnNames.get(i)+" "+new String(Character.toChars(9745)));
+
+		/* Datenmodell aufstellen und eintragen */
+		viewerTableModel=new StatisticViewerTableModel(showTable,showColumnNames);
+		viewerTable.setModel(viewerTableModel);
+
+		/* Spaltenbreiten neu einstellen */
+		SwingUtilities.invokeLater(()->{
+			final int colCount=viewerTable.getColumnCount();
+			for (int i=0;i<colCount;i++) autoSizeColumn(viewerTable,i,true);
+		});
+	}
+
 	@Override
 	public Container getViewer(final boolean needReInit) {
 		if (viewer!=null && !needReInit) return viewer;
 
 		if (columnNames.isEmpty() || needReInit) buildTable();
 
-		if (table==null) {
-			viewerTableModel=new StatisticViewerTableModel(data,columnNames);
-		} else {
-			viewerTableModel=new StatisticViewerTableModel(table,columnNames);
-		}
-
-		viewerTable=new JTable(viewerTableModel);
+		viewerTable=new JTable();
+		buildTableModel();
 		viewerTable.getTableHeader().setReorderingAllowed(false);
 		viewerTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-		SwingUtilities.invokeLater(()->{
-			for (int i=0;i<viewerTable.getColumnCount();i++) autoSizeColumn(viewerTable,i,true);
-		});
 
 		viewerTable.getTableHeader().addMouseListener(new MouseAdapter() {
 			@Override
@@ -520,6 +591,59 @@ public class StatisticViewerTable implements StatisticViewer {
 					}
 
 					if (hasItems) popup.addSeparator();
+
+					popup.add(item=new JMenuItem("<html><body><b>"+StatisticsBasePanel.contextSort+"</b></body></html>"));
+					item.setEnabled(false);
+
+					popup.add(item=new JMenuItem(StatisticsBasePanel.contextSortAscending));
+					item.addActionListener(e2->{
+						sortByColumn=col;
+						sortDescending=false;
+						buildTableModel();
+					});
+
+					popup.add(item=new JMenuItem(StatisticsBasePanel.contextSortDescending));
+					item.addActionListener(e2->{
+						sortByColumn=col;
+						sortDescending=true;
+						buildTableModel();
+					});
+
+					popup.add(item=new JMenuItem(StatisticsBasePanel.contextSortOriginal));
+					item.addActionListener(e2->{
+						sortByColumn=-1;
+						sortDescending=false;
+						buildTableModel();
+					});
+
+					popup.addSeparator();
+
+					popup.add(item=new JMenuItem("<html><body><b>"+StatisticsBasePanel.contextFilter+"</b></body></html>"));
+					item.setEnabled(false);
+
+					popup.add(item=new JMenuItem(StatisticsBasePanel.contextFilterReset));
+					item.addActionListener(e2->{
+						filter.get(col).clear();
+						buildTableModel();
+					});
+
+					popup.add(item=new JMenuItem(StatisticsBasePanel.contextFilterSelect));
+					item.addActionListener(e2->{
+						final Set<String> values=new HashSet<>();
+						final int size=table.getSize(0);
+						for (int i=0;i<size;i++) {
+							final List<String> line=table.getLine(i);
+							if (line.size()<=col) continue;
+							final String cell=line.get(col);
+							if (!cell.isEmpty()) values.add(cell);
+						}
+						StatisticViewerTableFilterDialog dialog=new StatisticViewerTableFilterDialog(viewerTable,values,filter.get(col));
+						if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
+						filter.set(col,dialog.getActiveValues());
+						buildTableModel();
+					});
+
+					popup.addSeparator();
 
 					popup.add(item=new JMenuItem("<html><body><b>"+StatisticsBasePanel.contextColWidthThis+"</b></body></html>"));
 					item.setEnabled(false);
@@ -634,11 +758,11 @@ public class StatisticViewerTable implements StatisticViewer {
 	@Override
 	public Transferable getTransferable() {
 		if (columnNames.isEmpty()) buildTable();
-		initData();
+
 		final StringBuilder s=new StringBuilder();
-		addListToStringBuilder(s,columnNames);
-		final int size=data.size();
-		for (int i=0;i<size;i++) addListToStringBuilder(s,data.get(i));
+		addListToStringBuilder(s,showColumnNames);
+		final int size=showTable.getSize(0);
+		for (int i=0;i<size;i++) addListToStringBuilder(s,showTable.getLine(i));
 		return new StringSelection(s.toString());
 	}
 
@@ -651,10 +775,10 @@ public class StatisticViewerTable implements StatisticViewer {
 	@Override
 	public boolean print() {
 		if (columnNames.isEmpty()) buildTable();
-		initData();
+
 		Table t=new Table();
-		t.addLine(columnNames);
-		t.addLines(data);
+		t.addLine(showColumnNames);
+		t.addLines(showTable.getData());
 		JTextComponent tc=new JTextArea(t.toString());
 		try {tc.print(null,null,true,null,null,true);} catch (PrinterException e) {return false;}
 		return true;
@@ -666,10 +790,10 @@ public class StatisticViewerTable implements StatisticViewer {
 	 */
 	public Table toTable() {
 		if (columnNames.isEmpty()) buildTable();
-		initData();
+
 		final Table t=new Table();
-		t.addLine(columnNames);
-		t.addLines(data);
+		t.addLine(showColumnNames);
+		t.addLines(showTable.getData());
 		return t;
 	}
 
@@ -715,11 +839,11 @@ public class StatisticViewerTable implements StatisticViewer {
 	@Override
 	public int saveHtml(BufferedWriter bw, File mainFile, int nextImageNr, boolean imagesInline) throws IOException {
 		if (columnNames.isEmpty()) buildTable();
-		initData();
+
 		bw.write("<table>");
 		bw.newLine();
-		saveLineToTable(bw,columnNames);
-		for (int i=0;i<data.size();i++) saveLineToTable(bw,data.get(i));
+		saveLineToTable(bw,showColumnNames);
+		for (int i=0;i<showTable.getSize(0);i++) saveLineToTable(bw,showTable.getLine(i));
 		bw.write("</table>");
 		bw.newLine();
 		return nextImageNr;
@@ -838,10 +962,10 @@ public class StatisticViewerTable implements StatisticViewer {
 	@Override
 	public boolean savePDF(PDFWriter pdf) {
 		if (columnNames.isEmpty()) buildTable();
-		initData();
 
-		if (!pdf.writeStyledTableHeader(columnNames)) return false;
-		for (int i=0;i<data.size();i++) if (!pdf.writeStyledTableLine(data.get(i),i==data.size()-1)) return false;
+		if (!pdf.writeStyledTableHeader(showColumnNames)) return false;
+		final int size=showTable.getSize(0);
+		for (int i=0;i<size;i++) if (!pdf.writeStyledTableLine(showTable.getLine(i),i==size-1)) return false;
 
 		return true;
 	}
@@ -867,18 +991,6 @@ public class StatisticViewerTable implements StatisticViewer {
 	protected final void addDescription(final URL descriptionURL, final Consumer<String> descriptionHelpCallback) {
 		this.descriptionURL=descriptionURL;
 		this.descriptionHelpCallback=descriptionHelpCallback;
-	}
-
-	/**
-	 * Überträgt die Daten aus einer {@link Table} in das {@link #data} Feld
-	 */
-	protected void initData() {
-		if (table==null) {
-			if (data==null) data=new ArrayList<>();
-		} else {
-			data=table.getData();
-			table=null;
-		}
 	}
 
 	/**

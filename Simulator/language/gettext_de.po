@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-30 10:24+0200\n"
+"POT-Creation-Date: 2023-06-05 09:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21337,6 +21337,36 @@ msgstr "Zeit"
 
 msgid "Statistic.Viewer.Chart.Value"
 msgstr "Wert"
+
+msgid "Statistic.Viewer.Context.Filter"
+msgstr "Filtern"
+
+msgid "Statistic.Viewer.Context.Filter.All"
+msgstr "Alle anzeigen"
+
+msgid "Statistic.Viewer.Context.Filter.Select"
+msgstr "Werte auswählen..."
+
+msgid "Statistic.Viewer.Context.Filter.SelectAll"
+msgstr "Alle"
+
+msgid "Statistic.Viewer.Context.Filter.SelectNone"
+msgstr "Keine"
+
+msgid "Statistic.Viewer.Context.Filter.SelectTitle"
+msgstr "Werte für anzuzeigende Zeilen auswählen"
+
+msgid "Statistic.Viewer.Context.Sort"
+msgstr "Sortieren"
+
+msgid "Statistic.Viewer.Context.Sort.Ascending"
+msgstr "Aufsteigend nach dieser Spalte"
+
+msgid "Statistic.Viewer.Context.Sort.Descending"
+msgstr "Absteigend nach dieser Spalte"
+
+msgid "Statistic.Viewer.Context.Sort.Reset"
+msgstr "Ursprüngliche Reihenfolge"
 
 msgid "Statistic.Viewer.Context.Width.All"
 msgstr "Spaltenbreite - alle Spalten"

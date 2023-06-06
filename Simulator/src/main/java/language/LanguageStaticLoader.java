@@ -799,6 +799,16 @@ public class LanguageStaticLoader {
 		StatisticsBasePanel.viewersToolbarSelectNoneHint=Language.tr("Statistic.Viewer.Toolbar.SelectNone.Hint");
 		StatisticsBasePanel.viewersToolbarSaveTables=Language.tr("Statistic.Viewer.Toolbar.SaveTables");
 		StatisticsBasePanel.viewersToolbarSaveTablesHint=Language.tr("Statistic.Viewer.Toolbar.SaveTables.Hint");
+		StatisticsBasePanel.contextSort=Language.tr("Statistic.Viewer.Context.Sort");
+		StatisticsBasePanel.contextSortAscending=Language.tr("Statistic.Viewer.Context.Sort.Ascending");
+		StatisticsBasePanel.contextSortDescending=Language.tr("Statistic.Viewer.Context.Sort.Descending");
+		StatisticsBasePanel.contextSortOriginal=Language.tr("Statistic.Viewer.Context.Sort.Reset");
+		StatisticsBasePanel.contextFilter=Language.tr("Statistic.Viewer.Context.Filter");
+		StatisticsBasePanel.contextFilterReset=Language.tr("Statistic.Viewer.Context.Filter.All");
+		StatisticsBasePanel.contextFilterSelect=Language.tr("Statistic.Viewer.Context.Filter.Select");
+		StatisticsBasePanel.contextFilterSelectTitle=Language.tr("Statistic.Viewer.Context.Filter.SelectTitle");
+		StatisticsBasePanel.contextFilterSelectAll=Language.tr("Statistic.Viewer.Context.Filter.SelectAll");
+		StatisticsBasePanel.contextFilterSelectNone=Language.tr("Statistic.Viewer.Context.Filter.SelectNone");
 		StatisticsBasePanel.contextColWidthThis=Language.tr("Statistic.Viewer.Context.Width.This");
 		StatisticsBasePanel.contextColWidthAll=Language.tr("Statistic.Viewer.Context.Width.All");
 		StatisticsBasePanel.contextColWidthDefault=Language.tr("Statistic.Viewer.Context.Width.Default");

@@ -439,6 +439,26 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String viewersToolbarSaveTables="Tabellen speichern";
 	/** Bezeichner für den Tooltip für das Report-Toolbar-Button "Tabellen speichern" */
 	public static String viewersToolbarSaveTablesHint="Speichert nur die ausgewählten Tabellen in einer gemeinsamen Arbeitsmappe.";
+	/** Bezeichner für den Kontextmenü-Eintrag "Sortieren" */
+	public static String contextSort="Sortieren";
+	/** Bezeichner für den Kontextmenü-Eintrag "Sortieren - aufsteigend" */
+	public static String contextSortAscending="Aufsteigend nach dieser Spalte";
+	/** Bezeichner für den Kontextmenü-Eintrag "Sortieren - absteigend" */
+	public static String contextSortDescending="Absteigend nach dieser Spalte";
+	/** Bezeichner für den Kontextmenü-Eintrag "Sortieren - zurücksetzen" */
+	public static String contextSortOriginal="Ursprüngliche Reihenfolge";
+	/** Bezeichner für den Kontextmenü-Eintrag "Filtern" */
+	public static String contextFilter="Filtern";
+	/** Bezeichner für den Kontextmenü-Eintrag "Filtern - zurücksetzen" */
+	public static String contextFilterReset="Alles anzeigen";
+	/** Bezeichner für den Kontextmenü-Eintrag "Filtern - Werte auswählen" */
+	public static String contextFilterSelect="Werte auswählen...";
+	/** Titel für den Filter-Auswahldialog */
+	public static String contextFilterSelectTitle="Werte für anzuzeigende Zeilen auswählen";
+	/** Schaltfläche "Alle" im Filter-Auswahldialog */
+	public static String contextFilterSelectAll="Alle";
+	/** Schaltfläche "Keine" im Filter-Auswahldialog */
+	public static String contextFilterSelectNone="Keine";
 	/** Bezeichner für den Kontextmenü-Eintrag "Spaltenbreite - diese Spalte" */
 	public static String contextColWidthThis="Spaltenbreite - diese Spalte";
 	/** Bezeichner für den Kontextmenü-Eintrag "Spaltenbreite - alle Spalten" */

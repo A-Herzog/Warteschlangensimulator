@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -74,7 +75,7 @@ import mathtools.distribution.swing.CommonVariables;
  * Die Klasse {@link Table} kapselt eine Tabelle aus {@link String}-Objekten.
  * Die Klasse stellt Methoden zum Lesen und Schreiben von Tabellen-Dateien zur Verfügung.
  * @author Alexander Herzog
- * @version 4.6
+ * @version 4.7
  */
 public final class Table implements Cloneable {
 	/** Bezeichner beim Speichern für "wahr" */
@@ -1363,7 +1364,7 @@ public final class Table implements Cloneable {
 
 		if (mode==IndexMode.COLS) {
 			Table t=new Table(IndexMode.ROWS); if (!t.load(file,saveMode)) return false;
-			Table t2=t.transpose();	load(t2.getData());	return true;
+			Table t2=t.transpose(); load(t2.getData()); return true;
 		}
 
 		clear();
@@ -2402,6 +2403,79 @@ public final class Table implements Cloneable {
 			}
 			return data;
 		}
+	}
+
+	/**
+	 * Zwischenobjekt für eine textbasierte Zeile zur Sortierung der Tabelle
+	 * @see Table#getSorted(int, boolean)
+	 */
+	private static class TableSortRowString {
+		/** Sortierwert */
+		public final String sortValue;
+		/** Zeile */
+		public final List<String> row;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeile
+		 * @param colNr	Spalte nach der sortiert werden soll
+		 */
+		public TableSortRowString(final List<String> row, final int colNr) {
+			sortValue=(colNr>=row.size())?"":row.get(colNr);
+			this.row=row;
+		}
+	}
+
+	/**
+	 * Zwischenobjekt für eine zahlenwertebasierte Zeile zur Sortierung der Tabelle
+	 * @see Table#getSorted(int, boolean)
+	 */
+	private static class TableSortRowDouble {
+		/** Sortierwert */
+		public final double sortValue;
+		/** Zeile */
+		public final List<String> row;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param row	Zeile
+		 * @param colNr	Spalte nach der sortiert werden soll
+		 */
+		public TableSortRowDouble(final List<String> row, final int colNr) {
+			sortValue=NumberTools.getDouble(row.get(colNr));
+			this.row=row;
+		}
+	}
+
+	/**
+	 * Liefert eine sortierte Kopie der Tabelle (mit denselben Objekten für die Zeilen, nur in anderer Reihenfolge).
+	 * @param colNr	0-basierter Index der Spalte, nach der sortiert werden soll (enthält die Spalte nur Zahlen, wird nach Zahlenwerten sortiert, sondern nach Zeichenketten ohne Berücksichtigung der Groß- und Kleinschreibung)
+	 * @param sortDescending	Soll absteigend sortiert werden?
+	 * @return	Sortierte Fassung der Tabelle
+	 */
+	public Table getSorted(final int colNr, final boolean sortDescending) {
+		if (colNr<0) return clone();
+		if (mode==IndexMode.COLS) return transpose().getSorted(colNr,sortDescending);
+
+		/* Ist die Sortierspalte eine Zahlenspalte? */
+		boolean colIsNumber=true;
+		final int rows=data.size();
+		for (int i=0;i<rows;i++) {
+			final List<String> line=data.get(i);
+			if (line.size()<=colNr) {colIsNumber=false; break;}
+			if (NumberTools.getDouble(line.get(colNr))==null) {colIsNumber=false; break;}
+		}
+
+		/* Sortieren */
+		final int sortMode=sortDescending?-1:1;
+		final List<List<String>> sorted;
+		if (colIsNumber) {
+			sorted=data.stream().map(row->new TableSortRowDouble(row,colNr)).sorted((row1,row2)->sortMode*Double.compare(row1.sortValue,row2.sortValue)).map(row->row.row).collect(Collectors.toList());
+		} else {
+			sorted=data.stream().map(row->new TableSortRowString(row,colNr)).sorted((row1,row2)->sortMode*String.CASE_INSENSITIVE_ORDER.compare(row1.sortValue,row2.sortValue)).map(row->row.row).collect(Collectors.toList());
+		}
+
+		return new Table(mode,sorted);
 	}
 
 	/**

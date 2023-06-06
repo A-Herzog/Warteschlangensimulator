@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-30 10:24+0200\n"
+"POT-Creation-Date: 2023-06-05 09:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21324,6 +21324,36 @@ msgstr "Time"
 
 msgid "Statistic.Viewer.Chart.Value"
 msgstr "Value"
+
+msgid "Statistic.Viewer.Context.Filter"
+msgstr "Filter"
+
+msgid "Statistic.Viewer.Context.Filter.All"
+msgstr "Show all"
+
+msgid "Statistic.Viewer.Context.Filter.Select"
+msgstr "Select values..."
+
+msgid "Statistic.Viewer.Context.Filter.SelectAll"
+msgstr "All"
+
+msgid "Statistic.Viewer.Context.Filter.SelectNone"
+msgstr "None"
+
+msgid "Statistic.Viewer.Context.Filter.SelectTitle"
+msgstr "Select values for lines to be displayed"
+
+msgid "Statistic.Viewer.Context.Sort"
+msgstr "Sort"
+
+msgid "Statistic.Viewer.Context.Sort.Ascending"
+msgstr "Ascending by this column"
+
+msgid "Statistic.Viewer.Context.Sort.Descending"
+msgstr "Descending by this column"
+
+msgid "Statistic.Viewer.Context.Sort.Reset"
+msgstr "Reset order"
 
 msgid "Statistic.Viewer.Context.Width.All"
 msgstr "Column width - all columns"
