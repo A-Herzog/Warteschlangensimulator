@@ -18,6 +18,7 @@ package ui.statistics;
 import java.awt.Color;
 import java.net.URL;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import language.Language;
 import mathtools.distribution.DataDistributionImpl;
@@ -295,16 +296,45 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 	 * @param indicator	Datenreihen
 	 */
 	private void requestDiagrammSpecialDistribution(final String title, StatisticsMultiPerformanceIndicator indicator) {
-		initLineChart(title);
-		setupChartTimeValue(title,Language.tr("Statistic.Viewer.Chart.Time"),Language.tr("Statistic.Viewer.Chart.Value"));
-
 		final String[] names=indicator.getNames();
 		final StatisticsLongRunPerformanceIndicator[] indicators=indicator.getAll(StatisticsLongRunPerformanceIndicator.class);
+		final DataDistributionImpl[] dist=Stream.of(indicators).map(in->in.getDistribution()).toArray(DataDistributionImpl[]::new);
+
+		double maxLength=0;
+		for (int i=0;i<Math.min(names.length,MAX_SERIES);i++) maxLength=Math.max(maxLength,dist[i].upperBound);
+
+
+		double scale=1.0;
+		String unit=Language.tr("Statistics.InSeconds");
+		if (maxLength>=1800) {
+			scale*=1.0/60.0;
+			maxLength/=60.0;
+			unit=Language.tr("Statistics.InMinutes");
+		}
+		if (maxLength>=1800) {
+			scale*=1.0/60.0;
+			maxLength/=60.0;
+			unit=Language.tr("Statistics.InHours");
+		}
+		if (maxLength>=1440) {
+			scale*=1.0/24.0;
+			maxLength/=24.0;
+			unit=Language.tr("Statistics.InDays");
+		}
+
+
+		initLineChart(title);
+		setupChartTimeValue(title,Language.tr("Statistic.Viewer.Chart.Time"),unit,Language.tr("Statistic.Viewer.Chart.Value"));
 
 		for (int i=0;i<Math.min(names.length,MAX_SERIES);i++) {
-			Color color=COLORS[i%COLORS.length];
-			final DataDistributionImpl dist=indicators[i].getDistribution();
-			addSeries(names[i],color,dist);
+			final Color color=COLORS[i%COLORS.length];
+			final DataDistributionImpl showDist;
+			if (scale==1.0) {
+				showDist=dist[i];
+			} else {
+				showDist=new DataDistributionImpl(dist[i].upperBound*scale,dist[i].densityData);
+			}
+			addSeries(names[i],color,showDist);
 		}
 
 		smartZoom(1);

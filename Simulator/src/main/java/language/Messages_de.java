@@ -22730,6 +22730,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[51549] = "Globale Einstellung verwenden";
     t[51550] = "ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPI.Info";
     t[51551] = "<p>Liefert die aktuelle Simulationszeit gemessen in Sekunden seit Beginn der Simulation.</p>";
+    t[51552] = "Statistics.InDays";
+    t[51553] = "in Tagen";
     t[51554] = "Statistic.Viewer.Chart.Part";
     t[51555] = "Anteil";
     t[51560] = "Color.6A5ACD";

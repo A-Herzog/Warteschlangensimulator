@@ -304,6 +304,20 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 	 * Stellt den Diagrammrahmen für die Darstellung von Verteilungen über ein bestimmtes Zeitintervall (z.B. eine Stunde) ein
 	 * @param title	Titel des Diagramms
 	 * @param xLabel	Beschriftung der x-Achse
+	 * @param xUnit	Einheit für die x-Achse
+	 * @param yLabel	Beschriftung der y-Achse
+	 */
+	protected void setupChartTimeValue(final String title, final String xLabel, final String xUnit, final String yLabel) {
+		chart.setTitle(title);
+
+		plot.getDomainAxis().setLabel(xLabel+" ("+xUnit+")");
+		plot.getRangeAxis().setLabel(yLabel);
+	}
+
+	/**
+	 * Stellt den Diagrammrahmen für die Darstellung von Verteilungen über ein bestimmtes Zeitintervall (z.B. eine Stunde) ein
+	 * @param title	Titel des Diagramms
+	 * @param xLabel	Beschriftung der x-Achse
 	 * @param yLabel	Beschriftung der y-Achse
 	 */
 	protected void setupChartTimePercent(final String title, final String xLabel, final String yLabel) {
