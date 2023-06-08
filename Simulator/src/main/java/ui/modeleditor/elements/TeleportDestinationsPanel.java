@@ -16,6 +16,7 @@
 package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -232,8 +233,7 @@ public class TeleportDestinationsPanel extends JPanel {
 				final JButton button=new JButton();
 				button.setIcon(Images.EDIT_DELETE.getIcon());
 				button.setToolTipText(Language.tr("Surface.TeleportSourceMulti.Dialog.RemoveDestination"));
-				final int nr=destinationsLines.size();
-				button.addActionListener(e->removeTarget(nr));
+				button.addActionListener(e->removeTarget(comboBox));
 				panel.add(button);
 				destinationsLines.add(panel);
 				destinationsComboBoxes.add(comboBox);
@@ -266,9 +266,12 @@ public class TeleportDestinationsPanel extends JPanel {
 
 	/**
 	 * Entfernt eine Ziel-Zeile.
-	 * @param nr	0-basierte Nummer der Ziel-Zeile
+	 * @param comboBox	Zugehörge Auswahlbox
 	 */
-	private void removeTarget(final int nr) {
+	private void removeTarget(final JComboBox<String> comboBox) {
+		final int nr=destinationsComboBoxes.indexOf(comboBox);
+		if (nr<0) return;
+
 		if (destinationsLines.size()==1) {
 			MsgBox.error(this,Language.tr("Surface.TeleportSourceMulti.Dialog.RemoveDestination"),Language.tr("Surface.TeleportSourceMulti.Dialog.RemoveDestination.Error"));
 			return;
@@ -285,6 +288,14 @@ public class TeleportDestinationsPanel extends JPanel {
 			countField.setValue(destinationsLines.size());
 		} finally {
 			updateDataRunning=false;
+		}
+
+		/* Beschriftungen anpassen */
+		int count=0;
+		for (JPanel line: destinationsLines) {
+			for (Component comp: line.getComponents()) if (comp instanceof JLabel) {
+				((JLabel)comp).setText(String.format(Language.tr("Surface.TeleportSourceMulti.Dialog.DestinationNr")+":",++count));
+			}
 		}
 	}
 
