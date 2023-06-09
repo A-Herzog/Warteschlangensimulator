@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 20:38+0200\n"
+"POT-Creation-Date: 2023-06-09 22:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32547,6 +32547,9 @@ msgstr "Number of clients"
 msgid "Surface.Source.Dialog.Tab.NumberOfArrivals.Clients.Invalide"
 msgstr "invalid"
 
+msgid "Surface.Source.Dialog.Tab.NumberOfArrivals.Events"
+msgstr "Number of arrival events"
+
 msgid "Surface.Source.Dialog.Tab.NumberOfArrivals.Infinite"
 msgstr "infinite"
 
@@ -32562,9 +32565,6 @@ msgstr "Assignment of texts"
 msgid "Surface.Source.Dialog.Tab.StartingTime"
 msgstr "Starting time"
 
-msgid "Surface.Source.Dialog.Tab.StartingTime.AfterSeconds"
-msgstr "after %s seconds"
-
 msgid "Surface.Source.Dialog.Tab.StartingTime.AfterTime"
 msgstr "After %s"
 
@@ -32573,6 +32573,12 @@ msgstr "immediately"
 
 msgid "Surface.Source.Dialog.Tab.StartingTime.Invalid"
 msgstr "invalid"
+
+msgid "Surface.Source.Dialog.Tab.StartingTime.UnitGlobal"
+msgstr "Time unit as at inter-arrival times"
+
+msgid "Surface.Source.Dialog.Tab.StartingTime.UnitLocal"
+msgstr "Time unit"
 
 msgid "Surface.Source.Dialog.Threshold"
 msgstr "Arrivales by threshold value"
@@ -32759,6 +32765,9 @@ msgstr "ModelElementExpression"
 
 msgid "Surface.Source.XML.Expression.ArrivalStart"
 msgstr "ModelElementStartTime"
+
+msgid "Surface.Source.XML.Expression.ArrivalStart.TimeBase"
+msgstr "TimeBase"
 
 msgid "Surface.Source.XML.Expression.ClientCount"
 msgstr "ClientCount"
@@ -35123,14 +35132,26 @@ msgstr "PerSecond"
 msgid "Surface.XML.TimeBase.Days"
 msgstr "Days"
 
+msgid "Surface.XML.TimeBase.DaysTab"
+msgstr "days"
+
 msgid "Surface.XML.TimeBase.Hours"
 msgstr "Hours"
+
+msgid "Surface.XML.TimeBase.HoursTab"
+msgstr "hours"
 
 msgid "Surface.XML.TimeBase.Minutes"
 msgstr "Minutes"
 
+msgid "Surface.XML.TimeBase.MinutesTab"
+msgstr "minutes"
+
 msgid "Surface.XML.TimeBase.Seconds"
 msgstr "Seconds"
+
+msgid "Surface.XML.TimeBase.SecondsTab"
+msgstr "seconds"
 
 msgid "Surface.XML.TimedChecks"
 msgstr "ModelTimedChecks"
@@ -37113,6 +37134,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 #~ "Since updating the list of clients at the station requires going through the<br>\n"
 #~ "entire list of clients in the system, this list is not automatically updated<br>\n"
 #~ "with the other data, but must be updated manually."
+
+#~ msgid "Surface.Source.Dialog.Tab.StartingTime.AfterSeconds"
+#~ msgstr "after %s seconds"
 
 #~ msgid "Surface.Sub.Dialog.NumberInput.Error.Info"
 #~ msgstr "The specified number of inputs in the sub model \"%s\" is invalid. A positive integer number has to be entered."

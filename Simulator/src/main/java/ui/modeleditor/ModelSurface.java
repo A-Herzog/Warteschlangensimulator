@@ -364,6 +364,22 @@ public final class ModelSurface {
 	}
 
 	/**
+	 * Wandelt einen Zeitbasis-Wert (siehe {@link TimeBase}) in einen Namen in der aktuellen Sprache um,
+	 * wobei die Formulierung für "Nach x Einheit" passt.
+	 * @param timeBase	Zeitbasis-Wert (siehe {@link TimeBase})
+	 * @return	Name der Zeitbasis in der aktuellen Sprache
+	 */
+	public static String getTimeBaseStringTab(final TimeBase timeBase) {
+		switch (timeBase) {
+		case TIMEBASE_SECONDS: return Language.trPrimary("Surface.XML.TimeBase.SecondsTab");
+		case TIMEBASE_MINUTES: return Language.trPrimary("Surface.XML.TimeBase.MinutesTab");
+		case TIMEBASE_HOURS: return Language.trPrimary("Surface.XML.TimeBase.HoursTab");
+		case TIMEBASE_DAYS: return Language.trPrimary("Surface.XML.TimeBase.DaysTab");
+		default: return Language.trPrimary("Surface.XML.TimeBase.SecondsTab");
+		}
+	}
+
+	/**
 	 * Wandelt einen Zeitbasis-Namen (egal in welcher Sprache) in einen Zeitbasis-Wert (siehe {@link TimeBase}) um
 	 * @param timeBaseName	Zeitbasis-Name
 	 * @return	Zeitbasis-Wert (siehe {@link TimeBase})

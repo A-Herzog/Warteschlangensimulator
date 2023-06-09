@@ -73,6 +73,7 @@ import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modelproperties.ModelPropertiesDialogPageClients;
 
@@ -247,14 +248,20 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 
 	/* Dialogseite "Startzeitpunkt" */
 
-	/** Teil-Panel 1 zur Definition des Startzeitpunkts (ist nicht immer sichtbar) */
-	private JPanel arrivalStartSub1;
-	/** Teil-Panel 2 zur Definition des Startzeitpunkts (ist nicht immer sichtbar) */
-	private JPanel arrivalStartSub2;
+	/** Panel zur Definition des Startzeitpunkts (ist nicht immer sichtbar) */
+	private JPanel arrivalStartSub;
+
+	/** Option: Zeiteinheit gemäß Zwischenankunftszeiten */
+	private JRadioButton arrivalStartTimeUnitGlobal;
+	/** Option: Zeiteinheit gemäß {@link #arrivalStartTimeUnit} */
+	private JRadioButton arrivalStartTimeUnitLocal;
+	/** Optionale Zeiteinheit für den Startzeitpunkt {@link #arrivalStart} */
+	private JComboBox<String> arrivalStartTimeUnit;
+
 	/** Eingabefeld zur Definition des Startzeitpunkts */
 	private final JTextField arrivalStart;
 	/** Beschriftung (Zeiteinheit) für #arrivalStart */
-	private JLabel arrivalStartTimeUnit;
+	private JLabel arrivalStartTimeUnitLabel;
 
 	/* Dialogseite "Zuweisung von Kundenvariablen" */
 
@@ -355,8 +362,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		selectCard.addActionListener(e->{
 			final int index=selectCard.getSelectedIndex();
 			((CardLayout)cards.getLayout()).show(cards,"Seite"+(index+1));
-			if (arrivalStartSub1!=null) arrivalStartSub1.setVisible(index==0 || index==1 || index==4);
-			if (arrivalStartSub2!=null) arrivalStartSub2.setVisible(index==0 || index==1 || index==4);
+			if (arrivalStartSub!=null) arrivalStartSub.setVisible(index==0 || index==1 || index==4);
 			checkData(false);
 			updateBatchInfo();
 			updateTabTitle();
@@ -376,7 +382,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		panel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
 		timeBase1=buildSyncedTimeBaseComboBox(sub);
-		timeBase1.addActionListener(e->{arrivalStartTimeUnit.setText((String)timeBase1.getSelectedItem()); updateBatchInfo();});
+		timeBase1.addActionListener(e->{checkData(false); updateBatchInfo();});
 		sub.add(distributionFirstArrivalAt0=new JCheckBox(Language.tr("Surface.Source.Dialog.FirstArrivalAt0")));
 		distributionFirstArrivalAt0.addActionListener(e->syncFirstArrivalAt0CheckBoxes(e));
 		card.add(distributionPanel=new JDistributionPanel(new ExponentialDistribution(null,100,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY),3600,!readOnly) {
@@ -403,7 +409,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		sub.add(new JLabel("<html><b>"+Language.tr("Surface.Source.Dialog.Expression")+":</b></html>"));
 		panel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		timeBase2=buildSyncedTimeBaseComboBox(sub);
-		timeBase2.addActionListener(e->{arrivalStartTimeUnit.setText((String)timeBase2.getSelectedItem());});
+		timeBase2.addActionListener(e->checkData(false));
 		sub.add(expressionFirstArrivalAt0=new JCheckBox(Language.tr("Surface.Source.Dialog.FirstArrivalAt0")));
 		expressionFirstArrivalAt0.addActionListener(e->syncFirstArrivalAt0CheckBoxes(e));
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Source.Dialog.Expression.Expression")+":","");
@@ -754,15 +760,31 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 
 		tab=new JPanel(new BorderLayout(0,5));
 		if (hasOwnArrivals) tabs.add(Language.tr("Surface.Source.Dialog.Tab.StartingTime"),tab);
-		tab.add(panel=new JPanel(),BorderLayout.NORTH);
-		panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
+		tab.add(arrivalStartSub=new JPanel(),BorderLayout.NORTH);
+		arrivalStartSub.setLayout(new BoxLayout(arrivalStartSub,BoxLayout.PAGE_AXIS));
 
-		panel.add(arrivalStartSub1=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		arrivalStartSub1.add(new JLabel("<html><b>"+Language.tr("Surface.Source.Dialog.ArrivalStart")+":</b></html>"));
+		arrivalStartSub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(arrivalStartTimeUnitGlobal=new JRadioButton(Language.tr("Surface.Source.Dialog.Tab.StartingTime.UnitGlobal")));
+		arrivalStartTimeUnitGlobal.addActionListener(e->checkData(false));
 
-		panel.add(arrivalStartSub2=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		arrivalStartSub2.add(label=new JLabel(Language.tr("Surface.Source.Dialog.ArrivalStart.Label")+":"));
-		arrivalStartSub2.add(arrivalStart=new JTextField(10));
+		arrivalStartSub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(arrivalStartTimeUnitLocal=new JRadioButton(Language.tr("Surface.Source.Dialog.Tab.StartingTime.UnitLocal")+":"));
+		arrivalStartTimeUnitLocal.addActionListener(e->checkData(false));
+		line.add(Box.createHorizontalStrut(5));
+		line.add(arrivalStartTimeUnit=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
+		arrivalStartTimeUnit.setSelectedIndex(0);
+		arrivalStartTimeUnit.addActionListener(e->{arrivalStartTimeUnitLocal.setSelected(true); checkData(false);});
+
+		buttonGroup=new ButtonGroup();
+		buttonGroup.add(arrivalStartTimeUnitGlobal);
+		buttonGroup.add(arrivalStartTimeUnitLocal);
+
+		arrivalStartSub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel("<html><b>"+Language.tr("Surface.Source.Dialog.ArrivalStart")+":</b></html>"));
+
+		arrivalStartSub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel(Language.tr("Surface.Source.Dialog.ArrivalStart.Label")+":"));
+		line.add(arrivalStart=new JTextField(10));
 		label.setLabelFor(arrivalStart);
 		arrivalStart.setEditable(!readOnly);
 		arrivalStart.addKeyListener(new KeyListener() {
@@ -770,11 +792,11 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
-		arrivalStartSub2.add(arrivalStartTimeUnit=new JLabel((String)timeBase1.getSelectedItem()));
+		line.add(arrivalStartTimeUnitLabel=new JLabel((String)timeBase1.getSelectedItem()));
 
 		final int cardIndex=selectCard.getSelectedIndex();
-		arrivalStartSub1.setVisible(cardIndex==0 || cardIndex==1 || cardIndex==4);
-		arrivalStartSub2.setVisible(cardIndex==0 || cardIndex==1 || cardIndex==4);
+		line.setVisible(cardIndex==0 || cardIndex==1 || cardIndex==4);
+		line.setVisible(cardIndex==0 || cardIndex==1 || cardIndex==4);
 
 		/* Zuweisungen (Zahlen) */
 
@@ -993,6 +1015,13 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 
 		/* Start der Ankünfte */
 		arrivalStart.setText(NumberTools.formatNumber(record.getArrivalStart()));
+		final TimeBase arrivalStartTimeBase=record.getArrivalStartTimeBase();
+		if (arrivalStartTimeBase==null) {
+			arrivalStartTimeUnitGlobal.setSelected(true);
+		} else {
+			arrivalStartTimeUnitLocal.setSelected(true);
+			arrivalStartTimeUnit.setSelectedIndex(arrivalStartTimeBase.id);
+		}
 
 		Object[] data;
 
@@ -1138,7 +1167,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		/* Anzahl an Ankünften */
 		if (hasOwnArrivals) {
 			if (optionInfinite.isSelected()) {
-				info=Language.tr("Surface.Source.Dialog.Tab.NumberOfArrivals.Infinite");
+				info=Language.tr("Surface.Source.Dialog.Tab.NumberOfArrivals.Clients")+": "+Language.tr("Surface.Source.Dialog.Tab.NumberOfArrivals.Infinite");
 			} else {
 				if (optionFixedNumberArrivals.isSelected()) {
 					numberFieldClients.setBackground(NumberTools.getTextFieldDefaultBackground());
@@ -1148,6 +1177,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 					} else {
 						info=NumberTools.formatLong(L.longValue());
 					}
+					info=Language.tr("Surface.Source.Dialog.Tab.NumberOfArrivals.Events")+": "+info;
 				} else {
 					numberFieldArrivals.setBackground(NumberTools.getTextFieldDefaultBackground());
 					L=NumberTools.getPositiveLong(numberFieldClients,true);
@@ -1156,14 +1186,25 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 					} else {
 						info=NumberTools.formatLong(L.longValue());
 					}
+					info=Language.tr("Surface.Source.Dialog.Tab.NumberOfArrivals.Clients")+": "+info;
 				}
 			}
-			tabs.setTitleAt(2,Language.tr("Surface.Source.Dialog.Tab.NumberOfArrivals.Clients")+": "+info);
+			tabs.setTitleAt(2,info);
 		}
 
 		/* Startzeit */
 		if (hasOwnArrivals) {
-			if (arrivalStartSub1.isVisible()) {
+			if (arrivalStartSub.isVisible()) {
+				final String unit;
+				final String unitTab;
+				if (arrivalStartTimeUnitGlobal.isSelected()) {
+					unit=ModelSurface.getTimeBaseString(TimeBase.byId(timeBase1.getSelectedIndex()));
+					unitTab=ModelSurface.getTimeBaseStringTab(TimeBase.byId(timeBase1.getSelectedIndex()));
+				} else {
+					unit=ModelSurface.getTimeBaseString(TimeBase.byId(arrivalStartTimeUnit.getSelectedIndex()));
+					unitTab=ModelSurface.getTimeBaseStringTab(TimeBase.byId(arrivalStartTimeUnit.getSelectedIndex()));
+				}
+				arrivalStartTimeUnitLabel.setText(unit);
 				final Double D=NumberTools.getNotNegativeDouble(arrivalStart,true);
 				if (D==null) {
 					info=Language.tr("Surface.Source.Dialog.Tab.StartingTime.Invalid");
@@ -1171,7 +1212,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 					if (D.doubleValue()==0.0) {
 						info=Language.tr("Surface.Source.Dialog.Tab.StartingTime.Immediately");
 					} else {
-						info=String.format(Language.tr("Surface.Source.Dialog.Tab.StartingTime.AfterTime"),NumberTools.formatNumber(D.doubleValue())+" "+(String)timeBase1.getSelectedItem());
+						info=String.format(Language.tr("Surface.Source.Dialog.Tab.StartingTime.AfterTime"),NumberTools.formatNumber(D.doubleValue())+" "+unitTab);
 					}
 				}
 				tabs.setTitleAt(3,Language.tr("Surface.Source.Dialog.Tab.StartingTime")+": "+info);
@@ -1431,6 +1472,16 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			}
 
 			final Double D=NumberTools.getNotNegativeDouble(arrivalStart,true);
+			final String unit;
+			final String unitTab;
+			if (arrivalStartTimeUnitGlobal.isSelected()) {
+				unit=ModelSurface.getTimeBaseString(TimeBase.byId(timeBase1.getSelectedIndex()));
+				unitTab=ModelSurface.getTimeBaseStringTab(TimeBase.byId(timeBase1.getSelectedIndex()));
+			} else {
+				unit=ModelSurface.getTimeBaseString(TimeBase.byId(arrivalStartTimeUnit.getSelectedIndex()));
+				unitTab=ModelSurface.getTimeBaseStringTab(TimeBase.byId(arrivalStartTimeUnit.getSelectedIndex()));
+			}
+			arrivalStartTimeUnitLabel.setText(unit);
 			if (D==null) {
 				tabs.setTitleAt(3,Language.tr("Surface.Source.Dialog.Tab.StartingTime")+": "+Language.tr("Surface.Source.Dialog.Tab.StartingTime.Invalid"));
 				if (showErrorMessage) {
@@ -1442,7 +1493,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 				if (D.doubleValue()==0.0) {
 					tabs.setTitleAt(3,Language.tr("Surface.Source.Dialog.Tab.StartingTime")+": "+Language.tr("Surface.Source.Dialog.Tab.StartingTime.Immediately"));
 				} else {
-					tabs.setTitleAt(3,Language.tr("Surface.Source.Dialog.Tab.StartingTime")+": "+String.format(Language.tr("Surface.Source.Dialog.Tab.StartingTime.AfterSeconds"),NumberTools.formatNumber(D.doubleValue())));
+					tabs.setTitleAt(3,Language.tr("Surface.Source.Dialog.Tab.StartingTime")+": "+String.format(Language.tr("Surface.Source.Dialog.Tab.StartingTime.AfterTime"),NumberTools.formatNumber(D.doubleValue())+" "+unitTab));
 				}
 			}
 		}
@@ -1539,6 +1590,11 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 
 		if (selectCard.getSelectedIndex()!=2 && selectCard.getSelectedIndex()!=3 && selectCard.getSelectedIndex()!=4) {
 			record.setArrivalStart(NumberTools.getNotNegativeDouble(arrivalStart,true));
+			if (arrivalStartTimeUnitGlobal.isSelected()) {
+				record.setArrivalStartTimeBase(null);
+			} else {
+				record.setArrivalStartTimeBase(TimeBase.byId(arrivalStartTimeUnit.getSelectedIndex()));
+			}
 		}
 
 		/* Zuweisungen (Zahlen) */

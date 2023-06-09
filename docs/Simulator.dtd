@@ -526,6 +526,9 @@
   Kundenanzahl	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementStartZeitpunkt (#PCDATA)>
+<!ATTLIST ModellElementStartZeitpunkt
+  Zeitbasis	CDATA	#IMPLIED
+>
 
 <!ELEMENT ModellElementAnkunftsbedingung (#PCDATA)>
 <!ATTLIST ModellElementAnkunftsbedingung
@@ -3172,6 +3175,9 @@
   ClientCount	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementStartTime (#PCDATA)>
+<!ATTLIST ModelElementStartTime
+  TimeBase	CDATA	#IMPLIED
+>
 
 <!ELEMENT ModelElementArrivalCondition (#PCDATA)>
 <!ATTLIST ModelElementArrivalCondition

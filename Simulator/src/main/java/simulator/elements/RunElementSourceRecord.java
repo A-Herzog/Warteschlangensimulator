@@ -165,6 +165,7 @@ public class RunElementSourceRecord {
 		clientTypeName=name;
 
 		timeBaseMultiply=record.getTimeBase().multiply;
+		final double arrivalStartTimeBaseMultiply=(record.getArrivalStartTimeBase()==null)?timeBaseMultiply:(record.getArrivalStartTimeBase().multiply);
 
 		int error;
 		double arrivalStart;
@@ -173,7 +174,7 @@ public class RunElementSourceRecord {
 			distribution=DistributionTools.cloneDistribution(record.getInterarrivalTimeDistribution());
 			arrivalStart=record.getArrivalStart();
 			if (arrivalStart<0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceArrivalStart"),NumberTools.formatNumber(arrivalStart),id),RunModelCreatorStatus.Status.NEGATIVE_ARRIVAL_START_TIME);
-			arrivalStartMS=FastMath.round(arrivalStart*timeBaseMultiply*1000);
+			arrivalStartMS=FastMath.round(arrivalStart*arrivalStartTimeBaseMultiply*1000);
 			firstArrivalAt0=record.isFirstArrivalAt0();
 			break;
 		case NEXT_EXPRESSION:
@@ -183,7 +184,7 @@ public class RunElementSourceRecord {
 			this.expression=expression;
 			arrivalStart=record.getArrivalStart();
 			if (arrivalStart<0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceArrivalStart"),NumberTools.formatNumber(arrivalStart),id),RunModelCreatorStatus.Status.NEGATIVE_ARRIVAL_START_TIME);
-			arrivalStartMS=FastMath.round(arrivalStart*timeBaseMultiply*1000);
+			arrivalStartMS=FastMath.round(arrivalStart*arrivalStartTimeBaseMultiply*1000);
 			firstArrivalAt0=record.isFirstArrivalAt0();
 			break;
 		case NEXT_SCHEDULE:
@@ -203,7 +204,7 @@ public class RunElementSourceRecord {
 			this.conditionMinDistance=conditionMinDistance;
 			arrivalStart=record.getArrivalStart();
 			if (arrivalStart<0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceArrivalStart"),NumberTools.formatNumber(arrivalStart),id),RunModelCreatorStatus.Status.NEGATIVE_ARRIVAL_START_TIME);
-			arrivalStartMS=FastMath.round(arrivalStart*timeBaseMultiply*1000);
+			arrivalStartMS=FastMath.round(arrivalStart*arrivalStartTimeBaseMultiply*1000);
 			break;
 		case NEXT_THRESHOLD:
 			final String thresholdExpression=record.getThresholdExpression();

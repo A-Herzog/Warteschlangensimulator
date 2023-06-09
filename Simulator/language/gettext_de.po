@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 20:38+0200\n"
+"POT-Creation-Date: 2023-06-09 22:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32569,6 +32569,9 @@ msgstr "Anzahl an Kunden"
 msgid "Surface.Source.Dialog.Tab.NumberOfArrivals.Clients.Invalide"
 msgstr "ungültig"
 
+msgid "Surface.Source.Dialog.Tab.NumberOfArrivals.Events"
+msgstr "Anzahl an Ankunftsereignissen"
+
 msgid "Surface.Source.Dialog.Tab.NumberOfArrivals.Infinite"
 msgstr "unbegrenzt"
 
@@ -32584,9 +32587,6 @@ msgstr "Zuweisung von Texten"
 msgid "Surface.Source.Dialog.Tab.StartingTime"
 msgstr "Startzeitpunkt"
 
-msgid "Surface.Source.Dialog.Tab.StartingTime.AfterSeconds"
-msgstr "Nach %s Sekunden"
-
 msgid "Surface.Source.Dialog.Tab.StartingTime.AfterTime"
 msgstr "Nach %s"
 
@@ -32595,6 +32595,12 @@ msgstr "Sofort"
 
 msgid "Surface.Source.Dialog.Tab.StartingTime.Invalid"
 msgstr "ungültig"
+
+msgid "Surface.Source.Dialog.Tab.StartingTime.UnitGlobal"
+msgstr "Zeiteinheit wie bei Zwischenankunftszeiten"
+
+msgid "Surface.Source.Dialog.Tab.StartingTime.UnitLocal"
+msgstr "Zeiteinheit"
 
 msgid "Surface.Source.Dialog.Threshold"
 msgstr "Ankünfte über Schwellenwert auslösen"
@@ -32781,6 +32787,9 @@ msgstr "ModellElementAusdruck"
 
 msgid "Surface.Source.XML.Expression.ArrivalStart"
 msgstr "ModellElementStartZeitpunkt"
+
+msgid "Surface.Source.XML.Expression.ArrivalStart.TimeBase"
+msgstr "Zeitbasis"
 
 msgid "Surface.Source.XML.Expression.ClientCount"
 msgstr "Kundenanzahl"
@@ -35146,13 +35155,25 @@ msgstr "ProSekunde"
 msgid "Surface.XML.TimeBase.Days"
 msgstr "Tage"
 
+msgid "Surface.XML.TimeBase.DaysTab"
+msgstr "Tagen"
+
 msgid "Surface.XML.TimeBase.Hours"
+msgstr "Stunden"
+
+msgid "Surface.XML.TimeBase.HoursTab"
 msgstr "Stunden"
 
 msgid "Surface.XML.TimeBase.Minutes"
 msgstr "Minuten"
 
+msgid "Surface.XML.TimeBase.MinutesTab"
+msgstr "Minuten"
+
 msgid "Surface.XML.TimeBase.Seconds"
+msgstr "Sekunden"
+
+msgid "Surface.XML.TimeBase.SecondsTab"
 msgstr "Sekunden"
 
 msgid "Surface.XML.TimedChecks"
@@ -37163,6 +37184,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 #~ "Da für eine Aktualisierung der Liste der Kunden an der Station die gesamte Liste<br>\n"
 #~ "der Kunden im System durchlaufen werden muss, wird diese Liste nicht automatisch<br>\n"
 #~ "mit den anderen Daten aktualisiert, sondern muss manuell aktualisiert werden."
+
+#~ msgid "Surface.Source.Dialog.Tab.StartingTime.AfterSeconds"
+#~ msgstr "Nach %s Sekunden"
 
 #~ msgid "Surface.Sub.Dialog.NumberInput.Error.Info"
 #~ msgstr "Der angegebene Wert \"%s\" für die Anzahl an Eingängen in das Untermodell ist ungültig. Es muss eine positive ganze Zahl angegeben werden."

@@ -32,6 +32,7 @@ import mathtools.distribution.tools.DistributionTools;
 import parser.CalcSystem;
 import simulator.editmodel.FullTextSearch;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
@@ -287,6 +288,15 @@ public final class ModelElementSourceRecord implements Cloneable {
 	private double arrivalsStart;
 
 	/**
+	 * Verwendete Zeitbasis für den Zeitpunkt am dem die erste Zwischenankunftszeit beginnt<br>
+	 * (Kann <code>null</code> sein, dann wird die Zeitbasis der Zwischenankunftszeiten verwendet.)
+	 * @see #arrivalsStart
+	 * @see #getArrivalStartTimeBase()
+	 * @see #setArrivalStartTimeBase(TimeBase)
+	 */
+	private TimeBase arrivalStartTimeBase;
+
+	/**
 	 * Datensatz für Zahlenzuweisungen
 	 * @see #getSetRecord()
 	 */
@@ -348,6 +358,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		maxArrivalCount=-1;
 		maxArrivalClientCount=-1;
 		arrivalsStart=0;
+		arrivalStartTimeBase=null;
 
 		setRecord=new ModelElementSetRecord();
 		stringRecord=new ModelElementAssignStringRecord();
@@ -934,6 +945,26 @@ public final class ModelElementSourceRecord implements Cloneable {
 	}
 
 	/**
+	 * Liefert die Zeitbasis für den Zeitpunkt am dem die erste Zwischenankunftszeit beginnen sollen.
+	 * (Kann <code>null</code> sein, dann wird die Zeitbasis der Zwischenankunftszeiten verwendet.)
+	 * @return	Zeitbasis für den Zeitpunkt am dem die erste Zwischenankunftszeit beginnen sollen.
+	 * @see #setArrivalStartTimeBase(TimeBase)
+	 */
+	public TimeBase getArrivalStartTimeBase() {
+		return arrivalStartTimeBase;
+	}
+
+	/**
+	 * Stellt die Zeitbasis für den Zeitpunkt am dem die erste Zwischenankunftszeit beginnen sollen ein.
+	 * (Kann <code>null</code> sein, dann wird die Zeitbasis der Zwischenankunftszeiten verwendet.)
+	 * @param arrivalStartTimeBase	Zeitbasis für den Zeitpunkt am dem die erste Zwischenankunftszeit beginnen sollen.
+	 * @see #getArrivalStartTimeBase()
+	 */
+	public void setArrivalStartTimeBase(final TimeBase arrivalStartTimeBase) {
+		this.arrivalStartTimeBase=arrivalStartTimeBase;
+	}
+
+	/**
 	 * Liefert den Datensatz für Zahlenzuweisungen innerhalb des Quellendatensatzes
 	 * @return	Datensatz für Zahlenzuweisungen
 	 */
@@ -1030,6 +1061,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 
 		if (hasOwnArrivals) {
 			if (record.arrivalsStart!=arrivalsStart) return false;
+			if (!Objects.equals(record.arrivalStartTimeBase,arrivalStartTimeBase)) return false;
 		}
 
 		if (!record.setRecord.equalsModelElementSetRecord(setRecord)) return false;
@@ -1075,6 +1107,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		maxArrivalCount=record.maxArrivalCount;
 		maxArrivalClientCount=record.maxArrivalClientCount;
 		arrivalsStart=record.arrivalsStart;
+		arrivalStartTimeBase=record.arrivalStartTimeBase;
 
 		setRecord.copyDataFrom(record.setRecord);
 		stringRecord.copyDataFrom(record.stringRecord);
@@ -1235,6 +1268,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 			if (arrivalsStart>0 && (nextMode==NextMode.NEXT_DISTRIBUTION || nextMode==NextMode.NEXT_EXPRESSION || nextMode==NextMode.NEXT_THRESHOLD)) {
 				node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.Expression.ArrivalStart")));
 				sub.setTextContent(NumberTools.formatSystemNumber(arrivalsStart));
+				if (arrivalStartTimeBase!=null) {
+					sub.setAttribute(Language.trPrimary("Surface.Source.XML.Expression.ArrivalStart.TimeBase"),ModelSurface.getTimeBaseString(arrivalStartTimeBase));
+				}
 			}
 		}
 
@@ -1460,6 +1496,12 @@ public final class ModelElementSourceRecord implements Cloneable {
 			Double D=NumberTools.getNotNegativeDouble(content);
 			if (D==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			arrivalsStart=D;
+			final String arrivalStartTimeBaseString=Language.trAllAttribute("Surface.Source.XML.Expression.ArrivalStart.TimeBase",node);
+			if (arrivalStartTimeBaseString.trim().isEmpty()) {
+				arrivalStartTimeBase=null;
+			} else {
+				arrivalStartTimeBase=ModelSurface.getTimeBaseInteger(arrivalStartTimeBaseString);
+			}
 			return null;
 		}
 
@@ -1684,6 +1726,12 @@ public final class ModelElementSourceRecord implements Cloneable {
 				info.append(Language.tr("ModelDescription.Arrival.ArrivalStart"));
 				info.append(": ");
 				info.append(NumberTools.formatNumber(arrivalsStart));
+				info.append(" ");
+				if (arrivalStartTimeBase!=null) {
+					info.append(ModelSurface.getTimeBaseString(arrivalStartTimeBase));
+				} else {
+					info.append(ModelSurface.getTimeBaseString(timeBase));
+				}
 				info.append("\n");
 			}
 		}
