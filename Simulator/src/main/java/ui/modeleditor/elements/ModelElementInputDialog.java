@@ -164,6 +164,7 @@ public class ModelElementInputDialog extends ModelElementBaseDialog {
 			optionDefaultValue.setEnabled(!readOnly);
 			optionDefaultValue.addActionListener(e->checkData(false));
 			line.add(defaultValueEdit=new JTextField(input.getDefaultValue(),10));
+			ModelElementBaseDialog.addUndoFeature(defaultValueEdit);
 			defaultValueEdit.setEditable(!readOnly);
 			defaultValueEdit.addKeyListener(new KeyListener() {
 				@Override public void keyTyped(KeyEvent e) {optionDefaultValue.setSelected(true); checkData(false);}

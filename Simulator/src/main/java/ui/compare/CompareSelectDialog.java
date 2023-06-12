@@ -39,6 +39,7 @@ import systemtools.MsgBox;
 import ui.help.Help;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
+import ui.modeleditor.ModelElementBaseDialog;
 import xml.XMLTools;
 
 /**
@@ -99,6 +100,7 @@ public class CompareSelectDialog extends BaseDialog  {
 			p.add(new JLabel(Language.tr("Compare.StatisticFile")+" "+(i+1)));
 			content.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			p.add(statisticTextFields[i]=new JTextField(50));
+			ModelElementBaseDialog.addUndoFeature(statisticTextFields[i]);
 			p.add(statisticButton[i]=new JButton(Language.tr("Compare.SelectStatisticFile"),Images.STATISTICS_LOAD.getIcon()));
 			statisticButton[i].setToolTipText(Language.tr("Compare.SelectStatisticFile.Info"));
 			statisticButton[i].addActionListener(e->selectButtonClick((JButton)e.getSource()));

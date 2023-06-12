@@ -164,6 +164,7 @@ public class ModelElementSourceMultiDialog extends ModelElementBaseDialog {
 		maxClientArrivalOption.setSelected(source.getMaxClientArrival()>0);
 		maxClientArrivalOption.setEnabled(!readOnly);
 		line.add(maxClientArrivalValue=new JTextField((source.getMaxClientArrival()>0)?(""+source.getMaxClientArrival()):"1000",10));
+		ModelElementBaseDialog.addUndoFeature(maxClientArrivalValue);
 		maxClientArrivalValue.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {

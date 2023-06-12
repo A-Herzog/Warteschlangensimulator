@@ -81,12 +81,14 @@ public class SequenceEditAssignmentsEditDialog extends BaseDialog {
 		final JPanel panelLeft=new JPanel(new FlowLayout());
 		panelLeft.add(new JLabel(CalcSymbolClientUserData.CLIENT_DATA_COMMANDS[0]+"("));
 		panelLeft.add(keyEdit=new JTextField(5));
+		ModelElementBaseDialog.addUndoFeature(keyEdit);
 		panelLeft.add(new JLabel("):="));
 		box.add(panelLeft);
 		box.add(Box.createVerticalGlue());
 		content.add(box,BorderLayout.WEST);
 
 		expressionEdit=new JTextField();
+		ModelElementBaseDialog.addUndoFeature(expressionEdit);
 		expressionEdit.setMaximumSize(new Dimension(expressionEdit.getMaximumSize().width,expressionEdit.getPreferredSize().height));
 		box=Box.createVerticalBox();
 		box.add(Box.createVerticalGlue());

@@ -214,6 +214,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 		tab.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(optionNumber=new JRadioButton(Language.tr("Resources.Group.EditName.Dialog.Number.Fixed")+":"));
 		panel.add(inputNumber=new JTextField(5));
+		ModelElementBaseDialog.addUndoFeature(inputNumber);
 		inputNumber.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionNumber.setSelected(true); NumberTools.getPositiveLong(inputNumber,true);}
 			@Override public void keyReleased(KeyEvent e) {optionNumber.setSelected(true); NumberTools.getPositiveLong(inputNumber,true);}

@@ -72,6 +72,7 @@ import systemtools.MsgBox;
 import systemtools.statistics.StatisticsBasePanel;
 import ui.help.Help;
 import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 
 /**
  * Erstellt auf Basis einer Kundenbewegungstabelle ein Sankey-Diagramm.
@@ -189,6 +190,7 @@ public final class CreateSankey extends BaseDialog {
 		final JLabel label=new JLabel(Language.tr("Simulation.ClientMovement.OutputFile")+":");
 		p2.add(label);
 		p.add(editFile=new JTextField(),BorderLayout.CENTER);
+		ModelElementBaseDialog.addUndoFeature(editFile);
 		label.setLabelFor(editFile);
 		editFile.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {outputFile.setSelected(true);}
@@ -228,11 +230,13 @@ public final class CreateSankey extends BaseDialog {
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(useStart=new JCheckBox(Language.tr("Simulation.ClientMovement.Start.Use")+":",true));
 		line.add(nameStart=new JTextField(Language.tr("Simulation.ClientMovement.Start"),10));
+		ModelElementBaseDialog.addUndoFeature(nameStart);
 		nameStart.addKeyListener(new KeyAdapter() {
 			@Override public void keyPressed(KeyEvent e) {useStart.setSelected(true);}
 		});
 		line.add(useEnd=new JCheckBox(Language.tr("Simulation.ClientMovement.End.Use")+":",true));
 		line.add(nameEnd=new JTextField(Language.tr("Simulation.ClientMovement.End"),10));
+		ModelElementBaseDialog.addUndoFeature(nameEnd);
 		nameEnd.addKeyListener(new KeyAdapter() {
 			@Override public void keyPressed(KeyEvent e) {useEnd.setSelected(true);}
 		});

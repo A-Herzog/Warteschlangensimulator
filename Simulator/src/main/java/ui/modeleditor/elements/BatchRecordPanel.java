@@ -122,6 +122,7 @@ public class BatchRecordPanel extends JPanel {
 
 		line.add(label=new JLabel(Language.tr("Surface.Batch.Dialog.BatchSizeFixed")+":"));
 		line.add(batchFieldFixed=new JTextField(10));
+		ModelElementBaseDialog.addUndoFeature(batchFieldFixed);
 		batchFieldFixed.setEditable(!readOnly);
 		batchFieldFixed.setText(""+batchRecord.getBatchSizeFixed());
 		label.setLabelFor(batchFieldFixed);
@@ -139,6 +140,7 @@ public class BatchRecordPanel extends JPanel {
 
 		line.add(label=new JLabel(Language.tr("Surface.Batch.Dialog.BatchSizeMin")+":"));
 		line.add(batchFieldMin=new JTextField(10));
+		ModelElementBaseDialog.addUndoFeature(batchFieldMin);
 		batchFieldMin.setEditable(!readOnly);
 		batchFieldMin.setText(""+batchRecord.getBatchSizeMin());
 		label.setLabelFor(batchFieldMin);
@@ -151,6 +153,7 @@ public class BatchRecordPanel extends JPanel {
 
 		line.add(label=new JLabel(Language.tr("Surface.Batch.Dialog.BatchSizeMax")+":"));
 		line.add(batchFieldMax=new JTextField(10));
+		ModelElementBaseDialog.addUndoFeature(batchFieldMax);
 		batchFieldMax.setEditable(!readOnly);
 		batchFieldMax.setText(""+batchRecord.getBatchSizeMax());
 		label.setLabelFor(batchFieldMax);
@@ -181,6 +184,7 @@ public class BatchRecordPanel extends JPanel {
 		optionTemporary.setEnabled(!readOnly);
 		optionTemporary.addActionListener(e->{setActive(); checkData(false);});
 		line.add(tempTypeField=new JTextField(25));
+		ModelElementBaseDialog.addUndoFeature(tempTypeField);
 		tempTypeField.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {setActive(); optionTemporary.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {setActive(); optionTemporary.setSelected(true); checkData(false);}
@@ -193,6 +197,7 @@ public class BatchRecordPanel extends JPanel {
 		optionNewType.setEnabled(!readOnly);
 		optionNewType.addActionListener(e->{setActive(); checkData(false);});
 		line.add(newTypeField=new JTextField(25));
+		ModelElementBaseDialog.addUndoFeature(newTypeField);
 		newTypeField.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {setActive(); optionNewType.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {setActive(); optionNewType.setSelected(true); checkData(false);}

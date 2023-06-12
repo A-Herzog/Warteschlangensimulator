@@ -262,6 +262,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		tab.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 		sub.add(label=new JLabel(Language.tr("Surface.Process.Dialog.MinimumBatchSize")+":"));
 		sub.add(textBatchMin=new JTextField(4));
+		ModelElementBaseDialog.addUndoFeature(textBatchMin);
 		textBatchMin.setEditable(!readOnly);
 		textBatchMin.setText(""+process.getBatchMinimum());
 		label.setLabelFor(textBatchMin);
@@ -272,6 +273,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		});
 		sub.add(label=new JLabel(Language.tr("Surface.Process.Dialog.MaximumBatchSize")+":"));
 		sub.add(textBatchMax=new JTextField(4));
+		ModelElementBaseDialog.addUndoFeature(textBatchMax);
 		textBatchMax.setEditable(!readOnly);
 		textBatchMax.setText(""+process.getBatchMaximum());
 		label.setLabelFor(textBatchMax);

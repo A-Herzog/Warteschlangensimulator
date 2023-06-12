@@ -116,6 +116,7 @@ public class TransportRouteTableModelDialog extends BaseDialog {
 		content.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(optionExpression=new JRadioButton(Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.ByExpression")+":"));
 		panel.add(editExpression=new JTextField(30));
+		ModelElementBaseDialog.addUndoFeature(editExpression);
 		panel.add(ModelElementBaseDialog.getExpressionEditButton(this,editExpression,true,true,model,surface));
 		editExpression.addKeyListener(new KeyListener(){
 			@Override public void keyTyped(KeyEvent e) {checkData(false); optionExpression.setSelected(true);}

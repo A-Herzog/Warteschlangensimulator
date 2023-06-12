@@ -106,6 +106,7 @@ import ui.ModelChanger;
 import ui.help.Help;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.optimizer.OptimizerBase.OptimizationRunResults;
 import ui.optimizer.OptimizerSetup.ControlVariable;
 import ui.statistics.ListPopup;
@@ -388,6 +389,7 @@ public class OptimizerPanel extends SpecialPanel {
 		box.add(line=new JPanel(new BorderLayout()));
 		line.add(targetScriptSelect=new JRadioButton(Language.tr("Optimizer.Tab.Target.Type.Script")+":"),BorderLayout.WEST);
 		line.add(targetScriptEdit=new JTextField(),BorderLayout.CENTER);
+		ModelElementBaseDialog.addUndoFeature(targetScriptEdit);
 		line.add(targetScriptButton=new JButton(""),BorderLayout.EAST);
 		targetScriptButton.setToolTipText(Language.tr("Optimizer.Tab.Target.Type.Script.Button.Hint"));
 		targetScriptButton.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
@@ -410,6 +412,7 @@ public class OptimizerPanel extends SpecialPanel {
 		box.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(valueRange=new JRadioButton(Language.tr("Optimizer.Tab.Target.Value.RangeA")+" "));
 		line.add(valueRangeMin=new JTextField(10));
+		ModelElementBaseDialog.addUndoFeature(valueRangeMin);
 		valueRangeMin.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {getSetupFromGUI(true); valueRange.setSelected(true);}
 			@Override public void keyReleased(KeyEvent e) {getSetupFromGUI(true); valueRange.setSelected(true);}
@@ -417,6 +420,7 @@ public class OptimizerPanel extends SpecialPanel {
 		});
 		line.add(new JLabel(" "+Language.tr("Optimizer.Tab.Target.Value.RangeB")+" "));
 		line.add(valueRangeMax=new JTextField(10));
+		ModelElementBaseDialog.addUndoFeature(valueRangeMax);
 		valueRangeMax.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {getSetupFromGUI(true); valueRange.setSelected(true);}
 			@Override public void keyReleased(KeyEvent e) {getSetupFromGUI(true); valueRange.setSelected(true);}
@@ -445,6 +449,7 @@ public class OptimizerPanel extends SpecialPanel {
 		lines.add(line=new JPanel(new BorderLayout()));
 		line.add(new JLabel(Language.tr("Optimizer.Tab.Optimization.Folder")+": "),BorderLayout.WEST);
 		line.add(statisticsEdit=new JTextField(),BorderLayout.CENTER);
+		ModelElementBaseDialog.addUndoFeature(statisticsEdit);
 		new FileDropper(statisticsEdit,new ButtonListener());
 		sub=new JPanel();
 		sub.setLayout(new BoxLayout(sub,BoxLayout.LINE_AXIS));

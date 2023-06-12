@@ -175,6 +175,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		warmUpTimeTimeCheck.setSelected(model.warmUpTimeTime>0);
 		warmUpTimeTimeCheck.addActionListener(e->checkWarmUpTimeTime());
 		sub.add(warmUpTimeTimeEdit=new JTextField(TimeTools.formatLongTime((model.warmUpTimeTime>0)?model.warmUpTimeTime:300),15));
+		ModelElementBaseDialog.addUndoFeature(warmUpTimeTimeEdit);
 		warmUpTimeTimeEdit.setEnabled(!readOnly);
 		addKeyListener(warmUpTimeTimeEdit,()->{
 			warmUpTimeTimeCheck.setSelected(true);
@@ -280,6 +281,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		useTimedChecks.setEnabled(!readOnly);
 		useTimedChecks.addActionListener(e->checkTimedChecks());
 		sub.add(editTimedChecks=new JTextField(NumberTools.formatNumber((model.timedChecksDelta>0)?(model.timedChecksDelta/1000.0):1.0),5));
+		ModelElementBaseDialog.addUndoFeature(editTimedChecks);
 		editTimedChecks.setEnabled(!readOnly);
 		addKeyListener(editTimedChecks,()->{
 			useTimedChecks.setSelected(true);

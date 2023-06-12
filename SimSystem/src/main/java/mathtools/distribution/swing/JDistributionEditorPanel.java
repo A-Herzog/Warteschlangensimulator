@@ -29,6 +29,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -50,6 +51,9 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ListCellRenderer;
 import javax.swing.SwingUtilities;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoManager;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
@@ -400,6 +404,7 @@ public class JDistributionEditorPanel extends JPanel {
 			}
 
 			textFields[i]=new JTextField(initialValues[i]);
+			addUndoFeature(textFields[i]);
 			textFields[i].addKeyListener(new TextFieldsEvents());
 
 			if (spinButtons) {
@@ -748,5 +753,36 @@ public class JDistributionEditorPanel extends JPanel {
 			}
 			return this;
 		}
+	}
+
+	/**
+	 * Aktiviert die Undo/Redo-Funktionen für ein Textfeld
+	 * @param textField Textfeld, bei dem die Funktionen aktiviert werden sollen
+	 */
+	private static void addUndoFeature(final JTextField textField) {
+		final UndoManager manager=new UndoManager();
+		textField.getDocument().addUndoableEditListener(manager);
+
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_Z && e.isControlDown()) {
+					try {
+						manager.undo();
+					} catch (CannotUndoException e2) {
+					}
+					e.consume();
+					return;
+				}
+				if (e.getKeyCode()==KeyEvent.VK_Y && e.isControlDown()) {
+					try {
+						manager.redo();
+					} catch (CannotRedoException e2) {
+					}
+					e.consume();
+					return;
+				}
+			}
+		});
 	}
 }

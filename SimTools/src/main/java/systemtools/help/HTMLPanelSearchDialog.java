@@ -87,6 +87,7 @@ public class HTMLPanelSearchDialog extends BaseDialog {
 		final JLabel label=new JLabel(HelpBase.buttonSearchString+": ");
 		setup.add(label,BorderLayout.WEST);
 		final JTextField input=new JTextField();
+		BaseDialog.addUndoFeature(input);
 		setup.add(input,BorderLayout.CENTER);
 		label.setLabelFor(input);
 		input.addKeyListener(new KeyListener() {

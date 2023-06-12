@@ -38,6 +38,7 @@ import language.Language;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.script.ScriptTools;
 
 /**
@@ -101,6 +102,7 @@ public class ParameterCompareStatisticSelectDialog extends BaseDialog {
 			final JLabel label=new JLabel(Language.tr("ParameterCompare.Select.SelectFolder.Label")+":");
 			line.add(label,BorderLayout.WEST);
 			line.add(folderEdit=new JTextField(),BorderLayout.CENTER);
+			ModelElementBaseDialog.addUndoFeature(folderEdit);
 			label.setLabelFor(folderEdit);
 			final JButton button=new JButton("");
 			line.add(button,BorderLayout.EAST);

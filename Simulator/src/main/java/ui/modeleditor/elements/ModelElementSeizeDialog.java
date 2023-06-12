@@ -138,6 +138,7 @@ public class ModelElementSeizeDialog extends ModelElementBaseDialog {
 		sub.add(hasTimeOut=new JCheckBox(Language.tr("Surface.Seize.Dialog.Timeout")+":"));
 		hasTimeOut.setEnabled(!readOnly);
 		sub.add(timeOut=new JTextField(10));
+		ModelElementBaseDialog.addUndoFeature(timeOut);
 		timeOut.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {hasTimeOut.setSelected(true); checkInput(false);}
 			@Override public void keyReleased(KeyEvent e) {hasTimeOut.setSelected(true); checkInput(false);}

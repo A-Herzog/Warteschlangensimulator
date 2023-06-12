@@ -128,6 +128,7 @@ public class TransporterFailureDialog extends BaseDialog {
 		inner.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(failureNumber=new JRadioButton(Language.tr("Transporter.Group.Edit.Dialog.Failure.Number")));
 		panel.add(failureNumberEdit=new JTextField("100",10));
+		ModelElementBaseDialog.addUndoFeature(failureNumberEdit);
 		if (failure.getFailureMode()==ModelTransporterFailure.FailureMode.FAILURE_BY_NUMBER) {failureNumberEdit.setText(""+failure.getFailureNumber()); failureNumber.setSelected(true);}
 		failureNumber.addActionListener(e->{checkData(false);});
 		failureNumberEdit.addKeyListener(new KeyListener() {
@@ -139,6 +140,7 @@ public class TransporterFailureDialog extends BaseDialog {
 		inner.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(failureDistance=new JRadioButton(Language.tr("Transporter.Group.Edit.Dialog.Failure.Distance")));
 		panel.add(failureDistanceEdit=new JTextField("1000",10));
+		ModelElementBaseDialog.addUndoFeature(failureDistanceEdit);
 		if (failure.getFailureMode()==ModelTransporterFailure.FailureMode.FAILURE_BY_DISTANCE) {failureDistanceEdit.setText(NumberTools.formatNumber(failure.getFailureTimeOrDistance())); failureDistance.setSelected(true);}
 		failureDistance.addActionListener(e->{checkData(false);});
 		failureDistanceEdit.addKeyListener(new KeyListener() {
@@ -150,6 +152,7 @@ public class TransporterFailureDialog extends BaseDialog {
 		inner.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(failureWorking=new JRadioButton(Language.tr("Transporter.Group.Edit.Dialog.Failure.Working")));
 		panel.add(failureWorkingEdit=new JTextField("86400",10));
+		ModelElementBaseDialog.addUndoFeature(failureWorkingEdit);
 		if (failure.getFailureMode()==ModelTransporterFailure.FailureMode.FAILURE_BY_WORKING_TIME) {failureWorkingEdit.setText(NumberTools.formatNumber(failure.getFailureTimeOrDistance())); failureWorking.setSelected(true);}
 		failureWorking.addActionListener(e->{checkData(false);});
 		failureWorkingEdit.addKeyListener(new KeyListener() {
@@ -170,6 +173,7 @@ public class TransporterFailureDialog extends BaseDialog {
 		inner.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(failureExpression=new JRadioButton(Language.tr("Transporter.Group.Edit.Dialog.Failure.Expression")));
 		panel.add(failureExpressionEdit=new JTextField("86400",30));
+		ModelElementBaseDialog.addUndoFeature(failureExpressionEdit);
 		panel.add(ModelElementBaseDialog.getExpressionEditButton(this,failureExpressionEdit,false,false,model,surface));
 		if (failure.getFailureMode()==ModelTransporterFailure.FailureMode.FAILURE_BY_EXPRESSION) {failureExpressionEdit.setText(failure.getFailureExpression()); failureExpression.setSelected(true);}
 		failureExpression.addActionListener(e->{checkData(false);});

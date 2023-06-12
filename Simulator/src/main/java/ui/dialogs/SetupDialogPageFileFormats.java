@@ -269,6 +269,7 @@ public class SetupDialogPageFileFormats extends SetupDialogPage {
 		part.add(imagesAnimationFolder=new JRadioButton(Language.tr("SettingsDialog.ImageAnimation.Folder")+":"));
 		/* Verzeichnis zum Speichern von Schnappschüssen während der Animation */
 		line.add(imagesAnimationFolderEdit=new JTextField(),BorderLayout.CENTER);
+		ModelElementBaseDialog.addUndoFeature(imagesAnimationFolderEdit);
 		imagesAnimationFolderEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {imagesAnimationFolder.setSelected(true);}
 			@Override public void keyReleased(KeyEvent e) {imagesAnimationFolder.setSelected(true);}

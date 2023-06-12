@@ -433,6 +433,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 			panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 			panel.add(label=new JLabel(labelText));
 			panel.add(field=new JTextField(size));
+			addUndoFeature(field);
 		} else {
 			panel=new JPanel(new BorderLayout(5,0));
 
@@ -447,6 +448,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 			panel.add(box,BorderLayout.WEST);
 
 			field=new JTextField();
+			addUndoFeature(field);
 			field.setMaximumSize(new Dimension(field.getMaximumSize().width,field.getPreferredSize().height));
 			box=Box.createVerticalBox();
 			box.add(Box.createVerticalGlue());
@@ -1275,6 +1277,37 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 			}
 			return renderer;
 		}
+	}
+
+	/**
+	 * Aktiviert die Undo/Redo-Funktionen für ein Textfeld
+	 * @param textField Textfeld, bei dem die Funktionen aktiviert werden sollen
+	 */
+	public static void addUndoFeature(final JTextField textField) {
+		final UndoManager manager=new UndoManager();
+		textField.getDocument().addUndoableEditListener(manager);
+
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_Z && e.isControlDown()) {
+					try {
+						manager.undo();
+					} catch (CannotUndoException e2) {
+					}
+					e.consume();
+					return;
+				}
+				if (e.getKeyCode()==KeyEvent.VK_Y && e.isControlDown()) {
+					try {
+						manager.redo();
+					} catch (CannotRedoException e2) {
+					}
+					e.consume();
+					return;
+				}
+			}
+		});
 	}
 
 	/**

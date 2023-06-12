@@ -146,6 +146,7 @@ public class ModelLoadDataDialog extends BaseDialog {
 		setup.add(line=new JPanel(new BorderLayout()));
 		line.add(label=new JLabel(Language.tr("ModelLoadData.EditDialog.Workbook")+": "),BorderLayout.WEST);
 		line.add(workbook=new JTextField(),BorderLayout.CENTER);
+		ModelElementBaseDialog.addUndoFeature(workbook);
 		label.setLabelFor(workbook);
 		line.add(workbookButton=new JButton(),BorderLayout.EAST);
 		workbookButton.addActionListener(e->selectWorkbook());
@@ -153,6 +154,7 @@ public class ModelLoadDataDialog extends BaseDialog {
 		setup.add(line=new JPanel(new BorderLayout()));
 		line.add(label=new JLabel(Language.tr("ModelLoadData.EditDialog.Table")+": "),BorderLayout.WEST);
 		line.add(sheet=new JTextField(),BorderLayout.CENTER);
+		ModelElementBaseDialog.addUndoFeature(sheet);
 		label.setLabelFor(sheet);
 		sheet.setToolTipText(Language.tr("ModelLoadData.EditDialog.Table.Hint"));
 

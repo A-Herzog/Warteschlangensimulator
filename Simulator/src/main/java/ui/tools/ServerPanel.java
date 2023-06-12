@@ -64,6 +64,7 @@ import ui.ReloadManager;
 import ui.dialogs.ServerPanelTLSDialog;
 import ui.help.Help;
 import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 
 /**
  * Zeigt den aktuellen Status und die letzten Ausgaben des GUI-Hintergrund-Netzwerkservers an.
@@ -259,6 +260,7 @@ public final class ServerPanel extends SpecialPanel {
 
 		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.Password")+":"));
 		line.add(calcPasswordEdit=new JTextField(serverCalc.getLastPasswort(),20));
+		ModelElementBaseDialog.addUndoFeature(calcPasswordEdit);
 		label.setLabelFor(calcPasswordEdit);
 
 		line.add(calcLimitThreadsCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.LimitThreadCount"),serverCalc.getLastLimitThreadCount()));
@@ -333,16 +335,19 @@ public final class ServerPanel extends SpecialPanel {
 
 		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.MQTTBroker")+":"));
 		line.add(mqttBrokerEdit=new JTextField(setupData.mqttBroker,20));
+		ModelElementBaseDialog.addUndoFeature(mqttBrokerEdit);
 		label.setLabelFor(mqttBrokerEdit);
 		line.add(mqttBrokerVerify=new JCheckBox(Language.tr("SimulationServer.Setup.MQTTBrokerVerify"),setupData.mqttVerifyCertificates));
 		mqttBrokerVerify.setToolTipText(Language.tr("SimulationServer.Setup.MQTTBrokerVerify.Hint"));
 
 		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.MQTTTopic")+":"));
 		line.add(mqttTopicEdit=new JTextField(setupData.mqttTopic,15));
+		ModelElementBaseDialog.addUndoFeature(mqttTopicEdit);
 		label.setLabelFor(mqttTopicEdit);
 
 		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.MQTTInfoTopic")+":"));
 		line.add(mqttLoadTopicEdit=new JTextField(setupData.mqttLoadTopic,15));
+		ModelElementBaseDialog.addUndoFeature(mqttLoadTopicEdit);
 		label.setLabelFor(mqttLoadTopicEdit);
 
 		line.add(mqttAutoStartCheckBox=new JCheckBox(Language.tr("SimulationServer.Setup.MQTTAutoStart"),setupData.mqttServerAutoStart));
@@ -356,10 +361,12 @@ public final class ServerPanel extends SpecialPanel {
 
 		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.AuthName")+":"));
 		line.add(authNameEdit=new JTextField(setupData.serverAuthName,20));
+		ModelElementBaseDialog.addUndoFeature(authNameEdit);
 		label.setLabelFor(authNameEdit);
 
 		line.add(label=new JLabel(Language.tr("SimulationServer.Setup.AuthPassword")+":"));
 		line.add(authPasswordEdit=new JTextField(setupData.serverAuthPassword,20));
+		ModelElementBaseDialog.addUndoFeature(authPasswordEdit);
 		label.setLabelFor(authPasswordEdit);
 
 		line.add(toolbar=new JToolBar());

@@ -145,6 +145,7 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 		line.add(checkbox);
 
 		final JTextField input=new JTextField(text,size);
+		ModelElementBaseDialog.addUndoFeature(input);
 		line.add(input);
 
 		return new Object[]{line,checkbox,input};

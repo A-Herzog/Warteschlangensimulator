@@ -42,6 +42,7 @@ import javax.swing.SwingUtilities;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.tools.FlatLaFHelper;
 
 /**
@@ -559,6 +560,7 @@ public class SchedulePanel extends JPanel {
 				final JPopupMenu menu=new JPopupMenu();
 				menu.add(new JLabel(Language.tr("Schedule.ValueFor")+" "+getSlotInfo(data[0])+" - "+getSlotInfo(data[0]+1)));
 				final JTextField input=new JTextField(""+getCurrentValue(data[0]));
+				ModelElementBaseDialog.addUndoFeature(input);
 				menu.add(input);
 				input.addKeyListener(new KeyListener() {
 					@Override public void keyTyped(KeyEvent e) {checkAndChange(data[0],input);}

@@ -177,6 +177,7 @@ public class ModelElementPickUpDialog extends ModelElementBaseDialog {
 		line.add(optionTemporary=new JRadioButton(Language.tr("Surface.PickUp.Dialog.SendTemporaryBatched")));
 		optionTemporary.setEnabled(!readOnly);
 		line.add(tempTypeField=new JTextField(25));
+		ModelElementBaseDialog.addUndoFeature(tempTypeField);
 		tempTypeField.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionTemporary.setSelected(true);}
 			@Override public void keyReleased(KeyEvent e) {optionTemporary.setSelected(true);}
@@ -188,6 +189,7 @@ public class ModelElementPickUpDialog extends ModelElementBaseDialog {
 		line.add(optionNewType=new JRadioButton(Language.tr("Surface.PickUp.Dialog.Mode.Batch")));
 		optionNewType.setEnabled(!readOnly);
 		line.add(newTypeField=new JTextField(25));
+		ModelElementBaseDialog.addUndoFeature(newTypeField);
 		newTypeField.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionNewType.setSelected(true);}
 			@Override public void keyReleased(KeyEvent e) {optionNewType.setSelected(true);}

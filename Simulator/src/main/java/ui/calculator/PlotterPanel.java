@@ -78,6 +78,7 @@ import systemtools.statistics.StatisticsBasePanel;
 import systemtools.statistics.XWPFDocumentPictureTools;
 import tools.SetupData;
 import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 
 /**
  * Stellt ein von {@link JPanel} abgeleitetes Element bereit,
@@ -152,8 +153,10 @@ public class PlotterPanel extends JPanel {
 		left.setFloatable(false);
 		outer.add(left,BorderLayout.WEST);
 		left.add(inputMaxY=new JTextField(5));
+		ModelElementBaseDialog.addUndoFeature(inputMaxY);
 		left.add(Box.createVerticalGlue());
 		left.add(inputMinY=new JTextField(5));
+		ModelElementBaseDialog.addUndoFeature(inputMinY);
 		left.add(Box.createVerticalStrut(2*inputMaxY.getPreferredSize().height));
 
 		inputMaxY.setMaximumSize(inputMaxY.getPreferredSize());
@@ -168,8 +171,10 @@ public class PlotterPanel extends JPanel {
 		inner.add(bottom,BorderLayout.SOUTH);
 		bottom.add(Box.createHorizontalStrut(inputMaxY.getPreferredSize().width));
 		bottom.add(inputMinX=new JTextField(5));
+		ModelElementBaseDialog.addUndoFeature(inputMinX);
 		bottom.add(Box.createHorizontalGlue());
 		bottom.add(inputMaxX=new JTextField(5));
+		ModelElementBaseDialog.addUndoFeature(inputMaxX);
 
 		inputMaxX.setMaximumSize(inputMaxX.getPreferredSize());
 		inputMinX.setMaximumSize(inputMinX.getPreferredSize());

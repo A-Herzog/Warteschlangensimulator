@@ -56,6 +56,7 @@ import tools.IconListCellRenderer;
 import tools.SetupData;
 import ui.help.Help;
 import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.elements.DDEEditPanel;
 import ui.quickaccess.JPlaceholderTextField;
 
@@ -181,6 +182,7 @@ public class LogSetupDialog extends BaseDialog {
 		optionFormatedTime=addOption(card,Language.tr("LogSimulation.FormatTime"),Language.tr("LogSimulation.FormatTime.Info"),null);
 		optionPrintIDs=addOption(card,Language.tr("LogSimulation.PrintIDs"));
 		optionMaxRecords=addOption(card,Language.tr("LogSimulation.LimitRecords")+":",Language.tr("LogSimulation.LimitRecords.Info"),maxRecords=new JTextField(6));
+		ModelElementBaseDialog.addUndoFeature(maxRecords);
 		optionMaxRecords.addActionListener(e->checkData(false));
 		maxRecords.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);	}
@@ -320,6 +322,7 @@ public class LogSetupDialog extends BaseDialog {
 		parent.add(line=new JPanel(new BorderLayout()));
 		line.add(label=new JLabel(labelText+": "),BorderLayout.WEST);
 		line.add(field=new JTextField(),BorderLayout.CENTER);
+		ModelElementBaseDialog.addUndoFeature(field);
 		label.setLabelFor(field);
 		line.add(button=new JButton(),BorderLayout.EAST);
 		button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());

@@ -505,6 +505,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		line.add(label);
 
 		final JTextField input=new JTextField(10);
+		ModelElementBaseDialog.addUndoFeature(input);
 		line.add(input);
 		label.setLabelFor(input);
 

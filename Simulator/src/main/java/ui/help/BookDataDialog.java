@@ -75,6 +75,7 @@ import tools.NetHelper;
 import tools.SetupData;
 import ui.dialogs.WaitDialog;
 import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.tools.WindowSizeStorage;
 
 /**
@@ -324,6 +325,7 @@ public class BookDataDialog extends BaseDialog {
 		right.add(new JLabel("<html><body><p style=\"font-size: 110%; margin-top: 20px; margin-bottom: 10px;\"><b>"+Language.tr("BookData.BookPDF")+":</b></p></body></html>"));
 		right.add(line=new JPanel(new BorderLayout()));
 		line.add(pdfEdit=new JTextField(50),BorderLayout.CENTER);
+		ModelElementBaseDialog.addUndoFeature(pdfEdit);
 		pdfEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {pdfEditUpdate();}
 			@Override public void keyReleased(KeyEvent e) {pdfEditUpdate();}

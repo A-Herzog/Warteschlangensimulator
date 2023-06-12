@@ -165,6 +165,7 @@ public class ModelElementBalkingDialog extends ModelElementBaseDialog {
 		line.add(optionProbability=new JRadioButton(Language.tr("Surface.Balking.Dialog.Option.Probability")+":"));
 		optionProbability.setEnabled(!readOnly);
 		line.add(probability=new JTextField(5));
+		ModelElementBaseDialog.addUndoFeature(probability);
 		probability.setEditable(!readOnly);
 		probability.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionProbability.setSelected(true); checkData(false);}

@@ -99,6 +99,7 @@ public class ModelElementSourceRecordPanelGenerateDialog extends BaseDialog {
 		final JLabel label=new JLabel(Language.tr("GenerateArrivalDataStream.NumberOfRandomNumbers")+":");
 		setup.add(label);
 		setup.add(countEdit=new JTextField("1000",10));
+		ModelElementBaseDialog.addUndoFeature(countEdit);
 		countEdit.addKeyListener(new KeyAdapter() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

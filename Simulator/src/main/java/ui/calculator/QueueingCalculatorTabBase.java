@@ -48,6 +48,7 @@ import mathtools.distribution.tools.WrapperExponentialDistribution;
 import mathtools.distribution.tools.WrapperLogNormalDistribution;
 import simulator.editmodel.EditModel;
 import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ModelElementAnimationTextValue;
@@ -182,6 +183,7 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 		parent.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(new JLabel(label));
 		panel.add(field=new JTextField(defaultValue,7));
+		ModelElementBaseDialog.addUndoFeature(field);
 		field.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {calc();}
 			@Override public void keyPressed(KeyEvent e) {calc();}

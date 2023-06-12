@@ -38,6 +38,7 @@ import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.help.Help;
+import ui.modeleditor.ModelElementBaseDialog;
 
 /**
  * Zeigt den Dialog zur Übertragung der Werte von einem Eingabeparameter zu einem anderen an.
@@ -93,6 +94,7 @@ public class ParameterCompareConnectParametersDialog extends BaseDialog {
 		line.add(new JLabel(String.format("param%d:=",parameterIndex+1)));
 		line.add(Box.createHorizontalStrut(10));
 		line.add(input=new JTextField(50));
+		ModelElementBaseDialog.addUndoFeature(input);
 		if (parameterIndex==0) input.setText("param2"); else input.setText("param1");
 		input.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}

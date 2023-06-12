@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 
 /**
  * Basisklasse für die Tabs in {@link CalculatorWindow}
@@ -112,6 +113,7 @@ public abstract class CalculatorWindowPage extends JPanel {
 			panel.add(box,BorderLayout.CENTER);
 		}
 
+		ModelElementBaseDialog.addUndoFeature(field);
 		label.setLabelFor(field);
 		field.setText(value);
 		return new Object[]{panel,field};

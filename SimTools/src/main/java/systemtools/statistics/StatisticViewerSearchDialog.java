@@ -80,6 +80,7 @@ public class StatisticViewerSearchDialog extends BaseDialog {
 		final JLabel label=new JLabel(StatisticsBasePanel.viewersToolbarSearchString+":");
 		line.add(label);
 		editSearchString=new JTextField((lastSearchString==null)?"":lastSearchString,20);
+		BaseDialog.addUndoFeature(editSearchString);
 		line.add(editSearchString);
 		label.setLabelFor(editSearchString);
 

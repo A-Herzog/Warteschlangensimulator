@@ -26,6 +26,7 @@ import language.Language;
 import mathtools.TimeTools;
 import tools.DateTools;
 import ui.EditorPanelBase;
+import ui.modeleditor.ModelElementBaseDialog;
 
 /**
  * Dieses Panel stellt einen Datum- &amp; Zeit-Editor dar.
@@ -66,6 +67,7 @@ public class DateTimePanel extends JPanel {
 		add(datePicker);
 
 		add(timeEdit=new JTextField(8));
+		ModelElementBaseDialog.addUndoFeature(timeEdit);
 		timeEdit.setEditable(!readOnly);
 		EditorPanelBase.addCheckInput(timeEdit,()->{
 			Long L=TimeTools.getTime(timeEdit,true);

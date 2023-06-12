@@ -189,6 +189,7 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 		line.setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
 		line.add(new JLabel(Language.tr("ParameterCompare.Settings.Output.Mode.Script.Label")+": "),BorderLayout.WEST);
 		line.add(scriptEditJS=new JTextField(),BorderLayout.CENTER);
+		ModelElementBaseDialog.addUndoFeature(scriptEditJS);
 		scriptEditJS.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -220,6 +221,7 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 		line.setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
 		line.add(new JLabel(Language.tr("ParameterCompare.Settings.Output.Mode.Script.Label")+": "),BorderLayout.WEST);
 		line.add(scriptEditJava=new JTextField(),BorderLayout.CENTER);
+		ModelElementBaseDialog.addUndoFeature(scriptEditJava);
 		scriptEditJava.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

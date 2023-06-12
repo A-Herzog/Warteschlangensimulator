@@ -84,6 +84,7 @@ public class ModelElementSourceBatchEditor1 extends ModelElementSourceBatchEdito
 		label.setLabelFor(sizeMin);
 		panel.add(label=new JLabel(Language.tr("Surface.Source.DialogBatchSize.Maximum")+":"));
 		panel.add(sizeMax=new JTextField(5));
+		ModelElementBaseDialog.addUndoFeature(sizeMax);
 		sizeMax.setEditable(!readOnly);
 		sizeMax.setText("1");
 		label.setLabelFor(sizeMax);

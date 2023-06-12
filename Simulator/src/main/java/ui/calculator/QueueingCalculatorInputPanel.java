@@ -30,6 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import mathtools.NumberTools;
+import ui.modeleditor.ModelElementBaseDialog;
 
 /**
  * Multi-Eingabeelement zur Verwendung in von {@link QueueingCalculatorTabBase}
@@ -213,6 +214,7 @@ public class QueueingCalculatorInputPanel {
 			value=NumberTools.formatNumber(NumberTools.reduceDigits(defaulValue,10),14);
 		}
 		line.add(field=new JTextField(value,15));
+		ModelElementBaseDialog.addUndoFeature(field);
 		final String infoText=records.get(lastFieldType).info;
 		line.add(info=new JLabel((infoText!=null && !infoText.trim().isEmpty())?"<html><body>("+infoText+")</body></html>":""));
 

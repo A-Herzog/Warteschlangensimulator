@@ -142,6 +142,7 @@ public class StatisticViewerDashboardRecordDialog extends BaseDialog {
 		line.setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
 		line.add(new JLabel(Language.tr("Statistics.Dashboard.EditDialog.XML")+": "),BorderLayout.WEST);
 		line.add(xmlTagEdit=new JTextField(),BorderLayout.CENTER);
+		ModelElementBaseDialog.addUndoFeature(xmlTagEdit);
 		xmlTagEdit.setEditable(false);
 		final JButton xmlTagButton=new JButton(Language.tr("Statistics.Dashboard.EditDialog.XML.Button"));
 		line.add(xmlTagButton,BorderLayout.EAST);

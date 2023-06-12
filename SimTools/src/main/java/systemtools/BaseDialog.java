@@ -25,6 +25,8 @@ import java.awt.Rectangle;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.Serializable;
@@ -49,6 +51,9 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoManager;
 
 import mathtools.NumberTools;
 import systemtools.images.SimToolsImages;
@@ -539,6 +544,7 @@ public class BaseDialog extends JDialog {
 
 		subPanel.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
 		subPanel.add(text=new JTextField(s,10));
+		addUndoFeature(text);
 
 		/* Button anlegen */
 		JButton button;
@@ -589,6 +595,7 @@ public class BaseDialog extends JDialog {
 
 		subPanel.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
 		subPanel.add(text=new JTextField(initialValue,10));
+		addUndoFeature(text);
 		return text;
 	}
 
@@ -635,6 +642,7 @@ public class BaseDialog extends JDialog {
 
 		subPanel.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
 		subPanel.add(text=new JTextField(initialValue,columns));
+		addUndoFeature(text);
 		label.setLabelFor(text);
 		return text;
 	}
@@ -660,6 +668,7 @@ public class BaseDialog extends JDialog {
 		p.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT,0,0)));
 		subPanel.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
 		subPanel.add(text=new JTextField(initialValue,columns));
+		addUndoFeature(text);
 		return text;
 	}
 
@@ -694,6 +703,7 @@ public class BaseDialog extends JDialog {
 	 */
 	protected JTextField addWideInputLine(final JComponent parent, final String name, final String initialText) {
 		final JTextField field=new JTextField(initialText);
+		addUndoFeature(field);
 		addWideComponent(parent,name,field);
 		return field;
 	}
@@ -864,5 +874,36 @@ public class BaseDialog extends JDialog {
 			if (nr<0) return;
 			userButtonClick(nr,userButtons.get(nr));
 		}
+	}
+
+	/**
+	 * Aktiviert die Undo/Redo-Funktionen für ein Textfeld
+	 * @param textField Textfeld, bei dem die Funktionen aktiviert werden sollen
+	 */
+	public static void addUndoFeature(final JTextField textField) {
+		final UndoManager manager=new UndoManager();
+		textField.getDocument().addUndoableEditListener(manager);
+
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_Z && e.isControlDown()) {
+					try {
+						manager.undo();
+					} catch (CannotUndoException e2) {
+					}
+					e.consume();
+					return;
+				}
+				if (e.getKeyCode()==KeyEvent.VK_Y && e.isControlDown()) {
+					try {
+						manager.redo();
+					} catch (CannotRedoException e2) {
+					}
+					e.consume();
+					return;
+				}
+			}
+		});
 	}
 }

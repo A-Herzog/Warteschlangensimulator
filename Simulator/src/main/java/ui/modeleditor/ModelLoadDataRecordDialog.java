@@ -93,6 +93,7 @@ public class ModelLoadDataRecordDialog extends BaseDialog {
 			cellName=record.getCell();
 		}
 		line.add(cell=new JTextField(cellName,7));
+		ModelElementBaseDialog.addUndoFeature(cell);
 		label.setLabelFor(cell);
 
 		/* Daten */

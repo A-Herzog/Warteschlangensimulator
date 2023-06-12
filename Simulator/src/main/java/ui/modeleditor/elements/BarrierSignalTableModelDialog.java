@@ -114,6 +114,7 @@ public class BarrierSignalTableModelDialog extends BaseDialog {
 		line.add(optionNumber=new JRadioButton(Language.tr("Surface.Barrier.Dialog.ClientsPerRelease")+":"));
 		optionNumber.setEnabled(!readOnly);
 		line.add(clientsPerSignal=new JTextField(5));
+		ModelElementBaseDialog.addUndoFeature(clientsPerSignal);
 		clientsPerSignal.setEditable(!readOnly);
 
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));

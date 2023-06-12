@@ -66,6 +66,7 @@ import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import systemtools.MsgBox;
 import tools.SetupData;
 import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 
 /**
  * Wahrscheinlichkeitsverteilungsplotter-Tab innerhalb des Rechner-Fensters
@@ -186,6 +187,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		editorPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.setBorder(BorderFactory.createEmptyBorder(0,25,0,0));
 		final JTextField editor=new JTextField(""+randomNumberCount,10);
+		ModelElementBaseDialog.addUndoFeature(editor);
 		line.add(editor);
 		label.setLabelFor(editor);
 		editor.addKeyListener(new KeyListener() {

@@ -30,6 +30,7 @@ import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import systemtools.MsgBox;
 import tools.JTableExt;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelLongRunStatisticsElement;
 
 /**
@@ -71,6 +72,7 @@ public class ModelPropertiesDialogPageRunTimeStatistics extends ModelPropertiesD
 		JLabel label=new JLabel(Language.tr("Editor.Dialog.Tab.RunTimeStatistics.StepWide")+":");
 		line.add(label);
 		line.add(stepWideEdit=new JTextField(10));
+		ModelElementBaseDialog.addUndoFeature(stepWideEdit);
 		stepWideEdit.setEditable(!readOnly);
 		addKeyListener(stepWideEdit,()->NumberTools.getPositiveDouble(stepWideEdit,true));
 		line.add(stepWideCombo=new JComboBox<>(new String[] {

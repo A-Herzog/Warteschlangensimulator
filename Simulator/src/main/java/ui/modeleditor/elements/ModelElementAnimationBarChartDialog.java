@@ -120,6 +120,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 		line.add(maxValueCheckBox=new JCheckBox(Language.tr("Surface.AnimationBarChart.Dialog.Data.ManualMaxValue")));
 		maxValueCheckBox.setEnabled(!readOnly);
 		line.add(maxValueEdit=new JTextField(7));
+		ModelElementBaseDialog.addUndoFeature(maxValueEdit);
 		maxValueEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false); maxValueCheckBox.setSelected(true);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false); maxValueCheckBox.setSelected(true);}
@@ -130,6 +131,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 		line.add(minValueCheckBox=new JCheckBox(Language.tr("Surface.AnimationBarChart.Dialog.Data.ManualMinValue")));
 		minValueCheckBox.setEnabled(!readOnly);
 		line.add(minValueEdit=new JTextField(7));
+		ModelElementBaseDialog.addUndoFeature(minValueEdit);
 		minValueEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false); minValueCheckBox.setSelected(true);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false); minValueCheckBox.setSelected(true);}

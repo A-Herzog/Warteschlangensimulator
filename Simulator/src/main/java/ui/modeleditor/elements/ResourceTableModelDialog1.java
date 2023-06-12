@@ -40,6 +40,7 @@ import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelResources;
 
@@ -109,6 +110,7 @@ public class ResourceTableModelDialog1 extends BaseDialog {
 		content.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(new JLabel(Language.tr("Surface.Resource.EditName.Dialog.AddNew.Name")+":"));
 		panel.add(textGroupName=new JTextField(getFreeResourceName(),30));
+		ModelElementBaseDialog.addUndoFeature(textGroupName);
 		textGroupName.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {if (optionNew!=null) optionNew.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {if (optionNew!=null) optionNew.setSelected(true); checkData(false);}
@@ -116,6 +118,7 @@ public class ResourceTableModelDialog1 extends BaseDialog {
 		});
 		panel.add(new JLabel(Language.tr("Surface.Resource.EditName.Dialog.AddNew.Size")+":"));
 		panel.add(textGroupSize=new JTextField("1",5));
+		ModelElementBaseDialog.addUndoFeature(textGroupSize);
 		textGroupSize.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {if (optionNew!=null) optionNew.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {if (optionNew!=null) optionNew.setSelected(true); checkData(false);}

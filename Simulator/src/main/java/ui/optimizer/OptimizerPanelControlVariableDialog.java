@@ -50,6 +50,7 @@ import tools.IconListCellRenderer;
 import ui.ModelChanger;
 import ui.help.Help;
 import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.optimizer.OptimizerSetup.ControlVariable;
 import ui.parameterseries.ParameterCompareInputValuesTemplates;
 import ui.parameterseries.ParameterCompareSetupValueInput;
@@ -227,6 +228,7 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel(Language.tr("Optimizer.ControlVariableEdit.ValidRange.From")+" "));
 		line.add(rangeFrom=new JTextField(10));
+		ModelElementBaseDialog.addUndoFeature(rangeFrom);
 		rangeFrom.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -234,6 +236,7 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 		});
 		line.add(new JLabel(" "+Language.tr("Optimizer.ControlVariableEdit.ValidRange.To")+" "));
 		line.add(rangeTo=new JTextField(10));
+		ModelElementBaseDialog.addUndoFeature(rangeTo);
 		rangeTo.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -247,6 +250,7 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel(Language.tr("Optimizer.ControlVariableEdit.InitialValue")+":"));
 		line.add(startValue=new JTextField(10));
+		ModelElementBaseDialog.addUndoFeature(startValue);
 		startValue.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

@@ -155,6 +155,7 @@ public class AnimationExpressionPanel extends JPanel {
 		card.add(box=new Box(BoxLayout.PAGE_AXIS),BorderLayout.CENTER);
 		box.add(Box.createVerticalGlue());
 		box.add(expressionEdit=new JTextField());
+		ModelElementBaseDialog.addUndoFeature(expressionEdit);
 		expressionEdit.setEnabled(!readOnly);
 		expressionEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}

@@ -136,6 +136,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 		optionTemporary.setEnabled(!readOnly);
 		optionTemporary.addActionListener(e->checkData(false));
 		line.add(tempTypeField=new JTextField(25));
+		ModelElementBaseDialog.addUndoFeature(tempTypeField);
 		tempTypeField.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionTemporary.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {optionTemporary.setSelected(true); checkData(false);}
@@ -148,6 +149,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 		optionNewType.setEnabled(!readOnly);
 		optionNewType.addActionListener(e->checkData(false));
 		line.add(newTypeField=new JTextField(25));
+		ModelElementBaseDialog.addUndoFeature(newTypeField);
 		newTypeField.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionNewType.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {optionNewType.setSelected(true); checkData(false);}
@@ -175,6 +177,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 		optionPropertyNumber.setEnabled(!readOnly);
 		optionPropertyNumber.addActionListener(e->checkData(false));
 		line.add(optionPropertyNumberField=new JTextField(5));
+		ModelElementBaseDialog.addUndoFeature(optionPropertyNumberField);
 		optionPropertyNumberField.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionPropertyNumber.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {optionPropertyNumber.setSelected(true); checkData(false);}
@@ -187,6 +190,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 		optionPropertyText.setEnabled(!readOnly);
 		optionPropertyText.addActionListener(e->checkData(false));
 		line.add(optionPropertyTextField=new JTextField(25));
+		ModelElementBaseDialog.addUndoFeature(optionPropertyTextField);
 		optionPropertyTextField.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionPropertyText.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {optionPropertyText.setSelected(true); checkData(false);}

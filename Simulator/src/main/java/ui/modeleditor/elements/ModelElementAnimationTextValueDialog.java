@@ -132,6 +132,7 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		line.add(optionExpression=new JRadioButton(Language.tr("Surface.AnimationText.Dialog.Expression")+":"));
 		optionExpression.setEnabled(!readOnly);
 		line.add(editExpression=new JTextField());
+		ModelElementBaseDialog.addUndoFeature(editExpression);
 		editExpression.setPreferredSize(new Dimension(200,editExpression.getPreferredSize().height));
 		editExpression.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionExpression.setSelected(true); checkData(false);}

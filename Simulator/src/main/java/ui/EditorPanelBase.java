@@ -57,6 +57,7 @@ import systemtools.MsgBox;
 import tools.SetupData;
 import ui.dialogs.ModelSecurityCheckDialog;
 import ui.modeleditor.FilePathHelper;
+import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelLoadData;
 import ui.script.ScriptEditorAreaBuilder;
 import xml.XMLTools;
@@ -595,6 +596,8 @@ public abstract class EditorPanelBase extends JPanel {
 		maxSize.height=text.getPreferredSize().height;
 		p.setMaximumSize(maxSize);
 		p.setMinimumSize(maxSize);
+
+		ModelElementBaseDialog.addUndoFeature(text);
 
 		if (readOnly) text.setEditable(false);
 		return text;

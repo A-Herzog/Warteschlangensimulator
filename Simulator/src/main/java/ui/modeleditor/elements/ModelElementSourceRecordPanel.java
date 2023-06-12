@@ -675,6 +675,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		optionFixedSize.setEnabled(!readOnly);
 		optionFixedSize.addActionListener(e->{updateBatchInfo(); checkData(false);});
 		sub.add(batchField=new JTextField(15));
+		ModelElementBaseDialog.addUndoFeature(batchField);
 		sub.add(ModelElementBaseDialog.getExpressionEditButton(this,batchField,false,false,model,surface));
 		batchField.setEditable(!readOnly);
 		batchField.addKeyListener(new KeyListener() {
@@ -723,6 +724,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		optionFixedNumberArrivals.setEnabled(!readOnly);
 		optionFixedNumberArrivals.addActionListener(e->checkData(false));
 		sub.add(numberFieldArrivals=new JTextField(7));
+		ModelElementBaseDialog.addUndoFeature(numberFieldArrivals);
 		numberFieldArrivals.setEditable(!readOnly);
 		numberFieldArrivals.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionFixedNumberArrivals.setSelected(true); checkData(false);}
@@ -735,6 +737,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		optionFixedNumberClients.setEnabled(!readOnly);
 		optionFixedNumberClients.addActionListener(e->checkData(false));
 		sub.add(numberFieldClients=new JTextField(7));
+		ModelElementBaseDialog.addUndoFeature(numberFieldClients);
 		numberFieldClients.setEditable(!readOnly);
 		numberFieldClients.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionFixedNumberClients.setSelected(true); checkData(false);}
@@ -785,6 +788,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		arrivalStartSub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(label=new JLabel(Language.tr("Surface.Source.Dialog.ArrivalStart.Label")+":"));
 		line.add(arrivalStart=new JTextField(10));
+		ModelElementBaseDialog.addUndoFeature(arrivalStart);
 		label.setLabelFor(arrivalStart);
 		arrivalStart.setEditable(!readOnly);
 		arrivalStart.addKeyListener(new KeyListener() {

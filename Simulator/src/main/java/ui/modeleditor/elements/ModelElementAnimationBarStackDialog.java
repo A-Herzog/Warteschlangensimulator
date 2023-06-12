@@ -125,6 +125,7 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 		line.add(useMaximum=new JCheckBox(Language.tr("Surface.AnimationBarStack.Dialog.Maximum")+":"));
 		useMaximum.addActionListener(e->checkData(false));
 		line.add(editMaximum=new JTextField(10));
+		ModelElementBaseDialog.addUndoFeature(editMaximum);
 		editMaximum.setEditable(!readOnly);
 		editMaximum.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}

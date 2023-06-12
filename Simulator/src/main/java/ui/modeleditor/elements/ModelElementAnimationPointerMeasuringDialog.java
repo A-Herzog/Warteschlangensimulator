@@ -133,6 +133,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 		optionUseYellowArea.addActionListener(e->checkData(false));
 		line.add(Box.createHorizontalStrut(10));
 		line.add(editYellowAreaStartValue=new JTextField("",7));
+		ModelElementBaseDialog.addUndoFeature(editYellowAreaStartValue);
 		editYellowAreaStartValue.setEditable(!readOnly);
 		editYellowAreaStartValue.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
@@ -147,6 +148,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 		optionUseRedArea.addActionListener(e->checkData(false));
 		line.add(Box.createHorizontalStrut(10));
 		line.add(editRedAreaStartValue=new JTextField("",7));
+		ModelElementBaseDialog.addUndoFeature(editRedAreaStartValue);
 		editRedAreaStartValue.setEditable(!readOnly);
 		editRedAreaStartValue.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}

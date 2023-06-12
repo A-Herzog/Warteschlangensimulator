@@ -200,6 +200,7 @@ public class SoundSystemPanel extends JPanel {
 		Box box=Box.createVerticalBox();
 		box.add(Box.createVerticalGlue());
 		box.add(soundFileEdit=new JTextField(""));
+		ModelElementBaseDialog.addUndoFeature(soundFileEdit);
 		box.add(Box.createVerticalGlue());
 		soundFileEdit.setMaximumSize(new Dimension(soundFileEdit.getMaximumSize().width,soundFileEdit.getPreferredSize().height));
 		line.add(box,BorderLayout.CENTER);
