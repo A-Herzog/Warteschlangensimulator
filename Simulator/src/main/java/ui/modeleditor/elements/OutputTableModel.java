@@ -21,8 +21,8 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.Box;
 import javax.swing.Icon;
@@ -82,7 +82,7 @@ public class OutputTableModel extends JTableExtAbstractTableModel {
 		this.readOnly=readOnly;
 		this.table=table;
 		this.model=model;
-		this.output=new ArrayList<>(output);
+		this.output=output.stream().map(record->new ModelElementOutput.OutputRecord(record)).collect(Collectors.toList());
 		this.variableNames=variableNames;
 
 		table.setIsPanelCellTable(0);
@@ -100,6 +100,16 @@ public class OutputTableModel extends JTableExtAbstractTableModel {
 	 */
 	public List<ModelElementOutput.OutputRecord> getOutput() {
 		return output;
+	}
+
+	/**
+	 * Stellt eine neue Liste mit Ausgabedaten ein.
+	 * @param output	Neue Liste mit Ausgabedaten
+	 */
+	public void setOutput(final List<ModelElementOutput.OutputRecord> output) {
+		this.output.clear();
+		this.output.addAll(output.stream().map(record->new ModelElementOutput.OutputRecord(record)).collect(Collectors.toList()));
+		updateTable();
 	}
 
 	/**
@@ -331,16 +341,16 @@ public class OutputTableModel extends JTableExtAbstractTableModel {
 					final ModelElementOutput.OutputRecord temp=output.get(row-1);
 					output.set(row-1,output.get(row));
 					output.set(row,temp);
+					updateTable();
 				}
-				updateTable();
 				break;
 			case ACTION_DOWN:
 				if (row<output.size()-1) {
 					final ModelElementOutput.OutputRecord temp=output.get(row+1);
 					output.set(row+1,output.get(row));
 					output.set(row,temp);
+					updateTable();
 				}
-				updateTable();
 				break;
 			case ACTION_DELETE:
 				output.remove(row);
@@ -350,11 +360,19 @@ public class OutputTableModel extends JTableExtAbstractTableModel {
 				final ModelElementOutput.OutputMode m=output.get(row).mode;
 				if (m==ModelElementOutput.OutputMode.MODE_TEXT) {
 					String s=JOptionPane.showInputDialog(table,Language.tr("Surface.Output.Table.EditCustomText"),output.get(row).data);
-					if (s!=null) output.set(row,new ModelElementOutput.OutputRecord(m,s));
+					if (s!=null) {
+						output.set(row,new ModelElementOutput.OutputRecord(m,s));
+					} else {
+						return;
+					}
 				}
 				if (m==ModelElementOutput.OutputMode.MODE_STRING) {
 					String s=JOptionPane.showInputDialog(table,Language.tr("Surface.Output.Table.EditKey"),output.get(row).data);
-					if (s!=null) output.set(row,new ModelElementOutput.OutputRecord(m,s));
+					if (s!=null) {
+						output.set(row,new ModelElementOutput.OutputRecord(m,s));
+					} else {
+						return;
+					}
 				}
 				if (m==ModelElementOutput.OutputMode.MODE_EXPRESSION) {
 					String s=output.get(row).data;
@@ -362,9 +380,9 @@ public class OutputTableModel extends JTableExtAbstractTableModel {
 						final String[] variables=(String[])object;
 						final ExpressionBuilder dialog=new ExpressionBuilder(table,s,false,variableNames,model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(model.surface),ExpressionBuilder.getStationNameIDs(model.surface),true,false,false);
 						dialog.setVisible(true);
-						if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) break;
+						if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 						s=dialog.getExpression();
-						if (s==null) break;
+						if (s==null) return;
 						if (s.trim().isEmpty()) {output.set(row,new ModelElementOutput.OutputRecord(m,"")); break;}
 						int error=ExpressionCalc.check(s,variables);
 						if (error<0) {output.set(row,new ModelElementOutput.OutputRecord(m,s)); break;}

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-10 18:41+0200\n"
+"POT-Creation-Date: 2023-06-13 09:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29889,6 +29889,12 @@ msgstr "Überschtiftenmodus"
 
 msgid "Surface.Output.Dialog.Tab.Headings.Off"
 msgstr "Keine Überschriften ausgeben"
+
+msgid "Surface.Output.Dialog.Tab.Headings.Transfer"
+msgstr "Von Ausgabedaten übernehmen"
+
+msgid "Surface.Output.Dialog.Tab.Headings.TransferInfo"
+msgstr "Legt zu den Einstellungen in der Ausgabetabelle passende benutzerdefinierte Überschrifte an"
 
 msgid "Surface.Output.Dialog.Tab.Headings.UserDefined"
 msgstr "Benutzerdefinierte Überschriftzeile"

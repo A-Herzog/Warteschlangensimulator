@@ -7484,8 +7484,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[17283] = "Priority for requesting free transporters";
     t[17286] = "Examples.SystemDesignWithControl";
     t[17287] = "Queueing system design with control";
-    t[17288] = "Surface.XML.SequenceStep.Assignment";
-    t[17289] = "ModelSequenceStepAssignment;ModellSequenceStepAssignment";
+    t[17288] = "Surface.Output.Dialog.Tab.Headings.Transfer";
+    t[17289] = "Copy from output data";
     t[17300] = "Surface.TransportTransporterSource.Dialog.Tab.Priorities";
     t[17301] = "Priorities";
     t[17302] = "BookData.SelectPage.Info";
@@ -22248,8 +22248,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50489] = "Selects the element in the current model ";
     t[50490] = "Surface.AnimationBar.Dialog.Minimum.Error.Title";
     t[50491] = "Invalid minimum value";
-    t[50492] = "Surface.Reference.Name";
-    t[50493] = "Reference";
+    t[50492] = "Surface.Output.Dialog.Tab.Headings.TransferInfo";
+    t[50493] = "Creates user-defined headers matching the settings in the output data list";
     t[50506] = "Color.FF6347";
     t[50507] = "Tomato";
     t[50508] = "ModelDescription.TransportTargetSystem.Mode.Sequence";
@@ -22590,6 +22590,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51231] = "Needed operators group";
     t[51232] = "Optimizer.XML.OutputFolder.Mode.All";
     t[51233] = "All";
+    t[51234] = "Surface.XML.SequenceStep.Assignment";
+    t[51235] = "ModelSequenceStepAssignment;ModellSequenceStepAssignment";
     t[51240] = "SettingsDialog.Tabs.ProgramStart.SpellChecking.Dictionaries";
     t[51241] = "Dictionaries";
     t[51242] = "ExpressionBuilder.SimulationCharacteristics.Costs.ProcessSum";
@@ -23252,6 +23254,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52763] = "Note";
     t[52764] = "Surface.Split.Dialog.CopyClientData";
     t[52765] = "Copy client data fields to new client objects";
+    t[52770] = "Surface.Reference.Name";
+    t[52771] = "Reference";
     t[52774] = "Surface.Output.XML.File.HeadingMode";
     t[52775] = "Headings";
     t[52776] = "Window.BackgroundColor.ImageScale.ErrorInfo";

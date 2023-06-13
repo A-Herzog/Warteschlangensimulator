@@ -93,7 +93,7 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 	/**
 	 * Auswahlbox für die Art der Überschriftenausgabe
 	 */
-	private JComboBox<String> headingMode;
+	private JComboBox<?> headingMode;
 
 	/**
 	 * Tabelle zur Konfiguration der auszugebenden Überschriften
@@ -119,12 +119,12 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 	 * Erstellt und liefert das Panel, welches im Content-Bereich des Dialogs angezeigt werden soll
 	 * @return	Panel mit den Dialogelementen
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	protected JComponent getContentPanel() {
 		final JPanel content=new JPanel(new BorderLayout());
 
 		JPanel line;
+		JButton button;
 
 		if (element instanceof ModelElementOutput) {
 			final ModelElementOutput output=(ModelElementOutput)element;
@@ -149,12 +149,10 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 				@Override public void keyReleased(KeyEvent e) {updateInfo();}
 				@Override public void keyPressed(KeyEvent e) {updateInfo();}
 			});
-			final JButton button=new JButton();
-			button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
+			line.add(button=new JButton(Images.GENERAL_SELECT_FILE.getIcon()),BorderLayout.EAST);
 			button.setToolTipText(Language.tr("Surface.Output.Dialog.FileName.Select"));
 			button.addActionListener(e->selectFile());
 			button.setEnabled(!readOnly);
-			line.add(button,BorderLayout.EAST);
 
 			/* Infozeile zu Dateityp */
 			upperPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -188,23 +186,32 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 			/* Tab: Überschriften */
 			tabs.addTab(Language.tr("Surface.Output.Dialog.Tab.Headings"),tab=new JPanel(new BorderLayout()));
 			final JPanel lines=new JPanel();
+
 			tab.add(lines,BorderLayout.NORTH);
 			lines.setLayout(new BoxLayout(lines,BoxLayout.PAGE_AXIS));
+
 			data=getComboBoxPanel(Language.tr("Surface.Output.Dialog.Tab.Headings.Mode")+":",Arrays.asList(
 					Language.tr("Surface.Output.Dialog.Tab.Headings.Off"),
 					Language.tr("Surface.Output.Dialog.Tab.Headings.Auto"),
 					Language.tr("Surface.Output.Dialog.Tab.Headings.UserDefined")));
-			lines.add((JPanel)data[0]);
-			lines.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-			line.add(new JLabel(Language.tr("Surface.Output.Dialog.Tab.Headings.UserDefined.Info")+":"));
-			headingMode=(JComboBox<String>)data[1];
+			lines.add(line=(JPanel)data[0]);
+			headingMode=(JComboBox<?>)data[1];
 			switch (output.getHeadingMode()) {
 			case OFF: headingMode.setSelectedIndex(0); break;
 			case AUTO: headingMode.setSelectedIndex(1); break;
 			case USER_DEFINED: headingMode.setSelectedIndex(2); break;
 			}
+			line.add(button=new JButton(Language.tr("Surface.Output.Dialog.Tab.Headings.Transfer")));
+			button.setToolTipText(Language.tr("Surface.Output.Dialog.Tab.Headings.TransferInfo"));
+			button.addActionListener(e->buildHeading());
+			button.setEnabled(!readOnly);
+
+			lines.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(new JLabel(Language.tr("Surface.Output.Dialog.Tab.Headings.UserDefined.Info")+":"));
+
 			tab.add(new JScrollPane(table=new JTableExt()),BorderLayout.CENTER);
 			table.setModel(tableModelHeadings=new OutputTableModel(table,output.getModel(),output.getOutputHeading(),output.getSurface().getMainSurfaceVariableNames(output.getModel().getModelVariableNames(),true),readOnly));
+			tableModelHeadings.addTableModelListener(e->headingMode.setSelectedIndex(2));
 
 			/* Icons auf den Tabs */
 			tabs.setIconAt(0,Images.MODELEDITOR_ELEMENT_OUTPUT.getIcon());
@@ -283,7 +290,9 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 
 			final List<ModelElementOutput.OutputRecord> outputHeadingList=output.getOutputHeading();
 			outputHeadingList.clear();
-			outputHeadingList.addAll(tableModelHeadings.getOutput());
+			if (output.getHeadingMode()==ModelElementOutput.HeadingMode.USER_DEFINED) {
+				outputHeadingList.addAll(tableModelHeadings.getOutput());
+			}
 		}
 	}
 
@@ -300,5 +309,14 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 			fileNameEdit.setText(file.toString());
 			updateInfo();
 		}
+	}
+
+	/**
+	 * Überträgt die Daten aus der Tabelle zur Definition der
+	 * Ausgabedaten in die Tabelle zur Definition der Überschriften.
+	 */
+	private void buildHeading() {
+		tableModelHeadings.setOutput(tableModel.getOutput());
+		headingMode.setSelectedIndex(2);
 	}
 }
