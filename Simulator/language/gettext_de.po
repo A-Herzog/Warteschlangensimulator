@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-09 22:46+0200\n"
+"POT-Creation-Date: 2023-06-10 18:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19545,6 +19545,9 @@ msgstr "Simulationsende"
 
 msgid "Simulation.Log.EndOfSimulation.ClientAtStoppStation"
 msgstr "Ein Kunde ist an der Notausgang-Station eingetroffen."
+
+msgid "Simulation.Log.EndOfSimulation.ClientAtStoppStation.Warning"
+msgstr "Die Simulation wurde abgebrochen, da ein Kunde vom Typ %s an der Notausgangstation id=%d eingetroffen ist."
 
 msgid "Simulation.Log.EndOfSimulation.Condition"
 msgstr "Kriterium \"%s\" ist erfüllt."

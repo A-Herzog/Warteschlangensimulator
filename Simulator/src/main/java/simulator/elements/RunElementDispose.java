@@ -82,6 +82,7 @@ public class RunElementDispose extends RunElement {
 		/* Notausgangsstation - Simulation abbrechen */
 		if (stoppSimulationOnClientArrival) {
 			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.EndOfSimulation"),Language.tr("Simulation.Log.EndOfSimulation.ClientAtStoppStation"));
+			simData.addWarning(String.format(Language.tr("Simulation.Log.EndOfSimulation.ClientAtStoppStation.Warning"),client.logInfo(simData),id));
 			simData.doShutDown();
 		}
 
