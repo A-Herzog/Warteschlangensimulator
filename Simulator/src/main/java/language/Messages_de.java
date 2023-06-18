@@ -20630,6 +20630,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[46779] = "Maximalzahl an Nachkommastellen";
     t[46780] = "Window.Check.StationDialog.InfoYes";
     t[46781] = "Bearbeitendialog f\u00fcr die Station aufrufen.";
+    t[46784] = "Surface.MultiSourceTable.Dialog.Next";
+    t[46785] = "Ok & N\u00e4chster Kundentyp";
     t[46790] = "Main.Menu.File.RecentlyUsed";
     t[46791] = "Zuletzt verwendet";
     t[46794] = "Surface.Process.Dialog.Title";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50091] = "Ausgabe";
     t[50098] = "Main.Menu.Help.ScriptingReference.pdf";
     t[50099] = "Warteschlangensimulator-Scripting-de.pdf";
-    t[50102] = "Surface.Action.XML.Record.ConditionType.Time";
-    t[50103] = "Zeitgesteuert";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50102] = "Surface.Action.XML.Record.ConditionType.Time";
+    t[50103] = "Zeitgesteuert";
     t[50110] = "ParameterCompare.Settings.Input.List.Templates.Resource.Title";
     t[50111] = "Anzahl an Bedienern in einer Ressource";
     t[50114] = "Animation.Icon.ArrowRight";
@@ -23094,6 +23096,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52299] = "Ung\u00fcltiger Ausdruck";
     t[52302] = "Statistics.Minutes";
     t[52303] = "Minuten";
+    t[52308] = "Surface.MultiSourceTable.Dialog.Previous";
+    t[52309] = "Ok & Vorheriger Kundentyp";
     t[52318] = "Editor.Dialog.Tab.Simulation.RepeatCount.Error";
     t[52319] = "Die angegebene Anzahl %s an Wiederholungen des Simulationslaufs ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
     t[52322] = "Statistics.ClientMovement.Visualization.ListDown";

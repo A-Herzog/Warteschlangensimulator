@@ -16,6 +16,7 @@
 package ui.modeleditor.elements;
 
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
@@ -435,19 +436,63 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 			this.row=row;
 		}
 
+		/**
+		 * Befehl: Kundentyp hinzufügen
+		 */
+		private void add() {
+			final ModelElementSourceRecord record=new ModelElementSourceRecord(true,hasActivation,hasOwnArrivals);
+			final ModelElementSourceMultiTableModelDialog dialog=new ModelElementSourceMultiTableModelDialog(table,record,element,model,surface,clientData,help,getSchedulesButton,hasActivation);
+			dialog.setVisible(true);
+			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+				records.add(record);
+				updateTable();
+			}
+		}
+
+		/**
+		 * Befehl: Kundentyp bearbeiten
+		 * @param row	0-basierter Index des Kundentyps
+		 */
+		private void edit(int row) {
+			Point location=null;
+			int activeTabIndex=-1;
+			while (true) {
+				final ModelElementSourceRecord record=records.get(row);
+				final String oldName=record.getName();
+				final ModelElementSourceMultiTableModelDialog dialog=new ModelElementSourceMultiTableModelDialog(table,record,element,model,surface,clientData,help,getSchedulesButton,hasActivation,row>0,row<records.size()-1,activeTabIndex);
+				if (location!=null) dialog.setLocation(location);
+				dialog.setVisible(true);
+				location=dialog.getLocation();
+				activeTabIndex=dialog.getActiveTabIndex();
+				final String newName=record.getName();
+				switch (dialog.getClosedBy()) {
+				case BaseDialog.CLOSED_BY_OK:
+					if (!newName.equals(oldName)) ModelElementSourceRecordPanel.renameClients(oldName,newName,clientData,element.getSurface());
+					updateTable();
+					return;
+				case BaseDialog.CLOSED_BY_PREVIOUS:
+					if (!newName.equals(oldName)) ModelElementSourceRecordPanel.renameClients(oldName,newName,clientData,element.getSurface());
+					updateTable();
+					row--;
+					break;
+				case BaseDialog.CLOSED_BY_NEXT:
+					if (!newName.equals(oldName)) ModelElementSourceRecordPanel.renameClients(oldName,newName,clientData,element.getSurface());
+					updateTable();
+					row++;
+					break;
+				default:
+					return;
+				}
+			}
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
 
 			switch (nr) {
 			case 0: /* Add / Edit */
-				ModelElementSourceRecord record=(row<0)?new ModelElementSourceRecord(true,hasActivation,hasOwnArrivals):records.get(row);
-				ModelElementSourceMultiTableModelDialog dialog=new ModelElementSourceMultiTableModelDialog(table,record,element,model,surface,clientData,help,getSchedulesButton,hasActivation);
-				dialog.setVisible(true);
-				if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
-					if (row<0) records.add(record);
-					updateTable();
-				}
+				if (row<0) add(); else edit(row);
 				break;
 			case 1: /* Delete */
 				final String name=records.get(row).getName();

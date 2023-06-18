@@ -20630,6 +20630,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46779] = "Maximum number of decimal digits";
     t[46780] = "Window.Check.StationDialog.InfoYes";
     t[46781] = "Open station edit dialog.";
+    t[46784] = "Surface.MultiSourceTable.Dialog.Next";
+    t[46785] = "Ok & next client type";
     t[46790] = "Main.Menu.File.RecentlyUsed";
     t[46791] = "Recently used";
     t[46794] = "Surface.Process.Dialog.Title";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50091] = "Output";
     t[50098] = "Main.Menu.Help.ScriptingReference.pdf";
     t[50099] = "Warteschlangensimulator-Scripting-en.pdf";
-    t[50102] = "Surface.Action.XML.Record.ConditionType.Time";
-    t[50103] = "Time";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[50102] = "Surface.Action.XML.Record.ConditionType.Time";
+    t[50103] = "Time";
     t[50110] = "ParameterCompare.Settings.Input.List.Templates.Resource.Title";
     t[50111] = "Number of operators in a resource";
     t[50114] = "Animation.Icon.ArrowRight";
@@ -23094,6 +23096,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52299] = "Invalid expression";
     t[52302] = "Statistics.Minutes";
     t[52303] = "Minutes";
+    t[52308] = "Surface.MultiSourceTable.Dialog.Previous";
+    t[52309] = "Ok & previous client type";
     t[52318] = "Editor.Dialog.Tab.Simulation.RepeatCount.Error";
     t[52319] = "The given number of repeats of the simulation %s is invalid. A positive integer number has to be given.";
     t[52322] = "Statistics.ClientMovement.Visualization.ListDown";

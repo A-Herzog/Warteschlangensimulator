@@ -67,22 +67,42 @@ public class ModelElementSourceMultiTableModelDialog extends BaseDialog {
 	 * @param helpRunnable	Hilfe-Callback
 	 * @param getSchedulesButton	Callback zum Erstellen der Schaltfläche zum Aufrufen der Zeitpläne
 	 * @param hasActivation	Kann der Datensatz deaktiviert werden?
+	 * @param showOkPrevious	Soll die Schaltfläche "Ok & Vorheriger Kundentyp" angezeigt werden?
+	 * @param showOkNext	Soll die Schaltfläche "Ok & Nächster Kundentyp" angezeigt werden?
+	 * @param setInitialTabIndex	0-basierter Index des initial anzuzeigenden Tabs (Werte &lt;0 bedeuten, dass keine explizite Vorauswahl erfolgen soll)
 	 */
-	public ModelElementSourceMultiTableModelDialog(final Component owner, final ModelElementSourceRecord record, final ModelElement element, final EditModel model, final ModelSurface surface, final ModelClientData clientData, final Runnable helpRunnable, final Function<Supplier<Boolean>,JButton> getSchedulesButton, final boolean hasActivation) {
+	public ModelElementSourceMultiTableModelDialog(final Component owner, final ModelElementSourceRecord record, final ModelElement element, final EditModel model, final ModelSurface surface, final ModelClientData clientData, final Runnable helpRunnable, final Function<Supplier<Boolean>,JButton> getSchedulesButton, final boolean hasActivation, final boolean showOkPrevious, final boolean showOkNext, final int setInitialTabIndex) {
 		super(owner,Language.tr("Surface.MultiSourceTable.Dialog"));
 		this.clientData=clientData;
 
-		final JPanel content=createGUI(helpRunnable);
+		final JPanel content=createGUI(1024,768,showOkPrevious?Language.tr("Surface.MultiSourceTable.Dialog.Previous"):null,showOkNext?Language.tr("Surface.MultiSourceTable.Dialog.Next"):null,helpRunnable);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		content.add(recordPanel=new ModelElementSourceRecordPanel(false,model,surface,()->getSchedulesButton.apply(()->close(BaseDialog.CLOSED_BY_OK)),helpRunnable,record.hasOwnArrivals(),hasActivation),BorderLayout.CENTER);
 		recordPanel.setData(record,element);
+		if (setInitialTabIndex>=0) recordPanel.setActiveTabIndex(setInitialTabIndex);
 
 		setMinSizeRespectingScreensize(700,625);
 		pack();
 		setMaxSizeRespectingScreensize(1024,768);
 		setLocationRelativeTo(this.owner);
 		setResizable(true);
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param owner	Übergeordnetes Element
+	 * @param record	Ankunftsdatensatz
+	 * @param element	Element, dessen Zuweisungen bearbeitet werden sollen (für den ExpressionBuilder und um die Variablenliste zusammenzustellen)
+	 * @param model	Gesamtes Editor-Modell (für den ExpressionBuilder)
+	 * @param surface	Haupt-Zeichenfläche (für den ExpressionBuilder)
+	 * @param clientData	Datenelement, welches die modellweite Kundentypenliste vorhält (falls sich durch die Veränderung des Datensatzes Kundentypnamen ändern)
+	 * @param helpRunnable	Hilfe-Callback
+	 * @param getSchedulesButton	Callback zum Erstellen der Schaltfläche zum Aufrufen der Zeitpläne
+	 * @param hasActivation	Kann der Datensatz deaktiviert werden?
+	 */
+	public ModelElementSourceMultiTableModelDialog(final Component owner, final ModelElementSourceRecord record, final ModelElement element, final EditModel model, final ModelSurface surface, final ModelClientData clientData, final Runnable helpRunnable, final Function<Supplier<Boolean>,JButton> getSchedulesButton, final boolean hasActivation) {
+		this(owner,record,element,model,surface,clientData,helpRunnable,getSchedulesButton,hasActivation,false,false,-1);
 	}
 
 	@Override
@@ -93,5 +113,13 @@ public class ModelElementSourceMultiTableModelDialog extends BaseDialog {
 	@Override
 	protected void storeData() {
 		recordPanel.getData(false,clientData);
+	}
+
+	/**
+	 * Liefert den 0-basierten Index des in dem Dialog aktuell aktiven Tabs.
+	 * @return	0-basierter Index des in dem Dialog aktuell aktiven Tabs
+	 */
+	public int getActiveTabIndex() {
+		return recordPanel.getActiveTabIndex();
 	}
 }

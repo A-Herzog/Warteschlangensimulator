@@ -1663,4 +1663,20 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			checkData(false);
 		}
 	}
+
+	/**
+	 * Liefert den 0-basierten Index des in dem Panel aktuell aktiven Tabs.
+	 * @return	0-basierter Index des in dem Panel aktuell aktiven Tabs
+	 */
+	public int getActiveTabIndex() {
+		return tabs.getSelectedIndex();
+	}
+
+	/**
+	 * Stellt den 0-basierten Index des in dem Panel aktuell aktiven Tabs ein.
+	 * @param index	0-basierter Index des in dem Panel aktuell aktiven Tabs
+	 */
+	public void setActiveTabIndex(final int index) {
+		if (index>=0 && index<tabs.getTabCount()) tabs.setSelectedIndex(index);
+	}
 }
