@@ -75,7 +75,7 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 			for (ModelElementSourceRecord editRecord: edit.getRecords()) {
 				if (!editRecord.isActive()) continue;
 				final ModelElementSourceRecord.NextMode nextMode=editRecord.getNextMode();
-				if (nextMode!=ModelElementSourceRecord.NextMode.NEXT_DISTRIBUTION && nextMode!=ModelElementSourceRecord.NextMode.NEXT_DISTRIBUTION) {
+				if (nextMode!=ModelElementSourceRecord.NextMode.NEXT_DISTRIBUTION && nextMode!=ModelElementSourceRecord.NextMode.NEXT_EXPRESSION) {
 					return String.format(Language.tr("Simulation.Creator.InterArrivalTimeLimitationOnInTurnMode"),element.getId());
 				}
 			}
@@ -118,7 +118,7 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 			for (ModelElementSourceRecord editRecord: edit.getRecords()) {
 				if (!editRecord.isActive()) continue;
 				final ModelElementSourceRecord.NextMode nextMode=editRecord.getNextMode();
-				if (nextMode!=ModelElementSourceRecord.NextMode.NEXT_DISTRIBUTION && nextMode!=ModelElementSourceRecord.NextMode.NEXT_DISTRIBUTION) {
+				if (nextMode!=ModelElementSourceRecord.NextMode.NEXT_DISTRIBUTION && nextMode!=ModelElementSourceRecord.NextMode.NEXT_EXPRESSION) {
 					return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InterArrivalTimeLimitationOnInTurnMode"),element.getId()));
 				}
 			}
@@ -359,5 +359,15 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 			data.recordData[j].arrivalCount=0;
 			data.recordData[j].arrivalClientCount=0;
 		}
+	}
+
+	/**
+	 * Liefert den Namen eines der an der Station erzeugten Kundentypen
+	 * @param index	0-basierter Index des Kundentyps in der Liste
+	 * @return	Liefert im Erfolgsfall einen Namen oder <code>null</code>, wenn der Index auﬂerhalb des zul‰ssigen Bereichs liegt
+	 */
+	public String getClientTypeName(final int index) {
+		if (index<0 || index>=records.length) return null;
+		return records[index].clientTypeName;
 	}
 }
