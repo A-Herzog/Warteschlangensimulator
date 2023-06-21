@@ -75,4 +75,15 @@ public class CalcSymbolStationDataWaiting_sum extends CalcSymbolStationData {
 		final StatisticsDataPerformanceIndicator indicator=getClientDataIndicator(name,getSimData().statistics.clientsWaitingTimes);
 		return (indicator==null)?0.0:indicator.getSum();
 	}
+
+	@Override
+	protected boolean hasStationAndClientData() {
+		return true;
+	}
+
+	@Override
+	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
+		if (data.statisticWaitingByClientType==null) return 0;
+		return data.statisticWaitingByClientType[clientTypeIndex].getSum();
+	}
 }

@@ -75,10 +75,33 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 	 */
 	private int lastClientTypeIndex;
 
+	/**
+	 * Ermittelt zu der ID einer Kundenquell-Station den zugehörigen Index des Kundentyps
+	 * @param simData	Simulationsdatenobjekt
+	 * @param stationID	ID der Kundenquell-Station
+	 * @return	Liefert im Erfolgsfall den 0-basierenden Index des Kundentyps, sonst -1
+	 */
+	private int getClientTypeIndex(final SimulationData simData, final double stationID) {
+		final RunElement element=getRunElementForID(stationID);
+		String name=null;
+		if (element instanceof RunElementSource) name=((RunElementSource)element).clientTypeName;
+		if (element instanceof RunElementAssign) name=((RunElementAssign)element).clientTypeName;
+		if (name==null) return -1;
+
+		if (lastClientType==null || !name.equals(lastClientType)) {
+			final Integer I=simData.runModel.clientTypesMap.get(name);
+			lastClientTypeIndex=(I==null)?-1:I.intValue();
+			lastClientType=name;
+		}
+
+		return lastClientTypeIndex;
+	}
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		final SimulationData simData=getSimData();
 
+		/* Gesamtwert */
 		if (parameters.length==0) {
 			final int[] count=simData.runData.clientsInQueuesByType;
 			if (count==null) return 0.0;
@@ -93,44 +116,12 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 		}
 
 		if (parameters.length==1) {
-			final RunElement element=getRunElementForID(parameters[0]);
-			if (element instanceof RunElementSource) {
-				final String name=((RunElementSource)element).clientTypeName;
-
-				if (lastClientType==null || !name.equals(lastClientType)) {
-					final Integer I=simData.runModel.clientTypesMap.get(name);
-					lastClientTypeIndex=(I==null)?-1:I.intValue();
-					lastClientType=name;
-				}
-				if (lastClientTypeIndex<0) return 0.0;
-
+			/* Kundentyp */
+			final int clientTypeIndex=getClientTypeIndex(simData,parameters[0]);
+			if (clientTypeIndex>=0) {
 				final int[] count=simData.runData.clientsInQueuesByType;
 				if (count==null) return 0.0;
-
 				return count[lastClientTypeIndex];
-
-				/*
-				Funktioniert nicht während Warmup:
-				final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)getSimData().statistics.clientsInSystemByClient.getOrNull(name);
-				if (indicator==null) return 0.0;
-				return indicator.getCurrentState();
-				 */
-			}
-			if (element instanceof RunElementAssign) {
-				final String name=((RunElementAssign)element).clientTypeName;
-
-				if (lastClientType==null || !name.equals(lastClientType)) {
-					final Integer I=simData.runModel.clientTypesMap.get(name);
-					lastClientTypeIndex=(I==null)?-1:I.intValue();
-					lastClientType=name;
-				}
-				if (lastClientTypeIndex<0) return 0.0;
-
-				final int[] count=simData.runData.clientsInQueuesByType;
-				if (count==null) return 0.0;
-
-				return count[lastClientTypeIndex];
-
 				/*
 				Funktioniert nicht während Warmup:
 				final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)getSimData().statistics.clientsInSystemByClient.getOrNull(name);
@@ -139,17 +130,21 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 				 */
 			}
 
+			/* Station */
 			final RunElementData data=getRunElementDataForID(parameters[0]);
 			if (data==null) return 0.0;
 			return data.clientsAtStationQueue;
 		}
 
+		/* Station und Kundentyp */
 		if (parameters.length==2) {
+			/* Zweiter Parameter ist Index des Kundentyps an der Quelle */
 			RunElementData data=getRunElementDataForID(parameters[0]);
-			if (!(data instanceof RunElementMultiQueueData)) throw error();
-			int nr=(int)FastMath.round(parameters[1])-1;
-			if (nr<0 || nr>=((RunElementMultiQueueData)data).getQueueCount()) return 0.0;
-			return ((RunElementMultiQueueData)data).getQueueSize(nr);
+			if (data instanceof RunElementMultiQueueData) {
+				int nr=(int)FastMath.round(parameters[1])-1;
+				if (nr<0 || nr>=((RunElementMultiQueueData)data).getQueueCount()) return 0.0;
+				return ((RunElementMultiQueueData)data).getQueueSize(nr);
+			}
 		}
 
 		throw error();
@@ -159,13 +154,13 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
 		final SimulationData simData=getSimData();
 
+		/* Gesamtwert */
 		if (parameters.length==0) {
 			final int[] count=simData.runData.clientsInQueuesByType;
 			if (count==null) return 0.0;
 			double sum=0.0;
 			for (int c: count) sum+=c;
 			return sum;
-
 			/*
 			Funktioniert nicht während Warmup:
 			return getSimData().statistics.clientsInSystemQueues.getCurrentState();
@@ -173,63 +168,34 @@ public class CalcSymbolStationDataQueue extends CalcSymbolSimData {
 		}
 
 		if (parameters.length==1) {
-			final RunElement element=getRunElementForID(parameters[0]);
-			if (element instanceof RunElementSource) {
-				final String name=((RunElementSource)element).clientTypeName;
-
-				if (lastClientType==null || !name.equals(lastClientType)) {
-					final Integer I=simData.runModel.clientTypesMap.get(name);
-					lastClientTypeIndex=(I==null)?-1:I.intValue();
-					lastClientType=name;
-				}
-				if (lastClientTypeIndex<0) return 0.0;
-
+			/* Kundentyp */
+			final int clientTypeIndex=getClientTypeIndex(simData,parameters[0]);
+			if (clientTypeIndex>=0) {
 				final int[] count=simData.runData.clientsInQueuesByType;
 				if (count==null) return 0.0;
-
 				return count[lastClientTypeIndex];
-
 				/*
 				Funktioniert nicht während Warmup:
 				final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)getSimData().statistics.clientsInSystemByClient.getOrNull(name);
 				if (indicator==null) return 0;
 				return indicator.getCurrentState();
-				 */
-			}
-			if (element instanceof RunElementAssign) {
-				final String name=((RunElementAssign)element).clientTypeName;
+				 */			}
 
-				if (lastClientType==null || !name.equals(lastClientType)) {
-					final Integer I=simData.runModel.clientTypesMap.get(name);
-					lastClientTypeIndex=(I==null)?-1:I.intValue();
-					lastClientType=name;
-				}
-				if (lastClientTypeIndex<0) return 0.0;
-
-				final int[] count=simData.runData.clientsInQueuesByType;
-				if (count==null) return 0.0;
-
-				return count[lastClientTypeIndex];
-
-				/*
-				Funktioniert nicht während Warmup:
-				final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)getSimData().statistics.clientsInSystemByClient.getOrNull(name);
-				if (indicator==null) return 0;
-				return indicator.getCurrentState();
-				 */
-			}
-
+			/* Station */
 			final RunElementData data=getRunElementDataForID(parameters[0]);
 			if (data==null) return 0;
 			return data.clientsAtStationQueue;
 		}
 
+		/* Station und Kundentyp */
 		if (parameters.length==2) {
+			/* Zweiter Parameter ist Index des Kundentyps an der Quelle */
 			RunElementData data=getRunElementDataForID(parameters[0]);
-			if (!(data instanceof RunElementMultiQueueData)) return fallbackValue;
-			int nr=(int)FastMath.round(parameters[1])-1;
-			if (nr<0 || nr>=((RunElementMultiQueueData)data).getQueueCount()) return 0;
-			return ((RunElementMultiQueueData)data).getQueueSize(nr);
+			if (data instanceof RunElementMultiQueueData) {
+				int nr=(int)FastMath.round(parameters[1])-1;
+				if (nr<0 || nr>=((RunElementMultiQueueData)data).getQueueCount()) return 0;
+				return ((RunElementMultiQueueData)data).getQueueSize(nr);
+			}
 		}
 
 		return fallbackValue;

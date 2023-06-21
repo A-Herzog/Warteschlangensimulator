@@ -75,4 +75,15 @@ public class CalcSymbolStationDataResidence_sk extends CalcSymbolStationData {
 		final StatisticsDataPerformanceIndicator indicator=getClientDataIndicator(name,getSimData().statistics.clientsResidenceTimes);
 		return (indicator==null)?0.0:indicator.getSk();
 	}
+
+	@Override
+	protected boolean hasStationAndClientData() {
+		return true;
+	}
+
+	@Override
+	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
+		if (data.statisticResidenceByClientType==null) return 0;
+		return data.statisticResidenceByClientType[clientTypeIndex].getSk();
+	}
 }

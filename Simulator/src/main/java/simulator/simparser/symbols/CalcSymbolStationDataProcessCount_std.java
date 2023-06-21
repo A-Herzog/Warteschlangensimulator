@@ -78,4 +78,15 @@ public class CalcSymbolStationDataProcessCount_std extends CalcSymbolStationData
 		if (data.statisticClientsAtStationProcess==null) return 0;
 		return data.statisticClientsAtStationProcess.getTimeSD();
 	}
+
+	@Override
+	protected boolean hasStationAndClientData() {
+		return true;
+	}
+
+	@Override
+	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
+		if (data.statisticClientsAtStationProcessByClientType==null) return 0;
+		return data.statisticClientsAtStationProcessByClientType[clientTypeIndex].getTimeSD();
+	}
 }

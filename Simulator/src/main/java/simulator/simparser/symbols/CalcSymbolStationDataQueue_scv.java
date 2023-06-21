@@ -78,4 +78,16 @@ public class CalcSymbolStationDataQueue_scv extends CalcSymbolStationData {
 		final double cv=data.statisticClientsAtStationQueue.getTimeCV();
 		return cv*cv;
 	}
+
+	@Override
+	protected boolean hasStationAndClientData() {
+		return true;
+	}
+
+	@Override
+	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
+		if (data.statisticClientsAtStationQueueByClientType==null) return 0;
+		final double cv=data.statisticClientsAtStationQueueByClientType[clientTypeIndex].getTimeCV();
+		return cv*cv;
+	}
 }

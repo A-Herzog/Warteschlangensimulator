@@ -78,4 +78,16 @@ public class CalcSymbolStationDataTransfer_scv extends CalcSymbolStationData {
 		final double d=(indicator==null)?0.0:indicator.getCV();
 		return d*d;
 	}
+
+	@Override
+	protected boolean hasStationAndClientData() {
+		return true;
+	}
+
+	@Override
+	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
+		if (data.statisticTransferByClientType==null) return 0;
+		final double cv=data.statisticTransferByClientType[clientTypeIndex].getMean();
+		return cv*cv;
+	}
 }

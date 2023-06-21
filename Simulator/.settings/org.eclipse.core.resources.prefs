@@ -1,5 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/main/java=WINDOWS-1252
+encoding//src/main/java/ui/help/pages_de=UTF-8
+encoding//src/main/java/ui/help/pages_en=UTF-8
 encoding//src/test/java=WINDOWS-1252
 encoding//src/test/resources=WINDOWS-1252
 encoding/<project>=WINDOWS-1252

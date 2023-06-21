@@ -73,4 +73,15 @@ public class CalcSymbolStationDataProcessCount_cv extends CalcSymbolStationData 
 		if (data.statisticClientsAtStationProcess==null) return 0;
 		return data.statisticClientsAtStationProcess.getTimeCV();
 	}
+
+	@Override
+	protected boolean hasStationAndClientData() {
+		return true;
+	}
+
+	@Override
+	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
+		if (data.statisticClientsAtStationProcessByClientType==null) return 0;
+		return data.statisticClientsAtStationProcessByClientType[clientTypeIndex].getTimeCV();
+	}
 }

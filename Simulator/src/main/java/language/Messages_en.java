@@ -133,7 +133,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[268] = "Statistics.ClientData.Field.StdDev";
     t[269] = "Standard deviation";
     t[270] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.MinimalTime";
-    t[271] = "<p>Returns the minimal duration over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[271] = "<p>Returns the minimal duration over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[276] = "Statistics.XML.Element.DifferenceCounterName";
     t[277] = "StatisticsDifferenceCounterName";
     t[282] = "Surface.InputJS.XML.ReadOrder";
@@ -425,7 +425,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[960] = "Main.Menu.Edit.Align.Bottom.Mnemonic";
     t[961] = "b";
     t[962] = "ExpressionBuilder.ClientsInServiceProcess.HistogramMultiple";
-    t[963] = "<p>Returns the fraction of time, at which the number of client in service process at the station whose ID is specified was in the specified range (exclusive the lower and inclusive the upper bound).</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[963] = "<p>Returns the fraction of time, at which the number of client in service process at the station whose ID is specified was in the specified range (exclusive the lower and inclusive the upper bound).</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[966] = "Surface.ClientIcon.XML.Condition";
     t[967] = "ModelElementIconCondition";
     t[968] = "Color.2F4F4F";
@@ -563,7 +563,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[1264] = "Surface.XML.BackgroundColor.Image";
     t[1265] = "ModelElementStationimage";
     t[1268] = "ExpressionBuilder.ClientsAtQueue.MaximalNumber";
-    t[1269] = "<p>Returns the maximal number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[1269] = "<p>Returns the maximal number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[1270] = "Transporter.Group.Edit.Dialog.DownTime.Distribution";
     t[1271] = "Distribution";
     t[1278] = "Simulation.Creator.NoOutputFile";
@@ -645,7 +645,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[1510] = "Editor.DialogBase.ExpressionHelpTooltip";
     t[1511] = "Help for calculating expressions";
     t[1528] = "ExpressionBuilder.ClientsAtQueue.Kurt";
-    t[1529] = "<p>Returns the excess kurtosis of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[1529] = "<p>Returns the excess kurtosis of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[1532] = "Simulation.Creator.Transporter.InvalidCapacity";
     t[1533] = "For transporter type \"%s\" the invalid capacity %d is specified. A positive integer number has to be specified.";
     t[1534] = "Wait.Status.LongRun.WIPZero";
@@ -667,7 +667,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[1580] = "FitDialog.Tab.Values";
     t[1581] = "Values";
     t[1582] = "ExpressionBuilder.ClientsAtStation.Kurt";
-    t[1583] = "<p>Returns the excess kurtosis of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[1583] = "<p>Returns the excess kurtosis of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[1588] = "Simulation.Log.InputDB.TerminateSimulation";
     t[1589] = "At element %s the end of input table was reached. The simulation will be terminated.";
     t[1590] = "Main.Toolbar.ShowModelForTheseResults2.Hint";
@@ -699,7 +699,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[1654] = "Compare.DoubleFile.Title";
     t[1655] = "Statistic file selected two times";
     t[1658] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.CoefficientOfVariationOfTheTime";
-    t[1659] = "<p>Returns the coefficient of variation over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[1659] = "<p>Returns the coefficient of variation over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[1670] = "Main.Menu.View.TemplatesBar.Mnemonic";
     t[1671] = "T";
     t[1684] = "ParameterCompare.Templates.Maximum.ErrorInfo";
@@ -759,7 +759,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[1810] = "Surface.Source.Dialog.Tab.BatchSize.DifferentSizes";
     t[1811] = "different sizes";
     t[1814] = "ExpressionBuilder.ClientsAtQueue.CurrentNumber";
-    t[1815] = "<p>Returns the current number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[1815] = "<p>Returns the current number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[1818] = "ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheNumber";
     t[1819] = "Squared coefficient of variation of the number";
     t[1820] = "ModelDescription.FlowData.StopCondition.Quantity";
@@ -921,7 +921,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[2178] = "SettingsDialog.Tabs.BackupFiles";
     t[2179] = "Use backup files for models";
     t[2186] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.Kurt";
-    t[2187] = "<p>Returns the excess kurtosis over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[2187] = "<p>Returns the excess kurtosis over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[2194] = "SettingsDialog.ModellSecurity.ClearTrustedUserList";
     t[2195] = "Clear trusted users list";
     t[2200] = "CommandLine.ServerMQTTFixed.Description.Short";
@@ -1923,7 +1923,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4458] = "Surface.Process.XML.TimeCosts.PostProcessingSecond";
     t[4459] = "PostProcessingSecond";
     t[4460] = "ExpressionBuilder.ClientsAtStation.StandardDeviationOfTheNumber";
-    t[4461] = "<p>Returns the standard deviation of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[4461] = "<p>Returns the standard deviation of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[4464] = "Simulation.Log.TransporterArrival";
     t[4465] = "Transporter arrival";
     t[4466] = "Surface.AssignString.Dialog.Condition.Error.Title";
@@ -2109,7 +2109,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4878] = "ExpressionBuilder.SimulationCharacteristics.Number";
     t[4879] = "Number";
     t[4882] = "ExpressionBuilder.ClientsAtStation.HistogramSingle";
-    t[4883] = "<p>Returns the fraction of time, at which there were a specified number of clients at the station whose ID is specified had a specified length.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[4883] = "<p>Returns the fraction of time, at which there were a specified number of clients at the station whose ID is specified had a specified length.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[4884] = "Statistic.Viewer.Report.Settings.Header.Logo.Alignment.Left";
     t[4885] = "left";
     t[4886] = "Filter.Save.Info";
@@ -2161,7 +2161,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4990] = "Main.Menu.View.Statistics.HeatMap.ThroughputTooltip";
     t[4991] = "If station transitions are recorded, the edges are included in the heat map.";
     t[4992] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Skewness";
-    t[4993] = "<p>Returns the skewness over all residence times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[4993] = "<p>Returns the skewness over all residence times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[4994] = "Surface.DDE.Select.Dialog.Info";
     t[4995] = "Select the DDE table to be used:";
     t[4998] = "Editor.Breakpoints.TabBreakpoints.ModeCondition";
@@ -2555,7 +2555,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5948] = "BuildClientSourceTable.OutputTable.Error.NoFile.Info";
     t[5949] = "No file name was specified for the output table.";
     t[5950] = "ExpressionBuilder.ClientsAtStation.SquaredCoefficientOfVariationOfTheNumber";
-    t[5951] = "<p>Returns the squared coefficient of variation of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[5951] = "<p>Returns the squared coefficient of variation of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[5952] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.MaximalTime";
     t[5953] = "<p>Returns the maximal duration over all residence times for all clients.</p>";
     t[5960] = "ExternalConnect.Dialog.Compile.StatusSuccessWarningOne";
@@ -3207,7 +3207,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7522] = "ModelDescription.Seize.Resources.Resource";
     t[7523] = "Resource \"%s\": %d needed";
     t[7526] = "ExpressionBuilder.ClientsAtQueue.StandardDeviationOfTheNumber";
-    t[7527] = "<p>Returns the standard deviation of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[7527] = "<p>Returns the standard deviation of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[7530] = "Simulation.Log.DecideByKeyValue";
     t[7531] = "Decide by string property";
     t[7534] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Number";
@@ -3473,7 +3473,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[8164] = "ParameterCompare.XML.Outputs.Data.Format.Number";
     t[8165] = "Number";
     t[8170] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.VarianceOfTheTime";
-    t[8171] = "<p>Returns the variance over all processing times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[8171] = "<p>Returns the variance over all processing times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[8176] = "Editor.DialogBase.OpenModelSchedules";
     t[8177] = "Show schedules";
     t[8178] = "ModelDescription.OutputDDE.Property";
@@ -3635,7 +3635,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[8498] = "ProcessClientOutputTable.InputTable.Error.NoFile.Info";
     t[8499] = "No file name was specified for the input table.";
     t[8504] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.AverageTime";
-    t[8505] = "<p>Returns the average duration over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[8505] = "<p>Returns the average duration over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[8510] = "Surface.Input.XML.EofMode.Loop";
     t[8511] = "Loop";
     t[8522] = "ProcessClientOutputTable.ColumnHeader.TransferTime";
@@ -3859,7 +3859,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[8992] = "ModelDescription.Release.Seize";
     t[8993] = "Connected \"Seize resource\" element";
     t[8994] = "ExpressionBuilder.ClientsAtStation.Median";
-    t[8995] = "<p>Returns the median of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[8995] = "<p>Returns the median of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[8996] = "Statistics.Dashboard.EditDialog.XML.Button";
     t[8997] = "Select";
     t[9000] = "Simulation.Log.Parking.Info";
@@ -4205,7 +4205,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9732] = "Surface.Action.Dialog.Info.Condition.MinDistance.Seconds";
     t[9733] = "seconds";
     t[9738] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.CoefficientOfVariationOfTheTime";
-    t[9739] = "<p>Returns the coefficient of variation over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[9739] = "<p>Returns the coefficient of variation over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[9744] = "Main.Menu.Edit.Align";
     t[9745] = "Align";
     t[9750] = "ModelDescription.Release.DelayedRelease.GeneralCase";
@@ -4317,7 +4317,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9958] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.PopulationSize.ErrorInfo";
     t[9959] = "The population size for the genetic algorithm \"%s\" is invalid.\nA positive integer number has to be specified.";
     t[9970] = "ExpressionBuilder.ClientsInServiceProcess.SquaredCoefficientOfVariationOfTheNumber";
-    t[9971] = "<p>Returns the squared coefficient of variation of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[9971] = "<p>Returns the squared coefficient of variation of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[9978] = "Statistic.Viewer.SaveImage.Error.Title";
     t[9979] = "The image size has to be a positive integer";
     t[9980] = "Simulation.Log.ProcessService.Info";
@@ -4851,7 +4851,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11168] = "Surface.LineTypes";
     t[11169] = "solid line\ndashed (short)\ndashed (medium)\ndotted (long)\ndotted\ndotted (long)\ndash-dot\nstreet 1\nstreet 2\ntrain tracks\nqueue";
     t[11174] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.VarianceOfTheTime";
-    t[11175] = "<p>Returns the variance over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[11175] = "<p>Returns the variance over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[11180] = "Surface.TeleportDestination.Infotext";
     t[11181] = "Destination point when transporting clients from a transport origin station (for resource-based transports) or a transporter start station (for transporter-based transports).";
     t[11182] = "Statistics.OverviewFilter.All.Hint";
@@ -4951,7 +4951,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11422] = "CommandLine.UnknownCommand";
     t[11423] = "Unknown command. Run simulator with parameter \"Help\" to get a list of all available commands.";
     t[11424] = "ExpressionBuilder.ClientsInServiceProcess.VarianceOfTheNumber";
-    t[11425] = "<p>Returns the variance of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[11425] = "<p>Returns the variance of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[11430] = "Compare.Models.Base";
     t[11431] = "Base model";
     t[11432] = "Surface.Process.Dialog.SetupTimes.Assistant.Title";
@@ -5043,7 +5043,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11624] = "UserTemplates.TemplatesDialog.Mode.Global";
     t[11625] = "global template";
     t[11626] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.Skewness";
-    t[11627] = "<p>Returns the skewness over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[11627] = "<p>Returns the skewness over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[11628] = "Git.System.Status.Ahead.One";
     t[11629] = "The local branch is newer by one commit than the branch on the server.";
     t[11632] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilizationAll.CurrentNumber";
@@ -5313,7 +5313,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[12212] = "SettingsDialog.ModellSecurity.Ask";
     t[12213] = "Ask user";
     t[12214] = "ExpressionBuilder.ClientsAtStation.Skewness";
-    t[12215] = "<p>Returns the skewness of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[12215] = "<p>Returns the skewness of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[12216] = "Editor.SurfaceTooltip.Glass.DragElement";
     t[12217] = "Mouse movement = verschieben<br>Shift + mouse movement = move with pixel precision<br>Ctrl + mouse movement = copy<br>Alt + Cursor = move";
     t[12218] = "Simulation.Creator.NoTeleportDestination";
@@ -7079,7 +7079,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[16406] = "Surface.Seize.XML.Operators.Group";
     t[16407] = "Group";
     t[16408] = "ExpressionBuilder.ClientsAtStation.AverageNumber";
-    t[16409] = "<p>Returns the average number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[16409] = "<p>Returns the average number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[16410] = "Simulation.Log.Teleport";
     t[16411] = "Teleport transport source";
     t[16416] = "DistributionFitterMultiModal.FractionPostOptimization";
@@ -7373,7 +7373,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[17028] = "ScriptPopup.Simulation.LastClientType.Hint";
     t[17029] = "Returns the name of the client type that has been served last at the process station.";
     t[17030] = "ExpressionBuilder.ClientsInServiceProcess.Kurt";
-    t[17031] = "<p>Returns the excess kurtosis of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[17031] = "<p>Returns the excess kurtosis of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[17040] = "Surface.ScriptEditor.Check.Success.Title";
     t[17041] = "Java code";
     t[17044] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesAtStations.Median";
@@ -7491,7 +7491,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[17302] = "BookData.SelectPage.Info";
     t[17303] = "The term \"%s\" occurs in several chapters:";
     t[17312] = "ExpressionBuilder.ClientsAtStation.MinimalNumber";
-    t[17313] = "<p>Returns the minimal number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[17313] = "<p>Returns the minimal number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[17318] = "ScriptPopup.InputValue.Hint";
     t[17319] = "Gets the current input value";
     t[17330] = "Surface.AnalogAssign.Dialog.Expression.ErrorTitle";
@@ -7563,7 +7563,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[17490] = "Statistics.FileOutput";
     t[17491] = "File output";
     t[17496] = "ExpressionBuilder.ClientsAtQueue.HistogramMultiple";
-    t[17497] = "<p>Returns the fraction of time, at which the queue length of the station whose ID is specified was in the specified range (exclusive the lower and inclusive the upper bound).</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[17497] = "<p>Returns the fraction of time, at which the queue length of the station whose ID is specified was in the specified range (exclusive the lower and inclusive the upper bound).</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[17504] = "CommandLine.FolderFilter.CannotProcessFile";
     t[17505] = "Cannot process file format.";
     t[17510] = "Optimizer.SaveBestResult.Info";
@@ -8087,7 +8087,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18646] = "ProblemReporter.Dialog.OutputFile.ErrorInfo";
     t[18647] = "No output file in which the problem report is to be stored has been selected.";
     t[18648] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.MinimalTime";
-    t[18649] = "<p>Returns the minimal duration over all residence times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[18649] = "<p>Returns the minimal duration over all residence times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[18652] = "Statistic.Viewer.Context.Sort.Descending";
     t[18653] = "Descending by this column";
     t[18662] = "Statistic.FastAccess.Template.NewLine";
@@ -8287,7 +8287,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19152] = "ModelDescription.Process.Resources.Available.BySchedule";
     t[19153] = "available number by schedule \"%s\"";
     t[19158] = "ExpressionBuilder.ClientsAtQueue.HistogramSingle";
-    t[19159] = "<p>Returns the fraction of time, at which the queue of the station whose ID is specified had a specified length.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[19159] = "<p>Returns the fraction of time, at which the queue of the station whose ID is specified had a specified length.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[19160] = "Resources.Group.EditName.Dialog.DownTime.Expression.Label";
     t[19161] = "Duration of the down times";
     t[19170] = "ExpressionBuilder.ProbabilityDistributions.FDistribution";
@@ -8743,7 +8743,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20196] = "Statistics.Utilization.NumberOfOperators.Kurt";
     t[20197] = "Excess kurtosis of the number of available operators";
     t[20198] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Median";
-    t[20199] = "<p>Returns the median of the duration over all residence times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[20199] = "<p>Returns the median of the duration over all residence times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[20204] = "Simulation.Log.MatchWaitingForward";
     t[20205] = "Matching - common forwarding";
     t[20210] = "Surface.Output.Name";
@@ -8765,7 +8765,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20266] = "FindAndReplace.Table.Match";
     t[20267] = "Match";
     t[20272] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.Median";
-    t[20273] = "<p>Returns the median of the duration over all processing times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[20273] = "<p>Returns the median of the duration over all processing times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[20276] = "JDistributionEditor.Save.Graphics.Info";
     t[20277] = "Saves the graphics as a file";
     t[20278] = "Main.Menu.View.QuickAccess";
@@ -8791,7 +8791,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20310] = "Surface.HoldMulti.Dialog.OutgoingEdge.Condition.Error.Title";
     t[20311] = "Invalid condition";
     t[20312] = "ExpressionBuilder.ClientsAtQueue.VarianceOfTheNumber";
-    t[20313] = "<p>Returns the variance of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[20313] = "<p>Returns the variance of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[20316] = "Surface.PopupMenu.RemoveEdge";
     t[20317] = "Remove edge";
     t[20318] = "Surface.Resource.EditName.Dialog.AddNew.Error.Info";
@@ -8935,7 +8935,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20670] = "SettingsDialog.Tabs.Simulation.General";
     t[20671] = "General";
     t[20674] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Kurt";
-    t[20675] = "<p>Returns the excess kurtosis over all residence times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[20675] = "<p>Returns the excess kurtosis over all residence times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[20696] = "Surface.Action.Dialog.Info.Condition";
     t[20697] = "Condition";
     t[20698] = "ExpressionBuilder.ProbabilityDistributions.BetaDistribution.DensityInfo";
@@ -9163,7 +9163,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21156] = "Animation.Log.JS";
     t[21157] = "Results of the Javascript script executions";
     t[21158] = "ExpressionBuilder.ClientsAtStation.CurrentNumber";
-    t[21159] = "<p>Returns the current number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[21159] = "<p>Returns the current number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[21162] = "Statistics.TransferTimesByClientType";
     t[21163] = "Transfer times for clients of type \"%s\"";
     t[21164] = "Main.Menu.View.CenterModel.Mnemonic";
@@ -9215,7 +9215,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21260] = "Surface.ScriptEditor.Search.NotHit";
     t[21261] = "The search string \"%s\" was not found.";
     t[21264] = "ExpressionBuilder.ClientsInServiceProcess.Quantil";
-    t[21265] = "<p>Returns the quantil for probability p of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[21265] = "<p>Returns the quantil for probability p of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[21266] = "CommandLine.Help.Info1";
     t[21267] = "General call scheme:\n<Simulator program file> <Model file>\nor\n<Simulator program file> <Statistics file>\nor\n<Simulator program file> <command> <parameters>\n\nIn the first two cases, the specified simulation model or the specified statistics file is\nloaded into the simulator.\n\n<Command> can be one of the following expressions:";
     t[21268] = "CommandLine.Help.Info2";
@@ -9441,7 +9441,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21756] = "ParameterCompare.XML.Outputs.Data.Mode.Script";
     t[21757] = "Javascript;Script";
     t[21762] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.MaximalTime";
-    t[21763] = "<p>Returns the maximal duration over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[21763] = "<p>Returns the maximal duration over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[21774] = "Resources.Number.bySchedule";
     t[21775] = "Count by schedule";
     t[21776] = "Git.System.Status.ActiveBranch";
@@ -9513,7 +9513,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21906] = "Statistics.ErlangCompare.BatchSize.Min";
     t[21907] = "Minimum batch size";
     t[21910] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.MinimalTime";
-    t[21911] = "<p>Returns the minimal duration over all processing times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[21911] = "<p>Returns the minimal duration over all processing times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[21920] = "ParameterCompare.Settings.Output.Digits.Header";
     t[21921] = "Digits";
     t[21926] = "ScriptPopup.Simulation.setVariable";
@@ -9689,7 +9689,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22322] = "Main.Menu.Help.SupportData.Mnemonic";
     t[22323] = "p";
     t[22324] = "ExpressionBuilder.ClientsAtQueue.AverageNumber";
-    t[22325] = "<p>Returns the average number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[22325] = "<p>Returns the average number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[22332] = "Main.Menu.Edit.Paste";
     t[22333] = "Paste";
     t[22336] = "Surface.XML.FlowData.StopSignal";
@@ -9809,7 +9809,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22548] = "Surface.TransportSource.Dialog.TargetMode.Property";
     t[22549] = "By content of a client text property";
     t[22552] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.Kurt";
-    t[22553] = "<p>Returns the excess kurtosis over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[22553] = "<p>Returns the excess kurtosis over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[22554] = "Surface.Process.Dialog.StillMissing";
     t[22555] = "still missing";
     t[22564] = "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Full";
@@ -10319,7 +10319,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23762] = "Surface.Source.Dialog.ClientCount.Error.Title";
     t[23763] = "Invalid number of arriving clients";
     t[23764] = "ExpressionBuilder.ClientsInServiceProcess.MaximalNumber";
-    t[23765] = "<p>Returns the maximal number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[23765] = "<p>Returns the maximal number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[23766] = "Optimizer.Error.NoStatistics";
     t[23767] = "The simulation did not return statistics data.";
     t[23782] = "SystemInfo.Tools.NextStationTraining.DeleteData.InfoNo";
@@ -10845,7 +10845,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24916] = "Surface.AnimationPause.XML.Root";
     t[24917] = "ModelElementPause";
     t[24918] = "ExpressionBuilder.ClientsInServiceProcess.Median";
-    t[24919] = "<p>Returns the median of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[24919] = "<p>Returns the median of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[24920] = "ExpressionCalculator.Toolbar.ToolsJava";
     t[24921] = "Commands";
     t[24924] = "Statistics.Hours";
@@ -11137,17 +11137,17 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25534] = "Surface.Text.Dialog.FontSize.Markdown";
     t[25535] = "Markdown";
     t[25540] = "ExpressionBuilder.ClientsAtQueue.Skewness";
-    t[25541] = "<p>Returns the skewness of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[25541] = "<p>Returns the skewness of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[25542] = "Editor.Dialog.Sequences.Edit.MoveDownHint";
     t[25543] = "Move step down";
     t[25546] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime";
-    t[25547] = "<p>Returns the squared coefficient of variation over all residence times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[25547] = "<p>Returns the squared coefficient of variation over all residence times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[25548] = "Surface.Process.AverageProcessingTime";
     t[25549] = "Average processing time";
     t[25552] = "ParameterCompare.Run.Error.ReadValue";
     t[25553] = "In step %d (model %s) the value of the input parameter %d (%s) could not be read.";
     t[25566] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.StandardDeviationOfTheTime";
-    t[25567] = "<p>Returns the standard deviation over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[25567] = "<p>Returns the standard deviation over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[25574] = "ParameterCompare.Toolbar.Start.Hint";
     t[25575] = "Start processing";
     t[25576] = "Surface.SetJS.Dialog.ScriptHeading";
@@ -11509,7 +11509,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26360] = "XML.EnterPassword";
     t[26361] = "Plase enter password:";
     t[26368] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.Median";
-    t[26369] = "<p>Returns the median of the duration over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[26369] = "<p>Returns the median of the duration over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[26372] = "Surface.Decide.Dialog.DecideBy";
     t[26373] = "Decide by";
     t[26374] = "Simulation.Element.SetJS.Name";
@@ -11649,7 +11649,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26658] = "Resources.Group.EditName.Dialog.Tab.SetupTimes.Mode.Distribution";
     t[26659] = "Distribution";
     t[26664] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.CoefficientOfVariationOfTheTime";
-    t[26665] = "<p>Returns the coefficient of variation over all residence times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[26665] = "<p>Returns the coefficient of variation over all residence times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[26668] = "Simulation.Log.InputDDE.InfoClientData";
     t[26669] = "Client: %s, station: %s, ClientData(%d):=%s";
     t[26670] = "Surface.Text.Dialog.FontFamily";
@@ -11959,7 +11959,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27366] = "Editor.Dialog.Sequences.Edit.Name.ErrorInfoInUse";
     t[27367] = "The specified name \"%s\" is already in use at another sequence.";
     t[27368] = "ExpressionBuilder.ClientsInServiceProcess.CoefficientOfVariationOfTheNumber";
-    t[27369] = "<p>Returns the coefficient of variation of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[27369] = "<p>Returns the coefficient of variation of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[27378] = "Surface.TransportTransporterSource.Dialog.Heading.Parking";
     t[27379] = "Parking lot for transporters";
     t[27386] = "ModelGenerator.ServiceDiscipline.FIFO";
@@ -12099,7 +12099,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27724] = "Main.Menu.Help.DistributionReference.Mnemonic";
     t[27725] = "D";
     t[27732] = "ExpressionBuilder.ClientsAtQueue.MinimalNumber";
-    t[27733] = "<p>Returns the minimal number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[27733] = "<p>Returns the minimal number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[27734] = "BookData.BookExample.ErrorInfo";
     t[27735] = "Example models cannot be loaded as long as a dialog is opened.";
     t[27738] = "FontFamily.SansSerif";
@@ -12485,7 +12485,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28614] = "Surface.XML.TimeBase.MinutesTab";
     t[28615] = "minutes";
     t[28616] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime";
-    t[28617] = "<p>Returns the squared coefficient of variation over all processing times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[28617] = "<p>Returns the squared coefficient of variation over all processing times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[28620] = "ModelDescription.TransportTransporterSource.RequestMinWaiting";
     t[28621] = "Minimum number of waiting clients for requesting a transporter";
     t[28624] = "Main.Menu.Help.References";
@@ -13133,7 +13133,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30104] = "Main.Menu.View.ScrollTopLeft";
     t[30105] = "Scroll to top left";
     t[30114] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.Kurt";
-    t[30115] = "<p>Returns the excess kurtosis over all processing times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[30115] = "<p>Returns the excess kurtosis over all processing times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[30128] = "Statistics.ClientData.Field.Minimum";
     t[30129] = "Minimum";
     t[30130] = "Surface.AnimationTrafficLights.Infotext";
@@ -13215,7 +13215,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30312] = "Surface.Source.XML.Schedule.ClientCount";
     t[30313] = "ClientCount";
     t[30314] = "ExpressionBuilder.ClientsAtStation.Quantil";
-    t[30315] = "<p>Returns the quantil for probability p of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[30315] = "<p>Returns the quantil for probability p of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[30316] = "Simulation.Log.TeleportDecideByStation";
     t[30317] = "Decide and teleport by station data";
     t[30318] = "Statistic.FastAccess.Template.Format.System";
@@ -13557,7 +13557,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31102] = "Editor.SurfaceTooltip.NonReleaseBuild";
     t[31103] = "This is a test version not intended for productive use.";
     t[31104] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.MinimalTime";
-    t[31105] = "<p>Returns the minimal duration over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[31105] = "<p>Returns the minimal duration over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[31114] = "Color.EE82EE";
     t[31115] = "Violet";
     t[31116] = "Statistics.XML.StateStatisticsKey";
@@ -13973,7 +13973,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31962] = "Transporter.Failure.RowTitle.Buttons";
     t[31963] = "Edit";
     t[31968] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.AverageTime";
-    t[31969] = "<p>Returns the average duration over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[31969] = "<p>Returns the average duration over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[31970] = "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistributionDirect";
     t[31971] = "Left sawtooth distribution (direct characteristics)";
     t[31988] = "Surface.OutputJS.Name.Short";
@@ -14529,7 +14529,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33204] = "Transporters.Group.Edit.Dialog.Table.ByModel";
     t[33205] = "Fill by distances on the drawing surface...";
     t[33208] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.StandardDeviationOfTheTime";
-    t[33209] = "<p>Returns the standard deviation over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[33209] = "<p>Returns the standard deviation over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[33212] = "Surface.MultiSourceTable.Info.NextSignal";
     t[33213] = "Arrivals at signals";
     t[33214] = "Statistics.DistributionOfTheResidenceTimesTotal";
@@ -14843,7 +14843,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33882] = "ParameterCompare.ScriptRunner.Script.Run.Error.Info";
     t[33883] = "The following error occured during the script execution:\n%s";
     t[33892] = "ExpressionBuilder.ClientsAtStation.HistogramMultiple";
-    t[33893] = "<p>Returns the fraction of time, at which the number of clients at the station whose ID is specified was in the specified range (exclusive the lower and inclusive the upper bound).</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[33893] = "<p>Returns the fraction of time, at which the number of clients at the station whose ID is specified was in the specified range (exclusive the lower and inclusive the upper bound).</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[33894] = "Surface.Action.Dialog.Info.ActionAnalog";
     t[33895] = "Action: In element id=%d set analog value to <b>%s</b>.";
     t[33896] = "Surface.Source.XML.Expression.ArrivalStart.TimeBase";
@@ -14875,7 +14875,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33962] = "Window.Check.Title";
     t[33963] = "Model check";
     t[33964] = "ExpressionBuilder.ClientsInServiceProcess.HistogramSingle";
-    t[33965] = "<p>Returns the fraction of time, at which the number of clients in service process at the station whose ID is specified was of the specified value.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[33965] = "<p>Returns the fraction of time, at which the number of clients in service process at the station whose ID is specified was of the specified value.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[33972] = "Surface.TransportTransporterSource.Dialog.SectionEnd.Use";
     t[33973] = "Leave section on transport start";
     t[33974] = "Editor.Dialog.Tab.ModelDescription.ModelDescription.Auto.ReplaceYes";
@@ -15107,7 +15107,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34464] = "Surface.MultiSourceTable.Dialog";
     t[34465] = "Edit client source";
     t[34470] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.Skewness";
-    t[34471] = "<p>Returns the skewness over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[34471] = "<p>Returns the skewness over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[34474] = "Surface.Conveyor.Dialog.CapacityAvailable";
     t[34475] = "Available capacity";
     t[34478] = "Optimizer.Prepare.Info.ParameterCompare";
@@ -15299,7 +15299,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34930] = "Surface.Output.Dialog.Tab.Headings.Mode";
     t[34931] = "Heading mode";
     t[34932] = "ExpressionBuilder.ClientsInServiceProcess.Skewness";
-    t[34933] = "<p>Returns the skewness of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[34933] = "<p>Returns the skewness of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[34934] = "Surface.TransportParking.Dialog.WaitingCapacity.ErrorInfo";
     t[34935] = "The entered parking lot capacity is invalid. A positive integer number has to be specified.";
     t[34938] = "SimulationServer.Setup.WebServer.MessageStartError";
@@ -15627,7 +15627,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35688] = "Surface.InteractiveSlider.XML.StepWide";
     t[35689] = "ModelElementSliderStepWide";
     t[35690] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime";
-    t[35691] = "<p>Returns the squared coefficient of variation over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[35691] = "<p>Returns the squared coefficient of variation over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[35692] = "JDistributionEditor.Wikipedia.Info";
     t[35693] = "Opens a browser window with additional information about the selected distribution type";
     t[35696] = "Surface.Process.Dialog.MinimumBatchSize.Error.Title";
@@ -15727,7 +15727,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35924] = "Simulation.Log.Release";
     t[35925] = "Resources release";
     t[35930] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.StandardDeviationOfTheTime";
-    t[35931] = "<p>Returns the standard deviation over all residence times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[35931] = "<p>Returns the standard deviation over all residence times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[35932] = "Surface.Action.XML.Record.Condition.ThresholdValue";
     t[35933] = "Value";
     t[35944] = "Resources.Group.EditName.Dialog.Tab.SetupTimes";
@@ -16627,7 +16627,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37908] = "Simulation.CalcError.Eval";
     t[37909] = "For a comparison the expression %s could not be evaluated.";
     t[37914] = "ExpressionBuilder.ClientsAtQueue.Median";
-    t[37915] = "<p>Returns the median of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[37915] = "<p>Returns the median of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[37918] = "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DensityInfo";
     t[37919] = "<p>Calculates the value of the density of the normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>NormalDist(7;5;3;0)</tt> returns 0.10648266850745.</p>";
     t[37922] = "BuildClientSourceTable.ColumnsInfo";
@@ -17023,7 +17023,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38788] = "Optimizer.Tab.Target.Value.RanceC";
     t[38789] = " ";
     t[38798] = "ExpressionBuilder.ClientsInServiceProcess.StandardDeviationOfTheNumber";
-    t[38799] = "<p>Returns the standard deviation of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[38799] = "<p>Returns the standard deviation of the number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[38804] = "CalculatorDialog.RepeatedProcessResults.InfoPopup";
     t[38805] = "If the calculation expression contains\ncommands to generate random numbers,\nthe expression can be evaluated several\ntimes via these functions and the resulting\nmeasurement series can be processed.";
     t[38810] = "Schedule.EditDialog.ToTheStart";
@@ -17237,7 +17237,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39272] = "Surface.OutputDB.Infotext";
     t[39273] = "If a client passes this station, one or more current values are appended as a new row to a database table.";
     t[39274] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.SquaredCoefficientOfVariationOfTheTime";
-    t[39275] = "<p>Returns the squared coefficient of variation over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[39275] = "<p>Returns the squared coefficient of variation over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[39278] = "ExpressionBuilder.TrigonometricFunctions.ArcusSinusHyperbolicus";
     t[39279] = "Arcus sine hyperbolicus";
     t[39284] = "ProcessClientOutputTable.OutputTable.Error.NoFile.Title";
@@ -18913,7 +18913,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42864] = "Surface.SingleCoreReason.TerminalTimeUsed";
     t[42865] = "An explicit termination time for the simulation was specified.";
     t[42866] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.VarianceOfTheTime";
-    t[42867] = "<p>Returns the variance over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[42867] = "<p>Returns the variance over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[42868] = "Surface.Match.Dialog.Condition.Error.Title";
     t[42869] = "Invalid condition";
     t[42872] = "Examples.Transport";
@@ -19269,7 +19269,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43714] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.ClientType";
     t[43715] = "Client type";
     t[43718] = "ExpressionBuilder.ClientsAtStation.VarianceOfTheNumber";
-    t[43719] = "<p>Returns the variance of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[43719] = "<p>Returns the variance of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[43720] = "Elements.Catalog.Analog";
     t[43721] = "Analog values";
     t[43724] = "Surface.UserStatistic.Table.Edit.Expression.ErrorTitle";
@@ -19357,7 +19357,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43928] = "Main.Menu.Help.TutorialSlides.Mnemonic";
     t[43929] = "S";
     t[43930] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.CoefficientOfVariationOfTheTime";
-    t[43931] = "<p>Returns the coefficient of variation over all processing times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[43931] = "<p>Returns the coefficient of variation over all processing times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[43942] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Error.Info";
     t[43943] = "The calculation expression for interval %d \"%s\" is invalid at character %d.";
     t[43944] = "Surface.Process.Dialog.Tab.PrioritiesAndBatchSizes";
@@ -19645,7 +19645,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44638] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Residence.ErrorTitle";
     t[44639] = "Invalid residence time";
     t[44644] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.MaximalTime";
-    t[44645] = "<p>Returns the maximal duration over all residence times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[44645] = "<p>Returns the maximal duration over all residence times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[44648] = "UserDefinedFunctions.ListTitle";
     t[44649] = "User-defined functions";
     t[44654] = "Surface.XML.ModelTerminationConfidence";
@@ -19729,7 +19729,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44816] = "Surface.OutputDB.Table.EditKey";
     t[44817] = "Edit key";
     t[44820] = "ExpressionBuilder.ClientsInServiceProcess.AverageNumber";
-    t[44821] = "<p>Returns the average number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[44821] = "<p>Returns the average number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[44828] = "Surface.LogicElse.XML.Root";
     t[44829] = "ModelElementLogicElse";
     t[44834] = "Color.4B0082";
@@ -20923,7 +20923,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47456] = "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ErrorTableNotFound";
     t[47457] = "The specified table file \"%s\" does not exist.";
     t[47458] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.Median";
-    t[47459] = "<p>Returns the median of the duration over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[47459] = "<p>Returns the median of the duration over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[47466] = "Resources.Usage";
     t[47467] = "Resource usage";
     t[47468] = "Surface.DifferentialCounter.Value";
@@ -21125,7 +21125,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47904] = "Simulation.Creator.SeizeArrival.Info";
     t[47905] = "Client: %s, station: %s";
     t[47906] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.MaximalTime";
-    t[47907] = "<p>Returns the maximal duration over all processing times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[47907] = "<p>Returns the maximal duration over all processing times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[47910] = "Statistics.XML.QuantilLimit";
     t[47911] = "QuantilLimit";
     t[47916] = "JDistributionEditor.Edit.Info";
@@ -21429,7 +21429,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48556] = "Surface.XML.Element.DeleteProtection";
     t[48557] = "protected";
     t[48558] = "ExpressionBuilder.ClientsAtQueue.Quantil";
-    t[48559] = "<p>Returns the quantil for probability p of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[48559] = "<p>Returns the quantil for probability p of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[48560] = "Surface.BarrierPull.Dialog.MaxNumber.ErrorInfoEmpty";
     t[48561] = "No maximum number of clients in the controlled segment was specified.";
     t[48568] = "Statistics.FailureTime.Average.Transporters";
@@ -21871,7 +21871,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49646] = "Simulation.Element.TankFlowBySignal.Name";
     t[49647] = "Flow (Signal)";
     t[49650] = "ExpressionBuilder.ClientsAtStation.MaximalNumber";
-    t[49651] = "<p>Returns the maximal number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[49651] = "<p>Returns the maximal number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[49652] = "Simulation.Creator.SourceConditionMinDistance";
     t[49653] = "The specified minimum distance between two arrival \"%s\" at element id=%d is invalid at character %d.";
     t[49654] = "Editor.ModelOverview.Navigator";
@@ -22139,7 +22139,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50226] = "Animation.Icon.Flower";
     t[50227] = "Flower";
     t[50228] = "ExpressionBuilder.ClientsInServiceProcess.MinimalNumber";
-    t[50229] = "<p>Returns the minimal number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[50229] = "<p>Returns the minimal number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[50232] = "ScriptPopup.ClientsList";
     t[50233] = "List of waiting clients";
     t[50236] = "Simulation.Log.TransportSource.Release";
@@ -22151,7 +22151,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50252] = "ModelDescription.Conveyor.Mode.Process";
     t[50253] = "Service time";
     t[50258] = "ExpressionBuilder.ClientsAtStation.CoefficientOfVariationOfTheNumber";
-    t[50259] = "<p>Returns the coefficient of variation of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[50259] = "<p>Returns the coefficient of variation of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[50274] = "Surface.Output.Table.HeaderAdditionalData";
     t[50275] = "Additional data";
     t[50278] = "CopyInstallation.DestinationFolder.ConfirmOverwriteInfo";
@@ -22189,7 +22189,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50344] = "Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoYes";
     t[50345] = "Replace previous client types with client types from the table.";
     t[50346] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.AverageTime";
-    t[50347] = "<p>Returns the average duration over all residence times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[50347] = "<p>Returns the average duration over all residence times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[50348] = "CommandLine.Filter.Done.CouldNotSave";
     t[50349] = "The filter results could not be saved to the file %s.";
     t[50350] = "Color.228B22";
@@ -22439,7 +22439,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50880] = "ScriptPopup.Client.ResidenceTime";
     t[50881] = "Residence time";
     t[50886] = "ExpressionBuilder.ClientsAtQueue.CoefficientOfVariationOfTheNumber";
-    t[50887] = "<p>Returns the coefficient of variation of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[50887] = "<p>Returns the coefficient of variation of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[50890] = "ModelDescription.TransportResourceRecord.DelayedRelease.ClientType";
     t[50891] = "Delayed resource release at client type \"%s\"";
     t[50892] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Mode";
@@ -22629,7 +22629,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51308] = "ExpressionBuilder.MathematicalFunctions.RandomRange";
     t[51309] = "Random number in range";
     t[51310] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.StandardDeviationOfTheTime";
-    t[51311] = "<p>Returns the standard deviation over all processing times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[51311] = "<p>Returns the standard deviation over all processing times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[51314] = "Color.FFDEAD";
     t[51315] = "Navajo white";
     t[51316] = "Surface.AnimationPieChart.Dialog.Appearance.FillBackground";
@@ -22639,7 +22639,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51322] = "Surface.AnimationBarChart.HistogramWizard.Nr";
     t[51323] = "Number";
     t[51328] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.Skewness";
-    t[51329] = "<p>Returns the skewness over all processing times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[51329] = "<p>Returns the skewness over all processing times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[51330] = "CommandLine.SetNUMA.Info.NUMA";
     t[51331] = "NUMA mode for simulation: %s (previous state: %s)";
     t[51334] = "Main.Menu.View.FlyOutZoom.Mnemonic";
@@ -22905,7 +22905,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51894] = "Statistics.DistributionOfClientsTransferTimes";
     t[51895] = "Distribution of the transfer times of the clients";
     t[51910] = "ExpressionBuilder.ClientsAtQueue.SquaredCoefficientOfVariationOfTheNumber";
-    t[51911] = "<p>Returns the squared coefficient of variation of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the ID of a client source can be specified, in which case the results refer to the clients which are created created at the selected source.</p>";
+    t[51911] = "<p>Returns the squared coefficient of variation of the number of clients at the queue of the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[51912] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Residence";
     t[51913] = "Previous residence time";
     t[51914] = "FileType.Save.Text";
@@ -22913,7 +22913,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51916] = "Dialog.InvalidFile.Info";
     t[51917] = "The file\n%s\ncannot be created.";
     t[51920] = "ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.VarianceOfTheTime";
-    t[51921] = "<p>Returns the variance over all residence times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[51921] = "<p>Returns the variance over all residence times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[51922] = "Statistics.SetupTimes";
     t[51923] = "Setup times";
     t[51930] = "Main.Menu.View.Statistics.HeatMap.Residence.Mnemonic";
@@ -23193,7 +23193,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52584] = "Surface.XML.Resource.FailureByDistribution";
     t[52585] = "FailureByDistribution";
     t[52596] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.MaximalTime";
-    t[52597] = "<p>Returns the maximal duration over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[52597] = "<p>Returns the maximal duration over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[52604] = "Main.Menu.Extras.Mnemonic";
     t[52605] = "X";
     t[52608] = "Simulation.Log.ArrivalClientCount.Info";
@@ -23649,7 +23649,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53600] = "Surface.Sub.EditSub";
     t[53601] = "Edit sub model";
     t[53608] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.AverageTime";
-    t[53609] = "<p>Returns the average duration over all processing times of the clients created at the station whose ID was specified in the parameter.</p>";
+    t[53609] = "<p>Returns the average duration over all processing times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[53614] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.DestinationStation";
     t[53615] = "Destination station";
     t[53622] = "Statistics.NumberOfWaitingClients";

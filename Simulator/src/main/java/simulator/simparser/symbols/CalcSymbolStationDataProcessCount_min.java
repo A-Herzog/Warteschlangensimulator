@@ -75,4 +75,15 @@ public class CalcSymbolStationDataProcessCount_min extends CalcSymbolStationData
 		if (data.statisticClientsAtStationProcess==null) return 0;
 		return data.statisticClientsAtStationProcess.getTimeMin();
 	}
+
+	@Override
+	protected boolean hasStationAndClientData() {
+		return true;
+	}
+
+	@Override
+	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
+		if (data.statisticClientsAtStationProcessByClientType==null) return 0;
+		return data.statisticClientsAtStationProcessByClientType[clientTypeIndex].getTimeMin();
+	}
 }

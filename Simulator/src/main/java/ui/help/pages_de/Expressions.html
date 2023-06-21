@@ -502,6 +502,23 @@ Allen-Cunneen-Approximationsformel berechnet werden:
 
 <h2>Zugriff auf Modelleigenschaften</h2>
 
+<p>
+<b>Hinweis:</b>
+Bei den im Folgenden dargestellten Befehlen zur Abfrage einer Eigenschaft für einen Kundentyp an einer Station (die als Parameter jeweils die ID einer Station verwenden)
+sind mehrere alternative Parametrierungen möglich:	
+</p>
+
+<ul>
+  <li><tt>Befehl(id)</tt>: Eigenschaft für die Kunden, die an der Quelle <tt>id</tt> erzeugt wurden, abfragen (über alle Stationen hinweg).</li>
+  <li><tt>Befehl(id1;id2)</tt>: Eigenschaft an der Station <tt>id1</tt> für die Kunden, die an der Quelle <tt>id2</tt> erzeugt wurden, abfragen.</li>
+  <li><tt>Befehl(id;nr)</tt>: Eigenschaft für die Kunden, die an der Mehrfachquelle <tt>id</tt> als Datensatz <tt>nr</tt> (1-basierend) erzeugt wurden, abfragen (über alle Stationen hinweg).</li>
+  <li><tt>Befehl(id1;id2;nr)</tt>: Eigenschaft an der Station <tt>id1</tt> für die Kunden, die an der Mehrfachquelle <tt>id2</tt> als Datensatz <tt>nr</tt> (1-basierend) erzeugt wurden, abfragen.</li>
+</ul>
+
+<p>
+Die Befehle, für die diese zusätzlichen Parametrierungsmöglichkeiten zur Verfügung stehen, sind mit "(alternative Parametrierung möglich)" gekennzeichnet.
+</p>
+
 <table class="border">
   <tr><td colspan="2"><h3>Allgemeine Simulationsdaten</h3></td></tr>
 
@@ -903,7 +920,7 @@ Allen-Cunneen-Approximationsformel berechnet werden:
 
   <tr><td colspan="2"><h3>Anzahl an Kunden in Bedienung an einer Station</h3></td></tr>
 
-  <tr><td>Process(id)</td><td rowspan="2">>Liefert die aktuelle Anzahl an Kunden, die gerade an Station id bedient werden.</td></tr>
+  <tr><td>Process(id)</td><td rowspan="2">Liefert die aktuelle Anzahl an Kunden, die gerade an Station id bedient werden.</td></tr>
   <tr><td>NS(id)</td></tr>
   
   <tr><td>Process_avg(id)</td><td rowspan="4">Liefert die mittlere Anzahl an Kunden in Bedienung an Station id.</td></tr>
@@ -959,18 +976,18 @@ Allen-Cunneen-Approximationsformel berechnet werden:
 
   <tr><td colspan="2"><h3>Anzahl an Kunden eines Typs im System</h3></td></tr>
 
-  <tr><td>WIP(id)</td><td rowspan="3">Liefert die aktuelle Gesamtanzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>WIP(id)</td><td rowspan="3">Liefert die aktuelle Gesamtanzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>N(id)</td></tr>
   <tr><td>Station(id)</td></tr>
   
-  <tr><td>WIP_avg(id)</td><td rowspan="6">Liefert die mittlere Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>WIP_avg(id)</td><td rowspan="6">Liefert die mittlere Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Station_avg(id)</td></tr>
   <tr><td>N_avg(id)</td></tr>
   <tr><td>WIP_Mittelwert(id)</td></tr>
   <tr><td>Station_Mittelwert(id)</td></tr>
   <tr><td>N_Mittelwert(id)</td></tr>
   
-  <tr><td>WIP_median(id)</td><td rowspan="3">Liefert den Median der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>WIP_median(id)</td><td rowspan="3">Liefert den Median der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Station_median(id)</td></tr>
   <tr><td>N_median(id)</td></tr>
   
@@ -978,47 +995,47 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Station_quantil(p;id)</td></tr>
   <tr><td>N_quantil(p;id)</td></tr>
   
-  <tr><td>WIP_min(id)</td><td rowspan="6">Liefert die minimale Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>WIP_min(id)</td><td rowspan="6">Liefert die minimale Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Station_min(id)</td></tr>
   <tr><td>N_min(id)</td></tr>
   <tr><td>WIP_Minimum(id)</td></tr>
   <tr><td>Station_Minimum(id)</td></tr>
   <tr><td>N_Minimum(id)</td></tr>
   
-  <tr><td>WIP_max(id)</td><td rowspan="6">Liefert die maximale Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>WIP_max(id)</td><td rowspan="6">Liefert die maximale Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Station_max(id)</td></tr>
   <tr><td>N_max(id)</td></tr>
   <tr><td>WIP_Maximum(id)</td></tr>
   <tr><td>Station_Maximum(id)</td></tr>
   <tr><td>N_Maximum(id)</td></tr>
   
-  <tr><td>WIP_var(id)</td><td rowspan="6">Liefert die Varianz der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>WIP_var(id)</td><td rowspan="6">Liefert die Varianz der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Station_var(id)</td></tr>
   <tr><td>N_var(id)</td></tr>
   <tr><td>WIP_Varianz(id)</td></tr>
   <tr><td>Station_Varianz(id)</td></tr>
   <tr><td>N_Varianz(id)</td></tr>
   
-  <tr><td>WIP_sd(id)</td><td rowspan="6">Liefert die Standardabweichung der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>WIP_sd(id)</td><td rowspan="6">Liefert die Standardabweichung der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Station_sd(id)</td></tr>
   <tr><td>N_sd(id)</td></tr>
   <tr><td>WIP_Standardabweichung(id)</td></tr>
   <tr><td>Station_Standardabweichung(id)</td></tr>
   <tr><td>N_Standardabweichung(id)</td></tr>
   
-  <tr><td>WIP_cv(id)</td><td rowspan="3">Liefert den Variationskoeffizienten der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>WIP_cv(id)</td><td rowspan="3">Liefert den Variationskoeffizienten der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Station_cv(id)</td></tr>
   <tr><td>N_cv(id)</td></tr>
   
-  <tr><td>WIP_scv(id)</td><td rowspan="3">Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>WIP_scv(id)</td><td rowspan="3">Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Station_scv(id)</td></tr>
   <tr><td>N_scv(id)</td></tr>
   
-  <tr><td>WIP_sk(id)</td><td rowspan="3">Liefert die Schiefe der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>WIP_sk(id)</td><td rowspan="3">Liefert die Schiefe der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Station_sk(id)</td></tr>
   <tr><td>N_sk(id)</td></tr>
   
-  <tr><td>WIP_kurt(id)</td><td rowspan="3">Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>WIP_kurt(id)</td><td rowspan="3">Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Station_kurt(id)</td></tr>
   <tr><td>N_kurt(id)</td></tr>
   
@@ -1034,12 +1051,12 @@ Allen-Cunneen-Approximationsformel berechnet werden:
 
   <tr><td colspan="2"><h3>Anzahl an wartenden Kunden eines Typs im System</h3></td></tr>
   
-  <tr><td>NQ(id)</td><td rowspan="4">Liefert die aktuelle Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>   
+  <tr><td>NQ(id)</td><td rowspan="4">Liefert die aktuelle Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung teilweise möglich)</td></tr>   
   <tr><td>Queue(id)</td></tr>
   <tr><td>Schlange(id)</td></tr>
   <tr><td>Warteschlange(id)</td></tr>
 
-  <tr><td>NQ_avg(id)</td><td rowspan="8">Liefert die mittlere Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>NQ_avg(id)</td><td rowspan="8">Liefert die mittlere Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Queue_avg(id)</td></tr>
   <tr><td>Schlange_avg(id)</td></tr>
   <tr><td>Warteschlange_avg(id)</td></tr>
@@ -1048,7 +1065,7 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Schlange_Mittelwert(id)</td></tr>
   <tr><td>Warteschlange_Mittelwert(id)</td></tr>
 
-  <tr><td>NQ_median(id)</td><td rowspan="4">Liefert den Median der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>NQ_median(id)</td><td rowspan="4">Liefert den Median der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Queue_median(id)</td></tr>
   <tr><td>Schlange_median(id)</td></tr>
   <tr><td>Warteschlange_median(id)</td></tr>
@@ -1058,7 +1075,7 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Schlange_quantil(p;id)</td></tr>
   <tr><td>Warteschlange_quantil(p;id)</td></tr>
 
-  <tr><td>NQ_min(id)</td><td rowspan="8">Liefert die minimale Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>NQ_min(id)</td><td rowspan="8">Liefert die minimale Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Queue_min(id)</td></tr>
   <tr><td>Schlange_min(id)</td></tr>
   <tr><td>Warteschlange_min(id)</td></tr>
@@ -1067,7 +1084,7 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Schlange_Minimum(id)</td></tr>
   <tr><td>Warteschlange_Minimum(id)</td></tr>
   
-  <tr><td>NQ_max(id)</td><td rowspan="8">Liefert die maximale Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>NQ_max(id)</td><td rowspan="8">Liefert die maximale Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Queue_max(id)</td></tr>
   <tr><td>Schlange_max(id)</td></tr>
   <tr><td>Warteschlange_max(id)</td></tr>
@@ -1076,7 +1093,7 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Schlange_Maximum(id)</td></tr>
   <tr><td>Warteschlange_Maximum(id)</td></tr>
   
-  <tr><td>NQ_var(id)</td><td rowspan="8">Liefert die Varianz der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>NQ_var(id)</td><td rowspan="8">Liefert die Varianz der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Queue_var(id)</td></tr>
   <tr><td>Schlange_var(id)</td></tr>
   <tr><td>Warteschlange_var(id)</td></tr>
@@ -1085,7 +1102,7 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Schlange_Varianz(id)</td></tr>
   <tr><td>Warteschlange_Varianz(id)</td></tr>
   
-  <tr><td>NQ_sd(id)</td><td rowspan="8">Liefert die Standardabweichung der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>NQ_sd(id)</td><td rowspan="8">Liefert die Standardabweichung der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Queue_sd(id)</td></tr>
   <tr><td>Schlange_sd(id)</td></tr>
   <tr><td>Warteschlange_sd(id)</td></tr>
@@ -1094,22 +1111,22 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Schlange_Standardabweichung(id)</td></tr>
   <tr><td>Warteschlange_Standardabweichung(id)</td></tr>
   
-  <tr><td>NQ_cv(id)</td><td rowspan="4">Liefert den Variationskoeffizienten der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>NQ_cv(id)</td><td rowspan="4">Liefert den Variationskoeffizienten der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Queue_cv(id)</td></tr>
   <tr><td>Schlange_cv(id)</td></tr>
   <tr><td>Warteschlange_cv(id)</td></tr>
   
-  <tr><td>NQ_scv(id)</td><td rowspan="4">Liefert den quadrierten Variationskoeffizienten der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>NQ_scv(id)</td><td rowspan="4">Liefert den quadrierten Variationskoeffizienten der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Queue_scv(id)</td></tr>
   <tr><td>Schlange_scv(id)</td></tr>
   <tr><td>Warteschlange_scv(id)</td></tr>
   
-  <tr><td>NQ_sk(id)</td><td rowspan="4">Liefert die Schiefe der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>NQ_sk(id)</td><td rowspan="4">Liefert die Schiefe der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Queue_sk(id)</td></tr>
   <tr><td>Schlange_sk(id)</td></tr>
   <tr><td>Warteschlange_sk(id)</td></tr>
   
-  <tr><td>NQ_kurt(id)</td><td rowspan="4">Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>NQ_kurt(id)</td><td rowspan="4">Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an wartenden Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>Queue_kurt(id)</td></tr>
   <tr><td>Schlange_kurt(id)</td></tr>
   <tr><td>Warteschlange_kurt(id)</td></tr>
@@ -1128,15 +1145,15 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   
   <tr><td colspan="2"><h3>Anzahl an Kunden eines Typs in Bedienung</h3></td></tr>
 
-  <tr><td>Process_avg(id)</td><td rowspan="4">Liefert die mittlere Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Process_avg(id)</td><td rowspan="4">Liefert die mittlere Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>NS_avg(id)</td></tr>
   <tr><td>Process_Mittelwert(id)</td></tr>
   <tr><td>NS_Mittelwert(id)</td></tr>
 
-  <tr><td>Process_median(id)</td><td rowspan="2">Liefert den Median der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Process_median(id)</td><td rowspan="2">Liefert den Median der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>NS_median(id)</td></tr>
   
-  <tr><td>Process_quantil(p;id)</td><td rowspan="2">Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Process_quantil(p;id)</td><td rowspan="2">Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>NS_quantil(p;id)</td></tr>
 
   <tr><td>Process_min(id)</td><td rowspan="4">Liefert die minimale Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
@@ -1144,31 +1161,31 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   <tr><td>Process_Minimum(id)</td></tr>
   <tr><td>NS_Minimum(id)</td></tr>
   
-  <tr><td>Process_max(id)</td><td rowspan="4">Liefert die maximale Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Process_max(id)</td><td rowspan="4">Liefert die maximale Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>NS_max(id)</td></tr>
   <tr><td>Process_Maximum(id)</td></tr>
   <tr><td>NS_Maximum(id)</td></tr>
   
-  <tr><td>Process_var(id)</td><td rowspan="4">Liefert die Varianz der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Process_var(id)</td><td rowspan="4">Liefert die Varianz der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>NS_var(id)</td></tr>
   <tr><td>Process_Varianz(id)</td></tr>
   <tr><td>NS_Varianz(id)</td></tr>
   
-  <tr><td>Process_sd(id)</td><td rowspan="4">Liefert die Standardabweichung der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Process_sd(id)</td><td rowspan="4">Liefert die Standardabweichung der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>NS_sd(id)</td></tr>
   <tr><td>Process_Standardabweichung(id)</td></tr>
   <tr><td>NS_Standardabweichung(id)</td></tr>
   
-  <tr><td>Process_cv(id)</td><td rowspan="2">Liefert den Variationskoeffizienten der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Process_cv(id)</td><td rowspan="2">Liefert den Variationskoeffizienten der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>NS_cv(id)</td></tr>
   
-  <tr><td>Process_scv(id)</td><td rowspan="2">Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Process_scv(id)</td><td rowspan="2">Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>NS_scv(id)</td></tr>
   
-  <tr><td>Process_sk(id)</td><td rowspan="2">Liefert die Schiefe der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Process_sk(id)</td><td rowspan="2">Liefert die Schiefe der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>NS_sk(id)</td></tr>
   
-  <tr><td>Process_kurt(id)</td><td rowspan="2">Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Process_kurt(id)</td><td rowspan="2">Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   <tr><td>NS_kurt(id)</td></tr>
 
   <tr><td>Process_hist(id;state)</td><td rowspan="2">Liefert den Anteil der Zeit, in der sich state Kunden in Bedienung, deren Name an Quelle bzw. Namenszuweisung id auftritt, im System befanden.</td></tr>
@@ -1293,37 +1310,37 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   
   <tr><td colspan="2"><h3>Wartezeiten für einen Kundentypen</h3></td></tr>
   
-  <tr><td>Wartezeit_sum(id)</td><td rowspan="3">Liefert die Summe der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_sum(id)</td><td rowspan="3">Liefert die Summe der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Wartezeit_gesamt(id)</td></tr>
   <tr><td>Wartezeit_summe(id)</td></tr>
   
-  <tr><td>Wartezeit_avg(id)</td><td rowspan="3">Liefert die mittlere Wartezeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_avg(id)</td><td rowspan="3">Liefert die mittlere Wartezeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Wartezeit_average(id)</td></tr>
   <tr><td>Wartezeit_Mittelwert(id)</td></tr>
   
-  <tr><td>Wartezeit_median(id)</td><td rowspan="1">Liefert den Median der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_median(id)</td><td rowspan="1">Liefert den Median der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   
   <tr><td>Wartezeit_quantil(p;id)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
   
-  <tr><td>Wartezeit_min(id)</td><td rowspan="2">Liefert die minimale Wartezeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_min(id)</td><td rowspan="2">Liefert die minimale Wartezeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Wartezeit_Minimum(id)</td></tr>
   
-  <tr><td>Wartezeit_max(id)</td><td rowspan="2">Liefert die maximale Wartezeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Wartezeit_max(id)</td><td rowspan="2">Liefert die maximale Wartezeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Wartezeit_Maximum(id)</td></tr>
   
-  <tr><td>Wartezeit_var(id)</td><td rowspan="2">Liefert die Varianz der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Wartezeit_var(id)</td><td rowspan="2">Liefert die Varianz der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Wartezeit_Varianz(id)</td></tr>
   
-  <tr><td>Wartezeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Wartezeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Wartezeit_Standardabweichung(id)</td></tr>
   
-  <tr><td>Wartezeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Wartezeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
     
-  <tr><td>Wartezeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Wartezeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   
-  <tr><td>Wartezeit_sk(id)</td><td>Liefert die Schiefe der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Wartezeit_sk(id)</td><td>Liefert die Schiefe der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   
-  <tr><td>Wartezeit_kurt(id)</td><td>Liefert den Exzess (ein Maß für die Wölbung) der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Wartezeit_kurt(id)</td><td>Liefert den Exzess (ein Maß für die Wölbung) der Wartezeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
 
   
   
@@ -1405,37 +1422,37 @@ Allen-Cunneen-Approximationsformel berechnet werden:
 
   <tr><td colspan="2"><h3>Transferzeiten für einen Kundentypen</h3></td></tr>
 
-  <tr><td>Transferzeit_sum(id)</td><td rowspan="3">Liefert die Summe der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_sum(id)</td><td rowspan="3">Liefert die Summe der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Transferzeit_gesamt(id)</td></tr>
   <tr><td>Transferzeit_summe(id)</td></tr>
   
-  <tr><td>Transferzeit_avg(id)</td><td rowspan="3">Liefert die mittlere Transferzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_avg(id)</td><td rowspan="3">Liefert die mittlere Transferzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Transferzeit_average(id)</td></tr>
   <tr><td>Transferzeit_Mittelwert(id)</td></tr>
   
-  <tr><td>Transferzeit_median(id)</td><td rowspan="1">Liefert den Median der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_median(id)</td><td rowspan="1">Liefert den Median der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   
   <tr><td>Transferzeit_quantil(p;id)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
   
-  <tr><td>Transferzeit_min(id)</td><td rowspan="2">Liefert die minimale Transferzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_min(id)</td><td rowspan="2">Liefert die minimale Transferzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Transferzeit_Minimum(id)</td></tr>
   
-  <tr><td>Transferzeit_max(id)</td><td rowspan="2">Liefert die maximale Transferzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Transferzeit_max(id)</td><td rowspan="2">Liefert die maximale Transferzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Transferzeit_Maximum(id)</td></tr>
   
-  <tr><td>Transferzeit_var(id)</td><td rowspan="2">Liefert die Varianz der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Transferzeit_var(id)</td><td rowspan="2">Liefert die Varianz der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Transferzeit_Varianz(id)</td></tr>
   
-  <tr><td>Transferzeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Transferzeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Transferzeit_Standardabweichung(id)</td></tr>
   
-  <tr><td>Transferzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Transferzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   
-  <tr><td>Transferzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Transferzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   
-  <tr><td>Transferzeit_sk(id)</td><td>Liefert die Schiefe der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Transferzeit_sk(id)</td><td>Liefert die Schiefe der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   
-  <tr><td>Transferzeit_kurt(id)</td><td>Liefert den Exzess (ein Maß für die Wölbung) der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Transferzeit_kurt(id)</td><td>Liefert den Exzess (ein Maß für die Wölbung) der Transferzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
 
 
 
@@ -1517,37 +1534,37 @@ Allen-Cunneen-Approximationsformel berechnet werden:
 
   <tr><td colspan="2"><h3>Bedienzeiten für einen Kundentypen</h3></td></tr>
 
-  <tr><td>Bedienzeit_sum(id)</td><td rowspan="3">Liefert die Summe der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Bedienzeit_sum(id)</td><td rowspan="3">Liefert die Summe der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Bedienzeit_gesamt(id)</td></tr>
   <tr><td>Bedienzeit_summe(id)</td></tr>
   
-  <tr><td>Bedienzeit_avg(id)</td><td rowspan="3">Liefert die mittlere Bedienzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Bedienzeit_avg(id)</td><td rowspan="3">Liefert die mittlere Bedienzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Bedienzeit_average(id)</td></tr>  
   <tr><td>Bedienzeit_Mittelwert(id)</td></tr>
   
-  <tr><td>Bedienzeit_median(id)</td><td rowspan="1">Liefert den Median der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Bedienzeit_median(id)</td><td rowspan="1">Liefert den Median der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   
   <tr><td>Bedienzeit_quantil(p;id)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
   
-  <tr><td>Bedienzeit_min(id)</td><td rowspan="2">Liefert die minimale Bedienzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>  
+  <tr><td>Bedienzeit_min(id)</td><td rowspan="2">Liefert die minimale Bedienzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>  
   <tr><td>Bedienzeit_Minimum(id)</td></tr>
   
-  <tr><td>Bedienzeit_max(id)</td><td rowspan="2">Liefert die maximale Bedienzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>  
+  <tr><td>Bedienzeit_max(id)</td><td rowspan="2">Liefert die maximale Bedienzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>  
   <tr><td>Bedienzeit_Maximum(id)</td></tr>
   
-  <tr><td>Bedienzeit_var(id)</td><td rowspan="2">Liefert die Varianz der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Bedienzeit_var(id)</td><td rowspan="2">Liefert die Varianz der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Bedienzeit_Varianz(id)</td></tr>
   
-  <tr><td>Bedienzeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Bedienzeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Bedienzeit_Standardabweichung(id)</td></tr>
   
-  <tr><td>Bedienzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Bedienzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   
-  <tr><td>Bedienzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Bedienzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   
-  <tr><td>Bedienzeit_sk(id)</td><td>Liefert die Schiefe der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Bedienzeit_sk(id)</td><td>Liefert die Schiefe der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   
-  <tr><td>Bedienzeit_kurt(id)</td><td>Liefert den Exzess (ein Maß für die Wölbung) der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Bedienzeit_kurt(id)</td><td>Liefert den Exzess (ein Maß für die Wölbung) der Bedienzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
 
 
 
@@ -1629,37 +1646,37 @@ Allen-Cunneen-Approximationsformel berechnet werden:
   
   <tr><td colspan="2"><h3>Verweilzeiten für einen Kundentypen</h3></td></tr>
   
-  <tr><td>Verweilzeit_sum(id)</td><td rowspan="3">Liefert die Summe der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_sum(id)</td><td rowspan="3">Liefert die Summe der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Verweilzeit_gesamt(id)</td></tr>
   <tr><td>Verweilzeit_summe(id)</td></tr>
   
-  <tr><td>Verweilzeit_avg(id)</td><td rowspan="3">Liefert die mittlere Verweilzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_avg(id)</td><td rowspan="3">Liefert die mittlere Verweilzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Verweilzeit_average(id)</td></tr>
   <tr><td>Verweilzeit_Mittelwert(id)</td></tr>
   
-  <tr><td>Verweilzeit_median(id)</td><td rowspan="1">Liefert den Median der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_median(id)</td><td rowspan="1">Liefert den Median der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   
   <tr><td>Verweilzeit_quantil(p;id)</td><td rowspan="1">Liefert das Quantil zur Wahrscheinlichkeit p der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
   
-  <tr><td>Verweilzeit_min(id)</td><td rowspan="2">Liefert die minimale Verweilzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_min(id)</td><td rowspan="2">Liefert die minimale Verweilzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Verweilzeit_Minimum(id)</td></tr>
   
-  <tr><td>Verweilzeit_max(id)</td><td rowspan="2">Liefert die maximale Verweilzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden).</td></tr>
+  <tr><td>Verweilzeit_max(id)</td><td rowspan="2">Liefert die maximale Verweilzeit der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (in Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Verweilzeit_Maximum(id)</td></tr>
   
-  <tr><td>Verweilzeit_var(id)</td><td rowspan="2">Liefert die Varianz der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Verweilzeit_var(id)</td><td rowspan="2">Liefert die Varianz der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Verweilzeit_Varianz(id)</td></tr>
   
-  <tr><td>Verweilzeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden).</td></tr>
+  <tr><td>Verweilzeit_sd(id)</td><td rowspan="2">Liefert die Standardabweichung der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt (bezogen auf Sekunden). (alternative Parametrierung möglich)</td></tr>
   <tr><td>Verweilzeit_Standardabweichung(id)</td></tr>
   
-  <tr><td>Verweilzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Verweilzeit_cv(id)</td><td>Liefert den Variationskoeffizienten der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   
-  <tr><td>Verweilzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Verweilzeit_scv(id)</td><td>Liefert den quadrierten Variationskoeffizienten der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   
-  <tr><td>Verweilzeit_sk(id)</td><td>Liefert die Schiefe der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Verweilzeit_sk(id)</td><td>Liefert die Schiefe der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
   
-  <tr><td>Verweilzeit_kurt(id)</td><td>Liefert den Exzess (ein Maß für die Wölbung) der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>
+  <tr><td>Verweilzeit_kurt(id)</td><td>Liefert den Exzess (ein Maß für die Wölbung) der Verweilzeiten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt. (alternative Parametrierung möglich)</td></tr>
 
 
 

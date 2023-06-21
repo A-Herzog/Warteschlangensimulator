@@ -2,6 +2,26 @@
 
 
 
+\textbf{Hinweis:}
+Bei den im Folgenden dargestellten Befehlen zur Abfrage einer Eigenschaft für einen Kundentyp an einer Station (die als Parameter jeweils die ID einer Station verwenden) sind mehrere alternative Parametrierungen möglich:
+
+\begin{itemize}
+\item
+\cmd{Befehl(id)}: Eigenschaft an der Station \cm{id} abfragen (über alle Kundentypen hinweg).
+\item
+\cmd{Befehl(id)}: Eigenschaft für die Kunden, die an der Quelle \cm{id} erzeugt wurden, abfragen (über alle Stationen hinweg).
+\item
+\cmd{Befehl(id1;id2)}: Eigenschaft an der Station \cm{id1} für die Kunden, die an der Quelle \cm{id2} erzeugt wurden, abfragen.
+\item
+\cmd{Befehl(id;nr)}: Eigenschaft für die Kunden, die an der Mehrfachquelle \cm{id} als Datensatz \cm{nr} (1-basierend) erzeugt wurden, abfragen (über alle Stationen hinweg).
+\item
+\cmd{Befehl(id1;id2;nr)}: Eigenschaft an der Station \cm{id1} für die Kunden, die an der Mehrfachquelle \cm{id2} als Datensatz \cm{nr} (1-basierend) erzeugt wurden, abfragen.
+\end{itemize}
+
+The commands for which these additional parameterization options are available are marked with "(alternative parameterization possible)".
+
+
+
 \section{Allgemeine Simulationsdaten}
 
 \begin{itemize}
@@ -474,15 +494,18 @@ Liefert die Anzahl an Kundenabgängen von Station \cm{id}.
 \item
 \cmd{WIP(id)} oder \cmd{N(id)} oder \cmd{Station(id)}:\\
 Liefert die aktuelle Gesamtanzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{WIP\_avg(id)} oder \cmd{Station\_avg(id)} oder \cmd{N\_avg(id)} oder \cmd{WIP\_Mittelwert(id)} oder\\
 \cmd{Station\_Mittelwert(id)} oder \cmd{N\_Mittelwert(id)}:\\
 Liefert die mittlere Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{WIP\_median(id)} oder \cmd{Station\_median(id)} oder \cmd{N\_median(id)}:\\
 Liefert den Median der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{WIP\_quantil(p;id)} oder \cmd{Station\_quantil(p;id)} oder \cmd{N\_quantil(p;id)}:\\
@@ -492,37 +515,45 @@ Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an Kunden, deren Name an
 \cmd{WIP\_min(id)} oder \cmd{Station\_min(id)} oder \cmd{N\_min(id)} oder \cmd{WIP\_Minimum(id)} oder\\
 \cmd{Station\_Minimum(id)} oder \cmd{N\_Minimum(id)}:\\
 Liefert die minimale Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{WIP\_max(id)} oder \cmd{Station\_max(id)} oder \cmd{N\_max(id)} oder \cmd{WIP\_Maximum(id)} oder\\
 \cmd{Station\_Maximum(id)} oder \cmd{N\_Maximum(id)}:\\
 Liefert die maximale Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{WIP\_var(id)} oder \cmd{Station\_var(id)} oder \cmd{N\_var(id)} oder \cmd{WIP\_Varianz(id)} oder\\
 \cmd{Station\_Varianz(id)} oder \cmd{N\_Varianz(id)}:\\
 Liefert die Varianz der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{WIP\_sd(id)} oder \cmd{Station\_sd(id)} oder \cmd{N\_sd(id)} oder \cmd{WIP\_Standardabweichung(id)} oder\\
 \cmd{Station\_Standardabweichung(id)} oder \cmd{N\_Standardabweichung(id)}:\\
 Liefert die Standardabweichung der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{WIP\_cv(id)} oder \cmd{Station\_cv(id)} oder \cmd{N\_cv(id)}:\\
 Liefert den Variationskoeffizienten der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{WIP\_scv(id)} oder \cmd{Station\_scv(id)} oder \cmd{N\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{WIP\_sk(id)} oder \cmd{Station\_sk(id)} oder \cmd{N\_sk(id)}:\\
 Liefert die Schiefe der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{WIP\_kurt(id)} oder \cmd{Station\_kurt(id)} oder \cmd{N\_kurt(id)}:\\
 Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{WIP\_hist(id;state)} oder \cmd{Station\_hist(id;state)} oder \cmd{N\_hist(id;state)}:\\
@@ -544,15 +575,18 @@ Liefert den Anteil der Zeit, in der sich das System in Bezug auf die Anzahl an K
 \item
 \cmd{NQ(id)} oder \cmd{Queue(id)} oder \cmd{Schlange(id)} oder \cmd{Warteschlange(id)}:\\
 Liefert die aktuelle Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung teilweise möglich)
  
 \item
 \cmd{NQ\_avg(id)} oder \cmd{Queue\_avg(id)} oder \cmd{Schlange\_avg(id)} oder \cmd{Warteschlange\_avg(id)} oder \cmd{NQ\_Mittelwert(id)} oder \cmd{Queue\_Mittelwert(id)} oder \cmd{Schlange\_Mittelwert(id)} oder \cmd{Warteschlange\_Mittelwert(id)}:\\
 Liefert die mittlere Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{NQ\_median(id)} oder \cmd{Queue\_median(id)} oder \cmd{Schlange\_median(id)} oder\\
 \cmd{Warteschlange\_median(id)}:\\
 Liefert den Median der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{NQ\_quantil(p;id)} oder \cmd{Queue\_quantil(p;id)} oder \cmd{Schlange\_quantil(p;id)} oder\\
@@ -563,36 +597,44 @@ Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an wartenden Kunden, der
 \cmd{NQ\_min(id)} oder \cmd{Queue\_min(id)} oder \cmd{Schlange\_min(id)} oder \cmd{Warteschlange\_min(id)} oder \cmd{NQ\_Minimum(id)} oder \cmd{Queue\_Minimum(id)} oder \cmd{Schlange\_Minimum(id)} oder\\
 \cmd{Warteschlange\_Minimum(id)}:\\
 Liefert die minimale Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{NQ\_max(id)} oder \cmd{Queue\_max(id)} oder \cmd{Schlange\_max(id)} oder \cmd{Warteschlange\_max(id)} oder \cmd{NQ\_Maximum(id)} oder \cmd{Queue\_Maximum(id)} oder \cmd{Schlange\_Maximum(id)} oder\\
 \cmd{Warteschlange\_Maximum(id)}:\\
 Liefert die maximale Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{NQ\_var(id)} oder \cmd{Queue\_var(id)} oder \cmd{Schlange\_var(id)} oder \cmd{Warteschlange\_var(id)} oder \cmd{NQ\_Varianz(id)} oder \cmd{Queue\_Varianz(id)} oder \cmd{Schlange\_Varianz(id)} oder\\
 \cmd{Warteschlange\_Varianz(id)}:\\
 Liefert die Varianz der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{NQ\_sd(id)} oder \cmd{Queue\_sd(id)} oder \cmd{Schlange\_sd(id)} oder \cmd{Warteschlange\_sd(id)} oder \cmd{NQ\_Standardabweichung(id)} oder \cmd{Queue\_Standardabweichung(id)} oder\\ \cmd{Schlange\_Standardabweichung(id)} oder \cmd{Warteschlange\_Standardabweichung(id)}:\\
 Liefert die Standardabweichung der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{NQ\_cv(id)} oder \cmd{Queue\_cv(id)} oder \cmd{Schlange\_cv(id)} oder \cmd{Warteschlange\_cv(id)}:\\
 Liefert den Variationskoeffizienten der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{NQ\_scv(id)} oder \cmd{Queue\_scv(id)} oder \cmd{Schlange\_scv(id)} oder \cmd{Warteschlange\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{NQ\_sk(id)} oder \cmd{Queue\_sk(id)} oder \cmd{Schlange\_sk(id)} oder \cmd{Warteschlange\_sk(id)}:\\
 Liefert die Schiefe der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{NQ\_kurt(id)} oder \cmd{Queue\_kurt(id)} oder \cmd{Schlange\_kurt(id)} oder \cmd{Warteschlange\_kurt(id)}:\\
 Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an wartenden Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{NQ\_hist(id;state)} oder \cmd{Queue\_hist(id;state)} oder \cmd{Schlange\_hist(id;state)} oder\\ \cmd{Warteschlange\_hist(id;state)}:\\
@@ -613,10 +655,12 @@ Liefert den Anteil der Zeit, in der sich mehr als \cm{stateA} und höchsten \cm{
 \item
 \cmd{Process\_avg(id)} oder \cmd{NS\_avg(id)} oder \cmd{Process\_Mittelwert(id)} oder \cmd{NS\_Mittelwert(id)}:\\
 Liefert die mittlere Anzahl an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Process\_median(id)} oder \cmd{NS\_median(id)}:\\
 Liefert den Median der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Process\_quantil(p;id)} oder \cmd{NS\_quantil(p;id)}:\\
@@ -625,34 +669,42 @@ Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an an Kunden in Bedienun
 \item
 \cmd{Process\_min(id)} oder \cmd{NS\_min(id)} oder \cmd{Process\_Minimum(id)} oder \cmd{NS\_Minimum(id)}:\\
 Liefert die minimale Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Process\_max(id)} oder \cmd{NS\_max(id)} oder \cmd{Process\_Maximum(id)} oder \cmd{NS\_Maximum(id)}:\\
 Liefert die maximale Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Process\_var(id)} oder \cmd{NS\_var(id)} oder \cmd{Process\_Varianz(id)} oder \cmd{NS\_Varianz(id)}:\\
 Liefert die Varianz der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Process\_sd(id)} oder \cmd{NS\_sd(id)} oder \cmd{Process\_Standardabweichung(id)} oder \cmd{NS\_Standardabweichung(id)}:\\
 Liefert die Standardabweichung der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Process\_cv(id)} oder \cmd{NS\_cv(id)}:\\
 Liefert den Variationskoeffizienten der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Process\_scv(id)} oder \cmd{NS\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Process\_sk(id)} oder \cmd{NS\_sk(id)}:\\
 Liefert die Schiefe der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Process\_kurt(id)} oder \cmd{NS\_kurt(id)}:\\
 Liefert den Exzess (ein Maß für die Wölbung) der Anzahl an an Kunden in Bedienung, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Process\_hist(id;state)} oder \cmd{NS\_hist(id;state)}:\\
@@ -836,14 +888,17 @@ Liefert den Anteil der Kunden, für den die Wartezeit mehr als \cm{timeA} und h�
 \item
 \cmd{Wartezeit\_sum(id)} oder \cmd{Wartezeit\_gesamt(id)} oder \cmd{Wartezeit\_summe(id)}:\
 Liefert die Summe der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Wartezeit\_avg(id)} oder \cmd{Wartezeit\_average(id)} oder \cmd{Wartezeit\_Mittelwert(id)}:\\
 Liefert die mittlere Wartezeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Wartezeit\_median(id)}:\\
 Liefert den Median der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Wartezeit\_quantil(p;id)}:\\
@@ -852,34 +907,42 @@ Liefert das Quantil zur Wahrscheinlichkeit p der Wartezeiten der Kunden, deren N
 \item
 \cmd{Wartezeit\_min(id)} oder \cmd{Wartezeit\_Minimum(id)}:\\
 Liefert die minimale Wartezeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Wartezeit\_max(id)} oder \cmd{Wartezeit\_Maximum(id)}:\\
 Liefert die maximale Wartezeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Wartezeit\_var(id)} oder \cmd{Wartezeit\_Varianz(id)}:\\
 Liefert die Varianz der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Wartezeit\_sd(id)} oder \cmd{Wartezeit\_Standardabweichung(id)}:\\
 Liefert die Standardabweichung der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Wartezeit\_cv(id)}:\\
 Liefert den Variationskoeffizienten der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Wartezeit\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Wartezeit\_sk(id)}:\\
 Liefert die Schiefe der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Wartezeit\_kurt(id)}:\\
 Liefert den Exzess (ein Maß für die Wölbung) der Wartezeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \end{itemize}
 
@@ -1021,15 +1084,18 @@ Liefert den Anteil der Kunden, für den die Transferzeit mehr als \cm{timeA} und
 \item
 \cmd{Transferzeit\_sum(id)} oder \cmd{Transferzeit\_gesamt(id)} oder \cmd{Transferzeit\_summe(id)}:\\
 Liefert die Summe der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Transferzeit\_avg(id)} oder \cmd{Transferzeit\_average(id)} oder\\
 \cmd{Transferzeit\_Mittelwert(id)}:\\
 Liefert die mittlere Transferzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Transferzeit\_median(id)}:\\
 Liefert den Median der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Transferzeit\_quantil(p;id)}:\\
@@ -1038,34 +1104,42 @@ Liefert das Quantil zur Wahrscheinlichkeit p der Transferzeiten der Kunden, dere
 \item
 \cmd{Transferzeit\_min(id)} oder \cmd{Transferzeit\_Minimum(id)}:\\
 Liefert die minimale Transferzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Transferzeit\_max(id)} oder \cmd{Transferzeit\_Maximum(id)}:\\
 Liefert die maximale Transferzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Transferzeit\_var(id)} oder \cmd{Transferzeit\_Varianz(id)}:\\
 Liefert die Varianz der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Transferzeit\_sd(id)} oder \cmd{Transferzeit\_Standardabweichung(id)}:\\
 Liefert die Standardabweichung der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Transferzeit\_cv(id)}:\\
 Liefert den Variationskoeffizienten der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Transferzeit\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Transferzeit\_sk(id)}:\\
 Liefert die Schiefe der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Transferzeit\_kurt(id)}:\\
 Liefert den Exzess (ein Maß für die Wölbung) der Transferzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \end{itemize}
 
@@ -1206,14 +1280,17 @@ Liefert den Anteil der Kunden, für den die Bedienzeit mehr als \cm{timeA} und h
 \item
 \cmd{Bedienzeit\_sum(id)} oder \cmd{Bedienzeit\_gesamt(id)} oder \cmd{Bedienzeit\_summe(id)}:\\
 Liefert die Summe der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Bedienzeit\_avg(id)} oder \cmd{Bedienzeit\_average(id)} oder \cmd{Bedienzeit\_Mittelwert(id)}:\\
 Liefert die mittlere Bedienzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Bedienzeit\_median(id)}:\\
 Liefert den Median der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Bedienzeit\_quantil(p;id)}:\\
@@ -1222,34 +1299,42 @@ Liefert das Quantil zur Wahrscheinlichkeit p der Bedienzeiten der Kunden, deren 
 \item
 \cmd{Bedienzeit\_min(id)} oder \cmd{Bedienzeit\_Minimum(id)}:\\
 Liefert die minimale Bedienzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Bedienzeit\_max(id)} oder \cmd{Bedienzeit\_Maximum(id)}:\\
 Liefert die maximale Bedienzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Bedienzeit\_var(id)} oder \cmd{Bedienzeit\_Varianz(id)}:\\
 Liefert die Varianz der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Bedienzeit\_sd(id)} oder \cmd{Bedienzeit\_Standardabweichung(id)}:\\
 Liefert die Standardabweichung der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Bedienzeit\_cv(id)}:\\
 Liefert den Variationskoeffizienten der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Bedienzeit\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Bedienzeit\_sk(id)}:\\
 Liefert die Schiefe der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Bedienzeit\_kurt(id)}:\\
 Liefert den Exzess (ein Maß für die Wölbung) der Bedienzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \end{itemize}
 
@@ -1389,14 +1474,17 @@ Liefert den Anteil der Kunden, für den die Verweilzeit mehr als \cm{timeA} und 
 \item
 \cmd{Verweilzeit\_sum(id)} oder \cmd{Verweilzeit\_gesamt(id)} oder \cmd{Verweilzeit\_summe(id)}:\
 Liefert die Summe der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Verweilzeit\_avg(id)} oder \cmd{Verweilzeit\_average(id)} oder \cmd{Verweilzeit\_Mittelwert(id)}:\\
 Liefert die mittlere Verweilzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Verweilzeit\_median(id)}:\\
 Liefert den Median der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Verweilzeit\_quantil(p;id)}:\\
@@ -1405,34 +1493,42 @@ Liefert das Quantil zur Wahrscheinlichkeit p der Verweilzeiten der Kunden, deren
 \item
 \cmd{Verweilzeit\_min(id)} oder \cmd{Verweilzeit\_Minimum(id)}:\\
 Liefert die minimale Verweilzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Verweilzeit\_max(id)} oder \cmd{Verweilzeit\_Maximum(id)}:\\
 Liefert die maximale Verweilzeit der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (in Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Verweilzeit\_var(id)} oder \cmd{Verweilzeit\_Varianz(id)}:\\
 Liefert die Varianz der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Verweilzeit\_sd(id)} oder \cmd{Verweilzeit\_Standardabweichung(id)}:\\
 Liefert die Standardabweichung der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt (bezogen auf Sekunden).
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Verweilzeit\_cv(id)}:\\
 Liefert den Variationskoeffizienten der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Verweilzeit\_scv(id)}:\\
 Liefert den quadrierten Variationskoeffizienten der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Verweilzeit\_sk(id)}:\\
 Liefert die Schiefe der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \item
 \cmd{Verweilzeit\_kurt(id)}:\\
 Liefert den Exzess (ein Maß für die Wölbung) der Verweilzeiten der Kunden, deren Name an Quelle bzw.\ Namenszuweisung \cm{id} auftritt.
+(alternative Parametrierung möglich)
 
 \end{itemize}  
 

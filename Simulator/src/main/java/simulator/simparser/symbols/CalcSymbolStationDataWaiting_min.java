@@ -78,4 +78,15 @@ public class CalcSymbolStationDataWaiting_min extends CalcSymbolStationData {
 		final StatisticsDataPerformanceIndicator indicator=getClientDataIndicator(name,getSimData().statistics.clientsWaitingTimes);
 		return (indicator==null)?0.0:indicator.getMin();
 	}
+
+	@Override
+	protected boolean hasStationAndClientData() {
+		return true;
+	}
+
+	@Override
+	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
+		if (data.statisticWaitingByClientType==null) return 0;
+		return data.statisticWaitingByClientType[clientTypeIndex].getMin();
+	}
 }

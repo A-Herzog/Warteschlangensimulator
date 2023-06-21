@@ -501,6 +501,23 @@ using the Allen-Cunneen approximation formula:
 
 <h2>Accessing model properties</h2>
 
+<p>
+<b>Note:</b>
+Several alternative parameterizations are possible for the commands shown below for querying a property a client type at a station
+(each of which uses the ID of a station as a parameter):
+</p>
+
+<ul>
+  <li><tt>Command(id)</tt>: Query property for clients generated at source <tt>id</tt> (across all stations).</li>
+  <li><tt>Command(id1;id2)</tt>: Query property at station <tt>id1</tt> for clients generated at source <tt>id2</tt>.</li>
+  <li><tt>Command(id;nr)</tt>: Query property for clients generated at source <tt>id</tt> as record <tt>nr</tt> (1-based) (across all stations).</li>
+  <li><tt>Command(id1;id2;nr)</tt>: Query property at station <tt>id1</tt> for clients generated at source <tt>id2</tt> as record <tt>nr</tt> (1-based).</li>
+</ul>
+
+<p>
+The commands for which these additional parameterization options are available are marked with "(alternative parameterization possible)".
+</p>
+
 <table class="border">
   <tr><td colspan="2"><h3>General simulation data</h3></td></tr>
 
@@ -958,18 +975,18 @@ using the Allen-Cunneen approximation formula:
 
   <tr><td colspan="2"><h3>Number of clients of a type in system</h3></td></tr>
 
-  <tr><td>WIP(id)</td><td rowspan="3">Gets the current total number of clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>WIP(id)</td><td rowspan="3">Gets the current total number of clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>N(id)</td></tr>
   <tr><td>Station(id)</td></tr>
   
-  <tr><td>WIP_avg(id)</td><td rowspan="6">Gets the average number of clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>WIP_avg(id)</td><td rowspan="6">Gets the average number of clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Station_avg(id)</td></tr>
   <tr><td>N_avg(id)</td></tr>
   <tr><td>WIP_Mittelwert(id)</td></tr>
   <tr><td>Station_Mittelwert(id)</td></tr>
   <tr><td>N_Mittelwert(id)</td></tr>
   
-  <tr><td>WIP_median(id)</td><td rowspan="3">Gets the median of the number of clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>WIP_median(id)</td><td rowspan="3">Gets the median of the number of clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Station_median(id)</td></tr>
   <tr><td>N_median(id)</td></tr>
 
@@ -977,47 +994,47 @@ using the Allen-Cunneen approximation formula:
   <tr><td>Station_quantil(p;id)</td></tr>
   <tr><td>N_quantil(p;id)</td></tr>
   
-  <tr><td>WIP_min(id)</td><td rowspan="6">Gets the minimal number of clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>WIP_min(id)</td><td rowspan="6">Gets the minimal number of clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Station_min(id)</td></tr>
   <tr><td>N_min(id)</td></tr>
   <tr><td>WIP_Minimum(id)</td></tr>
   <tr><td>Station_Minimum(id)</td></tr>
   <tr><td>N_Minimum(id)</td></tr>
   
-  <tr><td>WIP_max(id)</td><td rowspan="6">Gets the maximal number of clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>WIP_max(id)</td><td rowspan="6">Gets the maximal number of clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Station_max(id)</td></tr>
   <tr><td>N_max(id)</td></tr>
   <tr><td>WIP_Maximum(id)</td></tr>
   <tr><td>Station_Maximum(id)</td></tr>
   <tr><td>N_Maximum(id)</td></tr>
   
-  <tr><td>WIP_var(id)</td><td rowspan="6">Gets the variation of the number of clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>WIP_var(id)</td><td rowspan="6">Gets the variation of the number of clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Station_var(id)</td></tr>
   <tr><td>N_var(id)</td></tr>
   <tr><td>WIP_Varianz(id)</td></tr>
   <tr><td>Station_Varianz(id)</td></tr>
   <tr><td>N_Varianz(id)</td></tr>
   
-  <tr><td>WIP_sd(id)</td><td rowspan="6">Gets the standard deviation of the number of clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>WIP_sd(id)</td><td rowspan="6">Gets the standard deviation of the number of clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Station_sd(id)</td></tr>
   <tr><td>N_sd(id)</td></tr>
   <tr><td>WIP_Standardabweichung(id)</td></tr>
   <tr><td>Station_Standardabweichung(id)</td></tr>
   <tr><td>N_Standardabweichung(id)</td></tr>
   
-  <tr><td>WIP_cv(id)</td><td rowspan="3">Gets the coefficient of variation of the number of clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>WIP_cv(id)</td><td rowspan="3">Gets the coefficient of variation of the number of clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Station_cv(id)</td></tr>
   <tr><td>N_cv(id)</td></tr>
   
-  <tr><td>WIP_scv(id)</td><td rowspan="3">Gets the squared coefficient of variation of the number of clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>WIP_scv(id)</td><td rowspan="3">Gets the squared coefficient of variation of the number of clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Station_scv(id)</td></tr>
   <tr><td>N_scv(id)</td></tr>
   
-  <tr><td>WIP_sk(id)</td><td rowspan="3">Gets the skewness of the number of clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>WIP_sk(id)</td><td rowspan="3">Gets the skewness of the number of clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Station_sk(id)</td></tr>
   <tr><td>N_sk(id)</td></tr>
   
-  <tr><td>WIP_kurt(id)</td><td rowspan="3">Gets the excess kurtosis of the number of clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>WIP_kurt(id)</td><td rowspan="3">Gets the excess kurtosis of the number of clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Station_kurt(id)</td></tr>
   <tr><td>N_kurt(id)</td></tr>
   
@@ -1033,12 +1050,12 @@ using the Allen-Cunneen approximation formula:
     
   <tr><td colspan="2"><h3>Number of waiting clients of a type in system</h3></td></tr>
     
-  <tr><td>NQ(id)</td><td rowspan="4">Gets the current total number of waiting clients, whos name appears at the source or the type assignment id, in the system.</td></tr>   
+  <tr><td>NQ(id)</td><td rowspan="4">Gets the current total number of waiting clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization partially possible)</td></tr>   
   <tr><td>Queue(id)</td></tr>
   <tr><td>Schlange(id)</td></tr>
   <tr><td>Warteschlange(id)</td></tr>
 
-  <tr><td>NQ_avg(id)</td><td rowspan="8">Gets the average number of waiting clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NQ_avg(id)</td><td rowspan="8">Gets the average number of waiting clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Queue_avg(id)</td></tr>
   <tr><td>Schlange_avg(id)</td></tr>
   <tr><td>Warteschlange_avg(id)</td></tr>
@@ -1047,7 +1064,7 @@ using the Allen-Cunneen approximation formula:
   <tr><td>Schlange_Mittelwert(id)</td></tr>
   <tr><td>Warteschlange_Mittelwert(id)</td></tr>
   
-  <tr><td>NQ_median(id)</td><td rowspan="4">Gets the median of the number of waiting clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NQ_median(id)</td><td rowspan="4">Gets the median of the number of waiting clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Queue_median(id)</td></tr>
   <tr><td>Schlange_median(id)</td></tr>
   <tr><td>Warteschlange_median(id)</td></tr>
@@ -1057,7 +1074,7 @@ using the Allen-Cunneen approximation formula:
   <tr><td>Schlange_quantil(p;id)</td></tr>
   <tr><td>Warteschlange_quantil(p;id)</td></tr>
 
-  <tr><td>NQ_min(id)</td><td rowspan="8">Gets the minimal number of waiting clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NQ_min(id)</td><td rowspan="8">Gets the minimal number of waiting clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Queue_min(id)</td></tr>
   <tr><td>Schlange_min(id)</td></tr>
   <tr><td>Warteschlange_min(id)</td></tr>
@@ -1066,7 +1083,7 @@ using the Allen-Cunneen approximation formula:
   <tr><td>Schlange_Minimum(id)</td></tr>
   <tr><td>Warteschlange_Minimum(id)</td></tr>
   
-  <tr><td>NQ_max(id)</td><td rowspan="8">Gets the maximal number of waiting clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NQ_max(id)</td><td rowspan="8">Gets the maximal number of waiting clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Queue_max(id)</td></tr>
   <tr><td>Schlange_max(id)</td></tr>
   <tr><td>Warteschlange_max(id)</td></tr>
@@ -1075,7 +1092,7 @@ using the Allen-Cunneen approximation formula:
   <tr><td>Schlange_Maximum(id)</td></tr>
   <tr><td>Warteschlange_Maximum(id)</td></tr>
   
-  <tr><td>NQ_var(id)</td><td rowspan="8">Gets the variation of the number of waiting clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NQ_var(id)</td><td rowspan="8">Gets the variation of the number of waiting clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Queue_var(id)</td></tr>
   <tr><td>Schlange_var(id)</td></tr>
   <tr><td>Warteschlange_var(id)</td></tr>
@@ -1084,7 +1101,7 @@ using the Allen-Cunneen approximation formula:
   <tr><td>Schlange_Varianz(id)</td></tr>
   <tr><td>Warteschlange_Varianz(id)</td></tr>
   
-  <tr><td>NQ_sd(id)</td><td rowspan="8">Gets the standard deviation of the number of waiting clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NQ_sd(id)</td><td rowspan="8">Gets the standard deviation of the number of waiting clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Queue_sd(id)</td></tr>
   <tr><td>Schlange_sd(id)</td></tr>
   <tr><td>Warteschlange_sd(id)</td></tr>
@@ -1093,22 +1110,22 @@ using the Allen-Cunneen approximation formula:
   <tr><td>Schlange_Standardabweichung(id)</td></tr>
   <tr><td>Warteschlange_Standardabweichung(id)</td></tr>
   
-  <tr><td>NQ_cv(id)</td><td rowspan="4">Gets the coefficient of variation of the number of waiting clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NQ_cv(id)</td><td rowspan="4">Gets the coefficient of variation of the number of waiting clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Queue_cv(id)</td></tr>
   <tr><td>Schlange_cv(id)</td></tr>
   <tr><td>Warteschlange_cv(id)</td></tr>
   
-  <tr><td>NQ_scv(id)</td><td rowspan="4">Gets the squared coefficient of variation of waiting clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NQ_scv(id)</td><td rowspan="4">Gets the squared coefficient of variation of waiting clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Queue_scv(id)</td></tr>
   <tr><td>Schlange_scv(id)</td></tr>
   <tr><td>Warteschlange_scv(id)</td></tr>
   
-  <tr><td>NQ_sk(id)</td><td rowspan="4">Gets the skewness of the number of waiting clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NQ_sk(id)</td><td rowspan="4">Gets the skewness of the number of waiting clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Queue_sk(id)</td></tr>
   <tr><td>Schlange_sk(id)</td></tr>
   <tr><td>Warteschlange_sk(id)</td></tr>
   
-  <tr><td>NQ_kurt(id)</td><td rowspan="4">Gets the excess kurtosis of the number of waiting clients, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>NQ_kurt(id)</td><td rowspan="4">Gets the excess kurtosis of the number of waiting clients, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>Queue_kurt(id)</td></tr>
   <tr><td>Schlange_kurt(id)</td></tr>
   <tr><td>Warteschlange_kurt(id)</td></tr>
@@ -1127,47 +1144,47 @@ using the Allen-Cunneen approximation formula:
 
   <tr><td colspan="2"><h3>Number of clients of a type in service process</h3></td></tr>
     
-  <tr><td>Process_avg(id)</td><td rowspan="4">Gets the average number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>Process_avg(id)</td><td rowspan="4">Gets the average number of clients in service process, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>NS_avg(id)</td></tr>
   <tr><td>Process_Mittelwert(id)</td></tr>
   <tr><td>NS_Mittelwert(id)</td></tr>
   
-  <tr><td>Process_median(id)</td><td rowspan="2">Gets the median of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>Process_median(id)</td><td rowspan="2">Gets the median of the number of clients in service process, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>NS_median(id)</td></tr>
   
   <tr><td>Process_quantil(p;id)</td><td rowspan="2">Gets the quantil for the probability p of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
   <tr><td>NS_quantil(p;id)</td></tr>
 
-  <tr><td>Process_min(id)</td><td rowspan="4">Gets the minimal number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>Process_min(id)</td><td rowspan="4">Gets the minimal number of clients in service process, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>NS_min(id)</td></tr>
   <tr><td>Process_Minimum(id)</td></tr>
   <tr><td>NS_Minimum(id)</td></tr>
   
-  <tr><td>Process_max(id)</td><td rowspan="4">Gets the maximal number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>Process_max(id)</td><td rowspan="4">Gets the maximal number of clients in service process, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>NS_max(id)</td></tr>
   <tr><td>Process_Maximum(id)</td></tr>
   <tr><td>NS_Maximum(id)</td></tr>
   
-  <tr><td>Process_var(id)</td><td rowspan="4">Gets the variation of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>Process_var(id)</td><td rowspan="4">Gets the variation of the number of clients in service process, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>NS_var(id)</td></tr>
   <tr><td>Process_Varianz(id)</td></tr>
   <tr><td>NS_Varianz(id)</td></tr>
   
-  <tr><td>Process_sd(id)</td><td rowspan="4">Gets the standard deviation of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>Process_sd(id)</td><td rowspan="4">Gets the standard deviation of the number of clients in service process, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>NS_sd(id)</td></tr>
   <tr><td>Process_Standardabweichung(id)</td></tr>
   <tr><td>NS_Standardabweichung(id)</td></tr>
   
-  <tr><td>Process_cv(id)</td><td rowspan="2">Gets the coefficient of variation of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>Process_cv(id)</td><td rowspan="2">Gets the coefficient of variation of the number of clients in service process, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>NS_cv(id)</td></tr>
   
-  <tr><td>Process_scv(id)</td><td rowspan="2">Gets the squared coefficient of variation of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>Process_scv(id)</td><td rowspan="2">Gets the squared coefficient of variation of clients in service process, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>NS_scv(id)</td></tr>
   
-  <tr><td>Process_sk(id)</td><td rowspan="2">Gets the skewness of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>Process_sk(id)</td><td rowspan="2">Gets the skewness of the number of clients in service process, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>NS_sk(id)</td></tr>
   
-  <tr><td>Process_kurt(id)</td><td rowspan="2">Gets the excess kurtosis of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
+  <tr><td>Process_kurt(id)</td><td rowspan="2">Gets the excess kurtosis of the number of clients in service process, whos name appears at the source or the type assignment id, in the system. (alternative parameterization possible)</td></tr>
   <tr><td>NS_kurt(id)</td></tr>
   
   <tr><td>Process_hist(id;state)</td><td rowspan="2">Gets the fraction of time, when there are state clients in service process, whos name appears at the source or the type assignment id, in the system.</td></tr>
@@ -1292,37 +1309,37 @@ using the Allen-Cunneen approximation formula:
   
   <tr><td colspan="2"><h3>Waiting times for a specific client type</h3></td></tr>
   
-  <tr><td>WaitingTime_sum(id)</td><td rowspan="3">Gets the sum of the waiting times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>WaitingTime_sum(id)</td><td rowspan="3">Gets the sum of the waiting times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>WaitingTime_gesamt(id)</td></tr>
   <tr><td>WaitingTime_summe(id)</td></tr>
   
-  <tr><td>WaitingTime_avg(id)</td><td rowspan="3">Gets the average waiting time of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>WaitingTime_avg(id)</td><td rowspan="3">Gets the average waiting time of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>WaitingTime_average(id)</td></tr>
   <tr><td>WaitingTime_Mittelwert(id)</td></tr>
   
-  <tr><td>WaitingTime_median(id)</td><td rowspan="1">Gets the median of the waiting times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>WaitingTime_median(id)</td><td rowspan="1">Gets the median of the waiting times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   
   <tr><td>WaitingTime_quantil(p;id)</td><td rowspan="1">Gets the quantil for the probability p of the waiting times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
   
-  <tr><td>WaitingTime_min(id)</td><td rowspan="2">Gets the minimum waiting time of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>WaitingTime_min(id)</td><td rowspan="2">Gets the minimum waiting time of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>WaitingTime_Minimum(id)</td></tr>
   
-  <tr><td>WaitingTime_max(id)</td><td rowspan="2">Gets the maximum waiting time of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>WaitingTime_max(id)</td><td rowspan="2">Gets the maximum waiting time of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>WaitingTime_Maximum(id)</td></tr>
   
-  <tr><td>WaitingTime_var(id)</td><td rowspan="2">Gets the variation of the waiting times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>WaitingTime_var(id)</td><td rowspan="2">Gets the variation of the waiting times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>WaitingTime_Varianz(id)</td></tr>
   
-  <tr><td>WaitingTime_sd(id)</td><td rowspan="2">Gets the standard deviation of the waiting times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>WaitingTime_sd(id)</td><td rowspan="2">Gets the standard deviation of the waiting times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>WaitingTime_Standardabweichung(id)</td></tr>
   
-  <tr><td>WaitingTime_cv(id)</td><td>Gets the coefficient of variation of the waiting times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>WaitingTime_cv(id)</td><td>Gets the coefficient of variation of the waiting times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
   
-  <tr><td>WaitingTime_scv(id)</td><td>Gets the squared coefficient of variation of the waiting times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>WaitingTime_scv(id)</td><td>Gets the squared coefficient of variation of the waiting times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
   
-  <tr><td>WaitingTime_sk(id)</td><td>Gets the skewness of the waiting times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>WaitingTime_sk(id)</td><td>Gets the skewness of the waiting times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
   
-  <tr><td>WaitingTime_kurt(id)</td><td>Gets the excess kurtosis of the waiting times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>WaitingTime_kurt(id)</td><td>Gets the excess kurtosis of the waiting times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
 
   
   
@@ -1404,47 +1421,47 @@ using the Allen-Cunneen approximation formula:
 
   <tr><td colspan="2"><h3>Transfer times for a specific client type</h3></td></tr>
 
-  <tr><td>TransferTime_sum(id)</td><td rowspan="3">Gets the sum of the transfer times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>TransferTime_sum(id)</td><td rowspan="3">Gets the sum of the transfer times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>TransferTime_gesamt(id)</td></tr>
   <tr><td>TransferTime_summe(id)</td></tr>
   
-  <tr><td>TransferTime_avg(id)</td><td rowspan="3">Gets the average transfer time of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>TransferTime_avg(id)</td><td rowspan="3">Gets the average transfer time of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>TransferTime_average(id)</td></tr>
   <tr><td>TransferTime_Mittelwert(id)</td></tr>
   
-  <tr><td>TransferTime_median(id)</td><td rowspan="1">Gets the median of the transfer times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>TransferTime_median(id)</td><td rowspan="1">Gets the median of the transfer times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   
   <tr><td>TransferTime_quantil(p;id)</td><td rowspan="1">Gets the quantil for the probability p of the transfer times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
   
-  <tr><td>TransferTime_min(id)</td><td rowspan="2">Gets the minimum transfer time of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>TransferTime_min(id)</td><td rowspan="2">Gets the minimum transfer time of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>TransferTime_Minimum(id)</td></tr>
   
-  <tr><td>TransferTime_max(id)</td><td rowspan="2">Gets the maximum transfer time of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>TransferTime_max(id)</td><td rowspan="2">Gets the maximum transfer time of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>TransferTime_Maximum(id)</td></tr>
   
-  <tr><td>TransferTime_var(id)</td><td rowspan="2">Gets the variation of the transfer times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>TransferTime_var(id)</td><td rowspan="2">Gets the variation of the transfer times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>TransferTime_Varianz(id)</td></tr>
   
-  <tr><td>TransferTime_sd(id)</td><td rowspan="2">Gets the standard deviation of the transfer times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>TransferTime_sd(id)</td><td rowspan="2">Gets the standard deviation of the transfer times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>TransferTime_Standardabweichung(id)</td></tr>
   
-  <tr><td>TransferTime_cv(id)</td><td>Gets the coefficient of variation of the transfer times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>TransferTime_cv(id)</td><td>Gets the coefficient of variation of the transfer times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
   
-  <tr><td>TransferTime_scv(id)</td><td>Gets the squared coefficient of variation of the transfer times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>TransferTime_scv(id)</td><td>Gets the squared coefficient of variation of the transfer times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
   
-  <tr><td>TransferTime_sk(id)</td><td>Gets the skewness of the transfer times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>TransferTime_sk(id)</td><td>Gets the skewness of the transfer times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
   
-  <tr><td>TransferTime_kurt(id)</td><td>Gets the excess kurtosis of the transfer times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>TransferTime_kurt(id)</td><td>Gets the excess kurtosis of the transfer times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
 
 
 
   <tr><td colspan="2"><h3>Process times at a station</h3></td></tr>
 
-  <tr><td>ProcessTime_sum(id)</td><td rowspan="3">Gets the sum of the process times at the station id (in seconds).</td></tr>
+  <tr><td>ProcessTime_sum(id)</td><td rowspan="3">Gets the sum of the process times at the station id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>ProcessTime_gesamt(id)</td></tr>
   <tr><td>ProcessTime_summe(id)</td></tr>
   
-  <tr><td>ProcessTime_avg(id)</td><td rowspan="3">Gets the average process time of the clients at station id (in seconds).</td></tr>
+  <tr><td>ProcessTime_avg(id)</td><td rowspan="3">Gets the average process time of the clients at station id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>ProcessTime_average(id)</td></tr>
   <tr><td>ProcessTime_Mittelwert(id)</td></tr>
   
@@ -1516,37 +1533,37 @@ using the Allen-Cunneen approximation formula:
 
   <tr><td colspan="2"><h3>Process times for a specific client type</h3></td></tr>
 
-  <tr><td>ProcessTime_sum(id)</td><td rowspan="3">Gets the sum of the process times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>ProcessTime_sum(id)</td><td rowspan="3">Gets the sum of the process times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>ProcessTime_gesamt(id)</td></tr>
   <tr><td>ProcessTime_summe(id)</td></tr>
   
-  <tr><td>ProcessTime_avg(id)</td><td rowspan="3">Gets the average process time of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>ProcessTime_avg(id)</td><td rowspan="3">Gets the average process time of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>ProcessTime_average(id)</td></tr>
   <tr><td>ProcessTime_Mittelwert(id)</td></tr>
   
-  <tr><td>ProcessTime_median(id)</td><td rowspan="1">Gets the median of the process times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>ProcessTime_median(id)</td><td rowspan="1">Gets the median of the process times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   
   <tr><td>ProcessTime_quantil(p;id)</td><td rowspan="1">Gets the quantil for the probability p of the process times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
   
-  <tr><td>ProcessTime_min(id)</td><td rowspan="2">Gets the minimum process time of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>ProcessTime_min(id)</td><td rowspan="2">Gets the minimum process time of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>ProcessTime_Minimum(id)</td></tr>
   
-  <tr><td>ProcessTime_max(id)</td><td rowspan="2">Gets the maximum process time of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>ProcessTime_max(id)</td><td rowspan="2">Gets the maximum process time of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>ProcessTime_Maximum(id)</td></tr>
   
-  <tr><td>ProcessTime_var(id)</td><td rowspan="2">Gets the variation of the process times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>ProcessTime_var(id)</td><td rowspan="2">Gets the variation of the process times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>ProcessTime_Varianz(id)</td></tr>
   
-  <tr><td>ProcessTime_sd(id)</td><td rowspan="2">Gets the standard deviation of the process times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>ProcessTime_sd(id)</td><td rowspan="2">Gets the standard deviation of the process times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>ProcessTime_Standardabweichung(id)</td></tr>
   
-  <tr><td>ProcessTime_cv(id)</td><td>Gets the coefficient of variation of the process times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>ProcessTime_cv(id)</td><td>Gets the coefficient of variation of the process times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
   
-  <tr><td>ProcessTime_scv(id)</td><td>Gets the squared coefficient of variation of the process times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>ProcessTime_scv(id)</td><td>Gets the squared coefficient of variation of the process times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
   
-  <tr><td>ProcessTime_sk(id)</td><td>Gets the skewness of the process times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>ProcessTime_sk(id)</td><td>Gets the skewness of the process times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
   
-  <tr><td>ProcessTime_kurt(id)</td><td>Gets the excess kurtosis of the process times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>ProcessTime_kurt(id)</td><td>Gets the excess kurtosis of the process times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
 
 
 
@@ -1628,37 +1645,37 @@ using the Allen-Cunneen approximation formula:
   
   <tr><td colspan="2"><h3>Residence times for a specific client type</h3></td></tr>
   
-  <tr><td>ResidenceTime_sum(id)</td><td rowspan="3">Gets the sum of the residence times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>ResidenceTime_sum(id)</td><td rowspan="3">Gets the sum of the residence times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>ResidenceTime_gesamt(id)</td></tr>
   <tr><td>ResidenceTime_summe(id)</td></tr>
   
-  <tr><td>ResidenceTime_avg(id)</td><td rowspan="3">Gets the average residence time of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>ResidenceTime_avg(id)</td><td rowspan="3">Gets the average residence time of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>ResidenceTime_average(id)</td></tr>
   <tr><td>ResidenceTime_Mittelwert(id)</td></tr>
   
-  <tr><td>ResidenceTime_median(id)</td><td rowspan="1">Gets the median of the residence times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>ResidenceTime_median(id)</td><td rowspan="1">Gets the median of the residence times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   
   <tr><td>ResidenceTime_quantil(p;id)</td><td rowspan="1">Gets the quantil for the probability p of the residence times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
   
-  <tr><td>ResidenceTime_min(id)</td><td rowspan="2">Gets the minimum residence time of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>ResidenceTime_min(id)</td><td rowspan="2">Gets the minimum residence time of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>ResidenceTime_Minimum(id)</td></tr>
   
-  <tr><td>ResidenceTime_max(id)</td><td rowspan="2">Gets the maximum residence time of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>ResidenceTime_max(id)</td><td rowspan="2">Gets the maximum residence time of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>ResidenceTime_Maximum(id)</td></tr>
   
-  <tr><td>ResidenceTime_var(id)</td><td rowspan="2">Gets the variation of the residence times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>ResidenceTime_var(id)</td><td rowspan="2">Gets the variation of the residence times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>ResidenceTime_Varianz(id)</td></tr>
   
-  <tr><td>ResidenceTime_sd(id)</td><td rowspan="2">Gets the standard deviation of the residence times of the clients, whos name appears at the source or the type assignment id (in seconds).</td></tr>
+  <tr><td>ResidenceTime_sd(id)</td><td rowspan="2">Gets the standard deviation of the residence times of the clients, whos name appears at the source or the type assignment id (in seconds). (alternative parameterization possible)</td></tr>
   <tr><td>ResidenceTime_Standardabweichung(id)</td></tr>
   
-  <tr><td>ResidenceTime_cv(id)</td><td>Gets the coefficient of variation of the residence times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>ResidenceTime_cv(id)</td><td>Gets the coefficient of variation of the residence times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
   
-  <tr><td>ResidenceTime_scv(id)</td><td>Gets the squared coefficient of variation of the residence times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>ResidenceTime_scv(id)</td><td>Gets the squared coefficient of variation of the residence times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
   
-  <tr><td>ResidenceTime_sk(id)</td><td>Gets the skewness of the residence times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>ResidenceTime_sk(id)</td><td>Gets the skewness of the residence times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
   
-  <tr><td>ResidenceTime_kurt(id)</td><td>Gets the excess kurtosis of the residence times of the clients, whos name appears at the source or the type assignment id.</td></tr>
+  <tr><td>ResidenceTime_kurt(id)</td><td>Gets the excess kurtosis of the residence times of the clients, whos name appears at the source or the type assignment id. (alternative parameterization possible)</td></tr>
 
 
 

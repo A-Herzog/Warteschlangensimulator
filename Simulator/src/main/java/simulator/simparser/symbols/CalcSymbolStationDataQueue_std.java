@@ -84,4 +84,15 @@ public class CalcSymbolStationDataQueue_std extends CalcSymbolStationData {
 		if (data.statisticClientsAtStationQueue==null) return 0;
 		return data.statisticClientsAtStationQueue.getTimeSD();
 	}
+
+	@Override
+	protected boolean hasStationAndClientData() {
+		return true;
+	}
+
+	@Override
+	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
+		if (data.statisticClientsAtStationQueueByClientType==null) return 0;
+		return data.statisticClientsAtStationQueueByClientType[clientTypeIndex].getTimeSD();
+	}
 }

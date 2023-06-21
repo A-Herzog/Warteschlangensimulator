@@ -2,6 +2,24 @@
 
 
 
+\textbf{Note:}
+Several alternative parameterizations are possible for the commands shown below for querying a property a client type at a station (each of which uses the ID of a station as a parameter):
+
+\begin{itemize}
+\item
+\cmd{Command(id)}: Query property at station \cm{id} abfragen (across all client types).
+\item
+\cmd{Command(id)}: Query property for clients generated at source \cm{id} (across all stations).
+\item
+\cmd{Command(id1;id2)}: Query property at station \cm{id1} for clients generated at source \cm{id2}.
+\item
+\cmd{Command(id;nr)}: Query property for clients generated at source \cm{id} as record \cm{nr} (1-based) (across all stations).
+\item
+\cmd{Command(id1;id2;nr)}: Query property at station \cm{id1} for clients generated at source \cm{id2} as record \cm{nr} (1-based).
+\end{itemize}
+
+
+
 \section{General simulation data}
 
 \begin{itemize}
@@ -478,15 +496,18 @@ Gets the number of client departures at station \cm{id}.
 \item
 \cmd{WIP(id)} or \cmd{N(id)} or \cmd{Station(id)}:\\
 Gets the current total number of clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{WIP\_avg(id)} or \cmd{Station\_avg(id)} or \cmd{N\_avg(id)} or \cmd{WIP\_Mittelwert(id)} or\\
 \cmd{Station\_Mittelwert(id)} or \cmd{N\_Mittelwert(id)}:\\
 Gets the average number of clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{WIP\_median(id)} or \cmd{Station\_median(id)} or \cmd{N\_median(id)}:\\
 Gets the median of the number of clients, whos name appears at the source or the type assignment \cm{id}, in the system.
+(alternative parameterization possible)
 
 \item
 \cmd{WIP\_quantil(p;id)} or \cmd{Station\_quantil(p;id)} or \cmd{N\_quantil(p;id)}:\\
@@ -496,37 +517,45 @@ Gets the quantil for the probability p of the number of clients, whos name appea
 \cmd{WIP\_min(id)} or \cmd{Station\_min(id)} or \cmd{N\_min(id)} or \cmd{WIP\_Minimum(id)} or\\
 \cmd{Station\_Minimum(id)} or \cmd{N\_Minimum(id)}:\\
 Gets the minimal number of clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{WIP\_max(id)} or \cmd{Station\_max(id)} or \cmd{N\_max(id)} or \cmd{WIP\_Maximum(id)} or\\
 \cmd{Station\_Maximum(id)} or \cmd{N\_Maximum(id)}:\\
 Gets the maximal number of clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{WIP\_var(id)} or \cmd{Station\_var(id)} or \cmd{N\_var(id)} or \cmd{WIP\_Varianz(id)} or\\
 \cmd{Station\_Varianz(id)} or \cmd{N\_Varianz(id)}:\\
 Gets the variation of the number of clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{WIP\_sd(id)} or \cmd{Station\_sd(id)} or \cmd{N\_sd(id)} or \cmd{WIP\_Standardabweichung(id)} or\\
 \cmd{Station\_Standardabweichung(id)} or \cmd{N\_Standardabweichung(id)}:\\
 Gets the standard deviation of the number of clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{WIP\_cv(id)} or \cmd{Station\_cv(id)} or \cmd{N\_cv(id)}:\\
 Gets the coefficient of variation of the number of clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{WIP\_scv(id)} or \cmd{Station\_scv(id)} or \cmd{N\_scv(id)}:\\
 Gets the squared coefficient of variation of the number of clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{WIP\_sk(id)} or \cmd{Station\_sk(id)} or \cmd{N\_sk(id)}:\\
 Gets the skewness of the number of clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{WIP\_kurt(id)} or \cmd{Station\_kurt(id)} or \cmd{N\_kurt(id)}:\\
 Gets the excess kurtosis of the number of clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{WIP\_hist(id;state)} or \cmd{Station\_hist(id;state)} or \cmd{N\_hist(id;state)}:\\
@@ -548,17 +577,20 @@ Gets the fraction of time, when there are more than \cm{stateA} and at most \cm{
 \item
 \cmd{NQ(id)} or \cmd{Queue(id)} or \cmd{Schlange(id)} or \cmd{Warteschlange(id)}:\\
 Gets the current total number of waiting clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization partially possible)
 
 \item
 \cmd{NQ\_avg(id)} or \cmd{Queue\_avg(id)} or \cmd{Schlange\_avg(id)} or \cmd{Warteschlange\_avg(id)} or\\
 \cmd{NQ\_Mittelwert(id)} or \cmd{Queue\_Mittelwert(id)} or \cmd{Schlange\_Mittelwert(id)} or\\
 \cmd{Warteschlange\_Mittelwert(id)}:\\
 Gets the average number of waiting clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{NQ\_median(id)} or \cmd{Queue\_median(id)} or \cmd{Schlange\_median(id)} or\\
 \cmd{Warteschlange\_median(id)}:\\
 Gets the median of the number of waiting clients, whos name appears at the source or the type assignment id, in the system.
+(alternative parameterization possible)
 
 \item
 \cmd{NQ\_quantil(p;id)} or \cmd{Queue\_quantil(p;id)} or \cmd{Schlange\_quantil(p;id)} or\\
@@ -570,40 +602,48 @@ Gets the quantil for the probability p of the number of waiting clients, whos na
 \cmd{NQ\_Minimum(id)} or \cmd{Queue\_Minimum(id)} or \cmd{Schlange\_Minimum(id)} or\\
 \cmd{Warteschlange\_Minimum(id)}:\\
 Gets the minimal number of waiting clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{NQ\_max(id)} or \cmd{Queue\_max(id)} or \cmd{Schlange\_max(id)} or \cmd{Warteschlange\_max(id)} or\\
 \cmd{NQ\_Maximum(id)} or \cmd{Queue\_Maximum(id)} or \cmd{Schlange\_Maximum(id)} or\\
 \cmd{Warteschlange\_Maximum(id)}:\\
 Gets the maximal number of waiting clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{NQ\_var(id)} or \cmd{Queue\_var(id)} or \cmd{Schlange\_var(id)} or \cmd{Warteschlange\_var(id)} or\\
 \cmd{NQ\_Varianz(id)} or \cmd{Queue\_Varianz(id)} or \cmd{Schlange\_Varianz(id)} or\\
 \cmd{Warteschlange\_Varianz(id)}:\\
 Gets the variation of the number of waiting clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{NQ\_sd(id)} or \cmd{Queue\_sd(id)} or \cmd{Schlange\_sd(id)} or \cmd{Warteschlange\_sd(id)} or\\
 \cmd{NQ\_Standardabweichung(id)} or \cmd{Queue\_Standardabweichung(id)} or\\
 \cmd{Schlange\_Standardabweichung(id)} or \cmd{Warteschlange\_Standardabweichung(id)}:\\
 Gets the standard deviation of the number of waiting clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{NQ\_cv(id)} or \cmd{Queue\_cv(id)} or \cmd{Schlange\_cv(id)} or \cmd{Warteschlange\_cv(id)}:\\
 Gets the coefficient of variation of the number of waiting clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{NQ\_scv(id)} or \cmd{Queue\_scv(id)} or \cmd{Schlange\_scv(id)} or \cmd{Warteschlange\_scv(id)}:\\
 Gets the squared coefficient of variation of the number of waiting clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{NQ\_sk(id)} or \cmd{Queue\_sk(id)} or \cmd{Schlange\_sk(id)} or \cmd{Warteschlange\_sk(id)}:\\
 Gets the skewness of the number of waiting clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{NQ\_kurt(id)} or \cmd{Queue\_kurt(id)} or \cmd{Schlange\_kurt(id)} or \cmd{Warteschlange\_kurt(id)}:\\
 Gets the excess kurtosis of the number of waiting clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{NQ\_hist(id;state)} or \cmd{Queue\_hist(id;state)} or \cmd{Schlange\_hist(id;state)} or\\ \cmd{Warteschlange\_hist(id;state)}:\\
@@ -624,10 +664,12 @@ Gets the fraction of time, when there are more than \cm{stateA} and at most \cm{
 \item
 \cmd{Process\_avg(id)} or \cmd{NS\_avg(id)} or \cmd{Process\_Mittelwert(id)} or \cmd{NS\_Mittelwert(id)}:\\
 Gets the average number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{Process\_median(id)} or \cmd{NS\_median(id)}:\\
 Gets the median of the number of clients in service process, whos name appears at the source or the type assignment id, in the system.
+(alternative parameterization possible)
 
 \item
 \cmd{Process\_quantil(p;id)} or \cmd{NS\_quantil(p;id)}:\\
@@ -636,34 +678,42 @@ Gets the quantil for the probability p of the number of clients in service proce
 \item
 \cmd{Process\_min(id)} or \cmd{NS\_min(id)} or \cmd{Process\_Minimum(id)} or \cmd{NS\_Minimum(id)}:\\
 Gets the minimal number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{Process\_max(id)} or \cmd{NS\_max(id)} or \cmd{Process\_Maximum(id)} or \cmd{NS\_Maximum(id)}:\\
 Gets the maximal number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{Process\_var(id)} or \cmd{NS\_var(id)} or \cmd{Process\_Varianz(id)} or \cmd{NS\_Varianz(id)}:\\
 Gets the variation of the number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{Process\_sd(id)} or \cmd{NS\_sd(id)} or \cmd{Process\_Standardabweichung(id)} or \cmd{NS\_Standardabweichung(id)}:\\
 Gets the standard deviation of the number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{Process\_cv(id)} or \cmd{NS\_cv(id)}:\\
 Gets the coefficient of variation of the number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{Process\_scv(id)} or \cmd{NS\_scv(id)}:\\
 Gets the squared coefficient of variation of the number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{Process\_sk(id)} or \cmd{NS\_sk(id)}:\\
 Gets the skewness of the number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{Process\_kurt(id)} or \cmd{NS\_kurt(id)}:\\
 Gets the excess kurtosis of the number of clients in service process, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{Process\_hist(id;state)} or \cmd{NS\_hist(id;state)}:\\
@@ -847,14 +897,17 @@ Gets the fraction of clients for which the waiting time was more than \cm{timeA}
 \item
 \cmd{WaitingTime\_sum(id)} or \cmd{WaitingTime\_gesamt(id)} or \cmd{WaitingTime\_summe(id)}:\
 Gets the sum of the waiting times of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{WaitingTime\_avg(id)} or \cmd{WaitingTime\_average(id)} or \cmd{WaitingTime\_Mittelwert(id)}:\\
 Gets the average waiting time of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{WaitingTime\_median(id)}:\\
 Gets the median of the waiting times of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{WaitingTime\_quantil(p;id)}:\\
@@ -863,34 +916,42 @@ Gets the quantil for the probability p of the waiting times of the clients, whos
 \item
 \cmd{WaitingTime\_min(id)} or \cmd{WaitingTime\_Minimum(id)}:\\
 Gets the minimum waiting time of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{WaitingTime\_max(id)} or \cmd{WaitingTime\_Maximum(id)}:\\
 Gets the maximum waiting time of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{WaitingTime\_var(id)} or \cmd{WaitingTime\_Varianz(id)}:\\
 Gets the variation of the waiting times of the clients, whos name appears at the source or the type assignment \cm{id} (based on seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{WaitingTime\_sd(id)} or \cmd{WaitingTime\_Standardabweichung(id)}:\\
 Gets the standard deviation of the waiting times of the clients, whos name appears at the source or the type assignment \cm{id} (based on seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{WaitingTime\_cv(id)}:\\
 Gets the coefficient of variation of the waiting times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{WaitingTime\_scv(id)}:\\
 Gets the squared coefficient of variation of the waiting times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{WaitingTime\_sk(id)}:\\
 Gets the skewness of the waiting times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{WaitingTime\_kurt(id)}:\\
 Gets the excess kurtosis of the waiting times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \end{itemize}
 
@@ -907,6 +968,7 @@ Gets the excess kurtosis of the waiting times of the clients, whos name appears 
 \item
 \cmd{TransferTime\_sum(id)} or \cmd{TransferTime\_gesamt(id)} or \cmd{TransferTime\_summe(id)}:\\
 Gets the sum of the transfer times at the station \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{TransferTime\_avg(id)} or \cmd{TransferTime\_average(id)} or\\
@@ -1032,15 +1094,18 @@ Gets the fraction of clients for which the transfer time was more than \cm{timeA
 \item
 \cmd{TransferTime\_sum(id)} or \cmd{TransferTime\_gesamt(id)} or \cmd{TransferTime\_summe(id)}:\\
 Gets the sum of the transfer times of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{TransferTime\_avg(id)} or \cmd{TransferTime\_average(id)} or\\
 \cmd{TransferTime\_Mittelwert(id)}:\\
 Gets the average transfer time of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{TransferTime\_median(id)}:\\
 Gets the median of the transfer times of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{TransferTime\_quantil(p;id)}:\\
@@ -1049,34 +1114,42 @@ Gets the quantil for the probability p of the transfer times of the clients, who
 \item
 \cmd{TransferTime\_min(id)} or \cmd{TransferTime\_Minimum(id)}:\\
 Gets the minimum transfer time of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{TransferTime\_max(id)} or \cmd{TransferTime\_Maximum(id)}:\\
 Gets the maximum transfer time of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{TransferTime\_var(id)} or \cmd{TransferTime\_Varianz(id)}:\\
 Gets the variation of the transfer times of the clients, whos name appears at the source or the type assignment \cm{id} (based on seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{TransferTime\_sd(id)} or \cmd{TransferTime\_Standardabweichung(id)}:\\
 Gets the standard deviation of the transfer times of the clients, whos name appears at the source or the type assignment \cm{id} (based on seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{TransferTime\_cv(id)}:\\
 Gets the coefficient of variation of the transfer times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{TransferTime\_scv(id)}:\\
 Gets the squared coefficient of variation of the transfer times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{TransferTime\_sk(id)}:\\
 Gets the skewness of the transfer times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{TransferTime\_kurt(id)}:\\
 Gets the excess kurtosis of the transfer times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \end{itemize}
 
@@ -1217,14 +1290,17 @@ Gets the fraction of clients for which the process time was more than \cm{timeA}
 \item
 \cmd{ProcessTime\_sum(id)} or \cmd{ProcessTime\_gesamt(id)} or \cmd{ProcessTime\_summe(id)}:\\
 Gets the sum of the process times of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{ProcessTime\_avg(id)} or \cmd{ProcessTime\_average(id)} or \cmd{ProcessTime\_Mittelwert(id)}:\\
 Gets the average process time of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{ProcessTime\_median(id)}:\\
 Gets the median of the process times of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{ProcessTime\_quantil(p;id)}:\\
@@ -1233,34 +1309,42 @@ Gets the quantil for the probability p of the process times of the clients, whos
 \item
 \cmd{ProcessTime\_min(id)} or \cmd{ProcessTime\_Minimum(id)}:\\
 Gets the minimum process time of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{ProcessTime\_max(id)} or \cmd{ProcessTime\_Maximum(id)}:\\
 Gets the maximum process time of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{ProcessTime\_var(id)} or \cmd{ProcessTime\_Varianz(id)}:\\
 Gets the variation of the process times of the clients, whos name appears at the source or the type assignment \cm{id} (based on seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{ProcessTime\_sd(id)} or \cmd{ProcessTime\_Standardabweichung(id)}:\\
 Gets the standard deviation of the process times of the clients, whos name appears at the source or the type assignment \cm{id} (based on seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{ProcessTime\_cv(id)}:\\
 Gets the coefficient of variation of the process times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{ProcessTime\_scv(id)}:\\
 Gets the squared coefficient of variation of the process times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{ProcessTime\_sk(id)}:\\
 Gets the skewness of the process times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{ProcessTime\_kurt(id)}:\\
 Gets the excess kurtosis of the process times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \end{itemize}
 
@@ -1400,14 +1484,17 @@ Gets the fraction of clients for which the residence time was more than \cm{time
 \item
 \cmd{ResidenceTime\_sum(id)} or \cmd{ResidenceTime\_gesamt(id)} or \cmd{ResidenceTime\_summe(id)}:\
 Gets the sum of the residence times of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{ResidenceTime\_avg(id)} or \cmd{ResidenceTime\_average(id)} or\\ \cmd{ResidenceTime\_Mittelwert(id)}:\\
 Gets the average residence time of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{ResidenceTime\_median(id)}:\\
 Gets the median of the residence times of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{ResidenceTime\_quantil(p;id)}:\\
@@ -1416,34 +1503,42 @@ Gets the quantil for the probability p of the residence times of the clients, wh
 \item
 \cmd{ResidenceTime\_min(id)} or \cmd{ResidenceTime\_Minimum(id)}:\\
 Gets the minimum residence time of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{ResidenceTime\_max(id)} or \cmd{ResidenceTime\_Maximum(id)}:\\
 Gets the maximum residence time of the clients, whos name appears at the source or the type assignment \cm{id} (in seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{ResidenceTime\_var(id)} or \cmd{ResidenceTime\_Varianz(id)}:\\
 Gets the variation of the residence times of the clients, whos name appears at the source or the type assignment \cm{id} (based on seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{ResidenceTime\_sd(id)} or \cmd{ResidenceTime\_Standardabweichung(id)}:\\
 Gets the standard deviation of the residence times of the clients, whos name appears at the source or the type assignment \cm{id} (based on seconds).
+(alternative parameterization possible)
 
 \item
 \cmd{ResidenceTime\_cv(id)}:\\
 Gets the coefficient of variation of the residence times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{ResidenceTime\_scv(id)}:\\
 Gets the squared coefficient of variation of the residence times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{ResidenceTime\_sk(id)}:\\
 Gets the skewness of the residence times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \item
 \cmd{ResidenceTime\_kurt(id)}:\\
 Gets the excess kurtosis of the residence times of the clients, whos name appears at the source or the type assignment \cm{id}.
+(alternative parameterization possible)
 
 \end{itemize}
 

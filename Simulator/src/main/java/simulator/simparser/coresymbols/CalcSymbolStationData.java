@@ -22,6 +22,8 @@ import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.elements.RunElementAssign;
 import simulator.elements.RunElementSource;
+import simulator.elements.RunElementSourceMulti;
+import simulator.elements.RunElementSourceMultiData;
 import simulator.runmodel.SimulationData;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsMultiPerformanceIndicator;
@@ -104,16 +106,25 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 	}
 
 	/**
-	 * Zuletzt in {@link #calc(double[])} als Kundentyp innerhalb einer Station
-	 * abgefragt Kundentyp-Quell-ID
+	 * Zuletzt in {@link #calc(double[])} oder {@link #calcOrDefault(double[], double)}
+	 * als Kundentyp innerhalb einer Station abgefragt Kundentyp-Quell-ID
 	 * @see #calc(double[])
 	 * @see #lastStationClientTypeClientIndex
 	 */
 	private int lastStationClientTypeStationID=-1;
 
 	/**
-	 * Zuletzt in {@link #calc(double[])} als Kundentyp-Index innerhalb einer
-	 * Station verwendeter Index auf Basis einer Kundentyp-Quell-ID
+	 * Zuletzt in {@link #calc(double[])} oder {@link #calcOrDefault(double[], double)}
+	 * als Kundentyp innerhalb einer Mehrfachquelle abgefragt Kundentyp-Index
+	 * @see #calc(double[])
+	 * @see #lastStationClientTypeClientIndex
+	 */
+	private int lastStationClientTypeStationIDSub=-1;
+
+	/**
+	 * Zuletzt in {@link #calc(double[])} oder {@link #calcOrDefault(double[], double)}
+	 * als Kundentyp-Index innerhalb einer Station verwendeter Index auf Basis einer
+	 * Kundentyp-Quell-ID
 	 * @see #calc(double[])
 	 * @see #lastStationClientTypeStationID
 	 */
@@ -156,11 +167,19 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 				if (intID==lastStationClientTypeStationID) clientTypeIndex=lastStationClientTypeClientIndex;
 			}
 
+			/* Zweiter Parameter ist Index des Kundentyps an der Quelle */
+			if (stationData instanceof RunElementSourceMultiData) {
+				final RunElementSourceMulti source=(RunElementSourceMulti)getRunElementForID(parameters[0]);
+				final String name=source.getClientTypeName(intID-1); /* Umrechnung 1-basiert -> 0-basiert */
+				if (!hasSingleClientData()) throw error();
+				return calcSingleClient(name);
+			}
+
+			/* Zweiter Parameter ist ID der Kundenquell-Station */
 			if (clientTypeIndex<0) {
+				String name=null;
 				final RunElement clientElement=getRunElementForID(parameters[1]);
 				if (clientElement==null) throw error();
-
-				String name=null;
 				if (clientElement instanceof RunElementSource) name=((RunElementSource)clientElement).clientTypeName;
 				if (clientElement instanceof RunElementAssign) name=((RunElementAssign)clientElement).clientTypeName;
 				if (name==null) throw error();
@@ -169,6 +188,37 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 				if (clientTypeIndexObj!=null) clientTypeIndex=clientTypeIndexObj;
 
 				lastStationClientTypeStationID=intID;
+				lastStationClientTypeClientIndex=clientTypeIndex;
+			}
+			if (clientTypeIndex<0) throw error();
+
+			return calcStationClient(stationData,clientTypeIndex);
+		}
+
+		/* Station und Kundentyp an Mehrfachquelle */
+		if (parameters.length==3 && hasStationAndClientData()) {
+			final RunElementData stationData=getRunElementDataForID(parameters[0]);
+			if (stationData==null) return 0.0;
+
+			final int intID=(int)FastMath.round(parameters[1]);
+			final int intID2=(int)FastMath.round(parameters[2]);
+			int clientTypeIndex=-1;
+			if (lastStationClientTypeStationID>=0 && lastStationClientTypeStationIDSub>=0) {
+				if (intID==lastStationClientTypeStationID && intID2==lastStationClientTypeStationIDSub) clientTypeIndex=lastStationClientTypeClientIndex;
+			}
+
+			if (clientTypeIndex<0) {
+				String name=null;
+				final RunElement clientElement=getRunElementForID(parameters[1]);
+				if (clientElement==null) throw error();
+				if (clientElement instanceof RunElementSourceMulti) name=((RunElementSourceMulti)clientElement).getClientTypeName(intID2-1); /* Umrechnung 1-basiert -> 0-basiert */
+				if (name==null) throw error();
+
+				final Integer clientTypeIndexObj=getSimData().runModel.clientTypesMap.get(name);
+				if (clientTypeIndexObj!=null) clientTypeIndex=clientTypeIndexObj;
+
+				lastStationClientTypeStationID=intID;
+				lastStationClientTypeStationIDSub=intID2;
 				lastStationClientTypeClientIndex=clientTypeIndex;
 			}
 			if (clientTypeIndex<0) throw error();
@@ -216,18 +266,58 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 				if (intID==lastStationClientTypeStationID) clientTypeIndex=lastStationClientTypeClientIndex;
 			}
 
+			/* Zweiter Parameter ist Index des Kundentyps an der Quelle */
+			if (stationData instanceof RunElementSourceMultiData) {
+				final RunElementSourceMulti source=(RunElementSourceMulti)getRunElementForID(parameters[0]);
+				final String name=source.getClientTypeName(intID-1); /* Umrechnung 1-basiert -> 0-basiert */
+				if (!hasSingleClientData()) return fallbackValue;
+				return calcSingleClient(name);
+			}
+
+			/* Zweiter Parameter ist ID der Kundenquell-Station */
 			if (clientTypeIndex<0) {
+				String name=null;
 				final RunElement clientElement=getRunElementForID(parameters[1]);
 				if (clientElement==null) return fallbackValue;
-
-				String name=null;
 				if (clientElement instanceof RunElementSource) name=((RunElementSource)clientElement).clientTypeName;
 				if (clientElement instanceof RunElementAssign) name=((RunElementAssign)clientElement).clientTypeName;
 				if (name==null) return fallbackValue;
 
-				final String[] clientTypes=getSimData().runModel.clientTypes;
-				for (int i=0;i<clientTypes.length;i++) if (clientTypes[i].equals(name)) {clientTypeIndex=i; break;}
+				final Integer clientTypeIndexObj=getSimData().runModel.clientTypesMap.get(name);
+				if (clientTypeIndexObj!=null) clientTypeIndex=clientTypeIndexObj;
+
 				lastStationClientTypeStationID=intID;
+				lastStationClientTypeClientIndex=clientTypeIndex;
+			}
+			if (clientTypeIndex<0) return fallbackValue;
+
+			return calcStationClient(stationData,clientTypeIndex);
+		}
+
+		/* Station und Kundentyp an Mehrfachquelle */
+		if (parameters.length==3 && hasStationAndClientData()) {
+			final RunElementData stationData=getRunElementDataForID(parameters[0]);
+			if (stationData==null) return 0.0;
+
+			final int intID=(int)FastMath.round(parameters[1]);
+			final int intID2=(int)FastMath.round(parameters[2]);
+			int clientTypeIndex=-1;
+			if (lastStationClientTypeStationID>=0 && lastStationClientTypeStationIDSub>=0) {
+				if (intID==lastStationClientTypeStationID && intID2==lastStationClientTypeStationIDSub) clientTypeIndex=lastStationClientTypeClientIndex;
+			}
+
+			if (clientTypeIndex<0) {
+				String name=null;
+				final RunElement clientElement=getRunElementForID(parameters[1]);
+				if (clientElement==null) return fallbackValue;
+				if (clientElement instanceof RunElementSourceMulti) name=((RunElementSourceMulti)clientElement).getClientTypeName(intID2-1); /* Umrechnung 1-basiert -> 0-basiert */
+				if (name==null) return fallbackValue;
+
+				final Integer clientTypeIndexObj=getSimData().runModel.clientTypesMap.get(name);
+				if (clientTypeIndexObj!=null) clientTypeIndex=clientTypeIndexObj;
+
+				lastStationClientTypeStationID=intID;
+				lastStationClientTypeStationIDSub=intID2;
 				lastStationClientTypeClientIndex=clientTypeIndex;
 			}
 			if (clientTypeIndex<0) return fallbackValue;

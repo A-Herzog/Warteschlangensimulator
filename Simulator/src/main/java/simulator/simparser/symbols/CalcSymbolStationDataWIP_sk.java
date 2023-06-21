@@ -75,4 +75,15 @@ public class CalcSymbolStationDataWIP_sk extends CalcSymbolStationData {
 		if (data.statisticClientsAtStation==null) return 0;
 		return data.statisticClientsAtStation.getTimeSk();
 	}
+
+	@Override
+	protected boolean hasStationAndClientData() {
+		return true;
+	}
+
+	@Override
+	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
+		if (data.statisticClientsAtStationByClientType==null) return 0;
+		return data.statisticClientsAtStationByClientType[clientTypeIndex].getTimeSk();
+	}
 }

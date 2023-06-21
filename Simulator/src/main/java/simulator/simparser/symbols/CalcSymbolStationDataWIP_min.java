@@ -75,4 +75,15 @@ public class CalcSymbolStationDataWIP_min extends CalcSymbolStationData {
 		if (data.statisticClientsAtStation==null) return 0;
 		return data.statisticClientsAtStation.getTimeMin();
 	}
+
+	@Override
+	protected boolean hasStationAndClientData() {
+		return true;
+	}
+
+	@Override
+	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
+		if (data.statisticClientsAtStationByClientType==null) return 0;
+		return data.statisticClientsAtStationByClientType[clientTypeIndex].getTimeMin();
+	}
 }

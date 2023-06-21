@@ -397,6 +397,7 @@ public class ExpressionBuilder extends BaseDialog {
 			text.append(symbol.description);
 			text.append(htmlFooter);
 			info.setText(text.toString());
+			info.setCaretPosition(0);
 		}
 	}
 

@@ -75,4 +75,15 @@ public class CalcSymbolStationDataProcess_median extends CalcSymbolStationData {
 		final StatisticsDataPerformanceIndicator indicator=getClientDataIndicator(name,getSimData().statistics.clientsProcessingTimes);
 		return (indicator==null)?0.0:indicator.getMedian();
 	}
+
+	@Override
+	protected boolean hasStationAndClientData() {
+		return true;
+	}
+
+	@Override
+	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
+		if (data.statisticProcessByClientType==null) return 0;
+		return data.statisticProcessByClientType[clientTypeIndex].getMedian();
+	}
 }
