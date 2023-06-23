@@ -770,7 +770,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 			}
 			infoMin.setText("");
 		} else {
-			final Double info=getRho(D);
+			final Double info=(inputRecord.getXMLMode()==1)?getRho(D):null;
 			if (info==null) infoMin.setText(""); else infoMin.setText(" ("+Language.tr("ParameterCompare.Templates.rho")+"="+NumberTools.formatPercent(info)+")");
 		}
 
@@ -784,7 +784,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 			}
 			infoMax.setText("");
 		} else {
-			final Double info=getRho(D);
+			final Double info=(inputRecord.getXMLMode()==1)?getRho(D):null;
 			if (info==null) infoMax.setText(""); else infoMax.setText(" ("+Language.tr("ParameterCompare.Templates.rho")+"="+NumberTools.formatPercent(info)+")");
 		}
 
@@ -813,6 +813,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	 */
 	public static void buildDefaultOutput(final EditModel model, final List<ParameterCompareSetupValueOutput> output, final boolean asTime) {
 		final String mean="["+Language.tr("Statistics.XML.Mean")+"]";
+		final String value="["+Language.tr("Statistics.XML.Value")+"]";
 		ParameterCompareSetupValueOutput outputRecord;
 
 		outputRecord=new ParameterCompareSetupValueOutput();
@@ -842,14 +843,14 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		output.add(outputRecord);
 
 		if (model.resources.getResources().length>0) {
-			final String xmlMain=Language.tr("Statistics.XML.Element.Utilization");
+			final String xmlMain=Language.tr("Statistics.XML.Element.Rho");
 			for (ModelResource resource: model.resources.getResources()) {
 				outputRecord=new ParameterCompareSetupValueOutput();
 				final String name=resource.getName();
 				outputRecord.setName(Language.tr("Statistic.FastAccess.Template.ResourceUtilization")+" - "+name);
 				outputRecord.setMode(ParameterCompareSetupValueOutput.OutputMode.MODE_XML);
-				final String xmlSub=Language.tr("Statistics.XML.Element.UtilizationResource")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
-				outputRecord.setTag(xmlMain+"->"+xmlSub+"->"+mean);
+				final String xmlSub=Language.tr("Statistics.XML.Element.UtilizationResourceRho")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
+				outputRecord.setTag(xmlMain+"->"+xmlSub+"->"+value);
 				outputRecord.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_PERCENT);
 				output.add(outputRecord);
 			}
