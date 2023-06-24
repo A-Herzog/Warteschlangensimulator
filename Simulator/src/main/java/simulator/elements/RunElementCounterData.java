@@ -59,6 +59,9 @@ public class RunElementCounterData extends RunElementData implements RunElementD
 	 */
 	private final String groupNameExt;
 
+	/** Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss */
+	public final RunCounterConditionData condition;
+
 	/**
 	 * Statistikobjekte für die Zähler in der Gruppe<br>
 	 * (Ist notwendig, um in {@link #getValue(boolean)} auch einen Anteil liefern zu können.)
@@ -77,15 +80,17 @@ public class RunElementCounterData extends RunElementData implements RunElementD
 	 * @param station	Station zu diesem Datenelement
 	 * @param counterName	Name des Zählers
 	 * @param groupName	Name der Zählergruppe
+	 * @param condition	Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss
 	 * @param counterStatistic	Zugehöriges Statistikobjekt
 	 */
-	public RunElementCounterData(final RunElement station, final String counterName, final String groupName, final StatisticsMultiPerformanceIndicator counterStatistic) {
+	public RunElementCounterData(final RunElement station, final String counterName, final String groupName, final RunCounterConditionData condition, final StatisticsMultiPerformanceIndicator counterStatistic) {
 		super(station);
 		this.counterStatistic=counterStatistic;
 		this.groupName=groupName.replace('-','_');
 		groupNameExt=this.groupName+"-";
-		statistic=(StatisticsSimpleCountPerformanceIndicator)counterStatistic.get(this.groupNameExt+counterName);
 		groupNameIsEmpty=groupName.isEmpty();
+		this.condition=condition;
+		statistic=(StatisticsSimpleCountPerformanceIndicator)counterStatistic.get(this.groupNameExt+counterName);
 	}
 
 	@Override

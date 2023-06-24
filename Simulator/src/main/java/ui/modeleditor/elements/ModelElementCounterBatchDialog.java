@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.Component;
 import java.io.Serializable;
 
+import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -36,6 +37,9 @@ public class ModelElementCounterBatchDialog extends ModelElementBaseDialog {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID=-5024661523242690285L;
+
+	/** Eingabebereich für die Bedingungen unter denen die Zählung erfolgen soll */
+	private CounterConditionPanel counterConditionPanel;
 
 	/**
 	 * Konstruktor der Klasse
@@ -60,6 +64,56 @@ public class ModelElementCounterBatchDialog extends ModelElementBaseDialog {
 
 	@Override
 	protected JComponent getContentPanel() {
-		return new JPanel();
+		final ModelElementCounterBatch counterElement=(ModelElementCounterBatch)element;
+
+		final JPanel content=new JPanel();
+		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+
+		content.add(counterConditionPanel=new CounterConditionPanel(element.getModel(),element.getSurface(),readOnly));
+		counterConditionPanel.setData(counterElement.getCondition());
+
+		checkData(false);
+
+		return content;
+	}
+
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
+	private boolean checkData(final boolean showErrorMessage) {
+		if (readOnly) return false;
+		boolean ok=true;
+
+		if (!counterConditionPanel.checkData(showErrorMessage)) {
+			if (showErrorMessage) return false;
+			ok=false;
+		}
+
+		return ok;
+	}
+
+	/**
+	 * Wird beim Klicken auf "Ok" aufgerufen, um zu prüfen, ob die Daten in der aktuellen Form
+	 * in Ordnung sind und gespeichert werden können.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
+	@Override
+	protected boolean checkData() {
+		return checkData(true);
+	}
+
+	/**
+	 * Speichert die Dialog-Daten in dem zugehörigen Daten-Objekt.<br>
+	 * (Diese Routine wird beim Klicken auf "Ok" nach <code>checkData</code> aufgerufen.
+	 * @see #checkData()
+	 */
+	@Override
+	protected void storeData() {
+		super.storeData();
+		final ModelElementCounterBatch counterElement=(ModelElementCounterBatch)element;
+
+		counterConditionPanel.getData(counterElement.getCondition());
 	}
 }

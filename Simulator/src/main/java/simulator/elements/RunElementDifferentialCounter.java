@@ -37,6 +37,8 @@ public class RunElementDifferentialCounter extends RunElementPassThrough {
 	private String counterName;
 	/** Veränderung des Zählerwertes, wenn ein Kunde diese Station passiert */
 	private int change;
+	/** Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss */
+	private RunCounterConditionData condition;
 
 	/**
 	 * Konstruktor der Klasse
@@ -63,6 +65,11 @@ public class RunElementDifferentialCounter extends RunElementPassThrough {
 		/* Wert */
 		counter.change=counterElement.getChange();
 
+		/* Bedingung */
+		counter.condition=new RunCounterConditionData(counterElement.getCondition());
+		final String conditionError=counter.condition.test(runModel.variableNames,element.getId());
+		if (conditionError!=null) return conditionError;
+
 		return counter;
 	}
 
@@ -86,7 +93,9 @@ public class RunElementDifferentialCounter extends RunElementPassThrough {
 		RunElementDifferentialCounterData data;
 		data=(RunElementDifferentialCounterData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementDifferentialCounterData(this,counterName,change,simData.statistics.differentialCounter,simData.runData);
+			final RunCounterConditionData conditionData=new RunCounterConditionData(condition);
+			conditionData.build(simData.runModel);
+			data=new RunElementDifferentialCounterData(this,counterName,change,conditionData,simData.statistics.differentialCounter,simData.runData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -96,11 +105,13 @@ public class RunElementDifferentialCounter extends RunElementPassThrough {
 	public void processArrival(final SimulationData simData, final RunDataClient client) {
 		final RunElementDifferentialCounterData data=getData(simData);
 
-		/* Zählung */
-		final int value=data.count(simData.currentTime,simData.runData);
+		if (data.condition.isCountThisClient(simData,client)) {
+			/* Zählung */
+			final int value=data.count(simData.currentTime,simData.runData);
 
-		/* Logging */
-		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.DifferentialCounter"),String.format(Language.tr("Simulation.Log.DifferentialCounter.Info"),client.logInfo(simData),name,counterName,value));
+			/* Logging */
+			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.DifferentialCounter"),String.format(Language.tr("Simulation.Log.DifferentialCounter.Info"),client.logInfo(simData),name,counterName,value));
+		}
 
 		/* Kunde zur nächsten Station leiten */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);

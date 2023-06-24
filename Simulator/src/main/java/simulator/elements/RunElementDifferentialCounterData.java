@@ -35,6 +35,8 @@ import statistics.StatisticsTimePerformanceIndicator;
 public class RunElementDifferentialCounterData extends RunElementData implements RunElementDataWithValue {
 	/** Wert der Änderung des Zählers, wenn ein Kunde die Station passiert */
 	private final int change;
+	/** Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss */
+	public final RunCounterConditionData condition;
 	/** Index des aktuellen Zählers in {@link RunData#differentialCounterValue} */
 	private int valueIndex;
 	/** Zugehöriges Statistikobjekt */
@@ -45,13 +47,15 @@ public class RunElementDifferentialCounterData extends RunElementData implements
 	 * @param station	Station für den hier die Daten erfasst werden sollen
 	 * @param counterName	Name des Differenzzählers (um das zugehörige globale Zählerobjekt zu adressieren)
 	 * @param change	Wert der Änderung des Zählers, wenn ein Kunde die Station passiert
+	 * @param condition	Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss
 	 * @param differentialCounterStatistic	Zugehöriger Zähler in der Statistik
 	 * @param data	Laufzeitdatenobjekt (welches das globale Zählerobjekt enthält)
 	 */
-	public RunElementDifferentialCounterData(final RunElement station, final String counterName, final int change, final StatisticsMultiPerformanceIndicator differentialCounterStatistic, final RunData data) {
+	public RunElementDifferentialCounterData(final RunElement station, final String counterName, final int change, final RunCounterConditionData condition, final StatisticsMultiPerformanceIndicator differentialCounterStatistic, final RunData data) {
 		super(station);
 		statistic=(StatisticsTimePerformanceIndicator)differentialCounterStatistic.get(counterName);
 		this.change=change;
+		this.condition=condition;
 		int nr=data.differentialCounterName.indexOf(counterName);
 		if (nr<0) {
 			data.differentialCounterName.add(counterName);

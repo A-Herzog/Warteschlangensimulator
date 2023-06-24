@@ -36,6 +36,8 @@ import ui.modeleditor.elements.ModelElementThroughput;
 public class RunElementThroughput extends RunElementPassThrough {
 	/** Name des Zählers  (für die Statistikerfassung) */
 	private String throughputCounterName;
+	/** Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss */
+	private RunCounterConditionData condition;
 
 	/**
 	 * Konstruktor der Klasse
@@ -58,6 +60,11 @@ public class RunElementThroughput extends RunElementPassThrough {
 		/* Name */
 		if (throughputElement.getName().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoName"),element.getId());
 		throughput.throughputCounterName=element.getName();
+
+		/* Bedingung */
+		throughput.condition=new RunCounterConditionData(throughputElement.getCondition());
+		final String conditionError=throughput.condition.test(runModel.variableNames,element.getId());
+		if (conditionError!=null) return conditionError;
 
 		return throughput;
 	}
@@ -82,7 +89,9 @@ public class RunElementThroughput extends RunElementPassThrough {
 		RunElementThroughputData data;
 		data=(RunElementThroughputData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementThroughputData(this,throughputCounterName,simData.statistics.throughputStatistics);
+			final RunCounterConditionData conditionData=new RunCounterConditionData(condition);
+			conditionData.build(simData.runModel);
+			data=new RunElementThroughputData(this,throughputCounterName,conditionData,simData.statistics.throughputStatistics);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -92,12 +101,13 @@ public class RunElementThroughput extends RunElementPassThrough {
 	public void processArrival(SimulationData simData, RunDataClient client) {
 		final RunElementThroughputData data=getData(simData);
 
-		/* Zählung */
-		data.countClient(simData.currentTime);
+		if (data.condition.isCountThisClient(simData,client)) {
+			/* Zählung */
+			data.countClient(simData.currentTime);
 
-		/* Logging */
-		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Throughput"),String.format(Language.tr("Simulation.Log.Throughput.Info"),client.logInfo(simData),name,NumberTools.formatNumber(data.getValue(true),3)));
-
+			/* Logging */
+			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Throughput"),String.format(Language.tr("Simulation.Log.Throughput.Info"),client.logInfo(simData),name,NumberTools.formatNumber(data.getValue(true),3)));
+		}
 
 		/* Kunde zur nächsten Station leiten */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);

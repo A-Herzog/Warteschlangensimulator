@@ -32,11 +32,13 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementCounterBatchData;
 import simulator.runmodel.RunModelFixer;
 import statistics.StatisticsDataPerformanceIndicator;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
+import ui.modeleditor.ModelDataRenameListener;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
@@ -52,7 +54,13 @@ import ui.statistics.StatisticTools;
  * Zählt für die Statistik wie viele Batche das Element durchquert haben
  * @author Alexander Herzog
  */
-public class ModelElementCounterBatch extends ModelElementMultiInSingleOutBox {
+public class ModelElementCounterBatch extends ModelElementMultiInSingleOutBox implements ModelDataRenameListener {
+	/**
+	 * Optionale Bedingungen für die Auslösung des Zählers
+	 * @see #getCondition()
+	 */
+	private final CounterCondition counterCondition;
+
 	/**
 	 * Konstruktor der Klasse {@link ModelElementCounterBatch}
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -60,6 +68,7 @@ public class ModelElementCounterBatch extends ModelElementMultiInSingleOutBox {
 	 */
 	public ModelElementCounterBatch(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_ROUNDED_RECTANGLE_123);
+		counterCondition=new CounterCondition();
 	}
 
 	/**
@@ -89,6 +98,9 @@ public class ModelElementCounterBatch extends ModelElementMultiInSingleOutBox {
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementCounterBatch)) return false;
+		final ModelElementCounterBatch otherCounter=(ModelElementCounterBatch)element;
+
+		if (!otherCounter.counterCondition.equalsCounterCondition(counterCondition)) return false;
 
 		return true;
 	}
@@ -101,7 +113,8 @@ public class ModelElementCounterBatch extends ModelElementMultiInSingleOutBox {
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementCounterBatch) {
-			/* Keine eigenen Eigenschaften */
+			final ModelElementCounterBatch copySource=(ModelElementCounterBatch)element;
+			counterCondition.copyFrom(copySource.counterCondition);
 		}
 	}
 
@@ -234,7 +247,8 @@ public class ModelElementCounterBatch extends ModelElementMultiInSingleOutBox {
 	@Override
 	protected void addPropertiesDataToXML(final Document doc, final Element node) {
 		super.addPropertiesDataToXML(doc,node);
-		/* Keine eigenen Eigenschaften */
+
+		counterCondition.saveToXML(node);
 	}
 
 	/**
@@ -249,9 +263,20 @@ public class ModelElementCounterBatch extends ModelElementMultiInSingleOutBox {
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
 
-		/* Keine eigenen Eigenschaften */
+		if (counterCondition.isCounterConditionElement(node)) {
+			counterCondition.loadFromXML(node);
+			return null;
+		}
 
 		return null;
+	}
+
+	/**
+	 * Liefert die optionalen Bedingungen für die Auslösung des Zählers
+	 * @return	Optionale Bedingungen für die Auslösung des Zählers
+	 */
+	public CounterCondition getCondition() {
+		return counterCondition;
 	}
 
 	@Override
@@ -267,11 +292,25 @@ public class ModelElementCounterBatch extends ModelElementMultiInSingleOutBox {
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		/* Keine eigenen Eigenschaften */
+		counterCondition.buildDescription(descriptionBuilder,1000);
 	}
 
 	@Override
 	protected void addEdgeOutFixes(final List<RunModelFixer> fixer) {
 		findEdgesTo(QuickFixNextElements.hold,fixer);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		searcher.testString(this,Language.tr("Surface.CounterBatch.Dialog.Condition"),counterCondition.getCondition(),newCondition->counterCondition.setCondition(newCondition));
+	}
+
+	@Override
+	public void objectRenamed(String oldName, String newName, ModelDataRenameListener.RenameType type) {
+		if (!isRenameType(oldName,newName,type,ModelDataRenameListener.RenameType.RENAME_TYPE_CLIENT_TYPE)) return;
+
+		counterCondition.clientTypeRenamed(oldName,newName);
 	}
 }

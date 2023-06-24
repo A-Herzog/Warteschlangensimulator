@@ -982,7 +982,7 @@
   Typ		CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementZaehler (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZaehlerGruppe)*>
+<!ELEMENT ModellElementZaehler (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZaehlerGruppe | ModellElementZaehlerBedingung | ModellElementZaehlerKundentyp)*>
 <!ATTLIST ModellElementZaehler
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -990,8 +990,10 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementZaehlerGruppe (#PCDATA)>
+<!ELEMENT ModellElementZaehlerBedingung (#PCDATA)>
+<!ELEMENT ModellElementZaehlerKundentyp (#PCDATA)>
 
-<!ELEMENT ModellElementZaehlerBatch (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ELEMENT ModellElementZaehlerBatch (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZaehlerBedingung | ModellElementZaehlerKundentyp)*>
 <!ATTLIST ModellElementZaehlerBatch
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1011,7 +1013,7 @@
   Bedingung CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementDurchsatz (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ELEMENT ModellElementDurchsatz (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZaehlerBedingung | ModellElementZaehlerKundentyp)*>
 <!ATTLIST ModellElementDurchsatz
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1195,7 +1197,7 @@
   IstKontinuierlich	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementDifferenzZaehler (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementDifferenzZaehlerInkrement)*>
+<!ELEMENT ModellElementDifferenzZaehler (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementDifferenzZaehlerInkrement | ModellElementZaehlerBedingung | ModellElementZaehlerKundentyp)*>
 <!ATTLIST ModellElementDifferenzZaehler
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -3630,7 +3632,7 @@
   Type		CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementCounter (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementCounterGroup)*>
+<!ELEMENT ModelElementCounter (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementCounterGroup | ModelElementCounterCondition | ModelElementCounterClientType)*>
 <!ATTLIST ModelElementCounter
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3638,8 +3640,10 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementCounterGroup (#PCDATA)>
+<!ELEMENT ModelElementCounterCondition (#PCDATA)>
+<!ELEMENT ModelElementCounterClientType (#PCDATA)>
 
-<!ELEMENT ModelElementCounterBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ELEMENT ModelElementCounterBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection  | ModelElementCounterCondition | ModelElementCounterClientType)*>
 <!ATTLIST ModelElementCounterBatch
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3659,7 +3663,7 @@
   Condition CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementThroughput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ELEMENT ModelElementThroughput (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementCounterCondition | ModelElementCounterClientType)*>
 <!ATTLIST ModelElementThroughput
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3843,7 +3847,7 @@
   IsContinuous	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementDifferenceCounter (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDifferenceCounterIncrement)*>
+<!ELEMENT ModelElementDifferenceCounter (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDifferenceCounterIncrement | ModelElementCounterCondition | ModelElementCounterClientType)*>
 <!ATTLIST ModelElementDifferenceCounter
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED

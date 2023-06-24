@@ -30,11 +30,14 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.coreelements.RunElementData;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementDifferentialCounterData;
+import simulator.runmodel.SimulationData;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
+import ui.modeleditor.ModelDataRenameListener;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
@@ -51,13 +54,19 @@ import ui.modeleditor.fastpaint.Shapes;
  * wie viele Kunden sich in einem Bereich befinden.
  * @author Alexander Herzog
  */
-public class ModelElementDifferentialCounter extends ModelElementMultiInSingleOutBox {
+public class ModelElementDifferentialCounter extends ModelElementMultiInSingleOutBox implements ModelDataRenameListener {
 	/**
 	 * Veränderung des Zählers beim Durchlauf eines Kunden
 	 * @see #getChange()
 	 * @see #setChange(int)
 	 */
 	private int change=1;
+
+	/**
+	 * Optionale Bedingungen für die Auslösung des Zählers
+	 * @see #getCondition()
+	 */
+	private final CounterCondition counterCondition;
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementDifferentialCounter</code>
@@ -67,6 +76,7 @@ public class ModelElementDifferentialCounter extends ModelElementMultiInSingleOu
 	public ModelElementDifferentialCounter(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_ROUNDED_RECTANGLE_PLUSMINUS);
 		change=1;
+		counterCondition=new CounterCondition();
 	}
 
 	/**
@@ -96,8 +106,10 @@ public class ModelElementDifferentialCounter extends ModelElementMultiInSingleOu
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementDifferentialCounter)) return false;
+		final ModelElementDifferentialCounter otherCounter=(ModelElementDifferentialCounter)element;
 
-		if (((ModelElementDifferentialCounter)element).change!=change) return false;
+		if (otherCounter.change!=change) return false;
+		if (!otherCounter.counterCondition.equalsCounterCondition(counterCondition)) return false;
 
 		return true;
 	}
@@ -110,7 +122,9 @@ public class ModelElementDifferentialCounter extends ModelElementMultiInSingleOu
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementDifferentialCounter) {
-			change=((ModelElementDifferentialCounter)element).change;
+			final ModelElementDifferentialCounter copySource=(ModelElementDifferentialCounter)element;
+			change=copySource.change;
+			counterCondition.copyFrom(copySource.counterCondition);
 		}
 	}
 
@@ -265,6 +279,8 @@ public class ModelElementDifferentialCounter extends ModelElementMultiInSingleOu
 		Element sub;
 		node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.DifferentialCounter.XML.Increment")));
 		sub.setTextContent(""+change);
+
+		counterCondition.saveToXML(node);
 	}
 
 	/**
@@ -283,6 +299,11 @@ public class ModelElementDifferentialCounter extends ModelElementMultiInSingleOu
 			final Integer I=NumberTools.getInteger(content);
 			if (I==null || I==0) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			change=I;
+			return null;
+		}
+
+		if (counterCondition.isCounterConditionElement(node)) {
+			counterCondition.loadFromXML(node);
 			return null;
 		}
 
@@ -305,6 +326,89 @@ public class ModelElementDifferentialCounter extends ModelElementMultiInSingleOu
 		if (change!=0) this.change=change;
 	}
 
+	/**
+	 * Liefert die optionalen Bedingungen für die Auslösung des Zählers
+	 * @return	Optionale Bedingungen für die Auslösung des Zählers
+	 */
+	public CounterCondition getCondition() {
+		return counterCondition;
+	}
+
+	/**
+	 * Gibt an, ob Laufzeitdaten zu der Station während der Animation ausgegeben werden sollen
+	 * @return Laufzeitdaten zur Station ausgeben
+	 */
+	@Override
+	public boolean showAnimationRunData() {
+		return true;
+	}
+
+	/**
+	 * Cache der verfügbaren {@link StringBuilder}
+	 * für {@link #updateSimulationData(SimulationData, boolean)}
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
+	private StringBuilder[] animationSB;
+
+	/**
+	 * Temporärer {@link StringBuilder} zum
+	 * Umwandeln von Zahlen in Zeichenketten
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
+	private StringBuilder animationSBCache;
+
+	/**
+	 * Nächster in {@link #animationSB} zu verwendender Eintrag
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
+	private int animationSBNext;
+
+
+	/**
+	 * Letzter in {@link #updateSimulationData(SimulationData, boolean)}
+	 * dargestellter Wert
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
+	private long lastValue=0;
+
+	/**
+	 * Zeichenkettenrepräsentation von {@link #lastValue}
+	 * die ggf. wiederverwendet werden kann.
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
+	private String valueName;
+
+	@Override
+	public boolean updateSimulationData(SimulationData simData, boolean isPreview) {
+		final RunElementData runData=getRunData();
+		if (runData==null || isPreview) return false;
+
+		if (!(runData instanceof RunElementDifferentialCounterData)) return false;
+		final RunElementDifferentialCounterData data=(RunElementDifferentialCounterData)runData;
+		long value=(long)data.getValue(true);
+
+		if (animationSB==null) {
+			animationSB=new StringBuilder[2];
+			animationSB[0]=new StringBuilder(100);
+			animationSB[1]=new StringBuilder(100);
+			animationSBNext=0;
+			valueName=Language.tr("Surface.Counter.Name.Short")+"=";
+		} else {
+			if (Math.abs(value-lastValue)<10E-5) return false;
+		}
+		lastValue=value;
+
+		final StringBuilder sb=animationSB[animationSBNext];
+		sb.setLength(0);
+		sb.append(valueName);
+		sb.append(NumberTools.formatLong(value));
+		if (animationSBCache==null) animationSBCache=new StringBuilder();
+
+		setAnimationStringBuilder(animationSB[animationSBNext],()->{animationSBNext=(animationSBNext++)%2;});
+
+		return true;
+	}
+
 	@Override
 	public String getHelpPageName() {
 		return "ModelElementDifferentialCounter";
@@ -321,6 +425,8 @@ public class ModelElementDifferentialCounter extends ModelElementMultiInSingleOu
 		final String value;
 		if (change>0) value="+"+NumberTools.formatLong(change); else value=NumberTools.formatLong(change);
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.DifferentialCounter.Change"),value,1000);
+
+		counterCondition.buildDescription(descriptionBuilder,2000);
 	}
 
 	@Override
@@ -328,5 +434,13 @@ public class ModelElementDifferentialCounter extends ModelElementMultiInSingleOu
 		super.search(searcher);
 
 		searcher.testInteger(this,Language.tr("Surface.DifferentialCounter.Dialog.Increment"),change,newChange->{change=newChange;});
+		searcher.testString(this,Language.tr("Surface.DifferentialCounter.Dialog.Condition"),counterCondition.getCondition(),newCondition->counterCondition.setCondition(newCondition));
+	}
+
+	@Override
+	public void objectRenamed(String oldName, String newName, ModelDataRenameListener.RenameType type) {
+		if (!isRenameType(oldName,newName,type,ModelDataRenameListener.RenameType.RENAME_TYPE_CLIENT_TYPE)) return;
+
+		counterCondition.clientTypeRenamed(oldName,newName);
 	}
 }

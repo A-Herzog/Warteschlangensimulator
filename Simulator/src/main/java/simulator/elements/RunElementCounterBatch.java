@@ -35,6 +35,8 @@ import ui.modeleditor.elements.ModelElementSub;
 public class RunElementCounterBatch extends RunElementPassThrough {
 	/** Name des Zählers */
 	private String counterName;
+	/** Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss */
+	private RunCounterConditionData condition;
 
 	/**
 	 * Konstruktor der Klasse
@@ -57,6 +59,11 @@ public class RunElementCounterBatch extends RunElementPassThrough {
 		/* Name */
 		if (counterElement.getName().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoName"),element.getId());
 		counter.counterName=element.getName();
+
+		/* Bedingung */
+		counter.condition=new RunCounterConditionData(counterElement.getCondition());
+		final String conditionError=counter.condition.test(runModel.variableNames,element.getId());
+		if (conditionError!=null) return conditionError;
 
 		return counter;
 	}
@@ -81,7 +88,9 @@ public class RunElementCounterBatch extends RunElementPassThrough {
 		RunElementCounterBatchData data;
 		data=(RunElementCounterBatchData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementCounterBatchData(this,counterName,simData.statistics.counterBatch);
+			final RunCounterConditionData conditionData=new RunCounterConditionData(condition);
+			conditionData.build(simData.runModel);
+			data=new RunElementCounterBatchData(this,counterName,conditionData,simData.statistics.counterBatch);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -91,11 +100,13 @@ public class RunElementCounterBatch extends RunElementPassThrough {
 	public void processArrival(final SimulationData simData, final RunDataClient client) {
 		final RunElementCounterBatchData data=getData(simData);
 
-		/* Logging */
-		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.CounterBatch"),String.format(Language.tr("Simulation.Log.CounterBatch.Info"),client.logInfo(simData),name,counterName));
+		if (data.condition.isCountThisClient(simData,client)) {
+			/* Logging */
+			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.CounterBatch"),String.format(Language.tr("Simulation.Log.CounterBatch.Info"),client.logInfo(simData),name,counterName));
 
-		/* Zählung */
-		data.logArrival(simData.runData.isWarmUp,simData.currentTime);
+			/* Zählung */
+			data.logArrival(simData.runData.isWarmUp,simData.currentTime);
+		}
 
 		/* Kunde zur nächsten Station leiten */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);

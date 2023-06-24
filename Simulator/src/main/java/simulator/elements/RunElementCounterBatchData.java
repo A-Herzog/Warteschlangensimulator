@@ -34,6 +34,9 @@ public class RunElementCounterBatchData extends RunElementData {
 	 */
 	private final String counterName;
 
+	/** Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss */
+	public final RunCounterConditionData condition;
+
 	/**
 	 * Zugehöriges Statistikobjekt
 	 */
@@ -63,11 +66,13 @@ public class RunElementCounterBatchData extends RunElementData {
 	 * Konstruktor der Klasse {@link RunElementCounterBatchData}
 	 * @param station	Station zu diesem Datenelement
 	 * @param counterName	Name des Zählers
+	 * @param condition	Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss
 	 * @param counterBatchStatistic	Zugehöriges Statistikobjekt
 	 */
-	public RunElementCounterBatchData(final RunElement station, final String counterName, final StatisticsMultiPerformanceIndicator counterBatchStatistic) {
+	public RunElementCounterBatchData(final RunElement station, final String counterName, final RunCounterConditionData condition, final StatisticsMultiPerformanceIndicator counterBatchStatistic) {
 		super(station);
 		this.counterName=counterName;
+		this.condition=condition;
 		this.counterBatchStatistic=counterBatchStatistic;
 		indicators=null;
 	}

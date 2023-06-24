@@ -20,6 +20,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
 
+import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -45,6 +46,9 @@ public class ModelElementDifferentialCounterDialog extends ModelElementBaseDialo
 	/** Eingabefeld für die Änderung des Zählers, wenn ein Kunde die Station passiert */
 	private JTextField change;
 
+	/** Eingabebereich für die Bedingungen unter denen die Zählung erfolgen soll */
+	private CounterConditionPanel counterConditionPanel;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
@@ -62,8 +66,12 @@ public class ModelElementDifferentialCounterDialog extends ModelElementBaseDialo
 
 	@Override
 	protected JComponent getContentPanel() {
-		final Object[] data=getInputPanel(Language.tr("Surface.DifferentialCounter.Dialog.Increment")+":",""+((ModelElementDifferentialCounter)element).getChange(),7);
+		final ModelElementDifferentialCounter counterElement=(ModelElementDifferentialCounter)element;
 
+		final JPanel content=new JPanel();
+		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+
+		final Object[] data=getInputPanel(Language.tr("Surface.DifferentialCounter.Dialog.Increment")+":",""+counterElement.getChange(),7);
 		change=(JTextField)data[1];
 		change.setEditable(!readOnly);
 		change.addKeyListener(new KeyListener() {
@@ -71,8 +79,14 @@ public class ModelElementDifferentialCounterDialog extends ModelElementBaseDialo
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
+		content.add((JPanel)data[0]);
+
+		content.add(counterConditionPanel=new CounterConditionPanel(element.getModel(),element.getSurface(),readOnly));
+		counterConditionPanel.setData(counterElement.getCondition());
+
 		checkData(false);
-		return (JPanel)data[0];
+
+		return content;
 	}
 
 	@Override
@@ -88,13 +102,23 @@ public class ModelElementDifferentialCounterDialog extends ModelElementBaseDialo
 	 */
 	private boolean checkData(final boolean showErrorMessage) {
 		if (readOnly) return false;
+		boolean ok=true;
 
 		Integer I=NumberTools.getInteger(change,true);
 		if (I==null || I==0) {
-			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.DifferentialCounter.Dialog.Increment.Error.Title"),Language.tr("Surface.DifferentialCounter.Dialog.Increment.Error.Info"));
-			return false;
+			if (showErrorMessage) {
+				MsgBox.error(this,Language.tr("Surface.DifferentialCounter.Dialog.Increment.Error.Title"),Language.tr("Surface.DifferentialCounter.Dialog.Increment.Error.Info"));
+				return false;
+			}
+			ok=false;
 		}
-		return true;
+
+		if (!counterConditionPanel.checkData(showErrorMessage)) {
+			if (showErrorMessage) return false;
+			ok=false;
+		}
+
+		return ok;
 	}
 
 	/**
@@ -115,6 +139,10 @@ public class ModelElementDifferentialCounterDialog extends ModelElementBaseDialo
 	@Override
 	protected void storeData() {
 		super.storeData();
-		((ModelElementDifferentialCounter)element).setChange(NumberTools.getInteger(change,true));
+		final ModelElementDifferentialCounter counterElement=(ModelElementDifferentialCounter)element;
+
+		counterElement.setChange(NumberTools.getInteger(change,true));
+
+		counterConditionPanel.getData(counterElement.getCondition());
 	}
 }

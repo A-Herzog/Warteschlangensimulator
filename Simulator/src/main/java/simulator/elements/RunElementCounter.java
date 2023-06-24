@@ -37,6 +37,8 @@ public class RunElementCounter extends RunElementPassThrough {
 	private String counterName;
 	/** Name der Zählergruppe zu der dieser Zähler gehört */
 	private String groupName;
+	/** Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss */
+	private RunCounterConditionData condition;
 
 	/**
 	 * Konstruktor der Klasse
@@ -64,6 +66,11 @@ public class RunElementCounter extends RunElementPassThrough {
 		if (counterElement.getGroupName().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoGroupName"),element.getId());
 		counter.groupName=counterElement.getGroupName();
 
+		/* Bedingung */
+		counter.condition=new RunCounterConditionData(counterElement.getCondition());
+		final String conditionError=counter.condition.test(runModel.variableNames,element.getId());
+		if (conditionError!=null) return conditionError;
+
 		return counter;
 	}
 
@@ -90,7 +97,9 @@ public class RunElementCounter extends RunElementPassThrough {
 		RunElementCounterData data;
 		data=(RunElementCounterData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementCounterData(this,counterName,groupName,simData.statistics.counter);
+			final RunCounterConditionData conditionData=new RunCounterConditionData(condition);
+			conditionData.build(simData.runModel);
+			data=new RunElementCounterData(this,counterName,groupName,conditionData,simData.statistics.counter);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -100,11 +109,13 @@ public class RunElementCounter extends RunElementPassThrough {
 	public void processArrival(final SimulationData simData, final RunDataClient client) {
 		final RunElementCounterData data=getData(simData);
 
-		/* Logging */
-		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Counter"),String.format(Language.tr("Simulation.Log.Counter.Info"),client.logInfo(simData),name,counterName,groupName));
+		if (data.condition.isCountThisClient(simData,client)) {
+			/* Logging */
+			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Counter"),String.format(Language.tr("Simulation.Log.Counter.Info"),client.logInfo(simData),name,counterName,groupName));
 
-		/* Zählung */
-		data.statistic.add();
+			/* Zählung */
+			data.statistic.add();
+		}
 
 		/* Kunde zur nächsten Station leiten */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);

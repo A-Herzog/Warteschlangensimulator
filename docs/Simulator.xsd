@@ -1203,10 +1203,17 @@
 <xs:element name="ModellElementZaehler"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element name="ModellElementZaehlerGruppe" type="xs:string"/>
+    <xs:element name="ModellElementZaehlerBedingung" type="xs:string"/>
+    <xs:element name="ModellElementZaehlerKundentyp" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
-<xs:element name="ModellElementZaehlerBatch" type="ModellElementVerbundenBasis"/>
+<xs:element name="ModellElementZaehlerBatch"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModellElementZaehlerBedingung" type="xs:string"/>
+    <xs:element name="ModellElementZaehlerKundentyp" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementZaehlerMehrfach"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -1221,7 +1228,12 @@
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
-<xs:element name="ModellElementDurchsatz" type="ModellElementVerbundenBasis"/>
+<xs:element name="ModellElementDurchsatz"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModellElementZaehlerBedingung" type="xs:string"/>
+    <xs:element name="ModellElementZaehlerKundentyp" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementZustandsstatistik"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -1387,6 +1399,8 @@
 <xs:element name="ModellElementDifferenzZaehler"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element name="ModellElementDifferenzZaehlerInkrement" type="xs:string"/>
+    <xs:element name="ModellElementZaehlerBedingung" type="xs:string"/>
+    <xs:element name="ModellElementZaehlerKundentyp" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3628,10 +3642,18 @@
 <xs:element name="ModelElementCounter"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element name="ModelElementCounterGroup" type="xs:string"/>
+    <xs:element name="ModelElementCounterCondition" type="xs:string"/>
+    <xs:element name="ModelElementCounterClientType" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
-<xs:element name="ModelElementCounterBatch" type="ModelElementConnectedBase"/>
+<xs:element name="ModelElementCounterBatch"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModelElementCounterGroup" type="xs:string"/>
+    <xs:element name="ModelElementCounterCondition" type="xs:string"/>
+    <xs:element name="ModelElementCounterClientType" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementCounterMulti"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -3646,7 +3668,13 @@
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
-<xs:element name="ModelElementThroughput" type="ModelElementConnectedBase"/>
+<xs:element name="ModelElementThroughput"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModelElementCounterGroup" type="xs:string"/>
+    <xs:element name="ModelElementCounterCondition" type="xs:string"/>
+    <xs:element name="ModelElementCounterClientType" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
 
 <xs:element name="ModelElementStateStatistics"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -3812,6 +3840,8 @@
 <xs:element name="ModelElementDifferenceCounter"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element name="ModelElementDifferenceCounterIncrement" type="xs:string"/>
+    <xs:element name="ModelElementCounterCondition" type="xs:string"/>
+    <xs:element name="ModelElementCounterClientType" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

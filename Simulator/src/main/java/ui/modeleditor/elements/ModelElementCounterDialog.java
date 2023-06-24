@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -48,7 +49,10 @@ public class ModelElementCounterDialog extends ModelElementBaseDialog {
 	private static final long serialVersionUID = 8074769774808895018L;
 
 	/** Eingabefeld für den Gruppennamen des Zählers */
-	private JComboBox<String> groupName;
+	private JComboBox<?> groupName;
+
+	/** Eingabebereich für die Bedingungen unter denen die Zählung erfolgen soll */
+	private CounterConditionPanel counterConditionPanel;
 
 	/**
 	 * Konstruktor der Klasse
@@ -91,11 +95,15 @@ public class ModelElementCounterDialog extends ModelElementBaseDialog {
 		return groupNames;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected JComponent getContentPanel() {
-		final Object[] data=getComboBoxPanel(Language.tr("Surface.Counter.Dialog.GroupName")+":",((ModelElementCounter)element).getGroupName(),getCounterGroupNames(element.getModel().surface));
-		groupName=(JComboBox<String>)data[1];
+		final ModelElementCounter counterElement=(ModelElementCounter)element;
+
+		final JPanel content=new JPanel();
+		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+
+		final Object[] data=getComboBoxPanel(Language.tr("Surface.Counter.Dialog.GroupName")+":",counterElement.getGroupName(),getCounterGroupNames(element.getModel().surface));
+		groupName=(JComboBox<?>)data[1];
 		groupName.setEnabled(!readOnly);
 		groupName.getEditor().getEditorComponent().setEnabled(!readOnly);
 		groupName.addKeyListener(new KeyListener() {
@@ -103,8 +111,14 @@ public class ModelElementCounterDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
+		content.add((JPanel)data[0]);
+
+		content.add(counterConditionPanel=new CounterConditionPanel(element.getModel(),element.getSurface(),readOnly));
+		counterConditionPanel.setData(counterElement.getCondition());
+
 		checkData(false);
-		return (JPanel)data[0];
+
+		return content;
 	}
 
 	/**
@@ -114,15 +128,25 @@ public class ModelElementCounterDialog extends ModelElementBaseDialog {
 	 */
 	private boolean checkData(final boolean showErrorMessage) {
 		if (readOnly) return false;
+		boolean ok=true;
 
 		final String text=((String)groupName.getEditor().getItem()).trim();
 		if (text.isEmpty()) {
 			groupName.setBackground(Color.red);
-			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.Counter.Dialog.GroupName.Error.Title"),Language.tr("Surface.Counter.Dialog.GroupName.Error.Info"));
-			return false;
+			if (showErrorMessage) {
+				MsgBox.error(this,Language.tr("Surface.Counter.Dialog.GroupName.Error.Title"),Language.tr("Surface.Counter.Dialog.GroupName.Error.Info"));
+				return false;
+			}
+			ok=false;
 		}
 		groupName.setBackground(NumberTools.getTextFieldDefaultBackground());
-		return true;
+
+		if (!counterConditionPanel.checkData(showErrorMessage)) {
+			if (showErrorMessage) return false;
+			ok=false;
+		}
+
+		return ok;
 	}
 
 	/**
@@ -143,7 +167,10 @@ public class ModelElementCounterDialog extends ModelElementBaseDialog {
 	@Override
 	protected void storeData() {
 		super.storeData();
-		final String text=((String)groupName.getEditor().getItem()).trim();
-		((ModelElementCounter)element).setGroupName(text);
+		final ModelElementCounter counterElement=(ModelElementCounter)element;
+
+		counterElement.setGroupName(((String)groupName.getEditor().getItem()).trim());
+
+		counterConditionPanel.getData(counterElement.getCondition());
 	}
 }

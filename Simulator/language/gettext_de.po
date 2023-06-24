@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-20 08:40+0200\n"
+"POT-Creation-Date: 2023-06-24 22:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18945,6 +18945,9 @@ msgstr "Die Transferzeit-Kosten \"%s\" von Element id=%d enthalten an Position %
 msgid "Simulation.Creator.CostsErrorWaiting"
 msgstr "Die Wartezeit-Kosten \"%s\" von Element id=%d enthalten an Position %d einen Fehler."
 
+msgid "Simulation.Creator.CounterCondition"
+msgstr "Die Bedingung \"%s\" an Element id=%d ist ab Zeichen %d ungültig."
+
 msgid "Simulation.Creator.DDEError.NoRows"
 msgstr "Die bei Element id=%d angegebene Tabelle \"%s\" enthielt keine Zeilen, die geladen werden konnten."
 
@@ -28027,6 +28030,9 @@ msgstr "ModellElementKostenKundenWartezeit"
 msgid "Surface.Counter.DefaultCounterName"
 msgstr "Zählergruppe"
 
+msgid "Surface.Counter.Dialog.Condition"
+msgstr "Bedingung"
+
 msgid "Surface.Counter.Dialog.GroupName"
 msgstr "Name der Zählergruppe"
 
@@ -28060,6 +28066,9 @@ msgstr "ModellElementZaehlerGruppe"
 msgid "Surface.Counter.XML.Root"
 msgstr "ModellElementZaehler"
 
+msgid "Surface.CounterBatch.Dialog.Condition"
+msgstr "Bedingung"
+
 msgid "Surface.CounterBatch.Dialog.Title"
 msgstr "Batch-Zähler bearbeiten"
 
@@ -28083,6 +28092,54 @@ msgstr "Zählt die Kunden, die diese Station jeweils gleichzeitig passieren."
 
 msgid "Surface.CounterBatch.XML.Root"
 msgstr "ModellElementZaehlerBatch"
+
+msgid "Surface.CounterCondition.ClientType"
+msgstr "ModellElementZaehlerKundentyp"
+
+msgid "Surface.CounterCondition.ClientType.Name"
+msgstr "Kundentyp"
+
+msgid "Surface.CounterCondition.Condition"
+msgstr "ModellElementZaehlerBedingung"
+
+msgid "Surface.CounterCondition.Condition.Name"
+msgstr "Bedingung"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes"
+msgstr "Nur bestimmte Kundentypen erfassen"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes.Button"
+msgstr "Kundentypen auswählen"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes.Dialog"
+msgstr "Kundentypen auswählen"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes.InfoAll"
+msgstr "Alle Kundentypen"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes.InfoPlural"
+msgstr "%d Kundentypen ausgewählt"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes.InfoSingular"
+msgstr "1 Kundentyp ausgewählt"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes.SelectAll"
+msgstr "Alle"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes.SelectNone"
+msgstr "Keine"
+
+msgid "Surface.CounterCondition.Panel.Condition"
+msgstr "Bedingung für Zählung"
+
+msgid "Surface.CounterCondition.Panel.Condition.Error.Info"
+msgstr "Die angegebene Bedingung \"%s\" is ab Zeichen %d ungültig."
+
+msgid "Surface.CounterCondition.Panel.Condition.Error.InfoEmpty"
+msgstr "Es wurde keine Bedingung angegeben."
+
+msgid "Surface.CounterCondition.Panel.Condition.Error.Title"
+msgstr "Bedingung ungültig"
 
 msgid "Surface.CounterMulti.Dialog.GroupName.Error.Info"
 msgstr "Es wurde kein Gruppenname für den Zähler angegeben."
@@ -28839,6 +28896,9 @@ msgstr "Transferzeit"
 
 msgid "Surface.DelayJS.XML.Type.WaitingTime"
 msgstr "Wartezeit"
+
+msgid "Surface.DifferentialCounter.Dialog.Condition"
+msgstr "Bedingung"
 
 msgid "Surface.DifferentialCounter.Dialog.Increment"
 msgstr "Veränderung des Zählerwerts beim Durchlaufen"
@@ -34541,6 +34601,9 @@ msgstr "links"
 
 msgid "Surface.Text.XML.TextAlign.Right"
 msgstr "rechts"
+
+msgid "Surface.Throughput.Dialog.Condition"
+msgstr "Bedingung"
 
 msgid "Surface.Throughput.Dialog.Title"
 msgstr "Durchsatzzähler bearbeiten"

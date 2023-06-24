@@ -28,6 +28,9 @@ import statistics.StatisticsQuotientPerformanceIndicator;
  * @see RunElementData
  */
 public class RunElementThroughputData extends RunElementData implements RunElementDataWithValue {
+	/** Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss */
+	public final RunCounterConditionData condition;
+
 	/**
 	 * Statistikobjekt welches den Durchsatzwert also Quotient Kunden/Zeit speichert
 	 */
@@ -44,11 +47,13 @@ public class RunElementThroughputData extends RunElementData implements RunEleme
 	 * Konstruktor der Klasse <code>RunElementThroughputData</code>
 	 * @param station	Station zu diesem Datenelement
 	 * @param throughputCounterName	Name des Durchsatz-Elements (für die Statistikerfassung)
+	 * @param condition	Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss
 	 * @param throughputStatistic	Statistik-Objekt, welches alle Durchsatz-Werte vorhält
 	 */
-	public RunElementThroughputData(final RunElement station, final String throughputCounterName, final StatisticsMultiPerformanceIndicator throughputStatistic) {
+	public RunElementThroughputData(final RunElement station, final String throughputCounterName, final RunCounterConditionData condition, final StatisticsMultiPerformanceIndicator throughputStatistic) {
 		super(station);
 
+		this.condition=condition;
 		statistic=(StatisticsQuotientPerformanceIndicator)throughputStatistic.get(throughputCounterName);
 		startTime=0;
 	}

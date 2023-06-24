@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-20 08:40+0200\n"
+"POT-Creation-Date: 2023-06-24 22:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18900,6 +18900,9 @@ msgstr "The transfer time costs \"%s\" of element id=%d are invalid at character
 msgid "Simulation.Creator.CostsErrorWaiting"
 msgstr "The waiting time costs \"%s\" of element id=%d are invalid at character %d."
 
+msgid "Simulation.Creator.CounterCondition"
+msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
+
 msgid "Simulation.Creator.DDEError.NoRows"
 msgstr "At element id=%d the table \"%s\" did not contain any rows to be loaded."
 
@@ -27980,6 +27983,9 @@ msgstr "ModelElementCostsClientsWaitingTime"
 msgid "Surface.Counter.DefaultCounterName"
 msgstr "Counter group"
 
+msgid "Surface.Counter.Dialog.Condition"
+msgstr "Condition"
+
 msgid "Surface.Counter.Dialog.GroupName"
 msgstr "Name of the counter group"
 
@@ -28013,6 +28019,9 @@ msgstr "ModelElementCounterGroup"
 msgid "Surface.Counter.XML.Root"
 msgstr "ModelElementCounter"
 
+msgid "Surface.CounterBatch.Dialog.Condition"
+msgstr "Condition"
+
 msgid "Surface.CounterBatch.Dialog.Title"
 msgstr "Edit batch counter"
 
@@ -28036,6 +28045,54 @@ msgstr "Counts the clients who pass this station simultaneously."
 
 msgid "Surface.CounterBatch.XML.Root"
 msgstr "ModelElementCounterBatch"
+
+msgid "Surface.CounterCondition.ClientType"
+msgstr "ModelElementCounterClientType"
+
+msgid "Surface.CounterCondition.ClientType.Name"
+msgstr "Client type"
+
+msgid "Surface.CounterCondition.Condition"
+msgstr "ModelElementCounterCondition"
+
+msgid "Surface.CounterCondition.Condition.Name"
+msgstr "Condition"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes"
+msgstr "Only capture specific client types"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes.Button"
+msgstr "Select client types"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes.Dialog"
+msgstr "Select client types"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes.InfoAll"
+msgstr "All client types"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes.InfoPlural"
+msgstr "%d client types selected"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes.InfoSingular"
+msgstr "1 client type selected"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes.SelectAll"
+msgstr "All"
+
+msgid "Surface.CounterCondition.Panel.ClientTypes.SelectNone"
+msgstr "None"
+
+msgid "Surface.CounterCondition.Panel.Condition"
+msgstr "Condition for counting"
+
+msgid "Surface.CounterCondition.Panel.Condition.Error.Info"
+msgstr "The specified condition \"%s\" is invalid at character %d."
+
+msgid "Surface.CounterCondition.Panel.Condition.Error.InfoEmpty"
+msgstr "No condition was specified."
+
+msgid "Surface.CounterCondition.Panel.Condition.Error.Title"
+msgstr "Invalid condition"
 
 msgid "Surface.CounterMulti.Dialog.GroupName.Error.Info"
 msgstr "No group name was specified for the counter."
@@ -28788,6 +28845,9 @@ msgstr "TransferTime"
 
 msgid "Surface.DelayJS.XML.Type.WaitingTime"
 msgstr "WaitingTime"
+
+msgid "Surface.DifferentialCounter.Dialog.Condition"
+msgstr "Condition"
 
 msgid "Surface.DifferentialCounter.Dialog.Increment"
 msgstr "Change of counter value when passing the element"
@@ -34487,6 +34547,9 @@ msgstr "left"
 
 msgid "Surface.Text.XML.TextAlign.Right"
 msgstr "right"
+
+msgid "Surface.Throughput.Dialog.Condition"
+msgstr "Condition"
 
 msgid "Surface.Throughput.Dialog.Title"
 msgstr "Edit throughput counter"

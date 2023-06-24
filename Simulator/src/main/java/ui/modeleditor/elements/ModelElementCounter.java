@@ -30,12 +30,15 @@ import org.w3c.dom.Element;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.coreelements.RunElementData;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import simulator.elements.RunElementCounterData;
 import simulator.runmodel.RunModelFixer;
+import simulator.runmodel.SimulationData;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
+import ui.modeleditor.ModelDataRenameListener;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
@@ -51,13 +54,19 @@ import ui.modeleditor.fastpaint.Shapes;
  * Zählt für die Statistik wie viele Kunden das Element durchquert haben
  * @author Alexander Herzog
  */
-public class ModelElementCounter extends ModelElementMultiInSingleOutBox {
+public class ModelElementCounter extends ModelElementMultiInSingleOutBox implements ModelDataRenameListener {
 	/**
 	 * Gruppenname des Zählers
 	 * @see #getGroupName()
 	 * @see #setGroupName(String)
 	 */
 	private String groupName;
+
+	/**
+	 * Optionale Bedingungen für die Auslösung des Zählers
+	 * @see #getCondition()
+	 */
+	private final CounterCondition counterCondition;
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementCounter</code>
@@ -67,6 +76,7 @@ public class ModelElementCounter extends ModelElementMultiInSingleOutBox {
 	public ModelElementCounter(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_ROUNDED_RECTANGLE_123);
 		groupName=Language.tr("Surface.Counter.DefaultCounterName");
+		counterCondition=new CounterCondition();
 	}
 
 	/**
@@ -96,8 +106,10 @@ public class ModelElementCounter extends ModelElementMultiInSingleOutBox {
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementCounter)) return false;
+		final ModelElementCounter otherCounter=(ModelElementCounter)element;
 
-		if (!((ModelElementCounter)element).groupName.equals(groupName)) return false;
+		if (!otherCounter.groupName.equals(groupName)) return false;
+		if (!otherCounter.counterCondition.equalsCounterCondition(counterCondition)) return false;
 
 		return true;
 	}
@@ -107,10 +119,12 @@ public class ModelElementCounter extends ModelElementMultiInSingleOutBox {
 	 * @param element	Element, von dem alle Einstellungen übernommen werden sollen
 	 */
 	@Override
-	public void copyDataFrom(ModelElement element) {
+	public void copyDataFrom(final ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementCounter) {
-			groupName=((ModelElementCounter)element).groupName;
+			final ModelElementCounter copySource=(ModelElementCounter)element;
+			groupName=copySource.groupName;
+			counterCondition.copyFrom(copySource.counterCondition);
 		}
 	}
 
@@ -260,6 +274,8 @@ public class ModelElementCounter extends ModelElementMultiInSingleOutBox {
 		Element sub;
 		node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Counter.XML.Group")));
 		sub.setTextContent(groupName);
+
+		counterCondition.saveToXML(node);
 	}
 
 	/**
@@ -276,6 +292,11 @@ public class ModelElementCounter extends ModelElementMultiInSingleOutBox {
 
 		if (Language.trAll("Surface.Counter.XML.Group",name)) {
 			groupName=node.getTextContent();
+			return null;
+		}
+
+		if (counterCondition.isCounterConditionElement(node)) {
+			counterCondition.loadFromXML(node);
 			return null;
 		}
 
@@ -298,6 +319,14 @@ public class ModelElementCounter extends ModelElementMultiInSingleOutBox {
 		if (groupName!=null) this.groupName=groupName;
 	}
 
+	/**
+	 * Liefert die optionalen Bedingungen für die Auslösung des Zählers
+	 * @return	Optionale Bedingungen für die Auslösung des Zählers
+	 */
+	public CounterCondition getCondition() {
+		return counterCondition;
+	}
+
 	@Override
 	protected String getIDInfo() {
 		if (groupName!=null && !groupName.isEmpty()) {
@@ -305,6 +334,81 @@ public class ModelElementCounter extends ModelElementMultiInSingleOutBox {
 		} else {
 			return super.getIDInfo();
 		}
+	}
+
+	/**
+	 * Gibt an, ob Laufzeitdaten zu der Station während der Animation ausgegeben werden sollen
+	 * @return Laufzeitdaten zur Station ausgeben
+	 */
+	@Override
+	public boolean showAnimationRunData() {
+		return true;
+	}
+
+	/**
+	 * Cache der verfügbaren {@link StringBuilder}
+	 * für {@link #updateSimulationData(SimulationData, boolean)}
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
+	private StringBuilder[] animationSB;
+
+	/**
+	 * Temporärer {@link StringBuilder} zum
+	 * Umwandeln von Zahlen in Zeichenketten
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
+	private StringBuilder animationSBCache;
+
+	/**
+	 * Nächster in {@link #animationSB} zu verwendender Eintrag
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
+	private int animationSBNext;
+
+
+	/**
+	 * Letzter in {@link #updateSimulationData(SimulationData, boolean)}
+	 * dargestellter Wert
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
+	private long lastValue=0;
+
+	/**
+	 * Zeichenkettenrepräsentation von {@link #lastValue}
+	 * die ggf. wiederverwendet werden kann.
+	 * @see #updateSimulationData(SimulationData, boolean)
+	 */
+	private String valueName;
+
+	@Override
+	public boolean updateSimulationData(SimulationData simData, boolean isPreview) {
+		final RunElementData runData=getRunData();
+		if (runData==null || isPreview) return false;
+
+		if (!(runData instanceof RunElementCounterData)) return false;
+		final RunElementCounterData data=(RunElementCounterData)runData;
+		long value=(long)data.getValue(true);
+
+		if (animationSB==null) {
+			animationSB=new StringBuilder[2];
+			animationSB[0]=new StringBuilder(100);
+			animationSB[1]=new StringBuilder(100);
+			animationSBNext=0;
+			valueName=Language.tr("Surface.Counter.Name.Short")+"=";
+		} else {
+			if (Math.abs(value-lastValue)<10E-5) return false;
+		}
+		lastValue=value;
+
+		final StringBuilder sb=animationSB[animationSBNext];
+		sb.setLength(0);
+		sb.append(valueName);
+		sb.append(NumberTools.formatLong(value));
+		if (animationSBCache==null) animationSBCache=new StringBuilder();
+
+		setAnimationStringBuilder(animationSB[animationSBNext],()->{animationSBNext=(animationSBNext++)%2;});
+
+		return true;
 	}
 
 	@Override
@@ -321,6 +425,7 @@ public class ModelElementCounter extends ModelElementMultiInSingleOutBox {
 		super.buildDescription(descriptionBuilder);
 
 		if (!groupName.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Counter.Group"),groupName,1000);
+		counterCondition.buildDescription(descriptionBuilder,2000);
 	}
 
 	@Override
@@ -333,5 +438,13 @@ public class ModelElementCounter extends ModelElementMultiInSingleOutBox {
 		super.search(searcher);
 
 		searcher.testString(this,Language.tr("Surface.Counter.Dialog.GroupName"),groupName,newGroupName->{groupName=newGroupName;});
+		searcher.testString(this,Language.tr("Surface.Counter.Dialog.Condition"),counterCondition.getCondition(),newCondition->counterCondition.setCondition(newCondition));
+	}
+
+	@Override
+	public void objectRenamed(String oldName, String newName, ModelDataRenameListener.RenameType type) {
+		if (!isRenameType(oldName,newName,type,ModelDataRenameListener.RenameType.RENAME_TYPE_CLIENT_TYPE)) return;
+
+		counterCondition.clientTypeRenamed(oldName,newName);
 	}
 }
