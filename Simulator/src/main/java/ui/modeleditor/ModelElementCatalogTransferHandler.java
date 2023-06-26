@@ -70,12 +70,13 @@ public class ModelElementCatalogTransferHandler extends TransferHandler {
 	 */
 	private void generateImage(final ModelElementPosition element) {
 		final double scale=GUITools.getOSScaleFactor();
+		final double zoom=this.zoom.get();
 
 		final Point point=element.getLowerRightPosition();
-		final int width=(int)Math.round(point.x*scale);
-		final int height=(int)Math.round(point.y*scale);
+		final int width=(int)Math.round(point.x*scale*zoom);
+		final int height=(int)Math.round(point.y*scale*zoom);
 		final BufferedImage image=new BufferedImage(width+1,height+1,BufferedImage.TYPE_4BYTE_ABGR);
-		element.drawToGraphics(image.getGraphics(),new Rectangle(0,0,width,height),zoom.get()*scale,false);
+		element.drawToGraphics(image.getGraphics(),new Rectangle(0,0,width,height),scale*zoom,false);
 		setDragImage(image);
 	}
 
