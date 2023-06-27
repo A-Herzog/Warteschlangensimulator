@@ -34,6 +34,7 @@ import ui.modeleditor.elements.ModelElementAnimationTextValue;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementEllipse;
 import ui.modeleditor.elements.ModelElementLine;
+import ui.modeleditor.elements.ModelElementLink;
 import ui.modeleditor.elements.ModelElementRectangle;
 import ui.modeleditor.elements.ModelElementText;
 import ui.modeleditor.elements.ModelElementVertex;
@@ -193,6 +194,11 @@ public class DrawIOExport {
 
 		if (element instanceof ModelElementText) {
 			processText((ModelElementText)element);
+			return;
+		}
+
+		if (element instanceof ModelElementLink) {
+			processLink((ModelElementLink)element);
 			return;
 		}
 
@@ -389,6 +395,26 @@ public class DrawIOExport {
 		if (element.getTextBold()) style+=1;
 		if (element.getTextItalic()) style+=2;
 		node.setAttribute("style","text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontSize="+element.getTextSize()+";fontStyle="+style+";fontColor="+getColor(element.getColor())+";");
+		node.setAttribute("value",encodeHTML(element.getText()));
+
+		final Element geometry=doc.createElement("mxGeometry");
+		node.appendChild(geometry);
+		geometry.setAttribute("as","geometry");
+		geometry.setAttribute("x",""+element.getPosition(true).x);
+		geometry.setAttribute("y",""+element.getPosition(true).y);
+		geometry.setAttribute("width",""+element.getSize().width);
+		geometry.setAttribute("height",""+element.getSize().height);
+	}
+
+	/**
+	 * Verarbeitet ein Link-Element.
+	 * @param element	Zu verarbeitendes Element
+	 * @see #process(ModelElement)
+	 */
+	private void processLink(final ModelElementLink element) {
+		final Element node=addElement(element);
+		node.setAttribute("vertex","1");
+		node.setAttribute("style","text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontSize="+element.getTextSize()+";fontStyle=0;fontColor="+getColor(Color.BLUE)+";");
 		node.setAttribute("value",encodeHTML(element.getText()));
 
 		final Element geometry=doc.createElement("mxGeometry");

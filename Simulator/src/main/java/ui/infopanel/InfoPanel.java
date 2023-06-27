@@ -554,6 +554,9 @@ public class InfoPanel {
 	/** Info-ID für den "Beschreibungstext"-Bearbeiten-Dialog (Gruppe "Optische Gestaltung") */
 	public static final String stationText=groupElement+"Text";
 
+	/** Info-ID für den "Link"-Bearbeiten-Dialog (Gruppe "Optische Gestaltung") */
+	public static final String stationLink=groupElement+"Link";
+
 	/** Info-ID für den "Linie"-Bearbeiten-Dialog (Gruppe "Optische Gestaltung") */
 	public static final String stationLine=groupElement+"Line";
 
@@ -1294,6 +1297,10 @@ public class InfoPanel {
 		register(stationText,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_DECORATION+"|"+Language.tr("Surface.Text.Name"),
 				()->Language.tr("Surface.Text.Infotext"));
+
+		register(stationText,
+				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_DECORATION+"|"+Language.tr("Surface.Link.Name"),
+				()->Language.tr("Surface.Link.Infotext"));
 
 		register(stationLine,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_DECORATION+"|"+Language.tr("Surface.Line.Name"),

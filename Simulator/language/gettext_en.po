@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-24 22:29+0200\n"
+"POT-Creation-Date: 2023-06-25 18:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30051,6 +30051,66 @@ msgstr ""
 "train tracks\n"
 "queue"
 
+msgid "Surface.Link.DefaultText"
+msgstr "Link"
+
+msgid "Surface.Link.Dialog.FontFamily"
+msgstr "Font"
+
+msgid "Surface.Link.Dialog.FontSize"
+msgstr "Font size"
+
+msgid "Surface.Link.Dialog.FontSize.ErrorInfo"
+msgstr "The specified font size \"%s\" is invalid. The font size has to be a positive integer number."
+
+msgid "Surface.Link.Dialog.FontSize.ErrorTitle"
+msgstr "Invalid font size"
+
+msgid "Surface.Link.Dialog.Link"
+msgstr "Link target"
+
+msgid "Surface.Link.Dialog.Text"
+msgstr "Text to display"
+
+msgid "Surface.Link.Dialog.Title"
+msgstr "Edit link"
+
+msgid "Surface.Link.Infotext"
+msgstr "Links can be clicked directly on the drawing surface to bring up the associated URL."
+
+msgid "Surface.Link.Name"
+msgstr "Link"
+
+msgid "Surface.Link.Name.Long"
+msgstr "Link"
+
+msgid "Surface.Link.Tooltip"
+msgstr "Internet link"
+
+msgid "Surface.Link.XML.ConfirmDialog.OptionEdit"
+msgstr "Edit URL"
+
+msgid "Surface.Link.XML.ConfirmDialog.OptionEditInfo"
+msgstr "Opens the dialog for editing the URL."
+
+msgid "Surface.Link.XML.ConfirmDialog.Title"
+msgstr "Open link"
+
+msgid "Surface.Link.XML.FontFamily"
+msgstr "ModelElementFontFamily"
+
+msgid "Surface.Link.XML.FontSize"
+msgstr "ModelElementFontSize"
+
+msgid "Surface.Link.XML.Link"
+msgstr "ModelElementLinkTarget"
+
+msgid "Surface.Link.XML.Root"
+msgstr "ModelElementLink"
+
+msgid "Surface.Link.XML.Text"
+msgstr "ModelElementLinkText"
+
 msgid "Surface.Logic.Dialog.Condition"
 msgstr "Flow control condition"
 
@@ -34453,7 +34513,7 @@ msgid "Surface.Text.Dialog.FontFamily"
 msgstr "Font"
 
 msgid "Surface.Text.Dialog.FontSize"
-msgstr "font size"
+msgstr "Font size"
 
 msgid "Surface.Text.Dialog.FontSize.Error.Info"
 msgstr "The specified font size is invalid. The font size has to be a positive integer number."

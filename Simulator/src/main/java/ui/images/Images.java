@@ -1912,6 +1912,9 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Optische Gestaltung' - Element 'Beschreibungstext'" */
 	MODELEDITOR_ELEMENT_TEXT("Text.png"),
 
+	/** Symbol "Modelleditor - Gruppe 'Optische Gestaltung' - Element 'Link'" */
+	MODELEDITOR_ELEMENT_LINK("TextUnderline.png"),
+
 	/** Symbol "Modelleditor - Gruppe 'Optische Gestaltung' - Element 'Verbindungsecke'" */
 	MODELEDITOR_ELEMENT_VERTEX("Vertex.png"),
 

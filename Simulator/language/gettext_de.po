@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-24 22:29+0200\n"
+"POT-Creation-Date: 2023-06-25 18:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30101,6 +30101,66 @@ msgstr ""
 "Straße 2\n"
 "Bahnschienen\n"
 "Warteschlange"
+
+msgid "Surface.Link.DefaultText"
+msgstr "Link"
+
+msgid "Surface.Link.Dialog.FontFamily"
+msgstr "Schriftart"
+
+msgid "Surface.Link.Dialog.FontSize"
+msgstr "Schriftgröße"
+
+msgid "Surface.Link.Dialog.FontSize.ErrorInfo"
+msgstr "Die angegebene Schriftgröße \"%s\" ist ungültig. Die Schriftgröße muss eine positive ganze Zahl sein."
+
+msgid "Surface.Link.Dialog.FontSize.ErrorTitle"
+msgstr "Ungültige Schriftgröße"
+
+msgid "Surface.Link.Dialog.Link"
+msgstr "Linkzeil"
+
+msgid "Surface.Link.Dialog.Text"
+msgstr "Anzuzeigender Text"
+
+msgid "Surface.Link.Dialog.Title"
+msgstr "Link bearbeiten"
+
+msgid "Surface.Link.Infotext"
+msgstr "Links können direkt auf der Zeichenfläche angeklickt werden und die zugehörige URL aufrufen."
+
+msgid "Surface.Link.Name"
+msgstr "Link"
+
+msgid "Surface.Link.Name.Long"
+msgstr "Link"
+
+msgid "Surface.Link.Tooltip"
+msgstr "Internet-Link"
+
+msgid "Surface.Link.XML.ConfirmDialog.OptionEdit"
+msgstr "URL bearbeiten"
+
+msgid "Surface.Link.XML.ConfirmDialog.OptionEditInfo"
+msgstr "Öffnet den Dialog zum Bearbeiten der URL."
+
+msgid "Surface.Link.XML.ConfirmDialog.Title"
+msgstr "Link öffnen"
+
+msgid "Surface.Link.XML.FontFamily"
+msgstr "ModellElementSchriftart"
+
+msgid "Surface.Link.XML.FontSize"
+msgstr "ModellElementSchriftgrosse"
+
+msgid "Surface.Link.XML.Link"
+msgstr "ModellElementLinkZiel"
+
+msgid "Surface.Link.XML.Root"
+msgstr "ModellElementLink"
+
+msgid "Surface.Link.XML.Text"
+msgstr "ModellElementLinkText"
 
 msgid "Surface.Logic.Dialog.Condition"
 msgstr "Flusssteuerungs-Bedingung"

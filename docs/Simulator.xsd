@@ -496,6 +496,7 @@
 <xs:element name="ModellElemente"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="ModellElementKante"/>
   <xs:element ref="ModellElementText"/>
+  <xs:element ref="ModellElementLink"/>
   <xs:element ref="ModellElementEcke"/>
   <xs:element ref="ModellElementLinie"/>
   <xs:element ref="ModellElementKasten"/>
@@ -670,6 +671,15 @@
 	<xs:element name="ModellElementFarbe" type="xs:string"/>
 	<xs:element name="ModellElementTextAusrichtung" type="xs:string"/>
 	<xs:element ref="ModellElementHintergrundfarbe"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementLink"><xs:complexType><xs:complexContent><xs:extension base="ModellElementEinfachBasis">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModellElementLinkText" type="xs:string"/>
+	<xs:element name="ModellElementLinkZiel" type="xs:string"/>
+	<xs:element name="ModellElementSchriftart" type="xs:string"/>
+	<xs:element ref="ModellElementSchriftgrosse"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -2938,6 +2948,7 @@
 <xs:element name="ModelElements"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="ModelElementEdge"/>
   <xs:element ref="ModelElementText"/>
+  <xs:element ref="ModelElementLink"/>
   <xs:element ref="ModelElementVertex"/>
   <xs:element ref="ModelElementLine"/>
   <xs:element ref="ModelElementRectangle"/>
@@ -3109,6 +3120,15 @@
 	<xs:element name="ModelElementColor" type="xs:string"/>
 	<xs:element name="ModelElementTextAlign" type="xs:string"/>
 	<xs:element ref="ModelElementBackgroundColor"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementLink"><xs:complexType><xs:complexContent><xs:extension base="ModelElementSimpleBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModelElementLinkText" type="xs:string"/>
+	<xs:element name="ModelElementLinkTarget" type="xs:string"/>
+	<xs:element name="ModelElementFontFamily" type="xs:string"/>
+	<xs:element ref="ModelElementFontSize"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
