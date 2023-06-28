@@ -131,7 +131,7 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 		setup.add(xAxisLabels=new AxisDrawerEdit(AxisDrawerEdit.AxisName.X,AxisDrawer.Mode.OFF,null,null,readOnly));
 
 		/* Y-Achsenbeschriftung */
-		setup.add(yAxisLabels=new AxisDrawerEdit(AxisDrawerEdit.AxisName.X,AxisDrawer.Mode.OFF,null,"",readOnly));
+		setup.add(yAxisLabels=new AxisDrawerEdit(AxisDrawerEdit.AxisName.Y,AxisDrawer.Mode.OFF,null,"",readOnly));
 
 		final JTableExt expressionTable;
 		content.add(new JScrollPane(expressionTable=new JTableExt()),BorderLayout.CENTER);
