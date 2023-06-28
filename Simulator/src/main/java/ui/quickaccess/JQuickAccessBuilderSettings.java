@@ -52,6 +52,7 @@ public class JQuickAccessBuilderSettings extends JQuickAccessBuilder {
 
 		page=SetupDialog.Page.UI;
 		map.put(Language.tr("SettingsDialog.Languages"),page);
+		map.put(Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking"),page);
 		map.put(Language.tr("SettingsDialog.LookAndFeel"),page);
 		map.put(Language.tr("SettingsDialog.LookAndFeel.MenuInWindowTitle"),page);
 		map.put(Language.tr("SettingsDialog.FontSizes"),page);
@@ -66,17 +67,21 @@ public class JQuickAccessBuilderSettings extends JQuickAccessBuilder {
 		map.put(Language.tr("SettingsDialog.SurfaceHelp"),page);
 		map.put(Language.tr("SettingsDialog.SurfaceGlassInfos"),page);
 		map.put(Language.tr("SettingsDialog.NotifyMode"),page);
+		map.put(Language.tr("SettingsDialog.NotifyMQTT"),page);
 
 		/* Seite: Leistung */
 
 		page=SetupDialog.Page.PERFORMANCE;
 		map.put(Language.tr("SettingsDialog.BackgroundProcessing"),page);
+		map.put(Language.tr("SettingsDialog.Tabs.Performance.GUIAnimations"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Simulation.UseMultiCore"),page);
+		map.put(Language.tr("SettingsDialog.Tabs.Simulation.UseMultiCoreOnRepeatedSimulations"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Simulation.UseMultiCoreAnimation"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Simulation.UseHighPriority"),page);
-		map.put(Language.tr("SettingsDialog.Tabs.Simulation.UseNUMA"),page);
+		map.put(Language.tr("SettingsDialog.Tabs.Simulation.ReducedMemoryMode"),page);
 		map.put(Language.tr("SettingsDialog.JSEngine"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Performance.CancelSimulationOnScriptError"),page);
+		map.put(Language.tr("SettingsDialog.Tabs.Simulation.MaxJSRunTime"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Simulation.Server.Use"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Simulation.Server.Name"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Simulation.Server.Port"),page);
@@ -88,6 +93,7 @@ public class JQuickAccessBuilderSettings extends JQuickAccessBuilder {
 		map.put(Language.tr("SettingsDialog.Tabs.Simulation.ShowStationData"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Simulation.ShowSingleStepLogData"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Simulation.AnimationStartPaused"),page);
+		map.put(Language.tr("SettingsDialog.Tabs.Simulation.AnimationPauseWhenFinished"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Simulation.AnimateResources"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Simulation.UseSlowModeAnimation"),page);
 
@@ -96,16 +102,20 @@ public class JQuickAccessBuilderSettings extends JQuickAccessBuilder {
 		page=SetupDialog.Page.STATISTICS;
 		map.put(Language.tr("SettingsDialog.Tabs.Statistics.ShowQuantils"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Simulation.ShowErlangC"),page);
+		map.put(Language.tr("SettingsDialog.Tabs.Simulation.ShowRemarks"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Simulation.ExpandAllStatistics"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Statistics.NumberDigits"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Statistics.PercentDigits"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Statistics.QuantilLevels.Levels"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels"),page);
+		map.put(Language.tr("SettingsDialog.Tabs.Statistics.OpenExternal"),page);
+		map.put(Language.tr("SettingsDialog.Tabs.Statistics.IncompleteStatistics"),page);
 
 		/* Seite: Dateiformate */
 
 		page=SetupDialog.Page.FILE_FORMATS;
 		map.put(Language.tr("SettingsDialog.Tabs.DefaultUserName.Name"),page);
+		map.put(Language.tr("SettingsDialog.Tabs.DefaultUserName.EMail"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.DefaultFormats"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.BackupFiles"),page);
 		map.put(Language.tr("SettingsDialog.Tabs.ExcelDDEConnect"),page);
@@ -117,6 +127,7 @@ public class JQuickAccessBuilderSettings extends JQuickAccessBuilder {
 
 		page=SetupDialog.Page.SECURITY;
 		map.put(Language.tr("SettingsDialog.ModellSecurity"),page);
+		map.put(Language.tr("SettingsDialog.ModellSecurityOrigin"),page);
 		map.put(Language.tr("SettingsDialog.ModellSecurity.SignModels"),page);
 		map.put(Language.tr("SettingsDialog.ModellSecurityExternal"),page);
 		map.put(Language.tr("SettingsDialog.ModellSecurity.AllowOpenLinks"),page);
