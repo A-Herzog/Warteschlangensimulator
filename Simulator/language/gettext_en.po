@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-25 18:37+0200\n"
+"POT-Creation-Date: 2023-06-28 22:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1258,6 +1258,18 @@ msgstr "Random numbers"
 
 msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveTitle"
 msgstr "Save random numbers"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateTable"
+msgstr "Generate value table"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateTable.Copy"
+msgstr "Copy"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateTable.Save"
+msgstr "Save..."
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateTable.SaveTitle"
+msgstr "Save value table"
 
 msgid "CalculatorDialog.Tab.Plotter"
 msgstr "Function plotter"

@@ -55,6 +55,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TableChart;
+import mathtools.distribution.AbstractDiscreteRealDistribution;
 import mathtools.distribution.swing.CommonVariables;
 import mathtools.distribution.swing.JDistributionEditorPanel;
 import mathtools.distribution.swing.JDistributionPanel;
@@ -112,12 +113,14 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		randomNumberCount=1_000_000;
 
 		/* Symbolleiste */
+		JButton button;
 		final JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);
 		add(toolbar,BorderLayout.NORTH);
 		toolbar.setFloatable(false);
-		final JButton button=new JButton(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers"),Images.EXTRAS_CALCULATOR.getIcon());
-		toolbar.add(button);
-		button.addActionListener(e->showGenerateRandomNumbersPopup(button));
+		toolbar.add(button=new JButton(Language.tr("CalculatorDialog.Tab.Distributions.GenerateTable"),Images.GENERAL_TABLE.getIcon()));
+		button.addActionListener(e->showGenerateTablePopup((JButton)e.getSource()));
+		toolbar.add(button=new JButton(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers"),Images.EXTRAS_CALCULATOR.getIcon()));
+		button.addActionListener(e->showGenerateRandomNumbersPopup((JButton)e.getSource()));
 
 		/* Wahrscheinlichkeitsverteilungsplotter */
 		add(distributionPlotter=new JDistributionPanel(new ExponentialDistribution(100),200,false),BorderLayout.CENTER);
@@ -166,6 +169,85 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		distributionEditor.setDistribution(distribution);
 		updateDistribution();
 		showPage();
+	}
+
+	/**
+	 * Zeigt ein Popupmenü mit Befehlen zur Erzeugung einer Wertetabelle für die gewählte Verteilung an.
+	 * @param invoker	Aufrufer (zur Ausrichtung des Menüs)
+	 */
+	private void showGenerateTablePopup(final Component invoker) {
+		final JPopupMenu popup=new JPopupMenu();
+
+		JMenuItem item;
+
+		popup.add(item=new JMenuItem(Language.tr("CalculatorDialog.Tab.Distributions.GenerateTable.Copy"),Images.EDIT_COPY.getIcon()));
+		item.addActionListener(e->tableCopy());
+
+		popup.add(item=new JMenuItem(Language.tr("CalculatorDialog.Tab.Distributions.GenerateTable.Save"),Images.GENERAL_SAVE.getIcon()));
+		item.addActionListener(e->tableSave());
+
+		popup.show(invoker,0,invoker.getHeight());
+	}
+
+	/**
+	 * Erzeugt eine Wertetabelle für die gewählte Verteilung.
+	 * @return	Wertetabelle für die gewählte Verteilung
+	 */
+	private Table getTable() {
+		final AbstractRealDistribution distribution=distributionEditor.getDistribution();
+		final Table table=new Table();
+
+		if (distribution instanceof AbstractDiscreteRealDistribution) {
+			/* Diskrete Verteilung */
+			table.addLine(new String[]{"k","P(X=k)","P(X<=k)"});
+			double sumLast=0;
+			for (int k=0;k<10_000;k++) {
+				final double sum=((AbstractDiscreteRealDistribution)distribution).cumulativeProbability(k);
+				table.addLine(new String[]{
+						""+k,
+						NumberTools.formatNumberMax(sum-sumLast),
+						NumberTools.formatNumberMax(sum)
+				});
+				sumLast=sum;
+				if (sum>0.999) break;
+			}
+		} else {
+			/* Kontinuierliche Verteilung */
+			table.addLine(new String[]{"x","f(x)","F(x)=P(X<=x)"});
+			final double min=Math.max(-10_000,distribution.getSupportLowerBound());
+			final double max=Math.min(10_000,distribution.getSupportUpperBound());
+			final double step=0.1;
+			double x=min;
+			while (x<=max) {
+				final double f=distribution.density(x);
+				final double F=distribution.cumulativeProbability(x);
+				if (F>=0.001) table.addLine(new String[]{
+						NumberTools.formatNumberMax(x),
+						NumberTools.formatNumberMax(f),
+						NumberTools.formatNumberMax(F)
+				});
+				if (F>0.999) break;
+				x+=step;
+			}
+		}
+
+		return table;
+	}
+
+	/**
+	 * Kopiert die Wertetabelle für die gewählte Verteilung in die Zwischenablage.
+	 */
+	private void tableCopy() {
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(getTable().toString()),null);
+	}
+
+	/**
+	 * Speichert die Wertetabelle für die gewählte Verteilung in einer Datei.
+	 */
+	private void tableSave() {
+		final File file=Table.showSaveDialog(this,Language.tr("CalculatorDialog.Tab.Distributions.GenerateTable.SaveTitle"));
+		if (file==null) return;
+		getTable().save(file);
 	}
 
 	/**

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-25 18:37+0200\n"
+"POT-Creation-Date: 2023-06-28 22:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1259,6 +1259,18 @@ msgstr "Zufallszahlen"
 
 msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveTitle"
 msgstr "Zufallszahlen speichern"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateTable"
+msgstr "Wertetabelle erstellen"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateTable.Copy"
+msgstr "Kopieren"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateTable.Save"
+msgstr "Speichern..."
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateTable.SaveTitle"
+msgstr "Wertetabelle speichern"
 
 msgid "CalculatorDialog.Tab.Plotter"
 msgstr "Funktionsplotter"
