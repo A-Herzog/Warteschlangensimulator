@@ -616,10 +616,16 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 			return;
 		}
 
+		/* Minimale Größe eines Segments, damit im Modus "nur große Segmente beschriften" noch eine Beschriftung erfolgt */
+		final double minSize=Math.min(rectangle.width,rectangle.height)/zoom;
+		double minLabelValue=0.2;
+		if (minSize>149) minLabelValue=0.15;
+		if (minSize>199) minLabelValue=0.10;
+
 		drawLock.acquireUninterruptibly();
 		try {
 			double sum=0;
-			for (double value: recordedValues) sum+=value;
+			for (double value: recordedValues) sum+=Math.max(0,value);
 			if (sum==0) return;
 
 			if (filler==null || filler.length!=recordedValues.length) {
@@ -640,7 +646,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 
 			int startAngle=90;
 			for (int i=0;i<recordedValues.length;i++) {
-				final double value=recordedValues[i]/sum;
+				final double value=Math.max(0,recordedValues[i])/sum;
 				final int angle=-(int)Math.round(value*360);
 
 				filler[i].set(g,rectangle,expressionColor.get(i),true);
@@ -653,7 +659,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 					break;
 				}
 
-				if (labelMode==LabelMode.ALL_PARTS || (labelMode==LabelMode.BIG_PARTS && value>=0.2)) {
+				if (labelMode==LabelMode.ALL_PARTS || (labelMode==LabelMode.BIG_PARTS && value>=minLabelValue)) {
 					drawLabel(g,rectangle,startAngle+angle/2,value,false);
 				}
 				startAngle+=angle;
