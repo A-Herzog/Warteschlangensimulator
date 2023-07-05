@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -73,7 +74,9 @@ public class StatisticViewerTableModel extends AbstractTableModel {
 			this.searchPattern=null;
 		} else {
 			if (regularExpression) {
-				this.searchPattern=Pattern.compile(searchString,caseSensitive?0:Pattern.CASE_INSENSITIVE);
+				try {
+					this.searchPattern=Pattern.compile(searchString,caseSensitive?0:Pattern.CASE_INSENSITIVE);
+				} catch (PatternSyntaxException e) {}
 				this.searchString=null;
 			} else {
 				this.searchPattern=null;

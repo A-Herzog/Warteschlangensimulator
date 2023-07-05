@@ -25,6 +25,9 @@ import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -41,6 +44,8 @@ import javax.swing.SwingUtilities;
 import language.Language;
 import mathtools.NumberTools;
 import systemtools.BaseDialog;
+import systemtools.JRegExWikipediaLinkLabel;
+import systemtools.JSearchSettingsSync;
 import tools.IconListCellRenderer;
 import ui.help.Help;
 import ui.images.Images;
@@ -70,6 +75,12 @@ public class FindElementDialog extends BaseDialog {
 	private final JComboBox<String> optionsCombo;
 	/** Auch Elemente auf ausgeblendeten Ebenen berücksichtigen? */
 	private final JCheckBox includeHidden;
+	/** Groß- und Kleinschreibung bei der Suche berücksichtigen? */
+	private final JCheckBox optionCaseSensitive;
+	/** Nur vollständige Übereinstimmungen als Treffer zählen */
+	private final JCheckBox optionFullMatchOnly;
+	/** Ist der Suchbegriff ein regulärer Ausdruck? */
+	private final JCheckBox optionRegEx;
 	/** Liste mit den Suchergebnissen */
 	private final JList<ElementRendererTools.InfoRecord> resultsList;
 	/** Datenmodell für die Liste mit den Suchergebnissen */
@@ -133,9 +144,25 @@ public class FindElementDialog extends BaseDialog {
 		optionsCombo.addActionListener(e->search());
 
 		includeHidden=new JCheckBox(Language.tr("FindElementDirect.IncludeHidden"));
-		if (!surface.getLayers().isEmpty()) line.add(includeHidden);
+		if (!surface.getLayers().isEmpty()) {
+			setupArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(includeHidden);
+		}
 		includeHidden.setToolTipText(Language.tr("FindElementDirect.IncludeHidden.Info"));
 		includeHidden.addActionListener(e->search());
+
+		setupArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(optionCaseSensitive=new JCheckBox(Language.tr("FindElementDirect.CaseSensitive"),JSearchSettingsSync.getCaseSensitive()));
+		optionCaseSensitive.addActionListener(e->{JSearchSettingsSync.setCaseSensitive(optionCaseSensitive.isSelected()); search();});
+
+		setupArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(optionFullMatchOnly=new JCheckBox(Language.tr("FindElementDirect.FullMatchOnly"),JSearchSettingsSync.getFullMatchOnly()));
+		optionFullMatchOnly.addActionListener(e->{JSearchSettingsSync.setFullMatchOnly(optionFullMatchOnly.isSelected()); search();});
+
+		setupArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(optionRegEx=new JCheckBox(Language.tr("FindElementDirect.RegEx"),JSearchSettingsSync.getRegEx()));
+		line.add(new JRegExWikipediaLinkLabel(this));
+		optionRegEx.addActionListener(e->{JSearchSettingsSync.setRegEx(optionRegEx.isSelected()); search();});
 
 		setupArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(resultsInfo=new JLabel());
@@ -195,17 +222,60 @@ public class FindElementDialog extends BaseDialog {
 	}
 
 	/**
-	 * Prüft, ob eine Station zu den Sucheingaben passt
+	 * Prüft, ob eine Station zu den Sucheingaben passt.
 	 * @param element	Zu prüfende Station
 	 * @param search	Suchtext
+	 * @param caseSensitive	Groß- und Kleinschreibung berücksichtigen?
+	 * @param fullMatchOnly	Nur vollständige Übereinstimmungen als Treffer zählen
 	 * @return	Liefert <code>true</code>, wenn die Station zu den Sucheingaben passt
 	 * @see #buildIDsList()
 	 */
-	private boolean testName(final ModelElement element, final String search) {
-		final String searchLower=search.toLowerCase();
+	private boolean testName(final ModelElement element, final String search, final boolean caseSensitive, final boolean fullMatchOnly) {
+		if (caseSensitive) {
+			if (fullMatchOnly) {
+				if (element.getName().equals(search)) return true;
+				if (element.getContextMenuElementName().equals(search)) return true;
+			} else {
+				if (element.getName().contains(search)) return true;
+				if (element.getContextMenuElementName().contains(search)) return true;
+			}
+		} else {
+			final String searchLower=search.toLowerCase();
+			if (fullMatchOnly) {
+				if (element.getName().toLowerCase().equals(searchLower)) return true;
+				if (element.getContextMenuElementName().toLowerCase().equals(searchLower)) return true;
+			} else {
+				if (element.getName().toLowerCase().contains(searchLower)) return true;
+				if (element.getContextMenuElementName().toLowerCase().contains(searchLower)) return true;
+			}
+		}
 
-		if (element.getName().toLowerCase().contains(searchLower)) return true;
-		if (element.getContextMenuElementName().toLowerCase().contains(searchLower)) return true;
+		return false;
+	}
+
+	/**
+	 * Prüft, ob eine Station zu dem eingegebenen regulären Ausdruck passt.
+	 * @param element	Zu prüfende Station
+	 * @param regexPattern	Regulärer Suchausdruck
+	 * @param fullMatchOnly	Nur vollständige Übereinstimmungen als Treffer zählen
+	 * @return	Liefert <code>true</code>, wenn die Station zu den Sucheingaben passt
+	 */
+	private boolean testNameRegEx(final ModelElement element, final Pattern regexPattern, final boolean fullMatchOnly) {
+		Matcher matcher;
+
+		matcher=regexPattern.matcher(element.getName());
+		if (fullMatchOnly) {
+			if (matcher.matches()) return true;
+		} else {
+			if (matcher.find()) return true;
+		}
+
+		matcher=regexPattern.matcher(element.getContextMenuElementName());
+		if (fullMatchOnly) {
+			if (matcher.matches()) return true;
+		} else {
+			if (matcher.find()) return true;
+		}
 
 		return false;
 	}
@@ -222,6 +292,8 @@ public class FindElementDialog extends BaseDialog {
 			setInfo("red",Language.tr("FindElementDirect.NoSearchStringEntered"));
 			return;
 		}
+		final boolean caseSensitive=optionCaseSensitive.isSelected();
+		final boolean fullMatchOnly=optionFullMatchOnly.isSelected();
 
 		/* Suche nach IDs */
 
@@ -249,12 +321,33 @@ public class FindElementDialog extends BaseDialog {
 		/* Suche nach Namen */
 
 		if (optionsCombo.getSelectedIndex()==1 || optionsCombo.getSelectedIndex()==2) {
-			for (ModelElement element1: surface.getElements()) {
-				if (!includeHidden.isSelected() && !surface.isVisibleOnLayer(element1)) continue;
-				if (!resultsIds.contains(element1.getId()) && testName(element1,search)) resultsIds.add(element1.getId());
-				if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
-					if (!includeHidden.isSelected() && !((ModelElementSub)element1).getSubSurface().isVisibleOnLayer(element2)) continue;
-					if (!resultsIds.contains(element2.getId()) && testName(element2,search)) resultsIds.add(element2.getId());
+			if (optionRegEx.isSelected()) {
+				/* Regulärer Ausdruck */
+				int flags=0;
+				if (!caseSensitive) flags+=Pattern.CASE_INSENSITIVE;
+				Pattern regexPattern;
+				try {
+					regexPattern=Pattern.compile(search,flags);
+				} catch (PatternSyntaxException e) {
+					regexPattern=null;
+				}
+				if (regexPattern!=null) for (ModelElement element1: surface.getElements()) {
+					if (!includeHidden.isSelected() && !surface.isVisibleOnLayer(element1)) continue;
+					if (!resultsIds.contains(element1.getId()) && testNameRegEx(element1,regexPattern,fullMatchOnly)) resultsIds.add(element1.getId());
+					if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
+						if (!includeHidden.isSelected() && !((ModelElementSub)element1).getSubSurface().isVisibleOnLayer(element2)) continue;
+						if (!resultsIds.contains(element2.getId()) && testNameRegEx(element2,regexPattern,fullMatchOnly)) resultsIds.add(element2.getId());
+					}
+				}
+			} else {
+				/* Normale Suche */
+				for (ModelElement element1: surface.getElements()) {
+					if (!includeHidden.isSelected() && !surface.isVisibleOnLayer(element1)) continue;
+					if (!resultsIds.contains(element1.getId()) && testName(element1,search,caseSensitive,fullMatchOnly)) resultsIds.add(element1.getId());
+					if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
+						if (!includeHidden.isSelected() && !((ModelElementSub)element1).getSubSurface().isVisibleOnLayer(element2)) continue;
+						if (!resultsIds.contains(element2.getId()) && testName(element2,search,caseSensitive,fullMatchOnly)) resultsIds.add(element2.getId());
+					}
 				}
 			}
 		}

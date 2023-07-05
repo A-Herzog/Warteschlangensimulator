@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-28 22:55+0200\n"
+"POT-Creation-Date: 2023-07-04 22:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9468,6 +9468,9 @@ msgstr "Names"
 msgid "FindElement.Title"
 msgstr "Select element by ID"
 
+msgid "FindElementDirect.CaseSensitive"
+msgstr "Search case sensitive"
+
 msgid "FindElementDirect.ClickInfo"
 msgstr "By dobble clicking a search result the corresponding element can be shown in the editor."
 
@@ -9476,6 +9479,9 @@ msgstr "In this dialog you can search for elements based on their name or ID."
 
 msgid "FindElementDirect.ElementsFound"
 msgstr "%d elements were found matching the search string."
+
+msgid "FindElementDirect.FullMatchOnly"
+msgstr "Only complete matches are hits"
 
 msgid "FindElementDirect.IdOrName"
 msgstr "Search string"
@@ -9509,6 +9515,9 @@ msgstr "Ids"
 
 msgid "FindElementDirect.Option.Names"
 msgstr "Names"
+
+msgid "FindElementDirect.RegEx"
+msgstr "Search string is regular expression"
 
 msgid "FindElementDirect.Title"
 msgstr "Search element"
@@ -16586,6 +16595,15 @@ msgstr "No video file selected"
 
 msgid "RecordAnimation.Video.Select"
 msgstr "Select video file"
+
+msgid "RegExWikipdiaLink.Title"
+msgstr "Help on regular expressions"
+
+msgid "RegExWikipdiaLink.Tooltip"
+msgstr "Wikipedia page on topic \"Regular expressions\""
+
+msgid "RegExWikipdiaLink.URL"
+msgstr "https://en.wikipedia.org/wiki/Regular_expression"
 
 msgid "Resources.Failure.Add"
 msgstr "Add failure"

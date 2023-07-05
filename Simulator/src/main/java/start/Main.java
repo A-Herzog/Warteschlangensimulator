@@ -35,6 +35,7 @@ import mathtools.distribution.swing.JDistributionEditorPanelRecord;
 import simulator.simparser.ExpressionCalcUserFunctionsManager;
 import systemtools.BaseDialog;
 import systemtools.GUITools;
+import systemtools.JSearchSettingsSync;
 import systemtools.MsgBox;
 import systemtools.MsgBoxBackendTaskDialog;
 import systemtools.commandline.BaseCommandLineSystem;
@@ -121,6 +122,21 @@ public class Main {
 
 		/* Nutzerdefinierte Funktionen laden */
 		ExpressionCalcUserFunctionsManager.getInstance();
+
+		/* Sucheinstellungen mit Setup-System verbinden */
+		JSearchSettingsSync.loadCallback=()->{
+			JSearchSettingsSync.setCaseSensitive(setup.searchCaseSensitive);
+			JSearchSettingsSync.setFullMatchOnly(setup.searchFullMatchOnly);
+			JSearchSettingsSync.setRegEx(setup.searchRegularExpression);
+			JSearchSettingsSync.setForward(setup.searchForward);
+		};
+		JSearchSettingsSync.saveCallback=()->{
+			setup.searchCaseSensitive=JSearchSettingsSync.getCaseSensitive();
+			setup.searchFullMatchOnly=JSearchSettingsSync.getFullMatchOnly();
+			setup.searchRegularExpression=JSearchSettingsSync.getRegEx();
+			setup.searchForward=JSearchSettingsSync.getForward();
+			setup.saveSetup();
+		};
 
 		/* Darstellung für Kommandozeilenmodus einstellen */
 		BaseCommandLineSystem.useANSI=setup.commandLineUseANSI;

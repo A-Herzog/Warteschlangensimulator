@@ -27,6 +27,8 @@ import javax.swing.JTextField;
 
 import language.Language;
 import systemtools.BaseDialog;
+import systemtools.JRegExWikipediaLinkLabel;
+import systemtools.JSearchSettingsSync;
 import ui.modeleditor.ModelElementBaseDialog;
 
 /**
@@ -83,19 +85,20 @@ public class ScriptEditorPanelSearchDialog extends BaseDialog {
 
 		/* Groß- und Kleinschreibung beachten */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionMatchCase=new JCheckBox(Language.tr("Surface.ScriptEditor.Search.MatchCase"),lastSetup.matchCase));
+		line.add(optionMatchCase=new JCheckBox(Language.tr("Surface.ScriptEditor.Search.MatchCase"),JSearchSettingsSync.getCaseSensitive()));
 
 		/* Suchbegriff ist regulärer Ausdruck */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionRegex=new JCheckBox(Language.tr("Surface.ScriptEditor.Search.RegularExpression"),lastSetup.regex));
+		line.add(optionRegex=new JCheckBox(Language.tr("Surface.ScriptEditor.Search.RegularExpression"),JSearchSettingsSync.getRegEx()));
+		line.add(new JRegExWikipediaLinkLabel(this));
 
 		/* Vorwärts suchen */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionForward=new JCheckBox(Language.tr("Surface.ScriptEditor.Search.Forward"),lastSetup.forward));
+		line.add(optionForward=new JCheckBox(Language.tr("Surface.ScriptEditor.Search.Forward"),JSearchSettingsSync.getForward()));
 
 		/* Nur ganze Wörter */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionWholeWord=new JCheckBox(Language.tr("Surface.ScriptEditor.Search.WholeWord"),lastSetup.wholeWord));
+		line.add(optionWholeWord=new JCheckBox(Language.tr("Surface.ScriptEditor.Search.WholeWord"),JSearchSettingsSync.getFullMatchOnly()));
 
 		/* Dialog starten */
 		pack();
@@ -108,6 +111,10 @@ public class ScriptEditorPanelSearchDialog extends BaseDialog {
 	 * @return	Neues Such-Setup
 	 */
 	public ScriptEditorAreaBuilder.SearchSetup getNewSearchSetup() {
-		return new ScriptEditorAreaBuilder.SearchSetup(editSearchString.getText(),optionMatchCase.isSelected(),optionRegex.isSelected(),optionForward.isSelected(),optionWholeWord.isSelected());
+		JSearchSettingsSync.setCaseSensitive(optionMatchCase.isSelected());
+		JSearchSettingsSync.setRegEx(optionRegex.isSelected());
+		JSearchSettingsSync.setForward(optionForward.isSelected());
+		JSearchSettingsSync.setFullMatchOnly(optionWholeWord.isSelected());
+		return new ScriptEditorAreaBuilder.SearchSetup(editSearchString.getText());
 	}
 }

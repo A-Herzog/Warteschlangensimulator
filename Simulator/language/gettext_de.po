@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-28 22:55+0200\n"
+"POT-Creation-Date: 2023-07-04 22:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9492,6 +9492,9 @@ msgstr "Namen"
 msgid "FindElement.Title"
 msgstr "Element über ID auswählen"
 
+msgid "FindElementDirect.CaseSensitive"
+msgstr "Groß- und Kleinschreibung berücksichtigen"
+
 msgid "FindElementDirect.ClickInfo"
 msgstr "Per Doppelklick auf ein Suchergebis kann das jeweilige Element im Editor angezeigt werden."
 
@@ -9500,6 +9503,9 @@ msgstr "In diesem Dialog können Elemente basierend auf ihrem Namen oder ihrer I
 
 msgid "FindElementDirect.ElementsFound"
 msgstr "Es wurden %d Elemente gefunden, die zu dem Suchbegriff passen."
+
+msgid "FindElementDirect.FullMatchOnly"
+msgstr "Nur vollständige Übereinstimmungen sind Treffer"
 
 msgid "FindElementDirect.IdOrName"
 msgstr "Suchbegriff"
@@ -9533,6 +9539,9 @@ msgstr "IDs"
 
 msgid "FindElementDirect.Option.Names"
 msgstr "Namen"
+
+msgid "FindElementDirect.RegEx"
+msgstr "Suchbegriff ist regulärer Ausdruck"
 
 msgid "FindElementDirect.Title"
 msgstr "Element suchen"
@@ -16624,6 +16633,15 @@ msgstr "Keine Videodatei ausgewählt"
 
 msgid "RecordAnimation.Video.Select"
 msgstr "Videodatei auswählen"
+
+msgid "RegExWikipdiaLink.Title"
+msgstr "Hilfe zu regulären Ausdrücken"
+
+msgid "RegExWikipdiaLink.Tooltip"
+msgstr "Wikipedia-Seite zum Thema \"Reguläre Ausdrücke\""
+
+msgid "RegExWikipdiaLink.URL"
+msgstr "https://de.wikipedia.org/wiki/Regul%C3%A4rer_Ausdruck"
 
 msgid "Resources.Failure.Add"
 msgstr "Ausfall hinzufügen"

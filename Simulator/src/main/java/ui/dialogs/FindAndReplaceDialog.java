@@ -40,6 +40,8 @@ import language.Language;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import systemtools.BaseDialog;
+import systemtools.JRegExWikipediaLinkLabel;
+import systemtools.JSearchSettingsSync;
 import tools.JTableExt;
 import tools.SetupData;
 import ui.help.Help;
@@ -173,23 +175,24 @@ public class FindAndReplaceDialog extends BaseDialog {
 
 		/* Option: Groß- und Kleinschreibung beachten */
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionCaseSensitive=new JCheckBox(Language.tr("FindAndReplace.Option.CaseSensitive"),this.setup.searchAndReplaceCaseSensitive));
+		line.add(optionCaseSensitive=new JCheckBox(Language.tr("FindAndReplace.Option.CaseSensitive"),JSearchSettingsSync.getCaseSensitive()));
 		optionCaseSensitive.addActionListener(e->saveSearchOptions());
 
 		/* Option: Auch nach Stations-IDs suchen */
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionStationIDs=new JCheckBox(Language.tr("FindAndReplace.Option.StationIDs"),this.setup.searchAndReplaceStationIDs));
+		line.add(optionStationIDs=new JCheckBox(Language.tr("FindAndReplace.Option.StationIDs"),this.setup.searchStationIDs));
 		optionStationIDs.addActionListener(e->saveSearchOptions());
 
 		/* Option: Nur gesamte Begriffe vergleichen */
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionFullMatchOnly=new JCheckBox(Language.tr("FindAndReplace.Option.FullMatchOnly"),this.setup.searchAndReplaceFullMatchOnly));
+		line.add(optionFullMatchOnly=new JCheckBox(Language.tr("FindAndReplace.Option.FullMatchOnly"),JSearchSettingsSync.getFullMatchOnly()));
 		optionFullMatchOnly.addActionListener(e->saveSearchOptions());
 
 		/* Option: Ist regulärer Ausdruck */
 		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionRegularExpression=new JCheckBox(Language.tr("FindAndReplace.Option.RegularExpression"),this.setup.searchAndReplaceRegularExpression));
+		line.add(optionRegularExpression=new JCheckBox(Language.tr("FindAndReplace.Option.RegularExpression"),JSearchSettingsSync.getRegEx()));
 		optionRegularExpression.addActionListener(e->saveSearchOptions());
+		line.add(new JRegExWikipediaLinkLabel(this));
 
 		/* Ersetzungstext */
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("FindAndReplace.ReplaceString")+":","");
@@ -257,11 +260,11 @@ public class FindAndReplaceDialog extends BaseDialog {
 	 * Speichert die veränderten Such-Optionen im Setup.
 	 */
 	private void saveSearchOptions() {
-		setup.searchAndReplaceCaseSensitive=optionCaseSensitive.isSelected();
-		setup.searchAndReplaceStationIDs=optionStationIDs.isSelected();
-		setup.searchAndReplaceFullMatchOnly=optionFullMatchOnly.isSelected();
-		setup.searchAndReplaceRegularExpression=optionRegularExpression.isSelected();
+		JSearchSettingsSync.setCaseSensitive(optionCaseSensitive.isSelected());
+		JSearchSettingsSync.setFullMatchOnly(optionFullMatchOnly.isSelected());
+		JSearchSettingsSync.setRegEx(optionRegularExpression.isSelected());
 
+		setup.searchStationIDs=optionStationIDs.isSelected();
 		setup.saveSetup();
 	}
 

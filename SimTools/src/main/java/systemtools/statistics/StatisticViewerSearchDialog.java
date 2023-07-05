@@ -27,6 +27,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import systemtools.BaseDialog;
+import systemtools.JRegExWikipediaLinkLabel;
+import systemtools.JSearchSettingsSync;
 
 /**
  * Dialog zur Eingabe eines Suchbegriffs und weiterer Einstellungen zur Suche
@@ -60,10 +62,8 @@ public class StatisticViewerSearchDialog extends BaseDialog {
 	 * Konstruktor
 	 * @param owner	Übergeordnetes Element
 	 * @param lastSearchString	Suchbegriff beim letzten Aufruf der Suchfunktion (darf <code>null</code> sein)
-	 * @param lastCaseSensitive	Status "Groß- und Kleinschreibung beachten" beim letzten Aufruf der Suchfunktion
-	 * @param lastRegularExpression	Status "Suchbegriff ist regulärer Ausdruck" beim letzten Aufruf der Suchfunktion
 	 */
-	public StatisticViewerSearchDialog(final Component owner, final String lastSearchString, final boolean lastCaseSensitive, final boolean lastRegularExpression) {
+	public StatisticViewerSearchDialog(final Component owner, final String lastSearchString) {
 		super(owner,StatisticsBasePanel.viewersToolbarSearchTitle);
 
 		/* GUI */
@@ -86,16 +86,23 @@ public class StatisticViewerSearchDialog extends BaseDialog {
 
 		/* Option: "Groß- und Kleinschreibung berücksichtigen" */
 		settings.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionCaseSensitive=new JCheckBox(StatisticsBasePanel.viewersToolbarSearchCaseSensitive,lastCaseSensitive));
+		line.add(optionCaseSensitive=new JCheckBox(StatisticsBasePanel.viewersToolbarSearchCaseSensitive,JSearchSettingsSync.getCaseSensitive()));
 
 		/* Option: "Suchbegriff ist regulärer Ausdruck" */
 		settings.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionRegularExpression=new JCheckBox(StatisticsBasePanel.viewersToolbarSearchRegEx,lastRegularExpression));
+		line.add(optionRegularExpression=new JCheckBox(StatisticsBasePanel.viewersToolbarSearchRegEx,JSearchSettingsSync.getRegEx()));
+		line.add(new JRegExWikipediaLinkLabel(this));
 
 		/* Dialog starten */
 		pack();
 		setLocationRelativeTo(getOwner());
 		setVisible(true);
+	}
+
+	@Override
+	protected void storeData() {
+		JSearchSettingsSync.setCaseSensitive(optionCaseSensitive.isSelected());
+		JSearchSettingsSync.setRegEx(optionRegularExpression.isSelected());
 	}
 
 	/**
@@ -121,5 +128,4 @@ public class StatisticViewerSearchDialog extends BaseDialog {
 	public boolean isRegularExpression() {
 		return optionRegularExpression.isSelected();
 	}
-
 }

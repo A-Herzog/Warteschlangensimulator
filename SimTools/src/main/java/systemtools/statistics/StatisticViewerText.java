@@ -46,6 +46,7 @@ import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -180,18 +181,6 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	 * @see #search(Component)
 	 */
 	private String lastSearchString;
-	
-	/**
-	 * Status "Groß- und Kleinschreibung beachten" beim letzten Aufruf der Suchfunktion
-	 * @see #search(Component)
-	 */
-	private boolean lastCaseSensitive;
-	
-	/**
-	 * Status "Suchbegriff ist regulärer Ausdruck" beim letzten Aufruf der Suchfunktion
-	 * @see #search(Component)
-	 */
-	private boolean lastRegularExpression;
 
 	/**
 	 * Maximalanzahl an zurück zu liefernden Suchtreffern
@@ -1918,8 +1907,10 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		final List<Hit> hits=new ArrayList<>();
 		final Element root=textPane.getStyledDocument().getDefaultRootElement();
 		if (regularExpression) {
-			final Pattern pattern=Pattern.compile(search,caseSensitive?0:Pattern.CASE_INSENSITIVE);
-			searchInElementRegEx(root,pattern,hits);
+			try {
+				final Pattern pattern=Pattern.compile(search,caseSensitive?0:Pattern.CASE_INSENSITIVE);
+				searchInElementRegEx(root,pattern,hits);
+			} catch (PatternSyntaxException e) {}
 		} else {
 			if (!caseSensitive) search=search.toLowerCase();
 			searchInElement(root,search,caseSensitive,hits);
@@ -1960,17 +1951,15 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			initDescriptionPane();
 		}
 
-		final StatisticViewerSearchDialog dialog=new StatisticViewerSearchDialog(owner,lastSearchString,lastCaseSensitive,lastRegularExpression);
+		final StatisticViewerSearchDialog dialog=new StatisticViewerSearchDialog(owner,lastSearchString);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK || dialog.getSearchString().isEmpty()) {
 			textPane.getHighlighter().removeAllHighlights();
 			return;
 		}
 
 		lastSearchString=dialog.getSearchString();
-		lastCaseSensitive=dialog.isCaseSensitive();
-		lastRegularExpression=dialog.isRegularExpression();
 
-		final List<Hit> hits=getCaretPositions(lastSearchString,lastCaseSensitive,lastRegularExpression);
+		final List<Hit> hits=getCaretPositions(lastSearchString,dialog.isCaseSensitive(),dialog.isRegularExpression());
 		processSearchResults(owner,lastSearchString,hits);
 	}
 

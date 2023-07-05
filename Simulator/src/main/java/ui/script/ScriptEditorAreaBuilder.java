@@ -62,6 +62,7 @@ import language.Language;
 import mathtools.distribution.swing.JOpenURL;
 import mathtools.distribution.tools.FileDropper;
 import net.dde.DDEConnect;
+import systemtools.JSearchSettingsSync;
 import systemtools.MsgBox;
 import tools.SetupData;
 import ui.images.Images;
@@ -1533,11 +1534,11 @@ public class ScriptEditorAreaBuilder {
 
 		final SearchContext context=new SearchContext();
 		context.setSearchFor(setup.text);
-		context.setMatchCase(setup.matchCase);
-		context.setRegularExpression(setup.regex);
-		context.setSearchForward(setup.forward);
+		context.setMatchCase(JSearchSettingsSync.getCaseSensitive());
+		context.setRegularExpression(JSearchSettingsSync.getRegEx());
+		context.setSearchForward(JSearchSettingsSync.getForward());
 		context.setSearchWrap(true);
-		context.setWholeWord(setup.wholeWord);
+		context.setWholeWord(JSearchSettingsSync.getFullMatchOnly());
 
 		final boolean found=SearchEngine.find(textArea,context).wasFound();
 		if (!found) {
@@ -1608,44 +1609,20 @@ public class ScriptEditorAreaBuilder {
 	public static class SearchSetup {
 		/** Suchbegriff */
 		public final String text;
-		/** Groß- und Kleinschreibung beachten */
-		public final boolean matchCase;
-		/** Suchbegriff ist regulärer Ausdruck */
-		public final boolean regex;
-		/** Vorwärts suchen */
-		public final boolean forward;
-		/** Nur ganze Wörter */
-		public final boolean wholeWord;
 
 		/**
 		 * Konstruktor der Klasse
 		 * @param text	Suchbegriff
-		 * @param matchCase	Groß- und Kleinschreibung beachten
-		 * @param regex	Suchbegriff ist regulärer Ausdruck
-		 * @param forward	Vorwärts suchen
-		 * @param wholeWord	Nur ganze Wörter
 		 */
-		public SearchSetup(final String text, final boolean matchCase, final boolean regex, final boolean forward, final boolean wholeWord) {
+		public SearchSetup(final String text) {
 			this.text=text;
-			this.matchCase=matchCase;
-			this.regex=regex;
-			this.forward=forward;
-			this.wholeWord=wholeWord;
 		}
 
 		/**
 		 * Konstruktor der Klasse
-		 * @param matchCase	Groß- und Kleinschreibung beachten
-		 * @param regex	Suchbegriff ist regulärer Ausdruck
-		 * @param forward	Vorwärts suchen
-		 * @param wholeWord	Nur ganze Wörter
 		 */
-		public SearchSetup(final boolean matchCase, final boolean regex, final boolean forward, final boolean wholeWord) {
+		public SearchSetup() {
 			this.text="";
-			this.matchCase=matchCase;
-			this.regex=regex;
-			this.forward=forward;
-			this.wholeWord=wholeWord;
 		}
 
 		/**
@@ -1653,7 +1630,7 @@ public class ScriptEditorAreaBuilder {
 		 * @return	Vorgabe-Suchkonfiguration
 		 */
 		public static SearchSetup getDefaultSetup() {
-			return new SearchSetup("",false,false,true,false);
+			return new SearchSetup("");
 		}
 	}
 }

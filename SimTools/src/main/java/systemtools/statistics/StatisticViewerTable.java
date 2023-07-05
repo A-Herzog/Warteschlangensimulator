@@ -151,18 +151,6 @@ public class StatisticViewerTable implements StatisticViewer {
 	private String lastSearchString;
 
 	/**
-	 * Status "Groß- und Kleinschreibung beachten" beim letzten Aufruf der Suchfunktion
-	 * @see #search(Component)
-	 */
-	private boolean lastCaseSensitive;
-
-	/**
-	 * Status "Suchbegriff ist regulärer Ausdruck" beim letzten Aufruf der Suchfunktion
-	 * @see #search(Component)
-	 */
-	private boolean lastRegularExpression;
-
-	/**
 	 * Konstruktor der Klasse <code>StatisticViewerTable</code>
 	 * (Wird dieser Konstruktor verwendet, so müssen die Daten später per <code>setData</code> gesetzt werden.)
 	 * @see #setData(Table, List)
@@ -722,7 +710,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	public void search(final Component owner) {
 		getViewer(false);
 
-		final StatisticViewerSearchDialog dialog=new StatisticViewerSearchDialog(owner,lastSearchString,lastCaseSensitive,lastRegularExpression);
+		final StatisticViewerSearchDialog dialog=new StatisticViewerSearchDialog(owner,lastSearchString);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK || dialog.getSearchString().isEmpty()) {
 			viewerTableModel.setSearchString(null,false,false);
 			viewerTableModel.fireTableDataChanged();
@@ -730,10 +718,8 @@ public class StatisticViewerTable implements StatisticViewer {
 		}
 
 		lastSearchString=dialog.getSearchString();
-		lastCaseSensitive=dialog.isCaseSensitive();
-		lastRegularExpression=dialog.isRegularExpression();
 
-		viewerTableModel.setSearchString(lastSearchString,lastCaseSensitive,lastRegularExpression);
+		viewerTableModel.setSearchString(lastSearchString,dialog.isCaseSensitive(),dialog.isRegularExpression());
 		viewerTableModel.fireTableDataChanged();
 	}
 

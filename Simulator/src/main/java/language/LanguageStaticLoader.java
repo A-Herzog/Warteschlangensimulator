@@ -53,6 +53,7 @@ import statistics.StatisticsTimePerformanceIndicator;
 import statistics.StatisticsValuePerformanceIndicator;
 import systemtools.BaseDialog;
 import systemtools.GUITools;
+import systemtools.JRegExWikipediaLinkLabel;
 import systemtools.MsgBox;
 import systemtools.SetupBase;
 import systemtools.SmallColorChooser;
@@ -143,6 +144,11 @@ public class LanguageStaticLoader {
 		MsgBox.OpenURLErrorTitle=Language.tr("Window.Info.NoInternetConnection");
 		MsgBox.OpenURLErrorMessage=Language.tr("Window.Info.NoInternetConnection.Address");
 		MsgBox.ActiveLocale=locale;
+
+		/* Sucheinstellungen */
+		JRegExWikipediaLinkLabel.title=Language.tr("RegExWikipdiaLink.Title");
+		JRegExWikipediaLinkLabel.tooltip=Language.tr("RegExWikipdiaLink.Tooltip");
+		JRegExWikipediaLinkLabel.url=Language.tr("RegExWikipdiaLink.URL");
 
 		/* Verteilungen */
 		DistributionTools.DistData=Language.trAll("Distribution.Data");

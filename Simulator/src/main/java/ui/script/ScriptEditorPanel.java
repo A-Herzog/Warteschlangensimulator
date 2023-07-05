@@ -63,7 +63,6 @@ import simulator.statistics.Statistics;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
-import tools.SetupData;
 import ui.help.Help;
 import ui.images.Images;
 
@@ -597,20 +596,13 @@ public class ScriptEditorPanel extends JPanel {
 		}
 		if (textArea==null) return;
 
-		final SetupData setup=SetupData.getSetup();
 		if (lastSearchSetup==null) {
-			lastSearchSetup=new ScriptEditorAreaBuilder.SearchSetup(setup.scriptSearchMatchCase,setup.scriptSearchRegex,setup.scriptSearchForward,setup.scriptSearchWholeWord);
+			lastSearchSetup=new ScriptEditorAreaBuilder.SearchSetup();
 		}
 
 		final ScriptEditorPanelSearchDialog dialog=new ScriptEditorPanelSearchDialog(this,lastSearchSetup);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 		lastSearchSetup=dialog.getNewSearchSetup();
-		setup.scriptSearchMatchCase=lastSearchSetup.matchCase;
-		setup.scriptSearchRegex=lastSearchSetup.regex;
-		setup.scriptSearchForward=lastSearchSetup.forward;
-		setup.scriptSearchWholeWord=lastSearchSetup.wholeWord;
-		setup.saveSetup();
-
 		ScriptEditorAreaBuilder.search(textArea,lastSearchSetup);
 	}
 

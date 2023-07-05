@@ -1269,42 +1269,27 @@ public class SetupData extends SetupBase {
 	/**
 	 * Suchen und Ersetzen: Groß- und Kleinschreibung beachten
 	 */
-	public boolean searchAndReplaceCaseSensitive;
+	public boolean searchCaseSensitive;
 
 	/**
 	 * Suchen und Ersetzen: Auch nach Stations-IDs suchen
 	 */
-	public boolean searchAndReplaceStationIDs;
+	public boolean searchStationIDs;
 
 	/**
 	 * Suchen und Ersetzen: Nur gesamte Begriffe vergleichen
 	 */
-	public boolean searchAndReplaceFullMatchOnly;
+	public boolean searchFullMatchOnly;
 
 	/**
 	 * Suchen und Ersetzen: Ist regulärer Ausdruck
 	 */
-	public boolean searchAndReplaceRegularExpression;
-
-	/**
-	 * Suchen in Skript-Eingabefeld: Groß- und Kleinschreibung beachten
-	 */
-	public boolean scriptSearchMatchCase;
-
-	/**
-	 * Suchen in Skript-Eingabefeld: Suchbegriff ist regulärer Ausdruck
-	 */
-	public boolean scriptSearchRegex;
+	public boolean searchRegularExpression;
 
 	/**
 	 * Suchen in Skript-Eingabefeld: Vorwärts suchen
 	 */
-	public boolean scriptSearchForward;
-
-	/**
-	 * Suchen in Skript-Eingabefeld: Nur ganze Wörter
-	 */
-	public boolean scriptSearchWholeWord;
+	public boolean searchForward;
 
 	/**
 	 * Speichert den zuletzt im Stapelverarbeitung-Panel hinterlegten Verzeichnisnamen
@@ -1624,14 +1609,11 @@ public class SetupData extends SetupBase {
 		if (dynamicImportClasses==null) dynamicImportClasses=new ArrayList<>();
 		dynamicImportClasses.clear();
 		eBook="";
-		searchAndReplaceCaseSensitive=false;
-		searchAndReplaceStationIDs=false;
-		searchAndReplaceFullMatchOnly=false;
-		searchAndReplaceRegularExpression=false;
-		scriptSearchMatchCase=false;
-		scriptSearchRegex=false;
-		scriptSearchForward=true;
-		scriptSearchWholeWord=false;
+		searchCaseSensitive=false;
+		searchStationIDs=false;
+		searchFullMatchOnly=false;
+		searchRegularExpression=false;
+		searchForward=true;
 		batchFolder="";
 		batchMode=BatchMode.SIMULATION;
 		batchFilterScript="";
@@ -2634,19 +2616,12 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
-			if (name.equals("searchandreplace")) {
-				searchAndReplaceCaseSensitive=loadBoolean(e.getAttribute("CaseSensitive"),false);
-				searchAndReplaceStationIDs=loadBoolean(e.getAttribute("StationIDs"),false);
-				searchAndReplaceFullMatchOnly=loadBoolean(e.getAttribute("FullMatchOnly"),false);
-				searchAndReplaceRegularExpression=loadBoolean(e.getAttribute("RegularExpression"),false);
-				continue;
-			}
-
-			if (name.equals("scriptsearch")) {
-				scriptSearchMatchCase=loadBoolean(e.getAttribute("CaseSensitive"),false);
-				scriptSearchRegex=loadBoolean(e.getAttribute("RegularExpression"),false);
-				scriptSearchForward=loadBoolean(e.getAttribute("Forward"),true);
-				scriptSearchWholeWord=loadBoolean(e.getAttribute("WholeWord"),false);
+			if (name.equals("search")) {
+				searchCaseSensitive=loadBoolean(e.getAttribute("CaseSensitive"),false);
+				searchStationIDs=loadBoolean(e.getAttribute("StationIDs"),false);
+				searchFullMatchOnly=loadBoolean(e.getAttribute("FullMatchOnly"),false);
+				searchRegularExpression=loadBoolean(e.getAttribute("RegularExpression"),false);
+				searchForward=loadBoolean(e.getAttribute("Forward"),true);
 				continue;
 			}
 
@@ -3409,20 +3384,13 @@ public class SetupData extends SetupBase {
 			node.setTextContent(eBook);
 		}
 
-		if (searchAndReplaceCaseSensitive || searchAndReplaceStationIDs || searchAndReplaceFullMatchOnly || searchAndReplaceRegularExpression) {
-			root.appendChild(node=doc.createElement("SearchAndReplace"));
-			if (searchAndReplaceCaseSensitive) node.setAttribute("CaseSensitive","1");
-			if (searchAndReplaceStationIDs) node.setAttribute("StationIDs","1");
-			if (searchAndReplaceFullMatchOnly) node.setAttribute("FullMatchOnly","1");
-			if (searchAndReplaceRegularExpression) node.setAttribute("RegularExpression","1");
-		}
-
-		if (scriptSearchMatchCase || scriptSearchRegex || !scriptSearchForward || scriptSearchWholeWord) {
-			root.appendChild(node=doc.createElement("ScriptSearch"));
-			if (scriptSearchMatchCase) node.setAttribute("CaseSensitive","1");
-			if (scriptSearchRegex) node.setAttribute("RegularExpression","1");
-			if (!scriptSearchForward) node.setAttribute("Forward","1");
-			if (scriptSearchWholeWord) node.setAttribute("WholeWord","1");
+		if (searchCaseSensitive || searchStationIDs || searchFullMatchOnly || searchRegularExpression || !searchForward) {
+			root.appendChild(node=doc.createElement("Search"));
+			if (searchCaseSensitive) node.setAttribute("CaseSensitive","1");
+			if (searchStationIDs) node.setAttribute("StationIDs","1");
+			if (searchFullMatchOnly) node.setAttribute("FullMatchOnly","1");
+			if (searchRegularExpression) node.setAttribute("RegularExpression","1");
+			if (!searchForward) node.setAttribute("Forward","1");
 		}
 
 		if (!batchFolder.isEmpty() || batchMode!=BatchMode.SIMULATION || !batchFilterScript.isEmpty() || !batchOutputFile.isEmpty()) {

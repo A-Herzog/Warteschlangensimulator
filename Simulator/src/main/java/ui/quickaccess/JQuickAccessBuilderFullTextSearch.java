@@ -22,6 +22,7 @@ import java.util.function.Consumer;
 import language.Language;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
+import systemtools.JSearchSettingsSync;
 import tools.SetupData;
 import ui.dialogs.FindAndReplaceDialog;
 import ui.images.Images;
@@ -55,10 +56,10 @@ public class JQuickAccessBuilderFullTextSearch extends JQuickAccessBuilder {
 		/* Suche vorbereiten */
 		final SetupData setup=SetupData.getSetup();
 		final Set<FullTextSearch.SearchOption> options=new HashSet<>();
-		if (setup.searchAndReplaceCaseSensitive) options.add(FullTextSearch.SearchOption.CASE_SENSITIVE);
-		if (setup.searchAndReplaceStationIDs) options.add(FullTextSearch.SearchOption.SEARCH_IDS);
-		if (setup.searchAndReplaceFullMatchOnly) options.add(FullTextSearch.SearchOption.FULL_MATCH_ONLY);
-		if (setup.searchAndReplaceRegularExpression) options.add(FullTextSearch.SearchOption.REGULAR_EXPRESSION);
+		if (JSearchSettingsSync.getCaseSensitive()) options.add(FullTextSearch.SearchOption.CASE_SENSITIVE);
+		if (setup.searchStationIDs) options.add(FullTextSearch.SearchOption.SEARCH_IDS);
+		if (JSearchSettingsSync.getFullMatchOnly()) options.add(FullTextSearch.SearchOption.FULL_MATCH_ONLY);
+		if (JSearchSettingsSync.getRegEx()) options.add(FullTextSearch.SearchOption.REGULAR_EXPRESSION);
 
 		/* Suche durchführen */
 		FullTextSearch searcher=new FullTextSearch(quickAccessText,options);

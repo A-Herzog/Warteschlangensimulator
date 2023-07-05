@@ -25,6 +25,7 @@ import java.util.function.IntConsumer;
 import java.util.function.LongConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
@@ -99,7 +100,13 @@ public class FullTextSearch {
 		if (this.options.contains(SearchOption.REGULAR_EXPRESSION)) {
 			int flags=0;
 			if (!this.options.contains(SearchOption.CASE_SENSITIVE)) flags+=Pattern.CASE_INSENSITIVE;
-			regexPattern=Pattern.compile(searchText,flags);
+			Pattern pattern=null;
+			try {
+				pattern=Pattern.compile(searchText,flags);
+			} catch (PatternSyntaxException e) {
+				pattern=null;
+			}
+			regexPattern=pattern;
 		} else {
 			regexPattern=null;
 		}
