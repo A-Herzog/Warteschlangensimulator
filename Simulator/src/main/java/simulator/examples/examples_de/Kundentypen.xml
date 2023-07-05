@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>3.3.0</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Mehrere Kundentypen mit verschiedenen Prioritäten an der Bedienstation</ModellName>
-  <ModellBeschreibung>Die Kunden vom Typ B besitzen eine höhere Basispriorität
-als die Kunden vom Typ A. (50 Punkte zu 0 Punkten.)
-Daher ist die Wartezeit der Kunden vom Typ B kürzer.</ModellBeschreibung>
+  <ModellBeschreibung>Die Auswahl des als nächstes zu bedienenden Kunden erfolgt nach längster
+Wartezeit (FIFO-Modus). Allerdings erhalten die Kunden vom Typ B einen
+virtuellen Vorsprung beim Betreten der Warteschlange und erhalten damit
+eine höhere Chance, vor Kunden des Typs A bedient zu werden. Je höher der
+Vorsprung ist, desto stärker variieren die mittleren Wartezeiten zwischen
+Kundentyp A und B.</ModellBeschreibung>
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">5000000</ModellKunden>
   <ModellAufwaermphase>0.01</ModellAufwaermphase>
@@ -18,7 +22,7 @@ Daher ist die Wartezeit der Kunden vom Typ B kürzer.</ModellBeschreibung>
       <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
       <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (25)</ModellElementVerteilung>
       <ModellElementPrioritaet Kundentyp="Kunden A">w</ModellElementPrioritaet>
-      <ModellElementPrioritaet Kundentyp="Kunden B">w+50</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden B">w+a</ModellElementPrioritaet>
       <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Neue Bedienergruppe"/>
       <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
     </ModellElementBedienstation>
@@ -44,42 +48,47 @@ Daher ist die Wartezeit der Kunden vom Typ B kürzer.</ModellBeschreibung>
       <ModellElementVerbindung Element1="1" Element2="4" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="8">
-      <ModellElementGroesse h="23" w="631" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="647" x="50" y="50"/>
       <ModellElementTextzeile>Mehrere Kundentypen mit verschiedenen Prioritäten an der Bedienstation</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="9">
-      <ModellElementGroesse h="19" w="656" x="50" y="300"/>
-      <ModellElementTextzeile>Kundentyp B wird höher priorisiert als Kundentyp A. Daher sind die Wartezeiten für Kundentyp B kürzer.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementGroesse h="76" w="650" x="50" y="300"/>
+      <ModellElementTextzeile>Die Auswahl des als nächstes zu bedienenden Kunden erfolgt nach längster Wartezeit (FIFO-Modus).</ModellElementTextzeile>
+      <ModellElementTextzeile>Allerdings erhalten die Kunden vom Typ B einen virtuellen Vorsprung beim Betreten der Warteschlange</ModellElementTextzeile>
+      <ModellElementTextzeile>und erhalten damit eine höhere Chance, vor Kunden des Typs A bedient zu werden. Je höher der</ModellElementTextzeile>
+      <ModellElementTextzeile>Vorsprung ist, desto stärker variieren die mittleren Wartezeiten zwischen Kundentyp A und B.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationLinienDiagramm id="22">
-      <ModellElementGroesse h="230" w="600" x="50" y="370"/>
+      <ModellElementGroesse h="230" w="600" x="50" y="420"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
       <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Maximum="250" Minimum="0">Wartezeit_avg(2)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,135,0" Maximum="250" Minimum="0">Wartezeit_avg(3)</ModellElementDiagrammElement>
       <ModellElementDiagrammZeitbereich>18000</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>2</ModellElementAchsenbeschriftung>
     </ModellElementAnimationLinienDiagramm>
     <ModellElementText id="23">
-      <ModellElementGroesse h="19" w="111" x="50" y="350"/>
+      <ModellElementGroesse h="19" w="125" x="50" y="400"/>
       <ModellElementTextzeile>Mittlere Wartezeit</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationText id="14">
       <ModellElementName>Mittlere Wartezeit Kunden A</ModellElementName>
-      <ModellElementGroesse h="30" w="117" x="700" y="370"/>
+      <ModellElementGroesse h="30" w="115" x="700" y="420"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Wartezeit_avg(2)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="38">
       <ModellElementName>Mittlere Wartezeit Kunden B</ModellElementName>
-      <ModellElementGroesse h="30" w="117" x="700" y="450"/>
+      <ModellElementGroesse h="30" w="115" x="700" y="500"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,135,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Wartezeit_avg(3)</ModellElementAnimationsmodus>
@@ -94,6 +103,20 @@ Daher ist die Wartezeit der Kunden vom Typ B kürzer.</ModellBeschreibung>
       <ModellElementVerbindung Element1="3" Element2="1" Typ="Kante"/>
       <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
     </ModellElementKante>
+    <ModellElementAnimationText id="10">
+      <ModellElementName>Prioritätsvorsprung für Kundentyp B</ModellElementName>
+      <ModellElementGroesse h="30" w="151" x="700" y="600"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">a</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementSchieberegler id="11">
+      <ModellElementGroesse h="50" w="150" x="700" y="650"/>
+      <ModellElementSchiebereglerVariable>a</ModellElementSchiebereglerVariable>
+      <ModellElementSchiebereglerMinimum>0</ModellElementSchiebereglerMinimum>
+      <ModellElementSchiebereglerMaximum>100</ModellElementSchiebereglerMaximum>
+      <ModellElementSchiebereglerSchrittweite>5</ModellElementSchiebereglerSchrittweite>
+    </ModellElementSchieberegler>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig">
     <Ressource Name="Neue Bedienergruppe" Typ="Anzahl" Wert="1"/>
@@ -102,6 +125,7 @@ Daher ist die Wartezeit der Kunden vom Typ B kürzer.</ModellBeschreibung>
     <KundenDaten Farbe="255,0,0" Icon="user_red" Name="Kunden A"/>
     <KundenDaten Farbe="0,195,0" Icon="user_green" Name="Kunden B"/>
   </KundentypenDaten>
+  <InitialeVariable Name="a">50</InitialeVariable>
   <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
   <ModellKantenSelektiert Breite="1" Typ="0"/>
   <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>

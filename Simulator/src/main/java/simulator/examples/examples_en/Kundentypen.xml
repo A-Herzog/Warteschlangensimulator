@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>3.3.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
   <ModelName>Two client types with different priorities at the process station</ModelName>
-  <ModelDescription>The clients of type B have a higher base priority than the
-clients of type A. (50 points to 0 points).
-Therefore, the waiting times for the clients of type B are shorter.</ModelDescription>
+  <ModelDescription>The client to be served next is selected according to the longest waiting
+time (FIFO mode). However, type B clients are given a virtual head start
+when entering the queue and thus have a higher chance of being served before
+type A clients. The higher the head start, the more the average waiting times
+vary between type A and B clients.</ModelDescription>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">5000000</ModelClients>
   <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
@@ -18,7 +21,7 @@ Therefore, the waiting times for the clients of type B are shorter.</ModelDescri
       <ModelElementConnection Element="7" Type="Out"/>
       <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (25)</ModelElementDistribution>
       <ModelElementPriority ClientType="Clients A">w</ModelElementPriority>
-      <ModelElementPriority ClientType="Clients B">w+50</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients B">w+a</ModelElementPriority>
       <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
       <ModelElementPriority ClientType="Kunden B">w+50</ModelElementPriority>
       <ModelElementOperators Alternative="1" Count="1" Group="Operators group"/>
@@ -46,42 +49,47 @@ Therefore, the waiting times for the clients of type B are shorter.</ModelDescri
       <ModelElementConnection Element1="1" Element2="4" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="8">
-      <ModelElementSize h="23" w="531" x="50" y="50"/>
+      <ModelElementSize h="23" w="541" x="50" y="50"/>
       <ModelElementTextLine>Two client types with different priorities at the process station</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="9">
-      <ModelElementSize h="19" w="711" x="50" y="300"/>
-      <ModelElementTextLine>Client type B has a higher priority than client type A. Therefore, the waiting times for clients of type B are shorter.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementSize h="76" w="583" x="50" y="300"/>
+      <ModelElementTextLine>The client to be served next is selected according to the longest waiting time (FIFO mode).</ModelElementTextLine>
+      <ModelElementTextLine>However, type B clients are given a virtual head start when entering the queue and thus have</ModelElementTextLine>
+      <ModelElementTextLine>a higher chance of being served before type A clients. The higher the head start, the more</ModelElementTextLine>
+      <ModelElementTextLine>the average waiting times vary between type A and B clients.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationLineDiagram id="22">
-      <ModelElementSize h="230" w="600" x="50" y="370"/>
+      <ModelElementSize h="230" w="600" x="50" y="420"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
       <ModelElementDiagramElement LineColor="255,0,0" LineWidth="2" Maximum="250" Minimum="0">WaitingTime_avg(2)</ModelElementDiagramElement>
       <ModelElementDiagramElement LineColor="0,135,0" LineWidth="2" Maximum="250" Minimum="0">WaitingTime_avg(3)</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>18000</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="23">
-      <ModelElementSize h="19" w="132" x="50" y="350"/>
+      <ModelElementSize h="19" w="147" x="50" y="400"/>
       <ModelElementTextLine>Average waiting time</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="14">
       <ModelElementName>Average waiting time clients A</ModelElementName>
-      <ModelElementSize h="30" w="126" x="700" y="370"/>
+      <ModelElementSize h="30" w="126" x="700" y="420"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WaitingTime_avg(2)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="38">
       <ModelElementName>Average waiting time clients B</ModelElementName>
-      <ModelElementSize h="30" w="126" x="700" y="450"/>
+      <ModelElementSize h="30" w="126" x="700" y="500"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,135,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WaitingTime_avg(3)</ModelElementAnimationMode>
@@ -96,6 +104,20 @@ Therefore, the waiting times for the clients of type B are shorter.</ModelDescri
       <ModelElementConnection Element1="3" Element2="1" Type="Edge"/>
       <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
     </ModelElementEdge>
+    <ModelElementAnimationText id="10">
+      <ModelElementName>Priority advantage for client type B</ModelElementName>
+      <ModelElementSize h="30" w="148" x="700" y="600"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">a</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementSlider id="11">
+      <ModelElementSize h="50" w="150" x="700" y="650"/>
+      <ModelElementSliderVariable>a</ModelElementSliderVariable>
+      <ModelElementSliderMinimum>0</ModelElementSliderMinimum>
+      <ModelElementSliderMaximum>100</ModelElementSliderMaximum>
+      <ModelElementSliderStepWide>5</ModelElementSliderStepWide>
+    </ModelElementSlider>
   </ModelElements>
   <Resources SecondaryPriority="Random">
     <Resource Name="Operators group" Type="Number" Value="1"/>
@@ -106,6 +128,7 @@ Therefore, the waiting times for the clients of type B are shorter.</ModelDescri
     <ClientData Color="255,0,0" Name="Kunden A"/>
     <ClientData Color="0,195,0" Name="Kunden B"/>
   </ClientTypeData>
+  <InitialVariable Name="a">50</InitialVariable>
   <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
   <ModelEdgesSelected Type="0" Width="1"/>
   <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
