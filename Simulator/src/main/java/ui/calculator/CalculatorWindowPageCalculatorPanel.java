@@ -60,6 +60,7 @@ import systemtools.MsgBox;
 import ui.expressionbuilder.ExpressionBuilder;
 import ui.expressionbuilder.ExpressionBuilderAutoComplete;
 import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 
 /**
  * Einzelne Eingabe-Ausgabe-Zeilenkombination im Rechnerdialog.
@@ -287,7 +288,10 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 
 		final StringBuilder result=new StringBuilder();
 		try {
-			for (int i=0;i<commonCalculationRepeatCount.repeatCount;i++) result.append(NumberTools.formatNumberMax(calc.calc()));
+			for (int i=0;i<commonCalculationRepeatCount.repeatCount;i++) {
+				result.append(NumberTools.formatNumberMax(calc.calc()));
+				result.append("\n");
+			}
 		} catch (MathCalcError e) {
 			MsgBox.error(this,Language.tr("CalculatorDialog.Expression.CalcError.Info"),Language.tr("CalculatorDialog.Expression.CalcError"));
 			return;
@@ -477,6 +481,7 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		editorPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.setBorder(BorderFactory.createEmptyBorder(0,25,0,0));
 		final JTextField editor=new JTextField(""+commonCalculationRepeatCount.repeatCount,10);
+		ModelElementBaseDialog.addUndoFeature(editor);
 		line.add(editor);
 		label.setLabelFor(editor);
 		editor.addKeyListener(new KeyListener() {
