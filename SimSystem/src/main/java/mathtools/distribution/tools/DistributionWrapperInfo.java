@@ -203,12 +203,15 @@ public class DistributionWrapperInfo {
 			if (result.length()>0) result.append("; ");
 			result.append(DistributionTools.DistSkewness+" Sk="+NumberTools.formatNumber(Sk,4));
 		}
+		if (mode!=null) {
+			if (result.length()>0) result.append("; ");
+			result.append(DistributionTools.DistMode+"="+NumberTools.formatNumber(mode,4));
+		}
 		if (info2!=null) {
 			if (result.length()>0) result.append("; ");
 			result.append(info2);
 		}
 
 		return result.toString();
-
 	}
 }

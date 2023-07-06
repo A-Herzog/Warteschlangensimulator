@@ -21,11 +21,13 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.Window;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -243,18 +245,18 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			infoPanelEast.add(save);
 		} catch (SecurityException e) {}
 
+		infoPanelEast.add(wiki=new JButton(WikiButtonLabel));
+		wiki.setToolTipText(WikiButtonTooltip);
+		wiki.addActionListener(e->actionWiki());
+		wiki.setIcon(SimSystemsSwingImages.HELP.getIcon());
+
 		if (showEditButton) {
 			infoPanelEast.add(edit=new JButton(EditButtonLabel));
 			edit.setToolTipText(EditButtonTooltip);
 			edit.addActionListener(e->editButtonClicked());
 			edit.setIcon(SimSystemsSwingImages.EDIT.getIcon());
-			wiki=null;
 		} else {
 			edit=null;
-			infoPanelEast.add(wiki=new JButton(WikiButtonLabel));
-			wiki.setToolTipText(WikiButtonTooltip);
-			wiki.addActionListener(e->actionWiki());
-			wiki.setIcon(SimSystemsSwingImages.HELP.getIcon());
 		}
 
 		add(plotter=new JDistributionPlotter(),BorderLayout.CENTER);
@@ -326,7 +328,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			if (dataLong.isEmpty()) {
 				info.setToolTipText("");
 			} else {
-				info.setToolTipText(name+" ("+dataLong+")");
+				info.setToolTipText("<html><body><b>"+name+"</b><br>"+dataLong.replace("; ","<br>")+"</body></html>");
 			}
 			return true;
 		} else {
@@ -453,11 +455,20 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	 * @see #maxXValue
 	 */
 	private double getRealMaxXValue() {
-		double d=maxXValue;
-		if (distribution!=null) {
-			if (distribution.getSupportUpperBound()*1.1<d) d=distribution.getSupportUpperBound()*1.1;
+		if (distribution==null) return maxXValue;
+
+		double test=Math.min(maxXValue,Math.min(10_000,distribution.getSupportUpperBound()));
+		if (distribution.cumulativeProbability(test)>0.99) {
+			while (test>10) {
+				double testOld=test;
+				test=Math.round(test/2);
+				if (distribution.cumulativeProbability(test)<0.99) return testOld;
+			}
+			return test;
+		} else {
+			if (distribution.getSupportUpperBound()*1.1<maxXValue) return distribution.getSupportUpperBound()*1.1;
+			return maxXValue;
 		}
-		return d;
 	}
 
 	/**
@@ -527,14 +538,24 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		private void paintDistributionRect(final Graphics g, final Rectangle r, final Rectangle dataRect, final double maxXValue) {
 			int fontDelta=g.getFontMetrics().getAscent();
 
-			g.setColor(isDark?Color.GRAY:Color.WHITE);
-			g.fillRect(dataRect.x,dataRect.y,dataRect.width,dataRect.height);
+			/* Hintergrund */
+			final Graphics2D g2d=(Graphics2D)g;
+			g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+			final GradientPaint gp=new GradientPaint(0,0,isDark?Color.GRAY:new Color(235,235,255),0,dataRect.height,isDark?Color.DARK_GRAY:Color.WHITE);
+			g2d.setPaint(gp);
+			g2d.fillRect(dataRect.x,dataRect.y,dataRect.width,dataRect.height);
 
-			g.setColor(Color.BLACK);
+			/* Rahmenlinien links und unten (=Koordinatenachsen) */
+			g.setColor(isDark?Color.LIGHT_GRAY:Color.BLACK);
 			g.drawLine(dataRect.x,dataRect.y,dataRect.x,dataRect.y+dataRect.height);
 			g.drawLine(dataRect.x,dataRect.y+dataRect.height,dataRect.x+dataRect.width,dataRect.y+dataRect.height);
 
-			if (isDark) g.setColor(Color.WHITE);
+			/* Rahmenlinien oben und rechts */
+			g.setColor(Color.LIGHT_GRAY);
+			g.drawLine(dataRect.x+dataRect.width,dataRect.y,dataRect.x+dataRect.width,dataRect.y+dataRect.height);
+			g.drawLine(dataRect.x,dataRect.y,dataRect.x+dataRect.width,dataRect.y);
+
+			g.setColor(isDark?Color.WHITE:Color.BLACK);
 			if (!(distribution instanceof DataDistributionImpl)) g.drawString("1",r.x,r.y+fontDelta);
 			g.drawString("0",r.x,r.y+r.height);
 
@@ -631,11 +652,17 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		private void paintToRectangle(final Graphics g, Rectangle r, final double maxXValue) {
 			if (distribution==null) {paintNullDistribution(g,r); return;}
 
-			g.setColor(isDark?Color.GRAY:Color.WHITE);
+			/* Hintergrund über alles */
+			g.setColor(getBackground());
 			g.fillRect(r.x,r.y,r.x+r.width,r.y+r.height);
+
+			/* Rahmen um alles - aus */
+			/*
 			g.setColor(Color.GRAY);
 			g.drawRect(r.x,r.y,r.x+r.width,r.y+r.height);
+			 */
 
+			/* Rechteck innerhalb der Achsen definieren */
 			Dimension space=new Dimension(g.getFontMetrics().stringWidth("0"),g.getFontMetrics().getHeight());
 			final int padding=3;
 			r=new Rectangle(r.x+padding,r.y+padding,r.width-2*padding,r.height-2*padding);
@@ -884,7 +911,11 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		popup.add(item=new JMenuItem(save.getText(),save.getIcon()));
 		item.addActionListener(ev->actionSave());
 
+		popup.add(item=new JMenuItem(wiki.getText(),wiki.getIcon()));
+		item.addActionListener(ev->actionWiki());
+
 		if (showEditButton) {
+			popup.addSeparator();
 			popup.add(item=new JMenuItem(edit.getText(),edit.getIcon()));
 			item.addActionListener(ev->editButtonClicked());
 		}

@@ -254,6 +254,7 @@ public class PlotterPanel extends JPanel {
 		final Color textBackground=UIManager.getColor("TextField.background");
 		final boolean isDark=(textBackground!=null && !textBackground.equals(Color.WHITE));
 		if (isDark) {
+			chart.getPlot().setBackgroundPaint(Color.DARK_GRAY);
 			ValueAxis axis;
 			axis=((XYPlot)chart.getPlot()).getDomainAxis();
 			axis.setAxisLinePaint(Color.LIGHT_GRAY);
