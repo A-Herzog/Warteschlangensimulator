@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-04 22:46+0200\n"
+"POT-Creation-Date: 2023-07-07 10:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5168,6 +5168,9 @@ msgstr "Combining orders and warehouse items"
 
 msgid "Examples.DelayJS"
 msgstr "Homogenization of the number of clients"
+
+msgid "Examples.DurchlaufzeitenVersusDurchsatz"
+msgstr "Lead times versus throughput"
 
 msgid "Examples.EmergencyDepartment"
 msgstr "Patient treatment at the doctor's office"

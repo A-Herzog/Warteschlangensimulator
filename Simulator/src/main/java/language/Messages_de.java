@@ -13652,6 +13652,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31187] = "Schrittweite";
     t[31192] = "Statistics.CostsForResources";
     t[31193] = "Kosten f\u00fcr die Ressourcen";
+    t[31196] = "Examples.DurchlaufzeitenVersusDurchsatz";
+    t[31197] = "Durchlaufzeiten versus Durchsatz";
     t[31204] = "GraphVizExport.Info1";
     t[31205] = "Erzeugt mit %s";
     t[31206] = "GraphVizExport.Info2";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32015] = "Statusthema";
     t[32016] = "Window.Check.AutoFixRepeatCount.Title";
     t[32017] = "Simulation kann nicht mehrfach ausgef\u00fchrt werden ";
-    t[32018] = "Editor.UnknownElements.Info.Short";
-    t[32019] = "Die Modelldatei enth\u00e4lt unbekannte Elemente.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[32018] = "Editor.UnknownElements.Info.Short";
+    t[32019] = "Die Modelldatei enth\u00e4lt unbekannte Elemente.";
     t[32028] = "Statistics.ArrivalsBySimulation";
     t[32029] = "Ank\u00fcnfte laut Simulation";
     t[32034] = "Surface.WayPoint.Dialog.Icon";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36491] = "Aktueller Zustand";
     t[36492] = "Editor.DialogBase.OpenModelResources";
     t[36493] = "Modellressourcen anzeigen";
-    t[36494] = "Statistics.Dashboard.EditDialog.Format.Number";
-    t[36495] = "Zahlenwert";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36494] = "Statistics.Dashboard.EditDialog.Format.Number";
+    t[36495] = "Zahlenwert";
     t[36498] = "Surface.XML.Schedule.EditorMaxY";
     t[36499] = "EditorMaxY";
     t[36504] = "ExpressionBuilder.MathematicalFunctions.Inverse";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40923] = "Farbe";
     t[40926] = "CommandLine.ServerSocket.Name";
     t[40927] = "ServerSocket";
-    t[40932] = "Simulation.Log.Transporter.Move";
-    t[40933] = "Transporter %s startet Fahrt id=%d->id=%d, Fahrtzeit: %s";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40932] = "Simulation.Log.Transporter.Move";
+    t[40933] = "Transporter %s startet Fahrt id=%d->id=%d, Fahrtzeit: %s";
     t[40938] = "ExpressionBuilder.ProbabilityDistributions.RayleighDistribution";
     t[40939] = "Rayleigh-Verteilung";
     t[40956] = "Surface.Costs.Dialog.ProcessCosts";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45395] = "L\u00e4dt alle verf\u00fcgbaren Kundentypen aus der Datenbanktabelle und ersetzt die bisherigen Kundentypen in diesem Dialog durch die geladenen Kundentypen.";
     t[45404] = "FitDialog.TypeSelect.Default";
     t[45405] = "Wahrscheinlichkeitsverteilung f\u00fcr Messwerte finden";
-    t[45406] = "Statistic.FastAccess.FilterList.Edit.Dialog.Mode";
-    t[45407] = "Typ";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45406] = "Statistic.FastAccess.FilterList.Edit.Dialog.Mode";
+    t[45407] = "Typ";
     t[45408] = "Statistics.SimulatedTime.TimeSpan";
     t[45409] = "Zeitspanne";
     t[45412] = "Distribution.NormalWikipedia";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49873] = "Transportstart";
     t[49876] = "ModelSecurityCheck.Info.Plural";
     t[49877] = "In dem Modell sind %d potentiell kritische Stationen enthalten:";
-    t[49878] = "Surface.XML.TimeBase.Hours";
-    t[49879] = "Stunden";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[49878] = "Surface.XML.TimeBase.Hours";
+    t[49879] = "Stunden";
     t[49880] = "Surface.Tank.Dialog.Valve.Delete.Info";
     t[49881] = "Soll Ventil %d wirklich gel\u00f6scht werden?";
     t[49886] = "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorKeyStoreFileExists";

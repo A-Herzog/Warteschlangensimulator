@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.4.1</ModelVersion>
+  <ModelName>Lead times versus throughput</ModelName>
+  <ModelDescription>If the buffer upstream of a station in pull production is small and there
+are high fluctuations at the respective upstream station, the buffer
+upstream of the station under consideration can run empty, so that
+available service capacity remains unused. In the present model, the
+relationship between the throughput (caused by a sufficiently large buffer
+so that the service capacity can always be utilized) and the lead times
+(caused by the waiting times in the buffer) can be investigated.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Workpieces</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="6" Type="Out"/>
+      <ModelElementArrivalCondition MinimumDistance="1">NQ(3)&lt;Max(1;Buffer) &amp;&amp; WIP(2)&lt;2</ModelElementArrivalCondition>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="2">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="100"/>
+      <ModelElementConnection Element="6" Type="In"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Lognormal distribution (50;150)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Werkstücke">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Workpieces">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener A"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="3">
+      <ModelElementName>B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="100"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Werkstücke">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Workpieces">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementThroughput id="4">
+      <ModelElementName>Throughput</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="100"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+    </ModelElementThroughput>
+    <ModelElementDispose id="5">
+      <ModelElementSize h="50" w="100" x="850" y="100"/>
+      <ModelElementConnection Element="9" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="7">
+      <ModelElementConnection Element1="2" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="8">
+      <ModelElementConnection Element1="3" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="9">
+      <ModelElementConnection Element1="4" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="10">
+      <ModelElementSize h="23" w="265" x="50" y="50"/>
+      <ModelElementTextLine>Lead times versus throughput</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="11">
+      <ModelElementSize h="80" w="689" x="50" y="450"/>
+      <ModelElementTextLine>**Possible research question:**</ModelElementTextLine>
+      <ModelElementTextLine>How do the average lead times and throughput change when the buffer target value upstream of station B is changed?</ModelElementTextLine>
+      <ModelElementTextLine>For this purpose, a parameter series for varying the variable value "Buffer" can be created by right-clicking on the drawing surface.</ModelElementTextLine>
+      <ModelElementTextLine>Vary variable value from 1 to 30 (with step size 1).</ModelElementTextLine>
+      <ModelElementTextLine>Add output variables "Throughput" and "Residence time at station B - mean value".</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="14">
+      <ModelElementName>Average lead time at station B</ModelElementName>
+      <ModelElementSize h="30" w="126" x="650" y="350"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,127,80</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_avg(3)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="15">
+      <ModelElementName>Mean inventory at station B</ModelElementName>
+      <ModelElementSize h="30" w="115" x="650" y="300"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,127,80</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WIP_avg(3)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="16">
+      <ModelElementName>Target buffer size at process station B</ModelElementName>
+      <ModelElementSize h="30" w="160" x="450" y="250"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Buffer</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementEdge id="6">
+      <ModelElementName>Arrivals (Workpieces)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="12">
+      <ModelElementSize h="75" w="159" x="50" y="200"/>
+      <ModelElementTextLine>The source supplies a workpiece</ModelElementTextLine>
+      <ModelElementTextLine>whenever the target buffer size</ModelElementTextLine>
+      <ModelElementTextLine>is undershot at station B and</ModelElementTextLine>
+      <ModelElementTextLine>the queue at station A contains</ModelElementTextLine>
+      <ModelElementTextLine>a maximum of one workpiece.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="13">
+      <ModelElementSize h="75" w="147" x="250" y="200"/>
+      <ModelElementTextLine>The service times at station A</ModelElementTextLine>
+      <ModelElementTextLine>are subject to high fluctuations</ModelElementTextLine>
+      <ModelElementTextLine>(CV=3). This is to represent</ModelElementTextLine>
+      <ModelElementTextLine>occasional malfunctions at</ModelElementTextLine>
+      <ModelElementTextLine>the machine.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="17">
+      <ModelElementSize h="19" w="67" x="450" y="200"/>
+      <ModelElementTextLine>Set value:</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="18">
+      <ModelElementSize h="19" w="71" x="650" y="200"/>
+      <ModelElementTextLine>Measured:</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="19">
+      <ModelElementName>Throughput at station B (related to max. possible)</ModelElementName>
+      <ModelElementSize h="30" w="208" x="650" y="250"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Counter(4)*60/1,2</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="20">
+      <ModelElementSize h="19" w="213" x="800" y="265"/>
+      <ModelElementTextLine>&amp;larr; Should be as **large** as possible.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="21">
+      <ModelElementSize h="19" w="215" x="800" y="315"/>
+      <ModelElementTextLine>&amp;larr; Should be as **small** as possible.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>255,127,80</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="22">
+      <ModelElementSize h="19" w="215" x="800" y="365"/>
+      <ModelElementTextLine>&amp;larr; Should be as **small** as possible.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>255,127,80</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Bediener A" Type="Number" Value="1"/>
+    <Resource Name="Bediener B" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="cog" Name="Werkstücke"/>
+    <ClientData Icon="cog" Name="Workpieces"/>
+  </ClientTypeData>
+  <InitialVariable Name="Buffer">10</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>

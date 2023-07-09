@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.4.1</ModellVersion>
+  <ModellName>Durchlaufzeiten versus Durchsatz</ModellName>
+  <ModellBeschreibung>Ist der Puffer in einer Pull-Produktion vor einer Station klein bemessen und
+liegen hohe Schwankungen an der jeweils vorgelagerten Station vor, so kann
+der Puffer vor der betrachteten Station leer laufen, so dass verfügbare
+Bedienleistung ungenutzt bleibt. In dem vorliegenden Modell kann der
+Zusammenhang zwischen dem Durchsatz (bedingt durch einen ausreichend großen
+Puffer, so dass die Bedienleistung immer ausgeschöpft werden kann) und den
+Durchlaufzeiten (bedingt durch die Wartezeiten im Puffer) untersucht werden.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Werkstücke</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementAnkunftsbedingung MinimalerAbstand="1">NQ(3)&lt;Max(1;Puffer) &amp;&amp; WIP(2)&lt;2</ModellElementAnkunftsbedingung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="2">
+      <ModellElementName>A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="250" y="100"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Lognormalverteilung (50;150)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Werkstücke">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener A"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="3">
+      <ModellElementName>B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="100"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Werkstücke">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener B"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementDurchsatz id="4">
+      <ModellElementName>Durchsatz</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="100"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+    </ModellElementDurchsatz>
+    <ModellElementEnde id="5">
+      <ModellElementGroesse h="50" w="100" x="850" y="100"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="7">
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="3" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementVerbindung Element1="4" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="10">
+      <ModellElementGroesse h="23" w="296" x="50" y="50"/>
+      <ModellElementTextzeile>Durchlaufzeiten versus Durchsatz</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="11">
+      <ModellElementGroesse h="80" w="691" x="50" y="450"/>
+      <ModellElementTextzeile>**Mögliche Untersuchungsfragestellung:**</ModellElementTextzeile>
+      <ModellElementTextzeile>Wie verändern sich der mittlere Durchlaufzeiten und Durchsatz, wenn der Puffer-Zielwert vor Station B verändert wird?</ModellElementTextzeile>
+      <ModellElementTextzeile>Dafür kann per Rechtsklick auf die Zeichenfläche eine Parameterreihe zur Variation des Variablenwertes "Puffer" angelegt werden.</ModellElementTextzeile>
+      <ModellElementTextzeile>Variablenwert von 1 bis 30 (mit Schrittweite 1) variieren.</ModellElementTextzeile>
+      <ModellElementTextzeile>Ausgabegrößen "Durchsatz" und "Verweilzeit an Station B - Mittelwert" hinzufügen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="14">
+      <ModellElementName>Mittlere Durchlaufzeit Station B</ModellElementName>
+      <ModellElementGroesse h="30" w="129" x="650" y="350"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,127,80</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(3)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="15">
+      <ModellElementName>Mittlerer Bestand an Station B</ModellElementName>
+      <ModellElementGroesse h="30" w="125" x="650" y="300"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,127,80</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WIP_avg(3)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="16">
+      <ModellElementName>Ziel-Puffergröße vor Bedienstation B</ModellElementName>
+      <ModellElementGroesse h="30" w="153" x="450" y="250"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Puffer</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementKante id="6">
+      <ModellElementName>Ankünfte (Werkstücke)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="12">
+      <ModellElementGroesse h="90" w="165" x="50" y="200"/>
+      <ModellElementTextzeile>Die Quelle liefert immer dann</ModellElementTextzeile>
+      <ModellElementTextzeile>ein Werkstück, wenn an Station B</ModellElementTextzeile>
+      <ModellElementTextzeile>die Ziel-Puffergröße</ModellElementTextzeile>
+      <ModellElementTextzeile>unterschritten ist und an</ModellElementTextzeile>
+      <ModellElementTextzeile>Station A die Warteschlange</ModellElementTextzeile>
+      <ModellElementTextzeile>maximal ein Werkstück umfasst.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="13">
+      <ModellElementGroesse h="75" w="164" x="250" y="200"/>
+      <ModellElementTextzeile>Die Bediendauern an Station A</ModellElementTextzeile>
+      <ModellElementTextzeile>unterliegen hohen Schwankungen</ModellElementTextzeile>
+      <ModellElementTextzeile>(CV=3). Dies soll gelegentliche</ModellElementTextzeile>
+      <ModellElementTextzeile>Störungen an der Maschine</ModellElementTextzeile>
+      <ModellElementTextzeile>abbilden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="17">
+      <ModellElementGroesse h="19" w="124" x="450" y="200"/>
+      <ModellElementTextzeile>Eingestellter Wert:</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="18">
+      <ModellElementGroesse h="19" w="77" x="650" y="200"/>
+      <ModellElementTextzeile>Gemessen:</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="19">
+      <ModellElementName>Durchsatz an Station B (bezogen auf max. möglich)</ModellElementName>
+      <ModellElementGroesse h="30" w="214" x="650" y="250"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Counter(4)*60/1,2</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="20">
+      <ModellElementGroesse h="19" w="170" x="800" y="265"/>
+      <ModellElementTextzeile>&amp;larr; Soll möglichst **groß** sein.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="21">
+      <ModellElementGroesse h="19" w="170" x="800" y="315"/>
+      <ModellElementTextzeile>&amp;larr; Soll möglichst **klein** sein.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,127,80</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="22">
+      <ModellElementGroesse h="19" w="170" x="800" y="365"/>
+      <ModellElementTextzeile>&amp;larr; Soll möglichst **klein** sein.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,127,80</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener A" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener B" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Icon="cog" Name="Werkstücke"/>
+  </KundentypenDaten>
+  <InitialeVariable Name="Puffer">10</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>
