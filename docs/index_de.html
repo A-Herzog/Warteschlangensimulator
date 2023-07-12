@@ -73,7 +73,7 @@
 <ul>
   <li>Grafische Modellierung von Warteschlangensystemen</li>
   <li>Modelle können als Animationen oder als schnelle Simulationen ausgeführt werden</li>
-  <li>Umfassende automatische <a href="#StatisticsRecording">Erfassung von Statistikdaten</a></li>
+  <li>Umfassende automatische <a href="#StatisticsRecording">Erfassung von Statistikdaten</a> zur Analyse der Simulationsergebnisse (z.B. hierarchiche Engpassanalyse)</li>
   <li>Funktionen zur Durchführung von <a href="#AutomationOfStudies">Parameterstudien und Optimierungen</a></li>
   <li>Es stehen mehr als <a href="#ModellingCapabilities">100 Stationstypen</a> zur Verfügung</li>
   <li>Modellierungsumfang kann mit JavaScript- oder Java-Code erweitert werden</li>
@@ -100,7 +100,7 @@ Programm und Dokumentation sind auf Deutsch und auf Englisch verfügbar
 <div class="row mt-4">
 <div class="col-lg-4">
 <div class="h4 bi-display"> Grafische Modellierung</div>
-Im Warteschlangensimulator können Modelle erstellt werden indem Elemente aus einer Vorlagenleiste auf die Zeichenfläche gezogen und durch Kanten verbunden werden. Es stehen mehr als 100 verschiedene Elementtypen zur Verfügung. Die Modellierung unterscheidet sich nur wenig von den Abläufen bei vielen kommerziellen Simulationstools. Für die meisten Fragestellungen ist kein benutzerdefinierter Code erforderlich. Allerdings können Modelle für die Abbildung komplexer Regeln mit JavaScript- und Java-Code erweitert werden.
+Im Warteschlangensimulator können Modelle erstellt werden indem Elemente aus einer Vorlagenleiste auf die Zeichenfläche gezogen und durch Kanten verbunden werden (Rapid modelling). Es stehen mehr als 100 verschiedene Elementtypen zur Verfügung. Die Modellierung unterscheidet sich nur wenig von den Abläufen bei vielen kommerziellen Simulationstools. Für die meisten Fragestellungen ist kein benutzerdefinierter Code erforderlich. Allerdings können Modelle für die Abbildung komplexer Regeln mit JavaScript- und Java-Code erweitert werden.
 </div>
 <div class="col-lg-4">
 <div class="h4 bi-bar-chart-line"> Automatische Statistikerfassung</div>
@@ -252,7 +252,7 @@ Siehe auch <a href="#AnimationVideo">Video einer laufenden Animation</a>.
 <div class="clearfix anchor" id="StatisticsRecording">
 <img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_de_statistics.webp" loading="lazy" class="rounded shadow col-md-8 ms-3 mb-3 float-md-end mw-100 zoom" alt="Warteschlangensimulator - Statistik" title="Warteschlangensimulator - Statistik" style="aspect-ratio: 506 / 381">
 <h3 class="h4">Statistikaufzeichnung</h3>
-Während der Simulation eines Modells werden alle relevanten statistischen Kenngrößen automatisch erfasst und stehen nach Abschluss der Simulation direkt im Programm zur Auswertung zur Verfügung. Zur einfachen Weiterverarbeitung der Daten verwendet der Warteschlangensimulator offene Dateiformate, kann aber z.B. Tabellen auch in Dateiformaten für gängige Tabellenkalkulationsprogramme exportieren.
+Während der Simulation eines Modells werden alle relevanten statistischen Kenngrößen (wie z.B. Warte- und Verweilzeiten, Bestände, Auslastungen usw.) automatisch erfasst und stehen nach Abschluss der Simulation direkt im Programm zur Auswertung zur Verfügung. Zur einfachen Weiterverarbeitung der Daten verwendet der Warteschlangensimulator offene Dateiformate, kann aber z.B. Tabellen auch in Dateiformaten für gängige Tabellenkalkulationsprogramme exportieren.
 </div>
 
 <div class="clearfix anchor" id="AutomationOfStudies">
@@ -260,7 +260,7 @@ Während der Simulation eines Modells werden alle relevanten statistischen Kenng
 <h3 class="h4">Automatisierung von Studien</h3>
 Um die Auswirkungen von Änderungen einzelner Parameter zu untersuchen, können diese innerhalb eines bestimmten Bereichs automatisch variiert und die Simulationsergebnisse für diese Parameterreihen tabellarisch oder grafisch dargestellt werden.
 <br><br>
-Wenn bereits bekannt ist, welche Kenngröße optimiert werden soll und durch die Variation welcher Parameter in welchem Bereich dies geschehen soll, kann der im Warteschlangensimulator eingebaute Optimierer verwendet werden. Neben den klassischen Methoden zur Variation der Parameter stehen hier auch genetische Algorithmen zur Verfügung.
+Wenn bereits bekannt ist, welche Kenngröße optimiert werden soll und durch die Variation welcher Parameter in welchem Bereich dies geschehen soll, kann der im Warteschlangensimulator eingebaute <b>Optimierer</b> verwendet werden. Neben den klassischen Methoden zur Variation der Parameter stehen hier auch genetische Algorithmen zur Verfügung.
 <br><br>
 Siehe auch <a href="#ParameterStudyVideo">Video zur Durchführung einer Parameterstudie</a>.
 </div>

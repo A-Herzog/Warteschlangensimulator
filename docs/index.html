@@ -73,7 +73,7 @@
 <ul>
   <li>Graphical modelling of queueing systems</li>
   <li>Models can be ran as animations or as fast simulations</li>
-  <li>Automatic <a href="#StatisticsRecording">full statistic data recording</a></li>
+  <li>Automatic <a href="#StatisticsRecording">full statistic data recording</a> (to analyze the simulation results (e.g. hierarchical bottleneck analysis))</li>
   <li>Tools for doing <a href="#AutomationOfStudies">parameter studies and optimizations</a> integrated</li>
   <li>More than <a href="#ModellingCapabilities">100 station types</a> available</li>
   <li>Modelling capabilities can be extended via JavaScript or Java code</li>
@@ -100,7 +100,7 @@ Available languages in program and for documentation: English, German
 <div class="row mt-4">
 <div class="col-lg-4">
 <div class="h4 bi-display"> Graphical modelling</div>
-Warteschlangensimulator allows to build queueing models by dragging elements from a templates panel and connecting them by edges. There are more than 100 different station types available. Modelling is very easy and works similar like in many commercial discrete-event simulation tools. For most models no user-defined code is needed. But for modelling complex rules, models can be extended by JavaScript and Java code.
+Warteschlangensimulator allows to build queueing models by dragging elements from a templates panel and connecting them by edges (Rapid modelling). There are more than 100 different station types available. Modelling is very easy and works similar like in many commercial discrete-event simulation tools. For most models no user-defined code is needed. But for modelling complex rules, models can be extended by JavaScript and Java code.
 </div>
 <div class="col-lg-4">
 <div class="h4 bi-bar-chart-line"> Automatic statistic recording</div>
@@ -252,7 +252,7 @@ See also <a href="#AnimationVideo">video showing a running animation</a>.
 <div class="clearfix anchor" id="StatisticsRecording">
 <img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_statistics.webp" loading="lazy" class="rounded shadow col-md-8 ms-3 mb-3 float-md-end mw-100 zoom" alt="Warteschlangensimulator - Statistics" title="Warteschlangensimulator - Statistics" style="aspect-ratio: 506 / 381">
 <h3 class="h4">Statistics recording</h3>
-During the simulation of a model, all relevant performance indicators are automatically recorded and are available for evaluation when the simulation is completed. For easy further processing of the data, Warteschlangensimulator uses open file formats, but can also export e.g. tables in formats for common spreadsheet applications.
+During the simulation of a model, all relevant performance indicators (like waiting and lead times, inventory, resource utilization etc.) are automatically recorded and are available for evaluation when the simulation is completed. For easy further processing of the data, Warteschlangensimulator uses open file formats, but can also export e.g. tables in formats for common spreadsheet applications.
 </div>
 
 <div class="clearfix anchor" id="AutomationOfStudies">
@@ -260,7 +260,7 @@ During the simulation of a model, all relevant performance indicators are automa
 <h3 class="h4">Automation of studies</h3>
 To investigate the effects of changes in individual parameters, these can be varied automatically within a certain range and the simulation results for these parameter series can be displayed in table or graphic form.
 <br><br>
-If it is already known which characteristic value is to be optimized and by varying which parameters in which range this is to be done, the optimizer built into Warteschlangensimulator can be used. In addition to the classical methods for the variation of the parameters, genetic algorithms are also available here.
+If it is already known which characteristic value is to be optimized and by varying which parameters in which range this is to be done, the <b>optimizer</b> built into Warteschlangensimulator can be used. In addition to the classical methods for the variation of the parameters, genetic algorithms are also available here.
 <br><br>
 See also <a href="#ParameterStudyVideo">video showing a parameter study</a>.
 </div>
