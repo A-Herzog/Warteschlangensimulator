@@ -149,6 +149,36 @@ public class GUITools {
 	}
 
 	/**
+	 * Wird die Windows-seitig die Bildschirmskalierug geändert, so stimmen zwar die
+	 * Menüschriftarten, aber die Dialog- und Toolbar-Schrift hat eine falsche Größe.
+	 * Für diesem Fall wird die Schriftgröße für Dialogelemente und Toolbar von der
+	 * Menüschriftgröße abgeleitet.
+	 */
+	public static void setupFontSizeFixSystemScaling() {
+		/* Korrektur nur unter den Betriebssystemen anwenden, bei denen das Scaling-Problem bekannt ist und nachvollzogen werden kann */
+		final String osName=System.getProperty("os.name");
+		if (osName==null || !osName.startsWith("Windows")) return;
+
+		final UIDefaults defaults=UIManager.getDefaults();
+		if (defaults==null) return;
+
+		final Font menuItemFont=defaults.getFont("MenuItem.font");
+		if (menuItemFont==null) return;
+		if (!menuItemFont.getFamily().equals("Segoe UI")) return; /* Nichts verstellen, wenn wir nicht die Schriftarten vorfinden, die wir erwarten. */
+		final int menuItemFontSize=menuItemFont.getSize();
+
+		final Enumeration<Object> e=defaults.keys();
+		while (e.hasMoreElements()) {
+			final Object key=e.nextElement();
+			final Font font=defaults.getFont(key);
+			if (font==null) continue;
+			if (!font.getFamily().equals("Tahoma")) continue; /* Nichts verstellen, wenn wir nicht die Schriftarten vorfinden, die wir erwarten. */
+			if (font.getSize()==menuItemFontSize-1) continue;
+			defaults.put(key,new Font(font.getName(),font.getStyle(),menuItemFontSize-1));
+		}
+	}
+
+	/**
 	 * Skaliert alle Schriftarten.<br>
 	 * Muss vor dem Öffnen des ersten Fensters aufgerufen werden.
 	 * @param scaleFactor	Skalierungsfaktor (1.0=Standardgröße)
@@ -156,8 +186,11 @@ public class GUITools {
 	public static void setupFontSize(double scaleFactor) {
 		GUITools.scaleFactor=scaleFactor;
 		if (scaleFactor==1) return;
-		UIDefaults defaults=UIManager.getDefaults();
-		Enumeration<Object> e=defaults.keys();
+
+		final UIDefaults defaults=UIManager.getDefaults();
+		if (defaults==null) return;
+
+		final Enumeration<Object> e=defaults.keys();
 		while (e.hasMoreElements()) {
 			final Object key=e.nextElement();
 			final Object value=defaults.get(key);
