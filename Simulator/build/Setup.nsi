@@ -1,6 +1,8 @@
 ; Include used librarys
 ; ============================================================
 
+Unicode false
+
 !addplugindir ".\NSIS_Plugins"
 !addincludedir ".\NSIS_Plugins"
 !include nsDialogs.nsh
