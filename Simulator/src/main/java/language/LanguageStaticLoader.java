@@ -372,6 +372,7 @@ public class LanguageStaticLoader {
 		JDistributionPanel.SaveButtonTooltip=Language.tr("JDistributionEditor.Save.Graphics.Info");
 		JDistributionPanel.WikiButtonLabel=Language.tr("Dialog.Button.Help");
 		JDistributionPanel.WikiButtonTooltip=Language.tr("JDistributionEditor.Wikipedia.Info");
+		JDistributionPanel.ChangeDistributionTypeHighlightList=Language.tr("JDistributionEditor.QuickSelectInfo");
 		JDistributionPanel.DensityLabel=Language.tr("JDistributionEditor.Density.Label");
 		JDistributionPanel.CountDensityLabel=Language.tr("JDistributionEditor.Density.Label");
 		JDistributionPanel.CumulativeProbabilityLabel=Language.tr("JDistributionEditor.CumulativeProbability.Label");

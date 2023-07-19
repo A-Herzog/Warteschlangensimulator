@@ -18,13 +18,17 @@ package mathtools.distribution.swing;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.io.Serializable;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
@@ -150,13 +154,16 @@ public class JDataDistributionPanel extends JPanel implements JGetImage {
 		private static final long serialVersionUID = 4036913455488209499L;
 
 		/**
+		 * Erfolgt die Darstellung im Dark-Modus?
+		 */
+		public boolean isDark;
+
+		/**
 		 * Konstruktor der Klasse
 		 */
 		public JDataDistributionPlotter() {
-			/*
-			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-			 */
+			final Color textBackground=UIManager.getColor("TextField.background");
+			isDark=(textBackground!=null && !textBackground.equals(Color.WHITE));
 		}
 
 		/**
@@ -192,13 +199,24 @@ public class JDataDistributionPanel extends JPanel implements JGetImage {
 		 * @see #paintToRectangle(Graphics, Rectangle, boolean)
 		 */
 		private void paintDistributionRect(Graphics g, Rectangle r, Rectangle dataRect) {
-			g.setColor(Color.WHITE);
+			/* Hintergrund */
+			final Graphics2D g2d=(Graphics2D)g;
+			g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+			final GradientPaint gp=new GradientPaint(0,0,isDark?Color.GRAY:new Color(235,235,255),0,dataRect.height,isDark?Color.DARK_GRAY:Color.WHITE);
+			g2d.setPaint(gp);
 			g.fillRect(dataRect.x,dataRect.y,dataRect.width,dataRect.height);
 
-			g.setColor(Color.BLACK);
+			/* Rahmenlinien links und unten (=Koordinatenachsen) */
+			g.setColor(isDark?Color.LIGHT_GRAY:Color.BLACK);
 			g.drawLine(dataRect.x,dataRect.y,dataRect.x,dataRect.y+dataRect.height);
 			g.drawLine(dataRect.x,dataRect.y+dataRect.height,dataRect.x+dataRect.width,dataRect.y+dataRect.height);
 
+			/* Rahmenlinien oben und rechts */
+			g.setColor(Color.LIGHT_GRAY);
+			g.drawLine(dataRect.x+dataRect.width,dataRect.y,dataRect.x+dataRect.width,dataRect.y+dataRect.height);
+			g.drawLine(dataRect.x,dataRect.y,dataRect.x+dataRect.width,dataRect.y);
+
+			g.setColor(isDark?Color.WHITE:Color.BLACK);
 			int barWidth=dataRect.width/maxXValue-2;
 			for (int i=0;i<distribution.densityData.length;i++) {
 				if (i%2!=0) continue;
@@ -260,7 +278,7 @@ public class JDataDistributionPanel extends JPanel implements JGetImage {
 		private void paintToRectangle(Graphics g, Rectangle r, boolean allLabels) {
 			if (distribution==null) {paintNullDistribution(g,r); return;}
 
-			g.setColor(Color.WHITE);
+			g.setColor(getBackground());
 			g.fillRect(r.x,r.y,r.x+r.width,r.y+r.height);
 
 			Dimension space=new Dimension(g.getFontMetrics().stringWidth("0"),g.getFontMetrics().getHeight());

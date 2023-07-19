@@ -617,6 +617,15 @@ public class JDistributionEditorPanel extends JPanel {
 	}
 
 	/**
+	 * Liefert die Namen der hervorgehoben darzustellenden Verteilungen.
+	 * @return	Namen der hervorgehoben darzustellenden Verteilungen
+	 */
+	public static String[] getHighlightedDistributions() {
+		if (filterGetter==null) return new String[0];
+		return filterGetter.get().split("\\n");
+	}
+
+	/**
 	 * Listener, der auf Klicks auf die Schaltflächen reagiert
 	 */
 	private class ButtonListener implements ActionListener {

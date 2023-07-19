@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-14 17:41+0200\n"
+"POT-Creation-Date: 2023-07-19 08:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10500,6 +10500,9 @@ msgstr "No distribution given"
 
 msgid "JDistributionEditor.Paste.Info"
 msgstr "Loads the probability distribution vector from the clipboard"
+
+msgid "JDistributionEditor.QuickSelectInfo"
+msgstr "Only the highlighted distributions are shown here. A complete list is available for selection in the Edit dialog."
 
 msgid "JDistributionEditor.Save"
 msgstr "Save"

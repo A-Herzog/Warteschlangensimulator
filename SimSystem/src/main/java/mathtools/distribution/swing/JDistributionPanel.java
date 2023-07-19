@@ -42,6 +42,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -49,10 +50,12 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
@@ -66,6 +69,7 @@ import org.apache.commons.math3.exception.MathRuntimeException;
 
 import mathtools.NumberTools;
 import mathtools.distribution.DataDistributionImpl;
+import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
@@ -105,6 +109,8 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	public static String WikiButtonLabel="Hilfe";
 	/** Bezeichner für Tooltip für Dialogschaltfläche "Hilfe" */
 	public static String WikiButtonTooltip="Öffnet ein Browserfenster mit weiteren Informationen zu dem gewählten Verteilungstyp";
+	/** Informationstext in der Verteilungsanzeige zur Veränderung des Verteilungstyps */
+	public static String ChangeDistributionTypeHighlightList="Hier werden nur die hervorgehobenen Verteilungen dargestellt. Eine vollständige Liste steht im Bearbeiten-Dialog zur Auswahl zur Verfügung.";
 	/** Bezeichner "Dichte" */
 	public static String DensityLabel="Dichte";
 	/** Bezeichner "Zähldichte" */
@@ -163,7 +169,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	private int plotType=BOTH;
 
 	/** Darzustellende Verteilung */
-	private AbstractRealDistribution distribution = null;
+	private AbstractRealDistribution distribution=null;
 
 	/**
 	 * Darf der Typ der Verteilung im Editor geändert werden?
@@ -868,6 +874,53 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		final String[] values=record.getValues(distribution);
 		final JTextField[] fields=new JTextField[values.length];
 
+		/* Typ ändern */
+		final String[] distNames=JDistributionEditorPanel.getHighlightedDistributions();
+		if (distNames.length>0) {
+			final List<JDistributionEditorPanelRecord> records=JDistributionEditorPanelRecord.getList(null,false,false);
+			final JMenu typeItem=new JMenu("Verteilungstyp");
+
+			popup.add(typeItem);
+			for (String distName: distNames) {
+				final JDistributionEditorPanelRecord info=records.stream().filter(r->r.isForDistribution(distName)).findFirst().orElseGet(()->null);
+				final JRadioButtonMenuItem item=new JRadioButtonMenuItem(distName,info!=null && info==record);
+				typeItem.add(item);
+				item.addActionListener(e->{
+					final JRadioButtonMenuItem actionItem=(JRadioButtonMenuItem)e.getSource();
+					final AbstractDistributionWrapper oldWrapper=DistributionTools.getWrapper(distribution);
+					final AbstractDistributionWrapper newWrapper=DistributionTools.getWrapper(actionItem.getText());
+					if (oldWrapper==newWrapper) return;
+					double mean=DistributionTools.getMean(distribution);
+					if (Double.isNaN(mean) || Double.isInfinite(mean) || mean<0 || mean>10E10) mean=10;
+					mean=NumberTools.reduceDigits(mean,5);
+					double sd=DistributionTools.getStandardDeviation(distribution);
+					if (Double.isNaN(sd) || Double.isInfinite(sd) || sd<0 || sd>10E10) sd=1;
+					sd=NumberTools.reduceDigits(sd,5);
+					AbstractRealDistribution newDistribution=newWrapper.getDistribution(mean,sd);
+					if (newDistribution==null) newDistribution=newWrapper.getDefaultDistribution();
+					if (newDistribution!=null) setDistribution(newDistribution);
+				});
+			}
+			typeItem.addSeparator();
+			final StringBuilder infoText=new StringBuilder();
+			int lineLength=0;
+			for (String token: ChangeDistributionTypeHighlightList.split("\\s")) {
+				if (lineLength+token.length()>=30) {
+					infoText.append("<br>");
+					lineLength=0;
+				}
+				infoText.append(token);
+				lineLength+=token.length();
+				infoText.append(" ");
+				lineLength+=1;
+			}
+			final JMenuItem infoItem=new JMenuItem("<html><body>"+infoText.toString()+"</body></html>");
+			infoItem.setEnabled(false);
+			typeItem.add(infoItem);
+			popup.addSeparator();
+		}
+
+		/* Werte ändern */
 		for (int i=0;i<Math.min(labels.length,values.length);i++) {
 			final JMenuItem item=new JMenuItem("<html><body><b>"+labels[i]+"</b></body></html>");
 			item.setEnabled(false);
@@ -875,6 +928,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 
 			final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 			popup.add(line);
+			line.setOpaque(false);
 
 			fields[i]=new JTextField(values[i],10);
 			line.add(Box.createHorizontalStrut(24));

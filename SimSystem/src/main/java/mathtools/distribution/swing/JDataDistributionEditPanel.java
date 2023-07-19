@@ -18,12 +18,14 @@ package mathtools.distribution.swing;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
@@ -819,12 +821,22 @@ public class JDataDistributionEditPanel extends JPanel {
 		 * @see #paint(Graphics)
 		 */
 		private void paintFrame(Graphics g, Rectangle r, int padding) {
-			g.setColor(isDark?Color.GRAY:Color.WHITE);
+			/* Hintergrund */
+			final Graphics2D g2d=(Graphics2D)g;
+			g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+			final GradientPaint gp=new GradientPaint(0,0,isDark?Color.GRAY:new Color(235,235,255),0,r.height,isDark?Color.DARK_GRAY:Color.WHITE);
+			g2d.setPaint(gp);
 			g.fillRect(r.x,r.y,r.width,r.height);
 
-			g.setColor(Color.BLACK);
+			/* Rahmenlinien links und unten (=Koordinatenachsen) */
+			g.setColor(isDark?Color.LIGHT_GRAY:Color.BLACK);
 			g.drawLine(r.x,r.y,r.x,r.y+r.height);
 			g.drawLine(r.x,r.y+r.height,r.x+r.width,r.y+r.height);
+
+			/* Rahmenlinien oben und rechts */
+			g.setColor(Color.LIGHT_GRAY);
+			g.drawLine(r.x+r.width,r.y,r.x+r.width,r.y+r.height);
+			g.drawLine(r.x,r.y,r.x+r.width,r.y);
 
 			g.setColor(isDark?Color.WHITE:Color.BLACK);
 			g.drawString("0",r.x,r.y+r.height+padding+g.getFontMetrics().getAscent());

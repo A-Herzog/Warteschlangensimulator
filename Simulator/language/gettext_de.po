@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-14 17:41+0200\n"
+"POT-Creation-Date: 2023-07-19 08:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10529,6 +10529,9 @@ msgstr "Keine Verteilung angegeben"
 
 msgid "JDistributionEditor.Paste.Info"
 msgstr "Lädt die Zähldichte aus der Zwischenablage"
+
+msgid "JDistributionEditor.QuickSelectInfo"
+msgstr "Hier werden nur die hervorgehobenen Verteilungen dargestellt. Eine vollständige Liste steht im Bearbeiten-Dialog zur Auswahl zur Verfügung."
 
 msgid "JDistributionEditor.Save"
 msgstr "Speichern"
