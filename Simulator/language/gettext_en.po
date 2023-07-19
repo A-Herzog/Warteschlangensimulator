@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-10 13:50+0200\n"
+"POT-Creation-Date: 2023-07-14 17:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31323,11 +31323,23 @@ msgstr "Parameter series: change average delay time"
 msgid "Surface.PopupMenu.ParameterCompare.ChangeDelayTime.Short"
 msgstr "Average delay time"
 
+msgid "Surface.PopupMenu.ParameterCompare.ChangeDelayTimeStd"
+msgstr "Parameter series: change standard deviation of delay time"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeDelayTimeStd.Short"
+msgstr "Standard deviation of delay time"
+
 msgid "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime"
 msgstr "Parameter series: change average inter-arrival time"
 
 msgid "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime.Short"
 msgstr "Average inter-arrival time"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTimeStd"
+msgstr "Parameter series: change standard deviation of the inter-arrival times"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTimeStd.Short"
+msgstr "Standard deviation of the inter-arrival times"
 
 msgid "Surface.PopupMenu.ParameterCompare.ChangeMapValue"
 msgstr "Parameter series: change value of map entr"
@@ -31352,6 +31364,12 @@ msgstr "Parameter series: change average service time for client type"
 
 msgid "Surface.PopupMenu.ParameterCompare.ChangeServiceTimeClientType.Short"
 msgstr "Average service time"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeServiceTimeStd"
+msgstr "Parameter series: change standard deviation of service time"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeServiceTimeStd.Short"
+msgstr "Standard deviation of service time"
 
 msgid "Surface.PopupMenu.ParameterCompare.ChangeTransportTime"
 msgstr "Parameter series: change conveyor transport time"

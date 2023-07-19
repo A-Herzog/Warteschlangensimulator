@@ -1107,18 +1107,33 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 
 		/* Bedienzeiten (global) */
 		final Object obj1=getWorking().get();
-		if ((obj1 instanceof AbstractRealDistribution) && DistributionTools.canSetMean((AbstractRealDistribution)obj1)) {
-			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeServiceTime")));
-			item.addActionListener(e->{
-				final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_SERVICETIMES,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeServiceTime.Short"));
-				record.input.setMode(ModelChanger.Mode.MODE_XML);
-				record.input.setXMLMode(1);
-				String add="";
-				if (processHasMultiTimes()) add="["+Language.trPrimary("Surface.DistributionSystem.XML.Distribution.Type")+"=\""+Language.trPrimary("Surface.Process.XML.Distribution.Type.ProcessingTime")+"\"]";
-				record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution")+add);
-				buildSeries.accept(record);
-			});
-			if (icon!=null) item.setIcon(icon);
+		if (obj1 instanceof AbstractRealDistribution) {
+			if (DistributionTools.canSetMean((AbstractRealDistribution)obj1)) {
+				popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeServiceTime")));
+				item.addActionListener(e->{
+					final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_SERVICETIMES,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeServiceTime.Short"));
+					record.input.setMode(ModelChanger.Mode.MODE_XML);
+					record.input.setXMLMode(1);
+					String add="";
+					if (processHasMultiTimes()) add="["+Language.trPrimary("Surface.DistributionSystem.XML.Distribution.Type")+"=\""+Language.trPrimary("Surface.Process.XML.Distribution.Type.ProcessingTime")+"\"]";
+					record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution")+add);
+					buildSeries.accept(record);
+				});
+				if (icon!=null) item.setIcon(icon);
+			}
+			if (DistributionTools.canSetStandardDeviationExactIndependent((AbstractRealDistribution)obj1)) {
+				popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeServiceTimeStd")));
+				item.addActionListener(e->{
+					final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_SERVICETIMES,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeServiceTimeStd.Short"));
+					record.input.setMode(ModelChanger.Mode.MODE_XML);
+					record.input.setXMLMode(2);
+					String add="";
+					if (processHasMultiTimes()) add="["+Language.trPrimary("Surface.DistributionSystem.XML.Distribution.Type")+"=\""+Language.trPrimary("Surface.Process.XML.Distribution.Type.ProcessingTime")+"\"]";
+					record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution")+add);
+					buildSeries.accept(record);
+				});
+				if (icon!=null) item.setIcon(icon);
+			}
 		}
 
 		/* Bedienzeiten nach Kundentypen */

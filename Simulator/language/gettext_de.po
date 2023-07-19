@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-10 13:50+0200\n"
+"POT-Creation-Date: 2023-07-14 17:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31374,11 +31374,23 @@ msgstr "Parameterreihe: Mittlere Verzögerung variieren"
 msgid "Surface.PopupMenu.ParameterCompare.ChangeDelayTime.Short"
 msgstr "Mittlere Verzögerung"
 
+msgid "Surface.PopupMenu.ParameterCompare.ChangeDelayTimeStd"
+msgstr "Parameterreihe: Standardabweichung der Verzögerung variieren"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeDelayTimeStd.Short"
+msgstr "Standardabweichung der Verzögerung"
+
 msgid "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime"
 msgstr "Parameterreihe: Mittlere Zwischenankunftszeiten variieren"
 
 msgid "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime.Short"
 msgstr "Mittlere Zwischenankunftszeit"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTimeStd"
+msgstr "Parameterreihe: Standardabweichung der Zwischenankunftszeiten variieren"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTimeStd.Short"
+msgstr "Standardabweichung der Zwischenankunftszeiten"
 
 msgid "Surface.PopupMenu.ParameterCompare.ChangeMapValue"
 msgstr "Parameterreihe: Initiale Zuordnungwerte"
@@ -31403,6 +31415,12 @@ msgstr "Parameterreihe: Mittlere Bedienzeit für bestimmten Kundentyp variieren"
 
 msgid "Surface.PopupMenu.ParameterCompare.ChangeServiceTimeClientType.Short"
 msgstr "Mittlere Bedienzeit"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeServiceTimeStd"
+msgstr "Parameterreihe: Standardabweichung der Bedienzeiten variieren"
+
+msgid "Surface.PopupMenu.ParameterCompare.ChangeServiceTimeStd.Short"
+msgstr "Standardabweichung der Bedienzeiten"
 
 msgid "Surface.PopupMenu.ParameterCompare.ChangeTransportTime"
 msgstr "Parameterreihe: Fließband-Transportzeit variieren"

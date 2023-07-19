@@ -548,21 +548,38 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	@Override
 	protected void addParameterSeriesMenuItem(final JPopupMenu popupMenu, final Consumer<ParameterCompareTemplatesDialog.TemplateRecord> buildSeries) {
 		final AbstractRealDistribution dist=getDelayTime();
-		if (dist==null || !DistributionTools.canSetMean(dist)) return;
+		if (dist==null) return;
 
-		final JMenuItem item;
+		JMenuItem item;
 		final Icon icon=Images.PARAMETERSERIES.getIcon();
-		popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeDelayTime")));
-		item.addActionListener(e->{
-			final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_DELAY,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeDelayTime.Short"));
-			record.input.setMode(ModelChanger.Mode.MODE_XML);
-			record.input.setXMLMode(1);
-			String add="";
-			if (getSubDataCount()>0) add="[1]";
-			record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution")+add);
-			buildSeries.accept(record);
-		});
-		if (icon!=null) item.setIcon(icon);
+
+		if (DistributionTools.canSetMean(dist)) {
+			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeDelayTime")));
+			item.addActionListener(e->{
+				final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_DELAY,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeDelayTime.Short"));
+				record.input.setMode(ModelChanger.Mode.MODE_XML);
+				record.input.setXMLMode(1);
+				String add="";
+				if (getSubDataCount()>0) add="[1]";
+				record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution")+add);
+				buildSeries.accept(record);
+			});
+			if (icon!=null) item.setIcon(icon);
+		}
+
+		if (DistributionTools.canSetStandardDeviationExactIndependent(dist)) {
+			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeDelayTimeStd")));
+			item.addActionListener(e->{
+				final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_DELAY,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeDelayTimeStd.Short"));
+				record.input.setMode(ModelChanger.Mode.MODE_XML);
+				record.input.setXMLMode(2);
+				String add="";
+				if (getSubDataCount()>0) add="[1]";
+				record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution")+add);
+				buildSeries.accept(record);
+			});
+			if (icon!=null) item.setIcon(icon);
+		}
 	}
 
 	/**

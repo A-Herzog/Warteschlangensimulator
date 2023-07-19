@@ -330,21 +330,34 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 	@Override
 	protected void addParameterSeriesMenuItem(final JPopupMenu popupMenu, final Consumer<ParameterCompareTemplatesDialog.TemplateRecord> buildSeries) {
 		if (record.getNextMode()!=ModelElementSourceRecord.NextMode.NEXT_DISTRIBUTION) return;
-		if (!DistributionTools.canSetMean(record.getInterarrivalTimeDistribution())) return;
+		final AbstractRealDistribution dist=record.getInterarrivalTimeDistribution();
 
 		JMenuItem item;
 		final Icon icon=Images.PARAMETERSERIES.getIcon();
 
 		/* Zwischenankunftszeiten */
-		popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime")));
-		item.addActionListener(e->{
-			final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_INTERARRIVAL,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime.Short"));
-			record.input.setMode(ModelChanger.Mode.MODE_XML);
-			record.input.setXMLMode(1);
-			record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution"));
-			buildSeries.accept(record);
-		});
-		if (icon!=null) item.setIcon(icon);
+		if (DistributionTools.canSetMean(dist)) {
+			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime")));
+			item.addActionListener(e->{
+				final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_INTERARRIVAL,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime.Short"));
+				record.input.setMode(ModelChanger.Mode.MODE_XML);
+				record.input.setXMLMode(1);
+				record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution"));
+				buildSeries.accept(record);
+			});
+			if (icon!=null) item.setIcon(icon);
+		}
+		if (DistributionTools.canSetStandardDeviationExactIndependent(dist)) {
+			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTimeStd")));
+			item.addActionListener(e->{
+				final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_INTERARRIVAL,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTimeStd.Short"));
+				record.input.setMode(ModelChanger.Mode.MODE_XML);
+				record.input.setXMLMode(2);
+				record.input.setTag(ModelSurface.XML_NODE_NAME[0]+"->"+getXMLNodeNames()[0]+"[id=\""+getId()+"\"]->"+Language.trPrimary("Surface.Source.XML.Distribution"));
+				buildSeries.accept(record);
+			});
+			if (icon!=null) item.setIcon(icon);
+		}
 
 		/* Anzahl an Ankünften */
 		if (record.getMaxArrivalCount()>0 && record.getArrivalCountXMLPath()!=null) {

@@ -587,6 +587,22 @@ public final class DistributionTools {
 	}
 
 	/**
+	 * Gibt an, ob die Standardabweichung ganz exakt und unabhängig vom Erwartungswert eingestellt werden kann.
+	 * @param distribution	Zu prüfende Verteilung
+	 * @return	Gibt <code>true</code> zurück, wenn die Standardabweichung direkt exakt eingestellt werden kann
+	 * @see DistributionTools#canSetStandardDeviationExact(AbstractRealDistribution)
+	 */
+	public static boolean canSetStandardDeviationExactIndependent(final AbstractRealDistribution distribution) {
+		final AbstractDistributionWrapper wrapper=getWrapper(distribution);
+		if (wrapper==null || !wrapper.canSetStandardDeviationExact) return false;
+
+		final double mean=distribution.getNumericalMean();
+		final double sd=wrapper.getStandardDeviation(distribution);
+		final AbstractRealDistribution newDistribution=wrapper.setStandardDeviation(distribution,sd+1);
+		return newDistribution.getNumericalMean()==mean && wrapper.getStandardDeviation(newDistribution)==sd+1;
+	}
+
+	/**
 	 * Erstellt eine neue Verteilung als Kopie der übergebenen mit angepasster Standardabweichung
 	 * @param distribution	Alte Verteilung, auf der die neue basieren soll
 	 * @param value	Neue Standardabweichung
