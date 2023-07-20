@@ -51,6 +51,7 @@ import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.images.Images;
 import ui.modeleditor.ModelSchedule;
+import ui.tools.WindowSizeStorage;
 
 /**
  * Dieser Dialog erlaubt das grafische Bearbeiten eines Zeitplans.
@@ -181,6 +182,7 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		setResizable(true);
 		setMinSizeRespectingScreensize(800,600);
 		setLocationRelativeTo(getOwner());
+		WindowSizeStorage.window(this,"schedules");
 		setVisible(true);
 	}
 
