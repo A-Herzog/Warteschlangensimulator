@@ -33,6 +33,8 @@ import org.jfree.data.category.CategoryDataset;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.coreelements.RunElement;
+import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsMultiPerformanceIndicator;
@@ -42,6 +44,9 @@ import systemtools.statistics.StatisticViewerBarChart;
 import ui.help.Help;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelTransporter;
+import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.fastpaint.BrighterColor;
 import ui.modeleditor.fastpaint.GradientFill;
 
@@ -230,15 +235,17 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		setupBarChart(title,type,title+" ("+unit+")",false);
 
 		data.setNotify(false);
-		for (int i=0;i<Math.min(names.length,MAX_BARS);i++) {
+		final int count=Math.min(names.length,MAX_BARS);
+		for (int i=0;i<count;i++) {
 			Color color=null;
 			String name=names[i];
-			if (processStationNames) name=processStationName(name);
 			if (colorMap!=null) color=colorMap.get(name);
+			if (processStationNames) name=processStationName(name);
+			if (colorMap!=null && color==null) color=colorMap.get(name);
 			if (color==null) color=COLORS[i%COLORS.length];
-			if (i==names.length-1) data.setNotify(true);
+			if (i==count-1) data.setNotify(true);
 			data.addValue(values[i],names[i],names[i]);
-			plot.getRendererForDataset(data).setSeriesPaint(i,getGradientPaint(color),i==name.length()-1);
+			plot.getRendererForDataset(data).setSeriesPaint(i,getGradientPaint(color),i==count-1);
 		}
 
 		initTooltips();
@@ -261,21 +268,25 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		final String[] names=indicatorProcessing.getNames();
 
 		data.setNotify(false);
-		for (int i=0;i<Math.min(names.length,MAX_BARS);i++) {
+		final int count=Math.min(names.length,MAX_BARS);
+		int seriesNr=0;
+		for (int i=0;i<count;i++) {
 			Color color=null;
 			String name=names[i];
 			final StatisticsDataPerformanceIndicator indicator1=(StatisticsDataPerformanceIndicator)indicatorProcessing.get(name);
 			final StatisticsDataPerformanceIndicator indicator2=(StatisticsDataPerformanceIndicator)indicatorResidence.get(name);
-			if (processStationNames) name=processStationName(name);
 			if (colorMap!=null) color=colorMap.get(name);
+			if (processStationNames) name=processStationName(name);
+			if (colorMap!=null && color==null) color=colorMap.get(name);
 			if (color==null) color=COLORS[i%COLORS.length];
 
 			final double time1=indicator1.getMean();
 			final double time2=indicator2.getMean();
 			if (time1>0) {
-				if (i==names.length-1) data.setNotify(true);
+				if (i==count-1) data.setNotify(true);
 				data.addValue(time2/time1,names[i],names[i]);
-				plot.getRendererForDataset(data).setSeriesPaint(i,getGradientPaint(color),i==name.length()-1);
+				plot.getRendererForDataset(data).setSeriesPaint(seriesNr,getGradientPaint(color),i==count-1);
+				seriesNr++;
 			}
 		}
 
@@ -483,6 +494,30 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 		setOutlineColor(Color.BLACK);
 	}
 
+	/**
+	 * Liefert eine Zuordnung von Stationsnamen zu nutzerdefinierten Farben.
+	 * @param model	Modell aus dem die Daten ausgelesen werden sollen
+	 * @return	Zuordnung von Stationsnamen zu nutzerdefinierten Farben oder <code>null</code>, wenn es keine einzige nutzerdefinierte Farbe gibt
+	 */
+	private Map<String,Color> getStationsColorMap(final EditModel model) {
+		final Map<String,Color> map=new HashMap<>();
+
+		for (ModelElement element1: model.surface.getElements()) {
+			if (element1 instanceof ModelElementBox) {
+				final ModelElementBox box=(ModelElementBox)element1;
+				final Color color=box.getUserBackgroundColor();
+				if (color!=null) map.put(RunElement.buildName(box,box.getTypeName()),color);
+			}
+			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) if (element2 instanceof ModelElementBox) {
+				final ModelElementBox box=(ModelElementBox)element2;
+				final Color color=box.getUserBackgroundColor();
+				if (color!=null) map.put(RunElement.buildName(box,box.getTypeName()),color);
+			}
+		}
+
+		return (map.size()==0)?null:map;
+	}
+
 	@Override
 	protected void firstChartRequest() {
 		Map<String,Color> colorMap;
@@ -494,11 +529,13 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			addDescription("PlotBarCompareClients");
 			break;
 		case MODE_INTERARRIVAL_STATION:
-			chartRequest(Language.tr("Statistics.InterArrivalTimes"),Language.tr("Statistics.Station"),statistics.stationsInterarrivalTime,null,true);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequest(Language.tr("Statistics.InterArrivalTimes"),Language.tr("Statistics.Station"),statistics.stationsInterarrivalTime,colorMap,true);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_INTERARRIVAL_STATION_BATCH:
-			chartRequest(Language.tr("Statistics.InterArrivalTimesBatch"),Language.tr("Statistics.Station"),statistics.stationsInterarrivalTimeBatch,null,true);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequest(Language.tr("Statistics.InterArrivalTimesBatch"),Language.tr("Statistics.Station"),statistics.stationsInterarrivalTimeBatch,colorMap,true);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_INTERARRIVAL_STATION_CLIENTS:
@@ -506,7 +543,8 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_INTERARRIVAL_STATION_STATES:
-			chartRequest(Language.tr("Statistics.InterArrivalTimes"),Language.tr("Statistics.StationState"),statistics.stationsInterarrivalTimeByState,null,true);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequest(Language.tr("Statistics.InterArrivalTimes"),Language.tr("Statistics.StationState"),statistics.stationsInterarrivalTimeByState,colorMap,true);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_INTERLEAVE_CLIENTS:
@@ -515,11 +553,13 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			addDescription("PlotBarCompareClients");
 			break;
 		case MODE_INTERLEAVE_STATION:
-			chartRequest(Language.tr("Statistics.InterLeaveTimes"),Language.tr("Statistics.Station"),statistics.stationsInterleavingTime,null,true);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequest(Language.tr("Statistics.InterLeaveTimes"),Language.tr("Statistics.Station"),statistics.stationsInterleavingTime,colorMap,true);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_INTERLEAVE_STATION_BATCH:
-			chartRequest(Language.tr("Statistics.InterLeaveTimesBatch"),Language.tr("Statistics.Station"),statistics.stationsInterleavingTimeBatch,null,true);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequest(Language.tr("Statistics.InterLeaveTimesBatch"),Language.tr("Statistics.Station"),statistics.stationsInterleavingTimeBatch,colorMap,true);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_INTERLEAVE_STATION_CLIENTS:
@@ -552,43 +592,53 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 			addDescription("PlotBarCompareClients");
 			break;
 		case MODE_WAITING_STATION:
-			chartRequest(Language.tr("Statistics.WaitingTimes"),Language.tr("Statistics.Station"),statistics.stationsWaitingTimes,null,false);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequest(Language.tr("Statistics.WaitingTimes"),Language.tr("Statistics.Station"),statistics.stationsWaitingTimes,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_TRANSFER_STATION:
-			chartRequest(Language.tr("Statistics.TransferTimes"),Language.tr("Statistics.Station"),statistics.stationsTransferTimes,null,false);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequest(Language.tr("Statistics.TransferTimes"),Language.tr("Statistics.Station"),statistics.stationsTransferTimes,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_PROCESSING_STATION:
-			chartRequest(Language.tr("Statistics.ProcessTimes"),Language.tr("Statistics.Station"),statistics.stationsProcessingTimes,null,false);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequest(Language.tr("Statistics.ProcessTimes"),Language.tr("Statistics.Station"),statistics.stationsProcessingTimes,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_RESIDENCE_STATION:
-			chartRequest(Language.tr("Statistics.ResidenceTimes"),Language.tr("Statistics.Station"),statistics.stationsResidenceTimes,null,false);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequest(Language.tr("Statistics.ResidenceTimes"),Language.tr("Statistics.Station"),statistics.stationsResidenceTimes,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_SETUP_STATION:
-			chartRequest(Language.tr("Statistics.SetupTimes"),Language.tr("Statistics.Station"),statistics.stationsSetupTimes,null,false);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequest(Language.tr("Statistics.SetupTimes"),Language.tr("Statistics.Station"),statistics.stationsSetupTimes,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_WAITING_STATION_TOTAL:
-			chartRequest(Language.tr("Statistics.WaitingTimes"),Language.tr("Statistics.Station"),statistics.stationsTotalWaitingTimes,null,false);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequest(Language.tr("Statistics.WaitingTimes"),Language.tr("Statistics.Station"),statistics.stationsTotalWaitingTimes,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_TRANSFER_STATION_TOTAL:
-			chartRequest(Language.tr("Statistics.TransferTimes"),Language.tr("Statistics.Station"),statistics.stationsTotalTransferTimes,null,false);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequest(Language.tr("Statistics.TransferTimes"),Language.tr("Statistics.Station"),statistics.stationsTotalTransferTimes,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_PROCESSING_STATION_TOTAL:
-			chartRequest(Language.tr("Statistics.ProcessTimes"),Language.tr("Statistics.Station"),statistics.stationsTotalProcessingTimes,null,false);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequest(Language.tr("Statistics.ProcessTimes"),Language.tr("Statistics.Station"),statistics.stationsTotalProcessingTimes,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_RESIDENCE_STATION_TOTAL:
-			chartRequest(Language.tr("Statistics.ResidenceTimes"),Language.tr("Statistics.Station"),statistics.stationsTotalResidenceTimes,null,false);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequest(Language.tr("Statistics.ResidenceTimes"),Language.tr("Statistics.Station"),statistics.stationsTotalResidenceTimes,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_FLOW_FACTOR_STATION:
-			chartRequestFlowFactor(Language.tr("Statistics.FlowFactor"),Language.tr("Statistics.Station"),statistics.stationsProcessingTimes,statistics.stationsResidenceTimes,null,false);
+			colorMap=getStationsColorMap(statistics.editModel);
+			chartRequestFlowFactor(Language.tr("Statistics.FlowFactor"),Language.tr("Statistics.Station"),statistics.stationsProcessingTimes,statistics.stationsResidenceTimes,colorMap,false);
 			addDescription("PlotBarCompareStations");
 			break;
 		case MODE_WAITING_STATION_CLIENT:

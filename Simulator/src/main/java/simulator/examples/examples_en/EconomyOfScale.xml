@@ -49,19 +49,19 @@ time E[I] is varied so that rho=E[S]/E[I]/c=80%.</ModelDescription>
       <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="6">
-      <ModelElementSize h="23" w="156" x="50" y="50"/>
+      <ModelElementSize h="23" w="157" x="50" y="50"/>
       <ModelElementTextLine>Economy of scale</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="7">
-      <ModelElementSize h="19" w="55" x="50" y="125"/>
+      <ModelElementSize h="19" w="54" x="50" y="125"/>
       <ModelElementTextLine>E[I]=100</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="8">
-      <ModelElementSize h="19" w="147" x="300" y="125"/>
+      <ModelElementSize h="19" w="148" x="300" y="125"/>
       <ModelElementTextLine>c=1, E[S]=80 \to \rho=80%</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
@@ -101,13 +101,13 @@ time E[I] is varied so that rho=E[S]/E[I]/c=80%.</ModelDescription>
       <ModelElementConnection Element1="9" Element2="11" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="14">
-      <ModelElementSize h="19" w="47" x="50" y="275"/>
+      <ModelElementSize h="19" w="46" x="50" y="275"/>
       <ModelElementTextLine>E[I]=50</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="15">
-      <ModelElementSize h="19" w="147" x="300" y="275"/>
+      <ModelElementSize h="19" w="148" x="300" y="275"/>
       <ModelElementTextLine>c=2, E[S]=80 \to \rho=80%</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
@@ -147,13 +147,13 @@ time E[I] is varied so that rho=E[S]/E[I]/c=80%.</ModelDescription>
       <ModelElementConnection Element1="16" Element2="18" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="21">
-      <ModelElementSize h="19" w="59" x="50" y="425"/>
+      <ModelElementSize h="19" w="58" x="50" y="425"/>
       <ModelElementTextLine>E[I]=33.3</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="22">
-      <ModelElementSize h="19" w="147" x="300" y="425"/>
+      <ModelElementSize h="19" w="148" x="300" y="425"/>
       <ModelElementTextLine>c=3, E[S]=80 \to \rho=80%</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
@@ -161,6 +161,7 @@ time E[I] is varied so that rho=E[S]/E[I]/c=80%.</ModelDescription>
     <ModelElementProcessStation id="23">
       <ModelElementName>D</ModelElementName>
       <ModelElementSize h="50" w="100" x="300" y="600"/>
+      <ModelElementBackgroundColor>0,0,255</ModelElementBackgroundColor>
       <ModelElementConnection Element="26" Type="In"/>
       <ModelElementConnection Element="27" Type="Out"/>
       <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (80)</ModelElementDistribution>
@@ -192,13 +193,13 @@ time E[I] is varied so that rho=E[S]/E[I]/c=80%.</ModelDescription>
       <ModelElementConnection Element1="23" Element2="25" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="28">
-      <ModelElementSize h="19" w="47" x="50" y="575"/>
+      <ModelElementSize h="19" w="46" x="50" y="575"/>
       <ModelElementTextLine>E[I]=25</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="29">
-      <ModelElementSize h="19" w="147" x="300" y="575"/>
+      <ModelElementSize h="19" w="148" x="300" y="575"/>
       <ModelElementTextLine>c=4, E[S]=80 \to \rho=80%</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
@@ -238,19 +239,19 @@ time E[I] is varied so that rho=E[S]/E[I]/c=80%.</ModelDescription>
       <ModelElementConnection Element1="30" Element2="32" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="35">
-      <ModelElementSize h="19" w="47" x="50" y="725"/>
+      <ModelElementSize h="19" w="46" x="50" y="725"/>
       <ModelElementTextLine>E[I]=20</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="36">
-      <ModelElementSize h="19" w="147" x="300" y="725"/>
+      <ModelElementSize h="19" w="148" x="300" y="725"/>
       <ModelElementTextLine>c=5, E[S]=80 \to \rho=80%</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="37">
-      <ModelElementSize h="57" w="378" x="50" y="900"/>
+      <ModelElementSize h="57" w="381" x="50" y="900"/>
       <ModelElementTextLine>In all submodels E[S]=80 is set. E[I] is selected as a function</ModelElementTextLine>
       <ModelElementTextLine>of c so that a utilization of \rho=E[S]/E[I]/c=80% results.</ModelElementTextLine>
       <ModelElementTextLine>Thus, the 5 models differ only in their size.</ModelElementTextLine>
@@ -323,19 +324,19 @@ time E[I] is varied so that rho=E[S]/E[I]/c=80%.</ModelDescription>
       <ModelElementDiagramElement BarColor="0,180,0">ResidenceTime_avg(30)/ServiceTime_avg(30)</ModelElementDiagramElement>
     </ModelElementAnimationBarDiagram>
     <ModelElementText id="45">
-      <ModelElementSize h="19" w="278" x="800" y="125"/>
+      <ModelElementSize h="19" w="267" x="800" y="125"/>
       <ModelElementTextLine>Average waiting time in the subsystems</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="46">
-      <ModelElementSize h="19" w="217" x="800" y="425"/>
+      <ModelElementSize h="19" w="209" x="800" y="425"/>
       <ModelElementTextLine>Flow factors in the subsystems</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="47">
-      <ModelElementSize h="45" w="301" x="800" y="705"/>
+      <ModelElementSize h="45" w="297" x="800" y="705"/>
       <ModelElementTextLine>(Smaller values mean that the waiting times are shorter</ModelElementTextLine>
       <ModelElementTextLine>relative to the service times. The best possible flow factor</ModelElementTextLine>
       <ModelElementTextLine>would be 1 and means that there were no waiting times at all.)</ModelElementTextLine>
@@ -352,7 +353,7 @@ time E[I] is varied so that rho=E[S]/E[I]/c=80%.</ModelDescription>
       <ModelElementDiagramElement SegmentColor="240,240,240">(1-Resource_avg(1))/Resource_count(1)</ModelElementDiagramElement>
     </ModelElementAnimationPieDiagram>
     <ModelElementText id="49">
-      <ModelElementSize h="19" w="318" x="1200" y="125"/>
+      <ModelElementSize h="19" w="304" x="1200" y="125"/>
       <ModelElementTextLine>Utilization of the operators in the subsystems</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
