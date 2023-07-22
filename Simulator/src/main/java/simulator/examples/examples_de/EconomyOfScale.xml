@@ -318,11 +318,11 @@ so variiert, dass stets rho=E[S]/E[I]/c=80% gilt.</ModellBeschreibung>
       <ModellElementMinimalwert>0</ModellElementMinimalwert>
       <ModellElementMaximalwert>5</ModellElementMaximalwert>
       <ModellElementAchsenbeschriftung Text="Flussgrad">2</ModellElementAchsenbeschriftung>
-      <ModellElementDiagrammElement Balkenfarbe="255,0,0">ResidenceTime_avg(1)/ServiceTime_avg(1)</ModellElementDiagrammElement>
-      <ModellElementDiagrammElement Balkenfarbe="255,127,80">ResidenceTime_avg(9)/ServiceTime_avg(9)</ModellElementDiagrammElement>
-      <ModellElementDiagrammElement Balkenfarbe="0,165,165">ResidenceTime_avg(16)/ServiceTime_avg(16)</ModellElementDiagrammElement>
-      <ModellElementDiagrammElement Balkenfarbe="0,0,255">ResidenceTime_avg(23)/ServiceTime_avg(23)</ModellElementDiagrammElement>
-      <ModellElementDiagrammElement Balkenfarbe="0,180,0">ResidenceTime_avg(30)/ServiceTime_avg(30)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">Flussgrad(1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,127,80">Flussgrad(9)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,165,165">Flussgrad(16)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">Flussgrad(23)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,180,0">Flussgrad(30)</ModellElementDiagrammElement>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementText id="45">
       <ModellElementGroesse h="19" w="271" x="800" y="125"/>

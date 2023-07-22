@@ -295,6 +295,8 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolStationDataSetup_kurt());
 		functions.add(new CalcSymbolStationDataSetup_hist());
 
+		functions.add(new CalcSymbolStationFlowFactor());
+
 		functions.add(new CalcSymbolAnalogValue());
 		functions.add(new CalcSymbolAnalogRate());
 		functions.add(new CalcSymbolAnalogValve());

@@ -317,11 +317,11 @@ time E[I] is varied so that rho=E[S]/E[I]/c=80%.</ModelDescription>
       <ModelElementMinimumValue>0</ModelElementMinimumValue>
       <ModelElementMaximumValue>5</ModelElementMaximumValue>
       <ModelElementAxisLabels Text="Flussgrad">2</ModelElementAxisLabels>
-      <ModelElementDiagramElement BarColor="255,0,0">ResidenceTime_avg(1)/ServiceTime_avg(1)</ModelElementDiagramElement>
-      <ModelElementDiagramElement BarColor="255,127,80">ResidenceTime_avg(9)/ServiceTime_avg(9)</ModelElementDiagramElement>
-      <ModelElementDiagramElement BarColor="0,165,165">ResidenceTime_avg(16)/ServiceTime_avg(16)</ModelElementDiagramElement>
-      <ModelElementDiagramElement BarColor="0,0,255">ResidenceTime_avg(23)/ServiceTime_avg(23)</ModelElementDiagramElement>
-      <ModelElementDiagramElement BarColor="0,180,0">ResidenceTime_avg(30)/ServiceTime_avg(30)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">FlowFactor(1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,127,80">FlowFactor(9)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,165,165">FlowFactor(16)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">FlowFactor(23)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,180,0">FlowFactor(30)</ModelElementDiagramElement>
     </ModelElementAnimationBarDiagram>
     <ModelElementText id="45">
       <ModelElementSize h="19" w="267" x="800" y="125"/>

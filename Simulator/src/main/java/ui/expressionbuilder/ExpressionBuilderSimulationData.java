@@ -1121,6 +1121,15 @@ public class ExpressionBuilderSimulationData {
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
 
+		/* Simulationskenngrößen -> Zeiten an den Stationen -> Flussgrad */
+
+		addTreeNode(
+				subgroup,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.FlowFactor")+" ("+Language.tr("ExpressionBuilder.CommandName.FlowFactor")+")",
+				Language.tr("ExpressionBuilder.CommandName.FlowFactor")+"(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.FlowFactor.StationInfo"));
+
 		if (subgroup.getChildCount()>0) group.add(subgroup);
 
 		/* Simulationskenngrößen -> Zeiten nach Kundentypen */
@@ -1438,6 +1447,15 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResidenceTimesByClientTypes.Kurt"));
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
+
+		/* Simulationskenngrößen -> Zeiten nach Kundentypen -> Flussgrad */
+
+		addTreeNode(
+				subgroup,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.FlowFactor")+" ("+Language.tr("ExpressionBuilder.CommandName.FlowFactor")+")",
+				Language.tr("ExpressionBuilder.CommandName.FlowFactor")+"(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.FlowFactor.ClientInfo"));
 
 		if (subgroup.getChildCount()>0) group.add(subgroup);
 
@@ -1804,6 +1822,15 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResidenceTimesOverAll.HistogramMultiple"));
 
 		if (sub.getChildCount()>0) subgroup.add(sub);
+
+		/* Simulationskenngrößen -> Zeiten über alle Kundentypen und Stationen -> Flussgrad */
+
+		addTreeNode(
+				subgroup,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.FlowFactor")+" ("+Language.tr("ExpressionBuilder.CommandName.FlowFactor")+")",
+				Language.tr("ExpressionBuilder.CommandName.FlowFactor")+"()",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.FlowFactor.AllInfo"));
 
 		if (subgroup.getChildCount()>0) group.add(subgroup);
 

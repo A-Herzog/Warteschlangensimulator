@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-19 08:04+0200\n"
+"POT-Creation-Date: 2023-07-20 00:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5995,6 +5995,9 @@ msgstr "AnalogRate"
 msgid "ExpressionBuilder.CommandName.AnalogValue"
 msgstr "AnalogValue"
 
+msgid "ExpressionBuilder.CommandName.FlowFactor"
+msgstr "FlowFactor"
+
 msgid "ExpressionBuilder.CommandName.ProcessingTime"
 msgstr "ProcessTime"
 
@@ -7378,6 +7381,26 @@ msgstr "<p>Returns the current simulation time measured in seconds since the sim
 
 msgid "ExpressionBuilder.SimulationCharacteristics.DownNumber"
 msgstr "Number down"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.FlowFactor"
+msgstr "Flow factor"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.FlowFactor.AllInfo"
+msgstr "<p>Returns the flow factor (=quotient of residence time and service time) across all stations and client types.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.FlowFactor.ClientInfo"
+msgstr ""
+"<p>Provides the flow rate (=quotient of dwell time and service time) of customers generated at station id.</p>\n"
+"<p>Alternatively, the following other parameterizations are also possible:</p>\n"
+"<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n"
+"<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n"
+"<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n"
+"<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n"
+"<ul>\n"
+"</ul>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.FlowFactor.StationInfo"
+msgstr "<p>Returns the flow factor (=quotient of residence time and service time) at the station with the specified id.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.GlobalMap.Info"
 msgstr "Queries a data field from the \"getMapGlobal()\" map populated by scripting elements."
