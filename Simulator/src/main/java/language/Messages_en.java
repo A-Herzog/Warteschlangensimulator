@@ -15718,6 +15718,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35697] = "Invalid minimum batch size";
     t[35698] = "Surface.DDE.StartRow.ErrorInfo";
     t[35699] = "The frist table row to be used \"%s\" is invalid. A positive integer number has to be specified.";
+    t[35702] = "Surface.Connection.LineMode.ChangeAllEdgesIn";
+    t[35703] = "Change display mode for all incoming edges";
     t[35704] = "Animation.IconDialog.Single.IconName.Error";
     t[35705] = "Invalid image name";
     t[35706] = "Surface.Text.Infotext";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36437] = "Probability";
     t[36438] = "ScriptPopup.Output.Digits.Hint";
     t[36439] = "Sets the number of digits when printing numbers in local notation.";
-    t[36440] = "Surface.Resource.Group.DoesNotExist";
-    t[36441] = "Group does not exists";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36440] = "Surface.Resource.Group.DoesNotExist";
+    t[36441] = "Group does not exists";
     t[36442] = "Statistics.StationsTransferTimesTotal";
     t[36443] = "Transfer times at the stations (totaled over multiple client arrivals)";
     t[36456] = "Surface.Signal.Name";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40881] = "Do not do any assignments after end of file.";
     t[40884] = "Animation.IconDialog.Single.Title";
     t[40885] = "Edit image";
-    t[40894] = "FastAccessBuilder.Add.Javascript";
-    t[40895] = "Add to fast access - Javascript";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40894] = "FastAccessBuilder.Add.Javascript";
+    t[40895] = "Add to fast access - Javascript";
     t[40900] = "ParameterCompare.ResultsError.ScriptValueNotNumber";
     t[40901] = "In step %d (model %s) the results parser script returned \"%s\" which could not be interpreted as a number.";
     t[40902] = "Simulation.Element.AnalogAssign.Name";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45337] = "Number of histogram bars";
     t[45342] = "BuildClientSourceTable.Edit.Index.Error.Info";
     t[45343] = "The specified index \"%s\" for the number property is invalid.\nA non-negative integer must be specified.";
-    t[45346] = "Statistics.Dashboard.EditDialog.Heading.Auto";
-    t[45347] = "Determine heading automatically if possible";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45346] = "Statistics.Dashboard.EditDialog.Heading.Auto";
+    t[45347] = "Determine heading automatically if possible";
     t[45350] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.CoefficientOfVariationOfTheTime";
     t[45351] = "<p>Returns the coefficient of variation over all waiting times for all clients.</p>";
     t[45354] = "XML.Runner.NoFile";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49819] = "Select output file";
     t[49824] = "LoadCalculator.AverageNumberOfClientsInTheSystem";
     t[49825] = "Average number of clients in the system";
-    t[49826] = "ModelDescription.InteractiveCheckbox.Description.Variable";
-    t[49827] = "Variable";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[49826] = "ModelDescription.InteractiveCheckbox.Description.Variable";
+    t[49827] = "Variable";
     t[49830] = "Surface.AnimationBarStack.Dialog.Tab.Layout";
     t[49831] = "Layout";
     t[49832] = "ModelDescription.Arrival.Condition";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54277] = "Only integer values";
     t[54284] = "Surface.AnalogAssign.Dialog.Delete.ConfirmInfo";
     t[54285] = "Do you really want to delete the current assignment?";
-    t[54288] = "Surface.Source.Dialog.Tab.BatchSize.ScaleInfo1";
-    t[54289] = "Based on the specified batch size, the average inter-arrival time between two clients is %s times the inter-arrival time between two batches.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[54288] = "Surface.Source.Dialog.Tab.BatchSize.ScaleInfo1";
+    t[54289] = "Based on the specified batch size, the average inter-arrival time between two clients is %s times the inter-arrival time between two batches.";
     t[54290] = "Surface.SourceTable.Dialog.Table.Preview.ErrorFileNotFound.Info";
     t[54291] = "The specified table file\n%s\ndoes not exist.";
     t[54292] = "Statistics.DistributionOfClientsWaitingTimes";

@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.swing.Icon;
-import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import org.w3c.dom.Document;
@@ -441,18 +440,11 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 	 */
 	@Override
 	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
-		JMenuItem item;
-		final Icon icon=Images.EDIT_EDGES_DELETE.getIcon();
+		boolean needSeparator=false;
 
-		if (connectionsIn!=null && connectionsIn.size()>0) {
-			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesIn")));
-			item.addActionListener(e->{
-				for (ModelElementEdge element : new ArrayList<>(connectionsIn)) surface.remove(element);
-			});
-			if (icon!=null) item.setIcon(icon);
-			item.setEnabled(!readOnly);
-			popupMenu.addSeparator();
-		}
+		needSeparator=needSeparator || addEdgesInContextMenu(popupMenu,surface,readOnly);
+
+		if (needSeparator) popupMenu.addSeparator();
 	}
 
 	/**

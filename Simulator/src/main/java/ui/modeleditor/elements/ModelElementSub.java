@@ -435,13 +435,8 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 		item.setIcon(Images.MODELEDITOR_ELEMENT_SUB_EDIT.getIcon());
 		item.addActionListener(e->showSubEditDialog(owner,readOnly,false));
 
-		if (connectionsIn!=null && connectionsIn.size()>0) {
-			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesIn")));
-			item.addActionListener(e->{for (ModelElementEdge element : new ArrayList<>(connectionsIn)) surface.remove(element);});
-			if (icon!=null) item.setIcon(icon);
-			item.setEnabled(!readOnly);
-			needSeparator=true;
-		}
+		needSeparator=needSeparator || addEdgesInContextMenu(popupMenu,surface,readOnly);
+
 		if (connectionsOut!=null && connectionsOut.size()>0) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesOut")));
 			item.addActionListener(e->{for (ModelElementEdge element : new ArrayList<>(connectionsOut)) surface.remove(element);});
@@ -454,14 +449,19 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 				popupMenu.add(menu);
 
 				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.Global"),Images.MODEL.getIcon()));
+				item.setEnabled(!readOnly);
 				item.addActionListener(e->setEdgeOutLineMode(null));
 				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.Direct"),Images.EDGE_MODE_DIRECT.getIcon()));
+				item.setEnabled(!readOnly);
 				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.DIRECT));
 				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.MultiLine"),Images.EDGE_MODE_MULTI_LINE.getIcon()));
+				item.setEnabled(!readOnly);
 				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.MULTI_LINE));
 				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.MultiLineRounded"),Images.EDGE_MODE_MULTI_LINE_ROUNDED.getIcon()));
+				item.setEnabled(!readOnly);
 				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.MULTI_LINE_ROUNDED));
 				menu.add(item=new JMenuItem(Language.tr("Surface.Connection.LineMode.CubicCurve"),Images.EDGE_MODE_CUBIC_CURVE.getIcon()));
+				item.setEnabled(!readOnly);
 				item.addActionListener(e->setEdgeOutLineMode(ModelElementEdge.LineMode.CUBIC_CURVE));
 			}
 		}

@@ -18,8 +18,6 @@ package ui.modeleditor.elements;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.Icon;
-import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import org.w3c.dom.Document;
@@ -28,7 +26,6 @@ import org.w3c.dom.Element;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
-import ui.images.Images;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
@@ -181,21 +178,8 @@ public class ModelElementSubOut extends ModelElementSubConnect implements ModelE
 	 */
 	@Override
 	protected final boolean addRemoveEdgesContextMenuItems(final JPopupMenu popupMenu, final boolean readOnly) {
-		JMenuItem item;
-		final Icon icon=Images.EDIT_EDGES_DELETE.getIcon();
-
-		if (connectionsIn!=null && connectionsIn.size()>0) {
-			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesIn")));
-			item.addActionListener(e->{
-				for (ModelElementEdge element : new ArrayList<>(connectionsIn)) surface.remove(element);
-			});
-			if (icon!=null) item.setIcon(icon);
-			item.setEnabled(!readOnly);
-		}
-
-		return false;
+		return addEdgesInContextMenu(popupMenu,surface,readOnly);
 	}
-
 
 	/**
 	 * Benachrichtigt das Element, dass es aus der Surface-Liste ausgetragen wurde.

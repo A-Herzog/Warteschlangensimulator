@@ -554,15 +554,8 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 		final Icon icon=Images.EDIT_EDGES_DELETE.getIcon();
 		boolean needSeparator=false;
 
-		if (connectionsIn!=null && connectionsIn.size()>0) {
-			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgesIn")));
-			item.addActionListener(e->{
-				for (ModelElementEdge element : new ArrayList<>(connectionsIn)) surface.remove(element);
-			});
-			if (icon!=null) item.setIcon(icon);
-			item.setEnabled(!readOnly);
-			needSeparator=true;
-		}
+		needSeparator=needSeparator || addEdgesInContextMenu(popupMenu,surface,readOnly);
+
 		if (connectionOut!=null) {
 			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveEdgeOut")));
 			item.addActionListener(e->surface.remove(connectionOut));

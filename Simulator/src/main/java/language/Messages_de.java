@@ -15718,6 +15718,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35697] = "Minimale Batch-Gr\u00f6\u00dfe ung\u00fcltig";
     t[35698] = "Surface.DDE.StartRow.ErrorInfo";
     t[35699] = "Die erste zu verwendende Tabellenzeile \"%s\" ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
+    t[35702] = "Surface.Connection.LineMode.ChangeAllEdgesIn";
+    t[35703] = "Kantenf\u00fchrung f\u00fcr alle einlaufenden Kanten anpassen";
     t[35704] = "Animation.IconDialog.Single.IconName.Error";
     t[35705] = "Ung\u00fcltiger Name f\u00fcr Bild";
     t[35706] = "Surface.Text.Infotext";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36437] = "Wahrscheinlichkeit";
     t[36438] = "ScriptPopup.Output.Digits.Hint";
     t[36439] = "Stellt die Anzahl an Nachkommastellen f\u00fcr die Ausgabe von Zahlen in lokaler Notation ein.";
-    t[36440] = "Surface.Resource.Group.DoesNotExist";
-    t[36441] = "Gruppe existiert nicht";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36440] = "Surface.Resource.Group.DoesNotExist";
+    t[36441] = "Gruppe existiert nicht";
     t[36442] = "Statistics.StationsTransferTimesTotal";
     t[36443] = "Transferzeiten an den Stationen(summiert \u00fcber mehrfache Kundenank\u00fcnfte)";
     t[36456] = "Surface.Signal.Name";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40881] = "Nach Dateiende keine Zuweisungen mehr durchf\u00fchren.";
     t[40884] = "Animation.IconDialog.Single.Title";
     t[40885] = "Bild bearbeiten";
-    t[40894] = "FastAccessBuilder.Add.Javascript";
-    t[40895] = "Zu Schnellzugriff - Javascript hinzuf\u00fcgen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40894] = "FastAccessBuilder.Add.Javascript";
+    t[40895] = "Zu Schnellzugriff - Javascript hinzuf\u00fcgen";
     t[40900] = "ParameterCompare.ResultsError.ScriptValueNotNumber";
     t[40901] = "In Schritt %d (Modell %s) hat das Ergebnisverarbeitungsskript \"%s\" geliefert, was nicht als Zahlenwert interpretiert werden kann.";
     t[40902] = "Simulation.Element.AnalogAssign.Name";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45337] = "Anzahl an Histogrammbalken";
     t[45342] = "BuildClientSourceTable.Edit.Index.Error.Info";
     t[45343] = "Der angegebene Index \"%s\" f\u00fcr die Zahleneigenschaft ist ung\u00fcltig.\nEs muss eine nichtnegative ganze Zahl angegeben werden.";
-    t[45346] = "Statistics.Dashboard.EditDialog.Heading.Auto";
-    t[45347] = "\u00dcberschrift wenn m\u00f6glich automatisch ermitteln";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45346] = "Statistics.Dashboard.EditDialog.Heading.Auto";
+    t[45347] = "\u00dcberschrift wenn m\u00f6glich automatisch ermitteln";
     t[45350] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.CoefficientOfVariationOfTheTime";
     t[45351] = "<p>Liefert den Variationskoeffizienten \u00fcber alle Wartezeiten aller Kunden.</p>";
     t[45354] = "XML.Runner.NoFile";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49819] = "Ausgabedatei ausw\u00e4hlen";
     t[49824] = "LoadCalculator.AverageNumberOfClientsInTheSystem";
     t[49825] = "Mittlere Anzahl an Kunden im System";
-    t[49826] = "ModelDescription.InteractiveCheckbox.Description.Variable";
-    t[49827] = "Variable";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[49826] = "ModelDescription.InteractiveCheckbox.Description.Variable";
+    t[49827] = "Variable";
     t[49830] = "Surface.AnimationBarStack.Dialog.Tab.Layout";
     t[49831] = "Darstellung";
     t[49832] = "ModelDescription.Arrival.Condition";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54277] = "Nur ganze Zahlen zulassen";
     t[54284] = "Surface.AnalogAssign.Dialog.Delete.ConfirmInfo";
     t[54285] = "Soll die aktuelle Zuweisung wirklich gel\u00f6scht werden?";
-    t[54288] = "Surface.Source.Dialog.Tab.BatchSize.ScaleInfo1";
-    t[54289] = "Auf Basis der angegebenen Batch-Gr\u00f6\u00dfe betr\u00e4gt die mittlere Zwischenankunftszeit zwischen zwei Kunden das %s-fache der Zwischenankunftszeit zwischen zwei Batchen.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[54288] = "Surface.Source.Dialog.Tab.BatchSize.ScaleInfo1";
+    t[54289] = "Auf Basis der angegebenen Batch-Gr\u00f6\u00dfe betr\u00e4gt die mittlere Zwischenankunftszeit zwischen zwei Kunden das %s-fache der Zwischenankunftszeit zwischen zwei Batchen.";
     t[54290] = "Surface.SourceTable.Dialog.Table.Preview.ErrorFileNotFound.Info";
     t[54291] = "Die angegebene Tabellendatei\n%s\nexistiert nicht.";
     t[54292] = "Statistics.DistributionOfClientsWaitingTimes";
