@@ -326,10 +326,14 @@ public class ElementRendererTools {
 				} else {
 					info.setBackgroundColors(backgroundColors[0],null);
 				}
+			} else {
+				info.setOpaque(false);
 			}
 			panel.add(info,BorderLayout.CENTER);
 			panel.setOpaque(false);
-			info.add(new JLabel(infoText));
+			final JLabel label=new JLabel(infoText);
+			label.setOpaque(false);
+			info.add(label);
 		}
 
 		final RendererPanel renderer=new RendererPanel(element,backgroundColors,showIDs,1.0);

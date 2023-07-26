@@ -718,6 +718,7 @@ public class ModelElement {
 		slider.setMajorTickSpacing((int)Math.round(Math.max(1,Math.ceil((max-1)/5.0))));
 		final int minor=(int)Math.round(Math.max(1,Math.ceil((max-1)/20.0)));
 		slider.setMinorTickSpacing(minor);
+		slider.setOpaque(false);
 		if (minor==1) slider.setSnapToTicks(true);
 		panel.add(slider,BorderLayout.CENTER);
 		final AbstractRealDistribution distribution=change.apply(null);
@@ -765,6 +766,7 @@ public class ModelElement {
 		final int minor=(int)Math.round(Math.max(1,Math.ceil((max-1)/20.0)));
 		slider.setMinorTickSpacing(minor);
 		if (minor==1) slider.setSnapToTicks(true);
+		slider.setOpaque(false);
 		panel.add(slider,BorderLayout.CENTER);
 		final String initialLabelText="<html><body>"+DistributionTools.getDistributionName(initialDistribution)+"<br>"+DistributionTools.getDistributionInfo(initialDistribution)+timeBaseName+"</body></html>";
 		final JLabel info=new JLabel(initialLabelText);
@@ -802,6 +804,7 @@ public class ModelElement {
 		slider.setPaintLabels(true);
 		slider.setPaintTicks(true);
 		slider.setMajorTickSpacing((int)Math.round(Math.max(1,Math.ceil((max-1)/5.0))));
+		slider.setOpaque(false);
 		final int minor=(int)Math.round(Math.max(1,Math.ceil((max-1)/20.0)));
 		slider.setMinorTickSpacing(minor);
 		if (minor==1) slider.setSnapToTicks(true);
@@ -836,6 +839,7 @@ public class ModelElement {
 		slider.setPaintTicks(true);
 		slider.setMajorTickSpacing(200);
 		slider.setMinorTickSpacing(20);
+		slider.setOpaque(false);
 		Hashtable<Integer,JComponent> labels=new Hashtable<>();
 		for (int i=0;i<=5;i++) labels.put(i*200,new JLabel(NumberTools.formatPercent(i/5.0)));
 		slider.setLabelTable(labels);
@@ -1003,8 +1007,8 @@ public class ModelElement {
 	 * @return	Panel in dem das Element und ein Infotext angezeigt werden
 	 * @see #showContextMenu(Component, Point, boolean, boolean, boolean, ModelSurfacePanel, Consumer, ModelClientData, ModelSequences, SimulationData, ModelSurfaceAnimator)
 	 */
-	private JComponent getElementSymbol() {
-		final String info="<html><body>"+getContextMenuElementName()+"<br><b>id="+getId()+"</b></body></html>";
+	public JComponent getElementSymbol() {
+		final String info="<html><body>"+getContextMenuElementName()+(getId()>0?("<br><b>id="+getId()+"</b>"):"")+"</body></html>";
 
 		if (this instanceof ModelElementPosition) {
 			return ElementRendererTools.getElementRenderer((ModelElementPosition)this,info,false,null,200,100);
