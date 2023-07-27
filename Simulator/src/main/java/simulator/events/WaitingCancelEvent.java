@@ -55,7 +55,7 @@ public class WaitingCancelEvent extends Event {
 		if (simData.loggingActive) station.log(simData,Language.tr("Simulation.Log.WaitingCancelation"),String.format(Language.tr("Simulation.Log.WaitingCancelation.Info"),client.logInfo(simData),station.name));
 
 		/* Verarbeitung */
-		station.processWaitingCancel(simData,client);
+		station.processWaitingCancel(simData,client,0);
 
 		/* System über Status-Änderung benachrichtigen */
 		simData.runData.fireStateChangeNotify(simData);

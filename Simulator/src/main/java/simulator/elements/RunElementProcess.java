@@ -76,6 +76,8 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 	public AbstractRealDistribution[] distributionPostProcess;
 	/** Wartezeittoleranz-Verteilungen */
 	public AbstractRealDistribution[] distributionCancel;
+	/** Kann ein Kunde das Warten auch noch während der Rüstzeit aufgeben? */
+	private boolean canCancelInSetupTime;
 	/** Rüstzeit-Rechenausdrücke */
 	public String[][] expressionSetup;
 	/** Bedienzeit-Rechenausdrücke */
@@ -222,6 +224,13 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 			if (process.connectionIdCancel==-1) return String.format(Language.tr("Simulation.Creator.NoCancelationEdge"),element.getId());
 		} else {
 			if (process.connectionIdCancel!=-1) return String.format(Language.tr("Simulation.Creator.CancelationEdge"),element.getId());
+		}
+
+		/* Warteabbrüche in Rüstzeit möglich? */
+		if (useCancel && processElement.getSetupTimes().isActive()) {
+			process.canCancelInSetupTime=processElement.isCanCancelInSetupTime();
+		} else {
+			process.canCancelInSetupTime=false;
 		}
 
 		/* Prioritäten */
@@ -491,6 +500,29 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		long processingTimeMS=FastMath.round(processingTime*1000);
 		long postProcessingTimeMS=FastMath.round(postProcessingTime*1000);
 
+		/* Warteabbruch während der Rüstzeit? */
+		if (setupTimeMS>0 && canCancelInSetupTime) {
+			final WaitingCancelEvent waitingCancelEvent=data.getWaitingCancelEvent(selected,bestIndex);
+			if (waitingCancelEvent!=null && waitingCancelEvent.time<simData.currentTime+setupTimeMS) {
+				/* Abbruch Ereignis manuell löschen */
+				simData.eventManager.deleteEvent(waitingCancelEvent,simData);
+
+				/* Kunden austragen & Weiterleiten */
+				processWaitingCancel(simData,selected,waitingCancelEvent.time-simData.currentTime);
+
+				/* Ressourcen freigaben */
+				final ProcessReleaseResources releaseEvent=(ProcessReleaseResources)simData.getEvent(ProcessReleaseResources.class);
+				releaseEvent.init(waitingCancelEvent.time);
+				releaseEvent.station=this;
+				releaseEvent.resourceAlternative=resourceAlternative;
+				simData.eventManager.addEvent(releaseEvent);
+
+				/* Logging */
+
+				return;
+			}
+		}
+
 		/* Kunden aus der Warteschlange entfernen */
 		final long waitingTimeMS=data.removeClientFromQueue(selected,bestIndex,simData.currentTime,true,simData);
 
@@ -748,8 +780,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 	 * eines Kunden erschöpft ist.
 	 * @param simData	Simulationsdatenobjekt
 	 * @param client	Kunde, der das Warten aufgibt
+	 * @param deltaMS	Verzögerung in MS bevor der Kunde ide Station verlässt ausgeführt wird
 	 */
-	public void processWaitingCancel(final SimulationData simData, final RunDataClient client) {
+	public void processWaitingCancel(final SimulationData simData, final RunDataClient client, final long deltaMS) {
 		final RunElementProcessData data=getData(simData);
 
 		data.queueLockedForPickUp=true;
@@ -768,7 +801,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		}
 
 		/* Weiter zur nächsten Station */
-		StationLeaveEvent.addLeaveEvent(simData,client,this,0);
+		StationLeaveEvent.addLeaveEvent(simData,client,this,deltaMS);
 	}
 
 	@Override

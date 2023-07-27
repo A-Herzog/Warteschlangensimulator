@@ -191,6 +191,13 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	private DistributionSystemSetupTimes setupTimes;
 
 	/**
+	 * Kann ein Kunde das Warten auch noch während der Rüstzeit aufgeben?
+	 * @see #isCanCancelInSetupTime()
+	 * @see #setCanCancelInSetupTime(boolean)
+	 */
+	private boolean canCancelInSetupTime;
+
+	/**
 	 * Priorität für Kunden eines bestimmten Kundentyp
 	 * @see #getPriority(String)
 	 * @see #setPriority(String, String)
@@ -253,6 +260,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		Language.tr("Surface.Process.XML.Distribution.Type.CancelationTime");
 
 		setupTimes=new DistributionSystemSetupTimes();
+		canCancelInSetupTime=false;
 		working=new DistributionSystem("Surface.Process.XML.Distribution.ClientType","Surface.Process.XML.Distribution.Type.ProcessingTime",false);
 		postProcessing=new DistributionSystem("Surface.Process.XML.Distribution.ClientType","Surface.Process.XML.Distribution.Type.PostProcessingTime",true);
 		cancel=new DistributionSystem("Surface.Process.XML.Distribution.ClientType","Surface.Process.XML.Distribution.Type.CancelationTime",true);
@@ -344,6 +352,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 
 		/* Rüstzeiten */
 		if (!setupTimes.equalsDistributionSystem(process.setupTimes)) return false;
+		if (canCancelInSetupTime!=process.canCancelInSetupTime) return false;
 
 		/* Prioritäten */
 		Map<String,String> priorityA=priority;
@@ -435,6 +444,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 
 			/* Rüstzeiten */
 			setupTimes=process.setupTimes.clone();
+			canCancelInSetupTime=process.canCancelInSetupTime;
 
 			/* Prioritäten */
 			priority.clear();
@@ -648,6 +658,11 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		cancel.save(doc,node);
 		setupTimes.save(doc,node);
 
+		if (canCancelInSetupTime) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Process.XML.CanCancelInSetupTime")));
+			sub.setTextContent("1");
+		}
+
 		for (Map.Entry<String,String> entry : priority.entrySet()) if (entry.getValue()!=null) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Process.XML.Priority")));
 			sub.setAttribute(Language.trPrimary("Surface.Process.XML.Distribution.ClientType"),entry.getKey());
@@ -774,6 +789,11 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 
 		if (DistributionSystemSetupTimes.isSetupTimesNode(node)) {
 			return setupTimes.load(node);
+		}
+
+		if (Language.trAll("Surface.Process.XML.CanCancelInSetupTime",name)) {
+			canCancelInSetupTime=(!content.isEmpty() && !content.equals("0"));
+			return null;
 		}
 
 		if (Language.trAll("Surface.Process.XML.Priority",name)) {
@@ -1310,6 +1330,22 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	}
 
 	/**
+	 * Kann ein Kunde das Warten auch noch während der Rüstzeit aufgeben?
+	 * @return	Kann ein Kunde das Warten auch noch während der Rüstzeit aufgeben?
+	 */
+	public boolean isCanCancelInSetupTime() {
+		return canCancelInSetupTime;
+	}
+
+	/**
+	 * Kann ein Kunde das Warten auch noch während der Rüstzeit aufgeben?
+	 * @param canCancelInSetupTime	Kann ein Kunde das Warten auch noch während der Rüstzeit aufgeben?
+	 */
+	public void setCanCancelInSetupTime(final boolean canCancelInSetupTime) {
+		this.canCancelInSetupTime=canCancelInSetupTime;
+	}
+
+	/**
 	 * Liefert die Priorität für Kunden eines bestimmten Kundentyp.
 	 * @param clientType	Kundentyp für den die Priorität geliefert werden soll
 	 * @return Priorität für Kunden dieses Kundentyps
@@ -1575,6 +1611,9 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 				final String propertyName=String.format(Language.tr("ModelDescription.Process.SetupTime"),clientA,clientB);
 				if (obj instanceof String) descriptionBuilder.addProperty(propertyName,Language.tr("ModelDescription.Process.SetupTime.Expression")+": "+(String)obj,2000);
 				if (obj instanceof AbstractRealDistribution) descriptionBuilder.addProperty(propertyName,ModelDescriptionBuilder.getDistributionInfo((AbstractRealDistribution)obj),2000);
+			}
+			if (canCancelInSetupTime && cancel.hasData()) {
+				descriptionBuilder.addProperty(Language.tr("ModelDescription.Process.CanCancelInSetupTime"),Language.tr("ModelDescription.Process.CanCancelInSetupTime.Yes"),2500);
 			}
 		}
 

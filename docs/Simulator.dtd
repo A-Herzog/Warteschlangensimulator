@@ -393,6 +393,8 @@
 
 <!ELEMENT ModellElementKampagnenModus (#PCDATA)>
 
+<!ELEMENT ModellElementWarteabbruchInRuestzeit (#PCDATA)>
+
 <!ELEMENT ModellElementKundentyp (#PCDATA)>
 
 <!ELEMENT ModellElementBediener EMPTY>
@@ -840,7 +842,7 @@
   Modus     CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementBedienstation (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBatch | ModellElementKampagnenModus | ModellElementVerteilung | ModellElementAusdruck | ModellElementRuestzeitVerteilung | ModellElementRuestzeitAusdruck | ModellElementPrioritaet | ModellElementBediener | ModellElementBedienerPrioritaet | ModellElementBedienstationKosten | ModellElementKostenZeit)*>
+<!ELEMENT ModellElementBedienstation (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBatch | ModellElementKampagnenModus | ModellElementWarteabbruchInRuestzeit | ModellElementVerteilung | ModellElementAusdruck | ModellElementRuestzeitVerteilung | ModellElementRuestzeitAusdruck | ModellElementPrioritaet | ModellElementBediener | ModellElementBedienerPrioritaet | ModellElementBedienstationKosten | ModellElementKostenZeit)*>
 <!ATTLIST ModellElementBedienstation
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -3054,6 +3056,10 @@
   Maximum	CDATA	#IMPLIED
 >
 
+<!ELEMENT ModelElementCampaignMode (#PCDATA)>
+
+<!ELEMENT ModelElementCanCancelInSetupTime (#PCDATA)>
+
 <!ELEMENT ModelElementClientType (#PCDATA)>
 
 <!ELEMENT ModelElementOperators EMPTY>
@@ -3500,7 +3506,7 @@
   Mode          CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementProcessStation (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBatchData | ModelElementDistribution | ModelElementExpression | ModelElementSetupTimesDistribution | ModelElementSetupTimesExpression | ModelElementPriority | ModelElementOperators | ModelElementOperatorsPriority | ModelElementStationCosts | ModelElementTimeCosts)*>
+<!ELEMENT ModelElementProcessStation (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBatchData | ModelElementCampaignMode | ModelElementCanCancelInSetupTime | ModelElementDistribution | ModelElementExpression | ModelElementSetupTimesDistribution | ModelElementSetupTimesExpression | ModelElementPriority | ModelElementOperators | ModelElementOperatorsPriority | ModelElementStationCosts | ModelElementTimeCosts)*>
 <!ATTLIST ModelElementProcessStation
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED

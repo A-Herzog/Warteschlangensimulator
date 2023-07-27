@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-23 00:42+0200\n"
+"POT-Creation-Date: 2023-07-24 14:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13094,6 +13094,12 @@ msgid "ModelDescription.Process.CampaignMode"
 msgstr "Campaign mode"
 
 msgid "ModelDescription.Process.CampaignMode.Yes"
+msgstr "Yes"
+
+msgid "ModelDescription.Process.CanCancelInSetupTime"
+msgstr "Clients can also give up waiting during the setup time"
+
+msgid "ModelDescription.Process.CanCancelInSetupTime.Yes"
 msgstr "Yes"
 
 msgid "ModelDescription.Process.CancelTime.ClientType"
@@ -32078,6 +32084,12 @@ msgstr "Processing times"
 msgid "Surface.Process.Dialog.Tab.SetupTimes"
 msgstr "Setup times"
 
+msgid "Surface.Process.Dialog.Tab.SetupTimes.CanCancelInSetupTime"
+msgstr "Clients can also give up waiting during the setup time"
+
+msgid "Surface.Process.Dialog.Tab.SetupTimes.CanCancelInSetupTime.Info"
+msgstr "This option is only used if waiting time tolerances are defined ."
+
 msgid "Surface.Process.Dialog.Tab.SetupTimes.TooManyClientTypes"
 msgstr "In the model there are too many client types to display the setup times editor."
 
@@ -32143,6 +32155,9 @@ msgstr "Minimum"
 
 msgid "Surface.Process.XML.CampaignMode"
 msgstr "ModelElementCampaignMode"
+
+msgid "Surface.Process.XML.CanCancelInSetupTime"
+msgstr "ModelElementCanCancelInSetupTime"
 
 msgid "Surface.Process.XML.Connection.Status"
 msgstr "Status"

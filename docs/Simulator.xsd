@@ -1065,6 +1065,7 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModellElementBatch"/>
 	<xs:element name="ModellElementKampagnenModus" type="xs:string"/>
+	<xs:element name="ModellElementWarteabbruchInRuestzeit" type="xs:string"/>
 	<xs:element ref="ModellElementVerteilung"/>	
 	<xs:element ref="ModellElementAusdruck"/>
 	<xs:element ref="ModellElementRuestzeitVerteilung"/>
@@ -3514,6 +3515,7 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element ref="ModelElementBatchData"/>
 	<xs:element name="ModelElementCampaignMode" type="xs:string"/>
+	<xs:element name="ModelElementCanCancelInSetupTime" type="xs:string"/>
 	<xs:element ref="ModelElementDistribution"/>
 	<xs:element ref="ModelElementExpression"/>
 	<xs:element ref="ModelElementSetupTimesDistribution"/>

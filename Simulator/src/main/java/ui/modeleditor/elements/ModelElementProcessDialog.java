@@ -81,6 +81,8 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 
 	/** Panel zur Konfiguration der Rüstzeiten */
 	private DistributionSetupTimesEditor editorSetupTimes;
+	/** Kann ein Kunde das Warten auch noch während der Rüstzeit aufgeben? */
+	private JCheckBox canCancelInSetupTime;
 
 	/* Dialogseite "Nachbearbeitungszeiten" */
 
@@ -228,6 +230,10 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 			area.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			sub.add(new JLabel("<html><body style='color: red;'><b>"+Language.tr("Surface.Process.Dialog.Tab.SetupTimes.TooManyClientTypes")+"</b></body></html>"));
 		}
+
+		tab.add(area=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
+		area.add(canCancelInSetupTime=new JCheckBox(Language.tr("Surface.Process.Dialog.Tab.SetupTimes.CanCancelInSetupTime"),process.isCanCancelInSetupTime()));
+		canCancelInSetupTime.setToolTipText(Language.tr("Surface.Process.Dialog.Tab.SetupTimes.CanCancelInSetupTime.Info"));
 
 		/* Tab "Nachbearbeitungszeiten" */
 		tabs.addTab(Language.tr("Surface.Process.Dialog.Tab.PostProcessingTimes"),tab=new JPanel(new BorderLayout()));
@@ -559,6 +565,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 
 		distributionsWorking.storeData();
 		if (editorSetupTimes!=null) editorSetupTimes.storeData();
+		process.setCanCancelInSetupTime(canCancelInSetupTime.isSelected());
 		if (checkBoxPostProcessing.isSelected()) distributionsPostProcessing.storeData(); else process.getPostProcessing().set(null);
 		if (checkBoxCancel.isSelected()) distributionsCancel.storeData(); else process.getCancel().set(null);
 

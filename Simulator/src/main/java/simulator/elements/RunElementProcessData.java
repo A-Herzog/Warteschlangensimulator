@@ -322,6 +322,21 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 		return timeInQueue;
 	}
 
+	/**
+	 * Ermittelt das Warteabbruch-Ereignis (sofern ein solches vorhanden ist) für einen Kunden in der Warteschlange.
+	 * @param client	Zu entfernender Kunde
+	 * @param indexOfClientInQueue	Index des Kunden in der <code>waitingClients</code>-Liste. Kann -1 sein, dann wird der Index gemäß dem <code>client</code>-Objekt selbst ermittelt
+	 * @return	Liefert im Erfolsfall das Warteabbruch-Ereignis sonst <code>null</code>
+	 */
+	public WaitingCancelEvent getWaitingCancelEvent(final RunDataClient client, final int indexOfClientInQueue) {
+		if (!hasWaitingCancelations) return null;
+
+		final int index=(indexOfClientInQueue>=0)?indexOfClientInQueue:waitingClients.indexOf(client);
+		if (index<0) return null;
+
+		return waitingCancelEvents.get(index);
+	}
+
 	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
 	private static final double toSecFactor=1.0/1000.0;
 
