@@ -19,6 +19,7 @@ import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -100,6 +101,7 @@ import ui.dialogs.BackgroundColorDialog;
 import ui.dialogs.HeatMapSelectWindow;
 import ui.dialogs.LayersDialog;
 import ui.dialogs.ModelDescriptionDialog;
+import ui.help.Help;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.DrawIOExport;
@@ -1081,6 +1083,7 @@ public final class EditorPanel extends EditorPanelBase {
 		templates.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				/* Gruppen ein- und ausklappen */
 				if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e)) {
 					final int index=templates.locationToIndex(e.getPoint());
 					if (index<0) return;
@@ -1093,6 +1096,17 @@ public final class EditorPanel extends EditorPanelBase {
 					templates.setModel(new DefaultListModel<>());
 					templates.setModel(model);
 					setTemplatesVisible(isTemplatesVisible(),false);
+				}
+				/* Kontextmenü */
+				if (e.getClickCount()==1 &&  SwingUtilities.isRightMouseButton(e)) {
+					final int index=templates.locationToIndex(e.getPoint());
+					if (index<0) return;
+					final ModelElementPosition element=templates.getModel().getElementAt(index);
+					if ((element instanceof ModelElementListGroup)) {
+						showFilterTemplatesPopup(templates,e.getX(),e.getY());
+					} else {
+						showElementeTemplateContextMenu(templates,e.getX(),e.getY(),element);
+					}
 				}
 			}
 		});
@@ -1135,7 +1149,7 @@ public final class EditorPanel extends EditorPanelBase {
 		leftAreaTemplatesFilterButton.setIcon(Images.ELEMENTTEMPLATES_FILTER.getIcon());
 		leftAreaTemplates.add(leftAreaScrollPane,BorderLayout.CENTER);
 		leftArea.add(leftAreaTemplates,BorderLayout.CENTER);
-		leftAreaTemplatesFilterButton.addActionListener(e->showFilterTemplatesPopup());
+		leftAreaTemplatesFilterButton.addActionListener(e->showFilterTemplatesPopup(leftAreaTemplatesFilterButton,0,leftAreaTemplatesFilterButton.getHeight()));
 
 		if (!readOnly) setTemplatesVisible(setup.startTemplateMode==SetupData.StartTemplateMode.START_TEMPLATE_VISIBLE || (setup.startTemplateMode==SetupData.StartTemplateMode.START_TEMPLATE_LASTSTATE && setup.showTemplates),true); else setTemplatesVisible(false,true);
 
@@ -2659,7 +2673,7 @@ public final class EditorPanel extends EditorPanelBase {
 	/**
 	 * Stellt sicher, dass nur eine Gruppe in der Elementenvorlagenliste
 	 * gleichzeitig geöffnet ist.
-	 * @see #showFilterTemplatesPopup()
+	 * @see #showFilterTemplatesPopup(Component, int, int)
 	 * @see #templates
 	 */
 	private void enforceOnlyOneGroupOpen() {
@@ -2695,9 +2709,12 @@ public final class EditorPanel extends EditorPanelBase {
 	/**
 	 * Zeigt das Popupmenü zur Filterung der Vorlagen
 	 * in der Vorlagen-Leiste an.
+	 * @param invoker	Übergeordnetes Element (zur Ausrichtung des Menü)
+	 * @param x	Horizontale Position der linken oberen Ecke des Menüs relativ zum übergeordneten Element
+	 * @param y	Vertikale Position der linken oberen Ecke des Menüs relativ zum übergeordneten Element
 	 * @see #leftAreaTemplatesFilterButton
 	 */
-	private void showFilterTemplatesPopup() {
+	private void showFilterTemplatesPopup(final Component invoker, final int x, final int y) {
 		final JPopupMenu popup=new JPopupMenu();
 
 		JMenuItem item;
@@ -2768,7 +2785,40 @@ public final class EditorPanel extends EditorPanelBase {
 			updateTemplatesFilter();
 		});
 
-		popup.show(leftAreaTemplatesFilterButton,0,leftAreaTemplatesFilterButton.getHeight());
+		popup.show(invoker,x,y);
+	}
+
+	/**
+	 * Zeigt das Kontextmenü zu einem Eintrag in der Vorlagenliste an.
+	 * @param invoker	Übergeordnetes Element (zur Ausrichtung des Menü)
+	 * @param x	Horizontale Position der linken oberen Ecke des Menüs relativ zum übergeordneten Element
+	 * @param y	Vertikale Position der linken oberen Ecke des Menüs relativ zum übergeordneten Element
+	 * @param element	Konkretes Vorlagenelement für das das Kontextmenü angezeigt werden soll
+	 */
+	private void showElementeTemplateContextMenu(final Component invoker, final int x, final int y, final ModelElementPosition element) {
+		final JPopupMenu popup=new JPopupMenu();
+
+		final JPanel panel=new JPanel(new BorderLayout());
+		final JComponent symbol=element.getElementSymbol();
+		symbol.setOpaque(false);
+		panel.add(symbol,BorderLayout.WEST);
+		panel.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+		panel.setOpaque(false);
+		popup.add(panel);
+
+		popup.addSeparator();
+
+		JMenuItem item;
+
+		item=new JMenuItem(Language.tr("Surface.PopupMenu.Help"));
+		Component c=invoker;
+		while (c!=null && !(c instanceof Container)) c=c.getParent();
+		final Container container=(Container)c;
+		item.addActionListener(e->Help.topicModal(container,element.getHelpPageName()));
+		item.setIcon(Images.HELP.getIcon());
+		popup.add(item);
+
+		popup.show(invoker,x,y);
 	}
 
 	/**
