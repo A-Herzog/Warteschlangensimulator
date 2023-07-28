@@ -1399,6 +1399,7 @@
   Bedingung			CDATA	#IMPLIED
   Kundentyp			CDATA	#IMPLIED
   Texteigenschaft	CDATA	#IMPLIED
+  Anzahl			CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementDuplizierenTeleportStart (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementTeleportStartZuZiel)*>
@@ -4063,6 +4064,7 @@
   Condition		CDATA	#IMPLIED
   ClientType	CDATA	#IMPLIED
   Value			CDATA	#IMPLIED
+  Quantity		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementDuplicateTeleportOrigin (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementTeleportOriginToTarget)*>

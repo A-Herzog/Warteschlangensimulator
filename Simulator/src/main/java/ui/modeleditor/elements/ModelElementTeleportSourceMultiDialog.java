@@ -77,7 +77,7 @@ public class ModelElementTeleportSourceMultiDialog extends ModelElementBaseDialo
 
 	@Override
 	protected JComponent getContentPanel() {
-		return teleportDestinations=new TeleportDestinationsPanel(((ModelElementTeleportSourceMulti)element).getDestinations(),element.getModel(),readOnly);
+		return teleportDestinations=new TeleportDestinationsPanel(((ModelElementTeleportSourceMulti)element).getDestinations(),((ModelElementTeleportSourceMulti)element).getDestinationsMultiplicity(),element.getModel(),readOnly);
 	}
 
 	@Override
@@ -86,8 +86,11 @@ public class ModelElementTeleportSourceMultiDialog extends ModelElementBaseDialo
 
 		if (element instanceof ModelElementTeleportSourceMulti) {
 			final List<String> destinations=((ModelElementTeleportSourceMulti)element).getDestinations();
+			final List<Integer> destinationsMultiplicity=((ModelElementTeleportSourceMulti)element).getDestinationsMultiplicity();
 			destinations.clear();
 			destinations.addAll(teleportDestinations.getDestinations());
+			destinationsMultiplicity.clear();
+			destinationsMultiplicity.addAll(teleportDestinations.getDestinationsMultiplicity());
 		}
 	}
 }

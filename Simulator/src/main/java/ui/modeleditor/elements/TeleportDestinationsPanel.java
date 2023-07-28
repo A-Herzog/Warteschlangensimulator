@@ -85,6 +85,12 @@ public class TeleportDestinationsPanel extends JPanel {
 	private List<String> destinations;
 
 	/**
+	 * Liste der Vielfachheiten für die Ziele (kann <code>null</code> sein)
+	 * @see #updateData()
+	 */
+	private List<Integer> destinationsMultiplicity;
+
+	/**
 	 * Dialogzeilen, in denen sich die Auswahlboxen für die Ziele befinden
 	 * @see #updateData()
 	 */
@@ -97,12 +103,29 @@ public class TeleportDestinationsPanel extends JPanel {
 	private List<JComboBox<String>> destinationsComboBoxes;
 
 	/**
+	 * Eingabefelder für die Vielfacherheiten der Ziele (kann <code>null</code> sein, dann gibt es keine Vielfachheiten)
+	 * @see #updateData()
+	 */
+	private List<SpinnerModel> destinationsMultiplicitySpinners;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param destinations	Bisher gewählte Ziele (darf leer oder <code>null</code> sein)
 	 * @param model	Editor-Modell aus dem die Namen der möglichen Ziele ausgelesen werden
 	 * @param readOnly	Nur-Lese-Status
 	 */
 	public TeleportDestinationsPanel(final List<String> destinations, final EditModel model, final boolean readOnly) {
+		this(destinations,null,model,readOnly);
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param destinations	Bisher gewählte Ziele (darf leer oder <code>null</code> sein)
+	 * @param destinationsMultiplicity	Vielfachheiten mit denen die bisherigen Ziele angesteuert werden (darf <code>null</code> sein, dann gibt es keine Vielfachheiten; muss ansonsten von der Länge der Zieleliste entsprechen)
+	 * @param model	Editor-Modell aus dem die Namen der möglichen Ziele ausgelesen werden
+	 * @param readOnly	Nur-Lese-Status
+	 */
+	public TeleportDestinationsPanel(final List<String> destinations, final List<Integer> destinationsMultiplicity, final EditModel model, final boolean readOnly) {
 		setLayout(new BorderLayout());
 		this.readOnly=readOnly;
 		destinationNames=getTeleportDestinations(model);
@@ -111,6 +134,15 @@ public class TeleportDestinationsPanel extends JPanel {
 
 		this.destinations=new ArrayList<>();
 		if (destinations!=null) this.destinations.addAll(destinations);
+
+		if (destinationsMultiplicity==null) {
+			this.destinationsMultiplicity=null;
+		} else {
+			this.destinationsMultiplicity=new ArrayList<>();
+			this.destinationsMultiplicity.addAll(destinationsMultiplicity);
+			destinationsMultiplicitySpinners=new ArrayList<>();
+		}
+
 		destinationsLines=new ArrayList<>();
 		destinationsComboBoxes=new ArrayList<>();
 
@@ -199,6 +231,10 @@ public class TeleportDestinationsPanel extends JPanel {
 					String dest="";
 					if (comboBox.getItemCount()>0 && comboBox.getSelectedIndex()>=0 && comboBox.getSelectedIndex()<destinationNames.size()) dest=destinationNames.get(comboBox.getSelectedIndex());
 					if (!dest.equals(destinations.get(i))) {changed=true; break;}
+					if (destinationsMultiplicitySpinners!=null) {
+						final int muliplicity=(Integer)destinationsMultiplicitySpinners.get(i).getValue();
+						if (muliplicity!=destinationsMultiplicity.get(i)) {changed=true; break;}
+					}
 				}
 				if (!changed) return;
 			}
@@ -206,10 +242,13 @@ public class TeleportDestinationsPanel extends JPanel {
 			/* Bisherige Einstellungen aus GUI sichern */
 			for (int i=0;i<Math.min(destinations.size(),destinationsComboBoxes.size());i++) {
 				final JComboBox<String> comboBox=destinationsComboBoxes.get(i);
+				final SpinnerModel spinner=(destinationsMultiplicitySpinners!=null)?destinationsMultiplicitySpinners.get(i):null;
 				if (comboBox.getItemCount()==0) {
 					destinations.set(i,"");
+					if (spinner!=null) destinationsMultiplicity.set(i,0);
 				} else {
 					if (comboBox.getSelectedIndex()>=0) destinations.set(i,destinationNames.get(comboBox.getSelectedIndex())); else destinations.set(i,destinationNames.get(0));
+					if (spinner!=null) destinationsMultiplicity.set(i,(Integer)spinner.getValue());
 				}
 			}
 
@@ -219,21 +258,41 @@ public class TeleportDestinationsPanel extends JPanel {
 				mainPanel.remove(destinationsLines.get(lastIndex));
 				destinationsLines.remove(lastIndex);
 				destinationsComboBoxes.remove(lastIndex);
+				if (destinationsMultiplicitySpinners!=null) destinationsMultiplicitySpinners.remove(lastIndex);
 			}
 			while (destinations.size()>count) destinations.remove(destinations.size()-1);
+			if (destinationsMultiplicity!=null) while (destinationsMultiplicity.size()>count) destinationsMultiplicity.remove(destinationsMultiplicity.size()-1);
 
 			/* Neue Einträge anlegen */
 			while (destinations.size()<count) destinations.add((destinationNames.size()>0)?destinationNames.get(0):"");
+			if (destinationsMultiplicity!=null) while (destinationsMultiplicity.size()<count) destinationsMultiplicity.add(1);
 			while (destinationsLines.size()<count) {
 				final Object[] data=ModelElementBaseDialog.getComboBoxPanel(String.format(Language.tr("Surface.TeleportSourceMulti.Dialog.DestinationNr")+":",destinationsLines.size()+1),destinationNames);
 				final JPanel panel=(JPanel)data[0];
 				@SuppressWarnings("unchecked")
 				final JComboBox<String> comboBox=(JComboBox<String>)data[1];
 				mainPanel.add(panel);
+				if (destinationsMultiplicitySpinners!=null) {
+					final JLabel label;
+					panel.add(label=new JLabel(Language.tr("Surface.TeleportSourceMulti.Dialog.DestinationQuantity")+":"));
+					final SpinnerModel countField;
+					final JSpinner countSpinner=new JSpinner(countField=new SpinnerNumberModel(1,0,999,1));
+					final JSpinner.NumberEditor countEditor=new JSpinner.NumberEditor(countSpinner);
+					countEditor.getFormat().setGroupingUsed(false);
+					countEditor.getTextField().setColumns(2);
+					countSpinner.setEditor(countEditor);
+					panel.add(countSpinner);
+					label.setLabelFor(countSpinner);
+					countSpinner.setValue(Math.max(1,this.destinations.size()));
+					countEditor.setEnabled(!readOnly);
+					countSpinner.setEnabled(!readOnly);
+					destinationsMultiplicitySpinners.add(countField);
+				}
 				final JButton button=new JButton();
 				button.setIcon(Images.EDIT_DELETE.getIcon());
 				button.setToolTipText(Language.tr("Surface.TeleportSourceMulti.Dialog.RemoveDestination"));
 				button.addActionListener(e->removeTarget(comboBox));
+				button.setEnabled(!readOnly);
 				panel.add(button);
 				destinationsLines.add(panel);
 				destinationsComboBoxes.add(comboBox);
@@ -253,6 +312,9 @@ public class TeleportDestinationsPanel extends JPanel {
 				final int nr=destinationNames.indexOf(destinations.get(i));
 				final JComboBox<String> comboBox=destinationsComboBoxes.get(i);
 				if (comboBox.getItemCount()>0) comboBox.setSelectedIndex(nr);
+				if (destinationsMultiplicity!=null) {
+					destinationsMultiplicitySpinners.get(i).setValue(destinationsMultiplicity.get(i));
+				}
 			}
 
 			mainPanel.setVisible(false);
@@ -342,5 +404,15 @@ public class TeleportDestinationsPanel extends JPanel {
 	public List<String> getDestinations() {
 		updateData();
 		return new ArrayList<>(destinations);
+	}
+
+	/**
+	 * Liefert die gewählten Ziele
+	 * @return	Liste der gewählten Ziele
+	 */
+	public List<Integer> getDestinationsMultiplicity() {
+		updateData();
+		if (destinationsMultiplicity==null) return destinations.stream().map(s->Integer.valueOf(1)).collect(Collectors.toList());
+		return new ArrayList<>(destinationsMultiplicity);
 	}
 }

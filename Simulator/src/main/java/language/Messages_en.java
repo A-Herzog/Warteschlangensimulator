@@ -11694,6 +11694,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26607] = "Client: %s, station: %s";
     t[26610] = "Surface.OutputDDE.Dialog.OutputActive";
     t[26611] = "Output active?";
+    t[26612] = "ModelDescription.TeleportSourceMulti.DestinationQuantity";
+    t[26613] = "Quantity";
     t[26620] = "Surface.Source.DialogBatchSize.Table.ErrorTitle";
     t[26621] = "Invalid rate";
     t[26622] = "Statistics.ResultsAutocorrelation.WaitingTime.ByStations";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27409] = "Name";
     t[27416] = "Surface.TankFlowByClient.Infotext";
     t[27417] = "If a client passes a flow station, a flow between two valves of different tanks is initiated.";
-    t[27422] = "Simulation.Element.Split.Name";
-    t[27423] = "Split";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27422] = "Simulation.Element.Split.Name";
+    t[27423] = "Split";
     t[27430] = "Surface.UserStatistic.Infotext";
     t[27431] = "If a client passes a statistics station, one ore more current values of some expressions are recoreded by user defined keys in the statistics.";
     t[27434] = "Animation.SkipWarmUp.OptionFast.Info";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31941] = "Costs for the idle time of the resource";
     t[31942] = "Surface.Source.DialogBatchSize.Minimum";
     t[31943] = "Minimum batch size";
-    t[31944] = "Window.EdgeStyle.Title";
-    t[31945] = "Setup connection edges style";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31944] = "Window.EdgeStyle.Title";
+    t[31945] = "Setup connection edges style";
     t[31948] = "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.RandomNumberRangeInfo";
     t[31949] = "<p>Generates a random number according to the Frechet distribution with location parameter, scale parameter and form parameter as third to fiveth parameter.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
     t[31954] = "Simulation.Log.ResourceFailure.AvailableTime";
@@ -15406,6 +15408,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34963] = "Priority";
     t[34974] = "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientSourceID.Info";
     t[34975] = "Returns the ID of the station where the current client was created or where it was assigned its current type.";
+    t[34984] = "Surface.TeleportSourceMulti.XML.DestinationQuantity";
+    t[34985] = "Quantity";
     t[35012] = "ModelDescription.TransportTimeRecord.TimeMode.Transfer";
     t[35013] = "Transfer time";
     t[35024] = "Statistics.InterLeaveTimes";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36421] = "<p>Returns the minimum number of busy operators over all resources.</p>";
     t[36426] = "Surface.Match.Dialog.TransferData.Mode.Max";
     t[36427] = "Maximum of the invividual values";
-    t[36428] = "Surface.Output.Table.Delete";
-    t[36429] = "Delete output element";
-    t[36430] = "Simulation.Log.FlowData.Source.NoConnection";
-    t[36431] = "system";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36428] = "Surface.Output.Table.Delete";
+    t[36429] = "Delete output element";
+    t[36430] = "Simulation.Log.FlowData.Source.NoConnection";
+    t[36431] = "system";
     t[36434] = "FitDialogMultiModalGenerator.NumberOfValues.ErrorTitle";
     t[36435] = "Invalid number of values";
     t[36436] = "Surface.Balking.XML.Expression.Mode.Probability";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40857] = "Digit";
     t[40858] = "ModelDescription.CounterMulti.ConditionElse";
     t[40859] = "Counter if no condition is fulfilled";
-    t[40860] = "CriticalStationsSignature.Root";
-    t[40861] = "CriticalStationsSignature";
-    t[40868] = "Surface.Tank.Dialog.Valve.InitialFlow";
-    t[40869] = "Maximum flow";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40860] = "CriticalStationsSignature.Root";
+    t[40861] = "CriticalStationsSignature";
+    t[40868] = "Surface.Tank.Dialog.Valve.InitialFlow";
+    t[40869] = "Maximum flow";
     t[40874] = "Main.Menu.View.Statistics.HeatMap.WipAvg";
     t[40875] = "Heatmap: Average number of clients at a station";
     t[40876] = "Surface.AnimationText.XML.FontSize.Italic";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45303] = "Client";
     t[45306] = "Surface.AnimationTrafficLights.Dialog.ConditionFor.Red";
     t[45307] = "Condition for \"red\"";
-    t[45314] = "Statistics.ErlangCompare.Times";
-    t[45315] = "Average times";
-    t[45324] = "Surface.Match.XML.MatchPropertyMode.Mode.Number";
-    t[45325] = "Number";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45314] = "Statistics.ErlangCompare.Times";
+    t[45315] = "Average times";
+    t[45324] = "Surface.Match.XML.MatchPropertyMode.Mode.Number";
+    t[45325] = "Number";
     t[45328] = "Statistics.DistributionsValues";
     t[45329] = "Distributions by values";
     t[45330] = "ParameterCompare.XML.Outputs.Data.IsScript";
@@ -21990,6 +21994,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49595] = "Stop only if condition is met";
     t[49600] = "ModelLoadData.EditDialog.Delete.Confirm.Info";
     t[49601] = "Dp you really want to delete the current record?";
+    t[49604] = "Surface.TeleportSourceMulti.Dialog.DestinationQuantity";
+    t[49605] = "Quantity";
     t[49606] = "Surface.Popup.AddVisualization.AnalogRate";
     t[49607] = "Change rate";
     t[49630] = "Color.B8860B";
@@ -22064,18 +22070,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49787] = "Downtimes by distribution at transporter group \"%s\"";
     t[49790] = "Surface.AnimationDiagram.Dialog.Data.TimeRange.Error.InfoSeconds";
     t[49791] = "The specified time range \"%s\" is invalid. A positive integer number of seconds has to be entered.";
-    t[49794] = "Color.FAFAD2";
-    t[49795] = "Light golden rod yellow";
-    t[49796] = "Simulation.Log.Assign";
-    t[49797] = "Client type changr";
-    t[49798] = "Surface.Sub.Dialog.OkAndOpenEditor.Tooltip";
-    t[49799] = "Closes this dialog and opens the editor for the sub model";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[49794] = "Color.FAFAD2";
+    t[49795] = "Light golden rod yellow";
+    t[49796] = "Simulation.Log.Assign";
+    t[49797] = "Client type changr";
+    t[49798] = "Surface.Sub.Dialog.OkAndOpenEditor.Tooltip";
+    t[49799] = "Closes this dialog and opens the editor for the sub model";
     t[49802] = "URLLoader.Select.Branch";
     t[49803] = "branch";
     t[49814] = "Surface.Popup.AddLongRunStatistics.AnalogValue";
@@ -24070,18 +24076,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54237] = "Do you really want to delete all simulation models from list?";
     t[54238] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Info.One";
     t[54239] = "1 interval has been defined. The schedule repeats every %s.";
-    t[54242] = "Surface.InteractiveButton.XML.Root";
-    t[54243] = "ModelElementButton";
-    t[54248] = "Surface.Text.Tooltip";
-    t[54249] = "Description text without function for the simulation model.";
-    t[54252] = "Transporter.Group.Edit.ChangeName.NoInfo";
-    t[54253] = "Do not change the transporter name in the elements.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[54242] = "Surface.InteractiveButton.XML.Root";
+    t[54243] = "ModelElementButton";
+    t[54248] = "Surface.Text.Tooltip";
+    t[54249] = "Description text without function for the simulation model.";
+    t[54252] = "Transporter.Group.Edit.ChangeName.NoInfo";
+    t[54253] = "Do not change the transporter name in the elements.";
     t[54256] = "Surface.Link.Name.Long";
     t[54257] = "Link";
     t[54258] = "SystemInfo.Tools.Surface.BackgroundTooltips";

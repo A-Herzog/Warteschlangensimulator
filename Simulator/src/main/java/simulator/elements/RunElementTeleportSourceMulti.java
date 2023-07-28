@@ -15,6 +15,7 @@
  */
 package simulator.elements;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -58,8 +59,24 @@ public class RunElementTeleportSourceMulti extends RunElement {
 		final ModelElementTeleportSourceMulti sourceElement=(ModelElementTeleportSourceMulti)element;
 		final RunElementTeleportSourceMulti source=new RunElementTeleportSourceMulti(sourceElement);
 
-		source.destinationStrings=sourceElement.getDestinations().toArray(new String[0]);
+		/* Vielfachhheit auflösen */
+
+		final List<String> destinationStrings=sourceElement.getDestinations();
+		final List<Integer> destinationsMultiplicity=sourceElement.getDestinationsMultiplicity();
+		final List<String> destinationsResults=new ArrayList<>();
+
+		for (int i=0;i<Math.min(destinationStrings.size(),destinationsMultiplicity.size());i++) {
+			final String destination=destinationStrings.get(i);
+			final int multiplicity=destinationsMultiplicity.get(i);
+			if (multiplicity<=0) continue;
+			for (int j=0;j<multiplicity;j++) destinationsResults.add(destination);
+		}
+
+		source.destinationStrings=destinationsResults.toArray(new String[0]);
 		if (source.destinationStrings.length==0) return String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId());
+
+		/* Namen -> IDs */
+
 		source.destinationIDs=new int[source.destinationStrings.length];
 		for (int i=0;i<source.destinationStrings.length;i++) {
 			final int id=RunElementTeleportSource.getDestinationID(editModel,source.destinationStrings[i]);
@@ -77,11 +94,21 @@ public class RunElementTeleportSourceMulti extends RunElement {
 		final ModelElementTeleportSourceMulti sourceElement=(ModelElementTeleportSourceMulti)element;
 
 		final List<String> destinationStrings=sourceElement.getDestinations();
+		final List<Integer> destinationsMultiplicity=sourceElement.getDestinationsMultiplicity();
 		if (destinationStrings.size()==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId()),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);
-		for (String destination: destinationStrings) {
+		int sum=0;
+		for (int i=0;i<Math.min(destinationStrings.size(),destinationsMultiplicity.size());i++) {
+			final String destination=destinationStrings.get(i);
+			final int multiplicity=destinationsMultiplicity.get(i);
+
+			if (multiplicity<=0) continue;
+			sum+=multiplicity;
+
 			final int destinationID=RunElementTeleportSource.getDestinationID(element.getModel(),destination);
 			if (destinationID<0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidTeleportDestination"),element.getId(),destination),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);
 		}
+
+		if (sum==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId()),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);
 
 		return RunModelCreatorStatus.ok;
 	}

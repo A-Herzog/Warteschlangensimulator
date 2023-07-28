@@ -21,6 +21,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.Icon;
 import javax.swing.JMenuItem;
@@ -57,10 +58,16 @@ public class ModelElementTeleportSourceMulti extends ModelElementBox implements 
 	private List<ModelElementEdge> connections;
 
 	/**
-	 * Name der Zielstation
+	 * Namen der Zielstationen
 	 * @see #getDestinations()
 	 */
 	private final List<String> destinations;
+
+	/**
+	 * Vielfachheiten mit denen die Zielstationen angesteuert werden
+	 * @see #getDestinationsMultiplicity()
+	 */
+	private final List<Integer> destinationsMultiplicity;
 
 	/**
 	 * IDs der einlaufenden Kanten (wird nur beim Laden und Clonen verwendet)
@@ -78,6 +85,7 @@ public class ModelElementTeleportSourceMulti extends ModelElementBox implements 
 		setDrawText(false);
 		connections=new ArrayList<>();
 		destinations=new ArrayList<>();
+		destinationsMultiplicity=new ArrayList<>();
 	}
 
 	/**
@@ -107,6 +115,14 @@ public class ModelElementTeleportSourceMulti extends ModelElementBox implements 
 	}
 
 	/**
+	 * Gibt die Vielfachheiten mit denen die Zielstationen angesteuert werden an.
+	 * @return	Vielfachheiten mit denen die Zielstationen angesteuert werden
+	 */
+	public List<Integer> getDestinationsMultiplicity() {
+		return destinationsMultiplicity;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -116,13 +132,15 @@ public class ModelElementTeleportSourceMulti extends ModelElementBox implements 
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementTeleportSourceMulti)) return false;
 
-		final List<ModelElementEdge> connections2=((ModelElementTeleportSourceMulti)element).connections;
+		final ModelElementTeleportSourceMulti otherElement=(ModelElementTeleportSourceMulti)element;
+
+		final List<ModelElementEdge> connections2=otherElement.connections;
 		if (connections==null || connections2==null || connections.size()!=connections2.size()) return false;
 		for (int i=0;i<connections.size();i++) if (connections.get(i).getId()!=connections2.get(i).getId()) return false;
 
-		final List<String> destinations2=((ModelElementTeleportSourceMulti)element).destinations;
-		if (destinations.size()!=destinations2.size()) return false;
-		for (int i=0;i<destinations.size();i++) if (!destinations.get(i).equals(destinations2.get(i))) return false;
+		if (!Objects.deepEquals(destinations,otherElement.destinations)) return false;
+
+		if (!Objects.deepEquals(destinationsMultiplicity,otherElement.destinationsMultiplicity)) return false;
 
 		return true;
 	}
@@ -135,14 +153,19 @@ public class ModelElementTeleportSourceMulti extends ModelElementBox implements 
 	public void copyDataFrom(final ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementTeleportSourceMulti) {
+			final ModelElementTeleportSourceMulti copySource=(ModelElementTeleportSourceMulti)element;
+
 			connections.clear();
-			final List<ModelElementEdge> connections2=((ModelElementTeleportSourceMulti)element).connections;
+			final List<ModelElementEdge> connections2=copySource.connections;
 			if (connections2==null) return;
 			connectionIds=new ArrayList<>();
 			for (int i=0;i<connections2.size();i++) connectionIds.add(connections2.get(i).getId());
 
 			destinations.clear();
-			destinations.addAll(((ModelElementTeleportSourceMulti)element).destinations);
+			destinations.addAll(copySource.destinations);
+
+			destinationsMultiplicity.clear();
+			destinationsMultiplicity.addAll(copySource.destinationsMultiplicity);
 		}
 	}
 
@@ -193,6 +216,7 @@ public class ModelElementTeleportSourceMulti extends ModelElementBox implements 
 	@Override
 	protected String getErrorMessage() {
 		if (destinations.size()==0) return Language.tr("Surface.ErrorInfo.NoTeleportDestination");
+		if (destinationsMultiplicity.stream().mapToInt(Integer::intValue).sum()==0) return Language.tr("Surface.ErrorInfo.NoTeleportDestination");
 
 		return null;
 	}
@@ -306,9 +330,12 @@ public class ModelElementTeleportSourceMulti extends ModelElementBox implements 
 			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Type"),Language.trPrimary("Surface.XML.Connection.Type.In"));
 		}
 
-		for (String destination: destinations) {
+		for (int i=0;i<Math.min(destinations.size(),destinationsMultiplicity.size());i++) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.TeleportSourceMulti.XML.Destination")));
-			sub.setTextContent(destination);
+			final int multiplicity=destinationsMultiplicity.get(i);
+			if (multiplicity<1) continue;
+			sub.setTextContent(destinations.get(i));
+			if (multiplicity!=1) sub.setAttribute(Language.trPrimary("Surface.TeleportSourceMulti.XML.DestinationQuantity"),""+multiplicity);
 		}
 	}
 
@@ -334,7 +361,17 @@ public class ModelElementTeleportSourceMulti extends ModelElementBox implements 
 		}
 
 		if (Language.trAll("Surface.TeleportSourceMulti.XML.Destination",name)) {
-			if (!content.trim().isEmpty()) destinations.add(content.trim());
+			if (!content.trim().isEmpty()) {
+				final String multiplicityString=Language.trAllAttribute("Surface.TeleportSourceMulti.XML.DestinationQuantity",node);
+				final Integer multiplicity=NumberTools.getInteger(multiplicityString);
+				if (multiplicity!=null && multiplicity>=0) {
+					destinations.add(content.trim());
+					destinationsMultiplicity.add(multiplicity);
+				} else {
+					destinations.add(content.trim());
+					destinationsMultiplicity.add(1);
+				}
+			}
 			return null;
 		}
 
@@ -412,8 +449,18 @@ public class ModelElementTeleportSourceMulti extends ModelElementBox implements 
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		for (String destination: destinations) {
-			if (destination!=null && !destination.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.TeleportSourceMulti.Destination"),destination,100000);
+		for (int i=0;i<Math.min(destinations.size(),destinationsMultiplicity.size());i++) {
+			final String destination=destinations.get(i);
+			if (destination==null || destination.trim().isEmpty()) continue;
+			final int multiplicity=destinationsMultiplicity.get(i);
+			if (multiplicity<=0) continue;
+			if (multiplicity==1) {
+				/* Nur Ziel ausgeben */
+				descriptionBuilder.addProperty(Language.tr("ModelDescription.TeleportSourceMulti.Destination"),destination,100000);
+			} else {
+				/* Ziel und Vielfachheit ausgeben */
+				descriptionBuilder.addProperty(Language.tr("ModelDescription.TeleportSourceMulti.Destination"),destination+" ("+Language.tr("ModelDescription.TeleportSourceMulti.DestinationQuantity")+": "+multiplicity+")",100000);
+			}
 		}
 	}
 

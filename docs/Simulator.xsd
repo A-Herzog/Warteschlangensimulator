@@ -1573,6 +1573,7 @@
     <xs:attribute name="Bedingung" type="xs:string"/>
     <xs:attribute name="Kundentyp" type="xs:string"/>
     <xs:attribute name="Texteigenschaft" type="xs:string"/>
+	<xs:attribute name="Anzahl" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -4025,6 +4026,7 @@
     <xs:attribute name="Condition" type="xs:string"/>
     <xs:attribute name="ClientType" type="xs:string"/>
     <xs:attribute name="Value" type="xs:string"/>
+	<xs:attribute name="Quantity" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-24 14:18+0200\n"
+"POT-Creation-Date: 2023-07-26 08:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13351,6 +13351,9 @@ msgstr "Teleport destination"
 msgid "ModelDescription.TeleportSourceMulti.Destination"
 msgstr "Teleport destination"
 
+msgid "ModelDescription.TeleportSourceMulti.DestinationQuantity"
+msgstr "Quantity"
+
 msgid "ModelDescription.TimeBase"
 msgstr "Time base"
 
@@ -17181,6 +17184,9 @@ msgstr "Maximum value per interval"
 
 msgid "Schedule.SettingsDialog.MaximumValuePerInterval.Error.Info"
 msgstr "The specified value for the maximum value per interval \"%s\" is invalid. You have to enter a positiv integer value."
+
+msgid "Schedule.SettingsDialog.MaximumValuePerInterval.Error.InfoLowerThanNeeded"
+msgstr ""
 
 msgid "Schedule.SettingsDialog.MaximumValuePerInterval.Error.Title"
 msgstr "Invalid maximum value"
@@ -34553,6 +34559,9 @@ msgstr "Number of teleport destinations"
 msgid "Surface.TeleportSourceMulti.Dialog.DestinationNr"
 msgstr "Destination %d"
 
+msgid "Surface.TeleportSourceMulti.Dialog.DestinationQuantity"
+msgstr "Quantity"
+
 msgid "Surface.TeleportSourceMulti.Dialog.RemoveDestination"
 msgstr "Remove destination"
 
@@ -34576,6 +34585,9 @@ msgstr "Source for a timeless transport to multiple teleport transport destinati
 
 msgid "Surface.TeleportSourceMulti.XML.Destination"
 msgstr "ModelElementTeleportOriginToTarget"
+
+msgid "Surface.TeleportSourceMulti.XML.DestinationQuantity"
+msgstr "Quantity"
 
 msgid "Surface.TeleportSourceMulti.XML.Root"
 msgstr "ModelElementDuplicateTeleportOrigin"
