@@ -97,6 +97,7 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		originalSchedule=schedule;
 		durationPerSlot=schedule.getDurationPerSlot();
 		editorMaxY=schedule.getEditorMaxY();
+		editorMaxY=Math.max(editorMaxY,schedule.getSlots().stream().mapToInt(Integer::intValue).max().orElseGet(()->0));
 		repeatMode=schedule.getRepeatMode();
 
 		/* GUI */
@@ -244,7 +245,8 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 	 * Zeigt den Dialog mit weiteren Einstellungen zu dem Zeitplan an.
 	 */
 	private void commandSettingsDialog() {
-		final ScheduleTableModelSetupDialog dialog=new ScheduleTableModelSetupDialog(this,help,durationPerSlot,editorMaxY,repeatMode);
+		final int neededMaxY=schedulePanel.getData().stream().mapToInt(Integer::intValue).max().orElseGet(()->0);
+		final ScheduleTableModelSetupDialog dialog=new ScheduleTableModelSetupDialog(this,help,durationPerSlot,editorMaxY,neededMaxY,repeatMode);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 

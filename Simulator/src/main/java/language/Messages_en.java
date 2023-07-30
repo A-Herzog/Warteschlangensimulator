@@ -2005,7 +2005,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[4616] = "Simulation.Creator.TableFile.DoesNotExist";
     t[4617] = "The specified table file %s at element id=%d does not exist.";
     t[4622] = "Schedule.SettingsDialog.MaximumValuePerInterval.Error.Info";
-    t[4623] = "The specified value for the maximum value per interval \"%s\" is invalid. You have to enter a positiv integer value.";
+    t[4623] = "The specified value for the maximum value per interval \"%s\" is invalid. A positiv integer value has to be entered.";
     t[4626] = "ExpressionBuilder.SimulationCharacteristics.UserStatistics.AverageNumber";
     t[4627] = "<p>Gets the average value of the performance indicator <tt>nr</tt> (1 based) recorded at station id.</p>";
     t[4628] = "Simulation.Creator.CostsCondition";
@@ -7068,6 +7068,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[16257] = "Do not start simulation.";
     t[16266] = "Surface.TransportSource.XML.ResourceDelayedRelease";
     t[16267] = "ModelElementTransportResourceDelayedRelease";
+    t[16268] = "Schedule.SettingsDialog.MaximumValuePerInterval.Error.InfoLowerThanNeeded";
+    t[16269] = "The specified value for the maximum value per interval \"%s\" is invalid. A positiv integer value larger or equal to %d has to be entered.";
     t[16270] = "Simulation.Log.StateStatistics";
     t[16271] = "State change triggered";
     t[16274] = "Surface.Source.Dialog.ThresholdValue.Error.Title";
@@ -8026,14 +8028,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18431] = "Name";
     t[18436] = "Surface.InteractiveRadiobutton.DefaultText";
     t[18437] = "Option";
-    t[18454] = "Optimizer.ResultsSaved";
-    t[18455] = "Results saved as file %s.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18454] = "Optimizer.ResultsSaved";
+    t[18455] = "Results saved as file %s.";
     t[18456] = "ExpressionBuilder.ProbabilityDistributions.LeftSawtoothDistribution.DensityInfo";
     t[18457] = "<p>Calculates the value of the density of the left sawtooth distribution at the location specified as the first parameter. The support of the distribution is defined by the second and third parameter.</p>";
     t[18462] = "Transporter.Group.Edit.Dialog.Failure.Distribution";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22945] = "No models for transfering the input parameter values have been defined.";
     t[22946] = "ModelGenerator.ServiceBatch";
     t[22947] = "Service batch size";
-    t[22948] = "Editor.Dialog.Tab.Simulation.RecordIncompleteClients.Hint";
-    t[22949] = "This option should only be activated on closed queueing system. It slows down the simulation.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[22948] = "Editor.Dialog.Tab.Simulation.RecordIncompleteClients.Hint";
+    t[22949] = "This option should only be activated on closed queueing system. It slows down the simulation.";
     t[22960] = "Editor.DialogBase.ID.InvalidID";
     t[22961] = "New ID invalid";
     t[22978] = "Surface.Hold.Tooltip";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27391] = "The distribution fitting function trys to find an analytical probability distribution for given measured values that describes them as well as possible. This process is also called input analysis.";
     t[27408] = "Statistics.XML.StateTime.Name";
     t[27409] = "Name";
-    t[27416] = "Surface.TankFlowByClient.Infotext";
-    t[27417] = "If a client passes a flow station, a flow between two valves of different tanks is initiated.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27416] = "Surface.TankFlowByClient.Infotext";
+    t[27417] = "If a client passes a flow station, a flow between two valves of different tanks is initiated.";
     t[27422] = "Simulation.Element.Split.Name";
     t[27423] = "Split";
     t[27430] = "Surface.UserStatistic.Infotext";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31937] = "<p>Returns the standard deviation over all setup times that have occurred at the process station whose ID was specified in the parameter.</p>\n<p>Attention: The setup times are also recorded as part of the service times.</p>";
     t[31940] = "Statistics.CostsForResources.Idle.Single";
     t[31941] = "Costs for the idle time of the resource";
-    t[31942] = "Surface.Source.DialogBatchSize.Minimum";
-    t[31943] = "Minimum batch size";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31942] = "Surface.Source.DialogBatchSize.Minimum";
+    t[31943] = "Minimum batch size";
     t[31944] = "Window.EdgeStyle.Title";
     t[31945] = "Setup connection edges style";
     t[31948] = "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution.RandomNumberRangeInfo";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36419] = "Error saving workbook";
     t[36420] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll.MinimalNumber";
     t[36421] = "<p>Returns the minimum number of busy operators over all resources.</p>";
-    t[36426] = "Surface.Match.Dialog.TransferData.Mode.Max";
-    t[36427] = "Maximum of the invividual values";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36426] = "Surface.Match.Dialog.TransferData.Mode.Max";
+    t[36427] = "Maximum of the invividual values";
     t[36428] = "Surface.Output.Table.Delete";
     t[36429] = "Delete output element";
     t[36430] = "Simulation.Log.FlowData.Source.NoConnection";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40847] = "Element";
     t[40856] = "Animation.Icon.Digit";
     t[40857] = "Digit";
-    t[40858] = "ModelDescription.CounterMulti.ConditionElse";
-    t[40859] = "Counter if no condition is fulfilled";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40858] = "ModelDescription.CounterMulti.ConditionElse";
+    t[40859] = "Counter if no condition is fulfilled";
     t[40860] = "CriticalStationsSignature.Root";
     t[40861] = "CriticalStationsSignature";
     t[40868] = "Surface.Tank.Dialog.Valve.InitialFlow";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45301] = "Average number of driving transporters";
     t[45302] = "ScriptPopup.Client";
     t[45303] = "Client";
-    t[45306] = "Surface.AnimationTrafficLights.Dialog.ConditionFor.Red";
-    t[45307] = "Condition for \"red\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45306] = "Surface.AnimationTrafficLights.Dialog.ConditionFor.Red";
+    t[45307] = "Condition for \"red\"";
     t[45314] = "Statistics.ErlangCompare.Times";
     t[45315] = "Average times";
     t[45324] = "Surface.Match.XML.MatchPropertyMode.Mode.Number";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49783] = "<p>\nFor output of confidence intervals stochastically independent measured values are necessary.<br>\nThe performance indicators recorded during the simulation of a queuing system, are, usually, not independent.<br>\nTherefore, for generating confidence intervals, the measured values have to be combined into groups between them there<br>\nis (almost) no dependency anymore. This is usually done using the Batch Means method.\n</p>\n<p><br></p>\n<p>\nBy splitting the simulation into several threads, a (rather rough) grouping is already available.<br>\nThe confidence data currently displayed are based on this rough breakdown and therefore represent an upper estimate.\n</p>\n<p><br></p>\n<p>\nThe recording of batch-means-based confidence intervals can be activated on the <b>Output analysis</b> page<br>\nin the <b>Model properties</b> dialog. A batch size has to be specified for this. This can be determined<br>\nautomatically in advance via the menu item <b>Determine statistics batch size</b> in the <b>Simulation</b> menu.\n</p>";
     t[49786] = "Editor.DialogBase.Search.TransporterGroup.Failure.DownTimeDistribution";
     t[49787] = "Downtimes by distribution at transporter group \"%s\"";
-    t[49790] = "Surface.AnimationDiagram.Dialog.Data.TimeRange.Error.InfoSeconds";
-    t[49791] = "The specified time range \"%s\" is invalid. A positive integer number of seconds has to be entered.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[49790] = "Surface.AnimationDiagram.Dialog.Data.TimeRange.Error.InfoSeconds";
+    t[49791] = "The specified time range \"%s\" is invalid. A positive integer number of seconds has to be entered.";
     t[49794] = "Color.FAFAD2";
     t[49795] = "Light golden rod yellow";
     t[49796] = "Simulation.Log.Assign";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54233] = "Compressed transfer";
     t[54236] = "ParameterCompare.Table.DeleteModel.Confirm.InfoAll";
     t[54237] = "Do you really want to delete all simulation models from list?";
-    t[54238] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Info.One";
-    t[54239] = "1 interval has been defined. The schedule repeats every %s.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[54238] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Info.One";
+    t[54239] = "1 interval has been defined. The schedule repeats every %s.";
     t[54242] = "Surface.InteractiveButton.XML.Root";
     t[54243] = "ModelElementButton";
     t[54248] = "Surface.Text.Tooltip";

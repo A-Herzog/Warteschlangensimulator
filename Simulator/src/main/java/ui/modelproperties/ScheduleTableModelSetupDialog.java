@@ -60,6 +60,9 @@ public class ScheduleTableModelSetupDialog extends BaseDialog {
 	/** Index in {@link #durationPerSlotTemplateValues} für die standardmäßige Dauer eines Zeitslots */
 	private static final int durationPerSlotTemplateDefaultIndex=2;
 
+	/** Höchster aktuell tatsächlich verwendeter y-Wert */
+	private final int neededMaxY;
+
 	/** Auswahlfeld "Dauer eines Intervalls" */
 	private final JComboBox<String> durationPerSlotSelect;
 	/** Eingabefeld "Maximalwert pro Intervall" */
@@ -79,11 +82,14 @@ public class ScheduleTableModelSetupDialog extends BaseDialog {
 	 * @param help	Hilfe-Callback
 	 * @param durationPerSlot	Zeitdauer pro Zeitslot
 	 * @param editorMaxY	Als Maximum anzuzeigender y-Wert
+	 * @param neededMaxY	Höchster aktuell tatsächlich verwendeter y-Wert
 	 * @param repeatMode	Wie soll am Ende des Zeitplans verfahren werden?
 	 * @see	ui.modeleditor.ModelSchedule.RepeatMode
 	 */
-	public ScheduleTableModelSetupDialog(final Component owner, final Runnable help, final int durationPerSlot, final int editorMaxY, final ModelSchedule.RepeatMode repeatMode) {
+	public ScheduleTableModelSetupDialog(final Component owner, final Runnable help, final int durationPerSlot, final int editorMaxY, final int neededMaxY, final ModelSchedule.RepeatMode repeatMode) {
 		super(owner,Language.tr("Schedule.SettingsDialog.Title"));
+
+		this.neededMaxY=neededMaxY;
 
 		durationPerSlotTemplateStrings=new String[]{
 				Language.tr("Schedule.SettingsDialog.1Minute"),
@@ -154,8 +160,15 @@ public class ScheduleTableModelSetupDialog extends BaseDialog {
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Schedule.SettingsDialog.MaximumValuePerInterval.Error.Title"),String.format(Language.tr("Schedule.SettingsDialog.MaximumValuePerInterval.Error.Info"),editorMaxYEdit.getText()));
 			editorMaxYEdit.setBackground(Color.RED);
 			return false;
+		} else {
+			if (I<neededMaxY) {
+				if (showErrorMessage) MsgBox.error(this,Language.tr("Schedule.SettingsDialog.MaximumValuePerInterval.Error.Title"),String.format(Language.tr("Schedule.SettingsDialog.MaximumValuePerInterval.Error.InfoLowerThanNeeded"),editorMaxYEdit.getText(),neededMaxY));
+				editorMaxYEdit.setBackground(Color.RED);
+				return false;
+			} else {
+				editorMaxYEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
+			}
 		}
-		editorMaxYEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		return true;
 	}
 
