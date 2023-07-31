@@ -40,6 +40,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Dictionary;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -49,6 +50,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -1076,7 +1078,7 @@ public final class EditorPanel extends EditorPanelBase {
 		templates.setCellRenderer(templatesRenderer=new ModelElementCatalogListCellRenderer<>(setup.gradientTempaltes?ElementRendererTools.GradientStyle.LEFT:ElementRendererTools.GradientStyle.OFF));
 		if (setup.onlyOneOpenTemplatesGroup) enforceOnlyOneGroupOpen();
 
-		templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(setup.visibleTemplateGroups,setup.openTemplateGroups,"",(model.surface.getParentSurface()!=null)?ModelElementCatalog.TemplatesListMode.SUB_MODEL:ModelElementCatalog.TemplatesListMode.FULL));
+		templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(setup.visibleTemplateGroups,setup.openTemplateGroups,Arrays.asList(setup.favoriteTemplates.split("\\n")),"",(model.surface.getParentSurface()!=null)?ModelElementCatalog.TemplatesListMode.SUB_MODEL:ModelElementCatalog.TemplatesListMode.FULL));
 
 		templates.setDragEnabled(true);
 		templates.setTransferHandler(new ModelElementCatalogTransferHandler(()->getZoom()));
@@ -1473,7 +1475,7 @@ public final class EditorPanel extends EditorPanelBase {
 		final StringBuilder sb=new StringBuilder();
 
 		int openCount=open?1:0;
-		for (int i=0;i<ModelElementCatalog.getCatalog().getGroupCount();i++) {
+		for (int i=0;i<ModelElementCatalog.getCatalog().getGroupCount()+1;i++) {
 			boolean visible=(i>=setup.visibleTemplateGroups.length() || (setup.visibleTemplateGroups.charAt(i)!='-' && setup.visibleTemplateGroups.charAt(i)!='0'));
 			if (visible && setup.onlyOneOpenTemplatesGroup) {
 				if (i==groupIndex) {
@@ -1507,10 +1509,11 @@ public final class EditorPanel extends EditorPanelBase {
 		final String filter=(leftAreaQuickFilter!=null)?leftAreaQuickFilter.getText().trim():"";
 		final String visibleGroups=setup.visibleTemplateGroups;
 		final String openGroups=setup.openTemplateGroups;
+
 		if (restrictedCatalog) {
-			templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(visibleGroups,openGroups,filter,ModelElementCatalog.TemplatesListMode.SUB_DASHBOARD));
+			templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(visibleGroups,openGroups,Arrays.asList(setup.favoriteTemplates.split("\\n")),filter,ModelElementCatalog.TemplatesListMode.SUB_DASHBOARD));
 		} else {
-			templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(visibleGroups,openGroups,filter,(model.surface.getParentSurface()!=null)?ModelElementCatalog.TemplatesListMode.SUB_MODEL:ModelElementCatalog.TemplatesListMode.FULL));
+			templates.setModel(ModelElementCatalog.getCatalog().getTemplatesListModel(visibleGroups,openGroups,Arrays.asList(setup.favoriteTemplates.split("\\n")),filter,(model.surface.getParentSurface()!=null)?ModelElementCatalog.TemplatesListMode.SUB_MODEL:ModelElementCatalog.TemplatesListMode.FULL));
 		}
 		setTemplatesVisible(isTemplatesVisible(),false);
 	}
@@ -2681,17 +2684,32 @@ public final class EditorPanel extends EditorPanelBase {
 
 		/* Anzahl an offenen Gruppen bestimmen */
 		int openCount=0;
+
+		final boolean favoritsVisible=setup.visibleTemplateGroups.length()<=0 || (setup.visibleTemplateGroups.charAt(0)!='-' && setup.visibleTemplateGroups.charAt(0)!='0');
+		final boolean favoritesOpen=(favoritsVisible && (setup.openTemplateGroups.length()<=0 || setup.openTemplateGroups.charAt(0)=='X'));
+		if (favoritesOpen) openCount++;
+
 		for (int i=0;i<ModelElementCatalog.getCatalog().getGroupCount();i++) {
-			final boolean visible=setup.visibleTemplateGroups.length()<=i || (setup.visibleTemplateGroups.charAt(i)!='-' && setup.visibleTemplateGroups.charAt(i)!='0');
-			if (visible && (setup.openTemplateGroups.length()<=i || setup.openTemplateGroups.charAt(i)=='X')) openCount++;
+			final int index=i+1;
+			final boolean visible=setup.visibleTemplateGroups.length()<=index || (setup.visibleTemplateGroups.charAt(index)!='-' && setup.visibleTemplateGroups.charAt(index)!='0');
+			if (visible && (setup.openTemplateGroups.length()<=index || setup.openTemplateGroups.charAt(index)=='X')) openCount++;
 		}
 		if (openCount<=1) return;
 
 		final StringBuilder sb=new StringBuilder();
 		openCount=0;
+
+		if (favoritsVisible) {
+			if (favoritesOpen) openCount++;
+			if (openCount>1) sb.append('-'); else sb.append(favoritesOpen?'X':'-');
+		} else {
+			sb.append(favoritesOpen?'X':'-');
+		}
+
 		for (int i=0;i<ModelElementCatalog.getCatalog().getGroupCount();i++) {
-			final boolean visible=setup.visibleTemplateGroups.length()<=i || (setup.visibleTemplateGroups.charAt(i)!='-' && setup.visibleTemplateGroups.charAt(i)!='0');
-			boolean open=(setup.openTemplateGroups.length()<=i || setup.openTemplateGroups.charAt(i)=='X');
+			final int index=i+1;
+			final boolean visible=setup.visibleTemplateGroups.length()<=index || (setup.visibleTemplateGroups.charAt(index)!='-' && setup.visibleTemplateGroups.charAt(index)!='0');
+			final boolean open=(setup.openTemplateGroups.length()<=index || setup.openTemplateGroups.charAt(index)=='X');
 			if (visible) {
 				if (open) openCount++;
 				if (openCount>1) sb.append('-'); else sb.append(open?'X':'-');
@@ -2704,6 +2722,26 @@ public final class EditorPanel extends EditorPanelBase {
 			setup.openTemplateGroups=sb.toString();
 			setup.saveSetup();
 		}
+	}
+
+	/**
+	 * Schaltet die Sichtbarkeit einer Vorlagengruppe um.
+	 * @param index	0-basierender Index der Vorlagengruppe
+	 * @see #showFilterTemplatesPopup(Component, int, int)
+	 */
+	private void toggleTemplateGroupVisibility(final int index) {
+		final SetupData setup=SetupData.getSetup();
+		String s=setup.visibleTemplateGroups;
+		final StringBuilder sb=new StringBuilder();
+		int j=Math.min(index,s.length());
+		if (j>=1) sb.append(s.substring(0,j));
+		while (sb.length()<index) sb.append("X");
+		if (s.length()<=index || (s.charAt(index)!='0' && s.charAt(index)!='-')) sb.append('-'); else sb.append('X');
+		if (s.length()>index+1) sb.append(s.substring(index+1));
+		setup.visibleTemplateGroups=sb.toString();
+		setup.saveSetup();
+		if (setup.onlyOneOpenTemplatesGroup) enforceOnlyOneGroupOpen();
+		updateTemplatesFilter();
 	}
 
 	/**
@@ -2725,24 +2763,18 @@ public final class EditorPanel extends EditorPanelBase {
 
 		final SetupData setup=SetupData.getSetup();
 		final String groups=setup.visibleTemplateGroups;
+
+		final JCheckBoxMenuItem checkFavorites=new JCheckBoxMenuItem(Language.tr("Editor.TemplateFilter.Favorites"));
+		checkFavorites.setSelected(groups.length()<=0 || (groups.charAt(0)!='0' && groups.charAt(0)!='-'));
+		popup.add(checkFavorites);
+		checkFavorites.addActionListener(e->toggleTemplateGroupVisibility(0));
+
 		for (int i=0;i<ModelElementCatalog.GROUP_ORDER.length;i++) {
 			final JCheckBoxMenuItem check=new JCheckBoxMenuItem(ModelElementCatalog.GROUP_ORDER[i]);
-			check.setSelected(groups.length()<=i || (groups.charAt(i)!='0' && groups.charAt(i)!='-'));
+			final int index=i+1;
+			check.setSelected(groups.length()<=index || (groups.charAt(index)!='0' && groups.charAt(index)!='-'));
 			popup.add(check);
-			final int index=i;
-			check.addActionListener(e->{
-				String s=setup.visibleTemplateGroups;
-				final StringBuilder sb=new StringBuilder();
-				int j=Math.min(index,s.length());
-				if (j>=1) sb.append(s.substring(0,j));
-				while (sb.length()<index) sb.append("X");
-				if (s.length()<=index || (s.charAt(index)!='0' && s.charAt(index)!='-')) sb.append('-'); else sb.append('X');
-				if (s.length()>index+1) sb.append(s.substring(index+1));
-				setup.visibleTemplateGroups=sb.toString();
-				setup.saveSetup();
-				if (setup.onlyOneOpenTemplatesGroup) enforceOnlyOneGroupOpen();
-				updateTemplatesFilter();
-			});
+			check.addActionListener(e->toggleTemplateGroupVisibility(index));
 		}
 		popup.addSeparator();
 		item=new JMenuItem(Language.tr("Editor.TemplateFilter.ShowAll"));
@@ -2798,6 +2830,7 @@ public final class EditorPanel extends EditorPanelBase {
 	private void showElementeTemplateContextMenu(final Component invoker, final int x, final int y, final ModelElementPosition element) {
 		final JPopupMenu popup=new JPopupMenu();
 
+		/* Bild */
 		final JPanel panel=new JPanel(new BorderLayout());
 		final JComponent symbol=element.getElementSymbol();
 		symbol.setOpaque(false);
@@ -2808,15 +2841,32 @@ public final class EditorPanel extends EditorPanelBase {
 
 		popup.addSeparator();
 
-		JMenuItem item;
-
-		item=new JMenuItem(Language.tr("Surface.PopupMenu.Help"));
+		/* Hilfe */
+		final JMenuItem item=new JMenuItem(Language.tr("Surface.PopupMenu.Help"));
 		Component c=invoker;
 		while (c!=null && !(c instanceof Container)) c=c.getParent();
 		final Container container=(Container)c;
 		item.addActionListener(e->Help.topicModal(container,element.getHelpPageName()));
 		item.setIcon(Images.HELP.getIcon());
 		popup.add(item);
+
+		/* Favorit */
+		final SetupData setup=SetupData.getSetup();
+		final List<String> favorites=new ArrayList<>(Arrays.asList(setup.favoriteTemplates.split("\\n")));
+		final String[] names=element.getXMLNodeNames();
+		final boolean isFavorite=Stream.of(names).filter(name->favorites.contains(name)).findFirst().isPresent();
+		final JCheckBoxMenuItem check=new JCheckBoxMenuItem(Language.tr("Editor.TemplateFilter.Favorites.Mark"),isFavorite);
+		check.addActionListener(e->{
+			if (isFavorite) {
+				for (String name: names) favorites.remove(name);
+			} else {
+				favorites.add(names[0]);
+			}
+			setup.favoriteTemplates=String.join("\n",favorites);
+			setup.saveSetup();
+			updateTemplatesFilter();
+		});
+		popup.add(check);
 
 		popup.show(invoker,x,y);
 	}

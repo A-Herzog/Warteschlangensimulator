@@ -4768,8 +4768,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10897] = "Start file from beginning after end of file.";
     t[10900] = "JDistributionEditor.ValueUp";
     t[10901] = "Increases the value of the parameter by %s";
-    t[10902] = "Surface.Counter.Name";
-    t[10903] = "Pass counter";
+    t[10902] = "Statistics.Costs";
+    t[10903] = "Costs";
     t[10910] = "Surface.Match.Dialog.OptionProperty.Text.Error.Title";
     t[10911] = "No key specified";
     t[10912] = "Surface.ScriptEditor.Language.Java.DiscardConfirmation.Info";
@@ -7222,8 +7222,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[16647] = "Computer time";
     t[16650] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.SimulatedAnnealing";
     t[16651] = "Allow temporary degradations (Simulated Annealing)";
-    t[16654] = "Statistics.Costs";
-    t[16655] = "Costs";
+    t[16654] = "Editor.TemplateFilter.Favorites";
+    t[16655] = "Favorites";
     t[16656] = "Surface.Set.Table.Edit.VariableName.Error.Info";
     t[16657] = "The choosen variable name \"%s\" is invalid.";
     t[16658] = "Transporters.Group.Edit.Dialog.Times.Mode.Unloading.Distribution";
@@ -11720,8 +11720,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26665] = "<p>Returns the coefficient of variation over all residence times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[26668] = "Simulation.Log.InputDDE.InfoClientData";
     t[26669] = "Client: %s, station: %s, ClientData(%d):=%s";
-    t[26670] = "Surface.Text.Dialog.FontFamily";
-    t[26671] = "Font";
+    t[26670] = "Simulation.Creator.SequenceInvalidExpression";
+    t[26671] = "At sequence %s in step %s for assignment to ClientData(%d) the expression \"%s\" was specified. This expression is invalid at character %d.";
     t[26676] = "Schedule.EditDialog.Load.Hint";
     t[26677] = "Import schedule from clipboard or from file.";
     t[26690] = "ParameterCompare.Toolbar.ShowBaseModel";
@@ -15388,6 +15388,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34911] = "Gets the name of the type of the client";
     t[34916] = "SimulationServer.Setup.Port.ErrorInfoInvalidPort";
     t[34917] = "The specified port number %d is not in the valid range. An integer number between 1 and 65535 has to be specified.";
+    t[34924] = "Surface.Text.Dialog.FontFamily";
+    t[34925] = "Font";
     t[34930] = "Surface.Output.Dialog.Tab.Headings.Mode";
     t[34931] = "Heading mode";
     t[34932] = "ExpressionBuilder.ClientsInServiceProcess.Skewness";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36403] = "ModelElementInputDDEWorkbook";
     t[36418] = "Statistic.Viewer.Report.Workbook.Error.Title";
     t[36419] = "Error saving workbook";
-    t[36420] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll.MinimalNumber";
-    t[36421] = "<p>Returns the minimum number of busy operators over all resources.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36420] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll.MinimalNumber";
+    t[36421] = "<p>Returns the minimum number of busy operators over all resources.</p>";
     t[36426] = "Surface.Match.Dialog.TransferData.Mode.Max";
     t[36427] = "Maximum of the invividual values";
     t[36428] = "Surface.Output.Table.Delete";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40843] = "Step width per bar";
     t[40846] = "Surface.AnalogAssign.Dialog.Columns.IDs";
     t[40847] = "Element";
-    t[40856] = "Animation.Icon.Digit";
-    t[40857] = "Digit";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40856] = "Animation.Icon.Digit";
+    t[40857] = "Digit";
     t[40858] = "ModelDescription.CounterMulti.ConditionElse";
     t[40859] = "Counter if no condition is fulfilled";
     t[40860] = "CriticalStationsSignature.Root";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45295] = "<p>Returns the current number of clients at the station whose ID is specified in the first parameter. Only clients of the type which is used at the client source or assignment element refered to by the ID in the second parameter are respected when counting.</p>";
     t[45300] = "Statistics.AverageNumberOfBusyTransporters";
     t[45301] = "Average number of driving transporters";
-    t[45302] = "ScriptPopup.Client";
-    t[45303] = "Client";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45302] = "ScriptPopup.Client";
+    t[45303] = "Client";
     t[45306] = "Surface.AnimationTrafficLights.Dialog.ConditionFor.Red";
     t[45307] = "Condition for \"red\"";
     t[45314] = "Statistics.ErlangCompare.Times";
@@ -20840,6 +20842,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46977] = "nothing";
     t[46986] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Values";
     t[46987] = "Values";
+    t[46994] = "Surface.Counter.Name";
+    t[46995] = "Pass counter";
     t[47002] = "Server.Log.PrepareNoRemoteModel";
     t[47003] = "The model cannot be simulated on a remote server.";
     t[47008] = "SoundSelectPanel.ModeSystem";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49777] = "Sum";
     t[49778] = "Statistics.CounterBatch";
     t[49779] = "Batch counter";
-    t[49782] = "Statistics.Confidence.More.Info";
-    t[49783] = "<p>\nFor output of confidence intervals stochastically independent measured values are necessary.<br>\nThe performance indicators recorded during the simulation of a queuing system, are, usually, not independent.<br>\nTherefore, for generating confidence intervals, the measured values have to be combined into groups between them there<br>\nis (almost) no dependency anymore. This is usually done using the Batch Means method.\n</p>\n<p><br></p>\n<p>\nBy splitting the simulation into several threads, a (rather rough) grouping is already available.<br>\nThe confidence data currently displayed are based on this rough breakdown and therefore represent an upper estimate.\n</p>\n<p><br></p>\n<p>\nThe recording of batch-means-based confidence intervals can be activated on the <b>Output analysis</b> page<br>\nin the <b>Model properties</b> dialog. A batch size has to be specified for this. This can be determined<br>\nautomatically in advance via the menu item <b>Determine statistics batch size</b> in the <b>Simulation</b> menu.\n</p>";
-    t[49786] = "Editor.DialogBase.Search.TransporterGroup.Failure.DownTimeDistribution";
-    t[49787] = "Downtimes by distribution at transporter group \"%s\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[49782] = "Statistics.Confidence.More.Info";
+    t[49783] = "<p>\nFor output of confidence intervals stochastically independent measured values are necessary.<br>\nThe performance indicators recorded during the simulation of a queuing system, are, usually, not independent.<br>\nTherefore, for generating confidence intervals, the measured values have to be combined into groups between them there<br>\nis (almost) no dependency anymore. This is usually done using the Batch Means method.\n</p>\n<p><br></p>\n<p>\nBy splitting the simulation into several threads, a (rather rough) grouping is already available.<br>\nThe confidence data currently displayed are based on this rough breakdown and therefore represent an upper estimate.\n</p>\n<p><br></p>\n<p>\nThe recording of batch-means-based confidence intervals can be activated on the <b>Output analysis</b> page<br>\nin the <b>Model properties</b> dialog. A batch size has to be specified for this. This can be determined<br>\nautomatically in advance via the menu item <b>Determine statistics batch size</b> in the <b>Simulation</b> menu.\n</p>";
+    t[49786] = "Editor.DialogBase.Search.TransporterGroup.Failure.DownTimeDistribution";
+    t[49787] = "Downtimes by distribution at transporter group \"%s\"";
     t[49790] = "Surface.AnimationDiagram.Dialog.Data.TimeRange.Error.InfoSeconds";
     t[49791] = "The specified time range \"%s\" is invalid. A positive integer number of seconds has to be entered.";
     t[49794] = "Color.FAFAD2";
@@ -22988,8 +22992,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51777] = "Select path to process station with shortest queue";
     t[51780] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.SquaredCoefficientOfVariationOfTheTime";
     t[51781] = "<p>Returns the squared coefficient of variation over all waiting times for all clients.</p>";
-    t[51782] = "Simulation.Creator.SequenceInvalidExpression";
-    t[51783] = "At sequence %s in step %s for assignment to ClientData(%d) the expression \"%s\" was specified. This expression is invalid at character %d.";
+    t[51782] = "Editor.TemplateFilter.Favorites.Mark";
+    t[51783] = "Show in favorites";
     t[51784] = "Surface.AnalogAssign.XML.Root";
     t[51785] = "ModelElementAnalogValueAssignment";
     t[51794] = "Surface.Transporter.ErrorFailureDistance";
@@ -24072,16 +24076,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54229] = "Save";
     t[54230] = "Git.List.Tab.Server.Button.Push.Hint";
     t[54231] = "Updates the server data with the data from the local Git directory.";
-    t[54232] = "Server.Status.UseCompression";
-    t[54233] = "Compressed transfer";
-    t[54236] = "ParameterCompare.Table.DeleteModel.Confirm.InfoAll";
-    t[54237] = "Do you really want to delete all simulation models from list?";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[54232] = "Server.Status.UseCompression";
+    t[54233] = "Compressed transfer";
+    t[54236] = "ParameterCompare.Table.DeleteModel.Confirm.InfoAll";
+    t[54237] = "Do you really want to delete all simulation models from list?";
     t[54238] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Info.One";
     t[54239] = "1 interval has been defined. The schedule repeats every %s.";
     t[54242] = "Surface.InteractiveButton.XML.Root";

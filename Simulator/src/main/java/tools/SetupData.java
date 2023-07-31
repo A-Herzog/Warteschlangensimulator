@@ -767,6 +767,11 @@ public class SetupData extends SetupBase {
 	public String openTemplateGroups;
 
 	/**
+	 * Namen der Vorlagen, die in der Favoriten-Kategorie angezeigt werden sollen
+	 */
+	public String favoriteTemplates="";
+
+	/**
 	 * Gibt an, ob stets nur eine Vorlagengruppe ausgeklappt sein darf.
 	 */
 	public boolean onlyOneOpenTemplatesGroup;
@@ -1523,6 +1528,7 @@ public class SetupData extends SetupBase {
 		lastStart="";
 		visibleTemplateGroups="";
 		openTemplateGroups="";
+		favoriteTemplates="";
 		onlyOneOpenTemplatesGroup=false;
 		useGradients=true;
 		useShadows=true;
@@ -2182,6 +2188,11 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("opentemplategroups")) {
 				openTemplateGroups=e.getTextContent();
+				continue;
+			}
+
+			if (name.equals("favoritetemplates")) {
+				favoriteTemplates=e.getTextContent();
 				continue;
 			}
 
@@ -2982,6 +2993,11 @@ public class SetupData extends SetupBase {
 		if (openTemplateGroups!=null && !openTemplateGroups.isEmpty()) {
 			root.appendChild(node=doc.createElement("OpenTemplateGroups"));
 			node.setTextContent(openTemplateGroups);
+		}
+
+		if (favoriteTemplates!=null && !favoriteTemplates.isEmpty()) {
+			root.appendChild(node=doc.createElement("FavoriteTemplates"));
+			node.setTextContent(favoriteTemplates);
 		}
 
 		if (onlyOneOpenTemplatesGroup) {

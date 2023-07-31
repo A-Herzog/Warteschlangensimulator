@@ -4768,8 +4768,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[10897] = "Datei nach Ende erneut von vorne einlesen.";
     t[10900] = "JDistributionEditor.ValueUp";
     t[10901] = "Erh\u00f6ht den Wert des Parameters um %s";
-    t[10902] = "Surface.Counter.Name";
-    t[10903] = "Durchlaufz\u00e4hler";
+    t[10902] = "Statistics.Costs";
+    t[10903] = "Kosten";
     t[10910] = "Surface.Match.Dialog.OptionProperty.Text.Error.Title";
     t[10911] = "Kein Schl\u00fcssel angegeben";
     t[10912] = "Surface.ScriptEditor.Language.Java.DiscardConfirmation.Info";
@@ -7222,8 +7222,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[16647] = "Computerzeit";
     t[16650] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.SimulatedAnnealing";
     t[16651] = "Zeitweilige Verschlechterungen zulassen (Simulated Annealing)";
-    t[16654] = "Statistics.Costs";
-    t[16655] = "Kosten";
+    t[16654] = "Editor.TemplateFilter.Favorites";
+    t[16655] = "Favoriten";
     t[16656] = "Surface.Set.Table.Edit.VariableName.Error.Info";
     t[16657] = "Der angegebene Variablenname \"%s\" ist ung\u00fcltig.";
     t[16658] = "Transporters.Group.Edit.Dialog.Times.Mode.Unloading.Distribution";
@@ -11720,8 +11720,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26665] = "<p>Liefert den Variationskoeffizienten \u00fcber die Verweilzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>\n<p>Alternativ sind auch folgende andere Parametrierungen m\u00f6glich:</p>\n<ul>\n<li>ID einer Kundenquelle (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Station und ID einer Quelle (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Quelle im zweiten Parameter erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>3 Parameter: ID einer Station, ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Mehrfachquelle im zweiten Parameter erzeugten Kundentyps)</li>\n</ul>";
     t[26668] = "Simulation.Log.InputDDE.InfoClientData";
     t[26669] = "Kunde: %s, Station: %s, KundenDaten(%d):=%s";
-    t[26670] = "Surface.Text.Dialog.FontFamily";
-    t[26671] = "Schriftart";
+    t[26670] = "Simulation.Creator.SequenceInvalidExpression";
+    t[26671] = "Bei Fertigungsplan %s wurde in Schritt %d f\u00fcr die Zuweisung an ClientData(%d) der Ausdruck \"%s\" angegeben. Dieser ist ab Zeichen %d ung\u00fcltig.";
     t[26676] = "Schedule.EditDialog.Load.Hint";
     t[26677] = "Zeitplan aus Zwischenablage oder Datei laden.";
     t[26690] = "ParameterCompare.Toolbar.ShowBaseModel";
@@ -15388,6 +15388,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34911] = "Liefert den Namen des Typs des Kunden";
     t[34916] = "SimulationServer.Setup.Port.ErrorInfoInvalidPort";
     t[34917] = "Die angegebene Portnummer %d liegt aus\u00dferhalb des g\u00fcltigen Bereichs. Es muss eine Ganzzahl zwischen 1 und 65535 angegeben werden.";
+    t[34924] = "Surface.Text.Dialog.FontFamily";
+    t[34925] = "Schriftart";
     t[34930] = "Surface.Output.Dialog.Tab.Headings.Mode";
     t[34931] = "\u00dcberschtiftenmodus";
     t[34932] = "ExpressionBuilder.ClientsInServiceProcess.Skewness";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36403] = "ModellElementEingabeDDEArbeitsmappe";
     t[36418] = "Statistic.Viewer.Report.Workbook.Error.Title";
     t[36419] = "Fehlern beim Speichern der Arbeitsmappe";
-    t[36420] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll.MinimalNumber";
-    t[36421] = "<p>Liefert die minimale Anzahl an belegten Bedienern in allen Ressourcen zusammen.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36420] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll.MinimalNumber";
+    t[36421] = "<p>Liefert die minimale Anzahl an belegten Bedienern in allen Ressourcen zusammen.</p>";
     t[36426] = "Surface.Match.Dialog.TransferData.Mode.Max";
     t[36427] = "Maximum der Einzelwerte";
     t[36428] = "Surface.Output.Table.Delete";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40843] = "Schrittweite pro Balken";
     t[40846] = "Surface.AnalogAssign.Dialog.Columns.IDs";
     t[40847] = "Element";
-    t[40856] = "Animation.Icon.Digit";
-    t[40857] = "Ziffer";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40856] = "Animation.Icon.Digit";
+    t[40857] = "Ziffer";
     t[40858] = "ModelDescription.CounterMulti.ConditionElse";
     t[40859] = "Z\u00e4hler, wenn keine Bedingung zutrifft";
     t[40860] = "CriticalStationsSignature.Root";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45295] = "<p>Liefert die aktuelle Anzahl an Kunden an der Bedienstation, deren ID in dem ersten Parameter angegeben wurde. Ber\u00fccksichtigt werden nur Kunden, deren Typ an Quelle bzw. Namenszuweisung mit der im zweiten Parameter angegebenen ID auftritt.</p>";
     t[45300] = "Statistics.AverageNumberOfBusyTransporters";
     t[45301] = "Mittlere Anzahl an fahrenden Transportern";
-    t[45302] = "ScriptPopup.Client";
-    t[45303] = "Kunde";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45302] = "ScriptPopup.Client";
+    t[45303] = "Kunde";
     t[45306] = "Surface.AnimationTrafficLights.Dialog.ConditionFor.Red";
     t[45307] = "Bedingung f\u00fcr \"rot\"";
     t[45314] = "Statistics.ErlangCompare.Times";
@@ -20840,6 +20842,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[46977] = "nichts";
     t[46986] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Values";
     t[46987] = "Zahlenwerte";
+    t[46994] = "Surface.Counter.Name";
+    t[46995] = "Durchlaufz\u00e4hler";
     t[47002] = "Server.Log.PrepareNoRemoteModel";
     t[47003] = "Das Modell kann nicht auf einem externen Rechner simuliert werden.";
     t[47008] = "SoundSelectPanel.ModeSystem";
@@ -22066,16 +22070,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49777] = "Summe";
     t[49778] = "Statistics.CounterBatch";
     t[49779] = "Batch-Z\u00e4hler";
-    t[49782] = "Statistics.Confidence.More.Info";
-    t[49783] = "Zur Ausgabe von Konfidenzintervallen sind stochatisch unabh\u00e4ngige Messwerte notwendig.<br>\nDie w\u00e4hrend der Simulation eines Warteschlangensystems erfassten Gr\u00f6\u00dfen sind \u00fcblicherweise jedoch nicht unabh\u00e4ngig.<br>\nDaher m\u00fcssen die Messwerte zur Ausgabe von Konfidenzintervallen in Gruppen, zwischen denen es dann (fast) keine Abh\u00e4ngigkeiten<br>\n mehr gibt, zusammengefasst werden. Dies geschieht \u00fcblicherweise \u00fcber die Batch-Means-Methode.\n</p>\n<p><br></p>\n<p>\nDurch die Aufteilung der Simulation auf mehrere Threads steht bereits eine (recht grobe) Gruppierung zur Verf\u00fcgung.<br>\nDie aktuell angezeigten Konfidenzdaten basieren auf dieser groben Aufteilung und stellen daher eine obere Absch\u00e4tzung dar.\n</p>\n<p><br></p>\n<p>\nDie Erfassung von Batch-Means-basierenden Konfidenzintervallen kann auf der Dialogseite <b>Ausgabeanalyse</b><br>\nim <b>Modelleigenschaften</b>-Dialog aktiviert werden. Daf\u00fcr muss eine Batch-Gr\u00f6\u00dfe vorgegeben werden.<br>\nDiese kann vorab \u00fcber den Men\u00fcpunkt <b>Statistik-Batch-Gr\u00f6\u00dfe bestimmen</b> im <b>Simulation</b>-Men\u00fc<br>\nautomatisch bestimmt werden.\n</p>";
-    t[49786] = "Editor.DialogBase.Search.TransporterGroup.Failure.DownTimeDistribution";
-    t[49787] = "Ausfalldauern gem\u00e4\u00df Verteilung in Transportergruppe \"%s\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[49782] = "Statistics.Confidence.More.Info";
+    t[49783] = "Zur Ausgabe von Konfidenzintervallen sind stochatisch unabh\u00e4ngige Messwerte notwendig.<br>\nDie w\u00e4hrend der Simulation eines Warteschlangensystems erfassten Gr\u00f6\u00dfen sind \u00fcblicherweise jedoch nicht unabh\u00e4ngig.<br>\nDaher m\u00fcssen die Messwerte zur Ausgabe von Konfidenzintervallen in Gruppen, zwischen denen es dann (fast) keine Abh\u00e4ngigkeiten<br>\n mehr gibt, zusammengefasst werden. Dies geschieht \u00fcblicherweise \u00fcber die Batch-Means-Methode.\n</p>\n<p><br></p>\n<p>\nDurch die Aufteilung der Simulation auf mehrere Threads steht bereits eine (recht grobe) Gruppierung zur Verf\u00fcgung.<br>\nDie aktuell angezeigten Konfidenzdaten basieren auf dieser groben Aufteilung und stellen daher eine obere Absch\u00e4tzung dar.\n</p>\n<p><br></p>\n<p>\nDie Erfassung von Batch-Means-basierenden Konfidenzintervallen kann auf der Dialogseite <b>Ausgabeanalyse</b><br>\nim <b>Modelleigenschaften</b>-Dialog aktiviert werden. Daf\u00fcr muss eine Batch-Gr\u00f6\u00dfe vorgegeben werden.<br>\nDiese kann vorab \u00fcber den Men\u00fcpunkt <b>Statistik-Batch-Gr\u00f6\u00dfe bestimmen</b> im <b>Simulation</b>-Men\u00fc<br>\nautomatisch bestimmt werden.\n</p>";
+    t[49786] = "Editor.DialogBase.Search.TransporterGroup.Failure.DownTimeDistribution";
+    t[49787] = "Ausfalldauern gem\u00e4\u00df Verteilung in Transportergruppe \"%s\"";
     t[49790] = "Surface.AnimationDiagram.Dialog.Data.TimeRange.Error.InfoSeconds";
     t[49791] = "Die angegebene Zeitbereich \"%s\" ist ung\u00fcltig. Es muss eine positive ganze Anzahl an Sekunden angegeben werden.";
     t[49794] = "Color.FAFAD2";
@@ -22988,8 +22992,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[51777] = "Pfad zur Bedienstation mit der k\u00fcrzesten Warteschlange w\u00e4hlen";
     t[51780] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesOverAll.SquaredCoefficientOfVariationOfTheTime";
     t[51781] = "<p>Liefert den quadrierten Variationskoeffizienten \u00fcber alle Wartezeiten aller Kunden.</p>";
-    t[51782] = "Simulation.Creator.SequenceInvalidExpression";
-    t[51783] = "Bei Fertigungsplan %s wurde in Schritt %d f\u00fcr die Zuweisung an ClientData(%d) der Ausdruck \"%s\" angegeben. Dieser ist ab Zeichen %d ung\u00fcltig.";
+    t[51782] = "Editor.TemplateFilter.Favorites.Mark";
+    t[51783] = "Als Favorit anzeigen";
     t[51784] = "Surface.AnalogAssign.XML.Root";
     t[51785] = "ModellElementAnalogWertZuweisung";
     t[51794] = "Surface.Transporter.ErrorFailureDistance";
@@ -24072,16 +24076,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54229] = "Speichern";
     t[54230] = "Git.List.Tab.Server.Button.Push.Hint";
     t[54231] = "Aktualisiert die Daten auf dem Server mit den Dateien im lokalen Git-Verzeichnis.";
-    t[54232] = "Server.Status.UseCompression";
-    t[54233] = "Komprimierte \u00dcbertragung";
-    t[54236] = "ParameterCompare.Table.DeleteModel.Confirm.InfoAll";
-    t[54237] = "Sollen wirklich alle Simulationsmodelle aus der Liste gel\u00f6scht werden?";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[54232] = "Server.Status.UseCompression";
+    t[54233] = "Komprimierte \u00dcbertragung";
+    t[54236] = "ParameterCompare.Table.DeleteModel.Confirm.InfoAll";
+    t[54237] = "Sollen wirklich alle Simulationsmodelle aus der Liste gel\u00f6scht werden?";
     t[54238] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Info.One";
     t[54239] = "Es wurde 1 Intervall definiert. Der Plan wiederholt sich alle %s.";
     t[54242] = "Surface.InteractiveButton.XML.Root";

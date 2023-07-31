@@ -567,18 +567,72 @@ public final class ModelElementCatalog {
 	}
 
 	/**
+	 * Prüft, ob ein Element in der Liste angezeigt werden soll.
+	 * @param name	Name des Elements
+	 * @param element	Elementen-Objekt
+	 * @param filter	Filter-String; es werden nur Elemente ausgegeben, die zu dem Filter passen (kann leer oder <code>null</code> sein)
+	 * @param templatesListMode	Gibt an, ob die Vorlagen für ein Submodell (d.h. dann ohne das Submodell-Element) ausgegeben werden soll
+	 * @return	Liefert <code>true</code>, wenn der Eintrag angezeigt werden soll
+	 */
+	private boolean showElement(final String name, final ModelElement element, final String filter, final TemplatesListMode templatesListMode) {
+		if (filter!=null && !filter.trim().isEmpty()) {
+			if (!name.toLowerCase().contains(filter.trim().toLowerCase())) return false;
+		}
+		switch (templatesListMode) {
+		case FULL:
+			/* Alle Element einfügen */
+			break;
+		case SUB_MODEL:
+			if (!element.canAddToSub()) return false;
+			break;
+		case SUB_DASHBOARD:
+			if (!element.isVisualOnly()) return false;
+			break;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Liefert ein Liste mit Einträgen für alle Modell-Element-Vorlagen
 	 * @param visibleGroups Sichtbare Gruppen; es werden nur Elemente in den Gruppen ausgegeben, die sichtbar sein sollen (kann leer oder <code>null</code> sein)
 	 * @param openGroups	Ausgeklappte Gruppen; Elemente in nicht offenen Gruppen werden eingeklappt (kann leer oder <code>null</code> sein)
+	 * @param favorites	Liste der als Favoriten anzuzeigenden Elemente (kann leer oder <code>null</code> sein)
 	 * @param filter	Filter-String; es werden nur Elemente ausgegeben, die zu dem Filter passen (kann leer oder <code>null</code> sein)
 	 * @param templatesListMode	Gibt an, ob die Vorlagen für ein Submodell (d.h. dann ohne das Submodell-Element) ausgegeben werden soll
 	 * @return	Liste für eine Auswahlliste zum Einfügen von neuen Elementen
-	 * @see #getTemplatesListModel(String, String, String, TemplatesListMode)
+	 * @see #getTemplatesListModel(String, String, List, String, TemplatesListMode)
 	 */
-	private List<ModelElementPosition> getTemplatesList(final String visibleGroups, final String openGroups, final String filter, final TemplatesListMode templatesListMode) {
+	private List<ModelElementPosition> getTemplatesList(final String visibleGroups, final String openGroups, final List<String> favorites, final String filter, final TemplatesListMode templatesListMode) {
 		List<ModelElementPosition> list=new ArrayList<>();
 
 		int index=0;
+
+		/* Favoriten */
+		boolean showFavorites=true;
+		boolean openFavorites=true;
+		if (visibleGroups!=null && visibleGroups.length()>index) {
+			if (visibleGroups.charAt(index)=='0' || visibleGroups.charAt(index)=='-') {showFavorites=false;}
+		}
+		if (openGroups!=null && openGroups.length()>index) {
+			if (openGroups.charAt(index)=='0' || openGroups.charAt(index)=='-') openFavorites=false;
+		}
+		if (showFavorites && favorites!=null && favorites.size()>0) {
+			List<ModelElement> sub=new ArrayList<>();
+			favorites.sort(String.CASE_INSENSITIVE_ORDER);
+			for (String favorite: favorites) {
+				ModelElement element=elementsLoad.get(favorite);
+				if (!(element instanceof ModelElementPosition)) continue;
+				if (!showElement(favorite,element,filter,templatesListMode)) continue;
+				if (sub.size()==0) list.add(new ModelElementListGroup(index,Language.tr("Editor.TemplateFilter.Favorites"),openFavorites,sub));
+				sub.add(element);
+				list.add((ModelElementPosition)element);
+			}
+		}
+
+		index++;
+
+		/* Normale Einträge */
 		for (String groupName: GROUP_ORDER) {
 			boolean showSub=true;
 			if (templatesListMode!=TemplatesListMode.SUB_DASHBOARD) {
@@ -592,29 +646,14 @@ public final class ModelElementCatalog {
 
 			Map<String,ModelElementPosition> elements=elementsGroups.get(groupName);
 			if (elements!=null) {
-				boolean first=true;
 				String[] names=new ArrayList<>(elements.keySet()).toArray(new String[0]);
 				Arrays.sort(names);
-
 				List<ModelElement> sub=new ArrayList<>();
 				for (String name: names) {
 					ModelElementPosition element=elements.get(name);
+					if (!showElement(name,element,filter,templatesListMode)) continue;
+					if (sub.size()==0) list.add(new ModelElementListGroup(index,groupName,showSub,sub));
 					sub.add(element);
-					if (filter!=null && !filter.trim().isEmpty()) {
-						if (!name.toLowerCase().contains(filter.trim().toLowerCase())) continue;
-					}
-					switch (templatesListMode) {
-					case FULL:
-						/* Alle Element einfügen */
-						break;
-					case SUB_MODEL:
-						if (!element.canAddToSub()) continue;
-						break;
-					case SUB_DASHBOARD:
-						if (!element.isVisualOnly()) continue;
-						break;
-					}
-					if (first) {list.add(new ModelElementListGroup(index,groupName,showSub,sub)); first=false;}
 					list.add(element);
 				}
 			}
@@ -629,13 +668,14 @@ public final class ModelElementCatalog {
 	 * Liefert ein Listenmodell mit Einträgen für alle Modell-Element-Vorlagen
 	 * @param visibleGroups Sichtbare Gruppen; es werden nur Elemente in den Gruppen ausgegeben, die sichtbar sein sollen (kann leer oder <code>null</code> sein)
 	 * @param openGroups	Ausgeklappte Gruppen; Elemente in nicht offenen Gruppen werden eingeklappt (kann leer oder <code>null</code> sein)
+	 * @param favorites	Liste der als Favoriten anzuzeigenden Elemente (kann leer oder <code>null</code> sein)
 	 * @param filter	Filter-String; es werden nur Elemente ausgegeben, die zu dem Filter passen (kann leer oder <code>null</code> sein)
 	 * @param templatesListMode	Gibt an, ob die Vorlagen für ein Submodell (d.h. dann ohne das Submodell-Element) ausgegeben werden soll
 	 * @return	Listenmodell für eine Auswahlliste zum Einfügen von neuen Elementen
 	 */
-	public DefaultListModel<ModelElementPosition> getTemplatesListModel(final String visibleGroups, final String openGroups, final String filter, final TemplatesListMode templatesListMode) {
+	public DefaultListModel<ModelElementPosition> getTemplatesListModel(final String visibleGroups, final String openGroups, final List<String> favorites, final String filter, final TemplatesListMode templatesListMode) {
 		final DefaultListModel<ModelElementPosition> model=new DefaultListModel<>();
-		for (ModelElementPosition element: getTemplatesList(visibleGroups,openGroups,filter,templatesListMode)) model.addElement(element);
+		for (ModelElementPosition element: getTemplatesList(visibleGroups,openGroups,favorites,filter,templatesListMode)) model.addElement(element);
 		return model;
 	}
 
