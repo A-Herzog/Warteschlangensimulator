@@ -321,7 +321,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 
 		moreCountStatistics.forceExpandStateTime();
 		if (moreCountStatistics.stateTime!=null) {
-			if (stateTime==null) stateTime=new double[moreCountStatistics.stateTime.length];
+			if (stateTime==null) forceExpandStateTime();
 			if (stateTime.length<moreCountStatistics.stateTime.length) stateTime=Arrays.copyOf(stateTime,moreCountStatistics.stateTime.length);
 			for (int i=0;i<moreCountStatistics.stateTime.length;i++) stateTime[i]=stateTime[i]+moreCountStatistics.stateTime[i];
 		}
