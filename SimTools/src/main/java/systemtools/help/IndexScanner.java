@@ -83,8 +83,10 @@ class IndexScanner {
 	 * Erfasst alle Dateien in einem Verzeichnis.
 	 * @param dataPath	Zu erfassendes Verzeichnis
 	 * @param index	Index-Objekt im dem die Daten erfasst werden sollen
+	 * @return	Anzahl an gescannten Dateien
 	 */
-	private void scanPath(final Path dataPath, final Index index) {
+	private int scanPath(final Path dataPath, final Index index) {
+		int scannedFiles=0;
 		try (Stream<Path> walk=Files.walk(dataPath,1)) {
 			final Iterator<Path> iterator=walk.iterator();
 			while (iterator.hasNext()) {
@@ -95,11 +97,16 @@ class IndexScanner {
 				final String name=fileName.toString();
 				if (!isScanFile(name)) continue;
 				final String text=String.join("\n",Files.lines(file,charset).toArray(String[]::new));
-				if (text!=null) index.scan(name,text);
+				if (text!=null) {
+					index.scan(name,text);
+					scannedFiles++;
+				}
 			}
 		} catch (IOException e) {
-			return;
+			return scannedFiles;
 		}
+
+		return scannedFiles;
 	}
 
 	/**
@@ -114,6 +121,7 @@ class IndexScanner {
 		final Index index=new Index(folder+"/");
 
 		/* Pfad ermitteln */
+		int scannedFiles=0;
 		final URI uri;
 		try {uri=cls.getResource(folder+"/").toURI();} catch (URISyntaxException e) {return;}
 		if (uri.getScheme().equals("jar")) {
@@ -121,16 +129,17 @@ class IndexScanner {
 				final String[] parts=cls.getName().split("\\.");
 				final StringBuilder path=new StringBuilder();
 				for (int i=0;i<parts.length-1;i++) {path.append(parts[i]); path.append("/");}
-				scanPath(fileSystem.getPath("/"+path.toString()+folder+"/"),index);
+				scannedFiles=scanPath(fileSystem.getPath("/"+path.toString()+folder+"/"),index);
 			} catch (IOException e) {
 				return;
 			}
 		} else {
-			scanPath(Paths.get(uri),index);
+			scannedFiles=scanPath(Paths.get(uri),index);
 		}
 
 		/* Bestimmte Tokens löschen */
-		index.reduce();
+		final int limit=Math.max(20,scannedFiles/10); /* Tokens entfernen, die in mehr als 10% der Dateien auftreten */
+		index.reduce(limit);
 
 		data.put(language,index);
 	}
@@ -186,7 +195,7 @@ class IndexScanner {
 		 * Zeichen, die als Trenner zwischen mehreren Tokens gelten sollen
 		 * @see #scan(String, String)
 		 */
-		private final static String TOKEN_SPLITTER=" \t,.;:";
+		private final static String TOKEN_SPLITTER=" \n\t,.;:/\\()[]|=";
 
 		/**
 		 * Erfasst eine Datei.
@@ -251,21 +260,22 @@ class IndexScanner {
 
 		/**
 		 * Tritt eines dieser Zeichen in einem Token auf, so wird er entfernt.
-		 * @see #reduce()
+		 * @see #reduce(int)
 		 */
-		private static final String REMOVE_CHARS="()'\"&01234567890";
+		private static final String REMOVE_CHARS="()[]|'\"&01234567890\\-+*/:=";
 
 		/**
 		 * Entfernt Tokens mit ungültigen Zeichen und die in zu vielen Dateien auftreten
 		 * aus der Übersicht.
+		 * @param limit	Tokens (als zu generisch) entfernen, wenn sie häufiger als angegeben auftreten
 		 * @see #REMOVE_CHARS
 		 */
-		public void reduce() {
+		public void reduce(final int limit) {
 			final Set<String> keys=new HashSet<>(tokens.keySet());
 			for (String key: keys) {
 				boolean remove=false;
 				for (char removeChar: REMOVE_CHARS.toCharArray()) if (key.contains(String.valueOf(removeChar))) {remove=true; break;}
-				if (remove || tokens.get(key).size()>20) tokens.remove(key);
+				if (remove || tokens.get(key).size()>limit) tokens.remove(key);
 			}
 		}
 

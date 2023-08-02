@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * System zur Indizierung der Hilfe-Dateien und
@@ -44,6 +45,11 @@ public class IndexSystem {
 	private Charset charset;
 
 	/**
+	 * Ausgangspunkt für die relativen Namen der Ressourcen
+	 */
+	private Class<?> folderBaseCls;
+
+	/**
 	 * Zu indizierende Ordner.
 	 * @see #addLanguage(String, String)
 	 * @see #init(Class)
@@ -54,7 +60,7 @@ public class IndexSystem {
 	 * Ist der Indizierungs-Thread mit seiner Arbeit fertig?
 	 * @see #isReady()
 	 */
-	private volatile boolean ready;
+	private final ConcurrentHashMap<String,Boolean> ready;
 
 	/**
 	 * Index-Scanner-System<br>
@@ -76,7 +82,7 @@ public class IndexSystem {
 	private IndexSystem() {
 		indexFolders=new HashMap<>();
 		charset=StandardCharsets.UTF_8;
-		ready=false;
+		ready=new ConcurrentHashMap<>();
 	}
 
 	/**
@@ -94,8 +100,9 @@ public class IndexSystem {
 	 * @param folder	Ressourcen-Verzeichnis relativ zu dem Ort dieser Klasse
 	 */
 	public void addLanguage(final String language, final String folder) {
+		if (language==null || folder==null) return;
 		indexFolders.put(language,folder);
-		if (currentLanguage==null) currentLanguage=language;
+		if (ready.get(language)==null) ready.put(language,false);
 	}
 
 	/**
@@ -113,10 +120,7 @@ public class IndexSystem {
 	 * @param cls	Ausgangspunkt für die relativen Namen der Ressourcen
 	 */
 	public void init(final Class<?> cls) {
-		new Thread(()->{
-			try {Thread.sleep(INIT_WAIT_SECONDS*1000);} catch (InterruptedException e) {}
-			initIntern(cls);
-		},"HelpIndexScanner").start();
+		folderBaseCls=cls;
 	}
 
 	/**
@@ -127,21 +131,27 @@ public class IndexSystem {
 	 * @see #getIndexHits(String)
 	 */
 	public boolean isReady() {
-		return ready;
+		if (currentLanguage==null) return false;
+		final Boolean readyState=ready.get(currentLanguage);
+		return readyState!=null && readyState.booleanValue();
 	}
 
 	/**
 	 * Führt die eigentliche Indizierung (im Vordergrund aus).<br>
 	 * Diese Methode sollte vom Hintergrund-Indizierungs-Thread aus aufgerufen werden.
-	 * @param cls	Ausgangspunkt für die relativen Namen der Ressourcen
+	 * @param language	Aktuell aktive Sprache
 	 * @see #init(Class)
 	 */
-	private void initIntern(final Class<?> cls) {
+	private void initIntern(final String language) {
+		final Boolean readyState=ready.get(language);
+		if (readyState==null || readyState.booleanValue()) return;
+
 		scanner=new IndexScanner(charset);
-		for (Map.Entry<String,String> entry: indexFolders.entrySet()) {
-			scanner.scan(entry.getKey(),entry.getValue(),cls);
-		}
-		ready=true;
+		final String folder=indexFolders.get(language);
+		if (folder==null) return;
+		scanner.scan(language,folder,folderBaseCls);
+
+		ready.put(language,true);
 	}
 
 	/**
@@ -149,7 +159,16 @@ public class IndexSystem {
 	 * @param language	Aktuell aktive Sprache
 	 */
 	public void setLanguage(final String language) {
+		if (language==null || language.equals(currentLanguage) || ready.get(language)==null) return;
 		currentLanguage=language;
+
+		final Boolean readyState=ready.get(currentLanguage);
+		if (readyState!=null && !readyState.booleanValue()) {
+			new Thread(()->{
+				try {Thread.sleep(INIT_WAIT_SECONDS*1000);} catch (InterruptedException e) {}
+				initIntern(language);
+			},"HelpIndexScanner").start();
+		}
 	}
 
 	/**
@@ -159,7 +178,9 @@ public class IndexSystem {
 	 * @return	Index-Treffer (kann leer sein, ist aber nie <code>null</code>)
 	 */
 	public Map<String,Set<String>> getIndexHits(final String searchString) {
-		if (!ready || currentLanguage==null) return new HashMap<>();
+		if (currentLanguage==null) return new HashMap<>();
+		final Boolean readyState=ready.get(currentLanguage);
+		if (readyState==null || !readyState.booleanValue()) return new HashMap<>();
 		return scanner.getIndex(currentLanguage).getIndexHits(searchString);
 	}
 
@@ -170,7 +191,9 @@ public class IndexSystem {
 	 * @return	Seitentitel-Treffer (kann leer sein, ist aber nie <code>null</code>)
 	 */
 	public Map<String,String> getTitleHits(final String searchString) {
-		if (!ready || currentLanguage==null) return new HashMap<>();
+		if (currentLanguage==null) return new HashMap<>();
+		final Boolean readyState=ready.get(currentLanguage);
+		if (readyState==null || !readyState.booleanValue()) return new HashMap<>();
 		return scanner.getIndex(currentLanguage).getTitleHits(searchString);
 	}
 
@@ -180,7 +203,9 @@ public class IndexSystem {
 	 * @return	Titel der Seite oder <code>null</code>, wenn zu den angegebenen Dateinamen keine passende Seite existiert
 	 */
 	public String getPageName(final String page) {
-		if (!ready || currentLanguage==null) return null;
+		if (currentLanguage==null) return null;
+		final Boolean readyState=ready.get(currentLanguage);
+		if (readyState==null || !readyState.booleanValue()) return null;
 		return scanner.getIndex(currentLanguage).getPageName(page);
 	}
 }
