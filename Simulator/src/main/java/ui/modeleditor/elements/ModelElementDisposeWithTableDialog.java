@@ -62,6 +62,11 @@ public class ModelElementDisposeWithTableDialog extends ModelElementBaseDialog {
 	private JCheckBox stoppSimulationOnClientArrival;
 
 	/**
+	 * Checkbox: Ausgabe aktiv?
+	 */
+	private JCheckBox outputActive;
+
+	/**
 	 * Eingabefeld: Tabellendatei zum Speichern der Kunden
 	 */
 	private JTextField clientsOutputTable;
@@ -106,6 +111,10 @@ public class ModelElementDisposeWithTableDialog extends ModelElementBaseDialog {
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(stoppSimulationOnClientArrival=new JCheckBox(Language.tr("Surface.Dispose.Dialog.StoppSimulationOnClientArrival")));
 		stoppSimulationOnClientArrival.setSelected(dispose.isStoppSimulationOnClientArrival());
+
+		/*  Aktiv? */
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(outputActive=new JCheckBox("<html><body><b>"+Language.tr("Surface.Dispose.Dialog.OutputActive")+"</b></body></html>",dispose.isOutputActive()));
 
 		/* Tabellendatei zum Speichern der Kunden */
 		final Object[] data=getInputPanel(Language.tr("Surface.Dispose.Dialog.Table")+":",dispose.getOutputFile());
@@ -196,6 +205,9 @@ public class ModelElementDisposeWithTableDialog extends ModelElementBaseDialog {
 
 			/*  Simulation abbrechen, wenn an dieser Station ein Kunde eintrifft? */
 			dispose.setStoppSimulationOnClientArrival(stoppSimulationOnClientArrival.isSelected());
+
+			/* Aktiv? */
+			dispose.setOutputActive(outputActive.isSelected());
 
 			/* Tabellendatei zum Speichern der Kunden */
 			dispose.setOutputFile(clientsOutputTable.getText().trim());

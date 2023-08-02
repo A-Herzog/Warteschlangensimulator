@@ -899,6 +899,7 @@
   <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
 	<xs:element name="ModellElementEndeStopp" type="xs:string"/>
 	<xs:element name="ModellElementSpeichernEndeTabelle" type="xs:string"/>
+	<xs:element name="ModellElementSpeichernEndeAktiv" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3350,6 +3351,7 @@
   <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
 	<xs:element name="ModelElementDisposeStopp" type="xs:string"/>
 	<xs:element name="ModelElementSaveDisposeTable" type="xs:string"/>
+	<xs:element name="ModelElementSaveDisposeActive" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

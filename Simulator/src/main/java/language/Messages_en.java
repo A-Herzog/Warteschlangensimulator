@@ -22954,6 +22954,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51705] = "Decomposes a multimodal distribution given in the form of measured values into a series of<br>Gamma distributions which, in sum, describe the values as well as possible.";
     t[51706] = "Editor.ModelProperties.Info";
     t[51707] = "Model properties";
+    t[51712] = "Surface.Dispose.Dialog.OutputActive";
+    t[51713] = "Ausgabe aktiv?";
     t[51714] = "ParameterCompare.ScriptRunner.Script.Run.Error.Title";
     t[51715] = "Error executing the script";
     t[51718] = "Surface.StateStatistics.Infotext";
@@ -23320,6 +23322,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52521] = "Analog changing value";
     t[52522] = "Surface.InteractiveCheckbox.Dialog.ValueChecked.ErrorTitle";
     t[52523] = "Invalid value for \"checkbox activated\"";
+    t[52526] = "Surface.DisposeWithTable.XML.Active";
+    t[52527] = "ModelElementSaveDisposeActive";
     t[52534] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Label";
     t[52535] = "Caluclation expressions for the inter-arrival times per interval (values in seconds)";
     t[52550] = "ModelDescription.TransportTransporterSource.RequestPriority";
@@ -24072,16 +24076,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54225] = "Station name";
     t[54226] = "Statistic.Viewer.Toolbar.SelectAll.Hint";
     t[54227] = "Select all entries";
-    t[54228] = "UndoRedoSelect.Save";
-    t[54229] = "Save";
-    t[54230] = "Git.List.Tab.Server.Button.Push.Hint";
-    t[54231] = "Updates the server data with the data from the local Git directory.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[54228] = "UndoRedoSelect.Save";
+    t[54229] = "Save";
+    t[54230] = "Git.List.Tab.Server.Button.Push.Hint";
+    t[54231] = "Updates the server data with the data from the local Git directory.";
     t[54232] = "Server.Status.UseCompression";
     t[54233] = "Compressed transfer";
     t[54236] = "ParameterCompare.Table.DeleteModel.Confirm.InfoAll";

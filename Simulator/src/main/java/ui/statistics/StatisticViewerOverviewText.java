@@ -712,8 +712,9 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		final List<FileOutputInfo> files=new ArrayList<>();
 
 		for (ModelElement element: statistics.editModel.surface.getElementsIncludingSubModels()) if ((element instanceof ElementWithOutputFile) && (element instanceof ModelElementBox)) {
-			final File file=new File(((ElementWithOutputFile)element).getOutputFile());
-			if (file.isFile()) files.add(new FileOutputInfo((ModelElementBox)element,file));
+			final ElementWithOutputFile outputElement=(ElementWithOutputFile)element;
+			final File file=new File(outputElement.getOutputFile());
+			if (file.isFile() && outputElement.isOutputActive()) files.add(new FileOutputInfo((ModelElementBox)element,file));
 		}
 
 		return files;

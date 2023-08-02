@@ -663,7 +663,7 @@
 >
 <!ELEMENT ModellElementEndeStopp (#PCDATA)>
 
-<!ELEMENT ModellElementSpeichernEnde (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementEndeStopp | ModellElementSpeichernEndeTabelle)*>
+<!ELEMENT ModellElementSpeichernEnde (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementEndeStopp | ModellElementSpeichernEndeTabelle | ModellElementSpeichernEndeAktiv)*>
 <!ATTLIST ModellElementSpeichernEnde
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -671,6 +671,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementSpeichernEndeTabelle (#PCDATA)>
+<!ELEMENT ModellElementSpeichernEndeAktiv (#PCDATA)>
 
 <!ELEMENT ModellElementZuweisung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZuweisungBedingung)*>
 <!ATTLIST ModellElementZuweisung
@@ -3329,7 +3330,7 @@
 >
 <!ELEMENT ModelElementDisposeStopp (#PCDATA)>
 
-<!ELEMENT ModelElementSaveDispose (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDisposeStopp | ModelElementSaveDisposeTable)*>
+<!ELEMENT ModelElementSaveDispose (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDisposeStopp | ModelElementSaveDisposeTable | ModelElementSaveDisposeActive)*>
 <!ATTLIST ModelElementSaveDispose
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3337,6 +3338,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementSaveDisposeTable (#PCDATA)>
+<!ELEMENT ModelElementSaveDisposeActive (#PCDATA)>
 
 <!ELEMENT ModelElementAssignment (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementAssignmentCondition)*>
 <!ATTLIST ModelElementAssignment

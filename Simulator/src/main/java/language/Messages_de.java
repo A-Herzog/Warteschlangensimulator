@@ -22954,6 +22954,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[51705] = "Zerlegt eine in Form von Messwerten gegebene multimodale Verteilung in eine Reihe von<br>Gamma-Verteilungen, die in Summe die Werte m\u00f6glichst gut beschreiben.";
     t[51706] = "Editor.ModelProperties.Info";
     t[51707] = "Modelleigenschaften";
+    t[51712] = "Surface.Dispose.Dialog.OutputActive";
+    t[51713] = "Output active?";
     t[51714] = "ParameterCompare.ScriptRunner.Script.Run.Error.Title";
     t[51715] = "Fehler bei der Skriptausf\u00fchrung";
     t[51718] = "Surface.StateStatistics.Infotext";
@@ -23320,6 +23322,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52521] = "Zahlenwert, der sich im Zeitverlauf \u00e4ndert";
     t[52522] = "Surface.InteractiveCheckbox.Dialog.ValueChecked.ErrorTitle";
     t[52523] = "Ung\u00fcltiger Wert f\u00fcr \"Checkbox aktiviert\"";
+    t[52526] = "Surface.DisposeWithTable.XML.Active";
+    t[52527] = "ModellElementSpeichernEndeAktiv";
     t[52534] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Label";
     t[52535] = "Rechenausdr\u00fccke f\u00fcr die Zwischenankunftszeiten pro Intervall (Werte in Sekunden)";
     t[52550] = "ModelDescription.TransportTransporterSource.RequestPriority";
@@ -24072,16 +24076,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54225] = "Stationsname";
     t[54226] = "Statistic.Viewer.Toolbar.SelectAll.Hint";
     t[54227] = "Alle Eintr\u00e4ge ausw\u00e4hlen";
-    t[54228] = "UndoRedoSelect.Save";
-    t[54229] = "Speichern";
-    t[54230] = "Git.List.Tab.Server.Button.Push.Hint";
-    t[54231] = "Aktualisiert die Daten auf dem Server mit den Dateien im lokalen Git-Verzeichnis.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[54228] = "UndoRedoSelect.Save";
+    t[54229] = "Speichern";
+    t[54230] = "Git.List.Tab.Server.Button.Push.Hint";
+    t[54231] = "Aktualisiert die Daten auf dem Server mit den Dateien im lokalen Git-Verzeichnis.";
     t[54232] = "Server.Status.UseCompression";
     t[54233] = "Komprimierte \u00dcbertragung";
     t[54236] = "ParameterCompare.Table.DeleteModel.Confirm.InfoAll";

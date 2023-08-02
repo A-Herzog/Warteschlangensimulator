@@ -34,4 +34,18 @@ public interface ElementWithOutputFile {
 	 * @param outputFile	Dateiname der Datei für die Ausgaben
 	 */
 	void setOutputFile(final String outputFile);
+
+	/**
+	 * Ist die Ausgabe als Ganzes aktiv?
+	 * @return	Ausgabe aktiv
+	 * @see #setOutputActive(boolean)
+	 */
+	boolean isOutputActive();
+
+	/**
+	 * Stellt ein, ob die Ausgabe aktiv sein soll.
+	 * @param outputActive	Ausgabe aktiv
+	 * @see #isOutputActive()
+	 */
+	void setOutputActive(boolean outputActive);
 }

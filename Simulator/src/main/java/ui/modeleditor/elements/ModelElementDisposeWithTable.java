@@ -42,6 +42,7 @@ import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
+import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.fastpaint.Shapes;
 
 /**
@@ -73,6 +74,13 @@ public class ModelElementDisposeWithTable extends ModelElementBox implements Mod
 	public String clientsOutputTable;
 
 	/**
+	 * Ist die Ausgabe als Ganzes aktiv?
+	 * @see #isOutputActive()
+	 * @see #setOutputActive(boolean)
+	 */
+	private boolean outputActive;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -82,6 +90,7 @@ public class ModelElementDisposeWithTable extends ModelElementBox implements Mod
 		connections=new ArrayList<>();
 		stoppSimulationOnClientArrival=false;
 		clientsOutputTable="";
+		outputActive=true;
 	}
 
 	/**
@@ -117,13 +126,13 @@ public class ModelElementDisposeWithTable extends ModelElementBox implements Mod
 		if (!(element instanceof ModelElementDisposeWithTable)) return false;
 		final ModelElementDisposeWithTable otherDispose=(ModelElementDisposeWithTable)element;
 
-
 		final List<ModelElementEdge> connections2=otherDispose.connections;
 		if (connections==null || connections2==null || connections.size()!=connections2.size()) return false;
 		for (int i=0;i<connections.size();i++) if (connections.get(i).getId()!=connections2.get(i).getId()) return false;
 
 		if (stoppSimulationOnClientArrival!=otherDispose.stoppSimulationOnClientArrival) return false;
 		if (!clientsOutputTable.equals(otherDispose.clientsOutputTable)) return false;
+		if (outputActive!=otherDispose.outputActive) return false;
 
 		return true;
 	}
@@ -147,6 +156,7 @@ public class ModelElementDisposeWithTable extends ModelElementBox implements Mod
 
 			stoppSimulationOnClientArrival=copySource.stoppSimulationOnClientArrival;
 			clientsOutputTable=copySource.clientsOutputTable;
+			outputActive=copySource.outputActive;
 		}
 	}
 
@@ -207,6 +217,16 @@ public class ModelElementDisposeWithTable extends ModelElementBox implements Mod
 	}
 
 	/**
+	 * Liefert optional eine zusätzliche Bezeichnung des Typs des Elemente (zur Anzeige in der Element-Box in einer zweiten Zeile)
+	 * @return	Zusätzlicher Name des Typs (kann <code>null</code> oder leer sein)
+	 */
+	@Override
+	public String getSubTypeName() {
+		if (surface==null || outputActive) return null;
+		return Language.tr("Surface.Output.Disabled");
+	}
+
+	/**
 	 * Vorgabe-Hintergrundfarbe für die Box
 	 * @see #getTypeDefaultBackgroundColor()
 	 */
@@ -254,6 +274,26 @@ public class ModelElementDisposeWithTable extends ModelElementBox implements Mod
 	@Override
 	public void setOutputFile(final String clientsOutputTable) {
 		this.clientsOutputTable=(clientsOutputTable==null)?"":clientsOutputTable;
+	}
+
+	/**
+	 * Ist die Ausgabe als Ganzes aktiv?
+	 * @return	Ausgabe aktiv
+	 * @see #setOutputActive(boolean)
+	 */
+	@Override
+	public boolean isOutputActive() {
+		return outputActive;
+	}
+
+	/**
+	 * Stellt ein, ob die Ausgabe aktiv sein soll.
+	 * @param outputActive	Ausgabe aktiv
+	 * @see #isOutputActive()
+	 */
+	@Override
+	public void setOutputActive(boolean outputActive) {
+		this.outputActive=outputActive;
 	}
 
 	/**
@@ -345,21 +385,25 @@ public class ModelElementDisposeWithTable extends ModelElementBox implements Mod
 	protected void addPropertiesDataToXML(final Document doc, final Element node) {
 		super.addPropertiesDataToXML(doc,node);
 
+		Element sub;
+
+		if (!outputActive) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.DisposeWithTable.XML.Active")));
+			sub.setTextContent("0");
+		}
+
 		if (stoppSimulationOnClientArrival) {
-			Element sub=doc.createElement(Language.trPrimary("Surface.XML.DisposeWithTable.Stopp"));
-			node.appendChild(sub);
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.DisposeWithTable.Stopp")));
 			sub.setTextContent("1");
 		}
 
 		if (!clientsOutputTable.isEmpty()) {
-			Element sub=doc.createElement(Language.trPrimary("Surface.XML.DisposeWithTable.Table"));
-			node.appendChild(sub);
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.DisposeWithTable.Table")));
 			sub.setTextContent(clientsOutputTable);
 		}
 
 		if (connections!=null) for (ModelElementEdge element: connections) {
-			Element sub=doc.createElement(Language.trPrimary("Surface.XML.Connection"));
-			node.appendChild(sub);
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.Connection")));
 			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Element"),""+element.getId());
 			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Type"),Language.trPrimary("Surface.XML.Connection.Type.In"));
 		}
@@ -376,6 +420,11 @@ public class ModelElementDisposeWithTable extends ModelElementBox implements Mod
 	protected String loadProperty(final String name, final String content, final Element node) {
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
+
+		if (Language.trAll("Surface.DisposeWithTable.XML.Active",name)) {
+			outputActive=!content.equals("0");
+			return null;
+		}
 
 		if (Language.trAll("Surface.XML.DisposeWithTable.Stopp",name)) {
 			stoppSimulationOnClientArrival=content.equals("1");
@@ -463,6 +512,23 @@ public class ModelElementDisposeWithTable extends ModelElementBox implements Mod
 		this.connections.addAll(connectionsIn);
 
 		return true;
+	}
+
+	/**
+	 * Erstellt eine Beschreibung für das aktuelle Element
+	 * @param descriptionBuilder	Description-Builder, der die Beschreibungsdaten zusammenfasst
+	 */
+	@Override
+	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
+		super.buildDescription(descriptionBuilder);
+
+		if (!clientsOutputTable.trim().isEmpty()) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Output.File"),clientsOutputTable,3000);
+		}
+
+		if (!outputActive) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Output.Active"),Language.tr("ModelDescription.Output.Active.Off"),10000);
+		}
 	}
 
 	@Override
