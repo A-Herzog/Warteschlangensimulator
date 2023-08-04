@@ -845,4 +845,10 @@ public class ModelElementSeize extends ModelElementBox implements ModelElementEd
 		map.putAll(resources);
 		return map;
 	}
+
+	@Override
+	public void addResourceUsage(final String resourceName, final int neededNumber) {
+		final int currentUsage=resources.getOrDefault(resourceName,0);
+		resources.put(resourceName,currentUsage+neededNumber);
+	}
 }

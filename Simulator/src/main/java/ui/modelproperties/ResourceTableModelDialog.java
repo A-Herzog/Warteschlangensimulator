@@ -23,13 +23,18 @@ import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -50,10 +55,12 @@ import tools.JTableExt;
 import ui.images.Images;
 import ui.modeleditor.AnimationImageSource;
 import ui.modeleditor.ModelAnimationImages;
+import ui.modeleditor.ModelDataResourceUsage;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfaceAnimatorBase;
+import ui.modeleditor.coreelements.ModelElement;
 
 /**
  * Diese Klasse stellt einen Dialog zum Bearbeiten eines einzelnen
@@ -67,6 +74,11 @@ public class ResourceTableModelDialog extends BaseDialog {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID = 5239819610274811096L;
+
+	/**
+	 * Betrachtetes Modell
+	 */
+	private final EditModel model;
 
 	/**
 	 * Objekt das die verfügbaren Animations-Icons vorhält
@@ -163,6 +175,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 	public ResourceTableModelDialog(final Component owner, final Runnable help, final String[] names, final ModelResource resource, final String[] scheduleNames, final EditModel model, final ModelSurface surface, final ModelAnimationImages modelImages) {
 		super(owner,Language.tr("Resources.Group.EditName.Dialog.Title"));
 
+		this.model=model;
 		variables=surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false);
 		imageSource=new AnimationImageSource();
 
@@ -176,6 +189,10 @@ public class ResourceTableModelDialog extends BaseDialog {
 		this.resource=resource;
 
 		/* GUI anlegen */
+		if (index>=0) {
+			addUserButton(Language.tr("Resources.Usage"),Images.MODEL_ADD_STATION.getIcon());
+			if (ModelPropertiesDialogPageOperatorsUsageDialog.getPossibleNewStationsForRessource(names[index],model.surface).size()>0) addUserButton("Zu Station hinzufügen",Images.MODELPROPERTIES_OPERATORS_ADD.getIcon());
+		}
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
 
@@ -542,5 +559,30 @@ public class ResourceTableModelDialog extends BaseDialog {
 			break;
 		}
 		resource.setMoveTimeBase(ModelSurface.TimeBase.byId(timeBaseCombo.getSelectedIndex()));
+	}
+
+	@Override
+	protected void userButtonClick(final int nr, final JButton button) {
+		if (nr==0) {
+			new ModelPropertiesDialogPageOperatorsUsageDialog(this,model,names[index]);
+			return;
+		}
+
+		if (nr==1) {
+			final JPopupMenu menu=new JPopupMenu();
+			final Map<String,ModelElement> map=new HashMap<>();
+			ModelPropertiesDialogPageOperatorsUsageDialog.getPossibleNewStationsForRessource(names[index],model.surface).forEach(element->map.put(ModelPropertiesDialogPageOperatorsUsageDialog.getStationName(element),element));
+			for (String stationName: map.keySet().stream().sorted().toArray(String[]::new)) {
+				final ModelElement element=map.get(stationName);
+				final JMenuItem item=new JMenuItem(stationName);
+				item.addActionListener(e->{
+					((ModelDataResourceUsage)element).addResourceUsage(names[index],1);
+					button.setVisible(ModelPropertiesDialogPageOperatorsUsageDialog.getPossibleNewStationsForRessource(names[index],model.surface).size()>0);
+				});
+				menu.add(item);
+			}
+			menu.show(button,0,button.getHeight());
+			return;
+		}
 	}
 }

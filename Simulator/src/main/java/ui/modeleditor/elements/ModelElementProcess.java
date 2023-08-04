@@ -1770,4 +1770,18 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 
 		return map;
 	}
+
+	@Override
+	public void addResourceUsage(final String resourceName, final int neededNumber) {
+		/* Leere Alternative verwenden */
+		for (Map<String,Integer> alternative: resources) if (alternative.size()==0) {
+			alternative.put(resourceName,neededNumber);
+			return;
+		}
+
+		/* Oder neue Alternative anlegen */
+		final Map<String,Integer> alternative=createNewResourceMap();
+		alternative.put(resourceName,neededNumber);
+		resources.add(alternative);
+	}
 }

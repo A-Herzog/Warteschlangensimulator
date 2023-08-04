@@ -24,8 +24,11 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -39,6 +42,7 @@ import systemtools.MsgBox;
 import ui.images.Images;
 import ui.modeleditor.ModelDataResourceUsage;
 import ui.modeleditor.ModelResource;
+import ui.modeleditor.ModelSchedule;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.descriptionbuilder.StyledTextBuilder;
@@ -68,9 +72,19 @@ public class ModelPropertiesDialogPageOperatorsUsageDialog extends BaseDialog {
 	 * @param model	Editormodell, dem die Daten entnommen werden sollen
 	 */
 	public ModelPropertiesDialogPageOperatorsUsageDialog(final Component owner, final EditModel model) {
-		super(owner,Language.tr("Resources.Usage.Dialog.Title"));
+		this(owner,model,null);
+	}
 
-		builder=getInfo(model);
+	/**
+	 * Konstruktor der Klasse
+	 * @param owner	Übergeordnetes Element
+	 * @param model	Editormodell, dem die Daten entnommen werden sollen
+	 * @param groupName	Betrachtete Bedienergruppe (<code>null</code> für alle)
+	 */
+	public ModelPropertiesDialogPageOperatorsUsageDialog(final Component owner, final EditModel model, final String groupName) {
+		super(owner,(groupName==null)?Language.tr("Resources.Usage.Dialog.Title"):Language.tr("Resources.Usage.Dialog.TitleSingular"));
+
+		builder=getInfo(model,groupName);
 
 		/* GUI */
 		showCloseButton=true;
@@ -88,10 +102,34 @@ public class ModelPropertiesDialogPageOperatorsUsageDialog extends BaseDialog {
 		info.setSelectionEnd(0);
 
 		/* Dialog anzeigen */
-		setSizeRespectingScreensize(600,800);
-		setMinSizeRespectingScreensize(600,800);
+		if (groupName!=null) {
+			setSizeRespectingScreensize(600,450);
+			setMinSizeRespectingScreensize(600,450);
+		} else {
+			setSizeRespectingScreensize(600,800);
+			setMinSizeRespectingScreensize(600,800);
+		}
 		setLocationRelativeTo(owner);
 		setVisible(true);
+	}
+
+	/**
+	 * Liefert einen Anzeigenamen für eine Station
+	 * @param element	Station für die ein Anzeigename (z.B. für Listen und Menüs) ermittelt werden soll
+	 * @return	Anzeigename der Station
+	 */
+	public static String getStationName(final ModelElement element) {
+		StringBuilder name=new StringBuilder();
+		name.append(element.getContextMenuElementName());
+		if (!element.getName().isEmpty()) {
+			name.append(" \"");
+			name.append(element.getName());
+			name.append("\"");
+		}
+		name.append(" (id=");
+		name.append(element.getId());
+		name.append(")");
+		return name.toString();
 	}
 
 	/**
@@ -99,30 +137,20 @@ public class ModelPropertiesDialogPageOperatorsUsageDialog extends BaseDialog {
 	 * @param surface	Zeichenfläche, aus der die Daten ausgelesen werden sollen
 	 * @return	Zuordnung von Bedienergruppen zu Stationen und Anzahl an Bedienern an den Stationen
 	 */
-	private static Map<String,Map<String,Integer>> getMap(final ModelSurface surface) {
-		final Map<String,Map<String,Integer>> map=new HashMap<>();
+	private static Map<String,Map<ModelElement,Integer>> getMap(final ModelSurface surface) {
+		final Map<String,Map<ModelElement,Integer>> map=new HashMap<>();
 
 		for (ModelElement element: surface.getElements()) {
 			if (element instanceof ModelDataResourceUsage) {
-				StringBuilder name=new StringBuilder();
-				name.append(element.getContextMenuElementName());
-				if (!element.getName().isEmpty()) {
-					name.append(" \"");
-					name.append(element.getName());
-					name.append("\"");
-				}
-				name.append(" (id=");
-				name.append(element.getId());
-				name.append(")");
 				final Map<String,Integer> data=((ModelDataResourceUsage)element).getUsedResourcesInfo();
 				for (Map.Entry<String,Integer> resource: data.entrySet()) {
 					map.compute(resource.getKey(),(key,value)->{
 						if (value==null) {
-							final Map<String,Integer> sub=new HashMap<>();
-							sub.put(name.toString(),resource.getValue());
+							final Map<ModelElement,Integer> sub=new HashMap<>();
+							sub.put(element,resource.getValue());
 							return sub;
 						} else {
-							value.put(name.toString(),resource.getValue());
+							value.put(element,resource.getValue());
 							return value;
 						}
 					});
@@ -130,8 +158,8 @@ public class ModelPropertiesDialogPageOperatorsUsageDialog extends BaseDialog {
 				continue;
 			}
 			if (element instanceof ModelElementSub) {
-				final Map<String,Map<String,Integer>> part=getMap(((ModelElementSub)element).getSubSurface());
-				for (Map.Entry<String,Map<String,Integer>> entry: part.entrySet()) {
+				final Map<String,Map<ModelElement,Integer>> part=getMap(((ModelElementSub)element).getSubSurface());
+				for (Map.Entry<String,Map<ModelElement,Integer>> entry: part.entrySet()) {
 					map.compute(entry.getKey(),(key,value)->{
 						if (value==null) return entry.getValue();
 						value.putAll(entry.getValue());
@@ -143,6 +171,35 @@ public class ModelPropertiesDialogPageOperatorsUsageDialog extends BaseDialog {
 		}
 
 		return map;
+	}
+
+	/**
+	 * Liefert eine Liste aller Stationen, die Ressourcen verwenden.
+	 * @param surface	Zeichenfläche, aus der die Daten ausgelesen werden sollen
+	 * @return	Liste aller Stationen, die Ressourcen verwenden
+	 */
+	private static List<ModelElement> getAllResourceUsageStations(final ModelSurface surface) {
+		final List<ModelElement> list=new ArrayList<>();
+
+		for (ModelElement element: surface.getElements()) {
+			if (element instanceof ModelDataResourceUsage) list.add(element);
+			if (element instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element).getSubSurface().getElements()) {
+				if (element2 instanceof ModelDataResourceUsage) list.add(element2);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Liefert eine Liste von Stationen, die Ressourcen verwenden, aber die angegebene Ressource noch nich.
+	 * @param ressourceName	Name der Ressource
+	 * @param surface	Zeichenfläche, aus der die Daten ausgelesen werden sollen
+	 * @return	Liste aller Stationen, an denen die Ressourcen hinzugefügt werden könnte
+	 */
+	public static List<ModelElement> getPossibleNewStationsForRessource(final String ressourceName, final ModelSurface surface) {
+		final Map<ModelElement,Integer> resourceUsage=getMap(surface).get(ressourceName);
+		return getAllResourceUsageStations(surface).stream().filter(element->resourceUsage==null || !resourceUsage.containsKey(element)).collect(Collectors.toList());
 	}
 
 	/**
@@ -161,7 +218,15 @@ public class ModelPropertiesDialogPageOperatorsUsageDialog extends BaseDialog {
 			return Language.tr("Resources.Group.RowTitle.Count")+": "+value;
 		}
 		if (resource.getMode()==ModelResource.Mode.MODE_SCHEDULE) {
-			return resource.getSchedule();
+			final String scheduleName=resource.getSchedule();
+			final ModelSchedule schedule=model.schedules.getSchedule(scheduleName);
+			if (schedule==null) {
+				return scheduleName;
+			} else {
+				final int min=schedule.getSlots().stream().mapToInt(Integer::intValue).min().orElse(0);
+				final int max=schedule.getSlots().stream().mapToInt(Integer::intValue).max().orElse(0);
+				return scheduleName+String.format(" (%d-%d %s)",min,max,Language.tr("Editor.Operator.Plural"));
+			}
 		}
 		return "";
 	}
@@ -169,15 +234,19 @@ public class ModelPropertiesDialogPageOperatorsUsageDialog extends BaseDialog {
 	/**
 	 * Erstellt einen Text, der Informationen über die Nutzung der Bedienergruppen enthält.
 	 * @param model	Modell aus dem die Daten ausgelesen werden sollen
+	 * @param groupName	Betrachtete Bedienergruppe (<code>null</code> für alle)
 	 * @return	Text, der Informationen über die Nutzung der Bedienergruppen enthält
 	 */
-	private static StyledTextBuilder getInfo(final EditModel model) {
+	private static StyledTextBuilder getInfo(final EditModel model, final String groupName) {
 		final StyledTextBuilder builder=new StyledTextBuilder();
-		final Map<String,Map<String,Integer>> map=getMap(model.surface);
+		final Map<String,Map<ModelElement,Integer>> map=getMap(model.surface);
 
-		builder.addHeading(1,Language.tr("Resources.Usage.Dialog.Title"));
+		if (groupName==null) {
+			builder.addHeading(1,Language.tr("Resources.Usage.Dialog.Title"));
+		}
 		for (String resourceName: map.keySet().stream().sorted().toArray(String[]::new)) {
-			final Map<String,Integer> resourceData=map.get(resourceName);
+			if (groupName!=null && !resourceName.equals(groupName)) continue;
+			final Map<ModelElement,Integer> resourceData=map.get(resourceName);
 			builder.addHeading(2,resourceName);
 			/* Anzahl der Bediener in der Ressource */
 			final String count=getResourceCount(model,resourceName);
@@ -188,8 +257,11 @@ public class ModelPropertiesDialogPageOperatorsUsageDialog extends BaseDialog {
 			}
 			/* Einsatzorte der Ressource */
 			builder.beginParagraph();
-			for (String stationName: resourceData.keySet().stream().sorted().toArray(String[]::new)) {
-				builder.addLine(stationName+": "+resourceData.get(stationName));
+			final Map<String,Integer> resourceDataNames=new HashMap<>();
+			for (Map.Entry<ModelElement,Integer> resource: resourceData.entrySet()) resourceDataNames.put(getStationName(resource.getKey()),resource.getValue());
+
+			for (String stationName: resourceDataNames.keySet().stream().sorted().toArray(String[]::new)) {
+				builder.addLine(stationName+": "+resourceDataNames.get(stationName));
 			}
 			builder.endParagraph();
 		}

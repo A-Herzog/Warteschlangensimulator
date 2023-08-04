@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-01 08:16+0200\n"
+"POT-Creation-Date: 2023-08-02 08:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16949,6 +16949,9 @@ msgstr "Save resource usage"
 
 msgid "Resources.Usage.Dialog.Title"
 msgstr "Usage of the operator groups"
+
+msgid "Resources.Usage.Dialog.TitleSingular"
+msgstr "Usage of the operator group"
 
 msgid "SavedView.XML.Name"
 msgstr "Name"

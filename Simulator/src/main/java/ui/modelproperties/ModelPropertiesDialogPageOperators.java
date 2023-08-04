@@ -89,7 +89,7 @@ public class ModelPropertiesDialogPageOperators extends ModelPropertiesDialogPag
 		}
 
 		final JButton infoButton=new JButton(Language.tr("Resources.Usage"),Images.MODEL_ADD_STATION.getIcon());
-		infoButton.addActionListener(e->	new ModelPropertiesDialogPageOperatorsUsageDialog(dialog,model));
+		infoButton.addActionListener(e->new ModelPropertiesDialogPageOperatorsUsageDialog(dialog,model));
 		setupArea.add(infoButton);
 
 		content.add(setupArea,BorderLayout.SOUTH);

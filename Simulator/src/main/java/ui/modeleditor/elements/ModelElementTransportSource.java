@@ -625,4 +625,10 @@ public class ModelElementTransportSource extends ModelElementBox implements Mode
 		map.putAll(transportResourceRecord.getResources());
 		return map;
 	}
+
+	@Override
+	public void addResourceUsage(final String resourceName, final int neededNumber) {
+		final int currentUsage=transportResourceRecord.getResources().getOrDefault(resourceName,0);
+		transportResourceRecord.getResources().put(resourceName,currentUsage+neededNumber);
+	}
 }

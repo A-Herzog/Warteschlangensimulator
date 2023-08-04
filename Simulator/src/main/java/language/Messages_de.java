@@ -11942,6 +11942,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27147] = "Wartezeiten nach Kundentypen";
     t[27148] = "SettingsDialog.Tabs.Statistics.OpenExcel";
     t[27149] = "Excel";
+    t[27150] = "Resources.Usage.Dialog.TitleSingular";
+    t[27151] = "Nutzung der Bedienergruppe";
     t[27154] = "SimulationServer.Status.CalcWeb";
     t[27155] = "Webserver";
     t[27160] = "ModelGenerator.Model.Description";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27387] = "FIFO (in Ankunftsreihenfolge)";
     t[27390] = "FitDialog.DialogHint";
     t[27391] = "Die Funktion zur Verteilungsanpassung sucht zu vorgegebenen Messwerten eine analytische Wahrscheinlichkeitsverteilung, die diese m\u00f6glichst gut beschreibt. Dieser Vorgang wird auch Input-Analyse genannt.";
-    t[27408] = "Statistics.XML.StateTime.Name";
-    t[27409] = "Name";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27408] = "Statistics.XML.StateTime.Name";
+    t[27409] = "Name";
     t[27416] = "Surface.TankFlowByClient.Infotext";
     t[27417] = "Passiert ein Kunde eine Fluss-Station, so wird ein Fluss zwischen zwei Ventilen verschiedener Tanks ausgel\u00f6st.";
     t[27422] = "Simulation.Element.Split.Name";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31931] = "If";
     t[31936] = "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.StandardDeviationOfTheTime";
     t[31937] = "<p>Liefert die Standardabweichung \u00fcber alle R\u00fcstzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind.</p>\n<p>Achtung: Die R\u00fcstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>";
-    t[31940] = "Statistics.CostsForResources.Idle.Single";
-    t[31941] = "Kosten f\u00fcr die Leerlaufzeit der Ressource";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31940] = "Statistics.CostsForResources.Idle.Single";
+    t[31941] = "Kosten f\u00fcr die Leerlaufzeit der Ressource";
     t[31942] = "Surface.Source.DialogBatchSize.Minimum";
     t[31943] = "Minimale Batch-Gr\u00f6\u00dfe";
     t[31944] = "Window.EdgeStyle.Title";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36401] = "Ausgabedatei ausw\u00e4hlen";
     t[36402] = "Surface.InputDDE.XML.Workbook";
     t[36403] = "ModellElementEingabeDDEArbeitsmappe";
-    t[36418] = "Statistic.Viewer.Report.Workbook.Error.Title";
-    t[36419] = "Fehlern beim Speichern der Arbeitsmappe";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36418] = "Statistic.Viewer.Report.Workbook.Error.Title";
+    t[36419] = "Fehlern beim Speichern der Arbeitsmappe";
     t[36420] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll.MinimalNumber";
     t[36421] = "<p>Liefert die minimale Anzahl an belegten Bedienern in allen Ressourcen zusammen.</p>";
     t[36426] = "Surface.Match.Dialog.TransferData.Mode.Max";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40839] = "Bedieneranzahl auslesen und einstellen";
     t[40842] = "Surface.AnimationBarChart.HistogramWizard.StepWidth";
     t[40843] = "Schrittweite pro Balken";
-    t[40846] = "Surface.AnalogAssign.Dialog.Columns.IDs";
-    t[40847] = "Element";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40846] = "Surface.AnalogAssign.Dialog.Columns.IDs";
+    t[40847] = "Element";
     t[40856] = "Animation.Icon.Digit";
     t[40857] = "Ziffer";
     t[40858] = "ModelDescription.CounterMulti.ConditionElse";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45293] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Cauchy-Verteilung mit Mittelwert und Form-Parameter gem\u00e4\u00df dem dritten und vierten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[45294] = "ExpressionBuilder.ClientsAtStation.CurrentNumber.ByType";
     t[45295] = "<p>Liefert die aktuelle Anzahl an Kunden an der Bedienstation, deren ID in dem ersten Parameter angegeben wurde. Ber\u00fccksichtigt werden nur Kunden, deren Typ an Quelle bzw. Namenszuweisung mit der im zweiten Parameter angegebenen ID auftritt.</p>";
-    t[45300] = "Statistics.AverageNumberOfBusyTransporters";
-    t[45301] = "Mittlere Anzahl an fahrenden Transportern";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45300] = "Statistics.AverageNumberOfBusyTransporters";
+    t[45301] = "Mittlere Anzahl an fahrenden Transportern";
     t[45302] = "ScriptPopup.Client";
     t[45303] = "Kunde";
     t[45306] = "Surface.AnimationTrafficLights.Dialog.ConditionFor.Red";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49773] = "Der angegebene Wert \"%s\" f\u00fcr die Verteilung der Ausfalldauern f\u00fcr den Ressourcentyp \"%s\" ist ung\u00fcltig.";
     t[49776] = "ExpressionBuilder.SimulationCharacteristics.Sum";
     t[49777] = "Summe";
-    t[49778] = "Statistics.CounterBatch";
-    t[49779] = "Batch-Z\u00e4hler";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[49778] = "Statistics.CounterBatch";
+    t[49779] = "Batch-Z\u00e4hler";
     t[49782] = "Statistics.Confidence.More.Info";
     t[49783] = "Zur Ausgabe von Konfidenzintervallen sind stochatisch unabh\u00e4ngige Messwerte notwendig.<br>\nDie w\u00e4hrend der Simulation eines Warteschlangensystems erfassten Gr\u00f6\u00dfen sind \u00fcblicherweise jedoch nicht unabh\u00e4ngig.<br>\nDaher m\u00fcssen die Messwerte zur Ausgabe von Konfidenzintervallen in Gruppen, zwischen denen es dann (fast) keine Abh\u00e4ngigkeiten<br>\n mehr gibt, zusammengefasst werden. Dies geschieht \u00fcblicherweise \u00fcber die Batch-Means-Methode.\n</p>\n<p><br></p>\n<p>\nDurch die Aufteilung der Simulation auf mehrere Threads steht bereits eine (recht grobe) Gruppierung zur Verf\u00fcgung.<br>\nDie aktuell angezeigten Konfidenzdaten basieren auf dieser groben Aufteilung und stellen daher eine obere Absch\u00e4tzung dar.\n</p>\n<p><br></p>\n<p>\nDie Erfassung von Batch-Means-basierenden Konfidenzintervallen kann auf der Dialogseite <b>Ausgabeanalyse</b><br>\nim <b>Modelleigenschaften</b>-Dialog aktiviert werden. Daf\u00fcr muss eine Batch-Gr\u00f6\u00dfe vorgegeben werden.<br>\nDiese kann vorab \u00fcber den Men\u00fcpunkt <b>Statistik-Batch-Gr\u00f6\u00dfe bestimmen</b> im <b>Simulation</b>-Men\u00fc<br>\nautomatisch bestimmt werden.\n</p>";
     t[49786] = "Editor.DialogBase.Search.TransporterGroup.Failure.DownTimeDistribution";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54219] = "XML-Element";
     t[54224] = "ModelSecurityCheck.Column.StationName";
     t[54225] = "Stationsname";
-    t[54226] = "Statistic.Viewer.Toolbar.SelectAll.Hint";
-    t[54227] = "Alle Eintr\u00e4ge ausw\u00e4hlen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[54226] = "Statistic.Viewer.Toolbar.SelectAll.Hint";
+    t[54227] = "Alle Eintr\u00e4ge ausw\u00e4hlen";
     t[54228] = "UndoRedoSelect.Save";
     t[54229] = "Speichern";
     t[54230] = "Git.List.Tab.Server.Button.Push.Hint";

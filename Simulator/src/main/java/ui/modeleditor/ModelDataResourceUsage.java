@@ -28,4 +28,14 @@ public interface ModelDataResourceUsage {
 	 * @return	Zuordnung von Ressourcennamen und Anzahl an (belegten) Bedienern
 	 */
 	Map<String,Integer> getUsedResourcesInfo();
+
+	/**
+	 * Stellt ein, dass eine angegebene Ressource in der angegebenen Vielfachheit
+	 * benötigt wird. Ob die Ressource dabei zu einer Liste hinzugefügt wird oder
+	 * eine neue Alternative zur Ressourcennutzung angelegt wird, entscheidet
+	 * dabei die konkrete Station.
+	 * @param resourceName	Name der Ressource
+	 * @param neededNumber	Vielfachheit mit der die Ressource benötigt werden soll
+	 */
+	void addResourceUsage(final String resourceName, final int neededNumber);
 }
