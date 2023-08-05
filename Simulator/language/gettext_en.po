@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-02 08:56+0200\n"
+"POT-Creation-Date: 2023-08-03 00:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13149,6 +13149,15 @@ msgstr "Transfer time"
 
 msgid "ModelDescription.Process.ProcessTimeType.Waiting"
 msgstr "Waiting time"
+
+msgid "ModelDescription.Process.ResourceCheckOrder"
+msgstr "Availability check of the resource alternatives"
+
+msgid "ModelDescription.Process.ResourceCheckOrder.InOrder"
+msgstr "In specified order"
+
+msgid "ModelDescription.Process.ResourceCheckOrder.Random"
+msgstr "In random order"
 
 msgid "ModelDescription.Process.ResourcePriority"
 msgstr "Priority for requesting resources"
@@ -31994,6 +32003,15 @@ msgstr "Invalid priority"
 msgid "Surface.Process.Dialog.Priority.Priority"
 msgstr "Priority"
 
+msgid "Surface.Process.Dialog.ResourceCheckOrder"
+msgstr "Check resource alternatives for availability"
+
+msgid "Surface.Process.Dialog.ResourceCheckOrder.InOrder"
+msgstr "In specified order"
+
+msgid "Surface.Process.Dialog.ResourceCheckOrder.Random"
+msgstr "In random order"
+
 msgid "Surface.Process.Dialog.ResourcePriority"
 msgstr "Resource priority"
 
@@ -32212,6 +32230,9 @@ msgstr "Count"
 
 msgid "Surface.Process.XML.Operators.Group"
 msgstr "Group"
+
+msgid "Surface.Process.XML.OperatorsCheckInRandomOrder"
+msgstr "ModelElementOperatorsRandom"
 
 msgid "Surface.Process.XML.OperatorsPriority"
 msgstr "ModelElementOperatorsPriority"

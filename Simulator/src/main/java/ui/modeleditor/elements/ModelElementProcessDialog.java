@@ -113,6 +113,8 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 
 	/** Eingabefeld zur Konfiguration der Ressourcen-Zuweisungs-Priorität der Station */
 	private JTextField textResourcePriority;
+	/** Reihenfolge in der die Ressourcen-Alternativen auf Verfügbarkeit geprüft werden (in angegebener Reihenfolge oder zufällig) */
+	private JComboBox<String> resourceCheckOrder;
 	/** Panel in dem {@link #resourceAssistantUse} angeboten wird */
 	private JPanel resourceAssistant;
 	/** Schaltfläche "Neue Bedienergruppe anlegen" */
@@ -190,7 +192,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		variables=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true);
 
 		tabs=new JTabbedPane();
-		JPanel tab, area, sub;
+		JPanel tab, area, sub, line;
 		JLabel label;
 
 		/* Tab "Bedienzeiten" */
@@ -310,6 +312,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 
 		tab.add(area=new JPanel(),BorderLayout.NORTH);
 		area.setLayout(new BoxLayout(area,BoxLayout.PAGE_AXIS));
+
 		Object[] data=getInputPanel(Language.tr("Surface.Process.Dialog.ResourcePriority")+":",process.getResourcePriority());
 		textResourcePriority=(JTextField)data[1];
 		area.add(sub=(JPanel)data[0]);
@@ -320,6 +323,17 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkInput(false);}
 			@Override public void keyPressed(KeyEvent e) {checkInput(false);}
 		});
+
+		area.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel(Language.tr("Surface.Process.Dialog.ResourceCheckOrder")+":"));
+		line.add(resourceCheckOrder=new JComboBox<>(new String[] {
+				Language.tr("Surface.Process.Dialog.ResourceCheckOrder.InOrder"),
+				Language.tr("Surface.Process.Dialog.ResourceCheckOrder.Random")
+		}));
+		label.setLabelFor(resourceCheckOrder);
+		resourceCheckOrder.setSelectedIndex(process.isResourceCheckInRandomOrder()?1:0);
+		resourceCheckOrder.setEnabled(!readOnly);
+
 		area.add(resourceAssistant=getAssistentPanel());
 
 		tab.add(resourceData=new MultiResourceTable(process,helpRunnable,readOnly,()->updateTabTitles()),BorderLayout.CENTER);
@@ -575,6 +589,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		tablePriorityModel.storeData();
 
 		process.setResourcePriority(textResourcePriority.getText());
+		process.setResourceCheckInRandomOrder(resourceCheckOrder.getSelectedIndex()==1);
 		resourceData.store();
 
 		process.setCosts(textCosts.getText());

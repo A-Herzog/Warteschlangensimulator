@@ -843,13 +843,14 @@
   Modus     CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementBedienstation (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBatch | ModellElementKampagnenModus | ModellElementWarteabbruchInRuestzeit | ModellElementVerteilung | ModellElementAusdruck | ModellElementRuestzeitVerteilung | ModellElementRuestzeitAusdruck | ModellElementPrioritaet | ModellElementBediener | ModellElementBedienerPrioritaet | ModellElementBedienstationKosten | ModellElementKostenZeit)*>
+<!ELEMENT ModellElementBedienstation (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBatch | ModellElementKampagnenModus | ModellElementWarteabbruchInRuestzeit | ModellElementVerteilung | ModellElementAusdruck | ModellElementRuestzeitVerteilung | ModellElementRuestzeitAusdruck | ModellElementPrioritaet | ModellElementBediener | ModellElementBedienerZufaellig | ModellElementBedienerPrioritaet | ModellElementBedienstationKosten | ModellElementKostenZeit)*>
 <!ATTLIST ModellElementBedienstation
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
   statistik		CDATA	#IMPLIED
   SymbolSpiegeln	CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementBedienerZufaellig (#PCDATA)>
 <!ELEMENT ModellElementPrioritaet (#PCDATA)>
 <!ATTLIST ModellElementPrioritaet
   Kundentyp CDATA	#REQUIRED
@@ -3509,13 +3510,14 @@
   Mode          CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementProcessStation (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBatchData | ModelElementCampaignMode | ModelElementCanCancelInSetupTime | ModelElementDistribution | ModelElementExpression | ModelElementSetupTimesDistribution | ModelElementSetupTimesExpression | ModelElementPriority | ModelElementOperators | ModelElementOperatorsPriority | ModelElementStationCosts | ModelElementTimeCosts)*>
+<!ELEMENT ModelElementProcessStation (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBatchData | ModelElementCampaignMode | ModelElementCanCancelInSetupTime | ModelElementDistribution | ModelElementExpression | ModelElementSetupTimesDistribution | ModelElementSetupTimesExpression | ModelElementPriority | ModelElementOperators | ModelElementOperatorsRandom | ModelElementOperatorsPriority | ModelElementStationCosts | ModelElementTimeCosts)*>
 <!ATTLIST ModelElementProcessStation
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
   statistics	CDATA	#IMPLIED
   MirrorSymbol	CDATA	#IMPLIED
 >
+<!ELEMENT ModelElementOperatorsRandom (#PCDATA)>
 <!ELEMENT ModelElementPriority (#PCDATA)>
 <!ATTLIST ModelElementPriority
   ClientType CDATA	#REQUIRED

@@ -96,6 +96,8 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 	public String resourcePriority;
 	/** Ressourcenbedarf pro Ressourcen-Alternative */
 	public int[][] resources;
+	/** Soll die Ressourcenverfügbarkeit in der angegebenen Ressourcen-Alternativen-Reihenfolge (<code>false</code>) oder in zufälliger Reihenfolge (<code>true</code>) geprüft werden? */
+	public boolean resourceCheckInRandomOrder;
 
 	/**
 	 * Kosten pro Bedienvorgang
@@ -261,6 +263,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		if (res==null || res.length==0) return String.format(Language.tr("Simulation.Creator.ProcessResource"),element.getId());
 		for (int[] r: res) if (r==null || r.length==0) return String.format(Language.tr("Simulation.Creator.ProcessResource"),element.getId());
 		process.resources=res;
+
+		/* Ressourcen-Alternativen-Prüfreihenfolge */
+		process.resourceCheckInRandomOrder=(process.resources.length>1) && processElement.isResourceCheckInRandomOrder();
 
 		/* Kosten */
 		String text;
@@ -747,7 +752,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 					}
 
 					/* Gibt es freie Bediener? */
-					for (int i=0;i<resources.length;i++) {
+					int startIndex=resourceCheckInRandomOrder?((int)Math.floor(Math.random()*resources.length)):0;
+					int i=startIndex;
+					while (true) {
 						final double additionalTime=simData.runData.resources.tryLockResources(resources[i],simData,id);
 						if (additionalTime>=0) {
 							/* Fixe Batch-Größe oder wir sind bereits im ProcessWaitingClientsEvent-Fall (oder Check durch freigewordenen Bediener). */
@@ -759,6 +766,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 							clientServingStarted=true;
 							break;
 						}
+						i++;
+						if (i>=resources.length) i=0;
+						if (i==startIndex) break;
 					}
 				}
 

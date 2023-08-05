@@ -218,6 +218,13 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	private String resourcePriority;
 
 	/**
+	 * Soll die Ressourcenverfügbarkeit in der angegebenen Ressourcen-Alternativen-Reihenfolge (<code>false</code>) oder in zufälliger Reihenfolge (<code>true</code>) geprüft werden?
+	 * @see #isResourceCheckInRandomOrder()
+	 * @see #setResourceCheckInRandomOrder(boolean)
+	 */
+	private boolean resourceCheckInRandomOrder;
+
+	/**
 	 * Kosten pro Bedienvorgang
 	 * @see #getCosts()
 	 * @see #setCosts(String)
@@ -268,6 +275,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		priority=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		resources=new ArrayList<>();
 		resourcePriority=DEFAULT_RESOURCE_PRIORITY;
+		resourceCheckInRandomOrder=false;
 
 		costs="0";
 		costsPerProcessSecond="0";
@@ -388,6 +396,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 			}
 		}
 		if (!resourcePriority.equalsIgnoreCase(process.resourcePriority)) return false;
+		if (resourceCheckInRandomOrder!=process.resourceCheckInRandomOrder) return false;
 
 		/* Kosten */
 		if (!Objects.equal(costs,process.costs)) return false;
@@ -458,6 +467,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 				for (Map.Entry<String,Integer> entry: map.entrySet()) copy.put(entry.getKey(),entry.getValue());
 			}
 			resourcePriority=process.resourcePriority;
+			resourceCheckInRandomOrder=process.resourceCheckInRandomOrder;
 
 			/* Kosten */
 			costs=process.costs;
@@ -682,6 +692,11 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Process.XML.OperatorsPriority")));
 		sub.setTextContent(resourcePriority);
 
+		if (resourceCheckInRandomOrder) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Process.XML.OperatorsCheckInRandomOrder")));
+			sub.setTextContent("1");
+		}
+
 		if (costs!=null && !costs.trim().isEmpty() && ! costs.trim().equals("0")) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Process.XML.StationCosts")));
 			sub.setTextContent(costs);
@@ -824,6 +839,10 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 			return null;
 		}
 
+		if (Language.trAll("Surface.Process.XML.OperatorsCheckInRandomOrder",name)) {
+			resourceCheckInRandomOrder=content.equals("1");
+			return null;
+		}
 
 		if (Language.trAll("Surface.Process.XML.StationCosts",name)) {
 			if (!content.isEmpty()) costs=content;
@@ -1401,6 +1420,25 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		resourcePriority=newResourcePriority;
 	}
 
+
+	/**
+	 * Soll die Ressourcenverfügbarkeit in der angegebenen Ressourcen-Alternativen-Reihenfolge oder in zufälliger Reihenfolge geprüft werden?
+	 * @return	Soll die Ressourcenverfügbarkeit in der angegebenen Ressourcen-Alternativen-Reihenfolge (<code>false</code>) oder in zufälliger Reihenfolge (<code>true</code>) geprüft werden?
+	 * @see #setResourceCheckInRandomOrder(boolean)
+	 */
+	public boolean isResourceCheckInRandomOrder() {
+		return resourceCheckInRandomOrder;
+	}
+
+	/**
+	 * Soll die Ressourcenverfügbarkeit in der angegebenen Ressourcen-Alternativen-Reihenfolge oder in zufälliger Reihenfolge geprüft werden?
+	 * @param resourceCheckInRandomOrder	Soll die Ressourcenverfügbarkeit in der angegebenen Ressourcen-Alternativen-Reihenfolge (<code>false</code>) oder in zufälliger Reihenfolge (<code>true</code>) geprüft werden?
+	 * @see #isResourceCheckInRandomOrder()
+	 */
+	public void setResourceCheckInRandomOrder(boolean resourceCheckInRandomOrder) {
+		this.resourceCheckInRandomOrder=resourceCheckInRandomOrder;
+	}
+
 	/**
 	 * Liefert die verwendete Zeitbasis (ob die Verteilungs-/Ausdruckswerte Sekunden-, Minuten- oder Stunden-Angaben darstellen sollen)
 	 * @return	Verwendete Zeitbasis
@@ -1679,6 +1717,15 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 			}
 		}
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.Process.Resources"),sb.toString(),9000);
+
+		/* Prüfung der Alternativen in zufälliger Reihenfolge */
+		if (resources.size()>1) {
+			if (resourceCheckInRandomOrder) {
+				descriptionBuilder.addProperty(Language.tr("ModelDescription.Process.ResourceCheckOrder"),Language.tr("ModelDescription.Process.ResourceCheckOrder.Random"),9500);
+			} else {
+				descriptionBuilder.addProperty(Language.tr("ModelDescription.Process.ResourceCheckOrder"),Language.tr("ModelDescription.Process.ResourceCheckOrder.InOrder"),9500);
+			}
+		}
 
 		/* Ressourcenpriorität */
 		if (resourcePriority!=null && !resourcePriority.trim().isEmpty()) {

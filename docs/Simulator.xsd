@@ -1073,6 +1073,7 @@
 	<xs:element ref="ModellElementRuestzeitAusdruck"/>
 	<xs:element ref="ModellElementPrioritaet"/>
 	<xs:element ref="ModellElementBediener"/>	
+	<xs:element name="ModellElementBedienerZufaellig" type="xs:string"/>
     <xs:element name="ModellElementBedienerPrioritaet" type="xs:string"/>
 	<xs:element name="ModellElementBedienstationKosten" type="xs:string"/>
 	<xs:element ref="ModellElementKostenZeit"/>
@@ -3525,6 +3526,7 @@
 	<xs:element ref="ModelElementSetupTimesExpression"/>
 	<xs:element ref="ModelElementPriority"/>
 	<xs:element ref="ModelElementOperators"/>	
+	<xs:element name="ModelElementOperatorsRandom" type="xs:string"/>
     <xs:element name="ModelElementOperatorsPriority" type="xs:string"/>
 	<xs:element name="ModelElementStationCosts" type="xs:string"/>
 	<xs:element ref="ModelElementTimeCosts"/>	
