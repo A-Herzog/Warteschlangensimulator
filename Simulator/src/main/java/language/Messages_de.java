@@ -15326,6 +15326,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34725] = "Text";
     t[34728] = "ParameterCompare.ScriptRunner.Results.Copy";
     t[34729] = "Kopieren";
+    t[34732] = "Surface.Action.XML.Record.Condition.Signal";
+    t[34733] = "Signal";
     t[34734] = "Editor.AddEdge.Hint.RemoveButton";
     t[34735] = "Ausblenden";
     t[34738] = "Surface.Process.XML.TimeType.Nothing";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36377] = "Genetischer Algorithmus";
     t[36384] = "Surface.Decide.ByCondition";
     t[36385] = "Bedingung";
-    t[36386] = "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.ElementDescription";
-    t[36387] = "Elementbeschreibungen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36386] = "SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode.ElementDescription";
+    t[36387] = "Elementbeschreibungen";
     t[36392] = "Statistic.FastAccess.Template.ResidenceTime.ByStationTotal";
     t[36393] = "Verweilzeit an einer Station (summiert \u00fcber mehrfache Kundenank\u00fcnfte)";
     t[36396] = "Surface.DelayJS.XML.Root";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40811] = "Benutzerdefinierte \u00dcberschriftzeile";
     t[40828] = "Statistics.XML.Variables";
     t[40829] = "StatistikVariablen";
-    t[40830] = "ExpressionBuilder.SimulationCharacteristics.Comparisons.Greater.Info";
-    t[40831] = "<p>Pr\u00fcft, ob der Ausdruck vor dem &gt; Operator gr\u00f6\u00dfer als der Ausdruck nach dem Vergleichsoperator ist.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40830] = "ExpressionBuilder.SimulationCharacteristics.Comparisons.Greater.Info";
+    t[40831] = "<p>Pr\u00fcft, ob der Ausdruck vor dem &gt; Operator gr\u00f6\u00dfer als der Ausdruck nach dem Vergleichsoperator ist.</p>";
     t[40832] = "ExpressionBuilder.ElementNoName";
     t[40833] = "kein Name angegeben";
     t[40834] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.EditValue.ErrorNumber";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45247] = "Ausdruck fehlerhaft";
     t[45256] = "Git.List.Delete";
     t[45257] = "L\u00f6schen";
-    t[45260] = "Editor.DialogBase.Search.InterarrivalArrival.Threshold.Expression";
-    t[45261] = "Ankunftsschwellenwertausdruck";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45260] = "Editor.DialogBase.Search.InterarrivalArrival.Threshold.Expression";
+    t[45261] = "Ankunftsschwellenwertausdruck";
     t[45268] = "ModelDescription.SourceDDE.Column";
     t[45269] = "Spalte";
     t[45270] = "Statistics.UtilizationRho.Mean";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49743] = "Modell im Hintergrund simulieren wenn sinnvoll";
     t[49746] = "Compare.LoadStatisticData";
     t[49747] = "Statistikdaten laden";
-    t[49748] = "SettingsDialog.ModellSecurity.AllowAll";
-    t[49749] = "Laden immer zulassen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[49748] = "SettingsDialog.ModellSecurity.AllowAll";
+    t[49749] = "Laden immer zulassen";
     t[49754] = "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.Quantil";
     t[49755] = "<p>Liefert das Quantil zur Wahrscheinlichkeit p der Dauer \u00fcber alle R\u00fcstzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind.</p>\n<p>Achtung: Die R\u00fcstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>";
     t[49758] = "ExpressionCalculator.Results.NoResult";
@@ -22718,8 +22720,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[51129] = "Tabelle in Excel anzeigen";
     t[51134] = "Optimizer.Toolbar.Start";
     t[51135] = "Optimierung starten";
-    t[51136] = "Surface.Action.XML.Record.Condition.Signal";
-    t[51137] = "Signal";
+    t[51136] = "Statistic.Viewer.Toolbar.Copy.HintPlain";
+    t[51137] = "<html><body>Kopiert die Ergebnisse von dieser Seite in die Zwischenablage.<br>(Umschalt+Klick = ohne Tabellenrahmen kopieren)</body></html>";
     t[51144] = "Statistics.ModelRemarks.LargeNRelative.Station";
     t[51145] = "Hohe mittlere Anzahl an Kunden an Station \"%s\" (relativ zu den anderen Stationen): E[N]=%s";
     t[51146] = "LogSimulation.StationIDs";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54191] = "I";
     t[54194] = "Editor.Dialog.Tab.RunTimeStatistics.Table.MoveUp";
     t[54195] = "Nach oben verschieben";
-    t[54196] = "Surface.InteractiveRadiobutton.Dialog.Variable.ErrorTitle";
-    t[54197] = "Ung\u00fcltiger Variablenname";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[54196] = "Surface.InteractiveRadiobutton.Dialog.Variable.ErrorTitle";
+    t[54197] = "Ung\u00fcltiger Variablenname";
     t[54198] = "ParameterCompare.Table.AddModelByAssistant.Column.Parameter";
     t[54199] = "Parameter";
     t[54200] = "Setup.SaveError.Title";

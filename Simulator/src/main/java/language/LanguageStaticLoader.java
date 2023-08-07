@@ -757,6 +757,7 @@ public class LanguageStaticLoader {
 		StatisticsBasePanel.viewersToolbarZoomHintPanel=Language.tr("Statistic.Viewer.Toolbar.Zoom.HintPanel");
 		StatisticsBasePanel.viewersToolbarCopy=Language.tr("Statistic.Viewer.Toolbar.Copy");
 		StatisticsBasePanel.viewersToolbarCopyHint=Language.tr("Statistic.Viewer.Toolbar.Copy.Hint");
+		StatisticsBasePanel.viewersToolbarCopyHintPlain=Language.tr("Statistic.Viewer.Toolbar.Copy.HintPlain");
 		StatisticsBasePanel.viewersToolbarCopyDefaultSize=Language.tr("Statistic.Viewer.Toolbar.Copy.DefaultSize");
 		StatisticsBasePanel.viewersToolbarCopyWindowSize=Language.tr("Statistic.Viewer.Toolbar.Copy.WindowSize");
 		StatisticsBasePanel.viewersToolbarPrint=Language.tr("Statistic.Viewer.Toolbar.Print");

@@ -341,6 +341,8 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String viewersToolbarCopy="Kopieren";
 	/** Bezeichner für den Tooltip für das Toolbar-Button "Kopieren" */
 	public static String viewersToolbarCopyHint="Kopiert die Ergebnisse von dieser Seite in die Zwischenablage.";
+	/** Bezeichner für den Tooltip für das Toolbar-Button "Kopieren" wenn auch ein Kopieren ohne Tabellenrahmen möglich ist */
+	public static String viewersToolbarCopyHintPlain="<html><body>Kopiert die Ergebnisse von dieser Seite in die Zwischenablage.<br>(Umschalt+Klick = ohne Tabellenrahmen kopieren)</body></html>";
 	/** Popupmenü Bezeichner für Kopieren in Standardgröße */
 	public static String viewersToolbarCopyDefaultSize="In Standardgröße (%dx%d Pixel) kopieren";
 	/** Popupmenü Bezeichner für Kopieren in Fenstergröße */
@@ -845,12 +847,16 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 
 		SwingUtilities.invokeLater(()->{
 			final KeyStroke keyCtrlC=KeyStroke.getKeyStroke(KeyEvent.VK_C,InputEvent.CTRL_DOWN_MASK,true); /* true=Beim Loslassen erkennen; muss gesetzt sein, da die Subviewer die anderen Hotkeys teilweise aufhalten */
+			final KeyStroke keyCtrlShiftC=KeyStroke.getKeyStroke(KeyEvent.VK_C,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK,true); /* true=Beim Loslassen erkennen; muss gesetzt sein, da die Subviewer die anderen Hotkeys teilweise aufhalten */
 			final KeyStroke keyCtrlIns=KeyStroke.getKeyStroke(KeyEvent.VK_INSERT,InputEvent.CTRL_DOWN_MASK,true);  /* true=Beim Loslassen erkennen; muss gesetzt sein, da die Subviewer die anderen Hotkeys teilweise aufhalten */
+			final KeyStroke keyCtrlShiftIns=KeyStroke.getKeyStroke(KeyEvent.VK_INSERT,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK,true);  /* true=Beim Loslassen erkennen; muss gesetzt sein, da die Subviewer die anderen Hotkeys teilweise aufhalten */
 			final KeyStroke keyCtrlB=KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_DOWN_MASK);
 			final KeyStroke keyCtrlShiftB=KeyStroke.getKeyStroke(KeyEvent.VK_B,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK);
 			final KeyStroke keyCtrlF=KeyStroke.getKeyStroke(KeyEvent.VK_F,InputEvent.CTRL_DOWN_MASK);
 			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlC,"CopyViewer");
 			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlIns,"CopyViewer");
+			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlShiftC,"CopyViewerPlain");
+			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlShiftIns,"CopyViewerPlain");
 			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlB,"NextBookmark");
 			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlShiftB,"ToggleBookmark");
 			getInputMap(WHEN_IN_FOCUSED_WINDOW).put(keyCtrlF,"StatisticSearch");
@@ -866,6 +872,20 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 				if (viewer.getType()==ViewerType.TYPE_TEXT || viewer.getType()==ViewerType.TYPE_SPECIAL) return; /* Die eigene Kopierroutinen verwenden (für Teile des Textes). Hier immer alles zu kopieren, würde erheblich stören. */
 				if (!viewer.getCanDo(StatisticViewer.CanDoAction.CAN_DO_COPY)) return;
 				viewer.copyToClipboard(Toolkit.getDefaultToolkit().getSystemClipboard());
+			}
+		});
+
+		getActionMap().put("CopyViewerPlain",new AbstractAction() {
+			private static final long serialVersionUID=-6623702284938573232L;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (dataViewer==null  || dataViewer.length!=1 || dataViewer[0]==null) return;
+				if (!(dataViewer[0] instanceof StatisticViewer)) return;
+				final StatisticViewer viewer=dataViewer[0];
+				if (viewer.getType()==ViewerType.TYPE_TEXT || viewer.getType()==ViewerType.TYPE_SPECIAL) return; /* Die eigene Kopierroutinen verwenden (für Teile des Textes). Hier immer alles zu kopieren, würde erheblich stören. */
+				if (!viewer.getCanDo(StatisticViewer.CanDoAction.CAN_DO_COPY)) return;
+				if (!viewer.getCanDo(StatisticViewer.CanDoAction.CAN_DO_COPY_PLAIN)) return;
+				viewer.copyToClipboardPlain(Toolkit.getDefaultToolkit().getSystemClipboard());
 			}
 		});
 
@@ -1797,6 +1817,9 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		dataViewer[index]=viewer;
 		if (component!=null) dataPanel[index].add(component,BorderLayout.CENTER);
 
+		/* Tooltips der Kopieren-Schaltflächen anpassen */
+		copy[index].setToolTipText((viewer!=null && viewer.getCanDo(StatisticViewer.CanDoAction.CAN_DO_COPY_PLAIN))?viewersToolbarCopyHintPlain:viewersToolbarCopyHint);
+
 		/* Ist leider nötig, damit der neue Viewer auch wirklich sofort aktiviert wird. */
 		dataPanel[index].revalidate();
 		dataPanel[index].repaint();
@@ -1869,7 +1892,13 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			for (int i=0;i<dataPanel.length;i++) {
 				if (dataViewer[i]==null) continue;
 				if (sender==zoom[i]) dataViewer[i].unZoom();
-				if (sender==copy[i]) dataViewer[i].copyToClipboard(Toolkit.getDefaultToolkit().getSystemClipboard());
+				if (sender==copy[i]) {
+					if ((e.getModifiers() & ActionEvent.SHIFT_MASK)!=0 && dataViewer[i].getCanDo(CanDoAction.CAN_DO_COPY_PLAIN)) {
+						dataViewer[i].copyToClipboardPlain(Toolkit.getDefaultToolkit().getSystemClipboard());
+					} else {
+						dataViewer[i].copyToClipboard(Toolkit.getDefaultToolkit().getSystemClipboard());
+					}
+				}
 				if (sender==print[i]) dataViewer[i].print();
 				if (sender==save[i]) dataViewer[i].save(getOwnerWindow());
 				if (sender==nav[i]) dataViewer[i].navigation(nav[i]);

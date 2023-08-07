@@ -268,6 +268,7 @@ public class StatisticViewerTable implements StatisticViewer {
 		switch (canDoType) {
 		case CAN_DO_UNZOOM: return false;
 		case CAN_DO_COPY: return true;
+		case CAN_DO_COPY_PLAIN: return true;
 		case CAN_DO_PRINT: return true;
 		case CAN_DO_SAVE: return true;
 		case CAN_DO_SEARCH: return true;
@@ -752,9 +753,28 @@ public class StatisticViewerTable implements StatisticViewer {
 		return new StringSelection(s.toString());
 	}
 
+	private Transferable getTransferablePlain() {
+		if (columnNames.isEmpty()) buildTable();
+
+		final StringBuilder s=new StringBuilder();
+		final int size=showTable.getSize(0);
+		for (int i=0;i<size;i++) {
+			final List<String> line=new ArrayList<>(showTable.getLine(i));
+			line.remove(0);
+			addListToStringBuilder(s,line);
+		}
+		return new StringSelection(s.toString());
+	}
+
 	@Override
 	public void copyToClipboard(Clipboard clipboard) {
 		final Transferable transferable=getTransferable();
+		if (transferable!=null) clipboard.setContents(transferable,null);
+	}
+
+	@Override
+	public void copyToClipboardPlain(Clipboard clipboard) {
+		final Transferable transferable=getTransferablePlain();
 		if (transferable!=null) clipboard.setContents(transferable,null);
 	}
 

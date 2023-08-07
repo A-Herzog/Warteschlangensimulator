@@ -120,6 +120,12 @@ public interface StatisticViewer {
 		CAN_DO_COPY,
 
 		/**
+		 * Gibt an, ob die Viewer-Daten ohne Rahmen in die Zwischenablage kopiert werden können
+		 * @see StatisticViewer#copyToClipboardPlain(Clipboard)
+		 */
+		CAN_DO_COPY_PLAIN,
+
+		/**
 		 * Gibt an, ob die Viewer-Daten gespeichert werden können
 		 * @see StatisticViewer#save(Component)
 		 */
@@ -182,6 +188,12 @@ public interface StatisticViewer {
 	 * @param clipboard	System-Zwischenablage
 	 */
 	void copyToClipboard(Clipboard clipboard);
+
+	/**
+	 * Kopiert die Daten in der aktuellen Variante ohne Rahmen in die Zwischenablage.
+	 * @param clipboard	System-Zwischenablage
+	 */
+	default void copyToClipboardPlain(Clipboard clipboard) {}
 
 	/**
 	 * Druckt die Daten in der aktuellen Variante aus.

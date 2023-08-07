@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-03 00:27+0200\n"
+"POT-Creation-Date: 2023-08-04 09:16+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22337,6 +22337,9 @@ msgstr "Copy using default size (%dx%d pixels)"
 
 msgid "Statistic.Viewer.Toolbar.Copy.Hint"
 msgstr "Copies the results from this page to the clipboard."
+
+msgid "Statistic.Viewer.Toolbar.Copy.HintPlain"
+msgstr "<html><body>Copies the results from this page to the clipboard.<br>(Shift+Click = Copy without table frame)</body></html>"
 
 msgid "Statistic.Viewer.Toolbar.Copy.WindowSize"
 msgstr "Copy using window size (%dx%d pixels)"
