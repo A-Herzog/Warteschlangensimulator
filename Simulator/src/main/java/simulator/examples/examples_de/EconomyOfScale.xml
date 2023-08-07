@@ -50,19 +50,19 @@ so variiert, dass stets rho=E[S]/E[I]/c=80% gilt.</ModellBeschreibung>
       <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="6">
-      <ModellElementGroesse h="23" w="157" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="156" x="50" y="50"/>
       <ModellElementTextzeile>Economy of scale</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="7">
-      <ModellElementGroesse h="19" w="54" x="50" y="125"/>
+      <ModellElementGroesse h="19" w="55" x="50" y="125"/>
       <ModellElementTextzeile>E[I]=100</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="8">
-      <ModellElementGroesse h="19" w="148" x="300" y="125"/>
+      <ModellElementGroesse h="19" w="147" x="300" y="125"/>
       <ModellElementTextzeile>c=1, E[S]=80 \to \rho=80%</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
@@ -102,13 +102,13 @@ so variiert, dass stets rho=E[S]/E[I]/c=80% gilt.</ModellBeschreibung>
       <ModellElementVerbindung Element1="9" Element2="11" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="14">
-      <ModellElementGroesse h="19" w="46" x="50" y="275"/>
+      <ModellElementGroesse h="19" w="47" x="50" y="275"/>
       <ModellElementTextzeile>E[I]=50</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="15">
-      <ModellElementGroesse h="19" w="148" x="300" y="275"/>
+      <ModellElementGroesse h="19" w="147" x="300" y="275"/>
       <ModellElementTextzeile>c=2, E[S]=80 \to \rho=80%</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
@@ -148,13 +148,13 @@ so variiert, dass stets rho=E[S]/E[I]/c=80% gilt.</ModellBeschreibung>
       <ModellElementVerbindung Element1="16" Element2="18" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="21">
-      <ModellElementGroesse h="19" w="58" x="50" y="425"/>
+      <ModellElementGroesse h="19" w="59" x="50" y="425"/>
       <ModellElementTextzeile>E[I]=33,3</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="22">
-      <ModellElementGroesse h="19" w="148" x="300" y="425"/>
+      <ModellElementGroesse h="19" w="147" x="300" y="425"/>
       <ModellElementTextzeile>c=3, E[S]=80 \to \rho=80%</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
@@ -194,13 +194,13 @@ so variiert, dass stets rho=E[S]/E[I]/c=80% gilt.</ModellBeschreibung>
       <ModellElementVerbindung Element1="23" Element2="25" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="28">
-      <ModellElementGroesse h="19" w="46" x="50" y="575"/>
+      <ModellElementGroesse h="19" w="47" x="50" y="575"/>
       <ModellElementTextzeile>E[I]=25</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="29">
-      <ModellElementGroesse h="19" w="148" x="300" y="575"/>
+      <ModellElementGroesse h="19" w="147" x="300" y="575"/>
       <ModellElementTextzeile>c=4, E[S]=80 \to \rho=80%</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
@@ -240,19 +240,19 @@ so variiert, dass stets rho=E[S]/E[I]/c=80% gilt.</ModellBeschreibung>
       <ModellElementVerbindung Element1="30" Element2="32" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="35">
-      <ModellElementGroesse h="19" w="46" x="50" y="725"/>
+      <ModellElementGroesse h="19" w="47" x="50" y="725"/>
       <ModellElementTextzeile>E[I]=20</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="36">
-      <ModellElementGroesse h="19" w="148" x="300" y="725"/>
+      <ModellElementGroesse h="19" w="147" x="300" y="725"/>
       <ModellElementTextzeile>c=5, E[S]=80 \to \rho=80%</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="37">
-      <ModellElementGroesse h="57" w="471" x="50" y="900"/>
+      <ModellElementGroesse h="57" w="464" x="50" y="900"/>
       <ModellElementTextzeile>In allen Teilmodellen ist E[S]=80 eingestellt. E[I] wird in Abhängigkeit</ModellElementTextzeile>
       <ModellElementTextzeile>von c so gewählt, dass sich eine Auslastung von \rho=E[S]/E[I]/c=80% ergibt.</ModellElementTextzeile>
       <ModellElementTextzeile>Die 5 Modelle unterscheiden sich also nur in ihrer Größe.</ModellElementTextzeile>
@@ -276,35 +276,35 @@ so variiert, dass stets rho=E[S]/E[I]/c=80% gilt.</ModellBeschreibung>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementAnimationText id="39">
       <ModellElementName>Mittlere Wartezeit</ModellElementName>
-      <ModellElementGroesse h="30" w="73" x="300" y="215"/>
+      <ModellElementGroesse h="30" w="78" x="300" y="215"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="40">
       <ModellElementName>Mittlere Wartezeit</ModellElementName>
-      <ModellElementGroesse h="30" w="73" x="300" y="365"/>
+      <ModellElementGroesse h="30" w="78" x="300" y="365"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,127,80</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(9)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="41">
       <ModellElementName>Mittlere Wartezeit</ModellElementName>
-      <ModellElementGroesse h="30" w="73" x="300" y="515"/>
+      <ModellElementGroesse h="30" w="78" x="300" y="515"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,165,165</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(16)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="42">
       <ModellElementName>Mittlere Wartezeit</ModellElementName>
-      <ModellElementGroesse h="30" w="73" x="300" y="665"/>
+      <ModellElementGroesse h="30" w="78" x="300" y="665"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(23)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="43">
       <ModellElementName>Mittlere Wartezeit</ModellElementName>
-      <ModellElementGroesse h="30" w="73" x="300" y="815"/>
+      <ModellElementGroesse h="30" w="78" x="300" y="815"/>
       <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,180,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(30)</ModellElementAnimationsmodus>
@@ -325,19 +325,19 @@ so variiert, dass stets rho=E[S]/E[I]/c=80% gilt.</ModellBeschreibung>
       <ModellElementDiagrammElement Balkenfarbe="0,180,0">Flussgrad(30)</ModellElementDiagrammElement>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementText id="45">
-      <ModellElementGroesse h="19" w="271" x="800" y="125"/>
+      <ModellElementGroesse h="19" w="287" x="800" y="125"/>
       <ModellElementTextzeile>Mittlere Wartezeiten in den Teilsystemen</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="46">
-      <ModellElementGroesse h="19" w="213" x="800" y="425"/>
+      <ModellElementGroesse h="19" w="223" x="800" y="425"/>
       <ModellElementTextzeile>Flussgrade in den Teilsystemen</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="47">
-      <ModellElementGroesse h="45" w="302" x="800" y="705"/>
+      <ModellElementGroesse h="45" w="299" x="800" y="705"/>
       <ModellElementTextzeile>(Kleinere Werte bedeuten, dass die Wartezeiten relativ zu den</ModellElementTextzeile>
       <ModellElementTextzeile>Bedienzeiten kürzer sind. Der bestmögliche Flussgrad wäre 1</ModellElementTextzeile>
       <ModellElementTextzeile>und bedeutet, dass es überhaupt keine Wartezeiten gab.)</ModellElementTextzeile>
@@ -354,7 +354,7 @@ so variiert, dass stets rho=E[S]/E[I]/c=80% gilt.</ModellBeschreibung>
       <ModellElementDiagrammElement Segmentfarbe="240,240,240">(1-Resource_avg(1))/Resource_count(1)</ModellElementDiagrammElement>
     </ModellElementAnimationTortenDiagramm>
     <ModellElementText id="49">
-      <ModellElementGroesse h="19" w="321" x="1200" y="125"/>
+      <ModellElementGroesse h="19" w="337" x="1200" y="125"/>
       <ModellElementTextzeile>Auslastungen der Bediener in den Teilsystemen</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
@@ -395,6 +395,18 @@ so variiert, dass stets rho=E[S]/E[I]/c=80% gilt.</ModellBeschreibung>
       <ModellElementDiagrammElement Segmentfarbe="0,165,0">Resource_avg(5)/Resource_count(5)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Segmentfarbe="240,240,240">1-Resource_avg(5)/Resource_count(5)</ModellElementDiagrammElement>
     </ModellElementAnimationTortenDiagramm>
+    <ModellElementText id="54">
+      <ModellElementGroesse h="16" w="201" x="600" y="900"/>
+      <ModellElementTextzeile>**Analytische Vergleichsrechnungen:**</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementLink id="55">
+      <ModellElementGroesse h="19" w="189" x="600" y="920"/>
+      <ModellElementLinkText>a-herzog.github.io/QueueCalc</ModellElementLinkText>
+      <ModellElementLinkZiel>https://a-herzog.github.io/QueueCalc/</ModellElementLinkZiel>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+    </ModellElementLink>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig">
     <Ressource Name="Gruppe A" Typ="Anzahl" Wert="1"/>

@@ -2,7 +2,7 @@
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModelVersion>5.3.0</ModelVersion>
+  <ModelVersion>5.4.1</ModelVersion>
   <ModelName>Queueing system design</ModelName>
   <ModelDescription>Using the queueing calculator (see menu item Extras|Queueing calculator)
 one can check:
@@ -136,31 +136,31 @@ Average waiting time E[W]=7.03</ModelDescription>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="57">
-      <ModelElementSize h="19" w="283" x="655" y="55"/>
+      <ModelElementSize h="19" w="295" x="655" y="55"/>
       <ModelElementTextLine>2 parallel operators, 1 queue, E[S]=60 sec.</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,150,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="29">
-      <ModelElementSize h="19" w="291" x="655" y="205"/>
+      <ModelElementSize h="19" w="303" x="655" y="205"/>
       <ModelElementTextLine>2 parallel operators, 2 queues, E[S]=60 sec.</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="30">
-      <ModelElementSize h="19" w="223" x="655" y="455"/>
+      <ModelElementSize h="19" w="231" x="655" y="455"/>
       <ModelElementTextLine>1 operator, 1 queue, E[S]=30 sec.</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="31">
-      <ModelElementSize h="19" w="316" x="655" y="605"/>
+      <ModelElementSize h="19" w="326" x="655" y="605"/>
       <ModelElementTextLine>1 operator, 1 queue, E[S]=30 sec., batch size=2</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,165,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="32">
-      <ModelElementSize h="23" w="218" x="50" y="50"/>
+      <ModelElementSize h="23" w="219" x="50" y="50"/>
       <ModelElementTextLine>Queueing system design</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
@@ -275,14 +275,14 @@ Average waiting time E[W]=7.03</ModelDescription>
       <ModelElementAxisLabels>2</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="40">
-      <ModelElementSize h="19" w="249" x="50" y="530"/>
+      <ModelElementSize h="19" w="255" x="50" y="530"/>
       <ModelElementTextLine>Average number of clients in the queues</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="41">
       <ModelElementName>Average waiting time (in min.)</ModelElementName>
-      <ModelElementSize h="32" w="123" x="1400" y="50"/>
+      <ModelElementSize h="32" w="124" x="1400" y="50"/>
       <ModelElementFontSize bold="1">16</ModelElementFontSize>
       <ModelElementColor>0,180,0</ModelElementColor>
       <ModelElementAnimationMode Digits="2" Type="Number">WaitingTime_avg(33)/60</ModelElementAnimationMode>
@@ -296,7 +296,7 @@ Average waiting time E[W]=7.03</ModelDescription>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="43">
       <ModelElementName>Average waiting time (in min.)</ModelElementName>
-      <ModelElementSize h="32" w="123" x="1400" y="200"/>
+      <ModelElementSize h="32" w="124" x="1400" y="200"/>
       <ModelElementFontSize bold="1">16</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Digits="2" Type="Number">WaitingTime_avg(34)/60</ModelElementAnimationMode>
@@ -310,7 +310,7 @@ Average waiting time E[W]=7.03</ModelDescription>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="45">
       <ModelElementName>Average waiting time (in min.)</ModelElementName>
-      <ModelElementSize h="32" w="123" x="1400" y="520"/>
+      <ModelElementSize h="32" w="124" x="1400" y="520"/>
       <ModelElementFontSize bold="1">16</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Digits="2" Type="Number">WaitingTime_avg(10)/60</ModelElementAnimationMode>
@@ -324,7 +324,7 @@ Average waiting time E[W]=7.03</ModelDescription>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="47">
       <ModelElementName>Average waiting time (in min.)</ModelElementName>
-      <ModelElementSize h="32" w="123" x="1400" y="600"/>
+      <ModelElementSize h="32" w="124" x="1400" y="600"/>
       <ModelElementFontSize bold="1">16</ModelElementFontSize>
       <ModelElementColor>255,165,0</ModelElementColor>
       <ModelElementAnimationMode Digits="2" Type="Number">WaitingTime_avg(11)/60</ModelElementAnimationMode>
@@ -336,6 +336,18 @@ Average waiting time E[W]=7.03</ModelDescription>
       <ModelElementColor>255,165,0</ModelElementColor>
       <ModelElementAnimationMode Digits="2" Type="Number">ResidenceTime_avg(11)/60</ModelElementAnimationMode>
     </ModelElementAnimationText>
+    <ModelElementText id="49">
+      <ModelElementSize h="16" w="136" x="1400" y="680"/>
+      <ModelElementTextLine>**Analytical comparisons:**</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementLink id="50">
+      <ModelElementSize h="19" w="189" x="1400" y="700"/>
+      <ModelElementLinkText>a-herzog.github.io/QueueCalc</ModelElementLinkText>
+      <ModelElementLinkTarget>https://a-herzog.github.io/QueueCalc/</ModelElementLinkTarget>
+      <ModelElementFontSize>14</ModelElementFontSize>
+    </ModelElementLink>
   </ModelElements>
   <Resources SecondaryPriority="Random">
     <Resource Name="Kasse1" Type="Number" Value="2"/>
