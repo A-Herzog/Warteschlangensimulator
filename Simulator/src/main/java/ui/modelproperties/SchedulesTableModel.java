@@ -177,12 +177,18 @@ public class SchedulesTableModel extends JTableExtAbstractTableModel {
 		int count=schedule.getSlotCount();
 		int time=schedule.getDurationPerSlot();
 
-		StringBuilder sb=new StringBuilder();
-		if (count==1) sb.append(" 1 "+Language.tr("Schedule.TimeSlot.Singular")); else sb.append(" "+count+" "+Language.tr("Schedule.TimeSlot.Plural"));
-		sb.append(" a ");
-		sb.append(TimeTools.formatLongTime(time));
+		final StringBuilder result=new StringBuilder();
+		if (count==1) result.append(" 1 "+Language.tr("Schedule.TimeSlot.Singular")); else result.append(" "+count+" "+Language.tr("Schedule.TimeSlot.Plural"));
+		result.append(" a ");
+		result.append(TimeTools.formatLongTime(time));
+		result.append(", ");
+		result.append(Language.tr("Schedule.ValueRange"));
+		result.append(" ");
+		final int min=schedule.getSlots().stream().mapToInt(Integer::intValue).min().orElseGet(()->0);
+		final int max=schedule.getSlots().stream().mapToInt(Integer::intValue).max().orElseGet(()->0);
+		result.append(min+"-"+max);
 
-		return sb.toString();
+		return result.toString();
 	}
 
 	/**

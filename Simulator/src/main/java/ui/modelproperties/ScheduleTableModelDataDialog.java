@@ -27,6 +27,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.Serializable;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import javax.swing.AbstractAction;
@@ -106,42 +107,39 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 
 		/* Zeitslot-Editor */
 		content.add(schedulePanel=new SchedulePanel(schedule.getSlots(),editorMaxY,durationPerSlot,40),BorderLayout.CENTER);
+		schedulePanel.addStartPositionChanged(()->enableButtons());
 
 		/* Toolbar */
 		final JToolBar toolBar=new JToolBar();
 		toolBar.setFloatable(false);
 		content.add(toolBar,BorderLayout.NORTH);
 
-		toolBar.add(buttonHome=getButton(Language.tr("Schedule.EditDialog.ToTheStart"),Language.tr("Schedule.EditDialog.ToTheStart.Hint"),Images.GENERAL_HOME,button->{
-			schedulePanel.setStartPosition(0);
-			enableButtons();
-		}));
-		toolBar.add(buttonLeft=getButton(Language.tr("Schedule.EditDialog.TimeStepBack"),Language.tr("Schedule.EditDialog.TimeStepBack.Hint"),Images.ARROW_LEFT_SHORT,button->{
+		toolBar.add(buttonHome=getButton(Language.tr("Schedule.EditDialog.ToTheStart"),Language.tr("Schedule.EditDialog.ToTheStart.Hint"),Images.GENERAL_HOME,(button,e)->schedulePanel.setStartPosition(0)));
+		toolBar.add(buttonLeft=getButton(Language.tr("Schedule.EditDialog.TimeStepBack"),Language.tr("Schedule.EditDialog.TimeStepBack.Hint"),Images.ARROW_LEFT_SHORT,(button,e)->{
+			final int delta=((e.getModifiers() & ActionEvent.SHIFT_MASK)!=0)?Math.max(1,86400/durationPerSlot):1;
 			final int startSlot=schedulePanel.getStartPosition();
-			schedulePanel.setStartPosition(startSlot-1);
-			enableButtons();
+			schedulePanel.setStartPosition(startSlot-delta);
 		}));
-		toolBar.add(getButton(Language.tr("Schedule.EditDialog.TimeStepFurther"),Language.tr("Schedule.EditDialog.TimeStepFurther.Hint"),Images.ARROW_RIGHT_SHORT,button->{
+		toolBar.add(getButton(Language.tr("Schedule.EditDialog.TimeStepFurther"),Language.tr("Schedule.EditDialog.TimeStepFurther.Hint"),Images.ARROW_RIGHT_SHORT,(button,e)->{
+			final int delta=((e.getModifiers() & ActionEvent.SHIFT_MASK)!=0)?Math.max(1,86400/durationPerSlot):1;
 			final int startSlot=schedulePanel.getStartPosition();
-			schedulePanel.setStartPosition(startSlot+1);
-			enableButtons();
+			schedulePanel.setStartPosition(startSlot+delta);
 		}));
-		toolBar.add(getButton(Language.tr("Schedule.EditDialog.TimeStepEnd"),Language.tr("Schedule.EditDialog.TimeStepEnd.Hint"),Images.ARROW_RIGHT,button->{
+		toolBar.add(getButton(Language.tr("Schedule.EditDialog.TimeStepEnd"),Language.tr("Schedule.EditDialog.TimeStepEnd.Hint"),Images.ARROW_RIGHT,(button,e)->{
 			final int slotCount=schedulePanel.getDisplaySlots();
 			final int lastUsedSlot=schedulePanel.getLastNonNullSlot();
 			schedulePanel.setStartPosition(Math.max(0,lastUsedSlot-slotCount+1));
-			enableButtons();
 		}));
 
 		toolBar.addSeparator();
 
-		toolBar.add(getButton(Language.tr("Schedule.EditDialog.Settings"),Language.tr("Schedule.EditDialog.Settings.Hint"),Images.GENERAL_SETUP,button->commandSettingsDialog()));
-		toolBar.add(getButton(Language.tr("Schedule.EditDialog.Range"),Language.tr("Schedule.EditDialog.Range.Hint"),Images.MODELPROPERTIES_SCHEDULES,button->commandRangeDialog(button)));
+		toolBar.add(getButton(Language.tr("Schedule.EditDialog.Settings"),Language.tr("Schedule.EditDialog.Settings.Hint"),Images.GENERAL_SETUP,(button,e)->commandSettingsDialog()));
+		toolBar.add(getButton(Language.tr("Schedule.EditDialog.Range"),Language.tr("Schedule.EditDialog.Range.Hint"),Images.MODELPROPERTIES_SCHEDULES,(button,e)->commandRangeDialog(button)));
 
 		toolBar.addSeparator();
 
-		toolBar.add(getButton(Language.tr("Schedule.EditDialog.Load"),Language.tr("Schedule.EditDialog.Load.Hint"),Images.GENERAL_SELECT_FILE,button->commandPopupLoad(button)));
-		toolBar.add(getButton(Language.tr("Schedule.EditDialog.Save"),Language.tr("Schedule.EditDialog.Save.Hint"),Images.GENERAL_SAVE,button->commandPopupSave(button)));
+		toolBar.add(getButton(Language.tr("Schedule.EditDialog.Load"),Language.tr("Schedule.EditDialog.Load.Hint"),Images.GENERAL_SELECT_FILE,(button,e)->commandPopupLoad(button)));
+		toolBar.add(getButton(Language.tr("Schedule.EditDialog.Save"),Language.tr("Schedule.EditDialog.Save.Hint"),Images.GENERAL_SAVE,(button,e)->commandPopupSave(button)));
 
 		enableButtons();
 
@@ -167,9 +165,17 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,0),"cmdUp");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS,0),"cmdDown");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,0),"cmdDown");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP,InputEvent.CTRL_DOWN_MASK),"cmdUp");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN,InputEvent.CTRL_DOWN_MASK),"cmdDown");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"cmdPageUp");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"cmdPageDown");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP,0),"cmdPageUp");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_DOWN,0),"cmdPageDown");
 		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,0),"cmdFromPrevious");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT,InputEvent.CTRL_DOWN_MASK),"cmdLeft");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT,InputEvent.CTRL_DOWN_MASK),"cmdRight");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"cmdPageLeft");
+		input.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"cmdPageRight");
 
 		addAction(content,"cmdCopy",a->copyToClipboard());
 		addAction(content,"cmdPaste",a->loadFromClipboard());
@@ -178,10 +184,14 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		addAction(content,"cmdPageUp",a->schedulePanel.changeCurrentValueDelta(10));
 		addAction(content,"cmdPageDown",a->schedulePanel.changeCurrentValueDelta(-10));
 		addAction(content,"cmdFromPrevious",a->schedulePanel.changeCurrentValueToPreviousValue());
+		addAction(content,"cmdLeft",a->schedulePanel.setStartPosition(schedulePanel.getStartPosition()-1));
+		addAction(content,"cmdRight",a->schedulePanel.setStartPosition(schedulePanel.getStartPosition()+1));
+		addAction(content,"cmdPageLeft",a->schedulePanel.setStartPosition(schedulePanel.getStartPosition()-Math.max(1,86400/durationPerSlot)));
+		addAction(content,"cmdPageRight",a->schedulePanel.setStartPosition(schedulePanel.getStartPosition()+Math.max(1,86400/durationPerSlot)));
 
 		/* Dialog starten */
 		setResizable(true);
-		setMinSizeRespectingScreensize(800,600);
+		setMinSizeRespectingScreensize(900,800);
 		setLocationRelativeTo(getOwner());
 		WindowSizeStorage.window(this,"schedules");
 		setVisible(true);
@@ -212,10 +222,10 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 	 * @param action	Auszuführende Aktion
 	 * @return	Neue Schaltfläche
 	 */
-	private JButton getButton(final String name, final String tooltip, final Images icon, final Consumer<JButton> action) {
+	private JButton getButton(final String name, final String tooltip, final Images icon, final BiConsumer<JButton, ActionEvent> action) {
 		final JButton button=new JButton(name,icon.getIcon());
 		if (tooltip!=null && !tooltip.trim().isEmpty()) button.setToolTipText(tooltip);
-		if (action!=null) button.addActionListener(e->action.accept(button));
+		if (action!=null) button.addActionListener(e->action.accept(button,e));
 		return button;
 	}
 
@@ -286,12 +296,12 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 
 			final JLabel label=new JLabel();
 			panel2.add(label);
-			label.setText(TimeTools.formatTime(durationPerSlot*initialPosition)+" - "+TimeTools.formatTime(durationPerSlot*(initialPosition+schedulePanel.getDisplaySlots())));
+			label.setText(TimeTools.formatLongTime(durationPerSlot*initialPosition)+" - "+TimeTools.formatLongTime(durationPerSlot*(initialPosition+schedulePanel.getDisplaySlots())));
 
 			slider.addChangeListener(e->{
 				final int pos=slider.getValue();
 				schedulePanel.setStartPosition(pos);
-				label.setText(TimeTools.formatTime(durationPerSlot*pos)+" - "+TimeTools.formatTime(durationPerSlot*(pos+schedulePanel.getDisplaySlots())));
+				label.setText(TimeTools.formatLongTime(durationPerSlot*pos)+" - "+TimeTools.formatLongTime(durationPerSlot*(pos+schedulePanel.getDisplaySlots())));
 			});
 		}
 

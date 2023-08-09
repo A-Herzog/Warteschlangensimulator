@@ -17,10 +17,13 @@ package ui.modelproperties;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.SystemColor;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -31,7 +34,9 @@ import java.awt.event.MouseWheelListener;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -57,11 +62,6 @@ public class SchedulePanel extends JPanel {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID = 6915816603375099302L;
-
-	/**
-	 * Anzahl der Beschriftungen unter den Balken an der x-Achse
-	 */
-	private static final int XSTEPS=10;
 
 	/** Werte in den einzelnen Zeitslots */
 	private final List<Integer> data;
@@ -223,6 +223,42 @@ public class SchedulePanel extends JPanel {
 	}
 
 	/**
+	 * Listener, die benachrichtigt werden sollen, wenn sich das erste dargestellte Intervall ändert
+	 * @see #addStartPositionChanged(Runnable)
+	 * @see #removeStartPositionChanged(Runnable)
+	 * @see #fireStartPositionChanged()
+	 */
+	private final Set<Runnable> startPositionChanged=new HashSet<>();
+
+	/**
+	 * Fügt einen Listener zu der Liste der Listener, die benachrichtigt werden sollen, wenn sich das erste dargestellte Intervall ändert, hinzu.
+	 * @param listener	Listener, der benachrichtigt werden soll, wenn sich das erste dargestellte Intervall ändert
+	 * @return	Liefert <code>true</code>, wenn der Listener noch nicht in der Liste enthalten war und erfolgreich hinzugefügt werden konnte
+	 * @see #removeStartPositionChanged(Runnable)
+	 */
+	public boolean addStartPositionChanged(final Runnable listener) {
+		return startPositionChanged.add(listener);
+	}
+
+	/**
+	 * Entfernt einen Listner aus der Liste der Listener, die benachrichtigt werden sollen, wenn sich das erste dargestellte Intervall ändert.
+	 * @param listener	Listener, der nicht mehr benachrichtigt werden soll, wenn sich das erste dargestellte Intervall ändert
+	 * @return	Liefert <code>true</code>, wenn der Listener in der Liste enthalten war und erfolgreich entfernt werden konnte
+	 * @see #addStartPositionChanged(Runnable)
+	 */
+	public boolean removeStartPositionChanged(final Runnable listener) {
+		return startPositionChanged.remove(listener);
+	}
+
+	/**
+	 * Benachrichtigt alle Listener aus {@link #startPositionChanged}, dass sich das erste dargestellte Intervall geändert hat.
+	 * @see #startPositionChanged
+	 */
+	private void fireStartPositionChanged() {
+		startPositionChanged.forEach(Runnable::run);
+	}
+
+	/**
 	 * Liefert die 0-basierende Nummer des ganz links dargestellten Zeitslots.
 	 * @return	Nummer des ganz links dargestellten Zeitslots
 	 */
@@ -236,6 +272,7 @@ public class SchedulePanel extends JPanel {
 	 */
 	public void setStartPosition(final int startPosition) {
 		this.startPosition=Math.max(0,startPosition);
+		fireStartPositionChanged();
 		repaint();
 	}
 
@@ -279,8 +316,11 @@ public class SchedulePanel extends JPanel {
 	private void paintBox(final Graphics2D g) {
 		final Rectangle2D.Double rect=new Rectangle2D.Double(marginBoxLeft,marginBoxTop,boxWidth,boxHeight);
 
-		g.setColor(isDark?Color.GRAY:Color.WHITE);
+		g.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+		final GradientPaint gp=new GradientPaint(0,0,isDark?Color.GRAY:new Color(235,235,255),0,boxHeight,isDark?Color.DARK_GRAY:Color.WHITE);
+		g.setPaint(gp);
 		g.fill(rect);
+
 		g.setColor(Color.BLACK);
 		g.draw(rect);
 	}
@@ -328,12 +368,25 @@ public class SchedulePanel extends JPanel {
 		}
 
 		/* x-Achse */
-		for (int i=0;i<XSTEPS;i++) {
-			int nr=displaySlots*i/XSTEPS;
+		int nr=0;
+		step=((startPosition+displaySlots)*durationPerSlot>=86400*10)?4:2;
+		while (nr<displaySlots) {
 			int x=marginBoxLeft+boxWidth*nr/displaySlots;
 			g.drawLine(x,marginBoxTop+boxHeight,x,marginBoxTop+boxHeight+fontHeight/3);
 			final String text=getSlotInfo(nr);
 			g.drawString(text,x-g.getFontMetrics().stringWidth(text)/2,marginBoxTop+boxHeight+fontHeight/2+fontYDelta);
+			nr+=step;
+		}
+
+		/* Vertikale Balken bei neuen Tagen */
+		g.setColor(Color.LIGHT_GRAY);
+		for (int i=1;i<displaySlots;i++) {
+			final int startTime=(startPosition+i)*durationPerSlot;
+			if (startTime%86400==0) {
+				int x=marginBoxLeft+boxWidth*i/displaySlots;
+				g.drawLine(x,marginBoxTop+1,x,marginBoxTop+boxHeight-1);
+				g.drawString(Language.tr("Schedule.Day.Singular")+" "+(startTime/86400+1),x+2,marginBoxTop+1+g.getFontMetrics().getAscent());
+			}
 		}
 	}
 
@@ -413,11 +466,10 @@ public class SchedulePanel extends JPanel {
 	private String getSlotInfo(int nr) {
 		final int slot=startPosition+nr;
 		final int time=slot*durationPerSlot;
-		final int timeMin=time/60;
-		if (timeMin<60*24) {
-			return String.format("%02d:%02d",timeMin/60,timeMin%60);
+		if (time<3600*24) {
+			return String.format("%d:%02d:%02d",time/3600,time/60%60,time%60);
 		} else {
-			return String.format("%d:%02d:%02d",timeMin/1440,timeMin/60%24,timeMin%60);
+			return String.format("%d:%02d:%02d:%02d",time/86400,(time%86400)/3600,(time%3600)/60,time%60);
 		}
 	}
 
@@ -452,7 +504,7 @@ public class SchedulePanel extends JPanel {
 			time-=days*86400;
 			if (time>0) title.append(" "+Language.tr("Schedule.And")+" ");
 		}
-		if (time>0) title.append(String.format("%d:%02d",time/3600,time/60%60));
+		if (time>0) title.append(String.format("%d:%02d:%02d",time/3600,time/60%60,time%60));
 
 		paintFrame((Graphics2D)g);
 		paintBox((Graphics2D)g);
@@ -589,7 +641,17 @@ public class SchedulePanel extends JPanel {
 			if (data==null) return;
 
 			final int wheel=e.getWheelRotation();
-			if (wheel<0) changeCurrentValueDelta(1); else changeCurrentValueDelta(-1);
+
+			if (Math.abs(wheel)>1 || e.isControlDown()) {
+				/* Links / rechts */
+				final int delta=1; /* Shift-Down funktioniert nicht mit Rad links/rechts */
+				if (wheel<0) setStartPosition(startPosition-delta); else setStartPosition(startPosition+delta);
+
+			} else {
+				/* Hoch / runter */
+				final int delta=((e.getModifiersEx() & InputEvent.SHIFT_DOWN_MASK)!=0)?10:1;
+				if (wheel<0) changeCurrentValueDelta(delta); else changeCurrentValueDelta(-delta);
+			}
 		}
 	}
 }
