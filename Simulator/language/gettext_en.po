@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-07 21:36+0200\n"
+"POT-Creation-Date: 2023-08-08 10:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7361,6 +7361,30 @@ msgstr "Value of the counter"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Info"
 msgstr "<p>Returns the value of the counter whose ID has been specified in the parameter.</p> <p>The object whose ID has been specified must be a <b>counter</b>, a <b>difference counter</b> or a <b>throughput counter</b>.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Max"
+msgstr "Maximum value of the difference counter"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Max.Info"
+msgstr "<p>Returns the maximum value of the differnce counter whose ID has been specified in the parameter.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Mean"
+msgstr "Mean value of the difference counter"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Mean.Info"
+msgstr "<p>Returns the mean value of the differnce counter whose ID has been specified in the parameter.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Min"
+msgstr "Minimum value of the difference counter"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Min.Info"
+msgstr "<p>Returns the minimum value of the differnce counter whose ID has been specified in the parameter.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Std"
+msgstr "Standard deviation of the difference counter"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Std.Info"
+msgstr "<p>Returns the standard deviation of the differnce counter whose ID has been specified in the parameter.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Part"
 msgstr "Partial value of the counter"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-07 21:36+0200\n"
+"POT-Creation-Date: 2023-08-08 10:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7354,6 +7354,30 @@ msgstr "Wert des Zählers"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Info"
 msgstr "<p>Liefert den Wert des Zählers, dessen ID in dem Parameter angegeben wurde.</p><p>Bei dem Objekt, dessen ID angegben wurde, muss es sich um einen <b>Zähler</b>, um einen <b>Differenzzähler</b> oder um einen <b>Durchsatzzähler</b> handeln.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Max"
+msgstr "Maximalwert des Diferenzzählers"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Max.Info"
+msgstr "<p>Liefert den Maximalwert des Differenzzählers, dessen ID in dem Parameter angegeben wurde.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Mean"
+msgstr "Mittelwert des Diferenzzählers"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Mean.Info"
+msgstr "<p>Liefert den Mittelwert des Differenzzählers, dessen ID in dem Parameter angegeben wurde.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Min"
+msgstr "Minimalwert des Diferenzzählers"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Min.Info"
+msgstr "<p>Liefert den Minimalwert des Differenzzählers, dessen ID in dem Parameter angegeben wurde.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Std"
+msgstr "Standardabweichung des Diferenzzählers"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Std.Info"
+msgstr "<p>Liefert die Standardabweichung des Differenzzählers, dessen ID in dem Parameter angegeben wurde.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Counter.Part"
 msgstr "Anteilwert des Zählers"

@@ -2203,6 +2203,30 @@ public class ExpressionBuilderSimulationData {
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.Counter.Part")+" (Part)",
 					"Part(id)",
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.Counter.Part.Info"));
+			addTreeNode(
+					sub,
+					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Mean")+" (Counter_avg)",
+					"Counter_avg(id)",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Mean.Info"));
+			addTreeNode(
+					sub,
+					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Min")+" (Counter_min)",
+					"Counter_min(id)",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Min.Info"));
+			addTreeNode(
+					sub,
+					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Max")+" (Counter_max)",
+					"Counter_max(id)",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Max.Info"));
+			addTreeNode(
+					sub,
+					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Std")+" (Counter_std)",
+					"Counter_std(id)",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Std.Info"));
 
 			if (sub.getChildCount()>0) group.add(sub);
 

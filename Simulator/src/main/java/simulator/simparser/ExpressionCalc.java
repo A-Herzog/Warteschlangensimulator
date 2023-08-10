@@ -309,6 +309,10 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolStationDataCosts_sum());
 		functions.add(new CalcSymbolSimDataCounter());
 		functions.add(new CalcSymbolSimDataCounterPart());
+		functions.add(new CalcSymbolSimDataCounterMean());
+		functions.add(new CalcSymbolSimDataCounterMin());
+		functions.add(new CalcSymbolSimDataCounterMax());
+		functions.add(new CalcSymbolSimDataCounterStd());
 
 		functions.add(new CalcSymbolResourceCount());
 		functions.add(new CalcSymbolResourceData_current());

@@ -90,4 +90,36 @@ public class RunElementDifferentialCounterData extends RunElementData implements
 	public double getValue(final boolean fullValue) {
 		return statistic.getCurrentState();
 	}
+
+	/**
+	 * Liefert den Mittelwert des Differenzzählerwertes.
+	 * @return	Mittelwert des Differenzzählerwertes
+	 */
+	public double getMean() {
+		return statistic.getTimeMean();
+	}
+
+	/**
+	 * Liefert den Minimalwert des Differenzzählerwertes.
+	 * @return	Minimalwert des Differenzzählerwertes
+	 */
+	public double getMin() {
+		return statistic.getTimeMin();
+	}
+
+	/**
+	 * Liefert den Maximalwert des Differenzzählerwertes.
+	 * @return	Maximalwert des Differenzzählerwertes
+	 */
+	public double getMax() {
+		return statistic.getTimeMax();
+	}
+
+	/**
+	 * Liefert die Standardabweichung des Differenzzählerwertes.
+	 * @return	Standardabweichung des Differenzzählerwertes
+	 */
+	public double getSD() {
+		return statistic.getTimeSD();
+	}
 }
