@@ -1,0 +1,871 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.4.1</ModellVersion>
+  <ModellName>Verwendung von fabriknahen Zentrallagern</ModellName>
+  <ModellBeschreibung>In diesem Beispielmodell wird gezeigt, wie sich das Konzept der
+Pull-Produktion auf die Beziehung zwischen Fabriken und Lager
+übertragen lässt.
+
+Jede Fabrik stellt jeweils Produkte eines Typs dar. Damit in beiden
+betrachteten Zielregionen beide Produkte angeboten werden können,
+werden diese von jeder Fabrik aus zu jedem der beiden Lagerhäuser
+transportiert.
+
+Entweder werden die Produkte sofort nach der Herstellung an die
+Lagerhäuser verteilt (Push-Produktion) oder aber sie werden zunächst
+bei den Fabriken zwischengelagert und nur dann ausgeliefert, wenn
+diese auch an einem Lager benötigt werden (Pull-Produktion).</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">20000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementKasten id="7">
+      <ModellElementGroesse h="300" w="750" x="50" y="150"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="8">
+      <ModellElementGroesse h="19" w="140" x="55" y="155"/>
+      <ModellElementTextzeile>Fabrik für Produkt A</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="11">
+      <ModellElementGroesse h="300" w="750" x="50" y="600"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="12">
+      <ModellElementGroesse h="19" w="141" x="55" y="605"/>
+      <ModellElementTextzeile>Fabrik für Produkt B</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementQuelle id="1">
+      <ModellElementName>A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="200"/>
+      <ModellElementVerbindung Element="91" Typ="Auslaufend"/>
+      <ModellElementAnkunftsbedingung MinimalerAbstand="ExpDist(50)">WIP(1)&lt;10</ModellElementAnkunftsbedingung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="2">
+      <ModellElementName>B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="100" y="650"/>
+      <ModellElementVerbindung Element="97" Typ="Auslaufend"/>
+      <ModellElementAnkunftsbedingung MinimalerAbstand="ExpDist(50)">WIP(2)&lt;10</ModellElementAnkunftsbedingung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementTeleportZiel id="16">
+      <ModellElementName>Lager Y</ModellElementName>
+      <ModellElementGroesse h="30" w="30" x="1400" y="760"/>
+      <ModellElementVerbindung Element="20" Typ="Auslaufend"/>
+    </ModellElementTeleportZiel>
+    <ModellElementVerzweigen id="18">
+      <ModellElementGroesse h="50" w="100" x="1500" y="750"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="26" Kundentyp="A" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="28" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="20">
+      <ModellElementVerbindung Element1="16" Element2="18" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZusammenfuehren id="25">
+      <ModellElementGroesse h="50" w="100" x="1750" y="650"/>
+      <ModellElementVerbindung Element="36" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="73" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="37" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Sammeln</ModellElementBatchModus>
+    </ModellElementZusammenfuehren>
+    <ModellElementZusammenfuehren id="27">
+      <ModellElementGroesse h="50" w="100" x="1750" y="850"/>
+      <ModellElementVerbindung Element="38" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="74" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="39" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Sammeln</ModellElementBatchModus>
+    </ModellElementZusammenfuehren>
+    <ModellElementDifferenzZaehler id="29">
+      <ModellElementName>Bestand YA</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1500" y="650"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="36" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementDifferenzZaehler id="30">
+      <ModellElementName>Bestand YA</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1900" y="650"/>
+      <ModellElementVerbindung Element="37" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="77" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>-1</ModellElementDifferenzZaehlerInkrement>
+      <ModellElementZaehlerKundentyp>A</ModellElementZaehlerKundentyp>
+    </ModellElementDifferenzZaehler>
+    <ModellElementQuelle id="31">
+      <ModellElementName>Kunden YA</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="955" y="750"/>
+      <ModellElementVerbindung Element="43" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (120)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="32">
+      <ModellElementName>Kunden YB</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="950" y="850"/>
+      <ModellElementVerbindung Element="69" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (120)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementEnde id="33">
+      <ModellElementGroesse h="50" w="100" x="2100" y="750"/>
+      <ModellElementVerbindung Element="78" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementDifferenzZaehler id="34">
+      <ModellElementName>Bestand YB</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1500" y="850"/>
+      <ModellElementVerbindung Element="28" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="38" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementKante id="26">
+      <ModellElementName>A</ModellElementName>
+      <ModellElementVerbindung Element1="18" Element2="29" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementKante id="28">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="18" Element2="34" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementDifferenzZaehler id="35">
+      <ModellElementName>Bestand YB</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1900" y="850"/>
+      <ModellElementVerbindung Element="39" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="41" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>-1</ModellElementDifferenzZaehlerInkrement>
+      <ModellElementZaehlerKundentyp>B</ModellElementZaehlerKundentyp>
+    </ModellElementDifferenzZaehler>
+    <ModellElementKante id="36">
+      <ModellElementVerbindung Element1="29" Element2="25" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="37">
+      <ModellElementVerbindung Element1="25" Element2="30" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="38">
+      <ModellElementVerbindung Element1="34" Element2="27" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="39">
+      <ModellElementVerbindung Element1="27" Element2="35" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="48">
+      <ModellElementGroesse h="350" w="700" x="1350" y="600"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="49">
+      <ModellElementGroesse h="19" w="112" x="1355" y="605"/>
+      <ModellElementTextzeile>Lokales Lager Y</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementTeleportZiel id="15">
+      <ModellElementName>Lager X</ModellElementName>
+      <ModellElementGroesse h="30" w="30" x="1400" y="260"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+    </ModellElementTeleportZiel>
+    <ModellElementVerzweigen id="17">
+      <ModellElementGroesse h="50" w="100" x="1500" y="250"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="50" Kundentyp="A" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="51" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="19">
+      <ModellElementVerbindung Element1="15" Element2="17" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZusammenfuehren id="21">
+      <ModellElementGroesse h="50" w="100" x="1750" y="150"/>
+      <ModellElementVerbindung Element="53" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="65" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="54" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Sammeln</ModellElementBatchModus>
+    </ModellElementZusammenfuehren>
+    <ModellElementZusammenfuehren id="22">
+      <ModellElementGroesse h="50" w="100" x="1750" y="350"/>
+      <ModellElementVerbindung Element="55" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="66" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="56" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Sammeln</ModellElementBatchModus>
+    </ModellElementZusammenfuehren>
+    <ModellElementDifferenzZaehler id="23">
+      <ModellElementName>Bestand XA</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1500" y="150"/>
+      <ModellElementVerbindung Element="50" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="53" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementDifferenzZaehler id="24">
+      <ModellElementName>Bestand XA</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1900" y="150"/>
+      <ModellElementVerbindung Element="54" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="58" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>-1</ModellElementDifferenzZaehlerInkrement>
+      <ModellElementZaehlerKundentyp>A</ModellElementZaehlerKundentyp>
+    </ModellElementDifferenzZaehler>
+    <ModellElementQuelle id="44">
+      <ModellElementName>Kunden XA</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="950" y="150"/>
+      <ModellElementVerbindung Element="67" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (120)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="45">
+      <ModellElementName>Kunden XB</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="950" y="250"/>
+      <ModellElementVerbindung Element="68" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (120)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementEnde id="46">
+      <ModellElementGroesse h="50" w="100" x="2100" y="250"/>
+      <ModellElementVerbindung Element="76" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementDifferenzZaehler id="47">
+      <ModellElementName>Bestand XB</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1500" y="350"/>
+      <ModellElementVerbindung Element="51" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="55" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>1</ModellElementDifferenzZaehlerInkrement>
+    </ModellElementDifferenzZaehler>
+    <ModellElementKante id="50">
+      <ModellElementName>A</ModellElementName>
+      <ModellElementVerbindung Element1="17" Element2="23" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementKante id="51">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="17" Element2="47" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementDifferenzZaehler id="52">
+      <ModellElementName>Bestand XB</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1900" y="350"/>
+      <ModellElementVerbindung Element="56" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="57" Typ="Auslaufend"/>
+      <ModellElementDifferenzZaehlerInkrement>-1</ModellElementDifferenzZaehlerInkrement>
+      <ModellElementZaehlerKundentyp>B</ModellElementZaehlerKundentyp>
+    </ModellElementDifferenzZaehler>
+    <ModellElementKante id="53">
+      <ModellElementVerbindung Element1="23" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="54">
+      <ModellElementVerbindung Element1="21" Element2="24" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="55">
+      <ModellElementVerbindung Element1="47" Element2="22" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="56">
+      <ModellElementVerbindung Element1="22" Element2="52" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="59">
+      <ModellElementGroesse h="350" w="700" x="1350" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="60">
+      <ModellElementGroesse h="19" w="111" x="1355" y="105"/>
+      <ModellElementTextzeile>Lokales Lager X</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementTeleportStart id="63">
+      <ModellElementGroesse h="30" w="30" x="1100" y="210"/>
+      <ModellElementVerbindung Element="67" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="68" Typ="Einlaufend"/>
+      <ModellElementTeleportStartZuZiel>Nachfrage X</ModellElementTeleportStartZuZiel>
+    </ModellElementTeleportStart>
+    <ModellElementTeleportZiel id="61">
+      <ModellElementName>Nachfrage X</ModellElementName>
+      <ModellElementGroesse h="30" w="30" x="1650" y="260"/>
+      <ModellElementVerbindung Element="64" Typ="Auslaufend"/>
+    </ModellElementTeleportZiel>
+    <ModellElementVerzweigen id="62">
+      <ModellElementGroesse h="50" w="100" x="1750" y="250"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="64" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="65" Kundentyp="Kunden XA" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="66" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="64">
+      <ModellElementVerbindung Element1="61" Element2="62" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="65">
+      <ModellElementName>Kunden XA</ModellElementName>
+      <ModellElementVerbindung Element1="62" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="66">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="62" Element2="22" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="67">
+      <ModellElementName>Ankünfte (Kunden XA)</ModellElementName>
+      <ModellElementVerbindung Element1="44" Element2="63" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementKante id="68">
+      <ModellElementName>Ankünfte (Kunden XB)</ModellElementName>
+      <ModellElementVerbindung Element1="45" Element2="63" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementTeleportStart id="42">
+      <ModellElementGroesse h="30" w="30" x="1100" y="810"/>
+      <ModellElementVerbindung Element="43" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="69" Typ="Einlaufend"/>
+      <ModellElementTeleportStartZuZiel>Nachfrage Y</ModellElementTeleportStartZuZiel>
+    </ModellElementTeleportStart>
+    <ModellElementKante id="43">
+      <ModellElementName>Ankünfte (Kunden YA)</ModellElementName>
+      <ModellElementVerbindung Element1="31" Element2="42" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementKante id="69">
+      <ModellElementName>Ankünfte (Kunden YB)</ModellElementName>
+      <ModellElementVerbindung Element1="32" Element2="42" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementTeleportZiel id="70">
+      <ModellElementName>Nachfrage Y</ModellElementName>
+      <ModellElementGroesse h="30" w="30" x="1650" y="760"/>
+      <ModellElementVerbindung Element="72" Typ="Auslaufend"/>
+    </ModellElementTeleportZiel>
+    <ModellElementVerzweigen id="71">
+      <ModellElementGroesse h="50" w="100" x="1750" y="750"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="72" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="73" Kundentyp="Kunden YA" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="74" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="72">
+      <ModellElementVerbindung Element1="70" Element2="71" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="73">
+      <ModellElementName>Kunden YA</ModellElementName>
+      <ModellElementVerbindung Element1="71" Element2="25" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="74">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="71" Element2="27" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="75">
+      <ModellElementGroesse h="10" w="10" x="1945" y="270"/>
+      <ModellElementVerbindung Element="57" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="58" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="76" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="57">
+      <ModellElementVerbindung Element1="52" Element2="75" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="58">
+      <ModellElementVerbindung Element1="24" Element2="75" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="76">
+      <ModellElementVerbindung Element1="75" Element2="46" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="40">
+      <ModellElementGroesse h="10" w="10" x="1945" y="770"/>
+      <ModellElementVerbindung Element="41" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="77" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="78" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="41">
+      <ModellElementVerbindung Element1="35" Element2="40" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="77">
+      <ModellElementVerbindung Element1="30" Element2="40" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="78">
+      <ModellElementVerbindung Element1="40" Element2="33" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="79">
+      <ModellElementGroesse h="250" w="350" x="900" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="80">
+      <ModellElementGroesse h="19" w="156" x="905" y="105"/>
+      <ModellElementTextzeile>Nachfrage in Region X</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="81">
+      <ModellElementGroesse h="250" w="350" x="900" y="700"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="82">
+      <ModellElementGroesse h="19" w="157" x="905" y="705"/>
+      <ModellElementTextzeile>Nachfrage in Region Y</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="83">
+      <ModellElementName>Mittlerer Bestand</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="400" y="300"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WIP_avg(130)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="84">
+      <ModellElementName>Mittlerer Bestand</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="400" y="755"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WIP_avg(131)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="85">
+      <ModellElementGroesse h="57" w="453" x="50" y="505"/>
+      <ModellElementTextzeile>Die Fabriken produzieren, so lange weniger als 10 Produkte des jeweils</ModellElementTextzeile>
+      <ModellElementTextzeile>hergestellten Typs insgesamt im System sind. Jede Fabrik benötigt</ModellElementTextzeile>
+      <ModellElementTextzeile>jeweils im Mittel 50 Sekunden, um ein Produkt zu herzustellen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="86">
+      <ModellElementName>Mittlere Wartezeit Kunden XA</ModellElementName>
+      <ModellElementGroesse h="30" w="120" x="1100" y="150"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Wartezeit_avg(44)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="87">
+      <ModellElementName>Mittlere Wartezeit Kunden XB</ModellElementName>
+      <ModellElementGroesse h="30" w="120" x="1100" y="270"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Wartezeit_avg(45)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="88">
+      <ModellElementName>Mittlere Wartezeit Kunden YA</ModellElementName>
+      <ModellElementGroesse h="30" w="122" x="1100" y="750"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Wartezeit_avg(31)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="89">
+      <ModellElementName>Mittlere Wartezeit Kunden YB</ModellElementName>
+      <ModellElementGroesse h="30" w="122" x="1100" y="870"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Wartezeit_avg(32)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementVerzweigen id="13">
+      <ModellElementGroesse h="50" w="100" x="250" y="300"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="119" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="Pull==0" Element="93" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="122" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementAnimationTextAuswahl id="95">
+      <ModellElementName>Pull aktiv</ModellElementName>
+      <ModellElementGroesse h="30" w="39" x="235" y="260"/>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,180</ModellElementFarbe>
+      <TextAusdruck Ausdruck="Pull==1">Ja (unterer Zweig)</TextAusdruck>
+      <TextAusdruck Ausdruck="Pull!=1">Nein (oberer Zweig)</TextAusdruck>
+    </ModellElementAnimationTextAuswahl>
+    <ModellElementVerzweigen id="9">
+      <ModellElementGroesse h="50" w="100" x="250" y="750"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="121" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="Pull==0" Element="100" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="101" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementAnimationTextAuswahl id="96">
+      <ModellElementName>Pull aktiv</ModellElementName>
+      <ModellElementGroesse h="30" w="39" x="235" y="710"/>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,180</ModellElementFarbe>
+      <TextAusdruck Ausdruck="Pull==1">Ja (unterer Zweig)</TextAusdruck>
+      <TextAusdruck Ausdruck="Pull!=1">Nein (oberer Zweig)</TextAusdruck>
+    </ModellElementAnimationTextAuswahl>
+    <ModellElementLinie id="104">
+      <ModellElementGroesse h="5" w="470" x="825" y="420"/>
+      <ModellElementLinienBreite>3</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementLinienTyp>1</ModellElementLinienTyp>
+      <ModellElementLiniePfeilEnde>2</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementLinie id="103">
+      <ModellElementGroesse h="5" w="470" x="825" y="625"/>
+      <ModellElementLinienBreite>3</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementLinienTyp>1</ModellElementLinienTyp>
+      <ModellElementLiniePfeilEnde>2</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementLinie id="102">
+      <ModellElementGroesse h="180" w="470" x="825" y="420"/>
+      <ModellElementLinienBreite>3</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementLinienTyp>1</ModellElementLinienTyp>
+      <ModellElementLiniePfeilEnde>2</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementLinie id="105">
+      <ModellElementGroesse h="-175" w="465" x="825" y="625"/>
+      <ModellElementLinienBreite>3</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementLinienTyp>1</ModellElementLinienTyp>
+      <ModellElementLiniePfeilEnde>2</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementLinie id="106">
+      <ModellElementGroesse h="0" w="50" x="1280" y="215"/>
+      <ModellElementLinienBreite>3</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementLinienTyp>4</ModellElementLinienTyp>
+      <ModellElementLiniePfeilEnde>2</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementLinie id="107">
+      <ModellElementGroesse h="0" w="50" x="1280" y="825"/>
+      <ModellElementLinienBreite>3</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementLinienTyp>4</ModellElementLinienTyp>
+      <ModellElementLiniePfeilEnde>2</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementText id="108">
+      <ModellElementGroesse h="23" w="378" x="50" y="50"/>
+      <ModellElementTextzeile>Verwendung von fabriknahen Zentrallagern</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="109">
+      <ModellElementGroesse h="208" w="366" x="50" y="950"/>
+      <ModellElementTextzeile>Es existieren zwei Fabriken, die jeweils nur ein Produkt herstellen.</ModellElementTextzeile>
+      <ModellElementTextzeile>Um sowohl in der Region X als auch in der Region Y sowohl das</ModellElementTextzeile>
+      <ModellElementTextzeile>Produkt A als auch das Produkt B anzubieten, beliefern die beiden</ModellElementTextzeile>
+      <ModellElementTextzeile>Fabriken die Distributionslager X und Y mit ihren Produkten.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>In beiden Regionen ist die Nachfrage nach beiden Produkten im</ModellElementTextzeile>
+      <ModellElementTextzeile>Mittel gleich hoch. Es kann eingestellt werden, ob die Fabriken</ModellElementTextzeile>
+      <ModellElementTextzeile>die beiden Lager jeweils gleichmäßig beliefern sollen oder ob</ModellElementTextzeile>
+      <ModellElementTextzeile>eine Pull-Strategie verwendet werden soll. Bei der Pull-Strategie</ModellElementTextzeile>
+      <ModellElementTextzeile>werden die jeweils hergestellten Produkte zunächst in einem der</ModellElementTextzeile>
+      <ModellElementTextzeile>jeweiligen Fabrik direkt nachgelagerten Zentrallager vorgehalten</ModellElementTextzeile>
+      <ModellElementTextzeile>und erst dann an Lager X oder Lager Y ausgeliefert, wenn dort</ModellElementTextzeile>
+      <ModellElementTextzeile>der Bestand an dem jeweiligen Produkt auf 0 gefallen ist.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementRadiobutton id="110">
+      <ModellElementName>Sofortige Auslieferung an die Lager (Push)</ModellElementName>
+      <ModellElementGroesse h="19" w="293" x="500" y="1000"/>
+      <ModellElementRadiobuttonVariable>Pull</ModellElementRadiobuttonVariable>
+      <ModellElementRadiobuttonWert>0</ModellElementRadiobuttonWert>
+    </ModellElementRadiobutton>
+    <ModellElementRadiobutton id="111">
+      <ModellElementName>Zentrale Lagerung, Auslieferung nur auf Pull-Signal</ModellElementName>
+      <ModellElementGroesse h="19" w="347" x="500" y="1030"/>
+      <ModellElementRadiobuttonVariable>Pull</ModellElementRadiobuttonVariable>
+      <ModellElementRadiobuttonWert>1</ModellElementRadiobuttonWert>
+    </ModellElementRadiobutton>
+    <ModellElementText id="112">
+      <ModellElementGroesse h="38" w="321" x="900" y="355"/>
+      <ModellElementTextzeile>Im Mittel alle 60 Sekunden trifft jeweils ein</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunde entweder vom Typ XA oder vom Typ XB ein.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="113">
+      <ModellElementGroesse h="38" w="321" x="900" y="655"/>
+      <ModellElementTextzeile>Im Mittel alle 60 Sekunden trifft jeweils ein</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunde entweder vom Typ YA oder vom Typ YB ein.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="115">
+      <ModellElementName>Mittlere Wartezeit über alle Kunden</ModellElementName>
+      <ModellElementGroesse h="32" w="144" x="1350" y="500"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Wartezeit_avg()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="90">
+      <ModellElementName>Mittlerer Bestand im Lager X</ModellElementName>
+      <ModellElementGroesse h="30" w="117" x="1600" y="415"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Counter_avg(23)+Counter_avg(47)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="98">
+      <ModellElementName>Mittlerer Bestand im Lager Y</ModellElementName>
+      <ModellElementGroesse h="30" w="119" x="1600" y="915"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Counter_avg(29)+Counter_avg(34)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="117">
+      <ModellElementName>Mittlere Bestand über alles</ModellElementName>
+      <ModellElementGroesse h="32" w="110" x="1550" y="500"/>
+      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WIP_avg(130)+WIP_avg(131)+Counter_avg(23)+Counter_avg(47)+Counter_avg(29)+Counter_avg(34)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementKundenstatistik id="118">
+      <ModellElementGroesse h="50" w="100" x="100" y="300"/>
+      <ModellElementVerbindung Element="91" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="119" Typ="Auslaufend"/>
+      <ModellElementKundenstatistikModus Modus="aus"/>
+    </ModellElementKundenstatistik>
+    <ModellElementKante id="91">
+      <ModellElementName>Ankünfte (A)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="118" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementKante id="119">
+      <ModellElementVerbindung Element1="118" Element2="13" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKundenstatistik id="120">
+      <ModellElementGroesse h="50" w="100" x="100" y="750"/>
+      <ModellElementVerbindung Element="97" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="121" Typ="Auslaufend"/>
+      <ModellElementKundenstatistikModus Modus="aus"/>
+    </ModellElementKundenstatistik>
+    <ModellElementKante id="97">
+      <ModellElementName>Ankünfte (B)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="120" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementKante id="121">
+      <ModellElementVerbindung Element1="120" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="116">
+      <ModellElementGroesse h="33" w="141" x="390" y="160"/>
+      <ModellElementTextzeile>Da die Nachfragevorhersage für</ModellElementTextzeile>
+      <ModellElementTextzeile>X und Y identisch ist, werden</ModellElementTextzeile>
+      <ModellElementTextzeile>beide Lager gleichmäßig beliefert.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">9</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="123">
+      <ModellElementGroesse h="33" w="141" x="390" y="610"/>
+      <ModellElementTextzeile>Da die Nachfragevorhersage für</ModellElementTextzeile>
+      <ModellElementTextzeile>X und Y identisch ist, werden</ModellElementTextzeile>
+      <ModellElementTextzeile>beide Lager gleichmäßig beliefert.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">9</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementVerzweigen id="124">
+      <ModellElementName>X / Y</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="400" y="200"/>
+      <ModellElementVerzweigungsmodus>Reihenfolge</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="93" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="136" Typ="Auslaufend" Vielfachheit="1"/>
+      <ModellElementVerbindung Element="137" Typ="Auslaufend" Vielfachheit="1"/>
+    </ModellElementVerzweigen>
+    <ModellElementTeleportStart id="92">
+      <ModellElementGroesse h="30" w="30" x="680" y="320"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementTeleportStartZuZiel>Lager X</ModellElementTeleportStartZuZiel>
+    </ModellElementTeleportStart>
+    <ModellElementTeleportStart id="94">
+      <ModellElementGroesse h="30" w="30" x="680" y="400"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementTeleportStartZuZiel>Lager Y</ModellElementTeleportStartZuZiel>
+    </ModellElementTeleportStart>
+    <ModellElementKante id="93">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="13" Element2="124" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementVerzweigen id="99">
+      <ModellElementName>X / Y</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="400" y="650"/>
+      <ModellElementVerzweigungsmodus>Reihenfolge</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="100" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="128" Typ="Auslaufend" Vielfachheit="1"/>
+      <ModellElementVerbindung Element="129" Typ="Auslaufend" Vielfachheit="1"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="100">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="9" Element2="99" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementTeleportStart id="114">
+      <ModellElementGroesse h="30" w="30" x="680" y="770"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementTeleportStartZuZiel>Lager X</ModellElementTeleportStartZuZiel>
+    </ModellElementTeleportStart>
+    <ModellElementTeleportStart id="127">
+      <ModellElementGroesse h="30" w="30" x="680" y="850"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementTeleportStartZuZiel>Lager Y</ModellElementTeleportStartZuZiel>
+    </ModellElementTeleportStart>
+    <ModellElementBedingung id="130">
+      <ModellElementGroesse h="50" w="100" x="400" y="350"/>
+      <ModellElementVerbindung Element="122" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="134" Typ="Auslaufend"/>
+      <ModellElementBedingungText>Counter(23)&lt;1 || Counter(29)&lt;1</ModellElementBedingungText>
+      <ModellElementPrioritaet Kundentyp="A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden XA">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden XB">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden YA">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden YB">w</ModellElementPrioritaet>
+    </ModellElementBedingung>
+    <ModellElementBedingung id="131">
+      <ModellElementGroesse h="50" w="100" x="400" y="800"/>
+      <ModellElementVerbindung Element="101" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="135" Typ="Auslaufend"/>
+      <ModellElementBedingungText>Counter(47)&lt;1 || Counter(34)&lt;1</ModellElementBedingungText>
+      <ModellElementPrioritaet Kundentyp="A">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="B">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden XA">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden XB">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden YA">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden YB">w</ModellElementPrioritaet>
+    </ModellElementBedingung>
+    <ModellElementKante id="122">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="13" Element2="130" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementKante id="101">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="9" Element2="131" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementVerzweigen id="132">
+      <ModellElementGroesse h="50" w="100" x="550" y="800"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="135" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="Counter(47)==0 &amp;&amp; (Counter(34)&gt;0 || random()&gt;0,5)" Element="3" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementVerzweigen id="133">
+      <ModellElementGroesse h="50" w="100" x="550" y="350"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="134" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="Counter(23)==0 &amp;&amp; (Counter(29)&gt;0 || random()&gt;0,5)" Element="5" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="134">
+      <ModellElementVerbindung Element1="130" Element2="133" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="135">
+      <ModellElementVerbindung Element1="131" Element2="132" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="3">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="132" Element2="114" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementKante id="4">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="132" Element2="127" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementKante id="5">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="133" Element2="92" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementKante id="6">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="133" Element2="94" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementTeleportStart id="10">
+      <ModellElementGroesse h="30" w="30" x="570" y="625"/>
+      <ModellElementVerbindung Element="128" Typ="Einlaufend"/>
+      <ModellElementTeleportStartZuZiel>Lager X</ModellElementTeleportStartZuZiel>
+    </ModellElementTeleportStart>
+    <ModellElementTeleportStart id="14">
+      <ModellElementGroesse h="30" w="30" x="570" y="700"/>
+      <ModellElementVerbindung Element="129" Typ="Einlaufend"/>
+      <ModellElementTeleportStartZuZiel>Lager Y</ModellElementTeleportStartZuZiel>
+    </ModellElementTeleportStart>
+    <ModellElementKante id="128">
+      <ModellElementName>Reihenfolge - Nr. 1</ModellElementName>
+      <ModellElementVerbindung Element1="99" Element2="10" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementKante id="129">
+      <ModellElementName>Reihenfolge - Nr. 2</ModellElementName>
+      <ModellElementVerbindung Element1="99" Element2="14" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementTeleportStart id="125">
+      <ModellElementGroesse h="30" w="30" x="570" y="170"/>
+      <ModellElementVerbindung Element="136" Typ="Einlaufend"/>
+      <ModellElementTeleportStartZuZiel>Lager X</ModellElementTeleportStartZuZiel>
+    </ModellElementTeleportStart>
+    <ModellElementTeleportStart id="126">
+      <ModellElementGroesse h="30" w="30" x="570" y="250"/>
+      <ModellElementVerbindung Element="137" Typ="Einlaufend"/>
+      <ModellElementTeleportStartZuZiel>Lager Y</ModellElementTeleportStartZuZiel>
+    </ModellElementTeleportStart>
+    <ModellElementKante id="136">
+      <ModellElementName>Reihenfolge - Nr. 1</ModellElementName>
+      <ModellElementVerbindung Element1="124" Element2="125" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementKante id="137">
+      <ModellElementName>Reihenfolge - Nr. 2</ModellElementName>
+      <ModellElementVerbindung Element1="124" Element2="126" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementAnimationAmpel id="138">
+      <ModellElementGroesse h="50" w="20" x="480" y="750"/>
+      <ModellElementAmpelBedingung Licht="rot">Counter(47)&gt;=1 &amp;&amp; Counter(34)&gt;=1</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+    <ModellElementAnimationAmpel id="139">
+      <ModellElementGroesse h="50" w="20" x="480" y="300"/>
+      <ModellElementAmpelBedingung Licht="rot">Counter(23)&gt;=1 &amp;&amp; Counter(29)&gt;=1</ModellElementAmpelBedingung>
+    </ModellElementAnimationAmpel>
+    <ModellElementAnimationText id="142">
+      <ModellElementName>Maximaler Bestand im Lager X</ModellElementName>
+      <ModellElementGroesse h="30" w="126" x="1750" y="415"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Counter_max(23)+Counter_max(47)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="140">
+      <ModellElementName>Maximaler Bestand im Lager Y</ModellElementName>
+      <ModellElementGroesse h="30" w="128" x="1750" y="915"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Counter_max(29)+Counter_max(34)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="141">
+      <ModellElementGroesse h="19" w="664" x="50" y="80"/>
+      <ModellElementTextzeile>Übertragung des Konzepts der Pull-Produktion auf die Beziehung zwischen Fabrik und Auslieferungslager</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="143">
+      <ModellElementGroesse h="64" w="342" x="500" y="1100"/>
+      <ModellElementTextzeile>**Hinweis:**</ModellElementTextzeile>
+      <ModellElementTextzeile>Um die Strategie vor dem Start einer Simulation festzulegen,</ModellElementTextzeile>
+      <ModellElementTextzeile>kann die globale Variable "Pull" im Modelleigenschaftendialog</ModellElementTextzeile>
+      <ModellElementTextzeile>auf die Werte 0 oder 1 gesetzt werden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1" kursiv="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener A" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener B" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Icon="sport-soccer" Name="A"/>
+    <KundenDaten Icon="lollipop" Name="B"/>
+    <KundenDaten Icon="user_red" Name="Kunden XB"/>
+    <KundenDaten Icon="user_red" Name="Kunden YB"/>
+  </KundentypenDaten>
+  <InitialeVariable Name="Pull">1</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+</Modell>

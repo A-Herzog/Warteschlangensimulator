@@ -5136,6 +5136,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11753] = "The specified priority for requesting free transporters \"%s\" is invalid at character %d.";
     t[11754] = "Optimizer.Tab.Optimization.Step.Result.Save.Log";
     t[11755] = "Save text output...";
+    t[11758] = "Examples.LocalVersusGlobalWarehouse";
+    t[11759] = "Use of central warehouses close to the factory";
     t[11760] = "Animation.IconDialog.Delete";
     t[11761] = "Delete";
     t[11762] = "Surface.BarrierPull.XML.Next.Max";
@@ -6020,14 +6022,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13801] = "Missing element connections";
     t[13802] = "Main.Menu.Help.Wiki";
     t[13803] = "Warteschlangensimulator Wiki";
-    t[13804] = "Surface.XML.Transporter.Icon";
-    t[13805] = "Icon";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
+    t[13804] = "Surface.XML.Transporter.Icon";
+    t[13805] = "Icon";
     t[13810] = "ExpressionBuilder.SimulationCharacteristics.Counter.Counter";
     t[13811] = "Value of the counter";
     t[13812] = "Editor.DialogBase.OpenModelTranporters.Info";
@@ -8026,14 +8028,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18393] = "Operator group";
     t[18394] = "ExpressionBuilder.Rounding.ceil";
     t[18395] = "Round up";
-    t[18406] = "ParameterCompare.Settings.Input.List.Delete.Confirm.Title";
-    t[18407] = "Delete input parameter";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18406] = "ParameterCompare.Settings.Input.List.Delete.Confirm.Title";
+    t[18407] = "Delete input parameter";
     t[18412] = "Statistics.Filter.OutputAlreadyExist";
     t[18413] = "The output file %s already exists.";
     t[18418] = "Surface.Dispose.Dialog.StoppSimulationOnClientArrival";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22921] = "Setup time when retention the client type";
     t[22922] = "Dialog.Title.Warning";
     t[22923] = "Warning";
-    t[22924] = "Surface.AnimationAlarm.Dialog.Section.Sound";
-    t[22925] = "Sound output";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[22924] = "Surface.AnimationAlarm.Dialog.Section.Sound";
+    t[22925] = "Sound output";
     t[22928] = "ModelDescription.Process.Resources.Available.InfiniteNumber";
     t[22929] = "infinite available operators";
     t[22932] = "Optimizer.Tab.Optimization";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27351] = "Waiting time";
     t[27356] = "Simulation.Creator.RecordErrorExpression1";
     t[27357] = "The first expression \"%s\" at station id=%d is invalid at character %d.";
-    t[27358] = "Simulation.Creator.RecordErrorExpression2";
-    t[27359] = "The second expression \"%s\" at station id=%d is invalid at character %d.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27358] = "Simulation.Creator.RecordErrorExpression2";
+    t[27359] = "The second expression \"%s\" at station id=%d is invalid at character %d.";
     t[27360] = "Surface.Decide.XML.Connection.Condition";
     t[27361] = "Condition";
     t[27364] = "Surface.AnimationDiagram.XML.LabelText";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31905] = "Erlang C model";
     t[31906] = "Elements.Catalog.Transport";
     t[31907] = "Transport";
-    t[31910] = "Simulation.Output.WaitingTime";
-    t[31911] = "Waiting time";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31910] = "Simulation.Output.WaitingTime";
+    t[31911] = "Waiting time";
     t[31912] = "LoadCalculator.Tab.WorkLoad";
     t[31913] = "Work load";
     t[31918] = "Surface.Connection.Name";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36355] = "Key for text assignment";
     t[36360] = "ExpressionCalculator.Tab.Clients.ResidenceWaitingTime";
     t[36361] = "Average residence time of the clients";
-    t[36364] = "Surface.ExpressionTableModel.ColumnExpression";
-    t[36365] = "Expression";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36364] = "Surface.ExpressionTableModel.ColumnExpression";
+    t[36365] = "Expression";
     t[36368] = "Editor.ModelProperties.Short";
     t[36369] = "Model";
     t[36370] = "Resources.Group.EditName.Dialog.Tab.SetupTimes.Error.Title";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40773] = "ModelElementClientType";
     t[40774] = "Editor.SurfaceTooltip.Generator";
     t[40775] = "Open model generator";
-    t[40778] = "SettingsDialog.Tabs.Performance.GUIAnimations";
-    t[40779] = "Use animation in user-interface";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40778] = "SettingsDialog.Tabs.Performance.GUIAnimations";
+    t[40779] = "Use animation in user-interface";
     t[40782] = "Statistics.Filter.CouldNotSaveStatistics";
     t[40783] = "The statistics data could not be saved in %s.";
     t[40792] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingAvgAll.Info";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45225] = "size";
     t[45226] = "LoadCalculator.WaitingTime";
     t[45227] = "Waiting time";
-    t[45228] = "Simulation.Creator.HoldClientPriority";
-    t[45229] = "At element id=%d for client type \"%s\" the invalid value \"%s\" is specified as priority (error at character %d).";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45228] = "Simulation.Creator.HoldClientPriority";
+    t[45229] = "At element id=%d for client type \"%s\" the invalid value \"%s\" is specified as priority (error at character %d).";
     t[45236] = "Statistics.ShareInThisGroup";
     t[45237] = "Share in this group";
     t[45238] = "Surface.SourceTable.Dialog.Table.Preview.TabRaw";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49689] = "Value for condition \"%s\"";
     t[49696] = "ExternalConnect.Dialog.CopyExampleFiles";
     t[49697] = "Copy example files";
-    t[49700] = "Surface.Source.Dialog.ConditionMinDistance.Error.Info";
-    t[49701] = "The specified minimum distance between two arrivals \"%s\" is invalid. A positive number has to be entered.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[49700] = "Surface.Source.Dialog.ConditionMinDistance.Error.Info";
+    t[49701] = "The specified minimum distance between two arrivals \"%s\" is invalid. A positive number has to be entered.";
     t[49710] = "Surface.Action.XML.Record.Condition.Threshold";
     t[49711] = "Threshold";
     t[49714] = "Surface.Process.Dialog.DistributionOfPostProcessingTimes";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54127] = "<p>Returns the maximal duration over all processing times for all clients.</p>";
     t[54128] = "Simulation.Log.AnalogAssign.InfoValue";
     t[54129] = "Assigning value at station id=%d: %s";
-    t[54136] = "Simulation.Creator.RoutingCondition.Expression";
-    t[54137] = "The expression \"%s\" which is used at station id=%d for routing is invalid at character %d.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[54136] = "Simulation.Creator.RoutingCondition.Expression";
+    t[54137] = "The expression \"%s\" which is used at station id=%d for routing is invalid at character %d.";
     t[54140] = "Simulator.Creator.UnknownParserSymbol";
     t[54141] = "Unknown symbol";
     t[54142] = "Simulation.Creator.SequenceNoName";

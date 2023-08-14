@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.4.1</ModelVersion>
+  <ModelName>Use of central warehouses close to the factory</ModelName>
+  <ModelDescription>This example model shows how the concept of pull production can be
+applied to the relationship between factories and warehouses.
+
+Each factory provides products of one type. To ensure that both
+products can be offered in both target regions under consideration,
+they are transported from each factory to each of the two warehouses.
+
+Either the products are delivered to the warehouses immediately after
+production (push production) or they are first temporarily stored at
+the factories and only delivered when they are needed at a warehouse
+(pull production).</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">20000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementRectangle id="7">
+      <ModelElementSize h="300" w="750" x="50" y="150"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="8">
+      <ModelElementSize h="19" w="148" x="55" y="155"/>
+      <ModelElementTextLine>Factory for product A</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="11">
+      <ModelElementSize h="300" w="750" x="50" y="600"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="12">
+      <ModelElementSize h="19" w="149" x="55" y="605"/>
+      <ModelElementTextLine>Factory for product B</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementSource id="1">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="200"/>
+      <ModelElementConnection Element="91" Type="Out"/>
+      <ModelElementArrivalCondition MinimumDistance="ExpDist(50)">WIP(1)&lt;10</ModelElementArrivalCondition>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="2">
+      <ModelElementName>B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="650"/>
+      <ModelElementConnection Element="97" Type="Out"/>
+      <ModelElementArrivalCondition MinimumDistance="ExpDist(50)">WIP(2)&lt;10</ModelElementArrivalCondition>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementTeleportDestination id="16">
+      <ModelElementName>Warehouse Y</ModelElementName>
+      <ModelElementSize h="30" w="30" x="1400" y="760"/>
+      <ModelElementConnection Element="20" Type="Out"/>
+    </ModelElementTeleportDestination>
+    <ModelElementDecide id="18">
+      <ModelElementSize h="50" w="100" x="1500" y="750"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="20" Type="In"/>
+      <ModelElementConnection ClientType="A" Element="26" Type="Out"/>
+      <ModelElementConnection Element="28" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="20">
+      <ModelElementConnection Element1="16" Element2="18" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementMatch id="25">
+      <ModelElementSize h="50" w="100" x="1750" y="650"/>
+      <ModelElementConnection Element="36" Type="In"/>
+      <ModelElementConnection Element="73" Type="In"/>
+      <ModelElementConnection Element="37" Type="Out"/>
+      <ModelElementBatchMode>Collect</ModelElementBatchMode>
+    </ModelElementMatch>
+    <ModelElementMatch id="27">
+      <ModelElementSize h="50" w="100" x="1750" y="850"/>
+      <ModelElementConnection Element="38" Type="In"/>
+      <ModelElementConnection Element="74" Type="In"/>
+      <ModelElementConnection Element="39" Type="Out"/>
+      <ModelElementBatchMode>Collect</ModelElementBatchMode>
+    </ModelElementMatch>
+    <ModelElementDifferenceCounter id="29">
+      <ModelElementName>Inventory YA</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1500" y="650"/>
+      <ModelElementConnection Element="26" Type="In"/>
+      <ModelElementConnection Element="36" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementDifferenceCounter id="30">
+      <ModelElementName>Inventory YA</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1900" y="650"/>
+      <ModelElementConnection Element="37" Type="In"/>
+      <ModelElementConnection Element="77" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>-1</ModelElementDifferenceCounterIncrement>
+      <ModelElementCounterClientType>A</ModelElementCounterClientType>
+    </ModelElementDifferenceCounter>
+    <ModelElementSource id="31">
+      <ModelElementName>Customers YA</ModelElementName>
+      <ModelElementSize h="50" w="100" x="955" y="750"/>
+      <ModelElementConnection Element="43" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (120)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="32">
+      <ModelElementName>Customers YB</ModelElementName>
+      <ModelElementSize h="50" w="100" x="950" y="850"/>
+      <ModelElementConnection Element="69" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (120)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDispose id="33">
+      <ModelElementSize h="50" w="100" x="2100" y="750"/>
+      <ModelElementConnection Element="78" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementDifferenceCounter id="34">
+      <ModelElementName>Inventory YB</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1500" y="850"/>
+      <ModelElementConnection Element="28" Type="In"/>
+      <ModelElementConnection Element="38" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementEdge id="26">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementConnection Element1="18" Element2="29" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementEdge id="28">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="18" Element2="34" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementDifferenceCounter id="35">
+      <ModelElementName>Inventory YB</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1900" y="850"/>
+      <ModelElementConnection Element="39" Type="In"/>
+      <ModelElementConnection Element="41" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>-1</ModelElementDifferenceCounterIncrement>
+      <ModelElementCounterClientType>B</ModelElementCounterClientType>
+    </ModelElementDifferenceCounter>
+    <ModelElementEdge id="36">
+      <ModelElementConnection Element1="29" Element2="25" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="37">
+      <ModelElementConnection Element1="25" Element2="30" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="38">
+      <ModelElementConnection Element1="34" Element2="27" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="39">
+      <ModelElementConnection Element1="27" Element2="35" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="48">
+      <ModelElementSize h="350" w="700" x="1350" y="600"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="49">
+      <ModelElementSize h="19" w="133" x="1355" y="605"/>
+      <ModelElementTextLine>Local warehouse Y</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementTeleportDestination id="15">
+      <ModelElementName>Warehouse X</ModelElementName>
+      <ModelElementSize h="30" w="30" x="1400" y="260"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+    </ModelElementTeleportDestination>
+    <ModelElementDecide id="17">
+      <ModelElementSize h="50" w="100" x="1500" y="250"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection ClientType="A" Element="50" Type="Out"/>
+      <ModelElementConnection Element="51" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="19">
+      <ModelElementConnection Element1="15" Element2="17" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementMatch id="21">
+      <ModelElementSize h="50" w="100" x="1750" y="150"/>
+      <ModelElementConnection Element="53" Type="In"/>
+      <ModelElementConnection Element="65" Type="In"/>
+      <ModelElementConnection Element="54" Type="Out"/>
+      <ModelElementBatchMode>Collect</ModelElementBatchMode>
+    </ModelElementMatch>
+    <ModelElementMatch id="22">
+      <ModelElementSize h="50" w="100" x="1750" y="350"/>
+      <ModelElementConnection Element="55" Type="In"/>
+      <ModelElementConnection Element="66" Type="In"/>
+      <ModelElementConnection Element="56" Type="Out"/>
+      <ModelElementBatchMode>Collect</ModelElementBatchMode>
+    </ModelElementMatch>
+    <ModelElementDifferenceCounter id="23">
+      <ModelElementName>Inventory XA</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1500" y="150"/>
+      <ModelElementConnection Element="50" Type="In"/>
+      <ModelElementConnection Element="53" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementDifferenceCounter id="24">
+      <ModelElementName>Inventory XA</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1900" y="150"/>
+      <ModelElementConnection Element="54" Type="In"/>
+      <ModelElementConnection Element="58" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>-1</ModelElementDifferenceCounterIncrement>
+      <ModelElementCounterClientType>A</ModelElementCounterClientType>
+    </ModelElementDifferenceCounter>
+    <ModelElementSource id="44">
+      <ModelElementName>Customers XA</ModelElementName>
+      <ModelElementSize h="50" w="100" x="950" y="150"/>
+      <ModelElementConnection Element="67" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (120)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="45">
+      <ModelElementName>Customers XB</ModelElementName>
+      <ModelElementSize h="50" w="100" x="950" y="250"/>
+      <ModelElementConnection Element="68" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (120)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDispose id="46">
+      <ModelElementSize h="50" w="100" x="2100" y="250"/>
+      <ModelElementConnection Element="76" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementDifferenceCounter id="47">
+      <ModelElementName>Inventory XB</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1500" y="350"/>
+      <ModelElementConnection Element="51" Type="In"/>
+      <ModelElementConnection Element="55" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>1</ModelElementDifferenceCounterIncrement>
+    </ModelElementDifferenceCounter>
+    <ModelElementEdge id="50">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementConnection Element1="17" Element2="23" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementEdge id="51">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="17" Element2="47" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementDifferenceCounter id="52">
+      <ModelElementName>Inventory XB</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1900" y="350"/>
+      <ModelElementConnection Element="56" Type="In"/>
+      <ModelElementConnection Element="57" Type="Out"/>
+      <ModelElementDifferenceCounterIncrement>-1</ModelElementDifferenceCounterIncrement>
+      <ModelElementCounterClientType>B</ModelElementCounterClientType>
+    </ModelElementDifferenceCounter>
+    <ModelElementEdge id="53">
+      <ModelElementConnection Element1="23" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="54">
+      <ModelElementConnection Element1="21" Element2="24" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="55">
+      <ModelElementConnection Element1="47" Element2="22" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="56">
+      <ModelElementConnection Element1="22" Element2="52" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="59">
+      <ModelElementSize h="350" w="700" x="1350" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="60">
+      <ModelElementSize h="19" w="132" x="1355" y="105"/>
+      <ModelElementTextLine>Local warehouse X</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementTeleportOrigin id="63">
+      <ModelElementSize h="30" w="30" x="1100" y="210"/>
+      <ModelElementConnection Element="67" Type="In"/>
+      <ModelElementConnection Element="68" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Demand X</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementTeleportDestination id="61">
+      <ModelElementName>Demand X</ModelElementName>
+      <ModelElementSize h="30" w="30" x="1650" y="260"/>
+      <ModelElementConnection Element="64" Type="Out"/>
+    </ModelElementTeleportDestination>
+    <ModelElementDecide id="62">
+      <ModelElementSize h="50" w="100" x="1750" y="250"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="64" Type="In"/>
+      <ModelElementConnection ClientType="Customers XA" Element="65" Type="Out"/>
+      <ModelElementConnection Element="66" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="64">
+      <ModelElementConnection Element1="61" Element2="62" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="65">
+      <ModelElementName>Customers XA</ModelElementName>
+      <ModelElementConnection Element1="62" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="66">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="62" Element2="22" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="67">
+      <ModelElementName>Arrivals (Customers XA)</ModelElementName>
+      <ModelElementConnection Element1="44" Element2="63" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementEdge id="68">
+      <ModelElementName>Arrivals (Customers XB)</ModelElementName>
+      <ModelElementConnection Element1="45" Element2="63" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementTeleportOrigin id="42">
+      <ModelElementSize h="30" w="30" x="1100" y="810"/>
+      <ModelElementConnection Element="43" Type="In"/>
+      <ModelElementConnection Element="69" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Demand Y</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementEdge id="43">
+      <ModelElementName>Arrivals (Customers YA)</ModelElementName>
+      <ModelElementConnection Element1="31" Element2="42" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementEdge id="69">
+      <ModelElementName>Arrivals (Customers YB)</ModelElementName>
+      <ModelElementConnection Element1="32" Element2="42" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementTeleportDestination id="70">
+      <ModelElementName>Demand Y</ModelElementName>
+      <ModelElementSize h="30" w="30" x="1650" y="760"/>
+      <ModelElementConnection Element="72" Type="Out"/>
+    </ModelElementTeleportDestination>
+    <ModelElementDecide id="71">
+      <ModelElementSize h="50" w="100" x="1750" y="750"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="72" Type="In"/>
+      <ModelElementConnection ClientType="Customers YA" Element="73" Type="Out"/>
+      <ModelElementConnection Element="74" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="72">
+      <ModelElementConnection Element1="70" Element2="71" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="73">
+      <ModelElementName>Customers YA</ModelElementName>
+      <ModelElementConnection Element1="71" Element2="25" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="74">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="71" Element2="27" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="75">
+      <ModelElementSize h="10" w="10" x="1945" y="270"/>
+      <ModelElementConnection Element="57" Type="In"/>
+      <ModelElementConnection Element="58" Type="In"/>
+      <ModelElementConnection Element="76" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="57">
+      <ModelElementConnection Element1="52" Element2="75" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="58">
+      <ModelElementConnection Element1="24" Element2="75" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="76">
+      <ModelElementConnection Element1="75" Element2="46" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="40">
+      <ModelElementSize h="10" w="10" x="1945" y="770"/>
+      <ModelElementConnection Element="41" Type="In"/>
+      <ModelElementConnection Element="77" Type="In"/>
+      <ModelElementConnection Element="78" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="41">
+      <ModelElementConnection Element1="35" Element2="40" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="77">
+      <ModelElementConnection Element1="30" Element2="40" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="78">
+      <ModelElementConnection Element1="40" Element2="33" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="79">
+      <ModelElementSize h="250" w="350" x="900" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="80">
+      <ModelElementSize h="19" w="137" x="905" y="105"/>
+      <ModelElementTextLine>Demand in region X</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="81">
+      <ModelElementSize h="250" w="350" x="900" y="700"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="82">
+      <ModelElementSize h="19" w="138" x="905" y="705"/>
+      <ModelElementTextLine>Demand in region Y</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="83">
+      <ModelElementName>Average inventory</ModelElementName>
+      <ModelElementSize h="30" w="78" x="400" y="300"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WIP_avg(130)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="84">
+      <ModelElementName>Average inventory</ModelElementName>
+      <ModelElementSize h="30" w="78" x="400" y="755"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WIP_avg(131)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="85">
+      <ModelElementSize h="57" w="388" x="50" y="505"/>
+      <ModelElementTextLine>The factories produce as long as less than 10 products of the</ModelElementTextLine>
+      <ModelElementTextLine>respective manufactured type are in the system. Each factory</ModelElementTextLine>
+      <ModelElementTextLine>takes an average of 50 seconds to produce one product.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="86">
+      <ModelElementName>Average waiting time customers XA</ModelElementName>
+      <ModelElementSize h="30" w="148" x="1100" y="150"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Wartezeit_avg(44)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="87">
+      <ModelElementName>Average waiting time customers XB</ModelElementName>
+      <ModelElementSize h="30" w="148" x="1100" y="270"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Wartezeit_avg(45)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="88">
+      <ModelElementName>Average waiting time customers YA</ModelElementName>
+      <ModelElementSize h="30" w="150" x="1100" y="750"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Wartezeit_avg(31)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="89">
+      <ModelElementName>Average waiting time customers YB</ModelElementName>
+      <ModelElementSize h="30" w="150" x="1100" y="870"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Wartezeit_avg(32)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementDecide id="13">
+      <ModelElementSize h="50" w="100" x="250" y="300"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="119" Type="In"/>
+      <ModelElementConnection Condition="Pull==0" Element="93" Type="Out"/>
+      <ModelElementConnection Element="122" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementAnimationTextSelect id="95">
+      <ModelElementName>Pull active</ModelElementName>
+      <ModelElementSize h="30" w="44" x="235" y="260"/>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,180</ModelElementColor>
+      <TextExpression Expression="Pull==1">Yes (lower branch)</TextExpression>
+      <TextExpression Expression="Pull!=1">No (upper branch)</TextExpression>
+    </ModelElementAnimationTextSelect>
+    <ModelElementDecide id="9">
+      <ModelElementSize h="50" w="100" x="250" y="750"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="121" Type="In"/>
+      <ModelElementConnection Condition="Pull==0" Element="100" Type="Out"/>
+      <ModelElementConnection Element="101" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementAnimationTextSelect id="96">
+      <ModelElementName>Pull active</ModelElementName>
+      <ModelElementSize h="30" w="44" x="235" y="710"/>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,180</ModelElementColor>
+      <TextExpression Expression="Pull==1">Yes (lower branch)</TextExpression>
+      <TextExpression Expression="Pull!=1">No (upper branch)</TextExpression>
+    </ModelElementAnimationTextSelect>
+    <ModelElementLine id="104">
+      <ModelElementSize h="5" w="470" x="825" y="420"/>
+      <ModelElementLineWidth>3</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementLineType>1</ModelElementLineType>
+      <ModelElementLineArrowEnd>2</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementLine id="103">
+      <ModelElementSize h="5" w="470" x="825" y="625"/>
+      <ModelElementLineWidth>3</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementLineType>1</ModelElementLineType>
+      <ModelElementLineArrowEnd>2</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementLine id="102">
+      <ModelElementSize h="180" w="470" x="825" y="420"/>
+      <ModelElementLineWidth>3</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementLineType>1</ModelElementLineType>
+      <ModelElementLineArrowEnd>2</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementLine id="105">
+      <ModelElementSize h="-175" w="465" x="825" y="625"/>
+      <ModelElementLineWidth>3</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementLineType>1</ModelElementLineType>
+      <ModelElementLineArrowEnd>2</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementLine id="106">
+      <ModelElementSize h="0" w="50" x="1280" y="215"/>
+      <ModelElementLineWidth>3</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementLineType>4</ModelElementLineType>
+      <ModelElementLineArrowEnd>2</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementLine id="107">
+      <ModelElementSize h="0" w="50" x="1280" y="825"/>
+      <ModelElementLineWidth>3</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementLineType>4</ModelElementLineType>
+      <ModelElementLineArrowEnd>2</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementText id="108">
+      <ModelElementSize h="23" w="406" x="50" y="50"/>
+      <ModelElementTextLine>Use of central warehouses close to the factory</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="109">
+      <ModelElementSize h="192" w="384" x="50" y="950"/>
+      <ModelElementTextLine>There are two factories, each of which manufactures only one product.</ModelElementTextLine>
+      <ModelElementTextLine>In order to offer both product A and product B in region X as well</ModelElementTextLine>
+      <ModelElementTextLine>as in region Y, the two factories supply distribution warehouses</ModelElementTextLine>
+      <ModelElementTextLine>X and Y with their products.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>In both regions, the demand for both products is on average the same.</ModelElementTextLine>
+      <ModelElementTextLine>It can be set whether the factories should supply the two warehouses</ModelElementTextLine>
+      <ModelElementTextLine>equally or whether a pull strategy should be used. In the pull strategy,</ModelElementTextLine>
+      <ModelElementTextLine>the products manufactured in each case are initially held in a central</ModelElementTextLine>
+      <ModelElementTextLine>warehouse directly downstream of the respective factory and are only</ModelElementTextLine>
+      <ModelElementTextLine>delivered to warehouse X or warehouse Y when the stock of the</ModelElementTextLine>
+      <ModelElementTextLine>respective product has fallen to 0 there.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRadiobutton id="110">
+      <ModelElementName>Immediate delivery to the warehouses (push)</ModelElementName>
+      <ModelElementSize h="19" w="305" x="500" y="1000"/>
+      <ModelElementRadiobuttonVariable>Pull</ModelElementRadiobuttonVariable>
+      <ModelElementRadiobuttonValue>0</ModelElementRadiobuttonValue>
+    </ModelElementRadiobutton>
+    <ModelElementRadiobutton id="111">
+      <ModelElementName>Central storage, delivery only on pull signal</ModelElementName>
+      <ModelElementSize h="19" w="295" x="500" y="1030"/>
+      <ModelElementRadiobuttonVariable>Pull</ModelElementRadiobuttonVariable>
+      <ModelElementRadiobuttonValue>1</ModelElementRadiobuttonValue>
+    </ModelElementRadiobutton>
+    <ModelElementText id="112">
+      <ModelElementSize h="38" w="255" x="900" y="355"/>
+      <ModelElementTextLine>On average, one customer of either type</ModelElementTextLine>
+      <ModelElementTextLine>XA or type XB arrives every 60 seconds.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="113">
+      <ModelElementSize h="38" w="255" x="900" y="655"/>
+      <ModelElementTextLine>On average, one customer of either type</ModelElementTextLine>
+      <ModelElementTextLine>YA or type YB arrives every 60 seconds.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="115">
+      <ModelElementName>Average waiting time over all customers</ModelElementName>
+      <ModelElementSize h="32" w="168" x="1350" y="500"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Wartezeit_avg()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="90">
+      <ModelElementName>Average inventory n warehouse X</ModelElementName>
+      <ModelElementSize h="30" w="141" x="1600" y="415"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Counter_avg(23)+Counter_avg(47)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="98">
+      <ModelElementName>Average inventory n warehouse Y</ModelElementName>
+      <ModelElementSize h="30" w="143" x="1600" y="915"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Counter_avg(29)+Counter_avg(34)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="117">
+      <ModelElementName>Average over all inventory</ModelElementName>
+      <ModelElementSize h="32" w="112" x="1550" y="500"/>
+      <ModelElementFontSize bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WIP_avg(130)+WIP_avg(131)+Counter_avg(23)+Counter_avg(47)+Counter_avg(29)+Counter_avg(34)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementClientStatistics id="118">
+      <ModelElementSize h="50" w="100" x="100" y="300"/>
+      <ModelElementConnection Element="91" Type="In"/>
+      <ModelElementConnection Element="119" Type="Out"/>
+      <ModelElementClientStatisticsMode Mode="off"/>
+    </ModelElementClientStatistics>
+    <ModelElementEdge id="91">
+      <ModelElementName>Arrivals (A)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="118" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementEdge id="119">
+      <ModelElementConnection Element1="118" Element2="13" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementClientStatistics id="120">
+      <ModelElementSize h="50" w="100" x="100" y="750"/>
+      <ModelElementConnection Element="97" Type="In"/>
+      <ModelElementConnection Element="121" Type="Out"/>
+      <ModelElementClientStatisticsMode Mode="off"/>
+    </ModelElementClientStatistics>
+    <ModelElementEdge id="97">
+      <ModelElementName>Arrivals (B)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="120" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementEdge id="121">
+      <ModelElementConnection Element1="120" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="116">
+      <ModelElementSize h="33" w="138" x="390" y="160"/>
+      <ModelElementTextLine>Since the demand forecast for</ModelElementTextLine>
+      <ModelElementTextLine>X and Y is identical, both</ModelElementTextLine>
+      <ModelElementTextLine>warehouses are supplied equally.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">9</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="123">
+      <ModelElementSize h="33" w="138" x="390" y="610"/>
+      <ModelElementTextLine>Since the demand forecast for</ModelElementTextLine>
+      <ModelElementTextLine>X and Y is identical, both</ModelElementTextLine>
+      <ModelElementTextLine>warehouses are supplied equally.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">9</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementDecide id="124">
+      <ModelElementName>X / Y</ModelElementName>
+      <ModelElementSize h="50" w="100" x="400" y="200"/>
+      <ModelElementDecideMode>Sequence</ModelElementDecideMode>
+      <ModelElementConnection Element="93" Type="In"/>
+      <ModelElementConnection Element="136" Multiplicity="1" Type="Out"/>
+      <ModelElementConnection Element="137" Multiplicity="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementTeleportOrigin id="92">
+      <ModelElementSize h="30" w="30" x="680" y="320"/>
+      <ModelElementConnection Element="5" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Warehouse X</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementTeleportOrigin id="94">
+      <ModelElementSize h="30" w="30" x="680" y="400"/>
+      <ModelElementConnection Element="6" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Warehouse Y</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementEdge id="93">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="13" Element2="124" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementDecide id="99">
+      <ModelElementName>X / Y</ModelElementName>
+      <ModelElementSize h="50" w="100" x="400" y="650"/>
+      <ModelElementDecideMode>Sequence</ModelElementDecideMode>
+      <ModelElementConnection Element="100" Type="In"/>
+      <ModelElementConnection Element="128" Multiplicity="1" Type="Out"/>
+      <ModelElementConnection Element="129" Multiplicity="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="100">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="9" Element2="99" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementTeleportOrigin id="114">
+      <ModelElementSize h="30" w="30" x="680" y="770"/>
+      <ModelElementConnection Element="3" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Warehouse X</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementTeleportOrigin id="127">
+      <ModelElementSize h="30" w="30" x="680" y="850"/>
+      <ModelElementConnection Element="4" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Warehouse Y</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementHold id="130">
+      <ModelElementSize h="50" w="100" x="400" y="350"/>
+      <ModelElementConnection Element="122" Type="In"/>
+      <ModelElementConnection Element="134" Type="Out"/>
+      <ModelElementHoldCondition>Counter(23)&lt;1 || Counter(29)&lt;1</ModelElementHoldCondition>
+      <ModelElementPriority ClientType="A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden XA">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden XB">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden YA">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden YB">w</ModelElementPriority>
+    </ModelElementHold>
+    <ModelElementHold id="131">
+      <ModelElementSize h="50" w="100" x="400" y="800"/>
+      <ModelElementConnection Element="101" Type="In"/>
+      <ModelElementConnection Element="135" Type="Out"/>
+      <ModelElementHoldCondition>Counter(47)&lt;1 || Counter(34)&lt;1</ModelElementHoldCondition>
+      <ModelElementPriority ClientType="A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden XA">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden XB">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden YA">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden YB">w</ModelElementPriority>
+    </ModelElementHold>
+    <ModelElementEdge id="122">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="13" Element2="130" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementEdge id="101">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="9" Element2="131" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementDecide id="132">
+      <ModelElementSize h="50" w="100" x="550" y="800"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="135" Type="In"/>
+      <ModelElementConnection Condition="Counter(47)==0 &amp;&amp; (Counter(34)&gt;0 || random()&gt;0.5)" Element="3" Type="Out"/>
+      <ModelElementConnection Element="4" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="133">
+      <ModelElementSize h="50" w="100" x="550" y="350"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="134" Type="In"/>
+      <ModelElementConnection Condition="Counter(23)==0 &amp;&amp; (Counter(29)&gt;0 || random()&gt;0.5)" Element="5" Type="Out"/>
+      <ModelElementConnection Element="6" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="134">
+      <ModelElementConnection Element1="130" Element2="133" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="135">
+      <ModelElementConnection Element1="131" Element2="132" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="3">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="132" Element2="114" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementEdge id="4">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="132" Element2="127" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementEdge id="5">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="133" Element2="92" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementEdge id="6">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="133" Element2="94" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementTeleportOrigin id="10">
+      <ModelElementSize h="30" w="30" x="570" y="625"/>
+      <ModelElementConnection Element="128" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Warehouse X</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementTeleportOrigin id="14">
+      <ModelElementSize h="30" w="30" x="570" y="700"/>
+      <ModelElementConnection Element="129" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Warehouse Y</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementEdge id="128">
+      <ModelElementName>Reihenfolge - No. 1</ModelElementName>
+      <ModelElementConnection Element1="99" Element2="10" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementEdge id="129">
+      <ModelElementName>Reihenfolge - No. 2</ModelElementName>
+      <ModelElementConnection Element1="99" Element2="14" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementTeleportOrigin id="125">
+      <ModelElementSize h="30" w="30" x="570" y="170"/>
+      <ModelElementConnection Element="136" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Warehouse X</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementTeleportOrigin id="126">
+      <ModelElementSize h="30" w="30" x="570" y="250"/>
+      <ModelElementConnection Element="137" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Warehouse Y</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementEdge id="136">
+      <ModelElementName>Reihenfolge - No. 1</ModelElementName>
+      <ModelElementConnection Element1="124" Element2="125" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementEdge id="137">
+      <ModelElementName>Reihenfolge - No. 2</ModelElementName>
+      <ModelElementConnection Element1="124" Element2="126" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementAnimationTrafficLights id="138">
+      <ModelElementSize h="50" w="20" x="480" y="750"/>
+      <ModelElementAnimationTrafficLightsCondition Light="red">Counter(47)&gt;=1 &amp;&amp; Counter(34)&gt;=1</ModelElementAnimationTrafficLightsCondition>
+    </ModelElementAnimationTrafficLights>
+    <ModelElementAnimationTrafficLights id="139">
+      <ModelElementSize h="50" w="20" x="480" y="300"/>
+      <ModelElementAnimationTrafficLightsCondition Light="red">Counter(23)&gt;=1 &amp;&amp; Counter(29)&gt;=1</ModelElementAnimationTrafficLightsCondition>
+    </ModelElementAnimationTrafficLights>
+    <ModelElementAnimationText id="142">
+      <ModelElementName>Maximum inventory n warehouse X</ModelElementName>
+      <ModelElementSize h="30" w="146" x="1750" y="415"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Counter_max(23)+Counter_max(47)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="140">
+      <ModelElementName>Maximum inventory n warehouse y</ModelElementName>
+      <ModelElementSize h="30" w="147" x="1750" y="915"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Counter_max(29)+Counter_max(34)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="141">
+      <ModelElementSize h="19" w="656" x="50" y="80"/>
+      <ModelElementTextLine>Transfer of the concept of pull production to the relationship between factory and distribution warehouse</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="143">
+      <ModelElementSize h="64" w="264" x="500" y="1100"/>
+      <ModelElementTextLine>**Note:**</ModelElementTextLine>
+      <ModelElementTextLine>To set the strategy before starting a simulation,</ModelElementTextLine>
+      <ModelElementTextLine>the global variable "Pull" in the model properties</ModelElementTextLine>
+      <ModelElementTextLine>dialog can be set to the values 0 or 1.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1" italic="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Bediener A" Type="Number" Value="1"/>
+    <Resource Name="Bediener B" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="sport-soccer" Name="A"/>
+    <ClientData Icon="lollipop" Name="B"/>
+    <ClientData Icon="user_red" Name="Clients  XB"/>
+    <ClientData Icon="user_red" Name="Clients XB"/>
+    <ClientData Icon="user_red" Name="Clients YB"/>
+    <ClientData Icon="user_red" Name="Customers XB"/>
+    <ClientData Icon="user_red" Name="Customers YB"/>
+    <ClientData Icon="user_red" Name="Kunden XB"/>
+    <ClientData Icon="user_red" Name="Kunden YB"/>
+  </ClientTypeData>
+  <InitialVariable Name="Pull">1</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+</Model>
