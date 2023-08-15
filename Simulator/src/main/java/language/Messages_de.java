@@ -8569,7 +8569,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19654] = "ParameterCompare.Toolbar.ShowBaseModel.LoadFromEditor";
     t[19655] = "Neues Modell aus dem Editor laden";
     t[19658] = "Statistics.NoWaitingTransferProcessingTimes";
-    t[19659] = "Es liegen weder Warte- noch Transfer- noch Bedien- noch Verweilzeiten vor.";
+    t[19659] = "Es liegen weder Warte- noch Transfer- noch Bedien- noch Verweilzeiten, die gr\u00f6\u00dfer als 0 sind, vor.";
     t[19664] = "ExpressionBuilder.ProbabilityDistributions.CauchyDistribution";
     t[19665] = "Cauchy-Verteilung";
     t[19666] = "Resources.Group.EditName.Dialog.DownTime.Expression.Error.Info";

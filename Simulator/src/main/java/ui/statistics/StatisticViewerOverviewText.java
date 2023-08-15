@@ -843,13 +843,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			addModeLink(Mode.MODE_CLIENTS_COUNT);
 			endParagraph();
 		} else {
-			if (statistics.clientsInSystem.getTimeMean()>0) {
-				addHeading(3,Language.tr("Statistics.AverageNumberOfClientsByStations")+" E[N]");
-				beginParagraph();
-				addLine(Language.tr("Statistics.ClientsInSystem")+": "+StatisticTools.formatNumber(statistics.clientsInSystem.getTimeMean()),xmlMean(statistics.clientsInSystem));
-				addModeLink(Mode.MODE_CLIENTS_COUNT);
-				endParagraph();
-			}
+			/* Auch E[N]=0 für das System ausgeben, da das sonst verwirrend wirkt. Also hier kein "if (statistics.clientsInSystem.getTimeMean()>0)" */
+			addHeading(3,Language.tr("Statistics.AverageNumberOfClientsByStations")+" E[N]");
+			beginParagraph();
+			addLine(Language.tr("Statistics.ClientsInSystem")+": "+StatisticTools.formatNumber(statistics.clientsInSystem.getTimeMean()),xmlMean(statistics.clientsInSystem));
+			addModeLink(Mode.MODE_CLIENTS_COUNT);
+			endParagraph();
 		}
 
 		/* Mittlere Anzahl an Kunden im System (nach Kundentypen) */
@@ -2512,7 +2511,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 			buildClientData(waitingTime,transferTime,processingTime,residenceTime,hasWaitingTimes,hasTransferTimes,hasProcessingTimes,hasResidenceTimes);
 		}
 
-		if (statistics.clientsAllWaitingTimes.getBatchCount()<1 && statistics.threadBasedConfidence.size()>0) {
+		if (statistics.clientsAllWaitingTimes.getBatchCount()<1 && statistics.threadBasedConfidence.size()>0 && hasWaitingTimes) {
 			addHeading(3,Language.tr("Statistics.Confidence.HeadingThread"));
 			outputThreadConfidenceData();
 		}

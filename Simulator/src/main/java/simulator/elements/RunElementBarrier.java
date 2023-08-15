@@ -168,6 +168,13 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 		/* Zähler für Direktdurchleite-Kunden verringern */
 		data.initialClients[index]--;
 
+		/* Wartezeit in Statistik */
+		simData.runData.logStationProcess(simData,this,client,0,0,0,0);
+		client.addStationTime(id,0,0,0,0);
+
+		/* Kunden an Station in Statistik */
+		simData.runData.logClientLeavesStationQueue(simData,this,data,client);
+
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.BarrierInactive"),String.format(Language.tr("Simulation.Log.BarrierInactive.Info"),client.logInfo(simData),name));
 
@@ -226,7 +233,7 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);
 		StationLeaveEvent.announceClient(simData,client,getNext());
 
-		/* Bedienzeit in Statistik */
+		/* Wartezeit in Statistik */
 		final long waitingTime=simData.currentTime-client.lastWaitingStart;
 		simData.runData.logStationProcess(simData,this,client,waitingTime,0,0,waitingTime);
 		client.addStationTime(id,waitingTime,0,0,waitingTime);
