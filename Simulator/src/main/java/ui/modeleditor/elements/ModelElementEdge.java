@@ -24,6 +24,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.Icon;
 import javax.swing.JCheckBoxMenuItem;
@@ -33,7 +34,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
 import org.apache.commons.math3.util.FastMath;
-import org.apache.jena.ext.com.google.common.base.Objects;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -165,7 +165,7 @@ public final class ModelElementEdge extends ModelElement {
 		if (connectionStart.getId()!=otherEdge.connectionStart.getId()) return false;
 		if (connectionEnd.getId()!=otherEdge.connectionEnd.getId()) return false;
 		if (lineMode!=otherEdge.lineMode) return false;
-		if (!Objects.equal(lineColor,otherEdge.lineColor)) return false;
+		if (!Objects.equals(lineColor,otherEdge.lineColor)) return false;
 		if (drawName!=otherEdge.drawName) return false;
 
 		return true;

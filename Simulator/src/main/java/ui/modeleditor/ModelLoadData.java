@@ -18,8 +18,8 @@ package ui.modeleditor;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import org.apache.jena.ext.com.google.common.base.Objects;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -152,8 +152,8 @@ public final class ModelLoadData implements Cloneable {
 
 		if (active!=otherModelLoadData.active) return false;
 		if (mode!=otherModelLoadData.mode) return false;
-		if (!Objects.equal(workbook,otherModelLoadData.workbook)) return false;
-		if (!Objects.equal(table,otherModelLoadData.table)) return false;
+		if (!Objects.equals(workbook,otherModelLoadData.workbook)) return false;
+		if (!Objects.equals(table,otherModelLoadData.table)) return false;
 
 		if (list.size()!=otherModelLoadData.list.size()) return false;
 		for (int i=0;i<list.size();i++) if (!list.get(i).equalsRecord(otherModelLoadData.list.get(i))) return false;

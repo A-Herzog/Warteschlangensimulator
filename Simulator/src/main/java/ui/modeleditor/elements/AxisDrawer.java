@@ -21,9 +21,9 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
+import java.util.Objects;
 
 import org.apache.commons.math3.util.FastMath;
-import org.apache.jena.ext.com.google.common.base.Objects;
 
 import mathtools.NumberTools;
 import mathtools.TimeTools;
@@ -215,7 +215,7 @@ public class AxisDrawer {
 		if (mode==null) mode=Mode.OFF;
 		if (min==max) mode=Mode.OFF;
 		if (label!=null && label.trim().isEmpty()) label=null;
-		if (minValue==min && maxValue==max && this.mode==mode && Objects.equal(label,this.label) && numberFormat==NumberFormat.NUMBER) return;
+		if (minValue==min && maxValue==max && this.mode==mode && Objects.equals(label,this.label) && numberFormat==NumberFormat.NUMBER) return;
 		numberFormat=NumberFormat.NUMBER;
 		minValue=min;
 		maxValue=max;
@@ -235,7 +235,7 @@ public class AxisDrawer {
 		if (mode==null) mode=Mode.OFF;
 		if (min==0) mode=Mode.OFF;
 		if (label!=null && label.trim().isEmpty()) label=null;
-		if (minValue==min && maxValue==0 && this.mode==mode && Objects.equal(label,this.label) && numberFormat==NumberFormat.TIME) return;
+		if (minValue==min && maxValue==0 && this.mode==mode && Objects.equals(label,this.label) && numberFormat==NumberFormat.TIME) return;
 		numberFormat=NumberFormat.TIME;
 		minValue=min;
 		maxValue=0;

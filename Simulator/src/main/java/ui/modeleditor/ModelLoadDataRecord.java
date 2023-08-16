@@ -15,7 +15,8 @@
  */
 package ui.modeleditor;
 
-import org.apache.jena.ext.com.google.common.base.Objects;
+import java.util.Objects;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -83,7 +84,7 @@ public final class ModelLoadDataRecord implements Cloneable {
 	public boolean equalsRecord(final ModelLoadDataRecord otherRecord) {
 		if (otherRecord==null) return false;
 
-		if (!Objects.equal(cell,otherRecord.cell)) return false;
+		if (!Objects.equals(cell,otherRecord.cell)) return false;
 		if (!change.equalsParameterCompareSetupValueInput(otherRecord.change)) return false;
 
 		return true;

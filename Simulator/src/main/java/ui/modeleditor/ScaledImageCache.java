@@ -24,9 +24,9 @@ import java.awt.image.WritableRaster;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 import org.apache.commons.math3.util.FastMath;
-import org.apache.jena.ext.com.google.common.base.Objects;
 
 import systemtools.ImageTools;
 
@@ -125,7 +125,7 @@ public class ScaledImageCache {
 
 		if (image1==image2) return true;
 
-		return Objects.equal(getHash(image1),getHash(image2));
+		return Objects.equals(getHash(image1),getHash(image2));
 	}
 
 	/**

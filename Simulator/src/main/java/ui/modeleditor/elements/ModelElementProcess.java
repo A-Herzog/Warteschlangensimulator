@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -34,7 +35,6 @@ import javax.swing.JPopupMenu;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.util.FastMath;
-import org.apache.jena.ext.com.google.common.base.Objects;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -399,9 +399,9 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		if (resourceCheckInRandomOrder!=process.resourceCheckInRandomOrder) return false;
 
 		/* Kosten */
-		if (!Objects.equal(costs,process.costs)) return false;
-		if (!Objects.equal(costsPerProcessSecond,process.costsPerProcessSecond)) return false;
-		if (!Objects.equal(costsPerPostProcessSecond,process.costsPerPostProcessSecond)) return false;
+		if (!Objects.equals(costs,process.costs)) return false;
+		if (!Objects.equals(costsPerProcessSecond,process.costsPerProcessSecond)) return false;
+		if (!Objects.equals(costsPerPostProcessSecond,process.costsPerPostProcessSecond)) return false;
 
 		return true;
 	}
