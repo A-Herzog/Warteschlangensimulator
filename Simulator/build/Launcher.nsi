@@ -4,6 +4,13 @@
 !define Copyright "Alexander Herzog"
 
 !include Version.nsi
+!include Checksum_SimSystem.nsi
+!include Checksum_SimTools.nsi
+!include Checksum_Simulator.nsi
+
+!addplugindir ".\NSIS_Plugins"
+!addincludedir ".\NSIS_Plugins"
+!include LogicLib.nsh
 
 VIProductVersion "${VERSION}.100"
 VIAddVersionKey "ProductName" "${PrgName}"
@@ -30,6 +37,36 @@ RequestExecutionLevel user
 Section ""
   Call GetParameters
   Pop $R1
+  
+  ClearErrors
+  Crypto::HashFile "SHA2" "Simulator.jar"
+  Pop $0
+  ${IfNot} ${Errors}
+    ${IfNot} $0 == ${CHECKSUM_SIMULATOR}	
+	MessageBox MB_OK "Simulator.jar checksum error"
+	Goto MainEnd
+	${EndIf}
+  ${EndIf}
+  
+  ClearErrors
+  Crypto::HashFile "SHA2" ".\libs\SimSystem.jar"
+  Pop $0
+  ${IfNot} ${Errors}
+    ${IfNot} $0 == ${CHECKSUM_SIMSYSTEM}	
+	MessageBox MB_OK "SimSystem.jar checksum error"
+	Goto MainEnd
+	${EndIf}
+  ${EndIf}
+  
+  ClearErrors
+  Crypto::HashFile "SHA2" ".\libs\SimTools.jar"
+  Pop $0
+  ${IfNot} ${Errors}
+    ${IfNot} $0 == ${CHECKSUM_SIMTOOLS}	
+	MessageBox MB_OK "SimTools.jar checksum error"
+	Goto MainEnd
+	${EndIf}
+  ${EndIf}
   
   DetailPrint "Start..."
 

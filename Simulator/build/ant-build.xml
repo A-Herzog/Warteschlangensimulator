@@ -299,12 +299,6 @@
 		<delete file="${Release.location}/SimulatorSetup.exe" />
 		<delete file="${Release.location}/SimulatorSetup.sig" />
 
-		<echo message="Set version in wrapper/installer scripts" />
-		<delete file="${BuildTools.location}/Version.nsi"/>
-		<exec dir="${BuildTools.location}" executable="${sed.location}/sed.exe" output="${BuildTools.location}/Version.nsi">
-			<arg line="-nf &quot;${BuildTools.location}/Version_sed.txt&quot; &quot;${Simulator.location}/src/main/java/ui/MainPanel.java&quot;" />
-		</exec>
-
 		<echo message="Copy program files" />
 		<copy file="${Simulator.location}/target/Simulator.jar" todir="${Release.location}"/>
 		<copy todir="${Release.location}/libs">
@@ -343,6 +337,29 @@
 		<copy todir="${Release.location}/dictionaries">
 			<fileset dir="${BuildTools.location}/Dictionaries"/>
 		</copy>
+		
+		<echo message="Set version in wrapper/installer scripts" />
+		<delete file="${BuildTools.location}/Version.nsi"/>
+		<exec dir="${BuildTools.location}" executable="${sed.location}/sed.exe" output="${BuildTools.location}/Version.nsi">
+			<arg line="-nf &quot;${BuildTools.location}/Version_sed.txt&quot; &quot;${Simulator.location}/src/main/java/ui/MainPanel.java&quot;" />
+		</exec>
+		
+		<echo message="Set simulator.jar checksum in wrapper scripts" />		
+		<checksum file="${Release.location}/Simulator.jar" algorithm="SHA-256" />
+		<exec dir="${BuildTools.location}" executable="${sed.location}/sed.exe" output="${BuildTools.location}/Checksum_Simulator.nsi">
+			<arg line="-nf &quot;${BuildTools.location}/Checksum_Simulator_sed.txt&quot; &quot;${Release.location}/Simulator.jar.SHA-256&quot;" />
+		</exec>
+		<delete file="${Release.location}/Simulator.jar.SHA-256" />
+		<checksum file="${Release.location}/libs/simsystem.jar" algorithm="SHA-256" />
+		<exec dir="${BuildTools.location}" executable="${sed.location}/sed.exe" output="${BuildTools.location}/Checksum_SimSystem.nsi">
+			<arg line="-nf &quot;${BuildTools.location}/Checksum_SimSystem_sed.txt&quot; &quot;${Release.location}/libs/simsystem.jar.SHA-256&quot;" />
+		</exec>
+		<delete file="${Release.location}/libs/simsystem.jar.SHA-256" />
+		<checksum file="${Release.location}/libs/simtools.jar" algorithm="SHA-256" />
+		<exec dir="${BuildTools.location}" executable="${sed.location}/sed.exe" output="${BuildTools.location}/Checksum_SimTools.nsi">
+			<arg line="-nf &quot;${BuildTools.location}/Checksum_SimTools_sed.txt&quot; &quot;${Release.location}/libs/simtools.jar.SHA-256&quot;" />
+		</exec>
+		<delete file="${Release.location}/libs/simtools.jar.SHA-256" />		
 
 		<available file="${NSIS.location}\makensis.exe" property="NSIS.present"/>
 		<condition property="Signer.present">
@@ -356,6 +373,7 @@
 		<exec executable="${NSIS.location}\makensis.exe" dir="${BuildTools.location}" if:set="NSIS.present">
 			<arg value="Launcher.nsi" />
 		</exec>
+
 		<exec executable="${Signer.location}\SignTool.exe" dir="${BuildTools.location}" if:set="Signer.present">
 			<arg value="sign"/>
 			<arg value="/n"/>

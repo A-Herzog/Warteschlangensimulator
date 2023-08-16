@@ -2,6 +2,9 @@ target/
 language/gettext/
 language/sed/
 build/Signer/
+build/Checksum_SimSystem.nsi
+build/Checksum_SimTools.nsi
+build/Checksum_Simulator.nsi
 tools/JDDE/
 build/Help/Warteschlangennetz-mittel.png
 build/Help/Warteschlangennetz-mittel.jpg

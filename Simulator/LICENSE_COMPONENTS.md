@@ -577,6 +577,11 @@ http://java.sun.com/products/java-media/jai
 - License URL: https://www.zlib.net/zlib_license.html
 - Homepage: https://nsis.sourceforge.io/UAC_plug-in
 
+### Crypto plug-in
+
+- License: Freeware
+- Homepage: https://nsis.sourceforge.io/Crypto_plug-in
+
 ---
 
 ## Web server and other components

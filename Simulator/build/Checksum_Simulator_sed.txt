@@ -1,0 +1,1 @@
+s/^\(.*\)$/!define CHECKSUM_SIMULATOR "\1"/p
