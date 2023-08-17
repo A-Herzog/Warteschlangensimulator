@@ -162,10 +162,10 @@ public class CalcSystem extends CalcSystemBase {
 		unsetPlainNumber();
 		if (text==null || text.isEmpty()) return 0;
 
-		final CalcParser parser=new CalcParser(getCalcSymbolList());
-
-		Double D=parser.isNumber(text);
+		final Double D=CalcParser.isNumber(text);
 		if (D!=null) {setPlainNumber(D); root=null; return -1;}
+
+		final CalcParser parser=new CalcParser(getCalcSymbolList());
 
 		Object obj=parser.parse(text);
 		if (obj instanceof CalcSymbol) {

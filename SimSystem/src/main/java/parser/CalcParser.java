@@ -109,7 +109,7 @@ public final class CalcParser {
 	 * @param text	Zu prüfende Zeichenkette
 	 * @return	Gibt im Erfolgsfall direkt die Zahl zurück.
 	 */
-	public Double isNumber(final String text) {
+	public static Double isNumber(final String text) {
 		/*
 		Belegt unnötig Speicher:
 		Object[] obj=getNumber(text.trim());
