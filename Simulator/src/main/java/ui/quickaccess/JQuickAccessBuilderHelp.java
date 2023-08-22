@@ -73,7 +73,7 @@ public class JQuickAccessBuilderHelp extends JQuickAccessBuilder {
 			final String text=entry.getKey();
 			final String page=entry.getValue();
 			final int index=text.toLowerCase().indexOf(quickAccessText.toLowerCase());
-			results.add(new JQuickAccessRecord(category,text,buildResultText("Hilfeseite",text,-1,index),categoryTooltip,Images.HELP.getIcon(),pageLoader,page));
+			results.add(new JQuickAccessRecord(category,text,buildResultText(Language.tr("QuickAccess.Help.Page"),text,-1,index),categoryTooltip,Images.HELP.getIcon(),pageLoader,page));
 			count++;
 		}
 
@@ -92,7 +92,7 @@ public class JQuickAccessBuilderHelp extends JQuickAccessBuilder {
 				info=" ("+String.format((pages.size()==1)?HelpBase.buttonSearchResultCountSingular:HelpBase.buttonSearchResultCountPlural,pages.size())+")";
 			}
 
-			results.add(new JQuickAccessRecord(category,text,buildResultText("Seiteninhalt",text+info,-1,index),categoryTooltip,SimToolsImages.HELP_FIND_IN_PAGE.getIcon(),pagesLoader,pages));
+			results.add(new JQuickAccessRecord(category,text,buildResultText(Language.tr("QuickAccess.Help.PageContent"),text+info,-1,index),categoryTooltip,SimToolsImages.HELP_FIND_IN_PAGE.getIcon(),pagesLoader,pages));
 			count++;
 		}
 	}

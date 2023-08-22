@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-11 00:03+0200\n"
+"POT-Creation-Date: 2023-08-14 08:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16612,6 +16612,12 @@ msgstr "Help"
 
 msgid "QuickAccess.Help.Hint"
 msgstr "Opens a help page."
+
+msgid "QuickAccess.Help.Page"
+msgstr "Help page"
+
+msgid "QuickAccess.Help.PageContent"
+msgstr "Page content"
 
 msgid "QuickAccess.Hint"
 msgstr "Search for program functions, station types, example models etc."

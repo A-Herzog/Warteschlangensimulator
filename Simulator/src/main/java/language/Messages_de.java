@@ -13770,6 +13770,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31337] = "Standardabweichung der Zwischenabgangszeiten";
     t[31342] = "Surface.TankValveSetup.Dialog.TableCol.ValveSetup";
     t[31343] = "Ventilkonfiguration";
+    t[31350] = "Surface.Balking.XML.Root";
+    t[31351] = "ModellElementZurueckschrecken";
     t[31352] = "Animation.IconDialog.Single.IconName";
     t[31353] = "Name des Bildes";
     t[31354] = "Surface.Decide.Dialog.OutgoingEdge.Value.ErrorMissing.Info";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31901] = "Symbole";
     t[31904] = "ExpressionBuilder.AnalyticalQueueingModels.ErlangC";
     t[31905] = "Erlang-C-Modell";
-    t[31906] = "Elements.Catalog.Transport";
-    t[31907] = "Transport";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31906] = "Elements.Catalog.Transport";
+    t[31907] = "Transport";
     t[31910] = "Simulation.Output.WaitingTime";
     t[31911] = "Wartezeit";
     t[31912] = "LoadCalculator.Tab.WorkLoad";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36351] = "<p>Liefert die durchschnittliche Anzahl an belegten Bedienern in der angegebenen Ressource.</p>";
     t[36354] = "Editor.DialogBase.Search.Set.Key.Name";
     t[36355] = "Schl\u00fcssel f\u00fcr Textzuweisung";
-    t[36360] = "ExpressionCalculator.Tab.Clients.ResidenceWaitingTime";
-    t[36361] = "Mittlere Verweilzeit der Kunden";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36360] = "ExpressionCalculator.Tab.Clients.ResidenceWaitingTime";
+    t[36361] = "Mittlere Verweilzeit der Kunden";
     t[36364] = "Surface.ExpressionTableModel.ColumnExpression";
     t[36365] = "Ausdruck";
     t[36368] = "Editor.ModelProperties.Short";
@@ -16948,6 +16950,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38299] = "Wartezeit";
     t[38300] = "Git.List.Tab.Server.Auth.UserNamePassword.Name";
     t[38301] = "Nutzername";
+    t[38310] = "QuickAccess.Help.PageContent";
+    t[38311] = "Seiteninhalt";
     t[38316] = "Main.Menu.View.ShowRaster.Off";
     t[38317] = "Kein Raster";
     t[38318] = "Surface.Decide.XML.Mode.ByClientsAtStationProcess";
@@ -17768,8 +17772,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40173] = "Seite";
     t[40174] = "ProcessClientOutputTable.ColumnHeader.TransferTimeCosts";
     t[40175] = "Kosten f\u00fcr Transportzeit";
-    t[40176] = "Surface.Balking.XML.Root";
-    t[40177] = "ModellElementZurueckschrecken";
+    t[40176] = "QuickAccess.Help.Page";
+    t[40177] = "Hilfeseite";
     t[40178] = "Statistic.Type.NoData";
     t[40179] = "keine Daten ausgew\u00e4hlt";
     t[40180] = "Editor.Dialog.Sequences.Copy.Title";
@@ -18054,16 +18058,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40759] = "L\u00e4nge der Ausfallzeiten";
     t[40768] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.EvolutionPressure.ErrorTitle";
     t[40769] = "Ung\u00fcltiger evolution\u00e4rer Druck";
-    t[40772] = "Surface.Match.XML.ClientType";
-    t[40773] = "ModellElementKundentyp";
-    t[40774] = "Editor.SurfaceTooltip.Generator";
-    t[40775] = "Modellgenerator aufrufen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40772] = "Surface.Match.XML.ClientType";
+    t[40773] = "ModellElementKundentyp";
+    t[40774] = "Editor.SurfaceTooltip.Generator";
+    t[40775] = "Modellgenerator aufrufen";
     t[40778] = "SettingsDialog.Tabs.Performance.GUIAnimations";
     t[40779] = "Animationen in der Programmoberfl\u00e4che aktivieren";
     t[40782] = "Statistics.Filter.CouldNotSaveStatistics";
@@ -20060,16 +20064,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45217] = "Anzahl an Teleport-Ausg\u00e4ngen";
     t[45218] = "Editor.SetupZoom";
     t[45219] = "Zoomfaktor einstellen";
-    t[45224] = "Surface.XML.BoxFont.Size";
-    t[45225] = "Groesse";
-    t[45226] = "LoadCalculator.WaitingTime";
-    t[45227] = "Wartezeit";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45224] = "Surface.XML.BoxFont.Size";
+    t[45225] = "Groesse";
+    t[45226] = "LoadCalculator.WaitingTime";
+    t[45227] = "Wartezeit";
     t[45228] = "Simulation.Creator.HoldClientPriority";
     t[45229] = "F\u00fcr Element id=%d wurde f\u00fcr Kundentyp \"%s\" der ung\u00fcltige Wert \"%s\" als Priorit\u00e4t (Fehler an Zeichen %d) angegeben.";
     t[45236] = "Statistics.ShareInThisGroup";
@@ -22066,16 +22070,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49679] = "Notiz";
     t[49684] = "LogSimulation.LimitRecords.Info";
     t[49685] = "Es werden nur die letzten Eintr\u00e4ge gespeichert. Nur verf\u00fcgbar bei Textausgaben.";
-    t[49688] = "Editor.DialogBase.Search.ValueForCondition";
-    t[49689] = "Wert f\u00fcr Bedingung \"%s\"";
-    t[49696] = "ExternalConnect.Dialog.CopyExampleFiles";
-    t[49697] = "Beispieldateien kopieren";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[49688] = "Editor.DialogBase.Search.ValueForCondition";
+    t[49689] = "Wert f\u00fcr Bedingung \"%s\"";
+    t[49696] = "ExternalConnect.Dialog.CopyExampleFiles";
+    t[49697] = "Beispieldateien kopieren";
     t[49700] = "Surface.Source.Dialog.ConditionMinDistance.Error.Info";
     t[49701] = "Der angegebene minimale Abstand zwischen zwei Ank\u00fcnften \"%s\" ist ung\u00fcltig. Es muss eine positive Zahl angegeben werden.";
     t[49710] = "Surface.Action.XML.Record.Condition.Threshold";
@@ -24072,16 +24076,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54121] = "B";
     t[54124] = "Statistic.Viewer.Report.HTMLApp.Info";
     t[54125] = "W\u00e4hlen Sie in der Baumstruktur die anzuzeigende Rubrik aus.";
-    t[54126] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.MaximalTime";
-    t[54127] = "<p>Liefert die maximale bisher entstandene Bedienzeit (\u00fcber alle Kundentypen).</p>";
-    t[54128] = "Simulation.Log.AnalogAssign.InfoValue";
-    t[54129] = "Zuweisung von Wert an Station id=%d: %s";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[54126] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesOverAll.MaximalTime";
+    t[54127] = "<p>Liefert die maximale bisher entstandene Bedienzeit (\u00fcber alle Kundentypen).</p>";
+    t[54128] = "Simulation.Log.AnalogAssign.InfoValue";
+    t[54129] = "Zuweisung von Wert an Station id=%d: %s";
     t[54136] = "Simulation.Creator.RoutingCondition.Expression";
     t[54137] = "Die Bedingung \"%s\", die an Station id=%d f\u00fcr das Routing verwendet wird, ist ab Zeichen %d ung\u00fcltig.";
     t[54140] = "Simulator.Creator.UnknownParserSymbol";
