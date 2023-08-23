@@ -61,7 +61,7 @@ import systemtools.images.SimToolsImages;
 /**
  * Diese Klasse stellt einige Basisfunktionen zum Erstellen von Dialogen bereit.
  * @author Alexander Herzog
- * @version 2.2
+ * @version 2.3
  */
 public class BaseDialog extends JDialog {
 	/**
@@ -284,6 +284,15 @@ public class BaseDialog extends JDialog {
 	}
 
 	/**
+	 * Soll der Dialog durch einen Escape-Tastendruck mit demselben Rückgabewert
+	 * wie wenn auf "Abbrechen" geklickt wurde geschlossen werden?
+	 * @return	Dialog per Escape schließen?
+	 */
+	protected boolean closeOnEscape() {
+		return true;
+	}
+
+	/**
 	 * Klasse zur Reaktion auf F1- und Escape-Tastendrücke
 	 * @see BaseDialog#createRootPane()
 	 */
@@ -311,10 +320,11 @@ public class BaseDialog extends JDialog {
 		public void actionPerformed(ActionEvent actionEvent) {
 			switch (action) {
 			case 0:
-				if ((cancelButton!=null && cancelButton.isVisible()) || (closeButton!=null && closeButton.isVisible())) {
-					if (closeButton!=null && closeButton.isVisible()) {if (!closeButtonOK()) return;}
-					setVisible(false); dispose();
-				}
+				if (closeOnEscape())
+					if ((cancelButton!=null && cancelButton.isVisible()) || (closeButton!=null && closeButton.isVisible())) {
+						if (closeButton!=null && closeButton.isVisible()) {if (!closeButtonOK()) return;}
+						setVisible(false); dispose();
+					}
 				break;
 			case 1:
 				if (helpButton!=null && helpButton.isVisible() && helpRunnable!=null) helpRunnable.run();

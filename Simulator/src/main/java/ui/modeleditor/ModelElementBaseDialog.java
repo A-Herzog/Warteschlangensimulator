@@ -42,6 +42,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.FocusManager;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -405,6 +406,13 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 */
 	protected void setDialogSizeLater() {
 		pack();
+	}
+
+	@Override
+	protected boolean closeOnEscape() {
+		final Component focus=FocusManager.getCurrentManager().getFocusOwner();
+		if (nameField!=null && focus==nameField) return true;
+		return !(focus instanceof RSyntaxTextArea);
 	}
 
 	/**
