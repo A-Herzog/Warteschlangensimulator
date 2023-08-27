@@ -177,7 +177,7 @@ public class PDFWriterBase {
 
 		XMPMetadata xmp=XMPMetadata.createXMPMetadata();
 		try {
-			PDFAIdentificationSchema pdfaid=xmp.createAndAddPFAIdentificationSchema();
+			PDFAIdentificationSchema pdfaid=xmp.createAndAddPDFAIdentificationSchema();
 			pdfaid.setConformance("B");
 			pdfaid.setPart(1);
 			pdfaid.setAboutAsSimple("");
