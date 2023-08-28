@@ -503,6 +503,18 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	}
 
 	/**
+	 * Sind Benutzerstatistikdaten, die sich auf diskrete Werte beziehen, in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt diskret-wertige Benutzerstatistikdaten enthalten sind
+	 */
+	private boolean testUserStatisticsDiscreteAvailable(final Statistics[] statistics) {
+		for (Statistics statistic: statistics) {
+			if (statistic.userStatistics.size()>0) return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Sind Variablenwertaufzeichnungen in den Statistiken enthalten?
 	 * @param statistics	Zu prüfende Statistikdaten
 	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Variablendaten enthalten sind
@@ -1930,13 +1942,15 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerUserStatisticTable(statistic,StatisticViewerUserStatisticTable.Mode.MODE_DEFAULT));
 			group.addChild(new StatisticNode(Language.tr("Statistics.UserStatistics"),viewer));
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerUserStatisticTable(statistic,StatisticViewerUserStatisticTable.Mode.MODE_DETAILS));
-			group.addChild(new StatisticNode(Language.tr("Statistics.UserStatistics.Details"),viewer));
+			if (testUserStatisticsDiscreteAvailable(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerUserStatisticTable(statistic,StatisticViewerUserStatisticTable.Mode.MODE_DETAILS));
+				group.addChild(new StatisticNode(Language.tr("Statistics.UserStatistics.Details"),viewer));
 
-			viewer=new ArrayList<>();
-			for(Statistics statistic : statistics) viewer.add(new StatisticViewerUserStatisticLineChart(statistic));
-			group.addChild(new StatisticNode(Language.tr("Statistics.UserStatistics"),viewer));
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerUserStatisticLineChart(statistic));
+				group.addChild(new StatisticNode(Language.tr("Statistics.UserStatistics"),viewer));
+			}
 
 		}
 
