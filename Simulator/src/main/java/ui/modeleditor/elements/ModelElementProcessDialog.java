@@ -42,6 +42,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
 import systemtools.MsgBox;
+import tools.IconListCellRenderer;
 import tools.JTableExt;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
@@ -333,6 +334,10 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		label.setLabelFor(resourceCheckOrder);
 		resourceCheckOrder.setSelectedIndex(process.isResourceCheckInRandomOrder()?1:0);
 		resourceCheckOrder.setEnabled(!readOnly);
+		resourceCheckOrder.setRenderer(new IconListCellRenderer(new Images[] {
+				Images.ARROW_DOWN,
+				Images.ARROW_SWITCH
+		}));
 
 		area.add(resourceAssistant=getAssistentPanel());
 
