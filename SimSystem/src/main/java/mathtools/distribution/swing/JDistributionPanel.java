@@ -463,18 +463,25 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	private double getRealMaxXValue() {
 		if (distribution==null) return maxXValue;
 
-		double test=Math.min(maxXValue,Math.min(10_000,distribution.getSupportUpperBound()));
-		if (distribution.cumulativeProbability(test)>0.99) {
-			while (test>10) {
-				double testOld=test;
-				test=Math.round(test/2);
-				if (distribution.cumulativeProbability(test)<0.99) return testOld;
+		double newMaxXValue=Math.min(maxXValue,Math.min(10_000,distribution.getSupportUpperBound()));
+		if (distribution.cumulativeProbability(newMaxXValue)>0.99) {
+			while (newMaxXValue>10) {
+				double testOld=newMaxXValue;
+				newMaxXValue=Math.round(newMaxXValue/2);
+				if (distribution.cumulativeProbability(newMaxXValue)<0.99) {newMaxXValue=testOld; break;}
 			}
-			return test;
 		} else {
-			if (distribution.getSupportUpperBound()*1.1<maxXValue) return distribution.getSupportUpperBound()*1.1;
-			return maxXValue;
+			if (distribution.getSupportUpperBound()*1.1<newMaxXValue) newMaxXValue=distribution.getSupportUpperBound()*1.1;
 		}
+
+		/* Wenn der Übergang von F(x)<0.5 zu F(x)>0.99 sehr hart ist (und vermutlich die Ein-Punkt-Verteilung vorliegt), die obere x-Grenze etwas verschieben, so dass die (fast) vertikale Linie zu erkennen ist. */
+		if (newMaxXValue*0.99<distribution.getSupportUpperBound() && distribution.cumulativeProbability(newMaxXValue*0.99)<0.5) {
+			newMaxXValue=newMaxXValue*1.1;
+		}
+
+		return newMaxXValue;
+
+
 	}
 
 	/**
