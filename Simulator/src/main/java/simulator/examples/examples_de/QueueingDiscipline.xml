@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModellVersion>5.0.0</ModellVersion>
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Auswirkung der Bedienreihenfolge auf die Streuung der Durchlaufzeiten</ModellName>
   <ModellBeschreibung>Die Bedienreihenfolge besitzt keinen Einfluss auf die mittleren
 Warte- bzw. Verweilzeiten. Allerdings führt ein Abweichen von FIFO
@@ -13,6 +13,7 @@ zu höheren Varianzen der Warte- und damit auch der Verweilzeiten.</ModellBeschr
   <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
   <ModellElemente>
     <ModellElementBedienstation id="2">
+      <ModellElementName>FIFO</ModellElementName>
       <ModellElementGroesse h="50" w="100" x="700" y="100"/>
       <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
@@ -43,9 +44,9 @@ zu höheren Varianzen der Warte- und damit auch der Verweilzeiten.</ModellBeschr
       <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="7">
-      <ModellElementGroesse h="23" w="633" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="630" x="50" y="50"/>
       <ModellElementTextzeile>Auswirkung der Bedienreihenfolge auf die Streuung der Durchlaufzeiten</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementDuplizieren id="1">
@@ -78,6 +79,7 @@ zu höheren Varianzen der Warte- und damit auch der Verweilzeiten.</ModellBeschr
       <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
     </ModellElementZuweisung>
     <ModellElementBedienstation id="12">
+      <ModellElementName>Random</ModellElementName>
       <ModellElementGroesse h="50" w="100" x="700" y="200"/>
       <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="20" Typ="Auslaufend"/>
@@ -92,6 +94,7 @@ zu höheren Varianzen der Warte- und damit auch der Verweilzeiten.</ModellBeschr
       <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
     </ModellElementBedienstation>
     <ModellElementBedienstation id="13">
+      <ModellElementName>LIFO</ModellElementName>
       <ModellElementGroesse h="50" w="100" x="700" y="300"/>
       <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="21" Typ="Auslaufend"/>
@@ -137,7 +140,7 @@ zu höheren Varianzen der Warte- und damit auch der Verweilzeiten.</ModellBeschr
     </ModellElementKante>
     <ModellElementAnimationText id="8">
       <ModellElementName>Mittlere Verweilzeit E[V|FIFO]</ModellElementName>
-      <ModellElementGroesse h="30" w="121" x="400" y="420"/>
+      <ModellElementGroesse h="30" w="122" x="400" y="420"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,180,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(9)</ModellElementAnimationsmodus>
@@ -150,53 +153,53 @@ zu höheren Varianzen der Warte- und damit auch der Verweilzeiten.</ModellBeschr
       <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(10)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementText id="23">
-      <ModellElementGroesse h="21" w="41" x="300" y="430"/>
+      <ModellElementGroesse h="21" w="42" x="300" y="430"/>
       <ModellElementTextzeile>FIFO:</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,180,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="24">
-      <ModellElementGroesse h="21" w="69" x="300" y="480"/>
+      <ModellElementGroesse h="21" w="71" x="300" y="480"/>
       <ModellElementTextzeile>Random:</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="25">
-      <ModellElementGroesse h="21" w="41" x="300" y="530"/>
+      <ModellElementGroesse h="21" w="42" x="300" y="530"/>
       <ModellElementTextzeile>LIFO:</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationText id="26">
       <ModellElementName>Mittlere Verweilzeit E[V|LIFO]</ModellElementName>
-      <ModellElementGroesse h="30" w="120" x="400" y="520"/>
+      <ModellElementGroesse h="30" w="121" x="400" y="520"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(11)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="27">
       <ModellElementName>Streuung Verweilzeit CV[V|FIFO]</ModellElementName>
-      <ModellElementGroesse h="30" w="135" x="600" y="420"/>
+      <ModellElementGroesse h="30" w="136" x="600" y="420"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,180,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_cv(9)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="28">
-      <ModellElementName>Streuung Verweilzeit E[V|Random]</ModellElementName>
-      <ModellElementGroesse h="30" w="143" x="600" y="470"/>
+      <ModellElementName>Streuung Verweilzeit CV[V|Random]</ModellElementName>
+      <ModellElementGroesse h="30" w="149" x="600" y="470"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_cv(10)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="29">
-      <ModellElementName>Streuung Verweilzeit E[V|LIFO]</ModellElementName>
-      <ModellElementGroesse h="30" w="128" x="600" y="520"/>
+      <ModellElementName>Streuung Verweilzeit CV[V|LIFO]</ModellElementName>
+      <ModellElementGroesse h="30" w="135" x="600" y="520"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_cv(11)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationBalkenDiagramm id="30">
-      <ModellElementGroesse h="150" w="100" x="800" y="400"/>
+      <ModellElementGroesse h="180" w="100" x="800" y="420"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
@@ -209,15 +212,33 @@ zu höheren Varianzen der Warte- und damit auch der Verweilzeiten.</ModellBeschr
       <ModellElementDiagrammElement Balkenfarbe="255,0,0">Verweilzeit_cv(11)</ModellElementDiagrammElement>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementText id="31">
-      <ModellElementGroesse h="21" w="71" x="300" y="580"/>
+      <ModellElementGroesse h="21" w="72" x="300" y="580"/>
       <ModellElementTextzeile>Erlang C:</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="32">
       <ModellElementGroesse h="16" w="49" x="400" y="580"/>
       <ModellElementTextzeile>E[V]=400</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="33">
+      <ModellElementGroesse h="133" w="203" x="50" y="400"/>
+      <ModellElementTextzeile>Die Bedienreihenfolge besitzt</ModellElementTextzeile>
+      <ModellElementTextzeile>keinen Einfluss auf die mittleren</ModellElementTextzeile>
+      <ModellElementTextzeile>Warte- bzw. Verweilzeiten.</ModellElementTextzeile>
+      <ModellElementTextzeile>Allerdings führt ein Abweichen</ModellElementTextzeile>
+      <ModellElementTextzeile>von FIFO zu höheren Varianzen</ModellElementTextzeile>
+      <ModellElementTextzeile>der Warte- und damit auch der</ModellElementTextzeile>
+      <ModellElementTextzeile>Verweilzeiten.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="34">
+      <ModellElementGroesse h="16" w="125" x="800" y="400"/>
+      <ModellElementTextzeile>Streuung Verweilzeiten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
   </ModellElemente>
