@@ -753,6 +753,11 @@ public class StatisticViewerTable implements StatisticViewer {
 		return new StringSelection(s.toString());
 	}
 
+	/**
+	 * Liefert ein {@link Transferable}-Objekt für den Viewer zum Kopieren der Tabelle ohne die Rahmenzeile und -spalte.
+	 * Dieser ist dann verfügbar, wenn auch ein Kopieren möglich ist.
+	 * @return	{@link Transferable}-Objekt für den Viewer
+	 */
 	private Transferable getTransferablePlain() {
 		if (columnNames.isEmpty()) buildTable();
 

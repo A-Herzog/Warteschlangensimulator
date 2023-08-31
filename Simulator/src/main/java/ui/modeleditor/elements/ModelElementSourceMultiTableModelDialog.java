@@ -67,8 +67,8 @@ public class ModelElementSourceMultiTableModelDialog extends BaseDialog {
 	 * @param helpRunnable	Hilfe-Callback
 	 * @param getSchedulesButton	Callback zum Erstellen der Schaltfläche zum Aufrufen der Zeitpläne
 	 * @param hasActivation	Kann der Datensatz deaktiviert werden?
-	 * @param showOkPrevious	Soll die Schaltfläche "Ok & Vorheriger Kundentyp" angezeigt werden?
-	 * @param showOkNext	Soll die Schaltfläche "Ok & Nächster Kundentyp" angezeigt werden?
+	 * @param showOkPrevious	Soll die Schaltfläche "Ok &amp; Vorheriger Kundentyp" angezeigt werden?
+	 * @param showOkNext	Soll die Schaltfläche "Ok &amp; Nächster Kundentyp" angezeigt werden?
 	 * @param setInitialTabIndex	0-basierter Index des initial anzuzeigenden Tabs (Werte &lt;0 bedeuten, dass keine explizite Vorauswahl erfolgen soll)
 	 */
 	public ModelElementSourceMultiTableModelDialog(final Component owner, final ModelElementSourceRecord record, final ModelElement element, final EditModel model, final ModelSurface surface, final ModelClientData clientData, final Runnable helpRunnable, final Function<Supplier<Boolean>,JButton> getSchedulesButton, final boolean hasActivation, final boolean showOkPrevious, final boolean showOkNext, final int setInitialTabIndex) {
