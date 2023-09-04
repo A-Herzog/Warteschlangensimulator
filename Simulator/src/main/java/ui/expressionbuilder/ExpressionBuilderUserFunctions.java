@@ -91,7 +91,7 @@ public class ExpressionBuilderUserFunctions {
 			addTreeNode(group,filterUpper,userFunction.name,userFunction.name+"("+String.join(";",values)+")",info);
 		}
 
-		root.add(group);
+		if (group.getChildCount()>0) root.add(group);
 
 	}
 }
