@@ -124,6 +124,26 @@ public final class JSCommandOutput extends JSBaseCommand {
 	}
 
 	/**
+	 * Gibt einen eine Zahl aus (ohne folgenden Zeilenumbruch)<br>
+	 * Diese Methode wird von der JS-Runtime bevorzugt, wenn es sich um eine Zahl handelt. Das Boxing entfällt dann.
+	 * @param obj	Auszugebendes Objekt
+	 * @see #print(Object)
+	 */
+	public void print(final double obj) {
+		printDouble(obj);
+	}
+
+	/**
+	 * Gibt einen eine Zahl aus (ohne folgenden Zeilenumbruch)<br>
+	 * Diese Methode wird von der JS-Runtime bevorzugt, wenn es sich um eine Zahl handelt. Das Boxing entfällt dann.
+	 * @param obj	Auszugebendes Objekt
+	 * @see #print(Object)
+	 */
+	public void print(final int obj) {
+		printDouble(obj);
+	}
+
+	/**
 	 * Gibt einen String oder eine Zahl aus (ohne folgenden Zeilenumbruch)
 	 * @param obj	Auszugebendes Objekt
 	 */
