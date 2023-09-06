@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModellVersion>5.1.0</ModellVersion>
+  <ModellVersion>5.4.1</ModellVersion>
   <ModellName>Bus-Stopp-Paradoxon</ModellName>
   <ModellBeschreibung>Siehe auch:
 https://de.wikipedia.org/wiki/Wartezeitparadoxon</ModellBeschreibung>
@@ -42,9 +42,9 @@ https://de.wikipedia.org/wiki/Wartezeitparadoxon</ModellBeschreibung>
       </ModellElementSchrankeOption>
     </ModellElementSchranke>
     <ModellElementEnde id="7">
-      <ModellElementGroesse h="50" w="100" x="800" y="225"/>
-      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="37" Typ="Einlaufend"/>
+      <ModellElementGroesse h="50" w="100" x="950" y="225"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="42" Typ="Einlaufend"/>
     </ModellElementEnde>
     <ModellElementKundenstatistik id="16">
       <ModellElementGroesse h="50" w="100" x="650" y="300"/>
@@ -53,27 +53,27 @@ https://de.wikipedia.org/wiki/Wartezeitparadoxon</ModellBeschreibung>
       <ModellElementKundenstatistikModus Modus="aus"/>
     </ModellElementKundenstatistik>
     <ModellElementText id="18">
-      <ModellElementGroesse h="23" w="191" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="193" x="50" y="50"/>
       <ModellElementTextzeile>Bus-Stopp-Paradoxon</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="19">
-      <ModellElementGroesse h="32" w="180" x="50" y="220"/>
+      <ModellElementGroesse h="32" w="173" x="50" y="220"/>
       <ModellElementTextzeile>Es trifft jeweils nach exakt</ModellElementTextzeile>
       <ModellElementTextzeile>einer Stunde ein Passagiere ein.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="20">
-      <ModellElementGroesse h="96" w="184" x="50" y="400"/>
+      <ModellElementGroesse h="96" w="179" x="50" y="400"/>
       <ModellElementTextzeile>Busse treffen mit einem mittleren</ModellElementTextzeile>
       <ModellElementTextzeile>Abstand von 60 Sekunden an der</ModellElementTextzeile>
       <ModellElementTextzeile>Haltestelle ein. Die Abfahrtzeiten</ModellElementTextzeile>
       <ModellElementTextzeile>werden nicht über einen Fahrplan</ModellElementTextzeile>
       <ModellElementTextzeile>gesteuert, sondern über den</ModellElementTextzeile>
       <ModellElementTextzeile>mittleren Abstand.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementKasten id="21">
@@ -84,46 +84,46 @@ https://de.wikipedia.org/wiki/Wartezeitparadoxon</ModellBeschreibung>
     <ModellElementText id="22">
       <ModellElementGroesse h="21" w="79" x="405" y="105"/>
       <ModellElementTextzeile>Haltestelle</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
       <ModellElementFarbe>72,209,204</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="25">
-      <ModellElementGroesse h="48" w="157" x="650" y="370"/>
+      <ModellElementGroesse h="48" w="150" x="650" y="370"/>
       <ModellElementTextzeile>Busse nicht in der</ModellElementTextzeile>
       <ModellElementTextzeile>Statistik erfassen,</ModellElementTextzeile>
       <ModellElementTextzeile>sondern nur die Passagiere.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementKante id="8">
-      <ModellElementVerbindung Element1="16" Element2="7" Typ="Kante"/>
+      <ModellElementVerbindung Element1="16" Element2="37" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementKante id="9">
       <ModellElementName>Ankünfte (Passagiere)</ModellElementName>
       <ModellElementVerbindung Element1="1" Element2="4" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementAnimationAnalogSkala id="15">
-      <ModellElementGroesse h="75" w="150" x="950" y="125"/>
+      <ModellElementGroesse h="75" w="150" x="1100" y="125"/>
       <ModellElementAnimationAnalogSkalaAusdruck MaximalWert="120" MinimalWert="0">Wartezeit_avg()</ModellElementAnimationAnalogSkalaAusdruck>
       <ModellElementAnimationAnalogSkalaFarbe>255,0,0</ModellElementAnimationAnalogSkalaFarbe>
     </ModellElementAnimationAnalogSkala>
     <ModellElementAnimationAnalogSkala id="23">
-      <ModellElementGroesse h="80" w="150" x="950" y="470"/>
+      <ModellElementGroesse h="80" w="150" x="1100" y="470"/>
       <ModellElementAnimationAnalogSkalaAusdruck MaximalWert="120" MinimalWert="0">1/Throughput(2)</ModellElementAnimationAnalogSkalaAusdruck>
       <ModellElementAnimationAnalogSkalaFarbe>0,0,255</ModellElementAnimationAnalogSkalaFarbe>
     </ModellElementAnimationAnalogSkala>
     <ModellElementText id="24">
-      <ModellElementGroesse h="38" w="183" x="950" y="425"/>
+      <ModellElementGroesse h="38" w="181" x="1100" y="425"/>
       <ModellElementTextzeile>Mittlere Zwichenankunftszeit</ModellElementTextzeile>
       <ModellElementTextzeile>zwischen zwei Bus-Ankünften</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="26">
-      <ModellElementGroesse h="38" w="109" x="950" y="75"/>
+      <ModellElementGroesse h="38" w="110" x="1100" y="75"/>
       <ModellElementTextzeile>Mittlere Wartezeit</ModellElementTextzeile>
       <ModellElementTextzeile>der Passagiere</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementSchieberegler id="27">
@@ -134,34 +134,34 @@ https://de.wikipedia.org/wiki/Wartezeitparadoxon</ModellBeschreibung>
       <ModellElementSchiebereglerSchrittweite>0.1</ModellElementSchiebereglerSchrittweite>
     </ModellElementSchieberegler>
     <ModellElementText id="28">
-      <ModellElementGroesse h="19" w="422" x="50" y="545"/>
+      <ModellElementGroesse h="19" w="401" x="50" y="545"/>
       <ModellElementTextzeile>Variationskoeffizient der Zwischenankunftszeiten der Busse</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="29">
-      <ModellElementGroesse h="16" w="440" x="50" y="630"/>
+      <ModellElementGroesse h="16" w="429" x="50" y="630"/>
       <ModellElementTextzeile>(Variationskoeffizient 1 entspricht exponentiell verteilten Zwischenankunftszeiten)</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationText id="30">
       <ModellElementName>Mittlere Wartezeit</ModellElementName>
-      <ModellElementGroesse h="30" w="72" x="1130" y="170"/>
+      <ModellElementGroesse h="30" w="73" x="1280" y="170"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Wartezeit_avg()</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="31">
       <ModellElementName>Mittlere Zwichenankunftszeit</ModellElementName>
-      <ModellElementGroesse h="30" w="118" x="1130" y="520"/>
+      <ModellElementGroesse h="30" w="117" x="1280" y="520"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">1/Throughput(2)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="32">
       <ModellElementName>CV[I]</ModellElementName>
-      <ModellElementGroesse h="30" w="69" x="1260" y="520"/>
+      <ModellElementGroesse h="30" w="69" x="1410" y="520"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">cvI</ModellElementAnimationsmodus>
@@ -169,7 +169,7 @@ https://de.wikipedia.org/wiki/Wartezeitparadoxon</ModellBeschreibung>
     <ModellElementBenutzerstatistik id="34">
       <ModellElementGroesse h="50" w="100" x="650" y="150"/>
       <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="37" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
       <ModellElementBenutzerstatistikEintrag Bezeichner="IntervalLength" IstKontinuierlich="0" IstZeitangabe="0">CurrentArrival-LastArrival</ModellElementBenutzerstatistikEintrag>
     </ModellElementBenutzerstatistik>
     <ModellElementVariable id="35">
@@ -186,43 +186,40 @@ https://de.wikipedia.org/wiki/Wartezeitparadoxon</ModellBeschreibung>
     <ModellElementKante id="10">
       <ModellElementVerbindung Element1="4" Element2="34" Typ="Kante"/>
     </ModellElementKante>
-    <ModellElementKante id="37">
-      <ModellElementVerbindung Element1="34" Element2="7" Typ="Kante"/>
-    </ModellElementKante>
     <ModellElementText id="38">
-      <ModellElementGroesse h="48" w="196" x="650" y="95"/>
+      <ModellElementGroesse h="48" w="189" x="650" y="95"/>
       <ModellElementTextzeile>Längen der Bus-Zwischenankunfts-</ModellElementTextzeile>
       <ModellElementTextzeile>Intervalle, in denen Passagiere</ModellElementTextzeile>
       <ModellElementTextzeile>eintreffen, erfassen.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationAnalogSkala id="33">
-      <ModellElementGroesse h="80" w="150" x="950" y="295"/>
+      <ModellElementGroesse h="80" w="150" x="1100" y="295"/>
       <ModellElementAnimationAnalogSkalaAusdruck MaximalWert="120" MinimalWert="0">Statistik_avg(34;1)</ModellElementAnimationAnalogSkalaAusdruck>
       <ModellElementAnimationAnalogSkalaFarbe>0,0,255</ModellElementAnimationAnalogSkalaFarbe>
     </ModellElementAnimationAnalogSkala>
     <ModellElementText id="40">
-      <ModellElementGroesse h="38" w="318" x="950" y="250"/>
+      <ModellElementGroesse h="38" w="315" x="1100" y="250"/>
       <ModellElementTextzeile>Mittlere Bus-Zwischenankunftszeiten der Intervalle,</ModellElementTextzeile>
       <ModellElementTextzeile>in denen Passagiere eingetroffen sind</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationText id="41">
       <ModellElementName>Mittlere Intervalllänge bei Passagierankunft</ModellElementName>
-      <ModellElementGroesse h="30" w="180" x="1125" y="345"/>
+      <ModellElementGroesse h="30" w="181" x="1275" y="345"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Statistik_avg(34;1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementText id="39">
-      <ModellElementGroesse h="64" w="122" x="260" y="395"/>
+      <ModellElementGroesse h="64" w="118" x="260" y="395"/>
       <ModellElementTextzeile>Aktuelle</ModellElementTextzeile>
       <ModellElementTextzeile>Zwischenankunftszeit-</ModellElementTextzeile>
       <ModellElementTextzeile>Intervalllänge</ModellElementTextzeile>
       <ModellElementTextzeile>speichern.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementKante id="6">
@@ -238,6 +235,40 @@ https://de.wikipedia.org/wiki/Wartezeitparadoxon</ModellBeschreibung>
     <ModellElementKante id="5">
       <ModellElementVerbindung Element1="35" Element2="3" Typ="Kante"/>
     </ModellElementKante>
+    <ModellElementVariable id="12">
+      <ModellElementGroesse h="50" w="100" x="800" y="150"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="LastWaitingTime">w</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="34" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementVerbindung Element1="12" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="36">
+      <ModellElementGroesse h="32" w="85" x="850" y="115"/>
+      <ModellElementTextzeile>Letzte Wartezeit</ModellElementTextzeile>
+      <ModellElementTextzeile>erfassen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementEcke id="37">
+      <ModellElementGroesse h="10" w="10" x="895" y="320"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="42" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="42">
+      <ModellElementVerbindung Element1="37" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="43">
+      <ModellElementName>Letzte Wartezeit</ModellElementName>
+      <ModellElementGroesse h="30" w="69" x="650" y="220"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">LastWaitingTime</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
   <KundentypenDaten>
