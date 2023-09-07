@@ -30,6 +30,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName;
 
 /**
  * Klasse zur Erstellung von pdf-Dateien.
@@ -123,10 +124,10 @@ public class PDFWriter extends PDFWriterBase {
 	 */
 	private PDType1Font getPDFFontFamily(final ReportStyle.ReportFont font) {
 		switch (font.family) {
-		case SANS_SERIF: return font.bold?PDType1Font.HELVETICA_BOLD:PDType1Font.HELVETICA;
-		case SERIF: return font.bold?PDType1Font.TIMES_BOLD:PDType1Font.TIMES_ROMAN;
-		case TYPEWRITER: return font.bold?PDType1Font.COURIER_BOLD:PDType1Font.COURIER;
-		default: return font.bold?PDType1Font.HELVETICA_BOLD:PDType1Font.HELVETICA;
+		case SANS_SERIF: return font.bold?new PDType1Font(FontName.HELVETICA_BOLD):new PDType1Font(FontName.HELVETICA);
+		case SERIF: return font.bold?new PDType1Font(FontName.TIMES_BOLD):new PDType1Font(FontName.TIMES_ROMAN);
+		case TYPEWRITER: return font.bold?new PDType1Font(FontName.COURIER_BOLD):new PDType1Font(FontName.COURIER);
+		default: return font.bold?new PDType1Font(FontName.HELVETICA_BOLD):new PDType1Font(FontName.HELVETICA);
 		}
 	}
 

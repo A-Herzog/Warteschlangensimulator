@@ -33,6 +33,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDMetadata;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName;
 import org.apache.pdfbox.pdmodel.graphics.color.PDOutputIntent;
 import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
@@ -243,7 +244,7 @@ public class PDFWriterBase {
 	 * @return	Gibt <code>true</code> zurück, wenn das Text-Objekt erfolgreich in die pdf eingefügt werden konnte
 	 */
 	protected final boolean writeTextObject(final String text, final int fontSize, final boolean fontBold, final int x, final int y, final Color textColor) {
-		return writeTextObject(text,fontSize,fontBold?PDType1Font.HELVETICA_BOLD:PDType1Font.HELVETICA,x,y,textColor);
+		return writeTextObject(text,fontSize,fontBold?new PDType1Font(FontName.HELVETICA_BOLD):new PDType1Font(FontName.HELVETICA),x,y,textColor);
 	}
 
 	/**
