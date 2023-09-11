@@ -3729,7 +3729,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[8652] = "ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus.Info";
     t[8653] = "<p>Berechnet den Wert der Arcus-Cotangens-hyperbolicus-Funktion des als Parameter \u00fcbergebenen Wertes.</p><p>Beispiel: <tt>arccoth(2)</tt> liefert 0,54930614433405.</p>";
     t[8654] = "Surface.Link.Dialog.Link";
-    t[8655] = "Linkzeil";
+    t[8655] = "Linkziel";
     t[8664] = "Server.Status.InvalidConfiguration";
     t[8665] = "Die Server-Einstellungen sind ung\u00fcltig.";
     t[8670] = "CommandLine.ProcessOutput.Description.Short";
