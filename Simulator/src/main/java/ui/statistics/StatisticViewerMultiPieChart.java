@@ -17,6 +17,11 @@ package ui.statistics;
 
 import java.awt.Color;
 import java.net.URL;
+import java.text.AttributedString;
+
+import org.jfree.chart.labels.PieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.PieDataset;
 
 import language.Language;
 import simulator.statistics.Statistics;
@@ -70,6 +75,25 @@ public class StatisticViewerMultiPieChart extends StatisticViewerPieChartMulti {
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
 	}
 
+	/**
+	 * Erstellung der Beschriftungen (Name+Prozentwert) für die Tortensegmente
+	 */
+	static class CustomLabelGenerator implements PieSectionLabelGenerator {
+		@SuppressWarnings({"rawtypes", "unchecked"})
+		@Override
+		public String generateSectionLabel(PieDataset dataset, Comparable key) {
+			final Number num=dataset.getValue(key);
+			if (num==null) return ""+key;
+			final double sum=dataset.getKeys().stream().filter(o->o instanceof Comparable).map(o->dataset.getValue((Comparable)o)).filter(v->v instanceof Double).map(v->(Double)v).mapToDouble(v->((Double)v).doubleValue()).sum();
+			if (sum==0.0) return ""+key;
+			return key+" ("+StatisticTools.formatPercent(num.doubleValue()/sum)+")";
+		}
+		@SuppressWarnings("rawtypes")
+		@Override
+		public AttributedString generateAttributedSectionLabel(PieDataset dataset, Comparable key) {
+			return null;
+		}
+	}
 
 	/**
 	 * Ausgabe von
@@ -106,15 +130,15 @@ public class StatisticViewerMultiPieChart extends StatisticViewerPieChartMulti {
 		final StatisticsTimePerformanceIndicator[] indicators2=statistics.resourceInDownTime.getAll(StatisticsTimePerformanceIndicator.class);
 
 		for (int i=0;i<names.length;i++) {
+			final ModelResource resource=statistics.editModel.resources.get(names[i]);
 			final double part1=(i<indicators1.length && indicators1[i]!=null)?indicators1[i].getTimeMean():0;
 			final double part2=(i<indicators2.length && indicators2[i]!=null)?indicators2[i].getTimeMean():0;
+			final double part3;
+			if (resource!=null && resource.getMode()==ModelResource.Mode.MODE_NUMBER && resource.getCount()>0) part3=resource.getCount()-part1-part2; else part3=0;
+
 			addPieSegment(names[i],Language.tr("Statistics.UtilizationAndFailures.Utilization"),part1,Color.BLUE);
 			if (part2>0) addPieSegment(names[i],Language.tr("Statistics.UtilizationAndFailures.Failure"),part2,Color.RED);
-			final ModelResource resource=statistics.editModel.resources.get(names[i]);
-			if (resource!=null && resource.getMode()==ModelResource.Mode.MODE_NUMBER && resource.getCount()>0) {
-				final double part3=resource.getCount()-part1-part2;
-				addPieSegment(names[i],Language.tr("Statistics.UtilizationAndFailures.Idle"),part3,Color.LIGHT_GRAY);
-			}
+			if (part3>0) addPieSegment(names[i],Language.tr("Statistics.UtilizationAndFailures.Idle"),part3,Color.LIGHT_GRAY);
 		}
 	}
 
@@ -123,10 +147,12 @@ public class StatisticViewerMultiPieChart extends StatisticViewerPieChartMulti {
 		switch (mode) {
 		case MODE_WAITINGPROCESSING:
 			requestClientsChart();
+			((PiePlot<?>)plot.getPieChart().getPlot()).setLabelGenerator(new CustomLabelGenerator());
 			addDescription("PlotPieWaitingProcessing");
 			break;
 		case MODE_RESOURCE_UTILIZATION:
 			resourceUtilizationChartRequest();
+			((PiePlot<?>)plot.getPieChart().getPlot()).setLabelGenerator(new CustomLabelGenerator());
 			addDescription("PlotBarCompareUtilizationOperators");
 			break;
 		}

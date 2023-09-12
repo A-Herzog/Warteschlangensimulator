@@ -547,10 +547,18 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 
 			initPieChart(title);
 
+			double sum=0;
 			for (int i=1;i<table.getSize(0);i++) {
 				final Double D=NumberTools.getDouble(table.getValue(i,1));
+				if (D==null || D==0) continue;
+				sum+=D;
+			}
+
+			for (int i=1;i<table.getSize(0);i++) {
+				final Double D=NumberTools.getDouble(table.getValue(i,1));
+				if (D==null || D==0) continue;
 				final String name=table.getValue(i,0);
-				addPieSegment(name,D,(Color)element.getExpressionData().get(i-1)[1]);
+				addPieSegment(name+" ("+NumberTools.formatPercent(D/sum)+")",D,(Color)element.getExpressionData().get(i-1)[1]);
 			}
 		}
 	}
