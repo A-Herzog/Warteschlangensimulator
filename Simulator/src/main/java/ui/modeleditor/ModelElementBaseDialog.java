@@ -261,6 +261,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 					drawQueue=boxElement.isDrawQueueAll();
 					sub.add(drawQueueButton=new JButton());
 					drawQueueButton.setPreferredSize(new Dimension(26,26));
+					drawQueueButton.setEnabled(readOnly==ReadOnlyMode.ALLOW_ALL);
 					drawQueueButton.setToolTipText(Language.tr("Editor.DialogBase.DisplayQueue.Tooltip"));
 					drawQueueButton.addActionListener(e->showQueueDrawEditDialog());
 					drawQueueButton.setIcon(Images.MODELEDITOR_QUEUE.getIcon());

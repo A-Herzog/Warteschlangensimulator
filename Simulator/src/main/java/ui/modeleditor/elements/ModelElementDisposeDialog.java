@@ -80,6 +80,7 @@ public class ModelElementDisposeDialog extends ModelElementBaseDialog {
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		content.add(line);
 		line.add(stoppSimulationOnClientArrival=new JCheckBox(Language.tr("Surface.Dispose.Dialog.StoppSimulationOnClientArrival")));
+		stoppSimulationOnClientArrival.setEnabled(!readOnly);
 		if (element instanceof ModelElementDispose) {
 			stoppSimulationOnClientArrival.setSelected(((ModelElementDispose)element).isStoppSimulationOnClientArrival());
 		}

@@ -201,6 +201,7 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 			case AUTO: headingMode.setSelectedIndex(1); break;
 			case USER_DEFINED: headingMode.setSelectedIndex(2); break;
 			}
+			headingMode.setEnabled(!readOnly);
 			line.add(button=new JButton(Language.tr("Surface.Output.Dialog.Tab.Headings.Transfer")));
 			button.setToolTipText(Language.tr("Surface.Output.Dialog.Tab.Headings.TransferInfo"));
 			button.addActionListener(e->buildHeading());

@@ -157,6 +157,7 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 		bottom.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(hasClientsList=new JCheckBox(Language.tr("Surface.Delay.Dialog.HasClientsList"),delayElement.hasClientsList()));
 		hasClientsList.setToolTipText(Language.tr("Surface.Delay.Dialog.HasClientsList.Tooltip"));
+		hasClientsList.setEnabled(!readOnly);
 
 		/* GUI aufbauen */
 		distributions.start();

@@ -385,6 +385,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		timeBase1.addActionListener(e->{checkData(false); updateBatchInfo();});
 		sub.add(distributionFirstArrivalAt0=new JCheckBox(Language.tr("Surface.Source.Dialog.FirstArrivalAt0")));
 		distributionFirstArrivalAt0.addActionListener(e->syncFirstArrivalAt0CheckBoxes(e));
+		distributionFirstArrivalAt0.setEnabled(!readOnly);
 		card.add(distributionPanel=new JDistributionPanel(new ExponentialDistribution(null,100,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY),3600,!readOnly) {
 			/**
 			 * Serialisierungs-ID der Klasse
@@ -411,6 +412,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		timeBase2=buildSyncedTimeBaseComboBox(sub);
 		timeBase2.addActionListener(e->checkData(false));
 		sub.add(expressionFirstArrivalAt0=new JCheckBox(Language.tr("Surface.Source.Dialog.FirstArrivalAt0")));
+		expressionFirstArrivalAt0.setEnabled(!readOnly);
 		expressionFirstArrivalAt0.addActionListener(e->syncFirstArrivalAt0CheckBoxes(e));
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Source.Dialog.Expression.Expression")+":","");
 		sub=(JPanel)data[0];
@@ -638,6 +640,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		line.add(dataStreamRepeat=new JCheckBox(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Mode.InterArrivalTimes.Repeat")));
 		dataStreamType.addActionListener(e->dataStreamRepeat.setEnabled(dataStreamType.getSelectedIndex()==1));
 		line.add(dataStreamFirstArrivalAt0=new JCheckBox(Language.tr("Surface.Source.Dialog.FirstArrivalAt0")));
+		dataStreamFirstArrivalAt0.setEnabled(!readOnly);
 		dataStreamFirstArrivalAt0.addActionListener(e->syncFirstArrivalAt0CheckBoxes(e));
 
 		panel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -725,11 +728,11 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		optionFixedNumberArrivals.addActionListener(e->checkData(false));
 		sub.add(numberFieldArrivals=new JTextField(7));
 		ModelElementBaseDialog.addUndoFeature(numberFieldArrivals);
-		numberFieldArrivals.setEditable(!readOnly);
+		numberFieldArrivals.setEnabled(!readOnly);
 		numberFieldArrivals.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {optionFixedNumberArrivals.setSelected(true); checkData(false);}
-			@Override public void keyReleased(KeyEvent e) {optionFixedNumberArrivals.setSelected(true); checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {optionFixedNumberArrivals.setSelected(true); checkData(false);}
+			@Override public void keyTyped(KeyEvent e) {if (!readOnly) optionFixedNumberArrivals.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {if (!readOnly) optionFixedNumberArrivals.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {if (!readOnly) optionFixedNumberArrivals.setSelected(true); checkData(false);}
 		});
 
 		panel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -738,11 +741,11 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		optionFixedNumberClients.addActionListener(e->checkData(false));
 		sub.add(numberFieldClients=new JTextField(7));
 		ModelElementBaseDialog.addUndoFeature(numberFieldClients);
-		numberFieldClients.setEditable(!readOnly);
+		numberFieldClients.setEnabled(!readOnly);
 		numberFieldClients.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {optionFixedNumberClients.setSelected(true); checkData(false);}
-			@Override public void keyReleased(KeyEvent e) {optionFixedNumberClients.setSelected(true); checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {optionFixedNumberClients.setSelected(true); checkData(false);}
+			@Override public void keyTyped(KeyEvent e) {if (!readOnly) optionFixedNumberClients.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {if (!readOnly) optionFixedNumberClients.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {if (!readOnly) optionFixedNumberClients.setSelected(true); checkData(false);}
 		});
 
 		panel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -769,12 +772,15 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		arrivalStartSub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(arrivalStartTimeUnitGlobal=new JRadioButton(Language.tr("Surface.Source.Dialog.Tab.StartingTime.UnitGlobal")));
 		arrivalStartTimeUnitGlobal.addActionListener(e->checkData(false));
+		arrivalStartTimeUnitGlobal.setEnabled(!readOnly);
 
 		arrivalStartSub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(arrivalStartTimeUnitLocal=new JRadioButton(Language.tr("Surface.Source.Dialog.Tab.StartingTime.UnitLocal")+":"));
+		arrivalStartTimeUnitLocal.setEnabled(!readOnly);
 		arrivalStartTimeUnitLocal.addActionListener(e->checkData(false));
 		line.add(Box.createHorizontalStrut(5));
 		line.add(arrivalStartTimeUnit=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
+		arrivalStartTimeUnit.setEnabled(!readOnly);
 		arrivalStartTimeUnit.setSelectedIndex(0);
 		arrivalStartTimeUnit.addActionListener(e->{arrivalStartTimeUnitLocal.setSelected(true); checkData(false);});
 
@@ -790,7 +796,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		line.add(arrivalStart=new JTextField(10));
 		ModelElementBaseDialog.addUndoFeature(arrivalStart);
 		label.setLabelFor(arrivalStart);
-		arrivalStart.setEditable(!readOnly);
+		arrivalStart.setEnabled(!readOnly);
 		arrivalStart.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -1173,8 +1179,9 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			if (optionInfinite.isSelected()) {
 				info=Language.tr("Surface.Source.Dialog.Tab.NumberOfArrivals.Clients")+": "+Language.tr("Surface.Source.Dialog.Tab.NumberOfArrivals.Infinite");
 			} else {
+				numberFieldArrivals.setBackground(NumberTools.getTextFieldDefaultBackground());
+				numberFieldClients.setBackground(NumberTools.getTextFieldDefaultBackground());
 				if (optionFixedNumberArrivals.isSelected()) {
-					numberFieldClients.setBackground(NumberTools.getTextFieldDefaultBackground());
 					L=NumberTools.getPositiveLong(numberFieldArrivals,true);
 					if (L==null) {
 						info=Language.tr("Surface.Source.Dialog.Tab.NumberOfArrivals.Invalide");
@@ -1182,8 +1189,8 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 						info=NumberTools.formatLong(L.longValue());
 					}
 					info=Language.tr("Surface.Source.Dialog.Tab.NumberOfArrivals.Events")+": "+info;
-				} else {
-					numberFieldArrivals.setBackground(NumberTools.getTextFieldDefaultBackground());
+				}
+				if (optionFixedNumberClients.isSelected()) {
 					L=NumberTools.getPositiveLong(numberFieldClients,true);
 					if (L==null) {
 						info=Language.tr("Surface.Source.Dialog.Tab.NumberOfArrivals.Clients.Invalide");
