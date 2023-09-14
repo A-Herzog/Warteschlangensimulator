@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModelVersion>5.1.0</ModelVersion>
+  <ModelVersion>5.3.0</ModelVersion>
   <ModelName>Machine with set up times</ModelName>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">1000000</ModelClients>
@@ -135,9 +135,9 @@ Output.print(exit);</ModelElementDecideScript>
       <ModelElementConnection Element1="15" Element2="7" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="30">
-      <ModelElementSize h="23" w="459" x="50" y="50"/>
+      <ModelElementSize h="23" w="454" x="50" y="50"/>
       <ModelElementTextLine>Machine with set up times and campaign production</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementDecide id="11">
@@ -272,8 +272,8 @@ Output.print(exit);</ModelElementDecideScript>
     </ModelElementEdge>
     <ModelElementAnimationTextSelect id="60">
       <ModelElementName>Current operation mode</ModelElementName>
-      <ModelElementSize h="30" w="101" x="1200" y="170"/>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementSize h="30" w="98" x="1200" y="170"/>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <TextDefault>no configuration</TextDefault>
       <TextExpression Expression="Mode==1">Workpiece A</TextExpression>
@@ -281,14 +281,14 @@ Output.print(exit);</ModelElementDecideScript>
     </ModelElementAnimationTextSelect>
     <ModelElementAnimationText id="62">
       <ModelElementName>Workpieces A in queue</ModelElementName>
-      <ModelElementSize h="30" w="97" x="780" y="210"/>
+      <ModelElementSize h="30" w="96" x="780" y="210"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Counter(26)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="63">
       <ModelElementName>Workpieces B in queue</ModelElementName>
-      <ModelElementSize h="30" w="97" x="785" y="310"/>
+      <ModelElementSize h="30" w="96" x="785" y="310"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Counter(12)</ModelElementAnimationMode>
@@ -357,6 +357,7 @@ Output.print(exit);</ModelElementDecideScript>
       <ModelElementSize h="150" w="100" x="500" y="500"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
       <ModelElementUse3D>1</ModelElementUse3D>
       <ModelElementMinimumValue>0</ModelElementMinimumValue>
       <ModelElementMaximumValue>10</ModelElementMaximumValue>
@@ -373,61 +374,77 @@ Output.print(exit);</ModelElementDecideScript>
       <ModelElementAnimationTrafficLightsCondition Light="red">Mode==1 &amp;&amp;  Resource(1)&gt;0</ModelElementAnimationTrafficLightsCondition>
     </ModelElementAnimationTrafficLights>
     <ModelElementText id="45">
-      <ModelElementSize h="19" w="93" x="500" y="480"/>
+      <ModelElementSize h="19" w="92" x="500" y="480"/>
       <ModelElementTextLine>Waiting clients</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationLineDiagram id="46">
       <ModelElementSize h="150" w="450" x="650" y="500"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
       <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="3" Minimum="0">3-Mode</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>3000</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>0</ModelElementAxisLabelsTime>
       <ModelElementAxisLabels>0</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="70">
-      <ModelElementSize h="19" w="101" x="650" y="480"/>
+      <ModelElementSize h="19" w="102" x="650" y="480"/>
       <ModelElementTextLine>Operation mode</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="71">
       <ModelElementSize h="19" w="48" x="1105" y="590"/>
       <ModelElementTextLine>Mode B</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="72">
-      <ModelElementSize h="19" w="47" x="1105" y="540"/>
+      <ModelElementSize h="19" w="48" x="1105" y="540"/>
       <ModelElementTextLine>Mode A</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="73">
       <ModelElementSize h="23" w="54" x="505" y="105"/>
       <ModelElementTextLine>Queue</ModelElementTextLine>
-      <ModelElementFontSize>18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">18</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="74">
       <ModelElementSize h="23" w="65" x="1155" y="105"/>
       <ModelElementTextLine>Process</ModelElementTextLine>
-      <ModelElementFontSize>18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">18</ModelElementFontSize>
       <ModelElementColor>0,180,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="3">
-      <ModelElementSize h="133" w="400" x="50" y="500"/>
-      <ModelElementTextLine>Note:</ModelElementTextLine>
+      <ModelElementSize h="133" w="404" x="50" y="500"/>
+      <ModelElementTextLine>**Note:**</ModelElementTextLine>
       <ModelElementTextLine>This example model is only intended to illustrate the internal</ModelElementTextLine>
       <ModelElementTextLine>processes that occur during campaign production and the use</ModelElementTextLine>
       <ModelElementTextLine>of setup times on client type change. Both model properties can</ModelElementTextLine>
       <ModelElementTextLine>also be configured directly within a process station, so the</ModelElementTextLine>
       <ModelElementTextLine>numerous stations shown here are not necessary to achieve the</ModelElementTextLine>
       <ModelElementTextLine>same corresponding effects in the simulation.</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Markdown="1" Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>105,105,105</ModelElementColor>
     </ModelElementText>
+    <ModelElementAnimationText id="24">
+      <ModelElementName>Frequency for set up time A</ModelElementName>
+      <ModelElementSize h="30" w="119" x="1300" y="500"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">NumberIn(5)/NumberIn(9)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="75">
+      <ModelElementName>Frequency for set up time B</ModelElementName>
+      <ModelElementSize h="30" w="119" x="1300" y="550"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">NumberIn(6)/NumberIn(15)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
   </ModelElements>
   <Resources SecondaryPriority="Random">
     <Resource Name="Operator" Type="Number" Value="1"/>

@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModellVersion>5.1.0</ModellVersion>
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Maschine mit Rüstzeiten</ModellName>
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">1000000</ModellKunden>
@@ -131,9 +131,9 @@ Output.print(ausgang);</ModellElementVerzweigenSkript>
       <ModellElementVerbindung Element1="15" Element2="7" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="30">
-      <ModellElementGroesse h="23" w="456" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="452" x="50" y="50"/>
       <ModellElementTextzeile>Maschine mit Rüstzeiten und Kampagnen-Fertigung</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementVerzweigen id="11">
@@ -268,8 +268,8 @@ Output.print(ausgang);</ModellElementVerzweigenSkript>
     </ModellElementKante>
     <ModellElementAnimationTextAuswahl id="60">
       <ModellElementName>Aktueller Betriebszustand</ModellElementName>
-      <ModellElementGroesse h="30" w="107" x="1200" y="170"/>
-      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementGroesse h="30" w="105" x="1200" y="170"/>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <TextVorgabe>keine Konfiguration</TextVorgabe>
       <TextAusdruck Ausdruck="Modus==1">Werkstücke A</TextAusdruck>
@@ -353,6 +353,7 @@ Output.print(ausgang);</ModellElementVerzweigenSkript>
       <ModellElementGroesse h="150" w="100" x="500" y="500"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
       <ModellElement3DEffekt>1</ModellElement3DEffekt>
       <ModellElementMinimalwert>0</ModellElementMinimalwert>
       <ModellElementMaximalwert>10</ModellElementMaximalwert>
@@ -369,52 +370,54 @@ Output.print(ausgang);</ModellElementVerzweigenSkript>
       <ModellElementAmpelBedingung Licht="rot">Modus==1 &amp;&amp;  Resource(1)&gt;0</ModellElementAmpelBedingung>
     </ModellElementAnimationAmpel>
     <ModellElementText id="45">
-      <ModellElementGroesse h="19" w="115" x="500" y="480"/>
+      <ModellElementGroesse h="19" w="116" x="500" y="480"/>
       <ModellElementTextzeile>Wartende Kunden</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationLinienDiagramm id="46">
       <ModellElementGroesse h="150" w="450" x="650" y="500"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
       <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="3" Minimum="0">3-Modus</ModellElementDiagrammElement>
       <ModellElementDiagrammZeitbereich>3000</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>0</ModellElementAchsenbeschriftungZeit>
       <ModellElementAchsenbeschriftung>0</ModellElementAchsenbeschriftung>
     </ModellElementAnimationLinienDiagramm>
     <ModellElementText id="70">
-      <ModellElementGroesse h="19" w="101" x="650" y="480"/>
+      <ModellElementGroesse h="19" w="102" x="650" y="480"/>
       <ModellElementTextzeile>Betriebszustand</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="71">
       <ModellElementGroesse h="19" w="55" x="1105" y="590"/>
       <ModellElementTextzeile>Modus B</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="72">
-      <ModellElementGroesse h="19" w="54" x="1105" y="540"/>
+      <ModellElementGroesse h="19" w="55" x="1105" y="540"/>
       <ModellElementTextzeile>Modus A</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="73">
-      <ModellElementGroesse h="23" w="123" x="505" y="105"/>
+      <ModellElementGroesse h="23" w="120" x="505" y="105"/>
       <ModellElementTextzeile>Warteschlange</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="74">
       <ModellElementGroesse h="23" w="86" x="1155" y="105"/>
       <ModellElementTextzeile>Bedienung</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,180,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="3">
-      <ModellElementGroesse h="152" w="409" x="50" y="500"/>
-      <ModellElementTextzeile>Hinweis:</ModellElementTextzeile>
+      <ModellElementGroesse h="152" w="417" x="50" y="500"/>
+      <ModellElementTextzeile>**Hinweis:**</ModellElementTextzeile>
       <ModellElementTextzeile>Dieses Beispielmodell dient nur dazu, die internen Abläufe,</ModellElementTextzeile>
       <ModellElementTextzeile>die bei einer Kampagnen-Fertigung und der Verwendung von</ModellElementTextzeile>
       <ModellElementTextzeile>Rüstzeiten beim Kundentypwechselt auftreten, zu verdeutlichen.</ModellElementTextzeile>
@@ -422,9 +425,23 @@ Output.print(ausgang);</ModellElementVerzweigenSkript>
       <ModellElementTextzeile>Bedienstation konfigurieren, so dass die zahlreichen hier</ModellElementTextzeile>
       <ModellElementTextzeile>dargestellten Stationen nicht notwendig sind, um die</ModellElementTextzeile>
       <ModellElementTextzeile>entsprechenden Effekte in der Simulation zu erzielen.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>105,105,105</ModellElementFarbe>
     </ModellElementText>
+    <ModellElementAnimationText id="24">
+      <ModellElementName>Häufigkeit für Rüstzeit A</ModellElementName>
+      <ModellElementGroesse h="30" w="104" x="1300" y="500"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">NumberIn(5)/NumberIn(9)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="75">
+      <ModellElementName>Häufigkeit für Rüstzeit B</ModellElementName>
+      <ModellElementGroesse h="30" w="104" x="1300" y="550"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">NumberIn(6)/NumberIn(15)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig">
     <Ressource Name="Bediener" Typ="Anzahl" Wert="1"/>
