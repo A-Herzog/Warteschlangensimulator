@@ -78,6 +78,18 @@ public final class JSCommandSystem extends JSBaseCommand {
 	private static final double toSec=1.0/1000.0;
 
 	/**
+	 * Zeitpunkt, der beim letzten Aufruf von {@link #time()} ausgegeben wurde
+	 * @see #time()
+	 */
+	private long timeCacheValue;
+
+	/**
+	 * In ein <code>Double</code> umgewandelter Zeitpunkt beim letzten Aufruf von {@link #time()}
+	 * @see #time()
+	 */
+	private Double timeCacheResult;
+
+	/**
 	 * Konstruktor der Klasse <code>JSFilterCommandSystem</code>
 	 */
 	public JSCommandSystem() {
@@ -87,6 +99,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 		currentStation=-1;
 		delayInterfaces=new HashMap<>();
 		processInterfaces=new HashMap<>();
+		timeCacheResult=null;
 	}
 
 	/**
@@ -165,13 +178,22 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @see JSCommandSystem#setSimulationData(SimulationData, int, RunDataClient)
 	 */
 	public Object time() {
-		if (simData==null) {
-			/* Aufruf aus Statistik-Ausgabe, dann Ausgabe der Computer-Zeit (in Millisekunden) für Skript-Laufzeitmessungen */
-			return System.currentTimeMillis();
-		} else {
+		if (simData!=null) {
 			/* Aufruf aus laufender Simulation, dann Ausgabe der aktuellen Zeit in der Simulation (in Sekunden) */
-			return simData.currentTime*toSec;
+			final long value=simData.currentTime;
+			if (timeCacheResult==null || timeCacheValue!=value) {
+				timeCacheValue=value;
+				timeCacheResult=Double.valueOf(simData.currentTime*toSec);
+			}
+		} else {
+			/* Aufruf aus Statistik-Ausgabe, dann Ausgabe der Computer-Zeit (in Millisekunden) für Skript-Laufzeitmessungen */
+			final long value=System.currentTimeMillis();
+			if (timeCacheResult==null || timeCacheValue!=value) {
+				timeCacheValue=value;
+				timeCacheResult=Double.valueOf(value);
+			}
 		}
+		return timeCacheValue;
 	}
 
 	/**
