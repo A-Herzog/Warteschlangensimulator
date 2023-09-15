@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>3.3.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
   <ModelName>Building temporary batches</ModelName>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">10000000</ModelClients>
@@ -154,11 +155,32 @@
       <ModelElementConnection Element1="11" Element2="12" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="37">
-      <ModelElementSize h="23" w="238" x="50" y="50"/>
+      <ModelElementSize h="23" w="245" x="50" y="50"/>
       <ModelElementTextLine>Building temporary batches</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
+    <ModelElementText id="13">
+      <ModelElementSize h="38" w="471" x="50" y="400"/>
+      <ModelElementTextLine>Before shipping, two items at a time are packed into one package.</ModelElementTextLine>
+      <ModelElementTextLine>At the receiver, the packages (the temporary batches) are dissolved again.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="14">
+      <ModelElementName>Packages delivered</ModelElementName>
+      <ModelElementSize h="30" w="83" x="50" y="600"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">NumberIn(9)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="15">
+      <ModelElementName>Items delivered</ModelElementName>
+      <ModelElementSize h="30" w="63" x="450" y="600"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">NumberIn(12)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
   </ModelElements>
   <Resources SecondaryPriority="Random"/>
   <ClientTypeData>

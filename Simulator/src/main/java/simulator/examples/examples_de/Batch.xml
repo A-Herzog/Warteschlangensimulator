@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>3.3.0</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Zusammenfassen von Elementen zu temporären Batchen</ModellName>
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">10000000</ModellKunden>
@@ -154,11 +155,32 @@
       <ModellElementVerbindung Element1="11" Element2="12" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="37">
-      <ModellElementGroesse h="23" w="490" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="503" x="50" y="50"/>
       <ModellElementTextzeile>Zusammenfassen von Elementen zu temporären Batchen</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
+    <ModellElementText id="13">
+      <ModellElementGroesse h="38" w="495" x="50" y="400"/>
+      <ModellElementTextzeile>Vor dem Versand werden jeweils zwei Artikel in ein Paket verpackt.</ModellElementTextzeile>
+      <ModellElementTextzeile>Beim Empfänger werden die Pakete (die temporären Batche) wieder aufgelöst.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="14">
+      <ModellElementName>Gelieferte Pakete</ModellElementName>
+      <ModellElementGroesse h="30" w="73" x="50" y="600"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">NumberIn(9)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="15">
+      <ModellElementName>Gelieferte Artikel</ModellElementName>
+      <ModellElementGroesse h="30" w="70" x="450" y="600"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">NumberIn(12)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
   <KundentypenDaten>
