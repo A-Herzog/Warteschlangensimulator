@@ -21,6 +21,7 @@ import java.awt.FlowLayout;
 import java.io.Serializable;
 
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
@@ -74,6 +75,10 @@ public class ModelElementBaseQueueDialog extends BaseDialog {
 		setupArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		optionAll=new JRadioButton(Language.tr("Editor.DialogBase.DisplayQueue.Full"),drawQueueAll);
 		line.add(optionAll);
+
+		final ButtonGroup buttonGroup=new ButtonGroup();
+		buttonGroup.add(optionLimited);
+		buttonGroup.add(optionAll);
 
 		/* Dialog starten */
 		pack();
