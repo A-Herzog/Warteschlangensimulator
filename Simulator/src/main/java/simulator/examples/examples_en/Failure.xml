@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>1.2.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
   <ModelName>Model with break times for the operator</ModelName>
-  <ModelDescription/>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">5000000</ModelClients>
   <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
-  <ModelTerminationCondition Active="0"/>
   <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
-  <ModelRandomNumbersSeed Active="0">0</ModelRandomNumbersSeed>
   <ModelElements>
     <ModelElementProcessStation id="1">
       <ModelElementSize h="50" w="100" x="300" y="100"/>
@@ -28,6 +26,7 @@
       <ModelElementSize h="50" w="100" x="50" y="100"/>
       <ModelElementConnection Element="4" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementDispose id="3">
       <ModelElementSize h="50" w="100" x="550" y="100"/>
@@ -41,16 +40,16 @@
       <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="6">
-      <ModelElementSize h="23" w="354" x="50" y="50"/>
-      <ModelElementTextLine>Model with break times for the operators</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementSize h="23" w="310" x="50" y="50"/>
+      <ModelElementTextLine>Model with breaks for the operators</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="7">
       <ModelElementSize h="38" w="418" x="50" y="180"/>
       <ModelElementTextLine>After each 20 served clients (each about 5 minutes) each operator</ModelElementTextLine>
       <ModelElementTextLine>will have a break for about 10 minutes.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationLineDiagram id="8">
@@ -62,17 +61,19 @@
       <ModelElementDiagramElement LineColor="0,0,255" LineWidth="3" Maximum="10" Minimum="0">WIP_avg(1)</ModelElementDiagramElement>
       <ModelElementDiagramElement LineColor="255,0,0" LineWidth="1" Maximum="10" Minimum="0">Resource_down()</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>18000</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="9">
-      <ModelElementSize h="19" w="602" x="50" y="250"/>
-      <ModelElementTextLine>Number of clients at the process station (current value and average over the complete run time)</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementSize h="19" w="281" x="50" y="250"/>
+      <ModelElementTextLine>Number of clients at the process station</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="11">
-      <ModelElementSize h="19" w="138" x="700" y="250"/>
+      <ModelElementSize h="19" w="154" x="700" y="250"/>
       <ModelElementTextLine>State of the operators</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationStackBar id="10">
@@ -83,24 +84,54 @@
       <ModelElementDataArea Direction="up"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
       <ModelElementBarColor>255,0,0</ModelElementBarColor>
       <ModelElementBarColor>255,165,0</ModelElementBarColor>
       <ModelElementBarColor>0,180,0</ModelElementBarColor>
-      <ModelElementBarColor>0,180,0</ModelElementBarColor>
+      <ModelElementAxisLabels>1</ModelElementAxisLabels>
     </ModelElementAnimationStackBar>
     <ModelElementText id="12">
-      <ModelElementSize h="42" w="77" x="700" y="500"/>
+      <ModelElementSize h="42" w="63" x="700" y="500"/>
       <ModelElementTextLine>green=idle,</ModelElementTextLine>
-      <ModelElementTextLine>orange=working,</ModelElementTextLine>
+      <ModelElementTextLine>orange=busy,</ModelElementTextLine>
       <ModelElementTextLine>red=break</ModelElementTextLine>
-      <ModelElementFontSize>10</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">10</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="13">
+      <ModelElementName>Average number of busy operators</ModelElementName>
+      <ModelElementSize h="30" w="147" x="50" y="565"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,165,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Resource_avg()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="14">
+      <ModelElementName>Current number of operators on break</ModelElementName>
+      <ModelElementSize h="30" w="158" x="250" y="565"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Resource_down()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="15">
+      <ModelElementSize h="14" w="472" x="50" y="530"/>
+      <ModelElementTextLine>(Thin blue line=current value; thick blue line=average; red line=current value for operators on break)</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">10</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="16">
+      <ModelElementSize h="19" w="250" x="50" y="615"/>
+      <ModelElementTextLine>Calculated workload is a:=\frac{\lambda}{\mu}=300/100=3.</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
   </ModelElements>
-  <Resources>
+  <Resources SecondaryPriority="Random">
     <Resource Name="Operators group" Type="Number" Value="4">
       <ResourceFailure FailureAfterNumberOfClients="20" FailureDistribution="Exponential distribution (600)"/>
     </Resource>
   </Resources>
   <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
 </Model>
