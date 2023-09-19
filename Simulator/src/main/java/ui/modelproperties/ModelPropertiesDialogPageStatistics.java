@@ -56,8 +56,6 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 	/** Varianzerfassung über Welfords Algorithmus */
 	private JRadioButton optionPrecisionWelford;
 
-
-
 	/**
 	 * Konstruktor der Klasse
 	 * @param dialog	Dialog in dem sich diese Seite befindet
@@ -139,6 +137,7 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(optionPrecisionMoments=new JRadioButton("<html><b>"+Language.tr("Editor.Dialog.Tab.Simulation.Precision.Moments")+"</b></html>",!model.useWelford));
+		optionPrecisionMoments.setEnabled(!readOnly);
 
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(Box.createHorizontalStrut(25));
@@ -146,6 +145,7 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(optionPrecisionWelford=new JRadioButton("<html><b>"+Language.tr("Editor.Dialog.Tab.Simulation.Precision.Welford")+"</b></html>",model.useWelford));
+		optionPrecisionWelford.setEnabled(!readOnly);
 
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(Box.createHorizontalStrut(25));
@@ -153,7 +153,8 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 
 		final ButtonGroup buttonGroup=new ButtonGroup();
 		buttonGroup.add(optionPrecisionMoments);
-		buttonGroup.add(optionPrecisionWelford);	}
+		buttonGroup.add(optionPrecisionWelford);
+	}
 
 	/**
 	 * Prüft die angegebene Anzahl an Stunden für die Erfassung der Verteilungen in der Statistik.

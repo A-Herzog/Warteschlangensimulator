@@ -158,7 +158,7 @@ public class ModelPropertiesDialogPageDescription extends ModelPropertiesDialogP
 		data=ScriptEditorAreaBuilder.getInputPanel(Language.tr("Editor.Dialog.Tab.ModelDescription.NameOfTheModel")+":",model.name,ScriptEditorAreaBuilder.TextAreaMode.MODEL_NAME);
 		top.add(sub=(JPanel)data[0]);
 		name=(RSyntaxTextArea)data[1];
-		name.setEditable(!readOnly);
+		name.setEnabled(!readOnly);
 		final JButton buttonAsNameToSurface;
 		sub.add(buttonAsNameToSurface=new JButton(),BorderLayout.EAST);
 		buttonAsNameToSurface.setIcon(Images.MODELPROPERTIES_DESCRIPTION_ADD_TO_SURFACE.getIcon());
@@ -170,7 +170,7 @@ public class ModelPropertiesDialogPageDescription extends ModelPropertiesDialogP
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.ModelDescription.Author")+":",(model.author==null)?"":model.author);
 		top.add((JPanel)data[0]);
 		author=(JTextField)data[1];
-		author.setEditable(!readOnly);
+		author.setEnabled(!readOnly);
 		if (!readOnly) {
 			final JButton authorDefaultButton=new JButton();
 			((JPanel)data[0]).add(authorDefaultButton,BorderLayout.EAST);
@@ -182,7 +182,7 @@ public class ModelPropertiesDialogPageDescription extends ModelPropertiesDialogP
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.ModelDescription.AuthorEMail")+":",(model.authorEMail==null)?"":model.authorEMail);
 		top.add((JPanel)data[0]);
 		authorEMail=(JTextField)data[1];
-		authorEMail.setEditable(!readOnly);
+		authorEMail.setEnabled(!readOnly);
 
 		content.add(sub=new JPanel(new BorderLayout()),BorderLayout.CENTER);
 		label=addLabel(sub,Language.tr("Editor.Dialog.Tab.ModelDescription.ModelDescription")+":",BorderLayout.NORTH);

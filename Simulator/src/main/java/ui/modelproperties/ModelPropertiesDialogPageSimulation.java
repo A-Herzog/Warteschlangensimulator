@@ -101,7 +101,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 	 */
 	private void updateWarmUpTimeInfo() {
 		final long clientCount=calcClientCount(false);
-		final Double D=NumberTools.getNotNegativeDouble(warmUpTime,true);
+		final Double D=NumberTools.getNotNegativeDouble(warmUpTime,!readOnly);
 		if (clientCount<=0 || D==null) {
 			warmUpTimeInfo.setVisible(false);
 		} else {
@@ -133,7 +133,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.Simulation.NumberOfArrivals")+":",""+model.clientCount,10);
 		lines.add(sub=(JPanel)data[0]);
 		clientCount=(JTextField)data[1];
-		clientCount.setEditable(!readOnly);
+		clientCount.setEnabled(!readOnly);
 		addKeyListener(clientCount,()->{
 			terminationByClientClount.setSelected(true);
 			calcClientCount(false);
@@ -145,6 +145,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		buildButton.setPreferredSize(new Dimension(26,26));
 		buildButton.setIcon(Images.EXPRESSION_BUILDER.getIcon());
 		buildButton.setToolTipText(Language.tr("Editor.DialogBase.ExpressionEditTooltip"));
+		buildButton.setEnabled(!readOnly);
 		buildButton.addActionListener(e->{
 			final ExpressionBuilder builderDialog=new ExpressionBuilder(dialog,clientCount.getText(),false,new String[0],null,null,null,false,true,true);
 			builderDialog.setVisible(true);
@@ -156,7 +157,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.Simulation.WarmUpPhase")+":",NumberTools.formatPercent(model.warmUpTime,3),6);
 		lines.add((JPanel)data[0]);
 		warmUpTime=(JTextField)data[1];
-		warmUpTime.setEditable(!readOnly);
+		warmUpTime.setEnabled(!readOnly);
 		addKeyListener(warmUpTime,()->{
 			NumberTools.getNotNegativeDouble(warmUpTime,true);
 			updateWarmUpTimeInfo();
@@ -362,6 +363,8 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 
 	@Override
 	public boolean checkData() {
+		if (readOnly) return true;
+
 		if (!terminationByClientClount.isSelected() && !terminationByCondition.isSelected() && !terminationByTime.isSelected()) {
 			if (!MsgBox.confirm(dialog,Language.tr("Editor.Dialog.Tab.Simulation.Criteria.Title"),Language.tr("Editor.Dialog.Tab.Simulation.Criteria.WarningNoCriterium"),Language.tr("Editor.Dialog.Tab.Simulation.Criteria.YesRunWithout"),Language.tr("Editor.Dialog.Tab.Simulation.Criteria.NoKeepDialogOpen"))) return false;
 			/* Auch Modelle ohne explizites Ende-Kriterium zulassen. Siehe auch RunModel.initGeneralData. */
@@ -487,7 +490,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 			}
 			return -1;
 		} else {
-			clientCount.setBackground(NumberTools.getTextFieldDefaultBackground());
+			if (!readOnly) clientCount.setBackground(NumberTools.getTextFieldDefaultBackground());
 			return l;
 		}
 	}
