@@ -23,8 +23,8 @@ der Wartezeiten an.</ModellBeschreibung>
       <ModellElementBatch Groesse="1"/>
     </ModellElementQuelle>
     <ModellElementBedienstation id="2">
-      <ModellElementGroesse h="50" w="100" x="300" y="100"/>
-      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementGroesse h="50" w="100" x="400" y="100"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
       <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">If(FIFOLimit-NQ();ExpDist(75+min(24;2*NQ()));ExpDist(75))</ModellElementAusdruck>
       <ModellElementPrioritaet Kundentyp="Kunden">If(FIFOLimit-NQ();w;-w)</ModellElementPrioritaet>
@@ -32,16 +32,9 @@ der Wartezeiten an.</ModellBeschreibung>
       <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
     </ModellElementBedienstation>
     <ModellElementEnde id="3">
-      <ModellElementGroesse h="50" w="100" x="550" y="100"/>
-      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementGroesse h="50" w="100" x="700" y="100"/>
+      <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
     </ModellElementEnde>
-    <ModellElementKante id="4">
-      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
-      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
-    </ModellElementKante>
-    <ModellElementKante id="5">
-      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
-    </ModellElementKante>
     <ModellElementText id="6">
       <ModellElementGroesse h="23" w="307" x="50" y="50"/>
       <ModellElementTextzeile>Kombinierte FIFO-LIFO-Produktion</ModellElementTextzeile>
@@ -61,7 +54,7 @@ der Wartezeiten an.</ModellBeschreibung>
     </ModellElementText>
     <ModellElementAnimationTextAuswahl id="8">
       <ModellElementName>Aktueller Modus</ModellElementName>
-      <ModellElementGroesse h="30" w="67" x="750" y="250"/>
+      <ModellElementGroesse h="30" w="67" x="850" y="250"/>
       <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <TextAusdruck Ausdruck="NQ()&lt;=FIFOLimit">FIFO</TextAusdruck>
@@ -69,21 +62,21 @@ der Wartezeiten an.</ModellBeschreibung>
     </ModellElementAnimationTextAuswahl>
     <ModellElementAnimationText id="9">
       <ModellElementName>Umschaltpunkt zwischen FIFO und LIFO</ModellElementName>
-      <ModellElementGroesse h="30" w="167" x="750" y="200"/>
+      <ModellElementGroesse h="30" w="167" x="850" y="200"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">FIFOLimit</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="10">
       <ModellElementName>Mittlere Verweilzeit E[V] (in Sek.)</ModellElementName>
-      <ModellElementGroesse h="30" w="135" x="750" y="100"/>
+      <ModellElementGroesse h="30" w="135" x="850" y="100"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">ResidenceTime_avg()</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="11">
       <ModellElementName>Variationskoeffizient der Verweilzeiten CV[V]</ModellElementName>
-      <ModellElementGroesse h="30" w="185" x="750" y="150"/>
+      <ModellElementGroesse h="30" w="185" x="850" y="150"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">ResidenceTime_cv()</ModellElementAnimationsmodus>
@@ -100,7 +93,7 @@ der Wartezeiten an.</ModellBeschreibung>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationLinienDiagramm id="13">
-      <ModellElementGroesse h="230" w="600" x="50" y="370"/>
+      <ModellElementGroesse h="230" w="700" x="50" y="370"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
@@ -116,17 +109,51 @@ der Wartezeiten an.</ModellBeschreibung>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="15">
-      <ModellElementGroesse h="16" w="27" x="655" y="515"/>
+      <ModellElementGroesse h="16" w="27" x="760" y="510"/>
       <ModellElementTextzeile>FIFO</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="16">
-      <ModellElementGroesse h="16" w="27" x="655" y="440"/>
+      <ModellElementGroesse h="16" w="27" x="760" y="435"/>
       <ModellElementTextzeile>LIFO</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
+    <ModellElementBenutzerstatistik id="17">
+      <ModellElementName>Modus erfassen</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="250" y="100"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+      <ModellElementBenutzerstatistikEintrag Bezeichner="LIFOfraction" IstKontinuierlich="1" IstZeitangabe="0">If(FIFOLimit-(NQ()+1);0;1)</ModellElementBenutzerstatistikEintrag>
+    </ModellElementBenutzerstatistik>
+    <ModellElementBenutzerstatistik id="18">
+      <ModellElementName>Modus erfassen</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="100"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="20" Typ="Auslaufend"/>
+      <ModellElementBenutzerstatistikEintrag Bezeichner="LIFOfraction" IstKontinuierlich="1" IstZeitangabe="0">If(FIFOLimit-NQ();0;1)</ModellElementBenutzerstatistikEintrag>
+    </ModellElementBenutzerstatistik>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="17" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="19">
+      <ModellElementVerbindung Element1="17" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="2" Element2="18" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="20">
+      <ModellElementVerbindung Element1="18" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="21">
+      <ModellElementName>Zeitanteil LIFO</ModellElementName>
+      <ModellElementGroesse h="30" w="74" x="850" y="400"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Statistik_avg(17;1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig">
     <Ressource Name="Neue Bedienergruppe" Typ="Anzahl" Wert="1"/>

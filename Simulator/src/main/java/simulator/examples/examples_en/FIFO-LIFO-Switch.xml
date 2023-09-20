@@ -22,8 +22,8 @@ not increase, but the coefficient of variation of the waiting times increases.</
       <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementProcessStation id="2">
-      <ModelElementSize h="50" w="100" x="300" y="100"/>
-      <ModelElementConnection Element="4" Type="In"/>
+      <ModelElementSize h="50" w="100" x="400" y="100"/>
+      <ModelElementConnection Element="19" Type="In"/>
       <ModelElementConnection Element="5" Type="Out"/>
       <ModelElementExpression Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">If(FIFOLimit-NQ();ExpDist(75+min(24;2*NQ()));ExpDist(75))</ModelElementExpression>
       <ModelElementPriority ClientType="Clients">If(FIFOLimit-NQ();w;-w)</ModelElementPriority>
@@ -32,16 +32,9 @@ not increase, but the coefficient of variation of the waiting times increases.</
       <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
     </ModelElementProcessStation>
     <ModelElementDispose id="3">
-      <ModelElementSize h="50" w="100" x="550" y="100"/>
-      <ModelElementConnection Element="5" Type="In"/>
+      <ModelElementSize h="50" w="100" x="700" y="100"/>
+      <ModelElementConnection Element="20" Type="In"/>
     </ModelElementDispose>
-    <ModelElementEdge id="4">
-      <ModelElementName>Arrivals (Clients)</ModelElementName>
-      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
-    </ModelElementEdge>
-    <ModelElementEdge id="5">
-      <ModelElementConnection Element1="2" Element2="3" Type="Edge"/>
-    </ModelElementEdge>
     <ModelElementText id="6">
       <ModelElementSize h="23" w="288" x="50" y="50"/>
       <ModelElementTextLine>Combined FIFO LIFO production</ModelElementTextLine>
@@ -60,7 +53,7 @@ not increase, but the coefficient of variation of the waiting times increases.</
     </ModelElementText>
     <ModelElementAnimationTextSelect id="8">
       <ModelElementName>Current mode</ModelElementName>
-      <ModelElementSize h="30" w="58" x="750" y="250"/>
+      <ModelElementSize h="30" w="58" x="850" y="250"/>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <TextExpression Expression="NQ()&lt;=FIFOLimit">FIFO</TextExpression>
@@ -68,21 +61,21 @@ not increase, but the coefficient of variation of the waiting times increases.</
     </ModelElementAnimationTextSelect>
     <ModelElementAnimationText id="9">
       <ModelElementName>Switching point between FIFO and LIFO</ModelElementName>
-      <ModelElementSize h="30" w="167" x="750" y="200"/>
+      <ModelElementSize h="30" w="167" x="850" y="200"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">FIFOLimit</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="10">
       <ModelElementName>Average residence time E[V] (in sec.)</ModelElementName>
-      <ModelElementSize h="30" w="156" x="750" y="100"/>
+      <ModelElementSize h="30" w="156" x="850" y="100"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">ResidenceTime_avg()</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="11">
       <ModelElementName>Coefficient of variation of the residence times CV[V]</ModelElementName>
-      <ModelElementSize h="30" w="216" x="750" y="150"/>
+      <ModelElementSize h="30" w="216" x="850" y="150"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">ResidenceTime_cv()</ModelElementAnimationMode>
@@ -99,7 +92,7 @@ not increase, but the coefficient of variation of the waiting times increases.</
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationLineDiagram id="13">
-      <ModelElementSize h="230" w="600" x="50" y="370"/>
+      <ModelElementSize h="230" w="700" x="50" y="370"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
@@ -115,17 +108,51 @@ not increase, but the coefficient of variation of the waiting times increases.</
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="15">
-      <ModelElementSize h="16" w="27" x="655" y="515"/>
+      <ModelElementSize h="16" w="27" x="765" y="510"/>
       <ModelElementTextLine>FIFO</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">12</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="16">
-      <ModelElementSize h="16" w="27" x="655" y="440"/>
+      <ModelElementSize h="16" w="27" x="765" y="435"/>
       <ModelElementTextLine>LIFO</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">12</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
+    <ModelElementUserStatistics id="17">
+      <ModelElementName>Record mode</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="100"/>
+      <ModelElementConnection Element="4" Type="In"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+      <ModelElementUserStatisticsRecord IsContinuous="1" IsTime="0" Key="LIFOfraction">If(FIFOLimit-(NQ()+1);0;1)</ModelElementUserStatisticsRecord>
+    </ModelElementUserStatistics>
+    <ModelElementUserStatistics id="18">
+      <ModelElementName>Record mode</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="100"/>
+      <ModelElementConnection Element="5" Type="In"/>
+      <ModelElementConnection Element="20" Type="Out"/>
+      <ModelElementUserStatisticsRecord IsContinuous="1" IsTime="0" Key="LIFOfraction">If(FIFOLimit-NQ();0;1)</ModelElementUserStatisticsRecord>
+    </ModelElementUserStatistics>
+    <ModelElementEdge id="4">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="17" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementConnection Element1="17" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="5">
+      <ModelElementConnection Element1="2" Element2="18" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="20">
+      <ModelElementConnection Element1="18" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="21">
+      <ModelElementName>Time share LIFO</ModelElementName>
+      <ModelElementSize h="30" w="86" x="850" y="400"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Statistik_avg(17;1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
   </ModelElements>
   <Resources SecondaryPriority="Random">
     <Resource Icon="status_online" Name="Operator group" Type="Number" Value="1"/>
