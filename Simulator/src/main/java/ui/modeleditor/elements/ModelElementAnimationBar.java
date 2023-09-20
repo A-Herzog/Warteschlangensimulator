@@ -24,6 +24,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.util.Objects;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.Icon;
@@ -153,6 +154,13 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	 * @see #setBackgroundColor(Color)
 	 */
 	private Color backgroundColor=new Color(240,240,240);
+
+	/**
+	 * Optionale zweite Füllfarbe des Kastens für Farbverläufe
+	 * @see #getGradientFillColor()
+	 * @see #setGradientFillColor(Color)
+	 */
+	protected Color gradientColor=null;
 
 	/**
 	 * Farbe des Balkens
@@ -335,6 +343,23 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	}
 
 	/**
+	 * Liefert die optionale zweite Füllfarbe des Kastens für Farbverläufe
+	 * @return	Zweite Füllfarbe des Kastens (kann <code>null</code> sein für einfarbig bzw. transparent)
+	 */
+	public Color getGradientFillColor() {
+		return gradientColor;
+	}
+
+	/**
+	 * Stellt die optionale zweite Füllfarbe des Kastens für Farbverläufe ein
+	 * @param color	Zweite Füllfarbe des Kastens (oder <code>null</code> für einfarbig bzw. transparent)
+	 */
+	public void setGradientFillColor(final Color color) {
+		gradientColor=color;
+		fireChanged();
+	}
+
+	/**
 	 * Liefert die aktuelle Farbe des Balkens
 	 * @return	Aktuelle Farbe des Balkens
 	 */
@@ -402,14 +427,11 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		if (!expression.equalsAnimationExpression(other.expression)) return false;
 		if (minValue!=other.minValue) return false;
 		if (maxValue!=other.maxValue) return false;
-
 		if (borderWidth!=other.borderWidth) return false;
-		if (!other.borderColor.equals(borderColor)) return false;
-		if (!(other.backgroundColor==null && backgroundColor==null)) {
-			if (other.backgroundColor==null || backgroundColor==null) return false;
-			if (!other.backgroundColor.equals(backgroundColor)) return false;
-		}
-		if (!other.barColor.equals(barColor)) return false;
+		if (!Objects.equals(borderColor,other.borderColor)) return false;
+		if (!Objects.equals(backgroundColor,other.backgroundColor)) return false;
+		if (!Objects.equals(gradientColor,other.gradientColor)) return false;
+		if (!Objects.equals(barColor,other.barColor)) return false;
 		if (axisLabels!=other.axisLabels) return false;
 		if (!axisLabelText.equals(other.axisLabelText)) return false;
 
@@ -434,6 +456,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 			borderWidth=source.borderWidth;
 			borderColor=source.borderColor;
 			backgroundColor=source.backgroundColor;
+			gradientColor=source.gradientColor;
 			barColor=source.barColor;
 			axisLabels=source.axisLabels;
 			axisLabelText=source.axisLabelText;
@@ -626,6 +649,58 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 	}
 
 	/**
+	 * Objekt für eine Farbverlaufsfüllung
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private GradientFill gradientFill=null;
+
+	/**
+	 * Zeichenbereich beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private Rectangle drawRectangle;
+
+	/**
+	 * x-Position (in Modellkoordinaten) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}<br>
+	 * (Zur Prüfung, ob {@link #drawRectangle} wiederverwendet werden kann.)
+	 * @see #drawRectangle
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private int drawRectangleX;
+
+	/**
+	 * y-Position (in Modellkoordinaten) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}<br>
+	 * (Zur Prüfung, ob {@link #drawRectangle} wiederverwendet werden kann.)
+	 * @see #drawRectangle
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private int drawRectangleY;
+
+	/**
+	 * Breite (in Modellkoordinaten) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}<br>
+	 * (Zur Prüfung, ob {@link #drawRectangle} wiederverwendet werden kann.)
+	 * @see #drawRectangle
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private int drawRectangleW;
+
+	/**
+	 * Höhe (in Modellkoordinaten) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}<br>
+	 * (Zur Prüfung, ob {@link #drawRectangle} wiederverwendet werden kann.)
+	 * @see #drawRectangle
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private int drawRectangleH;
+
+	/**
+	 * Zoomfaktor beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}<br>
+	 * (Zur Prüfung, ob {@link #drawRectangle} wiederverwendet werden kann.)
+	 * @see #drawRectangle
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private double drawRectangleZoom;
+
+	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -661,17 +736,32 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 			}
 		}
 
-		final Rectangle rectangle=new Rectangle((int)FastMath.round(FastMath.min(p.x,p.x+s.width)*zoom),(int)FastMath.round(FastMath.min(p.y,p.y+s.height)*zoom),(int)FastMath.round(Math.abs(s.width)*zoom),(int)FastMath.round(Math.abs(s.height)*zoom));
-		if (backgroundColor!=null) {
-			g2.setColor(backgroundColor);
-			g2.fill(rectangle);
+		/* Zeichenbereich bestimmen */
+		if (drawRectangle==null || drawRectangleX!=p.x || drawRectangleY!=p.y || drawRectangleW!=s.width || drawRectangleH!=s.height || drawRectangleZoom!=zoom) {
+			drawRectangle=new Rectangle((int)FastMath.round(FastMath.min(p.x,p.x+s.width)*zoom),(int)FastMath.round(FastMath.min(p.y,p.y+s.height)*zoom),(int)FastMath.round(Math.abs(s.width)*zoom),(int)FastMath.round(Math.abs(s.height)*zoom));
+			drawRectangleX=p.x;
+			drawRectangleY=p.y;
+			drawRectangleW=s.width;
+			drawRectangleH=s.height;
+			drawRectangleZoom=zoom;
 		}
 
-		fillBox(g2,rectangle);
+		/* Hintergrund füllen */
+		if (backgroundColor!=null) {
+			if (gradientColor==null) {
+				g2.setColor(backgroundColor);
+			} else {
+				if (gradientFill==null) gradientFill=new GradientFill(false);
+				gradientFill.set(g2,drawRectangle,gradientColor,backgroundColor,true);
+			}
+			g2.fill(drawRectangle);
+		}
+
+		fillBox(g2,drawRectangle);
 
 		if (drawBorder) {
 			g2.setColor(lineColor);
-			g2.draw(rectangle);
+			g2.draw(drawRectangle);
 		}
 
 		if (isSelected() && showSelectionFrames) {
@@ -685,16 +775,16 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 
 		switch (direction) {
 		case DIRECTION_DOWN:
-			yAxisDrawer.drawYInvers(g2,zoom,rectangle);
+			yAxisDrawer.drawYInvers(g2,zoom,drawRectangle);
 			break;
 		case DIRECTION_LEFT:
-			yAxisDrawer.drawXInvers(g2,zoom,rectangle);
+			yAxisDrawer.drawXInvers(g2,zoom,drawRectangle);
 			break;
 		case DIRECTION_RIGHT:
-			yAxisDrawer.drawX(g2,zoom,rectangle);
+			yAxisDrawer.drawX(g2,zoom,drawRectangle);
 			break;
 		case DIRECTION_UP:
-			yAxisDrawer.drawY(g2,zoom,rectangle);
+			yAxisDrawer.drawY(g2,zoom,drawRectangle);
 			break;
 		}
 		g2.setStroke(saveStroke);
@@ -793,6 +883,12 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 			sub.setTextContent(EditModel.saveColor(backgroundColor));
 		}
 
+		if (gradientColor!=null) {
+			sub=doc.createElement(Language.trPrimary("Surface.AnimationBar.XML.GradientColor"));
+			node.appendChild(sub);
+			sub.setTextContent(EditModel.saveColor(gradientColor));
+		}
+
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationBar.XML.BarColor"));
 		node.appendChild(sub);
 		sub.setTextContent(EditModel.saveColor(barColor));
@@ -857,6 +953,13 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		if (Language.trAll("Surface.AnimationBar.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
 			backgroundColor=EditModel.loadColor(content);
 			if (backgroundColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			return null;
+		}
+
+		if (Language.trAll("Surface.AnimationBar.XML.GradientColor",name) && !content.trim().isEmpty()) {
+			final Color color=EditModel.loadColor(content);
+			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			gradientColor=color;
 			return null;
 		}
 

@@ -24,6 +24,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -40,6 +41,7 @@ import ui.images.Images;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementPosition;
+import ui.modeleditor.fastpaint.GradientFill;
 import ui.modeleditor.fastpaint.Shapes;
 import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
 import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
@@ -69,6 +71,13 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 	 * Füllfarbe des Kastens
 	 */
 	protected Color backgroundColor=new Color(240,240,240);
+
+	/**
+	 * Optionale zweite Füllfarbe des Kastens für Farbverläufe
+	 * @see #getGradientFillColor()
+	 * @see #setGradientFillColor(Color)
+	 */
+	protected Color gradientColor=null;
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationDiagramBase</code>
@@ -139,21 +148,37 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 	}
 
 	/**
+	 * Liefert die optionale zweite Füllfarbe des Kastens für Farbverläufe
+	 * @return	Zweite Füllfarbe des Kastens (kann <code>null</code> sein für einfarbig bzw. transparent)
+	 */
+	public Color getGradientFillColor() {
+		return gradientColor;
+	}
+
+	/**
+	 * Stellt die optionale zweite Füllfarbe des Kastens für Farbverläufe ein
+	 * @param color	Zweite Füllfarbe des Kastens (oder <code>null</code> für einfarbig bzw. transparent)
+	 */
+	public void setGradientFillColor(final Color color) {
+		gradientColor=color;
+		fireChanged();
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
 	 */
 	@Override
-	public boolean equalsModelElement(ModelElement element) {
+	public boolean equalsModelElement(final ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementAnimationDiagramBase)) return false;
+		final ModelElementAnimationDiagramBase otherDiagram=(ModelElementAnimationDiagramBase)element;
 
-		if (borderWidth!=((ModelElementAnimationDiagramBase)element).borderWidth) return false;
-		if (!((ModelElementAnimationDiagramBase)element).borderColor.equals(borderColor)) return false;
-		if (!(((ModelElementAnimationDiagramBase)element).backgroundColor==null && backgroundColor==null)) {
-			if (((ModelElementAnimationDiagramBase)element).backgroundColor==null || backgroundColor==null) return false;
-			if (!((ModelElementAnimationDiagramBase)element).backgroundColor.equals(backgroundColor)) return false;
-		}
+		if (borderWidth!=otherDiagram.borderWidth) return false;
+		if (!Objects.equals(borderColor,otherDiagram.borderColor)) return false;
+		if (!Objects.equals(backgroundColor,otherDiagram.backgroundColor)) return false;
+		if (!Objects.equals(gradientColor,otherDiagram.gradientColor)) return false;
 
 		return true;
 	}
@@ -163,12 +188,14 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 	 * @param element	Element, von dem alle Einstellungen übernommen werden sollen
 	 */
 	@Override
-	public void copyDataFrom(ModelElement element) {
+	public void copyDataFrom(final ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementAnimationDiagramBase) {
-			borderWidth=((ModelElementAnimationDiagramBase)element).borderWidth;
-			borderColor=((ModelElementAnimationDiagramBase)element).borderColor;
-			backgroundColor=((ModelElementAnimationDiagramBase)element).backgroundColor;
+			final ModelElementAnimationDiagramBase copySource=(ModelElementAnimationDiagramBase)element;
+			borderWidth=copySource.borderWidth;
+			borderColor=copySource.borderColor;
+			backgroundColor=copySource.backgroundColor;
+			gradientColor=copySource.gradientColor;
 		}
 	}
 
@@ -337,6 +364,58 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 	protected abstract void drawDiagramData(final Graphics2D g, final Rectangle rectangle, final double zoom);
 
 	/**
+	 * Objekt für eine Farbverlaufsfüllung
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private GradientFill gradientFill=null;
+
+	/**
+	 * Zeichenbereich beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private Rectangle drawRectangle;
+
+	/**
+	 * x-Position (in Modellkoordinaten) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}<br>
+	 * (Zur Prüfung, ob {@link #drawRectangle} wiederverwendet werden kann.)
+	 * @see #drawRectangle
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private int drawRectangleX;
+
+	/**
+	 * y-Position (in Modellkoordinaten) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}<br>
+	 * (Zur Prüfung, ob {@link #drawRectangle} wiederverwendet werden kann.)
+	 * @see #drawRectangle
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private int drawRectangleY;
+
+	/**
+	 * Breite (in Modellkoordinaten) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}<br>
+	 * (Zur Prüfung, ob {@link #drawRectangle} wiederverwendet werden kann.)
+	 * @see #drawRectangle
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private int drawRectangleW;
+
+	/**
+	 * Höhe (in Modellkoordinaten) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}<br>
+	 * (Zur Prüfung, ob {@link #drawRectangle} wiederverwendet werden kann.)
+	 * @see #drawRectangle
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private int drawRectangleH;
+
+	/**
+	 * Zoomfaktor beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}<br>
+	 * (Zur Prüfung, ob {@link #drawRectangle} wiederverwendet werden kann.)
+	 * @see #drawRectangle
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private double drawRectangleZoom;
+
+	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -353,27 +432,39 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 		final Dimension s=getSize();
 
 		/* Zeichenbereich bestimmen */
-		final Rectangle rectangle=new Rectangle((int)FastMath.round(FastMath.min(p.x,p.x+s.width)*zoom),(int)FastMath.round(FastMath.min(p.y,p.y+s.height)*zoom),(int)FastMath.round(Math.abs(s.width)*zoom),(int)FastMath.round(Math.abs(s.height)*zoom));
+		if (drawRectangle==null || drawRectangleX!=p.x || drawRectangleY!=p.y || drawRectangleW!=s.width || drawRectangleH!=s.height || drawRectangleZoom!=zoom) {
+			drawRectangle=new Rectangle((int)FastMath.round(FastMath.min(p.x,p.x+s.width)*zoom),(int)FastMath.round(FastMath.min(p.y,p.y+s.height)*zoom),(int)FastMath.round(Math.abs(s.width)*zoom),(int)FastMath.round(Math.abs(s.height)*zoom));
+			drawRectangleX=p.x;
+			drawRectangleY=p.y;
+			drawRectangleW=s.width;
+			drawRectangleH=s.height;
+			drawRectangleZoom=zoom;
+		}
 
 		/* Nur zeichnen, wenn überhaupt im sichtbaren Bereich */
 		final int delta=(int)Math.round(50*zoom);
-		if (drawRect.x>rectangle.x+rectangle.width+delta) return;
-		if (drawRect.y>rectangle.y+rectangle.height+delta) return;
-		if (drawRect.x+drawRect.width<rectangle.x-delta) return;
-		if (drawRect.y+drawRect.height<rectangle.y-delta) return;
+		if (drawRect.x>drawRectangle.x+drawRectangle.width+delta) return;
+		if (drawRect.y>drawRectangle.y+drawRectangle.height+delta) return;
+		if (drawRect.x+drawRect.width<drawRectangle.x-delta) return;
+		if (drawRect.y+drawRect.height<drawRectangle.y-delta) return;
 
 		/* Zeichenstift speichern */
 		final Stroke saveStroke=g2.getStroke();
 
 		/* Hintergrund füllen */
 		if (backgroundColor!=null) {
-			g2.setColor(backgroundColor);
-			g2.fill(rectangle);
+			if (gradientColor==null) {
+				g2.setColor(backgroundColor);
+			} else {
+				if (gradientFill==null) gradientFill=new GradientFill(false);
+				gradientFill.set(g2,drawRectangle,gradientColor,backgroundColor,true);
+			}
+			g2.fill(drawRectangle);
 		}
 
 		/* Diagrammdaten zeichnen */
-		setClip(g2,drawRect,rectangle);
-		drawDiagramData(g2,rectangle,zoom);
+		setClip(g2,drawRect,drawRectangle);
+		drawDiagramData(g2,drawRectangle,zoom);
 		setClip(g2,drawRect,null);
 
 		/* Rahmen zeichnen */
@@ -398,7 +489,7 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 
 		if (drawBorder) {
 			g2.setColor(lineColor);
-			g2.draw(rectangle);
+			g2.draw(drawRectangle);
 		}
 
 		if (isSelected() && showSelectionFrames) {
@@ -409,8 +500,8 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 		}
 
 		/* Achsenbeschriftung ausgeben */
-		if (xAxisDrawer!=null) xAxisDrawer.drawX(g2,zoom,rectangle);
-		if (yAxisDrawer!=null) yAxisDrawer.drawY(g2,zoom,rectangle);
+		if (xAxisDrawer!=null) xAxisDrawer.drawX(g2,zoom,drawRectangle);
+		if (yAxisDrawer!=null) yAxisDrawer.drawY(g2,zoom,drawRectangle);
 
 		/* Zeichenstift wiederherstellen */
 		g2.setStroke(saveStroke);
@@ -438,7 +529,12 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 
 		final Rectangle rectangle=new Rectangle(0,0,width,height);
 		if (backgroundColor!=null) {
-			g2.setColor(backgroundColor);
+			if (gradientColor==null) {
+				g2.setColor(backgroundColor);
+			} else {
+				if (gradientFill==null) gradientFill=new GradientFill(false);
+				gradientFill.set(g2,rectangle,gradientColor,backgroundColor,true);
+			}
 			g2.fill(rectangle);
 		}
 
@@ -485,6 +581,12 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 			node.appendChild(sub);
 			sub.setTextContent(EditModel.saveColor(backgroundColor));
 		}
+
+		if (gradientColor!=null) {
+			sub=doc.createElement(Language.trPrimary("Surface.AnimationDiagram.XML.GradientColor"));
+			node.appendChild(sub);
+			sub.setTextContent(EditModel.saveColor(gradientColor));
+		}
 	}
 
 	/**
@@ -516,6 +618,13 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 		if (Language.trAll("Surface.AnimationDiagram.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
 			backgroundColor=EditModel.loadColor(content);
 			if (backgroundColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			return null;
+		}
+
+		if (Language.trAll("Surface.AnimationDiagram.XML.GradientColor",name) && !content.trim().isEmpty()) {
+			final Color color=EditModel.loadColor(content);
+			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			gradientColor=color;
 			return null;
 		}
 

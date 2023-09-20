@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-05 08:38+0200\n"
+"POT-Creation-Date: 2023-09-19 09:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26080,6 +26080,9 @@ msgstr "Minimum"
 msgid "Surface.AnimationBar.XML.DataExpression"
 msgstr "ModelElementDataExpression"
 
+msgid "Surface.AnimationBar.XML.GradientColor"
+msgstr "ModelElementBackgroundColorGradient"
+
 msgid "Surface.AnimationBar.XML.LineColor"
 msgstr "ModelElementLineColor"
 
@@ -26205,6 +26208,9 @@ msgstr "Bar chart that is updated during the animation of the model"
 
 msgid "Surface.AnimationBarChart.XML.BackgroundColor"
 msgstr "ModelElementBackgroundColor"
+
+msgid "Surface.AnimationBarChart.XML.GradientColor"
+msgstr "ModelElementBackgroundColorGradient"
 
 msgid "Surface.AnimationBarChart.XML.LabelText"
 msgstr "Text"
@@ -26359,6 +26365,9 @@ msgstr "Maximum"
 msgid "Surface.AnimationBarStack.XML.DataExpression"
 msgstr "ModelElementDataExpression"
 
+msgid "Surface.AnimationBarStack.XML.GradientColor"
+msgstr "ModelElementBackgroundColorGradient"
+
 msgid "Surface.AnimationBarStack.XML.LabelText"
 msgstr "Text"
 
@@ -26448,6 +26457,9 @@ msgstr "Line chart that is updated during the animation of the model"
 
 msgid "Surface.AnimationDiagram.XML.BackgroundColor"
 msgstr "ModelElementBackgroundColor"
+
+msgid "Surface.AnimationDiagram.XML.GradientColor"
+msgstr "ModelElementBackgroundColorGradient"
 
 msgid "Surface.AnimationDiagram.XML.LabelText"
 msgstr "Text"

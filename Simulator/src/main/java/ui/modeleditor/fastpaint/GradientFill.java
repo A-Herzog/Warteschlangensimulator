@@ -92,6 +92,13 @@ public class GradientFill {
 		}
 
 		return new GradientPaint(p1,fillColor,p2,fillColorBrighter);
+		/*
+		Die Cache-Klasse GradientPaintWithCachedContext, die nicht bei jedem Aufruf von
+		GradientPaint#createContext ein neues Objekt anlegt, kann leider nicht verwendet
+		werden, da SunGraphics2D#setPaint leider einen Vergleich
+		"paintClass==GradientPaint.class" anstatt "paint instanceof GradientPaint" durchführt
+		und so keine abgeleitete Klasse verwendet werden kann.
+		 */
 	}
 
 	/**
@@ -110,6 +117,7 @@ public class GradientFill {
 		if (lastPaint==null || !lastPaintRect.equals(objectRect) || lastPaintColor==null || !lastPaintColor.equals(fillColor) || lastPaintDirection!=verticalGradient) {
 			lastPaint=build(objectRect,fillColor,brighter.get(fillColor),verticalGradient);
 			FastPaintTools.copyRectangleData(objectRect,lastPaintRect);
+			lastPaintRect=new Rectangle(objectRect);
 			lastPaintColor=fillColor;
 			lastPaintDirection=verticalGradient;
 		}
@@ -134,6 +142,7 @@ public class GradientFill {
 		if (lastPaint==null || !lastPaintRect.equals(objectRect) || lastPaintColor==null || lastPaintColor2==null || !lastPaintColor.equals(fillColor1) || !lastPaintColor2.equals(fillColor2) || lastPaintDirection!=verticalGradient) {
 			lastPaint=build(objectRect,fillColor1,fillColor2,verticalGradient);
 			FastPaintTools.copyRectangleData(objectRect,lastPaintRect);
+			lastPaintRect=new Rectangle(objectRect);
 			lastPaintColor=fillColor1;
 			lastPaintColor2=fillColor2;
 			lastPaintDirection=verticalGradient;
