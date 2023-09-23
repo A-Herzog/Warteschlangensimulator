@@ -282,32 +282,25 @@ public class MainPanel extends MainPanelBase {
 	 */
 	public static final boolean RELEASE_BUILD=false;
 
-	/** Aktuelle Unterversionsnummer in der Java 8 Versionsreihe */
-	private static final int JAVA8_SECURE_MIN_VERSION=372;
-	/** Aktuelle Unterversionsnummer in der Java 9 Versionsreihe */
-	private static final int JAVA9_SECURE_MIN_VERSION=4;
-	/** Aktuelle Unterversionsnummer in der Java 10 Versionsreihe */
-	private static final int JAVA10_SECURE_MIN_VERSION=2;
-	/** Aktuelle Unterversionsnummer in der Java 11 Versionsreihe */
-	private static final int JAVA11_SECURE_MIN_VERSION=19;
-	/** Aktuelle Unterversionsnummer in der Java 12 Versionsreihe */
-	private static final int JAVA12_SECURE_MIN_VERSION=2;
-	/** Aktuelle Unterversionsnummer in der Java 13 Versionsreihe */
-	private static final int JAVA13_SECURE_MIN_VERSION=2;
-	/** Aktuelle Unterversionsnummer in der Java 14 Versionsreihe */
-	private static final int JAVA14_SECURE_MIN_VERSION=2;
-	/** Aktuelle Unterversionsnummer in der Java 15 Versionsreihe */
-	private static final int JAVA15_SECURE_MIN_VERSION=2;
-	/** Aktuelle Unterversionsnummer in der Java 16 Versionsreihe */
-	private static final int JAVA16_SECURE_MIN_VERSION=2;
-	/** Aktuelle Unterversionsnummer in der Java 17 Versionsreihe */
-	private static final int JAVA17_SECURE_MIN_VERSION=7;
-	/** Aktuelle Unterversionsnummer in der Java 18 Versionsreihe */
-	private static final int JAVA18_SECURE_MIN_VERSION=2;
-	/** Aktuelle Unterversionsnummer in der Java 19 Versionsreihe */
-	private static final int JAVA19_SECURE_MIN_VERSION=2;
-	/** Aktuelle Unterversionsnummer in der Java 20 Versionsreihe */
-	private static final int JAVA20_SECURE_MIN_VERSION=0;
+	/** Aktuelle Unterversionsnummern der verschiedenen Java-Versionsreihen */
+	private static final Map<Integer,Integer> SECURE_JAVA_VERSIONS=new HashMap<>();
+
+	static {
+		SECURE_JAVA_VERSIONS.put(8,382);
+		SECURE_JAVA_VERSIONS.put(9,4);
+		SECURE_JAVA_VERSIONS.put(10,2);
+		SECURE_JAVA_VERSIONS.put(11,20);
+		SECURE_JAVA_VERSIONS.put(12,2);
+		SECURE_JAVA_VERSIONS.put(13,2);
+		SECURE_JAVA_VERSIONS.put(14,2);
+		SECURE_JAVA_VERSIONS.put(15,2);
+		SECURE_JAVA_VERSIONS.put(16,2);
+		SECURE_JAVA_VERSIONS.put(17,8);
+		SECURE_JAVA_VERSIONS.put(18,2);
+		SECURE_JAVA_VERSIONS.put(19,2);
+		SECURE_JAVA_VERSIONS.put(20,0);
+		SECURE_JAVA_VERSIONS.put(21,0);
+	}
 
 	/**
 	 * Bezeichnung für "ungespeichertes Modell" in der Titelzeile für ein neues Modell, welches noch keinen Namen besitzt
@@ -2160,21 +2153,8 @@ public class MainPanel extends MainPanelBase {
 			}
 			if (!setup.testJavaVersion || showingMessage) return;
 			final int[] ver=getJavaVersion();
-			boolean ok=true;
-			if (ver[0]==8 && ver[1]<JAVA8_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==9 && ver[1]<JAVA9_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==10 && ver[1]<JAVA10_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==11 && ver[1]<JAVA11_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==12 && ver[1]<JAVA12_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==13 && ver[1]<JAVA13_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==14 && ver[1]<JAVA14_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==15 && ver[1]<JAVA15_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==16 && ver[1]<JAVA16_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==17 && ver[1]<JAVA17_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==18 && ver[1]<JAVA18_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==19 && ver[1]<JAVA19_SECURE_MIN_VERSION) ok=false;
-			if (ver[0]==20 && ver[1]<JAVA20_SECURE_MIN_VERSION) ok=false;
-			if (ok) return;
+			final Integer subVersion=SECURE_JAVA_VERSIONS.get(ver[0]);
+			if (subVersion==null || ver[1]>=subVersion.intValue()) return;
 			setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),"https://"+MainPanel.JDK_URL,MessagePanelIcon.WARNING);
 			new Timer("HideSecurityInfoPanel").schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
 		}
