@@ -115,9 +115,10 @@
 \contentsline {section}{\numberline {13.2}Bild}{65}{section.13.2}%
 \contentsline {section}{\numberline {13.3}Ellipse}{65}{section.13.3}%
 \contentsline {section}{\numberline {13.4}Linie}{66}{section.13.4}%
-\contentsline {section}{\numberline {13.5}Notiz}{66}{section.13.5}%
-\contentsline {section}{\numberline {13.6}Rechteck}{66}{section.13.6}%
-\contentsline {section}{\numberline {13.7}Verbindungsecke}{66}{section.13.7}%
+\contentsline {section}{\numberline {13.5}Link}{66}{section.13.5}%
+\contentsline {section}{\numberline {13.6}Notiz}{66}{section.13.6}%
+\contentsline {section}{\numberline {13.7}Rechteck}{66}{section.13.7}%
+\contentsline {section}{\numberline {13.8}Verbindungsecke}{67}{section.13.8}%
 \contentsline {chapter}{\numberline {14}Sonstiges}{69}{chapter.14}%
 \contentsline {section}{\numberline {14.1}Aktion}{69}{section.14.1}%
 \contentsline {section}{\numberline {14.2}Referenz}{69}{section.14.2}%

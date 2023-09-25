@@ -65,101 +65,105 @@
 \contentsline {chapter}{\numberline {12}Allen-Cunneen approximation formula}{33}{chapter.12}%
 \contentsline {chapter}{\numberline {13}Accessing model properties}{35}{chapter.13}%
 \contentsline {section}{\numberline {13.1}General simulation data}{35}{section.13.1}%
-\contentsline {section}{\numberline {13.2}Clients in the system}{35}{section.13.2}%
-\contentsline {subsection}{\numberline {13.2.1}Number of clients in the system}{35}{subsection.13.2.1}%
+\contentsline {section}{\numberline {13.2}Clients in the system}{36}{section.13.2}%
+\contentsline {subsection}{\numberline {13.2.1}Number of clients in the system}{36}{subsection.13.2.1}%
 \contentsline {subsection}{\numberline {13.2.2}Number of waiting clients in the system}{36}{subsection.13.2.2}%
 \contentsline {subsection}{\numberline {13.2.3}Number of clients in service process in the system}{37}{subsection.13.2.3}%
-\contentsline {section}{\numberline {13.3}Clients at the stations}{37}{section.13.3}%
-\contentsline {subsection}{\numberline {13.3.1}Number of clients at a station}{37}{subsection.13.3.1}%
-\contentsline {subsection}{\numberline {13.3.2}Number of clients at the queue at a station}{38}{subsection.13.3.2}%
-\contentsline {subsection}{\numberline {13.3.3}Number of clients in service process at a station}{39}{subsection.13.3.3}%
-\contentsline {subsection}{\numberline {13.3.4}Number of arrivals and departures at a station}{40}{subsection.13.3.4}%
-\contentsline {section}{\numberline {13.4}Clients in system by client type}{40}{section.13.4}%
-\contentsline {subsection}{\numberline {13.4.1}Number of clients in the system by client type}{40}{subsection.13.4.1}%
-\contentsline {subsection}{\numberline {13.4.2}Number of waiting clients in the system by client type}{41}{subsection.13.4.2}%
+\contentsline {section}{\numberline {13.3}Clients at the stations}{38}{section.13.3}%
+\contentsline {subsection}{\numberline {13.3.1}Number of clients at a station}{38}{subsection.13.3.1}%
+\contentsline {subsection}{\numberline {13.3.2}Number of clients at the queue at a station}{39}{subsection.13.3.2}%
+\contentsline {subsection}{\numberline {13.3.3}Number of clients in service process at a station}{40}{subsection.13.3.3}%
+\contentsline {subsection}{\numberline {13.3.4}Number of arrivals and departures at a station}{41}{subsection.13.3.4}%
+\contentsline {section}{\numberline {13.4}Clients in system by client type}{41}{section.13.4}%
+\contentsline {subsection}{\numberline {13.4.1}Number of clients in the system by client type}{41}{subsection.13.4.1}%
+\contentsline {subsection}{\numberline {13.4.2}Number of waiting clients in the system by client type}{42}{subsection.13.4.2}%
 \contentsline {subsection}{\numberline {13.4.3}Number of clients in service process by client type}{43}{subsection.13.4.3}%
 \contentsline {section}{\numberline {13.5}Counter and throughput}{44}{section.13.5}%
-\contentsline {section}{\numberline {13.6}Waiting times}{44}{section.13.6}%
-\contentsline {subsection}{\numberline {13.6.1}Waiting times at a station}{44}{subsection.13.6.1}%
-\contentsline {subsection}{\numberline {13.6.2}Waiting times over all client types}{45}{subsection.13.6.2}%
+\contentsline {section}{\numberline {13.6}Waiting times}{45}{section.13.6}%
+\contentsline {subsection}{\numberline {13.6.1}Waiting times at a station}{45}{subsection.13.6.1}%
+\contentsline {subsection}{\numberline {13.6.2}Waiting times over all client types}{46}{subsection.13.6.2}%
 \contentsline {subsection}{\numberline {13.6.3}Waiting times for a specific client type}{46}{subsection.13.6.3}%
-\contentsline {section}{\numberline {13.7}Transfer times}{46}{section.13.7}%
-\contentsline {subsection}{\numberline {13.7.1}Transfer times at a station}{46}{subsection.13.7.1}%
-\contentsline {subsection}{\numberline {13.7.2}Transfer times over all client types}{47}{subsection.13.7.2}%
-\contentsline {subsection}{\numberline {13.7.3}Transfer times for a specific client type}{48}{subsection.13.7.3}%
-\contentsline {section}{\numberline {13.8}Process times}{49}{section.13.8}%
-\contentsline {subsection}{\numberline {13.8.1}Process times at a station}{49}{subsection.13.8.1}%
+\contentsline {section}{\numberline {13.7}Transfer times}{47}{section.13.7}%
+\contentsline {subsection}{\numberline {13.7.1}Transfer times at a station}{47}{subsection.13.7.1}%
+\contentsline {subsection}{\numberline {13.7.2}Transfer times over all client types}{48}{subsection.13.7.2}%
+\contentsline {subsection}{\numberline {13.7.3}Transfer times for a specific client type}{49}{subsection.13.7.3}%
+\contentsline {section}{\numberline {13.8}Process times}{50}{section.13.8}%
+\contentsline {subsection}{\numberline {13.8.1}Process times at a station}{50}{subsection.13.8.1}%
 \contentsline {subsection}{\numberline {13.8.2}Process times over all client types}{50}{subsection.13.8.2}%
-\contentsline {subsection}{\numberline {13.8.3}Process times for a specific client type}{50}{subsection.13.8.3}%
-\contentsline {section}{\numberline {13.9}Residence times}{51}{section.13.9}%
-\contentsline {subsection}{\numberline {13.9.1}Residence times at a station}{51}{subsection.13.9.1}%
-\contentsline {subsection}{\numberline {13.9.2}Residence times over all client types}{52}{subsection.13.9.2}%
+\contentsline {subsection}{\numberline {13.8.3}Process times for a specific client type}{51}{subsection.13.8.3}%
+\contentsline {section}{\numberline {13.9}Residence times}{52}{section.13.9}%
+\contentsline {subsection}{\numberline {13.9.1}Residence times at a station}{52}{subsection.13.9.1}%
+\contentsline {subsection}{\numberline {13.9.2}Residence times over all client types}{53}{subsection.13.9.2}%
 \contentsline {subsection}{\numberline {13.9.3}Residence times for a specific client type}{53}{subsection.13.9.3}%
 \contentsline {subsection}{\numberline {13.9.4}Setup times at a station}{54}{subsection.13.9.4}%
-\contentsline {section}{\numberline {13.10}Utilization of the resources}{54}{section.13.10}%
-\contentsline {subsection}{\numberline {13.10.1}Utilization of a resource}{54}{subsection.13.10.1}%
-\contentsline {subsection}{\numberline {13.10.2}Utilization of all resource together}{55}{subsection.13.10.2}%
-\contentsline {section}{\numberline {13.11}Utilization of the transporters}{56}{section.13.11}%
-\contentsline {subsection}{\numberline {13.11.1}Utilization of a transporter group}{56}{subsection.13.11.1}%
-\contentsline {subsection}{\numberline {13.11.2}Utilization of all transporters together}{57}{subsection.13.11.2}%
-\contentsline {section}{\numberline {13.12}Accessing the Statistics stations records}{57}{section.13.12}%
-\contentsline {section}{\numberline {13.13}Accessing analog values}{58}{section.13.13}%
-\contentsline {section}{\numberline {13.14}Accessing the client object specific data fields}{58}{section.13.14}%
-\contentsline {section}{\numberline {13.15}Accessing the costs}{59}{section.13.15}%
-\contentsline {chapter}{\numberline {14}Comparison}{61}{chapter.14}%
-\contentsline {section}{\numberline {14.1}Comparison function}{61}{section.14.1}%
-\contentsline {part}{II\hspace {1em}Javascript commands reference}{63}{part.2}%
-\contentsline {chapter}{\numberline {15}\texttt {Statistics} object}{65}{chapter.15}%
-\contentsline {section}{\numberline {15.1}Definition of the output format}{65}{section.15.1}%
-\contentsline {section}{\numberline {15.2}Accessing statistics xml data}{65}{section.15.2}%
-\contentsline {section}{\numberline {15.3}Saving the statistics data to files}{67}{section.15.3}%
-\contentsline {section}{\numberline {15.4}Accessing station data}{67}{section.15.4}%
-\contentsline {chapter}{\numberline {16}\texttt {System} object}{69}{chapter.16}%
-\contentsline {chapter}{\numberline {17}\texttt {Simulation} object}{71}{chapter.17}%
-\contentsline {section}{\numberline {17.1}Base functions}{71}{section.17.1}%
-\contentsline {section}{\numberline {17.2}Accessing client-specific data}{72}{section.17.2}%
-\contentsline {section}{\numberline {17.3}Temporary batches}{74}{section.17.3}%
-\contentsline {section}{\numberline {17.4}Accessing parameters of the simulation model}{75}{section.17.4}%
-\contentsline {section}{\numberline {17.5}Accessing the current input value}{75}{section.17.5}%
-\contentsline {section}{\numberline {17.6}Number of operators in a resource}{75}{section.17.6}%
-\contentsline {section}{\numberline {17.7}Last client type at process station}{76}{section.17.7}%
-\contentsline {section}{\numberline {17.8}Fire signal}{76}{section.17.8}%
-\contentsline {section}{\numberline {17.9}Trigger script execution}{76}{section.17.9}%
-\contentsline {section}{\numberline {17.10}Output message in logging}{76}{section.17.10}%
-\contentsline {section}{\numberline {17.11}Release clients at delay stations}{76}{section.17.11}%
-\contentsline {section}{\numberline {17.12}Clients in the queue of a process station}{77}{section.17.12}%
-\contentsline {chapter}{\numberline {18}\texttt {Clients} object}{79}{chapter.18}%
-\contentsline {chapter}{\numberline {19}\texttt {Output} object}{81}{chapter.19}%
-\contentsline {chapter}{\numberline {20}\texttt {FileOutput} object}{83}{chapter.20}%
-\contentsline {chapter}{\numberline {21}\texttt {Model} object}{85}{chapter.21}%
-\contentsline {section}{\numberline {21.1}Accessing station data}{86}{section.21.1}%
-\contentsline {section}{\numberline {21.2}Retrieve the associated statistics file}{86}{section.21.2}%
-\contentsline {chapter}{\numberline {22}XML selection commands}{87}{chapter.22}%
-\contentsline {part}{III\hspace {1em}Java commands reference}{89}{part.3}%
-\contentsline {chapter}{\numberline {23}\texttt {StatisticsInterface} accessible via \texttt {sim.getStatistics()}}{91}{chapter.23}%
-\contentsline {section}{\numberline {23.1}Definition of the output format}{91}{section.23.1}%
-\contentsline {section}{\numberline {23.2}Accessing statistics xml data}{91}{section.23.2}%
-\contentsline {section}{\numberline {23.3}Saving the statistics data to files}{93}{section.23.3}%
-\contentsline {section}{\numberline {23.4}Accessing station data}{93}{section.23.4}%
-\contentsline {section}{\numberline {23.5}Retrieve the associated statistics file}{93}{section.23.5}%
-\contentsline {chapter}{\numberline {24}\texttt {RuntimeInterface} accessible via \texttt {sim.getRuntime()}}{95}{chapter.24}%
-\contentsline {chapter}{\numberline {25}\texttt {SystemInterface} accessible via \texttt {sim.getSystem()}}{97}{chapter.25}%
-\contentsline {section}{\numberline {25.1}Base functions}{97}{section.25.1}%
-\contentsline {section}{\numberline {25.2}Accessing parameters of the simulation model}{97}{section.25.2}%
-\contentsline {section}{\numberline {25.3}Number of operators in a resource}{98}{section.25.3}%
-\contentsline {section}{\numberline {25.4}Last client type at process station}{99}{section.25.4}%
-\contentsline {section}{\numberline {25.5}Fire signal}{99}{section.25.5}%
-\contentsline {section}{\numberline {25.6}Trigger script execution}{99}{section.25.6}%
-\contentsline {section}{\numberline {25.7}Run external code}{99}{section.25.7}%
-\contentsline {section}{\numberline {25.8}Output message in logging}{99}{section.25.8}%
-\contentsline {section}{\numberline {25.9}Release clients at delay stations}{99}{section.25.9}%
-\contentsline {section}{\numberline {25.10}Clients in the queue of a process station}{100}{section.25.10}%
-\contentsline {chapter}{\numberline {26}\texttt {ClientInterface} accessible via \texttt {sim.getClient()}}{101}{chapter.26}%
-\contentsline {section}{\numberline {26.1}Temporary batches}{102}{section.26.1}%
-\contentsline {chapter}{\numberline {27}\texttt {InputValueInterface} accessible via \texttt {sim.getInputValue()}}{105}{chapter.27}%
-\contentsline {chapter}{\numberline {28}\texttt {ClientsInterface} accessible via \texttt {sim.getClients()}}{107}{chapter.28}%
-\contentsline {chapter}{\numberline {29}\texttt {OutputInterface} accessible via \texttt {sim.getOutput()}}{109}{chapter.29}%
-\contentsline {chapter}{\numberline {30}\texttt {FileOutputInterface} accessible via \texttt {sim.getFileOutput()}}{111}{chapter.30}%
-\contentsline {chapter}{\numberline {31}\texttt {ModelInterface} accessible via \texttt {sim.getModel()}}{113}{chapter.31}%
-\contentsline {section}{\numberline {31.1}Accessing station data}{114}{section.31.1}%
-\contentsline {chapter}{\numberline {32}XML selection commands}{115}{chapter.32}%
+\contentsline {section}{\numberline {13.10}Flow factor}{55}{section.13.10}%
+\contentsline {subsection}{\numberline {13.10.1}Flow factor at a station}{55}{subsection.13.10.1}%
+\contentsline {subsection}{\numberline {13.10.2}Flow factor over all client types}{55}{subsection.13.10.2}%
+\contentsline {subsection}{\numberline {13.10.3}Flow factor for a specific client type}{55}{subsection.13.10.3}%
+\contentsline {section}{\numberline {13.11}Utilization of the resources}{55}{section.13.11}%
+\contentsline {subsection}{\numberline {13.11.1}Utilization of a resource}{55}{subsection.13.11.1}%
+\contentsline {subsection}{\numberline {13.11.2}Utilization of all resource together}{56}{subsection.13.11.2}%
+\contentsline {section}{\numberline {13.12}Utilization of the transporters}{57}{section.13.12}%
+\contentsline {subsection}{\numberline {13.12.1}Utilization of a transporter group}{57}{subsection.13.12.1}%
+\contentsline {subsection}{\numberline {13.12.2}Utilization of all transporters together}{58}{subsection.13.12.2}%
+\contentsline {section}{\numberline {13.13}Accessing the Statistics stations records}{58}{section.13.13}%
+\contentsline {section}{\numberline {13.14}Accessing analog values}{59}{section.13.14}%
+\contentsline {section}{\numberline {13.15}Accessing the client object specific data fields}{59}{section.13.15}%
+\contentsline {section}{\numberline {13.16}Accessing the costs}{60}{section.13.16}%
+\contentsline {chapter}{\numberline {14}Comparison}{63}{chapter.14}%
+\contentsline {section}{\numberline {14.1}Comparison function}{63}{section.14.1}%
+\contentsline {part}{II\hspace {1em}Javascript commands reference}{65}{part.2}%
+\contentsline {chapter}{\numberline {15}\texttt {Statistics} object}{67}{chapter.15}%
+\contentsline {section}{\numberline {15.1}Definition of the output format}{67}{section.15.1}%
+\contentsline {section}{\numberline {15.2}Accessing statistics xml data}{67}{section.15.2}%
+\contentsline {section}{\numberline {15.3}Saving the statistics data to files}{69}{section.15.3}%
+\contentsline {section}{\numberline {15.4}Accessing station data}{69}{section.15.4}%
+\contentsline {chapter}{\numberline {16}\texttt {System} object}{71}{chapter.16}%
+\contentsline {chapter}{\numberline {17}\texttt {Simulation} object}{73}{chapter.17}%
+\contentsline {section}{\numberline {17.1}Base functions}{73}{section.17.1}%
+\contentsline {section}{\numberline {17.2}Accessing client-specific data}{74}{section.17.2}%
+\contentsline {section}{\numberline {17.3}Temporary batches}{76}{section.17.3}%
+\contentsline {section}{\numberline {17.4}Accessing parameters of the simulation model}{77}{section.17.4}%
+\contentsline {section}{\numberline {17.5}Accessing the current input value}{77}{section.17.5}%
+\contentsline {section}{\numberline {17.6}Number of operators in a resource}{77}{section.17.6}%
+\contentsline {section}{\numberline {17.7}Last client type at process station}{78}{section.17.7}%
+\contentsline {section}{\numberline {17.8}Fire signal}{78}{section.17.8}%
+\contentsline {section}{\numberline {17.9}Trigger script execution}{78}{section.17.9}%
+\contentsline {section}{\numberline {17.10}Output message in logging}{78}{section.17.10}%
+\contentsline {section}{\numberline {17.11}Release clients at delay stations}{78}{section.17.11}%
+\contentsline {section}{\numberline {17.12}Clients in the queue of a process station}{79}{section.17.12}%
+\contentsline {chapter}{\numberline {18}\texttt {Clients} object}{81}{chapter.18}%
+\contentsline {chapter}{\numberline {19}\texttt {Output} object}{83}{chapter.19}%
+\contentsline {chapter}{\numberline {20}\texttt {FileOutput} object}{85}{chapter.20}%
+\contentsline {chapter}{\numberline {21}\texttt {Model} object}{87}{chapter.21}%
+\contentsline {section}{\numberline {21.1}Accessing station data}{88}{section.21.1}%
+\contentsline {section}{\numberline {21.2}Retrieve the associated statistics file}{88}{section.21.2}%
+\contentsline {chapter}{\numberline {22}XML selection commands}{89}{chapter.22}%
+\contentsline {part}{III\hspace {1em}Java commands reference}{91}{part.3}%
+\contentsline {chapter}{\numberline {23}\texttt {StatisticsInterface} accessible via \texttt {sim.getStatistics()}}{93}{chapter.23}%
+\contentsline {section}{\numberline {23.1}Definition of the output format}{93}{section.23.1}%
+\contentsline {section}{\numberline {23.2}Accessing statistics xml data}{93}{section.23.2}%
+\contentsline {section}{\numberline {23.3}Saving the statistics data to files}{95}{section.23.3}%
+\contentsline {section}{\numberline {23.4}Accessing station data}{95}{section.23.4}%
+\contentsline {section}{\numberline {23.5}Retrieve the associated statistics file}{95}{section.23.5}%
+\contentsline {chapter}{\numberline {24}\texttt {RuntimeInterface} accessible via \texttt {sim.getRuntime()}}{97}{chapter.24}%
+\contentsline {chapter}{\numberline {25}\texttt {SystemInterface} accessible via \texttt {sim.getSystem()}}{99}{chapter.25}%
+\contentsline {section}{\numberline {25.1}Base functions}{99}{section.25.1}%
+\contentsline {section}{\numberline {25.2}Accessing parameters of the simulation model}{99}{section.25.2}%
+\contentsline {section}{\numberline {25.3}Number of operators in a resource}{100}{section.25.3}%
+\contentsline {section}{\numberline {25.4}Last client type at process station}{101}{section.25.4}%
+\contentsline {section}{\numberline {25.5}Fire signal}{101}{section.25.5}%
+\contentsline {section}{\numberline {25.6}Trigger script execution}{101}{section.25.6}%
+\contentsline {section}{\numberline {25.7}Run external code}{101}{section.25.7}%
+\contentsline {section}{\numberline {25.8}Output message in logging}{101}{section.25.8}%
+\contentsline {section}{\numberline {25.9}Release clients at delay stations}{101}{section.25.9}%
+\contentsline {section}{\numberline {25.10}Clients in the queue of a process station}{102}{section.25.10}%
+\contentsline {chapter}{\numberline {26}\texttt {ClientInterface} accessible via \texttt {sim.getClient()}}{103}{chapter.26}%
+\contentsline {section}{\numberline {26.1}Temporary batches}{104}{section.26.1}%
+\contentsline {chapter}{\numberline {27}\texttt {InputValueInterface} accessible via \texttt {sim.getInputValue()}}{107}{chapter.27}%
+\contentsline {chapter}{\numberline {28}\texttt {ClientsInterface} accessible via \texttt {sim.getClients()}}{109}{chapter.28}%
+\contentsline {chapter}{\numberline {29}\texttt {OutputInterface} accessible via \texttt {sim.getOutput()}}{111}{chapter.29}%
+\contentsline {chapter}{\numberline {30}\texttt {FileOutputInterface} accessible via \texttt {sim.getFileOutput()}}{113}{chapter.30}%
+\contentsline {chapter}{\numberline {31}\texttt {ModelInterface} accessible via \texttt {sim.getModel()}}{115}{chapter.31}%
+\contentsline {section}{\numberline {31.1}Accessing station data}{116}{section.31.1}%
+\contentsline {chapter}{\numberline {32}XML selection commands}{117}{chapter.32}%

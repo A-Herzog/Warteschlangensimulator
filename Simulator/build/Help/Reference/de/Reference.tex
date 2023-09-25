@@ -476,6 +476,12 @@ Auf dieser Dialogseite können zusätzliche Zeiten, die zwischen der Bedienung g
 Kunden verschiedener Typen auftreten definiert werden. Diese für jeden Kundentyp-Übergang optionalen Rüstzeiten
 können jeweils entweder über eine Wahrscheinlichkeitsverteilung oder einen Ausdruck definiert werden.
 
+Option \textbf{Kunden können das Warten auch noch während der Rüstzeit aufgeben}:<br>
+Ist diese Option aktiviert und sind neben Rüstzeiten auch Wartezeittoleranzen definiert,
+so können Kunden das Warten auch dann noch aufgeben, wenn die zu ihrer Bedingung zugehörige
+Rüstzeit bereits begonnen hat. Andernfalls brechen Kunden das Warten innerhalb der Rüstzeit
+nicht mehr ab.
+
 \textbf{Hinweis Rüstzeiten und Batch-Verarbeitung:}~\\
 Rüstzeiten und Batch-Verarbeitung können an einer Bedienstation nicht gleichzeitig
 verwendet werden. Eine Bedienstation mit Rüstzeiten kann sehr wohl temporär oder permanent
@@ -543,8 +549,8 @@ Kunden gibt, kombiniert werden.
 Zur Bedienung eines Kunden (bzw. eines Kunden-Batch) können mehrere Bediener aus mehreren Gruppen benötigt werden. Die Bedienung
 startet nur dann, wenn gleichzeitig alle notwendigen Bediener verfügbar werden und alle gleichzeitig belegt werden können.
 Darüberhinaus können mehrere Gruppenzusammenstellungs-Alternativen definiert werden. Es müssen alle Gruppen in einer der
-Alternativen verfügbar sein, damit die eine Bedienung starten kann. Die Alternativen werden in der definierten Reihenfolge
-auf Verfügbarkeit geprüft. 
+Alternativen verfügbar sein, damit die eine Bedienung starten kann. Es kann eingestellt werden, ob die Alternativen in der definierten Reihenfolge
+oder in zufälliger Reihenfolge auf Verfügbarkeit geprüft werden sollen.
 
 Über die Ressourcen-Priorität kann schließlich noch festgelegt werden, mit welcher Priorität diese Bedienstation
 berücksichtigt werden soll, wenn eine Ressource, die für die Bedienung der Kunden an dieser Station notwendig ist,
@@ -654,6 +660,10 @@ nach Batch-Größen.
 
 Der Name des Zählers definiert den Namen unter dem die Ergebnisse in der Statistik erfasst werden sollen.
 
+Über die beiden Optionen \textbf{Bedingung für Zählung} und \textbf{Nur bestimmte Kundentypen erfassen} können zusätzliche
+Voraussetzungen definiert sein müssen, die für die Erfassung eines Kunden, der die Station durchquert, erfüllt sein müssen.
+Sind keine Bedingungen definiert, so werden alle Kunden gezählt.
+
 
 \section{Bereich betreten}
 \label{ref:ModelElementSectionStart}
@@ -723,6 +733,10 @@ Zähler-Objekt.
 Der Name gibt das Zähler-Objekt an, welche jeweils beim Durchlauf eines Kunden durch das Element um den
 angegebenen Wert verändert werden soll. Der Minimal- und zugleich auch Startwert eines jeden Zählers ist 0.
 
+Über die beiden Optionen \textbf{Bedingung für Zählung} und \textbf{Nur bestimmte Kundentypen erfassen} können zusätzliche
+Voraussetzungen definiert sein müssen, die für die Erfassung eines Kunden, der die Station durchquert, erfüllt sein müssen.
+Sind keine Bedingungen definiert, so werden alle Kunden gezählt.
+
 
 \section{Durchsatz}
 \label{ref:ModelElementThroughput}
@@ -742,6 +756,10 @@ wie viele Kunden jeweils pro Zeiteinheit durch das Element durchlaufen haben.
 Der Name des Durchsatz-Elements hat besitzt keine weitere Bedeutung für die Simulations selbst.
 Es muss jedoch ein Name angegeben werden, da der ermittelte Durchsatz unter diesem Namen in der
 Statistik ausgewiesen wird.
+
+Über die beiden Optionen \textbf{Bedingung für Zählung} und \textbf{Nur bestimmte Kundentypen erfassen} können zusätzliche
+Voraussetzungen definiert sein müssen, die für die Erfassung eines Kunden, der die Station durchquert, erfüllt sein müssen.
+Sind keine Bedingungen definiert, so werden alle Kunden gezählt.
 
 
 \section{Kosten}
@@ -949,6 +967,10 @@ wie viele Kunden jeweils einen bestimmten Weg in dem Simulationsmodell gewählt 
 
 Neben dem Namen muss noch ein Gruppenname für den Zähler angegeben werden. Neben dem jeweiligen
 Absolutwert wird in der Statistik auch der Anteil des Zählers innerhalb seiner jeweiligen Gruppe ausgewiesen.
+
+Über die beiden Optionen \textbf{Bedingung für Zählung} und \textbf{Nur bestimmte Kundentypen erfassen} können zusätzliche
+Voraussetzungen definiert sein müssen, die für die Erfassung eines Kunden, der die Station durchquert, erfüllt sein müssen.
+Sind keine Bedingungen definiert, so werden alle Kunden gezählt.
 
 
 
@@ -1651,9 +1673,6 @@ Der Name des Duplizieren und Teleportieren Station besitzt keine weitere Bedeutu
 für die Simulation. Allerdings müssen Name der
 Teleport-Transport Zielpunkt (siehe Seite \pageref{ref:ModelElementTeleportDestination}) 
 Elements angegeben werden, zu denen die eintreffenden Kunden befördert werden sollen.
-Die Liste der Namen der Ziele gibt dabei auch gleichzeitig an, wie viele Kopien
-des Kundenobjektes erzeugt werden sollen. Es können einzelne Ziele auch mehrfach
-ausgewählt werden; in diesem Fall werden mehrere Kundenobjekte zu dem jeweiligen Ziel geschickt.  
 
 
 \section{Fließband}
@@ -3317,6 +3336,22 @@ des Modells und besitzen keine Bedeutung für die Simulation.
 \subsection*{Einstellungen}
 
 Der Name des Linie-Elements besitzt keine weitere Bedeutung.
+
+
+\section{Link}
+\label{ref:ModelElementLink}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementLink.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+Links besitzen für den Ablauf der Simulation keine Funktion und dienen nur zur optischen Gestaltung des Modells.
+
+\subsection*{Einstellungen}
+
+Neben dem Text und dem Ziellink können für jedes Link-Element auch eine Schriftart und eine Schriftgröße eingestellt werden.
 
 
 \section{Notiz}

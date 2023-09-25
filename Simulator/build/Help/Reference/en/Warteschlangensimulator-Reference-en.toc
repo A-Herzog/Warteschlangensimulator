@@ -17,14 +17,14 @@
 \contentsline {section}{\numberline {3.4}Costs}{14}{section.3.4}%
 \contentsline {section}{\numberline {3.5}Counter}{14}{section.3.5}%
 \contentsline {section}{\numberline {3.6}Difference counter}{14}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Enter section}{14}{section.3.7}%
+\contentsline {section}{\numberline {3.7}Enter section}{15}{section.3.7}%
 \contentsline {section}{\numberline {3.8}Leave section}{15}{section.3.8}%
 \contentsline {section}{\numberline {3.9}Multi counter}{15}{section.3.9}%
-\contentsline {section}{\numberline {3.10}Script}{15}{section.3.10}%
+\contentsline {section}{\numberline {3.10}Script}{16}{section.3.10}%
 \contentsline {section}{\numberline {3.11}State}{16}{section.3.11}%
 \contentsline {section}{\numberline {3.12}Throughput}{16}{section.3.12}%
 \contentsline {section}{\numberline {3.13}Type assignment}{16}{section.3.13}%
-\contentsline {section}{\numberline {3.14}Variable}{16}{section.3.14}%
+\contentsline {section}{\numberline {3.14}Variable}{17}{section.3.14}%
 \contentsline {chapter}{\numberline {4}Branching}{19}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Balking}{19}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Decide}{19}{section.4.2}%
@@ -115,8 +115,9 @@
 \contentsline {section}{\numberline {13.3}Ellipse}{57}{section.13.3}%
 \contentsline {section}{\numberline {13.4}Image}{58}{section.13.4}%
 \contentsline {section}{\numberline {13.5}Line}{58}{section.13.5}%
-\contentsline {section}{\numberline {13.6}note}{58}{section.13.6}%
-\contentsline {section}{\numberline {13.7}Rectangle}{58}{section.13.7}%
+\contentsline {section}{\numberline {13.6}Link}{58}{section.13.6}%
+\contentsline {section}{\numberline {13.7}note}{58}{section.13.7}%
+\contentsline {section}{\numberline {13.8}Rectangle}{59}{section.13.8}%
 \contentsline {chapter}{\numberline {14}Others}{61}{chapter.14}%
 \contentsline {section}{\numberline {14.1}Action}{61}{section.14.1}%
 \contentsline {section}{\numberline {14.2}Reference}{61}{section.14.2}%

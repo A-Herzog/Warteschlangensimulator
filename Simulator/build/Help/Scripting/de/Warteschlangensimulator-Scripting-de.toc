@@ -66,99 +66,103 @@
 \contentsline {chapter}{\numberline {12}Allen-Cunneen-Approximationsformel}{33}{chapter.12}%
 \contentsline {chapter}{\numberline {13}Zugriff auf die Modelleigenschaften}{35}{chapter.13}%
 \contentsline {section}{\numberline {13.1}Allgemeine Simulationsdaten}{35}{section.13.1}%
-\contentsline {section}{\numberline {13.2}Kunden im System}{35}{section.13.2}%
-\contentsline {subsection}{\numberline {13.2.1}Anzahl an Kunden im System}{35}{subsection.13.2.1}%
+\contentsline {section}{\numberline {13.2}Kunden im System}{36}{section.13.2}%
+\contentsline {subsection}{\numberline {13.2.1}Anzahl an Kunden im System}{36}{subsection.13.2.1}%
 \contentsline {subsection}{\numberline {13.2.2}Anzahl an wartenden Kunden im System}{36}{subsection.13.2.2}%
 \contentsline {subsection}{\numberline {13.2.3}Anzahl an Kunden in Bedienung im System}{37}{subsection.13.2.3}%
 \contentsline {section}{\numberline {13.3}Kunden an den Stationen}{38}{section.13.3}%
 \contentsline {subsection}{\numberline {13.3.1}Anzahl an Kunden an einer Station}{38}{subsection.13.3.1}%
 \contentsline {subsection}{\numberline {13.3.2}Anzahl an Kunden in der Warteschlange an einer Station}{39}{subsection.13.3.2}%
 \contentsline {subsection}{\numberline {13.3.3}Anzahl an Kunden in Bedienung an einer Station}{40}{subsection.13.3.3}%
-\contentsline {subsection}{\numberline {13.3.4}Anzahl an Ankünften und Abhängen an einer Station}{40}{subsection.13.3.4}%
+\contentsline {subsection}{\numberline {13.3.4}Anzahl an Ankünften und Abhängen an einer Station}{41}{subsection.13.3.4}%
 \contentsline {section}{\numberline {13.4}Kunden nach Kundentypen}{41}{section.13.4}%
 \contentsline {subsection}{\numberline {13.4.1}Anzahl an Kunden im System nach Kundentypen}{41}{subsection.13.4.1}%
 \contentsline {subsection}{\numberline {13.4.2}Anzahl an wartenden Kunden im System nach Kundentypen}{42}{subsection.13.4.2}%
 \contentsline {subsection}{\numberline {13.4.3}Anzahl an Kunden in Bedienung nach Kundentypen}{43}{subsection.13.4.3}%
 \contentsline {section}{\numberline {13.5}Zähler und Durchsatz}{44}{section.13.5}%
-\contentsline {section}{\numberline {13.6}Wartezeiten}{44}{section.13.6}%
-\contentsline {subsection}{\numberline {13.6.1}Wartezeiten an einer Station}{44}{subsection.13.6.1}%
-\contentsline {subsection}{\numberline {13.6.2}Wartezeiten über alle Kundentypen}{45}{subsection.13.6.2}%
+\contentsline {section}{\numberline {13.6}Wartezeiten}{45}{section.13.6}%
+\contentsline {subsection}{\numberline {13.6.1}Wartezeiten an einer Station}{45}{subsection.13.6.1}%
+\contentsline {subsection}{\numberline {13.6.2}Wartezeiten über alle Kundentypen}{46}{subsection.13.6.2}%
 \contentsline {subsection}{\numberline {13.6.3}Wartezeiten für einen Kundentypen}{46}{subsection.13.6.3}%
 \contentsline {section}{\numberline {13.7}Transferzeiten}{47}{section.13.7}%
 \contentsline {subsection}{\numberline {13.7.1}Transferzeiten an einer Station}{47}{subsection.13.7.1}%
 \contentsline {subsection}{\numberline {13.7.2}Transferzeiten über alle Kundentypen}{48}{subsection.13.7.2}%
-\contentsline {subsection}{\numberline {13.7.3}Transferzeiten für einen Kundentypen}{48}{subsection.13.7.3}%
-\contentsline {section}{\numberline {13.8}Bedienzeiten}{49}{section.13.8}%
-\contentsline {subsection}{\numberline {13.8.1}Bedienzeiten an einer Station}{49}{subsection.13.8.1}%
+\contentsline {subsection}{\numberline {13.7.3}Transferzeiten für einen Kundentypen}{49}{subsection.13.7.3}%
+\contentsline {section}{\numberline {13.8}Bedienzeiten}{50}{section.13.8}%
+\contentsline {subsection}{\numberline {13.8.1}Bedienzeiten an einer Station}{50}{subsection.13.8.1}%
 \contentsline {subsection}{\numberline {13.8.2}Bedienzeiten über alle Kundentypen}{50}{subsection.13.8.2}%
 \contentsline {subsection}{\numberline {13.8.3}Bedienzeiten für einen Kundentypen}{51}{subsection.13.8.3}%
-\contentsline {section}{\numberline {13.9}Verweilzeiten}{51}{section.13.9}%
-\contentsline {subsection}{\numberline {13.9.1}Verweilzeiten an einer Station}{51}{subsection.13.9.1}%
-\contentsline {subsection}{\numberline {13.9.2}Verweilzeiten über alle Kundentypen}{52}{subsection.13.9.2}%
-\contentsline {subsection}{\numberline {13.9.3}Verweilzeiten für einen Kundentypen}{53}{subsection.13.9.3}%
+\contentsline {section}{\numberline {13.9}Verweilzeiten}{52}{section.13.9}%
+\contentsline {subsection}{\numberline {13.9.1}Verweilzeiten an einer Station}{52}{subsection.13.9.1}%
+\contentsline {subsection}{\numberline {13.9.2}Verweilzeiten über alle Kundentypen}{53}{subsection.13.9.2}%
+\contentsline {subsection}{\numberline {13.9.3}Verweilzeiten für einen Kundentypen}{54}{subsection.13.9.3}%
 \contentsline {subsection}{\numberline {13.9.4}Rüstzeiten an einer Station}{54}{subsection.13.9.4}%
-\contentsline {section}{\numberline {13.10}Auslastung der Ressourcen}{55}{section.13.10}%
-\contentsline {subsection}{\numberline {13.10.1}Auslastung einer Ressource}{55}{subsection.13.10.1}%
-\contentsline {subsection}{\numberline {13.10.2}Auslastung aller Ressourcen zusammen}{55}{subsection.13.10.2}%
-\contentsline {section}{\numberline {13.11}Auslastung der Transporter}{56}{section.13.11}%
-\contentsline {subsection}{\numberline {13.11.1}Auslastung einer Transportergruppe}{56}{subsection.13.11.1}%
-\contentsline {subsection}{\numberline {13.11.2}Auslastung aller Transporter zusammen}{57}{subsection.13.11.2}%
-\contentsline {section}{\numberline {13.12}Zugriff auf Statistik-Stationen Datenfelder}{57}{section.13.12}%
-\contentsline {section}{\numberline {13.13}Zugriff auf Analogwerte}{58}{section.13.13}%
-\contentsline {section}{\numberline {13.14}Zugriff auf Kundenobjekt-spezifische Datenfelder}{59}{section.13.14}%
-\contentsline {section}{\numberline {13.15}Zugriff auf die Kosten}{59}{section.13.15}%
-\contentsline {chapter}{\numberline {14}Vergleiche}{61}{chapter.14}%
-\contentsline {section}{\numberline {14.1}Vergleichsfunktion}{61}{section.14.1}%
-\contentsline {part}{II\hspace {1em}Referenz der Javascript-Befehle}{63}{part.2}%
-\contentsline {chapter}{\numberline {15}\texttt {Statistics}-Objekt}{65}{chapter.15}%
-\contentsline {section}{\numberline {15.1}Definition des Ausgabeformats}{65}{section.15.1}%
-\contentsline {section}{\numberline {15.2}Zugriff auf die Statistik-XML-Daten}{66}{section.15.2}%
-\contentsline {section}{\numberline {15.3}Speichern der Statistikdaten in Dateien}{67}{section.15.3}%
-\contentsline {section}{\numberline {15.4}Zugriff auf das Modell}{67}{section.15.4}%
-\contentsline {section}{\numberline {15.5}Abfrage der zugehörigen Statistikdatei}{68}{section.15.5}%
-\contentsline {chapter}{\numberline {16}\texttt {System}-Objekt}{69}{chapter.16}%
-\contentsline {chapter}{\numberline {17}\texttt {Simulation}-Objekt}{71}{chapter.17}%
-\contentsline {section}{\numberline {17.1}Basisfunktionen}{71}{section.17.1}%
-\contentsline {section}{\numberline {17.2}Zugriff auf kundenspezifische Daten}{72}{section.17.2}%
-\contentsline {section}{\numberline {17.3}Temporäre Batche}{74}{section.17.3}%
-\contentsline {section}{\numberline {17.4}Zugriff auf Parameter des Simulationsmodells}{75}{section.17.4}%
-\contentsline {section}{\numberline {17.5}Zugriff auf den aktuellen Eingabewert}{76}{section.17.5}%
-\contentsline {section}{\numberline {17.6}Anzahl an Bedienern in einer Ressource}{76}{section.17.6}%
-\contentsline {section}{\numberline {17.7}Letzter Kundentyp an einer Bedienstation}{76}{section.17.7}%
-\contentsline {section}{\numberline {17.8}Signale auslösen}{76}{section.17.8}%
-\contentsline {section}{\numberline {17.9}Löst die Skriptverarbeitung an einer Station aus}{76}{section.17.9}%
-\contentsline {section}{\numberline {17.10}Meldung in Logging ausgeben}{77}{section.17.10}%
-\contentsline {section}{\numberline {17.11}Kunden an Verzögerungen-Stationen freigeben}{77}{section.17.11}%
-\contentsline {section}{\numberline {17.12}Kunden in der Warteschlange an einer Bedienstation}{77}{section.17.12}%
-\contentsline {chapter}{\numberline {18}\texttt {Clients}-Objekt}{79}{chapter.18}%
-\contentsline {chapter}{\numberline {19}\texttt {Output}-Objekt}{81}{chapter.19}%
-\contentsline {chapter}{\numberline {20}\texttt {FileOutput}-Objekt}{83}{chapter.20}%
-\contentsline {chapter}{\numberline {21}\texttt {Model}-Objekt}{85}{chapter.21}%
-\contentsline {chapter}{\numberline {22}XML-Auswahlbefehle}{87}{chapter.22}%
-\contentsline {part}{III\hspace {1em}Referenz der Java-Befehle}{89}{part.3}%
-\contentsline {chapter}{\numberline {23}\texttt {StatisticsInterface} abrufbar über \texttt {sim.getStatistics()}}{91}{chapter.23}%
-\contentsline {section}{\numberline {23.1}Definition des Ausgabeformats}{91}{section.23.1}%
-\contentsline {section}{\numberline {23.2}Zugriff auf die Statistik-XML-Daten}{92}{section.23.2}%
-\contentsline {section}{\numberline {23.3}Speichern der Statistikdaten in Dateien}{93}{section.23.3}%
-\contentsline {section}{\numberline {23.4}Zugriff auf das Modell}{93}{section.23.4}%
-\contentsline {section}{\numberline {23.5}Abfrage der zugehörigen Statistikdatei}{94}{section.23.5}%
-\contentsline {chapter}{\numberline {24}\texttt {RuntimeInterface} abrufbar über \texttt {sim.getRuntime}}{95}{chapter.24}%
-\contentsline {chapter}{\numberline {25}\texttt {SystemInterface} abrufbar über \texttt {sim.getSystem()}}{97}{chapter.25}%
-\contentsline {section}{\numberline {25.1}Basisfunktionen}{97}{section.25.1}%
-\contentsline {section}{\numberline {25.2}Zugriff auf Parameter des Simulationsmodells}{98}{section.25.2}%
-\contentsline {section}{\numberline {25.3}Anzahl an Bedienern in einer Ressource}{98}{section.25.3}%
-\contentsline {section}{\numberline {25.4}Letzter Kundentyp an einer Bedienstation}{99}{section.25.4}%
-\contentsline {section}{\numberline {25.5}Signale auslösen}{99}{section.25.5}%
-\contentsline {section}{\numberline {25.6}Löst die Skriptverarbeitung an einer Station aus}{99}{section.25.6}%
-\contentsline {section}{\numberline {25.7}Externen Code aufrufen}{99}{section.25.7}%
-\contentsline {section}{\numberline {25.8}Meldung in Logging ausgeben}{99}{section.25.8}%
-\contentsline {section}{\numberline {25.9}Kunden an Verzögerungen-Stationen freigeben}{100}{section.25.9}%
-\contentsline {section}{\numberline {25.10}Kunden in der Warteschlange an einer Bedienstation}{100}{section.25.10}%
-\contentsline {chapter}{\numberline {26}\texttt {ClientInterface} abrufbar über \texttt {sim.getClient()}}{101}{chapter.26}%
-\contentsline {section}{\numberline {26.1}Temporäre Batche}{103}{section.26.1}%
-\contentsline {chapter}{\numberline {27}\texttt {InputValueInterface} abrufbar über \texttt {sim.getInputValue()}}{105}{chapter.27}%
-\contentsline {chapter}{\numberline {28}\texttt {ClientsInterface} abrufbar über \texttt {sim.getClients()}}{107}{chapter.28}%
-\contentsline {chapter}{\numberline {29}\texttt {OutputInterface} abrufbar über \texttt {sim.getOutput()}}{109}{chapter.29}%
-\contentsline {chapter}{\numberline {30}\texttt {FileOutputInterface} abrufbar über \texttt {sim.getFileOutput()}}{111}{chapter.30}%
-\contentsline {chapter}{\numberline {31}\texttt {ModelInterface} abrufbar über \texttt {sim.getModel()}}{113}{chapter.31}%
-\contentsline {chapter}{\numberline {32}XML-Auswahlbefehle}{115}{chapter.32}%
+\contentsline {section}{\numberline {13.10}Flussgrad}{55}{section.13.10}%
+\contentsline {subsection}{\numberline {13.10.1}Flussgrad an einer Station}{55}{subsection.13.10.1}%
+\contentsline {subsection}{\numberline {13.10.2}Flussgrad über alle Kundentypen}{55}{subsection.13.10.2}%
+\contentsline {subsection}{\numberline {13.10.3}Flussgrad für einen Kundentypen}{55}{subsection.13.10.3}%
+\contentsline {section}{\numberline {13.11}Auslastung der Ressourcen}{56}{section.13.11}%
+\contentsline {subsection}{\numberline {13.11.1}Auslastung einer Ressource}{56}{subsection.13.11.1}%
+\contentsline {subsection}{\numberline {13.11.2}Auslastung aller Ressourcen zusammen}{56}{subsection.13.11.2}%
+\contentsline {section}{\numberline {13.12}Auslastung der Transporter}{57}{section.13.12}%
+\contentsline {subsection}{\numberline {13.12.1}Auslastung einer Transportergruppe}{57}{subsection.13.12.1}%
+\contentsline {subsection}{\numberline {13.12.2}Auslastung aller Transporter zusammen}{58}{subsection.13.12.2}%
+\contentsline {section}{\numberline {13.13}Zugriff auf Statistik-Stationen Datenfelder}{58}{section.13.13}%
+\contentsline {section}{\numberline {13.14}Zugriff auf Analogwerte}{59}{section.13.14}%
+\contentsline {section}{\numberline {13.15}Zugriff auf Kundenobjekt-spezifische Datenfelder}{60}{section.13.15}%
+\contentsline {section}{\numberline {13.16}Zugriff auf die Kosten}{60}{section.13.16}%
+\contentsline {chapter}{\numberline {14}Vergleiche}{63}{chapter.14}%
+\contentsline {section}{\numberline {14.1}Vergleichsfunktion}{63}{section.14.1}%
+\contentsline {part}{II\hspace {1em}Referenz der Javascript-Befehle}{65}{part.2}%
+\contentsline {chapter}{\numberline {15}\texttt {Statistics}-Objekt}{67}{chapter.15}%
+\contentsline {section}{\numberline {15.1}Definition des Ausgabeformats}{67}{section.15.1}%
+\contentsline {section}{\numberline {15.2}Zugriff auf die Statistik-XML-Daten}{68}{section.15.2}%
+\contentsline {section}{\numberline {15.3}Speichern der Statistikdaten in Dateien}{69}{section.15.3}%
+\contentsline {section}{\numberline {15.4}Zugriff auf das Modell}{69}{section.15.4}%
+\contentsline {section}{\numberline {15.5}Abfrage der zugehörigen Statistikdatei}{70}{section.15.5}%
+\contentsline {chapter}{\numberline {16}\texttt {System}-Objekt}{71}{chapter.16}%
+\contentsline {chapter}{\numberline {17}\texttt {Simulation}-Objekt}{73}{chapter.17}%
+\contentsline {section}{\numberline {17.1}Basisfunktionen}{73}{section.17.1}%
+\contentsline {section}{\numberline {17.2}Zugriff auf kundenspezifische Daten}{74}{section.17.2}%
+\contentsline {section}{\numberline {17.3}Temporäre Batche}{76}{section.17.3}%
+\contentsline {section}{\numberline {17.4}Zugriff auf Parameter des Simulationsmodells}{77}{section.17.4}%
+\contentsline {section}{\numberline {17.5}Zugriff auf den aktuellen Eingabewert}{78}{section.17.5}%
+\contentsline {section}{\numberline {17.6}Anzahl an Bedienern in einer Ressource}{78}{section.17.6}%
+\contentsline {section}{\numberline {17.7}Letzter Kundentyp an einer Bedienstation}{78}{section.17.7}%
+\contentsline {section}{\numberline {17.8}Signale auslösen}{78}{section.17.8}%
+\contentsline {section}{\numberline {17.9}Löst die Skriptverarbeitung an einer Station aus}{78}{section.17.9}%
+\contentsline {section}{\numberline {17.10}Meldung in Logging ausgeben}{79}{section.17.10}%
+\contentsline {section}{\numberline {17.11}Kunden an Verzögerungen-Stationen freigeben}{79}{section.17.11}%
+\contentsline {section}{\numberline {17.12}Kunden in der Warteschlange an einer Bedienstation}{79}{section.17.12}%
+\contentsline {chapter}{\numberline {18}\texttt {Clients}-Objekt}{81}{chapter.18}%
+\contentsline {chapter}{\numberline {19}\texttt {Output}-Objekt}{83}{chapter.19}%
+\contentsline {chapter}{\numberline {20}\texttt {FileOutput}-Objekt}{85}{chapter.20}%
+\contentsline {chapter}{\numberline {21}\texttt {Model}-Objekt}{87}{chapter.21}%
+\contentsline {chapter}{\numberline {22}XML-Auswahlbefehle}{89}{chapter.22}%
+\contentsline {part}{III\hspace {1em}Referenz der Java-Befehle}{91}{part.3}%
+\contentsline {chapter}{\numberline {23}\texttt {StatisticsInterface} abrufbar über \texttt {sim.getStatistics()}}{93}{chapter.23}%
+\contentsline {section}{\numberline {23.1}Definition des Ausgabeformats}{93}{section.23.1}%
+\contentsline {section}{\numberline {23.2}Zugriff auf die Statistik-XML-Daten}{94}{section.23.2}%
+\contentsline {section}{\numberline {23.3}Speichern der Statistikdaten in Dateien}{95}{section.23.3}%
+\contentsline {section}{\numberline {23.4}Zugriff auf das Modell}{95}{section.23.4}%
+\contentsline {section}{\numberline {23.5}Abfrage der zugehörigen Statistikdatei}{96}{section.23.5}%
+\contentsline {chapter}{\numberline {24}\texttt {RuntimeInterface} abrufbar über \texttt {sim.getRuntime}}{97}{chapter.24}%
+\contentsline {chapter}{\numberline {25}\texttt {SystemInterface} abrufbar über \texttt {sim.getSystem()}}{99}{chapter.25}%
+\contentsline {section}{\numberline {25.1}Basisfunktionen}{99}{section.25.1}%
+\contentsline {section}{\numberline {25.2}Zugriff auf Parameter des Simulationsmodells}{100}{section.25.2}%
+\contentsline {section}{\numberline {25.3}Anzahl an Bedienern in einer Ressource}{100}{section.25.3}%
+\contentsline {section}{\numberline {25.4}Letzter Kundentyp an einer Bedienstation}{101}{section.25.4}%
+\contentsline {section}{\numberline {25.5}Signale auslösen}{101}{section.25.5}%
+\contentsline {section}{\numberline {25.6}Löst die Skriptverarbeitung an einer Station aus}{101}{section.25.6}%
+\contentsline {section}{\numberline {25.7}Externen Code aufrufen}{101}{section.25.7}%
+\contentsline {section}{\numberline {25.8}Meldung in Logging ausgeben}{101}{section.25.8}%
+\contentsline {section}{\numberline {25.9}Kunden an Verzögerungen-Stationen freigeben}{102}{section.25.9}%
+\contentsline {section}{\numberline {25.10}Kunden in der Warteschlange an einer Bedienstation}{102}{section.25.10}%
+\contentsline {chapter}{\numberline {26}\texttt {ClientInterface} abrufbar über \texttt {sim.getClient()}}{103}{chapter.26}%
+\contentsline {section}{\numberline {26.1}Temporäre Batche}{105}{section.26.1}%
+\contentsline {chapter}{\numberline {27}\texttt {InputValueInterface} abrufbar über \texttt {sim.getInputValue()}}{107}{chapter.27}%
+\contentsline {chapter}{\numberline {28}\texttt {ClientsInterface} abrufbar über \texttt {sim.getClients()}}{109}{chapter.28}%
+\contentsline {chapter}{\numberline {29}\texttt {OutputInterface} abrufbar über \texttt {sim.getOutput()}}{111}{chapter.29}%
+\contentsline {chapter}{\numberline {30}\texttt {FileOutputInterface} abrufbar über \texttt {sim.getFileOutput()}}{113}{chapter.30}%
+\contentsline {chapter}{\numberline {31}\texttt {ModelInterface} abrufbar über \texttt {sim.getModel()}}{115}{chapter.31}%
+\contentsline {chapter}{\numberline {32}XML-Auswahlbefehle}{117}{chapter.32}%

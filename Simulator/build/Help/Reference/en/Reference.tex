@@ -515,6 +515,12 @@ or - which is usually the case - of different types can be defined. These setup 
 which are optional for each client type transition, can be defined each using either a
 probability distribution or an expression.
 
+Option \textbf{Clients can also give up waiting during the setup time}:<br>
+If this option is activated and waiting time tolerances are defined in addition
+to setup times, clients can still cancel waiting if the setup time associated
+with their service process has already started. Otherwise, client will not
+cancel waiting within the setup time.	
+
 \textbf{Note on setup times and batch processing:}~\\
 Setup times and batching cannot be used at the same time at one process station.
 A process station with setup times can serve clients which are temporary or
@@ -584,7 +590,8 @@ To operate a client (or a client batch) several operators from several groups ca
 The operation starts only if all necessary operators are available at the same time and all can be seized
 simultaneously.
 Additionally alternative group setups can be defined. All groups of one setup have to be available in order
-to start the service of a client. The alternatives will be checked for availability in the defined order.
+to start the service of a client. 
+It can be set whether the alternatives should be checked for availability in the defined order or in random order.
 
 The resource priority can be used to determine the priority of this process station when a resource
 which is necessary for processing the clients at this station becomes free. Larger values mean a
@@ -649,6 +656,10 @@ The counting is done on a batch basis as well as differentiated by batch sizes.
 
 The counter name defines the name under which the results are to be recorded in the statistics.
 
+Using the two options \textbf{Condition for counting} and \textbf{Only capture specific client types},
+additional conditions can be defined that have to be met for a client passing through the station to be counted.
+If no conditions are defined, all clients are counted.
+
 
 \section{Client statistics}
 \label{ref:ModelElementSetStatisticsMode}
@@ -708,6 +719,10 @@ In addition to the name of the counter, a group name for the counter has also to
 Next to the respective absolute value, the proportion of the counter within its respective group
 will be indicated in the statistics.
 
+Using the two options \textbf{Condition for counting} and \textbf{Only capture specific client types},
+additional conditions can be defined that have to be met for a client passing through the station to be counted.
+If no conditions are defined, all clients are counted.
+
 
 \section{Difference counter}
 \label{ref:ModelElementDifferentialCounter}
@@ -726,6 +741,10 @@ counter object.
 
 The name of the element specifies the counter object, which is to be changed by the element by the specified value
 when a client passes the element. The minimum and, at the same time, start value of each counter is 0.
+
+Using the two options \textbf{Condition for counting} and \textbf{Only capture specific client types},
+additional conditions can be defined that have to be met for a client passing through the station to be counted.
+If no conditions are defined, all clients are counted.
 
 
 \section{Enter section}
@@ -863,6 +882,10 @@ throughput per time unit through this element.
 The name of the throughput element has no further meaning for the simulation itself.
 But a name has to be specified for the element because the measured throughput is
 displayed using this name in the statistics.
+
+Using the two options \textbf{Condition for counting} and \textbf{Only capture specific client types},
+additional conditions can be defined that have to be met for a client passing through the station to be counted.
+If no conditions are defined, all clients are counted.
 
 
 \section{Type assignment}
@@ -1731,9 +1754,6 @@ configured in the station simultaneously.
 The name of the teleport transport source element has no further meaning for the simulation.
 However, the names of Teleport transport destination (see page \pageref{ref:ModelElementTeleportDestination}) 
 station are to be configured to define to which stations the arriving clients are to be transported.
-The list of destination names also specifies how many copies of the client object are to be created.
-Individual destinations can also be selected multiple times; in this case, multiple client objects
-are sent to the respective destination.
 
 
 \section{Parking lot}
@@ -3111,6 +3131,23 @@ are only used for the optical design of the model and have no significance for t
 \subsection*{Settings}
 
 The name of the line element has no further meaning.
+
+
+\section{Link}
+\label{ref:ModelElementLink}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementLink.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+Links have no function for the course of the simulation
+and serve only for the optical design of the model.
+
+\subsection*{Settings}
+
+In addition to the text and the link target, a font family and a font size can also be set for each link text element.
 
 
 \section{note}
