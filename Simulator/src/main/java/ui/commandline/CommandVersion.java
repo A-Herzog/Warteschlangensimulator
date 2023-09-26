@@ -64,7 +64,7 @@ public class CommandVersion extends AbstractCommand {
 
 		if (out!=null) {
 			out.println();
-			InfoDialog.getSystemInfo(false).forEach(line->out.println(line));
+			InfoDialog.getSystemInfo(false,true).forEach(line->out.println(line));
 		}
 	}
 

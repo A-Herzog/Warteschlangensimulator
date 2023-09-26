@@ -119,9 +119,10 @@ public class InfoDialog extends JDialog {
 	/**
 	 * Liefert eine Zusammenstellung der System-Informationen.
 	 * @param showRAM	Auch Informationen zur Speicherbelegung ausgeben?
+	 * @param alwaysShowBits	Immer Informationen zum 32/64-Bit-Modus der Java-Umgebung ausgeben?
 	 * @return	Liste mit System-Informationen
 	 */
-	public static List<String> getSystemInfo(final boolean showRAM) {
+	public static List<String> getSystemInfo(final boolean showRAM, final boolean alwaysShowBits) {
 		final List<String> list=new ArrayList<>();
 
 		/* Erstellungsdatum */
@@ -147,7 +148,9 @@ public class InfoDialog extends JDialog {
 		/* Java-Version */
 		list.add(Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+", "+System.getProperty("os.arch")+")");
 		list.add(Language.tr("InfoDialog.JavaPath")+": "+System.getProperty("java.home"));
-		list.add(Language.tr("InfoDialog.Is64Bit")+": "+(System.getProperty("os.arch").contains("64")?Language.tr("InfoDialog.Is64Bit.Yes"):Language.tr("InfoDialog.Is64Bit.No")));
+		if (alwaysShowBits || !System.getProperty("os.arch").contains("64")) {
+			list.add(Language.tr("InfoDialog.Is64Bit")+": "+(System.getProperty("os.arch").contains("64")?Language.tr("InfoDialog.Is64Bit.Yes"):Language.tr("InfoDialog.Is64Bit.No")));
+		}
 
 		/* Java-Kompiler verfügbar? */
 		list.add(Language.tr("InfoDialog.JavaCompiler")+": "+(DynamicFactory.hasCompiler()?Language.tr("InfoDialog.JavaCompiler.Yes"):Language.tr("InfoDialog.JavaCompiler.No")));
@@ -193,7 +196,7 @@ public class InfoDialog extends JDialog {
 
 		final URL imageURL=MainFrame.class.getResource("res/Warteschlangennetz.png");
 		executor=new ThreadPoolExecutor(0,1,1,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),(ThreadFactory)r->new Thread(r,"Image loader"));
-		executor.execute(new FutureTask<Integer>(()->{
+		executor.execute(new FutureTask<>(()->{
 			if (imageURL!=null) image.setIcon(new ImageIcon(imageURL)); else image.setVisible(false);
 			return null;
 		}));
@@ -215,7 +218,7 @@ public class InfoDialog extends JDialog {
 		}
 
 		/* System-Informationen */
-		final List<String> text=getSystemInfo(true);
+		final List<String> text=getSystemInfo(true,false);
 
 		/* Ausgabe */
 		final StringBuilder infoText=new StringBuilder();

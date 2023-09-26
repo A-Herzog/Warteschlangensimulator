@@ -202,7 +202,7 @@ public class ProblemReporter {
 		if (reportItems.contains(ReportItem.SYSTEM_INFO)) {
 			/* Systeminformationen */
 			zipOutput.putNextEntry(new ZipEntry("system.txt"));
-			zipOutput.write(String.join("\n",InfoDialog.getSystemInfo(true).toArray(new String[0])).getBytes(StandardCharsets.UTF_8));
+			zipOutput.write(String.join("\n",InfoDialog.getSystemInfo(true,true).toArray(new String[0])).getBytes(StandardCharsets.UTF_8));
 
 			/* Umgebungsvariablen */
 			zipOutput.putNextEntry(new ZipEntry("environment.txt"));
