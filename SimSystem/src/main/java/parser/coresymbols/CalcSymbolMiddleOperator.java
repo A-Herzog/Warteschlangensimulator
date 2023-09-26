@@ -115,7 +115,7 @@ public abstract class CalcSymbolMiddleOperator extends CalcSymbolFunction {
 	}
 
 	@Override
-	public final Object getSimplify() {
+	public Object getSimplify() {
 		if (left==null || right==null) return this;
 		Object l=left.getSimplify();
 		Object r=right.getSimplify();
@@ -132,7 +132,7 @@ public abstract class CalcSymbolMiddleOperator extends CalcSymbolFunction {
 			CalcSymbolNumber num=new CalcSymbolNumber();
 			num.setValue((Double)l);
 			clone.left=num;
-			clone.right=right.cloneSymbol();
+			clone.right=(r instanceof CalcSymbol)?((CalcSymbol)r):right.cloneSymbol();
 			return clone;
 		}
 		if (r instanceof Double) {
@@ -140,10 +140,19 @@ public abstract class CalcSymbolMiddleOperator extends CalcSymbolFunction {
 			try {clone=(CalcSymbolMiddleOperator)clone();} catch (CloneNotSupportedException e) {return null;}
 			CalcSymbolNumber num=new CalcSymbolNumber();
 			num.setValue((Double)r);
-			clone.left=left.cloneSymbol();
+			clone.left=(l instanceof CalcSymbol)?((CalcSymbol)l):left.cloneSymbol();
 			clone.right=num;
 			return clone;
 		}
+
+		if ((l instanceof CalcSymbol) && (r instanceof CalcSymbol)) {
+			CalcSymbolMiddleOperator clone;
+			try {clone=(CalcSymbolMiddleOperator)clone();} catch (CloneNotSupportedException e) {return null;}
+			clone.left=(CalcSymbol)l;
+			clone.right=(CalcSymbol)r;
+			return clone;
+		}
+
 		return this;
 	}
 

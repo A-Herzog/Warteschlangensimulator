@@ -240,13 +240,18 @@ public abstract class CalcSymbolPreOperator extends CalcSymbolFunction {
 			}
 		}
 
+		boolean allConst=true;
 		Object[] obj=new Object[symbols.length];
+		double[] consts=new double[symbols.length];
 		for (int i=0;i<obj.length;i++) {
 			obj[i]=symbols[i].getSimplify();
 			if (obj[i] instanceof Double) {
 				final CalcSymbolNumber number=new CalcSymbolNumber();
 				number.setValue(((Double)obj[i]));
+				consts[i]=((Double)obj[i]).doubleValue();
 				obj[i]=number;
+			} else {
+				allConst=false;
 			}
 			if (!(obj[i] instanceof CalcSymbol)) return this;
 		}
@@ -256,6 +261,12 @@ public abstract class CalcSymbolPreOperator extends CalcSymbolFunction {
 			clone.symbols=new CalcSymbol[obj.length];
 			for (int i=0;i<obj.length;i++) clone.symbols[i]=(CalcSymbol)obj[i];
 			clone.parametersSet=parametersSet;
+			if (isDeterministic() && allConst) { /* Wenn möglich, Wert direkt berechnen */
+				try {
+					return clone.calc(consts);
+				} catch (MathCalcError e) {
+				/* Dann nur vereinfacht und nicht ausgerechnet zurückgeben. */				}
+			}
 			return clone;
 		} catch (CloneNotSupportedException e) {return this;}
 	}
