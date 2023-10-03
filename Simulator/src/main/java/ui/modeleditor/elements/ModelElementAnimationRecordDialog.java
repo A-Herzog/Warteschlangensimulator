@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -77,6 +78,10 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 	private JCheckBox background;
 	/** Auswahl der Hintergrundfarbe */
 	private SmallColorChooser colorChooserBackground;
+	/** Option: Farbverlauf verwenden */
+	private JCheckBox gradient;
+	/** Auswahl der Farbe für den Farbverlauf */
+	private SmallColorChooser colorChooserGradient;
 
 	/**
 	 * Konstruktor der Klasse
@@ -142,9 +147,15 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 		/* Achsenbeschriftung */
 		cell.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,"","",readOnly));
 
+		cell.add(Box.createVerticalStrut(15));
+
+		cell.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel(Language.tr("Surface.AnimationRecord.Dialog.Appearance.DataColor")+":"),BorderLayout.NORTH);
+
 		content.add(cell=new JPanel(new BorderLayout()),BorderLayout.CENTER);
-		cell.add(label=new JLabel(Language.tr("Surface.AnimationRecord.Dialog.Appearance.DataColor")+":"),BorderLayout.NORTH);
-		cell.add(colorChooserData=new SmallColorChooser(Color.BLUE),BorderLayout.WEST);
+
+		cell.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(colorChooserData=new SmallColorChooser(Color.BLUE),BorderLayout.WEST);
 		colorChooserData.setEnabled(!readOnly);
 		label.setLabelFor(colorChooserData);
 
@@ -156,22 +167,33 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 		lineWidth=(JComboBox<JLabel>)data[1];
 		lineWidth.setEnabled(!readOnly);
 
+		/* Zeile für Farben */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
 
+		/* Rahmenfarbe */
 		line.add(cell=new JPanel(new BorderLayout()));
 		cell.add(label=new JLabel(Language.tr("Surface.AnimationRecord.Dialog.Appearance.FrameColor")+":"),BorderLayout.NORTH);
 		cell.add(colorChooserLine=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
 		colorChooserLine.setEnabled(!readOnly);
 		label.setLabelFor(colorChooserLine);
 
+		/* Hintergrundfarbe */
 		line.add(cell=new JPanel(new BorderLayout()));
 		cell.add(background=new JCheckBox(Language.tr("Surface.AnimationRecord.Dialog.Appearance.FillBackground")),BorderLayout.NORTH);
 		background.setEnabled(!readOnly);
 		cell.add(colorChooserBackground=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
 		colorChooserBackground.setEnabled(!readOnly);
 		colorChooserBackground.addClickListener(e->background.setSelected(true));
-
 		label.setPreferredSize(new Dimension(label.getPreferredSize().width,background.getPreferredSize().height));
+
+		/* Farbverlauf */
+		line.add(cell=new JPanel(new BorderLayout()));
+		cell.add(gradient=new JCheckBox(Language.tr("Surface.AnimationRecord.Dialog.BackgroundGradient")),BorderLayout.NORTH);
+		gradient.setEnabled(!readOnly);
+		gradient.addActionListener(e->{if (gradient.isSelected()) background.setSelected(true);});
+		cell.add(colorChooserGradient=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
+		colorChooserGradient.setEnabled(!readOnly);
+		colorChooserGradient.addClickListener(e->{background.setSelected(true); gradient.setSelected(true);});
 
 		/* Icons für Tabs */
 		tabs.setIconAt(0,Images.MODELEDITOR_ELEMENT_ANIMATION_DIAGRAM.getIcon());
@@ -190,6 +212,8 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 			colorChooserLine.setColor(record.getBorderColor());
 			background.setSelected(record.getBackgroundColor()!=null);
 			colorChooserBackground.setColor(record.getBackgroundColor());
+			gradient.setSelected(record.getGradientFillColor()!=null);
+			colorChooserGradient.setColor(record.getGradientFillColor());
 		}
 
 		return tabs;
@@ -260,6 +284,11 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 				record.setBackgroundColor(colorChooserBackground.getColor());
 			} else {
 				record.setBackgroundColor(null);
+			}
+			if (gradient.isSelected()) {
+				record.setGradientFillColor(colorChooserGradient.getColor());
+			} else {
+				record.setGradientFillColor(null);
 			}
 		}
 	}

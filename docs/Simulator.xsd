@@ -1785,7 +1785,8 @@
 	<xs:element name="ModellElementLinienBreite" type="xs:string"/>
 	<xs:element name="ModellElementLinienFarbe" type="xs:string"/>
 	<xs:element name="ModellElementHintergrundfarbe" type="xs:string"/>
-	<xs:element name="ModellElementBalkenFarbe" type="xs:string"/>
+	<xs:element name="ModellElementHintergrundfarbeFarbverlauf" type="xs:string"/>
+	<xs:element name="ModellElementBalkenFarbe" type="xs:string"/>	
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModellElementDatenausdruck"><xs:complexType><xs:simpleContent>
@@ -1808,6 +1809,7 @@
 	<xs:element name="ModellElementLinienBreite" type="xs:string"/>
 	<xs:element name="ModellElementLinienFarbe" type="xs:string"/>
 	<xs:element name="ModellElementHintergrundfarbe" type="xs:string"/>
+	<xs:element name="ModellElementHintergrundfarbeFarbverlauf" type="xs:string"/>
 	<xs:element name="ModellElementBalkenFarbe" type="xs:string"/>
 	<xs:element ref="ModellElementAchsenbeschriftung"/>
 	<xs:element name="ModellElementAchsenbeschriftungZeit" type="xs:string"/>
@@ -1867,6 +1869,7 @@
 	<xs:element name="ModellElementLinienBreite" type="xs:string"/>
 	<xs:element name="ModellElementLinienFarbe" type="xs:string"/>
 	<xs:element name="ModellElementHintergrundfarbe" type="xs:string"/>	
+	<xs:element name="ModellElementHintergrundfarbeFarbverlauf" type="xs:string"/>
     <xs:element ref="ModellElementDiagrammElement"/>
 	<xs:element name="ModellElementMinimalwert" type="xs:string"/>
     <xs:element name="ModellElementMaximalwert" type="xs:string"/>
@@ -1890,7 +1893,8 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
 	<xs:element name="ModellElementLinienBreite" type="xs:string"/>
 	<xs:element name="ModellElementLinienFarbe" type="xs:string"/>
-	<xs:element name="ModellElementHintergrundfarbe" type="xs:string"/>	
+	<xs:element name="ModellElementHintergrundfarbe" type="xs:string"/>
+	<xs:element name="ModellElementHintergrundfarbeFarbverlauf" type="xs:string"/>
     <xs:element ref="ModellElementDiagrammElement"/>
 	<xs:element name="ModellElementDiagrammZeitbereich" type="xs:string"/>
 	<xs:element ref="ModellElementAchsenbeschriftung"/>
@@ -4240,6 +4244,7 @@
 	<xs:element name="ModelElementLineWidth" type="xs:string"/>
 	<xs:element name="ModelElementLineColor" type="xs:string"/>
 	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>
+	<xs:element name="ModelElementBackgroundColorGradient" type="xs:string"/>
 	<xs:element name="ModelElementBarColor" type="xs:string"/>	
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
@@ -4263,6 +4268,7 @@
 	<xs:element name="ModelElementLineWidth" type="xs:string"/>
 	<xs:element name="ModelElementLineColor" type="xs:string"/>
 	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>
+	<xs:element name="ModelElementBackgroundColorGradient" type="xs:string"/>
 	<xs:element name="ModelElementBarColor" type="xs:string"/>
 	<xs:element ref="ModelElementAxisLabels"/>
 	<xs:element name="ModelElementAxisLabelsTime" type="xs:string"/>
@@ -4321,7 +4327,8 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
 	<xs:element name="ModelElementLineWidth" type="xs:string"/>
 	<xs:element name="ModelElementLineColor" type="xs:string"/>
-	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>	
+	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>
+	<xs:element name="ModelElementBackgroundColorGradient" type="xs:string"/>
     <xs:element ref="ModelElementDiagramElement"/>
 	<xs:element name="ModelElementMinimumValue" type="xs:string"/>
     <xs:element name="ModelElementMaximumValue" type="xs:string"/>
@@ -4345,7 +4352,8 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
 	<xs:element name="ModelElementLineWidth" type="xs:string"/>
 	<xs:element name="ModelElementLineColor" type="xs:string"/>
-	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>	
+	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>
+	<xs:element name="ModelElementBackgroundColorGradient" type="xs:string"/>
     <xs:element ref="ModelElementDiagramElement"/>
 	<xs:element name="ModelElementDiagramTimeRange" type="xs:string"/>
 	<xs:element ref="ModelElementAxisLabels"/>

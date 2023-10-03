@@ -75,6 +75,10 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 	private JCheckBox background;
 	/** Auswahl der Hintergrundfarbe */
 	private SmallColorChooser colorChooserBackground;
+	/** Option: Farbverlauf verwenden */
+	private JCheckBox gradient;
+	/** Auswahl der Farbe für den Farbverlauf */
+	private SmallColorChooser colorChooserGradient;
 
 	/**
 	 * Konstruktor der Klasse
@@ -155,22 +159,33 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 		lineWidth=(JComboBox<JLabel>)data[1];
 		lineWidth.setEnabled(!readOnly);
 
+		/* Zeile für Farben */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
 
+		/* Rahmenfarbe */
 		line.add(cell=new JPanel(new BorderLayout()));
 		cell.add(label=new JLabel(Language.tr("Surface.AnimationDiagram.Dialog.Appearance.FrameColor")+":"),BorderLayout.NORTH);
 		cell.add(colorChooserLine=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
 		colorChooserLine.setEnabled(!readOnly);
 		label.setLabelFor(colorChooserLine);
 
+		/* Hintergrundfarbe */
 		line.add(cell=new JPanel(new BorderLayout()));
 		cell.add(background=new JCheckBox(Language.tr("Surface.AnimationDiagram.Dialog.Appearance.FillBackground")),BorderLayout.NORTH);
 		background.setEnabled(!readOnly);
 		cell.add(colorChooserBackground=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
 		colorChooserBackground.setEnabled(!readOnly);
 		colorChooserBackground.addClickListener(e->background.setSelected(true));
-
 		label.setPreferredSize(new Dimension(label.getPreferredSize().width,background.getPreferredSize().height));
+
+		/* Farbverlauf */
+		line.add(cell=new JPanel(new BorderLayout()));
+		cell.add(gradient=new JCheckBox(Language.tr("Surface.AnimationDiagram.Dialog.BackgroundGradient")),BorderLayout.NORTH);
+		gradient.setEnabled(!readOnly);
+		gradient.addActionListener(e->{if (gradient.isSelected()) background.setSelected(true);});
+		cell.add(colorChooserGradient=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
+		colorChooserGradient.setEnabled(!readOnly);
+		colorChooserGradient.addClickListener(e->{background.setSelected(true); gradient.setSelected(true);});
 
 		/* Icons für Tabs */
 		tabs.setIconAt(0,Images.MODELEDITOR_ELEMENT_ANIMATION_DIAGRAM.getIcon());
@@ -198,6 +213,8 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 			colorChooserLine.setColor(diagram.getBorderColor());
 			background.setSelected(diagram.getBackgroundColor()!=null);
 			colorChooserBackground.setColor(diagram.getBackgroundColor());
+			gradient.setSelected(diagram.getGradientFillColor()!=null);
+			colorChooserGradient.setColor(diagram.getGradientFillColor());
 		}
 
 		return tabs;
@@ -205,7 +222,7 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(600,800);
+		setMinSizeRespectingScreensize(800,800);
 		setResizable(true);
 		pack();
 		setMaxSizeRespectingScreensize(1024,768);
@@ -292,6 +309,11 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 				diagram.setBackgroundColor(colorChooserBackground.getColor());
 			} else {
 				diagram.setBackgroundColor(null);
+			}
+			if (gradient.isSelected()) {
+				diagram.setGradientFillColor(colorChooserGradient.getColor());
+			} else {
+				diagram.setGradientFillColor(null);
 			}
 		}
 	}

@@ -74,6 +74,10 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 	private JCheckBox background;
 	/** Auswahl der Hintergrundfarbe */
 	private SmallColorChooser colorChooserBackground;
+	/** Option: Farbverlauf verwenden */
+	private JCheckBox gradient;
+	/** Auswahl der Farbe für den Farbverlauf */
+	private SmallColorChooser colorChooserGradient;
 
 	/**
 	 * Konstruktor der Klasse
@@ -157,20 +161,30 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 		/* Farben */
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
 
+		/* Rahmenfarbe */
 		line.add(cell=new JPanel(new BorderLayout()));
 		cell.add(label=new JLabel(Language.tr("Surface.AnimationBarStack.Dialog.FrameColor")+":"),BorderLayout.NORTH);
 		cell.add(colorChooserLine=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
 		colorChooserLine.setEnabled(!readOnly);
 		label.setLabelFor(colorChooserLine);
 
+		/* Hintergrundfarbe */
 		line.add(cell=new JPanel(new BorderLayout()));
 		cell.add(background=new JCheckBox(Language.tr("Surface.AnimationBarStack.Dialog.FillBackground")),BorderLayout.NORTH);
 		background.setEnabled(!readOnly);
 		cell.add(colorChooserBackground=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
 		colorChooserBackground.setEnabled(!readOnly);
 		colorChooserBackground.addClickListener(e->background.setSelected(true));
-
 		label.setPreferredSize(new Dimension(label.getPreferredSize().width,background.getPreferredSize().height));
+
+		/* Farbverlauf */
+		line.add(cell=new JPanel(new BorderLayout()));
+		cell.add(gradient=new JCheckBox(Language.tr("Surface.AnimationBarStack.Dialog.BackgroundGradient")),BorderLayout.NORTH);
+		gradient.setEnabled(!readOnly);
+		gradient.addActionListener(e->{if (gradient.isSelected()) background.setSelected(true);});
+		cell.add(colorChooserGradient=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
+		colorChooserGradient.setEnabled(!readOnly);
+		colorChooserGradient.addClickListener(e->{background.setSelected(true); gradient.setSelected(true);});
 
 		/* Icons */
 		tabs.setIconAt(0,Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_STACK.getIcon());
@@ -198,6 +212,8 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 			colorChooserLine.setColor(diagram.getBorderColor());
 			background.setSelected(diagram.getBackgroundColor()!=null);
 			if (diagram.getBackgroundColor()!=null) colorChooserBackground.setColor(diagram.getBackgroundColor());
+			gradient.setSelected(diagram.getGradientFillColor()!=null);
+			colorChooserGradient.setColor(diagram.getGradientFillColor());
 		}
 
 		checkData(false);
@@ -285,5 +301,6 @@ public class ModelElementAnimationBarStackDialog extends ModelElementBaseDialog 
 		bar.setBorderWidth(lineWidth.getSelectedIndex()+1);
 		bar.setBorderColor(colorChooserLine.getColor());
 		bar.setBackgroundColor((background.isSelected())?colorChooserBackground.getColor():null);
+		bar.setGradientFillColor(gradient.isSelected()?colorChooserGradient.getColor():null);
 	}
 }

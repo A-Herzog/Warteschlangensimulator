@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-19 09:13+0200\n"
+"POT-Creation-Date: 2023-09-26 08:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26024,6 +26024,9 @@ msgstr "ModellElementAnimationAlarmSound"
 msgid "Surface.AnimationAlarm.XML.SoundMaxSeconds"
 msgstr "SoundMaxSekunden"
 
+msgid "Surface.AnimationBar.Dialog.BackgroundGradient"
+msgstr "Farbverlauf verwenden"
+
 msgid "Surface.AnimationBar.Dialog.Bar"
 msgstr "Balken"
 
@@ -26152,6 +26155,9 @@ msgstr "Rahmenbreite"
 
 msgid "Surface.AnimationBarChart.Dialog.Appearance.Use3D"
 msgstr "3D-Effekte für Balken verwenden"
+
+msgid "Surface.AnimationBarChart.Dialog.BackgroundGradient"
+msgstr "Farbverlauf verwenden"
 
 msgid "Surface.AnimationBarChart.Dialog.Data"
 msgstr "Daten"
@@ -26290,6 +26296,9 @@ msgstr "ModellElement3DEffekt"
 
 msgid "Surface.AnimationBarStack.Dialog.Add"
 msgstr "Teilbalken hinzufügen"
+
+msgid "Surface.AnimationBarStack.Dialog.BackgroundGradient"
+msgstr "Farbverlauf verwenden"
 
 msgid "Surface.AnimationBarStack.Dialog.Bar"
 msgstr "Balken"
@@ -26464,6 +26473,9 @@ msgstr "Rahmenfarbe"
 
 msgid "Surface.AnimationDiagram.Dialog.Appearance.FrameWidth"
 msgstr "Rahmenbreite"
+
+msgid "Surface.AnimationDiagram.Dialog.BackgroundGradient"
+msgstr "Farbverlauf verwenden"
 
 msgid "Surface.AnimationDiagram.Dialog.Data"
 msgstr "Daten"
@@ -26888,6 +26900,9 @@ msgstr "Rahmenfarbe"
 
 msgid "Surface.AnimationRecord.Dialog.Appearance.FrameWidth"
 msgstr "Rahmenbreite"
+
+msgid "Surface.AnimationRecord.Dialog.BackgroundGradient"
+msgstr "Farbverlauf verwenden"
 
 msgid "Surface.AnimationRecord.Dialog.Data"
 msgstr "Daten"
