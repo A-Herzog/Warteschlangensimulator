@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModelVersion>5.1.0</ModelVersion>
+  <ModelVersion>5.3.0</ModelVersion>
   <ModelName>Shift plans</ModelName>
   <ModelDescription>Jobs arrive at a steady rate throughout the day.
 However, different numbers of operators are available
@@ -13,7 +13,7 @@ throughout the day, so the queue grows and shrinks again.</ModelDescription>
   <ModelTerminationTime Active="1">50:00:00:00</ModelTerminationTime>
   <ModelElements>
     <ModelElementSource id="1">
-      <ModelElementName>Jobs</ModelElementName>
+      <ModelElementName>Orders</ModelElementName>
       <ModelElementSize h="50" w="100" x="50" y="100"/>
       <ModelElementConnection Element="3" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
@@ -27,11 +27,12 @@ throughout the day, so the queue grows and shrinks again.</ModelDescription>
       <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (180)</ModelElementDistribution>
       <ModelElementPriority ClientType="Aufträge">w</ModelElementPriority>
       <ModelElementPriority ClientType="Jobs">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Orders">w</ModelElementPriority>
       <ModelElementOperators Alternative="1" Count="1" Group="Bediener"/>
       <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
     </ModelElementProcessStation>
     <ModelElementEdge id="3">
-      <ModelElementName>Arrivals (Jobs)</ModelElementName>
+      <ModelElementName>Arrivals (Orders)</ModelElementName>
       <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementDispose id="4">
@@ -43,20 +44,20 @@ throughout the day, so the queue grows and shrinks again.</ModelDescription>
       <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementAnimationLineDiagram id="6">
-      <ModelElementName>Bedienstation "Einpacken" (id=2) - Aktueller Wert</ModelElementName>
       <ModelElementSize h="200" w="700" x="50" y="200"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
-      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="2" Maximum="500" Minimum="0">wip(2)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="2" Maximum="500" Minimum="0">NQ()</ModelElementDiagramElement>
       <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="10" Minimum="0">Resource_count()</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>172800</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
       <ModelElementAxisLabels>0</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="7">
-      <ModelElementSize h="23" w="94" x="50" y="50"/>
+      <ModelElementSize h="23" w="92" x="50" y="50"/>
       <ModelElementTextLine>Shift plans</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationClock id="9">
@@ -65,11 +66,44 @@ throughout the day, so the queue grows and shrinks again.</ModelDescription>
       <ModelElementExpression>TNow()</ModelElementExpression>
     </ModelElementAnimationClock>
     <ModelElementText id="10">
-      <ModelElementSize h="16" w="366" x="50" y="400"/>
+      <ModelElementSize h="16" w="377" x="50" y="420"/>
       <ModelElementTextLine>(red=queue length, blue=number of operators according to shift plan)</ModelElementTextLine>
-      <ModelElementFontSize>12</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
+    <ModelElementText id="8">
+      <ModelElementSize h="266" w="439" x="50" y="500"/>
+      <ModelElementTextLine>**Arrivals:**</ModelElementTextLine>
+      <ModelElementTextLine>Orders arrive around the clock with an average interval of one minute.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>**Service:**</ModelElementTextLine>
+      <ModelElementTextLine>On average, 3 minutes are required to service an order.</ModelElementTextLine>
+      <ModelElementTextLine>This results in a workload of a:=3, i.e. an average of c&gt;3</ModelElementTextLine>
+      <ModelElementTextLine>must apply on average for the system to work stably.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>**Number of operators:**</ModelElementTextLine>
+      <ModelElementTextLine>From 7 a.m. to 3 p.m., **7 operators** work at the station.</ModelElementTextLine>
+      <ModelElementTextLine>From 3 p.m. to 11 p.m., **3 operators** work at the station.</ModelElementTextLine>
+      <ModelElementTextLine>Between 11 p.m. and 7 a.m., orders arrive, but have to wait</ModelElementTextLine>
+      <ModelElementTextLine>wait until work starts again at 7 o'clock.</ModelElementTextLine>
+      <ModelElementTextLine>This gives an average of c=\frac{7+3+0}{3}\approx3.33 over the entire day.</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Markdown="1" Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="11">
+      <ModelElementName>Current number of operators at the station</ModelElementName>
+      <ModelElementSize h="30" w="177" x="800" y="400"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Resource_count()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="12">
+      <ModelElementName>Current number of waiting orders</ModelElementName>
+      <ModelElementSize h="30" w="137" x="800" y="450"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">NQ()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
   </ModelElements>
   <Resources SecondaryPriority="Random">
     <Resource Icon="status_online" Name="Bediener" Type="Schedule" Value="Schichtplan"/>
@@ -78,6 +112,7 @@ throughout the day, so the queue grows and shrinks again.</ModelDescription>
     <ClientData Icon="note" Name="Aufträge"/>
     <ClientData Icon="note" Name="Jobs"/>
     <ClientData Icon="note" Name="Kunden"/>
+    <ClientData Icon="note" Name="Orders"/>
   </ClientTypeData>
   <ModelSchedules>
     <ModelSchedule ContinueSchedule="RepeatDays" DurationPerSlot="3600" EditorMaxY="10" Name="Schichtplan">0;0;0;0;0;0;0;7;7;7;7;7;7;7;7;3;3;3;3;3;3;3;3</ModelSchedule>

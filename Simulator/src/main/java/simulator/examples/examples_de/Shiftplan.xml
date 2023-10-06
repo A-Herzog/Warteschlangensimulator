@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModellVersion>5.1.0</ModellVersion>
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Schichtpläne</ModellName>
   <ModellBeschreibung>Aufträge treffen den gesamten Tag über mit einer gleichbleibenden Rate ein.
 Allerdings stehen über den Tag verteilt verschieden viele Bediener zur
@@ -42,20 +42,20 @@ Verfügung, so dass die Warteschlange anwächst und wieder abgebaut wird.</Model
       <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementAnimationLinienDiagramm id="6">
-      <ModellElementName>Bedienstation "Einpacken" (id=2) - Aktueller Wert</ModellElementName>
       <ModellElementGroesse h="200" w="700" x="50" y="200"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
-      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Maximum="500" Minimum="0">wip(2)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Maximum="500" Minimum="0">NQ()</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="10" Minimum="0">Resource_count()</ModellElementDiagrammElement>
       <ModellElementDiagrammZeitbereich>172800</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
       <ModellElementAchsenbeschriftung>0</ModellElementAchsenbeschriftung>
     </ModellElementAnimationLinienDiagramm>
     <ModellElementText id="7">
-      <ModellElementGroesse h="23" w="114" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="113" x="50" y="50"/>
       <ModellElementTextzeile>Schichtpläne</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationUhr id="9">
@@ -64,11 +64,44 @@ Verfügung, so dass die Warteschlange anwächst und wieder abgebaut wird.</Model
       <ModellElementAusdruck>TNow()</ModellElementAusdruck>
     </ModellElementAnimationUhr>
     <ModellElementText id="10">
-      <ModellElementGroesse h="16" w="380" x="50" y="400"/>
+      <ModellElementGroesse h="16" w="390" x="50" y="420"/>
       <ModellElementTextzeile>(rot=Warteschlangenlänge, blau=Anzahl an Bedienern laut Schichtplan)</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
+    <ModellElementText id="8">
+      <ModellElementGroesse h="266" w="544" x="50" y="500"/>
+      <ModellElementTextzeile>**Ankünfte:**</ModellElementTextzeile>
+      <ModellElementTextzeile>Die Aufträge treffen rund um die Uhr mit einem mittleren Abstand von einer Minute ein.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>**Bedienungen:**</ModellElementTextzeile>
+      <ModellElementTextzeile>Um einen Auftrag zu bedienen, werden im Mittel 3 Minuten benötigt.</ModellElementTextzeile>
+      <ModellElementTextzeile>Damit ergibt sich eine Arbeitslast von a:=3, d.h. es muss im</ModellElementTextzeile>
+      <ModellElementTextzeile>Mittel c&gt;3 gelten, damit das System stabil arbeiten kann.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>**Anzahl an Bedienern:**</ModellElementTextzeile>
+      <ModellElementTextzeile>Von 7 bis 15 Uhr arbeiten **7 Bediener** an der Station.</ModellElementTextzeile>
+      <ModellElementTextzeile>Von 15 bis 23 Uhr arbeiten **3 Bediener** an der Station.</ModellElementTextzeile>
+      <ModellElementTextzeile>Zwischen 23 und 7 Uhr treffen zwar Aufträge ein, müssen jedoch</ModellElementTextzeile>
+      <ModellElementTextzeile>warten, bis um 7 Uhr wieder Arbeitsbeginn ist.</ModellElementTextzeile>
+      <ModellElementTextzeile>Damit ergibt sich im Mittel über den gesamten Tag c=\frac{7+3+0}{3}\approx3,33.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse LaTeX="1" Markdown="1" Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="11">
+      <ModellElementName>Aktuelle Anzahl an Bedienern an der Station</ModellElementName>
+      <ModellElementGroesse h="30" w="181" x="800" y="400"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Resource_count()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="12">
+      <ModellElementName>Aktuelle Anzahl an wartenden Aufträgen</ModellElementName>
+      <ModellElementGroesse h="30" w="165" x="800" y="450"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">NQ()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig">
     <Ressource Icon="status_online" Name="Bediener" Typ="Zeitplan" Wert="Schichtplan"/>
