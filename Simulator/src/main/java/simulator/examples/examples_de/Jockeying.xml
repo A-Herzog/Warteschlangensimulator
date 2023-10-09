@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>4.5.0</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Zwei getrennte Warteschlangen mit Jockeying</ModellName>
   <ModellAutor>Alexander Herzog</ModellAutor>
   <ModellKunden Aktiv="1">10000000</ModellKunden>
@@ -10,13 +11,13 @@
   <ModellElemente>
     <ModellElementQuelle id="1">
       <ModellElementName>Kunden</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="50" y="300"/>
+      <ModellElementGroesse h="50" w="100" x="50" y="350"/>
       <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
       <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (28)</ModellElementVerteilung>
       <ModellElementBatch Groesse="1"/>
     </ModellElementQuelle>
     <ModellElementVerzweigen id="2">
-      <ModellElementGroesse h="50" w="100" x="250" y="300"/>
+      <ModellElementGroesse h="50" w="100" x="300" y="350"/>
       <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
       <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
       <ModellElementVerbindung Bedingung="wip(11)+wip(7)&lt;wip(12)+wip(8)" Element="14" Typ="Auslaufend"/>
@@ -28,24 +29,24 @@
       <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementVerzweigen id="4">
-      <ModellElementGroesse h="50" w="100" x="450" y="300"/>
+      <ModellElementGroesse h="50" w="100" x="500" y="350"/>
       <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
       <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="41" Rate="1" Typ="Auslaufend"/>
       <ModellElementVerbindung Element="42" Rate="1" Typ="Auslaufend"/>
     </ModellElementVerzweigen>
     <ModellElementEcke id="5">
-      <ModellElementGroesse h="10" w="10" x="295" y="170"/>
+      <ModellElementGroesse h="10" w="10" x="345" y="220"/>
       <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
     </ModellElementEcke>
     <ModellElementEcke id="6">
-      <ModellElementGroesse h="10" w="10" x="295" y="470"/>
+      <ModellElementGroesse h="10" w="10" x="345" y="520"/>
       <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
     </ModellElementEcke>
     <ModellElementBedingungScript id="7">
-      <ModellElementGroesse h="50" w="100" x="700" y="150"/>
+      <ModellElementGroesse h="50" w="100" x="750" y="200"/>
       <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="21" Typ="Auslaufend"/>
       <ModellElementBedingungScriptBedingung>wip(11)==0 || wip(12)==0</ModellElementBedingungScriptBedingung>
@@ -59,14 +60,14 @@ if (Simulation.getWIP(11)==0) {
 }
 
 /* Andere Station im Leerlauf -&gt; letzten Kunden freigeben (LIFO) */
-if (count&gt;0 &amp;&amp; Simulation.getWIP(12)==0 &amp;&amp; Simulation.getWIP(8)==0) {
+if (count&gt;0 &amp;&amp; Simulation.getWIP(12)==0 &amp;&amp; Simulation.getWIP(8)==0 &amp;&amp; Simulation.calc("Jockeying")&gt;0) {
 	Clients.release(count-1);
 	Clients.clientData(count-1,1,1); /* Anweisung: Kunde abzweigen */
 }
 </ModellElementBedingungScriptText>
     </ModellElementBedingungScript>
     <ModellElementBedingungScript id="8">
-      <ModellElementGroesse h="50" w="100" x="700" y="450"/>
+      <ModellElementGroesse h="50" w="100" x="750" y="500"/>
       <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="22" Typ="Auslaufend"/>
       <ModellElementBedingungScriptBedingung>wip(11)==0 || wip(12)==0</ModellElementBedingungScriptBedingung>
@@ -80,21 +81,21 @@ if (Simulation.getWIP(12)==0) {
 }
 
 /* Andere Station im Leerlauf -&gt; letzten Kunden freigeben (LIFO) */
-if (count&gt;0 &amp;&amp; Simulation.getWIP(11)==0 &amp;&amp; Simulation.getWIP(7)==0) {
+if (count&gt;0 &amp;&amp; Simulation.getWIP(11)==0 &amp;&amp; Simulation.getWIP(7)==0 &amp;&amp; Simulation.calc("Jockeying")&gt;0) {
 	Clients.release(count-1);
 	Clients.clientData(count-1,1,1); /* Anweisung: Kunde abzweigen */
 }
 </ModellElementBedingungScriptText>
     </ModellElementBedingungScript>
     <ModellElementVerzweigen id="9">
-      <ModellElementGroesse h="50" w="100" x="850" y="150"/>
+      <ModellElementGroesse h="50" w="100" x="900" y="200"/>
       <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
       <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
       <ModellElementVerbindung Bedingung="ClientData(1)==1" Element="23" Typ="Auslaufend"/>
       <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
     </ModellElementVerzweigen>
     <ModellElementVerzweigen id="10">
-      <ModellElementGroesse h="50" w="100" x="850" y="450"/>
+      <ModellElementGroesse h="50" w="100" x="900" y="500"/>
       <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
       <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
       <ModellElementVerbindung Bedingung="ClientData(1)==1" Element="25" Typ="Auslaufend"/>
@@ -102,7 +103,7 @@ if (count&gt;0 &amp;&amp; Simulation.getWIP(11)==0 &amp;&amp; Simulation.getWIP(
     </ModellElementVerzweigen>
     <ModellElementBedienstation id="11">
       <ModellElementName>A</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="1100" y="150"/>
+      <ModellElementGroesse h="50" w="100" x="1100" y="200"/>
       <ModellElementVerbindung Element="32" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
@@ -113,7 +114,7 @@ if (count&gt;0 &amp;&amp; Simulation.getWIP(11)==0 &amp;&amp; Simulation.getWIP(
     </ModellElementBedienstation>
     <ModellElementBedienstation id="12">
       <ModellElementName>B</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="1100" y="450"/>
+      <ModellElementGroesse h="50" w="100" x="1100" y="500"/>
       <ModellElementVerbindung Element="34" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="30" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="28" Typ="Auslaufend"/>
@@ -123,7 +124,7 @@ if (count&gt;0 &amp;&amp; Simulation.getWIP(11)==0 &amp;&amp; Simulation.getWIP(
       <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
     </ModellElementBedienstation>
     <ModellElementEnde id="13">
-      <ModellElementGroesse h="50" w="100" x="1300" y="300"/>
+      <ModellElementGroesse h="50" w="100" x="1250" y="350"/>
       <ModellElementVerbindung Element="36" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="38" Typ="Einlaufend"/>
     </ModellElementEnde>
@@ -152,18 +153,18 @@ if (count&gt;0 &amp;&amp; Simulation.getWIP(11)==0 &amp;&amp; Simulation.getWIP(
       <ModellElementVerbindung Element1="12" Element2="37" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementTeleportStart id="24">
-      <ModellElementGroesse h="30" w="30" x="885" y="250"/>
+      <ModellElementGroesse h="30" w="30" x="935" y="300"/>
       <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
       <ModellElementTeleportStartZuZiel>ZuB</ModellElementTeleportStartZuZiel>
     </ModellElementTeleportStart>
     <ModellElementTeleportStart id="29">
-      <ModellElementGroesse h="30" w="30" x="885" y="370"/>
+      <ModellElementGroesse h="30" w="30" x="935" y="420"/>
       <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
       <ModellElementTeleportStartZuZiel>ZuA</ModellElementTeleportStartZuZiel>
     </ModellElementTeleportStart>
     <ModellElementTeleportZiel id="31">
       <ModellElementName>ZuA</ModellElementName>
-      <ModellElementGroesse h="30" w="30" x="1135" y="250"/>
+      <ModellElementGroesse h="30" w="30" x="1135" y="300"/>
       <ModellElementVerbindung Element="32" Typ="Auslaufend"/>
     </ModellElementTeleportZiel>
     <ModellElementKante id="32">
@@ -171,14 +172,14 @@ if (count&gt;0 &amp;&amp; Simulation.getWIP(11)==0 &amp;&amp; Simulation.getWIP(
     </ModellElementKante>
     <ModellElementTeleportZiel id="33">
       <ModellElementName>ZuB</ModellElementName>
-      <ModellElementGroesse h="30" w="30" x="1135" y="370"/>
+      <ModellElementGroesse h="30" w="30" x="1135" y="420"/>
       <ModellElementVerbindung Element="34" Typ="Auslaufend"/>
     </ModellElementTeleportZiel>
     <ModellElementKante id="34">
       <ModellElementVerbindung Element1="33" Element2="12" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementEcke id="35">
-      <ModellElementGroesse h="10" w="10" x="1345" y="170"/>
+      <ModellElementGroesse h="10" w="10" x="1295" y="220"/>
       <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="36" Typ="Auslaufend"/>
     </ModellElementEcke>
@@ -186,7 +187,7 @@ if (count&gt;0 &amp;&amp; Simulation.getWIP(11)==0 &amp;&amp; Simulation.getWIP(
       <ModellElementVerbindung Element1="35" Element2="13" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementEcke id="37">
-      <ModellElementGroesse h="10" w="10" x="1345" y="470"/>
+      <ModellElementGroesse h="10" w="10" x="1295" y="520"/>
       <ModellElementVerbindung Element="28" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="38" Typ="Auslaufend"/>
     </ModellElementEcke>
@@ -210,14 +211,14 @@ if (count&gt;0 &amp;&amp; Simulation.getWIP(11)==0 &amp;&amp; Simulation.getWIP(
       <ModellElementVerbindung Element1="10" Element2="12" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementIcon id="39">
-      <ModellElementGroesse h="50" w="100" x="450" y="150"/>
+      <ModellElementGroesse h="50" w="100" x="500" y="200"/>
       <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="41" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
       <ModellElementIconName>user_green</ModellElementIconName>
     </ModellElementIcon>
     <ModellElementIcon id="40">
-      <ModellElementGroesse h="50" w="100" x="450" y="450"/>
+      <ModellElementGroesse h="50" w="100" x="500" y="500"/>
       <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="42" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="20" Typ="Auslaufend"/>
@@ -244,86 +245,146 @@ if (count&gt;0 &amp;&amp; Simulation.getWIP(11)==0 &amp;&amp; Simulation.getWIP(
       <ModellElementVerbindung Element1="4" Element2="40" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementKasten id="43">
-      <ModellElementGroesse h="450" w="350" x="250" y="100"/>
+      <ModellElementGroesse h="450" w="400" x="250" y="150"/>
       <ModellElementLinienBreite>2</ModellElementLinienBreite>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementText id="44">
-      <ModellElementGroesse h="19" w="238" x="255" y="105"/>
+      <ModellElementGroesse h="19" w="229" x="255" y="155"/>
       <ModellElementTextzeile>Wahl der kürzeren Warteschlange</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementKasten id="45">
-      <ModellElementGroesse h="200" w="350" x="650" y="100"/>
+      <ModellElementGroesse h="200" w="350" x="700" y="150"/>
       <ModellElementLinienBreite>2</ModellElementLinienBreite>
       <ModellElementFarbe>0,195,0</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementKasten id="46">
-      <ModellElementGroesse h="200" w="350" x="650" y="350"/>
+      <ModellElementGroesse h="200" w="350" x="700" y="400"/>
       <ModellElementLinienBreite>2</ModellElementLinienBreite>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementKasten>
     <ModellElementText id="47">
-      <ModellElementGroesse h="19" w="118" x="655" y="105"/>
+      <ModellElementGroesse h="19" w="115" x="705" y="155"/>
       <ModellElementTextzeile>Warteschlange A</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,195,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="48">
-      <ModellElementGroesse h="19" w="119" x="655" y="355"/>
+      <ModellElementGroesse h="19" w="115" x="705" y="405"/>
       <ModellElementTextzeile>Warteschlange B</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="49">
-      <ModellElementGroesse h="45" w="323" x="650" y="305"/>
-      <ModellElementTextzeile>Ist Station in gerader Linie frei, ersten Kunden direkt weiterleiten.</ModellElementTextzeile>
-      <ModellElementTextzeile>Sind die andere Station und auch vorgelagerte Warteschlange leer,</ModellElementTextzeile>
-      <ModellElementTextzeile>letzten Kunden zu anderer Station leiten.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>11</ModellElementSchriftgrosse>
+      <ModellElementGroesse h="45" w="409" x="700" y="355"/>
+      <ModellElementTextzeile>Ist die Station in gerader Linie frei, wird der **erste** Kunden direkt weitergeleitet.</ModellElementTextzeile>
+      <ModellElementTextzeile>Sind die jeweils andere Station und auch vorgelagerte Warteschlange leer,</ModellElementTextzeile>
+      <ModellElementTextzeile>so wird der **letzte** Kunden zu der anderer Station geleitet (Warteschlangenwechsel).</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">11</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="50">
-      <ModellElementGroesse h="45" w="117" x="1095" y="305"/>
+      <ModellElementGroesse h="45" w="117" x="1400" y="400"/>
       <ModellElementTextzeile>Ist das Jockeying aktiv,</ModellElementTextzeile>
       <ModellElementTextzeile>so sinkt E[W] etwas und</ModellElementTextzeile>
       <ModellElementTextzeile>CV[W] steigt etwas.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>11</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="51">
-      <ModellElementGroesse h="19" w="81" x="1100" y="120"/>
+      <ModellElementGroesse h="15" w="65" x="1100" y="170"/>
       <ModellElementTextzeile>E[S]=50, c=1</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="52">
-      <ModellElementGroesse h="19" w="81" x="1100" y="515"/>
+      <ModellElementGroesse h="15" w="65" x="1100" y="565"/>
       <ModellElementTextzeile>E[S]=50, c=1</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="53">
-      <ModellElementGroesse h="38" w="135" x="50" y="250"/>
-      <ModellElementTextzeile>E[I]=28</ModellElementTextzeile>
-      <ModellElementTextzeile>d.h. System rho=89%</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementGroesse h="30" w="183" x="50" y="300"/>
+      <ModellElementTextzeile>Mittlere Zwischenankunftszeit E[I]=28.</ModellElementTextzeile>
+      <ModellElementTextzeile>Damit ergibt sich \rho=89%.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="60">
-      <ModellElementGroesse h="23" w="405" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="404" x="50" y="50"/>
       <ModellElementTextzeile>Zwei getrennte Warteschlangen mit Jockeying</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
+    <ModellElementAnimationTortenDiagramm id="54">
+      <ModellElementGroesse h="95" w="100" x="1250" y="555"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementSegmentBeschriftung>Aus</ModellElementSegmentBeschriftung>
+      <ModellElementSegmentDarstellung>Kreissegment</ModellElementSegmentDarstellung>
+      <ModellElementDiagrammElement Segmentfarbe="0,0,255">NumberIn(12)-NumberIn(33)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Segmentfarbe="195,0,195">NumberIn(33)</ModellElementDiagrammElement>
+    </ModellElementAnimationTortenDiagramm>
+    <ModellElementAnimationTortenDiagramm id="55">
+      <ModellElementGroesse h="95" w="100" x="1250" y="100"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementSegmentBeschriftung>Aus</ModellElementSegmentBeschriftung>
+      <ModellElementSegmentDarstellung>Kreissegment</ModellElementSegmentDarstellung>
+      <ModellElementDiagrammElement Segmentfarbe="0,0,255">NumberIn(11)-NumberIn(31)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Segmentfarbe="195,0,195">NumberIn(31)</ModellElementDiagrammElement>
+    </ModellElementAnimationTortenDiagramm>
+    <ModellElementText id="56">
+      <ModellElementGroesse h="30" w="219" x="1180" y="650"/>
+      <ModellElementTextzeile>blau=direkt zu Station B</ModellElementTextzeile>
+      <ModellElementTextzeile>lila=per Warteschlangenwechsel zu Station B</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="57">
+      <ModellElementGroesse h="30" w="219" x="1180" y="70"/>
+      <ModellElementTextzeile>blau=direkt zu Station A</ModellElementTextzeile>
+      <ModellElementTextzeile>lila=per Warteschlangenwechsel zu Station A</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="62">
+      <ModellElementName>Mittlere Wartezeit E[W]</ModellElementName>
+      <ModellElementGroesse h="30" w="95" x="1400" y="270"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WIP_avg()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="63">
+      <ModellElementName>Variationskoeffizient der Wartezeiten CV[W]</ModellElementName>
+      <ModellElementGroesse h="30" w="183" x="1400" y="320"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="3">WIP_cv()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementCheckbox id="64">
+      <ModellElementName>Warteschlangenwechsel (Jockeying) möglich?</ModellElementName>
+      <ModellElementGroesse h="19" w="310" x="700" y="650"/>
+      <ModellElementCheckboxVariable>Jockeying</ModellElementCheckboxVariable>
+      <ModellElementCheckboxWertAusgewaehlt>1</ModellElementCheckboxWertAusgewaehlt>
+      <ModellElementCheckboxWertUnausgewaehlt>0</ModellElementCheckboxWertUnausgewaehlt>
+    </ModellElementCheckbox>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig">
     <Ressource Name="BedienerA" Typ="Anzahl" Wert="1"/>
     <Ressource Name="BedienerB" Typ="Anzahl" Wert="1"/>
   </Ressourcen>
   <KundentypenDaten/>
+  <InitialeVariable Name="Jockeying">1</InitialeVariable>
   <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
   <ModellKantenSelektiert Breite="1" Typ="0"/>
   <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <KiritischeStationenSignatur>
+    <SignaturStation Hash="FI0a9A2hZKABeSnNuI9asKh0s1Lw0oqkdNtTUeOZCKE=" Signatur="UDJ5V/6i9vBNIcAholcQyJQGj234ppUX2xrWtnm0w+MK1/G8jg/sRLVgHngPK4Rb4j5nDKnnSeevp6pfq9OVseWDsHB/iIRmJ7DUl+urLGRmzq1XhQ7Jlcgr1XR7qQK23UfWUjuWMGiLzva7mFuX8u080v6hJwW70zl+gx7bPz9v1w0VuIYyXUAVPkFn915sDGmv/EvzmI8nniYafbaS1VwutFPWRCNNYm5hrir1uxEkoQQwwvYxqg9lq/BGFxaf3X9gReUJt6+fJ7uRrmZo5Tnnd/8mdWqhihlSIRtiwiqczQKIuavcafJsawGcsuJ69YUTnwIgClcQncvHqLN4HL8Vk8kfHVyEsbeI0FPIpPFhDycDXyeDjp3ns/WqtMW6e+VE8uP9UG1tRthb6LyO8s7PuZaDQCyX43pAbakqe0q6pIc6Au3hiMo1q81tqPqPdwRQL453PXT/X7N50u8vExstURGYCYBlbt9wvWz0sm3dlimr1gQzqRh88E7TiqBIZmSOFBXwbmhfgwc6ngwTYSchTT76NExTKjPoy5wP/5dZaZ3AkaewkQq97JD7h0SEAfo2izgXnxlWrSDYmcaGMFS8l0GEgI3uGfM6acDWdTolZsXyT0k/0skBaITiO7j4CoImIEGQGStZoG3JEQnphzMSChAz7d+Xohm4/40xC+0=" id="7"/>
+    <SignaturStation Hash="/Q2cc6OnHI7M0BCtqBmUWJh3WYckMZd1O1A5YM1s7tY=" Signatur="S70UOtOIBKeAXIOWVm1R3Xlp2h9JWZLCYiExEDBVN9FGJi3RJxlwxeT7skG3gUx7EY+63xATq6uigPX4+Z6STeA2ssup6UJb1gjk8IIIS4+1s0SWh7S/cbdV/P+kv9h9hKCpGWicC2h8c/9crGUSsiGLdIaaOJlINGbImCRW1AJc4H4oKSlZeR1N3HD4OUsP+VeWFc0cLdoWMiy1Wfi2etzu8IDU4HS2FNhlehKy/TY0dBsr1f36yV++dSNtOwUDI+NYBFhWwLyWNjWlrZPLof67UydUiLHU7nZntp2iAnVC/+Sq6GbcuvSqx9A1KHVuQfVLWbhQk9DdggZgFGZXrZFoGVTV+luMZczFNb0c0Qr3htddNutDYNoyprpaO1t+DX/256zKmyXR6VFoPrIOpA209O3aZeEJGkqcOTMHExlZOSNXvZkVU2Z5UsxN84ya7VkmximSzu9XnJ00cJ7hduRGYtemswGNdUa17W8KK6HBPojbs1CIZjOikk8qn5xTI9hY1vWB+3ZDNbT3IqzykmmKAGK5ENlZComdXYAbZ4dYtYzvtiMbVoVVDH9dYYwQhlOt6LzZgTcZzryTSpm7pj5vfrQ2ZgONPJlk2/wPBIdCf8Pfu+cljVukRBlUbuOfGTdKWb47ia0YFM+qzlfvI6iQL0eSi3T/w9bBb8EHdsc=" id="8"/>
+    <SignaturNutzername Signatur="XkYku6zTX13zuQjd3RvuPJdBkoWYzyy/55FfTzsvCtW5lmYtwtTawDFQCgxZDY9yOOZFfiH9xkTSpi4mFjFhxYyxphr1z/WdS40n6sVzYjfxgYBd3wfoSB0jMMlJTVgBxq6FBUFWwqLbXCYHUMj+3QuHiosT31TLtAS+k3/k/puLnUkCCjHUOsV6Yi8bbqOqJ6YOPeg1xpfk7UTVVl8gINpDiNn7T255dGpokE1W9aahmUv8yeATcqhoDV5iJHce2DHQNwAADR2GScnwSDXtrwIrk1B8ZPcbCpL4vsN+xNyr24EUyvx4RsAvvf3URVsHjVg5O/zosyfkOVTWreFUIDeiUd7befieVhwmJos8xzrSwy/LEop3H6BDW77HrWJWRjlLy8CapIAs5KrmsLjzsR5/4IhvICt57jbIDVEqacOdxCsmsRfoBGxXN37jDajRJPPZ018acu343GsoRHE0TX/SH1vrrLftigXfkO9YQAU7PmO2zvoOtt5Zh8aZmdErTHLjiWp333T5iwxsdFfD2kXca6VUkQYYlWS5MUAN3o2yGnxjw1pRUynG9ucw5kC/waHHLVEMe6WXHNfOUsOsWWZEthHCHiz/4Uif3uBOJk8ucNft9SM1b60YYut74JG/5C0CNhzVQQi6OXaBa5Xwev/Q7qiJKo/ez+bqMXwJOhI=">Alexander Herzog</SignaturNutzername>
+    <SignaturOeffentlicherSchluessel>MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAi9Dd2kqC9Kha2/jfGKX5cWmqSDpgqUW1dBmGaA0LvYb1/mDMPwXbBx3xrmsvaRm3VtgCktftPAEhGqec0isrN1HLefxNyYN0g71OAAYkxvd8wv+QbhZidHMONLabBRAfT+nqlr4r78gGcSlcE1QVQMAxSQAsR8pKdV3QDGuP6qjh3xZRO3TSatAqIfZx5HJZSFVez5KMk6kLY16kw4BTdao2Ubsm7Rh3zF1/u2RP6jrRDprkOgSRZJSJWgmWFGvrOJ8UwTWRElPSoAyrJ5ySCNzEu/Q+j1Uz4BwaOo88D4bCHP3L41fFr0T42m/D8H/k7ngmC3SzKD1HM3D510gK2pG0vmIRQg2SwI8Yg7/upD0MtsZAIBThkweJ1Xgd1AV1deSTWAhOgwUQ+6ULCDA/qy7K8Hm7D+pZ1N1a4jpNxno5nGuhIrU8ztJ2wffQ2mDIgqRHhfhUxcptxtkKyOMFyWPYUGAfNSuu/0caOb06jaEGlL0ZqtlYWKZgiaxQylMeEyF+29t2KghJt9O+sUf33r10maOmbnz/asRfCtyqg9JkH0K4H/5Ojap3tlt8NpmteVnZbQSc7wL+CkWXtdXHIBcFqt/otBp6qQKZgUX27SS16untBS/pUC5bl6eSRok1WjrMSacY29tZ5Yjz0gCMiiussTRaA6ICcC+JbAuzWK0CAwEAAQ==</SignaturOeffentlicherSchluessel>
+  </KiritischeStationenSignatur>
 </Modell>
