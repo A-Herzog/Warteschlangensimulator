@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-26 08:48+0200\n"
+"POT-Creation-Date: 2023-10-06 12:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13504,6 +13504,12 @@ msgstr "Statistic record \"%s\""
 msgid "ModelGenerator.AddVisualization"
 msgstr "Add visualization"
 
+msgid "ModelGenerator.AddVisualization.MeanN"
+msgstr "Mean number of clients in system"
+
+msgid "ModelGenerator.AddVisualization.MeanNQ"
+msgstr "Mean queue length"
+
 msgid "ModelGenerator.AddVisualization.MeanRho"
 msgstr "Mean utilization"
 
@@ -13725,6 +13731,12 @@ msgstr "Create simple model"
 
 msgid "ModelGenerator.UseWaitingTimeTolerance"
 msgstr "Clients are only willing to wait for a limited time"
+
+msgid "ModelGenerator.Visualization.MeanNQTitle"
+msgstr "Mean queue length"
+
+msgid "ModelGenerator.Visualization.MeanNTitle"
+msgstr "Mean number of clients in system"
 
 msgid "ModelGenerator.Visualization.MeanRhoTitle"
 msgstr "Mean operator utilization"

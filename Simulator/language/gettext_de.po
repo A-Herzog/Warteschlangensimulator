@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-26 08:48+0200\n"
+"POT-Creation-Date: 2023-10-06 12:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13532,6 +13532,12 @@ msgstr "Statistikdatensatz \"%s\""
 msgid "ModelGenerator.AddVisualization"
 msgstr "Visualisierung hinzufügen"
 
+msgid "ModelGenerator.AddVisualization.MeanN"
+msgstr "Mittlere Anzahl an Kunden im System"
+
+msgid "ModelGenerator.AddVisualization.MeanNQ"
+msgstr "Mittlere Warteschlangenlänge"
+
 msgid "ModelGenerator.AddVisualization.MeanRho"
 msgstr "Mittlere Auslastung"
 
@@ -13753,6 +13759,12 @@ msgstr "Einfaches Modell erstellen"
 
 msgid "ModelGenerator.UseWaitingTimeTolerance"
 msgstr "Kunden sind nur bereit begrenzt lange zu warten"
+
+msgid "ModelGenerator.Visualization.MeanNQTitle"
+msgstr "Mittlere Warteschlangenlänge"
+
+msgid "ModelGenerator.Visualization.MeanNTitle"
+msgstr "Mittlere Anzahl an Kunden im System"
 
 msgid "ModelGenerator.Visualization.MeanRhoTitle"
 msgstr "Mittlere Auslastung der Bediener"

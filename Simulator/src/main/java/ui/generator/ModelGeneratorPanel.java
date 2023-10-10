@@ -49,6 +49,7 @@ import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.AnimationExpression;
+import ui.modeleditor.elements.AxisDrawer;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
 import ui.modeleditor.elements.ModelElementAnimationTextValue;
 import ui.modeleditor.elements.ModelElementCounter;
@@ -100,6 +101,10 @@ public class ModelGeneratorPanel extends JPanel {
 	private final JCheckBox checkAddRhoVisualization;
 	/** Visualisierungen zur Anzeige der mittleren Wartezeit zum Modell hinzufügen? */
 	private final JCheckBox checkAddWVisualization;
+	/** Visualisierungen zur Anzeige der mittleren Anzahl an Kunden in der Warteschlange zum Modell hinzufügen? */
+	private final JCheckBox checkAddNQVisualization;
+	/** Visualisierungen zur Anzeige der mittleren Anzahl an Kunden im System zum Modell hinzufügen? */
+	private final JCheckBox checkAddNVisualization;
 
 	/**
 	 * Konstruktor der Klasse
@@ -195,6 +200,8 @@ public class ModelGeneratorPanel extends JPanel {
 		checkAddWIPVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.WIP"),true);
 		checkAddRhoVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.MeanRho"),true);
 		checkAddWVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.MeanWaitingTime"),true);
+		checkAddNQVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.MeanNQ"),true);
+		checkAddNVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.MeanN"),true);
 
 		/* Besondere Modelle */
 		if (specialModelCallback!=null) {
@@ -355,6 +362,32 @@ public class ModelGeneratorPanel extends JPanel {
 	}
 
 	/**
+	 * Fügt ein Simulationsdatenausgabetextfeld in das Modell ein
+	 * @param model	Modell in das das Textfeld eingefügt werden soll
+	 * @param xPosition	X-Position auf der Zeichenfläche
+	 * @param yPosition	Y-Position auf der Zeichenfläche
+	 * @param labelText	Beschriftungstext
+	 * @param labelColor	Farbe für den Beschriftungstext
+	 * @param dataText	Rechenausdruck dessen Ergebnis angezeigt werden soll
+	 */
+	private static void addSimDataText(final EditModel model, final int xPosition, final int yPosition, final String labelText, final Color labelColor, final String dataText) {
+		final ModelElementText label;
+		model.surface.add(label=new ModelElementText(model,model.surface));
+		label.setPosition(new Point(xPosition,yPosition-20));
+		label.setText(labelText);
+		label.setTextItalic(true);
+
+		final ModelElementAnimationTextValue textValue=new ModelElementAnimationTextValue(model,model.surface);
+		textValue.setPosition(new Point(xPosition,yPosition));
+		textValue.setTextSize(14);
+		textValue.setTextBold(true);
+		textValue.setColor(labelColor);
+		textValue.setDigits(1);
+		textValue.setExpression(dataText);
+		model.surface.add(textValue);
+	}
+
+	/**
 	 * Liefert das neu erstellte Modell
 	 * @return	Neu erstelltes Modell
 	 */
@@ -374,6 +407,9 @@ public class ModelGeneratorPanel extends JPanel {
 		final boolean addWIPVisualization=checkAddWIPVisualization.isSelected();
 		final boolean addRhoVisualization=checkAddRhoVisualization.isSelected();
 		final boolean addWVisualization=checkAddWVisualization.isSelected();
+		final boolean addNQVisualization=checkAddNQVisualization.isSelected();
+		final boolean addNVisualization=checkAddNVisualization.isSelected();
+
 
 		StringBuilder description;
 		ModelElementText label;
@@ -743,9 +779,11 @@ public class ModelGeneratorPanel extends JPanel {
 			final ModelElementAnimationLineDiagram diagram=new ModelElementAnimationLineDiagram(model,model.surface);
 			diagram.setPosition(new Point(xPosition,yPosition));
 			diagram.setBorderPointPosition(2,new Point(xPosition+550,yPosition+200));
-			xPosition+=600;
-			diagram.setBackgroundColor(new Color(240,240,240));
+			diagram.setBackgroundColor(Color.WHITE);
+			diagram.setGradientFillColor(new Color(230,230,250));
 			diagram.setTimeArea(5*60*60);
+			diagram.setXAxisLabels(AxisDrawer.Mode.FULL);
+			diagram.setYAxisLabels(AxisDrawer.Mode.FULL);
 			model.surface.add(diagram);
 
 			final List<Object[]> list=new ArrayList<>();
@@ -760,44 +798,33 @@ public class ModelGeneratorPanel extends JPanel {
 				}
 			}
 			diagram.setExpressionData(list);
-		}
-		if (addRhoVisualization) {
-			model.surface.add(label=new ModelElementText(model,model.surface));
-			label.setPosition(new Point(xPosition,yPosition-20));
-			label.setText(Language.tr("ModelGenerator.Visualization.MeanRhoTitle"));
-			label.setTextItalic(true);
 
-			final ModelElementAnimationTextValue textValue=new ModelElementAnimationTextValue(model,model.surface);
-			textValue.setPosition(new Point(xPosition,yPosition));
-			xPosition+=100;
-			textValue.setTextSize(14);
-			textValue.setTextBold(true);
-			textValue.setColor(Color.RED);
-			textValue.setMode(ModelElementAnimationTextValue.ModeExpression.MODE_EXPRESSION_PERCENT);
-			textValue.setDigits(1);
-			textValue.setExpression("Resource_avg()/Resource_count()");
-			model.surface.add(textValue);
+			model.surface.add(label=new ModelElementText(model,model.surface));
+			label.setPosition(new Point(xPosition,yPosition+215));
+			label.setText("(dicke Linie = Mittelwert, dünne Linie = atueller Wert)");
+			label.setTextSize(11);
+
+			xPosition+=600;
+		}
+
+		if (addRhoVisualization) {
+			addSimDataText(model,xPosition,yPosition,Language.tr("ModelGenerator.Visualization.MeanRhoTitle"),Color.MAGENTA,"Resource_avg()/Resource_count()");
+			yPosition+=50;
 		}
 
 		if (addWVisualization) {
-			if (addRhoVisualization) {xPosition-=100; yPosition+=100;}
+			addSimDataText(model,xPosition,yPosition,Language.tr("ModelGenerator.Visualization.MeanWaitingTimeTitle"),Color.RED,"WaitingTime_avg()");
+			yPosition+=50;
+		}
 
-			model.surface.add(label=new ModelElementText(model,model.surface));
-			label.setPosition(new Point(xPosition,yPosition-20));
-			label.setText(Language.tr("ModelGenerator.Visualization.MeanWaitingTimeTitle"));
-			label.setTextItalic(true);
+		if (addNQVisualization) {
+			addSimDataText(model,xPosition,yPosition,Language.tr("ModelGenerator.Visualization.MeanNQTitle"),Color.BLUE,"NQ_avg()");
+			yPosition+=50;
+		}
 
-			final ModelElementAnimationTextValue textValue=new ModelElementAnimationTextValue(model,model.surface);
-			textValue.setPosition(new Point(xPosition,yPosition));
-			xPosition+=100;
-			textValue.setTextSize(14);
-			textValue.setTextBold(true);
-			textValue.setColor(Color.BLUE);
-			textValue.setDigits(1);
-			textValue.setExpression("WaitingTime_avg()");
-			model.surface.add(textValue);
-
-			if (addRhoVisualization) yPosition-=100;
+		if (addNVisualization) {
+			addSimDataText(model,xPosition,yPosition,Language.tr("ModelGenerator.Visualization.MeanNTitle"),Color.ORANGE,"N_avg()");
+			yPosition+=50;
 		}
 
 		return model;
