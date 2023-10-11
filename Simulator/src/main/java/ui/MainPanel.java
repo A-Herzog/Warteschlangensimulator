@@ -109,6 +109,7 @@ import simulator.logging.CallbackLoggerWithJS;
 import simulator.runmodel.RunModel;
 import simulator.statistics.Statistics;
 import systemtools.BaseDialog;
+import systemtools.GUITools;
 import systemtools.MainFrameBase;
 import systemtools.MainPanelBase;
 import systemtools.MsgBox;
@@ -167,6 +168,7 @@ import ui.infopanel.InfoPanel;
 import ui.inputprocessor.ClientInputTableDialog;
 import ui.inputprocessor.ClientOutputTableDialog;
 import ui.modeleditor.AnimationImageDialog;
+import ui.modeleditor.ElementRendererTools;
 import ui.modeleditor.FilePathHelper;
 import ui.modeleditor.ModelElementCatalog;
 import ui.modeleditor.ModelLoadData;
@@ -956,8 +958,24 @@ public class MainPanel extends MainPanelBase {
 		/* Nutzungsstatistik */
 		UsageStatistics.getInstance().loadFromSetup();
 
+		boolean needWindowReload=false;
+
 		/* Sprache neu laden? */
 		if (!setup.language.equals(Language.getCurrentLanguage())) {
+			needWindowReload=true;
+			IndexSystem.getInstance().setLanguage(setup.language);
+		}
+
+		/* Theme neu laden? */
+		if (!setup.lookAndFeel.equals(GUITools.getCurrentLookAndFeel()) || (FlatLaFHelper.isActive() && (setup.lookAndFeelCombinedMenu!=FlatLaFHelper.isCombinedMenuBar()))) {
+			needWindowReload=true;
+			FlatLaFHelper.setCombinedMenuBar(setup.lookAndFeelCombinedMenu);
+			GUITools.setupUI(setup.lookAndFeel);
+			FlatLaFHelper.setup();
+			ElementRendererTools.reloadColors();
+		}
+
+		if (needWindowReload) {
 			setup.clarFirstInitFlag();
 			HelpBase.hideHelpFrame();
 			if (reloadWindow!=null) SwingUtilities.invokeLater(reloadWindow);
@@ -965,7 +983,6 @@ public class MainPanel extends MainPanelBase {
 			invalidate();
 			if (reloadWindow!=null) SwingUtilities.invokeLater(()->repaint());
 		}
-		IndexSystem.getInstance().setLanguage(Language.getCurrentLanguage());
 
 		/* Background-System neu einstellen */
 		if (setup.backgroundSimulation!=BackgroundSystem.getBackgroundSystem(editorPanel).getLastBackgroundMode()) {

@@ -118,6 +118,24 @@ public class FlatLaFHelper {
 				/* Keine Layoutanpassungen */
 				break;
 			}
+		} else {
+			UIManager.put("TaskDialog.messageBackground",null);
+			UIManager.put("TaskDialog.instructionForeground",null);
+			switch(OperatingSystem.getCurrent()) {
+			case MACOS:
+				/* Es wird der MacOsCommandLinkPainter verwendet, der keine Farbanpassungen vorsieht */
+				break;
+			case LINUX:
+				/* Es wird der MacOsCommandLinkPainter verwendet (ja, für Linux), der keine Farbanpassungen vorsieht */
+				break;
+			case WINDOWS:
+
+				System.clearProperty(TaskDialog.DESIGN_PROPERTY);
+				break;
+			default:
+				/* Keine Layoutanpassungen */
+				break;
+			}
 		}
 	}
 

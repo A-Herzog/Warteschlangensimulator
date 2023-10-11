@@ -12839,7 +12839,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29170] = "Surface.XML.EdgePainter.Type.Error";
     t[29171] = "Der f\u00fcr Element %s angegebene Typ %s ist ung\u00fcltig. Es muss eine nichtnegative Ganzzahl angegeben werden.";
     t[29176] = "SettingsDialog.FontSizes.Info";
-    t[29177] = "Ver\u00e4nderungen des Themas und der Schriftgr\u00f6\u00dfe werden erst beim n\u00e4chsten Programmstart wirksam.";
+    t[29177] = "Ver\u00e4nderungen der Schriftgr\u00f6\u00dfe und zum Teil auch des Themes werden erst beim n\u00e4chsten Programmstart wirksam.";
     t[29178] = "Main.Menu.View.UserDefinedAnimationIcons";
     t[29179] = "Benutzerdefinierte Animationsicons...";
     t[29182] = "URLLoader.Error.InfoLoad";

@@ -106,6 +106,8 @@ public class GUITools {
 	 * @see #listLookAndFeels()
 	 */
 	public static boolean setupUI(final String name) {
+		currentLookAndFeel=name;
+
 		String className=null;
 		for (LookAndFeelInfo info: UIManager.getInstalledLookAndFeels()) if (info.getName().equalsIgnoreCase(name)) {
 			className=info.getClassName();
@@ -120,6 +122,19 @@ public class GUITools {
 			return setupUI();
 		}
 		return true;
+	}
+
+	/**
+	 * Aktuelles Look &amp; Feel (kann <code>null</code> sein)
+	 */
+	private static String currentLookAndFeel;
+
+	/**
+	 * Liefert das aktuell eingestellte Look &amp; Feel
+	 * @return	Aktuelles Look &amp; Feel (kann <code>null</code> sein)
+	 */
+	public static String getCurrentLookAndFeel() {
+		return currentLookAndFeel;
 	}
 
 	/**

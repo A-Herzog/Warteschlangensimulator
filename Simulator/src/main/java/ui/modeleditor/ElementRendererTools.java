@@ -267,6 +267,14 @@ public class ElementRendererTools {
 	}
 
 	/**
+	 * Lädt die Farbeinstellungen neu aus der {@link UIManager}-Konfiguration.
+	 */
+	public static void reloadColors() {
+		listBackgroundColor[0]=UIManager.getColor("List.background");
+		listBackgroundColorSelected[0]=UIManager.getColor("List.selectionBackground");
+	}
+
+	/**
 	 * Liefert den Listenzellen-Renderer für ein Element
 	 * @param element	Element das dargestellt werden soll (darf <code>null</code> sein)
 	 * @param zoom	Zoomfaktor für die Darstellung

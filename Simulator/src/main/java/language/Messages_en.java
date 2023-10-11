@@ -12839,7 +12839,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29170] = "Surface.XML.EdgePainter.Type.Error";
     t[29171] = "For element %s the type %s is invalid. A non-negative integer number has to be given.";
     t[29176] = "SettingsDialog.FontSizes.Info";
-    t[29177] = "Changing the theme or the font size will take affect when restarting the program.";
+    t[29177] = "Changing the font size and partially also the theme will take affect when restarting the program.";
     t[29178] = "Main.Menu.View.UserDefinedAnimationIcons";
     t[29179] = "User-defined animation icons...";
     t[29182] = "URLLoader.Error.InfoLoad";
