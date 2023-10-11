@@ -388,6 +388,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public ModelElementEdge.LineMode edgeLineMode;
 
 	/**
+	 * Größe des Pfeils am Ende der Verknüpfungslinie
+	 */
+	public ModelElementEdge.ArrowMode edgeArrowMode;
+
+	/**
 	 * Zeitabstand in dem für Bedingung- und ähnliche Stationen zusätzliche zeitabhängige Checks durchgeführt werden sollen.
 	 * Werte &le;0 bedeuten, dass keine Checks stattfinden. Sonst ist der Wert die Millisekundenanzahl zwischen zwei Checks.
 	 */
@@ -483,6 +488,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		edgePainterNormal=new ComplexLine(1,FlatLaFHelper.isDark()?BLACK_COLOR_IN_DARK_MODE:Color.BLACK,0);
 		edgePainterSelected=new ComplexLine(1,Color.GREEN,0);
 		edgeLineMode=ModelElementEdge.LineMode.MULTI_LINE_ROUNDED;
+		edgeArrowMode=ModelElementEdge.ArrowMode.MEDIUM;
 		timedChecksDelta=-1;
 		recordStationTransitions=false;
 		recordClientPaths=false;
@@ -575,6 +581,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		edgePainterNormal.set(1,FlatLaFHelper.isDark()?BLACK_COLOR_IN_DARK_MODE:Color.BLACK,0);
 		edgePainterSelected.set(1,Color.GREEN,0);
 		edgeLineMode=ModelElementEdge.LineMode.MULTI_LINE_ROUNDED;
+		edgeArrowMode=ModelElementEdge.ArrowMode.MEDIUM;
 		timedChecksDelta=-1;
 		recordStationTransitions=false;
 		recordClientPaths=false;
@@ -645,6 +652,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.edgePainterNormal.set(edgePainterNormal);
 		clone.edgePainterSelected.set(edgePainterSelected);
 		clone.edgeLineMode=edgeLineMode;
+		clone.edgeArrowMode=edgeArrowMode;
 		clone.timedChecksDelta=timedChecksDelta;
 		clone.recordStationTransitions=recordStationTransitions;
 		clone.recordClientPaths=recordClientPaths;
@@ -731,6 +739,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (!edgePainterNormal.equalsLine(otherModel.edgePainterNormal)) return false;
 		if (!edgePainterSelected.equalsLine(otherModel.edgePainterSelected)) return false;
 		if (edgeLineMode!=otherModel.edgeLineMode) return false;
+		if (edgeArrowMode!=otherModel.edgeArrowMode) return false;
 		if (timedChecksDelta!=otherModel.timedChecksDelta) return false;
 		if (recordStationTransitions!=otherModel.recordStationTransitions) return false;
 		if (recordClientPaths!=otherModel.recordClientPaths) return false;
@@ -1109,6 +1118,14 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			return null;
 		}
 
+		if (Language.trAll("Surface.XML.ArrowMode",name)) {
+			if (Language.trAll("Surface.XML.ArrowMode.Off",text)) edgeArrowMode=ModelElementEdge.ArrowMode.OFF;
+			if (Language.trAll("Surface.XML.ArrowMode.Small",text)) edgeArrowMode=ModelElementEdge.ArrowMode.SMALL;
+			if (Language.trAll("Surface.XML.ArrowMode.Medium",text)) edgeArrowMode=ModelElementEdge.ArrowMode.MEDIUM;
+			if (Language.trAll("Surface.XML.ArrowMode.Large",text)) edgeArrowMode=ModelElementEdge.ArrowMode.LARGE;
+			return null;
+		}
+
 		if (Language.trAll("Surface.XML.TimedChecks",name)) {
 			final Long ms=NumberTools.getPositiveLong(text);
 			if (ms==null) return String.format(Language.tr("Surface.XML.TimedChecks.Error"),name,text);
@@ -1354,6 +1371,14 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		case MULTI_LINE: sub.setTextContent(Language.trPrimary("Surface.XML.LineMode.MultiLine")); break;
 		case MULTI_LINE_ROUNDED: sub.setTextContent(Language.trPrimary("Surface.XML.LineMode.MultiLineRounded")); break;
 		case CUBIC_CURVE: sub.setTextContent(Language.trPrimary("Surface.XML.LineMode.CubicCurve")); break;
+		}
+
+		node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.ArrowMode")));
+		switch (edgeArrowMode) {
+		case OFF: sub.setTextContent(Language.trPrimary("Surface.XML.ArrowMode.Off")); break;
+		case SMALL: sub.setTextContent(Language.trPrimary("Surface.XML.ArrowMode.Small")); break;
+		case MEDIUM: sub.setTextContent(Language.trPrimary("Surface.XML.ArrowMode.Medium")); break;
+		case LARGE: sub.setTextContent(Language.trPrimary("Surface.XML.ArrowMode.Large")); break;
 		}
 
 		if (timedChecksDelta>0) {

@@ -547,10 +547,11 @@ public class DrawIOExport {
 	/**
 	 * Verarbeitet eine Verbindungskante
 	 * @param edge	Auszugebende Verbindungskante
-	 * @param lineMode	Art der Verbindungskante
+	 * @param lineMode	Art der Verbindungskante (gem‰ﬂ Modell)
+	 * @param arrowMode	Pfeilgrˆﬂe (gem‰ﬂ Model)
 	 * @param surface	Zeichenfl‰che
 	 */
-	private void processEdge(final ModelElementEdge edge, final ModelElementEdge.LineMode lineMode, final ModelSurface surface) {
+	private void processEdge(final ModelElementEdge edge, final ModelElementEdge.LineMode lineMode, final ModelElementEdge.ArrowMode arrowMode, final ModelSurface surface) {
 		final Map<String,String> style=new HashMap<>();
 
 		style.put("rounded","0");
@@ -558,7 +559,7 @@ public class DrawIOExport {
 		style.put("jettySize","auto");
 		style.put("html","1");
 
-		switch (lineMode) {
+		switch ((edge.getLineMode()==null)?lineMode:edge.getLineMode()) {
 		case DIRECT:
 			style.put("edgeStyle","orthogonalEdgeStyle");
 			break;
@@ -575,6 +576,21 @@ public class DrawIOExport {
 			break;
 		default:
 			style.put("edgeStyle","orthogonalEdgeStyle");
+			break;
+		}
+
+		switch ((edge.getArrowMode()==null)?arrowMode:edge.getArrowMode()) {
+		case OFF:
+			style.put("endArrow","none");
+			break;
+		case SMALL:
+			style.put("endArrow","classicThin");
+			break;
+		case MEDIUM:
+			/* Vorgabewert von Draw.IO verwenden */
+			break;
+		case LARGE:
+			style.put("endArrow","block");
 			break;
 		}
 
@@ -672,7 +688,7 @@ public class DrawIOExport {
 		}
 
 		for (ModelElement element: surface.getElements()) if (element instanceof ModelElementEdge) {
-			processEdge((ModelElementEdge)element,model.edgeLineMode,surface);
+			processEdge((ModelElementEdge)element,model.edgeLineMode,model.edgeArrowMode,surface);
 		}
 	}
 

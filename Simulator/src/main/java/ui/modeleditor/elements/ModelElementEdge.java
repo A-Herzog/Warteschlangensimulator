@@ -78,7 +78,6 @@ public final class ModelElementEdge extends ModelElement {
 
 	/**
 	 * Art der Verknüpfungslinie
-	 * @author Alexander Herzog
 	 * @see ModelElementEdge#getLineMode()
 	 * @see ModelElementEdge#setLineMode(LineMode)
 	 */
@@ -94,10 +93,32 @@ public final class ModelElementEdge extends ModelElement {
 	}
 
 	/**
+	 * Größe des Pfeils am Ende der Verknüpfungslinie
+	 * @see ModelElementEdge#getArrowMode()
+	 * @see ModelElementEdge#setArrowMode(ArrowMode)
+	 */
+	public enum ArrowMode {
+		/** Keinen Pfeil zeichnen */
+		OFF,
+		/** Kleiner Pfeil */
+		SMALL,
+		/** Mittlerer Pfeil (Vorgabewert) */
+		MEDIUM,
+		/** Größer Pfeil */
+		LARGE,
+	}
+
+	/**
 	 * Art der Verknüpfungslinien
 	 * @see EditModel#edgeLineMode
 	 */
 	private LineMode lineMode=null;
+
+	/**
+	 * Größe des Pfeils am Ende der Verknüpfungslinie
+	 * @see EditModel#edgeArrowMode
+	 */
+	private ArrowMode arrowMode=null;
 
 	/**
 	 * Beschriftung (wenn vorhanden) an Kante anzeigen?
@@ -165,6 +186,7 @@ public final class ModelElementEdge extends ModelElement {
 		if (connectionStart.getId()!=otherEdge.connectionStart.getId()) return false;
 		if (connectionEnd.getId()!=otherEdge.connectionEnd.getId()) return false;
 		if (lineMode!=otherEdge.lineMode) return false;
+		if (arrowMode!=otherEdge.arrowMode) return false;
 		if (!Objects.equals(lineColor,otherEdge.lineColor)) return false;
 		if (drawName!=otherEdge.drawName) return false;
 
@@ -183,6 +205,7 @@ public final class ModelElementEdge extends ModelElement {
 			if (otherEdge.connectionStart!=null) connectionStartId=((ModelElementEdge)element).connectionStart.getId();
 			if (otherEdge.connectionEnd!=null) connectionEndId=((ModelElementEdge)element).connectionEnd.getId();
 			lineMode=otherEdge.lineMode;
+			arrowMode=otherEdge.arrowMode;
 			setLineColor(otherEdge.lineColor);
 			drawName=otherEdge.drawName;
 		}
@@ -232,13 +255,33 @@ public final class ModelElementEdge extends ModelElement {
 	}
 
 	/**
-	 * Stellt die Art der Verknüpfungslinie ein
+	 * Stellt die Art der Verknüpfungslinie ein.
 	 * @param lineMode	Art der Verknüpfungslinie (<code>null</code> bedeutet "Vorgabe Stil aus Modell verwenden)
 	 * @see EditModel#edgeLineMode
 	 * @see ModelElementEdge.LineMode
 	 */
 	public void setLineMode(final LineMode lineMode) {
 		this.lineMode=lineMode;
+	}
+
+	/**
+	 * Liefert die Größe des Pfeils am Ende der Verknüpfungslinie.
+	 * @return	Größe des Pfeils am Ende der Verknüpfungslinie (<code>null</code> bedeutet "Vorgabe Stil aus Modell verwenden)
+	 * @see EditModel#edgeArrowMode
+	 * @see ModelElementEdge.ArrowMode
+	 */
+	public ArrowMode getArrowMode() {
+		return arrowMode;
+	}
+
+	/**
+	 * Stellt die Größe des Pfeils am Ende der Verknüpfungslinie ein.
+	 * @param arrowMode	Größe des Pfeils am Ende der Verknüpfungslinie (<code>null</code> bedeutet "Vorgabe Stil aus Modell verwenden)
+	 * @see EditModel#edgeArrowMode
+	 * @see ModelElementEdge.ArrowMode
+	 */
+	public void setArrowMode(final ArrowMode arrowMode) {
+		this.arrowMode=arrowMode;
 	}
 
 	@Override
@@ -272,7 +315,22 @@ public final class ModelElementEdge extends ModelElement {
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.MultiLineRounded"),Images.EDGE_MODE_MULTI_LINE_ROUNDED.getIcon(),lineMode==LineMode.MULTI_LINE_ROUNDED));
 		check.addActionListener(e->{lineMode=LineMode.MULTI_LINE_ROUNDED; fireChanged();});
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.LineMode.CubicCurve"),Images.EDGE_MODE_CUBIC_CURVE.getIcon(),lineMode==LineMode.CUBIC_CURVE));
-		check.addActionListener(e->{lineMode=LineMode.CUBIC_CURVE	; fireChanged();});
+		check.addActionListener(e->{lineMode=LineMode.CUBIC_CURVE; fireChanged();});
+
+		/* Pfeile */
+
+		popupMenu.add(menu=new JMenu(Language.tr("Surface.Connection.ArrowMode")));
+
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.ArrowMode.Global"),Images.MODEL.getIcon(),arrowMode==null));
+		check.addActionListener(e->{arrowMode=null; fireChanged();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.ArrowMode.Off"),Images.ARROW_SIZE_OFF.getIcon(),arrowMode==ArrowMode.OFF));
+		check.addActionListener(e->{arrowMode=ArrowMode.OFF; fireChanged();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.ArrowMode.Small"),Images.ARROW_SIZE_SMALL.getIcon(),arrowMode==ArrowMode.SMALL));
+		check.addActionListener(e->{arrowMode=ArrowMode.SMALL; fireChanged();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.ArrowMode.Medium"),Images.ARROW_SIZE_MEDIUM.getIcon(),arrowMode==ArrowMode.MEDIUM));
+		check.addActionListener(e->{arrowMode=ArrowMode.MEDIUM; fireChanged();});
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.ArrowMode.Large"),Images.ARROW_SIZE_LARGE.getIcon(),arrowMode==ArrowMode.LARGE));
+		check.addActionListener(e->{arrowMode=ArrowMode.LARGE; fireChanged();});
 
 		/* Farbe */
 
@@ -838,20 +896,38 @@ public final class ModelElementEdge extends ModelElement {
 	 * @param arrowHeadOnly	Vollständigen Pfeil zeichnen (<code>false</code>) oder nur die Pfeilspitze (<code>true</code>)
 	 */
 	private void drawArrow(final Graphics graphics, final ComplexLine painter, final Point point1, final Point point2, final double zoom, final boolean arrowHeadOnly) {
-		/* Pfeile berechnen */
-		double v0=point2.x-point1.x, v1=point2.y-point1.y;
-		final double length=Math.sqrt(v0*v0+v1*v1);
-		v0=v0/length; v1=v1/length;
-		final double w0=v1, w1=-v0;
-		arrow1.x=(int)FastMath.round(point2.x-ARROW_SIZE*zoom*v0+ARROW_SIZE*zoom*w0);
-		arrow1.y=(int)FastMath.round(point2.y-ARROW_SIZE*zoom*v1+ARROW_SIZE*zoom*w1);
-		arrow2.x=(int)FastMath.round(point2.x-ARROW_SIZE*zoom*v0-ARROW_SIZE*zoom*w0);
-		arrow2.y=(int)FastMath.round(point2.y-ARROW_SIZE*zoom*v1-ARROW_SIZE*zoom*w1);
+		ArrowMode drawArrowMode=arrowMode;
+		final EditModel model=getModel();
+		if (drawArrowMode==null && model!=null) drawArrowMode=model.edgeArrowMode;
+		if (drawArrowMode==null) drawArrowMode=ArrowMode.LARGE;
+
+		final int drawArrowSize;
+		switch (drawArrowMode) {
+		case OFF: drawArrowSize=0; break;
+		case SMALL: drawArrowSize=(2*ARROW_SIZE)/3; break;
+		case MEDIUM: drawArrowSize=ARROW_SIZE; break;
+		case LARGE: drawArrowSize=(ARROW_SIZE*3)/2; break;
+		default: drawArrowSize=ARROW_SIZE; break;
+		}
 
 		/* Linien zeichnen */
 		if (!arrowHeadOnly) painter.draw(graphics,point1,point2,zoom);
-		painter.draw(graphics,point2,arrow1,zoom);
-		painter.draw(graphics,point2,arrow2,zoom);
+
+		if (drawArrowSize>0) {
+			/* Pfeil berechnen */
+			double v0=point2.x-point1.x, v1=point2.y-point1.y;
+			final double length=Math.sqrt(v0*v0+v1*v1);
+			v0=v0/length; v1=v1/length;
+			final double w0=v1, w1=-v0;
+			arrow1.x=(int)FastMath.round(point2.x-drawArrowSize*zoom*v0+drawArrowSize*zoom*w0);
+			arrow1.y=(int)FastMath.round(point2.y-drawArrowSize*zoom*v1+drawArrowSize*zoom*w1);
+			arrow2.x=(int)FastMath.round(point2.x-drawArrowSize*zoom*v0-drawArrowSize*zoom*w0);
+			arrow2.y=(int)FastMath.round(point2.y-drawArrowSize*zoom*v1-drawArrowSize*zoom*w1);
+
+			/* Pfeil zeichnen */
+			painter.draw(graphics,point2,arrow1,zoom);
+			painter.draw(graphics,point2,arrow2,zoom);
+		}
 	}
 
 	/**
@@ -1122,6 +1198,16 @@ public final class ModelElementEdge extends ModelElement {
 			case CUBIC_CURVE: sub.setTextContent(Language.trPrimary("Surface.XML.LineMode.CubicCurve")); break;
 			}
 		}
+		if (arrowMode!=null) {
+			final Element sub=doc.createElement(Language.trPrimary("Surface.XML.ArrowMode"));
+			node.appendChild(sub);
+			switch (arrowMode) {
+			case OFF: sub.setTextContent(Language.trPrimary("Surface.XML.ArrowMode.Off")); break;
+			case SMALL: sub.setTextContent(Language.trPrimary("Surface.XML.ArrowMode.Small")); break;
+			case MEDIUM: sub.setTextContent(Language.trPrimary("Surface.XML.ArrowMode.Medium")); break;
+			case LARGE: sub.setTextContent(Language.trPrimary("Surface.XML.ArrowMode.Large")); break;
+			}
+		}
 		if (lineColor!=null) {
 			final Element sub=doc.createElement(Language.trPrimary("Surface.XML.LineColor"));
 			node.appendChild(sub);
@@ -1169,6 +1255,14 @@ public final class ModelElementEdge extends ModelElement {
 			if (Language.trAll("Surface.XML.LineMode.MultiLine",content)) lineMode=ModelElementEdge.LineMode.MULTI_LINE;
 			if (Language.trAll("Surface.XML.LineMode.MultiLineRounded",content)) lineMode=ModelElementEdge.LineMode.MULTI_LINE_ROUNDED;
 			if (Language.trAll("Surface.XML.LineMode.CubicCurve",content)) lineMode=ModelElementEdge.LineMode.CUBIC_CURVE;
+			return null;
+		}
+
+		if (Language.trAll("Surface.XML.ArrowMode",name)) {
+			if (Language.trAll("Surface.XML.ArrowMode.Off",content)) arrowMode=ModelElementEdge.ArrowMode.OFF;
+			if (Language.trAll("Surface.XML.ArrowMode.Small",content)) arrowMode=ModelElementEdge.ArrowMode.SMALL;
+			if (Language.trAll("Surface.XML.ArrowMode.Medium",content)) arrowMode=ModelElementEdge.ArrowMode.MEDIUM;
+			if (Language.trAll("Surface.XML.ArrowMode.Large",content)) arrowMode=ModelElementEdge.ArrowMode.LARGE;
 			return null;
 		}
 

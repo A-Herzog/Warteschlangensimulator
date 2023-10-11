@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-06 12:39+0200\n"
+"POT-Creation-Date: 2023-10-09 10:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27966,6 +27966,24 @@ msgstr "Name für Teleportziel"
 msgid "Surface.Connection.AddVertex"
 msgstr "Ecke auf Pfad einfügen"
 
+msgid "Surface.Connection.ArrowMode"
+msgstr "Pfeil"
+
+msgid "Surface.Connection.ArrowMode.Global"
+msgstr "Globale Vorgabe verwenden"
+
+msgid "Surface.Connection.ArrowMode.Large"
+msgstr "Groß"
+
+msgid "Surface.Connection.ArrowMode.Medium"
+msgstr "Mittel"
+
+msgid "Surface.Connection.ArrowMode.Off"
+msgstr "Aus"
+
+msgid "Surface.Connection.ArrowMode.Small"
+msgstr "Klein"
+
 msgid "Surface.Connection.Color"
 msgstr "Farbe"
 
@@ -35533,6 +35551,21 @@ msgstr "ModellElementAnalogerWertRate"
 
 msgid "Surface.XML.AnalogValue.UpdateStepWide"
 msgstr "ModellElementAnalogerWertAktualisierungsschrittweite"
+
+msgid "Surface.XML.ArrowMode"
+msgstr "ModellElementVerbindungspfeil"
+
+msgid "Surface.XML.ArrowMode.Large"
+msgstr "Gross"
+
+msgid "Surface.XML.ArrowMode.Medium"
+msgstr "Mittel"
+
+msgid "Surface.XML.ArrowMode.Off"
+msgstr "Aus"
+
+msgid "Surface.XML.ArrowMode.Small"
+msgstr "Klein"
 
 msgid "Surface.XML.AttributeError"
 msgstr "Das \"%s\"-Attribut eines \"%s\"-Elements ist ungültig."

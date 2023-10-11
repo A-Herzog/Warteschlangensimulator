@@ -2644,10 +2644,11 @@ public class MainPanel extends MainPanelBase {
 	private void commandViewEdgeSettings() {
 		final EditModel model=editorPanel.getModel();
 
-		final EdgeStyleSetupDialog dialog=new EdgeStyleSetupDialog(this,model.edgePainterNormal,model.edgePainterSelected,model.edgeLineMode);
+		final EdgeStyleSetupDialog dialog=new EdgeStyleSetupDialog(this,model.edgePainterNormal,model.edgePainterSelected,model.edgeLineMode,model.edgeArrowMode);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 		model.edgeLineMode=dialog.getLineMode();
+		model.edgeArrowMode=dialog.getArrowMode();
 		final File file=editorPanel.getLastFile();
 		editorPanel.setModel(model);
 		editorPanel.setLastFile(file);

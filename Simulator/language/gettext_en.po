@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-06 12:39+0200\n"
+"POT-Creation-Date: 2023-10-09 10:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27920,6 +27920,24 @@ msgstr "Name for teleport destination"
 msgid "Surface.Connection.AddVertex"
 msgstr "Add vertex on path"
 
+msgid "Surface.Connection.ArrowMode"
+msgstr "Arrow mode"
+
+msgid "Surface.Connection.ArrowMode.Global"
+msgstr "Use global preset"
+
+msgid "Surface.Connection.ArrowMode.Large"
+msgstr "Large"
+
+msgid "Surface.Connection.ArrowMode.Medium"
+msgstr "Medium"
+
+msgid "Surface.Connection.ArrowMode.Off"
+msgstr "Off"
+
+msgid "Surface.Connection.ArrowMode.Small"
+msgstr "Small"
+
 msgid "Surface.Connection.Color"
 msgstr "Color"
 
@@ -27942,7 +27960,7 @@ msgid "Surface.Connection.LineMode.Direct"
 msgstr "Direct"
 
 msgid "Surface.Connection.LineMode.Global"
-msgstr "Use Global Preset"
+msgstr "Use global preset"
 
 msgid "Surface.Connection.LineMode.MultiLine"
 msgstr "Angled"
@@ -35479,6 +35497,21 @@ msgstr "ModelElementAnalogValueRate"
 
 msgid "Surface.XML.AnalogValue.UpdateStepWide"
 msgstr "ModelElementAnalogValueUpdateStepWide"
+
+msgid "Surface.XML.ArrowMode"
+msgstr "ModelElementConnectionArrowStyle"
+
+msgid "Surface.XML.ArrowMode.Large"
+msgstr "Large"
+
+msgid "Surface.XML.ArrowMode.Medium"
+msgstr "Medium"
+
+msgid "Surface.XML.ArrowMode.Off"
+msgstr "Off"
+
+msgid "Surface.XML.ArrowMode.Small"
+msgstr "Small"
 
 msgid "Surface.XML.AttributeError"
 msgstr "The \"%s\" attribute of a \"%s\" element is invalid."

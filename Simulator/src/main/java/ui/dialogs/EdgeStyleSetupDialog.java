@@ -59,6 +59,10 @@ public class EdgeStyleSetupDialog extends BaseDialog {
 
 	/** Auswahl der Darstellung von Verbindungskanten im Allgemeinen (gerade, abgewinkelt, ...) */
 	private final JComboBox<String> lineMode;
+
+	/** Auswahl der Größe des Pfeils am Ende der Verknüpfungslinie */
+	private final JComboBox<String> arrowMode;
+
 	/** Auswahl der Linienbreite von nicht-selektierten Verbindungskanten */
 	private final JComboBox<JLabel> lineWidthNormal;
 	/** Auswahl der Darstellung von nicht-selektierten Verbindungskanten */
@@ -67,6 +71,7 @@ public class EdgeStyleSetupDialog extends BaseDialog {
 	private final JComboBox<JLabel> lineWidthSelected;
 	/** Auswahl der Darstellung von selektierten Verbindungskanten */
 	private final JComboBox<JLabel> lineTypeSelected;
+
 	/** Farbwähler */
 	private final SmallColorChooser colorChooser;
 
@@ -76,9 +81,10 @@ public class EdgeStyleSetupDialog extends BaseDialog {
 	 * @param edgeNormal	Kantenzeichner für normale Kanten (wird beim Schließen mit "Ok" modifiziert; hier sollte {@link EditModel#edgePainterNormal} übergeben werden)
 	 * @param edgeSelected	Kantenzeichner für selektierte Kanten (wird beim Schließen mit "Ok" modifiziert; hier sollte {@link EditModel#edgePainterSelected} übergeben werden)
 	 * @param lineMode	Darstellungsart der Verbindungkanten (direkt, abgewinkelt, ...)
+	 * @param arrowMode	Größe des Pfeils am Ende der Verknüpfungslinie
 	 */
 	@SuppressWarnings("unchecked")
-	public EdgeStyleSetupDialog(final Component owner, final ComplexLine edgeNormal, final ComplexLine edgeSelected, final ModelElementEdge.LineMode lineMode) {
+	public EdgeStyleSetupDialog(final Component owner, final ComplexLine edgeNormal, final ComplexLine edgeSelected, final ModelElementEdge.LineMode lineMode, final ModelElementEdge.ArrowMode arrowMode) {
 		super(owner,Language.tr("Window.EdgeStyle.Title"));
 
 		this.edgeNormal=edgeNormal;
@@ -115,6 +121,30 @@ public class EdgeStyleSetupDialog extends BaseDialog {
 				Images.EDGE_MODE_MULTI_LINE,
 				Images.EDGE_MODE_MULTI_LINE_ROUNDED,
 				Images.EDGE_MODE_CUBIC_CURVE
+		}));
+
+		final String[] arrowModeArray=new String[] {
+				Language.tr("Surface.Connection.ArrowMode.Off"),
+				Language.tr("Surface.Connection.ArrowMode.Small"),
+				Language.tr("Surface.Connection.ArrowMode.Medium"),
+				Language.tr("Surface.Connection.ArrowMode.Large")
+		};
+		data=ModelElementBaseDialog.getComboBoxPanel(Language.tr("Surface.Connection.ArrowMode")+":","",Arrays.asList(arrowModeArray));
+		sub.add((JPanel)data[0]);
+		this.arrowMode=(JComboBox<String>)data[1];
+		this.arrowMode.setEditable(false);
+		switch (arrowMode) {
+		case OFF: this.arrowMode.setSelectedIndex(0); break;
+		case SMALL: this.arrowMode.setSelectedIndex(1); break;
+		case MEDIUM: this.arrowMode.setSelectedIndex(2); break;
+		case LARGE: this.arrowMode.setSelectedIndex(3); break;
+		default: this.arrowMode.setSelectedIndex(3); break;
+		}
+		this.arrowMode.setRenderer(new IconListCellRenderer(new Images[]{
+				Images.ARROW_SIZE_OFF,
+				Images.ARROW_SIZE_SMALL,
+				Images.ARROW_SIZE_MEDIUM,
+				Images.ARROW_SIZE_LARGE
 		}));
 
 		data=ModelElementBaseDialog.getLineWidthInputPanel(Language.tr("Window.EdgeStyle.LineWidth.Normal")+":",1,5,edgeNormal.getWidth());
@@ -164,6 +194,20 @@ public class EdgeStyleSetupDialog extends BaseDialog {
 		case 2: return ModelElementEdge.LineMode.MULTI_LINE_ROUNDED;
 		case 3: return ModelElementEdge.LineMode.CUBIC_CURVE;
 		default: return ModelElementEdge.LineMode.DIRECT;
+		}
+	}
+
+	/**
+	 * Liefert die eingestellte Größe des Pfeils am Ende der Verknüpfungslinie.
+	 * @return	Größe des Pfeils am Ende der Verknüpfungslinie
+	 */
+	public ModelElementEdge.ArrowMode getArrowMode() {
+		switch (arrowMode.getSelectedIndex()) {
+		case 0: return ModelElementEdge.ArrowMode.OFF;
+		case 1: return ModelElementEdge.ArrowMode.SMALL;
+		case 2: return ModelElementEdge.ArrowMode.MEDIUM;
+		case 3: return ModelElementEdge.ArrowMode.LARGE;
+		default: return ModelElementEdge.ArrowMode.LARGE;
 		}
 	}
 }

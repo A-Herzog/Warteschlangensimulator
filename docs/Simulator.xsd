@@ -44,6 +44,7 @@
   <xs:element ref="ModellKantenNormal"/>
   <xs:element ref="ModellKantenSelektiert"/>
   <xs:element name="ModellElementVerbindungsdarstellungsart" type="xs:string"/>
+  <xs:element name="ModellElementVerbindungspfeil" type="xs:string"/>
   <xs:element name="ModellZeitabhaengigePruefungen" type="xs:string"/>
   <xs:element ref="ModellPfadaufzeichnung"/>
   <xs:element name="ModellKundenStationenZeitSummeAufzeichnen" type="xs:string"/>
@@ -658,6 +659,7 @@
 <xs:element name="ModellElementKante"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
 	<xs:element name="ModellElementVerbindungsdarstellungsart" type="xs:string"/>
+	<xs:element name="ModellElementVerbindungspfeil" type="xs:string"/>
 	<xs:element name="ModellElementVerbindungsfarbe" type="xs:string"/>
 	<xs:element name="ModellElementVerbindungsbeschriftung" type="xs:string"/>
   </xs:choice></xs:sequence>
@@ -2503,6 +2505,7 @@
   <xs:element ref="ModelEdgesNormal"/>
   <xs:element ref="ModelEdgesSelected"/>
   <xs:element name="ModelElementConnectionDrawStyle" type="xs:string"/>
+  <xs:element name="ModelElementConnectionArrowStyle" type="xs:string"/>
   <xs:element name="ModelElementConnectionColor" type="xs:string"/>
   <xs:element name="ModelElementConnectionLabel" type="xs:string"/>
   <xs:element name="ModelTimedChecks" type="xs:string"/>
@@ -3117,6 +3120,9 @@
 <xs:element name="ModelElementEdge"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
 	<xs:element name="ModelElementConnectionDrawStyle" type="xs:string"/>
+	<xs:element name="ModelElementConnectionArrowStyle" type="xs:string"/>
+	<xs:element name="ModelElementConnectionColor" type="xs:string"/>
+	<xs:element name="ModelElementConnectionLabel" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
