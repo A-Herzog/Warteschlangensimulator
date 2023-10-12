@@ -109,6 +109,8 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	public static String WikiButtonLabel="Hilfe";
 	/** Bezeichner für Tooltip für Dialogschaltfläche "Hilfe" */
 	public static String WikiButtonTooltip="Öffnet ein Browserfenster mit weiteren Informationen zu dem gewählten Verteilungstyp";
+	/** Untermenü zur Schnellauswahl des Verteilungstyps */
+	public static String ChangeDistributionType="Verteilungstyp";
 	/** Informationstext in der Verteilungsanzeige zur Veränderung des Verteilungstyps */
 	public static String ChangeDistributionTypeHighlightList="Hier werden nur die hervorgehobenen Verteilungen dargestellt. Eine vollständige Liste steht im Bearbeiten-Dialog zur Auswahl zur Verfügung.";
 	/** Bezeichner "Dichte" */
@@ -885,7 +887,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		final String[] distNames=JDistributionEditorPanel.getHighlightedDistributions();
 		if (distNames.length>0) {
 			final List<JDistributionEditorPanelRecord> records=JDistributionEditorPanelRecord.getList(null,false,false);
-			final JMenu typeItem=new JMenu("Verteilungstyp");
+			final JMenu typeItem=new JMenu(ChangeDistributionType);
 
 			popup.add(typeItem);
 			for (String distName: distNames) {
