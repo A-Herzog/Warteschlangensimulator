@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-11 13:48+0200\n"
+"POT-Creation-Date: 2023-10-12 00:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11296,6 +11296,9 @@ msgstr "S"
 
 msgid "Main.Menu.Elements"
 msgstr "Elemente"
+
+msgid "Main.Menu.Elements.CountInfo"
+msgstr "Insgesamt stehen %d verschiedene<br> Elementvorlagen zur Verfügung."
 
 msgid "Main.Menu.Extras"
 msgstr "Extras"

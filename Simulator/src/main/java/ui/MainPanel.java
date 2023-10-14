@@ -1179,6 +1179,7 @@ public class MainPanel extends MainPanelBase {
 		final JMenuBar menubar=new JMenuBar();
 		JMenu menu, submenu;
 		ButtonGroup buttonGroup;
+		JMenuItem item;
 
 		/* Datei */
 		menubar.add(menu=new JMenu(Language.tr("Main.Menu.File")));
@@ -1305,9 +1306,9 @@ public class MainPanel extends MainPanelBase {
 		submenu.addSeparator();
 		menuViewStatisticsHeatMapMode=new ArrayList<>();
 		for (EditorPanelStatistics.HeatMapMode mode: EditorPanelStatistics.HeatMapMode.values()) {
-			final JRadioButtonMenuItem item=createRadioButtonMenuItem(submenu,mode,"ViewStatisticsHeatMapMode"+mode.toString());
-			menuViewStatisticsHeatMapMode.add(item);
-			enabledOnEditorPanel.add(item);
+			final JRadioButtonMenuItem radioItem=createRadioButtonMenuItem(submenu,mode,"ViewStatisticsHeatMapMode"+mode.toString());
+			menuViewStatisticsHeatMapMode.add(radioItem);
+			enabledOnEditorPanel.add(radioItem);
 		}
 		submenu.addSeparator();
 		enabledOnEditorPanel.add(createMenuItemCtrlShift(submenu,Language.tr("Main.Menu.View.Statistics.HeatMapRotatePrevious"),Images.ARROW_UP.getIcon(),Language.tr("Main.Menu.View.Statistics.HeatMapRotatePrevious.Mnemonic"),KeyEvent.VK_G,"ViewStatisticsHeatMapPreviousMode"));
@@ -1353,14 +1354,19 @@ public class MainPanel extends MainPanelBase {
 		menu.addSeparator();
 		final ModelElementCatalog catalog=ModelElementCatalog.getCatalog();
 		final Map<String,Map<String,ModelElementPosition>> map=catalog.getAll();
+		int elementCount=0;
 		for (String groupName: ModelElementCatalog.GROUP_ORDER) {
 			final Map<String,ModelElementPosition> group=map.get(groupName);
 			final String[] names=group.keySet().stream().sorted().toArray(String[]::new);
 			menu.add(submenu=new JMenu(groupName));
 			for (String name: names) {
 				enabledOnEditorPanel.add(createMenuItem(submenu,name,catalog.getMenuIcon(name),"","ElementAdd"+name));
+				elementCount++;
 			}
 		}
+		menu.addSeparator();
+		menu.add(item=new JMenuItem("<html><body>"+String.format(Language.tr("Main.Menu.Elements.CountInfo"),elementCount)+"</body></html>"));
+		item.setEnabled(false);
 
 		/* Modell */
 		menubar.add(menu=new JMenu(Language.tr("Main.Menu.Model")));
