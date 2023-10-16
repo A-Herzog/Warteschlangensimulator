@@ -28,6 +28,7 @@ import ui.modeleditor.elements.ModelElementAnimationClock;
 import ui.modeleditor.elements.ModelElementAnimationImage;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
 import ui.modeleditor.elements.ModelElementAnimationPieChart;
+import ui.modeleditor.elements.ModelElementAnimationRecord;
 import ui.modeleditor.elements.ModelElementAnimationTextSelect;
 import ui.modeleditor.elements.ModelElementAnimationTextValue;
 import ui.modeleditor.elements.ModelElementAnimationTextValueJS;
@@ -128,6 +129,7 @@ public class EditModelDark {
 		if (element instanceof ModelElementAnimationLineDiagram) processAnimationLineDiagram((ModelElementAnimationLineDiagram)element,modeFrom,modeTo);
 		if (element instanceof ModelElementAnimationBarChart) processAnimationBarChart((ModelElementAnimationBarChart)element,modeFrom,modeTo);
 		if (element instanceof ModelElementAnimationPieChart) processAnimationPieChart((ModelElementAnimationPieChart)element,modeFrom,modeTo);
+		if (element instanceof ModelElementAnimationRecord) processAnimationAnimationRecord((ModelElementAnimationRecord)element,modeFrom,modeTo);
 		if (element instanceof ModelElementAnimationClock) processAnimationClock((ModelElementAnimationClock)element,modeFrom,modeTo);
 		if (element instanceof ModelElementAnimationImage) processAnimationImage((ModelElementAnimationImage)element,modeFrom,modeTo);
 
@@ -182,6 +184,7 @@ public class EditModelDark {
 	private void processAnimationBar(final ModelElementAnimationBar element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getBorderColor(),c->element.setBorderColor(c),modeFrom,modeTo);
 		processColor(element.getBackgroundColor(),c->element.setBackgroundColor(c),modeFrom,modeTo);
+		processColor(element.getGradientFillColor(),c->element.setGradientFillColor(c),modeFrom,modeTo);
 	}
 
 	/**
@@ -194,6 +197,7 @@ public class EditModelDark {
 	private void processAnimationBarStack(final ModelElementAnimationBarStack element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getBorderColor(),c->element.setBorderColor(c),modeFrom,modeTo);
 		processColor(element.getBackgroundColor(),c->element.setBackgroundColor(c),modeFrom,modeTo);
+		processColor(element.getGradientFillColor(),c->element.setGradientFillColor(c),modeFrom,modeTo);
 	}
 
 	/**
@@ -206,6 +210,7 @@ public class EditModelDark {
 	private void processAnimationLineDiagram(final ModelElementAnimationLineDiagram element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getBorderColor(),c->element.setBorderColor(c),modeFrom,modeTo);
 		processColor(element.getBackgroundColor(),c->element.setBackgroundColor(c),modeFrom,modeTo);
+		processColor(element.getGradientFillColor(),c->element.setGradientFillColor(c),modeFrom,modeTo);
 	}
 
 	/**
@@ -218,6 +223,7 @@ public class EditModelDark {
 	private void processAnimationBarChart(final ModelElementAnimationBarChart element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getBorderColor(),c->element.setBorderColor(c),modeFrom,modeTo);
 		processColor(element.getBackgroundColor(),c->element.setBackgroundColor(c),modeFrom,modeTo);
+		processColor(element.getGradientFillColor(),c->element.setGradientFillColor(c),modeFrom,modeTo);
 	}
 
 	/**
@@ -230,6 +236,19 @@ public class EditModelDark {
 	private void processAnimationPieChart(final ModelElementAnimationPieChart element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getBorderColor(),c->element.setBorderColor(c),modeFrom,modeTo);
 		processColor(element.getBackgroundColor(),c->element.setBackgroundColor(c),modeFrom,modeTo);
+	}
+
+	/**
+	 * Verarbeitet ein {@link ModelElementAnimationRecord}-Element.
+	 * @param element	Zu verarbeitendes Element
+	 * @param modeFrom	Ausgangs-Farbmodus
+	 * @param modeTo	Ziel-Farbmodus
+	 * @see #processElement(ModelElement, ColorMode, ColorMode)
+	 */
+	private void processAnimationAnimationRecord(final ModelElementAnimationRecord element, final ColorMode modeFrom, final ColorMode modeTo) {
+		processColor(element.getBorderColor(),c->element.setBorderColor(c),modeFrom,modeTo);
+		processColor(element.getBackgroundColor(),c->element.setBackgroundColor(c),modeFrom,modeTo);
+		processColor(element.getGradientFillColor(),c->element.setGradientFillColor(c),modeFrom,modeTo);
 	}
 
 	/**
@@ -330,6 +349,18 @@ public class EditModelDark {
 	private static final Color VERY_LIGHT_GRAY=new Color(240,240,240);
 
 	/**
+	 * Untere Farbe für Diagramm-Hintergrund-Farbverläufe (im hellen Modus)
+	 * @see #processColor(Color, ColorMode, ColorMode)
+	 */
+	private static final Color GRIADIENT_LOWER=Color.WHITE;
+
+	/**
+	 * Obere Farbe für Diagramm-Hintergrund-Farbverläufe (im hellen Modus)
+	 * @see #processColor(Color, ColorMode, ColorMode)
+	 */
+	private static final Color GRIADIENT_UPPER=new Color(230,230,250);
+
+	/**
 	 * Prüft, ob eine Farbe umgewandelt werden muss.
 	 * @param color	Ausgangsfarbe
 	 * @param modeFrom	Ausgangs-Farbmodus
@@ -343,6 +374,9 @@ public class EditModelDark {
 			if (color.equals(Color.BLUE)) return new Color(72,209,204);
 			if (color.equals(Color.BLACK)) return new Color(195,195,195);
 			if (color.equals(VERY_LIGHT_GRAY)) return new Color(135,135,135);
+
+			if (color.equals(GRIADIENT_LOWER)) return Color.DARK_GRAY;
+			if (color.equals(GRIADIENT_UPPER)) return Color.GRAY;
 		}
 
 		return null;

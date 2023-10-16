@@ -51,7 +51,15 @@ import systemtools.MsgBox;
 import tools.SetupData;
 import ui.EditorPanel;
 import ui.commandline.CommandBenchmark;
+import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurfacePanel;
+import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.ModelElementAnimationBar;
+import ui.modeleditor.elements.ModelElementAnimationBarChart;
+import ui.modeleditor.elements.ModelElementAnimationBarStack;
+import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
+import ui.modeleditor.elements.ModelElementAnimationRecord;
+import ui.modeleditor.elements.ModelElementSub;
 import ui.tools.FlatLaFHelper;
 
 /**
@@ -344,9 +352,90 @@ public class EditModelExamples {
 				}
 				return null;
 			}
+			processDiagramColors(editModel.surface);
 			return editModel;
 		} catch (IOException e) {
 			return null;
+		}
+	}
+
+	/**
+	 * Stellt einen Farbverlauf für die Zeichenflächendiagramme ein.
+	 * @param surface	Zeichenfläche auf der die Diagramme aktualisiert werden sollen
+	 */
+	private static void processDiagramColors(final ModelSurface surface) {
+		for (ModelElement element: surface.getElements()) {
+			if (element instanceof ModelElementSub) processDiagramColors(((ModelElementSub)element).getSubSurface());
+			if (element instanceof ModelElementAnimationLineDiagram) processLineDiagramColors((ModelElementAnimationLineDiagram)element);
+			if (element instanceof ModelElementAnimationBar) processBarColors((ModelElementAnimationBar)element);
+			if (element instanceof ModelElementAnimationBarStack) processBarStackColors((ModelElementAnimationBarStack)element);
+			if (element instanceof ModelElementAnimationBarChart) processBarChartColors((ModelElementAnimationBarChart)element);
+			if (element instanceof ModelElementAnimationRecord) processRecordColors((ModelElementAnimationRecord)element);
+		}
+	}
+
+	/**
+	 * Bisherige, durch einen Farbverlauf zu ersetzende Diagrammhintergrundfarbe
+	 * @see #processLineDiagramColors(ModelElementAnimationLineDiagram)
+	 * @see #processBarColors(ModelElementAnimationBar)
+	 * @see #processBarStackColors(ModelElementAnimationBarStack)
+	 * @see #processBarChartColors(ModelElementAnimationBarChart)
+	 * @see #processRecordColors(ModelElementAnimationRecord)
+	 */
+	private static final Color DEFAULT_DIAGRAM_BACKGROUND_COLOR=new Color(240,240,240);
+
+	/**
+	 * Stellt statt der Standardhintergrundfarbe einen Farbverlauf in einem Zeichenflächen-Liniendiagramm ein.
+	 * @param element	Zeichenflächen-Liniendiagramm
+	 */
+	private static void processLineDiagramColors(final ModelElementAnimationLineDiagram element) {
+		if (DEFAULT_DIAGRAM_BACKGROUND_COLOR.equals(element.getBackgroundColor()) && element.getGradientFillColor()==null) {
+			element.setBackgroundColor(Color.WHITE);
+			element.setGradientFillColor(new Color(230,230,250));
+		}
+	}
+
+	/**
+	 * Stellt statt der Standardhintergrundfarbe einen Farbverlauf in einem Zeichenflächen-Balken ein.
+	 * @param element	Zeichenflächen-Balken
+	 */
+	private static void processBarColors(final ModelElementAnimationBar element) {
+		if (DEFAULT_DIAGRAM_BACKGROUND_COLOR.equals(element.getBackgroundColor()) && element.getGradientFillColor()==null) {
+			element.setBackgroundColor(Color.WHITE);
+			element.setGradientFillColor(new Color(230,230,250));
+		}
+	}
+
+	/**
+	 * Stellt statt der Standardhintergrundfarbe einen Farbverlauf in einem Zeichenflächen gestapeltem Balken ein.
+	 * @param element	Zeichenflächen gestapeltem Balken
+	 */
+	private static void processBarStackColors(final ModelElementAnimationBarStack element) {
+		if (DEFAULT_DIAGRAM_BACKGROUND_COLOR.equals(element.getBackgroundColor()) && element.getGradientFillColor()==null) {
+			element.setBackgroundColor(Color.WHITE);
+			element.setGradientFillColor(new Color(230,230,250));
+		}
+	}
+
+	/**
+	 * Stellt statt der Standardhintergrundfarbe einen Farbverlauf in einem Zeichenflächen-Balkendiagramm ein.
+	 * @param element	Zeichenflächen-Balkendiagramm
+	 */
+	private static void processBarChartColors(final ModelElementAnimationBarChart element) {
+		if (DEFAULT_DIAGRAM_BACKGROUND_COLOR.equals(element.getBackgroundColor()) && element.getGradientFillColor()==null) {
+			element.setBackgroundColor(Color.WHITE);
+			element.setGradientFillColor(new Color(230,230,250));
+		}
+	}
+
+	/**
+	 * Stellt statt der Standardhintergrundfarbe einen Farbverlauf in einem Zeichenflächen-Wertaufzeichungsdiagramm ein.
+	 * @param element	Zeichenflächen-Wertaufzeichungsdiagramm
+	 */
+	private static void processRecordColors(final ModelElementAnimationRecord element) {
+		if (DEFAULT_DIAGRAM_BACKGROUND_COLOR.equals(element.getBackgroundColor()) && element.getGradientFillColor()==null) {
+			element.setBackgroundColor(Color.WHITE);
+			element.setGradientFillColor(new Color(230,230,250));
 		}
 	}
 
@@ -363,11 +452,10 @@ public class EditModelExamples {
 			final EditModel testModel=new EditModel();
 			try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+lang+"/"+examples.list.get(i).file)) {
 				testModel.loadFromStream(in);
+				processDiagramColors(testModel.surface);
 				if (testModel.equalsEditModel(editModel)) return i;
-				if (FlatLaFHelper.isDark()) {
-					EditModelDark.processModel(testModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
-					if (testModel.equalsEditModel(editModel)) return i;
-				}
+				EditModelDark.processModel(testModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+				if (testModel.equalsEditModel(editModel)) return i;
 			} catch (IOException e) {return -1;}
 		}
 		return -1;
@@ -404,6 +492,7 @@ public class EditModelExamples {
 						}
 						return;
 					}
+					processDiagramColors(editModel.surface);
 					if (FlatLaFHelper.isDark()) EditModelDark.processModel(editModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
 					if (listener!=null) listener.accept(editModel);
 				} catch (IOException e1) {}
@@ -438,6 +527,7 @@ public class EditModelExamples {
 						}
 						return;
 					}
+					processDiagramColors(editModel.surface);
 					if (FlatLaFHelper.isDark()) EditModelDark.processModel(editModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
 					if (listener!=null) listener.accept(editModel);
 				} catch (IOException e1) {}
