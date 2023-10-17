@@ -20,6 +20,7 @@ import org.apache.commons.math3.distribution.GammaDistribution;
 import org.apache.commons.math3.util.FastMath;
 
 import mathtools.NumberTools;
+import mathtools.distribution.OnePointDistributionImpl;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link GammaDistribution}
@@ -89,7 +90,7 @@ public class WrapperGammaDistribution extends AbstractDistributionWrapper {
 		final double shape=((GammaDistribution)distribution).getShape();
 		final double scale=((GammaDistribution)distribution).getScale();
 		final double var=shape*scale*scale;
-		final double shapeNew=mean*mean/Math.max(var,0.00001);
+		final double shapeNew=(var>0)?(mean*mean/Math.max(var,0.00001)):10E-10;
 		final double scaleNew=mean/Math.max(shapeNew,0.00001);
 		return new GammaDistribution(shapeNew,scaleNew);
 	}
@@ -105,7 +106,10 @@ public class WrapperGammaDistribution extends AbstractDistributionWrapper {
 		final double shape=((GammaDistribution)distribution).getShape();
 		final double scale=((GammaDistribution)distribution).getScale();
 		final double E=shape*scale;
-		final double shapeNew=E*E/(sd*sd);
+
+		if (sd<=0.0) return new OnePointDistributionImpl(E);
+
+		final double shapeNew=(sd>0)?(E*E/(sd*sd)):10E-10;
 		final double scaleNew=E/Math.max(shapeNew,0.00001);
 		return new GammaDistribution(shapeNew,scaleNew);
 	}

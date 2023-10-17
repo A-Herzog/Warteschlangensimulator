@@ -543,7 +543,11 @@ public final class DistributionTools {
 	 */
 	public static AbstractRealDistribution setMean(final AbstractRealDistribution distribution, final double value) {
 		final AbstractDistributionWrapper wrapper=getWrapper(distribution);
-		if (wrapper!=null) return wrapper.setMean(distribution,value);
+		if (wrapper!=null) try {
+			return wrapper.setMean(distribution,value);
+		} catch(Exception e) {
+			return null;
+		}
 		return null;
 	}
 
@@ -611,7 +615,11 @@ public final class DistributionTools {
 	 */
 	public static AbstractRealDistribution setStandardDeviation(final AbstractRealDistribution distribution, final double value) {
 		final AbstractDistributionWrapper wrapper=getWrapper(distribution);
-		if (wrapper!=null) return wrapper.setStandardDeviation(distribution,value);
+		if (wrapper!=null) try {
+			return wrapper.setStandardDeviation(distribution,value);
+		} catch(Exception e) {
+			return null;
+		}
 		return null;
 	}
 
