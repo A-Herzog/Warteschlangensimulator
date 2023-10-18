@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-12 00:54+0200\n"
+"POT-Creation-Date: 2023-10-17 09:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13622,6 +13622,9 @@ msgstr "Warteschlangenwahl: zufällig (50%/50%)"
 msgid "ModelGenerator.Model.Description.Properties.Queue.Shortest"
 msgstr "Warteschlangenwahl: kürzeste Schlange"
 
+msgid "ModelGenerator.Model.Description.Properties.Retry"
+msgstr "Wiederholungen nach Warteabbrüchen bedingt durch zu lange Wartezeiten"
+
 msgid "ModelGenerator.Model.Description.Properties.ServiceBatch"
 msgstr "Batch-Bedienungen (Bachgröße: %d)"
 
@@ -13690,6 +13693,18 @@ msgstr "Bedienstationen"
 
 msgid "ModelGenerator.Queue"
 msgstr "Warteschlange"
+
+msgid "ModelGenerator.RetryDelayDistribution"
+msgstr "Wiederholabständeverteilung"
+
+msgid "ModelGenerator.RetryDelayDistribution.Exp"
+msgstr "Exponentialverteilung"
+
+msgid "ModelGenerator.RetryProbability"
+msgstr "Wiederholwahrscheinlichkeit"
+
+msgid "ModelGenerator.RetryTeleportDestinationName"
+msgstr "Wiederholer"
 
 msgid "ModelGenerator.SelectQueue"
 msgstr "Auswahl der Bedienstation"
@@ -13763,6 +13778,9 @@ msgstr "Anzahl an Bedienstationen"
 msgid "ModelGenerator.Title"
 msgstr "Einfaches Modell erstellen"
 
+msgid "ModelGenerator.UseRetry"
+msgstr "Kunden starten nach einem Warteabbruch ggf. einen neuen Versuch"
+
 msgid "ModelGenerator.UseWaitingTimeTolerance"
 msgstr "Kunden sind nur bereit begrenzt lange zu warten"
 
@@ -13780,6 +13798,9 @@ msgstr "Mittlere Wartezeit"
 
 msgid "ModelGenerator.Visualization.Title"
 msgstr "Anzahl an Kunden im System"
+
+msgid "ModelGenerator.Visualization.WIPDiagramInfo"
+msgstr "(dicke Linie = Mittelwert, dünne Linie = aktueller Wert)"
 
 msgid "ModelGenerator.WaitingTimeToleranceDistribution"
 msgstr "Wartezeittoleranzverteilung"

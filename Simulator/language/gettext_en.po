@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-12 00:54+0200\n"
+"POT-Creation-Date: 2023-10-17 09:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13596,6 +13596,9 @@ msgstr "Queue selection: random (50%/50%)"
 msgid "ModelGenerator.Model.Description.Properties.Queue.Shortest"
 msgstr "Queue selection: shortest queue"
 
+msgid "ModelGenerator.Model.Description.Properties.Retry"
+msgstr "Retry after waiting time cancelations"
+
 msgid "ModelGenerator.Model.Description.Properties.ServiceBatch"
 msgstr "Batch service (batch size: %d)"
 
@@ -13664,6 +13667,18 @@ msgstr "Process station"
 
 msgid "ModelGenerator.Queue"
 msgstr "Queue"
+
+msgid "ModelGenerator.RetryDelayDistribution"
+msgstr "Retry delay distribution"
+
+msgid "ModelGenerator.RetryDelayDistribution.Exp"
+msgstr "Exponential distribution"
+
+msgid "ModelGenerator.RetryProbability"
+msgstr "Retry probability"
+
+msgid "ModelGenerator.RetryTeleportDestinationName"
+msgstr "Retry"
 
 msgid "ModelGenerator.SelectQueue"
 msgstr "Selecting the queue / process station"
@@ -13737,6 +13752,9 @@ msgstr "Number of process stations"
 msgid "ModelGenerator.Title"
 msgstr "Create simple model"
 
+msgid "ModelGenerator.UseRetry"
+msgstr "Client may start a new attempt after a waiting cancelation"
+
 msgid "ModelGenerator.UseWaitingTimeTolerance"
 msgstr "Clients are only willing to wait for a limited time"
 
@@ -13754,6 +13772,9 @@ msgstr "Mean waiting time"
 
 msgid "ModelGenerator.Visualization.Title"
 msgstr "Number of clients in the system"
+
+msgid "ModelGenerator.Visualization.WIPDiagramInfo"
+msgstr "(thick line = mean value, thin line = current value)"
 
 msgid "ModelGenerator.WaitingTimeToleranceDistribution"
 msgstr "Waiting time tolerance distribution"

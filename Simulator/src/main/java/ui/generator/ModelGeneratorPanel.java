@@ -48,6 +48,7 @@ import ui.images.Images;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.AnimationExpression;
 import ui.modeleditor.elements.AxisDrawer;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
@@ -59,7 +60,10 @@ import ui.modeleditor.elements.ModelElementDispose;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementProcess;
 import ui.modeleditor.elements.ModelElementSource;
+import ui.modeleditor.elements.ModelElementTeleportDestination;
+import ui.modeleditor.elements.ModelElementTeleportSource;
 import ui.modeleditor.elements.ModelElementText;
+import ui.modeleditor.elements.ModelElementVertex;
 
 /**
  * Panel mit Einstellungen zur automatischen Modellerstellung
@@ -95,6 +99,8 @@ public class ModelGeneratorPanel extends JPanel {
 	private final JComboBox<String> comboSelectQueue;
 	/** Begrenzte Wartezeittoleranz verwenden? */
 	private final JCheckBox	checkWaitingTimeTolerance;
+	/** Wiederholer (nach Warteabbruch)? */
+	private final JCheckBox	checkRetry;
 	/** Visualisierungen zur Anzeige der Anzahl an Kunden im System zum Modell hinzufügen? */
 	private final JCheckBox checkAddWIPVisualization;
 	/** Visualisierungen zur Anzeige der mittleren Auslastung zum Modell hinzufügen? */
@@ -129,6 +135,13 @@ public class ModelGeneratorPanel extends JPanel {
 		});
 		comboSelectQueue.setEnabled(false);
 		checkWaitingTimeTolerance=addCheckBox(this,Language.tr("ModelGenerator.UseWaitingTimeTolerance"),false);
+		checkRetry=addCheckBox(this,Language.tr("ModelGenerator.UseRetry"),false);
+		checkRetry.setEnabled(false);
+		checkWaitingTimeTolerance.addActionListener(e->{
+			checkRetry.setEnabled(checkWaitingTimeTolerance.isSelected());
+			if (!checkWaitingTimeTolerance.isSelected()) checkRetry.setSelected(false);
+		});
+
 		comboServiceDiscipline=addCombo(this,Language.tr("ModelGenerator.ServiceDiscipline"),new String[]{
 				Language.tr("ModelGenerator.ServiceDiscipline.FIFO"),
 				Language.tr("ModelGenerator.ServiceDiscipline.LIFO"),
@@ -154,7 +167,7 @@ public class ModelGeneratorPanel extends JPanel {
 		comboServiceUtilization.setSelectedIndex(1);
 		spinnerServiceBatch=addSpinner(this,Language.tr("ModelGenerator.ServiceBatch"),1,10,1);
 		checkSharedResource=addCheckBox(this,Language.tr("ModelGenerator.SharedResource"),false);
-		checkSharedResource.setVisible(false);
+		checkSharedResource.setEnabled(false);
 
 		/* Verknüpfung der Stationen */
 
@@ -188,7 +201,8 @@ public class ModelGeneratorPanel extends JPanel {
 		spinnerStationCount.addChangeListener(e->{
 			final int stationCount=spinnerStationCount.getNumber().intValue();
 			if (stationCount==1) checkSharedResource.setSelected(false);
-			checkSharedResource.setVisible(stationCount>1);
+			checkSharedResource.setEnabled(stationCount>1);
+			if (stationCount==1) checkSharedResource.setSelected(false);
 			comboSelectQueue.setEnabled(stationCount>1);
 		});
 		checkSharedResource.addActionListener(e->{
@@ -341,7 +355,7 @@ public class ModelGeneratorPanel extends JPanel {
 	 * @param station2	Zielstation
 	 * @see #getModel()
 	 */
-	private static void addEdge(final EditModel model, final ModelElementBox station1, final ModelElementBox station2) {
+	private static void addEdge(final EditModel model, final ModelElementPosition station1, final ModelElementPosition station2) {
 		addEdge(model,station1,station2,false);
 	}
 
@@ -353,7 +367,7 @@ public class ModelGeneratorPanel extends JPanel {
 	 * @param direct	 Soll die Verbindungskante normal (<code>false</code>) oder zwingend als gerade Linie (<code>true</code>) gezeichnet werden?
 	 * @see #getModel()
 	 */
-	private static void addEdge(final EditModel model, final ModelElementBox station1, final ModelElementBox station2, final boolean direct) {
+	private static void addEdge(final EditModel model, final ModelElementPosition station1, final ModelElementPosition station2, final boolean direct) {
 		final ModelElementEdge edge=new ModelElementEdge(model,model.surface,station1,station2);
 		station1.addEdgeOut(edge);
 		station2.addEdgeIn(edge);
@@ -404,6 +418,7 @@ public class ModelGeneratorPanel extends JPanel {
 		final boolean sharedResource=checkSharedResource.isSelected();
 		final boolean shortestQueue=(comboSelectQueue.getSelectedIndex()==1);
 		final boolean useWaitingTimeTolerance=checkWaitingTimeTolerance.isSelected();
+		final boolean useRetry=checkRetry.isSelected();
 		final boolean addWIPVisualization=checkAddWIPVisualization.isSelected();
 		final boolean addRhoVisualization=checkAddRhoVisualization.isSelected();
 		final boolean addWVisualization=checkAddWVisualization.isSelected();
@@ -414,8 +429,14 @@ public class ModelGeneratorPanel extends JPanel {
 		StringBuilder description;
 		ModelElementText label;
 		final ModelElementSource[] sources=new ModelElementSource[clientTypes];
+		ModelElementVertex sourcesVertex=null;
+		ModelElementDelay retryDelay=null;
+		ModelElementTeleportDestination retryTeleportDestination=null;
 		final ModelElementProcess[] processes=new ModelElementProcess[stations];
 		final ModelElementCounter[] counter=new ModelElementCounter[stations*2];
+		final ModelElementDecide[] retryDecide=new ModelElementDecide[stations];
+		final ModelElementTeleportSource[] retryTeleportSource=new ModelElementTeleportSource[stations];
+		final ModelElementVertex[] disposeVertex=new ModelElementVertex[stations];
 
 		/* Daten berechnen */
 		final double interArrivalTime=70*clientTypes;
@@ -481,6 +502,7 @@ public class ModelGeneratorPanel extends JPanel {
 		}
 		if (useWaitingTimeTolerance) {
 			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.LimitedWaitingTimeTolerance"));
+			if (useRetry) description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.Retry"));
 		}
 		model.description=description.toString();
 
@@ -502,6 +524,7 @@ public class ModelGeneratorPanel extends JPanel {
 		/* x-Position für nächste Station */
 		int xPosition=50;
 		int yPosition;
+		final int yPositionCenter=50+50*(Math.max(clientTypes,stations))+((useWaitingTimeTolerance && stations>1)?50:0);
 
 		/* Quellen */
 		if (clientTypes>=stations) yPosition=100; else yPosition=100+50*stations-50*clientTypes;
@@ -538,15 +561,41 @@ public class ModelGeneratorPanel extends JPanel {
 		}
 		label.setText(description.toString());
 
-		/* Nächste Spalte */
-		xPosition+=250;
+		if (useRetry) {
+			/* Nächste Spalte */
+			if (sources.length==5) {
+				xPosition+=300;
+			} else {
+				xPosition+=250;
+			}
+
+			/* Knotenpunkt für Erstanrufer und Wiederholer */
+			model.surface.add(sourcesVertex=new ModelElementVertex(model,model.surface));
+			yPosition=yPositionCenter+20;
+			sourcesVertex.setPosition(new Point(xPosition-5,yPosition));
+
+			model.surface.add(retryDelay=new ModelElementDelay(model,model.surface));
+			retryDelay.setDelayTime(new ExponentialDistribution(900),null);
+			yPosition=yPositionCenter+100;
+			retryDelay.setPosition(new Point(xPosition-50,yPosition));
+
+			model.surface.add(retryTeleportDestination=new ModelElementTeleportDestination(model,model.surface));
+			retryTeleportDestination.setName(Language.tr("ModelGenerator.RetryTeleportDestinationName"));
+			yPosition=yPositionCenter+200;
+			retryTeleportDestination.setPosition(new Point(xPosition-15,yPosition));
+
+			/* Nächste Spalte */
+			xPosition+=100;
+		} else {
+			/* Nächste Spalte */
+			xPosition+=250;
+		}
 
 		/* Verzweigen? */
 		final ModelElementDecide decide;
 		if (stations>1) {
 			model.surface.add(decide=new ModelElementDecide(model,model.surface));
-			yPosition=50+50*(Math.max(clientTypes,stations));
-			if (useWaitingTimeTolerance && stations>1) yPosition+=50;
+			yPosition=yPositionCenter;
 			decide.setPosition(new Point(xPosition,yPosition));
 			if (shortestQueue) {
 				decide.setMode(ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION);
@@ -701,7 +750,15 @@ public class ModelGeneratorPanel extends JPanel {
 			description.append(Language.tr("ModelGenerator.WaitingTimeToleranceDistribution")+":\n");
 			description.append(Language.tr("ModelGenerator.WaitingTimeToleranceDistribution.Exp")+"\n");
 			description.append("E[WT]:="+NumberTools.formatNumber(waitingTimeTolerance)+" "+Language.tr("Statistics.Seconds")+"\n");
-			description.append("CV[WT]:=1\n");
+			description.append("CV[WT]:=1");
+			if (useRetry) {
+				description.append("\n\n");
+				description.append(Language.tr("ModelGenerator.RetryProbability")+" P(Retry)=25%");
+				description.append(Language.tr("ModelGenerator.RetryDelayDistribution")+":\n");
+				description.append(Language.tr("ModelGenerator.RetryDelayDistribution.Exp")+"\n");
+				description.append("E[Retry]:="+NumberTools.formatNumber(900)+" "+Language.tr("Statistics.Seconds")+"\n");
+				description.append("CV[Retry]:=1");
+			}
 		}
 		label.setText(description.toString());
 
@@ -721,6 +778,22 @@ public class ModelGeneratorPanel extends JPanel {
 				counter[2*i+1].setName(Language.tr("ModelGenerator.Counter.Cancel"));
 				counter[2*i+1].setGroupName(String.format(Language.tr("ModelGenerator.Counter.Group"),i+1));
 				model.surface.add(counter[2*i+1]);
+
+				if (useRetry && retryTeleportDestination!=null) {
+					model.surface.add(retryDecide[i]=new ModelElementDecide(model,model.surface));
+					retryDecide[i].setMode(ModelElementDecide.DecideMode.MODE_CHANCE);
+					retryDecide[i].getRates().clear();
+					retryDecide[i].getRates().add(NumberTools.formatNumberMax(0.75));
+					retryDecide[i].getRates().add(NumberTools.formatNumberMax(0.25));
+					retryDecide[i].setPosition(new Point(xPosition+150,processes[i].getPosition(true).y+50));
+
+					model.surface.add(retryTeleportSource[i]=new ModelElementTeleportSource(model,model.surface));
+					retryTeleportSource[i].setDestination(retryTeleportDestination.getName());
+					retryTeleportSource[i].setPosition(new Point(xPosition+370,processes[i].getPosition(true).y+60));
+
+					model.surface.add(disposeVertex[i]=new ModelElementVertex(model,model.surface));
+					disposeVertex[i].setPosition(new Point(xPosition+370,processes[i].getPosition(true).y-30));
+				}
 			}
 		}
 
@@ -730,19 +803,37 @@ public class ModelGeneratorPanel extends JPanel {
 		} else {
 			xPosition+=200;
 		}
+		if (useRetry) xPosition+=300;
 
 		/* Ausgang */
 		yPosition=50+50*(Math.max(clientTypes,stations));
-		if (useWaitingTimeTolerance) yPosition+=(stations-1)*50;
+		if (useWaitingTimeTolerance) {
+			yPosition+=(stations-1)*50;
+			if (useRetry && stations==1) yPosition-=50;
+		}
 		final ModelElementDispose dispose=new ModelElementDispose(model,model.surface);
 		dispose.setPosition(new Point(xPosition,yPosition));
 		model.surface.add(dispose);
 
 		/* Kanten einfügen */
 		if (decide==null) {
-			for (ModelElementSource source: sources) addEdge(model,source,processes[0]);
+			if (sourcesVertex==null) {
+				for (ModelElementSource source: sources) addEdge(model,source,processes[0]);
+			} else {
+				for (ModelElementSource source: sources) addEdge(model,source,sourcesVertex);
+				addEdge(model,sourcesVertex,processes[0]);
+				addEdge(model,retryDelay,sourcesVertex);
+				addEdge(model,retryTeleportDestination,retryDelay);
+			}
 		} else {
-			for (ModelElementSource source: sources) addEdge(model,source,decide);
+			if (sourcesVertex==null) {
+				for (ModelElementSource source: sources) addEdge(model,source,decide);
+			} else {
+				for (ModelElementSource source: sources) addEdge(model,source,sourcesVertex);
+				addEdge(model,sourcesVertex,decide);
+				addEdge(model,retryDelay,sourcesVertex);
+				addEdge(model,retryTeleportDestination,retryDelay);
+			}
 			for (int i=0;i<processes.length;i++) {
 				addEdge(model,decide,processes[i],processes.length>2);
 			}
@@ -753,8 +844,16 @@ public class ModelGeneratorPanel extends JPanel {
 			for (int i=0;i<processes.length;i++) {
 				addEdge(model,processes[i],counter[2*i]);
 				addEdge(model,processes[i],counter[2*i+1]);
-				addEdge(model,counter[2*i],dispose,processes.length>2);
-				addEdge(model,counter[2*i+1],dispose,processes.length>2);
+				if (useRetry) {
+					addEdge(model,counter[2*i],disposeVertex[i]);
+					addEdge(model,counter[2*i+1],retryDecide[i]);
+					addEdge(model,retryDecide[i],disposeVertex[i],true);
+					addEdge(model,retryDecide[i],retryTeleportSource[i]);
+					addEdge(model,disposeVertex[i],dispose,processes.length>2);
+				} else {
+					addEdge(model,counter[2*i],dispose,processes.length>2);
+					addEdge(model,counter[2*i+1],dispose,processes.length>2);
+				}
 			}
 		}
 
@@ -765,7 +864,7 @@ public class ModelGeneratorPanel extends JPanel {
 		remove(dummy);
 
 		xPosition=50;
-		yPosition=model.surface.getLowerRightModelCorner().y+50;
+		yPosition=model.surface.getLowerRightModelCorner().y+100;
 		if (yPosition%50!=0) yPosition=((int)(yPosition/50.0))*50+50;
 
 		/* Visualisierung */
@@ -778,7 +877,7 @@ public class ModelGeneratorPanel extends JPanel {
 
 			final ModelElementAnimationLineDiagram diagram=new ModelElementAnimationLineDiagram(model,model.surface);
 			diagram.setPosition(new Point(xPosition,yPosition));
-			diagram.setBorderPointPosition(2,new Point(xPosition+550,yPosition+200));
+			diagram.setBorderPointPosition(2,new Point(xPosition+650,yPosition+200));
 			diagram.setBackgroundColor(Color.WHITE);
 			diagram.setGradientFillColor(new Color(230,230,250));
 			diagram.setTimeArea(5*60*60);
@@ -801,10 +900,10 @@ public class ModelGeneratorPanel extends JPanel {
 
 			model.surface.add(label=new ModelElementText(model,model.surface));
 			label.setPosition(new Point(xPosition,yPosition+215));
-			label.setText("(dicke Linie = Mittelwert, dünne Linie = atueller Wert)");
+			label.setText(Language.tr("ModelGenerator.Visualization.WIPDiagramInfo"));
 			label.setTextSize(11);
 
-			xPosition+=600;
+			xPosition+=700;
 		}
 
 		if (addRhoVisualization) {
