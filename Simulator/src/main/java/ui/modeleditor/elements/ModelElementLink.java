@@ -516,7 +516,7 @@ public class ModelElementLink extends ModelElementPosition implements ElementWit
 	 * @param outputBuilder	Builder, der die Daten aufnehmen soll
 	 */
 	private void specialOutputHTML(final HTMLOutputBuilder outputBuilder) {
-		outputBuilder.addJSUserFunction("drawPlainText",builder->getHTMLText(builder));
+		outputBuilder.addJSUserFunction("drawLink",builder->getHTMLText(builder));
 
 		final Point p=getPosition(true);
 		final String s=HTMLOutputBuilder.encodeHTML(getText(),true).replace("\n","\\n");
