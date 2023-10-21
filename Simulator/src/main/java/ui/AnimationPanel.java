@@ -1682,6 +1682,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @see ModelSurfaceAnimatorBase#getAnimationStepInfo(long, simulator.runmodel.RunModel, List, List)
 	 */
 	public void step(final boolean fullRecording) {
+		if (!buttonStep.isEnabled()) return; /* Der Hotkey funktioniert auch, wenn der Button deaktiviert ist. Daher müssen wir das explizit abfangen. */
+
 		final boolean multiCore=setup.useMultiCoreAnimation;
 
 		if (!multiCore) {
