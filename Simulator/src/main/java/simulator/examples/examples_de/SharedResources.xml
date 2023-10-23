@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>3.0.0</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.3.0</ModellVersion>
   <ModellName>Geteilte Ressource</ModellName>
   <ModellBeschreibung>Es gibt zwei getrennte Kundenankunftsströme, die an zwei getrennten
 Bediensystemen bedient werden. Allerdings teilen sich die Bediensysteme
@@ -75,15 +76,15 @@ c=2</ModellBeschreibung>
       <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="10">
-      <ModellElementGroesse h="23" w="174" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="177" x="50" y="50"/>
       <ModellElementTextzeile>Geteilte Ressourcen</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="11">
       <ModellElementGroesse h="19" w="557" x="50" y="300"/>
       <ModellElementTextzeile>Es existieren zwei Bediener, die beide an beiden Bedienstationen zum Einsatz kommen.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationAmpel id="12">
@@ -93,64 +94,74 @@ c=2</ModellBeschreibung>
       <ModellElementAmpelBedingung Licht="gelb">resource()==1</ModellElementAmpelBedingung>
     </ModellElementAnimationAmpel>
     <ModellElementText id="13">
-      <ModellElementGroesse h="19" w="170" x="50" y="380"/>
+      <ModellElementGroesse h="19" w="167" x="50" y="380"/>
       <ModellElementTextzeile>Auslastung der Bediener</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="14">
-      <ModellElementGroesse h="19" w="172" x="105" y="480"/>
+      <ModellElementGroesse h="19" w="169" x="105" y="480"/>
       <ModellElementTextzeile>Beide Bediener im Leerlauf</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,150,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="29">
-      <ModellElementGroesse h="19" w="154" x="105" y="445"/>
+      <ModellElementGroesse h="19" w="152" x="105" y="445"/>
       <ModellElementTextzeile>Ein Bediener beschäftigt</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,165,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="59">
-      <ModellElementGroesse h="19" w="170" x="105" y="410"/>
+      <ModellElementGroesse h="19" w="168" x="105" y="410"/>
       <ModellElementTextzeile>Beide Bediener beschäftigt</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationBalkenDiagramm id="15">
       <ModellElementGroesse h="105" w="250" x="400" y="400"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
       <ModellElementMaximalwert>1</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung>2</ModellElementAchsenbeschriftung>
       <ModellElementDiagrammElement Balkenfarbe="0,180,0">resource_hist(1;0)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Balkenfarbe="255,165,0">resource_hist(1;1)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Balkenfarbe="255,0,0">resource_hist(1;2)</ModellElementDiagrammElement>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementText id="16">
-      <ModellElementGroesse h="19" w="250" x="400" y="380"/>
+      <ModellElementGroesse h="19" w="243" x="400" y="380"/>
       <ModellElementTextzeile>Häufigkeit der Auslastungszustände</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationText id="17">
       <ModellElementName>Auslastung=0</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="400" y="510"/>
+      <ModellElementGroesse h="30" w="74" x="400" y="510"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">resource_hist(1;0)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="18">
       <ModellElementName>Auslastung=1</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="485" y="510"/>
+      <ModellElementGroesse h="30" w="74" x="485" y="510"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">resource_hist(1;1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="19">
       <ModellElementName>Auslastung=2</ModellElementName>
-      <ModellElementGroesse h="30" w="76" x="570" y="510"/>
+      <ModellElementGroesse h="30" w="74" x="570" y="510"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">resource_hist(1;2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="20">
+      <ModellElementName>Mittlere Bedienerauslastung</ModellElementName>
+      <ModellElementGroesse h="30" w="117" x="400" y="570"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg()/Resource_count()</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig">
@@ -159,4 +170,7 @@ c=2</ModellBeschreibung>
   <KundentypenDaten>
     <KundenDaten Icon="user_green" Name="Kunden B"/>
   </KundentypenDaten>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
 </Modell>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>3.0.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.3.0</ModelVersion>
   <ModelName>Shared resources</ModelName>
   <ModelDescription>There are two separate client arrival lines, which are operated on two
 separate process stations. However, the process stations share two
@@ -75,15 +76,15 @@ c=2</ModelDescription>
       <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="10">
-      <ModelElementSize h="23" w="152" x="50" y="50"/>
+      <ModelElementSize h="23" w="155" x="50" y="50"/>
       <ModelElementTextLine>Shared resources</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="11">
-      <ModelElementSize h="19" w="465" x="50" y="300"/>
+      <ModelElementSize h="19" w="460" x="50" y="300"/>
       <ModelElementTextLine>There are two operators, both of which are used at both process stations.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationTrafficLights id="12">
@@ -93,64 +94,74 @@ c=2</ModelDescription>
       <ModelElementAnimationTrafficLightsCondition Light="yellow">resource()==1</ModelElementAnimationTrafficLightsCondition>
     </ModelElementAnimationTrafficLights>
     <ModelElementText id="13">
-      <ModelElementSize h="19" w="183" x="50" y="380"/>
+      <ModelElementSize h="19" w="177" x="50" y="380"/>
       <ModelElementTextLine>Utilization of the operators</ModelElementTextLine>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="14">
-      <ModelElementSize h="19" w="120" x="105" y="480"/>
+      <ModelElementSize h="19" w="118" x="105" y="480"/>
       <ModelElementTextLine>Both operators idle</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,150,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="29">
-      <ModelElementSize h="19" w="119" x="105" y="445"/>
+      <ModelElementSize h="19" w="116" x="105" y="445"/>
       <ModelElementTextLine>One operator busy</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>255,165,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="59">
-      <ModelElementSize h="19" w="128" x="105" y="410"/>
+      <ModelElementSize h="19" w="126" x="105" y="410"/>
       <ModelElementTextLine>Both operators busy</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationBarDiagram id="75">
       <ModelElementSize h="105" w="250" x="400" y="395"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementUse3D>1</ModelElementUse3D>
       <ModelElementMaximumValue>1</ModelElementMaximumValue>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
       <ModelElementDiagramElement BarColor="0,180,0">resource_hist(1;0)</ModelElementDiagramElement>
       <ModelElementDiagramElement BarColor="255,165,0">resource_hist(1;1)</ModelElementDiagramElement>
       <ModelElementDiagramElement BarColor="255,0,0">resource_hist(1;2)</ModelElementDiagramElement>
     </ModelElementAnimationBarDiagram>
     <ModelElementText id="76">
-      <ModelElementSize h="19" w="201" x="400" y="375"/>
+      <ModelElementSize h="19" w="196" x="400" y="375"/>
       <ModelElementTextLine>Frequency of the busy states</ModelElementTextLine>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="77">
       <ModelElementName>0 busy operators</ModelElementName>
-      <ModelElementSize h="30" w="87" x="400" y="505"/>
+      <ModelElementSize h="30" w="86" x="400" y="505"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">resource_hist(1;0)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="78">
       <ModelElementName>1 busy operators</ModelElementName>
-      <ModelElementSize h="30" w="87" x="485" y="505"/>
+      <ModelElementSize h="30" w="86" x="485" y="505"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">resource_hist(1;1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="79">
       <ModelElementName>2 busy operators</ModelElementName>
-      <ModelElementSize h="30" w="87" x="570" y="505"/>
+      <ModelElementSize h="30" w="86" x="570" y="505"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">resource_hist(1;2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="15">
+      <ModelElementName>Average operator utilization</ModelElementName>
+      <ModelElementSize h="30" w="115" x="400" y="570"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg()/Resource_count()</ModelElementAnimationMode>
     </ModelElementAnimationText>
   </ModelElements>
   <Resources SecondaryPriority="Random">
@@ -159,4 +170,7 @@ c=2</ModelDescription>
   <ClientTypeData>
     <ClientData Icon="user_green" Name="Clients B"/>
   </ClientTypeData>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
 </Model>
