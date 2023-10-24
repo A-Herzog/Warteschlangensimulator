@@ -24,6 +24,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Window;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -305,6 +306,10 @@ public class ButtonRotator {
 			this.text=text;
 			this.icon=icon;
 			renderingHints=new RenderingHints(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			final Dimension tempSize=new Dimension(MARGIN+icon.getIconHeight()+MARGIN,MARGIN+icon.getIconWidth()+MARGIN);
+			setMinimumSize(tempSize);
+			setSize(tempSize);
+			setPreferredSize(tempSize);
 		}
 
 		/**
@@ -342,7 +347,15 @@ public class ButtonRotator {
 				setPreferredSize(d);
 				setMinimumSize(d);
 				setMaximumSize(d);
-				SwingUtilities.getWindowAncestor(this).doLayout();
+				final Container parent=getParent();
+				if (parent!=null) {
+					parent.doLayout();
+					parent.invalidate();
+				}
+				final Window window=SwingUtilities.getWindowAncestor(this);
+				if (window!=null) {
+					window.doLayout();
+				}
 			}
 		}
 
