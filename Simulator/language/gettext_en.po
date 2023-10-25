@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-17 09:47+0200\n"
+"POT-Creation-Date: 2023-10-23 11:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13548,6 +13548,9 @@ msgstr "Success"
 msgid "ModelGenerator.DialogInfo"
 msgstr "The model generator allows to create some simple models for examining specific typical research questions with just a few clicks."
 
+msgid "ModelGenerator.ForwardingTeleportDestinationName"
+msgstr "Forwarding"
+
 msgid "ModelGenerator.LargeModel.ArrivalCount"
 msgstr "Number of client arrivals"
 
@@ -13751,6 +13754,9 @@ msgstr "Number of process stations"
 
 msgid "ModelGenerator.Title"
 msgstr "Create simple model"
+
+msgid "ModelGenerator.UseForwarding"
+msgstr "Use forwarding"
 
 msgid "ModelGenerator.UseRetry"
 msgstr "Client may start a new attempt after a waiting cancelation"

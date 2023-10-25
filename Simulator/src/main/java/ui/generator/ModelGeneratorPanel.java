@@ -99,6 +99,8 @@ public class ModelGeneratorPanel extends JPanel {
 	private final JComboBox<String> comboSelectQueue;
 	/** Begrenzte Wartezeittoleranz verwenden? */
 	private final JCheckBox	checkWaitingTimeTolerance;
+	/** Weiterleitungen verwenden? */
+	private final JCheckBox checkForwarding;
 	/** Wiederholer (nach Warteabbruch)? */
 	private final JCheckBox	checkRetry;
 	/** Visualisierungen zur Anzeige der Anzahl an Kunden im System zum Modell hinzufügen? */
@@ -168,6 +170,7 @@ public class ModelGeneratorPanel extends JPanel {
 		spinnerServiceBatch=addSpinner(this,Language.tr("ModelGenerator.ServiceBatch"),1,10,1);
 		checkSharedResource=addCheckBox(this,Language.tr("ModelGenerator.SharedResource"),false);
 		checkSharedResource.setEnabled(false);
+		checkForwarding=addCheckBox(this,Language.tr("ModelGenerator.UseForwarding"),false);
 
 		/* Verknüpfung der Stationen */
 
@@ -419,6 +422,7 @@ public class ModelGeneratorPanel extends JPanel {
 		final boolean shortestQueue=(comboSelectQueue.getSelectedIndex()==1);
 		final boolean useWaitingTimeTolerance=checkWaitingTimeTolerance.isSelected();
 		final boolean useRetry=checkRetry.isSelected();
+		final boolean useForwarding=checkForwarding.isSelected();
 		final boolean addWIPVisualization=checkAddWIPVisualization.isSelected();
 		final boolean addRhoVisualization=checkAddRhoVisualization.isSelected();
 		final boolean addWVisualization=checkAddWVisualization.isSelected();
@@ -432,11 +436,15 @@ public class ModelGeneratorPanel extends JPanel {
 		ModelElementVertex sourcesVertex=null;
 		ModelElementDelay retryDelay=null;
 		ModelElementTeleportDestination retryTeleportDestination=null;
+		ModelElementTeleportDestination forwardingTeleportDestination=null;
 		final ModelElementProcess[] processes=new ModelElementProcess[stations];
 		final ModelElementCounter[] counter=new ModelElementCounter[stations*2];
 		final ModelElementDecide[] retryDecide=new ModelElementDecide[stations];
 		final ModelElementTeleportSource[] retryTeleportSource=new ModelElementTeleportSource[stations];
 		final ModelElementVertex[] disposeVertex=new ModelElementVertex[stations];
+		ModelElementDecide forwardingDecide=null;
+		ModelElementTeleportSource forwardingTeleportSource=null;
+		ModelElementVertex forwardingCancelVertex=null;
 
 		/* Daten berechnen */
 		final double interArrivalTime=70*clientTypes;
@@ -446,6 +454,7 @@ public class ModelGeneratorPanel extends JPanel {
 		case 1: serviceTimeBase=60; break;
 		case 2: serviceTimeBase=65; break;
 		}
+		if (useForwarding) serviceTimeBase-=5;
 		final double serviceTime=((stations==1 || sharedResource)?1:stations)*serviceTimeBase;
 		final int resourceGroups=(stations==1 || sharedResource)?1:stations;
 		final double waitingTimeTolerance=600;
@@ -524,11 +533,11 @@ public class ModelGeneratorPanel extends JPanel {
 		/* x-Position für nächste Station */
 		int xPosition=50;
 		int yPosition;
-		final int yPositionCenter=50+50*(Math.max(clientTypes,stations))+((useWaitingTimeTolerance && stations>1)?50:0);
+		final int yPositionCenter=50+50*(Math.max(clientTypes,stations))+(((useWaitingTimeTolerance && stations>1) || (useForwarding && clientTypes==1 && stations==1))?50:0);
 
 		/* Quellen */
 		if (clientTypes>=stations) yPosition=100; else yPosition=100+50*stations-50*clientTypes;
-		if (useWaitingTimeTolerance && stations>1) yPosition+=50;
+		if ((useForwarding && clientTypes==1) || (useWaitingTimeTolerance && stations>1)) yPosition+=50;
 		for (int i=0;i<sources.length;i++) {
 			model.surface.add(sources[i]=new ModelElementSource(model,model.surface));
 			sources[i].setPosition(new Point(xPosition,yPosition));
@@ -561,7 +570,7 @@ public class ModelGeneratorPanel extends JPanel {
 		}
 		label.setText(description.toString());
 
-		if (useRetry) {
+		if (useRetry || useForwarding) {
 			/* Nächste Spalte */
 			if (sources.length==5) {
 				xPosition+=300;
@@ -569,20 +578,29 @@ public class ModelGeneratorPanel extends JPanel {
 				xPosition+=250;
 			}
 
-			/* Knotenpunkt für Erstanrufer und Wiederholer */
+			/* Knotenpunkt für Erstanrufer und Wiederholer und Weiterleitungen */
 			model.surface.add(sourcesVertex=new ModelElementVertex(model,model.surface));
 			yPosition=yPositionCenter+20;
 			sourcesVertex.setPosition(new Point(xPosition-5,yPosition));
 
-			model.surface.add(retryDelay=new ModelElementDelay(model,model.surface));
-			retryDelay.setDelayTime(new ExponentialDistribution(900),null);
-			yPosition=yPositionCenter+100;
-			retryDelay.setPosition(new Point(xPosition-50,yPosition));
+			if (useRetry) {
+				model.surface.add(retryDelay=new ModelElementDelay(model,model.surface));
+				retryDelay.setDelayTime(new ExponentialDistribution(900),null);
+				yPosition=yPositionCenter+100;
+				retryDelay.setPosition(new Point(xPosition-50,yPosition));
 
-			model.surface.add(retryTeleportDestination=new ModelElementTeleportDestination(model,model.surface));
-			retryTeleportDestination.setName(Language.tr("ModelGenerator.RetryTeleportDestinationName"));
-			yPosition=yPositionCenter+200;
-			retryTeleportDestination.setPosition(new Point(xPosition-15,yPosition));
+				model.surface.add(retryTeleportDestination=new ModelElementTeleportDestination(model,model.surface));
+				retryTeleportDestination.setName(Language.tr("ModelGenerator.RetryTeleportDestinationName"));
+				yPosition=yPositionCenter+200;
+				retryTeleportDestination.setPosition(new Point(xPosition-15,yPosition));
+			}
+
+			if (useForwarding) {
+				model.surface.add(forwardingTeleportDestination=new ModelElementTeleportDestination(model,model.surface));
+				forwardingTeleportDestination.setName(Language.tr("ModelGenerator.ForwardingTeleportDestinationName"));
+				yPosition=yPositionCenter-50;
+				forwardingTeleportDestination.setPosition(new Point(xPosition-15,yPosition));
+			}
 
 			/* Nächste Spalte */
 			xPosition+=100;
@@ -626,6 +644,7 @@ public class ModelGeneratorPanel extends JPanel {
 
 		/* Bedienstationen */
 		if (clientTypes>stations) yPosition=100+(clientTypes-stations)*50; else yPosition=100;
+		if (clientTypes==1 && stations==1 && useForwarding) yPosition+=50;
 		for (int i=0;i<processes.length;i++) {
 			model.surface.add(processes[i]=new ModelElementProcess(model,model.surface));
 			processes[i].setPosition(new Point(xPosition,yPosition));
@@ -805,8 +824,37 @@ public class ModelGeneratorPanel extends JPanel {
 		}
 		if (useRetry) xPosition+=300;
 
+		/* Weiterleitungen? */
+		if (useForwarding && forwardingTeleportDestination!=null) {
+			yPosition=50+50*(Math.max(clientTypes,stations));
+			if (clientTypes==1 && stations==1 && useForwarding) yPosition+=50;
+			if (useWaitingTimeTolerance) {
+				yPosition+=(stations-1)*50;
+				if (useRetry && stations==1) yPosition-=50;
+			}
+
+			model.surface.add(forwardingDecide=new ModelElementDecide(model,model.surface));
+			forwardingDecide.setMode(ModelElementDecide.DecideMode.MODE_CHANCE);
+			forwardingDecide.getRates().clear();
+			forwardingDecide.getRates().add(NumberTools.formatNumberMax(0.1));
+			forwardingDecide.getRates().add(NumberTools.formatNumberMax(0.9));
+			forwardingDecide.setPosition(new Point(xPosition,yPosition+(useWaitingTimeTolerance?-50:0)));
+
+			model.surface.add(forwardingTeleportSource=new ModelElementTeleportSource(model,model.surface));
+			forwardingTeleportSource.setDestination(forwardingTeleportDestination.getName());
+			forwardingTeleportSource.setPosition(new Point(xPosition+35,yPosition-80+(useWaitingTimeTolerance?-50:0)));
+
+			if (useWaitingTimeTolerance) {
+				model.surface.add(forwardingCancelVertex=new ModelElementVertex(model,model.surface));
+				forwardingCancelVertex.setPosition(new Point(xPosition+45,yPosition+70));
+			}
+
+			xPosition+=200;
+		}
+
 		/* Ausgang */
 		yPosition=50+50*(Math.max(clientTypes,stations));
+		if (clientTypes==1 && stations==1 && useForwarding) yPosition+=50;
 		if (useWaitingTimeTolerance) {
 			yPosition+=(stations-1)*50;
 			if (useRetry && stations==1) yPosition-=50;
@@ -822,8 +870,13 @@ public class ModelGeneratorPanel extends JPanel {
 			} else {
 				for (ModelElementSource source: sources) addEdge(model,source,sourcesVertex);
 				addEdge(model,sourcesVertex,processes[0]);
-				addEdge(model,retryDelay,sourcesVertex);
-				addEdge(model,retryTeleportDestination,retryDelay);
+				if (useRetry) {
+					addEdge(model,retryDelay,sourcesVertex);
+					addEdge(model,retryTeleportDestination,retryDelay);
+				}
+				if (useForwarding) {
+					addEdge(model,forwardingTeleportDestination,sourcesVertex);
+				}
 			}
 		} else {
 			if (sourcesVertex==null) {
@@ -831,15 +884,22 @@ public class ModelGeneratorPanel extends JPanel {
 			} else {
 				for (ModelElementSource source: sources) addEdge(model,source,sourcesVertex);
 				addEdge(model,sourcesVertex,decide);
-				addEdge(model,retryDelay,sourcesVertex);
-				addEdge(model,retryTeleportDestination,retryDelay);
+				if (useRetry) {
+					addEdge(model,retryDelay,sourcesVertex);
+					addEdge(model,retryTeleportDestination,retryDelay);
+				}
+				if (useForwarding) {
+					addEdge(model,forwardingTeleportDestination,sourcesVertex);
+				}
 			}
 			for (int i=0;i<processes.length;i++) {
 				addEdge(model,decide,processes[i],processes.length>2);
 			}
 		}
+		final ModelElementPosition disposeLikeSuccess=useForwarding?forwardingDecide:dispose;
+		final ModelElementPosition disposeLikeCancel=useForwarding?forwardingCancelVertex:dispose;
 		if (!useWaitingTimeTolerance) {
-			for (ModelElementProcess process: processes) addEdge(model,process,dispose,processes.length>2);
+			for (ModelElementProcess process: processes) addEdge(model,process,disposeLikeSuccess,processes.length>2);
 		} else {
 			for (int i=0;i<processes.length;i++) {
 				addEdge(model,processes[i],counter[2*i]);
@@ -847,14 +907,23 @@ public class ModelGeneratorPanel extends JPanel {
 				if (useRetry) {
 					addEdge(model,counter[2*i],disposeVertex[i]);
 					addEdge(model,counter[2*i+1],retryDecide[i]);
-					addEdge(model,retryDecide[i],disposeVertex[i],true);
+					if (useForwarding) {
+						addEdge(model,retryDecide[i],disposeLikeCancel,true);
+					} else {
+						addEdge(model,retryDecide[i],disposeVertex[i],true);
+					}
 					addEdge(model,retryDecide[i],retryTeleportSource[i]);
-					addEdge(model,disposeVertex[i],dispose,processes.length>2);
+					addEdge(model,disposeVertex[i],disposeLikeSuccess,processes.length>1);
 				} else {
-					addEdge(model,counter[2*i],dispose,processes.length>2);
-					addEdge(model,counter[2*i+1],dispose,processes.length>2);
+					addEdge(model,counter[2*i],disposeLikeSuccess,processes.length>1);
+					addEdge(model,counter[2*i+1],disposeLikeCancel,processes.length>1);
 				}
+				if (disposeLikeCancel!=dispose) addEdge(model,disposeLikeCancel,dispose);
 			}
+		}
+		if (useForwarding) {
+			addEdge(model,forwardingDecide,forwardingTeleportSource);
+			addEdge(model,forwardingDecide,dispose);
 		}
 
 		/* Erst in drawToGraphics wird die Größe von Textfeldern berechnet, daher muss für ein valides Ergebnis in model.surface.getLowerRightModelCorner() das Modell einmal gezeichnet werden. */
@@ -886,14 +955,15 @@ public class ModelGeneratorPanel extends JPanel {
 			model.surface.add(diagram);
 
 			final List<Object[]> list=new ArrayList<>();
+			final int maxY=(utilization==2)?20:10;
 			if (sources.length==1) {
-				list.add(new Object[] {new AnimationExpression("WIP()"),Integer.valueOf(0),Integer.valueOf(10),Color.BLUE,Integer.valueOf(1)});
-				list.add(new Object[] {new AnimationExpression("WIP_avg()"),Integer.valueOf(0),Integer.valueOf(10),Color.BLUE,Integer.valueOf(3)});
+				list.add(new Object[] {new AnimationExpression("WIP()"),Integer.valueOf(0),Integer.valueOf(maxY),Color.BLUE,Integer.valueOf(1)});
+				list.add(new Object[] {new AnimationExpression("WIP_avg()"),Integer.valueOf(0),Integer.valueOf(maxY),Color.BLUE,Integer.valueOf(3)});
 			} else {
 				final Color[] colors=new Color[] {Color.BLUE,Color.RED,Color.GREEN,Color.GRAY,Color.ORANGE};
 				for (int i=0;i<sources.length;i++) {
-					list.add(new Object[] {new AnimationExpression("WIP("+sources[i].getId()+")"),Integer.valueOf(0),Integer.valueOf(10),colors[i],Integer.valueOf(1)});
-					list.add(new Object[] {new AnimationExpression("WIP_avg("+sources[i].getId()+")"),Integer.valueOf(0),Integer.valueOf(10),colors[i],Integer.valueOf(3)});
+					list.add(new Object[] {new AnimationExpression("WIP("+sources[i].getId()+")"),Integer.valueOf(0),Integer.valueOf(maxY),colors[i],Integer.valueOf(1)});
+					list.add(new Object[] {new AnimationExpression("WIP_avg("+sources[i].getId()+")"),Integer.valueOf(0),Integer.valueOf(maxY),colors[i],Integer.valueOf(3)});
 				}
 			}
 			diagram.setExpressionData(list);
