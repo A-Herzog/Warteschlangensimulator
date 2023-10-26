@@ -13346,6 +13346,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30289] = "Difference counter";
     t[30290] = "Statistics.Utilization.NumberOfOperators.Variance";
     t[30291] = "Variance of the number of available operators";
+    t[30292] = "SimulationServer.Setup.CalcAutoStart";
+    t[30293] = "Auto start";
     t[30294] = "ScriptPopup.Output.Separator.Tabs";
     t[30295] = "Tabulators";
     t[30304] = "Surface.PopupMenu.BreakPoint.Option.ClientType";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31799] = "Differences in modelling / reasons for possible discrepancies";
     t[31800] = "GenerateArrivalDataStream.NumberOfRandomNumbers";
     t[31801] = "Number of random numbers to be generated";
-    t[31802] = "ScriptPopup.Runtime.ExecuteAndReturnOutput.Hint";
-    t[31803] = "Executes an external command and returns the output.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31802] = "ScriptPopup.Runtime.ExecuteAndReturnOutput.Hint";
+    t[31803] = "Executes an external command and returns the output.";
     t[31806] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Mode.InterArrivalTimes";
     t[31807] = "Inter-arrival times";
     t[31810] = "SimulationServer.Toolbar.SocketStart";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36263] = "Shortest queue at the next process station";
     t[36266] = "Git.List.Delete.Confirm.InfoYes";
     t[36267] = "Delete Git configuration.";
-    t[36268] = "Surface.InputJS.Dialog.FileName.Select";
-    t[36269] = "Select input file";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36268] = "Surface.InputJS.Dialog.FileName.Select";
+    t[36269] = "Select input file";
     t[36272] = "Surface.TankFlowPanel.SourceDestination.ErrorSameTitle";
     t[36273] = "Invalid source destination combination";
     t[36276] = "BuildClientSourceTable.OutputTable.Select";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40659] = "StatisticsRecordedWaitingTimes";
     t[40664] = "SystemInfo.Tools.Hint";
     t[40665] = "These settings are not available via the program settings dialog.";
-    t[40666] = "Surface.AnimationAlarm.Dialog.Section.Condition.CounterPart1";
-    t[40667] = "Trigger sound every";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40666] = "Surface.AnimationAlarm.Dialog.Section.Condition.CounterPart1";
+    t[40667] = "Trigger sound every";
     t[40668] = "Surface.AnimationAlarm.Dialog.Section.Condition.CounterPart2";
     t[40669] = "client arrivals";
     t[40670] = "FindAndReplace.ReplaceInfo.Singular";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45061] = "All client types";
     t[45070] = "Surface.Source.XML.Root";
     t[45071] = "ModelElementSource";
-    t[45074] = "FileType.xmz";
-    t[45075] = "Compressed xml files";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[45074] = "FileType.xmz";
+    t[45075] = "Compressed xml files";
     t[45078] = "Surface.Sub.Dialog.Title";
     t[45079] = "Edit sub model";
     t[45082] = "Surface.DDE.Table";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49529] = "Restore last edited model at next program start";
     t[49530] = "Dialog.OpenURL.Info";
     t[49531] = "Do you want to open the external web page\n%s\nnow?";
-    t[49534] = "CriticalStationsSignature.Station.id";
-    t[49535] = "id";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[49534] = "CriticalStationsSignature.Station.id";
+    t[49535] = "id";
     t[49536] = "Dialog.Button.PasteDoNotScale.Tooltip";
     t[49537] = "By default the data are scaled on pasting. But alternatively the data can be filled with zeros.";
     t[49538] = "Surface.AnimationImage.Dialog.Images.Image";
@@ -23656,8 +23658,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53043] = "Increases the size of the dialog so that it fills the screen.";
     t[53050] = "Surface.Duplicate.Original";
     t[53051] = "Original";
-    t[53054] = "SimulationServer.Setup.CalcAutoStart";
-    t[53055] = "Auto start";
+    t[53054] = "Examples.ClosedQueueingNetwork";
+    t[53055] = "Closed queueing network";
     t[53062] = "Surface.XML.Transporter.UnloadDistribution";
     t[53063] = "ModelTransporterUnloadingDistribution";
     t[53064] = "Surface.InputDDE.Dialog.Mode.Terminate";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53947] = "System exit";
     t[53950] = "Main.Menu.Help.CommandLineReference.Mnemonic";
     t[53951] = "C";
-    t[53954] = "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoYes";
-    t[53955] = "Replace previous client types with client types from the table.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[53954] = "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoYes";
+    t[53955] = "Replace previous client types with client types from the table.";
     t[53956] = "AnalyticModelCompare.Error.Info";
     t[53957] = "No fundamental data could be extracted from the current model to establish an analytical model.";
     t[53958] = "ModelDescription.Match.Mode.Temporary";

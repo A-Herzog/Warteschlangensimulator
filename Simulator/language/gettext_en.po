@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-23 11:25+0200\n"
+"POT-Creation-Date: 2023-10-24 10:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5165,6 +5165,9 @@ msgstr "Workload depending number of operators"
 
 msgid "Examples.ClientTypePriorities"
 msgstr "Client types with different priorities"
+
+msgid "Examples.ClosedQueueingNetwork"
+msgstr "Closed queueing network"
 
 msgid "Examples.CoefficientOfVariation"
 msgstr "Effects of the variation of the service times"

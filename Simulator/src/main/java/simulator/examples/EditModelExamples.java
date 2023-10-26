@@ -278,6 +278,7 @@ public class EditModelExamples {
 		addExample(Language.trAll("Examples.ArrivalAndServiceBatch"),"ArrivalAndServiceBatch.xml",ExampleType.TYPE_PROPERTIES);
 		addExample(Language.trAll("Examples.BatchTransport"),"BatchTransport.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.BATCH,ExampleKeyWord.TRANSPORT);
 		addExample(Language.trAll("Examples.IntervalInterArrivalTimes"),"IntervalInterArrivalTimes.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.SCHEDULES);
+		addExample(Language.trAll("Examples.ClosedQueueingNetwork"),"ClosedQueueingNetwork.xml",ExampleType.TYPE_PROPERTIES);
 
 		/* Beispiele zum Vergleich verschiedener Steuerungsstrategien */
 		addExample(Language.trAll("Examples.SystemDesign"),"Vergleiche2.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);

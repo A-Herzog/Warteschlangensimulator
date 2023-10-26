@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.5.0</ModellVersion>
+  <ModellName>Geschlossenes Warteschlangennetz</ModellName>
+  <ModellBeschreibung>In einem geschlossenen Warteschlangennetzwerk zirkuliert eine konstante
+Anzahl an Kunden. Die Kunden werden zu Beginn der Simulation erzeugt.
+Die zeitlichen Abstände zwischen den Kundenankünften spielen dabei
+keine Rolle. Die Kunden verlassen das System nie, sondern werden von
+einer Station zur nächsten weitergeleitet.
+
+Kenngrößen können folglich nicht sinnvoll auf Kundenbasis aufgezeichnet
+werden, sondern werden pro Station erfasst.
+
+Die Simulationsdauer wird nicht über eine bestimmte Anzahl an simulierten
+Kundenankünften festgelegt, sondern über die simulierte Zeitspanne.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="0">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="1">1000:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementText id="1">
+      <ModellElementGroesse h="23" w="318" x="50" y="50"/>
+      <ModellElementTextzeile>Geschlossenes Warteschlangennetz</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementAusdruck Anzahl="20" Zeitbasis="Sekunden">1</ModellElementAusdruck>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="3">
+      <ModellElementName>A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="350" y="100"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener A"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="4">
+      <ModellElementName>B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="600" y="100"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener B"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementVerzweigen id="5">
+      <ModellElementGroesse h="50" w="100" x="350" y="250"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Rate="1" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="14" Rate="3" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementEcke id="6">
+      <ModellElementGroesse h="10" w="10" x="245" y="120"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="7">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="6" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementVerbindung Element1="3" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="10">
+      <ModellElementName>Rate 1 (25%)</ModellElementName>
+      <ModellElementVerbindung Element1="5" Element2="4" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementBedienstation id="11">
+      <ModellElementName>C</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="600" y="250"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="25" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener C"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementVerzweigen id="12">
+      <ModellElementGroesse h="50" w="100" x="800" y="100"/>
+      <ModellElementVerzweigungsmodus>Zufall</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Rate="9" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="20" Rate="1" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="4" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementName>Rate 3 (75%)</ModellElementName>
+      <ModellElementVerbindung Element1="5" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="15">
+      <ModellElementName>D</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="800" y="250"/>
+      <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener D"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEcke id="16">
+      <ModellElementGroesse h="10" w="10" x="245" y="395"/>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="17">
+      <ModellElementGroesse h="10" w="10" x="995" y="395"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="22" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementEcke id="18">
+      <ModellElementGroesse h="10" w="10" x="995" y="120"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="21" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="19">
+      <ModellElementName>Rate 9 (90%)</ModellElementName>
+      <ModellElementVerbindung Element1="12" Element2="18" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="20">
+      <ModellElementName>Rate 1 (10%)</ModellElementName>
+      <ModellElementVerbindung Element1="12" Element2="15" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="21">
+      <ModellElementVerbindung Element1="18" Element2="17" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="22">
+      <ModellElementVerbindung Element1="17" Element2="16" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="23">
+      <ModellElementVerbindung Element1="16" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="25">
+      <ModellElementVerbindung Element1="11" Element2="15" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="24">
+      <ModellElementVerbindung Element1="15" Element2="4" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementText id="26">
+      <ModellElementGroesse h="76" w="134" x="50" y="175"/>
+      <ModellElementTextzeile>Es werden insgesamt</ModellElementTextzeile>
+      <ModellElementTextzeile>20 Kunden erzeugt,</ModellElementTextzeile>
+      <ModellElementTextzeile>die in dem System</ModellElementTextzeile>
+      <ModellElementTextzeile>zirkulieren.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="27">
+      <ModellElementGroesse h="57" w="689" x="250" y="430"/>
+      <ModellElementTextzeile>Kenngrößen können in einem geschlossenen Warteschlangennetzwerk nicht auf Kundenbasis erfasst werden</ModellElementTextzeile>
+      <ModellElementTextzeile>(da die Kunden das System nie verlassen, sich also nie ein Zustand einstellt, in dem ein Kunde final</ModellElementTextzeile>
+      <ModellElementTextzeile>alle Stationen passiert hat). Stattdessen werden Daten auf Stationsbasis erfasst.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="28">
+      <ModellElementName>Mittlere Wartezeit</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="410" y="170"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(3)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="29">
+      <ModellElementName>Mittlere Wartezeit</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="600" y="170"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(4)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="30">
+      <ModellElementName>Mittlere Wartezeit</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="600" y="320"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(11)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="31">
+      <ModellElementName>Mittlere Wartezeit</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="800" y="320"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(15)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationBalkenDiagramm id="32">
+      <ModellElementGroesse h="200" w="200" x="250" y="550"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>255,255,255</ModellElementHintergrundfarbe>
+      <ModellElementHintergrundfarbeFarbverlauf>230,230,250</ModellElementHintergrundfarbeFarbverlauf>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>10</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung Text="Mittlere Warteschlangenlänge">2</ModellElementAchsenbeschriftung>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">NQ_avg(3)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">NQ_avg(4)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">NQ_avg(11)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">NQ_avg(15)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementText id="33">
+      <ModellElementGroesse h="19" w="9" x="275" y="760"/>
+      <ModellElementTextzeile>A</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="34">
+      <ModellElementGroesse h="19" w="9" x="320" y="760"/>
+      <ModellElementTextzeile>B</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="35">
+      <ModellElementGroesse h="19" w="10" x="370" y="760"/>
+      <ModellElementTextzeile>C</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="36">
+      <ModellElementGroesse h="19" w="10" x="420" y="760"/>
+      <ModellElementTextzeile>D</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationTortenDiagramm id="37">
+      <ModellElementGroesse h="100" w="100" x="500" y="550"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementSegmentBeschriftung>GrosseSegmente</ModellElementSegmentBeschriftung>
+      <ModellElementSegmentDarstellung>Kreissegment</ModellElementSegmentDarstellung>
+      <ModellElementDiagrammElement Segmentfarbe="255,0,0">Resource_avg(1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Segmentfarbe="0,180,0">1-Resource_avg(1)</ModellElementDiagrammElement>
+    </ModellElementAnimationTortenDiagramm>
+    <ModellElementText id="38">
+      <ModellElementGroesse h="19" w="91" x="500" y="530"/>
+      <ModellElementTextzeile>Auslastung A</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="39">
+      <ModellElementGroesse h="19" w="221" x="250" y="530"/>
+      <ModellElementTextzeile>Mittlere Warteschlangenlängen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationTortenDiagramm id="40">
+      <ModellElementGroesse h="100" w="100" x="650" y="550"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementSegmentBeschriftung>GrosseSegmente</ModellElementSegmentBeschriftung>
+      <ModellElementSegmentDarstellung>Kreissegment</ModellElementSegmentDarstellung>
+      <ModellElementDiagrammElement Segmentfarbe="255,0,0">Resource_avg(2)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Segmentfarbe="0,180,0">1-Resource_avg(2)</ModellElementDiagrammElement>
+    </ModellElementAnimationTortenDiagramm>
+    <ModellElementText id="41">
+      <ModellElementGroesse h="19" w="92" x="650" y="530"/>
+      <ModellElementTextzeile>Auslastung B</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationTortenDiagramm id="42">
+      <ModellElementGroesse h="100" w="100" x="800" y="550"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementSegmentBeschriftung>GrosseSegmente</ModellElementSegmentBeschriftung>
+      <ModellElementSegmentDarstellung>Kreissegment</ModellElementSegmentDarstellung>
+      <ModellElementDiagrammElement Segmentfarbe="255,0,0">Resource_avg(3)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Segmentfarbe="0,180,0">1-Resource_avg(3)</ModellElementDiagrammElement>
+    </ModellElementAnimationTortenDiagramm>
+    <ModellElementAnimationTortenDiagramm id="43">
+      <ModellElementGroesse h="100" w="100" x="950" y="550"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementSegmentBeschriftung>GrosseSegmente</ModellElementSegmentBeschriftung>
+      <ModellElementSegmentDarstellung>Kreissegment</ModellElementSegmentDarstellung>
+      <ModellElementDiagrammElement Segmentfarbe="255,0,0">Resource_avg(4)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Segmentfarbe="0,180,0">1-Resource_avg(4)</ModellElementDiagrammElement>
+    </ModellElementAnimationTortenDiagramm>
+    <ModellElementText id="44">
+      <ModellElementGroesse h="19" w="92" x="800" y="530"/>
+      <ModellElementTextzeile>Auslastung C</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="45">
+      <ModellElementGroesse h="19" w="92" x="950" y="530"/>
+      <ModellElementTextzeile>Auslastung D</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener A" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener B" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener C" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener D" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
+</Modell>

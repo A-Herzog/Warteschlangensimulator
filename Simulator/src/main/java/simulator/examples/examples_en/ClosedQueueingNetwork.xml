@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.5.0</ModelVersion>
+  <ModelName>Closed queueing network</ModelName>
+  <ModelDescription>A constant number of clients circulates in a closed queueing network.
+The clients are generated at the beginning of the simulation. The time
+intervals between client arrivals do not matter. The clients never leave
+the system, but are passed from one station to the next.
+
+Consequently, characteristics cannot be meaningfully recorded on
+a per-client basis, but are recorded on a per-station basis.
+
+The simulation duration is not determined by a certain number of
+simulated client arrivals, but by the simulated time span.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="0">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="1">1000:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementText id="1">
+      <ModelElementSize h="23" w="224" x="50" y="50"/>
+      <ModelElementTextLine>Closed queueing network</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementSource id="2">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementExpression Count="20" TimeBase="Seconds">1</ModelElementExpression>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="3">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="350" y="100"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener A"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="4">
+      <ModelElementName>B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="600" y="100"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="24" Type="In"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDecide id="5">
+      <ModelElementSize h="50" w="100" x="350" y="250"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="10" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="14" Rate="3" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementVertex id="6">
+      <ModelElementSize h="10" w="10" x="245" y="120"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="7">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="8">
+      <ModelElementConnection Element1="6" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="9">
+      <ModelElementConnection Element1="3" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="10">
+      <ModelElementName>Rate 1 (25%)</ModelElementName>
+      <ModelElementConnection Element1="5" Element2="4" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="11">
+      <ModelElementName>C</ModelElementName>
+      <ModelElementSize h="50" w="100" x="600" y="250"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="25" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener C"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDecide id="12">
+      <ModelElementSize h="50" w="100" x="800" y="100"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="19" Rate="9" Type="Out"/>
+      <ModelElementConnection Element="20" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="13">
+      <ModelElementConnection Element1="4" Element2="12" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementName>Rate 3 (75%)</ModelElementName>
+      <ModelElementConnection Element1="5" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="15">
+      <ModelElementName>D</ModelElementName>
+      <ModelElementSize h="50" w="100" x="800" y="250"/>
+      <ModelElementConnection Element="20" Type="In"/>
+      <ModelElementConnection Element="25" Type="In"/>
+      <ModelElementConnection Element="24" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener D"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementVertex id="16">
+      <ModelElementSize h="10" w="10" x="245" y="395"/>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Element="23" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementVertex id="17">
+      <ModelElementSize h="10" w="10" x="995" y="395"/>
+      <ModelElementConnection Element="21" Type="In"/>
+      <ModelElementConnection Element="22" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementVertex id="18">
+      <ModelElementSize h="10" w="10" x="995" y="120"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="21" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="19">
+      <ModelElementName>Rate 9 (90%)</ModelElementName>
+      <ModelElementConnection Element1="12" Element2="18" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="20">
+      <ModelElementName>Rate 1 (10%)</ModelElementName>
+      <ModelElementConnection Element1="12" Element2="15" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="21">
+      <ModelElementConnection Element1="18" Element2="17" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="22">
+      <ModelElementConnection Element1="17" Element2="16" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="23">
+      <ModelElementConnection Element1="16" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="25">
+      <ModelElementConnection Element1="11" Element2="15" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="24">
+      <ModelElementConnection Element1="15" Element2="4" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementText id="26">
+      <ModelElementSize h="57" w="144" x="50" y="175"/>
+      <ModelElementTextLine>A total of 20 clients</ModelElementTextLine>
+      <ModelElementTextLine>are generated, which</ModelElementTextLine>
+      <ModelElementTextLine>circulate in the system.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="27">
+      <ModelElementSize h="57" w="631" x="250" y="430"/>
+      <ModelElementTextLine>In a closed queueing network, parameters cannot be recorded on a per-client basis (because clients</ModelElementTextLine>
+      <ModelElementTextLine>never leave the system, so there is never a state in which a client has finally passed all stations).</ModelElementTextLine>
+      <ModelElementTextLine>Instead, data is collected on a per-station basis.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="28">
+      <ModelElementName>Average waiting time</ModelElementName>
+      <ModelElementSize h="30" w="87" x="410" y="170"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg(3)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="29">
+      <ModelElementName>Average waiting time</ModelElementName>
+      <ModelElementSize h="30" w="87" x="600" y="170"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg(4)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="30">
+      <ModelElementName>Average waiting time</ModelElementName>
+      <ModelElementSize h="30" w="87" x="600" y="320"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg(11)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="31">
+      <ModelElementName>Average waiting time</ModelElementName>
+      <ModelElementSize h="30" w="87" x="800" y="320"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg(15)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationBarDiagram id="32">
+      <ModelElementSize h="200" w="200" x="250" y="550"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>255,255,255</ModelElementBackgroundColor>
+      <ModelElementBackgroundColorGradient>230,230,250</ModelElementBackgroundColorGradient>
+      <ModelElementUse3D>1</ModelElementUse3D>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMaximumValue>10</ModelElementMaximumValue>
+      <ModelElementAxisLabels Text="Average queue length">2</ModelElementAxisLabels>
+      <ModelElementDiagramElement BarColor="0,0,255">NQ_avg(3)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">NQ_avg(4)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">NQ_avg(11)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">NQ_avg(15)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementText id="33">
+      <ModelElementSize h="19" w="9" x="275" y="760"/>
+      <ModelElementTextLine>A</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="34">
+      <ModelElementSize h="19" w="9" x="320" y="760"/>
+      <ModelElementTextLine>B</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="35">
+      <ModelElementSize h="19" w="10" x="370" y="760"/>
+      <ModelElementTextLine>C</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="36">
+      <ModelElementSize h="19" w="10" x="420" y="760"/>
+      <ModelElementTextLine>D</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationPieDiagram id="37">
+      <ModelElementSize h="100" w="100" x="500" y="550"/>
+      <ModelElementLineWidth>0</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementSegmentLabel>BigSegments</ModelElementSegmentLabel>
+      <ModelElementSegmentDisplay>CircleSegment</ModelElementSegmentDisplay>
+      <ModelElementDiagramElement SegmentColor="255,0,0">Resource_avg(1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement SegmentColor="0,180,0">1-Resource_avg(1)</ModelElementDiagramElement>
+    </ModelElementAnimationPieDiagram>
+    <ModelElementText id="38">
+      <ModelElementSize h="19" w="82" x="500" y="530"/>
+      <ModelElementTextLine>Utilization A</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="39">
+      <ModelElementSize h="19" w="165" x="250" y="530"/>
+      <ModelElementTextLine>Average queue lengths</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationPieDiagram id="40">
+      <ModelElementSize h="100" w="100" x="650" y="550"/>
+      <ModelElementLineWidth>0</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementSegmentLabel>BigSegments</ModelElementSegmentLabel>
+      <ModelElementSegmentDisplay>CircleSegment</ModelElementSegmentDisplay>
+      <ModelElementDiagramElement SegmentColor="255,0,0">Resource_avg(2)</ModelElementDiagramElement>
+      <ModelElementDiagramElement SegmentColor="0,180,0">1-Resource_avg(2)</ModelElementDiagramElement>
+    </ModelElementAnimationPieDiagram>
+    <ModelElementText id="41">
+      <ModelElementSize h="19" w="83" x="650" y="530"/>
+      <ModelElementTextLine>Utilization B</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationPieDiagram id="42">
+      <ModelElementSize h="100" w="100" x="800" y="550"/>
+      <ModelElementLineWidth>0</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementSegmentLabel>BigSegments</ModelElementSegmentLabel>
+      <ModelElementSegmentDisplay>CircleSegment</ModelElementSegmentDisplay>
+      <ModelElementDiagramElement SegmentColor="255,0,0">Resource_avg(3)</ModelElementDiagramElement>
+      <ModelElementDiagramElement SegmentColor="0,180,0">1-Resource_avg(3)</ModelElementDiagramElement>
+    </ModelElementAnimationPieDiagram>
+    <ModelElementAnimationPieDiagram id="43">
+      <ModelElementSize h="100" w="100" x="950" y="550"/>
+      <ModelElementLineWidth>0</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementSegmentLabel>BigSegments</ModelElementSegmentLabel>
+      <ModelElementSegmentDisplay>CircleSegment</ModelElementSegmentDisplay>
+      <ModelElementDiagramElement SegmentColor="255,0,0">Resource_avg(4)</ModelElementDiagramElement>
+      <ModelElementDiagramElement SegmentColor="0,180,0">1-Resource_avg(4)</ModelElementDiagramElement>
+    </ModelElementAnimationPieDiagram>
+    <ModelElementText id="44">
+      <ModelElementSize h="19" w="83" x="800" y="530"/>
+      <ModelElementTextLine>Utilization C</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="45">
+      <ModelElementSize h="19" w="83" x="950" y="530"/>
+      <ModelElementTextLine>Utilization D</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Bediener A" Type="Number" Value="1"/>
+    <Resource Name="Bediener B" Type="Number" Value="1"/>
+    <Resource Name="Bediener C" Type="Number" Value="1"/>
+    <Resource Name="Bediener D" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+</Model>
