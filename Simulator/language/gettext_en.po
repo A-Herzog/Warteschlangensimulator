@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-24 10:20+0200\n"
+"POT-Creation-Date: 2023-10-25 09:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1267,9 +1267,6 @@ msgstr "Copy"
 
 msgid "CalculatorDialog.Tab.Distributions.GenerateTable.Save"
 msgstr "Save..."
-
-msgid "CalculatorDialog.Tab.Distributions.GenerateTable.SaveTitle"
-msgstr "Save value table"
 
 msgid "CalculatorDialog.Tab.Plotter"
 msgstr "Function plotter"
@@ -2872,11 +2869,17 @@ msgstr "Commands"
 msgid "Dialog.Button.Copy"
 msgstr "Copy"
 
+msgid "Dialog.Button.Copy.Image"
+msgstr "Copy image"
+
 msgid "Dialog.Button.Copy.Info"
 msgstr "Copies the current information to the clipboard."
 
 msgid "Dialog.Button.Copy.InfoImage"
 msgstr "Copies the image to the clipboard"
+
+msgid "Dialog.Button.Copy.Table"
+msgstr "Copy table of values"
 
 msgid "Dialog.Button.Cut"
 msgstr "Cut"
@@ -2929,8 +2932,14 @@ msgstr "By default the data are scaled on pasting. But alternatively the data ca
 msgid "Dialog.Button.Save"
 msgstr "Save"
 
+msgid "Dialog.Button.Save.Image"
+msgstr "Save image"
+
 msgid "Dialog.Button.Save.InfoImage"
 msgstr "Saves the image as file"
+
+msgid "Dialog.Button.Save.Table"
+msgstr "Save table of values"
 
 msgid "Dialog.Button.Template"
 msgstr "Templates"
@@ -10518,9 +10527,6 @@ msgstr "Import data"
 msgid "JDistributionEditor.Copy.Graphics"
 msgstr "Graphics"
 
-msgid "JDistributionEditor.Copy.Graphics.Info"
-msgstr "Copies the distribution as graphics to the clipboard"
-
 msgid "JDistributionEditor.Copy.Info"
 msgstr "Copies the values of the probability distribution vector or a graphics to the clipboard"
 
@@ -10571,9 +10577,6 @@ msgstr "Save"
 
 msgid "JDistributionEditor.Save.Graphics"
 msgstr "Save graphics"
-
-msgid "JDistributionEditor.Save.Graphics.Info"
-msgstr "Saves the graphics as a file"
 
 msgid "JDistributionEditor.Save.Info"
 msgstr "Stores the values of the probability distribution vector or a graphics to a file"
@@ -37731,6 +37734,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 #~ msgid "BookData.NoBook.Title"
 #~ msgstr "E-Book-pdf not available"
 
+#~ msgid "CalculatorDialog.Tab.Distributions.GenerateTable.SaveTitle"
+#~ msgstr "Save value table"
+
 #~ msgid "Distribution.ChiQuare"
 #~ msgstr "Chi^2 distribution"
 
@@ -37808,6 +37814,12 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "InfoDialog.ShowVersionHistory.Tooltip"
 #~ msgstr "Shows the version history."
+
+#~ msgid "JDistributionEditor.Copy.Graphics.Info"
+#~ msgstr "Copies the distribution as graphics to the clipboard"
+
+#~ msgid "JDistributionEditor.Save.Graphics.Info"
+#~ msgstr "Saves the graphics as a file"
 
 #~ msgid "JDistributionEditor.Wikipedia.Link"
 #~ msgstr "https://en.wikipedia.org/wiki/"

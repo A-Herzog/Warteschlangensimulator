@@ -367,9 +367,11 @@ public class LanguageStaticLoader {
 		JDistributionPanel.EditButtonTooltip=Language.tr("JDistributionEditor.Edit.Info");
 		JDistributionPanel.EditButtonLabelDisabled=Language.tr("JDistributionEditor.Edit.Disabled");
 		JDistributionPanel.CopyButtonLabel=Language.tr("Dialog.Button.Copy");
-		JDistributionPanel.CopyButtonTooltip=Language.tr("JDistributionEditor.Copy.Graphics.Info");
+		JDistributionPanel.CopyButtonTable=Language.tr("Dialog.Button.Copy.Table");
+		JDistributionPanel.CopyButtonImage=Language.tr("Dialog.Button.Copy.Image");
 		JDistributionPanel.SaveButtonLabel=Language.tr("Dialog.Button.Save");
-		JDistributionPanel.SaveButtonTooltip=Language.tr("JDistributionEditor.Save.Graphics.Info");
+		JDistributionPanel.SaveButtonTable=Language.tr("Dialog.Button.Save.Table");
+		JDistributionPanel.SaveButtonImage=Language.tr("Dialog.Button.Save.Image");
 		JDistributionPanel.WikiButtonLabel=Language.tr("Dialog.Button.Help");
 		JDistributionPanel.WikiButtonTooltip=Language.tr("JDistributionEditor.Wikipedia.Info");
 		JDistributionPanel.ChangeDistributionType=Language.tr("JDistributionEditor.QuickSelect");

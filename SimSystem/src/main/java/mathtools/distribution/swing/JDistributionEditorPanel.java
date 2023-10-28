@@ -524,6 +524,22 @@ public class JDistributionEditorPanel extends JPanel {
 	}
 
 	/**
+	 * Erzeugt eine Wertetabelle für die Verteilung und kopiert diese in die Zwischenablage.
+	 */
+	public void copyTableOfValues() {
+		if (distribution==null) return;
+		DistributionTools.copyTableOfValues(distribution);
+	}
+
+	/**
+	 * Erzeugt und speichert eine Wertetabelle für die Verteilung.
+	 */
+	public void saveTableOfValues() {
+		if (distribution==null) return;
+		DistributionTools.saveTableOfValues(this,distribution);
+	}
+
+	/**
 	 * Wird die Liste gerade extern aktualisiert?
 	 * (Dann soll {@link #itemStateChanged()} nicht ausgeführt werden.)
 	 * @see #itemStateChanged()

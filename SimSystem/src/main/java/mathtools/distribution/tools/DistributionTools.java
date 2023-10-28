@@ -15,6 +15,10 @@
  */
 package mathtools.distribution.tools;
 
+import java.awt.Component;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.stream.Stream;
@@ -24,8 +28,11 @@ import javax.swing.ImageIcon;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
+import mathtools.Table;
+import mathtools.distribution.AbstractDiscreteRealDistribution;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.NeverDistributionImpl;
+import mathtools.distribution.swing.JDistributionPanel;
 
 /**
  * Liefert verschiedene Informationen zu kontinuierlichen Verteilungen
@@ -771,5 +778,72 @@ public final class DistributionTools {
 			return clonedData;
 		}
 		return distribution;
+	}
+
+	/**
+	 * Erzeugt eine Wertetabelle für eine Verteilung
+	 * @param distribution	Verteilung
+	 * @return	Wertetabelle
+	 */
+	public static Table getTableOfValues(final AbstractRealDistribution distribution) {
+		final Table table=new Table();
+
+		if (distribution instanceof AbstractDiscreteRealDistribution) {
+			/* Diskrete Verteilung */
+			table.addLine(new String[]{"k","P(X=k)","P(X<=k)"});
+			double sumLast=0;
+			for (int k=0;k<10_000;k++) {
+				final double sum=((AbstractDiscreteRealDistribution)distribution).cumulativeProbability(k);
+				table.addLine(new String[]{
+						""+k,
+						NumberTools.formatNumberMax(sum-sumLast),
+						NumberTools.formatNumberMax(sum)
+				});
+				sumLast=sum;
+				if (sum>0.999) break;
+			}
+		} else {
+			/* Kontinuierliche Verteilung */
+			table.addLine(new String[]{"x","f(x)","F(x)=P(X<=x)"});
+			final double min=Math.max(-10_000,distribution.getSupportLowerBound());
+			final double max=Math.min(10_000,distribution.getSupportUpperBound());
+			final double step=0.1;
+			double x=min;
+			while (x<=max) {
+				final double f=distribution.density(x);
+				final double F=distribution.cumulativeProbability(x);
+				if (F>=0.001) table.addLine(new String[]{
+						NumberTools.formatNumberMax(x),
+						NumberTools.formatNumberMax(f),
+						NumberTools.formatNumberMax(F)
+				});
+				if (F>0.999) break;
+				x+=step;
+				x=Math.round(x*1000)/1000.0;
+			}
+		}
+
+		return table;
+	}
+
+	/**
+	 * Erzeugt eine Wertetabelle für eine Verteilung und kopiert diese in die Zwischenablage.
+	 * @param distribution	Verteilung
+	 * @see #getTableOfValues(AbstractRealDistribution)
+	 */
+	public static void copyTableOfValues(final AbstractRealDistribution distribution) {
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(getTableOfValues(distribution).toString()),null);
+	}
+
+	/**
+	 * Erzeugt und speichert eine Wertetabelle für eine Verteilung.
+	 * @param parent	Übergeordnetes Element (zur Ausrichtung des Dialogs)
+	 * @param distribution	Verteilung
+	 * @see #getTableOfValues(AbstractRealDistribution)
+	 */
+	public static void saveTableOfValues(final Component parent, final AbstractRealDistribution distribution) {
+		final File file=Table.showSaveDialog(parent,JDistributionPanel.SaveButtonTable);
+		if (file==null) return;
+		getTableOfValues(distribution).save(file);
 	}
 }

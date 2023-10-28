@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-24 10:20+0200\n"
+"POT-Creation-Date: 2023-10-25 09:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1268,9 +1268,6 @@ msgstr "Kopieren"
 
 msgid "CalculatorDialog.Tab.Distributions.GenerateTable.Save"
 msgstr "Speichern..."
-
-msgid "CalculatorDialog.Tab.Distributions.GenerateTable.SaveTitle"
-msgstr "Wertetabelle speichern"
 
 msgid "CalculatorDialog.Tab.Plotter"
 msgstr "Funktionsplotter"
@@ -2877,11 +2874,17 @@ msgstr "Befehle"
 msgid "Dialog.Button.Copy"
 msgstr "Kopieren"
 
+msgid "Dialog.Button.Copy.Image"
+msgstr "Bild kopieren"
+
 msgid "Dialog.Button.Copy.Info"
 msgstr "Kopiert die aktuellen Informationen in die Zwischenablage."
 
 msgid "Dialog.Button.Copy.InfoImage"
 msgstr "Kopiert das Bild in die Zwischenablage"
+
+msgid "Dialog.Button.Copy.Table"
+msgstr "Wertetabelle kopieren"
 
 msgid "Dialog.Button.Cut"
 msgstr "Ausschneiden"
@@ -2934,8 +2937,14 @@ msgstr "Normalerweise werden die Daten beim Einfügen skaliert. Es können aber 
 msgid "Dialog.Button.Save"
 msgstr "Speichern"
 
+msgid "Dialog.Button.Save.Image"
+msgstr "Bild speichern"
+
 msgid "Dialog.Button.Save.InfoImage"
 msgstr "Speichert das Bild in einer Datei"
+
+msgid "Dialog.Button.Save.Table"
+msgstr "Wertetabelle speichern"
 
 msgid "Dialog.Button.Template"
 msgstr "Vorlagen"
@@ -10546,9 +10555,6 @@ msgstr "Daten importieren"
 msgid "JDistributionEditor.Copy.Graphics"
 msgstr "Grafik"
 
-msgid "JDistributionEditor.Copy.Graphics.Info"
-msgstr "Kopiert die Darstellung als Grafik in die Zwischenablage"
-
 msgid "JDistributionEditor.Copy.Info"
 msgstr "Kopiert die Werte der Zähldichte oder die grafische Darstellung in die Zwischenablage"
 
@@ -10599,9 +10605,6 @@ msgstr "Speichern"
 
 msgid "JDistributionEditor.Save.Graphics"
 msgstr "Grafik speichern"
-
-msgid "JDistributionEditor.Save.Graphics.Info"
-msgstr "Speichert die Grafik als Bilddatei"
 
 msgid "JDistributionEditor.Save.Info"
 msgstr "Speichert die Werte der Zähldichte oder die grafische Darstellung in einer Datei"
@@ -37804,6 +37807,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 #~ msgid "BookData.NoBook.Title"
 #~ msgstr "E-Book-pdf nicht verfügbar"
 
+#~ msgid "CalculatorDialog.Tab.Distributions.GenerateTable.SaveTitle"
+#~ msgstr "Wertetabelle speichern"
+
 #~ msgid "Distribution.ChiQuare"
 #~ msgstr "Chi^2-Verteilung"
 
@@ -37881,6 +37887,12 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "InfoDialog.ShowVersionHistory.Tooltip"
 #~ msgstr "Zeigt die Versionsgeschichte an."
+
+#~ msgid "JDistributionEditor.Copy.Graphics.Info"
+#~ msgstr "Kopiert die Darstellung als Grafik in die Zwischenablage"
+
+#~ msgid "JDistributionEditor.Save.Graphics.Info"
+#~ msgstr "Speichert die Grafik als Bilddatei"
 
 #~ msgid "JDistributionEditor.Wikipedia.Link"
 #~ msgstr "https://de.wikipedia.org/wiki/"

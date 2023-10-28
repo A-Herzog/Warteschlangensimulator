@@ -99,12 +99,17 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	public static String EditButtonLabelDisabled="Daten anzeigen";
 	/** Bezeichner für Tooltip für Dialogschaltfläche "Kopieren" */
 	public static String CopyButtonLabel="Kopieren";
-	/** Bezeichner für Dialogschaltfläche "Kopieren" */
-	public static String CopyButtonTooltip="Kopiert die Darstellung als Grafik in die Zwischenablage";
+	/** Bezeichner für Menüpunkt "Wertetabelle kopieren" im Kopieren-Menü */
+	public static String CopyButtonTable="Wertetabelle kopieren";
+	/** Bezeichner für Menüpunkt "Bild kopieren" im Kopieren-Menü */
+	public static String CopyButtonImage="Bild kopieren";
+	/** Bezeichner für Tooltip für Dialogschaltfläche "Speichern" */
 	/** Bezeichner für Dialogschaltfläche "Speichern" */
 	public static String SaveButtonLabel="Speichern";
-	/** Bezeichner für Tooltip für Dialogschaltfläche "Speichern" */
-	public static String SaveButtonTooltip="Speichert die Grafik als Bilddatei";
+	/** Bezeichner für Menüpunkt "Wertetabelle speichern" im Speichern-Menü */
+	public static String SaveButtonTable="Wertetabelle speichern";
+	/** Bezeichner für Menüpunkt "Bild kopieren" im Speichern-Menü */
+	public static String SaveButtonImage="Bild speichern";
 	/** Bezeichner für Dialogschaltfläche "Hilfe" */
 	public static String WikiButtonLabel="Hilfe";
 	/** Bezeichner für Tooltip für Dialogschaltfläche "Hilfe" */
@@ -238,12 +243,10 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		});
 
 		copy=new JButton(CopyButtonLabel);
-		copy.setToolTipText(CopyButtonTooltip);
 		copy.addActionListener(e->actionCopy());
 		copy.setIcon(SimSystemsSwingImages.COPY.getIcon());
 
 		save=new JButton(SaveButtonLabel);
-		save.setToolTipText(SaveButtonTooltip);
 		save.addActionListener(e->actionSave());
 		save.setIcon(SimSystemsSwingImages.SAVE.getIcon());
 
@@ -492,6 +495,22 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	 */
 	public void setImageSaveSize(int imageSize) {
 		this.imageSize=imageSize;
+	}
+
+	/**
+	 * Erzeugt eine Wertetabelle für die Verteilung und kopiert diese in die Zwischenablage.
+	 */
+	public void copyTableOfValues() {
+		if (distribution==null) return;
+		DistributionTools.copyTableOfValues(distribution);
+	}
+
+	/**
+	 * Erzeugt und speichert eine Wertetabelle für die Verteilung.
+	 */
+	public void saveTableOfValues() {
+		if (distribution==null) return;
+		DistributionTools.saveTableOfValues(this,distribution);
 	}
 
 	/**
@@ -843,15 +862,24 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	 * @see #copy
 	 */
 	private void actionCopy() {
-		copyImageToClipboard(getToolkit().getSystemClipboard(),imageSize);
+		final JPopupMenu menu=new JPopupMenu();
+		JMenuItem item;
+
+		menu.add(item=new JMenuItem(CopyButtonTable,SimSystemsSwingImages.COPY_AS_TABLE.getIcon()));
+		item.addActionListener(e->copyTableOfValues());
+
+		menu.add(item=new JMenuItem(CopyButtonImage,SimSystemsSwingImages.COPY_AS_IMAGE.getIcon()));
+		item.addActionListener(e->copyImageToClipboard(getToolkit().getSystemClipboard(),imageSize));
+
+		menu.show(copy,0,copy.getHeight());
 	}
 
 	/**
-	 * Speichern-Aktion auslösen
-	 * @see #save
+	 * Speichert die aktuelle Verteilung als Bild.
 	 */
-	private void actionSave() {
-		File file=getSaveFileName(); if (file==null) return;
+	private void saveImage() {
+		final File file=getSaveFileName();
+		if (file==null) return;
 		if (file.exists()) {
 			if (JOptionPane.showConfirmDialog(JDistributionPanel.this,String.format(GraphicsFileOverwriteWarning,file.toString()),GraphicsFileOverwriteWarningTitle,JOptionPane.YES_NO_OPTION)!=JOptionPane.YES_OPTION) return;
 		}
@@ -861,6 +889,23 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		if (i>0) extension=file.toString().substring(i+1);
 
 		saveImageToFile(file,extension,imageSize);
+	}
+
+	/**
+	 * Speichern-Aktion auslösen
+	 * @see #save
+	 */
+	private void actionSave() {
+		final JPopupMenu menu=new JPopupMenu();
+		JMenuItem item;
+
+		menu.add(item=new JMenuItem(SaveButtonTable,SimSystemsSwingImages.COPY_AS_TABLE.getIcon()));
+		item.addActionListener(e->copyTableOfValues());
+
+		menu.add(item=new JMenuItem(SaveButtonImage,SimSystemsSwingImages.COPY_AS_IMAGE.getIcon()));
+		item.addActionListener(e->saveImage());
+
+		menu.show(save,0,save.getHeight());
 	}
 
 	/**
@@ -960,6 +1005,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	 */
 	private void showContextMenu(final MouseEvent e, final boolean showEditButton) {
 		final JPopupMenu popup=new JPopupMenu();
+		JMenu sub;
 		JMenuItem item;
 
 		if (showEditButton && distribution!=null) {
@@ -968,11 +1014,20 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			popup.addSeparator();
 		}
 
-		popup.add(item=new JMenuItem(copy.getText(),copy.getIcon()));
-		item.addActionListener(ev->actionCopy());
+		popup.add(sub=new JMenu(copy.getText()));
+		sub.setIcon(copy.getIcon());
+		sub.add(item=new JMenuItem(CopyButtonTable,SimSystemsSwingImages.COPY_AS_TABLE.getIcon()));
+		item.addActionListener(ev->copyTableOfValues());
+		sub.add(item=new JMenuItem(CopyButtonImage,SimSystemsSwingImages.COPY_AS_IMAGE.getIcon()));
+		item.addActionListener(ev->copyImageToClipboard(getToolkit().getSystemClipboard(),imageSize));
 
-		popup.add(item=new JMenuItem(save.getText(),save.getIcon()));
+		popup.add(sub=new JMenu(save.getText()));
+		sub.setIcon(save.getIcon());
 		item.addActionListener(ev->actionSave());
+		sub.add(item=new JMenuItem(SaveButtonTable,SimSystemsSwingImages.COPY_AS_TABLE.getIcon()));
+		item.addActionListener(ev->copyTableOfValues());
+		sub.add(item=new JMenuItem(SaveButtonImage,SimSystemsSwingImages.COPY_AS_IMAGE.getIcon()));
+		item.addActionListener(ev->saveImage());
 
 		popup.add(item=new JMenuItem(wiki.getText(),wiki.getIcon()));
 		item.addActionListener(ev->actionWiki());

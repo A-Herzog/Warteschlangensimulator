@@ -55,7 +55,6 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TableChart;
-import mathtools.distribution.AbstractDiscreteRealDistribution;
 import mathtools.distribution.swing.CommonVariables;
 import mathtools.distribution.swing.JDistributionEditorPanel;
 import mathtools.distribution.swing.JDistributionPanel;
@@ -190,64 +189,17 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 	}
 
 	/**
-	 * Erzeugt eine Wertetabelle für die gewählte Verteilung.
-	 * @return	Wertetabelle für die gewählte Verteilung
-	 */
-	private Table getTable() {
-		final AbstractRealDistribution distribution=distributionEditor.getDistribution();
-		final Table table=new Table();
-
-		if (distribution instanceof AbstractDiscreteRealDistribution) {
-			/* Diskrete Verteilung */
-			table.addLine(new String[]{"k","P(X=k)","P(X<=k)"});
-			double sumLast=0;
-			for (int k=0;k<10_000;k++) {
-				final double sum=((AbstractDiscreteRealDistribution)distribution).cumulativeProbability(k);
-				table.addLine(new String[]{
-						""+k,
-						NumberTools.formatNumberMax(sum-sumLast),
-						NumberTools.formatNumberMax(sum)
-				});
-				sumLast=sum;
-				if (sum>0.999) break;
-			}
-		} else {
-			/* Kontinuierliche Verteilung */
-			table.addLine(new String[]{"x","f(x)","F(x)=P(X<=x)"});
-			final double min=Math.max(-10_000,distribution.getSupportLowerBound());
-			final double max=Math.min(10_000,distribution.getSupportUpperBound());
-			final double step=0.1;
-			double x=min;
-			while (x<=max) {
-				final double f=distribution.density(x);
-				final double F=distribution.cumulativeProbability(x);
-				if (F>=0.001) table.addLine(new String[]{
-						NumberTools.formatNumberMax(x),
-						NumberTools.formatNumberMax(f),
-						NumberTools.formatNumberMax(F)
-				});
-				if (F>0.999) break;
-				x+=step;
-			}
-		}
-
-		return table;
-	}
-
-	/**
 	 * Kopiert die Wertetabelle für die gewählte Verteilung in die Zwischenablage.
 	 */
 	private void tableCopy() {
-		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(getTable().toString()),null);
+		distributionEditor.copyTableOfValues();
 	}
 
 	/**
 	 * Speichert die Wertetabelle für die gewählte Verteilung in einer Datei.
 	 */
 	private void tableSave() {
-		final File file=Table.showSaveDialog(this,Language.tr("CalculatorDialog.Tab.Distributions.GenerateTable.SaveTitle"));
-		if (file==null) return;
-		getTable().save(file);
+		distributionEditor.saveTableOfValues();
 	}
 
 	/**
