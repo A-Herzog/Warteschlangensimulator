@@ -25,6 +25,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Semaphore;
@@ -589,38 +590,13 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 
 	/**
 	 * Farben für die Dummy-Balken (die im Editor, also vor dem Start einer Animation, angezeigt werden)
-	 * @see #drawDummyDiagramBars(Graphics2D, Rectangle)
 	 */
 	private static final Color[] dummyColor={Color.BLUE,Color.RED,Color.GREEN};
 
 	/**
 	 * Werte für die Dummy-Balken (die im Editor, also vor dem Start einer Animation, angezeigt werden)
-	 * @see #drawDummyDiagramBars(Graphics2D, Rectangle)
 	 */
 	private static final double[] dummyValue={0.6,0.4,0.8};
-
-	/**
-	 * Zeichnet Dummy-Balken während der Editor aktiv ist (und noch keine Animationsdaten vorliegen)
-	 * @param g	Grafik-Ausgabeobjekt
-	 * @param rectangle	Ausgaberechteck
-	 */
-	private void drawDummyDiagramBars(final Graphics2D g, final Rectangle rectangle) {
-		final int w=(rectangle.width-2*10-(dummyValue.length-1)*5)/dummyValue.length;
-		int x=rectangle.x+10;
-
-		if (filler==null || filler.length!=dummyValue.length) {
-			filler=new GradientFill[dummyValue.length];
-			for (int i=0;i<filler.length;i++) filler[i]=new GradientFill(false);
-		}
-
-		for (int i=0;i<dummyValue.length;i++) {
-			final int h=(int)FastMath.round(rectangle.height*dummyValue[i]);
-			final Rectangle r=new Rectangle(x,rectangle.y+rectangle.height-h,w,h);
-			filler[i].set(g,r,dummyColor[i%dummyColor.length],true);
-			g.fill(r);
-			x+=w+5;
-		}
-	}
 
 	/**
 	 * Cache für das Rechteckobjekt das in {@link #drawDiagramBars(Graphics2D, Rectangle)}
@@ -663,9 +639,21 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	 * @param rectangle	Ausgaberechteck
 	 */
 	private void drawDiagramBars(final Graphics2D g, final Rectangle rectangle) {
-		if (recordedValues==null) {
-			drawDummyDiagramBars(g,rectangle);
-			return;
+		final double[] recordedValues;
+		final List<Color> expressionColor;
+		if (this.recordedValues==null) {
+			if (this.expressionColor.size()==0) {
+				recordedValues=dummyValue;
+				expressionColor=Arrays.asList(dummyColor);
+			} else {
+				expressionColor=this.expressionColor;
+				recordedValues=new double[expressionColor.size()];
+				final double scale=((maxValue==null)?1:maxValue)-((minValue==null)?0:minValue);
+				for (int i=0;i<recordedValues.length;i++) recordedValues[i]=scale*dummyValue[i%dummyValue.length];
+			}
+		} else {
+			recordedValues=this.recordedValues;
+			expressionColor=this.expressionColor;
 		}
 
 		if (barDrawRect==null) barDrawRect=new Rectangle();
