@@ -550,8 +550,20 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 				if (valuesLength>0) {
 					int lastIndex=0;
 					for (int j=1;j<valuesLength;j++) {
-						if (drawCacheXValues[lastIndex]==drawCacheXValues[j] && drawCacheYValues[lastIndex]==drawCacheYValues[j]) continue;
-						g.drawLine(drawCacheXValues[lastIndex],drawCacheYValues[lastIndex],drawCacheXValues[j],drawCacheYValues[j]);
+						final int x1=drawCacheXValues[lastIndex];
+						final int x2=drawCacheXValues[j];
+						final int y1=drawCacheYValues[lastIndex];
+						final int y2=drawCacheYValues[j];
+						if (x1==x2 && y1==y2) continue;
+						if (x1==x2) {
+							/* Nur y-Änderung */
+							g.drawLine(x1,y1,x2,y2);
+						} else {
+							/* x(alt)->x(neu) dann y(alt)->y(neu) */
+							g.drawLine(x1,y1,x2,y1);
+							g.drawLine(x2,y1,x2,y2);
+
+						}
 						lastIndex=j;
 					}
 				}
