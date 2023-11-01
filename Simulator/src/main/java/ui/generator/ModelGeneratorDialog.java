@@ -77,6 +77,7 @@ public class ModelGeneratorDialog extends BaseDialog {
 		setup.addModelChangeListener(()->{viewer.setModel(getEditModel());});
 
 		/* setup.getModel() liefert erst dann ein Modell ohne Überlappungen der Elemente, wenn setup ein sichtbares Panel ist. */
+		viewer.setZoom(0.8);
 		SwingUtilities.invokeLater(()->{
 			viewer.setModel(getEditModel());
 			viewer.setZoom(0.8);
