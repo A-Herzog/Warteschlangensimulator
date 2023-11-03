@@ -500,8 +500,8 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 		}
 
 		/* Achsenbeschriftung ausgeben */
-		if (xAxisDrawer!=null) xAxisDrawer.drawX(g2,zoom,drawRectangle);
-		if (yAxisDrawer!=null) yAxisDrawer.drawY(g2,zoom,drawRectangle);
+		xAxisDrawer.drawX(g2,zoom,drawRectangle);
+		yAxisDrawer.drawY(g2,zoom,drawRectangle);
 
 		/* Zeichenstift wiederherstellen */
 		g2.setStroke(saveStroke);

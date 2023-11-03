@@ -90,6 +90,7 @@ P(W&gt;=0)=80%</ModelDescription>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
       <ModelElementUse3D>1</ModelElementUse3D>
+	  <ModelElementMinimumValue>0</ModelElementMinimumValue>
       <ModelElementMaximumValue>0.5</ModelElementMaximumValue>
       <ModelElementAxisLabels>1</ModelElementAxisLabels>
       <ModelElementDiagramElement BarColor="0,0,255">WIP_hist(1;0)</ModelElementDiagramElement>

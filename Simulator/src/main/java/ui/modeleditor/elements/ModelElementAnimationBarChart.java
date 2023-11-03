@@ -1106,7 +1106,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	/**
 	 * System zur Darstellung der y-Achsenbeschriftung
 	 */
-	private AxisDrawer yAxisDrawer=new AxisDrawer(true);
+	private final AxisDrawer yAxisDrawer=new AxisDrawer(true);
 
 	@Override
 	public void initAnimation(final SimulationData simData) {

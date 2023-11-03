@@ -89,6 +89,7 @@ P(W&gt;=0)=80%</ModellBeschreibung>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
       <ModellElement3DEffekt>1</ModellElement3DEffekt>
+	  <ModellElementMinimalwert>0</ModellElementMinimalwert>
       <ModellElementMaximalwert>0.5</ModellElementMaximalwert>
       <ModellElementAchsenbeschriftung>1</ModellElementAchsenbeschriftung>
       <ModellElementDiagrammElement Balkenfarbe="0,0,255">WIP_hist(1;0)</ModellElementDiagrammElement>

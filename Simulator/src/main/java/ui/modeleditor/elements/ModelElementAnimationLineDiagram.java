@@ -416,6 +416,22 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		g.drawLine(x1,y1,x2,y2);
 		g.drawLine(x2,y2,x3,y3);
 		g.drawLine(x3,y3,x4,y2);
+
+		setTimeXAxis(-timeArea,xAxisLabels,null);
+		boolean drawYAxis=minValue.size()>0;
+		if (drawYAxis) {
+			double min=0;
+			double max=0;
+			Double minD=minValue.get(0);
+			Double maxD=maxValue.get(0);
+			if (minD!=null && maxD!=null) {min=minD; max=maxD;}
+			for (int i=1;i<minValue.size();i++) {
+				minD=minValue.get(i);
+				maxD=maxValue.get(i);
+				if (minD==null || minD!=min || maxD==null || maxD!=max) {drawYAxis=false; break;}
+			}
+			if (drawYAxis) setYAxis(min,max,yAxisLabels,axisLabelText);
+		}
 	}
 
 	/**
