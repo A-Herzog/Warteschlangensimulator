@@ -16,25 +16,16 @@
 package ui.generator;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import org.apache.commons.math3.distribution.ExponentialDistribution;
@@ -44,20 +35,16 @@ import mathtools.NumberTools;
 import mathtools.distribution.LogNormalDistributionImpl;
 import mathtools.distribution.OnePointDistributionImpl;
 import simulator.editmodel.EditModel;
-import ui.images.Images;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSurface;
-import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.AnimationExpression;
 import ui.modeleditor.elements.AxisDrawer;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
-import ui.modeleditor.elements.ModelElementAnimationTextValue;
 import ui.modeleditor.elements.ModelElementCounter;
 import ui.modeleditor.elements.ModelElementDecide;
 import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementDispose;
-import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementProcess;
 import ui.modeleditor.elements.ModelElementSource;
 import ui.modeleditor.elements.ModelElementTeleportDestination;
@@ -66,11 +53,11 @@ import ui.modeleditor.elements.ModelElementText;
 import ui.modeleditor.elements.ModelElementVertex;
 
 /**
- * Panel mit Einstellungen zur automatischen Modellerstellung
+ * Panel mit Einstellungen zur automatischen Modellerstellung eines offenen Warteschlangenmodells
  * @see ModelGeneratorDialog
  * @author Alexander Herzog
  */
-public class ModelGeneratorPanel extends JPanel {
+public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 	/**
 	 * Serialisierungs-ID der Klasse
 	 * @see Serializable
@@ -116,15 +103,14 @@ public class ModelGeneratorPanel extends JPanel {
 
 	/**
 	 * Konstruktor der Klasse
-	 * @param specialModelCallback	Callback zur Erzeugung von besonders großen Modellen (kann <code>null</code> sein, dann wird die Funktion deaktiviert)
 	 */
-	public ModelGeneratorPanel(final Runnable specialModelCallback) {
+	public ModelGeneratorPanelOpen() {
 		super();
 
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 
 		/* Quelle */
-		addHeading(this,Language.tr("ModelGenerator.Source"),false);
+		addHeading(this,Language.tr("ModelGenerator.Source"),true);
 		spinnerClientTypes=addSpinner(this,Language.tr("ModelGenerator.ClientTypes"),1,5,1);
 		checkPriorities=addCheckBox(this,Language.tr("ModelGenerator.Priorities"),false);
 		spinnerArrivalBatch=addSpinner(this,Language.tr("ModelGenerator.ArrivalBatch"),1,10,1,"("+Language.tr("ModelGenerator.ArrivalBatch.Info")+")");
@@ -219,252 +205,31 @@ public class ModelGeneratorPanel extends JPanel {
 		checkAddWVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.MeanWaitingTime"),true);
 		checkAddNQVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.MeanNQ"),true);
 		checkAddNVisualization=addCheckBox(this,Language.tr("ModelGenerator.AddVisualization.MeanN"),true);
+	}
 
-		/* Besondere Modelle */
-		if (specialModelCallback!=null) {
-			add(Box.createVerticalStrut(30));
-			final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
-			add(line);
-			final JButton specialModels=new JButton(Language.tr("ModelGenerator.LargeModel.Button"),Images.GENERAL_TOOLS.getIcon());
-			line.add(specialModels);
-			specialModels.addActionListener(e->specialModelCallback.run());
-		}
+	@Override
+	public String getTypeName() {
+		return Language.tr("ModelGenerator.Model.SelectName");
 	}
 
 	/**
-	 * Listener, die benachrichtigt werden, wenn die Einstellungen verändert wurden.
-	 * @see #fireModelChanged()
+	 * Erzeugt eine Beschreibung für das Modell
+	 * @param clientTypes	Anzahl an Kundentypen
+	 * @param priorities	Kundentypen verschieden priorisieren?
+	 * @param arrivalBatch	Batch-Ankünfte?
+	 * @param serviceBatch	Batch-Bedienungen?
+	 * @param serviceDistribution	Typ der Bedienzeitenverteilung
+	 * @param discipline	FIFO (0), LIFO (1) oder Random (2)
+	 * @param stations	Anzahl an Stationen
+	 * @param sharedResource	Bediener zwischen den Stationen geteilt?
+	 * @param shortestQueue	Kunden wählen kürzeste Warteschlange?
+	 * @param useWaitingTimeTolerance	Kunden sind nur bereit, begrenzt lange zu warten?
+	 * @param useRetry	Wiederholungen nach Warteabbrüchen?
+	 * @param useForwarding	Weiterleitungen?
+	 * @return	Beschreibung für das Modell
 	 */
-	private Set<Runnable> modelChangeListeners=new HashSet<>();
-
-	/**
-	 * Registriert einen Listener, der benachrichtigt werden soll, wenn die Einstellungen verändert wurden.
-	 * @param modelChangeListener	Zu benachrichtigender Listener
-	 * @return	Gibt <code>true</code> zurück, wenn der Listener in die Liste neu aufgenommen wurde (und nicht bereits enthalten ist)
-	 */
-	public boolean addModelChangeListener(final Runnable modelChangeListener) {
-		return modelChangeListeners.add(modelChangeListener);
-	}
-
-	/**
-	 * Entfernt einen Listener aus der Liste  der zu benachrichtigen Listener, wenn die Einstellungen verändert wurden.
-	 * @param modelChangeListener	Nicht mehr zu benachrichtigender Listener
-	 * @return	Gibt <code>true</code> zurück, wenn der Listener in der Liste enthalten war und entfernt werden konnte
-	 */
-	public boolean removeModelChangeListener(final Runnable modelChangeListener) {
-		return modelChangeListeners.remove(modelChangeListener);
-	}
-
-	/**
-	 * Benachrichtigt die Listener über Änderungen an den Einstellungen.
-	 * @see #addModelChangeListener(Runnable)
-	 * @see #removeModelChangeListener(Runnable)
-	 */
-	private void fireModelChanged() {
-		modelChangeListeners.stream().forEach(listener->listener.run());
-	}
-
-	/**
-	 * Zwischenüberschrift anzeigen
-	 * @param panel	Panel in das die Überschrift eingefügt werden soll
-	 * @param text	Text der Überschrift
-	 * @param spaceBefore	Vertikalen Abstand vor der Überschrift einfügen?
-	 */
-	private void addHeading(final JPanel panel, final String text, final boolean spaceBefore) {
-		if (spaceBefore) panel.add(Box.createVerticalStrut(15));
-
-		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		panel.add(line);
-		line.add(new JLabel("<html><body><b>"+text+"</b></body></html>"));
-	}
-
-	/**
-	 * Auswahlfeld einfügen
-	 * @param panel	Panel in das das Auswahlfeld eingefügt werden soll
-	 * @param text	Beschriftung des Auswahlfeldes
-	 * @param min	Minimaler Wert
-	 * @param max	Maximaler Wert
-	 * @param value	Initialer Wert
-	 * @return	Neues Auswahlfeld
-	 */
-	private SpinnerNumberModel addSpinner(final JPanel panel, final String text, final int min, final int max, final int value) {
-		return addSpinner(panel,text,min,max,value,null);
-	}
-
-	/**
-	 * Auswahlfeld einfügen
-	 * @param panel	Panel in das das Auswahlfeld eingefügt werden soll
-	 * @param text	Beschriftung des Auswahlfeldes
-	 * @param min	Minimaler Wert
-	 * @param max	Maximaler Wert
-	 * @param value	Initialer Wert
-	 * @param info	Optionaler Infotext nach dem Feld (kann <code>null</code> sein)
-	 * @return	Neues Auswahlfeld
-	 */
-	private SpinnerNumberModel addSpinner(final JPanel panel, final String text, final int min, final int max, final int value, final String info) {
-		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		panel.add(line);
-		final JLabel label=new JLabel(text+":");
-		line.add(label);
-		final JSpinner spinner=new JSpinner(new SpinnerNumberModel(value,min,max,1));
-		line.add(spinner);
-		label.setLabelFor(spinner);
-		if (info!=null) line.add(new JLabel(info));
-		spinner.addChangeListener(e->fireModelChanged());
-		return (SpinnerNumberModel)spinner.getModel();
-	}
-
-	/**
-	 * Checkbox einfügen
-	 * @param panel	Panel in das die Checkbox eingefügt werden soll
-	 * @param text	Beschriftung der Checkbox
-	 * @param selected	Soll die Checkbox anfänglich markiert sein?
-	 * @return	Neue Checkbox
-	 */
-	private JCheckBox addCheckBox(final JPanel panel, final String text, final boolean selected) {
-		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		panel.add(line);
-		final JCheckBox checkBox=new JCheckBox(text,selected);
-		line.add(checkBox);
-		checkBox.addActionListener(e->fireModelChanged());
-		return checkBox;
-	}
-
-	/**
-	 * Combobox einfügen
-	 * @param panel	Panel in das die Combobox eingefügt werden soll
-	 * @param text	Beschriftung der Combobox
-	 * @param options	Auswahloptionen in der Combobox
-	 * @return	Neue Combobox
-	 */
-	private JComboBox<String> addCombo(final JPanel panel, final String text, String[] options) {
-		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		panel.add(line);
-		final JLabel label=new JLabel(text+":");
-		line.add(label);
-		if (options==null || options.length==0) options=new String[]{""};
-		final JComboBox<String> combo=new JComboBox<>(options);
-		combo.setSelectedIndex(0);
-		line.add(combo);
-		label.setLabelFor(combo);
-		combo.addActionListener(e->fireModelChanged());
-		return combo;
-	}
-
-	/**
-	 * Fügt in dem Modell eine Verbindungskante zwischen zwei Stationen ein
-	 * @param model	Modell bei dem die Kante auf der Hauptzeichenfläche eingefügt werden soll
-	 * @param station1	Ausgangsstation
-	 * @param station2	Zielstation
-	 * @see #getModel()
-	 */
-	private static void addEdge(final EditModel model, final ModelElementPosition station1, final ModelElementPosition station2) {
-		addEdge(model,station1,station2,false);
-	}
-
-	/**
-	 * Fügt in dem Modell eine Verbindungskante zwischen zwei Stationen ein
-	 * @param model	Modell bei dem die Kante auf der Hauptzeichenfläche eingefügt werden soll
-	 * @param station1	Ausgangsstation
-	 * @param station2	Zielstation
-	 * @param direct	 Soll die Verbindungskante normal (<code>false</code>) oder zwingend als gerade Linie (<code>true</code>) gezeichnet werden?
-	 * @see #getModel()
-	 */
-	private static void addEdge(final EditModel model, final ModelElementPosition station1, final ModelElementPosition station2, final boolean direct) {
-		final ModelElementEdge edge=new ModelElementEdge(model,model.surface,station1,station2);
-		station1.addEdgeOut(edge);
-		station2.addEdgeIn(edge);
-		if (direct) edge.setLineMode(ModelElementEdge.LineMode.DIRECT);
-		model.surface.add(edge);
-	}
-
-	/**
-	 * Fügt ein Simulationsdatenausgabetextfeld in das Modell ein
-	 * @param model	Modell in das das Textfeld eingefügt werden soll
-	 * @param xPosition	X-Position auf der Zeichenfläche
-	 * @param yPosition	Y-Position auf der Zeichenfläche
-	 * @param labelText	Beschriftungstext
-	 * @param labelColor	Farbe für den Beschriftungstext
-	 * @param dataText	Rechenausdruck dessen Ergebnis angezeigt werden soll
-	 */
-	private static void addSimDataText(final EditModel model, final int xPosition, final int yPosition, final String labelText, final Color labelColor, final String dataText) {
-		final ModelElementText label;
-		model.surface.add(label=new ModelElementText(model,model.surface));
-		label.setPosition(new Point(xPosition,yPosition-20));
-		label.setText(labelText);
-		label.setTextItalic(true);
-
-		final ModelElementAnimationTextValue textValue=new ModelElementAnimationTextValue(model,model.surface);
-		textValue.setPosition(new Point(xPosition,yPosition));
-		textValue.setTextSize(14);
-		textValue.setTextBold(true);
-		textValue.setColor(labelColor);
-		textValue.setDigits(1);
-		textValue.setExpression(dataText);
-		model.surface.add(textValue);
-	}
-
-	/**
-	 * Liefert das neu erstellte Modell
-	 * @return	Neu erstelltes Modell
-	 */
-	public EditModel getModel() {
-		/* Parameter zusammenstellen */
-		final int clientTypes=spinnerClientTypes.getNumber().intValue();
-		final boolean priorities=checkPriorities.isSelected();
-		final int arrivalBatch=spinnerArrivalBatch.getNumber().intValue();
-		final int serviceBatch=spinnerServiceBatch.getNumber().intValue();
-		final int serviceDistribution=comboServiceDistribution.getSelectedIndex();
-		final int discipline=comboServiceDiscipline.getSelectedIndex();
-		final int utilization=comboServiceUtilization.getSelectedIndex();
-		final int stations=spinnerStationCount.getNumber().intValue();
-		final boolean sharedResource=checkSharedResource.isSelected();
-		final boolean shortestQueue=(comboSelectQueue.getSelectedIndex()==1);
-		final boolean useWaitingTimeTolerance=checkWaitingTimeTolerance.isSelected();
-		final boolean useRetry=checkRetry.isSelected();
-		final boolean useForwarding=checkForwarding.isSelected();
-		final boolean addWIPVisualization=checkAddWIPVisualization.isSelected();
-		final boolean addRhoVisualization=checkAddRhoVisualization.isSelected();
-		final boolean addWVisualization=checkAddWVisualization.isSelected();
-		final boolean addNQVisualization=checkAddNQVisualization.isSelected();
-		final boolean addNVisualization=checkAddNVisualization.isSelected();
-
-
-		StringBuilder description;
-		ModelElementText label;
-		final ModelElementSource[] sources=new ModelElementSource[clientTypes];
-		ModelElementVertex sourcesVertex=null;
-		ModelElementDelay retryDelay=null;
-		ModelElementTeleportDestination retryTeleportDestination=null;
-		ModelElementTeleportDestination forwardingTeleportDestination=null;
-		final ModelElementProcess[] processes=new ModelElementProcess[stations];
-		final ModelElementCounter[] counter=new ModelElementCounter[stations*2];
-		final ModelElementDecide[] retryDecide=new ModelElementDecide[stations];
-		final ModelElementTeleportSource[] retryTeleportSource=new ModelElementTeleportSource[stations];
-		final ModelElementVertex[] disposeVertex=new ModelElementVertex[stations];
-		ModelElementDecide forwardingDecide=null;
-		ModelElementTeleportSource forwardingTeleportSource=null;
-		ModelElementVertex forwardingCancelVertex=null;
-
-		/* Daten berechnen */
-		final double interArrivalTime=70*clientTypes;
-		double serviceTimeBase=60;
-		switch (utilization) {
-		case 0: serviceTimeBase=50; break;
-		case 1: serviceTimeBase=60; break;
-		case 2: serviceTimeBase=65; break;
-		}
-		if (useForwarding) serviceTimeBase-=5;
-		final double serviceTime=((stations==1 || sharedResource)?1:stations)*serviceTimeBase;
-		final int resourceGroups=(stations==1 || sharedResource)?1:stations;
-		final double waitingTimeTolerance=600;
-
-		/* Modell anlegen */
-		final EditModel model=new EditModel();
-		model.name=Language.tr("ModelGenerator.Model.Name");
-
-		/* Beschreibung */
-		description=new StringBuilder();
+	private String buildDescription(final int clientTypes, final boolean priorities, final int arrivalBatch, final int serviceBatch, final int serviceDistribution, final int discipline, final int stations, final boolean sharedResource, final boolean shortestQueue, final boolean useWaitingTimeTolerance, final boolean useRetry, final boolean useForwarding) {
+		final StringBuilder description=new StringBuilder();
 		description.append(Language.tr("ModelGenerator.Model.Description"));
 		description.append("\n\n");
 		description.append(Language.tr("ModelGenerator.Model.Description.Properties")+":");
@@ -513,7 +278,65 @@ public class ModelGeneratorPanel extends JPanel {
 			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.LimitedWaitingTimeTolerance"));
 			if (useRetry) description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.Retry"));
 		}
-		model.description=description.toString();
+		if (useForwarding) description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.Forwarding"));
+
+		return description.toString();
+	}
+
+	@Override
+	public EditModel getModel() {
+		/* Parameter zusammenstellen */
+		final int clientTypes=spinnerClientTypes.getNumber().intValue();
+		final boolean priorities=checkPriorities.isSelected();
+		final int arrivalBatch=spinnerArrivalBatch.getNumber().intValue();
+		final int serviceBatch=spinnerServiceBatch.getNumber().intValue();
+		final int serviceDistribution=comboServiceDistribution.getSelectedIndex();
+		final int discipline=comboServiceDiscipline.getSelectedIndex();
+		final int utilization=comboServiceUtilization.getSelectedIndex();
+		final int stations=spinnerStationCount.getNumber().intValue();
+		final boolean sharedResource=checkSharedResource.isSelected();
+		final boolean shortestQueue=(comboSelectQueue.getSelectedIndex()==1);
+		final boolean useWaitingTimeTolerance=checkWaitingTimeTolerance.isSelected();
+		final boolean useRetry=checkRetry.isSelected();
+		final boolean useForwarding=checkForwarding.isSelected();
+		final boolean addWIPVisualization=checkAddWIPVisualization.isSelected();
+		final boolean addRhoVisualization=checkAddRhoVisualization.isSelected();
+		final boolean addWVisualization=checkAddWVisualization.isSelected();
+		final boolean addNQVisualization=checkAddNQVisualization.isSelected();
+		final boolean addNVisualization=checkAddNVisualization.isSelected();
+
+		/* Variablen */
+		StringBuilder description;
+		ModelElementText label;
+		final ModelElementSource[] sources=new ModelElementSource[clientTypes];
+		ModelElementVertex sourcesVertex=null;
+		ModelElementDelay retryDelay=null;
+		ModelElementTeleportDestination retryTeleportDestination=null;
+		ModelElementTeleportDestination forwardingTeleportDestination=null;
+		final ModelElementProcess[] processes=new ModelElementProcess[stations];
+		final ModelElementCounter[] counter=new ModelElementCounter[stations*2];
+		final ModelElementDecide[] retryDecide=new ModelElementDecide[stations];
+		final ModelElementTeleportSource[] retryTeleportSource=new ModelElementTeleportSource[stations];
+		final ModelElementVertex[] disposeVertex=new ModelElementVertex[stations];
+		ModelElementDecide forwardingDecide=null;
+		ModelElementTeleportSource forwardingTeleportSource=null;
+		ModelElementVertex forwardingCancelVertex=null;
+
+		/* Daten berechnen */
+		final double interArrivalTime=70*clientTypes;
+		double serviceTimeBase=60;
+		switch (utilization) {
+		case 0: serviceTimeBase=50; break;
+		case 1: serviceTimeBase=60; break;
+		case 2: serviceTimeBase=65; break;
+		}
+		if (useForwarding) serviceTimeBase-=5;
+		final double serviceTime=((stations==1 || sharedResource)?1:stations)*serviceTimeBase;
+		final int resourceGroups=(stations==1 || sharedResource)?1:stations;
+		final double waitingTimeTolerance=600;
+
+		/* Modell anlegen */
+		final EditModel model=buildModel(Language.tr("ModelGenerator.Model.Name"),buildDescription(clientTypes,priorities,arrivalBatch,serviceBatch,serviceDistribution,discipline,stations,sharedResource,shortestQueue,useWaitingTimeTolerance,useRetry,useForwarding));
 
 		/* Ressourcen */
 		for (int i=0;i<resourceGroups;i++) {
@@ -524,11 +347,7 @@ public class ModelGeneratorPanel extends JPanel {
 		}
 
 		/* Überschrift */
-		model.surface.add(label=new ModelElementText(model,model.surface));
-		label.setPosition(new Point(50,50));
-		label.setText(Language.tr("ModelGenerator.Model.Name"));
-		label.setTextBold(true);
-		label.setTextSize(label.getTextSize()+2);
+		addHeading(model,Language.tr("ModelGenerator.Model.Name"));
 
 		/* x-Position für nächste Station */
 		int xPosition=50;
@@ -558,17 +377,13 @@ public class ModelGeneratorPanel extends JPanel {
 		}
 
 		/* Infotext unter Quellen */
-		model.surface.add(label=new ModelElementText(model,model.surface));
-		label.setPosition(new Point(xPosition,yPosition));
-		label.setTextItalic(true);
-		label.setTextSize(label.getTextSize()-2);
 		description=new StringBuilder();
 		description.append(Language.tr("Statistics.InterArrivalTimes")+":\nE[I]:="+NumberTools.formatNumber(interArrivalTime)+" "+Language.tr("Statistics.Seconds"));
 		if (arrivalBatch>1) {
 			description.append("\n\n");
 			description.append(Language.tr("ModelGenerator.ArrivalBatch")+":\nb:="+arrivalBatch);
 		}
-		label.setText(description.toString());
+		addSmallInfo(model,description.toString(),xPosition,yPosition);
 
 		if (useRetry || useForwarding) {
 			/* Nächste Spalte */
@@ -623,10 +438,6 @@ public class ModelGeneratorPanel extends JPanel {
 			yPosition+=100;
 
 			/* Infotext unter Verzweigen */
-			model.surface.add(label=new ModelElementText(model,model.surface));
-			label.setPosition(new Point(xPosition,yPosition));
-			label.setTextItalic(true);
-			label.setTextSize(label.getTextSize()-2);
 			description=new StringBuilder();
 			description.append(Language.tr("ModelGenerator.SelectQueue")+":\n");
 			if (shortestQueue) {
@@ -634,7 +445,7 @@ public class ModelGeneratorPanel extends JPanel {
 			} else {
 				description.append(Language.tr("ModelGenerator.SelectQueue.Random"));
 			}
-			label.setText(description.toString());
+			addSmallInfo(model,description.toString(),xPosition,yPosition);
 
 			/* Nächste Spalte */
 			xPosition+=200;
@@ -689,10 +500,6 @@ public class ModelGeneratorPanel extends JPanel {
 		}
 
 		/* Infotext unter Bedienstationen */
-		model.surface.add(label=new ModelElementText(model,model.surface));
-		label.setPosition(new Point(xPosition,yPosition));
-		label.setTextItalic(true);
-		label.setTextSize(label.getTextSize()-2);
 		description=new StringBuilder();
 		description.append(Language.tr("ModelGenerator.ServiceDistribution")+":\n");
 		double cvS=0;
@@ -779,7 +586,7 @@ public class ModelGeneratorPanel extends JPanel {
 				description.append("CV[Retry]:=1");
 			}
 		}
-		label.setText(description.toString());
+		addSmallInfo(model,description.toString(),xPosition,yPosition);
 
 		if (useWaitingTimeTolerance) {
 			/* Nächste Spalte */
@@ -995,98 +802,6 @@ public class ModelGeneratorPanel extends JPanel {
 			addSimDataText(model,xPosition,yPosition,Language.tr("ModelGenerator.Visualization.MeanNTitle"),Color.ORANGE,"N_avg()");
 			yPosition+=50;
 		}
-
-		return model;
-	}
-
-	/**
-	 * Erzeugt ein großes Testmodell zur Untersuchung des Verhaltens des Simulators
-	 * bei Modellen aus sehr vielen Stationen.
-	 * @param clientCount	Zu simulierende Kundenankünfte
-	 * @param stationCount	Anzahl an Stationen
-	 * @param useProcessStations	Sollen Bedienstationen (<code>true</code>) oder Verzögerungsstationen (<code>false</code>) verwendet werden?
-	 * @return	Testmodell
-	 */
-	public static EditModel getLargeModel(final long clientCount, final int stationCount, final boolean useProcessStations) {
-		final double meanInterArrivalTime=100;
-		final double delayTime=1;
-		final double meanServiceTime=10;
-		final int stationsPerRow=30;
-
-		/* Modell anlegen */
-		final EditModel model=new EditModel();
-		model.name=Language.tr("ModelGenerator.LargeModel.Description");
-		model.clientCount=clientCount;
-		model.warmUpTime=0.0;
-		model.distributionRecordHours=0;
-		model.distributionRecordClientDataValues=0;
-
-		/* Überschrift */
-		final ModelElementText label=new ModelElementText(model,model.surface);
-		model.surface.add(label);
-		label.setPosition(new Point(50,50));
-		label.setText(Language.tr("ModelGenerator.Model.Name"));
-		label.setTextBold(true);
-		label.setTextSize(label.getTextSize()+2);
-
-		/* x-Position für nächste Station */
-		int xPosition=50;
-		int yPosition=100;
-		int xDirection=1;
-
-		/* Quelle */
-		final ModelElementSource source=new ModelElementSource(model,model.surface);
-		model.surface.add(source);
-		source.setPosition(new Point(xPosition,yPosition));
-		source.getRecord().setInterarrivalTimeDistribution(new ExponentialDistribution(null,meanInterArrivalTime,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY));
-		xPosition+=200;
-
-		ModelElementBox lastStation=source;
-
-		/* Stationen */
-		model.surface.startFastMultiAdd();
-		try {
-			for (int i=0;i<stationCount-2;i++) {
-				final ModelElementBox station;
-				if (useProcessStations) {
-					final String operatorName="Operator "+(i+1);
-					final ModelElementProcess process=new ModelElementProcess(model,model.surface);
-					process.getWorking().set(new ExponentialDistribution(null,meanServiceTime,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY));
-					final Map<String,Integer> resourceRecord=new HashMap<>();
-					resourceRecord.put(operatorName,1);
-					process.getNeededResources().set(0,resourceRecord);
-					model.resources.add(new ModelResource(operatorName,1));
-					station=process;
-				} else {
-					final ModelElementDelay delay=new ModelElementDelay(model,model.surface);
-					delay.setDelayTime(new OnePointDistributionImpl(delayTime),null);
-					station=delay;
-				}
-				station.setPosition(new Point(xPosition,yPosition));
-				model.surface.add(station);
-				addEdge(model,lastStation,station);
-				lastStation=station;
-				if (xPosition>=200*stationsPerRow-50 && xDirection==1) {
-					yPosition+=100;
-					xDirection=-1;
-					continue;
-				}
-				if (xPosition<=200 && xDirection==-1) {
-					yPosition+=100;
-					xDirection=1;
-					continue;
-				}
-				xPosition+=200*xDirection;
-			}
-		} finally {
-			model.surface.endFastMultiAdd();
-		}
-
-		/* Ausgang */
-		final ModelElementDispose dispose=new ModelElementDispose(model,model.surface);
-		model.surface.add(dispose);
-		dispose.setPosition(new Point(xPosition,yPosition));
-		addEdge(model,lastStation,dispose);
 
 		return model;
 	}

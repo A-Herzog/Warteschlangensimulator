@@ -16,9 +16,16 @@
 package ui.generator;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -35,7 +42,7 @@ import ui.tools.FlatLaFHelper;
 /**
  * Zeigt einen Dialog an, in dem Einstellungen zur Erzeugung eines einfachen
  * Modells vorzunehmen.
- * @see ModelGeneratorPanel
+ * @see ModelGeneratorPanelOpen
  * @author Alexander Herzog
  */
 public class ModelGeneratorDialog extends BaseDialog {
@@ -45,13 +52,34 @@ public class ModelGeneratorDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -7913684726422421731L;
 
-	/** Einstellungenbereich für den Modellgenerator */
-	private final ModelGeneratorPanel setup;
-	/** Vorschau auf das zu erstellende Modell */
+	/**
+	 * Auswahl des Modelltyps
+	 */
+	private final JComboBox<String> setupTypeSelect;
+
+	/**
+	 * Bereich zur Anzeige der Einstellungen für das Modell
+	 */
+	private final JPanel setupArea;
+
+	/**
+	 * Layout-Objekt für {@link #setupArea}
+	 */
+	private final CardLayout setupAreaLayout;
+
+	/**
+	 * Einstellungenbereiche für die verschiedenen Typen
+	 */
+	private final List<ModelGeneratorPanelBase> setups;
+
+	/**
+	 * Vorschau auf das zu erstellende Modell
+	 */
 	private final EditorPanel viewer;
-	/** Besonderes Modell statt über das Panel erzeugtes Modell zurückliefern */
-	private EditModel specialModel=null;
-	/** Zeichenflächen-Zoomfaktor beim Aufruf des Dialogs */
+
+	/**
+	 * Zeichenflächen-Zoomfaktor beim Aufruf des Dialogs
+	 */
 	private final double lastZoom;
 
 	/**
@@ -69,12 +97,31 @@ public class ModelGeneratorDialog extends BaseDialog {
 		InfoPanel.addTopPanel(content,InfoPanel.globalGenerator);
 		final JPanel main=new JPanel(new BorderLayout());
 		content.add(main,BorderLayout.CENTER);
+
+		/* Einstellungenbereich */
 		final JPanel left=new JPanel();
+		left.setLayout(new BoxLayout(left,BoxLayout.PAGE_AXIS));
 		main.add(left,BorderLayout.WEST);
-		left.add(setup=new ModelGeneratorPanel(()->generateSpecialModel()),BorderLayout.NORTH);
+
+		/* Modelltyp-Auswahl */
+		JPanel line;
+		left.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel("<html><body><b>"+Language.tr("ModelGenerator.ModelType")+"</b></body></html>"));
+		left.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		setupTypeSelect=addComboBox(line,Language.tr("ModelGenerator.NetType")+":",new String[] {});
+
+		/* Editorbereich */
+		left.add(setupArea=new JPanel(setupAreaLayout=new CardLayout()),BorderLayout.NORTH);
+		setups=new ArrayList<>();
+
+		/* Modelltypen */
+		addSetup(new ModelGeneratorPanelOpen());
+		addSetup(new ModelGeneratorPanelClosed());
+		addSetup(new ModelGeneratorPanelLoad());
+
+		/* Modellansicht */
 		main.add(viewer=new EditorPanel(this,getEditModel(),true,true,false,false));
 		viewer.setSavedViewsButtonVisible(false);
-		setup.addModelChangeListener(()->{viewer.setModel(getEditModel());});
 
 		/* setup.getModel() liefert erst dann ein Modell ohne Überlappungen der Elemente, wenn setup ein sichtbares Panel ist. */
 		viewer.setZoom(0.8);
@@ -82,6 +129,13 @@ public class ModelGeneratorDialog extends BaseDialog {
 			viewer.setModel(getEditModel());
 			viewer.setZoom(0.8);
 		});
+
+		/* Mit Auswahlbox verknüpfen */
+		setupTypeSelect.addActionListener(e->{
+			setupAreaLayout.show(setupArea,""+setupTypeSelect.getSelectedIndex());
+			viewer.setModel(getEditModel());
+		});
+		setupAreaLayout.show(setupArea,"0");
 
 		/* Dialog starten */
 		setMinSizeRespectingScreensize(1440,800);
@@ -92,25 +146,29 @@ public class ModelGeneratorDialog extends BaseDialog {
 	}
 
 	/**
+	 * Fügt einen neuen Modelltyp zum Dialog hinzu.
+	 * @param setup	Modelltyp-Einstellungen-Panel
+	 */
+	private void addSetup(final ModelGeneratorPanelBase setup) {
+		setupTypeSelect.addItem(setup.getTypeName());
+		setups.add(setup);
+		setup.addModelChangeListener(()->{viewer.setModel(getEditModel());});
+
+		final JPanel outer=new JPanel(new BorderLayout());
+		outer.add(setup,BorderLayout.NORTH);
+		setupArea.add(outer,""+(setups.size()-1));
+	}
+
+	/**
 	 * Liefert das aktuelle Modell aus dem Generator-Panel
 	 * @return	Modell aus dem Generator-Panel
 	 */
 	private EditModel getEditModel() {
-		final EditModel model=setup.getModel();
+		final int index=setupTypeSelect.getSelectedIndex();
+		if (index<0) return null;
+		final EditModel model=setups.get(index).getModel();
 		if (FlatLaFHelper.isDark()) EditModelDark.processModel(model,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
 		return model;
-	}
-
-	/**
-	 * Schaltfläche: "Belastungstestmodelle..."
-	 */
-	private void generateSpecialModel() {
-		final ModelGeneratorLargeDialog dialog=new ModelGeneratorLargeDialog(this);
-		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
-			specialModel=ModelGeneratorPanel.getLargeModel(dialog.getClientCount(),dialog.getStationCount(),dialog.isUseProcessStations());
-			if (FlatLaFHelper.isDark()) EditModelDark.processModel(specialModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
-			close(BaseDialog.CLOSED_BY_OK);
-		}
 	}
 
 	/**
@@ -119,7 +177,6 @@ public class ModelGeneratorDialog extends BaseDialog {
 	 */
 	public EditModel getModel() {
 		if (getClosedBy()!=BaseDialog.CLOSED_BY_OK) return null;
-		if (specialModel!=null) return specialModel;
 		return viewer.getModel();
 	}
 

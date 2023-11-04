@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-25 09:03+0200\n"
+"POT-Creation-Date: 2023-10-31 16:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13550,6 +13550,9 @@ msgstr "Mittlere Anzahl an Kunden im System"
 msgid "ModelGenerator.AddVisualization.MeanNQ"
 msgstr "Mittlere Warteschlangenlänge"
 
+msgid "ModelGenerator.AddVisualization.MeanNStation"
+msgstr "Mittlere Anzahl an Kunden an den Stationen"
+
 msgid "ModelGenerator.AddVisualization.MeanRho"
 msgstr "Mittlere Auslastung"
 
@@ -13567,6 +13570,33 @@ msgstr "Kunden werden stets einzeln weitergeleitet."
 
 msgid "ModelGenerator.ClientTypes"
 msgstr "Anzahl an Kundentypen"
+
+msgid "ModelGenerator.ClosedModel.Decide"
+msgstr "Verzweigungen verwenden"
+
+msgid "ModelGenerator.ClosedModel.Description"
+msgstr ""
+"Geschlossene Warteschlangenmodelle besitzen keinen Ausgang.\n"
+"Die Quelle generiert eine meist kleine, feste Anzahl an Kunden,\n"
+"die im Anschluss darin in dem Modell zirkulieren.\n"
+"Da die Kunden das System nie verlassen, können auch keine\n"
+"Kenngrößen auf Kundenbasis erfasst werden. Stattdessen werden\n"
+"Daten auf Basis der Stationen erhoben.\n"
+"Das Simulationsende wird ebenfalls nicht über eine Anzahl an\n"
+"generierten Kunden definiert, sondern über eine vorgegebene\n"
+"Simulationszeitdauer."
+
+msgid "ModelGenerator.ClosedModel.Name"
+msgstr "Einfaches automatisch erzeugtes geschlossenes Warteschlangenmodell"
+
+msgid "ModelGenerator.ClosedModel.PopulationSize"
+msgstr "Populationsgröße"
+
+msgid "ModelGenerator.ClosedModel.SelectName"
+msgstr "Geschlossenes Warteschlangennetz"
+
+msgid "ModelGenerator.ClosedModel.StationCount"
+msgstr "Anzahl an Stationen"
 
 msgid "ModelGenerator.Counter.Cancel"
 msgstr "Abbruch"
@@ -13586,11 +13616,16 @@ msgstr "Weiterleitungen"
 msgid "ModelGenerator.LargeModel.ArrivalCount"
 msgstr "Anzahl an Kundenankünften"
 
-msgid "ModelGenerator.LargeModel.Button"
-msgstr "Belastungstestmodelle..."
-
 msgid "ModelGenerator.LargeModel.Description"
 msgstr "Automatisch erzeugtes Modell mit sehr vielen Stationen"
+
+msgid "ModelGenerator.LargeModel.DescriptionLong"
+msgstr ""
+"Dieses Modell dient dazu zu testen, wie gut der Simulator\n"
+"mit Modellen mit sehr vielen Stationen umgehen kann."
+
+msgid "ModelGenerator.LargeModel.SelectName"
+msgstr "Belastungsmodell"
 
 msgid "ModelGenerator.LargeModel.StationCount"
 msgstr "Anzahl an Stationen"
@@ -13600,9 +13635,6 @@ msgstr "Verzögerungsstationen verwenden"
 
 msgid "ModelGenerator.LargeModel.StationType.Process"
 msgstr "Bedienstationen verwenden"
-
-msgid "ModelGenerator.LargeModel.Title"
-msgstr "Belastungstestmodell erzeugen"
 
 msgid "ModelGenerator.Model.Description"
 msgstr "Einfaches mit dem Modellgenerator automatisch erzeugtes Modell"
@@ -13615,6 +13647,9 @@ msgstr "Batch-Ankünfte (Bachgröße: %d)"
 
 msgid "ModelGenerator.Model.Description.Properties.ClientTypes"
 msgstr "Mehrere Kundentypen (Anzahl: %d)"
+
+msgid "ModelGenerator.Model.Description.Properties.Forwarding"
+msgstr "Weiterleitungen nach einer Bedienung"
 
 msgid "ModelGenerator.Model.Description.Properties.LimitedWaitingTimeTolerance"
 msgstr "Begrenzte Wartezeittoleranz der Kunden"
@@ -13663,6 +13698,15 @@ msgstr "Zwischen den Stationen geteilte Bedienerressource"
 
 msgid "ModelGenerator.Model.Name"
 msgstr "Einfaches automatisch erzeugtes Modell"
+
+msgid "ModelGenerator.Model.SelectName"
+msgstr "Offenes Warteschlangennetz"
+
+msgid "ModelGenerator.ModelType"
+msgstr "Modelltyp"
+
+msgid "ModelGenerator.NetType"
+msgstr "Netztyp"
 
 msgid "ModelGenerator.NumberOfOperators"
 msgstr "Anzahl Bediener"
@@ -13798,6 +13842,9 @@ msgstr "Kunden sind nur bereit begrenzt lange zu warten"
 
 msgid "ModelGenerator.Visualization.MeanNQTitle"
 msgstr "Mittlere Warteschlangenlänge"
+
+msgid "ModelGenerator.Visualization.MeanNStationTitle"
+msgstr "Mittlere Anzahl an Kunden"
 
 msgid "ModelGenerator.Visualization.MeanNTitle"
 msgstr "Mittlere Anzahl an Kunden im System"
@@ -24119,6 +24166,9 @@ msgstr "Anteil"
 
 msgid "Statistics.PartOfClients"
 msgstr "Anteil an Kunden"
+
+msgid "Statistics.PopulationSize"
+msgstr "Populationsgröße"
 
 msgid "Statistics.ProcessTime"
 msgstr "Bedienzeit"
@@ -37954,6 +38004,12 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Main.Menu.View.Statistics.RotatePrevious.Mnemonic"
 #~ msgstr "a"
+
+#~ msgid "ModelGenerator.LargeModel.Button"
+#~ msgstr "Belastungstestmodelle..."
+
+#~ msgid "ModelGenerator.LargeModel.Title"
+#~ msgstr "Belastungstestmodell erzeugen"
 
 #~ msgid "ParameterCompare.Settings.Output.IsTime"
 #~ msgstr "Anzeige des Ergebniswertes als Zeit"

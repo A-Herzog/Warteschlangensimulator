@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-25 09:03+0200\n"
+"POT-Creation-Date: 2023-10-31 16:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13524,6 +13524,9 @@ msgstr "Mean number of clients in system"
 msgid "ModelGenerator.AddVisualization.MeanNQ"
 msgstr "Mean queue length"
 
+msgid "ModelGenerator.AddVisualization.MeanNStation"
+msgstr "Mean number of clients at the stations"
+
 msgid "ModelGenerator.AddVisualization.MeanRho"
 msgstr "Mean utilization"
 
@@ -13541,6 +13544,32 @@ msgstr "Clients will always be sent individual."
 
 msgid "ModelGenerator.ClientTypes"
 msgstr "Number of client types"
+
+msgid "ModelGenerator.ClosedModel.Decide"
+msgstr "Use branching"
+
+msgid "ModelGenerator.ClosedModel.Description"
+msgstr ""
+"Closed queueing models do not have an exit.\n"
+"The source generates a mostly small, fixed number of client\n"
+"who subsequently circulate in the model.\n"
+"Since the clients never leave the system, no metrics can be\n"
+"collected on a per-client basis. Instead, data is collected\n"
+"on a per-station basis.\n"
+"The end of the simulation is also not defined by a number of\n"
+"generated clients, but by a predefined simulation duration."
+
+msgid "ModelGenerator.ClosedModel.Name"
+msgstr "Simple automatically created closed queueing model"
+
+msgid "ModelGenerator.ClosedModel.PopulationSize"
+msgstr "Population size"
+
+msgid "ModelGenerator.ClosedModel.SelectName"
+msgstr "Closed queueing net"
+
+msgid "ModelGenerator.ClosedModel.StationCount"
+msgstr "Number of stations"
 
 msgid "ModelGenerator.Counter.Cancel"
 msgstr "Canceled"
@@ -13560,11 +13589,16 @@ msgstr "Forwarding"
 msgid "ModelGenerator.LargeModel.ArrivalCount"
 msgstr "Number of client arrivals"
 
-msgid "ModelGenerator.LargeModel.Button"
-msgstr "Load test models..."
-
 msgid "ModelGenerator.LargeModel.Description"
 msgstr "Automatically generated model with very many stations"
+
+msgid "ModelGenerator.LargeModel.DescriptionLong"
+msgstr ""
+"This model is used to test how well the simulator can handle\n"
+"models with very many stations."
+
+msgid "ModelGenerator.LargeModel.SelectName"
+msgstr "Load test model"
 
 msgid "ModelGenerator.LargeModel.StationCount"
 msgstr "Number of stations"
@@ -13574,9 +13608,6 @@ msgstr "Use delay stations"
 
 msgid "ModelGenerator.LargeModel.StationType.Process"
 msgstr "Use process stations"
-
-msgid "ModelGenerator.LargeModel.Title"
-msgstr "Generate load test model"
 
 msgid "ModelGenerator.Model.Description"
 msgstr "Simple by the model generator automatically created model"
@@ -13589,6 +13620,9 @@ msgstr "Batch arrivales (batch size: %d)"
 
 msgid "ModelGenerator.Model.Description.Properties.ClientTypes"
 msgstr "Multiple client types (number of client types: %d)"
+
+msgid "ModelGenerator.Model.Description.Properties.Forwarding"
+msgstr "Forwarding after service"
 
 msgid "ModelGenerator.Model.Description.Properties.LimitedWaitingTimeTolerance"
 msgstr "Limited waiting time tolerance of the clients"
@@ -13637,6 +13671,15 @@ msgstr "Operators resource shared between the stations"
 
 msgid "ModelGenerator.Model.Name"
 msgstr "Simple automatically created model"
+
+msgid "ModelGenerator.Model.SelectName"
+msgstr "Open queueing net"
+
+msgid "ModelGenerator.ModelType"
+msgstr "Model type"
+
+msgid "ModelGenerator.NetType"
+msgstr "Net type"
 
 msgid "ModelGenerator.NumberOfOperators"
 msgstr "Number of operators"
@@ -13772,6 +13815,9 @@ msgstr "Clients are only willing to wait for a limited time"
 
 msgid "ModelGenerator.Visualization.MeanNQTitle"
 msgstr "Mean queue length"
+
+msgid "ModelGenerator.Visualization.MeanNStationTitle"
+msgstr "Mean number of clients"
 
 msgid "ModelGenerator.Visualization.MeanNTitle"
 msgstr "Mean number of clients in system"
@@ -24075,6 +24121,9 @@ msgstr "Part"
 
 msgid "Statistics.PartOfClients"
 msgstr "Share of clients"
+
+msgid "Statistics.PopulationSize"
+msgstr "Population size"
 
 msgid "Statistics.ProcessTime"
 msgstr "Process time"
@@ -37878,6 +37927,12 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Main.Menu.Help.ProgramInformation.Short"
 #~ msgstr "Info"
+
+#~ msgid "ModelGenerator.LargeModel.Button"
+#~ msgstr "Load test models..."
+
+#~ msgid "ModelGenerator.LargeModel.Title"
+#~ msgstr "Generate load test model"
 
 #~ msgid "ParameterCompare.Settings.Output.IsTime"
 #~ msgstr "Show result value as time"
