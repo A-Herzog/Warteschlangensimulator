@@ -21,6 +21,8 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.Serializable;
 
 import javax.swing.BorderFactory;
@@ -37,6 +39,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import language.Language;
 import mathtools.NumberTools;
@@ -307,6 +310,26 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		tablePriority.setEnabled(!readOnly);
 		tablePriority.putClientProperty("terminateEditOnFocusLost",true);
 		tablePriority.getTableHeader().setReorderingAllowed(false);
+		tablePriority.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (SwingUtilities.isRightMouseButton(e)) {
+					final int row=tablePriority.getSelectedRow();
+					final int column=tablePriority.getSelectedColumn();
+					if (column==1 && row>=0) {
+						final JPopupMenu menu=new JPopupMenu();
+						JMenuItem item;
+						menu.add(item=new JMenuItem(Language.tr("Surface.Process.Dialog.Tab.PrioritiesAndBatchSizes.PrioritiesPopup.FIFO")));
+						item.addActionListener(ev->tablePriority.setValueAt("w",row,1));
+						menu.add(item=new JMenuItem(Language.tr("Surface.Process.Dialog.Tab.PrioritiesAndBatchSizes.PrioritiesPopup.Random")));
+						item.addActionListener(ev->tablePriority.setValueAt("random()",row,1));
+						menu.add(item=new JMenuItem(Language.tr("Surface.Process.Dialog.Tab.PrioritiesAndBatchSizes.PrioritiesPopup.LIFO")));
+						item.addActionListener(ev->tablePriority.setValueAt("-w",row,1));
+						menu.show(tablePriority,e.getX(),e.getY());
+					}
+				}
+			}
+		});
 
 		/* Tab "Bediener" */
 		tabs.addTab(Language.tr("Surface.Process.Dialog.Tab.Operators"),tab=new JPanel(new BorderLayout()));
