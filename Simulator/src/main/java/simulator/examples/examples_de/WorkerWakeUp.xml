@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.5.0</ModellVersion>
+  <ModellName>Zeitgesteuerte Bedienungen</ModellName>
+  <ModellBeschreibung>Die Schranke sammelt eintreffende Kunden und gibt diese alle
+15 Minuten an die Bedienstation frei. Dadurch ergeben sich längere
+durchgängige Arbeitsphasen jeweils gefolgt von längeren Ruhephasen
+für den Bediener.
+Der Nachteil besteht in einer deutlich längeren mittleren Verweilzeit
+bzw. einer deutlich höheren mittleren Anzahl an Kunden im System.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementText id="1">
+      <ModellElementGroesse h="23" w="249" x="50" y="50"/>
+      <ModellElementTextzeile>Zeitgesteuerte Bedienungen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementSchranke id="3">
+      <ModellElementGroesse h="50" w="100" x="300" y="100"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementSchrankeOption>
+        <ModellElementSignalname>Timer</ModellElementSignalname>
+        <ModellElementFreigabe Anzahl="Alle" SignaleZwischenspeichern="0"/>
+      </ModellElementSchrankeOption>
+    </ModellElementSchranke>
+    <ModellElementBedienstation id="4">
+      <ModellElementGroesse h="50" w="100" x="450" y="100"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (20)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEnde id="5">
+      <ModellElementGroesse h="50" w="100" x="650" y="100"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="6">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="7">
+      <ModellElementVerbindung Element1="3" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="4" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAktion id="9">
+      <ModellElementName>Timer</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="300" y="250"/>
+      <ModellElementAktionDatensatz Aktionstyp="Signal" Bedingungstyp="Zeitgesteuert" ZeitInitial="900" ZeitIntervall="900" aktiv="1">Timer</ModellElementAktionDatensatz>
+    </ModellElementAktion>
+    <ModellElementLinie id="10">
+      <ModellElementGroesse h="-60" w="0" x="350" y="230"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementLinienTyp>0</ModellElementLinienTyp>
+      <ModellElementLiniePfeilEnde>2</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementAnimationLinienDiagramm id="11">
+      <ModellElementGroesse h="200" w="450" x="550" y="450"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>255,255,255</ModellElementHintergrundfarbe>
+      <ModellElementHintergrundfarbeFarbverlauf>230,230,250</ModellElementHintergrundfarbeFarbverlauf>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="1.5" Minimum="0">Resource()</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>7200</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>2</ModellElementAchsenbeschriftung>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="12">
+      <ModellElementGroesse h="19" w="246" x="550" y="430"/>
+      <ModellElementTextzeile>Aktuelle Auslastung des Bedieners</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationLinienDiagramm id="13">
+      <ModellElementGroesse h="200" w="450" x="50" y="450"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>255,255,255</ModellElementHintergrundfarbe>
+      <ModellElementHintergrundfarbeFarbverlauf>230,230,250</ModellElementHintergrundfarbeFarbverlauf>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Maximum="20" Minimum="0">WIP()</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>7200</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>2</ModellElementAchsenbeschriftung>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementText id="14">
+      <ModellElementGroesse h="19" w="261" x="55" y="430"/>
+      <ModellElementTextzeile>Aktuelle Anzahl an Kunden im System</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="15">
+      <ModellElementGroesse h="114" w="445" x="450" y="200"/>
+      <ModellElementTextzeile>Die Schranke sammelt eintreffende Kunden und gibt diese alle</ModellElementTextzeile>
+      <ModellElementTextzeile>15 Minuten an die Bedienstation frei. Dadurch ergeben sich längere</ModellElementTextzeile>
+      <ModellElementTextzeile>durchgängige Arbeitsphasen jeweils gefolgt von längeren Ruhephasen</ModellElementTextzeile>
+      <ModellElementTextzeile>für den Bediener.</ModellElementTextzeile>
+      <ModellElementTextzeile>Der Nachteil besteht in einer deutlich längeren mittleren Verweilzeit</ModellElementTextzeile>
+      <ModellElementTextzeile>bzw. einer deutlich höheren mittleren Anzahl an Kunden im System.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="16">
+      <ModellElementName>Mittlere Auslastung des Bedieners</ModellElementName>
+      <ModellElementGroesse h="30" w="141" x="550" y="350"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg()/Resource_count()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="17">
+      <ModellElementName>Mittlere Anzahl an Kunden im System</ModellElementName>
+      <ModellElementGroesse h="30" w="156" x="50" y="350"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WIP_avg()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="18">
+      <ModellElementName>Mittlere Anzahl an Kunden im System (gemäß Erlang-C)</ModellElementName>
+      <ModellElementGroesse h="30" w="233" x="250" y="350"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">ErlangC(1/60;1/20;0;1;1000;-2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
+</Modell>

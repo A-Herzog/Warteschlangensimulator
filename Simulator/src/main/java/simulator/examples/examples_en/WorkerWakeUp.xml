@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.5.0</ModelVersion>
+  <ModelName>Time-controlled service</ModelName>
+  <ModelDescription>The barrier collects incoming clienta and releases them to
+the process station every 15 minutes. This results in longer
+continuous work phases followed by longer idle phases for
+the operator.
+The disadvantage are significantly longer residence times
+and significantly higher average number of clients in the system.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementText id="1">
+      <ModelElementSize h="23" w="208" x="50" y="50"/>
+      <ModelElementTextLine>Time-controlled service</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementSource id="2">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="6" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementBarrier id="3">
+      <ModelElementSize h="50" w="100" x="300" y="100"/>
+      <ModelElementConnection Element="6" Type="In"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementBarrierOption>
+        <ModelElementSignalName>Timer</ModelElementSignalName>
+        <ModelElementRelease Count="All" StoreSignals="0"/>
+      </ModelElementBarrierOption>
+    </ModelElementBarrier>
+    <ModelElementProcessStation id="4">
+      <ModelElementSize h="50" w="100" x="450" y="100"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (20)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDispose id="5">
+      <ModelElementSize h="50" w="100" x="650" y="100"/>
+      <ModelElementConnection Element="8" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="6">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="7">
+      <ModelElementConnection Element1="3" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="8">
+      <ModelElementConnection Element1="4" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAction id="9">
+      <ModelElementName>Timer</ModelElementName>
+      <ModelElementSize h="50" w="100" x="300" y="250"/>
+      <ModelElementActionRecord ActionType="Signal" ConditionType="Time" TimeInitial="120" TimeInterval="60" active="1">Timer</ModelElementActionRecord>
+    </ModelElementAction>
+    <ModelElementLine id="10">
+      <ModelElementSize h="-60" w="0" x="350" y="230"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementLineType>0</ModelElementLineType>
+      <ModelElementLineArrowEnd>2</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementAnimationLineDiagram id="11">
+      <ModelElementSize h="200" w="450" x="550" y="450"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>255,255,255</ModelElementBackgroundColor>
+      <ModelElementBackgroundColorGradient>230,230,250</ModelElementBackgroundColorGradient>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="1.5" Minimum="0">Resource()</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>7200</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="12">
+      <ModelElementSize h="19" w="236" x="550" y="430"/>
+      <ModelElementTextLine>Current utilization of the operator</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationLineDiagram id="13">
+      <ModelElementSize h="200" w="450" x="50" y="450"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>255,255,255</ModelElementBackgroundColor>
+      <ModelElementBackgroundColorGradient>230,230,250</ModelElementBackgroundColorGradient>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="2" Maximum="20" Minimum="0">WIP()</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>7200</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="14">
+      <ModelElementSize h="19" w="278" x="55" y="430"/>
+      <ModelElementTextLine>Current number of clients in the system</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="15">
+      <ModelElementSize h="114" w="403" x="450" y="200"/>
+      <ModelElementTextLine>The barrier collects incoming clienta and releases them to</ModelElementTextLine>
+      <ModelElementTextLine>the process station every 15 minutes. This results in longer</ModelElementTextLine>
+      <ModelElementTextLine>continuous work phases followed by longer idle phases for</ModelElementTextLine>
+      <ModelElementTextLine>the operator.</ModelElementTextLine>
+      <ModelElementTextLine>The disadvantage are significantly longer residence times</ModelElementTextLine>
+      <ModelElementTextLine>and significantly higher average number of clients in the system.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="16">
+      <ModelElementName>Average utilization of the operator</ModelElementName>
+      <ModelElementSize h="30" w="141" x="550" y="350"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg()/Resource_count()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="17">
+      <ModelElementName>Average number of clients in the system</ModelElementName>
+      <ModelElementSize h="30" w="172" x="50" y="350"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WIP_avg()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="18">
+      <ModelElementName>Average  number of clients in the system (due to Erlang-C)</ModelElementName>
+      <ModelElementSize h="30" w="249" x="250" y="350"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">ErlangC(1/60;1/20;0;1;1000;-2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Bediener" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+</Model>
