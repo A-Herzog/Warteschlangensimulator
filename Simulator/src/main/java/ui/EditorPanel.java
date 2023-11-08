@@ -418,9 +418,24 @@ public final class EditorPanel extends EditorPanelBase {
 		getActionMap().put("NextSavedView",new FunctionalAction(()->savedViewSelect(1)));
 	}
 
+	/**
+	 * Beim letzten Aufruf von {@link #getInputContext()} vorgefundener übergeordneter Input-Kontext
+	 * @see #getInputContext()
+	 */
+	private InputContext lastParentInputContext;
+
+	/**
+	 * Beim letzten Aufruf von {@link #getInputContext()} erzeugter korrigierter Input-Kontext
+	 * @see #getInputContext()
+	 */
+	private InputContext lastInputContext;
+
 	@Override
 	public InputContext getInputContext() {
-		return new InputContextFix(super.getInputContext());
+		final InputContext parentInputContext=super.getInputContext();
+		if (parentInputContext==lastParentInputContext && lastInputContext!=null) return lastInputContext;
+		lastParentInputContext=parentInputContext;
+		return lastInputContext=new InputContextFix(parentInputContext);
 	}
 
 	/**
