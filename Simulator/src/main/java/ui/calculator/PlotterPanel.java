@@ -71,7 +71,6 @@ import mathtools.NumberTools;
 import mathtools.distribution.swing.CommonVariables;
 import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
-import swingtools.ImageIOFormatCheck;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
 import systemtools.statistics.StatisticsBasePanel;
@@ -321,7 +320,7 @@ public class PlotterPanel extends JPanel {
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
-		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
+		fc.addChoosableFileFilter(tiff);
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(pdf);
 		fc.setFileFilter(png);

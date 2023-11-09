@@ -71,16 +71,6 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 	}
 
 	/**
-	 * Handelt es sich bei der verwendeten Java-Umgebung um Java 8?
-	 * @return	Liefert <code>true</code>, wenn Java 8 verwendet wird, und <code>false</code> bei einer Java-Version &ge;9
-	 */
-	private static boolean isJava8() {
-		final String version=System.getProperty("java.version");
-		if (version==null) return true;
-		return version.startsWith("1.8");
-	}
-
-	/**
 	 * Übersetzt eine java-Datei (aus dem Dateisystem) in eine class-Datei (auch im Dateisystem),
 	 * d.h. verhält sich so wie ein Aufruf von "javac".
 	 * @param file	Eingabe-java-Datei
@@ -100,7 +90,7 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 				final List<String> options=new ArrayList<>();
 				options.add("-cp");
 				options.add(baseFolder.toString());
-				if (!isJava8()) options.add("--release=8");
+				options.add("--release=11");
 
 				boolean success=false;
 				ClassLoaderCache.globalCompilerLock.lock();

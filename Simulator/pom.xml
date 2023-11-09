@@ -40,6 +40,12 @@
     		<groupId>org.apache.xmlgraphics</groupId>
     		<artifactId>batik-codec</artifactId>
     		<version>1.17</version>
+		<exclusions>
+			<exclusion>
+				<groupId>xml-apis</groupId>
+				<artifactId>xml-apis</artifactId>
+			</exclusion>
+		</exclusions>
 	</dependency>	
 	<!-- https://mvnrepository.com/artifact/org.hsqldb/hsqldb -->
 	<dependency>
@@ -51,7 +57,7 @@
 	<dependency>
     		<groupId>org.firebirdsql.jdbc</groupId>
     		<artifactId>jaybird</artifactId>
-    		<version>5.0.2.java8</version>
+    		<version>5.0.2.java11</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
 	<dependency>

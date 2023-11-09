@@ -175,13 +175,11 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		line.add(label=new JLabel(Language.tr("SettingsDialog.JSEngine")+":"));
 		line.add(jsEngine=new JComboBox<>(new String[] {
 				Language.tr("SettingsDialog.JSEngine.Automatic"),
-				Language.tr("SettingsDialog.JSEngine.Nashorn"),
 				Language.tr("SettingsDialog.JSEngine.Rhino"),
 				Language.tr("SettingsDialog.JSEngine.GraalJS"),
 		}));
 		jsEngine.setRenderer(new IconListCellRenderer(new Images[]{
 				Images.SETUP_ENGINE_AUTOMATIC,
-				Images.SETUP_ENGINE_NASHORN,
 				Images.SETUP_ENGINE_RHINO,
 				Images.SETUP_ENGINE_GRAAL
 		}));
@@ -300,11 +298,11 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		maxJSRunTime.setValue(setup.maxJSRunTimeSeconds);
 		if (engine==null) engine=JSEngineNames.DEFAULT;
 		switch (engine) {
+		case NASHORN:
 		case DEFAULT: jsEngine.setSelectedIndex(0); break;
-		case NASHORN: jsEngine.setSelectedIndex(1); break;
-		case RHINO: jsEngine.setSelectedIndex(2); break;
+		case RHINO: jsEngine.setSelectedIndex(1); break;
 		case GRAALJS:
-		case GRAALJSNative: jsEngine.setSelectedIndex(3); break;
+		case GRAALJSNative: jsEngine.setSelectedIndex(2); break;
 		}
 
 		serverUse.setSelected(setup.serverUse);
@@ -344,9 +342,8 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		setup.useNUMAMode=!useReducedMemoryMode.isSelected();
 		switch (jsEngine.getSelectedIndex()) {
 		case 0: setup.jsEngine=""; break;
-		case 1: setup.jsEngine=JSEngineNames.NASHORN.name; break;
-		case 2: setup.jsEngine=JSEngineNames.RHINO.name; break;
-		case 3: setup.jsEngine=JSEngineNames.GRAALJSNative.name; break;
+		case 1: setup.jsEngine=JSEngineNames.RHINO.name; break;
+		case 2: setup.jsEngine=JSEngineNames.GRAALJSNative.name; break;
 		}
 		setup.cancelSimulationOnScriptError=cancelSimulationOnScriptError.isSelected();
 		setup.maxJSRunTimeSeconds=(Integer)maxJSRunTime.getValue();

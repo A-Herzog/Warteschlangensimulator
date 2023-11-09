@@ -16,12 +16,11 @@
 package tools;
 
 import java.awt.SystemTray;
+import java.awt.Taskbar;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.TrayIcon.MessageType;
 import java.awt.Window;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -193,52 +192,7 @@ public class Notifier {
 	}
 
 	/**
-	 * Wurde {@link #loadTaskBar()} bereits einmal aufgerufen?
-	 * @see #loadTaskBar()
-	 * @see #setSimulationProgress(Window, int)
-	 */
-	public static boolean taskbarLoaded;
-
-	/**
-	 * Taskbar-Objekt (nur verfügbar in Java 9 oder höher)
-	 * @see #loadTaskBar()
-	 * @see #setSimulationProgress(Window, int)
-	 */
-	public static Object taskbar;
-
-	/**
-	 * setWindowProgressValue-Methode in der Taskbar-Klasse (nur verfügbar in Java 9 oder höher)
-	 * @see #loadTaskBar()
-	 * @see #setSimulationProgress(Window, int)
-	 */
-	public static Method setValue;
-
-	/**
-	 * Initialisiert {@link #taskbar} und {@link #setValue}
-	 * @see #taskbar
-	 * @see #setValue
-	 * @see #setSimulationProgress(Window, int)
-	 */
-	private static void loadTaskBar() {
-		taskbarLoaded=true;
-
-		try {
-			final Class<?> cls=Class.forName("java.awt.Taskbar");
-			if (cls==null) return;
-
-			final Method method=cls.getMethod("getTaskbar");
-			if (method==null) return;
-			taskbar=method.invoke(null);
-
-			setValue=cls.getMethod("setWindowProgressValue",Window.class,int.class);
-		} catch (ClassNotFoundException | UnsupportedOperationException | SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			taskbar=null;
-			setValue=null;
-		}
-	}
-
-	/**
-	 * Stellt einen Wert zwischen 0% und 100% im Taskleisten-Icon ein (wenn Java 9 oder höher verwendet wird).
+	 * Stellt einen Wert zwischen 0% und 100% im Taskleisten-Icon ein.
 	 * Werte außerhalb des Bereichs von 0 bis 100 führen zu einer Deaktivierung der Anzeige.
 	 * @param window	Fenster dessen Taskleisten-Icon mit einem Wert versehen werden soll
 	 * @param value	Anzueigender Wert
@@ -246,13 +200,9 @@ public class Notifier {
 	public static void setSimulationProgress(final Window window, final int value) {
 		if (window==null) return;
 
-		if (!taskbarLoaded) loadTaskBar();
-
-		if (taskbar!=null && setValue!=null) try {
-			setValue.invoke(taskbar,window,value);
-		} catch (UnsupportedOperationException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			taskbar=null;
-			setValue=null;
+		try {
+			Taskbar.getTaskbar().setWindowProgressValue(window,value);
+		} catch (UnsupportedOperationException | SecurityException e) {
 		}
 	}
 }

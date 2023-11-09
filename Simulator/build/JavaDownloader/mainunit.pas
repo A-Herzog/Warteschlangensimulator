@@ -61,7 +61,7 @@ procedure TMainForm.FormCreate(Sender: TObject);
 begin
   fFindJava:=TFindJava.Create;
 
-  fDownloadURL:='https://api.adoptium.net/v3/binary/latest/11/ga/windows/x64/jdk/hotspot/normal/adoptium';
+  fDownloadURL:='https://api.adoptium.net/v3/binary/latest/21/ga/windows/x64/jdk/hotspot/normal/adoptium';
   fHomepageURL:='https://adoptium.net/';
   fTempZipFile:=IncludeTrailingPathDelimiter(GetTempDir(false))+'AdoptiumOpenJDK-Download.zip';
 

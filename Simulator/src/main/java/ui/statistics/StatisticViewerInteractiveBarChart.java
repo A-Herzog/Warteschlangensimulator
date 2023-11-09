@@ -43,7 +43,6 @@ import mathtools.TimeTools;
 import mathtools.distribution.swing.CommonVariables;
 import simulator.statistics.Statistics;
 import statistics.StatisticsLongRunPerformanceIndicator;
-import swingtools.ImageIOFormatCheck;
 import systemtools.MsgBox;
 import systemtools.statistics.StatisticViewerBarChart;
 import systemtools.statistics.StatisticsBasePanel;
@@ -256,7 +255,7 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
-		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
+		fc.addChoosableFileFilter(tiff);
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(pdf);
 		if (xlsx!=null) fc.addChoosableFileFilter(xlsx);

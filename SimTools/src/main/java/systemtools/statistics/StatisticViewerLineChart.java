@@ -57,7 +57,6 @@ import mathtools.Table;
 import mathtools.TableChart;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.swing.CommonVariables;
-import swingtools.ImageIOFormatCheck;
 import systemtools.MsgBox;
 
 /**
@@ -854,7 +853,7 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
-		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
+		fc.addChoosableFileFilter(tiff);
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(pdf);
 		if (xlsx!=null) fc.addChoosableFileFilter(xlsx);

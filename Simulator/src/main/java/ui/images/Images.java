@@ -16,9 +16,8 @@
 package ui.images;
 
 import java.awt.Image;
+import java.awt.image.BaseMultiResolutionImage;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -2000,21 +1999,6 @@ public enum Images {
 	}
 
 	/**
-	 * Wird das Programm unter Java 9 oder höher ausgeführt, so wird
-	 * der Konstruktor der Multi-Resolution-Bild-Objektes geliefert, sonst <code>null</code>.
-	 * @return	Multi-Resolution-Bild-Konstruktor oder <code>null</code>
-	 */
-	@SuppressWarnings("unchecked")
-	private static Constructor<Object> getMultiImageConstructor() {
-		try {
-			final Class<?> cls=Class.forName("java.awt.image.BaseMultiResolutionImage");
-			return (Constructor<Object>)cls.getDeclaredConstructor(int.class,Image[].class);
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException e) {
-			return null;
-		}
-	}
-
-	/**
 	 * Liefert das Icon.
 	 * @return	Icon
 	 */
@@ -2054,9 +2038,6 @@ public enum Images {
 
 		if (urls.length==1) return image=getDefaultImage(urls);
 
-		final Constructor<Object> multiConstructor=getMultiImageConstructor();
-		if (multiConstructor==null) return image=getDefaultImage(urls);
-
 		final Image[] images=Arrays.asList(urls).stream().map(url->{
 			try {
 				return ImageIO.read(url);
@@ -2065,13 +2046,7 @@ public enum Images {
 			}
 		}).toArray(Image[]::new);
 
-		try {
-			image=(Image)multiConstructor.newInstance(0,images);
-			assert(image!=null);
-			return image;
-		} catch (InstantiationException|IllegalAccessException|IllegalArgumentException|InvocationTargetException e) {
-			return image=getDefaultImage(urls);
-		}
+		return image=new BaseMultiResolutionImage(0,images);
 	}
 
 	/**

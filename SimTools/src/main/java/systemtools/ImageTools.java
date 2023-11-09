@@ -46,7 +46,6 @@ import org.jfree.chart.JFreeChart;
 import mathtools.Table;
 import mathtools.TableChart;
 import mathtools.distribution.swing.CommonVariables;
-import swingtools.ImageIOFormatCheck;
 import systemtools.statistics.PDFWriter;
 import systemtools.statistics.ReportStyle;
 import systemtools.statistics.StatisticsBasePanel;
@@ -157,7 +156,7 @@ public class ImageTools {
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
-		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
+		fc.addChoosableFileFilter(tiff);
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(pdf);
 		if (xlsx!=null) fc.addChoosableFileFilter(xlsx);
@@ -204,7 +203,7 @@ public class ImageTools {
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
-		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
+		fc.addChoosableFileFilter(tiff);
 		fc.setFileFilter(png);
 		fc.setAcceptAllFileFilterUsed(false);
 

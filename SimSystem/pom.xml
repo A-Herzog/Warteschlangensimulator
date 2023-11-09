@@ -96,6 +96,12 @@
     		<groupId>xerces</groupId>
     		<artifactId>xercesImpl</artifactId>
     		<version>2.12.2</version>
+		<exclusions>
+			<exclusion>
+				<groupId>xml-apis</groupId>
+				<artifactId>xml-apis</artifactId>
+			</exclusion>
+		</exclusions>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.jena/jena-core -->
 	<dependency>

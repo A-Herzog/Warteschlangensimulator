@@ -18,6 +18,7 @@ package systemtools.statistics;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -358,24 +359,15 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		textPane.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(java.awt.event.MouseEvent e) {
-				/*
-				Funktioniert aufgrund der in pointToLink genannten Einschränkung nur, wenn geklickt wurde
 				final int cursor=(pointToLink(e.getPoint())==null)?Cursor.DEFAULT_CURSOR:Cursor.HAND_CURSOR;
-				System.out.println(pointToLink(e.getPoint()));
 				textPane.setCursor(new Cursor(cursor));
-				 */
 			}
 		});
 		textPane.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if (SwingUtilities.isRightMouseButton(e)) {
-					/* Caret wird durch Rechtsklick nicht verschoben, daher müssen wir das nachholen, damit pointToHint den richtigen Wert liefert. */
-					final MouseEvent e2=new MouseEvent((Component)e.getSource(),e.getID(),e.getWhen(),e.getModifiersEx(),e.getX(),e.getY(),e.getXOnScreen(),e.getYOnScreen(),e.getClickCount(),false,MouseEvent.BUTTON1);
-					textPane.dispatchEvent(e2);
-
-					final String hint=pointToHint();
-
+					final String hint=pointToHint(e.getPoint());
 					final StatisticsBasePanel owner=getParentStatisticPanel(textPane);
 					if (owner==null) return;
 					final JPopupMenu menu=processContextClick(owner,hint);
@@ -1721,17 +1713,9 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	 * @see #initTextPane()
 	 */
 	private String pointToLink(final Point point) {
-		/*
-		Ursprünglich:
-		offset=textPane.viewToModel(point);
-		aber das ist deprecated seit Java 9.
-		Alternative "viewToModel2D" gibt's erst seit Java 9.
-		Bei Code Style Level = 1.8 ist das ein Problem.
-		 */
-
 		if (point.x>100) return null; /* Der "Details"-Link ist eher 20 Pixel breit. Bei 100 sind wir definitiv außerhalb des Textes. */
 
-		final int offset=textPane.getCaretPosition();
+		final int offset=textPane.viewToModel2D(point);
 
 		if (offset<0) return null;
 		final Element element=textPane.getStyledDocument().getCharacterElement(offset);
@@ -1743,18 +1727,12 @@ public abstract class StatisticViewerText implements StatisticViewer {
 
 	/**
 	 * Liefert zu der aktuellen Cursorposition in {@link #textPane} den hinterlegten Hinweistext
+	 * @param point	Punkt innerhalb von {@link #textPane}
 	 * @return	Liefert im Erfolgsfall den hinterlegten Hinweistext, sonst <code>null</code>
 	 * @see #initTextPane()
 	 */
-	private String pointToHint() {
-		/*
-		Ursprünglich:
-		offset=textPane.viewToModel(point);
-		aber das ist deprecated seit Java 9.
-		Alternative "viewToModel2D" gibt's erst seit Java 9.
-		Bei Code Style Level = 1.8 ist das ein Problem.
-		 */
-		final int offset=textPane.getCaretPosition();
+	private String pointToHint(final Point point) {
+		final int offset=textPane.viewToModel2D(point);
 
 		if (offset<0) return null;
 		final Element element=textPane.getStyledDocument().getCharacterElement(offset);

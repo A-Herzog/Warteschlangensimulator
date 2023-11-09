@@ -97,7 +97,6 @@ import simulator.runmodel.RunDataTransporter;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.statistics.Statistics;
-import swingtools.ImageIOFormatCheck;
 import systemtools.MsgBox;
 import systemtools.SetupBase;
 import tools.ButtonRotator;
@@ -1830,7 +1829,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
-		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
+		fc.addChoosableFileFilter(tiff);
 		fc.addChoosableFileFilter(pdf);
 
 		fc.setFileFilter(png);

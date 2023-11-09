@@ -1707,7 +1707,6 @@ public final class XMLTools {
 
 			try (ByteArrayOutputStream encodedStream=new ByteArrayOutputStream()) {
 				encodedStream.write(Base64.getEncoder().encode(output.toByteArray()));
-				/* Java 8: encodedStream.write(Base64.getEncoder().encode(output.toByteArray())); */
 				return encodedStream.toString();
 			}
 

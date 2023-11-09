@@ -56,7 +56,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
 import mathtools.distribution.swing.CommonVariables;
-import swingtools.ImageIOFormatCheck;
 import systemtools.BaseDialog;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
@@ -342,7 +341,7 @@ public class ImageChooser extends JPanel {
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
-		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
+		fc.addChoosableFileFilter(tiff);
 		fc.setFileFilter(png);
 		fc.setAcceptAllFileFilterUsed(false);
 

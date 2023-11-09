@@ -66,9 +66,7 @@ public class GUITools {
 	 */
 	public static double getOSScaleFactor() {
 		if (osScaleFactor<0) {
-			final String versionString=System.getProperty("java.version");
-			if (versionString.startsWith("1.8") || GraphicsEnvironment.isHeadless()) {
-				/* Erst Java 9 kann mit einer systemweiten Skalierung umgehen. */
+			if (GraphicsEnvironment.isHeadless()) {
 				osScaleFactor=1.0;
 			} else {
 				osScaleFactor=GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getDefaultTransform().getScaleX();

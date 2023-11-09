@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="11"/>
     <BuildModes Active="Release"/>
-    <Units Count="26">
+    <Units Count="27">
       <Unit0>
         <Filename Value="JavaDownloader.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -22,8 +22,7 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="MainUnit"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="19"/>
-        <CursorPos X="51" Y="85"/>
+        <CursorPos Y="51"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -37,8 +36,7 @@
       <Unit3>
         <Filename Value="findjava.pas"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="153"/>
-        <CursorPos X="86" Y="176"/>
+        <TopLine Value="152"/>
         <UsageCount Value="13"/>
       </Unit3>
       <Unit4>
@@ -52,7 +50,7 @@
       <Unit5>
         <Filename Value="download.pas"/>
         <EditorIndex Value="-1"/>
-        <CursorPos X="28" Y="30"/>
+        <TopLine Value="40"/>
         <UsageCount Value="11"/>
       </Unit5>
       <Unit6>
@@ -185,8 +183,13 @@
         <CursorPos X="17" Y="61"/>
         <UsageCount Value="10"/>
       </Unit25>
+      <Unit26>
+        <Filename Value="extract.pas"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit26>
     </Units>
-    <JumpHistory Count="12" HistoryIndex="11">
+    <JumpHistory Count="15" HistoryIndex="14">
       <Position1>
         <Filename Value="mainunit.pas"/>
         <Caret Line="80" Column="14" TopLine="73"/>
@@ -235,6 +238,17 @@
         <Filename Value="mainunit.pas"/>
         <Caret Line="85" Column="51" TopLine="19"/>
       </Position12>
+      <Position13>
+        <Filename Value="mainunit.pas"/>
+        <Caret Line="64" TopLine="64"/>
+      </Position13>
+      <Position14>
+        <Filename Value="mainunit.pas"/>
+      </Position14>
+      <Position15>
+        <Filename Value="mainunit.pas"/>
+        <Caret Line="51"/>
+      </Position15>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

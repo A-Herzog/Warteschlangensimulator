@@ -73,7 +73,6 @@ import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
-import swingtools.ImageIOFormatCheck;
 
 /**
  * Zeigt den grafischen Verlauf von Dichte und Verteilungsfunktion einer Verteilung
@@ -820,7 +819,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
-		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
+		fc.addChoosableFileFilter(tiff);
 		fc.setFileFilter(png);
 		fc.setAcceptAllFileFilterUsed(false);
 

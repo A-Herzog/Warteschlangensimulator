@@ -91,7 +91,6 @@ import mathtools.distribution.tools.FileDropperData;
 import simulator.StartAnySimulator;
 import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
-import swingtools.ImageIOFormatCheck;
 import systemtools.BaseDialog;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
@@ -2246,7 +2245,7 @@ public final class EditorPanel extends EditorPanelBase {
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
 		fc.addChoosableFileFilter(bmp);
-		if (ImageIOFormatCheck.hasTIFF()) fc.addChoosableFileFilter(tiff);
+		fc.addChoosableFileFilter(tiff);
 		fc.addChoosableFileFilter(pdf);
 		fc.addChoosableFileFilter(svg);
 		fc.addChoosableFileFilter(eps);
