@@ -1329,7 +1329,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[3034] = "Main.Menu.Model.PluginFolder.Mnemonic";
     t[3035] = "J";
     t[3042] = "Statistics.UtilizationRho";
-    t[3043] = "Relarive resource utilization";
+    t[3043] = "Relative resource utilization";
     t[3044] = "Editor.Statistics.ErrorTitle";
     t[3045] = "Statistics not available";
     t[3048] = "Surface.XML.RootName.Schedule";

@@ -24779,7 +24779,7 @@ msgid "Statistics.UtilizationAndFailures.Utilization"
 msgstr "Working"
 
 msgid "Statistics.UtilizationRho"
-msgstr "Relarive resource utilization"
+msgstr "Relative resource utilization"
 
 msgid "Statistics.UtilizationRho.Mean"
 msgstr "Mean relative utilization (rho)"
