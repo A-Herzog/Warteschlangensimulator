@@ -42,6 +42,7 @@ import mathtools.TimeTools;
 import simulator.runmodel.RunModel;
 import simulator.statistics.Statistics;
 import simulator.statistics.Statistics.CorrelationMode;
+import systemtools.SetupBase;
 import tools.SetupData;
 import ui.MainPanel;
 import ui.modeleditor.ModelAnimationImages;
@@ -518,7 +519,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public static String getDefaultAuthor() {
 		final SetupData setup=SetupData.getSetup();
 		if (setup.defaultUserName!=null && !setup.defaultUserName.trim().isEmpty()) return setup.defaultUserName;
-		return System.getProperty("user.name");
+		return SetupBase.getDisplayUserName();
 	}
 
 	/**

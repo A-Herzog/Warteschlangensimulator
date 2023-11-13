@@ -36,6 +36,7 @@ import language.Language;
 import mathtools.distribution.swing.JOpenURL;
 import simulator.editmodel.EditModelProcessor;
 import systemtools.BaseDialog;
+import systemtools.SetupBase;
 import tools.IconListCellRenderer;
 import tools.SetupData;
 import ui.UpdateSystem;
@@ -112,8 +113,9 @@ public class DataPrivacyDialog extends BaseDialog {
 		defaultUserName=(JTextField)data[1];
 		line.add(button=new JButton(Language.tr("SettingsDialog.Tabs.DefaultUserName.Reset")),BorderLayout.EAST);
 		button.setIcon(Images.MODELPROPERTIES_DESCRIPTION_SET_AUTHOR.getIcon());
-		button.setToolTipText(String.format(Language.tr("SettingsDialog.Tabs.DefaultUserName.Reset.Info"),System.getProperty("user.name")));
-		button.addActionListener(e->defaultUserName.setText(System.getProperty("user.name")));
+		final String displayUserName=SetupBase.getDisplayUserName();
+		button.setToolTipText(String.format(Language.tr("SettingsDialog.Tabs.DefaultUserName.Reset.Info"),displayUserName));
+		button.addActionListener(e->defaultUserName.setText(displayUserName));
 		defaultUserName.setText(setup.defaultUserName);
 
 		/* Autoren-E-Mail-Adresse für neue Modelle */

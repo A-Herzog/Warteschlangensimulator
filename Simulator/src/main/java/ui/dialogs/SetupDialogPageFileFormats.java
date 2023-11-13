@@ -37,6 +37,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.swing.CommonVariables;
 import systemtools.MsgBox;
+import systemtools.SetupBase;
 import tools.IconListCellRenderer;
 import tools.SetupData;
 import ui.images.Images;
@@ -122,8 +123,9 @@ public class SetupDialogPageFileFormats extends SetupDialogPage {
 		defaultUserName=(JTextField)data[1];
 		line.add(button=new JButton(Language.tr("SettingsDialog.Tabs.DefaultUserName.Reset")),BorderLayout.EAST);
 		button.setIcon(Images.MODELPROPERTIES_DESCRIPTION_SET_AUTHOR.getIcon());
-		button.setToolTipText(String.format(Language.tr("SettingsDialog.Tabs.DefaultUserName.Reset.Info"),System.getProperty("user.name")));
-		button.addActionListener(e->defaultUserName.setText(System.getProperty("user.name")));
+		final String displayUserName=SetupBase.getDisplayUserName();
+		button.setToolTipText(String.format(Language.tr("SettingsDialog.Tabs.DefaultUserName.Reset.Info"),displayUserName));
+		button.addActionListener(e->defaultUserName.setText(displayUserName));
 
 		/* Autoren-E-Mail-Adresse für neue Modelle */
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("SettingsDialog.Tabs.DefaultUserName.EMail")+":","");
@@ -437,7 +439,7 @@ public class SetupDialogPageFileFormats extends SetupDialogPage {
 
 	@Override
 	public void resetSettings() {
-		defaultUserName.setText(System.getProperty("user.name"));
+		defaultUserName.setText(SetupBase.getDisplayUserName());
 		defaultUserEMail.setText("");
 		defaultSaveFormatModels.setSelectedIndex(0);
 		defaultSaveFormatStatistics.setSelectedIndex(0);

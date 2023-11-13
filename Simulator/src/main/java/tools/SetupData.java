@@ -1589,7 +1589,7 @@ public class SetupData extends SetupBase {
 		defaultSaveFormatParameterSeries=XMLTools.DefaultSaveFormat.ZIP_XML;
 		defaultSaveFormatOptimizerSetups=XMLTools.DefaultSaveFormat.ZIP_XML;
 		useBackupFiles=false;
-		defaultUserName=System.getProperty("user.name");
+		defaultUserName=getDisplayUserName();
 		defaultUserEMail="";
 		parameterSeriesTableDigits=1;
 		parameterSeriesTableDigitsUseOnExport=false;

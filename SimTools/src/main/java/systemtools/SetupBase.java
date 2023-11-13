@@ -16,11 +16,15 @@
 package systemtools;
 
 import java.awt.Component;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -335,5 +339,107 @@ public abstract class SetupBase {
 	 */
 	public boolean isLastFileSaveSuccessful() {
 		return lastFileSaveWasSuccessful;
+	}
+
+	/**
+	 * Führt eine Windows-Registry-Abfrage durch.
+	 * @param path	Registry-Pfad (beginnend mit Root-Schlüssel in Kurtform, z.B. HKLM)
+	 * @param key	Registry-Schlüssel
+	 * @return	Ausgabe des "reg"-Befehls (ist im Fehlerfall <code>null</code>)
+	 */
+	private static List<String> getRegistryValue(final String path, final String key) {
+		Process process;
+		try {
+			process=new ProcessBuilder("reg","query",path,"/v",key).start();
+		} catch (IOException e) {
+			return null;
+		}
+		try (BufferedReader reader=new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+			return reader.lines().collect(Collectors.toList());
+		} catch (IOException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Interpretiert die Ausgabe des "reg"-Befehls
+	 * @param path	Registry-Pfad (beginnend mit Root-Schlüssel in Kurtform, z.B. HKLM)
+	 * @param key	Registry-Schlüssel
+	 * @param lines	Zu interpretierende Rückgabe von {@link #getRegistryValue(String, String)} (darf <code>null</code> oder leer sein)
+	 * @return	Textwert des Schlüssels oder im Fehlerfall <code>null</code>
+	 * @see #getRegistryValue(String, String)
+	 */
+	private static String processRegistryResult(final String path, final String key, final List<String> lines) {
+		if (lines==null || lines.size()<2) return null;
+
+		int index=0;
+
+		/* Leerzeilen am Anfang der Ausgabe */
+		while (index<lines.size()) {
+			if (lines.get(index).trim().isEmpty()) index++; else break;
+		}
+
+		/* Pfad */
+		if (index>=lines.size()) return null;
+		final int pathIndex=path.indexOf("\\");
+		final int lineIndex=lines.get(index).indexOf("\\");
+		if (pathIndex<0 || lineIndex<0 || pathIndex>=path.length()-1 || lineIndex>=lines.get(index).length()-1) return null;
+		final String shortPath=path.substring(pathIndex);
+		final String shortLine=lines.get(index).substring(lineIndex);
+		if (!shortPath.equals(shortLine)) return null;
+		index++;
+
+		/* Ergebniszeile */
+		if (index>=lines.size()) return null;
+		String line=lines.get(index).trim();
+		if (!line.startsWith(key) || line.length()<=key.length()) return null;
+		line=line.substring(key.length()).trim();
+		if (!line.startsWith("REG_SZ") || line.length()<=6) return null;
+		line=line.substring(6).trim();
+		return line;
+	}
+
+	/**
+	 * Windows-Registry-Pfad zum Auslesen des Nutzernamens
+	 * @see #getDisplayUserName()
+	 */
+	private static final String USER_NAME_REG_PATH="HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Authentication\\LogonUI";
+
+	/**
+	 * Windows-Registry-Schlüssel zum Auslesen des System-Nutzernamens
+	 * @see #getDisplayUserName()
+	 */
+	private static final String USER_NAME_REG_KEY_SYSTEM="LastLoggedOnUser";
+
+	/**
+	 * Windows-Registry-Schlüssel zum Auslesen des Anzeige-Nutzernamens
+	 * @see #getDisplayUserName()
+	 */
+	private static final String USER_NAME_REG_KEY_DISPLAY="LastLoggedOnDisplayName";
+
+	/**
+	 * Bereits ermittelter Anzeigename (um wiederholte "reg"-Aufrufe zu vermeiden)
+	 * @see #getDisplayUserName()
+	 */
+	private static String displayUserName=null;
+
+	/**
+	 * Liefert auf Windows-Systemen den anzuzeigenden Nutzernamen (ansonsten und im Fehlerfall den System-Nutzernamen)
+	 * @return	Nutzernamen
+	 */
+	public static String getDisplayUserName() {
+		if (displayUserName!=null) return displayUserName;
+
+		final String systemUserName=System.getProperty("user.name");
+		if (systemUserName==null) return "";
+
+		final String os=System.getProperty("os.name");
+		if (os==null || !os.startsWith("Windows")) return systemUserName;
+
+		final String registryUserName=processRegistryResult(USER_NAME_REG_PATH,USER_NAME_REG_KEY_SYSTEM,getRegistryValue(USER_NAME_REG_PATH,USER_NAME_REG_KEY_SYSTEM));
+		final String registryDisplayUserName=processRegistryResult(USER_NAME_REG_PATH,USER_NAME_REG_KEY_DISPLAY,getRegistryValue(USER_NAME_REG_PATH,USER_NAME_REG_KEY_DISPLAY));
+		if (registryUserName==null || registryDisplayUserName==null || !registryUserName.startsWith(".\\") || registryDisplayUserName.length()<3 || !registryUserName.substring(2).equals(systemUserName)) return systemUserName;
+
+		return displayUserName=registryDisplayUserName;
 	}
 }
