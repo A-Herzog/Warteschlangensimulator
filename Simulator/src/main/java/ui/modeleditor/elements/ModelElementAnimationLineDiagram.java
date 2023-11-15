@@ -395,27 +395,47 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	}
 
 	/**
+	 * Zeichnet eine einzelne Dummy-Linie während der Editor aktiv ist (und noch keine Animationsdaten vorliegen)
+	 * @param g	Grafik-Ausgabeobjekt
+	 * @param rectangle	Ausgaberechteck
+	 * @param delta	Vertikale Position (gültige Werte sind 0 bis 2)
+	 * @see #drawDummyDiagramLines(Graphics2D, Rectangle, double)
+	 */
+	private void drawDummyLine(final Graphics2D g, final Rectangle rectangle, int delta) {
+		delta=Math.min(2,Math.max(0,delta));
+
+		final int x1=rectangle.x;
+		final int x2=(int)FastMath.round(rectangle.x+1.0/4.0*rectangle.width);
+		final int x3=(int)FastMath.round(rectangle.x+2/4.0*rectangle.width);
+		final int x4=(int)FastMath.round(rectangle.x+3/4.0*rectangle.width);
+
+		final int y1=(int)FastMath.round(rectangle.y+3.0/4.0*rectangle.height-delta*rectangle.height/10.0);
+		final int y2=(int)FastMath.round(rectangle.y+1.0/4.0*rectangle.height-delta*rectangle.height/10.0);
+		final int y3=(int)FastMath.round(rectangle.y+2.0/4.0*rectangle.height-delta*rectangle.height/10.0);
+
+		g.drawLine(x1,y1,x2,y2);
+		g.drawLine(x2,y2,x3,y3);
+		g.drawLine(x3,y3,x4,y2);
+	}
+
+	/**
 	 * Zeichnet Dummy-Linien während der Editor aktiv ist (und noch keine Animationsdaten vorliegen)
 	 * @param g	Grafik-Ausgabeobjekt
 	 * @param rectangle	Ausgaberechteck
 	 * @param zoom	Zoomfaktor
 	 */
 	private void drawDummyDiagramLines(final Graphics2D g, final Rectangle rectangle, final double zoom) {
-		g.setColor(Color.BLUE);
-		g.setStroke(new BasicStroke(Math.max(1,Math.round(2*zoom))));
-
-		int x1=rectangle.x;
-		int x2=(int)FastMath.round(rectangle.x+1.0/4.0*rectangle.width);
-		int x3=(int)FastMath.round(rectangle.x+2/4.0*rectangle.width);
-		int x4=(int)FastMath.round(rectangle.x+3/4.0*rectangle.width);
-
-		int y1=(int)FastMath.round(rectangle.y+3.0/4.0*rectangle.height);
-		int y2=(int)FastMath.round(rectangle.y+1.0/4.0*rectangle.height);
-		int y3=(int)FastMath.round(rectangle.y+2.0/4.0*rectangle.height);
-
-		g.drawLine(x1,y1,x2,y2);
-		g.drawLine(x2,y2,x3,y3);
-		g.drawLine(x3,y3,x4,y2);
+		if (expressionColor.size()==0) {
+			g.setColor(Color.BLUE);
+			g.setStroke(new BasicStroke(Math.max(1,Math.round(2*zoom))));
+			drawDummyLine(g,rectangle,0);
+		} else {
+			for (int i=0;i<Math.min(3,Math.min(expressionColor.size(),expressionWidth.size()));i++) {
+				g.setColor(expressionColor.get(i));
+				g.setStroke(new BasicStroke(Math.max(1,Math.round(expressionWidth.get(i)*zoom))));
+				drawDummyLine(g,rectangle,i);
+			}
+		}
 
 		setTimeXAxis(-timeArea,xAxisLabels,null);
 		boolean drawYAxis=minValue.size()>0;
