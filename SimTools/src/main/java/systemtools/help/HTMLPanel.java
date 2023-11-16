@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -519,8 +520,8 @@ public abstract class HTMLPanel extends JPanel {
 		if (index3<0) return cssLine;
 		final URL cssURL;
 		try {
-			cssURL=new URL(htmlURL.substring(0,index3+1)+cssFileName);
-		} catch (MalformedURLException e) {
+			cssURL=new URI(htmlURL.substring(0,index3+1)+cssFileName).toURL();
+		} catch (MalformedURLException | URISyntaxException e) {
 			return cssLine;
 		}
 

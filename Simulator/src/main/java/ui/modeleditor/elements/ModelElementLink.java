@@ -25,8 +25,8 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -342,8 +342,8 @@ public class ModelElementLink extends ModelElementPosition implements ElementWit
 				return true;
 			case 0:
 				try {
-					Desktop.getDesktop().browse(new URL(link).toURI());
-				} catch (IOException | URISyntaxException e) {
+					Desktop.getDesktop().browse(new URI(link));
+				} catch (URISyntaxException | IOException e) {
 					MsgBox.error(owner,MsgBox.OpenURLErrorTitle,String.format(MsgBox.OpenURLErrorMessage,link));
 				}
 				return true;

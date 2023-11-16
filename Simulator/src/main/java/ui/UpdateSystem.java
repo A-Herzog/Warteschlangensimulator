@@ -22,8 +22,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -285,14 +285,14 @@ public class UpdateSystem {
 	 */
 	private InputStream openServerFile(final String urlString) {
 		/* URL zusammenbauen */
-		URL url;
+		URI uri;
 		try {
-			url=new URL("https://"+urlString);
-		} catch (MalformedURLException e1) {return null;}
+			uri=new URI("https://"+urlString);
+		} catch (URISyntaxException e1) {return null;}
 
 		try {
 			/* Verbindung öffnen */
-			final URLConnection connect=NetHelper.openConnection(url,false,true);
+			final URLConnection connect=NetHelper.openConnection(uri,false,true);
 			if (connect==null) return null;
 
 			/* InputStream zurückliefern */
@@ -367,12 +367,12 @@ public class UpdateSystem {
 	 * @return	Inhalt der Textdatei oder im Fehlerfall <code>null</code>
 	 */
 	private String downloadTextFile(final String urlString) {
-		URL url;
+		URI uri;
 		try {
-			url=new URL("https://"+urlString);
-		} catch (MalformedURLException e1) {return null;}
+			uri=new URI("https://"+urlString);
+		} catch (URISyntaxException e1) {return null;}
 
-		return NetHelper.loadText(url,false,true);
+		return NetHelper.loadText(uri,false,true);
 	}
 
 	/**

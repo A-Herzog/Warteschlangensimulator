@@ -20,7 +20,8 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,13 +88,13 @@ public class URLLoader {
 	 */
 	private static byte[] loadData(final String url) {
 		final ByteArrayOutputStream output=new ByteArrayOutputStream();
-		try (BufferedInputStream in=new BufferedInputStream(new URL(url).openStream())) {
+		try (BufferedInputStream in=new BufferedInputStream(new URI(url).toURL().openStream())) {
 			final byte dataBuffer[]=new byte[1024*128];
 			int bytesRead;
 			while ((bytesRead=in.read(dataBuffer,0,dataBuffer.length))!=-1) {
 				output.write(dataBuffer,0,bytesRead);
 			}
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			return null;
 		}
 

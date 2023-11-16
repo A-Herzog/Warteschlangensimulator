@@ -31,7 +31,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -647,9 +648,9 @@ public class BookDataDialog extends BaseDialog {
 		/* Datei herunterladen */
 		byte[] data=null;
 		try {
-			final URL url=new URL(bookURL);
-			data=WaitDialog.workBytes(this,()->NetHelper.loadBinary(url,null,false,true),WaitDialog.Mode.DOWNLOAD_FILE); /* onlySecuredURLs=false ist leider nötig */
-		} catch (MalformedURLException e1) {
+			final URI uri=new URI(bookURL);
+			data=WaitDialog.workBytes(this,()->NetHelper.loadBinary(uri,null,false,true),WaitDialog.Mode.DOWNLOAD_FILE); /* onlySecuredURLs=false ist leider nötig */
+		} catch (URISyntaxException e1) {
 			data=null;
 		}
 

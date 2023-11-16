@@ -19,8 +19,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,14 +102,14 @@ public class RuntimeImpl implements RuntimeInterface {
 
 	@Override
 	public double getInput(final String url, final double errorValue) {
-		URL urlObj=null;
+		URI uriObj=null;
 		try {
-			urlObj=new URL(url);
-		} catch (MalformedURLException e) {
+			uriObj=new URI(url);
+		} catch (URISyntaxException e) {
 			return errorValue;
 		}
 
-		final String text=NetHelper.loadText(urlObj,false,false);
+		final String text=NetHelper.loadText(uriObj,false,false);
 		if (text==null) return errorValue;
 		final Double D=NumberTools.getDouble(text);
 		if (D==null) return errorValue;

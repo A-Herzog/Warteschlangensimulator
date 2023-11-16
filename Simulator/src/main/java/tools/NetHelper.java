@@ -25,6 +25,8 @@ import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.cert.Certificate;
@@ -116,38 +118,38 @@ public class NetHelper {
 
 	/**
 	 * Öffnet die Verbindung zum Server, um eine Datei herunterzuladen
-	 * @param url	Request-URL
+	 * @param uri	Request-URL
 	 * @param sendUserAgentString	Soll ein Benutzer-Agent-String mitgeschickt werden?
 	 * @param onlySecuredURLs	Nur Verbindungen zu hinterlegter Home-URL zulassen
 	 * @return	Serververbindung oder <code>null</code>, wenn die Verbindung fehlgeschlagen ist.
 	 */
-	public static URLConnection openConnection(URL url, final boolean sendUserAgentString, final boolean onlySecuredURLs) {
-		return openConnection(url,sendUserAgentString?"":null,onlySecuredURLs,false);
+	public static URLConnection openConnection(URI uri, final boolean sendUserAgentString, final boolean onlySecuredURLs) {
+		return openConnection(uri,sendUserAgentString?"":null,onlySecuredURLs,false);
 	}
 
 	/**
 	 * Öffnet die Verbindung zum Server, um eine Datei herunterzuladen
-	 * @param url	Request-URL
+	 * @param uri	Request-URL
 	 * @param userAgentString	Benutzer-Agent-String (kann <code>null</code> sein, dann wird kein User-Agent gesendet)
 	 * @param onlySecuredURLs	Nur Verbindungen zu hinterlegter Home-URL zulassen
 	 * @param followCookieBasedRedirects	Weiterleitungen manuell folgen und dabei ggf. Cookies weitergeben (<code>true</code>) oder Java-Standardmechanismus verwenden (<code>false</code>)
 	 * @return	Serververbindung oder <code>null</code>, wenn die Verbindung fehlgeschlagen ist.
 	 */
-	public static URLConnection openConnection(URL url, final String userAgentString, final boolean onlySecuredURLs, final boolean followCookieBasedRedirects) {
-		URL lastURL=null;
+	public static URLConnection openConnection(URI uri, final String userAgentString, final boolean onlySecuredURLs, final boolean followCookieBasedRedirects) {
+		URI lastURI=null;
 		final Map<String,String> cookiesSecure=new HashMap<>();
 		final Map<String,String> cookiesAll=new HashMap<>();
 		int redirects=0;
 
 		while (true) try {
 			/* Verbindung vorbereiten */
-			final URLConnection connect=url.openConnection(getProxy());
+			final URLConnection connect=uri.toURL().openConnection(getProxy());
 
 			/* Verbindung vorbereiten: User-Agent */
 			if (userAgentString!=null) connect.setRequestProperty("User-Agent",userAgentString);
 
 			/* Verbindung vorbereiten: Referer */
-			if (lastURL!=null) connect.setRequestProperty("Referer",lastURL.toString());
+			if (lastURI!=null) connect.setRequestProperty("Referer",lastURI.toString());
 
 			/* Verbindung vorbereiten: Cookies */
 			final StringBuilder cookieBuilder=new StringBuilder();
@@ -197,8 +199,8 @@ public class NetHelper {
 			if (redirects>10) return null;
 
 			/* Neue Adresse und neue Cookies bestimmen */
-			if (status!=HttpURLConnection.HTTP_MOVED_PERM) lastURL=url;
-			url=new URL(connect.getHeaderField("Location"));
+			if (status!=HttpURLConnection.HTTP_MOVED_PERM) lastURI=uri;
+			uri=new URI(connect.getHeaderField("Location"));
 			final List<String> newCookiesList=connect.getHeaderFields().get("Set-Cookie");
 			if (newCookiesList!=null) for (String newCookies: newCookiesList) if (newCookies!=null && !newCookies.trim().isEmpty()) {
 				final boolean secure=newCookies.contains("Secure");
@@ -212,22 +214,22 @@ public class NetHelper {
 					}
 				}
 			}
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			return null;
 		}
 	}
 
 	/**
 	 * Lädt eine Textdatei vom Server und liefert die einzelnen Zeilen
-	 * @param url	Request-URL
+	 * @param uri	Request-URL
 	 * @param sendUserAgentString	Soll ein Benutzer-Agent-String mitgeschickt werden?
 	 * @param onlySecuredURLs	Nur Verbindungen zu hinterlegter Home-URL zulassen
 	 * @return	Text als Zeilenarray oder <code>null</code> im Fehlerfall
 	 */
-	public static String[] loadTextLines(final URL url, final boolean sendUserAgentString, final boolean onlySecuredURLs) {
+	public static String[] loadTextLines(final URI uri, final boolean sendUserAgentString, final boolean onlySecuredURLs) {
 		try {
 			/* Verbindung öffnen */
-			final URLConnection connect=NetHelper.openConnection(url,sendUserAgentString,onlySecuredURLs);
+			final URLConnection connect=NetHelper.openConnection(uri,sendUserAgentString,onlySecuredURLs);
 			if (connect==null) return null;
 
 			/* Daten laden */
@@ -246,29 +248,29 @@ public class NetHelper {
 
 	/**
 	 * Lädt eine Textdatei vom Server und liefert den Inhalt als String.
-	 * @param url	Request-URL
+	 * @param uri	Request-URL
 	 * @param sendUserAgentString	Soll ein Benutzer-Agent-String mitgeschickt werden?
 	 * @param onlySecuredURLs	Nur Verbindungen zu hinterlegter Home-URL zulassen
 	 * @return	Text als String oder <code>null</code> im Fehlerfall
 	 */
-	public static String loadText(final URL url, final boolean sendUserAgentString, final boolean onlySecuredURLs) {
-		final String[] lines=loadTextLines(url,sendUserAgentString,onlySecuredURLs);
+	public static String loadText(final URI uri, final boolean sendUserAgentString, final boolean onlySecuredURLs) {
+		final String[] lines=loadTextLines(uri,sendUserAgentString,onlySecuredURLs);
 		if (lines==null) return null;
 		return String.join("\n",lines);
 	}
 
 	/**
 	 * Lädt eine Binärdatei vom Server und liefert den Inhalt zurück.
-	 * @param url	Request-URL
+	 * @param uri	Request-URL
 	 * @param userAgentString	Benutzer-Agent-String (kann <code>null</code> sein, dann wird kein User-Agent gesendet)
 	 * @param onlySecuredURLs	Nur Verbindungen zu hinterlegter Home-URL zulassen
 	 * @param followCookieBasedRedirects	Weiterleitungen manuell folgen und dabei ggf. Cookies weitergeben (<code>true</code>) oder Java-Standardmechanismus verwenden (<code>false</code>)
 	 * @return	Daten oder <code>null</code> im Fehlerfall
 	 */
-	public static byte[] loadBinary(final URL url, final String userAgentString, final boolean onlySecuredURLs, final boolean followCookieBasedRedirects) {
+	public static byte[] loadBinary(final URI uri, final String userAgentString, final boolean onlySecuredURLs, final boolean followCookieBasedRedirects) {
 		try {
 			/* Verbindung öffnen */
-			final URLConnection connect=NetHelper.openConnection(url,userAgentString,onlySecuredURLs,true);
+			final URLConnection connect=NetHelper.openConnection(uri,userAgentString,onlySecuredURLs,true);
 			if (!(connect instanceof HttpURLConnection)) return null;
 
 			/* Daten laden */

@@ -18,7 +18,6 @@ package mathtools.distribution.swing;
 import java.awt.Component;
 import java.awt.Desktop;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -73,8 +72,8 @@ public class JOpenURL {
 	static {
 		defaultOpenStringURL=(parent,url)->{
 			try {
-				openURI.accept(parent,new URL(url).toURI());
-			} catch (MalformedURLException|URISyntaxException e) {}
+				openURI.accept(parent,new URI(url));
+			} catch (URISyntaxException e) {}
 		};
 		defaultOpenURL=(parent,url)->{
 			try {
