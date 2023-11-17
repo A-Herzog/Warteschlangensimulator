@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.5.0</ModelVersion>
+  <ModelName>Splitting and joining of (partial) products</ModelName>
+  <ModelDescription>In this example, the components of various orders are collected at
+a common station. The entire product is only released when all the
+partial products of the order have arrived.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">1000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Products A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="200"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="2">
+      <ModelElementName>Products B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="400"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementVariable id="3">
+      <ModelElementName>ID</ModelElementName>
+      <ModelElementSize h="50" w="100" x="300" y="200"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(1)">ClientNumber()</ModelElementAssignmentData>
+      <ModelElementAssignmentData Variable="ClientData(2)">3</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementVariable id="4">
+      <ModelElementName>ID</ModelElementName>
+      <ModelElementSize h="50" w="100" x="300" y="400"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(1)">ClientNumber()</ModelElementAssignmentData>
+      <ModelElementAssignmentData Variable="ClientData(2)">2</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementDelay id="5">
+      <ModelElementName>Machine 1</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="150"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="21" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (50)</ModelElementDistribution>
+    </ModelElementDelay>
+    <ModelElementDelay id="6">
+      <ModelElementName>Machine 2</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="250"/>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Element="22" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (50)</ModelElementDistribution>
+    </ModelElementDelay>
+    <ModelElementDelay id="7">
+      <ModelElementName>Machine 3</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="350"/>
+      <ModelElementConnection Element="17" Type="In"/>
+      <ModelElementConnection Element="18" Type="In"/>
+      <ModelElementConnection Element="23" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (50)</ModelElementDistribution>
+    </ModelElementDelay>
+    <ModelElementEdge id="8">
+      <ModelElementName>Arrivals (Products A)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDelay id="9">
+      <ModelElementName>Machine 4</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="450"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="24" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (50)</ModelElementDistribution>
+    </ModelElementDelay>
+    <ModelElementDuplicate id="10">
+      <ModelElementSize h="50" w="100" x="450" y="200"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="15" Type="Out"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+      <ModelElementConnection Element="17" Type="Out"/>
+    </ModelElementDuplicate>
+    <ModelElementDuplicate id="11">
+      <ModelElementSize h="50" w="100" x="450" y="400"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="18" Type="Out"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+    </ModelElementDuplicate>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="3" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="13">
+      <ModelElementName>Arrivals (Products B)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementConnection Element1="4" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="15">
+      <ModelElementName>Original</ModelElementName>
+      <ModelElementConnection Element1="10" Element2="5" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="16">
+      <ModelElementName>Copy 1</ModelElementName>
+      <ModelElementConnection Element1="10" Element2="6" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="17">
+      <ModelElementName>Copy 2</ModelElementName>
+      <ModelElementConnection Element1="10" Element2="7" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="18">
+      <ModelElementName>Original</ModelElementName>
+      <ModelElementConnection Element1="11" Element2="7" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementName>Copy 1</ModelElementName>
+      <ModelElementConnection Element1="11" Element2="9" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementHoldScript id="20">
+      <ModelElementName>Collect</ModelElementName>
+      <ModelElementSize h="50" w="100" x="950" y="300"/>
+      <ModelElementConnection Element="21" Type="In"/>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="24" Type="In"/>
+      <ModelElementConnection Element="29" Type="Out"/>
+      <ModelElementHoldScriptCondition Language="Javascript" OnlyCheckOnArrival="1">/* Number of partial products currently being waiting */
+let count=Clients.count();
+
+/* Current time */
+let now=Simulation.time();
+
+/* Fast counting of the waiting partial products */
+let map=Simulation.getMapGlobal().get("JoinMap");
+if (map==null) {
+  map={};
+  Simulation.getMapGlobal().put("JoinMap",map);
+}
+
+/* ID of the new arrived partial product */
+let id=Clients.clientData(count-1,1); /* ClientData(1) contains the ID */
+
+/* Record arrival time at the station for the partial product */
+Clients.clientData(count-1,4,now); /* ClientData(4) contains the arrival time of the partial product at the"Collect" station now */
+
+/* How many sub-products does the product consist of? */
+let groupSize=Clients.clientData(count-1,2); /* ClientData(2) contains the number of partial products for this product */
+
+let currentSize;
+if (groupSize==1) {
+  /* We can do without recording in the map; release is always immediate. */	
+  currentSize=1;
+} else {	      
+  if (typeof(map[id])=='undefined') map[id]=1; else map[id]++;
+  currentSize=map[id];
+}
+
+/* Have all partial products of the overall product arrived? */
+if (groupSize==currentSize) {
+
+  /* Generate a list of the partial products to be released */
+  let release=[];	
+  for (let i=0;i&lt;count;i++) {
+  	/* ID of the partial product currently being checked */
+  	let testId=Clients.clientData(i,1); /* ClientData(1) contains the ID */
+  	if (testId!=id) continue;
+  	release.push(i); /* Add to list (for statistic, etc.) */
+  	Clients.release(i); /* Release */
+  }
+
+  /* Set the first object as the one relevant for the statistics */
+  Clients.clientData(release[0],3,1); /* ClientData(3)==1 =&gt; Statistic recording */
+
+  /* Record the maximum waiting and service time for all partial products in the first object as the waiting and service time. */
+  let maxWaiting=Clients.clientWaitingSeconds(release[0]);
+  let maxProcess=Clients.clientProcessSeconds(release[0]);
+  let minArrival=Clients.clientData(release[0],4);
+  for (let j=1;j&lt;release.length;j++) {
+    let waiting=Clients.clientWaitingSeconds(release[j]);
+    let process=Clients.clientProcessSeconds(release[j]);
+    let arrival=Clients.clientData(release[j],4);
+    maxWaiting=Math.max(maxWaiting,waiting);
+    maxProcess=Math.max(maxProcess,process);
+    minArrival=Math.min(minArrival,arrival);
+  }
+  Clients.clientWaitingSecondsSet(release[0],maxWaiting);
+  Clients.clientProcessSecondsSet(release[0],maxProcess);
+  Clients.clientResidenceSecondsSet(release[0],maxWaiting+maxProcess);
+  Clients.clientData(release[0],4,now-minArrival);
+  
+
+  /* Delete ID client data field that is no longer needed (clearer statistics) */
+  Clients.clientData(release[0],1,0);
+}</ModelElementHoldScriptCondition>
+    </ModelElementHoldScript>
+    <ModelElementEdge id="21">
+      <ModelElementConnection Element1="5" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="22">
+      <ModelElementConnection Element1="6" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="23">
+      <ModelElementConnection Element1="7" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="24">
+      <ModelElementConnection Element1="9" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecide id="25">
+      <ModelElementSize h="50" w="100" x="1100" y="300"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="29" Type="In"/>
+      <ModelElementConnection Condition="ClientData(3)==1" Element="30" Type="Out"/>
+      <ModelElementConnection Element="31" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementClientStatistics id="26">
+      <ModelElementSize h="50" w="100" x="1100" y="400"/>
+      <ModelElementConnection Element="31" Type="In"/>
+      <ModelElementConnection Element="32" Type="Out"/>
+      <ModelElementClientStatisticsMode Mode="off"/>
+    </ModelElementClientStatistics>
+    <ModelElementDispose id="27">
+      <ModelElementSize h="50" w="100" x="1100" y="500"/>
+      <ModelElementConnection Element="32" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementDispose id="28">
+      <ModelElementSize h="50" w="100" x="1400" y="300"/>
+      <ModelElementConnection Element="30" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="29">
+      <ModelElementConnection Element1="20" Element2="25" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="30">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="25" Element2="28" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="31">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="25" Element2="26" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="32">
+      <ModelElementConnection Element1="26" Element2="27" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="33">
+      <ModelElementSize h="23" w="348" x="50" y="50"/>
+      <ModelElementTextLine>Splitting and joining of (partial) products</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="34">
+      <ModelElementSize h="30" w="235" x="300" y="310"/>
+      <ModelElementTextLine>ClientData(1)=eindeutige ID</ModelElementTextLine>
+      <ModelElementTextLine>ClientData(2)=Anzahl an Teilprodukten (2 oder 3)</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="35">
+      <ModelElementSize h="15" w="185" x="1060" y="270"/>
+      <ModelElementTextLine>ClientData(3)==1 =&gt; Statistic recording</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="36">
+      <ModelElementSize h="135" w="129" x="950" y="370"/>
+      <ModelElementTextLine>Release the product when</ModelElementTextLine>
+      <ModelElementTextLine>all partial products have</ModelElementTextLine>
+      <ModelElementTextLine>arrived. The "product" is</ModelElementTextLine>
+      <ModelElementTextLine>simply the quantity of all</ModelElementTextLine>
+      <ModelElementTextLine>partial products. However,</ModelElementTextLine>
+      <ModelElementTextLine>the first of these is</ModelElementTextLine>
+      <ModelElementTextLine>defined as the information</ModelElementTextLine>
+      <ModelElementTextLine>carrier for the sum of the</ModelElementTextLine>
+      <ModelElementTextLine>key figures for all parts.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="37">
+      <ModelElementSize h="500" w="550" x="50" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="38">
+      <ModelElementSize h="19" w="417" x="55" y="105"/>
+      <ModelElementTextLine>Various complex product requirements arrive at the system</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="39">
+      <ModelElementSize h="500" w="200" x="650" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="40">
+      <ModelElementSize h="38" w="122" x="655" y="105"/>
+      <ModelElementTextLine>Production of the</ModelElementTextLine>
+      <ModelElementTextLine>partial products</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="41">
+      <ModelElementSize h="495" w="350" x="900" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="42">
+      <ModelElementSize h="38" w="194" x="910" y="105"/>
+      <ModelElementTextLine>Joining the partial products</ModelElementTextLine>
+      <ModelElementTextLine>to form a complete product</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="43">
+      <ModelElementSize h="75" w="311" x="1350" y="160"/>
+      <ModelElementTextLine>The recorded **waiting time** is the maximum waiting time of the</ModelElementTextLine>
+      <ModelElementTextLine>partial products at the "Collect" station (i.e. the waiting time</ModelElementTextLine>
+      <ModelElementTextLine>of the partial product that arrived there first).</ModelElementTextLine>
+      <ModelElementTextLine>The recorded **service time** is the maximum of the service times</ModelElementTextLine>
+      <ModelElementTextLine>of the service times of the respective partial products.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="44">
+      <ModelElementName>Average service times at the stations</ModelElementName>
+      <ModelElementSize h="30" w="158" x="650" y="620"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">(Bedienzeit_avg(5)+Bedienzeit_avg(6)+Bedienzeit_avg(7)+Bedienzeit_avg(9))/4</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="45">
+      <ModelElementName>Average total service time per product</ModelElementName>
+      <ModelElementSize h="30" w="161" x="650" y="670"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Bedienzeit_avg()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="46">
+      <ModelElementName>Average waiting time at the collect station</ModelElementName>
+      <ModelElementSize h="30" w="175" x="900" y="625"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Wartezeit_avg()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="47">
+      <ModelElementSize h="45" w="175" x="900" y="660"/>
+      <ModelElementTextLine>Average time from arrival of the first</ModelElementTextLine>
+      <ModelElementTextLine>partial product to the arrival of the</ModelElementTextLine>
+      <ModelElementTextLine>of the last product portion</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="48">
+      <ModelElementName>Average waiting time at the collect station for products A</ModelElementName>
+      <ModelElementSize h="30" w="238" x="1150" y="625"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Wartezeit_avg(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="49">
+      <ModelElementName>Average waiting time at the collect station for products B</ModelElementName>
+      <ModelElementSize h="30" w="238" x="1150" y="670"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Wartezeit_avg(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationLineDiagram id="50">
+      <ModelElementSize h="190" w="600" x="650" y="755"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>255,255,255</ModelElementBackgroundColor>
+      <ModelElementBackgroundColorGradient>230,230,250</ModelElementBackgroundColorGradient>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="1" Maximum="10" Minimum="0">WIP(20)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="10" Minimum="0">WIP_avg(20)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>3600</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="51">
+      <ModelElementSize h="19" w="312" x="650" y="735"/>
+      <ModelElementTextLine>Partial products waiting at the collect station</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random"/>
+  <ClientTypeData>
+    <ClientData Icon="car" Name="Products A"/>
+    <ClientData Icon="toolbox" Name="Products B"/>
+    <ClientData Icon="car" Name="Produkte A"/>
+    <ClientData Icon="toolbox" Name="Produkte B"/>
+  </ClientTypeData>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+  <CriticalStationsSignature>
+    <SignatureStation Hash="dErVZD20GzBPCUbZFS4oWsOf57ooXzmgl+0/nsUauFU=" Signature="NR9xVtSWWDJ8D9PiO/BUZzRiDyMbu6O9f3dmGik74dil3FgH0jcK/kgiF1npi/bWl5KRR8ABWawmH5+qmcK41rLeadamry2oCnQvrcZ1jB6gE2PHZLstLbAbZsKGwzXNBPM1sWPgaVT2gRdWWUdmTFLGQgPkS0qW9lLKsTG5kOyYkHH/bEfV5ZZvBMOBrnC0Sw1kKIvG2xYCKDNFtbtShtsyAHoGRiUClhAX6ronOYI5kfc4jE5h1eRMOxZzeYT/hzrcdl5rSS5uk1BKI4jauXtKUaY+K+P0TGpVfnWb7gWxbmtAkq4ehUfJJLFusgQx+5N4OOZKE4M3cABXNPOq3kDX6AWNPDx5Fn9uvY/yCpej5yD+LHjn/mKtkpAeD6DwhFy8CEdp6YflVHARkrZsK/azSQGYaM3dz2oPguWowXDAYzlLPtB4Q069mNFf/C8sHhfdtMOWDk4Iy+Pp9LuFknuirpvRR2aoWO6KU5dVDAtWfPFDad61wzoezZ9Ddta/Vm+2MZqFRtIO4OhFx/MX5EQxZuGnxHRGIwjrAQpXPDrm/fBDvhHQHSrDK8EEzY0U7YI/WZs9/sVEzlA8Q42Aqoc0Ys7ZkVQpHHBv+jxXcv1Z7iL5GbbvuHB4Hq9RXZyQF0y/jeyUyro4Jmy8tPG10LXci75PAPr0kArCvZPZusQ=" id="20"/>
+    <SignatureUserName Signature="XkYku6zTX13zuQjd3RvuPJdBkoWYzyy/55FfTzsvCtW5lmYtwtTawDFQCgxZDY9yOOZFfiH9xkTSpi4mFjFhxYyxphr1z/WdS40n6sVzYjfxgYBd3wfoSB0jMMlJTVgBxq6FBUFWwqLbXCYHUMj+3QuHiosT31TLtAS+k3/k/puLnUkCCjHUOsV6Yi8bbqOqJ6YOPeg1xpfk7UTVVl8gINpDiNn7T255dGpokE1W9aahmUv8yeATcqhoDV5iJHce2DHQNwAADR2GScnwSDXtrwIrk1B8ZPcbCpL4vsN+xNyr24EUyvx4RsAvvf3URVsHjVg5O/zosyfkOVTWreFUIDeiUd7befieVhwmJos8xzrSwy/LEop3H6BDW77HrWJWRjlLy8CapIAs5KrmsLjzsR5/4IhvICt57jbIDVEqacOdxCsmsRfoBGxXN37jDajRJPPZ018acu343GsoRHE0TX/SH1vrrLftigXfkO9YQAU7PmO2zvoOtt5Zh8aZmdErTHLjiWp333T5iwxsdFfD2kXca6VUkQYYlWS5MUAN3o2yGnxjw1pRUynG9ucw5kC/waHHLVEMe6WXHNfOUsOsWWZEthHCHiz/4Uif3uBOJk8ucNft9SM1b60YYut74JG/5C0CNhzVQQi6OXaBa5Xwev/Q7qiJKo/ez+bqMXwJOhI=">Alexander Herzog</SignatureUserName>
+    <SignaturePublicKey>MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAi9Dd2kqC9Kha2/jfGKX5cWmqSDpgqUW1dBmGaA0LvYb1/mDMPwXbBx3xrmsvaRm3VtgCktftPAEhGqec0isrN1HLefxNyYN0g71OAAYkxvd8wv+QbhZidHMONLabBRAfT+nqlr4r78gGcSlcE1QVQMAxSQAsR8pKdV3QDGuP6qjh3xZRO3TSatAqIfZx5HJZSFVez5KMk6kLY16kw4BTdao2Ubsm7Rh3zF1/u2RP6jrRDprkOgSRZJSJWgmWFGvrOJ8UwTWRElPSoAyrJ5ySCNzEu/Q+j1Uz4BwaOo88D4bCHP3L41fFr0T42m/D8H/k7ngmC3SzKD1HM3D510gK2pG0vmIRQg2SwI8Yg7/upD0MtsZAIBThkweJ1Xgd1AV1deSTWAhOgwUQ+6ULCDA/qy7K8Hm7D+pZ1N1a4jpNxno5nGuhIrU8ztJ2wffQ2mDIgqRHhfhUxcptxtkKyOMFyWPYUGAfNSuu/0caOb06jaEGlL0ZqtlYWKZgiaxQylMeEyF+29t2KghJt9O+sUf33r10maOmbnz/asRfCtyqg9JkH0K4H/5Ojap3tlt8NpmteVnZbQSc7wL+CkWXtdXHIBcFqt/otBp6qQKZgUX27SS16untBS/pUC5bl6eSRok1WjrMSacY29tZ5Yjz0gCMiiussTRaA6ICcC+JbAuzWK0CAwEAAQ==</SignaturePublicKey>
+  </CriticalStationsSignature>
+</Model>

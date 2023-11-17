@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-07 09:30+0100\n"
+"POT-Creation-Date: 2023-11-14 09:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5307,6 +5307,9 @@ msgstr "Zwischen mehreren Bedienstationen geteilte Ressourcen"
 
 msgid "Examples.Shiftplan"
 msgstr "Schichtpläne"
+
+msgid "Examples.SplitAndJoin"
+msgstr "Trennen und Zusammenführen von (Teil-)Produkten"
 
 msgid "Examples.SystemDesign"
 msgstr "Warteschlangensystemdesign"
@@ -18355,9 +18358,6 @@ msgstr "Automatisch wählen"
 
 msgid "SettingsDialog.JSEngine.GraalJS"
 msgstr "GraalJS Javascript-Umgebung"
-
-msgid "SettingsDialog.JSEngine.Nashorn"
-msgstr "Javascript-Umgebung des Java-Laufzeitsystems"
 
 msgid "SettingsDialog.JSEngine.Rhino"
 msgstr "Mozilla Rhino Javascript-Umgebung"
@@ -38077,6 +38077,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "SettingsDialog.JDK.Link"
 #~ msgstr "https://adoptopenjdk.net/"
+
+#~ msgid "SettingsDialog.JSEngine.Nashorn"
+#~ msgstr "Javascript-Umgebung des Java-Laufzeitsystems"
 
 #~ msgid "SettingsDialog.Tabs.License"
 #~ msgstr "Lizenz"

@@ -295,6 +295,7 @@ public class EditModelExamples {
 		addExample(Language.trAll("Examples.DurchlaufzeitenVersusDurchsatz"),"DurchlaufzeitenVersusDurchsatz.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
 		addExample(Language.trAll("Examples.EconomyOfScale"),"EconomyOfScale.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PRIORITIES);
 		addExample(Language.trAll("Examples.LocalVersusGlobalWarehouse"),"LocalVersusGlobalWarehouse.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
+		addExample(Language.trAll("Examples.SplitAndJoin"),"SplitAndJoin.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
 
 		/* Beispiele, die mathematische Zusammenh‰nge verdeutlichen */
 		addExample(Language.trAll("Examples.LawOfLargeNumbers"),"GesetzDerGroﬂenZahlen.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
