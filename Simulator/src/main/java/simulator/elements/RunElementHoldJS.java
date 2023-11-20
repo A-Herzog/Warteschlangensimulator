@@ -140,7 +140,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 
 			if (onlyCheckOnArrival) {
 				/* Prüfung erfolgt nicht über StateChangeNotify, daher hier direkt */
-				runCheck(simData);
+				runCheck(simData,true);
 			}
 
 			/* Interesse an zeitabhängigen Prüfungen anmelden */
@@ -184,9 +184,10 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 	/**
 	 * Führt die eigentliche Freigabeprüfung durch.
 	 * @param simData	Simulationsdatenobjekt
+	 * @param force	Freigabeprüfung auch dann ausführen, wenn zum selben Zeitschritt bereits eine Prüfung erfolgt ist?
 	 * @return	Liefert <code>true</code>, wenn ein wartender Kunde freigegeben wurde
 	 */
-	private boolean runCheck(final SimulationData simData) {
+	private boolean runCheck(final SimulationData simData, final boolean force) {
 		final RunElementHoldJSData data=getData(simData);
 
 		/* Warten überhaupt Kunden? */
@@ -202,7 +203,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 		try {
 			int removed=0;
 
-			if (data.lastRelease<simData.currentTime) {
+			if (data.lastRelease<simData.currentTime || force) {
 				if (data.jsRunner!=null) {
 					/* JS-Mode */
 					JSRunSimulationData jsRunner=data.jsRunner;
@@ -253,7 +254,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 	@Override
 	public boolean systemStateChangeNotify(final SimulationData simData) {
 		if (onlyCheckOnArrival) return false;
-		return runCheck(simData);
+		return runCheck(simData,false);
 	}
 
 	@Override
