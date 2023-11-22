@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-14 09:08+0100\n"
+"POT-Creation-Date: 2023-11-17 00:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29455,8 +29455,20 @@ msgstr "The entered minimum value \"%s\" is invalid."
 msgid "Surface.ExpressionTableModel.Dialog.MinimalValue.Error.Title"
 msgstr "Invalid minimum value"
 
+msgid "Surface.ExpressionTableModel.Dialog.Mode"
+msgstr "Display mode"
+
+msgid "Surface.ExpressionTableModel.Dialog.Mode.Line"
+msgstr "Line"
+
+msgid "Surface.ExpressionTableModel.Dialog.Mode.Points"
+msgstr "Points"
+
 msgid "Surface.ExpressionTableModel.Dialog.Pie"
 msgstr "Edit pie segment"
+
+msgid "Surface.ExpressionTableModel.Dialog.PointSize"
+msgstr "Point size"
 
 msgid "Surface.ExpressionTableModel.Dialog.Range.Error.Info"
 msgstr "The specified maximum value \"%s\" has to be larger than the minimum value \"%s\"."

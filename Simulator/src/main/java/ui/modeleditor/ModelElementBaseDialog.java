@@ -875,6 +875,23 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	}
 
 	/**
+	 * Erzeugt ein Bild, das eine bestimmt Punktgröße für ein Auswahlfeld darstellt.
+	 * @param width Punktgröße
+	 * @param imageSize Größe für das Bild
+	 * @return Bild zur Darstellung einer Punktgröße
+	 */
+	private static BufferedImage getPointSizeImage(final int width, final int imageSize) {
+		final BufferedImage image=new BufferedImage(imageSize,imageSize,BufferedImage.TYPE_4BYTE_ABGR);
+
+		Graphics g=image.getGraphics();
+		g.setColor(Color.BLACK);
+		final int radius=Math.min((imageSize-1)/2,width);
+		g.fillOval(imageSize/2-radius,imageSize/2-radius,2*radius,2*radius);
+
+		return image;
+	}
+
+	/**
 	 * Liefert ein Button, welches beim Anklicken den Dialog (nach Rückfrage) per Ok schließt und die Bediener-Seite im Modelleigenschaften-Dialog öffnet.
 	 * @return Button oder <code>null</code>, wenn kein Callback zum Aufruf des Modelleigenschaften-Dialogs verfügbar ist
 	 */
@@ -962,7 +979,26 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	}
 
 	/**
-	 * ComboBox-Element-Renderer, der es ermöglicht, Vorschauwerte für die Linienbreiten in der ComboBox darzustellen.
+	 * Erstellt ein ComboBox-Modell, welches verschiedene Punktgrößen darstellt
+	 * @param min Minimale Punktgröße in Pixeln
+	 * @param max Maximale Punktgröße in Pixeln
+	 * @return ComboBox-Modell mit Einträgen für verschiedene Punktgrößen
+	 * @see LineWidthComboBoxCellRenderer
+	 */
+	public static DefaultComboBoxModel<JLabel> getPointSizeComboBoxModel(final int min, final int max) {
+		final DefaultComboBoxModel<JLabel> lineWidthListModel=new DefaultComboBoxModel<>();
+
+		for (int i=min;i<=max;i++) {
+			final JLabel label=new JLabel(""+i+" "+Language.tr("Editor.DialogBase.LineWidth.Pixel"));
+			label.setIcon(new ImageIcon(getPointSizeImage(i,Math.max(16,max+2))));
+			lineWidthListModel.addElement(label);
+		}
+
+		return lineWidthListModel;
+	}
+
+	/**
+	 * ComboBox-Element-Renderer, der es ermöglicht, Vorschauwerte für die Linienbreiten oder eine Punktgröße in der ComboBox darzustellen.
 	 * @author Alexander Herzog
 	 */
 	public static class LineWidthComboBoxCellRenderer extends DefaultListCellRenderer {
@@ -1007,6 +1043,19 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	}
 
 	/**
+	 * Erstellt eine ComboBox zur Auswahl einer Punktgröße
+	 * @param min Minimale Punktgröße in Pixeln
+	 * @param max Maximale Punktgröße in Pixeln
+	 * @param value Zu Anfang ausgewählte Punktgröße (nicht notwendig Index des Eintrags)
+	 * @return ComboBox zur Auswahl einer Punktgröße
+	 */
+	public static JComboBox<JLabel> getPointSizeComboBox(final int min, final int max, final int value) {
+		final JComboBox<JLabel> pointSizeComboBox=getPointSizeComboBox(min,max);
+		pointSizeComboBox.setSelectedIndex(value-min);
+		return pointSizeComboBox;
+	}
+
+	/**
 	 * Erstellt eine ComboBox zur Auswahl einer Linienbreite
 	 * @param min Minimale Linienbreite in Pixeln
 	 * @param max Maximale Linienbreite in Pixeln
@@ -1017,6 +1066,19 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		lineWidthComboBox.setModel(getLineWidthComboBoxModel(min,max));
 		lineWidthComboBox.setRenderer(new LineWidthComboBoxCellRenderer());
 		return lineWidthComboBox;
+	}
+
+	/**
+	 * Erstellt eine ComboBox zur Auswahl einer Punktgröße
+	 * @param min Minimale Punktgröße in Pixeln
+	 * @param max Maximale Punktgröße in Pixeln
+	 * @return ComboBox zur Auswahl einer Punktgröße
+	 */
+	public static JComboBox<JLabel> getPointSizeComboBox(final int min, final int max) {
+		final JComboBox<JLabel> pointSizeComboBox=new JComboBox<>();
+		pointSizeComboBox.setModel(getPointSizeComboBoxModel(min,max));
+		pointSizeComboBox.setRenderer(new LineWidthComboBoxCellRenderer()); /* LineWidthComboBoxCellRenderer rendert auch Punkte */
+		return pointSizeComboBox;
 	}
 
 	/**
@@ -1038,6 +1100,24 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	}
 
 	/**
+	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox zur Auswahl einer Punktgröße befinden
+	 * @param labelText Beschriftungstext, der vor der ComboBox stehen soll
+	 * @param min Minimale Punktgröße in Pixeln
+	 * @param max Maximale Punktgröße in Pixeln
+	 * @return Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>JLabel</code>
+	 */
+	public static Object[] getPointSizeInputPanel(final String labelText, final int min, final int max) {
+		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		final JLabel label=new JLabel(labelText);
+		panel.add(label);
+		final JComboBox<JLabel> lineWidthComboBox=getPointSizeComboBox(min,max);
+		panel.add(lineWidthComboBox);
+		label.setLabelFor(lineWidthComboBox);
+
+		return new Object[] {panel, lineWidthComboBox};
+	}
+
+	/**
 	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox zur Auswahl einer Linienbreite befinden
 	 * @param labelText Beschriftungstext, der vor der ComboBox stehen soll
 	 * @param min Minimale Linienbreite in Pixeln
@@ -1050,6 +1130,25 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		final JLabel label=new JLabel(labelText);
 		panel.add(label);
 		final JComboBox<JLabel> lineWidthComboBox=getLineWidthComboBox(min,max,value);
+		panel.add(lineWidthComboBox);
+		label.setLabelFor(lineWidthComboBox);
+
+		return new Object[] {panel, lineWidthComboBox};
+	}
+
+	/**
+	 * Erstellt ein Panel, in dem sich ein Label und eine ComboBox zur Auswahl einer Punktgröße befinden
+	 * @param labelText Beschriftungstext, der vor der ComboBox stehen soll
+	 * @param min Minimale Punktgröße in Pixeln
+	 * @param max Maximale Punktgröße in Pixeln
+	 * @param value Zu Anfang ausgewählte Punktgröße (nicht notwendig Index des Eintrags)
+	 * @return Liefert ein 2-elementiges Array: <code>JPanel</code>-Objekt, in dem sich Label und ComboBox befinden, und <code>JComboBox</code> vom Typ <code>JLabel</code>
+	 */
+	public static Object[] getPointSizeInputPanel(final String labelText, final int min, final int max, final int value) {
+		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		final JLabel label=new JLabel(labelText);
+		panel.add(label);
+		final JComboBox<JLabel> lineWidthComboBox=getPointSizeComboBox(min,max,value);
 		panel.add(lineWidthComboBox);
 		label.setLabelFor(lineWidthComboBox);
 

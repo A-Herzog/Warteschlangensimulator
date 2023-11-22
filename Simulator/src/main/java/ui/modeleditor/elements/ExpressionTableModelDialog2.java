@@ -16,11 +16,13 @@
 package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.io.Serializable;
 
+import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -45,9 +47,34 @@ public class ExpressionTableModelDialog2 extends BaseDialog {
 	 */
 	private static final long serialVersionUID = -6910980984317800965L;
 
-	/** Auswahl der Linienbreite */
-	private final JComboBox<JLabel> lineWidth;
-	/** Auswahl der Farbe */
+	/**
+	 * Auswahl der Darstellungsart: Linie oder Punkte
+	 */
+	private final JComboBox<?> mode;
+
+	/**
+	 * Panel, welches die Punktgröße- oder die Linienbreiteneinstellungen anzeigt
+	 */
+	private final JPanel modeSetupArea;
+
+	/**
+	 * Layout für {@link #modeSetupArea}
+	 */
+	private final CardLayout modeSetupAreaLayout;
+
+	/**
+	 * Auswahl der Punktgröße
+	 */
+	private final JComboBox<?> pointSize;
+
+	/**
+	 * Auswahl der Linienbreite
+	 */
+	private final JComboBox<?> lineWidth;
+
+	/**
+	 * Auswahl der Farbe
+	 */
 	private final SmallColorChooser colorChooser;
 
 	/**
@@ -59,16 +86,36 @@ public class ExpressionTableModelDialog2 extends BaseDialog {
 	 * @param helpRunnable	Hilfe-Callback
 	 * @see ExpressionTableModelLine
 	 */
-	@SuppressWarnings("unchecked")
 	public ExpressionTableModelDialog2(final Component owner, final Color color, final int width, final Runnable helpRunnable) {
 		super(owner,Language.tr("Surface.ExpressionTableModel.Dialog"));
 
 		JPanel content=createGUI(helpRunnable);
 		content.setLayout(new BorderLayout());
+		final JPanel lineArea=new JPanel();
+		lineArea.setLayout(new BoxLayout(lineArea,BoxLayout.PAGE_AXIS));
+		content.add(lineArea,BorderLayout.NORTH);
 
-		final Object[] data=ModelElementBaseDialog.getLineWidthInputPanel(Language.tr("Surface.ExpressionTableModel.Dialog.LineWidth")+":",1,15,width);
-		content.add((JPanel)data[0],BorderLayout.NORTH);
-		lineWidth=(JComboBox<JLabel>)data[1];
+		Object[] data;
+
+		data=ModelElementBaseDialog.getComboBoxPanel(Language.tr("Surface.ExpressionTableModel.Dialog.Mode")+":",new String[]{
+				Language.tr("Surface.ExpressionTableModel.Dialog.Mode.Points"),
+				Language.tr("Surface.ExpressionTableModel.Dialog.Mode.Line")
+		});
+		lineArea.add((JPanel)data[0]);
+		mode=(JComboBox<?>)data[1];
+
+		lineArea.add(modeSetupArea=new JPanel(modeSetupAreaLayout=new CardLayout()),BorderLayout.NORTH);
+
+		data=ModelElementBaseDialog.getPointSizeInputPanel(Language.tr("Surface.ExpressionTableModel.Dialog.PointSize")+":",1,15,Math.abs(width));
+		modeSetupArea.add((JPanel)data[0],"0");
+		pointSize=(JComboBox<?>)data[1];
+
+		data=ModelElementBaseDialog.getLineWidthInputPanel(Language.tr("Surface.ExpressionTableModel.Dialog.LineWidth")+":",1,15,Math.abs(width));
+		modeSetupArea.add((JPanel)data[0],"1");
+		lineWidth=(JComboBox<?>)data[1];
+
+		mode.addActionListener(e->modeSetupAreaLayout.show(modeSetupArea,""+mode.getSelectedIndex()));
+		mode.setSelectedIndex((width>0)?1:0);
 
 		JPanel sub=new JPanel(new BorderLayout()); content.add(sub,BorderLayout.CENTER);
 		JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT)); sub.add(line,BorderLayout.NORTH);
@@ -94,6 +141,10 @@ public class ExpressionTableModelDialog2 extends BaseDialog {
 		JPanel content=createGUI(helpRunnable);
 		content.setLayout(new BorderLayout());
 
+		mode=null;
+		modeSetupArea=null;
+		modeSetupAreaLayout=null;
+		pointSize=null;
 		lineWidth=null;
 
 		JPanel sub=new JPanel(new BorderLayout()); content.add(sub,BorderLayout.CENTER);
@@ -120,6 +171,10 @@ public class ExpressionTableModelDialog2 extends BaseDialog {
 	 */
 	public int getLineWidth() {
 		if (lineWidth==null) return 1;
-		return lineWidth.getSelectedIndex()+1;
+		switch (mode.getSelectedIndex()) {
+		case 0: return -(pointSize.getSelectedIndex()+1);
+		case 1: return lineWidth.getSelectedIndex()+1;
+		default: return 1;
+		}
 	}
 }

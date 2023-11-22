@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-14 09:08+0100\n"
+"POT-Creation-Date: 2023-11-17 00:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29504,8 +29504,20 @@ msgstr "Der angegebene Minimum-Wert \"%s\" ist ungültig."
 msgid "Surface.ExpressionTableModel.Dialog.MinimalValue.Error.Title"
 msgstr "Ungültiger Minimum-Wert"
 
+msgid "Surface.ExpressionTableModel.Dialog.Mode"
+msgstr "Darstellungsart"
+
+msgid "Surface.ExpressionTableModel.Dialog.Mode.Line"
+msgstr "Linie"
+
+msgid "Surface.ExpressionTableModel.Dialog.Mode.Points"
+msgstr "Punkte"
+
 msgid "Surface.ExpressionTableModel.Dialog.Pie"
 msgstr "Segment bearbeiten"
+
+msgid "Surface.ExpressionTableModel.Dialog.PointSize"
+msgstr "Punktgröße"
 
 msgid "Surface.ExpressionTableModel.Dialog.Range.Error.Info"
 msgstr "Der angegebene Maximum-Wert \"%s\" muss größer als der Minimum-Wert \"%s\" sein."

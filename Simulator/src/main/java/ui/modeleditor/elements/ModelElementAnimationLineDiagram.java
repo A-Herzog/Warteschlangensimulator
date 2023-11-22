@@ -419,6 +419,45 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	}
 
 	/**
+	 * Zeichnet eine einzelne Dummy-Punktereihe während der Editor aktiv ist (und noch keine Animationsdaten vorliegen)
+	 * @param g	Grafik-Ausgabeobjekt
+	 * @param rectangle	Ausgaberechteck
+	 * @param radius	Radius der Punkte (bereits mit Zoom skaliert)
+	 * @param delta	Vertikale Position (gültige Werte sind 0 bis 2)
+	 * @see #drawDummyDiagramLines(Graphics2D, Rectangle, double)
+	 */
+	private void drawDummyPoints(final Graphics2D g, final Rectangle rectangle, final int radius, int delta) {
+		delta=Math.min(2,Math.max(0,delta));
+
+		final int x1=rectangle.x;
+		final int x2=(int)FastMath.round(rectangle.x+1.0/4.0*rectangle.width);
+		final int x3=(int)FastMath.round(rectangle.x+2/4.0*rectangle.width);
+		final int x4=(int)FastMath.round(rectangle.x+3/4.0*rectangle.width);
+
+		final int y1=(int)FastMath.round(rectangle.y+3.0/4.0*rectangle.height-delta*rectangle.height/10.0);
+		final int y2=(int)FastMath.round(rectangle.y+1.0/4.0*rectangle.height-delta*rectangle.height/10.0);
+		final int y3=(int)FastMath.round(rectangle.y+2.0/4.0*rectangle.height-delta*rectangle.height/10.0);
+
+		final int steps=(int)Math.max(2,Math.round(10*Math.min(rectangle.width/600.0,rectangle.height/200.0)));
+
+		for (int i=0;i<steps;i++) {
+			final int x=x1+(x2-x1)*i/steps;
+			final int y=y1+(y2-y1)*i/steps;
+			g.fillOval(x-radius,y-radius,2*radius,2*radius);
+		}
+		for (int i=0;i<steps;i++) {
+			final int x=x2+(x3-x2)*i/steps;
+			final int y=y2+(y3-y2)*i/steps;
+			g.fillOval(x-radius,y-radius,2*radius,2*radius);
+		}
+		for (int i=0;i<=steps;i++) {
+			final int x=x3+(x4-x3)*i/steps;
+			final int y=y3+(y2-y3)*i/steps;
+			g.fillOval(x-radius,y-radius,2*radius,2*radius);
+		}
+	}
+
+	/**
 	 * Zeichnet Dummy-Linien während der Editor aktiv ist (und noch keine Animationsdaten vorliegen)
 	 * @param g	Grafik-Ausgabeobjekt
 	 * @param rectangle	Ausgaberechteck
@@ -432,8 +471,13 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		} else {
 			for (int i=0;i<Math.min(3,Math.min(expressionColor.size(),expressionWidth.size()));i++) {
 				g.setColor(expressionColor.get(i));
-				g.setStroke(new BasicStroke(Math.max(1,Math.round(expressionWidth.get(i)*zoom))));
-				drawDummyLine(g,rectangle,i);
+				final int width=expressionWidth.get(i);
+				if (width>=0) {
+					g.setStroke(new BasicStroke(Math.max(1,Math.round(width*zoom))));
+					drawDummyLine(g,rectangle,i);
+				} else {
+					drawDummyPoints(g,rectangle,(int)Math.max(1,Math.round(-width*zoom)),i);
+				}
 			}
 		}
 
@@ -527,8 +571,11 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 				lastZoom=zoom;
 				drawCacheStroke=new BasicStroke[expression.size()];
 				for (int i=0;i<drawCacheStroke.length;i++) {
-					final BasicStroke stroke=new BasicStroke(Math.max(1,Math.round(expressionWidth.get(i)*zoom)));
-					if (i==0 || !stroke.equals(drawCacheStroke[i-1])) drawCacheStroke[i]=stroke; else drawCacheStroke[i]=null;
+					final int width=expressionWidth.get(i);
+					if (width>=0) {
+						final BasicStroke stroke=new BasicStroke(Math.max(1,Math.round(width*zoom)));
+						if (i==0 || !stroke.equals(drawCacheStroke[i-1])) drawCacheStroke[i]=stroke; else drawCacheStroke[i]=null;
+					}
 				}
 				drawCacheColor=new Color[expression.size()];
 				for (int i=0;i<drawCacheColor.length;i++) {
@@ -577,13 +624,9 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 				if (drawCacheStroke[i]!=null) g.setStroke(drawCacheStroke[i]);
 
 				/* Zeichnen */
-				/*
-				final GeneralPath path=new GeneralPath(GeneralPath.WIND_NON_ZERO);
-				path.moveTo(drawCacheXValues[0],drawCacheYValues[0]);
-				for (int j=1;j<valuesLength;j++) path.lineTo(drawCacheXValues[j],drawCacheYValues[j]);
-				g.draw(path);
-				 */
 				if (valuesLength>0) {
+					final int width=expressionWidth.get(i);
+					final int radius=(int)Math.round(-width*zoom);
 					int lastIndex=0;
 					for (int j=1;j<valuesLength;j++) {
 						final int x1=drawCacheXValues[lastIndex];
@@ -591,14 +634,19 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 						final int y1=drawCacheYValues[lastIndex];
 						final int y2=drawCacheYValues[j];
 						if (x1==x2 && y1==y2) continue;
-						if (x1==x2) {
-							/* Nur y-Änderung */
-							g.drawLine(x1,y1,x2,y2);
-						} else {
-							/* x(alt)->x(neu) dann y(alt)->y(neu) */
-							g.drawLine(x1,y1,x2,y1);
-							g.drawLine(x2,y1,x2,y2);
+						if (width>=0) {
+							/* Linie */
+							if (x1==x2) {
+								/* Nur y-Änderung */
+								g.drawLine(x1,y1,x2,y2);
+							} else {
+								/* x(alt)->x(neu) dann y(alt)->y(neu) */
+								g.drawLine(x1,y1,x2,y1);
+								g.drawLine(x2,y1,x2,y2);
 
+							}
+						} else {
+							g.fillOval(x2-radius,y2-radius,2*radius,2*radius);
 						}
 						lastIndex=j;
 					}
@@ -711,7 +759,7 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 			expressionColor.add(color);
 
 			Integer I;
-			I=NumberTools.getNotNegativeInteger(Language.trAllAttribute("Surface.AnimationDiagram.XML.Set.LineWidth",node));
+			I=NumberTools.getInteger(Language.trAllAttribute("Surface.AnimationDiagram.XML.Set.LineWidth",node));
 			if (I==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationDiagram.XML.Set.LineWidth"),name,node.getParentNode().getNodeName());
 			expressionWidth.add(I);
 

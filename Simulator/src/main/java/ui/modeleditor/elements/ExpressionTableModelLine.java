@@ -202,7 +202,14 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 			g.drawRect(0,0,21,21);
 			g.setColor(expressionColor.get(rowIndex));
 			int w=expressionWidth.get(rowIndex);
-			for (int i=Math.max(0,11-(w-1)/2);i<=Math.min(22,11+w/2);i++) g.drawLine(1,i,21,i);
+			if (w>=0) {
+				/* Linie */
+				for (int i=Math.max(0,11-(w-1)/2);i<=Math.min(22,11+w/2);i++) g.drawLine(1,i,21,i);
+			} else {
+				/* Punkt */
+				final int radius=Math.min(8,-w);
+				g.fillOval(11-radius,11-radius,2*radius,2*radius);
+			}
 			return makeEditPanelSmallBorderIcon(
 					new ImageIcon(image),
 					"",
