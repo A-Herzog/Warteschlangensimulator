@@ -6,8 +6,8 @@
   <packaging>jar</packaging>
   
   <properties>
-  	<maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+  	<maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>WINDOWS-1252</project.build.sourceEncoding>    
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
   </properties>
@@ -63,7 +63,7 @@
 	<dependency>
     		<groupId>org.mariadb.jdbc</groupId>
     		<artifactId>mariadb-java-client</artifactId>
-    		<version>3.2.0</version>
+    		<version>3.3.0</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.nanohttpd/nanohttpd -->
 	<!--
@@ -185,20 +185,21 @@
 	<dependency>
     		<groupId>com.formdev</groupId>
     		<artifactId>flatlaf</artifactId>
-    		<version>3.2.2</version>
+    		<version>3.2.5</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
+	<!--
 	<dependency>
     		<groupId>org.apache.derby</groupId>
     		<artifactId>derby</artifactId>
-    		<version>10.16.1.1</version>
-    		<scope>test</scope>
+    		<version>10.17.1.0</version>
 	</dependency>
+	-->
 	<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
 	<dependency>
 		<groupId>com.h2database</groupId>
 		<artifactId>h2</artifactId>
-		<version>2.2.222</version>
+		<version>2.2.224</version>
 	</dependency>
 	<!-- local -->
 	<dependency>

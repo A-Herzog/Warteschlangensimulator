@@ -39,7 +39,22 @@ public class DBConnectSetup {
 		/** Access-Anpassungen vornehmen */
 		ACCESS("Access",s->"//"+s.replace("\\","/"),s->s,null),
 		/** Apache Derby-Anpassungen vornehmen */
-		DERBY("Derby",s->s,s->s,";create=true"),
+		/* DERBY("Derby",s->s,s->s,";create=true"), */
+
+		/*
+		 * Removed from JDBC.cfg:
+		 * <Database>
+    <Name>Derby</Name>
+	<Driver>org.apache.derby.jdbc.AutoloadedDriver</Driver>
+	<Connector>derby</Connector>
+	<ListAllTablesCommand>select st.tablename from sys.systables st LEFT OUTER join sys.sysschemas ss on (st.schemaid = ss.schemaid) where ss.schemaname ='APP'</ListAllTablesCommand>
+	<UseQuotes>0</UseQuotes>
+	<Properties></Properties>
+	<ProcessSettings>Derby</ProcessSettings>
+	<SelectSource>Folder</SelectSource>
+  </Database>
+		 */
+
 		/** H2 Database (lokal)-Anpassungen vornehmen */
 		H2_LOCAL("H2Local",s->s,s->s.replace(".mv.db","").replace(".trace.db",""),null),
 		/** H2 Database (Server-Verbindung)-Anpassungen vornehmen */

@@ -118,6 +118,7 @@ public class DBConntectSetupTemplates {
 		/**
 		 * Apache Derby
 		 */
+		/*
 		DERBY(
 				"Derby",
 				"org.apache.derby.jdbc.AutoloadedDriver",
@@ -128,7 +129,7 @@ public class DBConntectSetupTemplates {
 				DBConnectSetup.ProcessSettings.DERBY,
 				DBConnectSetup.SelectSource.FOLDER
 				),
-
+		 */
 
 		/**
 		 * H2 Database in Datei
