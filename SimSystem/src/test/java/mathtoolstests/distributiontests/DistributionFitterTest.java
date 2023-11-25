@@ -104,7 +104,7 @@ class DistributionFitterTest {
 		}
 
 		final DistributionFitter fitter=new DistributionFitter();
-		assertTrue(fitter.processSamples(samples.toArray(new String[0])));
+		assertTrue(fitter.processSamples(samples.toArray(String[]::new)));
 
 		assertNotNull(fitter.getSamplesDistribution());
 		assertNotNull(fitter.getResult(true));

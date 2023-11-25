@@ -185,7 +185,7 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 	 * @see #cumulativeDensity
 	 */
 	public DataDistributionImpl(final double upperBound, final List<Double> data) {
-		this(upperBound,data.toArray(new Double[0]));
+		this(upperBound,data.toArray(Double[]::new));
 	}
 
 	/**

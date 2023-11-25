@@ -476,7 +476,7 @@ public class CalcSymbolList {
 			allSymbolNamesList.addAll(listNames);
 			for (final String variable: variables) if (variable!=null) allSymbolNamesList.add(variable);
 
-			allSymbolNames=allSymbolNamesList.toArray(new String[0]);
+			allSymbolNames=allSymbolNamesList.toArray(String[]::new);
 		}
 
 		return allSymbolNames;

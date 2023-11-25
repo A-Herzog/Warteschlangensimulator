@@ -946,7 +946,7 @@ public final class XMLTools {
 		allTypes.add("json");
 		allTypes.add("cs");
 		if (userFilterExts!=null) allTypes.addAll(Arrays.asList(userFilterExts));
-		FileFilter all=new FileNameExtensionFilter(fileTypeAll,allTypes.toArray(new String[0]));
+		FileFilter all=new FileNameExtensionFilter(fileTypeAll,allTypes.toArray(String[]::new));
 		fc.addChoosableFileFilter(all);
 		fc.setFileFilter(all);
 
@@ -1543,7 +1543,7 @@ public final class XMLTools {
 		}
 		if (!isEmpty) data.add(part.toString().trim());
 
-		return data.toArray(new String[0]);
+		return data.toArray(String[]::new);
 	}
 
 	/**

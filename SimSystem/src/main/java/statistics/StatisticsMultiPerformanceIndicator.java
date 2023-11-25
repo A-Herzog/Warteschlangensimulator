@@ -216,7 +216,7 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 	 * @return	Array mit den Namen aller in dem <code>StatisticsMultiPerformanceIndicator</code>-Objekt enthaltenen Teil-Statistik-Objekten
 	 */
 	public String[] getNames() {
-		if (namesList==null) namesList=indicators.keySet().toArray(new String[0]);
+		if (namesList==null) namesList=indicators.keySet().toArray(String[]::new);
 		return namesList;
 	}
 

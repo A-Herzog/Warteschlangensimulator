@@ -293,7 +293,7 @@ public final class CalcParser {
 		}
 
 		final CalcSymbolSub sub=new CalcSymbolSub();
-		sub.setData(parts.toArray(new CalcSymbol[0]));
+		sub.setData(parts.toArray(CalcSymbol[]::new));
 		return sub;
 	}
 

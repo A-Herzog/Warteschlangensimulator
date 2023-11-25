@@ -122,7 +122,7 @@ public abstract class CalcSystemBase implements MathParser {
 	 * @param variables	Liste der Variablennamen, die erkannt werden sollen
 	 */
 	public CalcSystemBase(final List<String> variables) {
-		this("",(variables==null)?new String[0]:variables.toArray(new String[0]));
+		this("",(variables==null)?new String[0]:variables.toArray(String[]::new));
 	}
 
 	/**
@@ -131,7 +131,7 @@ public abstract class CalcSystemBase implements MathParser {
 	 * @param variables	Liste der Variablennamen, die erkannt werden sollen
 	 */
 	public CalcSystemBase(final String text, final List<String> variables) {
-		this(text,(variables==null)?new String[0]:variables.toArray(new String[0]));
+		this(text,(variables==null)?new String[0]:variables.toArray(String[]::new));
 	}
 
 	/**

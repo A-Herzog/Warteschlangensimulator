@@ -1101,7 +1101,7 @@ public final class Table implements Cloneable {
 			try (ResultSet result=dbStatement.executeQuery("SELECT tbl_name FROM sqlite_master WHERE type='table';")) {
 				List<String> tables=new ArrayList<>();
 				while (result.next()) tables.add(result.getString(1));
-				return tables.toArray(new String[0]);
+				return tables.toArray(String[]::new);
 			}
 		} catch (SQLException e) {return new String[0];}
 	}

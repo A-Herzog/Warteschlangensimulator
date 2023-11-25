@@ -738,7 +738,7 @@ public final class MultiTable {
 			if (line.get(i).trim().isEmpty()) break;
 			data.add(line.get(i));
 		}
-		return data.toArray(new String[0]);
+		return data.toArray(String[]::new);
 	}
 
 	/**

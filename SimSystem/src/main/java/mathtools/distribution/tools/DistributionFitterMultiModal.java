@@ -564,6 +564,6 @@ public class DistributionFitterMultiModal extends DistributionFitterBase {
 			dists.add(getDistribution(fitMean.get(i),fitSd.get(i)));
 		}
 
-		return dists.toArray(new AbstractRealDistribution[0]);
+		return dists.toArray(AbstractRealDistribution[]::new);
 	}
 }

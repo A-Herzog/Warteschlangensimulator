@@ -162,7 +162,7 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 			} else {
 				final List<String> warnings=new ArrayList<>(Arrays.asList(this.warnings));
 				warnings.addAll(Arrays.asList(moreSimulationBaseDataStatistics.warnings));
-				this.warnings=warnings.toArray(new String[0]);
+				this.warnings=warnings.toArray(String[]::new);
 			}
 		}
 	}
