@@ -385,8 +385,12 @@ public class AxisDrawer {
 			final int y1=rectangle.y+rectangle.height;
 			final int y2=rectangle.y+axisFontAscent;
 
-			for (int i=0;i<=maxI;i++) {
-				graphics.drawString(text[i],x-textWidth[i],y1+(y2-y1)*i/maxI);
+			if (maxI==0) {
+				graphics.drawString(text[0],x-textWidth[0],y1);
+			} else {
+				for (int i=0;i<=maxI;i++) {
+					graphics.drawString(text[i],x-textWidth[i],y1+(y2-y1)*i/maxI);
+				}
 			}
 		}
 
@@ -423,8 +427,12 @@ public class AxisDrawer {
 			final int x2=rectangle.x+rectangle.width-textWidth[maxI];
 			final int y=rectangle.y+rectangle.height+axisFontAscent;
 
-			for (int i=0;i<=maxI;i++) {
-				graphics.drawString(text[i],x1+(x2-x1)*i/maxI,y);
+			if (maxI==0) {
+				graphics.drawString(text[0],x2,y);
+			} else {
+				for (int i=0;i<=maxI;i++) {
+					graphics.drawString(text[i],x1+(x2-x1)*i/maxI,y);
+				}
 			}
 		}
 
