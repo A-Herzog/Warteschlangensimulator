@@ -2,7 +2,7 @@
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModelVersion>5.3.0</ModelVersion>
+  <ModelVersion>5.5.0</ModelVersion>
   <ModelName>Effect of the queueing discipline on the variation of the residence times</ModelName>
   <ModelDescription>The queueing discipline has no influence on the average
 waiting or residence times. However, a deviation from
@@ -46,7 +46,7 @@ thus also in the residence times.</ModelDescription>
       <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="7">
-      <ModelElementSize h="23" w="624" x="50" y="50"/>
+      <ModelElementSize h="23" w="626" x="50" y="50"/>
       <ModelElementTextLine>Effect of the queueing discipline on the variation of the residence times</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
@@ -144,60 +144,60 @@ thus also in the residence times.</ModelDescription>
     </ModelElementEdge>
     <ModelElementAnimationText id="8">
       <ModelElementName>Average residence time E[V|FIFO]</ModelElementName>
-      <ModelElementSize h="30" w="145" x="400" y="420"/>
+      <ModelElementSize h="30" w="143" x="400" y="420"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,180,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Verweilzeit_avg(9)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="22">
       <ModelElementName>Average residence time E[V|Random]</ModelElementName>
-      <ModelElementSize h="30" w="158" x="400" y="470"/>
+      <ModelElementSize h="30" w="157" x="400" y="470"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Verweilzeit_avg(10)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementText id="23">
-      <ModelElementSize h="21" w="42" x="300" y="430"/>
+      <ModelElementSize h="21" w="41" x="300" y="430"/>
       <ModelElementTextLine>FIFO:</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
       <ModelElementColor>0,180,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="24">
-      <ModelElementSize h="21" w="71" x="300" y="480"/>
+      <ModelElementSize h="21" w="69" x="300" y="480"/>
       <ModelElementTextLine>Random:</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="25">
-      <ModelElementSize h="21" w="42" x="300" y="530"/>
+      <ModelElementSize h="21" w="41" x="300" y="530"/>
       <ModelElementTextLine>LIFO:</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="26">
       <ModelElementName>Average residence time E[V|LIFO]</ModelElementName>
-      <ModelElementSize h="30" w="144" x="400" y="520"/>
+      <ModelElementSize h="30" w="142" x="400" y="520"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Verweilzeit_avg(11)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="27">
       <ModelElementName>Variation of the residence times CV[V|FIFO]</ModelElementName>
-      <ModelElementSize h="30" w="186" x="600" y="420"/>
+      <ModelElementSize h="30" w="183" x="600" y="420"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,180,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Verweilzeit_cv(9)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="28">
       <ModelElementName>Variation of the residence times CV[V|Random]</ModelElementName>
-      <ModelElementSize h="30" w="199" x="600" y="470"/>
+      <ModelElementSize h="30" w="197" x="600" y="470"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Verweilzeit_cv(10)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="29">
       <ModelElementName>Variation of the residence times CV[V|LIFO]</ModelElementName>
-      <ModelElementSize h="30" w="185" x="600" y="520"/>
+      <ModelElementSize h="30" w="182" x="600" y="520"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Verweilzeit_cv(11)</ModelElementAnimationMode>
@@ -216,7 +216,7 @@ thus also in the residence times.</ModelDescription>
       <ModelElementDiagramElement BarColor="255,0,0">Verweilzeit_cv(11)</ModelElementDiagramElement>
     </ModelElementAnimationBarDiagram>
     <ModelElementText id="31">
-      <ModelElementSize h="21" w="72" x="300" y="580"/>
+      <ModelElementSize h="21" w="71" x="300" y="580"/>
       <ModelElementTextLine>Erlang C:</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
@@ -228,7 +228,7 @@ thus also in the residence times.</ModelDescription>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="33">
-      <ModelElementSize h="133" w="203" x="50" y="400"/>
+      <ModelElementSize h="133" w="205" x="50" y="400"/>
       <ModelElementTextLine>The queueing discipline has no</ModelElementTextLine>
       <ModelElementTextLine>influence on the average waiting</ModelElementTextLine>
       <ModelElementTextLine>or residence times. However,</ModelElementTextLine>
@@ -240,9 +240,20 @@ thus also in the residence times.</ModelDescription>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="34">
-      <ModelElementSize h="16" w="173" x="800" y="400"/>
+      <ModelElementSize h="16" w="167" x="800" y="400"/>
       <ModelElementTextLine>Variation of the residence times</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="35">
+      <ModelElementSize h="90" w="319" x="1000" y="400"/>
+      <ModelElementTextLine>The different queueing disciplines are realized via the priorities</ModelElementTextLine>
+      <ModelElementTextLine>of the clients at the stations. The waiting client with the highest</ModelElementTextLine>
+      <ModelElementTextLine>priority is always served next. The variable "w" is used to address</ModelElementTextLine>
+      <ModelElementTextLine>the waiting time of the respective client. "w" means "service in</ModelElementTextLine>
+      <ModelElementTextLine>arrival order" (FIFO). "-w" means "service in reverse arrival order"</ModelElementTextLine>
+      <ModelElementTextLine>(LIFO). "Random()" means "service in random order".</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
   </ModelElements>
@@ -258,4 +269,5 @@ thus also in the residence times.</ModelDescription>
   <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
   <ModelEdgesSelected Type="0" Width="1"/>
   <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
 </Model>

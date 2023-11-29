@@ -2,7 +2,7 @@
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModellVersion>5.3.0</ModellVersion>
+  <ModellVersion>5.5.0</ModellVersion>
   <ModellName>Auswirkung der Bedienreihenfolge auf die Streuung der Durchlaufzeiten</ModellName>
   <ModellBeschreibung>Die Bedienreihenfolge besitzt keinen Einfluss auf die mittleren
 Warte- bzw. Verweilzeiten. Allerdings führt ein Abweichen von FIFO
@@ -44,7 +44,7 @@ zu höheren Varianzen der Warte- und damit auch der Verweilzeiten.</ModellBeschr
       <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="7">
-      <ModellElementGroesse h="23" w="630" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="633" x="50" y="50"/>
       <ModellElementTextzeile>Auswirkung der Bedienreihenfolge auf die Streuung der Durchlaufzeiten</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
@@ -140,7 +140,7 @@ zu höheren Varianzen der Warte- und damit auch der Verweilzeiten.</ModellBeschr
     </ModellElementKante>
     <ModellElementAnimationText id="8">
       <ModellElementName>Mittlere Verweilzeit E[V|FIFO]</ModellElementName>
-      <ModellElementGroesse h="30" w="122" x="400" y="420"/>
+      <ModellElementGroesse h="30" w="121" x="400" y="420"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,180,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(9)</ModellElementAnimationsmodus>
@@ -153,33 +153,33 @@ zu höheren Varianzen der Warte- und damit auch der Verweilzeiten.</ModellBeschr
       <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(10)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementText id="23">
-      <ModellElementGroesse h="21" w="42" x="300" y="430"/>
+      <ModellElementGroesse h="21" w="41" x="300" y="430"/>
       <ModellElementTextzeile>FIFO:</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,180,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="24">
-      <ModellElementGroesse h="21" w="71" x="300" y="480"/>
+      <ModellElementGroesse h="21" w="69" x="300" y="480"/>
       <ModellElementTextzeile>Random:</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="25">
-      <ModellElementGroesse h="21" w="42" x="300" y="530"/>
+      <ModellElementGroesse h="21" w="41" x="300" y="530"/>
       <ModellElementTextzeile>LIFO:</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationText id="26">
       <ModellElementName>Mittlere Verweilzeit E[V|LIFO]</ModellElementName>
-      <ModellElementGroesse h="30" w="121" x="400" y="520"/>
+      <ModellElementGroesse h="30" w="120" x="400" y="520"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_avg(11)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="27">
       <ModellElementName>Streuung Verweilzeit CV[V|FIFO]</ModellElementName>
-      <ModellElementGroesse h="30" w="136" x="600" y="420"/>
+      <ModellElementGroesse h="30" w="135" x="600" y="420"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,180,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_cv(9)</ModellElementAnimationsmodus>
@@ -212,7 +212,7 @@ zu höheren Varianzen der Warte- und damit auch der Verweilzeiten.</ModellBeschr
       <ModellElementDiagrammElement Balkenfarbe="255,0,0">Verweilzeit_cv(11)</ModellElementDiagrammElement>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementText id="31">
-      <ModellElementGroesse h="21" w="72" x="300" y="580"/>
+      <ModellElementGroesse h="21" w="71" x="300" y="580"/>
       <ModellElementTextzeile>Erlang C:</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
@@ -224,7 +224,7 @@ zu höheren Varianzen der Warte- und damit auch der Verweilzeiten.</ModellBeschr
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="33">
-      <ModellElementGroesse h="133" w="203" x="50" y="400"/>
+      <ModellElementGroesse h="133" w="202" x="50" y="400"/>
       <ModellElementTextzeile>Die Bedienreihenfolge besitzt</ModellElementTextzeile>
       <ModellElementTextzeile>keinen Einfluss auf die mittleren</ModellElementTextzeile>
       <ModellElementTextzeile>Warte- bzw. Verweilzeiten.</ModellElementTextzeile>
@@ -236,9 +236,21 @@ zu höheren Varianzen der Warte- und damit auch der Verweilzeiten.</ModellBeschr
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="34">
-      <ModellElementGroesse h="16" w="125" x="800" y="400"/>
+      <ModellElementGroesse h="16" w="122" x="800" y="400"/>
       <ModellElementTextzeile>Streuung Verweilzeiten</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="35">
+      <ModellElementGroesse h="105" w="337" x="950" y="400"/>
+      <ModellElementTextzeile>Die verschiedenen Bedienreihenfolgen werden über die Prioritäten</ModellElementTextzeile>
+      <ModellElementTextzeile>der Kunde an den Stationen realisiert. Bedient wird stets der</ModellElementTextzeile>
+      <ModellElementTextzeile>wartende Kunde mit der höchsten Priorität. Mit der Variable "w"</ModellElementTextzeile>
+      <ModellElementTextzeile>wird die Wartezeit des jeweiligen Kunden adressiert. "w" bedeutet</ModellElementTextzeile>
+      <ModellElementTextzeile>"Bedienung in Ankunftsreihenfolge" (FIFO). "-w" bedeutet "Bedienung</ModellElementTextzeile>
+      <ModellElementTextzeile>in umgekehrter Ankunftsreihenfolge" (LIFO). "Random()" bedeutet</ModellElementTextzeile>
+      <ModellElementTextzeile>"Bedienung in zufälliger Reihenfolge".</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
   </ModellElemente>
@@ -254,4 +266,5 @@ zu höheren Varianzen der Warte- und damit auch der Verweilzeiten.</ModellBeschr
   <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
   <ModellKantenSelektiert Breite="1" Typ="0"/>
   <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
 </Modell>
