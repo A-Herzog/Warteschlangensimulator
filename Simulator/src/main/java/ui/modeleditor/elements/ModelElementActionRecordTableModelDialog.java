@@ -231,10 +231,14 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			data=buildTimeInput(tab,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Initial")+":",record.getTimeInitial());
 			timeInitial=(JTextField)data[0];
 			timeInitialTimeBase=(JComboBox<String>)data[1];
+			addKeyListener(timeInitial,()->triggerTime.setSelected(true));
+			timeInitialTimeBase.addActionListener(e->triggerTime.setSelected(true));
 
 			data=buildTimeInput(tab,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.Interval")+":",record.getTimeRepeat());
 			timeInterval=(JTextField)data[0];
 			timeIntervalTimeBase=(JComboBox<String>)data[1];
+			addKeyListener(timeInterval,()->triggerTime.setSelected(true));
+			timeIntervalTimeBase.addActionListener(e->triggerTime.setSelected(true));
 
 			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(timeLimitRepetitions=new JCheckBox(Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.LimitRepetitions"),record.getTimeRepeatCount()>0));
@@ -246,9 +250,9 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			line.add(spinner);
 			spinner.addChangeListener(e->timeLimitRepetitions.setSelected(true));
 			spinner.addKeyListener(new KeyListener() {
-				@Override public void keyTyped(KeyEvent e) {timeLimitRepetitions.setSelected(true);}
-				@Override public void keyReleased(KeyEvent e) {timeLimitRepetitions.setSelected(true);}
-				@Override public void keyPressed(KeyEvent e) {timeLimitRepetitions.setSelected(true);}
+				@Override public void keyTyped(KeyEvent e) {timeLimitRepetitions.setSelected(true); triggerTime.setSelected(true);}
+				@Override public void keyReleased(KeyEvent e) {timeLimitRepetitions.setSelected(true); triggerTime.setSelected(true);}
+				@Override public void keyPressed(KeyEvent e) {timeLimitRepetitions.setSelected(true); triggerTime.setSelected(true);}
 			});
 
 			/* Bedingung */
