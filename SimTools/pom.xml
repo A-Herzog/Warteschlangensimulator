@@ -2,12 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>simzentrum</groupId>
   <artifactId>simtools</artifactId>
-  <version>23.1</version>
+  <version>24.1</version>
   <packaging>jar</packaging>
   
   <properties>
-  	<maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+  	<maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>WINDOWS-1252</project.build.sourceEncoding>
   </properties>
   
@@ -15,7 +15,7 @@
   	<dependency>
   		<groupId>simzentrum</groupId>
   		<artifactId>simsystem</artifactId>
-  		<version>[23.1,)</version>
+  		<version>[24.1,)</version>
   	</dependency>
   	<!-- https://mvnrepository.com/artifact/org.jfree/jfreechart -->
   	<dependency>
@@ -35,11 +35,11 @@
     		<artifactId>xmpbox</artifactId>
     		<version>3.0.0</version>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/org.bidib.org.oxbow/swingbits -->
+	<!-- https://mvnrepository.com/artifact/org.oxbow/swingbits -->
 	<dependency>
-    		<groupId>org.bidib.org.oxbow</groupId>
-    		<artifactId>swingbits</artifactId>
-    		<version>1.2.2</version>
+		<groupId>org.oxbow</groupId>
+		<artifactId>swingbits</artifactId>
+		<version>1.3.0</version>
 	</dependency>
     <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-nop -->
 	<dependency>
