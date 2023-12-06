@@ -1002,6 +1002,8 @@ public final class EditorPanel extends EditorPanelBase {
 			} else {
 				rotatedIcon=(ImageIcon)icon;
 			}
+		} else {
+			rotatedIcon=new ImageIcon(new BufferedImage(16,16,BufferedImage.TYPE_4BYTE_ABGR));
 		}
 
 		final JButton button=new ButtonRotator.RotatedButton(title,rotatedIcon);

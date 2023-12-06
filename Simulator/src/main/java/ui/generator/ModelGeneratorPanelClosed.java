@@ -174,7 +174,7 @@ public class ModelGeneratorPanelClosed extends ModelGeneratorPanelBase {
 		loopVertex2.setPosition(new Point(xEndVertex,yEndVertex));
 		if (useDecide) {
 			model.surface.add(loopVertex1=new ModelElementVertex(model,model.surface));
-			loopVertex1.setPosition(new Point(xEndVertex,(!useDecide && stationCount>3)?(yStartVertex+200):yStartVertex));
+			loopVertex1.setPosition(new Point(xEndVertex,yStartVertex));
 		} else {
 			loopVertex1=null;
 		}

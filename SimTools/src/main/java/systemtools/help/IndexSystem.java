@@ -102,7 +102,7 @@ public class IndexSystem {
 	public void addLanguage(final String language, final String folder) {
 		if (language==null || folder==null) return;
 		indexFolders.put(language,folder);
-		if (ready.get(language)==null) ready.put(language,false);
+		ready.computeIfAbsent(language,lang->Boolean.FALSE);
 	}
 
 	/**
