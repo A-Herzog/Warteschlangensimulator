@@ -121,6 +121,7 @@ public class RunElementAssign extends RunElementPassThrough {
 
 	/**
 	 * Führt die eigentliche Zuweisung durch.
+	 * (Wird während der Verarbeitung des Leave-Events ausgeführt, d.h. zu einem Zeitpunkt, zu dem der Kunde bereits aus der Station ausgetragen ist.)
 	 * @param simData	Simulationsdatenobjekt
 	 * @param client	Kunde
 	 */
@@ -130,10 +131,10 @@ public class RunElementAssign extends RunElementPassThrough {
 
 		/* Kundentyp ändern */
 		if (clientType!=client.type) {
-			simData.runData.logClientLeavesStation(simData,this,null,client);
+			/* Wurde bereits in StationLeaveEvent.run ausgeführt: simData.runData.logClientLeavesStation(simData,this,null,client); */
 			if (parentId>=0) simData.runData.logClientLeavesStation(simData,simData.runModel.elementsFast[parentId],null,client);
 			client.changeType(clientType,simData,id);
-			simData.runData.logClientEntersStation(simData,this,null,client);
+			/* Da kein weiteres leave folgt, muss der neue Kunde die Station auch nicht betreten: simData.runData.logClientEntersStation(simData,this,null,client); */
 			if (parentId>=0) simData.runData.logClientEntersStation(simData,simData.runModel.elementsFast[parentId],null,client);
 		}
 		client.iconLast=client.icon;
