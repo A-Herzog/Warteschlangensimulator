@@ -27,13 +27,13 @@
 	<dependency>
     		<groupId>org.apache.pdfbox</groupId>
     		<artifactId>pdfbox</artifactId>
-    		<version>3.0.0</version>
+    		<version>3.0.1</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.pdfbox/xmpbox -->
 	<dependency>
     		<groupId>org.apache.pdfbox</groupId>
     		<artifactId>xmpbox</artifactId>
-    		<version>3.0.0</version>
+    		<version>3.0.1</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.oxbow/swingbits -->
 	<dependency>
