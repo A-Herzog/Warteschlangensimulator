@@ -385,6 +385,7 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 		double step=valueStep[level];
 
 		double value=min;
+		int index=0;
 		while (value<=max) {
 			values[level]=value;
 			final int nextLevel=nextLevel(level);
@@ -393,7 +394,8 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 			} else {
 				build(values,nextLevel,parametersInNames);
 			}
-			value+=step;
+			index++;
+			value=NumberTools.reduceDigits(min+index*step,12);
 		}
 	}
 
