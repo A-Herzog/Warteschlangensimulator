@@ -331,6 +331,8 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 				diagramTab.removeAll();
 				diagramTab.add(c,BorderLayout.CENTER);
 				diagramTab.doLayout();
+				diagramTab.setVisible(false);
+				diagramTab.setVisible(true);
 			}
 		}
 	}
