@@ -44,6 +44,9 @@ public enum SimSystemsSwingImages {
 	/** Symbol "Als Tabelle kopieren" */
 	COPY_AS_TABLE("Table.png"),
 
+	/** Symbol "Zufallszahlen erzeugen und kopieren" */
+	COPY_RANDOM_NUMBERS("123.png"),
+
 	/** Symbol "Als Bild kopieren" */
 	COPY_AS_IMAGE("chart_curve.png"),
 

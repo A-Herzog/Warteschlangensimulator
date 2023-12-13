@@ -28,9 +28,11 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyAdapter;
@@ -43,6 +45,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -68,8 +72,10 @@ import org.apache.commons.math3.distribution.ExponentialDistribution;
 import org.apache.commons.math3.exception.MathRuntimeException;
 
 import mathtools.NumberTools;
+import mathtools.Table;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
+import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
@@ -100,13 +106,17 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	public static String CopyButtonLabel="Kopieren";
 	/** Bezeichner für Menüpunkt "Wertetabelle kopieren" im Kopieren-Menü */
 	public static String CopyButtonTable="Wertetabelle kopieren";
+	/** Bezeichner für Menüpunkt "Zufallszahlen erzeugen und kopieren" im Kopieren-Menü */
+	public static String CopyButtonRandomNumbers="Zufallszahlen erzeugen und kopieren";
 	/** Bezeichner für Menüpunkt "Bild kopieren" im Kopieren-Menü */
 	public static String CopyButtonImage="Bild kopieren";
 	/** Bezeichner für Tooltip für Dialogschaltfläche "Speichern" */
 	/** Bezeichner für Dialogschaltfläche "Speichern" */
 	public static String SaveButtonLabel="Speichern";
 	/** Bezeichner für Menüpunkt "Wertetabelle speichern" im Speichern-Menü */
-	public static String SaveButtonTable="Wertetabelle speichern";
+	public static String SaveButtonTable="Zufallszahlen erzeugen und speichern";
+	/** Bezeichner für Menüpunkt "Wertetabelle speichern" im Speichern-Menü */
+	public static String SaveButtonRandomNumbers="Zufallszahlen erzeugen und speichern";
 	/** Bezeichner für Menüpunkt "Bild kopieren" im Speichern-Menü */
 	public static String SaveButtonImage="Bild speichern";
 	/** Bezeichner für Dialogschaltfläche "Hilfe" */
@@ -143,6 +153,10 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	public static String GraphicsOpenURLWarning="Möchten Sie jetzt die externe Webseite\n%s\naufrufen?";
 	/** "URL aufrufen" Warnung (Text der Meldung) */
 	public static String GraphicsOpenURLWarningTitle="Warnung";
+	/** Eingabeprompt für die Anzahl an zu erzeugenden Zufallszahlen */
+	public static String RandomNumbersCount="Anzahl an zu erzeugenden Zufallszahlen";
+	/** Fehlermeldung wenn die angegebene Anzahl an zu erzeugenden Zufallszahlen ungültig ist */
+	public static String RandomNumbersError="Die Anzahl an Zufallszahlen muss eine positive Ganzzahl sein.";
 
 	/** Info-Text zu der Verteilung */
 	private final JLabel info;
@@ -513,6 +527,69 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	}
 
 	/**
+	 * Erzeugt eine Reihe von Zufallszahlen basierend auf der Verteilung
+	 * und liefert diese als Zeilenumbruch-getrennte Zeichenkette.
+	 * @param mode	Überschrift für mögliche Fehlermeldungen
+	 * @return	Liefert im Erfolgsfall eine mehrzeilige Zeichenkette. Im Fehlerfall oder bei Nutzerabbruch <code>null</code>.
+	 */
+	private String getRandomNumbers(final String mode) {
+		if (distribution==null) return null;
+
+		final String result=JOptionPane.showInputDialog(this,RandomNumbersCount,"10000");
+		if (result==null) return null;
+		final Long count=NumberTools.getPositiveLong(result);
+		if (count==null) {
+			JOptionPane.showMessageDialog(this,RandomNumbersError,mode,JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
+
+		final double[] arr=new double[(int)Math.min(count.longValue(),1_000_000)];
+		for (int i=0;i<arr.length;i++) arr[i]=DistributionRandomNumber.random(distribution);
+
+		return DoubleStream.of(arr).mapToObj(NumberTools::formatNumberMax).collect(Collectors.joining("\n"));
+
+	}
+
+	/**
+	 * Erzeugt Zufallszahlen basierend auf der Verteilung und kopiert diese in die Zwischenablage.
+	 */
+	public void copyRandomNumbers() {
+		final String numbers=getRandomNumbers(CopyButtonRandomNumbers);
+		if (numbers==null) return;
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(numbers),null);
+	}
+
+	/**
+	 * Erzeugt und speichert Zufallszahlen basierend auf der Verteilung.
+	 */
+	public void saveRandomNumbers() {
+		final String numbers=getRandomNumbers(SaveButtonRandomNumbers);
+		if (numbers==null) return;
+
+		final JFileChooser fc=new JFileChooser();
+		CommonVariables.initialDirectoryToJFileChooser(fc);
+		fc.setDialogTitle(SaveButtonRandomNumbers);
+		FileFilter txt=new FileNameExtensionFilter(Table.FileTypeText+" (*.txt)","txt");
+		fc.addChoosableFileFilter(txt);
+		fc.setFileFilter(txt);
+		fc.setAcceptAllFileFilterUsed(false);
+
+		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
+		CommonVariables.initialDirectoryFromJFileChooser(fc);
+		File file=fc.getSelectedFile();
+
+		if (file.getName().indexOf('.')<0) {
+			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
+		}
+
+		if (file.exists()) {
+			if (JOptionPane.showConfirmDialog(JDistributionPanel.this,String.format(GraphicsFileOverwriteWarning,file.toString()),GraphicsFileOverwriteWarningTitle,JOptionPane.YES_NO_OPTION)!=JOptionPane.YES_OPTION) return;
+		}
+
+		Table.saveTextToFile(numbers,file);
+	}
+
+	/**
 	 * Eigentlicher Funktionsplotter innerhalb des Gesamt-Panels
 	 */
 	private class JDistributionPlotter extends JPanel {
@@ -866,7 +943,8 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 
 		menu.add(item=new JMenuItem(CopyButtonTable,SimSystemsSwingImages.COPY_AS_TABLE.getIcon()));
 		item.addActionListener(e->copyTableOfValues());
-
+		menu.add(item=new JMenuItem(CopyButtonRandomNumbers,SimSystemsSwingImages.COPY_RANDOM_NUMBERS.getIcon()));
+		item.addActionListener(e->copyRandomNumbers());
 		menu.add(item=new JMenuItem(CopyButtonImage,SimSystemsSwingImages.COPY_AS_IMAGE.getIcon()));
 		item.addActionListener(e->copyImageToClipboard(getToolkit().getSystemClipboard(),imageSize));
 
@@ -899,8 +977,9 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		JMenuItem item;
 
 		menu.add(item=new JMenuItem(SaveButtonTable,SimSystemsSwingImages.COPY_AS_TABLE.getIcon()));
-		item.addActionListener(e->copyTableOfValues());
-
+		item.addActionListener(e->saveTableOfValues());
+		menu.add(item=new JMenuItem(SaveButtonRandomNumbers,SimSystemsSwingImages.COPY_RANDOM_NUMBERS.getIcon()));
+		item.addActionListener(e->saveRandomNumbers());
 		menu.add(item=new JMenuItem(SaveButtonImage,SimSystemsSwingImages.COPY_AS_IMAGE.getIcon()));
 		item.addActionListener(e->saveImage());
 
@@ -1017,6 +1096,8 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		sub.setIcon(copy.getIcon());
 		sub.add(item=new JMenuItem(CopyButtonTable,SimSystemsSwingImages.COPY_AS_TABLE.getIcon()));
 		item.addActionListener(ev->copyTableOfValues());
+		sub.add(item=new JMenuItem(CopyButtonRandomNumbers,SimSystemsSwingImages.COPY_RANDOM_NUMBERS.getIcon()));
+		item.addActionListener(ev->copyRandomNumbers());
 		sub.add(item=new JMenuItem(CopyButtonImage,SimSystemsSwingImages.COPY_AS_IMAGE.getIcon()));
 		item.addActionListener(ev->copyImageToClipboard(getToolkit().getSystemClipboard(),imageSize));
 
@@ -1024,7 +1105,9 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		sub.setIcon(save.getIcon());
 		item.addActionListener(ev->actionSave());
 		sub.add(item=new JMenuItem(SaveButtonTable,SimSystemsSwingImages.COPY_AS_TABLE.getIcon()));
-		item.addActionListener(ev->copyTableOfValues());
+		item.addActionListener(ev->saveTableOfValues());
+		sub.add(item=new JMenuItem(SaveButtonRandomNumbers,SimSystemsSwingImages.COPY_RANDOM_NUMBERS.getIcon()));
+		item.addActionListener(ev->saveRandomNumbers());
 		sub.add(item=new JMenuItem(SaveButtonImage,SimSystemsSwingImages.COPY_AS_IMAGE.getIcon()));
 		item.addActionListener(ev->saveImage());
 

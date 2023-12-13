@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-17 00:22+0100\n"
+"POT-Creation-Date: 2023-12-11 12:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2878,6 +2878,9 @@ msgstr "Copies the current information to the clipboard."
 msgid "Dialog.Button.Copy.InfoImage"
 msgstr "Copies the image to the clipboard"
 
+msgid "Dialog.Button.Copy.RandomNumbers"
+msgstr "Generate and copy random numbers"
+
 msgid "Dialog.Button.Copy.Table"
 msgstr "Copy table of values"
 
@@ -2937,6 +2940,9 @@ msgstr "Save image"
 
 msgid "Dialog.Button.Save.InfoImage"
 msgstr "Saves the image as file"
+
+msgid "Dialog.Button.Save.RandomNumbers"
+msgstr "Generate and save random numbers"
 
 msgid "Dialog.Button.Save.Table"
 msgstr "Save table of values"
@@ -3016,6 +3022,12 @@ msgstr "Overwrite file"
 
 msgid "Dialog.Overwrite.Yes.Info"
 msgstr "Deletes the already existing file and saves the new file under this file name."
+
+msgid "Dialog.RandomNumbers.Count"
+msgstr "Number of random numbers to be generated"
+
+msgid "Dialog.RandomNumbers.Error"
+msgstr "The number of random numbers must be a positive integer number."
 
 msgid "Dialog.SaveNow.Cancel.Info"
 msgstr "Do not execute the current command. All data will remain unchanged."
@@ -28559,9 +28571,6 @@ msgstr "Connection settings"
 msgid "Surface.Database.Config.ButtonHintAccess"
 msgstr "Select Access database file"
 
-msgid "Surface.Database.Config.ButtonHintDerby"
-msgstr "Select Derby database folder"
-
 msgid "Surface.Database.Config.ButtonHintFile"
 msgstr "Select file"
 
@@ -28576,9 +28585,6 @@ msgstr "Select SQLite database file"
 
 msgid "Surface.Database.Config.InfoAccess"
 msgstr "Configuration: Access file"
-
-msgid "Surface.Database.Config.InfoDerby"
-msgstr "Select Derby database folder"
 
 msgid "Surface.Database.Config.InfoFirebird"
 msgstr "Configuration: Format //host:3050/dbFile.fdb"
@@ -38220,6 +38226,12 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Surface.Costs.Condition.Error.Info"
 #~ msgstr "The specified condition \"%s\" is invalid at character %d."
+
+#~ msgid "Surface.Database.Config.ButtonHintDerby"
+#~ msgstr "Select Derby database folder"
+
+#~ msgid "Surface.Database.Config.InfoDerby"
+#~ msgstr "Select Derby database folder"
 
 #~ msgid "Surface.Decide.Dialog.DecideBy.Sequence.Info"
 #~ msgstr "In each case, one Client is routed to one of the outputs."

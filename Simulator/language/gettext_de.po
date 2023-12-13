@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-17 00:22+0100\n"
+"POT-Creation-Date: 2023-12-11 12:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2883,6 +2883,9 @@ msgstr "Kopiert die aktuellen Informationen in die Zwischenablage."
 msgid "Dialog.Button.Copy.InfoImage"
 msgstr "Kopiert das Bild in die Zwischenablage"
 
+msgid "Dialog.Button.Copy.RandomNumbers"
+msgstr "Zufallszahlen erzeugen und kopieren"
+
 msgid "Dialog.Button.Copy.Table"
 msgstr "Wertetabelle kopieren"
 
@@ -2942,6 +2945,9 @@ msgstr "Bild speichern"
 
 msgid "Dialog.Button.Save.InfoImage"
 msgstr "Speichert das Bild in einer Datei"
+
+msgid "Dialog.Button.Save.RandomNumbers"
+msgstr "Zufallszahlen erzeugen und speichern"
 
 msgid "Dialog.Button.Save.Table"
 msgstr "Wertetabelle speichern"
@@ -3021,6 +3027,12 @@ msgstr "Datei überschreiben"
 
 msgid "Dialog.Overwrite.Yes.Info"
 msgstr "Löscht die bisher unter diesem Namen existierende Datei und speichert die neuen Daten unter diesem Dateinamen."
+
+msgid "Dialog.RandomNumbers.Count"
+msgstr "Anzahl an zu erzeugenden Zufallszahlen"
+
+msgid "Dialog.RandomNumbers.Error"
+msgstr "Die Anzahl an Zufallszahlen muss eine positive Ganzzahl sein."
 
 msgid "Dialog.SaveNow.Cancel.Info"
 msgstr "Führt den gewählten Befehl nicht aus. Die Daten bleiben unverändert bestehen."
@@ -28604,9 +28616,6 @@ msgstr "Verbindungseinstellungen"
 msgid "Surface.Database.Config.ButtonHintAccess"
 msgstr "Access-Datenbankdatei auswählen"
 
-msgid "Surface.Database.Config.ButtonHintDerby"
-msgstr "Derby-Datebankverzeichnis auswählen"
-
 msgid "Surface.Database.Config.ButtonHintFile"
 msgstr "Datei auswählen"
 
@@ -28621,9 +28630,6 @@ msgstr "SQLite-Datenbankdatei auswählen"
 
 msgid "Surface.Database.Config.InfoAccess"
 msgstr "Konfiguration: Access-Datei"
-
-msgid "Surface.Database.Config.InfoDerby"
-msgstr "Konfiguration: Derby-Verzeichnis"
 
 msgid "Surface.Database.Config.InfoFirebird"
 msgstr "Konfiguration: Format //HostName:3050/DBDatei.fdb"
@@ -38298,6 +38304,12 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Surface.Costs.Condition.Error.Info"
 #~ msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
+
+#~ msgid "Surface.Database.Config.ButtonHintDerby"
+#~ msgstr "Derby-Datebankverzeichnis auswählen"
+
+#~ msgid "Surface.Database.Config.InfoDerby"
+#~ msgstr "Konfiguration: Derby-Verzeichnis"
 
 #~ msgid "Surface.Decide.Dialog.DecideBy.Sequence.Info"
 #~ msgstr ""
