@@ -592,11 +592,11 @@ public class ListPopup {
 		if (statistics.resourceRho.size()>0) {
 			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.ResourceUtilization")+" ("+Language.tr("Statistic.FastAccess.Template.ResourceUtilization.rho")+")",null,Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon());
 			final String xmlMainAll=Language.tr("Statistics.XML.Element.UtilizationResourceRhoAll");
-			tryAddRecord(sub,allowAdd,Language.tr("Statistic.FastAccess.Template.ResourceUtilization.Total"),null,null,XMLMode.XML_NUMBER,xmlMainAll+value);
+			tryAddRecord(sub,allowAdd,Language.tr("Statistic.FastAccess.Template.ResourceUtilization.Total"),null,null,XMLMode.XML_NUMBER_PERCENT,xmlMainAll+value);
 			final String xmlMain=Language.tr("Statistics.XML.Element.Rho");
 			for (String name: statistics.resourceRho.getNames()) {
 				xmlSub=Language.tr("Statistics.XML.Element.UtilizationResourceRho")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
-				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+value);
+				tryAddRecord(sub,allowAdd,name,null,null,XMLMode.XML_NUMBER_PERCENT,xmlMain+"->"+xmlSub+"->"+value);
 			}
 		}
 
@@ -614,7 +614,7 @@ public class ListPopup {
 			for (String name: statistics.counter.getNames()) {
 				xmlSub=Language.tr("Statistics.XML.Element.CounterName")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
 				tryAddRecord(sub,allowAdd,name+" ("+countName+")",null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+count);
-				tryAddRecord(sub,allowAdd,name+" ("+partName+")",null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+part);
+				tryAddRecord(sub,allowAdd,name+" ("+partName+")",null,null,XMLMode.XML_NUMBER_PERCENT,xmlMain+"->"+xmlSub+"->"+part);
 			}
 		}
 
@@ -1061,7 +1061,7 @@ public class ListPopup {
 	 * @param update	Runnable, das aufgerufen wird, wenn ein Befehl im Popup-Menü gewählt wurde (kann <code>null</code> sein)
 	 */
 	private void commandXMLOutput(final String text, final XMLMode xmlMode, final JTextArea textArea, final Runnable update) {
-		if (xmlMode==XMLMode.XML_NUMBER || xmlMode==XMLMode.XML_NUMBER_TIME) {
+		if (xmlMode==XMLMode.XML_NUMBER || xmlMode==XMLMode.XML_NUMBER_TIME || xmlMode==XMLMode.XML_NUMBER_PERCENT) {
 			commandText("Output.println(Statistics.xmlNumber(\""+text.replace("\"","\\\"")+"\"));",textArea,update);
 		} else {
 			commandText("Output.println(Statistics.xml(\""+text.replace("\"","\\\"")+"\"));",textArea,update);
@@ -1167,7 +1167,9 @@ public class ListPopup {
 		/** Zeit-Information */
 		XML_NUMBER_TIME,
 		/** Zahlen-Information */
-		XML_NUMBER
+		XML_NUMBER,
+		/** Zahlen-Information (als Prozentwert) */
+		XML_NUMBER_PERCENT
 	}
 
 	/**

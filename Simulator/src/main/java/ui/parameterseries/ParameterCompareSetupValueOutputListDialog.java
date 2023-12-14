@@ -33,7 +33,6 @@ import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.images.Images;
 import ui.statistics.ListPopup;
-import ui.statistics.ListPopup.XMLMode;
 
 /**
  * Dieser Dialog ermöglicht das Einstellen der Ausgabewerte
@@ -242,7 +241,23 @@ public class ParameterCompareSetupValueOutputListDialog extends ParameterCompare
 		final ParameterCompareSetupValueOutput output=new ParameterCompareSetupValueOutput();
 		output.setName(record.title);
 		output.setTag(record.xml);
-		output.setFormat((record.xmlMode==XMLMode.XML_NUMBER_TIME)?ParameterCompareSetupValueOutput.OutputFormat.FORMAT_TIME:ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER);
+		switch (record.xmlMode) {
+		case XML_NUMBER:
+			output.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER);
+			break;
+		case XML_NUMBER_PERCENT:
+			output.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_PERCENT);
+			break;
+		case XML_NUMBER_TIME:
+			output.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_TIME);
+			break;
+		case XML_TEXT:
+			output.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER);
+			break;
+		default:
+			output.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER);
+			break;
+		}
 		return output;
 	}
 
