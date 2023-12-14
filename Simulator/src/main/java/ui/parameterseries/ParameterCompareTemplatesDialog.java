@@ -640,7 +640,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 
 		final String minValue;
 		final String maxValue;
-		final String stepValue;
+		String stepValue;
 		if (initialValue==null) {
 			minValue=initialValueString;
 			maxValue=initialValueString;
@@ -660,9 +660,17 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 				if (l==0) l=1;
 				stepValue=NumberTools.formatLong(l);
 			} else {
-				minValue=NumberTools.formatNumber(min);
-				maxValue=NumberTools.formatNumber(max);
-				stepValue=NumberTools.formatNumber(stepWide);
+				if (max>10) {
+					minValue=NumberTools.formatNumber(min);
+					maxValue=NumberTools.formatNumber(max);
+					stepValue=NumberTools.formatNumber(stepWide);
+					if (stepValue.equals("0")) stepValue=NumberTools.formatNumber(stepWide,3);
+				} else {
+					minValue=NumberTools.formatNumber(min,3);
+					maxValue=NumberTools.formatNumber(max,3);
+					stepValue=NumberTools.formatNumber(stepWide,3);
+					if (stepValue.equals("0")) stepValue=NumberTools.formatNumber(stepWide,5);
+				}
 			}
 		}
 
