@@ -130,6 +130,20 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 	 */
 	private int lastStationClientTypeClientIndex=-1;
 
+	/**
+	 * Stations-ID beim letzten Aufruf von {@link #calc(double[])}
+	 * @see #calc(double[])
+	 * @see #lastStationData
+	 */
+	private double lastStationID=-1;
+
+	/**
+	 * Stationsobjekt beim letzten Aufruf von {@link #calc(double[])}
+	 * @see #calc(double[])
+	 * @see #lastStationID
+	 */
+	private RunElementData lastStationData;
+
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (getSimData()==null) throw error();
@@ -138,6 +152,9 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 		if (parameters.length==0 && hasAllData()) return calcAll();
 
 		if (parameters.length==1) {
+			/* Station (wiederverwenden) */
+			if (parameters[0]==lastStationID) return calc(lastStationData);
+
 			/* Kundentyp */
 			if (hasSingleClientData()) {
 				final RunElement element=getRunElementForID(parameters[0]);
@@ -153,6 +170,8 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 			/* Station */
 			final RunElementData stationData=getRunElementDataForID(parameters[0]);
 			if (stationData==null) return 0.0;
+			lastStationData=stationData;
+			lastStationID=parameters[0];
 			return calc(stationData);
 		}
 
