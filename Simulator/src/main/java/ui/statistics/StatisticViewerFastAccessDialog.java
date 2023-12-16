@@ -173,7 +173,7 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 			JPanel p;
 			contentArea.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			p.add(xmlInfoLabel=new JLabel());
-			p.setMaximumSize(new Dimension(1000,25));
+			p.setMaximumSize(new Dimension(10000,25));
 			p.setBackground(Color.GRAY);
 			p.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		}
