@@ -158,10 +158,10 @@ public abstract class SetupBase {
 	 * @return	Neues Array aus Zeichenketten, in dem das alte Array mit der Liste zusammengeführt wurde (ohne doppelte Einträge)
 	 */
 	protected final String[] addToArray(final String[] oldArray, final List<String> list) {
-		if (oldArray==null) return list.toArray(new String[0]);
+		if (oldArray==null) return list.toArray(String[]::new);
 		final List<String> oldList=new ArrayList<>(Arrays.asList(oldArray));
 		for (int i=0;i<list.size();i++) if (oldList.indexOf(list.get(i))<0) oldList.add(list.get(i));
-		return oldList.toArray(new String[0]);
+		return oldList.toArray(String[]::new);
 	}
 
 	/**

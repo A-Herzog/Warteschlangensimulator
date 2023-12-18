@@ -67,7 +67,7 @@ public class SimToolsIconListCellRenderer extends DefaultListCellRenderer {
 	 * @param icons	Ressourcennamen der Icons zu den Einträgen
 	 */
 	public SimToolsIconListCellRenderer(final Container parent, final List<String> icons) {
-		this(parent,(icons==null)?new String[0]:icons.toArray(new String[0]));
+		this(parent,(icons==null)?new String[0]:icons.toArray(String[]::new));
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class SimToolsIconListCellRenderer extends DefaultListCellRenderer {
 	 * @param icons	Icons zu den Einträgen
 	 */
 	public SimToolsIconListCellRenderer(final List<ImageIcon> icons) {
-		this((icons==null)?new ImageIcon[0]:icons.toArray(new ImageIcon[0]));
+		this((icons==null)?new ImageIcon[0]:icons.toArray(ImageIcon[]::new));
 	}
 
 	/**
@@ -161,6 +161,6 @@ public class SimToolsIconListCellRenderer extends DefaultListCellRenderer {
 	 * @return	Liste mit Icons zur Verwendung in {@link SimToolsIconListCellRenderer#SimToolsIconListCellRenderer(Icon[])}
 	 */
 	public static Icon[] buildIconsList(final Container parent, final List<Object> icons) {
-		return buildIconsList(parent,(icons==null)?new Object[0]:icons.toArray(new Object[0]));
+		return buildIconsList(parent,(icons==null)?new Object[0]:icons.toArray());
 	}
 }

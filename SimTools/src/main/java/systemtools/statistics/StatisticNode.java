@@ -85,7 +85,7 @@ public class StatisticNode {
 	 * @param collapseChildren	Sollen die Kindelemente dieses Eintrags eingeklappt angezeigt werden?
 	 */
 	public StatisticNode(final String name, final List<StatisticViewer> viewer, final boolean collapseChildren) {
-		this(name,viewer.toArray(new StatisticViewer[0]),collapseChildren);
+		this(name,viewer.toArray(StatisticViewer[]::new),collapseChildren);
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class StatisticNode {
 	 * @param viewer	Statistik-Objekte, die auf dieser Seite angezeigt werden sollen
 	 */
 	public StatisticNode(final String name, final List<StatisticViewer> viewer) {
-		this(name,viewer.toArray(new StatisticViewer[0]),false);
+		this(name,viewer.toArray(StatisticViewer[]::new),false);
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class StatisticNode {
 	 * @param id Optionale ID des Objektes
 	 */
 	public StatisticNode(final String name, final List<StatisticViewer> viewer, final String id) {
-		this(name,viewer.toArray(new StatisticViewer[0]),false,id);
+		this(name,viewer.toArray(StatisticViewer[]::new),false,id);
 	}
 
 	/**
@@ -328,7 +328,7 @@ public class StatisticNode {
 		if (parent!=null) names.addAll(Arrays.asList(parent.getFullName()));
 		final String name=toString();
 		if (name!=null) names.add(name);
-		return fullNameCache=names.toArray(new String[0]);
+		return fullNameCache=names.toArray(String[]::new);
 	}
 
 	/**

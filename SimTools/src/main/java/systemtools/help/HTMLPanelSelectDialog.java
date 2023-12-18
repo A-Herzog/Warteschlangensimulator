@@ -63,7 +63,7 @@ public class HTMLPanelSelectDialog extends BaseDialog {
 	public HTMLPanelSelectDialog(final Component owner, final Set<String> pages) {
 		super(owner,HelpBase.buttonSearch);
 
-		this.pages=pages.toArray(new String[0]);
+		this.pages=pages.toArray(String[]::new);
 
 		/* GUI */
 		final JPanel content=createGUI(null);

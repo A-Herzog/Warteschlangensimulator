@@ -294,7 +294,7 @@ public enum SimToolsImages {
 			addURL(list,"res24",name);
 			addURL(list,"res32",name);
 			addURL(list,"res48",name);
-			urls=list.toArray(new URL[0]);
+			urls=list.toArray(URL[]::new);
 		}
 		assert(urls!=null);
 		return urls;

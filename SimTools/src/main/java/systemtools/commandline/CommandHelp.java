@@ -45,7 +45,7 @@ public final class CommandHelp extends AbstractCommand {
 		final List<String> list=new ArrayList<>();
 		list.add(BaseCommandLineSystem.commandHelpName);
 		if (BaseCommandLineSystem.commandHelpNamesOtherLanguages!=null) list.addAll(Arrays.asList(BaseCommandLineSystem.commandHelpNamesOtherLanguages));
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	@Override

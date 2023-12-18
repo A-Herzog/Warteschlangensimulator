@@ -418,7 +418,7 @@ public abstract class HTMLPanel extends JPanel {
 				if (searchDialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					final Set<String> results=searchDialog.getResult();
 					if (results!=null && results.size()>0) {
-						final String[] pages=results.toArray(new String[0]);
+						final String[] pages=results.toArray(String[]::new);
 						if (pages.length==1) {
 							loadPage(pages[0]);
 						} else {

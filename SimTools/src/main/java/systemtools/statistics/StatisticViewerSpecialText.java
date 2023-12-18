@@ -76,7 +76,7 @@ class StatisticViewerSpecialText extends StatisticViewerHTMLText {
 		final List<Runnable> runner=new ArrayList<>();
 		if (loadStatistics!=null) runner.add(loadStatistics);
 		if (startSimulation!=null) runner.add(startSimulation);
-		return runner.toArray(new Runnable[0]);
+		return runner.toArray(Runnable[]::new);
 	}
 
 	/**

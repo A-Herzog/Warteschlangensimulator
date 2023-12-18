@@ -2028,7 +2028,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		 */
 		public boolean finalizeText() {
 			try {
-				insert(getLength(),buffer.toArray(new ElementSpec[0]));
+				insert(getLength(),buffer.toArray(ElementSpec[]::new));
 			} catch (BadLocationException e) {
 				return false;
 			}

@@ -220,7 +220,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 
 	@Override
 	public Container getViewer(boolean needReInit) {
-		table=new JReportCheckboxTable(names.toArray(new String[0]));
+		table=new JReportCheckboxTable(names.toArray(String[]::new));
 		table.setSetup(getSelectSettings());
 		return new JScrollPane(table);
 	}

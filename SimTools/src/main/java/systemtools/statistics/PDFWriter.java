@@ -212,7 +212,7 @@ public class PDFWriter extends PDFWriterBase {
 				}
 			}
 		}
-		return output.toArray(new String[0]);
+		return output.toArray(String[]::new);
 	}
 
 	/**
@@ -476,7 +476,7 @@ public class PDFWriter extends PDFWriterBase {
 	 * @return	Gibt <code>true</code> zurück, wenn die Daten erfolgreich in die pdf aufgenommen werden konnten.
 	 */
 	public boolean writeStyledTableHeader(final List<String> text) {
-		return writeTableLine(text.toArray(new String[0]),style.tableHeadingFont);
+		return writeTableLine(text.toArray(String[]::new),style.tableHeadingFont);
 	}
 
 	/**
@@ -487,7 +487,7 @@ public class PDFWriter extends PDFWriterBase {
 	 */
 	public boolean writeStyledTableLine(final List<String> text, final boolean isLastLine) {
 		final ReportStyle.ReportFont font=isLastLine?style.tableLastLineTextFont:style.tableTextFont;
-		return writeTableLine(text.toArray(new String[0]),font);
+		return writeTableLine(text.toArray(String[]::new),font);
 	}
 
 	/**

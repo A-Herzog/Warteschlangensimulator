@@ -1193,7 +1193,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		}
 
 		if (selectionPath.size()>1) {
-			tree.setSelectionPath(new TreePath(selectionPath.toArray(new Object[0])));
+			tree.setSelectionPath(new TreePath(selectionPath.toArray()));
 			return true;
 		} else {
 			return false;

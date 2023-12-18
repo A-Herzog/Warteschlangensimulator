@@ -229,7 +229,7 @@ public class CommandLineDialog extends BaseDialog {
 		for (AbstractCommand command : commands) {
 			list.add("<html><b>"+command.getName()+"</b><br>"+command.getShortDescription()+"</html>");
 		}
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	/**
@@ -265,7 +265,7 @@ public class CommandLineDialog extends BaseDialog {
 		}
 		String s=sb.toString().trim();
 		if (!s.isEmpty()) args.add(s);
-		return args.toArray(new String[0]);
+		return args.toArray(String[]::new);
 	}
 
 	@Override

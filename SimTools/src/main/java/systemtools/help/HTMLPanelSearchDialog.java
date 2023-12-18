@@ -206,7 +206,7 @@ public class HTMLPanelSearchDialog extends BaseDialog {
 			this.hitName=hitName;
 			this.page=null;
 			this.pages=pages;
-			this.pagesName=(pages.size()==1)?getPageName(pages.toArray(new String[0])[0]):null;
+			this.pagesName=(pages.size()==1)?getPageName(pages.toArray(String[]::new)[0]):null;
 		}
 
 		/**

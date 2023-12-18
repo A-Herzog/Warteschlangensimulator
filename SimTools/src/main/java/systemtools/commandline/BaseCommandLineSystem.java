@@ -168,7 +168,7 @@ public class BaseCommandLineSystem {
 		this.in=in;
 		this.out=out;
 		style=new ANSIFormat(useANSI?out:null);
-		this.commands=getCommands().toArray(new AbstractCommand[0]);
+		this.commands=getCommands().toArray(AbstractCommand[]::new);
 	}
 
 	/**
@@ -232,7 +232,7 @@ public class BaseCommandLineSystem {
 		} else {
 			List<String> argsAsList=new ArrayList<>(Arrays.asList(arguments));
 			argsAsList.remove(0);
-			String s=command.prepare(argsAsList.toArray(new String[0]),in,out);
+			String s=command.prepare(argsAsList.toArray(String[]::new),in,out);
 			if (s!=null) {
 				style.setErrorStyle();
 				out.println(errorBig+": "+s);
@@ -291,7 +291,7 @@ public class BaseCommandLineSystem {
 		}
 
 
-		return arguments.toArray(new String[0]);
+		return arguments.toArray(String[]::new);
 	}
 
 	/**
