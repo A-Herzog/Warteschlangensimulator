@@ -88,6 +88,7 @@ public final class OptimizerPanelPrepareDialog extends JDialog {
 	 * @return	Übergeordnetes Fenster oder <code>null</code>, wenn kein entsprechendes Fenster gefunden wurde
 	 */
 	private static Window getOwnerWindow(Component parent) {
+		if (parent instanceof Window) return (Window)parent;
 		while (parent!=null && !(parent instanceof Window)) parent=parent.getParent();
 		return (Window)parent;
 	}

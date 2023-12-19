@@ -1264,7 +1264,7 @@ public class ParameterComparePanel extends SpecialPanel {
 			if (newModel!=null) setup.setEditModel(newModel);
 			if (fileName!=null) FilePathHelper.checkFilePaths(setup.getEditModel(),fileName);
 			final String editModelPath=(lastParameterSeriesSetupFile==null)?null:lastParameterSeriesSetupFile.getParent();
-			miniStatistics=generateMiniStatistics(owner,setup.getEditModel(),editModelPath,null);
+			miniStatistics=generateMiniStatistics(this,setup.getEditModel(),editModelPath,null);
 		}
 
 		if (miniStatistics==null) {
