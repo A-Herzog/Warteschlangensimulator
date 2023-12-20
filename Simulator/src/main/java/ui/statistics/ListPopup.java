@@ -36,6 +36,7 @@ import simulator.statistics.Statistics;
 import systemtools.BaseDialog;
 import ui.images.Images;
 import ui.modeleditor.ModelResource;
+import ui.statistics.StatisticViewerOverviewText.UserStatisticsFormat;
 
 /**
  * Diese Klasse zeigt ein Kontextmenü an, in dem JS-Befehle zur Ausgabe
@@ -642,11 +643,12 @@ public class ListPopup {
 			for (String name: statistics.userStatistics.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.UserStatisticsKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
 				sub2=getSubList(sub,name,null,null);
-				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean);
-				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std);
+				final XMLMode mode=(StatisticViewerOverviewText.isUserStatisticsTime(statistics,name)==UserStatisticsFormat.TIME)?XMLMode.XML_NUMBER_TIME:XMLMode.XML_NUMBER;
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Average"),null,null,mode,xmlSub+mean);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.StdDev"),null,null,mode,xmlSub+Std);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.CV"),null,null,XMLMode.XML_NUMBER,xmlSub+CV);
-				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Minimum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Min);
-				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Maximum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Max);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Minimum"),null,null,mode,xmlSub+Min);
+				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Maximum"),null,null,mode,xmlSub+Max);
 			}
 		}
 
