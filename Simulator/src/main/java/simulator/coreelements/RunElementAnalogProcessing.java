@@ -24,6 +24,7 @@ import simulator.elements.RunElementAnalogValue;
 import simulator.elements.RunElementTank;
 import simulator.elements.StateChangeListener;
 import simulator.runmodel.RunDataClient;
+import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import statistics.StatisticsTimeAnalogPerformanceIndicator;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -57,11 +58,12 @@ public abstract class RunElementAnalogProcessing extends RunElement implements S
 	/**
 	 * Prüft und lädt den Sekundenwert für den Abstand (in MS) zwischen zwei Analog-Value-Update-Notify-Ereignissen.
 	 * @param analogNotifiy	Sekundenwert für den Abstand (in MS) zwischen zwei Analog-Value-Update-Notify-Ereignissen
+	 * @param runModel	Laufzeitmodell
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
-	protected final String loadAnalogNotify(final double analogNotifiy) {
+	protected final String loadAnalogNotify(final double analogNotifiy, final RunModel runModel) {
 		if (analogNotifiy<=0) return String.format(Language.tr("Simulation.Creator.AnalogNotifyDistance"),id,NumberTools.formatNumber(analogNotifiy));
-		analogNotifiyMS=FastMath.round(analogNotifiy*1000);
+		analogNotifiyMS=FastMath.round(analogNotifiy*runModel.scaleToSimTime);
 		return null;
 	}
 

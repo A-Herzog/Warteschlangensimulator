@@ -80,9 +80,10 @@ public class RunElementBarrierPullData extends RunElementData implements RunElem
 	 * @param nextControlledID	ID des Elements bis zu dem die Anzahl an Kunden überwacht werden soll
 	 * @param maxClients	Maximalanzahl an Kunden in dem Abschnitt
 	 * @param variableNames	Liste aller Variablennamen (für den <code>maxClients</code>-Rechenausdruck)
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementBarrierPullData(final RunElement station, final int nextControlledID, final String maxClients, final String[] variableNames) {
-		super(station);
+	public RunElementBarrierPullData(final RunElement station, final int nextControlledID, final String maxClients, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 		queueLockedForPickUp=false;
 		waitingClients=new ArrayList<>();
 		lastSendTime=-1;

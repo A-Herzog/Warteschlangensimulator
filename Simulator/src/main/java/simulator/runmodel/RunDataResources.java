@@ -61,16 +61,17 @@ public final class RunDataResources implements Cloneable {
 	 * @param resources	Editor-Ressourcen-Objekt, aus dem die Informationen, wie viele Bediener welchen Typs vorhanden sind, ausgelesen werden sollen
 	 * @param schedules	Editor-Zeitpläne-Objekt, aus dem ebenfalls Informationen, wie viele Bediener welchen Typs wann vorhanden sind, ausgelesen werden sollen
 	 * @param variables	Liste der verfügbaren Variablen
+	 * @param runModel	Laufzeitmodell
 	 * @return Gibt <code>null</code> zurück, wenn die Ressourcendaten korrekt geladen werden konnten, sonst eine Fehlermeldung.
 	 */
-	public String loadFromEditResources(final ModelResources resources, final ModelSchedules schedules, final String[] variables) {
+	public String loadFromEditResources(final ModelResources resources, final ModelSchedules schedules, final String[] variables, final RunModel runModel) {
 		secondaryResourcePriority=resources.secondaryResourcePriority;
 		names=resources.list();
 		list=new RunDataResource[names.length];
 
 		for (int i=0;i<list.length;i++) {
-			list[i]=new RunDataResource();
-			final String error=list[i].loadFromResource(resources.get(names[i]),schedules,variables);
+			list[i]=new RunDataResource(runModel);
+			final String error=list[i].loadFromResource(resources.get(names[i]),schedules,variables,runModel);
 			if (error!=null) return error;
 		}
 

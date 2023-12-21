@@ -18,7 +18,6 @@ package simulator.runmodel;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import language.Language;
-import simcore.SimData;
 import ui.modeleditor.ModelSurface;
 
 /**
@@ -92,7 +91,7 @@ public class RunDataResourceOperatorFull extends RunDataResourceOperator {
 			if (simData.currentTime<onlineAgainAt) return false;
 			/* Pause zu Ende */
 			resource.endDownTime(onlineAgainAt);
-			if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Language.tr("Simulation.Log.ResourceFailure"),-1,String.format(Language.tr("Simulation.Log.ResourceFailure.EndOfDownTime"),name,index+1,SimData.formatSimTime(onlineAgainAt)));
+			if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Language.tr("Simulation.Log.ResourceFailure"),-1,String.format(Language.tr("Simulation.Log.ResourceFailure.EndOfDownTime"),name,index+1,simData.formatScaledSimTime(onlineAgainAt)));
 			availableStartTime=onlineAgainAt;
 			onlineAgainAt=0;
 			failures[currentPauseIndex].scheduleDownTime(simData,availableStartTime,name);

@@ -104,7 +104,7 @@ public class RunElementAction extends RunElement implements StateChangeListener,
 		if (data==null) {
 			final RunElementActionRecord[] dataRecords=records.stream().map(record->new RunElementActionRecord(record)).toArray(RunElementActionRecord[]::new);
 			for (int i=0;i<dataRecords.length;i++) dataRecords[i].initRunData(simData,i);
-			data=new RunElementActionData(this,dataRecords);
+			data=new RunElementActionData(this,dataRecords,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

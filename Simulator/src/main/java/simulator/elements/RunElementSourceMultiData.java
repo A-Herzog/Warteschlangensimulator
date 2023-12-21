@@ -57,7 +57,7 @@ public class RunElementSourceMultiData extends RunElementData {
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
 	 */
 	public RunElementSourceMultiData(final RunElement station, final SimulationData simData, final RunElementSourceRecord record[], final String[] variableNames) {
-		super(station);
+		super(station,simData);
 
 		recordData=new RunElementSourceRecordData[record.length];
 		for (int i=0;i<record.length;i++) recordData[i]=new RunElementSourceRecordData(simData,record[i],variableNames);

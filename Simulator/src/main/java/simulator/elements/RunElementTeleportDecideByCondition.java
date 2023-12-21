@@ -111,7 +111,7 @@ public class RunElementTeleportDecideByCondition extends RunElement {
 		RunElementTeleportDecideByConditionData data;
 		data=(RunElementTeleportDecideByConditionData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementTeleportDecideByConditionData(this,conditions,simData.runModel.variableNames);
+			data=new RunElementTeleportDecideByConditionData(this,conditions,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

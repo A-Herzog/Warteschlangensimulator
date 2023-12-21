@@ -17,6 +17,7 @@ package simulator.simparser.symbols;
 
 import parser.MathCalcError;
 import simulator.runmodel.RunDataClient;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.coresymbols.CalcSymbolSimData;
 
 /**
@@ -45,29 +46,32 @@ public class CalcSymbolClientCurrentWaitingTime extends CalcSymbolSimData {
 		return names;
 	}
 
-	/** Skalierungsfaktor zur Umrechnung von Millisekunden auf Sekunden (um zur Laufzeit eine Division einzusparen) */
-	private static final double scaleFactor=1.0/1000.0;
-
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=0) throw error();
 
+		final SimulationData simData=getSimData();
+		if (simData==null) return 0.0;
+
 		final RunDataClient client=getCurrentClient();
 		if (client==null) throw error();
 
-		final long waitingTime=(getSimData().currentTime-client.lastWaitingStart);
-		return waitingTime*scaleFactor;
+		final long waitingTime=(simData.currentTime-client.lastWaitingStart);
+		return waitingTime*simData.runModel.scaleToSeconds;
 	}
 
 	@Override
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
 		if (parameters.length!=0) return fallbackValue;
 
+		final SimulationData simData=getSimData();
+		if (simData==null) return 0.0;
+
 		final RunDataClient client=getCurrentClient();
 		if (client==null) return fallbackValue;
 
-		final long waitingTime=(getSimData().currentTime-client.lastWaitingStart);
+		final long waitingTime=(simData.currentTime-client.lastWaitingStart);
 
-		return waitingTime*scaleFactor;
+		return waitingTime*simData.runModel.scaleToSeconds;
 	}
 }

@@ -125,7 +125,7 @@ public class RunElementUserStatistic extends RunElementPassThrough {
 		RunElementUserStatisticData data;
 		data=(RunElementUserStatisticData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementUserStatisticData(this,recordModeGlobal,recordModeClientType,keys,isTime,expressions,isContinuous,simData.runModel.variableNames,simData.runModel.clientTypes);
+			data=new RunElementUserStatisticData(this,recordModeGlobal,recordModeClientType,keys,isTime,expressions,isContinuous,simData.runModel.variableNames,simData.runModel.clientTypes,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

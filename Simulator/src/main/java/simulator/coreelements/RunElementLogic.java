@@ -219,7 +219,7 @@ public abstract class RunElementLogic extends RunElement {
 		RunElementLogicData data;
 		data=(RunElementLogicData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementLogicData(this,condition,simData.runModel.variableNames);
+			data=new RunElementLogicData(this,condition,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

@@ -142,7 +142,7 @@ public class RunElementTeleportDecideByChance extends RunElement {
 		RunElementTeleportDecideByChanceData data;
 		data=(RunElementTeleportDecideByChanceData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementTeleportDecideByChanceData(this,probabilitesStrings,simData.runModel.variableNames);
+			data=new RunElementTeleportDecideByChanceData(this,probabilitesStrings,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

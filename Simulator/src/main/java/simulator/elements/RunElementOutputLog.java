@@ -22,7 +22,6 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
 import parser.MathCalcError;
-import simcore.SimData;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.editmodel.EditModel;
@@ -113,9 +112,6 @@ public class RunElementOutputLog extends RunElementPassThrough {
 		return RunModelCreatorStatus.ok;
 	}
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSec=1.0/1000.0;
-
 	/**
 	 * Liefert eine Textzeile als Ausgabe.
 	 * @param simData	Simulationsdatenobjekt
@@ -127,7 +123,7 @@ public class RunElementOutputLog extends RunElementPassThrough {
 		final StringBuilder sb=new StringBuilder();
 		for (int i=0;i<mode.length;i++) switch (mode[i]) {
 		case MODE_TIMESTAMP:
-			sb.append(SimData.formatSimTime(simData.currentTime));
+			sb.append(simData.formatScaledSimTime(simData.currentTime));
 			break;
 		case MODE_TEXT:
 			sb.append((String)data[i]);
@@ -151,28 +147,28 @@ public class RunElementOutputLog extends RunElementPassThrough {
 			sb.append(simData.runModel.clientTypes[client.type]);
 			break;
 		case MODE_WAITINGTIME_NUMBER:
-			sb.append(NumberTools.formatNumberMax(client.waitingTime*toSec));
+			sb.append(NumberTools.formatNumberMax(client.waitingTime*simData.runModel.scaleToSeconds));
 			break;
 		case MODE_WAITINGTIME_TIME:
-			sb.append(TimeTools.formatExactTime(client.waitingTime*toSec));
+			sb.append(TimeTools.formatExactTime(client.waitingTime*simData.runModel.scaleToSeconds));
 			break;
 		case MODE_TRANSFERTIME_NUMBER:
-			sb.append(NumberTools.formatNumberMax(client.transferTime*toSec));
+			sb.append(NumberTools.formatNumberMax(client.transferTime*simData.runModel.scaleToSeconds));
 			break;
 		case MODE_TRANSFERTIME_TIME:
-			sb.append(TimeTools.formatExactTime(client.transferTime*toSec));
+			sb.append(TimeTools.formatExactTime(client.transferTime*simData.runModel.scaleToSeconds));
 			break;
 		case MODE_PROCESSTIME_NUMBER:
-			sb.append(NumberTools.formatNumberMax(client.processTime*toSec));
+			sb.append(NumberTools.formatNumberMax(client.processTime*simData.runModel.scaleToSeconds));
 			break;
 		case MODE_PROCESSTIME_TIME:
-			sb.append(TimeTools.formatExactTime(client.processTime*toSec));
+			sb.append(TimeTools.formatExactTime(client.processTime*simData.runModel.scaleToSeconds));
 			break;
 		case MODE_RESIDENCETIME_NUMBER:
-			sb.append(NumberTools.formatNumberMax(client.residenceTime*toSec));
+			sb.append(NumberTools.formatNumberMax(client.residenceTime*simData.runModel.scaleToSeconds));
 			break;
 		case MODE_RESIDENCETIME_TIME:
-			sb.append(TimeTools.formatExactTime(client.residenceTime*toSec));
+			sb.append(TimeTools.formatExactTime(client.residenceTime*simData.runModel.scaleToSeconds));
 			break;
 		case MODE_STRING:
 			sb.append(client.getUserDataString((String)data[i]));

@@ -17,6 +17,7 @@ package simulator.elements;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 
 /**
  * Laufzeitdaten eines <code>RunElementTankFlowByClient</code>-Laufzeit-Objekts
@@ -38,9 +39,10 @@ public class RunElementTankFlowByClientData extends RunElementData {
 	 * @param flowData	Auszulösender Fluss
 	 * @param source	Quell-Tank für den Fluss
 	 * @param destination	Ziel-Tank für den Fluss
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementTankFlowByClientData(final RunElement station, final RunElementTankFlow flowData, final RunElementTank source, final RunElementTank destination) {
-		super(station);
+	public RunElementTankFlowByClientData(final RunElement station, final RunElementTankFlow flowData, final RunElementTank source, final RunElementTank destination, final SimulationData simData) {
+		super(station,simData);
 		this.flowData=flowData;
 		this.source=source;
 		this.destination=destination;

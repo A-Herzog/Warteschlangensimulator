@@ -21,6 +21,7 @@ import java.util.Deque;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.runmodel.RunDataClient;
+import simulator.runmodel.SimulationData;
 
 /**
  * Laufzeitdaten eines <code>RunElementPickUp</code>-Laufzeit-Objekts
@@ -37,9 +38,10 @@ public class RunElementPickUpData extends RunElementData {
 	/**
 	 * Konstruktor der Klasse <code>RunElementPickUpData</code>
 	 * @param station	Station zu diesem Datenelement
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementPickUpData(final RunElement station) {
-		super(station);
+	public RunElementPickUpData(final RunElement station, final SimulationData simData) {
+		super(station,simData);
 		waitingClients=new ArrayDeque<>();
 	}
 }

@@ -200,15 +200,15 @@ public class RunElementActionRecord {
 				if (editRecord.getTimeRepeatCount()!=1) {
 					if (editRecord.getTimeRepeat()<0.001) return String.format(Language.tr("Simulation.Creator.Action.InvalidRepeatTime"),NumberTools.formatNumber(editRecord.getTimeRepeat()));
 				}
-				timeInitialMS=Math.round(editRecord.getTimeInitial()*1000);
-				timeIntervalMS=Math.max(1,Math.round(editRecord.getTimeRepeat()*1000));
+				timeInitialMS=Math.round(editRecord.getTimeInitial()*runModel.scaleToSimTime);
+				timeIntervalMS=Math.max(1,Math.round(editRecord.getTimeRepeat()*runModel.scaleToSimTime));
 				timeRepeatCount=(editRecord.getTimeRepeatCount()<=0)?-1:editRecord.getTimeRepeatCount();
 				break;
 			case CONDITION_CONDITION:
 				condition=editRecord.getCondition();
 				error=ExpressionMultiEval.check(condition,runModel.variableNames);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.Action.InvalidCondition"),condition,error+1);
-				conditionMinDistance=Math.round(editRecord.getConditionMinDistance()*1000);
+				conditionMinDistance=Math.round(editRecord.getConditionMinDistance()*runModel.scaleToSimTime);
 				break;
 			case CONDITION_THRESHOLD:
 				thresholdExpression=editRecord.getThresholdExpression();

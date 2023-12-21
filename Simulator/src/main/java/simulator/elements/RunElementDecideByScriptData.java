@@ -70,7 +70,7 @@ public class RunElementDecideByScriptData extends RunElementData {
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	public RunElementDecideByScriptData(final RunElementDecideByScript station, final String script, final ModelElementDecideJS.ScriptMode mode, final DynamicRunner jRunner, final SimulationData simData) {
-		super(station);
+		super(station,simData);
 		this.script=script;
 
 		switch (mode) {

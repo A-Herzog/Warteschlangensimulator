@@ -48,9 +48,10 @@ public class RunElementSourceDB extends RunElementSourceExtern {
 	 * Lädt die Kundenankünfte aus einer Datenbanktabelle.
 	 * @param sourceElement	Editor-Element aus dem die Datenbankeinstellungen geladen werden
 	 * @param clientTypes	Kundentypen die beim Laden der Tabelle berücksichtigt werden sollen
+	 * @param runModel	Laufzeitmodell
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
-	private String loadDatabase(final ModelElementSourceDB sourceElement, final List<String> clientTypes) {
+	private String loadDatabase(final ModelElementSourceDB sourceElement, final List<String> clientTypes, final RunModel runModel) {
 		try (DBConnect connect=new DBConnect(sourceElement.getDb(),false)) {
 			if (connect.getInitError()!=null) return Language.tr("Simulation.Creator.DatabaseError")+": "+connect.getInitError();
 
@@ -85,7 +86,7 @@ public class RunElementSourceDB extends RunElementSourceExtern {
 
 			if (table.getSize(0)==0) return String.format(Language.tr("Simulation.Creator.DatabaseError.NoRows"),sourceElement.getId(),sourceElement.getTable());
 
-			return loadTable(table,clientTypes,false,false);
+			return loadTable(table,clientTypes,false,false,runModel.scaleToSimTime);
 		}
 	}
 
@@ -105,7 +106,7 @@ public class RunElementSourceDB extends RunElementSourceExtern {
 
 		/* Tabelle verarbeiten */
 		if (!testOnly) {
-			error=source.loadDatabase(sourceElement,clientTypes);
+			error=source.loadDatabase(sourceElement,clientTypes,runModel);
 			if (error!=null) return error;
 		}
 

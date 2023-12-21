@@ -126,15 +126,16 @@ public class RunElementTankFlow {
 	/**
 	 * Konstruktor der Klasse
 	 * @param modelData	Modell-Flussinformations-Element aus dem die Daten geladen werden sollen
+	 * @param scaleToSimTime	Faktor zur Umrechnung von Sekunden in Simulationszeit (z.B. MS)
 	 */
-	public RunElementTankFlow(final ModelElementTankFlowData modelData) {
+	public RunElementTankFlow(final ModelElementTankFlowData modelData, final double scaleToSimTime) {
 		sourceID=modelData.getSourceID();
 		sourceValveNr=modelData.getSourceValveNr();
 		destinationID=modelData.getDestinationID();
 		destinationValveNr=modelData.getDestinationValveNr();
 		stopCondition=modelData.getStopCondition();
 		stopTime=modelData.getStopTime();
-		stopTimeMS=FastMath.round(modelData.getStopTime()*1000);
+		stopTimeMS=FastMath.round(modelData.getStopTime()*scaleToSimTime);
 		stopQuantity=modelData.getStopQuantity();
 		stopSignal=modelData.getStopSignal();
 
@@ -343,10 +344,11 @@ public class RunElementTankFlow {
 	/**
 	 * Liefert für die Darstellung während der Animation Informationen
 	 * zu einem Fluss.
+	 * @param simData	Simulationsdatenobjekt
 	 * @return	Informationen zu einem Fluss.
 	 * @see ModelElementTank#addInformationToAnimationRunTimeData(SimDataBuilder)
 	 */
-	public String getAnimationInfoText() {
+	public String getAnimationInfoText(final SimulationData simData) {
 		final StringBuilder sb=new StringBuilder();
 
 		sb.append(Language.tr("Statistics.AnalogValue.Flow"));
@@ -378,7 +380,7 @@ public class RunElementTankFlow {
 		} else {
 			switch (stopCondition) {
 			case STOP_BY_TIME:
-				sb.append(String.format(Language.tr("Statistics.AnalogValue.Flow.Stop.ByTime"),NumberTools.formatNumber(stopTime),NumberTools.formatNumber((stopTimeMS-(lastTime-flowStartTime))/1000.0)));
+				sb.append(String.format(Language.tr("Statistics.AnalogValue.Flow.Stop.ByTime"),NumberTools.formatNumber(stopTime),NumberTools.formatNumber((stopTimeMS-(lastTime-flowStartTime))*simData.runModel.scaleToSeconds)));
 				break;
 			case STOP_BY_QUANTITY:
 				sb.append(String.format(Language.tr("Statistics.AnalogValue.Flow.Stop.ByQuantity"),NumberTools.formatNumber(stopQuantity),NumberTools.formatNumber(flowQuantity)));

@@ -404,7 +404,7 @@ public class ModelElementAnalogValue extends ModelElementBox {
 
 		builder.results.append("\n"+Language.tr("Statistics.AnalogValue")+"\n");
 		builder.results.append("\n"+Language.tr("Statistics.AnalogValue.Current")+": "+NumberTools.formatNumber(data.getValueNoUpdate())+"\n");
-		builder.results.append("\n"+Language.tr("Statistics.AnalogValue.Rate")+": "+NumberTools.formatNumber(data.getRateNoUpdate(),5)+"\n");
+		builder.results.append("\n"+Language.tr("Statistics.AnalogValue.Rate")+": "+NumberTools.formatNumber(data.getRateNoUpdate(builder.simData),5)+"\n");
 	}
 
 	/**

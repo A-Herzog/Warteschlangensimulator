@@ -112,9 +112,6 @@ public class RunElementTransportSourceTime {
 		return null;
 	}
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSec=1.0/1000.0;
-
 	/**
 	 * Ermittelt eine Transportzeit
 	 * @param simData	Simulationsdatenobjekt
@@ -128,7 +125,7 @@ public class RunElementTransportSourceTime {
 		if (distribution[client.stationInformationInt]!=null) {
 			value=DistributionRandomNumber.randomNonNegative(distribution[client.stationInformationInt]);
 		} else {
-			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*toSec;
+			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*simData.runModel.scaleToSeconds;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);
 			try {
 				value=delayExpression[client.stationInformationInt].calc(simData.runData.variableValues,simData,client);

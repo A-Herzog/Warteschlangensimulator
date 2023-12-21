@@ -90,7 +90,7 @@ public class RunElementCounterBatch extends RunElementPassThrough {
 		if (data==null) {
 			final RunCounterConditionData conditionData=new RunCounterConditionData(condition);
 			conditionData.build(simData.runModel);
-			data=new RunElementCounterBatchData(this,counterName,conditionData,simData.statistics.counterBatch);
+			data=new RunElementCounterBatchData(this,counterName,conditionData,simData.statistics.counterBatch,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -105,7 +105,7 @@ public class RunElementCounterBatch extends RunElementPassThrough {
 			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.CounterBatch"),String.format(Language.tr("Simulation.Log.CounterBatch.Info"),client.logInfo(simData),name,counterName));
 
 			/* Zählung */
-			data.logArrival(simData.runData.isWarmUp,simData.currentTime);
+			data.logArrival(simData.runData.isWarmUp,simData.currentTime,simData);
 		}
 
 		/* Kunde zur nächsten Station leiten */

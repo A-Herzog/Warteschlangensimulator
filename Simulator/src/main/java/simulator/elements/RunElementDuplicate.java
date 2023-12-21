@@ -112,7 +112,7 @@ public class RunElementDuplicate extends RunElement {
 		RunElementDuplicateData data;
 		data=(RunElementDuplicateData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementDuplicateData(this,connections.length);
+			data=new RunElementDuplicateData(this,connections.length,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

@@ -43,7 +43,7 @@ public class RunElementSourceData extends RunElementData {
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
 	 */
 	public RunElementSourceData(final RunElement station, final SimulationData simData, final RunElementSourceRecord record, final String[] variableNames) {
-		super(station);
+		super(station,simData);
 		maxSystemArrival=0;
 		recordData=new RunElementSourceRecordData(simData,record,variableNames);
 	}

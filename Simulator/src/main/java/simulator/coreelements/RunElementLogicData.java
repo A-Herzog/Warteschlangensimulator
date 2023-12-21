@@ -15,6 +15,7 @@
  */
 package simulator.coreelements;
 
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
 
 /**
@@ -34,9 +35,10 @@ public class RunElementLogicData extends RunElementData {
 	 * @param station	Station zu diesem Datenelement
 	 * @param condition	Bei der Verzweigung von Kunden zu prüfende Bedingung (zur Umsetzung in ein <code>ExpressionMultiEval</code>-Objekt)
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementLogicData(final RunElement station, final String condition, final String[] variableNames) {
-		super(station);
+	public RunElementLogicData(final RunElement station, final String condition, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 		if (condition==null || condition.trim().isEmpty()) {
 			this.condition=null;
 		} else {

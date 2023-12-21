@@ -47,9 +47,10 @@ public class RunElementSourceDDE extends RunElementSourceExtern {
 	 * Lädt die Kundenankünfte über eine DDE-Verbindung.
 	 * @param sourceElement	Editor-Element aus dem die DDE-Einstellungen geladen werden
 	 * @param clientTypes	Kundentypen die beim Laden der Daten berücksichtigt werden sollen
+	 * @param runModel	Laufzeitmodell
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
-	private String loadTable(final ModelElementSourceDDE sourceElement, final List<String> clientTypes) {
+	private String loadTable(final ModelElementSourceDDE sourceElement, final List<String> clientTypes, final RunModel runModel) {
 		final Table table=new Table();
 
 		final DDEConnect connect=new DDEConnect();
@@ -80,7 +81,7 @@ public class RunElementSourceDDE extends RunElementSourceExtern {
 
 		if (table.getSize(0)==0) return String.format(Language.tr("Simulation.Creator.DDEError.NoRows"),sourceElement.getId(),sourceElement.getTable());
 
-		return loadTable(table,clientTypes,false,false);
+		return loadTable(table,clientTypes,false,false,runModel.scaleToSimTime);
 	}
 
 	@Override
@@ -102,7 +103,7 @@ public class RunElementSourceDDE extends RunElementSourceExtern {
 
 		/* Tabelle verarbeiten */
 		if (!testOnly) {
-			error=source.loadTable(sourceElement,clientTypes);
+			error=source.loadTable(sourceElement,clientTypes,runModel);
 			if (error!=null) return error;
 		}
 

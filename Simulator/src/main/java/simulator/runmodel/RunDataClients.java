@@ -151,10 +151,15 @@ public final class RunDataClients {
 	 */
 	private RunData.IndicatorAccessCacheClientTypes cacheClientsInterleaveTime;
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
+	private final double scale;
+
 	/**
-	 * Konstruktor der Klasse <code>RunDataClients</code>
+	 * Konstruktor der Klasse
+	 * @param runModel	Laufzeitmodell
 	 */
-	public RunDataClients() {
+	public RunDataClients(final RunModel runModel) {
+		scale=runModel.scaleToSeconds;
 		clientCache=new RunDataClient[CLIENT_CACHE_SIZE];
 		clientsInUse=null;
 		clientsInUseFast=null;
@@ -223,9 +228,6 @@ public final class RunDataClients {
 		clone.copyDataFrom(client,simData,this);
 		return clone;
 	}
-
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static double scale=1.0d/1000.0d;
 
 	/**
 	 * Wird aufgerufen, wenn ein Kunde das System verlässt und seine Daten aufgezeichnet werden sollen.

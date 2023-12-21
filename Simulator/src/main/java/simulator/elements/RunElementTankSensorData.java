@@ -16,6 +16,7 @@
 package simulator.elements;
 
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 
 /**
  * Laufzeitdaten eines <code>RunElementTankSensor</code>-Laufzeit-Objekts
@@ -37,9 +38,10 @@ public class RunElementTankSensorData extends RunElementData {
 	/**
 	 * Konstruktor der Klasse <code>RunElementTankSensorData</code>
 	 * @param station	Zu dem Datenobjekt zugehöriges <code>RunElementSeize</code>-Element
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementTankSensorData(final RunElementTankSensor station) {
-		super(station);
+	public RunElementTankSensorData(final RunElementTankSensor station, final SimulationData simData) {
+		super(station,simData);
 		lastValue=-1;
 		lastTime=-1;
 	}

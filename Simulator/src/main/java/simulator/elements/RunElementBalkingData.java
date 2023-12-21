@@ -17,6 +17,7 @@ package simulator.elements;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
 
 /**
@@ -41,9 +42,10 @@ public class RunElementBalkingData extends RunElementData {
 	 * @param station	Station zu diesem Datenelement
 	 * @param conditions	Bei der Verzweigung von Kunden zu prüfende Bedingungen (zur Umsetzung in ein <code>ExpressionMultiEval</code>-Objekt)
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementBalkingData(final RunElement station, final String[] conditions, final String[] variableNames) {
-		super(station);
+	public RunElementBalkingData(final RunElement station, final String[] conditions, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 
 		this.conditions=new ExpressionMultiEval[conditions.length];
 		for (int i=0;i<conditions.length;i++) {

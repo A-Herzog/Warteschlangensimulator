@@ -74,8 +74,11 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	private Map<String,ExpressionCalc> expressionCache;
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden (um während der Simulation Divisionen zu vermeiden) */
-	private static final double toSec=1.0/1000.0;
+	/** Umrechnungsfaktor von Simulationszeit auf Sekunden (um während der Simulation Divisionen zu vermeiden) */
+	private double toSec;
+
+	/** Umrechnungsfaktor von Sekunden zur Simulationszeit */
+	private long toSimTime;
 
 	/**
 	 * Zeitpunkt, der beim letzten Aufruf von {@link #time()} ausgegeben wurde
@@ -112,6 +115,8 @@ public final class JSCommandSystem extends JSBaseCommand {
 		this.simData=simData;
 		this.currentStation=currentStation;
 		this.client=client;
+		this.toSec=simData.runModel.scaleToSeconds;
+		this.toSimTime=simData.runModel.scaleToSimTime;
 	}
 
 	/**
@@ -292,7 +297,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public void clientWaitingSecondsSet(final double seconds) {
 		if (client==null) return;
-		final long l=(long)(seconds*1000+0.5);
+		final long l=(long)(seconds*toSimTime+0.5);
 		client.waitingTime=(l>0)?l:0;
 	}
 
@@ -324,7 +329,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public void clientTransferSecondsSet(final double seconds) {
 		if (client==null) return;
-		final long l=(long)(seconds*1000+0.5);
+		final long l=(long)(seconds*toSimTime+0.5);
 		client.transferTime=(l>0)?l:0;
 	}
 
@@ -356,7 +361,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public void clientProcessSecondsSet(final double seconds) {
 		if (client==null) return;
-		final long l=(long)(seconds*1000+0.5);
+		final long l=(long)(seconds*toSimTime+0.5);
 		client.processTime=(l>0)?l:0;
 	}
 
@@ -388,7 +393,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public void clientResidenceSecondsSet(final double seconds) {
 		if (client==null) return;
-		client.residenceTime=FastMath.round(FastMath.max(0,seconds)*1000);
+		client.residenceTime=FastMath.round(FastMath.max(0,seconds)*toSimTime);
 	}
 
 	/**
@@ -815,11 +820,11 @@ public final class JSCommandSystem extends JSBaseCommand {
 			simData.runData.variableValues[index]=value;
 			simData.runData.updateVariableValueForStatistics(simData,index);
 			/* Pseudovariable: Wartezeit */
-			if (client!=null && index==simData.runData.variableValues.length-3) client.waitingTime=FastMath.max(0,FastMath.round(value*1000));
+			if (client!=null && index==simData.runData.variableValues.length-3) client.waitingTime=FastMath.max(0,FastMath.round(value*toSimTime));
 			/* Pseudovariable: Transferzeit */
-			if (client!=null && index==simData.runData.variableValues.length-2) client.transferTime=FastMath.max(0,FastMath.round(value*1000));
+			if (client!=null && index==simData.runData.variableValues.length-2) client.transferTime=FastMath.max(0,FastMath.round(value*toSimTime));
 			/* Pseudovariable: Bedienzeit */
-			if (client!=null && index==simData.runData.variableValues.length-1) client.processTime=FastMath.max(0,FastMath.round(value*1000));
+			if (client!=null && index==simData.runData.variableValues.length-1) client.processTime=FastMath.max(0,FastMath.round(value*toSimTime));
 		} else {
 			if (client!=null) client.setUserData(-index-2,value);
 		}
@@ -1176,7 +1181,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	public boolean triggerScriptExecution(final int stationId, final double time) {
 		/* Voraussetzungen prüfen */
 		if (simData==null) return false;
-		final long timeMS=Math.round(time*1000);
+		final long timeMS=Math.round(time*toSimTime);
 		if (timeMS<simData.currentTime) return false;
 		if (stationId<0 || stationId>=simData.runModel.elementsFast.length) return false;
 		final RunElement element=simData.runModel.elementsFast[stationId];

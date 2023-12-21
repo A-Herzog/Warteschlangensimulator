@@ -123,7 +123,7 @@ public class RunElementTeleportSourceMulti extends RunElement {
 		RunElementTeleportSourceMultiData data;
 		data=(RunElementTeleportSourceMultiData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementTeleportSourceMultiData(this,destinations.length);
+			data=new RunElementTeleportSourceMultiData(this,destinations.length,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

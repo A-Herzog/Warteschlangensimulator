@@ -69,7 +69,7 @@ public class RunElementBatchMultiData extends RunElementData {
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	public RunElementBatchMultiData(final RunElementBatchMulti station, final SimulationData simData) {
-		super(station);
+		super(station,simData);
 
 		batchSizeMin=new int[station.batchMode.length];
 		batchSizeMax=new int[station.batchMode.length];

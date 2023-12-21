@@ -22,7 +22,6 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
 import parser.MathCalcError;
-import simcore.SimData;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElementPassThrough;
 import simulator.db.DBConnect;
@@ -143,14 +142,11 @@ public class RunElementOutputDB extends RunElementPassThrough {
 		RunElementOutputDBData data;
 		data=(RunElementOutputDBData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementOutputDBData(this,settings);
+			data=new RunElementOutputDBData(this,settings,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
 	}
-
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSec=1.0/1000.0;
 
 	/**
 	 * Liefert den Ausgabewert für einen Ausgabedatensatz
@@ -162,7 +158,7 @@ public class RunElementOutputDB extends RunElementPassThrough {
 	private String getCellValue(final SimulationData simData, final RunDataClient client, final int index) {
 		switch (mode[index]) {
 		case MODE_TIMESTAMP:
-			return SimData.formatSimTime(simData.currentTime);
+			return simData.formatScaledSimTime(simData.currentTime);
 		case MODE_TEXT:
 			return (String)data[index];
 		case MODE_EXPRESSION:
@@ -176,21 +172,21 @@ public class RunElementOutputDB extends RunElementPassThrough {
 		case MODE_CLIENT:
 			return simData.runModel.clientTypes[client.type];
 		case MODE_WAITINGTIME_NUMBER:
-			return NumberTools.formatSystemNumber(client.waitingTime*toSec);
+			return NumberTools.formatSystemNumber(client.waitingTime*simData.runModel.scaleToSeconds);
 		case MODE_WAITINGTIME_TIME:
-			return TimeTools.formatExactTime(client.waitingTime*toSec);
+			return TimeTools.formatExactTime(client.waitingTime*simData.runModel.scaleToSeconds);
 		case MODE_TRANSFERTIME_NUMBER:
-			return NumberTools.formatSystemNumber(client.transferTime*toSec);
+			return NumberTools.formatSystemNumber(client.transferTime*simData.runModel.scaleToSeconds);
 		case MODE_TRANSFERTIME_TIME:
-			return TimeTools.formatExactTime(client.transferTime*toSec);
+			return TimeTools.formatExactTime(client.transferTime*simData.runModel.scaleToSeconds);
 		case MODE_PROCESSTIME_NUMBER:
-			return NumberTools.formatSystemNumber(client.processTime*toSec);
+			return NumberTools.formatSystemNumber(client.processTime*simData.runModel.scaleToSeconds);
 		case MODE_PROCESSTIME_TIME:
-			return TimeTools.formatExactTime(client.processTime*toSec);
+			return TimeTools.formatExactTime(client.processTime*simData.runModel.scaleToSeconds);
 		case MODE_RESIDENCETIME_NUMBER:
-			return NumberTools.formatNumberMax(client.residenceTime*toSec);
+			return NumberTools.formatNumberMax(client.residenceTime*simData.runModel.scaleToSeconds);
 		case MODE_RESIDENCETIME_TIME:
-			return TimeTools.formatExactTime(client.residenceTime*toSec);
+			return TimeTools.formatExactTime(client.residenceTime*simData.runModel.scaleToSeconds);
 		case MODE_STRING:
 			return client.getUserDataString((String)data[index]);
 		default:

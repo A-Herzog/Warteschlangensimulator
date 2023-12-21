@@ -125,10 +125,11 @@ public final class RunDataTransporters implements Cloneable {
 	 * @param transporters	Editor-Klasse mit den Daten für die Transporter
 	 * @param surface	Zeichenoberfläche (aus der die Namen der Stationen ausgelesen werden)
 	 * @param variables	Liste der globalen Variablen
+	 * @param runModel	Laufzeitmodell
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
 	 * @see ModelTransporters
 	 */
-	public String loadFromEditTransporters(final ModelTransporters transporters, final ModelSurface surface, final String[] variables) {
+	public String loadFromEditTransporters(final ModelTransporters transporters, final ModelSurface surface, final String[] variables, final RunModel runModel) {
 		this.variables=variables;
 
 		/* Temporäre Listen anlegen */
@@ -203,7 +204,7 @@ public final class RunDataTransporters implements Cloneable {
 				final RunDataTransporterFailure runFailure=new RunDataTransporterFailure(this);
 				runFailure.failureMode=editFailure.getFailureMode();
 				runFailure.failureNumber=editFailure.getFailureNumber();
-				runFailure.failureTime=FastMath.round(editFailure.getFailureTimeOrDistance()*1000);
+				runFailure.failureTime=FastMath.round(editFailure.getFailureTimeOrDistance()*runModel.scaleToSimTime);
 				runFailure.failureDistance=editFailure.getFailureTimeOrDistance();
 				runFailure.failureDistribution=editFailure.getFailureDistribution();
 				if (runFailure.failureMode==ModelTransporterFailure.FailureMode.FAILURE_BY_DISTRIBUTION && runFailure.failureDistribution==null) return String.format(Language.tr("Simulation.Creator.MissingTransporterInterDownTimeDistribution"),name);

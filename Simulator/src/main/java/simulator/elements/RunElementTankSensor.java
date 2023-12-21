@@ -119,7 +119,7 @@ public class RunElementTankSensor extends RunElement implements StateChangeListe
 		RunElementTankSensorData data;
 		data=(RunElementTankSensorData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementTankSensorData(this);
+			data=new RunElementTankSensorData(this,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

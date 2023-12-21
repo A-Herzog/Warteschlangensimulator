@@ -153,7 +153,7 @@ public class RunElementCosts extends RunElementPassThrough {
 		RunElementCostsData data;
 		data=(RunElementCostsData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementCostsData(this,stationCosts,clientWaitingCosts,clientTransferCosts,clientProcessCosts,condition,simData.runModel.variableNames);
+			data=new RunElementCostsData(this,stationCosts,clientWaitingCosts,clientTransferCosts,clientProcessCosts,condition,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

@@ -17,6 +17,7 @@ package simulator.elements;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 
 /**
  * Laufzeitdaten eines <code>RunElementInteractiveButton</code>-Laufzeit-Objekts
@@ -32,9 +33,10 @@ public class RunElementInteractiveButtonData extends RunElementData {
 	 * Konstruktor der Klasse <code>RunElementInteractiveButtonData</code>
 	 * @param station	Station zu diesem Datenelement
 	 * @param records	Liste mit den thread-spezifischen Laufzeit-Zuweisungsdatensätzen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementInteractiveButtonData(final RunElement station, final RunElementActionRecord[] records) {
-		super(station);
+	public RunElementInteractiveButtonData(final RunElement station, final RunElementActionRecord[] records, final SimulationData simData) {
+		super(station,simData);
 		this.records=records;
 	}
 }

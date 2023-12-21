@@ -17,6 +17,7 @@ package simulator.elements;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import statistics.StatisticsDataCollector;
 
@@ -61,9 +62,10 @@ public class RunElementRecordData extends RunElementData {
 	 * @param expression1	Ausdruck 1
 	 * @param expression2	Ausdruck 2
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementRecordData(final RunElement station, final String expression1, final String expression2, final String[] variableNames) {
-		super(station);
+	public RunElementRecordData(final RunElement station, final String expression1, final String expression2, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 
 		this.expression1=new ExpressionCalc(variableNames);
 		this.expression1.parse(expression1);

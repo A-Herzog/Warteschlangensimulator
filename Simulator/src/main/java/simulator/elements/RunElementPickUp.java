@@ -119,7 +119,7 @@ public class RunElementPickUp extends RunElementPassThrough implements StateChan
 		RunElementPickUpData data;
 		data=(RunElementPickUpData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementPickUpData(this);
+			data=new RunElementPickUpData(this,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

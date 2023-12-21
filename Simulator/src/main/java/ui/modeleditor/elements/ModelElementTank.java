@@ -300,14 +300,14 @@ public class ModelElementTank extends ModelElementBox {
 		if (outgoing.length>0) {
 			builder.results.append("\n");
 			builder.results.append(Language.tr("Statistics.AnalogValue.Flow.Outgoing")+":\n");
-			for (RunElementTankFlow flow: outgoing) builder.results.append(flow.getAnimationInfoText()+"\n");
+			for (RunElementTankFlow flow: outgoing) builder.results.append(flow.getAnimationInfoText(builder.simData)+"\n");
 		}
 
 		final RunElementTankFlow[] incoming=data.getIncomingFlows();
 		if (incoming.length>0) {
 			builder.results.append("\n");
 			builder.results.append(Language.tr("Statistics.AnalogValue.Flow.Incoming")+":\n");
-			for (RunElementTankFlow flow: incoming) builder.results.append(flow.getAnimationInfoText()+"\n");
+			for (RunElementTankFlow flow: incoming) builder.results.append(flow.getAnimationInfoText(builder.simData)+"\n");
 		}
 	}
 

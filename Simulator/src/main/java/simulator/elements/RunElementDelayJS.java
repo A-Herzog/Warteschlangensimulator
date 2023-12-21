@@ -137,7 +137,7 @@ public class RunElementDelayJS extends RunElementPassThrough implements DelayWit
 
 		/* Verzögerung bestimmen */
 		final double delayTime=Math.max(0,data.getDelayTime(simData,client));
-		final long delayTimeMS=(long)(delayTime*1000+0.5);
+		final long delayTimeMS=(long)(delayTime*simData.runModel.scaleToSimTime+0.5);
 
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.DelayJS"),String.format(Language.tr("Simulation.Log.DelayJS.Info"),client.logInfo(simData),name,TimeTools.formatExactTime(delayTime)));

@@ -723,10 +723,11 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 
 			currentPosition=client.nextStationID;
 
-			waitingTime=client.waitingTime/1000.0;
-			transferTime=client.transferTime/1000.0;
-			processTime=client.processTime/1000.0;
-			residenceTime=client.residenceTime/1000.0;
+			final double scaleToSeconds=(model==null)?(1.0/1000.0):model.scaleToSeconds;
+			waitingTime=client.waitingTime*scaleToSeconds;
+			transferTime=client.transferTime*scaleToSeconds;
+			processTime=client.processTime*scaleToSeconds;
+			residenceTime=client.residenceTime*scaleToSeconds;
 
 			waitingCosts=client.waitingAdditionalCosts;
 			transferCosts=client.transferAdditionalCosts;

@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 
 /**
@@ -42,9 +43,10 @@ public class RunElementSourceExternData extends RunElementData {
 	 * Konstruktor der Klasse <code>RunElementSourceData</code>
 	 * @param station	Station zu diesem Datenelement
 	 * @param typesCount	Größe des {@link #nextIndex} Arrays, d.h. Anzahl der verschiedenen Kundentypen an dieser Station
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementSourceExternData(final RunElement station, final int typesCount) {
-		super(station);
+	public RunElementSourceExternData(final RunElement station, final int typesCount, final SimulationData simData) {
+		super(station,simData);
 		nextIndex=new int[typesCount];
 		Arrays.fill(nextIndex,0);
 	}

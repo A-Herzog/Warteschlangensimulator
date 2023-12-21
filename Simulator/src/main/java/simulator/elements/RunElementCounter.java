@@ -99,7 +99,7 @@ public class RunElementCounter extends RunElementPassThrough {
 		if (data==null) {
 			final RunCounterConditionData conditionData=new RunCounterConditionData(condition);
 			conditionData.build(simData.runModel);
-			data=new RunElementCounterData(this,counterName,groupName,conditionData,simData.statistics.counter);
+			data=new RunElementCounterData(this,counterName,groupName,conditionData,simData.statistics.counter,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

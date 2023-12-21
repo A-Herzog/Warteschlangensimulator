@@ -17,6 +17,7 @@ package simulator.elements;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
@@ -44,9 +45,10 @@ public class RunElementCounterMultiData extends RunElementData {
 	 * @param counterNameElse	Name des Zählers für den Fall, dass keine Bedingung erfüllt ist
 	 * @param counterStatistic	Statistikobjekt welches alle Zähler enthält
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementCounterMultiData(final RunElement station, final String groupName, final String[] conditions, final String[] counterNames, final String counterNameElse, final StatisticsMultiPerformanceIndicator counterStatistic, final String[] variableNames) {
-		super(station);
+	public RunElementCounterMultiData(final RunElement station, final String groupName, final String[] conditions, final String[] counterNames, final String counterNameElse, final StatisticsMultiPerformanceIndicator counterStatistic, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 
 		final String groupNameExt=groupName.replace('-','_')+"-";
 		this.conditions=new ExpressionMultiEval[conditions.length];

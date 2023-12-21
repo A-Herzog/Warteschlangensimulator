@@ -33,9 +33,11 @@ public class JSCommandClientsBase extends JSBaseCommand {
 	/** Liste der wartenden Kunden */
 	protected List<RunDataClient> clients;
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden (um während der Simulation Divisionen zu vermeiden) */
-	private static final double toSec=1.0/1000.0;
+	/** Umrechnungsfaktor von Simulationszeit auf Sekunden (um während der Simulation Divisionen zu vermeiden) */
+	private double toSec;
 
+	/** Umrechnungsfaktor von Sekunden zur Simulationszeit */
+	private long toSimTime;
 	/**
 	 * Konstruktor der Klasse <code>JSCommandClients</code>
 	 */
@@ -52,6 +54,8 @@ public class JSCommandClientsBase extends JSBaseCommand {
 		this.simData=simData;
 		this.clients=clients;
 		count=clients.size();
+		toSec=simData.runModel.scaleToSeconds;
+		toSimTime=simData.runModel.scaleToSimTime;
 	}
 
 	/**
@@ -160,7 +164,7 @@ public class JSCommandClientsBase extends JSBaseCommand {
 	 */
 	public void clientWaitingSecondsSet(final int index, final double time) {
 		if (index<0 || index>=count) return;
-		clients.get(index).waitingTime=Math.round(time*1000);
+		clients.get(index).waitingTime=Math.round(time*toSimTime);
 	}
 
 	/**
@@ -196,7 +200,7 @@ public class JSCommandClientsBase extends JSBaseCommand {
 	 */
 	public void clientTransferSecondsSet(final int index, final double time) {
 		if (index<0 || index>=count) return;
-		clients.get(index).transferTime=Math.round(time*1000);
+		clients.get(index).transferTime=Math.round(time*toSimTime);
 	}
 
 	/**
@@ -232,7 +236,7 @@ public class JSCommandClientsBase extends JSBaseCommand {
 	 */
 	public void clientProcessSecondsSet(final int index, final double time) {
 		if (index<0 || index>=count) return;
-		clients.get(index).processTime=Math.round(time*1000);
+		clients.get(index).processTime=Math.round(time*toSimTime);
 	}
 
 	/**
@@ -268,6 +272,6 @@ public class JSCommandClientsBase extends JSBaseCommand {
 	 */
 	public void clientResidenceSecondsSet(final int index, final double time) {
 		if (index<0 || index>=count) return;
-		clients.get(index).residenceTime=Math.round(time*1000);
+		clients.get(index).residenceTime=Math.round(time*toSimTime);
 	}
 }

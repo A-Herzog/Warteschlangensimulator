@@ -138,9 +138,6 @@ public class RunElementSet extends RunElementPassThrough {
 		return data;
 	}
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSec=1.0/1000.0;
-
 	/**
 	 * Führt die eigentlichen Zuweisungen durch.
 	 * @param simData	Simulationsdatenobjekt
@@ -164,16 +161,16 @@ public class RunElementSet extends RunElementPassThrough {
 				}
 				break;
 			case MODE_WAITING_TIME:
-				d=client.waitingTime*toSec;
+				d=client.waitingTime*simData.runModel.scaleToSeconds;
 				break;
 			case MODE_TRANSFER_TIME:
-				d=client.transferTime*toSec;
+				d=client.transferTime*simData.runModel.scaleToSeconds;
 				break;
 			case MODE_PROCESS_TIME:
-				d=client.processTime*toSec;
+				d=client.processTime*simData.runModel.scaleToSeconds;
 				break;
 			case MODE_RESIDENCE_TIME:
-				d=client.residenceTime*toSec;
+				d=client.residenceTime*simData.runModel.scaleToSeconds;
 				break;
 			}
 
@@ -197,21 +194,21 @@ public class RunElementSet extends RunElementPassThrough {
 					boolean done=false;
 					if (index==len-3) {
 						/* Pseudovariable: Wartezeit */
-						final long l=(long)(d*1000+0.5);
+						final long l=(long)(d*simData.runModel.scaleToSimTime+0.5);
 						client.waitingTime=(l>0)?l:0;
 						client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 						done=true;
 					}
 					if (index==len-2) {
 						/* Pseudovariable: Transferzeit */
-						final long l=(long)(d*1000+0.5);
+						final long l=(long)(d*simData.runModel.scaleToSimTime+0.5);
 						client.transferTime=(l>0)?l:0;
 						client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 						done=true;
 					}
 					if (index==len-1) {
 						/* Pseudovariable: Bedienzeit */
-						final long l=(long)(d*1000+0.5);
+						final long l=(long)(d*simData.runModel.scaleToSimTime+0.5);
 						client.processTime=(l>0)?l:0;
 						client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 						done=true;

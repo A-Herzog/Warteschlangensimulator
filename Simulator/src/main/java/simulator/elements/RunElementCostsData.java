@@ -17,6 +17,7 @@ package simulator.elements;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import simulator.simparser.ExpressionMultiEval;
 
@@ -61,9 +62,10 @@ public class RunElementCostsData extends RunElementData {
 	 * @param clientProcessCosts	Bedienzeit-Kosten (bei den Kunden)
 	 * @param condition	Optionale zusätzliche Bedingung, die für eine Zuweisung erfüllt sein muss (kann <code>null</code> sein)
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementCostsData(final RunElement station, final String stationCosts, final String clientWaitingCosts, final String clientTransferCosts, final String clientProcessCosts, final String condition, final String[] variableNames) {
-		super(station);
+	public RunElementCostsData(final RunElement station, final String stationCosts, final String clientWaitingCosts, final String clientTransferCosts, final String clientProcessCosts, final String condition, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 
 		if (stationCosts==null || stationCosts.trim().isEmpty()) {
 			this.stationCosts=null;

@@ -90,7 +90,7 @@ public class RunElementTransportParking extends RunElement implements Transporte
 		RunElementTransportParkingData data;
 		data=(RunElementTransportParkingData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementTransportParkingData(this,priorityString,simData.runModel.variableNames);
+			data=new RunElementTransportParkingData(this,priorityString,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

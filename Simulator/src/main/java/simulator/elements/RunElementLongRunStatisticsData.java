@@ -83,7 +83,7 @@ public class RunElementLongRunStatisticsData extends RunElementData {
 	 * @param runModel	Laufzeitmodell, dem u.a. die Variablennamen entnommen werden
 	 */
 	public RunElementLongRunStatisticsData(final RunElement station, final String[] expresions, final StatisticsLongRunPerformanceIndicator.Mode[] modes, final long stepWideMS, final boolean closeLastInterval, final RunModel runModel) {
-		super(station);
+		super(station,runModel);
 		expressionStrings=new String[expresions.length];
 		this.expressions=new ExpressionCalc[expresions.length];
 		expressionStatistics=new StatisticsLongRunPerformanceIndicator[expresions.length];

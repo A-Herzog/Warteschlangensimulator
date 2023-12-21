@@ -80,9 +80,10 @@ public class RunElementConveyorData extends RunElementData implements RunElement
 	 * @param variableNames	Liste der globalen Variablen (zur Initialisierung der Rechenausdrücke)
 	 * @param freeCapacity	Verfügbare Kapazität
 	 * @param transportTimeMS	Notwendige Zeit, um einen Kunden über das Fließband zu bewegen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementConveyorData(final RunElement station, final String[] capacityNeededStrings, final String[] variableNames, final double freeCapacity, final long transportTimeMS) {
-		super(station);
+	public RunElementConveyorData(final RunElement station, final String[] capacityNeededStrings, final String[] variableNames, final double freeCapacity, final long transportTimeMS, final SimulationData simData) {
+		super(station,simData);
 		queueLockedForPickUp=false;
 		waitingClients=new ArrayList<>(DEFAULT_QUEUE_SIZE);
 
@@ -143,9 +144,6 @@ public class RunElementConveyorData extends RunElementData implements RunElement
 		return timeInQueue;
 	}
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSec=1.0/1000.0;
-
 	/**
 	 * Liefert notwendige Kapazität für einen Kunden
 	 * @param simData	Simulationsdaten
@@ -155,7 +153,7 @@ public class RunElementConveyorData extends RunElementData implements RunElement
 	public double getNeededCapacity(final SimulationData simData, final RunDataClient client) {
 		final int type=client.type;
 
-		final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*toSec;
+		final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*simData.runModel.scaleToSeconds;
 		simData.runData.setClientVariableValues(client,additionalWaitingTime);
 		try {
 			return capacityNeeded[type].calc(simData.runData.variableValues,simData,client);
@@ -182,7 +180,7 @@ public class RunElementConveyorData extends RunElementData implements RunElement
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	private void triggerUpdateEvent(final SimulationData simData) {
-		if (notifyTriggered && transportTimeMS>1000) return;
+		if (notifyTriggered && transportTimeMS>simData.runModel.scaleToSimTime) return;
 		if (simData.runData.stopp) return;
 		final ConveyorSystemChangeEvent event=(ConveyorSystemChangeEvent)simData.getEvent(ConveyorSystemChangeEvent.class);
 		event.init(simData.currentTime+transportTimeMS/10);

@@ -18,6 +18,7 @@ package simulator.elements;
 import net.dde.DDEConnect;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 
 /**
  * Laufzeitdaten eines <code>RunElementOutputDDE</code>-Laufzeit-Objekts
@@ -58,9 +59,10 @@ public class RunElementOutputDDEData extends RunElementData {
 	 * @param table	Tabelle innerhalb der Arbeitsmappe in die die Daten geschrieben werden sollen
 	 * @param startRow	0-basierende Nummer der Zeile in die als nächstes geschrieben werden soll
 	 * @param startColumn	0-basierende Nummer der ersten Spalte in die geschrieben werden soll
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementOutputDDEData(final RunElement station, final String workbook, final String table, final int startRow, final int startColumn) {
-		super(station);
+	public RunElementOutputDDEData(final RunElement station, final String workbook, final String table, final int startRow, final int startColumn, final SimulationData simData) {
+		super(station,simData);
 
 		this.workbook=workbook;
 		this.table=table;

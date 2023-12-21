@@ -70,7 +70,7 @@ public class RunElementAnalogValue extends RunElementAnalogProcessing {
 
 		analogValue.initialRate=analogValueElement.getChangeRatePerSecond();
 
-		final String analogNotifyError=analogValue.loadAnalogNotify(analogValueElement.getAnalogNotify());
+		final String analogNotifyError=analogValue.loadAnalogNotify(analogValueElement.getAnalogNotify(),runModel);
 		if (analogNotifyError!=null) return analogNotifyError;
 
 		return analogValue;
@@ -97,7 +97,7 @@ public class RunElementAnalogValue extends RunElementAnalogProcessing {
 		RunElementAnalogValueData data;
 		data=(RunElementAnalogValueData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementAnalogValueData(this,initialValue,initialRate,valueMin,valueMinUse,valueMax,valueMaxUse,getAnalogStatistics(simData));
+			data=new RunElementAnalogValueData(this,initialValue,initialRate,valueMin,valueMinUse,valueMax,valueMaxUse,getAnalogStatistics(simData),simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

@@ -148,7 +148,7 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 		RunElementDelayData data;
 		data=(RunElementDelayData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementDelayData(this,expression,simData.runModel.variableNames,costs,hasClientsList);
+			data=new RunElementDelayData(this,expression,simData.runModel.variableNames,costs,hasClientsList,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -172,7 +172,7 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 		}
 
 		final double delayTime=value*timeBaseMultiply;
-		final long delayTimeMS=(long)(delayTime*1000+0.5);
+		final long delayTimeMS=(long)(delayTime*simData.runModel.scaleToSimTime+0.5);
 
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Delay"),String.format(Language.tr("Simulation.Log.Delay.Info"),client.logInfo(simData),name,TimeTools.formatExactTime(delayTime)));

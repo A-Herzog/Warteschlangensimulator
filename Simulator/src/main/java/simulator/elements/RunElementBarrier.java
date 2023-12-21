@@ -144,7 +144,7 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 		RunElementBarrierData data;
 		data=(RunElementBarrierData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementBarrierData(this,initialClients);
+			data=new RunElementBarrierData(this,initialClients,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

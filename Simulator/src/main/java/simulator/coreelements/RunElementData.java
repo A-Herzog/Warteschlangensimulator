@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 import simulator.runmodel.RunData;
 import simulator.runmodel.RunDataClient;
+import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
@@ -278,16 +279,17 @@ public class RunElementData {
 	public StatisticsDataPerformanceIndicator statisticSourceStationsInterarrivalTime;
 
 	/**
-	 * Konstruktor der Klasse <code>RunElementData</code>
+	 * Konstruktor der Klasse
 	 * @param station	Runtime-Station für die dieses Datenelement gelten soll
+	 * @param runModel	Laufzeitmodell
 	 */
-	public RunElementData(final RunElement station) {
+	public RunElementData(final RunElement station, final RunModel runModel) {
 		this.station=station;
 		clients=0;
 		clientsNonWarmUp=0;
 
 		maxThroughputIntervalStart=-1;
-		maxThroughputIntervalLength=station.maxThroughputIntervalLengthSec*1000L;
+		maxThroughputIntervalLength=station.maxThroughputIntervalLengthSec*runModel.scaleToSimTime;
 		maxThroughputIntervalCount=0;
 		maxThroughput=0;
 
@@ -305,6 +307,15 @@ public class RunElementData {
 		statisticClientsAtStationProcessByClientTypeValue=null;
 		announcedClient=new RunDataClient[10];
 		announcedClientCount=0;
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param station	Runtime-Station für die dieses Datenelement gelten soll
+	 * @param simData	Simulationsdatenobjekt
+	 */
+	public RunElementData(final RunElement station, final SimulationData simData) {
+		this(station,simData.runModel);
 	}
 
 	/**

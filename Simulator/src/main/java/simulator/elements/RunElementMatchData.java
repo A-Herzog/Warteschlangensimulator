@@ -74,10 +74,11 @@ public class RunElementMatchData extends RunElementData implements RunElementMul
 	 * @param numberOfQueues	Anzahl der einlaufenden Verbindungen
 	 * @param condition	Optionale zusätzliche Freigabebedingung (kann <code>null</code> sein)
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
 	@SuppressWarnings("unchecked")
-	public RunElementMatchData(final RunElement station, final int numberOfQueues, final String condition, final String[] variableNames) {
-		super(station);
+	public RunElementMatchData(final RunElement station, final int numberOfQueues, final String condition, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 
 		waitingClients=new ArrayList[numberOfQueues];
 		for (int i=0;i<numberOfQueues;i++) waitingClients[i]=new ArrayList<>();

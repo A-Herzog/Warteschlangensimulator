@@ -70,9 +70,10 @@ public class RunElementHoldData extends RunElementData implements RunElementData
 	 * @param condition	Bei der Verzögerung von Kunden zu prüfende Bedingung (zur Umsetzung in ein <code>ExpressionMultiEval</code>-Objekt)
 	 * @param priority	Prioritäts-Rechenausdrücke
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementHoldData(final RunElement station, final String condition, final String[] priority, final String[] variableNames) {
-		super(station);
+	public RunElementHoldData(final RunElement station, final String condition, final String[] priority, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 		queueLockedForPickUp=false;
 		waitingClients=new ArrayList<>();
 		lastRelease=-Long.MAX_VALUE;

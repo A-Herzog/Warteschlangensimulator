@@ -45,22 +45,19 @@ public class CalcSymbolSimDataSimTime extends CalcSymbolSimData {
 		return names;
 	}
 
-	/** Skalierungsfaktor zur Umrechnung von Millisekunden auf Sekunden (um zur Laufzeit eine Division einzusparen) */
-	private static final double scaleFactor=1.0/1000.0;
-
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=0) throw error();
 		final SimulationData simData=getSimData();
 		if (simData==null) return 0.0;
-		return simData.currentTime*scaleFactor;
+		return simData.currentTime*simData.runModel.scaleToSeconds;
 	}
 
 	@Override
 	protected double calcOrDefault(final double[] parameters, final double fallbackValue) {
 		if (parameters.length!=0) return fallbackValue;
 		final SimulationData simData=getSimData();
-		if (simData==null) return 0;
-		return simData.currentTime*scaleFactor;
+		if (simData==null) return 0.0;
+		return simData.currentTime*simData.runModel.scaleToSeconds;
 	}
 }

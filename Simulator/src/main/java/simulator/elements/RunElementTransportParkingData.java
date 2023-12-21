@@ -17,6 +17,7 @@ package simulator.elements;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 
 /**
@@ -46,9 +47,10 @@ public class RunElementTransportParkingData extends RunElementData {
 	 * @param station	Station zu diesem Datenelement
 	 * @param priorityString	Formel zur Berechnung der Priorität zur Anforderung von Transportern
 	 * @param variableNames	Systemweite Variablennamen (zum Parsen der Prioritätsformel)
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementTransportParkingData(final RunElement station, final String priorityString, final String[] variableNames) {
-		super(station);
+	public RunElementTransportParkingData(final RunElement station, final String priorityString, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 		count=0;
 		moving=0;
 		priority=new ExpressionCalc(variableNames);

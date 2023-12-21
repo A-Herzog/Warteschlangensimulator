@@ -75,7 +75,7 @@ public class RunElementSeize extends RunElement implements FreeResourcesListener
 			seize.timeOutMS=-1;
 		} else {
 			seize.connectionIdCancel=findNextId(seizeElement.getEdgeOutCancel());
-			seize.timeOutMS=Math.round(seizeElement.getTimeOut()*1000);
+			seize.timeOutMS=Math.round(seizeElement.getTimeOut()*runModel.scaleToSimTime);
 		}
 
 		/* Ressourcen-Priorität */
@@ -115,7 +115,7 @@ public class RunElementSeize extends RunElement implements FreeResourcesListener
 		RunElementSeizeData data;
 		data=(RunElementSeizeData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementSeizeData(this,simData.runModel.variableNames);
+			data=new RunElementSeizeData(this,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

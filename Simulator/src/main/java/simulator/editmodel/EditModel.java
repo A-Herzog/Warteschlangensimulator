@@ -178,7 +178,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public boolean useFinishTime;
 
 	/**
-	 * Zeitpunkt, zu dem die Simulation beendet werden soll.
+	 * Zeitpunkt in Sekunden, zu dem die Simulation beendet werden soll.
 	 */
 	public long finishTime;
 
@@ -357,6 +357,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	 * Liste der benutzerdefinierten Animationsbilder
 	 */
 	public final ModelAnimationImages animationImages;
+
+	/**
+	 * Anzahl an simulationsinternen Zeitschritten pro Sekunde
+	 */
+	public long timeStepsPerSecond=1000;
 
 	/**
 	 * Welcher Sekundenwert soll in der Verteilungsstatistik maximal erfasst werden (Angabe in Stunden)?

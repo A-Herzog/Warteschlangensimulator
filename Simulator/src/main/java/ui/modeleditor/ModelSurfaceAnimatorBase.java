@@ -955,16 +955,16 @@ public class ModelSurfaceAnimatorBase {
 		} else {
 			/* Kunde in Bewegung */
 			final double time=element.getTransportTime();
-			final double timeMS;
+			final double timeSim;
 			switch (element.getTimeBase()) {
-			case TIMEBASE_HOURS: timeMS=time*3600*1000; break;
-			case TIMEBASE_MINUTES: timeMS=time*60*1000; break;
-			case TIMEBASE_SECONDS: timeMS=time*1000; break;
-			default: timeMS=time*1000; break;
+			case TIMEBASE_HOURS: timeSim=time*3600*storedSimData.runModel.scaleToSimTime; break;
+			case TIMEBASE_MINUTES: timeSim=time*60*storedSimData.runModel.scaleToSimTime; break;
+			case TIMEBASE_SECONDS: timeSim=time*storedSimData.runModel.scaleToSimTime; break;
+			default: timeSim=time*storedSimData.runModel.scaleToSimTime; break;
 			}
 			final double percent;
-			if (timeMS>0) {
-				percent=FastMath.min(1,(currentTime-client.stationInformationLong)/timeMS);
+			if (timeSim>0) {
+				percent=FastMath.min(1,(currentTime-client.stationInformationLong)/timeSim);
 			} else {
 				percent=1;
 			}

@@ -17,7 +17,6 @@ package ui.modeleditor.elements;
 
 import language.Language;
 import mathtools.NumberTools;
-import simcore.SimData;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.runmodel.SimulationData;
@@ -90,19 +89,19 @@ public class SimDataBuilder {
 		results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStationProcess"),NumberTools.formatLong(data.clientsAtStationProcess))+"\n\n");
 
 		if (data.lastArrival>0) {
-			results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.LastArrival"),SimData.formatSimTime(data.lastArrival))+"\n");
+			results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.LastArrival"),simData.formatScaledSimTime(data.lastArrival))+"\n");
 		}
 		if (data.lastArrivalByClientType!=null) for (int i=0;i<data.lastArrivalByClientType.length;i++) if (data.lastArrivalByClientType[i]>0) {
 			final String clientType=simData.runModel.clientTypes[i];
-			results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.LastArrivalByClientTypeType"),clientType,SimData.formatSimTime(data.lastArrivalByClientType[i]))+"\n");
+			results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.LastArrivalByClientTypeType"),clientType,simData.formatScaledSimTime(data.lastArrivalByClientType[i]))+"\n");
 		}
 
 		if (data.lastLeave>0) {
-			results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.LastLeave"),SimData.formatSimTime(data.lastLeave))+"\n");
+			results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.LastLeave"),simData.formatScaledSimTime(data.lastLeave))+"\n");
 		}
 		if (data.lastLeaveByClientType!=null) for (int i=0;i<data.lastLeaveByClientType.length;i++) if (data.lastLeaveByClientType[i]>0) {
 			final String clientType=simData.runModel.clientTypes[i];
-			results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.LastLeaveByClientType"),clientType,SimData.formatSimTime(data.lastLeaveByClientType[i]))+"\n");
+			results.append(String.format(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Data.LastLeaveByClientType"),clientType,simData.formatScaledSimTime(data.lastLeaveByClientType[i]))+"\n");
 		}
 
 		boolean throughputHeadingPrinted=false;
@@ -116,7 +115,7 @@ public class SimDataBuilder {
 		}
 		if (data.maxThroughputIntervalLength>0) {
 			if (!throughputHeadingPrinted) results.append("\n"+Language.tr("Statistics.Throughput")+":\n");
-			results.append(Language.tr("Statistics.Throughput.Maximum")+": "+StatisticViewerOverviewText.getMaxThroughputText(1000.0*data.maxThroughput/data.maxThroughputIntervalLength)+" ("+String.format(Language.tr("Statistics.Throughput.Maximum.IntervalLength"),NumberTools.formatLong(data.maxThroughputIntervalLength/1000))+")\n");
+			results.append(Language.tr("Statistics.Throughput.Maximum")+": "+StatisticViewerOverviewText.getMaxThroughputText(data.maxThroughput/(data.maxThroughputIntervalLength*simData.runModel.scaleToSeconds))+" ("+String.format(Language.tr("Statistics.Throughput.Maximum.IntervalLength"),NumberTools.formatLong(Math.round(data.maxThroughputIntervalLength*simData.runModel.scaleToSeconds)))+")\n");
 		}
 
 		if (data.statisticWaiting!=null && data.statisticWaiting.getMean()>0) {

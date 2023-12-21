@@ -91,7 +91,7 @@ public class RunElementThroughput extends RunElementPassThrough {
 		if (data==null) {
 			final RunCounterConditionData conditionData=new RunCounterConditionData(condition);
 			conditionData.build(simData.runModel);
-			data=new RunElementThroughputData(this,throughputCounterName,conditionData,simData.statistics.throughputStatistics);
+			data=new RunElementThroughputData(this,throughputCounterName,conditionData,simData.statistics.throughputStatistics,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -103,7 +103,7 @@ public class RunElementThroughput extends RunElementPassThrough {
 
 		if (data.condition.isCountThisClient(simData,client)) {
 			/* Zählung */
-			data.countClient(simData.currentTime);
+			data.countClient(simData,simData.currentTime);
 
 			/* Logging */
 			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Throughput"),String.format(Language.tr("Simulation.Log.Throughput.Info"),client.logInfo(simData),name,NumberTools.formatNumber(data.getValue(true),3)));

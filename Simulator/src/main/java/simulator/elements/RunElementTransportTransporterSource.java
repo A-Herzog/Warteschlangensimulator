@@ -173,7 +173,7 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 		RunElementTransportTransporterSourceData data;
 		data=(RunElementTransportTransporterSourceData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementTransportTransporterSourceData(this,priorityWaitingString,priorityRequestingString,priorityClientString,transportTargets.routingExpression,simData.runModel.variableNames);
+			data=new RunElementTransportTransporterSourceData(this,priorityWaitingString,priorityRequestingString,priorityClientString,transportTargets.routingExpression,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -187,9 +187,6 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 	public int getTransporterIndex() {
 		return transporterIndex;
 	}
-
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSec=1.0/1000.0;
 
 	/**
 	 * Wählt die aktuell zu transportierenden Kunden aus.
@@ -241,7 +238,7 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 				/* Priorität */
 				final ExpressionCalc calc=data.priorityClient[current.type];
 				if (calc==null) { /* = Text war "w", siehe RunElementTransportTransporterSourceData()  */
-					final double waitingTime=(((double)simData.currentTime)-current.lastWaitingStart)*toSec;
+					final double waitingTime=(((double)simData.currentTime)-current.lastWaitingStart)*simData.runModel.scaleToSeconds;
 					score[i]=waitingTime;
 				} else {
 					simData.runData.setClientVariableValues(simData.currentTime-current.lastWaitingStart,current.transferTime,current.processTime);

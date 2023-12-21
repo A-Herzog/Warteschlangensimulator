@@ -116,7 +116,7 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 		RunElementHoldData data;
 		data=(RunElementHoldData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementHoldData(this,condition,priority,simData.runModel.variableNames);
+			data=new RunElementHoldData(this,condition,priority,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -215,9 +215,6 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 		return false;
 	}
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSecFactor=1.0/1000.0;
-
 	/**
 	 * Berechnet den Score-Wert eines Kunden.
 	 * @param simData	Simulationsdatenobjekt
@@ -228,7 +225,7 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 	private double getClientScore(final SimulationData simData, final RunElementHoldData holdData, final RunDataClient client) {
 		final ExpressionCalc calc=holdData.priority[client.type];
 		if (calc==null) { /* = Text war "w", siehe RunElementProcessData()  */
-			return (((double)simData.currentTime)-client.lastWaitingStart)*toSecFactor;
+			return (((double)simData.currentTime)-client.lastWaitingStart)*simData.runModel.scaleToSeconds;
 		} else {
 			simData.runData.setClientVariableValues(simData.currentTime-client.lastWaitingStart,client.transferTime,client.processTime);
 			try {

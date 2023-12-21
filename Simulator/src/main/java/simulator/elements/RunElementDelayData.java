@@ -22,6 +22,7 @@ import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.events.StationLeaveEvent;
 import simulator.runmodel.RunDataClient;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 
 /**
@@ -53,9 +54,10 @@ public class RunElementDelayData extends RunElementData {
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
 	 * @param costs	Kosten pro Bedienvorgang (kann <code>null</code> sein)
 	 * @param hasClientsList	Soll eine Liste der Kunden an der Station geführt werden?
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementDelayData(final RunElement station, final String[] expresionStrings, final String[] variableNames, final String costs, final boolean hasClientsList) {
-		super(station);
+	public RunElementDelayData(final RunElement station, final String[] expresionStrings, final String[] variableNames, final String costs, final boolean hasClientsList, final SimulationData simData) {
+		super(station,simData);
 
 		/* Verzögerungsausdrucke */
 		expression=new ExpressionCalc[expresionStrings.length];

@@ -101,7 +101,7 @@ public class RunElementClientIcon extends RunElementPassThrough {
 		RunElementClientIconData data;
 		data=(RunElementClientIconData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementClientIconData(this,condition,simData.runModel.variableNames);
+			data=new RunElementClientIconData(this,condition,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

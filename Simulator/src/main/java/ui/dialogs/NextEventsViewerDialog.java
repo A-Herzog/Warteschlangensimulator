@@ -32,7 +32,6 @@ import javax.swing.JScrollPane;
 
 import language.Language;
 import simcore.Event;
-import simcore.SimData;
 import simulator.coreelements.RunElement;
 import simulator.events.ProcessReleaseResources;
 import simulator.events.ReleaseReleaseResources;
@@ -100,7 +99,7 @@ public class NextEventsViewerDialog extends BaseDialog {
 
 			if (event instanceof ProcessReleaseResources) {
 				final ProcessReleaseResources e=(ProcessReleaseResources)event;
-				result.append(SimData.formatSimTime(event.time));
+				result.append(simData.formatScaledSimTime(event.time));
 				result.append('\n');
 				result.append(Language.tr("Simulation.Log.ReleaseResource"));
 				result.append('\n');
@@ -109,7 +108,7 @@ public class NextEventsViewerDialog extends BaseDialog {
 
 			if (event instanceof ReleaseReleaseResources) {
 				final ReleaseReleaseResources e=(ReleaseReleaseResources)event;
-				result.append(SimData.formatSimTime(event.time));
+				result.append(simData.formatScaledSimTime(event.time));
 				result.append('\n');
 				result.append(Language.tr("Simulation.Log.Release"));
 				result.append('\n');
@@ -118,7 +117,7 @@ public class NextEventsViewerDialog extends BaseDialog {
 
 			if (event instanceof StationLeaveEvent) {
 				final StationLeaveEvent e=(StationLeaveEvent)event;
-				result.append(SimData.formatSimTime(event.time));
+				result.append(simData.formatScaledSimTime(event.time));
 				result.append('\n');
 				result.append(Language.tr("Simulation.Log.LeaveStation"));
 				result.append('\n');
@@ -127,7 +126,7 @@ public class NextEventsViewerDialog extends BaseDialog {
 
 			if (event instanceof SystemArrivalEvent) {
 				final SystemArrivalEvent e=(SystemArrivalEvent)event;
-				result.append(SimData.formatSimTime(event.time));
+				result.append(simData.formatScaledSimTime(event.time));
 				result.append('\n');
 				result.append(Language.tr("Simulation.Log.SourceArrival"));
 				result.append('\n');
@@ -136,7 +135,7 @@ public class NextEventsViewerDialog extends BaseDialog {
 
 			if (event instanceof TransporterArrivalEvent) {
 				final TransporterArrivalEvent e=(TransporterArrivalEvent)event;
-				result.append(SimData.formatSimTime(event.time));
+				result.append(simData.formatScaledSimTime(event.time));
 				result.append('\n');
 				result.append(Language.tr("Simulation.Log.TransporterArrival"));
 				result.append('\n');
@@ -145,7 +144,7 @@ public class NextEventsViewerDialog extends BaseDialog {
 
 			if (event instanceof TransporterPauseEndEvent) {
 				final TransporterPauseEndEvent e=(TransporterPauseEndEvent)event;
-				result.append(SimData.formatSimTime(event.time));
+				result.append(simData.formatScaledSimTime(event.time));
 				result.append('\n');
 				result.append(Language.tr("Simulation.Log.TransporterArrival"));
 				result.append('\n');
@@ -154,7 +153,7 @@ public class NextEventsViewerDialog extends BaseDialog {
 
 			if (event instanceof WaitingCancelEvent) {
 				final WaitingCancelEvent e=(WaitingCancelEvent)event;
-				result.append(SimData.formatSimTime(event.time));
+				result.append(simData.formatScaledSimTime(event.time));
 				result.append('\n');
 				result.append(Language.tr("Simulation.Log.WaitingCancelation"));
 				result.append('\n');
@@ -175,7 +174,7 @@ public class NextEventsViewerDialog extends BaseDialog {
 
 		for (Event event: events) {
 			final String text=processEvent(event,simData);
-			if (text!=null) result.add(new JLabel("<html><body>"+SimData.formatSimTime(event.time)+":<br>"+text+"<br>&nbsp;</body></html>"));
+			if (text!=null) result.add(new JLabel("<html><body>"+simData.formatScaledSimTime(event.time)+":<br>"+text+"<br>&nbsp;</body></html>"));
 		}
 
 		return result.toArray(new JLabel[0]);

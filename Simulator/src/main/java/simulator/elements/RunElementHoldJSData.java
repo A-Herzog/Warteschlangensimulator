@@ -86,7 +86,7 @@ public class RunElementHoldJSData extends RunElementData implements RunElementDa
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	public RunElementHoldJSData(final RunElement station, final String condition, final String script, final ModelElementHoldJS.ScriptMode mode, final DynamicRunner jRunner, final SimulationData simData) {
-		super(station);
+		super(station,simData);
 
 		if (condition==null) {
 			this.condition=null;

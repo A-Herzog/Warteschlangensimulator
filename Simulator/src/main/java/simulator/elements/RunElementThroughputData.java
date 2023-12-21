@@ -18,6 +18,7 @@ package simulator.elements;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.coreelements.RunElementDataWithValue;
+import simulator.runmodel.SimulationData;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsQuotientPerformanceIndicator;
 
@@ -38,8 +39,8 @@ public class RunElementThroughputData extends RunElementData implements RunEleme
 
 	/**
 	 * Anfangswert der Erfassung des Durchsatzes
-	 * @see #reset(long)
-	 * @see #countClient(long)
+	 * @see #reset(SimulationData, long)
+	 * @see #countClient(SimulationData, long)
 	 */
 	private double startTime;
 
@@ -49,9 +50,10 @@ public class RunElementThroughputData extends RunElementData implements RunEleme
 	 * @param throughputCounterName	Name des Durchsatz-Elements (für die Statistikerfassung)
 	 * @param condition	Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss
 	 * @param throughputStatistic	Statistik-Objekt, welches alle Durchsatz-Werte vorhält
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementThroughputData(final RunElement station, final String throughputCounterName, final RunCounterConditionData condition, final StatisticsMultiPerformanceIndicator throughputStatistic) {
-		super(station);
+	public RunElementThroughputData(final RunElement station, final String throughputCounterName, final RunCounterConditionData condition, final StatisticsMultiPerformanceIndicator throughputStatistic, final SimulationData simData) {
+		super(station,simData);
 
 		this.condition=condition;
 		statistic=(StatisticsQuotientPerformanceIndicator)throughputStatistic.get(throughputCounterName);
@@ -64,23 +66,22 @@ public class RunElementThroughputData extends RunElementData implements RunEleme
 		return statistic.getQuotient();
 	}
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSec=1.0/1000.0;
-
 	/**
 	 * Setzt den Anfangswert der Erfassung des Durchsatzes
+	 * @param simData	Simulationsdatenobjekt
 	 * @param timeMS	Startzeitpunkt in MS
 	 */
-	public void reset(final long timeMS) {
-		startTime=timeMS*toSec;
+	public void reset(final SimulationData simData, final long timeMS) {
+		startTime=timeMS*simData.runModel.scaleToSeconds;
 		statistic.set(0,0);
 	}
 
 	/**
 	 * Erfasst, dass ein Kunde die Station passiert hat
+	 * @param simData	Simulationsdatenobjekt
 	 * @param timeMS	Zeitpunkt in MS
 	 */
-	public void countClient(final long timeMS) {
-		statistic.set(statistic.getNumerator()+1,(timeMS*toSec-startTime));
+	public void countClient(final SimulationData simData, final long timeMS) {
+		statistic.set(statistic.getNumerator()+1,(timeMS*simData.runModel.scaleToSeconds-startTime));
 	}
 }

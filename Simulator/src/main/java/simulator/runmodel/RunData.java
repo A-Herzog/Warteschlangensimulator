@@ -382,6 +382,9 @@ public class RunData {
 	 */
 	private Map<String,Object> runtimeMapGlobal;
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
+	private final double scale;
+
 	/**
 	 * Konstruktor der Klasse <code>RunData</code>
 	 * @param runModel	Globales Laufzeitmodell, auf dessen Basis hier die Laufzeitdaten vorbereitet werden können (z.B. Arrays in passender Größe angelegt werden usw.)
@@ -389,11 +392,12 @@ public class RunData {
 	 */
 	public RunData(final RunModel runModel, final DynamicLoadBalancer dynamicLoadBalancer) {
 		this.runModel=runModel;
+		scale=runModel.scaleToSeconds;
 		this.dynamicLoadBalancer=dynamicLoadBalancer;
 		clientsArrived=0;
 		hasWarmUp=runModel.warmUpTime>0 || runModel.warmUpTimeTime>0;
 		isWarmUp=hasWarmUp;
-		clients=new RunDataClients();
+		clients=new RunDataClients(runModel);
 		this.resources=runModel.resourcesTemplate.clone();
 		this.transporters=runModel.transportersTemplate.clone();
 		variableValues=new double[runModel.variableNames.length];
@@ -503,7 +507,7 @@ public class RunData {
 			final SystemChangeEvent event=(SystemChangeEvent)simData.getEvent(SystemChangeEvent.class);
 			long warmUpTimeAddon=0;
 			if (runModel.warmUpTimeTime>0) warmUpTimeAddon=runModel.warmUpTimeTime;
-			event.init((runModel.terminationTime+warmUpTimeAddon)*1000);
+			event.init((runModel.terminationTime+warmUpTimeAddon)*runModel.scaleToSimTime);
 			simData.eventManager.addEvent(event);
 		}
 
@@ -513,7 +517,7 @@ public class RunData {
 			if (runModel.warmUpTimeTime>0) {
 				/* Ereignis für zeitgesteuertes Ende der Einschwingphase anlegen. */
 				final EndWarmUpEvent event=(EndWarmUpEvent)simData.getEvent(EndWarmUpEvent.class);
-				event.init(runModel.warmUpTimeTime*1000);
+				event.init(runModel.warmUpTimeTime*runModel.scaleToSimTime);
 				simData.eventManager.addEvent(event);
 			}
 		} else {
@@ -589,7 +593,7 @@ public class RunData {
 						/* Neues Intervall */
 						if (data.maxThroughputIntervalCount>data.maxThroughput) {
 							data.maxThroughput=data.maxThroughputIntervalCount;
-							final double maxThroughputSec=1000.0*data.maxThroughput/data.maxThroughputIntervalLength;
+							final double maxThroughputSec=data.maxThroughput/(data.maxThroughputIntervalLength*simData.runModel.scaleToSeconds);
 							((StatisticsSimpleValueMaxPerformanceIndicator)simData.statistics.stationsMaxThroughput.get(station.name)).set(maxThroughputSec);
 						}
 						final long increaseIntervals=(now-data.maxThroughputIntervalStart)/data.maxThroughputIntervalLength;
@@ -785,9 +789,6 @@ public class RunData {
 		}
 		data.lastBatchLeave=time;
 	}
-
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static double scale=1.0d/1000.0d;
 
 	/**
 	 * Erfasst die Zeitdauer der Verarbeitung eines Kunden an einer Bedienstation für die Statistik (Wartezeiten und Bedienzeiten an den Stationen)
@@ -1983,7 +1984,7 @@ public class RunData {
 		if (simData.runModel.terminationTime>=0) {
 			long warmUpTimeAddon=0;
 			if (runModel.warmUpTimeTime>0) warmUpTimeAddon=runModel.warmUpTimeTime;
-			if (simData.currentTime>=(simData.runModel.terminationTime+warmUpTimeAddon)*1000) {
+			if (simData.currentTime>=(simData.runModel.terminationTime+warmUpTimeAddon)*simData.runModel.scaleToSimTime) {
 				/* Logging */
 				if (simData.loggingActive && simData.logInfoSystem) simData.logEventExecution(Color.BLACK,Language.tr("Simulation.Log.EndOfSimulation"),-1,Language.tr("Simulation.Log.EndOfSimulation.Time"));
 				/* Ende */

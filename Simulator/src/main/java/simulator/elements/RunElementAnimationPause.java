@@ -108,7 +108,7 @@ public class RunElementAnimationPause extends RunElementPassThrough {
 		RunElementAnimationPauseData data;
 		data=(RunElementAnimationPauseData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementAnimationPauseData(this,condition,simData.runModel.variableNames);
+			data=new RunElementAnimationPauseData(this,condition,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

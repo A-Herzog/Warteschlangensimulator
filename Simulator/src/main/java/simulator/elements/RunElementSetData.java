@@ -71,7 +71,7 @@ public class RunElementSetData extends RunElementData {
 	 * @param runModel	Laufzeitmodell, dem u.a. die Variablennamen entnommen werden
 	 */
 	public RunElementSetData(final RunElement station, final String[] expressions, final String condition, final RunModel runModel) {
-		super(station);
+		super(station,runModel);
 
 		this.expressions=new ExpressionCalc[expressions.length];
 		this.mode=new SetMode[expressions.length];

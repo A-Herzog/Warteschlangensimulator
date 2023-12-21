@@ -142,7 +142,7 @@ public class RunElementAnalogAssign extends RunElementPassThrough {
 		RunElementAnalogAssignData data;
 		data=(RunElementAnalogAssignData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementAnalogAssignData(this,changeExpression,simData.runModel.variableNames);
+			data=new RunElementAnalogAssignData(this,changeExpression,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

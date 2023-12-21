@@ -944,13 +944,13 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 			simTextValueDouble=d;
 			break;
 		case MODE_TIME:
-			l=simData.currentTime/1000;
+			l=(long)Math.floor(simData.currentTime*simData.runModel.scaleToSeconds);
 			if (simTextValue!=null && simTextValueLong==l) return false;
 			s=TimeTools.formatLongTime(l);
 			simTextValueLong=l;
 			break;
 		case MODE_DATE:
-			l=simData.currentTime/1000;
+			l=(long)Math.floor(simData.currentTime*simData.runModel.scaleToSeconds);
 			if (simTextValue!=null && simTextValueLong==l) return false;
 			s=DateTools.formatUserDate((l+dateZero)*1000);
 			simTextValueLong=l;

@@ -104,17 +104,24 @@ public class SimData {
 	public SimLogging logging=null;
 
 	/**
+	 * Anzahl an Zeitschritten pro Sekunde (wird für die Umrechnung beim Logging verwendet)
+	 */
+	private final long timeStepsPerSecond;
+
+	/**
 	 * Constructor der <code>SimData</code> Klasse
 	 * @param eventManager	Referenz auf den zu verwendenden EventManager
 	 * @param eventCache	Referenz auf den zu verwendenden EventCache
 	 * @param threadNr		Gibt die Nummer des Threads an, für den das <code>SimDat</code>-Objekt erstellt wird.
 	 * @param threadCount	Anzahl der Rechenthreads
+	 * @param timeStepsPerSecond	Anzahl an Zeitschritten pro Sekunde (wird für die Umrechnung beim Logging verwendet)
 	 */
-	public SimData(final EventManager eventManager, final EventCache eventCache, final int threadNr, final int threadCount) {
+	public SimData(final EventManager eventManager, final EventCache eventCache, final int threadNr, final int threadCount, final long timeStepsPerSecond) {
 		this.eventManager=eventManager;
 		this.eventCache=(eventCache==null)?(new NoEventCache()):eventCache;
 		this.threadNr=threadNr;
 		this.threadCount=threadCount;
+		this.timeStepsPerSecond=timeStepsPerSecond;
 	}
 
 	/**
@@ -247,7 +254,7 @@ public class SimData {
 	 */
 	public final boolean logEventExecution(final String event, final int id, final String info) {
 		if (logging==null) return true;
-		return logging.log(currentTime,Color.BLACK,event,id,info);
+		return logging.log(currentTime*1000/timeStepsPerSecond,Color.BLACK,event,id,info);
 	}
 
 	/**
@@ -260,7 +267,7 @@ public class SimData {
 	 */
 	public final boolean logEventExecution(final Color color, final String event, final int id, final String info) {
 		if (logging==null) return true;
-		return logging.log(currentTime,color,event,id,info);
+		return logging.log(currentTime*1000/timeStepsPerSecond,color,event,id,info);
 	}
 
 	/**
@@ -329,6 +336,15 @@ public class SimData {
 	}
 
 	/**
+	 * Liefert eine Zeitangabe als String zurück.
+	 * @param time	Zeitangabe auf Simulationszeitbasis
+	 * @return	Zeitangabe als String
+	 */
+	public final String formatScaledSimTime(final long time) {
+		return formatSimTime(time*1000/timeStepsPerSecond);
+	}
+
+	/**
 	 * Liefert eine Zeitangabe als String zurück.<br>
 	 * Das Dezimaltrenner wird dabei immer ein Punkt verwendet.
 	 * @param time	Zeitangabe auf Millisekunden-Basis
@@ -365,6 +381,17 @@ public class SimData {
 		sb.append(f);
 
 		return sb.toString();
+	}
+
+	/**
+	 * Liefert eine Zeitangabe als String zurück.<br>
+	 * Das Dezimaltrenner wird dabei immer ein Punkt verwendet.
+	 * @param time	Zeitangabe auf Simulationszeitbasis
+	 * @return	Zeitangabe als String
+	 * @see #formatScaledSimTime(long)
+	 */
+	public final String formatScaledSimTimeSystem(final long time) {
+		return formatSimTimeSystem(time*1000/timeStepsPerSecond);
 	}
 
 	/**

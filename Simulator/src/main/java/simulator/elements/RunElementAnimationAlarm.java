@@ -123,7 +123,7 @@ public class RunElementAnimationAlarm extends RunElementPassThrough {
 		RunElementAnimationAlarmData data;
 		data=(RunElementAnimationAlarmData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementAnimationAlarmData(this,condition,simData.runModel.variableNames);
+			data=new RunElementAnimationAlarmData(this,condition,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

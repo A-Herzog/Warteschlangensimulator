@@ -325,9 +325,9 @@ public class RunModel {
 
 	/**
 	 * Zeitabstand in dem für Bedingung- und ähnliche Stationen zusätzliche zeitabhängige Checks durchgeführt werden sollen.
-	 * Werte &le;0 bedeuten, dass keine Checks stattfinden. Sonst ist der Wert die Millisekundenanzahl zwischen zwei Checks.
+	 * Werte &le;0 bedeuten, dass keine Checks stattfinden. Sonst ist der Wert die Simulationszeitschrittanzahl zwischen zwei Checks.
 	 */
-	public int timedChecksDelta=-1;
+	public long timedChecksDelta=-1;
 
 	/**
 	 * Zählung wie häufig welche Stationsübergänge stattgefunden haben
@@ -376,6 +376,18 @@ public class RunModel {
 	 * (als Basis für relative Pfade in Ausgabeelementen)
 	 */
 	public String modelPath;
+
+	/**
+	 * Multiplikativer Faktor zur Umrechnung von Sekunden in Simulationszeitschritte
+	 * @see #scaleToSeconds
+	 */
+	public long scaleToSimTime;
+
+	/**
+	 * Multiplikativer Faktor zur Umrechnung von Simulationszeitschritten in Sekunden
+	 * @see #scaleToSimTime
+	 */
+	public double scaleToSeconds;
 
 	/**
 	 * Ein <code>RunModel</code> kann nicht direkt erzeugt werden, sondern es kann nur ein <code>EditModel</code>
@@ -469,6 +481,10 @@ public class RunModel {
 		/* Auch Modelle ohne explizites Ende-Kriterium zulassen. In ModelPropertiesDialogPageSimulation erfolgt hierzu eine Warnung. */
 		/* if (!editModel.useClientCount && !editModel.useFinishTime && !(editModel.useTerminationCondition && !editModel.terminationCondition.trim().isEmpty()) && !editModel.useFinishConfidence) return Language.tr("Simulation.Creator.NoEndCriteria"); */
 
+		/* Simulationszeiteinheit */
+		runModel.scaleToSimTime=editModel.timeStepsPerSecond;
+		runModel.scaleToSeconds=1.0/runModel.scaleToSimTime;
+
 		/* Anzahl der zu simulierenden Kundenankünfte */
 		if (editModel.useClientCount) {
 			if (editModel.clientCount<=0) return String.format(Language.tr("Simulation.Creator.InvalidNumberOfClients"),editModel.clientCount);
@@ -511,12 +527,12 @@ public class RunModel {
 
 		/* Ressourcen */
 		runModel.resourcesTemplate=new RunDataResources();
-		String error=runModel.resourcesTemplate.loadFromEditResources(editModel.resources,editModel.schedules,runModel.variableNames);
+		String error=runModel.resourcesTemplate.loadFromEditResources(editModel.resources,editModel.schedules,runModel.variableNames,runModel);
 		if (error!=null) return error;
 
 		/* Transporter */
 		runModel.transportersTemplate=new RunDataTransporters();
-		error=runModel.transportersTemplate.loadFromEditTransporters(editModel.transporters,editModel.surface,runModel.variableNames);
+		error=runModel.transportersTemplate.loadFromEditTransporters(editModel.transporters,editModel.surface,runModel.variableNames,runModel);
 		if (error!=null) return error;
 
 		/* Sequenzen */
@@ -564,7 +580,7 @@ public class RunModel {
 		}
 
 		/* Zeitabstand in dem für Bedingung- und ähnliche Stationen zusätzliche zeitabhängige Checks durchgeführt werden sollen. */
-		runModel.timedChecksDelta=editModel.timedChecksDelta;
+		runModel.timedChecksDelta=editModel.timedChecksDelta*editModel.timeStepsPerSecond/1000; /* Editorwert in MS, Laufzeitwert in Simulatorzeitschritten */
 
 		/* Aufzeichnung der Kundenbewegungen */
 		runModel.recordStationTransitions=editModel.recordStationTransitions;

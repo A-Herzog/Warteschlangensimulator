@@ -114,7 +114,7 @@ public class RunElementHoldMulti extends RunElement implements StateChangeListen
 		RunElementHoldMultiData data;
 		data=(RunElementHoldMultiData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementHoldMultiData(this,conditions,simData.runModel.variableNames);
+			data=new RunElementHoldMultiData(this,conditions,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

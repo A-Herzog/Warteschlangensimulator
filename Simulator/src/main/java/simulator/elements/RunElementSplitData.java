@@ -18,6 +18,7 @@ package simulator.elements;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.runmodel.RunDataClient;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 
 /**
@@ -50,9 +51,10 @@ public class RunElementSplitData extends RunElementData {
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
 	 * @param setData	Ausdrücke für Zuweisungen von Zahlen-Eigenschaften zu neuen Kunden
 	 * @param batchSizes	Ausdrücke zur Berechnung der Batch-Größen (kann <code>null</code> sein)
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementSplitData(final RunElement station, final String[] variableNames, final RunElementSourceRecord.SourceSetExpressions[] setData, final String[] batchSizes) {
-		super(station);
+	public RunElementSplitData(final RunElement station, final String[] variableNames, final RunElementSourceRecord.SourceSetExpressions[] setData, final String[] batchSizes, final SimulationData simData) {
+		super(station,simData);
 
 		this.setData=setData;
 

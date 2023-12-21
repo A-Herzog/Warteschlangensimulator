@@ -449,7 +449,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 
 		generalData.append("<html><body>");
 
-		final double time=simData.currentTime/1000.0;
+		final double time=simData.currentTime*simData.runModel.scaleToSeconds;
 		generalData.append(Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentTime")+": <b>"+StatisticTools.formatNumber(time)+"</b> (<b>"+StatisticTools.formatExactTime(time)+"</b>)");
 		generalData.append("<br>\n");
 

@@ -56,6 +56,6 @@ public class CalcSymbolStationDataThroughputMax extends CalcSymbolStationData {
 		if (simData.runData.isWarmUp) return 0.0;
 
 		if (data.maxThroughputIntervalLength<=0) return 0.0;
-		return 1000.0*data.maxThroughput/data.maxThroughputIntervalLength;
+		return data.maxThroughput/(data.maxThroughputIntervalLength*simData.runModel.scaleToSeconds);
 	}
 }

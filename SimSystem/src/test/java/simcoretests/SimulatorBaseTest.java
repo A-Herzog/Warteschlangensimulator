@@ -378,7 +378,7 @@ class SimulatorBaseTest {
 		final EventTestImpl event=new EventTestImpl(100,1,null);
 
 		for (EventCache cache: caches) {
-			final SimData simData=new SimData(new PriorityQueueEventManager(),cache,0,1);
+			final SimData simData=new SimData(new PriorityQueueEventManager(),cache,0,1,1000);
 
 			assertEquals(null,simData.getEventOrNull(EventTestImpl.class));
 

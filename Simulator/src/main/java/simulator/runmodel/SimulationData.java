@@ -144,7 +144,7 @@ public class SimulationData extends SimData {
 		/* langsam: super(new PriorityQueueEventManager(),new HashMapEventCache(),threadNr,threadCount); */
 		/* schneller: super(new LongRunMultiPriorityQueueEventManager(4),new HashMapEventCache(),threadNr,threadCount); */
 		/* ganz schnell: */
-		super(new LongRunMultiSortedArrayListEventManager(4),new AssociativeEventCache(128),threadNr,threadCount);
+		super(new LongRunMultiSortedArrayListEventManager(4),new AssociativeEventCache(128),threadNr,threadCount,runModel.scaleToSimTime);
 
 		loggingIDs=null;
 		logArrival=true;
@@ -260,7 +260,7 @@ public class SimulationData extends SimData {
 	public void endWarmUp() {
 		if (!runData.isWarmUp) return;
 
-		final double time=currentTime/1000.0;
+		final double time=currentTime*runModel.scaleToSeconds;
 		runData.warmUpEndTime=time;
 		runData.isWarmUp=false;
 		runData.clientsArrived=0;
@@ -339,7 +339,7 @@ public class SimulationData extends SimData {
 			indicator.set(time,value);
 		}
 		for (RunElement element: runModel.elementsFast) if (element instanceof RunElementThroughput) {
-			((RunElementThroughput)element).getData(this).reset(currentTime);
+			((RunElementThroughput)element).getData(this).reset(this,currentTime);
 		}
 
 		if (statistics.clientsAllWaitingTimesCollector!=null) statistics.clientsAllWaitingTimesCollector.reset();

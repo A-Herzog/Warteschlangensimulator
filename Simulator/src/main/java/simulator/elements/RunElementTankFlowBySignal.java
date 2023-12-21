@@ -56,7 +56,7 @@ public class RunElementTankFlowBySignal extends RunElement implements SignalList
 		if (flow.signalName==null || flow.signalName.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.AnalogFlow.NoSignalName"),element.getId());
 
 		/* Flussdaten */
-		flow.flowData=new RunElementTankFlow(flowElement.getFlowData());
+		flow.flowData=new RunElementTankFlow(flowElement.getFlowData(),runModel.scaleToSimTime);
 		final RunModelCreatorStatus flowError=flow.flowData.test(element.getId(),flowElement.getModel());
 		if (flowError!=null) return flowError.message;
 
@@ -72,7 +72,7 @@ public class RunElementTankFlowBySignal extends RunElement implements SignalList
 		if (flowElement.getSignalName()==null || flowElement.getSignalName().trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.AnalogFlow.NoSignalName"),element.getId()));
 
 		/* Flussdaten */
-		final RunElementTankFlow flowData=new RunElementTankFlow(flowElement.getFlowData());
+		final RunElementTankFlow flowData=new RunElementTankFlow(flowElement.getFlowData(),1000);
 		final RunModelCreatorStatus flowError=flowData.test(element.getId(),flowElement.getModel());
 		if (flowError!=null) return flowError;
 
@@ -101,7 +101,7 @@ public class RunElementTankFlowBySignal extends RunElement implements SignalList
 			RunElementTank destination=null;
 			if (flowData.destinationID>=0) destination=(RunElementTank)simData.runModel.elements.get(flowData.destinationID);
 
-			data=new RunElementTankFlowBySignalData(this,flowData,source,destination);
+			data=new RunElementTankFlowBySignalData(this,flowData,source,destination,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

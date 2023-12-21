@@ -67,7 +67,7 @@ public class RunElementBatchData extends RunElementData {
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	public RunElementBatchData(final RunElement station, final String batchSizeMin, final String batchSizeMax, final SimulationData simData) {
-		super(station);
+		super(station,simData);
 
 		waiting=0;
 

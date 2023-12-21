@@ -29,9 +29,10 @@ public class RunElementSectionEndData extends RunElementData {
 	/**
 	 * Konstruktor der Klasse <code>RunElementSectionEndData</code>
 	 * @param station	Station zu diesem Datenelement
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementSectionEndData(RunElement station) {
-		super(station);
+	public RunElementSectionEndData(final RunElement station, final SimulationData simData) {
+		super(station,simData);
 	}
 
 	@Override

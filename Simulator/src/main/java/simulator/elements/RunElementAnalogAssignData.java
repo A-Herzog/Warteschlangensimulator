@@ -17,6 +17,7 @@ package simulator.elements;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 
 /**
@@ -36,9 +37,10 @@ public class RunElementAnalogAssignData extends RunElementData {
 	 * @param station	Station zu diesem Datenelement
 	 * @param expressions	Zu berechnende Ausdrücke
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementAnalogAssignData(final RunElement station, final String[] expressions, final String[] variableNames) {
-		super(station);
+	public RunElementAnalogAssignData(final RunElement station, final String[] expressions, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 
 		this.expressions=new ExpressionCalc[expressions.length];
 		for (int i=0;i<expressions.length;i++) {

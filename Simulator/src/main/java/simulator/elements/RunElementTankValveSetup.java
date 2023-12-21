@@ -108,7 +108,7 @@ public class RunElementTankValveSetup extends RunElementPassThrough {
 		RunElementTankValveSetupData data;
 		data=(RunElementTankValveSetupData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementTankValveSetupData(this,valveSetups,simData.runModel.variableNames);
+			data=new RunElementTankValveSetupData(this,valveSetups,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

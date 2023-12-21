@@ -109,7 +109,7 @@ public class SystemImpl implements SystemInterface {
 
 	@Override
 	public double getTime() {
-		return simData.currentTime/1000.0;
+		return simData.currentTime*simData.runModel.scaleToSeconds;
 	}
 
 	@Override
@@ -395,7 +395,7 @@ public class SystemImpl implements SystemInterface {
 	public boolean triggerScriptExecution(final int stationId, final double time) {
 		/* Voraussetzungen prüfen */
 		if (simData==null) return false;
-		final long timeMS=Math.round(time*1000);
+		final long timeMS=Math.round(time*simData.runModel.scaleToSimTime);
 		if (timeMS<simData.currentTime) return false;
 		if (stationId<0 || stationId>=simData.runModel.elementsFast.length) return false;
 		final RunElement element=simData.runModel.elementsFast[stationId];

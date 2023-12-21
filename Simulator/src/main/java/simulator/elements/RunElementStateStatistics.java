@@ -91,7 +91,7 @@ public class RunElementStateStatistics extends RunElementPassThrough {
 		RunElementStateStatisticsData data;
 		data=(RunElementStateStatisticsData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementStateStatisticsData(this,(StatisticsStateTimePerformanceIndicator)simData.statistics.stateStatistics.get(groupName));
+			data=new RunElementStateStatisticsData(this,(StatisticsStateTimePerformanceIndicator)simData.statistics.stateStatistics.get(groupName),simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

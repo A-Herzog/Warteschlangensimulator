@@ -53,9 +53,10 @@ public class CalcSymbolStationDataThroughputMaxInterval extends CalcSymbolStatio
 
 		final SimulationData simData=getSimData();
 		if (simData==null) return 0.0;
+
 		if (simData.runData.isWarmUp) return 0.0;
 
 		if (data.maxThroughputIntervalLength<=0) return 0.0;
-		return data.maxThroughputIntervalLength/1000.0;
+		return data.maxThroughputIntervalLength*simData.runModel.scaleToSeconds;
 	}
 }

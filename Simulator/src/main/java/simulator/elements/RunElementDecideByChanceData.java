@@ -39,9 +39,10 @@ public class RunElementDecideByChanceData extends RunElementData {
 	 * @param station	Station zu diesem Datenelement
 	 * @param rates	Raten gemäß denen die Aufteilung der Kunden erfolgt
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementDecideByChanceData(final RunElement station, final String[] rates, final String[] variableNames) {
-		super(station);
+	public RunElementDecideByChanceData(final RunElement station, final String[] rates, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 
 		if (rates==null) {
 			this.rates=new ExpressionCalc[0];

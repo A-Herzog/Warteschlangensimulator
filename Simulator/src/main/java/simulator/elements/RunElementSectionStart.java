@@ -84,7 +84,7 @@ public class RunElementSectionStart extends RunElementPassThrough {
 		RunElementSectionStartData data;
 		data=(RunElementSectionStartData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementSectionStartData(this);
+			data=new RunElementSectionStartData(this,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

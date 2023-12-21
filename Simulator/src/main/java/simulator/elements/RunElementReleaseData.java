@@ -17,6 +17,7 @@ package simulator.elements;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 
 /**
@@ -36,9 +37,10 @@ public class RunElementReleaseData extends RunElementData {
 	 * @param station	Station zu diesem Datenelement
 	 * @param delayExpressionStrings	Strings, die die Verzögerungsausdrücke (können jeweils <code>null</code> sein) repräsentieren
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementReleaseData(final RunElement station, final String[] delayExpressionStrings, final String[] variableNames) {
-		super(station);
+	public RunElementReleaseData(final RunElement station, final String[] delayExpressionStrings, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 
 		delayExpression=new ExpressionCalc[delayExpressionStrings.length];
 		for (int i=0;i<delayExpression.length;i++) if (delayExpressionStrings[i]!=null) {

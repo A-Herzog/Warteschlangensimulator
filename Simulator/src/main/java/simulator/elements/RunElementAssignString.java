@@ -124,7 +124,7 @@ public class RunElementAssignString extends RunElementPassThrough {
 		RunElementAssignStringData data;
 		data=(RunElementAssignStringData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementAssignStringData(this,condition,simData.runModel.variableNames);
+			data=new RunElementAssignStringData(this,condition,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

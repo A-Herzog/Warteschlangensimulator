@@ -16,6 +16,7 @@
 package simulator.elements;
 
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 
 /**
  * Laufzeitdaten eines {@link RunElementTeleportDecideByStation}-Laufzeit-Objekts
@@ -34,9 +35,10 @@ public class RunElementTeleportDecideByStationData extends RunElementData {
 	 * Konstruktor der Klasse <code>RunElementDecideByStationData</code>
 	 * @param station	Station für die hier Daten vorgehalten werden sollen
 	 * @param valueSize	Größe des {@link #values} Arrays
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementTeleportDecideByStationData(final RunElementTeleportDecideByStation station, final int valueSize) {
-		super(station);
+	public RunElementTeleportDecideByStationData(final RunElementTeleportDecideByStation station, final int valueSize, final SimulationData simData) {
+		super(station,simData);
 		values=new int[valueSize];
 	}
 }

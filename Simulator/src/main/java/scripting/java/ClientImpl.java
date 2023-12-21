@@ -46,8 +46,11 @@ public class ClientImpl implements ClientInterface {
 	 */
 	private Map<String,ExpressionCalc> expressionCache;
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden (um während der Simulation Divisionen zu vermeiden) */
-	private static final double toSec=1.0/1000.0;
+	/** Umrechnungsfaktor von Simulationszeit auf Sekunden (um während der Simulation Divisionen zu vermeiden) */
+	private double toSec;
+
+	/** Umrechnungsfaktor von Sekunden zur Simulationszeit */
+	private long toSimTime;
 
 	/**
 	 * Konstruktor der Klasse
@@ -55,6 +58,8 @@ public class ClientImpl implements ClientInterface {
 	 */
 	public ClientImpl(final SimulationData simData) {
 		this.simData=simData;
+		this.toSec=simData.runModel.scaleToSeconds;
+		this.toSimTime=simData.runModel.scaleToSimTime;
 	}
 
 	/**
@@ -146,7 +151,7 @@ public class ClientImpl implements ClientInterface {
 	@Override
 	public void setWaitingSeconds(double seconds) {
 		if (client==null) return;
-		client.waitingTime=FastMath.max(0,FastMath.round(seconds*1000));
+		client.waitingTime=FastMath.max(0,FastMath.round(seconds*toSimTime));
 	}
 
 	@Override
@@ -164,13 +169,13 @@ public class ClientImpl implements ClientInterface {
 	@Override
 	public void setTransferSeconds(double seconds) {
 		if (client==null) return;
-		client.transferTime=FastMath.max(0,FastMath.round(seconds*1000));
+		client.transferTime=FastMath.max(0,FastMath.round(seconds*toSimTime));
 	}
 
 	@Override
 	public double getProcessSeconds() {
 		if (client==null) return 0;
-		return client.processTime/1000.0;
+		return client.processTime*toSec;
 	}
 
 	@Override
@@ -182,7 +187,7 @@ public class ClientImpl implements ClientInterface {
 	@Override
 	public void setProcessSeconds(double seconds) {
 		if (client==null) return;
-		client.processTime=FastMath.max(0,FastMath.round(seconds*1000));
+		client.processTime=FastMath.max(0,FastMath.round(seconds*toSimTime));
 	}
 
 	@Override
@@ -200,7 +205,7 @@ public class ClientImpl implements ClientInterface {
 	@Override
 	public void setResidenceSeconds(double seconds) {
 		if (client==null) return;
-		client.residenceTime=FastMath.max(0,FastMath.round(seconds*1000));
+		client.residenceTime=FastMath.max(0,FastMath.round(seconds*toSimTime));
 	}
 
 	@Override
@@ -312,7 +317,7 @@ public class ClientImpl implements ClientInterface {
 		if (client==null) return 0.0;
 		final RunDataClient batchClient=client.getBatchData(batchIndex);
 		if (batchClient==null) return 0.0;
-		return batchClient.processTime/1000.0;
+		return batchClient.processTime*toSec;
 	}
 
 	@Override

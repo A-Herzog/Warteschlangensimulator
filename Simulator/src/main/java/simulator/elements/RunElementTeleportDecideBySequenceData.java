@@ -17,6 +17,7 @@ package simulator.elements;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 
 /**
  * Laufzeitdaten eines {@link RunElementTeleportDecideBySequence}-Laufzeit-Objekts
@@ -31,9 +32,10 @@ public class RunElementTeleportDecideBySequenceData extends RunElementData {
 	/**
 	 * Konstruktor der Klasse <code>RunElementDecideBySequenceData</code>
 	 * @param station	Station zu diesem Datenelement
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementTeleportDecideBySequenceData(final RunElement station) {
-		super(station);
+	public RunElementTeleportDecideBySequenceData(final RunElement station, final SimulationData simData) {
+		super(station,simData);
 		nextNr=0;
 	}
 }

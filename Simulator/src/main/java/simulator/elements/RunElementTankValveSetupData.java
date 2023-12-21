@@ -16,6 +16,7 @@
 package simulator.elements;
 
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import ui.modeleditor.elements.ModelElementTankValveSetup;
 
@@ -34,9 +35,10 @@ public class RunElementTankValveSetupData extends RunElementData {
 	 * @param station	Zugehöriges RunElement
 	 * @param valveSetups	Ventilkonfigurationen (aus denen die Formeln für die Berechnung des maximalen Durchflusses ausgelesen werden)
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementTankValveSetupData(final RunElementTankValveSetup station, final ModelElementTankValveSetup.ValveSetup[] valveSetups, final String[] variableNames) {
-		super(station);
+	public RunElementTankValveSetupData(final RunElementTankValveSetup station, final ModelElementTankValveSetup.ValveSetup[] valveSetups, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 
 		maxFlow=new ExpressionCalc[valveSetups.length];
 		for (int i=0;i<valveSetups.length;i++) {

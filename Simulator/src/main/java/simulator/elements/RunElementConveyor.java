@@ -95,10 +95,10 @@ public class RunElementConveyor extends RunElementPassThrough implements PickUpQ
 		double time=conveyorElement.getTransportTime();
 		final long timeMS;
 		switch (conveyorElement.getTimeBase()) {
-		case TIMEBASE_HOURS: timeMS=Math.round(time*3600*1000); break;
-		case TIMEBASE_MINUTES: timeMS=Math.round(time*60*1000); break;
-		case TIMEBASE_SECONDS: timeMS=Math.round(time*1000); break;
-		default: timeMS=Math.round(time*1000); break;
+		case TIMEBASE_HOURS: timeMS=Math.round(time*3600*runModel.scaleToSimTime); break;
+		case TIMEBASE_MINUTES: timeMS=Math.round(time*60*runModel.scaleToSimTime); break;
+		case TIMEBASE_SECONDS: timeMS=Math.round(time*runModel.scaleToSimTime); break;
+		default: timeMS=Math.round(time*runModel.scaleToSimTime); break;
 		}
 		conveyor.transportTimeMS=timeMS;
 		conveyor.transportTimeType=conveyorElement.getTransportTimeType();
@@ -129,7 +129,7 @@ public class RunElementConveyor extends RunElementPassThrough implements PickUpQ
 		RunElementConveyorData data;
 		data=(RunElementConveyorData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementConveyorData(this,capacityNeeded,simData.runModel.variableNames,capacityAvailable,transportTimeMS);
+			data=new RunElementConveyorData(this,capacityNeeded,simData.runModel.variableNames,capacityAvailable,transportTimeMS,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -156,7 +156,7 @@ public class RunElementConveyor extends RunElementPassThrough implements PickUpQ
 			data.freeCapacity-=client.stationInformationDouble;
 
 			/* Logging */
-			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.ConveyorMoveStart"),String.format(Language.tr("Simulation.Log.ConveyorMoveStart.Info"),client.logInfo(simData),name,TimeTools.formatTime(transportTimeMS/1000),NumberTools.formatNumber(client.stationInformationDouble),NumberTools.formatNumber(data.freeCapacity)));
+			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.ConveyorMoveStart"),String.format(Language.tr("Simulation.Log.ConveyorMoveStart.Info"),client.logInfo(simData),name,TimeTools.formatTime(Math.round(transportTimeMS*simData.runModel.scaleToSeconds)),NumberTools.formatNumber(client.stationInformationDouble),NumberTools.formatNumber(data.freeCapacity)));
 
 			/* Bedienzeit in Statistik */
 			final long residenceTimeMS=waitingTimeMS+transportTimeMS;

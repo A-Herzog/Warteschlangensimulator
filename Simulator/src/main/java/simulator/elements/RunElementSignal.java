@@ -39,7 +39,7 @@ public class RunElementSignal extends RunElementPassThrough {
 	private String signalName;
 
 	/** Optionale verzögerte Auslösung des Signals (in MS) */
-	private long signalDelay;
+	private long signalDelayMS;
 
 	/**
 	 * Konstruktor der Klasse
@@ -64,7 +64,7 @@ public class RunElementSignal extends RunElementPassThrough {
 		signal.signalName=element.getName();
 
 		/* Optionale verzögerte Auslösung des Signals */
-		signal.signalDelay=Math.round(signalElement.getSignalDelay()*1000);
+		signal.signalDelayMS=Math.round(signalElement.getSignalDelay()*runModel.scaleToSimTime);
 
 		return signal;
 	}
@@ -89,13 +89,13 @@ public class RunElementSignal extends RunElementPassThrough {
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Signal"),String.format(Language.tr("Simulation.Log.Signal.Info"),client.logInfo(simData),name,signalName));
 
-		if (signalDelay>0) {
+		if (signalDelayMS>0) {
 			/* Logging */
-			log(simData,Language.tr("Simulation.Log.Signal"),String.format(Language.tr("Simulation.Log.Signal.InfoDelay1"),TimeTools.formatLongTime(signalDelay/1000.0)));
+			log(simData,Language.tr("Simulation.Log.Signal"),String.format(Language.tr("Simulation.Log.Signal.InfoDelay1"),TimeTools.formatLongTime(signalDelayMS*simData.runModel.scaleToSeconds)));
 
 			/* Ereignis zur verzögerten Signalauslösung anlegen */
 			final FireSignalDelayed event=(FireSignalDelayed)simData.getEvent(FireSignalDelayed.class);
-			event.init(simData.currentTime+signalDelay);
+			event.init(simData.currentTime+signalDelayMS);
 			event.signalStation=this;
 			event.signalName=signalName;
 			if (!simData.runData.stopp) simData.eventManager.addEvent(event);

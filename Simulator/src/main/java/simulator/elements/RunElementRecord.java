@@ -120,7 +120,7 @@ public class RunElementRecord extends RunElementPassThrough {
 		RunElementRecordData data;
 		data=(RunElementRecordData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementRecordData(this,expression1,expression2,simData.runModel.variableNames);
+			data=new RunElementRecordData(this,expression1,expression2,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

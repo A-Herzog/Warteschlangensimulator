@@ -121,7 +121,7 @@ public class RunElementDecideBySequence extends RunElement {
 		RunElementDecideBySequenceData data;
 		data=(RunElementDecideBySequenceData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementDecideBySequenceData(this);
+			data=new RunElementDecideBySequenceData(this,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

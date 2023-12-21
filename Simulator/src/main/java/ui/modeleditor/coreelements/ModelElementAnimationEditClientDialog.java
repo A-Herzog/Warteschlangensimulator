@@ -64,6 +64,11 @@ public class ModelElementAnimationEditClientDialog extends BaseDialog {
 	private final AnimationImageSource imageSource;
 
 	/**
+	 * Simulationsmodell mit Informationen zu den Stationen usw.
+	 */
+	private final RunModel model;
+
+	/**
 	 * Zu bearbeitendes Kundenobjekt
 	 */
 	private final RunDataClient client;
@@ -144,6 +149,7 @@ public class ModelElementAnimationEditClientDialog extends BaseDialog {
 		super(owner,Language.tr("Surface.PopupMenu.SimulationStatisticsData.EditClient"));
 		this.client=client;
 		imageSource=new AnimationImageSource();
+		this.model=model;
 
 		/* GUI */
 
@@ -190,10 +196,10 @@ public class ModelElementAnimationEditClientDialog extends BaseDialog {
 		tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times"),tabOuter=new JPanel(new BorderLayout()));
 		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
 		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
-		editWaitingTime=addInput(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Waiting"),client.waitingTime/1000.0);
-		editTransferTime=addInput(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Transfer"),client.transferTime/1000.0);
-		editProcessTime=addInput(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Process"),client.processTime/1000.0);
-		editResidenceTime=addInput(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Residence"),client.residenceTime/1000.0);
+		editWaitingTime=addInput(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Waiting"),client.waitingTime*model.scaleToSeconds);
+		editTransferTime=addInput(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Transfer"),client.transferTime*model.scaleToSeconds);
+		editProcessTime=addInput(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Process"),client.processTime*model.scaleToSeconds);
+		editResidenceTime=addInput(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times.Residence"),client.residenceTime*model.scaleToSeconds);
 
 		/* Tab "Kosten" */
 
@@ -396,10 +402,10 @@ public class ModelElementAnimationEditClientDialog extends BaseDialog {
 
 		/* Tab "Zeiten" */
 
-		client.waitingTime=Math.round(NumberTools.getDouble(editWaitingTime,true)*1000);
-		client.transferTime=Math.round(NumberTools.getDouble(editTransferTime,true)*1000);
-		client.processTime=Math.round(NumberTools.getDouble(editProcessTime,true)*1000);
-		client.residenceTime=Math.round(NumberTools.getDouble(editResidenceTime,true)*1000);
+		client.waitingTime=Math.round(NumberTools.getDouble(editWaitingTime,true)*model.scaleToSimTime);
+		client.transferTime=Math.round(NumberTools.getDouble(editTransferTime,true)*model.scaleToSimTime);
+		client.processTime=Math.round(NumberTools.getDouble(editProcessTime,true)*model.scaleToSimTime);
+		client.residenceTime=Math.round(NumberTools.getDouble(editResidenceTime,true)*model.scaleToSimTime);
 
 		/* Tab "Kosten" */
 

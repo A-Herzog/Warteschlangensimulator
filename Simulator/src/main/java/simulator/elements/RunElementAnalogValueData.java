@@ -59,9 +59,6 @@ public class RunElementAnalogValueData extends RunElementAnalogProcessingData {
 	 */
 	private double rateMS;
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSec=1.0/1000.0;
-
 	/**
 	 * Konstruktor der Klasse
 	 * @param station	Zugehöriges RunElement
@@ -72,11 +69,12 @@ public class RunElementAnalogValueData extends RunElementAnalogProcessingData {
 	 * @param valueMax	Maximum, das der Wert annehmen darf
 	 * @param valueMaxUse	Maximum verwenden (<code>true</code>) oder ignorieren (<code>false</code>)
 	 * @param statistics	Statistikobjekt, in dem die Größe des analogen Wertes erfasst wird
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementAnalogValueData(final RunElementAnalogProcessing station, final double value, final double rate, final double valueMin, final boolean valueMinUse, final double valueMax, final boolean valueMaxUse, final StatisticsTimeAnalogPerformanceIndicator statistics) {
-		super(station,statistics);
+	public RunElementAnalogValueData(final RunElementAnalogProcessing station, final double value, final double rate, final double valueMin, final boolean valueMinUse, final double valueMax, final boolean valueMaxUse, final StatisticsTimeAnalogPerformanceIndicator statistics, final SimulationData simData) {
+		super(station,statistics,simData);
 		/* this.value=value; - nicht nötig, das übernimmt schon der super-Konstruktor */
-		initialRateMS=rate*toSec;
+		initialRateMS=rate*simData.runModel.scaleToSeconds;
 		this.valueMin=valueMin;
 		this.valueMinUse=valueMinUse;
 		this.valueMax=valueMax;
@@ -147,16 +145,17 @@ public class RunElementAnalogValueData extends RunElementAnalogProcessingData {
 	public double getRate(final SimulationData simData) {
 		checkInit(simData);
 
-		return rateMS*1000.0;
+		return rateMS*simData.runModel.scaleToSimTime; /* Rate ist bereits in MS, daher Multiplikation mit 1000, also scaleToSimTime */
 	}
 
 	/**
 	 * Liefert die aktuelle Änderungsrate, ohne dabei im Hintergrund nötigenfalls einen Update-Schritt durchzuführen
+	 * @param simData	Simulationsdatenobjekt
 	 * @return	Aktuelle Änderungsrate
 	 * @see RunElementAnalogValueData#getRate(SimulationData)
 	 */
-	public double getRateNoUpdate() {
-		return rateMS*1000.0;
+	public double getRateNoUpdate(final SimulationData simData) {
+		return rateMS*simData.runModel.scaleToSimTime; /* Rate ist bereits in MS, daher Multiplikation mit 1000, also scaleToSimTime */
 	}
 
 	@Override
@@ -173,7 +172,7 @@ public class RunElementAnalogValueData extends RunElementAnalogProcessingData {
 	 */
 	public void setRate(final SimulationData simData, final double rate) {
 		getValue(simData);
-		rateMS=rate*toSec;
+		rateMS=rate*simData.runModel.scaleToSeconds; /* Rate pro Sek / 1000 = Rate pro MS */
 		if (rateMS!=0.0) rateActivated(simData);
 	}
 

@@ -147,9 +147,10 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 	 * @param costs	Kosten pro Bedienvorgang (kann <code>null</code> sein)
 	 * @param costsPerProcessSecond	Kosten pro Bediensekunde (kann <code>null</code> sein)
 	 * @param costsPerPostProcessSecond	Kosten pro Nachbearbeitungssekunde (kann <code>null</code> sein)
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementProcessData(final RunElementProcess station, final String[] variableNames, final String costs, final String costsPerProcessSecond, final String costsPerPostProcessSecond) {
-		super(station);
+	public RunElementProcessData(final RunElementProcess station, final String[] variableNames, final String costs, final String costsPerProcessSecond, final String costsPerPostProcessSecond, final SimulationData simData) {
+		super(station,simData);
 		allFirstComeFirstServe=true;
 		queueLockedForPickUp=false;
 		waitingClients=new ArrayList<>(INITIAL_QUEUE_SIZE);
@@ -266,7 +267,7 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 			if (maxWaitingTime>=0) {
 				if (!simData.runData.stopp)  {
 					final WaitingCancelEvent event=(WaitingCancelEvent)simData.getEvent(WaitingCancelEvent.class);
-					event.init(time+FastMath.round(maxWaitingTime*1000));
+					event.init(time+FastMath.round(maxWaitingTime*simData.runModel.scaleToSimTime));
 					event.station=station;
 					event.client=client;
 					simData.eventManager.addEvent(event);
@@ -274,7 +275,7 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 				}
 
 				/* Logging */
-				if (simData.loggingActive) station.log(simData,Language.tr("Simulation.Log.ProcessWaitingTimeToleranceCalculation"),String.format(Language.tr("Simulation.Log.ProcessWaitingTimeToleranceCalculation.Info"),client.logInfo(simData),station.name,TimeTools.formatTime(FastMath.round(maxWaitingTime*1000)),TimeTools.formatTime(FastMath.round(maxWaitingTime*1000))));
+				if (simData.loggingActive) station.log(simData,Language.tr("Simulation.Log.ProcessWaitingTimeToleranceCalculation"),String.format(Language.tr("Simulation.Log.ProcessWaitingTimeToleranceCalculation.Info"),client.logInfo(simData),station.name,TimeTools.formatExactTime(maxWaitingTime),TimeTools.formatExactTime(time*simData.runModel.scaleToSeconds+maxWaitingTime)));
 			}
 		} else {
 			if (hasWaitingCancelations) waitingCancelEvents.add(null);
@@ -337,9 +338,6 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 		return waitingCancelEvents.get(index);
 	}
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSecFactor=1.0/1000.0;
-
 	/**
 	 * Liefert die Bedienzeit für einen Kunden (über eine Verteilungsfunktion oder durch Auswertung eines Ausdrucks)
 	 * @param simData	Simulationsdaten (wird benötigt, falls die Zeit per Auswertung eines Ausdrucks bestimmt werden soll)
@@ -352,7 +350,7 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 			if (distributionProcess[type]==null) return 0.0;
 			return DistributionRandomNumber.randomNonNegative(distributionProcess[type])*station.timeBaseMultiply;
 		} else {
-			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*toSecFactor;
+			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*simData.runModel.scaleToSeconds;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);
 			try {
 				final double time=expressionProcess[type].calc(simData.runData.variableValues,simData,client)*station.timeBaseMultiply;
@@ -379,7 +377,7 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 					time=DistributionRandomNumber.randomNonNegative(distributionSetup[lastClientIndex][nextClientIndex])*station.timeBaseMultiply;
 				}
 			} else {
-				final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*toSecFactor;
+				final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*simData.runModel.scaleToSeconds;
 				simData.runData.setClientVariableValues(client,additionalWaitingTime);
 				try {
 					time=expressionSetup[lastClientIndex][nextClientIndex].calc(simData.runData.variableValues,simData,client)*station.timeBaseMultiply;
@@ -405,7 +403,7 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 			if (distributionPostProcess[type]==null) return 0.0;
 			return DistributionRandomNumber.randomNonNegative(distributionPostProcess[type])*station.timeBaseMultiply;
 		} else {
-			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*toSecFactor;
+			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*simData.runModel.scaleToSeconds;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);
 			try {
 				final double time=expressionPostProcess[type].calc(simData.runData.variableValues,simData,client)*station.timeBaseMultiply;

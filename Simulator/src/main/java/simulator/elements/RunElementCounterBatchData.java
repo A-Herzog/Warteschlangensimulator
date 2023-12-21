@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsMultiPerformanceIndicator;
 
@@ -68,9 +69,10 @@ public class RunElementCounterBatchData extends RunElementData {
 	 * @param counterName	Name des Zählers
 	 * @param condition	Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss
 	 * @param counterBatchStatistic	Zugehöriges Statistikobjekt
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementCounterBatchData(final RunElement station, final String counterName, final RunCounterConditionData condition, final StatisticsMultiPerformanceIndicator counterBatchStatistic) {
-		super(station);
+	public RunElementCounterBatchData(final RunElement station, final String counterName, final RunCounterConditionData condition, final StatisticsMultiPerformanceIndicator counterBatchStatistic, final SimulationData simData) {
+		super(station,simData);
 		this.counterName=counterName;
 		this.condition=condition;
 		this.counterBatchStatistic=counterBatchStatistic;
@@ -106,15 +108,13 @@ public class RunElementCounterBatchData extends RunElementData {
 		lastArrivalByBatchSize[batchSize]=time;
 	}
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSec=1.0/1000.0;
-
 	/**
 	 * Erfasst eine Kundenankunft und zählt dann ggf. entsprechend einen Batch
 	 * @param isWarmUp	Befinden wir uns noch in der Einschwingphase?
-	 * @param time	Ankunftszeitpunkt
+	 * @param time	Ankunftszeitpunkt (in MS)
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public void logArrival(final boolean isWarmUp, final long time) {
+	public void logArrival(final boolean isWarmUp, final long time, final SimulationData simData) {
 		if (time<lastArrival || lastArrival==-1) {
 			/* Neuer Tag */
 			lastArrival=-1;
@@ -126,7 +126,7 @@ public class RunElementCounterBatchData extends RunElementData {
 			count++;
 		} else {
 			/* Neuer Zeitpunkt: Batch zählen, neuen Batch starten */
-			if (!isWarmUp && count>0) logBatch(lastArrival*toSec,count);
+			if (!isWarmUp && count>0) logBatch(lastArrival*simData.runModel.scaleToSeconds,count);
 			count=1;
 		}
 

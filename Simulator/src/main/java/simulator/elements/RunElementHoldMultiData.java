@@ -60,9 +60,10 @@ public class RunElementHoldMultiData extends RunElementData {
 	 * @param station	Station zu diesem Datenelement
 	 * @param conditions	Bei der Verzögerung von Kunden zu prüfende Bedingungen (zur Umsetzung in ein <code>ExpressionMultiEval</code>-Objekt)
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementHoldMultiData(final RunElement station, final String[] conditions, final String[] variableNames) {
-		super(station);
+	public RunElementHoldMultiData(final RunElement station, final String[] conditions, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 
 		this.conditions=new ExpressionMultiEval[conditions.length];
 		for (int i=0;i<conditions.length;i++) {

@@ -56,13 +56,17 @@ public abstract class RunElementAnalogProcessingData extends RunElementData {
 	 */
 	private boolean notifyTriggered;
 
+	/** Skalierungsfaktor zur Umrechnung von Millisekunden zu Sekunden (um während der Simulation Divisionen zu vermeiden) */
+	private double toSec;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param station	Zugehöriges RunElement
 	 * @param statistics	Statistikobjekt, in dem die Größe des analogen Wertes erfasst wird
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementAnalogProcessingData(final RunElementAnalogProcessing station, final StatisticsTimeAnalogPerformanceIndicator statistics) {
-		super(station);
+	public RunElementAnalogProcessingData(final RunElementAnalogProcessing station, final StatisticsTimeAnalogPerformanceIndicator statistics, final SimulationData simData) {
+		super(station,simData);
 		this.initialValue=station.getInitialValue();
 		this.statistics=statistics;
 		this.analogNotifiyMS=station.getAnalogNotifiyMS();
@@ -90,10 +94,8 @@ public abstract class RunElementAnalogProcessingData extends RunElementData {
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	protected void init(final SimulationData simData) {
+		toSec=simData.runModel.scaleToSeconds;
 	}
-
-	/** Skalierungsfaktor zur Umrechnung von Millisekunden zu Sekunden (um während der Simulation Divisionen zu vermeiden) */
-	private static final double toSec=1.0/1000.0;
 
 	/**
 	 * Erfasst eine Veränderung des analogen Wertes in der Statistik

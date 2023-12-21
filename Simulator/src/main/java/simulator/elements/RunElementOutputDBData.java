@@ -19,6 +19,7 @@ import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.db.DBConnect;
 import simulator.db.DBSettings;
+import simulator.runmodel.SimulationData;
 
 /**
  * Laufzeitdaten eines <code>RunElementOutputDB</code>-Laufzeit-Objekts
@@ -42,9 +43,10 @@ public class RunElementOutputDBData extends RunElementData {
 	 * Konstruktor der Klasse <code>RunElementOutputDBData</code>
 	 * @param station	Station zu diesem Datenelement
 	 * @param settings	Einstellungen für die Datenbankverbindung
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementOutputDBData(final RunElement station, final DBSettings settings) {
-		super(station);
+	public RunElementOutputDBData(final RunElement station, final DBSettings settings, final SimulationData simData) {
+		super(station,simData);
 
 		connect=new DBConnect(settings,false);
 		if (connect.getInitError()!=null) {

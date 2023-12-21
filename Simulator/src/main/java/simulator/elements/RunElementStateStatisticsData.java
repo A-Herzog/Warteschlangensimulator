@@ -17,6 +17,7 @@ package simulator.elements;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 import statistics.StatisticsStateTimePerformanceIndicator;
 
 /**
@@ -35,9 +36,10 @@ public class RunElementStateStatisticsData extends RunElementData {
 	 * Konstruktor der Klasse <code>RunElementStateStatisticsData</code>
 	 * @param station	Station zu diesem Datenelement
 	 * @param statistic	Zugehöriges Statistikobjekt
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementStateStatisticsData(final RunElement station, final StatisticsStateTimePerformanceIndicator statistic) {
-		super(station);
+	public RunElementStateStatisticsData(final RunElement station, final StatisticsStateTimePerformanceIndicator statistic, final SimulationData simData) {
+		super(station,simData);
 		this.statistic=statistic;
 	}
 }

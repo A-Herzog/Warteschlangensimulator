@@ -98,7 +98,7 @@ public class RunElementSectionEnd extends RunElementPassThrough {
 		RunElementSectionEndData data;
 		data=(RunElementSectionEndData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementSectionEndData(this);
+			data=new RunElementSectionEndData(this,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

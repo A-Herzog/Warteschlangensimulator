@@ -174,14 +174,31 @@ public final class RunDataResource implements Cloneable {
 	/** Sind überhaupt irgendwelche Kosten definiert? */
 	private boolean hasCosts;
 
+	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
+	private final double toSecFactor;
+	/** Umrechnungsfaktor von Millisekunden auf Stunden, um die Division während der Simulation zu vermeiden */
+	private final double toHoursFactor;
+
 	/**
-	 * Konstruktor der Klasse <code>RunDataResource</code>
+	 * Konstruktor der Klasse
+	 * @param runModel	Laufzeitmodell
 	 */
-	public RunDataResource() {
+	public RunDataResource(final RunModel runModel) {
+		this(runModel.scaleToSeconds);
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param scaleToSeconds	Umrechnungsfaktor von Simulationszeit zu Sekunden
+	 */
+	private RunDataResource(final double scaleToSeconds) {
 		lastStateChange=0;
 		inUse=0;
 		inDownTime=0;
 		firstRequest=true;
+
+		toSecFactor=scaleToSeconds;
+		toHoursFactor=scaleToSeconds/3600.0;
 	}
 
 	/**
@@ -189,9 +206,10 @@ public final class RunDataResource implements Cloneable {
 	 * @param resource	Editor-Ressourcen-Objekt, aus dem die Informationen, wie viele Bediener eines bestimmten Typs vorhanden sind, ausgelesen werden sollen
 	 * @param schedules	Editor-Zeitpläne-Objekt, aus dem ebenfalls Informationen, wie viele Bediener welchen Typs wann vorhanden sind, ausgelesen werden sollen
 	 * @param variables	Liste der verfügbaren Variablen
+	 * @param runModel	Laufzeitmodell
 	 * @return Gibt <code>null</code> zurück, wenn die Ressourcendaten korrekt geladen werden konnten, sonst eine Fehlermeldung.
 	 */
-	public String loadFromResource(final ModelResource resource, final ModelSchedules schedules, final String[] variables) {
+	public String loadFromResource(final ModelResource resource, final ModelSchedules schedules, final String[] variables, final RunModel runModel) {
 		lastStateChange=0;
 		inUse=0;
 		inDownTime=0;
@@ -222,7 +240,7 @@ public final class RunDataResource implements Cloneable {
 			final RunDataResourceFailure runFailure=new RunDataResourceFailure(name);
 			runFailure.failureMode=editFailure.getFailureMode();
 			runFailure.failureNumber=editFailure.getFailureNumber();
-			runFailure.failureTime=FastMath.round(editFailure.getFailureTime()*1000);
+			runFailure.failureTime=FastMath.round(editFailure.getFailureTime()*runModel.scaleToSimTime);
 			runFailure.failureDistribution=editFailure.getFailureDistribution();
 			if (runFailure.failureMode==ModelResourceFailure.FailureMode.FAILURE_BY_DISTRIBUTION && runFailure.failureDistribution==null) return String.format(Language.tr("Simulation.Creator.MissingResourceInterDownTimeDistribution"),name);
 			if (runFailure.failureMode==ModelResourceFailure.FailureMode.FAILURE_BY_EXPRESSION) {
@@ -301,7 +319,7 @@ public final class RunDataResource implements Cloneable {
 
 	@Override
 	public RunDataResource clone() {
-		final RunDataResource clone=new RunDataResource();
+		final RunDataResource clone=new RunDataResource(toSecFactor);
 		clone.name=name;
 		clone.icon=icon;
 
@@ -381,21 +399,17 @@ public final class RunDataResource implements Cloneable {
 		return statisticsUsage;
 	}
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSecFactor=1.0/1000.0;
-	/** Umrechnungsfaktor von Millisekunden auf Stunden, um die Division während der Simulation zu vermeiden */
-	private static final double toHoursFactor=1.0/1000.0/3600.0;
-
 	/**
 	 * Bestimmt wie viele Bediener in der Gruppe in einem bestimmten Zeitbereich verfügbar waren.
 	 * @param timeMS1	Start des Zeitbereichs
 	 * @param timeMS2	Ende des Zeitbereichs
+	 * @param simData	Simulationsdatenobjekt
 	 * @return	Anzahl an verfügbaren Bediener-Stunden
 	 * @see #timesToStatistics(SimulationData)
 	 */
-	private double calcAvailableHours(final long timeMS1, final long timeMS2) {
+	private double calcAvailableHours(final long timeMS1, final long timeMS2, final SimulationData simData) {
 		if (available==-1) return 0; /* unendlich viele Bediener -> hier wird ein Overhead von 0 angenommen */
-		if (available==-2) return availableSchedule.getAvailbaleHoursByTimeRange(timeMS1,timeMS2); /* Schichtplan */
+		if (available==-2) return availableSchedule.getAvailbaleHoursByTimeRange((long)Math.floor(timeMS1*simData.runModel.scaleToSeconds),(long)Math.floor(timeMS2*simData.runModel.scaleToSeconds)); /* Schichtplan */
 		return available*(timeMS2-timeMS1)*toHoursFactor; /* Feste Anzahl an Bedienern */
 	}
 
@@ -439,7 +453,7 @@ public final class RunDataResource implements Cloneable {
 				statisticsCostsProcess.add(costsPerProcessHour*usedHours);
 			}
 			if (costsPerActiveHour!=0.0 || costsPerIdleHour!=0.0) {
-				final double availableHours=calcAvailableHours(lastStateChange,timeMS);
+				final double availableHours=calcAvailableHours(lastStateChange,timeMS,simData);
 				final double usedHours=lastState*(timeMS-lastStateChange)*toHoursFactor;
 
 				statisticsCostsActive.add(costsPerActiveHour*FastMath.max(usedHours,availableHours));
@@ -477,7 +491,7 @@ public final class RunDataResource implements Cloneable {
 				if (!simData.runData.stopp) {
 					final ResourcesReCheckEvent event=(ResourcesReCheckEvent)(simData.getEvent(ResourcesReCheckEvent.class));
 					long duration=availableSchedule.getDurationPerSlot();
-					duration*=1000;
+					duration*=simData.runModel.scaleToSimTime;
 					long time=duration;
 					if (time<simData.currentTime) time=duration*(simData.currentTime/duration);
 					while (time<simData.currentTime) time+=duration;
@@ -505,7 +519,7 @@ public final class RunDataResource implements Cloneable {
 		if  (available==-1) return true; /* wir haben unendlich viele von der Ressource */
 
 		if  (available==-2) {
-			final int availableNow=availableSchedule.getValueAtTime(simData.currentTime/1000);
+			final int availableNow=availableSchedule.getValueAtTime((long)Math.floor(simData.currentTime*simData.runModel.scaleToSeconds));
 			if (availableNow<inUse+needed) return false; /* nicht genug frei */
 			return true;
 		}
@@ -618,7 +632,7 @@ public final class RunDataResource implements Cloneable {
 		}
 
 		if (value==-1) return 0; /* unendlich viele */
-		if (value==-2) return availableSchedule.getValueAtTime(simData.currentTime/1000); /* Zeitplan */
+		if (value==-2) return availableSchedule.getValueAtTime((long)Math.floor(simData.currentTime*simData.runModel.scaleToSeconds)); /* Zeitplan */
 		return value;
 	}
 

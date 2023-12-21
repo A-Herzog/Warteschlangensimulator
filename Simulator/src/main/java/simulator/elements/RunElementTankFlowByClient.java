@@ -55,7 +55,7 @@ public class RunElementTankFlowByClient extends RunElementPassThrough {
 		if (edgeError!=null) return edgeError;
 
 		/* Flussdaten */
-		flow.flowData=new RunElementTankFlow(flowElement.getFlowData());
+		flow.flowData=new RunElementTankFlow(flowElement.getFlowData(),runModel.scaleToSimTime);
 		final RunModelCreatorStatus flowError=flow.flowData.test(element.getId(),flowElement.getModel());
 		if (flowError!=null) return flowError.message;
 
@@ -72,7 +72,7 @@ public class RunElementTankFlowByClient extends RunElementPassThrough {
 		if (edgeError!=null) return edgeError;
 
 		/* Flussdaten */
-		final RunElementTankFlow flowData=new RunElementTankFlow(flowElement.getFlowData());
+		final RunElementTankFlow flowData=new RunElementTankFlow(flowElement.getFlowData(),1000);
 		final RunModelCreatorStatus flowError=flowData.test(element.getId(),flowElement.getModel());
 		if (flowError!=null) return flowError;
 
@@ -90,7 +90,7 @@ public class RunElementTankFlowByClient extends RunElementPassThrough {
 			RunElementTank destination=null;
 			if (flowData.destinationID>=0) destination=(RunElementTank)simData.runModel.elements.get(flowData.destinationID);
 
-			data=new RunElementTankFlowByClientData(this,flowData,source,destination);
+			data=new RunElementTankFlowByClientData(this,flowData,source,destination,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

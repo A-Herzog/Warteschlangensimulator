@@ -109,7 +109,7 @@ public class RunElementSplit extends RunElementPassThrough {
 				setData[i]=records[i].getRuntimeExpressions(simData.runModel.variableNames);
 				batchSizes[i]=records[i].batchSize;
 			}
-			data=new RunElementSplitData(this,simData.runModel.variableNames,setData,batchSizes);
+			data=new RunElementSplitData(this,simData.runModel.variableNames,setData,batchSizes,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

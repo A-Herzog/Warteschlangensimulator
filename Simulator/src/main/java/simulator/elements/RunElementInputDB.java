@@ -219,7 +219,7 @@ public class RunElementInputDB extends RunElementPassThrough {
 		RunElementInputDBData data;
 		data=(RunElementInputDBData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementInputDBData(this);
+			data=new RunElementInputDBData(this,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -287,19 +287,19 @@ public class RunElementInputDB extends RunElementPassThrough {
 			final int len=simData.runData.variableValues.length;
 			if (variableIndex==len-3) {
 				/* Pseudovariable: Wartezeit */
-				client.waitingTime=FastMath.max(0,FastMath.round(valueDouble*1000));
+				client.waitingTime=FastMath.max(0,FastMath.round(valueDouble*simData.runModel.scaleToSimTime));
 				client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 				done=true;
 			}
 			if (variableIndex==len-2) {
 				/* Pseudovariable: Transferzeit */
-				client.transferTime=FastMath.max(0,FastMath.round(valueDouble*1000));
+				client.transferTime=FastMath.max(0,FastMath.round(valueDouble*simData.runModel.scaleToSimTime));
 				client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 				done=true;
 			}
 			if (variableIndex==len-1) {
 				/* Pseudovariable: Bedienzeit */
-				client.processTime=FastMath.max(0,FastMath.round(valueDouble*1000));
+				client.processTime=FastMath.max(0,FastMath.round(valueDouble*simData.runModel.scaleToSimTime));
 				client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 				done=true;
 			}

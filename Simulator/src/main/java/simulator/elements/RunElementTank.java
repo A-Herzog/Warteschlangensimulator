@@ -80,7 +80,7 @@ public class RunElementTank extends RunElementAnalogProcessing implements Signal
 			}
 		}
 
-		final String analogNotifyError=tank.loadAnalogNotify(tankElement.getAnalogNotify());
+		final String analogNotifyError=tank.loadAnalogNotify(tankElement.getAnalogNotify(),runModel);
 		if (analogNotifyError!=null) return analogNotifyError;
 
 		return tank;
@@ -114,7 +114,7 @@ public class RunElementTank extends RunElementAnalogProcessing implements Signal
 		RunElementTankData data;
 		data=(RunElementTankData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementTankData(this,capacity,valves,getAnalogStatistics(simData));
+			data=new RunElementTankData(this,capacity,valves,getAnalogStatistics(simData),simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

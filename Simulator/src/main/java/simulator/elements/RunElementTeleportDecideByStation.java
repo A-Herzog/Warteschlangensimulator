@@ -184,7 +184,7 @@ public class RunElementTeleportDecideByStation extends RunElement {
 		RunElementTeleportDecideByStationData data;
 		data=(RunElementTeleportDecideByStationData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementTeleportDecideByStationData(this,next.length);
+			data=new RunElementTeleportDecideByStationData(this,next.length,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

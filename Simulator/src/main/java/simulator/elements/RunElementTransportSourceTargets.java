@@ -181,9 +181,6 @@ public class RunElementTransportSourceTargets {
 		return null;
 	}
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSec=1.0/1000.0;
-
 	/**
 	 * Zielstation gemäß Fertigungsplan bestimmen
 	 * @param simData	Simulationsdatenobjekt
@@ -204,7 +201,7 @@ public class RunElementTransportSourceTargets {
 
 		final int[] assignmentNr=simData.runModel.sequenceStepAssignmentNr[nr][step];
 		if (assignmentNr.length>0) {
-			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*toSec;
+			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*simData.runModel.scaleToSeconds;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);
 		}
 		for (int i=0;i<assignmentNr.length;i++) {
@@ -237,7 +234,7 @@ public class RunElementTransportSourceTargets {
 
 			final ExpressionMultiEval eval=routingExpresions[i];
 			if (eval!=null) {
-				final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*toSec;
+				final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*simData.runModel.scaleToSeconds;
 				simData.runData.setClientVariableValues(client,additionalWaitingTime);
 				if (eval.eval(simData.runData.variableValues,simData,client)) return routingDestination[i];
 				continue;

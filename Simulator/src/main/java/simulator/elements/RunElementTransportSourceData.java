@@ -66,9 +66,10 @@ public class RunElementTransportSourceData extends RunElementData {
 	 * @param resourcePriorityString	Priorität bei der Ressourcenzuordnung (darf nicht <code>null</code> sein)
 	 * @param releaseDelayExpressionStrings	Ausdrücke zur Bestimmung der verzögerten Ressourcenfreigabe (können teilweise oder auch ganz <code>null</code> sein)
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementTransportSourceData(final RunElement station, final String[] delayExpressionString, final String[] routingExpresionStrings, final String resourcePriorityString, final String[] releaseDelayExpressionStrings, final String[] variableNames) {
-		super(station);
+	public RunElementTransportSourceData(final RunElement station, final String[] delayExpressionString, final String[] routingExpresionStrings, final String resourcePriorityString, final String[] releaseDelayExpressionStrings, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 
 		waitingClients=new ArrayDeque<>();
 

@@ -181,7 +181,7 @@ public class RunElementTransportSource extends RunElement implements FreeResourc
 		RunElementTransportSourceData data;
 		data=(RunElementTransportSourceData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementTransportSourceData(this,transportTime.expression,transportTargets.routingExpression,resourcePriority,releaseDelayExpressions,simData.runModel.variableNames);
+			data=new RunElementTransportSourceData(this,transportTime.expression,transportTargets.routingExpression,resourcePriority,releaseDelayExpressions,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -227,7 +227,7 @@ public class RunElementTransportSource extends RunElement implements FreeResourc
 
 		/* Verzögerung bestimmen */
 		final double transportDelayTime=transportTime.getTransportTime(simData,client,data.delayExpression,name)+additionalTransportTime;
-		final long transportDelayTimeMS=FastMath.round(transportDelayTime*1000);
+		final long transportDelayTimeMS=FastMath.round(transportDelayTime*simData.runModel.scaleToSimTime);
 
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.TransportSource"),String.format(Language.tr("Simulation.Log.TransportSource.Info"),client.logInfo(simData),name,TimeTools.formatExactTime(transportDelayTime)));
@@ -238,7 +238,7 @@ public class RunElementTransportSource extends RunElement implements FreeResourc
 		/* Ggf. Ressourcenfreigabe einplanen */
 		if (resources!=null) {
 			final double releaseDelay=getReleaseDelay(simData,client.stationInformationInt);
-			final long releaseDelayMS=FastMath.round(releaseDelay*1000);
+			final long releaseDelayMS=FastMath.round(releaseDelay*simData.runModel.scaleToSimTime);
 			ReleaseReleaseResources event=(ReleaseReleaseResources)simData.getEvent(ReleaseReleaseResources.class);
 			event.init(simData.currentTime+transportDelayTimeMS+releaseDelayMS);
 			event.resources=resources;

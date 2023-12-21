@@ -151,7 +151,7 @@ public class RunElementSourceRecordData {
 	public long getConditionMinDistanceMS(final SimulationData simData, final String stationName) {
 		if (conditionMinDistanceCalculatedMS<0) {
 			try {
-				conditionMinDistanceCalculatedMS=Math.round(Math.max(0,conditionMinDistance.calc(simData.runData.variableValues,simData,null)*1000));
+				conditionMinDistanceCalculatedMS=Math.round(Math.max(0,conditionMinDistance.calc(simData.runData.variableValues,simData,null)*simData.runModel.scaleToSimTime));
 			} catch (MathCalcError e) {
 				simData.calculationErrorStation(conditionMinDistance,stationName);
 				conditionMinDistanceCalculatedMS=0;

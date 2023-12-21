@@ -337,13 +337,11 @@ public final class ModelSchedule implements Cloneable {
 
 	/**
 	 * Berechnet wie viel Bedienleistung (in Mitarbeiterstunden) in einem bestimmten Zeitfesnter zur Verfügung steht
-	 * @param timeMS1	Startzeitpunkt
-	 * @param timeMS2	Endzeitpunkt
+	 * @param timeSec1	Startzeitpunkt in Sekunden
+	 * @param timeSec2	Endzeitpunkt in Sekunden
 	 * @return	Verfügbare Mitarbeiterstunden in dem Bereich
 	 */
-	public double getAvailbaleHoursByTimeRange(final long timeMS1, final long timeMS2) {
-		final long timeSec1=timeMS1/1000;
-		final long timeSec2=timeMS2/1000;
+	public double getAvailbaleHoursByTimeRange(final long timeSec1, final long timeSec2) {
 		final int slotNr1=(int)(timeSec1/durationPerSlot);
 		final int slotNr2=(int)(timeSec2/durationPerSlot);
 		final double partIn1=((double)timeSec1%durationPerSlot)/durationPerSlot;

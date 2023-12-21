@@ -95,7 +95,7 @@ public class RunElementDifferentialCounter extends RunElementPassThrough {
 		if (data==null) {
 			final RunCounterConditionData conditionData=new RunCounterConditionData(condition);
 			conditionData.build(simData.runModel);
-			data=new RunElementDifferentialCounterData(this,counterName,change,conditionData,simData.statistics.differentialCounter,simData.runData);
+			data=new RunElementDifferentialCounterData(this,counterName,change,conditionData,simData.statistics.differentialCounter,simData.runData,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -107,7 +107,7 @@ public class RunElementDifferentialCounter extends RunElementPassThrough {
 
 		if (data.condition.isCountThisClient(simData,client)) {
 			/* Zählung */
-			final int value=data.count(simData.currentTime,simData.runData);
+			final int value=data.count(simData.currentTime,simData.runModel,simData.runData);
 
 			/* Logging */
 			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.DifferentialCounter"),String.format(Language.tr("Simulation.Log.DifferentialCounter.Info"),client.logInfo(simData),name,counterName,value));

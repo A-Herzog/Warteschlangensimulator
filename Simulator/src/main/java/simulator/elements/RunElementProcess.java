@@ -341,14 +341,11 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		RunElementProcessData data;
 		data=(RunElementProcessData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementProcessData(this,simData.runModel.variableNames,costs,costsPerProcessSecond,costsPerPostProcessSecond);
+			data=new RunElementProcessData(this,simData.runModel.variableNames,costs,costsPerProcessSecond,costsPerPostProcessSecond,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
 	}
-
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSecFactor=1.0/1000.0;
 
 	/**
 	 * Berechnet den Score-Wert eines Kunden
@@ -360,7 +357,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 	private double getClientScore(final SimulationData simData, final RunElementProcessData processData, final RunDataClient client) {
 		final ExpressionCalc calc=processData.priority[client.type];
 		if (calc==null) { /* = Text war "w", siehe RunElementProcessData()  */
-			return (((double)simData.currentTime)-client.lastWaitingStart)*toSecFactor;
+			return (((double)simData.currentTime)-client.lastWaitingStart)*simData.runModel.scaleToSeconds;
 		} else {
 			simData.runData.setClientVariableValues(simData.currentTime-client.lastWaitingStart,client.transferTime,client.processTime);
 			try {
@@ -501,9 +498,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		double setupTime=data.getSetupTime(simData,selected);
 		double processingTime=data.getProcessTime(simData,selected)+additionalPrepareTime;
 		double postProcessingTime=data.getPostProcessTime(simData,selected);
-		long setupTimeMS=FastMath.round(setupTime*1000);
-		long processingTimeMS=FastMath.round(processingTime*1000);
-		long postProcessingTimeMS=FastMath.round(postProcessingTime*1000);
+		long setupTimeMS=FastMath.round(setupTime*simData.runModel.scaleToSimTime);
+		long processingTimeMS=FastMath.round(processingTime*simData.runModel.scaleToSimTime);
+		long postProcessingTimeMS=FastMath.round(postProcessingTime*simData.runModel.scaleToSimTime);
 
 		/* Warteabbruch während der Rüstzeit? */
 		if (setupTimeMS>0 && canCancelInSetupTime) {
@@ -534,9 +531,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		/* Logging */
 		if (simData.loggingActive) {
 			if (setupTimeMS>0) {
-				log(simData,Language.tr("Simulation.Log.ProcessService"),String.format(Language.tr("Simulation.Log.ProcessService.InfoWithSetupTime"),selected.logInfo(simData),name,TimeTools.formatTime(processingTimeMS/1000),TimeTools.formatTime(setupTimeMS/1000)));
+				log(simData,Language.tr("Simulation.Log.ProcessService"),String.format(Language.tr("Simulation.Log.ProcessService.InfoWithSetupTime"),selected.logInfo(simData),name,TimeTools.formatTime(Math.round(processingTimeMS*simData.runModel.scaleToSeconds)),TimeTools.formatTime(Math.round(setupTimeMS*simData.runModel.scaleToSeconds))));
 			} else {
-				log(simData,Language.tr("Simulation.Log.ProcessService"),String.format(Language.tr("Simulation.Log.ProcessService.Info"),selected.logInfo(simData),name,TimeTools.formatTime(processingTimeMS/1000)));
+				log(simData,Language.tr("Simulation.Log.ProcessService"),String.format(Language.tr("Simulation.Log.ProcessService.Info"),selected.logInfo(simData),name,TimeTools.formatTime(Math.round(processingTimeMS*simData.runModel.scaleToSeconds))));
 			}
 		}
 
@@ -603,7 +600,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				final RunDataClient client=data.waitingClients.get(i);
 				final ExpressionCalc calc=data.priority[client.type];
 				if (calc==null) { /* = Text war "w", siehe RunElementProcessData()  */
-					final double waitingTime=(((double)simData.currentTime)-client.lastWaitingStart)*toSecFactor;
+					final double waitingTime=(((double)simData.currentTime)-client.lastWaitingStart)*simData.runModel.scaleToSeconds;
 					data.score[i]=waitingTime;
 				} else {
 					simData.runData.setClientVariableValues(simData.currentTime-client.lastWaitingStart,client.transferTime,client.processTime);
@@ -662,24 +659,24 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				final int type=client.type;
 
 				/* Bedien- und Nachbearbeitungszeit aus Liste (s.o.) wählen */
-				final long waitingTime=data.removeClientFromQueue(client,-1,simData.currentTime,true,simData);
-				final long processingTime=FastMath.round(data.processingTimes[type]*1000);
+				final long waitingTimeMS=data.removeClientFromQueue(client,-1,simData.currentTime,true,simData);
+				final long processingTimeMS=FastMath.round(data.processingTimes[type]*simData.runModel.scaleToSimTime);
 
 				/* Logging */
-				if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.ProcessService"),String.format(Language.tr("Simulation.Log.ProcessService.Info"),client.logInfo(simData),name,TimeTools.formatTime(processingTime/1000)));
+				if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.ProcessService"),String.format(Language.tr("Simulation.Log.ProcessService.Info"),client.logInfo(simData),name,TimeTools.formatTime(Math.round(processingTimeMS*simData.runModel.scaleToSeconds))));
 
 				/* Bedienzeit in Statistik */
-				final long residenceTime=waitingTime+processingTime;
+				final long residenceTimeMS=waitingTimeMS+processingTimeMS;
 				switch (processTimeType) {
-				case PROCESS_TYPE_WAITING: simData.runData.logStationProcess(simData,this,client,waitingTime+processingTime,0,0,residenceTime); break;
-				case PROCESS_TYPE_TRANSFER: simData.runData.logStationProcess(simData,this,client,waitingTime,processingTime,0,residenceTime); break;
-				case PROCESS_TYPE_PROCESS: simData.runData.logStationProcess(simData,this,client,waitingTime,0,processingTime,residenceTime); break;
-				case PROCESS_TYPE_NOTHING: simData.runData.logStationProcess(simData,this,client,waitingTime,0,0,residenceTime); break; /* nicht erfassen */
+				case PROCESS_TYPE_WAITING: simData.runData.logStationProcess(simData,this,client,waitingTimeMS+processingTimeMS,0,0,residenceTimeMS); break;
+				case PROCESS_TYPE_TRANSFER: simData.runData.logStationProcess(simData,this,client,waitingTimeMS,processingTimeMS,0,residenceTimeMS); break;
+				case PROCESS_TYPE_PROCESS: simData.runData.logStationProcess(simData,this,client,waitingTimeMS,0,processingTimeMS,residenceTimeMS); break;
+				case PROCESS_TYPE_NOTHING: simData.runData.logStationProcess(simData,this,client,waitingTimeMS,0,0,residenceTimeMS); break; /* nicht erfassen */
 				}
 				switch (processTimeType) {
-				case PROCESS_TYPE_WAITING: client.addStationTime(id,waitingTime+processingTime,0,0,waitingTime+processingTime); break;
-				case PROCESS_TYPE_TRANSFER: client.addStationTime(id,waitingTime,processingTime,0,waitingTime+processingTime); break;
-				case PROCESS_TYPE_PROCESS: client.addStationTime(id,waitingTime,0,processingTime,waitingTime+processingTime); break;
+				case PROCESS_TYPE_WAITING: client.addStationTime(id,waitingTimeMS+processingTimeMS,0,0,waitingTimeMS+processingTimeMS); break;
+				case PROCESS_TYPE_TRANSFER: client.addStationTime(id,waitingTimeMS,processingTimeMS,0,waitingTimeMS+processingTimeMS); break;
+				case PROCESS_TYPE_PROCESS: client.addStationTime(id,waitingTimeMS,0,processingTimeMS,waitingTimeMS+processingTimeMS); break;
 				case PROCESS_TYPE_NOTHING: /* nicht erfassen */ break;
 				}
 				client.lastAlternative=resourceAlternative+1;
@@ -688,7 +685,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				simData.runData.logClientEntersStationProcess(simData,this,data,client);
 
 				/* Weiterleitung zu nächster Station nach Bedienzeit-Ende */
-				StationLeaveEvent.addLeaveEvent(simData,client,this,processingTime);
+				StationLeaveEvent.addLeaveEvent(simData,client,this,processingTimeMS);
 			}
 		} finally {
 			if (selectedForService==data.globalSelectedForService) data.canUseGlobalSelectedForService=true;
@@ -706,13 +703,13 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		}
 
 		/* Erfassung der Zwischenabgangszeiten auf Batch-Basis (bei dynamischen Bedien-Batches) */
-		simData.runData.logStationBatchLeave(simData.currentTime+FastMath.round(resourcesBlockedTimeProcessing*1000),simData,this,data);
+		simData.runData.logStationBatchLeave(simData.currentTime+FastMath.round(resourcesBlockedTimeProcessing*simData.runModel.scaleToSimTime),simData,this,data);
 
 		/* Belegte Ressourcen am Ende der Nachbearbeitungszeit wieder freigeben */
 		ProcessReleaseResources event=(ProcessReleaseResources)simData.getEvent(ProcessReleaseResources.class);
 		/* Da bei mehreren Kunden-Abgangs-Ereignissen nicht anders sichergestellt werden kann, dass die Ressourcenfreigabe erst sicher nach dem letzten Abgang erfolgt, wird hier das Zeit-Delta benötigt. */
 		final int TIME_DELTA=(resourcesBlockedTimePostProcessing>0)?0:1; /* Zeit in ms die vor der Freigabe der Ressourcen noch verstreichen sollen, damit die Freigabe wirklich erst nach dem Verlassen des Kundens der Station erfolgt */
-		event.init(simData.currentTime+TIME_DELTA+FastMath.round((resourcesBlockedTimeProcessing+resourcesBlockedTimePostProcessing)*1000));
+		event.init(simData.currentTime+TIME_DELTA+FastMath.round((resourcesBlockedTimeProcessing+resourcesBlockedTimePostProcessing)*simData.runModel.scaleToSimTime));
 		event.station=this;
 		event.resourceAlternative=resourceAlternative;
 		simData.eventManager.addEvent(event);

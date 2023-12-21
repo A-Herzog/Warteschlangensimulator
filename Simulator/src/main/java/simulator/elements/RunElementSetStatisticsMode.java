@@ -92,7 +92,7 @@ public class RunElementSetStatisticsMode extends RunElementPassThrough {
 		RunElementSetStatisticsModeData data;
 		data=(RunElementSetStatisticsModeData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementSetStatisticsModeData(this,condition,simData.runModel.variableNames);
+			data=new RunElementSetStatisticsModeData(this,condition,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

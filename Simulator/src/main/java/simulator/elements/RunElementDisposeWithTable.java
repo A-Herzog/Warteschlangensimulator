@@ -119,7 +119,7 @@ public class RunElementDisposeWithTable extends RunElement {
 	private String getOutputTableLine(final SimulationData simData, final RunDataClient client) {
 		final StringBuilder result=new StringBuilder();
 		/* Zeitpunkt */
-		result.append(NumberTools.formatNumberMax(simData.currentTime/1000.0));
+		result.append(NumberTools.formatNumberMax(simData.currentTime*simData.runModel.scaleToSeconds));
 
 		/* Kundentyp */
 		result.append(";");
@@ -150,17 +150,17 @@ public class RunElementDisposeWithTable extends RunElement {
 		if (client.waitingTime>0) {
 			result.append(";");
 			result.append("w=");
-			result.append(NumberTools.formatNumberMax(client.waitingTime/1000.0));
+			result.append(NumberTools.formatNumberMax(client.waitingTime*simData.runModel.scaleToSeconds));
 		}
 		if (client.transferTime>0) {
 			result.append(";");
 			result.append("t=");
-			result.append(NumberTools.formatNumberMax(client.transferTime/1000.0));
+			result.append(NumberTools.formatNumberMax(client.transferTime*simData.runModel.scaleToSeconds));
 		}
 		if (client.processTime>0) {
 			result.append(";");
 			result.append("p=");
-			result.append(NumberTools.formatNumberMax(client.processTime/1000.0));
+			result.append(NumberTools.formatNumberMax(client.processTime*simData.runModel.scaleToSeconds));
 		}
 
 		/* Kosten */
@@ -195,7 +195,7 @@ public class RunElementDisposeWithTable extends RunElement {
 	private String getOutputString(final SimulationData simData, final RunDataClient client) {
 		final StringBuilder result=new StringBuilder();
 		/* Zeitpunkt */
-		result.append(NumberTools.formatNumberMax(simData.currentTime/1000.0));
+		result.append(NumberTools.formatNumberMax(simData.currentTime*simData.runModel.scaleToSeconds));
 
 		/* Kundentyp */
 		result.append("\t");
@@ -229,17 +229,17 @@ public class RunElementDisposeWithTable extends RunElement {
 		if (client.waitingTime>0) {
 			result.append("\t");
 			result.append("w=");
-			result.append(NumberTools.formatNumberMax(client.waitingTime/1000.0));
+			result.append(NumberTools.formatNumberMax(client.waitingTime*simData.runModel.scaleToSeconds));
 		}
 		if (client.transferTime>0) {
 			result.append("\t");
 			result.append("t=");
-			result.append(NumberTools.formatNumberMax(client.transferTime/1000.0));
+			result.append(NumberTools.formatNumberMax(client.transferTime*simData.runModel.scaleToSeconds));
 		}
 		if (client.processTime>0) {
 			result.append("\t");
 			result.append("p=");
-			result.append(NumberTools.formatNumberMax(client.processTime/1000.0));
+			result.append(NumberTools.formatNumberMax(client.processTime*simData.runModel.scaleToSeconds));
 		}
 
 		/* Kosten */

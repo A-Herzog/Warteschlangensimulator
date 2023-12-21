@@ -37,7 +37,7 @@ public final class TestSimulator extends SimulatorBase {
 
 	@Override
 	protected SimData getSimDataForThread(int threadNr, int threadCount) {
-		SimData simData=new SimData(new PriorityQueueEventManager(),new ListEventCache(),threadNr,threadCount);
+		SimData simData=new SimData(new PriorityQueueEventManager(),new ListEventCache(),threadNr,threadCount,1000);
 		TestEvent.createAndAddInitialDummyEvents(initialEvents,simData,2);
 		return simData;
 	}

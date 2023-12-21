@@ -195,7 +195,7 @@ public class RunElementDecideByStation extends RunElement {
 		RunElementDecideByStationData data;
 		data=(RunElementDecideByStationData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementDecideByStationData(this,next.length);
+			data=new RunElementDecideByStationData(this,next.length,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

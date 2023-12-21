@@ -138,7 +138,7 @@ public class RunElementRelease extends RunElementPassThrough {
 		RunElementReleaseData data;
 		data=(RunElementReleaseData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementReleaseData(this,expressionDelayedRelease,simData.runModel.variableNames);
+			data=new RunElementReleaseData(this,expressionDelayedRelease,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -173,7 +173,7 @@ public class RunElementRelease extends RunElementPassThrough {
 			final long delayTimeMS;
 			if (value>0) {
 				delayTime=FastMath.max(0,value)*timeBaseMultiply;
-				delayTimeMS=FastMath.round(delayTime*1000);
+				delayTimeMS=FastMath.round(delayTime*simData.runModel.scaleToSimTime);
 			} else {
 				delayTime=0;
 				delayTimeMS=0;

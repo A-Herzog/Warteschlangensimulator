@@ -17,6 +17,7 @@ package simulator.elements;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 
 /**
  * Laufzeitdaten eines <code>RunElementInputDB</code>-Laufzeit-Objekts
@@ -33,9 +34,10 @@ public class RunElementInputDBData extends RunElementData {
 	/**
 	 * Konstruktor der Klasse <code>RunElementInputDBData</code>
 	 * @param station	Zu dem Datenobjekt zugehöriges <code>RunElementInputDB</code>-Element
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementInputDBData(final RunElement station) {
-		super(station);
+	public RunElementInputDBData(final RunElement station, final SimulationData simData) {
+		super(station,simData);
 		position=0;
 	}
 }

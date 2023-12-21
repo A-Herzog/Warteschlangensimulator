@@ -1036,7 +1036,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			recordStatus="";
 
 		}
-		final String currentTimeString=TimeTools.formatLongTime(currentTime/1000);
+		final String currentTimeString=TimeTools.formatLongTime(currentTime*simData.runModel.scaleToSeconds);
 		if (sum<=0) {
 			statusBar.setText(String.format(infoNoSum,currentTimeString,lastStatusCurrentString,recordStatus));
 		} else {
@@ -1052,7 +1052,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 */
 	private void delaySystem(final SimulationData simData, int timeStepDelay) {
 		if (lastTimeStep>0) {
-			double seconds=(simData.currentTime-lastTimeStep)/1000.0;
+			double seconds=(simData.currentTime-lastTimeStep)*simData.runModel.scaleToSeconds;
 
 			double d=(delaySystem>0)?(0.04/delaySystem):0.2;
 			d=FastMath.max(d,0.1);
@@ -2454,7 +2454,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @see AnimationJSInfoDialog
 	 */
 	private void showJSResults() {
-		new AnimationJSInfoDialog(this,logger.getJSData());
+		new AnimationJSInfoDialog(this,logger.getJSData(),simData);
 	}
 
 	/**

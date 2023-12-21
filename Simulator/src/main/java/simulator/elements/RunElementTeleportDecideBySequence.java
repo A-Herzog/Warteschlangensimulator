@@ -100,7 +100,7 @@ public class RunElementTeleportDecideBySequence extends RunElement {
 		RunElementTeleportDecideBySequenceData data;
 		data=(RunElementTeleportDecideBySequenceData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementTeleportDecideBySequenceData(this);
+			data=new RunElementTeleportDecideBySequenceData(this,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

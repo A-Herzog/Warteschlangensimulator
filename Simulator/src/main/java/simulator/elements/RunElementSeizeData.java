@@ -57,9 +57,10 @@ public class RunElementSeizeData extends RunElementData {
 	 * Konstruktor der Klasse {@link RunElementSeizeData}
 	 * @param station	Zu dem Datenobjekt zugehöriges {@link RunElementSeize}-Element
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementSeizeData(final RunElementSeize station, final String[] variableNames) {
-		super(station);
+	public RunElementSeizeData(final RunElementSeize station, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 		waitingClients=new ArrayDeque<>();
 		waitingCancelEvents=new HashMap<>();
 		blockedRessourcesCount=0;

@@ -200,7 +200,7 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 			final Rectangle viewArea=new Rectangle(0,0,surfaceSize.width,surfaceSize.height);
 			surfacePanel.paintElements(graphics,viewArea,surfacePanel.getBackgroundImageMode(),true,surfacePanel.getRaster(),surfacePanel.getColors(),surfacePanel.getBackgroundImage(),surfacePanel.getBackgroundImageHash(),surfacePanel.getBackgroundImageScale(),false);
 			surfaceAddOnPaint(graphics,surfacePanel.getZoom());
-			if (paintTimeStamp) surfacePaintTime(graphics,viewArea,surfacePanel.getZoom(),simData.currentTime/1000);
+			if (paintTimeStamp) surfacePaintTime(graphics,viewArea,surfacePanel.getZoom(),(long)Math.floor(simData.currentTime*simData.runModel.scaleToSeconds));
 		} else {
 			final int w=(int)Math.round(surfaceSize.width*scaleFrame);
 			final int h=(int)Math.round(surfaceSize.height*scaleFrame);
@@ -212,7 +212,7 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 			final Rectangle viewArea=new Rectangle(0,0,surfaceSize.width,surfaceSize.height);
 			surfacePanel.paintElements(graphics,viewArea,surfacePanel.getBackgroundImageMode(),true,surfacePanel.getRaster(),surfacePanel.getColors(),surfacePanel.getBackgroundImage(),surfacePanel.getBackgroundImageHash(),surfacePanel.getBackgroundImageScale(),false);
 			surfaceAddOnPaint(graphics,surfacePanel.getZoom());
-			if (paintTimeStamp) surfacePaintTime(graphics,viewArea,surfacePanel.getZoom(),simData.currentTime/1000);
+			if (paintTimeStamp) surfacePaintTime(graphics,viewArea,surfacePanel.getZoom(),(long)Math.floor(simData.currentTime*simData.runModel.scaleToSeconds));
 
 			image.getGraphics().drawImage(recordBigImage,0,0,w,h,null);
 		}

@@ -87,9 +87,10 @@ public class RunElementUserStatisticData extends RunElementData {
 	 * @param isContinuous	Array der Angaben, ob die Nutzerdaten diskret oder kontinuierlich erfasst werden sollen
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
 	 * @param clientTypes	Liste der Namen der Kundentypen im System
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementUserStatisticData(final RunElement station, final boolean recordModeGlobal, final boolean recordModeClientType, final String[] keys, final boolean[] isTime, final String[] expressions, final boolean[] isContinuous, final String[] variableNames, final String[] clientTypes) {
-		super(station);
+	public RunElementUserStatisticData(final RunElement station, final boolean recordModeGlobal, final boolean recordModeClientType, final String[] keys, final boolean[] isTime, final String[] expressions, final boolean[] isContinuous, final String[] variableNames, final String[] clientTypes, final SimulationData simData) {
+		super(station,simData);
 
 		this.clientTypes=clientTypes;
 

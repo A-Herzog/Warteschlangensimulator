@@ -23,6 +23,8 @@ import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.coreelements.RunElementDataWithValue;
 import simulator.runmodel.RunData;
+import simulator.runmodel.RunModel;
+import simulator.runmodel.SimulationData;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 
@@ -50,9 +52,10 @@ public class RunElementDifferentialCounterData extends RunElementData implements
 	 * @param condition	Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss
 	 * @param differentialCounterStatistic	Zugehöriger Zähler in der Statistik
 	 * @param data	Laufzeitdatenobjekt (welches das globale Zählerobjekt enthält)
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementDifferentialCounterData(final RunElement station, final String counterName, final int change, final RunCounterConditionData condition, final StatisticsMultiPerformanceIndicator differentialCounterStatistic, final RunData data) {
-		super(station);
+	public RunElementDifferentialCounterData(final RunElement station, final String counterName, final int change, final RunCounterConditionData condition, final StatisticsMultiPerformanceIndicator differentialCounterStatistic, final RunData data, final SimulationData simData) {
+		super(station,simData);
 		statistic=(StatisticsTimePerformanceIndicator)differentialCounterStatistic.get(counterName);
 		this.change=change;
 		this.condition=condition;
@@ -64,22 +67,20 @@ public class RunElementDifferentialCounterData extends RunElementData implements
 		valueIndex=nr;
 	}
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSec=1.0/1000.0;
-
 	/**
 	 * Ändert den Zählerwert und erfasst dies in der Statistik
-	 * @param time	Zeitpunkt, zu dem die Änderung erfolgt ist
-	 * @return	Neuer Wert des Zählers
+	 * @param time	Zeitpunkt, zu dem die Änderung erfolgt ist	 *
+	 * @param runModel	Laufzeitmodell
 	 * @param data	Laufzeitdatenobjekt (welches das globale Zählerobjekt enthält)
+	 * @return	Neuer Wert des Zählers
 	 */
-	public int count(final long time, final RunData data) {
+	public int count(final long time, final RunModel runModel, final RunData data) {
 		if (data.differentialCounterValue==null) data.differentialCounterValue=new int[data.differentialCounterName.size()];
 		if (data.differentialCounterValue.length<=valueIndex) data.differentialCounterValue=Arrays.copyOf(data.differentialCounterValue,data.differentialCounterName.size());
 		int value=data.differentialCounterValue[valueIndex];
 
 		value=FastMath.max(0,value+change);
-		statistic.set(time*toSec,value);
+		statistic.set(time*runModel.scaleToSeconds,value);
 
 		data.differentialCounterValue[valueIndex]=value;
 

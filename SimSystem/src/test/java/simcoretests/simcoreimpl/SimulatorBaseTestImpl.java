@@ -58,7 +58,7 @@ public class SimulatorBaseTestImpl extends SimulatorBase {
 
 	@Override
 	protected SimData getSimDataForThread(int threadNr, int threadCount) {
-		final SimData simData=new SimData(getEventManager.get(),getEventCache.get(),threadNr,threadCount);
+		final SimData simData=new SimData(getEventManager.get(),getEventCache.get(),threadNr,threadCount,1000);
 
 		final List<Event> initialEvents=initialEventGetter.apply(simData,threadNr);
 		simData.eventManager.addInitialEvents(initialEvents);

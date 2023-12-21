@@ -394,8 +394,8 @@ public class WaitPanel extends JPanel {
 				if (localSimulator.threadCount==1) {
 					final long terminationTime=localSimulator.getRunModel().terminationTime;
 					if (terminationTime>0) {
-						final long currentTime=localSimulator.getSingleThreadCurrentTime();
-						if (currentTime>0) progressPercent=(int)(currentTime/terminationTime/10);
+						final double currentSeconds=localSimulator.getSingleThreadCurrentTime();
+						if (currentSeconds>0) progressPercent=(int)(100*currentSeconds/terminationTime);
 					}
 				}
 			}

@@ -101,9 +101,10 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @param externalTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
 	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
 	 * @param bottomUp	Tabelle von unten nach oben lesen
+	 * @param scaleToSimTime	Skalierungsfaktor zur Umrechnung von Sekunden auf die Simulationszeitbasis
 	 * @return	Liefert im Erfolgsfall ein Objekt vom Typ <code>Arrival[][]</code> zurück, sonst eine Fehlermeldung (<code>String</code>)
 	 */
-	public static final Object loadTableToArrivals(final int id, final Table table, final List<String> externalTypes, final boolean numbersAreDistances, final boolean bottomUp) {
+	public static final Object loadTableToArrivals(final int id, final Table table, final List<String> externalTypes, final boolean numbersAreDistances, final boolean bottomUp, final long scaleToSimTime) {
 		final String[] types=getClientTypes(externalTypes,false);
 		final Map<String,Integer> typesMap=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		for (int i=0;i<types.length;i++) typesMap.put(types[i],i);
@@ -152,7 +153,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			final int index=I;
 
 			/* Ankunftszeit erfassen */
-			final Arrival a=new Arrival(clientType,arrivalTime);
+			final Arrival a=new Arrival(clientType,arrivalTime,scaleToSimTime);
 			final int error=a.loadData(line,2); /* Weitere Spalten laden */
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.TableFile.InvalidData"),id,i+1,error+1);
 			arrivalsList.get(index).add(a);
@@ -183,9 +184,10 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @param externalTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
 	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
 	 * @param bottomUp	Tabelle von unten nach oben lesen
+	 * @param scaleToSimTime	Skalierungsfaktor zur Umrechnung von Sekunden auf die Simulationszeitbasis
 	 * @return	Liefert im Erfolgsfall ein Objekt vom Typ <code>Arrival[][]</code> zurück, sonst eine Fehlermeldung (<code>String</code>)
 	 */
-	public static final Object loadTableToArrivals(final int id, final Table table, final String setup, final List<String> externalTypes, final boolean numbersAreDistances, final boolean bottomUp) {
+	public static final Object loadTableToArrivals(final int id, final Table table, final String setup, final List<String> externalTypes, final boolean numbersAreDistances, final boolean bottomUp, final long scaleToSimTime) {
 		final String[] types=getClientTypes(externalTypes,false);
 		final Map<String,Integer> typesMap=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		for (int i=0;i<types.length;i++) typesMap.put(types[i],i);
@@ -241,7 +243,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			final int index=I;
 
 			/* Ankunftszeit erfassen */
-			final Arrival a=new Arrival(clientType,arrivalTime);
+			final Arrival a=new Arrival(clientType,arrivalTime,scaleToSimTime);
 			final int error=a.loadData(line,heading,columnSetup); /* Weitere Spalten laden */
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.TableFile.InvalidData"),id,i+1,error+1);
 			arrivalsList.get(index).add(a);
@@ -271,14 +273,15 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @param externalTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
 	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
 	 * @param bottomUp	Tabelle von unten nach oben lesen
+	 * @param scaleToSimTime	Skalierungsfaktor zur Umrechnung von Sekunden auf die Simulationszeitbasis
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
-	protected final String loadTable(final Table table, final String setup, final List<String> externalTypes, final boolean numbersAreDistances, final boolean bottomUp) {
+	protected final String loadTable(final Table table, final String setup, final List<String> externalTypes, final boolean numbersAreDistances, final boolean bottomUp, final long scaleToSimTime) {
 		final Object result;
 		if (setup==null) {
-			result=loadTableToArrivals(id,table,externalTypes,numbersAreDistances,bottomUp);
+			result=loadTableToArrivals(id,table,externalTypes,numbersAreDistances,bottomUp,scaleToSimTime);
 		} else {
-			result=loadTableToArrivals(id,table,setup,externalTypes,numbersAreDistances,bottomUp);
+			result=loadTableToArrivals(id,table,setup,externalTypes,numbersAreDistances,bottomUp,scaleToSimTime);
 		}
 		if (result instanceof String) return (String)result;
 		arrivals=(Arrival[][])result;
@@ -292,10 +295,11 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @param externalTypes	Liste der Kundentypnamen, die berücksichtigt werden sollen
 	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
 	 * @param bottomUp	Tabelle von unten nach oben lesen
+	 * @param scaleToSimTime	Skalierungsfaktor zur Umrechnung von Sekunden auf die Simulationszeitbasis
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
-	protected final String loadTable(final Table table, final List<String> externalTypes, final boolean numbersAreDistances, final boolean bottomUp) {
-		return loadTable(table,null,externalTypes,numbersAreDistances,bottomUp);
+	protected final String loadTable(final Table table, final List<String> externalTypes, final boolean numbersAreDistances, final boolean bottomUp, final long scaleToSimTime) {
+		return loadTable(table,null,externalTypes,numbersAreDistances,bottomUp,scaleToSimTime);
 	}
 
 	/**
@@ -349,7 +353,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 		RunElementSourceExternData data;
 		data=(RunElementSourceExternData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementSourceExternData(this,clientTypes.length);
+			data=new RunElementSourceExternData(this,clientTypes.length,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -405,17 +409,18 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	 * @param client	Kunde bei dem der Wert zugewiesen werden soll
 	 * @param index	Index des Datenfeldes (nicht negativer Wert für normales Datenfeld, negativer Wert für Zeit oder Kosten)
 	 * @param value	Zuzuweisender Wert
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	private void setClientValue(final RunDataClient client, final int index, final double value) {
+	private void setClientValue(final RunDataClient client, final int index, final double value, final SimulationData simData) {
 		if (index>=0) {
 			/* Normales Kundendatenfeld */
 			client.setUserData(index,value);
 		} else {
 			/* Besonderer Wert */
 			switch (index) {
-			case -1: client.waitingTime=Math.round(value*1000); break;
-			case -2: client.transferTime=Math.round(value*1000); break;
-			case -3: client.processTime=Math.round(value*1000); break;
+			case -1: client.waitingTime=Math.round(value*simData.runModel.scaleToSimTime); break;
+			case -2: client.transferTime=Math.round(value*simData.runModel.scaleToSimTime); break;
+			case -3: client.processTime=Math.round(value*simData.runModel.scaleToSimTime); break;
 			case -4: client.waitingAdditionalCosts=value; break;
 			case -5: client.transferAdditionalCosts=value; break;
 			case -6: client.processAdditionalCosts=value; break;
@@ -458,7 +463,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			/* Einfache Zahl? */
 			final Double D=NumberTools.getPlainDouble(arrival.dataFormula[i]);
 			if (D!=null) {
-				setClientValue(newClient,arrival.dataIndex[i],D);
+				setClientValue(newClient,arrival.dataIndex[i],D,simData);
 				continue;
 			}
 
@@ -467,7 +472,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			if (data.calc.parse(arrival.dataFormula[i])<0) {
 				simData.runData.setClientVariableValues(newClient);
 				try {
-					setClientValue(newClient,arrival.dataIndex[i],data.calc.calc(simData.runData.variableValues,simData,newClient));
+					setClientValue(newClient,arrival.dataIndex[i],data.calc.calc(simData.runData.variableValues,simData,newClient),simData);
 				} catch (MathCalcError e) {
 					simData.calculationErrorStation(data.calc,this);
 				}
@@ -536,7 +541,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 	/**
 	 * Ankunftsdatensatz
 	 * @see RunElementSourceExtern#arrivals
-	 * @see RunElementSourceExtern#loadTable(Table, String, List, boolean, boolean)
+	 * @see RunElementSourceExtern#loadTable(Table, String, List, boolean, boolean, long)
 	 * @see RunElementSourceExtern#processArrivalEvent(SimulationData, boolean, int)
 	 */
 	public static class Arrival {
@@ -555,10 +560,11 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 		 * Konstruktor der Klasse
 		 * @param clientType	Kundentyp
 		 * @param time	Ankunftszeit in Sekunden
+		 * @param scaleToSimTime	Skalierungsfaktor zur Umrechnung von Sekunden auf die Simulationszeitbasis
 		 */
-		public Arrival(final String clientType, final double time) {
+		public Arrival(final String clientType, final double time, final long scaleToSimTime) {
 			this.clientType=clientType;
-			this.time=FastMath.round(time*1000);
+			this.time=FastMath.round(time*scaleToSimTime);
 		}
 
 		/**

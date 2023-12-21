@@ -250,7 +250,7 @@ public abstract class RunElement {
 		RunElementData data;
 		data=(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementData(this);
+			data=new RunElementData(this,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

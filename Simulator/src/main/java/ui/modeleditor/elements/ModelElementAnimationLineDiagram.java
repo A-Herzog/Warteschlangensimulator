@@ -89,6 +89,13 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	private long[] recordedTimeStamps;
 
 	/**
+	 * Umrechnungsfaktor von Simulationszeit zu Sekunden
+	 * @see #initAnimation(SimulationData)
+	 * @see #drawDiagramData(Graphics2D, Rectangle, double)
+	 */
+	private long scaleToSimTime;
+
+	/**
 	 * Rechenausdrücke
 	 * @see #getExpressionData()
 	 * @see #setExpressionData(List)
@@ -591,7 +598,7 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 
 			/* x-Positionen bestimmen */
 			final double maxTime=recordedTimeStamps[recordedValues.size()-1];
-			final double minTime=maxTime-timeArea*1000;
+			final double minTime=maxTime-timeArea*scaleToSimTime;
 			final double scaleX=rectangle.width/(maxTime-minTime);
 			for (int i=0;i<valuesLength;i++) drawCacheXValues[i]=rectangle.x+(int)FastMath.round((recordedTimeStamps[i]-minTime)*scaleX);
 
@@ -854,7 +861,7 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 
 				int removeCount=0;
 				size=recordedValues.size();
-				final long limitValue=simData.currentTime-timeArea*1000;
+				final long limitValue=simData.currentTime-timeArea*simData.runModel.scaleToSimTime;
 				for (int i=0;i<size;i++) {
 					long l=recordedTimeStamps[i];
 					if (l>=limitValue) break;
@@ -877,6 +884,8 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 
 	@Override
 	public void initAnimation(final SimulationData simData) {
+		scaleToSimTime=simData.runModel.scaleToSimTime;
+
 		recordedValues=null;
 		drawCacheStroke=null;
 		drawCacheColor=null;
@@ -1012,7 +1021,7 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		try {
 			for (int i=0;i<recordedDrawValues.size();i++) {
 				line=new ArrayList<>(colCount);
-				line.add(TimeTools.formatLongTime(recordedTimeStamps[i]/1000.0));
+				line.add(TimeTools.formatLongTime(recordedTimeStamps[i]*simData.runModel.scaleToSeconds));
 				for (double value: recordedValues.get(i)) line.add(NumberTools.formatNumber(value));
 				table.addLine(line);
 			}

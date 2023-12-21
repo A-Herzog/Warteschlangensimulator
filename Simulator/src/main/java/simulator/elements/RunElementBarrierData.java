@@ -21,6 +21,7 @@ import java.util.List;
 
 import simulator.coreelements.RunElementData;
 import simulator.runmodel.RunDataClient;
+import simulator.runmodel.SimulationData;
 
 /**
  * Laufzeitdaten eines {@link RunElementBarrier}-Laufzeit-Objekts
@@ -52,9 +53,10 @@ public class RunElementBarrierData extends RunElementData implements RunElementD
 	 * Konstruktor der Klasse
 	 * @param station	Station zu diesem Datenelement
 	 * @param initialClients	Anzahl an Kunden, die das Element noch direkt durchqueren dürfen (ein Wert jeweils pro Signal-Listener)
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementBarrierData(final RunElementBarrier station, final int[] initialClients) {
-		super(station);
+	public RunElementBarrierData(final RunElementBarrier station, final int[] initialClients, final SimulationData simData) {
+		super(station,simData);
 		queueLockedForPickUp=false;
 		this.initialClients=Arrays.copyOf(initialClients,initialClients.length);
 		waitingClients=new ArrayList<>();

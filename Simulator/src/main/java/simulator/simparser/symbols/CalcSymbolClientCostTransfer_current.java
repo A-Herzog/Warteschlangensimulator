@@ -17,6 +17,7 @@ package simulator.simparser.symbols;
 
 import parser.MathCalcError;
 import simulator.runmodel.RunDataClient;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.coresymbols.CalcSymbolSimData;
 
 /**
@@ -45,15 +46,16 @@ public class CalcSymbolClientCostTransfer_current extends CalcSymbolSimData {
 		return names;
 	}
 
-	/** Skalierungsfaktor zur Umrechnung von Millisekunden auf Sekunden (um zur Laufzeit eine Division einzusparen) */
-	private static final double scaleFactor=1.0/1000.0;
-
 	@Override
 	protected double calc(double[] parameters) throws MathCalcError {
 		if (parameters.length!=0) throw error();
+
+		final SimulationData simData=getSimData();
+		if (simData==null) return 0.0;
+
 		final RunDataClient client=getCurrentClient();
 		if (client==null) throw error();
 
-		return (client.transferTime*scaleFactor)*getSimData().runModel.clientCosts[client.type][1]+client.transferAdditionalCosts;
+		return (client.transferTime*simData.runModel.scaleToSeconds)*simData.runModel.clientCosts[client.type][1]+client.transferAdditionalCosts;
 	}
 }

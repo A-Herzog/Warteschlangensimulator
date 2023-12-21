@@ -27,7 +27,6 @@ import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
 import parser.MathCalcError;
-import simcore.SimData;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
@@ -174,7 +173,7 @@ public class RunElementSourceRecord {
 			distribution=DistributionTools.cloneDistribution(record.getInterarrivalTimeDistribution());
 			arrivalStart=record.getArrivalStart();
 			if (arrivalStart<0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceArrivalStart"),NumberTools.formatNumber(arrivalStart),id),RunModelCreatorStatus.Status.NEGATIVE_ARRIVAL_START_TIME);
-			arrivalStartMS=FastMath.round(arrivalStart*arrivalStartTimeBaseMultiply*1000);
+			arrivalStartMS=FastMath.round(arrivalStart*arrivalStartTimeBaseMultiply*runModel.scaleToSimTime);
 			firstArrivalAt0=record.isFirstArrivalAt0();
 			break;
 		case NEXT_EXPRESSION:
@@ -184,7 +183,7 @@ public class RunElementSourceRecord {
 			this.expression=expression;
 			arrivalStart=record.getArrivalStart();
 			if (arrivalStart<0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceArrivalStart"),NumberTools.formatNumber(arrivalStart),id),RunModelCreatorStatus.Status.NEGATIVE_ARRIVAL_START_TIME);
-			arrivalStartMS=FastMath.round(arrivalStart*arrivalStartTimeBaseMultiply*1000);
+			arrivalStartMS=FastMath.round(arrivalStart*arrivalStartTimeBaseMultiply*runModel.scaleToSimTime);
 			firstArrivalAt0=record.isFirstArrivalAt0();
 			break;
 		case NEXT_SCHEDULE:
@@ -204,7 +203,7 @@ public class RunElementSourceRecord {
 			this.conditionMinDistance=conditionMinDistance;
 			arrivalStart=record.getArrivalStart();
 			if (arrivalStart<0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceArrivalStart"),NumberTools.formatNumber(arrivalStart),id),RunModelCreatorStatus.Status.NEGATIVE_ARRIVAL_START_TIME);
-			arrivalStartMS=FastMath.round(arrivalStart*arrivalStartTimeBaseMultiply*1000);
+			arrivalStartMS=FastMath.round(arrivalStart*arrivalStartTimeBaseMultiply*runModel.scaleToSimTime);
 			break;
 		case NEXT_THRESHOLD:
 			final String thresholdExpression=record.getThresholdExpression();
@@ -460,7 +459,7 @@ public class RunElementSourceRecord {
 
 	private int scheduleNextArrivalTime(final SimulationData simData, final double rawTimeDelta, final boolean isFirstArrival, final RunElement element, final String stationName) {
 		/* Zwischenankunftszeit */
-		long timeMS=FastMath.round(1000*rawTimeDelta*timeBaseMultiply);
+		long timeMS=FastMath.round(simData.runModel.scaleToSimTime*rawTimeDelta*timeBaseMultiply);
 		if (timeMS<0) timeMS=0;
 
 		/* Bei erster Ankunft optionale Startzeit addieren */
@@ -473,7 +472,7 @@ public class RunElementSourceRecord {
 		nextArrival.init(simData.currentTime+timeMS);
 
 		/* Logging */
-		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.Info"),SimData.formatSimTime(simData.currentTime+timeMS),simData.runModel.clientTypes[clientType],stationName),element);
+		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.Info"),simData.formatScaledSimTime(simData.currentTime+timeMS),simData.runModel.clientTypes[clientType],stationName),element);
 
 		/* Konfiguration in Element eintragen */
 		nextArrival.source=element;
@@ -504,7 +503,7 @@ public class RunElementSourceRecord {
 		if (simData.currentTime==0) {
 			nextSlotNr=0;
 		} else {
-			long current=simData.currentTime/1000;
+			long current=Math.round(simData.currentTime*simData.runModel.scaleToSeconds);
 			nextSlotNr=current/duration;
 			if (current%duration!=0) nextSlotNr++;
 		}
@@ -522,7 +521,7 @@ public class RunElementSourceRecord {
 					arrivalCount++;
 
 					/* Ankunftszeitpunkt */
-					long timeMS=FastMath.round((nextSlotNr*duration+duration*DistributionRandomNumber.nextDouble())*1000);
+					long timeMS=FastMath.round((nextSlotNr*duration+duration*DistributionRandomNumber.nextDouble())*simData.runModel.scaleToSimTime);
 
 					/* Ankunfts-Event-Objekt holen */
 					final SystemArrivalEvent nextArrival=(SystemArrivalEvent)simData.getEvent(SystemArrivalEvent.class);
@@ -531,7 +530,7 @@ public class RunElementSourceRecord {
 					nextArrival.init(timeMS);
 
 					/* Logging */
-					if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.Info"),SimData.formatSimTime(timeMS),simData.runModel.clientTypes[clientType],stationName),element);
+					if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.Info"),simData.formatScaledSimTime(timeMS),simData.runModel.clientTypes[clientType],stationName),element);
 
 					/* Konfiguration in Element eintragen */
 					nextArrival.source=element;
@@ -583,7 +582,7 @@ public class RunElementSourceRecord {
 			nextArrival.init(simData.currentTime);
 
 			/* Logging */
-			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.Info"),SimData.formatSimTime(simData.currentTime),simData.runModel.clientTypes[clientType],stationName),element);
+			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.Info"),simData.formatScaledSimTime(simData.currentTime),simData.runModel.clientTypes[clientType],stationName),element);
 
 			/* Konfiguration in Element eintragen */
 			nextArrival.source=element;
@@ -626,7 +625,7 @@ public class RunElementSourceRecord {
 			intervalStartSec=0;
 			intervalIndex=0;
 		} else {
-			final long currentSec=simData.currentTime/1000;
+			final long currentSec=Math.round(simData.currentTime*simData.runModel.scaleToSeconds);
 			long intervalNr=currentSec/intervalExpressionsIntervalTime;
 			intervalStartSec=(intervalNr+1)*intervalExpressionsIntervalTime;
 			intervalIndex=(int)((intervalNr+1)%intervalExpressions.length);
@@ -656,7 +655,7 @@ public class RunElementSourceRecord {
 
 		/* Logging */
 		if (simData.loggingActive) {
-			log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.InfoMulti"),arrivalCount,SimData.formatSimTime(intervalStartSec*1000)),element);
+			log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.InfoMulti"),arrivalCount,simData.formatScaledSimTime(Math.round(intervalStartSec*simData.runModel.scaleToSimTime))),element);
 		}
 
 		/* Ankünfte generieren und verteilen */
@@ -665,11 +664,11 @@ public class RunElementSourceRecord {
 
 			/* Ausführungszeitpunkt festlegen */
 			final double rnd=DistributionRandomNumber.nextDouble();
-			final long arrivalTime=(intervalStartSec+Math.round(intervalExpressionsIntervalTime*rnd))*1000;
-			nextArrival.init(arrivalTime);
+			final long arrivalTimeMS=(intervalStartSec+Math.round(intervalExpressionsIntervalTime*rnd))*simData.runModel.scaleToSimTime;
+			nextArrival.init(arrivalTimeMS);
 
 			/* Logging */
-			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.Info"),SimData.formatSimTime(arrivalTime),simData.runModel.clientTypes[clientType],stationName),element);
+			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.Info"),simData.formatScaledSimTime(arrivalTimeMS),simData.runModel.clientTypes[clientType],stationName),element);
 
 			/* Konfiguration in Element eintragen */
 			nextArrival.source=element;
@@ -694,7 +693,7 @@ public class RunElementSourceRecord {
 	 * @return	Gibt die Anzahl an erzeugten Kundenankünften zurück
 	 */
 	private int scheduleArrivalByIntervalDistribution(final SimulationData simData, final RunElement element, final String stationName, final boolean isFirstArrival, final ExpressionCalc[] intervalDistributions, final int intervalDistributionsIntervalTime) {
-		final long currentSec=simData.currentTime/1000;
+		final long currentSec=(long)Math.floor(simData.currentTime*simData.runModel.scaleToSeconds);
 
 		/* Index des Intervalls */
 		int intervalIndex;
@@ -727,11 +726,11 @@ public class RunElementSourceRecord {
 		final SystemArrivalEvent nextArrival=(SystemArrivalEvent)simData.getEvent(SystemArrivalEvent.class);
 
 		/* Ausführungszeitpunkt festlegen */
-		final long arrivalTime=Math.round((currentSec+interArrivalTime)*1000);
+		final long arrivalTime=Math.round((currentSec+interArrivalTime)*simData.runModel.scaleToSimTime);
 		nextArrival.init(arrivalTime);
 
 		/* Logging */
-		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.Info"),SimData.formatSimTime(arrivalTime),simData.runModel.clientTypes[clientType],stationName),element);
+		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.Info"),simData.formatScaledSimTime(arrivalTime),simData.runModel.clientTypes[clientType],stationName),element);
 
 		/* Konfiguration in Element eintragen */
 		nextArrival.source=element;
@@ -821,7 +820,7 @@ public class RunElementSourceRecord {
 				} else {
 					final double arrivalTime=arrivalStream[recordData.arrivalTimeValueNext]*timeBaseMultiply;
 					recordData.arrivalTimeValueNext++;
-					rawTimeDelta=(arrivalTime-simData.currentTime/1000.0)/timeBaseMultiply; /* in scheduleNextArrivalTime wird mit timeBaseMultiply multipliziert, daher hier die Division */
+					rawTimeDelta=(arrivalTime-simData.currentTime*simData.runModel.scaleToSeconds)/timeBaseMultiply; /* in scheduleNextArrivalTime wird mit timeBaseMultiply multipliziert, daher hier die Division */
 				}
 			}
 			return scheduleNextArrivalTime(simData,rawTimeDelta,isFirstArrival,element,stationName);
@@ -913,9 +912,6 @@ public class RunElementSourceRecord {
 		return data;
 	}
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSec=1.0/1000.0;
-
 	/**
 	 * Thread-lokales Objekt mit Zuweisungsobjekten für neue Kunden
 	 * @author Alexander Herzog
@@ -979,16 +975,16 @@ public class RunElementSourceRecord {
 					}
 					break;
 				case MODE_WAITING_TIME:
-					d=client.waitingTime*toSec;
+					d=client.waitingTime*simData.runModel.scaleToSeconds;
 					break;
 				case MODE_TRANSFER_TIME:
-					d=client.transferTime*toSec;
+					d=client.transferTime*simData.runModel.scaleToSeconds;
 					break;
 				case MODE_PROCESS_TIME:
-					d=client.processTime*toSec;
+					d=client.processTime*simData.runModel.scaleToSeconds;
 					break;
 				case MODE_RESIDENCE_TIME:
-					d=client.residenceTime*toSec;
+					d=client.residenceTime*simData.runModel.scaleToSeconds;
 					break;
 				}
 
@@ -1007,19 +1003,19 @@ public class RunElementSourceRecord {
 					boolean done=false;
 					if (index==len-3) {
 						/* Pseudovariable: Wartezeit */
-						client.waitingTime=FastMath.max(0,FastMath.round(d*1000));
+						client.waitingTime=FastMath.max(0,FastMath.round(d*simData.runModel.scaleToSimTime));
 						client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 						done=true;
 					}
 					if (index==len-2) {
 						/* Pseudovariable: Transferzeit */
-						client.transferTime=FastMath.max(0,FastMath.round(d*1000));
+						client.transferTime=FastMath.max(0,FastMath.round(d*simData.runModel.scaleToSimTime));
 						client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 						done=true;
 					}
 					if (index==len-1) {
 						/* Pseudovariable: Bedienzeit */
-						client.processTime=FastMath.max(0,FastMath.round(d*1000));
+						client.processTime=FastMath.max(0,FastMath.round(d*simData.runModel.scaleToSimTime));
 						client.residenceTime=client.waitingTime+client.transferTime+client.processTime;
 						done=true;
 					}

@@ -97,10 +97,11 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 
 		final RunElementSourceExtern.Arrival[][] arrivals;
 		final Object processResult=WaitDialog.workObject(owner,()->{
+			long scaleToSimTime=model.timeStepsPerSecond;
 			if (setup==null) {
-				return RunElementSourceExtern.loadTableToArrivals(stationId,table,Arrays.asList(clientTypes),isInterarrival,false);
+				return RunElementSourceExtern.loadTableToArrivals(stationId,table,Arrays.asList(clientTypes),isInterarrival,false,scaleToSimTime);
 			} else {
-				return RunElementSourceExtern.loadTableToArrivals(stationId,table,setup,Arrays.asList(clientTypes),isInterarrival,false);
+				return RunElementSourceExtern.loadTableToArrivals(stationId,table,setup,Arrays.asList(clientTypes),isInterarrival,false,scaleToSimTime);
 			}
 		},WaitDialog.Mode.PROCESS_DATA);
 		if (processResult instanceof String) {
@@ -131,7 +132,7 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 			if (clientTypeArrivals.length==0) continue;
 			typesUsed.add(clientTypeArrivals[0].clientType);
 			tabs.addTab(Language.tr("Surface.SourceTable.Dialog.Table.Preview.TabProcessed")+" \""+clientTypeArrivals[0].clientType+"\"",tab=new JPanel(new BorderLayout()));
-			buildTableTab(tab,processTable(clientTypeArrivals),true,false);
+			buildTableTab(tab,processTable(clientTypeArrivals,1.0/model.timeStepsPerSecond),true,false);
 			if (typesUsed.size()>=MAX_PREVIEW_CLIENT_TYPES) break;
 		}
 
@@ -182,9 +183,10 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 	/**
 	 * Erzeugt aus den Ankunftsobjekten für einen Kundentyp eine Tabelle
 	 * @param arrivals	Ankunftsobjekte für einen Kundentyp
+	 * @param scaleToSeconds	Multiplikativer Faktor zur Umrechnung der Simulationszeit auf Sekunden
 	 * @return	Tabelle mit den Ankünften
 	 */
-	private Table processTable(final RunElementSourceExtern.Arrival[] arrivals) {
+	private Table processTable(final RunElementSourceExtern.Arrival[] arrivals, final double scaleToSeconds) {
 		final Table table=new Table();
 
 		/* Obermenge über alle Datenfelder aufstellen */
@@ -233,7 +235,7 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 		/* Tabelle aufbauen */
 		for (RunElementSourceExtern.Arrival arrival: arrivals) {
 			final String[] line=new String[2+countfieldsNumbers+countfieldsStrings];
-			line[0]=NumberTools.formatNumber(arrival.time/1000.0);
+			line[0]=NumberTools.formatNumber(arrival.time*scaleToSeconds);
 			line[1]=arrival.clientType;
 			for (int i=0;i<countfieldsNumbers;i++) {
 				final int nr=fieldsNumbers[i];

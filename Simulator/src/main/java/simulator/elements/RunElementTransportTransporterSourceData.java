@@ -96,9 +96,10 @@ public class RunElementTransportTransporterSourceData extends RunElementData {
 	 * @param priorityClientString	Priorität der Kunden, in einem Transport mitgenommen zu werden
 	 * @param routingExpresionStrings	Bedingungen zum Routing der Kunden (einzelne Einträge können <code>null</code> sein, wenn eine Verzweigung nach Kundentyp verwendet werden soll)
 	 * @param variableNames	Systemweite Variablennamen (zum Parsen der Prioritätsformel)
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementTransportTransporterSourceData(final RunElement station, final String priorityWaitingString, final String priorityRequestingString, final String[] priorityClientString, final String[] routingExpresionStrings, final String[] variableNames) {
-		super(station);
+	public RunElementTransportTransporterSourceData(final RunElement station, final String priorityWaitingString, final String priorityRequestingString, final String[] priorityClientString, final String[] routingExpresionStrings, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 
 		count=0;
 		moving=0;

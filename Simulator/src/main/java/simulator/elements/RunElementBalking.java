@@ -164,7 +164,7 @@ public class RunElementBalking extends RunElementPassThrough {
 		RunElementBalkingData data;
 		data=(RunElementBalkingData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementBalkingData(this,expression,simData.runModel.variableNames);
+			data=new RunElementBalkingData(this,expression,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

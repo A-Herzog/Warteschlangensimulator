@@ -71,7 +71,7 @@ public class RunElementDelayJSData extends RunElementData {
 	 * @param hasClientsList	Soll eine Liste der Kunden an der Station geführt werden?
 	 */
 	public RunElementDelayJSData(final RunElementDelayJS station, final String script, final ModelElementDecideJS.ScriptMode mode, final DynamicRunner jRunner, final SimulationData simData, final String[] variableNames, final String costs, final boolean hasClientsList) {
-		super(station);
+		super(station,simData);
 
 		/* Skript */
 		this.script=script;

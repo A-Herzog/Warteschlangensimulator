@@ -17,6 +17,7 @@ package simulator.elements;
 
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
 
 /**
@@ -46,9 +47,10 @@ public class RunElementAnimationAlarmData extends RunElementData {
 	 * @param station	Station zu diesem Datenelement
 	 * @param condition	Optionale Bedingung für die Auslösung der Sound-Ausgabe
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementAnimationAlarmData(final RunElement station, final String condition, final String[] variableNames) {
-		super(station);
+	public RunElementAnimationAlarmData(final RunElement station, final String condition, final String[] variableNames, final SimulationData simData) {
+		super(station,simData);
 
 		if (condition==null || condition.trim().isEmpty()) {
 			this.condition=null;

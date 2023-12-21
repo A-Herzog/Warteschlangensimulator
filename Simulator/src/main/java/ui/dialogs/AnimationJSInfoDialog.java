@@ -29,9 +29,9 @@ import javax.swing.JScrollPane;
 import javax.swing.ListCellRenderer;
 
 import language.Language;
-import simcore.SimData;
 import simulator.logging.CallbackLoggerWithJS;
 import simulator.logging.CallbackLoggerWithJS.JSData;
+import simulator.runmodel.SimulationData;
 import systemtools.BaseDialog;
 import ui.AnimationPanel;
 import ui.help.Help;
@@ -50,12 +50,21 @@ public class AnimationJSInfoDialog extends BaseDialog {
 	private static final long serialVersionUID = 5168396052992308637L;
 
 	/**
+	 * Simulationsdatenobjekt
+	 */
+	private final SimulationData simData;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param data	Übersicht über die Ergebnisse der letzten Skript-Ausführungen
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public AnimationJSInfoDialog(final Component owner, final List<CallbackLoggerWithJS.JSData> data) {
+	public AnimationJSInfoDialog(final Component owner, final List<CallbackLoggerWithJS.JSData> data, final SimulationData simData) {
 		super(owner,Language.tr("Animation.JSResults.Title"));
+
+		this.simData=simData;
+
 		final JPanel content=createGUI(()->Help.topicModal(this.owner,"AnimationJS"));
 
 		/* Liste */
@@ -75,7 +84,7 @@ public class AnimationJSInfoDialog extends BaseDialog {
 	/**
 	 * Renderer für einen einzelnen Eintrag in der Liste der JS-Ergebnisse.
 	 */
-	private static class JSDataListCellRenderer implements ListCellRenderer<CallbackLoggerWithJS.JSData> {
+	private class JSDataListCellRenderer implements ListCellRenderer<CallbackLoggerWithJS.JSData> {
 		/**
 		 * Standard-Zellen-Renderer;
 		 * wird in {@link #getListCellRendererComponent(JList, JSData, int, boolean, boolean)} angepasst.
@@ -112,7 +121,7 @@ public class AnimationJSInfoDialog extends BaseDialog {
 		 * @see #getListCellRendererComponent(JList, JSData, int, boolean, boolean)
 		 */
 		private void addStationInfo(final CallbackLoggerWithJS.JSData data, final StringBuilder sb) {
-			sb.append(SimData.formatSimTime(data.time));
+			sb.append(simData.formatScaledSimTime(data.time));
 			sb.append(": ");
 
 			final String colorCode;

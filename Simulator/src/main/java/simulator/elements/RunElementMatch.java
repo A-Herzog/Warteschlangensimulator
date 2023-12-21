@@ -187,7 +187,7 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 		RunElementMatchData data;
 		data=(RunElementMatchData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementMatchData(this,connectionIn.length,condition,simData.runModel.variableNames);
+			data=new RunElementMatchData(this,connectionIn.length,condition,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

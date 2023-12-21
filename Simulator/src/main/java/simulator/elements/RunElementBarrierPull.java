@@ -115,7 +115,7 @@ public class RunElementBarrierPull extends RunElementPassThrough implements Stat
 		RunElementBarrierPullData data;
 		data=(RunElementBarrierPullData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementBarrierPullData(this,nextControlledID,maxClients,simData.runModel.variableNames);
+			data=new RunElementBarrierPullData(this,nextControlledID,maxClients,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

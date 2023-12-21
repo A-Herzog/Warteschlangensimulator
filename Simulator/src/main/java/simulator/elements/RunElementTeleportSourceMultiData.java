@@ -18,6 +18,7 @@ package simulator.elements;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.runmodel.RunDataClient;
+import simulator.runmodel.SimulationData;
 
 /**
  * Laufzeitdaten eines {@link RunElementTeleportSourceMulti}-Laufzeit-Objekts
@@ -36,9 +37,10 @@ public class RunElementTeleportSourceMultiData extends RunElementData {
 	 * Konstruktor der Klasse
 	 * @param station	Station für die hier Daten vorgehalten werden sollen
 	 * @param size	Größe des {@link #newClientsList} Arrays
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementTeleportSourceMultiData(final RunElement station, final int size) {
-		super(station);
+	public RunElementTeleportSourceMultiData(final RunElement station, final int size, final SimulationData simData) {
+		super(station,simData);
 		newClientsList=new RunDataClient[size];
 	}
 }

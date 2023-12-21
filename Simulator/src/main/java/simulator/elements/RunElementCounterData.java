@@ -21,6 +21,7 @@ import java.util.List;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
 import simulator.coreelements.RunElementDataWithValue;
+import simulator.runmodel.SimulationData;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
 
@@ -82,9 +83,10 @@ public class RunElementCounterData extends RunElementData implements RunElementD
 	 * @param groupName	Name der Zählergruppe
 	 * @param condition	Zusätzliche Bedingung, die für die Zählung eines Kunden erfüllt sein muss
 	 * @param counterStatistic	Zugehöriges Statistikobjekt
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementCounterData(final RunElement station, final String counterName, final String groupName, final RunCounterConditionData condition, final StatisticsMultiPerformanceIndicator counterStatistic) {
-		super(station);
+	public RunElementCounterData(final RunElement station, final String counterName, final String groupName, final RunCounterConditionData condition, final StatisticsMultiPerformanceIndicator counterStatistic, final SimulationData simData) {
+		super(station,simData);
 		this.counterStatistic=counterStatistic;
 		this.groupName=groupName.replace('-','_');
 		groupNameExt=this.groupName+"-";

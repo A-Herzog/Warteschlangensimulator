@@ -78,9 +78,10 @@ public class RunElementTankData extends RunElementAnalogProcessingData {
 	 * @param capacity	Kapazität des Tanks
 	 * @param initialValveValues	Initialer maximalem Durchfluss (pro Sekunde) pro Ventil
 	 * @param statistics	Statistikobjekt, in dem die Größe des analogen Wertes erfasst wird
+	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementTankData(final RunElementAnalogProcessing station, final double capacity, final double[] initialValveValues, final StatisticsTimeAnalogPerformanceIndicator statistics) {
-		super(station,statistics);
+	public RunElementTankData(final RunElementAnalogProcessing station, final double capacity, final double[] initialValveValues, final StatisticsTimeAnalogPerformanceIndicator statistics, final SimulationData simData) {
+		super(station,statistics,simData);
 
 		this.capacity=capacity;
 		this.initialValveValues=initialValveValues;
@@ -297,9 +298,6 @@ public class RunElementTankData extends RunElementAnalogProcessingData {
 		}
 	}
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSec=1.0/1000.0;
-
 	/**
 	 * Bestimmt den maximalen Ausfluss über ein Ventil innerhalb einer bestimmten Zeit
 	 * @param valveNr	0-basierende Ventilnummer
@@ -310,7 +308,7 @@ public class RunElementTankData extends RunElementAnalogProcessingData {
 	public double getMaxFlowOut(final int valveNr, final long timeDeltaMS, final SimulationData simData) {
 		if (valveTimes[valveNr]>=simData.currentTime) return 0; /* Ventil ist belegt */
 
-		final double maxFlow=valveValues[valveNr]*(timeDeltaMS*toSec);
+		final double maxFlow=valveValues[valveNr]*(timeDeltaMS*simData.runModel.scaleToSeconds);
 
 		valveTimes[valveNr]=simData.currentTime;
 		return FastMath.min(value,maxFlow);
@@ -326,7 +324,7 @@ public class RunElementTankData extends RunElementAnalogProcessingData {
 	public double getMaxFlowIn(final int valveNr, final long timeDeltaMS, final SimulationData simData) {
 		if (valveTimes[valveNr]>=simData.currentTime) return 0; /* Ventil ist belegt */
 
-		final double maxFlow=valveValues[valveNr]*(timeDeltaMS*toSec);
+		final double maxFlow=valveValues[valveNr]*(timeDeltaMS*simData.runModel.scaleToSeconds);
 
 		valveTimes[valveNr]=simData.currentTime;
 		return FastMath.min(capacity-value,maxFlow);

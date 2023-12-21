@@ -260,9 +260,6 @@ public class RunDataTransporter {
 		for (RunDataTransporterFailure failures: failures) failures.scheduleDownTime(simData,simData.currentTime,logTransporterName);
 	}
 
-	/** Umrechnungsfaktor von Millisekunden auf Sekunden, um die Division während der Simulation zu vermeiden */
-	private static final double toSec=1.0/1000.0;
-
 	/**
 	 * Löst einen Transfer des Transporters aus
 	 * @param stationID	ID der Zielstation
@@ -284,7 +281,7 @@ public class RunDataTransporter {
 			transferDistance=list.getTransferDistance(type,position,stationID);
 			transferTime=list.getTransferTime(this,transferDistance,clientCount>0,simData);
 		}
-		final long transferTimeMS=FastMath.round(transferTime*1000);
+		final long transferTimeMS=FastMath.round(transferTime*simData.runModel.scaleToSimTime);
 
 		/* Start- und Zielstation bestimmen */
 		final RunElement lastStation=(position>=0)?simData.runModel.elementsFast[position]:null;
@@ -316,7 +313,7 @@ public class RunDataTransporter {
 			/* Statistik */
 			if (!simData.runData.isWarmUp) {
 				if (statisticUtilization==null) statisticUtilization=(StatisticsTimePerformanceIndicator)simData.statistics.transporterUtilization.get(list.type[type]);
-				statisticUtilization.set(simData.currentTime*toSec,list.getWorkingTransporters(type));
+				statisticUtilization.set(simData.currentTime*simData.runModel.scaleToSeconds,list.getWorkingTransporters(type));
 			}
 			/* Bewegung für Ausfall-System zählen */
 			for (RunDataTransporterFailure failure: failures) failure.countServed(clientCount,transferTimeMS,transferDistance);
@@ -345,7 +342,7 @@ public class RunDataTransporter {
 		/* Statistik */
 		if (!simData.runData.isWarmUp) {
 			if (statisticUtilization==null) statisticUtilization=(StatisticsTimePerformanceIndicator)simData.statistics.transporterUtilization.get(list.type[type]);
-			statisticUtilization.set(simData.currentTime*toSec,list.getWorkingTransporters(type));
+			statisticUtilization.set(simData.currentTime*simData.runModel.scaleToSeconds,list.getWorkingTransporters(type));
 		}
 	}
 
@@ -385,7 +382,7 @@ public class RunDataTransporter {
 
 		if (!simData.runData.isWarmUp) {
 			if (statisticDownTime==null) statisticDownTime=(StatisticsTimePerformanceIndicator)simData.statistics.transporterInDownTime.get(list.type[type]);
-			statisticDownTime.set(simData.currentTime*toSec,inDownTime);
+			statisticDownTime.set(simData.currentTime*simData.runModel.scaleToSeconds,inDownTime);
 		}
 	}
 
@@ -398,7 +395,7 @@ public class RunDataTransporter {
 
 		if (!simData.runData.isWarmUp) {
 			if (statisticDownTime==null) statisticDownTime=(StatisticsTimePerformanceIndicator)simData.statistics.transporterInDownTime.get(list.type[type]);
-			statisticDownTime.set(simData.currentTime*toSec,inDownTime);
+			statisticDownTime.set(simData.currentTime*simData.runModel.scaleToSeconds,inDownTime);
 		}
 	}
 }

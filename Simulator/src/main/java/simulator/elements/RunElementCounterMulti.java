@@ -123,7 +123,7 @@ public class RunElementCounterMulti extends RunElementPassThrough {
 		RunElementCounterMultiData data;
 		data=(RunElementCounterMultiData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementCounterMultiData(this,groupName,conditions,counterNames,counterNameElse,simData.statistics.counter,simData.runModel.variableNames);
+			data=new RunElementCounterMultiData(this,groupName,conditions,counterNames,counterNameElse,simData.statistics.counter,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;

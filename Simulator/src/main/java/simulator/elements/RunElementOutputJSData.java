@@ -85,7 +85,7 @@ public class RunElementOutputJSData extends RunElementData {
 	 * @param simData	Simulationsdatenobjekt
 	 */
 	public RunElementOutputJSData(final RunElement station, final String script, final ModelElementOutputJS.ScriptMode mode, final String scriptHeading, final ModelElementOutputJS.ScriptMode modeHeading, final DynamicRunner jRunner, final DynamicRunner jRunnerHeading, final SimulationData simData) {
-		super(station);
+		super(station,simData);
 
 		this.script=script;
 
