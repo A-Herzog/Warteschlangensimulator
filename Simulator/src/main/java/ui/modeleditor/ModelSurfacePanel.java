@@ -2539,7 +2539,7 @@ public final class ModelSurfacePanel extends JPanel {
 			for (String name: model.getModelVariableNames()) {
 				subMenu.add(item=new JMenuItem(name,Images.EXPRESSION_BUILDER_VARIABLE.getIcon()));
 				item.addActionListener(e->{
-					final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_VARIABLES,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeVariableValue.Short"));
+					final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_VARIABLES,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeVariableValue.Short")+" \""+name+"\"");
 					record.input.setMode(ModelChanger.Mode.MODE_VARIABLE);
 					record.input.setTag(name);
 					fireBuildParameterSeries(record);
