@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-11 12:16+0100\n"
+"POT-Creation-Date: 2023-12-23 18:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4264,8 +4264,11 @@ msgstr "The model is invalid and can not be simulated."
 msgid "Editor.Dialog.Tab.SimulationSystem.ErrorInfo"
 msgstr "Description of the error"
 
+msgid "Editor.Dialog.Tab.SimulationSystem.Info"
+msgstr "Information about the model and the simulation system"
+
 msgid "Editor.Dialog.Tab.SimulationSystem.InfoText"
-msgstr "This dialog page displays information about the current model. Nothing can be set here."
+msgstr "On this page settings for the internal simulation system can be changed and information about the current model are displayed."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.MultiCoreOk"
 msgstr "The simulation of the model can be parallelized over all CPU cores."
@@ -4281,6 +4284,21 @@ msgstr "The simulation of the model will be repeated %d times."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.SingleCoreOnly"
 msgstr "The simulation of the model can not be parallelized for the following reasons"
+
+msgid "Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.Error"
+msgstr "The specified number of time steps per second \"%s\" is invalid. An integer value in the range from 1000 to 1000000000 has to be specified."
+
+msgid "Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.Info"
+msgstr "Time is mapped internally in the simulation system in the form of 64-bit integers. The finer the conversion factor between the time to be displayed to the internal time base is selected, the shorter the time units that can be displayed. But also the less time can be mapped in total. If no durations of less than one millisecond need to be displayed, the default value of 1000 internal time units per second should be retained."
+
+msgid "Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.Input"
+msgstr "Time steps per second"
+
+msgid "Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.ResetToDefault"
+msgstr "Reset to default value"
+
+msgid "Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.Title"
+msgstr "Number of time steps per simulation second"
 
 msgid "Editor.Dialog.Tab.Statistics"
 msgstr "Statistics"
@@ -4733,6 +4751,9 @@ msgstr "ID of the corresponding tank"
 
 msgid "Editor.DialogBase.Search.Threshold"
 msgstr "Threshold"
+
+msgid "Editor.DialogBase.Search.TimeStepsPerSecond"
+msgstr "Number of time steps per simulation second"
 
 msgid "Editor.DialogBase.Search.TimedChecksDelta"
 msgstr "Time interval for timed condition checks"
@@ -30714,6 +30735,9 @@ msgstr "The value \"%s\" for the duration of the warm-up phase is invald. A non-
 msgid "Surface.Model.ErrorWarmUpTime"
 msgstr "The value \"%s\" for the the warm-up time is invald. A positive integer number has to be specified."
 
+msgid "Surface.Model.TimeStepsPerSecond"
+msgstr "The value \"%s\" for the number of time steps per second is invalid. A positive integer value in the range from 1000 to 1000000000 has to be specified."
+
 msgid "Surface.MultiSourceTable.Activate"
 msgstr "Activate"
 
@@ -36241,6 +36265,9 @@ msgstr "Seconds"
 
 msgid "Surface.XML.TimeBase.SecondsTab"
 msgstr "seconds"
+
+msgid "Surface.XML.TimeStepsPerSecond"
+msgstr "ModelTimeStepsPerSecond"
 
 msgid "Surface.XML.TimedChecks"
 msgstr "ModelTimedChecks"

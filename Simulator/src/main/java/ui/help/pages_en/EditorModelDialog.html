@@ -455,8 +455,30 @@ is to be recorded as the time), this option can be activated.
 <h2><img src="../images/computer.png">&nbsp; Simulation system</h2>
 
 <p>
-This page shows whether the simulation model can be parallelized across all available CPU cores or,
+On page the internal configuration of the simulation system can be changed. Additionally
+it shows whether the simulation model can be parallelized across all available CPU cores or,
 if not, which model properties prevent this.
+</p>
+
+<h3>Number of time steps per simulation second</h3>
+
+<p>
+Time is mapped internally in the simulation system in the form of 64-bit integers.
+The finer the conversion factor between the time to be displayed to the internal time base is selected, the shorter the time units that can be displayed.
+But also the less time can be mapped in total.
+If no durations of less than one millisecond need to be displayed, the default value of 1000 internal time units per second should be retained.
+</p>
+
+<p>
+More time steps per second mean shorter mappable durations. For example, with 1 billion time steps per second (which allows a resolution of one nanosecond),
+only 92 million client arrivals can be simulated at intervals of 100 seconds.
+</p>
+
+<h3>Information about the model and the simulation system</h3>
+
+<p>
+This area shows whether the model is valid and can be simulated. In the event of an error, the stations with incorrect configurations are displayed.
+In the case of a model that can be simulated, it is also shown whether the simulation can be parallelized across all available CPU cores.
 </p>
 
 </body>

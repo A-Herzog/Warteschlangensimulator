@@ -16,13 +16,23 @@
 package ui.modelproperties;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.StartAnySimulator;
 import simulator.editmodel.EditModel;
+import systemtools.MsgBox;
+import ui.images.Images;
+import ui.modeleditor.ModelElementBaseDialog;
 
 /**
  * Dialogseite "Simulationssystem"
@@ -31,6 +41,16 @@ import simulator.editmodel.EditModel;
  * @see ModelPropertiesDialogPage
  */
 public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
+	/**
+	 * Eingabefeld für die Anzahl an Zeitschritten pro Sekunde
+	 */
+	private JTextField timeStepsPerSecond;
+
+	/**
+	 * Schaltfläche zum Zurücksetzen der Anzahl an Zeitschritten pro Sekunde auf den Vorgabewert
+	 */
+	private JButton timeStepsPerSecondResetButton;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param dialog	Dialog in dem sich diese Seite befindet
@@ -42,40 +62,125 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 		super(dialog,model,readOnly,help);
 	}
 
-	@Override
-	public void build(JPanel content) {
+	/**
+	 * Liefert die Modellinformationen als html-Code
+	 * @return Modellinformationen
+	 */
+	private String getInfo() {
 		final StartAnySimulator.PrepareError error=StartAnySimulator.testModel(model,null);
-		final StringBuilder sb=new StringBuilder();
-		sb.append("<html><body style=\"margin: 10px;\">");
+		final StringBuilder result=new StringBuilder();
+		result.append("<html><body style=\"margin-top: 5px;\">");
 		if (error!=null) {
-			sb.append("<p style=\"margin-bottom: 10px\">"+Language.tr("Editor.Dialog.Tab.SimulationSystem.Error")+"</p>");
-			sb.append("<p>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.ErrorInfo")+":<br><b>"+error.error+"</b></p>");
+			result.append("<p style=\"margin-bottom: 10px\">"+Language.tr("Editor.Dialog.Tab.SimulationSystem.Error")+"</p>");
+			result.append("<p>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.ErrorInfo")+":<br><b>"+error.error+"</b></p>");
 		} else {
-			sb.append("<p style=\"margin-bottom: 10px\">"+Language.tr("Editor.Dialog.Tab.SimulationSystem.Ok")+"</p>");
+			result.append("<p style=\"margin-bottom: 10px\">"+Language.tr("Editor.Dialog.Tab.SimulationSystem.Ok")+"</p>");
 
 			java.util.List<String> infoSingleCore=model.getSingleCoreReason();
 			if (infoSingleCore==null || infoSingleCore.size()==0) {
-				sb.append("<p>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.MultiCoreOk")+"</p>");
+				result.append("<p>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.MultiCoreOk")+"</p>");
 			} else {
-				sb.append("<p>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.SingleCoreOnly")+":</p>");
-				sb.append("<ul>");
-				for (String line: infoSingleCore) sb.append("<li>"+line+"</li>");
-				sb.append("</ul>");
+				result.append("<p>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.SingleCoreOnly")+":</p>");
+				result.append("<ul>");
+				for (String line: infoSingleCore) result.append("<li>"+line+"</li>");
+				result.append("</ul>");
 			}
 		}
 
 		if (model.repeatCount>1) {
 			final String infoNoRepeat=model.getNoRepeatReason();
 			if (infoNoRepeat==null) {
-				sb.append("<p>"+String.format(Language.tr("Editor.Dialog.Tab.SimulationSystem.RepeatOk"),model.repeatCount)+"</p>");
+				result.append("<p>"+String.format(Language.tr("Editor.Dialog.Tab.SimulationSystem.RepeatOk"),model.repeatCount)+"</p>");
 			} else {
-				sb.append("<p>"+String.format(Language.tr("Editor.Dialog.Tab.SimulationSystem.RepeatNotOk"),model.repeatCount)+"<br>"+infoNoRepeat+"</p>");
+				result.append("<p>"+String.format(Language.tr("Editor.Dialog.Tab.SimulationSystem.RepeatNotOk"),model.repeatCount)+"<br>"+infoNoRepeat+"</p>");
 			}
 		}
 
-		sb.append("</body></html>");
+		result.append("</body></html>");
 
-		content.setLayout(new BorderLayout(10,10));
-		content.add(new JLabel(sb.toString()),BorderLayout.NORTH);
+		return result.toString();
+	}
+
+	@Override
+	public void build(JPanel content) {
+		JPanel sub;
+		Object[] data;
+
+		content.setLayout(new BorderLayout());
+		JPanel lines;
+		content.add(lines=new JPanel(),BorderLayout.NORTH);
+
+		lines.setLayout(new BoxLayout(lines,BoxLayout.PAGE_AXIS));
+
+		/* Zwischenüberschrift: "Anzahl an Zeitschritten pro Sekunde" */
+
+		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(new JLabel("<html><b>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.Title")+"</b></html>"));
+
+		lines.add(sub=new JPanel(new BorderLayout()));
+		sub.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
+		sub.add(new JLabel("<html>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.Info")+"</html>"));
+
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.Input")+":",""+model.timeStepsPerSecond,10);
+		sub=(JPanel)data[0];
+		lines.add(sub);
+		timeStepsPerSecond=(JTextField)data[1];
+		timeStepsPerSecond.setEditable(!readOnly);
+		addKeyListener(timeStepsPerSecond,()->checkTimeStepsPerSecond());
+
+		timeStepsPerSecondResetButton=new JButton(Images.EDIT_UNDO.getIcon());
+		timeStepsPerSecondResetButton.setToolTipText(Language.tr("Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.ResetToDefault"));
+		timeStepsPerSecondResetButton.addActionListener(e->{
+			timeStepsPerSecond.setText("1000");
+			checkTimeStepsPerSecond();
+		});
+		sub.add(timeStepsPerSecondResetButton);
+
+		checkTimeStepsPerSecond();
+
+		/* Zwischenüberschrift: "Informationen zum Modell" */
+
+		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(new JLabel("<html><b>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.Info")+"</b></html>"));
+
+		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(new JLabel(getInfo()));
+	}
+
+	/**
+	 * Prüft die Eingaben im Anzahl an Zeitschritten pro Sekunde Eingabefeld
+	 * @return	Liefert <code>true</code>, wenn der eingestellte Wert gültig ist
+	 */
+	private boolean checkTimeStepsPerSecond() {
+		final Long L=NumberTools.getNotNegativeLong(timeStepsPerSecond,true);
+		if (L==null) {
+			timeStepsPerSecondResetButton.setEnabled(true);
+			return false;
+		}
+
+		if (L<1000 || L>1_000_000_000) {
+			timeStepsPerSecond.setBackground(Color.RED);
+			timeStepsPerSecondResetButton.setEnabled(true);
+			return false;
+		}
+
+		timeStepsPerSecondResetButton.setEnabled(L!=1000);
+		return true;
+	}
+
+	@Override
+	public boolean checkData() {
+		if (!checkTimeStepsPerSecond()) {
+			MsgBox.error(dialog,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.Error"),timeStepsPerSecond.getText()));
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
+	public void storeData() {
+		final Long L=NumberTools.getNotNegativeLong(timeStepsPerSecond,true);
+		if (L!=null) model.timeStepsPerSecond=L.longValue();
 	}
 }

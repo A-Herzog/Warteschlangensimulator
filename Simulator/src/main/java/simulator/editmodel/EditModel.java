@@ -488,6 +488,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		transporters=new ModelTransporters();
 		pathSegments=new ModelPaths();
 		animationImages=new ModelAnimationImages();
+		timeStepsPerSecond=1000;
 		distributionRecordHours=1;
 		distributionRecordClientDataValues=100;
 		stoppOnCalcError=false;
@@ -581,6 +582,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		transporters.clear();
 		pathSegments.clear();
 		animationImages.clear();
+		timeStepsPerSecond=1000;
 		distributionRecordHours=1;
 		distributionRecordClientDataValues=10000;
 		stoppOnCalcError=false;
@@ -652,6 +654,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.transporters.setDataFrom(transporters);
 		clone.pathSegments.setDataFrom(pathSegments);
 		clone.animationImages.setDataFrom(animationImages);
+		clone.timeStepsPerSecond=timeStepsPerSecond;
 		clone.distributionRecordHours=distributionRecordHours;
 		clone.distributionRecordClientDataValues=distributionRecordClientDataValues;
 		clone.stoppOnCalcError=stoppOnCalcError;
@@ -739,6 +742,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (!transporters.equalsModelTransporters(otherModel.transporters)) return false;
 		if (!pathSegments.equalsModelPaths(otherModel.pathSegments)) return false;
 		if (!animationImages.equalsModelAnimationImages(otherModel.animationImages)) return false;
+		if (timeStepsPerSecond!=otherModel.timeStepsPerSecond) return false;
 		if (distributionRecordHours!=otherModel.distributionRecordHours) return false;
 		if (distributionRecordClientDataValues!=otherModel.distributionRecordClientDataValues) return false;
 		if (stoppOnCalcError!=otherModel.stoppOnCalcError) return false;
@@ -1052,6 +1056,13 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			return null;
 		}
 
+		if (Language.trAll("Surface.XML.TimeStepsPerSecond",name)) {
+			final Long L=NumberTools.getNotNegativeLong(text);
+			if (L==null || L.longValue()<1000 || L.longValue()>1_000_000_000) return String.format(Language.tr("Surface.Model.TimeStepsPerSecond"),text);
+			timeStepsPerSecond=L.longValue();
+			return null;
+		}
+
 		if (Language.trAll("Surface.XML.DistributionRecordHours",name)) {
 			final Long L=NumberTools.getNotNegativeLong(text);
 			if (L==null) return String.format(Language.tr("Surface.Model.DistributionRecordHours"),text);
@@ -1346,6 +1357,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		transporters.addDataToXML(doc,node);
 		pathSegments.addDataToXML(doc,node);
 		animationImages.addDataToXML(doc,node);
+
+		if (timeStepsPerSecond!=1000) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.TimeStepsPerSecond")));
+			sub.setTextContent(""+timeStepsPerSecond);
+		}
 
 		if (distributionRecordHours!=1) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.DistributionRecordHours")));
@@ -1826,6 +1842,9 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		/* Hintergrundbild */
 		searcher.testDouble(Language.tr("Editor.DialogBase.Search.BackgroundImageScaling"),surfaceBackgroundImageScale,newSurfaceBackgroundImageScale->{if (newSurfaceBackgroundImageScale>0) surfaceBackgroundImageScale=newSurfaceBackgroundImageScale;});
+
+		/* Anzahl an simulationsinternen Zeitschritten pro Sekunde */
+		searcher.testLong(Language.tr("Editor.DialogBase.Search.TimeStepsPerSecond"),timeStepsPerSecond,newTimeStepsPerSecond->{if (newTimeStepsPerSecond>=1000 && newTimeStepsPerSecond<=1_000_000_000) timeStepsPerSecond=newTimeStepsPerSecond;});
 
 		/* Maximaler Sekundenwert für die Verteilungsstatistik (Angabe in Stunden) */
 		searcher.testInteger(Language.tr("Editor.DialogBase.Search.MaximumDistributionHours"),distributionRecordHours,newDistributionRecordHours->{if (newDistributionRecordHours>=0) distributionRecordHours=newDistributionRecordHours;});

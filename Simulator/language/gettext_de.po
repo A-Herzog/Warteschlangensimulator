@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-11 12:16+0100\n"
+"POT-Creation-Date: 2023-12-23 18:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4271,8 +4271,11 @@ msgstr "Das Modell ist fehlerhalt und kann nicht simuliert werden."
 msgid "Editor.Dialog.Tab.SimulationSystem.ErrorInfo"
 msgstr "Beschreibung des Fehlers"
 
+msgid "Editor.Dialog.Tab.SimulationSystem.Info"
+msgstr "Informationen zum Modell und zum Simulationssystem"
+
 msgid "Editor.Dialog.Tab.SimulationSystem.InfoText"
-msgstr "Auf dieser Dialogseite werden Informationen zum aktuellen Modell angezeigt. Hier kann nichts eingestellt werden."
+msgstr "Auf dieser Dialogseite können Einstellungen zu dem internen Ablauf der Simulation vorgenommen werden und es werden Informationen zum aktuellen Modell angezeigt."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.MultiCoreOk"
 msgstr "Die Simulation des Modells kann über alle CPU-Kerne parallelisiert werden."
@@ -4288,6 +4291,21 @@ msgstr "Die Simulation des Modells wird %d mal wiederholt."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.SingleCoreOnly"
 msgstr "Die Simulation des Modells kann aus folgenden Gründen nicht parallelisiert werden"
+
+msgid "Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.Error"
+msgstr "Die angegebene Anzahl an Zeitschritten pro Sekunde \"%s\" ist ungültig. Es muss eine Ganzzahl im Bereich von 1000 bis 1000000000 angegeben werden."
+
+msgid "Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.Info"
+msgstr "Die Zeit wird im Simulationssystem intern in Form von 64-Bit Ganzzahlen abgebildet. Je feiner der Umrechnungsfaktor von darzustellender Zeit zu der internen Zeitbasis gewählt wird, desto kürzere Zeiteinheiten können abgebildet werden. Aber auch desto weniger Zeit kann insgesamt abgebildet werden. Sofern keine Zeitdauern unterhalb einer Millisekunde abgebildet werden müssen, sollte der Vorgabewert von 1000 internen Zeiteinheiten pro Sekunde beibehalten werden."
+
+msgid "Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.Input"
+msgstr "Zeitschritte pro Sekunde"
+
+msgid "Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.ResetToDefault"
+msgstr "Auf Vorgabewert zurücksetzen"
+
+msgid "Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.Title"
+msgstr "Anzahl an Zeitschritten pro Simulationssekunde"
 
 msgid "Editor.Dialog.Tab.Statistics"
 msgstr "Statistik"
@@ -4740,6 +4758,9 @@ msgstr "ID des zugehörigen Tanks"
 
 msgid "Editor.DialogBase.Search.Threshold"
 msgstr "Schwellenwert"
+
+msgid "Editor.DialogBase.Search.TimeStepsPerSecond"
+msgstr "Anzahl an Zeitschritten pro Simulationssekunde"
 
 msgid "Editor.DialogBase.Search.TimedChecksDelta"
 msgstr "Zeitabstand für regelmäßige Bedinungsprüfungen"
@@ -30763,6 +30784,9 @@ msgstr "Der angegebene Wert \"%s\" für die Dauer der Aufwärmphase ist ungülti
 msgid "Surface.Model.ErrorWarmUpTime"
 msgstr "Der angegebene Wert \"%s\" für die Zeitdauer der Aufwärmphase ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
 
+msgid "Surface.Model.TimeStepsPerSecond"
+msgstr "Der angegebene Wert \"%s\" für die Anzahl Zeitschritten pro Sekunde ist ungültig. Es muss eine positive Ganzzahl im Bereich von 1000 bis 1000000000 angegeben werden."
+
 msgid "Surface.MultiSourceTable.Activate"
 msgstr "Aktivieren"
 
@@ -36294,6 +36318,9 @@ msgstr "Sekunden"
 
 msgid "Surface.XML.TimeBase.SecondsTab"
 msgstr "Sekunden"
+
+msgid "Surface.XML.TimeStepsPerSecond"
+msgstr "ModellZeitschritteProSekunde"
 
 msgid "Surface.XML.TimedChecks"
 msgstr "ModellZeitabhaengigePruefungen"

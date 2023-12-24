@@ -466,8 +466,30 @@ verwendet werden soll), so kann diese Option aktiviert werden.
 <h2><img src="../images/computer.png">&nbsp; Simulationssystem</h2>
 
 <p>
-Auf dieser Seite wird angezeigt, ob das Simulationsmodell über alle verfügbaren CPU-Kerne parallelisiert werden kann
+Auf dieser Seite können Einstellungen zum internen Ablauf der Simulation vorgenommen werden und es 
+wird angezeigt, ob das Simulationsmodell über alle verfügbaren CPU-Kerne parallelisiert werden kann
 oder, wenn nicht, welche Modelleigenschaften dies verhindern.
+</p>
+
+<h3>Anzahl an Zeitschritten pro Simulationssekunde</h3>
+
+<p>
+Die Zeit wird im Simulationssystem intern in Form von 64-Bit Ganzzahlen abgebildet. 
+Je feiner der Umrechnungsfaktor von darzustellender Zeit zu der internen Zeitbasis gewählt wird, desto kürzere Zeiteinheiten können abgebildet werden.
+Aber auch desto weniger Zeit kann insgesamt abgebildet werden.
+Sofern keine Zeitdauern unterhalb einer Millisekunde abgebildet werden müssen, sollte der Vorgabewert von 1000 internen Zeiteinheiten pro Sekunde beibehalten werden.
+</p>
+
+<p>
+Mehr Zeitschritte pro Sekunde bedeuten geringere abbildbare Zeitdauern. So können z.B. bei 1 Mrd. Zeitschritten pro Sekunde
+(womit einer Auflösung einer Nanosekunde möglich ist) nur noch 92 Mio. Kundenankünfte im Abstand von 100 Sekunden simuliert werden.
+</p>
+
+<h3>Informationen zum Modell und zum Simulationssystem</h3>
+
+<p>
+In diesem Bereich wird angezeigt, ob das Modell valide ist und simuliert werden kann. Im Fehlerfall wird angezeigt, an welchen Stationen Fehlkonfigurationen vorliegen.
+Im Falle eines simulierbaren Modells wird außerdem angezeigt, ob die Simulation über alle verfügbaren CPU-Kerne parallelisiert werden kann.
 </p>
 
 </body>
