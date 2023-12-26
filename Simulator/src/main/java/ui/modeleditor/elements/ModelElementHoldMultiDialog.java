@@ -28,6 +28,7 @@ import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -64,6 +65,11 @@ public class ModelElementHoldMultiDialog extends ModelElementBaseDialog {
 	 * Option: Bedingung zusätzlich zeitgesteuert prüfen
 	 */
 	private JCheckBox useTimedChecks;
+
+	/**
+	 * Auswahlbox für die Art der Erfassung der Verzögerungszeit
+	 */
+	private JComboBox<String> processTimeType;
 
 	/**
 	 * Konstruktor der Klasse
@@ -161,10 +167,29 @@ public class ModelElementHoldMultiDialog extends ModelElementBaseDialog {
 
 		getConditions(false);
 
-		final JPanel line;
+		JPanel line;
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(useTimedChecks=new JCheckBox(Language.tr("Surface.HoldMulti.Dialog.TimeBasedCheck"),holdMulti.isUseTimedChecks()));
 		useTimedChecks.setEnabled(!readOnly);
+
+		JLabel label;
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel(Language.tr("Surface.HoldMulti.Dialog.HoldTimeIs")));
+		line.add(processTimeType=new JComboBox<>(new String[]{
+				Language.tr("Surface.HoldMulti.Dialog.HoldTimeIs.WaitingTime"),
+				Language.tr("Surface.HoldMulti.Dialog.HoldTimeIs.TransferTime"),
+				Language.tr("Surface.HoldMulti.Dialog.HoldTimeIs.ProcessTime"),
+				Language.tr("Surface.HoldMulti.Dialog.HoldTimeIs.Nothing")
+		}));
+
+		processTimeType.setEnabled(!readOnly);
+		switch (holdMulti.getDelayType()) {
+		case DELAY_TYPE_WAITING: processTimeType.setSelectedIndex(0); break;
+		case DELAY_TYPE_TRANSFER: processTimeType.setSelectedIndex(1); break;
+		case DELAY_TYPE_PROCESS: processTimeType.setSelectedIndex(2); break;
+		case DELAY_TYPE_NOTHING: processTimeType.setSelectedIndex(3); break;
+		}
+		label.setLabelFor(processTimeType);
 
 		return content;
 	}
@@ -225,6 +250,13 @@ public class ModelElementHoldMultiDialog extends ModelElementBaseDialog {
 			if (c!=null) for (int i=0;i<edges.length;i++) conditionsMap.put(edges[i].getId(),c.get(i));
 
 			holdMulti.setUseTimedChecks(useTimedChecks.isSelected());
+
+			switch (processTimeType.getSelectedIndex()) {
+			case 0: holdMulti.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_WAITING); break;
+			case 1: holdMulti.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_TRANSFER); break;
+			case 2: holdMulti.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_PROCESS); break;
+			case 3: holdMulti.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_NOTHING); break;
+			}
 		}
 	}
 }

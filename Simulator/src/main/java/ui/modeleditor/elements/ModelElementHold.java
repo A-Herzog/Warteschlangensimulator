@@ -45,6 +45,7 @@ import ui.modeleditor.coreelements.ModelElementMultiInSingleOutBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
+import ui.modeleditor.elements.ModelElementDelay.DelayType;
 import ui.modeleditor.fastpaint.Shapes;
 
 /**
@@ -86,6 +87,13 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	private boolean useTimedChecks;
 
 	/**
+	 * Art wie die Verzögerung für die Kundenstatistik gezählt werden soll
+	 * @see #getDelayType()
+	 * @see #setDelayType(DelayType)
+	 */
+	private ModelElementDelay.DelayType delayType;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementHold</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -96,6 +104,7 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		priority=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		clientBasedCheck=false;
 		useTimedChecks=false;
+		delayType=DelayType.DELAY_TYPE_WAITING;
 	}
 
 	/**
@@ -185,6 +194,22 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	}
 
 	/**
+	 * Gibt an, ob die Wartezeiten als Bedienzeiten, Transferzeiten oder als Wartezeiten gezählt werden sollen.
+	 * @return	Gibt den Typ der Verzögerung zurück.
+	 */
+	public ModelElementDelay.DelayType getDelayType() {
+		return delayType;
+	}
+
+	/**
+	 * Stellt ein, ob die Wartezeiten als Bedienzeiten, Transferzeiten oder als Wartezeiten gezählt werden sollen.
+	 * @param delayType	Art der Verzögerung
+	 */
+	public void setDelayType(final ModelElementDelay.DelayType delayType) {
+		this.delayType=delayType;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -193,14 +218,14 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementHold)) return false;
-		final ModelElementHold hold=(ModelElementHold)element;
+		final ModelElementHold otherHold=(ModelElementHold)element;
 
 		/* Bedingung */
-		if (!hold.condition.equalsIgnoreCase(condition)) return false;
+		if (!otherHold.condition.equalsIgnoreCase(condition)) return false;
 
 		/* Prioritäten */
 		Map<String,String> priorityA=priority;
-		Map<String,String> priorityB=hold.priority;
+		Map<String,String> priorityB=otherHold.priority;
 		for (Map.Entry<String,String> entry : priorityA.entrySet()) {
 			if (!entry.getValue().equals(priorityB.get(entry.getKey()))) return false;
 		}
@@ -209,10 +234,13 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		}
 
 		/* Individuelle kundenbasierende Prüfung */
-		if (hold.clientBasedCheck!=clientBasedCheck) return false;
+		if (otherHold.clientBasedCheck!=clientBasedCheck) return false;
 
 		/* Regelmäßige Prüfung der Bedingung */
-		if (hold.useTimedChecks!=useTimedChecks) return false;
+		if (otherHold.useTimedChecks!=useTimedChecks) return false;
+
+		/* Erfassung der Aufenthaltszeit */
+		if (otherHold.delayType!=delayType) return false;
 
 		return true;
 	}
@@ -225,21 +253,24 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	public void copyDataFrom(final ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementHold) {
-			final ModelElementHold hold=(ModelElementHold)element;
+			final ModelElementHold copySource=(ModelElementHold)element;
 
 			/* Bedingung */
-			condition=hold.condition;
+			condition=copySource.condition;
 
 			/* Prioritäten */
 			priority.clear();
-			for (Map.Entry<String,String> entry: hold.priority.entrySet()) priority.put(entry.getKey(),entry.getValue());
+			for (Map.Entry<String,String> entry: copySource.priority.entrySet()) priority.put(entry.getKey(),entry.getValue());
 
 
 			/* Individuelle kundenbasierende Prüfung */
-			clientBasedCheck=((ModelElementHold)element).clientBasedCheck;
+			clientBasedCheck=copySource.clientBasedCheck;
 
 			/* Regelmäßige Prüfung der Bedingung */
-			useTimedChecks=((ModelElementHold)element).useTimedChecks;
+			useTimedChecks=copySource.useTimedChecks;
+
+			/* Erfassung der Aufenthaltszeit */
+			delayType=copySource.delayType;
 		}
 	}
 
@@ -388,6 +419,20 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		sub.setTextContent(condition);
 		if (clientBasedCheck) sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.ClientBased"),"1");
 		if (useTimedChecks) sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.TimedChecks"),"1");
+		switch (delayType) {
+		case DELAY_TYPE_WAITING:
+			sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.TimeType"),Language.trPrimary("Surface.Hold.XML.Condition.TimeType.WaitingTime"));
+			break;
+		case DELAY_TYPE_TRANSFER:
+			sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.TimeType"),Language.trPrimary("Surface.Hold.XML.Condition.TimeType.TransferTime"));
+			break;
+		case DELAY_TYPE_PROCESS:
+			sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.TimeType"),Language.trPrimary("Surface.Hold.XML.Condition.TimeType.ProcessTime"));
+			break;
+		case DELAY_TYPE_NOTHING:
+			sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.TimeType"),Language.trPrimary("Surface.Hold.XML.Condition.TimeType.Nothing"));
+			break;
+		}
 
 		for (Map.Entry<String,String> entry : priority.entrySet()) if (entry.getValue()!=null) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Process.XML.Priority")));
@@ -414,6 +459,11 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 			if (clientBasedCheckString.equals("1")) clientBasedCheck=true;
 			final String useTimedChecksString=Language.trAllAttribute("Surface.Hold.XML.Condition.TimedChecks",node);
 			if (useTimedChecksString.equals("1")) useTimedChecks=true;
+			final String type=Language.trAllAttribute("Surface.Hold.XML.Condition.TimeType",node);
+			if (Language.trAll("Surface.Hold.XML.Condition.TimeType.WaitingTime",type)) delayType=DelayType.DELAY_TYPE_WAITING;
+			if (Language.trAll("Surface.Hold.XML.Condition.TimeType.TransferTime",type)) delayType=DelayType.DELAY_TYPE_TRANSFER;
+			if (Language.trAll("Surface.Hold.XML.Condition.TimeType.ProcessTime",type)) delayType=DelayType.DELAY_TYPE_PROCESS;
+			if (Language.trAll("Surface.Hold.XML.Condition.TimeType.Nothing",type)) delayType=DelayType.DELAY_TYPE_NOTHING;
 			return null;
 		}
 
@@ -478,6 +528,22 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 			} else {
 				descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.Hold.ClientTypePriority"),clientType),DEFAULT_CLIENT_PRIORITY,8000);
 			}
+		}
+
+		/* Verzögerung erfassen als ... */
+		switch (delayType) {
+		case DELAY_TYPE_WAITING:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Waiting"),9000);
+			break;
+		case DELAY_TYPE_TRANSFER:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Transfer"),9000);
+			break;
+		case DELAY_TYPE_PROCESS:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Process"),9000);
+			break;
+		case DELAY_TYPE_NOTHING:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Nothing"),9000);
+			break;
 		}
 	}
 

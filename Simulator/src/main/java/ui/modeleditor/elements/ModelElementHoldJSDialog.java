@@ -28,6 +28,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -59,6 +60,8 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 	private JCheckBox useTimedChecks;
 	/** Eingabefeld für die optionale Bedingung für die Skriptausführung */
 	private JTextField condition;
+	/** Auswahlbox für die Art der Erfassung der Verzögerungszeit */
+	private JComboBox<String> processTimeType;
 
 	/**
 	 * Konstruktor der Klasse
@@ -115,6 +118,25 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 			condition.addKeyListener(new KeyAdapter() {
 				@Override public void keyReleased(KeyEvent e) {checkCondition(false);}
 			});
+
+			JLabel label;
+			setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(label=new JLabel(Language.tr("Surface.HoldJS.Dialog.HoldTimeIs")));
+			line.add(processTimeType=new JComboBox<>(new String[]{
+					Language.tr("Surface.HoldJS.Dialog.HoldTimeIs.WaitingTime"),
+					Language.tr("Surface.HoldJS.Dialog.HoldTimeIs.TransferTime"),
+					Language.tr("Surface.HoldJS.Dialog.HoldTimeIs.ProcessTime"),
+					Language.tr("Surface.HoldJS.Dialog.HoldTimeIs.Nothing")
+			}));
+
+			processTimeType.setEnabled(!readOnly);
+			switch (holdJS.getDelayType()) {
+			case DELAY_TYPE_WAITING: processTimeType.setSelectedIndex(0); break;
+			case DELAY_TYPE_TRANSFER: processTimeType.setSelectedIndex(1); break;
+			case DELAY_TYPE_PROCESS: processTimeType.setSelectedIndex(2); break;
+			case DELAY_TYPE_NOTHING: processTimeType.setSelectedIndex(3); break;
+			}
+			label.setLabelFor(processTimeType);
 
 			return content;
 		} else {
@@ -191,6 +213,13 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 			holdJS.setOnlyCheckOnArrival(onlyCheckOnArrival.getSelectedIndex()==1);
 			holdJS.setUseTimedChecks(useTimedChecks.isSelected());
 			holdJS.setCondition(condition.getText());
+
+			switch (processTimeType.getSelectedIndex()) {
+			case 0: holdJS.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_WAITING); break;
+			case 1: holdJS.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_TRANSFER); break;
+			case 2: holdJS.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_PROCESS); break;
+			case 3: holdJS.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_NOTHING); break;
+			}
 		}
 	}
 }

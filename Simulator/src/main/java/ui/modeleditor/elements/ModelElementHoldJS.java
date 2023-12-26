@@ -42,6 +42,8 @@ import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementMultiInSingleOutBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.coreelements.QuickFixNextElements;
+import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
+import ui.modeleditor.elements.ModelElementDelay.DelayType;
 import ui.modeleditor.fastpaint.Shapes;
 
 /**
@@ -85,6 +87,13 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	private boolean onlyCheckOnArrival;
 
 	/**
+	 * Art wie die Verzögerung für die Kundenstatistik gezählt werden soll
+	 * @see #getDelayType()
+	 * @see #setDelayType(DelayType)
+	 */
+	private ModelElementDelay.DelayType delayType;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementHoldJS</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -96,6 +105,7 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 		mode=ScriptMode.Javascript;
 		useTimedChecks=false;
 		onlyCheckOnArrival=false;
+		delayType=DelayType.DELAY_TYPE_WAITING;
 	}
 
 	/**
@@ -203,6 +213,22 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	}
 
 	/**
+	 * Gibt an, ob die Wartezeiten als Bedienzeiten, Transferzeiten oder als Wartezeiten gezählt werden sollen.
+	 * @return	Gibt den Typ der Verzögerung zurück.
+	 */
+	public ModelElementDelay.DelayType getDelayType() {
+		return delayType;
+	}
+
+	/**
+	 * Stellt ein, ob die Wartezeiten als Bedienzeiten, Transferzeiten oder als Wartezeiten gezählt werden sollen.
+	 * @param delayType	Art der Verzögerung
+	 */
+	public void setDelayType(final ModelElementDelay.DelayType delayType) {
+		this.delayType=delayType;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -211,13 +237,16 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementHoldJS)) return false;
-		final ModelElementHoldJS copySource=(ModelElementHoldJS)element;
+		final ModelElementHoldJS otherHold=(ModelElementHoldJS)element;
 
-		if (!copySource.condition.equalsIgnoreCase(condition)) return false;
-		if (!copySource.script.equalsIgnoreCase(script)) return false;
-		if (copySource.mode!=mode) return false;
-		if (copySource.useTimedChecks!=useTimedChecks) return false;
-		if (copySource.onlyCheckOnArrival!=onlyCheckOnArrival) return false;
+		if (!otherHold.condition.equalsIgnoreCase(condition)) return false;
+		if (!otherHold.script.equalsIgnoreCase(script)) return false;
+		if (otherHold.mode!=mode) return false;
+		if (otherHold.useTimedChecks!=useTimedChecks) return false;
+		if (otherHold.onlyCheckOnArrival!=onlyCheckOnArrival) return false;
+
+		/* Erfassung der Aufenthaltszeit */
+		if (otherHold.delayType!=delayType) return false;
 
 		return true;
 	}
@@ -230,12 +259,13 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementHoldJS) {
-			final ModelElementHoldJS source=(ModelElementHoldJS)element;
-			condition=source.condition;
-			script=source.script;
-			mode=source.mode;
-			useTimedChecks=source.useTimedChecks;
-			onlyCheckOnArrival=source.onlyCheckOnArrival;
+			final ModelElementHoldJS copySource=(ModelElementHoldJS)element;
+			condition=copySource.condition;
+			script=copySource.script;
+			mode=copySource.mode;
+			useTimedChecks=copySource.useTimedChecks;
+			onlyCheckOnArrival=copySource.onlyCheckOnArrival;
+			delayType=copySource.delayType;
 		}
 	}
 
@@ -391,8 +421,25 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 			sub.setAttribute(Language.trPrimary("Surface.HoldJS.XML.Condition.Language"),Language.trPrimary("Surface.HoldJS.XML.Condition.Javascript"));
 			break;
 		}
+
 		if (useTimedChecks) sub.setAttribute(Language.trPrimary("Surface.HoldJS.XML.Condition.TimedChecks"),"1");
 		if (onlyCheckOnArrival) sub.setAttribute(Language.trPrimary("Surface.HoldJS.XML.Condition.OnlyCheckOnArrival"),"1");
+
+		switch (delayType) {
+		case DELAY_TYPE_WAITING:
+			sub.setAttribute(Language.trPrimary("Surface.HoldJS.XML.Condition.TimeType"),Language.trPrimary("Surface.HoldJS.XML.Condition.TimeType.WaitingTime"));
+			break;
+		case DELAY_TYPE_TRANSFER:
+			sub.setAttribute(Language.trPrimary("Surface.HoldJS.XML.Condition.TimeType"),Language.trPrimary("Surface.HoldJS.XML.Condition.TimeType.TransferTime"));
+			break;
+		case DELAY_TYPE_PROCESS:
+			sub.setAttribute(Language.trPrimary("Surface.HoldJS.XML.Condition.TimeType"),Language.trPrimary("Surface.HoldJS.XML.Condition.TimeType.ProcessTime"));
+			break;
+		case DELAY_TYPE_NOTHING:
+			sub.setAttribute(Language.trPrimary("Surface.HoldJS.XML.Condition.TimeType"),Language.trPrimary("Surface.HoldJS.XML.Condition.TimeType.Nothing"));
+			break;
+		}
+
 		sub.setTextContent(script);
 	}
 
@@ -426,6 +473,12 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 			final String onlyCheckOnArrivalString=Language.trAllAttribute("Surface.HoldJS.XML.Condition.OnlyCheckOnArrival",node);
 			if (onlyCheckOnArrivalString.equals("1")) onlyCheckOnArrival=true;
 
+			final String type=Language.trAllAttribute("Surface.HoldJS.XML.Condition.TimeType",node);
+			if (Language.trAll("Surface.HoldJS.XML.Condition.TimeType.WaitingTime",type)) delayType=DelayType.DELAY_TYPE_WAITING;
+			if (Language.trAll("Surface.HoldJS.XML.Condition.TimeType.TransferTime",type)) delayType=DelayType.DELAY_TYPE_TRANSFER;
+			if (Language.trAll("Surface.HoldJS.XML.Condition.TimeType.ProcessTime",type)) delayType=DelayType.DELAY_TYPE_PROCESS;
+			if (Language.trAll("Surface.HoldJS.XML.Condition.TimeType.Nothing",type)) delayType=DelayType.DELAY_TYPE_NOTHING;
+
 			return null;
 		}
 
@@ -451,6 +504,51 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 	@Override
 	public String getHelpPageName() {
 		return "ModelElementHoldJS";
+	}
+
+	/**
+	 * Erstellt eine Beschreibung für das aktuelle Element
+	 * @param descriptionBuilder	Description-Builder, der die Beschreibungsdaten zusammenfasst
+	 */
+	@Override
+	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
+		super.buildDescription(descriptionBuilder);
+
+		/* Skriptsprache */
+		switch (mode) {
+		case Javascript:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.HoldJS.Mode"),Language.tr("ModelDescription.Expression.Javascript"),1000);
+			break;
+		case Java:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.HoldJS.Mode"),Language.tr("ModelDescription.Expression.Java"),1000);
+			break;
+		}
+
+		/* Zeitabhängige Prüfungen */
+		if (useTimedChecks) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.HoldJS.useTimedChecks"),Language.tr("ModelDescription.HoldJS.useTimedChecks.Yes"),2000);
+		}
+
+		/* Nur bei Kundenankunft prüfen? */
+		if (onlyCheckOnArrival) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.HoldJS.CheckOn"),onlyCheckOnArrival?Language.tr("ModelDescription.HoldJS.CheckOn.Arrival"):Language.tr("ModelDescription.HoldJS.CheckOn.SystemStateChange"),3000);
+		}
+
+		/* Verzögerung erfassen als ... */
+		switch (delayType) {
+		case DELAY_TYPE_WAITING:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Waiting"),9000);
+			break;
+		case DELAY_TYPE_TRANSFER:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Transfer"),9000);
+			break;
+		case DELAY_TYPE_PROCESS:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Process"),9000);
+			break;
+		case DELAY_TYPE_NOTHING:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Nothing"),9000);
+			break;
+		}
 	}
 
 	@Override

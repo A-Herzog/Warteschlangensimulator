@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-23 18:23+0100\n"
+"POT-Creation-Date: 2023-12-24 18:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12911,6 +12911,24 @@ msgstr "Service priority for client type \"%s\""
 
 msgid "ModelDescription.Hold.Condition"
 msgstr "Condition for releasing clients"
+
+msgid "ModelDescription.HoldJS.CheckOn"
+msgstr "Check condition at"
+
+msgid "ModelDescription.HoldJS.CheckOn.Arrival"
+msgstr "Client arrival"
+
+msgid "ModelDescription.HoldJS.CheckOn.SystemStateChange"
+msgstr "Every system state change"
+
+msgid "ModelDescription.HoldJS.Mode"
+msgstr "Language"
+
+msgid "ModelDescription.HoldJS.useTimedChecks"
+msgstr "Use time-based checks"
+
+msgid "ModelDescription.HoldJS.useTimedChecks.Yes"
+msgstr "Yes"
 
 msgid "ModelDescription.HoldMulti.Condition"
 msgstr "Next station at condition \"%s\""
@@ -29578,6 +29596,21 @@ msgstr "No condition is specified."
 msgid "Surface.Hold.Dialog.Condition.Error.Title"
 msgstr "Invalid condition"
 
+msgid "Surface.Hold.Dialog.HoldTimeIs"
+msgstr "Delay time is"
+
+msgid "Surface.Hold.Dialog.HoldTimeIs.Nothing"
+msgstr "<do not record>"
+
+msgid "Surface.Hold.Dialog.HoldTimeIs.ProcessTime"
+msgstr "process time"
+
+msgid "Surface.Hold.Dialog.HoldTimeIs.TransferTime"
+msgstr "transfer time"
+
+msgid "Surface.Hold.Dialog.HoldTimeIs.WaitingTime"
+msgstr "waiting time"
+
 msgid "Surface.Hold.Dialog.Tab.Condition"
 msgstr "Condition"
 
@@ -29605,6 +29638,21 @@ msgstr "ModelElementHoldCondition"
 msgid "Surface.Hold.XML.Condition.ClientBased"
 msgstr "ClientBased"
 
+msgid "Surface.Hold.XML.Condition.TimeType"
+msgstr "TimeType"
+
+msgid "Surface.Hold.XML.Condition.TimeType.Nothing"
+msgstr "nothing"
+
+msgid "Surface.Hold.XML.Condition.TimeType.ProcessTime"
+msgstr "Service time"
+
+msgid "Surface.Hold.XML.Condition.TimeType.TransferTime"
+msgstr "Transfer time"
+
+msgid "Surface.Hold.XML.Condition.TimeType.WaitingTime"
+msgstr "Waiting time"
+
 msgid "Surface.Hold.XML.Condition.TimedChecks"
 msgstr "TimedChecks"
 
@@ -29625,6 +29673,21 @@ msgstr "The condition \"%s\" is invalid at character %d."
 
 msgid "Surface.HoldJS.Dialog.Condition.Error.Title"
 msgstr "Invalid condition"
+
+msgid "Surface.HoldJS.Dialog.HoldTimeIs"
+msgstr "Delay time is"
+
+msgid "Surface.HoldJS.Dialog.HoldTimeIs.Nothing"
+msgstr "<do not record>"
+
+msgid "Surface.HoldJS.Dialog.HoldTimeIs.ProcessTime"
+msgstr "process time"
+
+msgid "Surface.HoldJS.Dialog.HoldTimeIs.TransferTime"
+msgstr "transfer time"
+
+msgid "Surface.HoldJS.Dialog.HoldTimeIs.WaitingTime"
+msgstr "waiting time"
 
 msgid "Surface.HoldJS.Dialog.Script"
 msgstr "Script to be executed"
@@ -29671,11 +29734,41 @@ msgstr "Language"
 msgid "Surface.HoldJS.XML.Condition.OnlyCheckOnArrival"
 msgstr "OnlyCheckOnArrival"
 
+msgid "Surface.HoldJS.XML.Condition.TimeType"
+msgstr "TimeType"
+
+msgid "Surface.HoldJS.XML.Condition.TimeType.Nothing"
+msgstr "nothing"
+
+msgid "Surface.HoldJS.XML.Condition.TimeType.ProcessTime"
+msgstr "Service time"
+
+msgid "Surface.HoldJS.XML.Condition.TimeType.TransferTime"
+msgstr "Transfer time"
+
+msgid "Surface.HoldJS.XML.Condition.TimeType.WaitingTime"
+msgstr "Waiting time"
+
 msgid "Surface.HoldJS.XML.Condition.TimedChecks"
 msgstr "TimedChecks"
 
 msgid "Surface.HoldJS.XML.Root"
 msgstr "ModelElementHoldScript;ModelElementHoldJS"
+
+msgid "Surface.HoldMulti.Dialog.HoldTimeIs"
+msgstr "Delay time is"
+
+msgid "Surface.HoldMulti.Dialog.HoldTimeIs.Nothing"
+msgstr "<do not record>"
+
+msgid "Surface.HoldMulti.Dialog.HoldTimeIs.ProcessTime"
+msgstr "process time"
+
+msgid "Surface.HoldMulti.Dialog.HoldTimeIs.TransferTime"
+msgstr "transfer time"
+
+msgid "Surface.HoldMulti.Dialog.HoldTimeIs.WaitingTime"
+msgstr "waiting time"
 
 msgid "Surface.HoldMulti.Dialog.OutgoingEdge.Condition"
 msgstr "Condition"
@@ -29704,6 +29797,21 @@ msgstr "Multi condition"
 msgid "Surface.HoldMulti.Tooltip"
 msgstr "Holds clients until a condition is met per direction."
 
+msgid "Surface.HoldMulti.XML.Condition.TimeType"
+msgstr "TimeType"
+
+msgid "Surface.HoldMulti.XML.Condition.TimeType.Nothing"
+msgstr "nothing"
+
+msgid "Surface.HoldMulti.XML.Condition.TimeType.ProcessTime"
+msgstr "Service time"
+
+msgid "Surface.HoldMulti.XML.Condition.TimeType.TransferTime"
+msgstr "Transfer time"
+
+msgid "Surface.HoldMulti.XML.Condition.TimeType.WaitingTime"
+msgstr "Waiting time"
+
 msgid "Surface.HoldMulti.XML.Connection.Condition"
 msgstr "Condition"
 
@@ -29712,6 +29820,12 @@ msgstr "TimedChecks"
 
 msgid "Surface.HoldMulti.XML.Root"
 msgstr "ModelElementHoldMulti"
+
+msgid "Surface.HoldMulti.XML.Settings"
+msgstr "ModelElementHoldMultiSettings"
+
+msgid "Surface.HoldMulti.XML.Settings.TimedChecks"
+msgstr "TimedChecks"
 
 msgid "Surface.Image.Dialog.FrameColor"
 msgstr "Frame color"

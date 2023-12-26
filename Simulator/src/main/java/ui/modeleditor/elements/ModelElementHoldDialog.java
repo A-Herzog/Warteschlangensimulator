@@ -25,7 +25,9 @@ import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -58,6 +60,8 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 	private JCheckBox clientBasedCheck;
 	/** Option: Bedingung zusätzlich zeitgesteuert prüfen */
 	private JCheckBox useTimedChecks;
+	/** Auswahlbox für die Art der Erfassung der Verzögerungszeit */
+	private JComboBox<String> processTimeType;
 
 	/** Tabelle zur Konfiguration der Prioritäten der Kundentypen */
 	private PriorityTableModel tablePriorityModel;
@@ -95,6 +99,7 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 		content.add(tabs,BorderLayout.CENTER);
 
 		JPanel tabOuter, tab, line;
+		JLabel label;
 
 		/* Tab "Bedingung" */
 		tabs.addTab(Language.tr("Surface.Hold.Dialog.Tab.Condition"),tabOuter=new JPanel(new BorderLayout()));
@@ -119,6 +124,24 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(useTimedChecks=new JCheckBox(Language.tr("Surface.Hold.Dialog.TimeBasedCheck"),hold.isUseTimedChecks()));
 		useTimedChecks.setEnabled(!readOnly);
+
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel(Language.tr("Surface.Hold.Dialog.HoldTimeIs")));
+		line.add(processTimeType=new JComboBox<>(new String[]{
+				Language.tr("Surface.Hold.Dialog.HoldTimeIs.WaitingTime"),
+				Language.tr("Surface.Hold.Dialog.HoldTimeIs.TransferTime"),
+				Language.tr("Surface.Hold.Dialog.HoldTimeIs.ProcessTime"),
+				Language.tr("Surface.Hold.Dialog.HoldTimeIs.Nothing")
+		}));
+
+		processTimeType.setEnabled(!readOnly);
+		switch (hold.getDelayType()) {
+		case DELAY_TYPE_WAITING: processTimeType.setSelectedIndex(0); break;
+		case DELAY_TYPE_TRANSFER: processTimeType.setSelectedIndex(1); break;
+		case DELAY_TYPE_PROCESS: processTimeType.setSelectedIndex(2); break;
+		case DELAY_TYPE_NOTHING: processTimeType.setSelectedIndex(3); break;
+		}
+		label.setLabelFor(processTimeType);
 
 		/* Tab "Prioritäten" */
 		tabs.addTab(Language.tr("Surface.Hold.Dialog.Tab.Priorities"),tabOuter=new JPanel(new BorderLayout()));
@@ -208,6 +231,12 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 		hold.setCondition(condition.getText());
 		hold.setClientBasedCheck(clientBasedCheck.isSelected());
 		hold.setUseTimedChecks(useTimedChecks.isSelected());
+		switch (processTimeType.getSelectedIndex()) {
+		case 0: hold.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_WAITING); break;
+		case 1: hold.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_TRANSFER); break;
+		case 2: hold.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_PROCESS); break;
+		case 3: hold.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_NOTHING); break;
+		}
 		tablePriorityModel.storeData();
 	}
 }

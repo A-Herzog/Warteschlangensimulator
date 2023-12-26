@@ -28,6 +28,7 @@ import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementHold;
 import ui.modeleditor.elements.ModelElementSub;
 
@@ -45,6 +46,8 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 	private boolean useClientBasedCheck;
 	/** Regelmäßige Prüfung der Bedingung? */
 	private boolean useTimedChecks;
+	/** Art wie die Verzögerung für die Kundenstatistik gezählt werden soll */
+	private ModelElementDelay.DelayType delayType;
 
 	/**
 	 * Konstruktor der Klasse
@@ -95,6 +98,9 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 
 		/* Zeitabhängige Checks */
 		hold.useTimedChecks=holdElement.isUseTimedChecks();
+
+		/* Art wie die Verzögerung für die Kundenstatistik gezählt werden soll */
+		hold.delayType=holdElement.getDelayType();
 
 		return hold;
 	}
@@ -167,8 +173,23 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 
 		/* Wartezeit in Statistik */
 		final long waitingTime=simData.currentTime-client.lastWaitingStart;
-		simData.runData.logStationProcess(simData,this,client,waitingTime,0,0,waitingTime);
-		client.addStationTime(id,waitingTime,0,0,waitingTime);
+		switch (delayType) {
+		case DELAY_TYPE_WAITING:
+			simData.runData.logStationProcess(simData,this,client,waitingTime,0,0,waitingTime);
+			client.addStationTime(id,waitingTime,0,0,waitingTime);
+			break;
+		case DELAY_TYPE_TRANSFER:
+			simData.runData.logStationProcess(simData,this,client,0,waitingTime,0,waitingTime);
+			client.addStationTime(id,0,waitingTime,0,waitingTime);
+			break;
+		case DELAY_TYPE_PROCESS:
+			simData.runData.logStationProcess(simData,this,client,0,0,waitingTime,waitingTime);
+			client.addStationTime(id,0,0,waitingTime,waitingTime);
+			break;
+		case DELAY_TYPE_NOTHING:
+			/* nicht erfassen */
+			break;
+		}
 
 		/* Kunden an Station in Statistik */
 		simData.runData.logClientLeavesStationQueue(simData,this,data,client);
@@ -356,9 +377,26 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 		if (data.waitingClients.size()==0) return null;
 
 		final RunDataClient client=data.waitingClients.remove(0);
+
 		final long waitingTime=simData.currentTime-client.lastWaitingStart;
-		/* Nein, da Kunde an der Station ja nicht bedient wurde: simData.runData.logStationProcess(simData,this,waitingTime,0,0); */
-		client.addStationTime(id,waitingTime,0,0,waitingTime);
+		switch (delayType) {
+		case DELAY_TYPE_WAITING:
+			/* Nein, da Kunde an der Station ja nicht bedient wurde: simData.runData.logStationProcess(simData,this,waitingTime,0,0,waitingTime); */
+			client.addStationTime(id,waitingTime,0,0,waitingTime);
+			break;
+		case DELAY_TYPE_TRANSFER:
+			/* Nein, da Kunde an der Station ja nicht bedient wurde: simData.runData.logStationProcess(simData,this,0,waitingTime,0,waitingTime); */
+			client.addStationTime(id,0,waitingTime,0,waitingTime);
+			break;
+		case DELAY_TYPE_PROCESS:
+			/* Nein, da Kunde an der Station ja nicht bedient wurde: simData.runData.logStationProcess(simData,this,0,0,waitingTime,waitingTime); */
+			client.addStationTime(id,0,0,waitingTime,waitingTime);
+			break;
+		case DELAY_TYPE_NOTHING:
+			/* nicht erfassen */
+			break;
+		}
+
 		simData.runData.logClientLeavesStationQueue(simData,this,data,client);
 
 		return client;

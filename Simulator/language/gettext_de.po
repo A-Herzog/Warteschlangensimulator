@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-23 18:23+0100\n"
+"POT-Creation-Date: 2023-12-24 18:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12937,6 +12937,24 @@ msgstr "Bedienpriorität für Kundentyp \"%s\""
 
 msgid "ModelDescription.Hold.Condition"
 msgstr "Bedingung für Freigabe von Kunden"
+
+msgid "ModelDescription.HoldJS.CheckOn"
+msgstr "Bedingung prüfen bei"
+
+msgid "ModelDescription.HoldJS.CheckOn.Arrival"
+msgstr "Kundenankunft"
+
+msgid "ModelDescription.HoldJS.CheckOn.SystemStateChange"
+msgstr "Jeder Systemzustandsänderung"
+
+msgid "ModelDescription.HoldJS.Mode"
+msgstr "Sprache"
+
+msgid "ModelDescription.HoldJS.useTimedChecks"
+msgstr "Zeigtgesteuerte Prüfung verwenden"
+
+msgid "ModelDescription.HoldJS.useTimedChecks.Yes"
+msgstr "Ja"
 
 msgid "ModelDescription.HoldMulti.Condition"
 msgstr "Folgestation bei Bedingung \"%s\""
@@ -29627,6 +29645,21 @@ msgstr "Es wurde keine Bedingung angegeben."
 msgid "Surface.Hold.Dialog.Condition.Error.Title"
 msgstr "Bedingung fehlerhaft"
 
+msgid "Surface.Hold.Dialog.HoldTimeIs"
+msgstr "Verzögerungszeit ist"
+
+msgid "Surface.Hold.Dialog.HoldTimeIs.Nothing"
+msgstr "<nicht erfassen>"
+
+msgid "Surface.Hold.Dialog.HoldTimeIs.ProcessTime"
+msgstr "Bedienzeit"
+
+msgid "Surface.Hold.Dialog.HoldTimeIs.TransferTime"
+msgstr "Transferzeit"
+
+msgid "Surface.Hold.Dialog.HoldTimeIs.WaitingTime"
+msgstr "Wartezeit"
+
 msgid "Surface.Hold.Dialog.Tab.Condition"
 msgstr "Bedingung"
 
@@ -29654,6 +29687,21 @@ msgstr "ModellElementBedingungText"
 msgid "Surface.Hold.XML.Condition.ClientBased"
 msgstr "Kundenbasierend"
 
+msgid "Surface.Hold.XML.Condition.TimeType"
+msgstr "Zeittyp"
+
+msgid "Surface.Hold.XML.Condition.TimeType.Nothing"
+msgstr "nichts"
+
+msgid "Surface.Hold.XML.Condition.TimeType.ProcessTime"
+msgstr "Bedienzeit"
+
+msgid "Surface.Hold.XML.Condition.TimeType.TransferTime"
+msgstr "Transferzeit"
+
+msgid "Surface.Hold.XML.Condition.TimeType.WaitingTime"
+msgstr "Wartezeit"
+
 msgid "Surface.Hold.XML.Condition.TimedChecks"
 msgstr "ZeitabhaengigePruefungen"
 
@@ -29674,6 +29722,21 @@ msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
 
 msgid "Surface.HoldJS.Dialog.Condition.Error.Title"
 msgstr "Ungültige Bedingung"
+
+msgid "Surface.HoldJS.Dialog.HoldTimeIs"
+msgstr "Verzögerungszeit ist"
+
+msgid "Surface.HoldJS.Dialog.HoldTimeIs.Nothing"
+msgstr "<nicht erfassen>"
+
+msgid "Surface.HoldJS.Dialog.HoldTimeIs.ProcessTime"
+msgstr "Bedienzeit"
+
+msgid "Surface.HoldJS.Dialog.HoldTimeIs.TransferTime"
+msgstr "Transferzeit"
+
+msgid "Surface.HoldJS.Dialog.HoldTimeIs.WaitingTime"
+msgstr "Wartezeit"
 
 msgid "Surface.HoldJS.Dialog.Script"
 msgstr "Auszuführendes Skript"
@@ -29720,11 +29783,41 @@ msgstr "Sprache"
 msgid "Surface.HoldJS.XML.Condition.OnlyCheckOnArrival"
 msgstr "NurBeiAnkunftPruefen"
 
+msgid "Surface.HoldJS.XML.Condition.TimeType"
+msgstr "Zeittyp"
+
+msgid "Surface.HoldJS.XML.Condition.TimeType.Nothing"
+msgstr "nichts"
+
+msgid "Surface.HoldJS.XML.Condition.TimeType.ProcessTime"
+msgstr "Bedienzeit"
+
+msgid "Surface.HoldJS.XML.Condition.TimeType.TransferTime"
+msgstr "Transferzeit"
+
+msgid "Surface.HoldJS.XML.Condition.TimeType.WaitingTime"
+msgstr "Wartezeit"
+
 msgid "Surface.HoldJS.XML.Condition.TimedChecks"
 msgstr "ZeitabhaengigePruefungen"
 
 msgid "Surface.HoldJS.XML.Root"
 msgstr "ModellElementBedingungScript;ModellElementBedingungJS"
+
+msgid "Surface.HoldMulti.Dialog.HoldTimeIs"
+msgstr "Verzögerungszeit ist"
+
+msgid "Surface.HoldMulti.Dialog.HoldTimeIs.Nothing"
+msgstr "<nicht erfassen>"
+
+msgid "Surface.HoldMulti.Dialog.HoldTimeIs.ProcessTime"
+msgstr "Bedienzeit"
+
+msgid "Surface.HoldMulti.Dialog.HoldTimeIs.TransferTime"
+msgstr "Transferzeit"
+
+msgid "Surface.HoldMulti.Dialog.HoldTimeIs.WaitingTime"
+msgstr "Wartezeit"
 
 msgid "Surface.HoldMulti.Dialog.OutgoingEdge.Condition"
 msgstr "Bedingung"
@@ -29753,6 +29846,21 @@ msgstr "Multibedingung"
 msgid "Surface.HoldMulti.Tooltip"
 msgstr "Blockiert die weitere Bewegung der Kunden bis pro Richtung eine Bedingung erfüllt ist."
 
+msgid "Surface.HoldMulti.XML.Condition.TimeType"
+msgstr "Zeittyp"
+
+msgid "Surface.HoldMulti.XML.Condition.TimeType.Nothing"
+msgstr "nichts"
+
+msgid "Surface.HoldMulti.XML.Condition.TimeType.ProcessTime"
+msgstr "Bedienzeit"
+
+msgid "Surface.HoldMulti.XML.Condition.TimeType.TransferTime"
+msgstr "Transferzeit"
+
+msgid "Surface.HoldMulti.XML.Condition.TimeType.WaitingTime"
+msgstr "Wartezeit"
+
 msgid "Surface.HoldMulti.XML.Connection.Condition"
 msgstr "Bedingung"
 
@@ -29761,6 +29869,12 @@ msgstr "ZeitabhaengigePruefungen"
 
 msgid "Surface.HoldMulti.XML.Root"
 msgstr "ModellElementBedingungMehrfach"
+
+msgid "Surface.HoldMulti.XML.Settings"
+msgstr "ModellElementBedingungMehrfachEinstellungen"
+
+msgid "Surface.HoldMulti.XML.Settings.TimedChecks"
+msgstr "ZeitabhaengigePruefungen"
 
 msgid "Surface.Image.Dialog.FrameColor"
 msgstr "Rahmenfarbe"

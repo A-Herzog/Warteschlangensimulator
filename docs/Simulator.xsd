@@ -1100,12 +1100,22 @@
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
-<xs:element name="ModellElementBedingungMehrfach" type="ModellElementVerbundenBasis"/>
+<xs:element name="ModellElementBedingungMehrfach"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  	<xs:element ref="ModellElementBedingungMehrfachEinstellungen"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementBedingungMehrfachEinstellungen"><xs:complexType>
+  <xs:attribute name="ZeitabhaengigePruefungen" type="xs:string"/>
+  <xs:attribute name="Zeittyp" type="xs:string"/>
+</xs:complexType></xs:element>
 
 <xs:element name="ModellElementBedingungText"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Kundenbasierend" type="xs:string"/>
 	<xs:attribute name="ZeitabhaengigePruefungen" type="xs:string"/>
+	<xs:attribute name="Zeittyp" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -1121,6 +1131,7 @@
     <xs:attribute name="Sprache" type="xs:string"/>
 	<xs:attribute name="ZeitabhaengigePruefungen" type="xs:string"/>
 	<xs:attribute name="NurBeiAnkunftPruefen" type="xs:string"/>
+	<xs:attribute name="Zeittyp" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -3562,12 +3573,22 @@
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
-<xs:element name="ModelElementHoldMulti" type="ModelElementConnectedBase"/>
+<xs:element name="ModelElementHoldMulti"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  	<xs:element ref="ModelElementHoldMultiSettings"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementHoldMultiSettings"><xs:complexType>
+  <xs:attribute name="TimedChecks" type="xs:string"/>
+  <xs:attribute name="TimeType" type="xs:string"/>
+</xs:complexType></xs:element>
 
 <xs:element name="ModelElementHoldCondition"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="ClientBased" type="xs:string"/>
 	<xs:attribute name="TimedChecks" type="xs:string"/>
+	<xs:attribute name="TimeType" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -3583,6 +3604,7 @@
     <xs:attribute name="Language" type="xs:string"/>
 	<xs:attribute name="TimedChecks" type="xs:string"/>
 	<xs:attribute name="OnlyCheckOnArrival" type="xs:string"/>
+	<xs:attribute name="TimeType" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 

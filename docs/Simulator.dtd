@@ -877,14 +877,20 @@
 <!ATTLIST ModellElementBedingungText
   Kundenbasierend   		CDATA	#IMPLIED
   ZeitabhaengigePruefungen	CDATA	#IMPLIED
+  Zeittyp					CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementBedingungMehrfach (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung)*>
+<!ELEMENT ModellElementBedingungMehrfach (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBedingungMehrfachEinstellungen)*>
 <!ATTLIST ModellElementBedingungMehrfach
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
   statistik		CDATA	#IMPLIED
   SymbolSpiegeln	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementBedingungMehrfachEinstellungen EMPTY>
+<!ATTLIST ModellElementBedingungMehrfachEinstellungen
+  ZeitabhaengigePruefungen	CDATA	#IMPLIED
+  Zeittyp					CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellElementBedingungScript (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBedingungScriptText | ModellElementBedingungScriptBedingung)*>
@@ -899,6 +905,7 @@
   Sprache					CDATA	#IMPLIED
   ZeitabhaengigePruefungen	CDATA	#IMPLIED
   NurBeiAnkunftPruefen		CDATA	#IMPLIED
+  Zeittyp		CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementBedingungScriptBedingung (#PCDATA)>
 
@@ -3548,14 +3555,20 @@
 <!ATTLIST ModelElementHoldCondition
   ClientBased   CDATA	#IMPLIED
   TimedChecks	CDATA	#IMPLIED
+  TimeType		CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementHoldMulti (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection)*>
+<!ELEMENT ModelElementHoldMulti (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementHoldMultiSettings)*>
 <!ATTLIST ModelElementHoldMulti
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
   statistics	CDATA	#IMPLIED
   MirrorSymbol	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementHoldMultiSettings EMPTY>
+<!ATTLIST ModelElementHoldMultiSettings  
+  TimedChecks	CDATA	#IMPLIED
+  TimeType		CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementHoldScript (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementHoldScriptCondition | ModelElementHoldScriptAdditionalCondition)*>
@@ -3570,6 +3583,7 @@
   Language				CDATA	#IMPLIED
   TimedChecks			CDATA	#IMPLIED
   OnlyCheckOnArrival	CDATA	#IMPLIED
+  TimeType				CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementHoldScriptAdditionalCondition (#PCDATA)>
 

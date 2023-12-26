@@ -48,6 +48,7 @@ import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
+import ui.modeleditor.elements.ModelElementDelay.DelayType;
 import ui.modeleditor.fastpaint.Shapes;
 
 /**
@@ -86,6 +87,13 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 	private boolean useTimedChecks;
 
 	/**
+	 * Art wie die Verzögerung für die Kundenstatistik gezählt werden soll
+	 * @see #getDelayType()
+	 * @see #setDelayType(DelayType)
+	 */
+	private ModelElementDelay.DelayType delayType;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementHoldMulti</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -96,6 +104,7 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 		connectionsOut=new ArrayList<>();
 		conditions=new HashMap<>();
 		useTimedChecks=false;
+		delayType=DelayType.DELAY_TYPE_WAITING;
 	}
 
 	/**
@@ -143,6 +152,22 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 	}
 
 	/**
+	 * Gibt an, ob die Wartezeiten als Bedienzeiten, Transferzeiten oder als Wartezeiten gezählt werden sollen.
+	 * @return	Gibt den Typ der Verzögerung zurück.
+	 */
+	public ModelElementDelay.DelayType getDelayType() {
+		return delayType;
+	}
+
+	/**
+	 * Stellt ein, ob die Wartezeiten als Bedienzeiten, Transferzeiten oder als Wartezeiten gezählt werden sollen.
+	 * @param delayType	Art der Verzögerung
+	 */
+	public void setDelayType(final ModelElementDelay.DelayType delayType) {
+		this.delayType=delayType;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -151,16 +176,17 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementHoldMulti)) return false;
+		final ModelElementHoldMulti otherHold=(ModelElementHoldMulti)element;
 
-		final List<ModelElementEdge> connectionsIn2=((ModelElementHoldMulti)element).connectionsIn;
+		final List<ModelElementEdge> connectionsIn2=otherHold.connectionsIn;
 		if (connectionsIn==null || connectionsIn2==null || connectionsIn.size()!=connectionsIn2.size()) return false;
 		for (int i=0;i<connectionsIn.size();i++) if (connectionsIn.get(i).getId()!=connectionsIn2.get(i).getId()) return false;
 
-		final List<ModelElementEdge> connectionsOut2=((ModelElementHoldMulti)element).connectionsOut;
+		final List<ModelElementEdge> connectionsOut2=otherHold.connectionsOut;
 		if (connectionsOut==null || connectionsOut2==null || connectionsOut.size()!=connectionsOut2.size()) return false;
 		for (int i=0;i<connectionsOut.size();i++) if (connectionsOut.get(i).getId()!=connectionsOut2.get(i).getId()) return false;
 
-		Map<Integer,String> conditions2=((ModelElementHoldMulti)element).conditions;
+		Map<Integer,String> conditions2=otherHold.conditions;
 		for (int i=0;i<connectionsOut.size()-1;i++) { /* das letzte ist "sonst", daher nur bis <size-1 */
 			final int id=connectionsOut.get(i).getId();
 			final String c1=conditions.get(id);
@@ -170,7 +196,11 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 			if (!c1.equals(c2)) return false;
 		}
 
-		if (((ModelElementHoldMulti)element).useTimedChecks!=useTimedChecks) return false;
+		if (otherHold.useTimedChecks!=useTimedChecks) return false;
+
+		/* Erfassung der Aufenthaltszeit */
+		if (otherHold.delayType!=delayType) return false;
+
 
 		return true;
 	}
@@ -183,24 +213,27 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementHoldMulti) {
+			final ModelElementHoldMulti copySource=(ModelElementHoldMulti)element;
 
 			connectionsIn.clear();
-			final List<ModelElementEdge> connectionsIn2=((ModelElementHoldMulti)element).connectionsIn;
+			final List<ModelElementEdge> connectionsIn2=copySource.connectionsIn;
 			if (connectionsIn2!=null) {
 				connectionsInIds=new ArrayList<>();
 				for (int i=0;i<connectionsIn2.size();i++) connectionsInIds.add(connectionsIn2.get(i).getId());
 			}
 
 			connectionsOut.clear();
-			final List<ModelElementEdge> connectionsOut2=((ModelElementHoldMulti)element).connectionsOut;
+			final List<ModelElementEdge> connectionsOut2=copySource.connectionsOut;
 			if (connectionsOut2!=null) {
 				connectionsOutIds=new ArrayList<>();
 				for (int i=0;i<connectionsOut2.size();i++) connectionsOutIds.add(connectionsOut2.get(i).getId());
 			}
 
-			for (Map.Entry<Integer,String> entry: ((ModelElementHoldMulti)element).conditions.entrySet()) conditions.put(entry.getKey(),entry.getValue());
+			for (Map.Entry<Integer,String> entry: copySource.conditions.entrySet()) conditions.put(entry.getKey(),entry.getValue());
 
-			useTimedChecks=((ModelElementHoldMulti)element).useTimedChecks;
+			useTimedChecks=copySource.useTimedChecks;
+
+			delayType=copySource.delayType;
 		}
 	}
 
@@ -465,7 +498,25 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 			String condition=conditions.get(element.getId());
 			if (condition==null) condition="";
 			sub.setAttribute(Language.trPrimary("Surface.HoldMulti.XML.Connection.Condition"),condition);
-			if (useTimedChecks) sub.setAttribute(Language.trPrimary("Surface.HoldMulti.XML.Connection.TimedChecks"),"1");
+		}
+
+		if (useTimedChecks || delayType!=ModelElementDelay.DelayType.DELAY_TYPE_WAITING) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.HoldMulti.XML.Settings")));
+			if (useTimedChecks) sub.setAttribute(Language.trPrimary("Surface.HoldMulti.XML.Settings.TimedChecks"),"1");
+			switch (delayType) {
+			case DELAY_TYPE_WAITING:
+				sub.setAttribute(Language.trPrimary("Surface.HoldMulti.XML.Condition.TimeType"),Language.trPrimary("Surface.HoldMulti.XML.Condition.TimeType.WaitingTime"));
+				break;
+			case DELAY_TYPE_TRANSFER:
+				sub.setAttribute(Language.trPrimary("Surface.HoldMulti.XML.Condition.TimeType"),Language.trPrimary("Surface.HoldMulti.XML.Condition.TimeType.TransferTime"));
+				break;
+			case DELAY_TYPE_PROCESS:
+				sub.setAttribute(Language.trPrimary("Surface.HoldMulti.XML.Condition.TimeType"),Language.trPrimary("Surface.HoldMulti.XML.Condition.TimeType.ProcessTime"));
+				break;
+			case DELAY_TYPE_NOTHING:
+				sub.setAttribute(Language.trPrimary("Surface.HoldMulti.XML.Condition.TimeType"),Language.trPrimary("Surface.HoldMulti.XML.Condition.TimeType.Nothing"));
+				break;
+			}
 		}
 	}
 
@@ -496,9 +547,19 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 				final String condition=Language.trAllAttribute("Surface.HoldMulti.XML.Connection.Condition",node);
 				if (!condition.isEmpty()) conditions.put(I,condition);
 				final String useTimedChecksString=Language.trAllAttribute("Surface.HoldMulti.XML.Connection.TimedChecks",node);
-				if (useTimedChecksString.equals("1")) useTimedChecks=true;
+				if (useTimedChecksString.equals("1")) useTimedChecks=true; /* Kompatibilität mit früheren Versionen */
 			}
 			return null;
+		}
+
+		if (Language.trAll("Surface.HoldMulti.XML.Settings",name)) {
+			final String useTimedChecksString=Language.trAllAttribute("Surface.HoldMulti.XML.Settings.TimedChecks",node);
+			if (useTimedChecksString.equals("1")) useTimedChecks=true;
+			final String type=Language.trAllAttribute("Surface.HoldMulti.XML.Condition.TimeType",node);
+			if (Language.trAll("Surface.HoldMulti.XML.Condition.TimeType.WaitingTime",type)) delayType=DelayType.DELAY_TYPE_WAITING;
+			if (Language.trAll("Surface.HoldMulti.XML.Condition.TimeType.TransferTime",type)) delayType=DelayType.DELAY_TYPE_TRANSFER;
+			if (Language.trAll("Surface.HoldMulti.XML.Condition.TimeType.ProcessTime",type)) delayType=DelayType.DELAY_TYPE_PROCESS;
+			if (Language.trAll("Surface.HoldMulti.XML.Condition.TimeType.Nothing",type)) delayType=DelayType.DELAY_TYPE_NOTHING;
 		}
 
 		return null;
@@ -641,10 +702,27 @@ public class ModelElementHoldMulti extends ModelElementBox implements ModelEleme
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
+		/* Bedingungen */
 		for (int i=0;i<connectionsOut.size();i++) {
 			final ModelElementEdge edge=connectionsOut.get(i);
 			final String edgeDescription=String.format(Language.tr("ModelDescription.HoldMulti.Condition"),conditions.get(edge.getId()));
 			descriptionBuilder.addConditionalEdgeOut(edgeDescription,edge);
+		}
+
+		/* Verzögerung erfassen als ... */
+		switch (delayType) {
+		case DELAY_TYPE_WAITING:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Waiting"),9000);
+			break;
+		case DELAY_TYPE_TRANSFER:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Transfer"),9000);
+			break;
+		case DELAY_TYPE_PROCESS:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Process"),9000);
+			break;
+		case DELAY_TYPE_NOTHING:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Nothing"),9000);
+			break;
 		}
 	}
 
