@@ -247,7 +247,7 @@ Werten und den Histogrammwerten vorliegen.</ModellBeschreibung>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
       <ModellElement3DEffekt>1</ModellElement3DEffekt>
       <ModellElementMinimalwert>0</ModellElementMinimalwert>
-      <ModellElementMaximalwert>0.05</ModellElementMaximalwert>
+      <ModellElementMaximalwert>0.1</ModellElementMaximalwert>
       <ModellElementAchsenbeschriftung Text="Anteil">1</ModellElementAchsenbeschriftung>
       <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;0)+Bedienzeit_hist(2;0;1)</ModellElementDiagrammElement>
       <ModellElementDiagrammElement Balkenfarbe="0,0,255">Bedienzeit_hist(2;1;3)</ModellElementDiagrammElement>

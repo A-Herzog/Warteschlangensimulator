@@ -247,7 +247,7 @@ histogram values.</ModelDescription>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
       <ModelElementUse3D>1</ModelElementUse3D>
       <ModelElementMinimumValue>0</ModelElementMinimumValue>
-      <ModelElementMaximumValue>0.05</ModelElementMaximumValue>
+      <ModelElementMaximumValue>0.1</ModelElementMaximumValue>
       <ModelElementAxisLabels Text="Share">1</ModelElementAxisLabels>
       <ModelElementDiagramElement BarColor="0,0,255">Bedienzeit_hist(2;0)+Bedienzeit_hist(2;0;1)</ModelElementDiagramElement>
       <ModelElementDiagramElement BarColor="0,0,255">Bedienzeit_hist(2;1;3)</ModelElementDiagramElement>
