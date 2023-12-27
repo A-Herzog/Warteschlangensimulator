@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-24 18:29+0100\n"
+"POT-Creation-Date: 2023-12-25 00:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5214,6 +5214,9 @@ msgstr "Lastabhängige Anzahl an Bedienern"
 
 msgid "Examples.ClientTypePriorities"
 msgstr "Kundentypen mit unterschiedlichen Prioritäten"
+
+msgid "Examples.ClientTypesAndSkills"
+msgstr "Kunden- und Bedienertypen"
 
 msgid "Examples.ClosedQueueingNetwork"
 msgstr "Geschlossenes Warteschlangennetz"

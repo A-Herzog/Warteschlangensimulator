@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.5.0</ModelVersion>
+  <ModelName>Client and operator types</ModelName>
+  <ModelDescription>In this model, clients of two different types arrive at the same queue.
+They are served at three different stations: one can only serve clients of type A,
+one can only serve clients of type B and one can serve both client types.
+In order to keep the flexible operators at the A+B station as available as possible,
+assignments are always made to stations A and B first.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="150"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementExpression TimeBase="Seconds">ExpDist(EI)</ModelElementExpression>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="2">
+      <ModelElementName>Clients B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="350"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementExpression TimeBase="Seconds">ExpDist(EI)</ModelElementExpression>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="3">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1050" y="150"/>
+      <ModelElementConnection Element="18" Type="In"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Single-Skill A"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDispose id="6">
+      <ModelElementSize h="50" w="100" x="1300" y="250"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="11" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="7">
+      <ModelElementConnection Element1="3" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementHold id="4">
+      <ModelElementSize h="50" w="100" x="350" y="250"/>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+      <ModelElementHoldCondition ClientBased="1" TimeType="Waiting time">(ClientSourceID()==1 &amp;&amp; (WIP(3)&lt;Resource_count(1) || WIP(8)&lt;Resource_count(3))) || (ClientSourceID()==2 &amp;&amp; (WIP(9)&lt;Resource_count(2) || WIP(8)&lt;Resource_count(3)))</ModelElementHoldCondition>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+    </ModelElementHold>
+    <ModelElementProcessStation id="8">
+      <ModelElementName>A+B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1050" y="250"/>
+      <ModelElementBackgroundColor>195,0,0</ModelElementBackgroundColor>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Multi-Skill"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="9">
+      <ModelElementName>B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1050" y="350"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="11" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Single-Skill B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="10">
+      <ModelElementConnection Element1="8" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="11">
+      <ModelElementConnection Element1="9" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="12">
+      <ModelElementName>Arrivals (Clients A)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="26" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecide id="14">
+      <ModelElementSize h="50" w="100" x="800" y="150"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="17" Type="In"/>
+      <ModelElementConnection Condition="WIP(3)&lt;Resource_count(1)" Element="18" Type="Out"/>
+      <ModelElementConnection Element="20" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="15">
+      <ModelElementSize h="50" w="100" x="800" y="350"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="24" Type="In"/>
+      <ModelElementConnection Condition="WIP(9)&lt;Resource_count(2)" Element="19" Type="Out"/>
+      <ModelElementConnection Element="23" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="18">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="14" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="15" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="20">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="14" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="21">
+      <ModelElementSize h="10" w="10" x="845" y="270"/>
+      <ModelElementConnection Element="20" Type="In"/>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="22" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="22">
+      <ModelElementConnection Element1="21" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="23">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="15" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecide id="5">
+      <ModelElementSize h="50" w="100" x="600" y="250"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection ClientType="Clients A" Element="17" Type="Out"/>
+      <ModelElementConnection Element="24" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="16">
+      <ModelElementConnection Element1="4" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="17">
+      <ModelElementName>Clients A</ModelElementName>
+      <ModelElementConnection Element1="5" Element2="14" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="24">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="5" Element2="15" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementText id="25">
+      <ModelElementSize h="23" w="222" x="50" y="50"/>
+      <ModelElementTextLine>Client and operator types</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementVertex id="26">
+      <ModelElementSize h="10" w="10" x="145" y="270"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="27">
+      <ModelElementConnection Element1="26" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="13">
+      <ModelElementName>Arrivals (Clients B)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="26" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="28">
+      <ModelElementSize h="350" w="200" x="50" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="29">
+      <ModelElementSize h="19" w="89" x="55" y="105"/>
+      <ModelElementTextLine>Client source</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="30">
+      <ModelElementSize h="350" w="200" x="300" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="31">
+      <ModelElementSize h="19" w="151" x="305" y="105"/>
+      <ModelElementTextLine>Common waiting room</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="32">
+      <ModelElementSize h="350" w="400" x="550" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>180,0,180</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="33">
+      <ModelElementSize h="19" w="231" x="555" y="105"/>
+      <ModelElementTextLine>Preferred service by single skillers</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>180,0,180</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="34">
+      <ModelElementSize h="350" w="200" x="1000" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="35">
+      <ModelElementSize h="19" w="109" x="1005" y="105"/>
+      <ModelElementTextLine>Service process</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationLineDiagram id="36">
+      <ModelElementSize h="250" w="605" x="300" y="500"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>245,245,245</ModelElementBackgroundColor>
+      <ModelElementBackgroundColorGradient>230,230,250</ModelElementBackgroundColorGradient>
+      <ModelElementDiagramElement LineColor="0,180,180" LineWidth="1" Maximum="10" Minimum="0">WIP(4)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,180,180" LineWidth="3" Maximum="10" Minimum="0">WIP_avg(4)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>7200</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>2</ModelElementAxisLabels>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementText id="37">
+      <ModelElementSize h="19" w="468" x="300" y="480"/>
+      <ModelElementTextLine>Queue length (current value and average over the complete run time)</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,180</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationBarDiagram id="38">
+      <ModelElementSize h="250" w="150" x="1000" y="500"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>255,255,255</ModelElementBackgroundColor>
+      <ModelElementBackgroundColorGradient>230,230,250</ModelElementBackgroundColorGradient>
+      <ModelElementUse3D>1</ModelElementUse3D>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMaximumValue>1</ModelElementMaximumValue>
+      <ModelElementAxisLabels Text="Utilization">2</ModelElementAxisLabels>
+      <ModelElementDiagramElement BarColor="0,0,255">Resource_avg(1)/Resource_count(1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="195,0,0">Resource_avg(3)/Resource_count(3)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">Resource_avg(2)/Resource_count(2)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementText id="39">
+      <ModelElementSize h="19" w="180" x="1000" y="480"/>
+      <ModelElementTextLine>Utilization of the operators</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="40">
+      <ModelElementSize h="19" w="9" x="1020" y="755"/>
+      <ModelElementTextLine>A</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="41">
+      <ModelElementSize h="19" w="26" x="1060" y="755"/>
+      <ModelElementTextLine>A+B</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="42">
+      <ModelElementSize h="19" w="9" x="1120" y="755"/>
+      <ModelElementTextLine>B</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="43">
+      <ModelElementSize h="105" w="126" x="305" y="340"/>
+      <ModelElementTextLine>Clients A will be released,</ModelElementTextLine>
+      <ModelElementTextLine>when at stations A or A+B</ModelElementTextLine>
+      <ModelElementTextLine>an operator get available.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>Clients B will be released,</ModelElementTextLine>
+      <ModelElementTextLine>when at stations B or A+B</ModelElementTextLine>
+      <ModelElementTextLine>an operator get available.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="44">
+      <ModelElementSize h="60" w="209" x="555" y="385"/>
+      <ModelElementTextLine>Clients are preferably directed to stations</ModelElementTextLine>
+      <ModelElementTextLine>A or B. A+B is only activated if no operator</ModelElementTextLine>
+      <ModelElementTextLine>is available at the other thematically</ModelElementTextLine>
+      <ModelElementTextLine>appropriate station.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="45">
+      <ModelElementName>Average inter-arrival time (per client type)</ModelElementName>
+      <ModelElementSize h="30" w="175" x="50" y="500"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">EI</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="46">
+      <ModelElementSize h="128" w="194" x="50" y="600"/>
+      <ModelElementTextLine>**Possible research question:**</ModelElementTextLine>
+      <ModelElementTextLine>How do the utilizations of the</ModelElementTextLine>
+      <ModelElementTextLine>different operator groups change</ModelElementTextLine>
+      <ModelElementTextLine>when the total workload increases?</ModelElementTextLine>
+      <ModelElementTextLine>To do this, right-click on the drawing</ModelElementTextLine>
+      <ModelElementTextLine>area to create a parameter series for</ModelElementTextLine>
+      <ModelElementTextLine>varying the mean inter-arrival time</ModelElementTextLine>
+      <ModelElementTextLine>(E[I] in the range from 35 to 100).</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Icon="status_online" Name="Single-Skill A" Type="Number" Value="2"/>
+    <Resource Icon="status_online" Name="Single-Skill B" Type="Number" Value="2"/>
+    <Resource Icon="status_online" Name="Multi-Skill" Type="Number" Value="2"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="user_red" Name="Clients B"/>
+    <ClientData Icon="user_red" Name="Kunden B"/>
+  </ClientTypeData>
+  <InitialVariable Name="EI">50</InitialVariable>
+  <ModelStatisticsDistributionHours>0</ModelStatisticsDistributionHours>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+</Model>
