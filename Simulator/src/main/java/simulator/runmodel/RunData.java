@@ -443,7 +443,7 @@ public class RunData {
 			variableValues[i]=0;
 			if (runModel.variableInitialValues[i]!=null) {
 				try {
-					variableValues[i]=runModel.variableInitialValues[i].calc();
+					variableValues[i]=runModel.variableInitialValues[i].calc(variableValues);
 				} catch (MathCalcError e) {}
 			}
 			if (cacheVariableStatistics!=null && i<cacheVariableStatistics.length) {
