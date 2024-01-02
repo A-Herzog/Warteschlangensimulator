@@ -299,6 +299,11 @@ public class RunModel {
 	public int distributionRecordHours;
 
 	/**
+	 * Welcher Zustand (z.B. Anzahl an Kunden im System) soll maximal erfasst werden?
+	 */
+	public int stateRecordSize;
+
+	/**
 	 * Wie viele verschiedene Kundendaten-Werte sollen in der Häufigkeitsverteilung maximal erfasst werden?
 	 */
 	public int distributionRecordClientDataValues;
@@ -689,6 +694,7 @@ public class RunModel {
 
 		/* Erfassungsbereich für Verteilungen */
 		runModel.distributionRecordHours=editModel.distributionRecordHours;
+		runModel.stateRecordSize=editModel.stateRecordSize;
 		runModel.distributionRecordClientDataValues=editModel.distributionRecordClientDataValues;
 
 		/* Welford-basierte Varianzerfassung */

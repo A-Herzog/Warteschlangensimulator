@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-25 00:07+0100\n"
+"POT-Creation-Date: 2023-12-29 23:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4211,6 +4211,12 @@ msgstr "The given number of repeats of the simulation %s is invalid. A positive 
 msgid "Editor.Dialog.Tab.Simulation.RepeatCount.Value"
 msgstr "Number of repetitions of the entire simulation run"
 
+msgid "Editor.Dialog.Tab.Simulation.StateRecordSize.Error"
+msgstr "The value \"%s\" for the highest state to be recorded by histogram is invalid. A non-negative integer value has to be specified."
+
+msgid "Editor.Dialog.Tab.Simulation.StateRecordSize.Value"
+msgstr "Highest state to be recorded by histogram"
+
 msgid "Editor.Dialog.Tab.Simulation.StatisticVectorLength"
 msgstr "Number of entries of the data captured vectorially"
 
@@ -4613,6 +4619,9 @@ msgstr "Maximum number of values to be recorded in client data distributions for
 
 msgid "Editor.DialogBase.Search.MaximumDistributionHours"
 msgstr "Maximum number of hours to be recorded in distributions for statistics"
+
+msgid "Editor.DialogBase.Search.MaximumStateRecording"
+msgstr "Highest state to be recorded by histogram"
 
 msgid "Editor.DialogBase.Search.MinValue"
 msgstr "Minimum value"
@@ -30852,6 +30861,9 @@ msgstr "The value \"%s\" for the duration of the warm-up phase is invald. A non-
 msgid "Surface.Model.ErrorWarmUpTime"
 msgstr "The value \"%s\" for the the warm-up time is invald. A positive integer number has to be specified."
 
+msgid "Surface.Model.StateRecordSize"
+msgstr "The value \"%s\" for the maximum state to be recorded in histogramms is invalid. A positive integer value has to be specified."
+
 msgid "Surface.Model.TimeStepsPerSecond"
 msgstr "The value \"%s\" for the number of time steps per second is invalid. A positive integer value in the range from 1000 to 1000000000 has to be specified."
 
@@ -36307,6 +36319,9 @@ msgstr "NextStep"
 
 msgid "Surface.XML.SequenceStep.Target"
 msgstr "Target"
+
+msgid "Surface.XML.StateRecordSize"
+msgstr "ModelStatisticsMaxStateRecording"
 
 msgid "Surface.XML.StoppOnCalcError"
 msgstr "ModelStoppOnCalcError"

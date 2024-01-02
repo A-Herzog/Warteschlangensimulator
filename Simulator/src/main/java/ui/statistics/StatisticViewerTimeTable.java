@@ -22,8 +22,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.math3.util.FastMath;
-
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
@@ -726,8 +724,8 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		final List<String> labels=new ArrayList<>();
 
 		int max=0;
-		if (system!=null) max=FastMath.max(max,system.getTimeMax());
-		for (StatisticsTimePerformanceIndicator indicator : (StatisticsTimePerformanceIndicator[])indicators.getAll(StatisticsTimePerformanceIndicator.class)) max=FastMath.max(max,indicator.getTimeMax());
+		if (system!=null) max=Math.max(max,Math.min(system.getTimeMax(),system.maxState));
+		for (StatisticsTimePerformanceIndicator indicator : (StatisticsTimePerformanceIndicator[])indicators.getAll(StatisticsTimePerformanceIndicator.class)) max=Math.max(max,Math.min(indicator.getTimeMax(),indicator.maxState));
 
 		labels.add(Language.tr("Statistics.State"));
 		List<String> line=new ArrayList<>(max+1);

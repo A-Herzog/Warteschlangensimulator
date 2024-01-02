@@ -153,7 +153,7 @@ to correctly map conditions in which the simulation time is used directly.
 
 
 
-<h2><img src="../images/sum.png">&nbsp; Simulation</h2>
+<h2><img src="../images/sum.png">&nbsp; Statistics</h2>
 
 <h3>Hours to be recorded in distributions</h3>
 <p>
@@ -161,6 +161,20 @@ This field can be used to define a maximum value for recording time based
 quantity distributions. The default value is one hour. This means all
 waiting times etc. longer than one hour will be recorded as one hour
 in the values distribution. The larger this value is, the more exact
+large values can be recorded in the distribution of the values but
+also the more memory will be needed for simulation. The recording of
+the performance indicators (like mean etc.) will always be exact
+independent of the size of the values distribution.
+</p>
+
+<h3>Highest state to be recorded by histogram</h3>
+<p>
+This field can be used to set the maximum status value
+(e.g. for the number of clients at a station) to be recorded as
+a histogram value in the statistics. The recording of mean values etc.
+is not affected by this. Only the recording of histogram values is
+limited upwards. The default value is 10,000.
+The larger this value is, the more exact
 large values can be recorded in the distribution of the values but
 also the more memory will be needed for simulation. The recording of
 the performance indicators (like mean etc.) will always be exact

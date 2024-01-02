@@ -40,6 +40,7 @@
   <xs:element ref="ModellAnimationsBilder"/>
   <xs:element name="ModellZeitschritteProSekunde" type="xs:string"/>
   <xs:element name="ModellStatistikVerteilungStunden" type="xs:string"/>
+  <xs:element name="ModellStatistikMaximalerAufzuzeichnenderZustand" type="xs:string"/>
   <xs:element name="ModellStatistikVerteilungWerte" type="xs:string"/>
   <xs:element name="ModellBeiRechenfehlerAbbrechen" type="xs:string"/>
   <xs:element ref="ModellKantenNormal"/>
@@ -2513,6 +2514,7 @@
   <xs:element ref="ModelAnimationImages"/>
   <xs:element name="ModelTimeStepsPerSecond" type="xs:string"/>
   <xs:element name="ModelStatisticsDistributionHours" type="xs:string"/>
+  <xs:element name="ModelStatisticsMaxStateRecording" type="xs:string"/>
   <xs:element name="ModelStatisticsDistributionValues" type="xs:string"/>
   <xs:element name="ModelStoppOnCalcError" type="xs:string"/>
   <xs:element ref="ModelEdgesNormal"/>

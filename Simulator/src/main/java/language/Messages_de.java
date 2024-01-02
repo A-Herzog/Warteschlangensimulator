@@ -2562,6 +2562,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[5853] = "F\u00fcr Parameter %s in Zeile %d sind nur Ganzzahlen zul\u00e4ssig.\nEs wurde jedoch eine Dezimalzahl als Schrittweite angegeben.";
     t[5854] = "ModelDescription.OutputDB.Column";
     t[5855] = "Tabellenspalte";
+    t[5858] = "Simulation.Log.ArriveStation.Info";
+    t[5859] = "Kunde: %s, Station: %s";
     t[5862] = "Editor.SurfaceTooltip.InsertEdge1";
     t[5863] = "Als Ausgangselement f\u00fcr Verbindungskante nutzbar";
     t[5864] = "Editor.SurfaceTooltip.InsertEdge2";
@@ -4014,14 +4016,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9173] = "Passiert ein Kunde eine Ventil-Setup-Station, so wird der maximale Durchfluss pro Sekunde an einem oder mehreren Ventilen ver\u00e4ndert.";
     t[9174] = "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution.RandomNumberInfo";
     t[9175] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Logistischen Verteilung mit den Parametern gem\u00e4\u00df dem ersten (Mittelwert) und zweiten (Skalierungsfaktor) Parameter.</p>";
-    t[9178] = "Surface.Source.Dialog.Tab.SetNumbers";
-    t[9179] = "Zuweisung von Kundenvariablen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_2 (java.lang.String[] t) {
+    t[9178] = "Surface.Source.Dialog.Tab.SetNumbers";
+    t[9179] = "Zuweisung von Kundenvariablen";
     t[9182] = "Surface.Costs.Dialog.StationCosts.ErrorInfo";
     t[9183] = "Die angegebenen Stationskosten \"%s\" sind an Zeichen %d fehlerhaft.";
     t[9184] = "ExpressionBuilder.ClientsInSystemQueue.MinimalNumber";
@@ -5854,6 +5856,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13241] = "Diagramm speichern...";
     t[13250] = "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientNumber";
     t[13251] = "Fortlaufende Nummer";
+    t[13252] = "XML.ErrorProcessingStream";
+    t[13253] = "Es ist ein Fehler beim Verarbeiten des Datenstroms aufgetreten.";
     t[13272] = "Surface.SourceTable.Dialog.ReadBottomToTop";
     t[13273] = "Tabelle von unten nach oben lesen";
     t[13280] = "Surface.Balking.Dialog.Option.Probability";
@@ -6018,16 +6022,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13643] = "Ankunftsschwellenwert";
     t[13646] = "ScriptPopup.Client.ValueText.GetAll";
     t[13647] = "Alle Texte auslesen";
-    t[13648] = "Surface.AnimationBarStack.Dialog.Delete.Confirm.YesInfo";
-    t[13649] = "Ja, Teilbalken l\u00f6schen.";
-    t[13650] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.ChangeRate1";
-    t[13651] = "\u00c4nderungsrate in der ersten und zweiten Runde";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
+    t[13648] = "Surface.AnimationBarStack.Dialog.Delete.Confirm.YesInfo";
+    t[13649] = "Ja, Teilbalken l\u00f6schen.";
+    t[13650] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.ChangeRate1";
+    t[13651] = "\u00c4nderungsrate in der ersten und zweiten Runde";
     t[13652] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.ChangeRate2";
     t[13653] = "\u00c4nderungsrate in der dritten und vierten Runde";
     t[13654] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.ChangeRate3";
@@ -8024,16 +8028,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18205] = "Modell simulieren";
     t[18208] = "Simulation.Log.MatchDisposeClient";
     t[18209] = "Zusammenf\u00fchren - Ende f\u00fcr bisherige Kunden";
-    t[18210] = "FileType.SQLite";
-    t[18211] = "SQLite-Datenbanken";
-    t[18212] = "Statistics.UtilizationAndFailures.Failure";
-    t[18213] = "Ausfall";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[18210] = "FileType.SQLite";
+    t[18211] = "SQLite-Datenbanken";
+    t[18212] = "Statistics.UtilizationAndFailures.Failure";
+    t[18213] = "Ausfall";
     t[18224] = "Simulation.Log.Set.Info";
     t[18225] = "Kunde: %s, Station: %s, %s:=%s";
     t[18230] = "Surface.XML.BoxFont.Small";
@@ -8828,6 +8832,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19987] = "Dashboard";
     t[19998] = "SettingsDialog.Languages.Info";
     t[19999] = "Die Einstellungen werden angewendet, wenn dieser Dialog mit Ok geschlossen wird.";
+    t[20002] = "Editor.Dialog.Tab.Simulation.StateRecordSize.Value";
+    t[20003] = "H\u00f6chster per Histogramm zu erfassender Zustand";
     t[20004] = "Main.Menu.Edit.RenameOnCopy.Off.Mnemonic";
     t[20005] = "A";
     t[20006] = "ExternalConnect.Dialog.Folder.Tooltip";
@@ -9836,8 +9842,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22265] = "Maximum";
     t[22266] = "Animation.XML.Image";
     t[22267] = "ModellAnimationsBild";
-    t[22272] = "XML.ErrorProcessingStream";
-    t[22273] = "Es ist ein Fehler beim Verarbeiten des Datenstroms aufgetreten.";
+    t[22272] = "Surface.Model.StateRecordSize";
+    t[22273] = "Der angegebene Wert \"%s\" f\u00fcr den maximalen im Histogramm zu erfassenden zustand ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
     t[22274] = "SavedView.XML.X";
     t[22275] = "X";
     t[22276] = "SavedView.XML.Y";
@@ -10028,18 +10034,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22663] = "Differenzz\u00e4hler";
     t[22664] = "Surface.TransportDestination.NotConnected";
     t[22665] = "nicht verbunden";
-    t[22666] = "Surface.Split.Infotext";
-    t[22667] = "Zerteilt jedes eintreffende Kundenelement in mehrere neue Kunden, die dann weitergeleitet werden.";
-    t[22670] = "Simulation.Log.ClientReleasedBySignal.Info";
-    t[22671] = "Kunde: %s, Station: %s";
-    t[22672] = "Surface.OutputLog.Name";
-    t[22673] = "Logging-Ausgabe";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[22666] = "Surface.Split.Infotext";
+    t[22667] = "Zerteilt jedes eintreffende Kundenelement in mehrere neue Kunden, die dann weitergeleitet werden.";
+    t[22670] = "Simulation.Log.ClientReleasedBySignal.Info";
+    t[22671] = "Kunde: %s, Station: %s";
+    t[22672] = "Surface.OutputLog.Name";
+    t[22673] = "Logging-Ausgabe";
     t[22678] = "ModelDescription.TransportParking.WaitingPriority";
     t[22679] = "Priorit\u00e4t zum Anfordern von Transportern";
     t[22686] = "ExpressionBuilder.Error.Title";
@@ -12034,18 +12040,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27079] = "Entladezeit gem\u00e4\u00df Ausdruck";
     t[27080] = "Main.Menu.View.ShowStationDescriptions";
     t[27081] = "Stationbeschreibungen in Tooltips";
-    t[27082] = "Statistics.CounterGroup";
-    t[27083] = "Z\u00e4hlergruppe";
-    t[27084] = "Surface.Match.Dialog.OptionBatch.Error.Info";
-    t[27085] = "F\u00fcr den neuen Kundentyp wurde kein Name angegeben.";
-    t[27086] = "Editor.DialogBase.LineWidth.Pixel";
-    t[27087] = "Pixel";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[27082] = "Statistics.CounterGroup";
+    t[27083] = "Z\u00e4hlergruppe";
+    t[27084] = "Surface.Match.Dialog.OptionBatch.Error.Info";
+    t[27085] = "F\u00fcr den neuen Kundentyp wurde kein Name angegeben.";
+    t[27086] = "Editor.DialogBase.LineWidth.Pixel";
+    t[27087] = "Pixel";
     t[27088] = "Main.Menu.AnimationScreenshotMode.Custom";
     t[27089] = "In ausgew\u00e4hltem Verzeichnis speichern";
     t[27090] = "UserDefinedFunctions.List.DeleteConfirmInfoNo";
@@ -12238,6 +12244,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27561] = "Die aktuellen Daten wurden erfolgreich aus dem entfernten Repository\n%s\nin das Verzeichnis\n%s\n\u00fcbertragen.";
     t[27562] = "Surface.Set.Dialog.Condition.Error.Info";
     t[27563] = "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft.";
+    t[27564] = "Editor.DialogBase.Search.MaximumStateRecording";
+    t[27565] = "H\u00f6chster per Histogramm zu erfassender Zustand";
     t[27570] = "SoundSelectPanel.Play.ErrorTitle";
     t[27571] = "Sound-Ausgabefehler";
     t[27576] = "Distribution.Laplace";
@@ -14038,6 +14046,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31611] = "H";
     t[31616] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers";
     t[31617] = "Zufallszahlen erzeugen";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_7 (java.lang.String[] t) {
     t[31622] = "CalculatorDialog.RepeatedProcessResults.Info";
     t[31623] = "Anzahl an Wiederholungen der Auswertung";
     t[31636] = "Examples.Baustellenampel";
@@ -14046,12 +14060,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31639] = "Transporterausfall l\u00f6schen";
     t[31640] = "Examples.Batch";
     t[31641] = "Tempor\u00e4re Batche";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_7 (java.lang.String[] t) {
     t[31644] = "Simulation.Creator.Transporter.InvalidExpression";
     t[31645] = "F\u00fcr Transportertyp \"%s\" wurde der Ausdruck \"%s\" zur Umrechnung der Entfernung auf eine Transportzeit angegeben. Dieser Ausdruck ist ab Zeichen %d ung\u00fcltig.";
     t[31648] = "CommandLine.ServerLimited.Name";
@@ -16044,6 +16052,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36031] = "Animation anhalten, wenn ein Kunde an dieser Station eintrifft";
     t[36034] = "FitDalog.Loaded.Info";
     t[36035] = "Es wurden %s Messwerte geladen.";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_8 (java.lang.String[] t) {
     t[36040] = "Statistics.ClientMovement.Visualization.Title";
     t[36041] = "Pfade visualisieren";
     t[36042] = "Window.LoadImage";
@@ -16052,12 +16066,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36051] = "Online Warteschlangenrechner";
     t[36052] = "Surface.Delay.AverageDelayTime";
     t[36053] = "Mittlere Verz\u00f6gerungszeit";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_8 (java.lang.String[] t) {
     t[36054] = "Surface.Conveyor.Dialog.TransportTimeType";
     t[36055] = "Transportzeit f\u00fcr den Kunden erfassen als";
     t[36064] = "Simulation.Element.InteractiveButton.Name";
@@ -18050,6 +18058,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40397] = "Statistikverzeichnis ausw\u00e4hlen";
     t[40398] = "Simulation.Element.LogicEndIf.Name";
     t[40399] = "Logik EndIf";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_9 (java.lang.String[] t) {
     t[40400] = "Surface.AnimationPause.XML.Condition.OnlyOnce";
     t[40401] = "NurEinmal";
     t[40416] = "Window.Check.AutoFixConnection.NoInfo";
@@ -18058,12 +18072,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40423] = "Der angegebene Wert \"%s\" f\u00fcr die Anzahl an zu erfassenden Werten in Verteilungen ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
     t[40430] = "ParameterCompare.Table.AddModelByAssistant.Mode.Full";
     t[40431] = "Alle Variationen erstellen";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_9 (java.lang.String[] t) {
     t[40432] = "Statistic.FastAccess.SelectXMLTag.InsertMethod";
     t[40433] = "Einf\u00fcgeart";
     t[40436] = "Simulation.Log.TransporterFailure.Scheduled";
@@ -20056,6 +20064,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44767] = "ModellElementDatenbereich";
     t[44772] = "ModelGenerator.Counter.Cancel";
     t[44773] = "Abbruch";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_10 (java.lang.String[] t) {
     t[44780] = "Surface.PickUp.Dialog.Mode.Batch.Error.Info";
     t[44781] = "F\u00fcr den neuen Kundentyp wurde kein Name angegeben.";
     t[44782] = "Statistics.AnalogValue.Current";
@@ -20064,12 +20078,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44785] = "Der Server konnte nicht gestartet werden, da er bereits l\u00e4uft.";
     t[44786] = "ModelDescription.TransportTimeRecord.TimeMode.Waiting";
     t[44787] = "Wartezeit";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_10 (java.lang.String[] t) {
     t[44790] = "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientNumber.Info";
     t[44791] = "Liefert die 1-basierende fortlaufende Nummer des aktuellen Kunden. Bei der Verwendung von mehreren Simulationsthreads ist diese Zahl thread-lokal.";
     t[44796] = "Surface.Balking.Dialog.ClientType.GlobalName";
@@ -22062,6 +22070,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49229] = "Systemeingang";
     t[49234] = "Simulation.Log.ArrivalCount";
     t[49235] = "Keine weiteren Ank\u00fcnfte";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_11 (java.lang.String[] t) {
     t[49238] = "Surface.AssignString.XML.Root";
     t[49239] = "ModellElementZuweisungText";
     t[49248] = "Statistic.FastAccess.FilterList.Text";
@@ -22070,12 +22084,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49255] = "Wartezeit an einer Station";
     t[49258] = "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Max";
     t[49259] = "Maximalwert des Diferenzz\u00e4hlers";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_11 (java.lang.String[] t) {
     t[49260] = "Surface.OutputJS.XML.Script.Language";
     t[49261] = "Sprache";
     t[49264] = "QuickAccess.Book.Hint";
@@ -22904,6 +22912,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[51005] = "\u00dcber Eigenschaft zusammenf\u00fchren";
     t[51006] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.ChangeRate2.ErrorInfo";
     t[51007] = "Die f\u00fcr die seriellen Algorithmen f\u00fcr die zweite Runde angegebene \u00c4nderungsrate \"%s\" ist ung\u00fcltig.\nEs muss eine Zahlen zwischen 0 (ausschlie\u00dflich) und 1 (einschlie\u00dflich) angegeben werden.";
+    t[51008] = "Surface.XML.StateRecordSize";
+    t[51009] = "ModellStatistikMaximalerAufzuzeichnenderZustand";
     t[51012] = "Main.Menu.View.TemplatesBar";
     t[51013] = "Elementvorlagen Seitenleite anzeigen";
     t[51022] = "Surface.AnalogValue.Dialog.Unit.PerMinute";
@@ -22994,8 +23004,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[51243] = "Bedienzeitkosten (aktueller Kunde)";
     t[51244] = "Surface.PopupMenu.QuickFix.Slider.MaxValue";
     t[51245] = "Maximalwert f\u00fcr Schieberegler auf %s setzen";
-    t[51248] = "Simulation.Log.ArriveStation.Info";
-    t[51249] = "Kunde: %s, Station: %s";
+    t[51248] = "Editor.Dialog.Tab.Simulation.StateRecordSize.Error";
+    t[51249] = "Der angegebene h\u00f6chste in der Statistik zu erfassende Zustandshistogrammwert \"%s\" ist ung\u00fcltig. Es muss eine nichtnegative Ganzzahl angegeben werden.";
     t[51250] = "Surface.HoldMulti.XML.Condition.TimeType.TransferTime";
     t[51251] = "Transferzeit";
     t[51254] = "ExpressionBuilder.ProbabilityDistributions.FrechetDistribution";
@@ -24066,6 +24076,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53609] = "<p>Liefert die mittlere Dauer \u00fcber alle Bedienzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>\n<p>Alternativ sind auch folgende andere Parametrierungen m\u00f6glich:</p>\n<ul>\n<li>ID einer Kundenquelle (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Station und ID einer Quelle (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Quelle im zweiten Parameter erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>3 Parameter: ID einer Station, ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Mehrfachquelle im zweiten Parameter erzeugten Kundentyps)</li>\n</ul>";
     t[53614] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.DestinationStation";
     t[53615] = "Zielstation";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_12 (java.lang.String[] t) {
     t[53622] = "Statistics.NumberOfWaitingClients";
     t[53623] = "Anzahl der wartenden Kunden";
     t[53628] = "Server.Log.SimulationCanceled";
@@ -24076,12 +24092,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53633] = "Rechtschreibpr\u00fcfungssystem aktivieren";
     t[53634] = "Main.Menu.Extras.Calculator";
     t[53635] = "Rechner...";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_12 (java.lang.String[] t) {
     t[53642] = "Statistics.XML.Element.TransferStationsTotal";
     t[53643] = "StatistikTransferzeitenStationenKundenSumme";
     t[53646] = "Surface.AnimationDiagram.Dialog.Appearance.FrameWidth";

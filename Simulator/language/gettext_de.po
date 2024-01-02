@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-25 00:07+0100\n"
+"POT-Creation-Date: 2023-12-29 23:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4218,6 +4218,12 @@ msgstr "Die angegebene Anzahl %s an Wiederholungen des Simulationslaufs ist ung�
 msgid "Editor.Dialog.Tab.Simulation.RepeatCount.Value"
 msgstr "Anzahl an Wiederholungen des gesamten Simulationslaufs"
 
+msgid "Editor.Dialog.Tab.Simulation.StateRecordSize.Error"
+msgstr "Der angegebene höchste in der Statistik zu erfassende Zustandshistogrammwert \"%s\" ist ungültig. Es muss eine nichtnegative Ganzzahl angegeben werden."
+
+msgid "Editor.Dialog.Tab.Simulation.StateRecordSize.Value"
+msgstr "Höchster per Histogramm zu erfassender Zustand"
+
 msgid "Editor.Dialog.Tab.Simulation.StatisticVectorLength"
 msgstr "Anzahl der Einträge in vektoriell erfassten Daten"
 
@@ -4620,6 +4626,9 @@ msgstr "Maximalanzahl an in Kundedaten-Verteilungen zu erfassenden Werten"
 
 msgid "Editor.DialogBase.Search.MaximumDistributionHours"
 msgstr "Maximalanzahl an in Verteilungen zu erfassenden Stunden"
+
+msgid "Editor.DialogBase.Search.MaximumStateRecording"
+msgstr "Höchster per Histogramm zu erfassender Zustand"
 
 msgid "Editor.DialogBase.Search.MinValue"
 msgstr "Minimalwert"
@@ -30901,6 +30910,9 @@ msgstr "Der angegebene Wert \"%s\" für die Dauer der Aufwärmphase ist ungülti
 msgid "Surface.Model.ErrorWarmUpTime"
 msgstr "Der angegebene Wert \"%s\" für die Zeitdauer der Aufwärmphase ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
 
+msgid "Surface.Model.StateRecordSize"
+msgstr "Der angegebene Wert \"%s\" für den maximalen im Histogramm zu erfassenden zustand ist ungültig. Es muss eine positive Ganzzahl angegeben werden."
+
 msgid "Surface.Model.TimeStepsPerSecond"
 msgstr "Der angegebene Wert \"%s\" für die Anzahl Zeitschritten pro Sekunde ist ungültig. Es muss eine positive Ganzzahl im Bereich von 1000 bis 1000000000 angegeben werden."
 
@@ -36360,6 +36372,9 @@ msgstr "NaechsterSchritt"
 
 msgid "Surface.XML.SequenceStep.Target"
 msgstr "Ziel"
+
+msgid "Surface.XML.StateRecordSize"
+msgstr "ModellStatistikMaximalerAufzuzeichnenderZustand"
 
 msgid "Surface.XML.StoppOnCalcError"
 msgstr "ModellBeiRechenfehlerAbbrechen"

@@ -369,6 +369,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public int distributionRecordHours;
 
 	/**
+	 * Welcher Zustand (z.B. Anzahl an Kunden im System) soll maximal erfasst werden?
+	 */
+	public int stateRecordSize;
+
+	/**
 	 * Wie viele verschiedene Kundendaten-Werte sollen in der Häufigkeitsverteilung maximal erfasst werden?
 	 */
 	public int distributionRecordClientDataValues;
@@ -490,6 +495,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		animationImages=new ModelAnimationImages();
 		timeStepsPerSecond=1000;
 		distributionRecordHours=1;
+		stateRecordSize=10_000;
 		distributionRecordClientDataValues=100;
 		stoppOnCalcError=false;
 		edgePainterNormal=new ComplexLine(1,FlatLaFHelper.isDark()?BLACK_COLOR_IN_DARK_MODE:Color.BLACK,0);
@@ -584,6 +590,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		animationImages.clear();
 		timeStepsPerSecond=1000;
 		distributionRecordHours=1;
+		stateRecordSize=10_000;
 		distributionRecordClientDataValues=10000;
 		stoppOnCalcError=false;
 		edgePainterNormal.set(1,FlatLaFHelper.isDark()?BLACK_COLOR_IN_DARK_MODE:Color.BLACK,0);
@@ -656,6 +663,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.animationImages.setDataFrom(animationImages);
 		clone.timeStepsPerSecond=timeStepsPerSecond;
 		clone.distributionRecordHours=distributionRecordHours;
+		clone.stateRecordSize=stateRecordSize;
 		clone.distributionRecordClientDataValues=distributionRecordClientDataValues;
 		clone.stoppOnCalcError=stoppOnCalcError;
 		clone.edgePainterNormal.set(edgePainterNormal);
@@ -744,6 +752,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (!animationImages.equalsModelAnimationImages(otherModel.animationImages)) return false;
 		if (timeStepsPerSecond!=otherModel.timeStepsPerSecond) return false;
 		if (distributionRecordHours!=otherModel.distributionRecordHours) return false;
+		if (stateRecordSize!=otherModel.stateRecordSize) return false;
 		if (distributionRecordClientDataValues!=otherModel.distributionRecordClientDataValues) return false;
 		if (stoppOnCalcError!=otherModel.stoppOnCalcError) return false;
 		if (!edgePainterNormal.equalsLine(otherModel.edgePainterNormal)) return false;
@@ -1070,6 +1079,13 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			return null;
 		}
 
+		if (Language.trAll("Surface.XML.StateRecordSize",name)) {
+			final Long L=NumberTools.getNotNegativeLong(text);
+			if (L==null) return String.format(Language.tr("Surface.Model.StateRecordSize"),text);
+			stateRecordSize=L.intValue();
+			return null;
+		}
+
 		if (Language.trAll("Surface.XML.DistributionRecordClientDataValues",name)) {
 			final Long L=NumberTools.getNotNegativeLong(text);
 			if (L==null) return String.format(Language.tr("Surface.Model.DistributionRecordClientDataValues"),text);
@@ -1366,6 +1382,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (distributionRecordHours!=1) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.DistributionRecordHours")));
 			sub.setTextContent(""+distributionRecordHours);
+		}
+
+		if (stateRecordSize!=10_000) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.StateRecordSize")));
+			sub.setTextContent(""+stateRecordSize);
 		}
 
 		if (distributionRecordClientDataValues!=10000) {
@@ -1848,6 +1869,9 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		/* Maximaler Sekundenwert für die Verteilungsstatistik (Angabe in Stunden) */
 		searcher.testInteger(Language.tr("Editor.DialogBase.Search.MaximumDistributionHours"),distributionRecordHours,newDistributionRecordHours->{if (newDistributionRecordHours>=0) distributionRecordHours=newDistributionRecordHours;});
+
+		/* Welcher Zustand (z.B. Anzahl an Kunden im System) soll maximal erfasst werden? */
+		searcher.testInteger(Language.tr("Editor.DialogBase.Search.MaximumStateRecording"),stateRecordSize,newStateRecordSize->{if (newStateRecordSize>=0) stateRecordSize=newStateRecordSize;});
 
 		/* Maximaler Wert für die Verteilungsstatistik über die Kundendatenfelder */
 		searcher.testInteger(Language.tr("Editor.DialogBase.Search.MaximumDistributionClientDataValues"),distributionRecordClientDataValues,newDistributionRecordClientDataValues->{if (newDistributionRecordClientDataValues>=0) distributionRecordClientDataValues=newDistributionRecordClientDataValues;});

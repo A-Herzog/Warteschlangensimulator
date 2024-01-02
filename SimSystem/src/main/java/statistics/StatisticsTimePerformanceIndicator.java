@@ -30,13 +30,19 @@ import mathtools.distribution.DataDistributionImpl;
  * Sollen hingegen durch einen (String-)Namen definierte Zustände erfasst werden,
  * so kann dafür die Klasse {@link StatisticsStateTimePerformanceIndicator} verwendet werden.
  * @author Alexander Herzog
- * @version 3.5
+ * @version 3.6
  */
 public final class StatisticsTimePerformanceIndicator extends StatisticsPerformanceIndicator implements Cloneable {
 	/**
 	 * Höchster erfasster Zustandswert (Array läuft von 0 bis <code>MAX_STATE</code>, also <code>MAX_STATE+1</code> Werte)
 	 */
-	public static final int MAX_STATE=2048*1024;
+	public static final int DEFAULT_MAX_STATE=2048*1024;
+
+	/**
+	 * Höchste zulässige Einstellung für <code>maxState</code>
+	 * @see #maxState
+	 */
+	public static final int MAX_MAX_STATE=2048*1024;
 
 	/** Fehlermeldung, wenn der Inhalt des XML-Elements nicht gelesen werden konnte. */
 	public static String xmlLoadError="Die in dem Element \"%s\" angegebene Verteilung ist ungültig.";
@@ -87,6 +93,12 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	 * Quantile, die aus der Häufigkeitsverteilung berechnet und in der xml-Datei gespeichert werden
 	 */
 	public static final double[] storeQuantilValues=new double[] {0.10,0.25,0.5,0.75,0.9};
+
+	/**
+	 * Höchster erfasster Zustandswert (Array läuft von 0 bis <code>maxState</code>, also <code> maxState+1</code> Werte)
+	 * @see #stateTime
+	 */
+	public final int maxState;
 
 	/**
 	 * Zeitpunkt der letzten Änderung des Zustands des Systems.
@@ -202,10 +214,20 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	/**
 	 * Konstruktor der Klasse <code>StatisticsTimePerformanceIndicator</code>
 	 * @param xmlNodeNames	Name des xml-Knotens, in dem die Daten gespeichert werden sollen
+	 * @param maxState	Welcher Zustand (z.B. Anzahl an Kunden im System) soll maximal erfasst werden?
+	 */
+	public StatisticsTimePerformanceIndicator(final String[] xmlNodeNames, final int maxState) {
+		super(xmlNodeNames);
+		this.maxState=Math.max(2,Math.min(maxState,MAX_MAX_STATE));
+		reset();
+	}
+
+	/**
+	 * Konstruktor der Klasse <code>StatisticsTimePerformanceIndicator</code>
+	 * @param xmlNodeNames	Name des xml-Knotens, in dem die Daten gespeichert werden sollen
 	 */
 	public StatisticsTimePerformanceIndicator(final String[] xmlNodeNames) {
-		super(xmlNodeNames);
-		reset();
+		this(xmlNodeNames,DEFAULT_MAX_STATE);
 	}
 
 	/**
@@ -215,7 +237,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	 */
 	private void forceExpandStateTime() {
 		if (stateTime==null) {
-			final int size=Math.min(MAX_STATE,Math.max(timeMaxState,10))+1;
+			final int size=Math.min(maxState,Math.max(timeMaxState,10))+1;
 			stateTime=new double[size];
 			if (time0>0) stateTime[0]=time0;
 			if (timeMaxState>0 && timeMax>0) stateTime[Math.min(stateTime.length-1,timeMaxState)]=timeMax;
@@ -234,7 +256,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 		if (time!=lastTime || explicitTimeInit) {
 			int max=(lastState>newState)?lastState:newState;
 			if (max<1) max=1;
-			if (max>MAX_STATE) max=MAX_STATE;
+			if (max>maxState) max=maxState;
 			final boolean init=(lastTime<=0.0d && stateTime==null && !wasExplicitTimeInit) || explicitTimeInit;
 
 			if (explicitTimeInit) wasExplicitTimeInit=true;
@@ -265,7 +287,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 				}
 
 				if (stateTime!=null) {
-					if (stateTime.length<=max) stateTime=Arrays.copyOf(stateTime,Math.min(MAX_STATE+1,(max+1)*2));
+					if (stateTime.length<=max) stateTime=Arrays.copyOf(stateTime,Math.min(maxState+1,(max+1)*2));
 					stateTime[(stateTime.length-1<lastState)?stateTime.length-1:lastState]+=add;
 				}
 
@@ -424,7 +446,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	 */
 	@Override
 	public StatisticsTimePerformanceIndicator clone() {
-		final StatisticsTimePerformanceIndicator indicator=new StatisticsTimePerformanceIndicator(xmlNodeNames);
+		final StatisticsTimePerformanceIndicator indicator=new StatisticsTimePerformanceIndicator(xmlNodeNames,maxState);
 		indicator.copyDataFrom(this);
 		return indicator;
 	}
@@ -436,7 +458,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 	 */
 	@Override
 	public StatisticsTimePerformanceIndicator cloneEmpty() {
-		return new StatisticsTimePerformanceIndicator(xmlNodeNames);
+		return new StatisticsTimePerformanceIndicator(xmlNodeNames,maxState);
 	}
 
 	/**
@@ -804,7 +826,7 @@ public final class StatisticsTimePerformanceIndicator extends StatisticsPerforma
 			sb.append(NumberTools.formatSystemNumber(time0>0?time0:0));
 			if (timeMaxState>0) {
 				sb.append(";");
-				for (int i=1;i<Math.min(timeMaxState,MAX_STATE);i++) sb.append("0;");
+				for (int i=1;i<Math.min(timeMaxState,maxState);i++) sb.append("0;");
 				sb.append(NumberTools.formatSystemNumber(timeMax));
 			}
 			node.setTextContent(sb.toString());

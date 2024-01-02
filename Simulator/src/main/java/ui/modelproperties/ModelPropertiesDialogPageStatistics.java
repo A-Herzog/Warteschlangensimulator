@@ -29,6 +29,7 @@ import javax.swing.JTextField;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import statistics.StatisticsTimePerformanceIndicator;
 import systemtools.MsgBox;
 import ui.modeleditor.ModelElementBaseDialog;
 
@@ -41,6 +42,9 @@ import ui.modeleditor.ModelElementBaseDialog;
 public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPage {
 	/** Eingabefeld "In Verteilung aufzuzeichnende Stunden" */
 	private JTextField distributionRecordHours;
+
+	/** Eingabefeld "Höchster per Histogramm zu erfassender Zustand" */
+	private JTextField stateRecordSize;
 
 	/** Option "Kunden, die am Simulationsende das System noch nicht verlassen haben, erfassen" */
 	private JCheckBox recordIncompleteClients;
@@ -92,6 +96,15 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 		distributionRecordHours.setEditable(!readOnly);
 		addKeyListener(distributionRecordHours,()->checkDistributionRecordHours());
 		sub.add(new JLabel(" ("+Language.tr("Editor.Dialog.Tab.Simulation.DistributionRecordHours.Info")+")"));
+
+		/* Welcher Zustand (z.B. Anzahl an Kunden im System) soll maximal erfasst werden? */
+
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.Simulation.StateRecordSize.Value")+":",""+model.stateRecordSize,8);
+		sub=(JPanel)data[0];
+		lines.add(sub);
+		stateRecordSize=(JTextField)data[1];
+		stateRecordSize.setEditable(!readOnly);
+		addKeyListener(stateRecordSize,()->checkStateRecordSize());
 
 		/* Zwischenüberschrift: "Kundendaten" */
 
@@ -167,6 +180,17 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 	}
 
 	/**
+	 * Prüft die angegebene Maximalgröße für die Erfassung der Zeitdauern pro Zustand in der Statistik.
+	 * @return	Liefert <code>true</code>, wenn der Wert gültig ist.
+	 * @see #stateRecordSize
+	 * @see #checkData()
+	 */
+	private boolean checkStateRecordSize() {
+		final Long L=NumberTools.getNotNegativeLong(stateRecordSize,true);
+		return (L!=null && L.intValue()<=StatisticsTimePerformanceIndicator.MAX_MAX_STATE);
+	}
+
+	/**
 	 * Prüft die angegebene Anzahl an Werten für die Erfassung der Verteilungen über die Kundendatenfelder in der Statistik.
 	 * @return	Liefert <code>true</code>, wenn der Wert gültig ist.
 	 * @see #distributionRecordClientDataValues
@@ -183,6 +207,11 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 			return false;
 		}
 
+		if (!checkStateRecordSize()) {
+			MsgBox.error(dialog,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.Simulation.StateRecordSize.Error"),stateRecordSize.getText()));
+			return false;
+		}
+
 		if (!checkDistributionRecordClientDataValues()) {
 			MsgBox.error(dialog,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.Simulation.DistributionRecordClientDataValues.Error"),distributionRecordClientDataValues.getText()));
 			return false;
@@ -193,8 +222,13 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 
 	@Override
 	public void storeData() {
-		Long L=NumberTools.getNotNegativeLong(distributionRecordHours,true);
-		if (L!=null) model.distributionRecordHours=(int)L.longValue();
+		Long L;
+
+		L=NumberTools.getNotNegativeLong(distributionRecordHours,true);
+		if (L!=null) model.distributionRecordHours=L.intValue();
+
+		L=NumberTools.getNotNegativeLong(stateRecordSize,true);
+		if (L!=null) model.stateRecordSize=L.intValue();
 
 		model.recordIncompleteClients=recordIncompleteClients.isSelected();
 
