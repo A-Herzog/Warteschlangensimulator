@@ -393,7 +393,7 @@ public class ModelChanger {
 		final EditModel editModel=originalModel.clone();
 
 		boolean ok=false;
-		for (int i=0;i<editModel.globalVariablesNames.size();i++) if (editModel.globalVariablesNames.get(i).equals(tag)) {
+		for (int i=0;i<editModel.globalVariablesNames.size();i++) if (editModel.globalVariablesNames.get(i).equalsIgnoreCase(tag)) {
 			editModel.globalVariablesExpressions.set(i,NumberTools.formatNumberMax(value));
 			ok=true;
 			break;

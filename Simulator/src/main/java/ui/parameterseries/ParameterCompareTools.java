@@ -89,7 +89,8 @@ public class ParameterCompareTools {
 			if (resource.getMode()!=ModelResource.Mode.MODE_NUMBER || resource.getCount()<0) return null;
 			return Double.valueOf(resource.getCount());
 		case MODE_VARIABLE:
-			final int index=model.globalVariablesNames.indexOf(input.getTag());
+			int index=-1;
+			for (int i=0;i<model.globalVariablesNames.size();i++) if (model.globalVariablesNames.get(i).equalsIgnoreCase(input.getTag())) {index=i; break;}
 			if (index>=0) return calcValue(model,model.globalVariablesExpressions.get(index));
 			return null;
 		case MODE_MAP:
