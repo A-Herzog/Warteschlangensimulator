@@ -1,0 +1,1 @@
+In diesem Beispiel werden die Abläufe in einer Krankenhausnotaufnahme nachgestellt. Die Behandlung der Patienten erfolgt durch Ärzte und Pfleger, die verschieden lange durch jeweils eine Behandlung gebunden sind. Durch eine Veränderung der Lastverteilung ließen sich die Kenngrößen des Systems verbessern.

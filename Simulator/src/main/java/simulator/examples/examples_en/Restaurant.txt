@@ -1,0 +1,1 @@
+This example model illustrates the behavior of guests in a restaurant. It looks at the steps of food selection, preparation, serving, consumption and payment. Different resources are required for each of the different steps.

@@ -1,0 +1,1 @@
+Most queueing models are open networks: Clients arrive at the system, may be routed to several stations and then leave the system at the end. In a closed queueing network, on the other hand, a finite number of clients circulate. Therefore, no time durations can be recorded on a client basis. However, time durations at the individual stations can be recorded.

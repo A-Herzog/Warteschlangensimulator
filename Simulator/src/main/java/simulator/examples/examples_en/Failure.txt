@@ -1,0 +1,1 @@
+This example model shows how operator pause times can be mapped in a simulation. In contrast to the models from analytical queueing theory, it is not a problem in the simulation to map varying numbers of operators at a process station over time.

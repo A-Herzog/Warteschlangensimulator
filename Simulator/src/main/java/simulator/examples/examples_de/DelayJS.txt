@@ -1,0 +1,1 @@
+In diesem Modell werden verschiedene Strategien, um den Kundenankunftsstrom vor einer Bedienstation zu homogenieren und damit die Streuung der Wartezeiten zu reduzieren, dargestellt. Die Wirksamkeit der verschidenen Methoden kann direkt verglichen werden.

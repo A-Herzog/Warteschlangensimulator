@@ -1,0 +1,1 @@
+In diesem Beispielmodell wechselt die mittlere Zwischenankunftszeit der Kunden alle drei Stunden zwischen 140 und 85 Sekunden. Damit ergibt sich bei c=1 Bediener und einer mittleren Bediendauer von 80 Sekunden eine zwischen 57% und 94% wechselnde Auslastung.

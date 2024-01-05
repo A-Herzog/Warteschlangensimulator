@@ -1,0 +1,1 @@
+This model demonstrates the use of continuous-time values in Warteschlangensimulator. Clients pass three stations one after the other at intervals, at each of which the rate of change of a value that changes continuously over time during the simulation is set. The diagram shows the change in the value over time.

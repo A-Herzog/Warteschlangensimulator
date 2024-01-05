@@ -1,0 +1,1 @@
+This model represents a simple M/M/1 system. The inter-arrival times and the service times are exponentially distributed; there is one operator. The choice of E[I]=100 seconds and E[S]=80 seconds results in an operator utilization of 80%. The simulation results can be compared directly with the analytical values of the Erlang C formula.

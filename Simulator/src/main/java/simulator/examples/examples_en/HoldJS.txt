@@ -1,0 +1,1 @@
+This example model illustrates how a script station can be used to limit the number of clients in a network segment.

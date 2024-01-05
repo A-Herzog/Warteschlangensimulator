@@ -1,0 +1,1 @@
+In diesem Beispiel wird gezeigt, wie Kundenanfragen und produzierte Produkte gesteuert durch Signale zusammengeführt werden können.

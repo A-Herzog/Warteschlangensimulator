@@ -1,0 +1,1 @@
+In the analytical queueing theory, the operators and their stations form a unit. In practice, however, an operator can be deployed at several process stations. This is illustrated in this simulation model: There are two process stations and two operators, each of whom can move freely between these stations and always go next to the station where the most clients are waiting.

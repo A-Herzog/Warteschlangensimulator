@@ -1,0 +1,1 @@
+Dieses Beispielmodell bildet einen mehrstufigen Produktionsprozess bestehend aus Vorverarbeitung, Hauptprozess und Nachbearbeitung ab. An den verschiedenen Bedienstationen kommen dabei verschiedene Verteilungen für die Bedienzeiten zum Einsatz.

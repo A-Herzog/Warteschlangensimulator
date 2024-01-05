@@ -1,0 +1,1 @@
+Dieses Beispielmodell bildet das Verhalten von Gästen in einem Restaurant ab. Betrachtet werden die Schritte der Essensauswahl, der Zubereitung, des Servierens, des Verzehrs und des Bezahlens. Für die verschiedenen Schritte werden jeweils verschiedene Ressourcen benötigt.

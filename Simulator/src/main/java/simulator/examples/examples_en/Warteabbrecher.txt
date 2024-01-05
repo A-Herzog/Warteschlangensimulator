@@ -1,0 +1,1 @@
+In this example model, client who are only willing to wait a limited amount of time are mapped. Each client has an individual waiting time tolerance (according to a waiting time tolerance distribution). If this is exceeded while waiting in the queue in front of the service station, the client leaves the station without being served and may start a new attempt to be served later.

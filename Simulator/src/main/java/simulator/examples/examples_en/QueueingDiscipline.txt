@@ -1,0 +1,1 @@
+The service order, service in order of arrival (FIFO) or service in reverse order of arrival (LIFO), has no influence on the average waiting times at a station. However, LIFO leads to significantly higher variation of the waiting and the lead times than FIFO.

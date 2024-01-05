@@ -1,0 +1,1 @@
+In a Galton board, balls repeatedly fall randomly to the left or right. It is used to illustrate the binomial distribution. In this example model, a Galton board is modeled as a flow diagram.

@@ -1,0 +1,1 @@
+Not only the utilization of a station has an influence on the mean waiting times and queue length, but also on the variation of the service times. The more the service times vary, the worse the system's performance indicators will be at otherwise identical capacity utilization.

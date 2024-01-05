@@ -1,0 +1,1 @@
+This model illustrates campaign production: Clients of two types arrive at the system. If there is a change from one client type to another at the process station, additional set-up time is required. Therefore, the queue is rearranged in an attempt to stay with one client type for as long as possible.

@@ -1,0 +1,1 @@
+Dieses Modell verdeutlicht eine Kampagnenfertigung: Kunden zweier Typen treffen am System ein. Erfolgt ein Wechsel von einem Kundentyp zum anderen an der Bedienstation, so ist eine zusätzliche Rüstzeit notwendig. Daher wird durch Umsortieren der Warteschlange versucht, so lange wie möglich jeweils bei einem Kundentyp zu bleiben.

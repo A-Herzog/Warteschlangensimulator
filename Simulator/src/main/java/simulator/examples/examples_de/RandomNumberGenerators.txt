@@ -1,0 +1,1 @@
+In diesem Modell werden über mehrere Verzögerungsstationen Zufallszahlen gemäß der Gleichverteilung, der Dreiecksverteilung, der Log-Normalverteilung, der Exponentialverteilung, der Gamma-Verteilung und der Weibull-Verteilung generiert. Die Histogramme der erzegugten Zufallszahlen werden angezeigt.

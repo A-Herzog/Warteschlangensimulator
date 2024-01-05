@@ -1,0 +1,1 @@
+This example model depicts a multi-stage production process consisting of pre-processing, main process and post-processing. Different distributions for the service times are used at the various process stations.

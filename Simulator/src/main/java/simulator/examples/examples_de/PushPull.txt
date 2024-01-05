@@ -1,0 +1,1 @@
+In diesem Modell wird eine zweistufige Push-Produktion einer zweistufigen Pull-Produktion gegenübergestellt. Es wird die mittlere Anzahl an Kunden in den beiden Fertigungen und der Durchsatz in beiden Fällen ausgegeben.

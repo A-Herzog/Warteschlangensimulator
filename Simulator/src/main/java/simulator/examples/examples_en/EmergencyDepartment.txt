@@ -1,0 +1,1 @@
+In this example, the processes in a hospital emergency department are simulated. Patients are treated by doctors and nurses who are occupied for different lengths of time with one treatment each. The performance indicators of the system could be improved by changing the load balancing.

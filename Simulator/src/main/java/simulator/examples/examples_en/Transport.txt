@@ -1,0 +1,1 @@
+This example model shows a way of modeling the transport of workpieces between different stations. Transports represent a way of transferring objects in the network under consideration that does not require movement along an edge. The transport option allows certain resources to be required for a transport and time durations to be defined for transports.

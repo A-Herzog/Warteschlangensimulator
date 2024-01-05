@@ -1,0 +1,1 @@
+Nicht nur die Auslastung an einer Station hat Einfluss auf die mittleren Wartezeiten und die Warteschlangenlänge, sondern auf die Streuung der Bediendauern. Je stärker die Bediendauern variieren, desto schlechter fallen die Kenngrößen des Systems bei ansonsten identischer Auslastung aus.

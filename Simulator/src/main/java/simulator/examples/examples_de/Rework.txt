@@ -1,0 +1,1 @@
+Tritt in einer Produktion Nacharbeit auf, so erhöht dies die Arbeitslast evtl. signifikant. Wenn die zusätzliche Last bedingt durch die Nacharbeit nicht berücksichtigt wird, kann dies zu deutlich längeren Wartezeiten als eigentlich angenommen führen.

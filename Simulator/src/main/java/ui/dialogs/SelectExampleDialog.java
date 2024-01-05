@@ -24,12 +24,14 @@ import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTextPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -44,6 +46,7 @@ import simulator.editmodel.EditModelDark;
 import simulator.examples.EditModelExamples;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
+import tools.SetupData;
 import ui.EditorPanel;
 import ui.help.Help;
 import ui.images.Images;
@@ -71,12 +74,20 @@ public final class SelectExampleDialog extends BaseDialog {
 	/** Vorschaubereich für das ausgewählte Beispiel */
 	private final EditorPanel viewer;
 
+	/** Textbereich zur Anzeige der Beschreibung für das Beispiel */
+	private final JTextPane info;
+
+	/** Zeichenflächen-Zoomfaktor beim Aufruf des Dialogs */
+	private final double lastZoom;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 */
 	public SelectExampleDialog(final Component owner) {
 		super(owner,Language.tr("SelectExampleWithPreview.Title"));
+
+		lastZoom=SetupData.getSetup().lastZoom;
 
 		/* GUI erstellen */
 		final JPanel contentOuter=createGUI(()->Help.topicModal(this,"SelectExampleWithPreview"));
@@ -104,16 +115,37 @@ public final class SelectExampleDialog extends BaseDialog {
 		final JSplitPane main=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		content.add(main,BorderLayout.CENTER);
 
-		/* Vorschau rechts */
-		main.setRightComponent(viewer=new EditorPanel(this,null,true,true,false,false));
+		/* Rechte Seite */
+		final JPanel right=new JPanel(new BorderLayout());
+		main.setRightComponent(right);
+
+		/* Vorschau */
+		right.add(viewer=new EditorPanel(this,null,true,true,false,false),BorderLayout.CENTER);
 		viewer.setSavedViewsButtonVisible(false);
 		viewer.setMinimumSize(new Dimension(400,0));
+		viewer.setZoom(0.8);
+
+		/* Infotext */
+		final JScrollPane infoScroll=new JScrollPane(info=new JTextPane());
+		infoScroll.setMinimumSize(new Dimension(0,80));
+		infoScroll.setMaximumSize(new Dimension(10000,80));
+		infoScroll.setSize(0,150);
+		infoScroll.setPreferredSize(new Dimension(0,80));
+		infoScroll.setBorder(BorderFactory.createEmptyBorder());
+		right.add(infoScroll,BorderLayout.SOUTH);
+		info.setEditable(false);
+		info.setHighlighter(null);
+		info.setBorder(BorderFactory.createEmptyBorder(10,10,5,10));
+		info.setBackground(right.getBackground());
 
 		/* Baumstruktur links */
 		main.setLeftComponent(new JScrollPane(tree=new JTree()));
 		tree.setRootVisible(false);
 		tree.getParent().setMinimumSize(new Dimension(200,0));
-		tree.addTreeSelectionListener(e->viewer.setModel(getExample()));
+		tree.addTreeSelectionListener(e->{
+			viewer.setModel(getExample());
+			info.setText(getExampleInfo());
+		});
 		((DefaultTreeCellRenderer)tree.getCellRenderer()).setLeafIcon(Images.MODEL.getIcon());
 		tree.addMouseListener(new MouseAdapter() {
 			@Override
@@ -136,7 +168,7 @@ public final class SelectExampleDialog extends BaseDialog {
 		main.setDividerLocation(0.2);
 
 		/* Dialog starten */
-		setMinSizeRespectingScreensize(1200,800);
+		setMinSizeRespectingScreensize(1440,960);
 		setResizable(true);
 		setLocationRelativeTo(getOwner());
 		setVisible(true);
@@ -179,10 +211,10 @@ public final class SelectExampleDialog extends BaseDialog {
 	}
 
 	/**
-	 * Liefert das ausgewählte Beispiel
-	 * @return	Ausgewähltes Beispiel oder <code>null</code>, wenn kein Beispiel ausgewählt war
+	 * Liefert das {@link ExampleData}-Objekt für das ausgewählte Beispiel.
+	 * @return	{@link ExampleData}-Objekt für das ausgewählte Beispiel oder <code>null</code>, wenn kein Beispiel ausgewählt war
 	 */
-	public EditModel getExample() {
+	private ExampleData getSelectedExampleData() {
 		final TreePath path=tree.getSelectionPath();
 		if (path==null) return null;
 		final Object last=path.getLastPathComponent();
@@ -191,7 +223,38 @@ public final class SelectExampleDialog extends BaseDialog {
 		final Object userObject=node.getUserObject();
 		if (!(userObject instanceof ExampleData)) return null;
 
-		return ((ExampleData)userObject).getModel();
+		return (ExampleData)userObject;
+	}
+
+	/**
+	 * Liefert das ausgewählte Beispiel.
+	 * @return	Ausgewähltes Beispiel oder <code>null</code>, wenn kein Beispiel ausgewählt war
+	 */
+	public EditModel getExample() {
+		final ExampleData exampleData=getSelectedExampleData();
+		if (exampleData==null) return null;
+		return exampleData.getModel();
+	}
+
+	/**
+	 * Liefert die Beschreibung für das ausgewählte Beispiel.
+	 * @return	Beschreibung für das ausgewähltes Beispiel oder <code>null</code>, wenn kein Beispiel ausgewählt war
+	 */
+	private String getExampleInfo() {
+		final ExampleData exampleData=getSelectedExampleData();
+		if (exampleData==null) return "";
+		return exampleData.getInfo();
+
+	}
+
+	@Override
+	public void setVisible(boolean b) {
+		super.setVisible(b);
+		if (b==false) {
+			final SetupData setup=SetupData.getSetup();
+			setup.lastZoom=lastZoom;
+			setup.saveSetup();
+		}
 	}
 
 	/**
@@ -203,6 +266,8 @@ public final class SelectExampleDialog extends BaseDialog {
 		private final String name;
 		/** Modell für das Beispiel */
 		private EditModel model;
+		/** Infotext für das Beispiel */
+		private String info;
 
 		/**
 		 * Konstruktor der Klasse
@@ -218,7 +283,7 @@ public final class SelectExampleDialog extends BaseDialog {
 		}
 
 		/**
-		 * Liefert das Modell für dieses Beispiel
+		 * Liefert das Modell für dieses Beispiel.
 		 * @return	Modell für dieses Beispiel
 		 */
 		public EditModel getModel() {
@@ -228,6 +293,18 @@ public final class SelectExampleDialog extends BaseDialog {
 				if (FlatLaFHelper.isDark()) EditModelDark.processModel(model,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
 			}
 			return model;
+		}
+
+		/**
+		 * Liefert den Beschreibungstext für dieses Beispiel.
+		 * @return	Beschreibungstext für dieses Beispiel
+		 */
+		public String getInfo() {
+			if (info==null) {
+				final int index=EditModelExamples.getExampleIndexFromName(name);
+				info=EditModelExamples.getExampleInfoByIndex(SelectExampleDialog.this,index);
+			}
+			return info;
 		}
 	}
 }

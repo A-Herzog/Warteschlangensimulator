@@ -1,0 +1,1 @@
+This example shows how customer inquiries and manufactured products can be brought together controlled by signals.

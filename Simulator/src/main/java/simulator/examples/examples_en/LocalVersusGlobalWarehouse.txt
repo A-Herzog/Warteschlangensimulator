@@ -1,0 +1,1 @@
+In this example, different delivery strategies for local interim storage facilities are considered. Either the factories deliver the manufactured products immediately to the interim storage facilities (push principle) or only on explicit demand (pull principle). The average time customers have to wait for their orders in both cases is analyzed.

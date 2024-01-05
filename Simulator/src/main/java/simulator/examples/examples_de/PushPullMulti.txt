@@ -1,0 +1,1 @@
+In diesem Beispielmodell wird eine Pull-Produktion bestehend aus drei Stationen abgebildet. Die Bestandsbegrenzung an den Stationen erfolgt dabei durch Pull-Schranken. Zur Steuerung der Kundenquelle wird ein Signal verwendet.

@@ -1,0 +1,1 @@
+Dieses Modell bildet ein einfaches M/M/1-System ab. Die Zwischenankunftszeiten und die Bediendauern sind exponentiell verteilt; es existiert ein Bediener. Mit der Wahl von E[I]=100 Sekunden und E[S]=80 Sekunden ergibt sich eine Auslastung des Bedieners von 80%. Die Simulationsergebnisse können direkt mit den analytischen Werten der Erlang-C-Formel verglichen werden.

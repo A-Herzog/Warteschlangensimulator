@@ -1,0 +1,1 @@
+In this model, random numbers are generated via several delay stations according to the uniform distribution, the triangular distribution, the log-normal distribution, the exponential distribution, the gamma distribution and the Weibull distribution. The histograms of the random numbers generated are displayed.

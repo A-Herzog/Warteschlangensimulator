@@ -1,0 +1,1 @@
+In this example model, the average inter-arrival time of client changes every three hours between 140 and 85 seconds. With c=1 operator and an average service time of 80 seconds, this results in a utilization that varies between 57% and 94%.

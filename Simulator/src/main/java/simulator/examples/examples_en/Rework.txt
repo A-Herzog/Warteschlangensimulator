@@ -1,0 +1,1 @@
+If rework occurs during production, this may significantly increase the workload. If the additional load caused by the rework is not taken into account, this can lead to significantly longer waiting times than actually expected.

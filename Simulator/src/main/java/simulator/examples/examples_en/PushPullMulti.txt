@@ -1,0 +1,1 @@
+In this example model, a pull production consisting of three stations is shown. Stock is limited at the stations by pull barriers. A signal is used to control the client source.

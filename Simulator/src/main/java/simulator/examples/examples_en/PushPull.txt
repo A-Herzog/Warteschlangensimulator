@@ -1,0 +1,1 @@
+In this model, a two-stage push production is compared with a two-stage pull production. The average number of clients in the two production processes and the throughput in both cases are shown.

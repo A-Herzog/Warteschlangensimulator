@@ -233,12 +233,12 @@ public class EditModelExamples {
 	/**
 	 * Fügt ein Beispiel zu der Liste der Beispiele hinzu
 	 * @param names	Namen für das Beispiel in den verschiedenen Sprachen
-	 * @param file	Beispieldateiname
+	 * @param fileNameBase	Beispieldateiname (ohne Erweiterung)
 	 * @param type	Gruppe in die das Beispiel fällt
 	 * @param keyWords	Optionale Schlüsselwörter für das Beispiel
 	 */
-	private void addExample(final String[] names, final String file, final ExampleType type, final ExampleKeyWord... keyWords) {
-		list.add(new Example(names,file,type,new HashSet<>(Arrays.asList(keyWords))));
+	private void addExample(final String[] names, final String fileNameBase, final ExampleType type, final ExampleKeyWord... keyWords) {
+		list.add(new Example(names,fileNameBase+".xml",fileNameBase+".txt",type,new HashSet<>(Arrays.asList(keyWords))));
 	}
 
 	/**
@@ -247,65 +247,65 @@ public class EditModelExamples {
 	 */
 	private void addExamples() {
 		/* Standardbeispiele */
-		addExample(Language.trAll("Examples.ErlangC"),"ErlangC1.xml",ExampleType.TYPE_DEFAULT);
+		addExample(Language.trAll("Examples.ErlangC"),"ErlangC1",ExampleType.TYPE_DEFAULT);
 
 		/* Beispiele, die sich auf reale Modelle bzw. Fragen beziehen */
-		addExample(Language.trAll("Examples.Callcenter"),"Callcenter.xml",ExampleType.TYPE_REAL_MODELS,ExampleKeyWord.ROUTING);
-		addExample(Language.trAll("Examples.Restaurant"),"Restaurant.xml",ExampleType.TYPE_REAL_MODELS);
-		addExample(Language.trAll("Examples.Baustellenampel"),"Baustellenampel.xml",ExampleType.TYPE_REAL_MODELS);
-		addExample(Language.trAll("Examples.EmergencyDepartment"),"EmergencyDepartment.xml",ExampleType.TYPE_REAL_MODELS);
-		addExample(Language.trAll("Examples.MultiStageProduction"),"MultiStageProduction.xml",ExampleType.TYPE_REAL_MODELS);
+		addExample(Language.trAll("Examples.Callcenter"),"Callcenter",ExampleType.TYPE_REAL_MODELS,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.Restaurant"),"Restaurant",ExampleType.TYPE_REAL_MODELS);
+		addExample(Language.trAll("Examples.Baustellenampel"),"Baustellenampel",ExampleType.TYPE_REAL_MODELS);
+		addExample(Language.trAll("Examples.EmergencyDepartment"),"EmergencyDepartment",ExampleType.TYPE_REAL_MODELS);
+		addExample(Language.trAll("Examples.MultiStageProduction"),"MultiStageProduction",ExampleType.TYPE_REAL_MODELS);
 
 		/* Beispiele, die bestimmte Modellierungseigenschaften verdeutlichen */
-		addExample(Language.trAll("Examples.ClientTypePriorities"),"Kundentypen.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.PRIORITIES);
-		addExample(Language.trAll("Examples.ImpatientClientsAndRetry"),"Warteabbrecher.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.ROUTING);
-		addExample(Language.trAll("Examples.SharedResources"),"SharedResources.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.LimitedNumberOfClientsAtAStation"),"Variable.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.PUSH_PULL);
-		addExample(Language.trAll("Examples.OperatorsAsSimulationObjects"),"BedienerAlsSimulationsobjekte.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Transport"),"Transport.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.TRANSPORT);
-		addExample(Language.trAll("Examples.Transporter"),"Transporter.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.TRANSPORT);
-		addExample(Language.trAll("Examples.CombiningOrdersAndItems"),"MultiSignalBarrier.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Batch"),"Batch.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.BATCH);
-		addExample(Language.trAll("Examples.Failure"),"Failure.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.SetUpTimes"),"SetUpTimes.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Rework"),"Rework.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.ROUTING);
-		addExample(Language.trAll("Examples.HoldJS"),"HoldJS.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.PUSH_PULL);
-		addExample(Language.trAll("Examples.RestrictedBuffer"),"RestriktierterPuffer.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.PUSH_PULL);
-		addExample(Language.trAll("Examples.Analog"),"Analog.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Jockeying"),"Jockeying.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.ROUTING);
-		addExample(Language.trAll("Examples.QueueingDiscipline"),"QueueingDiscipline.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.Shiftplan"),"Shiftplan.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.SCHEDULES);
-		addExample(Language.trAll("Examples.ArrivalAndServiceBatch"),"ArrivalAndServiceBatch.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.BatchTransport"),"BatchTransport.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.BATCH,ExampleKeyWord.TRANSPORT);
-		addExample(Language.trAll("Examples.IntervalInterArrivalTimes"),"IntervalInterArrivalTimes.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.SCHEDULES);
-		addExample(Language.trAll("Examples.ClosedQueueingNetwork"),"ClosedQueueingNetwork.xml",ExampleType.TYPE_PROPERTIES);
-		addExample(Language.trAll("Examples.WorkerWakeUp"),"WorkerWakeUp.xml",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.SCHEDULES);
+		addExample(Language.trAll("Examples.ClientTypePriorities"),"Kundentypen",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.PRIORITIES);
+		addExample(Language.trAll("Examples.ImpatientClientsAndRetry"),"Warteabbrecher",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.SharedResources"),"SharedResources",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.LimitedNumberOfClientsAtAStation"),"Variable",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.PUSH_PULL);
+		addExample(Language.trAll("Examples.OperatorsAsSimulationObjects"),"BedienerAlsSimulationsobjekte",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Transport"),"Transport",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.TRANSPORT);
+		addExample(Language.trAll("Examples.Transporter"),"Transporter",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.TRANSPORT);
+		addExample(Language.trAll("Examples.CombiningOrdersAndItems"),"MultiSignalBarrier",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Batch"),"Batch",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.BATCH);
+		addExample(Language.trAll("Examples.Failure"),"Failure",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.SetUpTimes"),"SetUpTimes",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Rework"),"Rework",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.HoldJS"),"HoldJS",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.PUSH_PULL);
+		addExample(Language.trAll("Examples.RestrictedBuffer"),"RestriktierterPuffer",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.PUSH_PULL);
+		addExample(Language.trAll("Examples.Analog"),"Analog",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Jockeying"),"Jockeying",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.QueueingDiscipline"),"QueueingDiscipline",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.Shiftplan"),"Shiftplan",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.SCHEDULES);
+		addExample(Language.trAll("Examples.ArrivalAndServiceBatch"),"ArrivalAndServiceBatch",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.BatchTransport"),"BatchTransport",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.BATCH,ExampleKeyWord.TRANSPORT);
+		addExample(Language.trAll("Examples.IntervalInterArrivalTimes"),"IntervalInterArrivalTimes",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.SCHEDULES);
+		addExample(Language.trAll("Examples.ClosedQueueingNetwork"),"ClosedQueueingNetwork",ExampleType.TYPE_PROPERTIES);
+		addExample(Language.trAll("Examples.WorkerWakeUp"),"WorkerWakeUp",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.SCHEDULES);
 
 		/* Beispiele zum Vergleich verschiedener Steuerungsstrategien */
-		addExample(Language.trAll("Examples.SystemDesign"),"Vergleiche2.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
-		addExample(Language.trAll("Examples.SystemDesignWithControl"),"Vergleiche3.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
-		addExample(Language.trAll("Examples.PushAndPullProduction"),"PushPull.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
-		addExample(Language.trAll("Examples.PushAndPullProductionMultiBarriers"),"PushPullMulti.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
-		addExample(Language.trAll("Examples.PushPullThroughput"),"PushPullThroughput.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
-		addExample(Language.trAll("Examples.ChangeResourceCountCompare"),"ChangeResourceCountCompare.xml",ExampleType.TYPE_COMPARE);
-		addExample(Language.trAll("Examples.DelayJS"),"DelayJS.xml",ExampleType.TYPE_COMPARE);
-		addExample(Language.trAll("Examples.ParallelSerial"),"ParallelSerial.xml",ExampleType.TYPE_COMPARE);
-		addExample(Language.trAll("Examples.FIFO-LIFO-Switch"),"FIFO-LIFO-Switch.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PRIORITIES);
-		addExample(Language.trAll("Examples.SetUpTimeReduction"),"SetUpTimeReduction.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
-		addExample(Language.trAll("Examples.DurchlaufzeitenVersusDurchsatz"),"DurchlaufzeitenVersusDurchsatz.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
-		addExample(Language.trAll("Examples.EconomyOfScale"),"EconomyOfScale.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PRIORITIES);
-		addExample(Language.trAll("Examples.LocalVersusGlobalWarehouse"),"LocalVersusGlobalWarehouse.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
-		addExample(Language.trAll("Examples.SplitAndJoin"),"SplitAndJoin.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
-		addExample(Language.trAll("Examples.ClientTypesAndSkills"),"ClientTypesAndSkills.xml",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.SystemDesign"),"Vergleiche2",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.SystemDesignWithControl"),"Vergleiche3",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.PushAndPullProduction"),"PushPull",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
+		addExample(Language.trAll("Examples.PushAndPullProductionMultiBarriers"),"PushPullMulti",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
+		addExample(Language.trAll("Examples.PushPullThroughput"),"PushPullThroughput",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
+		addExample(Language.trAll("Examples.ChangeResourceCountCompare"),"ChangeResourceCountCompare",ExampleType.TYPE_COMPARE);
+		addExample(Language.trAll("Examples.DelayJS"),"DelayJS",ExampleType.TYPE_COMPARE);
+		addExample(Language.trAll("Examples.ParallelSerial"),"ParallelSerial",ExampleType.TYPE_COMPARE);
+		addExample(Language.trAll("Examples.FIFO-LIFO-Switch"),"FIFO-LIFO-Switch",ExampleType.TYPE_COMPARE,ExampleKeyWord.PRIORITIES);
+		addExample(Language.trAll("Examples.SetUpTimeReduction"),"SetUpTimeReduction",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.DurchlaufzeitenVersusDurchsatz"),"DurchlaufzeitenVersusDurchsatz",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
+		addExample(Language.trAll("Examples.EconomyOfScale"),"EconomyOfScale",ExampleType.TYPE_COMPARE,ExampleKeyWord.PRIORITIES);
+		addExample(Language.trAll("Examples.LocalVersusGlobalWarehouse"),"LocalVersusGlobalWarehouse",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
+		addExample(Language.trAll("Examples.SplitAndJoin"),"SplitAndJoin",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.ClientTypesAndSkills"),"ClientTypesAndSkills",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
 
 		/* Beispiele, die mathematische Zusammenhänge verdeutlichen */
-		addExample(Language.trAll("Examples.LawOfLargeNumbers"),"GesetzDerGroßenZahlen.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
-		addExample(Language.trAll("Examples.Galton"),"Galton.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
-		addExample(Language.trAll("Examples.CoefficientOfVariation"),"CoefficientOfVariation.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
-		addExample(Language.trAll("Examples.PASTA"),"PASTA.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
-		addExample(Language.trAll("Examples.ZentralerGrenzwertsatz"),"ZentralerGrenzwertsatz.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
-		addExample(Language.trAll("Examples.BusStoppParadoxon"),"BusStoppParadoxon.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
-		addExample(Language.trAll("Examples.RandomNumberGenerators"),"RandomNumberGenerators.xml",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.LawOfLargeNumbers"),"GesetzDerGroßenZahlen",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.Galton"),"Galton",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.CoefficientOfVariation"),"CoefficientOfVariation",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.PASTA"),"PASTA",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.ZentralerGrenzwertsatz"),"ZentralerGrenzwertsatz",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.BusStoppParadoxon"),"BusStoppParadoxon",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.RandomNumberGenerators"),"RandomNumberGenerators",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
 	}
 
 	/**
@@ -335,7 +335,7 @@ public class EditModelExamples {
 
 	/**
 	 * Liefert ein bestimmtes Beispiel über seine Nummer aus der Namesliste (<code>getExamplesList()</code>)
-	 * @param owner	Übergeordnetes Elementes (zum Ausrichten von Fehlermeldungen). Wird hier <code>null</code> übergeben, so werden Fehlermeldungen auf der Konsole ausgegeben
+	 * @param owner	Übergeordnetes Elementes (zum Ausrichten von Fehlermeldungen). Wird hier <code>null</code> übergeben, so werden Fehlermeldungen auf der Konsole ausgegeben.
 	 * @param index	Index des Beispiels, das zurückgeliefert werden soll
 	 * @return	Beispiel oder <code>null</code>, wenn sich der Index außerhalb des gültigen Bereichs befindet
 	 * @see EditModelExamples#getExamplesList()
@@ -343,7 +343,7 @@ public class EditModelExamples {
 	public static EditModel getExampleByIndex(final Component owner, final int index) {
 		final EditModelExamples examples=new EditModelExamples();
 		if (index<0 || index>=examples.list.size()) return null;
-		final String fileName=examples.list.get(index).file;
+		final String fileName=examples.list.get(index).modelFile;
 
 		final EditModel editModel=new EditModel();
 		try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+Language.tr("Numbers.Language")+"/"+fileName)) {
@@ -358,6 +358,25 @@ public class EditModelExamples {
 			}
 			processDiagramColors(editModel.surface);
 			return editModel;
+		} catch (IOException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Liefert den Beschreibungstext für ein bestimmtes Beispiel über seine Nummer aus der Namesliste (<code>getExamplesList()</code>)
+	 * @param owner	Übergeordnetes Elementes (zum Ausrichten von Fehlermeldungen). Wird hier <code>null</code> übergeben, so werden Fehlermeldungen auf der Konsole ausgegeben.
+	 * @param index	Index des Beispiels, das zurückgeliefert werden soll
+	 * @return	Beschreibungstext für das Beispiel oder <code>null</code>, wenn sich der Index außerhalb des gültigen Bereichs befindet oder keine Beschreibung vorhanden ist
+	 * @see EditModelExamples#getExamplesList()
+	 */
+	public static String getExampleInfoByIndex(final Component owner, final int index) {
+		final EditModelExamples examples=new EditModelExamples();
+		if (index<0 || index>=examples.list.size()) return null;
+		final String fileName=examples.list.get(index).infoFile;
+
+		try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+Language.tr("Numbers.Language")+"/"+fileName)) {
+			return Table.loadTextFromInputStream(in);
 		} catch (IOException e) {
 			return null;
 		}
@@ -454,7 +473,7 @@ public class EditModelExamples {
 
 		for (int i=0;i<examples.list.size();i++) for (String lang: Language.getLanguages()) {
 			final EditModel testModel=new EditModel();
-			try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+lang+"/"+examples.list.get(i).file)) {
+			try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+lang+"/"+examples.list.get(i).modelFile)) {
 				testModel.loadFromStream(in);
 				processDiagramColors(testModel.surface);
 				if (testModel.equalsEditModel(editModel)) return i;
@@ -486,7 +505,7 @@ public class EditModelExamples {
 			final JMenuItem item=new JMenuItem(example.names[0]);
 			item.addActionListener(e->{
 				final EditModel editModel=new EditModel();
-				try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+Language.tr("Numbers.Language")+"/"+example.file)) {
+				try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+Language.tr("Numbers.Language")+"/"+example.modelFile)) {
 					final String error=editModel.loadFromStream(in);
 					if (error!=null) {
 						if (owner==null) {
@@ -521,7 +540,7 @@ public class EditModelExamples {
 			final JMenuItem item=new JMenuItem(example.names[0]);
 			item.addActionListener(e->{
 				final EditModel editModel=new EditModel();
-				try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+Language.tr("Numbers.Language")+"/"+example.file)) {
+				try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+Language.tr("Numbers.Language")+"/"+example.modelFile)) {
 					final String error=editModel.loadFromStream(in);
 					if (error!=null) {
 						if (owner==null) {
@@ -669,9 +688,14 @@ public class EditModelExamples {
 		public final String[] names;
 
 		/**
-		 * Beispieldateiname
+		 * Beispielmodelldateiname
 		 */
-		public final String file;
+		public final String modelFile;
+
+		/**
+		 * Beispielinfodateiname
+		 */
+		public final String infoFile;
 
 		/**
 		 * Gruppe in die das Beispiel fällt
@@ -686,13 +710,15 @@ public class EditModelExamples {
 		/**
 		 * Konstruktor der Klasse
 		 * @param names	Namen für das Beispiel in den verschiedenen Sprachen
-		 * @param file	Beispieldateiname
+		 * @param modelFile	Beispieldateiname
+		 * @param infoFile	Beispielinfotextdateiname
 		 * @param type	Gruppe in die das Beispiel fällt
 		 * @param keyWords	Menge der optionalen Schlüsselwörter für das Beispiel
 		 */
-		private Example(final String[] names, final String file, final ExampleType type, final Set<ExampleKeyWord> keyWords) {
+		private Example(final String[] names, final String modelFile, final String infoFile, final ExampleType type, final Set<ExampleKeyWord> keyWords) {
 			this.names=names;
-			this.file=file;
+			this.modelFile=modelFile;
+			this.infoFile=infoFile;
 			this.type=type;
 			this.keyWords=keyWords;
 		}
@@ -723,7 +749,7 @@ public class EditModelExamples {
 			final StringBuilder info=new StringBuilder();
 			for (Example example: getList()) {
 				final String name=example.names[0];
-				final String file="ExampleModel_"+example.file.replace(".xml",".png");
+				final String file="ExampleModel_"+example.modelFile.replace(".xml",".png");
 
 				if (out!=null) out.println("writing \""+name+"\"");
 

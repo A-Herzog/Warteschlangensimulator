@@ -1,0 +1,1 @@
+In this model, temporary batches are formed from several items that are to be shipped together. After the batch objects arrive at the recipient, the batches are split up again and the original items become visible again.

@@ -1,0 +1,1 @@
+In this example model, documents are transported in groups between stations. The larger the groups are, the less transport time and associated resource consumption is required for a single document. However, as the group size increases, the lead times also increase, as the documents have to wait more and more frequently until the respective transport batch size is reached.

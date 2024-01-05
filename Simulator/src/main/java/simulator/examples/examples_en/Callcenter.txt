@@ -1,0 +1,1 @@
+This example shows how a complex call center system consisting of several caller groups, several sub-call centers, impatience, repeaters and forwarding can be modeled in Warteschlangensimulator.

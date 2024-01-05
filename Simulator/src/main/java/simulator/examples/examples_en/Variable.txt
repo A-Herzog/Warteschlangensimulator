@@ -1,0 +1,1 @@
+In this simple example model, both read and write access to a user-defined variable during the simulation is shown.

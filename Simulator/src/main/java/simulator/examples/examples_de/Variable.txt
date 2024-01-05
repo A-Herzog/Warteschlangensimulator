@@ -1,0 +1,1 @@
+In diesem einfachen Beispielmodell wird sowohl der lesende als auch der schreibende Zugriff auf eine nutzerderfinierte Variable während der Simulation dargestellt.

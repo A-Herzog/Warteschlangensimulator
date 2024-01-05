@@ -1,0 +1,1 @@
+In diesem Beispiel werden verschiedene Auslieferungsstrategien für lokale Zwischenlager betrachtet. Entweder liefern die Fabriken die hergestellten Produkte sofort zu den Zwischenlagern aus (Push-Prinzip) oder nur auf explizite Nachfrage (Pull-Prinzip). Betrachtet wird, wie lange Kunden in beiden Fällen jeweils im Mittel auf ihre Bestellungen warten müssen.

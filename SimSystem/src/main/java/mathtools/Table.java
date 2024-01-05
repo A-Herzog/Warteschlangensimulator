@@ -75,7 +75,7 @@ import mathtools.distribution.swing.CommonVariables;
  * Die Klasse {@link Table} kapselt eine Tabelle aus {@link String}-Objekten.
  * Die Klasse stellt Methoden zum Lesen und Schreiben von Tabellen-Dateien zur Verfügung.
  * @author Alexander Herzog
- * @version 4.7
+ * @version 4.8
  */
 public final class Table implements Cloneable {
 	/** Bezeichner beim Speichern für "wahr" */
@@ -2121,8 +2121,23 @@ public final class Table implements Cloneable {
 	 * @return	Liefert im Erfolgsfall den Text, sonst <code>null</code>
 	 */
 	public static String loadTextFromFile(final File input) {
+		if (input==null) return null;
+		try (var inputStream=new FileInputStream(input)) {
+			return loadTextFromInputStream(inputStream);
+		} catch (IOException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Lädt einen Text aus einem UTF-8-formatierten {@link InputStream}.
+	 * @param input	{@link InputStream} aus dem der Text geladen werden soll
+	 * @return	Liefert im Erfolgsfall den Text, sonst <code>null</code>
+	 */
+	public static String loadTextFromInputStream(final InputStream input) {
+		if (input==null) return null;
 		final StringBuilder text=new StringBuilder();
-		try (BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(input),StandardCharsets.UTF_8))) {
+		try (BufferedReader br=new BufferedReader(new InputStreamReader(input,StandardCharsets.UTF_8))) {
 			String line=null;
 			boolean firstLine=true;
 			while ((line=br.readLine())!=null) {

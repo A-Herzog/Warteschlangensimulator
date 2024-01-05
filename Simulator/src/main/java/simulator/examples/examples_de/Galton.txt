@@ -1,0 +1,1 @@
+In einem Galtonbrett fallen Kugeln wiederholt zufällig nach links oder rechts. Es dient zur Veranschaulichung der Binomialverteilung. In diesem Beispielmodell ist ein Galtonbrett in Form als Fließbild nachmodelliert.

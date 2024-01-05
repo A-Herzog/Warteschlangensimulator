@@ -1,0 +1,1 @@
+In diesem Modell werden temporäre Batche aus mehreren Artikeln, die gemeinsam versendet werden sollen, gebildet. Nach dem Eintreffen der Batch-Objekte beim Empfänger werden die Batche wieder zerlegt und die ursprünglichen Artikel werden wieder sichtbar.

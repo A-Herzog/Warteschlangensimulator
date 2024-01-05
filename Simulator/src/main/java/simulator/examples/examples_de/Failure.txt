@@ -1,0 +1,1 @@
+Dieses Beispielmodell zeigt, wie Pausenzeiten der Bediener in einer Simulation abgebildet werden können. Im Gegensatz zu den Modellen aus der analytischen Warteschlangentheorie stellt es in der Simulation kein Problem dar, im zeitlichen Verlauf variierende Bedieneranzahlen an einer Bedienstation abzubilden.

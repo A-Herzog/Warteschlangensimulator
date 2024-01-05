@@ -1,0 +1,1 @@
+This model shows various strategies for homogenizing the arrival flow of clients at a process station and thus reducing the variation of the waiting times. The effectiveness of the different methods can be compared directly.
