@@ -753,14 +753,20 @@ public class EditModelExamples {
 
 				if (out!=null) out.println("writing \""+name+"\"");
 
-				final EditModel editModel=getExampleByIndex(null,getExampleIndexFromName(name));
+				final int exampleIndex=getExampleIndexFromName(name);
+
+				final EditModel editModel=getExampleByIndex(null,exampleIndex);
 				final ModelSurfacePanel surfacePanel=new ModelSurfacePanel();
 				surfacePanel.setSurface(editModel,editModel.surface,editModel.clientData,editModel.sequences);
 				final String error=EditorPanel.exportModelToFile(editModel,null,surfacePanel,new File(folder,file),null,true);
 				if (error!=null && out!=null) out.println(error);
 
+				final String modelDescription=getExampleInfoByIndex(null,exampleIndex);
+
 				info.append("## "+name+"\n");
 				info.append("!["+example.names[0]+"](Images/"+file+")\n\n");
+				info.append(modelDescription);
+				info.append("\n\n");
 			}
 			Table.saveTextToFile(info.toString(),new File(folder,"info.md"));
 		} finally {
