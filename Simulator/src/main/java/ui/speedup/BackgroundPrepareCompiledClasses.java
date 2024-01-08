@@ -81,7 +81,7 @@ public class BackgroundPrepareCompiledClasses {
 	private void work() {
 		if (Simulator.isSimulationStarted()) return; /* Keine Verarbeitung, wenn bereits eine Simulation ausgeführt wurde. */
 
-		final EditModel model=EditModelExamples.getExampleByIndex(null,0);
+		final EditModel model=EditModelExamples.getExampleByIndex(null,0,false);
 		model.clientCount=250_000;
 		model.distributionRecordHours=0;
 		model.distributionRecordClientDataValues=0;

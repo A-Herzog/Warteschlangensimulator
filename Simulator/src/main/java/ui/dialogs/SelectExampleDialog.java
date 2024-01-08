@@ -19,18 +19,22 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
@@ -42,7 +46,6 @@ import javax.swing.tree.TreePath;
 
 import language.Language;
 import simulator.editmodel.EditModel;
-import simulator.editmodel.EditModelDark;
 import simulator.examples.EditModelExamples;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -64,6 +67,12 @@ public final class SelectExampleDialog extends BaseDialog {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID = -4553266650939654301L;
+
+	/** Auswahlbox für das Schlüsselwort für die anzuzeigenden Beispiele */
+	private final JComboBox<String> keyWordSelect;
+
+	/** Eingabefeld für die Schnellsuche */
+	private final JTextField quickSearch;
 
 	/** Label zur Anzeige der Anzahl an Beispielmodellen */
 	private final JLabel topLabel;
@@ -105,9 +114,15 @@ public final class SelectExampleDialog extends BaseDialog {
 		JPanel line;
 
 		topArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+
 		line.add(new JLabel(Language.tr("SelectExampleWithPreview.KeyWord")+":"));
-		final JComboBox<String> keyWordSelect=new JComboBox<>(EditModelExamples.ExampleKeyWord.getNames());
-		line.add(keyWordSelect);
+		line.add(keyWordSelect=new JComboBox<>(EditModelExamples.ExampleKeyWord.getNames()));
+
+		line.add(Box.createHorizontalStrut(10));
+
+		line.add(new JLabel(Language.tr("SelectExampleWithPreview.QuickSearch")+":"));
+		line.add(quickSearch=new JTextField(40));
+
 		topArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(topLabel=new JLabel());
 
@@ -153,21 +168,18 @@ public final class SelectExampleDialog extends BaseDialog {
 				if (e.getClickCount()==2 && SwingUtilities.isLeftMouseButton(e) && getExample()!=null) close(BaseDialog.CLOSED_BY_OK);
 			}
 		});
-		tree.setModel(new DefaultTreeModel(buildTree(null)));
-		for (int i=0;i<tree.getRowCount();i++) tree.expandRow(i);
 
-		/* Listener zur Auswahl des Schlüsselwortes */
-		keyWordSelect.addActionListener(e->{
-			final int index=keyWordSelect.getSelectedIndex();
-			EditModelExamples.ExampleKeyWord keyWord=(index==0)?null:EditModelExamples.ExampleKeyWord.values()[index-1];
-			tree.setModel(new DefaultTreeModel(buildTree(keyWord)));
-			for (int i=0;i<tree.getRowCount();i++) tree.expandRow(i);
+		/* Listener zur Auswahl des Schlüsselwortes und der Schnellsuche */
+		keyWordSelect.addActionListener(e->updateTree());
+		quickSearch.addKeyListener(new KeyAdapter() {
+			@Override public void keyReleased(KeyEvent e) {updateTree();}
 		});
 
 		/* Split einstellen */
 		main.setDividerLocation(0.2);
 
 		/* Dialog starten */
+		updateTree();
 		setMinSizeRespectingScreensize(1440,960);
 		setResizable(true);
 		setLocationRelativeTo(getOwner());
@@ -175,18 +187,34 @@ public final class SelectExampleDialog extends BaseDialog {
 	}
 
 	/**
+	 * Aktualisiert die Baumdarstellung
+	 * (und berücksichtigt dabei Schlüsselwortauswahl und Schnellsuche).
+	 */
+	private void updateTree() {
+		final int index=keyWordSelect.getSelectedIndex();
+		final EditModelExamples.ExampleKeyWord keyWord=(index==0)?null:EditModelExamples.ExampleKeyWord.values()[index-1];
+		final String searchString=quickSearch.getText().trim();
+
+		tree.setModel(new DefaultTreeModel(buildTree(keyWord,searchString)));
+
+		for (int i=0;i<tree.getRowCount();i++) tree.expandRow(i);
+	}
+
+	/**
 	 * Erstellt die Baumstruktur, die alle Beispiele enthält.
 	 * @param keyWord	Schlüsselwort, welches ein Beispiel enthalten muss, um in die Auflistung aufgenommen zu werden (kann <code>null</code> sein für "alle Beispiele")
+	 * @param searchString	Suchbegriff (kann <code>null</code> oder leer sein für "alle Beispiele")
 	 * @return	Baumstruktur, die alle Beispiele enthält
 	 */
-	private TreeNode buildTree(final EditModelExamples.ExampleKeyWord keyWord) {
+	private TreeNode buildTree(final EditModelExamples.ExampleKeyWord keyWord, final String searchString) {
 		int exampleCount=0;
 		final DefaultMutableTreeNode root=new DefaultMutableTreeNode("");
 
 		for (EditModelExamples.ExampleType type: EditModelExamples.ExampleType.values()) {
-			final List<String> names=EditModelExamples.getExampleNames(type,keyWord);
+			final List<String> names=EditModelExamples.getExampleNames(type,keyWord,searchString);
 			if (names.size()==0) continue;
 			names.sort(null);
+
 			final DefaultMutableTreeNode group=new DefaultMutableTreeNode(EditModelExamples.getGroupName(type));
 			root.add(group);
 			for (String name: names) {
@@ -259,7 +287,7 @@ public final class SelectExampleDialog extends BaseDialog {
 
 	/**
 	 * Datensatz für ein Beispiel
-	 * @see SelectExampleDialog#buildTree(simulator.examples.EditModelExamples.ExampleKeyWord)
+	 * @see SelectExampleDialog#buildTree(simulator.examples.EditModelExamples.ExampleKeyWord, String)
 	 */
 	private class ExampleData {
 		/** Name des Beispiels */
@@ -289,8 +317,7 @@ public final class SelectExampleDialog extends BaseDialog {
 		public EditModel getModel() {
 			if (model==null) {
 				final int index=EditModelExamples.getExampleIndexFromName(name);
-				model=EditModelExamples.getExampleByIndex(SelectExampleDialog.this,index);
-				if (FlatLaFHelper.isDark()) EditModelDark.processModel(model,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+				model=EditModelExamples.getExampleByIndex(SelectExampleDialog.this,index,FlatLaFHelper.isDark());
 			}
 			return model;
 		}

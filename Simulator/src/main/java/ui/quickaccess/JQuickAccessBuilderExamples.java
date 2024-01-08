@@ -20,7 +20,6 @@ import java.util.function.Consumer;
 
 import language.Language;
 import simulator.editmodel.EditModel;
-import simulator.editmodel.EditModelDark;
 import simulator.examples.EditModelExamples;
 import ui.images.Images;
 import ui.tools.FlatLaFHelper;
@@ -63,9 +62,8 @@ public class JQuickAccessBuilderExamples extends JQuickAccessBuilder {
 	private void process(final Component owner, final String exampleName, final Consumer<EditModel> loader) {
 		final int index=EditModelExamples.getExampleIndexFromName(exampleName);
 		if (index<0) return;
-		final EditModel model=EditModelExamples.getExampleByIndex(owner,index);
+		final EditModel model=EditModelExamples.getExampleByIndex(owner,index,FlatLaFHelper.isDark());
 		if (model==null) return;
-		if (FlatLaFHelper.isDark()) EditModelDark.processModel(model,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
 		loader.accept(model);
 	}
 }

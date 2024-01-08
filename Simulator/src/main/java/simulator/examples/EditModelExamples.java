@@ -27,8 +27,10 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -169,6 +171,12 @@ public class EditModelExamples {
 	}
 
 	/**
+	 * Instanz dieses Singleton
+	 * @see #getInstance()
+	 */
+	private static EditModelExamples instance;
+
+	/**
 	 * Liste mit den Beispielen.
 	 * @see #addExample(String[], String, ExampleType, ExampleKeyWord...)
 	 */
@@ -181,6 +189,16 @@ public class EditModelExamples {
 	private EditModelExamples() {
 		list=new ArrayList<>();
 		addExamples();
+	}
+
+	/**
+	 * Liefert die Instanz dieser Singleton-Klasse für die Verwendung in den statischen Methoden.
+	 * @return	Instanz dieser Singleton-Klasse
+	 * @see #instance
+	 */
+	private static EditModelExamples getInstance() {
+		if (instance==null) instance=new EditModelExamples();
+		return instance;
 	}
 
 	/**
@@ -214,20 +232,19 @@ public class EditModelExamples {
 	 * @return	Liste der Namen der Beispiele in der gewählten Gruppe
 	 */
 	public static List<String> getExampleNames(final ExampleType group) {
-		return getExampleNames(group,null);
+		return getExampleNames(group,null,null);
 	}
 
 	/**
 	 * Liefert die Namen der Beispiele in einer bestimmten Gruppe
 	 * @param group	Gruppe für die die Beispiele aufgelistet werden sollen
 	 * @param keyWord	Zusätzliches Schlüsselwort, welches ein Beispiel beinhalten muss, um zurückgeliefert zu werden (darf <code>null</code> sein, dann ist die Schlüsselwort-Filterung inaktiv)
+	 * @param searchString	Suchbegriff (kann <code>null</code> oder leer sein, dann ist die Suchbegriff-Filterung inaktiv)
 	 * @return	Liste der Namen der Beispiele in der gewählten Gruppe
 	 */
-	public static List<String> getExampleNames(final ExampleType group, final ExampleKeyWord keyWord) {
-		final EditModelExamples examples=new EditModelExamples();
-		final List<String> result=new ArrayList<>();
-		for (Example example: examples.list) if (example.type==group && (keyWord==null || example.keyWords.contains(keyWord))) result.add(example.names[0]);
-		return result;
+	public static List<String> getExampleNames(final ExampleType group, final ExampleKeyWord keyWord, final String searchString) {
+		final EditModelExamples examples=getInstance();
+		return examples.list.stream().filter(example->example.match(group,keyWord,searchString)).map(example->example.names[0]).collect(Collectors.toList());
 	}
 
 	/**
@@ -313,7 +330,8 @@ public class EditModelExamples {
 	 * @return	Liste mit allen verfügbaren Beispielen
 	 */
 	public static String[] getExamplesList() {
-		final EditModelExamples examples=new EditModelExamples();
+		final EditModelExamples examples=getInstance();
+
 		return examples.list.stream().map(example->example.names[0]).toArray(String[]::new);
 	}
 
@@ -321,11 +339,11 @@ public class EditModelExamples {
 	 * Liefert den Index des Beispiels basieren auf dem Namen
 	 * @param name	Name des Beispiels zu dem der Index bestimmt werden soll
 	 * @return	Index des Beispiels oder -1, wenn es kein Beispiel mit diesem Namen gibt
-	 * @see #getExampleByIndex(Component, int)
+	 * @see #getExampleByIndex(Component, int, boolean)
 	 */
 	public static int getExampleIndexFromName(final String name) {
 		if (name==null || name.isEmpty()) return -1;
-		final EditModelExamples examples=new EditModelExamples();
+		final EditModelExamples examples=getInstance();
 
 		for (int i=0;i<examples.list.size();i++) {
 			for (String test: examples.list.get(i).names) if (name.trim().equalsIgnoreCase(test)) return i;
@@ -337,30 +355,15 @@ public class EditModelExamples {
 	 * Liefert ein bestimmtes Beispiel über seine Nummer aus der Namesliste (<code>getExamplesList()</code>)
 	 * @param owner	Übergeordnetes Elementes (zum Ausrichten von Fehlermeldungen). Wird hier <code>null</code> übergeben, so werden Fehlermeldungen auf der Konsole ausgegeben.
 	 * @param index	Index des Beispiels, das zurückgeliefert werden soll
+	 * @param dark	Modell für den Dark-Modus aufbereiten?
 	 * @return	Beispiel oder <code>null</code>, wenn sich der Index außerhalb des gültigen Bereichs befindet
 	 * @see EditModelExamples#getExamplesList()
 	 */
-	public static EditModel getExampleByIndex(final Component owner, final int index) {
-		final EditModelExamples examples=new EditModelExamples();
-		if (index<0 || index>=examples.list.size()) return null;
-		final String fileName=examples.list.get(index).modelFile;
+	public static EditModel getExampleByIndex(final Component owner, final int index, final boolean dark) {
+		final EditModelExamples examples=getInstance();
 
-		final EditModel editModel=new EditModel();
-		try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+Language.tr("Numbers.Language")+"/"+fileName)) {
-			final String error=editModel.loadFromStream(in);
-			if (error!=null) {
-				if (owner==null) {
-					System.out.println(error);
-				} else {
-					MsgBox.error(owner,Language.tr("XML.LoadErrorTitle"),error);
-				}
-				return null;
-			}
-			processDiagramColors(editModel.surface);
-			return editModel;
-		} catch (IOException e) {
-			return null;
-		}
+		if (index<0 || index>=examples.list.size()) return null;
+		return examples.list.get(index).getModel(owner,dark);
 	}
 
 	/**
@@ -371,15 +374,9 @@ public class EditModelExamples {
 	 * @see EditModelExamples#getExamplesList()
 	 */
 	public static String getExampleInfoByIndex(final Component owner, final int index) {
-		final EditModelExamples examples=new EditModelExamples();
+		final EditModelExamples examples=getInstance();
 		if (index<0 || index>=examples.list.size()) return null;
-		final String fileName=examples.list.get(index).infoFile;
-
-		try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+Language.tr("Numbers.Language")+"/"+fileName)) {
-			return Table.loadTextFromInputStream(in);
-		} catch (IOException e) {
-			return null;
-		}
+		return examples.list.get(index).getInfo();
 	}
 
 	/**
@@ -469,17 +466,14 @@ public class EditModelExamples {
 	 * @return	Index des Beispielmodells oder -1, wenn das zu prüfende Modell mit keinem der Beispielmodelle übereinstimmt
 	 */
 	public static int equalsIndex(final EditModel editModel) {
-		final EditModelExamples examples=new EditModelExamples();
+		final EditModelExamples examples=getInstance();
 
 		for (int i=0;i<examples.list.size();i++) for (String lang: Language.getLanguages()) {
-			final EditModel testModel=new EditModel();
-			try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+lang+"/"+examples.list.get(i).modelFile)) {
-				testModel.loadFromStream(in);
-				processDiagramColors(testModel.surface);
-				if (testModel.equalsEditModel(editModel)) return i;
-				EditModelDark.processModel(testModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
-				if (testModel.equalsEditModel(editModel)) return i;
-			} catch (IOException e) {return -1;}
+			final EditModel testModel=examples.list.get(i).getModel(null,lang,false);
+			if (testModel==null) continue;
+			if (testModel.equalsEditModel(editModel)) return i;
+			EditModelDark.processModel(testModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+			if (testModel.equalsEditModel(editModel)) return i;
 		}
 		return -1;
 	}
@@ -504,21 +498,8 @@ public class EditModelExamples {
 		list.stream().filter(example->example.type==group).sorted((e1,e2)->String.CASE_INSENSITIVE_ORDER.compare(e1.names[0],e2.names[0])).forEach(example->{
 			final JMenuItem item=new JMenuItem(example.names[0]);
 			item.addActionListener(e->{
-				final EditModel editModel=new EditModel();
-				try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+Language.tr("Numbers.Language")+"/"+example.modelFile)) {
-					final String error=editModel.loadFromStream(in);
-					if (error!=null) {
-						if (owner==null) {
-							System.out.println(error);
-						} else {
-							MsgBox.error(owner,Language.tr("XML.LoadErrorTitle"),error);
-						}
-						return;
-					}
-					processDiagramColors(editModel.surface);
-					if (FlatLaFHelper.isDark()) EditModelDark.processModel(editModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
-					if (listener!=null) listener.accept(editModel);
-				} catch (IOException e1) {}
+				final EditModel editModel=example.getModel(owner,FlatLaFHelper.isDark());
+				if (editModel!=null && listener!=null) listener.accept(editModel);
 			});
 			menu.add(item);
 		});
@@ -539,21 +520,8 @@ public class EditModelExamples {
 		list.stream().filter(example->example.type==group).sorted((e1,e2)->String.CASE_INSENSITIVE_ORDER.compare(e1.names[0],e2.names[0])).forEach(example->{
 			final JMenuItem item=new JMenuItem(example.names[0]);
 			item.addActionListener(e->{
-				final EditModel editModel=new EditModel();
-				try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+Language.tr("Numbers.Language")+"/"+example.modelFile)) {
-					final String error=editModel.loadFromStream(in);
-					if (error!=null) {
-						if (owner==null) {
-							System.out.println(error);
-						} else {
-							MsgBox.error(owner,Language.tr("XML.LoadErrorTitle"),error);
-						}
-						return;
-					}
-					processDiagramColors(editModel.surface);
-					if (FlatLaFHelper.isDark()) EditModelDark.processModel(editModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
-					if (listener!=null) listener.accept(editModel);
-				} catch (IOException e1) {}
+				final EditModel editModel=example.getModel(owner,FlatLaFHelper.isDark());
+				if (editModel!=null && listener!=null) listener.accept(editModel);
 			});
 			sub.add(item);
 		});
@@ -566,7 +534,8 @@ public class EditModelExamples {
 	 * @param listener	Listener, der mit einem Modell aufgerufen wird, wenn dieses geladen werden soll.
 	 */
 	public static void addToMenu(final Component owner, final JMenu menu, final Consumer<EditModel> listener) {
-		final EditModelExamples examples=new EditModelExamples();
+		final EditModelExamples examples=getInstance();
+
 		final Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
 
 		boolean lastWasFullMenu=(menu.getItemCount()>0);
@@ -601,7 +570,7 @@ public class EditModelExamples {
 
 			setLanguage[0].run();
 
-			final EditModel example=EditModelExamples.getExampleByIndex(null,EditModelExamples.getExampleIndexFromName(exampleName));
+			final EditModel example=EditModelExamples.getExampleByIndex(null,EditModelExamples.getExampleIndexFromName(exampleName),false);
 			if (example==null) continue;
 			Document doc=example.saveToXMLDocument();
 
@@ -690,12 +659,12 @@ public class EditModelExamples {
 		/**
 		 * Beispielmodelldateiname
 		 */
-		public final String modelFile;
+		private final String modelFile;
 
 		/**
 		 * Beispielinfodateiname
 		 */
-		public final String infoFile;
+		private final String infoFile;
 
 		/**
 		 * Gruppe in die das Beispiel fällt
@@ -706,6 +675,29 @@ public class EditModelExamples {
 		 * Menge der optionalen Schlüsselwörter für das Beispiel
 		 */
 		public final Set<ExampleKeyWord> keyWords;
+
+		/**
+		 * Zuordnung von Sprachen zu geladenen Modelldateien für den Light-Mode.<br>
+		 * (Die gesamte Zuordnung ist bis zum Eintrag des ersten Datensatzes <code>null</code>.)
+		 * @see #getModel(Component, boolean)
+		 * @see #getModel(Component, String, boolean)
+		 */
+		private Map<String,EditModel> modelLight;
+
+		/**
+		 * Zuordnung von Sprachen zu geladenen Modelldateien für den Dark-Mode.<br>
+		 * (Die gesamte Zuordnung ist bis zum Eintrag des ersten Datensatzes <code>null</code>.)
+		 * @see #getModel(Component, boolean)
+		 * @see #getModel(Component, String, boolean)
+		 */
+		private Map<String,EditModel> modelDark;
+
+		/**
+		 * Geladene zusätzliche Modellbeschreibung.<br>
+		 * (Ist anfänglich <code>null</code>.)
+		 * @see #getInfo()
+		 */
+		private String info;
 
 		/**
 		 * Konstruktor der Klasse
@@ -721,6 +713,127 @@ public class EditModelExamples {
 			this.infoFile=infoFile;
 			this.type=type;
 			this.keyWords=keyWords;
+		}
+
+		/**
+		 * Prüft, ob das Modell zu bestimmten Filterkriterien passe.
+		 * @param group	Gruppe in die das Beispiel fallen muss (<code>null</code> bedeutet: nicht prüfen)
+		 * @param keyWord	Schlüsselwort welches in der Liste der Schlüsselwörter für das Modell enthalten sein muss (<code>null</code> bedeutet: nicht prüfen)
+		 * @param searchString	Suchbegriff der im Modellnamen oder seiner Beschreibung auftreten muss (<code>null</code> oder leer bedeutet: nicht prüfen)
+		 * @return	Liefert <code>true</code>, wenn das Modell die geforderten Kriterien erfüllt
+		 */
+		public boolean match(final ExampleType group, final ExampleKeyWord keyWord, final String searchString) {
+			if (group!=null) {
+				if (type!=group) return false;
+			}
+
+			if (keyWord!=null) {
+				if (!keyWords.contains(keyWord)) return false;
+			}
+
+			if (searchString!=null && !searchString.isBlank()) {
+				final String searchLower=searchString.toLowerCase();
+				boolean searchOk=false;
+				final EditModel model=getModel(null,false);
+				if (model!=null) {
+					searchOk=searchOk || model.name.toLowerCase().contains(searchLower);
+					searchOk=searchOk || model.description.toLowerCase().contains(searchLower);
+				}
+				if (!searchOk) {
+					final String info=getInfo();
+					if (info!=null) {
+						searchOk=info.toLowerCase().contains(searchLower);
+					}
+				}
+				if (!searchOk) return false;
+			}
+
+			return true;
+		}
+
+		/**
+		 * Lädt eines der Beispielmodelle in der aktuellen Sprache.
+		 * @param owner	Übergeordnetes Elementes (zum Ausrichten von Fehlermeldungen). Wird hier <code>null</code> übergeben, so werden Fehlermeldungen auf der Konsole ausgegeben.
+		 * @param dark	Modell für den Dark-Modus aufbereiten?
+		 * @return	Beispiel oder <code>null</code>, wenn das Modell nicht geladen werden konnte
+		 */
+		public EditModel getModel(final Component owner, final boolean dark) {
+			return getModel(owner,Language.tr("Numbers.Language"),dark);
+		}
+
+		/**
+		 * Lädt eines der Beispielmodelle.
+		 * @param owner	Übergeordnetes Elementes (zum Ausrichten von Fehlermeldungen). Wird hier <code>null</code> übergeben, so werden Fehlermeldungen auf der Konsole ausgegeben.
+		 * @param lang	Sprache in der das Modell zurückgeliefert werden soll
+		 * @param dark	Modell für den Dark-Modus aufbereiten?
+		 * @return	Beispiel oder <code>null</code>, wenn das Modell nicht geladen werden konnte
+		 */
+		public EditModel getModel(final Component owner, final String lang, final boolean dark) {
+			EditModel model;
+
+			if (dark) {
+				if (modelDark==null) modelDark=new HashMap<>();
+				model=modelDark.get(lang);
+				if (model==null) {
+					model=getModelFromXML(owner,lang,dark);
+					if (model!=null) modelDark.put(lang,model);
+				}
+			} else {
+				if (modelLight==null) modelLight=new HashMap<>();
+				model=modelLight.get(lang);
+				if (model==null) {
+					model=getModelFromXML(owner,lang,dark);
+					if (model!=null) modelLight.put(lang,model);
+				}
+			}
+
+			if (model!=null) model=model.clone();
+
+			return model;
+		}
+
+		/**
+		 * Lädt eines der Beispielmodelle aus einer XML-Datei.
+		 * @param owner	Übergeordnetes Elementes (zum Ausrichten von Fehlermeldungen). Wird hier <code>null</code> übergeben, so werden Fehlermeldungen auf der Konsole ausgegeben.
+		 * @param lang	Sprache in der das Modell zurückgeliefert werden soll
+		 * @param dark	Modell für den Dark-Modus aufbereiten?
+		 * @return	Beispiel oder <code>null</code>, wenn das Modell nicht geladen werden konnte
+		 */
+		private EditModel getModelFromXML(final Component owner, final String lang, final boolean dark) {
+			final EditModel editModel=new EditModel();
+			try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+lang+"/"+modelFile)) {
+				final String error=editModel.loadFromStream(in);
+				if (error!=null) {
+					if (owner==null) {
+						System.out.println(error);
+					} else {
+						MsgBox.error(owner,Language.tr("XML.LoadErrorTitle"),error);
+					}
+					return null;
+				}
+				processDiagramColors(editModel.surface);
+				if (dark) {
+					EditModelDark.processModel(editModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+				}
+				return editModel;
+			} catch (IOException e) {
+				return null;
+			}
+		}
+
+		/**
+		 * Liefert die zusätzliche Modellbeschreibung in der aktuellen Sprache.
+		 * @return	Modellbeschreibung aus externer Textdatei (oder <code>null</code>, wenn die Textdatei nicht geladen werden konnte)
+		 */
+		public String getInfo() {
+			if (info==null) {
+
+				try (InputStream in=EditModelExamples.class.getResourceAsStream("examples_"+Language.tr("Numbers.Language")+"/"+infoFile)) {
+					info=Table.loadTextFromInputStream(in);
+				} catch (IOException e) {}
+			}
+
+			return info;
 		}
 	}
 
@@ -755,7 +868,7 @@ public class EditModelExamples {
 
 				final int exampleIndex=getExampleIndexFromName(name);
 
-				final EditModel editModel=getExampleByIndex(null,exampleIndex);
+				final EditModel editModel=getExampleByIndex(null,exampleIndex,false);
 				final ModelSurfacePanel surfacePanel=new ModelSurfacePanel();
 				surfacePanel.setSurface(editModel,editModel.surface,editModel.clientData,editModel.sequences);
 				final String error=EditorPanel.exportModelToFile(editModel,null,surfacePanel,new File(folder,file),null,true);
@@ -766,6 +879,8 @@ public class EditModelExamples {
 				info.append("## "+name+"\n");
 				info.append("!["+example.names[0]+"](Images/"+file+")\n\n");
 				info.append(modelDescription);
+				info.append("\n\n");
+				info.append("***");
 				info.append("\n\n");
 			}
 			Table.saveTextToFile(info.toString(),new File(folder,"info.md"));

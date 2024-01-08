@@ -113,7 +113,7 @@ public class ThreadCalibration {
 
 		if (model==null) {
 			final int exampleIndex=EditModelExamples.getExampleIndexFromName(Language.tr("Examples.Callcenter"));
-			this.model=EditModelExamples.getExampleByIndex(null,exampleIndex);
+			this.model=EditModelExamples.getExampleByIndex(null,exampleIndex,false);
 			this.editModelPath=null;
 		} else {
 			this.model=model;

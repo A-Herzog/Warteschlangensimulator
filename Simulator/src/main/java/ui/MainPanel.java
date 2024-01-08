@@ -103,7 +103,6 @@ import simulator.Simulator;
 import simulator.StartAnySimulator;
 import simulator.db.DBConnectDialog;
 import simulator.editmodel.EditModel;
-import simulator.editmodel.EditModelDark;
 import simulator.examples.EditModelExamples;
 import simulator.logging.CallbackLoggerWithJS;
 import simulator.runmodel.RunModel;
@@ -2235,9 +2234,8 @@ public class MainPanel extends MainPanelBase {
 	 * @param index	Nummer des zu ladenden Beispiels
 	 */
 	private void commandFileModelExample(final int index) {
-		final EditModel newModel=EditModelExamples.getExampleByIndex(getOwnerWindow(),index);
+		final EditModel newModel=EditModelExamples.getExampleByIndex(getOwnerWindow(),index,FlatLaFHelper.isDark());
 		if (newModel==null) return;
-		if (FlatLaFHelper.isDark()) EditModelDark.processModel(newModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
 		commandFileModelExample(newModel);
 	}
 
@@ -4328,9 +4326,8 @@ public class MainPanel extends MainPanelBase {
 			/* Wenn das aktuelle Modell ein unverändertes Beispielmodell ist, dieses in der neuen Sprache neu laden. */
 			final int index=EditModelExamples.equalsIndex(editorPanel.getModel());
 			if (index>=0) {
-				final EditModel editModel=EditModelExamples.getExampleByIndex(getOwnerWindow(),index);
-				if (FlatLaFHelper.isDark()) EditModelDark.processModel(editModel,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
-				editorPanel.setModel(editModel);
+				final EditModel editModel=EditModelExamples.getExampleByIndex(getOwnerWindow(),index,FlatLaFHelper.isDark());
+				if (editModel!=null) editorPanel.setModel(editModel);
 			}
 		}
 

@@ -188,7 +188,7 @@ public class EditModelProcessor {
 	private void processExampleModels() {
 		for (EditModelExamples.Example example: EditModelExamples.getList()) {
 			final int index=EditModelExamples.getExampleIndexFromName(example.names[0]);
-			processSurface(EditModelExamples.getExampleByIndex(null,index).surface);
+			processSurface(EditModelExamples.getExampleByIndex(null,index,false).surface);
 		}
 	}
 

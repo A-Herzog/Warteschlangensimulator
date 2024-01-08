@@ -109,7 +109,7 @@ public final class CommandBenchmark extends AbstractSimulationCommand {
 		switch (speedTestMode) {
 		case 0:
 			final String exampleName=EditModelExamples.getBenchmarkExampleName();
-			editModel=EditModelExamples.getExampleByIndex(null,EditModelExamples.getExampleIndexFromName(exampleName));
+			editModel=EditModelExamples.getExampleByIndex(null,EditModelExamples.getExampleIndexFromName(exampleName),false);
 			out.println(Language.tr("CommandLine.Benchmark.UsedModel")+": "+exampleName);
 			break;
 		case 1:

@@ -15950,6 +15950,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35785] = "Click on the second element to be connected by the edge.";
     t[35790] = "Surface.SetStatisticsMode.Info.Condition";
     t[35791] = "by condition";
+    t[35794] = "SelectExampleWithPreview.QuickSearch";
+    t[35795] = "Quick search";
     t[35798] = "Statistic.Viewer.Toolbar.NewWindow.Size.Hint";
     t[35799] = "Changes the window size.";
     t[35800] = "Simulation.Log.LogicWhile";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36023] = "Properties";
     t[36030] = "Surface.PopupMenu.BreakPoint.Option.Active";
     t[36031] = "Pause animation if client arrives at this station";
-    t[36034] = "FitDalog.Loaded.Info";
-    t[36035] = "%s values have been loaded.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[36034] = "FitDalog.Loaded.Info";
+    t[36035] = "%s values have been loaded.";
     t[36040] = "Statistics.ClientMovement.Visualization.Title";
     t[36041] = "Visualize paths";
     t[36042] = "Window.LoadImage";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40393] = "The new version %s is available.";
     t[40396] = "ParameterCompare.Select.SelectFolder.Hint";
     t[40397] = "Select statistics folder";
-    t[40398] = "Simulation.Element.LogicEndIf.Name";
-    t[40399] = "Logic EndIf";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40398] = "Simulation.Element.LogicEndIf.Name";
+    t[40399] = "Logic EndIf";
     t[40400] = "Surface.AnimationPause.XML.Condition.OnlyOnce";
     t[40401] = "OnlyOnce";
     t[40416] = "Window.Check.AutoFixConnection.NoInfo";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44765] = "Edit pie segment";
     t[44766] = "Surface.AnimationBarStack.XML.DataArea";
     t[44767] = "ModelElementDataArea";
-    t[44772] = "ModelGenerator.Counter.Cancel";
-    t[44773] = "Canceled";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[44772] = "ModelGenerator.Counter.Cancel";
+    t[44773] = "Canceled";
     t[44780] = "Surface.PickUp.Dialog.Mode.Batch.Error.Info";
     t[44781] = "No name was specified for the new client type.";
     t[44782] = "Statistics.AnalogValue.Current";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49227] = "Clients to be released before the barrier gets activated";
     t[49228] = "Statistics.AnalogValue.Flow.SourceSystem";
     t[49229] = "System input";
-    t[49234] = "Simulation.Log.ArrivalCount";
-    t[49235] = "No further arrivals";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[49234] = "Simulation.Log.ArrivalCount";
+    t[49235] = "No further arrivals";
     t[49238] = "Surface.AssignString.XML.Root";
     t[49239] = "ModelElementAssignmentText";
     t[49248] = "Statistic.FastAccess.FilterList.Text";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53601] = "Edit sub model";
     t[53608] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.AverageTime";
     t[53609] = "<p>Returns the average duration over all processing times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
-    t[53614] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.DestinationStation";
-    t[53615] = "Destination station";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[53614] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.DestinationStation";
+    t[53615] = "Destination station";
     t[53622] = "Statistics.NumberOfWaitingClients";
     t[53623] = "Number of waiting clients";
     t[53628] = "Server.Log.SimulationCanceled";
