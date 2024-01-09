@@ -892,8 +892,10 @@ public class ModelElementActionRecord {
 			case CONDITION_TIME:
 				final Double D1=NumberTools.getNotNegativeDouble(Language.trAllAttribute("Surface.Action.XML.Record.Time.Initial",node));
 				if (D1==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Action.XML.Record.Time.Initial"),node.getNodeName(),node.getParentNode().getNodeName());
+				timeInitial=D1;
 				final Double D2=NumberTools.getPositiveDouble(Language.trAllAttribute("Surface.Action.XML.Record.Time.Interval",node));
 				if (D2==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Action.XML.Record.Time.Interval"),node.getNodeName(),node.getParentNode().getNodeName());
+				timeRepeat=D2;
 				final Integer I=NumberTools.getInteger(Language.trAllAttribute("Surface.Action.XML.Record.Time.RepeatCount",node));
 				if (I!=null && I>0) timeRepeatCount=I; else timeRepeatCount=-1;
 				break;
