@@ -1853,6 +1853,12 @@ public class ExpressionBuilderSimulationData {
 			addTreeNode(
 					sub,
 					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.NumberAverage")+" ("+Language.tr("ExpressionBuilder.CommandName.Resource")+"_count_average)",
+					Language.tr("ExpressionBuilder.CommandName.Resource")+"_count_average(id)",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.NumberAverage"));
+			addTreeNode(
+					sub,
+					filterUpper,
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.DownNumber")+" ("+Language.tr("ExpressionBuilder.CommandName.Resource")+"_down)",
 					Language.tr("ExpressionBuilder.CommandName.Resource")+"_down(id)",
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.DownNumber"));
@@ -1946,6 +1952,12 @@ public class ExpressionBuilderSimulationData {
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.Number")+" ("+Language.tr("ExpressionBuilder.CommandName.Resource")+"_count)",
 					Language.tr("ExpressionBuilder.CommandName.Resource")+"_count()",
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll.Number"));
+			addTreeNode(
+					sub,
+					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.NumberAverage")+" ("+Language.tr("ExpressionBuilder.CommandName.Resource")+"_count_average)",
+					Language.tr("ExpressionBuilder.CommandName.Resource")+"_count_average()",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll.NumberAverage"));
 			addTreeNode(
 					sub,
 					filterUpper,

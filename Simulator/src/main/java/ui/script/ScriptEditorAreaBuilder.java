@@ -645,7 +645,9 @@ public class ScriptEditorAreaBuilder {
 		String systemSetAnalogRate="";
 		String systemSetAnalogMaxFlow="";
 		String systemResourceGetAll="";
+		String systemResourceGetAllAverage="";
 		String systemResourceGet="";
+		String systemResourceGetAverage="";
 		String systemResourceSet="";
 		String systemResourceDown="";
 		String systemAllResourceDown="";
@@ -703,7 +705,9 @@ public class ScriptEditorAreaBuilder {
 			systemSetAnalogRate="Simulation.setRate(id,Wert);";
 			systemSetAnalogMaxFlow="Simulation.setValveMaxFlow(id,1,123);";
 			systemResourceGetAll="Simulation.getAllResourceCount();";
+			systemResourceGetAll="Simulation.getAllResourceCountAverage();";
 			systemResourceGet="Simulation.getResourceCount(resourceId);";
+			systemResourceGetAverage="Simulation.getResourceCount(resourceId);";
 			systemResourceSet="Simulation.setResourceCount(resourceId,123);";
 			systemResourceDown="Simulation.getResourceDown(resourceId);";
 			systemAllResourceDown="Simulation.getAllResourceDown();";
@@ -759,7 +763,9 @@ public class ScriptEditorAreaBuilder {
 			systemSetAnalogRate="sim.getSystem().setAnalogRate(id,123);";
 			systemSetAnalogMaxFlow="sim.getSystem().setAnalogValveMaxFlow(id,1,123);";
 			systemResourceGetAll="sim.getSystem().getAllResourceCount();";
+			systemResourceGetAllAverage="sim.getSystem().getAllResourceCountAverage();";
 			systemResourceGet="sim.getSystem().getResourceCount(resourceId);";
+			systemResourceGetAverage="sim.getSystem().getResourceCountAverage(resourceId);";
 			systemResourceSet="sim.getSystem().setResourceCount(resourceId,123);";
 			systemResourceDown="sim.getSystem().getResourceDown(resourceId);";
 			systemAllResourceDown="sim.getSystem().getAllResourceDown();";
@@ -819,7 +825,9 @@ public class ScriptEditorAreaBuilder {
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.setAnalogValveMaxFlow"),Language.tr("ScriptPopup.Simulation.setAnalogValveMaxFlow.Hint"),Images.SCRIPT_RECORD_ANALOG_VALUE.getIcon(),systemSetAnalogMaxFlow);
 
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getAllResourceCount"),Language.tr("ScriptPopup.Simulation.getAllResourceCount.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemResourceGetAll);
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.getAllResourceCountAverage"),Language.tr("ScriptPopup.Simulation.getAllResourceCountAverage.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemResourceGetAllAverage);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getResourceCount"),Language.tr("ScriptPopup.Simulation.getResourceCount.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemResourceGet);
+		addAutoComplete(Language.tr("ScriptPopup.Simulation.getResourceCountAverage"),Language.tr("ScriptPopup.Simulation.getResourceCountAverage.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemResourceGetAverage);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.setResourceCount"),Language.tr("ScriptPopup.Simulation.setResourceCount.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemResourceSet);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getResourceDown"),Language.tr("ScriptPopup.Simulation.getResourceDown.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemResourceDown);
 		addAutoComplete(Language.tr("ScriptPopup.Simulation.getAllResourceDown"),Language.tr("ScriptPopup.Simulation.getAllResourceDown.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon(),systemAllResourceDown);

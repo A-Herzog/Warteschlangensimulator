@@ -1098,7 +1098,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	}
 
 	/**
-	 * Liefert die Anzahl an vorhandenen Bedienern über alle Bedienergruppen.
+	 * Liefert die Anzahl an aktuell vorhandenen Bedienern über alle Bedienergruppen.
 	 * @return Anzahl an vorhandenen Bedienern über alle Bedienergruppen
 	 */
 	public int getAllResourceCount() {
@@ -1107,13 +1107,32 @@ public final class JSCommandSystem extends JSBaseCommand {
 	}
 
 	/**
-	 * Liefert die Anzahl an vorhandenen Bedienern in einer bestimmten Bedienergruppe.
+	 * Liefert die Anzahl an aktuell vorhandenen Bedienern in einer bestimmten Bedienergruppe.
 	 * @param resourceId 1-basierende ID der Bedienergruppe
 	 * @return Anzahl an vorhandenen Bedienern
 	 */
 	public int getResourceCount(final int resourceId) {
 		if (simData==null) return 0;
 		return simData.runData.resources.getCount(resourceId-1,simData);
+	}
+
+	/**
+	 * Liefert die Anzahl an im Mittel vorhandenen Bedienern über alle Bedienergruppen.
+	 * @return Anzahl an vorhandenen Bedienern über alle Bedienergruppen
+	 */
+	public double getAllResourceCountAverage() {
+		if (simData==null) return 0;
+		return simData.runData.resources.getAllCountAverage(simData);
+	}
+
+	/**
+	 * Liefert die Anzahl an im Mittel vorhandenen Bedienern in einer bestimmten Bedienergruppe.
+	 * @param resourceId 1-basierende ID der Bedienergruppe
+	 * @return Anzahl an vorhandenen Bedienern
+	 */
+	public double getResourceCountAverage(final int resourceId) {
+		if (simData==null) return 0;
+		return simData.runData.resources.getCountAverage(resourceId-1,simData);
 	}
 
 	/**

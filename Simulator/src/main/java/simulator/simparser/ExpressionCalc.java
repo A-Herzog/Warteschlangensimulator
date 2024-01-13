@@ -315,6 +315,7 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolSimDataCounterStd());
 
 		functions.add(new CalcSymbolResourceCount());
+		functions.add(new CalcSymbolResourceCount_avg());
 		functions.add(new CalcSymbolResourceData_current());
 		functions.add(new CalcSymbolResourceData_avg());
 		functions.add(new CalcSymbolResourceData_min());

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-06 15:39+0100\n"
+"POT-Creation-Date: 2024-01-09 09:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7531,6 +7531,9 @@ msgstr "Minimal time"
 msgid "ExpressionBuilder.SimulationCharacteristics.Number"
 msgstr "Number"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.NumberAverage"
+msgstr "Average available number"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.NumberOfClients"
 msgstr "Number of clients"
 
@@ -7990,6 +7993,11 @@ msgstr ""
 "<p>Returns the number of operators in the specified resource.</p>\n"
 "<p>If the resource is defined by a shift plan the number can vary during the simulation time. For resources with an unlimited capacity \"0\" is returned.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.NumberAverage"
+msgstr ""
+"<p>Returns the average number of operators in the specified resource.</p>\n"
+"<p>For resources with an unlimited capacity \"0\" is returned.</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Skewness"
 msgstr "<p>Returns the skewness of the number of busy operators in the specified resource.</p>"
 
@@ -8024,6 +8032,11 @@ msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll.Number
 msgstr ""
 "<p>Returns the number of operators over all resources.</p>\n"
 "<p>If some of the resources are defined by a shift plan the number can vary during the simulation time. Resources with an unlimited capacity are counted as 0.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll.NumberAverage"
+msgstr ""
+"<p>Returns the average number of operators over all resources.</p>\n"
+"<p>Resources with an unlimited capacity are counted as 0.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Resources"
 msgstr "Resources"
@@ -18042,7 +18055,13 @@ msgid "ScriptPopup.Simulation.getAllResourceCount"
 msgstr "Total number of operators"
 
 msgid "ScriptPopup.Simulation.getAllResourceCount.Hint"
-msgstr "Gets the total number of operators"
+msgstr "Gets the current total number of operators"
+
+msgid "ScriptPopup.Simulation.getAllResourceCountAverage"
+msgstr "Average total number of operators"
+
+msgid "ScriptPopup.Simulation.getAllResourceCountAverage.Hint"
+msgstr "Gets the average total number of operators"
 
 msgid "ScriptPopup.Simulation.getAllResourceDown"
 msgstr "Total number of operators in down time"
@@ -18075,10 +18094,16 @@ msgid "ScriptPopup.Simulation.getNSAll.Hint"
 msgstr "Current number of clients in service process in the whole system"
 
 msgid "ScriptPopup.Simulation.getResourceCount"
-msgstr "Number of operators in a group"
+msgstr "Number of existing operators in a group"
 
 msgid "ScriptPopup.Simulation.getResourceCount.Hint"
-msgstr "Gets the number of operators in a group"
+msgstr "Gets the number of currently existing operators in a group"
+
+msgid "ScriptPopup.Simulation.getResourceCountAverage"
+msgstr "Average number of existing operators in a group"
+
+msgid "ScriptPopup.Simulation.getResourceCountAverage.Hint"
+msgstr "Gets the average number of existing operators in a group"
 
 msgid "ScriptPopup.Simulation.getResourceDown"
 msgstr "Number of operators in down time in a group"

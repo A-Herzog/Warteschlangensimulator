@@ -352,6 +352,16 @@ public class SystemImpl implements SystemInterface {
 	}
 
 	@Override
+	public double getAllResourceCountAverage() {
+		return simData.runData.resources.getAllCountAverage(simData);
+	}
+
+	@Override
+	public double getResourceCountAverage(final int resourceId) {
+		return simData.runData.resources.getCountAverage(resourceId-1,simData);
+	}
+
+	@Override
 	public boolean setResourceCount(final int resourceId, final int count) {
 		return simData.runData.resources.setCount(resourceId-1,simData,count);
 	}

@@ -132,17 +132,30 @@ public interface SystemInterface {
 	void setAnalogValveMaxFlow(final Object elementID, final Object valveNr, final Object value);
 
 	/**
-	 * Liefert die Anzahl an vorhandenen Bedienern über alle Bedienergruppen.
+	 * Liefert die Anzahl an aktuell vorhandenen Bedienern über alle Bedienergruppen.
 	 * @return	Anzahl an vorhandenen Bedienern über alle Bedienergruppen
 	 */
 	int getAllResourceCount();
 
 	/**
-	 * Liefert die Anzahl an vorhandenen Bedienern in einer bestimmten Bedienergruppe.
+	 * Liefert die Anzahl an aktuell vorhandenen Bedienern in einer bestimmten Bedienergruppe.
 	 * @param resourceId	1-basierende ID der Bedienergruppe
 	 * @return	Anzahl an vorhandenen Bedienern
 	 */
 	int getResourceCount(final int resourceId);
+
+	/**
+	 * Liefert die Anzahl an im Mittel vorhandenen Bedienern über alle Bedienergruppen.
+	 * @return	Anzahl an vorhandenen Bedienern über alle Bedienergruppen
+	 */
+	double getAllResourceCountAverage();
+
+	/**
+	 * Liefert die Anzahl an im Mittel vorhandenen Bedienern in einer bestimmten Bedienergruppe.
+	 * @param resourceId	1-basierende ID der Bedienergruppe
+	 * @return	Anzahl an vorhandenen Bedienern
+	 */
+	double getResourceCountAverage(final int resourceId);
 
 	/**
 	 * Stellt die Anzahl an vorhandenen Bedienern in einer bestimmten Bedienergruppe ein.

@@ -637,6 +637,25 @@ public final class RunDataResource implements Cloneable {
 	}
 
 	/**
+	 * Gibt an, wie viele Bediener eines bestimmten Typs im Mittel insgesamt im System vorhanden sind (arbeitend und im Leerlauf)
+	 * @param simData	Simulationsdaten
+	 * @return	Anzahl an Bediener (im Falle von unendlich vielen oder einem ungültigen Index "0")
+	 */
+	public double getCountAverage(final SimulationData simData) {
+		if (operators!=null) {
+			return statisticsCount.getTimeMean();
+		} else {
+			if (available>=0) {
+				return available;
+			} else {
+				if (available==-1) return 0;
+				if (available==-2) return statisticsCount.getTimeMean();
+				return statisticsCount.getTimeMean();
+			}
+		}
+	}
+
+	/**
 	 * Waren zum Zeitpunkt der formalen Reduktion der Anzahl an verfügbaren Bediener
 	 * alle Bediener zu belegt, so muss später geprüft werden, ob nun frei gewordene
 	 * Bediener entfernt werden können.
@@ -779,4 +798,6 @@ public final class RunDataResource implements Cloneable {
 		inDownTime--;
 		statisticsDownTime.set(time*toSecFactor,inDownTime);
 	}
+
+
 }

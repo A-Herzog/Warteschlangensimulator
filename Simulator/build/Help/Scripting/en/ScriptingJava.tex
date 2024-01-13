@@ -381,10 +381,18 @@ Gets the current number of clients in service process in the system.
 \item
 \cmd{int getAllResourceCount()}:\\
 Returns the current number of operators in all resources together.
+
+\item
+\cmd{int getAllResourceCountAverage()}:\\
+Returns the average number of operators in all resources together.
   
 \item
 \cmd{int getResourceCount(final int resourceId)}:\\
 Returns the current number of operators in the resource with the specified id.  
+  
+\item
+\cmd{int getResourceCountAverage(final int resourceId)}:\\
+Returns the average number of operators in the resource with the specified id.  
   
 \item
 \cmd{boolean setResourceCount(final int resourceId, final int count)}:\\

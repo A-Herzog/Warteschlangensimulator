@@ -188,6 +188,17 @@ public final class RunDataResources implements Cloneable {
 	}
 
 	/**
+	 * Gibt an, wie viele Bediener eines bestimmten Typs im mittel insgesamt im System vorhanden sind (arbeitend und im Leerlauf)
+	 * @param index	0-basierender Index der Bedienergruppe
+	 * @param simData	Simulationsdaten
+	 * @return	Anzahl an Bedienern (im Falle von unendlich vielen oder einem ungültigen Index "0")
+	 */
+	public double getCountAverage(final int index, final SimulationData simData) {
+		if (index<0 || index>=names.length) return 0;
+		return list[index].getCountAverage(simData);
+	}
+
+	/**
 	 * Stellt ein, wie viele Bediener eines bestimmten Typs im System vorhanden sein sollen
 	 * @param index	0-basierender Index der Bedienergruppe
 	 * @param simData	Simulationsdaten
@@ -207,6 +218,17 @@ public final class RunDataResources implements Cloneable {
 	public int getAllCount(final SimulationData simData) {
 		int sum=0;
 		for (RunDataResource resource: list) sum+=resource.getCount(simData);
+		return sum;
+	}
+
+	/**
+	 * Gibt an, wie viele Bediener im Mittel insgesamt verfügbar sind (arbeitend und im Leerlauf)
+	 * @param simData	Simulationsdaten
+	 * @return	Anzahl an Bedienern (im Falle von unendlich vielen oder einem ungültigen Index "0")
+	 */
+	public double getAllCountAverage(final SimulationData simData) {
+		double sum=0;
+		for (RunDataResource resource: list) sum+=resource.getCountAverage(simData);
 		return sum;
 	}
 

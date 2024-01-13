@@ -125,17 +125,30 @@ public interface SystemInterface {
 	void setAnalogValveMaxFlow(final Object elementID, final Object valveNr, final Object value);
 
 	/**
-	 * Returns the number of operators in all operator groups together.
+	 * Returns the current number of operators in all operator groups together.
 	 * @return	Number of operators in all operator groups together
 	 */
 	int getAllResourceCount();
 
 	/**
-	 * Returns the number of operators in an operator group.
+	 * Returns the current number of operators in an operator group.
 	 * @param resourceId	1-based ID of the operator group
 	 * @return	Number of operators in the operator group
 	 */
 	int getResourceCount(final int resourceId);
+	
+	/**
+	 * Returns the average number of operators in all operator groups together.
+	 * @return	Number of operators in all operator groups together
+	 */
+	int getAllResourceCountAverage();
+
+	/**
+	 * Returns the average number of operators in an operator group.
+	 * @param resourceId	1-based ID of the operator group
+	 * @return	Number of operators in the operator group
+	 */
+	int getResourceCountAverage(final int resourceId);
 
 	/**
 	 * Sets the number of available operators in an operator group.

@@ -367,7 +367,9 @@ public class ScriptPopup {
 		String systemSetAnalogRate="";
 		String systemSetAnalogMaxFlow="";
 		String systemResourceGetAll="";
+		String systemResourceGetAllAverage="";
 		String systemResourceGet="";
+		String systemResourceGetAverage="";
 		String systemResourceSet="";
 		String systemResourceDown="";
 		String systemAllResourceDown="";
@@ -422,7 +424,9 @@ public class ScriptPopup {
 			systemSetAnalogRate="Simulation.setRate(%s,Wert)";
 			systemSetAnalogMaxFlow="Simulation.setValveMaxFlow(%s,1,123)";
 			systemResourceGetAll="Simulation.getAllResourceCount()";
+			systemResourceGetAllAverage="Simulation.getAllResourceCountAverage()";
 			systemResourceGet="Simulation.getResourceCount(resourceId)";
+			systemResourceGetAverage="Simulation.getResourceCountAverage(resourceId)";
 			systemResourceSet="Simulation.setResourceCount(resourceId,123)";
 			systemResourceDown="Simulation.getResourceDown(resourceId)";
 			systemAllResourceDown="Simulation.getAllResourceDown();";
@@ -477,7 +481,9 @@ public class ScriptPopup {
 			systemSetAnalogRate="sim.getSystem().setAnalogRate(%s,123);";
 			systemSetAnalogMaxFlow="sim.getSystem().setAnalogValveMaxFlow(%s,1,123);";
 			systemResourceGetAll="sim.getSystem().getAllResourceCount();";
+			systemResourceGetAllAverage="sim.getSystem().getAllResourceCountAverage();";
 			systemResourceGet="sim.getSystem().getResourceCount(resourceId);";
+			systemResourceGetAverage="sim.getSystem().getResourceCountAverage(resourceId);";
 			systemResourceSet="sim.getSystem().setResourceCount(resourceId,123);";
 			systemResourceDown="sim.getSystem().getResourceDown(resourceId);";
 			systemAllResourceDown="sim.getSystem().getAllResourceDown();";
@@ -593,7 +599,9 @@ public class ScriptPopup {
 
 		group.addChild(sub=new ScriptPopupItemSub(Language.tr("ScriptPopup.Simulation.Resources"),Language.tr("ScriptPopup.Simulation.Resources.Hint"),Images.SCRIPT_RECORD_DATA_RESOURCE.getIcon()));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.getAllResourceCount"),Language.tr("ScriptPopup.Simulation.getAllResourceCount.Hint"),null,systemResourceGetAll));
+		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.getAllResourceCountAverage"),Language.tr("ScriptPopup.Simulation.getAllResourceCountAverage.Hint"),null,systemResourceGetAllAverage));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.getResourceCount"),Language.tr("ScriptPopup.Simulation.getResourceCount.Hint"),null,systemResourceGet));
+		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.getResourceCountAverage"),Language.tr("ScriptPopup.Simulation.getResourceCountAverage.Hint"),null,systemResourceGetAverage));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.setResourceCount"),Language.tr("ScriptPopup.Simulation.setResourceCount.Hint"),null,systemResourceSet));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.getResourceDown"),Language.tr("ScriptPopup.Simulation.getResourceDown.Hint"),null,systemResourceDown));
 		sub.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Simulation.getAllResourceDown"),Language.tr("ScriptPopup.Simulation.getAllResourceDown.Hint"),null,systemAllResourceDown));

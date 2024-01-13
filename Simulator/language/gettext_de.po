@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-06 15:39+0100\n"
+"POT-Creation-Date: 2024-01-09 09:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7521,6 +7521,9 @@ msgstr "Minimale Zeit"
 msgid "ExpressionBuilder.SimulationCharacteristics.Number"
 msgstr "Anzahl"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.NumberAverage"
+msgstr "Mittlere Anzahl an vorhandenen Bedienern"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.NumberOfClients"
 msgstr "Anzahl an Kunden"
 
@@ -7993,8 +7996,13 @@ msgstr "<p>Liefert die minimale Anzahl an belegten Bedienern in der angegebenen 
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Number"
 msgstr ""
-"<p>Liefert die Anzahl an Bedienern in der angegebenen Ressource.</p>\n"
+"<p>Liefert die Anzahl an vorhandenen Bedienern in der angegebenen Ressource.</p>\n"
 "<p>Ist die Ressource über einen Schichtplan definiert, so kann diese Anzahl im Laufe der Zeit schwanken. Bei Ressourcen mit einer unendlichen Kapazität wird \"0\" zurück geliefert.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.NumberAverage"
+msgstr ""
+"<p>Liefert die mittlere Anzahl an vorhandenen Bedienern in der angegebenen Ressource.</p>\n"
+"<p>Bei Ressourcen mit einer unendlichen Kapazität wird \"0\" zurück geliefert.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Skewness"
 msgstr "<p>Liefert die Schiefe der Anzahl an belegten Bedienern in der angegebenen Ressource.</p>"
@@ -8028,8 +8036,13 @@ msgstr "<p>Liefert die minimale Anzahl an belegten Bedienern in allen Ressourcen
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll.Number"
 msgstr ""
-"<p>Liefert die Anzahl an Bedienern in allen Ressourcen zusammen.</p>\n"
+"<p>Liefert die Anzahl an vorhandenen Bedienern in allen Ressourcen zusammen.</p>\n"
 "<p>Sind eine oder mehrere Ressourcen über einen Schichtplan definiert, so kann diese Anzahl im Laufe der Zeit schwanken. Ressourcen mit einer unendlichen Kapazität gegen mit 0 in die Summe ein.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll.NumberAverage"
+msgstr ""
+"<p>Liefert die mittlere Anzahl an vorhandenen Bedienern in allen Ressourcen zusammen.</p>\n"
+"<p>Ressourcen mit einer unendlichen Kapazität gegen mit 0 in die Summe ein.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.Resources"
 msgstr "Ressourcen"
@@ -18081,7 +18094,13 @@ msgid "ScriptPopup.Simulation.getAllResourceCount"
 msgstr "Gesamtzahl an Bedienern"
 
 msgid "ScriptPopup.Simulation.getAllResourceCount.Hint"
-msgstr "Liefert die Gesamtzahl an Bedienern"
+msgstr "Liefert die aktuelle Gesamtzahl an Bedienern"
+
+msgid "ScriptPopup.Simulation.getAllResourceCountAverage"
+msgstr "Mittlere Gesamtzahl an Bedienern"
+
+msgid "ScriptPopup.Simulation.getAllResourceCountAverage.Hint"
+msgstr "Liefert die mittlere Gesamtzahl an Bedienern"
 
 msgid "ScriptPopup.Simulation.getAllResourceDown"
 msgstr "Gesamtzahl an Bedienern in Pausezeit"
@@ -18114,10 +18133,16 @@ msgid "ScriptPopup.Simulation.getNSAll.Hint"
 msgstr "Aktuelle Anzahl an Kunden im Bedienprozess im gesamten System"
 
 msgid "ScriptPopup.Simulation.getResourceCount"
-msgstr "Bediener in einer Gruppe"
+msgstr "Anzahl an Bediener in einer Gruppe"
 
 msgid "ScriptPopup.Simulation.getResourceCount.Hint"
-msgstr "Anzahl an Bedienern in einer Gruppe auslesen"
+msgstr "Anzahl an momentan existierenden Bedienern in einer Gruppe auslesen"
+
+msgid "ScriptPopup.Simulation.getResourceCountAverage"
+msgstr "Mittlere Anzahl an Bediener in einer Gruppe"
+
+msgid "ScriptPopup.Simulation.getResourceCountAverage.Hint"
+msgstr "Anzahl an im Durchschnitt existierenden Bedienern in einer Gruppe auslesen"
 
 msgid "ScriptPopup.Simulation.getResourceDown"
 msgstr "Bediener in Pausezeit in einer Gruppe"
