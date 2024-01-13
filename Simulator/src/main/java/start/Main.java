@@ -16,6 +16,7 @@
 package start;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.SplashScreen;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
@@ -178,6 +179,12 @@ public class Main {
 
 		/* Parameter verarbeiten */
 		if (args.length>0) {
+			/* Splash-Screen wird automatisch geschlossen, wenn ein Fenster geöffnet wird. Allerdings bleibt er im Kommandozeilen-Modus beliebig lange sichtbar. Daher wird er hier explizit geschlossen. */
+			try {
+				final SplashScreen splashScreen=SplashScreen.getSplashScreen();
+				if (splashScreen!=null) splashScreen.close();
+			} catch (UnsupportedOperationException e) {}
+
 			if (processCommandLineArguments(args)) return;
 		}
 

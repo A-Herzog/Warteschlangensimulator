@@ -14,6 +14,7 @@ build/Help/Warteschlangennetz-mittel.jpg
 *.bbl
 *.blg
 src/main/java/ui/res/Warteschlangennetz.png
+src/main/java/ui/res/Splashscreen.png
 **/JarSecurity.txt
 Simulator.cfg
 Certificate.cfg
