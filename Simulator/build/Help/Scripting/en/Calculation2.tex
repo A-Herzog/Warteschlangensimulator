@@ -2004,6 +2004,10 @@ Gets the waiting time of the current client at the current station.
 \cmd{ClientBatchSize()}:\\
 If the client object is a temporary batch, the number of clients contained in the batch is returned. Otherwise, 0 is returned.
 
+\item
+\cmd{LastWaitingTimeTolerance()}:\\
+Returns the last waiting time tolerance calculated for this client at a process station. If a waiting time tolerance has never been calculated for the client, the function returns 0.
+
 \end{itemize}
 
 

@@ -265,6 +265,7 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 			}
 			maxWaitingTime=maxWaitingTime*station.timeBaseMultiply;
 			if (maxWaitingTime>=0) {
+				client.lastWaitingTimeTolerance=maxWaitingTime;
 				if (!simData.runData.stopp)  {
 					final WaitingCancelEvent event=(WaitingCancelEvent)simData.getEvent(WaitingCancelEvent.class);
 					event.init(time+FastMath.round(maxWaitingTime*simData.runModel.scaleToSimTime));

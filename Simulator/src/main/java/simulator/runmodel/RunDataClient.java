@@ -166,6 +166,11 @@ public class RunDataClient {
 	public boolean lastQueueSuccess;
 
 	/**
+	 * Zuletzt an einer Station für diesen Kunden bestimmte Wartezeittoleranz in Sekunden
+	 */
+	public double lastWaitingTimeTolerance;
+
+	/**
 	 * Gibt den Zeitpunkt an, an dem der letzte Wartevorgang gestartet wurde.
 	 */
 	public long lastWaitingStart;
@@ -401,6 +406,8 @@ public class RunDataClient {
 		waitingAdditionalCosts=0;
 		transferAdditionalCosts=0;
 		processAdditionalCosts=0;
+		lastQueueSuccess=true;
+		lastWaitingTimeTolerance=0;
 		isLastClient=false;
 		icon=null;
 		iconLast=null;
@@ -453,6 +460,7 @@ public class RunDataClient {
 		transferAdditionalCosts=client.transferAdditionalCosts;
 		processAdditionalCosts=client.processAdditionalCosts;
 		lastQueueSuccess=client.lastQueueSuccess;
+		lastWaitingTimeTolerance=client.lastWaitingTimeTolerance;
 		lastWaitingStart=client.lastWaitingStart;
 		/* wird nicht kopiert - isLastClient */
 		/* wird nicht kopiert - stationInformation */

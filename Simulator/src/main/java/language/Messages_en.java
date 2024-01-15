@@ -18348,6 +18348,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40999] = "Transfer times of the clients";
     t[41006] = "Statistics.XML.Denominator";
     t[41007] = "Denominator";
+    t[41010] = "ExpressionBuilder.SimulationCharacteristics.ClientData.LastWaitingTimeTolerance";
+    t[41011] = "Last calculated waiting time tolerance";
     t[41018] = "ParameterCompare.Settings.VarianceAnalysis.Label";
     t[41019] = "Number of repetitions";
     t[41022] = "Surface.SourceDDE.XML.Workbook";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44739] = "ModelElementInputDDEVariable";
     t[44742] = "Main.Menu.View.Explorer.Mnemonic";
     t[44743] = "o";
-    t[44744] = "Surface.InputDB.XML.EofMode.Terminate";
-    t[44745] = "Terminate";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[44744] = "Surface.InputDB.XML.EofMode.Terminate";
+    t[44745] = "Terminate";
     t[44746] = "ParameterCompare.Settings.List.AddVariable";
     t[44747] = "Global variable";
     t[44748] = "SettingsDialog.TemplatesPanel.LastState";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49185] = "Tank stations represent a value which can change continuously over the time. The fill level of a tank cannot get negative and also has an upper limit. Tank stations do not have incoming or outgoing edges.";
     t[49188] = "Main.Menu.View.QuickAccess.Mnemonic";
     t[49189] = "q";
-    t[49190] = "ExpressionCalculator.Tab.General.SaveText.Info";
-    t[49191] = "Save data";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[49190] = "ExpressionCalculator.Tab.General.SaveText.Info";
+    t[49191] = "Save data";
     t[49198] = "Surface.Match.Dialog.OptionProperty.Number.Error.Info";
     t[49199] = "No valid index for a client data field was specified. A non-negative integer number has to be specified.";
     t[49202] = "ScriptPopup.Simulation.Log";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53563] = "a";
     t[53572] = "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DensityInfo";
     t[53573] = "<p>Calculates the value of the desity of the log-normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>LogNormalDist(7;5;3;0)</tt> returns 3.40712431368569.</p>";
-    t[53580] = "Statistics.WaitingTransferProcessTimesAtStationsTotal";
-    t[53581] = "Waiting, transfer and process times at the stations(totaled over multiple client arrivals)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[53580] = "Statistics.WaitingTransferProcessTimesAtStationsTotal";
+    t[53581] = "Waiting, transfer and process times at the stations(totaled over multiple client arrivals)";
     t[53588] = "Surface.Tank.Dialog.Valve.Delete";
     t[53589] = "Delete valve (Shift+Click=without confirmation dialog)";
     t[53590] = "Simulation.Creator.UnknownTransporterName";

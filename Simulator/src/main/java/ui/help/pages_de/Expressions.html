@@ -2058,9 +2058,12 @@ Die Befehle, für die diese zusätzlichen Parametrierungsmöglichkeiten zur Verf
 
   <tr><td>KundeBatchGröße()</td><td rowspan="2">Handelt es sich bei dem Kundenobjekt um einen temporären Batch, so wird die Anzahl an in dem Batch enthaltenen Kunden zurückgeliefert. Andernfalls wird 0 zurückgeliefert.</td></tr>
   <tr><td>ClientBatchSize()</td></tr>
+  
+  <tr><td>LastWaitingTimeTolerance()</td></tr><td rowspan="2">Liefert die zuletzt für diesen Kunden an einer Bedienstation berechnete Wartezeittoleranz. Wurde für den Kunden noch nie eine Wartezeittoleranz berechnet, so liefert die Funktion 0.</td></tr>
+  <tr><td>LetzteWartezeittoleranz()</td></tr>
 
-  
-  
+
+
   <tr><td colspan="2"><h3>Zugriff auf die Kosten</h3></td></tr>
   
   <tr><td>costs_waiting_sum(id)</td><td rowspan="2">Liefert die Summe der Wartezeitkosten der Kunden, deren Name an Quelle bzw. Namenszuweisung id auftritt.</td></tr>

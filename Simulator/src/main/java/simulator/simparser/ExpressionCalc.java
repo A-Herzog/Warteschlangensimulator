@@ -350,6 +350,7 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolClientStatistics());
 		functions.add(new CalcSymbolClientWarmUp());
 		functions.add(new CalcSymbolClientResourceAlternative());
+		functions.add(new CalcSymbolClientLastWaitingTimeTolerance());
 		functions.add(new CalcSymbolClientLastStation());
 		functions.add(new CalcSymbolClientCostWaiting_sum());
 		functions.add(new CalcSymbolClientCostWaiting_avg());

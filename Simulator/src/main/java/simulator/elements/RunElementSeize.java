@@ -131,6 +131,7 @@ public class RunElementSeize extends RunElement implements FreeResourcesListener
 
 			/* Abbruch-Ereignis anlegen */
 			if (timeOutMS>=0) {
+				client.lastWaitingTimeTolerance=timeOutMS*simData.runModel.scaleToSeconds;
 				final SeizeWaitingCancelEvent event=(SeizeWaitingCancelEvent)simData.getEvent(SeizeWaitingCancelEvent.class);
 				event.init(simData.currentTime+timeOutMS);
 				event.station=this;

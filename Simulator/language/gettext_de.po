@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-09 09:29+0100\n"
+"POT-Creation-Date: 2024-01-12 21:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7174,6 +7174,12 @@ msgstr "Quellstations ID"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.ClientSourceID.Info"
 msgstr "Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde."
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.LastWaitingTimeTolerance"
+msgstr "Letzte berechnete Wartezeittoleranz"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.LastWaitingTimeTolerance.Info"
+msgstr "Liefert die zuletzt für diesen Kunden an einer Bedienstation berechnete Wartezeittoleranz. Wurde für den Kunden noch nie eine Wartezeittoleranz berechnet, so liefert die Funktion 0. "
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.PreviousStation"
 msgstr "Vorherige Station"

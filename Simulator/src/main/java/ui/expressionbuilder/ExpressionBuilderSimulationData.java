@@ -2557,6 +2557,12 @@ public class ExpressionBuilderSimulationData {
 			addTreeNodeClient(
 					sub,
 					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.LastWaitingTimeTolerance")+" (LastWaitingTimeTolerance)",
+					"LastWaitingTimeTolerance()",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.LastWaitingTimeTolerance.Info"));
+			addTreeNodeClient(
+					sub,
+					filterUpper,
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.PreviousStation")+" (PreviousStation)",
 					"PreviousStation()",
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.ClientData.PreviousStation.Info"));

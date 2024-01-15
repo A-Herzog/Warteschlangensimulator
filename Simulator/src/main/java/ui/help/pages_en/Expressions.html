@@ -2025,9 +2025,11 @@ The commands for which these additional parameterization options are available a
   
   <tr><td>PreviousStation()</td><td rowspan="1">Gets the ID of the station where the client was before he entered the current station.</td></tr>
   
-  <tr><td>CurrentWaitingTime()</td><td rowspan="1">Gets the waiting time of the current client at the current station.</td>
+  <tr><td>CurrentWaitingTime()</td><td rowspan="1">Gets the waiting time of the current client at the current station.</td></tr>
   
-  <tr><td>ClientBatchSize()</td><td rowspan="1">If the client object is a temporary batch, the number of clients contained in the batch is returned. Otherwise, 0 is returned.</td>
+  <tr><td>ClientBatchSize()</td><td rowspan="1">If the client object is a temporary batch, the number of clients contained in the batch is returned. Otherwise, 0 is returned.</td></tr>
+  
+  <tr><td>LastWaitingTimeTolerance()</td><td rowspan="1">Returns the last waiting time tolerance calculated for this client at a process station. If a waiting time tolerance has never been calculated for the client, the function returns 0.</td></tr>
   
   
   
