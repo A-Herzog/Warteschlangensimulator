@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.5.0</ModellVersion>
+  <ModellName>Wartezeittoleranzen der erfolgreichen Kunden und der Warteabbrecher</ModellName>
+  <ModellBeschreibung>Warteabbrüche treten insbesondere in Kundenservice-Systemen auf.
+Bei der Aufstellung eines Simulationsmodells muss die mittlere Wartezeittoleranz der Kunden im Modell hinterlegt werden.
+Direkt gemessen werden kann jedoch nur die Wartezeittoleranz der Warteabbrecher - nämlich deren Abbruchzeit.
+Von den erfolgreichen Kunden ist hingegen nur eine untere Abschätzung für deren Wartezeittoleranz bekannt
+(nämlich deren tatsächliche Wartezeit). Das Beispiel zeigt, dass beide Zeitdauern keine valide Schätzung der tatsächlichen
+mittleren Wartezeittoleranz über alle Kunden ermöglicht. Der Grund liegt insbesondere darin, da die Warteabbrecher
+eher über kurze Wartezeittoleranzen verfügen, also nicht repräsentativ für die Grundgesamtheit sind.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="2">
+      <ModellElementGroesse h="50" w="100" x="250" y="100"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="7" Status="Warteabbruch" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (80)</ModellElementVerteilung>
+      <ModellElementVerteilung Typ="Abbruchzeiten">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Abbrecher">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Erfolg">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZuweisung id="4">
+      <ModellElementName>Erfolg</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="100"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementZuweisung id="5">
+      <ModellElementName>Abbrecher</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="450" y="250"/>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementKante id="6">
+      <ModellElementName>Erfolg</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="7">
+      <ModellElementName>Warteabbruch</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="22" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="8">
+      <ModellElementGroesse h="50" w="100" x="1000" y="100"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementVariable id="11">
+      <ModellElementGroesse h="50" w="100" x="850" y="100"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(1)">LetzteWartezeittoleranz()</ModellElementVariablenzuweisung>
+      <ModellElementVariablenzuweisung Variable="meanWTSuccess">(meanWTSuccess*(NumberIn(11)-1)+LetzteWartezeittoleranz())/NumberIn(11)</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="11" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZaehler id="13">
+      <ModellElementName>Abbrecher</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="250"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Typ</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementZaehler id="14">
+      <ModellElementName>Erfolg</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="100"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Typ</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementKante id="10">
+      <ModellElementName>Neuer Kundentyp: Abbrecher</ModellElementName>
+      <ModellElementVerbindung Element1="5" Element2="13" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementName>Neuer Kundentyp: Erfolg</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="14" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="16">
+      <ModellElementVerbindung Element1="14" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="17">
+      <ModellElementGroesse h="23" w="620" x="50" y="50"/>
+      <ModellElementTextzeile>Wartezeittoleranzen der erfolgreichen Kunden und der Warteabbrecher</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="18">
+      <ModellElementGroesse h="114" w="273" x="50" y="350"/>
+      <ModellElementTextzeile>Die Wartezeittoleranz der Kunden beträgt</ModellElementTextzeile>
+      <ModellElementTextzeile>im Mittel **50 Sekunden**. Da die Auslastung</ModellElementTextzeile>
+      <ModellElementTextzeile>des Systems (ohne Berücksichtigung von</ModellElementTextzeile>
+      <ModellElementTextzeile>Warteabbrüchen) **80%** beträgt, entstehen</ModellElementTextzeile>
+      <ModellElementTextzeile>nennenswerte Wartezeiten und damit treten</ModellElementTextzeile>
+      <ModellElementTextzeile>Warteabbrüche auf.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse LaTeX="1" Markdown="1" Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementVariable id="19">
+      <ModellElementGroesse h="50" w="100" x="850" y="250"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="21" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(1)">LetzteWartezeittoleranz()</ModellElementVariablenzuweisung>
+      <ModellElementVariablenzuweisung Variable="meanWTCancel">(meanWTCancel*(NumberIn(19)-1)+LetzteWartezeittoleranz())/NumberIn(19)</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementKante id="15">
+      <ModellElementVerbindung Element1="13" Element2="19" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="20">
+      <ModellElementGroesse h="50" w="100" x="1000" y="250"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="21">
+      <ModellElementVerbindung Element1="19" Element2="20" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEcke id="22">
+      <ModellElementGroesse h="10" w="10" x="295" y="270"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="23">
+      <ModellElementVerbindung Element1="22" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="24">
+      <ModellElementName>Anteil erfolgreicher Kunden</ModellElementName>
+      <ModellElementGroesse h="30" w="115" x="850" y="170"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(14)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="25">
+      <ModellElementName>Mittlere Wartezeittoleranz der erfolgreichen Kunden</ModellElementName>
+      <ModellElementGroesse h="30" w="216" x="550" y="375"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">meanWTSuccess</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="26">
+      <ModellElementName>Mittlere Wartezeittoleranz (=Abbruchzeit) der Warteabbrecher</ModellElementName>
+      <ModellElementGroesse h="30" w="258" x="550" y="420"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">meanWTCancel</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="27">
+      <ModellElementName>Mittlere tatsächliche Wartezeit der erfolgreichen Kunden</ModellElementName>
+      <ModellElementGroesse h="30" w="235" x="800" y="370"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Wartezeit_avg(4)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="28">
+      <ModellElementName>Tatsächliche Auslastung des Bedieners</ModellElementName>
+      <ModellElementGroesse h="30" w="166" x="350" y="170"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg()/Resource_count()</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="29">
+      <ModellElementGroesse h="76" w="526" x="550" y="475"/>
+      <ModellElementTextzeile>Die in einem realen System messbare Wartezeittoleranz der Warteabbrecher,</ModellElementTextzeile>
+      <ModellElementTextzeile>also deren Abbruchzeit, kann nicht zur Schätzung der mittleren</ModellElementTextzeile>
+      <ModellElementTextzeile>Wartezeittoleranz über alle Kunden verwendet werden, da die Warteabbrecher</ModellElementTextzeile>
+      <ModellElementTextzeile>eher über kurze, nicht für alle Kunden repräsentative Wartezeittoleranzen verfügen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse LaTeX="1" Markdown="1" Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <InitialeVariable Name="meanWTSuccess">0</InitialeVariable>
+  <InitialeVariable Name="meanWTCancel">0</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
+</Modell>

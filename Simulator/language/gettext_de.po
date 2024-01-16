@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-12 21:26+0100\n"
+"POT-Creation-Date: 2024-01-14 19:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5386,6 +5386,9 @@ msgstr "Einfache Modelle"
 msgid "Examples.Type.Unknown"
 msgstr "Unbekannt"
 
+msgid "Examples.WaitingTimeTolerancesDistribution"
+msgstr "Wartezeittoleranzen der erfolgreichen Kunden und der Warteabbrecher"
+
 msgid "Examples.WorkerWakeUp"
 msgstr "Zeitgesteuerte Bedienungen"
 
@@ -7179,7 +7182,7 @@ msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.LastWaitingTimeTol
 msgstr "Letzte berechnete Wartezeittoleranz"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.LastWaitingTimeTolerance.Info"
-msgstr "Liefert die zuletzt für diesen Kunden an einer Bedienstation berechnete Wartezeittoleranz. Wurde für den Kunden noch nie eine Wartezeittoleranz berechnet, so liefert die Funktion 0. "
+msgstr "Liefert die zuletzt für diesen Kunden an einer Bedienstation berechnete Wartezeittoleranz. Wurde für den Kunden noch nie eine Wartezeittoleranz berechnet, so liefert die Funktion 0."
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.PreviousStation"
 msgstr "Vorherige Station"

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.5.0</ModelVersion>
+  <ModelName>Waiting time tolerances of successful clients and waiting time cancelers</ModelName>
+  <ModelDescription>Waiting cancelation occur particularly in customer service systems.
+When setting up a simulation model, the average waiting time tolerance of clients has to be mapped in the model.
+However, only the waiting time tolerance of the clients who cancel waiting can be measured directly - namely their cancelation time.
+In contrast, only a lower estimate of the waiting time tolerance of the successful clients is known (namely their actual waiting time).
+The example shows that neither time duration provides a valid estimate of the actual average waiting time tolerance across
+all clients. This is particularly due to the fact that those who cancel waiting tend to have a short waiting time tolerance
+and are therefore are not representative for the population as a whole.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="3" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="2">
+      <ModelElementSize h="50" w="100" x="250" y="100"/>
+      <ModelElementConnection Element="3" Type="In"/>
+      <ModelElementConnection Element="6" Type="Out"/>
+      <ModelElementConnection Element="7" Status="WaitingCancelation" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (80)</ModelElementDistribution>
+      <ModelElementDistribution Type="CancelationTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Abbrecher">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Cancel">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Erfolg">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Success">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="3">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAssignment id="4">
+      <ModelElementName>Success</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="100"/>
+      <ModelElementConnection Element="6" Type="In"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementAssignment id="5">
+      <ModelElementName>Cancel</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="250"/>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementEdge id="6">
+      <ModelElementName>Success</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="7">
+      <ModelElementName>Waiting cancelation</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="22" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="8">
+      <ModelElementSize h="50" w="100" x="1000" y="100"/>
+      <ModelElementConnection Element="12" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementVariable id="11">
+      <ModelElementSize h="50" w="100" x="850" y="100"/>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(1)">LetzteWartezeittoleranz()</ModelElementAssignmentData>
+      <ModelElementAssignmentData Variable="meanWTSuccess">(meanWTSuccess*(NumberIn(11)-1)+LetzteWartezeittoleranz())/NumberIn(11)</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="11" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementCounter id="13">
+      <ModelElementName>Cancel</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="250"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="15" Type="Out"/>
+      <ModelElementCounterGroup>Typ</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementCounter id="14">
+      <ModelElementName>Success</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="100"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+      <ModelElementCounterGroup>Typ</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementEdge id="10">
+      <ModelElementName>New client type: Cancel</ModelElementName>
+      <ModelElementConnection Element1="5" Element2="13" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="9">
+      <ModelElementName>New client type: Success</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="14" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="16">
+      <ModelElementConnection Element1="14" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="17">
+      <ModelElementSize h="23" w="632" x="50" y="50"/>
+      <ModelElementTextLine>Waiting time tolerances of successful clients and waiting time cancelers</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="18">
+      <ModelElementSize h="95" w="307" x="50" y="350"/>
+      <ModelElementTextLine>The average waiting time tolerance of the clients</ModelElementTextLine>
+      <ModelElementTextLine>is **50 seconds**. As the utilization of the system</ModelElementTextLine>
+      <ModelElementTextLine>(without taking into account waiting cancelations)</ModelElementTextLine>
+      <ModelElementTextLine>is **80%**, there are significant waiting times and</ModelElementTextLine>
+      <ModelElementTextLine>therefore waiting time cancelations.</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Markdown="1" Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementVariable id="19">
+      <ModelElementSize h="50" w="100" x="850" y="250"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="21" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(1)">LetzteWartezeittoleranz()</ModelElementAssignmentData>
+      <ModelElementAssignmentData Variable="meanWTCancel">(meanWTCancel*(NumberIn(19)-1)+LetzteWartezeittoleranz())/NumberIn(19)</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementEdge id="15">
+      <ModelElementConnection Element1="13" Element2="19" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="20">
+      <ModelElementSize h="50" w="100" x="1000" y="250"/>
+      <ModelElementConnection Element="21" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="21">
+      <ModelElementConnection Element1="19" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="22">
+      <ModelElementSize h="10" w="10" x="295" y="270"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="23" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="23">
+      <ModelElementConnection Element1="22" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="24">
+      <ModelElementName>Percentage of successful clients</ModelElementName>
+      <ModelElementSize h="30" w="135" x="850" y="170"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(14)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="25">
+      <ModelElementName>Average waiting time tolerance of successful clients</ModelElementName>
+      <ModelElementSize h="30" w="215" x="550" y="375"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">meanWTSuccess</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="26">
+      <ModelElementName>Mean waiting time tolerance (=cancelation time) of the waiting time cancelers</ModelElementName>
+      <ModelElementSize h="30" w="321" x="550" y="420"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">meanWTCancel</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="27">
+      <ModelElementName>Average actual waiting time of successful clients</ModelElementName>
+      <ModelElementSize h="30" w="201" x="800" y="370"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Wartezeit_avg(4)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="28">
+      <ModelElementName>Actual utilization of the operator</ModelElementName>
+      <ModelElementSize h="30" w="133" x="350" y="170"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg()/Resource_count()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="29">
+      <ModelElementSize h="76" w="517" x="550" y="475"/>
+      <ModelElementTextLine>The waiting time tolerance of the wait time cancelers that can be measured</ModelElementTextLine>
+      <ModelElementTextLine>in a real system, i.e. their cancelation time, cannot be used to estimate the</ModelElementTextLine>
+      <ModelElementTextLine>average waiting time tolerance across all clients, as the wait time cancelers</ModelElementTextLine>
+      <ModelElementTextLine>tend to have short waiting time tolerances that are not representative for all clients.</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Markdown="1" Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Bediener" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <InitialVariable Name="meanWTSuccess">0</InitialVariable>
+  <InitialVariable Name="meanWTCancel">0</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+</Model>

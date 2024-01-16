@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-12 21:26+0100\n"
+"POT-Creation-Date: 2024-01-14 19:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5379,6 +5379,9 @@ msgstr "Simple models"
 msgid "Examples.Type.Unknown"
 msgstr "Unknown"
 
+msgid "Examples.WaitingTimeTolerancesDistribution"
+msgstr "Waiting time tolerances of successful clients and waiting time cancelers"
+
 msgid "Examples.WorkerWakeUp"
 msgstr "Time-controlled service"
 
@@ -7186,7 +7189,7 @@ msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.LastWaitingTimeTol
 msgstr "Last calculated waiting time tolerance"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.LastWaitingTimeTolerance.Info"
-msgstr ""
+msgstr "Returns the last waiting time tolerance calculated for this client at a processstation. If a waiting time tolerance has never been calculated for the client, the function returns 0."
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ClientData.PreviousStation"
 msgstr "Previous station"
