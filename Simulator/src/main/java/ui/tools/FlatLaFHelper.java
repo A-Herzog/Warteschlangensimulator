@@ -101,6 +101,9 @@ public class FlatLaFHelper {
 		UIManager.put("ScrollBar.showButtons",true);
 		UIManager.put("ScrollBar.width",16);
 
+		UIManager.put("Table.showVerticalLines",true);
+		UIManager.put("Table.showHorizontalLines",true);
+
 		if (isDark()) {
 			UIManager.put("TaskDialog.messageBackground",Color.DARK_GRAY);
 			UIManager.put("TaskDialog.instructionForeground",Color.WHITE);

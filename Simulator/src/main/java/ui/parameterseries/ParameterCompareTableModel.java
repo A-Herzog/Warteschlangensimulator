@@ -57,6 +57,7 @@ import tools.JTableExtAbstractTableModel;
 import tools.SetupData;
 import ui.ModelViewerFrame;
 import ui.images.Images;
+import ui.tools.FlatLaFHelper;
 import xml.XMLTools;
 
 /**
@@ -214,6 +215,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 	 */
 	private JButton getButton(final String title, final String hint, final Icon icon, final IntConsumer command) {
 		final JButton button=new JButton(title);
+		button.setOpaque(false);
 		button.setToolTipText(hint);
 		button.addActionListener(e->{
 			command.accept(e.getModifiers());
@@ -254,6 +256,8 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		final JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);
 		toolbar.setFloatable(false);
 		panel.add(toolbar,BorderLayout.CENTER);
+		toolbar.setOpaque(false);
+		if (FlatLaFHelper.isActive()) panel.setOpaque(false);
 
 		/* Erste Spalte ("Modell") */
 		if (columnIndex==0) {
@@ -744,11 +748,13 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 			buttons=new JButton[7];
 
 			setLayout(new FlowLayout(FlowLayout.LEFT));
+			if (FlatLaFHelper.isActive()) setOpaque(false);
 
 			JButton b;
 
 			final JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);
 			toolbar.setFloatable(false);
+			toolbar.setOpaque(false);
 			add(toolbar);
 
 			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.EditModel.Hint"),Images.GENERAL_SETUP.getIcon(),modifiers->commandEdit(panelModel,rowIndex)));
@@ -816,6 +822,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		public JPanel getFirstColumn() {
 			if (firstColumn==null) {
 				firstColumn=new JPanel(new BorderLayout());
+				if (FlatLaFHelper.isActive()) firstColumn.setOpaque(false);
 				final JLabel label=new JLabel(panelModel.getName());
 
 				label.setIcon(Images.MODEL.getIcon());

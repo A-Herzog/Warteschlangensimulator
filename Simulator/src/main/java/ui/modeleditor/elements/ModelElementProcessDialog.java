@@ -196,6 +196,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		variables=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true);
 
 		tabs=new JTabbedPane();
+		tabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		JPanel tab, area, sub, line;
 		JLabel label;
 

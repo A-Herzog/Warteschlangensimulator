@@ -40,6 +40,7 @@ import javax.swing.table.TableColumn;
 
 import simulator.statistics.Statistics;
 import tools.JTableExt;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Tabelle zur Darstellung der Parameter-Vergleichs-Modelle.
@@ -192,7 +193,7 @@ public class ParameterCompareTable extends JPanel {
 
 		final int count=table.getColumnModel().getColumnCount();
 
-		final int LAST_COL_WIDTH=200;
+		final int LAST_COL_WIDTH=(FlatLaFHelper.isActive())?225:200;
 
 		for (int i=0;i<count;i++) {
 			final TableColumn column=table.getColumnModel().getColumn(i);
