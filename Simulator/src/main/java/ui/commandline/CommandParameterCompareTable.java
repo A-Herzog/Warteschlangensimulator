@@ -89,7 +89,7 @@ public class CommandParameterCompareTable extends AbstractCommand {
 			return;
 		}
 
-		final Table table=setup.getTableData(true,false);
+		final Table table=setup.getExportTableData();
 		if (table.save(outFile)) {
 			out.println(String.format(Language.tr("CommandLine.ParameterCompareTable.SaveOk"),outFile.toString()));
 		} else {

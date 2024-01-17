@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-14 19:36+0100\n"
+"POT-Creation-Date: 2024-01-16 08:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16323,6 +16323,15 @@ msgstr "Output all"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport.On"
 msgstr "As displayed"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.FormatChangesOnExport"
+msgstr "Format changes on export"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.FormatChangesOnExport.Percent"
+msgstr "Export Percent values as plain numbers"
+
+msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.FormatChangesOnExport.Time"
+msgstr "Export times as plain numbers"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation"
 msgstr "Add inerpolated values on export"

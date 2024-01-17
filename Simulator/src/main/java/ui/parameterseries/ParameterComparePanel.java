@@ -48,6 +48,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -661,12 +662,7 @@ public class ParameterComparePanel extends SpecialPanel {
 	 * Befehl: (Popup) Tabelle kopieren
 	 */
 	private void commandPopupTableCopy() {
-		final SetupData setupData=SetupData.getSetup();
-		final int upscale=setupData.parameterSeriesUpscale;
-		final int digits;
-		if (setupData.parameterSeriesTableDigitsUseOnExport) digits=SetupData.getSetup().parameterSeriesTableDigits; else digits=-1;
-
-		final Table table=setup.getTableData(true,false,digits,upscale);
+		final Table table=setup.getExportTableData();
 		final String text=table.toString();
 
 		final StringSelection stringSelection=new StringSelection(text);
@@ -678,12 +674,7 @@ public class ParameterComparePanel extends SpecialPanel {
 	 * Befehl: (Popup) Tabelle speichern
 	 */
 	private void commandPopupTableSave() {
-		final SetupData setupData=SetupData.getSetup();
-		final int upscale=setupData.parameterSeriesUpscale;
-		final int digits;
-		if (setupData.parameterSeriesTableDigitsUseOnExport) digits=SetupData.getSetup().parameterSeriesTableDigits; else digits=-1;
-
-		final Table table=setup.getTableData(true,false,digits,upscale);
+		final Table table=setup.getExportTableData();
 		final File file=Table.showSaveDialog(this,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Save"),null);
 		if (file==null) return;
 
@@ -700,12 +691,7 @@ public class ParameterComparePanel extends SpecialPanel {
 	 * Befehl: (Popup) Tabelle in Excel öffnen
 	 */
 	private void commandPopupTableExcel() {
-		final SetupData setupData=SetupData.getSetup();
-		final int upscale=setupData.parameterSeriesUpscale;
-		final int digits;
-		if (setupData.parameterSeriesTableDigitsUseOnExport) digits=SetupData.getSetup().parameterSeriesTableDigits; else digits=-1;
-
-		final Table table=setup.getTableData(true,false,digits,upscale);
+		final Table table=setup.getExportTableData();
 		try {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".xlsx");
 			if (table.save(file)) {
@@ -721,12 +707,7 @@ public class ParameterComparePanel extends SpecialPanel {
 	 * Befehl: (Popup) Tabelle in OpenOffice/LibreOffice öffnen
 	 */
 	private void commandPopupTableODS() {
-		final SetupData setupData=SetupData.getSetup();
-		final int upscale=setupData.parameterSeriesUpscale;
-		final int digits;
-		if (setupData.parameterSeriesTableDigitsUseOnExport) digits=SetupData.getSetup().parameterSeriesTableDigits; else digits=-1;
-
-		final Table table=setup.getTableData(true,false,digits,upscale);
+		final Table table=setup.getExportTableData();
 		try {
 			final File file=File.createTempFile(StatisticsBasePanel.viewersToolbarExcelPrefix+"_",".ods");
 			if (table.save(file)) {
@@ -790,11 +771,10 @@ public class ParameterComparePanel extends SpecialPanel {
 	 */
 	private void commandPopupChartsSave() {
 		final SetupData setupData=SetupData.getSetup();
+		final int digits=(setupData.parameterSeriesTableDigitsUseOnExport)?setupData.parameterSeriesTableDigits:-1;
 		final int upscale=setupData.parameterSeriesUpscale;
-		final int digits;
-		if (setupData.parameterSeriesTableDigitsUseOnExport) digits=SetupData.getSetup().parameterSeriesTableDigits; else digits=-1;
 
-		final Table table=setup.getTableData(true,true,digits,upscale);
+		final Table table=setup.getTableData(true,true,true,digits,upscale);
 		final File file=Table.showSaveDialogXLSXonly(this,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Save"),null);
 		if (file==null) return;
 
@@ -877,6 +857,9 @@ public class ParameterComparePanel extends SpecialPanel {
 		JMenuItem item;
 		JRadioButtonMenuItem radioItem;
 		ButtonGroup buttonGroup;
+		JCheckBoxMenuItem checkBox;
+
+		final SetupData setupData=SetupData.getSetup();
 
 		boolean hasResults=false;
 		for (ParameterCompareSetupModel model: setup.getModels()) if (model.isStatisticsAvailable()) {hasResults=true; break;}
@@ -902,7 +885,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		sub.add(item=new JMenuItem("<html><body><b>"+Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Digits")+"</b></body></html>"));
 		item.setEnabled(false);
 		buttonGroup=new ButtonGroup();
-		final int digits=SetupData.getSetup().parameterSeriesTableDigits;
+		final int digits=setupData.parameterSeriesTableDigits;
 		sub.add(radioItem=new JRadioButtonMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Digit1"),digits==1));
 		radioItem.addActionListener(e->setupTableDigits(1));
 		buttonGroup.add(radioItem);
@@ -913,21 +896,28 @@ public class ParameterComparePanel extends SpecialPanel {
 		radioItem.addActionListener(e->setupTableDigits(9));
 		buttonGroup.add(radioItem);
 		sub.addSeparator();
+		sub.add(item=new JMenuItem("<html><body><b>"+Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.FormatChangesOnExport")+"</b></body></html>"));
+		item.setEnabled(false);
+		sub.add(checkBox=new JCheckBoxMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.FormatChangesOnExport.Time"),setupData.parameterSeriesForceTimeAsNumberOnExport));
+		checkBox.addActionListener(e->setupTimeOnExport(((JCheckBoxMenuItem)e.getSource()).isSelected()));
+		sub.add(checkBox=new JCheckBoxMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.FormatChangesOnExport.Percent"),setupData.parameterSeriesForcePercentAsNumberOnExport));
+		checkBox.addActionListener(e->setupPercentOnExport(((JCheckBoxMenuItem)e.getSource()).isSelected()));
+		sub.addSeparator();
 		sub.add(item=new JMenuItem("<html><body><b>"+Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport")+"</b></body></html>"));
 		item.setEnabled(false);
 		buttonGroup=new ButtonGroup();
-		final boolean useOnExport=SetupData.getSetup().parameterSeriesTableDigitsUseOnExport;
+		final boolean useOnExport=setupData.parameterSeriesTableDigitsUseOnExport;
 		sub.add(radioItem=new JRadioButtonMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport.Off"),!useOnExport));
-		radioItem.addActionListener(e->setupdigitsUseOnExport(false));
+		radioItem.addActionListener(e->setupDigitsUseOnExport(false));
 		buttonGroup.add(radioItem);
 		sub.add(radioItem=new JRadioButtonMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport.On"),useOnExport));
-		radioItem.addActionListener(e->setupdigitsUseOnExport(true));
+		radioItem.addActionListener(e->setupDigitsUseOnExport(true));
 		buttonGroup.add(radioItem);
 		sub.addSeparator();
 		sub.add(item=new JMenuItem("<html><body><b>"+Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation")+"</b></body></html>"));
 		item.setEnabled(false);
 		buttonGroup=new ButtonGroup();
-		final int interpolation=SetupData.getSetup().parameterSeriesUpscale;
+		final int interpolation=setupData.parameterSeriesUpscale;
 		sub.add(radioItem=new JRadioButtonMenuItem(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Interpolation0"),interpolation<1 || interpolation>3));
 		radioItem.addActionListener(e->setupInterpolation(0));
 		buttonGroup.add(radioItem);
@@ -1002,9 +992,29 @@ public class ParameterComparePanel extends SpecialPanel {
 	 * oder alle (<code>false</code>) beim Export angegeben werden sollen.
 	 * @param useOnExport	Nachkommastellen-Einstellungen auch beim Export berücksichtigen?
 	 */
-	private void setupdigitsUseOnExport(final boolean useOnExport) {
+	private void setupDigitsUseOnExport(final boolean useOnExport) {
 		final SetupData setup=SetupData.getSetup();
 		setup.parameterSeriesTableDigitsUseOnExport=useOnExport;
+		setup.saveSetup();
+	}
+
+	/**
+	 * Stellt ein, ob Zeitangaben beim Export als Zahlenwerte ausgegeben werden sollen
+	 * @param forceAsNumber	Zeitangaben beim Export als Zahlenwerte ausgegeben?
+	 */
+	private void setupTimeOnExport(final boolean forceAsNumber) {
+		final SetupData setup=SetupData.getSetup();
+		setup.parameterSeriesForceTimeAsNumberOnExport=forceAsNumber;
+		setup.saveSetup();
+	}
+
+	/**
+	 * Stellt ein, ob Prozentangaben beim Export als Zahlenwerte ausgegeben werden sollen
+	 * @param forceAsNumber	Prozentangaben beim Export als Zahlenwerte ausgegeben?
+	 */
+	private void setupPercentOnExport(final boolean forceAsNumber) {
+		final SetupData setup=SetupData.getSetup();
+		setup.parameterSeriesForcePercentAsNumberOnExport=forceAsNumber;
 		setup.saveSetup();
 	}
 
@@ -1025,7 +1035,7 @@ public class ParameterComparePanel extends SpecialPanel {
 	 */
 	private Map<String,double[]> buildChartData() {
 		final Map<String,double[]> results=new HashMap<>();
-		final Table table=setup.getTableData(false,false).transpose(true);
+		final Table table=setup.getTableData(false,false,false).transpose(true);
 
 		for (int index=0;index<setup.getOutput().size();index++) {
 			final List<String> col=table.getLine(1+setup.getInput().size()+index);
@@ -1106,7 +1116,7 @@ public class ParameterComparePanel extends SpecialPanel {
 	 */
 	private void commandShowResultsChart(final ParameterCompareSetupValueOutput output) {
 		final int index=setup.getOutput().indexOf(output);
-		final List<String> col=setup.getTableData(false,false).transpose(true).getLine(1+setup.getInput().size()+index);
+		final List<String> col=setup.getTableData(false,false,false).transpose(true).getLine(1+setup.getInput().size()+index);
 		final String heading=col.get(0);
 
 		new ParameterCompareChartDialog(this,heading,buildChartData());

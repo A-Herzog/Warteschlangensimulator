@@ -1112,6 +1112,16 @@ public class SetupData extends SetupBase {
 	public int parameterSeriesUpscale;
 
 	/**
+	 * Zeitangaben beim Export von Parameterreihen-Tabellen immer in einfache Zahlen umwandeln?
+	 */
+	public boolean parameterSeriesForceTimeAsNumberOnExport;
+
+	/**
+	 * Prozentwerte beim Export von Parameterreihen-Tabellen immer in einfache Zahlen umwandeln?
+	 */
+	public boolean parameterSeriesForcePercentAsNumberOnExport;
+
+	/**
 	 * Ausgewählte Datenquellen für den Schnellzugriff
 	 */
 	public String quickAccessFilter;
@@ -1594,6 +1604,8 @@ public class SetupData extends SetupBase {
 		parameterSeriesTableDigits=1;
 		parameterSeriesTableDigitsUseOnExport=false;
 		parameterSeriesUpscale=0;
+		parameterSeriesForceTimeAsNumberOnExport=true;
+		parameterSeriesForcePercentAsNumberOnExport=true;
 		quickAccessFilter="";
 		elementListSort=ElementListSort.getDefault();
 		openWord=true;
@@ -2544,6 +2556,16 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("parameterseriesforcetimeasnumberonexport")) {
+				parameterSeriesForceTimeAsNumberOnExport=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
+
+			if (name.equals("parameterseriesforcepercentasnumberonexport")) {
+				parameterSeriesForcePercentAsNumberOnExport=loadBoolean(e.getTextContent(),true);
+				continue;
+			}
+
 			if (name.equals("quickaccessfilter")) {
 				quickAccessFilter=e.getTextContent();
 				continue;
@@ -3330,6 +3352,16 @@ public class SetupData extends SetupBase {
 		if (parameterSeriesUpscale>0) {
 			root.appendChild(node=doc.createElement("ParameterSeriesUpscale"));
 			node.setTextContent(""+parameterSeriesUpscale);
+		}
+
+		if (!parameterSeriesForceTimeAsNumberOnExport) {
+			root.appendChild(node=doc.createElement("ParameterSeriesForceTimeAsNumberOnExport"));
+			node.setTextContent("0");
+		}
+
+		if (!parameterSeriesForcePercentAsNumberOnExport) {
+			root.appendChild(node=doc.createElement("ParameterSeriesForcePercentAsNumberOnExport"));
+			node.setTextContent("0");
 		}
 
 		if (quickAccessFilter!=null && !quickAccessFilter.isEmpty() && quickAccessFilter.contains("-")) {
