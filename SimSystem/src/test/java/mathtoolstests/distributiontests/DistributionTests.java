@@ -43,6 +43,7 @@ import mathtools.distribution.ErlangDistributionImpl;
 import mathtools.distribution.ExtBetaDistributionImpl;
 import mathtools.distribution.FatigueLifeDistributionImpl;
 import mathtools.distribution.FrechetDistributionImpl;
+import mathtools.distribution.HalfNormalDistribution;
 import mathtools.distribution.HyperbolicSecantDistributionImpl;
 import mathtools.distribution.InverseGaussianDistributionImpl;
 import mathtools.distribution.JohnsonDistributionImpl;
@@ -1840,6 +1841,42 @@ class DistributionTests {
 		double rnd=dist.random(new DummyRandomGenerator(0.5));
 		assertTrue(rnd>=2);
 		assertTrue(rnd<=5);
+	}
+
+	/**
+	 * Test: Halbe Normalverteilung
+	 * @see HalfNormalDistribution
+	 */
+	@Test
+	void testHalfNormalDistribution() {
+		HalfNormalDistribution dist;
+
+		final double mean=200;
+		final double sd=Math.sqrt((Math.PI-2)/(2*(1/mean)*(1/mean)));
+
+		dist=new HalfNormalDistribution(200);
+		assertEquals(mean,dist.mean);
+		assertEquals(sd,dist.sd);
+		assertEquals(1/mean,dist.theta);
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(1,dist.cumulativeProbability(mean+100*sd),0.000001);
+
+		assertEquals(-Double.MAX_VALUE,dist.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,dist.inverseCumulativeProbability(2));
+		assertEquals(100.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(100)),0.000001);
+		assertEquals(300.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(300)),0.000001);
+
+		assertEquals(mean,dist.getNumericalMean());
+		assertEquals(sd*sd,dist.getNumericalVariance());
+		assertEquals(0,dist.getSupportLowerBound());
+		assertEquals(Double.MAX_VALUE,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[] {200});
 	}
 
 	/**

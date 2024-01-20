@@ -40,6 +40,7 @@ import mathtools.distribution.ErlangDistributionImpl;
 import mathtools.distribution.ExtBetaDistributionImpl;
 import mathtools.distribution.FatigueLifeDistributionImpl;
 import mathtools.distribution.FrechetDistributionImpl;
+import mathtools.distribution.HalfNormalDistribution;
 import mathtools.distribution.HyperbolicSecantDistributionImpl;
 import mathtools.distribution.InverseGaussianDistributionImpl;
 import mathtools.distribution.JohnsonDistributionImpl;
@@ -74,6 +75,7 @@ import mathtools.distribution.tools.WrapperFatigueLifeDistribution;
 import mathtools.distribution.tools.WrapperFrechetDistribution;
 import mathtools.distribution.tools.WrapperGammaDistribution;
 import mathtools.distribution.tools.WrapperGumbelDistribution;
+import mathtools.distribution.tools.WrapperHalfNormalDistribution;
 import mathtools.distribution.tools.WrapperHyperGeomDistribution;
 import mathtools.distribution.tools.WrapperHyperbolicSecantDistribution;
 import mathtools.distribution.tools.WrapperInverseGaussianDistribution;
@@ -293,6 +295,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new NegativeBinomialDistributionPanel());
 		allRecords.add(new ZetaDistributionPanel());
 		allRecords.add(new DiscreteUniformDistributionPanel());
+		allRecords.add(new HalfNormalDistributionPanel());
 	}
 
 	/**
@@ -1523,6 +1526,20 @@ public abstract class JDistributionEditorPanelRecord {
 			final Long a=NumberTools.getNotNegativeLong(fields[0],true); if (a==null) return null;
 			final Long b=NumberTools.getNotNegativeLong(fields[1],true); if (b==null) return null;
 			return new DiscreteUniformDistributionImpl(a.intValue(),b.intValue());
+		}
+	}
+
+	/** Halbe Normalverteilung */
+	private static class HalfNormalDistributionPanel extends JDistributionEditorPanelRecordMean {
+		/** Konstruktor der Klasse */
+		public HalfNormalDistributionPanel() {
+			super(new WrapperHalfNormalDistribution());
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double mean=NumberTools.getPositiveDouble(fields[0],true); if (mean==null) return null;
+			return new HalfNormalDistribution(mean.doubleValue());
 		}
 	}
 }

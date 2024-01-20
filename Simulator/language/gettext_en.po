@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-16 08:45+0100\n"
+"POT-Creation-Date: 2024-01-18 20:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3172,6 +3172,12 @@ msgstr "Gumbel distribution"
 
 msgid "Distribution.GumbelWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Gumbel_distribution"
+
+msgid "Distribution.HalfNormal"
+msgstr "Half normal distribution"
+
+msgid "Distribution.HalfNormalWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Normal_distribution"
 
 msgid "Distribution.HyperGeom"
 msgstr "Hypergeometric distribution"
@@ -6679,6 +6685,23 @@ msgstr "<p>Generates a random number according to the Gumbel distribution with t
 msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberRangeInfo"
 msgstr ""
 "<p>Generates a random number according to the Gumbel distribution with the expected value and the standard deviation defined by parameters three and four.</p>\n"
+"<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution"
+msgstr "Half normal distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the half normal distribution at the location specified as the first parameter with the expected value defined by the second parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the half normal distribution at the location specified as the first parameter with the expected value defined by the second parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the half normal distribution with the expected value defined by the parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Generates a random number according to the half normal distribution with the expected value defined by the third parameter.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution"

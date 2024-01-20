@@ -557,6 +557,15 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.StudentTDist.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.StudentTDist.RandomNumberInfo"));
 
+		/* Halbe Normalverteilung */
+
+		addDist(group,filterUpper,"HalfNormalDist","mean",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.RandomNumberInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.RandomNumberRangeInfo"));
+
 		/* Empirische Verteilung */
 
 		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution"));

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-16 08:45+0100\n"
+"POT-Creation-Date: 2024-01-18 20:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3177,6 +3177,12 @@ msgstr "Gumbel-Verteilung"
 
 msgid "Distribution.GumbelWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Gumbel-Verteilung"
+
+msgid "Distribution.HalfNormal"
+msgstr "Halbe Normalverteilung"
+
+msgid "Distribution.HalfNormalWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Normalverteilung"
 
 msgid "Distribution.HyperGeom"
 msgstr "Hypergeometrische Verteilung"
@@ -6671,6 +6677,23 @@ msgstr "<p>Erzeugt eine Zufallszahl gemäß der Gumbel-Verteilung mit Erwartungs
 msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberRangeInfo"
 msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der Gumbel-Verteilung mit Erwartungswert und Standardabweichung gemäß den Parametern drei und vier.</p>\n"
+"<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution"
+msgstr "Halbe Normalverteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der halben Normalverteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert gemäß dem zweiten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der halben Normalverteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert gemäß dem zweiten Parametern.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der halben Normalverteilung mit Erwartungswert gemäß dem Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.RandomNumberRangeInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der halben Normalverteilung mit Erwartungswert gemäß dem dritten Parameter.</p>\n"
 "<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.HyperbolicSecantDistribution"
