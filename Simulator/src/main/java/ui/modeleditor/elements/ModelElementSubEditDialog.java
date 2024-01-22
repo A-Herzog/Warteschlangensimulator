@@ -27,16 +27,23 @@ import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
+import javax.swing.Icon;
 import javax.swing.InputMap;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.KeyStroke;
 
 import language.Language;
 import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
+import systemtools.MsgBox;
+import tools.ImagePrintable;
 import ui.EditorPanel;
 import ui.help.Help;
+import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSurface;
@@ -103,6 +110,9 @@ public class ModelElementSubEditDialog extends BaseDialog {
 				countOut++;
 			}
 		}
+
+		/* Export-Button */
+		addUserButton(Language.tr("Surface.Sub.Dialog.Export"),(Icon)null);
 
 		/* GUI */
 		final JPanel all=createGUI(()->Help.topicModal(ModelElementSubEditDialog.this,isFullSubModel?"ModelElementSub":"ModelElementDashboard"));
@@ -292,5 +302,47 @@ public class ModelElementSubEditDialog extends BaseDialog {
 	 */
 	public ModelClientData getClientData() {
 		return editorPanel.getModel().clientData;
+	}
+
+	/**
+	 * Prüft, ob die Zeichenfläche überhaupt Element, die exportiert werden könnten, enthält
+	 * und gibt wenn nicht eine Fehlermeldung aus.
+	 * @param message	Text für die Fehlermeldung
+	 * @return	Liefert <code>true</code>, wenn die Zeichenfläche Element enthält
+	 */
+	private boolean canExport(final String message) {
+		if (editorPanel.getOriginalSurface().getElementCount()==0) {
+			MsgBox.error(this,Language.tr("Surface.Sub.Dialog.Export.SurfaceEmpty"),message);
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	protected void userButtonClick(final int nr, final JButton button) {
+		final JPopupMenu popup=new JPopupMenu();
+
+		JMenuItem item;
+
+		popup.add(item=new JMenuItem(Language.tr("Surface.Sub.Dialog.Export.Copy"),Images.EDIT_COPY_AS_IMAGE.getIcon()));
+		item.addActionListener(e->{
+			if (!canExport(Language.tr("Surface.Sub.Dialog.Export.CopyError"))) return;
+			editorPanel.exportModelToClipboard();
+		});
+
+		popup.add(item=new JMenuItem(Language.tr("Surface.Sub.Dialog.Export.Save"),Images.GENERAL_SAVE.getIcon()));
+		item.addActionListener(e->{
+			if (!canExport(Language.tr("Surface.Sub.Dialog.Export.SaveError"))) return;
+			String error=editorPanel.exportModelToFile(null,false);
+			if (error!=null) MsgBox.error(this,Language.tr("XML.ExportErrorTitle"),error);
+		});
+
+		popup.add(item=new JMenuItem(Language.tr("Surface.Sub.Dialog.Export.Print"),Images.GENERAL_PRINT.getIcon()));
+		item.addActionListener(e->{
+			if (!canExport(Language.tr("Surface.Sub.Dialog.Export.PrintError"))) return;
+			ImagePrintable.print(editorPanel.getPrintImage(2000));
+		});
+
+		popup.show(button,0,button.getHeight());
 	}
 }

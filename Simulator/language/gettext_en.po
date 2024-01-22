@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-18 20:58+0100\n"
+"POT-Creation-Date: 2024-01-20 18:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34556,6 +34556,30 @@ msgstr "Description of the sub model"
 
 msgid "Surface.Sub.Dialog.DirectAccessHint"
 msgstr "Direct access to this editor:<br>Shift + double click<br>Shift + Enter"
+
+msgid "Surface.Sub.Dialog.Export"
+msgstr "Export"
+
+msgid "Surface.Sub.Dialog.Export.Copy"
+msgstr "Copy"
+
+msgid "Surface.Sub.Dialog.Export.CopyError"
+msgstr "The drawing surface does not contain any elements that can be copied."
+
+msgid "Surface.Sub.Dialog.Export.Print"
+msgstr "Print..."
+
+msgid "Surface.Sub.Dialog.Export.PrintError"
+msgstr "The drawing surface does not contain any elements that can be printed."
+
+msgid "Surface.Sub.Dialog.Export.Save"
+msgstr "Save..."
+
+msgid "Surface.Sub.Dialog.Export.SaveError"
+msgstr "The drawing surface does not contain any elements that can be saved."
+
+msgid "Surface.Sub.Dialog.Export.SurfaceEmpty"
+msgstr "Empty drawing surface"
 
 msgid "Surface.Sub.Dialog.NumberInput"
 msgstr "Number of inputs in the sub model"

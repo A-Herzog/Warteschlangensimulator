@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-18 20:58+0100\n"
+"POT-Creation-Date: 2024-01-20 18:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34608,6 +34608,30 @@ msgstr "Beschreibung des Untermodells"
 
 msgid "Surface.Sub.Dialog.DirectAccessHint"
 msgstr "Direkter Aufruf dieses Editors:<br>Umschalt + Doppelklick<br>Umschalt + Enter"
+
+msgid "Surface.Sub.Dialog.Export"
+msgstr "Exportieren"
+
+msgid "Surface.Sub.Dialog.Export.Copy"
+msgstr "Kopieren"
+
+msgid "Surface.Sub.Dialog.Export.CopyError"
+msgstr "Die Zeichenfläche enthält keine Elemente, die kopiert werden könnten."
+
+msgid "Surface.Sub.Dialog.Export.Print"
+msgstr "Drucken..."
+
+msgid "Surface.Sub.Dialog.Export.PrintError"
+msgstr "Die Zeichenfläche enthält keine Elemente, die gedruckt werden könnten."
+
+msgid "Surface.Sub.Dialog.Export.Save"
+msgstr "Speichern..."
+
+msgid "Surface.Sub.Dialog.Export.SaveError"
+msgstr "Die Zeichenfläche enthält keine Elemente, die gespeichert werden könnten."
+
+msgid "Surface.Sub.Dialog.Export.SurfaceEmpty"
+msgstr "Leere Zeichenfläche"
 
 msgid "Surface.Sub.Dialog.NumberInput"
 msgstr "Anzahl an Eingängen in das Untermodell"
