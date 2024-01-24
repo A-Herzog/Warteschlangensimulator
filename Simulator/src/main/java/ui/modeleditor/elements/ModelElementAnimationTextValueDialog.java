@@ -141,6 +141,7 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		});
 		editExpression.setEditable(!readOnly);
 		line.add(getExpressionEditButton(this,editExpression,false,false,element.getModel(),element.getSurface()));
+		if (!readOnly) line.add(AnimationExpressionPanel.getTemplatesButton(element.getModel(),command->{editExpression.setText(command); checkData(false);}));
 
 		line.add(optionFormat=new JComboBox<>(new String[] {
 				Language.tr("Surface.AnimationText.Dialog.Number"),

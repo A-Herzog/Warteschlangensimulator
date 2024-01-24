@@ -211,7 +211,7 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 
 			switch (col) {
 			case 0:
-				final BarStackTableModelDialog dialog=new BarStackTableModelDialog(table,help,(row>=0)?expressions.get(row):null,(row>=0)?colors.get(row):null,element,help);
+				final BarStackTableModelDialog dialog=new BarStackTableModelDialog(table,help,(row>=0)?expressions.get(row):null,(row>=0)?colors.get(row):null,element,help,expressions);
 				dialog.setVisible(true);
 				if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					if (row<0) {

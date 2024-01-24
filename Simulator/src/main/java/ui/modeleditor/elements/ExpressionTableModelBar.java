@@ -340,9 +340,9 @@ public class ExpressionTableModelBar extends JTableExtAbstractTableModel {
 			switch (nr) {
 			case 0: /* Ausdruck bearbeiten (auch neuen Eintrag anlegen) */
 				if (row<0) {
-					dialog1=new ExpressionTableModelDialog1(table,element,new AnimationExpression(),help,iconMode);
+					dialog1=new ExpressionTableModelDialog1(table,element,new AnimationExpression(),help,iconMode,expression);
 				} else {
-					dialog1=new ExpressionTableModelDialog1(table,element,expression.get(row),help,iconMode);
+					dialog1=new ExpressionTableModelDialog1(table,element,expression.get(row),help,iconMode,expression);
 				}
 				if (dialog1.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					if (row<0) {

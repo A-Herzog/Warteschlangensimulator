@@ -20,6 +20,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -72,8 +73,9 @@ public class BarStackTableModelDialog extends BaseDialog {
 	 * @param color	Bisherige Farbe
 	 * @param element	Modell-Element dessen Ausdrücke und Farben konfiguriert werden sollen
 	 * @param helpRunnable	Hilfe-Callback
+	 * @param usedExpressions	Liste aller momentan verwendeten Ausdrücke (darf den aktuellen Ausdruck enthalten, darf leer oder <code>null</code> sein) - um im Vorlagenpopup keine bereits verwendeten Ausdrücke anzubieten
 	 */
-	public BarStackTableModelDialog(final Component owner, final Runnable help, final AnimationExpression expression, final Color color, final ModelElement element, final Runnable helpRunnable) {
+	public BarStackTableModelDialog(final Component owner, final Runnable help, final AnimationExpression expression, final Color color, final ModelElement element, final Runnable helpRunnable, final List<AnimationExpression> usedExpressions) {
 		super(owner,Language.tr("Surface.AnimationBarStack.Dialog.Edit"));
 
 		JPanel line;
@@ -84,7 +86,7 @@ public class BarStackTableModelDialog extends BaseDialog {
 
 		/* Ausdruck */
 		this.expression=new AnimationExpression(expression);
-		content.add(editExpression=new AnimationExpressionPanel(element,this.expression,readOnly,helpRunnable));
+		content.add(editExpression=new AnimationExpressionPanel(element,this.expression,readOnly,helpRunnable,AnimationExpressionPanel.extractExpressionStrings(usedExpressions)));
 
 		/* Farbe */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -95,6 +97,7 @@ public class BarStackTableModelDialog extends BaseDialog {
 		label.setLabelFor(colorChooserBar);
 		colorChooserBar.setColor((color==null)?Color.RED:color);
 
+		setMinSizeRespectingScreensize(480,0);
 		pack();
 	}
 

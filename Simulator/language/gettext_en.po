@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-20 18:59+0100\n"
+"POT-Creation-Date: 2024-01-23 10:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -607,6 +607,78 @@ msgstr "No expression to be calculated was entered."
 
 msgid "AnimationExpression.Expression.ErrorTitle"
 msgstr "Invalid expression"
+
+msgid "AnimationExpression.ExpressionTemplates"
+msgstr "Templates"
+
+msgid "AnimationExpression.ExpressionTemplates.ClientProcessTimes"
+msgstr "Process times per client type"
+
+msgid "AnimationExpression.ExpressionTemplates.ClientResidenceTimes"
+msgstr "Residence times per client type"
+
+msgid "AnimationExpression.ExpressionTemplates.ClientTransferTimes"
+msgstr "Transfer times per client type"
+
+msgid "AnimationExpression.ExpressionTemplates.ClientWaitingTimes"
+msgstr "Waiting times per client type"
+
+msgid "AnimationExpression.ExpressionTemplates.CounterPart"
+msgstr "Counter part"
+
+msgid "AnimationExpression.ExpressionTemplates.CounterValue"
+msgstr "Counter value"
+
+msgid "AnimationExpression.ExpressionTemplates.NQ"
+msgstr "Current queue length"
+
+msgid "AnimationExpression.ExpressionTemplates.NQ_avg"
+msgstr "Average queue length"
+
+msgid "AnimationExpression.ExpressionTemplates.NoTemplates"
+msgstr "No unused templates found"
+
+msgid "AnimationExpression.ExpressionTemplates.StationProcessTime"
+msgstr "Process times at the stations"
+
+msgid "AnimationExpression.ExpressionTemplates.StationSetupTime"
+msgstr "Setup times at the stations"
+
+msgid "AnimationExpression.ExpressionTemplates.StationWaitingTime"
+msgstr "Waiting times at the stations"
+
+msgid "AnimationExpression.ExpressionTemplates.Utilization"
+msgstr "Current utilization"
+
+msgid "AnimationExpression.ExpressionTemplates.UtilizationAverage"
+msgstr "Average utilization"
+
+msgid "AnimationExpression.ExpressionTemplates.UtilizationAverageInGroup"
+msgstr "Average utilization of operator group %d \"%s\""
+
+msgid "AnimationExpression.ExpressionTemplates.UtilizationAverageOverall"
+msgstr "Average utilization of all operators"
+
+msgid "AnimationExpression.ExpressionTemplates.UtilizationInGroup"
+msgstr "Current utilization of operator group %d \"%s\""
+
+msgid "AnimationExpression.ExpressionTemplates.UtilizationOverall"
+msgstr "Current utilization of all operators"
+
+msgid "AnimationExpression.ExpressionTemplates.WIP"
+msgstr "Current number of clients"
+
+msgid "AnimationExpression.ExpressionTemplates.WIP_avg"
+msgstr "Average number of clients"
+
+msgid "AnimationExpression.ExpressionTemplates.allClients"
+msgstr "All client types"
+
+msgid "AnimationExpression.ExpressionTemplates.inSystem"
+msgstr "In system"
+
+msgid "AnimationExpression.ExpressionTemplates.inSystemQueues"
+msgstr "In all system queues"
 
 msgid "AnimationExpression.Script"
 msgstr "Script"

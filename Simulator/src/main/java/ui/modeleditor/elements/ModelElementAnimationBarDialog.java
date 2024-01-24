@@ -23,6 +23,7 @@ import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -112,7 +113,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		/* Ausdruck */
-		content.add(editExpression=new AnimationExpressionPanel(element,((ModelElementAnimationBar)element).getExpression(),readOnly,helpRunnable));
+		content.add(editExpression=new AnimationExpressionPanel(element,((ModelElementAnimationBar)element).getExpression(),readOnly,helpRunnable,new ArrayList<>()));
 
 		/* Richtung und Minimum / Maximum */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));

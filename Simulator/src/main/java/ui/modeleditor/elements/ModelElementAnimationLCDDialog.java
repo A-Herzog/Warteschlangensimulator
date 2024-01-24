@@ -20,6 +20,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -93,7 +94,7 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		/* Ausdruck */
-		content.add(editExpression=new AnimationExpressionPanel(element,((ModelElementAnimationLCD)element).getExpression(),readOnly,helpRunnable));
+		content.add(editExpression=new AnimationExpressionPanel(element,((ModelElementAnimationLCD)element).getExpression(),readOnly,helpRunnable,new ArrayList<>()));
 
 		/* Ziffern */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));

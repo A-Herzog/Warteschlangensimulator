@@ -296,9 +296,9 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 			switch (nr) {
 			case 0: /* Ausdruck bearbeiten (auch neuen Eintrag anlegen) */
 				if (row<0) {
-					dialog1=new ExpressionTableModelDialog1(table,element,new AnimationExpression(),0.0,10.0,help,ExpressionTableModelBar.IconMode.BAR);
+					dialog1=new ExpressionTableModelDialog1(table,element,new AnimationExpression(),0.0,10.0,help,ExpressionTableModelBar.IconMode.BAR,expression);
 				} else {
-					dialog1=new ExpressionTableModelDialog1(table,element,expression.get(row),minValue.get(row),maxValue.get(row),help,ExpressionTableModelBar.IconMode.BAR);
+					dialog1=new ExpressionTableModelDialog1(table,element,expression.get(row),minValue.get(row),maxValue.get(row),help,ExpressionTableModelBar.IconMode.BAR,expression);
 				}
 				if (dialog1.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					if (row<0) {
@@ -320,7 +320,7 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 					if (expression.size()>0) {
 						final double min=minValue.stream().min(Double::compare).get();
 						final double max=maxValue.stream().max(Double::compare).get();
-						dialog1=new ExpressionTableModelDialog1(table,element,null,min,max,help,ExpressionTableModelBar.IconMode.BAR);
+						dialog1=new ExpressionTableModelDialog1(table,element,null,min,max,help,ExpressionTableModelBar.IconMode.BAR,expression);
 						if (dialog1.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 							for (int i=0;i<expression.size();i++) {
 								minValue.set(i,dialog1.getMinValue());
@@ -330,7 +330,7 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 						}
 					}
 				} else {
-					dialog1=new ExpressionTableModelDialog1(table,element,expression.get(row),minValue.get(row),maxValue.get(row),help,ExpressionTableModelBar.IconMode.BAR);
+					dialog1=new ExpressionTableModelDialog1(table,element,expression.get(row),minValue.get(row),maxValue.get(row),help,ExpressionTableModelBar.IconMode.BAR,expression);
 					if (dialog1.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 						expression.set(row,dialog1.getExpression());
 						minValue.set(row,dialog1.getMinValue());

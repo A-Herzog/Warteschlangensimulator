@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-20 18:59+0100\n"
+"POT-Creation-Date: 2024-01-23 10:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -607,6 +607,78 @@ msgstr "Es wurde kein zu berechnender Ausdruck angegeben."
 
 msgid "AnimationExpression.Expression.ErrorTitle"
 msgstr "Ausdruck fehlerhaft"
+
+msgid "AnimationExpression.ExpressionTemplates"
+msgstr "Vorlagen"
+
+msgid "AnimationExpression.ExpressionTemplates.ClientProcessTimes"
+msgstr "Bedienzeiten pro Kundengruppe"
+
+msgid "AnimationExpression.ExpressionTemplates.ClientResidenceTimes"
+msgstr "Verweilzeiten pro Kundengruppe"
+
+msgid "AnimationExpression.ExpressionTemplates.ClientTransferTimes"
+msgstr "Transferzeiten pro Kundengruppe"
+
+msgid "AnimationExpression.ExpressionTemplates.ClientWaitingTimes"
+msgstr "Wartezeiten pro Kundengruppe"
+
+msgid "AnimationExpression.ExpressionTemplates.CounterPart"
+msgstr "Zähleranteil"
+
+msgid "AnimationExpression.ExpressionTemplates.CounterValue"
+msgstr "Zählerwert"
+
+msgid "AnimationExpression.ExpressionTemplates.NQ"
+msgstr "Aktuelle Warteschlangenlänge"
+
+msgid "AnimationExpression.ExpressionTemplates.NQ_avg"
+msgstr "Mittlere Warteschlangenlänge"
+
+msgid "AnimationExpression.ExpressionTemplates.NoTemplates"
+msgstr "Keine noch nicht verwendeten Vorlagen gefunden"
+
+msgid "AnimationExpression.ExpressionTemplates.StationProcessTime"
+msgstr "Bedienzeiten an den Stationen"
+
+msgid "AnimationExpression.ExpressionTemplates.StationSetupTime"
+msgstr "Rüstzeiten an den Stationen"
+
+msgid "AnimationExpression.ExpressionTemplates.StationWaitingTime"
+msgstr "Wartezeiten an den Stationen"
+
+msgid "AnimationExpression.ExpressionTemplates.Utilization"
+msgstr "Aktuelle Auslastung"
+
+msgid "AnimationExpression.ExpressionTemplates.UtilizationAverage"
+msgstr "Mittlere Auslastung"
+
+msgid "AnimationExpression.ExpressionTemplates.UtilizationAverageInGroup"
+msgstr "Mittlere Auslastung der Bedienergruppe %d \"%s\""
+
+msgid "AnimationExpression.ExpressionTemplates.UtilizationAverageOverall"
+msgstr "Mittlere Auslastung aller Bediener"
+
+msgid "AnimationExpression.ExpressionTemplates.UtilizationInGroup"
+msgstr "Aktuelle Auslastung der Bedienergruppe %d \"%s\""
+
+msgid "AnimationExpression.ExpressionTemplates.UtilizationOverall"
+msgstr "Aktuelle Auslastung aller Bediener"
+
+msgid "AnimationExpression.ExpressionTemplates.WIP"
+msgstr "Aktuelle Anzahl an Kunden"
+
+msgid "AnimationExpression.ExpressionTemplates.WIP_avg"
+msgstr "Mittlere Anzahl an Kunden"
+
+msgid "AnimationExpression.ExpressionTemplates.allClients"
+msgstr "Alle Kundentypen"
+
+msgid "AnimationExpression.ExpressionTemplates.inSystem"
+msgstr "Im System"
+
+msgid "AnimationExpression.ExpressionTemplates.inSystemQueues"
+msgstr "Über alle Warteschlangen im System"
 
 msgid "AnimationExpression.Script"
 msgstr "Skript"

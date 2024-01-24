@@ -20,6 +20,7 @@ import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -83,8 +84,9 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 	 * @param maxValue	Bisheriger Maximalwert
 	 * @param helpRunnable	Hilfe-Runnable
 	 * @param iconMode	Soll der Dialog zum Bearbeiten einer Balkendiagrammreihe oder eines Tortensegments verwendet werden?
+	 * @param allUsedExpressions	Liste aller momentan verwendeten Ausdrücke (darf den aktuellen Ausdruck enthalten, darf leer oder <code>null</code> sein) - um im Vorlagenpopup keine bereits verwendeten Ausdrücke anzubieten
 	 */
-	public ExpressionTableModelDialog1(final Component owner, final ModelElement element, final AnimationExpression expression, final double minValue, final double maxValue, final Runnable helpRunnable, final ExpressionTableModelBar.IconMode iconMode) {
+	public ExpressionTableModelDialog1(final Component owner, final ModelElement element, final AnimationExpression expression, final double minValue, final double maxValue, final Runnable helpRunnable, final ExpressionTableModelBar.IconMode iconMode, final List<AnimationExpression> allUsedExpressions) {
 		super(owner,getTitle(iconMode));
 
 		Object[] data;
@@ -95,7 +97,7 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 		/* Ausdruck */
 		if (expression!=null) {
 			this.expression=new AnimationExpression(expression);
-			content.add(editExpression=new AnimationExpressionPanel(element,this.expression,readOnly,helpRunnable));
+			content.add(editExpression=new AnimationExpressionPanel(element,this.expression,readOnly,helpRunnable,AnimationExpressionPanel.extractExpressionStrings(allUsedExpressions)));
 		} else {
 			this.expression=null;
 			editExpression=null;
@@ -135,8 +137,9 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 	 * @param expression	Bisheriger Ausdruck
 	 * @param helpRunnable	Hilfe-Runnable
 	 * @param iconMode	Soll der Dialog zum Bearbeiten einer Balkendiagrammreihe oder eines Tortensegments verwendet werden?
+	 * @param usedExpressions	Liste aller momentan verwendeten Ausdrücke (darf den aktuellen Ausdruck enthalten, darf leer oder <code>null</code> sein) - um im Vorlagenpopup keine bereits verwendeten Ausdrücke anzubieten
 	 */
-	public ExpressionTableModelDialog1(final Component owner, final ModelElement element, final AnimationExpression expression, final Runnable helpRunnable, final ExpressionTableModelBar.IconMode iconMode) {
+	public ExpressionTableModelDialog1(final Component owner, final ModelElement element, final AnimationExpression expression, final Runnable helpRunnable, final ExpressionTableModelBar.IconMode iconMode, final List<AnimationExpression> usedExpressions) {
 		super(owner,getTitle(iconMode));
 
 		final JPanel content=createGUI(helpRunnable);
@@ -144,7 +147,7 @@ public class ExpressionTableModelDialog1 extends BaseDialog {
 
 		/* Ausdruck */
 		this.expression=new AnimationExpression(expression);
-		content.add(editExpression=new AnimationExpressionPanel(element,this.expression,readOnly,helpRunnable));
+		content.add(editExpression=new AnimationExpressionPanel(element,this.expression,readOnly,helpRunnable,AnimationExpressionPanel.extractExpressionStrings(usedExpressions)));
 
 		/* Kein minimaler oder maximaler Wert */
 		minValueEdit=null;

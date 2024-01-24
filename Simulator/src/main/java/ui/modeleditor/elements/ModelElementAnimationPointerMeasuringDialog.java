@@ -22,6 +22,7 @@ import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -102,7 +103,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		/* Ausdruck */
-		content.add(editExpression=new AnimationExpressionPanel(element,((ModelElementAnimationPointerMeasuring)element).getExpression(),readOnly,helpRunnable));
+		content.add(editExpression=new AnimationExpressionPanel(element,((ModelElementAnimationPointerMeasuring)element).getExpression(),readOnly,helpRunnable,new ArrayList<>()));
 
 		/* Minimalwert */
 		data=getInputPanel(Language.tr("Surface.AnimationPointerMeasuring.Dialog.MinValue")+":","",10);
