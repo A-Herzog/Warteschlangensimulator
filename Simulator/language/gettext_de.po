@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-23 10:03+0100\n"
+"POT-Creation-Date: 2024-01-24 08:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11369,6 +11369,12 @@ msgstr "K"
 msgid "Main.Menu.Edit.CopyAsImage"
 msgstr "Modell als Bild kopieren"
 
+msgid "Main.Menu.Edit.CopyAsImage.ErrorInfo"
+msgstr "Die Zeichenfläche enthält keine Elemente, die kopiert werden könnten."
+
+msgid "Main.Menu.Edit.CopyAsImage.ErrorTitle"
+msgstr "Modell als Bild kopieren"
+
 msgid "Main.Menu.Edit.CopyAsImage.Mnemonic"
 msgstr "B"
 
@@ -11582,6 +11588,12 @@ msgstr "Datei"
 msgid "Main.Menu.File.ExportModel"
 msgstr "Modell exportieren..."
 
+msgid "Main.Menu.File.ExportModel.ErrorInfo"
+msgstr "Die Zeichenfläche enthält keine Elemente, die gespeichert werden könnten."
+
+msgid "Main.Menu.File.ExportModel.ErrorTitle"
+msgstr "Modell exportieren"
+
 msgid "Main.Menu.File.ExportModel.Mnemonic"
 msgstr "X"
 
@@ -11656,6 +11668,12 @@ msgstr "F"
 
 msgid "Main.Menu.File.PrintModel"
 msgstr "Modell drucken..."
+
+msgid "Main.Menu.File.PrintModel.ErrorInfo"
+msgstr "Die Zeichenfläche enthält keine Elemente, die gedruckt werden könnten."
+
+msgid "Main.Menu.File.PrintModel.ErrorTitle"
+msgstr "Modell drucken"
 
 msgid "Main.Menu.File.PrintModel.Mnemonic"
 msgstr "D"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-23 10:03+0100\n"
+"POT-Creation-Date: 2024-01-24 08:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11341,6 +11341,12 @@ msgstr "C"
 msgid "Main.Menu.Edit.CopyAsImage"
 msgstr "Copy as image"
 
+msgid "Main.Menu.Edit.CopyAsImage.ErrorInfo"
+msgstr "The drawing surface does not contain any elements that can be copied."
+
+msgid "Main.Menu.Edit.CopyAsImage.ErrorTitle"
+msgstr "Copy model as image"
+
 msgid "Main.Menu.Edit.CopyAsImage.Mnemonic"
 msgstr "I"
 
@@ -11556,6 +11562,12 @@ msgstr "File"
 msgid "Main.Menu.File.ExportModel"
 msgstr "Export model..."
 
+msgid "Main.Menu.File.ExportModel.ErrorInfo"
+msgstr "The drawing surface does not contain any elements that can be copied."
+
+msgid "Main.Menu.File.ExportModel.ErrorTitle"
+msgstr "Export model"
+
 msgid "Main.Menu.File.ExportModel.Mnemonic"
 msgstr "X"
 
@@ -11630,6 +11642,12 @@ msgstr "w"
 
 msgid "Main.Menu.File.PrintModel"
 msgstr "Print model..."
+
+msgid "Main.Menu.File.PrintModel.ErrorInfo"
+msgstr "The drawing surface does not contain any elements that can be printed."
+
+msgid "Main.Menu.File.PrintModel.ErrorTitle"
+msgstr "Print model"
 
 msgid "Main.Menu.File.PrintModel.Mnemonic"
 msgstr "P"

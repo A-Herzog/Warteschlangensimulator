@@ -649,7 +649,13 @@ public class MainPanel extends MainPanelBase {
 		addAction("EditUndoRedoSelect",e->editorPanel.doUnDoRedoByDialog());
 		addAction("EditCut",e->editorPanel.cutSelectedElementsToClipboard());
 		addAction("EditCopy",e->editorPanel.copySelectedElementsToClipboard());
-		addAction("EditCopyModel",e->editorPanel.exportModelToClipboard());
+		addAction("EditCopyModel",e->{
+			if (editorPanel.getOriginalSurface().getElementCount()==0) {
+				MsgBox.error(this,Language.tr("Main.Menu.Edit.CopyAsImage.ErrorTitle"),Language.tr("Main.Menu.Edit.CopyAsImage.ErrorInfo"));
+				return;
+			}
+			editorPanel.exportModelToClipboard();
+		});
 		addAction("EditPaste",e->editorPanel.pasteFromClipboard());
 		addAction("EditDelete",e->editorPanel.deleteSelectedElements());
 		addAction("EditDeleteAndCloseGap",e->editorPanel.deleteSelectedElementAndCloseGap());
@@ -2401,6 +2407,10 @@ public class MainPanel extends MainPanelBase {
 	 * @return Liefert <code>true</code>, wenn das Modell erfolgreich exportiert werden konnte
 	 */
 	private boolean commandFileModelExport() {
+		if (editorPanel.getOriginalSurface().getElementCount()==0) {
+			MsgBox.error(this,Language.tr("Main.Menu.File.ExportModel.ErrorTitle"),Language.tr("Main.Menu.File.ExportModel.ErrorInfo"));
+			return false;
+		}
 		String error=editorPanel.exportModelToFile(null,false);
 		if (error!=null) MsgBox.error(getOwnerWindow(),Language.tr("XML.ExportErrorTitle"),error);
 		return error==null;
@@ -2411,6 +2421,10 @@ public class MainPanel extends MainPanelBase {
 	 * @return Liefert <code>true</code>, wenn das Modell gedruckt werden konnte
 	 */
 	private boolean commandFileModelPrint() {
+		if (editorPanel.getOriginalSurface().getElementCount()==0) {
+			MsgBox.error(this,Language.tr("Main.Menu.File.PrintModel.ErrorTitle"),Language.tr("Main.Menu.File.PrintModel.ErrorInfo"));
+			return false;
+		}
 		return ImagePrintable.print(editorPanel.getPrintImage(2000));
 	}
 
