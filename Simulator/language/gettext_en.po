@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 08:28+0100\n"
+"POT-Creation-Date: 2024-01-25 11:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3466,9 +3466,6 @@ msgstr "https://en.wikipedia.org/wiki/Zeta_distribution"
 
 msgid "DistributionFitter.BestFitFor"
 msgstr "Best fit for"
-
-msgid "DistributionFitter.ComparedDistributions"
-msgstr "Compared distributions"
 
 msgid "DistributionFitter.ErrorInvalidFormat"
 msgstr "The input value format could not be interpreted."
@@ -12246,10 +12243,28 @@ msgstr "I"
 msgid "Main.Menu.View.ShowRaster"
 msgstr "Grid"
 
+msgid "Main.Menu.View.ShowRaster.DarkDots"
+msgstr "Intense dot grid"
+
+msgid "Main.Menu.View.ShowRaster.DarkDots.Mnemonic"
+msgstr "I"
+
+msgid "Main.Menu.View.ShowRaster.DarkLargePlus"
+msgstr "Intense large plus signs"
+
+msgid "Main.Menu.View.ShowRaster.DarkLargePlus.Mnemonic"
+msgstr "I"
+
 msgid "Main.Menu.View.ShowRaster.DarkRaster"
 msgstr "Intense line grid"
 
 msgid "Main.Menu.View.ShowRaster.DarkRaster.Mnemonic"
+msgstr "I"
+
+msgid "Main.Menu.View.ShowRaster.DarkSmallPlus"
+msgstr "Intense small plus signs"
+
+msgid "Main.Menu.View.ShowRaster.DarkSmallPlus.Mnemonic"
 msgstr "I"
 
 msgid "Main.Menu.View.ShowRaster.Dots"
@@ -38160,6 +38175,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Distribution.ChiQuare"
 #~ msgstr "Chi^2 distribution"
+
+#~ msgid "DistributionFitter.ComparedDistributions"
+#~ msgstr "Compared distributions"
 
 #~ msgid "Editor.AddEdge"
 #~ msgstr "Edge"

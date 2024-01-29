@@ -179,10 +179,16 @@ public final class ModelSurface {
 		OFF("off"),
 		/** Punktraster anzeigen */
 		DOTS("dots"),
+		/** Intensives Punktraster anzeigen */
+		DARK_DOTS("darkdots"),
 		/** Kleine Plus-Zeichen anzeigen */
 		SMALL_PLUS("plus"),
+		/** Intensive kleine Plus-Zeichen anzeigen */
+		DARK_SMALL_PLUS("darkplus"),
 		/** Groﬂe Plus-Zeichen anzeigen */
 		LARGE_PLUS("bigplus"),
+		/** Intensive groﬂe Plus-Zeichen anzeigen */
+		DARK_LARGE_PLUS("darkbigplus"),
 		/** Linienraster anzeigen */
 		LINES("raster"),
 		/** Dunkles Linienraster anzeigen */
@@ -832,6 +838,9 @@ public final class ModelSurface {
 		case LINES:
 			graphics.setColor(rasterColor);
 			break;
+		case DARK_DOTS:
+		case DARK_SMALL_PLUS:
+		case DARK_LARGE_PLUS:
 		case DARK_LINES:
 			graphics.setColor(darkerRasterColor);
 			break;
@@ -850,18 +859,21 @@ public final class ModelSurface {
 		case OFF:
 			/* Kein Raster */
 			break;
+		case DARK_DOTS:
 		case DOTS:
 			for (int x=xStart;x<=xEnd;x+=step) for (int y=yStart;y<=yEnd;y+=step) {
 				graphics.drawLine(x-pointSizeSmall,y,x+pointSizeSmall,y);
 				graphics.drawLine(x,y-pointSizeSmall,x,y+pointSizeSmall);
 			}
 			break;
+		case DARK_SMALL_PLUS:
 		case SMALL_PLUS:
 			for (int x=xStart;x<=xEnd;x+=step) for (int y=yStart;y<=yEnd;y+=step) {
 				graphics.drawLine(x-pointSizeDefault,y,x+pointSizeDefault,y);
 				graphics.drawLine(x,y-pointSizeDefault,x,y+pointSizeDefault);
 			}
 			break;
+		case DARK_LARGE_PLUS:
 		case LARGE_PLUS:
 			for (int x=xStart;x<=xEnd;x+=step) for (int y=yStart;y<=yEnd;y+=step) {
 				graphics.drawLine(x-pointSizeLarge,y,x+pointSizeLarge,y);

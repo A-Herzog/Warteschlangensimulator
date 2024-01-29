@@ -348,10 +348,16 @@ public class MainPanel extends MainPanelBase {
 	private JRadioButtonMenuItem menuViewGridOff;
 	/** Menüpunkt "Ansicht" - "Raster" - "Punktraster" */
 	private JRadioButtonMenuItem menuViewGridDots;
+	/** Menüpunkt "Ansicht" - "Raster" - "Intensives Punktraster" */
+	private JRadioButtonMenuItem menuViewGridDarkDots;
 	/** Menüpunkt "Ansicht" - "Raster" - "Kleine Pluszeichen" */
 	private JRadioButtonMenuItem menuViewGridSmallPlus;
+	/** Menüpunkt "Ansicht" - "Raster" - "Intensive kleine Pluszeichen" */
+	private JRadioButtonMenuItem menuViewGridDarkSmallPlus;
 	/** Menüpunkt "Ansicht" - "Raster" - "Große Pluszeichen" */
 	private JRadioButtonMenuItem menuViewGridLargePlus;
+	/** Menüpunkt "Ansicht" - "Raster" - "Intensive große Pluszeichen" */
+	private JRadioButtonMenuItem menuViewGridDarkLargePlus;
 	/** Menüpunkt "Ansicht" - "Raster" - "Linienraster" */
 	private JRadioButtonMenuItem menuViewGridLines;
 	/** Menüpunkt "Ansicht" - "Raster" - "Intensives Linienraster" */
@@ -690,8 +696,11 @@ public class MainPanel extends MainPanelBase {
 		addAction("ViewRulers",e->commandViewRulers());
 		addAction("ViewRasterOff",e->commandViewRaster(ModelSurface.Grid.OFF));
 		addAction("ViewRasterDots",e->commandViewRaster(ModelSurface.Grid.DOTS));
+		addAction("ViewRasterDarkDots",e->commandViewRaster(ModelSurface.Grid.DARK_DOTS));
 		addAction("ViewRasterSmallPlus",e->commandViewRaster(ModelSurface.Grid.SMALL_PLUS));
+		addAction("ViewRasterDarkSmallPlus",e->commandViewRaster(ModelSurface.Grid.DARK_SMALL_PLUS));
 		addAction("ViewRasterLargePlus",e->commandViewRaster(ModelSurface.Grid.LARGE_PLUS));
+		addAction("ViewRasterDarkLargePlus",e->commandViewRaster(ModelSurface.Grid.DARK_LARGE_PLUS));
 		addAction("ViewRasterRaster",e->commandViewRaster(ModelSurface.Grid.LINES));
 		addAction("ViewRasterDarkRaster",e->commandViewRaster(ModelSurface.Grid.DARK_LINES));
 		addAction("ViewStatisticsInfo",e->commandViewStatisticsInfo());
@@ -905,8 +914,11 @@ public class MainPanel extends MainPanelBase {
 		/* Ansicht - Raster */
 		menuViewGridOff.setSelected(setup.grid==ModelSurface.Grid.OFF);
 		menuViewGridDots.setSelected(setup.grid==ModelSurface.Grid.DOTS);
+		menuViewGridDarkDots.setSelected(setup.grid==ModelSurface.Grid.DARK_DOTS);
 		menuViewGridSmallPlus.setSelected(setup.grid==ModelSurface.Grid.SMALL_PLUS);
+		menuViewGridDarkSmallPlus.setSelected(setup.grid==ModelSurface.Grid.DARK_SMALL_PLUS);
 		menuViewGridLargePlus.setSelected(setup.grid==ModelSurface.Grid.LARGE_PLUS);
+		menuViewGridDarkLargePlus.setSelected(setup.grid==ModelSurface.Grid.DARK_LARGE_PLUS);
 		menuViewGridLines.setSelected(setup.grid==ModelSurface.Grid.LINES);
 		menuViewGridDarkLines.setSelected(setup.grid==ModelSurface.Grid.DARK_LINES);
 		editorPanel.setRaster(setup.grid);
@@ -1290,14 +1302,20 @@ public class MainPanel extends MainPanelBase {
 		submenu.setIcon(Images.EDIT_VIEW_RASTER.getIcon());
 		enabledOnEditorPanel.add(menuViewGridOff=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.Off"),Language.tr("Main.Menu.View.ShowRaster.Off.Mnemonic"),"ViewRasterOff"));
 		enabledOnEditorPanel.add(menuViewGridDots=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.Dots"),Language.tr("Main.Menu.View.ShowRaster.Dots.Mnemonic"),"ViewRasterDots"));
+		enabledOnEditorPanel.add(menuViewGridDarkDots=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.DarkDots"),Language.tr("Main.Menu.View.ShowRaster.DarkDots.Mnemonic"),"ViewRasterDarkDots"));
 		enabledOnEditorPanel.add(menuViewGridSmallPlus=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.SmallPlus"),Language.tr("Main.Menu.View.ShowRaster.SmallPlus.Mnemonic"),"ViewRasterSmallPlus"));
+		enabledOnEditorPanel.add(menuViewGridDarkSmallPlus=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.DarkSmallPlus"),Language.tr("Main.Menu.View.ShowRaster.DarkSmallPlus.Mnemonic"),"ViewRasterDarkSmallPlus"));
 		enabledOnEditorPanel.add(menuViewGridLargePlus=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.LargePlus"),Language.tr("Main.Menu.View.ShowRaster.LargePlus.Mnemonic"),"ViewRasterLargePlus"));
+		enabledOnEditorPanel.add(menuViewGridDarkLargePlus=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.DarkLargePlus"),Language.tr("Main.Menu.View.ShowRaster.DarkLargePlus.Mnemonic"),"ViewRasterDarkLargePlus"));
 		enabledOnEditorPanel.add(menuViewGridLines=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.Raster"),Language.tr("Main.Menu.View.ShowRaster.Raster.Mnemonic"),"ViewRasterRaster"));
 		enabledOnEditorPanel.add(menuViewGridDarkLines=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.View.ShowRaster.DarkRaster"),Language.tr("Main.Menu.View.ShowRaster.DarkRaster.Mnemonic"),"ViewRasterDarkRaster"));
 		menuViewGridOff.setSelected(setup.grid==ModelSurface.Grid.OFF);
 		menuViewGridDots.setSelected(setup.grid==ModelSurface.Grid.DOTS);
+		menuViewGridDarkDots.setSelected(setup.grid==ModelSurface.Grid.DARK_DOTS);
 		menuViewGridSmallPlus.setSelected(setup.grid==ModelSurface.Grid.SMALL_PLUS);
+		menuViewGridDarkSmallPlus.setSelected(setup.grid==ModelSurface.Grid.DARK_SMALL_PLUS);
 		menuViewGridLargePlus.setSelected(setup.grid==ModelSurface.Grid.LARGE_PLUS);
+		menuViewGridDarkLargePlus.setSelected(setup.grid==ModelSurface.Grid.DARK_LARGE_PLUS);
 		menuViewGridLines.setSelected(setup.grid==ModelSurface.Grid.LINES);
 		menuViewGridDarkLines.setSelected(setup.grid==ModelSurface.Grid.DARK_LINES);
 

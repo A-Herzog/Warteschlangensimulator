@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-24 08:28+0100\n"
+"POT-Creation-Date: 2024-01-25 11:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3471,9 +3471,6 @@ msgstr "https://de.wikipedia.org/wiki/Zeta-Verteilung"
 
 msgid "DistributionFitter.BestFitFor"
 msgstr "Beste Übereinstimmung für"
-
-msgid "DistributionFitter.ComparedDistributions"
-msgstr "Geprüfte Verteilungen"
 
 msgid "DistributionFitter.ErrorInvalidFormat"
 msgstr "Die Eingangswerte konnten nicht interpretiert werden."
@@ -12272,10 +12269,28 @@ msgstr "I"
 msgid "Main.Menu.View.ShowRaster"
 msgstr "Raster"
 
+msgid "Main.Menu.View.ShowRaster.DarkDots"
+msgstr "Intensives Punktraster"
+
+msgid "Main.Menu.View.ShowRaster.DarkDots.Mnemonic"
+msgstr "I"
+
+msgid "Main.Menu.View.ShowRaster.DarkLargePlus"
+msgstr "Intensive große Pluszeichen"
+
+msgid "Main.Menu.View.ShowRaster.DarkLargePlus.Mnemonic"
+msgstr "I"
+
 msgid "Main.Menu.View.ShowRaster.DarkRaster"
 msgstr "Intensives Linienraster"
 
 msgid "Main.Menu.View.ShowRaster.DarkRaster.Mnemonic"
+msgstr "I"
+
+msgid "Main.Menu.View.ShowRaster.DarkSmallPlus"
+msgstr "Intensive kleine Pluszeichen"
+
+msgid "Main.Menu.View.ShowRaster.DarkSmallPlus.Mnemonic"
 msgstr "I"
 
 msgid "Main.Menu.View.ShowRaster.Dots"
@@ -38234,6 +38249,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Distribution.ChiQuare"
 #~ msgstr "Chi^2-Verteilung"
+
+#~ msgid "DistributionFitter.ComparedDistributions"
+#~ msgstr "Geprüfte Verteilungen"
 
 #~ msgid "Editor.AddEdge"
 #~ msgstr "Kante"
