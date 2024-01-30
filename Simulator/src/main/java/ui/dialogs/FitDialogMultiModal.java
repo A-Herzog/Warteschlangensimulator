@@ -102,7 +102,7 @@ public class FitDialogMultiModal extends FitDialogBase {
 	 * @param fitDistribution	Welche Verteilung soll für die Teildichten verwendet werden?
 	 */
 	public FitDialogMultiModal(final Component owner, final DistributionFitterMultiModal.FitDistribution fitDistribution) {
-		super(owner,Language.tr("FitDialogMultiModal.Title"),"Fit",InfoPanel.globalFitMultiModal,true);
+		super(owner,Language.tr("FitDialogMultiModal.Title"),"Fit",InfoPanel.globalFitMultiModal,true,false);
 		this.fitDistribution=fitDistribution;
 		generateSetup=new FitDialogMultiModalGenerate.GenerateSetup();
 	}

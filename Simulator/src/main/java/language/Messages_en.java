@@ -12338,6 +12338,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27585] = "Arrivals per day";
     t[27588] = "Simulation.Log.InputDB.InfoClientData";
     t[27589] = "Client: %s, station: %s, ClientData(%d):=%s";
+    t[27592] = "FitDialog.DistributionCountInfo";
+    t[27593] = "The distribution fitting takes %d probability distributions into account.";
     t[27594] = "CommandLine.ParameterCompareVariance.Description.Long";
     t[27595] = "This command expects three or four additional parameters:\n1. Input model file\n2. Output parameter series file\n3. Number of repetitions or the model\n4. New value for the number of arrivals (optional)\nThe input file has to exist.\nThe output has to be non existent.";
     t[27596] = "Statistics.StdDevInterArrivalTime";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31435] = "Arrival condition";
     t[31446] = "Statistics.EmergencyShutDown";
     t[31447] = "The simulation was terminated prematurely. The statistics results may not be valid therefore.";
-    t[31448] = "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Element.ID";
-    t[31449] = "ID of the corresponding analog value element";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31448] = "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Element.ID";
+    t[31449] = "ID of the corresponding analog value element";
     t[31460] = "Simulation.Log.TeleportDecideByChance.Info";
     t[31461] = "Kunde: %s, Station: %s, Verzweigung zu Ausgang %d von %d";
     t[31466] = "Surface.XML.Element.Size";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35791] = "by condition";
     t[35794] = "SelectExampleWithPreview.QuickSearch";
     t[35795] = "Quick search";
-    t[35798] = "Statistic.Viewer.Toolbar.NewWindow.Size.Hint";
-    t[35799] = "Changes the window size.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[35798] = "Statistic.Viewer.Toolbar.NewWindow.Size.Hint";
+    t[35799] = "Changes the window size.";
     t[35800] = "Simulation.Log.LogicWhile";
     t[35801] = "Logic While";
     t[35810] = "Window.Layers.DialogHint";
@@ -16792,6 +16794,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[37423] = "Displays a dialog for accessing the data of the running animation.";
     t[37430] = "Statistics.ResultsAutocorrelation.Distance";
     t[37431] = "Distance";
+    t[37432] = "DistributionFitter.ComparedDistributions";
+    t[37433] = "Compared distributions (%d distributions)";
     t[37434] = "JDataLoader.ImportErrorFileError";
     t[37435] = "The file %s could not be loaded.";
     t[37438] = "Surface.Input.XML.EofMode.Skip";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40181] = "Copy sequence";
     t[40192] = "LoadCalculator.ArrivalRate";
     t[40193] = "Average inter-arrival time or Arrival rate";
-    t[40196] = "Surface.Source.Dialog.Tab.NumberOfArrivals.Clients.Invalide";
-    t[40197] = "invalid";
-    t[40208] = "ScriptPopup.Simulation.getResourceDown.Hint";
-    t[40209] = "Gets the number of operators in down time in a group";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40196] = "Surface.Source.Dialog.Tab.NumberOfArrivals.Clients.Invalide";
+    t[40197] = "invalid";
+    t[40208] = "ScriptPopup.Simulation.getResourceDown.Hint";
+    t[40209] = "Gets the number of operators in down time in a group";
     t[40210] = "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.DistributionFunctionInfo";
     t[40211] = "<p>Calculates the value of the distribution function of the Chi<sup>2</sup> distribution at the location specified as first parameter with the number of degrees of freedom according to the second parameter.</p>";
     t[40212] = "Simulation.Log.PickUp";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44537] = "p";
     t[44540] = "ScriptPopup.Client.ValueNumber.GetAll";
     t[44541] = "Get all values";
-    t[44544] = "ExpressionBuilder.TrigonometricFunctions.Tangens.Info";
-    t[44545] = "<p>Calculates the value of the tangent function with the value passed as parameter. The angle is assumed in <b>radian</b> (full circle=2pi).</p> <p> Example: <tt>tan(0)</p> returns 0.</p>";
-    t[44546] = "Surface.CounterCondition.Panel.ClientTypes.SelectAll";
-    t[44547] = "All";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[44544] = "ExpressionBuilder.TrigonometricFunctions.Tangens.Info";
+    t[44545] = "<p>Calculates the value of the tangent function with the value passed as parameter. The angle is assumed in <b>radian</b> (full circle=2pi).</p> <p> Example: <tt>tan(0)</p> returns 0.</p>";
+    t[44546] = "Surface.CounterCondition.Panel.ClientTypes.SelectAll";
+    t[44547] = "All";
     t[44550] = "Statistics.AnalogValue.Flow.Stop.BySignal";
     t[44551] = "stop at signal \"%s\"";
     t[44554] = "Surface.ScriptEditor.New.Hint";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48873] = "Delays client passing this element according to the result value of a script.";
     t[48882] = "Editor.Dialog.Tab.PathRecording.InfoText";
     t[48883] = "The path recording allows to reconstruct the paths over which the clients have moved through the model after the simulation. Also how often transitions from one station to another have occurred can be recorded.";
-    t[48900] = "Statistic.PreviousRemove";
-    t[48901] = "Remove";
-    t[48902] = "Surface.Process.XML.TimeType.WaitingTime";
-    t[48903] = "WaitingTime";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[48900] = "Statistic.PreviousRemove";
+    t[48901] = "Remove";
+    t[48902] = "Surface.Process.XML.TimeType.WaitingTime";
+    t[48903] = "WaitingTime";
     t[48916] = "ExpressionBuilder.SimulationCharacteristics.TransporterUtilizationAll";
     t[48917] = "Utilization of all transporter groups";
     t[48922] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.CoefficientOfVariationOfTheTime";
@@ -24072,16 +24076,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53333] = "The specified directory\n%s\nis not a directory.";
     t[53336] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.Kurt";
     t[53337] = "<p>Returns the excess kurtosis over all waiting times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
-    t[53338] = "Surface.SingleCoreReason.Autocorrelation";
-    t[53339] = "Autocorrelation data are to be recorded.";
-    t[53342] = "ParameterCompare.ScriptRunner.Script.Example";
-    t[53343] = "Example";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[53338] = "Surface.SingleCoreReason.Autocorrelation";
+    t[53339] = "Autocorrelation data are to be recorded.";
+    t[53342] = "ParameterCompare.ScriptRunner.Script.Example";
+    t[53343] = "Example";
     t[53344] = "Statistics.NumberOfClientsAtStationQueues.Short";
     t[53345] = "Number of clients in the queues";
     t[53348] = "Wait.Status.LongRunNoEstimationM.WIPOne";

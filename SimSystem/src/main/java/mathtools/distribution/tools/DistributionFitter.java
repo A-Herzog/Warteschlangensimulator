@@ -44,7 +44,7 @@ public class DistributionFitter extends DistributionFitterBase {
 	/**
 	 * Bezeichner für "Geprüfte Verteilungen"
 	 */
-	public static String ComparedDistributions="Geprüfte Verteilungen";
+	public static String ComparedDistributions="Geprüfte Verteilungen (%d Stück)";
 
 	/**
 	 * Bezeichner für "Mittlere quadratische Abweichung"
@@ -132,11 +132,15 @@ public class DistributionFitter extends DistributionFitterBase {
 	protected boolean process(final DataDistributionImpl dist) {
 		final double mean=samples.getMean();
 		final double sd=samples.getStandardDeviation();
-		final double min=dist.getMin();
-		final double max=dist.getMax(); /* dist enthält die Messwerte; samples.getMax() würde hingegen den maximalen Dichte-Werte für ein Intervall angeben, nicht das höchste Intervall mit einem Dichtewert größer als 0 */
-
-		outputPlain.append(ComparedDistributions+"\n");
-		outputHTML.append("<h3>"+ComparedDistributions+"</h3>\n");
+		/* Sowohl samples.getMax() als auch dist.getMax() liefern nicht das, was wir brauchen */
+		double min=dist.densityData.length-1;
+		double max=0;
+		for (int i=0;i<dist.densityData.length;i++) if (dist.densityData[i]>0) {
+			if (i<min) min=i;
+			if (i>max) max=i;
+		}
+		outputPlain.append(String.format(ComparedDistributions,getFitDistributionCount())+"\n");
+		outputHTML.append("<h3>"+String.format(ComparedDistributions,getFitDistributionCount())+"</h3>\n");
 
 		for (String name: DistributionTools.getDistributionNames()) {
 			calcMatch(DistributionTools.getWrapper(name),mean,sd,min,max);
@@ -261,7 +265,7 @@ public class DistributionFitter extends DistributionFitterBase {
 			sumRelDif+=count*(samplesDelta-delta)*(samplesDelta-delta)/delta;
 		}
 
-		ChiSquaredDistribution chiSqr=new ChiSquaredDistribution(steps-1);
+		ChiSquaredDistribution chiSqr=new ChiSquaredDistribution(Math.max(steps-1,1));
 		return 1-chiSqr.cumulativeProbability(sumRelDif);
 	}
 

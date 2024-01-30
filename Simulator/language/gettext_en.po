@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-25 11:45+0100\n"
+"POT-Creation-Date: 2024-01-29 08:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3466,6 +3466,9 @@ msgstr "https://en.wikipedia.org/wiki/Zeta_distribution"
 
 msgid "DistributionFitter.BestFitFor"
 msgstr "Best fit for"
+
+msgid "DistributionFitter.ComparedDistributions"
+msgstr "Compared distributions (%d distributions)"
 
 msgid "DistributionFitter.ErrorInvalidFormat"
 msgstr "The input value format could not be interpreted."
@@ -9821,6 +9824,9 @@ msgstr "Copies the results of the fit to the clipboard"
 
 msgid "FitDialog.DialogHint"
 msgstr "The distribution fitting function trys to find an analytical probability distribution for given measured values that describes them as well as possible. This process is also called input analysis."
+
+msgid "FitDialog.DistributionCountInfo"
+msgstr "The distribution fitting takes %d probability distributions into account."
 
 msgid "FitDialog.GenerateValues"
 msgstr "Generate values"
@@ -38175,9 +38181,6 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Distribution.ChiQuare"
 #~ msgstr "Chi^2 distribution"
-
-#~ msgid "DistributionFitter.ComparedDistributions"
-#~ msgstr "Compared distributions"
 
 #~ msgid "Editor.AddEdge"
 #~ msgstr "Edge"

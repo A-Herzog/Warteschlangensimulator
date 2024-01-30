@@ -137,15 +137,16 @@ public abstract class FitDialogBase extends BaseDialog {
 	 * @param helpTopic	Bezeichner für die Hilfeseite
 	 * @param infoPanelTopic	Bezeichner für den Info-Datensatz (darf <code>null</code> sein)
 	 * @param showGenerateSamplesButton	Soll die Schaltfläche zur Generieren von Testmesswerten angezeigt werden?
+	 * @param fitAllDistributions	Handelt es sich um einen Fit gegen alle dafür taugliche Verteilungen (<code>true</code>) oder nur gegen einen bestimmten Verteilungstyp (<code>false</code>)
 	 */
-	public FitDialogBase(final Component owner, final String title, final String helpTopic, final String infoPanelTopic, final boolean showGenerateSamplesButton) {
+	public FitDialogBase(final Component owner, final String title, final String helpTopic, final String infoPanelTopic, final boolean showGenerateSamplesButton, final boolean fitAllDistributions) {
 		super(owner,title,false);
 
 		final JPanel content=createGUI(()->Help.topicModal(FitDialogBase.this,helpTopic));
 		content.setLayout(new BorderLayout());
 		if (infoPanelTopic!=null) InfoPanel.addTopPanel(content,infoPanelTopic);
 		content.add(tabs=new JTabbedPane(),BorderLayout.CENTER);
-		createTabs(tabs,showGenerateSamplesButton);
+		createTabs(tabs,showGenerateSamplesButton,fitAllDistributions);
 
 		final Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
 		if (screenSize.width>=1920) setSize(1280,904);
@@ -160,8 +161,9 @@ public abstract class FitDialogBase extends BaseDialog {
 	 * Erstellt die Tabs innerhalb von {@link #tabs}
 	 * @param tabs	Tabs-Elternelement
 	 * @param showGenerateSamplesButton	Soll die Schaltfläche zur Generieren von Testmesswerten angezeigt werden?
+	 * @param fitAllDistributions	Handelt es sich um einen Fit gegen alle dafür taugliche Verteilungen (<code>true</code>) oder nur gegen einen bestimmten Verteilungstyp (<code>false</code>)
 	 */
-	private void createTabs(final JTabbedPane tabs, final boolean showGenerateSamplesButton) {
+	private void createTabs(final JTabbedPane tabs, final boolean showGenerateSamplesButton, final boolean fitAllDistributions) {
 		JPanel p,p2;
 		JToolBar toolbar;
 		JButton button;
@@ -192,7 +194,8 @@ public abstract class FitDialogBase extends BaseDialog {
 		scroll.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		inputValues.setEditable(false);
 		inputValues.setContentType("text/html");
-		inputValues.setText((FlatLaFHelper.isDark()?htmlHeadDark:htmlHead)+Language.tr("FitDialog.PasteOrLoadValues")+htmlFoot);
+		final String distributionCountInfo=fitAllDistributions?("<br><br>"+String.format(Language.tr("FitDialog.DistributionCountInfo"),DistributionFitterBase.getFitDistributionCount())):"";
+		inputValues.setText((FlatLaFHelper.isDark()?htmlHeadDark:htmlHead)+Language.tr("FitDialog.PasteOrLoadValues")+distributionCountInfo+htmlFoot);
 
 		/* Dialogseite "Empirische Verteilung" */
 		tabs.addTab(Language.tr("FitDialog.Tab.EmpiricalDistribution"),p=new JPanel(new BorderLayout()));

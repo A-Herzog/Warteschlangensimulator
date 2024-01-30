@@ -15,6 +15,8 @@
  */
 package mathtools.distribution.tools;
 
+import org.apache.commons.math3.distribution.AbstractRealDistribution;
+
 import mathtools.NumberTools;
 import mathtools.distribution.DataDistributionImpl;
 
@@ -237,6 +239,25 @@ public abstract class DistributionFitterBase {
 	 * @return	Gibt <code>true</code> zurück, wenn die Daten verarbeitet werden konnten.
 	 */
 	protected abstract boolean process(final DataDistributionImpl dist);
+
+	/**
+	 * Anzahl an Verteilungen, die beim Fitting geprüft werden
+	 * @see #getFitDistributionCount()
+	 */
+	private static int fitDistributionCount=0;
+
+	/**
+	 * Liefert die Anzahl an Verteilungen, die beim Fitting geprüft werden.
+	 * @return	Anzahl an Verteilungen, die beim Fitting geprüft werden
+	 */
+	public static int getFitDistributionCount() {
+		if (fitDistributionCount==0) for (String name: DistributionTools.getDistributionNames()) {
+			final AbstractDistributionWrapper wrapper=DistributionTools.getWrapper(name);
+			final AbstractRealDistribution fit=wrapper.getDistributionForFit(100,50,10,200);
+			if (fit!=null) fitDistributionCount++;
+		}
+		return fitDistributionCount;
+	}
 
 	/**
 	 * Liefert alle Statusausgaben

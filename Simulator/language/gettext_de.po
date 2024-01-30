@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-25 11:45+0100\n"
+"POT-Creation-Date: 2024-01-29 08:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3471,6 +3471,9 @@ msgstr "https://de.wikipedia.org/wiki/Zeta-Verteilung"
 
 msgid "DistributionFitter.BestFitFor"
 msgstr "Beste Übereinstimmung für"
+
+msgid "DistributionFitter.ComparedDistributions"
+msgstr "Geprüfte Verteilungen (%d Stück)"
 
 msgid "DistributionFitter.ErrorInvalidFormat"
 msgstr "Die Eingangswerte konnten nicht interpretiert werden."
@@ -9844,6 +9847,9 @@ msgstr "Kopiert die Ergebnisse der Anpassung in die Zwischenablage"
 
 msgid "FitDialog.DialogHint"
 msgstr "Die Funktion zur Verteilungsanpassung sucht zu vorgegebenen Messwerten eine analytische Wahrscheinlichkeitsverteilung, die diese möglichst gut beschreibt. Dieser Vorgang wird auch Input-Analyse genannt."
+
+msgid "FitDialog.DistributionCountInfo"
+msgstr "Bei der Verteilungsanpassung werden %d Wahrscheinlichkeitsverteilungen berücksichtigt."
 
 msgid "FitDialog.GenerateValues"
 msgstr "Messwerte generieren"
@@ -38249,9 +38255,6 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Distribution.ChiQuare"
 #~ msgstr "Chi^2-Verteilung"
-
-#~ msgid "DistributionFitter.ComparedDistributions"
-#~ msgstr "Geprüfte Verteilungen"
 
 #~ msgid "Editor.AddEdge"
 #~ msgstr "Kante"

@@ -55,7 +55,7 @@ public class FitDialog extends FitDialogBase {
 	 * @param owner	Übergeordnetes Element
 	 */
 	public FitDialog(final Component owner) {
-		super(owner,Language.tr("FitDialog.Title"),"Fit",InfoPanel.globalFit,true);
+		super(owner,Language.tr("FitDialog.Title"),"Fit",InfoPanel.globalFit,true,true);
 	}
 
 	@Override
