@@ -518,7 +518,12 @@ the Erlang C calculator, etc.
 
 \item
 \cmd{String getTypeName()}:\\
-Gets the name of the type of the client who has triggered the processing of the script.
+Returns the name of the type of the client who has triggered the processing of the script.
+
+\item
+\cmd{String[] getBatchTypeNames()}:\\
+Returns the names of the types of the clients contained in the temporary batch which has triggered the processing of the script.
+If the current client is not a temporary batch, an empty list is returned.<br>
 
 \item
 \cmd{int getSourceStationID()}:\\
@@ -722,7 +727,12 @@ methods a single client can be accessed via the index parameter
 
 \item
 \cmd{String clientTypeName(final int index)}:\\
-Gets the name of the type of the client.
+Returns the name of the type of the client.
+
+\item
+\cmd{String[] clientBatchTypeNames(final int index)}:\\
+Returns the names of the types of the clients contained in the temporary batch which has triggered the processing of the script.
+If the current client is not a temporary batch, an empty list is returned.
 
 \item
 \cmd{int clientSourceStationID(final int index)}:\\

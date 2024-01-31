@@ -540,6 +540,11 @@ Wahrscheinlichkeitsverteilungen, den Erlang-C-Rechner usw.
 Liefert den Namen des Typs des Kunden, der die Verarbeitung des Skripts ausgelöst hat.
 
 \item
+\cmd{String[] getBatchTypeNames()}:\\
+Liefert die Namen der Typen der Kunden die in dem temporären Batch, der die Verarbeitung des Skripts ausgelöst hat, enthalten sind.
+Ist der aktuelle Kunde kein temporärer Batch, so wird eine leere Liste geliefert. 
+
+\item
 \cmd{int getSourceStationID()}:\\
 Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
 
@@ -745,6 +750,11 @@ Kunden zugegriffen werden.
 \item
 \cmd{String clientTypeName(final int index)}:\\
 Liefert den Namen des Typs des Kunden.
+
+\item
+\cmd{String[] clientBatchTypeNames(final int index)}:\\
+Liefert die Namen der Typen der Kunden die in dem temporären Batch, der die Verarbeitung des Skripts ausgelöst hat, enthalten sind.
+Ist der aktuelle Kunde kein temporärer Batch, so wird eine leere Liste geliefert.
 
 \item
 \cmd{int clientSourceStationID(final int index)}:\\

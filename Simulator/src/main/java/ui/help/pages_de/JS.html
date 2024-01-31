@@ -286,6 +286,12 @@ späteren Filterung der Ergebnisse nicht verwendet werden. Das Objekt stellt fol
   (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
   </li>
   
+  <li><tt>Simulation.clientBatchTypeNames()</tt><br>
+  Liefert die Namen der Typen der Kunden die in dem temporären Batch, der die Verarbeitung des Skripts ausgelöst hat, enthalten sind.
+  Ist der aktuelle Kunde kein temporärer Batch, so wird eine leere Liste geliefert.<br>  
+  (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+  </li>
+  
   <li><tt>Simulation.getSourceStationID()</tt><br>
   Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
   (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
@@ -647,6 +653,10 @@ einzelne Kunden freizugeben.
   </li>  
   <li><tt>Clients.clientTypeName(index)</tt><br>
   Liefert den Namen des Typs des Kunden.
+  </li>
+  <li><tt>Clients.clientBatchTypeNames(index)</tt><br>
+  Liefert die Namen der Typen der Kunden die in dem temporären Batch, der die Verarbeitung des Skripts ausgelöst hat, enthalten sind.
+  Ist der aktuelle Kunde kein temporärer Batch, so wird eine leere Liste geliefert.
   </li>
   <li><tt>Clients.clientSourceStationID(index)</tt><br>
   Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.

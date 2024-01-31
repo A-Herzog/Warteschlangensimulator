@@ -449,6 +449,11 @@ einen Kunden ausgelöst wurde. Das Interface stellt folgende Methoden zur Verfü
   Liefert den Namen des Typs des Kunden, der die Verarbeitung des Skripts ausgelöst hat.
   </li>
   
+  <li><tt>String[] getBatchTypeNames()</tt><br>
+  Liefert die Namen der Typen der Kunden die in dem temporären Batch, der die Verarbeitung des Skripts ausgelöst hat, enthalten sind.
+  Ist der aktuelle Kunde kein temporärer Batch, so wird eine leere Liste geliefert.  
+  </li>
+  
   <li><tt>int getSourceStationID()</tt><br>
   Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
   </li>
@@ -655,6 +660,10 @@ und hält alle Informationen zu den wartenden Kunden vor. Des Weiteren ermöglic
   <li><tt>String clientTypeName(final int index)</tt><br>
   Liefert den Namen des Typs des Kunden.
   </li>
+  <li><tt>String[] clientBatchTypeNames(final int index)</tt><br>
+  Liefert die Namen der Typen der Kunden die in dem temporären Batch, der die Verarbeitung des Skripts ausgelöst hat, enthalten sind.
+  Ist der aktuelle Kunde kein temporärer Batch, so wird eine leere Liste geliefert.
+  </li>  
   <li><tt>int clientSourceStationID(final int index)</tt><br>
   Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
   </li>

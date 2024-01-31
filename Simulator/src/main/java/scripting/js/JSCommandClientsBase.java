@@ -78,6 +78,18 @@ public class JSCommandClientsBase extends JSBaseCommand {
 	}
 
 	/**
+	 * Liefert die Namen der in dem temporären Batch enthaltenen Kunden.
+	 * @param index	0-basierender Index des Kunden
+	 * @return	Namen der in dem temporären Batch enthaltenen Kunden (leeres Array, wenn der Kunde kein temporärer Batch ist)
+	 */
+	public String[] clientBatchTypeNames(final int index) {
+		if (index<0 || index>=count) return new String[0];
+		final List<RunDataClient> batchedClients=clients.get(index).getBatchData();
+		if (batchedClients==null) return new String[0];
+		return batchedClients.stream().map(c->simData.runModel.clientTypes[c.type]).toArray(String[]::new);
+	}
+
+	/**
 	 * Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
 	 * @param index	0-basierender Index des Kunden
 	 * @return	ID der Station

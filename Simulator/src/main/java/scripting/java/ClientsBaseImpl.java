@@ -72,6 +72,14 @@ public abstract class ClientsBaseImpl implements ClientsInterface {
 	}
 
 	@Override
+	public String[] clientBatchTypeNames(final int index) {
+		if (index<0 || index>=count) return new String[0];
+		final List<RunDataClient> batchedClients=clients.get(index).getBatchData();
+		if (batchedClients==null) return new String[0];
+		return batchedClients.stream().map(c->simData.runModel.clientTypes[c.type]).toArray(String[]::new);
+	}
+
+	@Override
 	public int clientSourceStationID(final int index) {
 		if (index<0 || index>=count) return 0;
 		return clients.get(index).sourceStationID;

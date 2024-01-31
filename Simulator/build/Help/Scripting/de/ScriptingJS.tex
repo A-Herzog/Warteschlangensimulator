@@ -357,6 +357,12 @@ Liefert den Namen des Typs des Kunden, der die Verarbeitung des Skripts ausgelö
 (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
 
 \item
+\cmd{Simulation.clientBatchTypeNames()}:\\
+Liefert die Namen der Typen der Kunden die in dem temporären Batch, der die Verarbeitung des Skripts ausgelöst hat, enthalten sind.
+Ist der aktuelle Kunde kein temporärer Batch, so wird eine leere Liste geliefert.\\
+(Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
+
+\item
 \cmd{Simulation.int getSourceStationID()}:\\
 Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.\\
 (Sofern das Ereignis direkt durch einen Kunden ausgelöst wurde.)
@@ -737,6 +743,11 @@ Kunden zugegriffen werden.
 \item
 \cmd{Clients.clientTypeName(index)}:\\
 Liefert den Namen des Typs des Kunden.
+
+\item
+\cmd{Clients.clientBatchTypeNames(index)}:\\
+Liefert die Namen der Typen der Kunden die in dem temporären Batch, der die Verarbeitung des Skripts ausgelöst hat, enthalten sind.
+Ist der aktuelle Kunde kein temporärer Batch, so wird eine leere Liste geliefert. 
 
 \item
 \cmd{clientSourceStationID(index):}\\

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-29 08:13+0100\n"
+"POT-Creation-Date: 2024-01-30 22:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17804,6 +17804,12 @@ msgstr "Größe des aktuellen Batches"
 msgid "ScriptPopup.Client.getBatchSize.Hint"
 msgstr "Liefert die größe des aktuellen Batches sofern es sich bei dem Kunden um einen temporären Batch handelt"
 
+msgid "ScriptPopup.Client.getBatchTypeNames"
+msgstr "Namen der Kundentypen der Kunden im aktuellen temporären Batch"
+
+msgid "ScriptPopup.Client.getBatchTypeNames.Hint"
+msgstr "Liefert die Namen der Kundentypen der Kunden im aktuellen temporären Batch (oder eine leere Liste)"
+
 msgid "ScriptPopup.Client.getNumber"
 msgstr "Fortlaufende Nummer des Kunden"
 
@@ -17869,6 +17875,12 @@ msgstr "Bisherige Wartezeit"
 
 msgid "ScriptPopup.Clients.WaitingTime.Hint"
 msgstr "Liefert die bisherige Wartezeit eines wartenden Kunden"
+
+msgid "ScriptPopup.Clients.clientBatchTypeNames"
+msgstr "Namen der Kundentypen der Kunden im aktuellen temporären Batch"
+
+msgid "ScriptPopup.Clients.clientBatchTypeNames.Hint"
+msgstr "Liefert die Namen der Kundentypen der Kunden im aktuellen temporären Batch (oder eine leere Liste)"
 
 msgid "ScriptPopup.Clients.clientData"
 msgstr "Kundendaten (Zahl)"

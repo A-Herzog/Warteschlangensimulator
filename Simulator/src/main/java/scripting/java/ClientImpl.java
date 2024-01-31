@@ -131,6 +131,14 @@ public class ClientImpl implements ClientInterface {
 	}
 
 	@Override
+	public String[] getBatchTypeNames() {
+		if (client==null) return new String[0];
+		final List<RunDataClient> batchedClients=client.getBatchData();
+		if (batchedClients==null) return new String[0];
+		return batchedClients.stream().map(c->simData.runModel.clientTypes[c.type]).toArray(String[]::new);
+	}
+
+	@Override
 	public int getSourceStationID() {
 		if (client==null) return 0;
 		return client.sourceStationID;

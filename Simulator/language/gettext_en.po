@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-29 08:13+0100\n"
+"POT-Creation-Date: 2024-01-30 22:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17765,6 +17765,12 @@ msgstr "Size of the current batch"
 msgid "ScriptPopup.Client.getBatchSize.Hint"
 msgstr "Returns the size of the current batch if the current client is a temporary batch"
 
+msgid "ScriptPopup.Client.getBatchTypeNames"
+msgstr "Names of the types of the clients in the current temporary batch"
+
+msgid "ScriptPopup.Client.getBatchTypeNames.Hint"
+msgstr "Returns the names of the types of the clients in the current temporary batch (or an empty list)"
+
 msgid "ScriptPopup.Client.getNumber"
 msgstr "Consecutive number of the client"
 
@@ -17830,6 +17836,12 @@ msgstr "Waiting time"
 
 msgid "ScriptPopup.Clients.WaitingTime.Hint"
 msgstr "Gets the waiting time of a waiting client"
+
+msgid "ScriptPopup.Clients.clientBatchTypeNames"
+msgstr "Names of the types of the clients in the current temporary batch"
+
+msgid "ScriptPopup.Clients.clientBatchTypeNames.Hint"
+msgstr "Returns the names of the types of the clients in the current temporary batch (or an empty list)"
 
 msgid "ScriptPopup.Clients.clientData"
 msgstr "Get client data (number)"

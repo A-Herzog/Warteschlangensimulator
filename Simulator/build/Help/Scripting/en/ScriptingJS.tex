@@ -315,7 +315,13 @@ beendet. Im Falle einer Nachricht wird die Simulation mit der entsprechenden Feh
 
 \item
 \cmd{Simulation.clientTypeName()}:\\
-Gets the name of the type of the client who has triggered the processing of the script.\\
+Returns the name of the type of the client who has triggered the processing of the script.\\
+(If the event was triggered by a client.)
+
+\item
+\cmd{Simulation.clientBatchTypeNames()}:\\
+Returns the names of the types of the clients contained in the temporary batch which has triggered the processing of the script.
+If the current client is not a temporary batch, an empty list is returned.\\
 (If the event was triggered by a client.)
 
 \item
@@ -701,7 +707,12 @@ methods a single client can be accessed via the index parameter
 
 \item
 \cmd{Clients.clientTypeName(index)}:\\
-Gets the name of the type of the client.
+Returns the name of the type of the client.
+
+\item
+\cmd{Clients.clientBatchTypeNames(index)}:\\
+Returns the names of the types of the clients contained in the temporary batch which has triggered the processing of the script.
+If the current client is not a temporary batch, an empty list is returned.<br>
 
 \item
 \cmd{clientSourceStationID(index):}\\

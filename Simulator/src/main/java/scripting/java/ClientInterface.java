@@ -66,6 +66,12 @@ public interface ClientInterface {
 	String getTypeName();
 
 	/**
+	 * Liefert die Namen der in dem temporären Batch enthaltenen Kunden.
+	 * @return	Namen der in dem temporären Batch enthaltenen Kunden (leeres Array, wenn der Kunde kein temporärer Batch ist)
+	 */
+	String[] getBatchTypeNames();
+
+	/**
 	 * Liefert die ID der Station, an der der aktuelle Kunde erzeugt wurde oder an der ihm sein aktueller Typ zugewiesen wurde.
 	 * @return	ID der Station
 	 */

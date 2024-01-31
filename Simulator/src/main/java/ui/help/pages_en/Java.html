@@ -427,6 +427,12 @@ was triggered by a client. The following methods are available in this interface
   Gets the name of the type of the client who has triggered the processing of the script.
   </li>
   
+  <li><tt>String[] getBatchTypeNames()</tt><br>
+  Returns the names of the types of the clients contained in the temporary batch which has triggered the processing of the script.
+  If the current client is not a temporary batch, an empty list is returned.<br>
+  (If the event was triggered by a client.)
+  </li>
+  
   <li><tt>int getSourceStationID()</tt><br>
   Returns the ID of the station where the current client was created or where it was assigned its current type.
   </li>
@@ -631,7 +637,11 @@ and allows to access the waiting clients and to release them.
   (valued from 0 to <tt>count()</tt>-1).
   </li>
   <li><tt>String clientTypeName(final int index)</tt><br>
-  Gets the name of the type of the client.
+  Returns the name of the type of the client.
+  </li>
+  <li><tt>String[] clientBatchTypeNames(final int index)</tt><br>
+  Returns the names of the types of the clients contained in the temporary batch which has triggered the processing of the script.
+  If the current client is not a temporary batch, an empty list is returned.
   </li>
   <li><tt>int clientSourceStationID(final int index)</tt><br>
   Returns the ID of the station where the current client was created or where it was assigned its current type.

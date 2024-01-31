@@ -40,6 +40,14 @@ public interface ClientsInterface {
 	String clientTypeName(final int index);
 	
 	/**
+	 * Returns the names of the types of the clients contained in the temporary batch which has triggered the processing of the script.
+	 * If the current client is not a temporary batch, an empty list is returned.
+	 * @param index	0-based index of the client
+	 * @return	Names of the client types of the clients in the current temporary batch (or an empty array if the client is not a temporary batch)
+	 */
+	String[] clientBatchTypeNames(final int index);
+	
+	/**
 	 * Returns the ID of the station where the current client was created
 	 * or where it was assigned its current type.
 	 * @param index	0-based index of the client
