@@ -270,7 +270,7 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 
 			if (!pjob.printDialog(attributes)) return false;
 			pjob.setPrintable(chartPanel);
-			pjob.print();
+			pjob.print(attributes);
 			return true;
 		} catch (Exception e) {return false;}
 	}

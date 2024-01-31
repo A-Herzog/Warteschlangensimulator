@@ -154,7 +154,7 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 
 			if (!pjob.printDialog()) return false;
 			pjob.setPrintable(this);
-			pjob.print();
+			pjob.print(attributes);
 			return true;
 		} catch (Exception e) {return false;}
 	}

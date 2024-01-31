@@ -93,7 +93,7 @@ public class ImagePrintable implements Printable {
 			attributes.add(DialogTypeSelection.COMMON);
 			if (!pjob.printDialog(attributes)) return false;
 			pjob.setPrintable(new ImagePrintable(pjob,image));
-			pjob.print();
+			pjob.print(attributes);
 			return true;
 		} catch (Exception e) {return false;}
 	}
