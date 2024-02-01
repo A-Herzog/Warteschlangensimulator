@@ -30,6 +30,7 @@ import statistics.StatisticsTimePerformanceIndicator;
 import systemtools.statistics.StatisticViewerPieChartMulti;
 import ui.help.Help;
 import ui.modeleditor.ModelResource;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Dieser Viewer gibt Werte in Form von mehreren kombinierten Tortendiagrammen aus.
@@ -73,6 +74,12 @@ public class StatisticViewerMultiPieChart extends StatisticViewerPieChartMulti {
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerTimeBarChart.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
+	}
+
+	@Override
+	protected String getDescriptionCustomStyles() {
+		if (FlatLaFHelper.isDark()) return StatisticsPanel.DARK_MODE_DESACRIPTION_STYLE;
+		return null;
 	}
 
 	/**

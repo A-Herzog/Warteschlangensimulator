@@ -35,6 +35,7 @@ import ui.modeleditor.elements.ModelElementSourceDB;
 import ui.modeleditor.elements.ModelElementSourceDDE;
 import ui.modeleditor.elements.ModelElementSourceTable;
 import ui.modeleditor.elements.ModelElementSub;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Dieser Viewer analysiert das Modell und gibt Hinweise zu Kenngrößen,
@@ -788,6 +789,12 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerOverviewText.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
+	}
+
+	@Override
+	protected String getDescriptionCustomStyles() {
+		if (FlatLaFHelper.isDark()) return StatisticsPanel.DARK_MODE_DESACRIPTION_STYLE;
+		return null;
 	}
 
 	/**

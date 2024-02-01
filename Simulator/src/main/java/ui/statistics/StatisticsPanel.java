@@ -71,6 +71,8 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	/** Viewer für den Schnellzugriff */
 	private StatisticViewerFastAccess fastAccess;
 
+	/** Stylesheet Ergänzungen für die "Erklärung einblenden"-Seiten im FlatLaF-Dark-Mode */
+	public static final String DARK_MODE_DESACRIPTION_STYLE="body {color: #c0c0c0; background-color: #3c3f41;} a {color: #8080FF;}";
 	/**
 	 * Konstruktor der Klasse <code>StatisticsPanel</code>
 	 * @param numberOfViewers	Anzahl der nebeneinander anzuzeigenden Ergebnisse

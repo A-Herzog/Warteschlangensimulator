@@ -30,6 +30,7 @@ import statistics.StatisticsTimeContinuousPerformanceIndicator;
 import systemtools.statistics.StatisticViewerTable;
 import tools.SetupData;
 import ui.help.Help;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Dieser Viewer stellt die benutzerdefinierten Statistikdaten als Tabelle dar.
@@ -74,6 +75,12 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerBaseTable 
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerUserStatisticTable.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
+	}
+
+	@Override
+	protected String getDescriptionCustomStyles() {
+		if (FlatLaFHelper.isDark()) return StatisticsPanel.DARK_MODE_DESACRIPTION_STYLE;
+		return null;
 	}
 
 	/**

@@ -24,6 +24,7 @@ import systemtools.statistics.StatisticViewerText;
 import systemtools.statistics.StatisticsBasePanel;
 import ui.help.Help;
 import ui.statistics.analyticcompare.AnalyticInfo;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Vergleicht die Statistikergebnisse eines Modells mit einem zugehörigen Erlang-C-Modell.
@@ -49,6 +50,12 @@ public class StatisticViewerErlangCCompare extends StatisticViewerText {
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerOverviewText.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
+	}
+
+	@Override
+	protected String getDescriptionCustomStyles() {
+		if (FlatLaFHelper.isDark()) return StatisticsPanel.DARK_MODE_DESACRIPTION_STYLE;
+		return null;
 	}
 
 	@Override

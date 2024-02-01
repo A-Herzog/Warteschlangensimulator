@@ -49,6 +49,7 @@ import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.fastpaint.BrighterColor;
 import ui.modeleditor.fastpaint.GradientFill;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Dieser Viewer gibt die Verteilung der Zwischenankunfts-, Warte- und Bedienzeiten in Form eines Balkendiagramms zu den Simulationsergebnissen aus.
@@ -163,6 +164,12 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerTimeBarChart.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
+	}
+
+	@Override
+	protected String getDescriptionCustomStyles() {
+		if (FlatLaFHelper.isDark()) return StatisticsPanel.DARK_MODE_DESACRIPTION_STYLE;
+		return null;
 	}
 
 	/**

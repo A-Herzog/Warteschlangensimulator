@@ -24,6 +24,7 @@ import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import systemtools.statistics.StatisticViewerLineChart;
 import ui.help.Help;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Dieser Viewer stellt die benutzerdefinierten Statistikdaten als Verteilungsdiagramm dar.
@@ -55,6 +56,12 @@ public class StatisticViewerUserStatisticLineChart extends StatisticViewerLineCh
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerUserStatisticLineChart.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
+	}
+
+	@Override
+	protected String getDescriptionCustomStyles() {
+		if (FlatLaFHelper.isDark()) return StatisticsPanel.DARK_MODE_DESACRIPTION_STYLE;
+		return null;
 	}
 
 	/**

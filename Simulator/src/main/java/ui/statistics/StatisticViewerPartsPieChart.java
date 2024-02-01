@@ -25,6 +25,7 @@ import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.statistics.StatisticViewerPieChart;
 import ui.help.Help;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Dieser Viewer gibt das Verhältnis von Warte- zu Bedienzeit in Form eines Tortendiagramms aus.
@@ -67,6 +68,12 @@ public class StatisticViewerPartsPieChart extends StatisticViewerPieChart {
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerPartsPieChart.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
+	}
+
+	@Override
+	protected String getDescriptionCustomStyles() {
+		if (FlatLaFHelper.isDark()) return StatisticsPanel.DARK_MODE_DESACRIPTION_STYLE;
+		return null;
 	}
 
 	/**

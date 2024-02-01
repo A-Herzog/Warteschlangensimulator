@@ -36,6 +36,9 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.HyperlinkEvent;
+import javax.swing.text.Document;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.StyleSheet;
 
 import mathtools.distribution.swing.JOpenURL;
 import systemtools.images.SimToolsImages;
@@ -60,6 +63,9 @@ public class DescriptionViewer extends JPanel {
 	/** URL der anzuzeigenden Hilfeseite */
 	private final URL pageURL;
 
+	/** Optionale zusätzliche Styles (kann <code>null</code> oder leer sein) */
+	private final String customStyles;
+
 	/** Toolbar auf dem sich die Schaltfläche zum Ein- und Ausblenden des Info-Panels befindet. */
 	private final JToolBar toolbar;
 
@@ -81,10 +87,12 @@ public class DescriptionViewer extends JPanel {
 	 * Konstruktor der Klasse
 	 * @param pageURL	Anzuzeigende Hilfeseite
 	 * @param linkCallback	Callback an das Links (zur dialogbasierten Hilfe) übermittelt werden (kann <code>null</code> sein)
+	 * @param customStyles	Optionale zusätzliche Styles (kann <code>null</code> oder leer sein)
 	 */
-	public DescriptionViewer(final URL pageURL, final Consumer<String> linkCallback) {
+	public DescriptionViewer(final URL pageURL, final Consumer<String> linkCallback, final String customStyles) {
 		this.pageURL=pageURL;
 		this.linkCallback=linkCallback;
+		this.customStyles=customStyles;
 		setLayout(new BorderLayout());
 
 		toolbar=new JToolBar(SwingConstants.HORIZONTAL);
@@ -119,10 +127,24 @@ public class DescriptionViewer extends JPanel {
 			 */
 		}
 
+		/**
+		 * Wird beim Laden des Dokuments aufgerufen und erlaubt das
+		 * Hinzufügen von nutzerdefinierten Style-Regeln.
+		 * @param styleSheet	Stylesheet-Objekt zu dem die Regeln hinzugefügt werden
+		 */
+		protected void addCustomStyles(final StyleSheet styleSheet) {
+			if (customStyles!=null && !customStyles.isBlank())	styleSheet.addRule(customStyles);
+		}
+
 		@Override
 		public void run() {
 			try {
 				textPane.setPage(pageURL); /* Muss in SwingUtilities.invokeLater aufgerufen werden, sonst kann's bei der Report-Generierung Blockierungen geben. */
+				final Document document=textPane.getDocument();
+				if (document instanceof HTMLDocument) {
+					final HTMLDocument htmlDocument=(HTMLDocument)document;
+					addCustomStyles(htmlDocument.getStyleSheet());
+				}
 			} catch (IOException e1) {
 				textPane.setText("Page "+pageURL.toString()+" not found.");
 			}

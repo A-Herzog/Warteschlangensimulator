@@ -33,6 +33,7 @@ import systemtools.statistics.StatisticViewerTable;
 import tools.SetupData;
 import ui.help.Help;
 import ui.images.Images;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Dieser Viewer stellt die Übergänge der Kunden zwischen den Stationen
@@ -93,6 +94,12 @@ public class StatisticViewerMovementTable extends StatisticViewerBaseTable {
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerMovementTable.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
+	}
+
+	@Override
+	protected String getDescriptionCustomStyles() {
+		if (FlatLaFHelper.isDark()) return StatisticsPanel.DARK_MODE_DESACRIPTION_STYLE;
+		return null;
 	}
 
 	/**

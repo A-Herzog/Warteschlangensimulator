@@ -69,6 +69,7 @@ import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.elements.ElementWithOutputFile;
 import ui.modeleditor.elements.ModelElementUserStatistic;
 import ui.statistics.FastAccessSelectorBuilder.IndicatorMode;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Dieser Viewer gibt allgemeine Informationen in Textform zu den Simulationsergebnissen aus.
@@ -413,6 +414,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerOverviewText.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
+	}
+
+	@Override
+	protected String getDescriptionCustomStyles() {
+		if (FlatLaFHelper.isDark()) return StatisticsPanel.DARK_MODE_DESACRIPTION_STYLE;
+		return null;
 	}
 
 	@Override

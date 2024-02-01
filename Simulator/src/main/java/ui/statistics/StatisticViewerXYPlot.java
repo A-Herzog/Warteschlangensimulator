@@ -32,6 +32,7 @@ import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementRecord;
 import ui.modeleditor.elements.ModelElementSub;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Dieser Viewer stellt die Daten, die an einer Datenaufzeichnung-Station
@@ -92,6 +93,12 @@ public class StatisticViewerXYPlot extends StatisticViewerJFreeChart {
 				if (record!=null) return record;
 			}
 		}
+		return null;
+	}
+
+	@Override
+	protected String getDescriptionCustomStyles() {
+		if (FlatLaFHelper.isDark()) return StatisticsPanel.DARK_MODE_DESACRIPTION_STYLE;
 		return null;
 	}
 

@@ -46,6 +46,7 @@ import ui.modeleditor.ModelTransporter;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementRecord;
 import ui.modeleditor.elements.ModelElementSub;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Dieser Viewer gibt die Verteilung der Zwischenakunfts-, Warte- und Bedienzeiten in Tabellenform zu den Simulationsergebnissen aus.
@@ -423,6 +424,12 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerTimeTable.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
+	}
+
+	@Override
+	protected String getDescriptionCustomStyles() {
+		if (FlatLaFHelper.isDark()) return StatisticsPanel.DARK_MODE_DESACRIPTION_STYLE;
+		return null;
 	}
 
 	/**

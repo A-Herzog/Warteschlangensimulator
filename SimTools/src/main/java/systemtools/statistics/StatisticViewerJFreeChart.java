@@ -128,7 +128,7 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 			if (link.toLowerCase().startsWith("help:") && descriptionHelpCallback!=null) {
 				descriptionHelpCallback.accept(link.substring("help:".length()));
 			}
-		});
+		},getDescriptionCustomStyles());
 	}
 
 	/**
@@ -711,6 +711,14 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	protected final void addDescription(final URL descriptionURL, final Consumer<String> descriptionHelpCallback) {
 		this.descriptionURL=descriptionURL;
 		this.descriptionHelpCallback=descriptionHelpCallback;
+	}
+
+	/**
+	 * Ermöglicht das Laden zusätzlicher Styles für die Erklärungstexte.
+	 * @return	Zusätzliche Stylesheets für Erklärungstexte (kann <code>null</code> oder leer sein)
+	 */
+	protected String getDescriptionCustomStyles() {
+		return null;
 	}
 
 	/**

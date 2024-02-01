@@ -32,6 +32,7 @@ import statistics.StatisticsPerformanceIndicator;
 import statistics.StatisticsTimePerformanceIndicator;
 import systemtools.statistics.StatisticViewerLineChart;
 import ui.help.Help;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Dieser Viewer gibt die Verteilung der Zwischenankunfts-, Warte- und Bedienzeiten in Form eines Liniendiagramms zu den Simulationsergebnissen aus.
@@ -169,6 +170,12 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 	private void addDescription(final String topic) {
 		final URL url=StatisticViewerDistributionTimeLineChart.class.getResource("description_"+Language.getCurrentLanguage()+"/"+topic+".html");
 		addDescription(url,helpTopic->Help.topic(getViewer(false),helpTopic));
+	}
+
+	@Override
+	protected String getDescriptionCustomStyles() {
+		if (FlatLaFHelper.isDark()) return StatisticsPanel.DARK_MODE_DESACRIPTION_STYLE;
+		return null;
 	}
 
 	/**
