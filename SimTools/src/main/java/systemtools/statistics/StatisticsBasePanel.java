@@ -83,7 +83,7 @@ import xml.XMLData;
 /**
  * Diese Klasse stellt Basisfunktionen zur Anzeige von Statistikdaten bereit
  * @author Alexander Herzog
- * @version 1.9
+ * @version 2.0
  */
 public abstract class StatisticsBasePanel extends JPanel implements AbstractReportCommandConnect {
 	/**
@@ -1366,7 +1366,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		d.width=Math.max(d.width,250);
 		tree.setMinimumSize(d);
 
-		if (d.width!=splitPane.getDividerLocation()) splitPane.setDividerLocation(d.width);
+		if (d.width>splitPane.getDividerLocation()) splitPane.setDividerLocation(d.width);
 	}
 
 	/**
