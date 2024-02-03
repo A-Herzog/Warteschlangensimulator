@@ -83,7 +83,7 @@ public class CalcSymbolStationDataWaiting_sk extends CalcSymbolStationData {
 
 	@Override
 	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
-		if (data.statisticWaitingByClientType==null) return 0;
+		if (data.statisticWaitingByClientType==null || data.statisticWaitingByClientType[clientTypeIndex]==null) return 0.0;
 		return data.statisticWaitingByClientType[clientTypeIndex].getSk();
 	}
 }

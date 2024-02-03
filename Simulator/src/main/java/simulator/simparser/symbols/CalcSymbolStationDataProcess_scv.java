@@ -86,7 +86,7 @@ public class CalcSymbolStationDataProcess_scv extends CalcSymbolStationData {
 
 	@Override
 	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
-		if (data.statisticProcessByClientType==null) return 0;
+		if (data.statisticProcessByClientType==null || data.statisticProcessByClientType[clientTypeIndex]==null) return 0.0;
 		final double cv=data.statisticProcessByClientType[clientTypeIndex].getCV();
 		return cv*cv;
 	}

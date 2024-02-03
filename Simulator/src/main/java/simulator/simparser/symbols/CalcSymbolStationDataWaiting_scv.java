@@ -86,7 +86,7 @@ public class CalcSymbolStationDataWaiting_scv extends CalcSymbolStationData {
 
 	@Override
 	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
-		if (data.statisticWaitingByClientType==null) return 0;
+		if (data.statisticWaitingByClientType==null || data.statisticWaitingByClientType[clientTypeIndex]==null) return 0.0;
 		final double cv=data.statisticWaitingByClientType[clientTypeIndex].getMean();
 		return cv*cv;
 	}

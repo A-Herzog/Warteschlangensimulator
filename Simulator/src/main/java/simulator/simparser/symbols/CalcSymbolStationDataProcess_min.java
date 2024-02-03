@@ -88,7 +88,7 @@ public class CalcSymbolStationDataProcess_min extends CalcSymbolStationData {
 
 	@Override
 	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
-		if (data.statisticProcessByClientType==null) return 0;
+		if (data.statisticProcessByClientType==null || data.statisticProcessByClientType[clientTypeIndex]==null) return 0.0;
 		return data.statisticProcessByClientType[clientTypeIndex].getMin();
 	}
 }

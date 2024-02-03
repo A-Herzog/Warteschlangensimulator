@@ -83,7 +83,7 @@ public class CalcSymbolStationDataWIP_avg extends CalcSymbolStationData {
 
 	@Override
 	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
-		if (data.statisticClientsAtStationByClientType==null) return 0;
+		if (data.statisticClientsAtStationByClientType==null || data.statisticClientsAtStationByClientType[clientTypeIndex]==null) return 0.0;
 		return data.statisticClientsAtStationByClientType[clientTypeIndex].getTimeMean();
 	}
 }

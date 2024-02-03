@@ -98,7 +98,7 @@ public class CalcSymbolStationFlowFactor extends CalcSymbolStationData {
 
 	@Override
 	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
-		if (data.statisticProcessByClientType==null || data.statisticResidenceByClientType==null) return 0.0;
+		if (data.statisticProcessByClientType==null || data.statisticResidenceByClientType==null || data.statisticProcessByClientType[clientTypeIndex]==null || data.statisticResidenceByClientType[clientTypeIndex]==null) return 0.0;
 		final double serviceTime=data.statisticProcessByClientType[clientTypeIndex].getMean();
 		if (serviceTime==0.0) return 0.0;
 		return data.statisticResidenceByClientType[clientTypeIndex].getMean()/serviceTime;

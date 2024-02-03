@@ -81,7 +81,7 @@ public class CalcSymbolStationDataQueue_std extends CalcSymbolStationData {
 
 	@Override
 	protected double calc(final RunElementData data) {
-		if (data.statisticClientsAtStationQueue==null) return 0;
+		if (data.statisticClientsAtStationQueue==null) return 0.0;
 		return data.statisticClientsAtStationQueue.getTimeSD();
 	}
 
@@ -92,7 +92,7 @@ public class CalcSymbolStationDataQueue_std extends CalcSymbolStationData {
 
 	@Override
 	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
-		if (data.statisticClientsAtStationQueueByClientType==null) return 0;
+		if (data.statisticClientsAtStationQueueByClientType==null || data.statisticClientsAtStationQueueByClientType[clientTypeIndex]==null) return 0.0;
 		return data.statisticClientsAtStationQueueByClientType[clientTypeIndex].getTimeSD();
 	}
 }

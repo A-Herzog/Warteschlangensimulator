@@ -74,7 +74,7 @@ public class CalcSymbolStationDataWIP_scv extends CalcSymbolStationData {
 
 	@Override
 	protected double calc(final RunElementData data) {
-		if (data.statisticClientsAtStation==null) return 0;
+		if (data.statisticClientsAtStation==null) return 0.0;
 		final double cv=data.statisticClientsAtStation.getTimeCV();
 		return cv*cv;
 	}
@@ -86,7 +86,7 @@ public class CalcSymbolStationDataWIP_scv extends CalcSymbolStationData {
 
 	@Override
 	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
-		if (data.statisticClientsAtStationByClientType==null) return 0;
+		if (data.statisticClientsAtStationByClientType==null || data.statisticClientsAtStationByClientType[clientTypeIndex]==null) return 0.0;
 		return data.statisticClientsAtStationByClientType[clientTypeIndex].getTimeCV();
 	}
 }

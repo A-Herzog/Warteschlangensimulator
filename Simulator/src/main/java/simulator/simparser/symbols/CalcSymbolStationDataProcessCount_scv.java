@@ -72,7 +72,7 @@ public class CalcSymbolStationDataProcessCount_scv extends CalcSymbolStationData
 
 	@Override
 	protected double calc(final RunElementData data) {
-		if (data.statisticClientsAtStationProcess==null) return 0;
+		if (data.statisticClientsAtStationProcess==null) return 0.0;
 		final double cv=data.statisticClientsAtStationProcess.getTimeCV();
 		return cv*cv;
 	}
@@ -84,7 +84,7 @@ public class CalcSymbolStationDataProcessCount_scv extends CalcSymbolStationData
 
 	@Override
 	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
-		if (data.statisticClientsAtStationProcessByClientType==null) return 0;
+		if (data.statisticClientsAtStationProcessByClientType==null || data.statisticClientsAtStationProcessByClientType[clientTypeIndex]==null) return 0.0;
 		final double cv=data.statisticClientsAtStationProcessByClientType[clientTypeIndex].getTimeCV();
 		return cv*cv;
 	}

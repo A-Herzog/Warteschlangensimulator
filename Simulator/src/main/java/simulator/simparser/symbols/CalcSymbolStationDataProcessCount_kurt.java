@@ -72,7 +72,7 @@ public class CalcSymbolStationDataProcessCount_kurt extends CalcSymbolStationDat
 
 	@Override
 	protected double calc(final RunElementData data) {
-		if (data.statisticClientsAtStationProcess==null) return 0;
+		if (data.statisticClientsAtStationProcess==null) return 0.0;
 		return data.statisticClientsAtStationProcess.getTimeKurt();
 	}
 
@@ -83,7 +83,7 @@ public class CalcSymbolStationDataProcessCount_kurt extends CalcSymbolStationDat
 
 	@Override
 	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
-		if (data.statisticClientsAtStationProcessByClientType==null) return 0;
+		if (data.statisticClientsAtStationProcessByClientType==null || data.statisticClientsAtStationProcessByClientType[clientTypeIndex]==null) return 0.0;
 		return data.statisticClientsAtStationProcessByClientType[clientTypeIndex].getTimeKurt();
 	}
 }

@@ -86,7 +86,7 @@ public class CalcSymbolStationDataResidence_scv extends CalcSymbolStationData {
 
 	@Override
 	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
-		if (data.statisticResidenceByClientType==null) return 0;
+		if (data.statisticResidenceByClientType==null || data.statisticResidenceByClientType[clientTypeIndex]==null) return 0.0;
 		final double cv=data.statisticResidenceByClientType[clientTypeIndex].getMean();
 		return cv*cv;
 	}
