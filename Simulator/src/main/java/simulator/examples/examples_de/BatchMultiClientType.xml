@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.5.0</ModellVersion>
+  <ModellName>Kombiniertes offenes und geschlossenes Warteschlangensystem</ModellName>
+  <ModellBeschreibung>In dem Modell treffen Kunden der Typen A und B ein, die durch 3 Bediener bedient werden.
+Es werden dabei temporäre Batch von je einem Kunden und einem Bediener gebildet.
+Kunde und Bediener bewegen sich gemeinsam durch das System. Am Ausgang werden die
+Batche wieder aufgelöst: Die Kunden verlassen das System, wie Bediener werden zum Beginn
+zurückgeroutet.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementKasten id="38">
+      <ModellElementGroesse h="350" w="500" x="300" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="250"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="400"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementQuelle id="3">
+      <ModellElementName>Bediener</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+      <ModellElementAusdruck Anzahl="3" ErsteAnkunftBeiStart="1" Zeitbasis="Sekunden">0</ModellElementAusdruck>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementEcke id="4">
+      <ModellElementGroesse h="10" w="10" x="295" y="345"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="5">
+      <ModellElementName>Ankünfte (Kunden A)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="6">
+      <ModellElementName>Ankünfte (Kunden B)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZusammenfuehren id="7">
+      <ModellElementGroesse h="50" w="100" x="350" y="250"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="42" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementBatchModus>Zeitweise</ModellElementBatchModus>
+      <ModellElementKundentyp>Batch</ModellElementKundentyp>
+    </ModellElementZusammenfuehren>
+    <ModellElementKante id="9">
+      <ModellElementVerbindung Element1="4" Element2="41" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementEcke id="8">
+      <ModellElementGroesse h="10" w="10" x="395" y="145"/>
+      <ModellElementVerbindung Element="44" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="10">
+      <ModellElementName>Ankünfte (Bediener)</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="43" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementVerzweigenJS id="12">
+      <ModellElementGroesse h="50" w="100" x="500" y="250"/>
+      <ModellElementVerzweigenSkript Sprache="Javascript">let batchContent=Simulation.clientBatchTypeNames();
+let exit=2;
+if (batchContent.indexOf("Kunden A")&gt;=0) exit=1;
+if (batchContent.indexOf("Kunden B")&gt;=0) exit=2;
+Output.print(exit);</ModellElementVerzweigenSkript>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="34" Typ="Auslaufend"/>
+    </ModellElementVerzweigenJS>
+    <ModellElementKante id="13">
+      <ModellElementName>Neuer Kundentyp "Batch"</ModellElementName>
+      <ModellElementVerbindung Element1="7" Element2="12" Typ="Kante"/>
+      <ModellElementVerbindungsbeschriftung>0</ModellElementVerbindungsbeschriftung>
+    </ModellElementKante>
+    <ModellElementZuweisung id="14">
+      <ModellElementName>Batch A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="200"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="25" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementZuweisung id="15">
+      <ModellElementName>Batch B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="300"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
+    </ModellElementZuweisung>
+    <ModellElementKante id="16">
+      <ModellElementName>Ausgang 1</ModellElementName>
+      <ModellElementVerbindung Element1="12" Element2="14" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="17">
+      <ModellElementName>Ausgang 2</ModellElementName>
+      <ModellElementVerbindung Element1="12" Element2="15" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementVerzoegerung id="18">
+      <ModellElementName>Bedienung A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="900" y="200"/>
+      <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementVerzoegerung id="19">
+      <ModellElementName>Bedienung B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="900" y="300"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="28" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementTrennen id="20">
+      <ModellElementGroesse h="50" w="100" x="1150" y="250"/>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="28" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="29" Typ="Auslaufend"/>
+    </ModellElementTrennen>
+    <ModellElementVerzweigen id="21">
+      <ModellElementGroesse h="50" w="100" x="1300" y="250"/>
+      <ModellElementVerzweigungsmodus>Kundentyp</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="29" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Kundentyp="Bediener" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="31" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementEcke id="22">
+      <ModellElementGroesse h="10" w="10" x="1345" y="145"/>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="23">
+      <ModellElementName>Bediener</ModellElementName>
+      <ModellElementVerbindung Element1="21" Element2="22" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="24">
+      <ModellElementVerbindung Element1="22" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="25">
+      <ModellElementName>Neuer Kundentyp: Batch A</ModellElementName>
+      <ModellElementVerbindung Element1="14" Element2="18" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="26">
+      <ModellElementName>Neuer Kundentyp: Batch B</ModellElementName>
+      <ModellElementVerbindung Element1="15" Element2="19" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="27">
+      <ModellElementVerbindung Element1="18" Element2="20" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="28">
+      <ModellElementVerbindung Element1="19" Element2="20" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementKante id="29">
+      <ModellElementVerbindung Element1="20" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="30">
+      <ModellElementGroesse h="50" w="100" x="1500" y="250"/>
+      <ModellElementVerbindung Element="31" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="31">
+      <ModellElementName>alle anderen Kundentypen</ModellElementName>
+      <ModellElementVerbindung Element1="21" Element2="30" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="32">
+      <ModellElementGroesse h="48" w="207" x="50" y="165"/>
+      <ModellElementTextzeile>Es werden direkt zu Beginn 3 Bediener</ModellElementTextzeile>
+      <ModellElementTextzeile>generiert, die in dem geschlossenen</ModellElementTextzeile>
+      <ModellElementTextzeile>Teil des Modells zirkulieren.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementEnde id="33">
+      <ModellElementName>Fehler</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="500" y="355"/>
+      <ModellElementEndeStopp>1</ModellElementEndeStopp>
+      <ModellElementVerbindung Element="34" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="34">
+      <ModellElementName>Ausgang 3</ModellElementName>
+      <ModellElementVerbindung Element1="12" Element2="33" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="37">
+      <ModellElementGroesse h="23" w="573" x="50" y="50"/>
+      <ModellElementTextzeile>Kombiniertes offenes und geschlossenes Warteschlangensystem</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="39">
+      <ModellElementGroesse h="21" w="304" x="305" y="105"/>
+      <ModellElementTextzeile>Kunden und Bediener zusammenführen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="40">
+      <ModellElementGroesse h="64" w="163" x="50" y="470"/>
+      <ModellElementTextzeile>Die beiden Quellen generieren</ModellElementTextzeile>
+      <ModellElementTextzeile>fortwährend Kunden, die das</ModellElementTextzeile>
+      <ModellElementTextzeile>System durchlaufen und es</ModellElementTextzeile>
+      <ModellElementTextzeile>dann verlassen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementEcke id="43">
+      <ModellElementGroesse h="10" w="10" x="295" y="145"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="44" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="44">
+      <ModellElementVerbindung Element1="43" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="11">
+      <ModellElementVerbindung Element1="8" Element2="7" Typ="Kante"/>
+      <ModellElementVerbindungsdarstellungsart>Direkt</ModellElementVerbindungsdarstellungsart>
+    </ModellElementKante>
+    <ModellElementEcke id="41">
+      <ModellElementGroesse h="10" w="10" x="395" y="345"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="42" Typ="Auslaufend"/>
+    </ModellElementEcke>
+    <ModellElementKante id="42">
+      <ModellElementVerbindung Element1="41" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKasten id="45">
+      <ModellElementGroesse h="350" w="200" x="850" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="46">
+      <ModellElementGroesse h="21" w="125" x="855" y="105"/>
+      <ModellElementTextzeile>Bedienstationen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="47">
+      <ModellElementGroesse h="350" w="350" x="1100" y="100"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="48">
+      <ModellElementGroesse h="42" w="297" x="1105" y="105"/>
+      <ModellElementTextzeile>Systemausgang:</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden und Bediener werden getrennt</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="49">
+      <ModellElementGroesse h="95" w="585" x="750" y="500"/>
+      <ModellElementTextzeile>In dem Modell treffen Kunden der Typen A und B ein, die durch 3 Bediener bedient werden.</ModellElementTextzeile>
+      <ModellElementTextzeile>Es werden dabei temporäre Batch von je einem Kunden und einem Bediener gebildet.</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunde und Bediener bewegen sich gemeinsam durch das System. Am Ausgang werden die</ModellElementTextzeile>
+      <ModellElementTextzeile>Batche wieder aufgelöst: Die Kunden verlassen das System, wie Bediener werden zum Beginn</ModellElementTextzeile>
+      <ModellElementTextzeile>zurückgeroutet.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="50">
+      <ModellElementName>Mittlere Wartezeit der Kunden A</ModellElementName>
+      <ModellElementGroesse h="30" w="133" x="550" y="505"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="51">
+      <ModellElementName>Mittlere Wartezeit der Kunden B</ModellElementName>
+      <ModellElementGroesse h="30" w="133" x="550" y="555"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="52">
+      <ModellElementName>Mittlere Auslastung der Bediener</ModellElementName>
+      <ModellElementGroesse h="30" w="137" x="300" y="600"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">(3-WIP_avg(7;3))/3</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="53">
+      <ModellElementName>Mittlere Anzahl an wartenden Kunden A</ModellElementName>
+      <ModellElementGroesse h="30" w="165" x="300" y="500"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WIP_avg(7;1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="54">
+      <ModellElementName>Mittlere Anzahl an wartenden Kunden B</ModellElementName>
+      <ModellElementGroesse h="30" w="165" x="300" y="550"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WIP_avg(7;2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="55">
+      <ModellElementGroesse h="38" w="272" x="300" y="650"/>
+      <ModellElementTextzeile>Mit 2\times E[I]=60, E[S]=50 und c=3 ergibt sich:</ModellElementTextzeile>
+      <ModellElementTextzeile>\rho=\frac{E[S]}{E[I]\cdot c}=\frac{50}{30\cdot 3}\approx55,5%</ModellElementTextzeile>
+      <ModellElementSchriftgrosse LaTeX="1" Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
+  <KundentypenDaten>
+    <KundenDaten Icon="icon_package" Name="Batch"/>
+    <KundenDaten Icon="folder-blue" Name="Batch A"/>
+    <KundenDaten Icon="folder-red" Name="Batch B"/>
+    <KundenDaten Icon="lorry" Name="Bediener"/>
+    <KundenDaten Icon="lorry" Name="Kunden"/>
+    <KundenDaten Icon="user_red" Name="Kunden B"/>
+  </KundentypenDaten>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
+  <KiritischeStationenSignatur>
+    <SignaturStation Hash="YJOnAzBjw7FaKUWNJaRCbXkwpqKiwx3mCPG6sxEEK2o=" Signatur="Qy5CwULySh0KVsobm2k8xSpxmvSR3Zkxl55boeCjuhYKqe8V/LgWJiSTO7/sEXJPhghnvlkUw6dN08/oyuRp6cnuW0kCzD01dHNGKvx9rIEGVnHfgJ1RXXqtc4A4Xn7QIdrhm++tBxAAWcxcjWLVyBYNxDhaN5Ai0/K/m0/z+XYY9RPSFGAw4rnucoRW3DcRAXlZjE21cTIyHWUxXrx9FQ+F1rFG1e/Qom5dG/gc3nzTxGs8kHznsYTl3EUr9jgoWJjB6grG6nMM+HOTCabsp5CA1ylJwFpjmV4tuzePKiGVpi1FRHwzNmEJ6oqMAMwYZeL066lYAXCMz6xevZRV9qQZl82huhJrdlipH4ICmbYSy9NCIb7bu2aaf21uWzjKWXKaHQOjL/dPkD9wpHpZQ3pc4qxmjLJlMt7fUDHlI62lFSOn1XFRGC4iYAyihNobZhT85YPvBajwKCP4sGQDmx6YjoPYLxeN7ij+X2qtBpuPFYpzAURF3Xs8eXKvGleYAp/j4vyyBAo/jBu6FWubVbDbV8mLtcMceuVBnAaSaONuU4HnMMBO75qhHOySjRuHKyq5DBtHx0+fNWwvj8kOQ5PSwwv/onw72U+7HPTo9uVmdO6Pghk8kukrwdCA2Rrmljs8wXUEPqCocMYHa4XywqmasPo+XgZw/vmm8q/9c44=" id="12"/>
+    <SignaturNutzername Signatur="XkYku6zTX13zuQjd3RvuPJdBkoWYzyy/55FfTzsvCtW5lmYtwtTawDFQCgxZDY9yOOZFfiH9xkTSpi4mFjFhxYyxphr1z/WdS40n6sVzYjfxgYBd3wfoSB0jMMlJTVgBxq6FBUFWwqLbXCYHUMj+3QuHiosT31TLtAS+k3/k/puLnUkCCjHUOsV6Yi8bbqOqJ6YOPeg1xpfk7UTVVl8gINpDiNn7T255dGpokE1W9aahmUv8yeATcqhoDV5iJHce2DHQNwAADR2GScnwSDXtrwIrk1B8ZPcbCpL4vsN+xNyr24EUyvx4RsAvvf3URVsHjVg5O/zosyfkOVTWreFUIDeiUd7befieVhwmJos8xzrSwy/LEop3H6BDW77HrWJWRjlLy8CapIAs5KrmsLjzsR5/4IhvICt57jbIDVEqacOdxCsmsRfoBGxXN37jDajRJPPZ018acu343GsoRHE0TX/SH1vrrLftigXfkO9YQAU7PmO2zvoOtt5Zh8aZmdErTHLjiWp333T5iwxsdFfD2kXca6VUkQYYlWS5MUAN3o2yGnxjw1pRUynG9ucw5kC/waHHLVEMe6WXHNfOUsOsWWZEthHCHiz/4Uif3uBOJk8ucNft9SM1b60YYut74JG/5C0CNhzVQQi6OXaBa5Xwev/Q7qiJKo/ez+bqMXwJOhI=">Alexander Herzog</SignaturNutzername>
+    <SignaturOeffentlicherSchluessel>MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAi9Dd2kqC9Kha2/jfGKX5cWmqSDpgqUW1dBmGaA0LvYb1/mDMPwXbBx3xrmsvaRm3VtgCktftPAEhGqec0isrN1HLefxNyYN0g71OAAYkxvd8wv+QbhZidHMONLabBRAfT+nqlr4r78gGcSlcE1QVQMAxSQAsR8pKdV3QDGuP6qjh3xZRO3TSatAqIfZx5HJZSFVez5KMk6kLY16kw4BTdao2Ubsm7Rh3zF1/u2RP6jrRDprkOgSRZJSJWgmWFGvrOJ8UwTWRElPSoAyrJ5ySCNzEu/Q+j1Uz4BwaOo88D4bCHP3L41fFr0T42m/D8H/k7ngmC3SzKD1HM3D510gK2pG0vmIRQg2SwI8Yg7/upD0MtsZAIBThkweJ1Xgd1AV1deSTWAhOgwUQ+6ULCDA/qy7K8Hm7D+pZ1N1a4jpNxno5nGuhIrU8ztJ2wffQ2mDIgqRHhfhUxcptxtkKyOMFyWPYUGAfNSuu/0caOb06jaEGlL0ZqtlYWKZgiaxQylMeEyF+29t2KghJt9O+sUf33r10maOmbnz/asRfCtyqg9JkH0K4H/5Ojap3tlt8NpmteVnZbQSc7wL+CkWXtdXHIBcFqt/otBp6qQKZgUX27SS16untBS/pUC5bl6eSRok1WjrMSacY29tZ5Yjz0gCMiiussTRaA6ICcC+JbAuzWK0CAwEAAQ==</SignaturOeffentlicherSchluessel>
+  </KiritischeStationenSignatur>
+</Modell>

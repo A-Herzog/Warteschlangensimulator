@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.5.0</ModelVersion>
+  <ModelName>Combined open and closed queueing system</ModelName>
+  <ModelDescription>In the model, clients  of types A and B arrive and are served by 3 operators.
+Temporary batches of one client and one operator are formed.
+Clients and operator move through the system together. At the exit,
+the batches are separated again: the clients leave the system and
+the operators are routed back to the start.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementRectangle id="38">
+      <ModelElementSize h="350" w="500" x="300" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="250"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="2">
+      <ModelElementName>Clients B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="400"/>
+      <ModelElementConnection Element="6" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="3">
+      <ModelElementName>Operators</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+      <ModelElementExpression Count="3" FirstArrivalAtStart="1" TimeBase="Seconds">0</ModelElementExpression>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementVertex id="4">
+      <ModelElementSize h="10" w="10" x="295" y="345"/>
+      <ModelElementConnection Element="5" Type="In"/>
+      <ModelElementConnection Element="6" Type="In"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="5">
+      <ModelElementName>Arrivals (Clients A)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="6">
+      <ModelElementName>Arrivals (Clients B)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementMatch id="7">
+      <ModelElementSize h="50" w="100" x="350" y="250"/>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="42" Type="In"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementBatchMode>Temporary</ModelElementBatchMode>
+      <ModelElementClientType>Batch</ModelElementClientType>
+    </ModelElementMatch>
+    <ModelElementEdge id="9">
+      <ModelElementConnection Element1="4" Element2="41" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementVertex id="8">
+      <ModelElementSize h="10" w="10" x="395" y="145"/>
+      <ModelElementConnection Element="44" Type="In"/>
+      <ModelElementConnection Element="24" Type="In"/>
+      <ModelElementConnection Element="11" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="10">
+      <ModelElementName>Arrivals (Operators)</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="43" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementDecideJS id="12">
+      <ModelElementSize h="50" w="100" x="500" y="250"/>
+      <ModelElementDecideScript Language="Javascript">let batchContent=Simulation.clientBatchTypeNames();
+let exit=2;
+if (batchContent.indexOf("Clients A")&gt;=0) exit=1;
+if (batchContent.indexOf("Clients B")&gt;=0) exit=2;
+Output.print(exit);</ModelElementDecideScript>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+      <ModelElementConnection Element="17" Type="Out"/>
+      <ModelElementConnection Element="34" Type="Out"/>
+    </ModelElementDecideJS>
+    <ModelElementEdge id="13">
+      <ModelElementName>New client type "Batch"</ModelElementName>
+      <ModelElementConnection Element1="7" Element2="12" Type="Edge"/>
+      <ModelElementConnectionLabel>0</ModelElementConnectionLabel>
+    </ModelElementEdge>
+    <ModelElementAssignment id="14">
+      <ModelElementName>Batch A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="200"/>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Element="25" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementAssignment id="15">
+      <ModelElementName>Batch B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="300"/>
+      <ModelElementConnection Element="17" Type="In"/>
+      <ModelElementConnection Element="26" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementEdge id="16">
+      <ModelElementName>Exit 1</ModelElementName>
+      <ModelElementConnection Element1="12" Element2="14" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="17">
+      <ModelElementName>Exit 2</ModelElementName>
+      <ModelElementConnection Element1="12" Element2="15" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementDelay id="18">
+      <ModelElementName>Service A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="900" y="200"/>
+      <ModelElementConnection Element="25" Type="In"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (50)</ModelElementDistribution>
+    </ModelElementDelay>
+    <ModelElementDelay id="19">
+      <ModelElementName>Service B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="900" y="300"/>
+      <ModelElementConnection Element="26" Type="In"/>
+      <ModelElementConnection Element="28" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (50)</ModelElementDistribution>
+    </ModelElementDelay>
+    <ModelElementSeparate id="20">
+      <ModelElementSize h="50" w="100" x="1150" y="250"/>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection Element="28" Type="In"/>
+      <ModelElementConnection Element="29" Type="Out"/>
+    </ModelElementSeparate>
+    <ModelElementDecide id="21">
+      <ModelElementSize h="50" w="100" x="1300" y="250"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="29" Type="In"/>
+      <ModelElementConnection ClientType="Operators" Element="23" Type="Out"/>
+      <ModelElementConnection Element="31" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementVertex id="22">
+      <ModelElementSize h="10" w="10" x="1345" y="145"/>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="24" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="23">
+      <ModelElementName>Operators</ModelElementName>
+      <ModelElementConnection Element1="21" Element2="22" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="24">
+      <ModelElementConnection Element1="22" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="25">
+      <ModelElementName>New client type: Batch A</ModelElementName>
+      <ModelElementConnection Element1="14" Element2="18" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="26">
+      <ModelElementName>New client type: Batch B</ModelElementName>
+      <ModelElementConnection Element1="15" Element2="19" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="27">
+      <ModelElementConnection Element1="18" Element2="20" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="28">
+      <ModelElementConnection Element1="19" Element2="20" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="29">
+      <ModelElementConnection Element1="20" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="30">
+      <ModelElementSize h="50" w="100" x="1500" y="250"/>
+      <ModelElementConnection Element="31" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="31">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="21" Element2="30" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="32">
+      <ModelElementSize h="48" w="204" x="50" y="165"/>
+      <ModelElementTextLine>Three operators are generated right at</ModelElementTextLine>
+      <ModelElementTextLine>the beginning, which circulate in the</ModelElementTextLine>
+      <ModelElementTextLine>closed part of the model.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementDispose id="33">
+      <ModelElementName>Error</ModelElementName>
+      <ModelElementSize h="50" w="100" x="500" y="355"/>
+      <ModelElementDisposeStopp>1</ModelElementDisposeStopp>
+      <ModelElementConnection Element="34" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="34">
+      <ModelElementName>Exit 3</ModelElementName>
+      <ModelElementConnection Element1="12" Element2="33" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="37">
+      <ModelElementSize h="23" w="398" x="50" y="50"/>
+      <ModelElementTextLine>Combined open and closed queueing system</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="39">
+      <ModelElementSize h="21" w="238" x="305" y="105"/>
+      <ModelElementTextLine>Matching clients and operators</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="40">
+      <ModelElementSize h="64" w="159" x="50" y="470"/>
+      <ModelElementTextLine>The two sources continuously</ModelElementTextLine>
+      <ModelElementTextLine>generate clients who pass</ModelElementTextLine>
+      <ModelElementTextLine>through the system and then</ModelElementTextLine>
+      <ModelElementTextLine>leave it.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementVertex id="43">
+      <ModelElementSize h="10" w="10" x="295" y="145"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="44" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="44">
+      <ModelElementConnection Element1="43" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="11">
+      <ModelElementConnection Element1="8" Element2="7" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementVertex id="41">
+      <ModelElementSize h="10" w="10" x="395" y="345"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="42" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="42">
+      <ModelElementConnection Element1="41" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementRectangle id="45">
+      <ModelElementSize h="350" w="200" x="850" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="46">
+      <ModelElementSize h="21" w="119" x="855" y="105"/>
+      <ModelElementTextLine>Process station</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="47">
+      <ModelElementSize h="350" w="350" x="1100" y="100"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="48">
+      <ModelElementSize h="42" w="272" x="1105" y="105"/>
+      <ModelElementTextLine>System exit:</ModelElementTextLine>
+      <ModelElementTextLine>Clients and operators are separated</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="49">
+      <ModelElementSize h="95" w="471" x="750" y="500"/>
+      <ModelElementTextLine>In the model, clients  of types A and B arrive and are served by 3 operators.</ModelElementTextLine>
+      <ModelElementTextLine>Temporary batches of one client and one operator are formed.</ModelElementTextLine>
+      <ModelElementTextLine>Clients and operator move through the system together. At the exit,</ModelElementTextLine>
+      <ModelElementTextLine>the batches are separated again: the clients leave the system and</ModelElementTextLine>
+      <ModelElementTextLine>the operators are routed back to the start.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="50">
+      <ModelElementName>Average waiting time of the clients A</ModelElementName>
+      <ModelElementSize h="30" w="151" x="550" y="505"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="51">
+      <ModelElementName>Average waiting time of the clients B</ModelElementName>
+      <ModelElementSize h="30" w="151" x="550" y="555"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="52">
+      <ModelElementName>Average utilization of the operators</ModelElementName>
+      <ModelElementSize h="30" w="147" x="300" y="600"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">(3-WIP_avg(7;3))/3</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="53">
+      <ModelElementName>Average number of waiting clients A</ModelElementName>
+      <ModelElementSize h="30" w="150" x="300" y="500"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WIP_avg(7;1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="54">
+      <ModelElementName>Average number of waiting clients B</ModelElementName>
+      <ModelElementSize h="30" w="150" x="300" y="550"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WIP_avg(7;2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="55">
+      <ModelElementSize h="38" w="261" x="300" y="650"/>
+      <ModelElementTextLine>With 2\times E[I]=60, E[S]=50 and c=3 follows:</ModelElementTextLine>
+      <ModelElementTextLine>\rho=\frac{E[S]}{E[I]\cdot c}=\frac{50}{30\cdot 3}\approx55.5%</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random"/>
+  <ClientTypeData>
+    <ClientData Icon="icon_package" Name="Batch"/>
+    <ClientData Icon="folder-blue" Name="Batch A"/>
+    <ClientData Icon="folder-red" Name="Batch B"/>
+    <ClientData Icon="lorry" Name="Bediener"/>
+    <ClientData Icon="user_red" Name="Clients B"/>
+    <ClientData Icon="lorry" Name="Kunden"/>
+    <ClientData Icon="user_red" Name="Kunden B"/>
+    <ClientData Icon="lorry" Name="Operators"/>
+  </ClientTypeData>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+  <CriticalStationsSignature>
+    <SignatureStation Hash="EH8/gDgpPWFOx9GIt++UDw5yys8KYSL8FH6v3DO25y8=" Signature="b+k31nesssbXdvnHGmLW0EWZl59a+MwpR2yELqTgZC90+7pGMBYbx+78+vZ+0vLjXaaFt9DA48J/3MiU+qeBSPj5x8tnwtyv6g3fQlpDdfJq67eMGs0fHgET9tHz9PeMRaXgjqQA8MlBlnhjQsNk/8GMmf026AfmfF+mjytM1ZI/RADsh+2vXTmWlw9NuPfI4K5FyF75G0Snv3Q07m4ZTbd3FdR7Z4yRaer2g1EqlcaYhLJWCosrMLYkOr61Pbi2pyH81eeYlpZQQi1cwHBByjCn8CZPnkLftaJIWQgcMUSkmz//n/Xoq83fryog2PUYzxwKytEAA7iHJpriNJG6xrC+ZurbI85J2Z8Dq+Negh8r39Kt24ENjP+ueKyG+hpr36Gj0lKcO5nCx+WE0JU5rP8pQdmyrc9ui62IFWGHL9u19J2eVJNKusYnybSQwfNmQRe/rlWtQqNghoE7Xhr8/CAF+cV3yXWF3ZFKndQvW/5gWrOzkSIUMVdwVa0qLk9eii10KF0hxcZS7Zsb1vQAUv5ugmVZLlQ4bbjVL3nLdG9oxWhzOTGhGZFhYuJ7NXAg4mpRigKjKmOYF4PN+R0gxoCumYgvmsB2SA+Evso32C9Ka5IgiZEFnS5P1pZtOC9wemOPd7Nu3kplm9WBrLptpU5irHiclW4yujy2xbNVbac=" id="12"/>
+    <SignatureUserName Signature="XkYku6zTX13zuQjd3RvuPJdBkoWYzyy/55FfTzsvCtW5lmYtwtTawDFQCgxZDY9yOOZFfiH9xkTSpi4mFjFhxYyxphr1z/WdS40n6sVzYjfxgYBd3wfoSB0jMMlJTVgBxq6FBUFWwqLbXCYHUMj+3QuHiosT31TLtAS+k3/k/puLnUkCCjHUOsV6Yi8bbqOqJ6YOPeg1xpfk7UTVVl8gINpDiNn7T255dGpokE1W9aahmUv8yeATcqhoDV5iJHce2DHQNwAADR2GScnwSDXtrwIrk1B8ZPcbCpL4vsN+xNyr24EUyvx4RsAvvf3URVsHjVg5O/zosyfkOVTWreFUIDeiUd7befieVhwmJos8xzrSwy/LEop3H6BDW77HrWJWRjlLy8CapIAs5KrmsLjzsR5/4IhvICt57jbIDVEqacOdxCsmsRfoBGxXN37jDajRJPPZ018acu343GsoRHE0TX/SH1vrrLftigXfkO9YQAU7PmO2zvoOtt5Zh8aZmdErTHLjiWp333T5iwxsdFfD2kXca6VUkQYYlWS5MUAN3o2yGnxjw1pRUynG9ucw5kC/waHHLVEMe6WXHNfOUsOsWWZEthHCHiz/4Uif3uBOJk8ucNft9SM1b60YYut74JG/5C0CNhzVQQi6OXaBa5Xwev/Q7qiJKo/ez+bqMXwJOhI=">Alexander Herzog</SignatureUserName>
+    <SignaturePublicKey>MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAi9Dd2kqC9Kha2/jfGKX5cWmqSDpgqUW1dBmGaA0LvYb1/mDMPwXbBx3xrmsvaRm3VtgCktftPAEhGqec0isrN1HLefxNyYN0g71OAAYkxvd8wv+QbhZidHMONLabBRAfT+nqlr4r78gGcSlcE1QVQMAxSQAsR8pKdV3QDGuP6qjh3xZRO3TSatAqIfZx5HJZSFVez5KMk6kLY16kw4BTdao2Ubsm7Rh3zF1/u2RP6jrRDprkOgSRZJSJWgmWFGvrOJ8UwTWRElPSoAyrJ5ySCNzEu/Q+j1Uz4BwaOo88D4bCHP3L41fFr0T42m/D8H/k7ngmC3SzKD1HM3D510gK2pG0vmIRQg2SwI8Yg7/upD0MtsZAIBThkweJ1Xgd1AV1deSTWAhOgwUQ+6ULCDA/qy7K8Hm7D+pZ1N1a4jpNxno5nGuhIrU8ztJ2wffQ2mDIgqRHhfhUxcptxtkKyOMFyWPYUGAfNSuu/0caOb06jaEGlL0ZqtlYWKZgiaxQylMeEyF+29t2KghJt9O+sUf33r10maOmbnz/asRfCtyqg9JkH0K4H/5Ojap3tlt8NpmteVnZbQSc7wL+CkWXtdXHIBcFqt/otBp6qQKZgUX27SS16untBS/pUC5bl6eSRok1WjrMSacY29tZ5Yjz0gCMiiussTRaA6ICcC+JbAuzWK0CAwEAAQ==</SignaturePublicKey>
+  </CriticalStationsSignature>
+</Model>

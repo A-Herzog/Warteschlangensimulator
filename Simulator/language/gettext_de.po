@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-30 22:29+0100\n"
+"POT-Creation-Date: 2024-02-02 18:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5283,6 +5283,9 @@ msgstr "Batch-Ankünfte und Batch-Bedienungen"
 
 msgid "Examples.Batch"
 msgstr "Temporäre Batche"
+
+msgid "Examples.BatchMultiClientType"
+msgstr "Kombiniertes offenes und geschlossenes Warteschlangensystem"
 
 msgid "Examples.BatchTransport"
 msgstr "Einfluss der Batch-Größe der Transporte auf die Systemleistung"

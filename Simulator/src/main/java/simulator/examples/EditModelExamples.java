@@ -298,6 +298,7 @@ public class EditModelExamples {
 		addExample(Language.trAll("Examples.ClosedQueueingNetwork"),"ClosedQueueingNetwork",ExampleType.TYPE_PROPERTIES);
 		addExample(Language.trAll("Examples.WorkerWakeUp"),"WorkerWakeUp",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.SCHEDULES);
 		addExample(Language.trAll("Examples.WaitingTimeTolerancesDistribution"),"WaitingTimeTolerancesDistribution",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.BatchMultiClientType"),"BatchMultiClientType",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.BATCH);
 
 		/* Beispiele zum Vergleich verschiedener Steuerungsstrategien */
 		addExample(Language.trAll("Examples.SystemDesign"),"Vergleiche2",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
