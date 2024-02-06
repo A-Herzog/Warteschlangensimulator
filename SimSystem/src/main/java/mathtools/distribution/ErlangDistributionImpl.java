@@ -42,6 +42,6 @@ public class ErlangDistributionImpl extends GammaDistribution {
 	 * @throws NotStrictlyPositiveException	Wird ausgelöst, wenn der <code>shape</code>- oder der <code>scale</code>-Parameter keinen positiven Wert enthält
 	 */
 	public ErlangDistributionImpl(double shape, double scale) throws NotStrictlyPositiveException {
-		super(null,shape,scale,GammaDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
+		super(null,shape,Math.max(scale,0.00001),GammaDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 	}
 }

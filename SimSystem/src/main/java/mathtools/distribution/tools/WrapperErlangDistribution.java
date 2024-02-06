@@ -75,6 +75,7 @@ public class WrapperErlangDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	public AbstractRealDistribution getDistributionForFit(double mean, double sd, final double min, final double max) {
+		if (sd<=0.0) return null;
 		final double d2=sd*sd/Math.max(mean,0.000001);
 		final double d1=mean/Math.max(d2,0.000001);
 		return new ErlangDistributionImpl(Math.round(d1),d2);
