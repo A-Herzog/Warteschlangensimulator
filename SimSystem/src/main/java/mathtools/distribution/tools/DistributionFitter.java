@@ -15,10 +15,13 @@
  */
 package mathtools.distribution.tools;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ChiSquaredDistribution;
@@ -75,6 +78,11 @@ public class DistributionFitter extends DistributionFitterBase {
 	 * Bezeichner für "Abweichung"
 	 */
 	public static String FitError="Abweichung";
+
+	/**
+	 * Infotext zu nicht geprüften Verteilungen
+	 */
+	public static String NotFit="Keine Anpassung an die aktuellen Messwerte möglich.";
 
 	/**
 	 * Angabe der quadratischen Abweichungen der Verteilungen
@@ -142,8 +150,24 @@ public class DistributionFitter extends DistributionFitterBase {
 		outputPlain.append(String.format(ComparedDistributions,getFitDistributionCount())+"\n");
 		outputHTML.append("<h3>"+String.format(ComparedDistributions,getFitDistributionCount())+"</h3>\n");
 
+		final Set<Class<? extends AbstractDistributionWrapper>> candidates=new HashSet<>(getFitDistributions());
 		for (String name: DistributionTools.getDistributionNames()) {
-			calcMatch(DistributionTools.getWrapper(name),mean,sd,min,max);
+			final AbstractDistributionWrapper wrapper=DistributionTools.getWrapper(name);
+			if (calcMatch(wrapper,mean,sd,min,max)) {
+				candidates.remove(wrapper.getClass());
+			}
+		}
+		for (Class<? extends AbstractDistributionWrapper> wrapperCls: candidates) {
+			try {
+				final AbstractDistributionWrapper wrapper=wrapperCls.getDeclaredConstructor().newInstance();
+				final String name=wrapper.getName();
+				outputPlain.append(name);
+				outputPlain.append("\n");
+				outputPlain.append(NotFit);
+				outputPlain.append("\n");
+				outputHTML.append("<u>"+name+"</u><br>\n");
+				outputHTML.append(NotFit+"<br>");
+			} catch (InstantiationException|IllegalAccessException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException e) {}
 		}
 
 		outputPlain.append("\n");
@@ -365,7 +389,9 @@ public class DistributionFitter extends DistributionFitterBase {
 		}
 
 		/* Qualität des Fits speichern */
-		fit.put(DistributionTools.cloneDistribution(dist),diff);
+		if (!Double.isNaN(diff)) {
+			fit.put(DistributionTools.cloneDistribution(dist),diff);
+		}
 
 		/* Ergebnis in Liste aufnehmen */
 		addResultToOutputList(dist,diff);
@@ -379,11 +405,17 @@ public class DistributionFitter extends DistributionFitterBase {
 	 * @param max	Maximal aufgetretener Messwert
 	 * @param mean	Einzustellender Erwartungswert
 	 * @param sd	Einzustellende Standardabweichung
+	 * @return	Gibt an, ob für die gegebene Verteilung eine Anpassung vorgenommen werden konnte.
 	 */
-	private void calcMatch(final AbstractDistributionWrapper wrapper, final double mean, final double sd, final double min, final double max) {
-		if (wrapper==null) return;
+	private boolean calcMatch(final AbstractDistributionWrapper wrapper, final double mean, final double sd, final double min, final double max) {
+		if (wrapper==null) return false;
 		final AbstractRealDistribution fit=wrapper.getDistributionForFit(mean,sd,min,max);
-		if (fit!=null) calcMatch(fit);
+		if (fit!=null) {
+			calcMatch(fit);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**

@@ -73,6 +73,20 @@ public class WrapperPowerDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	public AbstractRealDistribution getDistributionForFit(double mean, double sd, final double min, final double max) {
+		if (Math.abs(max-min)<0.00001) return null;
+		final double a=min;
+		final double b=max;
+		/*
+		E = a+(b-a)*c/(c+1) = a+(b-a)*(c+1-1)/(c+1) = a+(b-a)*[1-1/(c+1)]
+		1-(E-a)/(b-a) = 1/(c+1)
+		c = 1/[1-(E-a)/(b-a)] - 1
+		 */
+		final double c=1/(1-(mean-a)/(b-a))-1;
+		return new PowerDistributionImpl(a,b,c);
+	}
+
+	@Override
 	protected AbstractRealDistribution setMeanInt(AbstractRealDistribution distribution, double mean) {
 		return null;
 	}

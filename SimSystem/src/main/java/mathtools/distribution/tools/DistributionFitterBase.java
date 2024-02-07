@@ -15,6 +15,9 @@
  */
 package mathtools.distribution.tools;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
@@ -241,22 +244,37 @@ public abstract class DistributionFitterBase {
 	protected abstract boolean process(final DataDistributionImpl dist);
 
 	/**
-	 * Anzahl an Verteilungen, die beim Fitting geprüft werden
+	 * Verteilungen, die beim Fitting geprüft werden
+	 * @see #getFitDistributions()
 	 * @see #getFitDistributionCount()
 	 */
-	private static int fitDistributionCount=0;
+	private final static Set<Class<? extends AbstractDistributionWrapper>> fitDistributions=new HashSet<>();
+
+	/**
+	 * Liefert die Menge der Verteilungen, die beim Fitting geprüft werden.
+	 * @return	Menge der Verteilungen, die beim Fitting geprüft werden
+	 */
+	public static Set<Class<? extends AbstractDistributionWrapper>> getFitDistributions() {
+		if (fitDistributions.size()==0) {
+			for (String name: DistributionTools.getDistributionNames()) {
+				final AbstractDistributionWrapper wrapper=DistributionTools.getWrapper(name);
+				final AbstractRealDistribution fit1=wrapper.getDistributionForFit(100,50,10,200);
+				final AbstractRealDistribution fit2=wrapper.getDistributionForFit(100,0,10,200);
+				final AbstractRealDistribution fit3=wrapper.getDistributionForFit(1,0.5,10,200);
+				if (fit1!=null || fit2!=null || fit3!=null) {
+					fitDistributions.add(wrapper.getClass());
+				}
+			}
+		}
+		return fitDistributions;
+	}
 
 	/**
 	 * Liefert die Anzahl an Verteilungen, die beim Fitting geprüft werden.
 	 * @return	Anzahl an Verteilungen, die beim Fitting geprüft werden
 	 */
 	public static int getFitDistributionCount() {
-		if (fitDistributionCount==0) for (String name: DistributionTools.getDistributionNames()) {
-			final AbstractDistributionWrapper wrapper=DistributionTools.getWrapper(name);
-			final AbstractRealDistribution fit=wrapper.getDistributionForFit(100,50,10,200);
-			if (fit!=null) fitDistributionCount++;
-		}
-		return fitDistributionCount;
+		return getFitDistributions().size();
 	}
 
 	/**

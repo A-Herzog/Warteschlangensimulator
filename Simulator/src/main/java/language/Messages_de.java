@@ -6162,8 +6162,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13837] = "Zuweisung";
     t[13842] = "Simulation.Element.TeleportDecideByKeyValue.Name";
     t[13843] = "Verzweigen und Teleportieren (Texteigenschaft)";
-    t[13844] = "Surface.Match.Dialog.TransferData.Mode.Sum";
-    t[13845] = "Summe der Einzelwerte";
+    t[13844] = "DistributionFitter.NotFit";
+    t[13845] = "Keine Anpassung an die aktuellen Messwerte m\u00f6glich.";
     t[13846] = "Surface.TeleportSourceMulti.Dialog.Title";
     t[13847] = "Duplizieren und Teleportieren bearbeiten";
     t[13848] = "Surface.Match.XML.TransferTimes";
@@ -14712,6 +14712,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32805] = "F\u00fcr alle einstellen...";
     t[32808] = "Surface.AnimationImage.Dialog.Images.Expression";
     t[32809] = "Ausdruck";
+    t[32810] = "Surface.Match.Dialog.TransferData.Mode.Sum";
+    t[32811] = "Summe der Einzelwerte";
     t[32812] = "Surface.SourceDDE.Tooltip";
     t[32813] = "Quelle, die Ank\u00fcnfte gem\u00e4\u00df einer Excel-DDE-Verbindung generiert.";
     t[32814] = "Surface.PopupMenu.QuickFix.SourceRecord.ArrivalStart.Single";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35771] = "Kosten durch Bedienzeiten";
     t[35774] = "Editor.Dialog.Tab.InitialVariableValues.Map";
     t[35775] = "Startwerte f\u00fcr globale Zuordnung";
-    t[35780] = "Statistics.ErlangCompare.rho.actual";
-    t[35781] = "real";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[35780] = "Statistics.ErlangCompare.rho.actual";
+    t[35781] = "real";
     t[35782] = "Editor.AddEdge.PlacePoint1";
     t[35783] = "Ausgangselement f\u00fcr die Verkn\u00fcpfung anklicken.";
     t[35784] = "Editor.AddEdge.PlacePoint2";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40163] = "ModellElementBedienerPrioritaet";
     t[40166] = "Animation.Icon.Taxi";
     t[40167] = "Taxi";
-    t[40172] = "Help.Search.Type.Page";
-    t[40173] = "Seite";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40172] = "Help.Search.Type.Page";
+    t[40173] = "Seite";
     t[40174] = "ProcessClientOutputTable.ColumnHeader.TransferTimeCosts";
     t[40175] = "Kosten f\u00fcr Transportzeit";
     t[40176] = "QuickAccess.Help.Page";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44503] = "F\u00fcgt das Ergebnis eines Rechenausdrucks ein.";
     t[44512] = "SettingsDialog.AnimationWarmUp.Normal";
     t[44513] = "Immer wie angegeben durchf\u00fchren";
-    t[44522] = "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberRangeInfo";
-    t[44523] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Fatigue-Live-Verteilung mit Lage, Skalierung und Form gem\u00e4\u00df den Parametern drei bis f\u00fcnf.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[44522] = "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberRangeInfo";
+    t[44523] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Fatigue-Live-Verteilung mit Lage, Skalierung und Form gem\u00e4\u00df den Parametern drei bis f\u00fcnf.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[44524] = "NewClientTypeEdit.InfoShort";
     t[44525] = "Kundentyp beibehalten";
     t[44530] = "Statistic.Viewer.SaveImage.Size.Prompt";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48839] = "<p>Berechnet den Wert der Cotangens-hyperbolicus-Funktion des als Parameter \u00fcbergebenen Wertes.</p><p>Beispiel: <tt>coth(1000)</tt> liefert 1.</p>";
     t[48844] = "Main.Menu.View.Statistics.HeatMap.FlowFactor.Mnemonic";
     t[48845] = "F";
-    t[48846] = "Examples.KeyWords.All";
-    t[48847] = "Alle";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[48846] = "Examples.KeyWords.All";
+    t[48847] = "Alle";
     t[48852] = "Surface.Rectangle.Tooltip";
     t[48853] = "Rechteck zur optischen Gestaltung, ohne weitere Funktion f\u00fcr das Simulationsmodell.";
     t[48856] = "ParameterCompare.Settings.Model.Title";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53313] = "Thread-Anzahl Kalibrierung gestartet.";
     t[53314] = "Surface.InputJS.XML.EofMode";
     t[53315] = "Dateiende";
-    t[53318] = "ParameterCompare.Settings.Input.Mode.XML.Button";
-    t[53319] = "Anweisung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[53318] = "ParameterCompare.Settings.Input.Mode.XML.Button";
+    t[53319] = "Anweisung";
     t[53320] = "Statistics.XML.Element.ClientsInSystem";
     t[53321] = "StatistikKundenImSystem";
     t[53326] = "Surface.AnimationRecord.Dialog.Data.SelectRecord.ID";

@@ -263,6 +263,7 @@ public class LanguageStaticLoader {
 		DistributionFitter.PValueAndersonDarling=Language.tr("DistributionFitter.PValueAndersonDarling");
 		DistributionFitter.BestFitFor=Language.tr("DistributionFitter.BestFitFor");
 		DistributionFitter.FitError=Language.tr("DistributionFitter.FitError");
+		DistributionFitter.NotFit=Language.tr("DistributionFitter.NotFit");
 
 		/* DistributionFitterMultiModal */
 		DistributionFitterMultiModal.usedDistribution=Language.tr("DistributionFitterMultiModal.UsedDistribution");

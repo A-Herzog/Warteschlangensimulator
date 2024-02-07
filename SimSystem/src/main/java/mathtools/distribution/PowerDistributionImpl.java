@@ -90,7 +90,7 @@ public final class PowerDistributionImpl extends AbstractRealDistribution implem
 
 	@Override
 	public double density(double x) {
-		if (x<a || x>b) return 0;
+		if (x<=a || x>b) return 0;
 		return c*Math.pow(x-a,c-1)/denominator; /* FastMath.pow(...) würde hier new double[2] durchführen! */
 	}
 

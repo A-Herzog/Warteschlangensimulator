@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-02 18:23+0100\n"
+"POT-Creation-Date: 2024-02-04 13:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3486,6 +3486,9 @@ msgstr "Mittelwert der Messwerte"
 
 msgid "DistributionFitter.MeanSquares"
 msgstr "Mittlere quadratische Abweichung"
+
+msgid "DistributionFitter.NotFit"
+msgstr "Keine Anpassung an die aktuellen Messwerte möglich."
 
 msgid "DistributionFitter.PValue"
 msgstr "KS-Anpassungstest p-Wert"

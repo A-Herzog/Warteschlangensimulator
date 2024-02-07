@@ -6162,8 +6162,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13837] = "Assignment";
     t[13842] = "Simulation.Element.TeleportDecideByKeyValue.Name";
     t[13843] = "Decide and teleport by string property";
-    t[13844] = "Surface.Match.Dialog.TransferData.Mode.Sum";
-    t[13845] = "Sum of the invividual values";
+    t[13844] = "DistributionFitter.NotFit";
+    t[13845] = "No fit to the current measured values possible.";
     t[13846] = "Surface.TeleportSourceMulti.Dialog.Title";
     t[13847] = "Edit duplicate and teleport";
     t[13848] = "Surface.Match.XML.TransferTimes";
@@ -14712,6 +14712,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32805] = "Set for all...";
     t[32808] = "Surface.AnimationImage.Dialog.Images.Expression";
     t[32809] = "Expression";
+    t[32810] = "Surface.Match.Dialog.TransferData.Mode.Sum";
+    t[32811] = "Sum of the invividual values";
     t[32812] = "Surface.SourceDDE.Tooltip";
     t[32813] = "Source that generates arrivals based on a Excel DDE connection.";
     t[32814] = "Surface.PopupMenu.QuickFix.SourceRecord.ArrivalStart.Single";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35771] = "Costs by process times";
     t[35774] = "Editor.Dialog.Tab.InitialVariableValues.Map";
     t[35775] = "Initial values for global map";
-    t[35780] = "Statistics.ErlangCompare.rho.actual";
-    t[35781] = "actual";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[35780] = "Statistics.ErlangCompare.rho.actual";
+    t[35781] = "actual";
     t[35782] = "Editor.AddEdge.PlacePoint1";
     t[35783] = "Click on the first element to be connected by the edge.";
     t[35784] = "Editor.AddEdge.PlacePoint2";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[40163] = "ModelElementOperatorsPriority";
     t[40166] = "Animation.Icon.Taxi";
     t[40167] = "Taxi";
-    t[40172] = "Help.Search.Type.Page";
-    t[40173] = "Page";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[40172] = "Help.Search.Type.Page";
+    t[40173] = "Page";
     t[40174] = "ProcessClientOutputTable.ColumnHeader.TransferTimeCosts";
     t[40175] = "Transfer time costs";
     t[40176] = "QuickAccess.Help.Page";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44503] = "Inserts the result of a calculation expression.";
     t[44512] = "SettingsDialog.AnimationWarmUp.Normal";
     t[44513] = "Always use defined warm-up phase";
-    t[44522] = "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberRangeInfo";
-    t[44523] = "<p>Generates a random number according to the Fatigue life distribution with location parameter, scale parameter and form parameter as third to fiveth parameter.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[44522] = "ExpressionBuilder.ProbabilityDistributions.FatigueLifeDistribution.RandomNumberRangeInfo";
+    t[44523] = "<p>Generates a random number according to the Fatigue life distribution with location parameter, scale parameter and form parameter as third to fiveth parameter.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
     t[44524] = "NewClientTypeEdit.InfoShort";
     t[44525] = "Keep current type";
     t[44530] = "Statistic.Viewer.SaveImage.Size.Prompt";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48839] = "<p>Calculates the value of the cotangent hyperbolicus function with the value passed as parameter.</p> <p> Example: <tt>coth(1000)</tt> returns 1.</p>";
     t[48844] = "Main.Menu.View.Statistics.HeatMap.FlowFactor.Mnemonic";
     t[48845] = "F";
-    t[48846] = "Examples.KeyWords.All";
-    t[48847] = "All";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[48846] = "Examples.KeyWords.All";
+    t[48847] = "All";
     t[48852] = "Surface.Rectangle.Tooltip";
     t[48853] = "Rectangle for optical design, without further function for the simulation model.";
     t[48856] = "ParameterCompare.Settings.Model.Title";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53313] = "Thread number calibation started.";
     t[53314] = "Surface.InputJS.XML.EofMode";
     t[53315] = "EndOfFile";
-    t[53318] = "ParameterCompare.Settings.Input.Mode.XML.Button";
-    t[53319] = "Select XML tag";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[53318] = "ParameterCompare.Settings.Input.Mode.XML.Button";
+    t[53319] = "Select XML tag";
     t[53320] = "Statistics.XML.Element.ClientsInSystem";
     t[53321] = "StatisticsClientsInSystem";
     t[53326] = "Surface.AnimationRecord.Dialog.Data.SelectRecord.ID";
