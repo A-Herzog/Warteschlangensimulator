@@ -357,6 +357,10 @@ public abstract class HelpBase {
 				public URL getPageURL(String res) {
 					return HelpBase.this.getPageURL(res);
 				}
+				@Override
+				protected void preprocessPage(final Element root) {
+					HelpBase.this.preprocessPage(root);
+				}
 			};
 			lastPanel.setProcessSpecialLink(()->processSpecialLink(lastPanel.getSpecialLink(),modalHelp));
 		}

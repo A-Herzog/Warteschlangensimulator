@@ -31,12 +31,17 @@ import java.net.URL;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+import javax.swing.text.Document;
+import javax.swing.text.Element;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.StyleSheet;
 
 import language.Language;
 import systemtools.help.HelpBase;
 import ui.EditorPanel;
 import ui.MainPanel;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Diese Klasse stellt neben dem Hauptfenster ein schmales vertikales Fenster dar
@@ -207,6 +212,26 @@ public class AutomaticHelpWindow extends JFrame {
 			if (parent==null) return;
 			if (helpPanel!=null) parent.remove(helpPanel);
 			parent.add(helpPanel=getHTMLPanel(page,false),BorderLayout.CENTER);
+		}
+
+		@Override
+		protected void preprocessPage(final Element root) {
+			final Document doc=root.getDocument();
+			if (!(doc instanceof HTMLDocument)) return;
+			final HTMLDocument html=(HTMLDocument)doc;
+			final StyleSheet styleSheet=html.getStyleSheet();
+
+			/* Hinweise auf Buchkapitel ausblenden, wenn Buch nicht verfügbar ist. */
+			if (!BookData.getInstance().isDataAvailable()) {
+				styleSheet.removeStyle(".bookinfo");
+				styleSheet.removeStyle(".bookinfosmall");
+				styleSheet.addRule(".bookinfo {color: #F0F0FF; font-size: 1%;} .bookinfosmall {color: #F0F0FF; font-size: 1%;} .bookinfo a {color: #F0F0FF; font-size: 1%;} .bookinfosmall a {color: #F0F0FF; font-size: 1%;}");
+			}
+
+			/* Anpassungen für FlatLaF-Dark-Mode */
+			if (FlatLaFHelper.isDark()) {
+				styleSheet.addRule("body {color: #c0c0c0;} a {color: #8080FF;} a.box {background-color: #505050;} div.menu, div.model, div.plaininfo {background-color: #404040;} .bookinfo {background-color: #505050;} .bookinfosmall {background-color: #505050;}");
+			}
 		}
 	}
 }

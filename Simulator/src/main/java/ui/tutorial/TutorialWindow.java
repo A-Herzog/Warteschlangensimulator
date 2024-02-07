@@ -32,12 +32,18 @@ import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
+import javax.swing.text.Document;
+import javax.swing.text.Element;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.StyleSheet;
 
 import language.Language;
 import systemtools.help.HTMLBrowser;
 import systemtools.help.HTMLBrowserPanel;
 import systemtools.help.HelpBase;
 import ui.MainPanel;
+import ui.help.BookData;
+import ui.tools.FlatLaFHelper;
 import ui.tutorial.pages.PageAddDispose;
 import ui.tutorial.pages.PageAddProcess;
 import ui.tutorial.pages.PageAddSource;
@@ -70,9 +76,9 @@ public class TutorialWindow extends JFrame {
 	private final MainPanel mainPanel;
 	/** Fenster in dem sich das {@link #mainPanel} befindet */
 	private final JFrame mainFrame;
-	/** Position des Hauptfesnters vor dem Aufruf des Tutorial-Fensters */
+	/** Position des Hauptfensters vor dem Aufruf des Tutorial-Fensters */
 	private Point saveMainFrameLocation;
-	/** Größe des Hauptfesnters vor dem Aufruf des Tutorial-Fensters */
+	/** Größe des Hauptfensters vor dem Aufruf des Tutorial-Fensters */
 	private Dimension saveMainFrameSize;
 
 	/** Aktuelle Sprache */
@@ -148,7 +154,7 @@ public class TutorialWindow extends JFrame {
 		getContentPane().add(browser.asScrollableJComponent(),BorderLayout.CENTER);
 		loadPage(pages.get(0).getPageName());
 
-		browser.init(()->loadPage(browser.getLastClickedURLDescription()),null,null);
+		browser.init(()->loadPage(browser.getLastClickedURLDescription()),element->preprocessPage(element),null);
 
 		/* Prüfen, ob Bedingung für nächste Seite erfüllt ist */
 		timer=new Timer("TutorialModelSupervisor");
@@ -229,5 +235,28 @@ public class TutorialWindow extends JFrame {
 		TutorialPage current=null;
 		for (TutorialPage page: pages) if (page.getPageName().equalsIgnoreCase(name)) {current=page; break;}
 		if (current!=null) page=current;
+	}
+
+	/**
+	 * Vorverarbeitung der geladenen Seite
+	 * @param root	Wurzelelement der Seite
+	 */
+	private void preprocessPage(final Element root) {
+		final Document doc=root.getDocument();
+		if (!(doc instanceof HTMLDocument)) return;
+		final HTMLDocument html=(HTMLDocument)doc;
+		final StyleSheet styleSheet=html.getStyleSheet();
+
+		/* Hinweise auf Buchkapitel ausblenden, wenn Buch nicht verfügbar ist. */
+		if (!BookData.getInstance().isDataAvailable()) {
+			styleSheet.removeStyle(".bookinfo");
+			styleSheet.removeStyle(".bookinfosmall");
+			styleSheet.addRule(".bookinfo {color: #F0F0FF; font-size: 1%;} .bookinfosmall {color: #F0F0FF; font-size: 1%;} .bookinfo a {color: #F0F0FF; font-size: 1%;} .bookinfosmall a {color: #F0F0FF; font-size: 1%;}");
+		}
+
+		/* Anpassungen für FlatLaF-Dark-Mode */
+		if (FlatLaFHelper.isDark()) {
+			styleSheet.addRule("body {color: #c0c0c0;} a {color: #8080FF;} a.box {background-color: #505050;} div.menu, div.model, div.plaininfo {background-color: #404040;} .bookinfo {background-color: #505050;} .bookinfosmall {background-color: #505050;}");
+		}
 	}
 }

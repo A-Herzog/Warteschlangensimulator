@@ -1,6 +1,5 @@
 body {
   font-family: Verdana, Lucida, sans-serif; 
-  background-color: #F0F0FF;
   margin: 0;
   padding: 0px 5px;
   font-size: large;
@@ -13,10 +12,11 @@ a {
 }
 
 a.box {
-  margin-top: 10px;
-  margin-botton: 10px;
-  padding: 5px;
+  margin: 10px;
+  padding: 15px;
   background-color: #DDDDDD;
+  border: 1px solid gray;
+  font-weight: bold;
 }
 
 ul.big li {margin-bottom: 5px;}

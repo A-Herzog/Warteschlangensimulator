@@ -16,23 +16,23 @@
 package ui.help;
 
 import java.awt.Container;
-import java.io.IOException;
 import java.net.URL;
 import java.util.function.Consumer;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.Element;
 import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.StyleSheet;
 
 import language.Language;
 import simulator.editmodel.EditModel;
 import systemtools.help.HelpBase;
 import ui.MainFrame;
 import ui.MainPanel;
+import ui.tools.FlatLaFHelper;
 import ui.tools.WindowSizeStorage;
 
 /**
@@ -156,16 +156,21 @@ public class Help extends HelpBase {
 
 	@Override
 	protected void preprocessPage(final Element root) {
-		if (BookData.getInstance().isDataAvailable()) return;
 		final Document doc=root.getDocument();
 		if (!(doc instanceof HTMLDocument)) return;
 		final HTMLDocument html=(HTMLDocument)doc;
+		final StyleSheet styleSheet=html.getStyleSheet();
 
-		html.getStyleSheet().removeStyle(".bookinfo");
-		html.getStyleSheet().removeStyle(".bookinfosmall");
+		/* Hinweise auf Buchkapitel ausblenden, wenn Buch nicht verfügbar ist. */
+		if (!BookData.getInstance().isDataAvailable()) {
+			styleSheet.removeStyle(".bookinfo");
+			styleSheet.removeStyle(".bookinfosmall");
+			styleSheet.addRule(".bookinfo {color: #F0F0FF; font-size: 1%;} .bookinfosmall {color: #F0F0FF; font-size: 1%;} .bookinfo a {color: #F0F0FF; font-size: 1%;} .bookinfosmall a {color: #F0F0FF; font-size: 1%;}");
+		}
 
-		try {
-			html.insertAfterEnd(root.getElement(0),"<style>.bookinfo {color: #F0F0FF; font-size: 1%;}.bookinfosmall {color: #F0F0FF; font-size: 1%;}.bookinfo a {color: #F0F0FF; font-size: 1%;}.bookinfosmall a {color: #F0F0FF; font-size: 1%;}</style>");
-		} catch (BadLocationException|IOException e) {}
+		/* Anpassungen für FlatLaF-Dark-Mode */
+		if (FlatLaFHelper.isDark()) {
+			styleSheet.addRule("body {color: #c0c0c0;} a {color: #8080FF;} a.box {background-color: #505050;} div.menu, div.model, div.plaininfo {background-color: #404040;} .bookinfo {background-color: #505050;} .bookinfosmall {background-color: #505050;}");
+		}
 	}
 }
