@@ -45,6 +45,7 @@ import mathtools.distribution.HalfNormalDistribution;
 import mathtools.distribution.MaxwellBoltzmannDistribution;
 import mathtools.distribution.OnePointDistributionImpl;
 import mathtools.distribution.RayleighDistributionImpl;
+import mathtools.distribution.TrapezoidDistributionImpl;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.WrapperBinomialDistribution;
@@ -184,6 +185,7 @@ class DistributionToolsTests {
 			if (dist1==null) continue;
 			boolean exactMeanAvailable=true;
 			if (dist1 instanceof ErlangDistributionImpl) exactMeanAvailable=false;
+			if (dist1 instanceof TrapezoidDistributionImpl) exactMeanAvailable=false;
 			if (exactMeanAvailable) {
 				assertEquals(3.0,DistributionTools.getMean(dist1),0.00001,"Verteilung: "+name);
 			}
@@ -199,6 +201,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof DiscretePoissonDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof DiscreteNegativeBinomialDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof HalfNormalDistribution) exactStdAvailable=false;
+			if (dist1 instanceof TrapezoidDistributionImpl) exactStdAvailable=false;
 			if (exactStdAvailable) {
 				assertEquals(2,DistributionTools.getStandardDeviation(dist1),10E-10,"Verteilung: "+name);
 				assertEquals(2.0/3.0,DistributionTools.getCV(dist1),10E-10,"Verteilung: "+name);
@@ -249,6 +252,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof DiscretePoissonDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof DiscreteNegativeBinomialDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof HalfNormalDistribution) exactStdAvailable=false;
+			if (dist1 instanceof TrapezoidDistributionImpl) exactStdAvailable=false;
 			if (exactStdAvailable) {
 				assertEquals(2,DistributionTools.getStandardDeviation(dist1),10E-10,"Verteilung: "+name);
 				assertEquals(2.0/3.0,DistributionTools.getCV(dist1),10E-10,"Verteilung: "+name);

@@ -153,6 +153,7 @@ import parser.symbols.distributions.CalcSymbolDistributionSawtoothLeftDirect;
 import parser.symbols.distributions.CalcSymbolDistributionSawtoothRight;
 import parser.symbols.distributions.CalcSymbolDistributionSawtoothRightDirect;
 import parser.symbols.distributions.CalcSymbolDistributionStudentT;
+import parser.symbols.distributions.CalcSymbolDistributionTrapezoid;
 import parser.symbols.distributions.CalcSymbolDistributionTriangular;
 import parser.symbols.distributions.CalcSymbolDistributionUniform;
 import parser.symbols.distributions.CalcSymbolDistributionWeibull;
@@ -310,6 +311,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionF());
 			addSymbol(new CalcSymbolDistributionJohnsonSU());
 			addSymbol(new CalcSymbolDistributionTriangular());
+			addSymbol(new CalcSymbolDistributionTrapezoid());
 			addSymbol(new CalcSymbolDistributionPert());
 			addSymbol(new CalcSymbolDistributionLaplace());
 			addSymbol(new CalcSymbolDistributionPareto());

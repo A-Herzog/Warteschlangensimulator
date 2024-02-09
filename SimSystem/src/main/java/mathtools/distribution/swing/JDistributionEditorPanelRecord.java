@@ -58,6 +58,7 @@ import mathtools.distribution.RayleighDistributionImpl;
 import mathtools.distribution.SawtoothLeftDistribution;
 import mathtools.distribution.SawtoothRightDistribution;
 import mathtools.distribution.StudentTDistributionImpl;
+import mathtools.distribution.TrapezoidDistributionImpl;
 import mathtools.distribution.TriangularDistributionImpl;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionTools;
@@ -97,6 +98,7 @@ import mathtools.distribution.tools.WrapperRayleighDistribution;
 import mathtools.distribution.tools.WrapperSawtoothLeftDistribution;
 import mathtools.distribution.tools.WrapperSawtoothRightDistribution;
 import mathtools.distribution.tools.WrapperStudentTDistribution;
+import mathtools.distribution.tools.WrapperTrapezoidDistribution;
 import mathtools.distribution.tools.WrapperTriangularDistribution;
 import mathtools.distribution.tools.WrapperUniformRealDistribution;
 import mathtools.distribution.tools.WrapperWeibullDistribution;
@@ -272,6 +274,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new FDistribution());
 		allRecords.add(new JohnsonDistribution());
 		allRecords.add(new TriangularDistribution());
+		allRecords.add(new TrapezoidDistribution());
 		allRecords.add(new PertDistribution());
 		allRecords.add(new LaplaceDistribution());
 		allRecords.add(new ParetoDistribution());
@@ -880,6 +883,42 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double d2=NumberTools.getNotNegativeDouble(fields[1],true); if (d2==null) return null;
 			final Double d3=NumberTools.getNotNegativeDouble(fields[2],true); if (d3==null) return null;
 			return new TriangularDistributionImpl(d1,d2,d3);
+		}
+	}
+
+	/** Trapezverteilung */
+	private static class TrapezoidDistribution extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public TrapezoidDistribution() {
+			super(new WrapperTrapezoidDistribution(),new String[]{"a","b","c","d"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			Double lowerD=NumberTools.getDouble(lower);
+			Double upperD=NumberTools.getDouble(upper);
+			if (lowerD==null) lowerD=0.0;
+			if (upperD==null) upperD=200.0;
+			return new String[]{lower,NumberTools.formatNumberMax((3*lowerD+upperD)/4),NumberTools.formatNumberMax((lowerD+3*upperD)/4),upper};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(Math.max(0,((TrapezoidDistributionImpl)distribution).a)),
+					NumberTools.formatNumberMax(Math.max(0,((TrapezoidDistributionImpl)distribution).b)),
+					NumberTools.formatNumberMax(Math.max(0,((TrapezoidDistributionImpl)distribution).c)),
+					NumberTools.formatNumberMax(Math.max(0,((TrapezoidDistributionImpl)distribution).d))
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double d1=NumberTools.getNotNegativeDouble(fields[0],true); if (d1==null) return null;
+			final Double d2=NumberTools.getNotNegativeDouble(fields[1],true); if (d2==null) return null;
+			final Double d3=NumberTools.getNotNegativeDouble(fields[2],true); if (d3==null) return null;
+			final Double d4=NumberTools.getNotNegativeDouble(fields[3],true); if (d4==null) return null;
+			return new TrapezoidDistributionImpl(d1,d2,d3,d4);
 		}
 	}
 

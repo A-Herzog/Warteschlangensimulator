@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-04 13:42+0100\n"
+"POT-Creation-Date: 2024-02-06 09:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3435,6 +3435,12 @@ msgstr "Studentsche t-Verteilung"
 
 msgid "Distribution.StudentTWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Studentsche_t-Verteilung"
+
+msgid "Distribution.Trapezoid"
+msgstr "Trapezverteilung"
+
+msgid "Distribution.TrapezoidWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Trapezverteilung"
 
 msgid "Distribution.Triangular"
 msgstr "Dreiecksverteilung"
@@ -7111,6 +7117,18 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Studetschen t-Verteilu
 
 msgid "ExpressionBuilder.ProbabilityDistributions.StudentTDist.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Studentschen t-Verteilung mit Erwartungswert gemäß des ersten Parameters und Freiheitsgraden gemäß des zweiten Parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.TrapezoidDist"
+msgstr "Trapezverteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.TrapezoidDist.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Trapezverteilung an der als ersten Parameter angegebenen Stelle. Die Funktionsparameter 2 bis 5 definieren die Verteilungsparameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.TrapezoidDist.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Trapezverteilung an der als ersten Parameter angegebenen Stelle. Die Funktionsparameter 2 bis 5 definieren die Verteilungsparameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.TrapezoidDist.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Trapezverteilung mit den Parametern gemäß den vier Parametern der Funktion.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.TriangularDistribution"
 msgstr "Dreiecksverteilung"

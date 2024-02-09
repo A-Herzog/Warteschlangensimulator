@@ -268,6 +268,21 @@ upperBound&=&mean+sd\cdot\sqrt{6}
 
 
 
+\section*{Trapezoid distribution}
+\cm{Trapezoid distribution (a;b;c;d)}~\\
+\cm{Trapezverteilung (a;b;c;d)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+h&=&\frac{2}{c+d-a-b}\\
+mean&=&h\cdot{1}{6}\left(\frac{d^3-c^3}{d-c}-\frac{b^3-a^3}{b-a}\right)\\
+sd=&\sqrt{h\cdot{1}{12}\left(\frac{d^4-c^4}{d-c}-\frac{b^4-a^4}{b-a}\right)-mean^2}
+\end{eqnarray*}
+
+
+
+
+
 \section*{Pert distribution}
 \cm{Pert distribution (lowerBound;mostLikelyX;upperBound)}~\\
 \cm{Pert-Verteilung (lowerBound;mostLikelyX;upperBound)}

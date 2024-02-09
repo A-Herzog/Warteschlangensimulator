@@ -60,6 +60,7 @@ import mathtools.distribution.RayleighDistributionImpl;
 import mathtools.distribution.SawtoothLeftDistribution;
 import mathtools.distribution.SawtoothRightDistribution;
 import mathtools.distribution.StudentTDistributionImpl;
+import mathtools.distribution.TrapezoidDistributionImpl;
 import mathtools.distribution.TriangularDistributionImpl;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
@@ -145,13 +146,23 @@ class DistributionTests {
 	 * @param values	Einzustellende Parameter
 	 */
 	private void testDistributionParameters(final AbstractRealDistribution distribution, final double[] values) {
+		testDistributionParameters(distribution,values,true);
+	}
+
+	/**
+	 * Testet das Einstellen der Parameter bei einer konkreten Verteilung
+	 * @param distribution	Verteilung bei der das Einstellen der Parameter getestet werden soll
+	 * @param values	Einzustellende Parameter
+	 * @param parametersIndependent	Beeinflusst die Veränderung eines Parameters evtl. andere Parameter (<code>false</code>) oder können die Parameter als unabhängig angesehen werden (<code>true</code>)
+	 */
+	private void testDistributionParameters(final AbstractRealDistribution distribution, final double[] values, final boolean parametersIndependent) {
 		assertEquals(0,DistributionTools.getParameter(distribution,0),0.0001);
 		for (int i=0;i<values.length;i++) assertEquals(values[i],DistributionTools.getParameter(distribution,i+1),0.0001);
 		for (int i=values.length;i<=4;i++) assertEquals(0,DistributionTools.getParameter(distribution,i+1),0.0001);
 		assertEquals(0,DistributionTools.getParameter(distribution,5),0.0001);
 
 		assertNull(DistributionTools.setParameter(distribution,0,123));
-		for (int i=0;i<values.length;i++) {
+		if (parametersIndependent) for (int i=0;i<values.length;i++) {
 			final AbstractRealDistribution changedDistribution=DistributionTools.setParameter(distribution,i+1,values[i]*2);
 			assertNotNull(changedDistribution);
 			for (int j=0;j<values.length;j++) {
@@ -729,7 +740,121 @@ class DistributionTests {
 	}
 
 	/**
-	 * Test: Dreiecksverteilung
+	 * Test: Trapezverteilung
+	 * @see TrapezoidDistributionImpl
+	 */
+	@Test
+	void testTrapezoidDistribution() {
+		TrapezoidDistributionImpl trapezoid;
+
+		trapezoid=new TrapezoidDistributionImpl(50,75,175,200);
+
+		assertEquals(50,trapezoid.a);
+		assertEquals(75,trapezoid.b);
+		assertEquals(175,trapezoid.c);
+		assertEquals(200,trapezoid.d);
+		assertEquals(0,trapezoid.density(40));
+		assertEquals(0,trapezoid.density(210));
+		assertTrue(trapezoid.density(60)>0);
+		assertTrue(trapezoid.density(190)>0);
+		assertTrue(trapezoid.density(60)<trapezoid.density(75));
+		assertTrue(trapezoid.density(190)<trapezoid.density(175));
+		assertEquals(trapezoid.density(75),trapezoid.density(175));
+		assertEquals(trapezoid.density(75),trapezoid.density(125));
+		assertEquals(0,trapezoid.cumulativeProbability(40));
+		assertEquals(1,trapezoid.cumulativeProbability(210));
+		assertEquals(-Double.MAX_VALUE,trapezoid.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,trapezoid.inverseCumulativeProbability(2));
+		assertEquals(60.0,trapezoid.inverseCumulativeProbability(trapezoid.cumulativeProbability(60.0)));
+		assertEquals(190.0,trapezoid.inverseCumulativeProbability(trapezoid.cumulativeProbability(190.0)));
+		assertEquals(125,trapezoid.getNumericalMean());
+		assertEquals(50,trapezoid.getSupportLowerBound());
+		assertEquals(200,trapezoid.getSupportUpperBound());
+		assertTrue(trapezoid.isSupportLowerBoundInclusive());
+		assertTrue(trapezoid.isSupportUpperBoundInclusive());
+		assertTrue(trapezoid.isSupportConnected());
+
+		trapezoid=trapezoid.clone();
+
+		assertEquals(50,trapezoid.a);
+		assertEquals(75,trapezoid.b);
+		assertEquals(175,trapezoid.c);
+		assertEquals(200,trapezoid.d);
+		assertEquals(0,trapezoid.density(40));
+		assertEquals(0,trapezoid.density(210));
+		assertTrue(trapezoid.density(60)>0);
+		assertTrue(trapezoid.density(190)>0);
+		assertTrue(trapezoid.density(60)<trapezoid.density(75));
+		assertTrue(trapezoid.density(190)<trapezoid.density(175));
+		assertEquals(trapezoid.density(75),trapezoid.density(175));
+		assertEquals(trapezoid.density(75),trapezoid.density(125));
+		assertEquals(0,trapezoid.cumulativeProbability(40));
+		assertEquals(1,trapezoid.cumulativeProbability(210));
+		assertEquals(-Double.MAX_VALUE,trapezoid.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,trapezoid.inverseCumulativeProbability(2));
+		assertEquals(60.0,trapezoid.inverseCumulativeProbability(trapezoid.cumulativeProbability(60.0)));
+		assertEquals(190.0,trapezoid.inverseCumulativeProbability(trapezoid.cumulativeProbability(190.0)));
+		assertEquals(125,trapezoid.getNumericalMean());
+		assertEquals(50,trapezoid.getSupportLowerBound());
+		assertEquals(200,trapezoid.getSupportUpperBound());
+		assertTrue(trapezoid.isSupportLowerBoundInclusive());
+		assertTrue(trapezoid.isSupportUpperBoundInclusive());
+		assertTrue(trapezoid.isSupportConnected());
+
+		trapezoid=(TrapezoidDistributionImpl)DistributionTools.cloneDistribution(trapezoid);
+
+		assertEquals(50,trapezoid.a);
+		assertEquals(75,trapezoid.b);
+		assertEquals(175,trapezoid.c);
+		assertEquals(200,trapezoid.d);
+		assertEquals(0,trapezoid.density(40));
+		assertEquals(0,trapezoid.density(210));
+		assertTrue(trapezoid.density(60)>0);
+		assertTrue(trapezoid.density(190)>0);
+		assertTrue(trapezoid.density(60)<trapezoid.density(75));
+		assertTrue(trapezoid.density(190)<trapezoid.density(175));
+		assertEquals(trapezoid.density(75),trapezoid.density(175));
+		assertEquals(trapezoid.density(75),trapezoid.density(125));
+		assertEquals(0,trapezoid.cumulativeProbability(40));
+		assertEquals(1,trapezoid.cumulativeProbability(210));
+		assertEquals(-Double.MAX_VALUE,trapezoid.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,trapezoid.inverseCumulativeProbability(2));
+		assertEquals(60.0,trapezoid.inverseCumulativeProbability(trapezoid.cumulativeProbability(60.0)));
+		assertEquals(190.0,trapezoid.inverseCumulativeProbability(trapezoid.cumulativeProbability(190.0)));
+		assertEquals(125,trapezoid.getNumericalMean());
+		assertEquals(50,trapezoid.getSupportLowerBound());
+		assertEquals(200,trapezoid.getSupportUpperBound());
+		assertTrue(trapezoid.isSupportLowerBoundInclusive());
+		assertTrue(trapezoid.isSupportUpperBoundInclusive());
+		assertTrue(trapezoid.isSupportConnected());
+
+		testDistributionTools(trapezoid);
+		testDistributionParameters(trapezoid,new double[] {50,75,175,200},false);
+
+		trapezoid=new TrapezoidDistributionImpl(50,40,30,20);
+
+		assertEquals(50,trapezoid.a);
+		assertEquals(50,trapezoid.b);
+		assertEquals(50,trapezoid.c);
+		assertEquals(50,trapezoid.d);
+
+		trapezoid=new TrapezoidDistributionImpl(50,40,30,60);
+
+		assertEquals(50,trapezoid.a);
+		assertEquals(50,trapezoid.b);
+		assertEquals(50,trapezoid.c);
+		assertEquals(60,trapezoid.d);
+
+		trapezoid=new TrapezoidDistributionImpl(50,40,60,40);
+
+		assertEquals(50,trapezoid.a);
+		assertEquals(50,trapezoid.b);
+		assertEquals(60,trapezoid.c);
+		assertEquals(60,trapezoid.d);
+	}
+
+	/**
+	 * Test: Pert-Verteilung
 	 * @see PertDistributionImpl
 	 */
 	@Test

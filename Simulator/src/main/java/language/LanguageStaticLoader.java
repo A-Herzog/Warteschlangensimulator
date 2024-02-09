@@ -184,6 +184,8 @@ public class LanguageStaticLoader {
 		DistributionTools.DistJohnsonWikipedia=Language.tr("Distribution.DistJohnsonSUWikipedia");
 		DistributionTools.DistTriangular=Language.trAll("Distribution.Triangular");
 		DistributionTools.DistTriangularWikipedia=Language.tr("Distribution.TriangularWikipedia");
+		DistributionTools.DistTrapezoid=Language.trAll("Distribution.Trapezoid");
+		DistributionTools.DistTrapezoidWikipedia=Language.tr("Distribution.TrapezoidWikipedia");
 		DistributionTools.DistPert=Language.trAll("Distribution.Pert");
 		DistributionTools.DistPertWikipedia=Language.tr("Distribution.PertWikipedia");
 		DistributionTools.DistLaplace=Language.trAll("Distribution.Laplace");

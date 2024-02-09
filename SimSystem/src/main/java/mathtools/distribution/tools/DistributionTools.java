@@ -149,6 +149,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Dreiecksverteilung */
 	public static String DistTriangularWikipedia="https://de.wikipedia.org/wiki/Dreiecksverteilung";
 
+	/** Trapezverteilung */
+	public static String[] DistTrapezoid=new String[]{"Trapezverteilung"};
+
+	/** Wikipedia-Seite Dreiecksverteilung */
+	public static String DistTrapezoidWikipedia="https://de.wikipedia.org/wiki/Trapezverteilung";
+
 	/** Pert-Verteilung */
 	public static String[] DistPert=new String[]{"Pert-Verteilung"};
 
@@ -366,6 +372,7 @@ public final class DistributionTools {
 				new WrapperFDistribution(),
 				new WrapperJohnsonDistribution(),
 				new WrapperTriangularDistribution(),
+				new WrapperTrapezoidDistribution(),
 				new WrapperPertDistribution(),
 				new WrapperLaplaceDistribution(),
 				new WrapperParetoDistribution(),

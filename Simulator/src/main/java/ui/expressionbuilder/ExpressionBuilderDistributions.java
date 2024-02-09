@@ -396,6 +396,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.TriangularDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.TriangularDistribution.RandomNumberInfo"));
 
+		/* Trapezverteilung */
+
+		addDist(group,filterUpper,"TrapezoidDist","a;b;c;d",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.TrapezoidDist"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.TrapezoidDist.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.TrapezoidDist.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.TrapezoidDist.RandomNumberInfo"));
+
 		/* Pert-Verteilung */
 
 		addDist(group,filterUpper,"PertDist","lower;mostLikely;upper",

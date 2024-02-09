@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-04 13:42+0100\n"
+"POT-Creation-Date: 2024-02-06 09:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3430,6 +3430,12 @@ msgstr "Student t-distribution"
 
 msgid "Distribution.StudentTWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Student%27s_t-distribution"
+
+msgid "Distribution.Trapezoid"
+msgstr "Trapezoid distribution"
+
+msgid "Distribution.TrapezoidWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Trapezoidal_distribution"
 
 msgid "Distribution.Triangular"
 msgstr "Triangular distribution"
@@ -7118,6 +7124,18 @@ msgstr "<p>Calculates the value of the distribution function of the Student t-di
 
 msgid "ExpressionBuilder.ProbabilityDistributions.StudentTDist.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Student t-distribution. The expected value and the degrees of freedom are specified in the first and the second parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.TrapezoidDist"
+msgstr "Trapezoid distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.TrapezoidDist.DensityInfo"
+msgstr "<p>Calculates the value of the density of the trapezoid distribution at the location specified as the first parameter. The function parameters 2 to 5 define the distribution parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.TrapezoidDist.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the trapezoid distribution at the location specified as the first parameter. The function parameters 2 to 5 define the distribution parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.TrapezoidDist.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the trapezoid distribution. The four function parameters define the distribution parameters.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.TriangularDistribution"
 msgstr "Triangular distribution"
