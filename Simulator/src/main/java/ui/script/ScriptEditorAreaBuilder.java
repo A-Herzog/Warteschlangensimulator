@@ -439,7 +439,7 @@ public class ScriptEditorAreaBuilder {
 	 * @param value	Initialer Wert des Textfeldes
 	 * @param size	Breite des Textfeldes
 	 * @param mode	Um was für ein Element handelt es sich? (Zur Bestimmung, ob die Rechtschreibprüfung für dieses Element aktiviert werden soll)
-	 * @return	Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>JTextField</code>
+	 * @return	Liefert ein Objekt aus zwei Elementen: das <code>JPanel</code> das beide Elemente enthält und als zweites das <code>RSyntaxTextArea</code>
 	 */
 	public static final Object[] getInputPanel(final String labelText, final String value, final int size, final TextAreaMode mode) {
 		JPanel panel;

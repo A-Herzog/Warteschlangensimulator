@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-06 09:01+0100\n"
+"POT-Creation-Date: 2024-02-08 16:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27413,6 +27413,12 @@ msgstr "Kursiv"
 msgid "Surface.AnimationText.Dialog.Number"
 msgstr "Fließkommazahl"
 
+msgid "Surface.AnimationText.Dialog.OptionalPostText"
+msgstr "Optionaler Text nach dem Haupttext"
+
+msgid "Surface.AnimationText.Dialog.OptionalPreText"
+msgstr "Optionaler Text vor dem Haupttext"
+
 msgid "Surface.AnimationText.Dialog.PercentValue"
 msgstr "Prozentwert"
 
@@ -27454,6 +27460,15 @@ msgstr "Zeitwert"
 
 msgid "Surface.AnimationText.Type.Value"
 msgstr "Wert"
+
+msgid "Surface.AnimationText.XML.AdditionalText"
+msgstr "ModellElementAnimationTextZusatz"
+
+msgid "Surface.AnimationText.XML.AdditionalText.PostText"
+msgstr "Posttext"
+
+msgid "Surface.AnimationText.XML.AdditionalText.PreText"
+msgstr "Pretext"
 
 msgid "Surface.AnimationText.XML.BackgroundColor"
 msgstr "ModellElementHintergrundfarbe"

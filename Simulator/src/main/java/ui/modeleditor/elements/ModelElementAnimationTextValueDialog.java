@@ -39,6 +39,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+
 import language.Language;
 import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
@@ -49,6 +51,7 @@ import tools.IconListCellRenderer;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
+import ui.script.ScriptEditorAreaBuilder;
 import ui.tools.DateTimePanel;
 
 /**
@@ -85,6 +88,17 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 	private JCheckBox optionBold;
 	/** Option: Schrift kursiv anzeigen */
 	private JCheckBox optionItalic;
+	/** Optionaler Text vor dem Haupttext */
+	private RSyntaxTextArea preText;
+	/** Optionaler Text nach dem Haupttext */
+	private RSyntaxTextArea postText;
+	/** Option: HTML- und LaTeX-Symbole interpretieren */
+	private JCheckBox optionInterpretSymbols;
+	/** Option: Markdown interpretieren */
+	private JCheckBox optionInterpretMarkdown;
+	/** Option: LaTeX-Formatierungen interpretieren */
+	private JCheckBox optionInterpretLaTeX;
+
 	/** Auswahl der Textfarbe */
 	private SmallColorChooser colorChooser;
 	/** Option: Hintergrundfarbe verwenden? */
@@ -204,6 +218,40 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		line.add(optionItalic=new JCheckBox("<html><i>"+Language.tr("Surface.AnimationText.Dialog.FontSize.Italic")+"</i></html>",false));
 		optionItalic.setEnabled(!readOnly);
 
+		/* Optionaler Text vor dem Haupttext */
+		data=ScriptEditorAreaBuilder.getInputPanel(Language.tr("Surface.AnimationText.Dialog.OptionalPreText")+":","",30,ScriptEditorAreaBuilder.TextAreaMode.TEXT_ELEMENT);
+		content.add((JPanel)data[0]);
+		preText=(RSyntaxTextArea)data[1];
+		preText.setEditable(!readOnly);
+
+		/* Optionaler Text nach dem Haupttext */
+		data=ScriptEditorAreaBuilder.getInputPanel(Language.tr("Surface.AnimationText.Dialog.OptionalPostText")+":","",30,ScriptEditorAreaBuilder.TextAreaMode.TEXT_ELEMENT);
+		content.add((JPanel)data[0]);
+		postText=(RSyntaxTextArea)data[1];
+		postText.setEditable(!readOnly);
+
+		/* Zeile für Einstellungen zu Pre- und Posttext*/
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+
+		/* Interpretation von Symbolen */
+		line.add(optionInterpretSymbols=new JCheckBox(Language.tr("Surface.Text.Dialog.FontSize.HTMLLaTeX")));
+		optionInterpretSymbols.setToolTipText(Language.tr("Surface.Text.Dialog.FontSize.HTMLLaTeX.Info"));
+		optionInterpretSymbols.setEnabled(!readOnly);
+		optionInterpretSymbols.addActionListener(e->{
+			ScriptEditorAreaBuilder.setEntityAutoComplete(preText,optionInterpretSymbols.isSelected());
+			ScriptEditorAreaBuilder.setEntityAutoComplete(postText,optionInterpretSymbols.isSelected());
+		});
+
+		/* Interpretation von Markdown */
+		line.add(optionInterpretMarkdown=new JCheckBox(Language.tr("Surface.Text.Dialog.FontSize.Markdown")));
+		optionInterpretMarkdown.setToolTipText(Language.tr("Surface.Text.Dialog.FontSize.Markdown.Info"));
+		optionInterpretMarkdown.setEnabled(!readOnly);
+
+		/* Interpretation von LaTeX-Formatierungen */
+		line.add(optionInterpretLaTeX=new JCheckBox(Language.tr("Surface.Text.Dialog.FontSize.LaTeX")));
+		optionInterpretLaTeX.setToolTipText(Language.tr("Surface.Text.Dialog.FontSize.LaTeX.Info"));
+		optionInterpretLaTeX.setEnabled(!readOnly);
+
 		/* Zeile für Farben */
 		content.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
@@ -302,6 +350,17 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 			sizeField.setText(""+text.getTextSize());
 			optionBold.setSelected(text.getTextBold());
 			optionItalic.setSelected(text.getTextItalic());
+
+			preText.setText(text.getPreText());
+			postText.setText(text.getPostText());
+			optionInterpretSymbols.setSelected(text.isInterpretSymbols());
+			if (text.isInterpretSymbols()) {
+				ScriptEditorAreaBuilder.setEntityAutoComplete(preText,optionInterpretSymbols.isSelected());
+				ScriptEditorAreaBuilder.setEntityAutoComplete(postText,optionInterpretSymbols.isSelected());
+			}
+			optionInterpretMarkdown.setSelected(text.isInterpretMarkdown());
+			optionInterpretLaTeX.setSelected(text.isInterpretLaTeX());
+
 			colorChooser.setColor(text.getColor());
 			background.setSelected(text.getFillColor()!=null);
 			colorChooserBackground.setColor(text.getFillColor());
@@ -425,6 +484,15 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		/* Fett/Kursiv */
 		text.setTextBold(optionBold.isSelected());
 		text.setTextItalic(optionItalic.isSelected());
+
+		/* Pre- und Posttext */
+		text.setPreText(preText.getText());
+		text.setPostText(postText.getText());
+
+		/* Interpretation von Symbolen */
+		text.setInterpretSymbols(optionInterpretSymbols.isSelected());
+		text.setInterpretMarkdown(optionInterpretMarkdown.isSelected());
+		text.setInterpretLaTeX(optionInterpretLaTeX.isSelected());
 
 		/* Schriftfarbe */
 		text.setColor(colorChooser.getColor());

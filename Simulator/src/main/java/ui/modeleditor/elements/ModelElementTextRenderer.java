@@ -33,9 +33,15 @@ public abstract class ModelElementTextRenderer {
 
 	/**
 	 * Sollen HTML- und LaTeX-Symbole interpretiert werden?
-	 * @see #setText(String, boolean)
+	 * @see #setText(String, boolean, boolean)
 	 */
 	private boolean lastInterpretSymbols;
+
+	/**
+	 * Sollen führende und abschließende Leerzeichen entfernt werden?
+	 * @see #setText(String, boolean, boolean)
+	 */
+	private boolean lastTrim;
 
 	/**
 	 * Ermöglicht die Interpretation von HTML-Entities und LaTeX-Symbolen
@@ -106,14 +112,16 @@ public abstract class ModelElementTextRenderer {
 	 * Stellt den auszugebenden Text ein.
 	 * @param text	Auszugebender Text
 	 * @param processSymbols	Sollen HTML- und LaTeX-Symbole interpretiert werden?
+	 * @param trim	Sollen führende und abschließende Leerzeichen entfernt werden?
 	 */
-	public final void setText(String text, final boolean processSymbols) {
+	public final void setText(String text, final boolean processSymbols, final boolean trim) {
 		if (text==null) text="";
-		if (text.equals(lastText) && lastInterpretSymbols==processSymbols && !needRecalc) return;
+		if (text.equals(lastText) && lastInterpretSymbols==processSymbols && lastTrim==trim && !needRecalc) return;
 
 		lastText=text;
 		lastInterpretSymbols=processSymbols;
-		final String[] lines=lastText.trim().split("\\n");
+		lastTrim=trim;
+		final String[] lines=(trim?lastText.trim():lastText).split("\\n");
 		if (processSymbols) {
 			if (textTransformer==null) textTransformer=new TextTransformer();
 			processLines(textTransformer.process(lines));
@@ -121,6 +129,23 @@ public abstract class ModelElementTextRenderer {
 			processLines(lines);
 		}
 		needRecalc=true;
+	}
+
+	/**
+	 * Stellt den auszugebenden Text ein.
+	 * @param text	Auszugebender Text
+	 * @param processSymbols	Sollen HTML- und LaTeX-Symbole interpretiert werden?
+	 */
+	public final void setText(String text, final boolean processSymbols) {
+		setText(text,processSymbols,true);
+	}
+
+	/**
+	 * Liefert <code>true</code>, wenn der in den Renderer geladene Text leer ist.
+	 * @return	Ist der Text im Renderer leer?
+	 */
+	public final boolean isEmpty() {
+		return lastText.isEmpty();
 	}
 
 	/**

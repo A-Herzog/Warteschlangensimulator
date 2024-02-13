@@ -1596,7 +1596,7 @@
 <!ELEMENT ModellElementIconName (#PCDATA)>
 <!ELEMENT ModellElementIconBedingung (#PCDATA)>
 
-<!ELEMENT ModellElementAnimationText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementAnimationsmodus | ModellElementHintergrundfarbe)*>
+<!ELEMENT ModellElementAnimationText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementAnimationsmodus | ModellElementHintergrundfarbe | ModellElementAnimationTextZusatz)*>
 <!ATTLIST ModellElementAnimationText
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1607,6 +1607,14 @@
 <!ATTLIST ModellElementAnimationsmodus
   Art	            CDATA	#REQUIRED
   Nachkommastellen  CDATA   #IMPLIED
+>
+<!ELEMENT ModellElementAnimationTextZusatz EMPTY>
+<!ATTLIST ModellElementAnimationTextZusatz
+  Pretext	CDATA	#IMPLIED
+  Posttext	CDATA	#IMPLIED
+  Symbole	(0|1)	#IMPLIED
+  Markdown	(0|1)	#IMPLIED
+  LaTeX		(0|1)	#IMPLIED
 >
 
 <!ELEMENT ModellElementAnimationTextJS (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementAnimationTextJSSkript | ModellElementHintergrundfarbe)*>
@@ -4276,7 +4284,7 @@
 <!ELEMENT ModelElementIconName (#PCDATA)>
 <!ELEMENT ModelElementIconCondition (#PCDATA)>
 
-<!ELEMENT ModelElementAnimationText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementAnimationMode | ModelElementBackgroundColor)*>
+<!ELEMENT ModelElementAnimationText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementAnimationMode | ModelElementBackgroundColor | ModelElementAnimationTextAddon)*>
 <!ATTLIST ModelElementAnimationText
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -4287,6 +4295,14 @@
 <!ATTLIST ModelElementAnimationMode
   Type	    CDATA	#REQUIRED
   Digits    CDATA   #IMPLIED
+>
+<!ELEMENT ModelElementAnimationTextAddon EMPTY>
+<!ATTLIST ModelElementAnimationTextAddon
+  Pretext	CDATA	#IMPLIED
+  Posttext	CDATA	#IMPLIED
+  Symbols	(0|1)	#IMPLIED
+  Markdown	(0|1)	#IMPLIED
+  LaTeX		(0|1)	#IMPLIED
 >
 
 <!ELEMENT ModelElementAnimationTextJS (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementAnimationTextJSScript | ModelElementBackgroundColor)*>

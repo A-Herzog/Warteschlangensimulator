@@ -18,10 +18,10 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Objects;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.Icon;
@@ -48,7 +48,6 @@ import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.fastpaint.Shapes;
 import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
 import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
-import ui.tools.FlatLaFHelper;
 
 /**
  * Zeigt während der Animation das Ergebnis eines Rechnenausdrucks als Text an.
@@ -108,6 +107,37 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	 * @see #setExpression(String)
 	 */
 	private String expression="123";
+
+	/**
+	 * Vor dem eigentlichen Ausdruck auszugebender Text
+	 */
+	private String preText="";
+
+	/**
+	 * Nach dem eigentlichen Ausdruck auszugebender Text
+	 */
+	private String postText="";
+
+	/**
+	 * Sollen HTML- und LaTeX-Symbole interpretiert werden? (in {@link #preText} und {@link #postText})
+	 * @see #isInterpretSymbols()
+	 * @see #setInterpretSymbols(boolean)
+	 */
+	private boolean interpretSymbols;
+
+	/**
+	 * Soll Markdown interpretiert werden? (in {@link #preText} und {@link #postText})
+	 * @see #isInterpretMarkdown()
+	 * @see #setInterpretMarkdown(boolean)
+	 */
+	private boolean interpretMarkdown;
+
+	/**
+	 * Sollen LaTeX-Ausdrücke interpretiert werden? (in {@link #preText} und {@link #postText})
+	 * @see #isInterpretLaTeX()
+	 * @see #setInterpretLaTeX(boolean)
+	 */
+	private boolean interpretLaTeX;
 
 	/**
 	 * Anzahl an anzuzeigenden Nachkommastellen
@@ -202,6 +232,9 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	public ModelElementAnimationTextValue(final EditModel model, final ModelSurface surface) {
 		super(model,surface,new Dimension(0,0),Shapes.ShapeType.SHAPE_RECTANGLE);
 		useSizeOnCompare=false;
+		interpretSymbols=true;
+		interpretMarkdown=false;
+		interpretLaTeX=false;
 	}
 
 	/**
@@ -419,6 +452,87 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		fireChanged();
 	}
 
+
+	/**
+	 * Liefert den vor dem eigentlichen Ausdruck auszugebenden Text (kann leer sein, ist aber nicht <code>null</code>).
+	 * @return	Vor dem eigentlichen Ausdruck auszugebender Text
+	 */
+	public String getPreText() {
+		return (preText==null)?"":preText;
+	}
+
+	/**
+	 * Stellt den vor dem eigentlichen Ausdruck auszugebenden Text ein (darf <code>null</code> sein).
+	 * @param preText	Vor dem eigentlichen Ausdruck auszugebender Text
+	 */
+	public void setPreText(final String preText) {
+		this.preText=(preText==null)?"":preText;
+	}
+
+	/**
+	 * Liefert den nach dem eigentlichen Ausdruck auszugebenden Text (kann leer sein, ist aber nicht <code>null</code>).
+	 * @return	Nach dem eigentlichen Ausdruck auszugebender Text
+	 */
+	public String getPostText() {
+		return (postText==null)?"":postText;
+	}
+
+	/**
+	 * Stellt den nach dem eigentlichen Ausdruck auszugebenden Text ein (darf <code>null</code> sein).
+	 * @param postText	Nach dem eigentlichen Ausdruck auszugebender Text
+	 */
+	public void setPostText(final String postText) {
+		this.postText=(postText==null)?"":postText;
+	}
+
+	/**
+	 * Sollen HTML- und LaTeX-Symbole interpretiert werden?  (in {@link #preText} und {@link #postText})
+	 * @return	HTML- und LaTeX-Symbole interpretieren
+	 */
+	public boolean isInterpretSymbols() {
+		return interpretSymbols;
+	}
+
+	/**
+	 * Stellt ein, ob HTML- und LaTeX-Symbole interpretiert werden sollen.  (in {@link #preText} und {@link #postText})
+	 * @param interpretSymbols	HTML- und LaTeX-Symbole interpretier
+	 */
+	public void setInterpretSymbols(final boolean interpretSymbols) {
+		this.interpretSymbols=interpretSymbols;
+	}
+
+	/**
+	 * Soll Markdown interpretiert werden?  (in {@link #preText} und {@link #postText})
+	 * @return	Markdown interpretieren
+	 */
+	public boolean isInterpretMarkdown() {
+		return interpretMarkdown;
+	}
+
+	/**
+	 * Stellt ein, ob Markdown interpretiert werden soll.  (in {@link #preText} und {@link #postText})
+	 * @param interpretMarkdown	Markdown interpretieren
+	 */
+	public void setInterpretMarkdown(final boolean interpretMarkdown) {
+		this.interpretMarkdown=interpretMarkdown;
+	}
+
+	/**
+	 * Sollen LaTeX-Formatierungen interpretiert werden?  (in {@link #preText} und {@link #postText})
+	 * @return	LaTeX-Formatierungen interpretieren
+	 */
+	public boolean isInterpretLaTeX() {
+		return interpretLaTeX;
+	}
+
+	/**
+	 * Stellt ein, ob LaTeX-Formatierungen interpretiert werden soll.  (in {@link #preText} und {@link #postText})
+	 * @param interpretLaTeX	LaTeX-Formatierungen interpretieren
+	 */
+	public void setInterpretLaTeX(final boolean interpretLaTeX) {
+		this.interpretLaTeX=interpretLaTeX;
+	}
+
 	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
@@ -449,6 +563,12 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		if (fillColor!=otherText.fillColor) return false;
 		if (fillAlpha!=otherText.fillAlpha) return false;
 
+		if (!Objects.equals(preText,otherText.preText)) return false;
+		if (!Objects.equals(postText,otherText.postText)) return false;
+		if (interpretSymbols!=otherText.interpretSymbols) return false;
+		if (interpretMarkdown!=otherText.interpretMarkdown) return false;
+		if (interpretLaTeX!=otherText.interpretLaTeX) return false;
+
 		return true;
 	}
 
@@ -472,6 +592,11 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 			color=copySource.color;
 			fillColor=copySource.fillColor;
 			fillAlpha=copySource.fillAlpha;
+			preText=copySource.preText;
+			postText=copySource.postText;
+			interpretSymbols=copySource.interpretSymbols;
+			interpretMarkdown=copySource.interpretMarkdown;
+			interpretLaTeX=copySource.interpretLaTeX;
 		}
 	}
 
@@ -517,69 +642,99 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	}
 
 	/**
-	 * Schriftgröße beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * Zu verwendender Titel-Renderer
 	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
 	 */
-	private int lastTextSize=-1;
+	private ModelElementTextRenderer titleRenderer;
 
 	/**
-	 * Zoomfaktor beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * Zu verwendender Text-Renderer für den voran gestellten Text
 	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
 	 */
-	private double lastZoomFont=-1;
+	private ModelElementTextRenderer preTextRenderer;
 
 	/**
-	 * Schriftausgestaltung (fett, kursiv) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * Zu verwendender Text-Renderer für den eigentlichen Text
 	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
 	 */
-	private double lastStyleFont=-1;
+	private ModelElementTextRenderer mainTextRenderer;
 
 	/**
-	 * Schriftart beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * Zu verwendender Text-Renderer für den nachgestellten Text
 	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
 	 */
-	private FontCache.FontFamily lastFamily=null;
+	private ModelElementTextRenderer postTextRenderer;
 
 	/**
-	 * In {@link #drawToGraphics(Graphics, Rectangle, double, boolean)} generierte
-	 * Schriftart für den Text
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 * Bereitet die Renderer für Titel und Textbestandteile vor
+	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
+	 * @param zoom	Zoomfaktor
 	 */
-	private Font lastFontMain;
+	private void initRenderer(final Graphics graphics, final double zoom) {
+		/* === Renderer vorbereiten === */
 
-	/**
-	 * In {@link #drawToGraphics(Graphics, Rectangle, double, boolean)} generierte
-	 * Schriftart für den Titel
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private Font lastFontTitle;
+		/* Titel */
+		if (!(titleRenderer instanceof ModelElementTextRendererPlain)) titleRenderer=new ModelElementTextRendererPlain();
 
-	/**
-	 * Farbe für den Titel über dem eigentlichen Text
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private Color titleColor;
+		/* Pretext */
+		if (interpretMarkdown || interpretLaTeX) {
+			if (!(preTextRenderer instanceof ModelElementTextRendererMarkDownLaTeX)) preTextRenderer=new ModelElementTextRendererMarkDownLaTeX();
+			((ModelElementTextRendererMarkDownLaTeX)preTextRenderer).setRenderMode(interpretMarkdown,interpretLaTeX);
+		} else {
+			if (!(preTextRenderer instanceof ModelElementTextRendererPlain)) preTextRenderer=new ModelElementTextRendererPlain();
+		}
 
-	/**
-	 * Füllfarbe beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #lastFillAlpha
-	 * @see #lastComputedFillColor
-	 */
-	private Color lastFillColor=null;
+		/* Main */
+		if (interpretMarkdown || interpretLaTeX) {
+			if (!(mainTextRenderer instanceof ModelElementTextRendererMarkDownLaTeX)) mainTextRenderer=new ModelElementTextRendererMarkDownLaTeX();
+			((ModelElementTextRendererMarkDownLaTeX)mainTextRenderer).setRenderMode(interpretMarkdown,interpretLaTeX);
+		} else {
+			if (!(mainTextRenderer instanceof ModelElementTextRendererPlain)) mainTextRenderer=new ModelElementTextRendererPlain();
+		}
 
-	/**
-	 * Deckkraft beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #lastFillColor
-	 * @see #lastComputedFillColor
-	 */
-	private double lastFillAlpha=0.0;
+		/* Posttext */
+		if (interpretMarkdown || interpretLaTeX) {
+			if (!(postTextRenderer instanceof ModelElementTextRendererMarkDownLaTeX)) postTextRenderer=new ModelElementTextRendererMarkDownLaTeX();
+			((ModelElementTextRendererMarkDownLaTeX)postTextRenderer).setRenderMode(interpretMarkdown,interpretLaTeX);
+		} else {
+			if (!(postTextRenderer instanceof ModelElementTextRendererPlain)) postTextRenderer=new ModelElementTextRendererPlain();
+		}
 
-	/**
-	 * Berechnete Füllfarbe beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #lastFillColor
-	 * @see #lastFillAlpha
-	 */
-	private Color lastComputedFillColor=null;
+		/* === Daten in Renderer laden === */
+
+		final String title=getDisplayText(true);
+		final String preText=(this.preText==null)?"":this.preText;
+		final String mainText=getDisplayText(false);
+		final String postText=(this.postText==null)?"":this.postText;
+
+		/* Titel */
+		titleRenderer.setText(title,false);
+		titleRenderer.setBackgroundColor(null,1.0);
+		titleRenderer.setStyle(9,false,false,FontCache.defaultFamily.name,ModelElementText.TextAlign.LEFT);
+		titleRenderer.calc(graphics,zoom);
+
+		/* Pretext */
+		if (!preText.isEmpty()) {
+			preTextRenderer.setText(preText,interpretSymbols,false);
+			preTextRenderer.setBackgroundColor(fillColor,fillAlpha);
+			preTextRenderer.setStyle(textSize,bold,italic,fontFamily.name,ModelElementText.TextAlign.LEFT);
+			preTextRenderer.calc(graphics,zoom);
+		}
+
+		/* Main */
+		mainTextRenderer.setText(mainText,interpretSymbols);
+		mainTextRenderer.setBackgroundColor(fillColor,fillAlpha);
+		mainTextRenderer.setStyle(textSize,bold,italic,fontFamily.name,ModelElementText.TextAlign.LEFT);
+		mainTextRenderer.calc(graphics,zoom);
+
+		/* Posttext */
+		if (!postText.isEmpty()) {
+			postTextRenderer.setText(postText,interpretSymbols,false);
+			postTextRenderer.setBackgroundColor(fillColor,fillAlpha);
+			postTextRenderer.setStyle(textSize,bold,italic,fontFamily.name,ModelElementText.TextAlign.LEFT);
+			postTextRenderer.calc(graphics,zoom);
+		}
+	}
 
 	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
@@ -590,79 +745,40 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	 */
 	@Override
 	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showSelectionFrames) {
-		final String text=getDisplayText(false);
-		final String title=getDisplayText(true);
-
-		int style=Font.PLAIN;
-		if (bold) style+=Font.BOLD;
-		if (italic) style+=Font.ITALIC;
-		if (lastFamily!=fontFamily || textSize!=lastTextSize || zoom!=lastZoomFont || style!=lastStyleFont || lastFontMain==null || lastFontTitle==null) {
-			lastFontMain=FontCache.getFontCache().getFont(fontFamily,style,(int)FastMath.round(textSize*zoom));
-			lastFontTitle=FontCache.getFontCache().getFont(FontCache.defaultFamily,0,(int)FastMath.round(9*zoom));
-			lastFamily=fontFamily;
-			lastTextSize=textSize;
-			lastZoomFont=zoom;
-			lastStyleFont=style;
-		}
-
-		if (fillColor!=lastFillColor || fillAlpha!=lastFillAlpha) {
-			if (fillColor==null) {
-				lastComputedFillColor=null;
-			} else {
-				lastComputedFillColor=new Color(fillColor.getRed(),fillColor.getGreen(),fillColor.getBlue(),Math.max(0,Math.min(255,((int)Math.round(255*fillAlpha)))));
-			}
-			lastFillColor=fillColor;
-			lastFillAlpha=fillAlpha;
-		}
-
-		int width;
-		int height;
-		if (title.trim().isEmpty()) {
-			graphics.setFont(lastFontMain);
-			width=graphics.getFontMetrics().stringWidth(text);
-			height=graphics.getFontMetrics().getAscent()+graphics.getFontMetrics().getDescent();
-		} else {
-			graphics.setFont(lastFontTitle);
-			width=graphics.getFontMetrics().stringWidth(title);
-			height=graphics.getFontMetrics().getAscent()+graphics.getFontMetrics().getDescent();
-			graphics.setFont(lastFontMain);
-			width=FastMath.max(width,graphics.getFontMetrics().stringWidth(text));
-			height+=graphics.getFontMetrics().getAscent()+graphics.getFontMetrics().getDescent();
-		}
-		final Point point=getPosition(true);
-
-		int w=(int)FastMath.round(width/zoom);
-		int h=(int)FastMath.round(height/zoom);
-		if (getSize().width!=w || getSize().height!=h) setSize(new Dimension(w,h));
-
 		setClip(graphics,drawRect,null);
 
-		if (lastComputedFillColor!=null) {
-			graphics.setColor(lastComputedFillColor);
-			graphics.fillRect(point.x,point.y,w,h);
-			graphics.setColor(color);
+		/* Renderer vorbereiten und Texte in Renderer laden */
+		initRenderer(graphics,zoom);
+
+		/* Position und Größe berechnen */
+		final Point pos=getPosition(true);
+		final int canvasX=(zoom==1.0)?pos.x:(int)FastMath.round(pos.x*zoom);
+		final int canvasY=(zoom==1.0)?pos.y:(int)FastMath.round(pos.y*zoom);
+		final int canvasW=Math.max(titleRenderer.getWidth(),preTextRenderer.getWidth()+mainTextRenderer.getWidth()+postTextRenderer.getWidth());
+		final int canvasH=titleRenderer.getHeight()+Math.max(mainTextRenderer.getHeight(),Math.max(preTextRenderer.getHeight(),postTextRenderer.getHeight()));
+
+		/* Wenn nötig Größe der Box anpassen */
+		final int boxW=(zoom==1.0)?canvasW:(int)FastMath.round(canvasW/zoom);
+		final int boxH=(zoom==1.0)?canvasH:(int)FastMath.round(canvasH/zoom);
+		final Dimension boxSize=getSize();
+		if (boxSize.width!=boxW || boxSize.height!=boxH) setSize(new Dimension(boxW,boxH));
+
+		/* Text ausgeben */
+		int x=canvasX;
+		int y=canvasY;
+		titleRenderer.draw(graphics,x,y,Color.BLACK);
+		y+=titleRenderer.getHeight();
+		if (!preTextRenderer.isEmpty()) {
+			preTextRenderer.draw(graphics,x,y,color);
+			x+=preTextRenderer.getWidth();
+		}
+		mainTextRenderer.draw(graphics,x,y,color);
+		x+=mainTextRenderer.getWidth();
+		if (!postTextRenderer.isEmpty()) {
+			postTextRenderer.draw(graphics,x,y,color);
 		}
 
-		int x=(int)FastMath.round(point.x*zoom);
-		if (title.trim().isEmpty()) {
-			graphics.setColor(color);
-			graphics.setFont(lastFontMain);
-			int y=(int)FastMath.round(point.y*zoom)+graphics.getFontMetrics().getAscent();
-			graphics.drawString(text,x,y);
-		} else {
-			if (titleColor==null) titleColor=FlatLaFHelper.isDark()?EditModel.BLACK_COLOR_IN_DARK_MODE:Color.BLACK;
-			graphics.setColor(titleColor);
-			graphics.setFont(lastFontTitle);
-			int y=(int)FastMath.round(point.y*zoom)+graphics.getFontMetrics().getAscent();
-			graphics.drawString(title,x,y);
-			y+=graphics.getFontMetrics().getDescent();
-
-			graphics.setColor(color);
-			graphics.setFont(lastFontMain);
-			y+=graphics.getFontMetrics().getAscent();
-			graphics.drawString(text,x,y);
-		}
-
+		/* Rahmen zeichnen */
 		if (isSelected() && showSelectionFrames) {
 			drawRect(graphics,drawRect,zoom,Color.GREEN,2,null,2);
 		} else {
@@ -776,6 +892,17 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 			sub.setTextContent(EditModel.saveColor(fillColor));
 			if (fillAlpha<1) sub.setAttribute(Language.trPrimary("Surface.AnimationText.XML.BackgroundColor.Alpha"),NumberTools.formatSystemNumber(fillAlpha));
 		}
+
+		/* Pre- & Posttext */
+		if ((preText!=null && !preText.isBlank()) || (postText!=null && !postText.isBlank()) || !interpretSymbols || interpretMarkdown || interpretLaTeX) {
+			sub=doc.createElement(Language.trPrimary("Surface.AnimationText.XML.AdditionalText"));
+			node.appendChild(sub);
+			if (!preText.isEmpty()) sub.setAttribute(Language.tr("Surface.AnimationText.XML.AdditionalText.PreText"),preText);
+			if (!postText.isEmpty()) sub.setAttribute(Language.tr("Surface.AnimationText.XML.AdditionalText.PostText"),postText);
+			sub.setAttribute(Language.trPrimary("Surface.Text.XML.FontSize.Symbols"),interpretSymbols?"1":"0");
+			if (interpretMarkdown) sub.setAttribute(Language.trPrimary("Surface.Text.XML.FontSize.Markdown"),"1");
+			if (interpretLaTeX) sub.setAttribute(Language.trPrimary("Surface.Text.XML.FontSize.LaTeX"),"1");
+		}
 	}
 
 	/**
@@ -852,6 +979,16 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationText.XML.BackgroundColor.Alpha"),name,node.getParentNode().getNodeName());
 				fillAlpha=D;
 			}
+			return null;
+		}
+
+		/* Pre- & Posttext */
+		if (Language.trAll("Surface.AnimationText.XML.AdditionalText",name)) {
+			preText=Language.trAllAttribute("Surface.AnimationText.XML.AdditionalText.PreText",node);
+			postText=Language.trAllAttribute("Surface.AnimationText.XML.AdditionalText.PostText",node);
+			interpretSymbols=!Language.trAllAttribute("Surface.Text.XML.FontSize.Symbols",node).equals("0");
+			interpretMarkdown=Language.trAllAttribute("Surface.Text.XML.FontSize.Markdown",node).equals("1");
+			interpretLaTeX=Language.trAllAttribute("Surface.Text.XML.FontSize.LaTeX",node).equals("1");
 			return null;
 		}
 

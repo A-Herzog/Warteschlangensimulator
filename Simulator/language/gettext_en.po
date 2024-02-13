@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-06 09:01+0100\n"
+"POT-Creation-Date: 2024-02-08 16:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27368,6 +27368,12 @@ msgstr "Italic"
 msgid "Surface.AnimationText.Dialog.Number"
 msgstr "Floating point number"
 
+msgid "Surface.AnimationText.Dialog.OptionalPostText"
+msgstr "Option text after main output"
+
+msgid "Surface.AnimationText.Dialog.OptionalPreText"
+msgstr "Option text before main output"
+
 msgid "Surface.AnimationText.Dialog.PercentValue"
 msgstr "Percent value"
 
@@ -27409,6 +27415,15 @@ msgstr "Time value"
 
 msgid "Surface.AnimationText.Type.Value"
 msgstr "Value"
+
+msgid "Surface.AnimationText.XML.AdditionalText"
+msgstr "ModelElementAnimationTextAddon"
+
+msgid "Surface.AnimationText.XML.AdditionalText.PostText"
+msgstr "Posttext"
+
+msgid "Surface.AnimationText.XML.AdditionalText.PreText"
+msgstr "Pretext"
 
 msgid "Surface.AnimationText.XML.BackgroundColor"
 msgstr "ModelElementBackgroundColor"
