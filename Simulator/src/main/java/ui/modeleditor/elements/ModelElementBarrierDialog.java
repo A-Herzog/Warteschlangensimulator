@@ -17,8 +17,10 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.io.Serializable;
 
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -44,6 +46,11 @@ public class ModelElementBarrierDialog extends ModelElementBaseDialog {
 	 * Tabellendarstellung der möglichen Signale zur Öffnung einer Schranke
 	 */
 	private BarrierSignalTableModel tableSignal;
+
+	/**
+	 * Müssen alle Signale vorliegen oder reicht es aus, wenn ein Signal vorliegt, um einen Kunden freizugeben?
+	 */
+	private JCheckBox needAllSignalsToRelease;
 
 	/**
 	 * Konstruktor der Klasse
@@ -79,6 +86,7 @@ public class ModelElementBarrierDialog extends ModelElementBaseDialog {
 		final JPanel content=new JPanel();
 		content.setLayout(new BorderLayout());
 
+		/* Signale */
 		final JTableExt table;
 		content.add(new JScrollPane(table=new JTableExt()),BorderLayout.CENTER);
 		table.setModel(tableSignal=new BarrierSignalTableModel(
@@ -94,6 +102,11 @@ public class ModelElementBarrierDialog extends ModelElementBaseDialog {
 		table.setIsPanelCellTable(1);
 		table.setEnabled(!readOnly);
 
+		/* Weitere Einstellungen */
+		final JPanel setup=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		content.add(setup,BorderLayout.SOUTH);
+		setup.add(needAllSignalsToRelease=new JCheckBox(Language.tr("Surface.Barrier.Dialog.NeedAllSignalsToRelease"),((ModelElementBarrier)element).isNeedAllSignalsToRelease()));
+
 		return content;
 	}
 
@@ -106,5 +119,6 @@ public class ModelElementBarrierDialog extends ModelElementBaseDialog {
 	protected void storeData() {
 		super.storeData();
 		tableSignal.storeData(((ModelElementBarrier)element).getOptions());
+		((ModelElementBarrier)element).setNeedAllSignalsToRelease(needAllSignalsToRelease.isSelected());
 	}
 }

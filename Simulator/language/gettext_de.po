@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-08 16:36+0100\n"
+"POT-Creation-Date: 2024-02-12 10:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12839,6 +12839,12 @@ msgstr "Pro Signal freigeben"
 msgid "ModelDescription.Barrier.InitialClients"
 msgstr "Anfängliche Freigabe"
 
+msgid "ModelDescription.Barrier.NeedAllSignalsToRelease"
+msgstr "Alle konfigurierten Signale müssen für eine Freigabe ausgelöst sein"
+
+msgid "ModelDescription.Barrier.NeedAllSignalsToRelease.Yes"
+msgstr "Ja"
+
 msgid "ModelDescription.Barrier.Signal"
 msgstr "Freigabe bei Signal"
 
@@ -19677,6 +19683,15 @@ msgstr "Interner Fehler: Es wurde für Transporter type \"%s\" angegeben, dass d
 
 msgid "Simulation.Creator.MultiEdgesToSameTarget"
 msgstr "Von Element id=%d führen jeweils Kanten zu mehreren Eingängen von Element id=%d."
+
+msgid "Simulation.Creator.NeedAllSignalsToRelease.AllClientTypesNeeded"
+msgstr "Wenn alle Signale für eine Freigabe erforderlich sind, können für einzelne Signale nicht bestimmte Kundentypen spezifiziert werden (an Station id=%d)."
+
+msgid "Simulation.Creator.NeedAllSignalsToRelease.FiniteNumberNeeded"
+msgstr "Wenn alle Signale für eine Freigabe erforderlich sind, muss pro Signal ein endlicher Wert an freizugebenden Kunden angegeben sein (an Station id=%d)."
+
+msgid "Simulation.Creator.NeedAllSignalsToRelease.StoreSignalsNeeded"
+msgstr "Wenn alle Signale für eine Freigabe erforderlich sind, muss das Speichern für alle Signale aktiviert sein (an Station id=%d)."
 
 msgid "Simulation.Creator.NegativeID"
 msgstr "Element \"%s\" besitzt eine negative id."
@@ -27998,6 +28013,9 @@ msgstr "Auslösesignal in der Liste nach unten verschieben"
 msgid "Surface.Barrier.Dialog.Edit"
 msgstr "Auslösesignal bearbeiten"
 
+msgid "Surface.Barrier.Dialog.NeedAllSignalsToRelease"
+msgstr "Alle konfigurierten Signale müssen für eine Freigabe ausgelöst sein"
+
 msgid "Surface.Barrier.Dialog.ReleaseProperties"
 msgstr "Eigenschaften"
 
@@ -28042,6 +28060,9 @@ msgstr "Alle"
 
 msgid "Surface.Barrier.XML.InitialRelease"
 msgstr "ModellElementInitialeFreigabe"
+
+msgid "Surface.Barrier.XML.NeedAllSignalsToRelease"
+msgstr "ModellElementSchrankeAlleSignaleBenoetigt"
 
 msgid "Surface.Barrier.XML.Release"
 msgstr "ModellElementFreigabe"

@@ -920,7 +920,7 @@
 >
 <!ELEMENT ModellElementSignalVerzoegerteAusloesung (#PCDATA)>
 
-<!ELEMENT ModellElementSchranke (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSchrankeOption)*>
+<!ELEMENT ModellElementSchranke (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSchrankeOption | ModellElementSchrankeAlleSignaleBenoetigt)*>
 <!ATTLIST ModellElementSchranke
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -938,6 +938,7 @@
 	Anzahl	CDATA	#REQUIRED
 	SignaleZwischenspeichern	CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementSchrankeAlleSignaleBenoetigt (#PCDATA)>
 
 <!ELEMENT ModellElementSchrankePull (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSchrankePullKontrolle)*>
 <!ATTLIST ModellElementSchrankePull
@@ -3608,7 +3609,7 @@
 >
 <!ELEMENT ModelElementSignalDelayedExecution (#PCDATA)>
 
-<!ELEMENT ModelElementBarrier (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBarrierOption)*>
+<!ELEMENT ModelElementBarrier (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBarrierOption | ModelElementBarrierAllSignalsNeeded)*>
 <!ATTLIST ModelElementBarrier
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3626,6 +3627,7 @@
   Count	CDATA	#REQUIRED
   StoreSignals	CDATA	#REQUIRED
 >
+<!ELEMENT ModelElementBarrierAllSignalsNeeded (#PCDATA)>
 
 <!ELEMENT ModelElementBarrierPull (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBarrierPullControl)*>
 <!ATTLIST ModelElementBarrierPull

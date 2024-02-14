@@ -66,6 +66,11 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 	private boolean[] storeSignals;
 
 	/**
+	 * Müssen alle Signale vorliegen oder reicht es aus, wenn ein Signal vorliegt, um einen Kunden freizugeben?
+	 */
+	private boolean needAllSignalsToRelease;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param element Zugehöriges Editor-Element
 	 */
@@ -93,6 +98,8 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 		barrier.clientType=new int[options.size()];
 		barrier.storeSignals=new boolean[options.size()];
 
+		barrier.needAllSignalsToRelease=barrierElement.isNeedAllSignalsToRelease();
+
 		for (int i=0;i<options.size();i++) {
 			final ModelElementBarrierSignalOption option=options.get(i);
 
@@ -103,8 +110,10 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 
 			final int count=option.getClientsPerSignal();
 			barrier.clientsPerSignal[i]=(count>0)?count:Integer.MAX_VALUE;
+			if (barrier.needAllSignalsToRelease && barrier.clientsPerSignal[i]==Integer.MAX_VALUE) return String.format(Language.tr("Simulation.Creator.NeedAllSignalsToRelease.FiniteNumberNeeded"),element.getId());
 
 			barrier.storeSignals[i]=option.isStoreSignals();
+			if (barrier.needAllSignalsToRelease && !barrier.storeSignals[i]) return String.format(Language.tr("Simulation.Creator.NeedAllSignalsToRelease.StoreSignalsNeeded"),element.getId());
 
 			final String type=option.getClientType();
 			if (type==null || type.trim().isEmpty()) {
@@ -112,6 +121,7 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 			} else {
 				barrier.clientType[i]=runModel.getClientTypeNr(type);
 				if (barrier.clientType[i]<0) return String.format(Language.tr("Simulation.Creator.BarrierUnknownClientType"),element.getId(),type);
+				if (barrier.needAllSignalsToRelease) return String.format(Language.tr("Simulation.Creator.NeedAllSignalsToRelease.AllClientTypesNeeded"),element.getId());
 			}
 		}
 
@@ -151,7 +161,7 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 	}
 
 	/**
-	 * Gibt es noch Kunden, die über die initiale Freigabe durchgereicht werden sollen?
+	 * Gibt es noch Kunden, die über die initiale Freigabe durchgereicht werden sollen? (Modus: Einzelsignale)
 	 * @param simData	Simulationsdaten
 	 * @param data	Thread-lokales Datenobjekt zu der Station
 	 * @param client	Kunde
@@ -168,6 +178,40 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 		/* Zähler für Direktdurchleite-Kunden verringern */
 		data.initialClients[index]--;
 
+		/* Kunden freigeben */
+		initialRelease(simData,data,client);
+
+		return true;
+	}
+
+	/**
+	 * Gibt es noch Kunden, die über die initiale Freigabe durchgereicht werden sollen? (Modus: Es müssen alle Signale ausgelöst sein)
+	 * @param simData	Simulationsdaten
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param client	Kunde
+	 * @return	Liefert <code>true</code>, wenn der Kunde direkt durchgereicht werden darf
+	 */
+	private boolean initialProcessAllSignals(final SimulationData simData, final RunElementBarrierData data, final RunDataClient client) {
+		/* Überall noch mindestens eine Freigabe möglich? */
+		for (int clients: data.initialClients) if (clients==0) return false;
+
+		/* Zähler für Direktdurchleite-Kunden verringern */
+		final int size=data.initialClients.length;
+		for (int i=0;i<size;i++) data.initialClients[i]--;
+
+		/* Kunden freigeben */
+		initialRelease(simData,data,client);
+
+		return true;
+	}
+
+	/**
+	 * Gibt ein konkretes Kundenobjekt auf Basis der initial vorgesehenen Freigaben frei.
+	 * @param simData	Simulationsdaten
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param client	Kunde
+	 */
+	private void initialRelease(final SimulationData simData, final RunElementBarrierData data, final RunDataClient client) {
 		/* Wartezeit in Statistik */
 		simData.runData.logStationProcess(simData,this,client,0,0,0,0);
 		client.addStationTime(id,0,0,0,0);
@@ -181,8 +225,6 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 		/* Kunde zur nächsten Station leiten */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);
 		StationLeaveEvent.announceClient(simData,client,getNext());
-
-		return true;
 	}
 
 	@Override
@@ -192,7 +234,13 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 		data.queueLockedForPickUp=true;
 		try {
 			/* Sollen noch Kunden direkt durchgeleitet werden? */
-			for (int i=0;i<signalName.length;i++) if (initialProcess(simData,data,client,i)) return;
+			if (needAllSignalsToRelease) {
+				/* Prüfen, ob noch gemäß aller Datensätze Freigaben möglich sind */
+				if (initialProcessAllSignals(simData,data,client)) return;
+			} else {
+				/* Einzelne Signal-Datensätze prüfen */
+				for (int i=0;i<signalName.length;i++) if (initialProcess(simData,data,client,i)) return;
+			}
 
 			/* Kunden in Warteschlange einreihen */
 			data.waitingClients.add(client);
@@ -230,6 +278,19 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 			}
 			if (client==null) return false;
 		}
+
+		releaseClient(simData,data,client);
+
+		return true;
+	}
+
+	/**
+	 * Gibt ein konkretes Kundenobjekt frei.
+	 * @param simData	Simulationsdaten
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param client	Kunde
+	 */
+	private void releaseClient(final SimulationData simData, final RunElementBarrierData data, final RunDataClient client) {
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);
 		StationLeaveEvent.announceClient(simData,client,getNext());
 
@@ -244,7 +305,6 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.ClientReleasedBySignal"),String.format(Language.tr("Simulation.Log.ClientReleasedBySignal.Info"),client.logInfo(simData),name));
 
-		return true;
 	}
 
 	/**
@@ -254,6 +314,24 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 	 * @param index	Index des Eintrags in {@link RunElementBarrierData#initialClients} der geprüft werden soll
 	 */
 	private void processSignal(final SimulationData simData, final RunElementBarrierData data, final int index) {
+		/* Alle Signale für Freigabe notwendig */
+		if (needAllSignalsToRelease) {
+			data.initialClients[index]+=clientsPerSignal[index];
+			final int size=data.initialClients.length;
+			while (true) {
+				/* Alle Signale ausgelöst? */
+				for (int clients: data.initialClients) if (clients==0) return;
+				/* Gibt es noch wartende Kunden? */
+				if (data.waitingClients.size()==0) return;
+				/* Freigabezähler reduzieren */
+				for (int i=0;i<size;i++) data.initialClients[i]--;
+				/* Kunden freigeben */
+				final RunDataClient client=data.waitingClients.remove(0);
+				releaseClient(simData,data,client);
+			}
+		}
+
+		/* Normaler Modus */
 		for (int i=0;i<clientsPerSignal[index];i++) {
 			/* Kunde freigeben ? */
 			if (releaseClient(simData,data,clientType[index])) continue;

@@ -1145,6 +1145,7 @@
 <xs:element name="ModellElementSchranke"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
 	<xs:element ref="ModellElementSchrankeOption"/>
+	<xs:element name="ModellElementSchrankeAlleSignaleBenoetigt" type="xs:string"/>	
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModellElementSchrankeOption"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -3627,6 +3628,7 @@
 <xs:element name="ModelElementBarrier"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
 	<xs:element ref="ModelElementBarrierOption"/>
+	<xs:element name="ModelElementBarrierAllSignalsNeeded" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModelElementBarrierOption"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>

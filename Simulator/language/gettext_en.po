@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-08 16:36+0100\n"
+"POT-Creation-Date: 2024-02-12 10:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12813,6 +12813,12 @@ msgstr "Release per signal"
 msgid "ModelDescription.Barrier.InitialClients"
 msgstr "Initial release"
 
+msgid "ModelDescription.Barrier.NeedAllSignalsToRelease"
+msgstr "All configured signals have to be triggered for a release"
+
+msgid "ModelDescription.Barrier.NeedAllSignalsToRelease.Yes"
+msgstr "Yes"
+
 msgid "ModelDescription.Barrier.Signal"
 msgstr "Release at Signal"
 
@@ -19634,6 +19640,15 @@ msgstr "Internal error: The distances between two down times for transporter typ
 
 msgid "Simulation.Creator.MultiEdgesToSameTarget"
 msgstr "From element id=%d there are multiple edges to input points of element id=%d."
+
+msgid "Simulation.Creator.NeedAllSignalsToRelease.AllClientTypesNeeded"
+msgstr "If all signals are required for a release, individual client types cannot be specified for the partial signals (at station id=%d)."
+
+msgid "Simulation.Creator.NeedAllSignalsToRelease.FiniteNumberNeeded"
+msgstr "If all signals are required for a release, a finite value of clients to be released has to be specified for each signal (at station id=%d)."
+
+msgid "Simulation.Creator.NeedAllSignalsToRelease.StoreSignalsNeeded"
+msgstr "If all signals are required for a release, storing signals has to be activated for all signals (at station id=%d)."
 
 msgid "Simulation.Creator.NegativeID"
 msgstr "Element \"%s\" has a negative id."
@@ -27953,6 +27968,9 @@ msgstr "Move down release signal in list"
 msgid "Surface.Barrier.Dialog.Edit"
 msgstr "Edit release signal"
 
+msgid "Surface.Barrier.Dialog.NeedAllSignalsToRelease"
+msgstr "All configured signals have to be triggered for a release"
+
 msgid "Surface.Barrier.Dialog.ReleaseProperties"
 msgstr "Properties"
 
@@ -27997,6 +28015,9 @@ msgstr "All"
 
 msgid "Surface.Barrier.XML.InitialRelease"
 msgstr "ModelElementInitialRelease"
+
+msgid "Surface.Barrier.XML.NeedAllSignalsToRelease"
+msgstr "ModelElementBarrierAllSignalsNeeded"
 
 msgid "Surface.Barrier.XML.Release"
 msgstr "ModelElementRelease"

@@ -60,6 +60,11 @@ public class ModelElementBarrier extends ModelElementMultiInSingleOutBox impleme
 	private final List<ModelElementBarrierSignalOption> options;
 
 	/**
+	 * Müssen alle Signale vorliegen oder reicht es aus, wenn ein Signal vorliegt, um einen Kunden freizugeben?
+	 */
+	private boolean needAllSignalsToRelease;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementBarrier</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -67,6 +72,7 @@ public class ModelElementBarrier extends ModelElementMultiInSingleOutBox impleme
 	public ModelElementBarrier(final EditModel model , final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_RECTANGLE);
 		options=new ArrayList<>();
+		needAllSignalsToRelease=false;
 	}
 
 	/**
@@ -101,6 +107,7 @@ public class ModelElementBarrier extends ModelElementMultiInSingleOutBox impleme
 		for (int i=0;i<options.size();i++) {
 			if (!options.get(i).equalsOption(((ModelElementBarrier)element).options.get(i))) return false;
 		}
+		if (needAllSignalsToRelease!=((ModelElementBarrier)element).needAllSignalsToRelease) return false;
 
 		return true;
 	}
@@ -115,6 +122,7 @@ public class ModelElementBarrier extends ModelElementMultiInSingleOutBox impleme
 		if (element instanceof ModelElementBarrier) {
 			for (ModelElementBarrierSignalOption option: ((ModelElementBarrier)element).options) options.add(option.clone());
 		}
+		needAllSignalsToRelease=((ModelElementBarrier)element).needAllSignalsToRelease;
 	}
 
 	/**
@@ -169,6 +177,22 @@ public class ModelElementBarrier extends ModelElementMultiInSingleOutBox impleme
 	 */
 	public List<ModelElementBarrierSignalOption> getOptions() {
 		return options;
+	}
+
+	/**
+	 * Müssen alle Signale vorliegen oder reicht es aus, wenn ein Signal vorliegt, um einen Kunden freizugeben?
+	 * @return	Müssen alle Signale vorliegen oder reicht es aus, wenn ein Signal vorliegt, um einen Kunden freizugeben?
+	 */
+	public boolean isNeedAllSignalsToRelease() {
+		return needAllSignalsToRelease;
+	}
+
+	/**
+	 * Stellt ein, ob alle Signale vorliegen oder es ausreicht, wenn ein Signal vorliegt, um einen Kunden freizugeben.
+	 * @param needAllSignalsToRelease	Müssen alle Signale vorliegen oder reicht es aus, wenn ein Signal vorliegt, um einen Kunden freizugeben?
+	 */
+	public void setNeedAllSignalsToRelease(final boolean needAllSignalsToRelease) {
+		this.needAllSignalsToRelease=needAllSignalsToRelease;
 	}
 
 	/**
@@ -262,6 +286,12 @@ public class ModelElementBarrier extends ModelElementMultiInSingleOutBox impleme
 		super.addPropertiesDataToXML(doc,node);
 
 		for (ModelElementBarrierSignalOption option : options) option.saveToXML(doc,node);
+
+		if (needAllSignalsToRelease) {
+			final Element sub=doc.createElement(Language.tr("Surface.Barrier.XML.NeedAllSignalsToRelease"));
+			node.appendChild(sub);
+			sub.setTextContent("1");
+		}
 	}
 
 	/**
@@ -281,6 +311,11 @@ public class ModelElementBarrier extends ModelElementMultiInSingleOutBox impleme
 			error=option.loadFromXML(node);
 			if (error!=null) return error;
 			options.add(option);
+			return null;
+		}
+
+		if (Language.trAll("Surface.Barrier.XML.NeedAllSignalsToRelease",name)) {
+			if (content.trim().equals("1")) needAllSignalsToRelease=true;
 			return null;
 		}
 
@@ -333,6 +368,9 @@ public class ModelElementBarrier extends ModelElementMultiInSingleOutBox impleme
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 		for (ModelElementBarrierSignalOption option: options) option.buildDescriptionProperty(descriptionBuilder);
+		if (needAllSignalsToRelease) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Barrier.NeedAllSignalsToRelease"),Language.tr("ModelDescription.Barrier.NeedAllSignalsToRelease.Yes"),2000);
+		}
 	}
 
 	@Override
