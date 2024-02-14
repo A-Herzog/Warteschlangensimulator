@@ -733,7 +733,6 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			@Override
 			protected void nodeSelected(StatisticNode node, DefaultMutableTreeNode treeNode) {updateDataPanel(node,treeNode);}
 		});
-		if (!isDark) tree.setBackground(new Color(0xFF,0xFF,0xF8));
 		sp.setBorder(BorderFactory.createLineBorder(Color.GRAY,1));
 		treePanel.add(sp,BorderLayout.CENTER);
 

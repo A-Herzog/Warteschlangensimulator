@@ -91,7 +91,7 @@ class StatisticViewerHTMLText implements StatisticViewer {
 					"  <meta charset=\"utf-8\">\n"+
 					"  <meta name=\"author\" content=\"Alexander Herzog\">\n"+
 					"  <style type=\"text/css\">\n"+
-					"  body {font-family: Verdana, Lucida, sans-serif; background-color: #FFFFF3; margin: 2px;}\n"+
+					"  body {font-family: Verdana, Lucida, sans-serif; background-color: white; margin: 2px;}\n"+
 					"  ul.big li {margin-bottom: 5px;}\n"+
 					"  ol.big li {margin-bottom: 5px;}\n"+
 					"  a {text-decoration: none;}\n"+

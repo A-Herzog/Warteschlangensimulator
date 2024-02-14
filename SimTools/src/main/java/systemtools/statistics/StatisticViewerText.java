@@ -260,7 +260,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 
 		textPane=new JTextPane();
 		textPane.setEditable(false);
-		if (!isDark) textPane.setBackground(new Color(0xFF,0xFF,0xF8));
+		if (!isDark) textPane.setBackground(Color.WHITE);
 		textPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES,Boolean.TRUE);
 
 		/* Styles zusammenstellen */
