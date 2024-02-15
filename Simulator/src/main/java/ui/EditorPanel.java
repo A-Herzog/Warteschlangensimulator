@@ -129,6 +129,7 @@ import ui.modelproperties.ModelPropertiesDialog;
 import ui.parameterseries.ParameterCompareTemplatesDialog;
 import ui.quickaccess.JPlaceholderTextField;
 import ui.speedup.BackgroundSystem;
+import ui.tools.FlatLaFHelper;
 import ui.tools.InputContextFix;
 import ui.tools.PanelSlider;
 
@@ -1591,12 +1592,12 @@ public final class EditorPanel extends EditorPanelBase {
 		p.add(additionalInfoArea=new JToolBar(),BorderLayout.CENTER);
 		additionalInfoArea.setVisible(false);
 		additionalInfoArea.setFloatable(false);
-		additionalInfoArea.setBackground(new Color(255,255,240));
+		additionalInfoArea.setBackground(FlatLaFHelper.isDark()?Color.GRAY:new Color(255,255,240));
 		additionalInfoArea.add(additionalInfoLabel=new JLabel(""));
 		additionalInfoLabel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		additionalInfoArea.add(Box.createHorizontalGlue());
 		JButton button=new JButton(Language.tr("Editor.AddEdge.Hint.RemoveButton"));
-		button.setBackground(new Color(255,255,240));
+		button.setBackground(FlatLaFHelper.isDark()?Color.GRAY:new Color(255,255,240));
 		button.setToolTipText(Language.tr("Editor.AddEdge.Hint.RemoveButton.Hint"));
 		additionalInfoArea.add(button);
 		button.setIcon(Images.EDIT_EDGES_ADD_CLOSEPANEL.getIcon());

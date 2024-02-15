@@ -52,6 +52,7 @@ import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelResources;
 import ui.modeleditor.ModelSurface;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Dialog, der Einstellungen für ein {@link ModelElementProcess}-Element anbietet
@@ -437,8 +438,13 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 	private JPanel getAssistentPanel() {
 		final JPanel result=new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-		result.setBorder(BorderFactory.createLineBorder(new Color(0,180,0)));
-		result.setBackground(new Color(200,255,200));
+		if (FlatLaFHelper.isDark()) {
+			result.setBorder(BorderFactory.createLineBorder(new Color(0,180,0)));
+			result.setBackground(new Color(0,90,0));
+		} else {
+			result.setBorder(BorderFactory.createLineBorder(new Color(0,180,0)));
+			result.setBackground(new Color(200,255,200));
+		}
 
 		JButton button;
 
