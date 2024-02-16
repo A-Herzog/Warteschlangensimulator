@@ -192,6 +192,10 @@ public final class RunDataClients {
 		/* Erfassung Anzahl an Kunden im System */
 		clientsInSystem++;
 		if (!simData.runData.isWarmUp) {
+			if (simData.currentTime==0 && clientsInSystem==1) {
+				/* Wird nur benötigt, wenn zum Zeitpunkt 0 die einzigen Kunden eintreffen und diese das System dann nie wieder verlassen (geschlossenes Netz) */
+				simData.statistics.clientsInSystem.setTime(0);
+			}
 			simData.statistics.clientsInSystem.set(simData.currentTime*scale,clientsInSystem);
 		}
 
