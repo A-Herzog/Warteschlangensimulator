@@ -1462,7 +1462,7 @@ public class SetupData extends SetupBase {
 		surfaceHelp=SurfaceHelp.START_ONLY;
 		surfaceGlassInfos=true;
 		scaleGUI=1;
-		lookAndFeel="";
+		lookAndFeel=getDefaultLookAndFeel();
 		lookAndFeelCombinedMenu=true;
 		autoSaveMode=AutoSaveMode.AUTOSAVE_OFF;
 		hintDialogs="";
@@ -1681,6 +1681,14 @@ public class SetupData extends SetupBase {
 	}
 
 	/**
+	 * Liefert das standardmäßig zu verwendende Look&amp;Feel.
+	 * @return	Standardmäßig zu verwendendes Look&amp;Feel
+	 */
+	private static String getDefaultLookAndFeel() {
+		return new FlatLightLaf().getName();
+	}
+
+	/**
 	 * Prüft, ob der programminterne Updater
 	 * überhaupt verwendet werden soll.
 	 * @return	Programminterner Updater verfügbar
@@ -1704,8 +1712,7 @@ public class SetupData extends SetupBase {
 		if (Language.isSupportedLanguage(userLanguage)) language=userLanguage.toLowerCase(); else language="en";
 
 		/* Thema einstellen */
-		final String os=System.getProperty("os.name").toLowerCase();
-		if (os.contains("nix") || os.contains("nux") || os.contains("aix")) lookAndFeel=new FlatLightLaf().getName();
+		lookAndFeel=getDefaultLookAndFeel();
 
 		/* Alle Elemente für Rechtschreibprüfung auswählen */
 		spellCheckMode.addAll(Arrays.asList(ScriptEditorAreaBuilder.TextAreaMode.values()));
