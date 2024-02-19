@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.5.0</ModelVersion>
+  <ModelName>Service time depending on service order</ModelName>
+  <ModelDescription>In the default case, the service time at a process station is determined
+after the client has been removed from the queue. In this case,
+prioritization by service time is not possible. However, if the service time
+is already known before the client reaches the queue, it is possible to
+prioritize according to the shortest or longest service time.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="150"/>
+      <ModelElementConnection Element="3" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementVariable id="2">
+      <ModelElementName>S</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="150"/>
+      <ModelElementConnection Element="3" Type="In"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(1)">ExpDist(80)</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementEdge id="3">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDuplicate id="4">
+      <ModelElementSize h="50" w="100" x="450" y="150"/>
+      <ModelElementConnection Element="5" Type="In"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementConnection Element="15" Type="Out"/>
+    </ModelElementDuplicate>
+    <ModelElementEdge id="5">
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="6">
+      <ModelElementName>FIFO</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="50"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">ClientData(1)</ModelElementExpression>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="FIFO"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="7">
+      <ModelElementName>Original</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="10">
+      <ModelElementName>SJF</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="150"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">ClientData(1)</ModelElementExpression>
+      <ModelElementPriority ClientType="Clients">-ClientData(1)</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">-ClientData(1)</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="SJF"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDispose id="11">
+      <ModelElementSize h="50" w="100" x="850" y="150"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="9" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="10" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="13">
+      <ModelElementName>Copy 1</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="14">
+      <ModelElementName>LJF</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="250"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">ClientData(1)</ModelElementExpression>
+      <ModelElementPriority ClientType="Clients">ClientData(1)</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">ClientData(1)</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="LJF"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="15">
+      <ModelElementName>Copy 2</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="14" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationBarDiagram id="18">
+      <ModelElementSize h="200" w="100" x="550" y="400"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>255,255,255</ModelElementBackgroundColor>
+      <ModelElementBackgroundColorGradient>230,230,250</ModelElementBackgroundColorGradient>
+      <ModelElementUse3D>1</ModelElementUse3D>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMaximumValue>8</ModelElementMaximumValue>
+      <ModelElementAxisLabels Text="Average number of clients at the station">2</ModelElementAxisLabels>
+      <ModelElementDiagramElement BarColor="0,0,255">WIP_avg(6)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WIP_avg(10)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">WIP_avg(14)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementAnimationBarDiagram id="19">
+      <ModelElementSize h="200" w="100" x="700" y="400"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>255,255,255</ModelElementBackgroundColor>
+      <ModelElementBackgroundColorGradient>230,230,250</ModelElementBackgroundColorGradient>
+      <ModelElementUse3D>1</ModelElementUse3D>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMaximumValue>12</ModelElementMaximumValue>
+      <ModelElementAxisLabels Text="Average waiting time (in min.)">2</ModelElementAxisLabels>
+      <ModelElementDiagramElement BarColor="255,0,0">WaitingTime_avg(6)/60</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">WaitingTime_avg(10)/60</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">WaitingTime_avg(14)/60</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementText id="20">
+      <ModelElementSize h="19" w="97" x="550" y="605"/>
+      <ModelElementTextLine>FIFO  SJF  LJF</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="21">
+      <ModelElementSize h="19" w="97" x="700" y="605"/>
+      <ModelElementTextLine>FIFO  SJF  LJF</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementEdge id="8">
+      <ModelElementConnection Element1="6" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="9">
+      <ModelElementConnection Element1="14" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="16">
+      <ModelElementSize h="23" w="356" x="50" y="50"/>
+      <ModelElementTextLine>Service time depending on service order</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="17">
+      <ModelElementSize h="30" w="81" x="250" y="115"/>
+      <ModelElementTextLine>Pre definition of</ModelElementTextLine>
+      <ModelElementTextLine>the service times</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="22">
+      <ModelElementSize h="95" w="453" x="50" y="250"/>
+      <ModelElementTextLine>In the default case, the service time at a process station is determined</ModelElementTextLine>
+      <ModelElementTextLine>after the client has been removed from the queue. In this case,</ModelElementTextLine>
+      <ModelElementTextLine>prioritization by service time is not possible. However, if the service time</ModelElementTextLine>
+      <ModelElementTextLine>is already known before the client reaches the queue, it is possible to</ModelElementTextLine>
+      <ModelElementTextLine>prioritize according to the shortest or longest service time.</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="23">
+      <ModelElementSize h="15" w="89" x="650" y="130"/>
+      <ModelElementTextLine>Shortest job first</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="24">
+      <ModelElementSize h="15" w="86" x="650" y="230"/>
+      <ModelElementTextLine>Longest job first</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="25">
+      <ModelElementSize h="32" w="112" x="550" y="365"/>
+      <ModelElementTextLine>Average number of</ModelElementTextLine>
+      <ModelElementTextLine>clients at the stations</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="26">
+      <ModelElementSize h="16" w="110" x="700" y="380"/>
+      <ModelElementTextLine>Average waiting time</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationBarDiagram id="27">
+      <ModelElementSize h="200" w="100" x="850" y="400"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>255,255,255</ModelElementBackgroundColor>
+      <ModelElementBackgroundColorGradient>230,230,250</ModelElementBackgroundColorGradient>
+      <ModelElementUse3D>1</ModelElementUse3D>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMaximumValue>2.5</ModelElementMaximumValue>
+      <ModelElementAxisLabels Text="Coefficient of variation of the lead times">2</ModelElementAxisLabels>
+      <ModelElementDiagramElement BarColor="0,195,195">ResidenceTime_cv(6)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,195,195">ResidenceTime_cv(10)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,195,195">ResidenceTime_cv(14)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementText id="28">
+      <ModelElementSize h="32" w="80" x="850" y="365"/>
+      <ModelElementTextLine>Variation of the</ModelElementTextLine>
+      <ModelElementTextLine>lead times</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="29">
+      <ModelElementSize h="19" w="97" x="850" y="605"/>
+      <ModelElementTextLine>FIFO  SJF  LJF</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="FIFO" Type="Number" Value="1"/>
+    <Resource Name="SJF" Type="Number" Value="1"/>
+    <Resource Name="LJF" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+</Model>

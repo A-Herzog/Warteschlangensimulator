@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.5.0</ModellVersion>
+  <ModellName>Bedienreihenfolge in Abhängigkeit von der Bediendauer</ModellName>
+  <ModellBeschreibung>Normalerweise wird die Bediendauer an einer Bedienstation erst bestimmt,
+nachdem der Kunde der Warteschlange entnommen wurde. In diesem
+Fall ist keine Priorisierung nach Bediendauer möglich. Ist die Bediendauer
+jedoch bereits bekannt, bevor der Kunde die Warteschlange erreicht, lässt
+sich nach kürzester oder längster Bediendauer priorisieren.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="150"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVariable id="2">
+      <ModellElementName>S</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="250" y="150"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(1)">ExpDist(80)</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementDuplizieren id="4">
+      <ModellElementGroesse h="50" w="100" x="450" y="150"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
+    </ModellElementDuplizieren>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="6">
+      <ModellElementName>FIFO</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="50"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">ClientData(1)</ModellElementAusdruck>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="FIFO"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="7">
+      <ModellElementName>Original</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="10">
+      <ModellElementName>SJF</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="150"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">ClientData(1)</ModellElementAusdruck>
+      <ModellElementPrioritaet Kundentyp="Kunden">-ClientData(1)</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="SJF"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementEnde id="11">
+      <ModellElementGroesse h="50" w="100" x="850" y="150"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="10" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="13">
+      <ModellElementName>Kopie 1</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="14">
+      <ModellElementName>LJF</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="250"/>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">ClientData(1)</ModellElementAusdruck>
+      <ModellElementPrioritaet Kundentyp="Kunden">ClientData(1)</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="LJF"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="15">
+      <ModellElementName>Kopie 2</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="14" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationBalkenDiagramm id="18">
+      <ModellElementGroesse h="200" w="100" x="550" y="400"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>255,255,255</ModellElementHintergrundfarbe>
+      <ModellElementHintergrundfarbeFarbverlauf>230,230,250</ModellElementHintergrundfarbeFarbverlauf>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>8</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung Text="Mittlere Anzahl an Kunden an der Station">2</ModellElementAchsenbeschriftung>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WIP_avg(6)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WIP_avg(10)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,0,255">WIP_avg(14)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementAnimationBalkenDiagramm id="19">
+      <ModellElementGroesse h="200" w="100" x="700" y="400"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>255,255,255</ModellElementHintergrundfarbe>
+      <ModellElementHintergrundfarbeFarbverlauf>230,230,250</ModellElementHintergrundfarbeFarbverlauf>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>12</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung Text="Mittlere Wartezeit (in Min.)">2</ModellElementAchsenbeschriftung>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">WaitingTime_avg(6)/60</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">WaitingTime_avg(10)/60</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">WaitingTime_avg(14)/60</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementText id="20">
+      <ModellElementGroesse h="19" w="97" x="550" y="605"/>
+      <ModellElementTextzeile>FIFO  SJF  LJF</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="21">
+      <ModellElementGroesse h="19" w="97" x="700" y="605"/>
+      <ModellElementTextzeile>FIFO  SJF  LJF</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKante id="8">
+      <ModellElementVerbindung Element1="6" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementVerbindung Element1="14" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="16">
+      <ModellElementGroesse h="23" w="493" x="50" y="50"/>
+      <ModellElementTextzeile>Bedienreihenfolge in Abhängigkeit von der Bediendauer</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="17">
+      <ModellElementGroesse h="30" w="85" x="250" y="115"/>
+      <ModellElementTextzeile>Vorab Festlegung</ModellElementTextzeile>
+      <ModellElementTextzeile>der Bediendauer</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="22">
+      <ModellElementGroesse h="95" w="470" x="50" y="250"/>
+      <ModellElementTextzeile>Normalerweise wird die Bediendauer an einer Bedienstation erst bestimmt,</ModellElementTextzeile>
+      <ModellElementTextzeile>nachdem der Kunde der Warteschlange entnommen wurde. In diesem</ModellElementTextzeile>
+      <ModellElementTextzeile>Fall ist keine Priorisierung nach Bediendauer möglich. Ist die Bediendauer</ModellElementTextzeile>
+      <ModellElementTextzeile>jedoch bereits bekannt, bevor der Kunde die Warteschlange erreicht, lässt</ModellElementTextzeile>
+      <ModellElementTextzeile>sich nach kürzester oder längster Bediendauer priorisieren.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse LaTeX="1" Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="23">
+      <ModellElementGroesse h="15" w="89" x="650" y="130"/>
+      <ModellElementTextzeile>Shortest job first</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="24">
+      <ModellElementGroesse h="15" w="86" x="650" y="230"/>
+      <ModellElementTextzeile>Longest job first</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="25">
+      <ModellElementGroesse h="32" w="119" x="550" y="365"/>
+      <ModellElementTextzeile>Mittlere Anzahl an</ModellElementTextzeile>
+      <ModellElementTextzeile>Kunden an der Station</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="26">
+      <ModellElementGroesse h="16" w="93" x="700" y="380"/>
+      <ModellElementTextzeile>Mittlere Wartezeit</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalkenDiagramm id="27">
+      <ModellElementGroesse h="200" w="100" x="850" y="400"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>255,255,255</ModellElementHintergrundfarbe>
+      <ModellElementHintergrundfarbeFarbverlauf>230,230,250</ModellElementHintergrundfarbeFarbverlauf>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>2.5</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung Text="Variationskoeffizient der Verweilzeiten">2</ModellElementAchsenbeschriftung>
+      <ModellElementDiagrammElement Balkenfarbe="0,195,195">ResidenceTime_cv(6)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,195,195">ResidenceTime_cv(10)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="0,195,195">ResidenceTime_cv(14)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementText id="28">
+      <ModellElementGroesse h="32" w="70" x="850" y="365"/>
+      <ModellElementTextzeile>Streuung der</ModellElementTextzeile>
+      <ModellElementTextzeile>Verweilzeiten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="29">
+      <ModellElementGroesse h="19" w="97" x="850" y="605"/>
+      <ModellElementTextzeile>FIFO  SJF  LJF</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="FIFO" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="SJF" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="LJF" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
+</Modell>

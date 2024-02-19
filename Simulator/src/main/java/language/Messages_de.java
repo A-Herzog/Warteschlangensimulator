@@ -23552,6 +23552,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52037] = "Wert";
     t[52038] = "SettingsDialog.Tabs.Statistics.OpenWord";
     t[52039] = "Word";
+    t[52044] = "Examples.SJF-LJF";
+    t[52045] = "Bedienreihenfolge in Abh\u00e4ngigkeit von der Bediendauer";
     t[52048] = "Surface.PopupMenu.MoveToBack";
     t[52049] = "In den Hintergrund";
     t[52050] = "Animation.IconDialog.Single.IconName.Error.NameInUse";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53233] = "ModellElementEingabeDBTabelle";
     t[53240] = "Distribution.SawtoothLeftWikipedia";
     t[53241] = "https://de.wikipedia.org/wiki/Dreiecksverteilung";
-    t[53242] = "Main.Menu.Extras.FitDistribution.Mnemonic";
-    t[53243] = "V";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[53242] = "Main.Menu.Extras.FitDistribution.Mnemonic";
+    t[53243] = "V";
     t[53250] = "Editor.Dialog.Tab.Simulation.RecordClientTextData";
     t[53251] = "Text-Kundendatenfelder in der Statistik erfassen";
     t[53252] = "Surface.Note.Infotext";

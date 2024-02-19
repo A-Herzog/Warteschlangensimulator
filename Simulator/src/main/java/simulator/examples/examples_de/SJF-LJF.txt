@@ -1,0 +1,1 @@
+Normalerweise wird die Bediendauer an einer Bedienstation erst bestimmt, nachdem der Kunde der Warteschlange entnommen wurde. In diesem Fall ist keine Priorisierung nach Bediendauer möglich. Ist die Bediendauer jedoch bereits bekannt, bevor der Kunde die Warteschlange erreicht, lässt sich nach kürzester oder längster Bediendauer priorisieren.

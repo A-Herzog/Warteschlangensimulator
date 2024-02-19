@@ -316,6 +316,7 @@ public class EditModelExamples {
 		addExample(Language.trAll("Examples.LocalVersusGlobalWarehouse"),"LocalVersusGlobalWarehouse",ExampleType.TYPE_COMPARE,ExampleKeyWord.PUSH_PULL);
 		addExample(Language.trAll("Examples.SplitAndJoin"),"SplitAndJoin",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
 		addExample(Language.trAll("Examples.ClientTypesAndSkills"),"ClientTypesAndSkills",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.SJF-LJF"),"SJF-LJF",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
 
 		/* Beispiele, die mathematische Zusammenh‰nge verdeutlichen */
 		addExample(Language.trAll("Examples.LawOfLargeNumbers"),"GesetzDerGroﬂenZahlen",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
