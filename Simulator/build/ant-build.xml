@@ -370,6 +370,8 @@
 		</condition>
 		
 		<echo message="Generate exe wrapper" />
+		<copy file="${BuildTools.location}/Launcher/Simulator.exe" tofile="${Release.location}/Simulator.exe"/>
+		<!--
 		<exec executable="${NSIS.location}\makensis.exe" dir="${BuildTools.location}" if:set="NSIS.present">
 			<arg value="Launcher.nsi" />
 		</exec>
@@ -383,9 +385,12 @@
 			<arg value="Simulator.exe"/>
 		</exec>
 		<move file="${BuildTools.location}/Simulator.exe" tofile="${Release.location}/Simulator.exe" />
+		-->
 		<copy file="${BuildTools.location}/Simulator.sh" tofile="${Release.location}/Simulator.sh" />
 		
 		<echo message="Generate exe Java Path Getter" />
+		<copy file="${BuildTools.location}/LauncherCLI/SimulatorCLIGetJava.exe" tofile="${Release.location}/tools/SimulatorCLIGetJava.exe"/>
+		<!--
 		<available file="${NSIS.location}\makensis.exe" property="NSIS.present"/>
 		<exec executable="${NSIS.location}\makensis.exe" dir="${BuildTools.location}" if:set="NSIS.present">
 			<arg value="LauncherCLI.nsi" />
@@ -398,7 +403,8 @@
 			<arg value="SHA256"/>
 			<arg value="SimulatorCLIGetJava.exe"/>
 		</exec>
-		<move file="${BuildTools.location}/SimulatorCLIGetJava.exe" tofile="${Release.location}/tools/SimulatorCLIGetJava.exe" />		
+		<move file="${BuildTools.location}/SimulatorCLIGetJava.exe" tofile="${Release.location}/tools/SimulatorCLIGetJava.exe" />
+		-->		
 		<copy file="${BuildTools.location}/SimulatorCLI.bat" tofile="${Release.location}/SimulatorCLI.bat" />
 		
 		<echo message="Generate configuration resetter" />
@@ -417,7 +423,7 @@
 
 		<echo message="Generate installer" />
 		<exec executable="${NSIS.location}\makensis.exe" dir="${BuildTools.location}" if:set="NSIS.present">
-			<arg value="Setup.nsi" />			
+			<arg value="Setup.nsi" />
 		</exec>
 		<exec executable="${Signer.location}\SignTool.exe" dir="${Release.location}" if:set="Signer.present">
 			<arg value="sign"/>

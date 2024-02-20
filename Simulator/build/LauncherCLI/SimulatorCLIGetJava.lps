@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units Count="11">
+      <Unit0>
+        <Filename Value="SimulatorCLIGetJava.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos Y="19"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="findjava.pas"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="60"/>
+        <CursorPos X="45" Y="72"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="C:\lazarus\fpc\3.0.4\source\rtl\win64\windows.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="15"/>
+        <CursorPos X="38" Y="8"/>
+        <UsageCount Value="10"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="C:\lazarus\fpc\3.0.4\source\rtl\win\wininc\messages.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1770"/>
+        <CursorPos X="22" Y="1822"/>
+        <UsageCount Value="10"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="C:\lazarus\fpc\3.0.4\source\packages\ncurses\src\form.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="15"/>
+        <CursorPos X="25" Y="67"/>
+        <UsageCount Value="10"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="C:\lazarus\fpc\3.0.4\source\packages\winunits-base\src\winutils.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="77"/>
+        <UsageCount Value="10"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="C:\lazarus\fpc\3.0.4\source\rtl\win64\classes.pp"/>
+        <UnitName Value="Classes"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="5" Y="6"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="C:\lazarus\fpc\3.0.4\source\rtl\objpas\types.pp"/>
+        <UnitName Value="Types"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="451"/>
+        <CursorPos X="8" Y="481"/>
+        <UsageCount Value="10"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="C:\lazarus\fpc\3.0.4\source\packages\fv\src\dialogs.pas"/>
+        <UnitName Value="Dialogs"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="C:\lazarus\fpc\3.0.4\source\rtl\win\wininc\base.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="913"/>
+        <UsageCount Value="10"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="C:\lazarus\fpc\3.0.4\source\packages\winunits-base\src\shellapi.pp"/>
+        <UnitName Value="ShellApi"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="317"/>
+        <CursorPos Y="369"/>
+        <UsageCount Value="10"/>
+      </Unit10>
+    </Units>
+    <JumpHistory Count="15" HistoryIndex="14">
+      <Position1>
+        <Filename Value="SimulatorCLIGetJava.lpr"/>
+        <Caret Line="12" Column="8"/>
+      </Position1>
+      <Position2>
+        <Filename Value="SimulatorCLIGetJava.lpr"/>
+        <Caret Line="12" Column="12"/>
+      </Position2>
+      <Position3>
+        <Filename Value="SimulatorCLIGetJava.lpr"/>
+        <Caret Line="13" Column="10"/>
+      </Position3>
+      <Position4>
+        <Filename Value="SimulatorCLIGetJava.lpr"/>
+        <Caret Line="11" Column="11"/>
+      </Position4>
+      <Position5>
+        <Filename Value="SimulatorCLIGetJava.lpr"/>
+        <Caret Line="28" Column="4"/>
+      </Position5>
+      <Position6>
+        <Filename Value="SimulatorCLIGetJava.lpr"/>
+        <Caret Line="10" Column="11"/>
+      </Position6>
+      <Position7>
+        <Filename Value="SimulatorCLIGetJava.lpr"/>
+        <Caret Line="11" Column="11"/>
+      </Position7>
+      <Position8>
+        <Filename Value="SimulatorCLIGetJava.lpr"/>
+        <Caret Line="30" Column="74"/>
+      </Position8>
+      <Position9>
+        <Filename Value="SimulatorCLIGetJava.lpr"/>
+        <Caret Line="19"/>
+      </Position9>
+      <Position10>
+        <Filename Value="findjava.pas"/>
+        <Caret Line="14" Column="2"/>
+      </Position10>
+      <Position11>
+        <Filename Value="findjava.pas"/>
+        <Caret Line="67" Column="32" TopLine="39"/>
+      </Position11>
+      <Position12>
+        <Filename Value="findjava.pas"/>
+        <Caret Line="68" Column="48" TopLine="40"/>
+      </Position12>
+      <Position13>
+        <Filename Value="findjava.pas"/>
+        <Caret Line="187" Column="20" TopLine="146"/>
+      </Position13>
+      <Position14>
+        <Filename Value="findjava.pas"/>
+        <Caret Line="22" Column="14" TopLine="68"/>
+      </Position14>
+      <Position15>
+        <Filename Value="findjava.pas"/>
+        <Caret Line="21" Column="14" TopLine="4"/>
+      </Position15>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>
