@@ -676,6 +676,8 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		public boolean inStatistics;
 		/** Anzahl an Kunden in dem Batch (0, wenn dieser Kunde kein temporärer Batch ist) */
 		public final int batch;
+		/** Kundentypnamen der Kunden in dem Batch (oder <code>null</code>, wenn dieser Kunde kein temporärer Batch ist) */
+		public final String[] batchTypeNames;
 		/** ID der Station an der sich der Kunde momentan befindet */
 		public final int currentPosition;
 		/** Bisherige Wartezeit des Kunden */
@@ -719,7 +721,14 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 			inStatistics=client.inStatistics;
 
 			final List<RunDataClient> batchClients=client.getBatchData();
-			if (batchClients==null) batch=0; else batch=batchClients.size();
+			if (batchClients==null) {
+				batch=0;
+				batchTypeNames=null;
+			} else {
+				batch=batchClients.size();
+				batchTypeNames=new String[batch];
+				for (int i=0;i<batch;i++) batchTypeNames[i]=(model==null)?"A":model.clientTypes[batchClients.get(i).type];
+			}
 
 			currentPosition=client.nextStationID;
 

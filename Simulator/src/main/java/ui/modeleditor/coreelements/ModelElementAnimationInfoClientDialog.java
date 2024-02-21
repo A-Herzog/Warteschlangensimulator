@@ -117,7 +117,15 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 
 		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.IsWarmUp"),clientInfo.isWarmUp);
 		addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.InStatistics"),!clientInfo.isWarmUp && clientInfo.inStatistics);
-		if (clientInfo.batch>0) addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.BatchSize"),""+clientInfo.batch);
+		if (clientInfo.batch>0) {
+			final StringBuilder batchInfo=new StringBuilder();
+			for (int i=0;i<Math.min(3,clientInfo.batch);i++) {
+				if (i>0) batchInfo.append(", ");
+				batchInfo.append(clientInfo.batchTypeNames[i]);
+			}
+			if (clientInfo.batch>3) batchInfo.append(", ...");
+			addInfo(tab,Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.General.BatchSize"),""+clientInfo.batch,batchInfo.toString());
+		}
 
 		/* Tab "Zeiten" */
 		tabs.addTab(Language.tr("Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Times"),tabOuter=new JPanel(new BorderLayout()));
@@ -201,7 +209,11 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 	private void addInfo(final JPanel parent, final String name, final String value) {
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		parent.add(line);
-		line.add(new JLabel("<html><body>"+name+": <b>"+value+"</b></body></html>"));
+		if (name==null) {
+			line.add(new JLabel("<html><body>"+value+"</body></html>"));
+		} else {
+			line.add(new JLabel("<html><body>"+name+": <b>"+value+"</b></body></html>"));
+		}
 	}
 
 	/**
