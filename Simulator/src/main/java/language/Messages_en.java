@@ -20870,6 +20870,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46125] = "Animation - Interactive";
     t[46128] = "ExpressionBuilder.StatisticalFunctions.Sum.Info";
     t[46129] = "<p>Calculates the sum of the values passed as parameters.</p> <p> Example: <tt>sum (1;2;3)</tt> returns 6.</p>";
+    t[46134] = "Statistics.Dashboard.EditDialog.GradientColor";
+    t[46135] = "Use gradient";
     t[46140] = "Surface.AnimationBarStack.Dialog.Column.Expression";
     t[46141] = "Expression";
     t[46160] = "ExternalConnect.Dialog.ExamplesLink.ErrorInfo";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48743] = "A name for the group has to be specified.";
     t[48744] = "Elements.Catalog.InputOutput";
     t[48745] = "Input/Output";
-    t[48756] = "Simulation.Creator.ProcessCannotCombineBatchAndCampaign";
-    t[48757] = "The campaign mode cannot be combined with batch service (at station id=%d).";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[48756] = "Simulation.Creator.ProcessCannotCombineBatchAndCampaign";
+    t[48757] = "The campaign mode cannot be combined with batch service (at station id=%d).";
     t[48760] = "Surface.Popup.AddLongRunStatistics.Part";
     t[48761] = "Counter part";
     t[48764] = "Editor.AddEdge.PlacePoint2.Long";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53225] = "Course";
     t[53232] = "Surface.InputDB.XML.Table";
     t[53233] = "ModelElementInputDBTable";
-    t[53240] = "Distribution.SawtoothLeftWikipedia";
-    t[53241] = "https://en.wikipedia.org/wiki/Triangular_distribution";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[53240] = "Distribution.SawtoothLeftWikipedia";
+    t[53241] = "https://en.wikipedia.org/wiki/Triangular_distribution";
     t[53242] = "Main.Menu.Extras.FitDistribution.Mnemonic";
     t[53243] = "F";
     t[53250] = "Editor.Dialog.Tab.Simulation.RecordClientTextData";

@@ -20,6 +20,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ import scripting.js.JSCommandXML;
 import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import ui.images.Images;
+import ui.modeleditor.fastpaint.GradientFill;
 import ui.statistics.ListPopup.ScriptHelperRecord;
 import ui.statistics.ListPopup.ScriptHelperSub;
 
@@ -58,6 +61,11 @@ public class StatisticViewerDashboardRecord {
 	 * Hintergrundfarbe (kann <code>null</code> sein)
 	 */
 	private Color backgroundColor;
+
+	/**
+	 * Farbverlaufsfarbe (kann <code>null</code> sein)
+	 */
+	private Color gradientColor;
 
 	/**
 	 * Ausgabe-Zahlenformat
@@ -134,6 +142,8 @@ public class StatisticViewerDashboardRecord {
 	 * Konstruktor der Klasse
 	 */
 	public StatisticViewerDashboardRecord() {
+		backgroundColor=null;
+		gradientColor=null;
 		format=Format.NUMBER;
 		digits=2;
 		autoHeading=true;
@@ -183,7 +193,7 @@ public class StatisticViewerDashboardRecord {
 		final String heading=getHeading(titleRecords,xmlData);
 		final String text=getXMLData(statistics,xmlData);
 
-		return new Viewer(this,backgroundColor,heading,text,moveUp,moveDown,edit,remove);
+		return new Viewer(this,backgroundColor,gradientColor,heading,text,moveUp,moveDown,edit,remove);
 	}
 
 	/**
@@ -241,8 +251,24 @@ public class StatisticViewerDashboardRecord {
 	 * Stellt eine neue Hintergrundfarbe ein.
 	 * @param backgroundColor	Hintergrundfarbe (kann <code>null</code> sein)
 	 */
-	public void setBackgroundColor(Color backgroundColor) {
+	public void setBackgroundColor(final Color backgroundColor) {
 		this.backgroundColor=backgroundColor;
+	}
+
+	/**
+	 * Liefert die aktuelle Farbverlaufsfarbe.
+	 * @return	Farbverlaufsfarbe (kann <code>null</code> sein)
+	 */
+	public Color getGradientColor() {
+		return gradientColor;
+	}
+
+	/**
+	 * Stellt eine neue Farbverlaufsfarbe ein.
+	 * @param gradientColor	Farbverlaufsfarbe (kann <code>null</code> sein)
+	 */
+	public void setGradientColor(final Color gradientColor) {
+		this.gradientColor=gradientColor;
 	}
 
 	/**
@@ -391,7 +417,15 @@ public class StatisticViewerDashboardRecord {
 	 * @see #loadFromString(List, int)
 	 */
 	public void storeToString(List<String> output) {
-		if (backgroundColor!=null) output.add(EditModel.saveColor(backgroundColor)); else output.add("");
+		if (backgroundColor!=null) {
+			if (gradientColor!=null) {
+				output.add(EditModel.saveColor(backgroundColor)+" "+EditModel.saveColor(gradientColor));
+			} else {
+				output.add(EditModel.saveColor(backgroundColor));
+			}
+		} else {
+			output.add("");
+		}
 		output.add(format.id);
 		output.add(""+digits);
 		if (preText!=null && !preText.trim().isEmpty()) output.add(preText); else output.add("");
@@ -414,7 +448,16 @@ public class StatisticViewerDashboardRecord {
 
 		final StatisticViewerDashboardRecord record=new StatisticViewerDashboardRecord();
 
-		record.setBackgroundColor(EditModel.loadColor(lines.get(startLine++)));
+		String line=lines.get(startLine++).trim();
+		if (line.contains(" ")) {
+			final String[] parts=line.split(" ");
+			if (parts.length==2) {
+				record.setBackgroundColor(EditModel.loadColor(parts[0]));
+				record.setGradientColor(EditModel.loadColor(parts[1]));
+			}
+		} else {
+			record.setBackgroundColor(EditModel.loadColor(line));
+		}
 
 		if (lines.size()>startLine) record.setFormat(Format.fromID(lines.get(startLine++)));
 
@@ -455,9 +498,27 @@ public class StatisticViewerDashboardRecord {
 		private final Color backgroundColor;
 
 		/**
+		 * Farbverlaufsfarbe (kann <code>null</code> sein)
+		 */
+		private final Color gradientColor;
+
+		/**
+		 * Objekt zum Füllen des Hintergrund bei aktivem Farbverlauf
+		 * @see #paintComponent(Graphics)
+		 */
+		private final Rectangle drawRectangle;
+
+		/**
+		 * Objekt für eine Farbverlaufsfüllung
+		 * @see #paintComponent(Graphics)
+		 */
+		private GradientFill gradientFill=null;
+
+		/**
 		 * Konstruktor der Klasse
 		 * @param record Datensatz auf den sich dieser Viewer bezieht
 		 * @param backgroundColor	Hintergrundfarbe (kann <code>null</code> sein)
+		 * @param gradientColor	Farbverlaufsfarbe (kann <code>null</code> sein)
 		 * @param heading	Überschrift (kann <code>null</code> sein)
 		 * @param text	Darzustellender Text (kann <code>null</code> sein)
 		 * @param moveUp	Optionales Callback um die Kachel nach vorne zu verschieben
@@ -465,12 +526,15 @@ public class StatisticViewerDashboardRecord {
 		 * @param edit	Optionales Callback um die Kachel zu bearbeiten
 		 * @param remove	Optionales Callback um die Kachel zu löschen
 		 */
-		public Viewer(final StatisticViewerDashboardRecord record, final Color backgroundColor, final String heading, final String text, final Consumer<StatisticViewerDashboardRecord> moveUp, final Consumer<StatisticViewerDashboardRecord> moveDown, final Consumer<StatisticViewerDashboardRecord> edit, final BiConsumer<StatisticViewerDashboardRecord,Boolean> remove) {
+		public Viewer(final StatisticViewerDashboardRecord record, final Color backgroundColor, final Color gradientColor, final String heading, final String text, final Consumer<StatisticViewerDashboardRecord> moveUp, final Consumer<StatisticViewerDashboardRecord> moveDown, final Consumer<StatisticViewerDashboardRecord> edit, final BiConsumer<StatisticViewerDashboardRecord,Boolean> remove) {
 			this.backgroundColor=backgroundColor;
+			this.gradientColor=gradientColor;
 
 			setPreferredSize(new Dimension(275,125));
 			setBorder(BorderFactory.createLineBorder(Color.GRAY));
 			setLayout(new BorderLayout());
+
+			drawRectangle=new Rectangle(0,0,10,10);
 
 			/* Überschrift oben */
 
@@ -544,8 +608,16 @@ public class StatisticViewerDashboardRecord {
 		@Override
 		public void paintComponent(final Graphics g) {
 			if (backgroundColor!=null) {
-				g.setColor(backgroundColor);
-				g.fillRect(0,0,getWidth(),getHeight());
+				if (gradientColor!=null) {
+					if (gradientFill==null) gradientFill=new GradientFill(false);
+					drawRectangle.width=getWidth();
+					drawRectangle.height=getHeight();
+					gradientFill.set(g,drawRectangle,gradientColor,backgroundColor,true);
+					((Graphics2D)g).fill(drawRectangle);
+				} else {
+					g.setColor(backgroundColor);
+					g.fillRect(0,0,getWidth(),getHeight());
+				}
 			} else {
 				super.paintComponent(g);
 			}

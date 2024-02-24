@@ -114,6 +114,17 @@ public class StatisticViewerDashboardRecordDialog extends BaseDialog {
 	private final SmallColorChooser backgroundColor;
 
 	/**
+	 * Checkbox: Nutzerdefinierte Gradientfarbe verwenden
+	 */
+	private final JCheckBox useGradientColor;
+
+	/**
+	 * Auswahlfeld für die Gradientfarbe
+	 */
+	private final SmallColorChooser gradientColor;
+
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 * @param statistics	Statistikdatenobjekt (für den XML-Element-Auswahldialog)
@@ -129,7 +140,7 @@ public class StatisticViewerDashboardRecordDialog extends BaseDialog {
 		final JTabbedPane tabs=new JTabbedPane();
 		content.add(tabs,BorderLayout.CENTER);
 
-		JPanel tabOuter, tab, line;
+		JPanel tabOuter, tab, line, part;
 		JLabel label;
 		Object[] data;
 
@@ -211,10 +222,16 @@ public class StatisticViewerDashboardRecordDialog extends BaseDialog {
 		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
 		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(useBackgroundColor=new JCheckBox(Language.tr("Statistics.Dashboard.EditDialog.UserDefinedBackgroundColor"),record.getBackgroundColor()!=null));
-		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(backgroundColor=new SmallColorChooser((record.getBackgroundColor()==null)?Color.LIGHT_GRAY:record.getBackgroundColor()));
+
+		line.add(part=new JPanel(new BorderLayout()));
+		part.add(useBackgroundColor=new JCheckBox(Language.tr("Statistics.Dashboard.EditDialog.UserDefinedBackgroundColor"),record.getBackgroundColor()!=null),BorderLayout.NORTH);
+		part.add(backgroundColor=new SmallColorChooser((record.getBackgroundColor()==null)?Color.LIGHT_GRAY:record.getBackgroundColor()),BorderLayout.CENTER);
 		backgroundColor.addClickListener(e->useBackgroundColor.setSelected(true));
+
+		line.add(part=new JPanel(new BorderLayout()));
+		part.add(useGradientColor=new JCheckBox(Language.tr("Statistics.Dashboard.EditDialog.GradientColor"),record.getGradientColor()!=null),BorderLayout.NORTH);
+		part.add(gradientColor=new SmallColorChooser((record.getGradientColor()==null)?Color.GRAY:record.getGradientColor()),BorderLayout.CENTER);
+		gradientColor.addClickListener(e->useGradientColor.setSelected(true));
 
 		/* Icons auf den Tabs */
 		tabs.setIconAt(0,Images.GENERAL_NUMBERS.getIcon());
@@ -246,5 +263,6 @@ public class StatisticViewerDashboardRecordDialog extends BaseDialog {
 
 		/* Tab "Hintergrundfarbe" */
 		record.setBackgroundColor(useBackgroundColor.isSelected()?backgroundColor.getColor():null);
+		record.setGradientColor(useGradientColor.isSelected()?gradientColor.getColor():null);
 	}
 }

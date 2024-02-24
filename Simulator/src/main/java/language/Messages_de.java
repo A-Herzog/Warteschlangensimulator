@@ -20870,6 +20870,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[46125] = "Animation - Interaktiv";
     t[46128] = "ExpressionBuilder.StatisticalFunctions.Sum.Info";
     t[46129] = "<p>Berechnet die Summe der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>sum(1;2;3)</tt> liefert 6.</p>";
+    t[46134] = "Statistics.Dashboard.EditDialog.GradientColor";
+    t[46135] = "Farbverlauf verwenden";
     t[46140] = "Surface.AnimationBarStack.Dialog.Column.Expression";
     t[46141] = "Ausdruck";
     t[46160] = "ExternalConnect.Dialog.ExamplesLink.ErrorInfo";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48743] = "Es muss ein Name f\u00fcr die Bedienergruppe angegeben werden.";
     t[48744] = "Elements.Catalog.InputOutput";
     t[48745] = "Eingang/Ausgang";
-    t[48756] = "Simulation.Creator.ProcessCannotCombineBatchAndCampaign";
-    t[48757] = "Der Kampagnen-Modus kann nicht mit Batch-Bedienungen kombiniert werden (an Station id=%d).";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[48756] = "Simulation.Creator.ProcessCannotCombineBatchAndCampaign";
+    t[48757] = "Der Kampagnen-Modus kann nicht mit Batch-Bedienungen kombiniert werden (an Station id=%d).";
     t[48760] = "Surface.Popup.AddLongRunStatistics.Part";
     t[48761] = "Z\u00e4hleranteil";
     t[48764] = "Editor.AddEdge.PlacePoint2.Long";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53225] = "Verlauf";
     t[53232] = "Surface.InputDB.XML.Table";
     t[53233] = "ModellElementEingabeDBTabelle";
-    t[53240] = "Distribution.SawtoothLeftWikipedia";
-    t[53241] = "https://de.wikipedia.org/wiki/Dreiecksverteilung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[53240] = "Distribution.SawtoothLeftWikipedia";
+    t[53241] = "https://de.wikipedia.org/wiki/Dreiecksverteilung";
     t[53242] = "Main.Menu.Extras.FitDistribution.Mnemonic";
     t[53243] = "V";
     t[53250] = "Editor.Dialog.Tab.Simulation.RecordClientTextData";
