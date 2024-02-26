@@ -1194,7 +1194,7 @@ public final class NumberTools {
 	 * {@link #getDouble(String)} ein neues Objekt angelegt werden.
 	 * @see #getDouble(String)
 	 */
-	private static ThreadLocal<CalcSystem> calcSystem=new ThreadLocal<CalcSystem>() {
+	private static ThreadLocal<CalcSystem> calcSystem=new ThreadLocal<>() {
 		@Override
 		protected CalcSystem initialValue() {
 			return new CalcSystem();
@@ -1647,11 +1647,20 @@ public final class NumberTools {
 	private static Color textFieldDefaultBackground;
 
 	/**
+	 * Löscht die zwischengespeicherte normale Hintergrundfarbe für Textfelder,
+	 * so dass diese beim nächsten Abruf wieder vom UI Manager bezogen wird.<br>
+	 * (Aufruf ist notwendig, wenn das Look and Feel im laufenden Betrieb geändert wurde.)
+	 */
+	public static void resetTextFieldDefaultBackground() {
+		textFieldDefaultBackground=null;
+	}
+
+	/**
 	 * Liefert die normale Hintergrundfarbe für Textfelder.
 	 * @return	Normale Hintergrundfarbe für Textfelder
 	 */
 	public static synchronized Color getTextFieldDefaultBackground() {
-		if (textFieldDefaultBackground==null) textFieldDefaultBackground=	UIManager.getDefaults().getColor("TextField.background");
+		if (textFieldDefaultBackground==null) textFieldDefaultBackground=UIManager.getDefaults().getColor("TextField.background");
 		return textFieldDefaultBackground;
 	}
 }

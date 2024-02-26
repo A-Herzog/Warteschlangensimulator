@@ -987,6 +987,7 @@ public class MainPanel extends MainPanelBase {
 			GUITools.setupUI(setup.lookAndFeel);
 			FlatLaFHelper.setup();
 			ElementRendererTools.reloadColors();
+			NumberTools.resetTextFieldDefaultBackground();
 		}
 
 		if (needWindowReload) {
