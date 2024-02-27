@@ -1515,7 +1515,7 @@ public final class Table implements Cloneable {
 		while (!data.isEmpty()) {
 			final List<String> row=data.get(data.size()-1);
 			boolean rowIsEmpty=true;
-			for (String s : row) if (s!=null && !s.trim().isEmpty()) {rowIsEmpty=false; break;}
+			for (String s : row) if (s!=null && !s.isBlank()) {rowIsEmpty=false; break;}
 			if (!rowIsEmpty) break;
 			data.remove(data.size()-1);
 		}
@@ -1523,7 +1523,7 @@ public final class Table implements Cloneable {
 		/* Leere Spalten am Ende entfernen */
 		if (!data.isEmpty()) while (!data.get(0).isEmpty()) {
 			boolean colIsEmpty=true;
-			for (List<String> row : data) {String s=row.get(row.size()-1); if (s!=null && !s.trim().isEmpty()) {colIsEmpty=false; break;}}
+			for (List<String> row : data) {String s=row.get(row.size()-1); if (s!=null && !s.isBlank()) {colIsEmpty=false; break;}}
 			if (!colIsEmpty) break;
 			for (List<String> row : data) row.remove(row.size()-1);
 		}
@@ -2229,7 +2229,7 @@ public final class Table implements Cloneable {
 	 * @return	0-basierter Index der Spalte oder -1 im Falle eines Fehlers
 	 */
 	public static int numberFromColumnName(final String colName) {
-		if (colName==null || colName.trim().isEmpty()) return -1;
+		if (colName==null || colName.isBlank()) return -1;
 		final char[] c=colName.trim().toUpperCase().toCharArray();
 		int i=0,col=0;
 		while (i<c.length) {
@@ -2278,7 +2278,7 @@ public final class Table implements Cloneable {
 	 * @return	Zweielementiges Array aus Zeilen- und Spaltennummer (jeweils 0-basierend) oder <code>null</code> im Fehlerfall
 	 */
 	public static int[] cellIDToNumbers(final String cellID) {
-		if (cellID==null || cellID.trim().isEmpty()) return null;
+		if (cellID==null || cellID.isBlank()) return null;
 		final char[] c=cellID.trim().toUpperCase().toCharArray();
 		int i=0,col=0;
 		while (i<c.length) {

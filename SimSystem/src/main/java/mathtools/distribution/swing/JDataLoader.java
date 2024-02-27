@@ -179,7 +179,7 @@ public class JDataLoader extends JDialog {
 		for (int i=0;i<data.size();i++) {
 			model[i]=new ImportTableModel(data.get(i));
 			String s=data.getName(i);
-			if (s==null || s.trim().isEmpty()) s=Sheet;
+			if (s==null || s.isBlank()) s=Sheet;
 			tabs.add(new JScrollPane(table[i]=new JTable(model[i])),s);
 			table[i].setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 			table[i].getTableHeader().setReorderingAllowed(false);

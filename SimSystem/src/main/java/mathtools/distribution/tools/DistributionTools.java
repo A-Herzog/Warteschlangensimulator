@@ -507,7 +507,7 @@ public final class DistributionTools {
 		final AbstractDistributionWrapper wrapper=getWrapper(distribution);
 		if (wrapper==null) return null;
 		String url=wrapper.getWikipediaURL();
-		if (url==null || url.trim().isEmpty()) return null;
+		if (url==null || url.isBlank()) return null;
 		try {
 			return new URI(url);
 		} catch (URISyntaxException e) {

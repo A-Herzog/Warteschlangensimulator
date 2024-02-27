@@ -331,7 +331,7 @@ public final class TimeTools {
 				value=0;
 			} else {
 				if (l[i].length()>0 && l[i].charAt(0)=='0') l[i]=l[i].substring(1);
-				if (l[i].trim().isEmpty()) {
+				if (l[i].isBlank()) {
 					value=0;
 				} else {
 					final Integer val=NumberTools.getInteger(l[i]);

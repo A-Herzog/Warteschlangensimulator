@@ -685,14 +685,14 @@ public final class MultiTable {
 
 			/* Bereich mit Daten finden */
 			int start=-1;
-			for (int j=0;j<row.size();j++) if (!row.get(j).trim().isEmpty()) {start=j; break;}
+			for (int j=0;j<row.size();j++) if (!row.get(j).isBlank()) {start=j; break;}
 			if (start==-1) continue;
 			int end=row.size()-1;
-			for (int j=start+1;j<row.size();j++) if (row.get(j).trim().isEmpty()) {end=j-1; break;}
+			for (int j=start+1;j<row.size();j++) if (row.get(j).isBlank()) {end=j-1; break;}
 
 			/* Später noch andere Daten? */
 			boolean valid=true;
-			for (int j=end+1;j<row.size();j++) if (!row.get(j).trim().isEmpty()) {valid=false; break;}
+			for (int j=end+1;j<row.size();j++) if (!row.get(j).isBlank()) {valid=false; break;}
 			if (!valid) continue;
 
 			/* Passende Menge an Daten? */
@@ -730,12 +730,12 @@ public final class MultiTable {
 		List<String> line=t.getLine(0);
 
 		int start=-1;
-		for (int i=0;i<line.size();i++) if (!line.get(i).trim().isEmpty()) {start=i; break;}
+		for (int i=0;i<line.size();i++) if (!line.get(i).isBlank()) {start=i; break;}
 		if (start==-1) return null;
 
 		List<String> data=new ArrayList<>();
 		for (int i=start;i<line.size();i++) {
-			if (line.get(i).trim().isEmpty()) break;
+			if (line.get(i).isBlank()) break;
 			data.add(line.get(i));
 		}
 		return data.toArray(String[]::new);
@@ -810,14 +810,14 @@ public final class MultiTable {
 
 			/* Bereich mit Daten finden */
 			int start=-1;
-			for (int j=0;j<row.size();j++) if (!row.get(j).trim().isEmpty()) {start=j; break;}
+			for (int j=0;j<row.size();j++) if (!row.get(j).isBlank()) {start=j; break;}
 			if (start==-1) continue;
 			int end=row.size()-1;
-			for (int j=start+1;j<row.size();j++) if (row.get(j).trim().isEmpty()) {end=j-1; break;}
+			for (int j=start+1;j<row.size();j++) if (row.get(j).isBlank()) {end=j-1; break;}
 
 			/* Später noch andere Zahlen? */
 			boolean valid=true;
-			for (int j=end+1;j<row.size();j++) if (!row.get(j).trim().isEmpty()) {valid=false; break;}
+			for (int j=end+1;j<row.size();j++) if (!row.get(j).isBlank()) {valid=false; break;}
 			if (!valid) continue;
 
 			/* Passende Menge an Daten? */
@@ -868,7 +868,7 @@ public final class MultiTable {
 
 		int start=-1;
 		for (int i=0;i<line.size();i++) {
-			if (line.get(i).trim().isEmpty()) continue;
+			if (line.get(i).isBlank()) continue;
 			Double D=NumberTools.getExtProbability(line.get(i));
 			if (D!=null) {start=i; break;}
 		}
@@ -876,7 +876,7 @@ public final class MultiTable {
 
 		List<Double> data=new ArrayList<>();
 		for (int i=start;i<line.size();i++) {
-			if (line.get(i).trim().isEmpty()) break;
+			if (line.get(i).isBlank()) break;
 			Double D=NumberTools.getExtProbability(line.get(i));
 			if (D==null) break;
 			data.add(D);
@@ -910,8 +910,8 @@ public final class MultiTable {
 		int start=-1;
 		int upperIndexBound=(line2==null)?line1.size():Math.min(line1.size(),line2.size());
 		for (int i=0;i<upperIndexBound;i++) {
-			if (line1.get(i).trim().isEmpty()) continue;
-			if (line2!=null && line2.get(i).trim().isEmpty()) continue;
+			if (line1.get(i).isBlank()) continue;
+			if (line2!=null && line2.get(i).isBlank()) continue;
 			Double D1=NumberTools.getExtProbability(line1.get(i));
 			Double D2=null;
 			if (line2!=null) D2=NumberTools.getExtProbability(line2.get(i));
@@ -922,8 +922,8 @@ public final class MultiTable {
 		List<Double> data1=new ArrayList<>();
 		List<Double> data2=new ArrayList<>();
 		for (int i=start;i<upperIndexBound;i++) {
-			if (line1.get(i).trim().isEmpty()) break;
-			if (line2!=null && line2.get(i).trim().isEmpty()) break;
+			if (line1.get(i).isBlank()) break;
+			if (line2!=null && line2.get(i).isBlank()) break;
 			Double D1=NumberTools.getExtProbability(line1.get(i));
 			Double D2=null;
 			if (line2!=null) D2=NumberTools.getExtProbability(line2.get(i));

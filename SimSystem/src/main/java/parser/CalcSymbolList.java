@@ -598,7 +598,7 @@ public class CalcSymbolList {
 	 * @return	Symbol mit dem angegebenen Namen oder <code>null</code> wenn kein Symbol mit diesem Namen gefunden wurde
 	 */
 	public CalcSymbol findSymbol(final String name) {
-		if (name==null || name.trim().isEmpty()) return null;
+		if (name==null || name.isBlank()) return null;
 
 		CalcSymbol select=null;
 		int len=0;

@@ -291,7 +291,7 @@ public final class XMLTools {
 		 * @return	Passendes Objekt oder <code>null</code>, wenn kein passendes {@link DefaultSaveFormat}-Objekt existiert
 		 */
 		public static DefaultSaveFormat getFormat(final String identifier) {
-			if (identifier==null || identifier.trim().isEmpty()) return null;
+			if (identifier==null || identifier.isBlank()) return null;
 			for (DefaultSaveFormat format: values()) if (format.identifier.equalsIgnoreCase(identifier)) return format;
 			return null;
 		}
@@ -409,7 +409,7 @@ public final class XMLTools {
 	 * @return	XML-Root-Element mit dem angegebenen Namen oder <code>null</code> im Fehlerfall
 	 */
 	public Element generateRoot(final String name, final boolean plain) {
-		if (name==null || name.trim().isEmpty()) return null;
+		if (name==null || name.isBlank()) return null;
 
 		DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
 		DocumentBuilder db;
@@ -426,7 +426,7 @@ public final class XMLTools {
 			root.setAttribute("xmlns","https://"+homeURL);
 			root.setAttribute("xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
 			if (xsd!=null && !xsd.isEmpty()) root.setAttribute("xsi:schemaLocation","https://"+homeURL+" "+mediaURL+xsd);
-			if (xmlComment!=null && !xmlComment.trim().isEmpty()) root.appendChild(doc.createComment(" "+xmlComment+" "));
+			if (xmlComment!=null && !xmlComment.isBlank()) root.appendChild(doc.createComment(" "+xmlComment+" "));
 		}
 
 		return root;
@@ -439,7 +439,7 @@ public final class XMLTools {
 	 * @return	XML-Root-Element mit dem angegebenen Namen oder <code>null</code> im Fehlerfall
 	 */
 	public static Element generateRootStatic(final String name, final boolean plain) {
-		if (name==null || name.trim().isEmpty()) return null;
+		if (name==null || name.isBlank()) return null;
 
 		final DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
 		final DocumentBuilder db;
@@ -456,7 +456,7 @@ public final class XMLTools {
 			root.setAttribute("xmlns","https://"+homeURL);
 			root.setAttribute("xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
 			if (xsd!=null && !xsd.isEmpty()) root.setAttribute("xsi:schemaLocation","https://"+homeURL+" "+mediaURL+xsd);
-			if (xmlComment!=null && !xmlComment.trim().isEmpty()) root.appendChild(doc.createComment(" "+xmlComment+" "));
+			if (xmlComment!=null && !xmlComment.isBlank()) root.appendChild(doc.createComment(" "+xmlComment+" "));
 		}
 
 		return root;
@@ -592,7 +592,7 @@ public final class XMLTools {
 
 		if (fileType==FileType.CRYPT_XML) {
 			String password=getPasswordFromUser();
-			if (password==null || password.trim().isEmpty()) {lastError=errorCanceledByUser; return false;}
+			if (password==null || password.isBlank()) {lastError=errorCanceledByUser; return false;}
 
 			ByteArrayOutputStream byteOutput1=new ByteArrayOutputStream();
 
@@ -819,7 +819,7 @@ public final class XMLTools {
 
 		if (fileType==FileType.CRYPT_XML) {
 			String password=getPasswordFromUser();
-			if (password==null || password.trim().isEmpty()) {lastError=errorCanceledByUser; return null;}
+			if (password==null || password.isBlank()) {lastError=errorCanceledByUser; return null;}
 
 			ByteArrayOutputStream byteOutput1;
 			try {
