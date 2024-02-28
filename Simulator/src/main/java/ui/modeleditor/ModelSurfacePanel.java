@@ -22,6 +22,7 @@ import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -92,6 +93,7 @@ import javax.swing.SwingUtilities;
 
 import org.apache.batik.dom.GenericDOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
+import org.apache.commons.math3.util.FastMath;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -1652,7 +1654,16 @@ public final class ModelSurfacePanel extends JPanel {
 		if (maxZoomFactor>0 && imageZoom>maxZoomFactor) imageZoom=maxZoomFactor;
 
 		final int xSurfaceImage=(int)Math.ceil(p2.x*imageZoom);
-		final int ySurfaceImage=(int)Math.ceil(p2.y*imageZoom);
+		int ySurfaceImage=(int)Math.ceil(p2.y*imageZoom);
+
+		final BufferedImage preImage=new BufferedImage(100,100,BufferedImage.TYPE_INT_ARGB);
+		final Graphics2D preGraphics=(Graphics2D)preImage.getGraphics();
+		final int infoFontSize=(int)FastMath.round(10*imageZoom);
+		final Font infoFont=new Font(ModelElementBox.DEFAULT_FONT_TYPE,Font.PLAIN,infoFontSize);
+		final FontMetrics infoFontMetrics=preGraphics.getFontMetrics(infoFont);
+		double totalSize=infoFontSize*(infoFontMetrics.getAscent()+infoFontMetrics.getDescent())/infoFontMetrics.getAscent();
+
+		ySurfaceImage+=totalSize;
 
 		final BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_ARGB);
 		final Graphics2D g=(Graphics2D)image.getGraphics();
@@ -1733,7 +1744,16 @@ public final class ModelSurfacePanel extends JPanel {
 			imageZoom=((double)ySurfaceImage)/p2.y;
 		}
 
-		BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_ARGB);
+		final BufferedImage preImage=new BufferedImage(100,100,BufferedImage.TYPE_INT_ARGB);
+		final Graphics2D preGraphics=(Graphics2D)preImage.getGraphics();
+		final int infoFontSize=(int)FastMath.round(10*imageZoom);
+		final Font infoFont=new Font(ModelElementBox.DEFAULT_FONT_TYPE,Font.PLAIN,infoFontSize);
+		final FontMetrics infoFontMetrics=preGraphics.getFontMetrics(infoFont);
+		double totalSize=infoFontSize*(infoFontMetrics.getAscent()+infoFontMetrics.getDescent())/infoFontMetrics.getAscent();
+
+		ySurfaceImage+=totalSize;
+
+		final BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_ARGB);
 		Graphics g=image.getGraphics();
 		g.setClip(0,0,xSurfaceImage,ySurfaceImage);
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
