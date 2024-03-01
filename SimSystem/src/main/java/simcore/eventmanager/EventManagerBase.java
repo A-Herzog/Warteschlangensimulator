@@ -76,8 +76,13 @@ public abstract class EventManagerBase implements EventManager {
 			}
 			Event event=getNextEvent();
 			if (event==null) return false;
+			final long time=event.time;
+			if (time<0) {
+				simData.doEmergencyShutDown("Time overflow");
+				return false;
+			}
 
-			simData.currentTime=event.time;
+			simData.currentTime=time;
 			if (!event.isDeleted) {
 				event.run(simData);
 				eventExecutionCount++;
@@ -87,7 +92,6 @@ public abstract class EventManagerBase implements EventManager {
 			if (event.addNextEvent!=null) {
 				Event nextEvent=event.addNextEvent;
 				event.addNextEvent=null;
-				final long time=event.time;
 				/* Falls das nächste Event zum selben Zeitpunkt ausgeführt werden soll (z.B. mehrere Agenten, die gleichzeitig zu arbeiten beginnen */
 				/* Ereignis nicht in Liste einfügen, sondern sofort ausführen. */
 				while (nextEvent.time==time && count<maxExecuteEvents) {
