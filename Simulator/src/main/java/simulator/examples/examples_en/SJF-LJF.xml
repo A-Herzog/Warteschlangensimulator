@@ -3,7 +3,7 @@
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
   <ModelVersion>5.5.0</ModelVersion>
-  <ModelName>Service time depending on service order</ModelName>
+  <ModelName>Service oder depending on service time</ModelName>
   <ModelDescription>In the default case, the service time at a process station is determined
 after the client has been removed from the queue. In this case,
 prioritization by service time is not possible. However, if the service time
@@ -144,7 +144,7 @@ prioritize according to the shortest or longest service time.</ModelDescription>
     </ModelElementEdge>
     <ModelElementText id="16">
       <ModelElementSize h="23" w="356" x="50" y="50"/>
-      <ModelElementTextLine>Service time depending on service order</ModelElementTextLine>
+      <ModelElementTextLine>Service order depending on service time</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>

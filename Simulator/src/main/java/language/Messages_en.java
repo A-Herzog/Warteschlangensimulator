@@ -23555,7 +23555,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52038] = "SettingsDialog.Tabs.Statistics.OpenWord";
     t[52039] = "Word";
     t[52044] = "Examples.SJF-LJF";
-    t[52045] = "Service time depending on service order";
+    t[52045] = "Service order depending on service time";
     t[52048] = "Surface.PopupMenu.MoveToBack";
     t[52049] = "Move to back";
     t[52050] = "Animation.IconDialog.Single.IconName.Error.NameInUse";
