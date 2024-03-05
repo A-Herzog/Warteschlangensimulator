@@ -37,6 +37,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import mathtools.NumberTools;
 import simcore.SimData;
+import simcore.logging.AbstractTextLogger;
 import simcore.logging.SimLogging;
 
 /**
@@ -58,6 +59,8 @@ public class XLSXLogger implements SimLogging {
 	private final boolean formatedTime;
 	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** Klassennamen der Event-Objekte ausgeben? */
+	private final boolean printClassNames;
 	/** Zeitpunkt des letzten Ereignisses (zur Gruppierung von Ereignissen) */
 	private long lastEventTime=-1;
 
@@ -87,16 +90,18 @@ public class XLSXLogger implements SimLogging {
 	 * @param useColors	Bei den Log-Zeilen angegebene Farben berücksichtigen
 	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
 	 * @param printIDs	IDs mit ausgeben
+	 * @param printClassNames	Klassennamen der Event-Objekte ausgeben?
 	 * @param headings	Auszugebende Überschriftzeilen
 	 * @param oldFileFormat	Gibt an, ob eine XLSX- (<code>false</code>) oder eine alte XLS-Datei (<code>true</code>) erzeugt werden soll.
 	 */
-	public XLSXLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final String[] headings, final boolean oldFileFormat) {
+	public XLSXLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final boolean printClassNames, final String[] headings, final boolean oldFileFormat) {
 		this.logFile=logFile;
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
 		this.useColors=useColors;
 		this.formatedTime=formatedTime;
 		this.printIDs=printIDs;
+		this.printClassNames=printClassNames;
 
 		String[] h;
 		if (headings==null || headings.length==0) h=new String[]{"Simulationsergebnisse"}; else h=headings;
@@ -208,6 +213,15 @@ public class XLSXLogger implements SimLogging {
 				cell.setCellStyle(getCellStyle(color,false));
 				cell.setCellValue(timeString);
 			}
+			if (printClassNames) {
+				final String eventObject=AbstractTextLogger.getCallingEventObject();
+				if (eventObject!=null && !eventObject.isEmpty()) {
+					cell=row.createCell(colCount);
+					cell.setCellStyle(getCellStyle(color,false));
+					cell.setCellValue(eventObject);
+				}
+				colCount++;
+			}
 			if (event!=null && !event.isEmpty()) {
 				cell=row.createCell(colCount); colCount++;
 				cell.setCellStyle(getCellStyle(color,true));
@@ -234,6 +248,15 @@ public class XLSXLogger implements SimLogging {
 				cell=row.createCell(colCount); colCount++;
 				cell.setCellStyle(getCellStyle(color,false));
 				cell.setCellValue(timeString);
+			}
+			if (printClassNames) {
+				final String eventObject=AbstractTextLogger.getCallingEventObject();
+				if (eventObject!=null && !eventObject.isEmpty()) {
+					cell=row.createCell(colCount);
+					cell.setCellStyle(getCellStyle(color,false));
+					cell.setCellValue(eventObject);
+				}
+				colCount++;
 			}
 			if (event!=null && !event.isEmpty()) {
 				cell=row.createCell(colCount); colCount++;

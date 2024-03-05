@@ -26,6 +26,7 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 import mathtools.NumberTools;
 import simcore.SimData;
+import simcore.logging.AbstractTextLogger;
 import simcore.logging.SimLogging;
 
 /**
@@ -47,6 +48,8 @@ public class DOCXLogger implements SimLogging {
 	private final boolean formatedTime;
 	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** Klassennamen der Event-Objekte ausgeben? */
+	private final boolean printClassNames;
 	/** Zeitpunkt des letzten Ereignisses (zur Gruppierung von Ereignissen) */
 	private long lastEventTime=-1;
 
@@ -66,15 +69,17 @@ public class DOCXLogger implements SimLogging {
 	 * @param useColors	Bei den Log-Zeilen angegebene Farben berücksichtigen
 	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
 	 * @param printIDs	IDs mit ausgeben
+	 * @param printClassNames	Klassennamen der Event-Objekte ausgeben?
 	 * @param headings	Auszugebende Überschriftzeilen
 	 */
-	public DOCXLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final String[] headings) {
+	public DOCXLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final boolean printClassNames, final String[] headings) {
 		this.logFile=logFile;
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
 		this.useColors=useColors;
 		this.formatedTime=formatedTime;
 		this.printIDs=printIDs;
+		this.printClassNames=printClassNames;
 
 		String[] h;
 		if (headings==null || headings.length==0) h=new String[]{"Simulationsergebnisse"}; else h=headings;
@@ -119,7 +124,7 @@ public class DOCXLogger implements SimLogging {
 		/* Daten ausgeben */
 		if (singleLineMode) {
 			if (paragraph==null) paragraph=doc.createParagraph();
-			XWPFRun r=paragraph.createRun();
+			final XWPFRun r=paragraph.createRun();
 			r.setFontSize(11);
 			if (useColors && color!=null && !color.equals(Color.BLACK)) r.setColor(String.format("%02x%02x%02x",color.getRed(),color.getGreen(),color.getBlue()));
 			StringBuilder sb=new StringBuilder();
@@ -132,14 +137,25 @@ public class DOCXLogger implements SimLogging {
 		} else {
 			paragraph=doc.createParagraph();
 			if (!groupSameTimeEvents) {
-				XWPFRun r=paragraph.createRun();
+				final XWPFRun r=paragraph.createRun();
 				r.setFontSize(11);
 				if (useColors && color!=null && !color.equals(Color.BLACK)) r.setColor(String.format("%02x%02x%02x",color.getRed(),color.getGreen(),color.getBlue()));
 				r.setText(timeString);
 				paragraph.createRun().addBreak();
 			}
+			if (printClassNames) {
+				final String eventObject=AbstractTextLogger.getCallingEventObject();
+				if (eventObject!=null && !eventObject.isEmpty()) {
+					final XWPFRun r=paragraph.createRun();
+					r.setFontSize(11);
+					if (useColors && color!=null && !color.equals(Color.BLACK)) r.setColor(String.format("%02x%02x%02x",color.getRed(),color.getGreen(),color.getBlue()));
+					r.setBold(true);
+					r.setText(eventObject);
+					paragraph.createRun().addBreak();
+				}
+			}
 			if (event!=null && !event.isEmpty()) {
-				XWPFRun r=paragraph.createRun();
+				final XWPFRun r=paragraph.createRun();
 				r.setFontSize(11);
 				if (useColors && color!=null && !color.equals(Color.BLACK)) r.setColor(String.format("%02x%02x%02x",color.getRed(),color.getGreen(),color.getBlue()));
 				r.setBold(true);
@@ -147,7 +163,7 @@ public class DOCXLogger implements SimLogging {
 				paragraph.createRun().addBreak();
 			}
 			if (printIDs && id>=0) {
-				XWPFRun r=paragraph.createRun();
+				final XWPFRun r=paragraph.createRun();
 				r.setFontSize(11);
 				if (useColors && color!=null && !color.equals(Color.BLACK)) r.setColor(String.format("%02x%02x%02x",color.getRed(),color.getGreen(),color.getBlue()));
 				r.setBold(true);
@@ -155,7 +171,7 @@ public class DOCXLogger implements SimLogging {
 				paragraph.createRun().addBreak();
 			}
 			if (info!=null && !info.isEmpty()) {
-				XWPFRun r=paragraph.createRun();
+				final XWPFRun r=paragraph.createRun();
 				r.setFontSize(11);
 				if (useColors && color!=null && !color.equals(Color.BLACK)) r.setColor(String.format("%02x%02x%02x",color.getRed(),color.getGreen(),color.getBlue()));
 				r.setText(info);

@@ -427,13 +427,14 @@ public class SimulationData extends SimData {
 
 	@Override
 	protected SimLogging getLogger(final File logFile) {
-		return new MultiTypeTextLogger(logFile,true,SetupData.getSetup().singleLineEventLog,true,true,true,new String[]{Language.tr("Simulation.Log.Title")},-1);
+		return new MultiTypeTextLogger(logFile,true,SetupData.getSetup().singleLineEventLog,true,true,true,false,new String[]{Language.tr("Simulation.Log.Title")},-1);
 	}
 
 	/**
 	 * Bricht die Simulation sofort ab und verbucht dies als Fehler.
 	 * @param message	Meldung, die in Logdatei und in die Warnungen der Statistik aufgenommen werden soll.
 	 */
+	@Override
 	public void doEmergencyShutDown(final String message) {
 		statistics.simulationData.emergencyShutDown=true;
 		doShutDown();

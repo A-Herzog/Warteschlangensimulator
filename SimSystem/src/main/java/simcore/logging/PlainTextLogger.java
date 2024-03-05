@@ -35,6 +35,8 @@ public class PlainTextLogger extends AbstractTextLogger {
 	private final PlainTextLoggerTimeMode timeMode;
 	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** Klassennamen der Event-Objekte ausgeben? */
+	private final boolean printClassNames;
 	/** Text im CSV-Modus (<code>true</code>) oder tabulator-getrennt (<code>false</code>) ausgeben */
 	private final boolean csvMode;
 	/** Zeitpunkt an dem das letzte Ereignis auftrat (für das optionale Gruppieren) */
@@ -50,14 +52,16 @@ public class PlainTextLogger extends AbstractTextLogger {
 	 * @param singleLineMode	Ereignisse in einer Zeile (Name und Beschreibung durch Tabulator getrennt) oder in mehreren Zeilen ausgeben
 	 * @param timeMode	Wie sollen Zeitangaben ausgegeben werden?
 	 * @param printIDs	IDs mit ausgeben
+	 * @param printClassNames	Klassennamen der Event-Objekte ausgeben?
 	 * @param csvMode	Text im CSV-Modus (<code>true</code>) oder tabulator-getrennt (<code>false</code>) ausgeben
 	 */
-	public PlainTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final PlainTextLoggerTimeMode timeMode, final boolean printIDs, final boolean csvMode) {
+	public PlainTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final PlainTextLoggerTimeMode timeMode, final boolean printIDs, final boolean printClassNames, final boolean csvMode) {
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
 		this.timeMode=timeMode;
 		this.csvMode=csvMode;
 		this.printIDs=printIDs;
+		this.printClassNames=printClassNames;
 		lineBuilder=new StringBuilder();
 		init(logFile);
 	}
@@ -68,10 +72,11 @@ public class PlainTextLogger extends AbstractTextLogger {
 	 * @param groupSameTimeEvents	Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen
 	 * @param singleLineMode	Ereignisse in einer Zeile (Name und Beschreibung durch Tabulator getrennt) oder in mehreren Zeilen ausgeben
 	 * @param printIDs	IDs mit ausgeben
+	 * @param printClassNames	Klassennamen der Event-Objekte ausgeben?
 	 * @param csvMode	Text im CSV-Modus (<code>true</code>) oder tabulator-getrennt (<code>false</code>) ausgeben
 	 */
-	public PlainTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean printIDs, final boolean csvMode) {
-		this(logFile,groupSameTimeEvents,singleLineMode,PlainTextLoggerTimeMode.TIME,printIDs,csvMode);
+	public PlainTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean printIDs, final boolean printClassNames, final boolean csvMode) {
+		this(logFile,groupSameTimeEvents,singleLineMode,PlainTextLoggerTimeMode.TIME,printIDs,printClassNames,csvMode);
 	}
 
 	/**
@@ -91,6 +96,7 @@ public class PlainTextLogger extends AbstractTextLogger {
 	 * @param timeMode	Wie sollen Zeitangaben ausgegeben werden?
 	 * @param singleLineMode	Ereignisse in einer Zeile (Name und Beschreibung durch Tabulator getrennt) oder in mehreren Zeilen ausgeben
 	 * @param printIDs	IDs mit ausgeben
+	 * @param printClassNames	Klassennamen der Event-Objekte ausgeben?
 	 * @param csvMode	Text im CSV-Modus (<code>true</code>) oder Tabulator-getrennt (<code>false</code>) ausgeben
 	 * @param time	Zeitpunkt des Ereignisses
 	 * @param color	Farbe in die die Log-Zeile eingefärbt werden soll (kann Logger-abhängig ignoriert werden)
@@ -99,7 +105,7 @@ public class PlainTextLogger extends AbstractTextLogger {
 	 * @param info	Enthält eine Beschreibung, die zu dem Logeintrag gespeichert werden soll.
 	 * @param result	{@link StringBuilder}-Objekt in das das Ergebnis geschrieben werden soll
 	 */
-	public static void processLine(final PlainTextLoggerTimeMode timeMode, final boolean singleLineMode, final boolean printIDs, final boolean csvMode, final long time, final Color color, final String event, final int id, final String info, final StringBuilder result) {
+	public static void processLine(final PlainTextLoggerTimeMode timeMode, final boolean singleLineMode, final boolean printIDs, final boolean printClassNames, final boolean csvMode, final long time, final Color color, final String event, final int id, final String info, final StringBuilder result) {
 		switch (timeMode) {
 		case PLAIN: result.append(NumberTools.formatNumber(time/1000.0)); break;
 		case TIME: result.append(SimData.formatSimTime(time)); break;
@@ -107,7 +113,21 @@ public class PlainTextLogger extends AbstractTextLogger {
 		}
 		if (singleLineMode) result.append(csvMode?';':'\t'); else result.append(csvMode?';':' ');
 
+		if (printClassNames) {
+			final String eventObject=getCallingEventObject();
+			if (eventObject!=null && !eventObject.isEmpty()) {
+				if (csvMode) {
+					result.append(toCSV(eventObject));
+				} else {
+					result.append(eventObject);
+				}
+			}
+		}
+
 		if (event!=null && !event.isEmpty()) {
+			if (printClassNames) {
+				if (singleLineMode) result.append(csvMode?';':'\t'); else result.append(System.lineSeparator());
+			}
 			if (csvMode) {
 				result.append(toCSV(event.replace("\n"," ")));
 			} else {
@@ -147,7 +167,7 @@ public class PlainTextLogger extends AbstractTextLogger {
 			lastEventTime=time;
 		}
 
-		processLine(timeMode,singleLineMode,printIDs,csvMode,time,color,event,id,info,lineBuilder);
+		processLine(timeMode,singleLineMode,printIDs,printClassNames,csvMode,time,color,event,id,info,lineBuilder);
 
 		if (nextLogger!=null) nextLogger.log(time,color,event,id,info);
 

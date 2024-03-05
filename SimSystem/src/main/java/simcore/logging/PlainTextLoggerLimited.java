@@ -36,6 +36,8 @@ public class PlainTextLoggerLimited extends AbstractTextLogger {
 	private final PlainTextLoggerTimeMode timeMode;
 	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** Klassennamen der Event-Objekte ausgeben? */
+	private final boolean printClassNames;
 	/** Text im CSV-Modus (<code>true</code>) oder tabulator-getrennt (<code>false</code>) ausgeben */
 	private final boolean csvMode;
 	/** Maximal im Ringpuffer vorzuhaltende Anzahl an Zeilen */
@@ -54,15 +56,17 @@ public class PlainTextLoggerLimited extends AbstractTextLogger {
 	 * @param singleLineMode	Ereignisse in einer Zeile (Name und Beschreibung durch Tabulator getrennt) oder in mehreren Zeilen ausgeben
 	 * @param timeMode	Wie sollen Zeitangaben ausgegeben werden?
 	 * @param printIDs	IDs mit ausgeben
+	 * @param printClassNames	Klassennamen der Event-Objekte ausgeben?
 	 * @param csvMode	Text im CSV-Modus (<code>true</code>) oder tabulator-getrennt (<code>false</code>) ausgeben
 	 * @param maxRecords	Maximal im Ringpuffer vorzuhaltende Anzahl an Zeilen
 	 */
-	public PlainTextLoggerLimited(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final PlainTextLoggerTimeMode timeMode, final boolean printIDs, final boolean csvMode, final int maxRecords) {
+	public PlainTextLoggerLimited(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final PlainTextLoggerTimeMode timeMode, final boolean printIDs, final boolean printClassNames, final boolean csvMode, final int maxRecords) {
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
 		this.timeMode=timeMode;
 		this.csvMode=csvMode;
 		this.printIDs=printIDs;
+		this.printClassNames=printClassNames;
 		this.maxRecords=Math.max(1,Math.min(MAX_RECORDS_LIMIT,maxRecords));
 		init(logFile);
 	}
@@ -73,11 +77,12 @@ public class PlainTextLoggerLimited extends AbstractTextLogger {
 	 * @param groupSameTimeEvents	Nach Einträgen mit demselben Zeitstempel eine Leerzeile einfügen
 	 * @param singleLineMode	Ereignisse in einer Zeile (Name und Beschreibung durch Tabulator getrennt) oder in mehreren Zeilen ausgeben
 	 * @param printIDs	IDs mit ausgeben
+	 * @param printClassNames	Klassennamen der Event-Objekte ausgeben?
 	 * @param csvMode	Text im CSV-Modus (<code>true</code>) oder tabulator-getrennt (<code>false</code>) ausgeben
 	 * @param maxRecords	Maximal im Ringpuffer vorzuhaltende Anzahl an Zeilen
 	 */
-	public PlainTextLoggerLimited(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean printIDs, final boolean csvMode, final int maxRecords) {
-		this(logFile,groupSameTimeEvents,singleLineMode,PlainTextLoggerTimeMode.TIME,printIDs,csvMode,maxRecords);
+	public PlainTextLoggerLimited(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean printIDs, final boolean printClassNames, final boolean csvMode, final int maxRecords) {
+		this(logFile,groupSameTimeEvents,singleLineMode,PlainTextLoggerTimeMode.TIME,printIDs,printClassNames,csvMode,maxRecords);
 	}
 
 	@Override
@@ -112,7 +117,7 @@ public class PlainTextLoggerLimited extends AbstractTextLogger {
 			lastEventTime=time;
 		}
 
-		PlainTextLogger.processLine(timeMode,singleLineMode,printIDs,csvMode,time,color,event,id,info,getNextLineBuilder());
+		PlainTextLogger.processLine(timeMode,singleLineMode,printIDs,printClassNames,csvMode,time,color,event,id,info,getNextLineBuilder());
 
 		if (nextLogger!=null) nextLogger.log(time,color,event,id,info);
 

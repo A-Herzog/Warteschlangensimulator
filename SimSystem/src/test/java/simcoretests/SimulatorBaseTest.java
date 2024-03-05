@@ -506,7 +506,7 @@ class SimulatorBaseTest {
 		for (int coreCount=1;coreCount<=2;coreCount++) for (Supplier<EventManager> manager: managers) {
 			log.clear();
 			final SimulatorBaseTestImpl simulator=new SimulatorBaseTestImpl(coreCount,false,false,manager,()->new ListEventCache(),(data,nr)->{
-				data.activateLogging(new HTMLLogger(null,true,true,true,true,false,null));
+				data.activateLogging(new HTMLLogger(null,true,true,true,true,false,false,null));
 				assertTrue(!data.loggingActive); /* ohne Datei kein Logging */
 				return buildSortInitialEvents(2).apply(data,nr);
 			});
@@ -521,7 +521,7 @@ class SimulatorBaseTest {
 		for (int coreCount=1;coreCount<=2;coreCount++) for (Supplier<EventManager> manager: managers) {
 			log.clear();
 			final SimulatorBaseTestImpl simulator=new SimulatorBaseTestImpl(coreCount,false,false,manager,()->new ListEventCache(),(data,nr)->{
-				data.activateLogging(new PlainTextLogger(null,true,true,false,false));
+				data.activateLogging(new PlainTextLogger(null,true,true,false,false,false));
 				assertTrue(!data.loggingActive); /* ohne Datei kein Logging */
 				return buildSortInitialEvents(2).apply(data,nr);
 			});
@@ -536,7 +536,7 @@ class SimulatorBaseTest {
 		for (int coreCount=1;coreCount<=2;coreCount++) for (Supplier<EventManager> manager: managers) {
 			log.clear();
 			final SimulatorBaseTestImpl simulator=new SimulatorBaseTestImpl(coreCount,false,false,manager,()->new ListEventCache(),(data,nr)->{
-				data.activateLogging(new PlainTextLoggerLimited(null,true,true,false,false,100));
+				data.activateLogging(new PlainTextLoggerLimited(null,true,true,false,false,false,100));
 				assertTrue(!data.loggingActive); /* ohne Datei kein Logging */
 				return buildSortInitialEvents(2).apply(data,nr);
 			});
@@ -551,7 +551,7 @@ class SimulatorBaseTest {
 		for (int coreCount=1;coreCount<=2;coreCount++) for (Supplier<EventManager> manager: managers) {
 			log.clear();
 			final SimulatorBaseTestImpl simulator=new SimulatorBaseTestImpl(coreCount,false,false,manager,()->new ListEventCache(),(data,nr)->{
-				data.activateLogging(new RTFLogger(null,true,true,true,true,false,null));
+				data.activateLogging(new RTFLogger(null,true,true,true,true,false,false,null));
 				assertTrue(!data.loggingActive); /* ohne Datei kein Logging */
 				return buildSortInitialEvents(2).apply(data,nr);
 			});

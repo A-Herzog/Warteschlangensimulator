@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * Wie sollen Zeitangaben ausgegeben werden?
  * @author Alexander Herzog
- * @see PlainTextLogger#PlainTextLogger(File, boolean, boolean, PlainTextLoggerTimeMode, boolean, boolean)
+ * @see PlainTextLogger#PlainTextLogger(File, boolean, boolean, PlainTextLoggerTimeMode, boolean, boolean, boolean)
  */
 public enum PlainTextLoggerTimeMode {
 	/** Zeitangaben als Sekunden-Zahlenwert ausgeben */

@@ -582,6 +582,8 @@ public class LogSetupDialog extends BaseDialog {
 	public SimLogging getLogger() {
 		final int mode=getLogMode();
 
+		final boolean printClassNames=false;
+
 		if (mode==0) {
 			final File file=new File(logFileEdit.getText());
 			if (file.exists()) {
@@ -597,13 +599,14 @@ public class LogSetupDialog extends BaseDialog {
 					optionColor.isSelected(),
 					optionFormatedTime.isSelected(),
 					optionPrintIDs.isSelected(),
+					printClassNames,
 					new String[]{Language.tr("LogSimulation.Heading")},
 					optionMaxRecords.isSelected()?NumberTools.getPositiveLong(maxRecords,true).intValue():-1
 					);
 		}
 
 		if (mode==1) {
-			if (editDDE!=null) return new DDELogger(editDDE.getWorkbook(),editDDE.getTable(),optionPrintIDs.isSelected());
+			if (editDDE!=null) return new DDELogger(editDDE.getWorkbook(),editDDE.getTable(),optionPrintIDs.isSelected(),printClassNames);
 		}
 
 		return null;

@@ -45,27 +45,28 @@ public class MultiTypeTextLogger implements SimLogging {
 	 * @param useColors	Bei den Log-Zeilen angegebene Farben berücksichtigen
 	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
 	 * @param printIDs	IDs mit ausgeben
+	 * @param printClassNames	Klassennamen der Event-Objekte ausgeben?
 	 * @param headings	Auszugebende Überschriftzeilen
 	 * @param maxLines	Im Textmodus maximal auszugebende Anzahl an Zeilen (Werte &le;0 für unbegrenzt)
 	 */
-	public MultiTypeTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final String[] headings, final int maxLines) {
+	public MultiTypeTextLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final boolean printClassNames, final String[] headings, final int maxLines) {
 		final String filename=logFile.getName().toUpperCase();
 
 		SimLogging l=null;
-		if (filename.endsWith(".RTF")) l=new RTFLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings);
-		if (filename.endsWith(".HTML")) l=new HTMLLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings);
-		if (filename.endsWith(".DOCX")) l=new DOCXLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings);
-		if (filename.endsWith(".ODT")) l=new ODTLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings);
-		if (filename.endsWith(".XLSX")) l=new XLSXLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings,false);
-		if (filename.endsWith(".XLS")) l=new XLSXLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings,true);
-		if (filename.endsWith(".ODS")) l=new ODSLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings);
-		if (filename.endsWith(".PDF")) l=new PDFLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,headings);
+		if (filename.endsWith(".RTF")) l=new RTFLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,printClassNames,headings);
+		if (filename.endsWith(".HTML")) l=new HTMLLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,printClassNames,headings);
+		if (filename.endsWith(".DOCX")) l=new DOCXLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,printClassNames,headings);
+		if (filename.endsWith(".ODT")) l=new ODTLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,printClassNames,headings);
+		if (filename.endsWith(".XLSX")) l=new XLSXLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,printClassNames,headings,false);
+		if (filename.endsWith(".XLS")) l=new XLSXLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,printClassNames,headings,true);
+		if (filename.endsWith(".ODS")) l=new ODSLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,printClassNames,headings);
+		if (filename.endsWith(".PDF")) l=new PDFLogger(logFile,groupSameTimeEvents,singleLineMode,useColors,formatedTime,printIDs,printClassNames,headings);
 		if (maxLines>0) {
-			if (filename.endsWith(".CSV")) l=new PlainTextLoggerLimited(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,true,maxLines);
-			if (l==null) l=new PlainTextLoggerLimited(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,false,maxLines);
+			if (filename.endsWith(".CSV")) l=new PlainTextLoggerLimited(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,printClassNames,true,maxLines);
+			if (l==null) l=new PlainTextLoggerLimited(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,printClassNames,false,maxLines);
 		} else {
-			if (filename.endsWith(".CSV")) l=new PlainTextLogger(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,true);
-			if (l==null) l=new PlainTextLogger(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,false);
+			if (filename.endsWith(".CSV")) l=new PlainTextLogger(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,printClassNames,true);
+			if (l==null) l=new PlainTextLogger(logFile,groupSameTimeEvents,singleLineMode,formatedTime?PlainTextLoggerTimeMode.TIME:PlainTextLoggerTimeMode.PLAIN,printIDs,printClassNames,false);
 		}
 		logger=l;
 	}

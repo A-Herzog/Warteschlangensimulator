@@ -19,6 +19,7 @@ import java.awt.Color;
 
 import net.dde.DDEConnect;
 import simcore.SimData;
+import simcore.logging.AbstractTextLogger;
 import simcore.logging.SimLogging;
 
 /**
@@ -35,6 +36,8 @@ public class DDELogger implements SimLogging {
 	private final String sheet;
 	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** Klassennamen der Event-Objekte ausgeben? */
+	private final boolean printClassNames;
 	/** DDE-Verbindungsobjekt */
 	private final DDEConnect connect;
 	/** DDE-Ausgabe möglich? */
@@ -49,11 +52,13 @@ public class DDELogger implements SimLogging {
 	 * @param workbook	Zu verwendende Excel-Arbeitsmappe
 	 * @param sheet	Zu verwendende Tabelle innerhalb der Arbeitsmappe (die Ausgabe erfolgt ab Zeile 1, Spalte 1; vorhandene Daten werden überschrieben)
 	 * @param printIDs	IDs mit ausgeben
+	 * @param printClassNames	Klassennamen der Event-Objekte ausgeben?
 	 */
-	public DDELogger(final String workbook, final String sheet, final boolean printIDs) {
+	public DDELogger(final String workbook, final String sheet, final boolean printIDs, final boolean printClassNames) {
 		this.workbook=workbook;
 		this.sheet=sheet;
 		this.printIDs=printIDs;
+		this.printClassNames=printClassNames;
 		connect=new DDEConnect();
 		ready=connect.available();
 		nextRow=0;
@@ -71,6 +76,14 @@ public class DDELogger implements SimLogging {
 
 		if (!connect.setData(workbook,sheet,nextRow,nextCol,SimData.formatSimTime(time))) ok=false;
 		nextCol++;
+
+		if (printClassNames) {
+			final String eventObject=AbstractTextLogger.getCallingEventObject();
+			if (eventObject!=null && !eventObject.isEmpty()) {
+				if (!connect.setData(workbook,sheet,nextRow,nextCol,eventObject)) ok=false;
+			}
+			nextCol++;
+		}
 
 		if (event!=null) {
 			if (!connect.setData(workbook,sheet,nextRow,nextCol,event)) ok=false;

@@ -70,7 +70,7 @@ public class CallbackLogger implements SimLogging {
 	public CallbackLogger(final Consumer<CallbackLoggerData> callback, final boolean active) {
 		this.callback=callback;
 		this.active=active;
-		loggerData=new CallbackLoggerData(0,Color.BLACK,"",0,"");
+		loggerData=new CallbackLoggerData(0,Color.BLACK,"","",0,"");
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class CallbackLogger implements SimLogging {
 	@Override
 	public boolean log(final long time, final Color color, final String event, final int id, final String info) {
 		if (active && callback!=null) {
-			loggerData.init(time,(color==null)?Color.BLACK:color,event,id,info);
+			loggerData.init(time,(color==null)?Color.BLACK:color,AbstractTextLogger.getCallingEventObject(),event,id,info);
 			callback.accept(loggerData);
 		}
 		if (nextLogger!=null) nextLogger.log(time,color,event,id,info);

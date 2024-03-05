@@ -25,6 +25,7 @@ import org.odftoolkit.simple.text.Paragraph;
 
 import mathtools.NumberTools;
 import simcore.SimData;
+import simcore.logging.AbstractTextLogger;
 import simcore.logging.SimLogging;
 
 /**
@@ -46,6 +47,8 @@ public class ODTLogger implements SimLogging {
 	private final boolean formatedTime;
 	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** Klassennamen der Event-Objekte ausgeben? */
+	private final boolean printClassNames;
 	/** Zeitpunkt des letzten Ereignisses (zur Gruppierung von Ereignissen) */
 	private long lastEventTime=-1;
 
@@ -65,15 +68,17 @@ public class ODTLogger implements SimLogging {
 	 * @param useColors	Bei den Log-Zeilen angegebene Farben berücksichtigen
 	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
 	 * @param printIDs	IDs mit ausgeben
+	 * @param printClassNames	Klassennamen der Event-Objekte ausgeben?
 	 * @param headings	Auszugebende Überschriftzeilen
 	 */
-	public ODTLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final String[] headings) {
+	public ODTLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final boolean printClassNames, final String[] headings) {
 		this.logFile=logFile;
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
 		this.useColors=useColors;
 		this.formatedTime=formatedTime;
 		this.printIDs=printIDs;
+		this.printClassNames=printClassNames;
 
 		String[] h;
 		if (headings==null || headings.length==0) h=new String[]{"Simulationsergebnisse"}; else h=headings;
@@ -92,7 +97,6 @@ public class ODTLogger implements SimLogging {
 			for (int i=0;i<h.length;i++) p.appendTextContent(h[i]);
 		}
 	}
-
 
 	@Override
 	public boolean ready() {
@@ -149,6 +153,11 @@ public class ODTLogger implements SimLogging {
 			if (useColors) setColor(paragraph,color);
 			StringBuilder sb=new StringBuilder();
 			if (!groupSameTimeEvents) sb.append(timeString+" ");
+			if (printClassNames) {
+				final String eventObject=AbstractTextLogger.getCallingEventObject();
+				if (eventObject!=null && !eventObject.isEmpty()) sb.append(eventObject);
+				sb.append(" ");
+			}
 			if (event!=null && !event.isEmpty()) sb.append(event+" ");
 			if (printIDs && id>=0) sb.append("id="+id+" ");
 			if (info!=null && !info.isEmpty()) sb.append(info+" ");
@@ -160,6 +169,11 @@ public class ODTLogger implements SimLogging {
 			if (!groupSameTimeEvents) {
 				if (useColors) setColor(paragraph,color);
 				paragraph.appendTextContent(timeString);
+				paragraph.appendTextContent("\n");
+			}
+			if (printClassNames) {
+				final String eventObject=AbstractTextLogger.getCallingEventObject();
+				if (eventObject!=null && !eventObject.isEmpty()) paragraph.appendTextContent(eventObject);
 				paragraph.appendTextContent("\n");
 			}
 			if (event!=null && !event.isEmpty()) {

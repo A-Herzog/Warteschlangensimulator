@@ -19,7 +19,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.lang.StackWalker.Option;
+import java.lang.StackWalker.StackFrame;
 import java.nio.charset.StandardCharsets;
+
+import simcore.Event;
 
 /**
  * Diese abstrakte Basisklasse ermöglicht das Aufzeichnen von Plain-Text-Logging-Daten in einer Datei
@@ -115,6 +119,16 @@ public abstract class AbstractTextLogger implements SimLogging {
 		} catch (IOException e) {logFileWriter=null; /* Damit SpotBugs zufrieden ist. */ return false;}
 		logFileWriter=null;
 		return true;
+	}
+
+	/**
+	 * Liefert den Klassennamen des Objektes aus <code>simcore.Events</code>,
+	 * welches das Logging ausgelöst hat.
+	 * @return	Klassennamen des Objektes aus <code>simcore.Events</code> oder ein leerer String, wenn kein solches Objekt identifiziert werden konnte
+	 */
+	public static String getCallingEventObject() {
+		final StackFrame frame=StackWalker.getInstance(Option.RETAIN_CLASS_REFERENCE).walk(s->s.dropWhile(f->!Event.class.isAssignableFrom(f.getDeclaringClass())).findFirst().orElseGet(()->null));
+		return (frame==null)?"":frame.getClassName();
 	}
 
 	@Override

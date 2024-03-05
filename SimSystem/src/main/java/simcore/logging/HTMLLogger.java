@@ -37,6 +37,8 @@ public class HTMLLogger extends AbstractTextLogger {
 	private final boolean formatedTime;
 	/** IDs mit ausgeben */
 	private final boolean printIDs;
+	/** Klassennamen der Event-Objekte ausgeben? */
+	private final boolean printClassNames;
 	/** Auszugebende Überschriftzeilen */
 	private final String[] headings;
 	/** Zeitpunkt an dem das letzte Ereignis auftrat (für das optionale Gruppieren) */
@@ -50,14 +52,16 @@ public class HTMLLogger extends AbstractTextLogger {
 	 * @param useColors	Bei den Log-Zeilen angegebene Farben berücksichtigen
 	 * @param formatedTime	Zeit als HH:MM:SS,s (<code>true</code>) oder als Sekunden-Zahlenwert (<code>false</code>) ausgeben
 	 * @param printIDs	IDs mit ausgeben
+	 * @param printClassNames	Klassennamen der Event-Objekte ausgeben?
 	 * @param headings	Auszugebende Überschriftzeilen
 	 */
-	public HTMLLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final String[] headings) {
+	public HTMLLogger(final File logFile, final boolean groupSameTimeEvents, final boolean singleLineMode, final boolean useColors, final boolean formatedTime, final boolean printIDs, final boolean printClassNames, final String[] headings) {
 		this.groupSameTimeEvents=groupSameTimeEvents;
 		this.singleLineMode=singleLineMode;
 		this.useColors=useColors;
 		this.formatedTime=formatedTime;
 		this.printIDs=printIDs;
+		this.printClassNames=printClassNames;
 		if (headings==null || headings.length==0) this.headings=new String[]{"Simulationsergebnisse"}; else this.headings=headings;
 		init(logFile);
 	}
@@ -142,6 +146,11 @@ public class HTMLLogger extends AbstractTextLogger {
 			if (!groupSameTimeEvents) {
 				sb.append("    <td>");
 				sb.append(timeString);
+				sb.append("</td>"+System.lineSeparator());
+			}
+			if (printClassNames) {
+				sb.append("    <td>");
+				sb.append(AbstractTextLogger.getCallingEventObject());
 				sb.append("</td>"+System.lineSeparator());
 			}
 			if (event!=null && !event.isEmpty()) {
