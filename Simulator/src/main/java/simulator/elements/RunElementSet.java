@@ -176,7 +176,16 @@ public class RunElementSet extends RunElementPassThrough {
 
 			if (!ok) {
 				/* Logging */
-				if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.SetError"),String.format(Language.tr("Simulation.Log.SetError.Info"),client.logInfo(simData),name,simData.runModel.variableNames[variableIndex[i]]));
+				if (simData.loggingActive) {
+					final int index=variableIndex[i];
+					final String varName;
+					if (index<0) {
+						varName="ClientData("+(-index-1)+")";
+					} else {
+						varName=simData.runModel.variableNames[index];
+					}
+					log(simData,Language.tr("Simulation.Log.SetError"),String.format(Language.tr("Simulation.Log.SetError.Info"),client.logInfo(simData),name,varName));
+				}
 			} else {
 				/* Speichern */
 				final int len=simData.runData.variableValues.length;
