@@ -1863,6 +1863,7 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
 	<xs:element ref="ModellElementAnimationLCDAusdruck"/>
 	<xs:element name="ModellElementAnimationLCDZiffern" type="xs:string"/>
+	<xs:element name="ModellElementAnimationLCDLinienbreite" type="xs:string"/>
 	<xs:element name="ModellElementAnimationLCDFarbe" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
@@ -4348,6 +4349,7 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
 	<xs:element ref="ModelElementAnimationLCDExpression"/>
 	<xs:element name="ModelElementAnimationLCDDigits" type="xs:string"/>
+	<xs:element name="ModelElementAnimationLCDLineWidth" type="xs:string"/>
 	<xs:element name="ModelElementAnimationLCDColor" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>

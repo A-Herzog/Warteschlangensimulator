@@ -1684,7 +1684,7 @@
   Licht	(rot|gelb)	#REQUIRED
 >
 
-<!ELEMENT ModellElementAnimationLCD (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementAnimationLCDAusdruck | ModellElementAnimationLCDZiffern | ModellElementAnimationLCDFarbe)*>
+<!ELEMENT ModellElementAnimationLCD (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementAnimationLCDAusdruck | ModellElementAnimationLCDZiffern | ModellElementAnimationLCDLinienbreite | ModellElementAnimationLCDFarbe)*>
 <!ATTLIST ModellElementAnimationLCD
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1696,6 +1696,7 @@
   Modus	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAnimationLCDZiffern (#PCDATA)>
+<!ELEMENT ModellElementAnimationLCDLinienbreite (#PCDATA)>
 <!ELEMENT ModellElementAnimationLCDFarbe (#PCDATA)>
 
 <!ELEMENT ModellElementAnimationAnalogSkala (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementAnimationAnalogSkalaAusdruck | ModellElementAnimationAnalogSkalaFarbe)*>
@@ -4373,7 +4374,7 @@
   Light	(red|yellow)	#REQUIRED
 >
 
-<!ELEMENT ModelElementAnimationLCD (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementAnimationLCDExpression | ModelElementAnimationLCDDigits | ModelElementAnimationLCDColor)*>
+<!ELEMENT ModelElementAnimationLCD (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementAnimationLCDExpression | ModelElementAnimationLCDDigits | ModelElementAnimationLCDLineWidth | ModelElementAnimationLCDColor)*>
 <!ATTLIST ModelElementAnimationLCD
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -4385,6 +4386,7 @@
   Mode	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementAnimationLCDDigits (#PCDATA)>
+<!ELEMENT ModelElementAnimationLCDLineWidth (#PCDATA)>
 <!ELEMENT ModelElementAnimationLCDColor (#PCDATA)>
 
 <!ELEMENT ModelElementAnimationPointerMeasuring (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementAnimationPointerMeasuringExpression | ModelElementAnimationPointerMeasuringColor)*>

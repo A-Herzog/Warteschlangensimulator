@@ -57,6 +57,11 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 	private SpinnerNumberModel spinDigits;
 
 	/**
+	 * Linienbreite für die darzustellenden 7-Segment-Ziffern
+	 */
+	private SpinnerNumberModel spinSegmentLineWidth;
+
+	/**
 	 * Auswahl der Farbe für die aktiven Segmente
 	 */
 	private SmallColorChooser colorChooser;
@@ -96,8 +101,9 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 		/* Ausdruck */
 		content.add(editExpression=new AnimationExpressionPanel(element,((ModelElementAnimationLCD)element).getExpression(),readOnly,helpRunnable,new ArrayList<>()));
 
-		/* Ziffern */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+
+		/* Anzahl an Ziffern */
 		line.add(label=new JLabel(Language.tr("Surface.AnimationLCD.Dialog.Digits")+":"));
 		final JSpinner spinDigitsSpinner=new JSpinner(spinDigits=new SpinnerNumberModel(1,1,10,1));
 		final JSpinner.NumberEditor editor=new JSpinner.NumberEditor(spinDigitsSpinner);
@@ -106,6 +112,16 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 		line.add(spinDigitsSpinner);
 		label.setLabelFor(spinDigitsSpinner);
 		spinDigitsSpinner.setEnabled(!readOnly);
+
+		/* Linienbreite */
+		line.add(label=new JLabel(Language.tr("Surface.AnimationLCD.Dialog.SegmentLineWidth")+":"));
+		final JSpinner spinSegmentLineWidthSpinner=new JSpinner(spinSegmentLineWidth=new SpinnerNumberModel(1,1,10,1));
+		final JSpinner.NumberEditor editorSegmentLineWidth=new JSpinner.NumberEditor(spinSegmentLineWidthSpinner);
+		editorSegmentLineWidth.getFormat().setGroupingUsed(false);
+		spinSegmentLineWidthSpinner.setEditor(editorSegmentLineWidth);
+		line.add(spinSegmentLineWidthSpinner);
+		label.setLabelFor(spinSegmentLineWidthSpinner);
+		spinSegmentLineWidthSpinner.setEnabled(!readOnly);
 
 		/* Farbe */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -119,6 +135,7 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 		if (element instanceof ModelElementAnimationLCD) {
 			final ModelElementAnimationLCD lcd=(ModelElementAnimationLCD)element;
 			spinDigits.setValue(lcd.getDigits());
+			spinSegmentLineWidth.setValue(lcd.getSegmentLineWidth());
 			colorChooser.setColor(lcd.getColor());
 		}
 
@@ -169,6 +186,7 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 			final ModelElementAnimationLCD lcd=(ModelElementAnimationLCD)element;
 			editExpression.storeData();
 			lcd.setDigits((Integer)spinDigits.getValue());
+			lcd.setSegmentLineWidth((Integer)spinSegmentLineWidth.getValue());
 			lcd.setColor(colorChooser.getColor());
 		}
 	}

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-01 19:05+0100\n"
+"POT-Creation-Date: 2024-03-06 09:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27049,6 +27049,9 @@ msgstr "Farbe für die aktiven Segmente"
 msgid "Surface.AnimationLCD.Dialog.Digits"
 msgstr "Anzahl an Ziffern"
 
+msgid "Surface.AnimationLCD.Dialog.SegmentLineWidth"
+msgstr "Linienbreite"
+
 msgid "Surface.AnimationLCD.Dialog.Title"
 msgstr "LCD-Anzeige bearbeiten"
 
@@ -27072,6 +27075,9 @@ msgstr "ModellElementAnimationLCDAusdruck"
 
 msgid "Surface.AnimationLCD.XML.Root"
 msgstr "ModellElementAnimationLCD"
+
+msgid "Surface.AnimationLCD.XML.SegmentLineWidth"
+msgstr "ModellElementAnimationLCDLinienbreite"
 
 msgid "Surface.AnimationPause.Dialog.Condition"
 msgstr "Bedingung"

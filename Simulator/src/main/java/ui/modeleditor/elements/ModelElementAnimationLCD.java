@@ -58,6 +58,12 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 	private static final Color DEFAULT_COLOR=Color.RED;
 
 	/**
+	 * Standard Dicke der Linien der 7-Segment-Elemente
+	 * @see #segmentLineWidth
+	 */
+	private static final int DEFAULT_SEGMENT_LINE_WIDTH=4;
+
+	/**
 	 * Anzahl an anzuzeigenden 7-Segment-Elementen
 	 * @see #getDigits()
 	 * @see #setDigits(int)
@@ -72,6 +78,11 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 	private Color color=DEFAULT_COLOR;
 
 	/**
+	 * Dicke der Linien der 7-Segment-Elemente
+	 */
+	private int segmentLineWidth;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -79,6 +90,7 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 	public ModelElementAnimationLCD(final EditModel model, final ModelSurface surface) {
 		super(model,surface,new Dimension(25,50));
 		digits=1;
+		segmentLineWidth=DEFAULT_SEGMENT_LINE_WIDTH;
 		expression.setExpression("wip()");
 	}
 
@@ -117,6 +129,22 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 	}
 
 	/**
+	 * Liefert die Dicke der Linien der 7-Segment-Elemente.
+	 * @return	Dicke der Linien der 7-Segment-Elemente
+	 */
+	public int getSegmentLineWidth() {
+		return segmentLineWidth;
+	}
+
+	/**
+	 * Stellt die Dicke der Linien der 7-Segment-Elemente ein.
+	 * @param segmentLineWidth	Dicke der Linien der 7-Segment-Elemente
+	 */
+	public void setSegmentLineWidth(final int segmentLineWidth) {
+		this.segmentLineWidth=Math.max(1,Math.min(10,segmentLineWidth));
+	}
+
+	/**
 	 * Liefert die Farbe für die aktiven LCD-Segmente.
 	 * @return	Farbe für die aktiven LCD-Segmente
 	 */
@@ -144,6 +172,7 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 		final ModelElementAnimationLCD other=(ModelElementAnimationLCD)element;
 
 		if (digits!=other.digits) return false;
+		if (segmentLineWidth!=other.segmentLineWidth) return false;
 		if (!Objects.equals(color,other.color)) return false;
 
 		return true;
@@ -159,6 +188,7 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 		if (element instanceof ModelElementAnimationLCD) {
 			final ModelElementAnimationLCD source=(ModelElementAnimationLCD)element;
 			digits=source.digits;
+			segmentLineWidth=source.segmentLineWidth;
 			color=source.color;
 		}
 	}
@@ -251,7 +281,7 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 	 * @param value	Zu zeichnende Ziffer
 	 */
 	private void drawDigit(final Graphics2D g, final int rectX, final int rectW, final int rectY, final int rectH, final boolean hasValue, final int value) {
-		final int min=Math.max(1,Math.min(rectW,rectH)/10);
+		final int min=Math.max(1,Math.min(rectW,rectH)/20*segmentLineWidth);
 		if (stroke==null || strokeWidth!=min) {
 			stroke=new BasicStroke(min,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);
 			strokeWidth=min;
@@ -423,6 +453,12 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 		node.appendChild(sub);
 		sub.setTextContent(""+digits);
 
+		if (segmentLineWidth!=DEFAULT_SEGMENT_LINE_WIDTH) {
+			sub=doc.createElement(Language.trPrimary("Surface.AnimationLCD.XML.SegmentLineWidth"));
+			node.appendChild(sub);
+			sub.setTextContent(""+segmentLineWidth);
+		}
+
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationLCD.XML.Color"));
 		node.appendChild(sub);
 		sub.setTextContent(EditModel.saveColor(color));
@@ -449,6 +485,13 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 			final Long L=NumberTools.getPositiveLong(content);
 			if (L==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			digits=L.intValue();
+			return null;
+		}
+
+		if (Language.trAll("Surface.AnimationLCD.XML.SegmentLineWidth",name)) {
+			final Long L=NumberTools.getPositiveLong(content);
+			if (L==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			segmentLineWidth=Math.max(1,Math.min(10,L.intValue()));
 			return null;
 		}
 
@@ -560,5 +603,6 @@ public class ModelElementAnimationLCD extends ModelElementAnimationCustomDrawExp
 		super.search(searcher);
 
 		searcher.testInteger(this,Language.tr("Surface.AnimationLCD.Dialog.Digits"),digits,newDigits->{if (newDigits>0) digits=newDigits;});
+		searcher.testInteger(this,Language.tr("Surface.AnimationLCD.Dialog.SegmentLineWidth"),segmentLineWidth,newSegmentLineWidth->{segmentLineWidth=Math.max(1,Math.min(10,newSegmentLineWidth));});
 	}
 }
