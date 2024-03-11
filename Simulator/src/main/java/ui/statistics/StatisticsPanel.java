@@ -1889,6 +1889,18 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			viewer=new ArrayList<>();
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_RESOURCE_UTILIZATION_RHO));
 			group.addChild(new StatisticNode(Language.tr("Statistics.UtilizationRho"),viewer));
+
+			/* (Untergruppe) Verteilungen */
+
+			group.addChild(sub=new StatisticNode(Language.tr("Statistics.DistributionsNumbers"),!setup.expandAllStatistics));
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_UTILIZATION_DISTRIBUTION));
+			sub.addChild(new StatisticNode(Language.tr("Statistics.UtilizationDistributions"),viewer));
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_UTILIZATION_DISTRIBUTION));
+			sub.addChild(new StatisticNode(Language.tr("Statistics.UtilizationDistributions"),viewer));
 		}
 
 		/* Transporterauslastung */
@@ -1913,6 +1925,17 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeBarChart(statistic,StatisticViewerTimeBarChart.Mode.MODE_TRANSPORTER_UTILIZATION));
 			group.addChild(new StatisticNode(Language.tr("Statistics.TransporterUtilizationAndFailures"),viewer));
 
+			/* (Untergruppe) Verteilungen */
+
+			group.addChild(sub=new StatisticNode(Language.tr("Statistics.DistributionsNumbers"),!setup.expandAllStatistics));
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_TRANSPORTER_UTILIZATION_DISTRIBUTION));
+			sub.addChild(new StatisticNode(Language.tr("Statistics.TransporterUtilizationDistributions"),viewer));
+
+			viewer=new ArrayList<>();
+			for(Statistics statistic : statistics) viewer.add(new StatisticViewerDistributionTimeLineChart(statistic,StatisticViewerDistributionTimeLineChart.Mode.MODE_TRANSPORTER_UTILIZATION_DISTRIBUTION));
+			sub.addChild(new StatisticNode(Language.tr("Statistics.TransporterUtilizationDistributions"),viewer));
 		}
 
 		/* Laufzeit-Statistik */

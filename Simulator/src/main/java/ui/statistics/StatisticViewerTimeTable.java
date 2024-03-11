@@ -184,10 +184,14 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		MODE_UTILIZATION,
 		/** Ausfallzeiten der Ressourcen (Übersichtstabelle) */
 		MODE_DOWNTIMES,
+		/** Verteilung der Anzahl der genutzten Ressourcen */
+		MODE_UTILIZATION_DISTRIBUTION,
 		/** Transporterauslastung (Übersichtstabelle) */
 		MODE_TRANSPORTER_UTILIZATION,
 		/** Ausfallzeiten der Transporter (Übersichtstabelle) */
 		MODE_TRANSPORTER_DOWNTIMES,
+		/** Verteilung der Anzahl der genutzten Transporter */
+		MODE_TRANSPORTER_UTILIZATION_DISTRIBUTION,
 
 		/** Kundendatenfelder (Übersichtstabelle) */
 		MODE_CLIENT_DATA,
@@ -638,7 +642,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	}
 
 	/**
-	 * Erstellt eine Verteilungstabelle.
+	 * Erstellt eine Verteilungstabelle über einzelne Werte (aus Kundensicht) wie z.B. Wartezeiten.
 	 * @param indicator	Statistikobjekt
 	 * @param label	Spaltenüberschrift über ersten Spalte
 	 */
@@ -680,6 +684,54 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 
 		/* Infotext  */
 		addDescription("TableTimeDistribution");
+	}
+
+	/**
+	 * Erstellt eine Verteilungstabelle über Zeitdauernanteile.
+	 * @param indicator	Statistikobjekt
+	 * @param label	Spaltenüberschrift über ersten Spalte
+	 */
+	private void buildUtilizationDistributionTable(final StatisticsMultiPerformanceIndicator indicator, final String label) {
+		final Table table=new Table();
+		final List<String> headers=new ArrayList<>();
+
+		final String[] types=indicator.getNames();
+
+		double scale=1;
+		int maxNonZero=0;
+		headers.add(label);
+		List<DataDistributionImpl> dists=new ArrayList<>();
+		for (String type: types) {
+			headers.add(Language.tr("Statistics.Seconds")+" - "+type);
+			headers.add(Language.tr("Statistics.Part")+" - "+type);
+			final DataDistributionImpl dist=((StatisticsTimePerformanceIndicator)(indicator.get(type))).getDistribution();
+			if (dist!=null) {
+				dists.add(dist);
+				scale=dist.upperBound/dist.densityData.length;
+				for (int i=dist.densityData.length-1;i>=maxNonZero;i--) if (dist.densityData[i]!=0.0) {maxNonZero=Math.max(i,maxNonZero); break;}
+			}
+		}
+
+		final List<Double> sum=new ArrayList<>();
+		for (DataDistributionImpl dist: dists) sum.add(dist.sum());
+
+		if (dists.size()>0)	for (int i=0;i<=maxNonZero;i++) {
+			List<String> line=new ArrayList<>();
+			line.add(NumberTools.formatLongNoGrouping(Math.round(i*scale)));
+			for (int j=0;j<dists.size();j++) {
+				final DataDistributionImpl dist=dists.get(j);
+				double value=(i>=dist.densityData.length)?0:dist.densityData[i];
+				line.add(StatisticTools.formatNumber(value));
+				final double s=sum.get(j);
+				if (s==0.0) line.add("0%"); else line.add(StatisticTools.formatPercent(value/s,3));
+			}
+			table.addLine(line);
+		}
+
+		setData(table,headers);
+
+		/* Infotext  */
+		addDescription("TableCountDistribution");
 	}
 
 	/**
@@ -1480,8 +1532,10 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		case MODE_DISTRIBUTION_PROCESS_CLIENT_TYPE: buildCountDistributionTable(statistics.clientsAtStationProcessByStationAndClient,null); break;
 		case MODE_UTILIZATION: buildUtilizationTable(); break;
 		case MODE_DOWNTIMES: buildDownTimesTable(); break;
+		case MODE_UTILIZATION_DISTRIBUTION: buildUtilizationDistributionTable(statistics.resourceUtilization,Language.tr("Statistics.NumberOfBusyOperators")); break;
 		case MODE_TRANSPORTER_UTILIZATION: buildTransporterUtilizationTable(); break;
 		case MODE_TRANSPORTER_DOWNTIMES: buildTransporterDownTimesTable(); break;
+		case MODE_TRANSPORTER_UTILIZATION_DISTRIBUTION: buildUtilizationDistributionTable(statistics.transporterUtilization,Language.tr("Statistics.NumberOfBusyTransporters")); break;
 		case MODE_CLIENT_DATA: buildClientDataTable(); break;
 		case MODE_CLIENT_DATA_DISTRIBUTION: buildClientDataDistributionTable(); break;
 		case MODE_CLIENT_TEXT_DATA: buildClientDataTextTable(); break;

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-06 09:06+0100\n"
+"POT-Creation-Date: 2024-03-06 19:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24380,6 +24380,12 @@ msgstr "Anzahl"
 msgid "Statistics.NumberOfArrivals"
 msgstr "Anzahl an Ankünften"
 
+msgid "Statistics.NumberOfBusyOperators"
+msgstr "Anzahl an belegten Bedienern"
+
+msgid "Statistics.NumberOfBusyTransporters"
+msgstr "Anzahl an belegten Transportern"
+
 msgid "Statistics.NumberOfClients"
 msgstr "Anzahl an Kunden"
 
@@ -25027,6 +25033,9 @@ msgstr "Varianz der Anzahl an fahrenden Transportern"
 msgid "Statistics.TransporterUtilizationAndFailures"
 msgstr "Transporterauslastung und -ausfälle"
 
+msgid "Statistics.TransporterUtilizationDistributions"
+msgstr "Verteilung der Anzahl an belegten Transportern"
+
 msgid "Statistics.Type"
 msgstr "Typ"
 
@@ -25122,6 +25131,9 @@ msgstr "Bedienergruppe"
 
 msgid "Statistics.UtilizationAndFailures.Utilization"
 msgstr "Arbeit"
+
+msgid "Statistics.UtilizationDistributions"
+msgstr "Verteilung der Anzahl an belegten Bedienern"
 
 msgid "Statistics.UtilizationRho"
 msgstr "Relative Ressourcenauslastung"

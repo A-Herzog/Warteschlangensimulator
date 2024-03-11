@@ -133,6 +133,10 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 		MODE_CLIENT_DATA_DISTRIBUTION_BY_CLIENT_TYPES,
 		/** Verteilungsdiagramme der an den Datenaufzeichnung-Stationen erfassten Werten */
 		MODE_VALUE_RECORDING,
+		/** Verteilung der Anzahl der genutzten Ressourcen */
+		MODE_UTILIZATION_DISTRIBUTION,
+		/** Verteilung der Anzahl der genutzten Transporter */
+		MODE_TRANSPORTER_UTILIZATION_DISTRIBUTION
 	}
 
 	/**
@@ -533,6 +537,14 @@ public class StatisticViewerDistributionTimeLineChart extends StatisticViewerLin
 			requestDiagrammDataCollection(data,data,collector.getValuesReadOnly(),collector.getCount());
 			plot.getDomainAxis().setLabel(Language.tr("Statistics.RecordedValue"));
 			addDescription("PlotX");
+			break;
+		case MODE_UTILIZATION_DISTRIBUTION:
+			requestDiagrammStateDistribution(Language.tr("Statistics.UtilizationDistributions"),statistics.resourceUtilization,null,Language.tr("Statistics.NumberOfBusyOperators"),null);
+			addDescription("PlotCountDistribution");
+			break;
+		case MODE_TRANSPORTER_UTILIZATION_DISTRIBUTION:
+			requestDiagrammStateDistribution(Language.tr("Statistics.TransporterUtilizationDistributions"),statistics.transporterUtilization,null,Language.tr("Statistics.NumberOfBusyTransporters"),null);
+			addDescription("PlotCountDistribution");
 			break;
 		}
 
