@@ -494,6 +494,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 			}
 		}
 
+		/* Gewählte Alternative in Kundenobjekt eintragen (damit diese Information bei der Bestimmung der Bedienzeit verwendet werden kann) */
+		selected.lastAlternative=resourceAlternative+1;
+
 		/* Bedienzeit bestimmen */
 		double setupTime=data.getSetupTime(simData,selected);
 		double processingTime=data.getProcessTime(simData,selected)+additionalPrepareTime;
@@ -518,8 +521,6 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				releaseEvent.station=this;
 				releaseEvent.resourceAlternative=resourceAlternative;
 				simData.eventManager.addEvent(releaseEvent);
-
-				/* Logging */
 
 				return;
 			}
@@ -551,7 +552,6 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		case PROCESS_TYPE_PROCESS: selected.addStationTime(id,waitingTimeMS,0,setupTimeMS+processingTimeMS,waitingTimeMS+setupTimeMS+processingTimeMS); break;
 		case PROCESS_TYPE_NOTHING: /* nicht erfassen */ break;
 		}
-		selected.lastAlternative=resourceAlternative+1;
 
 		/* Rüstzeiten in Statistik */
 		if (!simData.runData.isWarmUp) {
@@ -646,6 +646,9 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 			if (data.postProcessingTimes==null) data.postProcessingTimes=new double[simData.runModel.clientTypes.length]; else Arrays.fill(data.postProcessingTimes,0.0);
 			for (int i=0;i<selectedForService.size();i++) {
 				final RunDataClient client=selectedForService.get(i);  /* Iterator würde mehr Arbeitsspeicher brauchen */
+				/* Gewählte Alternative in Kundenobjekt eintragen (damit diese Information bei der Bestimmung der Bedienzeit verwendet werden kann) */
+				client.lastAlternative=resourceAlternative+1;
+				/* Bedienzeit und Nachbearbeitungszeit für Kundentyp bestimmen */
 				final int type=client.type;
 				if (data.processingTimes[type]!=0.0) continue;
 				/* hier keine Rüstzeiten; wird schon im Builder ausgeschlossen */
@@ -679,7 +682,6 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				case PROCESS_TYPE_PROCESS: client.addStationTime(id,waitingTimeMS,0,processingTimeMS,waitingTimeMS+processingTimeMS); break;
 				case PROCESS_TYPE_NOTHING: /* nicht erfassen */ break;
 				}
-				client.lastAlternative=resourceAlternative+1;
 
 				/* Kunden als "in Bedienung" erfassen */
 				simData.runData.logClientEntersStationProcess(simData,this,data,client);
