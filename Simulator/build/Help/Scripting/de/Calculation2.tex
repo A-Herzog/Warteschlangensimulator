@@ -1668,6 +1668,14 @@ Liefert die Anzahl der momentan belegten Bediener in der angegebenen Ressource.
 Liefert die mittlere Anzahl an belegten Bedienern in der angegebenen Ressource.
 
 \item
+\cmd{resource\_median(id)} oder \cmd{utilization\_median(id)}:\\
+Liefert den Median der Anzahl an belegten Bedienern in der angegebenen Ressource.
+  
+\item
+\cmd{resource\_quantil(id;p)} oder \cmd{utilization\_quantil(id;p)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an belegten Bedienern in der angegebenen Ressource.
+
+\item
 \cmd{resource\_min(id)} oder \cmd{resource\_Minimum(id)} oder \cmd{utilization\_min(id)} oder\\
 \cmd{utilization\_Minimum(id)}:\\
 Liefert die minimale Anzahl an belegten Bedienern in der angegebenen Ressource.
@@ -1781,7 +1789,15 @@ Liefert die Anzahl der momentan belegten Transporter in der angegebenen Transpor
 \item
 \cmd{transporter\_avg(id)} oder \cmd{transporter\_average(id)} oder \cmd{transporter\_Mittelwert(id)} oder \cmd{transporter\_utilization\_avg(id)} oder \cmd{transporter\_utilization\_average(id)} oder \cmd{transporter\_utilization\_Mittelwert(id)}:\\
 Liefert die mittlere Anzahl an belegten Transportern in der angegebenen Transportergruppe.
+
+\item
+\cmd{transporter\_median(id)} oder \cmd{transporter\_utilization\_median(id)}:\\
+Liefert den Median der Anzahl an belegten Transportern in der angegebenen Transportergruppe.
   
+\item
+\cmd{transporter_quantil(id;p)} oder \cmd{transporter\_utilization\_quantil(id;p)}:\\
+Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an belegten Transportern in der angegebenen Transportergruppe.
+
 \item
 \cmd{transporter\_min(id)} oder \cmd{transporter\_Minimum(id)} oder\\
 \cmd{transporter\_utilization\_min(id)} oder \cmd{transporter\_utilization\_Minimum(id)}:\\

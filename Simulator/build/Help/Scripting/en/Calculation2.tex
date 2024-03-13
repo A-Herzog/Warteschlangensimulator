@@ -1678,6 +1678,14 @@ Gets the number of currently busy operators in the specified resource.
 Gets the average number of busy operators in the specified resource.
 
 \item
+\cmd{resource\_median(id)} or \cmd{utilization\_median(id)}:\\
+Gets the median of the number of busy operators in the specified resource.
+  
+\item
+\cmd{resource\_quantil(id;p)} or \cmd{utilization\_quantil(id;p)}:\\
+Gets the quantil for the number of busy operators in the specified resource.
+
+\item
 \cmd{resource\_min(id)} or \cmd{resource\_Minimum(id)} or \cmd{utilization\_min(id)} or\\
 \cmd{utilization\_Minimum(id)}:\\
 Gets the minimum number of busy operators in the specified resource.
@@ -1792,7 +1800,15 @@ Gets the number of currently busy transporters in the specified transporter grou
 \cmd{transporter\_avg(id)} or \cmd{transporter\_average(id)} or \cmd{transporter\_Mittelwert(id)} or \cmd{transporter\_utilization\_avg(id)} or \cmd{transporter\_utilization\_average(id)} or\\
 \cmd{transporter\_utilization\_Mittelwert(id)}:\\
 Gets the average number of busy transporters in the specified transporter group.
+
+\item
+\cmd{transporter\_median(id)} oder \cmd{transporter\_utilization\_median(id)}:\\
+Gets the median of the number of busy operators in the specified resource.
   
+\item
+\cmd{transporter_quantil(id;p)} oder \cmd{transporter\_utilization\_quantil(id;p)}:\\
+Gets the quantil for the number of busy operators in the specified resource.
+
 \item
 \cmd{transporter\_min(id)} or \cmd{transporter\_Minimum(id)} or \cmd{transporter\_utilization\_min(id)} or \cmd{transporter\_utilization\_Minimum(id)}:\\
 Gets the minimum number of busy transporters in the specified transporter group.

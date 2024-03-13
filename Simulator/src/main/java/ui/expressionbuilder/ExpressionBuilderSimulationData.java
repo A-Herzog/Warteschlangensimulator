@@ -1880,6 +1880,18 @@ public class ExpressionBuilderSimulationData {
 		addTreeNode(
 				sub,
 				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Median")+" ("+Language.tr("ExpressionBuilder.CommandName.Resource")+"_median)",
+				Language.tr("ExpressionBuilder.CommandName.Resource")+"_median(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Median"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Quantil")+" ("+Language.tr("ExpressionBuilder.CommandName.Resource")+"_quantil)",
+				Language.tr("ExpressionBuilder.CommandName.Resource")+"_quantil(id;p)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Quantil"));
+		addTreeNode(
+				sub,
+				filterUpper,
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.MinimalNumber")+" ("+Language.tr("ExpressionBuilder.CommandName.Resource")+"_min)",
 				Language.tr("ExpressionBuilder.CommandName.Resource")+"_min(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.MinimalNumber"));
@@ -2039,6 +2051,18 @@ public class ExpressionBuilderSimulationData {
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.AverageNumber")+" ("+Language.tr("ExpressionBuilder.CommandName.Transporter")+"_avg)",
 				Language.tr("ExpressionBuilder.CommandName.Transporter")+"_avg(id)",
 				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.AverageNumber"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Median")+" ("+Language.tr("ExpressionBuilder.CommandName.Transporter")+"_median)",
+				Language.tr("ExpressionBuilder.CommandName.Transporter")+"_median(id)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Median"));
+		addTreeNode(
+				sub,
+				filterUpper,
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.Quantil")+" ("+Language.tr("ExpressionBuilder.CommandName.Transporter")+"_quantil)",
+				Language.tr("ExpressionBuilder.CommandName.Transporter")+"_quantil(id;p)",
+				Language.tr("ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Quantil"));
 		addTreeNode(
 				sub,
 				filterUpper,

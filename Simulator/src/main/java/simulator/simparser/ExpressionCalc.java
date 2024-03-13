@@ -316,6 +316,8 @@ public class ExpressionCalc extends CalcSystem {
 
 		functions.add(new CalcSymbolResourceCount());
 		functions.add(new CalcSymbolResourceCount_avg());
+		functions.add(new CalcSymbolResourceData_median());
+		functions.add(new CalcSymbolResourceData_quantil());
 		functions.add(new CalcSymbolResourceData_current());
 		functions.add(new CalcSymbolResourceData_avg());
 		functions.add(new CalcSymbolResourceData_min());
@@ -334,6 +336,8 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolTransporterCapacity());
 		functions.add(new CalcSymbolTransporterData_current());
 		functions.add(new CalcSymbolTransporterData_avg());
+		functions.add(new CalcSymbolTransporterData_median());
+		functions.add(new CalcSymbolTransporterData_quantil());
 		functions.add(new CalcSymbolTransporterData_min());
 		functions.add(new CalcSymbolTransporterData_max());
 		functions.add(new CalcSymbolTransporterData_var());

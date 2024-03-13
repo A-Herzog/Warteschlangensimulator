@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-06 19:25+0100\n"
+"POT-Creation-Date: 2024-03-09 00:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8116,6 +8116,9 @@ msgstr "<p>Returns the excess kurtosis of the number of busy operators in the sp
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.MaximalNumber"
 msgstr "<p>Returns the maximum number of busy operators in the specified resource.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Median"
+msgstr "<p>Gets the median of the number of busy operators in the specified resource.</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.MinimalNumber"
 msgstr "<p>Returns the minimum number of busy operators in the specified resource.</p>"
 
@@ -8128,6 +8131,9 @@ msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.NumberAve
 msgstr ""
 "<p>Returns the average number of operators in the specified resource.</p>\n"
 "<p>For resources with an unlimited capacity \"0\" is returned.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Quantil"
+msgstr "<p>Gets the quantil for the number of busy operators in the specified resource.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Skewness"
 msgstr "<p>Returns the skewness of the number of busy operators in the specified resource.</p>"
@@ -8560,11 +8566,17 @@ msgstr "<p>Returns the excess kurtosis of the number of busy transporters in the
 msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.MaximalNumber"
 msgstr "<p>Returns the maximum number of busy transporters in the specified transporter group.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Median"
+msgstr "<p>Gets the median of the number of busy transporters in the specified transporter group.</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.MinimalNumber"
 msgstr "<p>Returns the minimum number of busy transporters in the specified transporter group.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Number"
 msgstr "<p>Returns the number of transporters in the specified transporter group.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Quantil"
+msgstr "<p>Gets the quantil for the number of busy transporters in the specified transporter group.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Skewness"
 msgstr "<p>Returns the skewness of the number of busy transporters in the specified transporter group.</p>"

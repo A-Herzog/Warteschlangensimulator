@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-06 19:25+0100\n"
+"POT-Creation-Date: 2024-03-09 00:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -8122,6 +8122,9 @@ msgstr "<p>Liefert den Exzess (Wölbung) der Anzahl an belegten Bedienern in der
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.MaximalNumber"
 msgstr "<p>Liefert die maximale Anzahl an belegten Bedienern in der angegebenen Ressource.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Median"
+msgstr "<p>Liefert den Median der Anzahl an belegten Bedienern in der angegebenen Ressource.</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.MinimalNumber"
 msgstr "<p>Liefert die minimale Anzahl an belegten Bedienern in der angegebenen Ressource.</p>"
 
@@ -8134,6 +8137,9 @@ msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.NumberAve
 msgstr ""
 "<p>Liefert die mittlere Anzahl an vorhandenen Bedienern in der angegebenen Ressource.</p>\n"
 "<p>Bei Ressourcen mit einer unendlichen Kapazität wird \"0\" zurück geliefert.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Quantil"
+msgstr "<p>Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an belegten Bedienern in der angegebenen Ressource.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Skewness"
 msgstr "<p>Liefert die Schiefe der Anzahl an belegten Bedienern in der angegebenen Ressource.</p>"
@@ -8574,11 +8580,17 @@ msgstr "<p>Liefert den Exzess (Wölbung) der Anzahl an belegten Transportern in 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.MaximalNumber"
 msgstr "<p>Liefert die maximale Anzahl an belegten Transportern in der angegebenen Transportergruppe.</p>"
 
+msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Median"
+msgstr "<p>Liefert den Median der Anzahl an belegten Transportern in der angegebenen Transportergruppe.</p>"
+
 msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.MinimalNumber"
 msgstr "<p>Liefert die minimale Anzahl an belegten Transportern in der angegebenen Transportergruppe.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Number"
 msgstr "<p>Liefert die Anzahl an Transportern in der angegebenen Transportergruppe.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Quantil"
+msgstr "<p>Liefert das Quantil zur Wahrscheinlichkeit p der Anzahl an belegten Transportern in der angegebenen Transportergruppe.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.TransporterUtilization.Skewness"
 msgstr "<p>Liefert die Schiefe der Anzahl an belegten Transportern in der angegebenen Transportergruppe.</p>"
