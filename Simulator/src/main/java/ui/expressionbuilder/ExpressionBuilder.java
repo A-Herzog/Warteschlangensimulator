@@ -61,6 +61,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.quickaccess.JPlaceholderTextField;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Dieser Dialog ermöglicht das Zusammenstellen eines Ausdrucks (zur Berechnung oder
@@ -358,15 +359,23 @@ public class ExpressionBuilder extends BaseDialog {
 	}
 
 	/**
-	 * HTML-Kopfbereich für die Ausgabe von Beschreibungen für ein Symbol
+	 * HTML-Kopfbereich (im hellen Modus) für die Ausgabe von Beschreibungen für ein Symbol
 	 * @see #htmlFooter
 	 * @see #selectTreeNode(ExpressionSymbol)
 	 */
-	private static final String htmlHeader="<html><body style=\"font-family: Verdana, Lucida, sans-serif; background-color: #FFFFF3; padding: 5px;\">";
+	private static final String htmlHeaderLight="<html><body style=\"font-family: Verdana, Lucida, sans-serif; background-color: #FFFFF3; padding: 5px;\">";
+
+	/**
+	 * HTML-Kopfbereich (im dunklen Modus) für die Ausgabe von Beschreibungen für ein Symbol
+	 * @see #htmlFooter
+	 * @see #selectTreeNode(ExpressionSymbol)
+	 */
+	private static final String htmlHeaderDark="<html><body style=\"font-family: Verdana, Lucida, sans-serif; padding: 5px;\">";
 
 	/**
 	 * HTML-Fußbereich für die Ausgabe von Beschreibungen für ein Symbol
-	 * @see #htmlHeader
+	 * @see #htmlHeaderLight
+	 * @see #htmlHeaderDark
 	 * @see #selectTreeNode(ExpressionSymbol)
 	 */
 	private static final String htmlFooter="</body></html>";
@@ -378,14 +387,14 @@ public class ExpressionBuilder extends BaseDialog {
 	private void selectTreeNode(final ExpressionSymbol symbol) {
 		info.setContentType("text/html");
 		if (symbol==null) {
-			info.setText(htmlHeader+htmlFooter);
+			info.setText((FlatLaFHelper.isDark()?htmlHeaderDark:htmlHeaderLight)+htmlFooter);
 		} else {
 			String title=symbol.toString();
 			title=title.replaceAll("<","&lt;");
 			title=title.replaceAll(">","&gt;");
 
 			final StringBuilder text=new StringBuilder();
-			text.append(htmlHeader);
+			text.append(FlatLaFHelper.isDark()?htmlHeaderDark:htmlHeaderLight);
 			text.append("<h1 style=\"font-size: larger; margin: 0; padding: 2px;\">");
 			text.append(title);
 			text.append("</h1>");
