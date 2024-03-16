@@ -12560,6 +12560,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31079] = "Fehler beim Speichern der Tabelle";
     t[31080] = "Optimizer.Tab.ControlVariables.DialogHint";
     t[31081] = "Die Kontrollvariablen sind die Eingangsgr\u00f6\u00dfen, die variiert werden k\u00f6nnen, um ein m\u00f6glichst gutes Ergebnis zu erzielen. Auf diese Seite kann eingestellt werden, welche Eingangsgr\u00f6\u00dfen durch den Optimierer in welchem Bereich ver\u00e4ndert werden d\u00fcrfen.";
+    t[31088] = "ExpressionBuilder.LogicFunctions.Equals.Info";
+    t[31089] = "<p>Liefert 1, wenn alle Parameter denselben Wert besitzen, und 0 sonst.</p>";
     t[31090] = "Statistics.Warnings.Title";
     t[31091] = "Warnungen";
     t[31094] = "Color.A9A9A9";
@@ -13232,6 +13234,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32673] = "Am Dateiende";
     t[32674] = "Statistics.Filter.NoStatisticsAvailable";
     t[32675] = "Es stehen keine Statistikdaten zur Verf\u00fcgung.";
+    t[32680] = "ExpressionBuilder.LogicFunctions.Equals";
+    t[32681] = "Logisches \"Gleich\"";
     t[32682] = "Surface.Decide.XML.Mode.ByClientsAtStationProcess";
     t[32683] = "BedienstationMinimumN";
     t[32684] = "Simulation.Log.BatchedForwarding.InfoNoNewClient";
@@ -14042,16 +14046,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34773] = "muss genau ein weiterer Parameter folgen";
     t[34774] = "ModelDescription.TransportTargetSystem.Mode.Property";
     t[34775] = "nach Kundeneigenschaft";
-    t[34778] = "Simulation.Element.Output.Name";
-    t[34779] = "Ausgabe";
-    t[34784] = "Examples.PASTA";
-    t[34785] = "Poisson arrivals see time averages";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34778] = "Simulation.Element.Output.Name";
+    t[34779] = "Ausgabe";
+    t[34784] = "Examples.PASTA";
+    t[34785] = "Poisson arrivals see time averages";
     t[34794] = "Simulation.Log.Source.Info";
     t[34795] = "Ankunftszeit: %s, Kundentyp: \"%s\", Station: %s";
     t[34814] = "Statistic.FastAccess.Template.ProcessTime";
@@ -16048,16 +16052,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39961] = "Kunden";
     t[39966] = "SettingsDialog.Tabs.Statistics.IncompleteStatistics";
     t[39967] = "Unvollst\u00e4ndige Statistik";
-    t[39970] = "Simulation.Creator.InternalErrorAddingAdditionalStatistic";
-    t[39971] = "Es ist ein interner Fehler beim Hinzuf\u00fcgen der Statistikaufzeichnung aufgetreten.";
-    t[39972] = "Compare.ReturnConfirm.Info";
-    t[39973] = "Soll das aktuelle Modell wirklich verworfen werden und zu\ndem festgehaltenen Modell zur\u00fcckgekehrt werden?";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39970] = "Simulation.Creator.InternalErrorAddingAdditionalStatistic";
+    t[39971] = "Es ist ein interner Fehler beim Hinzuf\u00fcgen der Statistikaufzeichnung aufgetreten.";
+    t[39972] = "Compare.ReturnConfirm.Info";
+    t[39973] = "Soll das aktuelle Modell wirklich verworfen werden und zu\ndem festgehaltenen Modell zur\u00fcckgekehrt werden?";
     t[39978] = "Editor.NewerVersion.Info";
     t[39979] = "Das geladene Modell wurde mit der neueren Version %s des Simulators erstellt.\nIn dem Modell sind evtl. Eigenschaften enthalten, die diese Version des Simulators nicht ber\u00fccksichtigen kann.\nWenn Sie das Modell \u00e4ndern und dann speichern, gehen diese zus\u00e4tzlichen Eigenschaften verloren.";
     t[39982] = "CommandLine.BuildCommandlineDescriptions.Error.Path";
@@ -18054,16 +18058,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45065] = "Priorit\u00e4t bei der Ressourcenzuweisung";
     t[45066] = "InfoDialog.Is64Bit.No";
     t[45067] = "Nein, nicht empfehlenswert";
-    t[45070] = "JSRunner.Toolbar.Cancel";
-    t[45071] = "Ausf\u00fchrung abbrechen";
-    t[45074] = "Surface.AnalogAssign.Dialog.Delete.ConfirmInfoYes";
-    t[45075] = "Zuweisung jetzt l\u00f6schen.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45070] = "JSRunner.Toolbar.Cancel";
+    t[45071] = "Ausf\u00fchrung abbrechen";
+    t[45074] = "Surface.AnalogAssign.Dialog.Delete.ConfirmInfoYes";
+    t[45075] = "Zuweisung jetzt l\u00f6schen.";
     t[45080] = "Surface.AssignString.Dialog.Condition.UseCondition";
     t[45081] = "Zuweisung nur durchf\u00fchren, wenn Bedingung erf\u00fcllt ist";
     t[45086] = "Surface.Popup.AddLongRunStatistics.Process";
@@ -20060,16 +20064,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49973] = "ModellElementZaehlerBedingung";
     t[49980] = "Help.Search";
     t[49981] = "Suchen";
-    t[49982] = "Surface.Delay.XML.TimeBase";
-    t[49983] = "Zeitbasis";
-    t[49988] = "Statistics.Counter.RepeatInfo";
-    t[49989] = "(Die Z\u00e4hlerwerte sind Summen \u00fcber alle Wiederholungen der Simulation.)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49982] = "Surface.Delay.XML.TimeBase";
+    t[49983] = "Zeitbasis";
+    t[49988] = "Statistics.Counter.RepeatInfo";
+    t[49989] = "(Die Z\u00e4hlerwerte sind Summen \u00fcber alle Wiederholungen der Simulation.)";
     t[49992] = "Statistics.StationsWaitingTimes";
     t[49993] = "Wartezeiten an den Stationen";
     t[49998] = "Simulation.Element.Throughput.Name";
@@ -22066,16 +22070,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[55079] = "R\u00fcckgabewert";
     t[55090] = "Surface.XML.EdgePainter.Color";
     t[55091] = "Farbe";
-    t[55098] = "Animation.JSResults.NoReturnValue";
-    t[55099] = "kein R\u00fcckgabewert";
-    t[55100] = "Surface.AnimationBarChart.HistogramWizard.Count";
-    t[55101] = "Anzahl an Histogrammbalken";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[55098] = "Animation.JSResults.NoReturnValue";
+    t[55099] = "kein R\u00fcckgabewert";
+    t[55100] = "Surface.AnimationBarChart.HistogramWizard.Count";
+    t[55101] = "Anzahl an Histogrammbalken";
     t[55102] = "Surface.SourceDB.Dialog.Table.ErrorTitle";
     t[55103] = "Keine Tabelle gew\u00e4hlt";
     t[55104] = "ScriptPopup.Client.TransferTime.Batch.Hint";
@@ -24072,16 +24076,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[60205] = "Flie\u00dfband-Transportzeit an Station %s";
     t[60206] = "Statistics.XML.Element.CounterBatchName";
     t[60207] = "StatistikZaehlerBatchName";
-    t[60212] = "GenerateArrivalDataStream.NumberOfRandomNumbers.ErrorInfo";
-    t[60213] = "Die angegeben Anzahl an zu erzeugenden Zufallszahlen \"%s\" ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
-    t[60214] = "ExpressionBuilder.StatisticalFunctions.MeanHarmonic.Info";
-    t[60215] = "<p>Berechnet das harmonische Mittel der als Parameter \u00fcbergebenen Werte.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[60212] = "GenerateArrivalDataStream.NumberOfRandomNumbers.ErrorInfo";
+    t[60213] = "Die angegeben Anzahl an zu erzeugenden Zufallszahlen \"%s\" ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
+    t[60214] = "ExpressionBuilder.StatisticalFunctions.MeanHarmonic.Info";
+    t[60215] = "<p>Berechnet das harmonische Mittel der als Parameter \u00fcbergebenen Werte.</p>";
     t[60222] = "ProblemReporter.Dialog.ItemNotAvailable";
     t[60223] = "Diese Daten stehen nicht zur Verf\u00fcgung und k\u00f6nnen daher nicht in den Bericht aufgenommen werden.";
     t[60228] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients";

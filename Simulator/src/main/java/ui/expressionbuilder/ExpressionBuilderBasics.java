@@ -199,6 +199,7 @@ public class ExpressionBuilderBasics {
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Nand")+" (nand)","nand("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Nand.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Nor")+" (nor)","nor("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Nor.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Nxor")+" (nxor)","nxor("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Nxor.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.LogicFunctions.Equals")+" (equals)","equals("+value+";"+value+")",Language.tr("ExpressionBuilder.LogicFunctions.Equals.Info"));
 		if (group.getChildCount()>0) root.add(group);
 
 		/* Statistik-Funktionen */

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 00:07+0100\n"
+"POT-Creation-Date: 2024-03-13 08:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6253,6 +6253,12 @@ msgstr "Logisches \"Und\""
 
 msgid "ExpressionBuilder.LogicFunctions.And.Info"
 msgstr "<p>Liefert 1, wenn alle Parameter ungleich 0 sind, und 0 sonst.</p>"
+
+msgid "ExpressionBuilder.LogicFunctions.Equals"
+msgstr "Logisches \"Gleich\""
+
+msgid "ExpressionBuilder.LogicFunctions.Equals.Info"
+msgstr "<p>Liefert 1, wenn alle Parameter denselben Wert besitzen, und 0 sonst.</p>"
 
 msgid "ExpressionBuilder.LogicFunctions.Nand"
 msgstr "Logisches \"Nicht und\""

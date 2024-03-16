@@ -77,6 +77,7 @@ import parser.symbols.CalcSymbolPreOperatorLd;
 import parser.symbols.CalcSymbolPreOperatorLg;
 import parser.symbols.CalcSymbolPreOperatorLog;
 import parser.symbols.CalcSymbolPreOperatorLogicAnd;
+import parser.symbols.CalcSymbolPreOperatorLogicEquals;
 import parser.symbols.CalcSymbolPreOperatorLogicNAnd;
 import parser.symbols.CalcSymbolPreOperatorLogicNOr;
 import parser.symbols.CalcSymbolPreOperatorLogicNXor;
@@ -433,6 +434,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolPreOperatorLogicNAnd());
 			addSymbol(new CalcSymbolPreOperatorLogicNOr());
 			addSymbol(new CalcSymbolPreOperatorLogicNXor());
+			addSymbol(new CalcSymbolPreOperatorLogicEquals());
 			addSymbol(new CalcSymbolPreOperatorGcd());
 			addSymbol(new CalcSymbolPreOperatorLcm());
 

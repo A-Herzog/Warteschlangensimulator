@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-09 00:07+0100\n"
+"POT-Creation-Date: 2024-03-13 08:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6247,11 +6247,17 @@ msgstr "Logic \"and\""
 msgid "ExpressionBuilder.LogicFunctions.And.Info"
 msgstr "<p>Returns 1, if all parameters if all parameters are not equal to 0, and 0 otherwise.</p>"
 
+msgid "ExpressionBuilder.LogicFunctions.Equals"
+msgstr "Logic \"equals\""
+
+msgid "ExpressionBuilder.LogicFunctions.Equals.Info"
+msgstr "<p>Returns 1, if all parameters have the same value, and 0 otherwise.</p>"
+
 msgid "ExpressionBuilder.LogicFunctions.Nand"
 msgstr "Logic \"not and\""
 
 msgid "ExpressionBuilder.LogicFunctions.Nand.Info"
-msgstr "<p>Returns 0, if all parameters if all parameters are not equal to 0, and 1 otherwise.</p>"
+msgstr "<p>Returns 0, if all parameters are not equal to 0, and 1 otherwise.</p>"
 
 msgid "ExpressionBuilder.LogicFunctions.Nor"
 msgstr "Logic \"not or\""

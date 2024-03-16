@@ -7457,7 +7457,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18422] = "ScriptPopup.Simulation.getAllResourceDown.Hint";
     t[18423] = "Gets the total number of operators currently in down time";
     t[18424] = "ExpressionBuilder.LogicFunctions.Nand.Info";
-    t[18425] = "<p>Returns 0, if all parameters if all parameters are not equal to 0, and 1 otherwise.</p>";
+    t[18425] = "<p>Returns 0, if all parameters are not equal to 0, and 1 otherwise.</p>";
     t[18426] = "Surface.Database.Type";
     t[18427] = "Database type";
     t[18428] = "Animation.Icon.Taxi";
@@ -12560,6 +12560,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31079] = "Error saving table";
     t[31080] = "Optimizer.Tab.ControlVariables.DialogHint";
     t[31081] = "The control variables are the input variables that can be varied in order to achieve the best possible result. On this page you can set which input variables can be changed by the optimizer in which range.";
+    t[31088] = "ExpressionBuilder.LogicFunctions.Equals.Info";
+    t[31089] = "<p>Returns 1, if all parameters have the same value, and 0 otherwise.</p>";
     t[31090] = "Statistics.Warnings.Title";
     t[31091] = "Warnings";
     t[31094] = "Color.A9A9A9";
@@ -13232,6 +13234,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32673] = "At end of file";
     t[32674] = "Statistics.Filter.NoStatisticsAvailable";
     t[32675] = "No statistics data are available.";
+    t[32680] = "ExpressionBuilder.LogicFunctions.Equals";
+    t[32681] = "Logic \"equals\"";
     t[32682] = "Surface.Decide.XML.Mode.ByClientsAtStationProcess";
     t[32683] = "ProcessStationMinimumN";
     t[32684] = "Simulation.Log.BatchedForwarding.InfoNoNewClient";
@@ -14042,16 +14046,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34773] = "exactly one more parameter has to be entered";
     t[34774] = "ModelDescription.TransportTargetSystem.Mode.Property";
     t[34775] = "by client property";
-    t[34778] = "Simulation.Element.Output.Name";
-    t[34779] = "Output";
-    t[34784] = "Examples.PASTA";
-    t[34785] = "Poisson arrivals see time averages";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34778] = "Simulation.Element.Output.Name";
+    t[34779] = "Output";
+    t[34784] = "Examples.PASTA";
+    t[34785] = "Poisson arrivals see time averages";
     t[34794] = "Simulation.Log.Source.Info";
     t[34795] = "Arrival time: %s, client type: \"%s\", station: %s";
     t[34814] = "Statistic.FastAccess.Template.ProcessTime";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39961] = "clients";
     t[39966] = "SettingsDialog.Tabs.Statistics.IncompleteStatistics";
     t[39967] = "Incomplete statistics";
-    t[39970] = "Simulation.Creator.InternalErrorAddingAdditionalStatistic";
-    t[39971] = "An internal error occured while adding the additional statistics recorder.";
-    t[39972] = "Compare.ReturnConfirm.Info";
-    t[39973] = "Do you really want to discard the current model and return\nto the previous kept model?";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39970] = "Simulation.Creator.InternalErrorAddingAdditionalStatistic";
+    t[39971] = "An internal error occured while adding the additional statistics recorder.";
+    t[39972] = "Compare.ReturnConfirm.Info";
+    t[39973] = "Do you really want to discard the current model and return\nto the previous kept model?";
     t[39978] = "Editor.NewerVersion.Info";
     t[39979] = "The loaded model was created with the newer version %s of the simulator.\nThe model may contain properties that this version of the simulator can not take into account.\nIf you change the model and then save it, these additional properties will be lost.";
     t[39982] = "CommandLine.BuildCommandlineDescriptions.Error.Path";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45065] = "Priority on resource request";
     t[45066] = "InfoDialog.Is64Bit.No";
     t[45067] = "No, not recommeded";
-    t[45070] = "JSRunner.Toolbar.Cancel";
-    t[45071] = "Cancel execution";
-    t[45074] = "Surface.AnalogAssign.Dialog.Delete.ConfirmInfoYes";
-    t[45075] = "Delete assignment now.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45070] = "JSRunner.Toolbar.Cancel";
+    t[45071] = "Cancel execution";
+    t[45074] = "Surface.AnalogAssign.Dialog.Delete.ConfirmInfoYes";
+    t[45075] = "Delete assignment now.";
     t[45080] = "Surface.AssignString.Dialog.Condition.UseCondition";
     t[45081] = "Only apply settings if condition is met";
     t[45086] = "Surface.Popup.AddLongRunStatistics.Process";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49973] = "ModelElementCounterCondition";
     t[49980] = "Help.Search";
     t[49981] = "Search";
-    t[49982] = "Surface.Delay.XML.TimeBase";
-    t[49983] = "TimeBase";
-    t[49988] = "Statistics.Counter.RepeatInfo";
-    t[49989] = "(Counter values are in total over all repetitions of the simulation.)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49982] = "Surface.Delay.XML.TimeBase";
+    t[49983] = "TimeBase";
+    t[49988] = "Statistics.Counter.RepeatInfo";
+    t[49989] = "(Counter values are in total over all repetitions of the simulation.)";
     t[49992] = "Statistics.StationsWaitingTimes";
     t[49993] = "Waiting times at the stations";
     t[49998] = "Simulation.Element.Throughput.Name";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[55079] = "Return value";
     t[55090] = "Surface.XML.EdgePainter.Color";
     t[55091] = "Color";
-    t[55098] = "Animation.JSResults.NoReturnValue";
-    t[55099] = "No return value";
-    t[55100] = "Surface.AnimationBarChart.HistogramWizard.Count";
-    t[55101] = "Number of histogram bars";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[55098] = "Animation.JSResults.NoReturnValue";
+    t[55099] = "No return value";
+    t[55100] = "Surface.AnimationBarChart.HistogramWizard.Count";
+    t[55101] = "Number of histogram bars";
     t[55102] = "Surface.SourceDB.Dialog.Table.ErrorTitle";
     t[55103] = "No table selected";
     t[55104] = "ScriptPopup.Client.TransferTime.Batch.Hint";
@@ -24072,16 +24076,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[60205] = "Conveyor transport time at station %s";
     t[60206] = "Statistics.XML.Element.CounterBatchName";
     t[60207] = "StatisticsCounterBatchName";
-    t[60212] = "GenerateArrivalDataStream.NumberOfRandomNumbers.ErrorInfo";
-    t[60213] = "The specified number of random numbers to be generated \"%s\" is invalid. A positive integer number has to be specified.";
-    t[60214] = "ExpressionBuilder.StatisticalFunctions.MeanHarmonic.Info";
-    t[60215] = "<p>Calculates the harmonic mean of the values passed as parameters.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[60212] = "GenerateArrivalDataStream.NumberOfRandomNumbers.ErrorInfo";
+    t[60213] = "The specified number of random numbers to be generated \"%s\" is invalid. A positive integer number has to be specified.";
+    t[60214] = "ExpressionBuilder.StatisticalFunctions.MeanHarmonic.Info";
+    t[60215] = "<p>Calculates the harmonic mean of the values passed as parameters.</p>";
     t[60222] = "ProblemReporter.Dialog.ItemNotAvailable";
     t[60223] = "These data are not available and therefore cannot be included in the report.";
     t[60228] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients";
