@@ -452,7 +452,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 */
 	public void setRestrictedCatalog(final boolean restrictedCatalog) {
 		this.restrictedCatalog=restrictedCatalog;
-		buttonAddEdge.setVisible(!restrictedCatalog);
+		if (buttonAddEdge!=null) buttonAddEdge.setVisible(!restrictedCatalog);
 		leftAreaTemplatesFilterButton.setVisible(!restrictedCatalog);
 		leftAreaTemplatesFilterButton.setVisible(!restrictedCatalog && isMainSurface);
 		updateTemplatesFilter();

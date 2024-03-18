@@ -816,7 +816,7 @@ public final class ModelSurfacePanel extends JPanel {
 			isInSurface=false;
 		}
 
-		dashboard.showSubEditDialog(this,false,false);
+		dashboard.showSubEditDialog(this,readOnly,false);
 
 		if (dashboard.getSubSurface().getElementCount()==0) {
 			if (isInSurface) surface.remove(dashboard);
@@ -1650,7 +1650,7 @@ public final class ModelSurfacePanel extends JPanel {
 			ySize=yDraw;
 		}
 
-		double imageZoom=Math.min(xSize/((double)xDraw),ySize/((double)yDraw));
+		double imageZoom=(xDraw==1 && yDraw==1)?1:Math.min(xSize/((double)xDraw),ySize/((double)yDraw));
 		if (maxZoomFactor>0 && imageZoom>maxZoomFactor) imageZoom=maxZoomFactor;
 
 		final int xSurfaceImage=(int)Math.ceil(p2.x*imageZoom);
@@ -1663,7 +1663,7 @@ public final class ModelSurfacePanel extends JPanel {
 		final FontMetrics infoFontMetrics=preGraphics.getFontMetrics(infoFont);
 		double totalSize=infoFontSize*(infoFontMetrics.getAscent()+infoFontMetrics.getDescent())/infoFontMetrics.getAscent();
 
-		ySurfaceImage+=totalSize;
+		if (ySurfaceImage>1) ySurfaceImage+=totalSize;
 
 		final BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_ARGB);
 		final Graphics2D g=(Graphics2D)image.getGraphics();
