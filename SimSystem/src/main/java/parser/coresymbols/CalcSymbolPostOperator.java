@@ -45,7 +45,7 @@ public abstract class CalcSymbolPostOperator extends CalcSymbolFunction {
 
 	@Override
 	public final int getPriority() {
-		return (sub==null)?20:0;
+		return (sub==null)?9:0;
 	}
 
 	@Override
