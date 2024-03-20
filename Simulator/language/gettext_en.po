@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-13 08:08+0100\n"
+"POT-Creation-Date: 2024-03-18 15:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33746,6 +33746,12 @@ msgstr "The resource %s uses a schedule (%s) for the number of available operato
 
 msgid "Surface.SingleCoreReason.ScriptContent"
 msgstr "At station id=%d commands for loading external data are used."
+
+msgid "Surface.SingleCoreReason.SourceUsesIntervalDistributions"
+msgstr "The source id=%d uses interval-dependent inter-arrival time distributions."
+
+msgid "Surface.SingleCoreReason.SourceUsesIntervalExpressions"
+msgstr "The source id=%d uses interval-dependent arrival numbers."
 
 msgid "Surface.SingleCoreReason.SourceUsesSchedule"
 msgstr "The source id=%d uses a schedule (%s) for the arrivals."

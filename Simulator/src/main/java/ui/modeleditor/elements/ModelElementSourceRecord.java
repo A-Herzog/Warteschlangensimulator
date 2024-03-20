@@ -597,6 +597,27 @@ public final class ModelElementSourceRecord implements Cloneable {
 	}
 
 	/**
+	 * Wenn die Einstellungen erfordern, dass die Simulation im Single-Core-Modus ausgeführt werden
+	 * muss, liefert diese Funktion den Grund dafür als Zeichenkette.
+	 * @param id	ID der Station zu der dieser Datensatz gehört
+	 * @return	Begründung für den Single-Core-Modus (oder <code>null</code>, wenn die Simulation nicht im Single-Core-Modus ausgeführt werden muss)
+	 */
+	public String getSingleCoreReason(final int id) {
+		if (!active || !hasOwnArrivals) return null;
+		if (!nextMode.isSingleCoreOnlyMode) return null;
+		switch (nextMode) {
+		case NEXT_SCHEDULE:
+			return String.format(Language.tr("Surface.SingleCoreReason.SourceUsesSchedule"),id,schedule);
+		case NEXT_INTERVAL_EXPRESSIONS:
+			return String.format(Language.tr("Surface.SingleCoreReason.SourceUsesIntervalExpressions"),id);
+		case NEXT_INTERVAL_DISTRIBUTIONS:
+			return String.format(Language.tr("Surface.SingleCoreReason.SourceUsesIntervalDistributions"),id);
+		default:
+			return null;
+		}
+	}
+
+	/**
 	 * Liefert die Bedingung gemäß derer weitere Kundenankünfte ausgelöst werden sollen
 	 * @return	Bedingung gemäß derer weitere Kundenankünfte ausgelöst werden sollen
 	 * @see ModelElementSourceRecord#getArrivalConditionMinDistance()

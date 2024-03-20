@@ -8804,6 +8804,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[21797] = "Normal distribution";
     t[21798] = "Statistic.Viewer.Chart.Part";
     t[21799] = "Part";
+    t[21800] = "Surface.SingleCoreReason.SourceUsesIntervalDistributions";
+    t[21801] = "The source id=%d uses interval-dependent inter-arrival time distributions.";
     t[21804] = "Surface.XML.TransportTransporterSource.WaitingCapacity";
     t[21805] = "ModelElementTransporterWaitingCapacity";
     t[21812] = "CommandLine.SetMaxThreads.Info.MaxThreads";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24827] = "Coefficient of variation of arrival rate";
     t[24834] = "Surface.AssignString.Table.Delete";
     t[24835] = "Delete assignment (Shift+Click=without confirmation dialog)";
-    t[24838] = "ModelGenerator.Model.Description.Properties.ServiceLIFO";
-    t[24839] = "Serving clients in inverse arrival order (LIFO)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[24838] = "ModelGenerator.Model.Description.Properties.ServiceLIFO";
+    t[24839] = "Serving clients in inverse arrival order (LIFO)";
     t[24846] = "Statistics.StationsWaitingTimesTotal";
     t[24847] = "Waiting times at the stations (totaled over multiple client arrivals)";
     t[24848] = "Editor.Dialog.Tab.SimulationSystem.RepeatNotOk";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29865] = "Condition";
     t[29870] = "Surface.Process.XML.Distribution.ClientType";
     t[29871] = "ClientType";
-    t[29874] = "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DensityInfo";
-    t[29875] = "<p>Calculates the value of the density of the normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>NormalDist(7;5;3;0)</tt> returns 0.10648266850745.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29874] = "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DensityInfo";
+    t[29875] = "<p>Calculates the value of the density of the normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>NormalDist(7;5;3;0)</tt> returns 0.10648266850745.</p>";
     t[29876] = "Surface.AssignString.Dialog.Condition.Error.Title";
     t[29877] = "Invalid condition";
     t[29878] = "Optimizer.Target.Minimize";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34771] = "no further parameters are allowed";
     t[34772] = "CommandLine.Count.Then1";
     t[34773] = "exactly one more parameter has to be entered";
-    t[34774] = "ModelDescription.TransportTargetSystem.Mode.Property";
-    t[34775] = "by client property";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34774] = "ModelDescription.TransportTargetSystem.Mode.Property";
+    t[34775] = "by client property";
     t[34778] = "Simulation.Element.Output.Name";
     t[34779] = "Output";
     t[34784] = "Examples.PASTA";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39955] = "ModelElementSubModelInput";
     t[39960] = "Surface.Batch.BatchSize.ClientPlural";
     t[39961] = "clients";
-    t[39966] = "SettingsDialog.Tabs.Statistics.IncompleteStatistics";
-    t[39967] = "Incomplete statistics";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39966] = "SettingsDialog.Tabs.Statistics.IncompleteStatistics";
+    t[39967] = "Incomplete statistics";
     t[39970] = "Simulation.Creator.InternalErrorAddingAdditionalStatistic";
     t[39971] = "An internal error occured while adding the additional statistics recorder.";
     t[39972] = "Compare.ReturnConfirm.Info";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45057] = "Distribution of the waiting times (totaled over multiple client arrivals)";
     t[45064] = "ModelDescription.TransportResourceRecord.ResourcePriority";
     t[45065] = "Priority on resource request";
-    t[45066] = "InfoDialog.Is64Bit.No";
-    t[45067] = "No, not recommeded";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45066] = "InfoDialog.Is64Bit.No";
+    t[45067] = "No, not recommeded";
     t[45070] = "JSRunner.Toolbar.Cancel";
     t[45071] = "Cancel execution";
     t[45074] = "Surface.AnalogAssign.Dialog.Delete.ConfirmInfoYes";
@@ -18630,6 +18632,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46367] = "Does not change the base model in the parameter series.";
     t[46378] = "Editor.Dialog.Sequences.Edit.Assignments.Edit.KeyError.Title";
     t[46379] = "Invalid client variable";
+    t[46388] = "Surface.SingleCoreReason.SourceUsesIntervalExpressions";
+    t[46389] = "The source id=%d uses interval-dependent arrival numbers.";
     t[46390] = "Surface.Source.XML.Signal.Count";
     t[46391] = "Count";
     t[46392] = "XML.Statistic.BaseElement";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49959] = "The specified table file\n%s\ndoes not exist.";
     t[49966] = "SettingsDialog.Tabs.Simulation.ShowErlangC";
     t[49967] = "Show Erlang C comparison";
-    t[49972] = "Surface.CounterCondition.Condition";
-    t[49973] = "ModelElementCounterCondition";
-    t[49980] = "Help.Search";
-    t[49981] = "Search";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49972] = "Surface.CounterCondition.Condition";
+    t[49973] = "ModelElementCounterCondition";
+    t[49980] = "Help.Search";
+    t[49981] = "Search";
     t[49982] = "Surface.Delay.XML.TimeBase";
     t[49983] = "TimeBase";
     t[49988] = "Statistics.Counter.RepeatInfo";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[55075] = "StatisticsResourceRho";
     t[55076] = "Color.00FF00";
     t[55077] = "Lime";
-    t[55078] = "Animation.JSResults.ReturnValue";
-    t[55079] = "Return value";
-    t[55090] = "Surface.XML.EdgePainter.Color";
-    t[55091] = "Color";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[55078] = "Animation.JSResults.ReturnValue";
+    t[55079] = "Return value";
+    t[55090] = "Surface.XML.EdgePainter.Color";
+    t[55091] = "Color";
     t[55098] = "Animation.JSResults.NoReturnValue";
     t[55099] = "No return value";
     t[55100] = "Surface.AnimationBarChart.HistogramWizard.Count";
@@ -24072,16 +24076,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[60193] = "No statistics data available";
     t[60202] = "Statistics.ArrivalsLeavings";
     t[60203] = "Arrivals and leavings";
-    t[60204] = "ParameterCompare.Settings.Input.List.Templates.Conveyor";
-    t[60205] = "Conveyor transport time at station %s";
-    t[60206] = "Statistics.XML.Element.CounterBatchName";
-    t[60207] = "StatisticsCounterBatchName";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[60204] = "ParameterCompare.Settings.Input.List.Templates.Conveyor";
+    t[60205] = "Conveyor transport time at station %s";
+    t[60206] = "Statistics.XML.Element.CounterBatchName";
+    t[60207] = "StatisticsCounterBatchName";
     t[60212] = "GenerateArrivalDataStream.NumberOfRandomNumbers.ErrorInfo";
     t[60213] = "The specified number of random numbers to be generated \"%s\" is invalid. A positive integer number has to be specified.";
     t[60214] = "ExpressionBuilder.StatisticalFunctions.MeanHarmonic.Info";
