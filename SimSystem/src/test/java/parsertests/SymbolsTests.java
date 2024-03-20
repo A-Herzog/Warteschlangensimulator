@@ -177,7 +177,7 @@ class SymbolsTests {
 	}
 
 	/**
-	 * Test: Punkt-Vor-Stich-Rechnung
+	 * Test: Punkt-Vor-Strich-Rechnung
 	 */
 	@Test
 	void priorityTest() {
@@ -234,6 +234,15 @@ class SymbolsTests {
 		try {
 			d=calc.calc();
 			assertEquals(1.5,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("1/2/2");
+		assertTrue(calc.parse()<0);
+		try {
+			d=calc.calc();
+			assertEquals(0.25,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}

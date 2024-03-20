@@ -420,7 +420,10 @@ public final class CalcParser {
 			for (int i=0;i<list.size();i++) {
 				if (!(list.get(i) instanceof CalcSymbolFunction)) continue;
 				CalcSymbolFunction sym=(CalcSymbolFunction)list.get(i);
-				if (sym.getPriority()>prio) {prioSym=sym; prioIndex=i; prio=sym.getPriority();}
+				final int newPrio=sym.getPriority();
+				if ((newPrio>prio) || (newPrio==prio && prio>=10)) { /* ">=" bedeutet Auswertung von rechts nach links und ermöglicht z.B. "expcos0" (ohne Klammern); aber nur bei Funktionen, daher >=10, sonst funktioniert 1/2/2 nicht mehr */
+					prioSym=sym; prioIndex=i; prio=newPrio;
+				}
 			}
 			if (prioSym==null) return 0;
 
