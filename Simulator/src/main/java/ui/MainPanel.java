@@ -4353,7 +4353,7 @@ public class MainPanel extends MainPanelBase {
 		editorPanel.setModelChanged((Boolean)data[1]);
 		editorPanel.setTemplatesVisible((Boolean)data[2],true);
 		editorPanel.setLastFile((File)data[3]); if (data[3]!=null) setAdditionalTitle(((File)data[3]).getName());
-		statisticsPanel.setStatistics((Statistics)data[4]);
+		statisticsPanel.setStatistics((data[4]==null)?null:((Statistics)data[4]).getUpdatedLanguage());
 		if ((Integer)data[5]==1) setCurrentPanel(statisticsPanel); else setCurrentPanel(editorPanel);
 
 		if (editorPanel.getLastFile()==null) {

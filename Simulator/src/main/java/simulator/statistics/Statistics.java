@@ -804,4 +804,14 @@ public class Statistics extends StatisticsBase {
 		editModel.saveToXML(node,true);
 		super.addDataToXML(doc,node,isPartOfOtherFile,file);
 	}
+
+	/**
+	 * Erzeugt eine Kopie des Statistikobjektes mit neuen Indikatorobjekten mit neu geladener Standardsprache.
+	 * @return	Kopie des Statistikobjektes mit angepasster Sprache für die XML-Namen
+	 */
+	public Statistics getUpdatedLanguage() {
+		final Document statDoc=saveToXMLDocument();
+		final Statistics statNew=new Statistics(); /* Neues Statistikobjekt -> Anpassung der xml-Namen der einzelnen Indikatorobjekte */
+		if (statNew.loadFromXML(statDoc.getDocumentElement())==null) return statNew; else return this;
+	}
 }
