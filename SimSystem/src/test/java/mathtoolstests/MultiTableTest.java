@@ -41,6 +41,7 @@ class MultiTableTest {
 	 * Konstruktor der Klasse
 	 */
 	public MultiTableTest() {
+
 		/*
 		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
 		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.

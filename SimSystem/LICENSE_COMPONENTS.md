@@ -44,6 +44,14 @@ This file lists the third-party components used by "SimSystem" project and their
 - License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: https://odftoolkit.org/simple/index.html 
 
+### SLF4J API Module
+
+- Repository: https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+- License: MIT
+- License URL: https://opensource.org/licenses/MIT
+- Homepage: http://www.slf4j.org 
+- Used by: JGit Core, JGit JSch Based SSH Support
+
 ### SLF4J NOP Binding
 
 - Repository: https://mvnrepository.com/artifact/org.slf4j/slf4j-nop

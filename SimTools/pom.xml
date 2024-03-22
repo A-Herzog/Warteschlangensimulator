@@ -7,6 +7,7 @@
   
   <properties>
   	<maven.compiler.source>11</maven.compiler.source>
+  	<maven.compiler.release>11</maven.compiler.release>
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>WINDOWS-1252</project.build.sourceEncoding>
   </properties>
@@ -27,13 +28,13 @@
 	<dependency>
     		<groupId>org.apache.pdfbox</groupId>
     		<artifactId>pdfbox</artifactId>
-    		<version>3.0.1</version>
+    		<version>3.0.2</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.pdfbox/xmpbox -->
 	<dependency>
     		<groupId>org.apache.pdfbox</groupId>
     		<artifactId>xmpbox</artifactId>
-    		<version>3.0.1</version>
+    		<version>3.0.2</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.oxbow/swingbits -->
 	<dependency>
@@ -45,7 +46,7 @@
 	<dependency>
 		<groupId>org.slf4j</groupId>
 		<artifactId>slf4j-nop</artifactId>
-		<version>2.0.9</version>
+		<version>2.0.12</version>
 	</dependency>
   </dependencies>
 
