@@ -2,7 +2,7 @@
 
 #### Required tools for building the project
 
-* Java Development Kit, version 8 or higher ([adoptium.net](https://adoptium.net/), [OpenJ9](https://developer.ibm.com/languages/java/semeru-runtimes/downloads/) or [www.graalvm.org](https://www.graalvm.org/))
+* Java Development Kit, version 11 or higher ([adoptium.net](https://adoptium.net/), [OpenJ9](https://developer.ibm.com/languages/java/semeru-runtimes/downloads/) or [www.graalvm.org](https://www.graalvm.org/))
 * NSIS ([nsis.sourceforge.io](https://nsis.sourceforge.io/Main_Page))
 * LaTeX for building the documentation pdfs
 * Maven (no need for manual installation if using Eclipse)
@@ -20,7 +20,7 @@ All other tools and dependencies will be downloaded during build process by Mave
 #### Steps to build using Eclipse
 
 1. Import the projects "SimSystem", "SimTools", "Simulator" and "Simulator-build" into a new workspace.
-2. Set for better compatibility in workspace Preferences>Java>Compiler>JDK Compliance>Compiler compliance level to "1.8" (all higher versions are also supported).
+2. Set for better compatibility in workspace Preferences>Java>Compiler>JDK Compliance>Compiler compliance level to "11" (all higher versions are also supported).
 3. To avoid "Info" level problem messages, set in Preferences>Java>Compiler>Javadoc all dropdowns from "Ignore" to "Info" and in Preferences>Java>Compiler>Error/Warnings in the section "Potential programming problems" the entry "Potential resource leak" from "Ignore" to "Info".
 4. Run target "downloadTools" in Ant file Simulator/tools/ant-downloadTools.xml to get libraries not available in Maven Central.
 5. Run target "downloadLanguageTools" in Ant file Simulator/language/ant-language.xml to get tools for updating languages and installers.
