@@ -223,6 +223,8 @@ Section "Install" Inst
   
   File /r "..\..\Release\dictionaries\*.*"
   
+  SetOutPath "$INSTDIR" ; Otherwise the shortcut will have the dictionaries as working directory
+  
   CreateShortCut "$SMPROGRAMS\${PrgName}.lnk" "$INSTDIR\${PROGEXE}"
   
   !insertmacro MULTIUSER_RegistryAddInstallInfo

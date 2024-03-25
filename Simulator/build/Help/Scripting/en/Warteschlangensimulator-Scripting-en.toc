@@ -39,26 +39,28 @@
 \contentsline {section}{\numberline {10.22}F distribution with $a$ degrees of freedom for the numerator and $b$ degrees of freedom for the denominator}{25}{section.10.22}%
 \contentsline {section}{\numberline {10.23}Johnson SU distribution with parameters $\gamma =a$, $\xi =b$, $\delta =c$ and $\lambda =d$}{25}{section.10.23}%
 \contentsline {section}{\numberline {10.24}Triangular distribution over $[a;c]$ with most likely value $b$}{25}{section.10.24}%
-\contentsline {section}{\numberline {10.25}Pert distribution over $[a;c]$ with most likely value $b$}{25}{section.10.25}%
-\contentsline {section}{\numberline {10.26}Laplace distribution with mean $mu$ and scale factor $b$}{25}{section.10.26}%
-\contentsline {section}{\numberline {10.27}Pareto distribution with scale parameter $x_{\rm min}=xmin$ and shape parameter $\alpha =a$}{26}{section.10.27}%
-\contentsline {section}{\numberline {10.28}Logistic distribution with mean $\mu =mu$ and scale parameter $s$}{26}{section.10.28}%
-\contentsline {section}{\numberline {10.29}Inverse gaussian distribution with $\lambda =l$ and mean $mu$}{26}{section.10.29}%
-\contentsline {section}{\numberline {10.30}Rayleigh distribution with mean $mu$}{26}{section.10.30}%
-\contentsline {section}{\numberline {10.31}Log-Logistic distribution with $\alpha $ and mean $\beta $}{26}{section.10.31}%
-\contentsline {section}{\numberline {10.32}Power distribution on $[a;b]$ with exponent $c$}{27}{section.10.32}%
-\contentsline {section}{\numberline {10.33}Gumbel distribution with expected value $a$ and standard deviation $b$}{27}{section.10.33}%
-\contentsline {section}{\numberline {10.34}Fatigue life distribution with location parameter $\mu $, scale parameter $\beta $ and form parameter $\gamma $}{27}{section.10.34}%
-\contentsline {section}{\numberline {10.35}Frechet distribution with location parameter $\delta $, scale parameter $\beta $ and form parameter $\alpha $}{27}{section.10.35}%
-\contentsline {section}{\numberline {10.36}Hyperbolic secant distribution with mean $a$ and standard deviation $b$}{27}{section.10.36}%
-\contentsline {section}{\numberline {10.37}Left sawtooth distribution over $[a;b]$}{28}{section.10.37}%
-\contentsline {section}{\numberline {10.38}Left sawtooth distribution with mean $a$ and standard deviation $b$}{28}{section.10.38}%
-\contentsline {section}{\numberline {10.39}Right sawtooth distribution over $[a;b]$}{28}{section.10.39}%
-\contentsline {section}{\numberline {10.40}Right sawtooth distribution with mean $a$ and standard deviation $b$}{28}{section.10.40}%
-\contentsline {section}{\numberline {10.41}Levy distribution with location parameter $\mu $ and form parameter $c$}{28}{section.10.41}%
-\contentsline {section}{\numberline {10.42}Maxwell Boltzmann distribution with parameter a}{28}{section.10.42}%
-\contentsline {section}{\numberline {10.43}Student t-distribution with parameters $\mu $ and $\nu $}{29}{section.10.43}%
-\contentsline {section}{\numberline {10.44}Distribution based on empirical values}{29}{section.10.44}%
+\contentsline {section}{\numberline {10.25}Trapezoid distribution over $[a;d]$ with uniform distribution in $[b;c]$}{25}{section.10.25}%
+\contentsline {section}{\numberline {10.26}Pert distribution over $[a;c]$ with most likely value $b$}{25}{section.10.26}%
+\contentsline {section}{\numberline {10.27}Laplace distribution with mean $mu$ and scale factor $b$}{25}{section.10.27}%
+\contentsline {section}{\numberline {10.28}Pareto distribution with scale parameter $x_{\rm min}=xmin$ and shape parameter $\alpha =a$}{26}{section.10.28}%
+\contentsline {section}{\numberline {10.29}Logistic distribution with mean $\mu =mu$ and scale parameter $s$}{26}{section.10.29}%
+\contentsline {section}{\numberline {10.30}Inverse gaussian distribution with $\lambda =l$ and mean $mu$}{26}{section.10.30}%
+\contentsline {section}{\numberline {10.31}Rayleigh distribution with mean $mu$}{26}{section.10.31}%
+\contentsline {section}{\numberline {10.32}Log-Logistic distribution with $\alpha $ and mean $\beta $}{26}{section.10.32}%
+\contentsline {section}{\numberline {10.33}Power distribution on $[a;b]$ with exponent $c$}{27}{section.10.33}%
+\contentsline {section}{\numberline {10.34}Gumbel distribution with expected value $a$ and standard deviation $b$}{27}{section.10.34}%
+\contentsline {section}{\numberline {10.35}Fatigue life distribution with location parameter $\mu $, scale parameter $\beta $ and form parameter $\gamma $}{27}{section.10.35}%
+\contentsline {section}{\numberline {10.36}Frechet distribution with location parameter $\delta $, scale parameter $\beta $ and form parameter $\alpha $}{27}{section.10.36}%
+\contentsline {section}{\numberline {10.37}Hyperbolic secant distribution with mean $a$ and standard deviation $b$}{28}{section.10.37}%
+\contentsline {section}{\numberline {10.38}Left sawtooth distribution over $[a;b]$}{28}{section.10.38}%
+\contentsline {section}{\numberline {10.39}Left sawtooth distribution with mean $a$ and standard deviation $b$}{28}{section.10.39}%
+\contentsline {section}{\numberline {10.40}Right sawtooth distribution over $[a;b]$}{28}{section.10.40}%
+\contentsline {section}{\numberline {10.41}Right sawtooth distribution with mean $a$ and standard deviation $b$}{28}{section.10.41}%
+\contentsline {section}{\numberline {10.42}Levy distribution with location parameter $\mu $ and form parameter $c$}{28}{section.10.42}%
+\contentsline {section}{\numberline {10.43}Maxwell Boltzmann distribution with parameter a}{29}{section.10.43}%
+\contentsline {section}{\numberline {10.44}Student t-distribution with parameters $\mu $ and $\nu $}{29}{section.10.44}%
+\contentsline {section}{\numberline {10.45}Half normal distribution with mean $a$}{29}{section.10.45}%
+\contentsline {section}{\numberline {10.46}Distribution based on empirical values}{29}{section.10.46}%
 \contentsline {chapter}{\numberline {11}Erlang C calculator}{31}{chapter.11}%
 \contentsline {section}{\numberline {11.1}Random selection of one of several values}{31}{section.11.1}%
 \contentsline {section}{\numberline {11.2}Random numbers according to a user-defined distribution}{32}{section.11.2}%
@@ -125,12 +127,12 @@
 \contentsline {section}{\numberline {17.3}Temporary batches}{76}{section.17.3}%
 \contentsline {section}{\numberline {17.4}Accessing parameters of the simulation model}{77}{section.17.4}%
 \contentsline {section}{\numberline {17.5}Accessing the current input value}{77}{section.17.5}%
-\contentsline {section}{\numberline {17.6}Number of operators in a resource}{77}{section.17.6}%
+\contentsline {section}{\numberline {17.6}Number of operators in a resource}{78}{section.17.6}%
 \contentsline {section}{\numberline {17.7}Last client type at process station}{78}{section.17.7}%
 \contentsline {section}{\numberline {17.8}Fire signal}{78}{section.17.8}%
 \contentsline {section}{\numberline {17.9}Trigger script execution}{78}{section.17.9}%
 \contentsline {section}{\numberline {17.10}Output message in logging}{78}{section.17.10}%
-\contentsline {section}{\numberline {17.11}Release clients at delay stations}{78}{section.17.11}%
+\contentsline {section}{\numberline {17.11}Release clients at delay stations}{79}{section.17.11}%
 \contentsline {section}{\numberline {17.12}Clients in the queue of a process station}{79}{section.17.12}%
 \contentsline {chapter}{\numberline {18}\texttt {Clients} object}{81}{chapter.18}%
 \contentsline {chapter}{\numberline {19}\texttt {Output} object}{83}{chapter.19}%
@@ -159,7 +161,7 @@
 \contentsline {section}{\numberline {25.9}Release clients at delay stations}{101}{section.25.9}%
 \contentsline {section}{\numberline {25.10}Clients in the queue of a process station}{102}{section.25.10}%
 \contentsline {chapter}{\numberline {26}\texttt {ClientInterface} accessible via \texttt {sim.getClient()}}{103}{chapter.26}%
-\contentsline {section}{\numberline {26.1}Temporary batches}{104}{section.26.1}%
+\contentsline {section}{\numberline {26.1}Temporary batches}{105}{section.26.1}%
 \contentsline {chapter}{\numberline {27}\texttt {InputValueInterface} accessible via \texttt {sim.getInputValue()}}{107}{chapter.27}%
 \contentsline {chapter}{\numberline {28}\texttt {ClientsInterface} accessible via \texttt {sim.getClients()}}{109}{chapter.28}%
 \contentsline {chapter}{\numberline {29}\texttt {OutputInterface} accessible via \texttt {sim.getOutput()}}{111}{chapter.29}%

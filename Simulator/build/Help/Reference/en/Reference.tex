@@ -503,10 +503,12 @@ Optionally, an individual distribution or expressions can be defined for each cl
 \textbf{Note on individual processing times and batch processing:}~\\
 In principle, individual client processing times and the simultaneous operation of several clients
 (of possibly different types) contradict each. Nevertheless, this can be used in the simulation.
-In this case, an processing time according to the predefined distribution is determined for each
-client type contained in the batch. This processing time then applies to all clients in the batch
-of client's type. The resources are seized until the maximum of the processing times for all
-clients included in the batch is reached.
+In this case, an processing time according to the predefined distribution or the calculation expressing
+is determined for each client type contained in the batch. This processing time then applies to all clients
+in the batch of client's type. The resources are seized until the maximum of the processing times for all
+clients included in the batch is reached. If the service time is determined via a calculation expression
+and client-specific data is used in this, the evaluation (per client type) is carried out for the client
+with the highest service priority.
 
 \subsubsection*{Setup times}
 
@@ -1142,6 +1144,11 @@ Furthermore, a number of clients who are allowed to pass the barrier before the 
 can be defined. If a signal arrives while no client is waiting, it is possible to specify whether
 this signal should be saved for a client who is then to be released immediately later, or whether
 it should be discarded.
+
+If multiple signals are specified, it is normally sufficient for one to be triggered in order
+to release one or more waiting clients. However, the option
+"All configured signals have to be triggered for a release" can be used to configure that
+all specified signals have to be triggered for a release to take place.
 
 
 \section{Condition}
@@ -2675,7 +2682,7 @@ Only the integer part of the value is output.
 
 The name of the LCD display element has no further meaning.
 In addition to the expression to be evaluated, the number of
-7 segment digits to be displayed and the color of the active
+7 segment digits to be displayed and the color and the line width of the active
 segments can be set.
 
 
@@ -2781,6 +2788,12 @@ The name of the simulation data element is displayed on the drawing area directl
 You can select whether the element should display the current simulation time or any computable expression.
 If an expression is displayed, the numerical value can also optionally be displayed as a percentage
 (i.e., 70% instead of 0.7).
+
+For the optional texts before and after the main output, you can set whether some special HTML and LaTeX symbols should
+be interpreted accordingly, whether formatting should be performed according to the Markdown symbols
+\texttt{\#}, \texttt{\#\#}, \texttt{\#\#\#}, \texttt{*} and \texttt{**} and whether the LaTeX symbols
+\texttt{\_\{...\}}, \texttt{\^{}\{...\}}, \texttt{\textbackslash frac\{...\}\{...\}} and \texttt{\textbackslash binom\{...\}\{...\}}
+are to be interpreted.
 
 
 \section{Simulation data bar chart}

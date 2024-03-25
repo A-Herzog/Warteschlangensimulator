@@ -40,28 +40,30 @@
 \contentsline {section}{\numberline {10.22}F-Verteilung mit $a$ Freiheitsgraden im Zähler und $b$ Freiheitsgraden im Nenner}{25}{section.10.22}%
 \contentsline {section}{\numberline {10.23}Johnson-SU-Verteilung mit den Parametern $\gamma =a$, $\xi =b$, $\delta =c$ und $\lambda =d$}{25}{section.10.23}%
 \contentsline {section}{\numberline {10.24}Dreiecksverteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{25}{section.10.24}%
-\contentsline {section}{\numberline {10.25}Pert-Verteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{25}{section.10.25}%
-\contentsline {section}{\numberline {10.26}Laplace-Verteilung mit Mittelwert $mu$ und Skalierungsfaktor $b$}{25}{section.10.26}%
-\contentsline {section}{\numberline {10.27}Pareto-Verteilung mit Skalierungsparameter $x_{\rm min}=xmin$ und Formparameter $\alpha =a$}{26}{section.10.27}%
-\contentsline {section}{\numberline {10.28}Logistische Verteilung mit Mittelwert $\mu =mu$ und Skalierungsparameter $s$}{26}{section.10.28}%
-\contentsline {section}{\numberline {10.29}Inverse Gauß-Verteilung mit $\lambda =l$ und Mittelwert $mu$}{26}{section.10.29}%
-\contentsline {section}{\numberline {10.30}Rayleigh-Verteilung mit Mittelwert $mu$}{26}{section.10.30}%
-\contentsline {section}{\numberline {10.31}Log-Logistische Verteilung mit $\alpha $ und Mittelwert $\beta $}{26}{section.10.31}%
-\contentsline {section}{\numberline {10.32}Potenzverteilung auf dem Bereich $[a;b]$ mit Exponent $c$}{27}{section.10.32}%
-\contentsline {section}{\numberline {10.33}Gumbel-Verteilung mit Erwartungswert $a$ und Standardabweichung $b$}{27}{section.10.33}%
-\contentsline {section}{\numberline {10.34}Fatigue-Life-Verteilung mit Lageparameter $\mu $, Skalierungsparameter $\beta $ und Formparameter $\gamma $}{27}{section.10.34}%
-\contentsline {section}{\numberline {10.35}Frechet-Verteilung mit Lageparameter $\delta $, Skalierungsparameter $\beta $ und Formparameter $\alpha $}{27}{section.10.35}%
-\contentsline {section}{\numberline {10.36}Hyperbolische Sekanten-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{27}{section.10.36}%
-\contentsline {section}{\numberline {10.37}Linke Sägezahnverteilung über $[a;b]$}{28}{section.10.37}%
-\contentsline {section}{\numberline {10.38}Linke Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{28}{section.10.38}%
-\contentsline {section}{\numberline {10.39}Rechte Sägezahnverteilung über $[a;b]$}{28}{section.10.39}%
-\contentsline {section}{\numberline {10.40}Rechte Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{28}{section.10.40}%
-\contentsline {section}{\numberline {10.41}Levy-Verteilung mit Lageparameter $\mu $ und Formparameter $c$}{28}{section.10.41}%
-\contentsline {section}{\numberline {10.42}Maxwell-Boltzmann-Verteilung mit Parameter a}{28}{section.10.42}%
-\contentsline {section}{\numberline {10.43}Studentsche t-Verteilung mit Parametern $\mu $ und $\nu $}{29}{section.10.43}%
-\contentsline {section}{\numberline {10.44}Verteilung aus empirischen Daten}{29}{section.10.44}%
-\contentsline {section}{\numberline {10.45}Zufällige Auswahl eines von mehreren Werten}{29}{section.10.45}%
-\contentsline {section}{\numberline {10.46}Zufallszahlen gemäß benutzerdefinierter Verteilung}{30}{section.10.46}%
+\contentsline {section}{\numberline {10.25}Trapezverteilung über $[a;d]$ mit Gleichverteilung im Bereich $[b;c]$}{25}{section.10.25}%
+\contentsline {section}{\numberline {10.26}Pert-Verteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{25}{section.10.26}%
+\contentsline {section}{\numberline {10.27}Laplace-Verteilung mit Mittelwert $mu$ und Skalierungsfaktor $b$}{26}{section.10.27}%
+\contentsline {section}{\numberline {10.28}Pareto-Verteilung mit Skalierungsparameter $x_{\rm min}=xmin$ und Formparameter $\alpha =a$}{26}{section.10.28}%
+\contentsline {section}{\numberline {10.29}Logistische Verteilung mit Mittelwert $\mu =mu$ und Skalierungsparameter $s$}{26}{section.10.29}%
+\contentsline {section}{\numberline {10.30}Inverse Gauß-Verteilung mit $\lambda =l$ und Mittelwert $mu$}{26}{section.10.30}%
+\contentsline {section}{\numberline {10.31}Rayleigh-Verteilung mit Mittelwert $mu$}{26}{section.10.31}%
+\contentsline {section}{\numberline {10.32}Log-Logistische Verteilung mit $\alpha $ und Mittelwert $\beta $}{27}{section.10.32}%
+\contentsline {section}{\numberline {10.33}Potenzverteilung auf dem Bereich $[a;b]$ mit Exponent $c$}{27}{section.10.33}%
+\contentsline {section}{\numberline {10.34}Gumbel-Verteilung mit Erwartungswert $a$ und Standardabweichung $b$}{27}{section.10.34}%
+\contentsline {section}{\numberline {10.35}Fatigue-Life-Verteilung mit Lageparameter $\mu $, Skalierungsparameter $\beta $ und Formparameter $\gamma $}{27}{section.10.35}%
+\contentsline {section}{\numberline {10.36}Frechet-Verteilung mit Lageparameter $\delta $, Skalierungsparameter $\beta $ und Formparameter $\alpha $}{27}{section.10.36}%
+\contentsline {section}{\numberline {10.37}Hyperbolische Sekanten-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{28}{section.10.37}%
+\contentsline {section}{\numberline {10.38}Linke Sägezahnverteilung über $[a;b]$}{28}{section.10.38}%
+\contentsline {section}{\numberline {10.39}Linke Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{28}{section.10.39}%
+\contentsline {section}{\numberline {10.40}Rechte Sägezahnverteilung über $[a;b]$}{28}{section.10.40}%
+\contentsline {section}{\numberline {10.41}Rechte Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{28}{section.10.41}%
+\contentsline {section}{\numberline {10.42}Levy-Verteilung mit Lageparameter $\mu $ und Formparameter $c$}{29}{section.10.42}%
+\contentsline {section}{\numberline {10.43}Maxwell-Boltzmann-Verteilung mit Parameter a}{29}{section.10.43}%
+\contentsline {section}{\numberline {10.44}Studentsche t-Verteilung mit Parametern $\mu $ und $\nu $}{29}{section.10.44}%
+\contentsline {section}{\numberline {10.45}Halbe Normalverteilung mit Mittelwert $a$}{29}{section.10.45}%
+\contentsline {section}{\numberline {10.46}Verteilung aus empirischen Daten}{29}{section.10.46}%
+\contentsline {section}{\numberline {10.47}Zufällige Auswahl eines von mehreren Werten}{30}{section.10.47}%
+\contentsline {section}{\numberline {10.48}Zufallszahlen gemäß benutzerdefinierter Verteilung}{30}{section.10.48}%
 \contentsline {chapter}{\numberline {11}Erlang-C-Rechner}{31}{chapter.11}%
 \contentsline {chapter}{\numberline {12}Allen-Cunneen-Approximationsformel}{33}{chapter.12}%
 \contentsline {chapter}{\numberline {13}Zugriff auf die Modelleigenschaften}{35}{chapter.13}%
@@ -103,14 +105,14 @@
 \contentsline {subsection}{\numberline {13.10.3}Flussgrad für einen Kundentypen}{55}{subsection.13.10.3}%
 \contentsline {section}{\numberline {13.11}Auslastung der Ressourcen}{56}{section.13.11}%
 \contentsline {subsection}{\numberline {13.11.1}Auslastung einer Ressource}{56}{subsection.13.11.1}%
-\contentsline {subsection}{\numberline {13.11.2}Auslastung aller Ressourcen zusammen}{56}{subsection.13.11.2}%
+\contentsline {subsection}{\numberline {13.11.2}Auslastung aller Ressourcen zusammen}{57}{subsection.13.11.2}%
 \contentsline {section}{\numberline {13.12}Auslastung der Transporter}{57}{section.13.12}%
 \contentsline {subsection}{\numberline {13.12.1}Auslastung einer Transportergruppe}{57}{subsection.13.12.1}%
 \contentsline {subsection}{\numberline {13.12.2}Auslastung aller Transporter zusammen}{58}{subsection.13.12.2}%
-\contentsline {section}{\numberline {13.13}Zugriff auf Statistik-Stationen Datenfelder}{58}{section.13.13}%
-\contentsline {section}{\numberline {13.14}Zugriff auf Analogwerte}{59}{section.13.14}%
+\contentsline {section}{\numberline {13.13}Zugriff auf Statistik-Stationen Datenfelder}{59}{section.13.13}%
+\contentsline {section}{\numberline {13.14}Zugriff auf Analogwerte}{60}{section.13.14}%
 \contentsline {section}{\numberline {13.15}Zugriff auf Kundenobjekt-spezifische Datenfelder}{60}{section.13.15}%
-\contentsline {section}{\numberline {13.16}Zugriff auf die Kosten}{60}{section.13.16}%
+\contentsline {section}{\numberline {13.16}Zugriff auf die Kosten}{61}{section.13.16}%
 \contentsline {chapter}{\numberline {14}Vergleiche}{63}{chapter.14}%
 \contentsline {section}{\numberline {14.1}Vergleichsfunktion}{63}{section.14.1}%
 \contentsline {part}{II\hspace {1em}Referenz der Javascript-Befehle}{65}{part.2}%
@@ -130,7 +132,7 @@
 \contentsline {section}{\numberline {17.6}Anzahl an Bedienern in einer Ressource}{78}{section.17.6}%
 \contentsline {section}{\numberline {17.7}Letzter Kundentyp an einer Bedienstation}{78}{section.17.7}%
 \contentsline {section}{\numberline {17.8}Signale auslösen}{78}{section.17.8}%
-\contentsline {section}{\numberline {17.9}Löst die Skriptverarbeitung an einer Station aus}{78}{section.17.9}%
+\contentsline {section}{\numberline {17.9}Löst die Skriptverarbeitung an einer Station aus}{79}{section.17.9}%
 \contentsline {section}{\numberline {17.10}Meldung in Logging ausgeben}{79}{section.17.10}%
 \contentsline {section}{\numberline {17.11}Kunden an Verzögerungen-Stationen freigeben}{79}{section.17.11}%
 \contentsline {section}{\numberline {17.12}Kunden in der Warteschlange an einer Bedienstation}{79}{section.17.12}%
@@ -155,7 +157,7 @@
 \contentsline {section}{\numberline {25.5}Signale auslösen}{101}{section.25.5}%
 \contentsline {section}{\numberline {25.6}Löst die Skriptverarbeitung an einer Station aus}{101}{section.25.6}%
 \contentsline {section}{\numberline {25.7}Externen Code aufrufen}{101}{section.25.7}%
-\contentsline {section}{\numberline {25.8}Meldung in Logging ausgeben}{101}{section.25.8}%
+\contentsline {section}{\numberline {25.8}Meldung in Logging ausgeben}{102}{section.25.8}%
 \contentsline {section}{\numberline {25.9}Kunden an Verzögerungen-Stationen freigeben}{102}{section.25.9}%
 \contentsline {section}{\numberline {25.10}Kunden in der Warteschlange an einer Bedienstation}{102}{section.25.10}%
 \contentsline {chapter}{\numberline {26}\texttt {ClientInterface} abrufbar über \texttt {sim.getClient()}}{103}{chapter.26}%

@@ -466,9 +466,11 @@ kann hier für jeden Kundentyp eine individuelle Verteilung bzw. ein individuell
 \textbf{Hinweis zu individuellen Bedienzeiten und Batch-Verarbeitung:}~\\
 Prinzipiell widersprechen sich pro Kundentyp individuelle Bedienzeiten und die gleichzeitige Bedienung von mehreren Kunden
 (von möglicherweise verschiedenen Typen). Dennoch kann dies in der Simulation verwendet werden. In diesem Fall wird für jeden
-in dem Batch enthaltenen Kundentyp eine Bedienzeit gemäß der vorgegebenen Verteilung bestimmt. Diese Bedienzeit gilt dann
-für alle in dem Batch enthaltenen Kunden des jeweiligen Kundentyps. Die Ressourcen werden so lange belegt, bis das
-Maximum der Bedienzeiten der enthaltenen Kundentypen erreicht ist.
+in dem Batch enthaltenen Kundentyp eine Bedienzeit gemäß der vorgegebenen Verteilung bzw. des vorgegebenen Rechenausdrucks bestimmt.
+Diese Bedienzeit gilt dann für alle in dem Batch enthaltenen Kunden des jeweiligen Kundentyps. Die Ressourcen werden so lange belegt,
+bis das Maximum der Bedienzeiten der enthaltenen Kundentypen erreicht ist. Wird die Bedienzeit über einen Rechenausdruck bestimmt
+und werden in diesem kundenspezifische Daten verwendet, so erfolgt die Auswertung (pro Kundentyp) jeweils für den Kunden mit der
+höchsten Bedienpriorität.
 
 \subsubsection*{Rüstzeiten}
 
@@ -1370,6 +1372,11 @@ Des Weiteren kann eine Anzahl an Kunden festgelegt werden, die die Schranke pass
 bevor die Zählung beginnt. Trifft ein Signal ein, während kein Kunde wartet, so kann angegeben
 werden, ob dies für einen später dann sofort freizugebenden Kunden gespeichert werden soll,
 oder ob es verworfen werden soll.
+
+Sind mehrere Signale angegeben, so reicht es im Normalfall aus, wenn eines ausgelöst wird,
+um einen bzw. mehrere wartende Kunden frei zu geben. Über die Option
+"Alle konfigurierten Signale müssen für eine Freigabe ausgelöst sein'' kann jedoch konfiguriert
+werden, dass alle angegebenen Signale ausgelöst sein müssen, damit eine Freigabe erfolgt.
 
 
 \section{Signal}
@@ -2891,7 +2898,7 @@ Ausgegeben wird dabei jeweils nur der Ganzzahlanteil des Wertes.
 Der Name des Elements besitzt keine weitere Bedeutung.
 Zusätzlich zu dem auszuwertenden Rechenausdruck können
 die Anzahl an anzuzeigenden 7-Segment-Ziffern und die
-Farbe der aktiven Segment eingestellt werden.
+Farbe und die Linienbreite der aktiven Segment eingestellt werden.
 
 
 \section{Simulationsdaten als Balken}
@@ -2965,6 +2972,11 @@ Der Name des Simulationsdaten-Elements wird auf der Zeichenfläche direkt oberha
 Es kann ausgewählt werden, ob das Element die aktuelle Zeit im Simulationsmodell oder einen beliebigen
 berechenbaren Ausdruck anzeigen soll. Wird ein Ausdruck angezeigt, so kann der Zahlenwert außerdem optional
 als Prozentwert (d.h. 70% statt 0,7) angezeigt werden.
+
+Für die optionalen Texte vor und nach der Hauptausgabe kann eingestellt werden, ob einige besondere HTML- und LaTeX-Symbole entsprechend
+interpretiert werden sollen, ob Formatierungen gemäß der Markdown-Symbole \texttt{\#}, \texttt{\#\#}, \texttt{\#\#\#}, \texttt{*}
+und \texttt{**} durchgeführt werden sollen und ob die LaTeX-Symbole \texttt{\_\{...\}}, \texttt{\^{}\{...\}},
+\texttt{\textbackslash frac\{...\}\{...\}} und \texttt{\textbackslash binom\{...\}\{...\}} interpretiert werden sollen.
 
 
 \section{Simulationsdatenampel}
