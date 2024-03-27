@@ -183,10 +183,16 @@ public class EditModelExamples {
 	private final List<Example> list;
 
 	/**
+	 * Sprache für Menüeinträge in der aktuellen Instanz
+	 */
+	private final String language;
+
+	/**
 	 * Konstruktor der Klasse<br>
 	 * Diese Klasse stellt nur statische Hilfsroutinen zur Verfügung und kann nicht instanziert werden.
 	 */
 	private EditModelExamples() {
+		language=Language.getCurrentLanguage();
 		list=new ArrayList<>();
 		addExamples();
 	}
@@ -197,7 +203,7 @@ public class EditModelExamples {
 	 * @see #instance
 	 */
 	private static EditModelExamples getInstance() {
-		if (instance==null) instance=new EditModelExamples();
+		if (instance==null || !instance.language.equals(Language.getCurrentLanguage())) instance=new EditModelExamples();
 		return instance;
 	}
 
