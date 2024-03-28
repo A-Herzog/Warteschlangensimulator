@@ -163,3 +163,7 @@ Alternativ können Parameterreihenkonfigurationen gespeichert und dann per **Kom
 	
 Die im Lehrbuch vorgestellten Beispiele sind auch als Warteschlangensimulator-Modelle direkt im Simulator und auf der 
 [GitHub-Lehrbuchbeispiele](https://github.com/A-Herzog/Warteschlangensimulator/tree/master/Simulator/src/main/java/ui/help/bookexamples)-Seite verfügbar.
+
+### Veröffentlichungen
+
+Eine Liste mit allen Veröffentlichungen zum Warteschlangensimulator finden Sie auf der [Veröffentlichungen-GitHub-Wiki](https://github.com/A-Herzog/Warteschlangensimulator/wiki/Publication-list)-Seite.
