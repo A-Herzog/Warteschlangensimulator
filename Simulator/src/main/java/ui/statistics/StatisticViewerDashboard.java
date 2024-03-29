@@ -26,10 +26,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.swing.Icon;
 import javax.swing.JPanel;
@@ -376,8 +377,8 @@ public class StatisticViewerDashboard extends StatisticViewerSpecialBasePlain {
 		if (fileName==null) return false;
 		final File file=new File(fileName);
 
-		try {
-			final List<String> lines=Arrays.asList(Files.lines(file.toPath()).toArray(String[]::new));
+		try (Stream<String> linesStream=Files.lines(file.toPath())) {
+			final List<String> lines=linesStream.collect(Collectors.toList());
 			if (!loadFromList(lines)) return false;
 			rebuildViewer();
 			saveSetup();

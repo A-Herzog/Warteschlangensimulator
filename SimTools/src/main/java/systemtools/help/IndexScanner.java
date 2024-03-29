@@ -96,10 +96,12 @@ class IndexScanner {
 				if (fileName==null) continue;
 				final String name=fileName.toString();
 				if (!isScanFile(name)) continue;
-				final String text=String.join("\n",Files.lines(file,charset).toArray(String[]::new));
-				if (text!=null) {
-					index.scan(name,text);
-					scannedFiles++;
+				try (Stream<String> linesStream=Files.lines(file,charset)) {
+					final String text=String.join("\n",linesStream.toArray(String[]::new));
+					if (text!=null) {
+						index.scan(name,text);
+						scannedFiles++;
+					}
 				}
 			}
 		} catch (IOException e) {

@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.util.FastMath;
@@ -565,8 +566,8 @@ public class StatisticsImpl implements StatisticsInterface {
 			return "";
 		}
 		String[] lines;
-		try {
-			lines = Files.lines(file.toPath()).toArray(String[]::new);
+		try (Stream<String> linesStream=Files.lines(file.toPath())) {
+			lines=linesStream.toArray(String[]::new);
 		} catch (IOException e) {
 			addOutput(String.format(Language.tr("Statistics.Filter.CouldNotLoadScript"),file.toString())+"\n");
 			return "";

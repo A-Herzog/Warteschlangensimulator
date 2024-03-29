@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import language.Language;
 import simulator.StartAnySimulator;
@@ -189,8 +190,8 @@ public class ParameterCompareRunner {
 				if (scriptFile.isEmpty()) return String.format(Language.tr("ParameterCompare.Run.Error.NoScriptFile"),output.getName());
 				file=new File(scriptFile);
 				if (!file.isFile()) return String.format(Language.tr("ParameterCompare.Run.Error.ScriptFileDoesNotExist"),output.getName(),scriptFile);
-				try {
-					final String[] lines=Files.lines(file.toPath()).toArray(String[]::new);
+				try (Stream<String> linesStream=Files.lines(file.toPath())) {
+					final String[] lines=linesStream.toArray(String[]::new);
 					outputScripts[i]=String.join("\n",lines);
 				} catch (IOException e) {
 					return String.format(Language.tr("ParameterCompare.Run.Error.CannotLoadScriptFile"),output.getName(),scriptFile);
@@ -202,8 +203,8 @@ public class ParameterCompareRunner {
 				if (scriptFile.isEmpty()) return String.format(Language.tr("ParameterCompare.Run.Error.NoScriptFile"),output.getName());
 				file=new File(scriptFile);
 				if (!file.isFile()) return String.format(Language.tr("ParameterCompare.Run.Error.ScriptFileDoesNotExist"),output.getName(),scriptFile);
-				try {
-					final String[] lines=Files.lines(file.toPath()).toArray(String[]::new);
+				try (Stream<String> linesStream=Files.lines(file.toPath())) {
+					final String[] lines=linesStream.toArray(String[]::new);
 					outputScripts[i]=String.join("\n",lines);
 				} catch (IOException e) {
 					return String.format(Language.tr("ParameterCompare.Run.Error.CannotLoadScriptFile"),output.getName(),scriptFile);

@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
+import java.util.stream.Stream;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -402,8 +403,8 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		if (fileName==null) return false;
 		final File file=new File(fileName);
 
-		try {
-			final String text=String.join("\n",Files.lines(file.toPath()).toArray(String[]::new));
+		try (Stream<String> linesStream=Files.lines(file.toPath())) {
+			final String text=String.join("\n",linesStream.toArray(String[]::new));
 			loadTextToList(text);
 			lastSavedFilterText=text;
 		} catch (IOException e) {

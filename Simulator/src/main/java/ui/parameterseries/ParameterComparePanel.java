@@ -43,6 +43,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
@@ -350,8 +351,8 @@ public class ParameterComparePanel extends SpecialPanel {
 	private String getScript(final String fileName) {
 		final File file=new File(fileName);
 		if (!file.isFile()) return null;
-		try {
-			final String[] lines=Files.lines(file.toPath()).toArray(String[]::new);
+		try (Stream<String> linesStream=Files.lines(file.toPath())) {
+			final String[] lines=linesStream.toArray(String[]::new);
 			return String.join("\n",lines);
 		} catch (IOException e) {
 			return null;

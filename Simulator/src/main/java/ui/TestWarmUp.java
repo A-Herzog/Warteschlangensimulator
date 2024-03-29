@@ -18,6 +18,7 @@ package ui;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.DoubleStream;
+import java.util.stream.Stream;
 
 import mathtools.NumberTools;
 import simulator.statistics.Statistics;
@@ -166,16 +167,18 @@ public class TestWarmUp {
 		final StatisticsDataCollector data=new StatisticsDataCollector(null);
 		final TestWarmUp test=new TestWarmUp(data);
 
-		try (DoubleStream stream=Files.lines(Paths.get(file)).mapToDouble(s->NumberTools.getPlainDouble(s))) {
-			stream.forEach(d->{
-				data.add(d);
-				if (data.getCount()%100_000==0) {
-					final double tau=StrictMath.sqrt(test.getTauSquared(data));
-					final double lambda1=test.test(false);
-					final double lambda2=test.test(true);
-					System.out.println(NumberTools.formatLong(data.getCount())+"\t"+NumberTools.formatNumber(tau)+"\t"+NumberTools.formatPercent(lambda1)+"\t"+NumberTools.formatPercent(lambda2));
-				}
-			});
+		try (Stream<String> lines=Files.lines(Paths.get(file))) {
+			try (DoubleStream stream=lines.mapToDouble(s->NumberTools.getPlainDouble(s))) {
+				stream.forEach(d->{
+					data.add(d);
+					if (data.getCount()%100_000==0) {
+						final double tau=StrictMath.sqrt(test.getTauSquared(data));
+						final double lambda1=test.test(false);
+						final double lambda2=test.test(true);
+						System.out.println(NumberTools.formatLong(data.getCount())+"\t"+NumberTools.formatNumber(tau)+"\t"+NumberTools.formatPercent(lambda1)+"\t"+NumberTools.formatPercent(lambda2));
+					}
+				});
+			}
 		} catch (Exception e) {e.printStackTrace(); return;}
 	}
 }
