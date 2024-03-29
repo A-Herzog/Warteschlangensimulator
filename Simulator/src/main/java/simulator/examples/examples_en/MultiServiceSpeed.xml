@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.6.0</ModelVersion>
+  <ModelName>Verschieden schnelle Bediener an einer Bedienstation</ModelName>
+  <ModelDescription>On average, a clients arrives at the system every E[I]=60 seconds. There are 4 slow operators (E[S]=300 seconds)
+and 4 fast operators (E[S]=200 seconds) available. The slow operators may be cheaper per service process and
+are therefore preferred.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="3" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="2">
+      <ModelElementSize h="50" w="100" x="250" y="100"/>
+      <ModelElementConnection Element="3" Type="In"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementExpression Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">ExpDist(If(Equals(Alternative();1);300;200))</ModelElementExpression>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Slow"/>
+      <ModelElementOperators Alternative="2" Count="1" Group="Fast"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="3">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="4">
+      <ModelElementSize h="50" w="100" x="450" y="100"/>
+      <ModelElementConnection Element="5" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="5">
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="6">
+      <ModelElementName>Current utilization of the slow operators</ModelElementName>
+      <ModelElementSize h="30" w="163" x="250" y="220"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">Resource(1)/Resource_count(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="7">
+      <ModelElementName>Current utilization of the fast operators</ModelElementName>
+      <ModelElementSize h="30" w="162" x="250" y="260"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">Resource(2)/Resource_count(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementImage id="8">
+      <ModelElementSize h="29" w="27" x="220" y="260"/>
+      <ModelElementLineWidth>0</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACB0lEQVR4XqWR7UuTURiH9wf0KQgiRIKKfNYCDSPBtYYZqE2T3igZJPJYUMtkGb3YyEk5xZGL3kzUtETtbTNcOnIyWjIQirCFzbkUhWW49Euf+hBXx6eMbBKsPlxwuH/nvu7DfVSA6n+IKyRKXCFR4gqJ8utgqAusEnjybEPRnMv+2K4qXyzroje245znS2aFez7jVM/L9ONPcv4miNQ+DeMZifF85DP9b2bpfT2LW+AcnsHuDJFa+uDbsgLRvKKwPoDjrosj5hpafR8pr+viRE0nhceqqXFNIp+xsSajmDiBaF4tnv3K+ug95ZZ6TtZ24uibptR6n3zZSm5JFWc7xikx29haUEaS/jTr9jeF1hbe3qgIRLPT5hzjxei8Mvmqe4rankmqH09Q2RWh4l6YstYxLN0R2nxRmr1RZLuf5Pybw4pALOyrNzhHkwjsvVNcEc+99PAD5zvHMbeHMbWEONo4SvGNdxgdQYoagtzqn2b9vjsk7b6+UiW2zcDbORranrEzp4DcPQeptLfTPfSJDv+MMrVlMMqFay502Qay8g5gaRxAfah5QZCsSss+zOZtWUhqDTqdDr1ej6RJRZ25F2mLjpS07QqSepOSa7VaUjRpbEg3/BAsblOSpAlZljGZTIhz8M9tL+ZGo3EhH1zyjT8vaAWBhVBQtIzg91z5gSWCfyWukCjfAeoHq5AF4m1uAAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementImage>
+    <ModelElementImage id="9">
+      <ModelElementSize h="30" w="27" x="220" y="220"/>
+      <ModelElementLineWidth>0</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACLklEQVR4XqWS60vTYRTH9690UycV0QsttbS8BKXmLCVqQdZSqZmFWJqSll2kJCUWeVllNylLyws2bbeairnlZVcTlSxD05zRC18Fn36/3xCGexGjB74Ph/M95/OcA48MkP2PAhLBSuZ5eHbGqc3DXn+K4XvZ2DRZDNQo6a3KxFypQH91H2/LEukoie1e3SwBxOZ5Txc/3B3MOdqYHW3h+3AzM7Ymvn18xHT/fb5Y6mg9H8nqZgkwUpvLnKtdKKwVCjVMmaqZ0N9kXHeNsc4y3G+KmTTeYU/FexLLjewufUdske5PdEFntgSwaY6L5H+ehEsGPniWMLm8PDF/JSLv9SIiQNy3tHOSg/UjKDRDpNy2srdygKTLfcSXWIgtNJNTbSWuuBu9w8vsb/i1DFtzmkWuTGa5lSHt+rnrCp72UlytF7A3n2Ok6TRDj09ie3AMd1sZwsgMTiwxMO5lSQBsynrmAxivpzLd2yDt6nhVwOjzMww/zeVT4wms2qMM1h3C2XJRHJm+sUUa9NOYnAuEHWn0AXTlSUyZ7zJhqGG8p0qY5AaejgrpVWdrCY6XRTheFEojm50/MdgX6BmdZ32m1gfITNhCRvxmDuzaSHpcOIqdYaTtCCE1ZgMp0etIjlpL8vY1hEenI49SELYtjdDI/YREpPoA4iWXy6dUKhVqtRohXs7Pz0epVIqxQfRXtFLn760YMYL6xaSgw35x6CqAf53kBfysYBWQCFYBiWD1F+SsyOYqnIjvAAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementImage>
+    <ModelElementAnimationLineDiagram id="10">
+      <ModelElementSize h="200" w="650" x="50" y="300"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>255,255,255</ModelElementBackgroundColor>
+      <ModelElementBackgroundColorGradient>230,230,250</ModelElementBackgroundColorGradient>
+      <ModelElementDiagramElement LineColor="0,0,255" LineWidth="2" Maximum="20" Minimum="0">WIP()</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,180,0" LineWidth="2" Maximum="1" Minimum="0">Resource(1)/Resource_count(1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="2" Maximum="1" Minimum="0">Resource(2)/Resource_count(2)</ModelElementDiagramElement>
+      <ModelElementDiagramTimeRange>3600</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>2</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>0</ModelElementAxisLabels>
+    </ModelElementAnimationLineDiagram>
+    <ModelElementAnimationText id="11">
+      <ModelElementName>Average utilization of the slow operators</ModelElementName>
+      <ModelElementSize h="30" w="167" x="500" y="220"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(1)/Resource_count(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="12">
+      <ModelElementName>Average utilization of the fast operators</ModelElementName>
+      <ModelElementSize h="30" w="166" x="500" y="260"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(2)/Resource_count(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="13">
+      <ModelElementName>Average service time</ModelElementName>
+      <ModelElementSize h="30" w="90" x="600" y="100"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Bedienzeit_avg(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="14">
+      <ModelElementSize h="60" w="395" x="730" y="100"/>
+      <ModelElementTextLine>The **slow** operators need an average of **300 seconds** for one service process.</ModelElementTextLine>
+      <ModelElementTextLine>The **fast** operators require an average of **200 seconds** for one service process.</ModelElementTextLine>
+      <ModelElementTextLine>If fast and slow operators were used randomly, this would result in</ModelElementTextLine>
+      <ModelElementTextLine>average service  time of 250 seconds over all clients.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="15">
+      <ModelElementSize h="76" w="432" x="50" y="550"/>
+      <ModelElementTextLine>On average, a clients arrives at the system every E[I]=60 seconds.</ModelElementTextLine>
+      <ModelElementTextLine>There are 4 slow operators (E[S]=300 seconds) and 4 fast operators</ModelElementTextLine>
+      <ModelElementTextLine>(E[S]=200 seconds) available. The slow operators may be cheaper</ModelElementTextLine>
+      <ModelElementTextLine>per service process and are therefore preferred.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="16">
+      <ModelElementSize h="23" w="475" x="50" y="50"/>
+      <ModelElementTextLine>Operators with different speeds at one process station</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="17">
+      <ModelElementSize h="15" w="536" x="50" y="515"/>
+      <ModelElementTextLine>(blue=Number of clients in system, green=Utilization of the slow operators, red=Utilization of the fast operators)</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Icon="lorry" Name="Slow" Type="Number" Value="4"/>
+    <Resource Icon="car" Name="Fast" Type="Number" Value="4"/>
+  </Resources>
+  <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+</Model>

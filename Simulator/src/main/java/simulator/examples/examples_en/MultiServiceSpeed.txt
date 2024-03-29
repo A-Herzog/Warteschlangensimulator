@@ -1,0 +1,1 @@
+On average, a clients arrives at the system every E[I]=60 seconds. There are 4 slow operators (E[S]=300 seconds) and 4 fast operators (E[S]=200 seconds) available. The slow operators may be cheaper per service process and are therefore preferred.

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-18 15:46+0100\n"
+"POT-Creation-Date: 2024-03-27 08:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5394,6 +5394,9 @@ msgstr "Begrenzung der Anzahl an Kunden an der Bedienstation"
 
 msgid "Examples.LocalVersusGlobalWarehouse"
 msgstr "Verwendung von fabriknahen Zentrallagern"
+
+msgid "Examples.MultiServiceSpeed"
+msgstr "Verschieden schnelle Bediener an einer Bedienstation"
 
 msgid "Examples.MultiStageProduction"
 msgstr "Mehrstufige Fertigung"

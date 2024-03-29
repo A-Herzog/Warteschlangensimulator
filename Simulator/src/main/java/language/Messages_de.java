@@ -16180,6 +16180,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40319] = "Das Skript konnte nicht zur Ausf\u00fchrung vorbereitet werden.";
     t[40322] = "Editor.Breakpoints.TabBreakpoints.ModeCondition";
     t[40323] = "Nur wirksam, wenn die Bedingung <b>%s</b> erf\u00fcllt ist.";
+    t[40324] = "Examples.MultiServiceSpeed";
+    t[40325] = "Verschieden schnelle Bediener an einer Bedienstation";
     t[40332] = "Statistics.Utilization.Kurt";
     t[40333] = "Exzess (W\u00f6lbung) der Anzahl an belegten Bedienern";
     t[40334] = "Surface.DDE.Column.ErrorTitle";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45053] = "Excel-DDE-Quelle";
     t[45056] = "Statistics.DistributionOfTheWaitingTimesTotal";
     t[45057] = "Verteilung der Wartezeiten (summiert \u00fcber mehrfache Kundenank\u00fcnfte)";
-    t[45064] = "ModelDescription.TransportResourceRecord.ResourcePriority";
-    t[45065] = "Priorit\u00e4t bei der Ressourcenzuweisung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[45064] = "ModelDescription.TransportResourceRecord.ResourcePriority";
+    t[45065] = "Priorit\u00e4t bei der Ressourcenzuweisung";
     t[45066] = "InfoDialog.Is64Bit.No";
     t[45067] = "Nein, nicht empfehlenswert";
     t[45070] = "JSRunner.Toolbar.Cancel";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49957] = "Notizen und Elementbeschreibungen...";
     t[49958] = "Surface.SourceTable.Dialog.Table.Preview.ErrorFileNotFound.Info";
     t[49959] = "Die angegebene Tabellendatei\n%s\nexistiert nicht.";
-    t[49966] = "SettingsDialog.Tabs.Simulation.ShowErlangC";
-    t[49967] = "Erlang-C-Vergleich anzeigen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49966] = "SettingsDialog.Tabs.Simulation.ShowErlangC";
+    t[49967] = "Erlang-C-Vergleich anzeigen";
     t[49972] = "Surface.CounterCondition.Condition";
     t[49973] = "ModellElementZaehlerBedingung";
     t[49980] = "Help.Search";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[55073] = "Bereich";
     t[55074] = "Statistics.XML.Element.UtilizationResourceRho";
     t[55075] = "StatistikRessourceRho";
-    t[55076] = "Color.00FF00";
-    t[55077] = "Limette";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[55076] = "Color.00FF00";
+    t[55077] = "Limette";
     t[55078] = "Animation.JSResults.ReturnValue";
     t[55079] = "R\u00fcckgabewert";
     t[55090] = "Surface.XML.EdgePainter.Color";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[60185] = "Bedingung nach oben schieben";
     t[60192] = "Window.CannotShowModel.Title";
     t[60193] = "Keine Statistikdaten vorhanden";
-    t[60202] = "Statistics.ArrivalsLeavings";
-    t[60203] = "Ank\u00fcnfte und Abg\u00e4nge";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[60202] = "Statistics.ArrivalsLeavings";
+    t[60203] = "Ank\u00fcnfte und Abg\u00e4nge";
     t[60204] = "ParameterCompare.Settings.Input.List.Templates.Conveyor";
     t[60205] = "Flie\u00dfband-Transportzeit an Station %s";
     t[60206] = "Statistics.XML.Element.CounterBatchName";

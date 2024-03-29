@@ -1,0 +1,1 @@
+In dem System tritt im Mittel alle E[I]=60 Sekunden ein Kunde ein. Es stehen 4 langsame Bediener (E[S]=300 Sekunden) und 4 schnelle Bediener (E[S]=200 Sekunden) zur Verfügung. Die langsamen Bediener mögen pro Bedienvorgang günstiger sein und werden daher bevorzugt eingesetzt.

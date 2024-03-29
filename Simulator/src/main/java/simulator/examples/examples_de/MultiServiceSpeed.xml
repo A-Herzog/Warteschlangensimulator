@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.6.0</ModellVersion>
+  <ModellName>Verschieden schnelle Bediener an einer Bedienstation</ModellName>
+  <ModellBeschreibung>In dem System tritt im Mittel alle E[I]=60 Sekunden ein Kunde ein. Es stehen 4 langsame Bediener (E[S]=300 Sekunden)
+und 4 schnelle Bediener (E[S]=200 Sekunden) zur Verfügung. Die langsamen Bediener mögen pro Bedienvorgang
+günstiger sein und werden daher bevorzugt eingesetzt.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="2">
+      <ModellElementGroesse h="50" w="100" x="250" y="100"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementAusdruck Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">ExpDist(If(Equals(Alternative();1);300;200))</ModellElementAusdruck>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Langsam"/>
+      <ModellElementBediener Alternative="2" Anzahl="1" Gruppe="Schnell"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="4">
+      <ModellElementGroesse h="50" w="100" x="450" y="100"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="6">
+      <ModellElementName>Aktuelle Auslastung der langsamen  Bediener</ModellElementName>
+      <ModellElementGroesse h="30" w="188" x="250" y="220"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">Resource(1)/Resource_count(1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="7">
+      <ModellElementName>Aktuelle Auslastung der schnellen Bediener</ModellElementName>
+      <ModellElementGroesse h="30" w="179" x="250" y="260"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">Resource(2)/Resource_count(2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementBild id="8">
+      <ModellElementGroesse h="29" w="27" x="220" y="260"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACB0lEQVR4XqWR7UuTURiH9wf0KQgiRIKKfNYCDSPBtYYZqE2T3igZJPJYUMtkGb3YyEk5xZGL3kzUtETtbTNcOnIyWjIQirCFzbkUhWW49Euf+hBXx6eMbBKsPlxwuH/nvu7DfVSA6n+IKyRKXCFR4gqJ8utgqAusEnjybEPRnMv+2K4qXyzroje245znS2aFez7jVM/L9ONPcv4miNQ+DeMZifF85DP9b2bpfT2LW+AcnsHuDJFa+uDbsgLRvKKwPoDjrosj5hpafR8pr+viRE0nhceqqXFNIp+xsSajmDiBaF4tnv3K+ug95ZZ6TtZ24uibptR6n3zZSm5JFWc7xikx29haUEaS/jTr9jeF1hbe3qgIRLPT5hzjxei8Mvmqe4rankmqH09Q2RWh4l6YstYxLN0R2nxRmr1RZLuf5Pybw4pALOyrNzhHkwjsvVNcEc+99PAD5zvHMbeHMbWEONo4SvGNdxgdQYoagtzqn2b9vjsk7b6+UiW2zcDbORranrEzp4DcPQeptLfTPfSJDv+MMrVlMMqFay502Qay8g5gaRxAfah5QZCsSss+zOZtWUhqDTqdDr1ej6RJRZ25F2mLjpS07QqSepOSa7VaUjRpbEg3/BAsblOSpAlZljGZTIhz8M9tL+ZGo3EhH1zyjT8vaAWBhVBQtIzg91z5gSWCfyWukCjfAeoHq5AF4m1uAAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementBild>
+    <ModellElementBild id="9">
+      <ModellElementGroesse h="30" w="27" x="220" y="220"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACLklEQVR4XqWS60vTYRTH9690UycV0QsttbS8BKXmLCVqQdZSqZmFWJqSll2kJCUWeVllNylLyws2bbeairnlZVcTlSxD05zRC18Fn36/3xCGexGjB74Ph/M95/OcA48MkP2PAhLBSuZ5eHbGqc3DXn+K4XvZ2DRZDNQo6a3KxFypQH91H2/LEukoie1e3SwBxOZ5Txc/3B3MOdqYHW3h+3AzM7Ymvn18xHT/fb5Y6mg9H8nqZgkwUpvLnKtdKKwVCjVMmaqZ0N9kXHeNsc4y3G+KmTTeYU/FexLLjewufUdske5PdEFntgSwaY6L5H+ehEsGPniWMLm8PDF/JSLv9SIiQNy3tHOSg/UjKDRDpNy2srdygKTLfcSXWIgtNJNTbSWuuBu9w8vsb/i1DFtzmkWuTGa5lSHt+rnrCp72UlytF7A3n2Ok6TRDj09ie3AMd1sZwsgMTiwxMO5lSQBsynrmAxivpzLd2yDt6nhVwOjzMww/zeVT4wms2qMM1h3C2XJRHJm+sUUa9NOYnAuEHWn0AXTlSUyZ7zJhqGG8p0qY5AaejgrpVWdrCY6XRTheFEojm50/MdgX6BmdZ32m1gfITNhCRvxmDuzaSHpcOIqdYaTtCCE1ZgMp0etIjlpL8vY1hEenI49SELYtjdDI/YREpPoA4iWXy6dUKhVqtRohXs7Pz0epVIqxQfRXtFLn760YMYL6xaSgw35x6CqAf53kBfysYBWQCFYBiWD1F+SsyOYqnIjvAAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementBild>
+    <ModellElementAnimationLinienDiagramm id="10">
+      <ModellElementGroesse h="200" w="650" x="50" y="300"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>255,255,255</ModellElementHintergrundfarbe>
+      <ModellElementHintergrundfarbeFarbverlauf>230,230,250</ModellElementHintergrundfarbeFarbverlauf>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,0,255" Maximum="20" Minimum="0">WIP()</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,180,0" Maximum="1" Minimum="0">Resource(1)/Resource_count(1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Maximum="1" Minimum="0">Resource(2)/Resource_count(2)</ModellElementDiagrammElement>
+      <ModellElementDiagrammZeitbereich>3600</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>2</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>0</ModellElementAchsenbeschriftung>
+    </ModellElementAnimationLinienDiagramm>
+    <ModellElementAnimationText id="11">
+      <ModellElementName>Mittlere Auslastung der langsamen Bediener</ModellElementName>
+      <ModellElementGroesse h="30" w="182" x="500" y="220"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg(1)/Resource_count(1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="12">
+      <ModellElementName>Mittlere Auslastung der schnellen Bediener</ModellElementName>
+      <ModellElementGroesse h="30" w="176" x="500" y="260"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg(2)/Resource_count(2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="13">
+      <ModellElementName>Mittlere Bediendauer</ModellElementName>
+      <ModellElementGroesse h="30" w="84" x="600" y="100"/>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Bedienzeit_avg(2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="14">
+      <ModellElementGroesse h="60" w="392" x="730" y="100"/>
+      <ModellElementTextzeile>Die **langsamen** Bediener benötigen im Mittel **300 Sekunden** für eine Bedienung.</ModellElementTextzeile>
+      <ModellElementTextzeile>Die **schnellen** Bediener benötigen im Mittel **200 Sekunden** für eine Bedienung.</ModellElementTextzeile>
+      <ModellElementTextzeile>Würden schnelle und langsamer Bediener zufällig verwendet, so würde sich</ModellElementTextzeile>
+      <ModellElementTextzeile>eine mittlere Bediendauer über alle Kunden von 250 Sekunden ergeben.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="15">
+      <ModellElementGroesse h="95" w="437" x="50" y="550"/>
+      <ModellElementTextzeile>In dem System tritt im Mittel alle E[I]=60 Sekunden ein Kunde ein.</ModellElementTextzeile>
+      <ModellElementTextzeile>Es stehen 4 langsame Bediener (E[S]=300 Sekunden) und 4 schnelle</ModellElementTextzeile>
+      <ModellElementTextzeile>Bediener (E[S]=200 Sekunden) zur Verfügung. Die langsamen</ModellElementTextzeile>
+      <ModellElementTextzeile>Bediener mögen pro Bedienvorgang günstiger sein und werden</ModellElementTextzeile>
+      <ModellElementTextzeile>daher bevorzugt eingesetzt.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="16">
+      <ModellElementGroesse h="23" w="477" x="50" y="50"/>
+      <ModellElementTextzeile>Verschieden schnelle Bediener an einer Bedienstation</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="17">
+      <ModellElementGroesse h="15" w="578" x="50" y="515"/>
+      <ModellElementTextzeile>(blau=Anzahl an Kunden im System, grün=Auslastung der langsamen Bediener, rot=Auslastung der schnellen Bediener)</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Icon="lorry" Name="Langsam" Typ="Anzahl" Wert="4"/>
+    <Ressource Icon="car" Name="Schnell" Typ="Anzahl" Wert="4"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
+</Modell>
