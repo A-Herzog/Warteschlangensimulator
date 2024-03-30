@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-27 08:27+0100\n"
+"POT-Creation-Date: 2024-03-29 00:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13007,6 +13007,9 @@ msgstr "Next station in all other cases"
 
 msgid "ModelDescription.DecideJS.Next"
 msgstr "Possible next station"
+
+msgid "ModelDescription.Delay.AutoRelease"
+msgstr "Automatic release after holding time"
 
 msgid "ModelDescription.Delay.Distribution"
 msgstr "Delay distribution in general case"
@@ -29890,6 +29893,15 @@ msgstr "Move condition down"
 msgid "Surface.ExpressionTableModelText.MoveUp"
 msgstr "Move condition up"
 
+msgid "Surface.Hold.Dialog.AutoRelease"
+msgstr "Automatic release after time"
+
+msgid "Surface.Hold.Dialog.AutoRelease.ErrorInfo"
+msgstr "The specified maximum hold time \"%s\" is invalid. A positive number has to be specified."
+
+msgid "Surface.Hold.Dialog.AutoRelease.ErrorTitle"
+msgstr "Maximum holding time"
+
 msgid "Surface.Hold.Dialog.ClientBasedCheck"
 msgstr "Individual check per client"
 
@@ -29946,6 +29958,9 @@ msgstr "ModelElementHoldCondition"
 
 msgid "Surface.Hold.XML.Condition.ClientBased"
 msgstr "ClientBased"
+
+msgid "Surface.Hold.XML.Condition.MaxWaitingTime"
+msgstr "MaximumHoldingTime"
 
 msgid "Surface.Hold.XML.Condition.TimeType"
 msgstr "TimeType"

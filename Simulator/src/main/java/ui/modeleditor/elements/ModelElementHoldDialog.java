@@ -62,6 +62,10 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 	private JCheckBox useTimedChecks;
 	/** Auswahlbox für die Art der Erfassung der Verzögerungszeit */
 	private JComboBox<String> processTimeType;
+	/** Maximale Wartezeit verwenden? */
+	private JCheckBox useMaxWaitingTime;
+	/** Zahlenwert für die maximale Wartezeit */
+	private JTextField maxWaitingTime;
 
 	/** Tabelle zur Konfiguration der Prioritäten der Kundentypen */
 	private PriorityTableModel tablePriorityModel;
@@ -143,6 +147,19 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 		}
 		label.setLabelFor(processTimeType);
 
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(useMaxWaitingTime=new JCheckBox(Language.tr("Surface.Hold.Dialog.AutoRelease")+":",hold.getMaxWaitingTime()>0));
+		useMaxWaitingTime.setEnabled(!readOnly);
+		useMaxWaitingTime.addActionListener(e->checkData(false));
+		line.add(maxWaitingTime=new JTextField((hold.getMaxWaitingTime()>0)?NumberTools.formatNumberMax(hold.getMaxWaitingTime()):"",10));
+		maxWaitingTime.setEditable(!readOnly);
+		maxWaitingTime.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {useMaxWaitingTime.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {useMaxWaitingTime.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {useMaxWaitingTime.setSelected(true); checkData(false);}
+		});
+		line.add(new JLabel(Language.tr("Surface.XML.TimeBase.Seconds")));
+
 		/* Tab "Prioritäten" */
 		tabs.addTab(Language.tr("Surface.Hold.Dialog.Tab.Priorities"),tabOuter=new JPanel(new BorderLayout()));
 
@@ -182,7 +199,7 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 		final String text=condition.getText();
 		if (text.trim().isEmpty()) {
 			ok=false;
-			condition.setBackground(Color.red);
+			condition.setBackground(Color.RED);
 			if (showErrorMessage) {
 				MsgBox.error(this,Language.tr("Surface.Hold.Dialog.Condition.Error.Title"),Language.tr("Surface.Hold.Dialog.Condition.Error.InfoEmpty"));
 				return false;
@@ -191,7 +208,7 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 			final int error=ExpressionMultiEval.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
 			if (error>=0) {
 				ok=false;
-				condition.setBackground(Color.red);
+				condition.setBackground(Color.RED);
 				if (showErrorMessage) {
 					MsgBox.error(this,Language.tr("Surface.Hold.Dialog.Condition.Error.Title"),String.format(Language.tr("Surface.Hold.Dialog.Condition.Error.Info"),text,error+1));
 					return false;
@@ -199,6 +216,19 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 			} else {
 				condition.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
+		}
+
+		if (useMaxWaitingTime.isSelected()) {
+			final Double maxWaitingTimeValue=NumberTools.getPositiveDouble(maxWaitingTime,true);
+			if (maxWaitingTimeValue==null) {
+				ok=false;
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Surface.Hold.Dialog.AutoRelease.ErrorTitle"),String.format(Language.tr("Surface.Hold.Dialog.AutoRelease.ErrorInfo"),maxWaitingTime.getText()));
+					return false;
+				}
+			}
+		} else {
+			maxWaitingTime.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
 		if (!tablePriorityModel.checkInput(showErrorMessage)) {
@@ -237,6 +267,7 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 		case 2: hold.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_PROCESS); break;
 		case 3: hold.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_NOTHING); break;
 		}
+		if (useMaxWaitingTime.isSelected()) hold.setMaxWaitingTime(NumberTools.getPositiveDouble(maxWaitingTime,true)); else hold.setMaxWaitingTime(-1);
 		tablePriorityModel.storeData();
 	}
 }

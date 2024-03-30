@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-27 08:27+0100\n"
+"POT-Creation-Date: 2024-03-29 00:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13033,6 +13033,9 @@ msgstr "Folgestation in allen anderen Fällen"
 
 msgid "ModelDescription.DecideJS.Next"
 msgstr "Mögliche Folgestation"
+
+msgid "ModelDescription.Delay.AutoRelease"
+msgstr "Automatische Freigabe nach Haltezeit"
 
 msgid "ModelDescription.Delay.Distribution"
 msgstr "Verteilung zur Verzögerung im allgemeinen Fall"
@@ -29939,6 +29942,15 @@ msgstr "Bedingung nach unten schieben"
 msgid "Surface.ExpressionTableModelText.MoveUp"
 msgstr "Bedingung nach oben schieben"
 
+msgid "Surface.Hold.Dialog.AutoRelease"
+msgstr "Automatische Freigabe nach Zeitdauer"
+
+msgid "Surface.Hold.Dialog.AutoRelease.ErrorInfo"
+msgstr "Die angegebene maximale Haltezeit \"%s\" ist ungültig. Es muss eine positive Zahl angegeben werden."
+
+msgid "Surface.Hold.Dialog.AutoRelease.ErrorTitle"
+msgstr "Maximale Haltezeit"
+
 msgid "Surface.Hold.Dialog.ClientBasedCheck"
 msgstr "Individuelle Prüfung pro Kunde"
 
@@ -29995,6 +30007,9 @@ msgstr "ModellElementBedingungText"
 
 msgid "Surface.Hold.XML.Condition.ClientBased"
 msgstr "Kundenbasierend"
+
+msgid "Surface.Hold.XML.Condition.MaxWaitingTime"
+msgstr "MaximaleHaltezeit"
 
 msgid "Surface.Hold.XML.Condition.TimeType"
 msgstr "Zeittyp"

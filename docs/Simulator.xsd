@@ -1117,6 +1117,7 @@
     <xs:attribute name="Kundenbasierend" type="xs:string"/>
 	<xs:attribute name="ZeitabhaengigePruefungen" type="xs:string"/>
 	<xs:attribute name="Zeittyp" type="xs:string"/>
+	<xs:attribute name="MaximaleHaltezeit" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -3601,6 +3602,7 @@
     <xs:attribute name="ClientBased" type="xs:string"/>
 	<xs:attribute name="TimedChecks" type="xs:string"/>
 	<xs:attribute name="TimeType" type="xs:string"/>
+	<xs:attribute name="MaximumHoldingTime" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 

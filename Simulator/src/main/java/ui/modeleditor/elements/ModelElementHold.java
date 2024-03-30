@@ -31,6 +31,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import language.Language;
+import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.RunModelFixer;
@@ -87,6 +88,11 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	private boolean useTimedChecks;
 
 	/**
+	 * Maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (Werte &le;0 für "keine automatische Freigabe")
+	 */
+	private double maxWaitingTime;
+
+	/**
 	 * Art wie die Verzögerung für die Kundenstatistik gezählt werden soll
 	 * @see #getDelayType()
 	 * @see #setDelayType(DelayType)
@@ -104,6 +110,7 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		priority=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		clientBasedCheck=false;
 		useTimedChecks=false;
+		maxWaitingTime=-1;
 		delayType=DelayType.DELAY_TYPE_WAITING;
 	}
 
@@ -194,6 +201,22 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	}
 
 	/**
+	 * Liefert die maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (Werte &le;0 für "keine automatische Freigabe").
+	 * @return	Maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (Werte &le;0 für "keine automatische Freigabe")
+	 */
+	public double getMaxWaitingTime() {
+		return maxWaitingTime;
+	}
+
+	/**
+	 * Stellt die maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (Werte &le;0 für "keine automatische Freigabe") ein.
+	 * @param maxWaitingTime	Maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (Werte &le;0 für "keine automatische Freigabe")
+	 */
+	public void setMaxWaitingTime(double maxWaitingTime) {
+		this.maxWaitingTime=maxWaitingTime;
+	}
+
+	/**
 	 * Gibt an, ob die Wartezeiten als Bedienzeiten, Transferzeiten oder als Wartezeiten gezählt werden sollen.
 	 * @return	Gibt den Typ der Verzögerung zurück.
 	 */
@@ -239,6 +262,11 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		/* Regelmäßige Prüfung der Bedingung */
 		if (otherHold.useTimedChecks!=useTimedChecks) return false;
 
+		/* Automatische Freigabe nach maximaler Wartezeit? */
+		if (otherHold.maxWaitingTime>0 || maxWaitingTime>0) {
+			if (otherHold.maxWaitingTime!=maxWaitingTime) return false;
+		}
+
 		/* Erfassung der Aufenthaltszeit */
 		if (otherHold.delayType!=delayType) return false;
 
@@ -268,6 +296,9 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 
 			/* Regelmäßige Prüfung der Bedingung */
 			useTimedChecks=copySource.useTimedChecks;
+
+			/* Automatische Freigabe nach maximaler Wartezeit? */
+			maxWaitingTime=copySource.maxWaitingTime;
 
 			/* Erfassung der Aufenthaltszeit */
 			delayType=copySource.delayType;
@@ -419,6 +450,7 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		sub.setTextContent(condition);
 		if (clientBasedCheck) sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.ClientBased"),"1");
 		if (useTimedChecks) sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.TimedChecks"),"1");
+		if (maxWaitingTime>0) sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.MaxWaitingTime"),NumberTools.formatSystemNumber(maxWaitingTime));
 		switch (delayType) {
 		case DELAY_TYPE_WAITING:
 			sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.TimeType"),Language.trPrimary("Surface.Hold.XML.Condition.TimeType.WaitingTime"));
@@ -459,6 +491,12 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 			if (clientBasedCheckString.equals("1")) clientBasedCheck=true;
 			final String useTimedChecksString=Language.trAllAttribute("Surface.Hold.XML.Condition.TimedChecks",node);
 			if (useTimedChecksString.equals("1")) useTimedChecks=true;
+			final String maxWaitingTimeString=Language.trAllAttribute("Surface.Hold.XML.Condition.MaxWaitingTime",node);
+			if (!maxWaitingTimeString.isBlank()) {
+				final Double maxWaitingTime=NumberTools.getDouble(maxWaitingTimeString);
+				if (maxWaitingTime==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),"MaximaleHaltezeit"/*Language.tr("Surface.Hold.XML.Condition.MaxWaitingTime")*/,name,node.getParentNode().getNodeName());
+				this.maxWaitingTime=maxWaitingTime.doubleValue();
+			}
 			final String type=Language.trAllAttribute("Surface.Hold.XML.Condition.TimeType",node);
 			if (Language.trAll("Surface.Hold.XML.Condition.TimeType.WaitingTime",type)) delayType=DelayType.DELAY_TYPE_WAITING;
 			if (Language.trAll("Surface.Hold.XML.Condition.TimeType.TransferTime",type)) delayType=DelayType.DELAY_TYPE_TRANSFER;
@@ -544,6 +582,11 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		case DELAY_TYPE_NOTHING:
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Nothing"),9000);
 			break;
+		}
+
+		/* Automatische Freigabe nach maximaler Wartezeit? */
+		if (maxWaitingTime>0) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.AutoRelease"),NumberTools.formatNumber(maxWaitingTime)+" "+Language.tr("Surface.XML.TimeBase.Seconds"),10000);
 		}
 	}
 

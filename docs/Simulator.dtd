@@ -880,6 +880,8 @@
   Kundenbasierend   		CDATA	#IMPLIED
   ZeitabhaengigePruefungen	CDATA	#IMPLIED
   Zeittyp					CDATA	#IMPLIED
+  MaximaleHaltezeit			CDATA	#IMPLIED
+  
 >
 
 <!ELEMENT ModellElementBedingungMehrfach (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementBedingungMehrfachEinstellungen)*>
@@ -3567,9 +3569,10 @@
 >
 <!ELEMENT ModelElementHoldCondition (#PCDATA)>
 <!ATTLIST ModelElementHoldCondition
-  ClientBased   CDATA	#IMPLIED
-  TimedChecks	CDATA	#IMPLIED
-  TimeType		CDATA	#IMPLIED
+  ClientBased   		CDATA	#IMPLIED
+  TimedChecks			CDATA	#IMPLIED
+  TimeType				CDATA	#IMPLIED
+  MaximumHoldingTime	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelElementHoldMulti (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementHoldMultiSettings)*>

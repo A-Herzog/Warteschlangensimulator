@@ -17,19 +17,28 @@ When the condition element is passed, the clients are stopped until the defined 
 
 <p>
 The name of the condition element has no further meaning.
-If clients are in the queue, the system checks whether the condition is fulfilled.
+If clients are in the queue, the system checks on each state change whether the condition is fulfilled.
 If yes, the client with the highest priority is released. After a (simulation time) millisecond the next check
 is performed and, if necessary, the next client is released.
 It can be set whether the condition is to be considered globally (without the option of using client-specific variables)
 or whether the condition is to be interpreted on a client-specific basis (including the option of using client-specific variables).
 In the case of a global interpretation, the condition is evaluated only once; if it is not fulfilled, processing is completed in this step.
 In the case of a client-specific interpretation, the condition is evaluated individually for each waiting client in each step (which will take a longer time).
+</p>
+
+<p>
 If the condition contains values that can change independently of events (e.g. the simulated time),
 it may is necessary, to activate the option "Do additional time-based condition checks". In this case,
 the value of the condition is additionally checked in certain time intervals. How long these intervals
 are can be configured in the <a href="EditorModelDialog.html">Model properties</a> dialog.
 Additional time-based checks significantly slow down the simulation and should only be activated
 if this is for the condition necessary.
+</p>
+
+<p>
+If the only purpose of the time-dependent check is to always release waiting clients after a specified maximum time
+regardless of the actual condition, this can be done more efficiently using the optional value for the maximum waiting time.
+In this case, no time-dependent checks are necessary during the waiting time.
 </p> 
 
 </body>
