@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-29 00:22+0100\n"
+"POT-Creation-Date: 2024-03-31 01:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5387,6 +5387,9 @@ msgstr "Limited number of clients at a station"
 
 msgid "Examples.LocalVersusGlobalWarehouse"
 msgstr "Use of central warehouses close to the factory"
+
+msgid "Examples.MinimumWaitingTimes"
+msgstr "Load differentiation via minimum waiting times"
 
 msgid "Examples.MultiServiceSpeed"
 msgstr "Operators with different speeds at one process station"
@@ -13936,6 +13939,9 @@ msgstr "Exponential distributed service times (CV[S]=1)"
 msgid "ModelGenerator.Model.Description.Properties.ServiceLIFO"
 msgstr "Serving clients in inverse arrival order (LIFO)"
 
+msgid "ModelGenerator.Model.Description.Properties.ServiceLJF"
+msgstr "Prioritize long jobs (LJF)"
+
 msgid "ModelGenerator.Model.Description.Properties.ServiceLognormal"
 msgstr "Lognormal distributed service times (CV[S]=0.25)"
 
@@ -13947,6 +13953,9 @@ msgstr "Lognormal distributed service times (CV[S]=1.5)"
 
 msgid "ModelGenerator.Model.Description.Properties.ServiceRandom"
 msgstr "Serving clients in random order"
+
+msgid "ModelGenerator.Model.Description.Properties.ServiceSJF"
+msgstr "Prioritize short jobs (LJF)"
 
 msgid "ModelGenerator.Model.Description.Properties.SharedResource"
 msgstr "Operators resource shared between the stations"
@@ -14038,8 +14047,14 @@ msgstr "FIFO (in arrival order)"
 msgid "ModelGenerator.ServiceDiscipline.LIFO"
 msgstr "LIFO (in inverse arrival order)"
 
+msgid "ModelGenerator.ServiceDiscipline.LJF"
+msgstr "LJF (Longest job first)"
+
 msgid "ModelGenerator.ServiceDiscipline.Random"
 msgstr "random"
+
+msgid "ModelGenerator.ServiceDiscipline.SJF"
+msgstr "SJF (Shortest job first)"
 
 msgid "ModelGenerator.ServiceDistribution"
 msgstr "Service times distribution"
@@ -14073,6 +14088,12 @@ msgstr "low"
 
 msgid "ModelGenerator.ServiceUtilization.Medium"
 msgstr "medium"
+
+msgid "ModelGenerator.SetServiceTimeInAdvance"
+msgstr ""
+"Define the service time\n"
+"in advance so that it\n"
+"can be used to prioritize."
 
 msgid "ModelGenerator.SharedResource"
 msgstr "Use shared resource at process stations"

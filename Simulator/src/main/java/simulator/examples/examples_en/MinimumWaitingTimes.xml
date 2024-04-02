@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.6.0</ModelVersion>
+  <ModelName>Load differentiation via minimum waiting times</ModelName>
+  <ModelDescription>If the operators at different stations have different costs, the cheaper station (station A in the model) should usually
+be used first. This can be realized with a common queue and by assigning clients to station A if at least one operator
+is available at both stations. If this differentiation is to be further reinforced, a minimum waiting time can be introduced,
+which a client has to wait before being assigned to the expensive station B. The longer this time, the higher the chance
+that an operator will be free at station A before the end of the period. However, minimum waiting times increase
+the client-specific parameters (like waiting times) of the system.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="200"/>
+      <ModelElementConnection Element="2" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (15)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDispose id="3">
+      <ModelElementSize h="50" w="100" x="800" y="200"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="11" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementProcessStation id="4">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="150"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="OperatorsA"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="7">
+      <ModelElementConnection Element1="4" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="8">
+      <ModelElementName>B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="245"/>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="11" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="OperatorsB"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDecide id="6">
+      <ModelElementSize h="50" w="100" x="450" y="200"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Condition="WIP(4)&lt;Resource_count(1)" Element="9" Type="Out"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="9">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="6" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="10">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="6" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="11">
+      <ModelElementConnection Element1="8" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementHold id="12">
+      <ModelElementSize h="50" w="100" x="250" y="200"/>
+      <ModelElementConnection Element="2" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementHoldCondition ClientBased="1" TimeType="Waiting time">WIP(4)&lt;Resource_count(1) || (WIP(8)&lt;Resource_count(2) &amp;&amp; w&gt;MinWaitingTime)</ModelElementHoldCondition>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+    </ModelElementHold>
+    <ModelElementEdge id="14">
+      <ModelElementConnection Element1="12" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationBarDiagram id="15">
+      <ModelElementSize h="150" w="100" x="650" y="350"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementUse3D>1</ModelElementUse3D>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMaximumValue>1</ModelElementMaximumValue>
+      <ModelElementAxisLabels Text="Utilization">2</ModelElementAxisLabels>
+      <ModelElementDiagramElement BarColor="0,180,0">Resource_avg(1)/Resource_count(1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">Resource_avg(2)/Resource_count(2)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementAnimationText id="16">
+      <ModelElementName>Utilization A</ModelElementName>
+      <ModelElementSize h="30" w="118" x="500" y="350"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(1)/Resource_count(1)</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon LaTeX="1" Pretext="\rho_{A}=" Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="17">
+      <ModelElementName>Utilization B</ModelElementName>
+      <ModelElementSize h="30" w="118" x="500" y="400"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(2)/Resource_count(2)</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon LaTeX="1" Pretext="\rho_{B}=" Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementText id="20">
+      <ModelElementSize h="23" w="416" x="50" y="50"/>
+      <ModelElementTextLine>Load differentiation via minimum waiting times</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="21">
+      <ModelElementSize h="75" w="156" x="250" y="100"/>
+      <ModelElementTextLine>Clients are released when either</ModelElementTextLine>
+      <ModelElementTextLine>an operator is available at</ModelElementTextLine>
+      <ModelElementTextLine>station A or they have waited</ModelElementTextLine>
+      <ModelElementTextLine>a certain minimum time and</ModelElementTextLine>
+      <ModelElementTextLine>an operator is free at station B.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="23">
+      <ModelElementSize h="30" w="118" x="450" y="100"/>
+      <ModelElementTextLine>Clients are preferentially</ModelElementTextLine>
+      <ModelElementTextLine>assigned to Station A.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementEdge id="2">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="12" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="5">
+      <ModelElementName>Minimum waiting time for release to B</ModelElementName>
+      <ModelElementSize h="30" w="155" x="250" y="300"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">MinWaitingTime</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Posttext=" seconds" Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementText id="13">
+      <ModelElementSize h="247" w="366" x="50" y="400"/>
+      <ModelElementTextLine>If the operators at different stations have different costs,</ModelElementTextLine>
+      <ModelElementTextLine>the cheaper station (station A in the model) should usually</ModelElementTextLine>
+      <ModelElementTextLine>be used first. This can be realized with a common</ModelElementTextLine>
+      <ModelElementTextLine>queue and by assigning clients to station A</ModelElementTextLine>
+      <ModelElementTextLine>if at least one operator is available at both stations.</ModelElementTextLine>
+      <ModelElementTextLine>If this differentiation is to be further reinforced,</ModelElementTextLine>
+      <ModelElementTextLine>a minimum waiting time can be introduced, which</ModelElementTextLine>
+      <ModelElementTextLine>a client has to wait before being assigned to the</ModelElementTextLine>
+      <ModelElementTextLine>expensive station B. The longer this time, the higher</ModelElementTextLine>
+      <ModelElementTextLine>the chance that an operator will be free at station A</ModelElementTextLine>
+      <ModelElementTextLine>before the end of the period. However, minimum</ModelElementTextLine>
+      <ModelElementTextLine>waiting times increase the client-specific parameters</ModelElementTextLine>
+      <ModelElementTextLine>(like waiting times) of the system.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="18">
+      <ModelElementSize h="76" w="209" x="500" y="550"/>
+      <ModelElementTextLine>Calculated Utilization:</ModelElementTextLine>
+      <ModelElementTextLine>\rho=\frac{E[S]}{c\cdot E[I]}=\frac{100}{8\cdot15}=83.3%</ModelElementTextLine>
+      <ModelElementTextLine>Average waiting time by Erlang C:</ModelElementTextLine>
+      <ModelElementTextLine>E[W]=40 seconds</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="19">
+      <ModelElementName>Average waiting time of the clients</ModelElementName>
+      <ModelElementSize h="30" w="156" x="250" y="350"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>210,0,210</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">WaitingTime_avg()</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Posttext=" seconds" Pretext="E[W]=" Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementSlider id="22">
+      <ModelElementSize h="50" w="150" x="50" y="300"/>
+      <ModelElementSliderVariable>MinWaitingTime</ModelElementSliderVariable>
+      <ModelElementSliderMinimum>0</ModelElementSliderMinimum>
+      <ModelElementSliderMaximum>100</ModelElementSliderMaximum>
+      <ModelElementSliderStepWide>5</ModelElementSliderStepWide>
+    </ModelElementSlider>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Icon="status_online" Name="OperatorsA" Type="Number" Value="4"/>
+    <Resource Icon="status_online" Name="OperatorsB" Type="Number" Value="4"/>
+  </Resources>
+  <ClientTypeData/>
+  <InitialVariable Name="MinWaitingTime">50</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+</Model>

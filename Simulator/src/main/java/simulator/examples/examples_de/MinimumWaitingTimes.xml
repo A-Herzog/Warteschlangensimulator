@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.6.0</ModellVersion>
+  <ModellName>Lastdifferenzierung über Mindestwartezeiten</ModellName>
+  <ModellBeschreibung>Sind die Bedienungen an verschiedenen Stationen verschieden teuer, so soll eine Zuweisung üblicherweise bevorzugt
+an die günstigere Station (Station A im Modell) erfolgen. Dies lässt sich bei einer gemeinsamen Warteschlange dadurch
+realisieren, dass, wenn an beiden Stationen jeweils mindestens ein Bediener verfügbar ist, eine Zuweisung an Station A
+erfolgt. Soll diese Ausdifferenzierung weiter verstärkt werden, so kann eine Mindestwartezeit eingeführt werden, die ein
+Kunde mindestens gewartet haben muss, bevor er an die teure Station B zugewiesen werden darf. Je höher diese
+Zeitdauer ist, desto höher die Chance, dass vor Ende der Zeit ein Bediener an Station A freigeworden ist.
+Allerdings erhöhen Mindestwartezeiten die kundenspezifischen Kenngrößen des Systems.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="2" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (15)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementEnde id="3">
+      <ModellElementGroesse h="50" w="100" x="800" y="200"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementBedienstation id="4">
+      <ModellElementName>A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="150"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="BedienerA"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="7">
+      <ModellElementVerbindung Element1="4" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="8">
+      <ModellElementName>B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="245"/>
+      <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="BedienerB"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementVerzweigen id="6">
+      <ModellElementGroesse h="50" w="100" x="450" y="200"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="WIP(4)&lt;Resource_count(1)" Element="9" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="9">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="6" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="10">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="6" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="11">
+      <ModellElementVerbindung Element1="8" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedingung id="12">
+      <ModellElementGroesse h="50" w="100" x="250" y="200"/>
+      <ModellElementVerbindung Element="2" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementBedingungText Kundenbasierend="1" Zeittyp="Wartezeit">WIP(4)&lt;Resource_count(1) || (WIP(8)&lt;Resource_count(2) &amp;&amp; w&gt;MinWaitingTime)</ModellElementBedingungText>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+    </ModellElementBedingung>
+    <ModellElementKante id="14">
+      <ModellElementVerbindung Element1="12" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationBalkenDiagramm id="15">
+      <ModellElementGroesse h="150" w="100" x="650" y="350"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>1</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung Text="Auslastung">2</ModellElementAchsenbeschriftung>
+      <ModellElementDiagrammElement Balkenfarbe="0,180,0">Resource_avg(1)/Resource_count(1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">Resource_avg(2)/Resource_count(2)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementAnimationText id="16">
+      <ModellElementName>Auslastung A</ModellElementName>
+      <ModellElementGroesse h="30" w="105" x="500" y="350"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg(1)/Resource_count(1)</ModellElementAnimationsmodus>
+      <ModellElementAnimationTextZusatz LaTeX="1" Pretext="\rho_{A}=" Symbole="1"/>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="17">
+      <ModellElementName>Auslastung B</ModellElementName>
+      <ModellElementGroesse h="30" w="105" x="500" y="400"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Resource_avg(2)/Resource_count(2)</ModellElementAnimationsmodus>
+      <ModellElementAnimationTextZusatz LaTeX="1" Pretext="\rho_{B}=" Symbole="1"/>
+    </ModellElementAnimationText>
+    <ModellElementText id="20">
+      <ModellElementGroesse h="23" w="389" x="50" y="50"/>
+      <ModellElementTextzeile>Lastdifferenzierung über Mindestwartezeiten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="21">
+      <ModellElementGroesse h="90" w="148" x="250" y="100"/>
+      <ModellElementTextzeile>Kunden werden freigegeben,</ModellElementTextzeile>
+      <ModellElementTextzeile>wenn entweder ein Bediener</ModellElementTextzeile>
+      <ModellElementTextzeile>an Station A verfügbar ist oder</ModellElementTextzeile>
+      <ModellElementTextzeile>sie eine bestimmte Mindestzeit</ModellElementTextzeile>
+      <ModellElementTextzeile>gewartet haben und ein</ModellElementTextzeile>
+      <ModellElementTextzeile>Bediener an Station B frei ist.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="23">
+      <ModellElementGroesse h="30" w="141" x="450" y="100"/>
+      <ModellElementTextzeile>Kunden werden bevorzugt an</ModellElementTextzeile>
+      <ModellElementTextzeile>Station A zugewiesen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKante id="2">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="12" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="5">
+      <ModellElementName>Mindestwartezeit für Freigabe an B</ModellElementName>
+      <ModellElementGroesse h="30" w="146" x="250" y="300"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">MinWaitingTime</ModellElementAnimationsmodus>
+      <ModellElementAnimationTextZusatz Posttext=" Sekunden" Symbole="1"/>
+    </ModellElementAnimationText>
+    <ModellElementText id="13">
+      <ModellElementGroesse h="285" w="381" x="50" y="400"/>
+      <ModellElementTextzeile>Sind die Bedienungen an verschiedenen Stationen</ModellElementTextzeile>
+      <ModellElementTextzeile>verschieden teuer, so soll eine Zuweisung üblicherweise</ModellElementTextzeile>
+      <ModellElementTextzeile>bevorzugt an die günstigere Station (Station A im Modell)</ModellElementTextzeile>
+      <ModellElementTextzeile>erfolgen. Dies lässt sich bei einer gemeinsamen</ModellElementTextzeile>
+      <ModellElementTextzeile>Warteschlange dadurch realisieren, dass, wenn an beiden</ModellElementTextzeile>
+      <ModellElementTextzeile>Stationen jeweils mindestens ein Bediener verfügbar ist,</ModellElementTextzeile>
+      <ModellElementTextzeile>eine Zuweisung an Station A erfolgt. Soll diese</ModellElementTextzeile>
+      <ModellElementTextzeile>Ausdifferenzierung weiter verstärkt werden, so kann eine</ModellElementTextzeile>
+      <ModellElementTextzeile>Mindestwartezeit eingeführt werden, die ein Kunde</ModellElementTextzeile>
+      <ModellElementTextzeile>mindestens gewartet haben muss, bevor er an die teure</ModellElementTextzeile>
+      <ModellElementTextzeile>Station B zugewiesen werden darf. Je höher diese Zeitdauer</ModellElementTextzeile>
+      <ModellElementTextzeile>ist, desto höher die Chance, dass vor Ende der Zeit ein</ModellElementTextzeile>
+      <ModellElementTextzeile>Bediener an Station A freigeworden ist. Allerdings erhöhen</ModellElementTextzeile>
+      <ModellElementTextzeile>Mindestwartezeiten die kundenspezifischen Kenngrößen</ModellElementTextzeile>
+      <ModellElementTextzeile>des Systems.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="18">
+      <ModellElementGroesse h="76" w="198" x="500" y="550"/>
+      <ModellElementTextzeile>Rechnerische Auslastung:</ModellElementTextzeile>
+      <ModellElementTextzeile>\rho=\frac{E[S]}{c\cdot E[I]}=\frac{100}{8\cdot15}=83,3%</ModellElementTextzeile>
+      <ModellElementTextzeile>Mittlere Wartezeit laut Erlang-C:</ModellElementTextzeile>
+      <ModellElementTextzeile>E[W]=40 Sekunden</ModellElementTextzeile>
+      <ModellElementSchriftgrosse LaTeX="1" Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="19">
+      <ModellElementName>Mittlere Wartezeit der Kunden</ModellElementName>
+      <ModellElementGroesse h="30" w="186" x="250" y="350"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>210,0,210</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg()</ModellElementAnimationsmodus>
+      <ModellElementAnimationTextZusatz Posttext=" Sekunden" Pretext="E[W]=" Symbole="1"/>
+    </ModellElementAnimationText>
+    <ModellElementSchieberegler id="22">
+      <ModellElementGroesse h="50" w="150" x="50" y="300"/>
+      <ModellElementSchiebereglerVariable>MinWaitingTime</ModellElementSchiebereglerVariable>
+      <ModellElementSchiebereglerMinimum>0</ModellElementSchiebereglerMinimum>
+      <ModellElementSchiebereglerMaximum>100</ModellElementSchiebereglerMaximum>
+      <ModellElementSchiebereglerSchrittweite>5</ModellElementSchiebereglerSchrittweite>
+    </ModellElementSchieberegler>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Icon="status_online" Name="BedienerA" Typ="Anzahl" Wert="4"/>
+    <Ressource Icon="status_online" Name="BedienerB" Typ="Anzahl" Wert="4"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <InitialeVariable Name="MinWaitingTime">50</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
+</Modell>

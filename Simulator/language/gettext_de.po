@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-29 00:22+0100\n"
+"POT-Creation-Date: 2024-03-31 01:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5394,6 +5394,9 @@ msgstr "Begrenzung der Anzahl an Kunden an der Bedienstation"
 
 msgid "Examples.LocalVersusGlobalWarehouse"
 msgstr "Verwendung von fabriknahen Zentrallagern"
+
+msgid "Examples.MinimumWaitingTimes"
+msgstr "Lastdifferenzierung über Mindestwartezeiten"
 
 msgid "Examples.MultiServiceSpeed"
 msgstr "Verschieden schnelle Bediener an einer Bedienstation"
@@ -13963,6 +13966,9 @@ msgstr "Exponentialverteilte Bedienzeiten (CV[S]=1)"
 msgid "ModelGenerator.Model.Description.Properties.ServiceLIFO"
 msgstr "Bedienung der Kunden in umgekehrter Ankunftsreihenfolge (LIFO)"
 
+msgid "ModelGenerator.Model.Description.Properties.ServiceLJF"
+msgstr "Lange Aufträge vorziehen (LJF)"
+
 msgid "ModelGenerator.Model.Description.Properties.ServiceLognormal"
 msgstr "Lognormalverteilte Bedienzeiten (CV[S]=0,25)"
 
@@ -13974,6 +13980,9 @@ msgstr "Lognormalverteilte Bedienzeiten (CV[S]=1,5)"
 
 msgid "ModelGenerator.Model.Description.Properties.ServiceRandom"
 msgstr "Bedienung der Kunden in zufälliger Reihenfolge"
+
+msgid "ModelGenerator.Model.Description.Properties.ServiceSJF"
+msgstr "Kurze Aufträge vorziehen (SJF)"
 
 msgid "ModelGenerator.Model.Description.Properties.SharedResource"
 msgstr "Zwischen den Stationen geteilte Bedienerressource"
@@ -14065,8 +14074,14 @@ msgstr "FIFO (in Ankunftsreihenfolge)"
 msgid "ModelGenerator.ServiceDiscipline.LIFO"
 msgstr "LIFO (in umgekehrter Ankunftsreihenfolge)"
 
+msgid "ModelGenerator.ServiceDiscipline.LJF"
+msgstr "LJF (Longest job first)"
+
 msgid "ModelGenerator.ServiceDiscipline.Random"
 msgstr "zufällig"
+
+msgid "ModelGenerator.ServiceDiscipline.SJF"
+msgstr "SJF (Shortest job first)"
 
 msgid "ModelGenerator.ServiceDistribution"
 msgstr "Bedienzeitenverteilung"
@@ -14100,6 +14115,12 @@ msgstr "Niedrig"
 
 msgid "ModelGenerator.ServiceUtilization.Medium"
 msgstr "Mittel"
+
+msgid "ModelGenerator.SetServiceTimeInAdvance"
+msgstr ""
+"Bedienzeit vorab festlegen\n"
+"damit gemäß dieser priorisiert\n"
+"werden kann."
 
 msgid "ModelGenerator.SharedResource"
 msgstr "Geteilte Bedienerressource an den Bedienstationen verwenden"
