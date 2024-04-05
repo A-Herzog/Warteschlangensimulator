@@ -46,6 +46,7 @@ import ui.modeleditor.elements.ModelElementDecide;
 import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementDispose;
 import ui.modeleditor.elements.ModelElementProcess;
+import ui.modeleditor.elements.ModelElementSet;
 import ui.modeleditor.elements.ModelElementSource;
 import ui.modeleditor.elements.ModelElementTeleportDestination;
 import ui.modeleditor.elements.ModelElementTeleportSource;
@@ -133,7 +134,9 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 		comboServiceDiscipline=addCombo(this,Language.tr("ModelGenerator.ServiceDiscipline"),new String[]{
 				Language.tr("ModelGenerator.ServiceDiscipline.FIFO"),
 				Language.tr("ModelGenerator.ServiceDiscipline.LIFO"),
-				Language.tr("ModelGenerator.ServiceDiscipline.Random")
+				Language.tr("ModelGenerator.ServiceDiscipline.Random"),
+				Language.tr("ModelGenerator.ServiceDiscipline.SJF"),
+				Language.tr("ModelGenerator.ServiceDiscipline.LJF")
 		});
 
 		/* Bedienstation */
@@ -178,11 +181,22 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 			}
 		});
 
-		/* LIFO -> Kundentypen auf 1, Prioritäten aus */
 		comboServiceDiscipline.addActionListener(e->{
-			if (comboServiceDiscipline.getSelectedIndex()==1) { /* LIFO */
+			/* Nicht FIFO -> Kundentypen auf 1, Prioritäten aus */
+			if (comboServiceDiscipline.getSelectedIndex()!=0) { /* LIFO, Random, ... */
 				spinnerClientTypes.setValue(1);
 				checkPriorities.setSelected(false);
+			}
+			/* SJF, LJF -> Batch aus */
+			if (comboServiceDiscipline.getSelectedIndex()==3 || comboServiceDiscipline.getSelectedIndex()==4) {
+				spinnerArrivalBatch.setValue(1);
+			}
+		});
+
+		/* Batch größer 1 -> SJF oder LJF zurücksetzen */
+		spinnerArrivalBatch.addChangeListener(e->{
+			if (((Integer)spinnerArrivalBatch.getValue()).intValue()>1 && (comboServiceDiscipline.getSelectedIndex()==3 || comboServiceDiscipline.getSelectedIndex()==4)) {
+				comboServiceDiscipline.setSelectedIndex(0);
 			}
 		});
 
@@ -219,7 +233,7 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 	 * @param arrivalBatch	Batch-Ankünfte?
 	 * @param serviceBatch	Batch-Bedienungen?
 	 * @param serviceDistribution	Typ der Bedienzeitenverteilung
-	 * @param discipline	FIFO (0), LIFO (1) oder Random (2)
+	 * @param discipline	FIFO (0), LIFO (1), Random (2), SJF (3) oder LJF (4)
 	 * @param stations	Anzahl an Stationen
 	 * @param sharedResource	Bediener zwischen den Stationen geteilt?
 	 * @param shortestQueue	Kunden wählen kürzeste Warteschlange?
@@ -263,6 +277,12 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 			break;
 		case 2:
 			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceRandom"));
+			break;
+		case 3:
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceSJF"));
+			break;
+		case 4:
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLJF"));
 			break;
 		}
 		if (stations>1) {
@@ -313,6 +333,7 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 		ModelElementDelay retryDelay=null;
 		ModelElementTeleportDestination retryTeleportDestination=null;
 		ModelElementTeleportDestination forwardingTeleportDestination=null;
+		final ModelElementSet[] set=new ModelElementSet[stations];
 		final ModelElementProcess[] processes=new ModelElementProcess[stations];
 		final ModelElementCounter[] counter=new ModelElementCounter[stations*2];
 		final ModelElementDecide[] retryDecide=new ModelElementDecide[stations];
@@ -457,40 +478,82 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 		if (clientTypes>stations) yPosition=100+(clientTypes-stations)*50; else yPosition=100;
 		if (clientTypes==1 && stations==1 && useForwarding) yPosition+=50;
 		for (int i=0;i<processes.length;i++) {
+			int processX=xPosition;
+			if (discipline==3 || discipline==4) {
+				model.surface.add(set[i]=new ModelElementSet(model,model.surface));
+				set[i].setPosition(new Point(xPosition,yPosition));
+				set[i].setName("Set S");
+				String setServiceTime="";
+				switch (serviceDistribution) {
+				case 0:
+					setServiceTime=NumberTools.formatNumberMax(serviceTime);
+					break;
+				case 1:
+					setServiceTime="ExpDist("+NumberTools.formatNumberMax(serviceTime)+")";
+					break;
+				case 2:
+					setServiceTime="LogNormalDist("+NumberTools.formatNumberMax(serviceTime)+";"+NumberTools.formatNumberMax(serviceTime/4)+")";
+					break;
+				case 3:
+					setServiceTime="LogNormalDist("+NumberTools.formatNumberMax(serviceTime)+";"+NumberTools.formatNumberMax(3*serviceTime/4)+")";
+					break;
+				case 4:
+					setServiceTime="LogNormalDist("+NumberTools.formatNumberMax(serviceTime)+";"+NumberTools.formatNumberMax(3*serviceTime/2)+")";
+					break;
+				}
+				set[i].getRecord().setData(new String[] {"ClientData(1)"},new String[] {setServiceTime});
+				processX+=200;
+				addSmallInfo(model,Language.tr("ModelGenerator.SetServiceTimeInAdvance"),xPosition,yPosition+100);
+			}
 			model.surface.add(processes[i]=new ModelElementProcess(model,model.surface));
-			processes[i].setPosition(new Point(xPosition,yPosition));
+			processes[i].setPosition(new Point(processX,yPosition));
 			if (serviceBatch>1) {
 				processes[i].setBatchMinimum(serviceBatch);
 				processes[i].setBatchMaximum(serviceBatch);
 			}
 			final String name=(resourceGroups==1)?model.resources.getName(0):model.resources.getName(i);
 			processes[i].getNeededResources().get(0).put(name,1);
-			switch (serviceDistribution) {
-			case 0:
-				processes[i].getWorking().set(new OnePointDistributionImpl(serviceTime));
-				break;
-			case 1:
-				processes[i].getWorking().set(new ExponentialDistribution(null,serviceTime,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY));
-				break;
-			case 2:
-				processes[i].getWorking().set(new LogNormalDistributionImpl(serviceTime,serviceTime/4));
-				break;
-			case 3:
-				processes[i].getWorking().set(new LogNormalDistributionImpl(serviceTime,3*serviceTime/4));
-				break;
-			case 4:
-				processes[i].getWorking().set(new LogNormalDistributionImpl(serviceTime,3*serviceTime/2));
-				break;
+			if (discipline==3 || discipline==4) {
+				/* SJF oder LJF */
+				processes[i].getWorking().set("ClientData(1)");
+			} else {
+				switch (serviceDistribution) {
+				case 0:
+					processes[i].getWorking().set(new OnePointDistributionImpl(serviceTime));
+					break;
+				case 1:
+					processes[i].getWorking().set(new ExponentialDistribution(null,serviceTime,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY));
+					break;
+				case 2:
+					processes[i].getWorking().set(new LogNormalDistributionImpl(serviceTime,serviceTime/4));
+					break;
+				case 3:
+					processes[i].getWorking().set(new LogNormalDistributionImpl(serviceTime,3*serviceTime/4));
+					break;
+				case 4:
+					processes[i].getWorking().set(new LogNormalDistributionImpl(serviceTime,3*serviceTime/2));
+					break;
+				}
 			}
 			switch (discipline) {
 			case 0:
 				/* Nichts einzustellen */
 				break;
 			case 1:
+				/* LIFO */
 				processes[i].setPriority(sources[0].getName(),"-w");
 				break;
 			case 2:
+				/* Random */
 				processes[i].setPriority(sources[0].getName(),"random()");
+				break;
+			case 3:
+				/* SJF */
+				processes[i].setPriority(sources[0].getName(),"-ClientData(1)");
+				break;
+			case 4:
+				/* LJF */
+				processes[i].setPriority(sources[0].getName(),"ClientData(1)");
 				break;
 			}
 			if (priorities) for (int j=0;j<sources.length;j++) processes[i].setPriority(sources[j].getName(),(100*j)+"+w");
@@ -498,6 +561,7 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 
 			if (useWaitingTimeTolerance && i<processes.length-1) yPosition+=200; else yPosition+=100;
 		}
+		if (discipline==3 || discipline==4) xPosition+=200;
 
 		/* Infotext unter Bedienstationen */
 		description=new StringBuilder();
@@ -568,6 +632,12 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 				break;
 			case 2:
 				description.append(Language.tr("ModelGenerator.ServiceDiscipline")+": "+Language.tr("ModelGenerator.ServiceDiscipline.Random"));
+				break;
+			case 3:
+				description.append(Language.tr("ModelGenerator.ServiceDiscipline")+": "+Language.tr("ModelGenerator.ServiceDiscipline.SJF"));
+				break;
+			case 4:
+				description.append(Language.tr("ModelGenerator.ServiceDiscipline")+": "+Language.tr("ModelGenerator.ServiceDiscipline.LJF"));
 				break;
 			}
 		}
@@ -671,12 +741,15 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 		model.surface.add(dispose);
 
 		/* Kanten einfügen */
+		ModelElementPosition[] toProcesses=new ModelElementPosition[processes.length];
+		for (int i=0;i<toProcesses.length;i++) toProcesses[i]=(discipline==3 || discipline==4)?set[i]:processes[i];
+		if (discipline==3 || discipline==4) for (int i=0;i<toProcesses.length;i++) addEdge(model,set[i],processes[i]);
 		if (decide==null) {
 			if (sourcesVertex==null) {
-				for (ModelElementSource source: sources) addEdge(model,source,processes[0]);
+				for (ModelElementSource source: sources) addEdge(model,source,toProcesses[0]);
 			} else {
 				for (ModelElementSource source: sources) addEdge(model,source,sourcesVertex);
-				addEdge(model,sourcesVertex,processes[0]);
+				addEdge(model,sourcesVertex,toProcesses[0]);
 				if (useRetry) {
 					addEdge(model,retryDelay,sourcesVertex);
 					addEdge(model,retryTeleportDestination,retryDelay);
@@ -700,7 +773,7 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 				}
 			}
 			for (int i=0;i<processes.length;i++) {
-				addEdge(model,decide,processes[i],processes.length>2);
+				addEdge(model,decide,toProcesses[i],processes.length>2);
 			}
 		}
 		final ModelElementPosition disposeLikeSuccess=useForwarding?forwardingDecide:dispose;
