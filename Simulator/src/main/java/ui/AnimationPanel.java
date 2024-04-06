@@ -223,6 +223,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 	/* Symbolleiste oben */
 
+	/** Schaltfläche "Aufzeichnung starten" */
+	private final JButton buttonStartRecording;
 	/** Schaltfläche "Beenden" */
 	private final JButton buttonAbort;
 	/** Schaltfläche "Bild speichern" */
@@ -376,6 +378,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		final JToolBar toolBar=new JToolBar();
 		add(toolBar,BorderLayout.NORTH);
 		toolBar.setFloatable(false);
+
+		buttonStartRecording=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.StartRecording"),Language.tr("Animation.Toolbar.StartRecording.Info"),Images.ANIMATION_RECORD.getIcon());
+		buttonStartRecording.setVisible(false);
 
 		buttonAbort=createToolbarButton(toolBar,Language.tr("Animation.Toolbar.Stop"),Language.tr("Animation.Toolbar.Stop.Info")+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE,0))+")",Images.GENERAL_CANCEL.getIcon());
 		toolBar.addSeparator();
@@ -690,6 +695,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @param simulator	Simulator für das Modell (darf noch nicht gestartet worden sein)
 	 * @param logger	Logger, über den die Einzelschritt ausgaben angezeigt werden
 	 * @param recordFile	Videodatei, in der die Animation aufgezeichnet werden soll
+	 * @param startRecordingImmediately	Aufzeichnung sofort bei Beginn der Animation starten?
 	 * @param scaleFrame	Skalierung der Bilder vor dem Übernehmen ins Video (0.01..1)
 	 * @param paintTimeStamp	Fügt bei der Aufzeichnung in das Video den jeweils aktuellen Simulationszeit-Wert ein
 	 * @param fastWarmUp	Ist <code>true</code>, wenn die Warm-up-Phase bei der Animation zunächst als Simulation vorab ausgeführt werden soll
@@ -702,7 +708,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @param startFullRecording	Wird die Animation im Pausemodus gestartet, so wird direkt der erste Schritt ausgeführt. Über diese Funktion kann angegeben werden, dass dieser Schritt im vollständigen Erfassungsmodus durchgeführt werden soll.
 	 * @see #makeAnimationModel(EditModel)
 	 */
-	public void setSimulator(final EditModel model, final Simulator simulator, final CallbackLoggerWithJS logger, final File recordFile, final double scaleFrame, final boolean paintTimeStamp, final boolean fastWarmUp, final double zoom, final ModelSurface.Grid raster, final Point position, final Runnable animationDone, final Runnable sendToSimulation, final boolean startPaused, final boolean startFullRecording) {
+	public void setSimulator(final EditModel model, final Simulator simulator, final CallbackLoggerWithJS logger, final File recordFile, final boolean startRecordingImmediately, final double scaleFrame, final boolean paintTimeStamp, final boolean fastWarmUp, final double zoom, final ModelSurface.Grid raster, final Point position, final Runnable animationDone, final Runnable sendToSimulation, final boolean startPaused, final boolean startFullRecording) {
 		this.model=model;
 		this.startPaused=startPaused;
 		this.fastWarmUp=fastWarmUp;
@@ -739,8 +745,9 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			/* encoder=new VP8System(recordFile,surfaceAnimator.useAdditionalFrames()); */
 			encoder=new MJPEGSystem(recordFile,surfaceAnimator.useAdditionalFrames());
 			if (!encoder.isReady()) encoder=null;
+			if (!startRecordingImmediately) buttonStartRecording.setVisible(true);
 		}
-		surfaceAnimator.setRecordSystem(encoder,scaleFrame,paintTimeStamp);
+		surfaceAnimator.setRecordSystem(encoder,startRecordingImmediately,scaleFrame,paintTimeStamp);
 
 		surfacePanel.getSurface().setAnimatorPanel(this);
 		surfacePanel.setZoom(zoom);
@@ -940,7 +947,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		if (surfaceAnimator==null) return;
 		if (simulator==null) return;
 
-		surfaceAnimator.setRecordSystem(null,1.0,false);
+		surfaceAnimator.setRecordSystem(null,false,1.0,false);
 		simulationSuccessful=successful;
 		simulatorLock.acquireUninterruptibly();
 		try {
@@ -1760,7 +1767,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		if (!running) playPause();
 
 		if (running) { /* Wenn die Animation eigentlich schon zu Ende ist, läuft sich durch playPause() nicht mehr an, dann müssen/können die folgenden beiden Zeile nicht mehr ausgeführt werden. */
-			surfaceAnimator.setRecordSystem(null,1.0,false);
+			surfaceAnimator.setRecordSystem(null,false,1.0,false);
 			if (timer!=null) timer.cancel();
 		}
 		simulationSuccessful=false;
@@ -2606,6 +2613,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (source==buttonFindModel) {surfacePanel.centerModel(); return;}
 			if (source==buttonDashboard) {showDashboard(); return;}
 			if (source==buttonViews) {showViewPopup(buttonViews); return;}
+			if (source==buttonStartRecording) {surfaceAnimator.startRecording(); buttonStartRecording.setVisible(false); return;}
 			if (source==buttonAbort) {closeRequest(); buttonAbort.setEnabled(false); return;}
 			if (source==buttonScreenshot) {saveScreenshot(); return;}
 			if (source==buttonExport) {showExportMenu(buttonExport); return;}

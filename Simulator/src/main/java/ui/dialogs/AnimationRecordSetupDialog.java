@@ -78,6 +78,11 @@ public class AnimationRecordSetupDialog extends BaseDialog {
 	private final JCheckBox timeStamp;
 
 	/**
+	 * Videoaufzeichnung von Animationen sofort starten?
+	 */
+	private final JCheckBox startImmediately;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
 	 */
@@ -124,6 +129,10 @@ public class AnimationRecordSetupDialog extends BaseDialog {
 		/* Timestamps */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(timeStamp=new JCheckBox(Language.tr("RecordAnimation.TimeStamp"),setup.paintTimeStamp));
+
+		/* Sofort starten? */
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(startImmediately=new JCheckBox(Language.tr("RecordAnimation.StartImmediately"),setup.animationRecordStartImmediately));
 
 		/* Dialog starten */
 		checkData(false);
@@ -201,8 +210,9 @@ public class AnimationRecordSetupDialog extends BaseDialog {
 		final double animationFrameScale=scaleSlider.getValue()/100.0;
 
 		if (timeStamp.isSelected()!=setup.paintTimeStamp || Math.abs(animationFrameScale-setup.animationFrameScale)>0.001) {
-			setup.paintTimeStamp=timeStamp.isSelected();
 			setup.animationFrameScale=animationFrameScale;
+			setup.paintTimeStamp=timeStamp.isSelected();
+			setup.animationRecordStartImmediately=startImmediately.isSelected();
 			setup.saveSetup();
 		}
 	}

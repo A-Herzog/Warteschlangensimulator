@@ -742,6 +742,11 @@ public class SetupData extends SetupBase {
 	public double animationFrameScale;
 
 	/**
+	 * Videoaufzeichnung von Animationen sofort starten?
+	 */
+	public boolean animationRecordStartImmediately;
+
+	/**
 	 * Startet die Animation im Einzelschrittmodus
 	 */
 	public boolean animationStartPaused;
@@ -1533,6 +1538,7 @@ public class SetupData extends SetupBase {
 		renameOnCopy=RenameOnCopyMode.SMART;
 		paintTimeStamp=true;
 		animationFrameScale=1.0;
+		animationRecordStartImmediately=true;
 		animationStartPaused=false;
 		animationFinishPaused=false;
 		lastStart="";
@@ -2311,6 +2317,11 @@ public class SetupData extends SetupBase {
 			if (name.equals("scalevideo")) {
 				final Double D=NumberTools.getPositiveDouble(e.getTextContent());
 				if (D!=null) animationFrameScale=Math.max(0.01,Math.min(1,D.doubleValue()));
+				continue;
+			}
+
+			if (name.equals("startvideorecordingimmediately")) {
+				animationRecordStartImmediately=loadBoolean(e.getTextContent(),true);
 				continue;
 			}
 
@@ -3120,6 +3131,11 @@ public class SetupData extends SetupBase {
 		if (animationFrameScale!=1.0) {
 			root.appendChild(node=doc.createElement("ScaleVideo"));
 			node.setTextContent(NumberTools.formatSystemNumber(animationFrameScale));
+		}
+
+		if (!animationRecordStartImmediately) {
+			root.appendChild(node=doc.createElement("StartVideoRecordingImmediately"));
+			node.setTextContent("0");
 		}
 
 		if (animationStartPaused) {

@@ -3211,6 +3211,7 @@ public class MainPanel extends MainPanelBase {
 				simulator,
 				logger,
 				recordFile,
+				setup.animationRecordStartImmediately,
 				setup.animationFrameScale,
 				setup.paintTimeStamp,
 				fastWarmUp,

@@ -66,6 +66,8 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 	private final AnimationMoveMode mode;
 	/** Wird hier ein Wert ungleich <code>null</code> angegeben, so werden die gezeichneten Animationsschritte in dem übergebenen System aufgezeichnet */
 	private VideoSystem recordSystem;
+	/** Wurde die Aufzeichnung schon gestartet? */
+	private boolean recordingStarted;
 	/** Skalierung der Bilder vor dem Übernehmen ins Video (0.01..1) */
 	private double scaleFrame;
 	/** Fügt in das Video den jeweils aktuellen Simulationszeit-Wert ein */
@@ -120,13 +122,15 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 	/**
 	 * Stellt ein, ob und wenn ja in welchem Objekt die Animation aufgezeichnet werden soll
 	 * @param recordSystem	Wird hier ein Wert ungleich <code>null</code> übergeben, so werden die gezeichneten Animationsschritte in dem übergebenen System aufgezeichnet
+	 * @param start	Aufzeichnung sofort starten?
 	 * @param scaleFrame	Skalierung der Bilder vor dem Übernehmen ins Video (0.01..1)
 	 * @param paintTimeStamp	Fügt in das Video den jeweils aktuellen Simulationszeit-Wert ein
 	 */
-	public void setRecordSystem(final VideoSystem recordSystem, final double scaleFrame, final boolean paintTimeStamp) {
+	public void setRecordSystem(final VideoSystem recordSystem, final boolean start, final double scaleFrame, final boolean paintTimeStamp) {
 		this.recordSystem=recordSystem;
 		this.scaleFrame=Math.max(0.01,Math.min(1.0,scaleFrame));
 		this.paintTimeStamp=paintTimeStamp;
+		if (start) recordingStarted=true;
 	}
 
 	/**
@@ -223,7 +227,15 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 	@Override
 	protected void doPaintSurface(final SimulationData simData) {
 		super.doPaintSurface(simData);
-		if (recordSystem!=null) recordStep(simData);
+		if (recordSystem!=null && recordingStarted) recordStep(simData);
+	}
+
+	/**
+	 * Aufzeichnung jetzt starten?
+	 * (Wenn diese nicht bereits beim Start aktiviert wurde.)
+	 */
+	public void startRecording() {
+		recordingStarted=true;
 	}
 
 	/**

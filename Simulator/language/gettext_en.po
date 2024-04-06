@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-31 01:17+0100\n"
+"POT-Creation-Date: 2024-04-01 00:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -568,6 +568,12 @@ msgstr "Real time (1:1)"
 
 msgid "Animation.Toolbar.Speed.Slow"
 msgstr "Slow"
+
+msgid "Animation.Toolbar.StartRecording"
+msgstr "Start recording"
+
+msgid "Animation.Toolbar.StartRecording.Info"
+msgstr "Starts recording of the animation"
 
 msgid "Animation.Toolbar.Step"
 msgstr "Single steps"
@@ -17077,6 +17083,9 @@ msgstr "Shows the information page in the statistic"
 
 msgid "RecordAnimation.Scale"
 msgstr "Scaling"
+
+msgid "RecordAnimation.StartImmediately"
+msgstr "Start video recording immediately"
 
 msgid "RecordAnimation.TimeStamp"
 msgstr "Show simulation time in recorded animation"
