@@ -424,6 +424,18 @@ class TableTest {
 		LaTeX.append("\\end{table}\n");
 		assertEquals(LaTeX.toString(),table.saveToLaTeX());
 
+		final StringBuilder typst=new StringBuilder();
+		typst.append("#figure(\n");
+		typst.append("table(\n");
+		typst.append("  columns: 3,\n");
+		typst.append("  [1], [Test], [abc;def],\n");
+		typst.append("  [123\"456], [], []\n");
+		typst.append("),\n");
+		typst.append("caption: [Simulator]\n");
+		typst.append("// <LabelForTable>\n");
+		typst.append(")\n");
+		assertEquals(typst.toString(),table.saveToTypst());
+
 		table=new Table();
 		table.load(scvTestString);
 		assertEquals(2,table.getSize(0));

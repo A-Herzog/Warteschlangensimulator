@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-01 00:10+0200\n"
+"POT-Creation-Date: 2024-04-06 00:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9595,6 +9595,9 @@ msgstr "SciLab script"
 
 msgid "FileType.Text"
 msgstr "Text files"
+
+msgid "FileType.TypstTable"
+msgstr "Typst tables"
 
 msgid "FileType.VideoFile"
 msgstr "Video files"

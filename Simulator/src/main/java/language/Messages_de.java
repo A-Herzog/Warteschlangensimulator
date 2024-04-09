@@ -21936,6 +21936,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54663] = "Es wurden %d Ergebnisse gew\u00e4hlt. Es k\u00f6nnen jedoch nur maximal %d Ergebnisse gleichzeitig verwendet werden.";
     t[54666] = "ParameterCompare.Toolbar.Save.Hint";
     t[54667] = "Speichert die Konfiguration in einer Datei";
+    t[54670] = "FileType.TypstTable";
+    t[54671] = "Typst-Tabellen";
     t[54676] = "Surface.ExpressionTableModel.Dialog.LineWidth";
     t[54677] = "Linienbreite";
     t[54684] = "Simulation.Creator.MatchCondition";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[55001] = "Der aktuelle Kundentyp besitzt keinen Namen unter dem weitere Eigenschaften hinterlegt werden k\u00f6nnten.";
     t[55006] = "Simulation.Log.PickUpNewClient";
     t[55007] = "Ausleiten - Neuer Kunde angelegt";
-    t[55020] = "QuickAccess.RecentlyUsed.Pre";
-    t[55021] = "Modell laden";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[55020] = "QuickAccess.RecentlyUsed.Pre";
+    t[55021] = "Modell laden";
     t[55028] = "Surface.AnimationImage.Dialog.Images.Delete.Confirm.Info";
     t[55029] = "Soll das zu Ausdruck \"%s\" geh\u00f6rende Bild wirklich gel\u00f6scht werden?";
     t[55034] = "Simulation.Log.Icon.Default";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[60105] = "Anpassen gem\u00e4\u00df Inhalt und \u00dcberschrift";
     t[60110] = "Surface.Output.Table.ExpressionError.Info";
     t[60111] = "Der angegebene Ausdruck \"%s\" enth\u00e4lt ab Zeichen %d einen Fehler.";
-    t[60114] = "ExternalConnect.FolderPackageError.Solution";
-    t[60115] = "Die Verwendung des \u00fcbergeordneten Verzeichnisses als Plugins-Ordner w\u00fcrde dieses Problem beheben.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[60114] = "ExternalConnect.FolderPackageError.Solution";
+    t[60115] = "Die Verwendung des \u00fcbergeordneten Verzeichnisses als Plugins-Ordner w\u00fcrde dieses Problem beheben.";
     t[60118] = "Statistics.SimulationModel.Name";
     t[60119] = "Name";
     t[60140] = "Compare.TooFewModels.Title";

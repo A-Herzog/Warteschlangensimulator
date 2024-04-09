@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.swing.JFileChooser;
@@ -75,7 +76,7 @@ import mathtools.distribution.swing.CommonVariables;
  * Die Klasse {@link Table} kapselt eine Tabelle aus {@link String}-Objekten.
  * Die Klasse stellt Methoden zum Lesen und Schreiben von Tabellen-Dateien zur Verfügung.
  * @author Alexander Herzog
- * @version 4.8
+ * @version 4.9
  */
 public final class Table implements Cloneable {
 	/** Bezeichner beim Speichern für "wahr" */
@@ -112,6 +113,8 @@ public final class Table implements Cloneable {
 	public static String FileTypeHTML="html-Dateien";
 	/** Bezeichner für Dateiformat tex (im Dateiauswahldialog) */
 	public static String FileTypeTex="LaTeX-Dateien";
+	/** Bezeichner für Dateiformat Typst (im Dateiauswahldialog) */
+	public static String FileTypeTypst="Typst-Dateien";
 	/** Fehlermeldung "Die angegebene Startzelle \"%s\" ist ungültig." */
 	public static String LoadErrorFirstCellInvalid="Die angegebene Startzelle \"%s\" ist ungültig.";
 	/** Fehlermeldung "Die angegebene Endzelle \"%s\" ist ungültig." */
@@ -188,6 +191,9 @@ public final class Table implements Cloneable {
 
 		/** LaTeX-Datei */
 		SAVEMODE_TEX(false,true,new String[]{".TEX"}),
+
+		/** Typst-Datei */
+		SAVEMODE_TYPST(false,true,new String[]{".TYP"}),
 
 		/** Tabelle als CSV-Datei oder als Tabulator-getrennte Werte speichern in Abhängigkeit vom Dateinamen. */
 		SAVEMODE_BYFILENAME(true,true,null);
@@ -1757,30 +1763,70 @@ public final class Table implements Cloneable {
 		final int lines=data.size();
 		final int cols=data.get(0).size();
 
-		final StringBuilder sb=new StringBuilder();
+		final StringBuilder result=new StringBuilder();
 
-		sb.append("\\begin{table}[H]\n");
-		sb.append("\\begin{center}\n");
-		sb.append("\\begin{tabular}{r");
-		for (int i=1;i<cols;i++) sb.append("|r");
-		sb.append("}\n");
+		result.append("\\begin{table}[H]\n");
+		result.append("\\begin{center}\n");
+		result.append("\\begin{tabular}{r");
+		for (int i=1;i<cols;i++) result.append("|r");
+		result.append("}\n");
 
 		for (int i=0;i<lines;i++) {
 			final List<String> line=data.get(i);
 			for (int j=0;j<cols;j++) {
-				sb.append(line.get(j).replace(",","{,}").replace("%","\\%"));
-				if (j<cols-1) sb.append("&");
+				result.append(line.get(j).replace(",","{,}").replace("%","\\%"));
+				if (j<cols-1) result.append("&");
 			}
-			if (i<lines-1) sb.append("\\\\\n"); else sb.append("\n");
+			if (i<lines-1) result.append("\\\\\n"); else result.append("\n");
 		}
 
-		sb.append("\\end{tabular}\n");
-		sb.append("\\end{center}\n");
-		sb.append("\\caption{"+ExportTitle+"}\n");
-		sb.append("%\\label{LabelForTable}\n");
-		sb.append("\\end{table}\n");
+		result.append("\\end{tabular}\n");
+		result.append("\\end{center}\n");
+		result.append("\\caption{"+ExportTitle+"}\n");
+		result.append("%\\label{LabelForTable}\n");
+		result.append("\\end{table}\n");
 
-		return sb.toString();
+		return result.toString();
+	}
+
+	/**
+	 * Speichert die Tabelle als Typst-Table-Objekt
+	 * @return	Tabelle als LaTeTypst-Table-Objekt
+	 */
+	public String saveToTypst() {
+		if (mode==IndexMode.COLS) {Table t=transpose(); return t.saveToTypst();}
+
+		if (data.isEmpty()) return "";
+		final int lines=data.size();
+		final int cols=data.get(0).size();
+
+		final Function<String,String> escapeTypstField=s->s.replace("[","\\[").replace("]","\\]");
+
+		final StringBuilder result=new StringBuilder();
+
+		result.append("#figure(\n");
+		result.append("table(\n");
+		result.append("  columns: "+cols+",\n");
+
+		for (int i=0;i<lines;i++) {
+			final List<String> line=data.get(i);
+			result.append("  ");
+			for (int j=0;j<cols;j++) {
+				result.append("[");
+				result.append(escapeTypstField.apply(line.get(j)));
+				result.append("]");
+				if (j<cols-1 || i<lines-1) result.append(",");
+				if (j<cols-1) result.append(" ");
+			}
+			result.append("\n");
+		}
+
+		result.append("),\n");
+		result.append("caption: ["+escapeTypstField.apply(ExportTitle)+"]\n");
+		result.append("// <LabelForTable>\n");
+		result.append(")\n");
+
+		return result.toString();
 	}
 
 	/**
@@ -1960,6 +2006,10 @@ public final class Table implements Cloneable {
 			return saveTextToOutputStream(saveToLaTeX(),stream);
 		}
 
+		if (saveMode==SaveMode.SAVEMODE_TYPST) {
+			return saveTextToOutputStream(saveToTypst(),stream);
+		}
+
 		if (saveMode==SaveMode.SAVEMODE_DIF) {
 			return saveTextToOutputStream(saveToDIF(ExportTitle),stream);
 		}
@@ -2102,6 +2152,10 @@ public final class Table implements Cloneable {
 
 		if (saveMode==SaveMode.SAVEMODE_TEX) {
 			return saveTextToFile(saveToLaTeX(),file);
+		}
+
+		if (saveMode==SaveMode.SAVEMODE_TYPST) {
+			return saveTextToFile(saveToTypst(),file);
 		}
 
 		if (saveMode==SaveMode.SAVEMODE_DIF) {
@@ -2528,7 +2582,7 @@ public final class Table implements Cloneable {
 		final FileFilter sqlite=new FileNameExtensionFilter(FileTypeSQLite+" (*.sqlite3, *.sqlite, *.db, *.db3, *.s3db)","sqlite3","sqlite","db","db3","s3db");
 		final FileFilter dbf=new FileNameExtensionFilter(FileTypeDBF+" (*.dbf)","dbf");
 		final FileFilter dif=new FileNameExtensionFilter(FileTypeDIF+" (*.dif)","dif");
-		final FileFilter sylk=new FileNameExtensionFilter(Table.FileTypeSYLK+" (*.slk, *.sylk)","slk","sylk");
+		final FileFilter sylk=new FileNameExtensionFilter(FileTypeSYLK+" (*.slk, *.sylk)","slk","sylk");
 
 		fc.addChoosableFileFilter(table);
 		fc.addChoosableFileFilter(xlsx);
@@ -2610,6 +2664,7 @@ public final class Table implements Cloneable {
 		final FileFilter docx=new FileNameExtensionFilter(FileTypeWord+" (*.docx)","docx");
 		final FileFilter html=new FileNameExtensionFilter(FileTypeHTML+" (*.html, *.htm)","html","htm");
 		final FileFilter tex=new FileNameExtensionFilter(Table.FileTypeTex+" (*.tex)","tex");
+		final FileFilter typst=new FileNameExtensionFilter(FileTypeTypst+" (*.typ)","typ");
 		FileFilter custom=null; if (customFilterName!=null) custom=new FileNameExtensionFilter(customFilterName,customFilterExt);
 
 		fc.addChoosableFileFilter(xlsx);
@@ -2623,6 +2678,7 @@ public final class Table implements Cloneable {
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(html);
 		fc.addChoosableFileFilter(tex);
+		fc.addChoosableFileFilter(typst);
 		if (custom!=null) fc.addChoosableFileFilter(custom);
 
 		fc.setFileFilter(xlsx);
@@ -2644,6 +2700,7 @@ public final class Table implements Cloneable {
 			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
 			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
 			if (fc.getFileFilter()==tex) file=new File(file.getAbsoluteFile()+".tex");
+			if (fc.getFileFilter()==typst) file=new File(file.getAbsoluteFile()+".typ");
 			if (custom!=null && fc.getFileFilter()==custom) file=new File(file.getAbsoluteFile()+"."+customFilterExt);
 		}
 		return file;

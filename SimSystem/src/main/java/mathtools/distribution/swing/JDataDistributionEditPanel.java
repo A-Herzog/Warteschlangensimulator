@@ -511,6 +511,7 @@ public class JDataDistributionEditPanel extends JPanel {
 		final FileFilter docx=new FileNameExtensionFilter(Table.FileTypeWord+" (*.docx)","docx");
 		final FileFilter html=new FileNameExtensionFilter(Table.FileTypeHTML+" (*.html)","html");
 		final FileFilter tex=new FileNameExtensionFilter(Table.FileTypeTex+" (*.tex)","tex");
+		final FileFilter typst=new FileNameExtensionFilter(Table.FileTypeTypst+" (*.typ)","typ");
 
 		fc.addChoosableFileFilter(xlsx);
 		fc.addChoosableFileFilter(xls);
@@ -523,6 +524,7 @@ public class JDataDistributionEditPanel extends JPanel {
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(html);
 		fc.addChoosableFileFilter(tex);
+		fc.addChoosableFileFilter(typst);
 
 		FileFilter jpg=null, gif=null, png=null;
 		if (saveAsImageButtons) {
@@ -553,6 +555,7 @@ public class JDataDistributionEditPanel extends JPanel {
 			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
 			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
 			if (fc.getFileFilter()==tex) file=new File(file.getAbsoluteFile()+".tex");
+			if (fc.getFileFilter()==typst) file=new File(file.getAbsoluteFile()+".typ");
 			if (saveAsImageButtons) {
 				if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
 				if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");

@@ -21936,6 +21936,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54663] = "You have selected %d results. But at most %d results can be used.";
     t[54666] = "ParameterCompare.Toolbar.Save.Hint";
     t[54667] = "Saves the configuration to a file";
+    t[54670] = "FileType.TypstTable";
+    t[54671] = "Typst tables";
     t[54676] = "Surface.ExpressionTableModel.Dialog.LineWidth";
     t[54677] = "Line width";
     t[54684] = "Simulation.Creator.MatchCondition";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[55001] = "No client type name";
     t[55006] = "Simulation.Log.PickUpNewClient";
     t[55007] = "Pick up - new client created";
-    t[55020] = "QuickAccess.RecentlyUsed.Pre";
-    t[55021] = "Load model";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[55020] = "QuickAccess.RecentlyUsed.Pre";
+    t[55021] = "Load model";
     t[55028] = "Surface.AnimationImage.Dialog.Images.Delete.Confirm.Info";
     t[55029] = "Do you really want to delete the image corresponding expression \"%s\"?";
     t[55034] = "Simulation.Log.Icon.Default";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[60105] = "Adjust by content and header";
     t[60110] = "Surface.Output.Table.ExpressionError.Info";
     t[60111] = "The specified expression \"%s\" is invalid at character %d.";
-    t[60114] = "ExternalConnect.FolderPackageError.Solution";
-    t[60115] = "Using the parent directory as the plugins folder would fix this problem.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[60114] = "ExternalConnect.FolderPackageError.Solution";
+    t[60115] = "Using the parent directory as the plugins folder would fix this problem.";
     t[60118] = "Statistics.SimulationModel.Name";
     t[60119] = "Name";
     t[60140] = "Compare.TooFewModels.Title";
