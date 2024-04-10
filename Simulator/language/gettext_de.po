@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-06 00:24+0200\n"
+"POT-Creation-Date: 2024-04-07 00:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1979,6 +1979,29 @@ msgstr "dürfen maximal %d weitere Parameter folgen"
 
 msgid "CommandLine.Count.ThenN"
 msgstr "müssen genau %d weitere Parameter folgen"
+
+msgid "CommandLine.CountSimTime.Description.Long"
+msgstr ""
+"Der Befehl erwartet einen Parameter:\n"
+"Das Verzeichnis das verarbeitet werdne soll."
+
+msgid "CommandLine.CountSimTime.Description.Short"
+msgstr "Summiert die Rechenzeiten aller Ergebnisdateien in einem Verzeichnis."
+
+msgid "CommandLine.CountSimTime.Name"
+msgstr "CountSimTime"
+
+msgid "CommandLine.CountSimTime.PartialInfo"
+msgstr "Laufzeit: %s Sekunden, Multicore: %s"
+
+msgid "CommandLine.CountSimTime.PartialInfo.MultiCoreNo"
+msgstr "nein"
+
+msgid "CommandLine.CountSimTime.PartialInfo.MultiCoreYes"
+msgstr "ja"
+
+msgid "CommandLine.CountSimTime.ResultInfo"
+msgstr "Zur Simulation der %d Modelle bzw. Parameterreihen wurden %s Singlecore- und %s Multicore-Sekunden Rechenzeit benötigt."
 
 msgid "CommandLine.Dialog.Command"
 msgstr "Gewählter Befehl"

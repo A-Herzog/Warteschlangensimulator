@@ -57,9 +57,8 @@ public class CommandBuildGlossaryText extends AbstractCommand {
 	public String[] getKeys() {
 		List<String> list=new ArrayList<>();
 		list.addAll(Arrays.asList(Language.trAll("CommandLine.BuildGlossary.Name")));
-		for (String s: Language.trOther("CommandLine.BuildCatalogDescriptions.Name")) if (!list.contains(s)) list.add(s);
+		for (String s: Language.trOther("CommandLine.BuildGlossary.Name")) if (!list.contains(s)) list.add(s);
 		return list.toArray(new String[0]);
-
 	}
 
 	@Override

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-06 00:24+0200\n"
+"POT-Creation-Date: 2024-04-07 00:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1978,6 +1978,29 @@ msgstr "a maximum of %d additional parameters can be entered"
 
 msgid "CommandLine.Count.ThenN"
 msgstr "exactly %d additional parameters have to be entered"
+
+msgid "CommandLine.CountSimTime.Description.Long"
+msgstr ""
+"The command expects one additional parameter:\n"
+"The directory to be processed."
+
+msgid "CommandLine.CountSimTime.Description.Short"
+msgstr "Sums up the simulation times of all result files in a directory."
+
+msgid "CommandLine.CountSimTime.Name"
+msgstr "CountSimTime"
+
+msgid "CommandLine.CountSimTime.PartialInfo"
+msgstr "Runtime: %s seconds, multi-core: %s"
+
+msgid "CommandLine.CountSimTime.PartialInfo.MultiCoreNo"
+msgstr "no"
+
+msgid "CommandLine.CountSimTime.PartialInfo.MultiCoreYes"
+msgstr "yes"
+
+msgid "CommandLine.CountSimTime.ResultInfo"
+msgstr "To simulate the %d models or parameter series, %s single-core and %s multi-core seconds of computing time were required."
 
 msgid "CommandLine.Dialog.Command"
 msgstr "Selected command"
