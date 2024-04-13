@@ -271,6 +271,7 @@ public class EditModelExamples {
 	private void addExamples() {
 		/* Standardbeispiele */
 		addExample(Language.trAll("Examples.ErlangC"),"ErlangC1",ExampleType.TYPE_DEFAULT);
+		addExample(Language.trAll("Examples.Starter"),"Starter",ExampleType.TYPE_DEFAULT);
 
 		/* Beispiele, die sich auf reale Modelle bzw. Fragen beziehen */
 		addExample(Language.trAll("Examples.Callcenter"),"Callcenter",ExampleType.TYPE_REAL_MODELS,ExampleKeyWord.ROUTING);

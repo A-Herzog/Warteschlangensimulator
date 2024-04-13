@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.6.0</ModelVersion>
+  <ModelName>Simple start model</ModelName>
+  <ModelDescription>This model can be used as a starting point for your own initial experiments with Warteschlangensimulator.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">5000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementProcessStation id="1">
+      <ModelElementSize h="50" w="100" x="300" y="200"/>
+      <ModelElementConnection Element="4" Type="In"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (80)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Operator group"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementSource id="2">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="200"/>
+      <ModelElementConnection Element="4" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDispose id="3">
+      <ModelElementSize h="50" w="100" x="550" y="200"/>
+      <ModelElementConnection Element="5" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="4">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="1" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="5">
+      <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="6">
+      <ModelElementSize h="23" w="167" x="50" y="50"/>
+      <ModelElementTextLine>Simple start model</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="7">
+      <ModelElementSize h="57" w="424" x="50" y="100"/>
+      <ModelElementTextLine>This open queueing model can serve as a basis for your own initial</ModelElementTextLine>
+      <ModelElementTextLine>experiments with Warteschlangensimulator.</ModelElementTextLine>
+      <ModelElementTextLine>The model represents an M/M/1 model with E[I]=100 and E[S]=80.</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementLine id="8">
+      <ModelElementSize h="-160" w="0" x="100" y="440"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementLineType>0</ModelElementLineType>
+      <ModelElementLineArrowEnd>2</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementText id="9">
+      <ModelElementSize h="105" w="191" x="50" y="450"/>
+      <ModelElementTextLine>The client who pass through the system</ModelElementTextLine>
+      <ModelElementTextLine>arrive at the source. The distribution of</ModelElementTextLine>
+      <ModelElementTextLine>the inter-arrival times can be set here.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>In the initial case, the exponential</ModelElementTextLine>
+      <ModelElementTextLine>distribution is set with an average</ModelElementTextLine>
+      <ModelElementTextLine>inter-arrival time of E[I]=100 seconds.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementLine id="10">
+      <ModelElementSize h="-60" w="0" x="225" y="330"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementLineType>0</ModelElementLineType>
+      <ModelElementLineArrowEnd>2</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementText id="11">
+      <ModelElementSize h="45" w="111" x="165" y="350"/>
+      <ModelElementTextLine>Clients move along the</ModelElementTextLine>
+      <ModelElementTextLine>connecting edges from</ModelElementTextLine>
+      <ModelElementTextLine>station to station.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementLine id="12">
+      <ModelElementSize h="-160" w="0" x="348" y="436"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,0,180</ModelElementColor>
+      <ModelElementLineType>0</ModelElementLineType>
+      <ModelElementLineArrowEnd>2</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementText id="13">
+      <ModelElementSize h="270" w="244" x="300" y="450"/>
+      <ModelElementTextLine>The process station combines the queue</ModelElementTextLine>
+      <ModelElementTextLine>and the service desk. If the operator is</ModelElementTextLine>
+      <ModelElementTextLine>busy, incoming clients have to wait first.</ModelElementTextLine>
+      <ModelElementTextLine>When the operator gets available again,</ModelElementTextLine>
+      <ModelElementTextLine>the next client is served.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>In the initial case, the exponential distribution</ModelElementTextLine>
+      <ModelElementTextLine>is selected for the service times. The average</ModelElementTextLine>
+      <ModelElementTextLine>service time is set to E[I]=80 seconds.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>In contrast to analytical queueing theory, the</ModelElementTextLine>
+      <ModelElementTextLine>operators are not permanently assigned to</ModelElementTextLine>
+      <ModelElementTextLine>individual process stations, but exist</ModelElementTextLine>
+      <ModelElementTextLine>independently of them. Operator groups are</ModelElementTextLine>
+      <ModelElementTextLine>defined via the model properties dialog, which</ModelElementTextLine>
+      <ModelElementTextLine>can be opened via the vertical **Model** button</ModelElementTextLine>
+      <ModelElementTextLine>(top left). The operators required to serve a client</ModelElementTextLine>
+      <ModelElementTextLine>are then only to be selected at the process station.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementLine id="14">
+      <ModelElementSize h="-54" w="0" x="600" y="330"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>225,0,0</ModelElementColor>
+      <ModelElementLineType>0</ModelElementLineType>
+      <ModelElementLineArrowEnd>2</ModelElementLineArrowEnd>
+    </ModelElementLine>
+    <ModelElementText id="15">
+      <ModelElementSize h="45" w="288" x="550" y="350"/>
+      <ModelElementTextLine>After completing the service, the clients  leave the system.</ModelElementTextLine>
+      <ModelElementTextLine>In an open queuing system, the path of all client has always</ModelElementTextLine>
+      <ModelElementTextLine>lead to an exit at the end.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="16">
+      <ModelElementSize h="114" w="602" x="50" y="750"/>
+      <ModelElementTextLine>The model is already fully preconfigured. A simulation of the model can be started out using the</ModelElementTextLine>
+      <ModelElementTextLine>**Start simulation** button at the top. The statistics results are displayed immediately after the</ModelElementTextLine>
+      <ModelElementTextLine>simulation is finished. You can return to this view later using the **Model editor** button.</ModelElementTextLine>
+      <ModelElementTextLine>If the statistical results are of less interest than a clear understanding of the processes in the</ModelElementTextLine>
+      <ModelElementTextLine>model, the simulation can be started in animation mode using the **Start animation** button.</ModelElementTextLine>
+      <ModelElementTextLine>In this mode, the movement of clients through the system can be traced directly graphically.</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Markdown="1" Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="17">
+      <ModelElementSize h="114" w="611" x="650" y="450"/>
+      <ModelElementTextLine>**Possible next steps:**</ModelElementTextLine>
+      <ModelElementTextLine>1. What happens if the average inter-arrival time or the average service time is changed?</ModelElementTextLine>
+      <ModelElementTextLine>2. The vertical **Element** button can be used to open the element template bar. From here,</ModelElementTextLine>
+      <ModelElementTextLine>additional stations can be dragged onto the drawing surface  and linked to the existing model.</ModelElementTextLine>
+      <ModelElementTextLine>3. Visualizations can be added to the drawing surface  via the context menu of the process station,</ModelElementTextLine>
+      <ModelElementTextLine>which display the current status during an animation (e.g. the number of clients at the station).</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Markdown="1" Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Icon="status_online" Name="Operator group" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+</Model>

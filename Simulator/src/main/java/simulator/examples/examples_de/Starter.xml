@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.6.0</ModellVersion>
+  <ModellName>Einfaches Startmodell</ModellName>
+  <ModellBeschreibung>Dieses Modell kann als Ausgangspunkt für erste eigene Versuche mit dem Warteschlangensimulator verwendet werden.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">5000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementBedienstation id="1">
+      <ModellElementGroesse h="50" w="100" x="300" y="200"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (80)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bedienergruppe"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementQuelle id="2">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementEnde id="3">
+      <ModellElementGroesse h="50" w="100" x="550" y="200"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="1" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="1" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="6">
+      <ModellElementGroesse h="23" w="193" x="50" y="50"/>
+      <ModellElementTextzeile>Einfaches Startmodell</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="7">
+      <ModellElementGroesse h="57" w="431" x="50" y="100"/>
+      <ModellElementTextzeile>Diese offene Warteschlangenmodell kann als Basis für erste eigene</ModellElementTextzeile>
+      <ModellElementTextzeile>Versuche mit dem Warteschlangensimulator dienen.</ModellElementTextzeile>
+      <ModellElementTextzeile>Das Modell bildet ein M/M/1-Modell mit E[I]=100 und E[S]=80 ab.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse LaTeX="1" Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementLinie id="8">
+      <ModellElementGroesse h="-160" w="0" x="100" y="440"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementLinienTyp>0</ModellElementLinienTyp>
+      <ModellElementLiniePfeilEnde>2</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementText id="9">
+      <ModellElementGroesse h="120" w="213" x="50" y="450"/>
+      <ModellElementTextzeile>An der Kundenquelle treffen die Kunden,</ModellElementTextzeile>
+      <ModellElementTextzeile>die durch das System laufen, ein.</ModellElementTextzeile>
+      <ModellElementTextzeile>Hier kann die Verteilung der</ModellElementTextzeile>
+      <ModellElementTextzeile>Zwischenankunftszeiten eingestellt werden.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Im Ausgangsfall ist die Exponentialverteilung</ModellElementTextzeile>
+      <ModellElementTextzeile>mit einer mittleren Zwischenankunftszeit</ModellElementTextzeile>
+      <ModellElementTextzeile>von E[I]=100 Sekunden eingestellt.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementLinie id="10">
+      <ModellElementGroesse h="-60" w="0" x="225" y="330"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementLinienTyp>0</ModellElementLinienTyp>
+      <ModellElementLiniePfeilEnde>2</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementText id="11">
+      <ModellElementGroesse h="45" w="151" x="165" y="350"/>
+      <ModellElementTextzeile>Die Kunden bewegen sich</ModellElementTextzeile>
+      <ModellElementTextzeile>entlang der Verbindungskanten</ModellElementTextzeile>
+      <ModellElementTextzeile>von Station zu Station.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementLinie id="12">
+      <ModellElementGroesse h="-160" w="0" x="348" y="436"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,180</ModellElementFarbe>
+      <ModellElementLinienTyp>0</ModellElementLinienTyp>
+      <ModellElementLiniePfeilEnde>2</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementText id="13">
+      <ModellElementGroesse h="270" w="303" x="300" y="450"/>
+      <ModellElementTextzeile>Die Bedienstation kombiniert Warteschlange</ModellElementTextzeile>
+      <ModellElementTextzeile>und Bedienschalter. Ist der Bediener belegt,</ModellElementTextzeile>
+      <ModellElementTextzeile>so müssen eintreffende Kunden zunächst</ModellElementTextzeile>
+      <ModellElementTextzeile>warten. Ist der Bediener wieder verfügbar,</ModellElementTextzeile>
+      <ModellElementTextzeile>so wird der jeweils nächste Kunde bedient.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Im Ausgangsfall ist die Exponentialverteilung</ModellElementTextzeile>
+      <ModellElementTextzeile>für die Bediendauern gewählt. Die mittlere</ModellElementTextzeile>
+      <ModellElementTextzeile>Bediendauer ist auf E[I]=80 Sekunden eingestellt.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Im Gegensatz zur analytischen Warteschlangentheorie</ModellElementTextzeile>
+      <ModellElementTextzeile>sind die Bediener nicht fest einzelnen Bedienstationen</ModellElementTextzeile>
+      <ModellElementTextzeile>zugeordnet, sondern existieren unabhängig von diesen.</ModellElementTextzeile>
+      <ModellElementTextzeile>Bedienergruppen werden über den Modelleigenschaftendialog,</ModellElementTextzeile>
+      <ModellElementTextzeile>der über die vertikale Schaltfläche **Modell** (links oben)</ModellElementTextzeile>
+      <ModellElementTextzeile>aufgerufen werden kann, definiert. An einer Bedienstation</ModellElementTextzeile>
+      <ModellElementTextzeile>wird dann nur noch ausgewählt, welche Bediener zur</ModellElementTextzeile>
+      <ModellElementTextzeile>Bedienung einen Kunden notwendig sind.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementLinie id="14">
+      <ModellElementGroesse h="-54" w="0" x="600" y="330"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>225,0,0</ModellElementFarbe>
+      <ModellElementLinienTyp>0</ModellElementLinienTyp>
+      <ModellElementLiniePfeilEnde>2</ModellElementLiniePfeilEnde>
+    </ModellElementLinie>
+    <ModellElementText id="15">
+      <ModellElementGroesse h="45" w="347" x="550" y="350"/>
+      <ModellElementTextzeile>Nach dem Abschluss der Bedienung verlassen die Kunden das System.</ModellElementTextzeile>
+      <ModellElementTextzeile>In einem offenen Warteschlangensystem muss der Weg aller Kunden</ModellElementTextzeile>
+      <ModellElementTextzeile>immer zum Schluss zu einem Ausgang führen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="16">
+      <ModellElementGroesse h="133" w="642" x="50" y="750"/>
+      <ModellElementTextzeile>Das Modell ist bereits vollständig vorkonfiguriert. Über die Schaltfläche **Simulation starten** oben</ModellElementTextzeile>
+      <ModellElementTextzeile>kann eine Simulation des Modells durchgeführt werden. Im Anschluss an die Simulation werden direkt</ModellElementTextzeile>
+      <ModellElementTextzeile>die Statistikergebnisse angezeigt. Über die Schaltfläche **Modell-Editor** kann später wieder zu dieser</ModellElementTextzeile>
+      <ModellElementTextzeile>Ansicht zurückgekehrt werden. Sind weniger die Statistikergebnisse von Interesse, sondern mehr ein</ModellElementTextzeile>
+      <ModellElementTextzeile>anschauliches Verständnis von den Abläufen im Modell, so kann die Simulation über die Schaltfläche</ModellElementTextzeile>
+      <ModellElementTextzeile>**Animation starten** im Animationsmodus gestartet werden. In diesem kann die Bewegung der Kunden</ModellElementTextzeile>
+      <ModellElementTextzeile>durch das System direkt grafisch nachverfolgt werden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse LaTeX="1" Markdown="1" Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="17">
+      <ModellElementGroesse h="114" w="689" x="650" y="450"/>
+      <ModellElementTextzeile>**Mögliche nächste Schritte:**</ModellElementTextzeile>
+      <ModellElementTextzeile>1. Was passiert, wenn die mittlere Zwischenankunftszeit oder die mittlere Bediendauer verändert werden?</ModellElementTextzeile>
+      <ModellElementTextzeile>2. Über die vertikale Schaltfläche **Element** kann die Elementenvorlagenleiste geöffnet werden. Von dieser</ModellElementTextzeile>
+      <ModellElementTextzeile>können weitere Stationen auf die Zeichenfläche gezogen und mit dem bisherigen Modell verbunden werden.</ModellElementTextzeile>
+      <ModellElementTextzeile>3. Über das Kontextmenü der Bedienstation können Visualisierungen auf der Zeichenfläche hinzugefügt werden,</ModellElementTextzeile>
+      <ModellElementTextzeile>die während einer Animation den aktuellen Zustand anzeigen (z.B. die Anzahl an Kunden an der Station).</ModellElementTextzeile>
+      <ModellElementSchriftgrosse LaTeX="1" Markdown="1" Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bedienergruppe" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
+</Modell>

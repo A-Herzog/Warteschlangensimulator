@@ -1,0 +1,1 @@
+This model can be used as a starting point for your own initial experiments with  Warteschlangensimulator verwendet werden.

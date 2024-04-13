@@ -1,0 +1,1 @@
+Dieses Modell kann als Ausgangspunkt für erste eigene Versuche mit dem Warteschlangensimulator verwendet werden.

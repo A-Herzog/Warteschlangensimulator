@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-07 00:44+0200\n"
+"POT-Creation-Date: 2024-04-09 08:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5483,6 +5483,9 @@ msgstr "Schichtpläne"
 
 msgid "Examples.SplitAndJoin"
 msgstr "Trennen und Zusammenführen von (Teil-)Produkten"
+
+msgid "Examples.Starter"
+msgstr "Einfaches Startmodell"
 
 msgid "Examples.SystemDesign"
 msgstr "Warteschlangensystemdesign"
@@ -33079,7 +33082,7 @@ msgid "Surface.Record.Dialog.Expression1.Error.Info"
 msgstr "Der erste angegebene Ausdruck \"%s\" is ab Zeichen %d ungültig."
 
 msgid "Surface.Record.Dialog.Expression1.Error.InfoEmpty"
-msgstr "Es wurde für \"Audruck 1\" kein Wert angegeben."
+msgstr "Es wurde für \"Ausdruck 1\" kein Wert angegeben."
 
 msgid "Surface.Record.Dialog.Expression2"
 msgstr "Ausdruck 2 (optional)"
