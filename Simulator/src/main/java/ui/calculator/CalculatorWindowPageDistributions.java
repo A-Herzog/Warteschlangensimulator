@@ -213,12 +213,15 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		JPanel line;
 
 		final JPanel editorPanel=new JPanel();
+		editorPanel.setOpaque(false);
 		editorPanel.setLayout(new BoxLayout(editorPanel,BoxLayout.PAGE_AXIS));
 		editorPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.setOpaque(false);
 		line.add(Box.createHorizontalStrut(20));
 		final JLabel label=new JLabel(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Count")+":");
 		line.add(label);
 		editorPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.setOpaque(false);
 		line.setBorder(BorderFactory.createEmptyBorder(0,25,0,0));
 		final JTextField editor=new JTextField(""+randomNumberCount,10);
 		ModelElementBaseDialog.addUndoFeature(editor);
