@@ -1480,6 +1480,9 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Eingang/Ausgang' - Element 'Quelle' - Dialogseite 'Startzeitpunkt'" */
 	MODELEDITOR_ELEMENT_SOURCE_PAGE_START("flag_green.png"),
 
+	/** Symbol "Modelleditor - Gruppe 'Eingang/Ausgang' - Element 'Quelle' - Dialogseite 'Zusätzliche Bedingung'" */
+	MODELEDITOR_ELEMENT_SOURCE_PAGE_ADDITIONAL_CONDITION("Check.png"),
+
 	/** Symbol "Modelleditor - Gruppe 'Eingang/Ausgang' - Element 'Quelle' - Dialogseite 'Zuweisung von Kundenvariablen'" */
 	MODELEDITOR_ELEMENT_SOURCE_PAGE_SET_NUMBERS("font.png"),
 

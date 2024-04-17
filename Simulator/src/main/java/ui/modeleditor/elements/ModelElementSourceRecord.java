@@ -296,6 +296,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 	 */
 	private TimeBase arrivalStartTimeBase;
 
+	/** Zusätzliche Bedingung für Ankünfte (optional, kann leer sein) */
+	private String additionalArrivalCondition;
+
 	/**
 	 * Datensatz für Zahlenzuweisungen
 	 * @see #getSetRecord()
@@ -359,6 +362,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		maxArrivalClientCount=-1;
 		arrivalsStart=0;
 		arrivalStartTimeBase=null;
+		additionalArrivalCondition="";
 
 		setRecord=new ModelElementSetRecord();
 		stringRecord=new ModelElementAssignStringRecord();
@@ -986,6 +990,22 @@ public final class ModelElementSourceRecord implements Cloneable {
 	}
 
 	/**
+	 * Liefert die zusätzliche Bedingung für Ankünfte.
+	 * @return	Zusätzliche Bedingung für Ankünfte (optional, kann leer sein)
+	 */
+	public String getAdditionalArrivalCondition() {
+		return additionalArrivalCondition;
+	}
+
+	/**
+	 * Stellt die zusätzliche Bedingung für Ankünfte ein.
+	 * @param additionalArrivalCondition	Zusätzliche Bedingung für Ankünfte (optional, kann leer sein)
+	 */
+	public void setAdditionalArrivalCondition(final String additionalArrivalCondition) {
+		this.additionalArrivalCondition=(additionalArrivalCondition==null)?"":additionalArrivalCondition;
+	}
+
+	/**
 	 * Liefert den Datensatz für Zahlenzuweisungen innerhalb des Quellendatensatzes
 	 * @return	Datensatz für Zahlenzuweisungen
 	 */
@@ -1085,6 +1105,10 @@ public final class ModelElementSourceRecord implements Cloneable {
 			if (!Objects.equals(record.arrivalStartTimeBase,arrivalStartTimeBase)) return false;
 		}
 
+		if (hasOwnArrivals) {
+			if (!record.additionalArrivalCondition.equals(additionalArrivalCondition)) return false;
+		}
+
 		if (!record.setRecord.equalsModelElementSetRecord(setRecord)) return false;
 
 		if (!record.stringRecord.equalsModelElementAssignStringRecord(stringRecord)) return false;
@@ -1129,6 +1153,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		maxArrivalClientCount=record.maxArrivalClientCount;
 		arrivalsStart=record.arrivalsStart;
 		arrivalStartTimeBase=record.arrivalStartTimeBase;
+		additionalArrivalCondition=record.additionalArrivalCondition;
 
 		setRecord.copyDataFrom(record.setRecord);
 		stringRecord.copyDataFrom(record.stringRecord);
@@ -1292,6 +1317,13 @@ public final class ModelElementSourceRecord implements Cloneable {
 				if (arrivalStartTimeBase!=null) {
 					sub.setAttribute(Language.trPrimary("Surface.Source.XML.Expression.ArrivalStart.TimeBase"),ModelSurface.getTimeBaseString(arrivalStartTimeBase));
 				}
+			}
+		}
+
+		if (hasOwnArrivals) {
+			if (!additionalArrivalCondition.isBlank()) {
+				node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.Expression.AdditionalCondition")));
+				sub.setTextContent(additionalArrivalCondition);
 			}
 		}
 
@@ -1526,6 +1558,11 @@ public final class ModelElementSourceRecord implements Cloneable {
 			return null;
 		}
 
+		if (Language.trAll("Surface.Source.XML.Expression.AdditionalCondition",name)) {
+			additionalArrivalCondition=content;
+			return null;
+		}
+
 		if (ModelElementSetRecord.isSetNode(node)) {
 			final String error=setRecord.loadXMLNode(node);
 			if (error!=null) return error;
@@ -1757,6 +1794,14 @@ public final class ModelElementSourceRecord implements Cloneable {
 			}
 		}
 
+		/* Zusätzliche Bedingung für Ankünfte */
+		if (!additionalArrivalCondition.isBlank()) {
+			info.append(Language.tr("ModelDescription.Arrival.AdditionalCondition"));
+			info.append(": ");
+			info.append(additionalArrivalCondition);
+			info.append("\n");
+		}
+
 		/* Name für Eigenschaft bestimmen */
 		final String propertyName;
 		if (name==null)	{
@@ -1848,6 +1893,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 		/* Anzahl an Ankünften */
 		if (maxArrivalCount>0) searcher.testLong(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.ArrivalCount"),maxArrivalCount,newMaxArrivalCount->{if (newMaxArrivalCount>0) maxArrivalCount=newMaxArrivalCount;});
 		if (maxArrivalClientCount>0) searcher.testLong(station,Language.tr("Editor.DialogBase.Search.InterarrivalArrival.ArrivalClientCount"),maxArrivalClientCount,newMaxArrivalClientCount->{if (newMaxArrivalClientCount>0) maxArrivalClientCount=newMaxArrivalClientCount;});
+
+		/* Zusätzliche Bedingung für Ankünfte */
+		if (!additionalArrivalCondition.isBlank()) searcher.testString(station,Language.tr("Editor.DialogBase.Search.AdditionalCondition"),additionalArrivalCondition,newAdditionalArrivalCondition->additionalArrivalCondition=newAdditionalArrivalCondition);
 
 		/* Zahlen-Zuweisungen */
 		setRecord.search(searcher,station);

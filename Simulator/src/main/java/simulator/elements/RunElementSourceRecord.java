@@ -115,6 +115,9 @@ public class RunElementSourceRecord {
 	/** Gesamtanzahl an Kundenankünften (-1 für unendlich viele) */
 	public long maxArrivalClientCount;
 
+	/** Zusätzliche Bedingung (Voraussetzung), damit eine Ankunft tatsächlich ausgeführt wird (kann <code>null</code>) */
+	public String arrivalCondition;
+
 	/** Zeitpunkt (in Millisekunden) am dem die erste Zwischenankunftszeit beginnt */
 	private long arrivalStartMS;
 
@@ -154,6 +157,7 @@ public class RunElementSourceRecord {
 	public RunModelCreatorStatus load(final ModelElementSourceRecord record, String name, final int id, final EditModel editModel, final RunModel runModel, int index) {
 		this.index=index;
 
+		/* Name */
 		if (record.hasName()) {
 			name=record.getName();
 			if (name==null || name.isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceNoName"),id),RunModelCreatorStatus.Status.NO_SOURCE_RECORD_NAME);
@@ -166,6 +170,7 @@ public class RunElementSourceRecord {
 		timeBaseMultiply=record.getTimeBase().multiply;
 		final double arrivalStartTimeBaseMultiply=(record.getArrivalStartTimeBase()==null)?timeBaseMultiply:(record.getArrivalStartTimeBase().multiply);
 
+		/* Zwischenankunftszeiten oder ähnliches */
 		int error;
 		double arrivalStart;
 		if (record.hasOwnArrivals()) switch (record.getNextMode()) {
@@ -280,6 +285,7 @@ public class RunElementSourceRecord {
 			break;
 		}
 
+		/* Batch-Größe */
 		batchSize=record.getBatchSize();
 		if (batchSize==null) {
 			final double[] rates=record.getMultiBatchSize();
@@ -297,8 +303,20 @@ public class RunElementSourceRecord {
 				if (batchError>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceInvalidBatchSize"),id,batchSize,batchError+1));
 			}
 		}
+
+		/* Anzahl an Ankünften */
 		maxArrivalCount=record.getMaxArrivalCount();
 		maxArrivalClientCount=record.getMaxArrivalClientCount();
+
+		/* Zusätzliche Bedingung (Voraussetzung), damit eine Ankunft tatsächlich ausgeführt wird */
+		final String arrialCondition=record.getAdditionalArrivalCondition();
+		if (arrialCondition==null || arrialCondition.isBlank()) {
+			this.arrivalCondition=null;
+		} else {
+			error=ExpressionMultiEval.check(arrialCondition,runModel.variableNames);
+			if (error>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceCondition"),arrialCondition,id,error+1));
+			this.arrivalCondition=arrialCondition;
+		}
 
 		/* Zuweisungen (Zahlen) */
 		final String[] variables=record.getSetRecord().getVariables();
@@ -874,6 +892,18 @@ public class RunElementSourceRecord {
 		if (maxArrivalClientCount>=0 && arrivalClientCount>=maxArrivalClientCount) return 0;
 
 		return scheduleNextArrivalTime(simData,0,false,element,element.name);
+	}
+
+	/**
+	 * Prüft, ob die zusätzliche Bedingung für die Durchführung einer Ankunft erfüllt ist.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param recordData	Thread-lokale Datenobjekte zur Bestimmung der nächsten Ankunft
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
+	public boolean testAdditionalArrivalCondition(final SimulationData simData, final RunElementSourceRecordData recordData) {
+		if (arrivalCondition==null) return true;
+		simData.runData.setClientVariableValues(null);
+		return recordData.arrivalCondition.eval(simData.runData.variableValues,simData,null);
 	}
 
 	/**

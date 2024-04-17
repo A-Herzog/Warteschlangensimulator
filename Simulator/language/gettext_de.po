@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-09 08:11+0200\n"
+"POT-Creation-Date: 2024-04-11 00:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4556,6 +4556,9 @@ msgstr "Dialog schließen und Transporterübersicht aufrufen."
 
 msgid "Editor.DialogBase.Protected.Tooltip"
 msgstr "Element vor Löschversuchen schützen"
+
+msgid "Editor.DialogBase.Search.AdditionalCondition"
+msgstr "Zusätzliche Bedingung"
 
 msgid "Editor.DialogBase.Search.ArrivalRecord.Name"
 msgstr "Name des Kundentyps"
@@ -12796,6 +12799,9 @@ msgstr "Ja"
 msgid "ModelDescription.Arrival"
 msgstr "Ankünfte"
 
+msgid "ModelDescription.Arrival.AdditionalCondition"
+msgstr "Zusätzliche Bedingung"
+
 msgid "ModelDescription.Arrival.ArrivalStart"
 msgstr "Start der Ankünfte"
 
@@ -20531,6 +20537,9 @@ msgstr "Keine weiteren Ankünfte"
 
 msgid "Simulation.Log.ArrivalCount.Info"
 msgstr "Station %s soll nur maximal %d Ankünfte generieren und hat diese Anzahl jetzt erreicht."
+
+msgid "Simulation.Log.ArrivalSuppressed"
+msgstr "An Station %s sollte eigentlich eine Ankunft stattfinden, aber die zusätzliche Bedingung ist nicht erfüllt."
 
 msgid "Simulation.Log.ArriveStation"
 msgstr "Ankunft an Station"
@@ -33906,6 +33915,21 @@ msgstr "Kunden"
 msgid "Surface.Source.Dialog.Active"
 msgstr "Aktiv"
 
+msgid "Surface.Source.Dialog.AdditionalCondition"
+msgstr "Zusätzliche Bedingung"
+
+msgid "Surface.Source.Dialog.AdditionalCondition.Error.Info"
+msgstr "Die angegebene zusätzliche Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
+
+msgid "Surface.Source.Dialog.AdditionalCondition.Error.Title"
+msgstr "Zusätzliche Bedingung fehlerhaft"
+
+msgid "Surface.Source.Dialog.AdditionalCondition.Info"
+msgstr "Wird hier eine Bedingung eingestellt, so erfolgen Ankünfte nur, wenn diese erfüllt ist.<br>Das System zur Bestimmung der Ankunftszeitpunkte arbeitet unabhängig von dieser Bedingung.<br>Lediglich die konkrete Ausführung der Kundenankünfte wird unterdrückt, wenn die hier angegebene Bedingung nicht erfüllt ist."
+
+msgid "Surface.Source.Dialog.AdditionalCondition.Label"
+msgstr "Bedingung"
+
 msgid "Surface.Source.Dialog.ArrivalCount"
 msgstr "Anzahl an Ankunftsereignissen insgesamt"
 
@@ -34409,6 +34433,9 @@ msgstr "Zeitbasis"
 
 msgid "Surface.Source.XML.Expression"
 msgstr "ModellElementAusdruck"
+
+msgid "Surface.Source.XML.Expression.AdditionalCondition"
+msgstr "ModellElementZusatzbedingung"
 
 msgid "Surface.Source.XML.Expression.ArrivalStart"
 msgstr "ModellElementStartZeitpunkt"

@@ -150,68 +150,72 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 		final RunElementSourceData data=getData(simData);
 		boolean isLastClient=false;
 
-		boolean batchArrivals=true;
-		final int batchSize;
-		if (data.recordData.batchSize!=null) {
-			if (data.recordData.batchSize.isConstValue()) batchArrivals=(data.recordData.batchSize.getConstValue()!=1.0);
-			batchSize=(int)Math.round(data.recordData.batchSize.calcOrDefault(simData.runData.variableValues,-1));
-			if (batchSize<=0) {
-				simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Log.InvalidBatchSize"),name));
-				return;
+		if (record.testAdditionalArrivalCondition(simData,data.recordData)) {
+			boolean batchArrivals=true;
+			final int batchSize;
+			if (data.recordData.batchSize!=null) {
+				if (data.recordData.batchSize.isConstValue()) batchArrivals=(data.recordData.batchSize.getConstValue()!=1.0);
+				batchSize=(int)Math.round(data.recordData.batchSize.calcOrDefault(simData.runData.variableValues,-1));
+				if (batchSize<=0) {
+					simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Log.InvalidBatchSize"),name));
+					return;
+				}
+			} else {
+				batchSize=record.getMultiBatchSize(simData);
+			}
+			data.recordData.arrivalClientCount+=batchSize;
+
+			if (batchArrivals) {
+				/* Zwischenankunftszeiten auf Batch-Basis in der Statistik erfassen */
+				simData.runData.logStationBatchArrival(simData.currentTime,simData,this,data);
+			}
+
+			for (int i=1;i<=batchSize;i++) {
+				/* Evtl. WarmUp-Zeit beenden */
+				if (simData.runData.isWarmUp) {
+					/* Warm-Up-Phasenlänge wird nicht durch Threadanzahl geteilt, sondern auf jedem Kern wird die angegebene Anzahl simuliert */
+					if (simData.runData.clientsArrived>=warmUpClients && simData.runModel.warmUpTime>0) { /* runModel.warmUpTime>0 bedeutet, dass die Beendigung der Einschwingphase nach Zeit nur dann erfolgt, wenn diese in diesem Modus überhaupt aktiv ist. */
+						simData.endWarmUp();
+						/* Logging */
+						if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.WarmUpEnd"),Language.tr("Simulation.Log.WarmUpEnd.Info"));
+					}
+				}
+
+				/* Kunde anlegen */
+				final RunDataClient newClient=simData.runData.clients.getClient(record.clientType,simData,id);
+
+				/* Zahlen und Strings zuweisen */
+				data.recordData.setData.writeNumbersToClient(simData,newClient,name);
+				record.writeStringsToClient(newClient);
+
+				/* Notify-System über Kundenankunft informieren */
+				newClient.nextStationID=id;
+				simData.runData.fireClientMoveNotify(simData,newClient,false);
+
+				/* Zähler erhöhen, um festzustellen, wann die Simulation beendet werden kann */
+				simData.runData.clientsArrived++;
+
+				/* Logging */
+				if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.SourceArrival"),String.format(Language.tr("Simulation.Log.SourceArrival.Info"),newClient.logInfo(simData),simData.runData.getWarmUpStatus(),name,simData.runData.clientsArrived));
+
+				/* Zwischenankunftszeiten in der Statistik erfassen */
+				simData.runData.logStationArrival(simData.currentTime,simData,this,data,newClient);
+
+				/* Ggf. Kunde in Untermodell eintragen */
+				if (parentId>=0) simData.runData.logClientEntersStation(simData,simData.runModel.elementsFast[parentId],null,newClient);
+
+				/* Wenn Ziel-Anzahl an Ankünften erreicht: Kunden Marker mitgeben, dass bei seiner Ankunft im Ziel die Simulation endet.*/
+				if (simData.runData.nextClientIsLast(simData)) isLastClient=true;
+				newClient.isLastClient=isLastClient;
+
+				/* Tatsache, dass Simulation endet, ggf. loggen */
+				if (isLastClient && simData.loggingActive) log(simData,Language.tr("Simulation.Log.EndOfSimulation"),Language.tr("Simulation.Log.EndOfSimulation.LastClientGenerated"));
+
+				/* Kunden zur ersten (echten) Station leiten */
+				StationLeaveEvent.sendToStation(simData,newClient,this,connection);
 			}
 		} else {
-			batchSize=record.getMultiBatchSize(simData);
-		}
-		data.recordData.arrivalClientCount+=batchSize;
-
-		if (batchArrivals) {
-			/* Zwischenankunftszeiten auf Batch-Basis in der Statistik erfassen */
-			simData.runData.logStationBatchArrival(simData.currentTime,simData,this,data);
-		}
-
-		for (int i=1;i<=batchSize;i++) {
-			/* Evtl. WarmUp-Zeit beenden */
-			if (simData.runData.isWarmUp) {
-				/* Warm-Up-Phasenlänge wird nicht durch Threadanzahl geteilt, sondern auf jedem Kern wird die angegebene Anzahl simuliert */
-				if (simData.runData.clientsArrived>=warmUpClients && simData.runModel.warmUpTime>0) { /* runModel.warmUpTime>0 bedeutet, dass die Beendigung der Einschwingphase nach Zeit nur dann erfolgt, wenn diese in diesem Modus überhaupt aktiv ist. */
-					simData.endWarmUp();
-					/* Logging */
-					if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.WarmUpEnd"),Language.tr("Simulation.Log.WarmUpEnd.Info"));
-				}
-			}
-
-			/* Kunde anlegen */
-			final RunDataClient newClient=simData.runData.clients.getClient(record.clientType,simData,id);
-
-			/* Zahlen und Strings zuweisen */
-			data.recordData.setData.writeNumbersToClient(simData,newClient,name);
-			record.writeStringsToClient(newClient);
-
-			/* Notify-System über Kundenankunft informieren */
-			newClient.nextStationID=id;
-			simData.runData.fireClientMoveNotify(simData,newClient,false);
-
-			/* Zähler erhöhen, um festzustellen, wann die Simulation beendet werden kann */
-			simData.runData.clientsArrived++;
-
-			/* Logging */
-			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.SourceArrival"),String.format(Language.tr("Simulation.Log.SourceArrival.Info"),newClient.logInfo(simData),simData.runData.getWarmUpStatus(),name,simData.runData.clientsArrived));
-
-			/* Zwischenankunftszeiten in der Statistik erfassen */
-			simData.runData.logStationArrival(simData.currentTime,simData,this,data,newClient);
-
-			/* Ggf. Kunde in Untermodell eintragen */
-			if (parentId>=0) simData.runData.logClientEntersStation(simData,simData.runModel.elementsFast[parentId],null,newClient);
-
-			/* Wenn Ziel-Anzahl an Ankünften erreicht: Kunden Marker mitgeben, dass bei seiner Ankunft im Ziel die Simulation endet.*/
-			if (simData.runData.nextClientIsLast(simData)) isLastClient=true;
-			newClient.isLastClient=isLastClient;
-
-			/* Tatsache, dass Simulation endet, ggf. loggen */
-			if (isLastClient && simData.loggingActive) log(simData,Language.tr("Simulation.Log.EndOfSimulation"),Language.tr("Simulation.Log.EndOfSimulation.LastClientGenerated"));
-
-			/* Kunden zur ersten (echten) Station leiten */
-			StationLeaveEvent.sendToStation(simData,newClient,this,connection);
+			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.SourceArrival"),String.format(Language.tr("Simulation.Log.ArrivalSuppressed"),name));
 		}
 
 		if (scheduleNext) {

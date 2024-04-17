@@ -531,7 +531,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementZeitplan | ModellElementAnkunftsbedingung | ModellElementAnkunftsschwellenwert | ModellElementAnkunftssignal | ModellElementIntervallAnzahl | ModellElementIntervallAnzahlEinstellungen | ModellElementIntervallVerteilung | ModellElementIntervallVerteilungEinstellungen | ModellElemenZahlenwerte | ModellElementBatch | ModellElementStartZeitpunkt)*>
+<!ELEMENT ModellElementQuelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementZeitplan | ModellElementAnkunftsbedingung | ModellElementAnkunftsschwellenwert | ModellElementAnkunftssignal | ModellElementIntervallAnzahl | ModellElementIntervallAnzahlEinstellungen | ModellElementIntervallVerteilung | ModellElementIntervallVerteilungEinstellungen | ModellElemenZahlenwerte | ModellElementBatch | ModellElementStartZeitpunkt | ModellElementZusatzbedingung | ModellElementVariablenzuweisung | ModellElementZuweisungTextEintrag)*>
 <!ATTLIST ModellElementQuelle
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -554,6 +554,7 @@
   Anzahl			CDATA	#IMPLIED
   Kundenanzahl		CDATA	#IMPLIED
 >
+<!ELEMENT ModellElementZusatzbedingung (#PCDATA)>
 
 <!ELEMENT ModellElementAnkunftsschwellenwert (#PCDATA)>
 <!ATTLIST ModellElementAnkunftsbedingung
@@ -607,7 +608,7 @@
   statistik		CDATA	#IMPLIED
   SymbolSpiegeln	CDATA	#IMPLIED
 >
-<!ELEMENT ModellElementMehrfachQuelleDaten (ModellElementQuelleAktiv | ModellElementName | ModellElementVerteilung | ModellElementAusdruck | ModellElementZeitplan | ModellElementAnkunftsbedingung | ModellElementAnkunftsschwellenwert | ModellElementAnkunftssignal | ModellElementIntervallAnzahl | ModellElementIntervallAnzahlEinstellungen | ModellElementIntervallVerteilung | ModellElementIntervallVerteilungEinstellungen | ModellElemenZahlenwerte | ModellElementBatch | ModellElementStartZeitpunkt | ModellElementVariablenzuweisung | ModellElementZuweisungTextEintrag)*>
+<!ELEMENT ModellElementMehrfachQuelleDaten (ModellElementQuelleAktiv | ModellElementName | ModellElementVerteilung | ModellElementAusdruck | ModellElementZeitplan | ModellElementAnkunftsbedingung | ModellElementAnkunftsschwellenwert | ModellElementAnkunftssignal | ModellElementIntervallAnzahl | ModellElementIntervallAnzahlEinstellungen | ModellElementIntervallVerteilung | ModellElementIntervallVerteilungEinstellungen | ModellElemenZahlenwerte | ModellElementBatch | ModellElementStartZeitpunkt | ModellElementZusatzbedingung | ModellElementVariablenzuweisung | ModellElementZuweisungTextEintrag)*>
 <!ELEMENT ModellElementQuelleAktiv (#PCDATA)>
 <!ELEMENT ModellElementMehrfachQuelleModus (#PCDATA)>
 <!ELEMENT ModellElementMehrfachQuelleMaximaleAnzahl (#PCDATA)>
@@ -3224,7 +3225,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementSchedule | ModelElementArrivalCondition | ModelElementArrivalThreshold | ModelElementArrivalSignal | ModelElementCountPerInterval | ModelElementCountPerIntervalSetup | ModelElementInterArrivalPerInterval | ModelElementInterArrivalPerIntervalSetup | ModelElementDataStream | ModelElementBatchData | ModelElementStartTime)*>
+<!ELEMENT ModelElementSource (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementSchedule | ModelElementArrivalCondition | ModelElementArrivalThreshold | ModelElementArrivalSignal | ModelElementCountPerInterval | ModelElementCountPerIntervalSetup | ModelElementInterArrivalPerInterval | ModelElementInterArrivalPerIntervalSetup | ModelElementDataStream | ModelElementBatchData | ModelElementStartTime | ModelElementAdditionalCondition | ModelElementAssignmentData | ModelElementAssignmentTextRecord)*>
 <!ATTLIST ModelElementSource
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3240,6 +3241,7 @@
 <!ATTLIST ModelElementStartTime
   TimeBase	CDATA	#IMPLIED
 >
+<!ELEMENT ModelElementAdditionalCondition (#PCDATA)>
 
 <!ELEMENT ModelElementArrivalCondition (#PCDATA)>
 <!ATTLIST ModelElementArrivalCondition
@@ -3300,7 +3302,7 @@
   statistics	CDATA	#IMPLIED
   MirrorSymbol	CDATA	#IMPLIED
 >
-<!ELEMENT ModelElementMultiSourceData (ModelElementSourceActive | ModelElementName | ModelElementDistribution | ModelElementExpression | ModelElementSchedule | ModelElementArrivalCondition | ModelElementArrivalSignal | ModelElementCountPerInterval | ModelElementCountPerIntervalSetup | ModelElementInterArrivalPerInterval | ModelElementInterArrivalPerIntervalSetup | ModelElementDataStream | ModelElementBatchData | ModelElementStartTime | ModelElementAssignmentData | ModelElementAssignmentTextRecord)*>
+<!ELEMENT ModelElementMultiSourceData (ModelElementSourceActive | ModelElementName | ModelElementDistribution | ModelElementExpression | ModelElementSchedule | ModelElementArrivalCondition | ModelElementArrivalSignal | ModelElementCountPerInterval | ModelElementCountPerIntervalSetup | ModelElementInterArrivalPerInterval | ModelElementInterArrivalPerIntervalSetup | ModelElementDataStream | ModelElementBatchData | ModelElementStartTime | ModelElementAdditionalCondition | ModelElementAssignmentData | ModelElementAssignmentTextRecord)*>
 <!ELEMENT ModelElementSourceActive (#PCDATA)>
 <!ELEMENT ModelElementMultiSourceMode (#PCDATA)>
 <!ELEMENT ModelElementMultiSourceMaximumArrival (#PCDATA)>

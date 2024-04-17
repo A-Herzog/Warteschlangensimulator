@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-09 08:11+0200\n"
+"POT-Creation-Date: 2024-04-11 00:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4549,6 +4549,9 @@ msgstr "Close dialog and open transporters list."
 
 msgid "Editor.DialogBase.Protected.Tooltip"
 msgstr "Protect element against deletion"
+
+msgid "Editor.DialogBase.Search.AdditionalCondition"
+msgstr "Additional condition"
 
 msgid "Editor.DialogBase.Search.ArrivalRecord.Name"
 msgstr "Name of the client type"
@@ -12770,6 +12773,9 @@ msgstr "Yes"
 msgid "ModelDescription.Arrival"
 msgstr "Arrivals"
 
+msgid "ModelDescription.Arrival.AdditionalCondition"
+msgstr "Additional condition"
+
 msgid "ModelDescription.Arrival.ArrivalStart"
 msgstr "Start of arrivals"
 
@@ -20488,6 +20494,9 @@ msgstr "No further arrivals"
 
 msgid "Simulation.Log.ArrivalCount.Info"
 msgstr "For station %s it is planned to generate at maximum %d arrivals. This number has been reached."
+
+msgid "Simulation.Log.ArrivalSuppressed"
+msgstr "An arrival should actually take place at station %s, but the additional condition is not fulfilled."
 
 msgid "Simulation.Log.ArriveStation"
 msgstr "Arrival at station"
@@ -33854,6 +33863,21 @@ msgstr "Clients"
 msgid "Surface.Source.Dialog.Active"
 msgstr "Active"
 
+msgid "Surface.Source.Dialog.AdditionalCondition"
+msgstr "Additional condition"
+
+msgid "Surface.Source.Dialog.AdditionalCondition.Error.Info"
+msgstr "The specified additional condition \"%s\" is invalid at character %d."
+
+msgid "Surface.Source.Dialog.AdditionalCondition.Error.Title"
+msgstr "Additional condition invalid"
+
+msgid "Surface.Source.Dialog.AdditionalCondition.Info"
+msgstr "If a condition is defined here, arrivals will only take place if this condition is met.<br>The system for determining arrival times works independently of this condition.<br>Only the actual execution of client arrivals is suppressed if the condition specified here is not met."
+
+msgid "Surface.Source.Dialog.AdditionalCondition.Label"
+msgstr "Condition"
+
 msgid "Surface.Source.Dialog.ArrivalCount"
 msgstr "Number of arrival events in total"
 
@@ -34357,6 +34381,9 @@ msgstr "TimeBase"
 
 msgid "Surface.Source.XML.Expression"
 msgstr "ModelElementExpression"
+
+msgid "Surface.Source.XML.Expression.AdditionalCondition"
+msgstr "ModelElementAdditionalCondition"
 
 msgid "Surface.Source.XML.Expression.ArrivalStart"
 msgstr "ModelElementStartTime"

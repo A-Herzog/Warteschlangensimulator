@@ -66,6 +66,9 @@ public class RunElementSourceRecordData {
 	/** Enthält {@link #thresholdLastValue} einen gültigen Wert (<code>true</code>) oder wurde noch kein Wert aufgezeichnet (<code>false</code>)? */
 	private boolean thresholdIsLastValueAvailable;
 
+	/** Zusätzliche Bedingung (Voraussetzung), damit eine Ankunft tatsächlich ausgeführt wird (kann <code>null</code> sein) */
+	public final ExpressionMultiEval arrivalCondition;
+
 	/** Ausdrücke für Zuweisungen von Zahlen-Eigenschaften zu neuen Kunden */
 	public final RunElementSourceRecord.SourceSetExpressions setData;
 
@@ -135,6 +138,13 @@ public class RunElementSourceRecordData {
 		}
 		this.thresholdValue=record.thresholdValue;
 		this.thresholdIsDirectionUp=record.thresholdDirectionUp;
+
+		if (record.arrivalCondition==null) {
+			this.arrivalCondition=null;
+		} else {
+			this.arrivalCondition=new ExpressionMultiEval(variableNames);
+			this.arrivalCondition.parse(record.arrivalCondition);
+		}
 
 		this.setData=record.getRuntimeExpressions(simData.runModel.variableNames);
 

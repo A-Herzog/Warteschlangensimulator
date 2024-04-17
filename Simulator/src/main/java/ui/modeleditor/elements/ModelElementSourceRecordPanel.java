@@ -263,6 +263,11 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	/** Beschriftung (Zeiteinheit) für #arrivalStart */
 	private JLabel arrivalStartTimeUnitLabel;
 
+	/* Dialogseite "Zusätzliche Bedingung" */
+
+	/** Zusätzliche Bedingung für Ankünfte */
+	private final JTextField additionalArrivalCondition;
+
 	/* Dialogseite "Zuweisung von Kundenvariablen" */
 
 	/** Panel für die Konfiguration der Zuweisung von Kundenvariablen */
@@ -808,6 +813,25 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		line.setVisible(cardIndex==0 || cardIndex==1 || cardIndex==4);
 		line.setVisible(cardIndex==0 || cardIndex==1 || cardIndex==4);
 
+		/* Zusätzliche Bedingung */
+
+		tab=new JPanel(new BorderLayout(0,5));
+		if (hasOwnArrivals) tabs.add(Language.tr("Surface.Source.Dialog.AdditionalCondition"),tab);
+		tab.add(panel=new JPanel(),BorderLayout.NORTH);
+		panel.setLayout(new BoxLayout(panel,BoxLayout.PAGE_AXIS));
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Source.Dialog.AdditionalCondition.Label")+":","");
+		panel.add(line=(JPanel)data[0]);
+		additionalArrivalCondition=(JTextField)data[1];
+		additionalArrivalCondition.setEditable(!readOnly);
+		additionalArrivalCondition.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {checkData(false);}
+		});
+		line.add(ModelElementBaseDialog.getExpressionEditButton(this,(JTextField)data[1],true,false,model,surface),BorderLayout.EAST);
+		panel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel("<html><body>"+Language.tr("Surface.Source.Dialog.AdditionalCondition.Info")+"</body></html>"));
+
 		/* Zuweisungen (Zahlen) */
 
 		tabs.add(Language.tr("Surface.Source.Dialog.Tab.SetNumbers"),panelNumbers=new JPanel(new BorderLayout(0,5)));
@@ -824,6 +848,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		if (hasOwnArrivals) {
 			tabs.setIconAt(index++,Images.MODELEDITOR_ELEMENT_SOURCE_PAGE_COUNT.getIcon());
 			tabs.setIconAt(index++,Images.MODELEDITOR_ELEMENT_SOURCE_PAGE_START.getIcon());
+			tabs.setIconAt(index++,Images.MODELEDITOR_ELEMENT_SOURCE_PAGE_ADDITIONAL_CONDITION.getIcon());
 		}
 		tabs.setIconAt(index++,Images.MODELEDITOR_ELEMENT_SOURCE_PAGE_SET_NUMBERS.getIcon());
 		tabs.setIconAt(index++,Images.MODELEDITOR_ELEMENT_SOURCE_PAGE_SET_TEXTS.getIcon());
@@ -1034,6 +1059,9 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		}
 
 		Object[] data;
+
+		/* Zusätzliche Bedingung */
+		additionalArrivalCondition.setText(record.getAdditionalArrivalCondition());
 
 		/* Zuweisungen (Zahlen) */
 		data=VariablesTableModel.buildTable(record.getSetRecord(),element,readOnly,helpRunnable,true);
@@ -1452,6 +1480,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			break;
 		}
 
+		/* Batch-Größe */
 		error=ExpressionCalc.check(batchField.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
 		if (error>=0) {
 			batchField.setBackground(Color.RED);
@@ -1464,6 +1493,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			batchField.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
+		/* Anzahl an Ankünften */
 		if (hasOwnArrivals) {
 			L=NumberTools.getPositiveLong(numberFieldArrivals,true);
 			if (L==null && optionFixedNumberArrivals.isSelected()) {
@@ -1505,6 +1535,25 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 					tabs.setTitleAt(3,Language.tr("Surface.Source.Dialog.Tab.StartingTime")+": "+Language.tr("Surface.Source.Dialog.Tab.StartingTime.Immediately"));
 				} else {
 					tabs.setTitleAt(3,Language.tr("Surface.Source.Dialog.Tab.StartingTime")+": "+String.format(Language.tr("Surface.Source.Dialog.Tab.StartingTime.AfterTime"),NumberTools.formatNumber(D.doubleValue())+" "+unitTab));
+				}
+			}
+		}
+
+		/* Zusätzliche Bedingung */
+		if (hasOwnArrivals) {
+			if (additionalArrivalCondition.getText().isBlank()) {
+				additionalArrivalCondition.setBackground(NumberTools.getTextFieldDefaultBackground());
+			} else {
+				error=ExpressionMultiEval.check(additionalArrivalCondition.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+				if (error>=0) {
+					additionalArrivalCondition.setBackground(Color.RED);
+					if (showErrorMessage) {
+						MsgBox.error(this,Language.tr("Surface.Source.Dialog.AdditionalCondition.Error.Title"),String.format(Language.tr("Surface.Source.Dialog.AdditionalCondition.Error.Info"),additionalArrivalCondition.getText(),error+1));
+						return false;
+					}
+					ok=false;
+				} else {
+					additionalArrivalCondition.setBackground(NumberTools.getTextFieldDefaultBackground());
 				}
 			}
 		}
@@ -1607,6 +1656,9 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 				record.setArrivalStartTimeBase(TimeBase.byId(arrivalStartTimeUnit.getSelectedIndex()));
 			}
 		}
+
+		/* Zusätzliche Bedingung */
+		record.setAdditionalArrivalCondition(additionalArrivalCondition.getText().trim());
 
 		/* Zuweisungen (Zahlen) */
 		modelNumbers.storeData();
