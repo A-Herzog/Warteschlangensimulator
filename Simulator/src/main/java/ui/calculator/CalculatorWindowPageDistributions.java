@@ -387,6 +387,10 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
 		}
 
+		if (file.exists()) {
+			if (!MsgBox.confirmOverwrite(this,file)) return false;
+		}
+
 		final AbstractRealDistribution distribution=distributionEditor.getDistribution();
 		final String lineSeparator=System.lineSeparator();
 
@@ -504,6 +508,10 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		File file=fc.getSelectedFile();
 		if (file.getName().indexOf('.')<0) {
 			if (fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
+		}
+
+		if (file.exists()) {
+			if (!MsgBox.confirmOverwrite(this,file)) return false;
 		}
 
 		final TableChart tableChart=buildTableChart();
