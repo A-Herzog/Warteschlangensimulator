@@ -97,7 +97,7 @@ import systemtools.images.SimToolsImages;
  * Diese Klasse stellt Implementierung des {@link StatisticViewer}-Interfaces zur
  * Anzeige von Text dar.
  * @author Alexander Herzog
- * @version 2.4
+ * @version 2.5
  */
 public abstract class StatisticViewerText implements StatisticViewer {
 	/**
@@ -555,7 +555,6 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		tree.addTreeSelectionListener(e->gotoStartOfLine(getSelectedNavLine()+1));
 		((DefaultTreeCellRenderer)tree.getCellRenderer()).setLeafIcon(SimToolsImages.STATISTICS_TEXT.getIcon());
 		for (int i=0;i<tree.getRowCount();i++) tree.expandRow(i);
-		if (!isDark) tree.setBackground(new Color(0xFF,0xFF,0xF8));
 		split.addPropertyChangeListener("ancestor",e->updateTreeSize());
 		treeScroller.setVisible(false);
 
