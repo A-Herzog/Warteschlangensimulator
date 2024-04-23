@@ -267,12 +267,17 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 	@Override
 	public int saveHtml(BufferedWriter bw, File mainFile, int nextImageNr, boolean imagesInline) throws IOException {
 		/* Grafik erzeugen */
-		if (panel==null) panelNeeded();
 		final int imageSize=getImageSize();
-		final BufferedImage image=new BufferedImage(imageSize,imageSize,BufferedImage.TYPE_INT_RGB);
-		final Graphics g=image.getGraphics();
-		g.setClip(0,0,imageSize,imageSize);
-		if (panel instanceof JGetImage) ((JGetImage)panel).paintToGraphics(g); else	panel.paint(g);
+		BufferedImage image;
+
+		image=getImage(imageSize,imageSize);
+		if (image==null) {
+			if (panel==null) panelNeeded();
+			image=new BufferedImage(imageSize,imageSize,BufferedImage.TYPE_INT_RGB);
+			final Graphics g=image.getGraphics();
+			g.setClip(0,0,imageSize,imageSize);
+			if (panel instanceof JGetImage) ((JGetImage)panel).paintToGraphics(g); else	panel.paint(g);
+		}
 
 		if (imagesInline) {
 			/* Ausgabe als Inline-Grafik */
