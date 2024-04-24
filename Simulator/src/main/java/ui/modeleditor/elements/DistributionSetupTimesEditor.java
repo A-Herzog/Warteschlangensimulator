@@ -186,16 +186,10 @@ public class DistributionSetupTimesEditor extends JPanel {
 			cards.add(distributionPanel=new JDistributionPanel(null,3600,!readOnly) {
 				private static final long serialVersionUID = -8375312389773855243L;
 				@Override
-				protected boolean editButtonClicked() {
-					fireUserChangeListener();
+				protected void changedByUser() {
 					activeCheckBox.setSelected(true);
-					if (super.editButtonClicked()) {
-						activeClientTypeChanged();
-						fireUserChangeListener();
-						return true;
-					} else {
-						return false;
-					}
+					activeClientTypeChanged();
+					fireUserChangeListener();
 				}
 			},cardDistribution);
 

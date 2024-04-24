@@ -245,10 +245,9 @@ public class DistributionBySubTypeEditor extends JPanel {
 		cards.add(distributionPanel=new JDistributionPanel(null,3600,!readOnly) {
 			private static final long serialVersionUID = -8375312389773855243L;
 			@Override
-			protected boolean editButtonClicked() {
+			protected void changedByUser() {
 				fireUserChangeListener();
 				if (subTypeSelect.getSelectedIndex()>0 && !readOnly) useGlobal.setSelected(false);
-				return super.editButtonClicked();
 			}
 		},cardDistribution);
 

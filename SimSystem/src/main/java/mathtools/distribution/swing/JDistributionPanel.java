@@ -919,7 +919,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	 * um die Verteilung zu bearbeiten.
 	 * @return	Gibt an, ob Änderungen an der Verteilung vorgenommen wurden.
 	 */
-	protected boolean editButtonClicked() {
+	private boolean editButtonClicked() {
 		Container c=getParent();
 		while (!(c instanceof Window)) {c=c.getParent(); if (c==null) return false;}
 		JDistributionEditorDialog dialog=new JDistributionEditorDialog((Window)c,getDistribution(),maxXValue,plotType,allowDistributionTypeChange,allowOk,imageSize);
@@ -928,9 +928,16 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		if (d!=null) {
 			boolean result=!DistributionTools.compare(getDistribution(),d);
 			setDistribution(d);
+			if (result) changedByUser();
 			return result;
 		}
 		return false;
+	}
+
+	/**
+	 * Wird aufgerufen, wenn die Verteilung über GUI-Interaktionen verändert wurde.
+	 */
+	protected void changedByUser() {
 	}
 
 	/**
@@ -1030,7 +1037,11 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 					sd=NumberTools.reduceDigits(sd,5);
 					AbstractRealDistribution newDistribution=newWrapper.getDistribution(mean,sd);
 					if (newDistribution==null) newDistribution=newWrapper.getDefaultDistribution();
-					if (newDistribution!=null) setDistribution(newDistribution);
+					if (newDistribution!=null)
+					{
+						setDistribution(newDistribution);
+						changedByUser();
+					}
 				});
 			}
 			typeItem.addSeparator();
@@ -1070,7 +1081,10 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 				@Override
 				public void keyReleased(KeyEvent e) {
 					final AbstractRealDistribution newDistribution=record.getDistribution(fields,maxXValue);
-					if (newDistribution!=null) setDistribution(newDistribution);
+					if (newDistribution!=null) {
+						setDistribution(newDistribution);
+						changedByUser();
+					}
 				}
 			});
 		}
