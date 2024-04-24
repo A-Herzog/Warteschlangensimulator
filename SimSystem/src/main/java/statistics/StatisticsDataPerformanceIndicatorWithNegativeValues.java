@@ -718,8 +718,9 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	 */
 	public double getQuantil(final double p) {
 		if (dist==null) return 0.0;
-
-		return getQuantil(dist.getSum(),p);
+		/* In dist.density wird gezählt, welcher Wert wie häufig auftritt, daher ist dist.getSum()==count */
+		/* return getQuantil(dist.getSum(),p); */
+		return getQuantil(count,p);
 	}
 
 	/**
@@ -737,7 +738,9 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		final double[] result=new double[p.length];
 
 		if (dist!=null) {
-			final double sum=dist.getSum();
+			/* In dist.density wird gezählt, welcher Wert wie häufig auftritt, daher ist dist.getSum()==count */
+			/* final double sum=dist.getSum(); */
+			final double sum=count;
 			for (int i=0;i<p.length;i++) result[i]=getQuantil(sum,p[i]);
 		}
 

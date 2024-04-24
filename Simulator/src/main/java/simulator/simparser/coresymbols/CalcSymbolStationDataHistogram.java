@@ -217,9 +217,9 @@ public abstract class CalcSymbolStationDataHistogram extends CalcSymbolSimData {
 		final double sum=getDistributionSumByID(parameters[0]);
 		if (sum<1) return 0.0;
 
-		if (lastSum==sum) {
-			if (parameters.length==3 && lastParam1==parameters[1] && lastParam2==parameters[2]) return lastResult;
-			if (parameters.length==2 && lastParam1==parameters[1]) return lastResult;
+		if (lastSum==sum && lastParam1==parameters[1]) {
+			if (parameters.length==2) return lastResult;
+			if (/*parameters.length==3 &&*/ lastParam2==parameters[2]) return lastResult; /* parameters.length kann nur 2 oder 3 sein, siehe if-Abfrage ganz oben. Daher ist hier parameters.length==3 klar. */
 		}
 
 		final DataDistributionImpl dist=getDistributionByID(parameters[0]);
