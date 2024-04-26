@@ -109,7 +109,7 @@ public class HTMLBrowserFXPane extends JFXPanel implements HTMLBrowserPanel {
 
 	private void processPage(Document doc) {
 		/* Neue Stylesheets aktivieren */
-		if (userStyleSheet!=null && !userStyleSheet.trim().isEmpty()) {
+		if (userStyleSheet!=null && !userStyleSheet.isBlank()) {
 			NodeList headList=doc.getElementsByTagName("head");
 			if (headList!=null && headList.getLength()>0 && headList.item(0) instanceof HTMLHeadElement) {
 				HTMLHeadElement head=(HTMLHeadElement)(headList.item(0));

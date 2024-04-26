@@ -176,7 +176,7 @@ public class CommandLineDialog extends BaseDialog {
 		tab.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(parameters=new JTextField(80));
 		BaseDialog.addUndoFeature(parameters);
-		if (initialParameters!=null && !initialParameters.trim().isEmpty()) parameters.setText(initialParameters);
+		if (initialParameters!=null && !initialParameters.isBlank()) parameters.setText(initialParameters);
 
 		tab.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(new JLabel(labelResults));

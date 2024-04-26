@@ -224,7 +224,7 @@ public class GUITools {
 	 * @param fontName	Name der Schriftart
 	 */
 	public static void setFontName(final String fontName) {
-		if (fontName==null || fontName.trim().isEmpty()) return;
+		if (fontName==null || fontName.isBlank()) return;
 
 		for (Object key: UIManager.getDefaults().keySet()) {
 			if (!(key instanceof String)) continue;

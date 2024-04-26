@@ -278,7 +278,7 @@ public abstract class MainPanelBase extends JPanel {
 	 * @param languageString	Der erste Buchstabe dieses Strings wird in dem Menüpunkt hervorgehoben
 	 */
 	protected void setMnemonic(final JMenuItem menu, final String languageString) {
-		if (languageString==null || languageString.trim().isEmpty()) return;
+		if (languageString==null || languageString.isBlank()) return;
 		final char c=languageString.charAt(0);
 		if (c!=' ') menu.setMnemonic(c);
 	}
@@ -1695,7 +1695,7 @@ public abstract class MainPanelBase extends JPanel {
 			String intro="";
 			if (title!=null && !title.isEmpty()) intro="<b>"+title+":</b> ";
 			final String htmlLink;
-			if (link==null || link.trim().isEmpty()) {
+			if (link==null || link.isBlank()) {
 				htmlLink="";
 			} else {
 				htmlLink=" <a href=\""+link+"\">"+link+"</a>";

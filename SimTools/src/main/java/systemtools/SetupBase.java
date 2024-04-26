@@ -376,7 +376,7 @@ public abstract class SetupBase {
 
 		/* Leerzeilen am Anfang der Ausgabe */
 		while (index<lines.size()) {
-			if (lines.get(index).trim().isEmpty()) index++; else break;
+			if (lines.get(index).isBlank()) index++; else break;
 		}
 
 		/* Pfad */

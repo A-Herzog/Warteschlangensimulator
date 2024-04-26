@@ -1789,7 +1789,7 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 		dataLabel[index].setText(title);
 
 		int delta=0;
-		if (supTitle!=null && !supTitle.trim().isEmpty()) {
+		if (supTitle!=null && !supTitle.isBlank()) {
 			titlePanel[index].setVisible(true);
 			titleLabel[index].setText(supTitle);
 			delta=titlePanel[index].getY();

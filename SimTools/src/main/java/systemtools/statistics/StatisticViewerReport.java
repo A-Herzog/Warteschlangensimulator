@@ -590,7 +590,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		}
 
 		final String title;
-		if (modelName==null || modelName.trim().isEmpty()) title=StatisticsBasePanel.viewersReportSaveHTMLAppTitle; else title=modelName+" - "+StatisticsBasePanel.viewersReportSaveHTMLAppTitle;
+		if (modelName==null || modelName.isBlank()) title=StatisticsBasePanel.viewersReportSaveHTMLAppTitle; else title=modelName+" - "+StatisticsBasePanel.viewersReportSaveHTMLAppTitle;
 		bw.write("<h1 class=\"main\">"+title+"</h1>"); bw.newLine();
 		bw.write("<div class=\"page\">"); bw.newLine();
 		bw.write("<div class=\"tree\">"); bw.newLine();

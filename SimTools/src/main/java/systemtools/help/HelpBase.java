@@ -304,7 +304,7 @@ public abstract class HelpBase {
 			break;
 		}
 
-		if (customStyleSheet!=null && !customStyleSheet.trim().isEmpty()) viewer.setUserDefinedStyleSheet(customStyleSheet);
+		if (customStyleSheet!=null && !customStyleSheet.isBlank()) viewer.setUserDefinedStyleSheet(customStyleSheet);
 
 		return viewer;
 	}

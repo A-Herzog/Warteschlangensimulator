@@ -202,7 +202,7 @@ public class StatisticTree extends JTree {
 			item.addActionListener(e->{
 				String text=commandLineCommand;
 				text+=" \""+objName+"\"";
-				if (commandLineDataFileName!=null && !commandLineDataFileName.trim().isEmpty()) text+=" \""+commandLineDataFileName+"\""; else text+=" \"data.xml\"";
+				if (commandLineDataFileName!=null && !commandLineDataFileName.isBlank()) text+=" \""+commandLineDataFileName+"\""; else text+=" \"data.xml\"";
 				if (type==StatisticViewer.ViewerType.TYPE_TEXT) text+=" \"data.docx\"";
 				if (type==StatisticViewer.ViewerType.TYPE_TABLE) text+=" \"data.xlsx\"";
 				if (type==StatisticViewer.ViewerType.TYPE_IMAGE) text+=" \"data.png\"";

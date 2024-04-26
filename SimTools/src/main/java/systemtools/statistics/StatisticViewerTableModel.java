@@ -69,7 +69,7 @@ public class StatisticViewerTableModel extends AbstractTableModel {
 	 * @param regularExpression	Suchbegriff ist regulärer Ausdruck?
 	 */
 	public void setSearchString(final String searchString, final boolean caseSensitive, final boolean regularExpression) {
-		if (searchString==null || searchString.trim().isEmpty()) {
+		if (searchString==null || searchString.isBlank()) {
 			this.searchString=null;
 			this.searchPattern=null;
 		} else {

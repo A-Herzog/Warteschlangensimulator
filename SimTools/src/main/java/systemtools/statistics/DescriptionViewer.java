@@ -232,7 +232,7 @@ public class DescriptionViewer extends JPanel {
 
 		if (e.getEventType()==HyperlinkEvent.EventType.ACTIVATED) {
 			final String description=e.getDescription();
-			if (description!=null && !description.trim().isEmpty()) {
+			if (description!=null && !description.isBlank()) {
 				final String linkLower=description.toLowerCase();
 
 				if (linkLower.startsWith("http://") || linkLower.startsWith("https://")) {

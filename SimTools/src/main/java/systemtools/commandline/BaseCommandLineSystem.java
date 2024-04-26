@@ -301,7 +301,7 @@ public class BaseCommandLineSystem {
 	 * @return Gibt <code>true</code> zurück, wenn Kommandozeilenparameter übergeben wurden und folglich die Kommandozeilen-Variante aktiviert wurde.
 	 */
 	public boolean runDirect(final String arguments) {
-		if (arguments==null || arguments.trim().isEmpty()) return false;
+		if (arguments==null || arguments.isBlank()) return false;
 		runInternal(splitArguments(arguments));
 		return true;
 	}
@@ -325,7 +325,7 @@ public class BaseCommandLineSystem {
 			style.setBold(true);
 			while(scanner.hasNext()){
 				final String cmd=scanner.nextLine();
-				if (cmd==null || cmd.trim().isEmpty()) continue;
+				if (cmd==null || cmd.isBlank()) continue;
 				style.setBold(false);
 
 				final String cmdLower=cmd.toLowerCase();

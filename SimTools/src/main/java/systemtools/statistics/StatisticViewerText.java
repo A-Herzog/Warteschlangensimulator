@@ -321,7 +321,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			}
 			if (type==0) {
 				/* Normaler Text */
-				if (hint!=null && !hint.trim().isEmpty()) {
+				if (hint!=null && !hint.isBlank()) {
 					final SimpleAttributeSet attrSet=new SimpleAttributeSet(defaultStyle2);
 					attrSet.addAttribute("Hint",hint);
 					doc.addText(attrSet,line+"\n");
@@ -333,14 +333,14 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			if (type==-3) {
 				/* Link(klein) */
 				final SimpleAttributeSet attrSet=new SimpleAttributeSet(doc.getStyle("linkSmall"));
-				if (hint!=null && !hint.trim().isEmpty()) attrSet.addAttribute("URL",hint);
+				if (hint!=null && !hint.isBlank()) attrSet.addAttribute("URL",hint);
 				doc.addText(attrSet,line+"\n");
 				continue;
 			}
 			if (type==-4) {
 				/* Link */
 				final SimpleAttributeSet attrSet=new SimpleAttributeSet(doc.getStyle("linkBig"));
-				if (hint!=null && !hint.trim().isEmpty()) attrSet.addAttribute("URL",hint);
+				if (hint!=null && !hint.isBlank()) attrSet.addAttribute("URL",hint);
 				doc.addText(attrSet,line+"\n");
 				continue;
 			}

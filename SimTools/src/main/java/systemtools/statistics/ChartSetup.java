@@ -318,7 +318,7 @@ public class ChartSetup {
 	 * @see #saveColor(Color)
 	 */
 	public static Color loadColor(final String content) {
-		if (content==null || content.trim().isEmpty()) return null;
+		if (content==null || content.isBlank()) return null;
 		final String[] parts=content.split(",");
 		Integer C1=null, C2=null, C3=null;
 		if (parts.length==3) {

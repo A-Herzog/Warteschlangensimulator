@@ -63,7 +63,7 @@ public class JRegExWikipediaLinkLabel extends JLabel {
 	 */
 	public JRegExWikipediaLinkLabel(final Component parent, final String title, final String tooltip, final String url, final boolean addLeftMargin) {
 		setText("<html><body><span style=\"color: blue; text-decoration: underline;\">"+title+"</span></body></html>");
-		if (tooltip!=null && !tooltip.trim().isEmpty()) setToolTipText(tooltip);
+		if (tooltip!=null && !tooltip.isBlank()) setToolTipText(tooltip);
 		if (addLeftMargin) setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		addMouseListener(new MouseAdapter() {
