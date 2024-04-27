@@ -19,6 +19,9 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.Serializable;
 import java.util.Hashtable;
 
@@ -28,6 +31,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 
@@ -58,6 +62,8 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 
 	/** Eingabefeld für den anzuzeigenden Text */
 	private RSyntaxTextArea textField;
+	/** Vorschaubereich */
+	private ModelElementTextPreviewPanel preview;
 	/** Auswahl der Schriftart */
 	private JComboBox<FontCache.FontFamily> fontFamilyComboBox;
 	/** Eingabefeld für die Schriftgröße */
@@ -122,14 +128,27 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 		if (element instanceof ModelElementText) {
 			final ModelElementText text=(ModelElementText)element;
 
-			/* Text */
-			panel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
-			subPanel.add(label=new JLabel(Language.tr("Surface.Text.Dialog.Text")+":"));
+			/* Bereich in der Mitte */
+			panel.add(subPanel=new JPanel(new GridLayout(2,1)),BorderLayout.CENTER);
 
-			panel.add(new ScriptEditorAreaBuilder.RScrollPane(textField=ScriptEditorAreaBuilder.getPlainTextField(5,50,text.getText(),readOnly,ScriptEditorAreaBuilder.TextAreaMode.TEXT_ELEMENT)),BorderLayout.CENTER);
+			/* Eingabebereich */
+			subPanel.add(subPanel2=new JPanel(new BorderLayout()));
+			subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEADING)),BorderLayout.NORTH);
+			line.add(label=new JLabel(Language.tr("Surface.Text.Dialog.Text")+":"));
+			subPanel2.add(new ScriptEditorAreaBuilder.RScrollPane(textField=ScriptEditorAreaBuilder.getPlainTextField(5,50,text.getText(),readOnly,ScriptEditorAreaBuilder.TextAreaMode.TEXT_ELEMENT)),BorderLayout.CENTER);
 			label.setLabelFor(textField);
 			addUndoFeature(textField);
 			if (text.isInterpretSymbols()) ScriptEditorAreaBuilder.setEntityAutoComplete(textField,true);
+			textField.addKeyListener(new KeyAdapter() {
+				@Override public void keyReleased(KeyEvent e) {updatePreview();}
+			});
+
+			/* Vorschaubereich */
+			subPanel.add(subPanel2=new JPanel(new BorderLayout()));
+			subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEADING)),BorderLayout.NORTH);
+			line.add(label=new JLabel(Language.tr("Surface.Text.Dialog.Preview")+":"));
+			subPanel2.add(new JScrollPane(preview=new ModelElementTextPreviewPanel()));
+			label.setLabelFor(preview);
 
 			/* Bereich unten */
 			JPanel bottomPanel=new JPanel();
@@ -140,6 +159,7 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			data=getFontFamilyComboBoxPanel(Language.tr("Surface.Text.Dialog.FontFamily")+":",text.getFontFamily());
 			fontFamilyComboBox=(JComboBox<FontCache.FontFamily>)data[1];
 			fontFamilyComboBox.setEnabled(!readOnly);
+			fontFamilyComboBox.addActionListener(e->updatePreview());
 			bottomPanel.add((JPanel)data[0]);
 
 			/* Schriftgröße */
@@ -150,14 +170,17 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			sizeField.addActionListener(e->{
 				if (readOnly) return;
 				NumberTools.getNotNegativeInteger(sizeField,true);
+				updatePreview();
 			});
 
 			/* Fett/Kursiv */
 			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			subPanel.add(optionBold=new JCheckBox("<html><b>"+Language.tr("Surface.Text.Dialog.Bold")+"</b></html>",text.getTextBold()));
 			optionBold.setEnabled(!readOnly);
+			optionBold.addActionListener(e->updatePreview());
 			subPanel.add(optionItalic=new JCheckBox("<html><i>"+Language.tr("Surface.Text.Dialog.Italic")+"</i></html>",text.getTextItalic()));
 			optionItalic.setEnabled(!readOnly);
+			optionItalic.addActionListener(e->updatePreview());
 
 			/* Interpretation von Symbolen */
 			subPanel.add(optionInterpretSymbols=new JCheckBox(Language.tr("Surface.Text.Dialog.FontSize.HTMLLaTeX"),text.isInterpretSymbols()));
@@ -165,17 +188,20 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			optionInterpretSymbols.setEnabled(!readOnly);
 			optionInterpretSymbols.addActionListener(e->{
 				ScriptEditorAreaBuilder.setEntityAutoComplete(textField,optionInterpretSymbols.isSelected());
+				updatePreview();
 			});
 
 			/* Interpretation von Markdown */
 			subPanel.add(optionInterpretMarkdown=new JCheckBox(Language.tr("Surface.Text.Dialog.FontSize.Markdown"),text.isInterpretMarkdown()));
 			optionInterpretMarkdown.setToolTipText(Language.tr("Surface.Text.Dialog.FontSize.Markdown.Info"));
 			optionInterpretMarkdown.setEnabled(!readOnly);
+			optionInterpretMarkdown.addActionListener(e->updatePreview());
 
 			/* Interpretation von LaTeX-Formatierungen */
 			subPanel.add(optionInterpretLaTeX=new JCheckBox(Language.tr("Surface.Text.Dialog.FontSize.LaTeX"),text.isInterpretLaTeX()));
 			optionInterpretLaTeX.setToolTipText(Language.tr("Surface.Text.Dialog.FontSize.LaTeX.Info"));
 			optionInterpretLaTeX.setEnabled(!readOnly);
+			optionInterpretLaTeX.addActionListener(e->updatePreview());
 
 			/* Ausrichtung */
 			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -198,6 +224,7 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			default: textAlign.setSelectedIndex(0); break;
 			}
 			textAlign.setEnabled(!readOnly);
+			textAlign.addActionListener(e->updatePreview());
 
 			/* Zeile für Farben */
 			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -213,6 +240,7 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			line.add(colorChooser=new SmallColorChooser(text.getColor()),BorderLayout.CENTER);
 			colorChooser.setEnabled(!readOnly);
 			label.setLabelFor(colorChooser);
+			colorChooser.addClickListener(e->updatePreview());
 
 			/* Hintergrundfarbe */
 			subPanel.add(subPanel2=new JPanel());
@@ -222,11 +250,15 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			line.add(background=new JCheckBox(Language.tr("Surface.Text.Dialog.FillBackground")),BorderLayout.NORTH);
 			background.setSelected(text.getFillColor()!=null);
 			background.setEnabled(!readOnly);
+			background.addActionListener(e->updatePreview());
 
 			subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(colorChooserBackground=new SmallColorChooser(text.getFillColor()),BorderLayout.CENTER);
 			colorChooserBackground.setEnabled(!readOnly);
-			colorChooserBackground.addClickListener(e->background.setSelected(true));
+			colorChooserBackground.addClickListener(e->{
+				background.setSelected(true);
+				updatePreview();
+			});
 
 			/* Deckkraft */
 			bottomPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
@@ -243,10 +275,44 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			alpha.setPaintTicks(true);
 			alpha.setPaintLabels(true);
 			alpha.setPreferredSize(new Dimension(400,alpha.getPreferredSize().height));
-			alpha.addChangeListener(e->background.setSelected(true));
+			alpha.addChangeListener(e->{
+				background.setSelected(true);
+				updatePreview();
+			});
 		}
 
+		updatePreview();
+
 		return panel;
+	}
+
+	/**
+	 * Aktualisiert den Vorschaubereich.
+	 * @see #preview
+	 */
+	private void updatePreview() {
+		final Integer size=NumberTools.getNotNegativeInteger(sizeField,true);
+		final ModelElementText.TextAlign align;
+		switch (textAlign.getSelectedIndex()) {
+		case 0: align=TextAlign.LEFT; break;
+		case 1: align=TextAlign.CENTER; break;
+		case 2: align=TextAlign.RIGHT; break;
+		default: align=TextAlign.LEFT; break;
+		}
+
+		preview.set(
+				optionInterpretMarkdown.isSelected(),
+				optionInterpretLaTeX.isSelected(),
+				optionInterpretSymbols.isSelected(),
+				textField.getText(),
+				colorChooser.getColor(),
+				(background.isSelected()?colorChooserBackground.getColor():null),
+				alpha.getValue()	/100.0,
+				((size==null)?14:size),
+				optionBold.isSelected(),
+				optionItalic.isSelected(),
+				(FontCache.FontFamily)fontFamilyComboBox.getSelectedItem(),
+				align);
 	}
 
 	/**

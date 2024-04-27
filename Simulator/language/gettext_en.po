@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-11 00:27+0200\n"
+"POT-Creation-Date: 2024-04-27 15:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35494,6 +35494,9 @@ msgstr "Interpret simple Markdown formatting"
 
 msgid "Surface.Text.Dialog.Italic"
 msgstr "Italic"
+
+msgid "Surface.Text.Dialog.Preview"
+msgstr "Preview"
 
 msgid "Surface.Text.Dialog.Text"
 msgstr "Text to be displayed"
