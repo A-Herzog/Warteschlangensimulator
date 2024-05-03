@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-27 15:42+0200\n"
+"POT-Creation-Date: 2024-04-28 00:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3362,6 +3362,12 @@ msgstr "Negative Binomialverteilung"
 
 msgid "Distribution.NegativeBinomialWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Negative_Binomialverteilung"
+
+msgid "Distribution.NegativeHyperGeom"
+msgstr "Negative hypergeometrische Verteilung"
+
+msgid "Distribution.NegativeHyperGeomWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Negative_hypergeometrische_Verteilung"
 
 msgid "Distribution.Never"
 msgstr "Niemals;nie"
@@ -7029,6 +7035,15 @@ msgstr "<p>Berechnet den Wert der Zähldichte der negativen Binomial-Verteilung 
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistributionDirect.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der negativen Binomial-Verteilung mit dem angegebenen Erwartungswert und der angegbebenen Standardabweichung.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.NegativeHypergeometricDistribution"
+msgstr "Negative hypergeometrische Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.NegativeHypergeometricDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Zähldichte der negativen hypergeometrischen Verteilung an der als ersten Parameter angegebenen Stelle mit den Verteilungsparametern gemäß den weiteren Funktionsparametern.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.NegativeHypergeometricDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der negativen hypergeometrischen Verteilung mit den angegebenen Parametern.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution"
 msgstr "Normalverteilung"

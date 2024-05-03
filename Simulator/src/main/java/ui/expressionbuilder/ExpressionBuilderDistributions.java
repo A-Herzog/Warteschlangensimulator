@@ -242,12 +242,19 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistribution.RandomNumberInfo"));
 
-		/* Negative Binomial-Verteilung */
+		/* Negative Binomial-Verteilung - Direkt */
 
 		addDiscreteDist(group,filterUpper,"NegativeBinomialDistDirect","mean;sd",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistributionDirect"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistributionDirect.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistributionDirect.RandomNumberInfo"));
+
+		/* Negative Hypergeometrische Verteilung */
+
+		addDiscreteDist(group,filterUpper,"NegativeHypergeometricDist","N;K;n",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeHypergeometricDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeHypergeometricDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.NegativeHypergeometricDistribution.RandomNumberInfo"));
 
 		/* Diskrete Gleichverteilung */
 

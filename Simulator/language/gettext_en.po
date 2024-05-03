@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-27 15:42+0200\n"
+"POT-Creation-Date: 2024-04-28 00:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3357,6 +3357,12 @@ msgstr "Negative binomial distribution"
 
 msgid "Distribution.NegativeBinomialWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Negative_binomial_distribution"
+
+msgid "Distribution.NegativeHyperGeom"
+msgstr "Negative hypergeometric distribution"
+
+msgid "Distribution.NegativeHyperGeomWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Negative_hypergeometric_distribution"
 
 msgid "Distribution.Never"
 msgstr "Never"
@@ -7037,6 +7043,15 @@ msgstr "<p>Calculates the value of the count density of the negative Binomial di
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NegativeBinomialDistributionDirect.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the negative Binomial distribution with the given mean and standard deviation.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.NegativeHypergeometricDistribution"
+msgstr "Negative hypergeometric distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.NegativeHypergeometricDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the count density of the negative hypergeometric distribution at the location specified as the first parameter with the distribution parameters according to the next function parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.NegativeHypergeometricDistribution.RandomNumberInfo"
+msgstr "<p>Calculates the value of the count density of the negative hypergeometric distribution at the location specified as the first parameter with the distribution parameters according to the next function parameters.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution"
 msgstr "Normal distribution"

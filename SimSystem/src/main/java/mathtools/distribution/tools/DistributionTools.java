@@ -281,6 +281,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Negative Binomialverteilung */
 	public static String DistNegativeBinomialWikipedia="https://de.wikipedia.org/wiki/Negative_Binomialverteilung";
 
+	/** Negative Hypergeometrische Verteilung */
+	public static String[] DistNegativeHyperGeom=new String[]{"Negative hypergeometrische Verteilung"};
+
+	/** Wikipedia-Seite Negative Hypergeometrische Verteilung */
+	public static String DistNegativeHyperGeomWikipedia="https://de.wikipedia.org/wiki/Negative_hypergeometrische_Verteilung";
+
 	/** Zeta-Verteilung */
 	public static String[] DistZeta=new String[]{"Zeta-Verteilung"};
 
@@ -394,6 +400,7 @@ public final class DistributionTools {
 				new WrapperBinomialDistribution(),
 				new WrapperPoissonDistribution(),
 				new WrapperNegativeBinomialDistribution(),
+				new WrapperNegativeHyperGeomDistribution(),
 				new WrapperZetaDistribution(),
 				new WrapperDiscreteUniformDistribution(),
 				new WrapperHalfNormalDistribution()

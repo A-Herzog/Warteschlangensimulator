@@ -36,6 +36,7 @@ import mathtools.distribution.ChiDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
 import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
+import mathtools.distribution.DiscreteNegativeHyperGeomDistributionImpl;
 import mathtools.distribution.DiscretePoissonDistributionImpl;
 import mathtools.distribution.DiscreteUniformDistributionImpl;
 import mathtools.distribution.DiscreteZetaDistributionImpl;
@@ -1907,6 +1908,39 @@ class DistributionTests {
 
 		double rnd=dist.random(new DummyRandomGenerator(0.5));
 		assertTrue(rnd>=0);
+	}
+
+	/**
+	 * Test: Negativen hypergeometrischen Verteilung
+	 * @see DiscreteNegativeHyperGeomDistributionImpl
+	 */
+	@Test
+	void testDiscreteNegativeHyperGeomDistribution() {
+		DiscreteNegativeHyperGeomDistributionImpl dist;
+
+		dist=new DiscreteNegativeHyperGeomDistributionImpl(50,20,5);
+		assertEquals(50,dist.N);
+		assertEquals(20,dist.K);
+		assertEquals(5,dist.n);
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(1,dist.cumulativeProbability(35),0.000001);
+		assertEquals(1,dist.cumulativeProbability(36),0.000001);
+		assertEquals(-Double.MAX_VALUE,dist.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,dist.inverseCumulativeProbability(2));
+		assertEquals(15.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(15)),0.000001);
+		assertEquals(25.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(25)),0.000001);
+		assertEquals(0,dist.getSupportLowerBound());
+		assertEquals(50,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[] {50,20,5});
+
+		double rnd=dist.random(new DummyRandomGenerator(0.5));
+		assertTrue(rnd>=0);
+		assertTrue(rnd<=35);
 	}
 
 	/**

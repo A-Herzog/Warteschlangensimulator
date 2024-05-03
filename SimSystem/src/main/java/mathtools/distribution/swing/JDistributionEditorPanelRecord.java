@@ -33,6 +33,7 @@ import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
 import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
+import mathtools.distribution.DiscreteNegativeHyperGeomDistributionImpl;
 import mathtools.distribution.DiscretePoissonDistributionImpl;
 import mathtools.distribution.DiscreteUniformDistributionImpl;
 import mathtools.distribution.DiscreteZetaDistributionImpl;
@@ -88,6 +89,7 @@ import mathtools.distribution.tools.WrapperLogNormalDistribution;
 import mathtools.distribution.tools.WrapperLogisticDistribution;
 import mathtools.distribution.tools.WrapperMaxwellBoltzmannDistribution;
 import mathtools.distribution.tools.WrapperNegativeBinomialDistribution;
+import mathtools.distribution.tools.WrapperNegativeHyperGeomDistribution;
 import mathtools.distribution.tools.WrapperNormalDistribution;
 import mathtools.distribution.tools.WrapperOnePointDistribution;
 import mathtools.distribution.tools.WrapperParetoDistribution;
@@ -296,6 +298,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new BinomialDistributionPanel());
 		allRecords.add(new PoissonDistributionPanel());
 		allRecords.add(new NegativeBinomialDistributionPanel());
+		allRecords.add(new NegativeHyperGeomDistributionPanel());
 		allRecords.add(new ZetaDistributionPanel());
 		allRecords.add(new DiscreteUniformDistributionPanel());
 		allRecords.add(new HalfNormalDistributionPanel());
@@ -1505,6 +1508,36 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double p=NumberTools.getNotNegativeDouble(fields[0],true); if (p==null) return null;
 			final Long r=NumberTools.getPositiveLong(fields[1],true); if (r==null) return null;
 			return new DiscreteNegativeBinomialDistributionImpl(p,r.intValue());
+		}
+	}
+
+	/** Negative Hypergeometrische Verteilung */
+	private static class NegativeHyperGeomDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public NegativeHyperGeomDistributionPanel() {
+			super(new WrapperNegativeHyperGeomDistribution(),new String[]{"N","K","n"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			return new String[]{"50","20","10"};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					""+((DiscreteNegativeHyperGeomDistributionImpl)distribution).N,
+					""+((DiscreteNegativeHyperGeomDistributionImpl)distribution).K,
+					""+((DiscreteNegativeHyperGeomDistributionImpl)distribution).n
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Long N=NumberTools.getPositiveLong(fields[0],true); if (N==null) return null;
+			final Integer K=NumberTools.getNotNegativeInteger(fields[1],true); if (K==null) return null;
+			final Long n=NumberTools.getPositiveLong(fields[2],true); if (n==null) return null;
+			return new DiscreteNegativeHyperGeomDistributionImpl(N.intValue(),K,n.intValue());
 		}
 	}
 
