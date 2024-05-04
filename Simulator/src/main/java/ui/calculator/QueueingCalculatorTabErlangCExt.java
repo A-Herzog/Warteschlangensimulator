@@ -159,6 +159,8 @@ public class QueueingCalculatorTabErlangCExt extends QueueingCalculatorTabBase {
 		for (int i=0;i<Cn.length;i++) pi0+=Cn[i];
 		pi0=1/pi0;
 
+		double PNK=Cn[K]*pi0;
+
 		double Plet;
 		if (pi0==0) Plet=1; else Plet=1-Cn[K]*pi0;
 		for (int n=c;n<=K-1;n++) {
@@ -180,19 +182,22 @@ public class QueueingCalculatorTabErlangCExt extends QueueingCalculatorTabBase {
 		double EN=0; for (int i=1;i<Cn.length;i++) EN+=i*Cn[i]*pi0;
 		double EW=ENQ/lambda;
 		double EV=EN/lambda;
+		double PA=ENQ*nu/(lambda*(1-PNK));
 
 		final StringBuilder result=new StringBuilder();
 
 		if (!Double.isNaN(ENQ)) {
 			result.append(Language.tr("LoadCalculator.OfferedWorkLoad")+" a="+NumberTools.formatNumber(a,2)+"<br>");
-			rhoCorrected=(lambda-ENQ*nu)/mu/c;
+			result.append(Language.tr("LoadCalculator.WorkLoadAtSystemInput")+" (rho) &rho;="+NumberTools.formatPercent(lambda/mu/c,2)+"<br>");
+			rhoCorrected=lambda*(1-PNK)*(1-PA)/mu/c;
 			result.append(Language.tr("LoadCalculator.WorkLoad")+" (rho) &rho;="+NumberTools.formatPercent(rhoCorrected,2)+"<br>");
+			/* Nicht relevant, da K=1000: result.append("Abweisungswahrscheinlichkeit "+"P(N=K)="+NumberTools.formatPercent(PNK,2)+"<br>"); */
 			result.append(Language.tr("LoadCalculator.AverageQueueLength")+" E[N<sub>Q</sub>]="+NumberTools.formatNumber(ENQ,2)+"<br>");
 			result.append(Language.tr("LoadCalculator.AverageNumberOfClientsInTheSystem")+" E[N]="+NumberTools.formatNumber(EN,2)+"<br>");
 			result.append(Language.tr("LoadCalculator.AverageWaitingTime")+" E[W]="+NumberTools.formatNumber(EW,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
 			result.append(Language.tr("LoadCalculator.AverageResidenceTime")+" E[V]="+NumberTools.formatNumber(EV,2)+" ("+Language.tr("LoadCalculator.Units.InSeconds")+")<br>");
 			result.append(Language.tr("LoadCalculator.FlowFactor")+" E[V]/E[S]="+NumberTools.formatNumber(EV*mu,2)+"<br>");
-			result.append(Language.tr("LoadCalculator.CancelRate")+" P(A)="+NumberTools.formatPercent(ENQ*nu/lambda,2)+"<br>");
+			result.append(Language.tr("LoadCalculator.CancelRate")+" P(A)="+NumberTools.formatPercent(PA,2)+"<br>");
 			result.append("P(W&le;t)="+NumberTools.formatPercent(Plet,2)+"<br>");
 			result.append("P(W&gt;0)="+NumberTools.formatPercent(Pgt0,2));
 		}
