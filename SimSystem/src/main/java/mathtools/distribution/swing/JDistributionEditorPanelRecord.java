@@ -61,6 +61,7 @@ import mathtools.distribution.SawtoothRightDistribution;
 import mathtools.distribution.StudentTDistributionImpl;
 import mathtools.distribution.TrapezoidDistributionImpl;
 import mathtools.distribution.TriangularDistributionImpl;
+import mathtools.distribution.UQuadraticDistribution;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.WrapperBetaDistribution;
@@ -102,6 +103,7 @@ import mathtools.distribution.tools.WrapperSawtoothRightDistribution;
 import mathtools.distribution.tools.WrapperStudentTDistribution;
 import mathtools.distribution.tools.WrapperTrapezoidDistribution;
 import mathtools.distribution.tools.WrapperTriangularDistribution;
+import mathtools.distribution.tools.WrapperUQuadraticDistribution;
 import mathtools.distribution.tools.WrapperUniformRealDistribution;
 import mathtools.distribution.tools.WrapperWeibullDistribution;
 import mathtools.distribution.tools.WrapperZetaDistribution;
@@ -302,6 +304,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new ZetaDistributionPanel());
 		allRecords.add(new DiscreteUniformDistributionPanel());
 		allRecords.add(new HalfNormalDistributionPanel());
+		allRecords.add(new UQuadraticDistributionPanel());
 	}
 
 	/**
@@ -1386,6 +1389,45 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double mu=NumberTools.getDouble(fields[0],true); if (mu==null) return null;
 			final Double nu=NumberTools.getPositiveDouble(fields[1],true); if (nu==null) return null;
 			return new StudentTDistributionImpl(mu,nu);
+		}
+	}
+
+	/** U-quadratische Verteilung */
+	private static class UQuadraticDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public UQuadraticDistributionPanel() {
+			super(new WrapperUQuadraticDistribution(),new String[]{JDistributionEditorPanel.DistUniformStart,JDistributionEditorPanel.DistUniformEnd});
+		}
+
+		@Override
+		public String[] getEditValues(final double meanD, final String mean, final double stdD, final String std, final String lower, final String upper, final double maxXValue) {
+			return new String[]{lower,upper};
+		}
+
+		@Override
+		public String[] getValues(final AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((UQuadraticDistribution)distribution).getSupportLowerBound()),
+					NumberTools.formatNumberMax(((UQuadraticDistribution)distribution).getSupportUpperBound())
+			};
+		}
+
+		@Override
+		public void setValues(final JTextField[] fields, final double mean, final double sd) {
+			UQuadraticDistribution distribution=(UQuadraticDistribution)wrapper.getDistribution(mean,sd);
+			if (distribution!=null) {
+				if (distribution.getSupportLowerBound()<0) distribution=new UQuadraticDistribution(0,mean*2);
+				final String[] text=getValues(distribution);
+				if (text!=null && text.length==fields.length) for (int i=0;i<text.length;i++) fields[i].setText(text[i]);
+			}
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(final JTextField[] fields, final double maxXValue) {
+			final Double d1=NumberTools.getDouble(fields[0],true); if (d1==null) return null;
+			final Double d2=NumberTools.getDouble(fields[1],true); if (d2==null) return null;
+			if (d1>=d2) return null;
+			return new UQuadraticDistribution(d1,d2);
 		}
 	}
 

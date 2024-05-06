@@ -51,7 +51,10 @@ public class WrapperLevyDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
-		return new DistributionWrapperInfo(null,null,null,null,null,null);
+		final double mu=((LevyDistribution)distribution).mu;
+		final double c=((LevyDistribution)distribution).c;
+		final String info="mu="+NumberTools.formatNumber(mu)+"; c="+NumberTools.formatNumber(c);
+		return new DistributionWrapperInfo(null,null,null,null,info,null);
 	}
 
 	@Override

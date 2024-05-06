@@ -305,6 +305,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite halbe Normalverteilung */
 	public static String DistHalfNormalWikipedia="https://de.wikipedia.org/wiki/Normalverteilung";
 
+	/** U-quadratische Verteilung */
+	public static String[] DistUQuadratic=new String[]{"U-quadratische Verteilung"};
+
+	/** Wikipedia-Seite U-quadratische Verteilung */
+	public static String DistUQuadraticWikipedia="https://en.wikipedia.org/wiki/U-quadratic_distribution";
+
 	/** Warnung "unbekannte Verteilung" */
 	public static String DistUnknown="unbekannte Verteilung";
 
@@ -403,7 +409,8 @@ public final class DistributionTools {
 				new WrapperNegativeHyperGeomDistribution(),
 				new WrapperZetaDistribution(),
 				new WrapperDiscreteUniformDistribution(),
-				new WrapperHalfNormalDistribution()
+				new WrapperHalfNormalDistribution(),
+				new WrapperUQuadraticDistribution()
 		};
 	}
 

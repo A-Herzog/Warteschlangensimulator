@@ -69,15 +69,23 @@ public class LevyDistribution extends AbstractRealDistribution implements Clonea
 		densityFactor=Math.sqrt(this.c/2/Math.PI);
 	}
 
+	/**
+	 * Copy-Konstruktor
+	 * @param source	Zu kopierende Ausgangsverteilung
+	 */
+	public LevyDistribution(final LevyDistribution source) {
+		this((source==null)?0:source.mu,(source==null)?1:source.c);
+	}
+
 	@Override
 	public double density(double x) {
-		if (x<mu) return 0;
+		if (x<=mu) return 0;
 		return densityFactor*Math.exp(-c/2/(x-mu))/Math.pow(x-mu,1.5);
 	}
 
 	@Override
 	public double cumulativeProbability(double x) {
-		if (x<mu) return 0;
+		if (x<=mu) return 0;
 		return 2-2*stdNormal.cumulativeProbability(Math.sqrt(c/(x-mu)));
 	}
 

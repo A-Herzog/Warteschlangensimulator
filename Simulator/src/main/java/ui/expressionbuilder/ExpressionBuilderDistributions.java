@@ -581,6 +581,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.RandomNumberRangeInfo"));
 
+		/* U-quadratische Verteilung */
+
+		addDist(group,filterUpper,"HalfNormalDist","mean",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.RandomNumberInfo"));
+
 		/* Empirische Verteilung */
 
 		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution"));

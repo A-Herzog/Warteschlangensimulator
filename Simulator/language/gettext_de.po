@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-28 15:24+0200\n"
+"POT-Creation-Date: 2024-05-03 20:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3482,6 +3482,12 @@ msgstr "Dreiecksverteilung"
 
 msgid "Distribution.TriangularWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Dreiecksverteilung"
+
+msgid "Distribution.UQuadratic"
+msgstr "U-quadratische Verteilung"
+
+msgid "Distribution.UQuadraticWikipedia"
+msgstr "https://en.wikipedia.org/wiki/U-quadratic_distribution"
 
 msgid "Distribution.Uniform"
 msgstr "Gleichverteilung"
@@ -7206,6 +7212,18 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Dreiecksverteilung an 
 
 msgid "ExpressionBuilder.ProbabilityDistributions.TriangularDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Dreiecksverteilung mit den Parametern [a;c] und dem Wert b mit der höchsten Wahrscheinlichkeitsdichte gemäß dem ersten (a), dem zweiten (b) und dem dritten (c) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution"
+msgstr "U-quadratische Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der U-quadratischen Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;b] gemäß dem zweiten (a) und dem dritten (b) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der U-quadratischen Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;b] gemäß dem zweiten (a) und dem dritten (b) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der U-quadratischen Verteilung mit den Parametern [a;b] gemäß dem ersten (a) und dem zweiten (b) Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.UniformDistribution"
 msgstr "Gleichverteilung"

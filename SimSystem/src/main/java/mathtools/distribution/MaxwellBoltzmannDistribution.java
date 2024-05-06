@@ -67,6 +67,14 @@ public class MaxwellBoltzmannDistribution extends AbstractRealDistribution imple
 	}
 
 	/**
+	 * Copy-Konstruktor
+	 * @param source	Zu kopierende Ausgangsverteilung
+	 */
+	public MaxwellBoltzmannDistribution(final MaxwellBoltzmannDistribution source) {
+		this((source==null)?1:source.a);
+	}
+
+	/**
 	 * Konstanter, vorab berechneter Faktor für die Berechnung des Erwartungswertes
 	 *  @see #getNumericalMean()
 	 */
@@ -114,14 +122,20 @@ public class MaxwellBoltzmannDistribution extends AbstractRealDistribution imple
 	}
 
 	@Override
+	public MaxwellBoltzmannDistribution clone() {
+		return new MaxwellBoltzmannDistribution(a);
+	}
+
+	@Override
 	public double density(double x) {
-		if (x<0) return 0;
+		if (x<=0) return 0;
 		final double x2=x*x;
 		return densityFactor*x2*Math.exp(-x2/2/a/a);
 	}
 
 	@Override
 	public double cumulativeProbability(double x) {
+		if (x<=0) return 0;
 		return Erf.erf(x*erfFactor)-cumulativeProbabilityFactor*x*Math.exp(-x*x/2/a/a);
 	}
 }

@@ -157,6 +157,7 @@ import parser.symbols.distributions.CalcSymbolDistributionSawtoothRightDirect;
 import parser.symbols.distributions.CalcSymbolDistributionStudentT;
 import parser.symbols.distributions.CalcSymbolDistributionTrapezoid;
 import parser.symbols.distributions.CalcSymbolDistributionTriangular;
+import parser.symbols.distributions.CalcSymbolDistributionUQuadratic;
 import parser.symbols.distributions.CalcSymbolDistributionUniform;
 import parser.symbols.distributions.CalcSymbolDistributionWeibull;
 import parser.symbols.distributions.CalcSymbolEmpiricalDistributionCDF;
@@ -335,6 +336,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionMaxwellBoltzmann());
 			addSymbol(new CalcSymbolDistributionStudentT());
 			addSymbol(new CalcSymbolDistributionHalfNormal());
+			addSymbol(new CalcSymbolDistributionUQuadratic());
 
 			addSymbol(new CalcSymbolEmpiricalDistributionPDF());
 			addSymbol(new CalcSymbolEmpiricalDistributionCDF());

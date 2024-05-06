@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-28 15:24+0200\n"
+"POT-Creation-Date: 2024-05-03 20:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3477,6 +3477,12 @@ msgstr "Triangular distribution"
 
 msgid "Distribution.TriangularWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Triangular_distribution"
+
+msgid "Distribution.UQuadratic"
+msgstr "U-quadraric distribution"
+
+msgid "Distribution.UQuadraticWikipedia"
+msgstr "https://en.wikipedia.org/wiki/U-quadratic_distribution"
 
 msgid "Distribution.Uniform"
 msgstr "Uniform distribution"
@@ -7213,6 +7219,18 @@ msgstr "<p>Calculates the value of the distribution function of the triangular d
 
 msgid "ExpressionBuilder.ProbabilityDistributions.TriangularDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the triangular distribution with the parameters [a;c] and most likely value b according to the first (a), second (b) and third (c) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution"
+msgstr "U-quadraric distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the U-quadratic distribution at the location specified as the first parameter with the parameters [a;b] according to the second (a) and the third (b) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the U-quadratic distribution at the location specified as the first parameter with the parameters [a;b] according to the second (a) and the third (b) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the U-quadratic distribution with the parameters [a;b] according to the first (a) and the second (b) parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.UniformDistribution"
 msgstr "Uniform distribution"

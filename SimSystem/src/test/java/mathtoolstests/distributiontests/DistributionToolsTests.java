@@ -46,6 +46,7 @@ import mathtools.distribution.MaxwellBoltzmannDistribution;
 import mathtools.distribution.OnePointDistributionImpl;
 import mathtools.distribution.RayleighDistributionImpl;
 import mathtools.distribution.TrapezoidDistributionImpl;
+import mathtools.distribution.UQuadraticDistribution;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.WrapperBinomialDistribution;
@@ -202,6 +203,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof DiscreteNegativeBinomialDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof HalfNormalDistribution) exactStdAvailable=false;
 			if (dist1 instanceof TrapezoidDistributionImpl) exactStdAvailable=false;
+			if (dist1 instanceof UQuadraticDistribution) exactStdAvailable=false;
 			if (exactStdAvailable) {
 				assertEquals(2,DistributionTools.getStandardDeviation(dist1),10E-10,"Verteilung: "+name);
 				assertEquals(2.0/3.0,DistributionTools.getCV(dist1),10E-10,"Verteilung: "+name);
@@ -253,6 +255,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof DiscreteNegativeBinomialDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof HalfNormalDistribution) exactStdAvailable=false;
 			if (dist1 instanceof TrapezoidDistributionImpl) exactStdAvailable=false;
+			if (dist1 instanceof UQuadraticDistribution) exactStdAvailable=false;
 			if (exactStdAvailable) {
 				assertEquals(2,DistributionTools.getStandardDeviation(dist1),10E-10,"Verteilung: "+name);
 				assertEquals(2.0/3.0,DistributionTools.getCV(dist1),10E-10,"Verteilung: "+name);

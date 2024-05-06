@@ -55,6 +55,14 @@ public final class ParetoDistributionImpl extends AbstractRealDistribution imple
 		this.alpha=(alpha<=0)?1:alpha;
 	}
 
+	/**
+	 * Copy-Konstruktor
+	 * @param source	Zu kopierende Ausgangsverteilung
+	 */
+	public ParetoDistributionImpl(final ParetoDistributionImpl source) {
+		this((source==null)?1:source.xmin,(source==null)?1:source.alpha);
+	}
+
 	@Override
 	public double density(double x) {
 		/* if (xmin<=0 || alpha<=0) return 0; - per Konstruktor ausgeschlossen */
