@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-03 20:26+0200\n"
+"POT-Creation-Date: 2024-05-06 08:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37105,6 +37105,9 @@ msgstr "Simulation"
 msgid "SystemInfo.Tools.Simulation.LoadBalancer"
 msgstr "Use thread load balancer"
 
+msgid "SystemInfo.Tools.Simulation.SimulationProgressAnimation"
+msgstr "Show animation on simulation progress page"
+
 msgid "SystemInfo.Tools.Surface"
 msgstr "Drawing surface"
 
@@ -37146,6 +37149,9 @@ msgstr "Background color for element templates panel"
 
 msgid "SystemInfo.Tools.UserInterface.MemoryUsage"
 msgstr "Show memory usage"
+
+msgid "SystemInfo.Tools.UserInterface.NotAvailableInFlatLaF"
+msgstr "not available in FlatLaf themes"
 
 msgid "SystemInfo.Tools.UserInterface.QuickAccess"
 msgstr "Show quick access"

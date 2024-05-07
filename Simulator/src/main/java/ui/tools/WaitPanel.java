@@ -18,6 +18,7 @@ package ui.tools;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.io.Serializable;
@@ -116,7 +117,7 @@ public class WaitPanel extends JPanel {
 	public WaitPanel() {
 		super(new BorderLayout());
 
-		JPanel mainarea, p1a, p1b, p2;
+		JPanel mainarea, p1x, p1a, p1b, p2;
 
 		final JPanel statusbarOuter=new JPanel(new BorderLayout());
 		add(statusbarOuter,BorderLayout.SOUTH);
@@ -133,6 +134,7 @@ public class WaitPanel extends JPanel {
 		mainarea.setLayout(new BoxLayout(mainarea,BoxLayout.Y_AXIS));
 		mainarea.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 		mainarea.add(Box.createVerticalGlue());
+		mainarea.add(p1x=new JPanel()); p1x.setLayout(new BoxLayout(p1x,BoxLayout.X_AXIS));
 		mainarea.add(p1a=new JPanel()); p1a.setLayout(new BoxLayout(p1a,BoxLayout.X_AXIS));
 		mainarea.add(p1b=new JPanel()); p1b.setLayout(new BoxLayout(p1b,BoxLayout.X_AXIS));
 		mainarea.add(Box.createVerticalStrut(10));
@@ -144,8 +146,13 @@ public class WaitPanel extends JPanel {
 
 		progress.setStringPainted(true);
 
+		p1x.add(Box.createHorizontalGlue());
+		p1x.add(new WaitPanelAnimation());
+		p1x.add(Box.createHorizontalGlue());
+
 		p1a.add(Box.createHorizontalGlue());
 		p1a.add(info1=new JLabel(""));
+		info1.setFont(info1.getFont().deriveFont(Font.BOLD));
 		p1a.add(Box.createHorizontalGlue());
 
 		p1b.add(Box.createHorizontalGlue());

@@ -621,10 +621,10 @@ public class SystemInfoWindow extends JFrame {
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.QuickAccess"),setup.showQuickAccess));
 		check.addActionListener(e->{setup.showQuickAccess=!setup.showQuickAccess; setup.saveSetup();});
 
-		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.MemoryUsage"),setup.showMemoryUsage));
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.MemoryUsage")+" ("+Language.tr("SystemInfo.Tools.UserInterface.NotAvailableInFlatLaF")+")",setup.showMemoryUsage));
 		check.addActionListener(e->{setup.showMemoryUsage=!setup.showMemoryUsage; setup.saveSetup();});
 
-		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.Feedback"),setup.showFeedbackButton));
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.Feedback")+" ("+Language.tr("SystemInfo.Tools.UserInterface.NotAvailableInFlatLaF")+")",setup.showFeedbackButton));
 		check.addActionListener(e->{setup.showFeedbackButton=!setup.showFeedbackButton; setup.saveSetup();});
 
 		menu.add(item=new JMenuItem(Language.tr("SystemInfo.Tools.UserInterface.Font"),Images.GENERAL_FONT.getIcon()));
@@ -649,6 +649,9 @@ public class SystemInfoWindow extends JFrame {
 
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Simulation.LoadBalancer"),setup.useDynamicThreadBalance));
 		check.addActionListener(e->{setup.useDynamicThreadBalance=!setup.useDynamicThreadBalance; setup.saveSetup();});
+
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.Simulation.SimulationProgressAnimation"),setup.simulationProgressAnimation));
+		check.addActionListener(e->{setup.simulationProgressAnimation=!setup.simulationProgressAnimation; setup.saveSetup();});
 
 		/* Trainingsdaten für Folgestationen */
 

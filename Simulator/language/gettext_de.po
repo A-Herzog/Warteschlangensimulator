@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-03 20:26+0200\n"
+"POT-Creation-Date: 2024-05-06 08:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37158,6 +37158,9 @@ msgstr "Simulation"
 msgid "SystemInfo.Tools.Simulation.LoadBalancer"
 msgstr "Thread-Load-Balancer verwenden"
 
+msgid "SystemInfo.Tools.Simulation.SimulationProgressAnimation"
+msgstr "Animation auf Simulationsfortschrittseite anzeigen"
+
 msgid "SystemInfo.Tools.Surface"
 msgstr "Zeichenfläche"
 
@@ -37199,6 +37202,9 @@ msgstr "Hintergrundfarbe für Elementenvorlagenleiste"
 
 msgid "SystemInfo.Tools.UserInterface.MemoryUsage"
 msgstr "Speicherbelegung anzeigen"
+
+msgid "SystemInfo.Tools.UserInterface.NotAvailableInFlatLaF"
+msgstr "nicht in FlatLaF-Themen verfügbar"
 
 msgid "SystemInfo.Tools.UserInterface.QuickAccess"
 msgstr "Schnellzugriff anzeigen"
