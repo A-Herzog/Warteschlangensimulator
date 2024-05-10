@@ -1206,7 +1206,7 @@ public class MainPanel extends MainPanelBase {
 		setMnemonic(submenu,Language.tr("Main.Menu.File.LoadExample.Mnemonic"));
 		createMenuItem(submenu,Language.tr("Main.Menu.File.LoadExample.ByPreview"),Language.tr("Main.Menu.File.LoadExample.ByPreview.Mnemonic"),"FileNewExample");
 		createMenuItem(submenu,Language.tr("Main.Menu.File.LoadExample.FromBook"),Language.tr("Main.Menu.File.LoadExample.FromBook.Mnemonic"),"FileNewBookExample");
-		EditModelExamples.addToMenu(this,submenu,newModel->commandFileModelExample(newModel));
+		EditModelExamples.addToMenu(this,submenu,newModel->commandFileModelExample(newModel),EditModelExamples.SubModelMode.ALWAYS);
 		createMenuItem(menu,Language.tr("Main.Menu.File.Generator"),Images.MODEL_GENERATOR.getIcon(),Language.tr("Main.Menu.File.Generator.Mnemonic"),"FileNewGenerator");
 		createMenuItemCtrlShift(menu,Language.tr("Main.Menu.File.NewWindow"),Images.GENERAL_APPLICATION.getIcon(),Language.tr("Main.Menu.File.NewWindow.Mnemonic"),KeyEvent.VK_N,"FileNewWindow");
 		createMenuItemCtrl(menu,Language.tr("Main.Menu.File.Load"),Images.MODEL_LOAD.getIcon(),Language.tr("Main.Menu.File.Load.Mnemonic"),KeyEvent.VK_L,"FileLoad");

@@ -171,6 +171,18 @@ public class EditModelExamples {
 	}
 
 	/**
+	 * Sollen für die einzelnen Kategorien Untermenüs verwendet werden?
+	 */
+	public enum SubModelMode {
+		/** Nie Untermenüs verwenden */
+		NEVER,
+		/** Untermenü in Abhängigkeit von der Anzahl an Einträgen und der Bildschirmauflösung verwenden */
+		BY_SIZE,
+		/** Immer ein Untermenü verwenden */
+		ALWAYS
+	}
+
+	/**
 	 * Instanz dieses Singleton
 	 * @see #getInstance()
 	 */
@@ -496,7 +508,7 @@ public class EditModelExamples {
 	 * @param menu	Menü, in dem die Beispiele als Unterpunkte eingefügt werden sollen
 	 * @param listener	Listener, der mit einem Modell aufgerufen wird, wenn dieses geladen werden soll.
 	 * @param group	Beispielgruppe
-	 * @see #addToMenu(Component, JMenu, Consumer)
+	 * @see #addToMenu(Component, JMenu, Consumer, SubModelMode)
 	 */
 	private void addGroupToMenu(final Component owner, final JMenu menu, final Consumer<EditModel> listener, final ExampleType group) {
 		final JMenuItem caption=new JMenuItem(getGroupName(group));
@@ -523,7 +535,7 @@ public class EditModelExamples {
 	 * @param menu	Menü, in dem die Beispiele über ein Untermenü als Punkte eingefügt werden sollen
 	 * @param listener	Listener, der mit einem Modell aufgerufen wird, wenn dieses geladen werden soll.
 	 * @param group	Beispielgruppe
-	 * @see #addToMenu(Component, JMenu, Consumer)
+	 * @see #addToMenu(Component, JMenu, Consumer, SubModelMode)
 	 */
 	private void addGroupToSubMenu(final Component owner, final JMenu menu, final Consumer<EditModel> listener, final ExampleType group) {
 		final JMenu sub=new JMenu(getGroupName(group));
@@ -544,8 +556,9 @@ public class EditModelExamples {
 	 * @param owner	Übergeordnetes Elementes (zum Ausrichten von Fehlermeldungen). Wird hier <code>null</code> übergeben, so werden Fehlermeldungen auf der Konsole ausgegeben
 	 * @param menu	Menü, in dem die Beispiele als Unterpunkte eingefügt werden sollen
 	 * @param listener	Listener, der mit einem Modell aufgerufen wird, wenn dieses geladen werden soll.
+	 * @param subModelMode	Sollen für die einzelnen Kategorien Untermenüs verwendet werden?
 	 */
-	public static void addToMenu(final Component owner, final JMenu menu, final Consumer<EditModel> listener) {
+	public static void addToMenu(final Component owner, final JMenu menu, final Consumer<EditModel> listener, final SubModelMode subModelMode) {
 		final EditModelExamples examples=getInstance();
 
 		final Dimension screenSize=Toolkit.getDefaultToolkit().getScreenSize();
@@ -554,9 +567,19 @@ public class EditModelExamples {
 		for (ExampleType type: ExampleType.values()) {
 			final long count=examples.list.stream().filter(example->example.type==type).count();
 			boolean useSubMenu=true;
-			if (count==1) useSubMenu=false;
-			if (count<=5 && screenSize.height>1080) useSubMenu=false;
-			if (count<=8 && screenSize.height>1200) useSubMenu=false;
+			switch (subModelMode) {
+			case NEVER:
+				useSubMenu=false;
+				break;
+			case BY_SIZE:
+				if (count==1) useSubMenu=false;
+				if (count<=5 && screenSize.height>1080) useSubMenu=false;
+				if (count<=8 && screenSize.height>1200) useSubMenu=false;
+				break;
+			case ALWAYS:
+				useSubMenu=true;
+				break;
+			}
 			if (useSubMenu) {
 				if (lastWasFullMenu) menu.addSeparator();
 				examples.addGroupToSubMenu(owner,menu,listener,type);
