@@ -62,6 +62,7 @@ import systemtools.commandline.CommandLineDialog;
 import systemtools.help.HelpBase;
 import systemtools.statistics.StatisticsBasePanel;
 import tools.DateTools;
+import tools.SetupData;
 import ui.EditorPanelBase;
 import ui.MainFrame;
 import ui.MainPanel;
@@ -104,15 +105,35 @@ public class LanguageStaticLoader {
 	private LanguageStaticLoader() {}
 
 	/**
+	 * Gebietsvorgabe laut Betriebssystem<br>
+	 * (Vorgabe wird beim Laden einer Sprache überschrieben, daher wird die Systemvorgabe hier gespeichert)
+	 */
+	public static Locale OS_DEFAULT_LOCALE;
+
+	static {
+		OS_DEFAULT_LOCALE=Locale.getDefault();
+	}
+
+	/**
 	 * Stellt die Sprache für Dialog, Verteilungs-Editoren usw. ein.
 	 */
 	public static void setLanguage() {
 		Locale locale=Locale.US;
 		if (Language.tr("Numbers.Language").equalsIgnoreCase("de")) locale=Locale.GERMANY;
 
-		/* Zahlenformate und Ja/Nein-Dialoge */
-		NumberTools.setLocale(locale);
-		DateTools.setLocale(locale);
+		/* Zahlenformate */
+		switch (SetupData.getSetup().numberFormat) {
+		case BY_LANGUAGE:
+			NumberTools.setLocale(locale);
+			DateTools.setLocale(locale);
+			break;
+		case BY_SYSTEM:
+			NumberTools.setLocale(OS_DEFAULT_LOCALE);
+			DateTools.setLocale(OS_DEFAULT_LOCALE);
+			break;
+		}
+
+		/* Ja/Nein-Dialoge */
 		JComponent.setDefaultLocale(locale);
 		Locale.setDefault(locale);
 

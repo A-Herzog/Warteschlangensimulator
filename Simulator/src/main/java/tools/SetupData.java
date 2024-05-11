@@ -229,9 +229,48 @@ public class SetupData extends SetupBase {
 	}
 
 	/**
+	 * Modus für Zahlen- und Datumsformat
+	 */
+	public enum NumberFormat {
+		/** Gemäß gewählter Programmsprache festlegen */
+		BY_LANGUAGE("language"),
+		/** Gemäß Betriebssystemvorgabe festlegen */
+		BY_SYSTEM("os");
+
+		/**
+		 * Konstruktor des Enum
+		 * @param name	Name für den Zahlenformat-Modus
+		 */
+		NumberFormat(final String name) {
+			this.name=name;
+		}
+
+		/**
+		 * Name des Zahlenformat-Modus
+		 */
+		public final String name;
+
+		/**
+		 * Liefert den Zahlenformat-Modus auf Basis eines Namens.
+		 * @param name	Name für den der Zahlenformat-Modus ermittelt werden soll
+		 * @return	Zahlenformat-Modus
+		 */
+		public static NumberFormat fromName(final String name) {
+			for (var numberFormat: values()) if (numberFormat.name.equalsIgnoreCase(name)) return numberFormat;
+			return BY_SYSTEM;
+		}
+	}
+
+	/**
 	 * Programmsprache
 	 */
 	public String language;
+
+	/**
+	 * Modus für Zahlen- und Datumsformat
+	 * @see NumberFormat
+	 */
+	public NumberFormat numberFormat;
 
 	/**
 	 * Fenstergröße beim Programmstart
@@ -1461,6 +1500,7 @@ public class SetupData extends SetupBase {
 	@Override
 	protected void resetDataToDefaults() {
 		language="";
+		numberFormat=NumberFormat.BY_SYSTEM;
 		startSizeMode=StartSizeMode.START_MODE_DEFAULT;
 		lastSizeMode=Frame.NORMAL;
 		lastPosition=new Point(0,0);
@@ -1921,6 +1961,10 @@ public class SetupData extends SetupBase {
 				String t=e.getTextContent().toLowerCase();
 				if (Language.isSupportedLanguage(t)) language=t.toLowerCase();
 				continue;
+			}
+
+			if (name.equals("numberformat")) {
+				numberFormat=NumberFormat.fromName(e.getTextContent());
 			}
 
 			if (name.equals("fullscreen")) {
@@ -2780,6 +2824,11 @@ public class SetupData extends SetupBase {
 
 		root.appendChild(node=doc.createElement("Language"));
 		node.setTextContent(language.toLowerCase());
+
+		if (numberFormat!=NumberFormat.BY_SYSTEM) {
+			root.appendChild(node=doc.createElement("NumberFormat"));
+			node.setTextContent(numberFormat.name);
+		}
 
 		if (startSizeMode!=StartSizeMode.START_MODE_DEFAULT) {
 			root.appendChild(node=doc.createElement("Fullscreen"));

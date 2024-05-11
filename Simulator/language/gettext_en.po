@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-06 08:28+0200\n"
+"POT-Creation-Date: 2024-05-06 09:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18866,6 +18866,15 @@ msgstr "When simulation takes longer time"
 
 msgid "SettingsDialog.NotifyMode.Off"
 msgstr "Never"
+
+msgid "SettingsDialog.NumberFormat"
+msgstr "Number and time format"
+
+msgid "SettingsDialog.NumberFormat.byOS"
+msgstr "Operating system default (decimal separator: \"%s\")"
+
+msgid "SettingsDialog.NumberFormat.byUILanguage"
+msgstr "By selected program language (decimal separator: \".\")"
 
 msgid "SettingsDialog.ProxySettings"
 msgstr "Proxy configuration"

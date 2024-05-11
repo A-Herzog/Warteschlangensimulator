@@ -16,6 +16,7 @@
 package ui.dialogs;
 
 import java.io.Serializable;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import language.Language;
+import language.LanguageStaticLoader;
 import simulator.examples.EditModelExamples;
 import systemtools.BaseDialog;
 import systemtools.GUITools;
@@ -59,6 +61,8 @@ public class SetupDialogPageUI extends SetupDialogPage {
 	private final JComboBox<String> lookAndFeel;
 	/** Menü in Titelzeile kombinieren? (Für Flat-Look&amp;Feels unter Windows) */
 	private final JCheckBox lookAndFeelCombinedMenu;
+	/** Zahlen- und Datumsformat */
+	private final JComboBox<String> numberFormat;
 	/** Schriftgröße für Programmoberfläche */
 	private final JComboBox<String> fontSizes;
 	/** Hohe Kontraste verwenden? */
@@ -131,6 +135,15 @@ public class SetupDialogPageUI extends SetupDialogPage {
 		/* Menü in Titelzeile kombinieren? (Für Flat-Look&amp;Feels unter Windows) */
 		line.add(lookAndFeelCombinedMenu=new JCheckBox(Language.tr("SettingsDialog.LookAndFeel.MenuInWindowTitle")));
 		lookAndFeelCombinedMenu.setToolTipText(Language.tr("SettingsDialog.LookAndFeel.MenuInWindowTitle.Tooltip"));
+
+		/* Zahlen- und Datumsformat */
+		line=addLine();
+		line.add(label=new JLabel(Language.tr("SettingsDialog.NumberFormat")+":"));
+		line.add(numberFormat=new JComboBox<>(new String[] {
+				String.format(Language.tr("SettingsDialog.NumberFormat.byOS"),Character.toString(new DecimalFormatSymbols(LanguageStaticLoader.OS_DEFAULT_LOCALE).getDecimalSeparator())),
+				Language.tr("SettingsDialog.NumberFormat.byUILanguage")
+		}));
+		label.setLabelFor(numberFormat);
 
 		/* Schriftgröße für Programmoberfläche */
 		line=addLine();
@@ -325,6 +338,12 @@ public class SetupDialogPageUI extends SetupDialogPage {
 		}
 		lookAndFeelCombinedMenu.setSelected(setup.lookAndFeelCombinedMenu);
 
+		switch (setup.numberFormat) {
+		case BY_SYSTEM: numberFormat.setSelectedIndex(0); break;
+		case BY_LANGUAGE: numberFormat.setSelectedIndex(1); break;
+		default: numberFormat.setSelectedIndex(0); break;
+		}
+
 		fontSizes.setSelectedIndex(1);
 		if (setup.scaleGUI<1) fontSizes.setSelectedIndex(0);
 		if (setup.scaleGUI>1) fontSizes.setSelectedIndex(2);
@@ -377,6 +396,11 @@ public class SetupDialogPageUI extends SetupDialogPage {
 		if (lookAndFeel.getSelectedIndex()==0) setup.lookAndFeel=""; else setup.lookAndFeel=(String)lookAndFeel.getSelectedItem();
 		setup.lookAndFeelCombinedMenu=lookAndFeelCombinedMenu.isSelected();
 
+		switch (numberFormat.getSelectedIndex()) {
+		case 0: setup.numberFormat=SetupData.NumberFormat.BY_SYSTEM; break;
+		case 1: setup.numberFormat=SetupData.NumberFormat.BY_LANGUAGE; break;
+		}
+
 		switch (fontSizes.getSelectedIndex()) {
 		case 0: setup.scaleGUI=0.9; break;
 		case 1: setup.scaleGUI=1; break;
@@ -424,6 +448,7 @@ public class SetupDialogPageUI extends SetupDialogPage {
 	public void resetSettings() {
 		lookAndFeel.setSelectedIndex(0);
 		lookAndFeelCombinedMenu.setSelected(true);
+		numberFormat.setSelectedIndex(0);
 		fontSizes.setSelectedIndex(1);
 		useHighContrasts.setSelected(false);
 		scriptFontSize.setSelectedIndex(ScriptEditorAreaBuilder.DEFAULT_FONT_SIZE-6);

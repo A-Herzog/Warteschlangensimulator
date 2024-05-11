@@ -87,6 +87,7 @@ import org.w3c.dom.Element;
 import gitconnect.GitListDialog;
 import gitconnect.GitTools;
 import language.Language;
+import language.LanguageStaticLoader;
 import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.Table.SaveMode;
@@ -980,6 +981,9 @@ public class MainPanel extends MainPanelBase {
 			needWindowReload=true;
 			IndexSystem.getInstance().setLanguage(setup.language);
 		}
+
+		/* Landeseinstellungen aktualisieren */
+		LanguageStaticLoader.setLanguage(); /* Bei Umstellung Language->OS ohne Sprachwechsel wichtig; wird sonst beim späteren Sprachwechsel mit erledigt. */
 
 		/* Theme neu laden? */
 		if (!setup.lookAndFeel.equals(GUITools.getCurrentLookAndFeel()) || (FlatLaFHelper.isActive() && (setup.lookAndFeelCombinedMenu!=FlatLaFHelper.isCombinedMenuBar()))) {

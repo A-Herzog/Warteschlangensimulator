@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-06 08:28+0200\n"
+"POT-Creation-Date: 2024-05-06 09:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18905,6 +18905,15 @@ msgstr "Bei langen Simulationsläufen"
 
 msgid "SettingsDialog.NotifyMode.Off"
 msgstr "Aus"
+
+msgid "SettingsDialog.NumberFormat"
+msgstr "Zahlen- und Zeitformat"
+
+msgid "SettingsDialog.NumberFormat.byOS"
+msgstr "Betriebssystemvorgabe (Dezimaltrenner: \"%s\")"
+
+msgid "SettingsDialog.NumberFormat.byUILanguage"
+msgstr "Gemäß gewählter Programmsprache (Dezimaltrenner \",\")"
 
 msgid "SettingsDialog.ProxySettings"
 msgstr "Proxy-Konfiguration"
