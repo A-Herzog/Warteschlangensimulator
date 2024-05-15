@@ -56,6 +56,7 @@ import mathtools.distribution.ParetoDistributionImpl;
 import mathtools.distribution.PertDistributionImpl;
 import mathtools.distribution.PowerDistributionImpl;
 import mathtools.distribution.RayleighDistributionImpl;
+import mathtools.distribution.ReciprocalDistribution;
 import mathtools.distribution.SawtoothLeftDistribution;
 import mathtools.distribution.SawtoothRightDistribution;
 import mathtools.distribution.StudentTDistributionImpl;
@@ -98,6 +99,7 @@ import mathtools.distribution.tools.WrapperPertDistribution;
 import mathtools.distribution.tools.WrapperPoissonDistribution;
 import mathtools.distribution.tools.WrapperPowerDistribution;
 import mathtools.distribution.tools.WrapperRayleighDistribution;
+import mathtools.distribution.tools.WrapperReciprocalDistribution;
 import mathtools.distribution.tools.WrapperSawtoothLeftDistribution;
 import mathtools.distribution.tools.WrapperSawtoothRightDistribution;
 import mathtools.distribution.tools.WrapperStudentTDistribution;
@@ -305,6 +307,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new DiscreteUniformDistributionPanel());
 		allRecords.add(new HalfNormalDistributionPanel());
 		allRecords.add(new UQuadraticDistributionPanel());
+		allRecords.add(new ReciprocalDistributionPanel());
 	}
 
 	/**
@@ -1428,6 +1431,45 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double d2=NumberTools.getDouble(fields[1],true); if (d2==null) return null;
 			if (d1>=d2) return null;
 			return new UQuadraticDistribution(d1,d2);
+		}
+	}
+
+	/** Reziproke Verteilung */
+	private static class ReciprocalDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public ReciprocalDistributionPanel() {
+			super(new WrapperReciprocalDistribution(),new String[]{JDistributionEditorPanel.DistUniformStart,JDistributionEditorPanel.DistUniformEnd});
+		}
+
+		@Override
+		public String[] getEditValues(final double meanD, final String mean, final double stdD, final String std, final String lower, final String upper, final double maxXValue) {
+			return new String[]{lower,upper};
+		}
+
+		@Override
+		public String[] getValues(final AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((ReciprocalDistribution)distribution).getSupportLowerBound()),
+					NumberTools.formatNumberMax(((ReciprocalDistribution)distribution).getSupportUpperBound())
+			};
+		}
+
+		@Override
+		public void setValues(final JTextField[] fields, final double mean, final double sd) {
+			ReciprocalDistribution distribution=(ReciprocalDistribution)wrapper.getDistribution(mean,sd);
+			if (distribution!=null) {
+				if (distribution.getSupportLowerBound()<0) distribution=new ReciprocalDistribution(0,mean*2);
+				final String[] text=getValues(distribution);
+				if (text!=null && text.length==fields.length) for (int i=0;i<text.length;i++) fields[i].setText(text[i]);
+			}
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(final JTextField[] fields, final double maxXValue) {
+			final Double d1=NumberTools.getPositiveDouble(fields[0],true); if (d1==null) return null;
+			final Double d2=NumberTools.getPositiveDouble(fields[1],true); if (d2==null) return null;
+			if (d1>=d2) return null;
+			return new ReciprocalDistribution(d1,d2);
 		}
 	}
 

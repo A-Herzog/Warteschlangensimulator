@@ -589,6 +589,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.RandomNumberInfo"));
 
+		/* Reziproke Verteilung */
+
+		addDist(group,filterUpper,"ReciprocalDist","mean",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ReciprocalDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ReciprocalDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ReciprocalDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ReciprocalDistribution.RandomNumberInfo"));
+
 		/* Empirische Verteilung */
 
 		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution"));

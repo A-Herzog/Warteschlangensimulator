@@ -311,6 +311,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite U-quadratische Verteilung */
 	public static String DistUQuadraticWikipedia="https://en.wikipedia.org/wiki/U-quadratic_distribution";
 
+	/** Reziproke Verteilung */
+	public static String[] DistReciprocal=new String[]{"Reziproke Verteilung"};
+
+	/** Wikipedia-Seite Reziproke Verteilung */
+	public static String DistReciprocalWikipedia="https://en.wikipedia.org/wiki/Reciprocal_distribution";
+
 	/** Warnung "unbekannte Verteilung" */
 	public static String DistUnknown="unbekannte Verteilung";
 
@@ -410,7 +416,8 @@ public final class DistributionTools {
 				new WrapperZetaDistribution(),
 				new WrapperDiscreteUniformDistribution(),
 				new WrapperHalfNormalDistribution(),
-				new WrapperUQuadraticDistribution()
+				new WrapperUQuadraticDistribution(),
+				new WrapperReciprocalDistribution()
 		};
 	}
 

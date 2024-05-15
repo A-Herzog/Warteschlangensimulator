@@ -60,6 +60,7 @@ import mathtools.distribution.ParetoDistributionImpl;
 import mathtools.distribution.PertDistributionImpl;
 import mathtools.distribution.PowerDistributionImpl;
 import mathtools.distribution.RayleighDistributionImpl;
+import mathtools.distribution.ReciprocalDistribution;
 import mathtools.distribution.SawtoothLeftDistribution;
 import mathtools.distribution.SawtoothRightDistribution;
 import mathtools.distribution.StudentTDistributionImpl;
@@ -1484,6 +1485,80 @@ class DistributionTests {
 		assertEquals(5,dist.b);
 		assertEquals((2.0+5.0)/2,dist.getNumericalMean());
 		assertEquals(3.0/20.0*(5.0-2.0)*(5.0-2.0),dist.getNumericalVariance());
+		assertEquals(2,dist.getSupportLowerBound());
+		assertEquals(5,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[]{2,5});
+	}
+
+	/**
+	 * Test: Reziproke Verteilung
+	 * @see ReciprocalDistribution
+	 */
+	@Test
+	void testReciprocalDist() {
+		ReciprocalDistribution dist;
+
+		dist=new ReciprocalDistribution(-2,-5);
+		assertTrue(dist.a>0);
+		assertTrue(dist.b>0);
+		assertTrue(dist.b>dist.a);
+
+		dist=new ReciprocalDistribution(2,5);
+		assertEquals(2,dist.a);
+		assertEquals(5,dist.b);
+
+		assertEquals((5.0-2.0)/Math.log(5.0/2.0),dist.getNumericalMean());
+		assertEquals((5.0*5.0-2.0*2.0)/2.0/Math.log(5.0/2.0)-((5.0-2.0)/Math.log(5.0/2.0))*((5.0-2.0)/Math.log(5.0/2.0)),dist.getNumericalVariance());
+		assertEquals(2,dist.getSupportLowerBound());
+		assertEquals(5,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		assertEquals(0,dist.density(-1));
+		assertEquals(0,dist.density(1));
+		assertTrue(dist.density(3)>0);
+		assertEquals(0,dist.density(6));
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(0,dist.cumulativeProbability(1));
+		assertEquals(0,dist.cumulativeProbability(2));
+		assertTrue(dist.cumulativeProbability(3)>0);
+		assertEquals(1,dist.cumulativeProbability(5));
+		assertEquals(1,dist.cumulativeProbability(6));
+
+		dist=(ReciprocalDistribution)DistributionTools.cloneDistribution(dist);
+		assertEquals(2,dist.a);
+		assertEquals(5,dist.b);
+		assertEquals((5.0-2.0)/Math.log(5.0/2.0),dist.getNumericalMean());
+		assertEquals((5.0*5.0-2.0*2.0)/2.0/Math.log(5.0/2.0)-((5.0-2.0)/Math.log(5.0/2.0))*((5.0-2.0)/Math.log(5.0/2.0)),dist.getNumericalVariance());
+		assertEquals(2,dist.getSupportLowerBound());
+		assertEquals(5,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=new ReciprocalDistribution(dist);
+		assertEquals(2,dist.a);
+		assertEquals(5,dist.b);
+		assertEquals((5.0-2.0)/Math.log(5.0/2.0),dist.getNumericalMean());
+		assertEquals((5.0*5.0-2.0*2.0)/2.0/Math.log(5.0/2.0)-((5.0-2.0)/Math.log(5.0/2.0))*((5.0-2.0)/Math.log(5.0/2.0)),dist.getNumericalVariance());
+		assertEquals(2,dist.getSupportLowerBound());
+		assertEquals(5,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=dist.clone();
+		assertEquals(2,dist.a);
+		assertEquals(5,dist.b);
+		assertEquals((5.0-2.0)/Math.log(5.0/2.0),dist.getNumericalMean());
+		assertEquals((5.0*5.0-2.0*2.0)/2.0/Math.log(5.0/2.0)-((5.0-2.0)/Math.log(5.0/2.0))*((5.0-2.0)/Math.log(5.0/2.0)),dist.getNumericalVariance());
 		assertEquals(2,dist.getSupportLowerBound());
 		assertEquals(5,dist.getSupportUpperBound());
 		assertTrue(dist.isSupportLowerBoundInclusive());

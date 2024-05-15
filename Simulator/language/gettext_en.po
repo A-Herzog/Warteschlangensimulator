@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-06 09:22+0200\n"
+"POT-Creation-Date: 2024-05-11 14:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3423,6 +3423,12 @@ msgstr "Rayleigh distribution"
 
 msgid "Distribution.RayleighWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Rayleigh_distribution"
+
+msgid "Distribution.Reciprocal"
+msgstr "Reciprocal distribution"
+
+msgid "Distribution.ReciprocalWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Reciprocal_distribution"
 
 msgid "Distribution.SawtoothLeft"
 msgstr "Left sawtooth distribution"
@@ -7159,6 +7165,18 @@ msgid "ExpressionBuilder.ProbabilityDistributions.RayleighDistribution.RandomNum
 msgstr ""
 "<p>Generates a random number according to the Rayleigh distribution with the parameters according to the (mean) third parameter.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ReciprocalDistribution"
+msgstr "Reciprocal distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ReciprocalDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the reciprocal distribution at the location specified as the first parameter with the parameters [a;b] according to the second (a) and the third (b) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ReciprocalDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the reciprocal distribution at the location specified as the first parameter with the parameters [a;b] according to the second (a) and the third (b) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ReciprocalDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the reciprocal distribution with the parameters [a;b] according to the first (a) and the second (b) parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution"
 msgstr "Right sawtooth distribution"
