@@ -532,6 +532,7 @@ b&=&mean+\frac{\sqrt{sd^2\cdot\frac{20}{3}}}{2}
 
 
 
+
 \section*{Reciprocal distribution}
 \cm{Reziproke Verteilung (a;b)}~\\
 \cm{Reciprocal distribution (a;b)}
@@ -540,6 +541,22 @@ Conversion between distribution parameters and stochastic characteristics
 \begin{eqnarray*}
 mean&=&\frac{b-a}{\log\left(\frac{b}{a}\right)}\\
 sd&=&\sqrt{\frac{b^2-a^2}{\log\left(\frac{b}{a}\right)}-\left(\frac{b-a}{\log\left(\frac{b}{a}\right)}\right)^2}
+\end{eqnarray*}
+
+
+
+
+
+\section*{Kumaraswamy distribution}
+\cm{Kumaraswamy-Verteilung (a;b;c;d)}~\\
+\cm{Kumaraswamy distribution (a;b;c;D)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean_{\rm unscaled}&=&\frac{b\Gamma\left(1+\frac{1}{a}\right)\Gamma(b)}{\Gamma\left(1+\frac{1}{a}+b\right)}\\
+sd_{\rm unscaled}&=&\sqrt{\frac{b\Gamma\left(1+\frac{2}{a}\right)\Gamma(b)}{\Gamma\left(1+\frac{2}{a}+b\right)}-mean_{\rm unscaled}^2}\\
+mean&=&mean_{\rm unscaled}\cdot(d-c)+c\\
+sd&=&sd_{\rm unscaled}\cdot(d-c)+c\\
 \end{eqnarray*}
 
 

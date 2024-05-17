@@ -45,6 +45,7 @@ import mathtools.distribution.HalfNormalDistribution;
 import mathtools.distribution.HyperbolicSecantDistributionImpl;
 import mathtools.distribution.InverseGaussianDistributionImpl;
 import mathtools.distribution.JohnsonDistributionImpl;
+import mathtools.distribution.KumaraswamyDistribution;
 import mathtools.distribution.LaplaceDistributionImpl;
 import mathtools.distribution.LevyDistribution;
 import mathtools.distribution.LogLogisticDistributionImpl;
@@ -84,6 +85,7 @@ import mathtools.distribution.tools.WrapperHyperGeomDistribution;
 import mathtools.distribution.tools.WrapperHyperbolicSecantDistribution;
 import mathtools.distribution.tools.WrapperInverseGaussianDistribution;
 import mathtools.distribution.tools.WrapperJohnsonDistribution;
+import mathtools.distribution.tools.WrapperKumaraswamyDistribution;
 import mathtools.distribution.tools.WrapperLaplaceDistribution;
 import mathtools.distribution.tools.WrapperLevyDistribution;
 import mathtools.distribution.tools.WrapperLogLogisticDistribution;
@@ -308,6 +310,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new HalfNormalDistributionPanel());
 		allRecords.add(new UQuadraticDistributionPanel());
 		allRecords.add(new ReciprocalDistributionPanel());
+		allRecords.add(new KumaraswamyDistributionPanel());
 	}
 
 	/**
@@ -1470,6 +1473,39 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double d2=NumberTools.getPositiveDouble(fields[1],true); if (d2==null) return null;
 			if (d1>=d2) return null;
 			return new ReciprocalDistribution(d1,d2);
+		}
+	}
+
+	/** Kumaraswamy-Verteilung */
+	private static class KumaraswamyDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public KumaraswamyDistributionPanel() {
+			super(new WrapperKumaraswamyDistribution(),new String[]{"a","b",JDistributionEditorPanel.DistUniformStart,JDistributionEditorPanel.DistUniformEnd});
+		}
+
+		@Override
+		public String[] getEditValues(final double meanD, final String mean, final double stdD, final String std, final String lower, final String upper, final double maxXValue) {
+			return new String[]{"1","2",lower,upper};
+		}
+
+		@Override
+		public String[] getValues(final AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((KumaraswamyDistribution)distribution).a),
+					NumberTools.formatNumberMax(((KumaraswamyDistribution)distribution).b),
+					NumberTools.formatNumberMax(((KumaraswamyDistribution)distribution).c),
+					NumberTools.formatNumberMax(((KumaraswamyDistribution)distribution).d)
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(final JTextField[] fields, final double maxXValue) {
+			final Double d1=NumberTools.getPositiveDouble(fields[0],true); if (d1==null) return null;
+			final Double d2=NumberTools.getPositiveDouble(fields[1],true); if (d2==null) return null;
+			final Double d3=NumberTools.getPositiveDouble(fields[2],true); if (d3==null) return null;
+			final Double d4=NumberTools.getPositiveDouble(fields[3],true); if (d4==null) return null;
+			if (d3>=d4) return null;
+			return new KumaraswamyDistribution(d1,d2,d3,d4);
 		}
 	}
 

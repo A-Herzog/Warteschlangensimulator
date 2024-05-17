@@ -139,6 +139,7 @@ import parser.symbols.distributions.CalcSymbolDistributionHalfNormal;
 import parser.symbols.distributions.CalcSymbolDistributionHyperbolicSecant;
 import parser.symbols.distributions.CalcSymbolDistributionInverseGaussian;
 import parser.symbols.distributions.CalcSymbolDistributionJohnsonSU;
+import parser.symbols.distributions.CalcSymbolDistributionKumaraswamy;
 import parser.symbols.distributions.CalcSymbolDistributionLaplace;
 import parser.symbols.distributions.CalcSymbolDistributionLevy;
 import parser.symbols.distributions.CalcSymbolDistributionLogLogistic;
@@ -339,6 +340,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionHalfNormal());
 			addSymbol(new CalcSymbolDistributionUQuadratic());
 			addSymbol(new CalcSymbolDistributionReciprocal());
+			addSymbol(new CalcSymbolDistributionKumaraswamy());
 
 			addSymbol(new CalcSymbolEmpiricalDistributionPDF());
 			addSymbol(new CalcSymbolEmpiricalDistributionCDF());

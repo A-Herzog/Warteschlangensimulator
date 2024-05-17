@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-11 14:03+0200\n"
+"POT-Creation-Date: 2024-05-15 14:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3300,6 +3300,12 @@ msgstr "Inverse gaussian distribution"
 
 msgid "Distribution.InverseGaussianWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution"
+
+msgid "Distribution.Kumaraswamy"
+msgstr "Kumaraswamy distribution"
+
+msgid "Distribution.KumaraswamyWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Kumaraswamy_distribution"
 
 msgid "Distribution.Kurt"
 msgstr "Excess kurtosis"
@@ -6915,6 +6921,18 @@ msgid "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.RandomNu
 msgstr ""
 "<p>Generates a random number according to the Johnson SU distribution with the parameters &gamma;, &xi;, &delta; and &lambda; according to the third to sixth parameters.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution"
+msgstr "Kumaraswamy distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the Kumaraswamy distribution at the location specified as the first parameter. The distribution parameters are specifed via the second and the third parameter. The support of the distribution is defined by the fourth and fiveth parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the Kumaraswamy distribution at the location specified as the first parameter. The distribution parameters are specifed via the second and the third parameter. The support of the distribution is defined by the fourth and fiveth parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Kumaraswamy distribution with distribution parameters specified in the first and the second parameter and with support defined in the third and the fourth parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution"
 msgstr "Laplace distribution"

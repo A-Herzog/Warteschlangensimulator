@@ -583,7 +583,7 @@ public class ExpressionBuilderDistributions {
 
 		/* U-quadratische Verteilung */
 
-		addDist(group,filterUpper,"HalfNormalDist","mean",
+		addDist(group,filterUpper,"HalfNormalDist","a;b",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.DistributionFunctionInfo"),
@@ -591,11 +591,19 @@ public class ExpressionBuilderDistributions {
 
 		/* Reziproke Verteilung */
 
-		addDist(group,filterUpper,"ReciprocalDist","mean",
+		addDist(group,filterUpper,"ReciprocalDist","a;b",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ReciprocalDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ReciprocalDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ReciprocalDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ReciprocalDistribution.RandomNumberInfo"));
+
+		/* Kumaraswamy-Verteilung */
+
+		addDist(group,filterUpper,"KumaraswamyDist","a;b;c;d",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution.RandomNumberInfo"));
 
 		/* Empirische Verteilung */
 

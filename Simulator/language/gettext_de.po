@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-11 14:03+0200\n"
+"POT-Creation-Date: 2024-05-15 14:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3305,6 +3305,12 @@ msgstr "Inverse Gauß-Verteilung"
 
 msgid "Distribution.InverseGaussianWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Inverse_Normalverteilung"
+
+msgid "Distribution.Kumaraswamy"
+msgstr "Kumaraswamy-Verteilung"
+
+msgid "Distribution.KumaraswamyWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Kumaraswamy_distribution"
 
 msgid "Distribution.Kurt"
 msgstr "Exzess (Wölbung)"
@@ -6907,6 +6913,23 @@ msgid "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution.RandomNu
 msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der Johnson-SU-Verteilung mit den Parametern &gamma;, &xi;, &delta; und &lambda; gemäß dem dritten bis siebten Parameter.</p>\n"
 "<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution"
+msgstr "Kumaraswamy-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Kumaraswamy-Verteilung an der als ersten Parameter angegebenen Stelle. Die beiden Verteilungsparameter werden über den zweiten und den dritten Parameter bestimmt. Der Trägerbereich der Verteilung wird über den vierten und den fünften Parameter festgelegt.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Kumaraswamy-Verteilung an der als ersten Parameter angegebenen Stelle. Die beiden Verteilungsparameter werden über den zweiten und den dritten Parameter bestimmt. Der Trägerbereich der Verteilung wird über den vierten und den fünften Parameter festgelegt.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution.RandomNumberInfo"
+msgstr ""
+"<p>Erzeugt eine Zufallszahl gemäß der Kumaraswamy-Verteilung gemäßden beiden Verteilungsparameter im ersten und zweiten Parameter bestimmt und über den Trägerbereich gemäß dem dritten und vierten Parameter.\n"
+"\n"
+"\n"
+"\n"
+" mit Trägerbereich gemäß dem ersten und zweiten Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LaplaceDistribution"
 msgstr "Laplace-Verteilung"

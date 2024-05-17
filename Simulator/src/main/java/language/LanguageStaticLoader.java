@@ -261,6 +261,8 @@ public class LanguageStaticLoader {
 		DistributionTools.DistUQuadraticWikipedia=Language.tr("Distribution.UQuadraticWikipedia");
 		DistributionTools.DistReciprocal=Language.trAll("Distribution.Reciprocal");
 		DistributionTools.DistReciprocalWikipedia=Language.tr("Distribution.ReciprocalWikipedia");
+		DistributionTools.DistKumaraswamy=Language.trAll("Distribution.Kumaraswamy");
+		DistributionTools.DistKumaraswamyWikipedia=Language.tr("Distribution.KumaraswamyWikipedia");
 		DistributionTools.DistUnknown=Language.tr("Distribution.Unknown");
 		DistributionTools.DistDataPoint=Language.tr("Distribution.DataPoint");
 		DistributionTools.DistDataPoints=Language.tr("Distribution.DataPoints");

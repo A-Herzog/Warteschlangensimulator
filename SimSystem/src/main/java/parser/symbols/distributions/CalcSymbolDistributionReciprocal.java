@@ -20,7 +20,7 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import mathtools.distribution.ReciprocalDistribution;
 
 /**
- * Halbe Normalverteilung
+ * Reziproke Verteilung
  * @author Alexander Herzog
  * @see ReciprocalDistribution
  */
