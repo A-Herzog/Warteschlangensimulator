@@ -32,7 +32,7 @@ import systemtools.SmallColorChooser;
 import ui.modeleditor.coreelements.ModelElement;
 
 /**
- * Dieser Dialog erlaubt das Bearbeiten eines Audrucks und einer Farbe für einen
+ * Dieser Dialog erlaubt das Bearbeiten eines Ausdrucks und einer Farbe für einen
  * Teildatensatz von {@link ModelElementAnimationBarStack}. Der Dialog wird
  * von {@link BarStackTableModel} aufgerufen.
  * @author Alexander Herzog

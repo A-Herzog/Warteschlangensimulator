@@ -191,7 +191,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 		/* GUI anlegen */
 		if (index>=0) {
 			addUserButton(Language.tr("Resources.Usage"),Images.MODEL_ADD_STATION.getIcon());
-			if (ModelPropertiesDialogPageOperatorsUsageDialog.getPossibleNewStationsForRessource(names[index],model.surface).size()>0) addUserButton("Zu Station hinzufügen",Images.MODELPROPERTIES_OPERATORS_ADD.getIcon());
+			if (ModelPropertiesDialogPageOperatorsUsageDialog.getPossibleNewStationsForRessource(names[index],model.surface).size()>0) addUserButton(Language.tr("Resources.AddToStation"),Images.MODELPROPERTIES_OPERATORS_ADD.getIcon());
 		}
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
@@ -356,7 +356,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 		moveTimesCards.add(panel=new JPanel(new BorderLayout()),"Seite2");
 		panel.add(moveTimesDistribution=new JDistributionPanel(new ExponentialDistribution(null,300,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY),3600,true));
 
-		/* Tab: Rüstzeiten - Audruck */
+		/* Tab: Rüstzeiten - Ausdruck */
 
 		moveTimesCards.add(panel=new JPanel(new BorderLayout()),"Seite3");
 		final JPanel sub=new JPanel();

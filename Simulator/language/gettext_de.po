@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-15 14:18+0200\n"
+"POT-Creation-Date: 2024-05-17 22:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17261,6 +17261,9 @@ msgstr "Wikipedia-Seite zum Thema \"Reguläre Ausdrücke\""
 
 msgid "RegExWikipdiaLink.URL"
 msgstr "https://de.wikipedia.org/wiki/Regul%C3%A4rer_Ausdruck"
+
+msgid "Resources.AddToStation"
+msgstr "Zu Station hinzufügen"
 
 msgid "Resources.Failure.Add"
 msgstr "Ausfall hinzufügen"

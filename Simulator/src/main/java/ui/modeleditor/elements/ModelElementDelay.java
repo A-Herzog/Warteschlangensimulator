@@ -237,7 +237,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 
 	/**
 	 * Stellt die Verteilung der Wartezeiten oder den Ausdruck zur Bestimmung der Wartezeiten für einen bestimmten Kundentyp ein.
-	 * @param clientType	Kundentyp für den die Verteilung bzw. der Audruck der Wartezeiten eingestellt werden soll
+	 * @param clientType	Kundentyp für den die Verteilung bzw. der Ausdruck der Wartezeiten eingestellt werden soll
 	 * @param distribution	Neue Verteilung der Wartezeiten oder <code>null</code>, wenn für den Kundentyp keine individuelle Verteilung definiert werden soll oder statt dessen ein Ausdruck verwendet werden soll
 	 * @param expression	Neuer Ausdruck zur Bestimmung der Wartezeiten oder <code>null</code>, wenn für den Kundentyp kein individueller Ausdruck definiert werden soll oder statt dessen eine Verteilung verwendet werden soll
 	 */
