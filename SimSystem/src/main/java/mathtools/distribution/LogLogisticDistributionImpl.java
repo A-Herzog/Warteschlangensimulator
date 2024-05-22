@@ -80,6 +80,7 @@ public final class LogLogisticDistributionImpl extends AbstractRealDistribution 
 
 	@Override
 	public double cumulativeProbability(double x) {
+		if (x<=0) return 0.0;
 		return 1/(1+Math.pow(x/alpha,-beta)); /* FastMath.pow(...) würde hier new double[2] durchführen! */
 	}
 

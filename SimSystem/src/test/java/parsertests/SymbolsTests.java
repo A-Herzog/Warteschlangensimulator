@@ -2707,6 +2707,45 @@ class SymbolsTests {
 			}
 		}
 
+		/* Binomialverteilung direkt - Dichte */
+
+		calc=new CalcSystem("BinomialDistDirect(x;m;s)",new String[]{"x","m","s"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{-1,10,3});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		for (int k=0;k<=10;k++) {
+			try {
+				d=calc.calc(new double[]{k,10,3});
+				assertTrue(d>0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		testDistributionThrows("BinomialDistDirect(x;m;s)",new String[]{"x","m","s"},new double[]{0,10,-2});
+
+		/* Binomialverteilung direkt - Zufallszahlen */
+
+		calc=new CalcSystem("BinomialDistDirect(m;s)",new String[]{"m","s"});
+		assertTrue(calc.parse()<0);
+
+		for (int i=0;i<100;i++) {
+			try {
+				d=calc.calc(new double[]{10,3});
+				assertTrue(d>=0);
+				assertTrue(d<=50);
+				assertTrue(d%1.0==0.0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
 		/* Poisson-Verteilung - Dichte */
 
 		calc=new CalcSystem("PoissonDist(x;l)",new String[]{"x","l"});
@@ -2752,6 +2791,53 @@ class SymbolsTests {
 			}
 		}
 
+		/* Negative hypergeometrische Verteilung - Dichte */
+
+		calc=new CalcSystem("NegativeHypergeometricDist(x;Num;K;n)",new String[]{"x","Num","K","n"});
+		assertTrue(calc.parse()<0);
+
+		for (int k=-1;k<=9;k++) {
+			try {
+				d=calc.calc(new double[]{k,50,20,10});
+				assertEquals(0,d);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		for (int k=10;k<=40;k++) {
+			try {
+				d=calc.calc(new double[]{k,50,20,10});
+				assertTrue(d>0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		try {
+			d=calc.calc(new double[]{41,50,20,10});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		testDistributionThrows("NegativeHypergeometricDist(x;Num;K;n)",new String[]{"x","Num","K","n"},new double[]{15,-3,20,10});
+
+		/* Negative hypergeometrische Verteilung - Zufallszahlen */
+
+		calc=new CalcSystem("NegativeHypergeometricDist(Num;K;n)",new String[]{"Num","K","n"});
+		assertTrue(calc.parse()<0);
+
+		for (int i=0;i<100;i++) {
+			try {
+				d=calc.calc(new double[]{50,20,10});
+				assertTrue(d>=10 && d<=40);
+				assertTrue(d%1.0==0.0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
 		/* Negative Binomialverteilung - Dichte */
 
 		calc=new CalcSystem("NegativeBinomialDist(x;r;p)",new String[]{"x","r","p"});
@@ -2791,6 +2877,36 @@ class SymbolsTests {
 		for (int i=0;i<100;i++) {
 			try {
 				d=calc.calc(new double[]{5,0.2});
+				assertTrue(d>=0.0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		/* Negative Binomialverteilung direkt - Dichte */
+
+		calc=new CalcSystem("NegativeBinomialDistDirect(x;m;s)",new String[]{"x","m","s"});
+		assertTrue(calc.parse()<0);
+
+		for (int k=0;k<=50;k++) {
+			try {
+				d=calc.calc(new double[]{k,10,5});
+				assertTrue(d>0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		testDistributionThrows("NegativeBinomialDistDirect(x;m;s)",new String[]{"x","m","s"},new double[]{3,10,-0.2});
+
+		/* Negative Binomialverteilung direkt - Zufallszahlen */
+
+		calc=new CalcSystem("NegativeBinomialDistDirect(m;s)",new String[]{"m","s"});
+		assertTrue(calc.parse()<0);
+
+		for (int i=0;i<50;i++) {
+			try {
+				d=calc.calc(new double[]{10,5});
 				assertTrue(d>=0.0);
 			} catch (MathCalcError e) {
 				assertTrue(false);
@@ -2888,1754 +3004,735 @@ class SymbolsTests {
 	}
 
 	/**
+	 * Interpretiert und berechnet einen einzelnen Verteilungsausdruck.
+	 * @param text Zu interpretierender Ausdruck
+	 * @param variables	Namen der Variablen
+	 * @param values	Werte für die Variablen
+	 * @return	Rückgabewert der Berechnung
+	 */
+	private double testDistribution(final String text, final String[] variables, final double[] values) {
+		final CalcSystem calc=new CalcSystem(text,variables);
+		assertTrue(calc.parse()<0);
+		try {
+			return calc.calc(values);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+			return -1;
+		}
+	}
+
+	/**
+	 * Interpretiert einen einzelnen Verteilungsausdruck und prüft, ob beim Auswerten eine Exception auftritt.
+	 * @param text Zu interpretierender Ausdruck
+	 * @param variables	Namen der Variablen
+	 * @param values	Werte für die Variablen
+	 */
+	private void testDistributionThrows(final String text, final String[] variables, final double[] values) {
+		final CalcSystem calc=new CalcSystem(text,variables);
+		assertTrue(calc.parse()<0);
+		assertThrows(MathCalcError.class,()->calc.calc(values));
+	}
+
+	/**
 	 * Test: Wahrscheinlichkeitsverteilungen (Dichte, Verteilung, Zufallszahlen)
 	 */
 	@Test
-	void testDistributions() {
-		CalcSystem calc;
-		double d;
+	void testContinuousDistributions() {
+		String cmd;
+		String[] variables;
 
 		/* Betaverteilung */
 
-		calc=new CalcSystem("BetaDist(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,1,3,0.5,0.5});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="BetaDist(x;a;b;c;d;0)";
+		variables=new String[]{"x","a","b","c","d"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,3,0.5,0.5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{2,1,3,0.5,0.5})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{4,1,3,0.5,0.5}));
 
-		calc=new CalcSystem("BetaDist(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{2,1,3,0.5,0.5});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="BetaDist(x;a;b;c;d;1)";
+		variables=new String[]{"x","a","b","c","d"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,3,0.5,0.5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{2,1,3,0.5,0.5})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{4,1,3,0.5,0.5}));
+		testDistributionThrows("BetaDist(x;a;b;c;d;2)",variables,new double[]{-0.1,5});
 
-		calc=new CalcSystem("BetaDist(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{4,1,3,0.5,0.5});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="BetaDist(a;b;c;d)";
+		variables=new String[]{"a","b","c","d"};
+		testDistribution(cmd,variables,new double[]{1,3,0.5,0.5});
 
-		calc=new CalcSystem("BetaDist(x;a;b;c;d;1)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,1,3,0.5,0.5});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		/* Betaverteilung - Direkt */
 
-		calc=new CalcSystem("BetaDist(x;a;b;c;d;1)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{4,1,3,0.5,0.5});
-			assertEquals(1,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="BetaDistDirect(x;a;b;c;d;0)";
+		variables=new String[]{"x","a","b","c","d"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,3,2.5,0.5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{2,1,3,2.5,0.5})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{4,1,3,2.5,0.5}));
 
-		final CalcSystem calc1=new CalcSystem("BetaDist(x;a;b;c;d;2)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc1.parse()<0);
-		assertThrows(MathCalcError.class,()->calc1.calc(new double[]{-0.1,5}));
+		cmd="BetaDistDirect(x;a;b;c;d;1)";
+		variables=new String[]{"x","a","b","c","d"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,3,2.5,0.5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{2,1,3,2.5,0.5})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{4,1,3,2.5,0.5}));
+		testDistributionThrows("BetaDistDirect(x;a;b;c;d;2)",variables,new double[]{-0.1,5});
 
-		calc=new CalcSystem("BetaDist(a;b;c;d)",new String[]{"a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{1,3,0.5,0.5});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Betaverteilung - Direct */
-
-		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,1,3,2.5,0.5});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{2,1,3,2.5,0.5});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{4,1,3,2.5,0.5});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;1)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,1,3,2.5,0.5});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("BetaDistDirect(x;a;b;c;d;1)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{4,1,3,2.5,0.5});
-			assertEquals(1,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc1a=new CalcSystem("BetaDistDirect(x;a;b;c;d;2)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc1a.parse()<0);
-		assertThrows(MathCalcError.class,()->calc1a.calc(new double[]{-0.1,5}));
-
-		calc=new CalcSystem("BetaDistDirect(a;b;c;d)",new String[]{"a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{1,3,2.5,0.5});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="BetaDistDirect(a;b;c;d)";
+		variables=new String[]{"a","b","c","d"};
+		testDistribution(cmd,variables,new double[]{1,3,2.5,0.5});
 
 		/* Cauchyverteilung */
 
-		calc=new CalcSystem("CauchyDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-0.1,1,1});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("CauchyDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{2,1,1});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("CauchyDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-0.1,1,1});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("CauchyDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{2,1,1});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc2=new CalcSystem("CauchyDist(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc2.parse()<0);
-		assertThrows(MathCalcError.class,()->calc2.calc(new double[]{-0.1,1,1}));
-
-		calc=new CalcSystem("CauchyDist(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1,1});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Chi²-Verteilung */
-
-		calc=new CalcSystem("ChiSquareDist(x;n;0)",new String[]{"x","n"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-0.1,200});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("ChiSquareDist(x;n;0)",new String[]{"x","n"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{200,200});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("ChiSquareDist(x;n;1)",new String[]{"x","n"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-0.1,200});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("ChiSquareDist(x;n;1)",new String[]{"x","n"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{200,200});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc3=new CalcSystem("ChiSquareDist(x;n;2)",new String[]{"x","n"});
-		assertTrue(calc3.parse()<0);
-		assertThrows(MathCalcError.class,()->calc3.calc(new double[]{200,200}));
-
-		calc=new CalcSystem("ChiSquareDist(n)",new String[]{"n"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{200});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Exponentialverteilung */
-
-		calc=new CalcSystem("ExpDist(x;a;0)",new String[]{"x","a"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-0.1,5});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-		assertEquals(-1,calc.calcOrDefault(new double[0],-1));
-		assertEquals(0,calc.calcOrDefault(new double[]{-0.1,5},-1));
-
-		calc=new CalcSystem("ExpDist(x;a;0)",new String[]{"x","a"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{2,5});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-		assertEquals(-1,calc.calcOrDefault(new double[0],-1));
-		assertTrue(calc.calcOrDefault(new double[]{2,5},-1)>0);
-
-		calc=new CalcSystem("ExpDist(x;a;1)",new String[]{"x","a"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-0.1,5});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-		assertEquals(-1,calc.calcOrDefault(new double[0],-1));
-		assertEquals(0,calc.calcOrDefault(new double[]{-0.1,5},-1));
-
-		calc=new CalcSystem("ExpDist(x;a;1)",new String[]{"x","a"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{2,5});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-		assertEquals(-1,calc.calcOrDefault(new double[0],-1));
-		assertTrue(calc.calcOrDefault(new double[]{2,5},-1)>0);
-
-		final CalcSystem calc4=new CalcSystem("ExpDist(x;a;2)",new String[]{"x","a"});
-		assertTrue(calc4.parse()<0);
-		assertThrows(MathCalcError.class,()->calc4.calc(new double[]{-0.1,5}));
-		assertEquals(-1,calc4.calcOrDefault(new double[]{-0.1,5},-1));
-
-		calc=new CalcSystem("ExpDist(a)",new String[]{"a"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{5});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-		assertEquals(-1,calc.calcOrDefault(new double[0],-1));
-		assertTrue(calc.calcOrDefault(new double[] {5},-1)>=0);
-
-		/* F-Verteilung */
-
-		calc=new CalcSystem("FDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-0.1,100,10});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("FDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{2,100,10});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("FDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-0.1,100,10});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("FDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{2,100,10});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc5=new CalcSystem("FDist(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc5.parse()<0);
-		assertThrows(MathCalcError.class,()->calc5.calc(new double[]{-0.1,100,10}));
-
-		calc=new CalcSystem("FDist(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{100,10});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Gammaverteilung */
-
-		calc=new CalcSystem("GammaDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-0.1,100,6});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("GammaDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{610,100,6});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("GammaDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-0.1,100,6});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("GammaDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1000,100,6});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc6=new CalcSystem("GammaDist(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc6.parse()<0);
-		assertThrows(MathCalcError.class,()->calc6.calc(new double[]{1000,100,6}));
-
-		calc=new CalcSystem("GammaDist(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{100,6});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Gammaverteilung - Direct */
-
-		calc=new CalcSystem("GammaDistDirect(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-0.1,100,6});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("GammaDistDirect(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{10,10,5});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("GammaDistDirect(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-0.1,10,5});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("GammaDistDirect(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1000,10,5});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc6a=new CalcSystem("GammaDistDirect(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc6a.parse()<0);
-		assertThrows(MathCalcError.class,()->calc6a.calc(new double[]{1000,100,6}));
-
-		calc=new CalcSystem("GammaDistDirect(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{10,5});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Inverse Gaußverteilung */
-
-		calc=new CalcSystem("InverseGaussianDist(x;l;mu;0)",new String[]{"x","l","mu"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-0.1,900,1800});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("InverseGaussianDist(x;l;mu;0)",new String[]{"x","l","mu"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1000,900,1800});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("InverseGaussianDist(x;l;mu;1)",new String[]{"x","l","mu"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-0.1,900,1800});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("InverseGaussianDist(x;l;mu;1)",new String[]{"x","l","mu"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1000,900,1800});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc7=new CalcSystem("InverseGaussianDist(x;l;mu;2)",new String[]{"x","l","mu"});
-		assertTrue(calc7.parse()<0);
-		assertThrows(MathCalcError.class,()->calc7.calc(new double[]{1000,900,1800}));
-
-		calc=new CalcSystem("InverseGaussianDist(l;mu)",new String[]{"l","mu"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{900,1800});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Johnson-SU-Verteilung */
-
-		calc=new CalcSystem("JohnsonSUDist(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,2,1800,1,180});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("JohnsonSUDist(x;a;b;c;d;0)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{2,2,1800,1,180});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("JohnsonSUDist(x;a;b;c;d;1)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,2,1800,1,180});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("JohnsonSUDist(x;a;b;c;d;1)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{2,2,1800,1,180});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc8=new CalcSystem("JohnsonSUDist(x;a;b;c;d;2)",new String[]{"x","a","b","c","d"});
-		assertTrue(calc8.parse()<0);
-		assertThrows(MathCalcError.class,()->calc8.calc(new double[]{2,2,1800,1,180}));
-
-		calc=new CalcSystem("JohnsonSUDist(a;b;c;d)",new String[]{"a","b","c","d"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{2,1800,1,180});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Laplace-Verteilung */
-
-		calc=new CalcSystem("LaplaceDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,720,360});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("LaplaceDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{200,720,360});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("LaplaceDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,720,360});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("LaplaceDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{200,720,360});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc9=new CalcSystem("LaplaceDist(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc9.parse()<0);
-		assertThrows(MathCalcError.class,()->calc9.calc(new double[]{200,720,360}));
-
-		calc=new CalcSystem("LaplaceDist(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{720,360});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Logistische Verteilung */
-
-		calc=new CalcSystem("LogisticDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,1200,360});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("LogisticDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{200,1200,360});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("LogisticDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,1200,360});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("LogisticDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{200,1200,360});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc10=new CalcSystem("LogisticDist(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc10.parse()<0);
-		assertThrows(MathCalcError.class,()->calc10.calc(new double[]{200,1200,360}));
-
-		calc=new CalcSystem("LogisticDist(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{1200,360});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Log-Normalverteilung */
-
-		calc=new CalcSystem("LogNormalDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-1,600,200});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("LogNormalDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,600,200});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("LogNormalDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-1,600,200});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("LogNormalDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,600,200});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc11=new CalcSystem("LogNormalDist(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc11.parse()<0);
-		assertThrows(MathCalcError.class,()->calc11.calc(new double[]{500,600,200}));
-
-		calc=new CalcSystem("LogNormalDist(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{600,200});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Normalverteilung */
-
-		calc=new CalcSystem("NormalDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-1,600,200});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("NormalDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,600,200});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("NormalDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{-1,600,200});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("NormalDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,600,200});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc12=new CalcSystem("NormalDist(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc12.parse()<0);
-		assertThrows(MathCalcError.class,()->calc12.calc(new double[]{500,600,200}));
-
-		calc=new CalcSystem("NormalDist(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{600,200});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Paretoverteilung */
-
-		calc=new CalcSystem("ParetoDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{10,300,3});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("ParetoDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,300,3});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("ParetoDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{10,300,3});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("ParetoDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,300,3});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc13=new CalcSystem("ParetoDist(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc13.parse()<0);
-		assertThrows(MathCalcError.class,()->calc13.calc(new double[]{500,300,3}));
-
-		calc=new CalcSystem("ParetoDist(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{300,3});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Dreiecksverteilung */
-
-		calc=new CalcSystem("TriangularDist(x;a;b;c;0)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,900,1800,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("TriangularDist(x;a;b;c;0)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1000,900,1800,2700});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("TriangularDist(x;a;b;c;0)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{3000,900,1800,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("TriangularDist(x;a;b;c;1)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,900,1800,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("TriangularDist(x;a;b;c;1)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1800,900,1800,2700});
-			assertEquals(0.5,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("TriangularDist(x;a;b;c;1)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{3000,900,1800,2700});
-			assertEquals(1,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc14=new CalcSystem("TriangularDist(x;a;b;c;2)",new String[]{"x","a","b","c"});
-		assertTrue(calc14.parse()<0);
-		assertThrows(MathCalcError.class,()->calc14.calc(new double[]{3000,900,1800,2700}));
-
-		calc=new CalcSystem("TriangularDist(a;b;c)",new String[]{"a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{900,1800,2700});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Pert-Verteilung */
-
-		calc=new CalcSystem("PertDist(x;a;b;c;0)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,900,1800,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("PertDist(x;a;b;c;0)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1000,900,1800,2700});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("PertDist(x;a;b;c;0)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{3000,900,1800,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("PertDist(x;a;b;c;1)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,900,1800,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("PertDist(x;a;b;c;1)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1800,900,1800,2700});
-			assertEquals(0.5,d,0.00001);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("PertDist(x;a;b;c;1)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{3000,900,1800,2700});
-			assertEquals(1,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc15=new CalcSystem("PertDist(x;a;b;c;2)",new String[]{"x","a","b","c"});
-		assertTrue(calc15.parse()<0);
-		assertThrows(MathCalcError.class,()->calc15.calc(new double[]{3000,900,1800,2700}));
-
-		calc=new CalcSystem("PertDist(a;b;c)",new String[]{"a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{900,1800,2700});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Gleichverteilung */
-
-		calc=new CalcSystem("UniformDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,900,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("UniformDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1000,900,2700});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("UniformDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{3000,900,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("UniformDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,900,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("UniformDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1800,900,2700});
-			assertEquals(0.5,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("UniformDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{3000,900,2700});
-			assertEquals(1,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc16=new CalcSystem("UniformDist(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc16.parse()<0);
-		assertThrows(MathCalcError.class,()->calc16.calc(new double[]{3000,900,2700}));
-
-		calc=new CalcSystem("UniformDist(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{900,2700});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Weibull-Verteilung */
-
-		calc=new CalcSystem("WeibullDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,0.0027,2});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("WeibullDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{50,0.0027,2});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("WeibullDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,0.0027,2});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("WeibullDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{50,0.0027,2});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc17=new CalcSystem("WeibullDist(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc17.parse()<0);
-		assertThrows(MathCalcError.class,()->calc17.calc(new double[]{50,0.0027,2}));
-
-		calc=new CalcSystem("WeibullDist(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{0.0027,2});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Fatigue-Life-Verteilung */
-
-		calc=new CalcSystem("FatigueLifeDistribution(x;a;b;c;0)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,1,2,3});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("FatigueLifeDistribution(x;a;b;c;0)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{100,1,2,3});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("FatigueLifeDistribution(x;a;b;c;1)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,1,2,3});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("FatigueLifeDistribution(x;a;b;c;1)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{100,1,2,3});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc18=new CalcSystem("FatigueLifeDistribution(x;a;b;c;2)",new String[]{"x","a","b","c"});
-		assertTrue(calc18.parse()<0);
-		assertThrows(MathCalcError.class,()->calc18.calc(new double[]{100,1,2,3}));
-
-		calc=new CalcSystem("FatigueLifeDistribution(a;b;c)",new String[]{"a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{1,2,3});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Frechet-Verteilung */
-
-		calc=new CalcSystem("FrechetDistribution(x;a;b;c;0)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,1,2,3});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("FrechetDistribution(x;a;b;c;0)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{100,1,2,3});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("FrechetDistribution(x;a;b;c;1)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,1,2,3});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("FrechetDistribution(x;a;b;c;1)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{100,1,2,3});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc19=new CalcSystem("FrechetDistribution(x;a;b;c;2)",new String[]{"x","a","b","c"});
-		assertTrue(calc19.parse()<0);
-		assertThrows(MathCalcError.class,()->calc19.calc(new double[]{100,1,2,3}));
-
-		calc=new CalcSystem("FatigueLifeDistribution(a;b;c)",new String[]{"a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{1,2,3});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Gumbel-Verteilung */
-
-		calc=new CalcSystem("GumbelDistribution(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{100,1,2});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("GumbelDistribution(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{100,1,2});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc20=new CalcSystem("GumbelDistribution(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc20.parse()<0);
-		assertThrows(MathCalcError.class,()->calc20.calc(new double[]{100,1,2}));
-
-		calc=new CalcSystem("GumbelDistribution(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{1,2,3});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Hyperbolische Sekanten-Verteilung */
-
-		calc=new CalcSystem("HyperbolicSecantDistribution(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{100,1,2});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("HyperbolicSecantDistribution(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{100,1,2});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc21=new CalcSystem("HyperbolicSecantDistribution(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc21.parse()<0);
-		assertThrows(MathCalcError.class,()->calc21.calc(new double[]{100,1,2}));
-
-		calc=new CalcSystem("HyperbolicSecantDistribution(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{1,2,3});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Log-Logistische Verteilung */
-
-		calc=new CalcSystem("LogLogisticDistribution(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,1,2});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("LogLogisticDistribution(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{100,1,2});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("LogLogisticDistribution(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,1,2});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("LogLogisticDistribution(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{100,1,2});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc22=new CalcSystem("LogLogisticDistribution(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc22.parse()<0);
-		assertThrows(MathCalcError.class,()->calc22.calc(new double[]{100,1,2}));
-
-		calc=new CalcSystem("LogLogisticDistribution(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{1,2});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Potenz-Verteilung */
-
-		calc=new CalcSystem("PowerDistribution(x;a;b;c;0)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,1,2,3});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("PowerDistribution(x;a;b;c;0)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1.5,1,2,3});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("PowerDistribution(x;a;b;c;0)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{5,1,2,3});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("PowerDistribution(x;a;b;c;1)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,1,2,3});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("PowerDistribution(x;a;b;c;1)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1.5,1,2,3});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("PowerDistribution(x;a;b;c;1)",new String[]{"x","a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{5,1,2,3});
-			assertEquals(1,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc23=new CalcSystem("PowerDistribution(x;a;b;c;2)",new String[]{"x","a","b","c"});
-		assertTrue(calc23.parse()<0);
-		assertThrows(MathCalcError.class,()->calc23.calc(new double[]{100,1,2,3}));
-
-		calc=new CalcSystem("PowerDistribution(a;b;c)",new String[]{"a","b","c"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{1,2,3});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		/* Rayleigh Verteilung */
-
-		calc=new CalcSystem("RayleighDistribution(x;a;0)",new String[]{"x","a"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,50});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("RayleighDistribution(x;a;0)",new String[]{"x","a"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{100,50});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("RayleighDistribution(x;a;1)",new String[]{"x","a"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,50});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		calc=new CalcSystem("RayleighDistribution(x;a;1)",new String[]{"x","a"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{100,50});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
-
-		final CalcSystem calc24=new CalcSystem("RayleighDistribution(x;a;2)",new String[]{"x","a"});
-		assertTrue(calc24.parse()<0);
-		assertThrows(MathCalcError.class,()->calc24.calc(new double[]{100,50}));
-
-		calc=new CalcSystem("RayleighDistribution(a)",new String[]{"a"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{1});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="CauchyDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{-0.1,1,1})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{2,1,1})>0);
+
+		cmd="CauchyDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{-0.1,1,1})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{2,1,1})>0);
+		testDistributionThrows("CauchyDist(x;a;b;2)",variables,new double[]{-0.1,1,1});
+
+		cmd="CauchyDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{1,1});
 
 		/* Chi-Verteilung */
 
-		calc=new CalcSystem("ChiDistribution(x;a;0)",new String[]{"x","a"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,50});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="ChiDistribution(x;a;0)";
+		variables=new String[]{"x","a"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,50}));
+		assertTrue(testDistribution(cmd,variables,new double[]{7,50})>0);
 
-		calc=new CalcSystem("ChiDistribution(x;a;0)",new String[]{"x","a"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{7,50});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="ChiDistribution(x;a;1)";
+		variables=new String[]{"x","a"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,50}));
+		assertTrue(testDistribution(cmd,variables,new double[]{7,50})>0);
+		testDistributionThrows("ChiDistribution(x;a;2)",variables,new double[]{100,50});
 
-		calc=new CalcSystem("ChiDistribution(x;a;1)",new String[]{"x","a"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{0,50});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="ChiDistribution(a)";
+		variables=new String[]{"a"};
+		testDistribution(cmd,variables,new double[]{1});
 
-		calc=new CalcSystem("ChiDistribution(x;a;1)",new String[]{"x","a"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{100,50});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		/* Chi²-Verteilung */
 
-		final CalcSystem calc25=new CalcSystem("ChiDistribution(x;a;2)",new String[]{"x","a"});
-		assertTrue(calc25.parse()<0);
-		assertThrows(MathCalcError.class,()->calc25.calc(new double[]{100,50}));
+		cmd="ChiSquareDist(x;n;0)";
+		variables=new String[]{"x","n"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,200}));
+		assertTrue(testDistribution(cmd,variables,new double[]{200,200})>0);
 
-		calc=new CalcSystem("ChiDistribution(a)",new String[]{"a"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{1});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="ChiSquareDist(x;n;1)";
+		variables=new String[]{"x","n"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,200}));
+		assertTrue(testDistribution(cmd,variables,new double[]{200,200})>0);
+		testDistributionThrows("ChiSquareDist(x;n;2)",variables,new double[]{200,200});
 
-		/* Linke Sägezahnverteilung */
+		cmd="ChiSquareDist(n)";
+		variables=new String[]{"n"};
+		testDistribution(cmd,variables,new double[]{200});
 
-		calc=new CalcSystem("LeftSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,900,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		/* Dreiecksverteilung */
 
-		calc=new CalcSystem("LeftSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1000,900,2700});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="TriangularDist(x;a;b;c;0)";
+		variables=new String[]{"x","a","b","c"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,900,1800,2700}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,1800,2700})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{3000,900,1800,2700}));
 
-		calc=new CalcSystem("LeftSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{3000,900,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="TriangularDist(x;a;b;c;1)";
+		variables=new String[]{"x","a","b","c"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,900,1800,2700}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,1800,2700})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{3000,900,1800,2700}));
+		testDistributionThrows("TriangularDist(x;a;b;c;2)",variables,new double[]{3000,900,1800,2700});
 
-		calc=new CalcSystem("LeftSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,900,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="TriangularDist(a;b;c)";
+		variables=new String[]{"a","b","c"};
+		testDistribution(cmd,variables,new double[]{900,1800,2700});
 
-		calc=new CalcSystem("LeftSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1800,900,2700});
-			assertTrue(d>0);
-			assertTrue(d<1);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		/* Exponentialverteilung */
 
-		calc=new CalcSystem("LeftSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{3000,900,2700});
-			assertEquals(1,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="ExpDist(x;a;0)";
+		variables=new String[]{"x","a"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{2,5})>0);
 
-		final CalcSystem calc26=new CalcSystem("LeftSawtoothDist(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc26.parse()<0);
-		assertThrows(MathCalcError.class,()->calc26.calc(new double[]{3000,900,2700}));
+		cmd="ExpDist(x;a;1)";
+		variables=new String[]{"x","a"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,5}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{2,5})>0);
+		testDistributionThrows("ExpDist(x;a;2)",new String[]{"x","a"},new double[]{-0.1,5});
 
-		calc=new CalcSystem("LeftSawtoothDist(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{900,2700});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="ExpDist(a)";
+		variables=new String[]{"a"};
+		testDistribution(cmd,variables,new double[]{5});
 
-		/* Linke Sägezahnverteilung - Direct */
+		/* F-Verteilung */
 
-		calc=new CalcSystem("LeftSawtoothDistDirect(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1000,900,2700});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="FDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,100,10}));
+		assertTrue(testDistribution(cmd,variables,new double[]{2,100,10})>0);
 
-		calc=new CalcSystem("LeftSawtoothDistDirect(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1800,900,2700});
-			assertTrue(d>0);
-			assertTrue(d<1);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="FDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,100,10}));
+		assertTrue(testDistribution(cmd,variables,new double[]{2,100,10})>0);
+		testDistributionThrows("FDist(x;a;b;2)",variables,new double[]{-0.1,100,10});
 
-		final CalcSystem calc27=new CalcSystem("LeftSawtoothDist(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc27.parse()<0);
-		assertThrows(MathCalcError.class,()->calc27.calc(new double[]{3000,900,2700}));
+		cmd="FDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{100,10});
 
-		calc=new CalcSystem("LeftSawtoothDistDirect(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{900,2700});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		/* Frechet-Verteilung */
 
-		/* Rechte Sägezahnverteilung */
+		cmd="FrechetDistribution(x;a;b;c;0)";
+		variables=new String[]{"x","a","b","c"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,2,3}));
+		assertTrue(testDistribution(cmd,variables,new double[]{100,1,2,3})>0);
 
-		calc=new CalcSystem("RightSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,900,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="FrechetDistribution(x;a;b;c;1)";
+		variables=new String[]{"x","a","b","c"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,2,3}));
+		assertTrue(testDistribution(cmd,variables,new double[]{100,1,2,3})>0);
+		testDistributionThrows("FrechetDistribution(x;a;b;c;2)",variables,new double[]{100,1,2,3});
 
-		calc=new CalcSystem("RightSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1000,900,2700});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="FrechetDistribution(a;b;c)";
+		variables=new String[]{"a","b","c"};
+		testDistribution(cmd,variables,new double[]{1,2,3});
 
-		calc=new CalcSystem("RightSawtoothDist(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{3000,900,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		/* Fatigue-Life-Verteilung */
 
-		calc=new CalcSystem("RightSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{500,900,2700});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="FatigueLifeDistribution(x;a;b;c;0)";
+		variables=new String[]{"x","a","b","c"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,2,3}));
+		assertTrue(testDistribution(cmd,variables,new double[]{100,1,2,3})>0);
 
-		calc=new CalcSystem("RightSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1800,900,2700});
-			assertTrue(d>0);
-			assertTrue(d<1);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="FatigueLifeDistribution(x;a;b;c;1)";
+		variables=new String[]{"x","a","b","c"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,2,3}));
+		assertTrue(testDistribution(cmd,variables,new double[]{100,1,2,3})>0);
+		testDistributionThrows("FatigueLifeDistribution(x;a;b;c;2)",variables,new double[]{100,1,2,3});
 
-		calc=new CalcSystem("RightSawtoothDist(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{3000,900,2700});
-			assertEquals(1,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="FatigueLifeDistribution(a;b;c)";
+		variables=new String[]{"a","b","c"};
+		testDistribution(cmd,variables,new double[]{1,2,3});
 
-		final CalcSystem calc28=new CalcSystem("RightSawtoothDist(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc28.parse()<0);
-		assertThrows(MathCalcError.class,()->calc28.calc(new double[]{3000,900,2700}));
+		/* Gammaverteilung */
 
-		calc=new CalcSystem("RightSawtoothDist(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{900,2700});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="GammaDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,100,6}));
+		assertTrue(testDistribution(cmd,variables,new double[]{200,100,6})>0);
 
-		/* Rechte Sägezahnverteilung - Direct */
+		cmd="GammaDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,100,6}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,100,6}));
+		assertTrue(testDistribution(cmd,variables,new double[]{200,100,6})>0);
+		testDistributionThrows("GammaDist(x;a;b;2)",variables,new double[]{1000,100,6});
 
-		calc=new CalcSystem("RightSawtoothDistDirect(x;a;b;0)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1000,900,2700});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="GammaDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{100,6});
 
-		calc=new CalcSystem("RightSawtoothDistDirect(x;a;b;1)",new String[]{"x","a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			d=calc.calc(new double[]{1800,900,2700});
-			assertTrue(d>0);
-			assertTrue(d<1);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		/* Gammaverteilung - Direkt */
 
-		final CalcSystem calc29=new CalcSystem("RightSawtoothDist(x;a;b;2)",new String[]{"x","a","b"});
-		assertTrue(calc29.parse()<0);
-		assertThrows(MathCalcError.class,()->calc29.calc(new double[]{3000,900,2700}));
+		cmd="GammaDistDirect(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,10,5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{10,10,5})>0);
 
-		calc=new CalcSystem("RightSawtoothDistDirect(a;b)",new String[]{"a","b"});
-		assertTrue(calc.parse()<0);
-		try {
-			calc.calc(new double[]{900,2700});
-			/* Keine Interpretation des Zahlenwertes */
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="GammaDistDirect(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,10,5}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,10,5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{10,10,5})>0);
+		testDistributionThrows("GammaDistDirect(x;a;b;2)",variables,new double[]{10,10,5});
+
+		cmd="GammaDistDirect(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{10,5});
+
+		/* Gleichverteilung */
+
+		cmd="UniformDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,900,2700}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,2700})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{3000,900,2700}));
+
+		cmd="UniformDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,900,2700}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,2700})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{3000,900,2700}));
+		testDistributionThrows("UniformDist(x;a;b;2)",variables,new double[]{1000,900,2700});
+
+		cmd="UniformDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{900,2700});
+
+		/* Gumbel-Verteilung */
+
+		cmd="GumbelDistribution(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{100,1,2})>0);
+
+		cmd="GumbelDistribution(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{100,1,2})>0);
+		testDistributionThrows("GumbelDistribution(x;a;b;2)",variables,new double[]{100,1,2});
+
+		cmd="GumbelDistribution(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{1,2});
+
+		/* Halbe Normalverteilung */
+
+		cmd="HalfNormalDist(x;a;0)";
+		variables=new String[]{"x","a"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-1,1}));
+		assertTrue(testDistribution(cmd,variables,new double[]{10,1})>0);
+
+		cmd="HalfNormalDist(x;a;1)";
+		variables=new String[]{"x","a"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-1,1}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1}));
+		assertTrue(testDistribution(cmd,variables,new double[]{10,1})>0);
+		testDistributionThrows("HalfNormalDist(x;a;2)",variables,new double[]{10,1});
+
+		cmd="HalfNormalDist(a)";
+		variables=new String[]{"a"};
+		testDistribution(cmd,variables,new double[]{1});
+
+		/* Hyperbolische Sekanten-Verteilung */
+
+		cmd="HyperbolicSecantDistribution(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{100,1,2})>0);
+
+		cmd="HyperbolicSecantDistribution(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{100,1,2})>0);
+		testDistributionThrows("HyperbolicSecantDistribution(x;a;b;2)",variables,new double[]{100,1,2});
+
+		cmd="HyperbolicSecantDistribution(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{1,2});
+
+		/* Inverse Gaußverteilung */
+
+		cmd="InverseGaussianDist(x;l;mu;0)";
+		variables=new String[]{"x","l","mu"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,900,1800}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,1800})>0);
+
+		cmd="InverseGaussianDist(x;l;mu;1)";
+		variables=new String[]{"x","l","mu"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,900,1800}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,900,1800}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,1800})>0);
+		testDistributionThrows("InverseGaussianDist(x;l;mu;2)",variables,new double[]{1000,900,1800});
+
+		cmd="InverseGaussianDist(l;mu)";
+		variables=new String[]{"l","mu"};
+		testDistribution(cmd,variables,new double[]{900,1800});
+
+		/* Johnson-SU-Verteilung */
+
+		cmd="JohnsonSUDist(x;a;b;c;d;0)";
+		variables=new String[]{"x","a","b","c","d"};
+		assertTrue(testDistribution(cmd,variables,new double[]{0,2,1800,1,180})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{2,2,1800,1,180})>0);
+
+		cmd="JohnsonSUDist(x;a;b;c;d;1)";
+		variables=new String[]{"x","a","b","c","d"};
+		assertTrue(testDistribution(cmd,variables,new double[]{2,2,1800,1,180})>0);
+		testDistributionThrows("JohnsonSUDist(x;a;b;c;d;2)",variables,new double[]{2,2,1800,1,180});
+
+		cmd="JohnsonSUDist(a;b;c;d)";
+		variables=new String[]{"a","b","c","d"};
+		testDistribution(cmd,variables,new double[]{2,1800,1,180});
+
+		/* Kumaraswamy-Verteilung */
+
+		cmd="KumaraswamyDist(x;a;b;c;d;0)";
+		variables=new String[]{"x","a","b","c","d"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,2,50,150}));
+		assertTrue(testDistribution(cmd,variables,new double[]{75,1,2,50,150})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{200,1,2,50,150}));
+
+		cmd="KumaraswamyDist(x;a;b;c;d;1)";
+		variables=new String[]{"x","a","b","c","d"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,2,50,150}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,1,2,50,150}));
+		assertTrue(testDistribution(cmd,variables,new double[]{75,1,2,50,150})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{150,1,2,50,150}));
+		assertEquals(1,testDistribution(cmd,variables,new double[]{200,1,2,50,150}));
+		testDistributionThrows("KumaraswamyDist(x;a;b;c;d;2)",variables,new double[]{75,1,2,50,150});
+
+		cmd="KumaraswamyDist(a;b;c;d)";
+		variables=new String[]{"a","b","c","d"};
+		testDistribution(cmd,variables,new double[]{1,2,50,150});
+
+		/* Laplace-Verteilung */
+
+		cmd="LaplaceDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{0,720,360})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{200,720,360})>0);
+
+		cmd="LaplaceDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{200,720,360})>0);
+		testDistributionThrows("LaplaceDist(x;a;b;2)",variables,new double[]{200,720,360});
+
+		cmd="LaplaceDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{720,360});
 
 		/* Levy-Verteilung */
 
-		calc=new CalcSystem("LevyDist(x;mu;c;0)",new String[]{"x","mu","c"});
-		assertTrue(calc.parse()<0);
+		cmd="LevyDist(x;mu;c;0)";
+		variables=new String[]{"x","mu","c"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{2,3,10}));
+		assertTrue(testDistribution(cmd,variables,new double[]{7,3,10})>0);
 
-		try {
-			d=calc.calc(new double[]{2,3,10});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="LevyDist(x;mu;c;1)";
+		variables=new String[]{"x","mu","c"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{2,3,10}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{3,3,10}));
+		assertTrue(testDistribution(cmd,variables,new double[]{7,3,10})>0);
+		testDistributionThrows("LevyDist(x;mu;c;2)",variables,new double[]{7,3,10});
 
-		try {
-			d=calc.calc(new double[]{7,3,10});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="LevyDist(mu;c)";
+		variables=new String[]{"mu","c"};
+		testDistribution(cmd,variables,new double[]{3,10});
 
-		calc=new CalcSystem("LevyDist(x;mu;c;1)",new String[]{"x","mu","c"});
-		assertTrue(calc.parse()<0);
+		/* Linke Sägezahnverteilung */
 
-		try {
-			d=calc.calc(new double[]{2,3,10});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="LeftSawtoothDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,900,2700}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,2700})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{3000,900,2700}));
 
-		try {
-			d=calc.calc(new double[]{7,3,10});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="LeftSawtoothDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,900,2700}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{900,900,2700}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,2700})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,2700})<1);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{2700,900,2700}));
+		assertEquals(1,testDistribution(cmd,variables,new double[]{3000,900,2700}));
+		testDistributionThrows("LeftSawtoothDist(x;a;b;2)",variables,new double[]{1000,900,2700});
 
-		calc=new CalcSystem("LevyDist(mu;c)",new String[]{"mu","c"});
-		assertTrue(calc.parse()<0);
+		cmd="LeftSawtoothDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{900,2700});
 
-		try {
-			d=calc.calc(new double[]{3,10});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		/* Linke Sägezahnverteilung - Direkt */
+
+		cmd="LeftSawtoothDistDirect(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,2700})>0);
+
+		cmd="LeftSawtoothDistDirect(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,2700})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,2700})<1);
+		testDistributionThrows("LeftSawtoothDist(x;a;b;2)",variables,new double[]{1000,900,2700});
+
+		cmd="LeftSawtoothDistDirect(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{900,2700});
+
+		/* Log-Logistische Verteilung */
+
+		cmd="LogLogisticDistribution(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,1,2}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,2}));
+		assertTrue(testDistribution(cmd,variables,new double[]{5,1,2})>0);
+
+		cmd="LogLogisticDistribution(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,1,2}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,2}));
+		assertTrue(testDistribution(cmd,variables,new double[]{5,1,2})>0);
+		testDistributionThrows("LogLogisticDistribution(x;a;b;2)",variables,new double[]{5,1,2});
+
+		cmd="LogLogisticDistribution(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{1,2});
+
+		/* Logistische Verteilung */
+
+		cmd="LogisticDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{0,1200,360})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{200,1200,360})>0);
+
+		cmd="LogisticDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{0,1200,360})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{200,1200,360})>0);
+		testDistributionThrows("LogisticDist(x;a;b;2)",variables,new double[]{200,1200,360});
+
+		cmd="LogisticDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{0,1200,360});
+
+		/* Log-Normalverteilung */
+
+		cmd="LogNormalDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-1,600,200}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,600,200}));
+		assertTrue(testDistribution(cmd,variables,new double[]{500,600,200})>0);
+
+		cmd="LogNormalDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-1,600,200}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,600,200}));
+		assertTrue(testDistribution(cmd,variables,new double[]{500,600,200})>0);
+		testDistributionThrows("LogNormalDist(x;a;b;2)",variables,new double[]{500,600,200});
+
+		cmd="LogNormalDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{500,600,200});
 
 		/* Maxwell-Boltzmann-Verteilung */
 
-		calc=new CalcSystem("MaxwellBoltzmannDist(x;a;0)",new String[]{"x","a"});
-		assertTrue(calc.parse()<0);
+		cmd="MaxwellBoltzmannDist(x;a;0)";
+		variables=new String[]{"x","a"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-2,10}));
+		assertTrue(testDistribution(cmd,variables,new double[]{2,10})>0);
 
-		try {
-			d=calc.calc(new double[]{-2,10});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="MaxwellBoltzmannDist(x;a;1)";
+		variables=new String[]{"x","a"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,10}));
+		assertTrue(testDistribution(cmd,variables,new double[]{2,10})>0);
+		testDistributionThrows("MaxwellBoltzmannDist(x;a;2)",variables,new double[]{2,10});
 
-		try {
-			d=calc.calc(new double[]{2,10});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="MaxwellBoltzmannDist(a)";
+		variables=new String[]{"a"};
+		testDistribution(cmd,variables,new double[]{10});
 
-		calc=new CalcSystem("MaxwellBoltzmannDist(x;a;1)",new String[]{"x","a"});
-		assertTrue(calc.parse()<0);
+		/* Normalverteilung */
 
-		try {
-			d=calc.calc(new double[]{0,10});
-			assertEquals(0,d);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="NormalDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{-1,600,200})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{0,600,200})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{500,600,200})>0);
 
-		try {
-			d=calc.calc(new double[]{2,10});
-			assertTrue(d>0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		cmd="NormalDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{-1,600,200})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{-1,600,200})<1);
+		assertTrue(testDistribution(cmd,variables,new double[]{0,600,200})<1);
+		assertTrue(testDistribution(cmd,variables,new double[]{0,600,200})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{500,600,200})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{500,600,200})<1);
+		testDistributionThrows("NormalDist(x;a;b;2)",variables,new double[]{500,600,200});
 
-		calc=new CalcSystem("MaxwellBoltzmannDist(a)",new String[]{"a"});
-		assertTrue(calc.parse()<0);
+		cmd="NormalDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{600,200});
 
-		try {
-			d=calc.calc(new double[]{10});
-			assertTrue(d>=0);
-		} catch (MathCalcError e) {
-			assertTrue(false);
-		}
+		/* Paretoverteilung */
+
+		cmd="ParetoDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{10,300,3}));
+		assertTrue(testDistribution(cmd,variables,new double[]{500,300,3})>0);
+
+		cmd="ParetoDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{10,300,3}));
+		assertTrue(testDistribution(cmd,variables,new double[]{500,300,3})>0);
+		testDistributionThrows("ParetoDist(x;a;b;2)",variables,new double[]{500,300,3});
+
+		cmd="ParetoDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{300,3});
+
+		/* Pert-Verteilung */
+
+		cmd="PertDist(x;a;b;c;0)";
+		variables=new String[]{"x","a","b","c"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,900,1800,2700}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,1800,2700})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{3000,900,1800,2700}));
+
+		cmd="PertDist(x;a;b;c;1)";
+		variables=new String[]{"x","a","b","c"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,900,1800,2700}));
+		assertEquals(0.5,testDistribution(cmd,variables,new double[]{1800,900,1800,2700}),0.00001);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{3000,900,1800,2700}));
+		testDistributionThrows("PertDist(x;a;b;c;2)",variables,new double[]{3000,900,1800,2700});
+
+		cmd="PertDist(a;b;c)";
+		variables=new String[]{"a","b","c"};
+		testDistribution(cmd,variables,new double[]{900,1800,2700});
+
+		/* Potenz-Verteilung */
+
+		cmd="PowerDistribution(x;a;b;c;0)";
+		variables=new String[]{"x","a","b","c"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,2,3}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1.5,1,2,3})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{5,1,2,3}));
+
+		cmd="PowerDistribution(x;a;b;c;1)";
+		variables=new String[]{"x","a","b","c"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,2,3}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1.5,1,2,3})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{5,1,2,3}));
+		testDistributionThrows("PowerDistribution(x;a;b;c;2)",variables,new double[]{100,1,2,3});
+
+		cmd="PowerDistribution(a;b;c)";
+		variables=new String[]{"a","b","c"};
+		testDistribution(cmd,variables,new double[]{1,2,3});
+
+		/* Rayleigh Verteilung */
+
+		cmd="RayleighDistribution(x;a;0)";
+		variables=new String[]{"x","a"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,50}));
+		assertTrue(testDistribution(cmd,variables,new double[]{100,50})>0);
+
+		cmd="RayleighDistribution(x;a;1)";
+		variables=new String[]{"x","a"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,50}));
+		assertTrue(testDistribution(cmd,variables,new double[]{100,50})>0);
+		testDistributionThrows("RayleighDistribution(x;a;2)",variables,new double[]{100,50});
+
+		cmd="RayleighDistribution(a)";
+		variables=new String[]{"a"};
+		testDistribution(cmd,variables,new double[]{1});
+
+		/* Rechte Sägezahnverteilung */
+
+		cmd="RightSawtoothDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,900,2700}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,2700})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{3000,900,2700}));
+
+		cmd="RightSawtoothDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,900,2700}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{900,900,2700}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,2700})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,2700})<1);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{2700,900,2700}));
+		assertEquals(1,testDistribution(cmd,variables,new double[]{3000,900,2700}));
+		testDistributionThrows("RightSawtoothDist(x;a;b;2)",variables,new double[]{1000,900,2700});
+
+		cmd="RightSawtoothDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{900,2700});
+
+		/* Rechte Sägezahnverteilung - Direkt */
+
+		cmd="RightSawtoothDistDirect(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,2700})>0);
+
+		cmd="RightSawtoothDistDirect(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,2700})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,900,2700})<1);
+		testDistributionThrows("RightSawtoothDistDirect(x;a;b;2)",variables,new double[]{1000,900,2700});
+
+		cmd="RightSawtoothDistDirect(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{900,2700});
+
+		/* Reziproke Verteilung */
+
+		cmd="ReciprocalDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{49,50,150}));
+		assertTrue(testDistribution(cmd,variables,new double[]{50,50,150})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{100,50,150})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{150,50,150})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{151,50,150}));
+
+		cmd="ReciprocalDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{49,50,150}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,50,150}));
+		assertTrue(testDistribution(cmd,variables,new double[]{100,50,150})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{150,50,150}));
+		assertEquals(1,testDistribution(cmd,variables,new double[]{151,50,150}));
+		testDistributionThrows("ReciprocalDist(x;a;b;2)",variables,new double[]{100,50,150});
+
+		cmd="ReciprocalDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{50,150});
+
+		/* Student-t Verteilung */
+
+		cmd="StudentTDist(x;mu;nu;0)";
+		variables=new String[]{"x","mu","nu"};
+		assertTrue(testDistribution(cmd,variables,new double[]{25,50,2})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{50,50,2})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{75,50,2})>0);
+
+		cmd="StudentTDist(x;mu;nu;1)";
+		variables=new String[]{"x","mu","nu"};
+		assertTrue(testDistribution(cmd,variables,new double[]{25,50,2})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{50,50,2})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{75,50,2})>0);
+		testDistributionThrows("StudentTDist(x;mu;nu;2)",variables,new double[]{50,50,2});
+
+		cmd="StudentTDist(mu;nu)";
+		variables=new String[]{"mu","nu"};
+		testDistribution(cmd,variables,new double[]{50,2});
+
+		/* U-quadratische Verteilung */
+
+		cmd="UQuadraticDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{49,50,150}));
+		assertTrue(testDistribution(cmd,variables,new double[]{50,50,150})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{100,50,150}));
+		assertTrue(testDistribution(cmd,variables,new double[]{150,50,150})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{151,50,150}));
+
+		cmd="UQuadraticDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{49,50,150}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,50,150}));
+		assertTrue(testDistribution(cmd,variables,new double[]{100,50,150})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{150,50,150}));
+		assertEquals(1,testDistribution(cmd,variables,new double[]{151,50,150}));
+		testDistributionThrows("UQuadraticDist(x;a;b;2)",variables,new double[]{100,50,150});
+
+		cmd="UQuadraticDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{50,150});
+
+		/* Weibull-Verteilung */
+
+		cmd="WeibullDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,0.0027,2}));
+		assertTrue(testDistribution(cmd,variables,new double[]{50,0.0027,2})>0);
+
+		cmd="WeibullDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,0.0027,2}));
+		assertTrue(testDistribution(cmd,variables,new double[]{50,0.0027,2})>0);
+		testDistributionThrows("WeibullDist(x;a;b;2)",variables,new double[]{50,0.0027,2});
+
+		cmd="WeibullDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{0.0027,2});
 	}
 
 	/**
