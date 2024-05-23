@@ -44,6 +44,7 @@ import mathtools.distribution.FrechetDistributionImpl;
 import mathtools.distribution.HalfNormalDistribution;
 import mathtools.distribution.HyperbolicSecantDistributionImpl;
 import mathtools.distribution.InverseGaussianDistributionImpl;
+import mathtools.distribution.IrwinHallDistribution;
 import mathtools.distribution.JohnsonDistributionImpl;
 import mathtools.distribution.KumaraswamyDistribution;
 import mathtools.distribution.LaplaceDistributionImpl;
@@ -84,6 +85,7 @@ import mathtools.distribution.tools.WrapperHalfNormalDistribution;
 import mathtools.distribution.tools.WrapperHyperGeomDistribution;
 import mathtools.distribution.tools.WrapperHyperbolicSecantDistribution;
 import mathtools.distribution.tools.WrapperInverseGaussianDistribution;
+import mathtools.distribution.tools.WrapperIrwinHallDistribution;
 import mathtools.distribution.tools.WrapperJohnsonDistribution;
 import mathtools.distribution.tools.WrapperKumaraswamyDistribution;
 import mathtools.distribution.tools.WrapperLaplaceDistribution;
@@ -311,6 +313,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new UQuadraticDistributionPanel());
 		allRecords.add(new ReciprocalDistributionPanel());
 		allRecords.add(new KumaraswamyDistributionPanel());
+		allRecords.add(new IrwinHallDistributionPanel());
 	}
 
 	/**
@@ -1506,6 +1509,33 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double d4=NumberTools.getPositiveDouble(fields[3],true); if (d4==null) return null;
 			if (d3>=d4) return null;
 			return new KumaraswamyDistribution(d1,d2,d3,d4);
+		}
+	}
+
+	/** Irwin-Hall-Verteilung */
+	private static class IrwinHallDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public IrwinHallDistributionPanel() {
+			super(new WrapperIrwinHallDistribution(),new String[]{"n"});
+		}
+
+		@Override
+		public String[] getEditValues(final double meanD, final String mean, final double stdD, final String std, final String lower, final String upper, final double maxXValue) {
+			return new String[]{""+(int)Math.max(1,Math.round(meanD*2))};
+		}
+
+		@Override
+		public String[] getValues(final AbstractRealDistribution distribution) {
+			return new String[] {
+					""+((IrwinHallDistribution)distribution).n
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(final JTextField[] fields, final double maxXValue) {
+			final Long l=NumberTools.getPositiveLong(fields[0],true);
+			if (l==null) return null;
+			return new IrwinHallDistribution(l);
 		}
 	}
 

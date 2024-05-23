@@ -42,6 +42,7 @@ import mathtools.distribution.DiscretePoissonDistributionImpl;
 import mathtools.distribution.DiscreteUniformDistributionImpl;
 import mathtools.distribution.ErlangDistributionImpl;
 import mathtools.distribution.HalfNormalDistribution;
+import mathtools.distribution.IrwinHallDistribution;
 import mathtools.distribution.MaxwellBoltzmannDistribution;
 import mathtools.distribution.OnePointDistributionImpl;
 import mathtools.distribution.RayleighDistributionImpl;
@@ -204,6 +205,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof HalfNormalDistribution) exactStdAvailable=false;
 			if (dist1 instanceof TrapezoidDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof UQuadraticDistribution) exactStdAvailable=false;
+			if (dist1 instanceof IrwinHallDistribution) exactStdAvailable=false;
 			if (exactStdAvailable) {
 				assertEquals(2,DistributionTools.getStandardDeviation(dist1),10E-10,"Verteilung: "+name);
 				assertEquals(2.0/3.0,DistributionTools.getCV(dist1),10E-10,"Verteilung: "+name);
@@ -256,6 +258,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof HalfNormalDistribution) exactStdAvailable=false;
 			if (dist1 instanceof TrapezoidDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof UQuadraticDistribution) exactStdAvailable=false;
+			if (dist1 instanceof IrwinHallDistribution) exactStdAvailable=false;
 			if (exactStdAvailable) {
 				assertEquals(2,DistributionTools.getStandardDeviation(dist1),10E-10,"Verteilung: "+name);
 				assertEquals(2.0/3.0,DistributionTools.getCV(dist1),10E-10,"Verteilung: "+name);

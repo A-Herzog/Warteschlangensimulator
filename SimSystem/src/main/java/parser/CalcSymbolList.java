@@ -138,6 +138,8 @@ import parser.symbols.distributions.CalcSymbolDistributionGumbel;
 import parser.symbols.distributions.CalcSymbolDistributionHalfNormal;
 import parser.symbols.distributions.CalcSymbolDistributionHyperbolicSecant;
 import parser.symbols.distributions.CalcSymbolDistributionInverseGaussian;
+import parser.symbols.distributions.CalcSymbolDistributionIrwinHall;
+import parser.symbols.distributions.CalcSymbolDistributionIrwinHallDirect;
 import parser.symbols.distributions.CalcSymbolDistributionJohnsonSU;
 import parser.symbols.distributions.CalcSymbolDistributionKumaraswamy;
 import parser.symbols.distributions.CalcSymbolDistributionLaplace;
@@ -341,6 +343,8 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionUQuadratic());
 			addSymbol(new CalcSymbolDistributionReciprocal());
 			addSymbol(new CalcSymbolDistributionKumaraswamy());
+			addSymbol(new CalcSymbolDistributionIrwinHall());
+			addSymbol(new CalcSymbolDistributionIrwinHallDirect());
 
 			addSymbol(new CalcSymbolEmpiricalDistributionPDF());
 			addSymbol(new CalcSymbolEmpiricalDistributionCDF());

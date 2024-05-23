@@ -317,11 +317,17 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Reziproke Verteilung */
 	public static String DistReciprocalWikipedia="https://en.wikipedia.org/wiki/Reciprocal_distribution";
 
-	/** Kumaraswamy Verteilung */
+	/** Kumaraswamy-Verteilung */
 	public static String[] DistKumaraswamy=new String[]{"Kumaraswamy-Verteilung"};
 
 	/** Wikipedia-Seite Kumaraswamy-Verteilung */
 	public static String DistKumaraswamyWikipedia="https://en.wikipedia.org/wiki/Kumaraswamy_distribution";
+
+	/** Irwin-Hall Verteilung */
+	public static String[] DistIrwinHall=new String[]{"Irwin-Hall-Verteilung"};
+
+	/** Wikipedia-Seite IrwinHall-Verteilung */
+	public static String DistIrwinHallWikipedia="https://de.wikipedia.org/wiki/Irwin-Hall-Verteilung";
 
 	/** Warnung "unbekannte Verteilung" */
 	public static String DistUnknown="unbekannte Verteilung";
@@ -424,7 +430,8 @@ public final class DistributionTools {
 				new WrapperHalfNormalDistribution(),
 				new WrapperUQuadraticDistribution(),
 				new WrapperReciprocalDistribution(),
-				new WrapperKumaraswamyDistribution()
+				new WrapperKumaraswamyDistribution(),
+				new WrapperIrwinHallDistribution()
 		};
 	}
 

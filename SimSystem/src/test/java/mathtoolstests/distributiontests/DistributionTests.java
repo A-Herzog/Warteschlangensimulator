@@ -47,6 +47,7 @@ import mathtools.distribution.FrechetDistributionImpl;
 import mathtools.distribution.HalfNormalDistribution;
 import mathtools.distribution.HyperbolicSecantDistributionImpl;
 import mathtools.distribution.InverseGaussianDistributionImpl;
+import mathtools.distribution.IrwinHallDistribution;
 import mathtools.distribution.JohnsonDistributionImpl;
 import mathtools.distribution.KumaraswamyDistribution;
 import mathtools.distribution.LaplaceDistributionImpl;
@@ -2420,6 +2421,72 @@ class DistributionTests {
 
 		testDistributionTools(dist);
 		testDistributionParameters(dist,new double[] {200});
+	}
+
+	/**
+	 * Test: Irwin-Hall-Verteilung
+	 * @see IrwinHallDistribution
+	 */
+	@Test
+	void testIrwinHallDistribution() {
+		IrwinHallDistribution dist;
+
+		dist=new IrwinHallDistribution(-2);
+		assertTrue(dist.n>0);
+
+		dist=new IrwinHallDistribution(8);
+		assertEquals(8,dist.n);
+		assertEquals(0,dist.density(-1));
+		assertTrue(dist.density(4)>0);
+		assertEquals(0,dist.cumulativeProbability(0));
+		assertTrue(dist.cumulativeProbability(4)>0);
+		assertEquals(0,dist.getSupportLowerBound());
+		assertEquals(8,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=dist.clone();
+
+		assertEquals(8,dist.n);
+		assertEquals(0,dist.density(-1));
+		assertTrue(dist.density(4)>0);
+		assertEquals(0,dist.cumulativeProbability(0));
+		assertTrue(dist.cumulativeProbability(4)>0);
+		assertEquals(0,dist.getSupportLowerBound());
+		assertEquals(8,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=new IrwinHallDistribution(dist);
+
+		assertEquals(8,dist.n);
+		assertEquals(0,dist.density(-1));
+		assertTrue(dist.density(4)>0);
+		assertEquals(0,dist.cumulativeProbability(0));
+		assertTrue(dist.cumulativeProbability(4)>0);
+		assertEquals(0,dist.getSupportLowerBound());
+		assertEquals(8,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=(IrwinHallDistribution)DistributionTools.cloneDistribution(dist);
+
+		assertEquals(8,dist.n);
+		assertEquals(0,dist.density(-1));
+		assertTrue(dist.density(4)>0);
+		assertEquals(0,dist.cumulativeProbability(0));
+		assertTrue(dist.cumulativeProbability(4)>0);
+		assertEquals(0,dist.getSupportLowerBound());
+		assertEquals(8,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[]{8});
 	}
 
 	/**

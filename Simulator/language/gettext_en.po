@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-17 22:58+0200\n"
+"POT-Creation-Date: 2024-05-19 21:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3300,6 +3300,12 @@ msgstr "Inverse gaussian distribution"
 
 msgid "Distribution.InverseGaussianWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution"
+
+msgid "Distribution.IrwinHall"
+msgstr "Irwin-Hall distribution"
+
+msgid "Distribution.IrwinHallWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Irwin%E2%80%93Hall_distribution"
 
 msgid "Distribution.Kumaraswamy"
 msgstr "Kumaraswamy distribution"
@@ -6892,7 +6898,7 @@ msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution"
 msgstr "Inverse gaussian distribution"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.DensityInfo"
-msgstr "<p>Calculates the value of the distribution function of the Inverse gaussian distribution at the location specified as the first parameter with the parameters according to the second (lambda) and third (mu; mean) parameters.</p>"
+msgstr "<p>Calculates the value of the density of the Inverse gaussian distribution at the location specified as the first parameter with the parameters according to the second (lambda) and third (mu; mean) parameters.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.DistributionFunctionInfo"
 msgstr "<p>Calculates the value of the distribution function of the inverse gaussian distribution at the location specified as the first parameter with the parameters according to the second (lambda) and third (mu; mean) parameters.</p>"
@@ -6904,6 +6910,30 @@ msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.Ra
 msgstr ""
 "<p>Generates a random number according to the inverse gaussian distribution with the parameters according to the third (lambda) and fourth (mu; mean) parameters.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution"
+msgstr "Irwin-Hall distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the Irwin-Hall distribution at the location specified as the first parameter with the parameter according to the second parameter (n).</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the Irwin-Hall distribution at the location specified as the first parameter with the parameter according to the second parameter (n).</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Irwin-Hall distribution with the parameter according to the parameter (n).</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect"
+msgstr "Irwin-Hall distribution (direct characteristics)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect.DensityInfo"
+msgstr "<p>Calculates the value of the density of the Irwin-Hall distribution at the location specified as the first parameter with the mean according to the second parameter (mean).</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the Irwin-Hall distribution at the location specified as the first parameter with mean according to the second parameter (mean).</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Irwin-Hall distribution with mean according to the parameter (mean).</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution"
 msgstr "Johnson SU distribution"

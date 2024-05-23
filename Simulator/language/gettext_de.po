@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-17 22:58+0200\n"
+"POT-Creation-Date: 2024-05-19 21:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3305,6 +3305,12 @@ msgstr "Inverse Gauß-Verteilung"
 
 msgid "Distribution.InverseGaussianWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Inverse_Normalverteilung"
+
+msgid "Distribution.IrwinHall"
+msgstr "Irwin-Hall-Verteilung"
+
+msgid "Distribution.IrwinHallWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Irwin-Hall-Verteilung"
 
 msgid "Distribution.Kumaraswamy"
 msgstr "Kumaraswamy-Verteilung"
@@ -6896,6 +6902,30 @@ msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.Ra
 msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der inversen Gauß-Verteilung mit den Parametern gemäß dem dritten (lambda) und viertem (mu; Mittelwert) Parameter.</p>\n"
 "<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution"
+msgstr "Irwin-Hall-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Irwin-Hall-Verteilung an der als ersten Parameter angegebenen Stelle mit dem Parameter gemäß dem zweiten Parameter (n).</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Irwin-Hall-Verteilung an der als ersten Parameter angegebenen Stelle mit dem Parameter gemäß dem zweiten  Parameter (n).</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Irwin-Hall-Verteilung mit dem Parameter gemäß dem Parameter (n).</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect"
+msgstr "Irwin-Hall-Verteilung (direkte Kenngrößen)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Irwin-Hall-Verteilung an der als ersten Parameter angegebenen Stelle mit Mittelwert gemäß dem zweiten Parameter (mean).</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Irwin-Hall-Verteilung an der als ersten Parameter angegebenen Stelle mit Mittelwert gemäß dem zweiten  Parameter (mean).</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Irwin-Hall-Verteilung mit Mittelwert gemäß dem Parameter (mean).</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.JohnsonSUDistribution"
 msgstr "Johnson-SU-Verteilung"

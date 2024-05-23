@@ -3339,6 +3339,44 @@ class SymbolsTests {
 		variables=new String[]{"l","mu"};
 		testDistribution(cmd,variables,new double[]{900,1800});
 
+		/* Irwin-Hall-Verteilung */
+
+		cmd="IrwinHallDist(x;n;0)";
+		variables=new String[]{"x","n"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{3,5})>0);
+
+		cmd="IrwinHallDist(x;n;1)";
+		variables=new String[]{"x","n"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,5}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{3,5})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{5,5}));
+		testDistributionThrows("IrwinHallDist(x;n;2)",variables,new double[]{3,5});
+
+		cmd="IrwinHallDist(n)";
+		variables=new String[]{"n"};
+		testDistribution(cmd,variables,new double[]{5});
+
+		/* Irwin-Hall-Verteilung - Direkt */
+
+		cmd="IrwinHallDistDirect(x;n;0)";
+		variables=new String[]{"x","n"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,2.5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{3,2.5})>0);
+
+		cmd="IrwinHallDistDirect(x;n;1)";
+		variables=new String[]{"x","n"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,2.5}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,2.5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{3,2.5})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{5,2.5}));
+		testDistributionThrows("IrwinHallDistDirect(x;n;2)",variables,new double[]{3,2.5});
+
+		cmd="IrwinHallDistDirect(n)";
+		variables=new String[]{"n"};
+		testDistribution(cmd,variables,new double[]{2.5});
+
 		/* Johnson-SU-Verteilung */
 
 		cmd="JohnsonSUDist(x;a;b;c;d;0)";

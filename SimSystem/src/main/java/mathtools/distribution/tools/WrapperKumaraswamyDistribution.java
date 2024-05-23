@@ -26,7 +26,7 @@ import mathtools.distribution.KumaraswamyDistribution;
  * @see KumaraswamyDistribution
  * @see DistributionTools
  */
-public class WrapperKumaraswamyDistribution  extends AbstractDistributionWrapper {
+public class WrapperKumaraswamyDistribution extends AbstractDistributionWrapper {
 	/**
 	 * Konstruktor der Klasse
 	 */
@@ -138,5 +138,4 @@ public class WrapperKumaraswamyDistribution  extends AbstractDistributionWrapper
 		if (Math.abs(((KumaraswamyDistribution)distribution1).d-((KumaraswamyDistribution)distribution2).d)>DistributionTools.MAX_ERROR) return false;
 		return true;
 	}
-
 }

@@ -605,6 +605,22 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution.RandomNumberInfo"));
 
+		/* Irwin-Hall-Verteilung */
+
+		addDist(group,filterUpper,"IrwinHallDist","n",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution.RandomNumberInfo"));
+
+		/* Irwin-Hall-Verteilung - Direkt */
+
+		addDist(group,filterUpper,"IrwinHallDist","mean",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect.RandomNumberInfo"));
+
 		/* Empirische Verteilung */
 
 		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution"));
