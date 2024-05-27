@@ -2063,11 +2063,11 @@ public class MainPanel extends MainPanelBase {
 		final String name=root.getNodeName();
 
 		for (String test: new EditModel().getRootNodeNames()) if (name.equalsIgnoreCase(test)) {
-			if (currentPanel!=editorPanel && currentPanel!=statisticsPanel && (welcomePanel==null || currentPanel!=welcomePanel)) return false; /* Nur wenn Hauptpanel aktiv */
+			if (currentPanel!=editorPanel && currentPanel!=statisticsPanel && currentPanel!=null && (welcomePanel==null || currentPanel!=welcomePanel)) return false; /* Nur wenn Hauptpanel aktiv */
 			return commandFileModelLoad(root,file);
 		}
 		for (String test: new Statistics().getRootNodeNames()) if (name.equalsIgnoreCase(test)) {
-			if (currentPanel!=editorPanel && currentPanel!=statisticsPanel && (welcomePanel==null || currentPanel!=welcomePanel)) return false; /* Nur wenn Hauptpanel aktiv */
+			if (currentPanel!=editorPanel && currentPanel!=statisticsPanel && currentPanel!=null && (welcomePanel==null || currentPanel!=welcomePanel)) return false; /* Nur wenn Hauptpanel aktiv */
 			return commandFileStatisticsLoad(root,file);
 		}
 		for (String test: new OptimizerSetup().getRootNodeNames()) if (name.equalsIgnoreCase(test)) {
