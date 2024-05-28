@@ -393,7 +393,7 @@ public class SetupDialogPageUI extends SetupDialogPage {
 	public void storeData() {
 		setup.language=(languages.getSelectedIndex()==1)?"de":"en";
 
-		if (lookAndFeel.getSelectedIndex()==0) setup.lookAndFeel=""; else setup.lookAndFeel=(String)lookAndFeel.getSelectedItem();
+		setup.lookAndFeel=(String)lookAndFeel.getSelectedItem();
 		setup.lookAndFeelCombinedMenu=lookAndFeelCombinedMenu.isSelected();
 
 		switch (numberFormat.getSelectedIndex()) {

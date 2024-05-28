@@ -66,10 +66,10 @@ public class Messages_Java11 {
 		UIManager.put("AbstractDocument.undoText","Rückgängig");
 		UIManager.put("AbstractUndoableEdit.redoText","Wiederherstellen");
 		UIManager.put("AbstractUndoableEdit.undoText","Rückgängig");
-		UIManager.put("ButtonUI","com.sun.java.swing.plaf.windows.WindowsButtonUI");
+		/* UIManager.put("ButtonUI","com.sun.java.swing.plaf.windows.WindowsButtonUI"); */
 		UIManager.put("CheckBoxMenuItem.commandSound","win.sound.menuCommand");
-		UIManager.put("CheckBoxMenuItemUI","com.sun.java.swing.plaf.windows.WindowsCheckBoxMenuItemUI");
-		UIManager.put("CheckBoxUI","com.sun.java.swing.plaf.windows.WindowsCheckBoxUI");
+		/* UIManager.put("CheckBoxMenuItemUI","com.sun.java.swing.plaf.windows.WindowsCheckBoxMenuItemUI"); */
+		/* UIManager.put("CheckBoxUI","com.sun.java.swing.plaf.windows.WindowsCheckBoxUI"); */
 		UIManager.put("ColorChooser.cancelText","Abbrechen");
 		UIManager.put("ColorChooser.okText","OK");
 		UIManager.put("ColorChooser.previewText","Vorschau");
@@ -89,12 +89,12 @@ public class Messages_Java11 {
 		UIManager.put("ColorChooser.swatchesMnemonic","83");
 		UIManager.put("ColorChooser.swatchesNameText","Swatches");
 		UIManager.put("ColorChooser.swatchesRecentText","Aktuell:");
-		UIManager.put("ColorChooserUI","javax.swing.plaf.basic.BasicColorChooserUI");
+		/* UIManager.put("ColorChooserUI","javax.swing.plaf.basic.BasicColorChooserUI"); */
 		UIManager.put("ComboBox.togglePopupText","togglePopup");
-		UIManager.put("ComboBoxUI","com.sun.java.swing.plaf.windows.WindowsComboBoxUI");
-		UIManager.put("DesktopIconUI","com.sun.java.swing.plaf.windows.WindowsDesktopIconUI");
-		UIManager.put("DesktopPaneUI","com.sun.java.swing.plaf.windows.WindowsDesktopPaneUI");
-		UIManager.put("EditorPaneUI","com.sun.java.swing.plaf.windows.WindowsEditorPaneUI");
+		/* UIManager.put("ComboBoxUI","com.sun.java.swing.plaf.windows.WindowsComboBoxUI"); */
+		/* UIManager.put("DesktopIconUI","com.sun.java.swing.plaf.windows.WindowsDesktopIconUI"); */
+		/* UIManager.put("DesktopPaneUI","com.sun.java.swing.plaf.windows.WindowsDesktopPaneUI"); */
+		/* UIManager.put("EditorPaneUI","com.sun.java.swing.plaf.windows.WindowsEditorPaneUI"); */
 		UIManager.put("FileChooser.acceptAllFileFilterText","Alle Dateien");
 		UIManager.put("FileChooser.cancelButtonText","Abbrechen");
 		UIManager.put("FileChooser.directoryDescriptionText","Verzeichnis");
@@ -119,8 +119,8 @@ public class Messages_Java11 {
 		UIManager.put("FileChooser.saveDialogTitleText","Speichern");
 		UIManager.put("FileChooser.updateButtonMnemonic","75");
 		UIManager.put("FileChooser.updateButtonText","Aktualisieren");
-		UIManager.put("FileChooserUI","com.sun.java.swing.plaf.windows.WindowsFileChooserUI");
-		UIManager.put("FormattedTextFieldUI","javax.swing.plaf.basic.BasicFormattedTextFieldUI");
+		/* UIManager.put("FileChooserUI","com.sun.java.swing.plaf.windows.WindowsFileChooserUI"); */
+		/* UIManager.put("FormattedTextFieldUI","javax.swing.plaf.basic.BasicFormattedTextFieldUI"); */
 		UIManager.put("FormView.browseFileButtonText","Durchsuchen...");
 		UIManager.put("FormView.resetButtonText","Zurücksetzen");
 		UIManager.put("FormView.submitButtonText","Abfrage weiterleiten");
@@ -142,16 +142,16 @@ public class Messages_Java11 {
 		UIManager.put("InternalFrameTitlePane.moveButtonText","Verschieben");
 		UIManager.put("InternalFrameTitlePane.restoreButtonText","Wiederherstellen");
 		UIManager.put("InternalFrameTitlePane.sizeButtonText","Größe");
-		UIManager.put("InternalFrameUI","com.sun.java.swing.plaf.windows.WindowsInternalFrameUI");
+		/* UIManager.put("InternalFrameUI","com.sun.java.swing.plaf.windows.WindowsInternalFrameUI"); */
 		UIManager.put("IsindexView.prompt","Dieser Index kann durchsucht werden. Geben Sie Schlüsselwörter für die Suche ein:");
-		UIManager.put("LabelUI","com.sun.java.swing.plaf.windows.WindowsLabelUI");
-		UIManager.put("ListUI","javax.swing.plaf.basic.BasicListUI");
+		/* UIManager.put("LabelUI","com.sun.java.swing.plaf.windows.WindowsLabelUI"); */
+		/* UIManager.put("ListUI","javax.swing.plaf.basic.BasicListUI"); */
 		UIManager.put("Menu.cancelMode","hideLastSubmenu");
-		UIManager.put("MenuBarUI","com.sun.java.swing.plaf.windows.WindowsMenuBarUI");
+		/* UIManager.put("MenuBarUI","com.sun.java.swing.plaf.windows.WindowsMenuBarUI"); */
 		UIManager.put("MenuItem.acceleratorDelimiter","+");
 		UIManager.put("MenuItem.commandSound","win.sound.menuCommand");
-		UIManager.put("MenuItemUI","com.sun.java.swing.plaf.windows.WindowsMenuItemUI");
-		UIManager.put("MenuUI","com.sun.java.swing.plaf.windows.WindowsMenuUI");
+		/* UIManager.put("MenuItemUI","com.sun.java.swing.plaf.windows.WindowsMenuItemUI"); */
+		/* UIManager.put("MenuUI","com.sun.java.swing.plaf.windows.WindowsMenuUI"); */
 		UIManager.put("OptionPane.cancelButtonText","Abbrechen");
 		UIManager.put("OptionPane.errorSound","win.sound.hand");
 		UIManager.put("OptionPane.informationSound","win.sound.asterisk");
@@ -165,12 +165,12 @@ public class Messages_Java11 {
 		UIManager.put("OptionPane.warningSound","win.sound.exclamation");
 		UIManager.put("OptionPane.yesButtonMnemonic","74");
 		UIManager.put("OptionPane.yesButtonText","Ja");
-		UIManager.put("OptionPaneUI","javax.swing.plaf.basic.BasicOptionPaneUI");
-		UIManager.put("PanelUI","javax.swing.plaf.basic.BasicPanelUI");
-		UIManager.put("PasswordFieldUI","com.sun.java.swing.plaf.windows.WindowsPasswordFieldUI");
+		/* UIManager.put("OptionPaneUI","javax.swing.plaf.basic.BasicOptionPaneUI"); */
+		/* UIManager.put("PanelUI","javax.swing.plaf.basic.BasicPanelUI"); */
+		/* UIManager.put("PasswordFieldUI","com.sun.java.swing.plaf.windows.WindowsPasswordFieldUI"); */
 		UIManager.put("PopupMenu.popupSound","win.sound.menuPopup");
-		UIManager.put("PopupMenuSeparatorUI","com.sun.java.swing.plaf.windows.WindowsPopupMenuSeparatorUI");
-		UIManager.put("PopupMenuUI","com.sun.java.swing.plaf.windows.WindowsPopupMenuUI");
+		/* UIManager.put("PopupMenuSeparatorUI","com.sun.java.swing.plaf.windows.WindowsPopupMenuSeparatorUI"); */
+		/* UIManager.put("PopupMenuUI","com.sun.java.swing.plaf.windows.WindowsPopupMenuUI"); */
 		UIManager.put("PrintingDialog.abortButtonDisplayedMnemonicIndex","0");
 		UIManager.put("PrintingDialog.abortButtonMnemonic","65");
 		UIManager.put("PrintingDialog.abortButtonText","Abbruch");
@@ -180,33 +180,33 @@ public class Messages_Java11 {
 		UIManager.put("PrintingDialog.contentProgressText","Seite {0} wurde gedruckt...");
 		UIManager.put("PrintingDialog.titleAbortingText","Drucken (Abbruch)");
 		UIManager.put("PrintingDialog.titleProgressText","Drucken");
-		UIManager.put("ProgressBarUI","com.sun.java.swing.plaf.windows.WindowsProgressBarUI");
+		/* UIManager.put("ProgressBarUI","com.sun.java.swing.plaf.windows.WindowsProgressBarUI"); */
 		UIManager.put("ProgressMonitor.progressText","Fortschritt...");
 		UIManager.put("RadioButtonMenuItem.commandSound","win.sound.menuCommand");
-		UIManager.put("RadioButtonMenuItemUI","com.sun.java.swing.plaf.windows.WindowsRadioButtonMenuItemUI");
-		UIManager.put("RadioButtonUI","com.sun.java.swing.plaf.windows.WindowsRadioButtonUI");
-		UIManager.put("RootPaneUI","com.sun.java.swing.plaf.windows.WindowsRootPaneUI");
-		UIManager.put("ScrollBarUI","com.sun.java.swing.plaf.windows.WindowsScrollBarUI");
-		UIManager.put("ScrollPaneUI","javax.swing.plaf.basic.BasicScrollPaneUI");
-		UIManager.put("SeparatorUI","com.sun.java.swing.plaf.windows.WindowsSeparatorUI");
-		UIManager.put("SliderUI","com.sun.java.swing.plaf.windows.WindowsSliderUI");
-		UIManager.put("SpinnerUI","com.sun.java.swing.plaf.windows.WindowsSpinnerUI");
+		/* UIManager.put("RadioButtonMenuItemUI","com.sun.java.swing.plaf.windows.WindowsRadioButtonMenuItemUI"); */
+		/* UIManager.put("RadioButtonUI","com.sun.java.swing.plaf.windows.WindowsRadioButtonUI"); */
+		/* UIManager.put("RootPaneUI","com.sun.java.swing.plaf.windows.WindowsRootPaneUI"); */
+		/* UIManager.put("ScrollBarUI","com.sun.java.swing.plaf.windows.WindowsScrollBarUI"); */
+		/* UIManager.put("ScrollPaneUI","javax.swing.plaf.basic.BasicScrollPaneUI"); */
+		/* UIManager.put("SeparatorUI","com.sun.java.swing.plaf.windows.WindowsSeparatorUI"); */
+		/* UIManager.put("SliderUI","com.sun.java.swing.plaf.windows.WindowsSliderUI"); */
+		/* UIManager.put("SpinnerUI","com.sun.java.swing.plaf.windows.WindowsSpinnerUI"); */
 		UIManager.put("SplitPane.leftButtonText","linke Schaltfläche");
 		UIManager.put("SplitPane.rightButtonText","rechte Schaltfläche");
-		UIManager.put("SplitPaneUI","com.sun.java.swing.plaf.windows.WindowsSplitPaneUI");
-		UIManager.put("TabbedPaneUI","com.sun.java.swing.plaf.windows.WindowsTabbedPaneUI");
-		UIManager.put("TableHeaderUI","com.sun.java.swing.plaf.windows.WindowsTableHeaderUI");
-		UIManager.put("TableUI","javax.swing.plaf.basic.BasicTableUI");
-		UIManager.put("TextAreaUI","com.sun.java.swing.plaf.windows.WindowsTextAreaUI");
-		UIManager.put("TextFieldUI","com.sun.java.swing.plaf.windows.WindowsTextFieldUI");
-		UIManager.put("TextPaneUI","com.sun.java.swing.plaf.windows.WindowsTextPaneUI");
-		UIManager.put("ToggleButtonUI","com.sun.java.swing.plaf.windows.WindowsToggleButtonUI");
-		UIManager.put("ToolBarSeparatorUI","com.sun.java.swing.plaf.windows.WindowsToolBarSeparatorUI");
-		UIManager.put("ToolBarUI","com.sun.java.swing.plaf.windows.WindowsToolBarUI");
+		/* UIManager.put("SplitPaneUI","com.sun.java.swing.plaf.windows.WindowsSplitPaneUI"); */
+		/* UIManager.put("TabbedPaneUI","com.sun.java.swing.plaf.windows.WindowsTabbedPaneUI"); */
+		/* UIManager.put("TableHeaderUI","com.sun.java.swing.plaf.windows.WindowsTableHeaderUI"); */
+		/* UIManager.put("TableUI","javax.swing.plaf.basic.BasicTableUI"); */
+		/* UIManager.put("TextAreaUI","com.sun.java.swing.plaf.windows.WindowsTextAreaUI"); */
+		/* UIManager.put("TextFieldUI","com.sun.java.swing.plaf.windows.WindowsTextFieldUI"); */
+		/* UIManager.put("TextPaneUI","com.sun.java.swing.plaf.windows.WindowsTextPaneUI"); */
+		/* UIManager.put("ToggleButtonUI","com.sun.java.swing.plaf.windows.WindowsToggleButtonUI"); */
+		/* UIManager.put("ToolBarSeparatorUI","com.sun.java.swing.plaf.windows.WindowsToolBarSeparatorUI"); */
+		/* UIManager.put("ToolBarUI","com.sun.java.swing.plaf.windows.WindowsToolBarUI"); */
 		UIManager.put("ToolTipManager.enableToolTipMode","activeApplication");
-		UIManager.put("ToolTipUI","javax.swing.plaf.basic.BasicToolTipUI");
-		UIManager.put("TreeUI","com.sun.java.swing.plaf.windows.WindowsTreeUI");
-		UIManager.put("ViewportUI","javax.swing.plaf.basic.BasicViewportUI");
+		/* UIManager.put("ToolTipUI","javax.swing.plaf.basic.BasicToolTipUI"); */
+		/* UIManager.put("TreeUI","com.sun.java.swing.plaf.windows.WindowsTreeUI"); */
+		/* UIManager.put("ViewportUI","javax.swing.plaf.basic.BasicViewportUI"); */
 	}
 
 	/**
@@ -222,9 +222,9 @@ public class Messages_Java11 {
 		UIManager.put("AbstractDocument.undoText","Undo");
 		UIManager.put("AbstractUndoableEdit.redoText","Redo");
 		UIManager.put("AbstractUndoableEdit.undoText","Undo");
-		UIManager.put("ButtonUI","com.sun.java.swing.plaf.windows.WindowsButtonUI");
-		UIManager.put("CheckBoxMenuItemUI","com.sun.java.swing.plaf.windows.WindowsCheckBoxMenuItemUI");
-		UIManager.put("CheckBoxUI","com.sun.java.swing.plaf.windows.WindowsCheckBoxUI");
+		/* UIManager.put("ButtonUI","com.sun.java.swing.plaf.windows.WindowsButtonUI"); */
+		/* UIManager.put("CheckBoxMenuItemUI","com.sun.java.swing.plaf.windows.WindowsCheckBoxMenuItemUI"); */
+		/* UIManager.put("CheckBoxUI","com.sun.java.swing.plaf.windows.WindowsCheckBoxUI"); */
 		UIManager.put("ColorChooser.cancelText","Cancel");
 		UIManager.put("ColorChooser.okText","OK");
 		UIManager.put("ColorChooser.previewText","Preview");
@@ -244,12 +244,12 @@ public class Messages_Java11 {
 		UIManager.put("ColorChooser.swatchesMnemonic","83");
 		UIManager.put("ColorChooser.swatchesNameText","Swatches");
 		UIManager.put("ColorChooser.swatchesRecentText","Recent:");
-		UIManager.put("ColorChooserUI","javax.swing.plaf.basic.BasicColorChooserUI");
+		/* UIManager.put("ColorChooserUI","javax.swing.plaf.basic.BasicColorChooserUI"); */
 		UIManager.put("ComboBox.togglePopupText","togglePopup");
-		UIManager.put("ComboBoxUI","com.sun.java.swing.plaf.windows.WindowsComboBoxUI");
-		UIManager.put("DesktopIconUI","com.sun.java.swing.plaf.windows.WindowsDesktopIconUI");
-		UIManager.put("DesktopPaneUI","com.sun.java.swing.plaf.windows.WindowsDesktopPaneUI");
-		UIManager.put("EditorPaneUI","com.sun.java.swing.plaf.windows.WindowsEditorPaneUI");
+		/* UIManager.put("ComboBoxUI","com.sun.java.swing.plaf.windows.WindowsComboBoxUI"); */
+		/* UIManager.put("DesktopIconUI","com.sun.java.swing.plaf.windows.WindowsDesktopIconUI"); */
+		/* UIManager.put("DesktopPaneUI","com.sun.java.swing.plaf.windows.WindowsDesktopPaneUI"); */
+		/* UIManager.put("EditorPaneUI","com.sun.java.swing.plaf.windows.WindowsEditorPaneUI"); */
 		UIManager.put("FileChooser.acceptAllFileFilterText","All Files");
 		UIManager.put("FileChooser.cancelButtonText","Cancel");
 		UIManager.put("FileChooser.directoryDescriptionText","Directory");
@@ -274,11 +274,11 @@ public class Messages_Java11 {
 		UIManager.put("FileChooser.saveDialogTitleText","Save");
 		UIManager.put("FileChooser.updateButtonMnemonic","85");
 		UIManager.put("FileChooser.updateButtonText","Update");
-		UIManager.put("FileChooserUI","com.sun.java.swing.plaf.windows.WindowsFileChooserUI");
+		/* UIManager.put("FileChooserUI","com.sun.java.swing.plaf.windows.WindowsFileChooserUI"); */
 		UIManager.put("FormView.browseFileButtonText","Browse...");
 		UIManager.put("FormView.resetButtonText","Reset");
 		UIManager.put("FormView.submitButtonText","Submit Query");
-		UIManager.put("FormattedTextFieldUI","javax.swing.plaf.basic.BasicFormattedTextFieldUI");
+		/* UIManager.put("FormattedTextFieldUI","javax.swing.plaf.basic.BasicFormattedTextFieldUI"); */
 		UIManager.put("InternalFrame.closeButtonToolTip","Close");
 		UIManager.put("InternalFrame.iconButtonToolTip","Minimize");
 		UIManager.put("InternalFrame.maxButtonToolTip","Maximize");
@@ -292,14 +292,14 @@ public class Messages_Java11 {
 		UIManager.put("InternalFrameTitlePane.moveButtonText","Move");
 		UIManager.put("InternalFrameTitlePane.restoreButtonText","Restore");
 		UIManager.put("InternalFrameTitlePane.sizeButtonText","Size");
-		UIManager.put("InternalFrameUI","com.sun.java.swing.plaf.windows.WindowsInternalFrameUI");
+		/* UIManager.put("InternalFrameUI","com.sun.java.swing.plaf.windows.WindowsInternalFrameUI"); */
 		UIManager.put("IsindexView.prompt","This is a searchable index.  Enter search keywords:");
-		UIManager.put("LabelUI","com.sun.java.swing.plaf.windows.WindowsLabelUI");
-		UIManager.put("ListUI","javax.swing.plaf.basic.BasicListUI");
-		UIManager.put("MenuBarUI","com.sun.java.swing.plaf.windows.WindowsMenuBarUI");
+		/* UIManager.put("LabelUI","com.sun.java.swing.plaf.windows.WindowsLabelUI"); */
+		/* UIManager.put("ListUI","javax.swing.plaf.basic.BasicListUI"); */
+		/* UIManager.put("MenuBarUI","com.sun.java.swing.plaf.windows.WindowsMenuBarUI"); */
 		UIManager.put("MenuItem.acceleratorDelimiter","+");
-		UIManager.put("MenuItemUI","com.sun.java.swing.plaf.windows.WindowsMenuItemUI");
-		UIManager.put("MenuUI","com.sun.java.swing.plaf.windows.WindowsMenuUI");
+		/* UIManager.put("MenuItemUI","com.sun.java.swing.plaf.windows.WindowsMenuItemUI"); */
+		/* UIManager.put("MenuUI","com.sun.java.swing.plaf.windows.WindowsMenuUI"); */
 		UIManager.put("OptionPane.cancelButtonText","Cancel");
 		UIManager.put("OptionPane.inputDialogTitle","Input");
 		UIManager.put("OptionPane.messageDialogTitle","Message");
@@ -309,11 +309,11 @@ public class Messages_Java11 {
 		UIManager.put("OptionPane.titleText","Select an Option");
 		UIManager.put("OptionPane.yesButtonMnemonic","89");
 		UIManager.put("OptionPane.yesButtonText","Yes");
-		UIManager.put("OptionPaneUI","javax.swing.plaf.basic.BasicOptionPaneUI");
-		UIManager.put("PanelUI","javax.swing.plaf.basic.BasicPanelUI");
-		UIManager.put("PasswordFieldUI","com.sun.java.swing.plaf.windows.WindowsPasswordFieldUI");
-		UIManager.put("PopupMenuSeparatorUI","com.sun.java.swing.plaf.windows.WindowsPopupMenuSeparatorUI");
-		UIManager.put("PopupMenuUI","com.sun.java.swing.plaf.windows.WindowsPopupMenuUI");
+		/* UIManager.put("OptionPaneUI","javax.swing.plaf.basic.BasicOptionPaneUI"); */
+		/* UIManager.put("PanelUI","javax.swing.plaf.basic.BasicPanelUI"); */
+		/* UIManager.put("PasswordFieldUI","com.sun.java.swing.plaf.windows.WindowsPasswordFieldUI"); */
+		/* UIManager.put("PopupMenuSeparatorUI","com.sun.java.swing.plaf.windows.WindowsPopupMenuSeparatorUI"); */
+		/* UIManager.put("PopupMenuUI","com.sun.java.swing.plaf.windows.WindowsPopupMenuUI"); */
 		UIManager.put("PrintingDialog.abortButtonDisplayedMnemonicIndex","0");
 		UIManager.put("PrintingDialog.abortButtonMnemonic","65");
 		UIManager.put("PrintingDialog.abortButtonText","Abort");
@@ -323,32 +323,32 @@ public class Messages_Java11 {
 		UIManager.put("PrintingDialog.contentProgressText","Printed page {0}...");
 		UIManager.put("PrintingDialog.titleAbortingText","Printing (Aborting)");
 		UIManager.put("PrintingDialog.titleProgressText","Printing");
-		UIManager.put("ProgressBarUI","com.sun.java.swing.plaf.windows.WindowsProgressBarUI");
+		/* UIManager.put("ProgressBarUI","com.sun.java.swing.plaf.windows.WindowsProgressBarUI"); */
 		UIManager.put("ProgressMonitor.progressText","Progress...");
-		UIManager.put("RadioButtonMenuItemUI","com.sun.java.swing.plaf.windows.WindowsRadioButtonMenuItemUI");
-		UIManager.put("RadioButtonUI","com.sun.java.swing.plaf.windows.WindowsRadioButtonUI");
-		UIManager.put("RootPaneUI","com.sun.java.swing.plaf.windows.WindowsRootPaneUI");
-		UIManager.put("ScrollBarUI","com.sun.java.swing.plaf.windows.WindowsScrollBarUI");
-		UIManager.put("ScrollPaneUI","javax.swing.plaf.basic.BasicScrollPaneUI");
-		UIManager.put("SeparatorUI","com.sun.java.swing.plaf.windows.WindowsSeparatorUI");
-		UIManager.put("SliderUI","com.sun.java.swing.plaf.windows.WindowsSliderUI");
-		UIManager.put("SpinnerUI","com.sun.java.swing.plaf.windows.WindowsSpinnerUI");
+		/* UIManager.put("RadioButtonMenuItemUI","com.sun.java.swing.plaf.windows.WindowsRadioButtonMenuItemUI"); */
+		/* UIManager.put("RadioButtonUI","com.sun.java.swing.plaf.windows.WindowsRadioButtonUI"); */
+		/* UIManager.put("RootPaneUI","com.sun.java.swing.plaf.windows.WindowsRootPaneUI"); */
+		/* UIManager.put("ScrollBarUI","com.sun.java.swing.plaf.windows.WindowsScrollBarUI"); */
+		/* UIManager.put("ScrollPaneUI","javax.swing.plaf.basic.BasicScrollPaneUI"); */
+		/* UIManager.put("SeparatorUI","com.sun.java.swing.plaf.windows.WindowsSeparatorUI"); */
+		/* UIManager.put("SliderUI","com.sun.java.swing.plaf.windows.WindowsSliderUI"); */
+		/* UIManager.put("SpinnerUI","com.sun.java.swing.plaf.windows.WindowsSpinnerUI"); */
 		UIManager.put("SplitPane.leftButtonText","left button");
 		UIManager.put("SplitPane.rightButtonText","right button");
-		UIManager.put("SplitPaneUI","com.sun.java.swing.plaf.windows.WindowsSplitPaneUI");
-		UIManager.put("TabbedPaneUI","com.sun.java.swing.plaf.windows.WindowsTabbedPaneUI");
-		UIManager.put("TableHeaderUI","com.sun.java.swing.plaf.windows.WindowsTableHeaderUI");
-		UIManager.put("TableUI","javax.swing.plaf.basic.BasicTableUI");
-		UIManager.put("TextAreaUI","com.sun.java.swing.plaf.windows.WindowsTextAreaUI");
-		UIManager.put("TextFieldUI","com.sun.java.swing.plaf.windows.WindowsTextFieldUI");
-		UIManager.put("TextPaneUI","com.sun.java.swing.plaf.windows.WindowsTextPaneUI");
-		UIManager.put("ToggleButtonUI","com.sun.java.swing.plaf.windows.WindowsToggleButtonUI");
-		UIManager.put("ToolBarSeparatorUI","com.sun.java.swing.plaf.windows.WindowsToolBarSeparatorUI");
-		UIManager.put("ToolBarUI","com.sun.java.swing.plaf.windows.WindowsToolBarUI");
+		/* UIManager.put("SplitPaneUI","com.sun.java.swing.plaf.windows.WindowsSplitPaneUI"); */
+		/* UIManager.put("TabbedPaneUI","com.sun.java.swing.plaf.windows.WindowsTabbedPaneUI"); */
+		/* UIManager.put("TableHeaderUI","com.sun.java.swing.plaf.windows.WindowsTableHeaderUI"); */
+		/* UIManager.put("TableUI","javax.swing.plaf.basic.BasicTableUI"); */
+		/* UIManager.put("TextAreaUI","com.sun.java.swing.plaf.windows.WindowsTextAreaUI"); */
+		/* UIManager.put("TextFieldUI","com.sun.java.swing.plaf.windows.WindowsTextFieldUI"); */
+		/* UIManager.put("TextPaneUI","com.sun.java.swing.plaf.windows.WindowsTextPaneUI"); */
+		/* UIManager.put("ToggleButtonUI","com.sun.java.swing.plaf.windows.WindowsToggleButtonUI"); */
+		/* UIManager.put("ToolBarSeparatorUI","com.sun.java.swing.plaf.windows.WindowsToolBarSeparatorUI"); */
+		/* UIManager.put("ToolBarUI","com.sun.java.swing.plaf.windows.WindowsToolBarUI"); */
 		UIManager.put("ToolTipManager.enableToolTipMode","activeApplication");
-		UIManager.put("ToolTipUI","javax.swing.plaf.basic.BasicToolTipUI");
-		UIManager.put("TreeUI","com.sun.java.swing.plaf.windows.WindowsTreeUI");
-		UIManager.put("ViewportUI","javax.swing.plaf.basic.BasicViewportUI");
+		/* UIManager.put("ToolTipUI","javax.swing.plaf.basic.BasicToolTipUI"); */
+		/* UIManager.put("TreeUI","com.sun.java.swing.plaf.windows.WindowsTreeUI"); */
+		/* UIManager.put("ViewportUI","javax.swing.plaf.basic.BasicViewportUI"); */
 	}
 
 	/**
