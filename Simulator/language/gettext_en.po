@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-19 21:08+0200\n"
+"POT-Creation-Date: 2024-05-25 18:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3471,6 +3471,9 @@ msgstr "%d of %d distributions is highlighted."
 
 msgid "Distribution.SetupList.Title"
 msgstr "Edit list of highlighted distributions"
+
+msgid "Distribution.Sine"
+msgstr "Sine distribution"
 
 msgid "Distribution.Skewness"
 msgstr "Skewness"
@@ -7249,6 +7252,18 @@ msgstr "<p>Calculates the value of the distribution function of the right sawtoo
 
 msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the right sawtooth distribution with the parameters according to the first (mean) and second (standard deviation) parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.SineDistribution"
+msgstr "Sine distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.SineDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the sine distribution at the location specified as the first parameter with the parameters [a;b] according to the second (a) and the third (b) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.SineDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the sine distribution at the location specified as the first parameter with the parameters [a;b] according to the second (a) and the third (b) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.SineDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the sine distribution with the parameters [a;b] according to the first (a) and the second (b) parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.StudentTDist"
 msgstr "Student t-distribution"

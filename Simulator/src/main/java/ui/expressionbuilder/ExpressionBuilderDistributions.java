@@ -621,6 +621,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect.RandomNumberInfo"));
 
+		/* Sinus-Verteilung */
+
+		addDist(group,filterUpper,"SineDist","a;b",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.SineDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.SineDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.SineDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.SineDistribution.RandomNumberInfo"));
+
 		/* Empirische Verteilung */
 
 		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution"));

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-19 21:08+0200\n"
+"POT-Creation-Date: 2024-05-25 18:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3476,6 +3476,9 @@ msgstr "%d von %d Verteilungen ist hervorgehoben."
 
 msgid "Distribution.SetupList.Title"
 msgstr "Liste der hervorgehobene Verteilungen bearbeiten"
+
+msgid "Distribution.Sine"
+msgstr "Sinus-Verteilung"
 
 msgid "Distribution.Skewness"
 msgstr "Schiefe"
@@ -7247,6 +7250,18 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der rechten Sägezahnverte
 
 msgid "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistributionDirect.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der rechten Sägezahnverteilung mit den Parametern gemäß dem ersten (Mittelwert) und zweiten (Standardabweichung) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.SineDistribution"
+msgstr "Sinus-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.SineDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Sinus-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;b] gemäß dem zweiten (a) und dem dritten (b) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.SineDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Sinus-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;b] gemäß dem zweiten (a) und dem dritten (b) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.SineDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Sinus-Verteilung mit den Parametern [a;b] gemäß dem ersten (a) und dem zweiten (b) Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.StudentTDist"
 msgstr "Studentsche t-Verteilung"

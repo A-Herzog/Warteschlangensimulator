@@ -336,6 +336,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		setInfoText();
 		repaint();
 		plotter.repaint();
+		wiki.setVisible(DistributionTools.getDistributionWikipediaLink(distribution)!=null);
 	}
 
 	/**
@@ -1125,8 +1126,10 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		sub.add(item=new JMenuItem(SaveButtonImage,SimSystemsSwingImages.COPY_AS_IMAGE.getIcon()));
 		item.addActionListener(ev->saveImage());
 
-		popup.add(item=new JMenuItem(wiki.getText(),wiki.getIcon()));
-		item.addActionListener(ev->actionWiki());
+		if (DistributionTools.getDistributionWikipediaLink(distribution)!=null) {
+			popup.add(item=new JMenuItem(wiki.getText(),wiki.getIcon()));
+			item.addActionListener(ev->actionWiki());
+		}
 
 		if (showEditButton) {
 			popup.addSeparator();

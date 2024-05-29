@@ -329,6 +329,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite IrwinHall-Verteilung */
 	public static String DistIrwinHallWikipedia="https://de.wikipedia.org/wiki/Irwin-Hall-Verteilung";
 
+	/** Sinus-Verteilung */
+	public static String[] DistSine=new String[]{"Sinus-Verteilung"};
+
+	/** Wikipedia-Seite Sine-Verteilung */
+	public static String DistSineWikipedia=""; /* leide keine Wikipedia-Seite vorhanden */
+
 	/** Warnung "unbekannte Verteilung" */
 	public static String DistUnknown="unbekannte Verteilung";
 
@@ -431,7 +437,8 @@ public final class DistributionTools {
 				new WrapperUQuadraticDistribution(),
 				new WrapperReciprocalDistribution(),
 				new WrapperKumaraswamyDistribution(),
-				new WrapperIrwinHallDistribution()
+				new WrapperIrwinHallDistribution(),
+				new WrapperSineDistribution()
 		};
 	}
 

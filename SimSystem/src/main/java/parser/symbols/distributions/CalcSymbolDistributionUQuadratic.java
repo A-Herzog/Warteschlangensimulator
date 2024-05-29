@@ -20,7 +20,7 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import mathtools.distribution.UQuadraticDistribution;
 
 /**
- * U-quadratische verteilung
+ * U-quadratische Verteilung
  * @author Alexander Herzog
  * @see UQuadraticDistribution
  */

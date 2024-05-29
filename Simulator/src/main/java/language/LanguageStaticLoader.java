@@ -265,6 +265,7 @@ public class LanguageStaticLoader {
 		DistributionTools.DistKumaraswamyWikipedia=Language.tr("Distribution.KumaraswamyWikipedia");
 		DistributionTools.DistIrwinHall=Language.trAll("Distribution.IrwinHall");
 		DistributionTools.DistIrwinHallWikipedia=Language.tr("Distribution.IrwinHallWikipedia");
+		DistributionTools.DistSine=Language.trAll("Distribution.Sine");
 		DistributionTools.DistUnknown=Language.tr("Distribution.Unknown");
 		DistributionTools.DistDataPoint=Language.tr("Distribution.DataPoint");
 		DistributionTools.DistDataPoints=Language.tr("Distribution.DataPoints");

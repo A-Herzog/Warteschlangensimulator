@@ -9446,6 +9446,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[21073] = "Anzahl an Wiederholungen des gesamten Simulationslaufs";
     t[21074] = "Surface.DecideJS.XML.Script.Language";
     t[21075] = "Sprache";
+    t[21076] = "ExpressionBuilder.ProbabilityDistributions.SineDistribution";
+    t[21077] = "Sinus-Verteilung";
     t[21080] = "ParameterCompare.Settings.Output.Mode.XML";
     t[21081] = "Inhalt eines XML-Elements";
     t[21088] = "Git.List.Tab.StoreFiles.Button.All";
@@ -10032,14 +10034,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22339] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Maxwell-Boltzmann-Verteilung mit dem Parametern a gem\u00e4\u00df dem Parameter.</p>";
     t[22340] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.Label";
     t[22341] = "Rechenausdr\u00fccke f\u00fcr die Anzahlen pro Intervall";
-    t[22342] = "Statistics.AverageClientsInSystemInProcess";
-    t[22343] = "Mittlere Anzahl an Kunden im System in Bedienung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[22342] = "Statistics.AverageClientsInSystemInProcess";
+    t[22343] = "Mittlere Anzahl an Kunden im System in Bedienung";
     t[22346] = "Surface.Batch.Dialog.BatchSize.Error.InfoMin";
     t[22347] = "Der angegebene Wert \"%s\" f\u00fcr die minimale Batch-Gr\u00f6\u00dfe ist ung\u00fcltig. Es muss eine positive ganze Zahl oder ein Rechenausdruck angegeben werden.";
     t[22348] = "Main.Menu.Edit.MoveBack.Mnemonic";
@@ -10240,6 +10242,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22755] = "Speichern fehlgeschlagen";
     t[22764] = "Transporters.Group.Edit.Dialog.Tab.Failures";
     t[22765] = "Ausf\u00e4lle / Pausen";
+    t[22770] = "Distribution.Sine";
+    t[22771] = "Sinus-Verteilung";
     t[22772] = "Optimizer.Tab.ControlVariables.Element";
     t[22773] = "Element";
     t[22780] = "CommandLine.CountSimTime.ResultInfo";
@@ -11710,8 +11714,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25925] = "Zum Modell-Editor zur\u00fcckkehren.";
     t[25938] = "Surface.BarrierPull.Dialog.ControlledElement.ErrorInfo";
     t[25939] = "Es wurde keine zu kontrollierende Station gew\u00e4hlt.";
-    t[25942] = "Surface.InputDB.XML.SortColumn.SortMode";
-    t[25943] = "Sortierung";
+    t[25942] = "ExpressionBuilder.ProbabilityDistributions.SineDistribution.RandomNumberInfo";
+    t[25943] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Sinus-Verteilung mit den Parametern [a;b] gem\u00e4\u00df dem ersten (a) und dem zweiten (b) Parameter.</p>";
     t[25944] = "ModelLoadData.XML.Record";
     t[25945] = "ExterneDatenEintrag";
     t[25946] = "Distribution.Never";
@@ -12036,16 +12040,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26623] = "Wartezeiten an den Stationen";
     t[26624] = "Editor.Dialog.Sequences.AssignmentsInfo.One";
     t[26625] = "1 Zuweisung";
-    t[26630] = "ExpressionBuilder.Base";
-    t[26631] = "Basis";
-    t[26632] = "Simulation.Creator.OutputConnectionsNotMatching";
-    t[26633] = "Bei Element id=%d stimmt die Anzahl an geplanten und an tats\u00e4chlichen auslaufenden Kanten nicht \u00fcberein.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[26630] = "ExpressionBuilder.Base";
+    t[26631] = "Basis";
+    t[26632] = "Simulation.Creator.OutputConnectionsNotMatching";
+    t[26633] = "Bei Element id=%d stimmt die Anzahl an geplanten und an tats\u00e4chlichen auslaufenden Kanten nicht \u00fcberein.";
     t[26638] = "CommandLine.Filter.Name";
     t[26639] = "Filter";
     t[26648] = "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberInfo";
@@ -14042,16 +14046,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[31149] = "Ausgabe (Log)";
     t[31154] = "ModelDescription.AnalogValue.MaximumValue";
     t[31155] = "Maximalwert";
-    t[31156] = "Surface.AnimationLCD.XML.Root";
-    t[31157] = "ModellElementAnimationLCD";
-    t[31170] = "Statistic.FastAccess.Template.ClientsAtStationQueue";
-    t[31171] = "Mittlere Anzahl an Kunden an einer Stationswarteschlange";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[31156] = "Surface.AnimationLCD.XML.Root";
+    t[31157] = "ModellElementAnimationLCD";
+    t[31170] = "Statistic.FastAccess.Template.ClientsAtStationQueue";
+    t[31171] = "Mittlere Anzahl an Kunden an einer Stationswarteschlange";
     t[31176] = "Statistic.PreviousRemove.Hint";
     t[31177] = "Vergleich mit vorherigen Ergebnissen wieder ausblenden";
     t[31180] = "Surface.InputDB.XML.SortColumn.SortMode.Ascending";
@@ -16048,16 +16052,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35463] = "Testmesswerte generieren";
     t[35464] = "Simulation.Java.Error.NoCompiler.Internal";
     t[35465] = "Es steht kein Java-Komiler zur Verf\u00fcgung.";
-    t[35470] = "Surface.SourceTable.Dialog.Table.Preview.Header.ClientType";
-    t[35471] = "Kundentyp";
-    t[35472] = "Surface.OutputDDE.XML.Root";
-    t[35473] = "ModellElementAusgabeDDE";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[35470] = "Surface.SourceTable.Dialog.Table.Preview.Header.ClientType";
+    t[35471] = "Kundentyp";
+    t[35472] = "Surface.OutputDDE.XML.Root";
+    t[35473] = "ModellElementAusgabeDDE";
     t[35476] = "Color.DAA520";
     t[35477] = "Golden Rod";
     t[35482] = "Surface.AnalogValue.Dialog.Unit.PerHour";
@@ -18054,16 +18058,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39759] = "Ausgabetabelle";
     t[39760] = "ExpressionBuilder.CommandName.ProcessingTime";
     t[39761] = "Bedienzeit";
-    t[39766] = "Simulation.Log.BarrierInactive.Info";
-    t[39767] = "Kunde: %s, Station: %s";
-    t[39772] = "Surface.TransportSource.Dialog.Title";
-    t[39773] = "Transportstart bearbeiten";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[39766] = "Simulation.Log.BarrierInactive.Info";
+    t[39767] = "Kunde: %s, Station: %s";
+    t[39772] = "Surface.TransportSource.Dialog.Title";
+    t[39773] = "Transportstart bearbeiten";
     t[39776] = "Surface.BarrierPull.XML.Next";
     t[39777] = "ModellElementSchrankePullKontrolle";
     t[39778] = "ScriptPopup.Runtime";
@@ -18858,6 +18862,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41483] = "Die Funktion erwartet als Parameter die erlaubte Maximalanzahl an Threads.\nWerte kleiner oder gleich 0 werden als unlimitiert interpretiert.";
     t[41488] = "Color.D2B48C";
     t[41489] = "Tan";
+    t[41492] = "ExpressionBuilder.ProbabilityDistributions.SineDistribution.DensityInfo";
+    t[41493] = "<p>Berechnet den Wert der Dichte der Sinus-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;b] gem\u00e4\u00df dem zweiten (a) und dem dritten (b) Parameter.</p>";
     t[41498] = "Surface.AnimationImage.Dialog.Images.Edit";
     t[41499] = "Bedinung und Bild bearbeiten";
     t[41508] = "ModelGenerator.Visualization.MeanNQTitle";
@@ -20058,18 +20064,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44045] = "Das Modell weist interne Fehler auf. Es sind folgende IDs doppelt vergeben:";
     t[44046] = "Main.Menu.Extras.SystemInfo.Mnemonic";
     t[44047] = "S";
-    t[44050] = "Surface.DecideAndTeleport.Infotext";
-    t[44051] = "Verzweigt die eintreffenden Kunden basierend auf verschiedenen m\u00f6glichen Regeln zu verschiedenen Teleportzielen.";
-    t[44054] = "Color.F0FFF0";
-    t[44055] = "Honey Dew";
-    t[44056] = "Statistics.AnalogStatistics";
-    t[44057] = "Analoge Werte";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[44050] = "Surface.DecideAndTeleport.Infotext";
+    t[44051] = "Verzweigt die eintreffenden Kunden basierend auf verschiedenen m\u00f6glichen Regeln zu verschiedenen Teleportzielen.";
+    t[44054] = "Color.F0FFF0";
+    t[44055] = "Honey Dew";
+    t[44056] = "Statistics.AnalogStatistics";
+    t[44057] = "Analoge Werte";
     t[44058] = "Surface.PopupMenu.SimulationStatisticsData.SaveWaitingClients";
     t[44059] = "Liste der wartenden Kunden speichern";
     t[44064] = "Statistics.ErlangCompare.Priority.OTHER";
@@ -20150,6 +20156,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44237] = "ModellElementVerbindungsbeschriftung";
     t[44248] = "Surface.PickUp.Dialog.SendTemporaryBatched.Error.Info";
     t[44249] = "F\u00fcr den tempor\u00e4ren Kundentyp wurde kein Name angegeben.";
+    t[44258] = "Surface.InputDB.XML.SortColumn.SortMode";
+    t[44259] = "Sortierung";
     t[44260] = "Batch.Simulation.RunNoValue";
     t[44261] = "Simulationsschritt %d: Simulation des Modells %s";
     t[44276] = "Surface.Output.XML.Element.TypeDescription.WaitingTime";
@@ -21874,6 +21882,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[47985] = "Bedingung";
     t[47986] = "SimulationServer.Toolbar.MQTTStop";
     t[47987] = "MQTT-Klient stoppen";
+    t[47990] = "ExpressionBuilder.ProbabilityDistributions.SineDistribution.DistributionFunctionInfo";
+    t[47991] = "<p>Berechnet den Wert der Verteilungsfunktion der Sinus-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;b] gem\u00e4\u00df dem zweiten (a) und dem dritten (b) Parameter.</p>";
     t[47992] = "Statistics.ClientMovement.Visualization.Path";
     t[47993] = "Pfad";
     t[47994] = "Surface.CounterMulti.RunInfoElse";
@@ -22060,6 +22070,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48387] = "Es wurde kein Signal zum Starten des Flusses ausgew\u00e4hlt.";
     t[48388] = "ParameterCompare.Toolbar.Load.ReplaceHint.Option.Keep";
     t[48389] = "Modell beibehalten";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_11 (java.lang.String[] t) {
     t[48390] = "Surface.AnalogValue.Dialog.ChangeRate.ErrorTitle";
     t[48391] = "Ung\u00fcltige \u00c4nderungsrate";
     t[48392] = "SimulationServer.Setup.MQTTTopic";
@@ -22070,12 +22086,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48405] = "Abstand (in Kundenank\u00fcnften) zwischen zwei Ausl\u00f6sungen";
     t[48418] = "Surface.OutputLog.Infotext";
     t[48419] = "Passiert ein Kunde diese Station, so werden ein oder mehrere aktuelle Werte in das Logging-System ausgegeben. Ist das Logging nicht aktiviert, so erfolgt keine Ausgabe.";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_11 (java.lang.String[] t) {
     t[48420] = "Wait.Status.LongRunNoEstimationK.WIPOne";
     t[48421] = "%sK Kundenank\u00fcnfte simuliert / 1 Kunde im System / %sK Ereignisse / %sK Ereignisse pro Sekunde";
     t[48422] = "Surface.Box.Name";
@@ -24066,6 +24076,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52843] = "Proxy-Konfiguration";
     t[52846] = "Editor.DialogBase.DisplayQueue.Title";
     t[52847] = "Warteschlangendarstellung w\u00e4hrend der Animation";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_12 (java.lang.String[] t) {
     t[52852] = "Surface.AnimationBar.XML.DataExpression";
     t[52853] = "ModellElementDatenausdruck";
     t[52856] = "ScriptPopup.Runtime.Hint";
@@ -24076,12 +24092,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52863] = "Beendet die Simulation sofort.";
     t[52868] = "ScriptPopup.Simulation.TriggerScript";
     t[52869] = "Skript an Station zeitverz\u00f6gert ausf\u00fchren";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_12 (java.lang.String[] t) {
     t[52872] = "Statistic.Viewer.Report.Settings.Header.Logo.MaxHeight";
     t[52873] = "Maximale H\u00f6he des Logos (in mm)";
     t[52878] = "ExpressionBuilder.SimulationCharacteristics.Costs.ProcessCurrent.Info";
