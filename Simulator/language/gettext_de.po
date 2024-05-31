@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-25 18:43+0200\n"
+"POT-Creation-Date: 2024-05-28 11:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3167,6 +3167,9 @@ msgstr "Information"
 
 msgid "Dialog.Title.Warning"
 msgstr "Warnung"
+
+msgid "Distribution.Arcsine"
+msgstr "Arcus Sinus-Verteilung"
 
 msgid "Distribution.Beta"
 msgstr "Beta-Verteilung"
@@ -6524,6 +6527,18 @@ msgstr "<p>Liefert den Wert des Zeta-Funktion für den als Parameter übergebene
 
 msgid "ExpressionBuilder.ProbabilityDistributions"
 msgstr "Wahrscheinlichkeitsverteilungen"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution"
+msgstr "Arcus Sinus-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Arcus Sinus-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;b] gemäß dem zweiten (a) und dem dritten (b) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Arcus Sinus-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;b] gemäß dem zweiten (a) und dem dritten (b) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Arcus Sinus-Verteilung mit den Parametern [a;b] gemäß dem ersten (a) und dem zweiten (b) Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistribution"
 msgstr "Beta-Verteilung"

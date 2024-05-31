@@ -123,6 +123,7 @@ import parser.symbols.distributions.CalcSymbolDiscreteDistributionNegativeHyperG
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionPoisson;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionUniform;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionZeta;
+import parser.symbols.distributions.CalcSymbolDistributionArcsine;
 import parser.symbols.distributions.CalcSymbolDistributionBeta;
 import parser.symbols.distributions.CalcSymbolDistributionBetaDirect;
 import parser.symbols.distributions.CalcSymbolDistributionCauchy;
@@ -347,6 +348,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionIrwinHall());
 			addSymbol(new CalcSymbolDistributionIrwinHallDirect());
 			addSymbol(new CalcSymbolDistributionSine());
+			addSymbol(new CalcSymbolDistributionArcsine());
 
 			addSymbol(new CalcSymbolEmpiricalDistributionPDF());
 			addSymbol(new CalcSymbolEmpiricalDistributionCDF());

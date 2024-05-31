@@ -335,6 +335,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Sine-Verteilung */
 	public static String DistSineWikipedia=""; /* leide keine Wikipedia-Seite vorhanden */
 
+	/** Arcus Sinus-Verteilung */
+	public static String[] DistArcsine=new String[]{"Arcus Sinus-Verteilung"};
+
+	/** Wikipedia-Seite Arcus Sine-Verteilung */
+	public static String DistArcsineWikipedia=""; /* leide keine Wikipedia-Seite vorhanden */
+
 	/** Warnung "unbekannte Verteilung" */
 	public static String DistUnknown="unbekannte Verteilung";
 
@@ -438,7 +444,8 @@ public final class DistributionTools {
 				new WrapperReciprocalDistribution(),
 				new WrapperKumaraswamyDistribution(),
 				new WrapperIrwinHallDistribution(),
-				new WrapperSineDistribution()
+				new WrapperSineDistribution(),
+				new WrapperArcsineDistribution()
 		};
 	}
 

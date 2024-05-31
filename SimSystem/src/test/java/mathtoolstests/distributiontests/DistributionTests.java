@@ -32,6 +32,7 @@ import org.apache.commons.math3.util.FastMath;
 import org.junit.jupiter.api.Test;
 
 import mathtools.distribution.AbstractDiscreteRealDistribution;
+import mathtools.distribution.ArcsineDistribution;
 import mathtools.distribution.ChiDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
@@ -2168,6 +2169,73 @@ class DistributionTests {
 		dist=dist.clone();
 		assertEquals((2.0+5.0)/2,dist.getNumericalMean());
 		assertEquals((0.25-2.0/Math.PI/Math.PI)*Math.pow(5.0-2.0,2.0),dist.getNumericalVariance());
+		assertEquals(2,dist.getSupportLowerBound());
+		assertEquals(5,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[]{2,5});
+	}
+
+	/**
+	 * Test: Arcus Sinus-Verteilung
+	 * @see ArcsineDistribution
+	 */
+	@Test
+	void testArcsineDist() {
+		ArcsineDistribution dist;
+
+		dist=new ArcsineDistribution(-2,-5);
+		assertEquals(-2,dist.a);
+		assertTrue(dist.b>-2);
+
+		dist=new ArcsineDistribution(2,5);
+		assertEquals(2,dist.a);
+		assertEquals(5,dist.b);
+
+		assertEquals((2.0+5.0)/2,dist.getNumericalMean());
+		assertEquals(1.0/8.0*Math.pow(5.0-2.0,2.0),dist.getNumericalVariance());
+		assertEquals(2,dist.getSupportLowerBound());
+		assertEquals(5,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		assertEquals(0,dist.density(-1));
+		assertEquals(0,dist.density(1));
+		assertTrue(dist.density(3)>0);
+		assertEquals(0,dist.density(6));
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(0,dist.cumulativeProbability(1));
+		assertEquals(0,dist.cumulativeProbability(2));
+		assertTrue(dist.cumulativeProbability(3)>0);
+		assertEquals(1,dist.cumulativeProbability(5));
+		assertEquals(1,dist.cumulativeProbability(6));
+
+		dist=(ArcsineDistribution)DistributionTools.cloneDistribution(dist);
+		assertEquals((2.0+5.0)/2,dist.getNumericalMean());
+		assertEquals(1.0/8.0*Math.pow(5.0-2.0,2.0),dist.getNumericalVariance());
+		assertEquals(2,dist.getSupportLowerBound());
+		assertEquals(5,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=new ArcsineDistribution(dist);
+		assertEquals((2.0+5.0)/2,dist.getNumericalMean());
+		assertEquals(1.0/8.0*Math.pow(5.0-2.0,2.0),dist.getNumericalVariance());
+		assertEquals(2,dist.getSupportLowerBound());
+		assertEquals(5,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=dist.clone();
+		assertEquals((2.0+5.0)/2,dist.getNumericalMean());
+		assertEquals(1.0/8.0*Math.pow(5.0-2.0,2.0),dist.getNumericalVariance());
 		assertEquals(2,dist.getSupportLowerBound());
 		assertEquals(5,dist.getSupportUpperBound());
 		assertTrue(dist.isSupportLowerBoundInclusive());

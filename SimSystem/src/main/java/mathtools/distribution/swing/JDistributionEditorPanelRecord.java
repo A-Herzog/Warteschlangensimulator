@@ -28,6 +28,7 @@ import org.apache.commons.math3.distribution.ExponentialDistribution;
 import org.apache.commons.math3.distribution.UniformRealDistribution;
 
 import mathtools.NumberTools;
+import mathtools.distribution.ArcsineDistribution;
 import mathtools.distribution.ChiDistributionImpl;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
@@ -68,6 +69,7 @@ import mathtools.distribution.TriangularDistributionImpl;
 import mathtools.distribution.UQuadraticDistribution;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionTools;
+import mathtools.distribution.tools.WrapperArcsineDistribution;
 import mathtools.distribution.tools.WrapperBetaDistribution;
 import mathtools.distribution.tools.WrapperBinomialDistribution;
 import mathtools.distribution.tools.WrapperCauchyDistribution;
@@ -317,6 +319,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new KumaraswamyDistributionPanel());
 		allRecords.add(new IrwinHallDistributionPanel());
 		allRecords.add(new SineDistributionPanel());
+		allRecords.add(new ArcsineDistributionPanel());
 	}
 
 	/**
@@ -1578,6 +1581,45 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double d2=NumberTools.getDouble(fields[1],true); if (d2==null) return null;
 			if (d1>=d2) return null;
 			return new SineDistribution(d1,d2);
+		}
+	}
+
+	/** Arcus Sinus-Verteilung */
+	private static class ArcsineDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public ArcsineDistributionPanel() {
+			super(new WrapperArcsineDistribution(),new String[]{JDistributionEditorPanel.DistUniformStart,JDistributionEditorPanel.DistUniformEnd});
+		}
+
+		@Override
+		public String[] getEditValues(final double meanD, final String mean, final double stdD, final String std, final String lower, final String upper, final double maxXValue) {
+			return new String[]{lower,upper};
+		}
+
+		@Override
+		public String[] getValues(final AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((ArcsineDistribution)distribution).getSupportLowerBound()),
+					NumberTools.formatNumberMax(((ArcsineDistribution)distribution).getSupportUpperBound())
+			};
+		}
+
+		@Override
+		public void setValues(final JTextField[] fields, final double mean, final double sd) {
+			ArcsineDistribution distribution=(ArcsineDistribution)wrapper.getDistribution(mean,sd);
+			if (distribution!=null) {
+				if (distribution.getSupportLowerBound()<0) distribution=new ArcsineDistribution(0,mean*2);
+				final String[] text=getValues(distribution);
+				if (text!=null && text.length==fields.length) for (int i=0;i<text.length;i++) fields[i].setText(text[i]);
+			}
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(final JTextField[] fields, final double maxXValue) {
+			final Double d1=NumberTools.getDouble(fields[0],true); if (d1==null) return null;
+			final Double d2=NumberTools.getDouble(fields[1],true); if (d2==null) return null;
+			if (d1>=d2) return null;
+			return new ArcsineDistribution(d1,d2);
 		}
 	}
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-25 18:43+0200\n"
+"POT-Creation-Date: 2024-05-28 11:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3162,6 +3162,9 @@ msgstr "Information"
 
 msgid "Dialog.Title.Warning"
 msgstr "Warning"
+
+msgid "Distribution.Arcsine"
+msgstr "Arcsine distribution"
 
 msgid "Distribution.Beta"
 msgstr "Beta distribution"
@@ -6521,6 +6524,18 @@ msgstr "<p>Returns the value of the Zeta function for the parameter passed as pa
 
 msgid "ExpressionBuilder.ProbabilityDistributions"
 msgstr "Probability distributions"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution"
+msgstr "Arcsine distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the arcsine distribution at the location specified as the first parameter with the parameters [a;b] according to the second (a) and the third (b) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the arcsine distribution at the location specified as the first parameter with the parameters [a;b] according to the second (a) and the third (b) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the arcsine distribution with the parameters [a;b] according to the first (a) and the second (b) parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistribution"
 msgstr "Beta distribution"

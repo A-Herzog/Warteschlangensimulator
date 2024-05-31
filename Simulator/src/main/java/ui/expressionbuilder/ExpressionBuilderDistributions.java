@@ -629,6 +629,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.SineDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.SineDistribution.RandomNumberInfo"));
 
+		/* Arcus Sinus-Verteilung */
+
+		addDist(group,filterUpper,"ArcsineDist","a;b",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution.RandomNumberInfo"));
+
 		/* Empirische Verteilung */
 
 		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution"));

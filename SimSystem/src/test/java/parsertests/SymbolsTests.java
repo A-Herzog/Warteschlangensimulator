@@ -3041,6 +3041,29 @@ class SymbolsTests {
 		String cmd;
 		String[] variables;
 
+		/* Arcus Sinus-Verteilung */
+
+		cmd="ArcsineDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{49,50,150}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,50,150}));
+		assertTrue(testDistribution(cmd,variables,new double[]{100,50,150})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{150,50,150}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{151,50,150}));
+
+		cmd="ArcsineDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{49,50,150}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,50,150}));
+		assertTrue(testDistribution(cmd,variables,new double[]{100,50,150})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{150,50,150}));
+		assertEquals(1,testDistribution(cmd,variables,new double[]{151,50,150}));
+		testDistributionThrows("ArcsineDist(x;a;b;2)",variables,new double[]{100,50,150});
+
+		cmd="ArcsineDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{50,150});
+
 		/* Betaverteilung */
 
 		cmd="BetaDist(x;a;b;c;d;0)";
