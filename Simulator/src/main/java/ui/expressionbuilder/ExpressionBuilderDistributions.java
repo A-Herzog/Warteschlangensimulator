@@ -15,6 +15,7 @@
  */
 package ui.expressionbuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -187,18 +188,12 @@ public class ExpressionBuilderDistributions {
 	}
 
 	/**
-	 * Fügt die Rechensymbole in die Baumstruktur eines {@link ExpressionBuilder}-Objektes ein.
-	 * @param root	Wurzelelement der Baumstruktur
-	 * @param pathsToOpen	Liste der initial auszuklappenden Äste
-	 * @param filterUpper	Nur Anzeige der Elemente, die zu dem Filter passen (der Filter kann dabei <code>null</code> sein, was bedeutet "nicht filtern")
+	 * Erstellt eine Liste mit allen diskreten Verteilungen.
+	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird der Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
+	 * @return	Allen diskreten Verteilungen
 	 */
-	public static void build(final DefaultMutableTreeNode root, final List<TreePath> pathsToOpen, final String filterUpper) {
-		final String pdf=Language.tr("ExpressionBuilder.ProbabilityDistributions.Density");
-		final String cdf=Language.tr("ExpressionBuilder.ProbabilityDistributions.DistributionFunction");
-		final String rnd=Language.tr("ExpressionBuilder.ProbabilityDistributions.RandomNumber");
-
+	private static DefaultMutableTreeNode buildDiscrete(final String filterUpper) {
 		final DefaultMutableTreeNode group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions"));
-		DefaultMutableTreeNode sub;
 
 		/* Hypergeometrische Verteilung */
 
@@ -262,6 +257,18 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist.RandomNumberInfo"));
+
+		return group;
+
+	}
+
+	/**
+	 * Erstellt eine Liste mit allen kontinuierlichen Verteilungen.
+	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird der Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
+	 * @return	Allen kontinuierlichen Verteilungen
+	 */
+	private static DefaultMutableTreeNode buildContinous(final String filterUpper) {
+		final DefaultMutableTreeNode group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions"));
 
 		/* Exponentialverteilung */
 
@@ -583,7 +590,7 @@ public class ExpressionBuilderDistributions {
 
 		/* U-quadratische Verteilung */
 
-		addDist(group,filterUpper,"HalfNormalDist","a;b",
+		addDist(group,filterUpper,"UQuadraticDist","a;b",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.UQuadraticDistribution.DistributionFunctionInfo"),
@@ -636,6 +643,37 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution.RandomNumberInfo"));
+
+		return group;
+	}
+
+	/**
+	 * Sortiert eine als Baumeintrag gegebene Liste und fügt diese an einen anderen Baumeintrag an.
+	 * @param newRecords	Baumeintrag, der die zu sortierenden Einträge enthält
+	 * @param resultGroup	Baumeintrag an den die Einträge in sortierter Form angehängt werden sollen
+	 */
+	private static void sortGroupAndAdd(final DefaultMutableTreeNode newRecords, final DefaultMutableTreeNode resultGroup) {
+		final List<DefaultMutableTreeNode> records=new ArrayList<>();
+		for (int i=0;i<newRecords.getChildCount();i++) records.add((DefaultMutableTreeNode)newRecords.getChildAt(i));
+		records.stream().sorted((n1,n2)->String.CASE_INSENSITIVE_ORDER.compare((String)n1.getUserObject(),(String)n2.getUserObject())).forEach(n->resultGroup.add(n));
+	}
+
+	/**
+	 * Fügt die Rechensymbole in die Baumstruktur eines {@link ExpressionBuilder}-Objektes ein.
+	 * @param root	Wurzelelement der Baumstruktur
+	 * @param pathsToOpen	Liste der initial auszuklappenden Äste
+	 * @param filterUpper	Nur Anzeige der Elemente, die zu dem Filter passen (der Filter kann dabei <code>null</code> sein, was bedeutet "nicht filtern")
+	 */
+	public static void build(final DefaultMutableTreeNode root, final List<TreePath> pathsToOpen, final String filterUpper) {
+		final String pdf=Language.tr("ExpressionBuilder.ProbabilityDistributions.Density");
+		final String cdf=Language.tr("ExpressionBuilder.ProbabilityDistributions.DistributionFunction");
+		final String rnd=Language.tr("ExpressionBuilder.ProbabilityDistributions.RandomNumber");
+
+		final DefaultMutableTreeNode group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions"));
+		DefaultMutableTreeNode sub;
+
+		sortGroupAndAdd(buildDiscrete(filterUpper),group);
+		sortGroupAndAdd(buildContinous(filterUpper),group);
 
 		/* Empirische Verteilung */
 
