@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.DiscretePoissonDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDiscreteDistributionPoisson;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link DiscretePoissonDistributionImpl}
@@ -111,5 +113,10 @@ public class WrapperPoissonDistribution extends AbstractDistributionWrapper {
 	protected boolean compareInt(AbstractRealDistribution distribution1, AbstractRealDistribution distribution2) {
 		if (Math.abs(((DiscretePoissonDistributionImpl)distribution1).lambda-((DiscretePoissonDistributionImpl)distribution2).lambda)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDiscreteDistributionPoisson.class;
 	}
 }

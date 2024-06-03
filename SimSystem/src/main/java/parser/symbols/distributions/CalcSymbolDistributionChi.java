@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionChi extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"ChiDistribution","ChiDist","ChiVerteilung"};
+	private static final String[] names=new String[]{"ChiDist","ChiDistribution","ChiVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

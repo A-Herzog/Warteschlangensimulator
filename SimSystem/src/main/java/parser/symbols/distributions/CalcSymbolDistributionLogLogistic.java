@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionLogLogistic extends CalcSymbolDistribut
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"LogLogisticDistribution","LogLogisticDist","LogLogistischeverteilung"};
+	private static final String[] names=new String[]{"LogLogisticDist","LogLogisticDistribution","LogLogistischeverteilung"};
 
 	/**
 	 * Konstruktor der Klasse

@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.SawtoothLeftDistribution;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionSawtoothLeft;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link SawtoothLeftDistribution}
@@ -125,5 +127,10 @@ public class WrapperSawtoothLeftDistribution extends AbstractDistributionWrapper
 		if (Math.abs(((SawtoothLeftDistribution)distribution1).a-((SawtoothLeftDistribution)distribution2).a)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((SawtoothLeftDistribution)distribution1).b-((SawtoothLeftDistribution)distribution2).b)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionSawtoothLeft.class;
 	}
 }

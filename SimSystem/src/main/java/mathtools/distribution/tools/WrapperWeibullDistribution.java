@@ -22,6 +22,8 @@ import org.apache.commons.math3.util.FastMath;
 
 import mathtools.Functions;
 import mathtools.NumberTools;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionWeibull;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link WeibullDistribution}
@@ -145,5 +147,10 @@ public class WrapperWeibullDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((WeibullDistribution)distribution1).getShape()-((WeibullDistribution)distribution2).getShape())>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((WeibullDistribution)distribution1).getScale()-((WeibullDistribution)distribution2).getScale())>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionWeibull.class;
 	}
 }

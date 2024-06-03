@@ -124,4 +124,9 @@ public class WrapperOnePointDistribution extends AbstractDistributionWrapper {
 	protected boolean compareInt(final AbstractRealDistribution distribution1, final AbstractRealDistribution distribution2) {
 		return Math.abs(((OnePointDistributionImpl)distribution1).point-((OnePointDistributionImpl)distribution2).point)<=DistributionTools.MAX_ERROR;
 	}
+
+	@Override
+	protected String getCalcExpressionInt(final AbstractRealDistribution distribution) {
+		return NumberTools.formatNumberMax(((OnePointDistributionImpl)distribution).point);
+	}
 }

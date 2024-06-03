@@ -37,7 +37,7 @@ public class CalcSymbolDiscreteDistributionUniform extends CalcSymbolDiscreteDis
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"DiscreteUniformDistribution","DiscreteUniformDist","DiskreteGleichverteilung"};
+	private static final String[] names=new String[]{"DiscreteUniformDist","DiscreteUniformDistribution","DiskreteGleichverteilung"};
 
 	@Override
 	public String[] getNames() {

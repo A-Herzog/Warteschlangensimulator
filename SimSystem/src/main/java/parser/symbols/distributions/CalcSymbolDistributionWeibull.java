@@ -28,7 +28,7 @@ public final class CalcSymbolDistributionWeibull extends CalcSymbolDistribution 
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"WeibullDistribution","WeibullDist","WeibullVerteilung"};
+	private static final String[] names=new String[]{"WeibullDist","WeibullDistribution","WeibullVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

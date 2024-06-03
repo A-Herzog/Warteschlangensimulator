@@ -30,7 +30,7 @@ public final class CalcSymbolDistributionLogNormal extends CalcSymbolDistributio
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"LogNormalDistribution","LogNormalDist","LogNormalVerteilung"};
+	private static final String[] names=new String[]{"LogNormalDist","LogNormalDistribution","LogNormalVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

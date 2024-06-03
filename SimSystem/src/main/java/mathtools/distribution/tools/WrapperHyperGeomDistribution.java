@@ -18,6 +18,8 @@ package mathtools.distribution.tools;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDiscreteDistributionHyperGeom;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link DiscreteHyperGeomDistributionImpl}
@@ -119,5 +121,10 @@ public class WrapperHyperGeomDistribution extends AbstractDistributionWrapper {
 		if (((DiscreteHyperGeomDistributionImpl)distribution1).K!=((DiscreteHyperGeomDistributionImpl)distribution2).K) return false;
 		if (((DiscreteHyperGeomDistributionImpl)distribution1).n!=((DiscreteHyperGeomDistributionImpl)distribution2).n) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDiscreteDistributionHyperGeom.class;
 	}
 }

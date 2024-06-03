@@ -33,6 +33,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -185,6 +187,18 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 
 		inputEdit.setText(expression);
 		outputEdit.setText(calc(inputEdit.getText()));
+
+		new Timer().schedule(new TimerTask() {
+			@Override public void run() {inputEdit.requestFocus();}
+		},100);
+	}
+
+	/**
+	 * Liefert <code>true</code>, wenn der Rechenausdruck in dem Panel leer ist.
+	 * @return	Ist der aktuelle Rechenausdruck leer?
+	 */
+	public boolean isEmpty() {
+		return inputEdit.getText().isBlank();
 	}
 
 	/**
@@ -233,6 +247,58 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 	}
 
 	/**
+	 * Einzelner Rechenthread zur Erzeugung von Zufallszahlen
+	 * @see CalculatorWindowPageDistributions#randomNumbersIndicators()
+	 */
+	private static class RandomNumbersIndicatorsThread extends Thread {
+		/** Ausdruck, der wiederholt ausgewertet werden soll */
+		private final String expression;
+		/** Anzahl an Zufallszahlen, die in diesem Thread erzeugt werden sollen */
+		private final long count;
+		/** Statistikobjekt zur Erfassung der Daten / zur Ermittlung der Kenngrößen */
+		private StatisticsDataPerformanceIndicatorWithNegativeValues indicator;
+
+		/**
+		 * Konstruktor
+		 * @param expression	Ausdruck, der wiederholt ausgewertet werden soll
+		 * @param count	Anzahl an Zufallszahlen, die in diesem Thread erzeugt werden sollen
+		 * @param nr	1-basierte Nummer des Threads (zur Definition des Namens des Threads)
+		 */
+		public RandomNumbersIndicatorsThread(final String expression, final long count, final int nr) {
+			super("Random number generator thread "+nr);
+			this.expression=expression;
+			this.count=count;
+			this.indicator=null;
+		}
+
+		/**
+		 * Grenze zur Aufzeichnung von Histogramm-Daten
+		 */
+		private static final int distSize=1_000_000;
+
+		@Override
+		public void run() {
+			final ExpressionCalc calc=new ExpressionCalc(null);
+			calc.parse(expression);
+
+			indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(null,distSize,distSize);
+			try {
+				for (long i=0;i<count;i++) indicator.add(calc.calc());
+			} catch (MathCalcError e) {
+				indicator=null;
+			}
+		}
+
+		/**
+		 * Liefert das thread-lokale Statistikobjekt zur Erfassung der Daten / zur Ermittlung der Kenngrößen.
+		 * @return	Statistikobjekt zur Erfassung der Daten / zur Ermittlung der Kenngrößen
+		 */
+		public StatisticsDataPerformanceIndicatorWithNegativeValues getIndicator() {
+			return indicator;
+		}
+	}
+
+	/**
 	 * Erzeugt eine Reihe von Zufallszahlen bzw. wiederholten Auswertungen des Ausdrucks, ermittelt die Kenngrößen der Messreihe und zeigt diese an.
 	 * @param expression	Zu berechnender Ausdruck
 	 */
@@ -240,14 +306,21 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		final ExpressionCalc calc=buildExpressionCalc(expression);
 		if (calc==null) return;
 
-		final int distSize=1_000_000;
-		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(null,distSize,distSize);
-		try {
-			for (int i=0;i<commonCalculationRepeatCount.repeatCount;i++) indicator.add(calc.calc());
-		} catch (MathCalcError e) {
+		final long randomNumberCount=commonCalculationRepeatCount.repeatCount;
+		final int threadCount=Math.min(32,Runtime.getRuntime().availableProcessors());
+		final RandomNumbersIndicatorsThread[] threads=new RandomNumbersIndicatorsThread[threadCount];
+		for (int i=0;i<threads.length;i++) {
+			final long count=randomNumberCount/threads.length;
+			threads[i]=new RandomNumbersIndicatorsThread(expression,(i==threads.length-1)?(randomNumberCount-(threads.length-1)*count):count,i+1);
+		}
+		for (RandomNumbersIndicatorsThread thread: threads) thread.start();
+		for (RandomNumbersIndicatorsThread thread: threads) try {thread.join();} catch (InterruptedException e) {}
+		for (int i=0;i<threads.length;i++) if (threads[i].indicator==null) {
 			MsgBox.error(this,Language.tr("CalculatorDialog.Expression.CalcError.Info"),Language.tr("CalculatorDialog.Expression.CalcError"));
 			return;
 		}
+		final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=threads[0].indicator;
+		for (int i=1;i<threads.length;i++) indicator.add(threads[i].getIndicator());
 
 		final StringBuilder info=new StringBuilder();
 		info.append(String.format(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generated")+": %s",NumberTools.formatLong(indicator.getCount()))+"\n");
@@ -473,12 +546,15 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		popup.addSeparator();
 
 		final JPanel editorPanel=new JPanel();
+		editorPanel.setOpaque(false);
 		editorPanel.setLayout(new BoxLayout(editorPanel,BoxLayout.PAGE_AXIS));
 		editorPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.setOpaque(false);
 		line.add(Box.createHorizontalStrut(20));
 		final JLabel label=new JLabel(Language.tr("CalculatorDialog.RepeatedProcessResults.Info")+":");
 		line.add(label);
 		editorPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.setOpaque(false);
 		line.setBorder(BorderFactory.createEmptyBorder(0,25,0,0));
 		final JTextField editor=new JTextField(""+commonCalculationRepeatCount.repeatCount,10);
 		ModelElementBaseDialog.addUndoFeature(editor);

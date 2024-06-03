@@ -30,7 +30,7 @@ public final class CalcSymbolDistributionNormal extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"NormalDistribution","NormalDist","NormalVerteilung"};
+	private static final String[] names=new String[]{"NormalDist","NormalDistribution","NormalVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

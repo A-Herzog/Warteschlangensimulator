@@ -39,7 +39,7 @@ public class CalcSymbolDiscreteDistributionBinomial extends CalcSymbolDiscreteDi
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"BinomialDistribution","BinomialDist","BinomDistribution","BinomDist","BinomialVerteilung"};
+	private static final String[] names=new String[]{"BinomialDist","BinomialDistribution","BinomDistribution","BinomDist","BinomialVerteilung"};
 
 	@Override
 	public String[] getNames() {

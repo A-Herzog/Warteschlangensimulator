@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionHyperbolicSecant extends CalcSymbolDist
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"HyperbolicSecantDistribution","HyperbolicSecantDist","HyperbolicSecantVerteilung"};
+	private static final String[] names=new String[]{"HyperbolicSecantDist","HyperbolicSecantDistribution","HyperbolicSecantVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

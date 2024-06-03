@@ -39,7 +39,7 @@ public class CalcSymbolDiscreteDistributionHyperGeom extends CalcSymbolDiscreteD
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"HypergeometricDistribution","HypergeometricDist","HyperDistribution","HyperDist","HgDistribution","HgDist","HypergeometrischeVerteilung"};
+	private static final String[] names=new String[]{"HypergeometricDist","HypergeometricDistribution","HyperDistribution","HyperDist","HgDistribution","HgDist","HypergeometrischeVerteilung"};
 
 	@Override
 	public String[] getNames() {

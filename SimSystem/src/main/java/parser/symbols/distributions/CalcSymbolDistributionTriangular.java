@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionTriangular extends CalcSymbolDistributi
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"TriangularDistribution","TriangularDist","Dreiecksverteilung"};
+	private static final String[] names=new String[]{"TriangularDist","TriangularDistribution","Dreiecksverteilung"};
 
 	/**
 	 * Konstruktor der Klasse

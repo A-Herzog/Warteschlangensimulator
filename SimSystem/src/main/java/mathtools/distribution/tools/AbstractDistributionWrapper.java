@@ -15,11 +15,18 @@
  */
 package mathtools.distribution.tools;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
+
+import mathtools.NumberTools;
+import mathtools.distribution.AbstractDiscreteRealDistribution;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDiscreteDistribution;
+import parser.symbols.distributions.CalcSymbolDistribution;
 
 /**
  * Von dieser Klasse abgeleitete Klassen werden nur innerhalb von {@link DistributionTools} verwendet.
@@ -417,5 +424,83 @@ public abstract class AbstractDistributionWrapper {
 		if (!isForDistribution(distribution1)) return false;
 		if (!isForDistribution(distribution2)) return false;
 		return compareInt(distribution1,distribution2);
+	}
+
+	/**
+	 * Liefert den zu der Verteilung passenden Rechenausdruck.
+	 * @param distribution	Verteilung
+	 * @return	Rechenausdruck oder <code>null</code>, wenn zu der Verteilung kein Rechenausdruck ermittelt werden konnte
+	 */
+	public String getCalcExpression(final AbstractRealDistribution distribution) {
+		if (!isForDistribution(distribution)) return null;
+		return getCalcExpressionInt(distribution);
+	}
+
+	/**
+	 * Liefert die Klasse des zu der Verteilung gehörende Rechenausdrucks
+	 * @return	Rechenausdruck für die Verteilung
+	 */
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return null;
+	}
+
+	/**
+	 * Liefert die 1-basierenden Indices, über die über {@link #getParameter(AbstractRealDistribution, int)}
+	 * die Werte der Parameter abgefragt werden sollen.
+	 * @param parameterCount	Gesamtanzahl an Parametern
+	 * @return	Array mit den 1-basierenden Indices für {@link #getParameter(AbstractRealDistribution, int)} (die Funktion erwartet die Indices auch 1-basierend)
+	 */
+	protected int[] getDistributionParameterIndicesForCalculationExpression(final int parameterCount) {
+		final int[] result=new int[parameterCount];
+		for (int i=0;i<parameterCount;i++) result[i]=i+1;
+		return result;
+	}
+
+	/**
+	 * Liefert den zu der Verteilung passenden Rechenausdruck.
+	 * @param distribution	Verteilung (dass die Verteilung vom passenden Typ ist, wurde schon geprüft)
+	 * @return	Rechenausdruck oder <code>null</code>, wenn zu der Verteilung kein Rechenausdruck ermittelt werden konnte
+	 */
+	protected String getCalcExpressionInt(final AbstractRealDistribution distribution) {
+		final Class<? extends CalcSymbolPreOperator> calcSymbolClass=getCalcSymbolClass();
+		if (calcSymbolClass==null) return null;
+
+		final int parameterCount;
+		final String name;
+
+		if (distribution instanceof AbstractDiscreteRealDistribution) {
+			CalcSymbolDiscreteDistribution calcSymbol;
+			@SuppressWarnings("unchecked")
+			final Class<? extends CalcSymbolDiscreteDistribution> calcSymbolClassDiscrete=(Class<? extends CalcSymbolDiscreteDistribution>)calcSymbolClass;
+			try {
+				calcSymbol=calcSymbolClassDiscrete.getConstructor().newInstance();
+			} catch (InstantiationException|IllegalAccessException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException e) {
+				return null;
+			}
+			parameterCount=calcSymbol.parameterCount;
+			name=calcSymbol.getNames()[0];
+		} else {
+			CalcSymbolDistribution calcSymbol;
+			@SuppressWarnings("unchecked")
+			final Class<? extends CalcSymbolDistribution> calcSymbolClassDist=(Class<? extends CalcSymbolDistribution>)calcSymbolClass;
+			try {
+				calcSymbol=calcSymbolClassDist.getConstructor().newInstance();
+			} catch (InstantiationException|IllegalAccessException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException e) {
+				return null;
+			}
+			parameterCount=calcSymbol.parameterCount;
+			name=calcSymbol.getNames()[0];
+		}
+
+		final StringBuilder result=new StringBuilder();
+		result.append(name);
+		result.append("(");
+		final int[] indices=getDistributionParameterIndicesForCalculationExpression(parameterCount);
+		for (int i=0;i<indices.length;i++) {
+			if (i>0) result.append(";");
+			result.append(NumberTools.formatNumberMax(getParameterInt(distribution,indices[i])));
+		}
+		result.append(")");
+		return result.toString();
 	}
 }

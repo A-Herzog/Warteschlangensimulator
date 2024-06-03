@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionJohnsonSU extends CalcSymbolDistributio
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"JohnsonSUDistribution","JohnsonSUDist","JohnsonSUVerteilung"};
+	private static final String[] names=new String[]{"JohnsonSUDist","JohnsonSUDistribution","JohnsonSUVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

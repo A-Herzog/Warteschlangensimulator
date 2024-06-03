@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.FatigueLifeDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionFatigueLife;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link FatigueLifeDistributionImpl}
@@ -118,5 +120,10 @@ public class WrapperFatigueLifeDistribution extends AbstractDistributionWrapper 
 		if (Math.abs(((FatigueLifeDistributionImpl)distribution1).beta-((FatigueLifeDistributionImpl)distribution2).beta)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((FatigueLifeDistributionImpl)distribution1).gamma-((FatigueLifeDistributionImpl)distribution2).gamma)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionFatigueLife.class;
 	}
 }

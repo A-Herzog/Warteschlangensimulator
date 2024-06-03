@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.LogisticDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionLogistic;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link LogisticDistributionImpl}
@@ -122,5 +124,10 @@ public class WrapperLogisticDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((LogisticDistributionImpl)distribution1).mu-((LogisticDistributionImpl)distribution2).mu)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((LogisticDistributionImpl)distribution1).s-((LogisticDistributionImpl)distribution2).s)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionLogistic.class;
 	}
 }

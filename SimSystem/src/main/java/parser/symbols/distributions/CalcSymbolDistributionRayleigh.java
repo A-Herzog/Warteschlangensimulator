@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionRayleigh extends CalcSymbolDistribution
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"RayleighDistribution","RayleighDist","Rayleighverteilung"};
+	private static final String[] names=new String[]{"RayleighDist","RayleighDistribution","Rayleighverteilung"};
 
 	/**
 	 * Konstruktor der Klasse

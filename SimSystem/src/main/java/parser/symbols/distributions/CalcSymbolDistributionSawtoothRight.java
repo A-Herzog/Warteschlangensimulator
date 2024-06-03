@@ -29,7 +29,7 @@ public class CalcSymbolDistributionSawtoothRight extends CalcSymbolDistribution 
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"RightSawtoothDistribution","RightSawtoothDist","RechteSägezahnVerteilung"};
+	private static final String[] names=new String[]{"RightSawtoothDist","RightSawtoothDistribution","RechteSägezahnVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

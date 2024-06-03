@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionPareto extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"ParetoDistribution","ParetoDist","Paretoverteilung"};
+	private static final String[] names=new String[]{"ParetoDist","ParetoDistribution","Paretoverteilung"};
 
 	/**
 	 * Konstruktor der Klasse

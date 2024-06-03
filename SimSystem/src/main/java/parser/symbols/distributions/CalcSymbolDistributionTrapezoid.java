@@ -29,7 +29,7 @@ public class CalcSymbolDistributionTrapezoid extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"TrapezoidDistribution","TrapezoidDist","Trapezverteilung"};
+	private static final String[] names=new String[]{"TrapezoidDist","TrapezoidDistribution","Trapezverteilung"};
 
 	/**
 	 * Konstruktor der Klasse

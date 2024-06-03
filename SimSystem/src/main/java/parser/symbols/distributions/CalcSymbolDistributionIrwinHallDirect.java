@@ -29,7 +29,7 @@ public class CalcSymbolDistributionIrwinHallDirect extends CalcSymbolDistributio
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"IrwinHallDistributionDirect","IrwinHallDistDirect","IrwinHallVerteilungDirekt"};
+	private static final String[] names=new String[]{"IrwinHallDistDirect","IrwinHallDistributionDirect","IrwinHallVerteilungDirekt"};
 
 	/**
 	 * Konstruktor der Klasse

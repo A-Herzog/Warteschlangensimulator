@@ -29,7 +29,7 @@ public class CalcSymbolDistributionArcsine extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"ArcsineDistribution","ArcsineDist","ArcusSinusVerteilung"};
+	private static final String[] names=new String[]{"ArcsineDist","ArcsineDistribution","ArcusSinusVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

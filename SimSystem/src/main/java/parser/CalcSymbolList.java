@@ -136,6 +136,7 @@ import parser.symbols.distributions.CalcSymbolDistributionFrechet;
 import parser.symbols.distributions.CalcSymbolDistributionGamma;
 import parser.symbols.distributions.CalcSymbolDistributionGammaDirect;
 import parser.symbols.distributions.CalcSymbolDistributionGumbel;
+import parser.symbols.distributions.CalcSymbolDistributionGumbelDirect;
 import parser.symbols.distributions.CalcSymbolDistributionHalfNormal;
 import parser.symbols.distributions.CalcSymbolDistributionHyperbolicSecant;
 import parser.symbols.distributions.CalcSymbolDistributionInverseGaussian;
@@ -331,6 +332,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionLogLogistic());
 			addSymbol(new CalcSymbolDistributionPower());
 			addSymbol(new CalcSymbolDistributionGumbel());
+			addSymbol(new CalcSymbolDistributionGumbelDirect());
 			addSymbol(new CalcSymbolDistributionFatigueLife());
 			addSymbol(new CalcSymbolDistributionFrechet());
 			addSymbol(new CalcSymbolDistributionHyperbolicSecant());

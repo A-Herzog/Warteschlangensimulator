@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.StudentTDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionStudentT;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link StudentTDistributionImpl}
@@ -132,5 +134,10 @@ public class WrapperStudentTDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((StudentTDistributionImpl)distribution1).mu-((StudentTDistributionImpl)distribution2).mu)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((StudentTDistributionImpl)distribution1).nu-((StudentTDistributionImpl)distribution2).nu)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionStudentT.class;
 	}
 }

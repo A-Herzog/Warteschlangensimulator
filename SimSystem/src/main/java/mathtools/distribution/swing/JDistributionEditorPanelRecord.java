@@ -1174,7 +1174,7 @@ public abstract class JDistributionEditorPanelRecord {
 		public String[] getValues(AbstractRealDistribution distribution) {
 			return new String[] {
 					NumberTools.formatNumberMax(((org.apache.commons.math3.distribution.GumbelDistribution)distribution).getNumericalMean()),
-					NumberTools.formatNumberMax(Math.sqrt(((org.apache.commons.math3.distribution.GumbelDistribution)distribution).getNumericalVariance()))
+					NumberTools.formatNumberMax(NumberTools.reduceDigits(Math.sqrt(((org.apache.commons.math3.distribution.GumbelDistribution)distribution).getNumericalVariance()),14))
 			};
 		}
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-28 11:09+0200\n"
+"POT-Creation-Date: 2024-06-01 15:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1291,6 +1291,9 @@ msgstr "Calculation expression %d"
 
 msgid "CalculatorDialog.Tab.Distributions"
 msgstr "Probability distributions"
+
+msgid "CalculatorDialog.Tab.Distributions.ConvertToCalculationExpression"
+msgstr "Convert to calculation expression"
 
 msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers"
 msgstr "Generate random numbers"
@@ -6856,18 +6859,30 @@ msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution"
 msgstr "Gumbel distribution"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.DensityInfo"
-msgstr "<p>Calculates the value of the density of the Gumbel distribution at the location specified as the first parameter with the expected value and the standard deviation defined by parameters two and three.</p>"
+msgstr "<p>Calculates the value of the density of the Gumbel distribution at the location specified as the first parameter with location and scale defined by parameters two and three.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.DistributionFunctionInfo"
-msgstr "<p>Calculates the value of the distribution function of the Gumbel distribution at the location specified as the first parameter with the expected value and the standard deviation defined by parameters two and three.</p>"
+msgstr "<p>Calculates the value of the distribution function of the Gumbel distribution at the location specified as the first parameter with location and scale defined by parameters two and three.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberInfo"
-msgstr "<p>Generates a random number according to the Gumbel distribution with the expected value and the standard deviation defined by parameters one and two.</p>"
+msgstr "<p>Generates a random number according to the Gumbel distribution with location and scale defined by parameters one and two.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberRangeInfo"
 msgstr ""
 "<p>Generates a random number according to the Gumbel distribution with the expected value and the standard deviation defined by parameters three and four.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistributionDirect"
+msgstr "Gumbel distribution (direct characteristics)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistributionDirect.DensityInfo"
+msgstr "<p>Calculates the value of the density of the Gumbel distribution at the location specified as the first parameter with the expected value and the standard deviation defined by parameters two and three.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistributionDirect.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the Gumbel distribution at the location specified as the first parameter with the expected value and the standard deviation defined by parameters two and three.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistributionDirect.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Gumbel distribution with the expected value and the standard deviation defined by parameters one and two.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution"
 msgstr "Half normal distribution"

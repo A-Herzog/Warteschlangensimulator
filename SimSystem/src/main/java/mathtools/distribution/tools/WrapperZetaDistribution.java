@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.DiscreteZetaDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDiscreteDistributionZeta;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link DiscreteZetaDistributionImpl}
@@ -124,5 +126,10 @@ public class WrapperZetaDistribution extends AbstractDistributionWrapper {
 	protected boolean compareInt(AbstractRealDistribution distribution1, AbstractRealDistribution distribution2) {
 		if (Math.abs(((DiscreteZetaDistributionImpl)distribution1).s-((DiscreteZetaDistributionImpl)distribution2).s)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDiscreteDistributionZeta.class;
 	}
 }

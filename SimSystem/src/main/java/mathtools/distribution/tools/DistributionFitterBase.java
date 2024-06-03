@@ -298,16 +298,16 @@ public abstract class DistributionFitterBase {
 		for (double d: values[0]) maxValue=Math.max(d,maxValue);
 		maxValue=Math.ceil(maxValue);
 		int maxIndex=(int)Math.round(maxValue);
-		DataDistributionImpl distribution=new DataDistributionImpl(maxValue,maxIndex+1);
+		DataDistributionImpl distribution=new DataDistributionImpl(maxValue+1,maxIndex+1);
 		boolean hasFloat=false;
 		if (values.length==1) {
 			for (double d: values[0]) {
-				distribution.densityData[(int)Math.max(0,Math.min(Math.round(d),maxIndex))]++;
+				distribution.densityData[(int)Math.max(0,Math.min(Math.floor(d),maxIndex))]++;
 				if (Math.abs(Math.round(d)-d)>0.0001) hasFloat=true;
 			}
 		} else {
 			for (int i=0;i<Math.min(values[0].length,values[1].length);i++) {
-				distribution.densityData[(int)Math.max(0,Math.min(Math.round(values[0][i]),maxIndex))]=values[1][i];
+				distribution.densityData[(int)Math.max(0,Math.min(Math.floor(values[0][i]),maxIndex))]=values[1][i];
 				if (Math.abs(Math.round(values[0][i])-values[0][i])>0.0001) hasFloat=true;
 				if (Math.abs(Math.round(values[1][i])-values[1][i])>0.0001) hasFloat=true;
 			}

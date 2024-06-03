@@ -3889,7 +3889,7 @@ class SymbolsTests {
 		assertTrue(calc.parse()<0);
 		try {
 			result=calc.calc();
-			assertEquals(53.0/23.0,result,0.0001);
+			assertEquals(64.5/23.0,result,0.0001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -3971,7 +3971,7 @@ class SymbolsTests {
 		assertTrue(calc.parse()<0);
 		try {
 			result=calc.calc();
-			assertEquals(Math.sqrt(3.0812854442344038)/(53.0/23.0),result,0.0001);
+			assertEquals(Math.sqrt(3.0812854442344038)/(64.5/23.0),result,0.0001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}

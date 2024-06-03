@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.RayleighDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionRayleigh;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link RayleighDistributionImpl}
@@ -115,5 +117,10 @@ public class WrapperRayleighDistribution extends AbstractDistributionWrapper {
 	protected boolean compareInt(AbstractRealDistribution distribution1, AbstractRealDistribution distribution2) {
 		if (Math.abs(((RayleighDistributionImpl)distribution1).sigma-((RayleighDistributionImpl)distribution2).sigma)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionRayleigh.class;
 	}
 }

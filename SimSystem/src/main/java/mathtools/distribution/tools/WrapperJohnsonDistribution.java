@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.JohnsonDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionJohnsonSU;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link JohnsonDistributionImpl}
@@ -122,5 +124,10 @@ public class WrapperJohnsonDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((JohnsonDistributionImpl)distribution1).delta-((JohnsonDistributionImpl)distribution2).delta)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((JohnsonDistributionImpl)distribution1).lambda-((JohnsonDistributionImpl)distribution2).lambda)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionJohnsonSU.class;
 	}
 }

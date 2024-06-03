@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.PertDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionPert;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link PertDistributionImpl}
@@ -126,5 +128,10 @@ public class WrapperPertDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((PertDistributionImpl)distribution1).upperBound-((PertDistributionImpl)distribution2).upperBound)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((PertDistributionImpl)distribution1).mostLikely-((PertDistributionImpl)distribution2).mostLikely)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionPert.class;
 	}
 }

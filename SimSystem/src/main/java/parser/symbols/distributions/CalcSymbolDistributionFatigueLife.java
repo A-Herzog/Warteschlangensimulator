@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionFatigueLife extends CalcSymbolDistribut
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"FatigueLifeDistribution","FatigueLifeDist","FatigueLifeVerteilung"};
+	private static final String[] names=new String[]{"FatigueLifeDist","FatigueLifeDistribution","FatigueLifeVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

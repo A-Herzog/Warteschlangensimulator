@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionLaplace extends CalcSymbolDistribution 
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"LaplaceDistribution","LaplaceDist","Laplaceverteilung"};
+	private static final String[] names=new String[]{"LaplaceDist","LaplaceDistribution","Laplaceverteilung"};
 
 	/**
 	 * Konstruktor der Klasse

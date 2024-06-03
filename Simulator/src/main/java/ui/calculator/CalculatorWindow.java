@@ -161,7 +161,7 @@ public class CalculatorWindow extends JFrame {
 		pages=new ArrayList<>();
 		pages.add(calculator=new CalculatorWindowPageCalculator(this,tabs,initialExpression));
 		pages.add(new CalculatorWindowPagePlotter(tabs));
-		pages.add(distributions=new CalculatorWindowPageDistributions(this,tabs,initialDistribution));
+		pages.add(distributions=new CalculatorWindowPageDistributions(this,tabs,initialDistribution,s->setExpression(s)));
 		pages.add(new CalculatorWindowPageScript(this,tabs));
 
 		/* Dialog vorbereiten */

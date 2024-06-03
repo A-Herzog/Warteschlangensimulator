@@ -16,25 +16,27 @@
 package parser.symbols.distributions;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
+import org.apache.commons.math3.distribution.GumbelDistribution;
+import org.apache.commons.math3.util.FastMath;
 
-import mathtools.distribution.ReciprocalDistribution;
+import mathtools.distribution.OnePointDistributionImpl;
 
 /**
- * Reziproke Verteilung
+ * Gumbel-Verteilung
  * @author Alexander Herzog
- * @see ReciprocalDistribution
+ * @see GumbelDistribution
  */
-public class CalcSymbolDistributionReciprocal extends CalcSymbolDistribution {
+public final class CalcSymbolDistributionGumbelDirect extends CalcSymbolDistribution {
 	/**
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"ReciprocalDist","ReciprocalDistribution","ReziprokeVerteilung"};
+	private static final String[] names=new String[]{"GumbelDistDirect","GumbelDistributionDirect","GumbelVerteilungDirekt"};
 
 	/**
 	 * Konstruktor der Klasse
 	 */
-	public CalcSymbolDistributionReciprocal() {
+	public CalcSymbolDistributionGumbelDirect() {
 		/*
 		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
 		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
@@ -53,6 +55,18 @@ public class CalcSymbolDistributionReciprocal extends CalcSymbolDistribution {
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
-		return new ReciprocalDistribution(parameters[0],parameters[1]);
+		final double mean=parameters[0];
+		final double sd=parameters[1];
+
+		if (sd<=0) {
+			return new OnePointDistributionImpl(mean);
+		}
+
+		final double scale=sd*Math.sqrt(6)/Math.PI;
+		/* final double location=mean-scale*Gamma.GAMMA; /* Gamma.GAMMA == Euler–Mascheroni constant */
+		final double EULER = FastMath.PI / (2 * FastMath.E);
+		final double location=mean-scale*EULER; /* Gamma.GAMMA wäre zwar genauer, aber intern verwendet die Verteilung auch diese Näherung. Sonst gibt's also Rundungsprobleme. */
+
+		return new GumbelDistribution(location,scale);
 	}
 }

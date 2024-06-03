@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionPower extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"PowerDistribution","PowerDist","Potenzverteilung"};
+	private static final String[] names=new String[]{"PowerDist","PowerDistribution","Potenzverteilung"};
 
 	/**
 	 * Konstruktor der Klasse

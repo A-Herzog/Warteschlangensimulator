@@ -389,11 +389,17 @@ one of these probability distributions:
   <tr><td>PowerDist(x;a;b;c;1)</td><td>Calculates the cumulative distribution function at x</td></tr>
   <tr><td>PowerDist(a;b;c)</td><td>Generates a random number based on this distribution</td></tr>
   
-  <tr><td colspan="2"><b>Gumbel distribution with mean a and standard deviation b</b></td></tr>
+  <tr><td colspan="2"><b>Gumbel distribution with location a and scale b</b></td></tr>
   <tr><td>GumbelDist(x;a;b;0)</td><td>Calculates the probability density at x</td></tr>
   <tr><td>GumbelDist(x;a;b;1)</td><td>Calculates the cumulative distribution function at x</td></tr>
   <tr><td>GumbelDist(a;b)</td><td>Generates a random number based on this distribution</td></tr>
   <tr><td>GumbelDistRange(mi;max;a;b)</td><td>Generates a random number based on this distribution but limits the range of the value to min...max.</td></tr>
+  
+  <tr><td colspan="2"><b>Gumbel distribution with mean a and standard deviation b</b></td></tr>
+  <tr><td>GumbelDistDirect(x;a;b;0)</td><td>Calculates the probability density at x</td></tr>
+  <tr><td>GumbelDistDirect(x;a;b;1)</td><td>Calculates the cumulative distribution function at x</td></tr>
+  <tr><td>GumbelDistDirect(a;b)</td><td>Generates a random number based on this distribution</td></tr>
+  <tr><td>GumbelDistDirectRange(mi;max;a;b)</td><td>Generates a random number based on this distribution but limits the range of the value to min...max.</td></tr>
   
   <tr><td colspan="2"><b>Fatigue life distribution with location parameter mu, scale parameter beta and form parameter gamma</b></td></tr>
   <tr><td>FatigueLifeDist(x;mu;beta;gamma;0)</td><td>Calculates the probability density at x</td></tr>

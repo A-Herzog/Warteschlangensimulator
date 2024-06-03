@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.CauchyDistribution;
 
 import mathtools.NumberTools;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionCauchy;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link CauchyDistribution}
@@ -123,5 +125,10 @@ public class WrapperCauchyDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((CauchyDistribution)distribution1).getMedian()-((CauchyDistribution)distribution2).getMedian())>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((CauchyDistribution)distribution1).getScale()-((CauchyDistribution)distribution2).getScale())>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionCauchy.class;
 	}
 }

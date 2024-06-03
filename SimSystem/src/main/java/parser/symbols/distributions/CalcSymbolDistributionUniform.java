@@ -28,7 +28,7 @@ public final class CalcSymbolDistributionUniform extends CalcSymbolDistribution 
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"UniformDistribution","UniformDist","Gleichverteilung"};
+	private static final String[] names=new String[]{"UniformDist","UniformDistribution","Gleichverteilung"};
 
 	/**
 	 * Konstruktor der Klasse

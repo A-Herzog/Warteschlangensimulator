@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ChiSquaredDistribution;
 
 import mathtools.NumberTools;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionChiSquare;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link ChiSquaredDistribution}
@@ -138,5 +140,10 @@ public class WrapperChiSquaredDistribution extends AbstractDistributionWrapper {
 	protected boolean compareInt(AbstractRealDistribution distribution1, AbstractRealDistribution distribution2) {
 		if (Math.abs(((ChiSquaredDistribution)distribution1).getDegreesOfFreedom()-((ChiSquaredDistribution)distribution2).getDegreesOfFreedom())>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionChiSquare.class;
 	}
 }

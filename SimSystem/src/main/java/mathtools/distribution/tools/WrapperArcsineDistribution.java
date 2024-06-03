@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.ArcsineDistribution;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionArcsine;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link ArcsineDistribution}
@@ -141,5 +143,10 @@ public class WrapperArcsineDistribution  extends AbstractDistributionWrapper {
 		if (Math.abs(((ArcsineDistribution)distribution1).getSupportLowerBound()-((ArcsineDistribution)distribution2).getSupportLowerBound())>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((ArcsineDistribution)distribution1).getSupportUpperBound()-((ArcsineDistribution)distribution2).getSupportUpperBound())>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionArcsine.class;
 	}
 }

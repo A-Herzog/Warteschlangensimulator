@@ -28,7 +28,7 @@ public final class CalcSymbolDistributionGamma extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"GammaDistribution","GammaDist","GammaVerteilung","ErlangDistribution","ErlangDist","ErlangVerteilung"};
+	private static final String[] names=new String[]{"GammaDist","GammaDistribution","GammaVerteilung","ErlangDistribution","ErlangDist","ErlangVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

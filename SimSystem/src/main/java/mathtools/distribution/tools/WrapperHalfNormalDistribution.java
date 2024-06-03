@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.HalfNormalDistribution;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionHalfNormal;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link HalfNormalDistribution}
@@ -126,5 +128,10 @@ public class WrapperHalfNormalDistribution extends AbstractDistributionWrapper {
 	protected boolean compareInt(AbstractRealDistribution distribution1, AbstractRealDistribution distribution2) {
 		if (Math.abs(((HalfNormalDistribution)distribution1).mean-((HalfNormalDistribution)distribution2).mean)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionHalfNormal.class;
 	}
 }

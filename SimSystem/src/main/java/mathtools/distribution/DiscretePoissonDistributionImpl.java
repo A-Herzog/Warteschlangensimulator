@@ -17,7 +17,7 @@ package mathtools.distribution;
 
 import java.io.Serializable;
 
-import org.apache.commons.math3.special.Gamma;
+import org.apache.commons.math3.util.FastMath;
 
 /**
  * Kontinuierliche Darstellung der Poissonverteilung, siehe
@@ -44,14 +44,26 @@ public final class DiscretePoissonDistributionImpl extends AbstractDiscreteRealD
 	private final double[] densityCache;
 
 	/**
+	 * Berechnet lambda^k/k! (und vermeidet dabei Auslöschungen bei großen Werten k)
+	 * @param k	Wert k
+	 * @return	lambda^k/k!
+	 */
+	private double powerFactorial(final int k) {
+		/* FastMath.pow(lambda,k)/Functions.getFactorial(k) */
+		double d=1;
+		for (int i=1;i<=k;i++) d*=lambda/i;
+		return d;
+	}
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param lambda	Verteilungsparameter &lambda;
 	 */
 	public DiscretePoissonDistributionImpl(final double lambda) {
 		if (lambda<=0) this.lambda=0.001; else this.lambda=lambda;
 
-		densityCache=new double[Math.min(2000,2*(int)Math.ceil(lambda))];
-		for (int k=0;k<densityCache.length;k++) densityCache[k]=Gamma.regularizedGammaQ(k+1,lambda);
+		densityCache=new double[Math.min(2000,2*(int)Math.ceil(this.lambda))];
+		for (int k=0;k<densityCache.length;k++) densityCache[k]=powerFactorial(k)*FastMath.exp(-this.lambda);
 	}
 
 	/**
@@ -67,7 +79,7 @@ public final class DiscretePoissonDistributionImpl extends AbstractDiscreteRealD
 		if (k<0) return 0;
 		if (k<densityCache.length) return densityCache[k];
 
-		return Gamma.regularizedGammaQ(k+1,lambda);
+		return powerFactorial(k)*FastMath.exp(-this.lambda)*FastMath.exp(-lambda);
 	}
 
 	@Override

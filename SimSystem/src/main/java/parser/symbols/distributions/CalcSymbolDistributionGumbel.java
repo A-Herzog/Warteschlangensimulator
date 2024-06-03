@@ -28,7 +28,7 @@ public final class CalcSymbolDistributionGumbel extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"GumbelDistribution","GumbelDist","GumbelVerteilung"};
+	private static final String[] names=new String[]{"GumbelDist","GumbelDistribution","GumbelVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

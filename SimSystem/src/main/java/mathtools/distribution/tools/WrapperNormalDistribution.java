@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 
 import mathtools.NumberTools;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionNormal;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link NormalDistribution}
@@ -127,5 +129,10 @@ public class WrapperNormalDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((NormalDistribution)distribution1).getMean()-((NormalDistribution)distribution2).getMean())>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((NormalDistribution)distribution1).getStandardDeviation()-((NormalDistribution)distribution2).getStandardDeviation())>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionNormal.class;
 	}
 }

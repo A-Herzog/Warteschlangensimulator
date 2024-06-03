@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.FDistribution;
 
 import mathtools.NumberTools;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionF;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link FDistribution}
@@ -151,5 +153,10 @@ public class WrapperFDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((FDistribution)distribution1).getNumeratorDegreesOfFreedom()-((FDistribution)distribution2).getNumeratorDegreesOfFreedom())>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((FDistribution)distribution1).getDenominatorDegreesOfFreedom()-((FDistribution)distribution2).getDenominatorDegreesOfFreedom())>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionF.class;
 	}
 }

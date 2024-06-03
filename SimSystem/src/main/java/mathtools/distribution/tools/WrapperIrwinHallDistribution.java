@@ -18,6 +18,8 @@ package mathtools.distribution.tools;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.distribution.IrwinHallDistribution;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionIrwinHall;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link IrwinHallDistribution}
@@ -135,5 +137,10 @@ public class WrapperIrwinHallDistribution extends AbstractDistributionWrapper {
 	protected boolean compareInt(final AbstractRealDistribution distribution1, final AbstractRealDistribution distribution2) {
 		if (Math.abs(((IrwinHallDistribution)distribution1).n-((IrwinHallDistribution)distribution2).n)>0) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionIrwinHall.class;
 	}
 }

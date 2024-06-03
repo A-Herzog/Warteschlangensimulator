@@ -29,7 +29,7 @@ public class CalcSymbolDistributionLevy extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"LevyDistribution","LevyDist","LevyVerteilung"};
+	private static final String[] names=new String[]{"LevyDist","LevyDistribution","LevyVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

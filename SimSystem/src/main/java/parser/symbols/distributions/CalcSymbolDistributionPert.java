@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionPert extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"PertDistribution","PertDist","Pertverteilung"};
+	private static final String[] names=new String[]{"PertDist","PertDistribution","Pertverteilung"};
 
 	/**
 	 * Konstruktor der Klasse

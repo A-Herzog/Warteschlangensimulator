@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.ReciprocalDistribution;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionReciprocal;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link ReciprocalDistribution}
@@ -128,4 +130,8 @@ public class WrapperReciprocalDistribution  extends AbstractDistributionWrapper 
 		return true;
 	}
 
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionReciprocal.class;
+	}
 }

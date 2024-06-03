@@ -28,7 +28,7 @@ public final class CalcSymbolDistributionChiSquare extends CalcSymbolDistributio
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"ChiSquareDistribution","ChiSquareDist","ChiQuadratVerteilung"};
+	private static final String[] names=new String[]{"ChiSquareDist","ChiSquareDistribution","ChiQuadratVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

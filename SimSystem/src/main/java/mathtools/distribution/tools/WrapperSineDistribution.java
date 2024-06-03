@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.SineDistribution;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionSine;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link SineDistribution}
@@ -141,5 +143,10 @@ public class WrapperSineDistribution  extends AbstractDistributionWrapper {
 		if (Math.abs(((SineDistribution)distribution1).getSupportLowerBound()-((SineDistribution)distribution2).getSupportLowerBound())>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((SineDistribution)distribution1).getSupportUpperBound()-((SineDistribution)distribution2).getSupportUpperBound())>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionSine.class;
 	}
 }

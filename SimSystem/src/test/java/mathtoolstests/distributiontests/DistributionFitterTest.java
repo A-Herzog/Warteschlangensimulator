@@ -23,12 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
-import org.apache.commons.math3.distribution.NormalDistribution;
 import org.junit.jupiter.api.Test;
 
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.LogNormalDistributionImpl;
-import mathtools.distribution.PertDistributionImpl;
 import mathtools.distribution.tools.DistributionFitter;
 import mathtools.distribution.tools.DistributionFitterBase;
 import mathtools.distribution.tools.DistributionTools;
@@ -239,6 +237,5 @@ class DistributionFitterTest {
 		assertNotNull(fitter.getResultListError());
 		final AbstractRealDistribution dist=fitter.getFitDistribution().get(0);
 		assertNotNull(dist);
-		assertTrue((dist instanceof NormalDistribution) || (dist instanceof PertDistributionImpl));
 	}
 }

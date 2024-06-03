@@ -21,6 +21,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import mathtools.NumberTools;
 import mathtools.distribution.OnePointDistributionImpl;
+import parser.symbols.distributions.CalcSymbolDistributionGammaDirect;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link GammaDistribution}
@@ -150,5 +151,20 @@ public class WrapperGammaDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((GammaDistribution)distribution1).getShape()-((GammaDistribution)distribution2).getShape())>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((GammaDistribution)distribution1).getScale()-((GammaDistribution)distribution2).getScale())>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected String getCalcExpressionInt(final AbstractRealDistribution distribution) {
+		final String name=new CalcSymbolDistributionGammaDirect().getNames()[0];
+		final GammaDistribution dist=(GammaDistribution)distribution;
+
+		final StringBuilder result=new StringBuilder();
+		result.append(name);
+		result.append("(");
+		result.append(NumberTools.formatNumberMax(dist.getNumericalMean()));
+		result.append(";");
+		result.append(NumberTools.formatNumberMax(Math.sqrt(dist.getNumericalVariance())));
+		result.append(")");
+		return result.toString();
 	}
 }

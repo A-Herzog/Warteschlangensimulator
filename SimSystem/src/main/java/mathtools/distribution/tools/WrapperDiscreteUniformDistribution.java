@@ -18,6 +18,8 @@ package mathtools.distribution.tools;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.distribution.DiscreteUniformDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDiscreteDistributionUniform;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link DiscreteUniformDistributionImpl}
@@ -137,5 +139,10 @@ public class WrapperDiscreteUniformDistribution extends AbstractDistributionWrap
 		if (((DiscreteUniformDistributionImpl)distribution1).a!=((DiscreteUniformDistributionImpl)distribution2).a) return false;
 		if (((DiscreteUniformDistributionImpl)distribution1).b!=((DiscreteUniformDistributionImpl)distribution2).b) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDiscreteDistributionUniform.class;
 	}
 }

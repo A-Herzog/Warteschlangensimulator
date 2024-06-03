@@ -28,7 +28,7 @@ public final class CalcSymbolDistributionExp extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"ExpDistribution","ExpDist","ExpVerteilung","Expo"};
+	private static final String[] names=new String[]{"ExpDist","ExpDistribution","ExpVerteilung","Expo"};
 
 	/**
 	 * Konstruktor der Klasse

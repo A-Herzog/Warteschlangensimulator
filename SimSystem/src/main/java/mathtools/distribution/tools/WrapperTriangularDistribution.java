@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.TriangularDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionTriangular;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link TriangularDistributionImpl}
@@ -126,5 +128,10 @@ public class WrapperTriangularDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((TriangularDistributionImpl)distribution1).upperBound-((TriangularDistributionImpl)distribution2).upperBound)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((TriangularDistributionImpl)distribution1).mostLikelyX-((TriangularDistributionImpl)distribution2).mostLikelyX)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionTriangular.class;
 	}
 }

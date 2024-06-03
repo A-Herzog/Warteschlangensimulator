@@ -31,6 +31,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
+import java.util.function.Consumer;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -85,9 +86,14 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 	 */
 	private final Window window;
 
-	/** Wahrscheinlichkeitsverteilungsplotter */
+	/**
+	 * Wahrscheinlichkeitsverteilungsplotter
+	 */
 	private final JDistributionPanel distributionPlotter;
-	/** Eingabefelder für den Wahrscheinlichkeitsverteilungsplotter */
+
+	/**
+	 * Eingabefelder für den Wahrscheinlichkeitsverteilungsplotter
+	 */
 	private final JDistributionEditorPanel distributionEditor;
 
 	/**
@@ -100,14 +106,21 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 	private long randomNumberCount;
 
 	/**
+	 * Callback, um einen Rechenausdruck auf der Rechnerseite des Dialogs einzustellen
+	 */
+	private final Consumer<String> setCalculationExpression;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param window	Gesamtes Fenster
 	 * @param tabs	Tabs-Element in das dieses Tab eingefügt werden soll
 	 * @param initialDistribution	Initial auszuwählende Verteilung (kann <code>null</code> sein)
+	 * @param setCalculationExpression	Callback, um einen Rechenausdruck auf der Rechnerseite des Dialogs einzustellen
 	 */
-	public CalculatorWindowPageDistributions(final Window window, final JTabbedPane tabs, final AbstractDistributionWrapper initialDistribution) {
+	public CalculatorWindowPageDistributions(final Window window, final JTabbedPane tabs, final AbstractDistributionWrapper initialDistribution, final Consumer<String> setCalculationExpression) {
 		super(tabs);
 		this.window=window;
+		this.setCalculationExpression=setCalculationExpression;
 
 		randomNumberCount=1_000_000;
 
@@ -118,8 +131,12 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		toolbar.setFloatable(false);
 		toolbar.add(button=new JButton(Language.tr("CalculatorDialog.Tab.Distributions.GenerateTable"),Images.GENERAL_TABLE.getIcon()));
 		button.addActionListener(e->showGenerateTablePopup((JButton)e.getSource()));
-		toolbar.add(button=new JButton(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers"),Images.EXTRAS_CALCULATOR.getIcon()));
+		toolbar.add(button=new JButton(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers"),Images.GENERAL_TOOLS.getIcon()));
 		button.addActionListener(e->showGenerateRandomNumbersPopup((JButton)e.getSource()));
+		if (setCalculationExpression!=null) {
+			toolbar.add(button=new JButton(Language.tr("CalculatorDialog.Tab.Distributions.ConvertToCalculationExpression"),Images.EXTRAS_CALCULATOR.getIcon()));
+			button.addActionListener(e->getCalculationExpression());
+		}
 
 		/* Wahrscheinlichkeitsverteilungsplotter */
 		add(distributionPlotter=new JDistributionPanel(new ExponentialDistribution(100),200,false),BorderLayout.CENTER);
@@ -517,5 +534,14 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		final TableChart tableChart=buildTableChart();
 		if (tableChart==null) return false;
 		return tableChart.save(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.FrequencyDistribution"),file);
+	}
+
+	/**
+	 * Ermittelt den zu der Verteilung mit den aktuellen Parametern gehörenden Rechenausdruck und liefert diesen
+	 * über das {@link #setCalculationExpression} Callback zurück.
+	 */
+	private void getCalculationExpression() {
+		final String expression=DistributionTools.getCalculationExpression(distributionEditor.getDistribution());
+		if (expression!=null) setCalculationExpression.accept(expression);
 	}
 }

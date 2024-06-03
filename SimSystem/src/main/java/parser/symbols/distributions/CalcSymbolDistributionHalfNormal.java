@@ -29,7 +29,7 @@ public class CalcSymbolDistributionHalfNormal extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"HalfNormalDistribution","HalfNormalDist","HalbeNormalVerteilung"};
+	private static final String[] names=new String[]{"HalfNormalDist","HalfNormalDistribution","HalbeNormalVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

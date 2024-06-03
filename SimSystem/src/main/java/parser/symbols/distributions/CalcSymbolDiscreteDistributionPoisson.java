@@ -17,8 +17,6 @@ package parser.symbols.distributions;
 
 import org.apache.commons.math3.util.FastMath;
 
-import mathtools.Functions;
-
 /**
  * Poisson-Verteilung
  * @author Alexander Herzog
@@ -29,7 +27,7 @@ public class CalcSymbolDiscreteDistributionPoisson extends CalcSymbolDiscreteDis
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"PoissonDistribution","PoissonDist","PoissonVerteilung"};
+	private static final String[] names=new String[]{"PoissonDist","PoissonDistribution","PoissonVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse
@@ -51,12 +49,26 @@ public class CalcSymbolDiscreteDistributionPoisson extends CalcSymbolDiscreteDis
 		return 1;
 	}
 
+	/**
+	 * Berechnet lambda^k/k! (und vermeidet dabei Auslöschungen bei großen Werten k)
+	 * @param lambda	Wert lambda
+	 * @param k	Wert k
+	 * @return	lambda^k/k!
+	 */
+	private double powerFactorial(final double lambda, final int k) {
+		/* FastMath.pow(lambda,k)/Functions.getFactorial(k) */
+		double d=1;
+		for (int i=1;i<=k;i++) d*=lambda/i;
+		return d;
+	}
+
+
 	@Override
 	protected double calcProbability(double[] parameters, int k) {
 		final double lambda=parameters[0];
 
 		if (lambda<=0) return -1;
 
-		return FastMath.pow(lambda,k)/Functions.getFactorial(k)*FastMath.exp(-lambda);
+		return powerFactorial(lambda,k)*FastMath.exp(-lambda);
 	}
 }

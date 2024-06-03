@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.MaxwellBoltzmannDistribution;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionMaxwellBoltzmann;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link MaxwellBoltzmannDistribution}
@@ -121,5 +123,10 @@ public class WrapperMaxwellBoltzmannDistribution extends AbstractDistributionWra
 	protected boolean compareInt(AbstractRealDistribution distribution1, AbstractRealDistribution distribution2) {
 		if (Math.abs(((MaxwellBoltzmannDistribution)distribution1).a-((MaxwellBoltzmannDistribution)distribution2).a)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionMaxwellBoltzmann.class;
 	}
 }

@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.FrechetDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionFrechet;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link FrechetDistributionImpl}
@@ -119,5 +121,10 @@ public class WrapperFrechetDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((FrechetDistributionImpl)distribution1).beta-((FrechetDistributionImpl)distribution2).beta)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((FrechetDistributionImpl)distribution1).alpha-((FrechetDistributionImpl)distribution2).alpha)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionFrechet.class;
 	}
 }

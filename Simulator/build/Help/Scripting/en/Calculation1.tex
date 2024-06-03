@@ -1194,7 +1194,7 @@ Generates a random number based on this distribution.
 
 
 
-\section{Gumbel distribution with expected value \texorpdfstring{$a$}{a} and standard deviation \texorpdfstring{$b$}{b}}
+\section{Gumbel distribution with location \texorpdfstring{$a$}{a} and scale \texorpdfstring{$b$}{b}}
 
 \begin{itemize}
 
@@ -1213,6 +1213,26 @@ Generates a random number based on this distribution.
 \item
 \cmd{GumbelDistRange(min;max;a;b)}:
 Generates a random number based on this distribution but limits the range of the value to $min\ldots max$.
+
+\end{itemize}
+
+
+
+\section{Gumbel distribution with expected value \texorpdfstring{$a$}{a} and standard deviation \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{GumbelDistDirect(x;a;b;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{GumbelDistDirect(x;a;b;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{GumbelDistDirect(a;b)}:
+Generates a random number based on this distribution.
 
 \end{itemize}
 

@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionInverseGaussian extends CalcSymbolDistr
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"InverseGaussianDistribution","InverseGaussianDist","InverseGaussVerteilung"};
+	private static final String[] names=new String[]{"InverseGaussianDist","InverseGaussianDistribution","InverseGaussVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

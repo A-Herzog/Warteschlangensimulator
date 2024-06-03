@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.PowerDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionPower;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link PowerDistributionImpl}
@@ -136,5 +138,10 @@ public class WrapperPowerDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((PowerDistributionImpl)distribution1).b-((PowerDistributionImpl)distribution2).b)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((PowerDistributionImpl)distribution1).c-((PowerDistributionImpl)distribution2).c)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionPower.class;
 	}
 }

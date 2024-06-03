@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.KumaraswamyDistribution;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionKumaraswamy;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link KumaraswamyDistribution}
@@ -137,5 +139,10 @@ public class WrapperKumaraswamyDistribution extends AbstractDistributionWrapper 
 		if (Math.abs(((KumaraswamyDistribution)distribution1).c-((KumaraswamyDistribution)distribution2).c)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((KumaraswamyDistribution)distribution1).d-((KumaraswamyDistribution)distribution2).d)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionKumaraswamy.class;
 	}
 }

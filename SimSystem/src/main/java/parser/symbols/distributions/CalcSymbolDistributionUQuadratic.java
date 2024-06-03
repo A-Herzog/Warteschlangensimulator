@@ -29,7 +29,7 @@ public class CalcSymbolDistributionUQuadratic extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"UQuadraticDistribution","UQuadraticDist","UQuadratischeVerteilung"};
+	private static final String[] names=new String[]{"UQuadraticDist","UQuadraticDistribution","UQuadratischeVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

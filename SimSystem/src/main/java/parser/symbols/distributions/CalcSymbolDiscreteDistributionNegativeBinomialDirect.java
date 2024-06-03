@@ -37,7 +37,7 @@ public class CalcSymbolDiscreteDistributionNegativeBinomialDirect extends CalcSy
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"NegativeBinomialDistributionDirect","NegativeBinomialDistDirect","NegativeBinomDistributionDirect","NegativeBinomDistDirect","NegativeBinomialVerteilungDirekt"};
+	private static final String[] names=new String[]{"NegativeBinomialDistDirect","NegativeBinomialDistributionDirect","NegativeBinomDistributionDirect","NegativeBinomDistDirect","NegativeBinomialVerteilungDirekt"};
 
 	@Override
 	public String[] getNames() {

@@ -34,7 +34,7 @@ public abstract class CalcSymbolDistribution extends CalcSymbolPreOperator {
 	 * Anzahl an Parametern der Wahrscheinlichkeitsverteilung
 	 * @see #getParameterCount()
 	 */
-	private final int parameterCount;
+	public final int parameterCount;
 
 	/**
 	 * Array mit den konkreten Verteilungsparametern

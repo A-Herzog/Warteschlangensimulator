@@ -669,7 +669,7 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 	 */
 	@Override
 	public double random(final RandomGenerator generator) {
-		/* return inverseCumulativeProbabilityWithOutThrowsAndChecks(rnd.nextDouble()); */
+		/* return inverseCumulativeProbabilityWithOutThrowsAndChecks(generator.nextDouble()); */
 
 		double p=generator.nextDouble();
 
@@ -1057,7 +1057,7 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 		double scale=1/argumentScaleFactor;
 		for (int i=0;i<densityData.length;i++) {
 			densitySum+=densityData[i];
-			sum+=densityData[i]*(scale*i);
+			sum+=densityData[i]*(scale*(i+0.5));
 		}
 		if (densitySum==0.0) return 0.0;
 		sum/=densitySum;
@@ -1114,7 +1114,7 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 		double scale=1/argumentScaleFactor;
 		for (int i=0;i<densityData.length;i++) {
 			densitySum+=densityData[i];
-			sum+=densityData[i]*(scale*i)*(scale*i);
+			sum+=densityData[i]*(scale*(i+0.5))*(scale*(i+0.5));
 		}
 		if (densitySum==0.0) return 0.0;
 		sum/=densitySum;
@@ -1133,7 +1133,7 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 		double scale=1/argumentScaleFactor;
 		for (int i=0;i<densityData.length;i++) {
 			densitySum+=densityData[i];
-			sum+=densityData[i]*(scale*i)*(scale*i)*(scale*i);
+			sum+=densityData[i]*(scale*(i+0.5))*(scale*(i+0.5))*(scale*(i+0.5));
 		}
 		if (densitySum==0.0) return 0.0;
 		sum/=densitySum;

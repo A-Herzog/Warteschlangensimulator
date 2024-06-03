@@ -39,7 +39,7 @@ public class CalcSymbolDiscreteDistributionNegativeHyperGeom extends CalcSymbolD
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"NegativeHypergeometricDistribution","NegativeHypergeometricDist","NegativeHyperDistribution","NegativeHyperDist","NHgDistribution","NHgDist","NegativeHypergeometrischeVerteilung"};
+	private static final String[] names=new String[]{"NegativeHypergeometricDist","NegativeHypergeometricDistribution","NegativeHyperDistribution","NegativeHyperDist","NHgDistribution","NHgDist","NegativeHypergeometrischeVerteilung"};
 
 	@Override
 	public String[] getNames() {

@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ExponentialDistribution;
 
 import mathtools.NumberTools;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionExp;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link ExponentialDistribution}
@@ -122,5 +124,10 @@ public class WrapperExponentialDistribution extends AbstractDistributionWrapper 
 	@Override
 	protected boolean compareInt(AbstractRealDistribution distribution1, AbstractRealDistribution distribution2) {
 		return Math.abs(((ExponentialDistribution)distribution1).getMean()-((ExponentialDistribution)distribution2).getMean())<=DistributionTools.MAX_ERROR;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionExp.class;
 	}
 }

@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDiscreteDistributionBinomial;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link DiscreteBinomialDistributionImpl}
@@ -141,5 +143,15 @@ public class WrapperBinomialDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((DiscreteBinomialDistributionImpl)distribution1).p-((DiscreteBinomialDistributionImpl)distribution2).p)>DistributionTools.MAX_ERROR) return false;
 		if (((DiscreteBinomialDistributionImpl)distribution1).n!=((DiscreteBinomialDistributionImpl)distribution2).n) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDiscreteDistributionBinomial.class;
+	}
+
+	@Override
+	protected int[] getDistributionParameterIndicesForCalculationExpression(final int parameterCount) {
+		return new int[] {2,1};
 	}
 }

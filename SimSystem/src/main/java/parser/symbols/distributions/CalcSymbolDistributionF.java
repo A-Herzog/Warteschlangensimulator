@@ -28,7 +28,7 @@ public final class CalcSymbolDistributionF extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"FDistribution","FDist","FVerteilung"};
+	private static final String[] names=new String[]{"FDist","FDistribution","FVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

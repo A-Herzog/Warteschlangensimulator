@@ -90,7 +90,10 @@ public class CalculatorWindowPageCalculator extends CalculatorWindowPage {
 	 * @param expression	Neuer Rechenausdruck
 	 */
 	public void setExpression(final String expression) {
-		calculationPanel[0].setExpression(expression);
+		int index=calculationPanel.length-1;
+		for (int i=0;i<calculationPanel.length;i++) if (calculationPanel[i].isEmpty()) {index=i; break;}
+		calculationPanel[index].setExpression(expression);
+
 		showPage();
 	}
 }

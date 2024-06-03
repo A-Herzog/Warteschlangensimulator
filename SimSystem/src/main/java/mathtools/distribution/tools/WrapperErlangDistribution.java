@@ -159,4 +159,17 @@ public class WrapperErlangDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((ErlangDistributionImpl)distribution1).getScale()-((ErlangDistributionImpl)distribution2).getScale())>DistributionTools.MAX_ERROR) return false;
 		return true;
 	}
+
+	@Override
+	protected String getCalcExpressionInt(final AbstractRealDistribution distribution) {
+		final ErlangDistributionImpl dist=(ErlangDistributionImpl)distribution;
+		final StringBuilder result=new StringBuilder();
+		result.append("ErlangDist");
+		result.append("(");
+		result.append(NumberTools.formatNumberMax(dist.getShape()));
+		result.append(";");
+		result.append(NumberTools.formatNumberMax(dist.getScale()));
+		result.append(")");
+		return result.toString();
+	}
 }

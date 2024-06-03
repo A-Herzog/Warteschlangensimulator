@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.UniformRealDistribution;
 
 import mathtools.NumberTools;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionUniform;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link UniformRealDistribution}
@@ -141,5 +143,10 @@ public class WrapperUniformRealDistribution extends AbstractDistributionWrapper 
 		if (Math.abs(((UniformRealDistribution)distribution1).getSupportLowerBound()-((UniformRealDistribution)distribution2).getSupportLowerBound())>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((UniformRealDistribution)distribution1).getSupportUpperBound()-((UniformRealDistribution)distribution2).getSupportUpperBound())>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionUniform.class;
 	}
 }

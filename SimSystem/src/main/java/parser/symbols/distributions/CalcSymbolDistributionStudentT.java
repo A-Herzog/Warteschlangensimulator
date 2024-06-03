@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionStudentT extends CalcSymbolDistribution
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"StudentTDistribution","StudentTDist","StudentTVerteilung"};
+	private static final String[] names=new String[]{"StudentTDist","StudentTDistribution","StudentTVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

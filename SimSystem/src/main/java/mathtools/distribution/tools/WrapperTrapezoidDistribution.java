@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.TrapezoidDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionTrapezoid;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link TrapezoidDistributionImpl}
@@ -161,5 +163,10 @@ public class WrapperTrapezoidDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((TrapezoidDistributionImpl)distribution1).c-((TrapezoidDistributionImpl)distribution2).c)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((TrapezoidDistributionImpl)distribution1).d-((TrapezoidDistributionImpl)distribution2).d)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionTrapezoid.class;
 	}
 }

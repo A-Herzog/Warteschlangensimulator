@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.ParetoDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionPareto;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link ParetoDistributionImpl}
@@ -130,5 +132,10 @@ public class WrapperParetoDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((ParetoDistributionImpl)distribution1).xmin-((ParetoDistributionImpl)distribution2).xmin)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((ParetoDistributionImpl)distribution1).alpha-((ParetoDistributionImpl)distribution2).alpha)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionPareto.class;
 	}
 }

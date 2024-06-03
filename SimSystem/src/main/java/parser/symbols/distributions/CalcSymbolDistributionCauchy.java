@@ -28,7 +28,7 @@ public final class CalcSymbolDistributionCauchy extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"CauchyDistribution","CauchyDist","CauchyVerteilung"};
+	private static final String[] names=new String[]{"CauchyDist","CauchyDistribution","CauchyVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

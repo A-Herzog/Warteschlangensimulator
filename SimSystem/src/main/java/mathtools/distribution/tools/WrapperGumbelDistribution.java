@@ -21,6 +21,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import mathtools.NumberTools;
 import mathtools.distribution.ExtBetaDistributionImpl;
+import parser.symbols.distributions.CalcSymbolDistributionGumbelDirect;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link GumbelDistribution}
@@ -129,5 +130,20 @@ public class WrapperGumbelDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((GumbelDistribution)distribution1).getLocation()-((GumbelDistribution)distribution2).getLocation())>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((GumbelDistribution)distribution1).getScale()-((GumbelDistribution)distribution2).getScale())>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected String getCalcExpressionInt(final AbstractRealDistribution distribution) {
+		final String name=new CalcSymbolDistributionGumbelDirect().getNames()[0];
+		final GumbelDistribution dist=(GumbelDistribution)distribution;
+
+		final StringBuilder result=new StringBuilder();
+		result.append(name);
+		result.append("(");
+		result.append(NumberTools.formatNumberMax(dist.getNumericalMean()));
+		result.append(";");
+		result.append(NumberTools.formatNumberMax(NumberTools.reduceDigits(Math.sqrt(dist.getNumericalVariance()),14)));
+		result.append(")");
+		return result.toString();
 	}
 }

@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionBeta extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"BetaDistribution","BetaDist","BetaVerteilung"};
+	private static final String[] names=new String[]{"BetaDist", "BetaDistribution","BetaVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

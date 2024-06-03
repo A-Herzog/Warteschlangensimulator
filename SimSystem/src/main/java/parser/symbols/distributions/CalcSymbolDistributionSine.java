@@ -29,7 +29,7 @@ public class CalcSymbolDistributionSine extends CalcSymbolDistribution {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"SineDistribution","SineDist","SinusVerteilung"};
+	private static final String[] names=new String[]{"SineDist","SineDistribution","SinusVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

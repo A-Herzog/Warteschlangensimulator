@@ -17,7 +17,9 @@ package mathtools.distribution.tools;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
+import mathtools.NumberTools;
 import mathtools.distribution.DataDistributionImpl;
+import parser.symbols.distributions.CalcSymbolEmpiricalDistributionRandom;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link DataDistributionImpl}
@@ -121,5 +123,22 @@ public class WrapperDataDistribution extends AbstractDistributionWrapper {
 		if (data1.densityData.length!=data2.densityData.length) return false;
 		for (int i=0;i<data1.densityData.length;i++) if (Math.abs(data1.densityData[i]-data2.densityData[i])>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected String getCalcExpressionInt(final AbstractRealDistribution distribution) {
+		final String name=new CalcSymbolEmpiricalDistributionRandom().getNames()[0];
+		final DataDistributionImpl dataDist=(DataDistributionImpl)distribution;
+
+		final StringBuilder result=new StringBuilder();
+		result.append(name);
+		result.append("(");
+		for (var d: dataDist.densityData) {
+			result.append(NumberTools.formatNumberMax(d));
+			result.append(";");
+		}
+		result.append(NumberTools.formatNumberMax(dataDist.upperBound));
+		result.append(")");
+		return result.toString();
 	}
 }

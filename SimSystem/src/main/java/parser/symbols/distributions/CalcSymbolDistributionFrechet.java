@@ -29,7 +29,7 @@ public final class CalcSymbolDistributionFrechet extends CalcSymbolDistribution 
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"FrechetDistribution","FrechetDist","FrechetVerteilung"};
+	private static final String[] names=new String[]{"FrechetDist","FrechetDistribution","FrechetVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

@@ -489,12 +489,20 @@ public class ExpressionBuilderDistributions {
 
 		/* Gumbel-Verteilung */
 
-		addDist(group,filterUpper,"GumbelDist","mean;sd",
+		addDist(group,filterUpper,"GumbelDist","a;b",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberRangeInfo"));
+
+		/* Gumbel-Verteilung - Direkt */
+
+		addDist(group,filterUpper,"GumbelDist","mean;sd",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistributionDirect"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistributionDirect.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistributionDirect.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GumbelDistributionDirect.RandomNumberInfo"));
 
 		/* Fatigue-Life-Verteilung */
 

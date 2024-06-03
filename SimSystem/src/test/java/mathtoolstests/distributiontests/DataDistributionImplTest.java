@@ -505,7 +505,7 @@ class DataDistributionImplTest {
 		final double sum=DoubleStream.of(exampleDataDouble1).sum();
 		double m=0, m2=0;
 		for (int i=0;i<exampleDataDouble1.length;i++) {
-			double x=i*(10.0/exampleDataDouble1.length);
+			double x=(i+0.5)*(10.0/exampleDataDouble1.length);
 			m+=exampleDataDouble1[i]*x;
 			m2+=exampleDataDouble1[i]*x*x;
 		}

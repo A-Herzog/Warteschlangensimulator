@@ -1198,7 +1198,7 @@ Erzeugt eine Zufallszahl gemäß der Verteilung.
 
 
 
-\section{Gumbel-Verteilung mit Erwartungswert \texorpdfstring{$a$}{a} und Standardabweichung \texorpdfstring{$b$}{b}}
+\section{Gumbel-Verteilung mit Lage \texorpdfstring{$a$}{a} und Skalierung \texorpdfstring{$b$}{b}}
 
 \begin{itemize}
 
@@ -1217,6 +1217,26 @@ Erzeugt eine Zufallszahl gemäß der Verteilung.
 \item
 \cmd{GumbelDistRange(min;max;a;b)}:
 Erzeugt eine Zufallszahl gemäß der Verteilung und stellt dabei sicher, dass sich das Ergebnis in dem Bereich von $min$ bis $max$ befindet.
+
+\end{itemize}
+
+
+
+\section{Gumbel-Verteilung mit Erwartungswert \texorpdfstring{$a$}{a} und Standardabweichung \texorpdfstring{$b$}{b}}
+
+\begin{itemize}
+
+\item
+\cmd{GumbelDistDirect(x;a;b;0)}:
+Berechnet die Dichte an der Stelle $x$.
+
+\item
+\cmd{GumbelDistDirect(x;a;b;1)}:
+Berechnet den Wert der Verteilungsfunktion an der Stelle $x$.
+
+\item
+\cmd{GumbelDistDirect(a;b)}:
+Erzeugt eine Zufallszahl gemäß der Verteilung.
 
 \end{itemize}
 

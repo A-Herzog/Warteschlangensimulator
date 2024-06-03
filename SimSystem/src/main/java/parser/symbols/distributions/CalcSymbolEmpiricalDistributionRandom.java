@@ -31,7 +31,7 @@ public class CalcSymbolEmpiricalDistributionRandom extends CalcSymbolPreOperator
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"EmpirischeZufallszahl","EmpiricalRandom"};
+	private static final String[] names=new String[]{"EmpiricalRandom","EmpirischeZufallszahl"};
 
 	/**
 	 * Konstruktor der Klasse

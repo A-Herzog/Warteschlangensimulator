@@ -30,7 +30,7 @@ public final class CalcSymbolDistributionGammaDirect extends CalcSymbolDistribut
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"GammaDistributionDirect","GammaDistDirect","GammaVerteilungDirekt"};
+	private static final String[] names=new String[]{"GammaDistDirect","GammaDistributionDirect","GammaVerteilungDirekt"};
 
 	/**
 	 * Konstruktor der Klasse

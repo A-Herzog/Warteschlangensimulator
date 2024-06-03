@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.UQuadraticDistribution;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionUQuadratic;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link UQuadraticDistribution}
@@ -152,4 +154,8 @@ public class WrapperUQuadraticDistribution  extends AbstractDistributionWrapper 
 		return true;
 	}
 
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionUQuadratic.class;
+	}
 }

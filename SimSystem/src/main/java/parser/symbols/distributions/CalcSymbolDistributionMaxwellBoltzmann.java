@@ -29,7 +29,7 @@ public class CalcSymbolDistributionMaxwellBoltzmann extends CalcSymbolDistributi
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"MaxwellBoltzmannDistribution","MaxwellBoltzmannDist","MaxwellBoltzmannVerteilung"};
+	private static final String[] names=new String[]{"MaxwellBoltzmannDist","MaxwellBoltzmannDistribution","MaxwellBoltzmannVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

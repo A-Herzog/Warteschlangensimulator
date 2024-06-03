@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.HyperbolicSecantDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionHyperbolicSecant;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link HyperbolicSecantDistributionImpl}
@@ -127,5 +129,10 @@ public class WrapperHyperbolicSecantDistribution extends AbstractDistributionWra
 		if (Math.abs(((HyperbolicSecantDistributionImpl)distribution1).mu-((HyperbolicSecantDistributionImpl)distribution2).mu)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((HyperbolicSecantDistributionImpl)distribution1).sigma-((HyperbolicSecantDistributionImpl)distribution2).sigma)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionHyperbolicSecant.class;
 	}
 }

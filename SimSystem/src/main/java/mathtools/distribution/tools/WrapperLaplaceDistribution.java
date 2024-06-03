@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.LaplaceDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionLaplace;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link LaplaceDistributionImpl}
@@ -120,5 +122,10 @@ public class WrapperLaplaceDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((LaplaceDistributionImpl)distribution1).mu-((LaplaceDistributionImpl)distribution2).mu)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((LaplaceDistributionImpl)distribution1).b-((LaplaceDistributionImpl)distribution2).b)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionLaplace.class;
 	}
 }

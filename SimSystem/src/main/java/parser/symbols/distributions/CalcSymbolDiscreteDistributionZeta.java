@@ -26,7 +26,7 @@ public class CalcSymbolDiscreteDistributionZeta extends CalcSymbolDiscreteDistri
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"ZetaDistribution","ZetaDist","ZetaDistribution","ZetaDist","ZetaVerteilung"};
+	private static final String[] names=new String[]{"ZetaDist","ZetaDistribution","ZetaVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse

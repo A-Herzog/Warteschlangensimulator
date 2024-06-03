@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.ExtBetaDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionBeta;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link ExtBetaDistributionImpl}
@@ -149,7 +151,15 @@ public class WrapperBetaDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((ExtBetaDistributionImpl)distribution1).domainLowerBound-((ExtBetaDistributionImpl)distribution2).domainLowerBound)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((ExtBetaDistributionImpl)distribution1).domainUpperBound-((ExtBetaDistributionImpl)distribution2).domainUpperBound)>DistributionTools.MAX_ERROR) return false;
 		return true;
-
 	}
 
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionBeta.class;
+	}
+
+	@Override
+	protected int[] getDistributionParameterIndicesForCalculationExpression(final int parameterCount) {
+		return new int[] {3,4,1,2};
+	}
 }

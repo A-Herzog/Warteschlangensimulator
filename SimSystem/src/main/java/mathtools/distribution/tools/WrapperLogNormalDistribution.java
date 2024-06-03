@@ -19,6 +19,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import mathtools.NumberTools;
 import mathtools.distribution.LogNormalDistributionImpl;
+import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.distributions.CalcSymbolDistributionLogNormal;
 
 /**
  * Zusätzliche Daten für ein Objekt vom Typ {@link LogNormalDistributionImpl}
@@ -127,5 +129,10 @@ public class WrapperLogNormalDistribution extends AbstractDistributionWrapper {
 		if (Math.abs(((LogNormalDistributionImpl)distribution1).mean-((LogNormalDistributionImpl)distribution2).mean)>DistributionTools.MAX_ERROR) return false;
 		if (Math.abs(((LogNormalDistributionImpl)distribution1).sd-((LogNormalDistributionImpl)distribution2).sd)>DistributionTools.MAX_ERROR) return false;
 		return true;
+	}
+
+	@Override
+	protected Class<? extends CalcSymbolPreOperator> getCalcSymbolClass() {
+		return CalcSymbolDistributionLogNormal.class;
 	}
 }

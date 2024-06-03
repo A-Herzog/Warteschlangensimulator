@@ -828,6 +828,17 @@ public final class DistributionTools {
 	}
 
 	/**
+	 * Liefert den zu der Verteilung passenden Rechenausdruck.
+	 * @param distribution	Verteilung
+	 * @return	Rechenausdruck oder <code>null</code>, wenn zu der Verteilung kein Rechenausdruck ermittelt werden konnte
+	 */
+	public static String getCalculationExpression(final AbstractRealDistribution distribution) {
+		final AbstractDistributionWrapper wrapper=getWrapper(distribution);
+		if (wrapper!=null) return wrapper.getCalcExpression(distribution);
+		return null;
+	}
+
+	/**
 	 * Sofern es sich bei dem Parameter um ein {@link DataDistributionImpl}-Objekt handelt, werden
 	 * bei einer Kopie von diesem die Raten zu einer Dichte normalisiert und die Kopie wird zurückgegeben.
 	 * Andernfalls wird einfach das im Parameter übergebene Verteilungsobjekt selbst zurückgegeben.
