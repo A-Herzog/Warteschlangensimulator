@@ -79,7 +79,8 @@ public class ClientTypeLoader {
 			final List<String> line=table.getLine(i);
 			if (line.size()<2) return null;
 			final String name=line.get(0);
-			final AbstractRealDistribution distribution=DistributionTools.distributionFromString(line.get(1),3000);
+			AbstractRealDistribution distribution=null;
+			if (NumberTools.getDouble(line.get(1))==null) distribution=DistributionTools.distributionFromString(line.get(1),3000);
 			if (distribution==null) {
 				clientTypes.put(name,line.get(1));
 			} else {
@@ -101,7 +102,8 @@ public class ClientTypeLoader {
 			if (line.size()<3) return null;
 			final String name1=line.get(0);
 			final String name2=line.get(1);
-			final AbstractRealDistribution distribution=DistributionTools.distributionFromString(line.get(2),3000);
+			AbstractRealDistribution distribution=null;
+			if (NumberTools.getDouble(line.get(2))==null) distribution=DistributionTools.distributionFromString(line.get(2),3000);
 			if (distribution==null) {
 				Map<String,Object> sub=clientTypes.get(name1);
 				if (sub==null) clientTypes.put(name1,sub=new HashMap<>());

@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +53,7 @@ import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionPanel;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import ui.images.Images;
@@ -421,21 +423,27 @@ public class DistributionBySubTypeEditor extends JPanel {
 		final File file=ClientTypeLoader.selectFile(this);
 		if (file==null) return;
 
-		final Map<String,Object> clientTypes=new ClientTypeLoader(file).getProcessingClientTypes();
+		final Map<String,Object> newClientTypes=new ClientTypeLoader(file).getProcessingClientTypes();
 
-		if (clientTypes.size()==0) {
+		if (newClientTypes.size()==0) {
 			MsgBox.error(this,Language.tr("ClientTypeLoader.Title"),String.format(Language.tr("ClientTypeLoader.LoadError"),file.toString()));
 			return;
 		}
 
 		activeClientTypeChanged();
 
-		if (clientTypes.keySet().stream().filter(name->data.get(name)!=null).findFirst().isPresent()) {
-			if (!MsgBox.confirm(this,Language.tr("ClientTypeLoader.Title"),Language.tr("ClientTypeLoader.ReplaceWarning"),Language.tr("ClientTypeLoader.ReplaceWarning.YesInfo"),Language.tr("ClientTypeLoader.ReplaceWarning.NoInfo"))) return;
+		final Map<String,Object> oldClientTypes=new HashMap<>();
+		for (String name: subTypes) {
+			final Object obj=data.get(name);
+			if (obj!=null) oldClientTypes.put(name,obj);
 		}
 
+		final ClientTypeLoaderDialog dialog=new ClientTypeLoaderDialog(this);
+		dialog.initProcessTimes(Arrays.asList(subTypes),oldClientTypes,newClientTypes);
+		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
+
 		final Set<String> allClientTypes=new HashSet<>(Arrays.asList(subTypes));
-		for (Map.Entry<String,Object> entry: clientTypes.entrySet()) if (allClientTypes.contains(entry.getKey())) {
+		for (Map.Entry<String,Object> entry: newClientTypes.entrySet()) if (allClientTypes.contains(entry.getKey())) {
 			data.set(entry.getKey(),entry.getValue());
 		}
 

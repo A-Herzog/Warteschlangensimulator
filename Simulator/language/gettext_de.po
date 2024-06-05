@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-01 15:17+0200\n"
+"POT-Creation-Date: 2024-06-02 11:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1392,11 +1392,32 @@ msgstr "Verbindungen zu externen Daten prüfen"
 msgid "ClientTypeLoader.Button"
 msgstr "Kundentypen laden..."
 
+msgid "ClientTypeLoader.HeadingClientType"
+msgstr "Kundentyp"
+
+msgid "ClientTypeLoader.HeadingCurrentValue"
+msgstr "Bisheriger Wert"
+
+msgid "ClientTypeLoader.HeadingNewValue"
+msgstr "Neuer Wert"
+
 msgid "ClientTypeLoader.LoadError"
 msgstr ""
 "Die Tabellendatei\n"
 "%s\n"
 "enthielt keine Kundentypen, die geladen werden konnten."
+
+msgid "ClientTypeLoader.ModeCalculationExpression"
+msgstr "Rechenausdruck"
+
+msgid "ClientTypeLoader.ModeProbabilityDistribution"
+msgstr "Wahrscheinlichkeitsverteilung"
+
+msgid "ClientTypeLoader.NoValueNew"
+msgstr "bisherigen Wert beibehalten"
+
+msgid "ClientTypeLoader.NoValueOld"
+msgstr "kein kundenspezifischer Wert"
 
 msgid "ClientTypeLoader.ReplaceWarning"
 msgstr ""

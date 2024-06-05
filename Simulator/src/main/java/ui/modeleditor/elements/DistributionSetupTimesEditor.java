@@ -28,6 +28,8 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -390,28 +392,29 @@ public class DistributionSetupTimesEditor extends JPanel {
 		final File file=ClientTypeLoader.selectFile(this);
 		if (file==null) return;
 
-		final Map<String,Map<String,Object>> clientTypes=new ClientTypeLoader(file).getSetupTimesClientTypes();
+		final Map<String,Map<String,Object>> newClientTypes=new ClientTypeLoader(file).getSetupTimesClientTypes();
 
-		if (clientTypes.size()==0) {
+		if (newClientTypes.size()==0) {
 			MsgBox.error(this,Language.tr("ClientTypeLoader.Title"),String.format(Language.tr("ClientTypeLoader.LoadError"),file.toString()));
 			return;
 		}
 
 		activeClientTypeChanged();
 
-		boolean replaceData=false;
-		for (Map.Entry<String,Map<String,Object>> entry1: clientTypes.entrySet()) {
-			for (Map.Entry<String,Object> entry2: entry1.getValue().entrySet()) if (data.get(entry1.getKey(),entry2.getKey())!=null) {
-				replaceData=true;
-				break;
+		Map<String,Map<String,Object>> oldClientTypes=new HashMap<>();
+		for (var name1: clientTypes) for (var name2: clientTypes) {
+			final Object obj=data.get(name1,name2);
+			if (obj!=null) {
+				if (!oldClientTypes.containsKey(name1)) oldClientTypes.put(name1,new HashMap<>());
+				oldClientTypes.get(name1).put(name2,obj);
 			}
-			if (replaceData) break;
-		}
-		if (replaceData) {
-			if (!MsgBox.confirm(this,Language.tr("ClientTypeLoader.Title"),Language.tr("ClientTypeLoader.ReplaceWarning"),Language.tr("ClientTypeLoader.ReplaceWarning.YesInfo"),Language.tr("ClientTypeLoader.ReplaceWarning.NoInfo"))) return;
 		}
 
-		for (Map.Entry<String,Map<String,Object>> entry1: clientTypes.entrySet()) {
+		final ClientTypeLoaderDialog dialog=new ClientTypeLoaderDialog(this);
+		dialog.initSetupTimes(Arrays.asList(clientTypes),oldClientTypes,newClientTypes);
+		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
+
+		for (Map.Entry<String,Map<String,Object>> entry1: newClientTypes.entrySet()) {
 			for (Map.Entry<String,Object> entry2: entry1.getValue().entrySet()) {
 				final Object obj=entry2.getValue();
 				if (obj instanceof AbstractRealDistribution) data.set(entry1.getKey(),entry2.getKey(),(AbstractRealDistribution)obj);

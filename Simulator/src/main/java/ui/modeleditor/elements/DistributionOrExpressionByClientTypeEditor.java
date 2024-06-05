@@ -25,10 +25,9 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 import javax.swing.Box;
@@ -48,6 +47,7 @@ import mathtools.distribution.swing.JDistributionPanel;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.RunModel;
 import simulator.simparser.ExpressionCalc;
+import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import ui.images.Images;
@@ -432,16 +432,18 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 
 		activeClientTypeChanged();
 
-		final Set<String> activeTypes=new HashSet<>();
+		final Map<String,Object> oldClientTypes=new HashMap<>();
 		for (int i=0;i<clientTypes.length;i++) {
-			AbstractRealDistribution dist=clientTypeDistribution.get(i);
-			String expr=clientTypeExpression.get(i);
-			if (dist!=null || (expr!=null && !expr.trim().isEmpty())) activeTypes.add(clientTypes[i]);
+			final AbstractRealDistribution dist=clientTypeDistribution.get(i);
+			if (dist!=null) oldClientTypes.put(clientTypes[i],dist); else {
+				final String expr=clientTypeExpression.get(i);
+				if (expr!=null && !expr.trim().isEmpty()) oldClientTypes.put(clientTypes[i],expr);
+			}
 		}
 
-		if (newClientTypes.keySet().stream().filter(name->activeTypes.contains(name)).findFirst().isPresent()) {
-			if (!MsgBox.confirm(this,Language.tr("ClientTypeLoader.Title"),Language.tr("ClientTypeLoader.ReplaceWarning"),Language.tr("ClientTypeLoader.ReplaceWarning.YesInfo"),Language.tr("ClientTypeLoader.ReplaceWarning.NoInfo"))) return;
-		}
+		final ClientTypeLoaderDialog dialog=new ClientTypeLoaderDialog(this);
+		dialog.initProcessTimes(Arrays.asList(clientTypes),oldClientTypes,newClientTypes);
+		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 
 		final List<String> activeTypesList=Arrays.asList(clientTypes);
 		for (Map.Entry<String,Object> entry: newClientTypes.entrySet()) {
