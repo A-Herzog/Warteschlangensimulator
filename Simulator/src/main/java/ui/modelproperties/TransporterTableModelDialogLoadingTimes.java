@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -99,21 +100,27 @@ public class TransporterTableModelDialogLoadingTimes extends JPanel {
 		/* Karten */
 		add(main=new JPanel(mainCards=new CardLayout()),BorderLayout.CENTER);
 
+		final String expr=(data instanceof String)?((String)data):"0";
+		final Object[] obj=ModelElementBaseDialog.getInputPanel(Language.tr("Transporters.Group.Edit.Dialog.Times.LoadingExpression")+":",expr);
+		expression=(JTextField)obj[1];
+
 		/* Karte: Leer */
 		main.add(new JPanel(),"Seite0");
 
 		/* Karte: Verteilung */
 		final AbstractRealDistribution dist=(data instanceof AbstractRealDistribution)?((AbstractRealDistribution)data):new ExponentialDistribution(null,300,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
-		main.add(distribution=new JDistributionPanel(dist,3600,true),"Seite1");
+		main.add(distribution=new JDistributionPanel(dist,3600,true,s->{
+			mode.setSelectedIndex(2);
+			for (var listener: mode.getActionListeners()) listener.actionPerformed(new ActionEvent(mode,ActionEvent.ACTION_PERFORMED,"comboBoxChanged"));
+			expression.setText(s);
+			checkData(false);
+		}),"Seite1");
 
 		/* Karte: Ausdruck */
-		final String expr=(data instanceof String)?((String)data):"0";
-		final Object[] obj=ModelElementBaseDialog.getInputPanel(Language.tr("Transporters.Group.Edit.Dialog.Times.LoadingExpression")+":",expr);
 		final JPanel line=(JPanel)obj[0];
 		final JPanel page=new JPanel(new BorderLayout());
 		page.add(line,BorderLayout.NORTH);
 		main.add(page,"Seite2");
-		expression=(JTextField)obj[1];
 		expression.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

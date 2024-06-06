@@ -20,6 +20,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -351,10 +352,18 @@ public class ResourceTableModelDialog extends BaseDialog {
 
 		moveTimesCards.add(new JPanel(),"Seite1");
 
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("Resources.Group.EditName.Dialog.Tab.SetupTimes.Mode.Expression")+":","0");
+		moveTimeField=(JTextField)data[1];
+
 		/* Tab: Rüstzeiten - Verteilung */
 
 		moveTimesCards.add(panel=new JPanel(new BorderLayout()),"Seite2");
-		panel.add(moveTimesDistribution=new JDistributionPanel(new ExponentialDistribution(null,300,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY),3600,true));
+		panel.add(moveTimesDistribution=new JDistributionPanel(new ExponentialDistribution(null,300,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY),3600,true,s->{
+			moveTimesMode.setSelectedIndex(2);
+			for (var listener: moveTimesMode.getActionListeners()) listener.actionPerformed(new ActionEvent(moveTimesMode,ActionEvent.ACTION_PERFORMED,"comboBoxChanged"));
+			moveTimeField.setText(s);
+			checkData(false);
+		}));
 
 		/* Tab: Rüstzeiten - Ausdruck */
 
@@ -362,9 +371,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 		final JPanel sub=new JPanel();
 		panel.add(sub,BorderLayout.NORTH);
 		sub.setLayout(new BoxLayout(sub,BoxLayout.PAGE_AXIS));
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("Resources.Group.EditName.Dialog.Tab.SetupTimes.Mode.Expression")+":","0");
 		sub.add((JPanel)data[0]);
-		moveTimeField=(JTextField)data[1];
 		moveTimeField.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

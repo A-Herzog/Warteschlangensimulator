@@ -234,6 +234,7 @@ public class TransporterTableModelDialog extends BaseDialog {
 
 		/* Tabs */
 		JTabbedPane tabs=new JTabbedPane();
+		tabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		content.add(tabs,BorderLayout.CENTER);
 
 		/* Tab: Kapazität */

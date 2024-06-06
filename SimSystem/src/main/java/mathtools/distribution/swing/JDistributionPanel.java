@@ -45,6 +45,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
@@ -157,6 +158,8 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	public static String RandomNumbersCount="Anzahl an zu erzeugenden Zufallszahlen";
 	/** Fehlermeldung wenn die angegebene Anzahl an zu erzeugenden Zufallszahlen ungültig ist */
 	public static String RandomNumbersError="Die Anzahl an Zufallszahlen muss eine positive Ganzzahl sein.";
+	/** Kontextmenü-Eintrag "In Rechenausdruck umwandeln" */
+	public static String ToCalculationExpression="In Rechenausdruck umwandeln";
 
 	/** Info-Text zu der Verteilung */
 	private final JLabel info;
@@ -187,6 +190,9 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 
 	/** Darstellungsmethode (Dichte, Verteilung oder beides) */
 	private int plotType=BOTH;
+
+	/** Optionales Callback, welches aufgerufen wird, wenn die Verteilung in einen Rechenausdruck umgewandelt werden soll */
+	private final Consumer<String> toExpression;
 
 	/** Darzustellende Verteilung */
 	private AbstractRealDistribution distribution=null;
@@ -231,12 +237,14 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	 * @param distribution Zu ladende Verteilung (vom Typ {@link AbstractRealDistribution})
 	 * @param maxXValue Maximal darzustellender x-Wert
 	 * @param showEditButton Soll das "Bearbeiten"-Button angezeigt werden?
+	 * @param toExpression	Optionales Callback, welches aufgerufen wird, wenn die Verteilung in einen Rechenausdruck umgewandelt werden soll
 	 * @param plotType	Wählt die Darstellungsmethode (Dichte, Verteilung oder beides)
 	 */
-	public JDistributionPanel(AbstractRealDistribution distribution, double maxXValue, boolean showEditButton, int plotType) {
+	public JDistributionPanel(AbstractRealDistribution distribution, double maxXValue, boolean showEditButton, Consumer<String> toExpression, int plotType) {
 		this.distribution=distribution;
 		this.maxXValue=maxXValue;
 		this.plotType=plotType;
+		this.toExpression=toExpression;
 
 		setLayout(new BorderLayout(0,0));
 
@@ -308,6 +316,17 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 
 	/**
 	 * Konstruktor der Klasse <code>DistributionPanel</code>
+	 * @param distribution Zu ladende Verteilung (vom Typ {@link AbstractRealDistribution})
+	 * @param maxXValue Maximal darzustellender x-Wert
+	 * @param showEditButton Soll das "Bearbeiten"-Button angezeigt werden?
+	 * @param plotType	Wählt die Darstellungsmethode (Dichte, Verteilung oder beides)
+	 */
+	public JDistributionPanel(AbstractRealDistribution distribution, double maxXValue, boolean showEditButton, int plotType) {
+		this(distribution,maxXValue,showEditButton,null,plotType);
+	}
+
+	/**
+	 * Konstruktor der Klasse <code>DistributionPanel</code>
 	 * @param distribution Zu ladende Verteilung (vom Typ <code>AbstractContinuousDistribution</code>)
 	 * @param maxXValue Maximal darzustellender x-Wert
 	 * @param showEditButton Soll das "Bearbeiten"-Button angezeigt werden?
@@ -317,8 +336,19 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	}
 
 	/**
+	 * Konstruktor der Klasse <code>DistributionPanel</code>
+	 * @param distribution Zu ladende Verteilung (vom Typ <code>AbstractContinuousDistribution</code>)
+	 * @param maxXValue Maximal darzustellender x-Wert
+	 * @param showEditButton Soll das "Bearbeiten"-Button angezeigt werden?
+	 * @param toExpression	Optionales Callback, welches aufgerufen wird, wenn die Verteilung in einen Rechenausdruck umgewandelt werden soll
+	 */
+	public JDistributionPanel(AbstractRealDistribution distribution, double maxXValue, boolean showEditButton, Consumer<String> toExpression) {
+		this(distribution,maxXValue,showEditButton,toExpression,BOTH);
+	}
+
+	/**
 	 * Auslesen der momentan angezeigten Verteilung
-	 * @return Aktuell gelandene Verteilung
+	 * @return Aktuell geladene Verteilung
 	 * @see #setDistribution(AbstractRealDistribution)
 	 * @see #setDistribution(double)
 	 */
@@ -1135,6 +1165,13 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			popup.addSeparator();
 			popup.add(item=new JMenuItem(edit.getText(),edit.getIcon()));
 			item.addActionListener(ev->editButtonClicked());
+			if (toExpression!=null) {
+				popup.add(item=new JMenuItem(ToCalculationExpression,SimSystemsSwingImages.EXPRESSION.getIcon()));
+				item.addActionListener(ev->{
+					final String expression=DistributionTools.getCalculationExpression(getDistribution());
+					if (expression!=null) toExpression.accept(expression);
+				});
+			}
 		}
 
 		popup.show(JDistributionPanel.this,e.getX()+5,e.getY()+5);

@@ -3378,8 +3378,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[7633] = "Alle Hinweise ausblenden";
     t[7638] = "Surface.AnimationTextSelect.TemplateMode.Value";
     t[7639] = "Text";
-    t[7644] = "Main.Menu.View.Statistics.Info.Mnemonic";
-    t[7645] = "T";
+    t[7644] = "Dialog.ConvertDistributionToExpression";
+    t[7645] = "In Rechenausdruck umwandeln";
     t[7650] = "Statistic.Viewer.Report.NoTablesSelected.Title";
     t[7651] = "Keine Daten zum Speichern ausgew\u00e4hlt";
     t[7652] = "Simulation.Creator.Action.NoSignalName";
@@ -20800,6 +20800,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45591] = "Transporter hinzuf\u00fcgen";
     t[45592] = "Surface.Action.Dialog.Info.Time";
     t[45593] = "Zeitgesteuert";
+    t[45594] = "Main.Menu.View.Statistics.Info.Mnemonic";
+    t[45595] = "T";
     t[45606] = "Surface.XML.RootName.ClientData";
     t[45607] = "KundentypenDaten";
     t[45608] = "Surface.OutputDDE.XML.StartRow";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48311] = "ModellElementVerzoegerungKundenliste";
     t[48314] = "Statistics.DistanceInSeconds";
     t[48315] = "Abstand in Sekunden";
-    t[48316] = "LogSimulation.FormatTime";
-    t[48317] = "Zeit formatiert ausgeben";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[48316] = "LogSimulation.FormatTime";
+    t[48317] = "Zeit formatiert ausgeben";
     t[48318] = "ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails.Save.ErrorInfo";
     t[48319] = "Die Tabelle konnte nicht in der Datei\n%s\ngespeichert werden.";
     t[48322] = "Schedule.Rename.YesInfo";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52753] = "Transferzeiten nach Stationen und Kundentypen";
     t[52762] = "CommandLine.CountSimTime.Description.Long";
     t[52763] = "Der Befehl erwartet einen Parameter:\nDas Verzeichnis das verarbeitet werdne soll.";
-    t[52764] = "Surface.Split.Dialog.CopyClientData";
-    t[52765] = "Kundendatenfelder auf neue Kundenobjekte \u00fcbertragen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[52764] = "Surface.Split.Dialog.CopyClientData";
+    t[52765] = "Kundendatenfelder auf neue Kundenobjekte \u00fcbertragen";
     t[52770] = "Surface.Reference.Name";
     t[52771] = "Referenz";
     t[52774] = "Surface.Output.XML.File.HeadingMode";

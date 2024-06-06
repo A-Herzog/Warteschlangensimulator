@@ -20,6 +20,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -204,13 +205,19 @@ public class TransporterFailureDialog extends BaseDialog {
 
 		content.add(downTimeCards=new JPanel(downTimeCardLayout=new CardLayout()),BorderLayout.CENTER);
 
-		downTimeCards.add(downTimeDistribution=new JDistributionPanel(failure.getDownTimeDistribution(),86400,true),"0");
+		final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Transporter.Group.Edit.Dialog.DownTime.Expression.Label")+":",(failure.getDownTimeExpression()==null)?"":failure.getDownTimeExpression());
+		downTimeExpression=(JTextField)data[1];
+
+		downTimeCards.add(downTimeDistribution=new JDistributionPanel(failure.getDownTimeDistribution(),86400,true,s->{
+			downTimeSelect.setSelectedIndex(1);
+			for (var listener: downTimeSelect.getActionListeners()) listener.actionPerformed(new ActionEvent(downTimeSelect,ActionEvent.ACTION_PERFORMED,"comboBoxChanged"));
+			downTimeExpression.setText(s);
+			checkData(false);
+		}),"0");
 
 		downTimeCards.add(panel=new JPanel(new BorderLayout()),"1");
 
-		final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Transporter.Group.Edit.Dialog.DownTime.Expression.Label")+":",(failure.getDownTimeExpression()==null)?"":failure.getDownTimeExpression());
 		panel.add((JPanel)data[0],BorderLayout.NORTH);
-		downTimeExpression=(JTextField)data[1];
 		downTimeExpression.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

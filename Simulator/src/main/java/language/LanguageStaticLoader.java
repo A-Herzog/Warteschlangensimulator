@@ -433,6 +433,7 @@ public class LanguageStaticLoader {
 		JDistributionPanel.GraphicsOpenURLWarningTitle=Language.tr("Dialog.Title.Warning");
 		JDistributionPanel.RandomNumbersCount=Language.tr("Dialog.RandomNumbers.Count");
 		JDistributionPanel.RandomNumbersError=Language.tr("Dialog.RandomNumbers.Error");
+		JDistributionPanel.ToCalculationExpression=Language.tr("Dialog.ConvertDistributionToExpression");
 
 		/* GUITools */
 		GUITools.errorNoGraphicsOutputAvailable=Language.tr("Window.ErrorNoGraphics");

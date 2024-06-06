@@ -185,7 +185,7 @@ public class DistributionSetupTimesEditor extends JPanel {
 			modeSelect.setEnabled(!readOnly);
 
 			add(cards=new JPanel(new CardLayout()),BorderLayout.CENTER);
-			cards.add(distributionPanel=new JDistributionPanel(null,3600,!readOnly) {
+			cards.add(distributionPanel=new JDistributionPanel(null,3600,!readOnly,s->toExpression(s)) {
 				private static final long serialVersionUID = -8375312389773855243L;
 				@Override
 				protected void changedByUser() {
@@ -230,6 +230,17 @@ public class DistributionSetupTimesEditor extends JPanel {
 			expressionLines=null;
 			expressionEdit=null;
 		}
+	}
+
+	/**
+	 * Stellt den angegebenen Rechenausdruck ein.
+	 * @param expression	Rechenausdruck
+	 */
+	private void toExpression(final String expression) {
+		modeSelect.setSelectedIndex(1);
+		setCard(cardExpression);
+		expressionEdit.setText(expression);
+		fireUserChangeListener(); activeCheckBox.setSelected(true); checkExpression(); activeClientTypeChanged(); fireUserChangeListener();
 	}
 
 	/**

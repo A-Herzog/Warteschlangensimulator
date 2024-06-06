@@ -286,9 +286,16 @@ public class DistributionSetupTimesEditorAssistantDialog extends BaseDialog {
 		final JPanel cards=new JPanel(cardLayout);
 		panel.add(cards,BorderLayout.CENTER);
 
+		final Object[] obj=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.DistributionByClientTypeEditor.Expression")+":","");
+		final JTextField expressionEdit=(JTextField)obj[1];
 
 		/* Verteilungseditor */
-		final JDistributionPanel distributionPanel=new JDistributionPanel(new ExponentialDistribution(300),3600,true);
+		final JDistributionPanel distributionPanel=new JDistributionPanel(new ExponentialDistribution(300),3600,true,s->{
+			modeSelect.setSelectedIndex(1);
+			cardLayout.show(cards,"expression");
+			expressionEdit.setText(s);
+			checkData(false);
+		});
 		cards.add(distributionPanel,"distribution");
 
 		/* Rechenausdruck */
@@ -297,9 +304,7 @@ public class DistributionSetupTimesEditorAssistantDialog extends BaseDialog {
 		final JPanel expressionArea=new JPanel();
 		expressionPanel.add(expressionArea,BorderLayout.NORTH);
 		expressionArea.setLayout(new BoxLayout(expressionArea,BoxLayout.PAGE_AXIS));
-		final Object[] obj=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.DistributionByClientTypeEditor.Expression")+":","");
 		expressionArea.add(line=(JPanel)obj[0]);
-		final JTextField expressionEdit=(JTextField)obj[1];
 		line.add(ModelElementBaseDialog.getExpressionEditButton(this,expressionEdit,false,true,editorPanel.model,editorPanel.surface),BorderLayout.EAST);
 		expressionEdit.addKeyListener(new KeyListener(){
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}

@@ -193,7 +193,7 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 		add(editArea=new JPanel(new CardLayout()),BorderLayout.CENTER);
 
 		editArea.add(sub=new JPanel(new BorderLayout()),"dist");
-		sub.add(distributionPanel=new JDistributionPanel(null,3600,!readOnly),BorderLayout.CENTER);
+		sub.add(distributionPanel=new JDistributionPanel(null,3600,!readOnly,s->toExpression(s)),BorderLayout.CENTER);
 
 
 		editArea.add(sub=new JPanel(new BorderLayout()),"expr");
@@ -208,6 +208,17 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 			@Override public void keyPressed(KeyEvent e) {expressionEditChanged();}
 		});
 		((JPanel)obj[0]).add(ModelElementBaseDialog.getExpressionEditButton(this,expressionEdit,false,true,model,surface),BorderLayout.EAST);
+	}
+
+	/**
+	 * Stellt den angegebenen Rechenausdruck ein.
+	 * @param expression	Rechenausdruck
+	 */
+	private void toExpression(final String expression) {
+		modeSelect.setSelectedIndex(1);
+		activeModeChanged();
+		expressionEdit.setText(expression);
+		expressionEditChanged();
 	}
 
 	/**

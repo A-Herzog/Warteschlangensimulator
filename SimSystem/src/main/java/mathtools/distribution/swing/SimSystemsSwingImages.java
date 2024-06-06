@@ -81,7 +81,10 @@ public enum SimSystemsSwingImages {
 	SETUP("cog.png"),
 
 	/** Listentrenner für Verteilungsliste */
-	LIST_DIVIDER("Divider.png");
+	LIST_DIVIDER("Divider.png"),
+
+	/** Symbol "f(x)" */
+	EXPRESSION("fx.png");
 
 	/**
 	 * Dateiname des Icons

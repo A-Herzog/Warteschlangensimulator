@@ -3378,8 +3378,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7633] = "Hide all hints";
     t[7638] = "Surface.AnimationTextSelect.TemplateMode.Value";
     t[7639] = "Text";
-    t[7644] = "Main.Menu.View.Statistics.Info.Mnemonic";
-    t[7645] = "t";
+    t[7644] = "Dialog.ConvertDistributionToExpression";
+    t[7645] = "Convert to calculation expression";
     t[7650] = "Statistic.Viewer.Report.NoTablesSelected.Title";
     t[7651] = "No data selected for saving";
     t[7652] = "Simulation.Creator.Action.NoSignalName";
@@ -20800,6 +20800,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45591] = "Add transporter";
     t[45592] = "Surface.Action.Dialog.Info.Time";
     t[45593] = "Time";
+    t[45594] = "Main.Menu.View.Statistics.Info.Mnemonic";
+    t[45595] = "t";
     t[45606] = "Surface.XML.RootName.ClientData";
     t[45607] = "ClientTypeData";
     t[45608] = "Surface.OutputDDE.XML.StartRow";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48311] = "ModelElementDelayClientsList";
     t[48314] = "Statistics.DistanceInSeconds";
     t[48315] = "Distance in seconds";
-    t[48316] = "LogSimulation.FormatTime";
-    t[48317] = "Format time";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[48316] = "LogSimulation.FormatTime";
+    t[48317] = "Format time";
     t[48318] = "ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails.Save.ErrorInfo";
     t[48319] = "The table could not be saved as file\n%s";
     t[48322] = "Schedule.Rename.YesInfo";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52753] = "Transfer times by stations and client types";
     t[52762] = "CommandLine.CountSimTime.Description.Long";
     t[52763] = "The command expects one additional parameter:\nThe directory to be processed.";
-    t[52764] = "Surface.Split.Dialog.CopyClientData";
-    t[52765] = "Copy client data fields to new client objects";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[52764] = "Surface.Split.Dialog.CopyClientData";
+    t[52765] = "Copy client data fields to new client objects";
     t[52770] = "Surface.Reference.Name";
     t[52771] = "Reference";
     t[52774] = "Surface.Output.XML.File.HeadingMode";
