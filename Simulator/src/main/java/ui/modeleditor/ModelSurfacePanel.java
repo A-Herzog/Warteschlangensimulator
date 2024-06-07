@@ -75,6 +75,10 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.TooManyListenersException;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -1656,7 +1660,7 @@ public final class ModelSurfacePanel extends JPanel {
 		final int xSurfaceImage=(int)Math.ceil(p2.x*imageZoom);
 		int ySurfaceImage=(int)Math.ceil(p2.y*imageZoom);
 
-		final BufferedImage preImage=new BufferedImage(100,100,BufferedImage.TYPE_INT_ARGB);
+		final BufferedImage preImage=new BufferedImage(10,10,BufferedImage.TYPE_4BYTE_ABGR);
 		final Graphics2D preGraphics=(Graphics2D)preImage.getGraphics();
 		final int infoFontSize=(int)FastMath.round(10*imageZoom);
 		final Font infoFont=new Font(ModelElementBox.DEFAULT_FONT_TYPE,Font.PLAIN,infoFontSize);
@@ -1665,7 +1669,8 @@ public final class ModelSurfacePanel extends JPanel {
 
 		if (ySurfaceImage>1) ySurfaceImage+=totalSize;
 
-		final BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_ARGB);
+		final BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_4BYTE_ABGR);
+
 		final Graphics2D g=(Graphics2D)image.getGraphics();
 
 		if (SetupData.getSetup().useTransparencyExportFix) {
@@ -1684,7 +1689,11 @@ public final class ModelSurfacePanel extends JPanel {
 		final int xRemove=(int)Math.round(p1.x*imageZoom);
 		final int yRemove=(int)Math.round(p1.y*imageZoom);
 
-		return image.getSubimage(xRemove,yRemove,xSurfaceImage-xRemove,ySurfaceImage-yRemove);
+		if (xRemove>0 || yRemove>0) {
+			return image.getSubimage(xRemove,yRemove,xSurfaceImage-xRemove,ySurfaceImage-yRemove);
+		} else {
+			return image;
+		}
 	}
 
 	/**
@@ -1934,6 +1943,13 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
+	 * Hintergrund-Thread zum Speichern von Bildern
+	 * (muss eine globale Variable sein, da es sonst nicht erfüllbare Warnungen zum AutoClose gibt)
+	 * @see #saveImageToFile(File, String, int, int, boolean)
+	 */
+	private ThreadPoolExecutor executor;
+
+	/**
 	 * Speichert die Zeichenfläche als Bilddatei, svg- oder pdf-Datei
 	 * @param file	Dateiname, unter der das Bild bzw. die pdf bzw. die svg-Datei gespeichert werden soll
 	 * @param format	Dateiformat
@@ -1969,23 +1985,34 @@ public final class ModelSurfacePanel extends JPanel {
 		BufferedImage image=getImageMaxFactor(maxXSize,maxYSize,10,forceWithBackground);
 		if (format.equalsIgnoreCase("jpg")) format="jpeg";
 
-		format=format.toLowerCase();
+		final String imageFormat=format.toLowerCase();
 
-		if (format.equals("jpeg") || format.equals("bmp")) {
-			final BufferedImage image2=new BufferedImage(image.getWidth(),image.getHeight(),BufferedImage.TYPE_INT_RGB);
-			final Graphics2D g2=image2.createGraphics();
-			g2.setBackground(Color.WHITE);
-			g2.clearRect(0,0,image.getWidth(),image.getHeight());
-			g2.drawImage(image,0,0,null);
-			g2.dispose();
-			image=image2;
-		}
+		executor=new ThreadPoolExecutor(0,1,10,TimeUnit.SECONDS,new LinkedBlockingQueue<>(),new ThreadFactory() {
+			@Override
+			public Thread newThread(Runnable r) {
+				return new Thread(r,"BackgroundImageSaver");
+			}
+		});
+		executor.allowCoreThreadTimeOut(true);
+		executor.submit(()->{
+			if (imageFormat.equals("jpeg") || imageFormat.equals("bmp")) {
+				final BufferedImage image2=new BufferedImage(image.getWidth(),image.getHeight(),BufferedImage.TYPE_INT_RGB);
+				final Graphics2D g2=image2.createGraphics();
+				g2.setBackground(Color.WHITE);
+				g2.clearRect(0,0,image.getWidth(),image.getHeight());
+				g2.drawImage(image,0,0,null);
+				g2.dispose();
+				try {
+					ImageIO.write(image2,imageFormat,file);
+				} catch (IOException e) {}
+				return;
+			}
 
-		try {
-			return ImageIO.write(image,format,file);
-		} catch (IOException e) {
-			return false;
-		}
+			try {
+				ImageIO.write(image,imageFormat,file);
+			} catch (IOException e) {}
+		});
+		return true;
 	}
 
 	/**
