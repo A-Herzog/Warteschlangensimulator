@@ -174,12 +174,27 @@ public class ExpressionCalcUserFunctionsListDialog extends BaseDialog {
 			final StringBuilder labelText=new StringBuilder();
 			labelText.append("<html><body>");
 			labelText.append("<b>"+userFunction.name+"</b>(");
-			for (int i=0;i<userFunction.parameterCount;i++) {
-				if (i>0) labelText.append(";");
-				labelText.append("Parameter"+(i+1));
+			switch (userFunction.mode) {
+			case EXPRESSION:
+				for (int i=0;i<userFunction.parameterCount;i++) {
+					if (i>0) labelText.append(";");
+					labelText.append("Parameter"+(i+1));
+				}
+				break;
+			case JAVASCRIPT:
+				labelText.append("...");
+				break;
 			}
+
 			labelText.append("):=<br>");
-			labelText.append("<b>"+userFunction.content+"</b>");
+			switch (userFunction.mode) {
+			case EXPRESSION:
+				labelText.append("<b>"+userFunction.content+"</b>");
+				break;
+			case JAVASCRIPT:
+				labelText.append(Language.tr("UserDefinedFunctions.List.JavascriptCode"));
+				break;
+			}
 			labelText.append("</body></html>");
 			final JLabel label=new JLabel(labelText.toString(),Images.EXPRESSION_BUILDER_FUNCTION.getIcon(),SwingConstants.LEADING);
 			listModel.addElement(label);

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-03 16:03+0200\n"
+"POT-Creation-Date: 2024-06-06 23:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37919,6 +37919,12 @@ msgstr "Der angegebene Rechenbefehl \"%s\" ist ab Zeichen %d fehlerhaft."
 msgid "UserDefinedFunctions.Edit.CalculationCommandErrorTitle"
 msgstr "Ungültiger Rechenbefehl"
 
+msgid "UserDefinedFunctions.Edit.ModeExpression"
+msgstr "Rechenausdruck"
+
+msgid "UserDefinedFunctions.Edit.ModeJavascript"
+msgstr "Javascript"
+
 msgid "UserDefinedFunctions.Edit.Name"
 msgstr "Name der Funktion"
 
@@ -37963,6 +37969,9 @@ msgstr "Bearbeiten"
 
 msgid "UserDefinedFunctions.List.EditHint"
 msgstr "Ausgewählte benutzerdefinierte Funktion bearbeiten"
+
+msgid "UserDefinedFunctions.List.JavascriptCode"
+msgstr "Javascript-Code"
 
 msgid "UserDefinedFunctions.ListTitle"
 msgstr "Benutzerdefinierte Funktionen"

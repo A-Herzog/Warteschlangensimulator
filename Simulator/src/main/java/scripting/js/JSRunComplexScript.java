@@ -79,6 +79,17 @@ public class JSRunComplexScript {
 	private String lastResults;
 
 	/**
+	 * Wurde über das Ausgabesysteme ein Zahlenwert zurückgeliefert?
+	 * @see #lastDouble
+	 */
+	private boolean isLastDouble;
+
+	/**
+	 * Über das Ausgabesystem zurückgelieferter Zahlenwert
+	 */
+	private double lastDouble;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param model	Ausgangsmodell
 	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
@@ -131,12 +142,24 @@ public class JSRunComplexScript {
 	 * @return	Liefert im Erfolgsfall <code>true</code>
 	 */
 	public boolean run(final String script) {
+		return run(script,null);
+	}
+
+	/**
+	 * Führt ein Skript aus
+	 * @param script	Auszuführendes Skript
+	 * @param parameters	Zusätzliche Werte, die mit den Namen "Parameter1", "Parameter2" usw. im Skript zur Verfügung gestellt werden sollen
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
+	public boolean run(final String script, final double[] parameters) {
 		final JSBuilder builder=new JSBuilder(1000*86_400,outputCallback);
+		final JSCommandOutput output;
 		builder.addBinding("System",new JSCommandSystem());
-		builder.addBinding("Output",new JSCommandOutput(builder.output,false));
+		builder.addBinding("Output",output=new JSCommandOutput(builder.output,false));
 		builder.addBinding("Model",modelJS=new JSRunComplexScriptModel(builder.output,this));
 		builder.addBinding("Statistics",statisticsJS=new JSCommandXML(builder.output,null,null,true));
 		builder.addBinding("FileOutput",fileJS=new JSCommandOutput(builder.output,true));
+		if (parameters!=null) for (int i=0;i<parameters.length;i++) builder.addBinding("Parameter"+(i+1),parameters[i]);
 
 		final JSEngine runner=builder.build();
 		if (runner==null) {
@@ -149,6 +172,8 @@ public class JSRunComplexScript {
 			return false;
 		}
 		lastSuccess=runner.run();
+		isLastDouble=output.isOutputDouble();
+		if (isLastDouble) lastDouble=output.getOutputDouble();
 		lastResults=runner.getResult();
 		return lastSuccess;
 	}
@@ -167,6 +192,24 @@ public class JSRunComplexScript {
 	 */
 	public boolean getLastSuccess() {
 		return lastSuccess;
+	}
+
+	/**
+	 * Wurde bei der letzten Skriptausführung über Output.print eine
+	 * Zahl, die nun über {@link #getLastDouble()} abrufbar ist, bereitgestellt?
+	 * @return	Ist in {@link #getLastDouble()} eine Zahl verfügbar?
+	 */
+	public boolean isOutputDouble() {
+		return isLastDouble;
+
+	}
+
+	/**
+	 * Liefert die bei der Ausführung über Output.print zurückgegebene Zahl.
+	 * @return	Rückgabewert (über Output.print) des Skripts
+	 */
+	public double getLastDouble() {
+		return lastDouble;
 	}
 
 	/**

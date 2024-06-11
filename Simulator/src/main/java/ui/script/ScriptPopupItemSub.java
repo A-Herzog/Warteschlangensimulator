@@ -63,6 +63,14 @@ public class ScriptPopupItemSub extends ScriptPopupItem {
 	}
 
 	/**
+	 * Liefert die Anzahl der Kindelemente.
+	 * @return	Anzahl der Kindelemente
+	 */
+	public int getCount() {
+		return children.size();
+	}
+
+	/**
 	 * Fügt die Elemente des Untermenüs zu einem {@link JMenu}-Menü hinzu
 	 * @param popupMenu	Popupmenü zu dem die Einträge dieser Liste als Untermenü hinzugefügt werden sollen
 	 * @param clickedItem	Callback das aufgerufen werden soll, wenn einer der Menüpunkte angeklickt wurde
@@ -72,7 +80,7 @@ public class ScriptPopupItemSub extends ScriptPopupItem {
 	 * @see #addChildrenToMenu(JMenu, Consumer, Predicate)
 	 */
 	private void addChildrenToMenu(final JMenu popupMenu, final Consumer<ScriptPopupItem> clickedItem, final Predicate<ScriptPopupItem> allowAdd, final int indexFrom, int indexTo) {
-		while (children.get(indexTo)==null && indexTo>indexFrom) indexTo--;
+		if (indexTo>0) while (children.get(indexTo)==null && indexTo>indexFrom) indexTo--;
 		boolean lastObjIsSeparator=false;
 		for (int i=indexFrom;i<=indexTo;i++) {
 			final ScriptPopupItem child=children.get(i);

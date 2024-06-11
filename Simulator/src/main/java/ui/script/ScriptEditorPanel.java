@@ -91,6 +91,12 @@ public class ScriptEditorPanel extends JPanel {
 	private final List<Runnable> keyActionListeners;
 
 	/**
+	 * Keine besonderen Befehle im Popupmenü.
+	 * @see ScriptPopup.ScriptFeature
+	 */
+	public static ScriptPopup.ScriptFeature[] featuresNothing=new ScriptPopup.ScriptFeature[0];
+
+	/**
 	 * Im Vorlagen-Popupmenü sollen die Befehle für eine einfache Station (ohne Kundenkontakt) angeboten werden.
 	 * @see ScriptPopup.ScriptFeature
 	 */
@@ -217,6 +223,8 @@ public class ScriptEditorPanel extends JPanel {
 	private final JPanel scriptEditMulti;
 	/** Layout zur Einblendung der verschiedenen Editoren in {@link #scriptEditMulti} */
 	private final CardLayout scriptEditMultiLayout;
+	/** Beschriftung für das Auswahlfeld für die Skriptsprache */
+	private final JLabel languageComboLabel;
 	/** Auswahlfeld für die Skriptsprache */
 	private final JComboBox<String> languageCombo;
 
@@ -256,7 +264,6 @@ public class ScriptEditorPanel extends JPanel {
 		this.scriptFeatures=scriptFeatures;
 
 		JPanel line;
-		JLabel label;
 
 		if (scriptName!=null && !scriptName.trim().isEmpty()) {
 			add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
@@ -271,7 +278,7 @@ public class ScriptEditorPanel extends JPanel {
 		toolbar.setFloatable(false);
 		sub.add(toolbar,BorderLayout.NORTH);
 
-		toolbar.add(label=new JLabel(Language.tr("Surface.ScriptEditor.Language")+":"));
+		toolbar.add(languageComboLabel=new JLabel(Language.tr("Surface.ScriptEditor.Language")+":"));
 		toolbar.add(Box.createHorizontalStrut(5));
 		toolbar.add(languageCombo=new JComboBox<>(new String[]{
 				Language.tr("Surface.ScriptEditor.Language.Javascript"),
@@ -281,7 +288,7 @@ public class ScriptEditorPanel extends JPanel {
 				Images.SCRIPT_MODE_JAVASCRIPT,
 				Images.SCRIPT_MODE_JAVA
 		}));
-		label.setLabelFor(languageCombo);
+		languageComboLabel.setLabelFor(languageCombo);
 		switch (mode) {
 		case Javascript: languageCombo.setSelectedIndex(0); break;
 		case Java: languageCombo.setSelectedIndex(1); break;
@@ -300,6 +307,12 @@ public class ScriptEditorPanel extends JPanel {
 		buttonCheck=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Check"),Images.SIMULATION_CHECK.getIcon(),Language.tr("Surface.ScriptEditor.Check.Hint"),readOnly);
 		toolbar.addSeparator();
 		buttonHelp=addToolbarButton(toolbar,Language.tr("Main.Toolbar.Help"),Images.HELP.getIcon(),Language.tr("Surface.ScriptEditor.Help.Hint"),readOnly);
+
+		/* Testen, ob das Tools-Button überhaupt benötigt wird */
+		final ScriptPopup popup=new ScriptPopup(buttonTools,model,statistics,ScriptPopup.ScriptMode.Javascript,helpRunnalbe);
+		popup.addFeatures(scriptFeatures);
+		popup.build();
+		buttonTools.setVisible(popup.hasItems());
 
 		/* Eingabebereich */
 		ScriptEditorAreaBuilder builder;
@@ -363,6 +376,15 @@ public class ScriptEditorPanel extends JPanel {
 		if (mode==ScriptMode.Java) {
 			SwingUtilities.invokeLater(()->testJavaCodeAtStartUp(script));
 		}
+	}
+
+	/**
+	 * Auswahlbox für die verwendete Sprache anzeigen?
+	 * @param visible	Auswahlbox für die verwendete Sprache anzeigen?
+	 */
+	public void setLanguageComboVisible(final boolean visible) {
+		languageComboLabel.setVisible(visible);
+		languageCombo.setVisible(visible);
 	}
 
 	/**

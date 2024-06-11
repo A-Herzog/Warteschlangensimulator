@@ -21,6 +21,7 @@ import java.util.List;
 
 import mathtools.NumberTools;
 import simulator.simparser.symbols.CalcSymbolUserFunction;
+import simulator.simparser.symbols.CalcSymbolUserFunctionJS;
 import tools.SetupData;
 
 /**
@@ -30,6 +31,11 @@ import tools.SetupData;
  * @see ExpressionCalc
  */
 public class ExpressionCalcUserFunctionsManager {
+	/**
+	 * Instanz des Setup-Objektes
+	 */
+	private SetupData setup=SetupData.getSetup();
+
 	/**
 	 * Instanz dieses Singletons
 	 * @see #getInstance()
@@ -82,16 +88,23 @@ public class ExpressionCalcUserFunctionsManager {
 		Arrays.fill(results,-1);
 
 		ExpressionCalc.userFunctions=new ArrayList<>();
+		ExpressionCalc.userFunctionsJS=new ArrayList<>();
 		for (int i=0;i<userFunctions.size();i++) {
-			final Object obj=userFunctions.get(i).compile();
+			final UserFunction userFunction=userFunctions.get(i);
+			final Object obj=userFunction.compile();
 			if (obj instanceof Integer) {
 				results[i]=(Integer)obj;
-				continue;
 			} else {
-				ExpressionCalc.userFunctions.add((CalcSymbolUserFunction)obj);
+				switch (userFunction.mode) {
+				case EXPRESSION:
+					ExpressionCalc.userFunctions.add((CalcSymbolUserFunction)obj);
+					break;
+				case JAVASCRIPT:
+					ExpressionCalc.userFunctionsJS.add((CalcSymbolUserFunctionJS)obj);
+					break;
+				}
 			}
 		}
-
 		return results;
 	}
 
@@ -118,11 +131,21 @@ public class ExpressionCalcUserFunctionsManager {
 	 */
 	private void loadData() {
 		userFunctions.clear();
-		final List<String> userFunctionRecords=SetupData.getSetup().userDefinedCalculationFunctions;
+
+		List<String> userFunctionRecords;
+
+		userFunctionRecords=setup.userDefinedCalculationFunctions;
 		if (userFunctionRecords!=null) for (String record: userFunctionRecords) {
-			final UserFunction userFunction=UserFunction.loadFromString(record);
+			final UserFunction userFunction=UserFunction.loadFromString(record,UserFunctionMode.EXPRESSION);
 			if (userFunction!=null) userFunctions.add(userFunction);
 		}
+
+		userFunctionRecords=setup.userDefinedJSFunctions;
+		if (userFunctionRecords!=null) for (String record: userFunctionRecords) {
+			final UserFunction userFunction=UserFunction.loadFromString(record,UserFunctionMode.JAVASCRIPT);
+			if (userFunction!=null) userFunctions.add(userFunction);
+		}
+
 		load(false);
 	}
 
@@ -130,11 +153,25 @@ public class ExpressionCalcUserFunctionsManager {
 	 * Speichert die Daten aus {@link #userFunctions} ins Setup.
 	 */
 	private void saveData() {
-		final SetupData setup=SetupData.getSetup();
 		if (setup.userDefinedCalculationFunctions==null) setup.userDefinedCalculationFunctions=new ArrayList<>();
 		setup.userDefinedCalculationFunctions.clear();
-		userFunctions.stream().map(userFunction->userFunction.toString()).forEach(setup.userDefinedCalculationFunctions::add);
+		userFunctions.stream().filter(userFunction->userFunction.mode==UserFunctionMode.EXPRESSION).map(userFunction->userFunction.toString()).forEach(setup.userDefinedCalculationFunctions::add);
+
+		if (setup.userDefinedJSFunctions==null) setup.userDefinedJSFunctions=new ArrayList<>();
+		setup.userDefinedJSFunctions.clear();
+		userFunctions.stream().filter(userFunction->userFunction.mode==UserFunctionMode.JAVASCRIPT).map(userFunction->userFunction.toString()).forEach(setup.userDefinedJSFunctions::add);
+
 		setup.saveSetup();
+	}
+
+	/**
+	 * Art der nutzerdefinierten Funktion
+	 */
+	public enum UserFunctionMode {
+		/** gewöhnlicher Rechenausdruck */
+		EXPRESSION,
+		/** Javascript-basierte Funktion */
+		JAVASCRIPT
 	}
 
 	/**
@@ -158,15 +195,22 @@ public class ExpressionCalcUserFunctionsManager {
 		public String content;
 
 		/**
+		 * Art der Funktion
+		 */
+		public UserFunctionMode mode;
+
+		/**
 		 * Konstruktor der Klasse
 		 * @param name	Name der Funktion
 		 * @param parameterCount	Anzahl der Parameter für die Funktion
 		 * @param content	Zu interpretierende Zeichenkette
+		 * @param mode	Art der Funktion
 		 */
-		public UserFunction(final String name, final int parameterCount, final String content) {
+		public UserFunction(final String name, final int parameterCount, final String content, final UserFunctionMode mode) {
 			this.name=name;
 			this.parameterCount=parameterCount;
 			this.content=content;
+			this.mode=mode;
 		}
 
 		/**
@@ -177,6 +221,7 @@ public class ExpressionCalcUserFunctionsManager {
 			this.name=source.name;
 			this.parameterCount=source.parameterCount;
 			this.content=source.content;
+			this.mode=source.mode;
 		}
 
 		/**
@@ -184,7 +229,14 @@ public class ExpressionCalcUserFunctionsManager {
 		 * @return	Liefert im Erfolgsfall ein {@link CalcSymbolUserFunction}-Objekt, sonst eine nullbasierende Zahl ({@link Integer}), die die Position des Fehlers beim Parsen angibt
 		 */
 		private Object compile() {
-			return CalcSymbolUserFunction.compile(name,parameterCount,content);
+			switch (mode) {
+			case EXPRESSION:
+				return CalcSymbolUserFunction.compile(name,parameterCount,content);
+			case JAVASCRIPT:
+				return new CalcSymbolUserFunctionJS(name,content);
+			default:
+				return 0; /* Fehler an Index 0 */
+			}
 		}
 
 		@Override
@@ -196,14 +248,15 @@ public class ExpressionCalcUserFunctionsManager {
 		 * Versucht eine nutzerdefinierte Funktion aus einem Text, in
 		 * dem die Komponenten per Tabulator getrennt sind, zu laden.
 		 * @param text	Nutzerdefinierte Funktion als Text
+		 * @param mode	Art der Funktion
 		 * @return	Liefert im Erfolgsfall die neue nutzerdefinierte Funktion, sonst <code>null</code>
 		 */
-		private static UserFunction loadFromString(final String text) {
+		private static UserFunction loadFromString(final String text, final UserFunctionMode mode) {
 			final String[] parts=text.split("\\t",3);
 			if (parts.length!=3) return null;
 			final Integer I=NumberTools.getNotNegativeInteger(parts[1]);
 			if (I==null) return null;
-			return new UserFunction(parts[0],I,parts[2]);
+			return new UserFunction(parts[0],I,parts[2],mode);
 		}
 	}
 }

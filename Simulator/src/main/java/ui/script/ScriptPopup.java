@@ -1894,6 +1894,14 @@ public class ScriptPopup {
 	}
 
 	/**
+	 * Besitzt das Popup-Menü Einträge?
+	 * @return	Besitzt das Popup-Menü Einträge?
+	 */
+	public boolean hasItems() {
+		return root.getCount()>0;
+	}
+
+	/**
 	 * Zeigt das Popupmenü an.
 	 * @param clickedItem	Wird aufgerufen als Reaktion auf den Klick auf einen Eintrag
 	 * @param allowAdd	Erlaubt das Vorabprüfen, ob der Befehl im Popupmenü angezeigt werden soll

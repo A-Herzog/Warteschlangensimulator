@@ -400,14 +400,26 @@ public class ExpressionCalc extends CalcSystem {
 	 */
 	static List<CalcSymbolUserFunction> userFunctions=null;
 
+	/**
+	 * Liste der nutzerdefinierten JS-basierenden Funktionen (kann <code>null</code> sein)
+	 * @see CalcSymbolUserFunction
+	 * @see #getUserFunctions()
+	 * @see ExpressionCalcUserFunctionsManager
+	 */
+	static List<CalcSymbolUserFunctionJS> userFunctionsJS=null;
+
 	@Override
 	protected List<CalcSymbolPreOperator> getUserFunctions() {
-		if (justCompilingUserFunction || userFunctions==null || userFunctions.size()==0) {
-			return functions;
-		} else {
+		final boolean hasUserFunctions=(!justCompilingUserFunction && userFunctions!=null && userFunctions.size()>0);
+		final boolean hasUserFunctionsJS=(userFunctionsJS!=null && userFunctionsJS.size()>0);
+
+		if (hasUserFunctions || hasUserFunctionsJS) {
 			final List<CalcSymbolPreOperator> list=new ArrayList<>(functions);
-			list.addAll(userFunctions);
+			if (hasUserFunctions) list.addAll(userFunctions);
+			if (hasUserFunctionsJS) list.addAll(userFunctionsJS);
 			return list;
+		} else {
+			return functions;
 		}
 	}
 

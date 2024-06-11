@@ -35,7 +35,7 @@ public class CalcSymbolUserFunction extends CalcSymbolPreOperator {
 	private final String[] names;
 
 	/**
-	 * Interns Rechensystem
+	 * Internes Rechensystem
 	 */
 	private final ExpressionCalc calc;
 
@@ -47,7 +47,7 @@ public class CalcSymbolUserFunction extends CalcSymbolPreOperator {
 	/**
 	 * Konstruktor der Klasse
 	 * @param name	Name der Funktion
-	 * @param calc	Interns Rechensystem
+	 * @param calc	Internes Rechensystem
 	 * @param parameterCount	Anzahl der Parameter für die innere Funktion
 	 * @see #compile(String, int, String)
 	 */
