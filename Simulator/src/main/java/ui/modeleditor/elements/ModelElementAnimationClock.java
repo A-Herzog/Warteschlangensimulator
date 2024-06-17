@@ -19,6 +19,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -41,6 +42,7 @@ import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementAnimationCustomDrawExpression;
 import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Zeigt während der Animation einen Zahlenwert in Form einer Uhr an.
@@ -61,6 +63,13 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 	private Color color=DEFAULT_COLOR;
 
 	/**
+	 * Zusätzlich Uhrzeit digital anzeigen?
+	 * @see #isShowDigitalTime()
+	 * @see #setShowDigitalTime(boolean)
+	 */
+	public boolean showDigitalTime;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementAnimationClock</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -68,6 +77,7 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 	public ModelElementAnimationClock(final EditModel model, final ModelSurface surface) {
 		super(model,surface,new Dimension(50,50));
 		expression.setExpression("TNow()");
+		showDigitalTime=false;
 	}
 
 	/**
@@ -104,6 +114,24 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 		if (color!=null) this.color=color;
 	}
 
+
+
+	/**
+	 * Soll die Uhrzeit zusätzlich Uhrzeit digital angezeigt werden?
+	 * @return	Uhrzeit digital anzeigen?
+	 */
+	public boolean isShowDigitalTime() {
+		return showDigitalTime;
+	}
+
+	/**
+	 * Stellt ein, ob die Uhrzeit zusätzlich Uhrzeit digital angezeigt werden soll?
+	 * @param showDigitalTime	Uhrzeit digital anzeigen?
+	 */
+	public void setShowDigitalTime(final boolean showDigitalTime) {
+		this.showDigitalTime=showDigitalTime;
+	}
+
 	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
@@ -115,6 +143,7 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 		if (!(element instanceof ModelElementAnimationClock)) return false;
 
 		if (!((ModelElementAnimationClock)element).color.equals(color)) return false;
+		if (((ModelElementAnimationClock)element).showDigitalTime!=showDigitalTime) return false;
 
 		return true;
 	}
@@ -128,6 +157,7 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementAnimationClock) {
 			color=((ModelElementAnimationClock)element).color;
+			showDigitalTime=((ModelElementAnimationClock)element).showDigitalTime;
 		}
 	}
 
@@ -145,42 +175,109 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 	}
 
 	/**
-	 * Zuletzt in {@link #drawData(Graphics2D, Rectangle, double)} verwendete Hintergrundfarbe
+	 * Farbe für die digitale Anzeige der Zeit
 	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
+	private final Color digitalTimeColor=FlatLaFHelper.isDark()?Color.LIGHT_GRAY:Color.BLACK;
+
+	/**
+	 * Cache für das Builder-Objekt für die Zusammensetzung der digitalen Zeitanzeige
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
+	private StringBuilder digitalTimeBuilder=null;
+
+	/**
+	 * Breite des Ausgaberechtecks beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
+	private int lastDigitalWidth=-1;
+
+	/**
+	 * Gewählte Schriftgröße beim letzten Aufruf von {@link #drawData(Graphics2D, Rectangle, double)}
+	 * @see #drawData(Graphics2D, Rectangle, double)
+	 */
+	private int lastDigitalSize=-1;
+
+	/**
+	 * Gibt die Zeit in digitaler Form (hh:mm) aus.
+	 * @param g	<code>Graphics2D</code>-Objekt in das die Ausgabe eingefügt werden soll
+	 * @param rectangle	Tatsächlich sichtbarer Ausschnitt
+	 * @param zoom	Zoomfaktor
+	 * @param time Aktuelle Zeit in Sekunden
+	 * @return	Verwendete Höhe
+	 */
+	private int drawDigital(final Graphics2D g, final Rectangle rectangle, final double zoom, int time) {
+		/* Auszugebenden Wert bestimmen */
+		time/=60;
+		final int min=time%60;
+		final int h=time/60;
+		if (digitalTimeBuilder==null) digitalTimeBuilder=new StringBuilder(); else digitalTimeBuilder.setLength(0);
+		if (h<10) digitalTimeBuilder.append('0');
+		digitalTimeBuilder.append(h);
+		digitalTimeBuilder.append(':');
+		if (min<10) digitalTimeBuilder.append('0');
+		digitalTimeBuilder.append(min);
+
+		final FontCache fontCache=FontCache.getFontCache();
+
+		/* Berechnung der Schriftgröße */
+		if (lastDigitalWidth!=rectangle.width) {
+			final Font testFont=fontCache.getFont(FontCache.defaultFamily,0,12);
+			final int widthAt12pt=g.getFontMetrics(testFont).stringWidth("99:99");
+			lastDigitalSize=Math.round(12.0f/widthAt12pt*rectangle.width);
+			lastDigitalWidth=rectangle.width;
+		}
+
+		/* Ausgabe der Zeit in digitaler Form */
+		final Font font=fontCache.getFont(FontCache.defaultFamily,0,lastDigitalSize);
+		final int ascent=g.getFontMetrics(font).getAscent();
+		g.setFont(font);
+		g.setColor(digitalTimeColor);
+		g.drawString(digitalTimeBuilder.toString(),rectangle.x,rectangle.y+rectangle.height);
+
+		return ascent;
+	}
+
+	/**
+	 * Zuletzt in {@link #drawData(Graphics2D, Rectangle, double)} verwendete Hintergrundfarbe
+	 * @see #drawClock(Graphics2D, Rectangle, double, int)
 	 */
 	private Color lastColor;
 
 	/**
 	 * Zuletzt in {@link #drawData(Graphics2D, Rectangle, double)} verwendete Linienfarbe
-	 * @see #drawData(Graphics2D, Rectangle, double)
+	 * @see #drawClock(Graphics2D, Rectangle, double, int)
 	 */
 	private Color lastColorLine;
 
 	/**
 	 * Zuletzt in {@link #drawData(Graphics2D, Rectangle, double)} verwendete Linienbreite
-	 * @see #drawData(Graphics2D, Rectangle, double)
+	 * @see #drawClock(Graphics2D, Rectangle, double, int)
 	 */
 	private int lastWidth;
 
 	/**
 	 * Zuletzt in {@link #drawData(Graphics2D, Rectangle, double)} verwendeter Zeichenstil
-	 * @see #drawData(Graphics2D, Rectangle, double)
+	 * @see #drawClock(Graphics2D, Rectangle, double, int)
 	 */
 	private BasicStroke lastWidthStroke;
 
 	/**
 	 * Zeichenstil für Info-Ausgaben
-	 * @see #drawData(Graphics2D, Rectangle, double)
+	 * @see #drawClock(Graphics2D, Rectangle, double, int)
 	 */
 	private final BasicStroke infoStroke=new BasicStroke(1);
 
-	@Override
-	protected void drawData(final Graphics2D g, final Rectangle rectangle, final double zoom) {
-		final long time=getAnimationLong()%86400;
-
+	/**
+	 * Zeigt die Zeit in Form einer runden 12-Stunden-Uhr an.
+	 * @param g	<code>Graphics2D</code>-Objekt in das die Uhr eingezeichnet werden soll
+	 * @param rectangle	Tatsächlich sichtbarer Ausschnitt
+	 * @param zoom	Zoomfaktor
+	 * @param time Aktuelle Zeit in Sekunden
+	 */
+	private void drawClock(final Graphics2D g, final Rectangle rectangle, final double zoom, final int time) {
 		g.setColor(color);
 		g.fill(new Ellipse2D.Double(rectangle.x,rectangle.y,rectangle.width,rectangle.height));
-
 
 		if (lastColor==null || !lastColor.equals(color) || lastColorLine==null) {
 			lastColor=color;
@@ -220,6 +317,17 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 		x=mx+(int)FastMath.round(0.95*rx*Math.sin((time%3600)/3600.0*2*FastMath.PI));
 		y=my-(int)FastMath.round(0.95*ry*Math.cos((time%3600)/3600.0*2*FastMath.PI));
 		g.drawLine(mx,my,x,y);
+	}
+
+	@Override
+	protected void drawData(final Graphics2D g, final Rectangle rectangle, final double zoom) {
+		final int time=(int)(getAnimationLong()%86400);
+
+		final int usedHeight=showDigitalTime?drawDigital(g,rectangle,zoom,time):0;
+
+		rectangle.height-=usedHeight;
+		drawClock(g,rectangle,zoom,time);
+		rectangle.height+=usedHeight;
 	}
 
 	/**
@@ -280,6 +388,12 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationClock.XML.Expression"));
 		node.appendChild(sub);
 		expression.storeToXML(sub);
+
+		if (showDigitalTime) {
+			sub=doc.createElement(Language.trPrimary("Surface.AnimationClock.XML.ShowDigital"));
+			node.appendChild(sub);
+			sub.setTextContent("1");
+		}
 	}
 
 	/**
@@ -302,6 +416,11 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 
 		if (Language.trAll("Surface.AnimationClock.XML.Expression",name)) {
 			expression.loadFromXML(node);
+			return null;
+		}
+
+		if (Language.trAll("Surface.AnimationClock.XML.ShowDigital",name)) {
+			showDigitalTime=content.equals("1");
 			return null;
 		}
 

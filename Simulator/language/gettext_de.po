@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-06 23:35+0200\n"
+"POT-Creation-Date: 2024-06-10 20:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27137,6 +27137,9 @@ msgstr "ModellElementAnimationStapelBalken"
 msgid "Surface.AnimationClock.Dialog.Color"
 msgstr "Hintergrundfarbe"
 
+msgid "Surface.AnimationClock.Dialog.ShowDigital"
+msgstr "Zeit zusätzlich digital anzeigen"
+
 msgid "Surface.AnimationClock.Dialog.Title"
 msgstr "Simulationszeituhr bearbeiten"
 
@@ -27157,6 +27160,9 @@ msgstr "ModellElementAusdruck"
 
 msgid "Surface.AnimationClock.XML.Root"
 msgstr "ModellElementAnimationUhr"
+
+msgid "Surface.AnimationClock.XML.ShowDigital"
+msgstr "ModellElementAnimationUhrDigital"
 
 msgid "Surface.AnimationDiagram.Dialog.Appearance"
 msgstr "Darstellung"

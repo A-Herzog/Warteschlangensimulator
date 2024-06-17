@@ -22,6 +22,7 @@ import java.awt.FlowLayout;
 import java.io.Serializable;
 
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -48,6 +49,9 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 
 	/** Auswahl der Hintergrundfarbe der Uhr */
 	private SmallColorChooser colorChooser;
+
+	/** Zusätzlich Uhrzeit digital anzeigen? */
+	private JCheckBox showDigital;
 
 	/**
 	 * Konstruktor der Klasse
@@ -91,9 +95,14 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 		colorChooser.setEnabled(!readOnly);
 		label.setLabelFor(colorChooser);
 
+		/* Digitale Anzeige */
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(showDigital=new JCheckBox(Language.tr("Surface.AnimationClock.Dialog.ShowDigital")));
+
 		/* Daten eintragen */
 		if (element instanceof ModelElementAnimationClock) {
 			colorChooser.setColor(((ModelElementAnimationClock)element).getColor());
+			showDigital.setSelected(((ModelElementAnimationClock)element).isShowDigitalTime());
 		}
 
 		checkData(false);
@@ -142,5 +151,6 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 		final ModelElementAnimationClock clock=(ModelElementAnimationClock)element;
 		editExpression.storeData();
 		clock.setColor(colorChooser.getColor());
+		clock.setShowDigitalTime(showDigital.isSelected());
 	}
 }

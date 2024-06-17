@@ -1946,6 +1946,7 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
 	<xs:element name="ModellElementFarbe" type="xs:string"/>
 	<xs:element ref="ModellElementAusdruck"/>
+	<xs:element name="ModellElementAnimationUhrDigital" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -4437,6 +4438,7 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
 	<xs:element name="ModelElementColor" type="xs:string"/>
 	<xs:element ref="ModelElementExpression"/>
+	<xs:element name="ModelElementAnimationClockDigital" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
