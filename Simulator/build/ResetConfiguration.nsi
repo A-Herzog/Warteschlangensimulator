@@ -1,3 +1,5 @@
+Unicode false
+
 !define PrgName "Warteschlangensimulator"
 !define PrgFileName "Simulator_Reset"
 !define PrgIcon "..\src\main\java\ui\res\Symbol.ico"
@@ -28,8 +30,16 @@ ShowInstDetails nevershow
 RequestExecutionLevel user
 
 Section ""
+  System::Call `kernel32::GetUserDefaultUILanguage() i.s`
+  Pop $R0
+  StrCmp $R0 1031 0 Engl
+  MessageBox MB_YESNO "Soll die Warteschlangensimulator-Konfiguration jetzt zurückgesetzt werden?" IDNO end
+  Goto Run
+  Engl:
   MessageBox MB_YESNO "Do you want to reset the configuration of Warteschlangensimulator?" IDNO end
+  Goto Run
   
+  Run:
   ExecWait "Simulator.exe Reset"
   
   end:

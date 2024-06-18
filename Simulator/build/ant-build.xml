@@ -344,6 +344,10 @@
 			<arg line="-nf &quot;${BuildTools.location}/Version_sed.txt&quot; &quot;${Simulator.location}/src/main/java/ui/MainPanel.java&quot;" />
 		</exec>
 		
+		<echo message="Store simulator checksum to libs folder" />
+		<checksum file="${Release.location}/Simulator.jar" algorithm="SHA-256" />
+		<move file="${Release.location}/Simulator.jar.SHA-256" tofile="${Release.location}/libs/simulator.jar" />
+		
 		<echo message="Set simulator.jar checksum in wrapper scripts" />		
 		<checksum file="${Release.location}/Simulator.jar" algorithm="SHA-256" />
 		<exec dir="${BuildTools.location}" executable="${sed.location}/sed.exe" output="${BuildTools.location}/Checksum_Simulator.nsi">
@@ -409,6 +413,8 @@
 		
 		<copy file="${BuildTools.location}/SimulatorCLI.bat" tofile="${Release.location}/SimulatorCLI.bat" />
 		
+		<!--
+		Too many AV false alerts... giving up.
 		<echo message="Generate configuration resetter" />
 		<exec executable="${NSIS.location}\makensis.exe" dir="${BuildTools.location}" if:set="NSIS.present">
 			<arg value="ResetConfiguration.nsi" />			
@@ -422,6 +428,7 @@
 			<arg value="Simulator_Reset.exe"/>
 		</exec>
 		<move file="${BuildTools.location}/Simulator_Reset.exe" tofile="${Release.location}/Simulator_Reset.exe" />
+		-->
 
 		<echo message="Generate installer" />
 		<exec executable="${NSIS.location}\makensis.exe" dir="${BuildTools.location}" if:set="NSIS.present">
@@ -444,7 +451,11 @@
 				
 		<echo message="Generate zip package" />
 		<zip destfile="${Release.location}/Simulator.zip">
-		  <zipfileset dir="${Release.location}" includes="Simulator.jar,Simulator.exe,Simulator.sh,SimulatorCLI.bat,Simulator_Reset.exe,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"/>
+			<!--
+			<zipfileset dir="${Release.location}" includes="Simulator.jar,Simulator.exe,Simulator.sh,SimulatorCLI.bat,Simulator_Reset.exe,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"/>
+			Simulator_Reset.exe removed:
+			-->
+		  <zipfileset dir="${Release.location}" includes="Simulator.jar,Simulator.exe,Simulator.sh,SimulatorCLI.bat,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"/>
 		  <zipfileset dir="${Simulator.location}/tools/JDDE" includes="*.dll"/>
 		</zip>
 
