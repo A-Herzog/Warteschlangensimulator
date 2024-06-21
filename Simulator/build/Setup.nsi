@@ -188,6 +188,7 @@ Section "Install" Inst
   File "..\..\Release\Simulator.jar"
   File "..\..\Release\Simulator.exe"
   File "..\..\Release\Simulator.sh"
+  File "..\..\Release\Simulator.bat"
   File "..\..\Release\SimulatorCLI.bat"
   File "..\..\Release\JDBC.cfg"
   File "..\tools\JDDE\JavaDDEx64.dll"
@@ -256,12 +257,13 @@ Section "un.Uninstall" uninst
   RmDir /r $INSTDIR\jdk
 
   Delete "$INSTDIR\Simulator.sh"
+  Delete "$INSTDIR\Simulator.bat"
   Delete "$INSTDIR\SimulatorCLI.bat"
   Delete "$INSTDIR\Simulator.exe"
   Delete "$INSTDIR\Simulator.old"
   Delete "$INSTDIR\Simulator.new"
   Delete "$INSTDIR\Simulator.jar"
-  Delete "$INSTDIR\Simulator_Reset.exe"
+  Delete "$INSTDIR\Simulator_Reset.exe" ; Not installed anymore - but kept in uninstaller when uninstalling old releases
   Delete "$INSTDIR\Simulator.cfg"
   Delete "$INSTDIR\User-spelling.cfg"
   Delete "$INSTDIR\JDBC.cfg"

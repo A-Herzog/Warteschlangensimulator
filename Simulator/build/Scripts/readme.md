@@ -22,16 +22,6 @@ Es gibt keinen Grund, JavaDownloader.exe direkt aufzurufen.
 
 
 
-# SimulatorCLIGetJava.exe
-
-This program is invoked by SimulatorCLI.bat to get the path of the Java runtime environment.
-There is no reason to call SimulatorCLIGetJava.exe directly.
-
-Dieses Programm wird von SimulatorCLI.bat aufgerufen, um den Pfad zur Java-Laufzeitumgebung zu ermitteln.
-Es gibt keinen Grund, SimulatorCLIGetJava.exe direkt aufzurufen.
-
-
-
 # Directory "benchmark"
 
 This directory contains scripts with the help of which Warteschlangensimulator can be used to measure the CPU performance of the computer.
