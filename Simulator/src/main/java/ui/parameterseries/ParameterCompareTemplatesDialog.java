@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -52,13 +53,16 @@ import ui.modeleditor.elements.BatchRecord;
 import ui.modeleditor.elements.ModelElementAnalogValue;
 import ui.modeleditor.elements.ModelElementBatch;
 import ui.modeleditor.elements.ModelElementConveyor;
+import ui.modeleditor.elements.ModelElementCounter;
 import ui.modeleditor.elements.ModelElementDelay;
+import ui.modeleditor.elements.ModelElementDifferentialCounter;
 import ui.modeleditor.elements.ModelElementProcess;
 import ui.modeleditor.elements.ModelElementSource;
 import ui.modeleditor.elements.ModelElementSourceMulti;
 import ui.modeleditor.elements.ModelElementSourceRecord;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.elements.ModelElementTank;
+import ui.modeleditor.elements.ModelElementThroughput;
 import ui.statistics.analyticcompare.AnalyticInfo;
 
 /**
@@ -822,20 +826,26 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	public static void buildDefaultOutput(final EditModel model, final List<ParameterCompareSetupValueOutput> output, final boolean asTime) {
 		final String mean="["+Language.tr("Statistics.XML.Mean")+"]";
 		final String value="["+Language.tr("Statistics.XML.Value")+"]";
+		final String countName="["+Language.tr("Statistics.Number")+"]";
+		final String partName="["+Language.tr("Statistics.Part")+"]";
+		final String quotient="["+Language.tr("Statistics.XML.Quotient")+"]";
 		ParameterCompareSetupValueOutput outputRecord;
 
+		/* Anzahl an Kunden im System */
 		outputRecord=new ParameterCompareSetupValueOutput();
 		outputRecord.setName(Language.tr("Statistic.FastAccess.Template.ClientsInSystem"));
 		outputRecord.setMode(ParameterCompareSetupValueOutput.OutputMode.MODE_XML);
 		outputRecord.setTag(Language.tr("Statistics.XML.Element.ClientsInSystem")+mean);
 		output.add(outputRecord);
 
+		/* Anzahl an Kunden in den Warteschlangen */
 		outputRecord=new ParameterCompareSetupValueOutput();
 		outputRecord.setName(Language.tr("Statistic.FastAccess.Template.ClientsInSystemQueue"));
 		outputRecord.setMode(ParameterCompareSetupValueOutput.OutputMode.MODE_XML);
 		outputRecord.setTag(Language.tr("Statistics.XML.Element.ClientsInSystemWaiting")+mean);
 		output.add(outputRecord);
 
+		/* Wartezeit über alle Kunden */
 		outputRecord=new ParameterCompareSetupValueOutput();
 		outputRecord.setName(Language.tr("Statistic.FastAccess.Template.WaitingTime"));
 		outputRecord.setMode(ParameterCompareSetupValueOutput.OutputMode.MODE_XML);
@@ -843,6 +853,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		outputRecord.setFormat(asTime?ParameterCompareSetupValueOutput.OutputFormat.FORMAT_TIME:ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER);
 		output.add(outputRecord);
 
+		/* Bedienzeit über alle Kunden */
 		outputRecord=new ParameterCompareSetupValueOutput();
 		outputRecord.setName(Language.tr("Statistic.FastAccess.Template.ProcessTime"));
 		outputRecord.setMode(ParameterCompareSetupValueOutput.OutputMode.MODE_XML);
@@ -850,6 +861,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 		outputRecord.setFormat(asTime?ParameterCompareSetupValueOutput.OutputFormat.FORMAT_TIME:ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER);
 		output.add(outputRecord);
 
+		/* Auslastung der Bediener */
 		if (model.resources.getResources().length>0) {
 			final String xmlMain=Language.tr("Statistics.XML.Element.Rho");
 			for (ModelResource resource: model.resources.getResources()) {
@@ -862,6 +874,56 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 				outputRecord.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_PERCENT);
 				output.add(outputRecord);
 			}
+		}
+
+		String xmlMain;
+
+		/* Zähler */
+		final List<ModelElementCounter> counterElements=model.surface.getElementsIncludingSubModels().stream().filter(element->element instanceof ModelElementCounter).map(element->(ModelElementCounter)element).collect(Collectors.toList());
+
+		final Map<String,Integer> counterGroups=new HashMap<>();
+		counterElements.stream().map(element->element.getGroupName()).forEach(groupName->counterGroups.compute(groupName,(s,i)->(i==null)?1:(i+1)));
+
+		xmlMain=Language.tr("Statistics.XML.Element.Counter");
+		for (var counterGroupName: counterGroups.keySet().stream().sorted(String::compareToIgnoreCase).toArray(String[]::new)) {
+			for (var counter: counterElements.stream().filter(counter->counter.getGroupName().equals(counterGroupName)).toArray(ModelElementCounter[]::new)) {
+				outputRecord=new ParameterCompareSetupValueOutput();
+				outputRecord.setName(Language.tr("Statistic.FastAccess.Template.Counter")+" - "+counter.getGroupName()+" - "+counter.getName());
+				outputRecord.setMode(ParameterCompareSetupValueOutput.OutputMode.MODE_XML);
+				final String xmlSub=Language.tr("Statistics.XML.Element.CounterName")+"["+Language.tr("Statistics.XML.Type")+"=\""+counter.getGroupName()+"-"+counter.getName()+"\"]";
+				if (counterGroups.get(counter.getGroupName())==1) {
+					outputRecord.setTag(xmlMain+"->"+xmlSub+"->"+countName);
+					outputRecord.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER);
+				} else {
+					outputRecord.setTag(xmlMain+"->"+xmlSub+"->"+partName);
+					outputRecord.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_PERCENT);
+				}
+				output.add(outputRecord);
+			}
+		}
+
+		/* Differenzzähler */
+		xmlMain=Language.tr("Statistics.XML.Element.DifferenceCounter");
+		for (var diffCounter: model.surface.getElementsIncludingSubModels().stream().filter(element->element instanceof ModelElementDifferentialCounter).map(element->(ModelElementDifferentialCounter)element).map(element->element.getName()).distinct().collect(Collectors.toList())) {
+			outputRecord=new ParameterCompareSetupValueOutput();
+			outputRecord.setName(Language.tr("Statistic.FastAccess.Template.DifferentialCounter")+" - "+diffCounter);
+			outputRecord.setMode(ParameterCompareSetupValueOutput.OutputMode.MODE_XML);
+			final String xmlSub=Language.tr("Statistics.XML.Element.DifferenceCounterName")+"["+Language.tr("Statistics.XML.Type")+"=\""+diffCounter+"\"]";
+			outputRecord.setTag(xmlMain+"->"+xmlSub+"->"+mean);
+			outputRecord.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER);
+			output.add(outputRecord);
+		}
+
+		/* Durchsatz */
+		xmlMain=Language.tr("Statistics.XML.ThroughputStatistics");
+		for (var throughtput: model.surface.getElementsIncludingSubModels().stream().filter(element->element instanceof ModelElementThroughput).map(element->(ModelElementThroughput)element).collect(Collectors.toList())) {
+			outputRecord=new ParameterCompareSetupValueOutput();
+			outputRecord.setName(Language.tr("Statistic.FastAccess.Template.ThroughputCounter")+" - "+throughtput.getName());
+			outputRecord.setMode(ParameterCompareSetupValueOutput.OutputMode.MODE_XML);
+			final String xmlSub=Language.tr("Statistics.XML.ThroughputStatisticsName")+"["+Language.tr("Statistics.XML.Type")+"=\""+throughtput.getName()+"\"]";
+			outputRecord.setTag(xmlMain+"->"+xmlSub+"->"+quotient);
+			outputRecord.setFormat(ParameterCompareSetupValueOutput.OutputFormat.FORMAT_NUMBER);
+			output.add(outputRecord);
 		}
 	}
 
