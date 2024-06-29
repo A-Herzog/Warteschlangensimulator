@@ -22,6 +22,7 @@ rem 6 - Search java on PATH
 rem 7 - in C:\Program Files and its subfolders
 
 set java_launcher=javaw.exe
+set java_parameter=-splash:Splashscreen.png
 
 rem Environment variable "QS_JAVA_HOME"
 if not "%QS_JAVA_HOME%"=="" (
@@ -165,7 +166,7 @@ if exist "%~dp0tools\JavaDownloader.exe" (
 goto end
 
 :found_java
-start /B "" "%qs_java_name%" -jar %~dp0Simulator.jar %1 %2 %3 %4 %5
+start /B "" "%qs_java_name%" %java_parameter% -jar %~dp0Simulator.jar %1 %2 %3 %4 %5
 set qs_java_name=
 
 :end

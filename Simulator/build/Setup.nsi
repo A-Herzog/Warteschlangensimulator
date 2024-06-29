@@ -189,6 +189,7 @@ Section "Install" Inst
   File "..\..\Release\Simulator.exe"
   File "..\..\Release\Simulator.sh"
   File "..\..\Release\Simulator.bat"
+  File "..\..\Release\Splashscreen.png"
   File "..\..\Release\SimulatorCLI.bat"
   File "..\..\Release\JDBC.cfg"
   File "..\tools\JDDE\JavaDDEx64.dll"
@@ -258,6 +259,7 @@ Section "un.Uninstall" uninst
 
   Delete "$INSTDIR\Simulator.sh"
   Delete "$INSTDIR\Simulator.bat"
+  Delete "$INSTDIR\Splashscreen.png"
   Delete "$INSTDIR\SimulatorCLI.bat"
   Delete "$INSTDIR\Simulator.exe"
   Delete "$INSTDIR\Simulator.old"
