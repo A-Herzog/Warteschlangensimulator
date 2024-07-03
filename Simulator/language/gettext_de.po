@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-10 20:13+0200\n"
+"POT-Creation-Date: 2024-06-19 14:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27746,6 +27746,9 @@ msgstr "Optionaler Text vor dem Haupttext"
 
 msgid "Surface.AnimationText.Dialog.PercentValue"
 msgstr "Prozentwert"
+
+msgid "Surface.AnimationText.Dialog.Preview"
+msgstr "Vorschau"
 
 msgid "Surface.AnimationText.Dialog.TimeValue"
 msgstr "Zeitangabe"

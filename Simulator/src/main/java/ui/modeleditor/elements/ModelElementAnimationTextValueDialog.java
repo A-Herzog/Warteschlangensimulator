@@ -27,11 +27,13 @@ import java.util.Hashtable;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
@@ -220,15 +222,17 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 
 		/* Optionaler Text vor dem Haupttext */
 		data=ScriptEditorAreaBuilder.getInputPanel(Language.tr("Surface.AnimationText.Dialog.OptionalPreText")+":","",30,ScriptEditorAreaBuilder.TextAreaMode.TEXT_ELEMENT);
-		content.add((JPanel)data[0]);
+		content.add(line=(JPanel)data[0]);
 		preText=(RSyntaxTextArea)data[1];
 		preText.setEditable(!readOnly);
+		line.add(new JPreviewButton(preText));
 
 		/* Optionaler Text nach dem Haupttext */
 		data=ScriptEditorAreaBuilder.getInputPanel(Language.tr("Surface.AnimationText.Dialog.OptionalPostText")+":","",30,ScriptEditorAreaBuilder.TextAreaMode.TEXT_ELEMENT);
-		content.add((JPanel)data[0]);
+		content.add(line=(JPanel)data[0]);
 		postText=(RSyntaxTextArea)data[1];
 		postText.setEditable(!readOnly);
+		line.add(new JPreviewButton(postText));
 
 		/* Zeile für Einstellungen zu Pre- und Posttext*/
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -506,5 +510,71 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 
 		/* Deckkraft */
 		text.setFillAlpha(alpha.getValue()/100.0);
+	}
+
+	/**
+	 * Zeigt eine gerenderte Vorschau als Popupmenü an.
+	 */
+	private class JPreviewButton extends JButton {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
+		private static final long serialVersionUID=6601504627066654048L;
+
+		/**
+		 * Datenquelle für den Text
+		 */
+		private final RSyntaxTextArea textGetter;
+
+		/**
+		 * Konstruktor
+		 * @param textGetter	Datenquelle für den Text
+		 */
+		public JPreviewButton(final RSyntaxTextArea textGetter) {
+			this.textGetter=textGetter;
+			addActionListener(e->showPreview());
+			setIcon(Images.ZOOM.getIcon());
+			setToolTipText(Language.tr("Surface.AnimationText.Dialog.Preview"));
+		}
+
+		/**
+		 * Zeigt das Popoup an.
+		 */
+		private void showPreview() {
+			final JPopupMenu popup=new JPopupMenu();
+
+			final ModelElementTextPreviewPanel preview=new ModelElementTextPreviewPanel() {
+				/**
+				 * Serialisierungs-ID der Klasse
+				 * @see Serializable
+				 */
+				private static final long serialVersionUID=2544122055927821610L;
+
+				@Override
+				public Dimension getPreferredSize() {
+					final Dimension d=super.getPreferredSize();
+					d.width=Math.max(d.width,300);
+					d.height=Math.max(d.height,100);
+					return d;
+				}
+			};
+			preview.set(
+					optionInterpretMarkdown.isSelected(),
+					optionInterpretLaTeX.isSelected(),
+					optionInterpretSymbols.isSelected(),
+					textGetter.getText(),
+					colorChooser.getColor(),
+					(background.isSelected()?colorChooserBackground.getColor():null),
+					alpha.getValue()/100.0,
+					14,
+					optionBold.isSelected(),
+					optionItalic.isSelected(),
+					(FontCache.FontFamily)fontFamilyComboBox.getSelectedItem(),
+					ModelElementText.TextAlign.LEFT);
+			popup.add(preview);
+
+			popup.show(this,0,getHeight());
+		}
 	}
 }
