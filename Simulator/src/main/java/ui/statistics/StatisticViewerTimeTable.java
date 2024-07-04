@@ -237,11 +237,12 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	 * @param col1	Optionale erste Spalte (kann <code>null</code> sein)
 	 * @param col2	Optionale zweite Spalte (kann <code>null</code> sein)
 	 * @param info	Optionaler Wert, der an die Indikatoren angehängt wird (kann <code>null</code> sein; üblich sowas wie "[X]")
+	 * @param hasQuantils	Sind Quantil-Informationen vorhanden?
 	 * @param confidenceLevels	Konfidenzlevels für die Spalten vorgesehen werden solle (kann <code>null</code> sein)
 	 * @return	Spaltenüberschriften
 	 */
-	private String[] getColumnNames(final String col1, final String col2, String info, final double[] confidenceLevels) {
-		return getColumnNames(col1,col2,null,info,confidenceLevels);
+	private String[] getColumnNames(final String col1, final String col2, String info, final boolean hasQuantils, final double[] confidenceLevels) {
+		return getColumnNames(col1,col2,null,info,hasQuantils,confidenceLevels);
 	}
 
 	/**
@@ -250,10 +251,11 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	 * @param col2	Optionale zweite Spalte (kann <code>null</code> sein)
 	 * @param col3	Optionale dritte Spalte (kann <code>null</code> sein)
 	 * @param info	Optionaler Wert, der an die Indikatoren angehängt wird (kann <code>null</code> sein; üblich sowas wie "[X]")
+	 * @param hasQuantils	Sind Quantil-Informationen vorhanden?
 	 * @param confidenceLevels	Konfidenzlevels für die Spalten vorgesehen werden solle (kann <code>null</code> sein)
 	 * @return	Spaltenüberschriften
 	 */
-	private String[] getColumnNames(final String col1, final String col2, final String col3, String info, final double[] confidenceLevels) {
+	private String[] getColumnNames(final String col1, final String col2, final String col3, String info, final boolean hasQuantils, final double[] confidenceLevels) {
 		final List<String> columns=new ArrayList<>();
 
 		if (col1!=null) columns.add(col1);
@@ -270,7 +272,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		columns.add("Min"+info);
 		columns.add("Max"+info);
 
-		if (SetupData.getSetup().showQuantils) {
+		if (hasQuantils && SetupData.getSetup().showQuantils) {
 			final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
 			for (double p: levels) {
 				columns.add(StatisticTools.formatPercent(p)+" "+Language.tr("Statistics.Quantil")+info);
@@ -484,6 +486,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	private void buildTimesOverviewTable(final StatisticsMultiPerformanceIndicator indicator1, final StatisticsMultiPerformanceIndicator indicator2, final StatisticsMultiPerformanceIndicator indicator3, final StatisticsMultiPerformanceIndicator indicator4, final String type1, final String type2, final String type3, final String type4, final String label, final boolean isStationsList, final boolean isInterArrival, final boolean addThroughput) {
 		final Table table=new Table();
 
+		boolean hasQuantils=false;
 		final boolean hasConfidence=hasConfidence(indicator1,indicator2,indicator3);
 		final double[] confidenceLevels=StatisticViewerOverviewText.getConfidenceLevels();
 
@@ -494,6 +497,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		for (String type : types) {
 			StatisticsDataPerformanceIndicator data;
 			data=(StatisticsDataPerformanceIndicator)(indicator1.get(type));
+			hasQuantils=hasQuantils || data.getDistribution()!=null;
 			final String typeName=isStationsList?fullStationName(type):type;
 			String[] line;
 			if (type1!=null && !type1.isEmpty()) {
@@ -520,6 +524,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			table.addLine(line);
 			if (indicator2!=null && type2!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator2.get(type));
+				hasQuantils=hasQuantils || data.getDistribution()!=null;
 				line=getDataLine(type2,typeName,data,hasConfidence?confidenceLevels:null);
 				if (addThroughput) {
 					line=Arrays.copyOf(line,line.length+2);
@@ -541,6 +546,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			}
 			if (indicator3!=null && type3!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator3.get(type));
+				hasQuantils=hasQuantils || data.getDistribution()!=null;
 				line=getDataLine(type3,typeName,data,hasConfidence?confidenceLevels:null);
 				if (addThroughput) {
 					line=Arrays.copyOf(line,line.length+2);
@@ -562,6 +568,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			}
 			if (indicator4!=null && type4!=null) {
 				data=(StatisticsDataPerformanceIndicator)(indicator4.get(type));
+				hasQuantils=hasQuantils || data.getDistribution()!=null;
 				line=getDataLine(type4,typeName,data,hasConfidence?confidenceLevels:null);
 				if (addThroughput) {
 					line=Arrays.copyOf(line,line.length+2);
@@ -586,15 +593,15 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		String[] columnNames;
 		if (isInterArrival) {
 			if (type1!=null && !type1.isEmpty()) {
-				columnNames=getColumnNames(Language.tr("Statistics.Type"),label,Language.tr("Statistics.Number"),"[I]",hasConfidence?confidenceLevels:null);
+				columnNames=getColumnNames(Language.tr("Statistics.Type"),label,Language.tr("Statistics.Number"),"[I]",hasQuantils,hasConfidence?confidenceLevels:null);
 			} else {
-				columnNames=getColumnNames(label,Language.tr("Statistics.Number"),"[I]",hasConfidence?confidenceLevels:null);
+				columnNames=getColumnNames(label,Language.tr("Statistics.Number"),"[I]",hasQuantils,hasConfidence?confidenceLevels:null);
 			}
 		} else {
 			if (type1!=null && !type1.isEmpty()) {
-				columnNames=getColumnNames(Language.tr("Statistics.Type"),label,Language.tr("Statistics.Number"),"[.]",hasConfidence?confidenceLevels:null);
+				columnNames=getColumnNames(Language.tr("Statistics.Type"),label,Language.tr("Statistics.Number"),"[.]",hasQuantils,hasConfidence?confidenceLevels:null);
 			} else {
-				columnNames=getColumnNames(label,Language.tr("Statistics.Number"),"[.]",hasConfidence?confidenceLevels:null);
+				columnNames=getColumnNames(label,Language.tr("Statistics.Number"),"[.]",hasQuantils,hasConfidence?confidenceLevels:null);
 			}
 		}
 		if (addThroughput) {
@@ -743,6 +750,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	private void buildCountOverviewTable(final StatisticsMultiPerformanceIndicator indicators, final StatisticsTimePerformanceIndicator system, final String type) {
 		final Table table=new Table();
 
+		boolean hasQuantils=false;
 		boolean hasConfidence=(statistics.simulationData.runRepeatCount>1);
 		if (system!=null) {
 			if (system.getRunCount()<2) hasConfidence=false;
@@ -755,17 +763,19 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		final double[] confidenceLevels=StatisticViewerOverviewText.getConfidenceLevels();
 
 		if (system!=null) {
+			hasQuantils=hasQuantils || system.getDistribution()!=null;
 			hasConfidence=(statistics.simulationData.runRepeatCount>1 && system.getRunCount()>1);
 			table.addLine(getDataLine(Language.tr("Statistics.System"),system,hasConfidence?confidenceLevels:null));
 		}
 
 		for (String station: indicators.getNames()) {
 			final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)(indicators.get(station));
+			hasQuantils=hasQuantils || indicator.getDistribution()!=null;
 			hasConfidence=(statistics.simulationData.runRepeatCount>1 && indicator.getRunCount()>1);
 			table.addLine(getDataLine(fullStationName(station),indicator,hasConfidence?confidenceLevels:null));
 		}
 
-		setData(table,getColumnNames(Language.tr("Statistics.Station"),null,"["+type+"]",hasConfidence?confidenceLevels:null));
+		setData(table,getColumnNames(Language.tr("Statistics.Station"),null,"["+type+"]",hasQuantils,hasConfidence?confidenceLevels:null));
 
 		/* Infotext  */
 		if (type.equals("N")) addDescription("TableCountOverviewN");
@@ -1158,7 +1168,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			}
 		}
 
-		setData(table,getColumnNames(Language.tr("Statistics.ClientType"),Language.tr("Statistics.ClientData"),null,null));
+		setData(table,getColumnNames(Language.tr("Statistics.ClientType"),Language.tr("Statistics.ClientData"),Language.tr("Statistics.Number"),null,false,null));
 
 		/* Infotext  */
 		addDescription("TableClientData");
