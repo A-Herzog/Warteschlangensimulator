@@ -31,9 +31,11 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
+import systemtools.MsgBox;
 import systemtools.SmallColorChooser;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -54,6 +56,8 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 	private JComboBox<JLabel> lineWidth;
 	/** Auswahlbox zur Wahl der Stärke der Abrundung der Ecken */
 	private JComboBox<String> rounding;
+	/** Eingabefeld für die Drehung */
+	private JTextField rotation;
 	/** Auswahl der Farbe der Linie des Rechtecks */
 	private SmallColorChooser colorChooserLine;
 	/** Option: Hintergrundfarbe verwenden? */
@@ -93,13 +97,15 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected JComponent getContentPanel() {
+		final ModelElementRectangle rectangle=(ModelElementRectangle)element;
+
 		final JPanel content=new JPanel(new BorderLayout());
 
 		JPanel line, cell;
 		JLabel label;
 
 		/* Rahmenbreite */
-		final Object[] data=getLineWidthInputPanel(Language.tr("Surface.Rectangle.Dialog.FrameWidth")+":",0,15,((ModelElementRectangle)element).getLineWidth());
+		final Object[] data=getLineWidthInputPanel(Language.tr("Surface.Rectangle.Dialog.FrameWidth")+":",0,15,rectangle.getLineWidth());
 		content.add(line=(JPanel)data[0],BorderLayout.NORTH);
 		lineWidth=(JComboBox<JLabel>)data[1];
 		lineWidth.setEnabled(!readOnly);
@@ -118,7 +124,17 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 		line.add(rounding=new JComboBox<>(values.toArray(new String[0])));
 		label.setLabelFor(rounding);
 		rounding.setEnabled(!readOnly);
-		rounding.setSelectedIndex((int)Math.round(((ModelElementRectangle)element).getRounding()*10));
+		rounding.setSelectedIndex((int)Math.round(rectangle.getRounding()*10));
+
+		line.add(Box.createHorizontalStrut(10));
+
+		/* Drehung */
+		line.add(label=new JLabel(Language.tr("Surface.Rectangle.Dialog.Rotation")+":"));
+		line.add(rotation=new JTextField(NumberTools.formatNumber(rectangle.getRotationAlpha()),3));
+		label.setLabelFor(rotation);
+		line.add(new JLabel("° (0°-90°)"));
+		rotation.setEnabled(!readOnly);
+		rotation.addActionListener(e->checkData(false));
 
 		/* Zeile für Farben */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
@@ -126,26 +142,26 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 		/* Rahmenfarbe */
 		line.add(cell=new JPanel(new BorderLayout()));
 		cell.add(label=new JLabel(Language.tr("Surface.Rectangle.Dialog.FrameColor")+":"),BorderLayout.NORTH);
-		cell.add(colorChooserLine=new SmallColorChooser(((ModelElementRectangle)element).getColor()),BorderLayout.CENTER);
+		cell.add(colorChooserLine=new SmallColorChooser(rectangle.getColor()),BorderLayout.CENTER);
 		colorChooserLine.setEnabled(!readOnly);
 		label.setLabelFor(colorChooserLine);
 
 		/* Hintergrundfarbe */
 		line.add(cell=new JPanel(new BorderLayout()));
 		cell.add(background=new JCheckBox(Language.tr("Surface.Rectangle.Dialog.FillBackground")),BorderLayout.NORTH);
-		background.setSelected(((ModelElementRectangle)element).getFillColor()!=null);
+		background.setSelected(rectangle.getFillColor()!=null);
 		background.setEnabled(!readOnly);
-		cell.add(colorChooserBackground=new SmallColorChooser(((ModelElementRectangle)element).getFillColor()),BorderLayout.CENTER);
+		cell.add(colorChooserBackground=new SmallColorChooser(rectangle.getFillColor()),BorderLayout.CENTER);
 		colorChooserBackground.setEnabled(!readOnly);
 		colorChooserBackground.addClickListener(e->background.setSelected(true));
 
 		/* Farbverlauf */
 		line.add(cell=new JPanel(new BorderLayout()));
 		cell.add(gradient=new JCheckBox(Language.tr("Surface.Rectangle.Dialog.BackgroundGradient")),BorderLayout.NORTH);
-		gradient.setSelected(((ModelElementRectangle)element).getGradientFillColor()!=null);
+		gradient.setSelected(rectangle.getGradientFillColor()!=null);
 		gradient.setEnabled(!readOnly);
 		gradient.addActionListener(e->{if (gradient.isSelected()) background.setSelected(true);});
-		cell.add(colorChooserGradient=new SmallColorChooser(((ModelElementRectangle)element).getGradientFillColor()),BorderLayout.CENTER);
+		cell.add(colorChooserGradient=new SmallColorChooser(rectangle.getGradientFillColor()),BorderLayout.CENTER);
 		colorChooserGradient.setEnabled(!readOnly);
 		colorChooserGradient.addClickListener(e->{background.setSelected(true); gradient.setSelected(true);});
 
@@ -153,7 +169,7 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
 		JLabel alphaLabel=new JLabel(Language.tr("Surface.Rectangle.Dialog.Alpha")+":");
 		line.add(alphaLabel);
-		line.add(alpha=new JSlider(0,100,(int)Math.round(100*((ModelElementRectangle)element).getFillAlpha())));
+		line.add(alpha=new JSlider(0,100,(int)Math.round(100*rectangle.getFillAlpha())));
 		alphaLabel.setLabelFor(alpha);
 		alpha.setEnabled(!readOnly);
 		alpha.setMinorTickSpacing(1);
@@ -169,6 +185,31 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 		label.setPreferredSize(new Dimension(label.getPreferredSize().width,gradient.getPreferredSize().height));
 
 		return content;
+	}
+
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
+	private boolean checkData(final boolean showErrorMessage) {
+		boolean ok=true;
+
+		final Double D=NumberTools.getNotNegativeDouble(rotation,true);
+		if (D==null) {
+			ok=false;
+			if (showErrorMessage) {
+				MsgBox.error(this,Language.tr("Surface.Rectangle.Dialog.Rotation"),Language.tr("Surface.Rectangle.Dialog.Rotation.ErrorInfo"));
+				return false;
+			}
+		}
+
+		return ok;
+	}
+
+	@Override
+	protected boolean checkData() {
+		return checkData(true);
 	}
 
 	/**
@@ -201,6 +242,7 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 			rectangle.setFillAlpha(alpha.getValue()/100.0);
 
 			rectangle.setRounding(rounding.getSelectedIndex()/10.0);
+			rectangle.setRotationAlpha(NumberTools.getNotNegativeDouble(rotation,true));
 		}
 	}
 }

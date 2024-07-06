@@ -82,6 +82,11 @@ public class ModelElementRectangle extends ModelElementDecoration {
 	private double rounding=0;
 
 	/**
+	 * Drehwinkel (0..90)
+	 */
+	private double rotationAlpha=0;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementRectangle</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -169,7 +174,7 @@ public class ModelElementRectangle extends ModelElementDecoration {
 	}
 
 	/**
-	 * Liefert den Eckenabrundungsfaktor
+	 * Liefert den Eckenabrundungsfaktor.
 	 * @return	Eckenabrundungsfaktor (Wert von 0 bis 1)
 	 */
 	public double getRounding() {
@@ -177,11 +182,32 @@ public class ModelElementRectangle extends ModelElementDecoration {
 	}
 
 	/**
-	 * Stellt den Eckenabrundungsfaktor ein
+	 * Stellt den Eckenabrundungsfaktor ein.
 	 * @param rounding	Eckenabrundungsfaktor (Wert von 0 bis 1)
 	 */
 	public void setRounding(double rounding) {
 		this.rounding=Math.max(0,Math.min(1,rounding));
+		fireChanged();
+	}
+
+
+	/**
+	 * Liefert den Drehwinkel.
+	 * @return	Drehwinkel (Wert von 0 bis 90)
+	 */
+	public double getRotationAlpha() {
+		return rotationAlpha;
+	}
+
+	/**
+	 * Stellt den Drehwinkel ein.
+	 * @param rotationAlpha	Drehwinkel (Wert von 0 bis 90)
+	 */
+	public void setRotationAlpha(double rotationAlpha) {
+		rotationAlpha=rotationAlpha%90.0;
+		if (rotationAlpha<0) rotationAlpha+=90;
+		if (this.rotationAlpha==rotationAlpha) return;
+		this.rotationAlpha=rotationAlpha;
 		fireChanged();
 	}
 
@@ -210,6 +236,7 @@ public class ModelElementRectangle extends ModelElementDecoration {
 		if (!Objects.equals(gradientColor,otherRectangle.gradientColor)) return false;
 		if (fillAlpha!=otherRectangle.fillAlpha) return false;
 		if (rounding!=otherRectangle.rounding) return false;
+		if (rotationAlpha!=otherRectangle.rotationAlpha) return false;
 
 		return true;
 	}
@@ -228,6 +255,7 @@ public class ModelElementRectangle extends ModelElementDecoration {
 			gradientColor=copySource.gradientColor;
 			fillAlpha=copySource.fillAlpha;
 			rounding=copySource.rounding;
+			rotationAlpha=copySource.rotationAlpha;
 		}
 	}
 
@@ -330,21 +358,17 @@ public class ModelElementRectangle extends ModelElementDecoration {
 	private TransparentColor alphaColor=null;
 
 	/**
-	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
+	 * Darstellung des Rechtecks
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
-	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
+	 * @param x	x-Koordinate der linken oberen Ecke
+	 * @param y	y-Koordinate der linken oberen Ecke
+	 * @param w	Breite des Rechtecks
+	 * @param h	Höhe des Rechtecks
 	 * @param zoom	Zoomfaktor
 	 * @param showSelectionFrames	Rahmen anzeigen, wenn etwas ausgewählt ist
 	 */
-	@Override
-	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showSelectionFrames) {
-		setClip(graphics,drawRect,null);
-
-		final Point p=getPosition(true);
-		final Dimension s=getSize();
-
+	private void drawRectangle(final Graphics graphics, final int x, final int y, final int w, final int h, final double zoom, final boolean showSelectionFrames) {
 		final Graphics2D g2=(Graphics2D)graphics;
-		final Stroke saveStroke=g2.getStroke();
 
 		Color lineColor=color;
 		boolean drawLine=(lineWidth>0);
@@ -362,10 +386,6 @@ public class ModelElementRectangle extends ModelElementDecoration {
 			}
 		}
 
-		final int x=(int)Math.round(Math.min(p.x,p.x+s.width)*zoom);
-		final int y=(int)Math.round(Math.min(p.y,p.y+s.height)*zoom);
-		final int w=(int)Math.round(Math.abs(s.width)*zoom);
-		final int h=(int)Math.round(Math.abs(s.height)*zoom);
 		final Shape shape;
 		if (rounding<0.01) {
 			shape=new Rectangle(x,y,w,h);
@@ -390,6 +410,37 @@ public class ModelElementRectangle extends ModelElementDecoration {
 		}
 		g2.setColor(lineColor);
 		if (drawLine) g2.draw(shape);
+	}
+
+	/**
+	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
+	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
+	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
+	 * @param zoom	Zoomfaktor
+	 * @param showSelectionFrames	Rahmen anzeigen, wenn etwas ausgewählt ist
+	 */
+	@Override
+	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showSelectionFrames) {
+		setClip(graphics,drawRect,null);
+
+		final Point p=getPosition(true);
+		final Dimension s=getSize();
+
+		final Graphics2D g2=(Graphics2D)graphics;
+		final Stroke saveStroke=g2.getStroke();
+
+		final int x=(int)Math.round(Math.min(p.x,p.x+s.width)*zoom);
+		final int y=(int)Math.round(Math.min(p.y,p.y+s.height)*zoom);
+		final int w=(int)Math.round(Math.abs(s.width)*zoom);
+		final int h=(int)Math.round(Math.abs(s.height)*zoom);
+
+		double r=rotationAlpha%90.0;
+		if (r<0) r+=90.0;
+
+		if (r!=0) g2.rotate(r/180.0*Math.PI,x+w/2,y+h/2);
+		drawRectangle(graphics,x,y,w,h,zoom,showSelectionFrames);
+
+		if (r!=0) g2.rotate(-r/180.0*Math.PI,x+w/2,y+h/2);
 
 		if (isSelected() && showSelectionFrames) {
 			drawBorderBox(g2,p,zoom);
@@ -460,6 +511,12 @@ public class ModelElementRectangle extends ModelElementDecoration {
 			node.appendChild(sub);
 			sub.setTextContent(NumberTools.formatSystemNumber(rounding));
 		}
+
+		if (rotationAlpha!=0.0) {
+			final Element sub=doc.createElement(Language.trPrimary("Surface.Rectangle.XML.Rotation"));
+			node.appendChild(sub);
+			sub.setTextContent(NumberTools.formatSystemNumber(rotationAlpha));
+		}
 	}
 
 	/**
@@ -498,6 +555,13 @@ public class ModelElementRectangle extends ModelElementDecoration {
 			final Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(content));
 			if (D==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			rounding=D.doubleValue();
+			return null;
+		}
+
+		if (Language.trAll("Surface.Rectangle.XML.Rotation",name)) {
+			final Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(content));
+			if (D==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			setRotationAlpha(D.doubleValue());
 			return null;
 		}
 

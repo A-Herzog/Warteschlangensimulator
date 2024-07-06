@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-19 14:34+0200\n"
+"POT-Creation-Date: 2024-07-01 12:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33335,6 +33335,12 @@ msgstr "Rahmenfarbe"
 msgid "Surface.Rectangle.Dialog.FrameWidth"
 msgstr "Rahmenbreite"
 
+msgid "Surface.Rectangle.Dialog.Rotation"
+msgstr "Drehung"
+
+msgid "Surface.Rectangle.Dialog.Rotation.ErrorInfo"
+msgstr "Der angegebene Drehwinkel ist ungültig. Es muss ein nichtnegativer Wert angegeben werden."
+
 msgid "Surface.Rectangle.Dialog.Rounding"
 msgstr "Ecken abrunden"
 
@@ -33367,6 +33373,9 @@ msgstr "ModellElementHintergrundfarbeFarbverlauf"
 
 msgid "Surface.Rectangle.XML.Root"
 msgstr "ModellElementKasten"
+
+msgid "Surface.Rectangle.XML.Rotation"
+msgstr "ModellElementDrehung"
 
 msgid "Surface.Rectangle.XML.Rounding"
 msgstr "ModellElementRundung"

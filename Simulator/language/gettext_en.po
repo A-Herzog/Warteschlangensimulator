@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-19 14:34+0200\n"
+"POT-Creation-Date: 2024-07-01 12:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33278,6 +33278,12 @@ msgstr "Frame color"
 msgid "Surface.Rectangle.Dialog.FrameWidth"
 msgstr "Frame width"
 
+msgid "Surface.Rectangle.Dialog.Rotation"
+msgstr "Rotation"
+
+msgid "Surface.Rectangle.Dialog.Rotation.ErrorInfo"
+msgstr "The specified rotation angle is invalid. A non-negative value has to be specified."
+
 msgid "Surface.Rectangle.Dialog.Rounding"
 msgstr "round off corners"
 
@@ -33310,6 +33316,9 @@ msgstr "ModelElementBackgroundColorGradient"
 
 msgid "Surface.Rectangle.XML.Root"
 msgstr "ModelElementRectangle"
+
+msgid "Surface.Rectangle.XML.Rotation"
+msgstr "ModelElementRotation"
 
 msgid "Surface.Rectangle.XML.Rounding"
 msgstr "ModelElementRounding"

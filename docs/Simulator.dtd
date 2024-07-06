@@ -494,7 +494,7 @@
 <!ELEMENT ModellElementLiniePfeilStart (#PCDATA)>
 <!ELEMENT ModellElementLiniePfeilEnde (#PCDATA)>
 
-<!ELEMENT ModellElementKasten (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementFarbe | ModellElementHintergrundfarbe | ModellElementHintergrundfarbeFarbverlauf | ModellElementRundung)*>
+<!ELEMENT ModellElementKasten (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementFarbe | ModellElementHintergrundfarbe | ModellElementHintergrundfarbeFarbverlauf | ModellElementRundung | ModellElementDrehung)*>
 <!ATTLIST ModellElementKasten
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -502,6 +502,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementRundung (#PCDATA)>
+<!ELEMENT ModellElementDrehung (#PCDATA)>
 
 <!ELEMENT ModellElementEllipse (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementFarbe | ModellElementHintergrundfarbe | ModellElementHintergrundfarbeFarbverlauf)*>
 <!ATTLIST ModellElementEllipse
@@ -3189,7 +3190,7 @@
 <!ELEMENT ModelElementLineArrowStart (#PCDATA)>
 <!ELEMENT ModelElementLineArrowEnd (#PCDATA)>
 
-<!ELEMENT ModelElementRectangle (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementLineWidth | ModelElementColor | ModelElementBackgroundColor | ModelElementBackgroundColorGradient | ModelElementRounding)*>
+<!ELEMENT ModelElementRectangle (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementLineWidth | ModelElementColor | ModelElementBackgroundColor | ModelElementBackgroundColorGradient | ModelElementRounding | ModelElementRotation)*>
 <!ATTLIST ModelElementRectangle
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3197,6 +3198,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementRounding (#PCDATA)>
+<!ELEMENT ModelElementRotation (#PCDATA)>
 
 <!ELEMENT ModelElementEllipse (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementLineWidth | ModelElementColor | ModelElementBackgroundColor | ModelElementBackgroundColorGradient)*>
 <!ATTLIST ModelElementEllipse

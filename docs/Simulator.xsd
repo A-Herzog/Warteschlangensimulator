@@ -706,6 +706,7 @@
 	<xs:element name="ModellElementHintergrundfarbe" type="xs:string"/>
     <xs:element name="ModellElementHintergrundfarbeFarbverlauf" type="xs:string"/>
 	<xs:element name="ModellElementRundung" type="xs:string"/>
+	<xs:element name="ModellElementDrehung" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModellElementHintergrundfarbe"><xs:complexType><xs:simpleContent>
@@ -3196,6 +3197,7 @@
 	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>
     <xs:element name="ModelElementBackgroundColorGradient" type="xs:string"/>
 	<xs:element name="ModelElementRounding" type="xs:string"/>
+	<xs:element name="ModelElementRotation" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModelElementBackgroundColor"><xs:complexType><xs:simpleContent>
