@@ -17,19 +17,22 @@ package systemtools.statistics;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.FlowLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListCellRenderer;
+import javax.swing.ListSelectionModel;
 
 import mathtools.NumberTools;
 import systemtools.BaseDialog;
@@ -48,9 +51,14 @@ public class StatisticViewerTableFilterDialog extends BaseDialog {
 	private static final long serialVersionUID=5205292632873838927L;
 
 	/**
-	 * Liste der Auswahlboxen für die verschiedenen Werte
+	 * Liste der Filtereinträge
 	 */
-	private final List<JCheckBox> checkBoxes;
+	private final JList<JCheckBox> list;
+
+	/**
+	 * Datenmodell für die Liste der Filtereinträge
+	 */
+	private final DefaultListModel<JCheckBox> model;
 
 	/**
 	 * Konstruktor der Klasse
@@ -68,29 +76,36 @@ public class StatisticViewerTableFilterDialog extends BaseDialog {
 		content.setLayout(new BorderLayout());
 
 		/* Liste */
-		final JPanel scrollPaneOuter=new JPanel(new BorderLayout());
-		content.add(new JScrollPane(scrollPaneOuter));
+		final JScrollPane scrollPane=new JScrollPane(list=new JList<>());
+		list.setOpaque(false);
+		content.add(scrollPane,BorderLayout.CENTER);
+		list.setCellRenderer(new JCheckBoxCellRenderer());
+		list.setModel(model=new DefaultListModel<>());
+		list.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				int index=list.locationToIndex(e.getPoint());
+				if (index<0) return;
+				final JCheckBox checkbox=list.getModel().getElementAt(index);
+				checkbox.setSelected(!checkbox.isSelected());
+				repaint();
+			}
+		});
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		final JPanel scrollPaneInner=new JPanel();
-		scrollPaneInner.setLayout(new BoxLayout(scrollPaneInner,BoxLayout.PAGE_AXIS));
-		scrollPaneOuter.add(scrollPaneInner,BorderLayout.NORTH);
-
-		checkBoxes=new ArrayList<>();
+		/* Daten laden */
 		final boolean allActive=active.size()==0;
 		for (String value: sortedValues(values)) {
 			final boolean isActive=active.contains(value) || allActive;
 			final JCheckBox checkBox=new JCheckBox(value,isActive);
-			final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
-			line.add(checkBox);
-			scrollPaneInner.add(line);
-			checkBoxes.add(checkBox);
+			model.addElement(checkBox);
 		}
 
 		/* Dialog starten */
 		setResizable(true);
-		setMinSizeRespectingScreensize(600,800);
+		setMinSizeRespectingScreensize(600,400);
 		pack();
-		setMaxSizeRespectingScreensize(800,800);
+		setMaxSizeRespectingScreensize(600,800);
 		setLocationRelativeTo(getOwner());
 		setVisible(true);
 	}
@@ -133,7 +148,8 @@ public class StatisticViewerTableFilterDialog extends BaseDialog {
 
 	@Override
 	protected void userButtonClick(final int nr, final JButton button) {
-		checkBoxes.forEach(checkBox->checkBox.setSelected(nr==0));
+		for (int i=0;i<model.size();i++) model.get(i).setSelected(nr==0);
+		list.repaint();
 	}
 
 	/**
@@ -142,11 +158,31 @@ public class StatisticViewerTableFilterDialog extends BaseDialog {
 	 */
 	public Set<String> getActiveValues() {
 		boolean allChecked=true;
-		for (JCheckBox checkBox: checkBoxes) if (!checkBox.isSelected()) {allChecked=false; break;}
-		if (allChecked) return new HashSet<>();
-
 		final Set<String> active=new HashSet<>();
-		for (JCheckBox checkBox: checkBoxes) if (checkBox.isSelected()) active.add(checkBox.getText());
+		for (int i=0;i<model.size();i++) if (model.get(i).isSelected()) active.add(model.get(i).getText()); else allChecked=false;
+		if (allChecked) return new HashSet<>();
 		return active;
+	}
+
+	/**
+	 * Renderer für die Filter-Einträge
+	 */
+	private static class JCheckBoxCellRenderer implements ListCellRenderer<JCheckBox> {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public JCheckBoxCellRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		@Override
+		public Component getListCellRendererComponent(JList<? extends JCheckBox> list, JCheckBox value, int index, boolean isSelected, boolean cellHasFocus) {
+			value.setForeground(list.getForeground());
+			value.setBackground(list.getBackground());
+			return value;
+		}
 	}
 }

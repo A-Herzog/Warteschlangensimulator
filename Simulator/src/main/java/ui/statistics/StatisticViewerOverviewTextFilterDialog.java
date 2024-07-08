@@ -55,6 +55,11 @@ public class StatisticViewerOverviewTextFilterDialog extends BaseDialog {
 	private final SetupData setup;
 
 	/**
+	 * Liste der Filtereinträge
+	 */
+	private final JList<JCheckBox> list;
+
+	/**
 	 * Datenmodell für die Liste der Filtereinträge
 	 */
 	private final DefaultListModel<JCheckBox> model;
@@ -77,8 +82,9 @@ public class StatisticViewerOverviewTextFilterDialog extends BaseDialog {
 		final JPanel content=createGUI(()->Help.topicModal(this,"MainStatistik"));
 		content.setLayout(new BorderLayout());
 
-		final JList<JCheckBox> list=new JList<>();
-		content.add(new JScrollPane(list),BorderLayout.CENTER);
+		final JScrollPane scrollPane=new JScrollPane(list=new JList<>());
+		list.setOpaque(false);
+		content.add(scrollPane,BorderLayout.CENTER);
 		list.setCellRenderer(new JCheckBoxCellRenderer());
 		list.setModel(model=new DefaultListModel<>());
 		list.addMouseListener(new MouseAdapter() {
@@ -100,8 +106,9 @@ public class StatisticViewerOverviewTextFilterDialog extends BaseDialog {
 
 		/* Dialog starten */
 
-		setMinSizeRespectingScreensize(0,400);
+		setMinSizeRespectingScreensize(600,400);
 		pack();
+		setMaxSizeRespectingScreensize(600,800);
 		setLocationRelativeTo(getOwner());
 		setVisible(true);
 	}
@@ -109,6 +116,7 @@ public class StatisticViewerOverviewTextFilterDialog extends BaseDialog {
 	@Override
 	protected void userButtonClick(final int nr, final JButton button) {
 		for (int i=0;i<model.size();i++) model.get(i).setSelected(nr==0);
+		list.repaint();
 	}
 
 	@Override

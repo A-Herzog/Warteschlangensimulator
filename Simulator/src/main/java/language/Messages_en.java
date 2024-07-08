@@ -15422,8 +15422,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33975] = "Generate new description, replace current description.";
     t[33982] = "Surface.ScriptEditor.Load.Hint";
     t[33983] = "Loads a script from a file.";
-    t[33984] = "Surface.ExpressionTableModel.Delete.Confirmation.YesInfo";
-    t[33985] = "Remove the data row from list.";
+    t[33984] = "Statistic.Viewer.Context.SelectColumn";
+    t[33985] = "Select column";
     t[33988] = "Statistics.Throughput.ArrivalsPerMinute";
     t[33989] = "Arrivals per minute";
     t[33990] = "Surface.Hold.XML.Condition.TimeType.ProcessTime";
@@ -20198,6 +20198,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44231] = "Simulation time";
     t[44236] = "Surface.XML.LineLabel";
     t[44237] = "ModelElementConnectionLabel";
+    t[44240] = "Surface.ExpressionTableModel.Delete.Confirmation.YesInfo";
+    t[44241] = "Remove the data row from list.";
     t[44248] = "Surface.PickUp.Dialog.SendTemporaryBatched.Error.Info";
     t[44249] = "No name was specified for the temporary client type.";
     t[44258] = "Surface.InputDB.XML.SortColumn.SortMode";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48279] = "User-defined statistic data";
     t[48282] = "Statistics.ClientData";
     t[48283] = "Client data fields";
-    t[48284] = "ScriptPopup.Clients.ProcessTime";
-    t[48285] = "Process time";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[48284] = "ScriptPopup.Clients.ProcessTime";
+    t[48285] = "Process time";
     t[48288] = "Simulation.Creator.InternalErrorNoCounters";
     t[48289] = "Internal error at staton id=%d: No counter names have been defined.";
     t[48294] = "ProcessClientOutputTable.ColumnHeader.WaitingTime";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52699] = "ModelElementAnimationAlarm";
     t[52704] = "Simulation.Creator.TransportSourceResourceReleaseDelayed";
     t[52705] = "At element id=%d for client type \"%s\" the invalid value \"%s\" is specified as delayed resource release time expression (error at character %d).";
-    t[52720] = "Surface.TransportTransporterSource.Dialog.Tab.RoutingTargets";
-    t[52721] = "Routing destinations";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[52720] = "Surface.TransportTransporterSource.Dialog.Tab.RoutingTargets";
+    t[52721] = "Routing destinations";
     t[52732] = "ParameterCompare.ResultsError.NoValue";
     t[52733] = "In step %d (model %s) the query of %s did not return a result.";
     t[52736] = "Surface.TransportSource.Dialog.DefaultStation";

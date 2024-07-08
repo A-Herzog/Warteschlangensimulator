@@ -15422,8 +15422,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33975] = "Neue Beschreibung erstellen, bisherige ersetzen.";
     t[33982] = "Surface.ScriptEditor.Load.Hint";
     t[33983] = "L\u00e4dt ein Skript aus einer Datei.";
-    t[33984] = "Surface.ExpressionTableModel.Delete.Confirmation.YesInfo";
-    t[33985] = "Datenreihe aus der Liste l\u00f6schen.";
+    t[33984] = "Statistic.Viewer.Context.SelectColumn";
+    t[33985] = "Spalte ausw\u00e4hlen";
     t[33988] = "Statistics.Throughput.ArrivalsPerMinute";
     t[33989] = "Ank\u00fcnfte pro Minute";
     t[33990] = "Surface.Hold.XML.Condition.TimeType.ProcessTime";
@@ -20198,6 +20198,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44231] = "Simulationszeit";
     t[44236] = "Surface.XML.LineLabel";
     t[44237] = "ModellElementVerbindungsbeschriftung";
+    t[44240] = "Surface.ExpressionTableModel.Delete.Confirmation.YesInfo";
+    t[44241] = "Datenreihe aus der Liste l\u00f6schen.";
     t[44248] = "Surface.PickUp.Dialog.SendTemporaryBatched.Error.Info";
     t[44249] = "F\u00fcr den tempor\u00e4ren Kundentyp wurde kein Name angegeben.";
     t[44258] = "Surface.InputDB.XML.SortColumn.SortMode";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48279] = "Benutzerdefinierte Statistikdaten";
     t[48282] = "Statistics.ClientData";
     t[48283] = "Kundendatenfelder";
-    t[48284] = "ScriptPopup.Clients.ProcessTime";
-    t[48285] = "Bisherige Bedienzeit";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[48284] = "ScriptPopup.Clients.ProcessTime";
+    t[48285] = "Bisherige Bedienzeit";
     t[48288] = "Simulation.Creator.InternalErrorNoCounters";
     t[48289] = "Interner Fehler an Station id=%d: Es wurden keine Z\u00e4hler definiert.";
     t[48294] = "ProcessClientOutputTable.ColumnHeader.WaitingTime";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52699] = "ModellElementAnimationAlarm";
     t[52704] = "Simulation.Creator.TransportSourceResourceReleaseDelayed";
     t[52705] = "F\u00fcr Element id=%d wurde f\u00fcr Kundentyp \"%s\" der ung\u00fcltige Wert \"%s\" als Ausdruck f\u00fcr die verz\u00f6gerte Ressourcenfreigabe (Fehler an Zeichen %d) angegeben.";
-    t[52720] = "Surface.TransportTransporterSource.Dialog.Tab.RoutingTargets";
-    t[52721] = "Transportziele";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[52720] = "Surface.TransportTransporterSource.Dialog.Tab.RoutingTargets";
+    t[52721] = "Transportziele";
     t[52732] = "ParameterCompare.ResultsError.NoValue";
     t[52733] = "In Schritt %d (Modell %s) hat die Abfrage von %s kein Ergebnis geliefert.";
     t[52736] = "Surface.TransportSource.Dialog.DefaultStation";

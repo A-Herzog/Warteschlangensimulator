@@ -22,6 +22,7 @@ import javax.swing.Icon;
 
 import language.Language;
 import systemtools.BaseDialog;
+import systemtools.images.SimToolsImages;
 import systemtools.statistics.StatisticViewerTable;
 import systemtools.statistics.StatisticsBasePanel;
 import ui.images.Images;
@@ -48,21 +49,32 @@ public class StatisticViewerBaseTable extends StatisticViewerTable {
 	public String[] ownSettingsName() {
 		final List<String> names=new ArrayList<>();
 		names.add(Language.tr("Statistics.TextSettings.DropdownName"));
-		return names.toArray(new String[0]);
+		names.add(Language.tr("Statistic.Viewer.Context.Filter")+"...");
+		return names.toArray(String[]::new);
 	}
 
 	@Override
 	public Icon[] ownSettingsIcon() {
 		final List<Icon> icons=new ArrayList<>();
 		icons.add(Images.GENERAL_NUMBERS.getIcon());
-		return icons.toArray(new Icon[0]);
+		icons.add(SimToolsImages.STATISTICS_TABLE_FILTER.getIcon());
+		return icons.toArray(Icon[]::new);
 	}
 
 	@Override
 	public boolean ownSettings(final StatisticsBasePanel owner, final int nr) {
 		boolean changed=false;
-		final BaseDialog dialog=new StatisticViewerOverviewTextDialog(owner);
-		changed=(dialog!=null && dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK);
+		switch (nr) {
+		case 0:
+			final BaseDialog dialog=new StatisticViewerOverviewTextDialog(owner);
+			changed=(dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK);
+			if (changed) owner.recreateViewers();
+			break;
+		case 1:
+			final int col=showColSelectDialog();
+			if (col>=0) changed=showColValueSelectFilterDialog(col);
+			break;
+		}
 		if (changed) owner.recreateViewers();
 		return changed;
 	}

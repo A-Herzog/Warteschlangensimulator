@@ -449,6 +449,8 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String contextSortDescending="Absteigend nach dieser Spalte";
 	/** Bezeichner für den Kontextmenü-Eintrag "Sortieren - zurücksetzen" */
 	public static String contextSortOriginal="Ursprüngliche Reihenfolge";
+	/** Titel für Dialog zur Auswahl einer Tabellenspalte */
+	public static String contextSelectColumn="Spalte auswählen";
 	/** Bezeichner für den Kontextmenü-Eintrag "Filtern" */
 	public static String contextFilter="Filtern";
 	/** Bezeichner für den Kontextmenü-Eintrag "Filtern - zurücksetzen" */

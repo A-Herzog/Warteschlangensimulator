@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 12:21+0200\n"
+"POT-Creation-Date: 2024-07-05 00:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22724,6 +22724,9 @@ msgstr "None"
 
 msgid "Statistic.Viewer.Context.Filter.SelectTitle"
 msgstr "Select values for lines to be displayed"
+
+msgid "Statistic.Viewer.Context.SelectColumn"
+msgstr "Select column"
 
 msgid "Statistic.Viewer.Context.Sort"
 msgstr "Sort"

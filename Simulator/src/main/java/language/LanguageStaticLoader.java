@@ -859,6 +859,7 @@ public class LanguageStaticLoader {
 		StatisticsBasePanel.contextSortAscending=Language.tr("Statistic.Viewer.Context.Sort.Ascending");
 		StatisticsBasePanel.contextSortDescending=Language.tr("Statistic.Viewer.Context.Sort.Descending");
 		StatisticsBasePanel.contextSortOriginal=Language.tr("Statistic.Viewer.Context.Sort.Reset");
+		StatisticsBasePanel.contextSelectColumn=Language.tr("Statistic.Viewer.Context.SelectColumn");
 		StatisticsBasePanel.contextFilter=Language.tr("Statistic.Viewer.Context.Filter");
 		StatisticsBasePanel.contextFilterReset=Language.tr("Statistic.Viewer.Context.Filter.All");
 		StatisticsBasePanel.contextFilterSelect=Language.tr("Statistic.Viewer.Context.Filter.Select");

@@ -168,6 +168,12 @@ public enum SimToolsImages {
 	/** Symbol in der Statistik "Tabelle" */
 	STATISTICS_TABLE("Table.png"),
 
+	/** Symbol im Tabellen-Kontextmenü "Werte auswählen" (zum Filtern) */
+	STATISTICS_TABLE_FILTER("table_lightning.png"),
+
+	/** Symbol im Tabellen-Kontextmenü "Standardspaltenbreite" */
+	STATISTICS_TABLE_COL_WIDTH("table_row_insert.png"),
+
 	/** Symbol in der Statistik "Liniendiagramm" */
 	STATISTICS_DIAGRAM_LINE("chart_curve.png"),
 
