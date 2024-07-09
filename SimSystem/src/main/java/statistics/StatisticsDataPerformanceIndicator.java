@@ -278,7 +278,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	/**
 	 * Sollen Verteilungswerte erfasst werden?
 	 */
-	private final boolean hasDistribution;
+	private boolean hasDistribution;
 
 	/**
 	 * Anzahl der Werte, die für die Verteilung als zum Zeitpunkt 0 erfasst werden sollen.<br>
@@ -1421,66 +1421,66 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			this.count=count;
 		}
 
-		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameSum));
+		value=getAttributeValue(node,xmlNameSum);
 		if (!value.isEmpty()) {
 			final Double sum=NumberTools.getDouble(value);
 			if (sum==null) return String.format(xmlNameSumError,node.getNodeName(),value);
 			this.sum=sum;
 		}
 
-		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameSumSquared));
+		value=getAttributeValue(node,xmlNameSumSquared);
 		if (!value.isEmpty()) {
 			final Double sum2=NumberTools.getDouble(value);
 			if (sum2==null || sum2<0) return String.format(xmlNameSumSquaredError,node.getNodeName(),value);
 			squaredSum=sum2;
 		}
 
-		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameSumCubic));
+		value=getAttributeValue(node,xmlNameSumCubic);
 		if (!value.isEmpty()) {
 			final Double sum3=NumberTools.getDouble(value);
 			if (sum3==null) return String.format(xmlNameSumCubicError,node.getNodeName(),value);
 			cubicSum=sum3;
 		}
 
-		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameSumQuartic));
+		value=getAttributeValue(node,xmlNameSumQuartic);
 		if (!value.isEmpty()) {
 			final Double sum4=NumberTools.getDouble(value);
 			if (sum4==null) return String.format(xmlNameSumQuarticError,node.getNodeName(),value);
 			quarticSum=sum4;
 		}
 
-		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameMin));
+		value=getAttributeValue(node,xmlNameMin);
 		if (!value.isEmpty()) {
 			final Double min=NumberTools.getDouble(value);
 			if (min==null) return String.format(xmlNameMinError,node.getNodeName(),value);
 			this.min=min;
 		}
 
-		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameMax));
+		value=getAttributeValue(node,xmlNameMax);
 		if (!value.isEmpty()) {
 			final Double max=NumberTools.getDouble(value);
 			if (max==null) return String.format(xmlNameMaxError,node.getNodeName(),value);
 			this.max=max;
 		}
 
-		if (hasDistribution) {
+		value=getAttributeValue(node,xmlNameDistribution);
+		if (!value.isEmpty() && hasDistribution) {
 			if (dist==null) initDistribution();
-			value=getAttributeValue(node,xmlNameDistribution);
-			if (!value.isEmpty()) {
-				double upperBound=dist.upperBound;
-				final String limitString=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,xmlNameQuantilLimit));
-				if (!limitString.isEmpty()) {
-					final Double limit=NumberTools.getDouble(limitString);
-					if (limit!=null && limit>0) upperBound=limit;
-				}
-				final DataDistributionImpl distLoaded=DataDistributionImpl.createFromString(value,upperBound);
-				if (distLoaded==null) return String.format(xmlNameDistributionError,node.getNodeName());
-				dist=distLoaded;
-				densityData=dist.densityData;
-				densityDataLength=densityData.length;
-				setupArgumentScaleFactor(densityDataLength,upperBound);
+			double upperBound=dist.upperBound;
+			final String limitString=getAttributeValue(node,xmlNameQuantilLimit);
+			if (!limitString.isEmpty()) {
+				final Double limit=NumberTools.getDouble(limitString);
+				if (limit!=null && limit>0) upperBound=limit;
 			}
+			final DataDistributionImpl distLoaded=DataDistributionImpl.createFromString(value,upperBound);
+			if (distLoaded==null) return String.format(xmlNameDistributionError,node.getNodeName());
+			dist=distLoaded;
+			densityData=dist.densityData;
+			densityDataLength=densityData.length;
+			setupArgumentScaleFactor(densityDataLength,upperBound);
 		}
+
+		if (dist==null) hasDistribution=false;
 
 		value=getAttributeValue(node,xmlNameCorrelation);
 		if (!value.isEmpty() && hasDistribution) {
@@ -1506,7 +1506,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 
 		value=getAttributeValue(node,xmlNameBatchMeansVar);
 		if (!value.isEmpty()) {
-			final Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
+			final Double D=NumberTools.getNotNegativeDouble(value);
 			if (D==null) return String.format(xmlNameBatchMeansVarError,node.getNodeName(),value);
 			batchMeansVar=D.doubleValue();
 		}
@@ -1520,9 +1520,9 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 
 		value=getAttributeValue(node,xmlNameRunVar);
 		if (!value.isEmpty()) {
-			final Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
+			final Double D=NumberTools.getNotNegativeDouble(value);
 			if (D==null) {
-				final Double D2=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(value));
+				final Double D2=NumberTools.getDouble(value);
 				if (D2==null || D2.doubleValue()<-0.1) return String.format(xmlNameRunVarError,node.getNodeName(),value);
 				runVar=0; /* Frühere Versionen konnten beim Speichern aufgrund von Rundungsungenauigkeiten noch ganz leicht negative Werte speichern. */
 			} else {
@@ -1532,7 +1532,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 
 		value=getAttributeValue(node,xmlNameWelfordM2);
 		if (!value.isEmpty()) {
-			final Double D=NumberTools.getNotNegativeDouble(NumberTools.systemNumberToLocalNumber(value));
+			final Double D=NumberTools.getNotNegativeDouble(value);
 			if (D==null) return String.format(xmlNameWelfordM2Error,node.getNodeName(),value);
 			welfordM2=D.doubleValue();
 		}

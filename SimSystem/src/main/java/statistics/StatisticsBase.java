@@ -17,7 +17,9 @@ package statistics;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.w3c.dom.Document;
@@ -76,14 +78,24 @@ public abstract class StatisticsBase extends XMLData {
 		for (StatisticsPerformanceIndicator performanceIndicator : performanceIndicators) performanceIndicator.calc();
 	}
 
+	/**
+	 * Zuordnung von möglichen xml-Knotennamen (in Kleinbuchstaben) zu Statistik-Klassen (zum schnelleren Laden der Einträge)
+	 * @see #loadProperty(String, String, Element)
+	 */
+	private Map<String,StatisticsPerformanceIndicator> fastLoadMap=null;
+
 	@Override
 	protected String loadProperty(final String name, final String text, final Element node) {
-		for (StatisticsPerformanceIndicator performanceIndicator : performanceIndicators) {
-			if (performanceIndicator.xmlNodeNames==null) continue;
-			for (String test: performanceIndicator.xmlNodeNames) if (name.equalsIgnoreCase(test)) return performanceIndicator.loadFromXML(node);
+		if (fastLoadMap==null) {
+			fastLoadMap=new HashMap<>();
+			for (StatisticsPerformanceIndicator performanceIndicator : performanceIndicators) {
+				for (var test: performanceIndicator.xmlNodeNames) fastLoadMap.put(test.toLowerCase(),performanceIndicator);
+			}
 		}
 
-		return null;
+		final StatisticsPerformanceIndicator performanceIndicator=fastLoadMap.get(name.toLowerCase());
+		if (performanceIndicator==null) return null;
+		return performanceIndicator.loadFromXML(node);
 	}
 
 	@Override

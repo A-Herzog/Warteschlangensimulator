@@ -17,7 +17,9 @@ package statistics;
 
 import java.lang.reflect.Array;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.w3c.dom.Element;
@@ -240,22 +242,32 @@ public final class StatisticsMultiPerformanceIndicator extends StatisticsPerform
 		}
 	}
 
+	/**
+	 * Liste der möglichen xml-Knotennamen für die untergeordneten Elemente (in Kleinbuchstaben)
+	 * @see #loadFromXML(Element)
+	 */
+	private Set<String> templateNodeNames=null;
+
 	@Override
 	public String loadFromXML(Element node) {
-		NodeList l=node.getChildNodes();
-		for (int i=0; i<l.getLength();i++) {
+		if (templateNodeNames==null) {
+			templateNodeNames=new HashSet<>();
+			for (var test: template.xmlNodeNames) templateNodeNames.add(test.toLowerCase());
+		}
+
+		final NodeList l=node.getChildNodes();
+		final int len=l.getLength();
+		for (int i=0; i<len;i++) {
 			if (!(l.item(i) instanceof Element)) continue;
 			Element e=(Element)l.item(i);
-			for (String test: template.xmlNodeNames) if (e.getNodeName().equalsIgnoreCase(test)) {
-				StatisticsPerformanceIndicator indicator=createSubIndicator();
-				if (indicator==null) return xmlInternalError;
-				final String error=indicator.loadFromXML(e);
-				if (error!=null) return error;
-				String type=getAttributeValue(e,xmlTypeName);
-				addIndicator(type,indicator);
-				namesList=null;
-				break;
-			}
+			if (!templateNodeNames.contains(e.getNodeName().toLowerCase())) continue;
+			final StatisticsPerformanceIndicator indicator=createSubIndicator();
+			if (indicator==null) return xmlInternalError;
+			final String error=indicator.loadFromXML(e);
+			if (error!=null) return error;
+			final String type=getAttributeValue(e,xmlTypeName);
+			if (!type.isEmpty()) addIndicator(type,indicator);
+			namesList=null;
 		}
 		return null;
 	}

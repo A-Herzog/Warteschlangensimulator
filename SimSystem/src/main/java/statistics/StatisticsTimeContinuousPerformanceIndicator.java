@@ -349,49 +349,49 @@ public final class StatisticsTimeContinuousPerformanceIndicator extends Statisti
 
 		String value;
 
-		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,new String[] {StatisticsTimePerformanceIndicator.xmlNameSum}));
+		value=getAttributeValue(node,new String[] {StatisticsTimePerformanceIndicator.xmlNameSum});
 		if (!value.isEmpty()) {
 			final Double sum=NumberTools.getDouble(value);
 			if (sum==null) return String.format(StatisticsTimePerformanceIndicator.xmlNameValuesError,node.getNodeName(),value);
 			this.sum=sum;
 		}
 
-		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameValues));
+		value=getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameValues);
 		if (!value.isEmpty()) {
 			final Double valueSum=NumberTools.getDouble(value);
 			if (valueSum==null) return String.format(StatisticsTimePerformanceIndicator.xmlNameValuesError,node.getNodeName(),value);
 			this.valueSum=valueSum;
 		}
 
-		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameValuesSquared));
+		value=getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameValuesSquared);
 		if (!value.isEmpty()) {
 			final Double valueSum2=NumberTools.getDouble(value);
 			if (valueSum2==null || valueSum2<0) return String.format(StatisticsTimePerformanceIndicator.xmlNameValuesSquaredError,node.getNodeName(),value);
 			valueSumSquared=valueSum2;
 		}
 
-		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameValuesCubic));
+		value=getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameValuesCubic);
 		if (!value.isEmpty()) {
 			final Double valueSum3=NumberTools.getDouble(value);
 			if (valueSum3==null) return String.format(StatisticsTimePerformanceIndicator.xmlNameValuesCubicError,node.getNodeName(),value);
 			valueSumCubic=valueSum3;
 		}
 
-		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameValuesQuartic));
+		value=getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameValuesQuartic);
 		if (!value.isEmpty()) {
 			final Double valueSum4=NumberTools.getDouble(value);
 			if (valueSum4==null) return String.format(StatisticsTimePerformanceIndicator.xmlNameValuesQuarticError,node.getNodeName(),value);
 			valueSumCubic=valueSum4;
 		}
 
-		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameMin));
+		value=getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameMin);
 		if (!value.isEmpty()) {
 			final Double min=NumberTools.getDouble(value);
 			if (min==null) return String.format(StatisticsTimePerformanceIndicator.xmlNameMinError,node.getNodeName(),value);
 			this.min=min;
 		}
 
-		value=NumberTools.systemNumberToLocalNumber(getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameMax));
+		value=getAttributeValue(node,StatisticsTimePerformanceIndicator.xmlNameMax);
 		if (!value.isEmpty()) {
 			final Double max=NumberTools.getDouble(value);
 			if (max==null) return String.format(StatisticsTimePerformanceIndicator.xmlNameMaxError,node.getNodeName(),value);
