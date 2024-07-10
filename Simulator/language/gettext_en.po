@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-05 00:23+0200\n"
+"POT-Creation-Date: 2024-07-06 10:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27245,6 +27245,9 @@ msgstr "Check condition later"
 
 msgid "Surface.AnimationImage.Dialog.Images.Edit"
 msgstr "Edit condition and image"
+
+msgid "Surface.AnimationImage.Dialog.Images.EmptyInfo"
+msgstr "This is the default image that appears<br>if none of the conditions for another image is met."
 
 msgid "Surface.AnimationImage.Dialog.Images.Expression"
 msgstr "Expression"

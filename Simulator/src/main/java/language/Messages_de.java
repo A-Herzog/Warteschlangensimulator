@@ -24208,6 +24208,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52977] = "Gespeicherte Ansichten";
     t[52980] = "QuickAccess.Settings.Hint";
     t[52981] = "\u00d6ffnet den Programmeinstellungen-Dialog";
+    t[52982] = "Surface.AnimationImage.Dialog.Images.EmptyInfo";
+    t[52983] = "Dies ist das Standardbild welches erscheint,<br>wenn keine der Bedingungen f\u00fcr ein anderes Bild erf\u00fcllt ist.";
     t[52986] = "Simulation.Log.Icon.Default";
     t[52987] = "Vorgabewert";
     t[52992] = "Statistics.ErlangCompare.Info.Source.CV";

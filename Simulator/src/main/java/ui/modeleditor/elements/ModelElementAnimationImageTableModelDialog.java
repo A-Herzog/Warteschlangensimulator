@@ -18,11 +18,13 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -77,7 +79,7 @@ public class ModelElementAnimationImageTableModelDialog extends BaseDialog {
 		content.setLayout(new BorderLayout());
 
 		if (expression!=null) {
-			Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.AnimationImage.Dialog.Images.Expression"),expression);
+			Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.AnimationImage.Dialog.Images.Expression")+":",expression);
 			final JPanel line=(JPanel)data[0];
 			expressionEdit=(JTextField)data[1];
 			expressionEdit.addKeyListener(new KeyListener() {
@@ -89,11 +91,14 @@ public class ModelElementAnimationImageTableModelDialog extends BaseDialog {
 			line.add(ModelElementBaseDialog.getExpressionEditButton(this.owner,expressionEdit,true,false,model,surface),BorderLayout.EAST);
 		} else {
 			expressionEdit=null;
+			final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+			content.add(line,BorderLayout.NORTH);
+			line.add(new JLabel("<html><body><b>"+Language.tr("Surface.AnimationImage.Dialog.Images.EmptyInfo")+"</b></body></html>"));
 		}
 
 		content.add(imageChooser=new ImageChooser(image,model.animationImages),BorderLayout.CENTER);
 
-		setSizeRespectingScreensize(500,450);
+		setSizeRespectingScreensize(550,450);
 	}
 
 	/**
