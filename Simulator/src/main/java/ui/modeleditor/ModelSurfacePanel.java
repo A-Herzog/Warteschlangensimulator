@@ -3083,10 +3083,11 @@ public final class ModelSurfacePanel extends JPanel {
 	private String getTooltipDescription(final ModelElementBox element) {
 		if (element==null || !SetupData.getSetup().showStationDescription) return "";
 
-		final ModelDescriptionBuilderSingleStation simpleDescriptionBuilder=new ModelDescriptionBuilderSingleStation(model);
+		final ModelDescriptionBuilderSingleStation simpleDescriptionBuilder=new ModelDescriptionBuilderSingleStation(model,ModelDescriptionBuilderSingleStation.Mode.HTML,25);
 		element.buildDescription(simpleDescriptionBuilder);
 		simpleDescriptionBuilder.done();
-		return simpleDescriptionBuilder.getDescription();
+		String s=simpleDescriptionBuilder.getDescription();
+		return s;
 	}
 
 	/**

@@ -50,14 +50,42 @@ public class ModelDescriptionBuilderSingleStation extends ModelDescriptionBuilde
 	private final StringBuilder description;
 
 	/**
+	 * Maximalanzahl an auszugebenden Zeilen (-1 für kein Limit)
+	 */
+	private final int linesLimit;
+
+	/**
+	 * Anzahl an bislang ausgegebenen Zeilen
+	 */
+	private int linesCount;
+
+	/**
+	 * Wenn das Zeilenlimit überschritten wurde: Wurde bereits ein Auslassungshinweis ("...") ausgegeben?
+	 */
+	private boolean limitInfoShown;
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param model	Editor-Modell zu dem die Beschreibung generiert werden soll
+	 * @param mode	Ausgabemodus
+	 * @param linesLimit	Maximalanzahl an auszugebenden Zeilen (-1 für kein Limit)
+	 */
+	public ModelDescriptionBuilderSingleStation(final EditModel model, final Mode mode, final int linesLimit) {
+		super(model);
+		this.mode=mode;
+		this.linesLimit=linesLimit;
+		linesCount=0;
+		limitInfoShown=false;
+		description=new StringBuilder();
+	}
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param model	Editor-Modell zu dem die Beschreibung generiert werden soll
 	 * @param mode	Ausgabemodus
 	 */
 	public ModelDescriptionBuilderSingleStation(final EditModel model, final Mode mode) {
-		super(model);
-		this.mode=mode;
-		description=new StringBuilder();
+		this(model,mode,-1);
 	}
 
 	/**
@@ -65,7 +93,7 @@ public class ModelDescriptionBuilderSingleStation extends ModelDescriptionBuilde
 	 * @param model	Editor-Modell zu dem die Beschreibung generiert werden soll
 	 */
 	public ModelDescriptionBuilderSingleStation(final EditModel model) {
-		this(model,Mode.HTML);
+		this(model,Mode.HTML,-1);
 	}
 
 	/**
@@ -99,12 +127,24 @@ public class ModelDescriptionBuilderSingleStation extends ModelDescriptionBuilde
 	 * @see #processStation(ModelElementBox, Map)
 	 */
 	private void processPropertyPlain(final String[] property) {
+		if (linesLimit>0 && linesCount>linesLimit) {
+			if (!limitInfoShown) {
+				limitInfoShown=true;
+				description.append("...\n");
+			}
+			return;
+		}
 		final String[] lines=property[1].split("\\\n");
 		if (lines.length==1) {
 			description.append(property[0]+": "+lines[0]+"\n");
+			linesCount++;
 		} else {
 			description.append(property[0]+":\n");
-			for (String line: lines) description.append(line+"\n");
+			for (var line: lines) {
+				linesCount++;
+				if (linesLimit>0 && linesCount>linesLimit) {description.append("...\n"); limitInfoShown=true; break;}
+				description.append(line+"\n");
+			}
 		}
 	}
 
@@ -114,14 +154,26 @@ public class ModelDescriptionBuilderSingleStation extends ModelDescriptionBuilde
 	 * @see #processStation(ModelElementBox, Map)
 	 */
 	private void processPropertyHTML(final String[] property) {
+		if (linesLimit>0 && linesCount>linesLimit) {
+			if (!limitInfoShown) {
+				limitInfoShown=true;
+				description.append("<br>...");
+			}
+			return;
+		}
 		final String heading=encodeHTML(property[0]);
 		final String[] lines=property[1].split("\\\n");
 		if (description.length()>0) description.append("<br>\n");
 		if (lines.length==1) {
 			description.append("<b>"+heading+"</b>: "+encodeHTML(lines[0]));
+			linesCount++;
 		} else {
 			description.append("<b>"+heading+"</b>:");
-			for (String line: lines) description.append("<br>\n"+encodeHTML(line));
+			for (var line: lines) {
+				linesCount++;
+				if (linesLimit>0 && linesCount>linesLimit) {description.append("<br>..."); limitInfoShown=true; break;}
+				description.append("<br>\n"+encodeHTML(line));
+			}
 		}
 	}
 
