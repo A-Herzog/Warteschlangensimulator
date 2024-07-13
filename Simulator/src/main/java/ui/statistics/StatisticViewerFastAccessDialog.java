@@ -23,11 +23,15 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.swing.AbstractButton;
@@ -44,6 +48,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -62,6 +68,7 @@ import org.w3c.dom.NodeList;
 import language.Language;
 import scripting.js.JSCommandXML;
 import systemtools.BaseDialog;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Ermöglicht die Auswahl eines xml-Elements auf Basis eines XML-Dokuments.
@@ -124,9 +131,11 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 	private DefaultMutableTreeNode createTreeNode(Element xmlNode) {
 		DefaultMutableTreeNode treeNode=new DefaultMutableTreeNode(new XMLNodeWrapper(xmlNode));
 
-		NodeList list=xmlNode.getChildNodes();
+		final NodeList list=xmlNode.getChildNodes();
 		for (int i=0;i<list.getLength();i++) if (list.item(i) instanceof Element) {
-			Element xmlChild=(Element)list.item(i);
+			final Element xmlChild=(Element)list.item(i);
+			final String content=xmlChild.getTextContent();
+			if ((content==null || content.isBlank()) && xmlChild.getAttributes().getLength()==0 && xmlChild.getChildNodes().getLength()==0) continue;
 			treeNode.add(createTreeNode(xmlChild));
 		}
 
@@ -243,6 +252,11 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				p.setMaximumSize(new Dimension(1000,70));
 				insertButtons[1].setSelected(true);
 				contentArea.add(Box.createVerticalGlue());
+				for (var button: insertButtons) button.addMouseListener(new MouseAdapter() {
+					@Override public void mouseClicked(MouseEvent e) {
+						if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount()==2) close(CLOSED_BY_OK);
+					}
+				});
 			}
 		}
 
@@ -752,7 +766,13 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 				data[0][0]=Language.tr("Statistic.FastAccess.SelectXMLTag.ElementContent");
 				data[0][1]="("+Language.tr("Statistic.FastAccess.SelectXMLTag.empty")+")";
 			} else {
-				JRadioButton rb=new JRadioButton(Language.tr("Statistic.FastAccess.SelectXMLTag.ElementContent"));
+				final JRadioButton rb=new JRadioButton(Language.tr("Statistic.FastAccess.SelectXMLTag.ElementContent"));
+				if (FlatLaFHelper.isActive()) rb.setBackground(UIManager.getColor("Table.background"));
+				rb.addMouseListener(new MouseAdapter() {
+					@Override public void mouseClicked(MouseEvent e) {
+						if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount()==2) close(CLOSED_BY_OK);
+					}
+				});
 				buttonGroup.add(rb);
 				rb.setToolTipText(getPath(null));
 				data[0][0]=rb;
@@ -768,21 +788,39 @@ public class StatisticViewerFastAccessDialog extends BaseDialog {
 		 * @see StatisticViewerFastAccessDialog#attributeTable
 		 */
 		public Object[][] getAttributeTableData(ButtonGroup buttonGroup) {
-			NamedNodeMap map=null;
-			if (xmlNode!=null) map=xmlNode.getAttributes();
+			final Map<String,String> map=new HashMap<>();
+
+			if (xmlNode!=null) {
+				NamedNodeMap xmlMap=null;
+				xmlMap=xmlNode.getAttributes();
+				if (xmlMap!=null) for (int i=0;i<xmlMap.getLength();i++) {
+					final String name=xmlMap.item(i).getNodeName();
+					if (name.startsWith("xmlns") || name.startsWith("xsi:")) continue;
+					map.put(name,xmlMap.item(i).getNodeValue());
+				}
+			}
+
 			Object[][] data;
-			if (map==null || map.getLength()==0) {
+			if (map.size()==0) {
 				data=new Object[1][2];
 				data[0][0]="("+Language.tr("Statistic.FastAccess.SelectXMLTag.NoAttributes")+")";
 				data[0][1]="";
 			} else {
-				data=new Object[map.getLength()][2];
-				for (int i=0;i<map.getLength();i++) {
-					JRadioButton rb=new JRadioButton(map.item(i).getNodeName());
+				data=new Object[map.size()][2];
+				int index=0;
+				for (String name: map.keySet().stream().sorted().toArray(String[]::new)) {
+					final JRadioButton rb=new JRadioButton(name);
+					if (FlatLaFHelper.isActive()) rb.setBackground(UIManager.getColor("Table.background"));
+					rb.addMouseListener(new MouseAdapter() {
+						@Override public void mouseClicked(MouseEvent e) {
+							if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount()==2) close(CLOSED_BY_OK);
+						}
+					});
 					buttonGroup.add(rb);
-					rb.setToolTipText(getPath(map.item(i).getNodeName()));
-					data[i][0]=rb;
-					data[i][1]=formatValue(map.item(i).getNodeValue(),map.item(i).getNodeName());
+					rb.setToolTipText(getPath(name));
+					data[index][0]=rb;
+					data[index][1]=formatValue(map.get(name),name);
+					index++;
 				}
 			}
 			return data;
