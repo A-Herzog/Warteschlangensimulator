@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-06 10:28+0200\n"
+"POT-Creation-Date: 2024-07-09 08:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2268,6 +2268,12 @@ msgstr "Interactive mode started. To exit, type \"exit\"."
 
 msgid "CommandLine.Interactive.Stop"
 msgstr "Interactive mode is terminated."
+
+msgid "CommandLine.JavaProperties.Description.Short"
+msgstr "Displays the Java environment variables."
+
+msgid "CommandLine.JavaProperties.Name"
+msgstr "JavaProperties"
 
 msgid "CommandLine.Optimizer.Description.Long"
 msgstr ""
