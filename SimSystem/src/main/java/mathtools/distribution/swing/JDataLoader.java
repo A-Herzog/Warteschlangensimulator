@@ -495,7 +495,7 @@ public class JDataLoader extends JDialog {
 	 * @param file	Tabellendatei
 	 * @return	Liefert im Erfolgsfall eine {@link MultiTable}, sonst <code>null</code>.
 	 */
-	private static MultiTable loadTable(final Component owner, final File file) {
+	public static MultiTable loadTable(final Component owner, final File file) {
 		MultiTable multiTable=new MultiTable();
 		if (!multiTable.load(file)) {
 			if (file!=null) JOptionPane.showMessageDialog(owner,String.format(ImportErrorFileError,file.toString()),ImportErrorTitle,JOptionPane.ERROR_MESSAGE);
@@ -510,7 +510,7 @@ public class JDataLoader extends JDialog {
 	 * @param fileLoadTitle	Titel des Dateiladedialogs
 	 * @return	Liefert im Erfolgsfall eine {@link MultiTable}, sonst <code>null</code>.
 	 */
-	private static MultiTable loadTable(final Component owner, final String fileLoadTitle) {
+	public static MultiTable loadTable(final Component owner, final String fileLoadTitle) {
 		File file=Table.showLoadDialog(owner,fileLoadTitle); if (file==null) return null;
 		MultiTable multiTable=loadTable(owner,file); if (multiTable==null) return null;
 
@@ -684,7 +684,7 @@ public class JDataLoader extends JDialog {
 	 * @see #loadNumbersTwoRowsFromFile(Component, File, int, int)
 	 * @see #loadNumbersTwoRowsFromString(Component, String, int, int)
 	 */
-	private static double[][] loadNumbersTwoRowsFromMultiTable(Component owner, final MultiTable multiTable, final int minValues, final int maxValues) {
+	public static double[][] loadNumbersTwoRowsFromMultiTable(Component owner, final MultiTable multiTable, final int minValues, final int maxValues) {
 		double[][] newData=multiTable.getNumbersTwoLines(minValues,maxValues);
 		if (newData==null) {
 			while (owner!=null && !(owner instanceof Window)) owner=owner.getParent();

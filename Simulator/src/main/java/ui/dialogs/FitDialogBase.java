@@ -34,6 +34,7 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 
 import language.Language;
+import mathtools.MultiTable;
 import mathtools.NumberTools;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.swing.JDataDistributionEditPanel;
@@ -261,7 +262,9 @@ public abstract class FitDialogBase extends BaseDialog {
 	 * Lädt Messwerte aus einer Datei.
 	 */
 	private void loadFromFile() {
-		if (loadValuesFromFile()) {
+		final MultiTable multiTable=JDataLoader.loadTable(owner,Language.tr("FitDialog.LoadValues"));
+		if (multiTable==null) return;
+		if (loadValuesFromFile(multiTable)) {
 			calcFit();
 		} else {
 			MsgBox.error(FitDialogBase.this,Language.tr("FitDalog.InvalidDataTitle"),Language.tr("FitDalog.InvalidDataFile"));
@@ -365,10 +368,11 @@ public abstract class FitDialogBase extends BaseDialog {
 
 	/**
 	 * Lädt die Werte aus einer Datei.
+	 * @param multiTable	Tabellenobjekt mit den zu verarbeitenden Daten
 	 * @return	Liefert <code>true</code>, wenn die Daten verarbeitet werden konnten.
 	 */
-	private boolean loadValuesFromFile() {
-		return loadValuesFromArray(JDataLoader.loadNumbersTwoRows(FitDialogBase.this,Language.tr("FitDialog.LoadValues"),1,Integer.MAX_VALUE));
+	private boolean loadValuesFromFile(final MultiTable multiTable) {
+		return loadValuesFromArray(JDataLoader.loadNumbersTwoRowsFromMultiTable(FitDialogBase.this,multiTable,1,Integer.MAX_VALUE));
 	}
 
 	/**
