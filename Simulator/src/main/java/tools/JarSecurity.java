@@ -29,6 +29,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -60,7 +61,17 @@ public class JarSecurity {
 	/**
 	 * Zu ignorierende Bibliotheken im "libs"-Ordner. Alle anderen werden in die Erfassung einbezogen.
 	 */
-	private static final Set<String> ignoreJars=new HashSet<>(Arrays.asList("simsystem.jar", "simtools.jar"));
+	private static final Set<String> ignoreJars=new HashSet<>(Arrays.asList("simsystem.jar", "simtools.jar","simulator.jar"));
+
+	/**
+	 * Hauptdatei
+	 */
+	private static String selfJar="Simulator.jar";
+
+	/**
+	 * Datei im libs-Ordner aus der die Prüfsumme für die {@link #selfJar} geladen werden soll
+	 */
+	private static String selfJarHashFile="simulator.jar";
 
 	/**
 	 * Im Falle des class-File-Modus: Die Listendatei, in die die Hashes geschrieben werden sollen (sonst: <code>null</code>)
@@ -200,10 +211,44 @@ public class JarSecurity {
 	}
 
 	/**
+	 * Prüft die Haupt-jar-Datei des Programms.
+	 * @return	Liefert <code>true</code>, wenn die Prüfung erfolgreich war
+	 */
+	private static boolean selfTest() {
+		final File selfJarFile=new File(SetupData.getProgramFolder(),selfJar);
+		if (!selfJarFile.isFile()) return true;
+		final String selfHash=calcSHA256(selfJarFile);
+		if (selfHash==null) return true;
+
+		final File libsFolder=new File(SetupData.getProgramFolder(),"libs");
+		if (!libsFolder.isDirectory()) return true;
+		final File hashFile=new File(libsFolder,selfJarHashFile);
+		if (!hashFile.isFile()) return true;
+
+		try {
+			final List<String> lines=Files.readAllLines(hashFile.toPath());
+			if (lines.size()==0) return false;
+			final String loadedHash=lines.get(0).trim();
+			return selfHash.equals(loadedHash);
+		} catch (IOException e) {
+			return true;
+		}
+	}
+
+	/**
 	 * Erstellt oder prüft je nach Anwendungsfall die Liste der Prüfsummen der jar-Bibliotheken.
 	 */
 	public static void work() {
 		new Thread(()->{
+			/* Selbsttest */
+			if (jarFileMode) {
+				if (!selfTest()) {
+					System.out.println("Damaged main jar (checksum mismatch).");
+					System.exit(1);
+				}
+			}
+
+			/* Bibliotheken prüfen */
 			final Map<String,String> actualHashes=getActualHashes();
 			final Map<String,String> loadedHashes=loadHashes();
 			final boolean ok=Objects.deepEquals(actualHashes,loadedHashes);
