@@ -15,6 +15,8 @@
  */
 package simulator.runmodel;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -308,7 +310,7 @@ public final class RunDataClients {
 		if (d3!=0.0) ((StatisticsValuePerformanceIndicator)statistics.clientsCostsProcess.get(name)).add(d3);
 
 		/* Werte der Eigenschaften erfassen */
-		client.writeUserDataToStatistics(name,statistics.clientData,statistics.clientDataByClientTypes);
+		client.writeUserDataToStatistics(name,statistics.clientData,statistics.clientDataByClientTypes,this);
 
 		/* Text-Werte der Eigenschaften erfassen */
 		if (simData.runModel.recordClientTextData) {
@@ -464,5 +466,31 @@ public final class RunDataClients {
 	 */
 	public void requestFastClientsInUseList() {
 		if (clientsInUseFast==null) clientsInUseFast=new HashSet<>();
+	}
+
+	/**
+	 * Cache für Kundentypname und Datenfeldnummer zur Verwendung in {@link RunDataClient#writeUserDataToStatistics(String, statistics.StatisticsMultiPerformanceIndicator, statistics.StatisticsMultiPerformanceIndicator, RunDataClients)}
+	 * @see #getNumberAndNameFromCache(int, String)
+	 * @see RunDataClient#writeUserDataToStatistics(String, statistics.StatisticsMultiPerformanceIndicator, statistics.StatisticsMultiPerformanceIndicator, RunDataClients)
+	 */
+	private List<Map<String,String>> numberAndNameCache;
+
+	/**
+	 * Liefert eine Zeichenkette, die sich aus Kundenfeldnummer und Kundentypenname zusammensetzt.
+	 * @param number	Kundenfeldnummer
+	 * @param name	Kundentypenname
+	 * @return	Speichersparsam erzeugte Zeichenkette aus Kundenfeldnummer und Kundentypenname
+	 * @see RunDataClient#writeUserDataToStatistics(String, statistics.StatisticsMultiPerformanceIndicator, statistics.StatisticsMultiPerformanceIndicator, RunDataClients)
+	 */
+	public String getNumberAndNameFromCache(final int number, final String name) {
+		if (numberAndNameCache==null) numberAndNameCache=new ArrayList<>();
+		while (numberAndNameCache.size()<number+1) numberAndNameCache.add(new HashMap<>());
+		final Map<String,String> map=numberAndNameCache.get(number);
+		String result=map.get(name);
+		if (result!=null) return result;
+
+		result=NumberTools.formatLongNoGrouping(number)+"-"+name;
+		map.put(name,result);
+		return result;
 	}
 }

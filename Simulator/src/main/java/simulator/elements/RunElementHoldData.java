@@ -65,14 +65,20 @@ public class RunElementHoldData extends RunElementData implements RunElementData
 	public boolean queueLockedForPickUp;
 
 	/**
+	 * Rechenausdruck zur Bestimmung der maximalen Wartezeit bzw. der Zeit nach der eine automatische Freigabe erfolgt
+	 */
+	public final ExpressionCalc maxWaitingTime;
+
+	/**
 	 * Konstruktor der Klasse <code>RunElementHoldData</code>
 	 * @param station	Station zu diesem Datenelement
 	 * @param condition	Bei der Verzögerung von Kunden zu prüfende Bedingung (zur Umsetzung in ein <code>ExpressionMultiEval</code>-Objekt)
 	 * @param priority	Prioritäts-Rechenausdrücke
+	 * @param maxWaitingTime	Rechenausdruck zur Bestimmung der maximalen Wartezeit bzw. der Zeit nach der eine automatische Freigabe erfolgt
 	 * @param variableNames	Liste der global verfügbaren Variablennamen
 	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementHoldData(final RunElement station, final String condition, final String[] priority, final String[] variableNames, final SimulationData simData) {
+	public RunElementHoldData(final RunElement station, final String condition, final String[] priority, final String maxWaitingTime, final String[] variableNames, final SimulationData simData) {
 		super(station,simData);
 		queueLockedForPickUp=false;
 		waitingClients=new ArrayList<>();
@@ -95,6 +101,13 @@ public class RunElementHoldData extends RunElementData implements RunElementData
 			}
 		}
 		this.allPriorityFIFO=allPriorityFIFO;
+
+		if (maxWaitingTime==null || maxWaitingTime.isBlank()) {
+			this.maxWaitingTime=null;
+		} else {
+			this.maxWaitingTime=new ExpressionCalc(variableNames);
+			this.maxWaitingTime.parse(maxWaitingTime);
+		}
 	}
 
 	@Override

@@ -31,7 +31,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import language.Language;
-import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.RunModelFixer;
@@ -90,7 +89,7 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	/**
 	 * Maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (Werte &le;0 für "keine automatische Freigabe")
 	 */
-	private double maxWaitingTime;
+	private String maxWaitingTime;
 
 	/**
 	 * Art wie die Verzögerung für die Kundenstatistik gezählt werden soll
@@ -110,7 +109,7 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		priority=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		clientBasedCheck=false;
 		useTimedChecks=false;
-		maxWaitingTime=-1;
+		maxWaitingTime="";
 		delayType=DelayType.DELAY_TYPE_WAITING;
 	}
 
@@ -201,19 +200,19 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	}
 
 	/**
-	 * Liefert die maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (Werte &le;0 für "keine automatische Freigabe").
-	 * @return	Maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (Werte &le;0 für "keine automatische Freigabe")
+	 * Liefert die maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (leer für "keine automatische Freigabe").
+	 * @return	Maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (leer für "keine automatische Freigabe")
 	 */
-	public double getMaxWaitingTime() {
+	public String getMaxWaitingTime() {
 		return maxWaitingTime;
 	}
 
 	/**
-	 * Stellt die maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (Werte &le;0 für "keine automatische Freigabe") ein.
-	 * @param maxWaitingTime	Maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (Werte &le;0 für "keine automatische Freigabe")
+	 * Stellt die maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (leer für "keine automatische Freigabe") ein.
+	 * @param maxWaitingTime	Maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (leer für "keine automatische Freigabe")
 	 */
-	public void setMaxWaitingTime(double maxWaitingTime) {
-		this.maxWaitingTime=maxWaitingTime;
+	public void setMaxWaitingTime(final String maxWaitingTime) {
+		this.maxWaitingTime=(maxWaitingTime=="")?"":maxWaitingTime;
 	}
 
 	/**
@@ -263,9 +262,7 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		if (otherHold.useTimedChecks!=useTimedChecks) return false;
 
 		/* Automatische Freigabe nach maximaler Wartezeit? */
-		if (otherHold.maxWaitingTime>0 || maxWaitingTime>0) {
-			if (otherHold.maxWaitingTime!=maxWaitingTime) return false;
-		}
+		if (!otherHold.maxWaitingTime.equalsIgnoreCase(maxWaitingTime)) return false;
 
 		/* Erfassung der Aufenthaltszeit */
 		if (otherHold.delayType!=delayType) return false;
@@ -450,7 +447,7 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		sub.setTextContent(condition);
 		if (clientBasedCheck) sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.ClientBased"),"1");
 		if (useTimedChecks) sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.TimedChecks"),"1");
-		if (maxWaitingTime>0) sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.MaxWaitingTime"),NumberTools.formatSystemNumber(maxWaitingTime));
+		if (!maxWaitingTime.isBlank()) sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.MaxWaitingTime"),maxWaitingTime);
 		switch (delayType) {
 		case DELAY_TYPE_WAITING:
 			sub.setAttribute(Language.trPrimary("Surface.Hold.XML.Condition.TimeType"),Language.trPrimary("Surface.Hold.XML.Condition.TimeType.WaitingTime"));
@@ -491,12 +488,7 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 			if (clientBasedCheckString.equals("1")) clientBasedCheck=true;
 			final String useTimedChecksString=Language.trAllAttribute("Surface.Hold.XML.Condition.TimedChecks",node);
 			if (useTimedChecksString.equals("1")) useTimedChecks=true;
-			final String maxWaitingTimeString=Language.trAllAttribute("Surface.Hold.XML.Condition.MaxWaitingTime",node);
-			if (!maxWaitingTimeString.isBlank()) {
-				final Double maxWaitingTime=NumberTools.getDouble(maxWaitingTimeString);
-				if (maxWaitingTime==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),"MaximaleHaltezeit"/*Language.tr("Surface.Hold.XML.Condition.MaxWaitingTime")*/,name,node.getParentNode().getNodeName());
-				this.maxWaitingTime=maxWaitingTime.doubleValue();
-			}
+			maxWaitingTime=Language.trAllAttribute("Surface.Hold.XML.Condition.MaxWaitingTime",node);
 			final String type=Language.trAllAttribute("Surface.Hold.XML.Condition.TimeType",node);
 			if (Language.trAll("Surface.Hold.XML.Condition.TimeType.WaitingTime",type)) delayType=DelayType.DELAY_TYPE_WAITING;
 			if (Language.trAll("Surface.Hold.XML.Condition.TimeType.TransferTime",type)) delayType=DelayType.DELAY_TYPE_TRANSFER;
@@ -585,8 +577,8 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		}
 
 		/* Automatische Freigabe nach maximaler Wartezeit? */
-		if (maxWaitingTime>0) {
-			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.AutoRelease"),NumberTools.formatNumber(maxWaitingTime)+" "+Language.tr("Surface.XML.TimeBase.Seconds"),10000);
+		if (!maxWaitingTime.isBlank()) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.AutoRelease"),maxWaitingTime+" "+Language.tr("Surface.XML.TimeBase.Seconds"),10000);
 		}
 	}
 
@@ -606,6 +598,11 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		for (Map.Entry<String,String> clientPriority: priority.entrySet()) {
 			final String clientType=clientPriority.getKey();
 			searcher.testString(this,String.format(Language.tr("Editor.DialogBase.Search.PriorityForClientType"),clientType),clientPriority.getValue(),newPriority->priority.put(clientType,newPriority));
+		}
+
+		/* Automatische Freigabe nach maximaler Wartezeit? */
+		if (!maxWaitingTime.isBlank()) {
+			searcher.testString(this,Language.tr("Surface.Hold.Dialog.AutoRelease"),maxWaitingTime,newMaxWaitingTime->{maxWaitingTime=newMaxWaitingTime;});
 		}
 	}
 }

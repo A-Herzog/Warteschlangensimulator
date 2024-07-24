@@ -35,6 +35,7 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.simparser.ExpressionCalc;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.MsgBox;
 import tools.JTableExt;
@@ -148,16 +149,17 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 		label.setLabelFor(processTimeType);
 
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(useMaxWaitingTime=new JCheckBox(Language.tr("Surface.Hold.Dialog.AutoRelease")+":",hold.getMaxWaitingTime()>0));
+		line.add(useMaxWaitingTime=new JCheckBox(Language.tr("Surface.Hold.Dialog.AutoRelease")+":",!hold.getMaxWaitingTime().isBlank()));
 		useMaxWaitingTime.setEnabled(!readOnly);
 		useMaxWaitingTime.addActionListener(e->checkData(false));
-		line.add(maxWaitingTime=new JTextField((hold.getMaxWaitingTime()>0)?NumberTools.formatNumberMax(hold.getMaxWaitingTime()):"",10));
+		line.add(maxWaitingTime=new JTextField(hold.getMaxWaitingTime(),10));
 		maxWaitingTime.setEditable(!readOnly);
 		maxWaitingTime.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {useMaxWaitingTime.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {useMaxWaitingTime.setSelected(true); checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {useMaxWaitingTime.setSelected(true); checkData(false);}
 		});
+		line.add(getExpressionEditButton(this,maxWaitingTime,false,true,element.getModel(),element.getSurface()));
 		line.add(new JLabel(Language.tr("Surface.XML.TimeBase.Seconds")));
 
 		/* Tab "Prioritäten" */
@@ -219,13 +221,16 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 		}
 
 		if (useMaxWaitingTime.isSelected()) {
-			final Double maxWaitingTimeValue=NumberTools.getPositiveDouble(maxWaitingTime,true);
-			if (maxWaitingTimeValue==null) {
+			final int error=ExpressionCalc.check(maxWaitingTime.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
+			if (error>=0) {
 				ok=false;
+				maxWaitingTime.setBackground(Color.RED);
 				if (showErrorMessage) {
-					MsgBox.error(this,Language.tr("Surface.Hold.Dialog.AutoRelease.ErrorTitle"),String.format(Language.tr("Surface.Hold.Dialog.AutoRelease.ErrorInfo"),maxWaitingTime.getText()));
+					MsgBox.error(this,Language.tr("Surface.Hold.Dialog.AutoRelease.ErrorTitle"),String.format(Language.tr("Surface.Hold.Dialog.AutoRelease.ErrorInfo"),maxWaitingTime.getText(),error+1));
 					return false;
 				}
+			} else {
+				maxWaitingTime.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		} else {
 			maxWaitingTime.setBackground(NumberTools.getTextFieldDefaultBackground());
@@ -267,7 +272,7 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 		case 2: hold.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_PROCESS); break;
 		case 3: hold.setDelayType(ModelElementDelay.DelayType.DELAY_TYPE_NOTHING); break;
 		}
-		if (useMaxWaitingTime.isSelected()) hold.setMaxWaitingTime(NumberTools.getPositiveDouble(maxWaitingTime,true)); else hold.setMaxWaitingTime(-1);
+		if (useMaxWaitingTime.isSelected()) hold.setMaxWaitingTime(maxWaitingTime.getText()); else hold.setMaxWaitingTime("");
 		tablePriorityModel.storeData();
 	}
 }

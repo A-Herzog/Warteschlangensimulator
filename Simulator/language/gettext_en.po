@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-09 08:29+0200\n"
+"POT-Creation-Date: 2024-07-20 23:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19763,6 +19763,9 @@ msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
 msgid "Simulation.Creator.HoldJSCondition"
 msgstr "The additional condition \"%s\" at element id=%d is invalid at character %d."
 
+msgid "Simulation.Creator.HoldMaxWaitingTime"
+msgstr "The time span for an automatic release \"%s\" at element id=%d is invalid at character %d."
+
 msgid "Simulation.Creator.HoldMultiCondition"
 msgstr "The %d. branching condition \"%s\" at element id=%d is invalid at character %d."
 
@@ -30169,7 +30172,7 @@ msgid "Surface.Hold.Dialog.AutoRelease"
 msgstr "Automatic release after time"
 
 msgid "Surface.Hold.Dialog.AutoRelease.ErrorInfo"
-msgstr "The specified maximum hold time \"%s\" is invalid. A positive number has to be specified."
+msgstr "The specified maximum hold time \"%s\" is invalid at character %d."
 
 msgid "Surface.Hold.Dialog.AutoRelease.ErrorTitle"
 msgstr "Maximum holding time"

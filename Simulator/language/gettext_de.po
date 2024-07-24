@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-09 08:29+0200\n"
+"POT-Creation-Date: 2024-07-20 23:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19811,6 +19811,9 @@ msgstr "Die Bedingung \"%s\" von Element id=%d enthält an Position %d einen Feh
 msgid "Simulation.Creator.HoldJSCondition"
 msgstr "Die zusätzliche Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
 
+msgid "Simulation.Creator.HoldMaxWaitingTime"
+msgstr "Die Zeitdauer für eine automatische Freigabe \"%s\" an Element id=%d enthält an Position %d einen Fehler."
+
 msgid "Simulation.Creator.HoldMultiCondition"
 msgstr "Die %d. Übergangsbedingung \"%s\" von Element id=%d aus enthält an Position %d einen Fehler."
 
@@ -30223,7 +30226,7 @@ msgid "Surface.Hold.Dialog.AutoRelease"
 msgstr "Automatische Freigabe nach Zeitdauer"
 
 msgid "Surface.Hold.Dialog.AutoRelease.ErrorInfo"
-msgstr "Die angegebene maximale Haltezeit \"%s\" ist ungültig. Es muss eine positive Zahl angegeben werden."
+msgstr "Die angegebene maximale Haltezeit \"%s\" ist ab Zeichen %d ungültig."
 
 msgid "Surface.Hold.Dialog.AutoRelease.ErrorTitle"
 msgstr "Maximale Haltezeit"

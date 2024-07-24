@@ -48,7 +48,7 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 	/** Regelmäßige Prüfung der Bedingung? */
 	private boolean useTimedChecks;
 	/** Automatische Freigabe nach bestimmter Wartezeit? (Werte &le;0 für aus) */
-	private long maxWaitingTimeMS;
+	private String maxWaitingTime;
 	/** Art wie die Verzögerung für die Kundenstatistik gezählt werden soll */
 	private ModelElementDelay.DelayType delayType;
 
@@ -91,7 +91,6 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 				final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
 				final int error=calc.parse(priorityString);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.HoldClientPriority"),element.getId(),runModel.clientTypes[i],priorityString,error+1);
-
 				hold.priority[i]=priorityString;
 			}
 		}
@@ -103,10 +102,14 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 		hold.useTimedChecks=holdElement.isUseTimedChecks();
 
 		/* Freigabe nach bestimmter Wartezeit? */
-		if (holdElement.getMaxWaitingTime()>0) {
-			hold.maxWaitingTimeMS=(long)(holdElement.getMaxWaitingTime()*runModel.scaleToSimTime+0.5);
+		if (!holdElement.getMaxWaitingTime().isBlank()) {
+			final String maxWaitingTime=holdElement.getMaxWaitingTime();
+			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+			final int error=calc.parse(maxWaitingTime);
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.HoldMaxWaitingTime"),maxWaitingTime,element.getId(),error+1);
+			hold.maxWaitingTime=maxWaitingTime;
 		} else {
-			hold.maxWaitingTimeMS=0;
+			hold.maxWaitingTime=null;
 		}
 
 		/* Art wie die Verzögerung für die Kundenstatistik gezählt werden soll */
@@ -132,7 +135,7 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 		RunElementHoldData data;
 		data=(RunElementHoldData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementHoldData(this,condition,priority,simData.runModel.variableNames,simData);
+			data=new RunElementHoldData(this,condition,priority,maxWaitingTime,simData.runModel.variableNames,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -151,16 +154,26 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 			/* Kunden an Station in Statistik */
 			simData.runData.logClientEntersStationQueue(simData,this,data,client);
 
-			/* System über Status-Änderung benachrichtigen */
-			simData.runData.fireStateChangeNotify(simData);
-
 			/* Freigabe nach Wartezeit? */
-			if (maxWaitingTimeMS>0) {
+			if (data.maxWaitingTime!=null) {
+				long maxWaitingTimeMS=0;
+				simData.runData.setClientVariableValues(client);
+				try {
+					maxWaitingTimeMS=(long)(data.maxWaitingTime.calc(simData.runData.variableValues,simData,client)*1000+0.5);
+					if (maxWaitingTimeMS<0) maxWaitingTimeMS=0;
+				} catch (MathCalcError e) {
+					simData.calculationErrorStation(data.maxWaitingTime,this);
+					maxWaitingTimeMS=0;
+				}
 				final ReleaseRecheckEvent event=(ReleaseRecheckEvent)simData.getEvent(ReleaseRecheckEvent.class);
 				event.init(simData.currentTime+maxWaitingTimeMS);
 				event.station=this;
 				simData.eventManager.addEvent(event);
+				client.lastMaxWaitingTime=maxWaitingTimeMS;
 			}
+
+			/* System über Status-Änderung benachrichtigen */
+			simData.runData.fireStateChangeNotify(simData);
 
 			/* Interesse an zeitabhängigen Prüfungen anmelden */
 			if (useTimedChecks) simData.runData.requestTimedChecks(simData,this);
@@ -370,14 +383,14 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 	 * @return	Gibt <code>true</code> zurück, wenn einer oder mehrere Kunden freigegeben werden konnten
 	 */
 	private boolean releaseByWaitigTime(final SimulationData simData, final RunElementHoldData data) {
-		if (maxWaitingTimeMS<=0) return false;
+		if (data.maxWaitingTime==null) return false;
 		boolean releasedClients=false;
-		final long startWaitingTimeLimit=simData.currentTime-maxWaitingTimeMS;
+		final long currentTime=simData.currentTime;
 
 		int index=0;
 		while (index<data.waitingClients.size()) {
 			final RunDataClient client=data.waitingClients.get(index);
-			if (client.lastWaitingStart<=startWaitingTimeLimit) {
+			if (client.lastWaitingStart+client.lastMaxWaitingTime<=currentTime) {
 				releaseClient(simData,data,client,index);
 				releasedClients=true;
 			} else {
@@ -399,7 +412,7 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 		try {
 			if (data.lastRelease<simData.currentTime) {
 				/* Freigabe nach Wartezeit */
-				if (maxWaitingTimeMS>0) {
+				if (data.maxWaitingTime!=null) {
 					if (releaseByWaitigTime(simData,data)) return true;
 				}
 				/* Freigabe gemäß regulärer Bedingung */

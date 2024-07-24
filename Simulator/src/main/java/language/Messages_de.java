@@ -17342,6 +17342,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38115] = "https://de.wikipedia.org/wiki/Dreiecksverteilung";
     t[38116] = "Statistic.FastAccess.Template.ResidenceTime.ByStation";
     t[38117] = "Verweilzeit an einer Station";
+    t[38118] = "Simulation.Creator.HoldMaxWaitingTime";
+    t[38119] = "Die Zeitdauer f\u00fcr eine automatische Freigabe \"%s\" an Element id=%d enth\u00e4lt an Position %d einen Fehler.";
     t[38120] = "Surface.TankFlowPanel.StopCondition.Quantity.ErrorInfo";
     t[38121] = "Die angegebene Durchflussmenge \"%s\" ist ung\u00fcltig. Es muss eine positive Zahl angegeben werden.";
     t[38122] = "AnalyticModelCompare.Dialog.Save.Failed.Info";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39663] = "Kopiert das Bild in die Zwischenablage";
     t[39664] = "NotesDialog.Delete.Hint";
     t[39665] = "L\u00f6scht die gew\u00e4hlte Notiz (Umschalt+Klick=ohne Best\u00e4tigungsdialog)";
-    t[39674] = "Surface.Process.Dialog.Tab.PrioritiesAndBatchSizes.PrioritiesPopup.FIFO";
-    t[39675] = "FIFO einstellen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[39674] = "Surface.Process.Dialog.Tab.PrioritiesAndBatchSizes.PrioritiesPopup.FIFO";
+    t[39675] = "FIFO einstellen";
     t[39686] = "BatchPanel.Directory.Caption";
     t[39687] = "Verzeichnis ausw\u00e4hlen";
     t[39692] = "Schedule.SettingsDialog.IntervalDuration";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43919] = "Klein";
     t[43920] = "Batch.Parameter.Changed";
     t[43921] = "Der Parameter \"%s\" wurde auf den Wert %s gesetzt.";
-    t[43922] = "Transporters.Group.Edit.Dialog.Name";
-    t[43923] = "Name des Transportertyps";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[43922] = "Transporters.Group.Edit.Dialog.Name";
+    t[43923] = "Name des Transportertyps";
     t[43924] = "UserTemplates.TemplatesDialog.Info";
     t[43925] = "Die verf\u00fcgbare Vorlagen k\u00f6nnen per Doppelklick in das Modell eingef\u00fcgt werden.";
     t[43928] = "Main.Menu.Help.TutorialSlides.Mnemonic";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48265] = "Ankunftssignal";
     t[48274] = "Simulation.Element.LogicElse.Name";
     t[48275] = "Logik Else";
-    t[48276] = "ScriptPopup.Simulation.getVariable.Hint";
-    t[48277] = "Liefert den Wert einer Simulationsvariable";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[48276] = "ScriptPopup.Simulation.getVariable.Hint";
+    t[48277] = "Liefert den Wert einer Simulationsvariable";
     t[48278] = "Surface.UserStatistic.Name";
     t[48279] = "Benutzerdefinierte Statistikdaten";
     t[48282] = "Statistics.ClientData";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52681] = "Ressourcenkosten (alle Ressourcen)";
     t[52694] = "AnimationExpression.XML.Mode.Javascript";
     t[52695] = "Javascript";
-    t[52696] = "Surface.Database.FileTypeAccess";
-    t[52697] = "Access-Datenbankdatei";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[52696] = "Surface.Database.FileTypeAccess";
+    t[52697] = "Access-Datenbankdatei";
     t[52698] = "Surface.AnimationAlarm.XML.Root";
     t[52699] = "ModellElementAnimationAlarm";
     t[52704] = "Simulation.Creator.TransportSourceResourceReleaseDelayed";

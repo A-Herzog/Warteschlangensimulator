@@ -38,7 +38,7 @@ import statistics.StatisticsSimpleCountPerformanceIndicator;
 /**
  * Die <code>RunDataClient</code>-Klasse hält alle Laufzeitinformationen über einen Kunden vor.<br>
  * Ein <code>RunDataClient</code>-Objekt wird von <code>RunElementSource</code> erzeugt und wird
- * von <code>RunElementDispose</code> in der Statistik erfasst (womit ein Lebenszyklus endet).
+ * von <code>RunElementDispose</code> in der Statistik erfasst (womit sein Lebenszyklus endet).
  * @author Alexander Herzog
  */
 public class RunDataClient {
@@ -171,6 +171,11 @@ public class RunDataClient {
 	public double lastWaitingTimeTolerance;
 
 	/**
+	 * Zuletzt an einer Bedingung-Station gesetzte Maximalwartezeit
+	 */
+	public long lastMaxWaitingTime;
+
+	/**
 	 * Gibt den Zeitpunkt an, an dem der letzte Wartevorgang gestartet wurde.
 	 */
 	public long lastWaitingStart;
@@ -226,7 +231,7 @@ public class RunDataClient {
 	 * Beim Zugriff über die setter Methoden wird es automatisch initialisiert.
 	 * @see RunDataClient#getUserData(int)
 	 * @see RunDataClient#setUserData(int, double)
-	 * @see RunDataClient#writeUserDataToStatistics(String, StatisticsMultiPerformanceIndicator, StatisticsMultiPerformanceIndicator)
+	 * @see RunDataClient#writeUserDataToStatistics(String, StatisticsMultiPerformanceIndicator, StatisticsMultiPerformanceIndicator, RunDataClients)
 	 */
 	private boolean[] userDataInUse;
 
@@ -408,6 +413,7 @@ public class RunDataClient {
 		processAdditionalCosts=0;
 		lastQueueSuccess=true;
 		lastWaitingTimeTolerance=0;
+		lastMaxWaitingTime=0;
 		isLastClient=false;
 		icon=null;
 		iconLast=null;
@@ -461,6 +467,7 @@ public class RunDataClient {
 		processAdditionalCosts=client.processAdditionalCosts;
 		lastQueueSuccess=client.lastQueueSuccess;
 		lastWaitingTimeTolerance=client.lastWaitingTimeTolerance;
+		lastMaxWaitingTime=client.lastMaxWaitingTime;
 		lastWaitingStart=client.lastWaitingStart;
 		/* wird nicht kopiert - isLastClient */
 		/* wird nicht kopiert - stationInformation */
@@ -639,8 +646,9 @@ public class RunDataClient {
 	 * @param clientTypeName	Name des Kundentyps
 	 * @param indicators	Statistikobjekt (welches Unterobjekte vom Typ {@link StatisticsDataPerformanceIndicator} enthält), in dem die Daten globalen über alle Kundentypen erfasst werden sollen
 	 * @param indicatorsByClientType	Statistikobjekt (welches Unterobjekte vom Typ {@link StatisticsDataPerformanceIndicator} enthält), in dem die Daten pro Kundentyp erfasst werden sollen
+	 * @param parent	Übergeordnetes {@link RunDataClients}-Objekt
 	 */
-	public void writeUserDataToStatistics(final String clientTypeName, final StatisticsMultiPerformanceIndicator indicators, final StatisticsMultiPerformanceIndicator indicatorsByClientType) {
+	public void writeUserDataToStatistics(final String clientTypeName, final StatisticsMultiPerformanceIndicator indicators, final StatisticsMultiPerformanceIndicator indicatorsByClientType, final RunDataClients parent) {
 		if (userData==null || userData.length==0 || userDataInUse==null || userDataInUse.length==0 || indicators==null) return;
 
 		for (int i=0;i<FastMath.min(userData.length,userDataInUse.length);i++) if (userDataInUse[i]) {
@@ -648,7 +656,7 @@ public class RunDataClient {
 			final String name=NumberTools.formatLongNoGrouping(i);
 			final StatisticsDataPerformanceIndicatorWithNegativeValues indicator=(StatisticsDataPerformanceIndicatorWithNegativeValues)indicators.get(name);
 			indicator.add(value);
-			final StatisticsDataPerformanceIndicatorWithNegativeValues indicatorByClientType=(StatisticsDataPerformanceIndicatorWithNegativeValues)indicatorsByClientType.get(name+"-"+clientTypeName);
+			final StatisticsDataPerformanceIndicatorWithNegativeValues indicatorByClientType=(StatisticsDataPerformanceIndicatorWithNegativeValues)indicatorsByClientType.get(parent.getNumberAndNameFromCache(i,clientTypeName));
 			indicatorByClientType.add(value);
 		}
 	}
