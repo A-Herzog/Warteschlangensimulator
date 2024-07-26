@@ -3,6 +3,7 @@
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/a-herzog/warteschlangensimulator)](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/)
 ![GitHub](https://img.shields.io/github/license/a-herzog/warteschlangensimulator)
 [![GitHub All Releases](https://img.shields.io/github/downloads/a-herzog/warteschlangensimulator/total)](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12606913.svg)](https://doi.org/10.5281/zenodo.12606913)
 
 ([English version of this readme.](README_en.md))
 
