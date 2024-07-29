@@ -172,8 +172,10 @@ public class ResourceTableModelDialog extends BaseDialog {
 	 * @param model	Vollständiges Editor-Modell (wird für den Expression-Builder benötigt)
 	 * @param surface	Haupt-Zeichenfläche (wird benötigt um zu vermitteln, wo eine Bedienergruppe im Einsatz ist, und für den Expression-Builder)
 	 * @param modelImages	Liste mit den Animations-Icons (zur Auswahl von einem für die Bedienergruppe)
+	 * @param showOkAndPrevious	Schaltfläche "Ok & Vorherige" anzeigen?
+	 * @param showOkAndNext	Schaltfläche "Ok & Nächste" anzeigen?
 	 */
-	public ResourceTableModelDialog(final Component owner, final Runnable help, final String[] names, final ModelResource resource, final String[] scheduleNames, final EditModel model, final ModelSurface surface, final ModelAnimationImages modelImages) {
+	public ResourceTableModelDialog(final Component owner, final Runnable help, final String[] names, final ModelResource resource, final String[] scheduleNames, final EditModel model, final ModelSurface surface, final ModelAnimationImages modelImages, final boolean showOkAndPrevious, final boolean showOkAndNext) {
 		super(owner,Language.tr("Resources.Group.EditName.Dialog.Title"));
 
 		this.model=model;
@@ -194,7 +196,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 			addUserButton(Language.tr("Resources.Usage"),Images.MODEL_ADD_STATION.getIcon());
 			if (ModelPropertiesDialogPageOperatorsUsageDialog.getPossibleNewStationsForRessource(names[index],model.surface).size()>0) addUserButton(Language.tr("Resources.AddToStation"),Images.MODELPROPERTIES_OPERATORS_ADD.getIcon());
 		}
-		final JPanel content=createGUI(help);
+		final JPanel content=createGUI(showOkAndPrevious?Language.tr("Resources.Group.EditName.Dialog.OkAndPrevious"):null,showOkAndNext?Language.tr("Resources.Group.EditName.Dialog.OkAndNext"):null,help);
 		content.setLayout(new BorderLayout());
 
 		JPanel tabOuter, tab, panel, line;

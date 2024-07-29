@@ -194,7 +194,7 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (rowIndex==resources.size()) {
 			switch (columnIndex) {
-			case 0:	return makeButtonPanel(new String[]{Language.tr("Resources.Group.Add")},new Icon[]{Images.MODELPROPERTIES_OPERATORS_ADD.getIcon()},new ActionListener[]{new AddButtonListener()});
+			case 0:	return makeButtonPanel(new String[]{Language.tr("Resources.Group.Add")},new Icon[]{Images.MODELPROPERTIES_OPERATORS_ADD.getIcon()},new ActionListener[]{e->addClick()});
 			case 1: return "";
 			}
 		}
@@ -208,14 +208,14 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 					new ImageIcon(image),
 					"<html><body>"+resources.getName(rowIndex)+" <span style=\"color: gray;\">"+String.format(Language.tr("Resources.Group.ID"),rowIndex+1)+"</span>",
 					new Icon[]{Images.GENERAL_SETUP.getIcon(),Images.EDIT_DELETE.getIcon()},new String[]{Language.tr("Resources.Group.EditName"),Language.tr("Resources.Group.Delete")},
-					new ActionListener[]{new EditButtonListener(0,rowIndex),new DeleteButtonListener(rowIndex)}
+					new ActionListener[]{e->editClick(0,rowIndex),e->deleteClick(e.getModifiers(),rowIndex)}
 					);
 		case 1:
 			return makeEditPanelSmallBorder(
 					getCount(rowIndex),
 					new Icon[]{Images.GENERAL_DECREASE.getIcon(),Images.GENERAL_INCREASE.getIcon(),Images.GENERAL_SETUP.getIcon()},
 					new String[]{Language.tr("Resources.Number.Decrease"),Language.tr("Resources.Number.Increase"),Language.tr("Resources.Number.Edit")},
-					new ActionListener[]{new EditButtonListener(1,rowIndex),new EditButtonListener(2,rowIndex),new EditButtonListener(0,rowIndex)}
+					new ActionListener[]{e->editClick(1,rowIndex),e->editClick(2,rowIndex),e->editClick(0,rowIndex)}
 					);
 		default: return null;
 		}
@@ -274,89 +274,81 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 	}
 
 	/**
-	 * Reagiert auf Klicks auf die Hinzufügen-Schaltfläche
+	 * Reagiert auf Klicks auf die Hinzufügen-Schaltfläche.
 	 */
-	private class AddButtonListener implements ActionListener {
-		/**
-		 * Konstruktor der Klasse
-		 */
-		public AddButtonListener() {
-			/*
-			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-			 */
-		}
+	private void addClick() {
+		if (readOnly) return;
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (readOnly) return;
-
-			ModelResource resource=new ModelResource(getFreeName());
-			ResourceTableModelDialog dialog=new ResourceTableModelDialog(table,help,resources.list(),resource,schedules.getScheduleNames(),model,surface,model.animationImages);
-			dialog.setVisible(true);
-			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
-				resources.add(resource);
-				updateTable();
-			}
+		ModelResource resource=new ModelResource(getFreeName());
+		ResourceTableModelDialog dialog=new ResourceTableModelDialog(table,help,resources.list(),resource,schedules.getScheduleNames(),model,surface,model.animationImages,false,false);
+		dialog.setVisible(true);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			resources.add(resource);
+			updateTable();
 		}
 	}
 
 	/**
-	 * Reagiert auf Klicks auf die Bearbeiten und Verschieben-Schaltflächen
+	 * Zeigt den Bearbeitendialog für eine bestimmte Zeile an.
+	 * @param row	Zeilenindex
+	 * @return	Liefert -1 oder 1, wenn der Nutzer ausgewählt hat, dass der vorherige oder der nächste Datensatz bearbeitet werden soll; sonst 0.
 	 */
-	private class EditButtonListener implements ActionListener {
-		/** Auszuführender Befehl (0: Bearbeiten, 1: In der Liste nach oben schieben, 2: In der Liste nach unten schieben) */
-		private final int col;
-		/** Zeilennummer */
-		private final int row;
-
-		/**
-		 * Konstruktor der Klasse
-		 * @param col	Auszuführender Befehl (0: Bearbeiten, 1: In der Liste nach oben schieben, 2: In der Liste nach unten schieben)
-		 * @param row	Zeilennummer
-		 */
-		public EditButtonListener(final int col, final int row) {
-			this.col=col;
-			this.row=row;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (readOnly) return;
-			final String name=resources.getName(row);
-			final int count=(resources.get(name).getMode()==ModelResource.Mode.MODE_NUMBER)?(resources.get(name).getCount()):-1;
-			switch (col) {
-			case 0:
-				final ModelResource resource=resources.get(name);
-				ResourceTableModelDialog dialog=new ResourceTableModelDialog(table,help,resources.list(),resource,schedules.getScheduleNames(),model,surface,model.animationImages);
-				dialog.setVisible(true);
-				if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
-					final String newName=resource.getName();
-					if (!newName.equals(name)) {
-						final List<Integer> usingIDs=resourceInUse(name);
-						final StringBuilder sb=new StringBuilder();
-						if (usingIDs.size()>0) {
-							getInUseInfoText(sb,usingIDs);
-							sb.append("<br>");
-							sb.append(Language.tr("Resources.Group.EditName.ChangeName.Info"));
-							if (MsgBox.confirm(table,Language.tr("Resources.Group.EditName.ChangeName.Title"),"<html><body>"+sb.toString(),Language.tr("Resources.Group.EditName.ChangeName.YesInfo"),Language.tr("Resources.Group.EditName.ChangeName.NoInfo"))) {
-								renameResouceInStations(usingIDs,name,newName);
-							}
-						}
+	private int showEditDialog(final int row) {
+		final String name=resources.getName(row);
+		final ModelResource resource=resources.get(name);
+		final ResourceTableModelDialog dialog=new ResourceTableModelDialog(table,help,resources.list(),resource,schedules.getScheduleNames(),model,surface,model.animationImages,row>0,row<resources.size()-1);
+		dialog.setVisible(true);
+		final int closedBy=dialog.getClosedBy();
+		if (closedBy==BaseDialog.CLOSED_BY_OK || closedBy==BaseDialog.CLOSED_BY_NEXT || closedBy==BaseDialog.CLOSED_BY_PREVIOUS) {
+			final String newName=resource.getName();
+			if (!newName.equals(name)) {
+				final List<Integer> usingIDs=resourceInUse(name);
+				final StringBuilder renameInfo=new StringBuilder();
+				if (usingIDs.size()>0) {
+					getInUseInfoText(renameInfo,usingIDs);
+					renameInfo.append("<br>");
+					renameInfo.append(Language.tr("Resources.Group.EditName.ChangeName.Info"));
+					if (MsgBox.confirm(table,Language.tr("Resources.Group.EditName.ChangeName.Title"),"<html><body>"+renameInfo.toString(),Language.tr("Resources.Group.EditName.ChangeName.YesInfo"),Language.tr("Resources.Group.EditName.ChangeName.NoInfo"))) {
+						renameResouceInStations(usingIDs,name,newName);
 					}
-					updateTable();
 				}
-				break;
-			case 1:
-				if (count<=1) resources.get(name).setCount(1); else resources.get(name).setCount(count-1);
-				updateTable();
-				break;
-			case 2:
-				if (count>=1) resources.get(name).setCount(count+1); else resources.get(name).setCount(1);
-				updateTable();
-				break;
 			}
+			updateTable();
 		}
+		if (closedBy==BaseDialog.CLOSED_BY_NEXT) return 1;
+		if (closedBy==BaseDialog.CLOSED_BY_PREVIOUS) return -1;
+		return 0;
+	}
+
+	/**
+	 * Reagiert auf Klicks auf die Bearbeiten und Verschieben-Schaltflächen.
+	 * @param col	Spaltennummer
+	 * @param row	Zeilennummer
+	 */
+	private void editClick(final int col, final int row) {
+		if (readOnly) return;
+
+		if (col==0) {
+			int rowToEdit=row;
+			while (true) {
+				final int nextRowToEditDelta=showEditDialog(rowToEdit);
+				if (nextRowToEditDelta==0) break;
+				rowToEdit+=nextRowToEditDelta;
+			}
+			return;
+		}
+
+		final String name=resources.getName(row);
+		final int count=(resources.get(name).getMode()==ModelResource.Mode.MODE_NUMBER)?(resources.get(name).getCount()):-1;
+		switch (col) {
+		case 1:
+			if (count<=1) resources.get(name).setCount(1); else resources.get(name).setCount(count-1);
+			break;
+		case 2:
+			if (count>=1) resources.get(name).setCount(count+1); else resources.get(name).setCount(1);
+			break;
+		}
+		updateTable();
 	}
 
 	@Override
@@ -369,35 +361,23 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 	}
 
 	/**
-	 * Reagiert auf Klicks auf die Löschen-Schaltflächen
+	 * Reagiert auf Klicks auf die Löschen-Schaltflächen.
+	 * @param modifiers	Gedrückte Umschalt-Tasten (aus dem Ereignisdatensatz)
+	 * @param row	Zeilennummer
 	 */
-	private class DeleteButtonListener implements ActionListener {
-		/** Zeilennummer */
-		private final int row;
-
-		/**
-		 * Konstruktor der Klasse
-		 * @param row	Zeilennummer
-		 */
-		public DeleteButtonListener(final int row) {
-			this.row=row;
+	private void deleteClick(final int modifiers, final int row) {
+		if (readOnly) return;
+		final String name=resources.getName(row);
+		final List<Integer> usingIDs=resourceInUse(name);
+		final StringBuilder sb=new StringBuilder();
+		getInUseInfoText(sb,usingIDs);
+		sb.append("<br>");
+		sb.append(String.format(Language.tr("Resources.Group.Delete.Confirmation"),name));
+		if ((modifiers & ActionEvent.SHIFT_MASK)==0) {
+			if (!MsgBox.confirm(table,Language.tr("Resources.Group.Delete"),"<html><body>"+sb.toString()+"</body></html>",Language.tr("Resources.Group.Delete.YesInfo"),Language.tr("Resources.Group.Delete.NoInfo"))) return;
 		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (readOnly) return;
-			final String name=resources.getName(row);
-			final List<Integer> usingIDs=resourceInUse(name);
-			final StringBuilder sb=new StringBuilder();
-			getInUseInfoText(sb,usingIDs);
-			sb.append("<br>");
-			sb.append(String.format(Language.tr("Resources.Group.Delete.Confirmation"),name));
-			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)==0) {
-				if (!MsgBox.confirm(table,Language.tr("Resources.Group.Delete"),"<html><body>"+sb.toString()+"</body></html>",Language.tr("Resources.Group.Delete.YesInfo"),Language.tr("Resources.Group.Delete.NoInfo"))) return;
-			}
-			resources.delete(name);
-			updateTable();
-		}
+		resources.delete(name);
+		updateTable();
 	}
 
 	/**

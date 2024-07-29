@@ -24,7 +24,6 @@ import java.awt.FlowLayout;
 import java.awt.Rectangle;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -61,7 +60,7 @@ import systemtools.images.SimToolsImages;
 /**
  * Diese Klasse stellt einige Basisfunktionen zum Erstellen von Dialogen bereit.
  * @author Alexander Herzog
- * @version 2.3
+ * @version 2.4
  */
 public class BaseDialog extends JDialog {
 	/**
@@ -175,13 +174,6 @@ public class BaseDialog extends JDialog {
 	private final List<JButton> userButtons=new ArrayList<>();
 
 	/**
-	 * Listener, der beim Anklicken einer benutzerdefinierten Schaltfläche aktiviert wird.
-	 * @see #userButtons
-	 * @see #userButtonClick(int, JButton)
-	 */
-	private final transient ActionListener userButtonListener=new UserButtonListener();
-
-	/**
 	 * "Schließen" Schaltfläche statt "Ok" und "Abbrechen" anzeigen
 	 */
 	protected boolean showCloseButton=false;
@@ -267,18 +259,43 @@ public class BaseDialog extends JDialog {
 
 	@Override
 	protected JRootPane createRootPane() {
-		JRootPane rootPane=new JRootPane();
-		InputMap inputMap=rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		final JRootPane rootPane=new JRootPane();
+		final InputMap inputMap=rootPane.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 
 		KeyStroke stroke;
 
 		stroke=KeyStroke.getKeyStroke("ESCAPE");
 		inputMap.put(stroke,"ESCAPE");
-		rootPane.getActionMap().put("ESCAPE",new SpecialKeyListener(0));
+		rootPane.getActionMap().put("ESCAPE",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=60488841484805181L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (closeOnEscape() && ((cancelButton!=null && cancelButton.isVisible()) || (closeButton!=null && closeButton.isVisible()))) {
+					if (closeButton!=null && closeButton.isVisible()) {if (!closeButtonOK()) return;}
+					setVisible(false); dispose();
+				}
+			}
+		});
 
 		stroke=KeyStroke.getKeyStroke("F1");
 		inputMap.put(stroke,"F1");
-		rootPane.getActionMap().put("F1",new SpecialKeyListener(1));
+		rootPane.getActionMap().put("F1",new AbstractAction() {
+			/**
+			 * Serialisierungs-ID der Klasse
+			 * @see Serializable
+			 */
+			private static final long serialVersionUID=60488841484805181L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (helpButton!=null && helpButton.isVisible() && helpRunnable!=null) helpRunnable.run();
+			}
+		});
 
 		return rootPane;
 	}
@@ -290,47 +307,6 @@ public class BaseDialog extends JDialog {
 	 */
 	protected boolean closeOnEscape() {
 		return true;
-	}
-
-	/**
-	 * Klasse zur Reaktion auf F1- und Escape-Tastendrücke
-	 * @see BaseDialog#createRootPane()
-	 */
-	private class SpecialKeyListener extends AbstractAction {
-		/**
-		 * Serialisierungs-ID der Klasse
-		 * @see Serializable
-		 */
-		private static final long serialVersionUID = -485008309903554823L;
-
-		/**
-		 * ID der auszuführenden Aktion (0: Schließen, 1: Hilfe)
-		 */
-		private final int action;
-
-		/**
-		 * Konstruktor der Klasse
-		 * @param action	ID der auszuführenden Aktion (0: Schließen, 1: Hilfe)
-		 */
-		public SpecialKeyListener(int action) {
-			this.action=action;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent actionEvent) {
-			switch (action) {
-			case 0:
-				if (closeOnEscape())
-					if ((cancelButton!=null && cancelButton.isVisible()) || (closeButton!=null && closeButton.isVisible())) {
-						if (closeButton!=null && closeButton.isVisible()) {if (!closeButtonOK()) return;}
-						setVisible(false); dispose();
-					}
-				break;
-			case 1:
-				if (helpButton!=null && helpButton.isVisible() && helpRunnable!=null) helpRunnable.run();
-				break;
-			}
-		}
 	}
 
 	/**
@@ -375,6 +351,17 @@ public class BaseDialog extends JDialog {
 	}
 
 	/**
+	 * Erstellt die Rahmeninhalte
+	 * @param previous Beschriftung der Vorgänger-Schaltläche (wird ausgeblendet, wenn gleich null oder leer)
+	 * @param next Beschriftung der Nachfolger-Schaltläche (wird ausgeblendet, wenn gleich null oder leer)
+	 * @param help Runnable, das aufgerufen wird, wenn die Hilfe-Schaltfläche angeklickt wird. (Wenn <code>null</code> übergeben wird, erscheint keine Hilfe-Schaltfläche.)
+	 * @return	Panel, welches den inneren Arbeitsbereich des Fensters beinhaltet
+	 */
+	protected final JPanel createGUI(String previous, String next, Runnable help) {
+		return createGUI(800,600,previous,next,help);
+	}
+
+	/**
 	 * Fügt eine benutzerdefinierte Schaltfläche in der Fußzeile hinzu.<br>
 	 * Diese Funktion muss <b>vor</b> <code>createGUI</code> aufgerufen werden.
 	 * @param caption	Name der Schaltfläche
@@ -414,7 +401,7 @@ public class BaseDialog extends JDialog {
 		JButton button=new JButton(caption);
 		if (tooltip!=null && !tooltip.isEmpty()) button.setToolTipText(tooltip);
 		if (icon!=null)	button.setIcon(new ImageIcon(icon));
-		button.addActionListener(userButtonListener);
+		button.addActionListener(e->userButtonClicked(e));
 		userButtons.add(button);
 		return button;
 	}
@@ -433,7 +420,7 @@ public class BaseDialog extends JDialog {
 		JButton button=new JButton(caption);
 		if (tooltip!=null && !tooltip.isEmpty()) button.setToolTipText(tooltip);
 		if (icon!=null)	button.setIcon(icon);
-		button.addActionListener(userButtonListener);
+		button.addActionListener(e->userButtonClicked(e));
 		userButtons.add(button);
 		return button;
 	}
@@ -455,18 +442,18 @@ public class BaseDialog extends JDialog {
 
 		if (showCloseButton) {
 			p.add(closeButton=new JButton(buttonTitleClose));
-			closeButton.addActionListener(new CloseButtonActionEvents());
+			closeButton.addActionListener(e->closeButtonAction(e));
 			closeButton.setIcon(SimToolsImages.EXIT.getIcon());
 			getRootPane().setDefaultButton(closeButton);
 		} else {
 			p.add(okButton=new JButton(buttonTitleOk));
-			okButton.addActionListener(new CloseButtonActionEvents());
+			okButton.addActionListener(e->closeButtonAction(e));
 			okButton.setEnabled(!readOnly);
 			okButton.setIcon(SimToolsImages.OK.getIcon());
 			getRootPane().setDefaultButton(okButton);
 
 			p.add(cancelButton=new JButton(buttonTitleCancel));
-			cancelButton.addActionListener(new CloseButtonActionEvents());
+			cancelButton.addActionListener(e->closeButtonAction(e));
 			cancelButton.setIcon(SimToolsImages.CANCEL.getIcon());
 		}
 
@@ -479,13 +466,13 @@ public class BaseDialog extends JDialog {
 
 		if (previous!=null && !previous.isEmpty()) {
 			p.add(previousButton=new JButton(previous));
-			previousButton.addActionListener(new CloseButtonActionEvents());
+			previousButton.addActionListener(e->closeButtonAction(e));
 			previousButton.setIcon(SimToolsImages.ARROW_LEFT.getIcon());
 		}
 
 		if (next!=null && !next.isEmpty()) {
 			p.add(nextButton=new JButton(next));
-			nextButton.addActionListener(new CloseButtonActionEvents());
+			nextButton.addActionListener(e->closeButtonAction(e));
 			nextButton.setIcon(SimToolsImages.ARROW_RIGHT.getIcon());
 		}
 
@@ -818,72 +805,48 @@ public class BaseDialog extends JDialog {
 
 	/**
 	 * Listener für die verschiedenen Schaltflächen zum Schließen des Dialogs.
+	 * @param e	Datensatz mit Informationen zu dem Ereignis
 	 * @see BaseDialog#closeButton
 	 * @see BaseDialog#okButton
 	 * @see BaseDialog#cancelButton
 	 * @see BaseDialog#previousButton
 	 * @see BaseDialog#nextButton
 	 */
-	private class CloseButtonActionEvents implements ActionListener {
-		/**
-		 * Konstruktor der Klasse
-		 */
-		public CloseButtonActionEvents() {
-			/*
-			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-			 */
+	private void closeButtonAction(final ActionEvent e) {
+		if (e.getSource()==closeButton) {
+			if (!closeButtonOK()) return;
+			closedBy=CLOSED_BY_OK;
 		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (e.getSource()==closeButton) {
-				if (!closeButtonOK()) return;
-				closedBy=CLOSED_BY_OK;
-			}
-			if (e.getSource()==okButton) {
+		if (e.getSource()==okButton) {
+			if (!checkData()) return;
+			storeData();
+			closedBy=CLOSED_BY_OK;
+		}
+		if (e.getSource()==previousButton) {
+			if (!readOnly) {
 				if (!checkData()) return;
 				storeData();
-				closedBy=CLOSED_BY_OK;
-			}
-			if (e.getSource()==previousButton) {
-				if (!readOnly) {
-					if (!checkData()) return;
-					storeData();
-				} closedBy=CLOSED_BY_PREVIOUS;
-			}
-			if (e.getSource()==nextButton) {
-				if (!readOnly) {
-					if (!checkData()) return;
-					storeData();
-				}
-				closedBy=CLOSED_BY_NEXT;
-			}
-			setVisible(false);
-			dispose();
+			} closedBy=CLOSED_BY_PREVIOUS;
 		}
+		if (e.getSource()==nextButton) {
+			if (!readOnly) {
+				if (!checkData()) return;
+				storeData();
+			}
+			closedBy=CLOSED_BY_NEXT;
+		}
+		setVisible(false);
+		dispose();
 	}
 
 	/**
 	 * Listener für die benutzerdefinierten Schaltflächen
+	 * @param e	Datensatz mit Informationen zu dem Ereignis
 	 */
-	private class UserButtonListener implements ActionListener {
-		/**
-		 * Konstruktor der Klasse
-		 */
-		public UserButtonListener() {
-			/*
-			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-			 */
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			int nr=userButtons.indexOf(e.getSource());
-			if (nr<0) return;
-			userButtonClick(nr,userButtons.get(nr));
-		}
+	private void userButtonClicked(final ActionEvent e) {
+		int nr=userButtons.indexOf(e.getSource());
+		if (nr<0) return;
+		userButtonClick(nr,userButtons.get(nr));
 	}
 
 	/**

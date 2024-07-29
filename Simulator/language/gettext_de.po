@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-20 23:22+0200\n"
+"POT-Creation-Date: 2024-07-24 18:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17567,6 +17567,12 @@ msgstr "Kein Zeitplan gewählt"
 
 msgid "Resources.Group.EditName.Dialog.Number.Schedule.Info"
 msgstr "(Zeitpläne können im Modelleigenschaften-Dialog auf der Seite \"Zeitpläne\" definiert werden.)"
+
+msgid "Resources.Group.EditName.Dialog.OkAndNext"
+msgstr "OK & Vorherige Gruppe"
+
+msgid "Resources.Group.EditName.Dialog.OkAndPrevious"
+msgstr "Ok & Nächste Gruppe"
 
 msgid "Resources.Group.EditName.Dialog.Tab.Costs"
 msgstr "Kosten"
