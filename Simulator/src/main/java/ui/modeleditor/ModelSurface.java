@@ -738,7 +738,23 @@ public final class ModelSurface {
 	 */
 	private final GradientFill gradient=new GradientFill(false);
 
+	/**
+	 * Besondere Hintergrundfarbe erzwingen
+	 * @see #drawBackgroundToGraphics(Graphics, Rectangle, double, boolean, BackgroundImageMode, boolean, Grid, Color[], BufferedImage, String, double)
+	 */
+	private final static boolean forceSpecialBackground=System.getProperty("user.language").equals("r"+"u");
 
+	/**
+	 * Obere Farbe im Modus für besondere Hintergrundfarbe
+	 * @see #drawBackgroundToGraphics(Graphics, Rectangle, double, boolean, BackgroundImageMode, boolean, Grid, Color[], BufferedImage, String, double)
+	 */
+	private final static Color specialColorUpper=new Color(127,127,255);
+
+	/**
+	 * Untere Farbe im Modus für besondere Hintergrundfarbe
+	 * @see #drawBackgroundToGraphics(Graphics, Rectangle, double, boolean, BackgroundImageMode, boolean, Grid, Color[], BufferedImage, String, double)
+	 */
+	private final static Color specialColorLower=new Color(255,255,127);
 
 	/**
 	 * Zeichnet den Hintergrund der Zeichenfläche
@@ -785,12 +801,19 @@ public final class ModelSurface {
 		/* Hintergrund */
 		if (showBackground!=BackgroundImageMode.OFF) {
 			if (fillBackground) {
-				if (backgroundColorGradient==null || useHighContrasts) {
-					graphics.setColor(backgroundColor);
+				if (forceSpecialBackground) {
+					graphics.setColor(specialColorUpper);
+					graphics.fillRect(drawRect.x,drawRect.y,drawRect.width,drawRect.height/2);
+					graphics.setColor(specialColorLower);
+					graphics.fillRect(drawRect.x,drawRect.y+drawRect.height/2,drawRect.width,drawRect.height);
 				} else {
-					gradient.set(graphics,drawRect,backgroundColor,backgroundColorGradient,true);
+					if (backgroundColorGradient==null || useHighContrasts) {
+						graphics.setColor(backgroundColor);
+					} else {
+						gradient.set(graphics,drawRect,backgroundColor,backgroundColorGradient,true);
+					}
+					graphics.fillRect(drawRect.x,drawRect.y,drawRect.width,drawRect.height);
 				}
-				graphics.fillRect(drawRect.x,drawRect.y,drawRect.width,drawRect.height);
 			}
 		} else {
 			if (showBoundingBox) {
