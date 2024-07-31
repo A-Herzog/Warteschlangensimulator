@@ -299,6 +299,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		sub.add(Box.createHorizontalStrut(10));
 		sub.add(campaignMode=new JCheckBox(Language.tr("Surface.Process.Dialog.CampaignMode"),process.isCampaignMode()));
 		campaignMode.setToolTipText(Language.tr("Surface.Process.Dialog.CampaignMode.Info"));
+		campaignMode.setEnabled(!readOnly);
 
 		final JTableExt tablePriority;
 		tab.add(new JScrollPane(tablePriority=new JTableExt()),BorderLayout.CENTER);
