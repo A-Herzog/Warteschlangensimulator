@@ -48,6 +48,7 @@ import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.fastpaint.Shapes;
 import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
 import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Zeigt während der Animation das Ergebnis eines Rechnenausdrucks als Text an.
@@ -755,7 +756,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		final int canvasX=(zoom==1.0)?pos.x:(int)FastMath.round(pos.x*zoom);
 		final int canvasY=(zoom==1.0)?pos.y:(int)FastMath.round(pos.y*zoom);
 		final int canvasW=Math.max(titleRenderer.getWidth(),preTextRenderer.getWidth()+mainTextRenderer.getWidth()+postTextRenderer.getWidth());
-		final int canvasH=titleRenderer.getHeight()+Math.max(mainTextRenderer.getHeight(),Math.max(preTextRenderer.getHeight(),postTextRenderer.getHeight()));
+		final int canvasH=(titleRenderer.isEmpty()?0:titleRenderer.getHeight())+Math.max(mainTextRenderer.getHeight(),Math.max(preTextRenderer.getHeight(),postTextRenderer.getHeight()));
 
 		/* Wenn nötig Größe der Box anpassen */
 		final int boxW=(zoom==1.0)?canvasW:(int)FastMath.round(canvasW/zoom);
@@ -766,8 +767,10 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		/* Text ausgeben */
 		int x=canvasX;
 		int y=canvasY;
-		titleRenderer.draw(graphics,x,y,Color.BLACK);
-		y+=titleRenderer.getHeight();
+		if (!titleRenderer.isEmpty()) {
+			titleRenderer.draw(graphics,x,y,FlatLaFHelper.isDark()?EditModel.BLACK_COLOR_IN_DARK_MODE:Color.BLACK);
+			y+=titleRenderer.getHeight();
+		}
 		if (!preTextRenderer.isEmpty()) {
 			preTextRenderer.draw(graphics,x,y,color);
 			x+=preTextRenderer.getWidth();
