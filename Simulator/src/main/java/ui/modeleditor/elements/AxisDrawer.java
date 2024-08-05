@@ -401,6 +401,7 @@ public class AxisDrawer {
 			if (mode==Mode.OFF) {
 				lastMaxTextWidth=0;
 			} else {
+				lastMaxTextWidth=0;
 				for (int w: textWidth) lastMaxTextWidth=Math.max(lastMaxTextWidth,w);
 			}
 			final int x=rectangle.x-3*(int)Math.round(zoom)-lastMaxTextWidth-axisFontDescent;

@@ -77,9 +77,9 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	private Semaphore drawLock=new Semaphore(1);
 
 	/**
-	 * Aufgezeichnete Werte die in {@link #drawDiagramBars(Graphics2D, Rectangle)}
+	 * Aufgezeichnete Werte die in {@link #drawDiagramBars(Graphics2D, Rectangle, double)}
 	 * gezeichnet werden sollen
-	 * @see #drawDiagramBars(Graphics2D, Rectangle)
+	 * @see #drawDiagramBars(Graphics2D, Rectangle, double)
 	 */
 	private double[] recordedValues;
 
@@ -148,8 +148,8 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 
 	/**
 	 * Cache der Bereichsfüllung-Zeichners
-	 * für {@link #drawDiagramBars(Graphics2D, Rectangle)}
-	 * @see #drawDiagramBars(Graphics2D, Rectangle)
+	 * für {@link #drawDiagramBars(Graphics2D, Rectangle, double)}
+	 * @see #drawDiagramBars(Graphics2D, Rectangle, double)
 	 */
 	private GradientFill[] filler;
 
@@ -599,27 +599,27 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	private static final double[] dummyValue={0.6,0.4,0.8};
 
 	/**
-	 * Cache für das Rechteckobjekt das in {@link #drawDiagramBars(Graphics2D, Rectangle)}
+	 * Cache für das Rechteckobjekt das in {@link #drawDiagramBars(Graphics2D, Rectangle, double)}
 	 * benötigt wird.
-	 * @see #drawDiagramBars(Graphics2D, Rectangle)
+	 * @see #drawDiagramBars(Graphics2D, Rectangle, double)
 	 */
 	private Rectangle barDrawRect;
 
 	/**
-	 * Cache für die x-Koordinaten der Balken in {@link #drawDiagramBars(Graphics2D, Rectangle)}
-	 * @see #drawDiagramBars(Graphics2D, Rectangle)
+	 * Cache für die x-Koordinaten der Balken in {@link #drawDiagramBars(Graphics2D, Rectangle, double)}
+	 * @see #drawDiagramBars(Graphics2D, Rectangle, double)
 	 */
 	private final int[] xPoints=new int[4];
 
 	/**
-	 * Cache für die y-Koordinaten der Balken in {@link #drawDiagramBars(Graphics2D, Rectangle)}
-	 * @see #drawDiagramBars(Graphics2D, Rectangle)
+	 * Cache für die y-Koordinaten der Balken in {@link #drawDiagramBars(Graphics2D, Rectangle, double)}
+	 * @see #drawDiagramBars(Graphics2D, Rectangle, double)
 	 */
 	private final int[] yPoints=new int[4];
 
 	/**
 	 * Tatsächlicher Minimalwert
-	 * @see #drawDiagramBars(Graphics2D, Rectangle)
+	 * @see #drawDiagramBars(Graphics2D, Rectangle, double)
 	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
 	 * @see #minValue
 	 */
@@ -627,7 +627,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 
 	/**
 	 * Tatsächlicher Maximalwert
-	 * @see #drawDiagramBars(Graphics2D, Rectangle)
+	 * @see #drawDiagramBars(Graphics2D, Rectangle, double)
 	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
 	 * @see #maxValue
 	 */
@@ -637,8 +637,9 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 	 * Zeichnet die Balken auf die Zeichenfläche
 	 * @param g	Grafik-Ausgabeobjekt
 	 * @param rectangle	Ausgaberechteck
+	 * @param zoom	Zoomfaktor
 	 */
-	private void drawDiagramBars(final Graphics2D g, final Rectangle rectangle) {
+	private void drawDiagramBars(final Graphics2D g, final Rectangle rectangle, final double zoom) {
 		final double[] recordedValues;
 		final List<Color> expressionColor;
 		if (this.recordedValues==null) {
@@ -680,7 +681,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			drawMax=max;
 			if (max==min) return;
 
-			final int gap=Math.max(1,FastMath.min(use3D?10:5,rectangle.width/(2*recordedValues.length)));
+			final int gap=(int)Math.round(Math.max(1,FastMath.min(use3D?10:5,rectangle.width/(2*recordedValues.length)))*zoom);
 
 			final int w=FastMath.max(1,(rectangle.width-2*10-(recordedValues.length-1)*gap)/recordedValues.length);
 			double x=rectangle.x+10;
@@ -833,7 +834,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		}
 
 		setClip(g2,drawRect,drawRectangle);
-		drawDiagramBars(g2,drawRectangle);
+		drawDiagramBars(g2,drawRectangle,zoom);
 		setClip(g2,drawRect,null);
 
 		boolean drawBorder=false;
