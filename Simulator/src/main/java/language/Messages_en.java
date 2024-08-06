@@ -17784,6 +17784,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39119] = "Performs one or more variable assignments when a client passes this station.";
     t[39122] = "Editor.AddElement.PlaceElement";
     t[39123] = "Click on the model surface to place the new element.";
+    t[39128] = "Statistic.Viewer.Context.Copy";
+    t[39129] = "Copy";
     t[39130] = "ModelSecurityCheck.CriticalType.DDEOutput.Workbook";
     t[39131] = "Workbook";
     t[39132] = "Optimizer.Tab.ControlVariables.Constrains.DialogErrorInfo";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39643] = "Frechet distribution";
     t[39644] = "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution.DistributionFunctionInfo";
     t[39645] = "<p>Calculates the value of the distribution function of the Irwin-Hall distribution at the location specified as the first parameter with the parameter according to the second parameter (n).</p>";
-    t[39652] = "Surface.OutputDDE.XML.Element.Type";
-    t[39653] = "Type";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[39652] = "Surface.OutputDDE.XML.Element.Type";
+    t[39653] = "Type";
     t[39662] = "Dialog.Button.Copy.InfoImage";
     t[39663] = "Copies the image to the clipboard";
     t[39664] = "NotesDialog.Delete.Hint";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43907] = "An error occurred while saving the data.";
     t[43908] = "Color.CD5C5C";
     t[43909] = "Indian red";
-    t[43910] = "LoadCalculator.ModelBuilder.DecideCounter.Blocked";
-    t[43911] = "Blocked";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[43910] = "LoadCalculator.ModelBuilder.DecideCounter.Blocked";
+    t[43911] = "Blocked";
     t[43918] = "Surface.Connection.ArrowMode.Small";
     t[43919] = "Small";
     t[43920] = "Batch.Parameter.Changed";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48257] = "For parameter %s in row %d a non-intege value was entered. This parameter has to be an integer number.";
     t[48260] = "Window.Info.NoInternetConnection.Address";
     t[48261] = "The address\n%s\ncould not be opened.";
-    t[48262] = "Surface.Duplicate.Name.Short";
-    t[48263] = "Duplicate";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[48262] = "Surface.Duplicate.Name.Short";
+    t[48263] = "Duplicate";
     t[48264] = "Editor.DialogBase.Search.InterarrivalArrival.Signal";
     t[48265] = "Inter-arrival signal";
     t[48274] = "Simulation.Element.LogicElse.Name";
@@ -22316,6 +22318,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48767] = "File";
     t[48772] = "Color.FFA07A";
     t[48773] = "Light salmon";
+    t[48780] = "Statistic.Viewer.Context.Copy.Column";
+    t[48781] = "Copy this column";
     t[48782] = "Surface.Process.Dialog.Tab.SetupTimes.CanCancelInSetupTime.Info";
     t[48783] = "This option is only used if waiting time tolerances are defined .";
     t[48784] = "ParameterCompare.ScriptRunner.Tab.Output";
@@ -24072,16 +24076,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52661] = "Waiting times at a station";
     t[52662] = "Surface.Conveyor.XML.MoveDirection";
     t[52663] = "ModelElementConveyorDirection";
-    t[52670] = "FindElement.Sorting.IDs";
-    t[52671] = "IDs";
-    t[52674] = "Surface.TransportSource.Dialog.Ressource.Priority.ErrorInfo";
-    t[52675] = "The specified priority \"%s\" is invalid at character %d.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[52670] = "FindElement.Sorting.IDs";
+    t[52671] = "IDs";
+    t[52674] = "Surface.TransportSource.Dialog.Ressource.Priority.ErrorInfo";
+    t[52675] = "The specified priority \"%s\" is invalid at character %d.";
     t[52680] = "ExpressionBuilder.SimulationCharacteristics.Costs.ResourceAll";
     t[52681] = "Resource costs (all resources)";
     t[52694] = "AnimationExpression.XML.Mode.Javascript";
@@ -24300,6 +24304,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53157] = "FailureByDistribution";
     t[53160] = "Surface.XML.Layer.NewElements";
     t[53161] = "newelements";
+    t[53166] = "Statistic.Viewer.Context.Copy.Table";
+    t[53167] = "Copy table";
     t[53168] = "Surface.Link.Name";
     t[53169] = "Link";
     t[53172] = "SettingsDialog.WindowSizeProgrmStart.FullScreen";

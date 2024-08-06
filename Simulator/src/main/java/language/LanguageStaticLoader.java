@@ -855,6 +855,9 @@ public class LanguageStaticLoader {
 		StatisticsBasePanel.viewersToolbarSelectNoneHint=Language.tr("Statistic.Viewer.Toolbar.SelectNone.Hint");
 		StatisticsBasePanel.viewersToolbarSaveTables=Language.tr("Statistic.Viewer.Toolbar.SaveTables");
 		StatisticsBasePanel.viewersToolbarSaveTablesHint=Language.tr("Statistic.Viewer.Toolbar.SaveTables.Hint");
+		StatisticsBasePanel.contextCopy=Language.tr("Statistic.Viewer.Context.Copy");
+		StatisticsBasePanel.contextCopyTable=Language.tr("Statistic.Viewer.Context.Copy.Table");
+		StatisticsBasePanel.contextCopyColumn=Language.tr("Statistic.Viewer.Context.Copy.Column");
 		StatisticsBasePanel.contextSort=Language.tr("Statistic.Viewer.Context.Sort");
 		StatisticsBasePanel.contextSortAscending=Language.tr("Statistic.Viewer.Context.Sort.Ascending");
 		StatisticsBasePanel.contextSortDescending=Language.tr("Statistic.Viewer.Context.Sort.Descending");

@@ -19,6 +19,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
 import java.awt.FontMetrics;
+import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
@@ -612,6 +613,34 @@ public class StatisticViewerTable implements StatisticViewer {
 					}
 
 					if (hasItems) popup.addSeparator();
+
+					popup.add(item=new JMenuItem("<html><body><b>"+StatisticsBasePanel.contextCopy+"</b></body></html>"));
+					item.setEnabled(false);
+
+					popup.add(item=new JMenuItem(StatisticsBasePanel.contextCopyTable,SimToolsImages.COPY.getIcon()));
+					item.addActionListener(e2->{
+						final Transferable transferable=getTransferable();
+						if (transferable!=null) Toolkit.getDefaultToolkit().getSystemClipboard().setContents(transferable,null);
+					});
+
+					if (col>=0) {
+						popup.add(item=new JMenuItem(StatisticsBasePanel.contextCopyColumn,null));
+						item.addActionListener(e2->{
+							if (columnNames.isEmpty()) buildTable();
+
+							final StringBuilder text=new StringBuilder();
+							final int size=showTable.getSize(0);
+							for (int i=0;i<size;i++) {
+								final List<String> line=new ArrayList<>(showTable.getLine(i));
+								text.append(line.get(col));
+								text.append("\n");
+							}
+							final Transferable transferable=new StringSelection(text.toString());
+							Toolkit.getDefaultToolkit().getSystemClipboard().setContents(transferable,null);
+						});
+					}
+
+					popup.addSeparator();
 
 					popup.add(item=new JMenuItem("<html><body><b>"+StatisticsBasePanel.contextSort+"</b></body></html>"));
 					item.setEnabled(false);

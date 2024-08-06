@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-24 18:51+0200\n"
+"POT-Creation-Date: 2024-08-05 08:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22769,6 +22769,15 @@ msgstr "Zeit"
 
 msgid "Statistic.Viewer.Chart.Value"
 msgstr "Wert"
+
+msgid "Statistic.Viewer.Context.Copy"
+msgstr "Kopieren"
+
+msgid "Statistic.Viewer.Context.Copy.Column"
+msgstr "Diese Spalte kopieren"
+
+msgid "Statistic.Viewer.Context.Copy.Table"
+msgstr "Tabelle kopieren"
 
 msgid "Statistic.Viewer.Context.Filter"
 msgstr "Filtern"

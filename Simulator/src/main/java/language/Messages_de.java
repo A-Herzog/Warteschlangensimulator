@@ -17784,6 +17784,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39119] = "F\u00fchrt eine oder mehrere Variablenzuweisungen durch, wenn ein Kunde diese Station passiert.";
     t[39122] = "Editor.AddElement.PlaceElement";
     t[39123] = "Auf die Zeichenfl\u00e4che klicken, um das neue Element zu platzieren.";
+    t[39128] = "Statistic.Viewer.Context.Copy";
+    t[39129] = "Kopieren";
     t[39130] = "ModelSecurityCheck.CriticalType.DDEOutput.Workbook";
     t[39131] = "Arbeitsmappe";
     t[39132] = "Optimizer.Tab.ControlVariables.Constrains.DialogErrorInfo";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39643] = "Frechet-Verteilung";
     t[39644] = "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution.DistributionFunctionInfo";
     t[39645] = "<p>Berechnet den Wert der Verteilungsfunktion der Irwin-Hall-Verteilung an der als ersten Parameter angegebenen Stelle mit dem Parameter gem\u00e4\u00df dem zweiten  Parameter (n).</p>";
-    t[39652] = "Surface.OutputDDE.XML.Element.Type";
-    t[39653] = "Typ";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[39652] = "Surface.OutputDDE.XML.Element.Type";
+    t[39653] = "Typ";
     t[39662] = "Dialog.Button.Copy.InfoImage";
     t[39663] = "Kopiert das Bild in die Zwischenablage";
     t[39664] = "NotesDialog.Delete.Hint";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43907] = "Beim Speichern der Daten ist ein Fehler aufgetreten.";
     t[43908] = "Color.CD5C5C";
     t[43909] = "Indian Rot";
-    t[43910] = "LoadCalculator.ModelBuilder.DecideCounter.Blocked";
-    t[43911] = "Blockiert";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[43910] = "LoadCalculator.ModelBuilder.DecideCounter.Blocked";
+    t[43911] = "Blockiert";
     t[43918] = "Surface.Connection.ArrowMode.Small";
     t[43919] = "Klein";
     t[43920] = "Batch.Parameter.Changed";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48257] = "F\u00fcr Parameter %s in Zeile %d wurde keine Ganzzahl angegeben. Dieser Parameter muss jedoch eine Ganzzahl sein.";
     t[48260] = "Window.Info.NoInternetConnection.Address";
     t[48261] = "Die angegebene Adresse\n%s\nkonnte nicht aufgerufen werden.";
-    t[48262] = "Surface.Duplicate.Name.Short";
-    t[48263] = "Duplizieren";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[48262] = "Surface.Duplicate.Name.Short";
+    t[48263] = "Duplizieren";
     t[48264] = "Editor.DialogBase.Search.InterarrivalArrival.Signal";
     t[48265] = "Ankunftssignal";
     t[48274] = "Simulation.Element.LogicElse.Name";
@@ -22316,6 +22318,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48767] = "Datei";
     t[48772] = "Color.FFA07A";
     t[48773] = "Helles Salmon";
+    t[48780] = "Statistic.Viewer.Context.Copy.Column";
+    t[48781] = "Diese Spalte kopieren";
     t[48782] = "Surface.Process.Dialog.Tab.SetupTimes.CanCancelInSetupTime.Info";
     t[48783] = "Diese Option kommt nur zum Tragen, wenn gleichzeitig Wartezeittoleranzen definiert sind.";
     t[48784] = "ParameterCompare.ScriptRunner.Tab.Output";
@@ -24072,16 +24076,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52661] = "Wartezeiten an einer Station";
     t[52662] = "Surface.Conveyor.XML.MoveDirection";
     t[52663] = "ModellElementFliessbandRichtung";
-    t[52670] = "FindElement.Sorting.IDs";
-    t[52671] = "IDs";
-    t[52674] = "Surface.TransportSource.Dialog.Ressource.Priority.ErrorInfo";
-    t[52675] = "Die angegebene Priorit\u00e4t \"%s\" ist ab Zeichen %d ung\u00fcltig.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[52670] = "FindElement.Sorting.IDs";
+    t[52671] = "IDs";
+    t[52674] = "Surface.TransportSource.Dialog.Ressource.Priority.ErrorInfo";
+    t[52675] = "Die angegebene Priorit\u00e4t \"%s\" ist ab Zeichen %d ung\u00fcltig.";
     t[52680] = "ExpressionBuilder.SimulationCharacteristics.Costs.ResourceAll";
     t[52681] = "Ressourcenkosten (alle Ressourcen)";
     t[52694] = "AnimationExpression.XML.Mode.Javascript";
@@ -24300,6 +24304,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53157] = "AusfallGemaessVerteilung";
     t[53160] = "Surface.XML.Layer.NewElements";
     t[53161] = "NeueElemente";
+    t[53166] = "Statistic.Viewer.Context.Copy.Table";
+    t[53167] = "Tabelle kopieren";
     t[53168] = "Surface.Link.Name";
     t[53169] = "Link";
     t[53172] = "SettingsDialog.WindowSizeProgrmStart.FullScreen";
