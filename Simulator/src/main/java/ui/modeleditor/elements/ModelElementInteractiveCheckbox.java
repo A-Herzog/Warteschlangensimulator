@@ -97,6 +97,7 @@ public class ModelElementInteractiveCheckbox extends ModelElementPosition implem
 	 */
 	public ModelElementInteractiveCheckbox(final EditModel model, final ModelSurface surface) {
 		super(model,surface,new Dimension(0,0),Shapes.ShapeType.SHAPE_RECTANGLE);
+		useSizeOnCompare=false;
 		setName(Language.tr("Surface.InteractiveCheckbox.DefaultName"));
 		variable="";
 		valueChecked=1;
