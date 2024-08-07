@@ -81,7 +81,7 @@ public class RunElementLongRunStatistics extends RunElement implements StateChan
 			run.modes[i]=list.get(i).mode;
 		}
 
-		run.stepWideMS=Math.round(editModel.longRunStatistics.getStepWideSec()*runModel.scaleToSimTime);
+		run.stepWideMS=editModel.longRunStatistics.getStepWideSec()*runModel.scaleToSimTime;
 		run.closeLastInterval=editModel.longRunStatistics.isCloseLastInterval();
 
 		return run;
