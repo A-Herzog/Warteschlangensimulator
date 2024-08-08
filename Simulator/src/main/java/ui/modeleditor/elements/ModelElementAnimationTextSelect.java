@@ -824,7 +824,7 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		animationText=new String[size];
 		for (int i=0;i<size;i++) {
 			animationText[i]=textValues.get(i);
-			animationExpression[i]=new ExpressionMultiEval(simData.runModel.variableNames);
+			animationExpression[i]=new ExpressionMultiEval(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 			if (animationExpression[i].parse(textExpressions.get(i))>=0) animationExpression[i]=null;
 		}
 	}

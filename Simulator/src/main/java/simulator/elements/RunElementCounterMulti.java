@@ -71,7 +71,7 @@ public class RunElementCounterMulti extends RunElementPassThrough {
 		final List<String> counterNames=new ArrayList<>();
 		for (int i=0;i<size-1;i++) {
 			final String condition=counterElement.getConditions().get(i);
-			final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidCounterExpression"),element.getId(),i+1,condition,error+1);
 			conditions.add(condition);
 			final String counterName=counterElement.getCounterNames().get(i);

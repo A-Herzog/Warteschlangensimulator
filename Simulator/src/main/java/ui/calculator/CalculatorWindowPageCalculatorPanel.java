@@ -209,7 +209,7 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 	private String calc(final String expression) {
 		if (expression==null || expression.trim().isEmpty()) return "";
 
-		final ExpressionCalc calc=new ExpressionCalc(null);
+		final ExpressionCalc calc=new ExpressionCalc(null,null);
 		final int error=calc.parse(expression);
 		if (error>=0) return String.format(Language.tr("CalculatorDialog.Expression.ParseError"),error+1);
 		double d;
@@ -237,7 +237,7 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 	 * @return	Liefert im Erfolgsfall ein Rechenobjekt, sonst <code>null</code>
 	 */
 	private ExpressionCalc buildExpressionCalc(final String expression) {
-		final ExpressionCalc calc=new ExpressionCalc(null);
+		final ExpressionCalc calc=new ExpressionCalc(null,null);
 		final int error=calc.parse(expression);
 		if (error>=0) {
 			MsgBox.error(this,Language.tr("CalculatorDialog.Expression.CalcError.Info"),String.format(Language.tr("CalculatorDialog.Expression.ParseError"),error+1));
@@ -278,7 +278,7 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 
 		@Override
 		public void run() {
-			final ExpressionCalc calc=new ExpressionCalc(null);
+			final ExpressionCalc calc=new ExpressionCalc(null,null);
 			calc.parse(expression);
 
 			indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(null,distSize,distSize);

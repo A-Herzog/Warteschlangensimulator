@@ -206,13 +206,13 @@ public class RunElementActionRecord {
 				break;
 			case CONDITION_CONDITION:
 				condition=editRecord.getCondition();
-				error=ExpressionMultiEval.check(condition,runModel.variableNames);
+				error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.Action.InvalidCondition"),condition,error+1);
 				conditionMinDistance=Math.round(editRecord.getConditionMinDistance()*runModel.scaleToSimTime);
 				break;
 			case CONDITION_THRESHOLD:
 				thresholdExpression=editRecord.getThresholdExpression();
-				error=ExpressionCalc.check(thresholdExpression,runModel.variableNames);
+				error=ExpressionCalc.check(thresholdExpression,runModel.variableNames,runModel.modelUserFunctions);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.Action.InvalidThresholdExpression"),thresholdExpression,error+1);
 				thresholdValue=editRecord.getThresholdValue();
 				thresholdDirection=editRecord.getThresholdDirection();
@@ -232,7 +232,7 @@ public class RunElementActionRecord {
 			if (element==null) return String.format(Language.tr("Simulation.Creator.Action.AnalogNoElement"),analogID);
 			if (!(element instanceof ModelElementAnalogValue) && !(element instanceof ModelElementTank)) return String.format(Language.tr("Simulation.Creator.Action.NotAnalogElement"),analogID);
 			analogValue=editRecord.getAnalogValue();
-			error=ExpressionCalc.check(analogValue,runModel.variableNames);
+			error=ExpressionCalc.check(analogValue,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.Action.InvalidAnalogValue"),analogValue,error+1);
 			break;
 		case ACTION_ASSIGN:
@@ -241,7 +241,7 @@ public class RunElementActionRecord {
 			if (index<0) return String.format(Language.tr("Simulation.Creator.Action.InvalidVariableName"),editRecord.getAssignVariable());
 			assignVariableIndex=index;
 			assignExpression=editRecord.getAssignExpression();
-			error=ExpressionCalc.check(assignExpression,runModel.variableNames);
+			error=ExpressionCalc.check(assignExpression,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.Action.InvalidAssignValue"),assignExpression,error+1);
 			break;
 		case ACTION_SCRIPT:
@@ -340,12 +340,12 @@ public class RunElementActionRecord {
 				scheduleNextTimedAction(simData,timeInitialMS,actionRecordIndex);
 				break;
 			case CONDITION_CONDITION:
-				conditionObj=new ExpressionMultiEval(variableNames);
+				conditionObj=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);
 				conditionObj.parse(condition);
 				lastConditionTrigger=-1;
 				break;
 			case CONDITION_THRESHOLD:
-				thresholdExpressionObj=new ExpressionCalc(variableNames);
+				thresholdExpressionObj=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 				thresholdExpressionObj.parse(thresholdExpression);
 				lastThresholdCheckTime=-1;
 				break;
@@ -359,11 +359,11 @@ public class RunElementActionRecord {
 		switch (actionType) {
 		case ACTION_ANALOG_VALUE:
 			analogData=(RunElementAnalogProcessingData)simData.runModel.elementsFast[analogID].getData(simData);
-			analogValueObj=new ExpressionCalc(variableNames);
+			analogValueObj=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			analogValueObj.parse(analogValue);
 			break;
 		case ACTION_ASSIGN:
-			assignExpressionObj=new ExpressionCalc(variableNames);
+			assignExpressionObj=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			assignExpressionObj.parse(assignExpression);
 			break;
 		case ACTION_SCRIPT:

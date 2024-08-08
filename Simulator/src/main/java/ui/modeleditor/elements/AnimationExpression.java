@@ -294,7 +294,7 @@ public class AnimationExpression implements Cloneable {
 	 */
 	public boolean initAnimation(final ModelElement element, final SimulationData simData) {
 		if (mode==ExpressionMode.Expression) {
-			runExpression=new ExpressionCalc(simData.runModel.variableNames);
+			runExpression=new ExpressionCalc(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 			if (runExpression.parse(expression)>=0) {runExpression=null; return false;}
 			return true;
 		}

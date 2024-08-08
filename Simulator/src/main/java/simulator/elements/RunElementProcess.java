@@ -166,7 +166,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		for (int i=0;i<process.expressionSetup.length;i++) for (int j=0;j<process.expressionSetup.length;j++) {
 			final String s=process.expressionSetup[i][j];
 			if (s!=null) {
-				final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+				final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 				final int error=calc.parse(s);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.ProcessExpressionSetup"),element.getId(),runModel.clientTypes[i],runModel.clientTypes[j],s,error+1);
 			}
@@ -178,7 +178,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		for (int i=0;i<process.distributionProcess.length;i++) {
 			final Object data=processElement.getWorking().getOrDefault(runModel.clientTypes[i]);
 			if (data instanceof String) {
-				final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+				final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 				final int error=calc.parse((String)data);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.ProcessExpressionProcessing"),element.getId(),runModel.clientTypes[i],data,error+1);
 				process.expressionProcess[i]=(String)data;
@@ -194,7 +194,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 			final Object data=processElement.getPostProcessing().getOrDefault(runModel.clientTypes[i]);
 			if (data!=null) {
 				if (data instanceof String) {
-					final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+					final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 					final int error=calc.parse((String)data);
 					if (error>=0) return String.format(Language.tr("Simulation.Creator.ProcessExpressionPostProcessing"),element.getId(),runModel.clientTypes[i],data,error+1);
 					process.expressionPostProcess[i]=(String)data;
@@ -213,7 +213,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 			if (data!=null) {
 				useCancel=true;
 				if (data instanceof String) {
-					final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+					final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 					final int error=calc.parse((String)data);
 					if (error>=0) return String.format(Language.tr("Simulation.Creator.ProcessExpressionCancel"),element.getId(),runModel.clientTypes[i],data,error+1);
 					process.expressionCancel[i]=(String)data;
@@ -243,7 +243,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 			if (priorityString.equalsIgnoreCase(ModelElementProcess.DEFAULT_CLIENT_PRIORITY)) {
 				process.priority[i]=null; /* Default Priorität als null vermerken */
 			} else {
-				final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+				final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 				final int error=calc.parse(priorityString);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.ProcessClientPriority"),element.getId(),runModel.clientTypes[i],priorityString,error+1);
 
@@ -253,7 +253,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 
 		/* Ressourcen-Priorität */
 		if (!processElement.getResourcePriority().equals("1")) {
-			final int error=ExpressionCalc.check(processElement.getResourcePriority(),runModel.variableNames);
+			final int error=ExpressionCalc.check(processElement.getResourcePriority(),runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.ProcessResourcePriority"),element.getId(),processElement.getResourcePriority());
 		}
 		process.resourcePriority=processElement.getResourcePriority();
@@ -274,7 +274,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
 			process.costs=null;
 		} else {
-			final int error=ExpressionCalc.check(text,runModel.variableNames);
+			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorProcess"),text,element.getId(),error+1);
 			process.costs=text;
 		}
@@ -283,7 +283,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
 			process.costsPerProcessSecond=null;
 		} else {
-			final int error=ExpressionCalc.check(text,runModel.variableNames);
+			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorProcessPerProcessSecond"),text,element.getId(),error+1);
 			process.costsPerProcessSecond=text;
 		}
@@ -292,7 +292,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
 			process.costsPerPostProcessSecond=null;
 		} else {
-			final int error=ExpressionCalc.check(text,runModel.variableNames);
+			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorProcessPerPostProcessSecond"),text,element.getId(),error+1);
 			process.costsPerPostProcessSecond=text;
 		}

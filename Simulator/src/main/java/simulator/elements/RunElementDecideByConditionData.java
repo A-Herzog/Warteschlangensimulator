@@ -42,7 +42,7 @@ public class RunElementDecideByConditionData extends RunElementData {
 
 		this.conditions=new ExpressionMultiEval[conditions.length];
 		for (int i=0;i<conditions.length;i++) if (conditions[i]!=null) {
-			ExpressionMultiEval eval=new ExpressionMultiEval(variableNames);
+			ExpressionMultiEval eval=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);
 			eval.parse(conditions[i]);
 			this.conditions[i]=eval;
 		}

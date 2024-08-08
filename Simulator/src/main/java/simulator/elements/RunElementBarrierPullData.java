@@ -88,7 +88,7 @@ public class RunElementBarrierPullData extends RunElementData implements RunElem
 		waitingClients=new ArrayList<>();
 		lastSendTime=-1;
 		this.nextControlledID=nextControlledID;
-		this.maxClients=new ExpressionCalc(variableNames);
+		this.maxClients=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 		this.maxClients.parse(maxClients);
 	}
 

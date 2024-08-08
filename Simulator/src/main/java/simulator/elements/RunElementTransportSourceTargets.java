@@ -121,7 +121,7 @@ public class RunElementTransportSourceTargets {
 				} else {
 					/* Ausdruck */
 					routingClientTypeList.add(-1);
-					final int error=ExpressionMultiEval.check(route.routingCondition,runModel.variableNames);
+					final int error=ExpressionMultiEval.check(route.routingCondition,runModel.variableNames,runModel.modelUserFunctions);
 					if (error>=0) return String.format(Language.tr("Simulation.Creator.RoutingCondition.Expression"),route.routingCondition,element.getId(),error+1);
 					routingExpressionList.add(route.routingCondition);
 				}

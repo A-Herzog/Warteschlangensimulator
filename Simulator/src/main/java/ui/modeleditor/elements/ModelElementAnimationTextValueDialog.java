@@ -393,7 +393,7 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 			expressionOk=false;
 			editExpression.setBackground(Color.red);
 		} else {
-			error=ExpressionCalc.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
+			error=ExpressionCalc.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false),element.getModel().userFunctions);
 			if (error>=0) {
 				expressionOk=false;
 				editExpression.setBackground(Color.red);

@@ -40,6 +40,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.runmodel.RunModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.simparser.symbols.CalcSymbolClientUserData;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -59,6 +60,8 @@ public class VariablesTableModelDialog extends BaseDialog {
 
 	/** Liste aller bisher vorhandenen Variablennamen */
 	private final String[] names;
+	/** Modellspezifische nutzerdefinierte Funktionen */
+	private final ExpressionCalcModelUserFunctions modelUserFunctions;
 	/** Nur clientdata(...)-Zuweisungen zulassen und keine globalen Variablen? */
 	private final boolean clientDataOnly;
 	/** Eingabefeld für den Variablennamen */
@@ -90,9 +93,12 @@ public class VariablesTableModelDialog extends BaseDialog {
 	 * @param stationNameIDs	Zuordnung von Stations-IDs zu nutzerdefinierten Stationsnamen
 	 * @param showUserSpecificOptions	Auswahloptionen für Wartezeit des Kunden usw.
 	 * @param clientDataOnly	Nur clientdata(...)-Zuweisungen zulassen und keine globalen Variablen?
+	 * @param modelUserFunctions	Modellspezifische nutzerdefinierte Funktionen (kann <code>null</code> sein)
 	 */
-	public VariablesTableModelDialog(final Component owner, final Runnable help, final String variable, final String expression, final String[] names, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final boolean showUserSpecificOptions, final boolean clientDataOnly) {
+	public VariablesTableModelDialog(final Component owner, final Runnable help, final String variable, final String expression, final String[] names, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final boolean showUserSpecificOptions, final boolean clientDataOnly, final ExpressionCalcModelUserFunctions modelUserFunctions) {
 		super(owner,Language.tr("Surface.Set.Table.Edit"),false);
+
+		this.modelUserFunctions=modelUserFunctions;
 
 		final Set<String> tempVariableNames=new HashSet<>();
 		if (names!=null) tempVariableNames.addAll(Arrays.asList(names));
@@ -130,7 +136,7 @@ public class VariablesTableModelDialog extends BaseDialog {
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Set.Table.Edit.Mode.Expression.Expression")+":","0");
 		this.expression=(JTextField)data[1];
 		content.add(panel=(JPanel)data[0]);
-		panel.add(ModelElementBaseDialog.getExpressionEditButton(this,this.expression,false,names,initialVariableValues,stationIDs,stationNameIDs,true),BorderLayout.EAST);
+		panel.add(ModelElementBaseDialog.getExpressionEditButton(this,this.expression,false,names,initialVariableValues,stationIDs,stationNameIDs,true,modelUserFunctions),BorderLayout.EAST);
 		this.expression.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {if (optionExpression!=null) optionExpression.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {if (optionExpression!=null) optionExpression.setSelected(true); checkData(false);}
@@ -230,7 +236,7 @@ public class VariablesTableModelDialog extends BaseDialog {
 				if (!inList) namesList.add(var);
 			}
 		}
-		final int error=ExpressionCalc.check(expression,namesList.toArray(new String[0]));
+		final int error=ExpressionCalc.check(expression,namesList.toArray(new String[0]),modelUserFunctions);
 		if (error<0) {
 			this.expression.setBackground(NumberTools.getTextFieldDefaultBackground());
 		} else {

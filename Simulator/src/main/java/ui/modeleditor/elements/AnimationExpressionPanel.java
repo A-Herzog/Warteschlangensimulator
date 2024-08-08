@@ -747,7 +747,7 @@ public class AnimationExpressionPanel extends JPanel {
 				return false;
 			}
 		} else {
-			int error=ExpressionCalc.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
+			int error=ExpressionCalc.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false),element.getModel().userFunctions);
 			if (error>=0) {
 				ok=false;
 				expressionEdit.setBackground(Color.RED);

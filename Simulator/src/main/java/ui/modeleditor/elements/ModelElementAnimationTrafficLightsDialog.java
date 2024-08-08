@@ -160,7 +160,7 @@ public class ModelElementAnimationTrafficLightsDialog extends ModelElementBaseDi
 
 		boolean ok=true;
 
-		int error=ExpressionMultiEval.check(expressionOne.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
+		int error=ExpressionMultiEval.check(expressionOne.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false),element.getModel().userFunctions);
 		if (error>=0) {
 			ok=false;
 			expressionOne.setBackground(Color.red);
@@ -174,7 +174,7 @@ public class ModelElementAnimationTrafficLightsDialog extends ModelElementBaseDi
 
 		if (numberOfLights.getSelectedIndex()==1) {
 			/* rot, gelb, grün */
-			error=ExpressionMultiEval.check(expressionTwo.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
+			error=ExpressionMultiEval.check(expressionTwo.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false),element.getModel().userFunctions);
 			if (error>=0) {
 				ok=false;
 				expressionTwo.setBackground(Color.red);

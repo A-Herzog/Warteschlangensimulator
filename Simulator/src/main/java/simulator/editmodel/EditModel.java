@@ -40,6 +40,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
 import simulator.runmodel.RunModel;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.statistics.Statistics;
 import simulator.statistics.Statistics.CorrelationMode;
 import systemtools.SetupBase;
@@ -473,6 +474,11 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public EditModelCertificate loadedModelCertificate;
 
 	/**
+	 * Modellspezifische nutzerdefinierte Funktionen
+	 */
+	public ExpressionCalcModelUserFunctions userFunctions;
+
+	/**
 	 * Farbe für Kanten im dunklen Modus
 	 */
 	public static final Color BLACK_COLOR_IN_DARK_MODE=new Color(195,195,195);
@@ -513,6 +519,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		pluginsFolderAllowClassLoad=false;
 		javaImports="";
 		savedViews=new SavedViews();
+		userFunctions=new ExpressionCalcModelUserFunctions();
 		resetData();
 	}
 
@@ -609,6 +616,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		pluginsFolderAllowClassLoad=false;
 		javaImports="";
 		savedViews.clear();
+		userFunctions.clear();
 	}
 
 	/**
@@ -682,6 +690,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.pluginsFolderAllowClassLoad=pluginsFolderAllowClassLoad;
 		clone.javaImports=javaImports;
 		clone.savedViews.copyFrom(savedViews);
+		clone.userFunctions.copyFrom(userFunctions);
 
 		return clone;
 	}
@@ -769,7 +778,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (!pluginsFolder.equalsIgnoreCase(otherModel.pluginsFolder)) return false;
 		if (pluginsFolderAllowClassLoad!=otherModel.pluginsFolderAllowClassLoad) return false;
 		if (!javaImports.equalsIgnoreCase(otherModel.javaImports)) return false;
-		if (!savedViews.equalsSavedViews(savedViews)) return false;
+		if (!savedViews.equalsSavedViews(otherModel.savedViews)) return false;
+		if (!userFunctions.equalsUserFunctions(otherModel.userFunctions)) return false;
 
 		if (templates==null) {
 			if (otherModel.templates!=null) return false;
@@ -1220,6 +1230,12 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			return null;
 		}
 
+		for (String test: ExpressionCalcModelUserFunctions.XML_NODE_NAME) if (name.equalsIgnoreCase(test)) {
+			final String error=userFunctions.loadFromXML(node);
+			if (error!=null) return error;
+			return null;
+		}
+
 		if (EditModelCertificate.isCertificateNode(name)) {
 			loadedModelCertificate=new EditModelCertificate();
 			loadedModelCertificate.loadCertificateData(node);
@@ -1466,6 +1482,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		}
 
 		savedViews.addDataToXML(doc,node);
+
+		userFunctions.addDataToXML(doc,node);
 
 		final EditModelCertificate cert=new EditModelCertificate();
 		cert.storeCertificateData(doc,node,this);

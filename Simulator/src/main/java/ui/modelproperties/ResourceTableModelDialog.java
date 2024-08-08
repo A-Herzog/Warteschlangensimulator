@@ -49,6 +49,7 @@ import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionPanel;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
@@ -90,6 +91,11 @@ public class ResourceTableModelDialog extends BaseDialog {
 	 * Namen der modellweiten Variablen
 	 */
 	private final String[] variables;
+
+	/**
+	 * Modellspezifische nutzerdefinierte Funktionen
+	 */
+	private ExpressionCalcModelUserFunctions userFunctions;
 
 	/**
 	 * Liste der bereits vorhandenen Bedienergruppennamen (inkl. des Names der aktuellen Gruppe)
@@ -180,6 +186,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 
 		this.model=model;
 		variables=surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false);
+		userFunctions=model.userFunctions;
 		imageSource=new AnimationImageSource();
 
 		/* Globale Daten speichern */
@@ -508,7 +515,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 
 		if (moveTimesMode.getSelectedIndex()==2) {
 			final String moveTime=moveTimeField.getText().trim();
-			final int error=ExpressionCalc.check(moveTime,variables);
+			final int error=ExpressionCalc.check(moveTime,variables,userFunctions);
 			if (error>=0) {
 				moveTimeField.setBackground(Color.RED);
 				if (showErrorDialog) {

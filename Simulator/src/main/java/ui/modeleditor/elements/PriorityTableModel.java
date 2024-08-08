@@ -167,7 +167,7 @@ public class PriorityTableModel extends JTableExtAbstractTableModel {
 		final Map<Integer,String> stationIDs=ExpressionBuilder.getStationIDs(mainSurface);
 		final Map<Integer,String> stationNameIDs=ExpressionBuilder.getStationNameIDs(mainSurface);
 		final Map<String,String> initialVariableValues=model.getInitialVariablesWithValues();
-		final ExpressionBuilder dialog=new ExpressionBuilder(table,priorities[rowIndex],false,variableNames,initialVariableValues,stationIDs,stationNameIDs,true,false,false);
+		final ExpressionBuilder dialog=new ExpressionBuilder(table,priorities[rowIndex],false,variableNames,initialVariableValues,stationIDs,stationNameIDs,true,false,false,model.userFunctions);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			priorities[rowIndex]=dialog.getExpression();
@@ -182,7 +182,7 @@ public class PriorityTableModel extends JTableExtAbstractTableModel {
 	 */
 	public boolean checkInput(final boolean showErrorMessage) {
 		for (int i=0;i<clientTypes.length;i++) {
-			final int error=ExpressionCalc.check(priorities[i],element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
+			final int error=ExpressionCalc.check(priorities[i],element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),element.getModel().userFunctions);
 			if (error>=0) {
 				if (showErrorMessage) MsgBox.error(table,Language.tr("Surface.Process.Dialog.Priority.Error.Title"),String.format(Language.tr("Surface.Process.Dialog.Priority.Error.Info"),clientTypes[i],priorities[i]));
 				return false;

@@ -1113,7 +1113,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	public void initAnimation(SimulationData simData) {
 		simTextValue=null;
 
-		animationExpression=new ExpressionCalc(simData.runModel.variableNames);
+		animationExpression=new ExpressionCalc(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 		if (animationExpression.parse(expression)>=0) animationExpression=null;
 	}
 

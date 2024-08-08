@@ -196,7 +196,7 @@ public class ModelElementBarrierPullDialog extends ModelElementBaseDialog {
 
 		final String text=maxEdit.getText();
 		if (!text.trim().isEmpty()) {
-			final int error=ExpressionCalc.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
+			final int error=ExpressionCalc.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false),element.getModel().userFunctions);
 			if (error>=0) {
 				maxEdit.setBackground(Color.RED);
 				ok=false;

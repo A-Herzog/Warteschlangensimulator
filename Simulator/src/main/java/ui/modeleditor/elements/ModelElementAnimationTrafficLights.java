@@ -376,11 +376,11 @@ public class ModelElementAnimationTrafficLights extends ModelElementAnimationCus
 
 	@Override
 	public void initAnimation(SimulationData simData) {
-		animationExpressionOne=new ExpressionMultiEval(simData.runModel.variableNames);
+		animationExpressionOne=new ExpressionMultiEval(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 		if (animationExpressionOne.parse(expressionOne)>=0) animationExpressionOne=null;
 
 		if (threeLights) {
-			animationExpressionTwo=new ExpressionMultiEval(simData.runModel.variableNames);
+			animationExpressionTwo=new ExpressionMultiEval(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 			if (animationExpressionTwo.parse(expressionTwo)>=0) animationExpressionTwo=null;
 		}
 	}

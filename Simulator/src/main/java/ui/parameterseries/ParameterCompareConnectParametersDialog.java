@@ -34,7 +34,9 @@ import javax.swing.JTextField;
 import language.Language;
 import mathtools.NumberTools;
 import parser.MathCalcError;
+import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.help.Help;
@@ -52,6 +54,11 @@ public class ParameterCompareConnectParametersDialog extends BaseDialog {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID=-8122348549003835059L;
+
+	/**
+	 * Modellspezifische nutzerdefinierte Funktionen
+	 */
+	private ExpressionCalcModelUserFunctions userFunctions;
 
 	/**
 	 * Einstellungen der Parameterreihe
@@ -72,11 +79,13 @@ public class ParameterCompareConnectParametersDialog extends BaseDialog {
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
+	 * @param model	Editor-Basismodell (zum Zugriff auf die modellspezifischen nutzerdefinierten Funktionen)
 	 * @param setup	Einstellungen der Parameterreihe
 	 * @param parameterIndex	Index des zu verändernden Eingabeparameters
 	 */
-	public ParameterCompareConnectParametersDialog(final Component owner, final ParameterCompareSetup setup, final int parameterIndex) {
+	public ParameterCompareConnectParametersDialog(final Component owner, final EditModel model, final ParameterCompareSetup setup, final int parameterIndex) {
 		super(owner,Language.tr("ParameterCompare.ConnectParameters.Title"));
+		this.userFunctions=model.userFunctions;
 		this.setup=setup;
 		this.parameterIndex=parameterIndex;
 
@@ -130,7 +139,7 @@ public class ParameterCompareConnectParametersDialog extends BaseDialog {
 		final List<String> params=new ArrayList<>();
 		for (int i=0;i<setup.getInput().size();i++) params.add(String.format("param%d",i+1));
 
-		return new ExpressionCalc(params.toArray(new String[0]));
+		return new ExpressionCalc(params.toArray(new String[0]),userFunctions);
 	}
 
 	/**

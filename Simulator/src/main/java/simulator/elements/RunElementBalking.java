@@ -126,7 +126,7 @@ public class RunElementBalking extends RunElementPassThrough {
 				balking.probability[i]=Math.max(0,Math.min(1,data.getProbability()));
 			} else {
 				balking.expression[i]=data.getExpression();
-				final int error=ExpressionMultiEval.check(balking.expression[i],runModel.variableNames);
+				final int error=ExpressionMultiEval.check(balking.expression[i],runModel.variableNames,runModel.modelUserFunctions);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.BalkingCondition"),balking.expression[i],element.getId(),error+1);
 			}
 		}

@@ -30,6 +30,7 @@ import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.elements.TransporterPosition;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import statistics.StatisticsTimePerformanceIndicator;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelTransporter;
@@ -47,8 +48,15 @@ import ui.modeleditor.elements.ModelElementTransportTransporterSource;
  * @see RunDataTransporter
  */
 public final class RunDataTransporters implements Cloneable {
-	/** Liste aller globalen Variablen in dem Modell */
+	/**
+	 * Liste aller globalen Variablen in dem Modell
+	 */
 	private String[] variables;
+
+	/**
+	 * Modellspezifische nutzerdefinierte Funktionen
+	 */
+	private ExpressionCalcModelUserFunctions userFunctions;
 
 	/**
 	 * Zuordnung von Namen zu Index-Werten der Transporter
@@ -87,6 +95,7 @@ public final class RunDataTransporters implements Cloneable {
 	 */
 	public RunDataTransporters() {
 		variables=new String[0];
+		userFunctions=null;
 	}
 
 	/**
@@ -131,6 +140,7 @@ public final class RunDataTransporters implements Cloneable {
 	 */
 	public String loadFromEditTransporters(final ModelTransporters transporters, final ModelSurface surface, final String[] variables, final RunModel runModel) {
 		this.variables=variables;
+		this.userFunctions=runModel.modelUserFunctions;
 
 		/* Temporäre Listen anlegen */
 		final List<String> typeList=new ArrayList<>();
@@ -159,11 +169,11 @@ public final class RunDataTransporters implements Cloneable {
 			final Object load=transporter.getLoadTime();
 			final Object unload=transporter.getUnloadTime();
 			if (load instanceof String) {
-				final int error=ExpressionCalc.check((String)load,variables);
+				final int error=ExpressionCalc.check((String)load,variables,runModel.modelUserFunctions);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.TransporterLoadExpression"),load,error+1);
 			}
 			if (unload instanceof String) {
-				final int error=ExpressionCalc.check((String)unload,variables);
+				final int error=ExpressionCalc.check((String)unload,variables,runModel.modelUserFunctions);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.TransporterUnloadExpression"),load,error+1);
 			}
 
@@ -174,7 +184,7 @@ public final class RunDataTransporters implements Cloneable {
 			final String iconWestLoaded=transporter.getWestLoadedIcon();
 
 			/* Ausdruck zur Umrechnung der Entfernung in eine Zeit */
-			int error=ExpressionCalc.check(transporter.getExpression(),variableNamesWithDistance);
+			int error=ExpressionCalc.check(transporter.getExpression(),variableNamesWithDistance,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.Transporter.InvalidExpression"),name,transporter.getExpression(),error+1);
 			expressionList.add(transporter.getExpression());
 
@@ -209,7 +219,7 @@ public final class RunDataTransporters implements Cloneable {
 				runFailure.failureDistribution=editFailure.getFailureDistribution();
 				if (runFailure.failureMode==ModelTransporterFailure.FailureMode.FAILURE_BY_DISTRIBUTION && runFailure.failureDistribution==null) return String.format(Language.tr("Simulation.Creator.MissingTransporterInterDownTimeDistribution"),name);
 				if (runFailure.failureMode==ModelTransporterFailure.FailureMode.FAILURE_BY_EXPRESSION) {
-					runFailure.failureExpression=new ExpressionCalc(variables);
+					runFailure.failureExpression=new ExpressionCalc(variables,runModel.modelUserFunctions);
 					error=runFailure.failureExpression.parse(editFailure.getFailureExpression());
 					if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidTransporterInterDownTimeExpression"),name,editFailure.getFailureExpression(),error+1);
 				}
@@ -217,7 +227,7 @@ public final class RunDataTransporters implements Cloneable {
 				if (runFailure.downTimeExpressionString==null) {
 					runFailure.downTimeDistribution=DistributionTools.cloneDistribution(editFailure.getDownTimeDistribution());
 				} else {
-					runFailure.downTimeExpression=new ExpressionCalc(variables);
+					runFailure.downTimeExpression=new ExpressionCalc(variables,runModel.modelUserFunctions);
 					error=runFailure.downTimeExpression.parse(runFailure.downTimeExpressionString);
 					if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidTransporterDownTimeExpression"),name,runFailure.downTimeExpressionString,error+1);
 				}
@@ -245,7 +255,7 @@ public final class RunDataTransporters implements Cloneable {
 				}
 
 				for (int i=0;i<entry.getValue();i++) {
-					final RunDataTransporter runTransporter=new RunDataTransporter(typeIndex,i,capacity,load,unload,iconEastEmpty,iconWestEmpty,iconEastLoaded,iconWestLoaded,failuresArray,this,variables);
+					final RunDataTransporter runTransporter=new RunDataTransporter(typeIndex,i,capacity,load,unload,iconEastEmpty,iconWestEmpty,iconEastLoaded,iconWestLoaded,failuresArray,this,variables,userFunctions);
 					runTransporter.position=stationID.intValue();
 					runTransporterList.add(runTransporter);
 				}
@@ -280,7 +290,7 @@ public final class RunDataTransporters implements Cloneable {
 		 */
 		clone.variableNamesWithDistance=variableNamesWithDistance; /* brauchen wir nicht kopieren, ist statisch -  Arrays.copyOf(variableNamesWithDistance,variableNamesWithDistance.length); */
 		clone.transporters=new RunDataTransporter[transporters.length][];
-		for (int i=0;i<transporters.length;i++) clone.transporters[i]=Arrays.asList(transporters[i]).stream().map(t->t.clone(variables,clone)).toArray(RunDataTransporter[]::new);
+		for (int i=0;i<transporters.length;i++) clone.transporters[i]=Arrays.asList(transporters[i]).stream().map(t->t.clone(variables,userFunctions,clone)).toArray(RunDataTransporter[]::new);
 
 		return clone;
 	}
@@ -307,7 +317,7 @@ public final class RunDataTransporters implements Cloneable {
 	public double getTransferDistance(final int indexTransporter, final int idFrom, final int idTo) {
 		/* Wenn nötig Ausdruck vorbereiten */
 		if (this.expression[indexTransporter]==null) {
-			this.expression[indexTransporter]=new ExpressionCalc(variableNamesWithDistance);
+			this.expression[indexTransporter]=new ExpressionCalc(variableNamesWithDistance,userFunctions);
 			this.expression[indexTransporter].parse(expressionString[indexTransporter]);
 		}
 

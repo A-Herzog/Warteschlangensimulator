@@ -24,6 +24,7 @@ import mathtools.distribution.tools.DistributionTools;
 import parser.MathCalcError;
 import simulator.events.ResourcesReCheckEvent;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import ui.modeleditor.ModelResourceFailure;
 import ui.modeleditor.ModelResourceFailure.FailureMode;
 
@@ -115,8 +116,9 @@ public class RunDataResourceFailure {
 	 * @param failure	Zu kopierendes Objekt
 	 * @param name	Name der Ressource auf die sich dieser Ausfall bezieht
 	 * @param variables	Globale Variablen (für die Rechenausdrücke)
+	 * @param userFunctions	Modellspezifische nutzerdefinierte Funktionen
 	 */
-	public RunDataResourceFailure(final RunDataResourceFailure failure, final String name, final String[] variables) {
+	public RunDataResourceFailure(final RunDataResourceFailure failure, final String name, final String[] variables, final ExpressionCalcModelUserFunctions userFunctions) {
 		this(name);
 		failureMode=failure.failureMode;
 		failureNumber=failure.failureNumber;
@@ -126,7 +128,7 @@ public class RunDataResourceFailure {
 		downTimeDistribution=DistributionTools.cloneDistribution(failure.downTimeDistribution);
 		if (failure.downTimeExpression!=null) {
 			downTimeExpressionString=failure.downTimeExpressionString;
-			downTimeExpression=new ExpressionCalc(variables);
+			downTimeExpression=new ExpressionCalc(variables,userFunctions);
 			downTimeExpression.parse(downTimeExpressionString);
 		}
 	}

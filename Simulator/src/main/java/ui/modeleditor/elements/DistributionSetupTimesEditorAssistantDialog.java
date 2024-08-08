@@ -393,7 +393,7 @@ public class DistributionSetupTimesEditorAssistantDialog extends BaseDialog {
 	 * @see #checkData(boolean)
 	 */
 	private boolean checkExpression(final JTextField field, final boolean showErrorMessage) {
-		final int error=ExpressionCalc.check(field.getText(),editorPanel.surface.getMainSurfaceVariableNames(editorPanel.model.getModelVariableNames(),true));
+		final int error=ExpressionCalc.check(field.getText(),editorPanel.surface.getMainSurfaceVariableNames(editorPanel.model.getModelVariableNames(),true),editorPanel.model.userFunctions);
 		if (error>=0) {
 			field.setBackground(Color.RED);
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.Process.Dialog.SetupTimes.Assistant.ExpressionErrorTitle"),String.format(Language.tr("Surface.Process.Dialog.SetupTimes.Assistant.ExpressionErrorInfo"),field.getText(),error+1));

@@ -109,7 +109,7 @@ public class ModelElementAnimationImageTableModelDialog extends BaseDialog {
 	private boolean checkData(final boolean showErrorMessage) {
 		if (expressionEdit==null) return true;
 
-		final int error=ExpressionMultiEval.check(expressionEdit.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+		final int error=ExpressionMultiEval.check(expressionEdit.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 		if (error>=0) {
 			expressionEdit.setBackground(Color.RED);
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.AnimationImage.Dialog.Images.Expression.Error.Title"),String.format(Language.tr("Surface.AnimationImage.Dialog.Images.Expression.Error.Info"),expressionEdit.getText(),error+1));

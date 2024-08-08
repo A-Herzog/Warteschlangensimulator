@@ -52,7 +52,7 @@ public class RunElementBalkingData extends RunElementData {
 			if (conditions[i]==null || conditions[i].trim().isEmpty()) {
 				this.conditions[i]=null;
 			} else {
-				this.conditions[i]=new ExpressionMultiEval(variableNames);
+				this.conditions[i]=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);
 				this.conditions[i].parse(conditions[i]);
 			}
 		}

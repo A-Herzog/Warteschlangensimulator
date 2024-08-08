@@ -87,7 +87,7 @@ public class RunElementUserStatistic extends RunElementPassThrough {
 			userStatistic.isTime[i]=isTime.get(i);
 			final String t=expressions.get(i).trim();
 			if (t.isEmpty()) return String.format(Language.tr("Simulation.Creator.StatisticExpressionMissing"),i+1,element.getId());
-			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 			final int error=calc.parse(t);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.StatisticExpressionInvalid"),i+1,element.getId(),error+1);
 			userStatistic.expressions[i]=t;

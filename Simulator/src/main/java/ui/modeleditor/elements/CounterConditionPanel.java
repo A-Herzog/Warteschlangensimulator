@@ -35,6 +35,7 @@ import javax.swing.JTextField;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -60,6 +61,8 @@ public class CounterConditionPanel extends JPanel {
 	private final List<String> clientTypes;
 	/** Liste mit allen Variablennamen im Modell */
 	private final String[] variableNames;
+	/** Modellspezifische nutzerdefinierte Funktionen */
+	private final ExpressionCalcModelUserFunctions userFunctions;
 
 	/** Auswahlbox für die Bedingung */
 	private final JCheckBox checkCondition;
@@ -80,6 +83,7 @@ public class CounterConditionPanel extends JPanel {
 		clientTypesAll=surface.getClientTypes();
 		clientTypes=new ArrayList<>();
 		variableNames=surface.getMainSurfaceVariableNames(model.getModelVariableNames(),true);
+		userFunctions=model.userFunctions;
 
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 		JPanel line;
@@ -163,7 +167,7 @@ public class CounterConditionPanel extends JPanel {
 					return false;
 				}
 			} else {
-				final int error=ExpressionMultiEval.check(text,variableNames);
+				final int error=ExpressionMultiEval.check(text,variableNames,userFunctions);
 				if (error>=0) {
 					ok=false;
 					editCondition.setBackground(Color.RED);

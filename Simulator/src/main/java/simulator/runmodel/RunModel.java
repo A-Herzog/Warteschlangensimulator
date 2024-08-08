@@ -43,6 +43,7 @@ import simulator.editmodel.EditModel;
 import simulator.elements.RunElementSourceTable;
 import simulator.elements.RunSource;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.simparser.ExpressionMultiEval;
 import simulator.simparser.symbols.CalcSymbolClientUserData;
 import simulator.statistics.Statistics;
@@ -383,6 +384,11 @@ public class RunModel {
 	public String modelPath;
 
 	/**
+	 * Modellspezifische nutzerdefinierte Funktionen
+	 */
+	public ExpressionCalcModelUserFunctions modelUserFunctions;
+
+	/**
 	 * Multiplikativer Faktor zur Umrechnung von Sekunden in Simulationszeitschritte
 	 * @see #scaleToSeconds
 	 */
@@ -454,7 +460,7 @@ public class RunModel {
 		for (int i=0;i<FastMath.min(editModel.globalVariablesNames.size(),editModel.globalVariablesExpressions.size());i++) {
 			final String varName=editModel.globalVariablesNames.get(i);
 			final String varExpression=editModel.globalVariablesExpressions.get(i);
-			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 			final int error=calc.parse(varExpression);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidInitialVariableExpression"),varName,varExpression,error+1);
 			int index=-1;
@@ -577,7 +583,7 @@ public class RunModel {
 				for (Map.Entry<Integer,String> entry: step.getAssignments().entrySet()) {
 					runModel.sequenceStepAssignmentNr[i][j][k]=entry.getKey();
 					runModel.sequenceStepAssignmentExpression[i][j][k]=entry.getValue();
-					final int exprError=ExpressionCalc.check(entry.getValue(),editModel.surface.getMainSurfaceVariableNames(editModel.getModelVariableNames(),false));
+					final int exprError=ExpressionCalc.check(entry.getValue(),editModel.surface.getMainSurfaceVariableNames(editModel.getModelVariableNames(),false),editModel.userFunctions);
 					if (exprError>=0) return String.format(Language.tr("Simulation.Creator.SequenceInvalidExpression"),sequence.getName(),j+1,runModel.sequenceStepAssignmentNr[i][j][k],entry.getValue(),exprError+1);
 					k++;
 				}
@@ -609,6 +615,9 @@ public class RunModel {
 
 		/* Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen) */
 		runModel.modelPath=modelPath;
+
+		/* Modellspezifische nutzerdefinierte Funktionen */
+		runModel.modelUserFunctions=new ExpressionCalcModelUserFunctions(editModel.userFunctions);
 
 		return null;
 	}
@@ -646,7 +655,7 @@ public class RunModel {
 
 		/* Abbruchbedingung */
 		if (editModel.useTerminationCondition && !editModel.terminationCondition.trim().isEmpty()) {
-			runModel.terminationCondition=new ExpressionMultiEval(runModel.variableNames);
+			runModel.terminationCondition=new ExpressionMultiEval(runModel.variableNames,editModel.userFunctions);
 			final int error=runModel.terminationCondition.parse(editModel.terminationCondition);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidTerminationCondition"),editModel.terminationCondition,error+1);
 		} else {

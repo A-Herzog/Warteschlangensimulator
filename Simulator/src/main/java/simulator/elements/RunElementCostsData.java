@@ -70,35 +70,35 @@ public class RunElementCostsData extends RunElementData {
 		if (stationCosts==null || stationCosts.trim().isEmpty()) {
 			this.stationCosts=null;
 		} else {
-			this.stationCosts=new ExpressionCalc(variableNames);
+			this.stationCosts=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.stationCosts.parse(stationCosts);
 		}
 
 		if (clientWaitingCosts==null || clientWaitingCosts.trim().isEmpty()) {
 			this.clientWaitingCosts=null;
 		} else {
-			this.clientWaitingCosts=new ExpressionCalc(variableNames);
+			this.clientWaitingCosts=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.clientWaitingCosts.parse(clientWaitingCosts);
 		}
 
 		if (clientTransferCosts==null || clientTransferCosts.trim().isEmpty()) {
 			this.clientTransferCosts=null;
 		} else {
-			this.clientTransferCosts=new ExpressionCalc(variableNames);
+			this.clientTransferCosts=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.clientTransferCosts.parse(clientTransferCosts);
 		}
 
 		if (clientProcessCosts==null || clientProcessCosts.trim().isEmpty()) {
 			this.clientProcessCosts=null;
 		} else {
-			this.clientProcessCosts=new ExpressionCalc(variableNames);
+			this.clientProcessCosts=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.clientProcessCosts.parse(clientProcessCosts);
 		}
 
 		if (condition==null || condition.trim().isEmpty()) {
 			this.condition=null;
 		} else {
-			this.condition=new ExpressionMultiEval(variableNames);
+			this.condition=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);
 			this.condition.parse(condition);
 		}
 	}

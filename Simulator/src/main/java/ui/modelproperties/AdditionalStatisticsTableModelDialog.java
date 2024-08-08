@@ -121,7 +121,7 @@ public class AdditionalStatisticsTableModelDialog extends BaseDialog {
 	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
 	 */
 	private boolean checkData(final boolean showErrorMessage) {
-		int i=ExpressionCalc.check(expressionEdit.getText(),model.surface.getVariableNames(model.getModelVariableNames()));
+		int i=ExpressionCalc.check(expressionEdit.getText(),model.surface.getVariableNames(model.getModelVariableNames()),model.userFunctions);
 		if (i>=0) {
 			expressionEdit.setBackground(Color.RED);
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Expression.ErrorTitle"),String.format(Language.tr("Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Expression.ErrorInfo"),expressionEdit.getText(),i+1));

@@ -195,7 +195,7 @@ public class ModelElementSeizeDialog extends ModelElementBaseDialog {
 
 		boolean ok=true;
 
-		final int error=ExpressionCalc.check(textResourcePriority.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
+		final int error=ExpressionCalc.check(textResourcePriority.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false),element.getModel().userFunctions);
 		if (error>=0) {
 			textResourcePriority.setBackground(Color.RED);
 			if (showErrorMessage) {

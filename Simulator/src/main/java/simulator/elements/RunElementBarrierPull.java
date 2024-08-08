@@ -83,7 +83,7 @@ public class RunElementBarrierPull extends RunElementPassThrough implements Stat
 		final String nextName=barrierElement.getNextName();
 		if (nextName.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.BarrierPull.NoNext"),element.getId());
 
-		final int error=ExpressionCalc.check(barrierElement.getNextMax(),runModel.variableNames);
+		final int error=ExpressionCalc.check(barrierElement.getNextMax(),runModel.variableNames,runModel.modelUserFunctions);
 		if (error>=0) return String.format(Language.tr("Simulation.Creator.BarrierPull.InvalidNextMax"),element.getId(),barrierElement.getNextMax(),error+1);
 		barrier.maxClients=barrierElement.getNextMax();
 		barrier.nextControlledID=getNextID(nextName,editModel);

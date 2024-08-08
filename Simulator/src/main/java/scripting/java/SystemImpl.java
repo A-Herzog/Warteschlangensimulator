@@ -88,7 +88,7 @@ public class SystemImpl implements SystemInterface {
 		ExpressionCalc expression=expressionCache.get(text);
 		if (expression!=null) return expression;
 
-		expression=new ExpressionCalc(runModel.variableNames);
+		expression=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 		final int errorPos=expression.parse(text);
 		if (errorPos>=0) return String.format(Language.tr("Statistics.Filter.CoundNotProcessExpression.Info"),errorPos+1);
 		expressionCache.put(text,expression);
@@ -232,7 +232,7 @@ public class SystemImpl implements SystemInterface {
 			return;
 		}
 		if (varValue instanceof String) {
-			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 			if (calc.parse((String)varValue)>=0) return;
 			try {
 				final double d=calc.calc(simData.runData.variableValues,simData,null);
@@ -264,7 +264,7 @@ public class SystemImpl implements SystemInterface {
 		if (id instanceof Long) return getRunElement(((Long)id).intValue());
 		if (id instanceof Double) return getRunElement((int)FastMath.round((Double)id));
 		if (id instanceof String) {
-			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 			if (calc.parse((String)id)>=0) return null;
 			try {
 				final double d=calc.calc(simData.runData.variableValues,simData,null);
@@ -286,7 +286,7 @@ public class SystemImpl implements SystemInterface {
 		if (value instanceof Integer) return ((Integer)value).doubleValue();
 		if (value instanceof Long) return ((Long)value).doubleValue();
 		if (value instanceof String) {
-			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 			if (calc.parse((String)value)>=0) return null;
 			try {
 				return calc.calc(simData.runData.variableValues,simData,null);

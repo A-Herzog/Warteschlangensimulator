@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-05 08:14+0200\n"
+"POT-Creation-Date: 2024-08-06 09:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9298,6 +9298,12 @@ msgstr "<p>Calculates the value of the tangent hyperbolicus function with the va
 
 msgid "ExpressionBuilder.UserFunctions"
 msgstr "User-defined function"
+
+msgid "ExpressionBuilder.UserFunctions.Global"
+msgstr "This user-defined function is available globally in all models."
+
+msgid "ExpressionBuilder.UserFunctions.Model"
+msgstr "This user-defined function is saved as part of the model."
 
 msgid "ExpressionBuilder.Value"
 msgstr "Value"
@@ -36940,6 +36946,30 @@ msgstr "TransporterFailure"
 msgid "Surface.XML.RootName.Transporters"
 msgstr "ModelTransporters"
 
+msgid "Surface.XML.RootName.UserFunctions"
+msgstr "ModelUserDefinedCalculationFunction"
+
+msgid "Surface.XML.RootName.UserFunctions.Mode"
+msgstr "Mode"
+
+msgid "Surface.XML.RootName.UserFunctions.Mode.Expression"
+msgstr "Expression"
+
+msgid "Surface.XML.RootName.UserFunctions.Mode.Javascript"
+msgstr "Javascript"
+
+msgid "Surface.XML.RootName.UserFunctions.Name"
+msgstr "Name"
+
+msgid "Surface.XML.RootName.UserFunctions.Name.Error"
+msgstr "The name of a user-defined function cannot be empty."
+
+msgid "Surface.XML.RootName.UserFunctions.ParameterCount"
+msgstr "ParameterCount"
+
+msgid "Surface.XML.RootName.UserFunctions.ParameterCount.Error"
+msgstr "The specified value for the number of parameters of the user-defined function %s is invalid. A non-negative integer has to be specified."
+
 msgid "Surface.XML.Schedule.DurationPerSlot"
 msgstr "DurationPerSlot"
 
@@ -37964,6 +37994,12 @@ msgstr "Javascript code"
 
 msgid "UserDefinedFunctions.ListTitle"
 msgstr "User-defined functions"
+
+msgid "UserDefinedFunctions.ModeGlobal"
+msgstr "Global functions"
+
+msgid "UserDefinedFunctions.ModeModel"
+msgstr "Model-specific functions"
 
 msgid "UserTemplates.AddDialog.Global"
 msgstr "Save template global (instead of at the model)"

@@ -45,6 +45,7 @@ import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.RunModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -72,6 +73,11 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	 * Namen der modellweiten Variablen
 	 */
 	private final String[] variables;
+
+	/**
+	 * Modellspezifische nutzerdefinierte Funktionen
+	 */
+	private ExpressionCalcModelUserFunctions userFunctions;
 
 	/**
 	 * Zu bearbeitender Datensatz
@@ -192,6 +198,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		super(owner,Language.tr("Surface.Action.Dialog.Edit"));
 		this.record=record;
 		variables=surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false);
+		userFunctions=model.userFunctions;
 		buildAnalogIDNames(surface);
 
 		/* GUI */
@@ -627,7 +634,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			}
 
 			if (triggerCondition.isSelected()) {
-				final int error=ExpressionMultiEval.check(conditionEdit.getText(),variables);
+				final int error=ExpressionMultiEval.check(conditionEdit.getText(),variables,userFunctions);
 				if (error<0) {
 					conditionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 				} else {
@@ -652,7 +659,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			}
 
 			if (triggerThreshold.isSelected()) {
-				final int error=ExpressionCalc.check(thresholdExpressionEdit.getText(),variables);
+				final int error=ExpressionCalc.check(thresholdExpressionEdit.getText(),variables,userFunctions);
 				if (error<0) {
 					thresholdExpressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 				} else {
@@ -703,7 +710,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 					return false;
 				}
 			}
-			final int error=ExpressionCalc.check(assignExpressionEdit.getText(),getExtVariablesList(variables,varName));
+			final int error=ExpressionCalc.check(assignExpressionEdit.getText(),getExtVariablesList(variables,varName),userFunctions);
 			if (error<0) {
 				assignExpressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
@@ -727,7 +734,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 					return false;
 				}
 			}
-			final int error=ExpressionCalc.check(analogExpressionEdit.getText(),variables);
+			final int error=ExpressionCalc.check(analogExpressionEdit.getText(),variables,userFunctions);
 			if (error<0) {
 				analogExpressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {

@@ -92,7 +92,7 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 
 			String expression=delayElement.getDelayExpression(runModel.clientTypes[i]);
 			if (expression!=null) {
-				final int error=ExpressionCalc.check(expression,runModel.variableNames);
+				final int error=ExpressionCalc.check(expression,runModel.variableNames,runModel.modelUserFunctions);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.DelayCondition"),expression,element.getId(),error+1);
 				delay.expression[i]=expression;
 				continue;
@@ -106,7 +106,7 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 
 			expression=delayElement.getDelayExpression();
 			if (expression!=null) {
-				final int error=ExpressionCalc.check(expression,runModel.variableNames);
+				final int error=ExpressionCalc.check(expression,runModel.variableNames,runModel.modelUserFunctions);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.DelayCondition"),expression,element.getId(),error+1);
 				delay.expression[i]=expression;
 				continue;
@@ -120,7 +120,7 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
 			delay.costs=null;
 		} else {
-			final int error=ExpressionCalc.check(text,runModel.variableNames);
+			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorDelay"),text,element.getId(),error+1);
 			delay.costs=text;
 		}

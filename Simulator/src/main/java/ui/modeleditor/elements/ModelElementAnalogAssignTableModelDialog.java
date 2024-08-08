@@ -36,6 +36,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -68,6 +69,11 @@ public class ModelElementAnalogAssignTableModelDialog extends BaseDialog {
 	 */
 	private final String[] variables;
 
+	/**
+	 * Modellspezifische nutzerdefinierte Funktionen
+	 */
+	private ExpressionCalcModelUserFunctions userFunctions;
+
 	/** Auswahlbox für die ID der Station an der eine Änderung vorgenommen werden soll */
 	private final JComboBox<String> comboID;
 	/** Was soll verändert werden? (Wert oder Rate) */
@@ -97,6 +103,7 @@ public class ModelElementAnalogAssignTableModelDialog extends BaseDialog {
 
 		buildIDNames(surface.getParentSurface()==null?surface:surface.getParentSurface());
 		variables=model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),true);
+		userFunctions=model.userFunctions;
 
 		/* IDs */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -197,7 +204,7 @@ public class ModelElementAnalogAssignTableModelDialog extends BaseDialog {
 	private boolean checkData(final boolean showErrorMessages) {
 		boolean ok=true;
 
-		final int error=ExpressionCalc.check(edit.getText(),variables);
+		final int error=ExpressionCalc.check(edit.getText(),variables,userFunctions);
 		if (error<0) {
 			edit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		} else {

@@ -215,7 +215,7 @@ public class ExpressionCalcUserFunctionsEditDialog extends BaseDialog {
 		button.addActionListener(e->{
 			final String[] variableNames=new String[(Integer)parameterCountEdit.getValue()];
 			for (int i=0;i<variableNames.length;i++) variableNames[i]="Parameter"+(i+1);
-			final ExpressionBuilder dialog=new ExpressionBuilder(owner,contentEdit.getText(),false,variableNames,null,null,null,true,false,false,false);
+			final ExpressionBuilder dialog=new ExpressionBuilder(owner,contentEdit.getText(),false,variableNames,null,null,null,true,false,false,null,false);
 			dialog.setVisible(true);
 			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 				contentEdit.setText(dialog.getExpression());
@@ -225,7 +225,7 @@ public class ExpressionCalcUserFunctionsEditDialog extends BaseDialog {
 		final Dimension size=button.getPreferredSize();
 		button.setPreferredSize(new Dimension(size.height,size.height));
 
-		ExpressionBuilderAutoComplete.process(new ExpressionBuilder(owner,contentEdit.getText(),false,null,null,null,null,true,false,false,false),contentEdit);
+		ExpressionBuilderAutoComplete.process(new ExpressionBuilder(owner,contentEdit.getText(),false,null,null,null,null,true,false,false,null,false),contentEdit);
 
 		return button;
 	}

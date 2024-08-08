@@ -37,6 +37,7 @@ import javax.swing.JTextField;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import ui.images.Images;
@@ -58,6 +59,8 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 
 	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
+	/** Modellspezifische nutzerdefinierte Funktionen */
+	private ExpressionCalcModelUserFunctions userFunctions;
 	/** Liste mit allen Kundentyp im Modell */
 	private List<String> clientTypes;
 
@@ -117,6 +120,7 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 		content.add(tabs,BorderLayout.CENTER);
 
 		variables=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true);
+		userFunctions=element.getModel().userFunctions;
 
 		final ModelElementConveyor conveyor=(ModelElementConveyor)element;
 
@@ -283,7 +287,7 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 		}
 
 		/* Kapazität - Benötigt global */
-		error=ExpressionCalc.check(capacityNeededGlobal.getText(),variables);
+		error=ExpressionCalc.check(capacityNeededGlobal.getText(),variables,userFunctions);
 		if (error>=0) {
 			capacityNeededGlobal.setBackground(Color.RED);
 			ok=false;
@@ -301,7 +305,7 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 			if (field.getText().trim().isEmpty()) {
 				field.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
-				error=ExpressionCalc.check(field.getText(),variables);
+				error=ExpressionCalc.check(field.getText(),variables,userFunctions);
 				if (error>=0) {
 					field.setBackground(Color.RED);
 					ok=false;

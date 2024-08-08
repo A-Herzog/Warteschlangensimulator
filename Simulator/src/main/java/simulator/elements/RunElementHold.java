@@ -75,7 +75,7 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 		if (condition==null || condition.trim().isEmpty()) {
 			hold.condition=null;
 		} else {
-			final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.HoldCondition"),condition,element.getId(),error+1);
 			hold.condition=condition;
 		}
@@ -88,7 +88,7 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 			if (priorityString.equalsIgnoreCase(ModelElementHold.DEFAULT_CLIENT_PRIORITY)) {
 				hold.priority[i]=null; /* Default Priorität als null vermerken */
 			} else {
-				final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+				final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 				final int error=calc.parse(priorityString);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.HoldClientPriority"),element.getId(),runModel.clientTypes[i],priorityString,error+1);
 				hold.priority[i]=priorityString;
@@ -104,7 +104,7 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 		/* Freigabe nach bestimmter Wartezeit? */
 		if (!holdElement.getMaxWaitingTime().isBlank()) {
 			final String maxWaitingTime=holdElement.getMaxWaitingTime();
-			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 			final int error=calc.parse(maxWaitingTime);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.HoldMaxWaitingTime"),maxWaitingTime,element.getId(),error+1);
 			hold.maxWaitingTime=maxWaitingTime;

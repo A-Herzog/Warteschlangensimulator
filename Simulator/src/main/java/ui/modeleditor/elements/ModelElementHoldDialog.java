@@ -207,7 +207,7 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 				return false;
 			}
 		} else {
-			final int error=ExpressionMultiEval.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
+			final int error=ExpressionMultiEval.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),element.getModel().userFunctions);
 			if (error>=0) {
 				ok=false;
 				condition.setBackground(Color.RED);
@@ -221,7 +221,7 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 		}
 
 		if (useMaxWaitingTime.isSelected()) {
-			final int error=ExpressionCalc.check(maxWaitingTime.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
+			final int error=ExpressionCalc.check(maxWaitingTime.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),element.getModel().userFunctions);
 			if (error>=0) {
 				ok=false;
 				maxWaitingTime.setBackground(Color.RED);

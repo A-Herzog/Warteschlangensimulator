@@ -105,7 +105,7 @@ public class ScriptPopupItemExpressionBuilder extends ScriptPopupItem {
 			initialVariables=new HashMap<>();
 		}
 
-		final ExpressionBuilder builder=new ExpressionBuilder(null,"",false,variables,initialVariables,ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface),false,!hasModelData,false);
+		final ExpressionBuilder builder=new ExpressionBuilder(null,"",false,variables,initialVariables,ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface),false,!hasModelData,false,model.userFunctions);
 		builder.setVisible(true);
 		if (builder.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 

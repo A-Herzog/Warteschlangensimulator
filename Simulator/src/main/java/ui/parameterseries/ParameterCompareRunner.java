@@ -211,7 +211,7 @@ public class ParameterCompareRunner {
 				}
 				break;
 			case MODE_COMMAND:
-				final int errorInt=ExpressionCalc.check(output.getTag(),null);
+				final int errorInt=ExpressionCalc.check(output.getTag(),null,editModel.userFunctions);
 				if (errorInt>=0) return String.format(Language.tr("ParameterCompare.Settings.Output.Mode.Command.ErrorInfo"),output.getTag(),errorInt+1);
 				break;
 			}

@@ -145,7 +145,7 @@ public class ModelElementSetStatisticsModeDialog extends ModelElementBaseDialog 
 
 		if (optionModeCondition.isSelected()) {
 			final String condition=editCondition.getText().trim();
-			final int error=ExpressionMultiEval.check(condition,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
+			final int error=ExpressionMultiEval.check(condition,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false),element.getModel().userFunctions);
 			if (error>=0) {
 				ok=false;
 				editCondition.setBackground(Color.RED);

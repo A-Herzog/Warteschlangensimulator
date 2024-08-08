@@ -87,7 +87,7 @@ public class RunElementHoldData extends RunElementData implements RunElementData
 		if (condition==null || condition.trim().isEmpty()) {
 			this.condition=null;
 		} else {
-			this.condition=new ExpressionMultiEval(variableNames);
+			this.condition=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);
 			this.condition.parse(condition);
 		}
 
@@ -95,7 +95,7 @@ public class RunElementHoldData extends RunElementData implements RunElementData
 		this.priority=new ExpressionCalc[priority.length];
 		for (int i=0;i<priority.length;i++) {
 			if (priority[i]!=null) { /* Wenn null, war Default Priorität gesetzt (="w"). Dann priority[i] auf Vorgabe null lassen. Dies wird von ModelElementProcess.startProcessing() entsprechend erkannt. */
-				this.priority[i]=new ExpressionCalc(variableNames);
+				this.priority[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 				this.priority[i].parse(priority[i]);
 				allPriorityFIFO=false;
 			}
@@ -105,7 +105,7 @@ public class RunElementHoldData extends RunElementData implements RunElementData
 		if (maxWaitingTime==null || maxWaitingTime.isBlank()) {
 			this.maxWaitingTime=null;
 		} else {
-			this.maxWaitingTime=new ExpressionCalc(variableNames);
+			this.maxWaitingTime=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.maxWaitingTime.parse(maxWaitingTime);
 		}
 	}

@@ -34,6 +34,7 @@ import javax.swing.JTextField;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -55,6 +56,11 @@ public class ModelElementDelayJSDialog extends ModelElementBaseDialog {
 	 * Liste aller globalen Variablen in dem Modell
 	 */
 	private String[] variables;
+
+	/**
+	 * Modellspezifische nutzerdefinierte Funktionen
+	 */
+	private ExpressionCalcModelUserFunctions userFunctions;
 
 	/**
 	 * Auswahlbox für die Art der Erfassung der Verzögerungszeit
@@ -112,6 +118,7 @@ public class ModelElementDelayJSDialog extends ModelElementBaseDialog {
 		final ModelElementDelayJS delayJS=(ModelElementDelayJS)element;
 
 		variables=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true);
+		userFunctions=element.getModel().userFunctions;
 
 		final JPanel content=new JPanel(new BorderLayout());
 		JPanel sub;
@@ -184,7 +191,7 @@ public class ModelElementDelayJSDialog extends ModelElementBaseDialog {
 
 		final String text=textCosts.getText();
 		if (!text.trim().isEmpty()) {
-			final int error=ExpressionCalc.check(text,variables);
+			final int error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				textCosts.setBackground(Color.red);
 				if (showErrorMessage) {

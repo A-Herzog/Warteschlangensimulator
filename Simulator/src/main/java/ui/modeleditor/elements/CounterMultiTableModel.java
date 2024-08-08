@@ -27,6 +27,7 @@ import javax.swing.table.TableCellEditor;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -56,7 +57,9 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 	/** Nur-Lese-Status */
 	private final boolean readOnly;
 	/** Liste aller globalen Variablen in dem Modell */
-	private String[] variables;
+	private final String[] variables;
+	/** Modellspezifische nutzerdefinierte Funktionen */
+	private final ExpressionCalcModelUserFunctions userFunctions;
 
 	/** Liste der Bedingungen */
 	private List<String> condition;
@@ -78,6 +81,7 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 		this.readOnly=readOnly;
 
 		variables=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true);
+		userFunctions=element.getModel().userFunctions;
 
 		condition=new ArrayList<>();
 		counter=new ArrayList<>();
@@ -275,7 +279,7 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 		final EditModel model=element.getModel();
 		final ModelSurface surface=model.surface;
 		final List<String> variables=new ArrayList<>(Arrays.asList(surface.getMainSurfaceVariableNames(model.getModelVariableNames(),true)));
-		final ExpressionBuilder dialog=new ExpressionBuilder(table,condition.get(index),true,variables.toArray(new String[0]),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(surface),ExpressionBuilder.getStationNameIDs(surface),true,false,false);
+		final ExpressionBuilder dialog=new ExpressionBuilder(table,condition.get(index),true,variables.toArray(new String[0]),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(surface),ExpressionBuilder.getStationNameIDs(surface),true,false,false,model.userFunctions);
 
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
@@ -339,7 +343,7 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 		boolean ok=true;
 
 		for (int i=0;i<condition.size();i++) {
-			final int error=ExpressionMultiEval.check(condition.get(i),variables);
+			final int error=ExpressionMultiEval.check(condition.get(i),variables,userFunctions);
 			if (error>=0) {
 				ok=false;
 				if (showErrorMessage) {

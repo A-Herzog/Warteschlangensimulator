@@ -560,7 +560,7 @@ public abstract class DecideDataPanel extends JPanel {
 			final Double D=NumberTools.getDouble(field,false);
 			if (D==null || sum==-1) sum=-1; else sum+=Math.max(0,D);
 
-			final int error=ExpressionCalc.check(field.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
+			final int error=ExpressionCalc.check(field.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),element.getModel().userFunctions);
 			if (error>=0) field.setBackground(Color.RED); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
 
 			if (error>=0) {
@@ -591,7 +591,7 @@ public abstract class DecideDataPanel extends JPanel {
 		for (int i=0;i<conditions.size()-1;i++) {
 			final JTextField field=conditions.get(i);
 			final String condition=field.getText();
-			final int error=ExpressionMultiEval.check(condition,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
+			final int error=ExpressionMultiEval.check(condition,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),element.getModel().userFunctions);
 			if (error>=0) field.setBackground(Color.RED); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
 
 			if (error>=0) {

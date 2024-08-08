@@ -34,6 +34,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
@@ -56,6 +57,8 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 
 	/** Liste der Namen aller modellweit verfügbaren Variablennamen */
 	private String[] variableNames;
+	/** Modellspezifische nutzerdefinierte Funktionen */
+	private ExpressionCalcModelUserFunctions userFunctions;
 	/** Eingabefeld für den Bezeichner für die Kenngröße */
 	private JTextField key;
 	/** Eingabefeld für die zu erfassende Kenngröße */
@@ -83,6 +86,7 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 
 		/* Variablen (für Expression-Editor) ermitteln */
 		variableNames=surface.getMainSurfaceVariableNames(model.getModelVariableNames(),true);
+		userFunctions=model.userFunctions;
 
 		/* GUI */
 		final JPanel content=createGUI(help);
@@ -163,7 +167,7 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 				return false;
 			}
 		} else {
-			final int error=ExpressionCalc.check(expression.getText().trim(),variableNames);
+			final int error=ExpressionCalc.check(expression.getText().trim(),variableNames,userFunctions);
 			if (error<0) {
 				expression.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {

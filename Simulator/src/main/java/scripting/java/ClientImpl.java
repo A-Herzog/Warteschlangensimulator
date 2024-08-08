@@ -80,7 +80,7 @@ public class ClientImpl implements ClientInterface {
 		ExpressionCalc expression=expressionCache.get(text);
 		if (expression!=null) return expression;
 
-		expression=new ExpressionCalc(simData.runModel.variableNames);
+		expression=new ExpressionCalc(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 		final int errorPos=expression.parse(text);
 		if (errorPos>=0) return String.format(Language.tr("Statistics.Filter.CoundNotProcessExpression.Info"),errorPos+1);
 		expressionCache.put(text,expression);

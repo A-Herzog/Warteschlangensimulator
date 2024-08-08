@@ -92,7 +92,7 @@ public class RunElementLongRunStatisticsData extends RunElementData {
 		lastValue=new double[expresions.length];
 		for (int i=0;i<expresions.length;i++) {
 			expressionStrings[i]=expresions[i];
-			this.expressions[i]=new ExpressionCalc(runModel.variableNames);
+			this.expressions[i]=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 			this.expressions[i].parse(expresions[i]);
 			expressionMode[i]=modes[i];
 			switch (expressionMode[i]) {

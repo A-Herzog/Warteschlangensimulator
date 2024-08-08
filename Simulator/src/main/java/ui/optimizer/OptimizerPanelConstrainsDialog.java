@@ -28,6 +28,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import language.Language;
+import simulator.editmodel.EditModel;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -47,6 +49,8 @@ public class OptimizerPanelConstrainsDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 5697018498521665681L;
 
+	/** Modellspezifische nutzerdefinierte Funktionen */
+	private final ExpressionCalcModelUserFunctions userFunctions;
 	/** Liste der Nebenbedingungen (aus dieser Liste wird beim Start geladen und in diese Liste werden die neuen Bedingungen beim Schließen zurückgeschrieben) */
 	private final List<String> constrains;
 	/** Eingabefeld für die Nebenbedingungen */
@@ -55,10 +59,12 @@ public class OptimizerPanelConstrainsDialog extends BaseDialog {
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
+	 * @param model	Basismodell (zum Zugriff auf die modellspezifischen nutzerdefinierten Funktionen)
 	 * @param constrains	Liste der Nebenbedingungen; beim Schließen des Dialogs mit "Ok" wird direkt diese Liste verändert
 	 */
-	public OptimizerPanelConstrainsDialog(final Component owner, final List<String> constrains) {
+	public OptimizerPanelConstrainsDialog(final Component owner, final EditModel model, final List<String> constrains) {
 		super(owner,Language.tr("Optimizer.Tab.ControlVariables.Constrains.DialogTitle"));
+		this.userFunctions=model.userFunctions;
 		this.constrains=constrains;
 
 		/* Dialog aufbauen */
@@ -99,7 +105,7 @@ public class OptimizerPanelConstrainsDialog extends BaseDialog {
 		final List<String> newConstrains=getConstrainsFromGUI();
 		for (int i=0;i<newConstrains.size();i++) {
 			final String constrain=newConstrains.get(i);
-			final ExpressionMultiEval eval=new ExpressionMultiEval(varsMaxArray);
+			final ExpressionMultiEval eval=new ExpressionMultiEval(varsMaxArray,userFunctions);
 			final int error=eval.parse(constrain);
 			if (error>=0) {
 				MsgBox.error(this,Language.tr("Optimizer.Tab.ControlVariables.Constrains.DialogErrorTitle"),String.format(Language.tr("Optimizer.Tab.ControlVariables.Constrains.DialogErrorInfo"),i+1,constrain,error+1));

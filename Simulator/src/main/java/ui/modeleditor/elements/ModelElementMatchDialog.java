@@ -364,7 +364,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 			if (text.trim().isEmpty()) {
 				condition.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
-				final int error=ExpressionMultiEval.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
+				final int error=ExpressionMultiEval.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),element.getModel().userFunctions);
 				if (error>=0) {
 					ok=false;
 					condition.setBackground(Color.RED);

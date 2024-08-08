@@ -88,7 +88,7 @@ public class RunElementAnalogAssign extends RunElementPassThrough {
 			if (!(changeElement instanceof ModelElementAnalogValue) && !(changeElement instanceof ModelElementTank)) return String.format(Language.tr("Simulation.Creator.AnalogAssignTargetIDNoAnalogValue"),element.getId(),id);
 			if (!(changeElement instanceof ModelElementAnalogValue) && (mode==ModelElementAnalogAssign.ChangeMode.CHANGE_MODE_RATE)) return String.format(Language.tr("Simulation.Creator.AnalogAssignCannotChangeRateOnTank"),element.getId(),id);
 
-			final int error=ExpressionCalc.check(expression,runModel.variableNames);
+			final int error=ExpressionCalc.check(expression,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.AnalogAssignExpression"),expression,element.getId(),error+1);
 
 			listID.add(id);

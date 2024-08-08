@@ -62,7 +62,7 @@ public class RunElementDelayData extends RunElementData {
 		/* Verzögerungsausdrucke */
 		expression=new ExpressionCalc[expresionStrings.length];
 		for (int i=0;i<expresionStrings.length;i++) if (expresionStrings[i]!=null) {
-			expression[i]=new ExpressionCalc(variableNames);
+			expression[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			expression[i].parse(expresionStrings[i]);
 		}
 
@@ -70,7 +70,7 @@ public class RunElementDelayData extends RunElementData {
 		if (costs==null || costs.trim().isEmpty()) {
 			this.costs=null;
 		} else {
-			this.costs=new ExpressionCalc(variableNames);
+			this.costs=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.costs.parse(costs);
 		}
 

@@ -44,25 +44,49 @@ import statistics.StatisticsTimePerformanceIndicator;
  * @see SimulationData
  */
 public class ExpressionCalc extends CalcSystem {
-	/** Liste der Laufzeit-Element Datenobjekte */
+	/**
+	 * Modellspezifische nutzerdefinierte Funktionen (kann <code>null</code> sein)
+	 */
+	final ExpressionCalcModelUserFunctions modelUserFunctions;
+
+	/**
+	 * Liste der Laufzeit-Element Datenobjekte
+	 */
 	private RunElementData[] runElementData;
-	/** Liste der Laufzeit-Element Objekte */
+
+	/**
+	 * Liste der Laufzeit-Element Objekte
+	 */
 	private RunElement[] runElements;
-	/** Erfassung der Ressourcen Nutzung */
+
+	/**
+	 * Erfassung der Ressourcen Nutzung
+	 */
 	private StatisticsTimePerformanceIndicator[] resourceUsage;
-	/** Erfassung der Transporter Nutzung */
+
+	/**
+	 * Erfassung der Transporter Nutzung
+	 */
 	private StatisticsTimePerformanceIndicator[] transporterUsage;
-	/** Aktuelles Simulationsdatenobjekt */
+
+	/**
+	 * Aktuelles Simulationsdatenobjekt
+	 */
 	private SimulationData simData;
-	/** Aktuelles Kundenobjekt */
+
+	/**
+	 * Aktuelles Kundenobjekt
+	 */
 	private RunDataClient currentClient;
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param variables	Liste der Variablennamen, die erkannt werden sollen
+	 * @param modelUserFunctions	Objekt mit weiteren modellspezifischen nutzerdefinierten Funktionen (kann <code>null</code> sein)
 	 */
-	public ExpressionCalc(final String[] variables) {
+	public ExpressionCalc(final String[] variables, final ExpressionCalcModelUserFunctions modelUserFunctions) {
 		super(variables);
+		this.modelUserFunctions=modelUserFunctions;
 	}
 
 	/**
@@ -75,7 +99,7 @@ public class ExpressionCalc extends CalcSystem {
 		parameterCount=Math.max(0,parameterCount);
 		final String[] parameterNames=new String[parameterCount];
 		for (int i=0;i<parameterNames.length;i++) parameterNames[i]="Parameter"+(i+1);
-		final ExpressionCalc calc=new ExpressionCalc(parameterNames);
+		final ExpressionCalc calc=new ExpressionCalc(parameterNames,null);
 		calc.justCompilingUserFunction=true;
 		return calc;
 	}
@@ -412,11 +436,13 @@ public class ExpressionCalc extends CalcSystem {
 	protected List<CalcSymbolPreOperator> getUserFunctions() {
 		final boolean hasUserFunctions=(!justCompilingUserFunction && userFunctions!=null && userFunctions.size()>0);
 		final boolean hasUserFunctionsJS=(userFunctionsJS!=null && userFunctionsJS.size()>0);
+		final boolean hasModelUserFunctions=(!justCompilingUserFunction && modelUserFunctions!=null && modelUserFunctions.getUserFunctions().size()>0);
 
-		if (hasUserFunctions || hasUserFunctionsJS) {
+		if (hasUserFunctions || hasUserFunctionsJS || hasModelUserFunctions) {
 			final List<CalcSymbolPreOperator> list=new ArrayList<>(functions);
 			if (hasUserFunctions) list.addAll(userFunctions);
 			if (hasUserFunctionsJS) list.addAll(userFunctionsJS);
+			if (hasModelUserFunctions) list.addAll(modelUserFunctions.getCalcFunctions());
 			return list;
 		} else {
 			return functions;
@@ -480,10 +506,11 @@ public class ExpressionCalc extends CalcSystem {
 	 * Prüft direkt, ob ein als Zeichenkette angegebener Ausdruck korrekt interpretierbar ist.
 	 * @param expression	Zu prüferender Ausdruck
 	 * @param variables	Liste mit den Variablennamen, die erkannt werden sollen (kann auch <code>null</code> sein)
+	 * @param modelUserFunctions	Objekt mit weiteren modellspezifischen nutzerdefinierten Funktionen (kann <code>null</code> sein)
 	 * @return	Liefert -1, wenn der Ausdruck erfolgreich interpretiert werden konnte, ansonsten die 0-basierende Fehlerstelle innerhalb des Strings.
 	 */
-	public static int check(final String expression, final String[] variables) {
-		final ExpressionCalc calc=new ExpressionCalc(variables);
+	public static int check(final String expression, final String[] variables, final ExpressionCalcModelUserFunctions modelUserFunctions) {
+		final ExpressionCalc calc=new ExpressionCalc(variables,modelUserFunctions);
 		return calc.parse(expression);
 	}
 
@@ -494,7 +521,7 @@ public class ExpressionCalc extends CalcSystem {
 	 */
 	public static boolean checkVariableName(final String variableName) {
 		if (variableName==null || variableName.trim().isEmpty()) return false;
-		final ExpressionCalc calc=new ExpressionCalc(null);
+		final ExpressionCalc calc=new ExpressionCalc(null,null);
 		if (calc.isKnownSymbol(variableName)) return false;
 		for (int i=0;i<variableName.length();i++) {
 			final char c=variableName.charAt(i);
@@ -664,7 +691,7 @@ public class ExpressionCalc extends CalcSystem {
 	 * @return	Ergebniswert oder <code>null</code>, wenn der Wert sich nicht zu einem statischen Ergebnis berechnen lässt
 	 */
 	public static Double calcDirect(final String expression) {
-		final ExpressionCalc calc=new ExpressionCalc(null);
+		final ExpressionCalc calc=new ExpressionCalc(null,null);
 		if (calc.parse(expression)>=0) return null;
 		if (!calc.isConstValue()) return null;
 		try {

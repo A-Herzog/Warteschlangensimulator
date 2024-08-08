@@ -77,7 +77,7 @@ public class RunElementHoldMulti extends RunElement implements StateChangeListen
 			holdMulti.connectionIds.add(id);
 
 			String condition=holdMultiElement.getConditions().get(edge.getId());
-			final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.HoldMultiCondition"),i+1,condition,element.getId(),error+1);
 			holdMulti.conditions[i]=condition;
 		}

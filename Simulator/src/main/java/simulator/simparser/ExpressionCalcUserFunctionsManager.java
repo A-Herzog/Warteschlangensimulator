@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.w3c.dom.Element;
+
+import language.Language;
 import mathtools.NumberTools;
 import simulator.simparser.symbols.CalcSymbolUserFunction;
 import simulator.simparser.symbols.CalcSymbolUserFunctionJS;
@@ -225,10 +228,24 @@ public class ExpressionCalcUserFunctionsManager {
 		}
 
 		/**
+		 * Vergleich diese nutzerdefinierte Funktion mit einer anderen.
+		 * @param otherUserFunction	Weitere nutzerdefinierte Funktion, die inhaltlich mit dieser verglichen werden soll
+		 * @return	Liefert <code>true</code>, wenn die beiden Funktionen inhaltlich übereinstimmen
+		 */
+		public boolean equalsUserFunction(final UserFunction otherUserFunction) {
+			if (otherUserFunction==null) return false;
+			if (!name.equals(otherUserFunction.name)) return false;
+			if (parameterCount!=otherUserFunction.parameterCount) return false;
+			if (!content.equals(otherUserFunction.content)) return false;
+			if (mode!=otherUserFunction.mode) return false;
+			return true;
+		}
+
+		/**
 		 * Übersetzt den Datensatz in ein {@link CalcSymbolUserFunction}-Objekt
 		 * @return	Liefert im Erfolgsfall ein {@link CalcSymbolUserFunction}-Objekt, sonst eine nullbasierende Zahl ({@link Integer}), die die Position des Fehlers beim Parsen angibt
 		 */
-		private Object compile() {
+		public Object compile() {
 			switch (mode) {
 			case EXPRESSION:
 				return CalcSymbolUserFunction.compile(name,parameterCount,content);
@@ -237,6 +254,45 @@ public class ExpressionCalcUserFunctionsManager {
 			default:
 				return 0; /* Fehler an Index 0 */
 			}
+		}
+
+		/**
+		 * Speichert die Daten zu der nutzerdefinierten Funktion in einem XML-Knoten
+		 * @param node	XML-Knoten in dem die Daten gespeichert werden sollen
+		 */
+		public void saveToXML(final Element node) {
+			node.setAttribute(Language.trPrimary("Surface.XML.RootName.UserFunctions.Name"),name);
+			node.setAttribute(Language.trPrimary("Surface.XML.RootName.UserFunctions.ParameterCount"),""+parameterCount);
+			switch (mode) {
+			case EXPRESSION: node.setAttribute(Language.trPrimary("Surface.XML.RootName.UserFunctions.Mode"),Language.trPrimary("Surface.XML.RootName.UserFunctions.Mode.Expression")); break;
+			case JAVASCRIPT: node.setAttribute(Language.trPrimary("Surface.XML.RootName.UserFunctions.Mode"),Language.trPrimary("Surface.XML.RootName.UserFunctions.Mode.Javascript")); break;
+			}
+			node.setTextContent(content);
+		}
+
+		/**
+		 * Versucht die Daten zu einer nutzerdefinierten Funktion aus einem XML-Knoten zu laden
+		 * @param node	XML-Knoten, aus dem die Daten geladen werden soll
+		 * @return	Liefert im Erfolgsfall die neue nutzerdefinierte Funktion, sonst eine Fehlermeldung
+		 */
+		public static Object loadFromXML(final Element node) {
+			final UserFunction function=new UserFunction("",0,"",UserFunctionMode.EXPRESSION);
+
+			function.name=Language.trAllAttribute("Surface.XML.RootName.UserFunctions.Name",node).trim();
+			if (function.name.isBlank()) return Language.tr("Surface.XML.RootName.UserFunctions.Name.Error");
+
+			final Integer I=NumberTools.getNotNegativeInteger(Language.trAllAttribute("Surface.XML.RootName.UserFunctions.ParameterCount",node));
+			if (I==null) return String.format(Language.tr("Surface.XML.RootName.UserFunctions.ParameterCount.Error"),function.name);
+
+			if (Language.trAllAttribute("Surface.XML.RootName.UserFunctions.Mode",node).trim().equalsIgnoreCase(Language.trPrimary("Surface.XML.RootName.UserFunctions.Mode.Javascript"))) {
+				function.mode=UserFunctionMode.JAVASCRIPT;
+			} else {
+				function.mode=UserFunctionMode.EXPRESSION;
+			}
+
+			function.content=node.getTextContent();
+
+			return function;
 		}
 
 		@Override
@@ -251,7 +307,7 @@ public class ExpressionCalcUserFunctionsManager {
 		 * @param mode	Art der Funktion
 		 * @return	Liefert im Erfolgsfall die neue nutzerdefinierte Funktion, sonst <code>null</code>
 		 */
-		private static UserFunction loadFromString(final String text, final UserFunctionMode mode) {
+		public static UserFunction loadFromString(final String text, final UserFunctionMode mode) {
 			final String[] parts=text.split("\\t",3);
 			if (parts.length!=3) return null;
 			final Integer I=NumberTools.getNotNegativeInteger(parts[1]);

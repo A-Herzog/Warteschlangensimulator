@@ -35,6 +35,7 @@ import javax.swing.table.TableCellEditor;
 
 import language.Language;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.MsgBox;
 import tools.JTableExt;
 import tools.JTableExtAbstractTableModel;
@@ -62,6 +63,8 @@ public class OutputDDETableModel extends JTableExtAbstractTableModel {
 	private final List<String> data;
 	/** Liste mit allen Variablennamen */
 	private final String[] variableNames;
+	/** Modellspezifische nutzerdefinierte Funktionen */
+	private final ExpressionCalcModelUserFunctions userFunctions;
 	/** Zugehörige Tabelle (um das Update der Tabelle veranlassen zu können, wenn sich die Daten verändert haben) */
 	private final JTableExt table;
 
@@ -71,15 +74,17 @@ public class OutputDDETableModel extends JTableExtAbstractTableModel {
 	 * @param mode	Liste mit den Ausgabemodi
 	 * @param data	Liste mit den je nach Ausgabemodus notwendigen zusätzlichen Daten
 	 * @param variableNames	Liste mit allen Variablennamen
+	 * @param userFunctions	Modellspezifische nutzerdefinierte Funktionen
 	 * @param readOnly	Nur-Lese-Status
 	 */
-	public OutputDDETableModel(final JTableExt table, final List<ModelElementOutputDDE.OutputMode> mode, final List<String> data, final String[] variableNames, final boolean readOnly) {
+	public OutputDDETableModel(final JTableExt table, final List<ModelElementOutputDDE.OutputMode> mode, final List<String> data, final String[] variableNames, final ExpressionCalcModelUserFunctions userFunctions, final boolean readOnly) {
 		super();
 		this.readOnly=readOnly;
 		this.table=table;
 		this.mode=new ArrayList<>(); this.mode.addAll(mode);
 		this.data=new ArrayList<>(); this.data.addAll(data);
 		this.variableNames=variableNames;
+		this.userFunctions=userFunctions;
 	}
 
 	/**
@@ -221,7 +226,7 @@ public class OutputDDETableModel extends JTableExtAbstractTableModel {
 		case 0: return makeModePanel(rowIndex,mode.get(rowIndex));
 		case 1:
 			if (mode.get(rowIndex)==ModelElementOutputDDE.OutputMode.MODE_TEXT || mode.get(rowIndex)==ModelElementOutputDDE.OutputMode.MODE_EXPRESSION || mode.get(rowIndex)==ModelElementOutputDDE.OutputMode.MODE_STRING) {
-				return makeEditPanel(data.get(rowIndex),Images.GENERAL_SETUP.getIcon(),new TableButtonListener(rowIndex,ActionIndex.ACTION_EDIT_DATA,variableNames));
+				return makeEditPanel(data.get(rowIndex),Images.GENERAL_SETUP.getIcon(),new TableButtonListener(rowIndex,ActionIndex.ACTION_EDIT_DATA));
 			} else {
 				final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT,5,5));
 				panel.setBackground(Color.WHITE);
@@ -270,22 +275,22 @@ public class OutputDDETableModel extends JTableExtAbstractTableModel {
 	 */
 	private class TableButtonListener implements ActionListener {
 		/** Tabellenzeile */
-		final int row;
+		private final int row;
 		/** Auszuführende Aktion */
-		final ActionIndex actionIndex;
-		/** Zusätzliche Daten für die jeweilige Aktion */
-		final Object object;
+		private final ActionIndex actionIndex;
+		/** Combobox auf die sich die Einstellungen beziehen */
+		private final JComboBox<String> combo;
 
 		/**
 		 * Konstruktor der Klasse
 		 * @param row	Zeile
 		 * @param actionIndex	Auszuführende Aktion
-		 * @param object	Zusätzliche Daten für die jeweilige Aktion
+		 * @param combo	Combobox auf die sich die Einstellungen beziehen
 		 */
-		public TableButtonListener(final int row, final ActionIndex actionIndex, final Object object) {
+		public TableButtonListener(final int row, final ActionIndex actionIndex, final JComboBox<String> combo) {
 			this.row=row;
 			this.actionIndex=actionIndex;
-			this.object=object;
+			this.combo=combo;
 		}
 
 		/**
@@ -314,7 +319,7 @@ public class OutputDDETableModel extends JTableExtAbstractTableModel {
 				updateTable();
 				break;
 			case ACTION_COMBO_CHANGE:
-				mode.set(row,intToMode(((JComboBox<?>)object).getSelectedIndex()));
+				mode.set(row,intToMode(combo.getSelectedIndex()));
 				updateTable();
 				break;
 			case ACTION_UP:
@@ -360,7 +365,7 @@ public class OutputDDETableModel extends JTableExtAbstractTableModel {
 						s=JOptionPane.showInputDialog(table,Language.tr("Surface.OutputDDE.Table.EditExpression"),s);
 						if (s==null) break;
 						if (s.trim().isEmpty()) {data.set(row,""); break;}
-						int error=ExpressionCalc.check(s,(String[])object);
+						int error=ExpressionCalc.check(s,variableNames,userFunctions);
 						if (error<0) {data.set(row,s); break;}
 						MsgBox.error(table,Language.tr("Surface.OutputDDE.Table.ExpressionError.Title"),String.format(Language.tr("Surface.OutputDDE.Table.ExpressionError.Info"),s,error+1));
 					}

@@ -109,7 +109,7 @@ public class RunElementOutputDDE extends RunElementPassThrough {
 			}
 
 			if (mode==ModelElementOutputDDE.OutputMode.MODE_EXPRESSION) {
-				final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+				final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 				final int error=calc.parse(s);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidOutputExpression"),i+1,output.id,error+1);
 				data=calc;

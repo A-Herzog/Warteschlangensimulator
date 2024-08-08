@@ -267,7 +267,7 @@ public class ModelElementBalkingDialog extends ModelElementBaseDialog {
 		}
 
 		if (optionCondition.isSelected()) {
-			final int error=ExpressionMultiEval.check(expression.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
+			final int error=ExpressionMultiEval.check(expression.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),element.getModel().userFunctions);
 			if (error>=0) {
 				ok=false;
 				expression.setBackground(Color.RED);

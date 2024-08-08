@@ -35,6 +35,7 @@ import javax.swing.JTextField;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -70,6 +71,11 @@ public class TransportRouteTableModelDialog extends BaseDialog {
 	 */
 	private final String[] variables;
 
+	/**
+	 * Modellspezifische nutzerdefinierte Funktionen
+	 */
+	private ExpressionCalcModelUserFunctions userFunctions;
+
 	/** Option: Transport (gemäß dieser Regel) auslösen bei Kundentyp */
 	private final JRadioButton optionClientType;
 	/** Auswahlbox für den Kundentyp im Fall {@link #optionClientType} */
@@ -96,6 +102,7 @@ public class TransportRouteTableModelDialog extends BaseDialog {
 		super(owner,Language.tr("Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.Title"),false);
 		this.stations=stations;
 		this.variables=variables;
+		this.userFunctions=model.userFunctions;
 		this.clientTypes=clientTypes;
 
 		final Map<String,Integer> clientTypesMap=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
@@ -168,7 +175,7 @@ public class TransportRouteTableModelDialog extends BaseDialog {
 			editExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
 			return true;
 		}
-		final int error=ExpressionMultiEval.check(editExpression.getText(),variables);
+		final int error=ExpressionMultiEval.check(editExpression.getText(),variables,userFunctions);
 		if (error>=0) {
 			editExpression.setBackground(Color.RED);
 			if (showErrorMessage) {

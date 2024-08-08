@@ -106,7 +106,7 @@ public class RunElementSplit extends RunElementPassThrough {
 			final RunElementSourceRecord.SourceSetExpressions[] setData=new RunElementSourceRecord.SourceSetExpressions[records.length];
 			final String[] batchSizes=new String[records.length];
 			for (int i=0;i<records.length;i++) {
-				setData[i]=records[i].getRuntimeExpressions(simData.runModel.variableNames);
+				setData[i]=records[i].getRuntimeExpressions(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 				batchSizes[i]=records[i].batchSize;
 			}
 			data=new RunElementSplitData(this,simData.runModel.variableNames,setData,batchSizes,simData);

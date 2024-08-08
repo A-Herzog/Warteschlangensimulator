@@ -75,7 +75,7 @@ public class RunElementTeleportDecideByCondition extends RunElement {
 			if (count<decide.destinationStrings.length-1) {
 				String condition=(count>=editConditions.size())?"":editConditions.get(count);
 				if (condition==null) condition="";
-				final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
+				final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.DecideCondition"),count+1,condition,element.getId(),error+1);
 				decide.conditions[count]=condition;
 			}

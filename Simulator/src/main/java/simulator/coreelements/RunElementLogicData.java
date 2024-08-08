@@ -42,7 +42,7 @@ public class RunElementLogicData extends RunElementData {
 		if (condition==null || condition.trim().isEmpty()) {
 			this.condition=null;
 		} else {
-			this.condition=new ExpressionMultiEval(variableNames);
+			this.condition=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);
 			this.condition.parse(condition);
 		}
 	}

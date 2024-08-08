@@ -89,7 +89,7 @@ public class RunElementBatchMultiData extends RunElementData {
 			ExpressionCalc calc;
 			final Double min, max;
 
-			calc=new ExpressionCalc(simData.runModel.variableNames);
+			calc=new ExpressionCalc(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 			calc.parse(station.batchSizeMin[i]);
 			try {
 				min=calc.calc(simData.runData.variableValues,simData,null);
@@ -98,7 +98,7 @@ public class RunElementBatchMultiData extends RunElementData {
 				return;
 			}
 
-			calc=new ExpressionCalc(simData.runModel.variableNames);
+			calc=new ExpressionCalc(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 			calc.parse(station.batchSizeMax[i]);
 			try {
 				max=calc.calc(simData.runData.variableValues,simData,null);

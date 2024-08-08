@@ -91,7 +91,7 @@ public class RunElementCosts extends RunElementPassThrough {
 		if (text==null || text.trim().isEmpty()) {
 			costs.stationCosts=null;
 		} else {
-			final int error=ExpressionCalc.check(text,runModel.variableNames);
+			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorStation"),text,element.getId(),error+1);
 			costs.stationCosts=text;
 		}
@@ -100,7 +100,7 @@ public class RunElementCosts extends RunElementPassThrough {
 		if (text==null || text.trim().isEmpty()) {
 			costs.clientWaitingCosts=null;
 		} else {
-			final int error=ExpressionCalc.check(text,runModel.variableNames);
+			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorWaiting"),text,element.getId(),error+1);
 			costs.clientWaitingCosts=text;
 		}
@@ -109,7 +109,7 @@ public class RunElementCosts extends RunElementPassThrough {
 		if (text==null || text.trim().isEmpty()) {
 			costs.clientTransferCosts=null;
 		} else {
-			final int error=ExpressionCalc.check(text,runModel.variableNames);
+			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorTransfer"),text,element.getId(),error+1);
 			costs.clientTransferCosts=text;
 		}
@@ -118,7 +118,7 @@ public class RunElementCosts extends RunElementPassThrough {
 		if (text==null || text.trim().isEmpty()) {
 			costs.clientProcessCosts=null;
 		} else {
-			final int error=ExpressionCalc.check(text,runModel.variableNames);
+			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsErrorProcess"),text,element.getId(),error+1);
 			costs.clientProcessCosts=text;
 		}
@@ -128,7 +128,7 @@ public class RunElementCosts extends RunElementPassThrough {
 		if (condition==null || condition.trim().isEmpty()) {
 			costs.condition=null;
 		} else {
-			final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.CostsCondition"),condition,element.getId(),error+1);
 			costs.condition=condition;
 		}

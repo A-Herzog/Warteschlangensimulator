@@ -44,6 +44,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.JTableExt;
@@ -79,6 +80,8 @@ public class TransporterTableModelDialog extends BaseDialog {
 	private final String[] variables;
 	/** Namen aller Variablen inkl. des Bezeichners für die Abstände */
 	private final String[] variablesWithDistances;
+	/** Modellspezifische nutzerdefinierte Funktionen */
+	private ExpressionCalcModelUserFunctions userFunctions;
 	/** Liste der bereits vorhandenen Transportergruppennamen (inkl. des Names der aktuellen Gruppe) */
 	private final String[] names;
 	/** Index der aktuellen Gruppe in {@link #names} */
@@ -199,6 +202,7 @@ public class TransporterTableModelDialog extends BaseDialog {
 
 		/* Globale Daten speichern */
 		variables=surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false);
+		userFunctions=model.userFunctions;
 		final List<String> list=new ArrayList<>(Arrays.asList(variables));
 		list.add(ModelTransporter.DEFAULT_DISTANCE);
 		variablesWithDistances=list.toArray(new String[0]);
@@ -397,7 +401,7 @@ public class TransporterTableModelDialog extends BaseDialog {
 
 		/* Entfernungen */
 
-		final int error=ExpressionCalc.check(expression.getText(),variablesWithDistances);
+		final int error=ExpressionCalc.check(expression.getText(),variablesWithDistances,userFunctions);
 		if (error>=0) {
 			expression.setBackground(Color.RED);
 			ok=false;

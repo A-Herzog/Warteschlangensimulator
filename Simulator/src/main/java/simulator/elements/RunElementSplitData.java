@@ -62,7 +62,7 @@ public class RunElementSplitData extends RunElementData {
 		for (int i=0;i<batchSizes.length;i++) if (batchSizes[i]==null) {
 			this.batchSizes[i]=null;
 		} else {
-			this.batchSizes[i]=new ExpressionCalc(variableNames);
+			this.batchSizes[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.batchSizes[i].parse(batchSizes[i]);
 		}
 	}

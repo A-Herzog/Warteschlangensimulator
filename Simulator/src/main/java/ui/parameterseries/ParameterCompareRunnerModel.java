@@ -170,7 +170,7 @@ public class ParameterCompareRunnerModel {
 			/* Skripte werden vorab geladen und von einer anderen Funktion verarbeitet */
 			return null;
 		case MODE_COMMAND:
-			ExpressionCalc calc=new ExpressionCalc(null);
+			ExpressionCalc calc=new ExpressionCalc(null,statistics.editModel.userFunctions);
 			if (calc.parse(output.getTag())>=0) return null;
 			try {
 				return calc.calc(statistics);

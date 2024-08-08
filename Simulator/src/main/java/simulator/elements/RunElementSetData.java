@@ -82,7 +82,7 @@ public class RunElementSetData extends RunElementData {
 			if (expressions[i].equals(ModelElementSetRecord.SPECIAL_PROCESS)) mode[i]=SetMode.MODE_PROCESS_TIME;
 			if (expressions[i].equals(ModelElementSetRecord.SPECIAL_RESIDENCE)) mode[i]=SetMode.MODE_RESIDENCE_TIME;
 			if (mode[i]==SetMode.MODE_EXPRESSION) {
-				this.expressions[i]=new ExpressionCalc(runModel.variableNames);
+				this.expressions[i]=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 				this.expressions[i].parse(expressions[i]);
 			}
 		}
@@ -90,7 +90,7 @@ public class RunElementSetData extends RunElementData {
 		if (condition==null || condition.trim().isEmpty()) {
 			this.condition=null;
 		} else {
-			this.condition=new ExpressionMultiEval(runModel.variableNames);
+			this.condition=new ExpressionMultiEval(runModel.variableNames,runModel.modelUserFunctions);
 			this.condition.parse(condition);
 		}
 	}

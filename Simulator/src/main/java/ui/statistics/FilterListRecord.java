@@ -299,7 +299,7 @@ public final class FilterListRecord {
 	 * @see Mode#Expression
 	 */
 	private String processExpression(final Statistics statistics, final FilterListFormat format, final String text) {
-		final ExpressionCalc expression=new ExpressionCalc(new String[0]);
+		final ExpressionCalc expression=new ExpressionCalc(new String[0],statistics.editModel.userFunctions);
 		final int errorPos=expression.parse(text);
 		if (errorPos>=0) return text+"\n"+String.format(Language.tr("Statistics.Filter.CoundNotProcessExpression.Info"),errorPos+1);
 		try {

@@ -167,7 +167,7 @@ public class ModelElementAssignDialog extends ModelElementBaseDialog {
 		if (!useCondition.isSelected() || conditionString.isEmpty()) {
 			condition.setBackground(NumberTools.getTextFieldDefaultBackground());
 		} else {
-			final int error=ExpressionMultiEval.check(conditionString,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+			final int error=ExpressionMultiEval.check(conditionString,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 			if (error>=0) {
 				condition.setBackground(Color.RED);
 				if (showErrorMessage) {

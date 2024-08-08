@@ -92,7 +92,7 @@ public class ModelElementLogicWithConditionDialog extends ModelElementBaseDialog
 	private boolean checkData(final boolean showErrorMessage) {
 		if (readOnly) return false;
 
-		final int error=ExpressionMultiEval.check(condition.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true));
+		final int error=ExpressionMultiEval.check(condition.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),element.getModel().userFunctions);
 		if (error>=0) {
 			condition.setBackground(Color.red);
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.Logic.Dialog.Condition.Error.Title"),String.format(Language.tr("Surface.Logic.Dialog.Condition.Error.Info"),condition.getText(),error+1));

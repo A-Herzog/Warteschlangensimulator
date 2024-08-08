@@ -45,6 +45,7 @@ import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.statistics.Statistics;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -66,6 +67,9 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID = 2916018873433384277L;
+
+	/** Modellspezifische nutzerdefinierte Funktionen */
+	private final ExpressionCalcModelUserFunctions userFunctions;
 
 	/** Ausgabewert-Datensatz */
 	private final ParameterCompareSetupValueOutput output;
@@ -123,6 +127,7 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 	public ParameterCompareSetupValueOutputDialog(final Component owner, final ParameterCompareSetupValueOutput output, final EditModel model, final Statistics miniStatistics, final Runnable help) {
 		super(owner,Language.tr("ParameterCompare.Settings.Output.Title"));
 		this.output=output;
+		this.userFunctions=model.userFunctions;
 
 		final JPanel content=createGUI(help);
 		content.setLayout(new BorderLayout());
@@ -433,7 +438,7 @@ public class ParameterCompareSetupValueOutputDialog extends BaseDialog {
 			}
 			break;
 		case 3:
-			final int error=ExpressionCalc.check(expressionEdit.getText(),null);
+			final int error=ExpressionCalc.check(expressionEdit.getText(),null,userFunctions);
 			if (error>=0) {
 				expressionEdit.setBackground(Color.RED);
 				ok=false;

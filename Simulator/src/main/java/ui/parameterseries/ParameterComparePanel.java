@@ -395,7 +395,7 @@ public class ParameterComparePanel extends SpecialPanel {
 			if (runner.getStatus()!=DynamicStatus.OK) return null;
 			return NumberTools.getDouble(results.toString().trim());
 		case MODE_COMMAND:
-			ExpressionCalc calc=new ExpressionCalc(null);
+			ExpressionCalc calc=new ExpressionCalc(null,modelFromEditor.userFunctions);
 			if (calc.parse(output.getTag())>=0) return null;
 			try {
 				return calc.calc(statistics);
@@ -1083,7 +1083,7 @@ public class ParameterComparePanel extends SpecialPanel {
 			return;
 		}
 
-		final ParameterCompareConnectParametersDialog dialog=new ParameterCompareConnectParametersDialog(this,setup,index);
+		final ParameterCompareConnectParametersDialog dialog=new ParameterCompareConnectParametersDialog(this,modelFromEditor,setup,index);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			table.updateTable();
 		}

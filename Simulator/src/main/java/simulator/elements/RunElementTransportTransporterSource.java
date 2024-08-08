@@ -99,7 +99,7 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 
 		/* Parkplatz-Priorität */
 		source.priorityWaitingString=sourceElement.getWaitingPriority();
-		err=ExpressionCalc.check(source.priorityWaitingString,runModel.variableNames);
+		err=ExpressionCalc.check(source.priorityWaitingString,runModel.variableNames,runModel.modelUserFunctions);
 		if (err>=0) return String.format(Language.tr("Simulation.Creator.InvalidParkingPriority"),element.getId(),source.priorityWaitingString,err+1);
 
 		/* Mindestanzahl an wartenden Kunden für Transporteranforderung */
@@ -108,7 +108,7 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 
 		/* Anforderungs-Priorität */
 		source.priorityRequestingString=sourceElement.getRequestPriority();
-		err=ExpressionCalc.check(source.priorityRequestingString,runModel.variableNames);
+		err=ExpressionCalc.check(source.priorityRequestingString,runModel.variableNames,runModel.modelUserFunctions);
 		if (err>=0) return String.format(Language.tr("Simulation.Creator.InvalidRequestPriority"),element.getId(),source.priorityRequestingString,err+1);
 
 		/* Prioritäten der Kundentypen */
@@ -116,7 +116,7 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 		for (int i=0;i<source.priorityClientString.length;i++) {
 			String priorityString=sourceElement.getClientPriority(runModel.clientTypes[i]);
 			if (priorityString==null || priorityString.trim().isEmpty()) priorityString=ModelElementTransportTransporterSource.DEFAULT_CLIENT_PRIORITY;
-			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 			err=calc.parse(priorityString);
 			if (err>=0) return String.format(Language.tr("Simulation.Creator.TransporterSourceClientPriority"),element.getId(),runModel.clientTypes[i],priorityString,err+1);
 			if (priorityString.equalsIgnoreCase(ModelElementProcess.DEFAULT_CLIENT_PRIORITY)) {

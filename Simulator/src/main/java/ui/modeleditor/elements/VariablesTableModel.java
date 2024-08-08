@@ -248,10 +248,10 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 			if (readOnly) return;
 			VariablesTableModelDialog dialog=null;
 			if (element!=null) {
-				dialog=new VariablesTableModelDialog(table,helpRunnable,"","",getVariableNames(false,variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,true,clientDataOnly);
+				dialog=new VariablesTableModelDialog(table,helpRunnable,"","",getVariableNames(false,variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,true,clientDataOnly,model.userFunctions);
 			}
 			if (model!=null) {
-				dialog=new VariablesTableModelDialog(table,helpRunnable,"","",model.surface.getVariableNames(variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,false,clientDataOnly);
+				dialog=new VariablesTableModelDialog(table,helpRunnable,"","",model.surface.getVariableNames(variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,false,clientDataOnly,model.userFunctions);
 			}
 			if (dialog==null) return;
 			dialog.setVisible(true);
@@ -290,10 +290,10 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 			case 0:
 				VariablesTableModelDialog dialog=null;
 				if (element!=null) {
-					dialog=new VariablesTableModelDialog(table,helpRunnable,variables.get(row),expressions.get(row),getVariableNames(false,variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,true,clientDataOnly);
+					dialog=new VariablesTableModelDialog(table,helpRunnable,variables.get(row),expressions.get(row),getVariableNames(false,variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,true,clientDataOnly,model.userFunctions);
 				}
 				if (model!=null) {
-					dialog=new VariablesTableModelDialog(table,helpRunnable,variables.get(row),expressions.get(row),model.surface.getVariableNames(variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,false,clientDataOnly);
+					dialog=new VariablesTableModelDialog(table,helpRunnable,variables.get(row),expressions.get(row),model.surface.getVariableNames(variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,false,clientDataOnly,model.userFunctions);
 				}
 				if (dialog==null) return;
 				dialog.setVisible(true);

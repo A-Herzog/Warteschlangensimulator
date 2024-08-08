@@ -22,6 +22,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 import language.Language;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.simparser.ExpressionCalcUserFunctionsManager;
 import ui.expressionbuilder.ExpressionBuilder.ExpressionSymbol;
 import ui.expressionbuilder.ExpressionBuilder.ExpressionSymbolType;
@@ -35,7 +36,7 @@ public class ExpressionBuilderUserFunctions {
 	/**
 	 * Konstruktor der Klasse.<br>
 	 * Diese Klasse kann nicht instanziert werden.
-	 * Sie stellt nur die statische Methode {@link ExpressionBuilderUserFunctions#build(DefaultMutableTreeNode, List, String)} zur Verfügung.
+	 * Sie stellt nur die statische Methode {@link ExpressionBuilderUserFunctions#build(DefaultMutableTreeNode, List, String, ExpressionCalcModelUserFunctions)} zur Verfügung.
 	 */
 	private ExpressionBuilderUserFunctions() {}
 
@@ -70,28 +71,41 @@ public class ExpressionBuilderUserFunctions {
 	 * @param root	Wurzelelement der Baumstruktur
 	 * @param pathsToOpen	Liste der initial auszuklappenden Äste
 	 * @param filterUpper	Nur Anzeige der Elemente, die zu dem Filter passen (der Filter kann dabei <code>null</code> sein, was bedeutet "nicht filtern")
+	 * @param modelUserFunctionsManager	Modellspezifische nutzerdefinierte Funktionen (kann <code>null</code> sein)
 	 */
-	public static void build(final DefaultMutableTreeNode root, final List<TreePath> pathsToOpen, final String filterUpper) {
-		final List<ExpressionCalcUserFunctionsManager.UserFunction> userFunctions=ExpressionCalcUserFunctionsManager.getInstance().getUserFunctions();
-		if (userFunctions.size()==0) return;
+	public static void build(final DefaultMutableTreeNode root, final List<TreePath> pathsToOpen, final String filterUpper, final ExpressionCalcModelUserFunctions modelUserFunctionsManager) {
+		final List<ExpressionCalcUserFunctionsManager.UserFunction> globalUserFunctions=ExpressionCalcUserFunctionsManager.getInstance().getUserFunctions();
+		final List<ExpressionCalcUserFunctionsManager.UserFunction> modelUserFunctions=(modelUserFunctionsManager==null)?List.of():modelUserFunctionsManager.getUserFunctions();
+		if (globalUserFunctions.size()==0 && modelUserFunctions.size()==0) return;
 
 		DefaultMutableTreeNode group;
 
 		final String value=Language.tr("ExpressionBuilder.Value");
 
-		/* Grundrechenarten */
-
 		group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.UserFunctions"));
-		for (ExpressionCalcUserFunctionsManager.UserFunction userFunction: userFunctions) {
+
+		/* Globale nutzerdefinierte Funktionen */
+		final String globalInfo="<p>"+Language.tr("ExpressionBuilder.UserFunctions.Global")+"</p>";
+		for (ExpressionCalcUserFunctionsManager.UserFunction userFunction: globalUserFunctions) {
 			final String[] parameters=new String[userFunction.parameterCount];
 			for (int i=0;i<parameters.length;i++) parameters[i]="Parameter"+(i+1);
-			final String info="<p><b>"+userFunction.name+"</b>("+String.join(";",parameters)+"):=<br><b>"+userFunction.content+"</b></p>";
+			final String info=globalInfo+"<p><b>"+userFunction.name+"</b>("+String.join(";",parameters)+"):=<br><b>"+userFunction.content+"</b></p>";
+			final String[] values=new String[userFunction.parameterCount];
+			Arrays.fill(values,value);
+			addTreeNode(group,filterUpper,userFunction.name,userFunction.name+"("+String.join(";",values)+")",info);
+		}
+
+		/* Modellspezifische nutzerdefinierte Funktionen */
+		final String modelInfo="<p>"+Language.tr("ExpressionBuilder.UserFunctions.Model")+"</p>";
+		for (ExpressionCalcUserFunctionsManager.UserFunction userFunction: modelUserFunctions) {
+			final String[] parameters=new String[userFunction.parameterCount];
+			for (int i=0;i<parameters.length;i++) parameters[i]="Parameter"+(i+1);
+			final String info=modelInfo+"<p><b>"+userFunction.name+"</b>("+String.join(";",parameters)+"):=<br><b>"+userFunction.content+"</b></p>";
 			final String[] values=new String[userFunction.parameterCount];
 			Arrays.fill(values,value);
 			addTreeNode(group,filterUpper,userFunction.name,userFunction.name+"("+String.join(";",values)+")",info);
 		}
 
 		if (group.getChildCount()>0) root.add(group);
-
 	}
 }

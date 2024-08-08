@@ -35,6 +35,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.simparser.ExpressionMultiEval;
 import simulator.simparser.symbols.CalcSymbolClientUserData;
 import ui.modeleditor.ModelSchedule;
@@ -183,7 +184,7 @@ public class RunElementSourceRecord {
 			break;
 		case NEXT_EXPRESSION:
 			final String expression=record.getInterarrivalTimeExpression();
-			error=ExpressionCalc.check(expression,runModel.variableNames);
+			error=ExpressionCalc.check(expression,runModel.variableNames,editModel.userFunctions);
 			if (error>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceExpression"),expression,id,error+1));
 			this.expression=expression;
 			arrivalStart=record.getArrivalStart();
@@ -199,11 +200,11 @@ public class RunElementSourceRecord {
 			break;
 		case NEXT_CONDITION:
 			final String condition=record.getArrivalCondition();
-			error=ExpressionMultiEval.check(condition,runModel.variableNames);
+			error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceCondition"),condition,id,error+1));
 			this.condition=condition;
 			final String conditionMinDistance=record.getArrivalConditionMinDistance();
-			error=ExpressionCalc.check(conditionMinDistance,runModel.variableNames);
+			error=ExpressionCalc.check(conditionMinDistance,runModel.variableNames,editModel.userFunctions);
 			if (error>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceConditionMinDistance"),conditionMinDistance,id,error+1));
 			this.conditionMinDistance=conditionMinDistance;
 			arrivalStart=record.getArrivalStart();
@@ -212,7 +213,7 @@ public class RunElementSourceRecord {
 			break;
 		case NEXT_THRESHOLD:
 			final String thresholdExpression=record.getThresholdExpression();
-			error=ExpressionCalc.check(thresholdExpression,runModel.variableNames);
+			error=ExpressionCalc.check(thresholdExpression,runModel.variableNames,editModel.userFunctions);
 			if (error>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceThresholdExpression"),thresholdExpression,id,error+1));
 			this.thresholdExpression=thresholdExpression;
 			this.thresholdValue=record.getThresholdValue();
@@ -238,7 +239,7 @@ public class RunElementSourceRecord {
 			final List<String> intervalExpressions=record.getIntervalExpressions();
 			if (intervalExpressions.size()==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.IntervalExpressions.Empty"),id));
 			for (int i=0;i<intervalExpressions.size();i++) {
-				error=ExpressionCalc.check(intervalExpressions.get(i),runModel.variableNames);
+				error=ExpressionCalc.check(intervalExpressions.get(i),runModel.variableNames,editModel.userFunctions);
 				if (error>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.IntervalExpressions"),id,i+1,intervalExpressions.get(i),error+1));
 			}
 			this.intervalExpressions=intervalExpressions.toArray(new String[0]);
@@ -249,7 +250,7 @@ public class RunElementSourceRecord {
 			final List<String> intervalDistributions=record.getIntervalDistributions();
 			if (intervalDistributions.size()==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.IntervalDistributions.Empty"),id));
 			for (int i=0;i<intervalDistributions.size();i++) {
-				error=ExpressionCalc.check(intervalDistributions.get(i),runModel.variableNames);
+				error=ExpressionCalc.check(intervalDistributions.get(i),runModel.variableNames,editModel.userFunctions);
 				if (error>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.IntervalDistributions"),id,i+1,intervalDistributions.get(i),error+1));
 			}
 			this.intervalDistributions=intervalDistributions.toArray(new String[0]);
@@ -298,7 +299,7 @@ public class RunElementSourceRecord {
 			}
 		} else {
 			if (!batchSize.equals("1")) {
-				final ExpressionCalc batchSizeTest=new ExpressionCalc(runModel.variableNames);
+				final ExpressionCalc batchSizeTest=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 				final int batchError=batchSizeTest.parse(batchSize);
 				if (batchError>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceInvalidBatchSize"),id,batchSize,batchError+1));
 			}
@@ -313,7 +314,7 @@ public class RunElementSourceRecord {
 		if (arrialCondition==null || arrialCondition.isBlank()) {
 			this.arrivalCondition=null;
 		} else {
-			error=ExpressionMultiEval.check(arrialCondition,runModel.variableNames);
+			error=ExpressionMultiEval.check(arrialCondition,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceCondition"),arrialCondition,id,error+1));
 			this.arrivalCondition=arrialCondition;
 		}
@@ -339,7 +340,7 @@ public class RunElementSourceRecord {
 			}
 			/* Ausdrücke */
 			if (!expressions[i].equals(ModelElementSetRecord.SPECIAL_WAITING) && !expressions[i].equals(ModelElementSetRecord.SPECIAL_TRANSFER) && !expressions[i].equals(ModelElementSetRecord.SPECIAL_PROCESS) && !expressions[i].equals(ModelElementSetRecord.SPECIAL_RESIDENCE)) {
-				error=ExpressionCalc.check(expressions[i],runModel.variableNames);
+				error=ExpressionCalc.check(expressions[i],runModel.variableNames,editModel.userFunctions);
 				if (error>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SetInvalidExpression"),i+1,id,error+1));
 			}
 			this.expressions[i]=expressions[i];
@@ -673,7 +674,7 @@ public class RunElementSourceRecord {
 
 		/* Logging */
 		if (simData.loggingActive) {
-			log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.InfoMulti"),arrivalCount,simData.formatScaledSimTime(Math.round(intervalStartSec*simData.runModel.scaleToSimTime))),element);
+			log(simData,Language.tr("Simulation.Log.Source"),String.format(Language.tr("Simulation.Log.Source.InfoMulti"),arrivalCount,simData.formatScaledSimTime(intervalStartSec*simData.runModel.scaleToSimTime)),element);
 		}
 
 		/* Ankünfte generieren und verteilen */
@@ -917,11 +918,12 @@ public class RunElementSourceRecord {
 	/**
 	 * Erzeugt ein Thread-lokales Objekt welches die Zuweisungen enthält, die neue Kunden erhalten sollen
 	 * @param variableNames	Liste der verfügbaren Variablen
+	 * @param userFunctions	Modellspezifische nutzerdefinierte Funktionen
 	 * @return	Thread-lokales Objekt mit Zuweisungsobjekten
 	 * @see RunElementSourceRecord.SourceSetExpressions
 	 * @see RunElementSourceRecord.SourceSetExpressions#writeNumbersToClient(SimulationData, RunDataClient, String)
 	 */
-	public SourceSetExpressions getRuntimeExpressions(final String[] variableNames) {
+	public SourceSetExpressions getRuntimeExpressions(final String[] variableNames, final ExpressionCalcModelUserFunctions userFunctions) {
 		final SourceSetExpressions data=new SourceSetExpressions();
 
 		data.variableIndex=variableIndex;
@@ -934,7 +936,7 @@ public class RunElementSourceRecord {
 			if (expressions[i].equals(ModelElementSetRecord.SPECIAL_PROCESS)) data.mode[i]=SourceSetExpressions.SetMode.MODE_PROCESS_TIME;
 			if (expressions[i].equals(ModelElementSetRecord.SPECIAL_RESIDENCE)) data.mode[i]=SourceSetExpressions.SetMode.MODE_RESIDENCE_TIME;
 			if (data.mode[i]==SourceSetExpressions.SetMode.MODE_EXPRESSION) {
-				data.expressions[i]=new ExpressionCalc(variableNames);
+				data.expressions[i]=new ExpressionCalc(variableNames,userFunctions);
 				data.expressions[i].parse(expressions[i]);
 			}
 		}
@@ -945,7 +947,7 @@ public class RunElementSourceRecord {
 	/**
 	 * Thread-lokales Objekt mit Zuweisungsobjekten für neue Kunden
 	 * @author Alexander Herzog
-	 * @see RunElementSourceRecord#getRuntimeExpressions(String[])
+	 * @see RunElementSourceRecord#getRuntimeExpressions(String[], ExpressionCalcModelUserFunctions)
 	 */
 	public static class SourceSetExpressions {
 		/**

@@ -183,7 +183,7 @@ public class ExpressionCalcInfo {
 		 * Konstruktor der Klasse
 		 */
 		public AnalyzeableExpressionCalc() {
-			super(new String[0]);
+			super(new String[0],null);
 		}
 
 		/**

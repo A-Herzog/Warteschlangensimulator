@@ -20,6 +20,7 @@ import java.util.function.Consumer;
 import language.Language;
 import mathtools.NumberTools;
 import parser.MathCalcError;
+import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
 import ui.calculator.CalculatorWindow;
 import ui.images.Images;
@@ -42,9 +43,10 @@ public class JQuickAccessBuilderCalc extends JQuickAccessBuilder {
 
 	/**
 	 * Führt die eigentliche Verarbeitung durch.
+	 * @param model	Aktuelles Modell (zur Ermittlung der modellspezifischen nutzerdefinierten Funktionen)
 	 * @param openCalculationDialog	Callback zum Öffnen des Rechnerdialogs
 	 */
-	public void work(final Consumer<String> openCalculationDialog) {
+	public void work(final EditModel model, final Consumer<String> openCalculationDialog) {
 		final int len=quickAccessText.length();
 		if (len<2) return;
 		boolean needProcessing=false;
@@ -54,7 +56,7 @@ public class JQuickAccessBuilderCalc extends JQuickAccessBuilder {
 		}
 		if (!needProcessing) return;
 
-		final ExpressionCalc calc=new ExpressionCalc(null);
+		final ExpressionCalc calc=new ExpressionCalc(null,model.userFunctions);
 		final int error=calc.parse(quickAccessText);
 		if (error>=0) return;
 

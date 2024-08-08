@@ -89,7 +89,7 @@ public class RunElementConveyorData extends RunElementData implements RunElement
 
 		capacityNeeded=new ExpressionCalc[capacityNeededStrings.length];
 		for (int i=0;i<capacityNeededStrings.length;i++) if (capacityNeededStrings[i]!=null) {
-			capacityNeeded[i]=new ExpressionCalc(variableNames);
+			capacityNeeded[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			capacityNeeded[i].parse(capacityNeededStrings[i]);
 		}
 

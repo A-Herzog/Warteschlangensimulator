@@ -76,26 +76,26 @@ public class RunElementTransportSourceData extends RunElementData {
 		delayExpression=new ExpressionCalc[delayExpressionString.length];
 		for (int i=0;i<delayExpressionString.length;i++) {
 			if (delayExpressionString[i]==null) continue;
-			delayExpression[i]=new ExpressionCalc(variableNames);
+			delayExpression[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			delayExpression[i].parse(delayExpressionString[i]);
 		}
 
 		if (routingExpresionStrings!=null) {
 			routingExpresions=new ExpressionMultiEval[routingExpresionStrings.length];
 			for (int i=0;i<routingExpresionStrings.length;i++) if (routingExpresionStrings[i]!=null) {
-				routingExpresions[i]=new ExpressionMultiEval(variableNames);
+				routingExpresions[i]=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);
 				routingExpresions[i].parse(routingExpresionStrings[i]);
 			}
 		} else {
 			routingExpresions=null;
 		}
 
-		resourcePriority=new ExpressionCalc(variableNames);
+		resourcePriority=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 		resourcePriority.parse(resourcePriorityString);
 		if (releaseDelayExpressionStrings!=null) {
 			releaseDelayExpressions=new ExpressionCalc[releaseDelayExpressionStrings.length];
 			for (int i=0;i<releaseDelayExpressionStrings.length;i++) if (releaseDelayExpressionStrings[i]!=null) {
-				releaseDelayExpressions[i]=new ExpressionCalc(variableNames);
+				releaseDelayExpressions[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 				releaseDelayExpressions[i].parse(releaseDelayExpressionStrings[i]);
 			}
 		} else {

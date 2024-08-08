@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-05 08:14+0200\n"
+"POT-Creation-Date: 2024-08-06 09:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9325,6 +9325,12 @@ msgstr "<p>Berechnet den Wert der Tangens-hyperbolicus-Funktion des als Paramete
 
 msgid "ExpressionBuilder.UserFunctions"
 msgstr "Nutzerdefinierte Funktionen"
+
+msgid "ExpressionBuilder.UserFunctions.Global"
+msgstr "Diese nutzerdefinierte Funktion steht global in allen Modellen zur Verfügung."
+
+msgid "ExpressionBuilder.UserFunctions.Model"
+msgstr "Diese nutzerdefinierte Funktion wird als Teil des Modells gespeichert."
 
 msgid "ExpressionBuilder.Value"
 msgstr "Wert"
@@ -36998,6 +37004,30 @@ msgstr "TransporterAusfall"
 msgid "Surface.XML.RootName.Transporters"
 msgstr "ModellTransporterListe"
 
+msgid "Surface.XML.RootName.UserFunctions"
+msgstr "ModellNutzerdefinierteRechenfunktion"
+
+msgid "Surface.XML.RootName.UserFunctions.Mode"
+msgstr "Modus"
+
+msgid "Surface.XML.RootName.UserFunctions.Mode.Expression"
+msgstr "Rechenausdruck"
+
+msgid "Surface.XML.RootName.UserFunctions.Mode.Javascript"
+msgstr "Javascript"
+
+msgid "Surface.XML.RootName.UserFunctions.Name"
+msgstr "Name"
+
+msgid "Surface.XML.RootName.UserFunctions.Name.Error"
+msgstr "Der Name einer nutzerdefinierten Funktion darf nicht leer sein."
+
+msgid "Surface.XML.RootName.UserFunctions.ParameterCount"
+msgstr "ParameterAnzahl"
+
+msgid "Surface.XML.RootName.UserFunctions.ParameterCount.Error"
+msgstr "Der angegebene Wert für die Anzahl an Parametern der nutzerdefinierten Funktion %s ist ungültig. Es muss eine nichtnegative Ganzzahl angegeben werden."
+
 msgid "Surface.XML.Schedule.DurationPerSlot"
 msgstr "DauerProSlot"
 
@@ -38023,6 +38053,12 @@ msgstr "Javascript-Code"
 
 msgid "UserDefinedFunctions.ListTitle"
 msgstr "Benutzerdefinierte Funktionen"
+
+msgid "UserDefinedFunctions.ModeGlobal"
+msgstr "Globale Funktionen"
+
+msgid "UserDefinedFunctions.ModeModel"
+msgstr "Modellspezifische Funktionen"
 
 msgid "UserTemplates.AddDialog.Global"
 msgstr "Vorlage global (statt beim Modell) speichern"

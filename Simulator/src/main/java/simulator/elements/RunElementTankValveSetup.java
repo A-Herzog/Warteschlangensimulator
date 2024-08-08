@@ -68,7 +68,7 @@ public class RunElementTankValveSetup extends RunElementPassThrough {
 			if (!(tank instanceof ModelElementTank)) return String.format(Language.tr("Simulation.Creator.TankValveSetup.IDIsNoTank"),element.getId(),valveSetup.tankId);
 			if (((ModelElementTank)tank).getValves().size()<=valveSetup.valveNr) return String.format(Language.tr("Simulation.Creator.TankValveSetup.InvalidValve"),element.getId(),valveSetup.tankId,valveSetup.valveNr+1,((ModelElementTank)tank).getValves().size());
 
-			final int error=ExpressionCalc.check(valveSetup.maxFlow,runModel.variableNames);
+			final int error=ExpressionCalc.check(valveSetup.maxFlow,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.TankValveSetup.InvalidFlow"),element.getId(),valveSetup.maxFlow,error+1);
 		}
 		setup.valveSetups=setupElement.getValveSetups().toArray(new ModelElementTankValveSetup.ValveSetup[0]);

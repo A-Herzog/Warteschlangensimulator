@@ -134,7 +134,7 @@ public class SequenceEditAssignmentsEditDialog extends BaseDialog {
 		}
 
 		final String expression=expressionEdit.getText().trim();
-		final int error=ExpressionCalc.check(expression,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+		final int error=ExpressionCalc.check(expression,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 		if (error>=0) {
 			expressionEdit.setBackground(Color.RED);
 			ok=false;

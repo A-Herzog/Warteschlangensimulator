@@ -687,7 +687,7 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 		animationExpression=new ExpressionMultiEval[expression.size()-1];
 
 		for (int i=0;i<expression.size()-1;i++) {
-			animationExpression[i]=new ExpressionMultiEval(simData.runModel.variableNames);
+			animationExpression[i]=new ExpressionMultiEval(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 			if (animationExpression[i].parse(expression.get(i))>=0) animationExpression[i]=null;
 		}
 	}

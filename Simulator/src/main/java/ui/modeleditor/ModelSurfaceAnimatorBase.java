@@ -2008,7 +2008,7 @@ public class ModelSurfaceAnimatorBase {
 	 */
 	public Double calculateExpression(final String expression) {
 		if (storedSimData==null) return null;
-		final ExpressionCalc calc=new ExpressionCalc(storedSimData.runModel.variableNames);
+		final ExpressionCalc calc=new ExpressionCalc(storedSimData.runModel.variableNames,storedSimData.runModel.modelUserFunctions);
 		if (calc.parse(expression)>=0) return null;
 		storedSimData.runData.setClientVariableValues(null);
 		try {
@@ -2245,7 +2245,7 @@ public class ModelSurfaceAnimatorBase {
 			/* Bedingung erfüllt - nur prüfen, wenn gesetzt */
 			if (condition!=null) {
 				if (conditionObj==null) {
-					conditionObj=new ExpressionMultiEval(simData.runModel.variableNames);
+					conditionObj=new ExpressionMultiEval(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 					if (conditionObj.parse(condition)>=0) {
 						conditionObj=null;
 						return false;

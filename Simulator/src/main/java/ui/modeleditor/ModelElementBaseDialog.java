@@ -62,6 +62,7 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import ui.EditorPanel;
@@ -572,7 +573,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 			initialVariableValues=new HashMap<>();
 		}
 
-		return getExpressionEditButton(owner,inputLine,isCompare,variableNames,initialVariableValues,ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface),hasClientData,false);
+		return getExpressionEditButton(owner,inputLine,isCompare,variableNames,initialVariableValues,ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface),hasClientData,false,(model==null)?null:model.userFunctions);
 	}
 
 	/**
@@ -593,7 +594,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 		final List<String> variables=new ArrayList<>(Arrays.asList(surface.getMainSurfaceVariableNames(model.getModelVariableNames(),hasClientData)));
 		if (additionalVariableNames!=null) variables.addAll(Arrays.asList(additionalVariableNames));
-		return getExpressionEditButton(owner,inputLine,isCompare,variables.toArray(new String[0]),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface),hasClientData,false);
+		return getExpressionEditButton(owner,inputLine,isCompare,variables.toArray(new String[0]),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface),hasClientData,false,model.userFunctions);
 	}
 
 	/**
@@ -607,10 +608,11 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * @param stationIDs Liste mit den Zuordnungen von Stations-IDs zu Stationsnamen
 	 * @param stationNameIDs Liste mit den Zuordnungen von Stations-IDs zu nutzerdefinierten Stationsnamen
 	 * @param hasClientData Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
+	 * @param modelUserFunctions	Modellspezifische nutzerdefinierte Funktionen (kann <code>null</code> sein)
 	 * @return Bearbeiten-Schaltfläche
 	 */
-	public static final JButton getExpressionEditButton(final Container owner, final JTextField inputLine, final boolean isCompare, final String[] variableNames, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final boolean hasClientData) {
-		return getExpressionEditButton(owner,inputLine,isCompare,variableNames,initialVariableValues,stationIDs,stationNameIDs,hasClientData,false);
+	public static final JButton getExpressionEditButton(final Container owner, final JTextField inputLine, final boolean isCompare, final String[] variableNames, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final boolean hasClientData, final ExpressionCalcModelUserFunctions modelUserFunctions) {
+		return getExpressionEditButton(owner,inputLine,isCompare,variableNames,initialVariableValues,stationIDs,stationNameIDs,hasClientData,false,modelUserFunctions);
 	}
 
 	/**
@@ -625,9 +627,10 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * @param stationNameIDs Liste mit den Zuordnungen von Stations-IDs zu nutzerdefinierten Stationsnamen
 	 * @param hasClientData Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
 	 * @param statisticsOnly Gibt an, dass nur Funktionen angeboten werden sollen, deren Ergebnisse aus Statistikdaten gewonnen werden können (keine reinen Runtime-Daten)
+	 * @param modelUserFunctions	Modellspezifische nutzerdefinierte Funktionen (kann <code>null</code> sein)
 	 * @return Bearbeiten-Schaltfläche
 	 */
-	public static final JButton getExpressionEditButton(final Container owner, final JTextField inputLine, final boolean isCompare, final String[] variableNames, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final boolean hasClientData, final boolean statisticsOnly) {
+	public static final JButton getExpressionEditButton(final Container owner, final JTextField inputLine, final boolean isCompare, final String[] variableNames, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final boolean hasClientData, final boolean statisticsOnly, ExpressionCalcModelUserFunctions modelUserFunctions) {
 
 
 		final JButton button=new JButton();
@@ -635,7 +638,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		button.setIcon(Images.EXPRESSION_BUILDER.getIcon());
 		button.addActionListener(e-> {
 			if (!inputLine.isEditable() || !inputLine.isEnabled()) return;
-			final ExpressionBuilder dialog=new ExpressionBuilder(owner,inputLine.getText(),isCompare,variableNames,initialVariableValues,stationIDs,stationNameIDs,hasClientData,statisticsOnly,false);
+			final ExpressionBuilder dialog=new ExpressionBuilder(owner,inputLine.getText(),isCompare,variableNames,initialVariableValues,stationIDs,stationNameIDs,hasClientData,statisticsOnly,false,modelUserFunctions);
 			dialog.setVisible(true);
 			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 				inputLine.setText(dialog.getExpression());
@@ -646,7 +649,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		final Dimension size=button.getPreferredSize();
 		button.setPreferredSize(new Dimension(size.height,size.height));
 
-		final ExpressionBuilder.ExpressionBuilderSettings expressionBuilderSettings=new ExpressionBuilder.ExpressionBuilderSettings(isCompare,variableNames,initialVariableValues,stationIDs,stationNameIDs,hasClientData,statisticsOnly,false,true);
+		final ExpressionBuilder.ExpressionBuilderSettings expressionBuilderSettings=new ExpressionBuilder.ExpressionBuilderSettings(isCompare,variableNames,initialVariableValues,stationIDs,stationNameIDs,hasClientData,statisticsOnly,false,modelUserFunctions,true);
 		ExpressionBuilderAutoComplete.process(expressionBuilderSettings,inputLine);
 
 		return button;
@@ -660,10 +663,11 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * @param isCompare Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
 	 * @param stationIDs Liste mit den Zuordnungen von Stations-IDs zu Stationsnamen
 	 * @param stationNameIDs Liste mit den Zuordnungen von Stations-IDs zu nutzerdefinierten Stationsnamen
+	 * @param modelUserFunctions	Modellspezifische nutzerdefinierte Funktionen (kann <code>null</code> sein)
 	 * @return Bearbeiten-Schaltfläche
 	 */
-	public static final JButton getStatisticsExpressionEditButton(final Container owner, final JTextField inputLine, final boolean isCompare, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs) {
-		return getExpressionEditButton(owner,inputLine,isCompare,null,null,stationIDs,stationNameIDs,false,true);
+	public static final JButton getStatisticsExpressionEditButton(final Container owner, final JTextField inputLine, final boolean isCompare, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final ExpressionCalcModelUserFunctions modelUserFunctions) {
+		return getExpressionEditButton(owner,inputLine,isCompare,null,null,stationIDs,stationNameIDs,false,true,modelUserFunctions);
 	}
 
 	/**
@@ -680,7 +684,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		ModelSurface mainSurface=surface.getParentSurface();
 		if (mainSurface==null) mainSurface=surface;
 
-		return getStatisticsExpressionEditButton(owner,inputLine,isCompare,ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface));
+		return getStatisticsExpressionEditButton(owner,inputLine,isCompare,ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface),model.userFunctions);
 	}
 
 	/**

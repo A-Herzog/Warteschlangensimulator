@@ -1709,7 +1709,7 @@ public class MainPanel extends MainPanelBase {
 
 			if (builder instanceof JQuickAccessBuilderCalc) {
 				final JQuickAccessBuilderCalc builderCalc=(JQuickAccessBuilderCalc)builder;
-				builderCalc.work(expression->commandExtrasCalculator(expression,null));
+				builderCalc.work(editorPanel.model,expression->commandExtrasCalculator(expression,null));
 				list.addAll(builderCalc.getList());
 			}
 
@@ -3913,7 +3913,11 @@ public class MainPanel extends MainPanelBase {
 	 * Befehl: Extras - Nutzerdefinierte Funktionen
 	 */
 	private void commandUserDefinedFunctions() {
-		new ExpressionCalcUserFunctionsListDialog(this);
+		final EditModel model=editorPanel.getModel();
+		final var dialog=new ExpressionCalcUserFunctionsListDialog(this,model);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			editorPanel.setModel(model);
+		}
 	}
 
 	/**

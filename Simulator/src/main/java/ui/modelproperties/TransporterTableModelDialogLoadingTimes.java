@@ -36,6 +36,7 @@ import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionPanel;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import ui.images.Images;
@@ -58,6 +59,11 @@ public class TransporterTableModelDialogLoadingTimes extends JPanel {
 	 * Namen der modellweiten Variablen
 	 */
 	private final String[] variables;
+
+	/**
+	 * Modellspezifische nutzerdefinierte Funktionen
+	 */
+	private final ExpressionCalcModelUserFunctions userFunctions;
 
 	/** Wie soll die Zeitdauer festgelegt werden? (Aus, über Verteilung, über Rechenausdruck) */
 	private final JComboBox<String> mode;
@@ -83,6 +89,7 @@ public class TransporterTableModelDialogLoadingTimes extends JPanel {
 		setLayout(new BorderLayout());
 
 		this.variables=model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false);
+		this.userFunctions=model.userFunctions;
 
 		/* Modusauswahl */
 		JPanel top=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -179,7 +186,7 @@ public class TransporterTableModelDialogLoadingTimes extends JPanel {
 					return false;
 				}
 			} else {
-				final int error=ExpressionCalc.check(expr,variables);
+				final int error=ExpressionCalc.check(expr,variables,userFunctions);
 				if (error>=0) {
 					ok=false;
 					expression.setBackground(Color.RED);

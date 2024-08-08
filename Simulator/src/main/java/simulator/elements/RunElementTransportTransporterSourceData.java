@@ -105,10 +105,10 @@ public class RunElementTransportTransporterSourceData extends RunElementData {
 		moving=0;
 		queue=new ArrayList<>();
 
-		priorityParking=new ExpressionCalc(variableNames);
+		priorityParking=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 		priorityParking.parse(priorityWaitingString);
 
-		priorityRequest=new ExpressionCalc(variableNames);
+		priorityRequest=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 		priorityRequest.parse(priorityRequestingString);
 
 		boolean allFCFS=true;
@@ -117,7 +117,7 @@ public class RunElementTransportTransporterSourceData extends RunElementData {
 			if (priorityClientString[i]==null) {
 				priorityClient[i]=null; /* Default Priorität */
 			} else {
-				priorityClient[i]=new ExpressionCalc(variableNames);
+				priorityClient[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 				priorityClient[i].parse(priorityClientString[i]);
 				allFCFS=false;
 			}
@@ -127,7 +127,7 @@ public class RunElementTransportTransporterSourceData extends RunElementData {
 		if (routingExpresionStrings!=null) {
 			routingExpresions=new ExpressionMultiEval[routingExpresionStrings.length];
 			for (int i=0;i<routingExpresionStrings.length;i++) if (routingExpresionStrings[i]!=null) {
-				routingExpresions[i]=new ExpressionMultiEval(variableNames);
+				routingExpresions[i]=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);
 				routingExpresions[i].parse(routingExpresionStrings[i]);
 			}
 		} else {

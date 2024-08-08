@@ -141,7 +141,7 @@ public class RunDataResourceOperator {
 			} else {
 				if (moveExpression!=null) {
 					if (moveExpressionObj==null) {
-						moveExpressionObj=new ExpressionCalc(simData.runModel.variableNames);
+						moveExpressionObj=new ExpressionCalc(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 						moveExpressionObj.parse(moveExpression);
 					}
 					simData.runData.setClientVariableValues(null);

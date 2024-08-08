@@ -83,7 +83,7 @@ public class RunElementBatch extends RunElementPassThrough {
 			final Double D=NumberTools.getDouble(valueStr);
 			if (D!=null && Math.round(D)<=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
 
-			if (ExpressionCalc.check(valueStr,runModel.variableNames)>=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
+			if (ExpressionCalc.check(valueStr,runModel.variableNames,runModel.modelUserFunctions)>=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
 
 			batch.batchSizeMin=valueStr;
 			batch.batchSizeMax=valueStr;
@@ -97,8 +97,8 @@ public class RunElementBatch extends RunElementPassThrough {
 			if (min!=null && Math.round(min)<=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
 			if (min!=null && max!=null && Math.round(max)<Math.round(min)) return String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId());
 
-			if (ExpressionCalc.check(minStr,runModel.variableNames)>=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
-			if (ExpressionCalc.check(maxStr,runModel.variableNames)>=0) return String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId());
+			if (ExpressionCalc.check(minStr,runModel.variableNames,runModel.modelUserFunctions)>=0) return String.format(Language.tr("Simulation.Creator.InvalidBatchSize"),element.getId());
+			if (ExpressionCalc.check(maxStr,runModel.variableNames,runModel.modelUserFunctions)>=0) return String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId());
 
 			batch.batchSizeMin=minStr;
 			batch.batchSizeMax=maxStr;

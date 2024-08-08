@@ -67,7 +67,7 @@ public class RunElementDifferentialCounter extends RunElementPassThrough {
 
 		/* Bedingung */
 		counter.condition=new RunCounterConditionData(counterElement.getCondition());
-		final String conditionError=counter.condition.test(runModel.variableNames,element.getId());
+		final String conditionError=counter.condition.test(runModel.variableNames,runModel.modelUserFunctions,element.getId());
 		if (conditionError!=null) return conditionError;
 
 		return counter;

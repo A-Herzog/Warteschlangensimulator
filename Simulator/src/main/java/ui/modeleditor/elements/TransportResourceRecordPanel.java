@@ -180,7 +180,7 @@ public class TransportResourceRecordPanel extends JPanel {
 
 		boolean ok=true;
 
-		final int error=ExpressionCalc.check(textResourcePriority.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+		final int error=ExpressionCalc.check(textResourcePriority.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 		if (error>=0) {
 			textResourcePriority.setBackground(Color.red);
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.TransportSource.Dialog.Ressource.Priority.ErrorTitle"),String.format(Language.tr("Surface.TransportSource.Dialog.Ressource.Priority.ErrorInfo"),textResourcePriority.getText()));

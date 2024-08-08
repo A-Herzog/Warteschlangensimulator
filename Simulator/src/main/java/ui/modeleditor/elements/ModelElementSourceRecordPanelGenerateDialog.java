@@ -38,6 +38,7 @@ import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionPanel;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import parser.MathCalcError;
+import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -56,6 +57,11 @@ public class ModelElementSourceRecordPanelGenerateDialog extends BaseDialog {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID=849660307335410362L;
+
+	/**
+	 * Aktuelles Modell
+	 */
+	private final EditModel model;
 
 	/**
 	 * Eingabefeld für die Anzahl an zu erzeugenden Zufallszahlen
@@ -85,9 +91,11 @@ public class ModelElementSourceRecordPanelGenerateDialog extends BaseDialog {
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Element
+	 * @param model	Aktuelles Modell (zum Zugriff auf die modellspezifischen nutzerdefinierten Funktionen)
 	 */
-	public ModelElementSourceRecordPanelGenerateDialog(final Component owner) {
+	public ModelElementSourceRecordPanelGenerateDialog(final Component owner, final EditModel model) {
 		super(owner,Language.tr("GenerateArrivalDataStream.Title"));
+		this.model=model;
 
 		/* GUI */
 		final JPanel content=createGUI(null);
@@ -192,7 +200,7 @@ public class ModelElementSourceRecordPanelGenerateDialog extends BaseDialog {
 			break;
 		case 1:
 			/* Datenquelle: Rechenausdruck */
-			final ExpressionCalc calc=new ExpressionCalc(null);
+			final ExpressionCalc calc=new ExpressionCalc(null,model.userFunctions);
 			final int error=calc.parse(editorExpression.getText().trim());
 			if (error>=0) {
 				editorExpression.setBackground(Color.RED);
@@ -260,7 +268,7 @@ public class ModelElementSourceRecordPanelGenerateDialog extends BaseDialog {
 			break;
 		case 1:
 			/* Datenquelle: Rechenausdruck */
-			final ExpressionCalc calc=new ExpressionCalc(null);
+			final ExpressionCalc calc=new ExpressionCalc(null,model.userFunctions);
 			calc.parse(editorExpression.getText().trim());
 			for (int i=0;i<count;i++) try {numbers[i]=calc.calc();} catch (MathCalcError e) {numbers[i]=0;}
 			break;

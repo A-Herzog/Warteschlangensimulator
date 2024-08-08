@@ -64,7 +64,7 @@ public class ParameterCompareTools {
 	 * @see #getModelValue(EditModel, ParameterCompareSetupValueInput)
 	 */
 	private static Double calcValue(final EditModel model, final String expression) {
-		final ExpressionCalc calc=new ExpressionCalc(model.getModelVariableNames());
+		final ExpressionCalc calc=new ExpressionCalc(null,model.userFunctions);
 		if (calc.parse(expression)>=0) return null;
 		try {
 			return calc.calc();

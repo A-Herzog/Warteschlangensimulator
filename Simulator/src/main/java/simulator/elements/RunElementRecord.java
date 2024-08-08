@@ -75,7 +75,7 @@ public class RunElementRecord extends RunElementPassThrough {
 		if (expression1==null || expression1.trim().isEmpty()) {
 			return String.format(Language.tr("Simulation.Creator.RecordErrorExpression1Empty"),element.getId());
 		} else {
-			final int error=ExpressionCalc.check(expression1,runModel.variableNames);
+			final int error=ExpressionCalc.check(expression1,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.RecordErrorExpression1"),expression1,element.getId(),error+1);
 			record.expression1=expression1;
 		}
@@ -85,7 +85,7 @@ public class RunElementRecord extends RunElementPassThrough {
 		if (expression2==null || expression2.trim().isEmpty()) {
 			/* Ausdruck 2 ist optional */
 		} else {
-			final int error=ExpressionCalc.check(expression2,runModel.variableNames);
+			final int error=ExpressionCalc.check(expression2,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.RecordErrorExpression2"),expression2,element.getId(),error+1);
 			record.expression2=expression2;
 		}

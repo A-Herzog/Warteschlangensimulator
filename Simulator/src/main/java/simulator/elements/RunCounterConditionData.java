@@ -22,6 +22,7 @@ import language.Language;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.elements.CounterCondition;
 
@@ -66,14 +67,15 @@ public class RunCounterConditionData {
 	/**
 	 * Prüft die angegebene Bedingung.
 	 * @param variableNames	Namen der Variablen im Modell
+	 * @param userFunctions	Modellspezifische nutzerdefinierte Funktionen
 	 * @param id	ID des Elements in dem diese Bedingung zum Einsatz kommt
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
 	 */
-	public String test(final String[] variableNames, final int id) {
+	public String test(final String[] variableNames, final ExpressionCalcModelUserFunctions userFunctions, final int id) {
 		/* Bedingung */
 		final String condition=counterCondition.getCondition();
 		if (!condition.trim().isEmpty()) {
-			final int error=ExpressionMultiEval.check(condition,variableNames);
+			final int error=ExpressionMultiEval.check(condition,variableNames,userFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.CounterCondition"),condition,id,error+1);
 		}
 
@@ -90,7 +92,7 @@ public class RunCounterConditionData {
 		if (condition.trim().isEmpty()) {
 			this.condition=null;
 		} else {
-			this.condition=new ExpressionMultiEval(runModel.variableNames);
+			this.condition=new ExpressionMultiEval(runModel.variableNames,runModel.modelUserFunctions);
 			this.condition.parse(condition);
 		}
 

@@ -205,7 +205,7 @@ public class ModelElementHoldMultiDialog extends ModelElementBaseDialog {
 		for (int i=0;i<conditions.size();i++) {
 			final JTextField field=conditions.get(i);
 			final String condition=field.getText();
-			final int error=ExpressionMultiEval.check(condition,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
+			final int error=ExpressionMultiEval.check(condition,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false),element.getModel().userFunctions);
 			if (error>=0) field.setBackground(Color.red); else field.setBackground(NumberTools.getTextFieldDefaultBackground());
 
 			if (error>=0) {

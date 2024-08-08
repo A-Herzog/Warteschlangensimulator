@@ -198,7 +198,7 @@ public class ModelElementTankValveSetupTableModelDialog extends BaseDialog {
 		}
 
 		final String text=maxFlowEdit.getText();
-		final int error=ExpressionCalc.check(text,mainSurface.getMainSurfaceVariableNames(model.getModelVariableNames(),true));
+		final int error=ExpressionCalc.check(text,mainSurface.getMainSurfaceVariableNames(model.getModelVariableNames(),true),model.userFunctions);
 		if (error>=0) {
 			maxFlowEdit.setBackground(Color.red);
 			ok=false;

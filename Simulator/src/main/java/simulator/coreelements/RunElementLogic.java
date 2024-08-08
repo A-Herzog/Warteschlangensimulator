@@ -104,7 +104,7 @@ public abstract class RunElementLogic extends RunElement {
 		/* Ggf. Bedingung */
 		if (logicElement instanceof ModelElementLogicWithCondition) {
 			logic.condition=((ModelElementLogicWithCondition)logicElement).getCondition();
-			final int error=ExpressionMultiEval.check(logic.condition,runModel.variableNames);
+			final int error=ExpressionMultiEval.check(logic.condition,runModel.variableNames,editModel.userFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.LogicCondition"),logic.condition,element.getId(),error+1);
 		} else {
 			logic.condition=null;

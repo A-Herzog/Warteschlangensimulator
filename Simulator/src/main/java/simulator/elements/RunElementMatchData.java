@@ -91,7 +91,7 @@ public class RunElementMatchData extends RunElementData implements RunElementMul
 		if (condition==null || condition.trim().isEmpty()) {
 			this.condition=null;
 		} else {
-			this.condition=new ExpressionMultiEval(variableNames);
+			this.condition=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);
 			this.condition.parse(condition);
 		}
 

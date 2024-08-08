@@ -149,7 +149,7 @@ public class ModelElementOutputDBDialog extends ModelElementBaseDialog {
 
 			/* Main-Area */
 			final JTableExt table=new JTableExt();
-			table.setModel(tableModel=new OutputDBTableModel(table,((ModelElementOutputDB)element).getModes(),((ModelElementOutputDB)element).getColumns(),((ModelElementOutputDB)element).getData(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),readOnly));
+			table.setModel(tableModel=new OutputDBTableModel(table,((ModelElementOutputDB)element).getModes(),((ModelElementOutputDB)element).getColumns(),((ModelElementOutputDB)element).getData(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),element.getModel().userFunctions,readOnly));
 			table.setIsPanelCellTable(0);
 			table.setIsPanelCellTable(1);
 			table.setIsPanelCellTable(2);

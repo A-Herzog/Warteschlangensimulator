@@ -1207,7 +1207,7 @@ public class OptimizerPanel extends SpecialPanel {
 	 */
 	private void commandControlSetupConstrains() {
 		if (constrains==null) constrains=new ArrayList<>();
-		new OptimizerPanelConstrainsDialog(this,constrains);
+		new OptimizerPanelConstrainsDialog(this,model,constrains);
 	}
 
 	/**

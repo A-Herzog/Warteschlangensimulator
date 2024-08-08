@@ -51,6 +51,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.runmodel.RunModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -104,7 +105,25 @@ public class ExpressionBuilder extends BaseDialog {
 	 * @param noSimulator	Gibt an, dass überhaupt keine Funktionen, die sich auf Simulation oder Ergebnisse beziehen, angeboten werden sollen.
 	 */
 	public ExpressionBuilder(final Component owner, final String expression, final boolean isCompare, final String[] variables, final Map<String,String> initialVariables, final Map<Integer,String> stations, final Map<Integer,String> stationNames, final boolean hasClientData, final boolean statisticsOnly, final boolean noSimulator) {
-		this(owner,expression,isCompare,variables,initialVariables,stations,stationNames,hasClientData,statisticsOnly,noSimulator,true);
+		this(owner,expression,isCompare,variables,initialVariables,stations,stationNames,hasClientData,statisticsOnly,noSimulator,null,true);
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param owner	Übergeordnetes Element
+	 * @param expression	Bisheriger Ausdruck, wird initial im Eingabefeld angezeigt
+	 * @param isCompare	Gibt an, ob es sich bei dem Ausdruck um einen Vergleich (<code>true</code>) oder um einen zu einer Zahl auszurechnenden Ausdruck (<code>false</code>) handelt
+	 * @param variables	Liste mit den im System vorhandenen Variablen
+	 * @param initialVariables	Liste der initialen Variablen mit Werten
+	 * @param stations	Zuordnung von Stations-IDs und Stationsnamen (kann über die statische Funktion <code>getStationIDs(surface)</code> erstellt werden)
+	 * @param stationNames	Zuordnung von Stations-IDs zu vom Nutzer angegebenen Stationsnamen
+	 * @param hasClientData	Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
+	 * @param statisticsOnly	Gibt an, dass nur Funktionen angeboten werden sollen, deren Ergebnisse aus Statistikdaten gewonnen werden können (keine reinen Runtime-Daten)
+	 * @param noSimulator	Gibt an, dass überhaupt keine Funktionen, die sich auf Simulation oder Ergebnisse beziehen, angeboten werden sollen.
+	 * @param modelUserFunctions	Modellspezifische nutzerdefinierte Funktionen (kann <code>null</code> sein)
+	 */
+	public ExpressionBuilder(final Component owner, final String expression, final boolean isCompare, final String[] variables, final Map<String,String> initialVariables, final Map<Integer,String> stations, final Map<Integer,String> stationNames, final boolean hasClientData, final boolean statisticsOnly, final boolean noSimulator, final ExpressionCalcModelUserFunctions modelUserFunctions) {
+		this(owner,expression,isCompare,variables,initialVariables,stations,stationNames,hasClientData,statisticsOnly,noSimulator,modelUserFunctions,true);
 	}
 
 	/**
@@ -119,12 +138,13 @@ public class ExpressionBuilder extends BaseDialog {
 	 * @param hasClientData	Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
 	 * @param statisticsOnly	Gibt an, dass nur Funktionen angeboten werden sollen, deren Ergebnisse aus Statistikdaten gewonnen werden können (keine reinen Runtime-Daten)
 	 * @param noSimulator	Gibt an, dass überhaupt keine Funktionen, die sich auf Simulation oder Ergebnisse beziehen, angeboten werden sollen.
+	 * @param modelUserFunctions	Modellspezifische nutzerdefinierte Funktionen (kann <code>null</code> sein)
 	 * @param allowUserDefinedFunctions	Nutzerdefinierte Funktionen anzeigen?
 	 */
-	public ExpressionBuilder(final Component owner, final String expression, final boolean isCompare, final String[] variables, final Map<String,String> initialVariables, final Map<Integer,String> stations, final Map<Integer,String> stationNames, final boolean hasClientData, final boolean statisticsOnly, final boolean noSimulator, final boolean allowUserDefinedFunctions) {
+	public ExpressionBuilder(final Component owner, final String expression, final boolean isCompare, final String[] variables, final Map<String,String> initialVariables, final Map<Integer,String> stations, final Map<Integer,String> stationNames, final boolean hasClientData, final boolean statisticsOnly, final boolean noSimulator, final ExpressionCalcModelUserFunctions modelUserFunctions, final boolean allowUserDefinedFunctions) {
 		super(owner,Language.tr("ExpressionBuilder.Title"));
 
-		settings=new ExpressionBuilderSettings(isCompare,variables,initialVariables,stations,stationNames,hasClientData,statisticsOnly,noSimulator,allowUserDefinedFunctions);
+		settings=new ExpressionBuilderSettings(isCompare,variables,initialVariables,stations,stationNames,hasClientData,statisticsOnly,noSimulator,modelUserFunctions,allowUserDefinedFunctions);
 
 		/* GUI */
 
@@ -199,7 +219,7 @@ public class ExpressionBuilder extends BaseDialog {
 
 		final JPanel bottomInfoLine=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		bottomArea.add(bottomInfoLine,BorderLayout.SOUTH);
-		final ExpressionCalc calc=new ExpressionCalc(variables);
+		final ExpressionCalc calc=new ExpressionCalc(variables,modelUserFunctions);
 		bottomInfoLine.add(new JLabel(String.format(Language.tr("ExpressionBuilder.SymbolCountInfo"),calc.getSymbolCount(!noSimulator))));
 
 		/* Dialog starten */
@@ -345,7 +365,7 @@ public class ExpressionBuilder extends BaseDialog {
 
 		buildTreeDataVariables(root,filterUpper,settings);
 		ExpressionBuilderBasics.build(root,settings.pathsToOpen,filterUpper);
-		if (settings.allowUserDefinedFunctions) ExpressionBuilderUserFunctions.build(root,settings.pathsToOpen,filterUpper);
+		if (settings.allowUserDefinedFunctions) ExpressionBuilderUserFunctions.build(root,settings.pathsToOpen,filterUpper,settings.modelUserFunctions);
 		ExpressionBuilderDistributions.build(root,settings.pathsToOpen,filterUpper);
 		ExpressionBuilderQueueingTheory.build(root,settings.pathsToOpen,filterUpper);
 		if (!settings.noSimulator) {
@@ -419,9 +439,9 @@ public class ExpressionBuilder extends BaseDialog {
 		final String expression=getExpression();
 		int error=-1;
 		if (settings.isCompare) {
-			error=ExpressionMultiEval.check(expression,settings.variables);
+			error=ExpressionMultiEval.check(expression,settings.variables,settings.modelUserFunctions);
 		} else {
-			error=ExpressionCalc.check(expression,settings.variables);
+			error=ExpressionCalc.check(expression,settings.variables,settings.modelUserFunctions);
 		}
 
 		if (error<0) {
@@ -696,6 +716,8 @@ public class ExpressionBuilder extends BaseDialog {
 		public final boolean noSimulator;
 		/** Initial in der Baumstruktur zu öffnende Pfade */
 		public final List<TreePath> pathsToOpen;
+		/** Modelspezifische nutzerdefinierte Funktionen */
+		public final ExpressionCalcModelUserFunctions modelUserFunctions;
 
 		/**
 		 * Konstruktor der Klasse
@@ -707,9 +729,10 @@ public class ExpressionBuilder extends BaseDialog {
 		 * @param hasClientData	Gibt an, ob Funktionen zum Zugriff auf Kundenobjekt-spezifische Datenfelder angeboten werden sollen
 		 * @param statisticsOnly	Gibt an, dass nur Funktionen angeboten werden sollen, deren Ergebnisse aus Statistikdaten gewonnen werden können (keine reinen Runtime-Daten)
 		 * @param noSimulator	Gibt an, dass überhaupt keine Funktionen, die sich auf Simulation oder Ergebnisse beziehen, angeboten werden sollen.
+		 * @param modelUserFunctions	Modellspezifische nutzerdefinierte Funktionen (kann <code>null</code> sein)
 		 * @param allowUserDefinedFunctions	Nutzerdefinierte Funktionen anzeigen?
 		 */
-		public ExpressionBuilderSettings(final boolean isCompare, final String[] variables, final Map<String,String> initialVariables, final Map<Integer,String> stations, final Map<Integer,String> stationNames, final boolean hasClientData, final boolean statisticsOnly, final boolean noSimulator, final boolean allowUserDefinedFunctions) {
+		public ExpressionBuilderSettings(final boolean isCompare, final String[] variables, final Map<String,String> initialVariables, final Map<Integer,String> stations, final Map<Integer,String> stationNames, final boolean hasClientData, final boolean statisticsOnly, final boolean noSimulator, final ExpressionCalcModelUserFunctions modelUserFunctions, final boolean allowUserDefinedFunctions) {
 			this.isCompare=isCompare;
 			this.allowUserDefinedFunctions=allowUserDefinedFunctions;
 			final Set<String> tempVariables=new HashSet<>();
@@ -727,8 +750,8 @@ public class ExpressionBuilder extends BaseDialog {
 			this.hasClientData=hasClientData;
 			this.statisticsOnly=statisticsOnly;
 			this.noSimulator=noSimulator;
-
 			this.pathsToOpen=new ArrayList<>();
+			this.modelUserFunctions=modelUserFunctions;
 		}
 	}
 }

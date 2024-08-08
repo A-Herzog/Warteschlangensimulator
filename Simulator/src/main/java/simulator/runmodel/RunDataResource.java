@@ -26,6 +26,7 @@ import language.Language;
 import mathtools.distribution.tools.DistributionTools;
 import simulator.events.ResourcesReCheckEvent;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import statistics.StatisticsTimePerformanceIndicator;
 import statistics.StatisticsValuePerformanceIndicator;
 import ui.modeleditor.ModelResource;
@@ -61,6 +62,11 @@ public final class RunDataResource implements Cloneable {
 	 * Liste aller globalen Variablen in dem Modell
 	 */
 	private String[] variables;
+
+	/**
+	 * Modellspezifische nutzerdefinierte Funktionen
+	 */
+	private ExpressionCalcModelUserFunctions userFunctions;
 
 	/**
 	 * Rüstzeit-Verteilung beim Wechsel eines Bedieners von einer Station zu einer anderen
@@ -217,6 +223,7 @@ public final class RunDataResource implements Cloneable {
 		name=resource.getName();
 		icon=resource.getIcon();
 		this.variables=variables;
+		this.userFunctions=runModel.modelUserFunctions;
 
 		/* Verfügbare Bediener */
 		switch (resource.getMode()) {
@@ -244,7 +251,7 @@ public final class RunDataResource implements Cloneable {
 			runFailure.failureDistribution=editFailure.getFailureDistribution();
 			if (runFailure.failureMode==ModelResourceFailure.FailureMode.FAILURE_BY_DISTRIBUTION && runFailure.failureDistribution==null) return String.format(Language.tr("Simulation.Creator.MissingResourceInterDownTimeDistribution"),name);
 			if (runFailure.failureMode==ModelResourceFailure.FailureMode.FAILURE_BY_EXPRESSION) {
-				runFailure.failureExpression=new ExpressionCalc(variables);
+				runFailure.failureExpression=new ExpressionCalc(variables,runModel.modelUserFunctions);
 				final int error=runFailure.failureExpression.parse(editFailure.getFailureExpression());
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidResourceInterDownTimeExpression"),name,editFailure.getFailureExpression(),error+1);
 			}
@@ -252,7 +259,7 @@ public final class RunDataResource implements Cloneable {
 			if (runFailure.downTimeExpressionString==null) {
 				runFailure.downTimeDistribution=DistributionTools.cloneDistribution(editFailure.getDownTimeDistribution());
 			} else {
-				runFailure.downTimeExpression=new ExpressionCalc(variables);
+				runFailure.downTimeExpression=new ExpressionCalc(variables,runModel.modelUserFunctions);
 				final int error=runFailure.downTimeExpression.parse(runFailure.downTimeExpressionString);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidResourceDownTimeExpression"),name,runFailure.downTimeExpressionString,error+1);
 			}
@@ -276,7 +283,7 @@ public final class RunDataResource implements Cloneable {
 		}
 		if (moveTimes instanceof String) {
 			moveExpression=(String)moveTimes;
-			final int error=ExpressionCalc.check(moveExpression,variables);
+			final int error=ExpressionCalc.check(moveExpression,variables,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidResourceMoveTimeExpression"),name,moveExpression,error+1);
 		}
 		moveTimeBase=resource.getMoveTimeBase();
@@ -351,7 +358,7 @@ public final class RunDataResource implements Cloneable {
 	 */
 	private void addFailures(RunDataResourceFailure[] failures) {
 		failuresGlobal=new RunDataResourceFailure[failures.length];
-		for (int i=0;i<failures.length;i++) failuresGlobal[i]=new RunDataResourceFailure(failures[i],name,variables);
+		for (int i=0;i<failures.length;i++) failuresGlobal[i]=new RunDataResourceFailure(failures[i],name,variables,userFunctions);
 	}
 
 	/**

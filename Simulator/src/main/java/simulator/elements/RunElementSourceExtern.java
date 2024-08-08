@@ -456,7 +456,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 
 		final Arrival arrival=arrivals[index][data.nextIndex[index]-1];
 
-		if (data.calc==null) data.calc=new ExpressionCalc(simData.runModel.variableNames);
+		if (data.calc==null) data.calc=new ExpressionCalc(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 
 		/* Ggf. ClientData setzen */
 		if (arrival.dataIndex!=null) for (int i=0;i<arrival.dataIndex.length;i++) {

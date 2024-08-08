@@ -137,9 +137,9 @@ public final class JSCommandSystem extends JSBaseCommand {
 		if (expression!=null) return expression;
 
 		if (simData==null) {
-			expression=new ExpressionCalc(new String[0]);
+			expression=new ExpressionCalc(new String[0],null);
 		} else {
-			expression=new ExpressionCalc(simData.runModel.variableNames);
+			expression=new ExpressionCalc(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 		}
 		final int errorPos=expression.parse(text);
 		if (errorPos>=0) return String.format(Language.tr("Statistics.Filter.CoundNotProcessExpression.Info"),errorPos+1);
@@ -868,7 +868,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 			return;
 		}
 		if (varValue instanceof String) {
-			final ExpressionCalc calc=new ExpressionCalc(simData.runModel.variableNames);
+			final ExpressionCalc calc=new ExpressionCalc(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 			if (calc.parse((String)varValue)>=0) return;
 			try {
 				final double d=calc.calc(simData.runData.variableValues,simData,null);
@@ -900,7 +900,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 		if (id instanceof Long) return getRunElement(((Long)id).intValue());
 		if (id instanceof Double) return getRunElement((int)FastMath.round((Double)id));
 		if (id instanceof String) {
-			final ExpressionCalc calc=new ExpressionCalc(simData.runModel.variableNames);
+			final ExpressionCalc calc=new ExpressionCalc(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 			if (calc.parse((String)id)>=0) return null;
 			try {
 				final double d=calc.calc(simData.runData.variableValues,simData,null);
@@ -922,7 +922,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 		if (value instanceof Integer) return ((Integer)value).doubleValue();
 		if (value instanceof Long) return ((Long)value).doubleValue();
 		if (value instanceof String) {
-			final ExpressionCalc calc=new ExpressionCalc(simData.runModel.variableNames);
+			final ExpressionCalc calc=new ExpressionCalc(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 			if (calc.parse((String)value)>=0) return null;
 			try {
 				return NumberTools.fastBoxedValue(calc.calc(simData.runData.variableValues,simData,null));

@@ -44,6 +44,7 @@ import javax.swing.SwingUtilities;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import tools.JTableExt;
@@ -66,8 +67,12 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 	 */
 	private static final long serialVersionUID = -86922871601132368L;
 
-	/** Liste aller globalen Variablen in dem Modell */
+	/** Liste aller globalen Variablen in dem Modell (inkl. der kundenspezifischen Pseudovariablen) */
 	private String[] variables;
+	/** Liste aller globalen Variablen in dem Modell (ohne die kundenspezifischen Pseudovariablen) */
+	private String[] variablesNoClient;
+	/** Modellspezifische nutzerdefinierte Funktionen */
+	private ExpressionCalcModelUserFunctions userFunctions;
 
 	/** Registerseiten des Dialogs */
 	private JTabbedPane tabs;
@@ -195,6 +200,8 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		final ModelElementProcess process=(ModelElementProcess)element;
 
 		variables=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true);
+		variablesNoClient=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false);
+		userFunctions=element.getModel().userFunctions;
 
 		tabs=new JTabbedPane();
 		tabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -512,11 +519,12 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 			}
 		}
 
-		int error=ExpressionCalc.check(textResourcePriority.getText(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
+		text=textResourcePriority.getText();
+		int error=ExpressionCalc.check(text,variablesNoClient,userFunctions);
 		if (error>=0) {
 			textResourcePriority.setBackground(Color.red);
 			if (showErrorMessage) {
-				MsgBox.error(this,Language.tr("Surface.Process.Dialog.ResourcePriority.Error.Title"),String.format(Language.tr("Surface.Process.Dialog.ResourcePriority.Error.Info"),textResourcePriority.getText()));
+				MsgBox.error(this,Language.tr("Surface.Process.Dialog.ResourcePriority.Error.Title"),String.format(Language.tr("Surface.Process.Dialog.ResourcePriority.Error.Info"),text));
 				return false;
 			}
 			ok=false;
@@ -531,7 +539,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 
 		text=textCosts.getText();
 		if (!text.trim().isEmpty()) {
-			error=ExpressionCalc.check(text,variables);
+			error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				textCosts.setBackground(Color.red);
 				if (showErrorMessage) {
@@ -548,7 +556,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 
 		text=textCostsPerProcessSecond.getText();
 		if (!text.trim().isEmpty()) {
-			error=ExpressionCalc.check(text,variables);
+			error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				textCostsPerProcessSecond.setBackground(Color.red);
 				if (showErrorMessage) {
@@ -565,7 +573,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 
 		text=textCostsPerPostProcessSecond.getText();
 		if (!text.trim().isEmpty()) {
-			error=ExpressionCalc.check(text,variables);
+			error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				textCostsPerPostProcessSecond.setBackground(Color.red);
 				if (showErrorMessage) {

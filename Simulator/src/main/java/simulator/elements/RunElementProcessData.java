@@ -163,13 +163,13 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 		distributionCancel=station.distributionCancel;
 		batchMinSize=station.batchMinSize;
 
-		resourcePriority=new ExpressionCalc(variableNames);
+		resourcePriority=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 		resourcePriority.parse(station.resourcePriority);
 
 		priority=new ExpressionCalc[station.priority.length];
 		for (int i=0;i<priority.length;i++) {
 			if (station.priority[i]!=null) { /* Wenn null, war Default Priorität gesetzt (="w"). Dann priority[i] auf Vorgabe null lassen. Dies wird von ModelElementProcess.startProcessing() entsprechend erkannt. */
-				priority[i]=new ExpressionCalc(variableNames);
+				priority[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 				priority[i].parse(station.priority[i]);
 			}
 		}
@@ -178,26 +178,26 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 		for (int i=0;i<expressionSetup.length;i++) {
 			expressionSetup[i]=new ExpressionCalc[station.expressionSetup[i].length];
 			for (int j=0;j<station.expressionSetup[i].length;j++) if (station.expressionSetup[i][j]!=null) {
-				expressionSetup[i][j]=new ExpressionCalc(variableNames);
+				expressionSetup[i][j]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 				expressionSetup[i][j].parse(station.expressionSetup[i][j]);
 			}
 		}
 
 		expressionProcess=new ExpressionCalc[station.expressionProcess.length];
 		for (int i=0;i<expressionProcess.length;i++) if (station.expressionProcess[i]!=null) {
-			expressionProcess[i]=new ExpressionCalc(variableNames);
+			expressionProcess[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			expressionProcess[i].parse(station.expressionProcess[i]);
 		}
 
 		expressionPostProcess=new ExpressionCalc[station.expressionPostProcess.length];
 		for (int i=0;i<expressionPostProcess.length;i++) if (station.expressionPostProcess[i]!=null) {
-			expressionPostProcess[i]=new ExpressionCalc(variableNames);
+			expressionPostProcess[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			expressionPostProcess[i].parse(station.expressionPostProcess[i]);
 		}
 
 		expressionCancel=new ExpressionCalc[station.expressionCancel.length];
 		for (int i=0;i<expressionCancel.length;i++) if (station.expressionCancel[i]!=null) {
-			expressionCancel[i]=new ExpressionCalc(variableNames);
+			expressionCancel[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			expressionCancel[i].parse(station.expressionCancel[i]);
 		}
 
@@ -210,21 +210,21 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 		if (costs==null || costs.trim().isEmpty()) {
 			this.costs=null;
 		} else {
-			this.costs=new ExpressionCalc(variableNames);
+			this.costs=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.costs.parse(costs);
 		}
 
 		if (costsPerProcessSecond==null || costsPerProcessSecond.trim().isEmpty()) {
 			this.costsPerProcessSecond=null;
 		} else {
-			this.costsPerProcessSecond=new ExpressionCalc(variableNames);
+			this.costsPerProcessSecond=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.costsPerProcessSecond.parse(costsPerProcessSecond);
 		}
 
 		if (costsPerPostProcessSecond==null || costsPerPostProcessSecond.trim().isEmpty()) {
 			this.costsPerPostProcessSecond=null;
 		} else {
-			this.costsPerPostProcessSecond=new ExpressionCalc(variableNames);
+			this.costsPerPostProcessSecond=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.costsPerPostProcessSecond.parse(costsPerPostProcessSecond);
 		}
 

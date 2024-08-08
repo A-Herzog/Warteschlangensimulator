@@ -33,6 +33,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
@@ -52,6 +53,8 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 
 	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
+	/** Modellspezifische nutzerdefinierte Funktionen */
+	private ExpressionCalcModelUserFunctions userFunctions;
 
 	/** Eingabefeld für die Kosten an der Station */
 	private JTextField stationCosts;
@@ -102,6 +105,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		variables=element.getSurface().getMainSurfaceVariableNames(model.getModelVariableNames(),true);
+		userFunctions=model.userFunctions;
 
 		Object[] data;
 		JPanel line;
@@ -192,7 +196,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 
 		text=stationCosts.getText();
 		if (!text.trim().isEmpty()) {
-			final int error=ExpressionCalc.check(text,variables);
+			final int error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				stationCosts.setBackground(Color.RED);
 				if (showErrorMessage) {
@@ -209,7 +213,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 
 		text=clientWaitingCosts.getText();
 		if (!text.trim().isEmpty()) {
-			final int error=ExpressionCalc.check(text,variables);
+			final int error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				clientWaitingCosts.setBackground(Color.RED);
 				if (showErrorMessage) {
@@ -226,7 +230,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 
 		text=clientTransferCosts.getText();
 		if (!text.trim().isEmpty()) {
-			final int error=ExpressionCalc.check(text,variables);
+			final int error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				clientTransferCosts.setBackground(Color.RED);
 				if (showErrorMessage) {
@@ -243,7 +247,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 
 		text=clientProcessCosts.getText();
 		if (!text.trim().isEmpty()) {
-			final int error=ExpressionCalc.check(text,variables);
+			final int error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				clientProcessCosts.setBackground(Color.RED);
 				if (showErrorMessage) {
@@ -262,7 +266,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 		if (!useCondition.isSelected() || conditionString.isEmpty()) {
 			condition.setBackground(NumberTools.getTextFieldDefaultBackground());
 		} else {
-			final int error=ExpressionMultiEval.check(conditionString,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+			final int error=ExpressionMultiEval.check(conditionString,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 			if (error>=0) {
 				condition.setBackground(Color.RED);
 				if (showErrorMessage) {

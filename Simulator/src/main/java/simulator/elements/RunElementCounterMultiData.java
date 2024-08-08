@@ -55,7 +55,7 @@ public class RunElementCounterMultiData extends RunElementData {
 		statistic=new StatisticsSimpleCountPerformanceIndicator[conditions.length];
 
 		for (int i=0;i<conditions.length;i++) {
-			this.conditions[i]=new ExpressionMultiEval(variableNames);
+			this.conditions[i]=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);
 			this.conditions[i].parse(conditions[i]);
 			statistic[i]=(StatisticsSimpleCountPerformanceIndicator)counterStatistic.get(groupNameExt+counterNames[i]);
 		}

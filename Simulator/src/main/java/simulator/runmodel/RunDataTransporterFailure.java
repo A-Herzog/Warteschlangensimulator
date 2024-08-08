@@ -24,6 +24,7 @@ import mathtools.distribution.tools.DistributionTools;
 import parser.MathCalcError;
 import simulator.events.TransporterPauseEndEvent;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import ui.modeleditor.ModelTransporterFailure;
 
 /**
@@ -79,8 +80,9 @@ public class RunDataTransporterFailure {
 	 * @param failure	Ausfall-Objekt dessen Daten in dieses Objekt kopiert werden sollen
 	 * @param list	Liste mit allen Transportern im Modell
 	 * @param variables	Liste mit allen im System vorhandenen Variablennamen
+	 * @param userFunctions	Modellspezifische nutzerdefinierte Funktionen
 	 */
-	public RunDataTransporterFailure(final RunDataTransporterFailure failure, final RunDataTransporters list, final String[] variables) {
+	public RunDataTransporterFailure(final RunDataTransporterFailure failure, final RunDataTransporters list, final String[] variables, final ExpressionCalcModelUserFunctions userFunctions) {
 		this(list);
 		failureMode=failure.failureMode;
 		failureNumber=failure.failureNumber;
@@ -91,7 +93,7 @@ public class RunDataTransporterFailure {
 		downTimeDistribution=DistributionTools.cloneDistribution(failure.downTimeDistribution);
 		if (failure.downTimeExpression!=null) {
 			downTimeExpressionString=failure.downTimeExpressionString;
-			downTimeExpression=new ExpressionCalc(variables);
+			downTimeExpression=new ExpressionCalc(variables,userFunctions);
 			downTimeExpression.parse(downTimeExpressionString);
 		}
 	}

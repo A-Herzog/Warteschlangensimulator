@@ -79,7 +79,7 @@ public class RunElementSeize extends RunElement implements FreeResourcesListener
 		}
 
 		/* Ressourcen-Priorität */
-		final int error=ExpressionCalc.check(seizeElement.getResourcePriority(),runModel.variableNames);
+		final int error=ExpressionCalc.check(seizeElement.getResourcePriority(),runModel.variableNames,runModel.modelUserFunctions);
 		if (error>=0) return String.format(Language.tr("Simulation.Creator.SeizeResourcePriority"),element.getId(),seizeElement.getResourcePriority());
 		seize.resourcePriority=seizeElement.getResourcePriority();
 

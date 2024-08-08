@@ -34,6 +34,7 @@ import javax.swing.JTextField;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
 import ui.infopanel.InfoPanel;
@@ -53,6 +54,8 @@ public class ModelElementTransportParkingDialog extends ModelElementBaseDialog {
 
 	/** Liste der Namen aller modellweit verfügbaren Variablennamen */
 	private String[] variableNames;
+	/** Modellspezifische nutzerdefinierte Funktionen */
+	private ExpressionCalcModelUserFunctions userFunctions;
 	/** Liste mit den Namen aller modellweit verfügbaren Transporter */
 	private String[] transporterNames;
 
@@ -81,6 +84,7 @@ public class ModelElementTransportParkingDialog extends ModelElementBaseDialog {
 	@Override
 	protected JComponent getContentPanel() {
 		variableNames=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false);
+		userFunctions=element.getModel().userFunctions;
 		transporterNames=element.getModel().transporters.getNames();
 
 		final JPanel content=new JPanel();
@@ -165,7 +169,7 @@ public class ModelElementTransportParkingDialog extends ModelElementBaseDialog {
 			}
 		}
 		/* Parkplatz: Priorität */
-		final int error=ExpressionCalc.check(waitingPriority.getText(),variableNames);
+		final int error=ExpressionCalc.check(waitingPriority.getText(),variableNames,userFunctions);
 		if (error>=0) {
 			waitingPriority.setBackground(Color.RED);
 			ok=false;

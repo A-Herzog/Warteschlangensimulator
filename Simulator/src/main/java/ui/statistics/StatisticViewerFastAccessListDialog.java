@@ -229,7 +229,7 @@ public final class StatisticViewerFastAccessListDialog extends BaseDialog {
 	 */
 	private void commandExpression() {
 		final ModelSurface mainSurface=statistics.editModel.surface;
-		final ExpressionBuilder builder=new ExpressionBuilder(this,textEdit.getText(),false,new String[0],new HashMap<>(),ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface),false,true,false);
+		final ExpressionBuilder builder=new ExpressionBuilder(this,textEdit.getText(),false,new String[0],new HashMap<>(),ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface),false,true,false,statistics.editModel.userFunctions);
 		builder.setVisible(true);
 		if (builder.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 		textEdit.setText(builder.getExpression());

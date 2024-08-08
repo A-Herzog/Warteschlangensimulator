@@ -108,7 +108,7 @@ public class RunElementUserStatisticData extends RunElementData {
 		final List<Integer> indexContinuous=new ArrayList<>();
 
 		for (int i=0;i<keys.length;i++) {
-			final ExpressionCalc expression=new ExpressionCalc(variableNames);
+			final ExpressionCalc expression=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			expression.parse(expressions[i]);
 			if (isContinuous[i]) {
 				keysContinuous.add(keys[i]);

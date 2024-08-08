@@ -157,7 +157,7 @@ public class OptimizerKernelBase {
 
 		controlValuesConditions=new ExpressionMultiEval[setup.controlVariableConstrains.size()];
 		for (int i=0;i<setup.controlVariableConstrains.size();i++) {
-			controlValuesConditions[i]=new ExpressionMultiEval(varNames);
+			controlValuesConditions[i]=new ExpressionMultiEval(varNames,startModel.userFunctions);
 			final String condition=setup.controlVariableConstrains.get(i);
 			final int error=controlValuesConditions[i].parse(condition);
 			if (error>=0) return String.format(Language.tr("Optimizer.Error.ControlValueCondition"),i+1,condition,error+1);

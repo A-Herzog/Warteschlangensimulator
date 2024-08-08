@@ -29,6 +29,7 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.simparser.ExpressionMultiEval;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -54,6 +55,11 @@ public class ExpressionTableModelTextDialog extends BaseDialog {
 	 */
 	private final String[] variableNames;
 
+	/**
+	 * Modellspezifische nutzerdefinierte Funktionen
+	 */
+	private ExpressionCalcModelUserFunctions userFunctions;
+
 	/** Eingabefeld für die Formel-Bedingung */
 	private final JTextField expressionEdit;
 	/** Eingabefeld für den anzuzeigenden Text, wenn die Formel-Bedingung erfüllt ist */
@@ -68,11 +74,13 @@ public class ExpressionTableModelTextDialog extends BaseDialog {
 	 * @param initialVariableValues	Initiale Variablenwerte (für Expression-Builder)
 	 * @param stationIDs	Stations-IDs (für Expression-Builder)
 	 * @param stationNameIDs	Stationsname (für Expression-Builder)
+	 * @param modelUserFunctions	Modellspezifische nutzerdefinierte Funktionen (kann <code>null</code> sein)
 	 * @param helpRunnable	Hilfe-Runnable
 	 */
-	public ExpressionTableModelTextDialog(final Component owner, final String expression, final String value, final String[] variableNames, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final Runnable helpRunnable) {
+	public ExpressionTableModelTextDialog(final Component owner, final String expression, final String value, final String[] variableNames, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final ExpressionCalcModelUserFunctions modelUserFunctions, final Runnable helpRunnable) {
 		super(owner,Language.tr("Surface.ExpressionTableModelText.Dialog"));
 		this.variableNames=variableNames;
+		this.userFunctions=modelUserFunctions;
 
 		Object[] data;
 		JPanel line;
@@ -88,7 +96,7 @@ public class ExpressionTableModelTextDialog extends BaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
-		line.add(ModelElementBaseDialog.getExpressionEditButton(this,expressionEdit,true,variableNames,initialVariableValues,stationIDs,stationNameIDs,false),BorderLayout.EAST);
+		line.add(ModelElementBaseDialog.getExpressionEditButton(this,expressionEdit,true,variableNames,initialVariableValues,stationIDs,stationNameIDs,false,modelUserFunctions),BorderLayout.EAST);
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.ExpressionTableModelText.Dialog.Value")+":",value);
 		content.add((JPanel)data[0]);
@@ -113,7 +121,7 @@ public class ExpressionTableModelTextDialog extends BaseDialog {
 	private boolean checkData(final boolean showErrorMessages) {
 		boolean ok=true;
 
-		int error=ExpressionMultiEval.check(expressionEdit.getText(),variableNames);
+		int error=ExpressionMultiEval.check(expressionEdit.getText(),variableNames,userFunctions);
 		if (error>=0) {
 			ok=false;
 			expressionEdit.setBackground(Color.red);

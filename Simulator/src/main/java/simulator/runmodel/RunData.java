@@ -412,7 +412,7 @@ public class RunData {
 			for (int j=0;j<sequenceStepAssignmentExpression[i].length;j++) {
 				sequenceStepAssignmentExpression[i][j]=new ExpressionCalc[runModel.sequenceStepAssignmentExpression[i][j].length];
 				for (int k=0;k<sequenceStepAssignmentExpression[i][j].length;k++) {
-					sequenceStepAssignmentExpression[i][j][k]=new ExpressionCalc(runModel.variableNames);
+					sequenceStepAssignmentExpression[i][j][k]=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 					sequenceStepAssignmentExpression[i][j][k].parse(runModel.sequenceStepAssignmentExpression[i][j][k]);
 				}
 			}

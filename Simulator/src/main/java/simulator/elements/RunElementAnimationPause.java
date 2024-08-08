@@ -88,7 +88,7 @@ public class RunElementAnimationPause extends RunElementPassThrough {
 		if (condition==null || condition.trim().isEmpty()) {
 			pause.condition=null;
 		} else {
-			final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.PauseCondition"),condition,element.getId(),error+1);
 			pause.condition=condition;
 		}

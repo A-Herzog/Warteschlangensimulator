@@ -175,7 +175,7 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 			return true;
 		}
 
-		final int error=ExpressionMultiEval.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false));
+		final int error=ExpressionMultiEval.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false),element.getModel().userFunctions);
 		if (error>=0) {
 			condition.setBackground(Color.red);
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.HoldJS.Dialog.Condition.Error.Title"),String.format(Language.tr("Surface.HoldJS.Dialog.Condition.Error.Info"),text,error+1));

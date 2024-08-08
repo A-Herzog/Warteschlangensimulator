@@ -37,6 +37,7 @@ import net.dde.DDEConnect;
 import scripting.java.StatisticsImpl;
 import scripting.js.JSCommandXML;
 import simulator.db.DBSettings;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import statistics.StatisticsCountPerformanceIndicator;
 import statistics.StatisticsDataCollector;
 import statistics.StatisticsDataPerformanceIndicator;
@@ -1112,6 +1113,7 @@ public class LanguageStaticLoader {
 		ModelPaths.XML_NODE_NAME=Language.trAll("Surface.XML.RootName.PathSegments");
 		ModelLoadData.XML_NODE_NAME=Language.trAll("Surface.XML.RootName.LoadData");
 		SavedViews.XML_NODE_NAME=Language.trAll("Surface.XML.RootName.SavedView");
+		ExpressionCalcModelUserFunctions.XML_NODE_NAME=Language.trAll("Surface.XML.RootName.UserFunctions");
 
 		/* Statistik */
 		StatisticsSimpleCountPerformanceIndicator.xmlNameCount=Language.trAll("Statistics.XML.Count");

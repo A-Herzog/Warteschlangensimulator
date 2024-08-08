@@ -67,7 +67,7 @@ public class RunElementHoldMultiData extends RunElementData {
 
 		this.conditions=new ExpressionMultiEval[conditions.length];
 		for (int i=0;i<conditions.length;i++) {
-			ExpressionMultiEval eval=new ExpressionMultiEval(variableNames);
+			ExpressionMultiEval eval=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);
 			eval.parse(conditions[i]);
 			this.conditions[i]=eval;
 		}

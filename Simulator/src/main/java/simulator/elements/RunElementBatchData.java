@@ -31,12 +31,12 @@ import simulator.simparser.ExpressionCalc;
  */
 public class RunElementBatchData extends RunElementData {
 	/**
-	 * Minimale Batch-Größe<br>
+	 * Minimale Batch-Größe
 	 */
 	public final int batchSizeMin;
 
 	/**
-	 * Maximale Batch-Größe<br>
+	 * Maximale Batch-Größe
 	 */
 	public final int batchSizeMax;
 
@@ -74,7 +74,7 @@ public class RunElementBatchData extends RunElementData {
 		ExpressionCalc calc;
 		final Double min, max;
 
-		calc=new ExpressionCalc(simData.runModel.variableNames);
+		calc=new ExpressionCalc(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 		calc.parse(batchSizeMin);
 		try {
 			min=calc.calc(simData.runData.variableValues,simData,null);
@@ -87,7 +87,7 @@ public class RunElementBatchData extends RunElementData {
 			return;
 		}
 
-		calc=new ExpressionCalc(simData.runModel.variableNames);
+		calc=new ExpressionCalc(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 		calc.parse(batchSizeMax);
 		try {
 			max=calc.calc(simData.runData.variableValues,simData,null);

@@ -67,13 +67,13 @@ public class RunElementRecordData extends RunElementData {
 	public RunElementRecordData(final RunElement station, final String expression1, final String expression2, final String[] variableNames, final SimulationData simData) {
 		super(station,simData);
 
-		this.expression1=new ExpressionCalc(variableNames);
+		this.expression1=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 		this.expression1.parse(expression1);
 
 		if (expression2==null || expression2.trim().isEmpty()) {
 			this.expression2=null;
 		} else {
-			this.expression2=new ExpressionCalc(variableNames);
+			this.expression2=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.expression2.parse(expression2);
 		}
 

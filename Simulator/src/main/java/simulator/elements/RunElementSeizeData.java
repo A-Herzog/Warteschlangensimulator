@@ -67,7 +67,7 @@ public class RunElementSeizeData extends RunElementData {
 
 		this.station=station;
 
-		resourcePriority=new ExpressionCalc(variableNames);
+		resourcePriority=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 		resourcePriority.parse(station.resourcePriority);
 	}
 

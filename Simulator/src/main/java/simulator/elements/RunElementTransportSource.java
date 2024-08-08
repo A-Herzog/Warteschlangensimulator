@@ -106,7 +106,7 @@ public class RunElementTransportSource extends RunElement implements FreeResourc
 			if (source.resources==null) return String.format(Language.tr("Simulation.Creator.TransportSourceInvalidResource"),element.getId());
 			/* Priorität */
 			source.resourcePriority=resourceRecord.getResourcePriority();
-			int err=ExpressionCalc.check(source.resourcePriority,runModel.variableNames);
+			int err=ExpressionCalc.check(source.resourcePriority,runModel.variableNames,runModel.modelUserFunctions);
 			if (err>=0) return String.format(Language.tr("Simulation.Creator.TransportSourceResourcePriority"),element.getId(),source.resourcePriority);
 			/* Verzögerte Freigabe */
 			final int maxID=(editModel.surface.getParentSurface()!=null)?editModel.surface.getParentSurface().getMaxId():editModel.surface.getMaxId();
@@ -119,7 +119,7 @@ public class RunElementTransportSource extends RunElement implements FreeResourc
 				final Object data=resourceRecord.getDelayedRelease().getOrDefault(stationName);
 				if (data!=null) {
 					if (data instanceof String) {
-						final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+						final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 						err=calc.parse((String)data);
 						if (err>=0) return String.format(Language.tr("Simulation.Creator.TransportSourceResourceReleaseDelayed"),element.getId(),runModel.clientTypes[i],data,err+1);
 						source.releaseDelayExpressions[i]=(String)data;

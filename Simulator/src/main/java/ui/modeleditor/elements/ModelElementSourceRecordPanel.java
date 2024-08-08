@@ -391,7 +391,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		sub.add(distributionFirstArrivalAt0=new JCheckBox(Language.tr("Surface.Source.Dialog.FirstArrivalAt0")));
 		distributionFirstArrivalAt0.addActionListener(e->syncFirstArrivalAt0CheckBoxes(e));
 		distributionFirstArrivalAt0.setEnabled(!readOnly);
-		card.add(distributionPanel=new JDistributionPanel(new ExponentialDistribution(null,100,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY),3600,!readOnly) {
+		card.add(distributionPanel=new JDistributionPanel(new ExponentialDistribution(null,100,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY),3600,!readOnly,s->toExpression(s)) {
 			/**
 			 * Serialisierungs-ID der Klasse
 			 * @see Serializable
@@ -577,7 +577,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
-		ExpressionBuilderAutoComplete.process(new ExpressionBuilder(this,"",false,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(model.surface),ExpressionBuilder.getStationNameIDs(model.surface),true,false,false),intervalExpressions);
+		ExpressionBuilderAutoComplete.process(new ExpressionBuilder(this,"",false,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(model.surface),ExpressionBuilder.getStationNameIDs(model.surface),true,false,false,model.userFunctions),intervalExpressions);
 
 		card.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
 		final JButton expressionBuilderButton=new JButton(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.EditExpression"),Images.EXPRESSION_BUILDER.getIcon());
@@ -617,7 +617,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
-		ExpressionBuilderAutoComplete.process(new ExpressionBuilder(this,"",false,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(model.surface),ExpressionBuilder.getStationNameIDs(model.surface),true,false,false),intervalDistributions);
+		ExpressionBuilderAutoComplete.process(new ExpressionBuilder(this,"",false,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(model.surface),ExpressionBuilder.getStationNameIDs(model.surface),true,false,false,model.userFunctions),intervalDistributions);
 
 		card.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
 		final JButton distributionBuilderButton=new JButton(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.EditExpression"),Images.EXPRESSION_BUILDER.getIcon());
@@ -852,6 +852,17 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		}
 		tabs.setIconAt(index++,Images.MODELEDITOR_ELEMENT_SOURCE_PAGE_SET_NUMBERS.getIcon());
 		tabs.setIconAt(index++,Images.MODELEDITOR_ELEMENT_SOURCE_PAGE_SET_TEXTS.getIcon());
+	}
+
+	/**
+	 * Stellt den angegebenen Rechenausdruck ein.
+	 * @param expression	Rechenausdruck
+	 */
+	private void toExpression(final String expression) {
+		selectCard.setSelectedIndex(1);
+		for (var listener: selectCard.getActionListeners()) listener.actionPerformed(new ActionEvent(selectCard,ActionEvent.ACTION_PERFORMED,"comboBoxChanged"));
+		this.expression.setText(expression);
+		checkData(false);
 	}
 
 	/**
@@ -1093,7 +1104,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		final String[] lines=intervalExpressions.getText().split("\\n");
 		if (lineNumber<0 || lineNumber>=lines.length) return;
 
-		final ExpressionBuilder dialog=new ExpressionBuilder(this,lines[lineNumber],false,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(model.surface),ExpressionBuilder.getStationNameIDs(model.surface),true,false,false);
+		final ExpressionBuilder dialog=new ExpressionBuilder(this,lines[lineNumber],false,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(model.surface),ExpressionBuilder.getStationNameIDs(model.surface),true,false,false,model.userFunctions);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 		lines[lineNumber]=dialog.getExpression();
@@ -1117,7 +1128,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		final String[] lines=intervalDistributions.getText().split("\\n");
 		if (lineNumber<0 || lineNumber>=lines.length) return;
 
-		final ExpressionBuilder dialog=new ExpressionBuilder(this,lines[lineNumber],false,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(model.surface),ExpressionBuilder.getStationNameIDs(model.surface),true,false,false);
+		final ExpressionBuilder dialog=new ExpressionBuilder(this,lines[lineNumber],false,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(model.surface),ExpressionBuilder.getStationNameIDs(model.surface),true,false,false,model.userFunctions);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 		lines[lineNumber]=dialog.getExpression();
@@ -1336,7 +1347,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			/* nichts zu prüfen */
 			break;
 		case 1: /* Ausdruck */
-			error=ExpressionCalc.check(expression.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+			error=ExpressionCalc.check(expression.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 			if (error>=0) {
 				expression.setBackground(Color.RED);
 				if (showErrorMessage) {
@@ -1358,7 +1369,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			}
 			break;
 		case 3: /* Bedingung */
-			error=ExpressionMultiEval.check(condition.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+			error=ExpressionMultiEval.check(condition.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 			if (error>=0) {
 				condition.setBackground(Color.RED);
 				if (showErrorMessage) {
@@ -1369,7 +1380,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			} else {
 				condition.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
-			error=ExpressionCalc.check(conditionMinDistance.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+			error=ExpressionCalc.check(conditionMinDistance.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 			if (error>=0) {
 				conditionMinDistance.setBackground(Color.RED);
 				if (showErrorMessage) {
@@ -1382,7 +1393,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			}
 			break;
 		case 4: /* Schwellenwert */
-			error=ExpressionCalc.check(thresholdExpression.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),true));
+			error=ExpressionCalc.check(thresholdExpression.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),true),model.userFunctions);
 			if (error>=0) {
 				thresholdExpression.setBackground(Color.RED);
 				if (showErrorMessage) {
@@ -1416,7 +1427,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			for (int i=0;i<lines.length;i++) {
 				final String line=lines[i].trim();
 				if (!line.isEmpty()) {
-					error=ExpressionCalc.check(line,surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+					error=ExpressionCalc.check(line,surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 					if (error>=0) {
 						linesOk=false;
 						ok=false;
@@ -1436,7 +1447,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			for (int i=0;i<lines.length;i++) {
 				final String line=lines[i].trim();
 				if (!line.isEmpty()) {
-					error=ExpressionCalc.check(line,surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+					error=ExpressionCalc.check(line,surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 					if (error>=0) {
 						linesOk=false;
 						ok=false;
@@ -1481,7 +1492,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		}
 
 		/* Batch-Größe */
-		error=ExpressionCalc.check(batchField.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+		error=ExpressionCalc.check(batchField.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 		if (error>=0) {
 			batchField.setBackground(Color.RED);
 			if (showErrorMessage) {
@@ -1544,7 +1555,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			if (additionalArrivalCondition.getText().isBlank()) {
 				additionalArrivalCondition.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
-				error=ExpressionMultiEval.check(additionalArrivalCondition.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+				error=ExpressionMultiEval.check(additionalArrivalCondition.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 				if (error>=0) {
 					additionalArrivalCondition.setBackground(Color.RED);
 					if (showErrorMessage) {
@@ -1716,7 +1727,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	 * @see #dataStream
 	 */
 	private void generateDataStream() {
-		final ModelElementSourceRecordPanelGenerateDialog dialog=new ModelElementSourceRecordPanelGenerateDialog(this);
+		final ModelElementSourceRecordPanelGenerateDialog dialog=new ModelElementSourceRecordPanelGenerateDialog(this,model);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			dataStream.setText(dialog.getNewValues());
 			checkData(false);

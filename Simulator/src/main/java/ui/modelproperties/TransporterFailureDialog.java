@@ -309,7 +309,7 @@ public class TransporterFailureDialog extends BaseDialog {
 		}
 
 		if (failureExpression.isSelected()) {
-			final int i=ExpressionCalc.check(failureExpressionEdit.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+			final int i=ExpressionCalc.check(failureExpressionEdit.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 			if (i<0) {
 				failureExpressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
@@ -323,7 +323,7 @@ public class TransporterFailureDialog extends BaseDialog {
 		}
 
 		if (downTimeSelect.getSelectedIndex()==1) {
-			final int i=ExpressionCalc.check(downTimeExpression.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+			final int i=ExpressionCalc.check(downTimeExpression.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 			if (i<0) {
 				downTimeExpression.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {

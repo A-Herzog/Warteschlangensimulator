@@ -44,7 +44,7 @@ public class RunElementAnalogAssignData extends RunElementData {
 
 		this.expressions=new ExpressionCalc[expressions.length];
 		for (int i=0;i<expressions.length;i++) {
-			this.expressions[i]=new ExpressionCalc(variableNames);
+			this.expressions[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.expressions[i].parse(expressions[i]);
 		}
 	}

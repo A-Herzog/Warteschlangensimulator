@@ -34,6 +34,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.MsgBox;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
@@ -55,6 +56,8 @@ public class BatchRecordPanel extends JPanel {
 
 	/** Namen aller modellweit verfügbaren Variablennamen */
 	private String[] variableNames;
+	/** Modellspezifische nutzerdefinierte Funktionen */
+	private ExpressionCalcModelUserFunctions userFunctions;
 
 	/** Soll der Datensatz aktiv sein? */
 	private JCheckBox active;
@@ -98,6 +101,7 @@ public class BatchRecordPanel extends JPanel {
 		this.batchRecord=batchRecord;
 
 		variableNames=surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false);
+		userFunctions=model.userFunctions;
 
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
 
@@ -322,7 +326,7 @@ public class BatchRecordPanel extends JPanel {
 		if (modeFixed.isSelected()) {
 			boolean error=false;
 			final String value=batchFieldFixed.getText().trim();
-			if (ExpressionCalc.check(value,variableNames)>=0) {
+			if (ExpressionCalc.check(value,variableNames,userFunctions)>=0) {
 				error=true;
 			} else {
 				final Double D=NumberTools.getDouble(batchFieldFixed,true);
@@ -353,7 +357,7 @@ public class BatchRecordPanel extends JPanel {
 			final String minStr=batchFieldMin.getText().trim();
 			final String maxStr=batchFieldMax.getText().trim();
 
-			if (ExpressionCalc.check(minStr,variableNames)>=0) {
+			if (ExpressionCalc.check(minStr,variableNames,userFunctions)>=0) {
 				error1=true;
 			} else {
 				final Double D=NumberTools.getDouble(batchFieldMin,true);
@@ -372,7 +376,7 @@ public class BatchRecordPanel extends JPanel {
 				batchFieldMin.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 
-			if (ExpressionCalc.check(maxStr,variableNames)>=0) {
+			if (ExpressionCalc.check(maxStr,variableNames,userFunctions)>=0) {
 				error2=true;
 			} else {
 				final Double D=NumberTools.getDouble(batchFieldMax,true);

@@ -26,6 +26,7 @@ import javax.swing.Icon;
 import javax.swing.table.TableCellEditor;
 
 import language.Language;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.JTableExt;
@@ -74,6 +75,11 @@ public class ExpressionTableModelText extends JTableExtAbstractTableModel {
 	private final Map<Integer,String> stationNameIDs;
 
 	/**
+	 * Modellspezifische nutzerdefinierte funktionen
+	 */
+	private final ExpressionCalcModelUserFunctions modelUserFunctions;
+
+	/**
 	 * 	In der Tabelle anzuzeigende Formel-Bedingungen
 	 */
 	private final List<String> expressions=new ArrayList<>();
@@ -99,6 +105,7 @@ public class ExpressionTableModelText extends JTableExtAbstractTableModel {
 		initialVariableValues=element.getModel().getInitialVariablesWithValues();
 		stationIDs=ExpressionBuilder.getStationIDs(element.getSurface());
 		stationNameIDs=ExpressionBuilder.getStationNameIDs(element.getSurface());
+		modelUserFunctions=element.getModel().userFunctions;
 
 		expressions.addAll(element.getTextExpressions());
 		values.addAll(element.getTextValues());
@@ -226,7 +233,7 @@ public class ExpressionTableModelText extends JTableExtAbstractTableModel {
 			case 0: /* Ausdruck bearbeiten (auch neuen Eintrag anlegen) */
 				s=(row<0)?"":expressions.get(row);
 				t=(row<0)?"":values.get(row);
-				dialog=new ExpressionTableModelTextDialog(table,s,t,variableNames,initialVariableValues,stationIDs,stationNameIDs,help);
+				dialog=new ExpressionTableModelTextDialog(table,s,t,variableNames,initialVariableValues,stationIDs,stationNameIDs,modelUserFunctions,help);
 				if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					if (row<0) {
 						expressions.add(dialog.getExpression());
@@ -239,7 +246,7 @@ public class ExpressionTableModelText extends JTableExtAbstractTableModel {
 				}
 				break;
 			case 1: /* Wert */
-				dialog=new ExpressionTableModelTextDialog(table,expressions.get(row),values.get(row),variableNames,initialVariableValues,stationIDs,stationNameIDs,help);
+				dialog=new ExpressionTableModelTextDialog(table,expressions.get(row),values.get(row),variableNames,initialVariableValues,stationIDs,stationNameIDs,modelUserFunctions,help);
 				if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					if (row<0) {
 						expressions.add(dialog.getExpression());

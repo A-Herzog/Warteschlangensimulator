@@ -44,7 +44,7 @@ public class RunElementReleaseData extends RunElementData {
 
 		delayExpression=new ExpressionCalc[delayExpressionStrings.length];
 		for (int i=0;i<delayExpression.length;i++) if (delayExpressionStrings[i]!=null) {
-			delayExpression[i]=new ExpressionCalc(variableNames);
+			delayExpression[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			delayExpression[i].parse(delayExpressionStrings[i]);
 		}
 	}

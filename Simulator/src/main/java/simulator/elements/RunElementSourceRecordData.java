@@ -86,14 +86,14 @@ public class RunElementSourceRecordData {
 		if (record.batchSize==null) {
 			this.batchSize=null;
 		} else {
-			this.batchSize=new ExpressionCalc(variableNames);
+			this.batchSize=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.batchSize.parse(record.batchSize);
 		}
 
 		if (record.expression==null) {
 			this.expression=null;
 		} else {
-			this.expression=new ExpressionCalc(variableNames);
+			this.expression=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.expression.parse(record.expression);
 		}
 
@@ -102,9 +102,9 @@ public class RunElementSourceRecordData {
 			this.conditionMinDistance=null;
 			this.conditionMinDistanceCalculatedMS=-1;
 		} else {
-			this.condition=new ExpressionMultiEval(variableNames);
+			this.condition=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);
 			this.condition.parse(record.condition);
-			this.conditionMinDistance=new ExpressionCalc(variableNames);
+			this.conditionMinDistance=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.conditionMinDistance.parse(record.conditionMinDistance);
 			this.conditionMinDistanceIsConst=this.conditionMinDistance.isConstValue();
 			this.conditionMinDistanceCalculatedMS=-1;
@@ -115,7 +115,7 @@ public class RunElementSourceRecordData {
 		} else {
 			this.intervalExpressions=new ExpressionCalc[record.intervalExpressions.length];
 			for (int i=0;i<record.intervalExpressions.length;i++) {
-				this.intervalExpressions[i]=new ExpressionCalc(variableNames);
+				this.intervalExpressions[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 				this.intervalExpressions[i].parse(record.intervalExpressions[i]);
 			}
 		}
@@ -125,7 +125,7 @@ public class RunElementSourceRecordData {
 		} else {
 			this.intervalDistributions=new ExpressionCalc[record.intervalDistributions.length];
 			for (int i=0;i<record.intervalDistributions.length;i++) {
-				this.intervalDistributions[i]=new ExpressionCalc(variableNames);
+				this.intervalDistributions[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 				this.intervalDistributions[i].parse(record.intervalDistributions[i]);
 			}
 		}
@@ -133,7 +133,7 @@ public class RunElementSourceRecordData {
 		if (record.thresholdExpression==null) {
 			this.threshold=null;
 		} else {
-			this.threshold=new ExpressionCalc(variableNames);
+			this.threshold=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.threshold.parse(record.thresholdExpression);
 		}
 		this.thresholdValue=record.thresholdValue;
@@ -142,11 +142,11 @@ public class RunElementSourceRecordData {
 		if (record.arrivalCondition==null) {
 			this.arrivalCondition=null;
 		} else {
-			this.arrivalCondition=new ExpressionMultiEval(variableNames);
+			this.arrivalCondition=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);
 			this.arrivalCondition.parse(record.arrivalCondition);
 		}
 
-		this.setData=record.getRuntimeExpressions(simData.runModel.variableNames);
+		this.setData=record.getRuntimeExpressions(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 
 		arrivalTimeValueNext=0;
 	}

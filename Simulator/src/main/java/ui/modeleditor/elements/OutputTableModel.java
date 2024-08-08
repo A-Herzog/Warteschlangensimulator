@@ -378,13 +378,13 @@ public class OutputTableModel extends JTableExtAbstractTableModel {
 					String s=output.get(row).data;
 					while (true) {
 						final String[] variables=(String[])object;
-						final ExpressionBuilder dialog=new ExpressionBuilder(table,s,false,variableNames,model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(model.surface),ExpressionBuilder.getStationNameIDs(model.surface),true,false,false);
+						final ExpressionBuilder dialog=new ExpressionBuilder(table,s,false,variableNames,model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(model.surface),ExpressionBuilder.getStationNameIDs(model.surface),true,false,false,model.userFunctions);
 						dialog.setVisible(true);
 						if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 						s=dialog.getExpression();
 						if (s==null) return;
 						if (s.trim().isEmpty()) {output.set(row,new ModelElementOutput.OutputRecord(m,"")); break;}
-						int error=ExpressionCalc.check(s,variables);
+						int error=ExpressionCalc.check(s,variables,model.userFunctions);
 						if (error<0) {output.set(row,new ModelElementOutput.OutputRecord(m,s)); break;}
 						MsgBox.error(table,Language.tr("Surface.Output.Table.ExpressionError.Title"),String.format(Language.tr("Surface.Output.Table.ExpressionError.Info"),s,error+1));
 					}

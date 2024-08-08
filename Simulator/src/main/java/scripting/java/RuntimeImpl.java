@@ -75,7 +75,7 @@ public class RuntimeImpl implements RuntimeInterface {
 		ExpressionCalc expression=expressionCache.get(text);
 		if (expression!=null) return expression;
 
-		expression=new ExpressionCalc(new String[0]);
+		expression=new ExpressionCalc(new String[0],null);
 		final int errorPos=expression.parse(text);
 		if (errorPos>=0) return String.format(Language.tr("Statistics.Filter.CoundNotProcessExpression.Info"),errorPos+1);
 		expressionCache.put(text,expression);

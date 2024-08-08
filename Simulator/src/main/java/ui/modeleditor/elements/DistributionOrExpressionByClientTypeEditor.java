@@ -47,6 +47,7 @@ import mathtools.distribution.swing.JDistributionPanel;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.RunModel;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
@@ -72,6 +73,11 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 	 * Namen der modellweiten Variablen
 	 */
 	private final String[] variables;
+
+	/**
+	 * Modellspezifische nutzerdefinierte Funktionen
+	 */
+	private ExpressionCalcModelUserFunctions userFunctions;
 
 	/**
 	 * Namen der Kundentypen im System
@@ -137,6 +143,7 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 			if (!inList) namesList.add(var);
 		}
 		variables=namesList.toArray(new String[0]);
+		userFunctions=model.userFunctions;
 
 		/* Daten vorbereiten */
 		this.readOnly=readOnly;
@@ -230,7 +237,7 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 			if (text.isEmpty()) {
 				expressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
-				final int index=ExpressionCalc.check(text,variables);
+				final int index=ExpressionCalc.check(text,variables,userFunctions);
 				if (index>=0) expressionEdit.setBackground(Color.red); else expressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 		}

@@ -31,6 +31,8 @@ import simulator.runmodel.SimulationData;
  * @see ExpressionCalc
  */
 public class ExpressionMultiEval {
+	/** Objekt mit weiteren modellspezifischen nutzerdefinierten Funktionen (kann <code>null</code> sein) */
+	private final ExpressionCalcModelUserFunctions modelUserFunctions;
 	/** Ausdruck, der in dieses Auswerteobjekt geladen werden soll */
 	private String condition;
 	/** Liste mit den Variablennamen, die erkannt werden sollen (kann auch <code>null</code> sein) */
@@ -41,10 +43,12 @@ public class ExpressionMultiEval {
 	/**
 	 * Konstruktor der Klasse <code>ExpressionMultiEval</code>
 	 * @param variables	Liste mit den Variablennamen, die erkannt werden sollen (kann auch <code>null</code> sein)
+	 * @param modelUserFunctions	Objekt mit weiteren modellspezifischen nutzerdefinierten Funktionen (kann <code>null</code> sein)
 	 */
-	public ExpressionMultiEval(final String[] variables) {
+	public ExpressionMultiEval(final String[] variables, final ExpressionCalcModelUserFunctions modelUserFunctions) {
 		condition="";
 		if (variables==null) this.variables=null; else this.variables=Arrays.copyOf(variables,variables.length);
+		this.modelUserFunctions=modelUserFunctions;
 	}
 
 	/** Operatoren zur Verknüpfung von Teil-Vergleichen */
@@ -194,12 +198,12 @@ public class ExpressionMultiEval {
 					result.add(str);
 				} else {
 					if (tokens.size()==1) {
-						ExpressionEval eval=new ExpressionEval(variables);
+						ExpressionEval eval=new ExpressionEval(variables,modelUserFunctions);
 						final int error=eval.parse(str);
 						if (error>=0) return parsedChars+error;
 						result.add(eval);
 					} else {
-						ExpressionMultiEval eval=new ExpressionMultiEval(variables);
+						ExpressionMultiEval eval=new ExpressionMultiEval(variables,modelUserFunctions);
 						final int error=eval.parse(str);
 						if (error>=0) return parsedChars+error;
 						if (eval.isSingleEval()!=null) result.add(eval.isSingleEval()); else result.add(eval);
@@ -356,10 +360,11 @@ public class ExpressionMultiEval {
 	 * Prüft direkt, ob ein als Zeichenkette angegebener Ausdruck korrekt interpretierbar ist.
 	 * @param condition	Zu prüfender Ausdruck
 	 * @param variables	Liste mit den Variablennamen, die erkannt werden sollen (kann auch <code>null</code> sein)
+	 * @param modelUserFunctions	Objekt mit weiteren modellspezifischen nutzerdefinierten Funktionen (kann <code>null</code> sein)
 	 * @return	Liefert -1, wenn der Ausdruck erfolgreich interpretiert werden konnte, ansonsten die 0-basierende Fehlerstelle innerhalb des Strings.
 	 */
-	public static int check(final String condition, final String[] variables) {
-		final ExpressionMultiEval eval=new ExpressionMultiEval(variables);
+	public static int check(final String condition, final String[] variables, final ExpressionCalcModelUserFunctions modelUserFunctions) {
+		final ExpressionMultiEval eval=new ExpressionMultiEval(variables,modelUserFunctions);
 		return eval.parse(condition);
 	}
 

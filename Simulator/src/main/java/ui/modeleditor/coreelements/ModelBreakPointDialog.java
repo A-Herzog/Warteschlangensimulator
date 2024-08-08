@@ -253,7 +253,7 @@ public class ModelBreakPointDialog extends BaseDialog {
 		if (condition.isEmpty()) {
 			editCondition.setBackground(NumberTools.getTextFieldDefaultBackground());
 		} else {
-			final int error=ExpressionMultiEval.check(condition,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+			final int error=ExpressionMultiEval.check(condition,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 			if (error>=0) {
 				editCondition.setBackground(Color.RED);
 				if (showErrorMessages) {

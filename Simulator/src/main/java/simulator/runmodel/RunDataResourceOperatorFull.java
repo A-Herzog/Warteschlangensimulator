@@ -62,7 +62,7 @@ public class RunDataResourceOperatorFull extends RunDataResourceOperator {
 
 		failures=new RunDataResourceFailure[failuresGlobal.length];
 		for (int i=0;i<failures.length;i++) {
-			failures[i]=new RunDataResourceFailure(failuresGlobal[i],name,simData.runModel.variableNames);
+			failures[i]=new RunDataResourceFailure(failuresGlobal[i],name,simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 			failures[i].scheduleDownTime(simData,simData.currentTime,name);
 		}
 	}

@@ -103,7 +103,7 @@ public class RunElementTransportSourceTime {
 			} else {
 				if (!(delay instanceof String)) return String.format(Language.tr("Simulation.Creator.TransportSourceInternalError"),e.getId(),element.getId());
 				final String expr=(String)delay;
-				final int error=ExpressionCalc.check(expr,runModel.variableNames);
+				final int error=ExpressionCalc.check(expr,runModel.variableNames,runModel.modelUserFunctions);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.DelayCondition"),expr,element.getId(),error+1);
 				this.expression[i]=expr;
 			}

@@ -68,7 +68,7 @@ public class RunElementTransportParking extends RunElement implements Transporte
 
 		/* Priorität */
 		parking.priorityString=((ModelElementTransportParking)element).getWaitingPriority();
-		final int error=ExpressionCalc.check(parking.priorityString,runModel.variableNames);
+		final int error=ExpressionCalc.check(parking.priorityString,runModel.variableNames,runModel.modelUserFunctions);
 		if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidParkingPriority"),element.getId(),parking.priorityString,error+1);
 
 		return parking;

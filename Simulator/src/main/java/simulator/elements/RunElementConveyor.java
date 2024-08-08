@@ -84,7 +84,7 @@ public class RunElementConveyor extends RunElementPassThrough implements PickUpQ
 		for (int i=0;i<runModel.clientTypes.length;i++) {
 			String needed=conveyorElement.getCapacityNeeded(runModel.clientTypes[i]);
 			if (needed==null) needed=conveyorElement.getCapacityNeededGlobal();
-			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 			final int error=calc.parse(needed);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidNeededCapacityExpression"),element.getId(),runModel.clientTypes[i],needed,error+1);
 			conveyor.capacityNeeded[i]=needed;

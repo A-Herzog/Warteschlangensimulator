@@ -63,7 +63,7 @@ public class RunElementThroughput extends RunElementPassThrough {
 
 		/* Bedingung */
 		throughput.condition=new RunCounterConditionData(throughputElement.getCondition());
-		final String conditionError=throughput.condition.test(runModel.variableNames,element.getId());
+		final String conditionError=throughput.condition.test(runModel.variableNames,runModel.modelUserFunctions,element.getId());
 		if (conditionError!=null) return conditionError;
 
 		return throughput;

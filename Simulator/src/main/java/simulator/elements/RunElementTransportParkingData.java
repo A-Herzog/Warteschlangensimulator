@@ -53,7 +53,7 @@ public class RunElementTransportParkingData extends RunElementData {
 		super(station,simData);
 		count=0;
 		moving=0;
-		priority=new ExpressionCalc(variableNames);
+		priority=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 		priority.parse(priorityString);
 	}
 }

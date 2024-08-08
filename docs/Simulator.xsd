@@ -57,8 +57,8 @@
   <xs:element ref="ModellPluginsVerzeichnis"/>
   <xs:element name="ModellJavaImports" type="xs:string"/>
   <xs:element ref="GespeicherteAnsicht"/>
-  <xs:element ref="KiritischeStationenSignatur"/>  
-  
+  <xs:element ref="KiritischeStationenSignatur"/>
+  <xs:element ref="ModellNutzerdefinierteRechenfunktion"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
 <xs:element name="ModellKunden"><xs:complexType><xs:simpleContent>
@@ -382,6 +382,14 @@
 <xs:element name="ModelleVergleichenEingabeDaten"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Modus" type="xs:integer" use="required"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+
+<xs:element name="ModellNutzerdefinierteRechenfunktion"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Name" type="xs:string" use="required"/>
+	<xs:attribute name="ParameterAnzahl" type="xs:integer" use="required"/>
+	<xs:attribute name="Modus" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -2551,6 +2559,7 @@
   <xs:element name="ModelJavaImports" type="xs:string"/>
   <xs:element ref="SavedView"/>
   <xs:element ref="CriticalStationsSignature"/>
+  <xs:element ref="ModelUserDefinedCalculationFunction"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
 <xs:element name="ModelClients"><xs:complexType><xs:simpleContent>
@@ -2874,6 +2883,14 @@
 <xs:element name="CompareModelsInputData"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Mode" type="xs:integer" use="required"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+
+<xs:element name="ModelUserDefinedCalculationFunction"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Name" type="xs:string" use="required"/>
+	<xs:attribute name="ParameterCount" type="xs:integer" use="required"/>
+	<xs:attribute name="Mode" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 

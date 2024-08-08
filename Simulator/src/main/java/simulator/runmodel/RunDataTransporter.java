@@ -27,6 +27,7 @@ import simulator.coreelements.RunElement;
 import simulator.elements.TransporterPosition;
 import simulator.events.TransporterArrivalEvent;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import statistics.StatisticsTimePerformanceIndicator;
 
 /**
@@ -175,8 +176,9 @@ public class RunDataTransporter {
 	 * @param failures	Liste mit globalen Ausfällen für die Transporter dieses Typs (werden in diesem Objekt als Kopien abgelegt)
 	 * @param list	Objekt welches die Daten aller Transporter vorhält
 	 * @param variables	Liste mit den Variablennamen
+	 * @param userFunctions	Modellspezifische nutzerdefinierte Funktionen
 	 */
-	public RunDataTransporter(final int type, final int index, final int capacity, final Object load, final Object unload, final String iconEastEmpty, final String iconWestEmpty, final String iconEastLoaded, final String iconWestLoaded, final RunDataTransporterFailure[] failures, final RunDataTransporters list, final String[] variables) {
+	public RunDataTransporter(final int type, final int index, final int capacity, final Object load, final Object unload, final String iconEastEmpty, final String iconWestEmpty, final String iconEastLoaded, final String iconWestLoaded, final RunDataTransporterFailure[] failures, final RunDataTransporters list, final String[] variables, final ExpressionCalcModelUserFunctions userFunctions) {
 		this.list=list;
 		this.iconEastEmpty=iconEastEmpty;
 		this.iconWestEmpty=iconWestEmpty;
@@ -200,7 +202,7 @@ public class RunDataTransporter {
 		if (loadExpressionString==null) {
 			loadExpression=null;
 		} else {
-			loadExpression=new ExpressionCalc(variables);
+			loadExpression=new ExpressionCalc(variables,userFunctions);
 			loadExpression.parse(loadExpressionString);
 		}
 		if (unload instanceof AbstractRealDistribution) {
@@ -218,7 +220,7 @@ public class RunDataTransporter {
 		if (unloadExpressionString==null) {
 			unloadExpression=null;
 		} else {
-			unloadExpression=new ExpressionCalc(variables);
+			unloadExpression=new ExpressionCalc(variables,userFunctions);
 			unloadExpression.parse(unloadExpressionString);
 		}
 		clients=new ArrayList<>();
@@ -227,7 +229,7 @@ public class RunDataTransporter {
 		} else {
 			this.failures=new RunDataTransporterFailure[failures.length];
 			for (int i=0;i<failures.length;i++) {
-				this.failures[i]=new RunDataTransporterFailure(failures[i],list,variables);
+				this.failures[i]=new RunDataTransporterFailure(failures[i],list,variables,userFunctions);
 			}
 		}
 	}
@@ -235,17 +237,18 @@ public class RunDataTransporter {
 	/**
 	 * Erstellt eine Kopie des Objektes
 	 * @param variables	Liste der globalen Variablen
+	 * @param userFunctions	Modellspezifische nutzerdefinierte Funktionen
 	 * @param list	Liste aller Transporter zu der der kopierte Transporter gehören soll
 	 * @return	Kopie des Objektes
 	 */
-	public RunDataTransporter clone(final String[] variables, final RunDataTransporters list) {
+	public RunDataTransporter clone(final String[] variables, final ExpressionCalcModelUserFunctions userFunctions, final RunDataTransporters list) {
 		Object load=null;
 		if (loadDistribution!=null) load=loadDistribution;
 		if (loadExpressionString!=null) load=loadExpressionString;
 		Object unload=null;
 		if (unloadDistribution!=null) unload=unloadDistribution;
 		if (unloadExpressionString!=null) unload=unloadExpressionString;
-		final RunDataTransporter clone=new RunDataTransporter(type,index,capacity,load,unload,iconEastEmpty,iconWestEmpty,iconEastLoaded,iconWestLoaded,failures,list,variables);
+		final RunDataTransporter clone=new RunDataTransporter(type,index,capacity,load,unload,iconEastEmpty,iconWestEmpty,iconEastLoaded,iconWestLoaded,failures,list,variables,userFunctions);
 		clone.position=position;
 		clone.lastPosition=lastPosition;
 		return clone;

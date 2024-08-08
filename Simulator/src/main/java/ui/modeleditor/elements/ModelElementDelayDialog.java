@@ -37,6 +37,7 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
+import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -56,6 +57,8 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 
 	/** Liste aller globalen Variablen in dem Modell */
 	private String[] variables;
+	/** Modellspezifische nutzerdefinierte Funktionen */
+	private ExpressionCalcModelUserFunctions userFunctions;
 
 	/** Auswahlbox für die Zeitbasis */
 	private JComboBox<String> timeBase;
@@ -102,6 +105,7 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 
 		final ModelElementDelay delayElement=(ModelElementDelay)element;
 		variables=element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true);
+		userFunctions=element.getModel().userFunctions;
 
 		JPanel sub;
 		JLabel label;
@@ -177,7 +181,7 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 
 		final String text=textCosts.getText();
 		if (!text.trim().isEmpty()) {
-			final int error=ExpressionCalc.check(text,variables);
+			final int error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				textCosts.setBackground(Color.red);
 				if (showErrorMessage) {

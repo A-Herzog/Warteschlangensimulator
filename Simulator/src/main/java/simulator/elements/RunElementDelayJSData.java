@@ -105,7 +105,7 @@ public class RunElementDelayJSData extends RunElementData {
 		if (costs==null || costs.trim().isEmpty()) {
 			this.costs=null;
 		} else {
-			this.costs=new ExpressionCalc(variableNames);
+			this.costs=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.costs.parse(costs);
 		}
 

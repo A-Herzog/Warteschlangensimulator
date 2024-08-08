@@ -52,11 +52,12 @@ public class ExpressionEval {
 	/**
 	 * Konstruktor der Klasse <code>ExpressionEval</code>
 	 * @param variables	Liste mit den Variablennamen, die erkannt werden sollen (kann auch <code>null</code> sein)
+	 * @param modelUserFunctions	Objekt mit weiteren modellspezifischen nutzerdefinierten Funktionen (kann <code>null</code> sein)
 	 */
-	public ExpressionEval(final String[] variables) {
+	public ExpressionEval(final String[] variables, final ExpressionCalcModelUserFunctions modelUserFunctions) {
 		condition="";
-		calcLeft=new ExpressionCalc(variables);
-		calcRight=new ExpressionCalc(variables);
+		calcLeft=new ExpressionCalc(variables,modelUserFunctions);
+		calcRight=new ExpressionCalc(variables,modelUserFunctions);
 	}
 
 	/**
@@ -180,10 +181,11 @@ public class ExpressionEval {
 	 * Prüft direkt, ob ein als Zeichenkette angegebener Ausdruck korrekt interpretierbar ist.
 	 * @param condition	Zu prüferender Ausdruck
 	 * @param variables	Liste mit den Variablennamen, die erkannt werden sollen (kann auch <code>null</code> sein)
+	 * @param modelUserFunctions	Objekt mit weiteren modellspezifischen nutzerdefinierten Funktionen (kann <code>null</code> sein)
 	 * @return	Liefert -1, wenn der Ausdruck erfolgreich interpretiert werden konnte, ansonsten die 0-basierende Fehlerstelle innerhalb des Strings.
 	 */
-	public static int check(final String condition, final String[] variables) {
-		final ExpressionEval eval=new ExpressionEval(variables);
+	public static int check(final String condition, final String[] variables, final ExpressionCalcModelUserFunctions modelUserFunctions) {
+		final ExpressionEval eval=new ExpressionEval(variables,modelUserFunctions);
 		return eval.parse(condition);
 	}
 

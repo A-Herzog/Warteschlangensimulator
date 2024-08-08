@@ -96,7 +96,7 @@ public class RunElementSet extends RunElementPassThrough {
 			}
 			/* Ausdrücke */
 			if (!expressions[i].equals(ModelElementSetRecord.SPECIAL_WAITING) && !expressions[i].equals(ModelElementSetRecord.SPECIAL_TRANSFER) && !expressions[i].equals(ModelElementSetRecord.SPECIAL_PROCESS) && !expressions[i].equals(ModelElementSetRecord.SPECIAL_RESIDENCE)) {
-				final int error=ExpressionCalc.check(expressions[i],runModel.variableNames);
+				final int error=ExpressionCalc.check(expressions[i],runModel.variableNames,runModel.modelUserFunctions);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.SetInvalidExpression"),i+1,element.getId(),error+1);
 			}
 			set.expressions[i]=expressions[i];
@@ -107,7 +107,7 @@ public class RunElementSet extends RunElementPassThrough {
 		if (condition==null || condition.trim().isEmpty()) {
 			set.condition=null;
 		} else {
-			final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.SetCondition"),condition,element.getId(),error+1);
 			set.condition=condition;
 		}

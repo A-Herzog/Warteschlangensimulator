@@ -91,7 +91,7 @@ public class RunElementHoldJSData extends RunElementData implements RunElementDa
 		if (condition==null) {
 			this.condition=null;
 		} else {
-			this.condition=new ExpressionMultiEval(simData.runModel.variableNames);
+			this.condition=new ExpressionMultiEval(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 			this.condition.parse(condition);
 		}
 

@@ -111,7 +111,7 @@ public class ModelElementOutputDDEDialog extends ModelElementBaseDialog {
 
 			/* Main-Area */
 			final JTableExt table=new JTableExt();
-			table.setModel(tableModel=new OutputDDETableModel(table,((ModelElementOutputDDE)element).getModes(),((ModelElementOutputDDE)element).getData(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),readOnly));
+			table.setModel(tableModel=new OutputDDETableModel(table,((ModelElementOutputDDE)element).getModes(),((ModelElementOutputDDE)element).getData(),element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),element.getModel().userFunctions,readOnly));
 			table.setIsPanelCellTable(0);
 			table.setIsPanelCellTable(1);
 			table.setIsPanelCellTable(2);

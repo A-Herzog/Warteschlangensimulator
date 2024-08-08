@@ -42,7 +42,7 @@ public class RunElementTankValveSetupData extends RunElementData {
 
 		maxFlow=new ExpressionCalc[valveSetups.length];
 		for (int i=0;i<valveSetups.length;i++) {
-			maxFlow[i]=new ExpressionCalc(variableNames);
+			maxFlow[i]=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			maxFlow[i].parse(valveSetups[i].maxFlow);
 		}
 	}

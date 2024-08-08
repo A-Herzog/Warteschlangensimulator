@@ -98,7 +98,7 @@ public class RunElementDecideByChance extends RunElement {
 
 		if (decide.probabilites==null) {
 			for (int i=0;i<decide.probabilitesStrings.length;i++) {
-				final int error=ExpressionCalc.check(decide.probabilitesStrings[i],runModel.variableNames);
+				final int error=ExpressionCalc.check(decide.probabilitesStrings[i],runModel.variableNames,runModel.modelUserFunctions);
 				if (error>=0) return String.format(Language.tr("Simulation.Creator.DecideRate"),i+1,decide.probabilitesStrings[i],element.getId(),error+1);
 			}
 		} else {

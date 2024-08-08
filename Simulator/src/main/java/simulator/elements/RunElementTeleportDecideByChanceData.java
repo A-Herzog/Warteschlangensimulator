@@ -54,7 +54,7 @@ public class RunElementTeleportDecideByChanceData extends RunElementData {
 		calculatedRates=new double[rates.length];
 
 		for (int i=0;i<rates.length;i++) {
-			final ExpressionCalc rate=new ExpressionCalc(variableNames);
+			final ExpressionCalc rate=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			rate.parse(rates[i]);
 			if (rate.isConstValue()) {
 				calculatedRates[i]=rate.getConstValue();

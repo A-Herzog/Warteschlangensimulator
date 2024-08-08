@@ -146,7 +146,7 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 		if (condition==null || condition.trim().isEmpty()) {
 			match.condition=null;
 		} else {
-			final int error=ExpressionMultiEval.check(condition,runModel.variableNames);
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.MatchCondition"),condition,element.getId(),error+1);
 			match.condition=condition;
 		}

@@ -312,7 +312,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 			return -1;
 		}
 
-		final int error=ExpressionMultiEval.check(terminationCondition.getText(),model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false));
+		final int error=ExpressionMultiEval.check(terminationCondition.getText(),model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
 		if (error>=0) terminationCondition.setBackground(Color.red); else terminationCondition.setBackground(NumberTools.getTextFieldDefaultBackground());
 		return error;
 	}
@@ -469,7 +469,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		if (expression.isEmpty()) {
 			l=-1;
 		} else {
-			final ExpressionCalc calc=new ExpressionCalc(null);
+			final ExpressionCalc calc=new ExpressionCalc(null,model.userFunctions);
 			final int error=calc.parse(expression);
 			if (error>=0) {
 				l=-1;

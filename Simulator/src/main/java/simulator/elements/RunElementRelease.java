@@ -94,7 +94,7 @@ public class RunElementRelease extends RunElementPassThrough {
 			final Object data=releaseElement.getReleaseDelay().getOrDefault(runModel.clientTypes[i]);
 			if (data!=null) {
 				if (data instanceof String) {
-					final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames);
+					final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 					final int error=calc.parse((String)data);
 					if (error>=0) return String.format(Language.tr("Simulation.Creator.ReleaseDelayed"),element.getId(),runModel.clientTypes[i],data,error+1);
 					release.expressionDelayedRelease[i]=(String)data;
