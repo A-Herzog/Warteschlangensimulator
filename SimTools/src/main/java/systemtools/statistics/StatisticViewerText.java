@@ -781,6 +781,65 @@ public abstract class StatisticViewerText implements StatisticViewer {
 	}
 
 	/**
+	 * Liefert den Text des Viewer mit Typst-Formatierung.
+	 * @return	Text des Viewer mit Typst-Formatierung
+	 * @see #save(Component, File)
+	 * @see #saveLaTeX(BufferedWriter, File, int)
+	 */
+	public String getTypstText() {
+		StringBuilder result=new StringBuilder();
+
+		boolean inParagraph=false;
+
+		for (int i=0;i<lines.size();i++) {
+			final String line=lines.get(i);
+			final int type=lineTypes.get(i);
+			final int indent=indentLevel.get(i);
+
+			if (type==-1) {
+				/* Absatzanfang */
+				if (inParagraph) result.append("\n");
+				result.append("\n");
+				inParagraph=true;
+				continue;
+			}
+			if (type==-2) {
+				/* Absatzende */
+				if (inParagraph) result.append("\n");
+				inParagraph=false;
+				continue;
+			}
+			if (type==-4) {
+				/* Link (als Text, nicht kleiner Info-Link) */
+				if (!inParagraph) {result.append("\n"); inParagraph=true;}
+				for (int j=0;j<indent;j++) result.append("  ");
+				result.append(line+"\\\n");
+				continue;
+			}
+			if (type==0) {
+				/* Normaler Text */
+				if (!inParagraph) {result.append("\n"); inParagraph=true;}
+				for (int j=0;j<indent;j++) result.append("  ");
+				result.append(line+"\\\n");
+				continue;
+			}
+			if (type>0) {
+				/* Überschriften */
+				if (inParagraph) {result.append("\n"); inParagraph=false;}
+				switch (type) {
+				case 1: result.append("= "+line+"\n"); break;
+				case 2: result.append("== "+line+"\n"); break;
+				case 3: result.append("=== "+line+"\n"); break;
+				default: result.append("==== "+line+"\n"); break;
+				}
+				continue;
+			}
+		}
+
+		return result.toString();
+	}
+
+	/**
 	 * Liefert den Text des Viewer mit HTML-Formatierung und inkl. HTML-Vor- und Abspann.
 	 * @return	Text des Viewer mit LaTeHTML-Formatierung
 	 * @see #save(Component, File)
@@ -932,6 +991,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
 		final FileFilter md=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeMD+" (*.md)","md");
 		final FileFilter tex=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTEX+" (*.tex)","tex");
+		final FileFilter typ=new FileNameExtensionFilter(Table.FileTypeTypst+" (*.typ)","typ");
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(odt);
 		fc.addChoosableFileFilter(rtf);
@@ -940,6 +1000,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		fc.addChoosableFileFilter(txt);
 		fc.addChoosableFileFilter(md);
 		fc.addChoosableFileFilter(tex);
+		fc.addChoosableFileFilter(typ);
 		fc.setFileFilter(docx);
 		fc.setAcceptAllFileFilterUsed(false);
 
@@ -956,6 +1017,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
 			if (fc.getFileFilter()==md) file=new File(file.getAbsoluteFile()+".md");
 			if (fc.getFileFilter()==tex) file=new File(file.getAbsoluteFile()+".tex");
+			if (fc.getFileFilter()==typ) file=new File(file.getAbsoluteFile()+".typ");
 		}
 
 		if (file.exists()) {
@@ -1088,6 +1150,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		if (filename.endsWith(".HTML") || filename.endsWith(".HTM")) text=getFullHTMLText();
 		if (filename.endsWith(".MD")) text=getMarkdownText();
 		if (filename.endsWith(".TEX")) text=getLaTeXText();
+		if (filename.endsWith(".TYP")) text=getTypstText();
 		if (text.isEmpty()) text=getPlainText();
 
 		return Table.saveTextToFile(text,file);
