@@ -18454,6 +18454,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45515] = "Kunden sind nur bereit, begrenzt lange zu warten";
     t[45522] = "Dialog.SaveNow.No";
     t[45523] = "Nicht speichern";
+    t[45526] = "SettingsDialog.Tabs.Simulation.PerformanceMode.User";
+    t[45527] = "Nutzerdefinierte Leistungseinstellungen";
     t[45530] = "Color.BDB76B";
     t[45531] = "Dunkelkhaki";
     t[45532] = "Simulation.Creator.SequenceInvalidNextStep";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49437] = "Gamma-Verteilung";
     t[49438] = "Animation.Icon.Cake";
     t[49439] = "Kuchen";
-    t[49442] = "ExpressionBuilder.Repeats.RepeatCount";
-    t[49443] = "Anzahl an Wiederholungen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49442] = "ExpressionBuilder.Repeats.RepeatCount";
+    t[49443] = "Anzahl an Wiederholungen";
     t[49454] = "ScriptPopup.Client.ValueNumber.Batch.Hint";
     t[49455] = "Liest eine kundenbasierende Zahlen-Eigenschaft eines Kunden im aktuellen Batch aus";
     t[49460] = "Surface.InputDB.Tooltip";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54537] = "aktiv";
     t[54540] = "Surface.AnimationImage.XML.Image";
     t[54541] = "ModellElementBildDaten";
-    t[54542] = "Surface.Match.Dialog.Title";
-    t[54543] = "Zusammenf\u00fchrung bearbeiten";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54542] = "Surface.Match.Dialog.Title";
+    t[54543] = "Zusammenf\u00fchrung bearbeiten";
     t[54550] = "Git.List.PushAll";
     t[54551] = "Alle Push";
     t[54556] = "Statistics.XML.Element.ResidenceStationsByClientType";
@@ -23842,6 +23844,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[59031] = "<b>Achtung:</b><br>\nDer gew\u00e4hlte Transporter wird durch die Elemente mit den folgenden IDs verwendet:";
     t[59032] = "Surface.SourceTable.Dialog.Table.Preview.ErrorProcess.Title";
     t[59033] = "Tabellendatei kann nicht verarbeitet werden";
+    t[59034] = "SettingsDialog.Tabs.Simulation.PerformanceMode.Recommended";
+    t[59035] = "Empfohlene Leistungseinstellungen";
     t[59036] = "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect";
     t[59037] = "Beta-Verteilung (direkte Kenngr\u00f6\u00dfen)";
     t[59046] = "Simulation.Element.SourceMulti.Name";
@@ -24072,16 +24076,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[59603] = "Warteschlangensimulator-Scripting-de.pdf";
     t[59606] = "Editor.Navigator.Sorting.Names";
     t[59607] = "Namen";
-    t[59610] = "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution";
-    t[59611] = "Hypergeometrische Verteilung";
-    t[59612] = "Surface.Resource.ErrorInterDistribution";
-    t[59613] = "Der angegebene Wert \"%s\" f\u00fcr die Verteilung der Abst\u00e4nde der Ausf\u00e4lle f\u00fcr den Ressourcentyp \"%s\" ist ung\u00fcltig.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59610] = "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution";
+    t[59611] = "Hypergeometrische Verteilung";
+    t[59612] = "Surface.Resource.ErrorInterDistribution";
+    t[59613] = "Der angegebene Wert \"%s\" f\u00fcr die Verteilung der Abst\u00e4nde der Ausf\u00e4lle f\u00fcr den Ressourcentyp \"%s\" ist ung\u00fcltig.";
     t[59632] = "Optimizer.Tab.Target.Type.XMLElement";
     t[59633] = "XML-Element";
     t[59636] = "SystemInfo.Tools.NextStationTraining.DeleteData.InfoNo";

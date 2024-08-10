@@ -20,11 +20,13 @@ import java.awt.event.KeyListener;
 import java.io.Serializable;
 
 import javax.swing.Box;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
@@ -64,6 +66,10 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 
 	/* Lokale Simulation */
 
+	/** Empfohlene Leistungseinstellungen */
+	private final JRadioButton performanceModeRecommended;
+	/** Nutzerdefinierte Leistungseinstellungen */
+	private final JRadioButton performanceModeUser;
 	/** Mehrkernunterstützung für Simulationen verwenden? */
 	private final JCheckBox useMultiCoreSimulation;
 	/** Sollen wiederholte Simulationsläufe ggf. aufgeteilt werden, um alle CPU-Kerne auszulasten? */
@@ -142,23 +148,35 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		 */
 		addHeading(Language.tr("SettingsDialog.Tabs.Simulation.Local"));
 
+		addLine().add(performanceModeRecommended=new JRadioButton(Language.tr("SettingsDialog.Tabs.Simulation.PerformanceMode.Recommended")));
+		addLine().add(performanceModeUser=new JRadioButton(Language.tr("SettingsDialog.Tabs.Simulation.PerformanceMode.User")));
+		final ButtonGroup buttonGroup=new ButtonGroup();
+		buttonGroup.add(performanceModeRecommended);
+		buttonGroup.add(performanceModeUser);
+		performanceModeRecommended.addActionListener(e->resetPerformanceSettings());
+
 		/* Mehrkernunterstützung für Simulationen verwenden? */
-		addLine().add(useMultiCoreSimulation=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.UseMultiCore")));
+		addLine(10).add(useMultiCoreSimulation=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.UseMultiCore")));
 		useMultiCoreSimulation.addActionListener(e->updateGUI());
+		useMultiCoreSimulation.addActionListener(e->userPerformanceChanged());
 
 		/* Sollen wiederholte Simulationsläufe ggf. aufgeteilt werden, um alle CPU-Kerne auszulasten? */
-		addLine().add(useMultiCoreSimulationOnRepeatedSimulations=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.UseMultiCoreOnRepeatedSimulations")));
+		addLine(10).add(useMultiCoreSimulationOnRepeatedSimulations=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.UseMultiCoreOnRepeatedSimulations")));
 		useMultiCoreSimulationOnRepeatedSimulations.setToolTipText(Language.tr("SettingsDialog.Tabs.Simulation.UseMultiCoreOnRepeatedSimulations.Hint"));
+		useMultiCoreSimulationOnRepeatedSimulations.addActionListener(e->userPerformanceChanged());
 
 		/* Mehrkernunterstützung für Animationen verwenden? */
-		addLine().add(useMultiCoreAnimation=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.UseMultiCoreAnimation")));
+		addLine(10).add(useMultiCoreAnimation=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.UseMultiCoreAnimation")));
+		useMultiCoreAnimation.addActionListener(e->userPerformanceChanged());
 
 		/* Hohe Priorität für die Simulationsthreads verwenden? */
-		addLine().add(highPriority=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.UseHighPriority")));
+		addLine(10).add(highPriority=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.UseHighPriority")));
+		highPriority.addActionListener(e->userPerformanceChanged());
 
 		/* NUMA-Unterstützung für die Simulation aktivieren? */
-		line=addLine();
+		line=addLine(10);
 		line.add(useReducedMemoryMode=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.ReducedMemoryMode")));
+		useReducedMemoryMode.addActionListener(e->userPerformanceChanged());
 		line.add(Box.createHorizontalStrut(5));
 		final JToolBar bar=new JToolBar();
 		bar.setFloatable(false);
@@ -275,6 +293,17 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 	 */
 	private void updateGUI() {
 		useMultiCoreSimulationOnRepeatedSimulations.setEnabled(useMultiCoreSimulation.isSelected());
+		if (!useMultiCoreSimulation.isSelected()) useMultiCoreSimulationOnRepeatedSimulations.setSelected(false);
+	}
+
+	/**
+	 * Aktualisiert die Radiobuttons zu Vorgabe-/Nutzer-Einstellungen, wenn die Checkboxen
+	 * für nutzerdefinierte Leistungseinstellungen verändert wurden.
+	 */
+	private void userPerformanceChanged() {
+		final boolean isDefault=useMultiCoreSimulation.isSelected() && !useMultiCoreSimulationOnRepeatedSimulations.isSelected() && useMultiCoreAnimation.isSelected() && !highPriority.isSelected() && !useReducedMemoryMode.isSelected();
+		performanceModeRecommended.setSelected(isDefault);
+		performanceModeUser.setSelected(!isDefault);
 	}
 
 	@Override
@@ -293,6 +322,7 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		useMultiCoreAnimation.setSelected(setup.useMultiCoreAnimation);
 		highPriority.setSelected(setup.highPriority);
 		useReducedMemoryMode.setSelected(!setup.useNUMAMode);
+		userPerformanceChanged();
 		JSEngineNames engine=JSEngineNames.fromName(setup.jsEngine);
 		cancelSimulationOnScriptError.setSelected(setup.cancelSimulationOnScriptError);
 		maxJSRunTime.setValue(setup.maxJSRunTimeSeconds);
@@ -365,15 +395,26 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		 */
 	}
 
-	@Override
-	public void resetSettings() {
-		backgroundProcessing.setSelectedIndex(2);
-		useGUIAnimations.setSelected(true);
+	/**
+	 * Stellt die Leistungseinstellungen für die lokale Simulation auf die Vorgabewerte zurück
+	 * (wenn z.B. das Radiobutton zu den empfohlenen Werten angeklickt wurde)
+	 * @see #resetSettings()
+	 * @see #performanceModeRecommended
+	 */
+	private void resetPerformanceSettings() {
 		useMultiCoreSimulation.setSelected(true);
 		useMultiCoreSimulationOnRepeatedSimulations.setSelected(false);
 		useMultiCoreAnimation.setSelected(true);
 		highPriority.setSelected(false);
 		useReducedMemoryMode.setSelected(false);
+		updateGUI();
+	}
+
+	@Override
+	public void resetSettings() {
+		backgroundProcessing.setSelectedIndex(2);
+		useGUIAnimations.setSelected(true);
+		resetPerformanceSettings();
 		jsEngine.setSelectedIndex(0);
 		cancelSimulationOnScriptError.setSelected(true);
 		serverPort.setValue(8183);

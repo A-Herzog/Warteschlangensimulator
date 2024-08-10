@@ -62,6 +62,18 @@ public abstract class SetupDialogPage extends JPanel {
 	}
 
 	/**
+	 * Fügt eine Zeile zu der Dialogseite hinzu.
+	 * @param indent	Zusätzliche Einrückung
+	 * @return	Neue Zeile (bereits in die Dialogseite eingefügt)
+	 */
+	protected final JPanel addLine(final int indent) {
+		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		add(line);
+		line.add(Box.createHorizontalStrut(Math.max(0,indent)));
+		return line;
+	}
+
+	/**
 	 * Erstellt eine neue Überschrift
 	 * @param title	Überschriftzeile
 	 */

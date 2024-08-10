@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-06 09:38+0200\n"
+"POT-Creation-Date: 2024-08-09 09:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19244,6 +19244,12 @@ msgstr "seconds"
 
 msgid "SettingsDialog.Tabs.Simulation.PaintTimeStamp"
 msgstr "Show simulation time in recorded animation"
+
+msgid "SettingsDialog.Tabs.Simulation.PerformanceMode.Recommended"
+msgstr "Recommended performance settings"
+
+msgid "SettingsDialog.Tabs.Simulation.PerformanceMode.User"
+msgstr "User-defined performance settings"
 
 msgid "SettingsDialog.Tabs.Simulation.ReducedMemoryMode"
 msgstr "Common data model for all threads to reduce memory usage"

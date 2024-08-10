@@ -18454,6 +18454,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45515] = "Clients are only willing to wait for a limited time";
     t[45522] = "Dialog.SaveNow.No";
     t[45523] = "Do not save";
+    t[45526] = "SettingsDialog.Tabs.Simulation.PerformanceMode.User";
+    t[45527] = "User-defined performance settings";
     t[45530] = "Color.BDB76B";
     t[45531] = "Dark khaki";
     t[45532] = "Simulation.Creator.SequenceInvalidNextStep";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49437] = "Gamma distribution";
     t[49438] = "Animation.Icon.Cake";
     t[49439] = "Cake";
-    t[49442] = "ExpressionBuilder.Repeats.RepeatCount";
-    t[49443] = "Repeat count";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49442] = "ExpressionBuilder.Repeats.RepeatCount";
+    t[49443] = "Repeat count";
     t[49454] = "ScriptPopup.Client.ValueNumber.Batch.Hint";
     t[49455] = "Gets a client-based number property value of a client in the current batch";
     t[49460] = "Surface.InputDB.Tooltip";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54537] = "on";
     t[54540] = "Surface.AnimationImage.XML.Image";
     t[54541] = "ModelElementImageData";
-    t[54542] = "Surface.Match.Dialog.Title";
-    t[54543] = "Edit match";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54542] = "Surface.Match.Dialog.Title";
+    t[54543] = "Edit match";
     t[54550] = "Git.List.PushAll";
     t[54551] = "Push all";
     t[54556] = "Statistics.XML.Element.ResidenceStationsByClientType";
@@ -23842,6 +23844,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[59031] = "<b>Attention:</b><br>\nThe selected transporter is in use by the elements with the following IDs:";
     t[59032] = "Surface.SourceTable.Dialog.Table.Preview.ErrorProcess.Title";
     t[59033] = "Table cannot be processed";
+    t[59034] = "SettingsDialog.Tabs.Simulation.PerformanceMode.Recommended";
+    t[59035] = "Recommended performance settings";
     t[59036] = "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect";
     t[59037] = "Beta distribution (direct characteristics)";
     t[59046] = "Simulation.Element.SourceMulti.Name";
@@ -24072,16 +24076,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[59603] = "Warteschlangensimulator-Scripting-en.pdf";
     t[59606] = "Editor.Navigator.Sorting.Names";
     t[59607] = "Names";
-    t[59610] = "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution";
-    t[59611] = "Hypergeometric distribution";
-    t[59612] = "Surface.Resource.ErrorInterDistribution";
-    t[59613] = "The specified value \"%s\" for the distribution of the times between two down times for the resource type \"%s\" is invalid.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59610] = "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution";
+    t[59611] = "Hypergeometric distribution";
+    t[59612] = "Surface.Resource.ErrorInterDistribution";
+    t[59613] = "The specified value \"%s\" for the distribution of the times between two down times for the resource type \"%s\" is invalid.";
     t[59632] = "Optimizer.Tab.Target.Type.XMLElement";
     t[59633] = "XML element";
     t[59636] = "SystemInfo.Tools.NextStationTraining.DeleteData.InfoNo";
