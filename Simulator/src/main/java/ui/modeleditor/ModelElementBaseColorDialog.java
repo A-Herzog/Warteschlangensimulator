@@ -34,7 +34,7 @@ import javax.swing.JRadioButton;
 
 import language.Language;
 import systemtools.BaseDialog;
-import systemtools.SmallColorChooser;
+import systemtools.ColorChooserButton;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.tools.ImageChooser;
 
@@ -59,7 +59,7 @@ public class ModelElementBaseColorDialog extends BaseDialog {
 	/** Auswahloption "Benutzerdefiniertes Bild verwenden" */
 	private final JRadioButton optionUserImage;
 	/** Auswahl der benutzerdefinierten Farbe */
-	private final SmallColorChooser colorChooser;
+	private final ColorChooserButton colorChooser;
 	/** Station gespiegelt zeichnen */
 	private final JCheckBox checkboxFlipped;
 	/** Auswahl des benutzerdefinierten Bildes */
@@ -99,10 +99,8 @@ public class ModelElementBaseColorDialog extends BaseDialog {
 
 		/* Benutzerdefinierte Farbe */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionUserColor=new JRadioButton(Language.tr("Editor.ColorChooser.UserDefined")));
-
-		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(colorChooser=new SmallColorChooser(userColor));
+		line.add(optionUserColor=new JRadioButton(Language.tr("Editor.ColorChooser.UserDefined")+":"));
+		line.add(colorChooser=new ColorChooserButton(userColor));
 		colorChooser.addClickListener(e->optionUserColor.setSelected(true));
 
 		/* Spiegeln */
@@ -131,35 +129,7 @@ public class ModelElementBaseColorDialog extends BaseDialog {
 		optionUserImage.setSelected(userImage!=null);
 
 		/* Start */
-		setMinSizeRespectingScreensize(0,800);
-		pack();
-		setLocationRelativeTo(this.owner);
-	}
-
-	/**
-	 * Konstruktor der Klasse <code>ModelElementBaseColorDialog</code>
-	 * @param owner	Übergeordnetes Element
-	 * @param help	Runnable, das aufgerufen wird, wenn der Nutzer auf die Hilfe-Schaltfläche klickt
-	 * @param color	Farbe
-	 */
-	public ModelElementBaseColorDialog(final Component owner, final Runnable help, final Color color) {
-		super(owner,Language.tr("Editor.ColorChooser.Title"));
-		final JPanel content=createGUI(help);
-		content.setLayout(new BorderLayout());
-
-		JPanel sub;
-
-		content.add(sub=new JPanel(),BorderLayout.NORTH);
-		sub.setLayout(new BoxLayout(sub,BoxLayout.PAGE_AXIS));
-		optionDefaultColor=null;
-		optionUserColor=null;
-		optionUserImage=null;
-		checkboxFlipped=null;
-		imageChooser=null;
-
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
-		sub.add(colorChooser=new SmallColorChooser(color));
-
+		setMinSizeRespectingScreensize(0,600);
 		pack();
 		setLocationRelativeTo(this.owner);
 	}

@@ -130,6 +130,15 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 		dataColor=Color.BLUE;
 	}
 
+	/**
+	 * Stellt die Größe der umrandenden Box ein
+	 * @param size	Größe der Box
+	 */
+	@Override
+	public void setSize(final Dimension size) {
+		super.setSize(size);
+	}
+
 	@Override
 	public boolean isVisualOnly() {
 		return true;

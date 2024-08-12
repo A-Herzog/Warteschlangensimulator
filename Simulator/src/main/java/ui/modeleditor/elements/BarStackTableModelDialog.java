@@ -15,7 +15,6 @@
  */
 package ui.modeleditor.elements;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -23,12 +22,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import language.Language;
 import systemtools.BaseDialog;
-import systemtools.SmallColorChooser;
+import systemtools.LabeledColorChooserButton;
 import ui.modeleditor.coreelements.ModelElement;
 
 /**
@@ -63,7 +61,7 @@ public class BarStackTableModelDialog extends BaseDialog {
 	 * Auswahl der Farbe für das Balkensegment
 	 * @see #getColor()
 	 */
-	private final SmallColorChooser colorChooserBar;
+	private final LabeledColorChooserButton colorChooserBar;
 
 	/**
 	 * Konstruktor der Klasse
@@ -79,7 +77,6 @@ public class BarStackTableModelDialog extends BaseDialog {
 		super(owner,Language.tr("Surface.AnimationBarStack.Dialog.Edit"));
 
 		JPanel line;
-		JLabel label;
 
 		final JPanel content=createGUI(help);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
@@ -90,12 +87,8 @@ public class BarStackTableModelDialog extends BaseDialog {
 
 		/* Farbe */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(label=new JLabel(Language.tr("Surface.AnimationBarStack.Dialog.BarColor")+":"));
-		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(colorChooserBar=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
+		line.add(colorChooserBar=new LabeledColorChooserButton(Language.tr("Surface.AnimationBarStack.Dialog.BarColor")+":",(color==null)?Color.RED:color));
 		colorChooserBar.setEnabled(!readOnly);
-		label.setLabelFor(colorChooserBar);
-		colorChooserBar.setColor((color==null)?Color.RED:color);
 
 		setMinSizeRespectingScreensize(480,0);
 		pack();

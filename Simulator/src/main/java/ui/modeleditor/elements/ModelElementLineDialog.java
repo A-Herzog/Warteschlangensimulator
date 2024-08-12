@@ -30,7 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import language.Language;
-import systemtools.SmallColorChooser;
+import systemtools.LabeledColorChooserButton;
 import tools.IconListCellRenderer;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
@@ -57,7 +57,7 @@ public class ModelElementLineDialog extends ModelElementBaseDialog {
 	/** Auswahl möglicher Pfeilspitzen am Linienende */
 	private JComboBox<String> arrowEnd;
 	/** Auswahl der Farbe der Linie */
-	private SmallColorChooser colorChooser;
+	private LabeledColorChooserButton colorChooser;
 
 	/**
 	 * Konstruktor der Klasse
@@ -74,7 +74,7 @@ public class ModelElementLineDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(600,0);
+		setMinSizeRespectingScreensize(775,0);
 	}
 
 	/**
@@ -177,7 +177,9 @@ public class ModelElementLineDialog extends ModelElementBaseDialog {
 		arrowStart=addArrowDropdown(sub,Language.tr("Surface.Line.Dialog.ArrowLineStart")+" ("+getArrowLabel(p1,p1,p2)+"):",lineElement.getArrowStart());
 		arrowEnd=addArrowDropdown(sub,Language.tr("Surface.Line.Dialog.ArrowLineEnd")+" ("+getArrowLabel(p2,p1,p2)+"):",lineElement.getArrowEnd());
 
-		content.add(colorChooser=new SmallColorChooser(lineElement.getColor()),BorderLayout.CENTER);
+		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		sub.add(line);
+		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Surface.Line.Dialog.LineColor")+":",lineElement.getColor()));
 		colorChooser.setEnabled(!readOnly);
 
 		return content;

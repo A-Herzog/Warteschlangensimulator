@@ -37,7 +37,7 @@ import language.Language;
 import mathtools.NumberTools;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
-import systemtools.SmallColorChooser;
+import systemtools.OptionalColorChooserButton;
 import ui.help.Help;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -45,7 +45,7 @@ import ui.modeleditor.ModelSurface;
 import ui.tools.ImageChooser;
 
 /**
- * Dialog, der das Einstellen von Hintergrund- un Rasterfarbe ermöglicht.
+ * Dialog, der das Einstellen von Hintergrund- und Rasterfarbe ermöglicht.
  * @author Alexander Herzog
  */
 public class BackgroundColorDialog extends BaseDialog {
@@ -55,18 +55,12 @@ public class BackgroundColorDialog extends BaseDialog {
 	 */
 	private static final long serialVersionUID = 7680431280280416543L;
 
-	/** Nutzerdefinierte Hintergrundfarbe aktiv? */
-	private final JCheckBox backgroundCheck;
 	/** Nutzerdefinierte Hintergrundfarbe auswählen */
-	private final SmallColorChooser backgroundColor;
-	/** Nutzerdefinierte Rasterfarbe aktiv? */
-	private final JCheckBox rasterCheck;
+	private final OptionalColorChooserButton backgroundColor;
 	/** Nutzerdefinierte Rasterfarbe auswählen */
-	private final SmallColorChooser rasterColor;
-	/** Nutzerdefinierte Gradientenfarbe aktiv? */
-	private final JCheckBox gradientCheck;
+	private final OptionalColorChooserButton rasterColor;
 	/** Nutzerdefinierte Gradientenfarbe auswählen */
-	private final SmallColorChooser gradientColor;
+	private final OptionalColorChooserButton gradientColor;
 
 	/** Hintergrundbild */
 	private final ImageChooser backgroundImage;
@@ -97,7 +91,7 @@ public class BackgroundColorDialog extends BaseDialog {
 
 		JPanel tabOuter;
 		JPanel tab;
-		JPanel line, cell;
+		JPanel line;
 		JLabel label;
 
 		/* Tab "Farben" */
@@ -105,42 +99,28 @@ public class BackgroundColorDialog extends BaseDialog {
 		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
 		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
 
-		final Color c1=(colors!=null && colors.length>=2 && colors[0]!=null)?colors[0]:ModelSurface.DEFAULT_BACKGROUND_COLOR;
-		final Color c2=(colors!=null && colors.length>=2 && colors[1]!=null)?colors[1]:ModelSurface.DEFAULT_RASTER_COLOR;
-		final Color c3=(colors!=null && colors.length>=3 && colors[2]!=null)?colors[2]:null;
-
-		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
+		final Color c1=(colors!=null && colors.length>=2 && !ModelSurface.DEFAULT_BACKGROUND_COLOR.equals(colors[0]))?colors[0]:null;
+		final Color c2=(colors!=null && colors.length>=2 && !ModelSurface.DEFAULT_RASTER_COLOR.equals(colors[1]))?colors[1]:null;
+		final Color c3=(colors!=null && colors.length>=3)?colors[2]:null;
 
 		/* Hintergrundfarbe */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(backgroundCheck=new JCheckBox(Language.tr("Window.BackgroundColor.UserBackground"),!c1.equals(ModelSurface.DEFAULT_BACKGROUND_COLOR)),BorderLayout.NORTH);
-		backgroundCheck.setEnabled(!readOnly);
-		cell.add(backgroundColor=new SmallColorChooser(c1),BorderLayout.CENTER);
+		tab.add(backgroundColor=new OptionalColorChooserButton(Language.tr("Window.BackgroundColor.UserBackground")+":",c1,ModelSurface.DEFAULT_BACKGROUND_COLOR));
 		backgroundColor.setEnabled(!readOnly);
-		backgroundColor.addClickListener(e->backgroundCheck.setSelected(true));
 
 		/* Rasterfarbe */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(rasterCheck=new JCheckBox(Language.tr("Window.BackgroundColor.UserRaster"),!c2.equals(ModelSurface.DEFAULT_RASTER_COLOR)),BorderLayout.NORTH);
-		rasterCheck.setEnabled(!readOnly);
-		cell.add(rasterColor=new SmallColorChooser(c2),BorderLayout.CENTER);
+		tab.add(rasterColor=new OptionalColorChooserButton(Language.tr("Window.BackgroundColor.UserRaster")+":",c2,ModelSurface.DEFAULT_RASTER_COLOR));
 		rasterColor.setEnabled(!readOnly);
-		rasterColor.addClickListener(e->rasterCheck.setSelected(true));
 
 		/* Farbverlauf */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(gradientCheck=new JCheckBox(Language.tr("Window.BackgroundColor.UseGradient"),c3!=null),BorderLayout.NORTH);
-		gradientCheck.setEnabled(!readOnly);
-		cell.add(gradientColor=new SmallColorChooser(c3==null?Color.WHITE:c3),BorderLayout.CENTER);
+		tab.add(gradientColor=new OptionalColorChooserButton(Language.tr("Window.BackgroundColor.UseGradient")+":",c3,Color.WHITE));
 		gradientColor.setEnabled(!readOnly);
-		gradientColor.addClickListener(e->gradientCheck.setSelected(true));
 
 		/* Tab "Hintergrundbild" */
 		tabs.addTab(Language.tr("Window.BackgroundColor.Tab.Image"),tabOuter=new JPanel(new BorderLayout()));
 		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
 		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
 		tab.add(backgroundImage=new ImageChooser(image,null));
-		backgroundImage.setPreferredSize(new Dimension(0,500));
+		backgroundImage.setPreferredSize(new Dimension(500,350));
 		backgroundImage.setEnabled(!readOnly);
 
 		final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Window.BackgroundColor.ImageScale")+":",NumberTools.formatNumberMax(scale),7);
@@ -211,11 +191,15 @@ public class BackgroundColorDialog extends BaseDialog {
 	 */
 	public Color[] getColors() {
 		if (getClosedBy()!=CLOSED_BY_OK) return null;
-		Color c1=ModelSurface.DEFAULT_BACKGROUND_COLOR;
-		if (backgroundCheck.isSelected()) c1=backgroundColor.getColor();
-		Color c2=ModelSurface.DEFAULT_RASTER_COLOR;
-		if (rasterCheck.isSelected()) c2=rasterColor.getColor();
-		Color c3=(gradientCheck.isSelected())?gradientColor.getColor():null;
+
+		Color c1=backgroundColor.getColor();
+		if (c1==null) c1=ModelSurface.DEFAULT_BACKGROUND_COLOR;
+
+		Color c2=rasterColor.getColor();
+		if (c2==null) c2=ModelSurface.DEFAULT_RASTER_COLOR;
+
+		final Color c3=gradientColor.getColor();
+
 		return new Color[] {c1,c2,c3};
 	}
 

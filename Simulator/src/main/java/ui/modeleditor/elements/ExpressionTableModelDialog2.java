@@ -24,12 +24,11 @@ import java.io.Serializable;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import language.Language;
 import systemtools.BaseDialog;
-import systemtools.SmallColorChooser;
+import systemtools.LabeledColorChooserButton;
 import ui.modeleditor.ModelElementBaseDialog;
 
 /**
@@ -75,7 +74,7 @@ public class ExpressionTableModelDialog2 extends BaseDialog {
 	/**
 	 * Auswahl der Farbe
 	 */
-	private final SmallColorChooser colorChooser;
+	private final LabeledColorChooserButton colorChooser;
 
 	/**
 	 * Konstruktor der Klasse<br>
@@ -96,6 +95,7 @@ public class ExpressionTableModelDialog2 extends BaseDialog {
 		content.add(lineArea,BorderLayout.NORTH);
 
 		Object[] data;
+		JPanel line;
 
 		data=ModelElementBaseDialog.getComboBoxPanel(Language.tr("Surface.ExpressionTableModel.Dialog.Mode")+":",new String[]{
 				Language.tr("Surface.ExpressionTableModel.Dialog.Mode.Points"),
@@ -117,10 +117,8 @@ public class ExpressionTableModelDialog2 extends BaseDialog {
 		mode.addActionListener(e->modeSetupAreaLayout.show(modeSetupArea,""+mode.getSelectedIndex()));
 		mode.setSelectedIndex((width>0)?1:0);
 
-		JPanel sub=new JPanel(new BorderLayout()); content.add(sub,BorderLayout.CENTER);
-		JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT)); sub.add(line,BorderLayout.NORTH);
-		line.add(new JLabel(Language.tr("Surface.ExpressionTableModel.Dialog.LineColor")+":"));
-		sub.add(colorChooser=new SmallColorChooser(color),BorderLayout.CENTER);
+		lineArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Surface.ExpressionTableModel.Dialog.LineColor")+":",color));
 
 		pack();
 		setLocationRelativeTo(this.owner);
@@ -149,8 +147,7 @@ public class ExpressionTableModelDialog2 extends BaseDialog {
 
 		JPanel sub=new JPanel(new BorderLayout()); content.add(sub,BorderLayout.CENTER);
 		JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT)); sub.add(line,BorderLayout.NORTH);
-		line.add(new JLabel(Language.tr("Surface.ExpressionTableModel.Dialog.LineColor")+":"));
-		sub.add(colorChooser=new SmallColorChooser(color),BorderLayout.CENTER);
+		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Surface.ExpressionTableModel.Dialog.LineColor")+":",color));
 
 		pack();
 		setLocationRelativeTo(this.owner);

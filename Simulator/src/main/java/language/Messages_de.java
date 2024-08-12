@@ -8330,6 +8330,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20397] = "Zeigt das Basismodell auf dem die Parameterreihe basieren soll an";
     t[20400] = "Optimizer.Tab.ControlVariables.Constrains.DialogInfo";
     t[20401] = "Pro Zeile kann eine Nebenbedingung angegeben werden.\nIn den Nebenbedingungen repr\u00e4sentieren \"Var1\", \"Var2\" usw. die Kontrollvariablen.";
+    t[20404] = "Surface.Line.Dialog.LineColor";
+    t[20405] = "Linienfarbe";
     t[20406] = "Simulation.Creator.IntervalExpressions.Empty";
     t[20407] = "An Station id=%d wurden keine Rechenausdr\u00fccke zur Bestimmung der Anzahl an Ank\u00fcnften pro Intervall angegeben.";
     t[20412] = "Git.List.Tab.LocalFolder.LocalFolder.Info.NoFolderSelected";
@@ -10032,14 +10034,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24569] = "Der angegebene Schl\u00fcssel \"%s\" ist ung\u00fcltig.\nEs muss eine nichtnegative Ganzzahl angegeben werden.\nAu\u00dferdem darf der Schl\u00fcssel keinem Schl\u00fcssel eines anderen Datensatzes entsprechen.";
     t[24576] = "Surface.Barrier.Dialog.ReleaseSignal.Error.Info";
     t[24577] = "Es wurde kein Signal zum Ausl\u00f6sen der Kundenfreigabe gew\u00e4hlt.";
-    t[24578] = "ExpressionBuilder.ClientsAtStation.Skewness";
-    t[24579] = "<p>Liefert die Schiefe der Anzahl an Kunden an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ sind auch folgende andere Parametrierungen m\u00f6glich:</p>\n<ul>\n<li>ID einer Kundenquelle (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Station und ID einer Quelle (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Quelle im zweiten Parameter erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>3 Parameter: ID einer Station, ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Mehrfachquelle im zweiten Parameter erzeugten Kundentyps)</li>\n</ul>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[24578] = "ExpressionBuilder.ClientsAtStation.Skewness";
+    t[24579] = "<p>Liefert die Schiefe der Anzahl an Kunden an der Bedienstation, deren ID in dem Parameter angegeben wurde.</p>\n<p>Alternativ sind auch folgende andere Parametrierungen m\u00f6glich:</p>\n<ul>\n<li>ID einer Kundenquelle (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Station und ID einer Quelle (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Quelle im zweiten Parameter erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>3 Parameter: ID einer Station, ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Mehrfachquelle im zweiten Parameter erzeugten Kundentyps)</li>\n</ul>";
     t[24594] = "Surface.Database.Config.ButtonHintFile";
     t[24595] = "Datei ausw\u00e4hlen";
     t[24596] = "Surface.AnimationImage.Dialog.Images.EmptyInfo";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29593] = "K\u00fcrzeste Warteschlange an der n\u00e4chsten Bedienstation";
     t[29594] = "Editor.ModelOverview.Search.Hint";
     t[29595] = "\u00d6ffnet den Elemente-Suchdialog.";
-    t[29596] = "Main.Menu.Edit.CopyAsImage";
-    t[29597] = "Modell als Bild kopieren";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29596] = "Main.Menu.Edit.CopyAsImage";
+    t[29597] = "Modell als Bild kopieren";
     t[29602] = "CommandLine.ServerMQTTTest.Stopped";
     t[29603] = "MQTT-basierter Testserver gestoppt.";
     t[29612] = "Surface.AnalogAssign.Tooltip";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34355] = "Bestehende Bedienergruppe verwenden";
     t[34360] = "Animation.Icon.FlagGreen";
     t[34361] = "Flagge - Gr\u00fcn";
-    t[34362] = "Optimizer.Tab.Optimization.Round";
-    t[34363] = "Runde";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34362] = "Optimizer.Tab.Optimization.Round";
+    t[34363] = "Runde";
     t[34370] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.Kurt";
     t[34371] = "<p>Liefert den Exzess (W\u00f6lbung) \u00fcber die Bedienzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>\n<p>Alternativ sind auch folgende andere Parametrierungen m\u00f6glich:</p>\n<ul>\n<li>ID einer Kundenquelle (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Station und ID einer Quelle (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Quelle im zweiten Parameter erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>3 Parameter: ID einer Station, ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Mehrfachquelle im zweiten Parameter erzeugten Kundentyps)</li>\n</ul>";
     t[34372] = "NoJDK.OptionCancel.Info";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39527] = "Konfidenzniveau f\u00fcr das Konfidenzintervall";
     t[39536] = "Editor.DialogBase.Protected.Tooltip";
     t[39537] = "Element vor L\u00f6schversuchen sch\u00fctzen";
-    t[39546] = "Surface.Dashboard.Dialog.Title.Animation";
-    t[39547] = "Diagramme-Dashboard";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39546] = "Surface.Dashboard.Dialog.Title.Animation";
+    t[39547] = "Diagramme-Dashboard";
     t[39550] = "Main.Menu.Edit.Align.Middle";
     t[39551] = "Vertikal zentrieren";
     t[39552] = "Surface.XML.Connection.Type";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44547] = "<p>Berechnet den gr\u00f6\u00dften gemeinsamen Teiler (ggT) der \u00fcbergebenen Zahlen.<br>Die Zahlen werden dabei wenn n\u00f6tig zu Ganzzahlen gerundet und negative Vorzeichen verworfen.</p><p>Beispiel: <tt>gcd(6;10)</tt> liefert 2.</p>";
     t[44554] = "Surface.Source.Dialog.ThresholdValue.Error.Title";
     t[44555] = "Ung\u00fcltiger Schwellenwert";
-    t[44560] = "PathEditor.ResetAll.ConfirmTitle";
-    t[44561] = "Verbindungen l\u00f6schen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44560] = "PathEditor.ResetAll.ConfirmTitle";
+    t[44561] = "Verbindungen l\u00f6schen";
     t[44564] = "Surface.InteractiveButton.Name";
     t[44565] = "Schaltfl\u00e4che";
     t[44572] = "Statistics.CountPathLength";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49435] = "Bedingung aus der Liste l\u00f6schen.";
     t[49436] = "Distribution.Gamma";
     t[49437] = "Gamma-Verteilung";
-    t[49438] = "Animation.Icon.Cake";
-    t[49439] = "Kuchen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49438] = "Animation.Icon.Cake";
+    t[49439] = "Kuchen";
     t[49442] = "ExpressionBuilder.Repeats.RepeatCount";
     t[49443] = "Anzahl an Wiederholungen";
     t[49454] = "ScriptPopup.Client.ValueNumber.Batch.Hint";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54535] = "An Element id=%d sollen Batch-Bedienungen und R\u00fcstzeiten kombiniert werden, was jedoch nicht m\u00f6glich ist.";
     t[54536] = "Surface.Process.Dialog.on";
     t[54537] = "aktiv";
-    t[54540] = "Surface.AnimationImage.XML.Image";
-    t[54541] = "ModellElementBildDaten";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54540] = "Surface.AnimationImage.XML.Image";
+    t[54541] = "ModellElementBildDaten";
     t[54542] = "Surface.Match.Dialog.Title";
     t[54543] = "Zusammenf\u00fchrung bearbeiten";
     t[54550] = "Git.List.PushAll";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[59599] = "Dieser Befehl erwartet genau zwei weitere Parameter:\n1. Eingabe-Modell-Datei\n2. Optimiererkonfigurations-Datei\nBeide Eingabedateien m\u00fcssen existieren.";
     t[59602] = "Main.Menu.Help.ScriptingReference.pdf";
     t[59603] = "Warteschlangensimulator-Scripting-de.pdf";
-    t[59606] = "Editor.Navigator.Sorting.Names";
-    t[59607] = "Namen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59606] = "Editor.Navigator.Sorting.Names";
+    t[59607] = "Namen";
     t[59610] = "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution";
     t[59611] = "Hypergeometrische Verteilung";
     t[59612] = "Surface.Resource.ErrorInterDistribution";

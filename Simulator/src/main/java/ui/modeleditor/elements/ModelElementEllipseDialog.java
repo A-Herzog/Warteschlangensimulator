@@ -16,22 +16,21 @@
 package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.Serializable;
-import java.util.Hashtable;
 
-import javax.swing.JCheckBox;
+import javax.swing.Box;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 
 import language.Language;
-import mathtools.NumberTools;
-import systemtools.SmallColorChooser;
+import systemtools.LabeledAlphaButton;
+import systemtools.LabeledColorChooserButton;
+import systemtools.OptionalColorChooserButton;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 
@@ -50,17 +49,13 @@ public class ModelElementEllipseDialog extends ModelElementBaseDialog {
 	/** Auswahlbox für die Breite der Linie der Ellipse */
 	private JComboBox<JLabel> lineWidth;
 	/** Auswahl der Farbe der Linie der Ellipse */
-	private SmallColorChooser colorChooserLine;
-	/** Option: Hintergrundfarbe verwenden? */
-	private JCheckBox background;
+	private LabeledColorChooserButton colorChooserLine;
 	/** Auswahl der Hintergrundfarbe */
-	private SmallColorChooser colorChooserBackground;
-	/** Option: Farbverlauf verwenden */
-	private JCheckBox gradient;
+	private OptionalColorChooserButton colorChooserBackground;
 	/** Auswahl der Farbe für den Farbverlauf */
-	private SmallColorChooser colorChooserGradient;
+	private OptionalColorChooserButton colorChooserGradient;
 	/** Schieberegler zur Auswahl des Deckkraft der Hintergrundfarbe */
-	private JSlider alpha;
+	private LabeledAlphaButton alpha;
 
 	/**
 	 * Konstruktor der Klasse
@@ -90,8 +85,7 @@ public class ModelElementEllipseDialog extends ModelElementBaseDialog {
 	protected JComponent getContentPanel() {
 		final JPanel content=new JPanel(new BorderLayout());
 
-		JPanel line, cell;
-		JLabel label;
+		JPanel line;
 
 		/* Rahmenbreite */
 		final Object[] data=getLineWidthInputPanel(Language.tr("Surface.Ellipse.Dialog.FrameWidth")+":",0,15,((ModelElementEllipse)element).getLineWidth());
@@ -103,49 +97,29 @@ public class ModelElementEllipseDialog extends ModelElementBaseDialog {
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
 
 		/* Rahmenfarbe */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(label=new JLabel(Language.tr("Surface.Ellipse.Dialog.FrameColor")+":"),BorderLayout.NORTH);
-		cell.add(colorChooserLine=new SmallColorChooser(((ModelElementEllipse)element).getColor()),BorderLayout.CENTER);
+		line.add(colorChooserLine=new LabeledColorChooserButton(Language.tr("Surface.Ellipse.Dialog.FrameColor")+":",((ModelElementEllipse)element).getColor()));
 		colorChooserLine.setEnabled(!readOnly);
-		label.setLabelFor(colorChooserLine);
+
+		line.add(Box.createHorizontalStrut(10));
 
 		/* Hintergrundfarbe */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(background=new JCheckBox(Language.tr("Surface.Ellipse.Dialog.FillBackground")),BorderLayout.NORTH);
-		background.setSelected(((ModelElementEllipse)element).getFillColor()!=null);
-		background.setEnabled(!readOnly);
-		cell.add(colorChooserBackground=new SmallColorChooser(((ModelElementEllipse)element).getFillColor()),BorderLayout.CENTER);
+		line.add(colorChooserBackground=new OptionalColorChooserButton(Language.tr("Surface.Ellipse.Dialog.FillBackground"),((ModelElementEllipse)element).getFillColor(),Color.WHITE));
 		colorChooserBackground.setEnabled(!readOnly);
-		colorChooserBackground.addClickListener(e->background.setSelected(true));
+		colorChooserBackground.addClickListener(e->{if (!colorChooserBackground.isActive()) colorChooserGradient.setActive(false);});
+
+		line.add(Box.createHorizontalStrut(10));
 
 		/* Farbverlauf */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(gradient=new JCheckBox(Language.tr("Surface.Ellipse.Dialog.BackgroundGradient")),BorderLayout.NORTH);
-		gradient.setSelected(((ModelElementEllipse)element).getGradientFillColor()!=null);
-		gradient.setEnabled(!readOnly);
-		gradient.addActionListener(e->{if (gradient.isSelected()) background.setSelected(true);});
-		cell.add(colorChooserGradient=new SmallColorChooser(((ModelElementEllipse)element).getGradientFillColor()),BorderLayout.CENTER);
+		line.add(colorChooserGradient=new OptionalColorChooserButton(Language.tr("Surface.Ellipse.Dialog.BackgroundGradient"),((ModelElementEllipse)element).getGradientFillColor(),Color.WHITE));
 		colorChooserGradient.setEnabled(!readOnly);
-		colorChooserGradient.addClickListener(e->{background.setSelected(true); gradient.setSelected(true);});
+		colorChooserGradient.addClickListener(e->{if (colorChooserGradient.isActive()) colorChooserBackground.setActive(true);});
+
+		line.add(Box.createHorizontalStrut(10));
 
 		/* Deckkraft */
-		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
-		JLabel alphaLabel=new JLabel(Language.tr("Surface.Ellipse.Dialog.Alpha")+":");
-		line.add(alphaLabel);
-		line.add(alpha=new JSlider(0,100,(int)Math.round(100*((ModelElementEllipse)element).getFillAlpha())));
-		alphaLabel.setLabelFor(alpha);
+		line.add(alpha=new LabeledAlphaButton(Language.tr("Surface.Ellipse.Dialog.Alpha")+":",((ModelElementEllipse)element).getFillAlpha()));
 		alpha.setEnabled(!readOnly);
-		alpha.setMinorTickSpacing(1);
-		alpha.setMajorTickSpacing(10);
-		Hashtable<Integer,JComponent> labels=new Hashtable<>();
-		for (int i=0;i<=10;i++) labels.put(i*10,new JLabel(NumberTools.formatPercent(i/10.0)));
-		alpha.setLabelTable(labels);
-		alpha.setPaintTicks(true);
-		alpha.setPaintLabels(true);
-		alpha.setPreferredSize(new Dimension(400,alpha.getPreferredSize().height));
-		alpha.addChangeListener(e->background.setSelected(true));
-
-		label.setPreferredSize(new Dimension(label.getPreferredSize().width,background.getPreferredSize().height));
+		alpha.addClickListener(e->colorChooserBackground.setActive(true));
 
 		return content;
 	}
@@ -163,19 +137,8 @@ public class ModelElementEllipseDialog extends ModelElementBaseDialog {
 
 		ellipse.setLineWidth(lineWidth.getSelectedIndex());
 		ellipse.setColor(colorChooserLine.getColor());
-
-		if (background.isSelected()) {
-			ellipse.setFillColor(colorChooserBackground.getColor());
-		} else {
-			ellipse.setFillColor(null);
-		}
-
-		if (gradient.isSelected()) {
-			ellipse.setGradientFillColor(colorChooserGradient.getColor());
-		} else {
-			ellipse.setGradientFillColor(null);
-		}
-
-		ellipse.setFillAlpha(alpha.getValue()/100.0);
+		ellipse.setFillColor(colorChooserBackground.getColor());
+		ellipse.setGradientFillColor(colorChooserGradient.getColor());
+		ellipse.setFillAlpha(alpha.getAlpha());
 	}
 }

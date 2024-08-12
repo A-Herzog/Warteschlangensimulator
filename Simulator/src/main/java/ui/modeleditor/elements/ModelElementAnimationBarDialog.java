@@ -18,15 +18,14 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -35,8 +34,9 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
+import systemtools.LabeledColorChooserButton;
 import systemtools.MsgBox;
-import systemtools.SmallColorChooser;
+import systemtools.OptionalColorChooserButton;
 import tools.IconListCellRenderer;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
@@ -67,17 +67,13 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 	/** Auswahlbox für die Linienbreite */
 	private JComboBox<JLabel> lineWidth;
 	/** Auswahl der Linienfarbe */
-	private SmallColorChooser colorChooserLine;
-	/** Option: Hintergrundfarbe verwenden? */
-	private JCheckBox background;
+	private LabeledColorChooserButton colorChooserLine;
 	/** Auswahl der Hintergrundfarbe */
-	private SmallColorChooser colorChooserBackground;
-	/** Auswahl der Balkenfarbe */
-	private SmallColorChooser colorChooserBar;
-	/** Option: Farbverlauf verwenden */
-	private JCheckBox gradient;
+	private OptionalColorChooserButton colorChooserBackground;
 	/** Auswahl der Farbe für den Farbverlauf */
-	private SmallColorChooser colorChooserGradient;
+	private OptionalColorChooserButton colorChooserGradient;
+	/** Auswahl der Balkenfarbe */
+	private LabeledColorChooserButton colorChooserBar;
 
 	/**
 	 * Konstruktor der Klasse
@@ -105,7 +101,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected JComponent getContentPanel() {
-		JPanel line, cell;
+		JPanel line;
 		JLabel label;
 
 		final JPanel content=new JPanel();
@@ -166,38 +162,28 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
 
 		/* Rahmenfarbe */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(label=new JLabel(Language.tr("Surface.AnimationBar.Dialog.FrameColor")+":"),BorderLayout.NORTH);
-		cell.add(colorChooserLine=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
+		line.add(colorChooserLine=new LabeledColorChooserButton(Language.tr("Surface.AnimationBar.Dialog.FrameColor")+":",Color.BLACK));
 		colorChooserLine.setEnabled(!readOnly);
-		label.setLabelFor(colorChooserLine);
+
+		line.add(Box.createHorizontalStrut(10));
 
 		/* Hintergrundfarbe */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(background=new JCheckBox(Language.tr("Surface.AnimationBar.Dialog.FillBackground")),BorderLayout.NORTH);
-		background.setEnabled(!readOnly);
-		cell.add(colorChooserBackground=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
+		line.add(colorChooserBackground=new OptionalColorChooserButton(Language.tr("Surface.AnimationBar.Dialog.FillBackground"),null,Color.WHITE));
 		colorChooserBackground.setEnabled(!readOnly);
-		colorChooserBackground.addClickListener(e->background.setSelected(true));
-		label.setPreferredSize(new Dimension(label.getPreferredSize().width,background.getPreferredSize().height));
+		colorChooserBackground.addClickListener(e->{if (!colorChooserBackground.isActive()) colorChooserGradient.setActive(false);});
+
+		line.add(Box.createHorizontalStrut(10));
 
 		/* Farbverlauf */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(gradient=new JCheckBox(Language.tr("Surface.AnimationBar.Dialog.BackgroundGradient")),BorderLayout.NORTH);
-		gradient.setEnabled(!readOnly);
-		gradient.addActionListener(e->{if (gradient.isSelected()) background.setSelected(true);});
-		cell.add(colorChooserGradient=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
+		line.add(colorChooserGradient=new OptionalColorChooserButton(Language.tr("Surface.AnimationBar.Dialog.BackgroundGradient"),null,Color.WHITE));
 		colorChooserGradient.setEnabled(!readOnly);
-		colorChooserGradient.addClickListener(e->{background.setSelected(true); gradient.setSelected(true);});
+		colorChooserGradient.addClickListener(e->{if (colorChooserGradient.isActive()) colorChooserBackground.setActive(true);});
+
+		line.add(Box.createHorizontalStrut(10));
 
 		/* Balkenfarbe */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(label=new JLabel(Language.tr("Surface.AnimationBar.Dialog.BarColor")+":"),BorderLayout.NORTH);
-		cell.add(colorChooserBar=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
+		line.add(colorChooserBar=new LabeledColorChooserButton(Language.tr("Surface.AnimationBar.Dialog.BarColor")+":",Color.BLACK));
 		colorChooserBar.setEnabled(!readOnly);
-		label.setLabelFor(colorChooserBar);
-
-		label.setPreferredSize(new Dimension(label.getPreferredSize().width,background.getPreferredSize().height));
 
 		/* Daten eintragen */
 		if (element instanceof ModelElementAnimationBar) {
@@ -214,9 +200,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 			axisLabels.set(diagram.getAxisLabels(),null,diagram.getAxisLabelText());
 			lineWidth.setSelectedIndex(diagram.getBorderWidth()-1);
 			colorChooserLine.setColor(diagram.getBorderColor());
-			background.setSelected(diagram.getBackgroundColor()!=null);
-			if (diagram.getBackgroundColor()!=null) colorChooserBackground.setColor(diagram.getBackgroundColor());
-			gradient.setSelected(diagram.getGradientFillColor()!=null);
+			colorChooserBackground.setColor(diagram.getBackgroundColor());
 			colorChooserGradient.setColor(diagram.getGradientFillColor());
 			colorChooserBar.setColor(diagram.getBarColor());
 		}
@@ -307,8 +291,8 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 		bar.setAxisLabelText(axisLabels.getYLabel());
 		bar.setBorderWidth(lineWidth.getSelectedIndex()+1);
 		bar.setBorderColor(colorChooserLine.getColor());
-		bar.setBackgroundColor((background.isSelected())?colorChooserBackground.getColor():null);
-		bar.setGradientFillColor(gradient.isSelected()?colorChooserGradient.getColor():null);
+		bar.setBackgroundColor(colorChooserBackground.getColor());
+		bar.setGradientFillColor(colorChooserGradient.getColor());
 		bar.setBarColor(colorChooserBar.getColor());
 	}
 }

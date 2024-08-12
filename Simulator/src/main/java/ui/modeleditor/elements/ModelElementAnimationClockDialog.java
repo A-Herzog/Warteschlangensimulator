@@ -15,7 +15,6 @@
  */
 package ui.modeleditor.elements;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -24,11 +23,10 @@ import java.io.Serializable;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import language.Language;
-import systemtools.SmallColorChooser;
+import systemtools.LabeledColorChooserButton;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 
@@ -48,7 +46,7 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 	private AnimationExpressionPanel editExpression;
 
 	/** Auswahl der Hintergrundfarbe der Uhr */
-	private SmallColorChooser colorChooser;
+	private LabeledColorChooserButton colorChooser;
 
 	/** Zusätzlich Uhrzeit digital anzeigen? */
 	private JCheckBox showDigital;
@@ -78,8 +76,7 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 
 	@Override
 	protected JComponent getContentPanel() {
-		JPanel line, cell;
-		JLabel label;
+		JPanel line;
 
 		final JPanel content=new JPanel();
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
@@ -89,11 +86,8 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 
 		/* Farbe */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(label=new JLabel(Language.tr("Surface.AnimationClock.Dialog.Color")+":"),BorderLayout.NORTH);
-		cell.add(colorChooser=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
+		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Surface.AnimationClock.Dialog.Color")+":",Color.BLACK));
 		colorChooser.setEnabled(!readOnly);
-		label.setLabelFor(colorChooser);
 
 		/* Digitale Anzeige */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));

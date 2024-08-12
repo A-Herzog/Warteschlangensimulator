@@ -17,6 +17,7 @@ package systemtools.statistics;
 
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -36,7 +37,8 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import systemtools.BaseDialog;
-import systemtools.SmallColorChooser;
+import systemtools.LabeledColorChooserButton;
+import systemtools.OptionalColorChooserButton;
 import systemtools.images.SimToolsImages;
 
 /**
@@ -80,22 +82,17 @@ public class ChartSetupDialog extends BaseDialog {
 	/**
 	 * Einstellungen für die Hintergrundfarbe 1
 	 */
-	private final SmallColorChooser setupBackgroundColor1;
+	private final LabeledColorChooserButton setupBackgroundColor1;
 
 	/**
 	 * Einstellungen für die Hintergrundfarbe 2
 	 */
-	private final SmallColorChooser setupBackgroundColor2;
-
-	/**
-	 * Hintergrundfarbe 2 aktiv?
-	 */
-	private final JCheckBox setupBackgroundColor2Active;
+	private final OptionalColorChooserButton setupBackgroundColor2;
 
 	/**
 	 * Einstellungen für die Rahmenfarbe
 	 */
-	private final SmallColorChooser setupOutlineColor;
+	private final LabeledColorChooserButton setupOutlineColor;
 
 	/**
 	 * Einstellungen für die Rahmenbreite
@@ -124,8 +121,6 @@ public class ChartSetupDialog extends BaseDialog {
 
 		JPanel tabOuter;
 		JPanel tab;
-		JPanel inner;
-		JPanel inner2;
 		JPanel line;
 
 		/* Tab "Diagrammtitel" */
@@ -153,31 +148,18 @@ public class ChartSetupDialog extends BaseDialog {
 		tabs.addTab(StatisticsBasePanel.viewersChartSetupSurface,tabOuter=new JPanel(new BorderLayout()));
 		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
 		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
-		final JPanel split=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		split.setLayout(new BoxLayout(split,BoxLayout.LINE_AXIS));
-		tab.add(split);
 
-		split.add(inner=new JPanel(new BorderLayout()));
-		inner.add(inner2=new JPanel(),BorderLayout.NORTH);
-		inner2.setLayout(new BoxLayout(inner2,BoxLayout.PAGE_AXIS));
-		buildInfoLine(inner2,StatisticsBasePanel.viewersChartSetupSurfaceBackgroundColor);
-		inner2.add(setupBackgroundColor1=new SmallColorChooser(chartSetup.backgroundColor1));
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(setupBackgroundColor1=new LabeledColorChooserButton(StatisticsBasePanel.viewersChartSetupSurfaceBackgroundColor+":",chartSetup.backgroundColor1));
 
-		split.add(inner=new JPanel(new BorderLayout()));
-		inner.add(inner2=new JPanel(),BorderLayout.NORTH);
-		inner2.setLayout(new BoxLayout(inner2,BoxLayout.PAGE_AXIS));
-		buildInfoLine(inner2,StatisticsBasePanel.viewersChartSetupSurfaceBackgroundGradient);
-		inner2.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(setupBackgroundColor2Active=new JCheckBox(StatisticsBasePanel.viewersChartSetupSurfaceBackgroundGradientActive,chartSetup.backgroundColor2!=null));
-		inner2.add(setupBackgroundColor2=new SmallColorChooser(chartSetup.backgroundColor2));
-		setupBackgroundColor2.addClickListener(e->setupBackgroundColor2Active.setSelected(true));
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel(StatisticsBasePanel.viewersChartSetupSurfaceBackgroundGradient+":"));
+		line.add(setupBackgroundColor2=new OptionalColorChooserButton(StatisticsBasePanel.viewersChartSetupSurfaceBackgroundGradientActive,chartSetup.backgroundColor2,Color.WHITE));
 
-		split.add(inner=new JPanel(new BorderLayout()));
-		inner.add(inner2=new JPanel(),BorderLayout.NORTH);
-		inner2.setLayout(new BoxLayout(inner2,BoxLayout.PAGE_AXIS));
-		buildInfoLine(inner2,StatisticsBasePanel.viewersChartSetupSurfaceOutlineColor);
-		inner2.add(setupOutlineColor=new SmallColorChooser(chartSetup.outlineColor));
-		setupOutlineStroke=buildSizeInput(inner2,StatisticsBasePanel.viewersChartSetupSurfaceOutlineWidth,((BasicStroke)chartSetup.outlineStroke).getLineWidth(),0,20,0.5);
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(setupOutlineColor=new LabeledColorChooserButton(StatisticsBasePanel.viewersChartSetupSurfaceOutlineColor+":",chartSetup.outlineColor));
+
+		setupOutlineStroke=buildSizeInput(tab,StatisticsBasePanel.viewersChartSetupSurfaceOutlineWidth,((BasicStroke)chartSetup.outlineStroke).getLineWidth(),0,20,0.5);
 
 		/* Tab "Auflösung beim Speichern" */
 		tabs.addTab(StatisticsBasePanel.viewersSaveImageSizePrompt,tabOuter=new JPanel(new BorderLayout()));
@@ -193,6 +175,7 @@ public class ChartSetupDialog extends BaseDialog {
 		tabs.setIconAt(4,SimToolsImages.STATISTICS_DIAGRAM_PICTURE.getIcon());
 
 		/* Dialog starten */
+		setMinSizeRespectingScreensize(800,0);
 		pack();
 		setLocationRelativeTo(getOwner());
 		setVisible(true);
@@ -350,11 +333,7 @@ public class ChartSetupDialog extends BaseDialog {
 		chartSetup.legendFont=getFont(setupLegendFont,chartSetup.legendFont);
 
 		chartSetup.backgroundColor1=setupBackgroundColor1.getColor();
-		if (setupBackgroundColor2Active.isSelected()) {
-			chartSetup.backgroundColor2=setupBackgroundColor2.getColor();
-		} else {
-			chartSetup.backgroundColor2=null;
-		}
+		chartSetup.backgroundColor2=setupBackgroundColor2.getColor();
 		chartSetup.outlineStroke=new BasicStroke(((Double)setupOutlineStroke.getValue()).floatValue());
 
 		return chartSetup;
@@ -385,7 +364,6 @@ public class ChartSetupDialog extends BaseDialog {
 			/* Zeichenfläche */
 			setupBackgroundColor1.setColor(defaults.backgroundColor1);
 			setupBackgroundColor2.setColor(defaults.backgroundColor2);
-			setupBackgroundColor2Active.setSelected(true);
 			setupOutlineColor.setColor(defaults.outlineColor);
 			setupOutlineStroke.setValue(0.5);
 			break;

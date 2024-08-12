@@ -20,13 +20,15 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.io.Serializable;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import language.Language;
-import systemtools.SmallColorChooser;
+import systemtools.LabeledColorChooserButton;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.tools.ImageChooser;
@@ -46,7 +48,7 @@ public class ModelElementImageDialog extends ModelElementBaseDialog {
 	/** Auswahlbox für die Linienbreite */
 	private JComboBox<JLabel> lineWidth;
 	/** Auswahl der Hintergrundfarbe */
-	private SmallColorChooser colorChooser;
+	private LabeledColorChooserButton colorChooser;
 	/** Auswahl des Bildes */
 	private ImageChooser imageChooser;
 
@@ -68,34 +70,29 @@ public class ModelElementImageDialog extends ModelElementBaseDialog {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected JComponent getContentPanel() {
-		final JPanel content=new JPanel(new BorderLayout(5,5));
+		JPanel line;
 
-		JPanel line,sub;
+		final JPanel content=new JPanel(new BorderLayout());
+		final JPanel setup=new JPanel();
+		content.add(setup,BorderLayout.NORTH);
+		setup.setLayout(new BoxLayout(setup,BoxLayout.PAGE_AXIS));
 
-		/* Linke Spalte */
-		final JPanel left=new JPanel(new BorderLayout());
-		content.add(left,BorderLayout.WEST);
-
-		/* Links: Rahmenbreite */
+		/* Rahmenbreite */
 		final Object[] data=getLineWidthInputPanel(Language.tr("Surface.Image.Dialog.FrameWidth")+":",0,15,((ModelElementImage)element).getLineWidth());
-		left.add((JPanel)data[0],BorderLayout.NORTH);
+		setup.add(line=(JPanel)data[0],BorderLayout.NORTH);
 		lineWidth=(JComboBox<JLabel>)data[1];
 		lineWidth.setEnabled(!readOnly);
 
-		/* Links: Rahmenfarbe */
-		left.add(sub=new JPanel(new BorderLayout()),BorderLayout.CENTER);
-		sub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
-		line.add(new JLabel(Language.tr("Surface.Image.Dialog.FrameColor")+":"));
-		sub.add(line=new JPanel(new BorderLayout()),BorderLayout.CENTER);
-		line.add(colorChooser=new SmallColorChooser(((ModelElementImage)element).getColor()),BorderLayout.NORTH);
+		line.add(Box.createHorizontalStrut(10));
+
+		/* Rahmenfarbe */
+		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Surface.Image.Dialog.FrameColor")+":",((ModelElementImage)element).getColor()));
 		colorChooser.setEnabled(!readOnly);
 
-		/* Center */
-		final JPanel center=new JPanel(new BorderLayout());
-		content.add(center,BorderLayout.CENTER);
-		center.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
+		/* Bild */
+		setup.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel(Language.tr("Surface.Image.Dialog.Image")+":"));
-		center.add(imageChooser=new ImageChooser(((ModelElementImage)element).getImage(),element.getModel().animationImages),BorderLayout.CENTER);
+		content.add(imageChooser=new ImageChooser(((ModelElementImage)element).getImage(),element.getModel().animationImages),BorderLayout.CENTER);
 		imageChooser.setEnabled(!readOnly);
 
 		return content;

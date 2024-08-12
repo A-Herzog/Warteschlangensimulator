@@ -8330,6 +8330,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20397] = "Shows the base model on which the parameter series will base";
     t[20400] = "Optimizer.Tab.ControlVariables.Constrains.DialogInfo";
     t[20401] = "In each line one constrain can be entered.\nIn the constrans \"Var1\", \"Var2\" etc. represent the control variables.";
+    t[20404] = "Surface.Line.Dialog.LineColor";
+    t[20405] = "Line color";
     t[20406] = "Simulation.Creator.IntervalExpressions.Empty";
     t[20407] = "At station id=%d no calculation expressions were given to determine the number of arrivals per interval.";
     t[20412] = "Git.List.Tab.LocalFolder.LocalFolder.Info.NoFolderSelected";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24569] = "The specified key \"%s\" is invalid.\nA non-negative integer number has to be specified.\nIn addition, the key must not match a key of any other record.";
     t[24576] = "Surface.Barrier.Dialog.ReleaseSignal.Error.Info";
     t[24577] = "No signal for releasing the clients has been selected.";
-    t[24578] = "ExpressionBuilder.ClientsAtStation.Skewness";
-    t[24579] = "<p>Returns the skewness of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[24578] = "ExpressionBuilder.ClientsAtStation.Skewness";
+    t[24579] = "<p>Returns the skewness of the number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[24594] = "Surface.Database.Config.ButtonHintFile";
     t[24595] = "Select file";
     t[24596] = "Surface.AnimationImage.Dialog.Images.EmptyInfo";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29593] = "Shortest queue at the next process station";
     t[29594] = "Editor.ModelOverview.Search.Hint";
     t[29595] = "Opens the elements search dialog.";
-    t[29596] = "Main.Menu.Edit.CopyAsImage";
-    t[29597] = "Copy as image";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29596] = "Main.Menu.Edit.CopyAsImage";
+    t[29597] = "Copy as image";
     t[29602] = "CommandLine.ServerMQTTTest.Stopped";
     t[29603] = "MQTT-based test server stopped.";
     t[29612] = "Surface.AnalogAssign.Tooltip";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34355] = "Use existing operator group";
     t[34360] = "Animation.Icon.FlagGreen";
     t[34361] = "Flag - green";
-    t[34362] = "Optimizer.Tab.Optimization.Round";
-    t[34363] = "Round";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34362] = "Optimizer.Tab.Optimization.Round";
+    t[34363] = "Round";
     t[34370] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.Kurt";
     t[34371] = "<p>Returns the excess kurtosis over all processing times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[34372] = "NoJDK.OptionCancel.Info";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39527] = "Confidence level for the confidence interval";
     t[39536] = "Editor.DialogBase.Protected.Tooltip";
     t[39537] = "Protect element against deletion";
-    t[39546] = "Surface.Dashboard.Dialog.Title.Animation";
-    t[39547] = "Charts dashboard";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39546] = "Surface.Dashboard.Dialog.Title.Animation";
+    t[39547] = "Charts dashboard";
     t[39550] = "Main.Menu.Edit.Align.Middle";
     t[39551] = "Center vertically";
     t[39552] = "Surface.XML.Connection.Type";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44547] = "<p>Calculates the greatest common divisor of the passed numbers.<br>The numbers are rounded to integers if necessary and negative signs are discarded.</p><p>Example: <tt>gcd(6;10)</tt> returns 2.</p>";
     t[44554] = "Surface.Source.Dialog.ThresholdValue.Error.Title";
     t[44555] = "Invalid threshold value";
-    t[44560] = "PathEditor.ResetAll.ConfirmTitle";
-    t[44561] = "Deletes all connections";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44560] = "PathEditor.ResetAll.ConfirmTitle";
+    t[44561] = "Deletes all connections";
     t[44564] = "Surface.InteractiveButton.Name";
     t[44565] = "Button";
     t[44572] = "Statistics.CountPathLength";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49435] = "Remove the condition from list.";
     t[49436] = "Distribution.Gamma";
     t[49437] = "Gamma distribution";
-    t[49438] = "Animation.Icon.Cake";
-    t[49439] = "Cake";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49438] = "Animation.Icon.Cake";
+    t[49439] = "Cake";
     t[49442] = "ExpressionBuilder.Repeats.RepeatCount";
     t[49443] = "Repeat count";
     t[49454] = "ScriptPopup.Client.ValueNumber.Batch.Hint";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54535] = "At element id=%d batch processing and setup times are defined. Both cannot be used at the same time.";
     t[54536] = "Surface.Process.Dialog.on";
     t[54537] = "on";
-    t[54540] = "Surface.AnimationImage.XML.Image";
-    t[54541] = "ModelElementImageData";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54540] = "Surface.AnimationImage.XML.Image";
+    t[54541] = "ModelElementImageData";
     t[54542] = "Surface.Match.Dialog.Title";
     t[54543] = "Edit match";
     t[54550] = "Git.List.PushAll";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[59599] = "This command expects exactly two additional parameters:\n1. Input model file\n2. Optimizer configuration file\nBoth input files have to exist.";
     t[59602] = "Main.Menu.Help.ScriptingReference.pdf";
     t[59603] = "Warteschlangensimulator-Scripting-en.pdf";
-    t[59606] = "Editor.Navigator.Sorting.Names";
-    t[59607] = "Names";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59606] = "Editor.Navigator.Sorting.Names";
+    t[59607] = "Names";
     t[59610] = "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution";
     t[59611] = "Hypergeometric distribution";
     t[59612] = "Surface.Resource.ErrorInterDistribution";

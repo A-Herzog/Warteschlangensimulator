@@ -23,6 +23,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -37,8 +38,8 @@ import javax.swing.JTextField;
 import language.Language;
 import mathtools.NumberTools;
 import systemtools.BaseDialog;
+import systemtools.ColorChooserButton;
 import systemtools.MsgBox;
-import systemtools.SmallColorChooser;
 import ui.images.Images;
 import ui.modeleditor.AnimationImageSource;
 import ui.modeleditor.ModelAnimationImages;
@@ -67,7 +68,7 @@ public class ClientDataDialog extends BaseDialog {
 	/** Auswahloption: Benutzerdefinierte Farbefestlegen */
 	private final JRadioButton optionUserColor;
 	/** Auswahlfeld für benutzerdefinierte Farbe */
-	private final SmallColorChooser colorChooser;
+	private final ColorChooserButton colorChooser;
 	/** Datenmodell für Animations-Icon Auswahlfeld {@link #iconChooser} */
 	private final DefaultComboBoxModel<JLabel> iconChooserList;
 	/** Animations-Icon Auswahlfeld */
@@ -147,19 +148,18 @@ public class ClientDataDialog extends BaseDialog {
 		line.add(optionAutomaticColor=new JRadioButton(Language.tr("Editor.ClientDialog.Tab.ColorAndIcon.Color.Automatic")));
 		optionAutomaticColor.setEnabled(!readOnly);
 		sub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionUserColor=new JRadioButton(Language.tr("Editor.ClientDialog.Tab.ColorAndIcon.Color.UserDefined")));
+		line.add(optionUserColor=new JRadioButton(Language.tr("Editor.ClientDialog.Tab.ColorAndIcon.Color.UserDefined")+":"));
 		optionUserColor.setEnabled(!readOnly);
+		line.add(Box.createHorizontalStrut(5));
+		line.add(colorChooser=new ColorChooserButton(userColor));
+		colorChooser.setEnabled(!readOnly);
+		colorChooser.addClickListener(e->optionUserColor.setSelected(true));
+
 		final ButtonGroup buttonGroup=new ButtonGroup();
 		buttonGroup.add(optionAutomaticColor);
 		buttonGroup.add(optionUserColor);
 		optionAutomaticColor.setSelected(userColor==null);
 		optionUserColor.setSelected(userColor!=null);
-
-		/* Farbwähler + Belegung mit Vorgabe */
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
-		sub.add(colorChooser=new SmallColorChooser(userColor));
-		colorChooser.setEnabled(!readOnly);
-		colorChooser.addClickListener(e->optionUserColor.setSelected(true));
 
 		/* Tab: "Kosten" */
 		tabs.addTab(Language.tr("Editor.ClientDialog.Tab.Costs"),content=new JPanel(new BorderLayout()));

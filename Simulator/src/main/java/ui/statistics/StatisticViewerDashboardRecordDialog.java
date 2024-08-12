@@ -37,7 +37,7 @@ import javax.swing.SpinnerNumberModel;
 import language.Language;
 import simulator.statistics.Statistics;
 import systemtools.BaseDialog;
-import systemtools.SmallColorChooser;
+import systemtools.OptionalColorChooserButton;
 import tools.IconListCellRenderer;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -104,25 +104,14 @@ public class StatisticViewerDashboardRecordDialog extends BaseDialog {
 	/* Tab "Hintergrundfarbe" */
 
 	/**
-	 * Checkbox: Nutzerdefinierte Hintergrundfarbe verwenden
-	 */
-	private final JCheckBox useBackgroundColor;
-
-	/**
 	 * Auswahlfeld für die Hintergrundfarbe
 	 */
-	private final SmallColorChooser backgroundColor;
-
-	/**
-	 * Checkbox: Nutzerdefinierte Gradientfarbe verwenden
-	 */
-	private final JCheckBox useGradientColor;
+	private final OptionalColorChooserButton backgroundColor;
 
 	/**
 	 * Auswahlfeld für die Gradientfarbe
 	 */
-	private final SmallColorChooser gradientColor;
-
+	private final OptionalColorChooserButton gradientColor;
 
 	/**
 	 * Konstruktor der Klasse
@@ -140,7 +129,7 @@ public class StatisticViewerDashboardRecordDialog extends BaseDialog {
 		final JTabbedPane tabs=new JTabbedPane();
 		content.add(tabs,BorderLayout.CENTER);
 
-		JPanel tabOuter, tab, line, part;
+		JPanel tabOuter, tab, line;
 		JLabel label;
 		Object[] data;
 
@@ -221,17 +210,12 @@ public class StatisticViewerDashboardRecordDialog extends BaseDialog {
 		tabs.addTab(Language.tr("Statistics.Dashboard.EditDialog.Tab.BackgroundColor"),tabOuter=new JPanel(new BorderLayout()));
 		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
 		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
+
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(backgroundColor=new OptionalColorChooserButton(Language.tr("Statistics.Dashboard.EditDialog.UserDefinedBackgroundColor")+":",record.getBackgroundColor(),Color.LIGHT_GRAY));
 
-		line.add(part=new JPanel(new BorderLayout()));
-		part.add(useBackgroundColor=new JCheckBox(Language.tr("Statistics.Dashboard.EditDialog.UserDefinedBackgroundColor"),record.getBackgroundColor()!=null),BorderLayout.NORTH);
-		part.add(backgroundColor=new SmallColorChooser((record.getBackgroundColor()==null)?Color.LIGHT_GRAY:record.getBackgroundColor()),BorderLayout.CENTER);
-		backgroundColor.addClickListener(e->useBackgroundColor.setSelected(true));
-
-		line.add(part=new JPanel(new BorderLayout()));
-		part.add(useGradientColor=new JCheckBox(Language.tr("Statistics.Dashboard.EditDialog.GradientColor"),record.getGradientColor()!=null),BorderLayout.NORTH);
-		part.add(gradientColor=new SmallColorChooser((record.getGradientColor()==null)?Color.GRAY:record.getGradientColor()),BorderLayout.CENTER);
-		gradientColor.addClickListener(e->useGradientColor.setSelected(true));
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(gradientColor=new OptionalColorChooserButton(Language.tr("Statistics.Dashboard.EditDialog.GradientColor")+":",record.getGradientColor(),Color.GRAY));
 
 		/* Icons auf den Tabs */
 		tabs.setIconAt(0,Images.GENERAL_NUMBERS.getIcon());
@@ -239,7 +223,8 @@ public class StatisticViewerDashboardRecordDialog extends BaseDialog {
 		tabs.setIconAt(2,Images.EDIT_BACKGROUND_COLOR.getIcon());
 
 		/* Dialog starten */
-		setSizeRespectingScreensize(600,480);
+		setMinSizeRespectingScreensize(600,0);
+		pack();
 		setLocationRelativeTo(getOwner());
 		setVisible(true);
 	}
@@ -262,7 +247,7 @@ public class StatisticViewerDashboardRecordDialog extends BaseDialog {
 		record.setDigits(((Integer)digits.getValue()).intValue());
 
 		/* Tab "Hintergrundfarbe" */
-		record.setBackgroundColor(useBackgroundColor.isSelected()?backgroundColor.getColor():null);
-		record.setGradientColor(useGradientColor.isSelected()?gradientColor.getColor():null);
+		record.setBackgroundColor(backgroundColor.getColor());
+		record.setGradientColor(gradientColor.getColor());
 	}
 }

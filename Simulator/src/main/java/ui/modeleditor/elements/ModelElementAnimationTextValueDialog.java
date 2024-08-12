@@ -15,7 +15,6 @@
  */
 package ui.modeleditor.elements;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -23,8 +22,8 @@ import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
-import java.util.Hashtable;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -35,7 +34,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
-import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
@@ -46,8 +44,10 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
+import systemtools.LabeledAlphaButton;
+import systemtools.LabeledColorChooserButton;
 import systemtools.MsgBox;
-import systemtools.SmallColorChooser;
+import systemtools.OptionalColorChooserButton;
 import tools.DateTools;
 import tools.IconListCellRenderer;
 import ui.images.Images;
@@ -102,13 +102,11 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 	private JCheckBox optionInterpretLaTeX;
 
 	/** Auswahl der Textfarbe */
-	private SmallColorChooser colorChooser;
-	/** Option: Hintergrundfarbe verwenden? */
-	private JCheckBox background;
+	private LabeledColorChooserButton colorChooser;
 	/** Auswahl der Hintergrundfarbe */
-	private SmallColorChooser colorChooserBackground;
+	private OptionalColorChooserButton colorChooserBackground;
 	/** Schieberegler zur Auswahl des Deckkraft der Hintergrundfarbe */
-	private JSlider alpha;
+	private LabeledAlphaButton alpha;
 
 	/**
 	 * Konstruktor der Klasse
@@ -136,7 +134,7 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 	@SuppressWarnings("unchecked")
 	@Override
 	protected JComponent getContentPanel() {
-		JPanel subPanel, subPanel2, line;
+		JPanel line;
 		Object[] data;
 
 		final JPanel content=new JPanel();
@@ -234,7 +232,7 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		postText.setEditable(!readOnly);
 		line.add(new JPreviewButton(postText));
 
-		/* Zeile für Einstellungen zu Pre- und Posttext*/
+		/* Zeile für Einstellungen zu Pre- und Posttext */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
 		/* Interpretation von Symbolen */
@@ -257,49 +255,23 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		optionInterpretLaTeX.setEnabled(!readOnly);
 
 		/* Zeile für Farben */
-		content.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
 		/* Schriftfarbe */
-		subPanel.add(subPanel2=new JPanel());
-		subPanel2.setLayout(new BoxLayout(subPanel2,BoxLayout.PAGE_AXIS));
-
-		subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(label=new JLabel(Language.tr("Surface.AnimationText.Dialog.Color")+":"));
-
-		subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(colorChooser=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
+		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Surface.AnimationText.Dialog.Color")+":",Color.BLACK));
 		colorChooser.setEnabled(!readOnly);
-		label.setLabelFor(colorChooser);
+
+		line.add(Box.createHorizontalStrut(10));
 
 		/* Hintergrundfarbe */
-		subPanel.add(subPanel2=new JPanel());
-		subPanel2.setLayout(new BoxLayout(subPanel2,BoxLayout.PAGE_AXIS));
-
-		subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(background=new JCheckBox(Language.tr("Surface.AnimationText.Dialog.FillBackground")),BorderLayout.NORTH);
-		background.setEnabled(!readOnly);
-
-		subPanel2.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(colorChooserBackground=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
+		line.add(colorChooserBackground=new OptionalColorChooserButton(Language.tr("Surface.AnimationText.Dialog.FillBackground"),null,Color.BLACK));
 		colorChooserBackground.setEnabled(!readOnly);
-		colorChooserBackground.addClickListener(e->background.setSelected(true));
+
+		line.add(Box.createHorizontalStrut(10));
 
 		/* Deckkraft */
-		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
-		JLabel alphaLabel=new JLabel(Language.tr("Surface.AnimationText.Dialog.Alpha")+":");
-		line.add(alphaLabel);
-		line.add(alpha=new JSlider(0,100,100));
-		alphaLabel.setLabelFor(alpha);
+		line.add(alpha=new LabeledAlphaButton(Language.tr("Surface.AnimationText.Dialog.Alpha")+":",0));
 		alpha.setEnabled(!readOnly);
-		alpha.setMinorTickSpacing(1);
-		alpha.setMajorTickSpacing(10);
-		Hashtable<Integer,JComponent> labels=new Hashtable<>();
-		for (int i=0;i<=10;i++) labels.put(i*10,new JLabel(NumberTools.formatPercent(i/10.0)));
-		alpha.setLabelTable(labels);
-		alpha.setPaintTicks(true);
-		alpha.setPaintLabels(true);
-		alpha.setPreferredSize(new Dimension(400,alpha.getPreferredSize().height));
-		alpha.addChangeListener(e->background.setSelected(true));
 
 		/* Werte initialisieren */
 		if (element instanceof ModelElementAnimationTextValue) {
@@ -366,10 +338,11 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 			optionInterpretLaTeX.setSelected(text.isInterpretLaTeX());
 
 			colorChooser.setColor(text.getColor());
-			background.setSelected(text.getFillColor()!=null);
 			colorChooserBackground.setColor(text.getFillColor());
-			alpha.setValue((int)Math.round(100*text.getFillAlpha()));
+			alpha.setAlpha(text.getFillAlpha());
 		}
+
+		alpha.addClickListener(e->colorChooserBackground.setActive(true));
 
 		checkData(false);
 
@@ -502,14 +475,10 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		text.setColor(colorChooser.getColor());
 
 		/* Hintergrundfarbe */
-		if (background.isSelected()) {
-			text.setFillColor(colorChooserBackground.getColor());
-		} else {
-			text.setFillColor(null);
-		}
+		text.setFillColor(colorChooserBackground.getColor());
 
 		/* Deckkraft */
-		text.setFillAlpha(alpha.getValue()/100.0);
+		text.setFillAlpha(alpha.getAlpha());
 	}
 
 	/**
@@ -565,8 +534,8 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 					optionInterpretSymbols.isSelected(),
 					textGetter.getText(),
 					colorChooser.getColor(),
-					(background.isSelected()?colorChooserBackground.getColor():null),
-					alpha.getValue()/100.0,
+					colorChooserBackground.getColor(),
+					alpha.getAlpha(),
 					14,
 					optionBold.isSelected(),
 					optionItalic.isSelected(),

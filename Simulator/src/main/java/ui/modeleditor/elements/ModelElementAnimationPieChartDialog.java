@@ -18,13 +18,12 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.Serializable;
 import java.util.Arrays;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -33,7 +32,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import language.Language;
-import systemtools.SmallColorChooser;
+import systemtools.LabeledColorChooserButton;
+import systemtools.OptionalColorChooserButton;
 import tools.IconListCellRenderer;
 import tools.JTableExt;
 import ui.images.Images;
@@ -61,11 +61,9 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 	/** Auswahlbox für die Rahmenbreite */
 	private JComboBox<JLabel> lineWidth;
 	/** Auswahl der Rahmenfarbe */
-	private SmallColorChooser colorChooserLine;
-	/** Option: Hintergrundfarbe verwenden? */
-	private JCheckBox background;
+	private LabeledColorChooserButton colorChooserLine;
 	/** Auswahl der Hintergrundfarbe */
-	private SmallColorChooser colorChooserBackground;
+	private OptionalColorChooserButton colorChooserBackground;
 
 	/**
 	 * Konstruktor der Klasse
@@ -87,7 +85,7 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 	protected JComponent getContentPanel() {
 		final JTabbedPane tabs=new JTabbedPane();
 
-		JPanel content, lines, line, cell;
+		JPanel content, lines, line;
 		JLabel label;
 		Object[] data;
 
@@ -141,20 +139,13 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
 
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(label=new JLabel(Language.tr("Surface.AnimationPieChart.Dialog.Appearance.FrameColor")+":"),BorderLayout.NORTH);
-		cell.add(colorChooserLine=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
+		line.add(colorChooserLine=new LabeledColorChooserButton(Language.tr("Surface.AnimationPieChart.Dialog.Appearance.FrameColor")+":",Color.BLACK));
 		colorChooserLine.setEnabled(!readOnly);
-		label.setLabelFor(colorChooserLine);
 
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(background=new JCheckBox(Language.tr("Surface.AnimationPieChart.Dialog.Appearance.FillBackground")),BorderLayout.NORTH);
-		background.setEnabled(!readOnly);
-		cell.add(colorChooserBackground=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
+		line.add(Box.createHorizontalStrut(10));
+
+		line.add(colorChooserBackground=new OptionalColorChooserButton(Language.tr("Surface.AnimationPieChart.Dialog.Appearance.FillBackground"),null,Color.WHITE));
 		colorChooserBackground.setEnabled(!readOnly);
-		colorChooserBackground.addClickListener(e->background.setSelected(true));
-
-		label.setPreferredSize(new Dimension(label.getPreferredSize().width,background.getPreferredSize().height));
 
 		/* Icons für Tabs */
 		tabs.setIconAt(0,Images.MODELEDITOR_ELEMENT_ANIMATION_PIE_CHART.getIcon());
@@ -179,7 +170,6 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 
 			lineWidth.setSelectedIndex(diagram.getBorderWidth());
 			colorChooserLine.setColor(diagram.getBorderColor());
-			background.setSelected(diagram.getBackgroundColor()!=null);
 			colorChooserBackground.setColor(diagram.getBackgroundColor());
 		}
 
@@ -228,11 +218,7 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 
 			diagram.setBorderWidth(lineWidth.getSelectedIndex());
 			diagram.setBorderColor(colorChooserLine.getColor());
-			if (background.isSelected()) {
-				diagram.setBackgroundColor(colorChooserBackground.getColor());
-			} else {
-				diagram.setBackgroundColor(null);
-			}
+			diagram.setBackgroundColor(colorChooserBackground.getColor());
 		}
 	}
 }

@@ -18,7 +18,6 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -30,7 +29,6 @@ import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -40,8 +38,9 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
+import systemtools.LabeledColorChooserButton;
 import systemtools.MsgBox;
-import systemtools.SmallColorChooser;
+import systemtools.OptionalColorChooserButton;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -69,19 +68,15 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 	/** Achsenbeschriftung anzeigen */
 	private AxisDrawerEdit axisLabels;
 	/** Auswahl der Farbe für die Datenpunkte */
-	private SmallColorChooser colorChooserData;
+	private LabeledColorChooserButton colorChooserData;
 	/** Auswahlbox für die Rahmenbreite */
 	private JComboBox<JLabel> lineWidth;
 	/** Auswahl der Rahmenfarbe */
-	private SmallColorChooser colorChooserLine;
-	/** Option: Hintergrundfarbe verwenden? */
-	private JCheckBox background;
+	private LabeledColorChooserButton colorChooserLine;
 	/** Auswahl der Hintergrundfarbe */
-	private SmallColorChooser colorChooserBackground;
-	/** Option: Farbverlauf verwenden */
-	private JCheckBox gradient;
+	private OptionalColorChooserButton colorChooserBackground;
 	/** Auswahl der Farbe für den Farbverlauf */
-	private SmallColorChooser colorChooserGradient;
+	private OptionalColorChooserButton colorChooserGradient;
 
 	/**
 	 * Konstruktor der Klasse
@@ -118,7 +113,6 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 		final JTabbedPane tabs=new JTabbedPane();
 
 		JPanel content, line, cell;
-		JLabel label;
 		Object[] data;
 
 		/* Daten: Aufzeichnungselement und Anzahl an Datenpunkten */
@@ -147,17 +141,9 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 		/* Achsenbeschriftung */
 		cell.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,"","",readOnly));
 
-		cell.add(Box.createVerticalStrut(15));
-
 		cell.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(label=new JLabel(Language.tr("Surface.AnimationRecord.Dialog.Appearance.DataColor")+":"),BorderLayout.NORTH);
-
-		content.add(cell=new JPanel(new BorderLayout()),BorderLayout.CENTER);
-
-		cell.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(colorChooserData=new SmallColorChooser(Color.BLUE),BorderLayout.WEST);
+		line.add(colorChooserData=new LabeledColorChooserButton(Language.tr("Surface.AnimationRecord.Dialog.Appearance.DataColor")+":",Color.BLUE));
 		colorChooserData.setEnabled(!readOnly);
-		label.setLabelFor(colorChooserData);
 
 		/* Darstellung: Farben und Linienbreiten */
 		tabs.addTab(Language.tr("Surface.AnimationRecord.Dialog.Appearance"),content=new JPanel(new BorderLayout()));
@@ -171,29 +157,22 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
 
 		/* Rahmenfarbe */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(label=new JLabel(Language.tr("Surface.AnimationRecord.Dialog.Appearance.FrameColor")+":"),BorderLayout.NORTH);
-		cell.add(colorChooserLine=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
+		line.add(colorChooserLine=new LabeledColorChooserButton(Language.tr("Surface.AnimationRecord.Dialog.Appearance.FrameColor")+":",Color.BLACK));
 		colorChooserLine.setEnabled(!readOnly);
-		label.setLabelFor(colorChooserLine);
+
+		line.add(Box.createHorizontalStrut(10));
 
 		/* Hintergrundfarbe */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(background=new JCheckBox(Language.tr("Surface.AnimationRecord.Dialog.Appearance.FillBackground")),BorderLayout.NORTH);
-		background.setEnabled(!readOnly);
-		cell.add(colorChooserBackground=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
+		line.add(colorChooserBackground=new OptionalColorChooserButton(Language.tr("Surface.AnimationRecord.Dialog.Appearance.FillBackground"),null,Color.WHITE));
 		colorChooserBackground.setEnabled(!readOnly);
-		colorChooserBackground.addClickListener(e->background.setSelected(true));
-		label.setPreferredSize(new Dimension(label.getPreferredSize().width,background.getPreferredSize().height));
+		colorChooserBackground.addClickListener(e->{if (!colorChooserBackground.isActive()) colorChooserGradient.setActive(false);});
+
+		line.add(Box.createHorizontalStrut(10));
 
 		/* Farbverlauf */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(gradient=new JCheckBox(Language.tr("Surface.AnimationRecord.Dialog.BackgroundGradient")),BorderLayout.NORTH);
-		gradient.setEnabled(!readOnly);
-		gradient.addActionListener(e->{if (gradient.isSelected()) background.setSelected(true);});
-		cell.add(colorChooserGradient=new SmallColorChooser(Color.WHITE),BorderLayout.CENTER);
+		line.add(colorChooserGradient=new OptionalColorChooserButton(Language.tr("Surface.AnimationRecord.Dialog.BackgroundGradient"),null,Color.WHITE));
 		colorChooserGradient.setEnabled(!readOnly);
-		colorChooserGradient.addClickListener(e->{background.setSelected(true); gradient.setSelected(true);});
+		colorChooserGradient.addClickListener(e->{if (colorChooserGradient.isActive()) colorChooserBackground.setActive(true);});
 
 		/* Icons für Tabs */
 		tabs.setIconAt(0,Images.MODELEDITOR_ELEMENT_ANIMATION_DIAGRAM.getIcon());
@@ -210,9 +189,7 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 			colorChooserData.setColor(record.getDataColor());
 			lineWidth.setSelectedIndex(record.getBorderWidth());
 			colorChooserLine.setColor(record.getBorderColor());
-			background.setSelected(record.getBackgroundColor()!=null);
 			colorChooserBackground.setColor(record.getBackgroundColor());
-			gradient.setSelected(record.getGradientFillColor()!=null);
 			colorChooserGradient.setColor(record.getGradientFillColor());
 		}
 
@@ -280,16 +257,8 @@ public class ModelElementAnimationRecordDialog extends ModelElementBaseDialog {
 
 			record.setBorderWidth(lineWidth.getSelectedIndex());
 			record.setBorderColor(colorChooserLine.getColor());
-			if (background.isSelected()) {
-				record.setBackgroundColor(colorChooserBackground.getColor());
-			} else {
-				record.setBackgroundColor(null);
-			}
-			if (gradient.isSelected()) {
-				record.setGradientFillColor(colorChooserGradient.getColor());
-			} else {
-				record.setGradientFillColor(null);
-			}
+			record.setBackgroundColor(colorChooserBackground.getColor());
+			record.setGradientFillColor(colorChooserGradient.getColor());
 		}
 	}
 }

@@ -15,7 +15,6 @@
  */
 package ui.modeleditor.elements;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -28,14 +27,13 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
+import systemtools.LabeledColorChooserButton;
 import systemtools.MsgBox;
-import systemtools.SmallColorChooser;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 
@@ -67,7 +65,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 	private JTextField editRedAreaStartValue;
 
 	/** Auswahl der Farbe des Zeigers */
-	private SmallColorChooser colorChooser;
+	private LabeledColorChooserButton colorChooser;
 
 	/**
 	 * Konstruktor der Klasse
@@ -95,8 +93,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 
 	@Override
 	protected JComponent getContentPanel() {
-		JPanel line, cell;
-		JLabel label;
+		JPanel line;
 		Object[] data;
 
 		final JPanel content=new JPanel();
@@ -159,11 +156,8 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 
 		/* Farbe */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(label=new JLabel(Language.tr("Surface.AnimationPointerMeasuring.Dialog.Color")+":"),BorderLayout.NORTH);
-		cell.add(colorChooser=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
+		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Surface.AnimationPointerMeasuring.Dialog.Color")+":",Color.BLACK));
 		colorChooser.setEnabled(!readOnly);
-		label.setLabelFor(colorChooser);
 
 		/* Daten eintragen */
 		if (element instanceof ModelElementAnimationPointerMeasuring) {

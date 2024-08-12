@@ -29,7 +29,7 @@ import javax.swing.JPanel;
 import language.Language;
 import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
-import systemtools.SmallColorChooser;
+import systemtools.LabeledColorChooserButton;
 import tools.IconListCellRenderer;
 import ui.help.Help;
 import ui.images.Images;
@@ -73,7 +73,7 @@ public class EdgeStyleSetupDialog extends BaseDialog {
 	private final JComboBox<JLabel> lineTypeSelected;
 
 	/** Farbwähler */
-	private final SmallColorChooser colorChooser;
+	private final LabeledColorChooserButton colorChooser;
 
 	/**
 	 * Konstruktor der Klasse
@@ -165,9 +165,7 @@ public class EdgeStyleSetupDialog extends BaseDialog {
 
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		sub.add(line);
-		line.add(new JLabel(Language.tr("Window.EdgeStyle.LineColor")+":"));
-
-		content.add(colorChooser=new SmallColorChooser(edgeNormal.getColor()),BorderLayout.CENTER);
+		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Window.EdgeStyle.LineColor")+":",edgeNormal.getColor()));
 
 		pack();
 	}

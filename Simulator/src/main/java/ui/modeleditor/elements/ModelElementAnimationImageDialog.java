@@ -28,7 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import language.Language;
-import systemtools.SmallColorChooser;
+import systemtools.LabeledColorChooserButton;
 import tools.JTableExt;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
@@ -51,7 +51,7 @@ public class ModelElementAnimationImageDialog extends ModelElementBaseDialog {
 	/** Auswahlbox für die Rahmenbreite */
 	private JComboBox<JLabel> lineWidth;
 	/** Auswahl der Rahmenfarbe */
-	private SmallColorChooser colorChooser;
+	private LabeledColorChooserButton colorChooser;
 
 	/**
 	 * Konstruktor der Klasse
@@ -99,9 +99,7 @@ public class ModelElementAnimationImageDialog extends ModelElementBaseDialog {
 		/* Rahmenfarbe */
 		tab.add(sub=new JPanel(new BorderLayout()),BorderLayout.CENTER);
 		sub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
-		line.add(new JLabel(Language.tr("Surface.AnimationImage.Dialog.FrameColor")+":"));
-		sub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
-		line.add(colorChooser=new SmallColorChooser(((ModelElementAnimationImage)element).getBorderColor()));
+		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Surface.AnimationImage.Dialog.FrameColor")+":",((ModelElementAnimationImage)element).getBorderColor()));
 		colorChooser.setEnabled(!readOnly);
 
 		/* Icons für Tabs laden */

@@ -16,27 +16,26 @@
 package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.Box;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
+import systemtools.LabeledAlphaButton;
+import systemtools.LabeledColorChooserButton;
 import systemtools.MsgBox;
-import systemtools.SmallColorChooser;
+import systemtools.OptionalColorChooserButton;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 
@@ -59,17 +58,13 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 	/** Eingabefeld für die Drehung */
 	private JTextField rotation;
 	/** Auswahl der Farbe der Linie des Rechtecks */
-	private SmallColorChooser colorChooserLine;
-	/** Option: Hintergrundfarbe verwenden? */
-	private JCheckBox background;
+	private LabeledColorChooserButton colorChooserLine;
 	/** Auswahl der Hintergrundfarbe */
-	private SmallColorChooser colorChooserBackground;
-	/** Option: Farbverlauf verwenden */
-	private JCheckBox gradient;
+	private OptionalColorChooserButton colorChooserBackground;
 	/** Auswahl der Farbe für den Farbverlauf */
-	private SmallColorChooser colorChooserGradient;
+	private OptionalColorChooserButton colorChooserGradient;
 	/** Schieberegler zur Auswahl des Deckkraft der Hintergrundfarbe */
-	private JSlider alpha;
+	private LabeledAlphaButton alpha;
 
 	/**
 	 * Konstruktor der Klasse
@@ -101,7 +96,7 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 
 		final JPanel content=new JPanel(new BorderLayout());
 
-		JPanel line, cell;
+		JPanel line;
 		JLabel label;
 
 		/* Rahmenbreite */
@@ -140,49 +135,29 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
 
 		/* Rahmenfarbe */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(label=new JLabel(Language.tr("Surface.Rectangle.Dialog.FrameColor")+":"),BorderLayout.NORTH);
-		cell.add(colorChooserLine=new SmallColorChooser(rectangle.getColor()),BorderLayout.CENTER);
+		line.add(colorChooserLine=new LabeledColorChooserButton(Language.tr("Surface.Rectangle.Dialog.FrameColor")+":",((ModelElementRectangle)element).getColor()));
 		colorChooserLine.setEnabled(!readOnly);
-		label.setLabelFor(colorChooserLine);
+
+		line.add(Box.createHorizontalStrut(10));
 
 		/* Hintergrundfarbe */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(background=new JCheckBox(Language.tr("Surface.Rectangle.Dialog.FillBackground")),BorderLayout.NORTH);
-		background.setSelected(rectangle.getFillColor()!=null);
-		background.setEnabled(!readOnly);
-		cell.add(colorChooserBackground=new SmallColorChooser(rectangle.getFillColor()),BorderLayout.CENTER);
+		line.add(colorChooserBackground=new OptionalColorChooserButton(Language.tr("Surface.Rectangle.Dialog.FillBackground"),((ModelElementRectangle)element).getFillColor(),Color.WHITE));
 		colorChooserBackground.setEnabled(!readOnly);
-		colorChooserBackground.addClickListener(e->background.setSelected(true));
+		colorChooserBackground.addClickListener(e->{if (!colorChooserBackground.isActive()) colorChooserGradient.setActive(false);});
+
+		line.add(Box.createHorizontalStrut(10));
 
 		/* Farbverlauf */
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(gradient=new JCheckBox(Language.tr("Surface.Rectangle.Dialog.BackgroundGradient")),BorderLayout.NORTH);
-		gradient.setSelected(rectangle.getGradientFillColor()!=null);
-		gradient.setEnabled(!readOnly);
-		gradient.addActionListener(e->{if (gradient.isSelected()) background.setSelected(true);});
-		cell.add(colorChooserGradient=new SmallColorChooser(rectangle.getGradientFillColor()),BorderLayout.CENTER);
+		line.add(colorChooserGradient=new OptionalColorChooserButton(Language.tr("Surface.Rectangle.Dialog.BackgroundGradient"),((ModelElementRectangle)element).getGradientFillColor(),Color.WHITE));
 		colorChooserGradient.setEnabled(!readOnly);
-		colorChooserGradient.addClickListener(e->{background.setSelected(true); gradient.setSelected(true);});
+		colorChooserGradient.addClickListener(e->{if (colorChooserGradient.isActive()) colorChooserBackground.setActive(true);});
+
+		line.add(Box.createHorizontalStrut(10));
 
 		/* Deckkraft */
-		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.SOUTH);
-		JLabel alphaLabel=new JLabel(Language.tr("Surface.Rectangle.Dialog.Alpha")+":");
-		line.add(alphaLabel);
-		line.add(alpha=new JSlider(0,100,(int)Math.round(100*rectangle.getFillAlpha())));
-		alphaLabel.setLabelFor(alpha);
+		line.add(alpha=new LabeledAlphaButton(Language.tr("Surface.Rectangle.Dialog.Alpha")+":",((ModelElementRectangle)element).getFillAlpha()));
 		alpha.setEnabled(!readOnly);
-		alpha.setMinorTickSpacing(1);
-		alpha.setMajorTickSpacing(10);
-		Hashtable<Integer,JComponent> labels=new Hashtable<>();
-		for (int i=0;i<=10;i++) labels.put(i*10,new JLabel(NumberTools.formatPercent(i/10.0)));
-		alpha.setLabelTable(labels);
-		alpha.setPaintTicks(true);
-		alpha.setPaintLabels(true);
-		alpha.setPreferredSize(new Dimension(400,alpha.getPreferredSize().height));
-		alpha.addChangeListener(e->background.setSelected(true));
-
-		label.setPreferredSize(new Dimension(label.getPreferredSize().width,gradient.getPreferredSize().height));
+		alpha.addClickListener(e->colorChooserBackground.setActive(true));
 
 		return content;
 	}
@@ -226,21 +201,9 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 
 			rectangle.setLineWidth(lineWidth.getSelectedIndex());
 			rectangle.setColor(colorChooserLine.getColor());
-
-			if (background.isSelected()) {
-				rectangle.setFillColor(colorChooserBackground.getColor());
-			} else {
-				rectangle.setFillColor(null);
-			}
-
-			if (gradient.isSelected()) {
-				rectangle.setGradientFillColor(colorChooserGradient.getColor());
-			} else {
-				rectangle.setGradientFillColor(null);
-			}
-
-			rectangle.setFillAlpha(alpha.getValue()/100.0);
-
+			rectangle.setFillColor(colorChooserBackground.getColor());
+			rectangle.setGradientFillColor(colorChooserGradient.getColor());
+			rectangle.setFillAlpha(alpha.getAlpha());
 			rectangle.setRounding(rounding.getSelectedIndex()/10.0);
 			rectangle.setRotationAlpha(NumberTools.getNotNegativeDouble(rotation,true));
 		}

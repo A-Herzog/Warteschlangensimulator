@@ -15,13 +15,11 @@
  */
 package systemtools;
 
-import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -37,7 +35,7 @@ import javax.swing.JPanel;
  * Ermöglicht die Auswahl einer Farbe
  * @author Alexander Herzog
  */
-public class SmallColorChooser extends JPanel {
+public class SmallColorChooser extends JPanel implements ColorChooser {
 	/**
 	 * Serialisierungs-ID der Klasse
 	 * @see Serializable
@@ -582,9 +580,10 @@ public class SmallColorChooser extends JPanel {
 	}
 
 	/**
-	 * Stellt die ausgewählte Farbe ein
+	 * Stellt die ausgewählte Farbe ein.
 	 * @param color	Auszuwählende Farbe; wird <code>null</code> oder eine in der Anzeige nicht vorhandene Farbe gewählt, so wird Schwarz ausgewählt
 	 */
+	@Override
 	public void setColor(final Color color) {
 		int index;
 		if (color==null) {
@@ -597,54 +596,31 @@ public class SmallColorChooser extends JPanel {
 		for (int i=0;i<getComponentCount();i++) ((ColorBox)getComponent(i)).setSelected(i==index);
 	}
 
-	/**
-	 * Liefert die momentan eingestellte Farbe
-	 * @return	Aktuell gewählte Farbe
-	 */
+	@Override
 	public Color getColor() {
 		for (int i=0;i<getComponentCount();i++) if (((ColorBox)getComponent(i)).isSelected()) return ((ColorBox)getComponent(i)).getColor();
 		return Color.BLACK;
 	}
 
-	/**
-	 * Gibt an, ob Farben per Klick ausgewählt werden können
-	 * @return	Farben per Klick anwählbar
-	 */
 	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
-	/**
-	 * Stellt ein, ob Farben per Klick gewählt werden dürfen
-	 * @param enabled	Farben per Klick anwählbar
-	 */
 	@Override
 	public void setEnabled(final boolean enabled) {
 		this.enabled=enabled;
 	}
 
 	/**
-	 * Listener, die benachrichtigt werden sollen, wenn auf eine Farbe geklickt wird.
-	 * @see #colorBoxClick(Color)
+	 * Klick-Listener
+	 * @see #getClickListeners()
 	 */
-	private List<ActionListener> clickListeners=new ArrayList<>();
+	private final List<ActionListener> clickListeners=new ArrayList<>();
 
-	/**
-	 * Fügt einen Listener hinzu, der benachrichtigt wird, wenn auf eine Farbe geklickt wird
-	 * @param clickListener	Zu benachrichtigender Listener
-	 */
-	public void addClickListener(final ActionListener clickListener) {
-		if (clickListeners.indexOf(clickListener)<0) clickListeners.add(clickListener);
-	}
-
-	/**
-	 * Entfernt einen Listener aus der Liste der im Falle eines Klicks auf eine Farbe zu benachrichtigenden Listener
-	 * @param clickListener	In Zukunft nicht mehr zu benachrichtigender Listener
-	 * @return	Gibt <code>true</code> zurück, wenn der Listener erfolgreich aus der Liste entfernt werden konnte
-	 */
-	public boolean removeClickListener(final ActionListener clickListener) {
-		return clickListeners.remove(clickListener);
+	@Override
+	public List<ActionListener> getClickListeners() {
+		return clickListeners;
 	}
 
 	/**
@@ -662,8 +638,7 @@ public class SmallColorChooser extends JPanel {
 
 		repaint();
 
-		final ActionEvent event=new ActionEvent(this,AWTEvent.RESERVED_ID_MAX+1,"click");
-		for (ActionListener listener: clickListeners) listener.actionPerformed(event);
+		fireClickListeners();
 	}
 
 	/**

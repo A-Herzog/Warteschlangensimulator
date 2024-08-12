@@ -1512,6 +1512,7 @@ public class InfoPanel {
 		pane.setEditable(false);
 		pane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		pane.setHighlighter(null);
+		pane.setCaretColor(topInner.getBackground());
 		pane.setComponentPopupMenu(removePanelMenu);
 		topInner.add(pane,BorderLayout.CENTER);
 
@@ -1530,9 +1531,10 @@ public class InfoPanel {
 			toolBar.setBackground(new Color(250,250,245));
 		}
 		topInner.add(toolBar,BorderLayout.EAST);
+		pane.setText(text);
+		pane.setToolTipText(text);
 
 		SwingUtilities.invokeLater(()->{
-			pane.setText(text);
 			final int h1=topOuter.getHeight();
 			final int h2=topOuter.getPreferredSize().height;
 			if (h2>h1) topOuter.setSize(topOuter.getWidth(),h2);

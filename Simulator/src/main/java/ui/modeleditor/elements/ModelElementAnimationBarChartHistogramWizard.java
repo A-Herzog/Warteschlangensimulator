@@ -17,12 +17,9 @@ package ui.modeleditor.elements;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +27,6 @@ import java.util.stream.Collectors;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -42,8 +37,8 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
+import systemtools.LabeledColorChooserButton;
 import systemtools.MsgBox;
-import ui.modeleditor.ModelElementBaseColorDialog;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelTransporter;
@@ -61,9 +56,6 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 	 * @see Serializable
 	 */
 	private static final long serialVersionUID = 4525789972511231412L;
-
-	/** Hilfe-Callback */
-	private final Runnable helpRunnable;
 
 	/** Verfügbare Histogrammtypen */
 	private final List<HistogramType> types;
@@ -89,12 +81,9 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 	/** Eingabefeld für die Anzahl an Werten */
 	private final JTextField editCount;
 	/** Schaltfläche zur Auswahl der Farbe der Datenreihe */
-	private final JButton buttonColor;
+	private final LabeledColorChooserButton buttonColor;
 	/** Option: Bisherige Diagrammbalken entfernen */
 	private final JCheckBox replaceRecords;
-
-	/** Aktuell gewählte Farbe für die Datenreihe */
-	private Color barColor;
 
 	/**
 	 * Zuletzt gewählter Typ
@@ -111,9 +100,6 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 	 */
 	public ModelElementAnimationBarChartHistogramWizard(final Component owner, final EditModel model, final Runnable help) {
 		super(owner,Language.tr("Surface.AnimationBarChart.HistogramWizard.Title"));
-
-		helpRunnable=help;
-		barColor=Color.BLUE;
 
 		/* Daten vorbereiten: BoxElement IDs */
 
@@ -166,7 +152,6 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 
 		Object[] data;
 		JPanel line;
-		JLabel label;
 
 		/* Auswahl */
 
@@ -214,12 +199,7 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 		/* Farbe */
 
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(label=new JLabel(Language.tr("Surface.AnimationBarChart.HistogramWizard.SelectColor")+":"));
-		line.add(buttonColor=new JButton());
-		buttonColor.setPreferredSize(new Dimension(26,26));
-		setupColorButton();
-		buttonColor.addActionListener(e->showColorSelectDialog());
-		label.setLabelFor(buttonColor);
+		line.add(buttonColor=new LabeledColorChooserButton(Language.tr("Surface.AnimationBarChart.HistogramWizard.SelectColor")+":",Color.BLUE));
 
 		/* Überschreiben */
 
@@ -383,37 +363,6 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 	}
 
 	/**
-	 * Konfiguriert die {@link #buttonColor}-Schaltfläche
-	 * gemäß der in {@link #barColor} angegebenen Farbe.
-	 * @see #buttonColor
-	 * @see #barColor
-	 * @see #showColorSelectDialog()
-	 */
-	private void setupColorButton() {
-		final BufferedImage image=new BufferedImage(16,16,BufferedImage.TYPE_4BYTE_ABGR);
-		final Graphics g=image.getGraphics();
-		g.setColor(barColor);
-		g.fillRect(0,0,15,15);
-		g.setColor(Color.DARK_GRAY);
-		g.drawRect(0,0,15,15);
-		buttonColor.setIcon(new ImageIcon(image));
-	}
-
-	/**
-	 * Zeigt den Dialog zur Auswahl einer Farbe
-	 * @see ModelElementBaseColorDialog
-	 * @see #buttonColor
-	 */
-	private void showColorSelectDialog() {
-		final ModelElementBaseColorDialog dialog=new ModelElementBaseColorDialog(this,helpRunnable,barColor);
-		dialog.setVisible(true);
-		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
-			barColor=dialog.getUserColor();
-			setupColorButton();
-		}
-	}
-
-	/**
 	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
 	 * @param showErrorMessages	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
 	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
@@ -546,7 +495,7 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 	 * @return	Farbe für die Histogrammbalken (außer für den letzten)
 	 */
 	public Color getBarColor() {
-		return barColor;
+		return buttonColor.getColor();
 	}
 
 	/**

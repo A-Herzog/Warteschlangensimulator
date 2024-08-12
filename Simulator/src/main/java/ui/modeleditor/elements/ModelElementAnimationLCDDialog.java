@@ -15,7 +15,6 @@
  */
 package ui.modeleditor.elements;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -30,7 +29,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import language.Language;
-import systemtools.SmallColorChooser;
+import systemtools.LabeledColorChooserButton;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 
@@ -64,7 +63,7 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 	/**
 	 * Auswahl der Farbe für die aktiven Segmente
 	 */
-	private SmallColorChooser colorChooser;
+	private LabeledColorChooserButton colorChooser;
 
 	/**
 	 * Konstruktor der Klasse
@@ -92,7 +91,7 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 
 	@Override
 	protected JComponent getContentPanel() {
-		JPanel line, cell;
+		JPanel line;
 		JLabel label;
 
 		final JPanel content=new JPanel();
@@ -125,11 +124,8 @@ public class ModelElementAnimationLCDDialog extends ModelElementBaseDialog {
 
 		/* Farbe */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(cell=new JPanel(new BorderLayout()));
-		cell.add(label=new JLabel(Language.tr("Surface.AnimationLCD.Dialog.Color")+":"),BorderLayout.NORTH);
-		cell.add(colorChooser=new SmallColorChooser(Color.BLACK),BorderLayout.CENTER);
+		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Surface.AnimationLCD.Dialog.Color")+":",Color.BLACK));
 		colorChooser.setEnabled(!readOnly);
-		label.setLabelFor(colorChooser);
 
 		/* Daten eintragen */
 		if (element instanceof ModelElementAnimationLCD) {
