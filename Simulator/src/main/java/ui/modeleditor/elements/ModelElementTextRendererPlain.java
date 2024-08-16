@@ -122,7 +122,7 @@ public class ModelElementTextRendererPlain extends ModelElementTextRenderer {
 	}
 
 	@Override
-	protected void calcIntern(Graphics graphics, double zoom) {
+	protected void calcIntern(final Graphics graphics, final double zoom) {
 		int style=Font.PLAIN;
 		if (bold) style+=Font.BOLD;
 		if (italic) style+=Font.ITALIC;
@@ -139,6 +139,11 @@ public class ModelElementTextRendererPlain extends ModelElementTextRenderer {
 			width=FastMath.max(width,graphics.getFontMetrics().stringWidth(line));
 			height+=lineHeight;
 		}
+	}
+
+	@Override
+	protected int getShadowDelta(final double zoom) {
+		return (int)Math.round(fontSize*Math.max(0,Math.log(Math.E*zoom))/10);
 	}
 
 	@Override

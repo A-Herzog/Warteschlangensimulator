@@ -78,13 +78,15 @@ public class ModelElementTextPreviewPanel extends JPanel {
 	 * @param color	Textfarbe
 	 * @param fillColor	Hintergrundfarbe (darf <code>null</code> sein)
 	 * @param fillAlpha	Deckkraft für den Hintergrund (0..1)
+	 * @param shadowColor	Schattenfarbe (darf <code>null</code> sein)
+	 * @param shadowAlpha	Deckkraft für den Schatten (0..1)
 	 * @param textSize	Schriftgröße
 	 * @param bold	Text fett drucken?
 	 * @param italic	Text kursiv drucken?
 	 * @param fontFamily	Schriftart
 	 * @param textAlign	Ausrichtung
 	 */
-	public void set(final boolean interpretMarkdown, final boolean interpretLaTeX, final boolean interpretSymbols, final String text, final Color color, final Color fillColor, final double fillAlpha, final int textSize, final boolean bold, final boolean italic, final FontCache.FontFamily fontFamily, final ModelElementText.TextAlign textAlign) {
+	public void set(final boolean interpretMarkdown, final boolean interpretLaTeX, final boolean interpretSymbols, final String text, final Color color, final Color fillColor, final double fillAlpha, final Color shadowColor, final double shadowAlpha, final int textSize, final boolean bold, final boolean italic, final FontCache.FontFamily fontFamily, final ModelElementText.TextAlign textAlign) {
 		if (interpretMarkdown || interpretLaTeX) {
 			activeRenderer=rendererExt;
 			rendererExt.setRenderMode(interpretMarkdown,interpretLaTeX);
@@ -94,6 +96,7 @@ public class ModelElementTextPreviewPanel extends JPanel {
 
 		activeRenderer.setText(text,interpretSymbols);
 		activeRenderer.setBackgroundColor(fillColor,fillAlpha);
+		activeRenderer.setShadowColor(shadowColor,shadowAlpha);
 		activeRenderer.setStyle(textSize,bold,italic,fontFamily.name,textAlign);
 		textColor=color;
 		needRecalc=true;

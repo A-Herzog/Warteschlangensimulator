@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-10 19:31+0200\n"
+"POT-Creation-Date: 2024-08-11 21:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27888,6 +27888,12 @@ msgstr "Zeitwert"
 msgid "Surface.AnimationText.XML.Root"
 msgstr "ModellElementAnimationText"
 
+msgid "Surface.AnimationText.XML.ShadowColor"
+msgstr "ModellElementSchattenfarbe"
+
+msgid "Surface.AnimationText.XML.ShadowColor.Alpha"
+msgstr "Alpha"
+
 msgid "Surface.AnimationTextJS.Dialog.FontFamily"
 msgstr "Schriftart"
 
@@ -27939,6 +27945,9 @@ msgstr "fett"
 msgid "Surface.AnimationTextJS.XML.FontSize.Italic"
 msgstr "kursiv"
 
+msgid "Surface.AnimationTextJS.XML.FontSize.Symbols"
+msgstr "Symbole"
+
 msgid "Surface.AnimationTextJS.XML.Root"
 msgstr "ModellElementAnimationTextJS"
 
@@ -27953,6 +27962,12 @@ msgstr "Javascript"
 
 msgid "Surface.AnimationTextJS.XML.Script.Language"
 msgstr "Sprache"
+
+msgid "Surface.AnimationTextJS.XML.ShadowColor"
+msgstr "ModellElementSchattenfarbe"
+
+msgid "Surface.AnimationTextJS.XML.ShadowColor.Alpha"
+msgstr "Alpha"
 
 msgid "Surface.AnimationTextSelect.Dialog.DefaultValue"
 msgstr "Standardtext"
@@ -28016,6 +28031,12 @@ msgstr "Symbole"
 
 msgid "Surface.AnimationTextSelect.XML.Root"
 msgstr "ModellElementAnimationTextAuswahl"
+
+msgid "Surface.AnimationTextSelect.XML.ShadowColor"
+msgstr "ModellElementSchattenfarbe"
+
+msgid "Surface.AnimationTextSelect.XML.ShadowColor.Alpha"
+msgstr "Alpha"
 
 msgid "Surface.AnimationTextSelect.XML.TextDefault"
 msgstr "TextVorgabe"
@@ -35738,6 +35759,12 @@ msgstr "Anzahl"
 msgid "Surface.TeleportSourceMulti.XML.Root"
 msgstr "ModellElementDuplizierenTeleportStart"
 
+msgid "Surface.Text.AnimationText.ShadowAlpha"
+msgstr "Stärke des Schattens"
+
+msgid "Surface.Text.AnimationText.ShadowColor"
+msgstr "Schatten"
+
 msgid "Surface.Text.DefaultText"
 msgstr "Beschreibungstext"
 
@@ -35801,6 +35828,12 @@ msgstr "Kursiv"
 msgid "Surface.Text.Dialog.Preview"
 msgstr "Vorschau"
 
+msgid "Surface.Text.Dialog.ShadowAlpha"
+msgstr "Stärke des Schattens"
+
+msgid "Surface.Text.Dialog.ShadowColor"
+msgstr "Schatten"
+
 msgid "Surface.Text.Dialog.Text"
 msgstr "Anzuzeigender Text"
 
@@ -35851,6 +35884,12 @@ msgstr "Symbole"
 
 msgid "Surface.Text.XML.Root"
 msgstr "ModellElementText"
+
+msgid "Surface.Text.XML.ShadowColor"
+msgstr "ModellElementSchattenfarbe"
+
+msgid "Surface.Text.XML.ShadowColor.Alpha"
+msgstr "Alpha"
 
 msgid "Surface.Text.XML.Text"
 msgstr "ModellElementTextzeile"

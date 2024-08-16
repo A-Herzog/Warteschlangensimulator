@@ -107,6 +107,10 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 	private OptionalColorChooserButton colorChooserBackground;
 	/** Schieberegler zur Auswahl des Deckkraft der Hintergrundfarbe */
 	private LabeledAlphaButton alpha;
+	/** Auswahl der Schattenfarbe */
+	private OptionalColorChooserButton colorChooserShadow;
+	/** Schieberegler zur Auswahl des Deckkraft des Schattens */
+	private LabeledAlphaButton shadowAlpha;
 
 	/**
 	 * Konstruktor der Klasse
@@ -254,14 +258,15 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		optionInterpretLaTeX.setToolTipText(Language.tr("Surface.Text.Dialog.FontSize.LaTeX.Info"));
 		optionInterpretLaTeX.setEnabled(!readOnly);
 
-		/* Zeile für Farben */
+		/* Zeile für Farben 1 */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
 		/* Schriftfarbe */
 		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Surface.AnimationText.Dialog.Color")+":",Color.BLACK));
 		colorChooser.setEnabled(!readOnly);
 
-		line.add(Box.createHorizontalStrut(10));
+		/* Zeile für Farben 2 */
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
 		/* Hintergrundfarbe */
 		line.add(colorChooserBackground=new OptionalColorChooserButton(Language.tr("Surface.AnimationText.Dialog.FillBackground"),null,Color.BLACK));
@@ -272,6 +277,19 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		/* Deckkraft */
 		line.add(alpha=new LabeledAlphaButton(Language.tr("Surface.AnimationText.Dialog.Alpha")+":",0));
 		alpha.setEnabled(!readOnly);
+
+		/* Zeile für Farben 3 */
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+
+		/* Schattenfarbe */
+		line.add(colorChooserShadow=new OptionalColorChooserButton(Language.tr("Surface.Text.AnimationText.ShadowColor")+":",null,Color.GRAY));
+		colorChooserShadow.setEnabled(!readOnly);
+
+		line.add(Box.createHorizontalStrut(10));
+
+		/* Stärke des Schatten */
+		line.add(shadowAlpha=new LabeledAlphaButton(Language.tr("Surface.Text.AnimationText.ShadowAlpha")+":",1));
+		shadowAlpha.setEnabled(!readOnly);
 
 		/* Werte initialisieren */
 		if (element instanceof ModelElementAnimationTextValue) {
@@ -340,9 +358,13 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 			colorChooser.setColor(text.getColor());
 			colorChooserBackground.setColor(text.getFillColor());
 			alpha.setAlpha(text.getFillAlpha());
+
+			colorChooserShadow.setColor(text.getShadowColor());
+			if (text.getShadowColor()!=null) shadowAlpha.setAlpha(text.getShadowAlpha());
 		}
 
 		alpha.addClickListener(e->colorChooserBackground.setActive(true));
+		shadowAlpha.addClickListener(e->colorChooserShadow.setActive(true));
 
 		checkData(false);
 
@@ -479,6 +501,12 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 
 		/* Deckkraft */
 		text.setFillAlpha(alpha.getAlpha());
+
+		/* Schattenfarbe */
+		text.setShadowColor(colorChooserShadow.getColor());
+
+		/* Deckkraft des Schattens */
+		text.setShadowAlpha(shadowAlpha.getAlpha());
 	}
 
 	/**
@@ -536,6 +564,8 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 					colorChooser.getColor(),
 					colorChooserBackground.getColor(),
 					alpha.getAlpha(),
+					colorChooserShadow.getColor(),
+					shadowAlpha.getAlpha(),
 					14,
 					optionBold.isSelected(),
 					optionItalic.isSelected(),

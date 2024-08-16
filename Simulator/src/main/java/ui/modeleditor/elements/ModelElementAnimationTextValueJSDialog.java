@@ -63,12 +63,18 @@ public final class ModelElementAnimationTextValueJSDialog extends ModelElementBa
 	private JCheckBox optionBold;
 	/** Option: Schrift kursiv anzeigen */
 	private JCheckBox optionItalic;
+	/** Option: HTML- und LaTeX-Symbole interpretieren */
+	private JCheckBox optionInterpretSymbols;
 	/** Auswahl der Textfarbe */
 	private LabeledColorChooserButton colorChooser;
 	/** Auswahl der Hintergrundfarbe */
 	private OptionalColorChooserButton colorChooserBackground;
 	/** Schieberegler zur Auswahl des Deckkraft der Hintergrundfarbe */
 	private LabeledAlphaButton alpha;
+	/** Auswahl der Schattenfarbe */
+	private OptionalColorChooserButton colorChooserShadow;
+	/** Schieberegler zur Auswahl des Deckkraft des Schattens */
+	private LabeledAlphaButton shadowAlpha;
 
 	/**
 	 * Konstruktor der Klasse
@@ -150,14 +156,20 @@ public final class ModelElementAnimationTextValueJSDialog extends ModelElementBa
 		line.add(optionItalic=new JCheckBox("<html><i>"+Language.tr("Surface.AnimationText.Dialog.FontSize.Italic")+"</i></html>",false));
 		optionItalic.setEnabled(!readOnly);
 
-		/* Zeile für Farben */
+		/* Interpretation von Symbolen */
+		line.add(optionInterpretSymbols=new JCheckBox(Language.tr("Surface.AnimationText.Dialog.FontSize.HTMLLaTeX")));
+		optionInterpretSymbols.setToolTipText(Language.tr("Surface.AnimationText.Dialog.FontSize.HTMLLaTeX.Info"));
+		optionInterpretSymbols.setEnabled(!readOnly);
+
+		/* Zeile für Farben 1 */
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
 		/* Schriftfarbe */
 		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Surface.AnimationText.Dialog.Color")+":",Color.BLACK));
 		colorChooser.setEnabled(!readOnly);
 
-		line.add(Box.createHorizontalStrut(10));
+		/* Zeile für Farben 2 */
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
 		/* Hintergrundfarbe */
 		line.add(colorChooserBackground=new OptionalColorChooserButton(Language.tr("Surface.AnimationText.Dialog.FillBackground"),null,Color.BLACK));
@@ -169,18 +181,35 @@ public final class ModelElementAnimationTextValueJSDialog extends ModelElementBa
 		line.add(alpha=new LabeledAlphaButton(Language.tr("Surface.AnimationText.Dialog.Alpha")+":",0));
 		alpha.setEnabled(!readOnly);
 
+		/* Zeile für Farben 3 */
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+
+		/* Schattenfarbe */
+		line.add(colorChooserShadow=new OptionalColorChooserButton(Language.tr("Surface.Text.AnimationText.ShadowColor")+":",null,Color.GRAY));
+		colorChooserShadow.setEnabled(!readOnly);
+
+		line.add(Box.createHorizontalStrut(10));
+
+		/* Stärke des Schatten */
+		line.add(shadowAlpha=new LabeledAlphaButton(Language.tr("Surface.Text.AnimationText.ShadowAlpha")+":",1));
+		shadowAlpha.setEnabled(!readOnly);
+
 		/* Werte initialisieren */
 		if (element instanceof ModelElementAnimationTextValueJS) {
 			final ModelElementAnimationTextValueJS text=(ModelElementAnimationTextValueJS)element;
 			sizeField.setText(""+text.getTextSize());
 			optionBold.setSelected(text.getTextBold());
 			optionItalic.setSelected(text.getTextItalic());
+			optionInterpretSymbols.setSelected(text.isInterpretSymbols());
 			colorChooser.setColor(text.getColor());
 			colorChooserBackground.setColor(text.getFillColor());
 			alpha.setAlpha(text.getFillAlpha());
+			colorChooserShadow.setColor(text.getShadowColor());
+			if (text.getShadowColor()!=null) shadowAlpha.setAlpha(text.getShadowAlpha());
 		}
 
 		alpha.addClickListener(e->colorChooserBackground.setActive(true));
+		shadowAlpha.addClickListener(e->colorChooserShadow.setActive(true));
 
 		/* Icons für Tabs */
 		tabs.setIconAt(0,Images.SCRIPTRUNNER.getIcon());
@@ -250,6 +279,9 @@ public final class ModelElementAnimationTextValueJSDialog extends ModelElementBa
 		text.setTextBold(optionBold.isSelected());
 		text.setTextItalic(optionItalic.isSelected());
 
+		/* Interpretation von Symbolen */
+		text.setInterpretSymbols(optionInterpretSymbols.isSelected());
+
 		/* Schriftfarbe */
 		text.setColor(colorChooser.getColor());
 
@@ -258,5 +290,11 @@ public final class ModelElementAnimationTextValueJSDialog extends ModelElementBa
 
 		/* Deckkraft */
 		text.setFillAlpha(alpha.getAlpha());
+
+		/* Schattenfarbe */
+		text.setShadowColor(colorChooserShadow.getColor());
+
+		/* Deckkraft des Schattens */
+		text.setShadowAlpha(shadowAlpha.getAlpha());
 	}
 }

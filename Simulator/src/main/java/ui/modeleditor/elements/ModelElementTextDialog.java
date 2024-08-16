@@ -88,6 +88,10 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 	private OptionalColorChooserButton colorChooserBackground;
 	/** Schieberegler zur Auswahl des Deckkraft der Hintergrundfarbe */
 	private LabeledAlphaButton alpha;
+	/** Auswahl der Schattenfarbe */
+	private OptionalColorChooserButton colorChooserShadow;
+	/** Schieberegler zur Auswahl des Deckkraft des Schattens */
+	private LabeledAlphaButton shadowAlpha;
 
 	/**
 	 * Konstruktor der Klasse
@@ -229,7 +233,7 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			textAlign.setEnabled(!readOnly);
 			textAlign.addActionListener(e->updatePreview());
 
-			/* Zeile für Farben */
+			/* Zeile für Farben 1 */
 			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
 			/* Schriftfarbe */
@@ -237,7 +241,8 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			colorChooser.addClickListener(e->updatePreview());
 			colorChooser.setEnabled(!readOnly);
 
-			subPanel.add(Box.createHorizontalStrut(10));
+			/* Zeile für Farben 2 */
+			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
 			/* Hintergrundfarbe */
 			subPanel.add(colorChooserBackground=new OptionalColorChooserButton(Language.tr("Surface.Text.Dialog.FillBackground")+":",text.getFillColor(),Color.BLUE));
@@ -250,6 +255,21 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			subPanel.add(alpha=new LabeledAlphaButton(Language.tr("Surface.Text.Dialog.Alpha")+":",text.getFillAlpha()));
 			alpha.addClickListener(e->{colorChooserBackground.setActive(true); updatePreview();});
 			alpha.setEnabled(!readOnly);
+
+			/* Zeile für Farben 3 */
+			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+
+			/* Schattenfarbe */
+			subPanel.add(colorChooserShadow=new OptionalColorChooserButton(Language.tr("Surface.Text.Dialog.ShadowColor")+":",text.getShadowColor(),Color.GRAY));
+			colorChooserShadow.addClickListener(e->updatePreview());
+			colorChooserShadow.setEnabled(!readOnly);
+
+			subPanel.add(Box.createHorizontalStrut(10));
+
+			/* Stärke des Schatten */
+			subPanel.add(shadowAlpha=new LabeledAlphaButton(Language.tr("Surface.Text.Dialog.ShadowAlpha")+":",text.getShadowAlpha()));
+			shadowAlpha.addClickListener(e->{colorChooserShadow.setActive(true); updatePreview();});
+			shadowAlpha.setEnabled(!readOnly);
 		}
 
 		updatePreview();
@@ -279,6 +299,8 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 				colorChooser.getColor(),
 				colorChooserBackground.getColor(),
 				alpha.getAlpha(),
+				colorChooserShadow.getColor(),
+				shadowAlpha.getAlpha(),
 				((size==null)?14:size),
 				optionBold.isSelected(),
 				optionItalic.isSelected(),
@@ -349,5 +371,11 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 
 		/* Deckkraft */
 		text.setFillAlpha(alpha.getAlpha());
+
+		/* Schattenfarbe */
+		text.setShadowColor(colorChooserShadow.getColor());
+
+		/* Deckkraft des Schattens */
+		text.setShadowAlpha(shadowAlpha.getAlpha());
 	}
 }

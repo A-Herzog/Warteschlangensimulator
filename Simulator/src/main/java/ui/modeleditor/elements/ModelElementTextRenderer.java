@@ -99,6 +99,27 @@ public abstract class ModelElementTextRenderer {
 	private Color lastComputedFillColor=null;
 
 	/**
+	 * Schattenfarbe beim letzten Aufruf von {@link #draw(Graphics, int, int, Color)}
+	 * @see #lastShadowAlpha
+	 * @see #lastComputedShadowColor
+	 */
+	private Color lastShadowColor=null;
+
+	/**
+	 * Schatten-Deckkraft beim letzten Aufruf von {@link #draw(Graphics, int, int, Color)}
+	 * @see #lastShadowColor
+	 * @see #lastComputedShadowColor
+	 */
+	private double lastShadowAlpha=0.0;
+
+	/**
+	 * Berechnete Shatten-Füllfarbe beim letzten Aufruf von {@link #draw(Graphics, int, int, Color)}
+	 * @see #lastShadowColor
+	 * @see #lastShadowAlpha
+	 */
+	private Color lastComputedShadowColor=null;
+
+	/**
 	 * Konstruktor der Klasse
 	 */
 	public ModelElementTextRenderer() {
@@ -175,6 +196,22 @@ public abstract class ModelElementTextRenderer {
 	}
 
 	/**
+	 * Stellt die Schattenfarbe für das Textfeld ein.
+	 * @param shadowColor	Schattenfarbe (kann <code>null</code> sein)
+	 * @param shadowAlpha	Deckkraft (Wert zwischen 0 und 1)
+	 */
+	public final void setShadowColor(final Color shadowColor, final double shadowAlpha) {
+		if (shadowColor==lastShadowColor && shadowAlpha==lastShadowAlpha) return;
+		if (shadowColor==null) {
+			lastComputedShadowColor=null;
+		} else {
+			lastComputedShadowColor=new Color(shadowColor.getRed(),shadowColor.getGreen(),shadowColor.getBlue(),Math.max(0,Math.min(255,((int)Math.round(255*shadowAlpha)))));
+		}
+		lastShadowColor=shadowColor;
+		lastShadowAlpha=shadowAlpha;
+	}
+
+	/**
 	 * Benachrichtigt das Objekt, dass beim Aufruf von {@link #calc(Graphics, double)}
 	 * eine Neuberechnung der Daten durchgeführt werden muss.
 	 * @see #calc(Graphics, double)
@@ -202,6 +239,11 @@ public abstract class ModelElementTextRenderer {
 	public final void calc(final Graphics graphics, final double zoom) {
 		if (!needRecalc && lastZoom==zoom) return;
 		calcIntern(graphics,zoom);
+		if (lastShadowColor!=null) {
+			final int delta=getShadowDelta(zoom);
+			width+=delta;
+			height+=delta;
+		}
 		needRecalc=false;
 		lastZoom=zoom;
 	}
@@ -232,6 +274,13 @@ public abstract class ModelElementTextRenderer {
 	}
 
 	/**
+	 * Berechnet die Verschiebung in Pixeln für den Schatten.
+	 * @param zoom	Zoom-Level
+	 * @return	Verschiebung des Schattens in x- und y-Richtung in Pixeln
+	 */
+	protected abstract int getShadowDelta(final double zoom);
+
+	/**
 	 * Gibt den Text aus.
 	 * @param graphics	Grafik-Objekt in das der Text geschrieben werden soll
 	 * @param x	Linke Kante des Ausgabebereichs
@@ -244,6 +293,11 @@ public abstract class ModelElementTextRenderer {
 			graphics.fillRect(x,y,width,height);
 		}
 
+		if (lastComputedShadowColor!=null) {
+			graphics.setColor(lastComputedShadowColor);
+			final int delta=getShadowDelta(lastZoom);
+			drawIntern(graphics,x+delta,y+delta);
+		}
 		graphics.setColor(color);
 		drawIntern(graphics,x,y);
 	}

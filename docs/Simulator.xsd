@@ -683,6 +683,7 @@
 	<xs:element name="ModellElementFarbe" type="xs:string"/>
 	<xs:element name="ModellElementTextAusrichtung" type="xs:string"/>
 	<xs:element ref="ModellElementHintergrundfarbe"/>
+	<xs:element ref="ModellElementSchattenfarbe"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -718,6 +719,11 @@
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModellElementHintergrundfarbe"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Alpha" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+<xs:element name="ModellElementSchattenfarbe"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Alpha" type="xs:string"/>
   </xs:extension>
@@ -1768,6 +1774,7 @@
 	<xs:element name="ModellElementFarbe" type="xs:string"/>
     <xs:element ref="ModellElementAnimationsmodus"/>
 	<xs:element ref="ModellElementHintergrundfarbe"/>
+	<xs:element ref="ModellElementSchattenfarbe"/>
 	<xs:element ref="ModellElementAnimationTextZusatz"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
@@ -1792,6 +1799,7 @@
 	<xs:element name="ModellElementFarbe" type="xs:string"/>
     <xs:element ref="ModellElementAnimationTextJSSkript"/>
 	<xs:element ref="ModellElementHintergrundfarbe"/>
+	<xs:element ref="ModellElementSchattenfarbe"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModellElementAnimationTextJSSkript"><xs:complexType><xs:simpleContent>
@@ -1808,6 +1816,7 @@
 	<xs:element name="TextVorgabe" type="xs:string"/>
     <xs:element ref="TextAusdruck"/>
 	<xs:element ref="ModellElementHintergrundfarbe"/>
+	<xs:element ref="ModellElementSchattenfarbe"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="TextAusdruck"><xs:complexType><xs:simpleContent>
@@ -3183,6 +3192,7 @@
 	<xs:element name="ModelElementColor" type="xs:string"/>
 	<xs:element name="ModelElementTextAlign" type="xs:string"/>
 	<xs:element ref="ModelElementBackgroundColor"/>
+	<xs:element ref="ModelElementShadowColor"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3218,6 +3228,11 @@
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModelElementBackgroundColor"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Alpha" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+<xs:element name="ModelElementShadowColor"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Alpha" type="xs:string"/>
   </xs:extension>
@@ -4270,6 +4285,7 @@
 	<xs:element name="ModelElementColor" type="xs:string"/>
     <xs:element ref="ModelElementAnimationMode"/>
 	<xs:element ref="ModelElementBackgroundColor"/>
+	<xs:element ref="ModelElementShadowColor"/>
 	<xs:element ref="ModelElementAnimationTextAddon"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
@@ -4294,6 +4310,7 @@
 	<xs:element name="ModelElementColor" type="xs:string"/>
     <xs:element ref="ModelElementAnimationTextJSScript"/>
 	<xs:element ref="ModelElementBackgroundColor"/>
+	<xs:element ref="ModelElementShadowColor"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModelElementAnimationTextJSScript"><xs:complexType><xs:simpleContent>
@@ -4310,6 +4327,7 @@
 	<xs:element name="TextDefault" type="xs:string"/>
     <xs:element ref="TextExpression"/>
 	<xs:element ref="ModelElementBackgroundColor"/>
+	<xs:element ref="ModelElementShadowColor"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="TextExpression"><xs:complexType><xs:simpleContent>

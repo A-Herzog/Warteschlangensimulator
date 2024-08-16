@@ -18,10 +18,10 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Objects;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.Icon;
@@ -134,6 +134,13 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 	private boolean italic;
 
 	/**
+	 * Sollen HTML- und LaTeX-Symbole interpretiert werden?
+	 * @see #isInterpretSymbols()
+	 * @see #setInterpretSymbols(boolean)
+	 */
+	private boolean interpretSymbols;
+
+	/**
 	 * Textfarbe
 	 * @see #getColor()
 	 * @see #setColor(Color)
@@ -155,12 +162,27 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 	private double fillAlpha=1.0;
 
 	/**
+	 * Schattenfarbe (kann <code>null</code> sein für transparent)
+	 * @see #getShadowColor()
+	 * @see #setShadowColor(Color)
+	 */
+	private Color shadowColor=null;
+
+	/**
+	 * Deckkraft des Schattens
+	 * @see #getShadowAlpha()
+	 * @see #setShadowAlpha(double)
+	 */
+	private double shadowAlpha=1.0;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementTextValueJS</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 */
 	public ModelElementAnimationTextValueJS(final EditModel model, final ModelSurface surface) {
 		super(model,surface,new Dimension(0,0),Shapes.ShapeType.SHAPE_RECTANGLE);
+		interpretSymbols=false;
 		useSizeOnCompare=false;
 
 		script="";
@@ -295,6 +317,22 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 	}
 
 	/**
+	 * Sollen HTML- und LaTeX-Symbole interpretiert werden?
+	 * @return	HTML- und LaTeX-Symbole interpretieren
+	 */
+	public boolean isInterpretSymbols() {
+		return interpretSymbols;
+	}
+
+	/**
+	 * Stellt ein, ob HTML- und LaTeX-Symbole interpretiert werden sollen.
+	 * @param interpretSymbols	HTML- und LaTeX-Symbole interpretier
+	 */
+	public void setInterpretSymbols(boolean interpretSymbols) {
+		this.interpretSymbols=interpretSymbols;
+	}
+
+	/**
 	 * Liefert die aktuelle Textfarbe
 	 * @return	Aktuelle Textfarbe
 	 */
@@ -345,6 +383,40 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 	}
 
 	/**
+	 * Liefert die aktuelle Schattenfarbe
+	 * @return	Aktuelle Schattenfarbe (kann <code>null</code> sein für transparent)
+	 */
+	public Color getShadowColor() {
+		return shadowColor;
+	}
+
+	/**
+	 * Stellt die Schattenfarbe ein
+	 * @param color	Schattenfarbe (oder <code>null</code> für transparent)
+	 */
+	public void setShadowColor(final Color color) {
+		shadowColor=color;
+		fireChanged();
+	}
+
+	/**
+	 * Liefert die Deckkraft des Schattens.
+	 * @return	Deckkraft des Schatten (Wert zwischen 0 und 1 jeweils einschließlich)
+	 */
+	public double getShadowAlpha() {
+		return shadowAlpha;
+	}
+
+	/**
+	 * Stellt die Deckkraft des Schattens ein.
+	 * @param shadowAlpha	Deckkraft des Schattens (Wert zwischen 0 und 1 jeweils einschließlich)
+	 */
+	public void setShadowAlpha(double shadowAlpha) {
+		this.shadowAlpha=Math.max(0,Math.min(1,shadowAlpha));
+		fireChanged();
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -362,8 +434,11 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 		if (textSize!=otherText.textSize) return false;
 		if (bold!=otherText.bold) return false;
 		if (italic!=otherText.italic) return false;
-		if (fillColor!=otherText.fillColor) return false;
+		if (interpretSymbols!=otherText.interpretSymbols) return false;
+		if (!Objects.equals(fillColor,otherText.fillColor)) return false;
 		if (fillAlpha!=otherText.fillAlpha) return false;
+		if (!Objects.equals(shadowColor,otherText.shadowColor)) return false;
+		if (shadowAlpha!=otherText.shadowAlpha) return false;
 
 		return true;
 	}
@@ -384,9 +459,12 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 			textSize=copySource.textSize;
 			bold=copySource.bold;
 			italic=copySource.italic;
+			interpretSymbols=copySource.interpretSymbols;
 			color=copySource.color;
 			fillColor=copySource.fillColor;
 			fillAlpha=copySource.fillAlpha;
+			shadowColor=copySource.shadowColor;
+			shadowAlpha=copySource.shadowAlpha;
 		}
 	}
 
@@ -425,69 +503,49 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 	}
 
 	/**
-	 * Schriftgröße beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * Zu verwendender Titel-Renderer
 	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
 	 */
-	private int lastTextSize=-1;
+	private ModelElementTextRenderer titleRenderer;
 
 	/**
-	 * Zoomfaktor beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * Zu verwendender Text-Renderer für den eigentlichen Text
 	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
 	 */
-	private double lastZoomFont=-1;
+	private ModelElementTextRenderer mainTextRenderer;
 
 	/**
-	 * Schriftausgestaltung (fett, kursiv) beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 * Bereitet die Renderer für Titel und Textbestandteile vor
+	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
+	 * @param zoom	Zoomfaktor
 	 */
-	private double lastStyleFont=-1;
+	private void initRenderer(final Graphics graphics, final double zoom) {
+		/* === Renderer vorbereiten === */
 
-	/**
-	 * Schriftart beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private FontCache.FontFamily lastFamily=null;
+		/* Titel */
+		if (!(titleRenderer instanceof ModelElementTextRendererPlain)) titleRenderer=new ModelElementTextRendererPlain();
 
-	/**
-	 * In {@link #drawToGraphics(Graphics, Rectangle, double, boolean)} generierte
-	 * Schriftart für den Text
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private Font lastFontMain;
+		/* Main */
+		if (!(mainTextRenderer instanceof ModelElementTextRendererPlain)) mainTextRenderer=new ModelElementTextRendererPlain();
 
-	/**
-	 * In {@link #drawToGraphics(Graphics, Rectangle, double, boolean)} generierte
-	 * Schriftart für den Titel
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private Font lastFontTitle;
+		/* === Daten in Renderer laden === */
 
-	/**
-	 * Farbe für den Titel über dem eigentlichen Text
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private Color titleColor;
+		final String title=getDisplayText(true);
+		final String mainText=getDisplayText(false);
 
-	/**
-	 * Füllfarbe beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #lastFillAlpha
-	 * @see #lastComputedFillColor
-	 */
-	private Color lastFillColor=null;
+		/* Titel */
+		titleRenderer.setText(title,false);
+		titleRenderer.setBackgroundColor(null,1.0);
+		titleRenderer.setStyle(9,false,false,FontCache.defaultFamily.name,ModelElementText.TextAlign.LEFT);
+		titleRenderer.calc(graphics,zoom);
 
-	/**
-	 * Deckkraft beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #lastFillColor
-	 * @see #lastComputedFillColor
-	 */
-	private double lastFillAlpha=0.0;
-
-	/**
-	 * Berechnete Füllfarbe beim letzten Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
-	 * @see #lastFillColor
-	 * @see #lastFillAlpha
-	 */
-	private Color lastComputedFillColor=null;
+		/* Main */
+		mainTextRenderer.setText(mainText,interpretSymbols);
+		mainTextRenderer.setBackgroundColor(fillColor,fillAlpha);
+		mainTextRenderer.setShadowColor(shadowColor,shadowAlpha);
+		mainTextRenderer.setStyle(textSize,bold,italic,fontFamily.name,ModelElementText.TextAlign.LEFT);
+		mainTextRenderer.calc(graphics,zoom);
+	}
 
 	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
@@ -498,158 +556,39 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 	 */
 	@Override
 	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showSelectionFrames) {
-		final String text=getDisplayText(false);
-		final String title=getDisplayText(true);
+		setClip(graphics,drawRect,null);
 
-		int style=Font.PLAIN;
-		if (bold) style+=Font.BOLD;
-		if (italic) style+=Font.ITALIC;
-		if (lastFamily!=fontFamily || textSize!=lastTextSize || zoom!=lastZoomFont || style!=lastStyleFont || lastFontMain==null || lastFontTitle==null) {
-			lastFontMain=FontCache.getFontCache().getFont(fontFamily,style,(int)FastMath.round(textSize*zoom));
-			lastFontTitle=FontCache.getFontCache().getFont(FontCache.defaultFamily,0,(int)FastMath.round(9*zoom));
-			lastFamily=fontFamily;
-			lastTextSize=textSize;
-			lastZoomFont=zoom;
-			lastStyleFont=style;
+		/* Renderer vorbereiten und Texte in Renderer laden */
+		initRenderer(graphics,zoom);
+
+		/* Position und Größe berechnen */
+		final Point pos=getPosition(true);
+		final int canvasX=(zoom==1.0)?pos.x:(int)FastMath.round(pos.x*zoom);
+		final int canvasY=(zoom==1.0)?pos.y:(int)FastMath.round(pos.y*zoom);
+		final int canvasW=Math.max(titleRenderer.getWidth(),mainTextRenderer.getWidth());
+		final int canvasH=(titleRenderer.isEmpty()?0:titleRenderer.getHeight())+mainTextRenderer.getHeight();
+
+		/* Wenn nötig Größe der Box anpassen */
+		final int boxW=(zoom==1.0)?canvasW:(int)FastMath.round(canvasW/zoom);
+		final int boxH=(zoom==1.0)?canvasH:(int)FastMath.round(canvasH/zoom);
+		final Dimension boxSize=getSize();
+		if (boxSize.width!=boxW || boxSize.height!=boxH) setSize(new Dimension(boxW,boxH));
+
+		/* Text ausgeben */
+		int x=canvasX;
+		int y=canvasY;
+		if (!titleRenderer.isEmpty()) {
+			titleRenderer.draw(graphics,x,y,FlatLaFHelper.isDark()?EditModel.BLACK_COLOR_IN_DARK_MODE:Color.BLACK);
+			y+=titleRenderer.getHeight();
 		}
+		mainTextRenderer.draw(graphics,x,y,color);
+		x+=mainTextRenderer.getWidth();
 
-		if (fillColor!=lastFillColor || fillAlpha!=lastFillAlpha) {
-			if (fillColor==null) {
-				lastComputedFillColor=null;
-			} else {
-				lastComputedFillColor=new Color(fillColor.getRed(),fillColor.getGreen(),fillColor.getBlue(),Math.max(0,Math.min(255,((int)Math.round(255*fillAlpha)))));
-			}
-			lastFillColor=fillColor;
-			lastFillAlpha=fillAlpha;
-		}
-
-		if (!text.contains("\n")) {
-			drawSingleLine(graphics,drawRect,zoom,title,text);
-		} else {
-			drawMultiLine(graphics,drawRect,zoom,title,text.split("\\n"));
-		}
-
-
+		/* Rahmen zeichnen */
 		if (isSelected() && showSelectionFrames) {
 			drawRect(graphics,drawRect,zoom,Color.GREEN,2,null,2);
 		} else {
 			if (isSelectedArea() && showSelectionFrames) drawRect(graphics,drawRect,zoom,Color.BLUE,2,null,2);
-		}
-	}
-
-	/**
-	 * Gibt einen einzeiligen Text (ggf. mit zusätzlicher Titelzeile) aus.
-	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
-	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
-	 * @param zoom	Zoomfaktor
-	 * @param title	Titelzeile (kann <code>null</code> sein)
-	 * @param text	Auszugebender Text (darf nicht <code>null</code> sein)
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private void drawSingleLine(final Graphics graphics, final Rectangle drawRect, final double zoom, final String title, final String text) {
-		int width;
-		int height;
-		if (title.trim().isEmpty()) {
-			graphics.setFont(lastFontMain);
-			width=graphics.getFontMetrics().stringWidth(text);
-			height=graphics.getFontMetrics().getAscent()+graphics.getFontMetrics().getDescent();
-		} else {
-			graphics.setFont(lastFontTitle);
-			width=graphics.getFontMetrics().stringWidth(title);
-			height=graphics.getFontMetrics().getAscent()+graphics.getFontMetrics().getDescent();
-			graphics.setFont(lastFontMain);
-			width=FastMath.max(width,graphics.getFontMetrics().stringWidth(text));
-			height+=graphics.getFontMetrics().getAscent()+graphics.getFontMetrics().getDescent();
-		}
-		final Point point=getPosition(true);
-
-		int w=(int)FastMath.round(width/zoom);
-		int h=(int)FastMath.round(height/zoom);
-		if (getSize().width!=w || getSize().height!=h) setSize(new Dimension(w,h));
-
-		setClip(graphics,drawRect,null);
-
-		if (lastComputedFillColor!=null) {
-			graphics.setColor(lastComputedFillColor);
-			graphics.fillRect(point.x,point.y,w,h);
-			graphics.setColor(color);
-		}
-
-		int x=(int)FastMath.round(point.x*zoom);
-		if (title.trim().isEmpty()) {
-			graphics.setColor(color);
-			graphics.setFont(lastFontMain);
-			int y=(int)FastMath.round(point.y*zoom)+graphics.getFontMetrics().getAscent();
-			graphics.drawString(text,x,y);
-		} else {
-			if (titleColor==null) titleColor=FlatLaFHelper.isDark()?EditModel.BLACK_COLOR_IN_DARK_MODE:Color.BLACK;
-			graphics.setColor(titleColor);
-			graphics.setFont(lastFontTitle);
-			int y=(int)FastMath.round(point.y*zoom)+graphics.getFontMetrics().getAscent();
-			graphics.drawString(title,x,y);
-			y+=graphics.getFontMetrics().getDescent();
-
-			graphics.setColor(color);
-			graphics.setFont(lastFontMain);
-			y+=graphics.getFontMetrics().getAscent();
-			graphics.drawString(text,x,y);
-		}
-	}
-
-	/**
-	 * Gibt einen mehrzeiligen Text (ggf. mit zusätzlicher Titelzeile) aus.
-	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
-	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
-	 * @param zoom	Zoomfaktor
-	 * @param title	Titelzeile (kann <code>null</code> sein)
-	 * @param text	Auszugebender Text (darf nicht <code>null</code> sein; einzelne Zeilen dürfen auch nicht <code>null</code> sein)
-	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
-	 */
-	private void drawMultiLine(final Graphics graphics, final Rectangle drawRect, final double zoom, final String title, final String[] text) {
-		int width=0;
-		int height=0;
-		int lineHeight;
-		if (!title.trim().isEmpty()) {
-			graphics.setFont(lastFontTitle);
-			width=graphics.getFontMetrics().stringWidth(title);
-			height=graphics.getFontMetrics().getAscent()+graphics.getFontMetrics().getDescent();
-		}
-		graphics.setFont(lastFontMain);
-		for (String line: text) width=FastMath.max(width,graphics.getFontMetrics().stringWidth(line));
-		lineHeight=graphics.getFontMetrics().getAscent()+graphics.getFontMetrics().getDescent();
-		height+=lineHeight*text.length;
-
-		final Point point=getPosition(true);
-
-		int w=(int)FastMath.round(width/zoom);
-		int h=(int)FastMath.round(height/zoom);
-		if (getSize().width!=w || getSize().height!=h) setSize(new Dimension(w,h));
-
-		setClip(graphics,drawRect,null);
-
-		if (lastComputedFillColor!=null) {
-			graphics.setColor(lastComputedFillColor);
-			graphics.fillRect(point.x,point.y,w,h);
-			graphics.setColor(color);
-		}
-
-		int x=(int)FastMath.round(point.x*zoom);
-		int y=(int)FastMath.round(point.y*zoom);
-		if (!title.trim().isEmpty()) {
-			if (titleColor==null) titleColor=FlatLaFHelper.isDark()?EditModel.BLACK_COLOR_IN_DARK_MODE:Color.BLACK;
-			graphics.setColor(titleColor);
-			graphics.setFont(lastFontTitle);
-			y+=graphics.getFontMetrics().getAscent();
-			graphics.drawString(title,x,y);
-			y+=graphics.getFontMetrics().getDescent();
-		}
-
-		graphics.setColor(color);
-		graphics.setFont(lastFontMain);
-		y+=graphics.getFontMetrics().getAscent();
-		for (String line: text) {
-			graphics.drawString(line,x,y);
-			y+=lineHeight;
 		}
 	}
 
@@ -717,6 +656,7 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 		sub.setTextContent(""+textSize);
 		if (bold) sub.setAttribute(Language.trPrimary("Surface.AnimationTextJS.XML.FontSize.Bold"),"1");
 		if (italic) sub.setAttribute(Language.trPrimary("Surface.AnimationTextJS.XML.FontSize.Italic"),"1");
+		sub.setAttribute(Language.trPrimary("Surface.AnimationTextJS.XML.FontSize.Symbols"),interpretSymbols?"1":"0");
 
 		/* Farbe */
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationTextJS.XML.Color"));
@@ -741,6 +681,14 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 			node.appendChild(sub);
 			sub.setTextContent(EditModel.saveColor(fillColor));
 			if (fillAlpha<1) sub.setAttribute(Language.trPrimary("Surface.AnimationTextJS.XML.BackgroundColor.Alpha"),NumberTools.formatSystemNumber(fillAlpha));
+		}
+
+		/* Schatten */
+		if (shadowColor!=null) {
+			sub=doc.createElement(Language.trPrimary("Surface.AnimationTextJS.XML.ShadowColor"));
+			node.appendChild(sub);
+			sub.setTextContent(EditModel.saveColor(shadowColor));
+			if (shadowAlpha<1) sub.setAttribute(Language.trPrimary("Surface.AnimationTextJS.XML.ShadowColor.Alpha"),NumberTools.formatSystemNumber(shadowAlpha));
 		}
 	}
 
@@ -770,6 +718,7 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 			textSize=I;
 			bold=(Language.trAllAttribute("Surface.AnimationTextJS.XML.FontSize.Bold",node).equals("1"));
 			italic=(Language.trAllAttribute("Surface.AnimationTextJS.XML.FontSize.Italic",node).equals("1"));
+			interpretSymbols=!Language.trAllAttribute("Surface.AnimationTextSelect.XML.FontSize.Symbols",node).equals("0");
 			return null;
 		}
 
@@ -799,6 +748,20 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 				final Double D=NumberTools.getDouble(alpha);
 				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationTextJS.XML.BackgroundColor.Alpha"),name,node.getParentNode().getNodeName());
 				fillAlpha=D;
+			}
+			return null;
+		}
+
+		/* Schatten */
+		if (Language.trAll("Surface.AnimationTextJS.XML.ShadowColor",name) && !content.trim().isEmpty()) {
+			final Color color=EditModel.loadColor(content);
+			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			shadowColor=color;
+			final String alpha=Language.trAllAttribute("Surface.AnimationTextJS.XML.ShadowColor.Alpha",node);
+			if (!alpha.trim().isEmpty()) {
+				final Double D=NumberTools.getDouble(alpha);
+				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationTextJS.XML.ShadowColor.Alpha"),name,node.getParentNode().getNodeName());
+				shadowAlpha=D;
 			}
 			return null;
 		}

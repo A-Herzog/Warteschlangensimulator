@@ -226,6 +226,20 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	private double fillAlpha=1.0;
 
 	/**
+	 * Schattenfarbe (kann <code>null</code> sein für transparent)
+	 * @see #getShadowColor()
+	 * @see #setShadowColor(Color)
+	 */
+	private Color shadowColor=null;
+
+	/**
+	 * Deckkraft des Schattens
+	 * @see #getShadowAlpha()
+	 * @see #setShadowAlpha(double)
+	 */
+	private double shadowAlpha=1.0;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementTextValue</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -453,6 +467,39 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		fireChanged();
 	}
 
+	/**
+	 * Liefert die aktuelle Schattenfarbe
+	 * @return	Aktuelle Schattenfarbe (kann <code>null</code> sein für transparent)
+	 */
+	public Color getShadowColor() {
+		return shadowColor;
+	}
+
+	/**
+	 * Stellt die Schattenfarbe ein
+	 * @param color	Schattenfarbe (oder <code>null</code> für transparent)
+	 */
+	public void setShadowColor(final Color color) {
+		shadowColor=color;
+		fireChanged();
+	}
+
+	/**
+	 * Liefert die Deckkraft des Schattens.
+	 * @return	Deckkraft des Schatten (Wert zwischen 0 und 1 jeweils einschließlich)
+	 */
+	public double getShadowAlpha() {
+		return shadowAlpha;
+	}
+
+	/**
+	 * Stellt die Deckkraft des Schattens ein.
+	 * @param shadowAlpha	Deckkraft des Schattens (Wert zwischen 0 und 1 jeweils einschließlich)
+	 */
+	public void setShadowAlpha(double shadowAlpha) {
+		this.shadowAlpha=Math.max(0,Math.min(1,shadowAlpha));
+		fireChanged();
+	}
 
 	/**
 	 * Liefert den vor dem eigentlichen Ausdruck auszugebenden Text (kann leer sein, ist aber nicht <code>null</code>).
@@ -496,7 +543,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 
 	/**
 	 * Stellt ein, ob HTML- und LaTeX-Symbole interpretiert werden sollen.  (in {@link #preText} und {@link #postText})
-	 * @param interpretSymbols	HTML- und LaTeX-Symbole interpretier
+	 * @param interpretSymbols	HTML- und LaTeX-Symbole interpretieren
 	 */
 	public void setInterpretSymbols(final boolean interpretSymbols) {
 		this.interpretSymbols=interpretSymbols;
@@ -561,8 +608,10 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		if (textSize!=otherText.textSize) return false;
 		if (bold!=otherText.bold) return false;
 		if (italic!=otherText.italic) return false;
-		if (fillColor!=otherText.fillColor) return false;
+		if (!Objects.equals(fillColor,otherText.fillColor)) return false;
 		if (fillAlpha!=otherText.fillAlpha) return false;
+		if (!Objects.equals(shadowColor,otherText.shadowColor)) return false;
+		if (shadowAlpha!=otherText.shadowAlpha) return false;
 
 		if (!Objects.equals(preText,otherText.preText)) return false;
 		if (!Objects.equals(postText,otherText.postText)) return false;
@@ -593,6 +642,8 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 			color=copySource.color;
 			fillColor=copySource.fillColor;
 			fillAlpha=copySource.fillAlpha;
+			shadowColor=copySource.shadowColor;
+			shadowAlpha=copySource.shadowAlpha;
 			preText=copySource.preText;
 			postText=copySource.postText;
 			interpretSymbols=copySource.interpretSymbols;
@@ -718,6 +769,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		if (!preText.isEmpty()) {
 			preTextRenderer.setText(preText,interpretSymbols,false);
 			preTextRenderer.setBackgroundColor(fillColor,fillAlpha);
+			preTextRenderer.setShadowColor(shadowColor,shadowAlpha);
 			preTextRenderer.setStyle(textSize,bold,italic,fontFamily.name,ModelElementText.TextAlign.LEFT);
 			preTextRenderer.calc(graphics,zoom);
 		}
@@ -725,6 +777,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		/* Main */
 		mainTextRenderer.setText(mainText,interpretSymbols);
 		mainTextRenderer.setBackgroundColor(fillColor,fillAlpha);
+		mainTextRenderer.setShadowColor(shadowColor,shadowAlpha);
 		mainTextRenderer.setStyle(textSize,bold,italic,fontFamily.name,ModelElementText.TextAlign.LEFT);
 		mainTextRenderer.calc(graphics,zoom);
 
@@ -732,6 +785,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		if (!postText.isEmpty()) {
 			postTextRenderer.setText(postText,interpretSymbols,false);
 			postTextRenderer.setBackgroundColor(fillColor,fillAlpha);
+			postTextRenderer.setShadowColor(shadowColor,shadowAlpha);
 			postTextRenderer.setStyle(textSize,bold,italic,fontFamily.name,ModelElementText.TextAlign.LEFT);
 			postTextRenderer.calc(graphics,zoom);
 		}
@@ -896,6 +950,14 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 			if (fillAlpha<1) sub.setAttribute(Language.trPrimary("Surface.AnimationText.XML.BackgroundColor.Alpha"),NumberTools.formatSystemNumber(fillAlpha));
 		}
 
+		/* Schatten */
+		if (shadowColor!=null) {
+			sub=doc.createElement(Language.trPrimary("Surface.AnimationText.XML.ShadowColor"));
+			node.appendChild(sub);
+			sub.setTextContent(EditModel.saveColor(shadowColor));
+			if (shadowAlpha<1) sub.setAttribute(Language.trPrimary("Surface.AnimationText.XML.ShadowColor.Alpha"),NumberTools.formatSystemNumber(shadowAlpha));
+		}
+
 		/* Pre- & Posttext */
 		if ((preText!=null && !preText.isBlank()) || (postText!=null && !postText.isBlank()) || !interpretSymbols || interpretMarkdown || interpretLaTeX) {
 			sub=doc.createElement(Language.trPrimary("Surface.AnimationText.XML.AdditionalText"));
@@ -981,6 +1043,20 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 				final Double D=NumberTools.getDouble(alpha);
 				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationText.XML.BackgroundColor.Alpha"),name,node.getParentNode().getNodeName());
 				fillAlpha=D;
+			}
+			return null;
+		}
+
+		/* Schatten */
+		if (Language.trAll("Surface.AnimationText.XML.ShadowColor",name) && !content.trim().isEmpty()) {
+			final Color color=EditModel.loadColor(content);
+			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			shadowColor=color;
+			final String alpha=Language.trAllAttribute("Surface.AnimationText.XML.ShadowColor.Alpha",node);
+			if (!alpha.trim().isEmpty()) {
+				final Double D=NumberTools.getDouble(alpha);
+				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationText.XML.ShadowColor.Alpha"),name,node.getParentNode().getNodeName());
+				shadowAlpha=D;
 			}
 			return null;
 		}

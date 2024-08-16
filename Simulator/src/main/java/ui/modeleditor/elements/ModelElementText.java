@@ -21,6 +21,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -184,6 +185,20 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 	 * @see #setFillAlpha(double)
 	 */
 	private double fillAlpha=1.0;
+
+	/**
+	 * Schattenfarbe (kann <code>null</code> sein für transparent)
+	 * @see #getShadowColor()
+	 * @see #setShadowColor(Color)
+	 */
+	private Color shadowColor=null;
+
+	/**
+	 * Deckkraft des Schattens
+	 * @see #getShadowAlpha()
+	 * @see #setShadowAlpha(double)
+	 */
+	private double shadowAlpha=1.0;
 
 	/**
 	 * Konstruktor der Klasse <code>ModelElementText</code>
@@ -432,6 +447,40 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 	}
 
 	/**
+	 * Liefert die aktuelle Schattenfarbe
+	 * @return	Aktuelle Schattenfarbe (kann <code>null</code> sein für transparent)
+	 */
+	public Color getShadowColor() {
+		return shadowColor;
+	}
+
+	/**
+	 * Stellt die Schattenfarbe ein
+	 * @param color	Schattenfarbe (oder <code>null</code> für transparent)
+	 */
+	public void setShadowColor(final Color color) {
+		shadowColor=color;
+		fireChanged();
+	}
+
+	/**
+	 * Liefert die Deckkraft des Schattens.
+	 * @return	Deckkraft des Schatten (Wert zwischen 0 und 1 jeweils einschließlich)
+	 */
+	public double getShadowAlpha() {
+		return shadowAlpha;
+	}
+
+	/**
+	 * Stellt die Deckkraft des Schattens ein.
+	 * @param shadowAlpha	Deckkraft des Schattens (Wert zwischen 0 und 1 jeweils einschließlich)
+	 */
+	public void setShadowAlpha(double shadowAlpha) {
+		this.shadowAlpha=Math.max(0,Math.min(1,shadowAlpha));
+		fireChanged();
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -452,8 +501,10 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 		if (interpretMarkdown!=otherText.interpretMarkdown) return false;
 		if (interpretLaTeX!=otherText.interpretLaTeX) return false;
 		if (textAlign!=otherText.textAlign) return false;
-		if (fillColor!=otherText.fillColor) return false;
+		if (!Objects.equals(fillColor,otherText.fillColor)) return false;
 		if (fillAlpha!=otherText.fillAlpha) return false;
+		if (!Objects.equals(shadowColor,otherText.shadowColor)) return false;
+		if (shadowAlpha!=otherText.shadowAlpha) return false;
 		return true;
 	}
 
@@ -478,6 +529,8 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 			textAlign=copySource.textAlign;
 			fillColor=copySource.fillColor;
 			fillAlpha=copySource.fillAlpha;
+			shadowColor=copySource.shadowColor;
+			shadowAlpha=copySource.shadowAlpha;
 		}
 	}
 
@@ -522,6 +575,7 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 		/* Daten in Renderer laden */
 		textRenderer.setText(text,interpretSymbols);
 		textRenderer.setBackgroundColor(fillColor,fillAlpha);
+		textRenderer.setShadowColor(shadowColor,shadowAlpha);
 		textRenderer.setStyle(textSize,bold,italic,fontFamily.name,textAlign);
 		textRenderer.calc(graphics,zoom);
 
@@ -647,6 +701,14 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 			sub.setTextContent(EditModel.saveColor(fillColor));
 			if (fillAlpha<1) sub.setAttribute(Language.trPrimary("Surface.Text.XML.BackgroundColor.Alpha"),NumberTools.formatSystemNumber(fillAlpha));
 		}
+
+		/* Schatten */
+		if (shadowColor!=null) {
+			sub=doc.createElement(Language.trPrimary("Surface.Text.XML.ShadowColor"));
+			node.appendChild(sub);
+			sub.setTextContent(EditModel.saveColor(shadowColor));
+			if (shadowAlpha<1) sub.setAttribute(Language.trPrimary("Surface.Text.XML.ShadowColor.Alpha"),NumberTools.formatSystemNumber(shadowAlpha));
+		}
 	}
 
 	/**
@@ -721,6 +783,20 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 				final Double D=NumberTools.getDouble(alpha);
 				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Text.XML.BackgroundColor.Alpha"),name,node.getParentNode().getNodeName());
 				fillAlpha=D;
+			}
+			return null;
+		}
+
+		/* Schatten */
+		if (Language.trAll("Surface.Text.XML.ShadowColor",name) && !content.trim().isEmpty()) {
+			final Color color=EditModel.loadColor(content);
+			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			shadowColor=color;
+			final String alpha=Language.trAllAttribute("Surface.Text.XML.ShadowColor.Alpha",node);
+			if (!alpha.trim().isEmpty()) {
+				final Double D=NumberTools.getDouble(alpha);
+				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Text.XML.ShadowColor.Alpha"),name,node.getParentNode().getNodeName());
+				shadowAlpha=D;
 			}
 			return null;
 		}

@@ -280,7 +280,7 @@ public class ModelElementTextRendererMarkDown extends ModelElementTextRenderer {
 	}
 
 	@Override
-	protected void calcIntern(Graphics graphics, double zoom) {
+	protected void calcIntern(final Graphics graphics, final double zoom) {
 		width=0;
 		height=0;
 		lineWidth.clear();
@@ -326,7 +326,12 @@ public class ModelElementTextRendererMarkDown extends ModelElementTextRenderer {
 	}
 
 	@Override
-	protected void drawIntern(Graphics graphics, int x, int y) {
+	protected int getShadowDelta(final double zoom) {
+		return (int)Math.round(fontSize*Math.max(0,Math.log(Math.E*zoom))/10);
+	}
+
+	@Override
+	protected void drawIntern(final Graphics graphics, int x, int y) {
 		for (int i=0;i<lines.size();i++) {
 			final List<LineElement> line=lines.get(i);
 			final int ascent=lineAscent.get(i);
