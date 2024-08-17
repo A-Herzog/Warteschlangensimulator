@@ -27,6 +27,7 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Semaphore;
 import java.util.stream.Collectors;
 
@@ -154,6 +155,13 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 	 * @see #setBackgroundColor(Color)
 	 */
 	private Color backgroundColor=null;
+
+	/**
+	 * Optionale zweite Füllfarbe des Kastens für Farbverläufe
+	 * @see #getGradientFillColor()
+	 * @see #setGradientFillColor(Color)
+	 */
+	protected Color gradientColor=null;
 
 	/**
 	 * Cache der Bereichsfüllung-Zeichners
@@ -326,6 +334,23 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 	}
 
 	/**
+	 * Liefert die optionale zweite Füllfarbe des Kastens für Farbverläufe
+	 * @return	Zweite Füllfarbe des Kastens (kann <code>null</code> sein für einfarbig bzw. transparent)
+	 */
+	public Color getGradientFillColor() {
+		return gradientColor;
+	}
+
+	/**
+	 * Stellt die optionale zweite Füllfarbe des Kastens für Farbverläufe ein
+	 * @param color	Zweite Füllfarbe des Kastens (oder <code>null</code> für einfarbig bzw. transparent)
+	 */
+	public void setGradientFillColor(final Color color) {
+		gradientColor=color;
+		fireChanged();
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -348,10 +373,8 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 
 		if (borderWidth!=other.borderWidth) return false;
 		if (!other.borderColor.equals(borderColor)) return false;
-		if (!(other.backgroundColor==null && backgroundColor==null)) {
-			if (other.backgroundColor==null || backgroundColor==null) return false;
-			if (!other.backgroundColor.equals(backgroundColor)) return false;
-		}
+		if (!Objects.equals(other.backgroundColor,backgroundColor)) return false;
+		if (!Objects.equals(other.gradientColor,gradientColor)) return false;
 
 		return true;
 	}
@@ -377,6 +400,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 			borderWidth=source.borderWidth;
 			borderColor=source.borderColor;
 			backgroundColor=source.backgroundColor;
+			gradientColor=source.gradientColor;
 		}
 	}
 
@@ -670,6 +694,12 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 	}
 
 	/**
+	 * Objekt für eine Farbverlaufsfüllung
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private GradientFill gradientFill=null;
+
+	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -688,7 +718,12 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 
 		Rectangle rectangle=new Rectangle((int)FastMath.round(FastMath.min(p.x,p.x+s.width)*zoom),(int)FastMath.round(FastMath.min(p.y,p.y+s.height)*zoom),(int)FastMath.round(Math.abs(s.width)*zoom),(int)FastMath.round(Math.abs(s.height)*zoom));
 		if (backgroundColor!=null) {
-			g2.setColor(backgroundColor);
+			if (gradientColor==null) {
+				g2.setColor(backgroundColor);
+			} else {
+				if (gradientFill==null) gradientFill=new GradientFill(false);
+				gradientFill.set(g2,rectangle,gradientColor,backgroundColor,true);
+			}
 			g2.fill(rectangle);
 		}
 
@@ -795,6 +830,12 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 			sub.setTextContent(EditModel.saveColor(backgroundColor));
 		}
 
+		if (gradientColor!=null) {
+			sub=doc.createElement(Language.trPrimary("Surface.AnimationPieChart.XML.GradientColor"));
+			node.appendChild(sub);
+			sub.setTextContent(EditModel.saveColor(gradientColor));
+		}
+
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationPieChart.XML.LabelMode"));
 		node.appendChild(sub);
 		switch (labelMode) {
@@ -847,6 +888,13 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 		if (Language.trAll("Surface.AnimationPieChart.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
 			backgroundColor=EditModel.loadColor(content);
 			if (backgroundColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			return null;
+		}
+
+		if (Language.trAll("Surface.AnimationPieChart.XML.GradientColor",name) && !content.trim().isEmpty()) {
+			final Color color=EditModel.loadColor(content);
+			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			gradientColor=color;
 			return null;
 		}
 

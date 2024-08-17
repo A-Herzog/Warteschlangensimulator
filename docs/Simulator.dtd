@@ -1768,7 +1768,7 @@
 >
 <!ELEMENT ModellElementDiagrammZeitbereich (#PCDATA)>
 
-<!ELEMENT ModellElementAnimationTortenDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementDiagrammElement | ModellElementSegmentBeschriftung | ModellElementSegmentDarstellung)*>
+<!ELEMENT ModellElementAnimationTortenDiagramm (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementLinienBreite | ModellElementLinienFarbe | ModellElementHintergrundfarbe | ModellElementHintergrundfarbeFarbverlauf | ModellElementDiagrammElement | ModellElementSegmentBeschriftung | ModellElementSegmentDarstellung)*>
 <!ATTLIST ModellElementAnimationTortenDiagramm
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -4473,7 +4473,7 @@
 >
 <!ELEMENT ModelElementDiagramTimeRange (#PCDATA)>
 
-<!ELEMENT ModelElementAnimationPieDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementDiagramElement | ModelElementSegmentLabel | ModelElementSegmentDisplay)*>
+<!ELEMENT ModelElementAnimationPieDiagram (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementLineWidth | ModelElementLineColor | ModelElementBackgroundColor | ModelElementBackgroundColorGradient | ModelElementDiagramElement | ModelElementSegmentLabel | ModelElementSegmentDisplay)*>
 <!ATTLIST ModelElementAnimationPieDiagram
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED

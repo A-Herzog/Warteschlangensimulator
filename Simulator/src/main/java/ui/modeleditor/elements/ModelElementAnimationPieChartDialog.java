@@ -64,6 +64,8 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 	private LabeledColorChooserButton colorChooserLine;
 	/** Auswahl der Hintergrundfarbe */
 	private OptionalColorChooserButton colorChooserBackground;
+	/** Auswahl der Farbe für den Farbverlauf */
+	private OptionalColorChooserButton colorChooserGradient;
 
 	/**
 	 * Konstruktor der Klasse
@@ -139,13 +141,22 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.CENTER);
 
+		/* Rahmenfarbe */
 		line.add(colorChooserLine=new LabeledColorChooserButton(Language.tr("Surface.AnimationPieChart.Dialog.Appearance.FrameColor")+":",Color.BLACK));
 		colorChooserLine.setEnabled(!readOnly);
 
 		line.add(Box.createHorizontalStrut(10));
 
+		/* Hintergrundfarbe */
 		line.add(colorChooserBackground=new OptionalColorChooserButton(Language.tr("Surface.AnimationPieChart.Dialog.Appearance.FillBackground"),null,Color.WHITE));
 		colorChooserBackground.setEnabled(!readOnly);
+
+		line.add(Box.createHorizontalStrut(10));
+
+		/* Farbverlauf */
+		line.add(colorChooserGradient=new OptionalColorChooserButton(Language.tr("Surface.AnimationPieChart.Dialog.BackgroundGradient"),null,Color.WHITE));
+		colorChooserGradient.setEnabled(!readOnly);
+		colorChooserGradient.addClickListener(e->{if (colorChooserGradient.isActive()) colorChooserBackground.setActive(true);});
 
 		/* Icons für Tabs */
 		tabs.setIconAt(0,Images.MODELEDITOR_ELEMENT_ANIMATION_PIE_CHART.getIcon());
@@ -171,6 +182,7 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 			lineWidth.setSelectedIndex(diagram.getBorderWidth());
 			colorChooserLine.setColor(diagram.getBorderColor());
 			colorChooserBackground.setColor(diagram.getBackgroundColor());
+			colorChooserGradient.setColor(diagram.getGradientFillColor());
 		}
 
 		return tabs;
@@ -219,6 +231,7 @@ public class ModelElementAnimationPieChartDialog extends ModelElementBaseDialog 
 			diagram.setBorderWidth(lineWidth.getSelectedIndex());
 			diagram.setBorderColor(colorChooserLine.getColor());
 			diagram.setBackgroundColor(colorChooserBackground.getColor());
+			diagram.setGradientFillColor(colorChooserGradient.getColor());
 		}
 	}
 }

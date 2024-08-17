@@ -1954,6 +1954,7 @@
 	<xs:element name="ModellElementLinienBreite" type="xs:string"/>
 	<xs:element name="ModellElementLinienFarbe" type="xs:string"/>
 	<xs:element name="ModellElementHintergrundfarbe" type="xs:string"/>	
+	<xs:element name="ModellElementHintergrundfarbeFarbverlauf" type="xs:string"/>	
     <xs:element ref="ModellElementDiagrammElement"/>
 	<xs:element name="ModellElementSegmentBeschriftung" type="xs:string"/>
 	<xs:element name="ModellElementSegmentDarstellung" type="xs:string"/>
@@ -4464,7 +4465,8 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
 	<xs:element name="ModelElementLineWidth" type="xs:string"/>
 	<xs:element name="ModelElementLineColor" type="xs:string"/>
-	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>	
+	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>
+	<xs:element name="ModelElementBackgroundColorGradient" type="xs:string"/>
     <xs:element ref="ModelElementDiagramElement"/>
 	<xs:element name="ModelElementSegmentLabel" type="xs:string"/>
 	<xs:element name="ModelElementSegmentDisplay" type="xs:string"/>
