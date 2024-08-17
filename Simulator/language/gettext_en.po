@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-11 21:14+0200\n"
+"POT-Creation-Date: 2024-08-12 20:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10805,6 +10805,9 @@ msgstr "Prints the current help page"
 msgid "Help.Search"
 msgstr "Search"
 
+msgid "Help.Search.AllPages"
+msgstr "All pages"
+
 msgid "Help.Search.Info"
 msgstr "Allows you to search the complete help"
 
@@ -10822,6 +10825,9 @@ msgstr "found on page \"%s\""
 
 msgid "Help.Search.ResultSelect"
 msgstr "Matching pages for the search hit:"
+
+msgid "Help.Search.Search"
+msgstr "Search"
 
 msgid "Help.Search.SearchString"
 msgstr "Search keyword"
@@ -27435,6 +27441,9 @@ msgstr "Frame color"
 msgid "Surface.AnimationPieChart.Dialog.Appearance.FrameWidth"
 msgstr "Frame width"
 
+msgid "Surface.AnimationPieChart.Dialog.BackgroundGradient"
+msgstr "Use gradient"
+
 msgid "Surface.AnimationPieChart.Dialog.Data"
 msgstr "Data"
 
@@ -27482,6 +27491,9 @@ msgstr "RingSegment"
 
 msgid "Surface.AnimationPieChart.XML.DiagramDrawMode.Pie"
 msgstr "CircleSegment"
+
+msgid "Surface.AnimationPieChart.XML.GradientColor"
+msgstr "ModelElementBackgroundColorGradient"
 
 msgid "Surface.AnimationPieChart.XML.LabelMode"
 msgstr "ModelElementSegmentLabel"

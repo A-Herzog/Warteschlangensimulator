@@ -34,6 +34,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
@@ -55,6 +56,11 @@ public class HTMLPanelSearchDialog extends BaseDialog {
 	private static final long serialVersionUID=8612950523646295491L;
 
 	/**
+	 * Tabs zur Auswahl der Funktion
+	 */
+	private final JTabbedPane tabs;
+
+	/**
 	 * Liste der Suchtreffer
 	 */
 	private final JList<ResultRecord> results;
@@ -64,6 +70,17 @@ public class HTMLPanelSearchDialog extends BaseDialog {
 	 * @see #results
 	 */
 	private DefaultListModel<ResultRecord> resultsModel;
+
+	/**
+	 * Liste aller Seiten
+	 */
+	private final JList<ResultRecord> pagesList;
+
+	/**
+	 * Listenmodell, welches die Daten für {@link #pagesList} vorhält
+	 * @see #pagesList
+	 */
+	private DefaultListModel<ResultRecord> pagesListModel;
 
 	/**
 	 * Zuletzt eingegebener Suchbegriff
@@ -81,9 +98,17 @@ public class HTMLPanelSearchDialog extends BaseDialog {
 		final JPanel content=createGUI(null);
 		content.setLayout(new BorderLayout());
 
+		/* Tabs */
+		content.add(tabs=new JTabbedPane(),BorderLayout.CENTER);
+
+		JPanel tab;
+
+		/* Tab: Suche */
+		tabs.addTab(HelpBase.buttonSearchTabSearch,tab=new JPanel(new BorderLayout()));
+
 		/* Suchfeld */
 		final JPanel setup=new JPanel(new BorderLayout());
-		content.add(setup,BorderLayout.NORTH);
+		tab.add(setup,BorderLayout.NORTH);
 		final JLabel label=new JLabel(HelpBase.buttonSearchString+": ");
 		setup.add(label,BorderLayout.WEST);
 		final JTextField input=new JTextField();
@@ -97,7 +122,7 @@ public class HTMLPanelSearchDialog extends BaseDialog {
 		});
 
 		/* Ergebnisanzeige */
-		content.add(new JScrollPane(results=new JList<>(resultsModel=new DefaultListModel<>())));
+		tab.add(new JScrollPane(results=new JList<>(resultsModel=new DefaultListModel<>())));
 		results.setCellRenderer(new ResultsRenderer());
 		results.addMouseListener(new MouseAdapter() {
 			@Override
@@ -106,11 +131,44 @@ public class HTMLPanelSearchDialog extends BaseDialog {
 			}
 		});
 
+		/* Tab: Alle Seiten */
+		tabs.addTab(HelpBase.buttonSearchTabAllPages,tab=new JPanel(new BorderLayout()));
+
+		tab.add(new JScrollPane(pagesList=new JList<>(pagesListModel=new DefaultListModel<>())));
+		pagesList.setCellRenderer(new ResultsRenderer());
+		pagesList.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (SwingUtilities.isLeftMouseButton(e) && e.getClickCount()==2) close(BaseDialog.CLOSED_BY_OK);
+			}
+		});
+		loadAllPages();
+
+		/* Icons auf den Tabs */
+		tabs.setIconAt(0,SimToolsImages.HELP_SEARCH.getIcon());
+		tabs.setIconAt(1,SimToolsImages.HELP_PAGE.getIcon());
+
+		/* Eingabefeld fokussieren */
+		SwingUtilities.invokeLater(()->input.requestFocus());
+
 		/* Dialog anzeigen */
 		setMinSizeRespectingScreensize(640,480);
 		setResizable(true);
 		setLocationRelativeTo(getOwner());
 		setVisible(true);
+	}
+
+	/**
+	 * Lädt die Liste aller Hilfeseiten.
+	 */
+	private void loadAllPages() {
+		final DefaultListModel<ResultRecord> pagesListModel=new DefaultListModel<>();
+
+		final var map=IndexSystem.getInstance().getPageTitles();
+		map.keySet().stream().sorted().forEach(title->pagesListModel.addElement(new ResultRecord(title,map.get(title))));
+
+		this.pagesListModel=pagesListModel;
+		pagesList.setModel(pagesListModel);
 	}
 
 	/**
@@ -140,7 +198,7 @@ public class HTMLPanelSearchDialog extends BaseDialog {
 
 	@Override
 	protected boolean checkData() {
-		if (results.getSelectedIndex()<0) {
+		if (tabs.getSelectedIndex()==0 && results.getSelectedIndex()<0) {
 			MsgBox.error(this,HelpBase.buttonSearch,HelpBase.buttonSearchNoHitSelected);
 			return false;
 		}
@@ -153,11 +211,23 @@ public class HTMLPanelSearchDialog extends BaseDialog {
 	 * @return	Seiten für das ausgewählte Ergebnis
 	 */
 	public Set<String> getResult() {
-		if (results.getSelectedIndex()<0) return null;
-		final ResultRecord record=resultsModel.get(results.getSelectedIndex());
-		if (record.page!=null) return new HashSet<>(Arrays.asList(record.page));
-		if (record.pages!=null) return record.pages;
-		return null;
+		ResultRecord record;
+		switch (tabs.getSelectedIndex()) {
+		case 0:
+			if (results.getSelectedIndex()<0) return null;
+			record=resultsModel.get(results.getSelectedIndex());
+			if (record.page!=null) return new HashSet<>(Arrays.asList(record.page));
+			if (record.pages!=null) return record.pages;
+			return null;
+		case 1:
+			if (pagesList.getSelectedIndex()<0) return null;
+			record=pagesListModel.get(pagesList.getSelectedIndex());
+			if (record.page!=null) return new HashSet<>(Arrays.asList(record.page));
+			if (record.pages!=null) return record.pages;
+			return null;
+		default:
+			return null;
+		}
 	}
 
 	/**

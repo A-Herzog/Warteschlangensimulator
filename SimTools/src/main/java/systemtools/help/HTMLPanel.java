@@ -20,7 +20,6 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -170,7 +169,7 @@ public abstract class HTMLPanel extends JPanel {
 
 		noLockingViewer=!textPane.needsLoadLock();
 
-		textPane.init(new LinkClickListener(),root->preprocessPage(root), new PageLoadListener());
+		textPane.init(()->linkClicked(),root->preprocessPage(root), new PageLoadListener());
 
 		if (textPane.needsBorder()) {
 			final JPanel outer=new JPanel(new BorderLayout());
@@ -228,7 +227,7 @@ public abstract class HTMLPanel extends JPanel {
 		if (tip!=null && !tip.equals("")) button.setToolTipText(tip);
 		if (icon!=null) button.setIcon(icon);
 		toolBar.add(button);
-		button.addActionListener(new ButtonListener());
+		button.addActionListener(e->buttonClicked(e));
 		return button;
 	}
 
@@ -338,7 +337,7 @@ public abstract class HTMLPanel extends JPanel {
 	/**
 	 * Initialisiert die Einträge zur Auswahl bestimmter Elemente im {@link #contentPopup}.
 	 * @see #contentPopup
-	 * @see ButtonListener
+	 * @see #buttonClicked(ActionEvent)
 	 */
 	private void initContentPopup() {
 		contentPopup.removeAll();
@@ -350,7 +349,7 @@ public abstract class HTMLPanel extends JPanel {
 			if (level.get(i)>=4) s="  ";
 			if (level.get(i)>=5) s+="   ";
 			JMenuItem item=new JMenuItem(s+content.get(i));
-			item.addActionListener(new ButtonListener());
+			item.addActionListener(e->buttonClicked(e));
 			if (level.get(i)==1) item.setIcon(SimToolsImages.HELP_MARKER_LEVEL1.getIcon());
 			if (level.get(i)==2) item.setIcon(SimToolsImages.HELP_MARKER_LEVEL2.getIcon());
 			contentPopup.add(item);
@@ -359,6 +358,7 @@ public abstract class HTMLPanel extends JPanel {
 
 	/**
 	 * Reagiert auf Klicks auf die verschiedenen Schaltflächen
+	 * @param e	Auslösendes Ereignis
 	 * @see HTMLPanel#buttonClose
 	 * @see HTMLPanel#buttonBack
 	 * @see HTMLPanel#buttonNext
@@ -366,84 +366,71 @@ public abstract class HTMLPanel extends JPanel {
 	 * @see HTMLPanel#buttonContent
 	 * @see HTMLPanel#buttonSearch
 	 */
-	private final class ButtonListener implements ActionListener {
-		/**
-		 * Konstruktor der Klasse
-		 */
-		public ButtonListener() {
-			/*
-			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-			 */
+	private void buttonClicked(final ActionEvent e) {
+		final Object source=e.getSource();
+
+		if (source==buttonClose) {
+			if (closeNotify!=null) closeNotify.run();
+			return;
 		}
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			final Object source=e.getSource();
+		if (source==buttonBack) {
+			if (currentURL!=null) listNext.add(currentURL);
+			currentURL=listBack.get(listBack.size()-1);
+			listBack.remove(listBack.size()-1);
+			textPane.showPage(currentURL);
+			return;
+		}
 
-			if (source==buttonClose) {
-				if (closeNotify!=null) closeNotify.run();
-				return;
-			}
+		if (source==buttonNext) {
+			if (currentURL!=null) listBack.add(currentURL);
+			currentURL=listNext.get(listNext.size()-1);
+			listNext.remove(listNext.size()-1);
+			textPane.showPage(currentURL);
+			return;
+		}
 
-			if (source==buttonBack) {
-				if (currentURL!=null) listNext.add(currentURL);
-				currentURL=listBack.get(listBack.size()-1);
-				listBack.remove(listBack.size()-1);
-				textPane.showPage(currentURL);
-				return;
-			}
+		if (source==buttonHome) {
+			loadPage(homeURL);
+			return;
+		}
 
-			if (source==buttonNext) {
-				if (currentURL!=null) listBack.add(currentURL);
-				currentURL=listNext.get(listNext.size()-1);
-				listNext.remove(listNext.size()-1);
-				textPane.showPage(currentURL);
-				return;
-			}
+		if (source==buttonContent && !textPane.getPageContent().isEmpty()) {
+			initContentPopup();
+			contentPopup.show(buttonContent,0,buttonContent.getBounds().height);
+			return;
+		}
 
-			if (source==buttonHome) {
-				loadPage(homeURL);
-				return;
-			}
-
-			if (source==buttonContent && !textPane.getPageContent().isEmpty()) {
-				initContentPopup();
-				contentPopup.show(buttonContent,0,buttonContent.getBounds().height);
-				return;
-			}
-
-			if (source==buttonSearch) {
-				final HTMLPanelSearchDialog searchDialog=new HTMLPanelSearchDialog(HTMLPanel.this);
-				if (searchDialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
-					final Set<String> results=searchDialog.getResult();
-					if (results!=null && results.size()>0) {
-						final String[] pages=results.toArray(String[]::new);
-						if (pages.length==1) {
-							loadPage(pages[0]);
-						} else {
-							final HTMLPanelSelectDialog selectDialog=new HTMLPanelSelectDialog(HTMLPanel.this,results);
-							if (selectDialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
-								final String page=selectDialog.getSelectedPage();
-								if (page!=null) loadPage(page);
-							}
+		if (source==buttonSearch) {
+			final HTMLPanelSearchDialog searchDialog=new HTMLPanelSearchDialog(HTMLPanel.this);
+			if (searchDialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+				final Set<String> results=searchDialog.getResult();
+				if (results!=null && results.size()>0) {
+					final String[] pages=results.toArray(String[]::new);
+					if (pages.length==1) {
+						loadPage(pages[0]);
+					} else {
+						final HTMLPanelSelectDialog selectDialog=new HTMLPanelSelectDialog(HTMLPanel.this,results);
+						if (selectDialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+							final String page=selectDialog.getSelectedPage();
+							if (page!=null) loadPage(page);
 						}
 					}
 				}
 			}
+		}
 
-			if (source==buttonPrint) {
-				if (!printPage()) {
-					MsgBox.error(HTMLPanel.this,HelpBase.errorPrintTitle,HelpBase.errorPrintInfo);
-				}
-				return;
+		if (source==buttonPrint) {
+			if (!printPage()) {
+				MsgBox.error(HTMLPanel.this,HelpBase.errorPrintTitle,HelpBase.errorPrintInfo);
 			}
+			return;
+		}
 
-			if (source instanceof JMenuItem) {
-				int i=contentPopup.getComponentIndex((JMenuItem)source);
-				if (i>=0) textPane.scrollToPageContent(i);
-				return;
-			}
+		if (source instanceof JMenuItem) {
+			int i=contentPopup.getComponentIndex((JMenuItem)source);
+			if (i>=0) textPane.scrollToPageContent(i);
+			return;
 		}
 	}
 
@@ -586,38 +573,25 @@ public abstract class HTMLPanel extends JPanel {
 	 * @see HTMLPanel#textPane
 	 * @see HTMLPanel#processSpecialLink
 	 */
-	private final class LinkClickListener implements Runnable {
-		/**
-		 * Konstruktor der Klasse
-		 */
-		public LinkClickListener() {
-			/*
-			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-			 */
-		}
+	private void linkClicked() {
+		final URL url=textPane.getLastClickedURL();
 
-		@Override
-		public void run() {
-			URL url=textPane.getLastClickedURL();
-
-			if (url==null) {
-				specialLink=textPane.getLastClickedURLDescription();
-				if (processSpecialLink!=null) SwingUtilities.invokeLater(processSpecialLink);
+		if (url==null) {
+			specialLink=textPane.getLastClickedURLDescription();
+			if (processSpecialLink!=null) SwingUtilities.invokeLater(processSpecialLink);
+		} else {
+			String s=url.toString();
+			if (s.toLowerCase().startsWith("mailto:")) {
+				try {Desktop.getDesktop().mail(url.toURI());} catch (IOException | URISyntaxException e1) {
+					MsgBox.error(HTMLPanel.this,HelpBase.errorNoEMailTitle,String.format(HelpBase.errorNoEMailInfo,url.toString()));
+				}
 			} else {
-				String s=url.toString();
-				if (s.toLowerCase().startsWith("mailto:")) {
-					try {Desktop.getDesktop().mail(url.toURI());} catch (IOException | URISyntaxException e1) {
-						MsgBox.error(HTMLPanel.this,HelpBase.errorNoEMailTitle,String.format(HelpBase.errorNoEMailInfo,url.toString()));
-					}
+				if (s.toLowerCase().startsWith("http://") || s.toLowerCase().startsWith("https://")) {
+					JOpenURL.open(HTMLPanel.this,url);
 				} else {
-					if (s.toLowerCase().startsWith("http://") || s.toLowerCase().startsWith("https://")) {
-						JOpenURL.open(HTMLPanel.this,url);
-					} else {
-						s=url.toString();
-						s=s.substring(s.lastIndexOf('/')+1);
-						loadPage(getPageURL(s));
-					}
+					s=url.toString();
+					s=s.substring(s.lastIndexOf('/')+1);
+					loadPage(getPageURL(s));
 				}
 			}
 		}

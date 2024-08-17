@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-11 21:14+0200\n"
+"POT-Creation-Date: 2024-08-12 20:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10838,6 +10838,9 @@ msgstr "Druckt die aktuelle Hilfeseite aus"
 msgid "Help.Search"
 msgstr "Suchen"
 
+msgid "Help.Search.AllPages"
+msgstr "Alle Seiten"
+
 msgid "Help.Search.Info"
 msgstr "Ermöglicht die Suche in der gesamten Hilfe"
 
@@ -10855,6 +10858,9 @@ msgstr "auf Seite \"%s\" gefunden"
 
 msgid "Help.Search.ResultSelect"
 msgstr "Passende Seiten zu dem Suchtreffer:"
+
+msgid "Help.Search.Search"
+msgstr "Suchen"
 
 msgid "Help.Search.SearchString"
 msgstr "Suchbegriff"
@@ -27485,6 +27491,9 @@ msgstr "Rahmenfarbe"
 msgid "Surface.AnimationPieChart.Dialog.Appearance.FrameWidth"
 msgstr "Rahmenbreite"
 
+msgid "Surface.AnimationPieChart.Dialog.BackgroundGradient"
+msgstr "Farbverlauf verwenden"
+
 msgid "Surface.AnimationPieChart.Dialog.Data"
 msgstr "Daten"
 
@@ -27532,6 +27541,9 @@ msgstr "Ringsegment"
 
 msgid "Surface.AnimationPieChart.XML.DiagramDrawMode.Pie"
 msgstr "Kreissegment"
+
+msgid "Surface.AnimationPieChart.XML.GradientColor"
+msgstr "ModellElementHintergrundfarbeFarbverlauf"
 
 msgid "Surface.AnimationPieChart.XML.LabelMode"
 msgstr "ModellElementSegmentBeschriftung"

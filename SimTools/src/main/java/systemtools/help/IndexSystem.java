@@ -208,4 +208,27 @@ public class IndexSystem {
 		if (readyState==null || !readyState.booleanValue()) return null;
 		return scanner.getIndex(currentLanguage).getPageName(page);
 	}
+
+	/**
+	 * Liefert eine Zuordnung von Dateien zu Seitentiteln.
+	 * @return	Zuordnung von Dateien zu Seitentiteln
+	 */
+	public Map<String,String> getPages() {
+		if (currentLanguage==null) return null;
+		final Boolean readyState=ready.get(currentLanguage);
+		if (readyState==null || !readyState.booleanValue()) return null;
+		return scanner.getIndex(currentLanguage).getAllPages();
+	}
+
+	/**
+	 * Liefert eine Zuordnung von Seitentiteln zu Dateien.
+	 * @return	Zuordnung von Seitentiteln zu Dateien
+	 */
+	public Map<String,String> getPageTitles() {
+		final Map<String,String> pages=getPages();
+		if (pages==null) return null;
+		final Map<String,String> titles=new HashMap<>();
+		for (var page: pages.entrySet()) titles.put(page.getValue(),page.getKey());
+		return titles;
+	}
 }

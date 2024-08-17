@@ -614,6 +614,8 @@ public class LanguageStaticLoader {
 		HelpBase.buttonSearchResultCountSingular=Language.tr("Help.Search.ResultCountSingular");
 		HelpBase.buttonSearchResultCountPlural=Language.tr("Help.Search.ResultCountPlural");
 		HelpBase.buttonSearchResultSelect=Language.tr("Help.Search.ResultSelect");
+		HelpBase.buttonSearchTabSearch=Language.tr("Help.Search.Search");
+		HelpBase.buttonSearchTabAllPages=Language.tr("Help.Search.AllPages");
 		HelpBase.buttonPrint=Language.tr("Help.Print");
 		HelpBase.buttonPrintInfo=Language.tr("Help.Print.Info");
 		HelpBase.errorNoEMailTitle=Language.tr("Window.Info.NoEMailProgram.Title");

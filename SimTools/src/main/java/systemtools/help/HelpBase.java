@@ -73,6 +73,10 @@ public abstract class HelpBase {
 	public static String buttonSearchResultCountPlural="auf %d Seiten gefunden";
 	/** Beschriftung für Auswahl des konkreten Suchtreffers */
 	public static String buttonSearchResultSelect="Passende Seiten zu dem Suchtreffer:";
+	/** Tab "Suchen" im Suchen-Dialog */
+	public static String buttonSearchTabSearch="Suchen";
+	/** Tab "Alle Seiten" im Suchen-Dialog */
+	public static String buttonSearchTabAllPages="Alle Seiten";
 	/** Bezeichnung für die Schaltfläche "Drucken" */
 	public static String buttonPrint="Drucken";
 	/** Bezeichnung für den Tooltip für die Schaltfläche "Drucken" */

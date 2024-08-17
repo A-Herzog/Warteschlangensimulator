@@ -147,6 +147,14 @@ class IndexScanner {
 	}
 
 	/**
+	 * Listet die verfügbaren Sprachen auf.
+	 * @return	Menge der indizierten Sprachen.
+	 */
+	public Set<String> scannedLanguages() {
+		return data.keySet();
+	}
+
+	/**
 	 * Liefert die Index-Daten für eine Sprache.
 	 * @param language	Sprache
 	 * @return	Index-Daten
@@ -332,6 +340,14 @@ class IndexScanner {
 		 */
 		public String getFolder() {
 			return folder;
+		}
+
+		/**
+		 * Liefert eine Zuordnung von Seiten-Dateinamen und Seitentiteln aller indizierten Seiten.
+		 * @return	Zuordnung von Dateinamen zu Seitentiteln
+		 */
+		public Map<String,String> getAllPages() {
+			return pages;
 		}
 	}
 }
