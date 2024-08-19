@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-12 20:14+0200\n"
+"POT-Creation-Date: 2024-08-16 10:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27522,6 +27522,9 @@ msgstr "ModelElementDiagramElement"
 msgid "Surface.AnimationPieChart.XML.Set.PieColor"
 msgstr "SegmentColor"
 
+msgid "Surface.AnimationPointerMeasuring.Dialog.BackgroundColor"
+msgstr "Background color"
+
 msgid "Surface.AnimationPointerMeasuring.Dialog.Color"
 msgstr "Pointer color"
 
@@ -27576,6 +27579,9 @@ msgstr "Analogue scale display"
 
 msgid "Surface.AnimationPointerMeasuring.Tooltip"
 msgstr "Shows the current value of a calculation expression in the form of an analogue scale display."
+
+msgid "Surface.AnimationPointerMeasuring.XML.BackgroundColor"
+msgstr "ModelElementBackgroundColor"
 
 msgid "Surface.AnimationPointerMeasuring.XML.Color"
 msgstr "ModelElementAnimationPointerMeasuringColor"

@@ -1714,7 +1714,7 @@
 <!ELEMENT ModellElementAnimationLCDLinienbreite (#PCDATA)>
 <!ELEMENT ModellElementAnimationLCDFarbe (#PCDATA)>
 
-<!ELEMENT ModellElementAnimationAnalogSkala (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementAnimationAnalogSkalaAusdruck | ModellElementAnimationAnalogSkalaFarbe)*>
+<!ELEMENT ModellElementAnimationAnalogSkala (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementAnimationAnalogSkalaAusdruck | ModellElementAnimationAnalogSkalaFarbe | ModellElementHintergrundfarbe)*>
 <!ATTLIST ModellElementAnimationAnalogSkala
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -4419,7 +4419,7 @@
 <!ELEMENT ModelElementAnimationLCDLineWidth (#PCDATA)>
 <!ELEMENT ModelElementAnimationLCDColor (#PCDATA)>
 
-<!ELEMENT ModelElementAnimationPointerMeasuring (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementAnimationPointerMeasuringExpression | ModelElementAnimationPointerMeasuringColor)*>
+<!ELEMENT ModelElementAnimationPointerMeasuring (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementAnimationPointerMeasuringExpression | ModelElementAnimationPointerMeasuringColor | ModelElementBackgroundColor)*>
 <!ATTLIST ModelElementAnimationPointerMeasuring
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED

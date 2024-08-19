@@ -1900,6 +1900,7 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
 	<xs:element ref="ModellElementAnimationAnalogSkalaAusdruck"/>
 	<xs:element name="ModellElementAnimationAnalogSkalaFarbe" type="xs:string"/>
+	<xs:element name="ModellElementHintergrundfarbe" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModellElementAnimationAnalogSkalaAusdruck"><xs:complexType><xs:simpleContent>
@@ -4412,6 +4413,7 @@
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
 	<xs:element ref="ModelElementAnimationPointerMeasuringExpression"/>
 	<xs:element name="ModelElementAnimationPointerMeasuringColor" type="xs:string"/>
+	<xs:element name="ModelElementBackgroundColor" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 <xs:element name="ModelElementAnimationPointerMeasuringExpression"><xs:complexType><xs:simpleContent>

@@ -66,6 +66,8 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 
 	/** Auswahl der Farbe des Zeigers */
 	private LabeledColorChooserButton colorChooser;
+	/** Auswahl der Hintergrundfarbe */
+	private LabeledColorChooserButton backgroundColorChooser;
 
 	/**
 	 * Konstruktor der Klasse
@@ -159,12 +161,18 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Surface.AnimationPointerMeasuring.Dialog.Color")+":",Color.BLACK));
 		colorChooser.setEnabled(!readOnly);
 
+		/* Hintergrundfarbe */
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(backgroundColorChooser=new LabeledColorChooserButton(Language.tr("Surface.AnimationPointerMeasuring.Dialog.BackgroundColor")+":",Color.WHITE));
+		backgroundColorChooser.setEnabled(!readOnly);
+
 		/* Daten eintragen */
 		if (element instanceof ModelElementAnimationPointerMeasuring) {
 			final ModelElementAnimationPointerMeasuring pointerMeasuring=(ModelElementAnimationPointerMeasuring)element;
 			editMinValue.setText(""+pointerMeasuring.getMinValue());
 			editMaxValue.setText(""+pointerMeasuring.getMaxValue());
 			colorChooser.setColor(pointerMeasuring.getColor());
+			backgroundColorChooser.setColor(pointerMeasuring.getBackgroundColor());
 			optionUseYellowArea.setSelected(pointerMeasuring.isYellowRangeUse());
 			int yellowStart;
 			if (pointerMeasuring.isYellowRangeUse()) {
@@ -291,6 +299,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 			pointerMeasuring.setRedRangeUse(optionUseRedArea.isSelected());
 			if (optionUseRedArea.isSelected()) pointerMeasuring.setRedRangeStart(NumberTools.getNotNegativeLong(editRedAreaStartValue,true).intValue());
 			pointerMeasuring.setColor(colorChooser.getColor());
+			pointerMeasuring.setBackgroundColor(backgroundColorChooser.getColor());
 		}
 	}
 }

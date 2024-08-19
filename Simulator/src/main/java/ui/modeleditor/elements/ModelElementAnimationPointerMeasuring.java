@@ -100,6 +100,11 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 	private Color color=DEFAULT_COLOR;
 
 	/**
+	 * Füllfarbe
+	 */
+	private Color backgroundColor=Color.WHITE;
+
+	/**
 	 * Farbobjekt für die Darstellung des gelben Bereichs.
 	 * @see #drawData(Graphics2D, Rectangle, double)
 	 */
@@ -268,6 +273,23 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 	}
 
 	/**
+	 * Liefert die aktuelle Füllfarbe
+	 * @return	Aktuelle Füllfarbe
+	 */
+	public Color getBackgroundColor() {
+		return backgroundColor;
+	}
+
+	/**
+	 * Stellt die Füllfarbe ein
+	 * @param color	Füllfarbe
+	 */
+	public void setBackgroundColor(final Color color) {
+		this.backgroundColor=(color==null)?Color.WHITE:color;
+		fireChanged();
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -289,6 +311,7 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 			if (redRangeStart!=other.redRangeStart) return false;
 		}
 		if (!Objects.equals(color,other.color)) return false;
+		if (!Objects.equals(backgroundColor,other.backgroundColor)) return false;
 
 		return true;
 	}
@@ -309,6 +332,7 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 			redRangeUse=source.redRangeUse;
 			redRangeStart=source.redRangeStart;
 			color=source.color;
+			backgroundColor=source.backgroundColor;
 		}
 	}
 
@@ -428,7 +452,7 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 
 		/* Skala füllen */
 
-		graphics.setColor(Color.WHITE);
+		graphics.setColor(backgroundColor);
 		graphics.fillArc(rectangle.x,rectangle.y,rectangle.width,2*rectangle.height,180,-90);
 		graphics.fillArc(rectangle.x,rectangle.y,rectangle.width,2*rectangle.height,90,-90);
 
@@ -591,6 +615,12 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationPointerMeasuring.XML.Color"));
 		node.appendChild(sub);
 		sub.setTextContent(EditModel.saveColor(color));
+
+		if (!Objects.equals(backgroundColor,Color.WHITE)) {
+			sub=doc.createElement(Language.trPrimary("Surface.AnimationPointerMeasuring.XML.BackgroundColor"));
+			node.appendChild(sub);
+			sub.setTextContent(EditModel.saveColor(color));
+		}
 	}
 
 	/**
@@ -639,6 +669,12 @@ public class ModelElementAnimationPointerMeasuring extends ModelElementAnimation
 		if (Language.trAll("Surface.AnimationPointerMeasuring.XML.Color",name)) {
 			color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			return null;
+		}
+
+		if (Language.trAll("Surface.AnimationPointerMeasuring.XML.BackgroundColor",name)) {
+			backgroundColor=EditModel.loadColor(content);
+			if (backgroundColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
 		}
 
