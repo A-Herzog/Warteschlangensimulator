@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-16 10:52+0200\n"
+"POT-Creation-Date: 2024-08-18 00:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27182,6 +27182,12 @@ msgstr "ModellElementAnimationStapelBalken"
 msgid "Surface.AnimationClock.Dialog.Color"
 msgstr "Hintergrundfarbe"
 
+msgid "Surface.AnimationClock.Dialog.LineColor"
+msgstr "Zeigerfarbe"
+
+msgid "Surface.AnimationClock.Dialog.LineColor.Info"
+msgstr "Wird keine Zeigerfarbe gewählt, so wird die Komplmentärfarbe der Hintergrundfarbe verwendet."
+
 msgid "Surface.AnimationClock.Dialog.ShowDigital"
 msgstr "Zeit zusätzlich digital anzeigen"
 
@@ -27202,6 +27208,9 @@ msgstr "ModellElementFarbe"
 
 msgid "Surface.AnimationClock.XML.Expression"
 msgstr "ModellElementAusdruck"
+
+msgid "Surface.AnimationClock.XML.LineColor"
+msgstr "ModellElementZeigerfarbe"
 
 msgid "Surface.AnimationClock.XML.Root"
 msgstr "ModellElementAnimationUhr"

@@ -23,10 +23,12 @@ import java.io.Serializable;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import language.Language;
 import systemtools.LabeledColorChooserButton;
+import systemtools.OptionalColorChooserButton;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 
@@ -47,6 +49,9 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 
 	/** Auswahl der Hintergrundfarbe der Uhr */
 	private LabeledColorChooserButton colorChooser;
+
+	/** Auswahl der Zeigerfarbe */
+	private OptionalColorChooserButton lineColorChooser;
 
 	/** Zusätzlich Uhrzeit digital anzeigen? */
 	private JCheckBox showDigital;
@@ -89,6 +94,14 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Surface.AnimationClock.Dialog.Color")+":",Color.BLACK));
 		colorChooser.setEnabled(!readOnly);
 
+		/* Zeigerfarbe */
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(lineColorChooser=new OptionalColorChooserButton(Language.tr("Surface.AnimationClock.Dialog.LineColor")+":",null,Color.BLACK));
+		lineColorChooser.setEnabled(!readOnly);
+
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel(Language.tr("Surface.AnimationClock.Dialog.LineColor.Info")));
+
 		/* Digitale Anzeige */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(showDigital=new JCheckBox(Language.tr("Surface.AnimationClock.Dialog.ShowDigital")));
@@ -97,6 +110,7 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 		if (element instanceof ModelElementAnimationClock) {
 			colorChooser.setColor(((ModelElementAnimationClock)element).getColor());
 			showDigital.setSelected(((ModelElementAnimationClock)element).isShowDigitalTime());
+			lineColorChooser.setColor(((ModelElementAnimationClock)element).getLineColor());
 		}
 
 		checkData(false);
@@ -145,6 +159,7 @@ public class ModelElementAnimationClockDialog extends ModelElementBaseDialog {
 		final ModelElementAnimationClock clock=(ModelElementAnimationClock)element;
 		editExpression.storeData();
 		clock.setColor(colorChooser.getColor());
+		clock.setLineColor(lineColorChooser.getColor());
 		clock.setShowDigitalTime(showDigital.isSelected());
 	}
 }

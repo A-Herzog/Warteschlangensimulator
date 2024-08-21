@@ -1965,6 +1965,7 @@
 <xs:element name="ModellElementAnimationUhr"><xs:complexType><xs:complexContent><xs:extension base="ModellElementEinfachBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
 	<xs:element name="ModellElementFarbe" type="xs:string"/>
+	<xs:element name="ModellElementZeigerfarbe" type="xs:string"/>
 	<xs:element ref="ModellElementAusdruck"/>
 	<xs:element name="ModellElementAnimationUhrDigital" type="xs:string"/>
   </xs:choice></xs:sequence>
@@ -4478,6 +4479,7 @@
 <xs:element name="ModelElementAnimationClock"><xs:complexType><xs:complexContent><xs:extension base="ModelElementSimpleBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
 	<xs:element name="ModelElementColor" type="xs:string"/>
+	<xs:element name="ModelElementPointerColor" type="xs:string"/>
 	<xs:element ref="ModelElementExpression"/>
 	<xs:element name="ModelElementAnimationClockDigital" type="xs:string"/>
   </xs:choice></xs:sequence>

@@ -8148,6 +8148,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19915] = "Es gibt \u00dcberschneidungen zwischen den zu ladenden und den bereits vorhandenen Kundentypen.\nSollen die Daten dennoch geladen werden?";
     t[19922] = "SettingsDialog.Tabs.Simulation.Server.Use";
     t[19923] = "Simulationen auf entferntem Server durchf\u00fchren";
+    t[19926] = "Surface.Source.XML.IntervalDistribution.Count";
+    t[19927] = "Anzahl";
     t[19930] = "ExpressionBuilder.ProbabilityDistributions.PertDistribution.DistributionFunctionInfo";
     t[19931] = "<p>Berechnet den Wert der Verteilungsfunktion der Pert-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;c] und dem Wert b mit der h\u00f6chsten Wahrscheinlichkeitsdichte gem\u00e4\u00df dem zweiten (a), dem dritten (b) und dem vierten (c) Parameter.</p>";
     t[19932] = "Surface.AnimationBarChart.Dialog.Title";
@@ -10032,14 +10034,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24483] = "Speichert das Diagramm als Bilddatei.";
     t[24486] = "Surface.SourceMulti.Infotext";
     t[24487] = "Kundenquellen stellen den Startpunkt der Bewegung der Kunden durch das System dar. Eine Mehrfachqulle erm\u00f6glicht die unabh\u00e4ngige Definition von Zwischenankunftszeiten f\u00fcr Kunden verschiedener Typen an einer Station.";
-    t[24488] = "Resources.Group.ID";
-    t[24489] = "(Ressourcen id=%d)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[24488] = "Resources.Group.ID";
+    t[24489] = "(Ressourcen id=%d)";
     t[24498] = "Surface.SourceDB.Dialog.ClientTypes.LoadButton.Hint";
     t[24499] = "L\u00e4dt alle verf\u00fcgbaren Kundentypen aus der Datenbanktabelle und ersetzt die bisherigen Kundentypen in diesem Dialog durch die geladenen Kundentypen.";
     t[24500] = "Surface.TransportTransporterSource.Dialog.WaitingCapacity";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29547] = "Beispieldateien kopieren";
     t[29552] = "ParameterCompare.Table.AddModelByAssistant.Error";
     t[29553] = "Ung\u00fcltige Einstellungen";
-    t[29556] = "Surface.LogicElseIf.Tooltip";
-    t[29557] = "Logik ElseIf";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29556] = "Surface.LogicElseIf.Tooltip";
+    t[29557] = "Logik ElseIf";
     t[29562] = "DistributionFitterMultiModal.UsedDistribution";
     t[29563] = "F\u00fcr die Anpassung verwendete Verteilung";
     t[29564] = "ExternalConnect.Dialog.Compile.Tooltip";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34315] = "Datensatz beibehalten.";
     t[34318] = "Surface.XML.SequenceStep.Target";
     t[34319] = "Ziel";
-    t[34320] = "Surface.InteractiveSlider.Dialog.StepWide.ErrorTitle";
-    t[34321] = "Schrittweite ung\u00fcltig";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34320] = "Surface.InteractiveSlider.Dialog.StepWide.ErrorTitle";
+    t[34321] = "Schrittweite ung\u00fcltig";
     t[34324] = "Simulation.Element.OutputDB.Name";
     t[34325] = "Ausgabe (DB)";
     t[34326] = "Surface.MultiSourceTable.Info.NextThreshold.Up";
@@ -14292,8 +14294,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35013] = "Initialen F\u00fcllstand f\u00fcr Tank auf %s stellen";
     t[35030] = "SelectExampleWithPreview.ErrorNoExampleSelected.Title";
     t[35031] = "Kein Beispiel ausgew\u00e4hlt";
-    t[35032] = "Surface.Source.XML.IntervalDistribution.Count";
-    t[35033] = "Anzahl";
+    t[35032] = "Surface.AnimationClock.Dialog.LineColor";
+    t[35033] = "Zeigerfarbe";
     t[35050] = "LoadCalculator.Tab.ErlangB.Link";
     t[35051] = "http://de.wikipedia.org/wiki/Erlang_B";
     t[35054] = "ExpressionBuilder.CommandName.WaitingTime";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39489] = "R\u00fcstzeit an einer Station";
     t[39492] = "Surface.XML.AnalogValue.MinimalValue";
     t[39493] = "ModellElementAnalogerWertMinimum";
-    t[39494] = "Surface.InputDDE.XML.Variable";
-    t[39495] = "ModellElementEingabeDDEVariable";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39494] = "Surface.InputDDE.XML.Variable";
+    t[39495] = "ModellElementEingabeDDEVariable";
     t[39496] = "Color.008080";
     t[39497] = "Teal";
     t[39502] = "ParameterCompare.Settings.Output.Mode.Label";
@@ -16542,6 +16544,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[40771] = "Texteigenschaft";
     t[40784] = "Schedule.EditDialog.Title";
     t[40785] = "Zeitplan \"%s\" bearbeiten";
+    t[40786] = "Surface.AnimationClock.Dialog.LineColor.Info";
+    t[40787] = "Wird keine Zeigerfarbe gew\u00e4hlt, so wird die Komplment\u00e4rfarbe der Hintergrundfarbe verwendet.";
     t[40790] = "ExpressionBuilder.StatisticalFunctions.StandardDeviation";
     t[40791] = "Standardabweichung";
     t[40792] = "Statistics.ClientData.Field.Average";
@@ -18054,16 +18058,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44449] = "Automatische Wahl der Farbe in den Diagrammen";
     t[44458] = "Simulation.Log.Duplicate.AssignInfo";
     t[44459] = "Typzuweisung f\u00fcr Kunde: id=%d \"%s\"->\"%s\", Station: %s";
-    t[44468] = "Main.Menu.Help.Tutorial";
-    t[44469] = "Tutorial (pdf)";
-    t[44486] = "Statistics.ClientType";
-    t[44487] = "Kundentyp";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44468] = "Main.Menu.Help.Tutorial";
+    t[44469] = "Tutorial (pdf)";
+    t[44486] = "Statistics.ClientType";
+    t[44487] = "Kundentyp";
     t[44490] = "ModelGenerator.Model.Description.Properties.ServiceBatch";
     t[44491] = "Batch-Bedienungen (Bachgr\u00f6\u00dfe: %d)";
     t[44494] = "Editor.Dialog.Tab.PathRecording.Info";
@@ -20060,16 +20064,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49339] = "Zeigt w\u00e4hrend der Animation mehrere Werte als Balkendiagramm an.";
     t[49350] = "Statistics.Dashboard.EditDialog.Digits";
     t[49351] = "Anzuzeigende Nachkommastellen";
-    t[49352] = "HeatMapSetup.Title";
-    t[49353] = "Heatmap konfigurieren";
-    t[49354] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.ChangeRate1.ErrorTitle";
-    t[49355] = "Ungpltige \u00c4nderungsrate in der ersten und zweiten Runde";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49352] = "HeatMapSetup.Title";
+    t[49353] = "Heatmap konfigurieren";
+    t[49354] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Genetic.ChangeRate1.ErrorTitle";
+    t[49355] = "Ungpltige \u00c4nderungsrate in der ersten und zweiten Runde";
     t[49360] = "Animation.Icon.Penguin";
     t[49361] = "Pinguin";
     t[49362] = "Surface.PopupMenu.QuickFix.Process.Resource.Use";
@@ -21736,6 +21740,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53641] = "Mittelwert";
     t[53642] = "Surface.SourceDDE.NotConnected";
     t[53643] = "nicht verbunden";
+    t[53648] = "Surface.AnimationClock.XML.LineColor";
+    t[53649] = "ModellElementZeigerfarbe";
     t[53650] = "Main.Toolbar.Feedback";
     t[53651] = "Feedback";
     t[53664] = "ParameterCompare.Settings.Input.List.Delete";
@@ -22064,18 +22070,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54447] = "Schrittweite";
     t[54448] = "Git.List.Title";
     t[54449] = "Git-Konfigurationen";
-    t[54452] = "ParameterCompare.Settings.Input.List.Templates.ArrivalClientCount";
-    t[54453] = "Anzahl an eintreffenden Kunden an Station %s";
-    t[54454] = "Editor.DragDropTableLoad.Title";
-    t[54455] = "Tabelle in Modell importieren";
-    t[54460] = "Surface.SourceTable.Dialog.Table.ProcessSetup";
-    t[54461] = "Tabellenimport konfigurieren";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54452] = "ParameterCompare.Settings.Input.List.Templates.ArrivalClientCount";
+    t[54453] = "Anzahl an eintreffenden Kunden an Station %s";
+    t[54454] = "Editor.DragDropTableLoad.Title";
+    t[54455] = "Tabelle in Modell importieren";
+    t[54460] = "Surface.SourceTable.Dialog.Table.ProcessSetup";
+    t[54461] = "Tabellenimport konfigurieren";
     t[54462] = "Simulation.Creator.Transporter.DoubleNameUsage";
     t[54463] = "Der Name \"%s\" wird f\u00fcr mehrere Transportertypen verwendet.";
     t[54466] = "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport.Off";
@@ -24070,18 +24076,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[59477] = "Wartezeitkosten (aktueller Kunde)";
     t[59478] = "Dialog.Button.Copy.Table";
     t[59479] = "Wertetabelle kopieren";
-    t[59480] = "Simulation.Log.FlowData.Destination";
-    t[59481] = "Ziel";
-    t[59488] = "ExpressionBuilder.ClientsInSystem.Quantil";
-    t[59489] = "<p>Liefert das Quantil zur Wahrscheinlichkeit p f\u00fcr die Anzahl an Kunden im System.</p>";
-    t[59490] = "Editor.DialogBase.Search.FontSize.Small";
-    t[59491] = "Kleine Schriftgr\u00f6\u00dfe";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59480] = "Simulation.Log.FlowData.Destination";
+    t[59481] = "Ziel";
+    t[59488] = "ExpressionBuilder.ClientsInSystem.Quantil";
+    t[59489] = "<p>Liefert das Quantil zur Wahrscheinlichkeit p f\u00fcr die Anzahl an Kunden im System.</p>";
+    t[59490] = "Editor.DialogBase.Search.FontSize.Small";
+    t[59491] = "Kleine Schriftgr\u00f6\u00dfe";
     t[59494] = "Statistic.Viewer.Toolbar.Zoom.Hint";
     t[59495] = "Stellt den Zoomfaktor so ein, dass das gesamte Diagramm sichtbar ist.";
     t[59496] = "ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicus.Info";

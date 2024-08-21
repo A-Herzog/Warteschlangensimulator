@@ -1778,7 +1778,7 @@
 <!ELEMENT ModellElementSegmentBeschriftung (#PCDATA)>
 <!ELEMENT ModellElementSegmentDarstellung (#PCDATA)>
 
-<!ELEMENT ModellElementAnimationUhr (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementFarbe | ModellElementAusdruck | ModellElementAnimationUhrDigital)*>
+<!ELEMENT ModellElementAnimationUhr (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementFarbe | ModellElementZeigerfarbe | ModellElementAusdruck | ModellElementAnimationUhrDigital)*>
 <!ATTLIST ModellElementAnimationUhr
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -1786,6 +1786,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementAnimationUhrDigital (#PCDATA)>
+<!ELEMENT ModellElementZeigerfarbe (#PCDATA)>
 
 <!ELEMENT ModellElementAnimationBild (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementFarbe | ModellElementLinienBreite | ModellElementBildDaten | ModellElementVerbindung)*>
 <!ATTLIST ModellElementAnimationBild
@@ -4483,7 +4484,7 @@
 <!ELEMENT ModelElementSegmentLabel (#PCDATA)>
 <!ELEMENT ModelElementSegmentDisplay (#PCDATA)>
 
-<!ELEMENT ModelElementAnimationClock (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementColor | ModelElementExpression | ModelElementAnimationClockDigital)*>
+<!ELEMENT ModelElementAnimationClock (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementColor | ModelElementPointerColor | ModelElementExpression | ModelElementAnimationClockDigital)*>
 <!ATTLIST ModelElementAnimationClock
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -4491,6 +4492,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementAnimationClockDigital (#PCDATA)>
+<!ELEMENT ModelElementPointerColor (#PCDATA)>
 
 <!ELEMENT ModelElementAnimationImage (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementColor | ModelElementLineWidth | ModelElementImageData | ModelElementConnection)*>
 <!ATTLIST ModelElementAnimationImage

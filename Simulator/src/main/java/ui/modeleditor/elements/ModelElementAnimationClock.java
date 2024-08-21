@@ -24,6 +24,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
+import java.util.Objects;
 
 import javax.swing.Icon;
 
@@ -63,6 +64,13 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 	private Color color=DEFAULT_COLOR;
 
 	/**
+	 * Zeigerfarbe (kann <code>null</code> sein für automatische Bestimmung)
+	 * @see #getLineColor()
+	 * @see #setLineColor(Color)
+	 */
+	private Color lineColor=null;
+
+	/**
 	 * Zusätzlich Uhrzeit digital anzeigen?
 	 * @see #isShowDigitalTime()
 	 * @see #setShowDigitalTime(boolean)
@@ -99,7 +107,7 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 	}
 
 	/**
-	 * Liefert die aktuelle Farbe
+	 * Liefert die aktuelle Farbe.
 	 * @return	Aktuelle Farbe
 	 */
 	public Color getColor() {
@@ -107,14 +115,28 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 	}
 
 	/**
-	 * Stellt die Farbe ein
+	 * Stellt die Farbe ein.
 	 * @param color	Neue Farbe
 	 */
 	public void setColor(final Color color) {
 		if (color!=null) this.color=color;
 	}
 
+	/**
+	 * Liefert die aktuelle Zeigerfarbe.
+	 * @return	Aktuelle Zeigerfarbe
+	 */
+	public Color getLineColor() {
+		return lineColor;
+	}
 
+	/**
+	 * Stellt die Zeigerfarbe ein.
+	 * @param lineColor	Neue Zeigerfarbe
+	 */
+	public void setLineColor(final Color lineColor) {
+		this.lineColor=lineColor;
+	}
 
 	/**
 	 * Soll die Uhrzeit zusätzlich Uhrzeit digital angezeigt werden?
@@ -141,9 +163,11 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 	public boolean equalsModelElement(ModelElement element) {
 		if (!super.equalsModelElement(element)) return false;
 		if (!(element instanceof ModelElementAnimationClock)) return false;
+		final ModelElementAnimationClock other=(ModelElementAnimationClock)element;
 
-		if (!((ModelElementAnimationClock)element).color.equals(color)) return false;
-		if (((ModelElementAnimationClock)element).showDigitalTime!=showDigitalTime) return false;
+		if (!other.color.equals(color)) return false;
+		if (!Objects.equals(other.lineColor,lineColor)) return false;
+		if (other.showDigitalTime!=showDigitalTime) return false;
 
 		return true;
 	}
@@ -156,8 +180,10 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 	public void copyDataFrom(ModelElement element) {
 		super.copyDataFrom(element);
 		if (element instanceof ModelElementAnimationClock) {
-			color=((ModelElementAnimationClock)element).color;
-			showDigitalTime=((ModelElementAnimationClock)element).showDigitalTime;
+			final ModelElementAnimationClock source=(ModelElementAnimationClock)element;
+			color=source.color;
+			lineColor=source.lineColor;
+			showDigitalTime=source.showDigitalTime;
 		}
 	}
 
@@ -276,15 +302,22 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 	 * @param time Aktuelle Zeit in Sekunden
 	 */
 	private void drawClock(final Graphics2D g, final Rectangle rectangle, final double zoom, final int time) {
+		/* Hintergrund zeichnen */
 		g.setColor(color);
 		g.fill(new Ellipse2D.Double(rectangle.x,rectangle.y,rectangle.width,rectangle.height));
 
-		if (lastColor==null || !lastColor.equals(color) || lastColorLine==null) {
-			lastColor=color;
-			lastColorLine=new Color(255-color.getRed(),255-color.getGreen(),255-color.getBlue());
+		/* Zeigerfarbe bestimmen */
+		if (lineColor!=null) {
+			g.setColor(lineColor);
+		} else {
+			if (lastColor==null || !lastColor.equals(color) || lastColorLine==null) {
+				lastColor=color;
+				lastColorLine=new Color(255-color.getRed(),255-color.getGreen(),255-color.getBlue());
+			}
+			g.setColor(lastColorLine);
 		}
-		g.setColor(lastColorLine);
 
+		/* Zeiger zeichnen */
 		final int mx=rectangle.x+rectangle.width/2;
 		final int my=rectangle.y+rectangle.height/2;
 		final double rx=rectangle.width/2;
@@ -385,6 +418,12 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 		node.appendChild(sub);
 		sub.setTextContent(EditModel.saveColor(color));
 
+		if (lineColor!=null) {
+			sub=doc.createElement(Language.trPrimary("Surface.AnimationClock.XML.LineColor"));
+			node.appendChild(sub);
+			sub.setTextContent(EditModel.saveColor(lineColor));
+		}
+
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationClock.XML.Expression"));
 		node.appendChild(sub);
 		expression.storeToXML(sub);
@@ -411,6 +450,12 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 		if (Language.trAll("Surface.AnimationClock.XML.Color",name) && !content.trim().isEmpty()) {
 			color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
+			return null;
+		}
+
+		if (Language.trAll("Surface.AnimationClock.XML.LineColor",name) && !content.trim().isEmpty()) {
+			lineColor=EditModel.loadColor(content);
+			if (lineColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
 		}
 
@@ -488,7 +533,8 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 		final Dimension d=getSize();
 		final String rect="{x: "+p.x+", y: "+p.y+", w: "+d.width+", h: "+d.height+"}";
 		final String fill="\""+HTMLOutputBuilder.colorToHTML(color)+"\"";
-		final String line="\""+HTMLOutputBuilder.colorToHTML(new Color(255-color.getRed(),255-color.getGreen(),255-color.getBlue()))+"\"";
+		final Color useLineColor=(lineColor!=null)?lineColor:new Color(255-color.getRed(),255-color.getGreen(),255-color.getBlue());
+		final String line="\""+HTMLOutputBuilder.colorToHTML(useLineColor)+"\"";
 
 		outputBuilder.outputBody.append("drawAnimationClock("+rect+","+line+","+fill+");\n");
 	}
