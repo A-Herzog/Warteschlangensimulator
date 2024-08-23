@@ -443,6 +443,12 @@ public class MainPanel extends MainPanelBase {
 	private JPanel welcomePanel;
 
 	/**
+	 * Reagiert auf Link-Klicks in {@link MainPanel#welcomePanel}
+	 * @see #welcomePanel
+	 */
+	public final Consumer<String> specialLink;
+
+	/**
 	 * "Simulation läuft"-Seite (wenn gerade aktiv)
 	 */
 	private final WaitPanel waitPanel;
@@ -525,6 +531,18 @@ public class MainPanel extends MainPanelBase {
 		animationPanel=new AnimationPanel(ownerWindow);
 		specialPanel=null;
 
+		specialLink=href->{
+			if (href.equalsIgnoreCase("ModelEditor")) {setCurrentPanel(editorPanel); return;}
+			if (href.equalsIgnoreCase("Tutorial")) {setCurrentPanel(editorPanel); commandHelpTutorial(); return;}
+			if (href.equalsIgnoreCase("InteractiveTutorial")) {commandHelpInteractiveTutorial(); return;}
+			if (href.equalsIgnoreCase("LoadExample")) {commandFileModeExample(); return;}
+			if (href.equalsIgnoreCase("NoWelcomePage")) {
+				InfoPanel.getInstance().setVisible(InfoPanel.globalWelcome,false);
+				setCurrentPanel(editorPanel);
+				return;
+			}
+		};
+
 		SwingUtilities.invokeLater(()->{
 			if (!fileLoadedOnLoad && !isReload) {
 				final int index=EditModelExamples.getExampleIndexFromName(setup.startModel);
@@ -535,7 +553,7 @@ public class MainPanel extends MainPanelBase {
 			}
 
 			if (InfoPanel.getInstance().isVisible(InfoPanel.globalWelcome) && !fileLoadedOnLoad && !isReload) {
-				welcomePanel=Help.infoPanel("welcome",new SpecialLink(),false);
+				welcomePanel=Help.infoPanel("welcome",specialLink,false);
 				welcomePanel.setBorder(BorderFactory.createLineBorder(new Color(SystemColor.activeCaptionBorder.getRGB())));
 				final InputMap inputMap=welcomePanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 				final KeyStroke stroke=KeyStroke.getKeyStroke("ESCAPE");
@@ -839,34 +857,6 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	/**
-	 * Reagiert auf Link-Klicks in {@link MainPanel#welcomePanel}
-	 * @see MainPanel#welcomePanel
-	 */
-	private class SpecialLink implements Consumer<String> {
-		/**
-		 * Konstruktor der Klasse
-		 */
-		public SpecialLink() {
-			/*
-			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-			 */
-		}
-
-		@Override
-		public void accept(String href) {
-			if (href.equalsIgnoreCase("ModelEditor")) {setCurrentPanel(editorPanel); return;}
-			if (href.equalsIgnoreCase("Tutorial")) {setCurrentPanel(editorPanel); commandHelpTutorial(); return;}
-			if (href.equalsIgnoreCase("InteractiveTutorial")) {commandHelpInteractiveTutorial(); return;}
-			if (href.equalsIgnoreCase("NoWelcomePage")) {
-				setCurrentPanel(editorPanel);
-				InfoPanel.getInstance().setVisible(InfoPanel.globalWelcome,false);
-				return;
-			}
-		}
-	}
-
-	/**
 	 * Über diese Methode kann dem Panel ein Callback mitgeteilt werden,
 	 * das aufgerufen wird, wenn das Fenster neu geladen werden soll.
 	 * @param reloadWindow	Callback, welches ein Neuladen des Fensters veranlasst.
@@ -1044,6 +1034,9 @@ public class MainPanel extends MainPanelBase {
 		if (visiblePanel!=welcomePanel && welcomePanel!=null) {
 			mainPanel.remove(welcomePanel);
 			welcomePanel=null;
+			new Timer().schedule(new TimerTask() {
+				@Override public void run() {editorPanel.updateInfoLabelPosition();	}
+			},100);
 		}
 		if (visiblePanel!=editorPanel) mainPanel.remove(editorPanel);
 		if (visiblePanel!=waitPanel) mainPanel.remove(waitPanel);

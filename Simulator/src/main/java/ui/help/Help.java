@@ -136,12 +136,30 @@ public class Help extends HelpBase {
 		final String hrefLower=href.toLowerCase();
 
 		if (hrefLower.startsWith(SPECIAL_KEY)) {
-			if (specialLinkListener!=null) specialLinkListener.accept(href.substring(SPECIAL_KEY.length()));
+			if (specialLinkListener==null) specialLinkListener=autoDetectSpecialLinkListener(parent);
+			if (specialLinkListener!=null) {
+				hideHelpFrame();
+				specialLinkListener.accept(href.substring(SPECIAL_KEY.length()));
+			}
 		}
 
 		if (hrefLower.startsWith(BOOK_KEY)) {
 			processBookLink(href.substring(BOOK_KEY.length()),modalHelp);
 		}
+	}
+
+	/**
+	 * Versucht über die Elternelement-Hierarchie einen Special-Link-Listener im MainPanel zu finden
+	 * @param parent	Übergeordnetes Element des Hilfefensters
+	 * @return	Special-Link-Listener oder <code>null</code>, wenn kein solcher gefunden werden konnte
+	 */
+	private static Consumer<String> autoDetectSpecialLinkListener(final Container parent) {
+		Container c=parent;
+		while (c!=null) {
+			if (c instanceof MainFrame) return ((MainFrame)c).getMainPanel().specialLink;
+			c=c.getParent();
+		}
+		return null;
 	}
 
 	@Override
