@@ -67,9 +67,4 @@ public class CommandVersion extends AbstractCommand {
 			InfoDialog.getSystemInfo(false,true).forEach(line->out.println(line));
 		}
 	}
-
-	@Override
-	public boolean isHidden() {
-		return true;
-	}
 }

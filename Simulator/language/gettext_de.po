@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-18 00:20+0200\n"
+"POT-Creation-Date: 2024-08-20 11:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2270,6 +2270,11 @@ msgstr "Interaktiver Modus gestartet. Zum Beenden \"exit\" eingeben."
 msgid "CommandLine.Interactive.Stop"
 msgstr "Interaktiver Modus wird beendet."
 
+msgid "CommandLine.JavaProperties.Description.Long"
+msgstr ""
+"Gibt die Java-Umgebungsvariablen aus.\n"
+"Führt keine weiteren Verarbeitungen durch."
+
 msgid "CommandLine.JavaProperties.Description.Short"
 msgstr "Gibt die Java-Umgebungsvariablen aus."
 
@@ -2697,7 +2702,7 @@ msgstr "Unbekannte Parameter. Rufen Sie den Simulation mit \"Hilfe\" als Paramet
 
 msgid "CommandLine.Version.Description.Long"
 msgstr ""
-"Gibt lediglich die Versionsnummer des Warteschlangensimulators aus.\n"
+"Gibt die Versionsnummer des Warteschlangensimulators aus.\n"
 "Führt keine weiteren Verarbeitungen durch."
 
 msgid "CommandLine.Version.Description.Short"

@@ -49,17 +49,11 @@ public class CommandJavaProperties extends AbstractCommand {
 
 	@Override
 	public String[] getLongDescription() {
-		return new String[] {""};
-		//return Language.tr("CommandLine.JavaProperties.Description.Long").split("\n");
+		return Language.tr("CommandLine.JavaProperties.Description.Long").split("\n");
 	}
 
 	@Override
 	public void run(AbstractCommand[] allCommands, InputStream in, PrintStream out) {
-		System.getProperties().entrySet().forEach(property->System.out.println(property.getKey()+"="+property.getValue()));
-	}
-
-	@Override
-	public boolean isHidden() {
-		return true;
+		System.getProperties().entrySet().forEach(property->out.println(property.getKey()+"="+property.getValue()));
 	}
 }
