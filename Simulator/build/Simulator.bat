@@ -18,6 +18,7 @@ rem 5d- in C:\Program Files\Java and its subfolders
 rem 5e- in C:\Program Files\Amazon Corretto and its subfolders  
 rem 5f- in C:\Program Files\Zulu and its subfolders
 rem 5g- in C:\Program Files\Microsoft and its subfolders  
+rem 5h- in C:\Program Files\BellSoft and its subfolders
 rem 6 - Search java on PATH  
 rem 7 - in C:\Program Files and its subfolders
 
@@ -82,57 +83,72 @@ if exist "C:\Program Files (Arm)\Microsoft\" (
   )
 )
 
+rem Detect program files folder (when calling this script from 32 bit installer, the default environment variable points on 64 bit system to 32 bit folder)
+set "ProgramFilesMax=%ProgramFiles%"
+if not "%ProgramW6432%"=="" (
+  rem We are in a 32 bit console but on a 64 bit system
+  set "ProgramFilesMax=%ProgramW6432%"
+)
+
 rem Search in "C:\Program Files\Eclipse Adoptium"
-if exist "%ProgramFiles%\Eclipse Adoptium" (
-  for /f "delims=" %%a in ('dir /s /b "%ProgramFiles%\Eclipse Adoptium\%java_launcher%"') do (
+if exist "%ProgramFilesMax%\Eclipse Adoptium" (
+  for /f "delims=" %%a in ('dir /s /b "%ProgramFilesMax%\Eclipse Adoptium\%java_launcher%"') do (
     set "qs_java_name=%%a"
     goto found_java
   )
 )
 
 rem Search in "C:\Program Files\Eclipse Foundation"
-if exist "%ProgramFiles%\Eclipse Foundation" (
-  for /f "delims=" %%a in ('dir /s /b "%ProgramFiles%\Eclipse Foundation\%java_launcher%"') do (
+if exist "%ProgramFilesMax%\Eclipse Foundation" (
+  for /f "delims=" %%a in ('dir /s /b "%ProgramFilesMax%\Eclipse Foundation\%java_launcher%"') do (
     set "qs_java_name=%%a"
     goto found_java
   )
 )
 
 rem Search in "C:\Program Files\AdoptOpenJDK"
-if exist "%ProgramFiles%\AdoptOpenJDK" (
-  for /f "delims=" %%a in ('dir /s /b "%ProgramFiles%\AdoptOpenJDK\%java_launcher%"') do (
+if exist "%ProgramFilesMax%\AdoptOpenJDK" (
+  for /f "delims=" %%a in ('dir /s /b "%ProgramFilesMax%\AdoptOpenJDK\%java_launcher%"') do (
     set "qs_java_name=%%a"
     goto found_java
   )
 )
 
 rem Search in "C:\Program Files\Java"
-if exist "%ProgramFiles%\AdoptOpenJDK" (
-  for /f "delims=" %%a in ('dir /s /b "%ProgramFiles%\AdoptOpenJDK\%java_launcher%"') do (
+if exist "%ProgramFilesMax%\Java" (
+  for /f "delims=" %%a in ('dir /s /b "%ProgramFilesMax%\Java\%java_launcher%"') do (
     set "qs_java_name=%%a"
     goto found_java
   )
 )
 
 rem Search in "C:\Program Files\Amazon Corretto"
-if exist "%ProgramFiles%\Amazon Corretto" (
-  for /f "delims=" %%a in ('dir /s /b "%ProgramFiles%\Amazon Corretto\%java_launcher%"') do (
+if exist "%ProgramFilesMax%\Amazon Corretto" (
+  for /f "delims=" %%a in ('dir /s /b "%ProgramFilesMax%\Amazon Corretto\%java_launcher%"') do (
     set "qs_java_name=%%a"
     goto found_java
   )
 )
 
 rem Search in "C:\Program Files\Zulu"
-if exist "%ProgramFiles%\Zulu" (
-  for /f "delims=" %%a in ('dir /s /b "%ProgramFiles%\Zulu\%java_launcher%"') do (
+if exist "%ProgramFilesMax%\Zulu" (
+  for /f "delims=" %%a in ('dir /s /b "%ProgramFilesMax%\Zulu\%java_launcher%"') do (
     set "qs_java_name=%%a"
     goto found_java
   )
 )
 
 rem Search in "C:\Program Files\Microsoft"
-if exist "%ProgramFiles%\Microsoft" (
-  for /f "delims=" %%a in ('dir /s /b "%ProgramFiles%\Microsoft\%java_launcher%"') do (
+if exist "%ProgramFilesMax%\Microsoft" (
+  for /f "delims=" %%a in ('dir /s /b "%ProgramFilesMax%\Microsoft\%java_launcher%"') do (
+    set "qs_java_name=%%a"
+    goto found_java
+  )
+)
+
+rem Search in "C:\Program Files\BellSoft"
+if exist "%ProgramFilesMax%\BellSoft" (
+  for /f "delims=" %%a in ('dir /s /b "%ProgramFilesMax%\BellSoft\%java_launcher%"') do (
     set "qs_java_name=%%a"
     goto found_java
   )
@@ -148,8 +164,8 @@ if %errorlevel% == 0 (
 )
 
 rem Search in "C:\Program Files\"
-if exist "%ProgramFiles%" (
-  for /f "delims=" %%a in ('dir /s /b "%ProgramFiles%\%java_launcher%"') do (
+if exist "%ProgramFilesMax%" (
+  for /f "delims=" %%a in ('dir /s /b "%ProgramFilesMax%\%java_launcher%"') do (
     set "qs_java_name=%%a"
     goto found_java
   )
@@ -171,3 +187,5 @@ set qs_java_name=
 
 :end
 set java_launcher=
+set java_parameter=
+set ProgramFilesMax=

@@ -204,24 +204,25 @@ Function FindJava
 FunctionEnd
  
 Function GetJRE
-  ;  Find JRE (javaw.exe)
-  ;  0 - in QS_JAVA_HOME environment variable
-  ;  1a- in .\jdk directory (JRE Installed with application)
-  ;  1b- in .\jre directory (JRE Installed with application)
-  ;  2 - in JAVA_HOME environment variable
-  ;  3a- jdk in the registry
-  ;  3b- jre in the registry
-  ;  4 - in C:\Program Files (Arm)\Microsoft
-  ;  5a- in C:\Program Files\Eclipse Adoptium
-  ;  5b- in C:\Program Files\Eclipse Foundation
-  ;  5c- in C:\Program Files\AdoptOpenJDK and its subfolders  
-  ;  5d- in C:\Program Files\Java and its subfolders
-  ;  5e- in C:\Program Files\Amazon Corretto and its subfolders  
-  ;  5f- in C:\Program Files\Zulu and its subfolders
-  ;  5g- in C:\Program Files\Microsoft and its subfolders  
-  ;  6 - Search javaw.exe on PATH  
-  ;  7 - in C:\Program Files and its subfolders
-  ;  8 - try to call javaw.exe without path
+  ; Find JRE (java.exe)
+  ; 0 - in QS_JAVA_HOME environment variable
+  ; 1a- in .\jdk directory (JRE Installed with application)
+  ; 1b- in .\jre directory (JRE Installed with application)
+  ; 2 - in JAVA_HOME environment variable
+  ; 3a- jdk in the registry
+  ; 3b- jre in the registry
+  ; 4 - in C:\Program Files (Arm)\Microsoft
+  ; 5a- in C:\Program Files\Eclipse Adoptium
+  ; 5b- in C:\Program Files\Eclipse Foundation
+  ; 5c- in C:\Program Files\AdoptOpenJDK and its subfolders  
+  ; 5d- in C:\Program Files\Java and its subfolders
+  ; 5e- in C:\Program Files\Amazon Corretto and its subfolders  
+  ; 5f- in C:\Program Files\Zulu and its subfolders
+  ; 5g- in C:\Program Files\Microsoft and its subfolders  
+  ; 5h- in C:\Program Files\BellSoft and its subfolders
+  ; 6 - Search java.exe on PATH  
+  ; 7 - in C:\Program Files and its subfolders
+  ; 8 - try to call java.exe without path
  
   Push $R0
   Push $R1
@@ -323,6 +324,13 @@ Function GetJRE
   ; Unter "C:\Program Files\Microsoft" suchen
   !insertmacro CallFindFiles "$PROGRAMFILES64\Microsoft" javaw.exe FindJava
   DetailPrint "Microsoft: $9"
+  StrCmp $9 "" +3 0
+  StrCpy $R0 $9
+  Goto JreFound
+  
+  ; Unter "C:\Program Files\BellSoft" suchen
+  !insertmacro CallFindFiles "$PROGRAMFILES64\BellSoft" javaw.exe FindJava
+  DetailPrint "BellSoft: $9"
   StrCmp $9 "" +3 0
   StrCpy $R0 $9
   Goto JreFound

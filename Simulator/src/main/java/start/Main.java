@@ -85,6 +85,7 @@ public class Main {
 	 */
 	private static boolean processCommandLineArguments(final String[] args) {
 		if (args.length==0) return false;
+		if (args[0].equalsIgnoreCase("/B")) return false; /* Der Simulator wurde über die Batch-Datei und dieser ihrerseits über eine Verknüpfung gestartet. Dann erhält der Simulator die Aufrufparameter des Start-Befehls, mit dem die Batch-Datei gestartet wurde. */
 
 		final CommandLineSystem commandLineSystem=new CommandLineSystem();
 		loadFile=commandLineSystem.checkLoadFile(args);
