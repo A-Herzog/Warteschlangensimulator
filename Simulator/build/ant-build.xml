@@ -345,8 +345,17 @@
 		</exec>
 		
 		<echo message="Store simulator checksum to libs folder" />
+		<checksum file="${Release.location}/libs/simsystem.jar" algorithm="SHA-256" />
+		<checksum file="${Release.location}/libs/simtools.jar" algorithm="SHA-256" />
 		<checksum file="${Release.location}/Simulator.jar" algorithm="SHA-256" />
-		<move file="${Release.location}/Simulator.jar.SHA-256" tofile="${Release.location}/libs/simulator.jar" />
+		<concat destfile="${Release.location}/libs/simulator.jar">
+		  <fileset file="${Release.location}/libs/simsystem.jar.SHA-256"/>
+		  <fileset file="${Release.location}/libs/simtools.jar.SHA-256"/>
+		  <fileset file="${Release.location}/Simulator.jar.SHA-256"/>
+		</concat>
+		<delete file="${Release.location}/libs/simsystem.jar.SHA-256"/>
+		<delete file="${Release.location}/libs/simtools.jar.SHA-256"/>
+		<delete file="${Release.location}/Simulator.jar.SHA-256"/>
 		
 		<echo message="Set simulator.jar checksum in wrapper scripts" />		
 		<checksum file="${Release.location}/Simulator.jar" algorithm="SHA-256" />

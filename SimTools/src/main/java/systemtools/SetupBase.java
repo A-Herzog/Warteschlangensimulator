@@ -347,7 +347,7 @@ public abstract class SetupBase {
 	 * @param key	Registry-Schlüssel
 	 * @return	Ausgabe des "reg"-Befehls (ist im Fehlerfall <code>null</code>)
 	 */
-	private static List<String> getRegistryValue(final String path, final String key) {
+	public static List<String> getRegistryValue(final String path, final String key) {
 		Process process;
 		try {
 			process=new ProcessBuilder("reg","query",path,"/v",key).start();
@@ -369,7 +369,7 @@ public abstract class SetupBase {
 	 * @return	Textwert des Schlüssels oder im Fehlerfall <code>null</code>
 	 * @see #getRegistryValue(String, String)
 	 */
-	private static String processRegistryResult(final String path, final String key, final List<String> lines) {
+	public static String processRegistryResult(final String path, final String key, final List<String> lines) {
 		if (lines==null || lines.size()<2) return null;
 
 		int index=0;

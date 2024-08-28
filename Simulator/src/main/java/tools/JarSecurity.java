@@ -26,9 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -61,15 +59,15 @@ public class JarSecurity {
 	/**
 	 * Zu ignorierende Bibliotheken im "libs"-Ordner. Alle anderen werden in die Erfassung einbezogen.
 	 */
-	private static final Set<String> ignoreJars=new HashSet<>(Arrays.asList("simsystem.jar", "simtools.jar","simulator.jar"));
+	private static final Set<String> ignoreJars=Set.of("simsystem.jar", "simtools.jar","simulator.jar");
 
 	/**
-	 * Hauptdatei
+	 * Hauptdateien (zu prüfen über {@link #selfJarHashFile}
 	 */
-	private static String selfJar="Simulator.jar";
+	private static List<String> selfJars=List.of("libs"+File.separator+"simsystem.jar","libs"+File.separator+"simtools.jar","Simulator.jar");
 
 	/**
-	 * Datei im libs-Ordner aus der die Prüfsumme für die {@link #selfJar} geladen werden soll
+	 * Datei im libs-Ordner aus der die Prüfsumme für die {@link #selfJars} geladen werden sollen
 	 */
 	private static String selfJarHashFile="simulator.jar";
 
@@ -143,7 +141,9 @@ public class JarSecurity {
 		try {
 			final byte[] data=Files.readAllBytes(file.toPath());
 			final byte[] hash=algorithm.digest(data);
-			return new BigInteger(1,hash).toString(16);
+			String hashStr=new BigInteger(1,hash).toString(16);
+			while (hashStr.length()<64) hashStr="0"+hashStr;
+			return hashStr;
 		} catch (IOException e) {
 			return null;
 		}
@@ -215,24 +215,40 @@ public class JarSecurity {
 	 * @return	Liefert <code>true</code>, wenn die Prüfung erfolgreich war
 	 */
 	private static boolean selfTest() {
-		final File selfJarFile=new File(SetupData.getProgramFolder(),selfJar);
-		if (!selfJarFile.isFile()) return true;
-		final String selfHash=calcSHA256(selfJarFile);
-		if (selfHash==null) return true;
-
 		final File libsFolder=new File(SetupData.getProgramFolder(),"libs");
 		if (!libsFolder.isDirectory()) return true;
 		final File hashFile=new File(libsFolder,selfJarHashFile);
 		if (!hashFile.isFile()) return true;
 
+		final List<String> lines;
 		try {
-			final List<String> lines=Files.readAllLines(hashFile.toPath());
-			if (lines.size()==0) return false;
-			final String loadedHash=lines.get(0).trim();
-			return selfHash.equals(loadedHash);
+			lines=Files.readAllLines(hashFile.toPath());
 		} catch (IOException e) {
 			return true;
 		}
+		if (lines.size()==0) return false;
+
+		int index=0;
+		for (var selfJar: selfJars) {
+			final File selfJarFile=new File(SetupData.getProgramFolder(),selfJar);
+			if (!selfJarFile.isFile()) return true;
+			final String selfHash=calcSHA256(selfJarFile);
+			if (selfHash==null) return true;
+
+			if (lines.size()<=index) return false;
+			final String loadedHash=lines.get(index).trim();
+			index++;
+
+			/*
+			System.out.println(selfJarFile.toString());
+			System.out.println("calc: "+selfHash);
+			System.out.println("list: "+loadedHash);
+			 */
+
+			if (!selfHash.equals(loadedHash)) return false;
+		}
+
+		return true;
 	}
 
 	/**
