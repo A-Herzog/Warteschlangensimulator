@@ -11688,6 +11688,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28713] = "neuer Kundentyp";
     t[28716] = "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Save";
     t[28717] = "Speichern";
+    t[28724] = "SystemInfo.Tools.UserInterface.HelpViewerTouchSupport";
+    t[28725] = "Touch-Unterst\u00fctzung beim Scrollen in der Online-Hilfe";
     t[28728] = "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution";
     t[28729] = "Erlang-Verteilung";
     t[28732] = "Main.Menu.File.Settings.Mnemonic";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29541] = "Zu verlassender Bereich";
     t[29542] = "Surface.Text.XML.Color";
     t[29543] = "ModellElementFarbe";
-    t[29546] = "ExternalConnect.Dialog.CopyExampleFiles";
-    t[29547] = "Beispieldateien kopieren";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29546] = "ExternalConnect.Dialog.CopyExampleFiles";
+    t[29547] = "Beispieldateien kopieren";
     t[29552] = "ParameterCompare.Table.AddModelByAssistant.Error";
     t[29553] = "Ung\u00fcltige Einstellungen";
     t[29556] = "Surface.LogicElseIf.Tooltip";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34305] = "Wiederholen";
     t[34312] = "FitDialogMultiModal.Title";
     t[34313] = "Multimodale Verteilung anpassen";
-    t[34314] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.InfoNo";
-    t[34315] = "Datensatz beibehalten.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34314] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.InfoNo";
+    t[34315] = "Datensatz beibehalten.";
     t[34318] = "Surface.XML.SequenceStep.Target";
     t[34319] = "Ziel";
     t[34320] = "Surface.InteractiveSlider.Dialog.StepWide.ErrorTitle";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39481] = "Ung\u00fcltige Kosten";
     t[39482] = "ExpressionBuilder.SimulationCharacteristics.Costs.ProcessSumAll.Info";
     t[39483] = "<p>Liefert die Summe der bedienzeit-bedingten Kosten \u00fcber alle Kunden.</p>";
-    t[39488] = "Statistic.FastAccess.Template.SetupTime.ByStation";
-    t[39489] = "R\u00fcstzeit an einer Station";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39488] = "Statistic.FastAccess.Template.SetupTime.ByStation";
+    t[39489] = "R\u00fcstzeit an einer Station";
     t[39492] = "Surface.XML.AnalogValue.MinimalValue";
     t[39493] = "ModellElementAnalogerWertMinimum";
     t[39494] = "Surface.InputDDE.XML.Variable";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44443] = "<p>Liefert die mittlere Dauer \u00fcber alle R\u00fcstzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind.</p>\n<p>Achtung: Die R\u00fcstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>";
     t[44446] = "Surface.AnimationDiagram.Dialog.Data";
     t[44447] = "Daten";
-    t[44448] = "Editor.Dialog.Tab.Clients.Color.Automatic";
-    t[44449] = "Automatische Wahl der Farbe in den Diagrammen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44448] = "Editor.Dialog.Tab.Clients.Color.Automatic";
+    t[44449] = "Automatische Wahl der Farbe in den Diagrammen";
     t[44458] = "Simulation.Log.Duplicate.AssignInfo";
     t[44459] = "Typzuweisung f\u00fcr Kunde: id=%d \"%s\"->\"%s\", Station: %s";
     t[44468] = "Main.Menu.Help.Tutorial";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49317] = "Stellt eine textbasierte Kundeneigenschaft ein";
     t[49332] = "Statistics.ErlangCompare.NoProcessDistribution";
     t[49333] = "Keine Bedienzeitenverteilung angegeben.";
-    t[49338] = "Surface.AnimationBarChart.Infotext";
-    t[49339] = "Zeigt w\u00e4hrend der Animation mehrere Werte als Balkendiagramm an.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49338] = "Surface.AnimationBarChart.Infotext";
+    t[49339] = "Zeigt w\u00e4hrend der Animation mehrere Werte als Balkendiagramm an.";
     t[49350] = "Statistics.Dashboard.EditDialog.Digits";
     t[49351] = "Anzuzeigende Nachkommastellen";
     t[49352] = "HeatMapSetup.Title";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54439] = "%sK Kundenank\u00fcnfte simuliert / %s Kunden im System / %sK Ereignisse / %sK Ereignisse pro Sekunde";
     t[54442] = "Surface.InputDB.Dialog.ColumnSortMode.Ascending";
     t[54443] = "Aufsteigend";
-    t[54446] = "ModelDescription.InteractiveSlider.Description.Step";
-    t[54447] = "Schrittweite";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54446] = "ModelDescription.InteractiveSlider.Description.Step";
+    t[54447] = "Schrittweite";
     t[54448] = "Git.List.Title";
     t[54449] = "Git-Konfigurationen";
     t[54452] = "ParameterCompare.Settings.Input.List.Templates.ArrivalClientCount";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[59467] = "Es sind momentan keine Haltepunkte definiert und das Modell besitzt auch keine Animation-pausieren-Stationen.";
     t[59468] = "Color.8FBC8F";
     t[59469] = "Dunkelseegr\u00fcn";
-    t[59476] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingCurrent";
-    t[59477] = "Wartezeitkosten (aktueller Kunde)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59476] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingCurrent";
+    t[59477] = "Wartezeitkosten (aktueller Kunde)";
     t[59478] = "Dialog.Button.Copy.Table";
     t[59479] = "Wertetabelle kopieren";
     t[59480] = "Simulation.Log.FlowData.Destination";

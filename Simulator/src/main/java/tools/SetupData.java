@@ -1468,6 +1468,11 @@ public class SetupData extends SetupBase {
 	public boolean simulationProgressAnimation;
 
 	/**
+	 * Sollen Scroll-Felder auf touch-artige Ereignisse reagieren?
+	 */
+	public boolean touchSupport;
+
+	/**
 	 * Letzter Fehler
 	 * (Hier wird die Setup-Datei als Logdatei für solche Ereignisse verwendet.)
 	 */
@@ -1712,6 +1717,7 @@ public class SetupData extends SetupBase {
 		allowSpellCheck=true;
 		collectNextStationData=true;
 		simulationProgressAnimation=true;
+		touchSupport=false;
 		lastError=null;
 	}
 
@@ -2817,6 +2823,11 @@ public class SetupData extends SetupBase {
 				simulationProgressAnimation=loadBoolean(e.getTextContent(),true);
 				continue;
 			}
+
+			if (name.equals("touchsupport")) {
+				touchSupport=loadBoolean(e.getTextContent(),false);
+				continue;
+			}
 		}
 
 		if (useLastFiles) {
@@ -3616,6 +3627,11 @@ public class SetupData extends SetupBase {
 		if (!simulationProgressAnimation) {
 			root.appendChild(node=doc.createElement("SimulationProgressAnimation"));
 			node.setTextContent("0");
+		}
+
+		if (touchSupport) {
+			root.appendChild(node=doc.createElement("TouchSupport"));
+			node.setTextContent("1");
 		}
 
 		if (lastError!=null && !lastError.trim().isEmpty()) {

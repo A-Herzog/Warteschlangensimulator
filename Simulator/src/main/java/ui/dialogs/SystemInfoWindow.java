@@ -240,7 +240,7 @@ public class SystemInfoWindow extends JFrame {
 		});
 
 		/* Statische Daten erheben */
-		infoVersion=Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+", "+System.getProperty("os.arch")+")";
+		infoVersion=Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.vendor")+" "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+", "+System.getProperty("os.arch")+")";
 		infoPath=Language.tr("InfoDialog.JavaPath")+": "+System.getProperty("java.home");
 		infoBit=Language.tr("InfoDialog.Is64Bit")+": "+(System.getProperty("os.arch").contains("64")?Language.tr("InfoDialog.Is64Bit.Yes"):Language.tr("InfoDialog.Is64Bit.No"));
 		infoCompiler=Language.tr("InfoDialog.JavaCompiler")+": "+(DynamicFactory.hasCompiler()?Language.tr("InfoDialog.JavaCompiler.Yes"):Language.tr("InfoDialog.JavaCompiler.No"));
@@ -641,6 +641,9 @@ public class SystemInfoWindow extends JFrame {
 
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.UseColorsInCommandLineConsoleOutput"),setup.commandLineUseANSI));
 		check.addActionListener(e->{setup.commandLineUseANSI=!setup.commandLineUseANSI; setup.saveSetup();});
+
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.HelpViewerTouchSupport"),setup.touchSupport));
+		check.addActionListener(e->{setup.touchSupport=!setup.touchSupport; setup.saveSetup();});
 
 		/* Simulation */
 

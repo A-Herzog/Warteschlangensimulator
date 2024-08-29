@@ -27,7 +27,6 @@ import java.util.function.Consumer;
 
 import javax.swing.JComponent;
 import javax.swing.JEditorPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
@@ -35,6 +34,8 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Element;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
+
+import systemtools.JScrollPaneTouch;
 
 /**
  * Kapselt einen Webbrowser auf Basis eines <code>JTextPane</code>-Elements
@@ -101,7 +102,7 @@ public class HTMLBrowserTextPane extends JTextPane implements HTMLBrowserPanel {
 
 	@Override
 	public JComponent asScrollableJComponent() {
-		return new JScrollPane(this);
+		return new JScrollPaneTouch(this);
 	}
 
 	@Override

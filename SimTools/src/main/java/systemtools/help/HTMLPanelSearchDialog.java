@@ -33,12 +33,12 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import systemtools.BaseDialog;
+import systemtools.JScrollPaneTouch;
 import systemtools.MsgBox;
 import systemtools.images.SimToolsImages;
 
@@ -122,7 +122,7 @@ public class HTMLPanelSearchDialog extends BaseDialog {
 		});
 
 		/* Ergebnisanzeige */
-		tab.add(new JScrollPane(results=new JList<>(resultsModel=new DefaultListModel<>())));
+		tab.add(new JScrollPaneTouch(results=new JList<>(resultsModel=new DefaultListModel<>())));
 		results.setCellRenderer(new ResultsRenderer());
 		results.addMouseListener(new MouseAdapter() {
 			@Override
@@ -134,7 +134,7 @@ public class HTMLPanelSearchDialog extends BaseDialog {
 		/* Tab: Alle Seiten */
 		tabs.addTab(HelpBase.buttonSearchTabAllPages,tab=new JPanel(new BorderLayout()));
 
-		tab.add(new JScrollPane(pagesList=new JList<>(pagesListModel=new DefaultListModel<>())));
+		tab.add(new JScrollPaneTouch(pagesList=new JList<>(pagesListModel=new DefaultListModel<>())));
 		pagesList.setCellRenderer(new ResultsRenderer());
 		pagesList.addMouseListener(new MouseAdapter() {
 			@Override

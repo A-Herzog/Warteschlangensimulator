@@ -36,6 +36,7 @@ import mathtools.distribution.swing.JDistributionEditorPanelRecord;
 import simulator.simparser.ExpressionCalcUserFunctionsManager;
 import systemtools.BaseDialog;
 import systemtools.GUITools;
+import systemtools.JScrollPaneTouch;
 import systemtools.JSearchSettingsSync;
 import systemtools.MsgBox;
 import systemtools.MsgBoxBackendTaskDialog;
@@ -251,6 +252,9 @@ public class Main {
 				ModelElementBox.DEFAULT_FONT_TYPE=setup.fontName;
 				FontCache.defaultFamily.name=setup.fontName;
 			}
+
+			/* Touch-Unterstützung in der Online-Hilfe */
+			JScrollPaneTouch.TOUCH_SCROLL_ACTIVE=setup.touchSupport;
 
 			/* Start */
 			new MainFrame(loadFile,null);

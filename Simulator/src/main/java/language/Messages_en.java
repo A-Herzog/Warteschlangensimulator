@@ -11688,6 +11688,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28713] = "new client type";
     t[28716] = "ParameterCompare.Toolbar.ProcessResults.ResultsChart.Save";
     t[28717] = "Save";
+    t[28724] = "SystemInfo.Tools.UserInterface.HelpViewerTouchSupport";
+    t[28725] = "Touch support for scrolling in the online help";
     t[28728] = "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution";
     t[28729] = "Erlang distribution";
     t[28732] = "Main.Menu.File.Settings.Mnemonic";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29541] = "Section to be left";
     t[29542] = "Surface.Text.XML.Color";
     t[29543] = "ModelElementColor";
-    t[29546] = "ExternalConnect.Dialog.CopyExampleFiles";
-    t[29547] = "Copy example files";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29546] = "ExternalConnect.Dialog.CopyExampleFiles";
+    t[29547] = "Copy example files";
     t[29552] = "ParameterCompare.Table.AddModelByAssistant.Error";
     t[29553] = "Invalid settings";
     t[29556] = "Surface.LogicElseIf.Tooltip";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34305] = "Loop";
     t[34312] = "FitDialogMultiModal.Title";
     t[34313] = "Fit multimodal distribution";
-    t[34314] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.InfoNo";
-    t[34315] = "Keep record.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34314] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.FieldTable.Delete.InfoNo";
+    t[34315] = "Keep record.";
     t[34318] = "Surface.XML.SequenceStep.Target";
     t[34319] = "Target";
     t[34320] = "Surface.InteractiveSlider.Dialog.StepWide.ErrorTitle";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39481] = "Invalid costs";
     t[39482] = "ExpressionBuilder.SimulationCharacteristics.Costs.ProcessSumAll.Info";
     t[39483] = "<p>Returns the sum of the waiting time costs of all clients.</p>";
-    t[39488] = "Statistic.FastAccess.Template.SetupTime.ByStation";
-    t[39489] = "Setup time by station";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39488] = "Statistic.FastAccess.Template.SetupTime.ByStation";
+    t[39489] = "Setup time by station";
     t[39492] = "Surface.XML.AnalogValue.MinimalValue";
     t[39493] = "ModelElementAnalogValueMinimum";
     t[39494] = "Surface.InputDDE.XML.Variable";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44443] = "<p>Returns the average duration over all setup times that have occurred at the process station whose ID was specified in the parameter.</p>\n<p>Attention: The setup times are also recorded as part of the service times.</p>";
     t[44446] = "Surface.AnimationDiagram.Dialog.Data";
     t[44447] = "Data";
-    t[44448] = "Editor.Dialog.Tab.Clients.Color.Automatic";
-    t[44449] = "Automatic selection of the color in diagrams";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44448] = "Editor.Dialog.Tab.Clients.Color.Automatic";
+    t[44449] = "Automatic selection of the color in diagrams";
     t[44458] = "Simulation.Log.Duplicate.AssignInfo";
     t[44459] = "Type assignment for client: id=%d: \"%s\"->\"%s\", station: %s";
     t[44468] = "Main.Menu.Help.Tutorial";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49317] = "Sets a text-based client property";
     t[49332] = "Statistics.ErlangCompare.NoProcessDistribution";
     t[49333] = "No processing times distribution.";
-    t[49338] = "Surface.AnimationBarChart.Infotext";
-    t[49339] = "Displays multiple values as a bar chart during animation.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49338] = "Surface.AnimationBarChart.Infotext";
+    t[49339] = "Displays multiple values as a bar chart during animation.";
     t[49350] = "Statistics.Dashboard.EditDialog.Digits";
     t[49351] = "Decimal digits to be displayed";
     t[49352] = "HeatMapSetup.Title";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54439] = "%sK client arrivals simulated / %s clients in the system / %sK events / %sK events per second";
     t[54442] = "Surface.InputDB.Dialog.ColumnSortMode.Ascending";
     t[54443] = "Ascending";
-    t[54446] = "ModelDescription.InteractiveSlider.Description.Step";
-    t[54447] = "step wide";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54446] = "ModelDescription.InteractiveSlider.Description.Step";
+    t[54447] = "step wide";
     t[54448] = "Git.List.Title";
     t[54449] = "Git configurations";
     t[54452] = "ParameterCompare.Settings.Input.List.Templates.ArrivalClientCount";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[59467] = "The are no breakpoints defined and the model also does not contain any pause animation station.";
     t[59468] = "Color.8FBC8F";
     t[59469] = "Dark sea green";
-    t[59476] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingCurrent";
-    t[59477] = "Waiting time costs (current client)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59476] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingCurrent";
+    t[59477] = "Waiting time costs (current client)";
     t[59478] = "Dialog.Button.Copy.Table";
     t[59479] = "Copy table of values";
     t[59480] = "Simulation.Log.FlowData.Destination";

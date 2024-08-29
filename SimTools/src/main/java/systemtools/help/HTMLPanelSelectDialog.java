@@ -26,10 +26,10 @@ import java.util.Set;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 import systemtools.BaseDialog;
+import systemtools.JScrollPaneTouch;
 
 /**
  * Ermöglicht die Auswahl eines bestimmten Suchtreffers, wenn
@@ -81,7 +81,7 @@ public class HTMLPanelSelectDialog extends BaseDialog {
 			pageTitles[i]=index.getPageName(this.pages[i]);
 			if (pageTitles[i]==null) pageTitles[i]=this.pages[i];
 		}
-		content.add(new JScrollPane(list=new JList<>(pageTitles)),BorderLayout.CENTER);
+		content.add(new JScrollPaneTouch(list=new JList<>(pageTitles)),BorderLayout.CENTER);
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
