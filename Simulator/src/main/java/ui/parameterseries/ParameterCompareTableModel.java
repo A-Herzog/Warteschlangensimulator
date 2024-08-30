@@ -780,7 +780,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 				buttons[4]=b;
 			}
 
-			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.ShowStatistics.Hint"),Images.PARAMETERSERIES_PROCESS_RESULTS_CHARTS.getIcon(),modifiers->commandShowStatistics(rowIndex)));
+			toolbar.add(b=getButton("",Language.tr("ParameterCompare.Table.ShowStatistics.Hint"),Images.STATISTICS.getIcon(),modifiers->commandShowStatistics(rowIndex)));
 			buttons[5]=b;
 
 			if (rowIndex>=0) {

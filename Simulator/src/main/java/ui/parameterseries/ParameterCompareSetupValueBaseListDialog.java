@@ -16,7 +16,6 @@
 package ui.parameterseries;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,7 +27,6 @@ import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.function.IntConsumer;
 
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
@@ -113,7 +111,6 @@ public abstract class ParameterCompareSetupValueBaseListDialog extends BaseDialo
 		content.add(new JScrollPane(list=new JList<>(new DefaultListModel<>())),BorderLayout.CENTER);
 
 		toolbar=new JToolBar(SwingConstants.HORIZONTAL);
-		toolbar.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		toolbar.setFloatable(false);
 		content.add(toolbar,BorderLayout.NORTH);
 		toolbar.add(buttonAdd=getButton(Images.EDIT_ADD.getIcon(),modifiers->commandAddPopup()));

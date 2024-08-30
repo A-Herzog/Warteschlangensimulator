@@ -188,8 +188,8 @@ public final class ParameterCompareChartDialog extends BaseDialog {
 		});
 
 		/* Starten */
-		setMinSizeRespectingScreensize(800,600);
-		setSizeRespectingScreensize(800,600);
+		setMinSizeRespectingScreensize(1000,700);
+		setSizeRespectingScreensize(1000,700);
 		setResizable(true);
 		setLocationRelativeTo(this.owner);
 		WindowSizeStorage.window(this,"parameterseries_diagram_viewer");
