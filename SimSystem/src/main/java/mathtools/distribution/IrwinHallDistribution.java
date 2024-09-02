@@ -79,7 +79,8 @@ public class IrwinHallDistribution extends AbstractRealDistribution implements C
 		final int upperBound=(int)Math.floor(x);
 		for (int k=0;k<=upperBound;k++) {
 			double d=CalcSymbolPreOperatorBinomial.binomialCoefficient(n,k)*Math.pow(x-k,n-1);
-			if (k%2==1) d=-d;
+			if (k%2!=0) /* (k%2==1) wird von SpotBugs als Fehler gesehen, da dies für negatives k nicht funktioniert. - Auch wenn k hier überhaupt nicht negativ sein kann. */
+				d=-d;
 			sum+=d;
 		}
 		return pdfFactor*sum;
@@ -96,7 +97,8 @@ public class IrwinHallDistribution extends AbstractRealDistribution implements C
 		final int upperBound=(int)Math.floor(x);
 		for (int k=0;k<=upperBound;k++) {
 			double d=CalcSymbolPreOperatorBinomial.binomialCoefficient(n,k)*Math.pow(x-k,n);
-			if (k%2==1) d=-d;
+			if (k%2!=0) /* (k%2==1) wird von SpotBugs als Fehler gesehen, da dies für negatives k nicht funktioniert. - Auch wenn k hier überhaupt nicht negativ sein kann. */
+				d=-d;
 			sum+=d;
 		}
 		return cdfFactor*sum;

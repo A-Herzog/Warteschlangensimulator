@@ -206,7 +206,7 @@ public class ModelElementRectangle extends ModelElementDecoration {
 	public void setRotationAlpha(double rotationAlpha) {
 		rotationAlpha=rotationAlpha%90.0;
 		if (rotationAlpha<0) rotationAlpha+=90;
-		if (this.rotationAlpha==rotationAlpha) return;
+		if (Math.abs(this.rotationAlpha-rotationAlpha)<0.0001) return;
 		this.rotationAlpha=rotationAlpha;
 		fireChanged();
 	}
@@ -236,7 +236,7 @@ public class ModelElementRectangle extends ModelElementDecoration {
 		if (!Objects.equals(gradientColor,otherRectangle.gradientColor)) return false;
 		if (fillAlpha!=otherRectangle.fillAlpha) return false;
 		if (rounding!=otherRectangle.rounding) return false;
-		if (rotationAlpha!=otherRectangle.rotationAlpha) return false;
+		if (Math.abs(rotationAlpha-otherRectangle.rotationAlpha)>0.0001) return false;
 
 		return true;
 	}

@@ -408,7 +408,9 @@ public class AnimationExpressionPanel extends JPanel {
 			} else {
 				if (clientType==null) continue;
 				final Integer[] ids=Arrays.stream(inUse.substring(index1,index2).trim().split(";")).map(s->NumberTools.getNotNegativeInteger(s)).toArray(Integer[]::new);
-				for (var id: ids) if (id==null) continue;
+				boolean doContinue=false;
+				for (var id: ids) if (id==null) {doContinue=true; break;}
+				if (doContinue) continue;
 				if (ids.length!=clientType.length) continue;
 				if (Arrays.equals(Arrays.stream(ids).mapToInt(Integer::intValue).toArray(),clientType)) return true;
 			}

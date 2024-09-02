@@ -212,7 +212,7 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	 * @param maxWaitingTime	Maximale Wartezeit an der Station nach der automatisch eine Freigabe erfolgen soll (leer für "keine automatische Freigabe")
 	 */
 	public void setMaxWaitingTime(final String maxWaitingTime) {
-		this.maxWaitingTime=(maxWaitingTime=="")?"":maxWaitingTime;
+		this.maxWaitingTime=(maxWaitingTime==null)?"":maxWaitingTime;
 	}
 
 	/**
