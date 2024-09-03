@@ -295,9 +295,6 @@
             </manifest>
             <manifestEntries>
             		<Build-Time>${maven.build.timestamp}</Build-Time>
-            		<!--
-            		<SplashScreen-Image>ui/res/Splashscreen.png</SplashScreen-Image>
-            		-->
             	</manifestEntries>
           </archive>
         </configuration>

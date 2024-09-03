@@ -23,7 +23,7 @@ rem 6 - Search java on PATH
 rem 7 - in C:\Program Files and its subfolders
 
 set java_launcher=javaw.exe
-set java_parameter=-splash:Splashscreen.png
+set java_parameter=-splash:libs\simulator.png
 
 rem Environment variable "QS_JAVA_HOME"
 if not "%QS_JAVA_HOME%"=="" (

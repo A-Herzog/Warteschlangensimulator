@@ -73,7 +73,7 @@ Section ""
   Call GetJRE
   Pop $R0
 
-  StrCpy $0 '"$R0" -splash:Splashscreen.png -jar ${PrgFileName}.jar $R1'
+  StrCpy $0 '"$R0" -splash:libs\simulator.png -jar ${PrgFileName}.jar $R1'
  
   SetOutPath $EXEDIR
   ClearErrors

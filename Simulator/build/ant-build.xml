@@ -403,7 +403,7 @@
 		<copy file="${BuildTools.location}/Simulator.sh" tofile="${Release.location}/Simulator.sh" />
 		<copy file="${BuildTools.location}/Simulator.bat" tofile="${Release.location}/Simulator.bat" />
 		<copy file="${BuildTools.location}/SimulatorCLI.bat" tofile="${Release.location}/SimulatorCLI.bat" />
-		<copy file="${BuildTools.location}/Splashscreen.png" tofile="${Release.location}/Splashscreen.png" />
+		<copy file="${BuildTools.location}/Splashscreen.png" tofile="${Release.location}/libs/simulator.png" />
 		
 		<!--
 		Too many AV false alerts... giving up.
