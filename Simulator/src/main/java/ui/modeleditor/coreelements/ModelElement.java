@@ -1120,6 +1120,7 @@ public class ModelElement {
 			final Consumer<ModelElementPosition> addElement=e->surfacePanel.startAddElement(e);
 			addVisualizationContextMenuItems(menu,addElement);
 			if (menu.getItemCount()>0) {
+				ModelSurfacePanel.sortMenu(menu);
 				menu.setIcon(Images.MODELEDITOR_ELEMENT_ADD_VISUALIZATION.getIcon());
 				popupMenu.add(menu);
 			}

@@ -1359,6 +1359,24 @@ public final class ModelElementSourceRecord implements Cloneable {
 	}
 
 	/**
+	 * Versucht einen Ausdruck aus Mehrfach-Batchgröße (mehrere durch Semikolons getrennte Zahlenwerte) zu interpretieren.
+	 * @param text	Zu interpretierende Zeichenkette
+	 * @return	Im Erfolgsfall ein Array für die Raten für einen, zwei, ... Kunden; im Fehlerfall (d.h. wenn es kein solcher kombinierter Ausdruck ist) <code>null</code>
+	 */
+	private double[] loadMultiBatchSizes(final String text) {
+		if (text.indexOf(';')<0) return null;
+
+		final String[] parts=text.split(";");
+		List<Double> sizes=new ArrayList<>();
+		for (String s: parts) {
+			final Double D=NumberTools.getPlainDouble(s);
+			if (D==null || D<0) return null;
+			sizes.add(D);
+		}
+		return sizes.stream().mapToDouble(Double::doubleValue).toArray();
+	}
+
+	/**
 	 * Liest ein Datum aus einem XML-Knoten ein
 	 * @param name	Name des XML-Knoten
 	 * @param content	Textinhalt des XML-Knotens
@@ -1526,21 +1544,8 @@ public final class ModelElementSourceRecord implements Cloneable {
 		if (Language.trAll("Surface.Source.XML.Batch",name)) {
 			final String size=Language.trAllAttribute("Surface.Source.XML.Batch.Size",node);
 			if (!size.isEmpty()) {
-				if (size.indexOf(';')>=0) {
-					batchSize=null;
-					String[] parts=size.split(";");
-					List<Double> sizes=new ArrayList<>();
-					for (String s: parts) {
-						final Double D=NumberTools.getNotNegativeDouble(s);
-						if (D==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Source.XML.Batch.Size"),name,node.getParentNode().getNodeName());
-						sizes.add(D);
-					}
-					batchSizeRates=new double[sizes.size()];
-					for (int i=0;i<sizes.size();i++) batchSizeRates[i]=sizes.get(i);
-				} else {
-					batchSize=size;
-					batchSizeRates=null;
-				}
+				batchSizeRates=loadMultiBatchSizes(size);
+				batchSize=(batchSizeRates==null)?size:null;
 			}
 			return null;
 		}

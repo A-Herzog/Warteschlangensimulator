@@ -64,16 +64,9 @@ public class EditModelDark {
 	}
 
 	/**
-	 * Zu verarbeitendes Modell
-	 */
-	private final EditModel model;
-
-	/**
 	 * Konstruktor der Klasse
-	 * @param model	Zu verarbeitendes Modell
 	 */
-	public EditModelDark(final EditModel model) {
-		this.model=model;
+	private EditModelDark() {
 	}
 
 	/**
@@ -83,16 +76,6 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 */
 	public static void processModel(final EditModel model, final ColorMode modeFrom, final ColorMode modeTo) {
-		final EditModelDark processcor=new EditModelDark(model);
-		processcor.process(modeFrom,modeTo);
-	}
-
-	/**
-	 * Verarbeitet das Modell.
-	 * @param modeFrom	Ausgangs-Farbmodus
-	 * @param modeTo	Ziel-Farbmodus
-	 */
-	public void process(final ColorMode modeFrom, final ColorMode modeTo) {
 		if (model==null || modeFrom==null || modeTo==null || modeFrom==modeTo) return;
 		processSurface(model.surface,modeFrom,modeTo);
 	}
@@ -103,7 +86,7 @@ public class EditModelDark {
 	 * @param modeFrom	Ausgangs-Farbmodus
 	 * @param modeTo	Ziel-Farbmodus
 	 */
-	private void processSurface(final ModelSurface surface, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processSurface(final ModelSurface surface, final ColorMode modeFrom, final ColorMode modeTo) {
 		for (ModelElement element: surface.getElements()) {
 			if (element instanceof ModelElementSub) {
 				processSurface(((ModelElementSub)element).getSubSurface(),modeFrom,modeTo);
@@ -119,7 +102,7 @@ public class EditModelDark {
 	 * @param modeFrom	Ausgangs-Farbmodus
 	 * @param modeTo	Ziel-Farbmodus
 	 */
-	private void processElement(final ModelElement element, final ColorMode modeFrom, final ColorMode modeTo) {
+	public static void processElement(final ModelElement element, final ColorMode modeFrom, final ColorMode modeTo) {
 		/* Animation */
 		if (element instanceof ModelElementAnimationTextValue) processAnimationTextValue((ModelElementAnimationTextValue)element,modeFrom,modeTo);
 		if (element instanceof ModelElementAnimationTextValueJS) processAnimationTextValueJS((ModelElementAnimationTextValueJS)element,modeFrom,modeTo);
@@ -148,7 +131,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processAnimationTextValue(final ModelElementAnimationTextValue element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processAnimationTextValue(final ModelElementAnimationTextValue element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getColor(),c->element.setColor(c),modeFrom,modeTo);
 	}
 
@@ -159,7 +142,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processAnimationTextValueJS(final ModelElementAnimationTextValueJS element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processAnimationTextValueJS(final ModelElementAnimationTextValueJS element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getColor(),c->element.setColor(c),modeFrom,modeTo);
 	}
 
@@ -170,7 +153,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processAnimationTextSelect(final ModelElementAnimationTextSelect element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processAnimationTextSelect(final ModelElementAnimationTextSelect element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getColor(),c->element.setColor(c),modeFrom,modeTo);
 	}
 
@@ -181,7 +164,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processAnimationBar(final ModelElementAnimationBar element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processAnimationBar(final ModelElementAnimationBar element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getBorderColor(),c->element.setBorderColor(c),modeFrom,modeTo);
 		processColor(element.getBackgroundColor(),c->element.setBackgroundColor(c),modeFrom,modeTo);
 		processColor(element.getGradientFillColor(),c->element.setGradientFillColor(c),modeFrom,modeTo);
@@ -194,7 +177,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processAnimationBarStack(final ModelElementAnimationBarStack element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processAnimationBarStack(final ModelElementAnimationBarStack element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getBorderColor(),c->element.setBorderColor(c),modeFrom,modeTo);
 		processColor(element.getBackgroundColor(),c->element.setBackgroundColor(c),modeFrom,modeTo);
 		processColor(element.getGradientFillColor(),c->element.setGradientFillColor(c),modeFrom,modeTo);
@@ -207,7 +190,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processAnimationLineDiagram(final ModelElementAnimationLineDiagram element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processAnimationLineDiagram(final ModelElementAnimationLineDiagram element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getBorderColor(),c->element.setBorderColor(c),modeFrom,modeTo);
 		processColor(element.getBackgroundColor(),c->element.setBackgroundColor(c),modeFrom,modeTo);
 		processColor(element.getGradientFillColor(),c->element.setGradientFillColor(c),modeFrom,modeTo);
@@ -220,7 +203,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processAnimationBarChart(final ModelElementAnimationBarChart element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processAnimationBarChart(final ModelElementAnimationBarChart element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getBorderColor(),c->element.setBorderColor(c),modeFrom,modeTo);
 		processColor(element.getBackgroundColor(),c->element.setBackgroundColor(c),modeFrom,modeTo);
 		processColor(element.getGradientFillColor(),c->element.setGradientFillColor(c),modeFrom,modeTo);
@@ -233,7 +216,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processAnimationPieChart(final ModelElementAnimationPieChart element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processAnimationPieChart(final ModelElementAnimationPieChart element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getBorderColor(),c->element.setBorderColor(c),modeFrom,modeTo);
 		processColor(element.getBackgroundColor(),c->element.setBackgroundColor(c),modeFrom,modeTo);
 	}
@@ -245,7 +228,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processAnimationAnimationRecord(final ModelElementAnimationRecord element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processAnimationAnimationRecord(final ModelElementAnimationRecord element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getBorderColor(),c->element.setBorderColor(c),modeFrom,modeTo);
 		processColor(element.getBackgroundColor(),c->element.setBackgroundColor(c),modeFrom,modeTo);
 		processColor(element.getGradientFillColor(),c->element.setGradientFillColor(c),modeFrom,modeTo);
@@ -258,7 +241,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processAnimationClock(final ModelElementAnimationClock element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processAnimationClock(final ModelElementAnimationClock element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getColor(),c->element.setColor(c),modeFrom,modeTo);
 	}
 
@@ -269,7 +252,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processAnimationImage(final ModelElementAnimationImage element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processAnimationImage(final ModelElementAnimationImage element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getBorderColor(),c->element.setBorderColor(c),modeFrom,modeTo);
 	}
 
@@ -280,7 +263,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processText(final ModelElementText element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processText(final ModelElementText element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getColor(),c->element.setColor(c),modeFrom,modeTo);
 	}
 
@@ -291,7 +274,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processLine(final ModelElementLine element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processLine(final ModelElementLine element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getColor(),c->element.setColor(c),modeFrom,modeTo);
 	}
 
@@ -302,7 +285,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processRectangle(final ModelElementRectangle element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processRectangle(final ModelElementRectangle element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getColor(),c->element.setColor(c),modeFrom,modeTo);
 		processColor(element.getFillColor(),c->element.setFillColor(c),modeFrom,modeTo);
 	}
@@ -314,7 +297,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processEllipse(final ModelElementEllipse element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processEllipse(final ModelElementEllipse element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getColor(),c->element.setColor(c),modeFrom,modeTo);
 		processColor(element.getFillColor(),c->element.setFillColor(c),modeFrom,modeTo);
 	}
@@ -326,7 +309,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @see #processElement(ModelElement, ColorMode, ColorMode)
 	 */
-	private void processImage(final ModelElementImage element, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processImage(final ModelElementImage element, final ColorMode modeFrom, final ColorMode modeTo) {
 		processColor(element.getColor(),c->element.setColor(c),modeFrom,modeTo);
 	}
 
@@ -337,7 +320,7 @@ public class EditModelDark {
 	 * @param modeFrom	Ausgangs-Farbmodus
 	 * @param modeTo	Ziel-Farbmodus
 	 */
-	private void processColor(final Color color, final Consumer<Color> setColor, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static void processColor(final Color color, final Consumer<Color> setColor, final ColorMode modeFrom, final ColorMode modeTo) {
 		final Color newColor=processColor(color,modeFrom,modeTo);
 		if (newColor!=null) setColor.accept(newColor);
 	}
@@ -367,7 +350,7 @@ public class EditModelDark {
 	 * @param modeTo	Ziel-Farbmodus
 	 * @return	Neue Farbe oder <code>null</code>, wenn keine Umwandlung notwendig ist
 	 */
-	private Color processColor(final Color color, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static Color processColor(final Color color, final ColorMode modeFrom, final ColorMode modeTo) {
 		if (color==null) return null;
 
 		if (modeFrom==ColorMode.LIGHT && modeTo==ColorMode.DARK) {

@@ -18,6 +18,7 @@ package ui.modeleditor;
 import java.awt.AWTEvent;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -112,6 +113,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.FileDropperData;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.EditModelDark;
 import simulator.runmodel.SimulationData;
 import systemtools.BaseDialog;
 import systemtools.GUITools;
@@ -126,6 +128,7 @@ import ui.dialogs.UndoRedoDialog;
 import ui.images.Images;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.coreelements.ModelElementBoxHistogramDialog;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderSingleStation;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderStyled;
@@ -134,7 +137,11 @@ import ui.modeleditor.elements.ElementAnimationClickable;
 import ui.modeleditor.elements.ElementWithAnimationDisplay;
 import ui.modeleditor.elements.FontCache;
 import ui.modeleditor.elements.ModelElementAnimationBar;
+import ui.modeleditor.elements.ModelElementAnimationBarChart;
+import ui.modeleditor.elements.ModelElementAnimationLCD;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
+import ui.modeleditor.elements.ModelElementAnimationPointerMeasuring;
+import ui.modeleditor.elements.ModelElementAnimationRecord;
 import ui.modeleditor.elements.ModelElementAnimationTextValue;
 import ui.modeleditor.elements.ModelElementDashboard;
 import ui.modeleditor.elements.ModelElementEdge;
@@ -147,6 +154,7 @@ import ui.modeleditor.elements.ModelElementText;
 import ui.parameterseries.ParameterCompareTemplatesDialog;
 import ui.parameterseries.ParameterCompareTemplatesDialog.TemplateMode;
 import ui.parameterseries.ParameterCompareTemplatesDialog.TemplateRecord;
+import ui.tools.FlatLaFHelper;
 import ui.tools.GlassInfo;
 import ui.tools.InputContextFix;
 
@@ -2408,79 +2416,283 @@ public final class ModelSurfacePanel extends JPanel {
 	}
 
 	/**
+	 * Erstellt ein Text-Animations-Element zur Anzeige von Simulationsdaten.
+	 * @param expression	Rechenausdruck dessen Wert ausgegeben werden soll
+	 * @return	Text-Animations-Element
+	 * @see #addVisualizationContextMenuItems(JMenu)
+	 */
+	public static ModelElementAnimationTextValue getVisualizationText(final String expression) {
+		final ModelElementAnimationTextValue text=new ModelElementAnimationTextValue(null,null);
+		text.setExpression(expression);
+
+		if (FlatLaFHelper.isDark()) EditModelDark.processElement(text,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+
+		return text;
+	}
+
+	/**
+	 * Erstellt ein Text-Animations-Element zur Anzeige von Simulationsdaten.
+	 * @param name	Name des Elements
+	 * @param expression	Rechenausdruck dessen Wert ausgegeben werden soll
+	 * @return	Text-Animations-Element
+	 * @see #addVisualizationContextMenuItems(JMenu)
+	 */
+	public static ModelElementAnimationTextValue getVisualizationText(final String name, final String expression) {
+		final ModelElementAnimationTextValue text=getVisualizationText(expression);
+		text.setName(name);
+		return text;
+	}
+
+	/**
+	 * Erstellt ein LCD-Animations-Element zur Anzeige von Simulationsdaten.
+	 * @param expression	Rechenausdruck dessen Wert ausgegeben werden soll
+	 * @return	LCD-Animations-Element
+	 * @see #addVisualizationContextMenuItems(JMenu)
+	 */
+	public static ModelElementAnimationLCD getVisualizationLCD(final String expression) {
+		final ModelElementAnimationLCD lcd=new ModelElementAnimationLCD(null,null);
+		lcd.getExpression().setExpression(expression);
+
+		if (FlatLaFHelper.isDark()) EditModelDark.processElement(lcd,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+
+		return lcd;
+	}
+
+	/**
+	 * Erstellt ein LCD-Animations-Element zur Anzeige von Simulationsdaten.
+	 * @param name	Name des Elements
+	 * @param expression	Rechenausdruck dessen Wert ausgegeben werden soll
+	 * @return	LCD-Animations-Element
+	 * @see #addVisualizationContextMenuItems(JMenu)
+	 */
+	public static ModelElementAnimationLCD getVisualizationLCD(final String name, final String expression) {
+		final ModelElementAnimationLCD lcd=getVisualizationLCD(expression);
+		lcd.setName(name);
+		return lcd;
+	}
+
+	/**
+	 * Erstellt ein Balken-Animations-Element zur Anzeige von Simulationsdaten.
+	 * @param expression	Rechenausdruck dessen Wert ausgegeben werden soll
+	 * @return	Balken-Animations-Element
+	 * @see #addVisualizationContextMenuItems(JMenu)
+	 */
+	public static ModelElementAnimationBar getVisualizationBar(final String expression) {
+		final ModelElementAnimationBar bar=new ModelElementAnimationBar(null,null);
+		bar.getExpression().setExpression(expression);
+		bar.setSize(new Dimension(25,50));
+
+		bar.setBackgroundColor(Color.WHITE);
+		bar.setGradientFillColor(new Color(230,230,250));
+		if (FlatLaFHelper.isDark()) EditModelDark.processElement(bar,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+
+		return bar;
+	}
+
+	/**
+	 * Erstellt ein Balken-Animations-Element zur Anzeige von Simulationsdaten.
+	 * @param name	Name des Elements
+	 * @param expression	Rechenausdruck dessen Wert ausgegeben werden soll
+	 * @return	Balken-Animations-Element
+	 * @see #addVisualizationContextMenuItems(JMenu)
+	 */
+	public static ModelElementAnimationBar getVisualizationBar(final String name, final String expression) {
+		final ModelElementAnimationBar bar=getVisualizationBar(expression);
+		bar.setName(name);
+		return bar;
+	}
+
+	/**
+	 * Erstellt ein Zeiger-Animations-Element zur Anzeige von Simulationsdaten.
+	 * @param expression	Rechenausdruck dessen Wert ausgegeben werden soll
+	 * @return	Zeiger-Animations-Element
+	 * @see #addVisualizationContextMenuItems(JMenu)
+	 */
+	public static ModelElementAnimationPointerMeasuring getVisualizationPointer(final String expression) {
+		final ModelElementAnimationPointerMeasuring pointer=new ModelElementAnimationPointerMeasuring(null,null);
+		pointer.getExpression().setExpression(expression);
+
+		if (FlatLaFHelper.isDark()) EditModelDark.processElement(pointer,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+
+		return pointer;
+	}
+
+	/**
+	 * Erstellt ein Zeiger-Animations-Element zur Anzeige von Simulationsdaten.
+	 * @param name	Name des Elements
+	 * @param expression	Rechenausdruck dessen Wert ausgegeben werden soll
+	 * @return	Zeiger-Animations-Element
+	 * @see #addVisualizationContextMenuItems(JMenu)
+	 */
+	public static ModelElementAnimationPointerMeasuring getVisualizationPointer(final String name, final String expression) {
+		final ModelElementAnimationPointerMeasuring pointer=getVisualizationPointer(expression);
+		pointer.setName(name);
+		return pointer;
+	}
+
+	/**
+	 * Erstellt ein Diagramm-Animations-Element zur Anzeige von Simulationsdaten.
+	 * @param data	Im Diagramm anzuzeigende Datenreihen
+	 * @return	Diagramm-Animations-Element
+	 * @see #addVisualizationContextMenuItems(JMenu)
+	 */
+	public static ModelElementAnimationLineDiagram getVisualizationChart(List<Object[]> data) {
+		final ModelElementAnimationLineDiagram chart=new ModelElementAnimationLineDiagram(null,null);
+		chart.setExpressionData(data);
+		chart.setTimeArea(3600);
+		chart.setSize(new Dimension(400,200));
+
+		chart.setBackgroundColor(Color.WHITE);
+		chart.setGradientFillColor(new Color(230,230,250));
+		if (FlatLaFHelper.isDark()) EditModelDark.processElement(chart,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+
+		return chart;
+	}
+
+	/**
+	 * Erstellt ein Diagramm-Animations-Element zur Anzeige von Simulationsdaten.
+	 * @param expressionCurrent	Rechenausdruck dessen Wert als dünne Linie ausgegeben werden soll
+	 * @param expressionAverage	Rechenausdruck dessen Wert als dicke Linie ausgegeben werden soll
+	 * @return	Diagramm-Animations-Element
+	 * @see #addVisualizationContextMenuItems(JMenu)
+	 */
+	public static ModelElementAnimationLineDiagram getVisualizationChart(final String expressionCurrent, final String expressionAverage) {
+		final List<Object[]> data=new ArrayList<>();
+		data.add(new Object[]{new AnimationExpression(expressionCurrent),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(1)});
+		data.add(new Object[]{new AnimationExpression(expressionAverage),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(3)});
+		final ModelElementAnimationLineDiagram chart=getVisualizationChart(data);
+		return chart;
+	}
+
+	/**
+	 * Erstellt ein Diagramm-Animations-Element zur Anzeige von Simulationsdaten.
+	 * @param name	Name des Elements
+	 * @param expressionCurrent	Rechenausdruck dessen Wert als dünne Linie ausgegeben werden soll
+	 * @param expressionAverage	Rechenausdruck dessen Wert als dicke Linie ausgegeben werden soll
+	 * @return	Diagramm-Animations-Element
+	 * @see #addVisualizationContextMenuItems(JMenu)
+	 */
+	public static  ModelElementAnimationLineDiagram getVisualizationChart(final String name, final String expressionCurrent, final String expressionAverage) {
+		final ModelElementAnimationLineDiagram chart=getVisualizationChart(expressionCurrent,expressionAverage);
+		chart.setName(name);
+		return chart;
+	}
+
+	/**
+	 * Erstellt ein Balkendiagramm-Animations-Element zur Anzeige von Simulationsdaten als Histogramm.
+	 * @return	Balkendiagramm-Animations-Element
+	 */
+	public static ModelElementAnimationBarChart getVisualizationHistogram() {
+		final ModelElementAnimationBarChart barChart=new ModelElementAnimationBarChart(null,null);
+		barChart.setMinValue(0.0);
+		barChart.setMaxValue(1.0);
+		barChart.setSize(new Dimension(400,200));
+
+		barChart.setBackgroundColor(Color.WHITE);
+		barChart.setGradientFillColor(new Color(230,230,250));
+		if (FlatLaFHelper.isDark()) EditModelDark.processElement(barChart,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+
+		return barChart;
+	}
+
+	/**
+	 * Erstellt ein Balkendiagramm-Animations-Element zur Anzeige von Simulationsdaten als Histogramm.
+	 * @param name	Name des Elements
+	 * @return	Balkendiagramm-Animations-Element
+	 */
+	public static ModelElementAnimationBarChart getVisualizationHistogram(final String name) {
+		final ModelElementAnimationBarChart barChart=getVisualizationHistogram();
+		barChart.setName(name);
+		return barChart;
+	}
+
+	/**
+	 * Zeigt einen Dialog zur Generierung der Einstellungen für ein Histogramm-Element an.
+	 * @param parent	Übergeordnetes Element (zur Ausrichtung des Dialogs)
+	 * @param functionNameSingle	Name des Rechenbefehls mit einem "%d" zur Ausgabe eines Histogramm-Einzelwertes
+	 * @param functionNameRange	Name des Rechenbefehls mit zwei "%d" zur Ausgabe eines Histogramm-Bereiches
+	 * @return	Liefert im Erfolgsfall die Daten für das Histogramm-Element, sonst <code>null</code>
+	 */
+	public static List<Object[]> getHistogramData(final Component parent, final String functionNameSingle, final String functionNameRange) {
+		final ModelElementBoxHistogramDialog histogramDialog=new ModelElementBoxHistogramDialog(parent);
+		if (histogramDialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return null;
+		final int bars=histogramDialog.getBarCount();
+		final int valuesPerBar=histogramDialog.getValuesPerBar();
+
+		final List<Object[]> histData=new ArrayList<>();
+		for (int i=0;i<bars-1;i++) {
+			if (valuesPerBar==1) {
+				histData.add(new Object[]{new AnimationExpression(String.format(functionNameSingle,i)),(i==0)?Color.GREEN:Color.BLUE});
+			} else {
+				final int i1=i*valuesPerBar;
+				final int i2=(i+1)*valuesPerBar-1;
+				histData.add(new Object[]{new AnimationExpression(String.format(functionNameRange,i1,i2)),Color.BLUE});
+			}
+		}
+		histData.add(new Object[]{new AnimationExpression(String.format(functionNameRange,(bars-1)*valuesPerBar,10000)),Color.RED});
+		return histData;
+	}
+
+	/**
+	 * Erstellt ein Datenpunkteanzeige-Animations-Element zur Anzeige von Simulationsdaten.
+	 * @return	Datenpunkteanzeige-Animations-Element
+	 */
+	public static ModelElementAnimationRecord getVisualizationRecord() {
+		final ModelElementAnimationRecord record=new ModelElementAnimationRecord(null,null);
+		record.setDisplayPoints(1000);
+		record.setSize(new Dimension(400,200));
+
+		record.setBackgroundColor(Color.WHITE);
+		record.setGradientFillColor(new Color(230,230,250));
+		if (FlatLaFHelper.isDark()) EditModelDark.processElement(record,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+
+		return record;
+	}
+
+	/**
 	 * Fügt mehrere Visualisierungs-Kontextmenü-Einträge zu einem Menü hinzu
 	 * @param parentMenu	Übergeordnetes Menü
 	 */
 	private void addVisualizationContextMenuItems(final JMenu parentMenu) {
+		addVisualizationContextMenuItem(parentMenu,getVisualizationText(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()"));
+		addVisualizationContextMenuItem(parentMenu,getVisualizationText(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),"wip_avg()"));
+		addVisualizationContextMenuItem(parentMenu,getVisualizationText(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()"));
+		addVisualizationContextMenuItem(parentMenu,getVisualizationText(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),"NQ_avg()"));
 
-		ModelElementAnimationTextValue text;
-		ModelElementAnimationBar bar;
-		ModelElementAnimationLineDiagram chart;
-		List<Object[]> data;
+		addVisualizationContextMenuItem(parentMenu,getVisualizationLCD(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()"));
+		addVisualizationContextMenuItem(parentMenu,getVisualizationLCD(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),"wip_avg()"));
+		addVisualizationContextMenuItem(parentMenu,getVisualizationLCD(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()"));
+		addVisualizationContextMenuItem(parentMenu,getVisualizationLCD(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),"NQ_avg()"));
 
-		text=new ModelElementAnimationTextValue(null,null);
-		text.setExpression("wip()");
-		text.setName(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"));
-		addVisualizationContextMenuItem(parentMenu,text);
+		addVisualizationContextMenuItem(parentMenu,getVisualizationPointer(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()"));
+		addVisualizationContextMenuItem(parentMenu,getVisualizationPointer(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),"wip_avg()"));
+		addVisualizationContextMenuItem(parentMenu,getVisualizationPointer(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()"));
+		addVisualizationContextMenuItem(parentMenu,getVisualizationPointer(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),"NQ_avg()"));
 
-		text=new ModelElementAnimationTextValue(null,null);
-		text.setExpression("wip_avg()");
-		text.setName(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"));
-		addVisualizationContextMenuItem(parentMenu,text);
+		addVisualizationContextMenuItem(parentMenu,getVisualizationBar(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()"));
+		addVisualizationContextMenuItem(parentMenu,getVisualizationBar(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),"wip_avg()"));
+		addVisualizationContextMenuItem(parentMenu,getVisualizationBar(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()"));
+		addVisualizationContextMenuItem(parentMenu,getVisualizationBar(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),"NQ_avg()"));
 
-		text=new ModelElementAnimationTextValue(null,null);
-		text.setExpression("NQ()");
-		text.setName(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"));
-		addVisualizationContextMenuItem(parentMenu,text);
+		addVisualizationContextMenuItem(parentMenu,getVisualizationChart(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()","wip_avg()"));
+		addVisualizationContextMenuItem(parentMenu,getVisualizationChart(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()","NQ_avg()"));
+	}
 
-		text=new ModelElementAnimationTextValue(null,null);
-		text.setExpression("NQ_avg()");
-		text.setName(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"));
-		addVisualizationContextMenuItem(parentMenu,text);
+	/**
+	 * Sortiert die Elemente in einem Untermenü.
+	 * Evtl. vorhandene Trenner werden dabei entfernt.
+	 * @param menu	Zu sortierendes Untermenü (Die Einträge werden direkt in diesem Menü sortiert, es wird kein neues Menü angelegt.)
+	 */
+	public static void sortMenu(final JMenu menu) {
+		final List<JMenuItem> list=new ArrayList<>();
+		for (int i=0;i<menu.getItemCount();i++) {
+			final JMenuItem item=menu.getItem(i);
+			if (item!=null) list.add(item);
+		}
 
-		bar=new ModelElementAnimationBar(null,null);
-		bar.getExpression().setExpression("wip()");
-		bar.setSize(new Dimension(25,50));
-		bar.setName(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"));
-		addVisualizationContextMenuItem(parentMenu,bar);
+		while (menu.getItemCount()>0) menu.remove(0);
 
-		bar=new ModelElementAnimationBar(null,null);
-		bar.getExpression().setExpression("wip_avg()");
-		bar.setSize(new Dimension(25,50));
-		bar.setName(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"));
-		addVisualizationContextMenuItem(parentMenu,bar);
-
-		bar=new ModelElementAnimationBar(null,null);
-		bar.getExpression().setExpression("NQ()");
-		bar.setSize(new Dimension(25,50));
-		bar.setName(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"));
-		addVisualizationContextMenuItem(parentMenu,bar);
-
-		bar=new ModelElementAnimationBar(null,null);
-		bar.getExpression().setExpression("NQ_avg()");
-		bar.setSize(new Dimension(25,50));
-		bar.setName(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"));
-		addVisualizationContextMenuItem(parentMenu,bar);
-
-		chart=new ModelElementAnimationLineDiagram(null,null);
-		data=new ArrayList<>();
-		data.add(new Object[]{new AnimationExpression("wip()"),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(1)});
-		data.add(new Object[]{"wip_avg()",Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(3)});
-		chart.setExpressionData(data);
-		chart.setTimeArea(3600);
-		chart.setName(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"));
-		chart.setSize(new Dimension(400,200));
-		addVisualizationContextMenuItem(parentMenu,chart);
-
-		chart=new ModelElementAnimationLineDiagram(null,null);
-		data=new ArrayList<>();
-		data.add(new Object[]{new AnimationExpression("NQ()"),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(1)});
-		data.add(new Object[]{new AnimationExpression("NQ_avg()"),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(3)});
-		chart.setExpressionData(data);
-		chart.setTimeArea(3600);
-		chart.setName(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"));
-		chart.setSize(new Dimension(400,200));
-		addVisualizationContextMenuItem(parentMenu,chart);
+		list.stream().sorted((i1,i2)->String.CASE_INSENSITIVE_ORDER.compare(i1.getText(),i2.getText())).forEach(i->menu.add(i));
 	}
 
 	/**
@@ -2519,6 +2731,7 @@ public final class ModelSurfacePanel extends JPanel {
 			final JMenu sub=new JMenu(Language.tr("Surface.Popup.AddVisualization"));
 			addVisualizationContextMenuItems(sub);
 			if (sub.getItemCount()>0) {
+				sortMenu(sub);
 				sub.setIcon(Images.MODELEDITOR_ELEMENT_ADD_VISUALIZATION.getIcon());
 				menu.add(sub);
 			}

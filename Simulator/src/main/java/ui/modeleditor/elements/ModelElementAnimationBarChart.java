@@ -182,6 +182,15 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		return Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_CHART.getIcon();
 	}
 
+	/**
+	 * Stellt die Größe der umrandenden Box ein
+	 * @param size	Größe der Box
+	 */
+	@Override
+	public void setSize(final Dimension size) {
+		super.setSize(size);
+	}
+
 	@Override
 	public boolean isVisualOnly() {
 		return true;
@@ -658,6 +667,8 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		}
 
 		if (barDrawRect==null) barDrawRect=new Rectangle();
+
+		if (recordedValues.length==0) return;
 
 		drawLock.acquireUninterruptibly();
 		try {
