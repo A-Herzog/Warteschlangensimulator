@@ -515,6 +515,24 @@ public class ExpressionCalc extends CalcSystem {
 	}
 
 	/**
+	 * Prüft direkt, ob ein als Zeichenkette angegebener Ausdruck einen konstanten Wert darstellt.
+	 * @param expression	Zu prüferender Ausdruck
+	 * @param variables	Liste mit den Variablennamen, die erkannt werden sollen (kann auch <code>null</code> sein)
+	 * @param modelUserFunctions	Objekt mit weiteren modellspezifischen nutzerdefinierten Funktionen (kann <code>null</code> sein)
+	 * @return	Wenn der Ausdruck korrekt interpretierbar ist und einen konstanten Wert darstellt, wird dieser zurückgeliefert; sonst <code>null</code>.
+	 */
+	public static Double isConstValue(final String expression, final String[] variables, final ExpressionCalcModelUserFunctions modelUserFunctions) {
+		final ExpressionCalc calc=new ExpressionCalc(variables,modelUserFunctions);
+		if (calc.parse(expression)>=0) return null;
+		if (!calc.isConstValue()) return null;
+		try {
+			return calc.calc();
+		} catch (MathCalcError e) {
+			return null;
+		}
+	}
+
+	/**
 	 * Prüft, ob eine Zeichenkette einen gültigen möglichen Variablennamen darstellt.
 	 * @param variableName	Zu prüfender möglicher Variablenname
 	 * @return	Gibt <code>true</code> zurück, wenn die Zeichenkette als Variablenname verwendet werden kann.

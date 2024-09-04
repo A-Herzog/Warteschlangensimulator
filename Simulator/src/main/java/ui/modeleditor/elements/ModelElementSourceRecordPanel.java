@@ -1161,10 +1161,10 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		double factorInterArrivalTimes=1.0;
 		if (hasOwnArrivals) {
 			if (optionFixedSize.isSelected()) {
-				final Long L=NumberTools.getPositiveLong(batchField,false);
-				if (L!=null) { /* Kann auch Rechenausdruck sein, dann können wir keinen a-priori Skalierungsfaktor angeben */
+				final Double D=ExpressionCalc.isConstValue(batchField.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
+				if (D!=null && Math.round(D)>=1) { /* Kann auch Rechenausdruck sein, dann können wir keinen a-priori Skalierungsfaktor angeben */
 					scaleInterArrivalTimes=true;
-					factorInterArrivalTimes=1.0/L;
+					factorInterArrivalTimes=1.0/Math.round(D);
 				}
 			} else {
 				if (batchRates!=null && batchRates.length>0) {
@@ -1207,7 +1207,8 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		/* Batch-Größe */
 		info="";
 		if (optionFixedSize.isSelected()) {
-			info=batchField.getText();
+			final Double D=ExpressionCalc.isConstValue(batchField.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
+			if (D==null) info=Language.tr("Surface.Source.Dialog.Tab.BatchSize.CalcExpression"); else info=batchField.getText();
 		} else {
 			info=Language.tr("Surface.Source.Dialog.Tab.BatchSize.DifferentSizes");
 		}
@@ -1492,14 +1493,18 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		}
 
 		/* Batch-Größe */
-		error=ExpressionCalc.check(batchField.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
-		if (error>=0) {
-			batchField.setBackground(Color.RED);
-			if (showErrorMessage) {
-				MsgBox.error(this,Language.tr("Surface.Source.Dialog.BatchSize.Error.Title"),String.format(Language.tr("Surface.Source.Dialog.BatchSize.Error.Info"),batchField.getText(),error+1));
-				return false;
+		if (optionFixedSize.isSelected()) {
+			error=ExpressionCalc.check(batchField.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
+			if (error>=0) {
+				batchField.setBackground(Color.RED);
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Surface.Source.Dialog.BatchSize.Error.Title"),String.format(Language.tr("Surface.Source.Dialog.BatchSize.Error.Info"),batchField.getText(),error+1));
+					return false;
+				}
+				ok=false;
+			} else {
+				batchField.setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
-			ok=false;
 		} else {
 			batchField.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}

@@ -18762,6 +18762,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[46143] = "ModellVersion";
     t[46144] = "UserTemplates.TemplatesDialog.Mode.Model";
     t[46145] = "modellbasierende Vorlage";
+    t[46148] = "Surface.Source.Dialog.Tab.BatchSize.CalcExpression";
+    t[46149] = "Rechenausdruck";
     t[46152] = "Statistic.FastAccess.FilterList.NewLine";
     t[46153] = "Zeichenumbruch";
     t[46154] = "CommandLine.Error.LoadingFile";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49315] = "Ventil %d";
     t[49316] = "ScriptPopup.Clients.clientTextDataSet.Hint";
     t[49317] = "Stellt eine textbasierte Kundeneigenschaft ein";
-    t[49332] = "Statistics.ErlangCompare.NoProcessDistribution";
-    t[49333] = "Keine Bedienzeitenverteilung angegeben.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49332] = "Statistics.ErlangCompare.NoProcessDistribution";
+    t[49333] = "Keine Bedienzeitenverteilung angegeben.";
     t[49338] = "Surface.AnimationBarChart.Infotext";
     t[49339] = "Zeigt w\u00e4hrend der Animation mehrere Werte als Balkendiagramm an.";
     t[49350] = "Statistics.Dashboard.EditDialog.Digits";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54421] = "Anzahl an Ausg\u00e4ngen aus dem Untermodell";
     t[54438] = "Wait.Status.LongRunNoEstimationK";
     t[54439] = "%sK Kundenank\u00fcnfte simuliert / %s Kunden im System / %sK Ereignisse / %sK Ereignisse pro Sekunde";
-    t[54442] = "Surface.InputDB.Dialog.ColumnSortMode.Ascending";
-    t[54443] = "Aufsteigend";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54442] = "Surface.InputDB.Dialog.ColumnSortMode.Ascending";
+    t[54443] = "Aufsteigend";
     t[54446] = "ModelDescription.InteractiveSlider.Description.Step";
     t[54447] = "Schrittweite";
     t[54448] = "Git.List.Title";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[59465] = "Die angegebene Bildgr\u00f6\u00dfe ist ung\u00fcltig. Die Gr\u00f6\u00dfe muss eine nat\u00fcrliche Zahl sein.";
     t[59466] = "Editor.Breakpoints.NoBreakpoints.Info";
     t[59467] = "Es sind momentan keine Haltepunkte definiert und das Modell besitzt auch keine Animation-pausieren-Stationen.";
-    t[59468] = "Color.8FBC8F";
-    t[59469] = "Dunkelseegr\u00fcn";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59468] = "Color.8FBC8F";
+    t[59469] = "Dunkelseegr\u00fcn";
     t[59476] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingCurrent";
     t[59477] = "Wartezeitkosten (aktueller Kunde)";
     t[59478] = "Dialog.Button.Copy.Table";

@@ -18762,6 +18762,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46143] = "ModelVersion";
     t[46144] = "UserTemplates.TemplatesDialog.Mode.Model";
     t[46145] = "model-based template";
+    t[46148] = "Surface.Source.Dialog.Tab.BatchSize.CalcExpression";
+    t[46149] = "Calculation expression";
     t[46152] = "Statistic.FastAccess.FilterList.NewLine";
     t[46153] = "New line";
     t[46154] = "CommandLine.Error.LoadingFile";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49315] = "Valve %d";
     t[49316] = "ScriptPopup.Clients.clientTextDataSet.Hint";
     t[49317] = "Sets a text-based client property";
-    t[49332] = "Statistics.ErlangCompare.NoProcessDistribution";
-    t[49333] = "No processing times distribution.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49332] = "Statistics.ErlangCompare.NoProcessDistribution";
+    t[49333] = "No processing times distribution.";
     t[49338] = "Surface.AnimationBarChart.Infotext";
     t[49339] = "Displays multiple values as a bar chart during animation.";
     t[49350] = "Statistics.Dashboard.EditDialog.Digits";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54421] = "Number of outputs from the sub model";
     t[54438] = "Wait.Status.LongRunNoEstimationK";
     t[54439] = "%sK client arrivals simulated / %s clients in the system / %sK events / %sK events per second";
-    t[54442] = "Surface.InputDB.Dialog.ColumnSortMode.Ascending";
-    t[54443] = "Ascending";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54442] = "Surface.InputDB.Dialog.ColumnSortMode.Ascending";
+    t[54443] = "Ascending";
     t[54446] = "ModelDescription.InteractiveSlider.Description.Step";
     t[54447] = "step wide";
     t[54448] = "Git.List.Title";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[59465] = "The entered image size is invalid. The image size has to be a positive integer.";
     t[59466] = "Editor.Breakpoints.NoBreakpoints.Info";
     t[59467] = "The are no breakpoints defined and the model also does not contain any pause animation station.";
-    t[59468] = "Color.8FBC8F";
-    t[59469] = "Dark sea green";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59468] = "Color.8FBC8F";
+    t[59469] = "Dark sea green";
     t[59476] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingCurrent";
     t[59477] = "Waiting time costs (current client)";
     t[59478] = "Dialog.Button.Copy.Table";

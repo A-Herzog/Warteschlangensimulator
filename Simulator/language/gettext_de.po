@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-23 23:44+0200\n"
+"POT-Creation-Date: 2024-08-31 16:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34488,6 +34488,9 @@ msgstr "Signalnamen"
 
 msgid "Surface.Source.Dialog.Tab.BatchSize"
 msgstr "Batch-Größe"
+
+msgid "Surface.Source.Dialog.Tab.BatchSize.CalcExpression"
+msgstr "Rechenausdruck"
 
 msgid "Surface.Source.Dialog.Tab.BatchSize.ClientPlural"
 msgstr "Kunden"
