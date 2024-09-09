@@ -15580,6 +15580,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38315] = "ModelElementColor";
     t[38318] = "ParameterCompare.Settings.List.AddScriptJava";
     t[38319] = "Java";
+    t[38326] = "LogSimulation.TitleAnimationMode";
+    t[38327] = "Record animation";
     t[38328] = "Editor.Dialog.Tab.Simulation.FixedSeed";
     t[38329] = "Fixed seed value for random number generator";
     t[38330] = "ExpressionBuilder.SimulationCharacteristics.TimesByClientTypes";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39475] = "RedRange";
     t[39480] = "Surface.DelayJS.Dialog.CostsPerClient.Error.Title";
     t[39481] = "Invalid costs";
-    t[39482] = "ExpressionBuilder.SimulationCharacteristics.Costs.ProcessSumAll.Info";
-    t[39483] = "<p>Returns the sum of the waiting time costs of all clients.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39482] = "ExpressionBuilder.SimulationCharacteristics.Costs.ProcessSumAll.Info";
+    t[39483] = "<p>Returns the sum of the waiting time costs of all clients.</p>";
     t[39488] = "Statistic.FastAccess.Template.SetupTime.ByStation";
     t[39489] = "Setup time by station";
     t[39492] = "Surface.XML.AnalogValue.MinimalValue";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44437] = "FailureExpression";
     t[44442] = "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.AverageTime";
     t[44443] = "<p>Returns the average duration over all setup times that have occurred at the process station whose ID was specified in the parameter.</p>\n<p>Attention: The setup times are also recorded as part of the service times.</p>";
-    t[44446] = "Surface.AnimationDiagram.Dialog.Data";
-    t[44447] = "Data";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44446] = "Surface.AnimationDiagram.Dialog.Data";
+    t[44447] = "Data";
     t[44448] = "Editor.Dialog.Tab.Clients.Color.Automatic";
     t[44449] = "Automatic selection of the color in diagrams";
     t[44458] = "Simulation.Log.Duplicate.AssignInfo";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49313] = "The sum of all rates is 0.\nA positive rate has to be specified for at least one batch size.";
     t[49314] = "Surface.TankFlowPanel.ValveNr";
     t[49315] = "Valve %d";
-    t[49316] = "ScriptPopup.Clients.clientTextDataSet.Hint";
-    t[49317] = "Sets a text-based client property";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49316] = "ScriptPopup.Clients.clientTextDataSet.Hint";
+    t[49317] = "Sets a text-based client property";
     t[49332] = "Statistics.ErlangCompare.NoProcessDistribution";
     t[49333] = "No processing times distribution.";
     t[49338] = "Surface.AnimationBarChart.Infotext";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54417] = "<p>Returns the squared coefficient of variation over all waiting times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[54420] = "Surface.Sub.Dialog.NumberOutput";
     t[54421] = "Number of outputs from the sub model";
-    t[54438] = "Wait.Status.LongRunNoEstimationK";
-    t[54439] = "%sK client arrivals simulated / %s clients in the system / %sK events / %sK events per second";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54438] = "Wait.Status.LongRunNoEstimationK";
+    t[54439] = "%sK client arrivals simulated / %s clients in the system / %sK events / %sK events per second";
     t[54442] = "Surface.InputDB.Dialog.ColumnSortMode.Ascending";
     t[54443] = "Ascending";
     t[54446] = "ModelDescription.InteractiveSlider.Description.Step";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[59463] = "Part of the complete load for this call center";
     t[59464] = "Statistic.Viewer.SaveImage.Error.Info";
     t[59465] = "The entered image size is invalid. The image size has to be a positive integer.";
-    t[59466] = "Editor.Breakpoints.NoBreakpoints.Info";
-    t[59467] = "The are no breakpoints defined and the model also does not contain any pause animation station.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59466] = "Editor.Breakpoints.NoBreakpoints.Info";
+    t[59467] = "The are no breakpoints defined and the model also does not contain any pause animation station.";
     t[59468] = "Color.8FBC8F";
     t[59469] = "Dark sea green";
     t[59476] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingCurrent";

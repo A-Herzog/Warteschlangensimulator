@@ -125,9 +125,10 @@ public class LogSetupDialog extends BaseDialog {
 	/**
 	 * Konstruktor der Klasse <code>LogSetupDialog</code>
 	 * @param owner	Übergeordnetes Element
+	 * @param animationMode Handelt es sich um die Logging-Aufzeichnung einer Simulation (<code>false</code>) oder einer Animation (<code>true</code>)
 	 */
-	public LogSetupDialog(final Component owner) {
-		super(owner,Language.tr("LogSimulation.Title"));
+	public LogSetupDialog(final Component owner, final boolean animationMode) {
+		super(owner,animationMode?Language.tr("LogSimulation.TitleAnimationMode"):Language.tr("LogSimulation.Title"));
 
 		JPanel card;
 		JPanel outer;
@@ -315,16 +316,20 @@ public class LogSetupDialog extends BaseDialog {
 	 */
 	private JTextField addFileEditor(final JPanel parent, final String labelText, final String tooltipSelect) {
 		final JPanel line;
+		JPanel area;
 		final JLabel label;
 		final JTextField field;
 		final JButton button;
 
 		parent.add(line=new JPanel(new BorderLayout()));
-		line.add(label=new JLabel(labelText+": "),BorderLayout.WEST);
+		line.add(area=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.WEST);
+		area.add(label=new JLabel(labelText+": "));
 		line.add(field=new JTextField(),BorderLayout.CENTER);
 		ModelElementBaseDialog.addUndoFeature(field);
 		label.setLabelFor(field);
-		line.add(button=new JButton(),BorderLayout.EAST);
+		line.add(area=new JPanel(new FlowLayout(FlowLayout.LEFT,5,0)),BorderLayout.EAST);
+		area.setPreferredSize(new Dimension(30,24));
+		area.add(button=new JButton());
 		button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
 		button.setPreferredSize(new Dimension(24,24));
 		button.setToolTipText(tooltipSelect);

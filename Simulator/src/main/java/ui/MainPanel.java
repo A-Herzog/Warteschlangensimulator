@@ -806,7 +806,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ExtrasCompare",e->commandExtrasCompare());
 		addAction("ExtrasCalculator",e->commandExtrasCalculator(null,null));
 		addAction("ExtrasQueueingCalculator",e->commandExtrasQueueingCalculator());
-		addAction("ExtrasUserDefinedFunctions",e->commandUserDefinedFunctions());
+		addAction("ExtrasUserDefinedFunctions",e->commandExtrasUserDefinedFunctions());
 		addAction("ExtrasFit",e->commandExtrasFit());
 		addAction("ExtrasInputTableProcessor",e->commandExtrasInputTableProcessor());
 		addAction("ExtrasOutputTableProcessor",e->commandExtrasOutputTableProcessor());
@@ -3264,7 +3264,7 @@ public class MainPanel extends MainPanelBase {
 			if (!MsgBox.confirm(getOwnerWindow(),Language.tr("LogSimulation.Title"),Language.tr("LogSimulation.LargeModelWarning"),Language.tr("LogSimulation.LargeModelWarning.YesInfo"),Language.tr("LogSimulation.LargeModelWarning.NoInfo"))) return;
 		}
 
-		final LogSetupDialog dialog=new LogSetupDialog(this);
+		final LogSetupDialog dialog=new LogSetupDialog(this,true);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			final SimLogging logger=dialog.getLogger();
@@ -3435,7 +3435,7 @@ public class MainPanel extends MainPanelBase {
 			}
 		}
 
-		final LogSetupDialog dialog=new LogSetupDialog(this);
+		final LogSetupDialog dialog=new LogSetupDialog(this,false);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			final SimLogging logger=dialog.getLogger();
@@ -3906,11 +3906,14 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Befehl: Extras - Nutzerdefinierte Funktionen
 	 */
-	private void commandUserDefinedFunctions() {
+	private void commandExtrasUserDefinedFunctions() {
 		final EditModel model=editorPanel.getModel();
 		final var dialog=new ExpressionCalcUserFunctionsListDialog(this,model);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			final File file=editorPanel.getLastFile();
 			editorPanel.setModel(model);
+			editorPanel.setLastFile(file);
+			editorPanel.setModelChanged(true);
 		}
 	}
 

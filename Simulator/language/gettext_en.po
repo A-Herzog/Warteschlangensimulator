@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-31 16:35+0200\n"
+"POT-Creation-Date: 2024-09-04 08:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11494,6 +11494,9 @@ msgstr "Stations ids or keep empty for all stations"
 
 msgid "LogSimulation.Title"
 msgstr "Record simulation"
+
+msgid "LogSimulation.TitleAnimationMode"
+msgstr "Record animation"
 
 msgid "MQTT.Error.AlreadyRunning"
 msgstr "The MQTT client is already running."

@@ -15580,6 +15580,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38315] = "ModellElementFarbe";
     t[38318] = "ParameterCompare.Settings.List.AddScriptJava";
     t[38319] = "Java";
+    t[38326] = "LogSimulation.TitleAnimationMode";
+    t[38327] = "Animation aufzeichnen";
     t[38328] = "Editor.Dialog.Tab.Simulation.FixedSeed";
     t[38329] = "Fester Startwert f\u00fcr Zufallszahlengenerator";
     t[38330] = "ExpressionBuilder.SimulationCharacteristics.TimesByClientTypes";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39475] = "RoterBereich";
     t[39480] = "Surface.DelayJS.Dialog.CostsPerClient.Error.Title";
     t[39481] = "Ung\u00fcltige Kosten";
-    t[39482] = "ExpressionBuilder.SimulationCharacteristics.Costs.ProcessSumAll.Info";
-    t[39483] = "<p>Liefert die Summe der bedienzeit-bedingten Kosten \u00fcber alle Kunden.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39482] = "ExpressionBuilder.SimulationCharacteristics.Costs.ProcessSumAll.Info";
+    t[39483] = "<p>Liefert die Summe der bedienzeit-bedingten Kosten \u00fcber alle Kunden.</p>";
     t[39488] = "Statistic.FastAccess.Template.SetupTime.ByStation";
     t[39489] = "R\u00fcstzeit an einer Station";
     t[39492] = "Surface.XML.AnalogValue.MinimalValue";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44437] = "AusfallAusdruck";
     t[44442] = "ExpressionBuilder.SimulationCharacteristics.SetupTimesAtStations.AverageTime";
     t[44443] = "<p>Liefert die mittlere Dauer \u00fcber alle R\u00fcstzeiten, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden sind.</p>\n<p>Achtung: Die R\u00fcstzeiten werden auch als Teil der Bedienzeiten erfasst.</p>";
-    t[44446] = "Surface.AnimationDiagram.Dialog.Data";
-    t[44447] = "Daten";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44446] = "Surface.AnimationDiagram.Dialog.Data";
+    t[44447] = "Daten";
     t[44448] = "Editor.Dialog.Tab.Clients.Color.Automatic";
     t[44449] = "Automatische Wahl der Farbe in den Diagrammen";
     t[44458] = "Simulation.Log.Duplicate.AssignInfo";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49313] = "Die Summe \u00fcber alle Raten ist 0.\nEs muss jedoch mindestens f\u00fcr eine Batch-Gr\u00f6\u00dfe eine positive Rate angegeben werden.";
     t[49314] = "Surface.TankFlowPanel.ValveNr";
     t[49315] = "Ventil %d";
-    t[49316] = "ScriptPopup.Clients.clientTextDataSet.Hint";
-    t[49317] = "Stellt eine textbasierte Kundeneigenschaft ein";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49316] = "ScriptPopup.Clients.clientTextDataSet.Hint";
+    t[49317] = "Stellt eine textbasierte Kundeneigenschaft ein";
     t[49332] = "Statistics.ErlangCompare.NoProcessDistribution";
     t[49333] = "Keine Bedienzeitenverteilung angegeben.";
     t[49338] = "Surface.AnimationBarChart.Infotext";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54417] = "<p>Liefert den quadrierten Variationskoeffizienten \u00fcber die Wartezeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>\n<p>Alternativ sind auch folgende andere Parametrierungen m\u00f6glich:</p>\n<ul>\n<li>ID einer Kundenquelle (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Station und ID einer Quelle (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Quelle im zweiten Parameter erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>3 Parameter: ID einer Station, ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Mehrfachquelle im zweiten Parameter erzeugten Kundentyps)</li>\n</ul>";
     t[54420] = "Surface.Sub.Dialog.NumberOutput";
     t[54421] = "Anzahl an Ausg\u00e4ngen aus dem Untermodell";
-    t[54438] = "Wait.Status.LongRunNoEstimationK";
-    t[54439] = "%sK Kundenank\u00fcnfte simuliert / %s Kunden im System / %sK Ereignisse / %sK Ereignisse pro Sekunde";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54438] = "Wait.Status.LongRunNoEstimationK";
+    t[54439] = "%sK Kundenank\u00fcnfte simuliert / %s Kunden im System / %sK Ereignisse / %sK Ereignisse pro Sekunde";
     t[54442] = "Surface.InputDB.Dialog.ColumnSortMode.Ascending";
     t[54443] = "Aufsteigend";
     t[54446] = "ModelDescription.InteractiveSlider.Description.Step";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[59463] = "Lastanteil des Callcenters";
     t[59464] = "Statistic.Viewer.SaveImage.Error.Info";
     t[59465] = "Die angegebene Bildgr\u00f6\u00dfe ist ung\u00fcltig. Die Gr\u00f6\u00dfe muss eine nat\u00fcrliche Zahl sein.";
-    t[59466] = "Editor.Breakpoints.NoBreakpoints.Info";
-    t[59467] = "Es sind momentan keine Haltepunkte definiert und das Modell besitzt auch keine Animation-pausieren-Stationen.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59466] = "Editor.Breakpoints.NoBreakpoints.Info";
+    t[59467] = "Es sind momentan keine Haltepunkte definiert und das Modell besitzt auch keine Animation-pausieren-Stationen.";
     t[59468] = "Color.8FBC8F";
     t[59469] = "Dunkelseegr\u00fcn";
     t[59476] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingCurrent";
