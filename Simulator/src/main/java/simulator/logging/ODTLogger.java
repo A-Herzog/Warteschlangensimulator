@@ -133,7 +133,7 @@ public class ODTLogger implements SimLogging {
 	public boolean log(final long time, final Color color, final String event, final int id, final String info) {
 		if (odt==null) return false;
 
-		final String timeString=formatedTime?SimData.formatSimTime(time):NumberTools.formatNumber(time/1000.0);
+		final String timeString=formatedTime?SimData.formatSimTime(time):NumberTools.formatNumber(time/1000.0,3);
 
 		/* Abschnitt beginnen / beenden */
 		if (groupSameTimeEvents) {

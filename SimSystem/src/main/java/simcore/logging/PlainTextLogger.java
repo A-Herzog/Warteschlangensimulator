@@ -107,7 +107,7 @@ public class PlainTextLogger extends AbstractTextLogger {
 	 */
 	public static void processLine(final PlainTextLoggerTimeMode timeMode, final boolean singleLineMode, final boolean printIDs, final boolean printClassNames, final boolean csvMode, final long time, final Color color, final String event, final int id, final String info, final StringBuilder result) {
 		switch (timeMode) {
-		case PLAIN: result.append(NumberTools.formatNumber(time/1000.0)); break;
+		case PLAIN: result.append(NumberTools.formatNumber(time/1000.0,3)); break;
 		case TIME: result.append(SimData.formatSimTime(time)); break;
 		case DATETIME: result.append(SimData.formatSimDateTime(time)); break;
 		}
