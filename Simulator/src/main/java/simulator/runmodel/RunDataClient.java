@@ -752,6 +752,8 @@ public class RunDataClient {
 			sb.append(simData.runModel.clientTypes[type]);
 			sb.append("\" (id=");
 			sb.append(hashCode());
+			sb.append(",nr=");
+			sb.append(clientNumber);
 			sb.append(")");
 			cacheLogName=sb.toString();
 			cachedType=type;
