@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-04 08:20+0200\n"
+"POT-Creation-Date: 2024-09-07 18:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14637,14 +14637,14 @@ msgstr "Dateiausgabe"
 msgid "ModelSecurityCheck.CriticalType.FileOutput.FileName"
 msgstr "Dateiname"
 
+msgid "ModelSecurityCheck.CriticalType.ModelProperty"
+msgstr "Modelleigenschaft"
+
 msgid "ModelSecurityCheck.CriticalType.Script"
 msgstr "Skriptausführung"
 
 msgid "ModelSecurityCheck.CriticalType.Script.Info"
 msgstr "Weitere Informationen ->"
-
-msgid "ModelSecurityCheck.CriticalType.Script.PluginsFolder"
-msgstr "Java-Plugins-Verzeichnis"
 
 msgid "ModelSecurityCheck.CriticalType.Script.Tooltip"
 msgstr "Skriptanzeigen"
@@ -14675,6 +14675,9 @@ msgstr "%s (id=%d)"
 
 msgid "ModelSecurityCheck.Title"
 msgstr "Sicherheitsprüfung"
+
+msgid "ModelSecurityCheck.UserFunction.Javascript"
+msgstr "Nutzerdefinierte Javascript-Funktion"
 
 msgid "NewClientTypeEdit.Edge"
 msgstr "Auslaufende Kante %d"
@@ -39006,6 +39009,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "ModelGenerator.LargeModel.Title"
 #~ msgstr "Belastungstestmodell erzeugen"
+
+#~ msgid "ModelSecurityCheck.CriticalType.Script.PluginsFolder"
+#~ msgstr "Java-Plugins-Verzeichnis"
 
 #~ msgid "ParameterCompare.Settings.Output.IsTime"
 #~ msgstr "Anzeige des Ergebniswertes als Zeit"

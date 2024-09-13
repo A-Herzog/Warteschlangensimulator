@@ -28,6 +28,7 @@ import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import systemtools.commandline.AbstractCommand;
 import systemtools.commandline.BaseCommandLineSystem;
+import ui.dialogs.ModelSecurityCheckDialog;
 
 /**
  * Führt eine einzelne Simulation aus.
@@ -121,6 +122,12 @@ public class CommandSimulation extends AbstractSimulationCommand {
 			style.setErrorStyle();
 			out.println(BaseCommandLineSystem.errorBig+": "+Language.tr("CommandLine.Error.LoadingModel")+" "+error);
 			style.setNormalStyle();
+			return;
+		}
+
+		/* Sicherheitsprüfung */
+		if (!ModelSecurityCheckDialog.doSecurityCheck(modelFile,editModel,null)) {
+			out.print(Language.tr("ModelSecurityCheck.LoadingCanceled"));
 			return;
 		}
 

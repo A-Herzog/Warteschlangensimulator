@@ -232,7 +232,6 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 			if (element instanceof ModelElementSub) list.addAll(getCriticalElements(((ModelElementSub)element).getSubSurface()));
 		}
 
-
 		return list;
 	}
 
@@ -247,6 +246,15 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 
 		if (!model.pluginsFolder.trim().isEmpty()) {
 			list.add(new CriticalElement(-1,Language.tr("ExternalConnect.Dialog.Title"),CriticalType.SCRIPT_JAVA,model.pluginsFolder));
+		}
+
+		for (var function: model.userFunctions.getUserFunctions()) switch (function.mode) {
+		case EXPRESSION:
+			/* unkritisch */
+			break;
+		case JAVASCRIPT:
+			list.add(new CriticalElement(-1,Language.tr("ModelSecurityCheck.UserFunction.Javascript")+" "+function.name,CriticalType.SCRIPT_JAVASCRIPT,function.content));
+			break;
 		}
 
 		return list;
@@ -269,7 +277,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 	 * Führt die Sicherheitsprüfung eines Modells durch und zeigt dabei nötigenfalls einen Dialog an.
 	 * @param file	Optional Modelldatei (wird, wenn ungleich <code>null</code> bei der Prüfung verwendet, um zu bestimmten, ob die Datei aus dem Netz stammt)
 	 * @param model	Zu prüfendes Modell
-	 * @param owner Übergeordnetes visuelles Element (zur Ausrichtung des Dialogs)
+	 * @param owner Übergeordnetes visuelles Element (zur Ausrichtung des Dialogs); wird hier <code>null</code> übergeben, so wird im Strikt-Fall geblockt und sonst freigegeben
 	 * @return	Gibt <code>true</code> zurück, wenn das Laden des Modells freigegeben wurde.
 	 */
 	public static boolean doSecurityCheck(final File file, final EditModel model, final Component owner) {
@@ -282,7 +290,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 
 		/* Lokale Datei? */
 		if (file!=null && modelSecurityOnlyOnInternetFiles) {
-			if (!ZoneIdentifier.isFileFromInternet(file)) return true;
+			if (!ZoneIdentifier.isFileFromInternet(file) && !file.toString().toLowerCase().contains("downloads")) return true;
 		}
 
 		/* Erlauben auf Basis einer Signatur? */
@@ -301,6 +309,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		if (security==SetupData.ModelSecurity.STRICT) return false;
 
 		/* Dialog anzeigen */
+		if (owner==null) return true; /* owner==null bedeutet CLI-Mode; dann nur im Skript-Fall blocken, sonst freigeben */
 		final ModelSecurityCheckDialog dialog=new ModelSecurityCheckDialog(owner,list,signatureExternalUserName,signatureExternalPublicKey);
 		return dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK;
 	}
@@ -473,9 +482,11 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 			if (rowIndex<0 || rowIndex>=list.size()) return null;
 			final CriticalElement critical=list.get(rowIndex);
 
+			final boolean isMultiLineScript=((critical.type==CriticalType.SCRIPT_JAVASCRIPT || critical.type==CriticalType.SCRIPT_JAVA) && critical.stationId>=0 || critical.info.split("\n").length>1);
+
 			switch (columnIndex) {
 			case 0:
-				return (critical.stationType==null)?Language.tr("ModelSecurityCheck.CriticalType.Script.PluginsFolder"):critical.stationType;
+				return (critical.stationType==null)?Language.tr("ModelSecurityCheck.CriticalType.ModelProperty"):critical.stationType;
 			case 1:
 				return (critical.stationId>=0)?critical.stationId:"";
 			case 2:
@@ -490,6 +501,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 				default: return "";
 				}
 			case 4:
+				if (isMultiLineScript) return Language.tr("ModelSecurityCheck.CriticalType.Script.Info");
 				if (critical.stationId<0) return critical.info;
 				switch (critical.type) {
 				case DB_OUTPUT: return critical.info;
@@ -500,7 +512,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 				default: return "";
 				}
 			case 5:
-				if ((critical.type==CriticalType.SCRIPT_JAVASCRIPT || critical.type==CriticalType.SCRIPT_JAVA) && critical.stationId>=0) {
+				if (isMultiLineScript) {
 					if (button[rowIndex]==null) {
 						button[rowIndex]=new JButton("");
 						button[rowIndex].setIcon(Images.GENERAL_SCRIPT.getIcon());

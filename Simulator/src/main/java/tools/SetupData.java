@@ -2525,9 +2525,9 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("modelsecurity")) {
 				final String text=e.getTextContent().toLowerCase();
-				if (text.equals("allowall")) {modelSecurity=ModelSecurity.ALLOWALL; continue;}
-				if (text.equals("ask")) {modelSecurity=ModelSecurity.ASK; continue;}
-				if (text.equals("strict")) {modelSecurity=ModelSecurity.STRICT; continue;}
+				if (text.equals("allowall")) modelSecurity=ModelSecurity.ALLOWALL;
+				if (text.equals("ask")) modelSecurity=ModelSecurity.ASK;
+				if (text.equals("strict")) modelSecurity=ModelSecurity.STRICT;
 				signModels=loadBoolean(e.getAttribute("SignModels"),true);
 				modelSecurityOnlyOnInternetFiles=loadBoolean(e.getAttribute("RestrictOnlyFileFromInternet"),true);
 				continue;
@@ -3352,7 +3352,7 @@ public class SetupData extends SetupBase {
 			node.setTextContent(""+maxJSRunTimeSeconds);
 		}
 
-		if (modelSecurity!=ModelSecurity.ASK || !signModels) {
+		if (modelSecurity!=ModelSecurity.ASK || !signModels  || !modelSecurityOnlyOnInternetFiles) {
 			root.appendChild(node=doc.createElement("ModelSecurity"));
 			switch (modelSecurity) {
 			case ALLOWALL: node.setTextContent("AllowAll"); break;

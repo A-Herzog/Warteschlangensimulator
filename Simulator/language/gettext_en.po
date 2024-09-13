@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-04 08:20+0200\n"
+"POT-Creation-Date: 2024-09-07 18:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14605,14 +14605,14 @@ msgstr "File output"
 msgid "ModelSecurityCheck.CriticalType.FileOutput.FileName"
 msgstr "filename"
 
+msgid "ModelSecurityCheck.CriticalType.ModelProperty"
+msgstr "Model property"
+
 msgid "ModelSecurityCheck.CriticalType.Script"
 msgstr "Script execution"
 
 msgid "ModelSecurityCheck.CriticalType.Script.Info"
 msgstr "More information ->"
-
-msgid "ModelSecurityCheck.CriticalType.Script.PluginsFolder"
-msgstr "Java plugins folder"
 
 msgid "ModelSecurityCheck.CriticalType.Script.Tooltip"
 msgstr "Show script"
@@ -14643,6 +14643,9 @@ msgstr "%s (id=%d)"
 
 msgid "ModelSecurityCheck.Title"
 msgstr "Security check"
+
+msgid "ModelSecurityCheck.UserFunction.Javascript"
+msgstr "User-defined Javascript function"
 
 msgid "NewClientTypeEdit.Edge"
 msgstr "Outgoing edge %d"
@@ -38924,6 +38927,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "ModelGenerator.LargeModel.Title"
 #~ msgstr "Generate load test model"
+
+#~ msgid "ModelSecurityCheck.CriticalType.Script.PluginsFolder"
+#~ msgstr "Java plugins folder"
 
 #~ msgid "ParameterCompare.Settings.Output.IsTime"
 #~ msgstr "Show result value as time"
