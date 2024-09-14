@@ -135,16 +135,26 @@ public class ModelElementHoldMultiDialog extends ModelElementBaseDialog {
 
 		final ModelElementEdge[] edges=holdMulti.getEdgesOut();
 
+		if (edges.length==0) {
+			final JPanel labelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+			content.add(labelPanel);
+			final JLabel label=new JLabel("<html><body><b>"+Language.tr("Surface.HoldMulti.Dialog.NoOutgoingEdges")+"</b></body></html>");
+			labelPanel.add(label);
+		}
+
 		conditions=new ArrayList<>();
 		for (int i=0;i<edges.length;i++) {
 			String name=Language.tr("Surface.Decide.Dialog.OutgoingEdge")+" "+(i+1);
 			String destination=getDestination(edges[i]);
 			if (destination!=null) name+=" zu "+destination;
 
-			final JPanel option=new JPanel(new BorderLayout()); content.add(option);
+			final JPanel option=new JPanel(new BorderLayout());
+			content.add(option);
 
-			final JPanel labelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)); option.add(labelPanel,BorderLayout.NORTH);
-			final JLabel label=new JLabel(name); labelPanel.add(label);
+			final JPanel labelPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
+			option.add(labelPanel,BorderLayout.NORTH);
+			final JLabel label=new JLabel(name);
+			labelPanel.add(label);
 
 			final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.HoldMulti.Dialog.OutgoingEdge.Condition")+":","");
 			final JPanel inputPanel=(JPanel)data[0];

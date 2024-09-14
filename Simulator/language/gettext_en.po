@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-07 18:47+0200\n"
+"POT-Creation-Date: 2024-09-13 20:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30454,6 +30454,9 @@ msgstr "transfer time"
 
 msgid "Surface.HoldMulti.Dialog.HoldTimeIs.WaitingTime"
 msgstr "waiting time"
+
+msgid "Surface.HoldMulti.Dialog.NoOutgoingEdges"
+msgstr "The station has no outgoing edges for which conditions could be defined."
 
 msgid "Surface.HoldMulti.Dialog.OutgoingEdge.Condition"
 msgstr "Condition"

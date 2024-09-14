@@ -65,11 +65,23 @@ public class ModelElementInteractiveSliderDialog extends ModelElementBaseDialog 
 		super(owner,Language.tr("Surface.InteractiveSlider.Dialog.Title"),element,"ModelElementInteractiveSlider",readOnly);
 	}
 
+	/**
+	 * Stellt die Größe des Dialogfensters ein.
+	 */
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(600,0);
+		setMinSizeRespectingScreensize(750,0);
+		setMaxSizeRespectingScreensize(750,1000);
 		pack();
-		doLayout();
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
+		setMaxSizeRespectingScreensize(750,1000);
+		setSize(getWidth(),getHeight()+(int)Math.round(45*windowScaling));
 	}
 
 	@Override

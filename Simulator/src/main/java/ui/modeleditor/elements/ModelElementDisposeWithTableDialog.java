@@ -87,7 +87,17 @@ public class ModelElementDisposeWithTableDialog extends ModelElementBaseDialog {
 	@Override
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(550,0);
+		setMaxSizeRespectingScreensize(600,1000);
 		pack();
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
+		setMaxSizeRespectingScreensize(600,1000);
+		setSize(getWidth(),getHeight()+(int)Math.round(30*windowScaling));
 	}
 
 	@Override

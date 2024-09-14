@@ -86,8 +86,18 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected void setDialogSize() {
+		setSizeRespectingScreensize(1025,600);
 		setMinSizeRespectingScreensize(650,650);
+		setMaxSizeRespectingScreensize(2000,2000);
 		pack();
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
+		setSizeRespectingScreensize(1025,600);
 	}
 
 	@Override

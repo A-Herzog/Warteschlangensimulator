@@ -53,7 +53,18 @@ public class ModelElementLogicDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(600,0);
+		setMinSizeRespectingScreensize(800,0);
+		setMaxSizeRespectingScreensize(800,1000);
+		pack();
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
+		setMaxSizeRespectingScreensize(800,1000);
+		setSize(getWidth(),getHeight()+(int)Math.round(45*windowScaling));
 	}
 
 	/**

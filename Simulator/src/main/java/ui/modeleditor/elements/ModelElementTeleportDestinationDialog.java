@@ -62,7 +62,17 @@ public class ModelElementTeleportDestinationDialog extends ModelElementBaseDialo
 	@Override
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(600,0);
+		setMaxSizeRespectingScreensize(600,1000);
 		pack();
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
+		setMaxSizeRespectingScreensize(600,1000);
+		setSize(getWidth(),getHeight()+(int)Math.round(30*windowScaling));
 	}
 
 	@Override

@@ -18,6 +18,7 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -53,7 +54,7 @@ public class ModelElementCounterMultiDialog extends ModelElementBaseDialog {
 	/**
 	 * Auswahl des Gruppennamens für den Mehrfachzähler
 	 */
-	private JComboBox<String> groupName;
+	private JComboBox<?> groupName;
 
 	/**
 	 * Tabelle zur Konfiguration der Teil-Zähler
@@ -101,7 +102,6 @@ public class ModelElementCounterMultiDialog extends ModelElementBaseDialog {
 		return groupNames;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected JComponent getContentPanel() {
 		final ModelElementCounterMulti counterMulti=(ModelElementCounterMulti)element;
@@ -116,7 +116,9 @@ public class ModelElementCounterMultiDialog extends ModelElementBaseDialog {
 
 		data=getComboBoxPanel(Language.tr("Surface.Counter.Dialog.GroupName")+":",counterMulti.getGroupName(),getCounterGroupNames(element.getModel().surface));
 		setup.add((JPanel)data[0]);
-		groupName=(JComboBox<String>)data[1];
+		groupName=(JComboBox<?>)data[1];
+		final Dimension preferredSize=groupName.getPreferredSize();
+		groupName.setPreferredSize(new Dimension(Math.max(preferredSize.width,300),preferredSize.height));
 		groupName.setEnabled(!readOnly);
 		groupName.getEditor().getEditorComponent().setEnabled(!readOnly);
 		groupName.addKeyListener(new KeyListener() {

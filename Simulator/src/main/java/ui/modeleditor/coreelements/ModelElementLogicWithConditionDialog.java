@@ -60,9 +60,23 @@ public class ModelElementLogicWithConditionDialog extends ModelElementBaseDialog
 		super(owner,title,element,helpName,infoPanelID,readOnly);
 	}
 
+	/**
+	 * Stellt die Größe des Dialogfensters ein.
+	 */
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(600,0);
+		setMinSizeRespectingScreensize(800,0);
+		setMaxSizeRespectingScreensize(800,1000);
+		pack();
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
+		setMaxSizeRespectingScreensize(800,1000);
+		setSize(getWidth(),getHeight()+(int)Math.round(45*windowScaling));
 	}
 
 	@Override

@@ -40,6 +40,8 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Utilities;
 
 import language.Language;
 import tools.SetupData;
@@ -1298,7 +1300,7 @@ public class InfoPanel {
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_DECORATION+"|"+Language.tr("Surface.Text.Name"),
 				()->Language.tr("Surface.Text.Infotext"));
 
-		register(stationText,
+		register(stationLink,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_DECORATION+"|"+Language.tr("Surface.Link.Name"),
 				()->Language.tr("Surface.Link.Infotext"));
 
@@ -1469,6 +1471,13 @@ public class InfoPanel {
 	}
 
 	/**
+	 * Zuletzt erzeugtes Textfeld.
+	 * @see #getLastPanelLinesCount()
+	 * @see #getLinesCountIntern()
+	 */
+	private JTextPane pane;
+
+	/**
 	 * Erstellt das eigentliche Info-Panel
 	 * @param id	ID des anzuzeigenden Textes (für die Schließen-Schaltfläche)
 	 * @param text	Anzuzeigender Text
@@ -1506,7 +1515,7 @@ public class InfoPanel {
 		label.setBorder(BorderFactory.createEmptyBorder(5,5,5,0));
 		topInner.add(label,BorderLayout.WEST);
 
-		final JTextPane pane=new JTextPane();
+		pane=new JTextPane();
 		pane.setBackground(new Color(0,0,0,0));
 		pane.setOpaque(false);
 		pane.setEditable(false);
@@ -1544,6 +1553,35 @@ public class InfoPanel {
 		topOuter.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
 
 		return topOuter;
+	}
+
+	/**
+	 * Liefert die Anzahl an angezeigten Zeilen in dem letzten erzeugten Panel.
+	 * @return	Anzahl an angezeigten Zeilen in dem letzten erzeugten Panel
+	 */
+	public int getLinesCountIntern() {
+		if (pane==null) return 0;
+
+		int totalCharacters=pane.getText().length();
+		int lineCount=(totalCharacters==0)?1:0;
+
+		try {
+			int offset=totalCharacters;
+			while (offset>0) {
+				offset=Utilities.getRowStart(pane,offset)-1;
+				lineCount++;
+			}
+		} catch (BadLocationException e) {}
+
+		return lineCount;
+	}
+
+	/**
+	 * Liefert die Anzahl an angezeigten Zeilen in dem letzten erzeugten Panel.
+	 * @return	Anzahl an angezeigten Zeilen in dem letzten erzeugten Panel
+	 */
+	public static int getLastPanelLinesCount() {
+		return getInstance().getLinesCountIntern();
 	}
 
 	/**

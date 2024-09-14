@@ -22556,6 +22556,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[55559] = "At station id=%d the specified interval duration %d is invalid. A positive integer number has to be specified.";
     t[55560] = "Resources.Group.EditName.Dialog.ErrorName";
     t[55561] = "Invalid operator group name";
+    t[55572] = "Surface.HoldMulti.Dialog.NoOutgoingEdges";
+    t[55573] = "The station has no outgoing edges for which conditions could be defined.";
     t[55578] = "ParameterCompare.XML.Outputs.Data.Mode";
     t[55579] = "Mode";
     t[55588] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.StandardDeviationOfTheTime";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[59457] = "From";
     t[59462] = "LoadCalculator.PartOfLoadForTheCallcenter";
     t[59463] = "Part of the complete load for this call center";
-    t[59464] = "Statistic.Viewer.SaveImage.Error.Info";
-    t[59465] = "The entered image size is invalid. The image size has to be a positive integer.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59464] = "Statistic.Viewer.SaveImage.Error.Info";
+    t[59465] = "The entered image size is invalid. The image size has to be a positive integer.";
     t[59466] = "Editor.Breakpoints.NoBreakpoints.Info";
     t[59467] = "The are no breakpoints defined and the model also does not contain any pause animation station.";
     t[59468] = "Color.8FBC8F";

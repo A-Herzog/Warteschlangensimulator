@@ -22556,6 +22556,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[55559] = "Die an Station id=%d angegebene Intervalldauer %d ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
     t[55560] = "Resources.Group.EditName.Dialog.ErrorName";
     t[55561] = "Bedienergruppenname ung\u00fcltig";
+    t[55572] = "Surface.HoldMulti.Dialog.NoOutgoingEdges";
+    t[55573] = "Die Station besitzt keine auslaufenden Kanten f\u00fcr die Bedingungen definiert werden k\u00f6nnten.";
     t[55578] = "ParameterCompare.XML.Outputs.Data.Mode";
     t[55579] = "Modus";
     t[55588] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesAtStations.StandardDeviationOfTheTime";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[59457] = "Von";
     t[59462] = "LoadCalculator.PartOfLoadForTheCallcenter";
     t[59463] = "Lastanteil des Callcenters";
-    t[59464] = "Statistic.Viewer.SaveImage.Error.Info";
-    t[59465] = "Die angegebene Bildgr\u00f6\u00dfe ist ung\u00fcltig. Die Gr\u00f6\u00dfe muss eine nat\u00fcrliche Zahl sein.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59464] = "Statistic.Viewer.SaveImage.Error.Info";
+    t[59465] = "Die angegebene Bildgr\u00f6\u00dfe ist ung\u00fcltig. Die Gr\u00f6\u00dfe muss eine nat\u00fcrliche Zahl sein.";
     t[59466] = "Editor.Breakpoints.NoBreakpoints.Info";
     t[59467] = "Es sind momentan keine Haltepunkte definiert und das Modell besitzt auch keine Animation-pausieren-Stationen.";
     t[59468] = "Color.8FBC8F";

@@ -255,6 +255,7 @@ public class BaseDialog extends JDialog {
 		final int x=getWidth();
 		final int y=getHeight();
 		setSize(Math.min(xSize,x),Math.min(ySize,y));
+		setMaximumSize(new Dimension(xSize,ySize));
 	}
 
 	@Override

@@ -58,10 +58,23 @@ public class ModelElementStateStatisticsDialog extends ModelElementBaseDialog {
 		super(owner,Language.tr("Surface.StateStatistics.Dialog.Title"),element,"ModelElementStateStatistics",readOnly);
 	}
 
+	/**
+	 * Stellt die Größe des Dialogfensters ein.
+	 */
 	@Override
 	protected void setDialogSize() {
 		setMinSizeRespectingScreensize(600,0);
+		setMaxSizeRespectingScreensize(600,1000);
 		pack();
+	}
+
+	/**
+	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
+	 */
+	@Override
+	protected void setDialogSizeLater() {
+		setMaxSizeRespectingScreensize(600,1000);
+		setSize(getWidth(),getHeight()+(int)Math.round(50*windowScaling));
 	}
 
 	@Override
