@@ -263,7 +263,7 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 			simData.runData.logStationProcess(simData,this,client,0,0,delayTimeMS,delayTimeMS);
 			break;
 		case DELAY_TYPE_NOTHING:
-			simData.runData.logStationProcess(simData,this,client,0,0,0,delayTimeMS); /* nicht erfassen */
+			/* nicht erfassen */
 			break;
 		}
 	}

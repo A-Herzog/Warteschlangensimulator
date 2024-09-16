@@ -544,7 +544,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		case PROCESS_TYPE_WAITING: simData.runData.logStationProcess(simData,this,selected,residenceTimeMS,0,0,residenceTimeMS); break;
 		case PROCESS_TYPE_TRANSFER: simData.runData.logStationProcess(simData,this,selected,waitingTimeMS,setupTimeMS+processingTimeMS,0,residenceTimeMS); break;
 		case PROCESS_TYPE_PROCESS: simData.runData.logStationProcess(simData,this,selected,waitingTimeMS,0,setupTimeMS+processingTimeMS,residenceTimeMS); break;
-		case PROCESS_TYPE_NOTHING: simData.runData.logStationProcess(simData,this,selected,waitingTimeMS,0,0,residenceTimeMS); break; /* nicht erfassen */
+		case PROCESS_TYPE_NOTHING: /* nicht erfassen */ break;
 		}
 		switch (processTimeType) {
 		case PROCESS_TYPE_WAITING: selected.addStationTime(id,waitingTimeMS+setupTimeMS+processingTimeMS,0,0,waitingTimeMS+setupTimeMS+processingTimeMS); break;
@@ -674,7 +674,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 				case PROCESS_TYPE_WAITING: simData.runData.logStationProcess(simData,this,client,waitingTimeMS+processingTimeMS,0,0,residenceTimeMS); break;
 				case PROCESS_TYPE_TRANSFER: simData.runData.logStationProcess(simData,this,client,waitingTimeMS,processingTimeMS,0,residenceTimeMS); break;
 				case PROCESS_TYPE_PROCESS: simData.runData.logStationProcess(simData,this,client,waitingTimeMS,0,processingTimeMS,residenceTimeMS); break;
-				case PROCESS_TYPE_NOTHING: simData.runData.logStationProcess(simData,this,client,waitingTimeMS,0,0,residenceTimeMS); break; /* nicht erfassen */
+				case PROCESS_TYPE_NOTHING: /* nicht erfassen */ break;
 				}
 				switch (processTimeType) {
 				case PROCESS_TYPE_WAITING: client.addStationTime(id,waitingTimeMS+processingTimeMS,0,0,waitingTimeMS+processingTimeMS); break;
