@@ -22,6 +22,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 
 import tools.SetupData;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Speichert Objektformen zwischen, um Speicheranforderungen einzusparen.
@@ -142,7 +143,7 @@ public abstract class ShapeCache {
 	public synchronized void fill(final Graphics graphics, final Rectangle drawRect, final Rectangle objectRect, final Color fillColor, final double zoom) {
 		if (setup.useShadows) {
 			final int w=(int)Math.max(1,Math.round(Shapes.SHADOW_WIDTH*zoom));
-			graphics.setColor(Shapes.SHADOW_COLOR);
+			graphics.setColor(FlatLaFHelper.isDark()?Shapes.SHADOW_COLOR_DARK:Shapes.SHADOW_COLOR_LIGHT);
 			final Shape clip=graphics.getClip();
 			final Rectangle shadowRect=new Rectangle(objectRect.x+Shapes.SHADOW_DIRECTION_X*w,objectRect.y+Shapes.SHADOW_DIRECTION_Y*w,objectRect.width,objectRect.height);
 			clipper.set(graphics,drawRect,shadowRect);

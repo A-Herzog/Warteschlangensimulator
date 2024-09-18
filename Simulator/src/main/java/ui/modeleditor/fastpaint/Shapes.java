@@ -39,9 +39,14 @@ import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
  */
 public class Shapes {
 	/**
-	 * Farbe für Schatten
+	 * Farbe für Schatten im hellen Modus
 	 */
-	public static final Color SHADOW_COLOR=new Color(192,192,192,128);
+	public static final Color SHADOW_COLOR_LIGHT=new Color(192,192,192,128);
+
+	/**
+	 * Farbe für Schatten im dunklen Modus
+	 */
+	public static final Color SHADOW_COLOR_DARK=new Color(128,128,128,128);
 
 	/**
 	 * Schattenbreite
@@ -1257,7 +1262,7 @@ public class Shapes {
 			if (setup.useShadows) outputBuilder.addJSUserFunction("shadowRectangleInt",builder->getHTMLShadowRectangle(builder));
 			outputBuilder.addJSUserFunction("rectangleInt",builder->getHTMLRectangle());
 			outputBuilder.addJSUserFunction("rectanglePartialInt",builder->getHTMLRectanglePartial());
-			if (setup.useShadows) sb.append("  drawShadowRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  if (typeof(fillLevel)==\"undefined\" || fillLevel<0) {\n");
 			sb.append("    drawRectangleInt(rect,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			sb.append("  } else {\n");
@@ -1269,7 +1274,7 @@ public class Shapes {
 			outputBuilder.addJSUserFunction("rectangleInt",builder->getHTMLRectangle());
 			outputBuilder.addJSUserFunction("rectanglePartialInt",builder->getHTMLRectanglePartial());
 			outputBuilder.addJSUserFunction("doubleLine",builder->getHTMLDrawDoubleLine());
-			if (setup.useShadows) sb.append("  drawShadowRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  if (typeof(fillLevel)==\"undefined\" || fillLevel<0) {\n");
 			sb.append("    drawRectangleInt(rect,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			sb.append("  } else {\n");
@@ -1282,7 +1287,7 @@ public class Shapes {
 			outputBuilder.addJSUserFunction("rectangleInt",builder->getHTMLRectangle());
 			outputBuilder.addJSUserFunction("rectanglePartialInt",builder->getHTMLRectanglePartial());
 			outputBuilder.addJSUserFunction("text",builder->getHTMLDrawText());
-			if (setup.useShadows) sb.append("  drawShadowRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  if (typeof(fillLevel)==\"undefined\" || fillLevel<0) {\n");
 			sb.append("    drawRectangleInt(rect,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			sb.append("  } else {\n");
@@ -1295,7 +1300,7 @@ public class Shapes {
 			outputBuilder.addJSUserFunction("rectangleInt",builder->getHTMLRectangle());
 			outputBuilder.addJSUserFunction("rectanglePartialInt",builder->getHTMLRectanglePartial());
 			outputBuilder.addJSUserFunction("text",builder->getHTMLDrawText());
-			if (setup.useShadows) sb.append("  drawShadowRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  if (typeof(fillLevel)==\"undefined\" || fillLevel<0) {\n");
 			sb.append("    drawRectangleInt(rect,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			sb.append("  } else {\n");
@@ -1308,7 +1313,7 @@ public class Shapes {
 			outputBuilder.addJSUserFunction("rectangleInt",builder->getHTMLRectangle());
 			outputBuilder.addJSUserFunction("rectanglePartialInt",builder->getHTMLRectanglePartial());
 			outputBuilder.addJSUserFunction("text",builder->getHTMLDrawText());
-			if (setup.useShadows) sb.append("  drawShadowRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  if (typeof(fillLevel)==\"undefined\" || fillLevel<0) {\n");
 			sb.append("    drawRectangleInt(rect,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			sb.append("  } else {\n");
@@ -1321,14 +1326,14 @@ public class Shapes {
 		case SHAPE_ROUNDED_RECTANGLE_PAUSE:
 			if (setup.useShadows) outputBuilder.addJSUserFunction("shadowRoundedRectangleInt",builder->getHTMLShadowRoundedRectangle(builder));
 			outputBuilder.addJSUserFunction("roundedRectangleInt",builder->getHTMLRoundedRectangle());
-			if (setup.useShadows) sb.append("  drawShadowRoundedRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowRoundedRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  drawRoundedRectangleInt(rect,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			break;
 		case SHAPE_ROUNDED_RECTANGLE_123:
 			if (setup.useShadows) outputBuilder.addJSUserFunction("shadowRoundedRectangleInt",builder->getHTMLShadowRoundedRectangle(builder));
 			outputBuilder.addJSUserFunction("roundedRectangleInt",builder->getHTMLRoundedRectangle());
 			outputBuilder.addJSUserFunction("text",builder->getHTMLDrawText());
-			if (setup.useShadows) sb.append("  drawShadowRoundedRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowRoundedRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  drawRoundedRectangleInt(rect,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			sb.append("  drawTextUpperLeftCorner(rect,\"123\",0.1);\n");
 			break;
@@ -1336,7 +1341,7 @@ public class Shapes {
 			if (setup.useShadows) outputBuilder.addJSUserFunction("shadowRoundedRectangleInt",builder->getHTMLShadowRoundedRectangle(builder));
 			outputBuilder.addJSUserFunction("roundedRectangleInt",builder->getHTMLRoundedRectangle());
 			outputBuilder.addJSUserFunction("text",builder->getHTMLDrawText());
-			if (setup.useShadows) sb.append("  drawShadowRoundedRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowRoundedRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  drawRoundedRectangleInt(rect,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			sb.append("  drawTextUpperLeftCorner(rect,\"ABC\",0.1);\n");
 			break;
@@ -1344,7 +1349,7 @@ public class Shapes {
 			if (setup.useShadows) outputBuilder.addJSUserFunction("shadowRoundedRectangleInt",builder->getHTMLShadowRoundedRectangle(builder));
 			outputBuilder.addJSUserFunction("roundedRectangleInt",builder->getHTMLRoundedRectangle());
 			outputBuilder.addJSUserFunction("text",builder->getHTMLDrawText());
-			if (setup.useShadows) sb.append("  drawShadowRoundedRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowRoundedRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  drawRoundedRectangleInt(rect,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			sb.append("  drawTextUpperLeftCorner(rect,\"+/-\",0.1);\n");
 			break;
@@ -1354,7 +1359,7 @@ public class Shapes {
 			sb.append("  var w=Math.round(rect.w/10);\n");
 			sb.append("  var h=Math.round(rect.h/10);\n");
 			sb.append("  var polygon=[{x: rect.x+w, y: rect.y},{x: rect.x+rect.w-w, y: rect.y},{x: rect.x+rect.w, y: rect.y+h},{x: rect.x+rect.w, y: rect.y+rect.h-h},{x: rect.x+rect.w-w, y: rect.y+rect.h},{x: rect.x+w, y: rect.y+rect.h},{x: rect.x, y: rect.y+rect.h-h},{x: rect.x, y: rect.y+h}];\n");
-			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  drawPolygon(rect,polygon,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			break;
 		case SHAPE_OCTAGON_DOUBLE_LINE:
@@ -1364,7 +1369,7 @@ public class Shapes {
 			sb.append("  var w=Math.round(rect.w/10);\n");
 			sb.append("  var h=Math.round(rect.h/10);\n");
 			sb.append("  var polygon=[{x: rect.x+w, y: rect.y},{x: rect.x+rect.w-w, y: rect.y},{x: rect.x+rect.w, y: rect.y+h},{x: rect.x+rect.w, y: rect.y+rect.h-h},{x: rect.x+rect.w-w, y: rect.y+rect.h},{x: rect.x+w, y: rect.y+rect.h},{x: rect.x, y: rect.y+rect.h-h},{x: rect.x, y: rect.y+h}];\n");
-			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  drawPolygon(rect,polygon,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			sb.append("  drawDoubleLine(rect,borderColor,borderWidth,15);\n");
 			break;
@@ -1373,7 +1378,7 @@ public class Shapes {
 			outputBuilder.addJSUserFunction("polygon",builder->getHTMLPolygon());
 			sb.append("  var w=Math.round(rect.w/10);\n");
 			sb.append("  var polygon=[{x: rect.x+w, y: rect.y},{x: rect.x+rect.w, y: rect.y},{x: rect.x+rect.w, y: rect.y+rect.h},{x: rect.x+w, y: rect.y+rect.h},{x: rect.x, y: rect.y+Math.round(rect.h/2)}];\n");
-			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  drawPolygon(rect,polygon,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			break;
 		case SHAPE_ARROW_RIGHT:
@@ -1381,7 +1386,7 @@ public class Shapes {
 			outputBuilder.addJSUserFunction("polygon",builder->getHTMLPolygon());
 			sb.append("  var w=Math.round(rect.w/10);\n");
 			sb.append("  var polygon=[{x: rect.x, y: rect.y},{x: rect.x+rect.w-w, y: rect.y},{x: rect.x+rect.w, y: rect.y+Math.round(rect.h/2)},{x: rect.x+rect.w-w, y: rect.y+rect.h},{x: rect.x, y: rect.y+rect.h}];\n");
-			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  drawPolygon(rect,polygon,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			break;
 		case SHAPE_ARROW_RIGHT_DOUBLE:
@@ -1389,7 +1394,7 @@ public class Shapes {
 			outputBuilder.addJSUserFunction("polygon",builder->getHTMLPolygon());
 			sb.append("  var w=Math.round(rect.w/10);\n");
 			sb.append("  var polygon=[{x: rect.x,y: rect.y},{x: rect.x+rect.w-w,y: rect.y},{x: rect.x+rect.w,y: rect.y+Math.round(rect.h/2)},{x: rect.x+rect.w-w,y: rect.y+rect.h},{x: rect.x,y: rect.y+rect.h},{x: rect.x+w,y: rect.y+Math.round(rect.h/2)}];\n");
-			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  drawPolygon(rect,polygon,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			break;
 		case SHAPE_ARROW_LEFT_DOUBLE:
@@ -1397,7 +1402,7 @@ public class Shapes {
 			outputBuilder.addJSUserFunction("polygon",builder->getHTMLPolygon());
 			sb.append("  var w=Math.round(rect.w/10);\n");
 			sb.append("  var polygon=[{x: rect.x+w,y: rect.y},{x: rect.x+rect.w,y: rect.y},{x: rect.x+rect.w-w,y: rect.y+Math.round(rect.h/2)},{x: rect.x+rect.w,y: rect.y+rect.h},{x: rect.x+w,y: rect.y+rect.h},{x: rect.x,y: rect.y+Math.round(rect.h/2)}];\n");
-			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  drawPolygon(rect,polygon,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			break;
 		case SHAPE_WEDGE_ARROW_LEFT:
@@ -1405,7 +1410,7 @@ public class Shapes {
 			outputBuilder.addJSUserFunction("polygon",builder->getHTMLPolygon());
 			sb.append("  var h=Math.round(rect.h/5);\n");
 			sb.append("  var polygon=[{x: rect.x, y: rect.y+h},{x: rect.x+rect.w, y: rect.y},{x: rect.x+rect.w,y: rect.y+rect.h},{x: rect.x,y: rect.y+rect.h-h}];\n");
-			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  drawPolygon(rect,polygon,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			break;
 		case SHAPE_WEDGE_ARROW_RIGHT:
@@ -1413,7 +1418,7 @@ public class Shapes {
 			outputBuilder.addJSUserFunction("polygon",builder->getHTMLPolygon());
 			sb.append("  var h=Math.round(rect.h/5);\n");
 			sb.append("  var polygon=[{x: rect.x,y: rect.y},{x: rect.x+rect.w,y: rect.y+h},{x: rect.x+rect.w,y: rect.y+rect.h-h},{x: rect.x,y: rect.y+rect.h}];\n");
-			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  drawPolygon(rect,polygon,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			break;
 		case SHAPE_DOCUMENT:
@@ -1434,14 +1439,14 @@ public class Shapes {
 			sb.append("    {x: rect.x+Math.round(rect.w*1/10), y: rect.y+Math.round(rect.h*9/10+rect.h/10*Math.sin(2*Math.PI*1/10))},\n");
 			sb.append("    {x: rect.x, y: rect.y+Math.round(rect.h*9/10)}\n");
 			sb.append("];\n");
-			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowPolygon(rect,polygon,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  drawPolygon(rect,polygon,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			break;
 		case SHAPE_BUTTON:
 			if (setup.useShadows) outputBuilder.addJSUserFunction("shadowRectangleInt",builder->getHTMLShadowRectangle(builder));
 			outputBuilder.addJSUserFunction("rectangleInlineInt",builder->getHTMLRectangleInline());
 			outputBuilder.addJSUserFunction("rectangleInlinePartialInt",builder->getHTMLRectangleInlinePartial());
-			if (setup.useShadows) sb.append("  drawShadowRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR)+"\");\n");
+			if (setup.useShadows) sb.append("  drawShadowRectangleInt(rect,"+(SHADOW_WIDTH*SHADOW_DIRECTION_X)+","+(SHADOW_WIDTH*SHADOW_DIRECTION_Y)+",\""+HTMLOutputBuilder.colorToHTML(SHADOW_COLOR_LIGHT)+"\");\n");
 			sb.append("  if (typeof(fillLevel)==\"undefined\" || fillLevel<0) {\n");
 			sb.append("    drawRectangleInlineInt(rect,borderColor,borderWidth,fillColor1,fillColor2);\n");
 			sb.append("  } else {\n");
