@@ -318,7 +318,7 @@ public class QueueingCalculatorInputPanel {
 	 * Prüft, ob die Eingaben gültig sind und färbt das Eingabefeld entsprechend ein.
 	 * @return	Gibt <code>true</code> zurück, wenn die Eingaben gültig sind.
 	 * @see QueueingCalculatorInputPanel#getDouble()
-	 * {@link QueueingCalculatorInputPanel#getLong()}
+	 * @see #getLong()
 	 */
 	public boolean isValueOk() {
 		final boolean ok=isValueOkIntern();

@@ -23,7 +23,7 @@ import org.apache.commons.math3.special.Erf;
 
 /**
  * Klasse zur Abbildung der halben Normalverteilung<br>
- * <href a="https://mathworld.wolfram.com/Half-NormalDistribution.html">https://mathworld.wolfram.com/Half-NormalDistribution.html</a>
+ * <a href="https://mathworld.wolfram.com/Half-NormalDistribution.html">https://mathworld.wolfram.com/Half-NormalDistribution.html</a>
  * @author Alexander Herzog
  */
 public final class HalfNormalDistribution extends AbstractRealDistribution implements Cloneable {

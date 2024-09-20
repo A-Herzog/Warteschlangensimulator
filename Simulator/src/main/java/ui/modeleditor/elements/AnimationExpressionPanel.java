@@ -440,9 +440,24 @@ public class AnimationExpressionPanel extends JPanel {
 	 * @see AnimationExpressionPanel#addItem(AddItemData, String, String)
 	 */
 	private static class AddItemData {
-		/** Übergeordnetes Untermenü */
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public AddItemData() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
+		/**
+		 * Übergeordnetes Untermenü
+		 */
 		private JMenu popupMenuSection;
-		/** Callback für Klicks */
+
+		/**
+		 * Callback für Klicks
+		 */
 		private Consumer<String> setCommandCallback;
 	}
 

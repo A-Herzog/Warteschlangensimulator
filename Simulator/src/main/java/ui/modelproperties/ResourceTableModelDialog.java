@@ -178,8 +178,8 @@ public class ResourceTableModelDialog extends BaseDialog {
 	 * @param model	Vollständiges Editor-Modell (wird für den Expression-Builder benötigt)
 	 * @param surface	Haupt-Zeichenfläche (wird benötigt um zu vermitteln, wo eine Bedienergruppe im Einsatz ist, und für den Expression-Builder)
 	 * @param modelImages	Liste mit den Animations-Icons (zur Auswahl von einem für die Bedienergruppe)
-	 * @param showOkAndPrevious	Schaltfläche "Ok & Vorherige" anzeigen?
-	 * @param showOkAndNext	Schaltfläche "Ok & Nächste" anzeigen?
+	 * @param showOkAndPrevious	Schaltfläche "Ok &amp; Vorherige" anzeigen?
+	 * @param showOkAndNext	Schaltfläche "Ok &amp; Nächste" anzeigen?
 	 */
 	public ResourceTableModelDialog(final Component owner, final Runnable help, final String[] names, final ModelResource resource, final String[] scheduleNames, final EditModel model, final ModelSurface surface, final ModelAnimationImages modelImages, final boolean showOkAndPrevious, final boolean showOkAndNext) {
 		super(owner,Language.tr("Resources.Group.EditName.Dialog.Title"));

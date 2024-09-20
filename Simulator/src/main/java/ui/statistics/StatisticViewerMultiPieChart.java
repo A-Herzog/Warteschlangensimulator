@@ -86,6 +86,16 @@ public class StatisticViewerMultiPieChart extends StatisticViewerPieChartMulti {
 	 * Erstellung der Beschriftungen (Name+Prozentwert) für die Tortensegmente
 	 */
 	static class CustomLabelGenerator implements PieSectionLabelGenerator {
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public CustomLabelGenerator() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@SuppressWarnings({"rawtypes", "unchecked"})
 		@Override
 		public String generateSectionLabel(PieDataset dataset, Comparable key) {

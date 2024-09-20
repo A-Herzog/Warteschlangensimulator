@@ -57,6 +57,16 @@ public abstract class ModelGeneratorPanelBase extends JPanel {
 	private Set<Runnable> modelChangeListeners=new HashSet<>();
 
 	/**
+	 * Konstruktor der Klasse
+	 */
+	public ModelGeneratorPanelBase() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
+	/**
 	 * Registriert einen Listener, der benachrichtigt werden soll, wenn die Einstellungen verändert wurden.
 	 * @param modelChangeListener	Zu benachrichtigender Listener
 	 * @return	Gibt <code>true</code> zurück, wenn der Listener in die Liste neu aufgenommen wurde (und nicht bereits enthalten ist)
