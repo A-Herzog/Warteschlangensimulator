@@ -474,6 +474,15 @@ public final class EditorPanel extends EditorPanelBase {
 	private boolean infoLabelsDone=false;
 
 	/**
+	 * Erzwingt die Aktualisierung der Positionen der Info-Labels
+	 * auf der Zeichenfläche.
+	 */
+	public void updateInfoLabelPosition() {
+		setupInfoLabels(false);
+		repaint();
+	}
+
+	/**
 	 * Aktiviert oder deaktiviert die Info-Labels auf der Zeichenfläche.
 	 * @param turnOff	Info-Labels aktivieren (<code>false</code>) oder deaktivieren (<code>true</code>)
 	 */
