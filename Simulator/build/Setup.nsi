@@ -32,6 +32,8 @@ OutFile "..\..\Release\${SetupFileName}"
 ; Settings for NsisMultiUser
 !define PRODUCT_NAME "${PrgName}"
 !define PROGEXE "Simulator.exe"
+!define PROGBAT "Simulator.bat"
+!define PROGBATCLI "SimulatorCLI.bat"
 !define APP_NAME "${RegKey}"
 !define APP_NAME_DISPLAY "${PrgName}"
 !define COMPANY_NAME "${Copyright}"
@@ -101,10 +103,10 @@ Function ExecAppFile
   UserInfo::getAccountType
   Pop $0
   StrCmp $0 "Admin" ExecAdminMode
-  Exec "$INSTDIR\${PROGEXE}"
+  Exec "$INSTDIR\${PROGBAT}"
   Goto ExecDone
   ExecAdminMode:
-  !insertmacro UAC_AsUser_ExecShell "" "$INSTDIR\${PROGEXE}" "" "" ""
+  !insertmacro UAC_AsUser_ExecShell "" "$INSTDIR\${PROGBAT}" "" "" ""
   ExecDone:
 FunctionEnd
 
@@ -189,7 +191,6 @@ Section "Install" Inst
   File "..\..\Release\Simulator.exe"
   File "..\..\Release\Simulator.sh"
   File "..\..\Release\Simulator.bat"
-  File "..\..\Release\Splashscreen.png"
   File "..\..\Release\SimulatorCLI.bat"
   File "..\..\Release\JDBC.cfg"
   File "..\tools\JDDE\JavaDDEx64.dll"
@@ -209,6 +210,7 @@ Section "Install" Inst
   SetOutPath "$INSTDIR\libs"
   
   File /r "..\..\Release\libs\*.jar"
+  File /r "..\..\Release\libs\simulator.png"
   
   RmDir /r $INSTDIR\tools   ; On update: delete old tools folder (using other structure)
   
@@ -226,7 +228,8 @@ Section "Install" Inst
   
   SetOutPath "$INSTDIR" ; Otherwise the shortcut will have the dictionaries as working directory
   
-  CreateShortCut "$SMPROGRAMS\${PrgName}.lnk" "$INSTDIR\${PROGEXE}"
+  ; CreateShortCut "$SMPROGRAMS\${PrgName}.lnk" "$INSTDIR\${PROGEXE}"
+  CreateShortCut "$SMPROGRAMS\${PrgName}.lnk" "$INSTDIR\${PROGBAT}" "" "$INSTDIR\${PROGEXE}" 0 SW_SHOWMINIMIZED
   
   !insertmacro MULTIUSER_RegistryAddInstallInfo
   !insertmacro MULTIUSER_RegistryAddInstallSizeInfo
@@ -234,6 +237,9 @@ Section "Install" Inst
   ; Remove uninstaller reg keys from old installations
   SetShellVarContext current
   DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${RegKey}"
+  
+  ; Remove files from old installations
+  Delete "$INSTDIR\Simulator_Reset.exe"
   
   ; Remove failed update setup files
   Delete "$APPDATA\Temp\${SetupFileName}.part"
@@ -243,7 +249,7 @@ Section "Install" Inst
   UserInfo::getAccountType
   Pop $0
   StrCmp $0 "Admin" notSilent
-  Exec "$INSTDIR\${PROGEXE}"
+  Exec "$INSTDIR\${PROGBAT}"
   notSilent:
 SectionEnd
 
@@ -259,7 +265,7 @@ Section "un.Uninstall" uninst
 
   Delete "$INSTDIR\Simulator.sh"
   Delete "$INSTDIR\Simulator.bat"
-  Delete "$INSTDIR\Splashscreen.png"
+  Delete "$INSTDIR\Splashscreen.png" ; Not installed at this location anymore - but kept in uninstaller when uninstalling old releases
   Delete "$INSTDIR\SimulatorCLI.bat"
   Delete "$INSTDIR\Simulator.exe"
   Delete "$INSTDIR\Simulator.old"
@@ -314,7 +320,7 @@ Section /o "un.ResetConfig" reset
   call un.stopSimulator
   
   SetOutPath "$INSTDIR"
-  ExecWait "$INSTDIR\${PROGEXE} Reset"
+  ExecWait "$INSTDIR\${PROGBATCLI} Reset"
   
   SetAutoClose true
 SectionEnd
