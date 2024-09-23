@@ -80,7 +80,7 @@ public class QueueingCalculatorDialog extends BaseDialog {
 		content.setLayout(new BorderLayout());
 
 		final JScrollPane scroll=new JScrollPane(help=new JTextPane());
-		scroll.setPreferredSize(new Dimension(350,scroll.getPreferredSize().height));
+		scroll.setPreferredSize(new Dimension(600,scroll.getPreferredSize().height));
 		content.add(scroll,BorderLayout.EAST);
 		help.setEditable(false);
 
@@ -91,7 +91,7 @@ public class QueueingCalculatorDialog extends BaseDialog {
 
 		pack();
 		final Dimension size=getSize();
-		size.width=Math.max(size.width,525);
+		size.width=Math.max(size.width,1000);
 		size.height+=50;
 		setSize(size);
 		setLocationRelativeTo(this.owner);
