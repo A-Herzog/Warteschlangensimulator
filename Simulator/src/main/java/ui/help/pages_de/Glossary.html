@@ -191,6 +191,27 @@ In der <a href="MainStatistik.html">Statistikansicht</a> werden die Bedienzeiten
 Siehe auch Abschnitt <a href="book:3.2.1">Grundmodell der Warteschlangentheorie</a> im Lehrbuch.
 </p>
 
+<h2>(Umlauf-)Bestand</h2>
+
+<p>
+Der Bestand, auch als Umlaufbestand oder als Workunits in process (WIP) bezeichnet,
+gibt an, wie viele Kunden bzw. Werkstücke sich insgesamt im System befinden. Dies umfasst
+also sowohl die wartenden als auch die in Bedienung befindlichen Werkstücke.
+In der analytischen <a href="QueueingCalculator.html">Warteschlangentheorie</a> wird der
+Bestand meist mit N bezeichnet. Der mittlere Bestand wird dann mit E[N] beschrieben.
+</p>
+
+<h2>Divergierende Fertigung</h2>
+
+<p>
+Erfolgt die Produktion eines gemeinsamen Vorprodukts auf einer zentralen Fertigungslinie
+und teilt sich diese später in Einzellinien für die verschiedenen Produkte auf, so spricht
+man von einer divergierenden Fertigung. Divergierende Fertigungen sind aus
+warteschlangentheoretischer Sicht gut beherrschbar: An dem Punkt, an dem die Ausdifferenzierung erfolgt, beginnen neue
+Teilsystem mit jeweils einem eigenständigen Ankunftsstrom. Die Teilsysteme können unabhängig
+voneinander analysiert und optimiert werden.
+</p>
+
 <h2>Durchlaufzeit</h2>
 
 <p>
@@ -240,6 +261,17 @@ berechnet werden.
 
 <p class="bookinfosmall">
 Siehe auch Abschnitt <a href="book:3.4.3">M/M/c-System</a> im Lehrbuch.
+</p>
+
+<h2>Experimentierfähigkeit</h2>
+
+<p>
+Ein Modell wird als experimentierfähig bezeichnet, wenn damit nicht nur der Ist-Zustand eines
+realen Systems nachgestellt werden kann, sondern auch Was-wäre-wenn-Fragen zu bislang in der Realität
+noch nicht aufgetretenen Szenarien untersucht  werden können. Während ein Modell zur Nachstellung
+früherer Ist-Zustände mit historischen Detaildaten parametrisiert werden kann, ist
+dies für ein experimentierfähiges Modell nicht zielführend. Hier muss ganz bewusst abstrahiert
+werden, um globale Änderungen an dem Modell vornehmen zu können.
 </p>
 
 <h2>Exzess (Wölbung)</h2>
@@ -321,7 +353,7 @@ erhöhten Streuung der Wartezeiten verglichen mit einer über alle Kundentypen w
 Zur Beschreibung der Eigenschaften von Warteschlangenmodellen wurde 1953 die Kendall-Notation eingeführt.
 Diese beschreibt die Verteilungsfunktionen der Zwischenankunftszeiten und der Bedienzeiten, der Anzahl an
 Bedienern, der Systemgröße sowie optional weiterer Eigenschaften. Der Ausdruck M/M/c steht z.B. für ein
-Bediensystem mit jeweils exponentiell vertteilten Zwischenankunfts- und Bedienzeiten ("M") und c Bedienern.
+Bediensystem mit jeweils exponentiell verteilten Zwischenankunfts- und Bedienzeiten ("M") und c Bedienern.
 Weitere übliche Bezeichnungen statt "M" sind "G" für allgemeine Verteilungen und "D" für deterministische
 Zeitdauern. Ist nur ein Bediener im System vorhanden, so wird eine "1" statt des "c" geschrieben. Bei einer
 begrentzen Systemgröße wird nach der Anzahl an Bedienern diese getrennt durch einen weiteren Schrägstrich
@@ -362,13 +394,32 @@ Konfidenzintervall aus oder wiederum desto mehr Messwerte sind erforderlich.
 Siehe auch Seite <a href="statistik_konfidenzintervall.html">Konfidenzintervalle</a> in der Hilfe.
 </p>
 
+
+
+<h2>Konvergierende Fertigung</h2>
+
+<p>
+Werden mehrere Vorprodukte auf eigenen Fertigungslinien hergestellt und dann an einer Station
+zusammengeführt, so spricht man von einer konvergierenden Fertigung. Konvergierende Fertigungen
+sind aus warteschlangentheoretischer Sicht äußerst anspruchsvoll: Erfolgt keine Steuerung der
+zusammenlaufenden Stränge, so kommt es - selbst wenn beide Stränge im Mittel gleich viele
+Komponenten pro Zeiteinheit liefern können - an der Station, an der die Zusammenführung erfolgt,
+immer zu sehr langen Warteschlangen. Eine konvergierende Fertigung setzt
+(wenn diese längere Zeit ohne regelmäßige Stillstände wie Wochenenden) immer eine Steuerung z.B.
+in Form einer Pull-Produktion voraus.
+</p>
+
+
+
 <h2>Kunden im System</h2>
 
 <p>
 Die Anzahl an Kunden im System gibt an, wie viele Kunden sich insgesamt in dem Warteschlangenmodell
 befinden. Die umfasst die Kunden, die momentan bedient werden, und die Kunden, die momentan warten.
+Der Bestand ist ein Synonym für die Anzahl an Kunden im System. 
 In der analytischen <a href="QueueingCalculator.html">Warteschlangentheorie</a> wird die
-Anzahl an Kunden im System meist mit N bezeichnet.
+Anzahl an Kunden im System meist mit N bezeichnet. Die mittlere Anzahl an Kunden im System
+wird dann mit E[N] beschrieben.
 </p>
 
 <p class="bookinfosmall">
@@ -389,6 +440,17 @@ beliebige weitere Strategien abgebildet werden.
 
 <p class="bookinfosmall">
 Siehe auch Abschnitt <a href="book:7.4">Prioritäten</a> im Lehrbuch.
+</p>
+
+<h2>Longest job first</h2>
+
+<p>
+Ist diese Priorisierung gewählt, so werden Kunden mit langen Bediendauern bevorzugt bedient.
+Kunden, deren Bedienung nur wenig Zeit in Anspruch nehmen wird, müssen entsprechend länger warten.
+Die Priorisierung nach langer Bediendauer führt zu (im Vergleich zu einer FIFO-Priorisierung)
+längeren mittleren Wartezeiten über alle Kunden und erhöht außerdem die Streuung der Wartezeiten
+erheblich. Voraussetzung für die Anwendung dieser Priorisierung ist es, dass die Bediendauern
+der Kunden bereits zu dem Zeitpunkt, an dem sich die Kunden an die Warteschlange anstellen, bekannt sind.
 </p>
 
 <h2>Median</h2>
@@ -421,6 +483,20 @@ dividiert wird.
 
 <p class="bookinfosmall">
 Siehe auch Seite <a href="statistik_mittelwert.html">Mittelwert</a> in der Hilfe.
+</p>
+
+<h2>Nacharbeit</h2>
+
+<p>
+Erfüllt ein Produkt am Ende eines Produktionsprozesses nicht die Qualitätsanforderungen,
+so wird es in vielen Fällen (wenn dies technisch möglich ist und das Produkt nicht notwendig
+sofort zu Ausschuss wird) zur Nacharbeit erneut in die Produktion geleitet. Je nach Komplexität
+des Produktes und des Fertigungsprozesses kann diese Nacharbeit auf separaten, nur dafür
+vorgesehenen Anlagen erfolgen oder aber direkt innerhalb des regulären Produktionsprozesses.
+Erfolgt die Nacharbeit an denselben Bedienstationen, die auch zur regulären Fertigung eingesetzt
+werden, so erhöht die Nacharbeit die Auslastung an diesen Stationen. Daher muss der  Anteil an
+Werkstücken, der im Mittel einer Nacharbeit bedarf, bei der Planung der Kapazität des
+Produktionsprozesses berücksichtigt werden.
 </p>
 
 <h2>Nachbearbeitungszeit</h2>
@@ -542,6 +618,26 @@ Messreihen mit einer Schiefe größer als 0 als <b>rechtsschief</b>.
 
 <p class="bookinfosmall">
 Siehe auch Seite <a href="statistik_Sk.html">Schiefe</a> in der Hilfe.
+</p>
+
+<h2>Service-Level</h2>
+
+<p>
+Der Service-Level ist eine zur mittleren Wartezeit alternative Methode der Erfassung der Wartezeiten,
+die besonders im Kundenserviceumfeld verwendet wird. Der Service-Level gibt den Anteil der Kunden,
+der höchstens eine vorab festgelegte Zeitdauer warten musste, an.
+</p>
+
+<h2>Shortest job first</h2>
+
+<p>
+Ist diese Priorisierung gewählt, so werden Kunden mit kurzen Bediendauern bevorzugt bedient.
+Kunden, deren Bedienung länger dauern wird, müssen entsprechend länger warten.
+Die Priorisierung nach kurzer Bediendauer führt zu kürzeren mittleren Wartezeiten über alle Kunden,
+erhöht allerdings die Streuung der Wartezeiten erheblich.
+Voraussetzung für die Anwendung dieser Priorisierung ist es,
+dass die Bediendauern der Kunden bereits zu dem Zeitpunkt,
+an dem sich die Kunden an die Warteschlange anstellen, bekannt sind.
 </p>
 
 <h2>SIRO</h2>

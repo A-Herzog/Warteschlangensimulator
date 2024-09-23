@@ -151,6 +151,29 @@ associated confidence interval will be or, again, the more measured values will 
 See also <a href="statistik_konfidenzintervall.html">Confidence intervals</a> page in the help.
 </p>
 
+<h2>Converging production</h2>
+
+<p>
+If several preliminary products are manufactured on separate production lines and
+then brought together at one station, this is referred to as converging production.
+Converging production is extremely demanding from a queueing theory perspective:
+If the converging lines are not controlled, there will always be very long queues
+at the station where the merging takes place - even if both lines can deliver the
+same number of components per time unit on average. Converging production always
+requires a control system, e.g. in the form of pull production
+(if this takes place over a longer period of time without regular downtimes such as weekends).
+</p>
+
+<h2>Diverging production</h2>
+
+<p>
+If the production of a common preliminary product takes place on a central production line
+and this is later divided into individual lines for the different products, this is referred
+to as diverging production. Diverging production is easily manageable from a queueing theory
+perspective: At the point where divergence occurs, new subsystems begin, each with its own
+independent arrival stream. The subsystems can be analyzed and optimized independently of each other.
+</p>
+
 <h2>Economy of scale</h2>
 
 <p>
@@ -165,6 +188,16 @@ caused by stochastic inter-arrival and service times can be better balanced out 
 <p>
 With the help of the Erlang B and Erlang C formulas, simple queueing models can be calculated exactly.
 In the <a href="QueueingCalculator.html">queueing calculator</a> the values of these formulas can be calculated directly.
+</p>
+
+<h2>Experimentation ability</h2>
+
+<p>
+A model is said to be experimental if it can be used not only to simulate the actual state of a real system,
+but also to investigate what-if questions about scenarios that have not yet occurred in reality.
+While a model for simulating previous actual states can be parameterized with historical detailed data,
+this is not effective for an experimental model. A deliberate abstraction has to be made in order
+to be able to make global changes to the model.
 </p>
 
 <h2>Excess kurtosis</h2>
@@ -247,6 +280,17 @@ placed and from which is also drawn from above. While the queueing discipline ha
 average waiting time, the variation of the waiting times changes depending on the chosen queueing discipline.
 LIFO leads to a maximum variance in this case. In addition to the classic queueing disciplines
 FIFO and LIFO, any other strategies can be mapped via a formula-based prioritization of the customers.
+</p>
+
+<h2>Longest job first</h2>
+
+<p>
+If this prioritization is selected, clients with long service times will be served first.
+Clients whose service will be short will have to wait longer. Prioritization by long
+service times leads to longer average waiting times for all clients (compared to the
+FIFO order) and also significantly increases the variation of the waiting times.
+A prerequisite for the application of this prioritization is that the service times
+of the clients are already known at the time when the clients join the queue.
 </p>
 
 <h2>Median</h2>
@@ -371,6 +415,27 @@ increase the load even further. These effects can be observed especially in syst
 where people are served (such as in call centers).
 </p>
 
+<h2>Rework</h2>
+
+<p>
+If a product does not meet the quality requirements at the end of a production process, in many cases
+(if this is technically possible and the product does not necessarily become a reject immediately)
+it is returned to production for reworking. Depending on the complexity of the product and the production
+process, this reworking can take place on separate, dedicated systems or directly within the regular
+production process. If the rework is done at the same process stations that are also used for regular
+production, the rework increases the capacity utilization at these stations. Therefore, the proportion
+of workpieces that require reworking on average must be taken into account when planning the capacity
+of the production process.
+</p>
+
+<h2>Service level</h2>
+
+<p>
+The service level is an alternative method of recording waiting times to the average waiting time,
+which is used particularly in the customer service environment. The service level indicates
+the proportion of customers who had to wait for no more than a predetermined period of time.
+</p>
+
 <h2>Service rate</h2>
 
 <p>
@@ -400,6 +465,17 @@ In the <a href="MainStatistik.html">statistics view</a>, the service times are d
 Setup times can occur at <a href="ModelElementProcess.html">process stations</a> if the station
 has to be reconfigured as such when changing from one client type to another.
 The setup time is upstream of the respective service time of a client.
+</p>
+
+<h2>Shortest job first</h2>
+
+<p>
+If this prioritization is selected, clients with short service times will be served first.
+Clients whose service will take longer will have to wait longer. Prioritization by
+short service times leads to shorter average waiting times for all clients, but significantly
+increases the variation of the waiting times. A prerequisite for the application of this
+prioritization is that the service times of the clients are already known at the time
+when the clients join the queue.
 </p>
 
 <h2>SIRO</h2>
@@ -503,6 +579,15 @@ you can set how long this warm-up phase should be.
 The workload is the quotient of the arrival rate and the service rate. Rounding up the calculated workload
 to the nearest integer gives the minimum number of operators required. The workload is denoted
 in <a href="QueueingCalculator.html">queueing theory</a> by a.
+</p>
+
+<h2>Workunits in process</h2>
+
+<p>
+The number of workunits in process (WIP) indicates the total number of customers or workpieces in the system.
+This therefore includes both waiting workpieces and workpieces in process.
+In queueing theory, the number of workunits in process is usually designated by the letter N.
+The average number of workunits in process is then described as E[N].
 </p>
 
 </body>

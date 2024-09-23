@@ -111,6 +111,25 @@ wie lange der Prozess der Bedienung eines Kunden (oder im Fall von Batch-Bedienu
 durch einen Bediener dauern soll.
 In der Statistikansicht werden die Bedienzeiten mit \textbf{S} bezeichnet.
 
+\section*{(Umlauf-)Bestand}
+
+
+Der Bestand, auch als Umlaufbestand oder als Workunits in process (WIP) bezeichnet,
+gibt an, wie viele Kunden bzw. Werkstücke sich insgesamt im System befinden. Dies umfasst
+also sowohl die wartenden als auch die in Bedienung befindlichen Werkstücke.
+In der analytischen Warteschlangentheorie wird der
+Bestand meist mit N bezeichnet. Der mittlere Bestand wird dann mit E[N] beschrieben.
+
+\section*{Divergierende Fertigung}
+
+
+Erfolgt die Produktion eines gemeinsamen Vorprodukts auf einer zentralen Fertigungslinie
+und teilt sich diese später in Einzellinien für die verschiedenen Produkte auf, so spricht
+man von einer divergierenden Fertigung. Divergierende Fertigungen sind aus
+warteschlangentheoretischer Sicht gut beherrschbar: An dem Punkt, an dem die Ausdifferenzierung erfolgt, beginnen neue
+Teilsystem mit jeweils einem eigenständigen Ankunftsstrom. Die Teilsysteme können unabhängig
+voneinander analysiert und optimiert werden.
+
 \section*{Durchlaufzeit}
 
 
@@ -141,6 +160,16 @@ Einschwingphase sein soll.
 Mit Hilfe der Erlang-B- und Erlang-C-Formeln lassen sich einfache Warteschlangenmodelle exakt berechnen.
 Im Warteschlangenrechner könne die Werte dieser Formeln direkt
 berechnet werden.
+
+\section*{Experimentierfähigkeit}
+
+
+Ein Modell wird als experimentierfähig bezeichnet, wenn damit nicht nur der Ist-Zustand eines
+realen Systems nachgestellt werden kann, sondern auch Was-wäre-wenn-Fragen zu bislang in der Realität
+noch nicht aufgetretenen Szenarien untersucht  werden können. Während ein Modell zur Nachstellung
+früherer Ist-Zustände mit historischen Detaildaten parametrisiert werden kann, ist
+dies für ein experimentierfähiges Modell nicht zielführend. Hier muss ganz bewusst abstrahiert
+werden, um globale Änderungen an dem Modell vornehmen zu können.
 
 \section*{Exzess (Wölbung)}
 
@@ -233,13 +262,27 @@ dass der tatsächliche Mittelwert in dem Intervall liegt (auch Konfidenzniveau g
 Je höher das Konfidenzniveau gewählt wird, desto größer fällt das zugehörige
 Konfidenzintervall aus oder wiederum desto mehr Messwerte sind erforderlich.
 
+\section*{Konvergierende Fertigung}
+
+
+Werden mehrere Vorprodukte auf eigenen Fertigungslinien hergestellt und dann an einer Station
+zusammengeführt, so spricht man von einer konvergierenden Fertigung. Konvergierende Fertigungen
+sind aus warteschlangentheoretischer Sicht äußerst anspruchsvoll: Erfolgt keine Steuerung der
+zusammenlaufenden Stränge, so kommt es - selbst wenn beide Stränge im Mittel gleich viele
+Komponenten pro Zeiteinheit liefern können - an der Station, an der die Zusammenführung erfolgt,
+immer zu sehr langen Warteschlangen. Eine konvergierende Fertigung setzt
+(wenn diese längere Zeit ohne regelmäßige Stillstände wie Wochenenden) immer eine Steuerung z.B.
+in Form einer Pull-Produktion voraus.
+
 \section*{Kunden im System}
 
 
 Die Anzahl an Kunden im System gibt an, wie viele Kunden sich insgesamt in dem Warteschlangenmodell
 befinden. Die umfasst die Kunden, die momentan bedient werden, und die Kunden, die momentan warten.
+Der Bestand ist ein Synonym für die Anzahl an Kunden im System.
 In der analytischen Warteschlangentheorie wird die
-Anzahl an Kunden im System meist mit N bezeichnet.
+Anzahl an Kunden im System meist mit N bezeichnet. Die mittlere Anzahl an Kunden im System
+wird dann mit E[N] beschrieben.
 
 \section*{LIFO (LCFS)}
 
@@ -251,6 +294,16 @@ Während die Bedienreihenfolge keine Auswirkungen auf die mittlere Wartezeit bes
 die Streuung der Wartezeiten je nach gewählter Bedienreihenfolge. LIFO führt dabei zu einer maximalen Streuung.
 Über eine formelbasierte Priorisierung der Kunden können neben den klassischen Bedienfolgen FIFO und LIFO auch
 beliebige weitere Strategien abgebildet werden.
+
+\section*{Longest job first}
+
+
+Ist diese Priorisierung gewählt, so werden Kunden mit langen Bediendauern bevorzugt bedient.
+Kunden, deren Bedienung nur wenig Zeit in Anspruch nehmen wird, müssen entsprechend länger warten.
+Die Priorisierung nach langer Bediendauer führt zu (im Vergleich zu einer FIFO-Priorisierung)
+längeren mittleren Wartezeiten über alle Kunden und erhöht außerdem die Streuung der Wartezeiten
+erheblich. Voraussetzung für die Anwendung dieser Priorisierung ist es, dass die Bediendauern
+der Kunden bereits zu dem Zeitpunkt, an dem sich die Kunden an die Warteschlange anstellen, bekannt sind.
 
 \section*{Median}
 
@@ -273,6 +326,19 @@ Der Mittelwert ist die am häufigsten verwendete statistische Kenngröße.
 Er gibt den Durchschnitt der betrachteten Werte an und wird gebildet, in
 dem alle Messwerte aufsummiert werden und durch die Anzahl der Werte
 dividiert wird.
+
+\section*{Nacharbeit}
+
+
+Erfüllt ein Produkt am Ende eines Produktionsprozesses nicht die Qualitätsanforderungen,
+so wird es in vielen Fällen (wenn dies technisch möglich ist und das Produkt nicht notwendig
+sofort zu Ausschuss wird) zur Nacharbeit erneut in die Produktion geleitet. Je nach Komplexität
+des Produktes und des Fertigungsprozesses kann diese Nacharbeit auf separaten, nur dafür
+vorgesehenen Anlagen erfolgen oder aber direkt innerhalb des regulären Produktionsprozesses.
+Erfolgt die Nacharbeit an denselben Bedienstationen, die auch zur regulären Fertigung eingesetzt
+werden, so erhöht die Nacharbeit die Auslastung an diesen Stationen. Daher muss der  Anteil an
+Werkstücken, der im Mittel einer Nacharbeit bedarf, bei der Planung der Kapazität des
+Produktionsprozesses berücksichtigt werden.
 
 \section*{Nachbearbeitungszeit}
 
@@ -348,6 +414,24 @@ Die Schiefe ist ein Maß für die Asymmetrie einer Messreihe.
 Eine Schiefe von 0 bedeutet, dass die Wahrscheinlichkeitsverteilung bzw. die Messreihe symmetrisch ist.
 Messreihen mit einer Schiefe kleiner als 0 werden als \textbf{linksschief} bezeichnet,
 Messreihen mit einer Schiefe größer als 0 als \textbf{rechtsschief}.
+
+\section*{Service-Level}
+
+
+Der Service-Level ist eine zur mittleren Wartezeit alternative Methode der Erfassung der Wartezeiten,
+die besonders im Kundenserviceumfeld verwendet wird. Der Service-Level gibt den Anteil der Kunden,
+der höchstens eine vorab festgelegte Zeitdauer warten musste, an.
+
+\section*{Shortest job first}
+
+
+Ist diese Priorisierung gewählt, so werden Kunden mit kurzen Bediendauern bevorzugt bedient.
+Kunden, deren Bedienung länger dauern wird, müssen entsprechend länger warten.
+Die Priorisierung nach kurzer Bediendauer führt zu kürzeren mittleren Wartezeiten über alle Kunden,
+erhöht allerdings die Streuung der Wartezeiten erheblich.
+Voraussetzung für die Anwendung dieser Priorisierung ist es,
+dass die Bediendauern der Kunden bereits zu dem Zeitpunkt,
+an dem sich die Kunden an die Warteschlange anstellen, bekannt sind.
 
 \section*{SIRO}
 
