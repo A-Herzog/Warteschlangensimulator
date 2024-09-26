@@ -34,7 +34,7 @@ import parser.MathCalcError;
  * Enthält einige statische Routinen zur Umwandlung von Zeichenketten in Zahlen
  * und umgekehrt.
  * @author Alexander Herzog
- * @version 2.7
+ * @version 2.8
  */
 public final class NumberTools {
 	/** String, der "0" enthält (um diesen nicht mehrfach anlegen zu müssen) */
@@ -1214,17 +1214,26 @@ public final class NumberTools {
 
 		boolean isPlain=true;
 		boolean hasDecimal=false;
+		boolean needDecialReplace=false;
 		final int len=s.length();
 		for (int i=0;i<len;i++) {
 			final char c=s.charAt(i);
 			if (c>='0' && c<='9') continue;
 			if (c=='-' && i>0) {isPlain=false; break;}
-			if ((c=='.' || c==',') && !hasDecimal) hasDecimal=true; else {isPlain=false; break;}
+			if ((c=='.' || c==',') && !hasDecimal) {
+				hasDecimal=true;
+				if (c==',') needDecialReplace=true;
+			}
+			else {isPlain=false; break;}
 		}
 		if (isPlain) {
 			if (hasDecimal) {
 				try {
-					return fastBoxedValue(Double.parseDouble(s));
+					if (needDecialReplace) {
+						return fastBoxedValue(Double.parseDouble(s.replace(',','.')));
+					} else {
+						return fastBoxedValue(Double.parseDouble(s));
+					}
 				} catch (NumberFormatException e) {/* bei zu großen Zahlen: Fallback auf Double-Parser, der kommt damit klar */}
 			} else {
 				try {
