@@ -22,19 +22,19 @@
   	<dependency>
     		<groupId>org.jfree</groupId>
     		<artifactId>jfreechart</artifactId>
-    		<version>1.5.4</version>
+    		<version>1.5.5</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
 	<dependency>
     		<groupId>org.apache.pdfbox</groupId>
     		<artifactId>pdfbox</artifactId>
-    		<version>3.0.2</version>
+    		<version>3.0.3</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.pdfbox/xmpbox -->
 	<dependency>
     		<groupId>org.apache.pdfbox</groupId>
     		<artifactId>xmpbox</artifactId>
-    		<version>3.0.2</version>
+    		<version>3.0.3</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.oxbow/swingbits -->
 	<dependency>
@@ -46,7 +46,7 @@
 	<dependency>
 		<groupId>org.slf4j</groupId>
 		<artifactId>slf4j-nop</artifactId>
-		<version>2.0.12</version>
+		<version>2.0.16</version>
 	</dependency>
   </dependencies>
 

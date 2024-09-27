@@ -27,7 +27,7 @@
 	<dependency>
     		<groupId>org.xerial</groupId>
     		<artifactId>sqlite-jdbc</artifactId>
-    		<version>3.45.2.0</version>
+    		<version>3.46.1.0</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
 	<dependency>
@@ -39,13 +39,13 @@
 	<dependency>
     		<groupId>commons-io</groupId>
     		<artifactId>commons-io</artifactId>
-    		<version>2.15.1</version>
+    		<version>2.16.1</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
 	<dependency>
     		<groupId>org.apache.poi</groupId>
     		<artifactId>poi</artifactId>
-    		<version>5.2.5</version>
+    		<version>5.3.0</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
 	<dependency>
@@ -63,20 +63,20 @@
 	<dependency>
     		<groupId>org.apache.logging.log4j</groupId>
     		<artifactId>log4j-core</artifactId>
-    		<version>2.21.1</version>
+    		<version>2.23.1</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
 	<dependency>
     		<groupId>org.junit.jupiter</groupId>
     		<artifactId>junit-jupiter-api</artifactId>
-    		<version>5.10.2</version>
+    		<version>5.11.0</version>
     		<scope>test</scope>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.10.2</version>
+        <version>5.11.0</version>
         <scope>test</scope>
     </dependency>   
     <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
@@ -84,7 +84,7 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>2.0.12</version>
+      <version>2.0.16</version>
       <scope>test</scope>
     </dependency>
     -->
@@ -92,13 +92,13 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>2.0.12</version>
+      <version>2.0.16</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-nop -->
 	<dependency>
 		<groupId>org.slf4j</groupId>
 		<artifactId>slf4j-nop</artifactId>
-		<version>2.0.12</version>
+		<version>2.0.16</version>
 	</dependency>    
 	<!-- https://mvnrepository.com/artifact/org.odftoolkit/simple-odf -->
 	<dependency>
@@ -123,7 +123,7 @@
 	<dependency>
     		<groupId>org.apache.jena</groupId>
     		<artifactId>jena-core</artifactId>
-    		<version>4.10.0</version>
+    		<version>5.1.0</version>
 	</dependency>
   </dependencies>
   
