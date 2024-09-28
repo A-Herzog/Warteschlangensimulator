@@ -186,7 +186,7 @@ public class EditModelExamples {
 	 * Instanz dieses Singleton
 	 * @see #getInstance()
 	 */
-	private static EditModelExamples instance;
+	private static volatile EditModelExamples instance;
 
 	/**
 	 * Liste mit den Beispielen.
@@ -769,10 +769,13 @@ public class EditModelExamples {
 			if (searchString!=null && !searchString.isBlank()) {
 				final String searchLower=searchString.toLowerCase();
 				boolean searchOk=false;
-				final EditModel model=getModel(null,false);
-				if (model!=null) {
-					searchOk=searchOk || model.name.toLowerCase().contains(searchLower);
-					searchOk=searchOk || model.description.toLowerCase().contains(searchLower);
+				for (var name: names) if (name.toLowerCase().contains(searchLower)) {searchOk=true; break;}
+				if (!searchOk) {
+					final EditModel model=getModel(null,false);
+					if (model!=null) {
+						searchOk=searchOk || model.name.toLowerCase().contains(searchLower);
+						searchOk=searchOk || model.description.toLowerCase().contains(searchLower);
+					}
 				}
 				if (!searchOk) {
 					final String info=getInfo();
