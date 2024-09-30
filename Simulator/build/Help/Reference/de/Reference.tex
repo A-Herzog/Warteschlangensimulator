@@ -195,6 +195,13 @@ Die tatsächliche erste Ankunft erfolgt dann zum Zeitpunkt Startzeitpunkt+Zwisch
 die Option \textbf{Erste Ankunft zum Zeitpunkt 0} kann eingestellt werden, dass bereits direkt zum
 Startzeitpunkt die erste Ankunft erfolgen soll.
 
+\subsubsection*{Zusätzliche Bedingung}
+
+Wird auf dieser Seite eine Bedingung definiert, so, so erfolgen Ankünfte nur, wenn diese Bedingung
+zu dem Zeitpunkt, zu dem die Ankunft erfolgen soll, erfüllt ist.
+Das System zur Bestimmung der Ankunftszeitpunkte selbst arbeitet dabei unabhängig von dieser Bedingung.
+Lediglich die konkrete Ausführung der Kundenankünfte wird unterdrückt, wenn die angegebene Bedingung nicht erfüllt ist.
+
 \subsubsection*{Zuweisung von Kundenvariablen}
 
 Auf dieser Registerkarte können Kundenvariablen vom Typ \texttt{ClientData(nr)} eingetragen werden,
@@ -304,6 +311,13 @@ oder einen Rechenausdruck) beginnt im Normalfall die erste Zwischenankunftszeit 
 Die tatsächliche erste Ankunft erfolgt dann zum Zeitpunkt Startzeitpunkt+Zwischenankunftszeit. Über
 die Option \textbf{Erste Ankunft zum Zeitpunkt 0} kann eingestellt werden, dass bereits direkt zum
 Startzeitpunkt die erste Ankunft erfolgen soll.
+
+\subsubsection*{Zusätzliche Bedingung}
+
+Wird auf dieser Seite eine Bedingung definiert, so, so erfolgen Ankünfte nur, wenn diese Bedingung
+zu dem Zeitpunkt, zu dem die Ankunft erfolgen soll, erfüllt ist.
+Das System zur Bestimmung der Ankunftszeitpunkte selbst arbeitet dabei unabhängig von dieser Bedingung.
+Lediglich die konkrete Ausführung der Kundenankünfte wird unterdrückt, wenn die angegebene Bedingung nicht erfüllt ist.
 
 \subsubsection*{Zuweisung von Kundenvariablen}
 
@@ -1177,18 +1191,23 @@ Bei dem Durchlaufen des Bedingung-Elements werden die Kunden so lange aufgehalte
 
 \subsection*{Einstellungen}
 
-Der Name des Bedingung-Elements hat keine weitere Bedeutung. Befinden sich Kunden in der Warteschlange, so wird ständig geprüft,
-ob die Bedingung erfüllt ist. Wenn ja, wird der Kunde mit der höchsten Priorität freigegeben. Danach wird eine (Simulationszeit) Millisekunde
+Der Name des Bedingung-Elements hat keine weitere Bedeutung. Befinden sich Kunden in der Warteschlange, so wird bei jeder Zustandsänderung im System
+geprüft, ob die Bedingung erfüllt ist. Wenn ja, wird der Kunde mit der höchsten Priorität freigegeben. Danach wird eine (Simulationszeit) Millisekunde
 gewartet bis die nächste Prüfung erfolgt und ggf. der nächste Kunde freigegeben wird. Es kann dabei eingestellt werden, ob die Bedingung global
 betrachtet werden soll (ohne die Möglichkeit, kundenspezifische Variablen zu verwenden) oder ob die Bedingung kundenspezifisch interpretiert
 werden soll (inkl. der Möglichkeit, kundenspezifische Variablen zu verwenden). Im Falle einer globalen Interpretation wird die Bedingung nur
 einmal ausgewertet; wenn sie nicht zutrifft, wird die Verarbeitung in diesem Schritt abgeschlossen. Im Falle der kundenspezifischen Interpretation
 wird die Bedingung in jedem Schritt für jeden wartenden Kunden einzeln ausgewertet (was die Simulation verlangsamt).
+
 Gehen in die Bedingung Werte ein, die sich unabhängig von Ereignissen verändern können (z.B. die simulierte Zeit), so kann es notwendig sein,
 die Option ,,Bedingung zusätzlich zeitgesteuert prüfen'' zu aktivieren. In diesem Fall wird der Wert der Bedingung zusätzlich in bestimmten
 Zeitabständen geprüft. Wie lange diese Abstände sind, kann im Modelleigenschaften -Dialog konfiguriert
 werden. Eine zusätzlich zeitabhängige Prüfung verlangsamt die Simulation signifikant und sollte nur aktiviert werden, wenn dies für die
 jeweilige Bedingung zwingend erforderlich ist. 
+
+Wenn es bei der zeitabhängigen Prüfung nur darum geht, wartende Kunden stets nach einer vorgegebenen Maximalzeit unabhängig von der eigentlichen
+Bedienung freizugeben, so kann dies effizienter über den optional einstellbaren Wert für die maximale Wartezeit erfolgen. In diesem Fall sind
+keine zeitabhängigen Prüfungen während der Wartezeit notwendig.
 
 
 \section{Bedingung (Skript)}
@@ -3094,6 +3113,7 @@ Für die klassische Simulation sind die Simulationsdaten-Elemente ohne weitere B
 
 Der Name des Simulationszeitelements besitzt keine weitere Bedeutung.
 Für den darzustellenden Ausdruck können alle vom Simulator berechenbaren Ausdrücke angegeben werden.
+Optional kann eingestellt werden, dass die Zeit zusätzlich zu einer 12-Stunden-Analoguhr auch als 24-Stunden-Digitalwert angezeigt werden soll.
 
 
 \section{Skriptergebnis als Text}

@@ -277,7 +277,7 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Programmversion
 	 */
-	public static final String VERSION="5.6.0";
+	public static final String VERSION="5.7.0";
 
 	/**
 	 * Ist dies ein offizieller Release-Build?
@@ -1036,7 +1036,7 @@ public class MainPanel extends MainPanelBase {
 			mainPanel.remove(welcomePanel);
 			welcomePanel=null;
 			new Timer().schedule(new TimerTask() {
-				@Override public void run() {editorPanel.updateInfoLabelPosition();	}
+				@Override public void run() {editorPanel.updateInfoLabelPosition();}
 			},100);
 		}
 		if (visiblePanel!=editorPanel) mainPanel.remove(editorPanel);
@@ -3215,6 +3215,7 @@ public class MainPanel extends MainPanelBase {
 				fastWarmUp,
 				editorPanel.getZoom(),
 				editorPanel.getRaster(),
+				setup.showRulers,
 				editorPanel.getTopPosition(),
 				()->{
 					reloadSetup();

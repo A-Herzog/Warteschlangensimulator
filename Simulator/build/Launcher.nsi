@@ -38,6 +38,19 @@ Section ""
   Call GetParameters
   Pop $R1
   
+  IfFileExists ".\Simulator.jar" Check2
+  MessageBox MB_OK "Simulator.jar not found"
+  Goto MainEnd
+  Check2:
+  IfFileExists ".\libs\SimSystem.jar" Check3
+  MessageBox MB_OK "SimSystem.jar not found"
+  Goto MainEnd
+  Check3:
+  IfFileExists ".\libs\SimTools.jar" Check4
+  MessageBox MB_OK "SimTools.jar not found"
+  Goto MainEnd
+  Check4:
+  
   ClearErrors
   Crypto::HashFile "SHA2" "Simulator.jar"
   Pop $0

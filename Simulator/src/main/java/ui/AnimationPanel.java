@@ -174,8 +174,10 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private boolean hasConveyorElements;
 	/** Editor-Modell */
 	private transient EditModel model;
+	/** Lineale um die Zeichenfläche herum */
+	private final RulerPanel rulerPanel;
 	/** Zeichenfläche */
-	private ModelSurfacePanel surfacePanel;
+	private final ModelSurfacePanel surfacePanel;
 	/** Animationssystem */
 	private transient ModelSurfaceAnimator surfaceAnimator;
 	/** Sichert parallele Zugriffe auf {@link #simulator} ab. */
@@ -416,7 +418,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		buttonBreakpoints=createRotatedToolbarButton(leftToolBar,Language.tr("Editor.Breakpoints.Short"),Language.tr("Editor.Breakpoints.Info"),Images.ANIMATION_BREAKPOINTS.getIcon());
 
 		/* Surface in der Mitte */
-		content.add(new RulerPanel(surfacePanel=new ModelSurfacePanel(true,false),SetupData.getSetup().showRulers),BorderLayout.CENTER);
+		content.add(rulerPanel=new RulerPanel(surfacePanel=new ModelSurfacePanel(true,false),SetupData.getSetup().showRulers),BorderLayout.CENTER);
 		surfacePanel.addZoomChangeListener(e->zoomChanged());
 		surfacePanel.addShowModelPropertiesListener(e->{
 			final String cmd=e.getActionCommand();
@@ -701,6 +703,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @param fastWarmUp	Ist <code>true</code>, wenn die Warm-up-Phase bei der Animation zunächst als Simulation vorab ausgeführt werden soll
 	 * @param zoom	Zoomfaktor für das Animations-Surface
 	 * @param raster	Rasteranzeige auf dem Animations-Surface
+	 * @param showRulers	Lineale anzeigen
 	 * @param position	Position der linken oberen Ecke des Animations-Surface
 	 * @param animationDone	Runnable, das aufgerufen wird, wenn die Simulation beendet wurde
 	 * @param sendToSimulation	Runnable, das aufgerufen wird, wenn die Simulation ohne Animation zu Ende geführt werden soll
@@ -708,7 +711,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @param startFullRecording	Wird die Animation im Pausemodus gestartet, so wird direkt der erste Schritt ausgeführt. Über diese Funktion kann angegeben werden, dass dieser Schritt im vollständigen Erfassungsmodus durchgeführt werden soll.
 	 * @see #makeAnimationModel(EditModel)
 	 */
-	public void setSimulator(final EditModel model, final Simulator simulator, final CallbackLoggerWithJS logger, final File recordFile, final boolean startRecordingImmediately, final double scaleFrame, final boolean paintTimeStamp, final boolean fastWarmUp, final double zoom, final ModelSurface.Grid raster, final Point position, final Runnable animationDone, final Runnable sendToSimulation, final boolean startPaused, final boolean startFullRecording) {
+	public void setSimulator(final EditModel model, final Simulator simulator, final CallbackLoggerWithJS logger, final File recordFile, final boolean startRecordingImmediately, final double scaleFrame, final boolean paintTimeStamp, final boolean fastWarmUp, final double zoom, final ModelSurface.Grid raster, final boolean showRulers, final Point position, final Runnable animationDone, final Runnable sendToSimulation, final boolean startPaused, final boolean startFullRecording) {
 		this.model=model;
 		this.startPaused=startPaused;
 		this.fastWarmUp=fastWarmUp;
@@ -753,6 +756,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		surfacePanel.setZoom(zoom);
 		zoomChanged();
 		surfacePanel.setRaster(raster);
+		rulerPanel.setRulerVisible(showRulers);
 		surfacePanel.setColors(model.surfaceColors);
 		surfacePanel.setBackgroundImage(model.surfaceBackgroundImage,model.surfaceBackgroundImageScale,model.surfaceBackgroundImageMode);
 		setSurfacePosition(position);

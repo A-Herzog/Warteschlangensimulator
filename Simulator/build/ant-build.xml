@@ -442,7 +442,7 @@
 		</java>		
 				
 		<echo message="Generate zip package" />
-		<zip destfile="${Release.location}/Simulator.zip">
+		<zip destfile="${Release.location}/Simulator.zip" level="9">
 			<!--
 			<zipfileset dir="${Release.location}" includes="Simulator.jar,Simulator.exe,Simulator.sh,SimulatorCLI.bat,Simulator_Reset.exe,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"/>
 			Simulator_Reset.exe removed:
