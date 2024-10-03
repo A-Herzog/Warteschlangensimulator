@@ -22,11 +22,11 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
+import tools.DrawIO;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
@@ -39,88 +39,23 @@ import ui.modeleditor.elements.ModelElementRectangle;
 import ui.modeleditor.elements.ModelElementText;
 import ui.modeleditor.elements.ModelElementVertex;
 import ui.modeleditor.fastpaint.Shapes;
-import xml.XMLTools;
 
 /**
  * Ermöglicht den Export der Zeichnung als Draw.io-Diagramm<br>
  * <a href="https://drawio-app.com/">https://drawio-app.com/</a>
  * @author Alexander Herzog
  */
-public class DrawIOExport {
-	/** Ausgabe-xml-Objekt */
-	private final XMLTools xml;
-	/** Ausgabe-xml-Dokument */
-	private final Document doc;
-	/** Repräsentation des "mxGraphModel"-xml-Elements in der Ausgabedatei */
-	private final Element graphModel;
-	/** Wurzelelement des Ausgabe-xml-Dokuments */
-	private final Element root;
+public class DrawIOExport extends DrawIO {
 	/** Zuordnung von Stations-IDs zu Draw.io-IDs */
 	private final Map<Integer,String> idsMap;
-	/** Basis-ID für die Ausgabeelemente */
-	private final String baseId;
-	/** Fortlaufende ID der Ausgabeelemente */
-	private int drawIds;
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param file	Datei in die die Ausgabe erfolgen soll
 	 */
 	public DrawIOExport(final File file) {
+		super(file);
 		idsMap=new HashMap<>();
-		drawIds=1;
-		baseId=generateID(13)+"-"+generateID(6);
-
-		xml=new XMLTools(file);
-
-		final Element root=xml.generateRoot("mxfile");
-		root.setAttribute("compressed","false");
-		root.setAttribute("type","device");
-		doc=root.getOwnerDocument();
-
-		final Element diagram=doc.createElement("diagram");
-		root.appendChild(diagram);
-		diagram.setAttribute("id",generateID(20));
-
-		diagram.appendChild(graphModel=doc.createElement("mxGraphModel"));
-		graphModel.setAttribute("grid","1");
-		graphModel.setAttribute("gridSize","10");
-		graphModel.setAttribute("guides","1");
-		graphModel.setAttribute("tooltips","1");
-		graphModel.setAttribute("connect","1");
-		graphModel.setAttribute("arrows","1");
-		graphModel.setAttribute("fold","1");
-		graphModel.setAttribute("page","1");
-		graphModel.setAttribute("pageScale","1");
-		graphModel.setAttribute("math","0");
-		graphModel.setAttribute("shadow","0");
-
-		graphModel.appendChild(this.root=doc.createElement("root"));
-
-		Element cell;
-		this.root.appendChild(cell=doc.createElement("mxCell"));
-		cell.setAttribute("id","0");
-		this.root.appendChild(cell=doc.createElement("mxCell"));
-		cell.setAttribute("id","1");
-		cell.setAttribute("parent","0");
-	}
-
-	/**
-	 * Gültige Zeichen für eine ID
-	 * @see #generateID(int)
-	 */
-	private static final String idChars="01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-	/**
-	 * Erzeugt eine ID einer vorgegebenen Länge
-	 * @param len	Länge der ID
-	 * @return	ID
-	 * @see #baseId
-	 */
-	private String generateID(final int len) {
-		final StringBuilder id=new StringBuilder();
-		for (int i=0;i<len;i++) id.append(idChars.charAt((int)Math.floor(Math.random()*idChars.length())));
-		return id.toString();
 	}
 
 	/**
@@ -128,57 +63,10 @@ public class DrawIOExport {
 	 * @param element	Auszugebende Station
 	 * @return	Liefert den xml-Knoten im Ausgabedokument
 	 */
-	private Element addElement(final ModelElement element) {
-		final Element node=doc.createElement("mxCell");
-
-		final String id=baseId+"-"+drawIds;
-		drawIds++;
-		idsMap.put(element.getId(),id);
-
-		node.setAttribute("id",id);
-		node.setAttribute("parent","1");
-		root.appendChild(node);
-
+	private Element addElement(final ModelElementPosition element) {
+		final Element node=addBox(element.getPosition(true),element.getSize());
+		idsMap.put(element.getId(),node.getAttribute("id"));
 		return node;
-	}
-
-	/**
-	 * Wandelt die Zeichen "&amp;", "&lt;" und "&gt;" und auch Umlaute usw.
-	 * in ihre entsprechenden HTML-Entitäten um. Außerdem werden Zeilenumbrüche
-	 * durch &lt;br&gt; umgewandelt.
-	 * @param text	Umzuwandelnder Text
-	 * @return	Umgewandelter Text
-	 */
-	private String encodeHTML(String text) {
-		text=text.trim();
-		final StringBuilder result=new StringBuilder();
-		for (int i=0;i<text.length();i++) {
-			final char c=text.charAt(i);
-			if (c=='ä') {result.append("&auml;"); continue;}
-			if (c=='ö') {result.append("&ouml;"); continue;}
-			if (c=='ü') {result.append("&uuml;"); continue;}
-			if (c=='ß') {result.append("&szlig;"); continue;}
-			if (c=='Ä') {result.append("&Auml;"); continue;}
-			if (c=='Ö') {result.append("&Ouml;"); continue;}
-			if (c=='Ü') {result.append("&Uuml;"); continue;}
-			if (c=='&') {result.append("&amp;"); continue;}
-			if (c=='<') {result.append("&lt;"); continue;}
-			if (c=='>') {result.append("&gt;"); continue;}
-			if (c=='"') {result.append("\\\""); continue;}
-			if (c=='\\') {result.append("\\\\"); continue;}
-			if (c=='\n') {result.append("<br>"); continue;}
-			result.append(c);
-		}
-		return result.toString();
-	}
-
-	/**
-	 * Lieft einen CSS-Farbcode für eine Farbe
-	 * @param color	Umzuwandelnde Farbe
-	 * @return	CSS-Farbcode
-	 */
-	private String getColor(final Color color) {
-		return String.format("#%02x%02x%02x",color.getRed(),color.getGreen(),color.getBlue());
 	}
 
 	/**
@@ -345,42 +233,14 @@ public class DrawIOExport {
 	}
 
 	/**
-	 * Wandelt eine Stil-Daten-Zuordnung in eine Zeichenkette um
-	 * @param map	Stil-Daten-Zuordnung
-	 * @return	Zeichenkette mit den Stil-Daten
-	 * @see #getStyle(ModelElementBox)
-	 */
-	private String styleToString(final Map<String,String> map) {
-		final StringBuilder style=new StringBuilder();
-		for (Map.Entry<String,String> entry: map.entrySet()) {
-			if (style.length()>0) style.append(';');
-			style.append(entry.getKey());
-			if (entry.getValue()!=null) {
-				style.append('=');
-				style.append(entry.getValue());
-			}
-		}
-		return style.toString();
-	}
-
-	/**
 	 * Verarbeitet ein Box-Element.
 	 * @param element	Zu verarbeitendes Element
 	 * @see #process(ModelElement)
 	 */
 	private void processBox(final ModelElementBox element) {
 		final Element node=addElement(element);
-		node.setAttribute("vertex","1");
 		node.setAttribute("style",styleToString(getStyle(element)));
 		node.setAttribute("value",encodeHTML(element.getTypeName()+"\n"+element.getName()));
-
-		final Element geometry=doc.createElement("mxGeometry");
-		node.appendChild(geometry);
-		geometry.setAttribute("as","geometry");
-		geometry.setAttribute("x",""+element.getPosition(true).x);
-		geometry.setAttribute("y",""+element.getPosition(true).y);
-		geometry.setAttribute("width",""+element.getSize().width);
-		geometry.setAttribute("height",""+element.getSize().height);
 	}
 
 	/**
@@ -390,20 +250,11 @@ public class DrawIOExport {
 	 */
 	private void processText(final ModelElementText element) {
 		final Element node=addElement(element);
-		node.setAttribute("vertex","1");
 		int style=0;
 		if (element.getTextBold()) style+=1;
 		if (element.getTextItalic()) style+=2;
 		node.setAttribute("style","text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontSize="+element.getTextSize()+";fontStyle="+style+";fontColor="+getColor(element.getColor())+";");
 		node.setAttribute("value",encodeHTML(element.getText()));
-
-		final Element geometry=doc.createElement("mxGeometry");
-		node.appendChild(geometry);
-		geometry.setAttribute("as","geometry");
-		geometry.setAttribute("x",""+element.getPosition(true).x);
-		geometry.setAttribute("y",""+element.getPosition(true).y);
-		geometry.setAttribute("width",""+element.getSize().width);
-		geometry.setAttribute("height",""+element.getSize().height);
 	}
 
 	/**
@@ -413,17 +264,8 @@ public class DrawIOExport {
 	 */
 	private void processLink(final ModelElementLink element) {
 		final Element node=addElement(element);
-		node.setAttribute("vertex","1");
 		node.setAttribute("style","text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontSize="+element.getTextSize()+";fontStyle=0;fontColor="+getColor(Color.BLUE)+";");
 		node.setAttribute("value",encodeHTML(element.getText()));
-
-		final Element geometry=doc.createElement("mxGeometry");
-		node.appendChild(geometry);
-		geometry.setAttribute("as","geometry");
-		geometry.setAttribute("x",""+element.getPosition(true).x);
-		geometry.setAttribute("y",""+element.getPosition(true).y);
-		geometry.setAttribute("width",""+element.getSize().width);
-		geometry.setAttribute("height",""+element.getSize().height);
 	}
 
 	/**
@@ -433,17 +275,8 @@ public class DrawIOExport {
 	 */
 	private void processAnimationTextValue(final ModelElementAnimationTextValue element) {
 		final Element node=addElement(element);
-		node.setAttribute("vertex","1");
 		node.setAttribute("style","text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;");
 		node.setAttribute("value",encodeHTML(element.getName()));
-
-		final Element geometry=doc.createElement("mxGeometry");
-		node.appendChild(geometry);
-		geometry.setAttribute("as","geometry");
-		geometry.setAttribute("x",""+element.getPosition(true).x);
-		geometry.setAttribute("y",""+element.getPosition(true).y);
-		geometry.setAttribute("width",""+element.getSize().width);
-		geometry.setAttribute("height",""+element.getSize().height);
 	}
 
 	/**
@@ -453,21 +286,12 @@ public class DrawIOExport {
 	 */
 	private void processLine(final ModelElementLine element) {
 		final Element node=addElement(element);
-		node.setAttribute("vertex","1");
 
 		final Map<String,String> style=new HashMap<>();
 		style.put("aspect","fixed");
 		style.put("strokeColor",getColor(element.getColor()));
 		style.put("strokeWidth",""+element.getLineWidth());
 		node.setAttribute("style",styleToString(style));
-
-		final Element geometry=doc.createElement("mxGeometry");
-		node.appendChild(geometry);
-		geometry.setAttribute("as","geometry");
-		geometry.setAttribute("x",""+element.getPosition(true).x);
-		geometry.setAttribute("y",""+element.getPosition(true).y);
-		geometry.setAttribute("width",""+element.getSize().width);
-		geometry.setAttribute("height",""+element.getSize().height);
 	}
 
 	/**
@@ -477,7 +301,6 @@ public class DrawIOExport {
 	 */
 	private void processRectangle(final ModelElementRectangle element) {
 		final Element node=addElement(element);
-		node.setAttribute("vertex","1");
 
 		final Map<String,String> style=new HashMap<>();
 		style.put("aspect","fixed");
@@ -486,14 +309,6 @@ public class DrawIOExport {
 		if (element.getFillColor()==null) style.put("fillColor","none"); else style.put("fillColor",getColor(element.getFillColor()));
 		if (element.getRounding()>0) style.put("rounded","1");
 		node.setAttribute("style",styleToString(style));
-
-		final Element geometry=doc.createElement("mxGeometry");
-		node.appendChild(geometry);
-		geometry.setAttribute("as","geometry");
-		geometry.setAttribute("x",""+element.getPosition(true).x);
-		geometry.setAttribute("y",""+element.getPosition(true).y);
-		geometry.setAttribute("width",""+element.getSize().width);
-		geometry.setAttribute("height",""+element.getSize().height);
 	}
 
 	/**
@@ -503,7 +318,6 @@ public class DrawIOExport {
 	 */
 	private void processEllipse(final ModelElementEllipse element) {
 		final Element node=addElement(element);
-		node.setAttribute("vertex","1");
 
 		final Map<String,String> style=new HashMap<>();
 		style.put("ellipse",null);
@@ -511,14 +325,6 @@ public class DrawIOExport {
 		style.put("strokeWidth",""+element.getLineWidth());
 		if (element.getFillColor()==null) style.put("fillColor","none"); else style.put("fillColor",getColor(element.getFillColor()));
 		node.setAttribute("style",styleToString(style));
-
-		final Element geometry=doc.createElement("mxGeometry");
-		node.appendChild(geometry);
-		geometry.setAttribute("as","geometry");
-		geometry.setAttribute("x",""+element.getPosition(true).x);
-		geometry.setAttribute("y",""+element.getPosition(true).y);
-		geometry.setAttribute("width",""+element.getSize().width);
-		geometry.setAttribute("height",""+element.getSize().height);
 	}
 
 	/**
@@ -528,20 +334,10 @@ public class DrawIOExport {
 	 */
 	private void processPosition(final ModelElementPosition element) {
 		final Element node=addElement(element);
-		node.setAttribute("vertex","1");
 		node.setAttribute("style","whiteSpace=wrap;html=1;aspect=fixed;");
 		if (!(element instanceof ModelElementVertex)) {
 			node.setAttribute("value",encodeHTML(element.getContextMenuElementName()));
 		}
-
-		final Element geometry=doc.createElement("mxGeometry");
-		node.appendChild(geometry);
-		geometry.setAttribute("as","geometry");
-		geometry.setAttribute("x",""+element.getPosition(true).x);
-		geometry.setAttribute("y",""+element.getPosition(true).y);
-		geometry.setAttribute("width",""+element.getSize().width);
-		geometry.setAttribute("height",""+element.getSize().height);
-
 	}
 
 	/**
@@ -662,19 +458,7 @@ public class DrawIOExport {
 			}
 		}
 
-		final Element node=addElement(edge);
-		node.setAttribute("edge","1");
-		node.setAttribute("style",styleToString(style));
-		node.setAttribute("source",idsMap.get(edge.getConnectionStart().getId()));
-		node.setAttribute("target",idsMap.get(edge.getConnectionEnd().getId()));
-		if (edge.getName()!=null && !edge.getName().isEmpty()) {
-			node.setAttribute("value",encodeHTML(edge.getName()));
-		}
-
-		final Element geometry=doc.createElement("mxGeometry");
-		node.appendChild(geometry);
-		geometry.setAttribute("as","geometry");
-		geometry.setAttribute("relative","1");
+		addEdge(idsMap.get(edge.getConnectionStart().getId()),idsMap.get(edge.getConnectionEnd().getId()),style,edge.getName());
 	}
 
 	/**
@@ -690,13 +474,5 @@ public class DrawIOExport {
 		for (ModelElement element: surface.getElements()) if (element instanceof ModelElementEdge) {
 			processEdge((ModelElementEdge)element,model.edgeLineMode,model.edgeArrowMode,surface);
 		}
-	}
-
-	/**
-	 * Speichert das Diagramm in der im Konstruktor angegebenen Datei.
-	 * @return	Gibt an, ob das Speichern erfolgreich war.
-	 */
-	public boolean save() {
-		return xml.save(doc.getDocumentElement(),true);
 	}
 }
