@@ -88,6 +88,7 @@ import gitconnect.GitListDialog;
 import gitconnect.GitTools;
 import language.Language;
 import language.LanguageStaticLoader;
+import loganalyzer.LogAnalyzerDialog;
 import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.Table.SaveMode;
@@ -810,6 +811,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("ExtrasFit",e->commandExtrasFit());
 		addAction("ExtrasInputTableProcessor",e->commandExtrasInputTableProcessor());
 		addAction("ExtrasOutputTableProcessor",e->commandExtrasOutputTableProcessor());
+		addAction("ExtrasLogAnalyer",e->commandExtrasLogAnalyer());
 		addAction("ExtrasTestDatabaseConnection",e->commandExtrasTestDatabaseConnection());
 		addAction("ExtrasBatchProcessing",e->commandExtrasBatchProcessing());
 		addAction("ExtrasExecuteCommand",e->commandExtrasExecuteCommand());
@@ -1501,6 +1503,7 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.FitDistribution"),Images.EXTRAS_FIT_DISTRIBUTION.getIcon(),Language.tr("Main.Menu.Extras.FitDistribution.Mnemonic"),"ExtrasFit");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.InputTableProcessor"),Images.GENERAL_TABLE.getIcon(),Language.tr("Main.Menu.Extras.InputTableProcessor.Mnemonic"),"ExtrasInputTableProcessor");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.OutputTableProcessor"),Language.tr("Main.Menu.Extras.OutputTableProcessor.Mnemonic"),"ExtrasOutputTableProcessor");
+		createMenuItem(menu,Language.tr("Main.Menu.Extras.LogAnalyer"),Language.tr("Main.Menu.Extras.LogAnalyer.Mnemonic"),"ExtrasLogAnalyer");
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.TestDatabaseConnection"),Images.EXTRAS_DATABASE_TEST.getIcon(),Language.tr("Main.Menu.Extras.TestDatabaseConnection.Mnemonic"),"ExtrasTestDatabaseConnection");
 		createMenuItem(menu,Language.tr("Main.Menu.Extras.BatchProcessing"),Images.EXTRAS_BATCH_PROCESSING.getIcon(),Language.tr("Main.Menu.Extras.BatchProcessing.Mnemonic"),"ExtrasBatchProcessing");
@@ -3957,6 +3960,13 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandExtrasOutputTableProcessor() {
 		new ClientOutputTableDialog(this);
+	}
+
+	/**
+	 * Befehl: Extras - Logdateianalyse
+	 */
+	private void commandExtrasLogAnalyer() {
+		new LogAnalyzerDialog(this,editorPanel.getModel());
 	}
 
 	/**

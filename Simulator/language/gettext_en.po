@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-13 20:00+0200\n"
+"POT-Creation-Date: 2024-09-30 19:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11386,6 +11386,78 @@ msgstr "Coefficient of variation of working rate"
 msgid "LoadCalculator.WorkingTimePerDay"
 msgstr "Working time per day"
 
+msgid "LogAnalyzer.Client"
+msgstr "Client"
+
+msgid "LogAnalyzer.ClientNumber"
+msgstr "Client number"
+
+msgid "LogAnalyzer.ErrorInfo"
+msgstr ""
+"Analysis of file\n"
+"%s\n"
+"failed."
+
+msgid "LogAnalyzer.ErrorTitle"
+msgstr "Log file analysis failed"
+
+msgid "LogAnalyzer.Global"
+msgstr "Global"
+
+msgid "LogAnalyzer.LogFile"
+msgstr "Log file"
+
+msgid "LogAnalyzer.LogFile.ErrorInfo"
+msgstr "The specified log file does not exist."
+
+msgid "LogAnalyzer.LogFile.ErrorTitle"
+msgstr "Log file does not exist"
+
+msgid "LogAnalyzer.LogFile.Select"
+msgstr "Logdatei auswählen"
+
+msgid "LogAnalyzer.OutputFile"
+msgstr "Output file"
+
+msgid "LogAnalyzer.OutputFile.ErrorInfo"
+msgstr "No output file for output analysis was selected."
+
+msgid "LogAnalyzer.OutputFile.ErrorTitle"
+msgstr "No output file selected"
+
+msgid "LogAnalyzer.OutputFile.Select"
+msgstr "Select output file"
+
+msgid "LogAnalyzer.OutputFile.Tooltip"
+msgstr "Output file for log file analysis"
+
+msgid "LogAnalyzer.Station"
+msgstr "Station"
+
+msgid "LogAnalyzer.StationID"
+msgstr "StationID"
+
+msgid "LogAnalyzer.Title"
+msgstr "Analyze simulation log files"
+
+msgid "LogAnalyzer.UseModel"
+msgstr "Additional model data for log file interpretation"
+
+msgid "LogAnalyzer.UseModel.ErrorInfo"
+msgstr "The specified model file does not exist."
+
+msgid "LogAnalyzer.UseModel.ErrorTitle"
+msgstr "Model file does not exist"
+
+msgid "LogAnalyzer.UseModel.FromEditor"
+msgstr "Use current model from editor"
+
+msgid "LogAnalyzer.UseModel.FromFile"
+msgstr "Load model from file"
+
+msgid "LogAnalyzer.UseModel.Off"
+msgstr "Do not use a model"
+
 msgid "LogSimulation.ErrorDelete.Info"
 msgstr ""
 "The already existing logfile\n"
@@ -11799,6 +11871,12 @@ msgstr "Keep current model for later comparison"
 
 msgid "Main.Menu.Extras.KeepModel.Mnemonic"
 msgstr "K"
+
+msgid "Main.Menu.Extras.LogAnalyer"
+msgstr "Analyze simulation log files..."
+
+msgid "Main.Menu.Extras.LogAnalyer.Mnemonic"
+msgstr "l"
 
 msgid "Main.Menu.Extras.Mnemonic"
 msgstr "X"

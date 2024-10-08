@@ -16,6 +16,7 @@
 package systemtools.statistics;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -37,6 +38,7 @@ import org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName;
 import org.apache.pdfbox.pdmodel.graphics.color.PDOutputIntent;
 import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.apache.pdfbox.util.Matrix;
 import org.apache.xmpbox.XMPMetadata;
 import org.apache.xmpbox.schema.PDFAIdentificationSchema;
 import org.apache.xmpbox.type.BadFieldValueException;
@@ -125,6 +127,32 @@ public class PDFWriterBase {
 		donePage();
 
 		PDPage page=new PDPage(PDRectangle.A4);
+		doc.addPage(page);
+
+		if (pageHeightPT==0) {
+			final PDRectangle rect=page.getMediaBox();
+			pageHeightPT=Math.round(rect.getUpperRightY());
+			pageWidthPT=Math.round(rect.getUpperRightX());
+		}
+
+		try {contentStream=new PDPageContentStream(doc,page);} catch (IOException e) {
+			contentStream=null; /* Für FindBugs. */
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Beginnt eine neue Seite im Dokument.
+	 * @param size	Seitengröße
+	 * @return	Liefert <code>true</code>, wenn eine neue Seite angelegt werden konnte
+	 */
+	protected boolean newPage(final Dimension size) {
+		if (!systemOK) return false;
+		donePage();
+
+		PDPage page=new PDPage(new PDRectangle(size.width,size.height));
 		doc.addPage(page);
 
 		if (pageHeightPT==0) {
@@ -274,6 +302,98 @@ public class PDFWriterBase {
 	}
 
 	/**
+	 * Gibt ein einfaches Textobjekt aus.
+	 * @param text	Auszugebender Text
+	 * @param fontSize	Schriftgröße in PT
+	 * @param fontFamily	Schriftfamilie
+	 * @param x	x-Koordinate für das Textobjekt
+	 * @param y	y-Koordinate für das Textobjekt
+	 * @param textColor	Gibt optional (d.h. kann auch <code>null</code> sein) eine Textfarbe an
+	 * @param alpha	 Drehwinkel
+	 * @return	Gibt <code>true</code> zurück, wenn das Text-Objekt erfolgreich in die pdf eingefügt werden konnte
+	 */
+	protected final boolean writeTextObjectRotated(final String text, final int fontSize, final PDType1Font fontFamily, final int x, final int y, final Color textColor, final double alpha) {
+		if (!systemOK) return false;
+
+		try {
+			contentStream.beginText();
+			contentStream.setFont(fontFamily,fontSize);
+			contentStream.newLineAtOffset(x,y-fontSize);
+			if (textColor!=null) contentStream.setNonStrokingColor(textColor);
+			final Matrix matrix=Matrix.getRotateInstance(alpha,x,y);
+			contentStream.setTextMatrix(matrix);
+			contentStream.showText(text);
+			contentStream.endText();
+			contentStream.saveGraphicsState();
+		} catch (IOException e) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Gibt ein einfaches Textobjekt aus.
+	 * @param text	Auszugebender Text
+	 * @param fontSize	Schriftgröße in PT
+	 * @param fontBold	Gibt an, ob die Schrift fett oder normal ausgegeben werden soll.
+	 * @param x	x-Koordinate für das Textobjekt
+	 * @param y	y-Koordinate für das Textobjekt
+	 * @param textColor	Gibt optional (d.h. kann auch <code>null</code> sein) eine Textfarbe an
+	 * @param alpha	 Drehwinkel
+	 * @return	Gibt <code>true</code> zurück, wenn das Text-Objekt erfolgreich in die pdf eingefügt werden konnte
+	 */
+	protected final boolean writeTextObjectRotated(final String text, final int fontSize, final boolean fontBold, final int x, final int y, final Color textColor, final double alpha) {
+		return writeTextObjectRotated(text,fontSize,fontBold?new PDType1Font(FontName.HELVETICA_BOLD):new PDType1Font(FontName.HELVETICA),x,y,textColor,alpha);
+	}
+
+	/**
+	 * Gibt ein einfaches Textobjekt aus.
+	 * @param text	Auszugebender Text
+	 * @param fontSize	Schriftgröße in PT
+	 * @param fontBold	Gibt an, ob die Schrift fett oder normal ausgegeben werden soll.
+	 * @param x	x-Koordinate für das Textobjekt
+	 * @param y	y-Koordinate für das Textobjekt
+	 * @param alpha	 Drehwinkel
+	 * @return	Gibt <code>true</code> zurück, wenn das Text-Objekt erfolgreich in die pdf eingefügt werden konnte
+	 */
+	protected final boolean writeTextObjectRotated(final String text, final int fontSize, final boolean fontBold, final int x, final int y, final double alpha) {
+		return writeTextObjectRotated(text,fontSize,fontBold,x,y,null,alpha);
+	}
+
+	/**
+	 * Gibt ein rotiertes Textobjekt aus.
+	 * @param text	Auszugebender Text
+	 * @param fontSize	Schriftgröße in PT
+	 * @param fontFamily	Schriftfamilie
+	 * @param x	x-Koordinate für das Textobjekt
+	 * @param y	y-Koordinate für das Textobjekt
+	 * @param alpha	 Drehwinkel
+	 * @return	Gibt <code>true</code> zurück, wenn das Text-Objekt erfolgreich in die pdf eingefügt werden konnte
+	 */
+	protected final boolean writeTextObjectRotated(final String text, final int fontSize, final PDType1Font fontFamily, final int x, final int y, final double alpha) {
+		return writeTextObjectRotated(text,fontSize,fontFamily,x,y,null,alpha);
+	}
+
+	/**
+	 * Stellt die (Text-)farbe ein.
+	 * @param color	Farbe für zukünftige Ausgaben
+	 * @return	Gibt <code>true</code> zurück, wenn das Einstellungs-Objekt erfolgreich in die pdf eingefügt werden konnte
+	 */
+	protected final boolean setColor(final Color color) {
+		if (!systemOK) return false;
+
+		try {
+			contentStream.setNonStrokingColor(color);
+			contentStream.setStrokingColor(color);
+		} catch (IOException e) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Zeichnet eine Linie
 	 * @param x1	Start-X-Koordinate (in PT)
 	 * @param y1	Start-Y-Koordinate (in PT)
@@ -293,6 +413,97 @@ public class PDFWriterBase {
 			contentStream.moveTo(x1,y1);
 			contentStream.lineTo(x2,y2);
 			contentStream.stroke();
+		} catch (IOException e) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Zeichnet eine gestrichelte Linie
+	 * @param x1	Start-X-Koordinate (in PT)
+	 * @param y1	Start-Y-Koordinate (in PT)
+	 * @param x2	End-X-Koordinate (in PT)
+	 * @param y2	End-Y-Koordinate (in PT)
+	 * @param lineWidthMM	Linienbreite (in MM)
+	 * @param color	Farbe der Linie
+	 * @param dashSize	Länge der Stichsegmente
+	 * @return	Gibt <code>true</code> zurück, wenn die Linie erfolgreich in die pdf eingefügt werden konnte
+	 */
+	protected final boolean drawDashedLine(final float x1, final float y1, final float x2, final float y2, final float lineWidthMM, final Color color, final float dashSize) {
+		if (!systemOK) return false;
+
+		try {
+			contentStream.setLineWidth((float) (lineWidthMM/25.4*72));
+			contentStream.setNonStrokingColor(color);
+			contentStream.setStrokingColor(color);
+			contentStream.setLineDashPattern(new float[] {dashSize,dashSize},0);
+			contentStream.moveTo(x1,y1);
+			contentStream.lineTo(x2,y2);
+			contentStream.stroke();
+		} catch (IOException e) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Zeichnet ein Rechteck (Rahmen ohne Füllung).
+	 * @param x1	Start-X-Koordinate (in PT)
+	 * @param y1	Start-Y-Koordinate (in PT)
+	 * @param x2	End-X-Koordinate (in PT)
+	 * @param y2	End-Y-Koordinate (in PT)
+	 * @param lineWidthMM	Linienbreite (in MM)
+	 * @param color	Farbe der Linie
+	 * @return	Gibt <code>true</code> zurück, wenn das Rechteck erfolgreich in die pdf eingefügt werden konnte
+	 */
+	protected final boolean drawRectangle(final float x1, final float y1, final float x2, final float y2, final float lineWidthMM, final Color color) {
+		if (!systemOK) return false;
+
+		try {
+			contentStream.setLineWidth((float) (lineWidthMM/25.4*72));
+			contentStream.setNonStrokingColor(color);
+			contentStream.setStrokingColor(color);
+			contentStream.moveTo(x1,y1);
+			contentStream.lineTo(x2,y1);
+			contentStream.lineTo(x2,y2);
+			contentStream.lineTo(x1,y2);
+			contentStream.lineTo(x1,y1);
+			contentStream.closeAndStroke();
+
+		} catch (IOException e) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Zeichnet ein ausgefülltes Rechteck.
+	 * @param x1	Start-X-Koordinate (in PT)
+	 * @param y1	Start-Y-Koordinate (in PT)
+	 * @param x2	End-X-Koordinate (in PT)
+	 * @param y2	End-Y-Koordinate (in PT)
+	 * @param lineWidthMM	Linienbreite (in MM)
+	 * @param color	Farbe der Linie
+	 * @return	Gibt <code>true</code> zurück, wenn das Rechteck erfolgreich in die pdf eingefügt werden konnte
+	 */
+	protected final boolean fillRectangle(final float x1, final float y1, final float x2, final float y2, final float lineWidthMM, final Color color) {
+		if (!systemOK) return false;
+
+		try {
+			contentStream.setLineWidth((float) (lineWidthMM/25.4*72));
+			contentStream.setNonStrokingColor(color);
+			contentStream.setStrokingColor(color);
+			contentStream.moveTo(x1,y1);
+			contentStream.lineTo(x2,y1);
+			contentStream.lineTo(x2,y2);
+			contentStream.lineTo(x1,y2);
+			contentStream.lineTo(x1,y1);
+			contentStream.closeAndFillAndStroke();
+
 		} catch (IOException e) {
 			return false;
 		}
