@@ -19,8 +19,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -201,6 +203,13 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 	private double shadowAlpha=1.0;
 
 	/**
+	 * Drehung des Textes (in DEG)
+	 * @see #getRotation()
+	 * @see #setRotation(double)
+	 */
+	private double rotation=0.0;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementText</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -213,6 +222,7 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 		interpretMarkdown=false;
 		interpretLaTeX=false;
 		textAlign=TextAlign.LEFT;
+		rotation=0;
 	}
 
 	/**
@@ -481,6 +491,34 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 	}
 
 	/**
+	 * Liefert die aktuelle Drehung des Textes.
+	 * @return	Drehung des Textes
+	 */
+	public double getRotation() {
+		return rotation;
+	}
+
+	/**
+	 * Stellt die Drehung des Textes ein.
+	 * @param rotation	Drehung des Textes
+	 */
+	public void setRotation(final double rotation) {
+		this.rotation=fixRotation(rotation);
+		fireChanged();
+	}
+
+	/**
+	 * Normiert einen beliebig definierten Drehwinkel in einen Wert zwischen 0 und 360.
+	 * @param rotation	Drehwinkel
+	 * @return	Drehwinkel im Bereich 0 (einschließlich) bis 360 (ausschließlich)
+	 */
+	private double fixRotation(double rotation) {
+		rotation/=360;
+		if (rotation<0) rotation+=Math.ceil(Math.abs(rotation));
+		return (rotation%1)*360;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -505,6 +543,7 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 		if (fillAlpha!=otherText.fillAlpha) return false;
 		if (!Objects.equals(shadowColor,otherText.shadowColor)) return false;
 		if (shadowAlpha!=otherText.shadowAlpha) return false;
+		if (rotation!=otherText.rotation) return false;
 		return true;
 	}
 
@@ -531,6 +570,7 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 			fillAlpha=copySource.fillAlpha;
 			shadowColor=copySource.shadowColor;
 			shadowAlpha=copySource.shadowAlpha;
+			rotation=fixRotation(copySource.rotation);
 		}
 	}
 
@@ -586,14 +626,68 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 		final int canvasW=textRenderer.getWidth();
 		final int canvasH=textRenderer.getHeight();
 
+		/* Größe der Box berechnen */
+		int x=canvasX;
+		int y=canvasY;
+		int boxW=(zoom==1.0)?canvasW:(int)FastMath.round(canvasW/zoom);
+		int boxH=(zoom==1.0)?canvasH:(int)FastMath.round(canvasH/zoom);
+
+		/* Drehung */
+		AffineTransform origTransform=null;
+		if (rotation!=0) {
+			final double alpha=rotation/360.0*2*Math.PI;
+			origTransform=((Graphics2D)graphics).getTransform();
+
+			/* Berücksichtigt Skalierungen nicht: final AffineTransform newTransform=AffineTransform.getRotateInstance(-alpha,canvasX,canvasY); */
+			final AffineTransform newTransform=new AffineTransform(origTransform);
+			newTransform.translate(canvasX,canvasY);
+			newTransform.rotate(-alpha);
+			newTransform.translate(-canvasX,-canvasY);
+			((Graphics2D)graphics).setTransform(newTransform);
+
+			int rotBoxW=boxW;
+			int rotBoxH=boxH;
+			rotBoxW=(int)Math.round(Math.abs(Math.cos(alpha))*boxW+Math.abs(Math.sin(alpha)*boxH));
+			rotBoxH=(int)Math.round(Math.abs(Math.cos(alpha))*boxH+Math.abs(Math.sin(alpha)*boxW));
+
+			if (alpha>0 && alpha<=Math.PI/2) {
+				/* Drehung nach oben rechts */
+				x-=rotBoxH*Math.sin(alpha);
+				y+=(rotBoxH-boxH)*Math.cos(alpha);
+			}
+
+			if (alpha>Math.PI/2 && alpha<=Math.PI) {
+				/* Drehung nach oben links */
+				x-=rotBoxH*Math.sin(alpha)-rotBoxW*Math.cos(alpha);
+				y-=-rotBoxH*Math.cos(alpha)-Math.sin(2*(alpha-Math.PI/2))*(rotBoxH-boxH);
+			}
+
+			if (alpha>Math.PI && alpha<=3*Math.PI/2) {
+				/* Drehung nach unten links */
+				x-=-boxW*Math.cos(alpha)-Math.sin(2*(alpha-Math.PI))*boxH;
+				y-=boxH+Math.sin(2*(alpha-Math.PI))*(rotBoxH-boxH);
+
+			}
+
+			if (alpha>3*Math.PI/2) {
+				/* Drehung nach unten rechts */
+				x+=Math.sin(2*(alpha-3*Math.PI/2))*boxH;
+				y-=-Math.sin(alpha)*boxH;
+			}
+
+			boxW=rotBoxW;
+			boxH=rotBoxH;
+		}
+
 		/* Wenn nötig Größe der Box anpassen */
-		final int boxW=(zoom==1.0)?canvasW:(int)FastMath.round(canvasW/zoom);
-		final int boxH=(zoom==1.0)?canvasH:(int)FastMath.round(canvasH/zoom);
 		final Dimension boxSize=getSize();
 		if (boxSize.width!=boxW || boxSize.height!=boxH) setSize(new Dimension(boxW,boxH));
 
 		/* Text ausgeben */
-		textRenderer.draw(graphics,canvasX,canvasY,color);
+		textRenderer.draw(graphics,x,y,color);
+
+		/* Drehung rückgängig machen */
+		if (origTransform!=null) ((Graphics2D)graphics).setTransform(origTransform);
 
 		/* Rahmen zeichnen */
 		if (isSelected() && showSelectionFrames) {
@@ -709,6 +803,13 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 			sub.setTextContent(EditModel.saveColor(shadowColor));
 			if (shadowAlpha<1) sub.setAttribute(Language.trPrimary("Surface.Text.XML.ShadowColor.Alpha"),NumberTools.formatSystemNumber(shadowAlpha));
 		}
+
+		/* Rotation */
+		if (rotation!=0.0) {
+			sub=doc.createElement(Language.trPrimary("Surface.Text.XML.Rotation"));
+			node.appendChild(sub);
+			sub.setTextContent(NumberTools.formatSystemNumber(rotation));
+		}
 	}
 
 	/**
@@ -798,6 +899,14 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Text.XML.ShadowColor.Alpha"),name,node.getParentNode().getNodeName());
 				shadowAlpha=D;
 			}
+			return null;
+		}
+
+		/* Rotation */
+		if (Language.trAll("Surface.Text.XML.Rotation",name) && !content.trim().isEmpty()) {
+			final Double D=NumberTools.getDouble(content);
+			if (D==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Text.XML.Rotation"),name,node.getParentNode().getNodeName());
+			rotation=fixRotation(D);
 			return null;
 		}
 

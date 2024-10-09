@@ -465,7 +465,7 @@
 <!ELEMENT ModellElementVerbindungsfarbe (#PCDATA)>
 <!ELEMENT ModellElementVerbindungsbeschriftung (#PCDATA)>
 
-<!ELEMENT ModellElementText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementTextzeile | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementTextAusrichtung | ModellElementHintergrundfarbe | ModellElementSchattenfarbe)*>
+<!ELEMENT ModellElementText (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementTextzeile | ModellElementSchriftart | ModellElementSchriftgrosse | ModellElementFarbe | ModellElementTextAusrichtung | ModellElementHintergrundfarbe | ModellElementSchattenfarbe | ModellElementDrehung)*>
 <!ATTLIST ModellElementText
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -3174,7 +3174,7 @@
 <!ELEMENT ModelElementConnectionColor (#PCDATA)>
 <!ELEMENT ModelElementConnectionLabel (#PCDATA)>
 
-<!ELEMENT ModelElementText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementTextLine | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementTextAlign | ModelElementBackgroundColor | ModelElementShadowColor)*>
+<!ELEMENT ModelElementText (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementTextLine | ModelElementFontFamily | ModelElementFontSize | ModelElementColor | ModelElementTextAlign | ModelElementBackgroundColor | ModelElementShadowColor | ModelElementRotation)*>
 <!ATTLIST ModelElementText
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED

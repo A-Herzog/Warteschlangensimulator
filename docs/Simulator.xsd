@@ -684,6 +684,7 @@
 	<xs:element name="ModellElementTextAusrichtung" type="xs:string"/>
 	<xs:element ref="ModellElementHintergrundfarbe"/>
 	<xs:element ref="ModellElementSchattenfarbe"/>
+	<xs:element name="ModellElementDrehung" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3196,6 +3197,7 @@
 	<xs:element name="ModelElementTextAlign" type="xs:string"/>
 	<xs:element ref="ModelElementBackgroundColor"/>
 	<xs:element ref="ModelElementShadowColor"/>
+	<xs:element name="ModelElementRotation" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 

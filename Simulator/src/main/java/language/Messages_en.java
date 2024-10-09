@@ -11570,6 +11570,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25421] = "Timeout for individual simulations active?";
     t[25424] = "Schedule.EditDialog.Range.Hint";
     t[25425] = "Shows a dialog to select the schedule area to be displayed.";
+    t[25428] = "Surface.Text.XML.Rotation";
+    t[25429] = "ModelElementRotation";
     t[25430] = "Surface.SourceTable.Dialog.Table.Preview.ErrorFileNotFound.Title";
     t[25431] = "Table file does not exist";
     t[25434] = "Statistics.ResultsAutocorrelation.LineMoreThan";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26419] = "The condition \"%s\" at element id=%d is invalid at character %d.";
     t[26424] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberRangeInfo";
     t[26425] = "<p>Generates a random number according to the gamma distribution with the parameters &alpha; and &beta; according to the third and fourth parameters.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p><p>It is <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> and <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
-    t[26428] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Waiting.ErrorTitle";
-    t[26429] = "Invalid waiting time costs";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[26428] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Waiting.ErrorTitle";
+    t[26429] = "Invalid waiting time costs";
     t[26432] = "Surface.ExpressionTableModelText.ColumnExpression";
     t[26433] = "Conditions";
     t[26436] = "Main.Menu.File.LoadExample";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30887] = "No table file specified";
     t[30888] = "Main.Menu.SimulationCheckServerConnection.Mnemonic";
     t[30889] = "v";
-    t[30890] = "Surface.SourceTable.Dialog.Table.ErrorTitle";
-    t[30891] = "No table file to load the client arrivals from was specified.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[30890] = "Surface.SourceTable.Dialog.Table.ErrorTitle";
+    t[30891] = "No table file to load the client arrivals from was specified.";
     t[30892] = "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Element.ErrorInfo";
     t[30893] = "No analog element at which the value is to be changed has been selected.";
     t[30896] = "Animation.NextEventsViewer.Title";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35183] = "Arrivals per Thread";
     t[35184] = "SettingsDialog.NotifyMode.LongRun";
     t[35185] = "When simulation takes longer time";
-    t[35186] = "Surface.AnimationTextSelect.Dialog.FontSize.Error.Info";
-    t[35187] = "The specified font size is invalid. The font size has to be a positive integer value.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[35186] = "Surface.AnimationTextSelect.Dialog.FontSize.Error.Info";
+    t[35187] = "The specified font size is invalid. The font size has to be a positive integer value.";
     t[35192] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Skewness";
     t[35193] = "<p>Returns the skewness of the number of busy operators in the specified resource.</p>";
     t[35194] = "ParameterCompare.Templates.Maximum.ErrorTitle";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39473] = "Distribution of the waiting times";
     t[39474] = "Statistic.FastAccess.Template.TransferTime.ByStation";
     t[39475] = "Transfer time by station";
-    t[39476] = "Animation.Toolbar.Pause";
-    t[39477] = "Pause";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[39476] = "Animation.Toolbar.Pause";
+    t[39477] = "Pause";
     t[39478] = "Surface.AnimationPointerMeasuring.XML.Expression.MaxValue";
     t[39479] = "MaxValue";
     t[39480] = "ScriptPopup.Runtime.Execute.Hint";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43671] = "If a radiobutton element is clicked during animation, a new value is assigned to a variable. On oposite to checkbox elements radiobuttons cannot be deactivated directly. A new value has to be assigned to the same variable via another radiobutton to deactivate a radiobutton.";
     t[43674] = "ModelGenerator.Operator";
     t[43675] = "Operator";
-    t[43678] = "ParameterCompare.ScriptRunner.Title";
-    t[43679] = "Apply script on results";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[43678] = "ParameterCompare.ScriptRunner.Title";
+    t[43679] = "Apply script on results";
     t[43682] = "Main.Menu.Help.WebServices.QueueCalc.Mnemonic";
     t[43683] = "Q";
     t[43696] = "Surface.TankSensor.Dialog.Threshold";
@@ -20254,6 +20256,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44091] = "Search...";
     t[44098] = "Color.F0FFFF";
     t[44099] = "Azure";
+    t[44110] = "Surface.Text.Dialog.RotationAngle";
+    t[44111] = "Rotation angle";
     t[44112] = "ModelDescription.Costs.Station";
     t[44113] = "Station costs";
     t[44118] = "Statistic.Viewer.DiagramSettings.LegendFont";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47995] = "Condition \"else\": counter %s=%s";
     t[47996] = "Simulation.Log.Hold.Info";
     t[47997] = "Client: %s, station: %s";
-    t[47998] = "Surface.UserStatistic.Table.Edit.IsContinuous.Yes";
-    t[47999] = "Time continuous";
-    t[48000] = "SettingsDialog.HighContrasts";
-    t[48001] = "Use high contrasts";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[47998] = "Surface.UserStatistic.Table.Edit.IsContinuous.Yes";
+    t[47999] = "Time continuous";
+    t[48000] = "SettingsDialog.HighContrasts";
+    t[48001] = "Use high contrasts";
     t[48006] = "Statistic.FastAccess.Template.WaitingTime";
     t[48007] = "Waiting time for all clients";
     t[48012] = "ExpressionCalculator.Toolbar.Tools.Hint";
@@ -24072,16 +24076,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52303] = "Minutes";
     t[52308] = "Surface.MultiSourceTable.Dialog.Previous";
     t[52309] = "Ok & previous client type";
-    t[52318] = "Editor.Dialog.Tab.Simulation.RepeatCount.Error";
-    t[52319] = "The given number of repeats of the simulation %s is invalid. A positive integer number has to be given.";
-    t[52320] = "ModelGenerator.ClosedModel.StationCount";
-    t[52321] = "Number of stations";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[52318] = "Editor.Dialog.Tab.Simulation.RepeatCount.Error";
+    t[52319] = "The given number of repeats of the simulation %s is invalid. A positive integer number has to be given.";
+    t[52320] = "ModelGenerator.ClosedModel.StationCount";
+    t[52321] = "Number of stations";
     t[52322] = "LogAnalyzer.Title";
     t[52323] = "Analyze simulation log files";
     t[52326] = "CommandLine.FolderSimulation.OutputFileExists";

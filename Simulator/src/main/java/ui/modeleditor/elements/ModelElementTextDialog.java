@@ -33,7 +33,10 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
@@ -82,6 +85,8 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 	private JCheckBox optionInterpretLaTeX;
 	/** Ausrichtung */
 	private JComboBox<String> textAlign;
+	/** Drehwinkel */
+	private JSpinner rotation;
 	/** Auswahl der Textfarbe */
 	private LabeledColorChooserButton colorChooser;
 	/** Auswahl der Hintergrundfarbe */
@@ -233,6 +238,16 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 			textAlign.setEnabled(!readOnly);
 			textAlign.addActionListener(e->updatePreview());
 
+			subPanel.add(Box.createHorizontalStrut(10));
+
+			/* Drehung */
+			subPanel.add(label=new JLabel(Language.tr("Surface.Text.Dialog.RotationAngle")+":"));
+			final SpinnerModel spinnerModel=new SpinnerNumberModel(Math.round(text.getRotation()),0,360,1);
+			subPanel.add(rotation=new JSpinner(spinnerModel));
+			label.setLabelFor(rotation);
+			rotation.setEnabled(!readOnly);
+			subPanel.add(new JLabel("°"));
+
 			/* Zeile für Farben 1 */
 			bottomPanel.add(subPanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 
@@ -362,6 +377,9 @@ public class ModelElementTextDialog extends ModelElementBaseDialog {
 		case 1: text.setTextAlign(TextAlign.CENTER); break;
 		case 2: text.setTextAlign(TextAlign.RIGHT); break;
 		}
+
+		/* Drehung */
+		text.setRotation((Double)rotation.getValue());
 
 		/* Schriftfarbe */
 		text.setColor(colorChooser.getColor());

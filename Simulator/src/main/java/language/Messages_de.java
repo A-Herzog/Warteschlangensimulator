@@ -11570,6 +11570,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25421] = "Timeout f\u00fcr einzelne Simulationen verwenden?";
     t[25424] = "Schedule.EditDialog.Range.Hint";
     t[25425] = "Erm\u00f6glicht die Auswahl des darzustellenden Zeitplan-Bereichs \u00fcber einen Dialog.";
+    t[25428] = "Surface.Text.XML.Rotation";
+    t[25429] = "ModellElementDrehung";
     t[25430] = "Surface.SourceTable.Dialog.Table.Preview.ErrorFileNotFound.Title";
     t[25431] = "Tabellendatei existiert nicht";
     t[25434] = "Statistics.ResultsAutocorrelation.LineMoreThan";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26419] = "Die Bedingung \"%s\" von Element id=%d enth\u00e4lt an Position %d einen Fehler.";
     t[26424] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberRangeInfo";
     t[26425] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Gamma-Verteilung mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem dritten und vierten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
-    t[26428] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Waiting.ErrorTitle";
-    t[26429] = "Ung\u00fcltige Wartezeitkosten";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[26428] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Waiting.ErrorTitle";
+    t[26429] = "Ung\u00fcltige Wartezeitkosten";
     t[26432] = "Surface.ExpressionTableModelText.ColumnExpression";
     t[26433] = "Bedingungen";
     t[26436] = "Main.Menu.File.LoadExample";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30887] = "Es wurde keine Tabellendatei, aus der die Kundenank\u00fcnfte geladen werden sollen, angegeben.";
     t[30888] = "Main.Menu.SimulationCheckServerConnection.Mnemonic";
     t[30889] = "p";
-    t[30890] = "Surface.SourceTable.Dialog.Table.ErrorTitle";
-    t[30891] = "Keine Tabellendatei angegeben";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[30890] = "Surface.SourceTable.Dialog.Table.ErrorTitle";
+    t[30891] = "Keine Tabellendatei angegeben";
     t[30892] = "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Element.ErrorInfo";
     t[30893] = "Es wurde keine Analogelement, bei dem der Wert ge\u00e4ndert werden soll, gew\u00e4hlt.";
     t[30896] = "Animation.NextEventsViewer.Title";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35183] = "Ank\u00fcnfte pro Thread";
     t[35184] = "SettingsDialog.NotifyMode.LongRun";
     t[35185] = "Bei langen Simulationsl\u00e4ufen";
-    t[35186] = "Surface.AnimationTextSelect.Dialog.FontSize.Error.Info";
-    t[35187] = "Die angegebene Schriftgr\u00f6\u00dfe ist ung\u00fcltig. Die Schriftgr\u00f6\u00dfe muss eine positive ganze Zahl sein.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[35186] = "Surface.AnimationTextSelect.Dialog.FontSize.Error.Info";
+    t[35187] = "Die angegebene Schriftgr\u00f6\u00dfe ist ung\u00fcltig. Die Schriftgr\u00f6\u00dfe muss eine positive ganze Zahl sein.";
     t[35192] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Skewness";
     t[35193] = "<p>Liefert die Schiefe der Anzahl an belegten Bedienern in der angegebenen Ressource.</p>";
     t[35194] = "ParameterCompare.Templates.Maximum.ErrorTitle";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39473] = "Verteilung der Wartezeiten";
     t[39474] = "Statistic.FastAccess.Template.TransferTime.ByStation";
     t[39475] = "Transferzeit an einer Station";
-    t[39476] = "Animation.Toolbar.Pause";
-    t[39477] = "Pause";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[39476] = "Animation.Toolbar.Pause";
+    t[39477] = "Pause";
     t[39478] = "Surface.AnimationPointerMeasuring.XML.Expression.MaxValue";
     t[39479] = "MaximalWert";
     t[39480] = "ScriptPopup.Runtime.Execute.Hint";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43671] = "Wird ein Radiobutton-Element w\u00e4hrend der Animation angeklickt, so wird einer Variable ein neuer Wert zugewiesen. Im Gegensatz zu Checkboxen k\u00f6nnen Radiobuttons nicht abgew\u00e4hlt werden, sondern nur indirekt \u00fcber weitere Radiobuttons, die sich auf dieselbe Variable beziehen, wieder deaktiviert werden.";
     t[43674] = "ModelGenerator.Operator";
     t[43675] = "Bediener";
-    t[43678] = "ParameterCompare.ScriptRunner.Title";
-    t[43679] = "Skript auf Ergebnisse anwenden";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[43678] = "ParameterCompare.ScriptRunner.Title";
+    t[43679] = "Skript auf Ergebnisse anwenden";
     t[43682] = "Main.Menu.Help.WebServices.QueueCalc.Mnemonic";
     t[43683] = "r";
     t[43696] = "Surface.TankSensor.Dialog.Threshold";
@@ -20254,6 +20256,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44091] = "Suchen...";
     t[44098] = "Color.F0FFFF";
     t[44099] = "Azure";
+    t[44110] = "Surface.Text.Dialog.RotationAngle";
+    t[44111] = "Drehwinkel";
     t[44112] = "ModelDescription.Costs.Station";
     t[44113] = "Stationskosten";
     t[44118] = "Statistic.Viewer.DiagramSettings.LegendFont";
@@ -22066,16 +22070,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[47995] = "Bedingung \"ansonsten\": Z\u00e4hler %s=%s";
     t[47996] = "Simulation.Log.Hold.Info";
     t[47997] = "Kunde: %s, Station: %s";
-    t[47998] = "Surface.UserStatistic.Table.Edit.IsContinuous.Yes";
-    t[47999] = "Kontinuierlich";
-    t[48000] = "SettingsDialog.HighContrasts";
-    t[48001] = "Hohe Kontraste verwenden";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[47998] = "Surface.UserStatistic.Table.Edit.IsContinuous.Yes";
+    t[47999] = "Kontinuierlich";
+    t[48000] = "SettingsDialog.HighContrasts";
+    t[48001] = "Hohe Kontraste verwenden";
     t[48006] = "Statistic.FastAccess.Template.WaitingTime";
     t[48007] = "Wartezeit \u00fcber alle Kunden";
     t[48012] = "ExpressionCalculator.Toolbar.Tools.Hint";
@@ -24072,16 +24076,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52303] = "Minuten";
     t[52308] = "Surface.MultiSourceTable.Dialog.Previous";
     t[52309] = "Ok & Vorheriger Kundentyp";
-    t[52318] = "Editor.Dialog.Tab.Simulation.RepeatCount.Error";
-    t[52319] = "Die angegebene Anzahl %s an Wiederholungen des Simulationslaufs ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
-    t[52320] = "ModelGenerator.ClosedModel.StationCount";
-    t[52321] = "Anzahl an Stationen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[52318] = "Editor.Dialog.Tab.Simulation.RepeatCount.Error";
+    t[52319] = "Die angegebene Anzahl %s an Wiederholungen des Simulationslaufs ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
+    t[52320] = "ModelGenerator.ClosedModel.StationCount";
+    t[52321] = "Anzahl an Stationen";
     t[52322] = "LogAnalyzer.Title";
     t[52323] = "Simulations-Logdateien analysieren";
     t[52326] = "CommandLine.FolderSimulation.OutputFileExists";

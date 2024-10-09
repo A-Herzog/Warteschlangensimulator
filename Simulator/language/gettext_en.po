@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-30 19:28+0200\n"
+"POT-Creation-Date: 2024-10-04 00:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35893,6 +35893,9 @@ msgstr "Italic"
 msgid "Surface.Text.Dialog.Preview"
 msgstr "Preview"
 
+msgid "Surface.Text.Dialog.RotationAngle"
+msgstr "Rotation angle"
+
 msgid "Surface.Text.Dialog.ShadowAlpha"
 msgstr "Strength of the shadow"
 
@@ -35949,6 +35952,9 @@ msgstr "Symbols"
 
 msgid "Surface.Text.XML.Root"
 msgstr "ModelElementText"
+
+msgid "Surface.Text.XML.Rotation"
+msgstr "ModelElementRotation"
 
 msgid "Surface.Text.XML.ShadowColor"
 msgstr "ModelElementShadowColor"
