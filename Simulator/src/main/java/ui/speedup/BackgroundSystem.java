@@ -217,6 +217,8 @@ public class BackgroundSystem {
 		boolean singleCore=(!model.getSingleCoreReason().isEmpty());
 		if (singleCore && model.repeatCount==1) return true; /* Wir belasten nur einen Kern, damit harmlos. */
 
+		if (model.repeatCount>threadCount) return false; /* Das scheint eine langwierige Simulation zu werden. */
+
 		int split=1;
 		for (ModelElement element1: model.surface.getElements()) {
 			if (element1 instanceof ModelElementSplit) {
