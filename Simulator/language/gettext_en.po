@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-04 00:08+0200\n"
+"POT-Creation-Date: 2024-10-08 08:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -700,6 +700,42 @@ msgstr "Java"
 
 msgid "AnimationExpression.XML.Mode.Javascript"
 msgstr "Javascript"
+
+msgid "ArrangeDialog.Elements"
+msgstr "Which elements should be aligned?"
+
+msgid "ArrangeDialog.Elements.All"
+msgstr "Align all stations"
+
+msgid "ArrangeDialog.Elements.Selected"
+msgstr "Align selected stations"
+
+msgid "ArrangeDialog.ErrorContent"
+msgstr ""
+"The stations could not be realigned.\n"
+"\n"
+"For a complete arrangement, it is required that the stations to be relocated form a single flow chart."
+
+msgid "ArrangeDialog.ErrorTitle"
+msgstr "Alignment failed"
+
+msgid "ArrangeDialog.Mode"
+msgstr "How should the elements be aligned?"
+
+msgid "ArrangeDialog.Mode.Full"
+msgstr "Completely rearrange"
+
+msgid "ArrangeDialog.Mode.Grid"
+msgstr "Align only to the grid"
+
+msgid "ArrangeDialog.NoteContent"
+msgstr "Only the stations are realigned.<br>Decorative elements are not relocated."
+
+msgid "ArrangeDialog.NoteTitle"
+msgstr "Note"
+
+msgid "ArrangeDialog.Title"
+msgstr "Align elements"
 
 msgid "AutoRestore.Dialog.ClearAll"
 msgstr "Clear all saved models"
@@ -11671,6 +11707,12 @@ msgstr "T"
 
 msgid "Main.Menu.Edit.Arrange"
 msgstr "Arrange"
+
+msgid "Main.Menu.Edit.ArrangeAll"
+msgstr "Align all elements..."
+
+msgid "Main.Menu.Edit.ArrangeAll.Mnemonic"
+msgstr "A"
 
 msgid "Main.Menu.Edit.AutoConnect"
 msgstr "Auto connect new elements"
@@ -37417,7 +37459,7 @@ msgid "SystemInfo.Load.CPUCount"
 msgstr "Number of logical CPU cores"
 
 msgid "SystemInfo.Load.Load"
-msgstr "Word load"
+msgstr "Work load"
 
 msgid "SystemInfo.Load.LoadSystem"
 msgstr "System utilization"

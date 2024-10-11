@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-04 00:08+0200\n"
+"POT-Creation-Date: 2024-10-08 08:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -700,6 +700,41 @@ msgstr "Java"
 
 msgid "AnimationExpression.XML.Mode.Javascript"
 msgstr "Javascript"
+
+msgid "ArrangeDialog.Elements"
+msgstr "Welche Elemente sollen ausgerichtet werden?"
+
+msgid "ArrangeDialog.Elements.All"
+msgstr "Alle Stationen ausrichten"
+
+msgid "ArrangeDialog.Elements.Selected"
+msgstr "Ausgewählte Stationen ausrichten"
+
+msgid "ArrangeDialog.ErrorContent"
+msgstr ""
+"Die Stationen konnten nicht neu ausgerichtet werden.\n"
+"Für eine vollständige Anordnung wird vorausgesetzt, dass die zu verlagernden Stationen einen zusammenhängenden Ablaufplan bilden."
+
+msgid "ArrangeDialog.ErrorTitle"
+msgstr "Ausrichten fehlgeschlagen"
+
+msgid "ArrangeDialog.Mode"
+msgstr "Wie sollen die Elemente ausrichtet werden?"
+
+msgid "ArrangeDialog.Mode.Full"
+msgstr "Vollständig neu anordnen"
+
+msgid "ArrangeDialog.Mode.Grid"
+msgstr "Nur am Raster ausrichten"
+
+msgid "ArrangeDialog.NoteContent"
+msgstr "Es werden nur die Stationen neu ausgerichtet.<br>Dekorative Elemente werden nicht verlagert."
+
+msgid "ArrangeDialog.NoteTitle"
+msgstr "Hinweis"
+
+msgid "ArrangeDialog.Title"
+msgstr "Elemente ausrichten"
 
 msgid "AutoRestore.Dialog.ClearAll"
 msgstr "Alle gespeicherten Modell gelöschen"
@@ -11704,6 +11739,12 @@ msgstr "O"
 
 msgid "Main.Menu.Edit.Arrange"
 msgstr "Anordnen"
+
+msgid "Main.Menu.Edit.ArrangeAll"
+msgstr "Alle Elemente ausrichten..."
+
+msgid "Main.Menu.Edit.ArrangeAll.Mnemonic"
+msgstr "A"
 
 msgid "Main.Menu.Edit.AutoConnect"
 msgstr "Neue Elemente automatisch verbinden"

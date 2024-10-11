@@ -56,6 +56,7 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -149,6 +150,7 @@ import ui.dialogs.LogSetupDialog;
 import ui.dialogs.ModelAnalyticInfoDialog;
 import ui.dialogs.ModelDescriptionDialog;
 import ui.dialogs.ModelLoadDataWarningsDialog;
+import ui.dialogs.ModelSurfaceArrangerDialog;
 import ui.dialogs.NotesDialog;
 import ui.dialogs.ProblemReporterDialog;
 import ui.dialogs.SelectElementByIdDialog;
@@ -698,6 +700,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("EditAlignLeft",e->editorPanel.alignSelectedElementsLeft());
 		addAction("EditAlignCenter",e->editorPanel.alignSelectedElementsCenter());
 		addAction("EditAlignRight",e->editorPanel.alignSelectedElementsRight());
+		addAction("EditArrange",e->commandEditArrange());
 		addAction("EditFindElement",e->commandEditFindElement());
 		addAction("EditFindAndReplace",e->commandEditFindAndReplace(null));
 		addAction("EditQuickAccess",e->{if (quickAccess!=null && quickAccess.isVisible()) quickAccess.requestFocus();});
@@ -1261,6 +1264,7 @@ public class MainPanel extends MainPanelBase {
 		enabledOnEditorPanel.add(createMenuItem(submenu,Language.tr("Main.Menu.Edit.Align.Left"),Images.ALIGN_LEFT.getIcon(),Language.tr("Main.Menu.Edit.Align.Left.Mnemonic"),"EditAlignLeft"));
 		enabledOnEditorPanel.add(createMenuItem(submenu,Language.tr("Main.Menu.Edit.Align.Center"),Images.ALIGN_CENTER.getIcon(),Language.tr("Main.Menu.Edit.Align.Center.Mnemonic"),"EditAlignCenter"));
 		enabledOnEditorPanel.add(createMenuItem(submenu,Language.tr("Main.Menu.Edit.Align.Right"),Images.ALIGN_RIGHT.getIcon(),Language.tr("Main.Menu.Edit.Align.Right.Mnemonic"),"EditAlignRight"));
+		enabledOnEditorPanel.add(createMenuItemCtrlShift(menu,Language.tr("Main.Menu.Edit.ArrangeAll"),Images.ARRANGE.getIcon(),Language.tr("Main.Menu.Edit.ArrangeAll.Mnemonic"),KeyEvent.VK_A,"EditArrange"));
 		menu.addSeparator();
 		enabledOnEditorPanel.add(createMenuItemCtrl(menu,Language.tr("Main.Menu.View.FindElement"),Images.GENERAL_FIND.getIcon(),Language.tr("Main.Menu.View.FindElement.Mnemonic"),KeyEvent.VK_F,"EditFindElement"));
 		enabledOnEditorPanel.add(createMenuItemCtrlShift(menu,Language.tr("Main.Menu.View.FindAndReplace"),Images.GENERAL_FONT.getIcon(),Language.tr("Main.Menu.View.FindAndReplace.Mnemonic"),KeyEvent.VK_F,"EditFindAndReplace"));
@@ -2502,6 +2506,20 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandFileGit() {
 		new GitListDialog(this);
+	}
+
+	/**
+	 * Befehl: Bearbeiten - Alle Elemente ausrichten...
+	 */
+	private void commandEditArrange() {
+		final var selectedIDs=editorPanel.getSelectedArea(true).stream().map(element->element.getId()).collect(Collectors.toSet());
+		final var model=editorPanel.getModel();
+		final var file=editorPanel.getLastFile();
+		final var dialog=new ModelSurfaceArrangerDialog(this,model,selectedIDs);
+		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
+			editorPanel.setModel(model);
+			editorPanel.setLastFile(file);
+		}
 	}
 
 	/**

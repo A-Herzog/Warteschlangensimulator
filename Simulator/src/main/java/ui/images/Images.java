@@ -336,6 +336,9 @@ public enum Images {
 	/** Symbol "Horizontal ausrichten - Rechte Kante */
 	ALIGN_RIGHT("shape_align_right.png"),
 
+	/** Symbol "Alle Elemente ausrichten" */
+	ARRANGE("Layout.png"),
+
 	/** Symbol "Anordnen - ganz nach vorne" */
 	MOVE_FRONT("shape_move_front.png"),
 
@@ -1979,8 +1982,10 @@ public enum Images {
 		if (url!=null) {
 			list.add(url);
 		} else {
-			url=getClass().getResource(folder+"/"+name.replace('_','-'));
-			if (url!=null) list.add(url);
+			if (name.contains("_")) {
+				url=getClass().getResource(folder+"/"+name.replace('_','-'));
+				if (url!=null) list.add(url);
+			}
 		}
 	}
 
