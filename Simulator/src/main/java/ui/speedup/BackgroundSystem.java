@@ -204,11 +204,17 @@ public class BackgroundSystem {
 		if (model.resources.count()>threadCount) return false; /* Keine Modelle mit vielen Ressourcen (im Verhältnis zur CPU-Kern-Zahl) */
 		if (model.transporters.count()>0) return false; /* Modelle mit Transportern nicht im Hintergrund verwenden */
 		for (ModelElement element1: model.surface.getElements()) {
-			if (element1 instanceof ElementNoRemoteSimulation) return false;
+			if (element1 instanceof ElementNoRemoteSimulation) {
+				final var el=(ElementNoRemoteSimulation)element1;
+				if (el.inputConnected() && el.isOutputActive()) return false;
+			}
 			if (element1 instanceof ElementWithScript) return false;
 			if (element1 instanceof ModelElementMatch) return false; /* Zusammenführen führt fast immer zu zu hohen Kundenanzahlen. Hintergrundsimulation lieber bleiben lassen. */
 			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
-				if (element2 instanceof ElementNoRemoteSimulation) return false;
+				if (element2 instanceof ElementNoRemoteSimulation) {
+					final var el=(ElementNoRemoteSimulation)element1;
+					if (el.inputConnected() && el.isOutputActive()) return false;
+				}
 				if (element2 instanceof ElementWithScript) return false;
 				if (element2 instanceof ModelElementMatch) return false; /* Zusammenführen führt fast immer zu zu hohen Kundenanzahlen. Hintergrundsimulation lieber bleiben lassen. */
 			}

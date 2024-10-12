@@ -222,9 +222,9 @@ public class StartAnySimulator {
 	 */
 	private static boolean isRemoveSimulateable(final ModelSurface surface) {
 		for (ModelElement element1: surface.getElements()) {
-			if (element1 instanceof ElementNoRemoteSimulation && (((ElementNoRemoteSimulation)element1).inputConnected())) return false;
+			if (element1 instanceof ElementNoRemoteSimulation && ((ElementNoRemoteSimulation)element1).inputConnected() && ((ElementNoRemoteSimulation)element1).isOutputActive()) return false;
 			if (element1 instanceof ModelElementSub) for (ModelElement element2: ((ModelElementSub)element1).getSubSurface().getElements()) {
-				if (element2 instanceof ElementNoRemoteSimulation && (((ElementNoRemoteSimulation)element2).inputConnected())) return false;
+				if (element2 instanceof ElementNoRemoteSimulation && ((ElementNoRemoteSimulation)element2).inputConnected() && ((ElementNoRemoteSimulation)element2).isOutputActive()) return false;
 			}
 		}
 		return true;

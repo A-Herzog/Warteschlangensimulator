@@ -36,4 +36,10 @@ public interface ElementNoRemoteSimulation {
 	 * Kante gibt.
 	 */
 	boolean inputConnected();
+
+	/**
+	 * Ist die Ein- oder Ausgabefunktion aktiv?
+	 * @return	Liefert <code>true</code>, wenn die Ein- oder Ausgabefunktion der Station aktiv ist
+	 */
+	boolean isOutputActive();
 }

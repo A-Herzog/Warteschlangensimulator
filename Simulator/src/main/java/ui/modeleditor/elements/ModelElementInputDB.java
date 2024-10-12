@@ -656,4 +656,10 @@ public class ModelElementInputDB extends ModelElementMultiInSingleOutBox impleme
 			searcher.testString(this,Language.tr("Surface.InputDB.Dialog.Mode.DefaultValue"),defaultValue,newDefaultValue->{defaultValue=newDefaultValue;});
 		}
 	}
+
+	@Override
+	public boolean isOutputActive() {
+		/* Keine Remote-Simulation */
+		return true;
+	}
 }

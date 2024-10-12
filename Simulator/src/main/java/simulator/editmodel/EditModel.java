@@ -1534,7 +1534,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		/* Ein- und Ausgabe */
 
-		if ((element instanceof ElementNoRemoteSimulation) && ((ElementNoRemoteSimulation)element).inputConnected())  {
+		if ((element instanceof ElementNoRemoteSimulation) && ((ElementNoRemoteSimulation)element).inputConnected() && ((ElementNoRemoteSimulation)element).isOutputActive())  {
 			reasons.add(String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId()));
 		}
 		if (element instanceof ModelElementRecord) reasons.add(String.format(Language.tr("Surface.SingleCoreReason.OutputElementUsed"),element.getId()));

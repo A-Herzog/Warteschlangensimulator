@@ -586,4 +586,10 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 			searcher.testString(this,Language.tr("Editor.DialogBase.Search.ClientTypeName"),clientTypeNames.get(index),newClientTypeName->clientTypeNames.set(index,newClientTypeName));
 		}
 	}
+
+	@Override
+	public boolean isOutputActive() {
+		/* Keine Remote-Simulation */
+		return true;
+	}
 }

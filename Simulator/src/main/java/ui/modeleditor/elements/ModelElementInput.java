@@ -548,4 +548,10 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 			searcher.testString(this,Language.tr("Surface.Input.Dialog.Mode.DefaultValue"),defaultValue,newDefaultValue->{defaultValue=newDefaultValue;});
 		}
 	}
+
+	@Override
+	public boolean isOutputActive() {
+		/* Keine Remote-Simulation */
+		return true;
+	}
 }

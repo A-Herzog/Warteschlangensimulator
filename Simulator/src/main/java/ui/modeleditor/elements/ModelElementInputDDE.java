@@ -617,4 +617,10 @@ public class ModelElementInputDDE extends ModelElementMultiInSingleOutBox implem
 			searcher.testString(this,Language.tr("Surface.InputDDE.Dialog.Mode.DefaultValue"),defaultValue,newDefaultValue->{defaultValue=newDefaultValue;});
 		}
 	}
+
+	@Override
+	public boolean isOutputActive() {
+		/* Keine Remote-Simulation */
+		return true;
+	}
 }

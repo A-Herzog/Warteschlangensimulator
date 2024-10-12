@@ -622,4 +622,10 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 			searcher.testString(this,Language.tr("Editor.DialogBase.Search.ClientTypeName"),clientTypeNames.get(index),newClientTypeName->clientTypeNames.set(index,newClientTypeName));
 		}
 	}
+
+	@Override
+	public boolean isOutputActive() {
+		/* Keine Remote-Simulation */
+		return true;
+	}
 }

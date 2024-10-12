@@ -521,4 +521,10 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 			searcher.testDouble(this,Language.tr("Surface.InputJS.Dialog.Mode.DefaultValue"),defaultValue,newDefaultValue->{defaultValue=newDefaultValue;});
 		}
 	}
+
+	@Override
+	public boolean isOutputActive() {
+		/* Keine Remote-Simulation */
+		return true;
+	}
 }
