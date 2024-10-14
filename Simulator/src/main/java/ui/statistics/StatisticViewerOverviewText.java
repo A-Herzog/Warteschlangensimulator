@@ -1526,7 +1526,14 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 		addHeading(2,Language.tr("Editor.GeneralData.Name"));
 		beginParagraph();
-		if (statistics.editModel.name.trim().isEmpty()) addLine(Language.tr("Editor.GeneralData.Name.NoName")); else addLine(statistics.editModel.name);
+		if (statistics.editModel.name.isBlank()) addLine(Language.tr("Editor.GeneralData.Name.NoName")); else addLine(statistics.editModel.name);
+		endParagraph();
+
+		addHeading(2,Language.tr("Statistics.SystemData.EditUser"));
+		beginParagraph();
+		if (statistics.editModel.author!=null && !statistics.editModel.author.trim().isEmpty()) addLine(Language.tr("Statistics.SystemData.EditUser")+": "+statistics.editModel.author);
+		if (statistics.editModel.authorEMail!=null && !statistics.editModel.authorEMail.trim().isEmpty()) addLine(Language.tr("Statistics.SystemData.EditUserEMail")+": "+statistics.editModel.authorEMail);
+		addLine(Language.tr("Statistics.SystemData.RunUser")+": "+statistics.simulationData.runUser);
 		endParagraph();
 
 		addHeading(2,Language.tr("Editor.GeneralData.Description"));
