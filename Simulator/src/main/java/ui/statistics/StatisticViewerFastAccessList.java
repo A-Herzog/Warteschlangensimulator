@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import javax.swing.DefaultListCellRenderer;
@@ -95,8 +96,9 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 	 * @param helpFastAccessModal	Hilfe für Schnellzugriff-Dialog
 	 * @param statistics	Statistik-Objekt, dem die Daten entnommen werden sollen
 	 * @param resultsChanged	Runnable das aufgerufen wird, wenn sich die Ergebnisse verändert haben
+	 * @param dragDropLoad	Runnable das aufgerufen wird, wenn eine Datei auf dem Panel abgelegt wird (nur relevant, wenn das Drag&amp;drop-Verhalten des übergeordneten Panels überschrieben wird)
 	 */
-	public StatisticViewerFastAccessList(final Runnable helpFastAccess, final Runnable helpFastAccessModal, final Statistics statistics, final Runnable resultsChanged) {
+	public StatisticViewerFastAccessList(final Runnable helpFastAccess, final Runnable helpFastAccessModal, final Statistics statistics, final Runnable resultsChanged, final Consumer<File> dragDropLoad) {
 		super(helpFastAccess,helpFastAccessModal,statistics,resultsChanged,false);
 		setup=SetupData.getSetup();
 		lastSavedFilterText="";
@@ -348,11 +350,8 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		list.setSelectedIndex(index+1);
 	}
 
-	/**
-	 * Darf die Liste verworfen werden (ggf. Nutzer fragen)?
-	 * @return	Liefert <code>true</code>, wenn die Liste verworfen werden darf
-	 */
-	private boolean discardOk() {
+	@Override
+	public boolean discardFilterOk() {
 		final String text=saveListToText();
 		if (text.trim().equals(lastSavedFilterText.trim())) return true;
 
@@ -366,7 +365,7 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 
 	@Override
 	protected void commandNew() {
-		if (!discardOk()) return;
+		if (!discardFilterOk()) return;
 		listModel.clear();
 		lastSavedFilterText="";
 		process(false);
@@ -375,14 +374,16 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 	/**
 	 * Lädt die Listendarstellung aus einem Text
 	 * @param text	Zuvor gespeicherte Listendarstellung
+	 * @return	Liefert <code>true</code>, wenn die Daten vollständig interpretiert werden konnten
 	 */
-	private void loadTextToList(final String text) {
+	private boolean loadTextToList(final String text) {
 		final FilterList filterList=new FilterList();
-		filterList.load(text);
+		final boolean ok=filterList.load(text);
 		listModel.clear();
 		for (FilterListRecord record: filterList.getList()) listModel.addElement(record);
 		process(false);
 		selectionChanged();
+		return ok;
 	}
 
 	/**
@@ -398,19 +399,11 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 	 * @return	Liefert <code>true</code>, wenn ein Skript geladen wurde
 	 */
 	private boolean loadIntern() {
-		if (!discardOk()) return false;
+		if (!discardFilterOk()) return false;
 		final String fileName=ScriptTools.selectTextFile(getParent(),null,null);
 		if (fileName==null) return false;
 		final File file=new File(fileName);
-
-		try (Stream<String> linesStream=Files.lines(file.toPath())) {
-			final String text=String.join("\n",linesStream.toArray(String[]::new));
-			loadTextToList(text);
-			lastSavedFilterText=text;
-		} catch (IOException e) {
-			return false;
-		}
-		return true;
+		return loadFile(file);
 	}
 
 	@Override
@@ -516,6 +509,23 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 			}
 
 			return result;
+		}
+	}
+
+	@Override
+	public String[] preferredExtensions() {
+		return new String[] {"txt"};
+	}
+
+	@Override
+	public boolean loadFile(final File file) {
+		try (Stream<String> linesStream=Files.lines(file.toPath())) {
+			final String text=String.join("\n",linesStream.toArray(String[]::new));
+			final boolean ok=loadTextToList(text);
+			lastSavedFilterText=text;
+			return ok;
+		} catch (IOException e) {
+			return false;
 		}
 	}
 }

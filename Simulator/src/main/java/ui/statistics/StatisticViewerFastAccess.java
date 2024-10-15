@@ -30,6 +30,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 
 import language.Language;
+import mathtools.distribution.tools.FileDropper;
+import mathtools.distribution.tools.FileDropperData;
 import scripting.js.JSRunDataFilterTools;
 import simulator.statistics.Statistics;
 import systemtools.MsgBox;
@@ -118,18 +120,49 @@ public class StatisticViewerFastAccess extends StatisticViewerSpecialBase {
 		tabs.setPreferredSize(new Dimension(1,250));
 		final int lastMode=SetupData.getSetup().lastFilterMode; /* Müssen wir vor dem ersten Hinzufügen eines Tabs abfragen. */
 
-		tabs.add(fastAccessList=new StatisticViewerFastAccessList(helpFastAccess,helpFastAccessModal,statistic,()->resultsChanged()),Language.tr("Statistic.FastAccess.FilterList"));
-		tabs.add(fastAccessJS=new StatisticViewerFastAccessJS(helpFastAccessJS,helpFastAccessModalJS,statistic,()->resultsChanged()),Language.tr("Statistic.FastAccess.FilterJS"));
-		tabs.add(fastAccessJava=new StatisticViewerFastAccessJava(helpFastAccessJava,helpFastAccessModalJava,statistic,()->resultsChanged()),Language.tr("Statistic.FastAccess.FilterJava"));
+		tabs.add(fastAccessList=new StatisticViewerFastAccessList(helpFastAccess,helpFastAccessModal,statistic,()->resultsChanged(),file->dragDropLoad(file)),Language.tr("Statistic.FastAccess.FilterList"));
+		tabs.add(fastAccessJS=new StatisticViewerFastAccessJS(helpFastAccessJS,helpFastAccessModalJS,statistic,()->resultsChanged(),file->dragDropLoad(file)),Language.tr("Statistic.FastAccess.FilterJS"));
+		tabs.add(fastAccessJava=new StatisticViewerFastAccessJava(helpFastAccessJava,helpFastAccessModalJava,statistic,()->resultsChanged(),file->dragDropLoad(file)),Language.tr("Statistic.FastAccess.FilterJava"));
 
 		for (int i=0;i<tabs.getTabCount();i++) tabs.setIconAt(i,((StatisticViewerFastAccessBase)tabs.getComponentAt(i)).getIcon());
 		if (lastMode>=0 && lastMode<tabs.getTabCount()) tabs.setSelectedIndex(lastMode);
 		tabs.addChangeListener(e->resultsChanged());
 		resultsChanged();
 
+		new FileDropper(tabs,e->{
+			final FileDropperData data=(FileDropperData)e.getSource();
+			dragDropLoad(data.getFile());
+			data.dragDropConsumed();
+		});
+
 		viewer.setResizeWeight(1);
 		viewer.setDividerLocation(viewer.getSize().height-200);
 		return viewer;
+	}
+
+	/**
+	 * Versucht eine per Drag&amp;Drop auf dem Panel abgelegte Datei zu laden.
+	 * @param file	Zu ladende Datei
+	 */
+	private void dragDropLoad(final File file) {
+		if (file==null || !file.isFile()) return;
+
+		final var processors=new StatisticViewerFastAccessBase[] {fastAccessList, fastAccessJS, fastAccessJava};
+
+		final String fileNameLower=file.toString().toLowerCase();
+
+		StatisticViewerFastAccessBase tab=null;
+		for (int i=0;i<processors.length;i++) if (tab==null) for (var ext: processors[i].preferredExtensions()) if (fileNameLower.endsWith("."+ext)) {
+			tab=processors[i];
+			tabs.setSelectedIndex(i);
+			break;
+		}
+		if (tab==null) tab=processors[tabs.getSelectedIndex()];
+
+		if (!tab.discardFilterOk()) return;
+		if (!tab.loadFile(file)) {
+			MsgBox.error(viewer,Language.tr("Statistic.FastAccess.Load.ErrorTitel"),String.format(Language.tr("Statistic.FastAccess.Load.ErrorInfo"),file.toString()));
+		}
 	}
 
 	@Override

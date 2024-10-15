@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-08 08:21+0200\n"
+"POT-Creation-Date: 2024-10-11 09:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6629,7 +6629,7 @@ msgstr "Beta distribution (direct characteristics)"
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DensityInfo"
 msgstr ""
 "<p>Calculates the value of the density of the beta distribution at the location specified as first parameter with lower bound, upper bound, mean value and standard deviation according to the second to fiveth parameters.</p>\n"
-"<p>Example: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> returns 1,31344828230159.</p>"
+"<p>Example: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> returns 1.31344828230159.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DistributionFunctionInfo"
 msgstr ""
@@ -22288,6 +22288,15 @@ msgstr "Shows a help page with information about the usage of the filter functio
 
 msgid "Statistic.FastAccess.JavaErrorTitle"
 msgstr "Java error"
+
+msgid "Statistic.FastAccess.Load.ErrorInfo"
+msgstr ""
+"The\n"
+"%s\n"
+"file could not be loaded completely."
+
+msgid "Statistic.FastAccess.Load.ErrorTitel"
+msgstr "Load failed"
 
 msgid "Statistic.FastAccess.Load.Tooltip"
 msgstr "Loads a filter configuration from a file"

@@ -19,6 +19,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.io.File;
 import java.io.Serializable;
+import java.util.function.Consumer;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -81,8 +82,9 @@ public class StatisticViewerFastAccessJava extends StatisticViewerFastAccessBase
 	 * @param helpFastAccessModal	Hilfe für Schnellzugriff-Dialog
 	 * @param statistics	Statistik-Objekt, dem die Daten entnommen werden sollen
 	 * @param resultsChanged	Runnable das aufgerufen wird, wenn sich die Ergebnisse verändert haben
+	 * @param dragDropLoad	Runnable das aufgerufen wird, wenn eine Datei auf dem Panel abgelegt wird (nur relevant, wenn das Drag&amp;drop-Verhalten des übergeordneten Panels überschrieben wird)
 	 */
-	public StatisticViewerFastAccessJava(final Runnable helpFastAccess, final Runnable helpFastAccessModal, final Statistics statistics, final Runnable resultsChanged) {
+	public StatisticViewerFastAccessJava(final Runnable helpFastAccess, final Runnable helpFastAccessModal, final Statistics statistics, final Runnable resultsChanged, final Consumer<File> dragDropLoad) {
 		super(helpFastAccess,helpFastAccessModal,statistics,resultsChanged,true);
 
 		/* Filtertext */
@@ -90,20 +92,9 @@ public class StatisticViewerFastAccessJava extends StatisticViewerFastAccessBase
 		builder.addAutoCompleteFeatures(ScriptEditorPanel.featuresFilter);
 		builder.addFileDropper(e->{
 			final FileDropperData data=(FileDropperData)e.getSource();
-			final File file=data.getFile();
-			if (file.isFile()) {
-				if (discardFilterOk(getParent())) {
-					final String script=JSRunDataFilterTools.loadText(file);
-					if (script!=null) {
-						filter.setText(script);
-						setResults("");
-						lastInterpretedFilterText="";
-						lastInterpretedFilterResult="";
-					}
-				}
-				data.dragDropConsumed();
-			}
+			dragDropLoad.accept(data.getFile());
 		});
+
 		final RTextScrollPane scrollFilter;
 		add(scrollFilter=new RTextScrollPane(filter=builder.get()));
 		scrollFilter.setLineNumbersEnabled(true);
@@ -216,17 +207,13 @@ public class StatisticViewerFastAccessJava extends StatisticViewerFastAccessBase
 		return JSRunDataFilterTools.loadText(file);
 	}
 
-	/**
-	 * Darf das aktuelle Skript verworfen werden (ggf. Nutzer fragen) ?
-	 * @param parentFrame	Übergeordnetes Fenster (zur Ausrichtung des Dialogs)
-	 * @return	Liefert <code>true</code>, wenn das Skript verworfen werden darf
-	 */
-	private boolean discardFilterOk(Container parentFrame) {
+	@Override
+	public boolean discardFilterOk() {
 		if (filter.getText().equals(lastSavedFilterText)) return true;
 
 		switch (MsgBox.confirmSave(getParent(),Language.tr("Filter.Save.Title"),Language.tr("Filter.Save.Info"))) {
 		case JOptionPane.YES_OPTION:
-			if (!saveTextToFile(parentFrame,filter.getText(),true)) return false;
+			if (!saveTextToFile(getParent(),filter.getText(),true)) return false;
 			return true;
 		case JOptionPane.NO_OPTION: return true;
 		case JOptionPane.CANCEL_OPTION: return false;
@@ -236,7 +223,7 @@ public class StatisticViewerFastAccessJava extends StatisticViewerFastAccessBase
 
 	@Override
 	protected void commandNew() {
-		if (!discardFilterOk(getParent())) return;
+		if (!discardFilterOk()) return;
 		if (!filter.getText().equals(lastSavedFilterText)) lastSavedFilterText=filter.getText();
 		filter.setText(ScriptEditorPanel.DEFAULT_JAVA);
 		setResults("");
@@ -246,8 +233,8 @@ public class StatisticViewerFastAccessJava extends StatisticViewerFastAccessBase
 
 	@Override
 	protected void commandLoad() {
-		if (!discardFilterOk(getParent())) return;
-		String s=loadTextFromFile(getParent(),true);
+		if (!discardFilterOk()) return;
+		final String s=loadTextFromFile(getParent(),true);
 		if (s!=null) {
 			filter.setText(s);
 			setResults("");
@@ -268,5 +255,21 @@ public class StatisticViewerFastAccessJava extends StatisticViewerFastAccessBase
 		popup.addFeatures(ScriptEditorPanel.featuresFilter);
 		popup.build();
 		popup.show(filter);
+	}
+
+	@Override
+	public String[] preferredExtensions() {
+		return new String[] {"java"};
+	}
+
+	@Override
+	public boolean loadFile(final File file) {
+		final String s=JSRunDataFilterTools.loadText(file);
+		if (s==null) return false;
+		filter.setText(s);
+		setResults("");
+		lastInterpretedFilterText="";
+		lastInterpretedFilterResult="";
+		return true;
 	}
 }

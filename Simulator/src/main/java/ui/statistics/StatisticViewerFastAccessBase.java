@@ -16,6 +16,7 @@
 package ui.statistics;
 
 import java.awt.BorderLayout;
+import java.io.File;
 import java.io.Serializable;
 
 import javax.swing.Icon;
@@ -198,4 +199,23 @@ public abstract class StatisticViewerFastAccessBase extends JPanel {
 	private void commandHelp() {
 		if (helpFastAccess!=null) helpFastAccess.run();
 	}
+
+	/**
+	 * Liefert die Liste der für diese Variante bevorzugten Dateiendungen.
+	 * @return	Liste der für diese Variante bevorzugten Dateiendungen (z.B. "txt", d.h. ohne Punkt)
+	 */
+	public abstract String[] preferredExtensions();
+
+	/**
+	 * Darf das aktuelle Skript verworfen werden (ggf. Nutzer fragen) ?
+	 * @return	Liefert <code>true</code>, wenn das Skript verworfen werden darf
+	 */
+	public abstract boolean discardFilterOk();
+
+	/**
+	 * Versucht eine Datei zu laden.
+	 * @param file	Zu ladende Datei
+	 * @return	Gibt an, ob das Laden erfolgreich war.
+	 */
+	public abstract boolean loadFile(final File file);
 }
