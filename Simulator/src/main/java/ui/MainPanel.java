@@ -3710,6 +3710,8 @@ public class MainPanel extends MainPanelBase {
 	private boolean commandSimulationParameterSeriesNew(final ParameterCompareTemplatesDialog.TemplateRecord template) {
 		final EditModel editModel=editorPanel.getModel();
 
+		if (!testEmptyModel(editModel,true)) return false;
+
 		if (editModel.modelLoadData.willChangeModel()) {
 			MsgBox.warning(this,Language.tr("ModelLoadData.IncompatibleWarning.Title"),Language.tr("ModelLoadData.IncompatibleWarning.ParameterSeries"));
 		}
