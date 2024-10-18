@@ -326,7 +326,7 @@ public class StatisticViewerMovementVisualizationDialog extends BaseDialog {
 		final StringBuilder heading=new StringBuilder();
 		heading.append("<html><body>");
 		heading.append("<b>");
-		heading.append(Language.tr("Statistics.ClientMovement.Visualization.Path")+" "+(index+1)+" ("+StatisticTools.formatPercent(path.getPart())+")");
+		heading.append(Language.tr("Statistics.ClientMovement.Visualization.Path")+" "+(index+1)+" ("+StatisticTools.formatPercentExt(path.getPart(),false)+")");
 		heading.append("</b>");
 		heading.append("</body></html>");
 		pathListModel.addElement(heading.toString());
@@ -435,7 +435,7 @@ public class StatisticViewerMovementVisualizationDialog extends BaseDialog {
 			String nameShort;
 			if (name.length()>MAX_PATH_NAME_LENGTH) nameShort=name.substring(0,MAX_PATH_NAME_LENGTH)+"..."; else nameShort=name;
 
-			return nameShort+" ("+StatisticTools.formatPercent(part)+")";
+			return nameShort+" ("+StatisticTools.formatPercentExt(part,false)+")";
 		}
 
 		/**

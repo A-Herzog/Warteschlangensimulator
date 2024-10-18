@@ -331,7 +331,7 @@ public class EditorPanelStatistics {
 	 * @see #buildTooltip(Statistics, ModelElementBox)
 	 */
 	private String formatTime(final double time) {
-		return TimeTools.formatExactTime(time)+" ("+StatisticTools.formatNumber(time)+")";
+		return TimeTools.formatExactTime(time)+" ("+StatisticTools.formatNumberExt(time,false)+")";
 	}
 
 	/**
@@ -387,9 +387,9 @@ public class EditorPanelStatistics {
 		if (transfer!=null && transfer.getMean()>0) lines.add("E[T]="+formatTime(transfer.getMean()));
 		if (process!=null && process.getMean()>0) lines.add("E[S]="+formatTime(process.getMean()));
 		if (residence!=null && residence.getMean()>0) lines.add("E[V]="+formatTime(residence.getMean()));
-		if (nq!=null && nq.getTimeMean()>0) lines.add("E[NQ]="+StatisticTools.formatNumber(nq.getTimeMean()));
-		if (ns!=null && ns.getTimeMean()>0) lines.add("E[NS]="+StatisticTools.formatNumber(ns.getTimeMean()));
-		if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+StatisticTools.formatNumber(wip.getTimeMean()));
+		if (nq!=null && nq.getTimeMean()>0) lines.add("E[NQ]"+StatisticTools.formatNumberExt(nq.getTimeMean(),true));
+		if (ns!=null && ns.getTimeMean()>0) lines.add("E[NS]"+StatisticTools.formatNumberExt(ns.getTimeMean(),true));
+		if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]"+StatisticTools.formatNumberExt(wip.getTimeMean(),true));
 		if (throughput!=null) lines.add(Language.tr("Statistics.Throughput")+": "+throughput);
 		if (maxThroughput!=null) lines.add(Language.tr("Statistics.Throughput.Maximum")+": "+maxThroughput);
 		if (maxThroughputInfo!=null) lines.add(maxThroughputInfo);
@@ -428,7 +428,7 @@ public class EditorPanelStatistics {
 		if (transfer!=null && transfer.getMean()>0) lines.add("E[T]="+formatTime(transfer.getMean()));
 		if (process!=null && process.getMean()>0) lines.add("E[S]="+formatTime(process.getMean()));
 		if (residence!=null && residence.getMean()>0) lines.add("E[V]="+formatTime(residence.getMean()));
-		if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]="+StatisticTools.formatNumber(wip.getTimeMean()));
+		if (wip!=null && wip.getTimeMean()>0) lines.add("E[N]"+StatisticTools.formatNumberExt(wip.getTimeMean(),true));
 		if (throughput!=null) lines.add(Language.tr("Statistics.Throughput")+": "+throughput);
 		if (maxThroughput!=null) lines.add(Language.tr("Statistics.Throughput.Maximum")+": "+maxThroughput);
 		if (maxThroughputInfo!=null) lines.add(maxThroughputInfo);
@@ -519,7 +519,7 @@ public class EditorPanelStatistics {
 		for (String name: statistics.counter.getNames()) {
 			if (name.startsWith(groupName)) sum+=((StatisticsSimpleCountPerformanceIndicator)statistics.counter.get(name)).get();
 		}
-		return formatStatisticsData(NumberTools.formatLong(value)+" ("+StatisticTools.formatPercent(((double)value)/sum)+")");
+		return formatStatisticsData(NumberTools.formatLong(value)+" ("+StatisticTools.formatPercentExt(((double)value)/sum,false)+")");
 	}
 
 	/**
@@ -555,7 +555,7 @@ public class EditorPanelStatistics {
 	private String buildTooltipDifferentialCounter(final Statistics statistics, final ModelElementBox element) {
 		final StatisticsTimePerformanceIndicator counter=(StatisticsTimePerformanceIndicator)statistics.differentialCounter.getOrNull(element.getName());
 		if (counter==null) return null;
-		return formatStatisticsData(Language.tr("Statistics.Average")+"="+StatisticTools.formatNumber(counter.getTimeMean()));
+		return formatStatisticsData(Language.tr("Statistics.Average")+StatisticTools.formatNumberExt(counter.getTimeMean(),true));
 	}
 
 	/**
@@ -582,7 +582,7 @@ public class EditorPanelStatistics {
 				}
 			}
 		}
-		return formatStatisticsData(Language.tr("Statistics.Throughput")+" "+element.getName()+": "+StatisticTools.formatNumber(value,2)+" (1/"+unit+")");
+		return formatStatisticsData(Language.tr("Statistics.Throughput")+" "+element.getName()+": "+StatisticTools.formatNumberExt(value,2,false)+" (1/"+unit+")");
 	}
 
 	/**
@@ -679,7 +679,7 @@ public class EditorPanelStatistics {
 					break;
 				}
 				if (element instanceof ModelElementBox) {
-					id1.add(((ModelElementBox)element).getId());
+					id1.add(element.getId());
 					break;
 				}
 				break;
@@ -692,7 +692,7 @@ public class EditorPanelStatistics {
 			if (e==null || e.getConnectionEnd()==null) return null;
 			final ModelElement element=e.getConnectionEnd();
 			if (element instanceof ModelElementVertex) {e=((ModelElementVertex)element).getEdgeOut(); continue;}
-			if (element instanceof ModelElementBox) {id2=((ModelElementBox)element).getId(); break;}
+			if (element instanceof ModelElementBox) {id2=element.getId(); break;}
 			return null;
 		}
 

@@ -235,7 +235,11 @@ public class SetupData extends SetupBase {
 		/** Gem‰ﬂ gew‰hlter Programmsprache festlegen */
 		BY_LANGUAGE("language"),
 		/** Gem‰ﬂ Betriebssystemvorgabe festlegen */
-		BY_SYSTEM("os");
+		BY_SYSTEM("os"),
+		/** Immer Dezimalkomma verwenden */
+		COMMA("comma"),
+		/** Immer Dezimalpunkt verwenden */
+		POINT("point");
 
 		/**
 		 * Konstruktor des Enum
@@ -1286,6 +1290,11 @@ public class SetupData extends SetupBase {
 	public int statisticsPercentDigits;
 
 	/**
+	 * Soll in Statistiktexten vor gerundeten Null-Werten, die jedoch nicht exakt Null sind, ein Ungef‰hr-Zeichen angezeigt werden?
+	 */
+	public boolean showApproxSignOnValuesNearZero=true;
+
+	/**
 	 * Zu welchen Konfidenzniveaus sollen auf Basis der Batch-Means-Methode Konfidenzintervalle ausgegeben werden?<br>
 	 * Wenn leer, dann werden 90%, 95% und 99% verwendet.
 	 */
@@ -1679,6 +1688,7 @@ public class SetupData extends SetupBase {
 		showMemoryUsage=false;
 		statisticsNumberDigits=1;
 		statisticsPercentDigits=1;
+		showApproxSignOnValuesNearZero=true;
 		batchMeansConfidenceLevels="";
 		quantilLevels="";
 		if (chartSetup==null) chartSetup=new ChartSetup();
@@ -2683,6 +2693,7 @@ public class SetupData extends SetupBase {
 				if (L!=null) statisticsNumberDigits=Math.min(9,L.intValue());
 				L=NumberTools.getPositiveLong(e.getAttribute("Percent"));
 				if (L!=null) statisticsPercentDigits=Math.min(9,L.intValue());
+				showApproxSignOnValuesNearZero=loadBoolean(e.getAttribute("UseApproxSign"),true);
 				continue;
 			}
 
@@ -3500,10 +3511,11 @@ public class SetupData extends SetupBase {
 			node.setTextContent("1");
 		}
 
-		if (statisticsNumberDigits!=1 || statisticsPercentDigits!=1) {
+		if (statisticsNumberDigits!=1 || statisticsPercentDigits!=1 || !showApproxSignOnValuesNearZero) {
 			root.appendChild(node=doc.createElement("Digits"));
 			node.setAttribute("Numbers",""+statisticsNumberDigits);
 			node.setAttribute("Percent",""+statisticsPercentDigits);
+			if (!showApproxSignOnValuesNearZero) node.setAttribute("UseApproxSign","0");
 		}
 
 		if (batchMeansConfidenceLevels!=null && !batchMeansConfidenceLevels.trim().isEmpty()) {

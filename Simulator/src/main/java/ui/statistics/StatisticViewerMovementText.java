@@ -131,7 +131,7 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 			long sum=Math.max(1,subs.values().stream().mapToLong(Long::longValue).sum());
 			for (Map.Entry<String,Long> sub: subs.entrySet()) {
 				final long value=sub.getValue();
-				addLine(String.format("-> %s (%s, %s, %s)",sub.getKey(),NumberTools.formatLong(value),StatisticTools.formatPercent(((double)value)/sum),StatisticViewerOverviewText.getThroughputText(value,statistics)));
+				addLine(String.format("-> %s (%s, %s, %s)",sub.getKey(),NumberTools.formatLong(value),StatisticTools.formatPercentExt(((double)value)/sum,false),StatisticViewerOverviewText.getThroughputText(value,statistics)));
 			}
 			endParagraph();
 		}
@@ -156,7 +156,7 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 			long sum=Math.max(1,subs.values().stream().mapToLong(Long::longValue).sum());
 			for (Map.Entry<String,Long> sub: subs.entrySet()) {
 				final long value=sub.getValue();
-				addLine(String.format("%s (%s, %s, %s) ->",sub.getKey(),NumberTools.formatLong(value),StatisticTools.formatPercent(((double)value)/sum),StatisticViewerOverviewText.getThroughputText(value,statistics)));
+				addLine(String.format("%s (%s, %s, %s) ->",sub.getKey(),NumberTools.formatLong(value),StatisticTools.formatPercentExt(((double)value)/sum,false),StatisticViewerOverviewText.getThroughputText(value,statistics)));
 			}
 			endParagraph();
 		}
@@ -213,14 +213,14 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 
 		beginParagraph();
 		addLine(Language.tr("Statistics.CountPathLength")+": "+NumberTools.formatLong(indicator.getCount()));
-		addLine(Language.tr("Statistics.AveragePathLength")+": E="+StatisticTools.formatNumber(indicator.getMean()));
-		addLine(Language.tr("Statistics.StdDevPathLength")+": Std="+StatisticTools.formatNumber(indicator.getSD()));
-		addLine(Language.tr("Statistics.VariancePathLength")+": Var="+StatisticTools.formatNumber(indicator.getVar()));
-		addLine(Language.tr("Statistics.CVInterPathLength")+": CV="+StatisticTools.formatNumber(indicator.getCV()));
-		addLine(Language.tr("Statistics.Skewness")+": Sk="+StatisticTools.formatNumber(indicator.getSk()));
-		addLine(Language.tr("Statistics.Kurt")+": Kurt="+StatisticTools.formatNumber(indicator.getKurt()));
-		addLine(Language.tr("Statistics.MinimalPathLength")+": Min="+StatisticTools.formatNumber(indicator.getMin()));
-		addLine(Language.tr("Statistics.MaximalPathLength")+": Max="+StatisticTools.formatNumber(indicator.getMax()));
+		addLine(Language.tr("Statistics.AveragePathLength")+": E"+StatisticTools.formatNumberExt(indicator.getMean(),true));
+		addLine(Language.tr("Statistics.StdDevPathLength")+": Std"+StatisticTools.formatNumberExt(indicator.getSD(),true));
+		addLine(Language.tr("Statistics.VariancePathLength")+": Var"+StatisticTools.formatNumberExt(indicator.getVar(),true));
+		addLine(Language.tr("Statistics.CVInterPathLength")+": CV"+StatisticTools.formatNumberExt(indicator.getCV(),true));
+		addLine(Language.tr("Statistics.Skewness")+": Sk"+StatisticTools.formatNumberExt(indicator.getSk(),true));
+		addLine(Language.tr("Statistics.Kurt")+": Kurt"+StatisticTools.formatNumberExt(indicator.getKurt(),true));
+		addLine(Language.tr("Statistics.MinimalPathLength")+": Min"+StatisticTools.formatNumberExt(indicator.getMin(),true));
+		addLine(Language.tr("Statistics.MaximalPathLength")+": Max"+StatisticTools.formatNumberExt(indicator.getMax(),true));
 		endParagraph();
 
 		if (SetupData.getSetup().showQuantils && indicator.getDistribution()!=null) {
@@ -229,16 +229,16 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 			boolean hitMax=false;
 			final double[] levels=StatisticViewerOverviewText.getQuantilLevels();
 			for (double p: levels) {
-				final String name=Language.tr("Statistics.Quantil")+"["+StatisticTools.formatPercent(p)+"]=";
+				final String name=Language.tr("Statistics.Quantil")+"["+StatisticTools.formatPercent(p)+"]";
 				final double value=indicator.getQuantil(p);
 				if (value>=upperBound) hitMax=true;
-				addLine(name+StatisticTools.formatNumber(value));
+				addLine(name+StatisticTools.formatNumberExt(value,true));
 			}
 			endParagraph();
 
 			if (hitMax) {
 				beginParagraph();
-				addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),StatisticTools.formatNumber(upperBound)));
+				addLine(String.format(Language.tr("Statistics.Quantil.InfoMax"),StatisticTools.formatNumberExt(upperBound,false)));
 				endParagraph();
 			}
 		}

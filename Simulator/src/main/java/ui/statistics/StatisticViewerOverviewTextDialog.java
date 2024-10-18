@@ -56,6 +56,8 @@ public class StatisticViewerOverviewTextDialog extends BaseDialog {
 	private final SpinnerModel statisticsNumberDigits;
 	/** Anzahl an anzuzeigenden Nachkommastellen in der Statistik für Prozentwerte */
 	private final SpinnerModel statisticsPercentDigits;
+	/** Soll in Statistiktexten vor gerundeten Null-Werten, die jedoch nicht exakt Null sind, ein Ungefähr-Zeichen angezeigt werden? */
+	private final JCheckBox showApproxSignOnValuesNearZero;
 	/** Levels zu denen Quantile ausgegeben werden sollen */
 	private final JPlaceholderTextField quantilLevels;
 	/** Levels zu denen Konfidenzintervallgrößen ausgegeben werden sollen */
@@ -107,6 +109,9 @@ public class StatisticViewerOverviewTextDialog extends BaseDialog {
 		p.add(statisticsNumberPercentSpinner);
 		label.setLabelFor(statisticsNumberPercentSpinner);
 
+		content.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(showApproxSignOnValuesNearZero=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.UseApproxSign")));
+
 		/* Bereich "Quantile" */
 
 		content.add(Box.createVerticalStrut(15));
@@ -132,6 +137,7 @@ public class StatisticViewerOverviewTextDialog extends BaseDialog {
 		showQuantils.setSelected(setup.showQuantils);
 		statisticsNumberDigits.setValue(setup.statisticsNumberDigits);
 		statisticsPercentDigits.setValue(setup.statisticsPercentDigits);
+		showApproxSignOnValuesNearZero.setSelected(setup.showApproxSignOnValuesNearZero);
 		quantilLevels.setText(setup.quantilLevels);
 		batchMeansConfidenceLevels.setText(setup.batchMeansConfidenceLevels);
 
@@ -146,6 +152,7 @@ public class StatisticViewerOverviewTextDialog extends BaseDialog {
 		setup.showQuantils=showQuantils.isSelected();
 		setup.statisticsNumberDigits=((Integer)statisticsNumberDigits.getValue()).intValue();
 		setup.statisticsPercentDigits=((Integer)statisticsPercentDigits.getValue()).intValue();
+		setup.showApproxSignOnValuesNearZero=showApproxSignOnValuesNearZero.isSelected();
 		setup.quantilLevels=quantilLevels.getText();
 		setup.batchMeansConfidenceLevels=batchMeansConfidenceLevels.getText();
 		setup.saveSetupWithWarning(this);

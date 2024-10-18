@@ -450,7 +450,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		generalData.append("<html><body>");
 
 		final double time=simData.currentTime*simData.runModel.scaleToSeconds;
-		generalData.append(Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentTime")+": <b>"+StatisticTools.formatNumber(time)+"</b> (<b>"+StatisticTools.formatExactTime(time)+"</b>)");
+		generalData.append(Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentTime")+": <b>"+StatisticTools.formatNumberExt(time,false)+"</b> (<b>"+StatisticTools.formatExactTime(time)+"</b>)");
 		generalData.append("<br>\n");
 
 		final long clientsArrived=simData.runData.clientsArrived;
@@ -460,37 +460,37 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		final int nq=(simData.runData.clientsInQueuesByType==null)?0:Arrays.stream(simData.runData.clientsInQueuesByType).sum();
 		final double nq_avg=simData.statistics.clientsInSystemQueues.getTimeMean();
 		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystemWaiting")+": <b>"+NumberTools.formatLong(nq)+"</b> ");
-		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(nq_avg)+"</b>)");
+		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumberExt(nq_avg,false)+"</b>)");
 		generalData.append("<br>\n");
 
 		final int ns=(simData.runData.clientsInProcessByType==null)?0:Arrays.stream(simData.runData.clientsInProcessByType).sum();
 		final double ns_avg=simData.statistics.clientsInSystemProcess.getTimeMean();
 		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystemProcess")+": <b>"+NumberTools.formatLong(ns)+"</b> ");
-		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(ns_avg)+"</b>)");
+		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumberExt(ns_avg,false)+"</b>)");
 		generalData.append("<br>\n");
 
 		final int wip=(simData.runData.clientsInSystemByType==null)?0:Arrays.stream(simData.runData.clientsInSystemByType).sum();
 		final double wip_avg=simData.statistics.clientsInSystem.getTimeMean();
 		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.CurrentNumberInSystem")+": <b>"+NumberTools.formatLong(wip)+"</b> ");
-		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumber(wip_avg)+"</b>)");
+		generalData.append("("+Language.tr("Statistics.Average")+": <b>"+StatisticTools.formatNumberExt(wip_avg,false)+"</b>)");
 		generalData.append("<br>\n");
 
 		generalData.append("<br>\n");
 
 		final double W_avg=simData.statistics.clientsAllWaitingTimes.getMean();
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.AverageWaitingTime")+": <b>"+StatisticTools.formatNumber(W_avg)+"</b> (<b>"+StatisticTools.formatExactTime(W_avg)+"</b>)");
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.AverageWaitingTime")+": <b>"+StatisticTools.formatNumberExt(W_avg,false)+"</b> (<b>"+StatisticTools.formatExactTime(W_avg)+"</b>)");
 		generalData.append("<br>\n");
 
 		final double T_avg=simData.statistics.clientsAllTransferTimes.getMean();
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.TransferWaitingTime")+": <b>"+StatisticTools.formatNumber(T_avg)+"</b> (<b>"+StatisticTools.formatExactTime(T_avg)+"</b>)");
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.TransferWaitingTime")+": <b>"+StatisticTools.formatNumberExt(T_avg,false)+"</b> (<b>"+StatisticTools.formatExactTime(T_avg)+"</b>)");
 		generalData.append("<br>\n");
 
 		final double P_avg=simData.statistics.clientsAllProcessingTimes.getMean();
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.ProcessWaitingTime")+": <b>"+StatisticTools.formatNumber(P_avg)+"</b> (<b>"+StatisticTools.formatExactTime(P_avg)+"</b>)");
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.ProcessWaitingTime")+": <b>"+StatisticTools.formatNumberExt(P_avg,false)+"</b> (<b>"+StatisticTools.formatExactTime(P_avg)+"</b>)");
 		generalData.append("<br>\n");
 
 		final double V_avg=simData.statistics.clientsAllResidenceTimes.getMean();
-		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.ResidenceWaitingTime")+": <b>"+StatisticTools.formatNumber(V_avg)+"</b> (<b>"+StatisticTools.formatExactTime(V_avg)+"</b>)");
+		generalData.append(Language.tr("ExpressionCalculator.Tab.Clients.ResidenceWaitingTime")+": <b>"+StatisticTools.formatNumberExt(V_avg,false)+"</b> (<b>"+StatisticTools.formatExactTime(V_avg)+"</b>)");
 		generalData.append("<br>\n");
 
 		generalData.append("<br>\n");

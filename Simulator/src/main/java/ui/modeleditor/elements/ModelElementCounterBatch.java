@@ -206,14 +206,14 @@ public class ModelElementCounterBatch extends ModelElementMultiInSingleOutBox im
 			builder.results.append("\n");
 			if (i==0) builder.results.append(Language.tr("Surface.CounterBatch.SimInfo.BatchGeneral")+":\n"); else builder.results.append(String.format(Language.tr("Surface.CounterBatch.SimInfo.BatchSize"),i)+":\n");
 			builder.results.append(Language.tr("Statistics.AverageInterArrivalCount")+": "+NumberTools.formatLong(indicator.getCount())+"\n");
-			builder.results.append(Language.tr("Statistics.AverageInterArrivalTime")+": E[IB]="+TimeTools.formatExactTime(indicator.getMean())+" ("+NumberTools.formatNumber(indicator.getMean())+"\n");
-			builder.results.append(Language.tr("Statistics.StdDevInterArrivalTime")+": Std[IB]="+TimeTools.formatExactTime(indicator.getSD())+" ("+NumberTools.formatNumber(indicator.getSD())+"\n");
+			builder.results.append(Language.tr("Statistics.AverageInterArrivalTime")+": E[IB]="+TimeTools.formatExactTime(indicator.getMean())+" ("+StatisticTools.formatNumberExt(indicator.getMean(),false)+"\n");
+			builder.results.append(Language.tr("Statistics.StdDevInterArrivalTime")+": Std[IB]="+TimeTools.formatExactTime(indicator.getSD())+" ("+StatisticTools.formatNumberExt(indicator.getSD(),false)+"\n");
 			builder.results.append(Language.tr("Statistics.VarianceInterArrivalTime")+": Var[IB]="+TimeTools.formatExactTime(indicator.getVar())+"\n");
-			builder.results.append(Language.tr("Statistics.CVInterArrivalTime")+": CV[IB]="+StatisticTools.formatNumber(indicator.getCV())+"\n");
-			builder.results.append(Language.tr("Statistics.Skewness")+": Sk[IB]="+StatisticTools.formatNumber(indicator.getSk())+"\n");
-			builder.results.append(Language.tr("Statistics.Kurt")+": Kurt[IB]="+StatisticTools.formatNumber(indicator.getKurt())+"\n");
-			builder.results.append(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[IB]="+TimeTools.formatExactTime(indicator.getMin())+" ("+NumberTools.formatNumber(indicator.getMin())+"\n");
-			builder.results.append(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[IB]="+TimeTools.formatExactTime(indicator.getMax())+" ("+NumberTools.formatNumber(indicator.getMax())+"\n");
+			builder.results.append(Language.tr("Statistics.CVInterArrivalTime")+": CV[IB]"+StatisticTools.formatNumberExt(indicator.getCV(),true)+"\n");
+			builder.results.append(Language.tr("Statistics.Skewness")+": Sk[IB]"+StatisticTools.formatNumberExt(indicator.getSk(),true)+"\n");
+			builder.results.append(Language.tr("Statistics.Kurt")+": Kurt[IB]"+StatisticTools.formatNumberExt(indicator.getKurt(),true)+"\n");
+			builder.results.append(Language.tr("Statistics.MinimalInterArrivalTime")+": Min[IB]="+TimeTools.formatExactTime(indicator.getMin())+" ("+StatisticTools.formatNumberExt(indicator.getMin(),false)+"\n");
+			builder.results.append(Language.tr("Statistics.MaximalInterArrivalTime")+": Max[IB]="+TimeTools.formatExactTime(indicator.getMax())+" ("+StatisticTools.formatNumberExt(indicator.getMax(),false)+"\n");
 		}
 	}
 

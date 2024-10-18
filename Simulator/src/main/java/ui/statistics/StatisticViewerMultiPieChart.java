@@ -103,7 +103,7 @@ public class StatisticViewerMultiPieChart extends StatisticViewerPieChartMulti {
 			if (num==null) return ""+key;
 			final double sum=dataset.getKeys().stream().filter(o->o instanceof Comparable).map(o->dataset.getValue((Comparable)o)).filter(v->v instanceof Double).map(v->(Double)v).mapToDouble(v->((Double)v).doubleValue()).sum();
 			if (sum==0.0) return ""+key;
-			return key+" ("+StatisticTools.formatPercent(num.doubleValue()/sum)+")";
+			return key+" ("+StatisticTools.formatPercentExt(num.doubleValue()/sum,false)+")";
 		}
 		@SuppressWarnings("rawtypes")
 		@Override

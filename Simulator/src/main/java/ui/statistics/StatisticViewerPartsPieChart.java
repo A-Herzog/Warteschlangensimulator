@@ -92,9 +92,9 @@ public class StatisticViewerPartsPieChart extends StatisticViewerPieChart {
 		for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])statistics.clientsProcessingTimes.getAll(StatisticsDataPerformanceIndicator.class)) sumProcessing+=indicator.getSum();
 		double sum=FastMath.max(0.0001,sumWaiting+sumTransfer+sumProcessing);
 
-		if (sumWaiting>0) addPieSegment(Language.tr("Statistics.WaitingTime")+" ("+StatisticTools.formatPercent(sumWaiting/sum)+")",sumWaiting/sum,Color.RED);
-		if (sumTransfer>0) addPieSegment(Language.tr("Statistics.TransferTime")+" ("+StatisticTools.formatPercent(sumTransfer/sum)+")",sumTransfer/sum,Color.BLUE);
-		if (sumProcessing>0) addPieSegment(Language.tr("Statistics.ProcessTime")+" ("+StatisticTools.formatPercent(sumProcessing/sum)+")",sumProcessing/sum,Color.GREEN);
+		if (sumWaiting>0) addPieSegment(Language.tr("Statistics.WaitingTime")+" ("+StatisticTools.formatPercentExt(sumWaiting/sum,false)+")",sumWaiting/sum,Color.RED);
+		if (sumTransfer>0) addPieSegment(Language.tr("Statistics.TransferTime")+" ("+StatisticTools.formatPercentExt(sumTransfer/sum,false)+")",sumTransfer/sum,Color.BLUE);
+		if (sumProcessing>0) addPieSegment(Language.tr("Statistics.ProcessTime")+" ("+StatisticTools.formatPercentExt(sumProcessing/sum,false)+")",sumProcessing/sum,Color.GREEN);
 
 		/* Infotext  */
 		addDescription("PlotPieWaitingProcessing");

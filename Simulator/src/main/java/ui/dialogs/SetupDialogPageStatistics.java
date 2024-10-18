@@ -58,6 +58,8 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 	private final SpinnerModel statisticsNumberDigits;
 	/** Anzahl an anzuzeigenden Nachkommastellen in der Statistik für Prozentwerte */
 	private final SpinnerModel statisticsPercentDigits;
+	/** Soll in Statistiktexten vor gerundeten Null-Werten, die jedoch nicht exakt Null sind, ein Ungefähr-Zeichen angezeigt werden? */
+	private final JCheckBox showApproxSignOnValuesNearZero;
 
 	/* Bereich: Anzeige von Quantilwerten */
 
@@ -103,19 +105,19 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 		 */
 		addHeading(Language.tr("SettingsDialog.Tabs.Statistics.View"));
 
-		/** Quantile in der Statistik ausgeben */
+		/* Quantile in der Statistik ausgeben */
 		addLine().add(showQuantils=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.ShowQuantils")));
 
-		/** Erlang-C-Vergleichswerte in der Statistik ausgeben */
+		/* Erlang-C-Vergleichswerte in der Statistik ausgeben */
 		addLine().add(showErlangC=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.ShowErlangC")));
 
-		/** Ergebnishinweiseseite in der Statistik ausgeben */
+		/* Ergebnishinweiseseite in der Statistik ausgeben */
 		addLine().add(showRemarks=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.ShowRemarks")));
 
-		/** Statistikbaum immer sofort vollständig ausklappen */
+		/* Statistikbaum immer sofort vollständig ausklappen */
 		addLine().add(expandAllStatistics=new JCheckBox(Language.tr("SettingsDialog.Tabs.Simulation.ExpandAllStatistics")));
 
-		/** Anzahl an anzuzeigenden Nachkommastellen in der Statistik für Zahlen */
+		/* Anzahl an anzuzeigenden Nachkommastellen in der Statistik für Zahlen */
 		line=addLine();
 		line.add(label=new JLabel(Language.tr("SettingsDialog.Tabs.Statistics.NumberDigits")+":"));
 		final JSpinner statisticsNumberDigitsSpinner=new JSpinner(statisticsNumberDigits=new SpinnerNumberModel(1,1,9,1));
@@ -126,7 +128,7 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 		line.add(statisticsNumberDigitsSpinner);
 		label.setLabelFor(statisticsNumberDigitsSpinner);
 
-		/** Anzahl an anzuzeigenden Nachkommastellen in der Statistik für Prozentwerte */
+		/* Anzahl an anzuzeigenden Nachkommastellen in der Statistik für Prozentwerte */
 		line=addLine();
 		line.add(label=new JLabel(Language.tr("SettingsDialog.Tabs.Statistics.PercentDigits")+":"));
 		final JSpinner statisticsNumberPercentSpinner=new JSpinner(statisticsPercentDigits=new SpinnerNumberModel(1,1,9,1));
@@ -136,6 +138,9 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 		statisticsNumberPercentSpinner.setEditor(statisticsPercentDigitsEditor);
 		line.add(statisticsNumberPercentSpinner);
 		label.setLabelFor(statisticsNumberPercentSpinner);
+
+		/* Soll in Statistiktexten vor gerundeten Null-Werten, die jedoch nicht exakt Null sind, ein Ungefähr-Zeichen angezeigt werden? */
+		addLine().add(showApproxSignOnValuesNearZero=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.UseApproxSign")));
 
 		/*
 		 * Bereich:
@@ -154,7 +159,7 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 		 */
 		addHeading(Language.tr("SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels"));
 
-		/** Levels zu denen Konfidenzintervallgrößen ausgegeben werden sollen */
+		/* Levels zu denen Konfidenzintervallgrößen ausgegeben werden sollen */
 		data=ModelElementBaseDialog.getPlaceholderInputPanel(Language.tr("SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels")+":",Language.tr("SettingsDialog.Tabs.Statistics.BatchMeansConfidenceLevels.Levels.Placeholder"),"");
 		add((JPanel)data[0]);
 		batchMeansConfidenceLevels=(JPlaceholderTextField)data[1];
@@ -228,6 +233,7 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 		expandAllStatistics.setSelected(setup.expandAllStatistics);
 		statisticsNumberDigits.setValue(setup.statisticsNumberDigits);
 		statisticsPercentDigits.setValue(setup.statisticsPercentDigits);
+		showApproxSignOnValuesNearZero.setSelected(setup.showApproxSignOnValuesNearZero);
 		quantilLevels.setText(setup.quantilLevels);
 		batchMeansConfidenceLevels.setText(setup.batchMeansConfidenceLevels);
 		openWord.setSelected(setup.openWord);
@@ -255,6 +261,7 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 		setup.expandAllStatistics=expandAllStatistics.isSelected();
 		setup.statisticsNumberDigits=((Integer)statisticsNumberDigits.getValue()).intValue();
 		setup.statisticsPercentDigits=((Integer)statisticsPercentDigits.getValue()).intValue();
+		setup.showApproxSignOnValuesNearZero=showApproxSignOnValuesNearZero.isSelected();
 		setup.quantilLevels=quantilLevels.getText();
 		setup.batchMeansConfidenceLevels=batchMeansConfidenceLevels.getText();
 		setup.openWord=openWord.isSelected();
@@ -282,6 +289,7 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 		expandAllStatistics.setSelected(false);
 		statisticsNumberDigits.setValue(1);
 		statisticsPercentDigits.setValue(1);
+		showApproxSignOnValuesNearZero.setSelected(true);
 		quantilLevels.setText("");
 		batchMeansConfidenceLevels.setText("");
 		openWord.setSelected(true);

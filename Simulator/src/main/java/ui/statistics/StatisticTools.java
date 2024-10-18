@@ -22,7 +22,6 @@ public class StatisticTools {
 	/** Referenz auf das Setup-Singleton */
 	private static final SetupData setup=SetupData.getSetup();
 
-
 	/**
 	 * Wandelt eine Flieﬂkommazahl in eine Zeichenkette um (unter Beachtung der lokalen Darstellungsform)
 	 * @param number Umzuwandelnde Zahl
@@ -40,6 +39,39 @@ public class StatisticTools {
 	 */
 	public static String formatNumber(final double number, final int minDigits)  {
 		return NumberTools.formatNumber(number,Math.max(minDigits,Math.max(1,setup.statisticsNumberDigits)));
+	}
+
+	/**
+	 * Wandelt eine Flieﬂkommazahl in eine Zeichenkette um (unter Beachtung der lokalen Darstellungsform)
+	 * und stellt ein Gleichheits- oder Ungef‰hrzeichen vor die Zahl
+	 * @param number Umzuwandelnde Zahl
+	 * @param minDigits Minimale Anzahl an Nachkommastellen
+	 * @param withEqualSign	Gleichheitszeichen vor der Zahl ausgeben?
+	 * @return Zahl als Zeichenkette
+	 */
+	public static String formatNumberExt(final double number, final int minDigits, final boolean withEqualSign)  {
+		final String result=formatNumber(number,minDigits);
+		if (result.equals("0") && number!=0.0d) {
+			return setup.showApproxSignOnValuesNearZero?("\u2248"+result):result;
+		} else {
+			if (withEqualSign) return "="+result; else return result;
+		}
+	}
+
+	/**
+	 * Wandelt eine Flieﬂkommazahl in eine Zeichenkette um (unter Beachtung der lokalen Darstellungsform)
+	 * und stellt ein Gleichheits- oder Ungef‰hrzeichen vor die Zahl
+	 * @param number Umzuwandelnde Zahl
+	 * @param withEqualSign	Gleichheitszeichen vor der Zahl ausgeben?
+	 * @return Zahl als Zeichenkette
+	 */
+	public static String formatNumberExt(final double number, final boolean withEqualSign)  {
+		final String result=formatNumber(number);
+		if (result.equals("0") && number!=0.0d) {
+			return setup.showApproxSignOnValuesNearZero?("\u2248"+result):result;
+		} else {
+			if (withEqualSign) return "="+result; else return result;
+		}
 	}
 
 	/**
@@ -61,7 +93,7 @@ public class StatisticTools {
 	private static StringBuilder sb2=new StringBuilder();
 
 	/**
-	 * Wandelt eine Flieﬂkommazahl in eine Zeichenkette um (unter Beachtung der lokalen Darstellungsform)
+	 * Wandelt eine Flieﬂkommazahl in eine Prozent-Zeichenkette um (unter Beachtung der lokalen Darstellungsform)
 	 * @param number Umzuwandelnde Zahl
 	 * @return Zahl als Zeichenkette
 	 */
@@ -73,11 +105,10 @@ public class StatisticTools {
 			sb2.append('%');
 			return sb2.toString();
 		}
-		/* return NumberTools.formatPercent(number,Math.max(1,setup.statisticsPercentDigits)); */
 	}
 
 	/**
-	 * Wandelt eine Flieﬂkommazahl in eine Zeichenkette um (unter Beachtung der lokalen Darstellungsform)
+	 * Wandelt eine Flieﬂkommazahl in eine Prozent-Zeichenkette um (unter Beachtung der lokalen Darstellungsform)
 	 * @param number Umzuwandelnde Zahl
 	 * @param minDigits Minimale Anzahl an Nachkommastellen
 	 * @return Zahl als Zeichenkette
@@ -90,8 +121,41 @@ public class StatisticTools {
 			sb2.append('%');
 			return sb2.toString();
 		}
-		/* return NumberTools.formatPercent(number,Math.max(minDigits,Math.max(1,setup.statisticsPercentDigits))); */
 	}
+
+	/**
+	 * Wandelt eine Flieﬂkommazahl in eine Prozent-Zeichenkette um (unter Beachtung der lokalen Darstellungsform)
+	 * und stellt ein Gleichheits- oder Ungef‰hrzeichen vor die Zahl
+	 * @param number Umzuwandelnde Zahl
+	 * @param minDigits Minimale Anzahl an Nachkommastellen
+	 * @param withEqualSign	Gleichheitszeichen vor der Zahl ausgeben?
+	 * @return Zahl als Zeichenkette
+	 */
+	public static String formatPercentExt(final double number, final int minDigits, final boolean withEqualSign)  {
+		final String result=formatPercent(number,minDigits);
+		if (result.equals("0%") && number!=0.0d) {
+			return setup.showApproxSignOnValuesNearZero?("\u2248"+result):result;
+		} else {
+			if (withEqualSign) return "="+result; else return result;
+		}
+	}
+
+	/**
+	 * Wandelt eine Flieﬂkommazahl in eine Zeichenkette um (unter Beachtung der lokalen Darstellungsform)
+	 * und stellt ein Gleichheits- oder Ungef‰hrzeichen vor die Zahl
+	 * @param number Umzuwandelnde Zahl
+	 * @param withEqualSign	Gleichheitszeichen vor der Zahl ausgeben?
+	 * @return Zahl als Zeichenkette
+	 */
+	public static String formatPercentExt(final double number, final boolean withEqualSign)  {
+		final String result=formatPercent(number);
+		if (result.equals("0%") && number!=0.0d) {
+			return setup.showApproxSignOnValuesNearZero?("\u2248"+result):result;
+		} else {
+			if (withEqualSign) return "="+result; else return result;
+		}
+	}
+
 
 	/**
 	 * Wandelt eine als Sekunden-Double-Wert gegebene Uhrzeit in eine Zeichenkette um

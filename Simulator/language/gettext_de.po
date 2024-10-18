@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-11 09:47+0200\n"
+"POT-Creation-Date: 2024-10-14 11:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19551,6 +19551,9 @@ msgstr "Leer lassen für \"10%;25%;50%;75%;90%\""
 msgid "SettingsDialog.Tabs.Statistics.ShowQuantils"
 msgstr "Quantile anzeigen"
 
+msgid "SettingsDialog.Tabs.Statistics.UseApproxSign"
+msgstr "Zu 0 gerundete Werte in Texten als \"≈0\" anzeigen"
+
 msgid "SettingsDialog.Tabs.Statistics.View"
 msgstr "Ansicht"
 
@@ -24746,13 +24749,13 @@ msgid "Statistics.ModelRemarks.LargeCVV"
 msgstr "Hoher Variationskoeffizienten der Verweilzeiten"
 
 msgid "Statistics.ModelRemarks.LargeCVV.ClientType"
-msgstr "Hoher Variationskoeffizienten der Verweilzeiten für Kunden vom Typ \"%s\": CV[V]=%s"
+msgstr "Hoher Variationskoeffizienten der Verweilzeiten für Kunden vom Typ \"%s\": CV[V]%s"
 
 msgid "Statistics.ModelRemarks.LargeCVV.Station"
-msgstr "Hoher Variationskoeffizienten der Verweilzeiten an Station \"%s\": CV[V]=%s"
+msgstr "Hoher Variationskoeffizienten der Verweilzeiten an Station \"%s\": CV[V]%s"
 
 msgid "Statistics.ModelRemarks.LargeCVV.System"
-msgstr "Hoher Variationskoeffizienten der Verweilzeiten im System: CV[V]=%s"
+msgstr "Hoher Variationskoeffizienten der Verweilzeiten im System: CV[V]%s"
 
 msgid "Statistics.ModelRemarks.LargeFlowFactor"
 msgstr "Hoher Flussgrad"
@@ -24779,43 +24782,43 @@ msgid "Statistics.ModelRemarks.LargeN"
 msgstr "Hohe mittlere Anzahl an Kunden"
 
 msgid "Statistics.ModelRemarks.LargeN.ClientType"
-msgstr "Mittlere Anzahl an Kunden vom Typ \"%s\" im System: E[N]=%s"
+msgstr "Mittlere Anzahl an Kunden vom Typ \"%s\" im System: E[N]%s"
 
 msgid "Statistics.ModelRemarks.LargeN.Station"
-msgstr "Mittlere Anzahl an Kunden an Station \"%s\": E[N]=%s"
+msgstr "Mittlere Anzahl an Kunden an Station \"%s\": E[N]%s"
 
 msgid "Statistics.ModelRemarks.LargeN.System"
-msgstr "Mittlere Anzahl an Kunden im System E[N]=%s"
+msgstr "Mittlere Anzahl an Kunden im System E[N]%s"
 
 msgid "Statistics.ModelRemarks.LargeNRelative"
 msgstr "Hohe mittlere Anzahl an Kunden"
 
 msgid "Statistics.ModelRemarks.LargeNRelative.ClientType"
-msgstr "Hohe mittlere Anzahl an Kunden vom Typ \"%s\" im System (relativ zu den anderen Kundentypen): E[N]=%s"
+msgstr "Hohe mittlere Anzahl an Kunden vom Typ \"%s\" im System (relativ zu den anderen Kundentypen): E[N]%s"
 
 msgid "Statistics.ModelRemarks.LargeNRelative.Station"
-msgstr "Hohe mittlere Anzahl an Kunden an Station \"%s\" (relativ zu den anderen Stationen): E[N]=%s"
+msgstr "Hohe mittlere Anzahl an Kunden an Station \"%s\" (relativ zu den anderen Stationen): E[N]%s"
 
 msgid "Statistics.ModelRemarks.LargeRho"
 msgstr "Hohe Auslastung der Bediener"
 
 msgid "Statistics.ModelRemarks.LargeRho.Group"
-msgstr "Hohe Auslastung der Bedienergruppe \"%s\": rho=%s"
+msgstr "Hohe Auslastung der Bedienergruppe \"%s\": rho%s"
 
 msgid "Statistics.ModelRemarks.LargeRhoRelative"
 msgstr "Hohe Auslastung der Bediener"
 
 msgid "Statistics.ModelRemarks.LargeRhoRelative.Group"
-msgstr "Hohe Auslastung der Bedienergruppe \"%s\" (relativ zu den anderen Bedienergruppen): rho=%s"
+msgstr "Hohe Auslastung der Bedienergruppe \"%s\" (relativ zu den anderen Bedienergruppen): rho%s"
 
 msgid "Statistics.ModelRemarks.LargeWRelative"
 msgstr "Lange Wartezeiten"
 
 msgid "Statistics.ModelRemarks.LargeWRelative.ClientType"
-msgstr "Lange Wartezeiten für Kunden vom Typ \"%s\" (relativ zu den anderen Kundentypen): E[W]=%s"
+msgstr "Lange Wartezeiten für Kunden vom Typ \"%s\" (relativ zu den anderen Kundentypen): E[W]%s"
 
 msgid "Statistics.ModelRemarks.LargeWRelative.Station"
-msgstr "Lange Wartezeiten an Station \"%s\" (relativ zu den anderen Stationen): E[W]=%s"
+msgstr "Lange Wartezeiten an Station \"%s\" (relativ zu den anderen Stationen): E[W]%s"
 
 msgid "Statistics.ModelRemarks.NoRemarks"
 msgstr "Es liegen keine Hinweise zu den Statistikdaten vor."

@@ -515,7 +515,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[1326] = "Simulation.WarningEndWhileWarmUp";
     t[1327] = "The simulation was completed before the warm-up phase was finished. Therefore, the statistics recording has not been started yet and no statistics values are available now. The settings for the simulation duration and the duration of the warm-up phase should be checked.";
     t[1332] = "Statistics.ModelRemarks.LargeCVV.ClientType";
-    t[1333] = "High coefficient of variation of the residence times of clients of type \"%s\": CV[V]=%s";
+    t[1333] = "High coefficient of variation of the residence times of clients of type \"%s\": CV[V]%s";
     t[1338] = "Surface.TankFlowByClient.XML.Root";
     t[1339] = "ModelElementFlow";
     t[1344] = "Statistics.XML.Element.ResidenceStationsTotal";
@@ -4809,7 +4809,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11676] = "Surface.Sub.XML.ConnectionCount.In";
     t[11677] = "in";
     t[11684] = "Statistics.ModelRemarks.LargeCVV.System";
-    t[11685] = "High coefficient of variation of the residence times in the system: CV[V]=%s";
+    t[11685] = "High coefficient of variation of the residence times in the system: CV[V]%s";
     t[11686] = "Git.System.Commit.Type.Model";
     t[11687] = "Model file";
     t[11690] = "Statistics.ErlangCCompare.Results.AllenCunneen";
@@ -5377,7 +5377,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13016] = "Surface.ClientIcon.Dialog.Title";
     t[13017] = "Edit icon assignment";
     t[13018] = "Statistics.ModelRemarks.LargeN.ClientType";
-    t[13019] = "Average number of clients of type \"%s\" in system: E[N]=%s";
+    t[13019] = "Average number of clients of type \"%s\" in system: E[N]%s";
     t[13032] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.VarianceOfTheTime";
     t[13033] = "<p>Returns the variance over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[13034] = "Surface.AssignString.XML.Assignment.Key";
@@ -9087,7 +9087,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22116] = "Surface.Counter.Dialog.GroupName";
     t[22117] = "Name of the counter group";
     t[22120] = "Statistics.ModelRemarks.LargeWRelative.Station";
-    t[22121] = "Long waiting times at station \"%s\" (relative to other stations): E[W]=%s";
+    t[22121] = "Long waiting times at station \"%s\" (relative to other stations): E[W]%s";
     t[22124] = "Surface.Popup.AddVisualization.CurrentValueHistogram";
     t[22125] = "Current value (histogram)";
     t[22126] = "ModelDescription.Process.ClientTypePriority";
@@ -10419,7 +10419,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25468] = "UserTemplates.AddDialog.TitleEdit";
     t[25469] = "Edit template";
     t[25470] = "Statistics.ModelRemarks.LargeRho.Group";
-    t[25471] = "High utilization of the operators group \"%s\": rho=%s";
+    t[25471] = "High utilization of the operators group \"%s\": rho%s";
     t[25474] = "Surface.Conveyor.Dialog.ConveyorSize.ErrorTitle";
     t[25475] = "Invalid conveyor length";
     t[25478] = "Statistics.XML.Element.CostsProcess";
@@ -10927,7 +10927,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26702] = "Statistic.Viewer.Toolbar.Settings.Hint";
     t[26703] = "Change settings for the selected statistics page.";
     t[26704] = "Statistics.ModelRemarks.LargeRhoRelative.Group";
-    t[26705] = "High utilization of the operators group \"%s\" (relative to the other operator groups): rho=%s";
+    t[26705] = "High utilization of the operators group \"%s\" (relative to the other operator groups): rho%s";
     t[26706] = "Animation.Icon.PersonSuit";
     t[26707] = "Person - suit";
     t[26708] = "ModelDescription.Process.ProcessTimeType.Waiting";
@@ -11943,7 +11943,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29256] = "Statistics.Dashboard.Buttons.EditTile";
     t[29257] = "Edit tile";
     t[29258] = "Statistics.ModelRemarks.LargeN.System";
-    t[29259] = "Average number of clients in the system E[N]=%s";
+    t[29259] = "Average number of clients in the system E[N]%s";
     t[29260] = "Surface.AnimationBarStack.Dialog.FillBackground";
     t[29261] = "Fill background";
     t[29272] = "Surface.TankSensor.Dialog.Tank.ErrorTitle";
@@ -14973,7 +14973,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[36672] = "Statistics.FailureTime.CV.Transporters";
     t[36673] = "Coefficient of variation of the number of transporters in down time";
     t[36678] = "Statistics.ModelRemarks.LargeN.Station";
-    t[36679] = "Average number of clients at station \"%s\": E[N]=%s";
+    t[36679] = "Average number of clients at station \"%s\": E[N]%s";
     t[36682] = "Surface.PickUp.XML.BatchMode.Temporary";
     t[36683] = "Temporary";
     t[36690] = "ParameterCompare.Settings.Output.Mode.Script.ErrorInfo";
@@ -17083,7 +17083,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41936] = "Surface.Conveyor.XML.CapacityAvailable";
     t[41937] = "ModelElementConveyorCapacityAvailable";
     t[41938] = "Statistics.ModelRemarks.LargeNRelative.Station";
-    t[41939] = "Highaverage number of clients at station \"%s\" (relative to the other stations): E[N]=%s";
+    t[41939] = "Highaverage number of clients at station \"%s\" (relative to the other stations): E[N]%s";
     t[41944] = "FindElementDirect.NoSearchStringEntered";
     t[41945] = "Please enter a search string.";
     t[41946] = "Animation.Icon.PersonBlue";
@@ -17519,7 +17519,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42956] = "ModelDescription.Arrival.IntervalExpressions";
     t[42957] = "Number per interval";
     t[42958] = "Statistics.ModelRemarks.LargeWRelative.ClientType";
-    t[42959] = "Long waiting times for clients of type \"%s\" (relative to other client types): E[W]=%s";
+    t[42959] = "Long waiting times for clients of type \"%s\" (relative to other client types): E[W]%s";
     t[42968] = "Surface.Decide.Name.Short";
     t[42969] = "Decide";
     t[42970] = "Git.List.Tab.Server";
@@ -18158,6 +18158,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44545] = "The model is error-free and can be simulated.";
     t[44546] = "ExpressionBuilder.MathematicalFunctions.Gcd.Info";
     t[44547] = "<p>Calculates the greatest common divisor of the passed numbers.<br>The numbers are rounded to integers if necessary and negative signs are discarded.</p><p>Example: <tt>gcd(6;10)</tt> returns 2.</p>";
+    t[44548] = "SettingsDialog.Tabs.Statistics.UseApproxSign";
+    t[44549] = "Show values rounded to 0 in texts as \"\u22480\"";
     t[44554] = "Surface.Source.Dialog.ThresholdValue.Error.Title";
     t[44555] = "Invalid threshold value";
     t[44560] = "PathEditor.ResetAll.ConfirmTitle";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49191] = "Interval length for recording: %s seconds";
     t[49192] = "ExpressionCalculator.Tab.Map.Delete.ConfirmInfo";
     t[49193] = "Do you really want to delete the entry \"%s\"?";
-    t[49196] = "Statistic.Viewer.Report.HTMLApp.JSError";
-    t[49197] = "Javascript is needed for displaying this interactive statistics.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49196] = "Statistic.Viewer.Report.HTMLApp.JSError";
+    t[49197] = "Javascript is needed for displaying this interactive statistics.";
     t[49200] = "Statistics.CVClientsInSystemInProcess";
     t[49201] = "Coefficient of variation of the number of clients in the system in service process";
     t[49202] = "Surface.AssignSequence.XML.Sequence";
@@ -21315,7 +21317,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52394] = "Simulation.Log.TeleportDecideByCondition";
     t[52395] = "Decide and teleport by condition";
     t[52398] = "Statistics.ModelRemarks.LargeNRelative.ClientType";
-    t[52399] = "Average number of clients of type \"%s\" in system (relative to the other client types): E[N]=%s";
+    t[52399] = "Average number of clients of type \"%s\" in system (relative to the other client types): E[N]%s";
     t[52400] = "ModelLoadData.EditDialog.Edit";
     t[52401] = "Edit";
     t[52402] = "CriticalStationsSignature.UserName";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54211] = "Type of parameter";
     t[54226] = "Surface.Balking.Name";
     t[54227] = "Balking";
-    t[54234] = "Simulation.Element.Balking.Name";
-    t[54235] = "Balking";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54234] = "Simulation.Element.Balking.Name";
+    t[54235] = "Balking";
     t[54248] = "SimulationServer.Setup.WebServer.MessageErrorTLS";
     t[54249] = "The certificate data from file %s could not be loaded.";
     t[54250] = "Surface.Decide.Dialog.DecideBy.ShortestQueueNextStation";
@@ -23269,7 +23271,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[57224] = "Distribution.Unknown";
     t[57225] = "unknown distribution";
     t[57226] = "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DensityInfo";
-    t[57227] = "<p>Calculates the value of the density of the beta distribution at the location specified as first parameter with lower bound, upper bound, mean value and standard deviation according to the second to fiveth parameters.</p>\n<p>Example: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> returns 1,31344828230159.</p>";
+    t[57227] = "<p>Calculates the value of the density of the beta distribution at the location specified as first parameter with lower bound, upper bound, mean value and standard deviation according to the second to fiveth parameters.</p>\n<p>Example: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> returns 1.31344828230159.</p>";
     t[57228] = "Examples.Type.Real";
     t[57229] = "Real examples";
     t[57232] = "Statistics.Filter.EngineInitError.General";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[59263] = "Run";
     t[59270] = "LoadCalculator.Tab.ErlangC.Link.Info";
     t[59271] = "Information about Erlang C formula";
-    t[59272] = "Batch.Output.Folder.Button.Hint";
-    t[59273] = "Select output folder";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59272] = "Batch.Output.Folder.Button.Hint";
+    t[59273] = "Select output folder";
     t[59280] = "SimulationServer.Setup.LimitThreadCount";
     t[59281] = "Limit requests";
     t[59282] = "Surface.OutputJS.Infotext";
@@ -24553,7 +24555,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[60380] = "ModelDescription.TankSensor.Threshold.Direction.Down";
     t[60381] = "Threshold underflow";
     t[60402] = "Statistics.ModelRemarks.LargeCVV.Station";
-    t[60403] = "High coefficient of variation of the residence times at station \"%s\": CV[V]=%s";
+    t[60403] = "High coefficient of variation of the residence times at station \"%s\": CV[V]%s";
     t[60404] = "Simulation.Log.Counter";
     t[60405] = "Counter triggered";
     t[60408] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.DistributionName";

@@ -485,13 +485,12 @@ public class StatisticViewerTimeBarChart extends StatisticViewerBarChart {
 					info.append(" ");
 					info.append(column+1);
 					info.append(": ");
-					info.append(StatisticTools.formatNumber(data[column]));
+					info.append(StatisticTools.formatNumberExt(data[column],false));
 					info.append(" (");
 					info.append(StatisticTools.formatPercent(data[column]/finalSum));
 					info.append(", ");
 					info.append(Language.tr("Statistics.SystemData.ThreadBalance.DeviationFromAverage"));
-					info.append("=");
-					info.append(StatisticTools.formatNumber(data[column]-mean));
+					info.append(StatisticTools.formatNumberExt(data[column]-mean,true));
 					info.append(")");
 					return info.toString();
 				}

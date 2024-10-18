@@ -278,7 +278,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		n=statistics.clientsInSystem.getTimeMean();
 		if (n>=LARGE_N_SYSTEM) {
 			if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeN")); beginParagraph(); headingPrinted=true;}
-			addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeN.System"),StatisticTools.formatNumber(n)));
+			addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeN.System"),StatisticTools.formatNumberExt(n,true)));
 		}
 
 		/* Kunden an den Stationen (absolut) */
@@ -286,7 +286,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 			n=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationByStation.get(name)).getTimeMean();
 			if (n>=LARGE_N_STATION) {
 				if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeN")); beginParagraph(); headingPrinted=true;}
-				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeN.Station"),name,StatisticTools.formatNumber(n)));
+				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeN.Station"),name,StatisticTools.formatNumberExt(n,true)));
 			}
 		}
 
@@ -295,7 +295,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 			n=((StatisticsTimePerformanceIndicator)statistics.clientsInSystemByClient.get(name)).getTimeMean();
 			if (n>=LARGE_N_CLIENTTYPE) {
 				if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeN")); beginParagraph(); headingPrinted=true;}
-				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeN.ClientType"),name,StatisticTools.formatNumber(n)));
+				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeN.ClientType"),name,StatisticTools.formatNumberExt(n,true)));
 			}
 		}
 
@@ -321,7 +321,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		r=statistics.clientsAllResidenceTimes.getMean();
 		if (p>0 && r/p>=FLOW_FACTOR_SYSTEM) {
 			if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeFlowFactor")); beginParagraph(); headingPrinted=true;}
-			addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeFlowFactor.System"),StatisticTools.formatNumber(r/p)));
+			addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeFlowFactor.System"),StatisticTools.formatNumberExt(r/p,false)));
 		}
 
 		/* Flussgrad pro Station (absolut) */
@@ -333,7 +333,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 			r=rIndicator.getMean();
 			if (p>0 && r/p>=FLOW_FACTOR_STATION) {
 				if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeFlowFactor")); beginParagraph(); headingPrinted=true;}
-				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeFlowFactor.Station"),name,StatisticTools.formatNumber(r/p)));
+				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeFlowFactor.Station"),name,StatisticTools.formatNumberExt(r/p,false)));
 			}
 		}
 
@@ -346,7 +346,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 			r=rIndicator.getMean();
 			if (p>0 && r/p>=FLOW_FACTOR_CLIENTTYPE) {
 				if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeFlowFactor")); beginParagraph(); headingPrinted=true;}
-				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeFlowFactor.ClientType"),name,StatisticTools.formatNumber(r/p)));
+				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeFlowFactor.ClientType"),name,StatisticTools.formatNumberExt(r/p,false)));
 			}
 		}
 
@@ -370,7 +370,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 		cv=statistics.clientsAllResidenceTimes.getCV();
 		if (cv>=CVV_SYSTEM) {
 			if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeCVV")); beginParagraph(); headingPrinted=true;}
-			addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeCVV.System"),StatisticTools.formatNumber(cv)));
+			addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeCVV.System"),StatisticTools.formatNumberExt(cv,true)));
 		}
 
 		/* CV[V] pro Station (absolut) */
@@ -378,7 +378,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 			cv=((StatisticsDataPerformanceIndicator)statistics.stationsResidenceTimes.get(name)).getCV();
 			if (cv>=CVV_STATION) {
 				if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeCVV")); beginParagraph(); headingPrinted=true;}
-				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeCVV.Station"),name,StatisticTools.formatNumber(cv)));
+				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeCVV.Station"),name,StatisticTools.formatNumberExt(cv,true)));
 			}
 		}
 
@@ -387,7 +387,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 			cv=((StatisticsDataPerformanceIndicator)statistics.clientsResidenceTimes.get(name)).getCV();
 			if (cv>=CVV_CLIENTTYPE) {
 				if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeCVV")); beginParagraph(); headingPrinted=true;}
-				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeCVV.ClientType"),name,StatisticTools.formatNumber(cv)));
+				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeCVV.ClientType"),name,StatisticTools.formatNumberExt(cv,true)));
 			}
 		}
 
@@ -412,7 +412,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 			final double rho=load/count;
 			if (rho>=RHO) {
 				if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeRho")); beginParagraph(); headingPrinted=true;}
-				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeRho.Group"),name,StatisticTools.formatPercent(rho)));
+				addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeRho.Group"),name,StatisticTools.formatPercentExt(rho,true)));
 			}
 		}
 
@@ -499,7 +499,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 				final double n=((StatisticsTimePerformanceIndicator)statistics.clientsAtStationByStation.get(name)).getTimeMean();
 				if (n>=mean*LARGE_N_FACTOR) {
 					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeNRelative")); beginParagraph(); headingPrinted=true;}
-					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeNRelative.Station"),name,StatisticTools.formatNumber(n)));
+					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeNRelative.Station"),name,StatisticTools.formatNumberExt(n,true)));
 				}
 			}
 		}
@@ -512,7 +512,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 				final double n=((StatisticsTimePerformanceIndicator)statistics.clientsInSystemByClient.get(name)).getTimeMean();
 				if (n>=mean*LARGE_N_FACTOR) {
 					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeNRelative")); beginParagraph(); headingPrinted=true;}
-					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeNRelative.ClientType"),name,StatisticTools.formatNumber(n)));
+					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeNRelative.ClientType"),name,StatisticTools.formatNumberExt(n,true)));
 				}
 			}
 		}
@@ -539,7 +539,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 				final double n=((StatisticsDataPerformanceIndicator)statistics.stationsWaitingTimes.get(name)).getMean();
 				if (n>=mean*LARGE_W_FACTOR) {
 					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeWRelative")); beginParagraph(); headingPrinted=true;}
-					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeWRelative.Station"),name,StatisticTools.formatNumber(n)));
+					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeWRelative.Station"),name,StatisticTools.formatNumberExt(n,true)));
 				}
 			}
 		}
@@ -552,7 +552,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 				final double n=((StatisticsDataPerformanceIndicator)statistics.clientsWaitingTimes.get(name)).getMean();
 				if (n>=mean*LARGE_W_FACTOR) {
 					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeWRelative")); beginParagraph(); headingPrinted=true;}
-					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeWRelative.ClientType"),name,StatisticTools.formatNumber(n)));
+					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeWRelative.ClientType"),name,StatisticTools.formatNumberExt(n,true)));
 				}
 			}
 		}
@@ -583,7 +583,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 				final double r=rIndicator.getMean();
 				if (p>0 && r/p>=meanQuotient*FLOW_FACTOR_FACTOR) {
 					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeFlowFactorRelative")); beginParagraph(); headingPrinted=true;}
-					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeFlowFactorRelative.Station"),name,StatisticTools.formatNumber(r/p)));
+					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeFlowFactorRelative.Station"),name,StatisticTools.formatNumberExt(r/p,false)));
 				}
 			}
 		}
@@ -600,7 +600,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 				final double r=rIndicator.getMean();
 				if (p>0 && r/p>=meanQuotient*FLOW_FACTOR_FACTOR) {
 					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeFlowFactorRelative")); beginParagraph(); headingPrinted=true;}
-					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeFlowFactorRelative.ClientType"),name,StatisticTools.formatNumber(r/p)));
+					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeFlowFactorRelative.ClientType"),name,StatisticTools.formatNumberExt(r/p,false)));
 				}
 			}
 		}
@@ -629,7 +629,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 				final double rho=load/count;
 				if (rho>=mean*RHO_FACTOR) {
 					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.LargeRhoRelative")); beginParagraph(); headingPrinted=true;}
-					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeRhoRelative.Group"),name,StatisticTools.formatPercent(rho)));
+					addLine(String.format(Language.tr("Statistics.ModelRemarks.LargeRhoRelative.Group"),name,StatisticTools.formatPercentExt(rho,true)));
 				}
 			}
 		}
@@ -669,7 +669,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 					if (p>0 && indicator.xmlNodeNames!=null && indicator.xmlNodeNames.length>0) {
 						if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.TruncatedValues")); beginParagraph(); headingPrinted=true;}
 						final String name=indicator1.xmlNodeNames[0]+"->"+indicator.xmlNodeNames[0]+"["+Language.trAll("Statistics.XML.Type")[0]+"="+((StatisticsMultiPerformanceIndicator)indicator1).getName(indicator)+"]";
-						addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.DistributionInfo"),name,StatisticTools.formatPercent(p)));
+						addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.DistributionInfo"),name,StatisticTools.formatPercentExt(p,false)));
 					}
 				}
 				if (indicator2 instanceof StatisticsDataPerformanceIndicatorWithNegativeValues) {
@@ -678,7 +678,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 					if (p>0 && indicator.xmlNodeNames!=null && indicator.xmlNodeNames.length>0) {
 						if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.TruncatedValues")); beginParagraph(); headingPrinted=true;}
 						final String name=indicator1.xmlNodeNames[0]+"->"+indicator.xmlNodeNames[0]+"["+Language.trAll("Statistics.XML.Type")[0]+"="+((StatisticsMultiPerformanceIndicator)indicator1).getName(indicator)+"]";
-						addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.DistributionInfo"),name,StatisticTools.formatPercent(p)));
+						addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.DistributionInfo"),name,StatisticTools.formatPercentExt(p,false)));
 					}
 				}
 			}
@@ -688,7 +688,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 				if (p>0 && indicator.xmlNodeNames!=null && indicator.xmlNodeNames.length>0) {
 					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.TruncatedValues")); beginParagraph(); headingPrinted=true;}
 					final String name=indicator.xmlNodeNames[0];
-					addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.DistributionInfo"),name,StatisticTools.formatPercent(p)));
+					addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.DistributionInfo"),name,StatisticTools.formatPercentExt(p,false)));
 				}
 			}
 			if (indicator1 instanceof StatisticsDataPerformanceIndicatorWithNegativeValues) {
@@ -697,7 +697,7 @@ public class StatisticViewerRemarksText extends StatisticViewerText {
 				if (p>0 && indicator.xmlNodeNames!=null && indicator.xmlNodeNames.length>0) {
 					if (!headingPrinted) {addHeading(2,Language.tr("Statistics.ModelRemarks.TruncatedValues")); beginParagraph(); headingPrinted=true;}
 					final String name=indicator.xmlNodeNames[0];
-					addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.DistributionInfo"),name,StatisticTools.formatPercent(p)));
+					addLine(String.format(Language.tr("Statistics.ModelRemarks.TruncatedValues.DistributionInfo"),name,StatisticTools.formatPercentExt(p,false)));
 				}
 			}
 		}

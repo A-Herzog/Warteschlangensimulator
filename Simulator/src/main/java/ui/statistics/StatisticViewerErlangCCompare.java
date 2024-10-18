@@ -112,15 +112,15 @@ public class StatisticViewerErlangCCompare extends StatisticViewerText {
 
 		addHeading(3,Language.tr("Statistics.ErlangCompare.NumberOfClients"));
 		beginParagraph();
-		addLine("E[NQ]="+StatisticTools.formatNumber(simulationResults.ENQ));
-		addLine("E[NS]="+StatisticTools.formatNumber(simulationResults.ENS));
-		addLine("E[N]="+StatisticTools.formatNumber(simulationResults.EN));
+		addLine("E[NQ]"+StatisticTools.formatNumberExt(simulationResults.ENQ,true));
+		addLine("E[NS]"+StatisticTools.formatNumberExt(simulationResults.ENS,true));
+		addLine("E[N]"+StatisticTools.formatNumberExt(simulationResults.EN,true));
 		endParagraph();
 
 		addHeading(3,Language.tr("Statistics.ErlangCompare.Times"));
 		beginParagraph();
-		addLine("E[W]="+StatisticTools.formatNumber(simulationResults.EW)+" "+Language.tr("Statistics.Seconds")+" ("+TimeTools.formatExactTime(simulationResults.EW,1)+")");
-		addLine("E[V]="+StatisticTools.formatNumber(simulationResults.EV)+" "+Language.tr("Statistics.Seconds")+" ("+TimeTools.formatExactTime(simulationResults.EV,1)+")");
+		addLine("E[W]"+StatisticTools.formatNumberExt(simulationResults.EW,true)+" "+Language.tr("Statistics.Seconds")+" ("+TimeTools.formatExactTime(simulationResults.EW,1)+")");
+		addLine("E[V]"+StatisticTools.formatNumberExt(simulationResults.EV,true)+" "+Language.tr("Statistics.Seconds")+" ("+TimeTools.formatExactTime(simulationResults.EV,1)+")");
 		endParagraph();
 
 		if (!simulationResults.resourceInfo.isEmpty()) {

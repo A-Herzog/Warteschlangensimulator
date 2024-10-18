@@ -515,7 +515,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[1326] = "Simulation.WarningEndWhileWarmUp";
     t[1327] = "Die Simulation wurde abgeschlossen, bevor die Einschwingphase beendet wurde. Daher wurde die Statistikerfassung noch nicht gestartet und es liegen nun keine Statistikwerte vor. Die Einstellungen zur Simulationsdauer und zur Dauer der Einschwinphase sollten \u00fcberpr\u00fcft werden.";
     t[1332] = "Statistics.ModelRemarks.LargeCVV.ClientType";
-    t[1333] = "Hoher Variationskoeffizienten der Verweilzeiten f\u00fcr Kunden vom Typ \"%s\": CV[V]=%s";
+    t[1333] = "Hoher Variationskoeffizienten der Verweilzeiten f\u00fcr Kunden vom Typ \"%s\": CV[V]%s";
     t[1338] = "Surface.TankFlowByClient.XML.Root";
     t[1339] = "ModellElementFluss";
     t[1344] = "Statistics.XML.Element.ResidenceStationsTotal";
@@ -4487,7 +4487,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[10968] = "Surface.XML.FlowData.Destination";
     t[10969] = "ModellElementFlussZiel";
     t[10970] = "ExpressionBuilder.ProbabilityDistributions.UniformDistribution,DensityInfo";
-    t[10971] = "<p>Berechnet den Wert der Dichte der Gleichverteilung an der als ersten Parameter angegebenen Stelle und \u00fcber den als zweiten und dritten Parameter angegebenen Bereich [a;b].</p>\n<p>Beispiel: <tt>UniformDist(2.5;2;4;0)</tt> liefert 0,5.</p>";
+    t[10971] = "<p>Berechnet den Wert der Dichte der Gleichverteilung an der als ersten Parameter angegebenen Stelle und \u00fcber den als zweiten und dritten Parameter angegebenen Bereich [a;b].</p>\n<p>Beispiel: <tt>UniformDist(2,5;2;4;0)</tt> liefert 0,5.</p>";
     t[10974] = "Surface.CounterMulti.Table.Heading.Condition";
     t[10975] = "Bedingung";
     t[10980] = "ExpressionBuilder.ClientsInSystemProcess.MinimalNumber";
@@ -4809,7 +4809,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[11676] = "Surface.Sub.XML.ConnectionCount.In";
     t[11677] = "einlaufend";
     t[11684] = "Statistics.ModelRemarks.LargeCVV.System";
-    t[11685] = "Hoher Variationskoeffizienten der Verweilzeiten im System: CV[V]=%s";
+    t[11685] = "Hoher Variationskoeffizienten der Verweilzeiten im System: CV[V]%s";
     t[11686] = "Git.System.Commit.Type.Model";
     t[11687] = "Modelldatei";
     t[11690] = "Statistics.ErlangCCompare.Results.AllenCunneen";
@@ -5377,7 +5377,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13016] = "Surface.ClientIcon.Dialog.Title";
     t[13017] = "Icon-Zuweisung bearbeiten";
     t[13018] = "Statistics.ModelRemarks.LargeN.ClientType";
-    t[13019] = "Mittlere Anzahl an Kunden vom Typ \"%s\" im System: E[N]=%s";
+    t[13019] = "Mittlere Anzahl an Kunden vom Typ \"%s\" im System: E[N]%s";
     t[13032] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.VarianceOfTheTime";
     t[13033] = "<p>Liefert die Varianz \u00fcber die Transferzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>\n<p>Alternativ sind auch folgende andere Parametrierungen m\u00f6glich:</p>\n<ul>\n<li>ID einer Kundenquelle (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Station und ID einer Quelle (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Quelle im zweiten Parameter erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>3 Parameter: ID einer Station, ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Mehrfachquelle im zweiten Parameter erzeugten Kundentyps)</li>\n</ul>";
     t[13034] = "Surface.AssignString.XML.Assignment.Key";
@@ -9087,7 +9087,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22116] = "Surface.Counter.Dialog.GroupName";
     t[22117] = "Name der Z\u00e4hlergruppe";
     t[22120] = "Statistics.ModelRemarks.LargeWRelative.Station";
-    t[22121] = "Lange Wartezeiten an Station \"%s\" (relativ zu den anderen Stationen): E[W]=%s";
+    t[22121] = "Lange Wartezeiten an Station \"%s\" (relativ zu den anderen Stationen): E[W]%s";
     t[22124] = "Surface.Popup.AddVisualization.CurrentValueHistogram";
     t[22125] = "Aktueller Wert (Histogramm)";
     t[22126] = "ModelDescription.Process.ClientTypePriority";
@@ -10419,7 +10419,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25468] = "UserTemplates.AddDialog.TitleEdit";
     t[25469] = "Vorlage bearbeiten";
     t[25470] = "Statistics.ModelRemarks.LargeRho.Group";
-    t[25471] = "Hohe Auslastung der Bedienergruppe \"%s\": rho=%s";
+    t[25471] = "Hohe Auslastung der Bedienergruppe \"%s\": rho%s";
     t[25474] = "Surface.Conveyor.Dialog.ConveyorSize.ErrorTitle";
     t[25475] = "Ung\u00fcltige Flie\u00dfbandl\u00e4nge";
     t[25478] = "Statistics.XML.Element.CostsProcess";
@@ -10927,7 +10927,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26702] = "Statistic.Viewer.Toolbar.Settings.Hint";
     t[26703] = "Einstellungen zu der gew\u00e4hlten Statistik-Anzeige vornehmen";
     t[26704] = "Statistics.ModelRemarks.LargeRhoRelative.Group";
-    t[26705] = "Hohe Auslastung der Bedienergruppe \"%s\" (relativ zu den anderen Bedienergruppen): rho=%s";
+    t[26705] = "Hohe Auslastung der Bedienergruppe \"%s\" (relativ zu den anderen Bedienergruppen): rho%s";
     t[26706] = "Animation.Icon.PersonSuit";
     t[26707] = "Person - Anzug";
     t[26708] = "ModelDescription.Process.ProcessTimeType.Waiting";
@@ -11943,7 +11943,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29256] = "Statistics.Dashboard.Buttons.EditTile";
     t[29257] = "Eintrag bearbeiten";
     t[29258] = "Statistics.ModelRemarks.LargeN.System";
-    t[29259] = "Mittlere Anzahl an Kunden im System E[N]=%s";
+    t[29259] = "Mittlere Anzahl an Kunden im System E[N]%s";
     t[29260] = "Surface.AnimationBarStack.Dialog.FillBackground";
     t[29261] = "Hintergrund ausf\u00fcllen";
     t[29272] = "Surface.TankSensor.Dialog.Tank.ErrorTitle";
@@ -14201,7 +14201,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34616] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingAvg";
     t[34617] = "Mittlere Wartezeitkosten";
     t[34622] = "ExpressionBuilder.ProbabilityDistributions.UniformDistribution.DistributionFunctionInfo";
-    t[34623] = "<p>Berechnet den Wert der Verteilungsfunktion der Gleichverteilung an der als ersten Parameter angegebenen Stelle und \u00fcber den als zweiten und dritten Parameter angegebenen Bereich [a;b].</p>\n<p>Beispiel: <tt>UniformDist(2.5;2;4;1)</tt> liefert 0,25.</p>";
+    t[34623] = "<p>Berechnet den Wert der Verteilungsfunktion der Gleichverteilung an der als ersten Parameter angegebenen Stelle und \u00fcber den als zweiten und dritten Parameter angegebenen Bereich [a;b].</p>\n<p>Beispiel: <tt>UniformDist(2,5;2;4;1)</tt> liefert 0,25.</p>";
     t[34626] = "ExpressionBuilder.Error.Title";
     t[34627] = "Ung\u00fcltiger Ausdruck";
     t[34632] = "Statistic.Viewer.Report.Settings.MenuItem";
@@ -14973,7 +14973,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[36672] = "Statistics.FailureTime.CV.Transporters";
     t[36673] = "Variationskoeffizient der Anzahl an Transportern in Pausezeit";
     t[36678] = "Statistics.ModelRemarks.LargeN.Station";
-    t[36679] = "Mittlere Anzahl an Kunden an Station \"%s\": E[N]=%s";
+    t[36679] = "Mittlere Anzahl an Kunden an Station \"%s\": E[N]%s";
     t[36682] = "Surface.PickUp.XML.BatchMode.Temporary";
     t[36683] = "Zeitweise";
     t[36690] = "ParameterCompare.Settings.Output.Mode.Script.ErrorInfo";
@@ -17083,7 +17083,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41936] = "Surface.Conveyor.XML.CapacityAvailable";
     t[41937] = "ModellElementFliessbandKapazitaetVerfuegbar";
     t[41938] = "Statistics.ModelRemarks.LargeNRelative.Station";
-    t[41939] = "Hohe mittlere Anzahl an Kunden an Station \"%s\" (relativ zu den anderen Stationen): E[N]=%s";
+    t[41939] = "Hohe mittlere Anzahl an Kunden an Station \"%s\" (relativ zu den anderen Stationen): E[N]%s";
     t[41944] = "FindElementDirect.NoSearchStringEntered";
     t[41945] = "Bitte geben Sie einen Suchbegriff ein.";
     t[41946] = "Animation.Icon.PersonBlue";
@@ -17519,7 +17519,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42956] = "ModelDescription.Arrival.IntervalExpressions";
     t[42957] = "Anzahl pro Intervall";
     t[42958] = "Statistics.ModelRemarks.LargeWRelative.ClientType";
-    t[42959] = "Lange Wartezeiten f\u00fcr Kunden vom Typ \"%s\" (relativ zu den anderen Kundentypen): E[W]=%s";
+    t[42959] = "Lange Wartezeiten f\u00fcr Kunden vom Typ \"%s\" (relativ zu den anderen Kundentypen): E[W]%s";
     t[42968] = "Surface.Decide.Name.Short";
     t[42969] = "Verzweigen";
     t[42970] = "Git.List.Tab.Server";
@@ -18158,6 +18158,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44545] = "Das Modell ist fehlerfrei und kann simuliert werden.";
     t[44546] = "ExpressionBuilder.MathematicalFunctions.Gcd.Info";
     t[44547] = "<p>Berechnet den gr\u00f6\u00dften gemeinsamen Teiler (ggT) der \u00fcbergebenen Zahlen.<br>Die Zahlen werden dabei wenn n\u00f6tig zu Ganzzahlen gerundet und negative Vorzeichen verworfen.</p><p>Beispiel: <tt>gcd(6;10)</tt> liefert 2.</p>";
+    t[44548] = "SettingsDialog.Tabs.Statistics.UseApproxSign";
+    t[44549] = "Zu 0 gerundete Werte in Texten als \"\u22480\" anzeigen";
     t[44554] = "Surface.Source.Dialog.ThresholdValue.Error.Title";
     t[44555] = "Ung\u00fcltiger Schwellenwert";
     t[44560] = "PathEditor.ResetAll.ConfirmTitle";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49191] = "Intervalll\u00e4nge f\u00fcr Erfassung: %s Sekunden";
     t[49192] = "ExpressionCalculator.Tab.Map.Delete.ConfirmInfo";
     t[49193] = "Soll der Eintrag \"%s\" wirklich gel\u00f6scht werden?";
-    t[49196] = "Statistic.Viewer.Report.HTMLApp.JSError";
-    t[49197] = "Zur Anzeige der interaktiven Statistik wird Javascript ben\u00f6tigt.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49196] = "Statistic.Viewer.Report.HTMLApp.JSError";
+    t[49197] = "Zur Anzeige der interaktiven Statistik wird Javascript ben\u00f6tigt.";
     t[49200] = "Statistics.CVClientsInSystemInProcess";
     t[49201] = "Variationskoeffizient der Anzahl an Kunden im System in Bedienung";
     t[49202] = "Surface.AssignSequence.XML.Sequence";
@@ -21315,7 +21317,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52394] = "Simulation.Log.TeleportDecideByCondition";
     t[52395] = "Verzweigen und Teleportieren (Bedingung)";
     t[52398] = "Statistics.ModelRemarks.LargeNRelative.ClientType";
-    t[52399] = "Hohe mittlere Anzahl an Kunden vom Typ \"%s\" im System (relativ zu den anderen Kundentypen): E[N]=%s";
+    t[52399] = "Hohe mittlere Anzahl an Kunden vom Typ \"%s\" im System (relativ zu den anderen Kundentypen): E[N]%s";
     t[52400] = "ModelLoadData.EditDialog.Edit";
     t[52401] = "Bearbeiten";
     t[52402] = "CriticalStationsSignature.UserName";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54211] = "Art des Parameters";
     t[54226] = "Surface.Balking.Name";
     t[54227] = "Zur\u00fcckschrecken";
-    t[54234] = "Simulation.Element.Balking.Name";
-    t[54235] = "Zur\u00fcckschrecken";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54234] = "Simulation.Element.Balking.Name";
+    t[54235] = "Zur\u00fcckschrecken";
     t[54248] = "SimulationServer.Setup.WebServer.MessageErrorTLS";
     t[54249] = "Die Zertifikatdaten aus der Datei %s konnten nicht verarbeitet werden.";
     t[54250] = "Surface.Decide.Dialog.DecideBy.ShortestQueueNextStation";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[59263] = "Ausf\u00fchren";
     t[59270] = "LoadCalculator.Tab.ErlangC.Link.Info";
     t[59271] = "Informationen zur Erlang-C-Formel";
-    t[59272] = "Batch.Output.Folder.Button.Hint";
-    t[59273] = "Ausgabeverzeichnis ausw\u00e4hlen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59272] = "Batch.Output.Folder.Button.Hint";
+    t[59273] = "Ausgabeverzeichnis ausw\u00e4hlen";
     t[59280] = "SimulationServer.Setup.LimitThreadCount";
     t[59281] = "Anfragen limitieren";
     t[59282] = "Surface.OutputJS.Infotext";
@@ -24553,7 +24555,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[60380] = "ModelDescription.TankSensor.Threshold.Direction.Down";
     t[60381] = "Schwellenwertunterschreitung";
     t[60402] = "Statistics.ModelRemarks.LargeCVV.Station";
-    t[60403] = "Hoher Variationskoeffizienten der Verweilzeiten an Station \"%s\": CV[V]=%s";
+    t[60403] = "Hoher Variationskoeffizienten der Verweilzeiten an Station \"%s\": CV[V]%s";
     t[60404] = "Simulation.Log.Counter";
     t[60405] = "Z\u00e4hler ausgel\u00f6st";
     t[60408] = "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveExt.DistributionName";

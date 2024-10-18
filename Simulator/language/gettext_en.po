@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-11 09:47+0200\n"
+"POT-Creation-Date: 2024-10-14 11:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19508,6 +19508,9 @@ msgstr "Keep empty for \"10%;25%;50%;75%;90%\""
 msgid "SettingsDialog.Tabs.Statistics.ShowQuantils"
 msgstr "Show quantiles"
 
+msgid "SettingsDialog.Tabs.Statistics.UseApproxSign"
+msgstr "Show values rounded to 0 in texts as \"≈0\""
+
 msgid "SettingsDialog.Tabs.Statistics.View"
 msgstr "View"
 
@@ -24697,13 +24700,13 @@ msgid "Statistics.ModelRemarks.LargeCVV"
 msgstr "High coefficient of variation of the residence times"
 
 msgid "Statistics.ModelRemarks.LargeCVV.ClientType"
-msgstr "High coefficient of variation of the residence times of clients of type \"%s\": CV[V]=%s"
+msgstr "High coefficient of variation of the residence times of clients of type \"%s\": CV[V]%s"
 
 msgid "Statistics.ModelRemarks.LargeCVV.Station"
-msgstr "High coefficient of variation of the residence times at station \"%s\": CV[V]=%s"
+msgstr "High coefficient of variation of the residence times at station \"%s\": CV[V]%s"
 
 msgid "Statistics.ModelRemarks.LargeCVV.System"
-msgstr "High coefficient of variation of the residence times in the system: CV[V]=%s"
+msgstr "High coefficient of variation of the residence times in the system: CV[V]%s"
 
 msgid "Statistics.ModelRemarks.LargeFlowFactor"
 msgstr "High flow factor"
@@ -24730,43 +24733,43 @@ msgid "Statistics.ModelRemarks.LargeN"
 msgstr "High average number of clients"
 
 msgid "Statistics.ModelRemarks.LargeN.ClientType"
-msgstr "Average number of clients of type \"%s\" in system: E[N]=%s"
+msgstr "Average number of clients of type \"%s\" in system: E[N]%s"
 
 msgid "Statistics.ModelRemarks.LargeN.Station"
-msgstr "Average number of clients at station \"%s\": E[N]=%s"
+msgstr "Average number of clients at station \"%s\": E[N]%s"
 
 msgid "Statistics.ModelRemarks.LargeN.System"
-msgstr "Average number of clients in the system E[N]=%s"
+msgstr "Average number of clients in the system E[N]%s"
 
 msgid "Statistics.ModelRemarks.LargeNRelative"
 msgstr "High average number of clients"
 
 msgid "Statistics.ModelRemarks.LargeNRelative.ClientType"
-msgstr "Average number of clients of type \"%s\" in system (relative to the other client types): E[N]=%s"
+msgstr "Average number of clients of type \"%s\" in system (relative to the other client types): E[N]%s"
 
 msgid "Statistics.ModelRemarks.LargeNRelative.Station"
-msgstr "Highaverage number of clients at station \"%s\" (relative to the other stations): E[N]=%s"
+msgstr "Highaverage number of clients at station \"%s\" (relative to the other stations): E[N]%s"
 
 msgid "Statistics.ModelRemarks.LargeRho"
 msgstr "High utilization of the operators"
 
 msgid "Statistics.ModelRemarks.LargeRho.Group"
-msgstr "High utilization of the operators group \"%s\": rho=%s"
+msgstr "High utilization of the operators group \"%s\": rho%s"
 
 msgid "Statistics.ModelRemarks.LargeRhoRelative"
 msgstr "High utilization of the operators"
 
 msgid "Statistics.ModelRemarks.LargeRhoRelative.Group"
-msgstr "High utilization of the operators group \"%s\" (relative to the other operator groups): rho=%s"
+msgstr "High utilization of the operators group \"%s\" (relative to the other operator groups): rho%s"
 
 msgid "Statistics.ModelRemarks.LargeWRelative"
 msgstr "Long waiting times"
 
 msgid "Statistics.ModelRemarks.LargeWRelative.ClientType"
-msgstr "Long waiting times for clients of type \"%s\" (relative to other client types): E[W]=%s"
+msgstr "Long waiting times for clients of type \"%s\" (relative to other client types): E[W]%s"
 
 msgid "Statistics.ModelRemarks.LargeWRelative.Station"
-msgstr "Long waiting times at station \"%s\" (relative to other stations): E[W]=%s"
+msgstr "Long waiting times at station \"%s\" (relative to other stations): E[W]%s"
 
 msgid "Statistics.ModelRemarks.NoRemarks"
 msgstr "There are no comments on the statistical data."

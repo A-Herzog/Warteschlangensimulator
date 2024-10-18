@@ -1009,6 +1009,9 @@ public class MainPanel extends MainPanelBase {
 		/* Andere JS-Engine gewählt? */
 		statisticsPanel.updateFastAccess();
 
+		/* Dezimaltrenner und Dezimalstellen geändert? */
+		statisticsPanel.recreateViewers();
+
 		/* "Öffnen"-Buttons in Statistik */
 		StatisticsBasePanel.viewerPrograms.clear();
 		if (setup.openWord) StatisticsBasePanel.viewerPrograms.add(StatisticsBasePanel.ViewerPrograms.WORD);
