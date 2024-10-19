@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-14 11:33+0200\n"
+"POT-Creation-Date: 2024-10-17 10:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19162,6 +19162,12 @@ msgstr "Never"
 
 msgid "SettingsDialog.NumberFormat"
 msgstr "Number and time format"
+
+msgid "SettingsDialog.NumberFormat.alwaysUseComma"
+msgstr "Always use decimal comma (\",\")"
+
+msgid "SettingsDialog.NumberFormat.alwaysUsePoint"
+msgstr "Always use decimal point (\".\")"
 
 msgid "SettingsDialog.NumberFormat.byOS"
 msgstr "Operating system default (decimal separator: \"%s\")"

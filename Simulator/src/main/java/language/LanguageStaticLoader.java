@@ -132,6 +132,14 @@ public class LanguageStaticLoader {
 			NumberTools.setLocale(OS_DEFAULT_LOCALE);
 			DateTools.setLocale(OS_DEFAULT_LOCALE);
 			break;
+		case COMMA:
+			NumberTools.setLocale(Locale.GERMAN);
+			DateTools.setLocale(Locale.GERMAN);
+			break;
+		case POINT:
+			NumberTools.setLocale(Locale.US);
+			DateTools.setLocale(Locale.US);
+			break;
 		}
 
 		/* Ja/Nein-Dialoge */

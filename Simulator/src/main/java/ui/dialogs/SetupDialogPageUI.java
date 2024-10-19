@@ -141,7 +141,9 @@ public class SetupDialogPageUI extends SetupDialogPage {
 		line.add(label=new JLabel(Language.tr("SettingsDialog.NumberFormat")+":"));
 		line.add(numberFormat=new JComboBox<>(new String[] {
 				String.format(Language.tr("SettingsDialog.NumberFormat.byOS"),Character.toString(new DecimalFormatSymbols(LanguageStaticLoader.OS_DEFAULT_LOCALE).getDecimalSeparator())),
-				Language.tr("SettingsDialog.NumberFormat.byUILanguage")
+				Language.tr("SettingsDialog.NumberFormat.byUILanguage"),
+				Language.tr("SettingsDialog.NumberFormat.alwaysUseComma"),
+				Language.tr("SettingsDialog.NumberFormat.alwaysUsePoint")
 		}));
 		label.setLabelFor(numberFormat);
 
@@ -341,6 +343,8 @@ public class SetupDialogPageUI extends SetupDialogPage {
 		switch (setup.numberFormat) {
 		case BY_SYSTEM: numberFormat.setSelectedIndex(0); break;
 		case BY_LANGUAGE: numberFormat.setSelectedIndex(1); break;
+		case COMMA: numberFormat.setSelectedIndex(2); break;
+		case POINT: numberFormat.setSelectedIndex(3); break;
 		default: numberFormat.setSelectedIndex(0); break;
 		}
 
@@ -399,6 +403,8 @@ public class SetupDialogPageUI extends SetupDialogPage {
 		switch (numberFormat.getSelectedIndex()) {
 		case 0: setup.numberFormat=SetupData.NumberFormat.BY_SYSTEM; break;
 		case 1: setup.numberFormat=SetupData.NumberFormat.BY_LANGUAGE; break;
+		case 2: setup.numberFormat=SetupData.NumberFormat.COMMA; break;
+		case 3: setup.numberFormat=SetupData.NumberFormat.POINT; break;
 		}
 
 		switch (fontSizes.getSelectedIndex()) {
