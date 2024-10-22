@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-17 10:11+0200\n"
+"POT-Creation-Date: 2024-10-19 01:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6460,6 +6460,12 @@ msgstr "Eulersche Zahl e"
 
 msgid "ExpressionBuilder.MathematicalConstants.e.Info"
 msgstr "<p>Liefert die eulersche Zahl<br>e&asymp;2,718281828459.</p>"
+
+msgid "ExpressionBuilder.MathematicalConstants.tau"
+msgstr "Einheitskreisdurchmesser Tau"
+
+msgid "ExpressionBuilder.MathematicalConstants.tau.Info"
+msgstr "<p>Liefert Durchmesser des Einheitskreises<br>&tau;&asymp;6,28318530717959.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions"
 msgstr "Mathematische Funktionen"

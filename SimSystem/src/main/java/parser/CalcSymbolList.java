@@ -29,6 +29,7 @@ import parser.coresymbols.CalcSymbolPreOperator;
 import parser.coresymbols.CalcSymbolVariable;
 import parser.symbols.CalcSymbolConstE;
 import parser.symbols.CalcSymbolConstPi;
+import parser.symbols.CalcSymbolConstTau;
 import parser.symbols.CalcSymbolMiddleOperatorDivide;
 import parser.symbols.CalcSymbolMiddleOperatorMinus;
 import parser.symbols.CalcSymbolMiddleOperatorMultiply;
@@ -470,6 +471,7 @@ public class CalcSymbolList {
 
 			addSymbol(new CalcSymbolConstE());
 			addSymbol(new CalcSymbolConstPi());
+			addSymbol(new CalcSymbolConstTau());
 
 			addSymbol(new CalcSymbolPreOperatorRandomGeneratorInversX());
 			addSymbol(new CalcSymbolPreOperatorRandomGeneratorInvers());

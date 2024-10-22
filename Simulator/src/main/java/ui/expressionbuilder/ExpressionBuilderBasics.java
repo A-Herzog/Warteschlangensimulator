@@ -187,6 +187,7 @@ public class ExpressionBuilderBasics {
 		group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.MathematicalConstants"));
 		addTreeNodeConst(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalConstants.Pi"),"pi",Language.tr("ExpressionBuilder.MathematicalConstants.Pi.Info"));
 		addTreeNodeConst(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalConstants.e"),"e",Language.tr("ExpressionBuilder.MathematicalConstants.e.Info"));
+		addTreeNodeConst(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalConstants.tau"),"tau",Language.tr("ExpressionBuilder.MathematicalConstants.tau.Info"));
 		if (group.getChildCount()>0) root.add(group);
 
 		/* Logik-Funktionen */
