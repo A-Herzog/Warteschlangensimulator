@@ -194,7 +194,7 @@ public class JDataDistributionEditPanel extends JPanel {
 	/**
 	 * Drag&amp;Drop-Empfänger für Dateien
 	 * (muss als Feld vorgehalten werden, um ihn zur Laufzeit aktivieren oder deaktivieren zu können)
-	 * @see #setEditable(boolean)
+	 * @see #setEnabled(boolean)
 	 */
 	private FileDropper drop;
 
@@ -315,7 +315,7 @@ public class JDataDistributionEditPanel extends JPanel {
 		bottom.add(editLine,BorderLayout.CENTER);
 		editLine.setText(distribution.getDensityString());
 		editLine.addKeyListener(new EditListener());
-		editLine.setEditable(editable);
+		editLine.setEnabled(editable);
 	}
 
 	/**
@@ -403,18 +403,19 @@ public class JDataDistributionEditPanel extends JPanel {
 
 	/**
 	 * Stellt ein, ob die Werte verändert werden können.
-	 * @param editable	Wird hier <code>true</code> übergeben, so können die Werte der Verteilung verändert werden.
+	 * @param enabled	Wird hier <code>true</code> übergeben, so können die Werte der Verteilung verändert werden.
 	 */
-	public void setEditable(boolean editable) {
-		if (editable) {
+	@Override
+	public void setEnabled(boolean enabled) {
+		if (enabled) {
 			if (drop==null) drop=new FileDropper(this,new ButtonListener());
 		} else {
 			if (drop!=null) {drop.quit(); drop=null;}
 		}
 
-		pasteButton.setVisible(editable);
-		loadButton.setVisible(editable);
-		editLine.setEditable(editable);
+		pasteButton.setVisible(enabled);
+		loadButton.setVisible(enabled);
+		editLine.setEnabled(enabled);
 	}
 
 	/**

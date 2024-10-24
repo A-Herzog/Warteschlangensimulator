@@ -170,7 +170,7 @@ public class JDataLoader extends JDialog {
 		/* Top */
 		getContentPane().add(p=new JPanel(new BorderLayout()),BorderLayout.NORTH);
 		p.add(edit=new JTextField(SelectArea),BorderLayout.CENTER);
-		edit.setEditable(false);
+		edit.setEnabled(false);
 
 		/* Content */
 		table=new JTable[data.size()];

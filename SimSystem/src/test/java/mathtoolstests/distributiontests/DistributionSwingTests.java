@@ -200,8 +200,8 @@ class DistributionSwingTests {
 		assertTrue(DistributionTools.compare(dataDist,dataEditPanel.getDistribution()));
 
 		dataEditPanel=new JDataDistributionEditPanel(dataDist,JDataDistributionEditPanel.PlotMode.PLOT_BOTH,true);
-		dataEditPanel.setEditable(false);
-		dataEditPanel.setEditable(true);
+		dataEditPanel.setEnabled(false);
+		dataEditPanel.setEnabled(true);
 
 		new JDataDistributionEditPanel(dataDist,JDataDistributionEditPanel.PlotMode.PLOT_BOTH,true,10);
 
