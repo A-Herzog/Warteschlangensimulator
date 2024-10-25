@@ -21,6 +21,7 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.BufferedWriter;
@@ -37,6 +38,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -89,7 +91,17 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 	/**
 	 * Wahrscheinlichkeitsverteilungsplotter
 	 */
-	private final JDistributionPanel distributionPlotter;
+	private final JDistributionPanelExt distributionPlotter;
+
+	/**
+	 * Soll der maximal darzustellende x-Wert automatisch gewählt werden?
+	 */
+	private final JCheckBox maxXAuto;
+
+	/**
+	 * Eingabefeld für den maximalen x-Wert im Falle einer manuellen Wahl
+	 */
+	private final JTextField maxXInput;
 
 	/**
 	 * Eingabefelder für den Wahrscheinlichkeitsverteilungsplotter
@@ -139,7 +151,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		}
 
 		/* Wahrscheinlichkeitsverteilungsplotter */
-		add(distributionPlotter=new JDistributionPanel(new ExponentialDistribution(100),200,false),BorderLayout.CENTER);
+		add(distributionPlotter=new JDistributionPanelExt(new ExponentialDistribution(100),200),BorderLayout.CENTER);
 		distributionPlotter.setImageSaveSize(SetupData.getSetup().imageSize);
 		distributionPlotter.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		distributionPlotter.setPlotType(JDistributionPanel.BOTH);
@@ -150,8 +162,28 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		}
 		if (distribution==null) distribution=new ExponentialDistribution(100);
 
+		/* Konfigurationsbereich unten */
+		final JPanel setupArea=new JPanel();
+		setupArea.setLayout(new BoxLayout(setupArea,BoxLayout.PAGE_AXIS));
+		add(setupArea,BorderLayout.SOUTH);
+
+		/* Maximaler x-Wert */
+		final JPanel line=new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		setupArea.add(line);
+		line.add(maxXAuto=new JCheckBox(Language.tr("CalculatorDialog.Tab.Distributions.MaxXAuto"),true));
+		maxXAuto.addActionListener(e->maxXCheck());
+		line.add(Box.createHorizontalStrut(10));
+		final JLabel label=new JLabel(Language.tr("CalculatorDialog.Tab.Distributions.MaxX")+":");
+		line.add(label);
+		line.add(maxXInput=new JTextField("200",10));
+		label.setLabelFor(maxXInput);
+		maxXInput.addKeyListener(new KeyAdapter() {
+			@Override public void keyReleased(KeyEvent e) {maxXAuto.setSelected(false); maxXCheck();}
+		});
+
+
 		/* Eingabefelder für den Wahrscheinlichkeitsverteilungsplotter */
-		add(distributionEditor=new JDistributionEditorPanel(distribution,200,e->updateDistribution(),true),BorderLayout.SOUTH);
+		setupArea.add(distributionEditor=new JDistributionEditorPanel(distribution,200,e->updateDistribution(),true));
 
 		/* Start */
 		updateDistribution();
@@ -165,6 +197,20 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 	@Override
 	protected Images getTabIcon() {
 		return Images.EXTRAS_CALCULATOR_DISTRIBUTION;
+	}
+
+	/**
+	 * Prüfung der Einstellungen zum maximal darzustellenden x-Wert
+	 * @see #maxXAuto
+	 * @see #maxXInput
+	 */
+	private void maxXCheck() {
+		if (maxXAuto.isSelected()) {
+			maxXInput.setBackground(NumberTools.getTextFieldDefaultBackground());
+		} else {
+			NumberTools.getPositiveDouble(maxXInput,true);
+		}
+		updateDistribution();
 	}
 
 	/**
@@ -543,5 +589,47 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 	private void getCalculationExpression() {
 		final String expression=DistributionTools.getCalculationExpression(distributionEditor.getDistribution());
 		if (expression!=null) setCalculationExpression.accept(expression);
+	}
+
+	/**
+	 * Erweiterung von {@link JDistributionPanel} mit der Möglichkeit,
+	 * den tatsächlichen maximalen x-Wert explizit vorzugeben
+	 */
+	private class JDistributionPanelExt extends JDistributionPanel {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
+		private static final long serialVersionUID=-2211324754918935812L;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param distribution Zu ladende Verteilung (vom Typ <code>AbstractContinuousDistribution</code>)
+		 * @param maxXValue Maximal darzustellender x-Wert
+		 * 		 */
+		public JDistributionPanelExt(AbstractRealDistribution distribution, double maxXValue) {
+			super(distribution,maxXValue,false);
+		}
+
+		@Override
+		protected double getRealMaxXValue() {
+			if (!maxXAuto.isSelected()) {
+				final Double D=NumberTools.getPositiveDouble(maxXInput,true);
+				if (D!=null) return D;
+			}
+
+			final double mean=distribution.getNumericalMean();
+			final double variance=distribution.getNumericalVariance();
+			final double upperBound=distribution.getSupportUpperBound();
+			if (Double.isNaN(mean) || Double.isNaN(variance)) return super.getRealMaxXValue();
+			double maxX;
+			if (variance==0) {
+				maxX=2*mean;
+			} else {
+				maxX=mean+3*Math.sqrt(variance);
+				if (Double.isFinite(upperBound)) maxX=Math.min(maxX,upperBound*1.1);
+			}
+			return maxX;
+		}
 	}
 }

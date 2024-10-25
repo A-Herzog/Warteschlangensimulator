@@ -10496,8 +10496,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23123] = "Duplicate";
     t[23128] = "InfoDialog.Is64Bit.Yes";
     t[23129] = "Yes";
-    t[23130] = "Main.Menu.StatisticsSetup";
-    t[23131] = "Setup statistic recording...";
     t[23134] = "Surface.ScriptEditor.Check.Success.Info";
     t[23135] = "The code could be compiled successfully.";
     t[23140] = "ParameterCompare.Toolbar.ConnectInputParameters";
@@ -12040,14 +12038,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[26389] = "unsaved model file";
     t[26392] = "SimulationServer.Setup.SocketAutoStart.Hint";
     t[26393] = "Auto start socket server when program is started.";
+    t[26396] = "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNumberRangeInfo";
+    t[26397] = "<p>Generates a random number according to the log-normal distribution with the parameters &mu; and &sigma; according to the third and fourth parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
-    t[26396] = "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNumberRangeInfo";
-    t[26397] = "<p>Generates a random number according to the log-normal distribution with the parameters &mu; and &sigma; according to the third and fourth parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
     t[26402] = "LoadCalculator.WorkingTimePerDay";
     t[26403] = "Working time per day";
     t[26404] = "ParameterCompare.Run.Error.NoScriptFile";
@@ -12906,6 +12904,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[28335] = "<p>Gets the throughput measured in arrivals per second at station id.</p>";
     t[28336] = "SoundSelectPanel.MaxSeconds";
     t[28337] = "Maximum playback duration (in seconds)";
+    t[28350] = "CalculatorDialog.Tab.Distributions.MaxX";
+    t[28351] = "Maximum x-value";
     t[28352] = "XML.ErrorNoEmbeddedData";
     t[28353] = "There are no embedded xml data.";
     t[28354] = "Surface.InputDDE.Dialog.Variable";
@@ -18204,8 +18204,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39701] = "Costs";
     t[39702] = "ProblemReporter.Dialog.NoItemsErrorInfo";
     t[39703] = "No information to be included in the report have been selected.";
-    t[39704] = "Main.Menu.StatisticsSetup.Mnemonic";
-    t[39705] = "r";
     t[39706] = "Simulation.Creator.ProcessExpressionProcessing";
     t[39707] = "At element id=%d for client type \"%s\" the invalid value \"%s\" is specified as process time expression (error at character %d).";
     t[39710] = "ClientTypeLoader.Title";
@@ -19898,6 +19896,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43211] = "For this operators group failures / down times are defined. Because the operators do not work during these times, these times are recorded as idle times.";
     t[43212] = "Statistics.Utilization.FailureInfo.Transporters";
     t[43213] = "For this transporter type failures / down times are defined. Because the transporters do not move during these times, these times are recorded as idle times.";
+    t[43216] = "CalculatorDialog.Tab.Distributions.MaxXAuto";
+    t[43217] = "Set maximum x-value automatically";
     t[43220] = "Surface.Output.Infotext";
     t[43221] = "If a client passes this station, one or more current values are appended to a file.";
     t[43222] = "ModelSecurityCheck.CriticalType.Script";

@@ -10496,8 +10496,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23123] = "Duplizieren";
     t[23128] = "InfoDialog.Is64Bit.Yes";
     t[23129] = "Ja";
-    t[23130] = "Main.Menu.StatisticsSetup";
-    t[23131] = "Statistikaufzeichnung konfigurieren...";
     t[23134] = "Surface.ScriptEditor.Check.Success.Info";
     t[23135] = "Der Code konnte erfolgreich kompiliert werden.";
     t[23140] = "ParameterCompare.Toolbar.ConnectInputParameters";
@@ -12040,14 +12038,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26389] = "ungespeichertes Modell";
     t[26392] = "SimulationServer.Setup.SocketAutoStart.Hint";
     t[26393] = "Socket-Server automatisch starten, wenn das Programm gestartet wird.";
+    t[26396] = "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNumberRangeInfo";
+    t[26397] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Log-Normalverteilung mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem dritten und vierten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
-    t[26396] = "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNumberRangeInfo";
-    t[26397] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Log-Normalverteilung mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem dritten und vierten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[26402] = "LoadCalculator.WorkingTimePerDay";
     t[26403] = "Betriebszeit pro Tag";
     t[26404] = "ParameterCompare.Run.Error.NoScriptFile";
@@ -12906,6 +12904,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[28335] = "<p>Liefert den Durchsatz in Ank\u00fcnften pro Sekunden an der Station, deren ID in dem Parameter angegeben wurde.</p>";
     t[28336] = "SoundSelectPanel.MaxSeconds";
     t[28337] = "Maximale Abspieldauer (in Sekunden)";
+    t[28350] = "CalculatorDialog.Tab.Distributions.MaxX";
+    t[28351] = "Maximaler x-Wert";
     t[28352] = "XML.ErrorNoEmbeddedData";
     t[28353] = "Es sind keine eingebetteten xml-Daten vorhanden.";
     t[28354] = "Surface.InputDDE.Dialog.Variable";
@@ -18204,8 +18204,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39701] = "Kosten";
     t[39702] = "ProblemReporter.Dialog.NoItemsErrorInfo";
     t[39703] = "Es wurden keine Informationen, die in den Bericht aufgenommen werden sollen, ausgew\u00e4hlt.";
-    t[39704] = "Main.Menu.StatisticsSetup.Mnemonic";
-    t[39705] = "k";
     t[39706] = "Simulation.Creator.ProcessExpressionProcessing";
     t[39707] = "F\u00fcr Element id=%d wurde f\u00fcr Kundentyp \"%s\" der ung\u00fcltige Wert \"%s\" als Ausdruck f\u00fcr die Bedienzeiten (Fehler an Zeichen %d) angegeben.";
     t[39710] = "ClientTypeLoader.Title";
@@ -19898,6 +19896,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43211] = "F\u00fcr diese Bedienergruppe sind Ausf\u00e4lle/Pausenzeiten definiert. Da die Bediener w\u00e4hrend dieser Zeit nicht arbeiten, werden diese Zeiten als Leerlaufzeiten gez\u00e4hlt.";
     t[43212] = "Statistics.Utilization.FailureInfo.Transporters";
     t[43213] = "F\u00fcr diesen Transportertyp sind Ausf\u00e4lle/Pausenzeiten definiert. Da sich die Transporter w\u00e4hrend dieser Zeit nicht bewegen, werden diese Zeiten als Leerlaufzeiten gez\u00e4hlt.";
+    t[43216] = "CalculatorDialog.Tab.Distributions.MaxXAuto";
+    t[43217] = "Maximalen x-Wert automatisch festlegen";
     t[43220] = "Surface.Output.Infotext";
     t[43221] = "Passiert ein Kunde diese Station, so werden ein oder mehrere aktuelle Werte an eine Datei angeh\u00e4ngt.";
     t[43222] = "ModelSecurityCheck.CriticalType.Script";

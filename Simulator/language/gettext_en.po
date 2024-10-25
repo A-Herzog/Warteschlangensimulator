@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-19 01:30+0200\n"
+"POT-Creation-Date: 2024-10-20 00:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1384,6 +1384,12 @@ msgstr "Copy"
 
 msgid "CalculatorDialog.Tab.Distributions.GenerateTable.Save"
 msgstr "Save..."
+
+msgid "CalculatorDialog.Tab.Distributions.MaxX"
+msgstr "Maximum x-value"
+
+msgid "CalculatorDialog.Tab.Distributions.MaxXAuto"
+msgstr "Set maximum x-value automatically"
 
 msgid "CalculatorDialog.Tab.Plotter"
 msgstr "Function plotter"
@@ -12519,12 +12525,6 @@ msgstr "Start simulation"
 
 msgid "Main.Menu.StartSimulation.Mnemonic"
 msgstr "S"
-
-msgid "Main.Menu.StatisticsSetup"
-msgstr "Setup statistic recording..."
-
-msgid "Main.Menu.StatisticsSetup.Mnemonic"
-msgstr "r"
 
 msgid "Main.Menu.View"
 msgstr "View"
@@ -39074,6 +39074,12 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Main.Menu.Help.ProgramInformation.Short"
 #~ msgstr "Info"
+
+#~ msgid "Main.Menu.StatisticsSetup"
+#~ msgstr "Setup statistic recording..."
+
+#~ msgid "Main.Menu.StatisticsSetup.Mnemonic"
+#~ msgstr "r"
 
 #~ msgid "ModelGenerator.LargeModel.Button"
 #~ msgstr "Load test models..."

@@ -195,7 +195,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	private final Consumer<String> toExpression;
 
 	/** Darzustellende Verteilung */
-	private AbstractRealDistribution distribution=null;
+	protected AbstractRealDistribution distribution=null;
 
 	/**
 	 * Darf der Typ der Verteilung im Editor geändert werden?
@@ -509,7 +509,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	 * @return	Maximaler x-Wert (für die Anzeige der Verteilung)
 	 * @see #maxXValue
 	 */
-	private double getRealMaxXValue() {
+	protected double getRealMaxXValue() {
 		if (distribution==null) return maxXValue;
 
 		double newMaxXValue=Math.min(maxXValue,Math.min(10_000,distribution.getSupportUpperBound()));
@@ -725,11 +725,12 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 
 			g.setColor(Color.blue);
 
+			final double distMaxX=distribution.getSupportUpperBound();
 			for (int i=dataRect.x;i<=dataRect.x+dataRect.width;i++) {
-				double x=maxXValue*(i-dataRect.x)/(dataRect.width+1);
-				y=distribution.cumulativeProbability(x);
-				int y1=dataRect.y+dataRect.height-(int)Math.round(dataRect.height*lastY);
-				int y2=dataRect.y+dataRect.height-(int)Math.round(dataRect.height*y);
+				final double x=maxXValue*(i-dataRect.x)/(dataRect.width+1);
+				y=(x>=distMaxX)?1:distribution.cumulativeProbability(x);
+				final int y1=dataRect.y+dataRect.height-(int)Math.round(dataRect.height*lastY);
+				final int y2=dataRect.y+dataRect.height-(int)Math.round(dataRect.height*y);
 
 				if (i>dataRect.x) g.drawLine(i-1,y1,i,y2);
 				lastY=y;
@@ -744,23 +745,27 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		 * @see #paintToRectangle(Graphics, Rectangle, double)
 		 */
 		private void paintDensity(final Graphics g, final Rectangle dataRect, final double maxXValue) {
-			double lastY=0,y=0;
+			double lastY=0;
+			double y=0;
+
+			final double distMaxX=distribution.getSupportUpperBound();
 
 			double maxY=0.001;
 			for (int i=dataRect.x;i<=dataRect.x+dataRect.width;i++) {
 				double x=maxXValue*(i-dataRect.x)/(dataRect.width+1);
 				try {
-					final double d=distribution.density(x);
+					final double d=(x>distMaxX)?0:distribution.density(x);
 					if (!Double.isInfinite(d) && !Double.isNaN(d)) maxY=Math.max(maxY,d);
 				} catch (IllegalArgumentException | MathRuntimeException e) {}
 			}
 
 			g.setColor(new Color(1f,0f,0f,0.15f));
+
 			for (int i=dataRect.x;i<=dataRect.x+dataRect.width;i++) {
-				double x=maxXValue*(i-dataRect.x)/(dataRect.width+1);
-				try {y=distribution.density(x)/maxY;} catch (IllegalArgumentException | MathRuntimeException e) {}
-				int y1=dataRect.y+dataRect.height-(int)Math.round(dataRect.height*lastY);
-				int y2=dataRect.y+dataRect.height-(int)Math.round(dataRect.height*y);
+				final double x=maxXValue*(i-dataRect.x)/(dataRect.width+1);
+				try {y=(x>distMaxX)?0:distribution.density(x)/maxY;} catch (IllegalArgumentException | MathRuntimeException e) {}
+				final int y1=dataRect.y+dataRect.height-(int)Math.round(dataRect.height*lastY);
+				final int y2=dataRect.y+dataRect.height-(int)Math.round(dataRect.height*y);
 
 				if (i>dataRect.x) {
 					/* g.drawLine(i-1,y1,i,y2); */

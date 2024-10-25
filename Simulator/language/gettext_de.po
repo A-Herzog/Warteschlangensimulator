@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-19 01:30+0200\n"
+"POT-Creation-Date: 2024-10-20 00:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1384,6 +1384,12 @@ msgstr "Kopieren"
 
 msgid "CalculatorDialog.Tab.Distributions.GenerateTable.Save"
 msgstr "Speichern..."
+
+msgid "CalculatorDialog.Tab.Distributions.MaxX"
+msgstr "Maximaler x-Wert"
+
+msgid "CalculatorDialog.Tab.Distributions.MaxXAuto"
+msgstr "Maximalen x-Wert automatisch festlegen"
 
 msgid "CalculatorDialog.Tab.Plotter"
 msgstr "Funktionsplotter"
@@ -12550,12 +12556,6 @@ msgstr "Simulation starten"
 msgid "Main.Menu.StartSimulation.Mnemonic"
 msgstr "S"
 
-msgid "Main.Menu.StatisticsSetup"
-msgstr "Statistikaufzeichnung konfigurieren..."
-
-msgid "Main.Menu.StatisticsSetup.Mnemonic"
-msgstr "k"
-
 msgid "Main.Menu.View"
 msgstr "Ansicht"
 
@@ -16935,7 +16935,7 @@ msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.Digits"
 msgstr "Anzuzeigende Nachkommastellen"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport"
-msgstr "Nachkommastellem beim Export"
+msgstr "Nachkommastellen beim Export"
 
 msgid "ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport.Off"
 msgstr "Alle ausgeben"
@@ -39152,6 +39152,12 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Main.Menu.Help.ProgramInformation.Short"
 #~ msgstr "Info"
+
+#~ msgid "Main.Menu.StatisticsSetup"
+#~ msgstr "Statistikaufzeichnung konfigurieren..."
+
+#~ msgid "Main.Menu.StatisticsSetup.Mnemonic"
+#~ msgstr "k"
 
 #~ msgid "Main.Menu.View.Statistics.RotatePrevious.Mnemonic"
 #~ msgstr "a"
