@@ -108,9 +108,7 @@ class DistributionFitterTest {
 		assertNotNull(fitter.getResult(true));
 		assertNotNull(fitter.getResult(false));
 		assertNotNull(fitter.getResultList());
-		assertNotNull(fitter.getResultListDist());
-		assertNotNull(fitter.getResultListError());
-		assertNotNull(fitter.getFitDistribution());
+		assertNotNull(fitter.getFits());
 	}
 
 	/** Beispieldaten für eine Normalverteilung */
@@ -233,8 +231,7 @@ class DistributionFitterTest {
 		assertNotNull(fitter.getResult(true));
 		assertNotNull(fitter.getResult(false));
 		assertNotNull(fitter.getResultList());
-		assertNotNull(fitter.getResultListDist());
-		assertNotNull(fitter.getResultListError());
+		assertNotNull(fitter.getFits());
 		final AbstractRealDistribution dist=fitter.getFitDistribution().get(0);
 		assertNotNull(dist);
 	}

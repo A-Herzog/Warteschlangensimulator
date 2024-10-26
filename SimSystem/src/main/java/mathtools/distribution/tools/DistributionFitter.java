@@ -17,11 +17,10 @@ package mathtools.distribution.tools;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ChiSquaredDistribution;
@@ -39,11 +38,6 @@ import mathtools.distribution.OnePointDistributionImpl;
  * @version 2.1
  */
 public class DistributionFitter extends DistributionFitterBase {
-	/**
-	 * Anzahl an anzuzeigenden am besten passenden Fits
-	 */
-	private static final int DISPLAY_NUMBER_OF_FITS=5;
-
 	/**
 	 * Bezeichner für "Geprüfte Verteilungen"
 	 */
@@ -88,19 +82,7 @@ public class DistributionFitter extends DistributionFitterBase {
 	 * Angabe der quadratischen Abweichungen der Verteilungen
 	 * @see #getFitDistribution()
 	 */
-	private Map<AbstractRealDistribution,Double> fit;
-
-	/**
-	 * Liste mit den Verteilungen, die getestet wurden
-	 * @see #getResultListDist()
-	 */
-	private final List<AbstractRealDistribution> outputDist;
-
-	/**
-	 * Liste mit den Abweichungen pro getesteter Verteilung
-	 * @see #getResultListError()
-	 */
-	private final List<Double> outputError;
+	private List<Fit> fits;
 
 	/**
 	 * Liste mit Informationen (in Textform) zu den getesteten Verteilungen
@@ -112,9 +94,7 @@ public class DistributionFitter extends DistributionFitterBase {
 	 * Konstruktor der Klasse
 	 */
 	public DistributionFitter() {
-		fit=new HashMap<>();
-		outputDist=new ArrayList<>();
-		outputError=new ArrayList<>();
+		fits=new ArrayList<>();
 		outputInfo=new ArrayList<>();
 		clear();
 	}
@@ -125,10 +105,8 @@ public class DistributionFitter extends DistributionFitterBase {
 	@Override
 	public void clear() {
 		super.clear();
-		outputDist.clear();
-		outputError.clear();
 		outputInfo.clear();
-		fit.clear();
+		fits.clear();
 	}
 
 	/**
@@ -150,6 +128,7 @@ public class DistributionFitter extends DistributionFitterBase {
 		outputPlain.append(String.format(ComparedDistributions,getFitDistributionCount())+"\n");
 		outputHTML.append("<h3>"+String.format(ComparedDistributions,getFitDistributionCount())+"</h3>\n");
 
+		/* Fits berechnen */
 		final Set<Class<? extends AbstractDistributionWrapper>> candidates=new HashSet<>(getFitDistributions());
 		for (String name: DistributionTools.getDistributionNames()) {
 			final AbstractDistributionWrapper wrapper=DistributionTools.getWrapper(name);
@@ -157,6 +136,25 @@ public class DistributionFitter extends DistributionFitterBase {
 				candidates.remove(wrapper.getClass());
 			}
 		}
+
+		/* Ergebnisse für Fits ausgeben */
+		outputPlain.append(BestFitFor+"\n");
+		outputHTML.append("<h3>"+BestFitFor+"</h3>");
+		outputHTML.append("<ol>");
+
+		int rank=1;
+		for (var fit: fits.stream().sorted((f1,f2)->(int)Math.signum(f1.fit-f2.fit)).toArray(Fit[]::new)) {
+
+			outputPlain.append(rank+". ");
+			outputPlain.append(fit.infoPlain);
+			rank++;
+
+			outputHTML.append("<li>");
+			outputHTML.append(fit.infoHTML);
+			outputHTML.append("</li>");
+		}
+
+		/* Info ausgeben für Verteilungen, für die kein Fit berechnet werden konnte */
 		for (Class<? extends AbstractDistributionWrapper> wrapperCls: candidates) {
 			try {
 				final AbstractDistributionWrapper wrapper=wrapperCls.getDeclaredConstructor().newInstance();
@@ -165,46 +163,16 @@ public class DistributionFitter extends DistributionFitterBase {
 				outputPlain.append("\n");
 				outputPlain.append(NotFit);
 				outputPlain.append("\n");
+				outputHTML.append("<li>");
 				outputHTML.append("<u>"+name+"</u><br>\n");
 				outputHTML.append(NotFit+"<br>");
+				outputHTML.append("</li>");
 			} catch (InstantiationException|IllegalAccessException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException e) {}
 		}
 
-		outputPlain.append("\n");
-		outputPlain.append(BestFitFor+"\n");
-		outputHTML.append("<h3>"+BestFitFor+"</h3>");
-		final List<AbstractRealDistribution> dists=getFitDistribution();
-		for (int i=0;i<Math.min(DISPLAY_NUMBER_OF_FITS,dists.size());i++) {
-			final AbstractRealDistribution fitDist=dists.get(i);
-			final String name=DistributionTools.getDistributionName(fitDist);
-			final String info=DistributionTools.getDistributionInfo(fitDist);
-			double diff=0;
-			for (Map.Entry<AbstractRealDistribution,Double> entry: fit.entrySet()) if (entry.getKey().getClass()==fitDist.getClass()) {
-				diff=entry.getValue();
-				break;
-			}
-			String error=NumberTools.formatNumber(diff,3);
-			if (error.equals("0")) error=NumberTools.formatNumber(diff,9);
-			outputPlain.append(""+(i+1)+". "+name+" ("+info+"), "+MeanSquares+": "+error+"\n");
-			outputHTML.append(""+(i+1)+". "+name+" ("+info+"), "+MeanSquares+": <b>"+error+"</b><br>");
-		}
+		outputHTML.append("</ol>");
 
 		return true;
-	}
-
-	/**
-	 * Fügt Informationen zu einer Verteilung (bzw. der Güte des Fits gegen diese Verteilung) zu der Ausgabe hinzu
-	 * @param dist	Verteilung deren Daten ausgegeben werden sollen
-	 * @param error	Quadratische Abweichung zwischen Messwerten und dieser Verteilung
-	 * @see #calcMatch(AbstractRealDistribution)
-	 */
-	private void addResultToOutputList(AbstractRealDistribution dist, double error) {
-		int pos=outputError.size();
-		for (int i=0;i<outputError.size();i++) if (outputError.get(i)>error) {pos=i; break;}
-
-		outputInfo.add(pos,DistributionTools.getDistributionName(dist)+" ("+DistributionTools.getDistributionInfo(dist)+") "+FitError+": "+NumberTools.formatNumber(error,3));
-		outputDist.add(pos,DistributionTools.cloneDistribution(dist));
-		outputError.add(pos,error);
 	}
 
 	/**
@@ -259,11 +227,12 @@ public class DistributionFitter extends DistributionFitterBase {
 		final double[] cdf=samples.cumulativeDensity;
 		for (int i=0;i<cdf.length;i++) {
 			final double d=dist.cumulativeProbability(i);
+			if (d>0.99999) break;
 			if (i==0 && (Double.isInfinite(d) || Double.isNaN(d))) continue;
 			maxDiff=FastMath.max(maxDiff,Math.abs(cdf[i]-d));
 		}
 
-		return Math.min(1,2*FastMath.exp(-2*count*maxDiff*maxDiff));
+		return Math.min(1,2*FastMath.exp(-2*maxDiff*maxDiff));
 	}
 
 	/**
@@ -277,12 +246,14 @@ public class DistributionFitter extends DistributionFitterBase {
 		int steps=0;
 
 		final double[] cdf=samples.cumulativeDensity;
+		double d1=dist.cumulativeProbability(0);
 		for (int i=1;i<cdf.length;i++) {
-			final double d1=dist.cumulativeProbability(i-1);
 			final double d2=dist.cumulativeProbability(i);
 			if (Double.isInfinite(d1) || Double.isNaN(d1)) continue;
 			if (Double.isInfinite(d2) || Double.isNaN(d2)) continue;
 			final double delta=d2-d1;
+			d1=d2;
+			if (d2>0.99999) break;
 			if (delta<=0) continue;
 			steps++;
 			final double samplesDelta=cdf[i]-cdf[i-1];
@@ -351,11 +322,13 @@ public class DistributionFitter extends DistributionFitterBase {
 	 * Berechnet, wie gut eine vorgegebene Verteilung zu den Messwerten passt
 	 * (quadrierte mittlere Abweichung und auch verschiedene Anpassungstests)
 	 * @param dist	Zu prüfende Verteilung
-	 * @see #fit
+	 * @return	Gibt an, ob für die gegebene Verteilung eine Anpassung vorgenommen werden konnte.
+	 * @see #fits
 	 */
-	private void calcMatch(final AbstractRealDistribution dist) {
+	private boolean calcMatch(final AbstractRealDistribution dist) {
 		/* Quadrierte mittlere Abweichung ausrechnen */
 		final double diff=calcSquaredDiff(dist);
+		if (Double.isNaN(diff)) return false;
 
 		/* p-Value gemäß Kolmogorov-Smirnov-Anpassungstest ausrechnen */
 		final double pKS=calcPValueKS(dist);
@@ -368,11 +341,15 @@ public class DistributionFitter extends DistributionFitterBase {
 
 		/* Ausgabe */
 
+		final var outputPlain=new StringBuilder();
+		final var outputHTML=new StringBuilder();
+
+		String diffStr=NumberTools.formatNumber(diff,3);
+		if (diffStr.equals("0")) diffStr=NumberTools.formatNumber(diff,9);
+
 		outputPlain.append(DistributionTools.getDistributionName(dist)+" ");
 		outputPlain.append("("+DistributionTools.getDistributionInfo(dist)+")\n");
-		String s=NumberTools.formatNumber(diff,3);
-		if (s.equals("0")) s=NumberTools.formatNumber(diff,9);
-		outputPlain.append(MeanSquares+": "+s+"\n");
+		outputPlain.append(MeanSquares+": "+diffStr+"\n");
 		outputPlain.append(PValue+": "+NumberTools.formatPercent(pKS)+"\n");
 		outputPlain.append(PValueChiSqr+": "+NumberTools.formatPercent(pChiSqr)+"\n");
 		if (dist instanceof NormalDistribution) {
@@ -381,7 +358,7 @@ public class DistributionFitter extends DistributionFitterBase {
 
 		outputHTML.append("<u>"+DistributionTools.getDistributionName(dist)+"</u><br>\n");
 		outputHTML.append("("+DistributionTools.getDistributionInfo(dist)+")<br>");
-		outputHTML.append(MeanSquares+": <b>"+NumberTools.formatNumber(diff,3)+"</b><br>");
+		outputHTML.append(MeanSquares+": <b>"+diffStr+"</b><br>");
 		outputHTML.append(PValue+": "+NumberTools.formatPercent(pKS)+"<br>");
 		outputHTML.append(PValueChiSqr+": "+NumberTools.formatPercent(pChiSqr)+"<br>");
 		if (dist instanceof NormalDistribution) {
@@ -389,12 +366,9 @@ public class DistributionFitter extends DistributionFitterBase {
 		}
 
 		/* Qualität des Fits speichern */
-		if (!Double.isNaN(diff)) {
-			fit.put(DistributionTools.cloneDistribution(dist),diff);
-		}
+		fits.add(new Fit(dist,diff,outputPlain.toString(),outputHTML.toString()));
 
-		/* Ergebnis in Liste aufnehmen */
-		addResultToOutputList(dist,diff);
+		return true;
 	}
 
 	/**
@@ -410,12 +384,8 @@ public class DistributionFitter extends DistributionFitterBase {
 	private boolean calcMatch(final AbstractDistributionWrapper wrapper, final double mean, final double sd, final double min, final double max) {
 		if (wrapper==null) return false;
 		final AbstractRealDistribution fit=wrapper.getDistributionForFit(mean,sd,min,max);
-		if (fit!=null) {
-			calcMatch(fit);
-			return true;
-		} else {
-			return false;
-		}
+		if (fit==null) return false;
+		return calcMatch(fit);
 	}
 
 	/**
@@ -431,50 +401,70 @@ public class DistributionFitter extends DistributionFitterBase {
 	 * @return Am besten zu den Messwerten passende Verteilung
 	 */
 	public List<AbstractRealDistribution> getFitDistribution() {
-		final List<AbstractRealDistribution> results=new ArrayList<>();
-
-		final Map<AbstractRealDistribution,Double> data=new HashMap<>(fit);
-		while (data.size()>0) {
-			double bestValue=Double.MAX_VALUE;
-			AbstractRealDistribution bestDist=null;
-			for (Map.Entry<AbstractRealDistribution,Double> entry: data.entrySet()) if (entry.getValue()<bestValue) {
-				bestValue=entry.getValue();
-				bestDist=entry.getKey();
-			}
-			data.remove(bestDist);
-			results.add(bestDist);
-		}
-
-		return results;
+		return getSortedFits().stream().map(fit->fit.distribution).collect(Collectors.toList());
 	}
 
 	/**
 	 * Liefert eine Liste mit Informationen (in Textform) zu den getesteten Verteilungen
 	 * @return	Liste mit Texten, die jeweils Verteilungsname und quadrierten Fehler pro Verteilung enthalten
-	 * @see DistributionFitter#getResultListDist
-	 * @see DistributionFitter#getResultListError
 	 */
 	public List<String> getResultList() {
 		return outputInfo;
 	}
 
+
 	/**
-	 * Liefert eine Liste mit den Verteilungen, die getestet wurden
-	 * @return Liste mit allen getesteten (und angepassten) Verteilungen
-	 * @see DistributionFitter#getResultList
-	 * @see DistributionFitter#getResultListError
+	 * Liefert die Liste aller angepassten Verteilungen.
+	 * @return	Liste aller angepassten Verteilungen
 	 */
-	public List<AbstractRealDistribution> getResultListDist() {
-		return outputDist;
+	public List<Fit> getFits() {
+		return fits;
 	}
 
 	/**
-	 * Liefert eine Liste mit den Abweichungen pro getesteter Verteilung
-	 * @return Liste mit den Abweichungen pro getesteter Verteilung
-	 * @see DistributionFitter#getResultListDist
-	 * @see DistributionFitter#getResultList
+	 * Liefert die Liste aller angepassten Verteilungen in sortierter Reihenfolge.
+	 * @return	Liste aller angepassten Verteilungen in sortierter Reihenfolge
 	 */
-	public List<Double> getResultListError() {
-		return outputError;
+	public List<Fit> getSortedFits() {
+		return fits.stream().sorted((f1,f2)->(int)Math.signum(f1.fit-f2.fit)).collect(Collectors.toList());
+	}
+
+	/**
+	 * Daten zu einer einzelnen angepassten Verteilung
+	 */
+	public static class Fit {
+		/**
+		 * Angepasste Verteilung
+		 */
+		public final AbstractRealDistribution distribution;
+
+		/**
+		 * Quadrierte mittlere Abweichung
+		 */
+		public final double fit;
+
+		/**
+		 * Informationen in Reintextform
+		 */
+		public final String infoPlain;
+
+		/**
+		 * Information als HTML-formatierter Text
+		 */
+		public final String infoHTML;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param distribution	Angepasste Verteilung
+		 * @param fit	Quadrierte mittlere Abweichung
+		 * @param infoPlain	Informationen in Reintextform
+		 * @param infoHTML	Information als HTML-formatierter Text
+		 */
+		private Fit(final AbstractRealDistribution distribution, final double fit, final String infoPlain, final String infoHTML) {
+			this.distribution=distribution;
+			this.fit=fit;
+			this.infoPlain=infoPlain;
+			this.infoHTML=infoHTML;
+		}
 	}
 }

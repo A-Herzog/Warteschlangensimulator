@@ -78,7 +78,9 @@ public class WrapperErlangDistribution extends AbstractDistributionWrapper {
 		if (sd<=0.0) return null;
 		final double d2=sd*sd/Math.max(mean,0.000001);
 		final double d1=mean/Math.max(d2,0.000001);
-		return new ErlangDistributionImpl(Math.round(d1),d2);
+		final double shape=Math.round(d1);
+		if (shape==0) return null;
+		return new ErlangDistributionImpl(shape,d2);
 	}
 
 	@Override

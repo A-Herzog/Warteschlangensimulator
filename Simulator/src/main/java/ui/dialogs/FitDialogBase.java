@@ -200,7 +200,7 @@ public abstract class FitDialogBase extends BaseDialog {
 
 		/* Dialogseite "Empirische Verteilung" */
 		tabs.addTab(Language.tr("FitDialog.Tab.EmpiricalDistribution"),p=new JPanel(new BorderLayout()));
-		p.add(inputDistribution=new JDataDistributionEditPanel(new DataDistributionImpl(10,10),JDataDistributionEditPanel.PlotMode.PLOT_DENSITY),BorderLayout.CENTER);
+		p.add(inputDistribution=new JDataDistributionEditPanel(new DataDistributionImpl(10,10),JDataDistributionEditPanel.PlotMode.PLOT_BOTH),BorderLayout.CENTER);
 		inputDistribution.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
 
 		/* Dialogseite "Anpassung" */
@@ -403,6 +403,7 @@ public abstract class FitDialogBase extends BaseDialog {
 	 */
 	protected final void setOutputText(final String textHTML, final String textPlain) {
 		outputText.setText((FlatLaFHelper.isDark()?htmlHeadDark:htmlHead)+"<h2>"+Language.tr("FitDalog.FittedDistribution")+"</h2>"+textHTML+htmlFoot);
+		outputText.setCaretPosition(0);
 		resultPlain=textPlain;
 	}
 

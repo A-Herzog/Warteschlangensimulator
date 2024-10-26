@@ -261,7 +261,8 @@ public abstract class DistributionFitterBase {
 				final AbstractRealDistribution fit1=wrapper.getDistributionForFit(100,50,10,200);
 				final AbstractRealDistribution fit2=wrapper.getDistributionForFit(100,0,10,200);
 				final AbstractRealDistribution fit3=wrapper.getDistributionForFit(1,0.5,10,200);
-				if (fit1!=null || fit2!=null || fit3!=null) {
+				final AbstractRealDistribution fit4=wrapper.getDistributionForFit(1.8,4,1,200); /* Damit auch die F-Verteilung dabei ist. */
+				if (fit1!=null || fit2!=null || fit3!=null || fit4!=null) {
 					fitDistributions.add(wrapper.getClass());
 				}
 			}
