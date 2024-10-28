@@ -22,6 +22,7 @@ import java.io.Serializable;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -58,6 +59,8 @@ public class StatisticViewerOverviewTextDialog extends BaseDialog {
 	private final SpinnerModel statisticsPercentDigits;
 	/** Soll in Statistiktexten vor gerundeten Null-Werten, die jedoch nicht exakt Null sind, ein Ungefähr-Zeichen angezeigt werden? */
 	private final JCheckBox showApproxSignOnValuesNearZero;
+	/** Angezeigte oder alle Nachkommastellen beim Export verwenden? */
+	private final JComboBox<String> exportDigits;
 	/** Levels zu denen Quantile ausgegeben werden sollen */
 	private final JPlaceholderTextField quantilLevels;
 	/** Levels zu denen Konfidenzintervallgrößen ausgegeben werden sollen */
@@ -112,6 +115,14 @@ public class StatisticViewerOverviewTextDialog extends BaseDialog {
 		content.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		p.add(showApproxSignOnValuesNearZero=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.UseApproxSign")));
 
+		content.add(p=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		p.add(label=new JLabel(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport")+":"));
+		p.add(exportDigits=new JComboBox<>(new String[] {
+				Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport.Off"),
+				Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport.On")
+		}));
+		label.setLabelFor(exportDigits);
+
 		/* Bereich "Quantile" */
 
 		content.add(Box.createVerticalStrut(15));
@@ -138,6 +149,7 @@ public class StatisticViewerOverviewTextDialog extends BaseDialog {
 		statisticsNumberDigits.setValue(setup.statisticsNumberDigits);
 		statisticsPercentDigits.setValue(setup.statisticsPercentDigits);
 		showApproxSignOnValuesNearZero.setSelected(setup.showApproxSignOnValuesNearZero);
+		exportDigits.setSelectedIndex(setup.parameterSeriesTableDigitsUseOnExport?1:0);
 		quantilLevels.setText(setup.quantilLevels);
 		batchMeansConfidenceLevels.setText(setup.batchMeansConfidenceLevels);
 
@@ -153,6 +165,7 @@ public class StatisticViewerOverviewTextDialog extends BaseDialog {
 		setup.statisticsNumberDigits=((Integer)statisticsNumberDigits.getValue()).intValue();
 		setup.statisticsPercentDigits=((Integer)statisticsPercentDigits.getValue()).intValue();
 		setup.showApproxSignOnValuesNearZero=showApproxSignOnValuesNearZero.isSelected();
+		setup.parameterSeriesTableDigitsUseOnExport=(exportDigits.getSelectedIndex()==1);
 		setup.quantilLevels=quantilLevels.getText();
 		setup.batchMeansConfidenceLevels=batchMeansConfidenceLevels.getText();
 		setup.saveSetupWithWarning(this);

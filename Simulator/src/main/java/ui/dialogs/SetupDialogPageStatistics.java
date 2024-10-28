@@ -60,6 +60,8 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 	private final SpinnerModel statisticsPercentDigits;
 	/** Soll in Statistiktexten vor gerundeten Null-Werten, die jedoch nicht exakt Null sind, ein Ungefähr-Zeichen angezeigt werden? */
 	private final JCheckBox showApproxSignOnValuesNearZero;
+	/** Angezeigte oder alle Nachkommastellen beim Export verwenden? */
+	private final JComboBox<String> exportDigits;
 
 	/* Bereich: Anzeige von Quantilwerten */
 
@@ -141,6 +143,15 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 
 		/* Soll in Statistiktexten vor gerundeten Null-Werten, die jedoch nicht exakt Null sind, ein Ungefähr-Zeichen angezeigt werden? */
 		addLine().add(showApproxSignOnValuesNearZero=new JCheckBox(Language.tr("SettingsDialog.Tabs.Statistics.UseApproxSign")));
+
+		/* Angezeigte oder alle Nachkommastellen beim Export verwenden? */
+		line=addLine();
+		line.add(label=new JLabel(Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport")+":"));
+		line.add(exportDigits=new JComboBox<>(new String[] {
+				Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport.Off"),
+				Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Setup.DigitsUseOnExport.On")
+		}));
+		label.setLabelFor(exportDigits);
 
 		/*
 		 * Bereich:
@@ -234,6 +245,7 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 		statisticsNumberDigits.setValue(setup.statisticsNumberDigits);
 		statisticsPercentDigits.setValue(setup.statisticsPercentDigits);
 		showApproxSignOnValuesNearZero.setSelected(setup.showApproxSignOnValuesNearZero);
+		exportDigits.setSelectedIndex(setup.parameterSeriesTableDigitsUseOnExport?1:0);
 		quantilLevels.setText(setup.quantilLevels);
 		batchMeansConfidenceLevels.setText(setup.batchMeansConfidenceLevels);
 		openWord.setSelected(setup.openWord);
@@ -262,6 +274,7 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 		setup.statisticsNumberDigits=((Integer)statisticsNumberDigits.getValue()).intValue();
 		setup.statisticsPercentDigits=((Integer)statisticsPercentDigits.getValue()).intValue();
 		setup.showApproxSignOnValuesNearZero=showApproxSignOnValuesNearZero.isSelected();
+		setup.parameterSeriesTableDigitsUseOnExport=(exportDigits.getSelectedIndex()==1);
 		setup.quantilLevels=quantilLevels.getText();
 		setup.batchMeansConfidenceLevels=batchMeansConfidenceLevels.getText();
 		setup.openWord=openWord.isSelected();
@@ -290,6 +303,7 @@ public class SetupDialogPageStatistics extends SetupDialogPage {
 		statisticsNumberDigits.setValue(1);
 		statisticsPercentDigits.setValue(1);
 		showApproxSignOnValuesNearZero.setSelected(true);
+		exportDigits.setSelectedIndex(0);
 		quantilLevels.setText("");
 		batchMeansConfidenceLevels.setText("");
 		openWord.setSelected(true);

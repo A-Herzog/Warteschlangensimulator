@@ -503,10 +503,11 @@ public class StatisticViewerTable implements StatisticViewer {
 	}
 
 	/**
-	 * Aktualisiert das Datenmodell für die Tabelle.
-	 * @see #getViewer(boolean)
+	 * Wendet die eingestellten Filter und Sortierungen auf eine Tabelle an.
+	 * @param table	Zu verarbeitende Tabelle (wird nicht verändert)
+	 * @return	Neue Tabelle, die durch Filterung und Sortierung aus der Originaltabelle hervorgeht
 	 */
-	private void buildTableModel() {
+	protected Table filterAndSortTable(final Table table) {
 		/* Filtern */
 		final Table filterTable;
 		if (filter.stream().mapToInt(set->set.size()).max().orElse(0)==0) {
@@ -530,7 +531,15 @@ public class StatisticViewerTable implements StatisticViewer {
 		}
 
 		/* Sortieren */
-		showTable=filterTable.getSorted(sortByColumn,sortDescending);
+		return filterTable.getSorted(sortByColumn,sortDescending);
+	}
+
+	/**
+	 * Aktualisiert das Datenmodell für die Tabelle.
+	 * @see #getViewer(boolean)
+	 */
+	private void buildTableModel() {
+		showTable=filterAndSortTable(table);
 
 		/* Spaltenüberschriftung mit Icons versehen */
 		showColumnNames=new ArrayList<>(columnNames);
@@ -785,7 +794,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @param line	Auszugebende Zeile (die Spalten werden durch Tabulatoren getrennt)
 	 * @see #copyToClipboard(Clipboard)
 	 */
-	private void addListToStringBuilder(final StringBuilder output, final List<String> line) {
+	protected static void addListToStringBuilder(final StringBuilder output, final List<String> line) {
 		final int size=line.size();
 		if (size>0) output.append(line.get(0));
 		for (int i=1;i<size;i++) {output.append('\t'); output.append(line.get(i));}
@@ -796,12 +805,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	public Transferable getTransferable() {
 		if (columnNames.isEmpty()) buildTable();
 		buildTableModel();
-
-		final StringBuilder s=new StringBuilder();
-		addListToStringBuilder(s,showColumnNames);
-		final int size=showTable.getSize(0);
-		for (int i=0;i<size;i++) addListToStringBuilder(s,showTable.getLine(i));
-		return new StringSelection(s.toString());
+		return getTransferableFromTable(false,showColumnNames);
 	}
 
 	/**
@@ -809,17 +813,39 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * Dieser ist dann verfügbar, wenn auch ein Kopieren möglich ist.
 	 * @return	{@link Transferable}-Objekt für den Viewer
 	 */
-	private Transferable getTransferablePlain() {
+	protected Transferable getTransferablePlain() {
 		if (columnNames.isEmpty()) buildTable();
+		buildTableModel();
+		return getTransferableFromTable(true,showColumnNames);
+	}
 
-		final StringBuilder s=new StringBuilder();
-		final int size=showTable.getSize(0);
+	/**
+	 * Liefert ein {@link Transferable}-Objekt für den Viewer zum Kopieren der Tabelle
+	 * @param plain	Rahmenzeile und -spalte weglassen?
+	 * @param columnNames	Namen der Spaltenüberschriften (wird nur verwendet, wenn <code>plain</code> nicht auf <code>true</code> steht)
+	 * @return	{@link Transferable}-Objekt zum Kopieren in die Zwischenablage
+	 */
+	protected Transferable getTransferableFromTable(final boolean plain, final List<String> columnNames) {
+		return getTransferableFromTable(showTable,plain,columnNames);
+	}
+
+	/**
+	 * Liefert ein {@link Transferable}-Objekt für eine Tabelle
+	 * @param table	Umzuwandelnde Tabelle
+	 * @param plain	Rahmenzeile und -spalte weglassen?
+	 * @param columnNames	Namen der Spaltenüberschriften (wird nur verwendet, wenn <code>plain</code> nicht auf <code>true</code> steht)
+	 * @return	{@link Transferable}-Objekt zum Kopieren in die Zwischenablage
+	 */
+	protected static Transferable getTransferableFromTable(final Table table, final boolean plain, final List<String> columnNames) {
+		final StringBuilder result=new StringBuilder();
+		if (!plain) addListToStringBuilder(result,columnNames);
+		final int size=table.getSize(0);
 		for (int i=0;i<size;i++) {
-			final List<String> line=new ArrayList<>(showTable.getLine(i));
-			line.remove(0);
-			addListToStringBuilder(s,line);
+			final List<String> line=new ArrayList<>(table.getLine(i));
+			if (plain) line.remove(0);
+			addListToStringBuilder(result,line);
 		}
-		return new StringSelection(s.toString());
+		return new StringSelection(result.toString());
 	}
 
 	@Override

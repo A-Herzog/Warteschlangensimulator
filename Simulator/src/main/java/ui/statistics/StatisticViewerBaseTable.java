@@ -15,16 +15,19 @@
  */
 package ui.statistics;
 
+import java.awt.datatransfer.Transferable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Icon;
 
 import language.Language;
+import mathtools.Table;
 import systemtools.BaseDialog;
 import systemtools.images.SimToolsImages;
 import systemtools.statistics.StatisticViewerTable;
 import systemtools.statistics.StatisticsBasePanel;
+import tools.SetupData;
 import ui.images.Images;
 
 /**
@@ -77,5 +80,91 @@ public class StatisticViewerBaseTable extends StatisticViewerTable {
 		}
 		if (changed) owner.recreateViewers();
 		return changed;
+	}
+
+	/**
+	 * Tabelle für den Export
+	 * @get {@link #getExportTable()}
+	 */
+	private Table exportTable;
+
+	@Override
+	public void setData(final List<List<String>> data, final List<String> columnNames) {
+		if (exportTable!=null) {
+			exportTable.addLine(columnNames);
+			data.forEach(exportTable::addLine);
+			return;
+		}
+		super.setData(data,columnNames);
+	}
+
+	@Override
+	public void setData(final String[][] arrayData, final String[] arrayColumnNames) {
+		if (exportTable!=null) {
+			exportTable.addLine(arrayColumnNames);
+			for (var line: arrayData) exportTable.addLine(line);
+			return;
+		}
+		super.setData(arrayData,arrayColumnNames);
+	}
+
+	@Override
+	public void setData(final Table table, final String[] arrayColumnNames) {
+		if (exportTable!=null) {
+			exportTable.addLine(arrayColumnNames);
+			table.getData().forEach(exportTable::addLine);
+			return;
+		}
+		super.setData(table,arrayColumnNames);
+	}
+
+	@Override
+	public void setData(final Table table, final List<String> columnNames) {
+		if (exportTable!=null) {
+			exportTable.addLine(columnNames);
+			table.getData().forEach(exportTable::addLine);
+			return;
+		}
+		super.setData(table,columnNames);
+	}
+
+	/**
+	 * Erzeugt eine Tabelle mit ggf. mehr Nachkommastellen als in der Anzeige zu sehen
+	 * @return	Tabelle für Export
+	 */
+	private Table getExportTable() {
+		final SetupData setup=SetupData.getSetup();
+		final int saveStatisticsNumberDigits=setup.statisticsNumberDigits;
+		final int saveStatisticsPercentDigits=setup.statisticsPercentDigits;
+		exportTable=new Table();
+		try {
+			if (!setup.parameterSeriesTableDigitsUseOnExport) {
+				setup.statisticsNumberDigits=14;
+				setup.statisticsPercentDigits=14;
+			}
+			buildTable();
+			final Table table=filterAndSortTable(exportTable);
+
+
+			return table;
+		} finally {
+			exportTable=null;
+			setup.statisticsNumberDigits=saveStatisticsNumberDigits;
+			setup.statisticsPercentDigits=saveStatisticsPercentDigits;
+
+		}
+	}
+
+	@Override
+	protected Transferable getTransferableFromTable(final boolean plain, final List<String> columnNames) {
+		return getTransferableFromTable(getExportTable(),plain,columnNames);
+	}
+
+	@Override
+	public Table toTable() {
+		super.toTable(); /* Rückgabewerte wird nicht verwendet, aber Funktion muss aufgerufen werden, um die Daten ggf. zusammenzustellen */
+		final Table table=getExportTable();
+		table.insertLine(showColumnNames.toArray(String[]::new),0);
+		return table;
 	}
 }

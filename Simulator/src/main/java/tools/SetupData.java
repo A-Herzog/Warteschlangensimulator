@@ -1292,7 +1292,7 @@ public class SetupData extends SetupBase {
 	/**
 	 * Soll in Statistiktexten vor gerundeten Null-Werten, die jedoch nicht exakt Null sind, ein Ungefähr-Zeichen angezeigt werden?
 	 */
-	public boolean showApproxSignOnValuesNearZero=true;
+	public boolean showApproxSignOnValuesNearZero;
 
 	/**
 	 * Zu welchen Konfidenzniveaus sollen auf Basis der Batch-Means-Methode Konfidenzintervalle ausgegeben werden?<br>
