@@ -32,6 +32,7 @@ import mathtools.distribution.ArcsineDistribution;
 import mathtools.distribution.ChiDistributionImpl;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
+import mathtools.distribution.DiscreteGeometricDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
 import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
 import mathtools.distribution.DiscreteNegativeHyperGeomDistributionImpl;
@@ -83,6 +84,7 @@ import mathtools.distribution.tools.WrapperFDistribution;
 import mathtools.distribution.tools.WrapperFatigueLifeDistribution;
 import mathtools.distribution.tools.WrapperFrechetDistribution;
 import mathtools.distribution.tools.WrapperGammaDistribution;
+import mathtools.distribution.tools.WrapperGeometricDistribution;
 import mathtools.distribution.tools.WrapperGumbelDistribution;
 import mathtools.distribution.tools.WrapperHalfNormalDistribution;
 import mathtools.distribution.tools.WrapperHyperGeomDistribution;
@@ -313,6 +315,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new NegativeHyperGeomDistributionPanel());
 		allRecords.add(new ZetaDistributionPanel());
 		allRecords.add(new DiscreteUniformDistributionPanel());
+		allRecords.add(new GeometricDistributionPanel());
 		allRecords.add(new HalfNormalDistributionPanel());
 		allRecords.add(new UQuadraticDistributionPanel());
 		allRecords.add(new ReciprocalDistributionPanel());
@@ -1832,6 +1835,42 @@ public abstract class JDistributionEditorPanelRecord {
 			final Long a=NumberTools.getNotNegativeLong(fields[0],true); if (a==null) return null;
 			final Long b=NumberTools.getNotNegativeLong(fields[1],true); if (b==null) return null;
 			return new DiscreteUniformDistributionImpl(a.intValue(),b.intValue());
+		}
+	}
+
+	/** Geometrische Verteilung */
+	private static class GeometricDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public GeometricDistributionPanel() {
+			super(new WrapperGeometricDistribution(),new String[]{"p"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			/* (1-p)/p=mean <=> 1/(1+mean)=p */
+			return new String[] {
+					NumberTools.formatNumberMax(1/(1+Math.max(1,meanD)))
+			};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((DiscreteGeometricDistributionImpl)distribution).p)
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double p=NumberTools.getPositiveDouble(fields[0],true);
+			if (p==null) return null;
+			if (p>=1) {
+				fields[0].setBackground(Color.RED);
+				return null;
+			} else {
+				fields[0].setBackground(NumberTools.getTextFieldDefaultBackground());
+			}
+			return new DiscreteGeometricDistributionImpl(p);
 		}
 	}
 

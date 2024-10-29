@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-20 00:10+0200\n"
+"POT-Creation-Date: 2024-10-24 08:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3354,6 +3354,12 @@ msgstr "Gamma-Verteilung"
 
 msgid "Distribution.GammaWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Gammaverteilung"
+
+msgid "Distribution.Geometric"
+msgstr "Geometrische Verteilung"
+
+msgid "Distribution.GeometricWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Geometrische_Verteilung"
 
 msgid "Distribution.Gumbel"
 msgstr "Gumbel-Verteilung"
@@ -6928,6 +6934,15 @@ msgstr "<p>Erzeugt eine Zufallszahl gemäß der Gamma-Verteilung mit Erwartungsw
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberRangeInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Gamma-Verteilung mit Erwartungswert und Standardabweichung gemäß dem dritten und vierten Parameter.</p>\\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GeometricDistribution"
+msgstr "Geometrische Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GeometricDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Zähldichte der geometrischen Verteilung an der als ersten Parameter angegebenen Stelle mit dem Verteilungsparameter gemäß dem zweiten Funktionsparameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GeometricDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der geometrischen Verteilung mit dem angegebenen Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution"
 msgstr "Gumbel-Verteilung"

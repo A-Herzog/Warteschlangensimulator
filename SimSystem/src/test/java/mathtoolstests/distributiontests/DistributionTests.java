@@ -35,6 +35,7 @@ import mathtools.distribution.AbstractDiscreteRealDistribution;
 import mathtools.distribution.ArcsineDistribution;
 import mathtools.distribution.ChiDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
+import mathtools.distribution.DiscreteGeometricDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
 import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
 import mathtools.distribution.DiscreteNegativeHyperGeomDistributionImpl;
@@ -2521,6 +2522,36 @@ class DistributionTests {
 		double rnd=dist.random(new DummyRandomGenerator(0.5));
 		assertTrue(rnd>=2);
 		assertTrue(rnd<=5);
+	}
+
+	/**
+	 * Test: Geometrische Verteilung
+	 * @see DiscreteGeometricDistributionImpl
+	 */
+	@Test
+	void testGeometricDistribution() {
+		DiscreteGeometricDistributionImpl dist;
+
+		dist=new DiscreteGeometricDistributionImpl(0.2);
+		assertEquals(0.2,dist.p);
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(1,dist.cumulativeProbability(1000),0.000001);
+		assertEquals(-Double.MAX_VALUE,dist.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,dist.inverseCumulativeProbability(2));
+		assertEquals(3.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(3)),0.000001);
+		assertEquals(4.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(4)),0.000001);
+		assertEquals((1-0.2)/0.2,dist.getNumericalMean());
+		assertEquals((1-0.2)/0.2/0.2,dist.getNumericalVariance());
+		assertEquals(0,dist.getSupportLowerBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[] {0.2});
+
+		double rnd=dist.random(new DummyRandomGenerator(0.5));
+		assertTrue(rnd>=0);
 	}
 
 	/**

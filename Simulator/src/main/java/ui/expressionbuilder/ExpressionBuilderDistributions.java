@@ -195,6 +195,13 @@ public class ExpressionBuilderDistributions {
 	private static DefaultMutableTreeNode buildDiscrete(final String filterUpper) {
 		final DefaultMutableTreeNode group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ProbabilityDistributions"));
 
+		/* Geometrische Verteilung */
+
+		addDiscreteDist(group,filterUpper,"GeometricDist","p",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GeometricDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GeometricDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GeometricDistribution.RandomNumberInfo"));
+
 		/* Hypergeometrische Verteilung */
 
 		addDiscreteDist(group,filterUpper,"HypergeometricDist","N;K;n",

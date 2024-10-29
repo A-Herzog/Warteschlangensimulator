@@ -299,6 +299,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Diskrete Gleichverteilung */
 	public static String DistDiscreteUniformWikipedia="https://de.wikipedia.org/wiki/Diskrete_Gleichverteilung";
 
+	/** Geometrische Verteilung */
+	public static String[] DistGeometric=new String[]{"Geometrische Verteilung"};
+
+	/** Wikipedia-Seite Geometrische Verteilung */
+	public static String DistGeometricWikipedia="https://de.wikipedia.org/wiki/Geometrische_Verteilung";
+
 	/** Halbe Normalverteilung */
 	public static String[] DistHalfNormal=new String[]{"Halbe Normalverteilung"};
 
@@ -440,6 +446,7 @@ public final class DistributionTools {
 				new WrapperZetaDistribution(),
 				new WrapperDiscreteUniformDistribution(),
 				new WrapperHalfNormalDistribution(),
+				new WrapperGeometricDistribution(),
 				new WrapperUQuadraticDistribution(),
 				new WrapperReciprocalDistribution(),
 				new WrapperKumaraswamyDistribution(),

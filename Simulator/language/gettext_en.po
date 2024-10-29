@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-20 00:10+0200\n"
+"POT-Creation-Date: 2024-10-24 08:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3350,6 +3350,12 @@ msgstr "Gamma distribution"
 
 msgid "Distribution.GammaWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Gamma_distribution"
+
+msgid "Distribution.Geometric"
+msgstr "Geometric distribution"
+
+msgid "Distribution.GeometricWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Geometric_distribution"
 
 msgid "Distribution.Gumbel"
 msgstr "Gumbel distribution"
@@ -6938,6 +6944,15 @@ msgstr ""
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberRangeInfo"
 msgstr "<p>Generates a random number according to the gamma distribution with mean and standard deviation specified in parameters three and four.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.GeometricDistribution"
+msgstr "Geometric distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GeometricDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the count density of the geometric distribution at the location specified as the first parameter with the distribution parameter according to the second parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GeometricDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the geometric distribution with the given parameter.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution"
 msgstr "Gumbel distribution"
 
@@ -7005,10 +7020,10 @@ msgid "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution"
 msgstr "Hypergeometric distribution"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution.DensityInfo"
-msgstr "<p>Calculates the value of the count density of the Hypergeometrical distribution at the location specified as the first parameter with the distribution parameters according to the next function parameters.</p>"
+msgstr "<p>Calculates the value of the count density of the hypergeometrical distribution at the location specified as the first parameter with the distribution parameters according to the next function parameters.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution.RandomNumberInfo"
-msgstr "<p>Generates a random number according to the Hypergeometric distribution with the given parameters.</p>"
+msgstr "<p>Generates a random number according to the hypergeometric distribution with the given parameters.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution"
 msgstr "Inverse gaussian distribution"
