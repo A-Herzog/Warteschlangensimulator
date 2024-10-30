@@ -255,6 +255,9 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		case JAVASCRIPT:
 			list.add(new CriticalElement(-1,Language.tr("ModelSecurityCheck.UserFunction.Javascript")+" "+function.name,CriticalType.SCRIPT_JAVASCRIPT,function.content));
 			break;
+		case JAVA:
+			list.add(new CriticalElement(-1,Language.tr("ModelSecurityCheck.UserFunction.Java")+" "+function.name,CriticalType.SCRIPT_JAVA,function.content));
+			break;
 		}
 
 		return list;

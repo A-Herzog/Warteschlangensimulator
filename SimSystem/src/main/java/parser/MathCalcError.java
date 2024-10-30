@@ -30,4 +30,12 @@ public class MathCalcError extends Exception {
 	public MathCalcError(final Exception e) {
 		super(e);
 	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param message	Fehlermeldung
+	 */
+	public MathCalcError(final String message) {
+		super(message);
+	}
 }

@@ -66,4 +66,9 @@ public class CalcSymbolUserFunctionJS extends CalcSymbolPreOperator {
 		if (D==null) throw error();
 		return D;
 	}
+
+	@Override
+	protected boolean isDeterministic() {
+		return false;
+	}
 }

@@ -175,6 +175,14 @@ public class ScriptEditorPanel extends JPanel {
 	};
 
 	/**
+	 * Im Vorlagen-Popupmenü sollen die für nutzerdefinierte Funktionen verfügbaren Befehle dargestellt werden.
+	 * @see ScriptPopup.ScriptFeature
+	 */
+	public static ScriptPopup.ScriptFeature[] featuresOutputOnly=new ScriptPopup.ScriptFeature[] {
+			ScriptPopup.ScriptFeature.Output
+	};
+
+	/**
 	 * Skriptmodus
 	 * @author Alexander Herzog
 	 */
@@ -447,6 +455,7 @@ public class ScriptEditorPanel extends JPanel {
 	private void languageChanged() {
 		scriptEditMultiLayout.show(scriptEditMulti,""+languageCombo.getSelectedIndex());
 		buttonCheck.setVisible(languageCombo.getSelectedIndex()==1 && (DynamicFactory.isWindows() || DynamicFactory.isInMemoryProcessing()));
+		fireKeyAction();
 	}
 
 	/**

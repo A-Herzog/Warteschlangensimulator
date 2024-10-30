@@ -89,7 +89,13 @@ public class ExpressionBuilderUserFunctions {
 		for (ExpressionCalcUserFunctionsManager.UserFunction userFunction: globalUserFunctions) {
 			final String[] parameters=new String[userFunction.parameterCount];
 			for (int i=0;i<parameters.length;i++) parameters[i]="Parameter"+(i+1);
-			final String info=globalInfo+"<p><b>"+userFunction.name+"</b>("+String.join(";",parameters)+"):=<br><b>"+userFunction.content+"</b></p>";
+			final String content;
+			if (userFunction.mode==ExpressionCalcUserFunctionsManager.UserFunctionMode.EXPRESSION) {
+				content="<b>"+userFunction.content+"</b>";
+			} else {
+				content="<tt><pre>"+userFunction.content+"</pre></tt>";
+			}
+			final String info=globalInfo+"<p><b>"+userFunction.name+"</b>("+String.join(";",parameters)+"):=<br>"+content+"</p>";
 			final String[] values=new String[userFunction.parameterCount];
 			Arrays.fill(values,value);
 			addTreeNode(group,filterUpper,userFunction.name,userFunction.name+"("+String.join(";",values)+")",info);
@@ -100,7 +106,13 @@ public class ExpressionBuilderUserFunctions {
 		for (ExpressionCalcUserFunctionsManager.UserFunction userFunction: modelUserFunctions) {
 			final String[] parameters=new String[userFunction.parameterCount];
 			for (int i=0;i<parameters.length;i++) parameters[i]="Parameter"+(i+1);
-			final String info=modelInfo+"<p><b>"+userFunction.name+"</b>("+String.join(";",parameters)+"):=<br><b>"+userFunction.content+"</b></p>";
+			final String content;
+			if (userFunction.mode==ExpressionCalcUserFunctionsManager.UserFunctionMode.EXPRESSION) {
+				content="<b>"+userFunction.content+"</b>";
+			} else {
+				content="<tt><pre>"+userFunction.content+"</pre></tt>";
+			}
+			final String info=modelInfo+"<p><b>"+userFunction.name+"</b>("+String.join(";",parameters)+"):=<br>"+content+"</p>";
 			final String[] values=new String[userFunction.parameterCount];
 			Arrays.fill(values,value);
 			addTreeNode(group,filterUpper,userFunction.name,userFunction.name+"("+String.join(";",values)+")",info);

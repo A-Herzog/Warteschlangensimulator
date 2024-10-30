@@ -86,6 +86,11 @@ public class ExpressionCalcUserFunctionsEditDialog extends BaseDialog {
 	private final JTextField nameEdit;
 
 	/**
+	 * Auswahlfeld für die Anzahl an Parametern;
+	 */
+	private final SpinnerModel parameterCountEdit;
+
+	/**
 	 * Option: Funktion ist Rechenausdruck
 	 */
 	private final JRadioButton optionExpression;
@@ -94,11 +99,6 @@ public class ExpressionCalcUserFunctionsEditDialog extends BaseDialog {
 	 * Option: Funktion ist Skript
 	 */
 	private final JRadioButton optionScript;
-
-	/**
-	 * Auswahlfeld für die Anzahl an Parametern;
-	 */
-	private final SpinnerModel parameterCountEdit;
 
 	/**
 	 * Eingabefeld für den Rechenbefehl, der beim Aufruf der Funktion ausgeführt werden soll
@@ -147,10 +147,6 @@ public class ExpressionCalcUserFunctionsEditDialog extends BaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 		});
 
-		/* Option: Funktion ist Rechenausdruck */
-		main.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionExpression=new JRadioButton("<html><body><b>"+Language.tr("UserDefinedFunctions.Edit.ModeExpression")+"</b></body></html>",userFunction==null || userFunction.mode==ExpressionCalcUserFunctionsManager.UserFunctionMode.EXPRESSION));
-
 		/* Anzahl an Parametern */
 		main.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(label=new JLabel(Language.tr("UserDefinedFunctions.Edit.NumberOfParameters")+":"));
@@ -162,10 +158,11 @@ public class ExpressionCalcUserFunctionsEditDialog extends BaseDialog {
 		line.add(parameterCountSpinner);
 		label.setLabelFor(parameterCountSpinner);
 		parameterCountEdit.setValue((userFunction==null)?1:userFunction.parameterCount);
-		parameterCountEdit.addChangeListener(e->{
-			optionExpression.setSelected(true);
-			checkData(false);
-		});
+		parameterCountEdit.addChangeListener(e->checkData(false));
+
+		/* Option: Funktion ist Rechenausdruck */
+		main.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(optionExpression=new JRadioButton("<html><body><b>"+Language.tr("UserDefinedFunctions.Edit.ModeExpression")+"</b></body></html>",userFunction==null || userFunction.mode==ExpressionCalcUserFunctionsManager.UserFunctionMode.EXPRESSION));
 
 		/* Rechenbefehl */
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("UserDefinedFunctions.Edit.CalculationCommand")+":",(userFunction==null || userFunction.mode!=ExpressionCalcUserFunctionsManager.UserFunctionMode.EXPRESSION)?"WIP()+Parameter1":userFunction.content);
@@ -181,12 +178,12 @@ public class ExpressionCalcUserFunctionsEditDialog extends BaseDialog {
 
 		/* Option: Funktion ist Skript */
 		main.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(optionScript=new JRadioButton("<html><body><b>"+Language.tr("UserDefinedFunctions.Edit.ModeJavascript")+"</b></body></html>",userFunction!=null && userFunction.mode==ExpressionCalcUserFunctionsManager.UserFunctionMode.JAVASCRIPT));
+		line.add(optionScript=new JRadioButton("<html><body><b>"+Language.tr("UserDefinedFunctions.Edit.ModeScript")+"</b></body></html>",userFunction!=null && userFunction.mode!=ExpressionCalcUserFunctionsManager.UserFunctionMode.EXPRESSION));
 
 		/* Skripteditor */
-		final String script=(userFunction==null || userFunction.mode!=ExpressionCalcUserFunctionsManager.UserFunctionMode.JAVASCRIPT)?"Output.print(Parameter1+3);":userFunction.content;
-		content.add(scriptEditor=new ScriptEditorPanel(script,ScriptEditorPanel.ScriptMode.Javascript,false,null,null,null,ScriptEditorPanel.featuresNothing),BorderLayout.CENTER);
-		scriptEditor.setLanguageComboVisible(false);
+		final String script=(userFunction==null || userFunction.mode==ExpressionCalcUserFunctionsManager.UserFunctionMode.EXPRESSION)?"Output.print(Parameter1+3);":userFunction.content;
+		final ScriptEditorPanel.ScriptMode mode=(userFunction!=null && userFunction.mode==ExpressionCalcUserFunctionsManager.UserFunctionMode.JAVA)?ScriptEditorPanel.ScriptMode.Java:ScriptEditorPanel.ScriptMode.Javascript;
+		content.add(scriptEditor=new ScriptEditorPanel(script,mode,false,null,null,null,ScriptEditorPanel.featuresOutputOnly),BorderLayout.CENTER);
 		scriptEditor.addKeyActionListener(()->optionScript.setSelected(true));
 
 		/* Optionen verknüpfen */
@@ -334,7 +331,19 @@ public class ExpressionCalcUserFunctionsEditDialog extends BaseDialog {
 		}
 
 		if (optionScript.isSelected()) {
-			return new ExpressionCalcUserFunctionsManager.UserFunction(name,count,scriptEditor.getScript(),ExpressionCalcUserFunctionsManager.UserFunctionMode.JAVASCRIPT);
+			final ExpressionCalcUserFunctionsManager.UserFunctionMode mode;
+			switch (scriptEditor.getMode()) {
+			case Javascript:
+				mode=ExpressionCalcUserFunctionsManager.UserFunctionMode.JAVASCRIPT;
+				break;
+			case Java:
+				mode=ExpressionCalcUserFunctionsManager.UserFunctionMode.JAVA;
+				break;
+			default:
+				mode=ExpressionCalcUserFunctionsManager.UserFunctionMode.JAVASCRIPT;
+				break;
+			}
+			return new ExpressionCalcUserFunctionsManager.UserFunction(name,count,scriptEditor.getScript(),mode);
 		}
 
 		return null;

@@ -165,6 +165,9 @@ public class ExpressionCalcUserFunctionsListPanel extends JPanel {
 			case JAVASCRIPT:
 				labelText.append("...");
 				break;
+			case JAVA:
+				labelText.append("...");
+				break;
 			}
 
 			labelText.append("):=<br>");
@@ -174,6 +177,9 @@ public class ExpressionCalcUserFunctionsListPanel extends JPanel {
 				break;
 			case JAVASCRIPT:
 				labelText.append(Language.tr("UserDefinedFunctions.List.JavascriptCode"));
+				break;
+			case JAVA:
+				labelText.append(Language.tr("UserDefinedFunctions.List.JavaCode"));
 				break;
 			}
 			labelText.append("</body></html>");

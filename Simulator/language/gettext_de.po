@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-24 08:31+0200\n"
+"POT-Creation-Date: 2024-10-28 08:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14815,6 +14815,9 @@ msgstr "%s (id=%d)"
 
 msgid "ModelSecurityCheck.Title"
 msgstr "Sicherheitsprüfung"
+
+msgid "ModelSecurityCheck.UserFunction.Java"
+msgstr "Nutzerdefinierte Java-Funktion"
 
 msgid "ModelSecurityCheck.UserFunction.Javascript"
 msgstr "Nutzerdefinierte Javascript-Funktion"
@@ -37269,6 +37272,9 @@ msgstr "Modus"
 msgid "Surface.XML.RootName.UserFunctions.Mode.Expression"
 msgstr "Rechenausdruck"
 
+msgid "Surface.XML.RootName.UserFunctions.Mode.Java"
+msgstr "Java"
+
 msgid "Surface.XML.RootName.UserFunctions.Mode.Javascript"
 msgstr "Javascript"
 
@@ -38259,8 +38265,8 @@ msgstr "Ungültiger Rechenbefehl"
 msgid "UserDefinedFunctions.Edit.ModeExpression"
 msgstr "Rechenausdruck"
 
-msgid "UserDefinedFunctions.Edit.ModeJavascript"
-msgstr "Javascript"
+msgid "UserDefinedFunctions.Edit.ModeScript"
+msgstr "Skript"
 
 msgid "UserDefinedFunctions.Edit.Name"
 msgstr "Name der Funktion"
@@ -38306,6 +38312,9 @@ msgstr "Bearbeiten"
 
 msgid "UserDefinedFunctions.List.EditHint"
 msgstr "Ausgewählte benutzerdefinierte Funktion bearbeiten"
+
+msgid "UserDefinedFunctions.List.JavaCode"
+msgstr "Java-Code"
 
 msgid "UserDefinedFunctions.List.JavascriptCode"
 msgstr "Javascript-Code"
@@ -39502,6 +39511,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "SystemInfo.Tools.Simulation.SecurityManager"
 #~ msgstr "Security-Manager bei benutzerdefiniertem Java-Code aktivieren"
+
+#~ msgid "UserDefinedFunctions.Edit.ModeJavascript"
+#~ msgstr "Javascript"
 
 #~ msgid "Wait.Info.Day"
 #~ msgstr "Bisherige Laufzeit: %s Sekunden. Geschätzte Restzeit: %s Sekunden."

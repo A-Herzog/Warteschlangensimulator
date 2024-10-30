@@ -425,23 +425,33 @@ public class ExpressionCalc extends CalcSystem {
 	static List<CalcSymbolUserFunction> userFunctions=null;
 
 	/**
-	 * Liste der nutzerdefinierten JS-basierenden Funktionen (kann <code>null</code> sein)
+	 * Liste der nutzerdefinierten Javascript-basierenden Funktionen (kann <code>null</code> sein)
 	 * @see CalcSymbolUserFunction
 	 * @see #getUserFunctions()
 	 * @see ExpressionCalcUserFunctionsManager
 	 */
 	static List<CalcSymbolUserFunctionJS> userFunctionsJS=null;
 
+	/**
+	 * Liste der nutzerdefinierten Java-basierenden Funktionen (kann <code>null</code> sein)
+	 * @see CalcSymbolUserFunction
+	 * @see #getUserFunctions()
+	 * @see ExpressionCalcUserFunctionsManager
+	 */
+	static List<CalcSymbolUserFunctionJava> userFunctionsJava=null;
+
 	@Override
 	protected List<CalcSymbolPreOperator> getUserFunctions() {
 		final boolean hasUserFunctions=(!justCompilingUserFunction && userFunctions!=null && userFunctions.size()>0);
 		final boolean hasUserFunctionsJS=(userFunctionsJS!=null && userFunctionsJS.size()>0);
+		final boolean hasUserFunctionsJava=(userFunctionsJava!=null && userFunctionsJava.size()>0);
 		final boolean hasModelUserFunctions=(!justCompilingUserFunction && modelUserFunctions!=null && modelUserFunctions.getUserFunctions().size()>0);
 
 		if (hasUserFunctions || hasUserFunctionsJS || hasModelUserFunctions) {
 			final List<CalcSymbolPreOperator> list=new ArrayList<>(functions);
 			if (hasUserFunctions) list.addAll(userFunctions);
 			if (hasUserFunctionsJS) list.addAll(userFunctionsJS);
+			if (hasUserFunctionsJava) list.addAll(userFunctionsJava);
 			if (hasModelUserFunctions) list.addAll(modelUserFunctions.getCalcFunctions());
 			return list;
 		} else {

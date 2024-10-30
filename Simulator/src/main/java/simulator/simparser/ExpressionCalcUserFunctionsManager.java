@@ -25,6 +25,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.simparser.symbols.CalcSymbolUserFunction;
 import simulator.simparser.symbols.CalcSymbolUserFunctionJS;
+import simulator.simparser.symbols.CalcSymbolUserFunctionJava;
 import tools.SetupData;
 
 /**
@@ -92,6 +93,7 @@ public class ExpressionCalcUserFunctionsManager {
 
 		ExpressionCalc.userFunctions=new ArrayList<>();
 		ExpressionCalc.userFunctionsJS=new ArrayList<>();
+		ExpressionCalc.userFunctionsJava=new ArrayList<>();
 		for (int i=0;i<userFunctions.size();i++) {
 			final UserFunction userFunction=userFunctions.get(i);
 			final Object obj=userFunction.compile();
@@ -104,6 +106,9 @@ public class ExpressionCalcUserFunctionsManager {
 					break;
 				case JAVASCRIPT:
 					ExpressionCalc.userFunctionsJS.add((CalcSymbolUserFunctionJS)obj);
+					break;
+				case JAVA:
+					ExpressionCalc.userFunctionsJava.add((CalcSymbolUserFunctionJava)obj);
 					break;
 				}
 			}
@@ -149,6 +154,12 @@ public class ExpressionCalcUserFunctionsManager {
 			if (userFunction!=null) userFunctions.add(userFunction);
 		}
 
+		userFunctionRecords=setup.userDefinedJavaFunctions;
+		if (userFunctionRecords!=null) for (String record: userFunctionRecords) {
+			final UserFunction userFunction=UserFunction.loadFromString(record,UserFunctionMode.JAVA);
+			if (userFunction!=null) userFunctions.add(userFunction);
+		}
+
 		load(false);
 	}
 
@@ -164,6 +175,10 @@ public class ExpressionCalcUserFunctionsManager {
 		setup.userDefinedJSFunctions.clear();
 		userFunctions.stream().filter(userFunction->userFunction.mode==UserFunctionMode.JAVASCRIPT).map(userFunction->userFunction.toString()).forEach(setup.userDefinedJSFunctions::add);
 
+		if (setup.userDefinedJavaFunctions==null) setup.userDefinedJavaFunctions=new ArrayList<>();
+		setup.userDefinedJavaFunctions.clear();
+		userFunctions.stream().filter(userFunction->userFunction.mode==UserFunctionMode.JAVA).map(userFunction->userFunction.toString()).forEach(setup.userDefinedJavaFunctions::add);
+
 		setup.saveSetup();
 	}
 
@@ -174,7 +189,9 @@ public class ExpressionCalcUserFunctionsManager {
 		/** gewöhnlicher Rechenausdruck */
 		EXPRESSION,
 		/** Javascript-basierte Funktion */
-		JAVASCRIPT
+		JAVASCRIPT,
+		/** Java-basierte Funktion */
+		JAVA
 	}
 
 	/**
@@ -251,6 +268,8 @@ public class ExpressionCalcUserFunctionsManager {
 				return CalcSymbolUserFunction.compile(name,parameterCount,content);
 			case JAVASCRIPT:
 				return new CalcSymbolUserFunctionJS(name,content);
+			case JAVA:
+				return new CalcSymbolUserFunctionJava(name,content);
 			default:
 				return 0; /* Fehler an Index 0 */
 			}
@@ -266,6 +285,7 @@ public class ExpressionCalcUserFunctionsManager {
 			switch (mode) {
 			case EXPRESSION: node.setAttribute(Language.trPrimary("Surface.XML.RootName.UserFunctions.Mode"),Language.trPrimary("Surface.XML.RootName.UserFunctions.Mode.Expression")); break;
 			case JAVASCRIPT: node.setAttribute(Language.trPrimary("Surface.XML.RootName.UserFunctions.Mode"),Language.trPrimary("Surface.XML.RootName.UserFunctions.Mode.Javascript")); break;
+			case JAVA: node.setAttribute(Language.trPrimary("Surface.XML.RootName.UserFunctions.Mode"),Language.trPrimary("Surface.XML.RootName.UserFunctions.Mode.Java")); break;
 			}
 			node.setTextContent(content);
 		}
@@ -284,11 +304,10 @@ public class ExpressionCalcUserFunctionsManager {
 			final Integer I=NumberTools.getNotNegativeInteger(Language.trAllAttribute("Surface.XML.RootName.UserFunctions.ParameterCount",node));
 			if (I==null) return String.format(Language.tr("Surface.XML.RootName.UserFunctions.ParameterCount.Error"),function.name);
 
-			if (Language.trAllAttribute("Surface.XML.RootName.UserFunctions.Mode",node).trim().equalsIgnoreCase(Language.trPrimary("Surface.XML.RootName.UserFunctions.Mode.Javascript"))) {
-				function.mode=UserFunctionMode.JAVASCRIPT;
-			} else {
-				function.mode=UserFunctionMode.EXPRESSION;
-			}
+			function.mode=UserFunctionMode.EXPRESSION;
+			final String modeString=Language.trAllAttribute("Surface.XML.RootName.UserFunctions.Mode",node).trim();
+			if (modeString.equalsIgnoreCase(Language.trPrimary("Surface.XML.RootName.UserFunctions.Mode.Javascript"))) function.mode=UserFunctionMode.JAVASCRIPT;
+			if (modeString.equalsIgnoreCase(Language.trPrimary("Surface.XML.RootName.UserFunctions.Mode.Java"))) function.mode=UserFunctionMode.JAVA;
 
 			function.content=node.getTextContent();
 

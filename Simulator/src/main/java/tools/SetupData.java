@@ -1458,6 +1458,12 @@ public class SetupData extends SetupBase {
 	public List<String> userDefinedJSFunctions;
 
 	/**
+	 * Nutzerdefinierte Java-basierende Rechenfunktionen
+	 * @see ExpressionCalcUserFunctionsManager
+	 */
+	public List<String> userDefinedJavaFunctions;
+
+	/**
 	 * Wird dieser Wert auf <code>false</code> gesetzt, so wird das Hunspell-System komplett deaktiviert (für den Fall, dass es Fehler verursacht).
 	 */
 	public boolean allowSpellCheck;
@@ -1722,8 +1728,10 @@ public class SetupData extends SetupBase {
 		mouseWheelZoomFixMousePosition=true;
 		if (userDefinedCalculationFunctions==null) userDefinedCalculationFunctions=new ArrayList<>();
 		if (userDefinedJSFunctions==null) userDefinedJSFunctions=new ArrayList<>();
+		if (userDefinedJavaFunctions==null) userDefinedJavaFunctions=new ArrayList<>();
 		userDefinedCalculationFunctions.clear();
 		userDefinedJSFunctions.clear();
+		userDefinedJavaFunctions.clear();
 		allowSpellCheck=true;
 		collectNextStationData=true;
 		simulationProgressAnimation=true;
@@ -2820,6 +2828,11 @@ public class SetupData extends SetupBase {
 				continue;
 			}
 
+			if (name.equals("userdefinedjavafunctions")) {
+				userDefinedJavaFunctions.add(e.getTextContent());
+				continue;
+			}
+
 			if (name.equals("allowspellcheck")) {
 				allowSpellCheck=loadBoolean(e.getTextContent(),true);
 				continue;
@@ -3623,6 +3636,11 @@ public class SetupData extends SetupBase {
 
 		for (String userFunction: userDefinedJSFunctions) {
 			root.appendChild(node=doc.createElement("UserDefinedJSFunctions"));
+			node.setTextContent(userFunction);
+		}
+
+		for (String userFunction: userDefinedJavaFunctions) {
+			root.appendChild(node=doc.createElement("UserDefinedJavaFunctions"));
 			node.setTextContent(userFunction);
 		}
 
