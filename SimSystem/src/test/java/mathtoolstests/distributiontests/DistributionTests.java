@@ -72,6 +72,7 @@ import mathtools.distribution.StudentTDistributionImpl;
 import mathtools.distribution.TrapezoidDistributionImpl;
 import mathtools.distribution.TriangularDistributionImpl;
 import mathtools.distribution.UQuadraticDistribution;
+import mathtools.distribution.WignerHalfCircleDistributionImpl;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
 
@@ -2654,6 +2655,77 @@ class DistributionTests {
 
 		testDistributionTools(dist);
 		testDistributionParameters(dist,new double[]{8});
+	}
+
+	/**
+	 * Test: Arcus Sinus-Verteilung
+	 * @see ArcsineDistribution
+	 */
+	@Test
+	void testWignerHalfCircleDist() {
+		WignerHalfCircleDistributionImpl dist;
+
+		dist=new WignerHalfCircleDistributionImpl(-5,-2);
+		assertEquals(-5,dist.m);
+		assertEquals(0,dist.R);
+
+		dist=new WignerHalfCircleDistributionImpl(5,2);
+		assertEquals(5,dist.m);
+		assertEquals(2,dist.R);
+
+		assertEquals(5,dist.getNumericalMean());
+		assertEquals(2*2/4,dist.getNumericalVariance());
+		assertEquals(5-2,dist.getSupportLowerBound());
+		assertEquals(5+2,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		assertEquals(0,dist.density(-1));
+		assertEquals(0,dist.density(3));
+		assertTrue(dist.density(4)>0);
+		assertTrue(dist.density(5)>0);
+		assertTrue(dist.density(6)>0);
+		assertEquals(0,dist.density(7));
+		assertEquals(0,dist.density(8));
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(0,dist.cumulativeProbability(3));
+		assertTrue(dist.cumulativeProbability(4)>0);
+		assertEquals(0.5,dist.cumulativeProbability(5));
+		assertTrue(dist.cumulativeProbability(6)>0);
+		assertEquals(1,dist.cumulativeProbability(7));
+		assertEquals(1,dist.cumulativeProbability(8));
+
+		dist=(WignerHalfCircleDistributionImpl)DistributionTools.cloneDistribution(dist);
+		assertEquals(5,dist.getNumericalMean());
+		assertEquals(2*2/4,dist.getNumericalVariance());
+		assertEquals(5-2,dist.getSupportLowerBound());
+		assertEquals(5+2,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=new WignerHalfCircleDistributionImpl(dist);
+		assertEquals(5,dist.getNumericalMean());
+		assertEquals(2*2/4,dist.getNumericalVariance());
+		assertEquals(5-2,dist.getSupportLowerBound());
+		assertEquals(5+2,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=dist.clone();
+		assertEquals(5,dist.getNumericalMean());
+		assertEquals(2*2/4,dist.getNumericalVariance());
+		assertEquals(5-2,dist.getSupportLowerBound());
+		assertEquals(5+2,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[]{5,2});
 	}
 
 	/**

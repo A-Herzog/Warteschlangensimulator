@@ -347,6 +347,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Arcus Sine-Verteilung */
 	public static String DistArcsineWikipedia=""; /* leide keine Wikipedia-Seite vorhanden */
 
+	/** Wigner Halbkreis-Verteilung */
+	public static String[] DistWignerHalfCircle=new String[]{"Wigner Halbkreis-Verteilung"};
+
+	/** Wikipedia-Seite  Wigner Halbkreis-Verteilung */
+	public static String DistWignerHalfCircleWikipedia="https://en.wikipedia.org/wiki/Wigner_semicircle_distribution";
+
 	/** Warnung "unbekannte Verteilung" */
 	public static String DistUnknown="unbekannte Verteilung";
 
@@ -452,7 +458,8 @@ public final class DistributionTools {
 				new WrapperKumaraswamyDistribution(),
 				new WrapperIrwinHallDistribution(),
 				new WrapperSineDistribution(),
-				new WrapperArcsineDistribution()
+				new WrapperArcsineDistribution(),
+				new WrapperWignerHalfCircleDistribution()
 		};
 	}
 

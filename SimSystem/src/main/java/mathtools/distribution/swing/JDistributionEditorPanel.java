@@ -132,6 +132,9 @@ public class JDistributionEditorPanel extends JPanel {
 	/** Bezeichner "Freiheitsgrade (Nenner)" */
 	public static String DistDegreesOfFreedomDenominator="Freiheitsgrade (Nenner)";
 
+	/** Bezeichner "Radius" */
+	public static String DistRadius="Radius";
+
 	/** Bezeichner "Verringert den Wert des Parameters um %s" (Wert verringern Schaltfläche) */
 	public static String ChangeValueDown="Verringert den Wert des Parameters um %s";
 

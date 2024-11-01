@@ -1610,7 +1610,7 @@ Generates a random number based on this distribution.
 
 
 
-\section{Arcsine distribution  in the interval \texorpdfstring{$[a;b]$}{[a;b]}}
+\section{Arcsine distribution in the interval \texorpdfstring{$[a;b]$}{[a;b]}}
 
 \begin{itemize}
 
@@ -1624,6 +1624,26 @@ Calculates the cumulative distribution function at $x$.
 
 \item
 \cmd{ArcsineDist(a;b)}:
+Generates a random number based on this distribution.
+
+\end{itemize}
+
+
+
+\section{Wigner half-circle distribution with mean \texorpdfstring{$m$}{m} and radius \texorpdfstring{$R$}{R}}
+
+\begin{itemize}
+
+\item
+\cmd{WignerHalfCircleDist(x;m;R;0)}:
+Calculates the probability density at $x$.
+
+\item
+\cmd{WignerHalfCircleDist(x;m;R;1)}:
+Calculates the cumulative distribution function at $x$.
+
+\item
+\cmd{WignerHalfCircleDist(m;R)}:
 Generates a random number based on this distribution.
 
 \end{itemize}

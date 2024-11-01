@@ -659,6 +659,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ArcsineDistribution.RandomNumberInfo"));
 
+		/* Wigner Halbkreis-Verteilung */
+
+		addDist(group,filterUpper,"WignerHalfCircleDist","R;m",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution.RandomNumberInfo"));
+
 		return group;
 	}
 

@@ -278,6 +278,8 @@ public class LanguageStaticLoader {
 		DistributionTools.DistIrwinHallWikipedia=Language.tr("Distribution.IrwinHallWikipedia");
 		DistributionTools.DistSine=Language.trAll("Distribution.Sine");
 		DistributionTools.DistArcsine=Language.trAll("Distribution.Arcsine");
+		DistributionTools.DistWignerHalfCircle=Language.trAll("Distribution.WignerHalfCircle");
+		DistributionTools.DistWignerHalfCircleWikipedia=Language.tr("Distribution.WignerHalfCircleWikipedia");
 		DistributionTools.DistUnknown=Language.tr("Distribution.Unknown");
 		DistributionTools.DistDataPoint=Language.tr("Distribution.DataPoint");
 		DistributionTools.DistDataPoints=Language.tr("Distribution.DataPoints");
@@ -383,6 +385,7 @@ public class LanguageStaticLoader {
 		JDistributionEditorPanel.DistDegreesOfFreedom=Language.tr("Distribution.DegreesOfFreedom");
 		JDistributionEditorPanel.DistDegreesOfFreedomNumerator=Language.tr("Distribution.DegreesOfFreedom.Numerator");
 		JDistributionEditorPanel.DistDegreesOfFreedomDenominator=Language.tr("Distribution.DegreesOfFreedom.Denominator");
+		JDistributionEditorPanel.DistRadius=Language.tr("Distribution.Radius");
 		JDistributionEditorPanel.ChangeValueDown=Language.tr("JDistributionEditor.ValueDown");
 		JDistributionEditorPanel.ChangeValueUp=Language.tr("JDistributionEditor.ValueUp");
 		JDistributionEditorPanel.DistMostLikely=Language.tr("Distribution.MostLikely");

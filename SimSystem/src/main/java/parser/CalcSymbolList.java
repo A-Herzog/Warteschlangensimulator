@@ -169,6 +169,7 @@ import parser.symbols.distributions.CalcSymbolDistributionTriangular;
 import parser.symbols.distributions.CalcSymbolDistributionUQuadratic;
 import parser.symbols.distributions.CalcSymbolDistributionUniform;
 import parser.symbols.distributions.CalcSymbolDistributionWeibull;
+import parser.symbols.distributions.CalcSymbolDistributionWignerHalfCircle;
 import parser.symbols.distributions.CalcSymbolEmpiricalDistributionCDF;
 import parser.symbols.distributions.CalcSymbolEmpiricalDistributionCV;
 import parser.symbols.distributions.CalcSymbolEmpiricalDistributionMean;
@@ -354,6 +355,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionIrwinHallDirect());
 			addSymbol(new CalcSymbolDistributionSine());
 			addSymbol(new CalcSymbolDistributionArcsine());
+			addSymbol(new CalcSymbolDistributionWignerHalfCircle());
 
 			addSymbol(new CalcSymbolEmpiricalDistributionPDF());
 			addSymbol(new CalcSymbolEmpiricalDistributionCDF());

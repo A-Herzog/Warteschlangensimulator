@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-28 08:21+0100\n"
+"POT-Creation-Date: 2024-10-30 08:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3511,6 +3511,9 @@ msgstr "Potenzverteilung"
 msgid "Distribution.PowerWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Pareto_distribution#Inverse-Pareto_Distribution_/_Power_Distribution"
 
+msgid "Distribution.Radius"
+msgstr "Radius"
+
 msgid "Distribution.Range"
 msgstr "Bereich"
 
@@ -3618,6 +3621,12 @@ msgstr "Weibull-Verteilung"
 
 msgid "Distribution.WeibullWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Weibull-Verteilung"
+
+msgid "Distribution.WignerHalfCircle"
+msgstr "Wigner Halbkreis-Verteilung"
+
+msgid "Distribution.WignerHalfCircleWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Wigner_semicircle_distribution"
 
 msgid "Distribution.Zeta"
 msgstr "Zeta-Verteilung"
@@ -7472,6 +7481,18 @@ msgid "ExpressionBuilder.ProbabilityDistributions.WeibullDistribution.RandomNumb
 msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der Weibull-Verteilung mit dem Skalierungs- und dem Form-Parameter gemäß dem dritten und vierten Parameter.</p>\n"
 "<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution"
+msgstr "Wigner Halbkreis-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Wigner Halbkreis-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Radius gemäß dem zweiten und dritten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Wigner Halbkreis-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Radius gemäß dem zweiten und dritten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der  Wigner Halbkreis-Verteilung mit Erwartungswert und Radius gemäß dem ersten und zweiten Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ZetaDistribution"
 msgstr "Zeta-Verteilung"

@@ -68,6 +68,7 @@ import mathtools.distribution.StudentTDistributionImpl;
 import mathtools.distribution.TrapezoidDistributionImpl;
 import mathtools.distribution.TriangularDistributionImpl;
 import mathtools.distribution.UQuadraticDistribution;
+import mathtools.distribution.WignerHalfCircleDistributionImpl;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.WrapperArcsineDistribution;
@@ -118,6 +119,7 @@ import mathtools.distribution.tools.WrapperTriangularDistribution;
 import mathtools.distribution.tools.WrapperUQuadraticDistribution;
 import mathtools.distribution.tools.WrapperUniformRealDistribution;
 import mathtools.distribution.tools.WrapperWeibullDistribution;
+import mathtools.distribution.tools.WrapperWignerHalfCircleDistribution;
 import mathtools.distribution.tools.WrapperZetaDistribution;
 
 /**
@@ -323,6 +325,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new IrwinHallDistributionPanel());
 		allRecords.add(new SineDistributionPanel());
 		allRecords.add(new ArcsineDistributionPanel());
+		allRecords.add(new WignerHalfCircleDistributionPanel());
 	}
 
 	/**
@@ -1623,6 +1626,41 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double d2=NumberTools.getDouble(fields[1],true); if (d2==null) return null;
 			if (d1>=d2) return null;
 			return new ArcsineDistribution(d1,d2);
+		}
+	}
+
+	/** Wigner Halbkreis-Verteilung */
+	private static class WignerHalfCircleDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public WignerHalfCircleDistributionPanel() {
+			super(new WrapperWignerHalfCircleDistribution(),new String[]{JDistributionEditorPanel.DistMean,JDistributionEditorPanel.DistRadius});
+		}
+
+		@Override
+		public String[] getEditValues(final double meanD, final String mean, final double stdD, final String std, final String lower, final String upper, final double maxXValue) {
+			return new String[]{mean, NumberTools.formatNumberMax(stdD*2)};
+		}
+
+		@Override
+		public String[] getValues(final AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((WignerHalfCircleDistributionImpl)distribution).m),
+					NumberTools.formatNumberMax(((WignerHalfCircleDistributionImpl)distribution).R)
+			};
+		}
+
+		@Override
+		public void setValues(final JTextField[] fields, final double mean, final double sd) {
+			final WignerHalfCircleDistributionImpl distribution=(WignerHalfCircleDistributionImpl)wrapper.getDistribution(Math.max(0,mean),sd);
+			final String[] text=getValues(distribution);
+			if (text!=null && text.length==fields.length) for (int i=0;i<text.length;i++) fields[i].setText(text[i]);
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(final JTextField[] fields, final double maxXValue) {
+			final Double d1=NumberTools.getDouble(fields[0],true); if (d1==null) return null;
+			final Double d2=NumberTools.getDouble(fields[1],true); if (d2==null) return null;
+			return new WignerHalfCircleDistributionImpl(d1,d2);
 		}
 	}
 

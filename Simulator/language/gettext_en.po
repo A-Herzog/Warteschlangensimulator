@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-28 08:21+0100\n"
+"POT-Creation-Date: 2024-10-30 08:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3507,6 +3507,9 @@ msgstr "Power distribution"
 msgid "Distribution.PowerWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Pareto_distribution#Inverse-Pareto_Distribution_/_Power_Distribution"
 
+msgid "Distribution.Radius"
+msgstr "Radius"
+
 msgid "Distribution.Range"
 msgstr "range"
 
@@ -3614,6 +3617,12 @@ msgstr "Weibull distribution"
 
 msgid "Distribution.WeibullWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Weibull_distribution"
+
+msgid "Distribution.WignerHalfCircle"
+msgstr "Wigner half-circle distribution"
+
+msgid "Distribution.WignerHalfCircleWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Wigner_semicircle_distribution"
 
 msgid "Distribution.Zeta"
 msgstr "Zeta distribution"
@@ -7475,6 +7484,18 @@ msgid "ExpressionBuilder.ProbabilityDistributions.WeibullDistribution.RandomNumb
 msgstr ""
 "<p>Generates a random number according to the Weibull distribution with the scaling and form parameters according to the third and fourth parameters.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution"
+msgstr "Wigner half-circle distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the Wigner half-circle distribution at the location specified as the first parameter with the mean and radius according to the second and third parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the Wigner half-circle distribution at the location specified as the first parameter with the mean and radius according to the second and third parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Wigner half-circle distribution with mean and radius according to the first and second parameters.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ZetaDistribution"
 msgstr "Zeta distribution"
