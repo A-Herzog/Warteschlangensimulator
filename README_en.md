@@ -20,7 +20,7 @@ In the simulator, queueing systems can be modelled and afterwards be simulated i
 The Windows version can be installed with or without admin rights. The zip file version can be used on any platform without installation.
 
 * [Release notes](https://github.com/A-Herzog/Warteschlangensimulator/wiki/Release-notes "Release notes and plans in the GitHub Wiki")
-* System requirements: [Java 11 or higher](https://adoptium.net/ "Download Java from adoptopenjdk.net")
+* System requirements: [Java 11 or higher](https://adoptium.net/ "Download Java from adoptium.net")
 * License: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) (for Warteschlangensimulator, the used libraries are partly subject to different open source licenses)
 
 ## Key features
