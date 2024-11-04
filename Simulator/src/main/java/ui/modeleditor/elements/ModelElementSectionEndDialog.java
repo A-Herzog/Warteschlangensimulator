@@ -63,8 +63,13 @@ public class ModelElementSectionEndDialog extends ModelElementBaseDialog {
 
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(600,0);
+		setSizeRespectingScreensize(600,250);
 		pack();
+		setMaxSizeRespectingScreensize(600,250);
+	}
+
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	/**

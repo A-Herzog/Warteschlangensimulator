@@ -15,6 +15,7 @@
  */
 package ui.modeleditor.elements;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
@@ -87,8 +88,13 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(600,0);
+		setSizeRespectingScreensize(600,375);
 		pack();
+		setMaxSizeRespectingScreensize(600,375);
+	}
+
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	/**
@@ -233,7 +239,9 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 
 		checkData(false);
 
-		return content;
+		final JPanel outer=new JPanel(new BorderLayout());
+		outer.add(content,BorderLayout.NORTH);
+		return outer;
 	}
 
 	/**

@@ -15,6 +15,7 @@
  */
 package ui.modeleditor.elements;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
@@ -92,8 +93,15 @@ public class ModelElementTankSensorDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(600,0);
 		pack();
+		final int h=getSize().height;
+		setSizeRespectingScreensize(600,h+50);
+		pack();
+		setMaxSizeRespectingScreensize(600,h+50);
+	}
+
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	/**
@@ -224,7 +232,9 @@ public class ModelElementTankSensorDialog extends ModelElementBaseDialog {
 			thresholdDown.setSelected(sensor.getThresholdDirection()==ModelElementTankSensor.ThresholdDirection.DIRECTION_DOWN);
 		}
 
-		return content;
+		final JPanel outer=new JPanel(new BorderLayout());
+		outer.add(content,BorderLayout.NORTH);
+		return outer;
 	}
 
 	/**

@@ -74,7 +74,15 @@ public class ModelElementAnimationTrafficLightsDialog extends ModelElementBaseDi
 	 */
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(600,0);
+		pack();
+		final int h=getSize().height;
+		setSizeRespectingScreensize(600,h+50);
+		pack();
+		setMaxSizeRespectingScreensize(600,h+50);
+	}
+
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	@Override

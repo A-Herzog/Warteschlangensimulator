@@ -98,8 +98,13 @@ public class ModelElementAnimationPauseDialog extends ModelElementBaseDialog {
 	protected void setDialogSize() {
 		pack();
 		final int h=getSize().height;
-		setMinSizeRespectingScreensize(600,h);
+		setSizeRespectingScreensize(550,h+25);
 		pack();
+		setMaxSizeRespectingScreensize(550,h+25);
+	}
+
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	@Override
@@ -170,7 +175,9 @@ public class ModelElementAnimationPauseDialog extends ModelElementBaseDialog {
 		line.add(new JLabel(Language.tr("Surface.AnimationPause.Dialog.CounterPart2")));
 		counter.setValue(Math.max(1,(int)pause.getCounter()));
 
-		return content;
+		final JPanel outer=new JPanel(new BorderLayout());
+		outer.add(content,BorderLayout.NORTH);
+		return outer;
 	}
 
 	/**

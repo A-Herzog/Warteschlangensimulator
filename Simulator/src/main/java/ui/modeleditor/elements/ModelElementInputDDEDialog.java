@@ -15,6 +15,7 @@
  */
 package ui.modeleditor.elements;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -92,8 +93,13 @@ public class ModelElementInputDDEDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(700,0);
+		setSizeRespectingScreensize(600,450);
 		pack();
+		setMaxSizeRespectingScreensize(600,450);
+	}
+
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	@Override
@@ -171,7 +177,9 @@ public class ModelElementInputDDEDialog extends ModelElementBaseDialog {
 
 		checkData(false);
 
-		return content;
+		final JPanel outer=new JPanel(new BorderLayout());
+		outer.add(content,BorderLayout.NORTH);
+		return outer;
 	}
 
 	/**
@@ -227,7 +235,6 @@ public class ModelElementInputDDEDialog extends ModelElementBaseDialog {
 				warningLabel.setVisible(warning!=null);
 			}
 		}
-		pack();
 
 		if (varNameOk) {
 			variableEdit.setBackground(NumberTools.getTextFieldDefaultBackground());

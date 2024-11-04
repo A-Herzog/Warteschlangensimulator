@@ -95,17 +95,13 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(500,0);
+		setSizeRespectingScreensize(600,275);
 		pack();
+		setMaxSizeRespectingScreensize(600,768);
 	}
 
-	/**
-	 * Stellt die Größe des Dialogfensters unmittelbar vor dem Sicherbarmachen ein.
-	 */
 	@Override
 	protected void setDialogSizeLater() {
-		pack();
-		setMaxSizeRespectingScreensize(1280,768);
 	}
 
 	@Override

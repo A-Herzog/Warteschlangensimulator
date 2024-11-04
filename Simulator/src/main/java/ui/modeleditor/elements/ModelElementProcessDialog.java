@@ -155,8 +155,13 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 
 	@Override
 	protected void setDialogSize() {
-		setSizeRespectingScreensize(1025,600);
+		setSizeRespectingScreensize(1025,700);
 		pack();
+		setMaxSizeRespectingScreensize(1025,700);
+	}
+
+	@Override
+	protected void setDialogSizeLater() {
 	}
 
 	/**
