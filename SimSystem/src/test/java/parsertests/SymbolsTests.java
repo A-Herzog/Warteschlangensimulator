@@ -3001,6 +3001,46 @@ class SymbolsTests {
 				assertTrue(false);
 			}
 		}
+
+		/* Geometrische Verteilung - Dichte */
+
+		calc=new CalcSystem("GeometricDist(x;a)",new String[]{"x","a"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{-1,0.5});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		for (int k=0;k<10;k++) {
+			try {
+				d=calc.calc(new double[]{k,0.5});
+				assertTrue(d>0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		calc=new CalcSystem("GeometricDist(x;y;z;a;b)",new String[]{"x","y","z","a","b"});
+		assertTrue(calc.parse()<0);
+		d=calc.calcOrDefault(new double[]{1,2,3,4,5},-17);
+		assertEquals(-17.0,d);
+
+		/* Geometrische Verteilung - Zufallszahlen */
+
+		calc=new CalcSystem("GeometricDist(a)",new String[]{"a"});
+		assertTrue(calc.parse()<0);
+
+		for (int i=0;i<100;i++) {
+			try {
+				d=calc.calc(new double[]{0.5});
+				assertTrue(d>=0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
 	}
 
 	/**
@@ -3313,21 +3353,21 @@ class SymbolsTests {
 
 		/* Halbe Normalverteilung */
 
-		cmd="HalfNormalDist(x;a;0)";
-		variables=new String[]{"x","a"};
-		assertEquals(0,testDistribution(cmd,variables,new double[]{-1,1}));
-		assertTrue(testDistribution(cmd,variables,new double[]{10,1})>0);
+		cmd="HalfNormalDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-1,1,1}));
+		assertTrue(testDistribution(cmd,variables,new double[]{10,1,1})>0);
 
-		cmd="HalfNormalDist(x;a;1)";
-		variables=new String[]{"x","a"};
-		assertEquals(0,testDistribution(cmd,variables,new double[]{-1,1}));
-		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1}));
-		assertTrue(testDistribution(cmd,variables,new double[]{10,1})>0);
-		testDistributionThrows("HalfNormalDist(x;a;2)",variables,new double[]{10,1});
+		cmd="HalfNormalDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-1,1,1}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,1,1}));
+		assertTrue(testDistribution(cmd,variables,new double[]{10,1,1})>0);
+		testDistributionThrows("HalfNormalDist(x;a;b;2)",variables,new double[]{10,1,1});
 
-		cmd="HalfNormalDist(a)";
-		variables=new String[]{"a"};
-		testDistribution(cmd,variables,new double[]{1});
+		cmd="HalfNormalDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{1,1});
 
 		/* Hyperbolische Sekanten-Verteilung */
 
@@ -3808,7 +3848,7 @@ class SymbolsTests {
 		assertEquals(0,testDistribution(cmd,variables,new double[]{0,0.0027,2}));
 		assertTrue(testDistribution(cmd,variables,new double[]{50,0.0027,2})>0);
 
-		cmd="WeibullDist(x;a;b;0)";
+		cmd="WeibullDist(x;a;b;1)";
 		variables=new String[]{"x","a","b"};
 		assertEquals(0,testDistribution(cmd,variables,new double[]{0,0.0027,2}));
 		assertTrue(testDistribution(cmd,variables,new double[]{50,0.0027,2})>0);
@@ -3817,6 +3857,29 @@ class SymbolsTests {
 		cmd="WeibullDist(a;b)";
 		variables=new String[]{"a","b"};
 		testDistribution(cmd,variables,new double[]{0.0027,2});
+
+		/* Wigner Halbkreisverteilung */
+
+		cmd="WignerHalfCircleDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,5,2}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{3,5,2}));
+		assertTrue(testDistribution(cmd,variables,new double[]{4,5,2})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{7,5,2}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{8,5,2}));
+
+		cmd="WignerHalfCircleDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,5,2}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{3,5,2}));
+		assertTrue(testDistribution(cmd,variables,new double[]{4,5,2})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{7,5,2}));
+		assertEquals(1,testDistribution(cmd,variables,new double[]{8,5,2}));
+		testDistributionThrows("WignerHalfCircleDist(x;a;b;2)",variables,new double[]{4,5,2});
+
+		cmd="WignerHalfCircleDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{5,2});
 	}
 
 	/**

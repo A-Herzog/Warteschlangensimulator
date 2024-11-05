@@ -48,11 +48,11 @@ public class CalcSymbolDistributionHalfNormal extends CalcSymbolDistribution {
 
 	@Override
 	protected int getParameterCount() {
-		return 1;
+		return 2;
 	}
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
-		return new HalfNormalDistribution(parameters[0]);
+		return new HalfNormalDistribution(parameters[0],parameters[1]);
 	}
 }

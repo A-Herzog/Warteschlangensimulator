@@ -1664,6 +1664,42 @@ public abstract class JDistributionEditorPanelRecord {
 		}
 	}
 
+
+	/** Halbe Normalverteilung */
+	private static class HalfNormalDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public HalfNormalDistributionPanel() {
+			super(new WrapperHalfNormalDistribution(),new String[]{"s","mu"});
+		}
+
+		@Override
+		public String[] getEditValues(final double meanD, final String mean, final double stdD, final String std, final String lower, final String upper, final double maxXValue) {
+			return new String[]{"0",mean};
+		}
+
+		@Override
+		public String[] getValues(final AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((HalfNormalDistribution)distribution).s),
+					NumberTools.formatNumberMax(((HalfNormalDistribution)distribution).mu)
+			};
+		}
+
+		@Override
+		public void setValues(final JTextField[] fields, final double mean, final double sd) {
+			final HalfNormalDistribution distribution=(HalfNormalDistribution)wrapper.getDistribution(mean,0);
+			final String[] text=getValues(distribution);
+			if (text!=null && text.length==fields.length) for (int i=0;i<text.length;i++) fields[i].setText(text[i]);
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(final JTextField[] fields, final double maxXValue) {
+			final Double d1=NumberTools.getDouble(fields[0],true); if (d1==null) return null;
+			final Double d2=NumberTools.getPositiveDouble(fields[1],true); if (d2==null) return null;
+			return new HalfNormalDistribution(d1,d2);
+		}
+	}
+
 	/** Hypergeometrische Verteilung */
 	private static class HyperGeomDistributionPanel extends JDistributionEditorPanelRecord {
 		/** Konstruktor der Klasse */
@@ -1909,20 +1945,6 @@ public abstract class JDistributionEditorPanelRecord {
 				fields[0].setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 			return new DiscreteGeometricDistributionImpl(p);
-		}
-	}
-
-	/** Halbe Normalverteilung */
-	private static class HalfNormalDistributionPanel extends JDistributionEditorPanelRecordMean {
-		/** Konstruktor der Klasse */
-		public HalfNormalDistributionPanel() {
-			super(new WrapperHalfNormalDistribution());
-		}
-
-		@Override
-		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
-			final Double mean=NumberTools.getPositiveDouble(fields[0],true); if (mean==null) return null;
-			return new HalfNormalDistribution(mean.doubleValue());
 		}
 	}
 }

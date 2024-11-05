@@ -149,7 +149,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[308] = "Statistic.FastAccess.Template.Resource.Get.Tooltip";
     t[309] = "Gets the number of operators in some resource.";
     t[310] = "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.RandomNumberRangeInfo";
-    t[311] = "<p>Generates a random number according to the half normal distribution with the expected value defined by the third parameter.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
+    t[311] = "<p>Generates a random number according to the half normal distribution with start value and expected value of the unshifted distribution defined by the third and forth parameter.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
     t[312] = "Surface.XML.ErrorInfo.NonNegativeIntegerNeeded";
     t[313] = "A non-negative integer has to be specified.";
     t[316] = "Surface.Source.XML.Distribution";
@@ -5539,7 +5539,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[12172] = "Editor.Dialog.Tab.Clients.InfoText";
     t[12173] = "This page lists all types of clients that appear in the model. Here no new client types can be created, but only the display mode of the clients of the existing types can be adjusted.";
     t[12176] = "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.DistributionFunctionInfo";
-    t[12177] = "<p>Calculates the value of the distribution function of the half normal distribution at the location specified as the first parameter with the expected value defined by the second parameter.</p>";
+    t[12177] = "<p>Calculates the value of the distribution function of the half normal distribution at the location specified as the first parameter with start value and expected value of the unshifted distribution defined by the second and third parameter.</p>";
     t[12178] = "Main.Menu.View.Statistics.HeatMap.Transfer";
     t[12179] = "Heatmap: Average transfer time at a station";
     t[12180] = "Color.008080";
@@ -8519,7 +8519,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18770] = "Optimizer.XML.Target.Direction.Range";
     t[18771] = "Range";
     t[18772] = "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.RandomNumberInfo";
-    t[18773] = "<p>Generates a random number according to the half normal distribution with the expected value defined by the parameter.</p>";
+    t[18773] = "<p>Generates a random number according to the half normal distribution with start value and expected value of the unshifted distribution defined by the first and the second parameter.</p>";
     t[18780] = "CommandLine.ServerMQTT.Description.Short";
     t[18781] = "Starts the program as MQTT-based simulation server.";
     t[18784] = "Surface.Output.XML.Active";
@@ -10533,7 +10533,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23164] = "LoadCalculator.Units.ClientsPerDay";
     t[23165] = "Clients per day";
     t[23172] = "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.DensityInfo";
-    t[23173] = "<p>Calculates the value of the density of the half normal distribution at the location specified as the first parameter with the expected value defined by the second parameter.</p>";
+    t[23173] = "<p>Calculates the value of the density of the half normal distribution at the location specified as the first parameter with start value and expected value of the unshifted distribution defined by the second and third parameter.</p>";
     t[23174] = "Surface.UserStatistic.XML.Record.IsTime";
     t[23175] = "IsTime";
     t[23176] = "ScriptPopup.Output.Format.Time.Hint";

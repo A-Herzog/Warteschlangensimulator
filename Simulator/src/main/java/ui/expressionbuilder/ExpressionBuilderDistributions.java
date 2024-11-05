@@ -596,7 +596,7 @@ public class ExpressionBuilderDistributions {
 
 		/* Halbe Normalverteilung */
 
-		addDist(group,filterUpper,"HalfNormalDist","mean",
+		addDist(group,filterUpper,"HalfNormalDist","s;mu",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.DistributionFunctionInfo"),

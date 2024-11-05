@@ -36,6 +36,7 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 import org.junit.jupiter.api.Test;
 
 import mathtools.distribution.ArcsineDistribution;
+import mathtools.distribution.ChiDistributionImpl;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteGeometricDistributionImpl;
@@ -191,6 +192,7 @@ class DistributionToolsTests {
 			boolean exactMeanAvailable=true;
 			if (dist1 instanceof ErlangDistributionImpl) exactMeanAvailable=false;
 			if (dist1 instanceof TrapezoidDistributionImpl) exactMeanAvailable=false;
+			if (dist1 instanceof ChiDistributionImpl) exactMeanAvailable=false;
 			if (exactMeanAvailable) {
 				assertEquals(3.0,DistributionTools.getMean(dist1),0.00001,"Verteilung: "+name);
 			}
@@ -212,6 +214,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof IrwinHallDistribution) exactStdAvailable=false;
 			if (dist1 instanceof SineDistribution) exactStdAvailable=false;
 			if (dist1 instanceof ArcsineDistribution) exactStdAvailable=false;
+			if (dist1 instanceof ChiDistributionImpl) exactStdAvailable=false;
 			if (exactStdAvailable) {
 				assertEquals(2,DistributionTools.getStandardDeviation(dist1),10E-10,"Verteilung: "+name);
 				assertEquals(2.0/3.0,DistributionTools.getCV(dist1),10E-10,"Verteilung: "+name);
@@ -268,6 +271,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof IrwinHallDistribution) exactStdAvailable=false;
 			if (dist1 instanceof SineDistribution) exactStdAvailable=false;
 			if (dist1 instanceof ArcsineDistribution) exactStdAvailable=false;
+			if (dist1 instanceof ChiDistributionImpl) exactStdAvailable=false;
 			if (exactStdAvailable) {
 				assertEquals(2,DistributionTools.getStandardDeviation(dist1),10E-10,"Verteilung: "+name);
 				assertEquals(2.0/3.0,DistributionTools.getCV(dist1),10E-10,"Verteilung: "+name);

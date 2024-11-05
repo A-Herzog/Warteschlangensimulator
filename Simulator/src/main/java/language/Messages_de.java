@@ -149,7 +149,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[308] = "Statistic.FastAccess.Template.Resource.Get.Tooltip";
     t[309] = "Liefert die Anzahl an Bedienern in einer bestimmten Ressource.";
     t[310] = "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.RandomNumberRangeInfo";
-    t[311] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der halben Normalverteilung mit Erwartungswert gem\u00e4\u00df dem dritten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
+    t[311] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der halben Normalverteilung mit Startwert und Erwartungswert der unverschobenen Verteilung gem\u00e4\u00df dem dritten und vierten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[312] = "Surface.XML.ErrorInfo.NonNegativeIntegerNeeded";
     t[313] = "Eine nichtnegative Ganzzahl muss angegeben werden.";
     t[316] = "Surface.Source.XML.Distribution";
@@ -5539,7 +5539,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[12172] = "Editor.Dialog.Tab.Clients.InfoText";
     t[12173] = "Auf dieser Seite werden alle im Modell auftretenden Kundentypen aufgelistet. Es k\u00f6nnen hier keine neuen Kundentypen angelegt werden, sondern nur die Darstellungsweise der Kunden der bestehenden Typen angepasst werden.";
     t[12176] = "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.DistributionFunctionInfo";
-    t[12177] = "<p>Berechnet den Wert der Verteilungsfunktion der halben Normalverteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert gem\u00e4\u00df dem zweiten Parametern.</p>";
+    t[12177] = "<p>Berechnet den Wert der Verteilungsfunktion der halben Normalverteilung an der als ersten Parameter angegebenen Stelle mit Startwert und Erwartungswert der unverschobenen Verteilung gem\u00e4\u00df dem zweiten und dritten Parameter.</p>";
     t[12178] = "Main.Menu.View.Statistics.HeatMap.Transfer";
     t[12179] = "Heatmap: Mittlere Transferzeiten an den Stationen";
     t[12180] = "Color.008080";
@@ -8519,7 +8519,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18770] = "Optimizer.XML.Target.Direction.Range";
     t[18771] = "Bereich";
     t[18772] = "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.RandomNumberInfo";
-    t[18773] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der halben Normalverteilung mit Erwartungswert gem\u00e4\u00df dem Parameter.</p>";
+    t[18773] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der halben Normalverteilung mit Startwert und Erwartungswert der unverschobenen Verteilung gem\u00e4\u00df dem ersten und zweiten Parameter.</p>";
     t[18780] = "CommandLine.ServerMQTT.Description.Short";
     t[18781] = "Simulator als MQTT-basierten Rechenserver starten.";
     t[18784] = "Surface.Output.XML.Active";
@@ -10533,7 +10533,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[23164] = "LoadCalculator.Units.ClientsPerDay";
     t[23165] = "Kunden pro Tag";
     t[23172] = "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution.DensityInfo";
-    t[23173] = "<p>Berechnet den Wert der Dichte der halben Normalverteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert gem\u00e4\u00df dem zweiten Parameter.</p>";
+    t[23173] = "<p>Berechnet den Wert der Dichte der halben Normalverteilung an der als ersten Parameter angegebenen Stelle mit Startwert und Erwartungswert der unverschobenen Verteilung gem\u00e4\u00df dem zweiten und dritten Parameter.</p>";
     t[23174] = "Surface.UserStatistic.XML.Record.IsTime";
     t[23175] = "IstZeitangabe";
     t[23176] = "ScriptPopup.Output.Format.Time.Hint";

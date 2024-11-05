@@ -2566,7 +2566,14 @@ class DistributionTests {
 		final double mean=200;
 		final double sd=Math.sqrt((Math.PI-2)/(2*(1/mean)*(1/mean)));
 
-		dist=new HalfNormalDistribution(200);
+		dist=new HalfNormalDistribution(5,mean);
+		assertEquals(mean,dist.mu);
+		assertEquals(mean+5,dist.mean);
+		assertEquals(sd,dist.sd);
+		assertEquals(1/mean,dist.theta);
+
+		dist=new HalfNormalDistribution(0,mean);
+		assertEquals(mean,dist.mu);
 		assertEquals(mean,dist.mean);
 		assertEquals(sd,dist.sd);
 		assertEquals(1/mean,dist.theta);
@@ -2587,8 +2594,9 @@ class DistributionTests {
 		assertFalse(dist.isSupportUpperBoundInclusive());
 		assertTrue(dist.isSupportConnected());
 
+		dist=new HalfNormalDistribution(5,200);
 		testDistributionTools(dist);
-		testDistributionParameters(dist,new double[] {200});
+		testDistributionParameters(dist,new double[] {5,200});
 	}
 
 	/**

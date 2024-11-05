@@ -34,6 +34,16 @@ public final class HalfNormalDistribution extends AbstractRealDistribution imple
 	private static final long serialVersionUID=2253286473816115553L;
 
 	/**
+	 * Verschiebungsparameter
+	 */
+	public final double s;
+
+	/**
+	 * Parameter mu (=Erwartungswert der unverschobenen Verteilung)
+	 */
+	public final double mu;
+
+	/**
 	 * Parameter &theta; der Verteilung
 	 */
 	public final double theta;
@@ -68,13 +78,16 @@ public final class HalfNormalDistribution extends AbstractRealDistribution imple
 
 	/**
 	 * Konstruktor der Klasse
-	 * @param mean	Erwartungswert
+	 * @param s	Verschiebung
+	 * @param mu	Erwartungswert der unverschobenen Verteilung
 	 */
-	public HalfNormalDistribution(double mean) {
+	public HalfNormalDistribution(double s, double mu) {
 		super(null);
-		mean=Math.max(mean,0.00001);
-		theta=1/mean;
-		this.mean=mean;
+		this.s=s;
+		mu=Math.max(mu,0.00001);
+		theta=1/mu;
+		this.mu=mu;
+		this.mean=s+mu;
 		sd=Math.sqrt((Math.PI-2)/(2*theta*theta));
 		densityFactor1=2*theta/Math.PI;
 		densityFactor2=theta*theta/Math.PI;
@@ -83,12 +96,14 @@ public final class HalfNormalDistribution extends AbstractRealDistribution imple
 
 	@Override
 	public double density(double x) {
+		x=x-s;
 		if (x<0) return 0;
 		return densityFactor1*Math.exp(-x*x*densityFactor2);
 	}
 
 	@Override
-	public double cumulativeProbability(final double x) {
+	public double cumulativeProbability(double x) {
+		x=x-s;
 		if (x<0) return 0;
 		return Erf.erf(x*pdfFactor);
 	}
@@ -102,7 +117,7 @@ public final class HalfNormalDistribution extends AbstractRealDistribution imple
 
 	@Override
 	public HalfNormalDistribution clone() {
-		return new HalfNormalDistribution(mean);
+		return new HalfNormalDistribution(s,mu);
 	}
 
 	@Override
@@ -133,11 +148,11 @@ public final class HalfNormalDistribution extends AbstractRealDistribution imple
 	 * @return	Modus der Verteilung
 	 */
 	public double getMode() {
-		return 0;
+		return s;
 	}
 
 	@Override
-	public double getSupportLowerBound() {return 0;}
+	public double getSupportLowerBound() {return s;}
 
 	@Override
 	public double getSupportUpperBound() {return Double.MAX_VALUE;}

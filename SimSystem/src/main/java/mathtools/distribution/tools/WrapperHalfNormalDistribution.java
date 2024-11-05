@@ -59,12 +59,12 @@ public class WrapperHalfNormalDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	public AbstractRealDistribution getDistribution(double mean, double sd) {
-		return new HalfNormalDistribution(mean);
+		return new HalfNormalDistribution(0,mean);
 	}
 
 	@Override
 	public AbstractRealDistribution getDefaultDistribution() {
-		return new HalfNormalDistribution(100);
+		return new HalfNormalDistribution(0,100);
 	}
 
 	@Override
@@ -75,7 +75,9 @@ public class WrapperHalfNormalDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected AbstractRealDistribution setMeanInt(AbstractRealDistribution distribution, double mean) {
-		return new HalfNormalDistribution(mean);
+		final double s=((HalfNormalDistribution)distribution).s;
+		mean=mean-s;
+		return new HalfNormalDistribution(s,mean);
 	}
 
 	/**
@@ -92,31 +94,34 @@ public class WrapperHalfNormalDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected AbstractRealDistribution setStandardDeviationInt(AbstractRealDistribution distribution, double sd) {
-		return new HalfNormalDistribution(sdToMean(sd));
+		final double s=((HalfNormalDistribution)distribution).s;
+		return new HalfNormalDistribution(s,sdToMean(sd));
 	}
 
 	@Override
 	protected double getParameterInt(AbstractRealDistribution distribution, int nr) {
-		if (nr==1) return ((HalfNormalDistribution)distribution).mean;
+		if (nr==1) return ((HalfNormalDistribution)distribution).s;
+		if (nr==2) return ((HalfNormalDistribution)distribution).mu;
 		return 0.0;
 	}
 
 	@Override
 	protected AbstractRealDistribution setParameterInt(AbstractRealDistribution distribution, int nr, double value) {
-		if (nr==1) return new HalfNormalDistribution(value);
+		if (nr==1) return new HalfNormalDistribution(value,((HalfNormalDistribution)distribution).mu);
+		if (nr==2) return new HalfNormalDistribution(((HalfNormalDistribution)distribution).s,value);
 		return null;
 	}
 
 	@Override
 	protected String getToStringData(AbstractRealDistribution distribution) {
-		return NumberTools.formatSystemNumber(((HalfNormalDistribution)distribution).mean);
+		return NumberTools.formatSystemNumber(((HalfNormalDistribution)distribution).s)+";"+NumberTools.formatSystemNumber(((HalfNormalDistribution)distribution).mu);
 	}
 
 	@Override
 	public AbstractRealDistribution fromString(String data, double maxXValue) {
 		final double[] values=getDoubleArray(data);
-		if (values.length!=1) return null;
-		return new HalfNormalDistribution(values[0]);
+		if (values.length!=2) return null;
+		return new HalfNormalDistribution(values[0],values[1]);
 	}
 
 	@Override
@@ -126,7 +131,8 @@ public class WrapperHalfNormalDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected boolean compareInt(AbstractRealDistribution distribution1, AbstractRealDistribution distribution2) {
-		if (Math.abs(((HalfNormalDistribution)distribution1).mean-((HalfNormalDistribution)distribution2).mean)>DistributionTools.MAX_ERROR) return false;
+		if (Math.abs(((HalfNormalDistribution)distribution1).s-((HalfNormalDistribution)distribution2).s)>DistributionTools.MAX_ERROR) return false;
+		if (Math.abs(((HalfNormalDistribution)distribution1).mu-((HalfNormalDistribution)distribution2).mu)>DistributionTools.MAX_ERROR) return false;
 		return true;
 	}
 
