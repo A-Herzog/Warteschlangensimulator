@@ -156,6 +156,7 @@ public class RunElementDelayJSData extends RunElementData {
 	 * @see #getDelayTime(SimulationData, RunDataClient)
 	 */
 	private double getDelayTimeJava(final SimulationData simData, final RunDataClient client) {
+		output.setLength(0);
 		javaRunner.parameter.client.setClient(client);
 		javaRunner.run();
 		if (javaRunner.getStatus()!=DynamicStatus.OK) {
@@ -165,7 +166,6 @@ public class RunElementDelayJSData extends RunElementData {
 			if (simData.runModel.cancelSimulationOnScriptError) simData.doEmergencyShutDown(String.format(Language.tr("Simulation.Log.DelayJS.ErrorScript"),station.name)+"\n"+DynamicFactory.getLongStatusText(javaRunner));
 			return 0;
 		} else {
-			output.setLength(0);
 			if (javaRunner.parameter.output.isOutputDouble()) return javaRunner.parameter.output.getOutputDouble();
 			final String result=output.toString().trim();
 			final Double D=NumberTools.getPlainDouble(result);
