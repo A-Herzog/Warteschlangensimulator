@@ -333,6 +333,33 @@ public class StatisticViewerImage implements StatisticViewer, Printable {
 	}
 
 	@Override
+	public int saveTypst(BufferedWriter bw, File mainFile, int nextImageNr) throws IOException {
+		/* Grafik erzeugen */
+		if (panel==null) panelNeeded();
+		final int imageSize=getImageSize();
+		final BufferedImage image=new BufferedImage(imageSize,imageSize,BufferedImage.TYPE_INT_RGB);
+		final Graphics g=image.getGraphics();
+		g.setClip(0,0,imageSize,imageSize);
+		if (panel instanceof JGetImage) ((JGetImage)panel).paintToGraphics(g); else	panel.paint(g);
+
+
+		/* Ausgabe als Datei */
+		String s=mainFile.getName();
+		int i=s.lastIndexOf('.');
+		if (i>=0) s=s.substring(0,i);
+
+		final File imageFile=new File(mainFile.getParent(),s+String.format("%03d",nextImageNr)+".png");
+
+		bw.write("#figure("); bw.newLine();
+		bw.write("  image(\""+imageFile.getName()+"\", width: 100%),"); bw.newLine();
+		bw.write(")"); bw.newLine();
+		bw.newLine();
+
+		saveImage(image,imageFile);
+		return nextImageNr+1;
+	}
+
+	@Override
 	public boolean getCanDo(CanDoAction canDoType) {
 		switch (canDoType) {
 		case CAN_DO_UNZOOM: return false;

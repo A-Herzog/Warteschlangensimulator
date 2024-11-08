@@ -250,6 +250,16 @@ public interface StatisticViewer {
 	int saveLaTeX(BufferedWriter bw, File mainFile, int nextImageNr) throws IOException;
 
 	/**
+	 * Schreibt die Daten in ein Typst-Dokument
+	 * @param bw	Ausgabestream, der später zur Typst-Datei wird
+	 * @param mainFile	Name der Hauptdatei (zur Bestimmung der Namen von externen Bildern)
+	 * @param nextImageNr	Nummer für das nächste (externe) Bild
+	 * @return	Nummer des nächsten Bildes (entspricht <code>nextImageNr</code>, wenn kein Bild ausgegeben wurde)
+	 * @throws IOException	Die Exception wird ausgelöst, wenn die Dateiausgabe nicht durchgeführt werden konnte.
+	 */
+	int saveTypst(BufferedWriter bw, File mainFile, int nextImageNr) throws IOException;
+
+	/**
 	 * Schreibt die Daten in ein docx-Dokument
 	 * @param doc	Aktives docx-Dokument
 	 * @return	Liefert <code>true</code> zurück, wenn die Daten erfolgreich geschrieben werden konnten.

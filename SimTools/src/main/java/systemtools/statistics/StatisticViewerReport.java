@@ -94,9 +94,14 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		FORMAT_HTML_JS,
 
 		/**
-		 * html-Datei, die eine interaktive js-basierende App bildet
+		 * LaTeX-Dokument
 		 */
 		FORMAT_LATEX,
+
+		/**
+		 * Typst-Dokument
+		 */
+		FORMAT_TYPST,
 
 		/**
 		 * Word-docx-Datei
@@ -290,7 +295,9 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		/** HTML-Report erstellen */
 		HTML,
 		/** LaTeX-Report erstellen */
-		LATEX
+		LATEX,
+		/** Typst-Report erstellen */
+		TYPST
 	}
 
 	/**
@@ -366,6 +373,12 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 					viewer.saveLaTeX(bw,null,1);
 					bw.newLine();
 					break;
+				case TYPST:
+					bw.write("= "+name);
+					bw.newLine();
+					viewer.saveTypst(bw,null,1);
+					bw.newLine();
+					break;
 				}
 				bw.flush();
 			} catch (IOException e) {return;}
@@ -390,13 +403,19 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		int nextImageNr=1;
 		for (int i=0;i<viewers.size();i++) {
 			if (i>0) bw.newLine();
-			switch (mode) {
-			case HTML:
-				bw.write("<h1>"+namesShort.get(i)+"</h1>");
-				break;
-			case LATEX:
-				bw.write("\\section{"+namesShort.get(i)+"}");
-				break;
+
+			if (viewers.get(i).getType()!=ViewerType.TYPE_TEXT) {
+				switch (mode) {
+				case HTML:
+					bw.write("<h1>"+namesShort.get(i)+"</h1>");
+					break;
+				case LATEX:
+					bw.write("\\section{"+namesShort.get(i)+"}");
+					break;
+				case TYPST:
+					bw.write("= "+namesShort.get(i));
+					break;
+				}
 			}
 
 			bw.newLine();
@@ -407,6 +426,9 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 				break;
 			case LATEX:
 				nextImageNr=viewers.get(i).saveLaTeX(bw,baseFileName,nextImageNr);
+				break;
+			case TYPST:
+				nextImageNr=viewers.get(i).saveTypst(bw,baseFileName,nextImageNr);
 				break;
 			}
 			bw.newLine();
@@ -640,7 +662,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		bw.write("  <style type=\"text/css\">"); bw.newLine();
 		bw.write("    body {font: 82% Verdana,Lucida,sans-serif;}"); bw.newLine();
 		bw.write("    table {border: 1px solid black; border-collapse: collapse;}"); bw.newLine();
-		bw.write("    td {border: 1px solid black; padding: 2px 5px;}"); bw.newLine();
+		bw.write("    td,th {border: 1px solid black; padding: 2px 5px;}"); bw.newLine();
 		if (addStyles!=null) for (String style: addStyles) {
 			bw.write("    ");
 			bw.write(style);
@@ -684,10 +706,24 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		bw.write("\\usepackage{amssymb,amsmath,amsfonts}"); bw.newLine();
 		bw.write("\\usepackage{graphicx}"); bw.newLine();
 		bw.write("\\usepackage{float}"); bw.newLine();
+		bw.write("\\usepackage{longtable}"); bw.newLine();
 		bw.newLine();
 		bw.write("\\parindent0pt"); bw.newLine();
 		bw.newLine();
 		bw.write("\\begin{document}"); bw.newLine();
+		bw.newLine();
+	}
+
+	/**
+	 * Gibt einen Typst-Kopfbereich für Typst-Reports aus.
+	 * @param bw	Ausgabeziel
+	 * @throws IOException	Wird bei einem Fehler beim Schreiben in den Writer ausgelöst
+	 * @see #writeReportToBufferedWriter
+	 * @see #writeTypstFoot(BufferedWriter)
+	 */
+	private void writeTypstHead(final BufferedWriter bw) throws IOException {
+		bw.write("#show figure: set block(breakable: true)");
+		bw.newLine();
 		bw.newLine();
 	}
 
@@ -702,6 +738,17 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		bw.newLine();
 		bw.write("\\end{document}");
 		bw.newLine();
+	}
+
+	/**
+	 * Gibt einen Typst-Fußbereich für Typst-Reports aus.
+	 * @param bw	Ausgabeziel
+	 * @throws IOException	Wird bei einem Fehler beim Schreiben in den Writer ausgelöst
+	 * @see #writeReportToBufferedWriter
+	 * @see #writeTypstHead(BufferedWriter)
+	 */
+	private void writeTypstFoot(final BufferedWriter bw) throws IOException {
+		/* Kein besonderer Fußbereich für Typst nötig */
 	}
 
 	/**
@@ -772,6 +819,8 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 				case FORMAT_LATEX:
 					writeLaTeXHead(bw);
 					break;
+				case FORMAT_TYPST:
+					writeTypstHead(bw);
 				default:
 					break;
 				}
@@ -802,6 +851,9 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 				case FORMAT_LATEX:
 					if (!writeReportNodesToBufferedWriterFile(ExportMode.LATEX,selectedViewers,selectedNames,bw,baseFileName)) return false;
 					break;
+				case FORMAT_TYPST:
+					if (!writeReportNodesToBufferedWriterFile(ExportMode.TYPST,selectedViewers,selectedNames,bw,baseFileName)) return false;
+					break;
 				default:
 					return false;
 				}
@@ -814,6 +866,9 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 					break;
 				case FORMAT_LATEX:
 					writeLaTeXFoot(bw);
+					break;
+				case FORMAT_TYPST:
+					writeTypstFoot(bw);
 					break;
 				default:
 					break;
@@ -891,6 +946,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		if (name.endsWith(".pdf")) return FileFormat.FORMAT_PDF;
 		if (name.endsWith(".html") || name.endsWith(".htm")) return FileFormat.FORMAT_HTML_INLINE;
 		if (name.endsWith(".tex")) return FileFormat.FORMAT_LATEX;
+		if (name.endsWith(".typ")) return FileFormat.FORMAT_TYPST;
 
 		return null;
 	}
@@ -919,6 +975,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		case FORMAT_HTML_INLINE:
 		case FORMAT_HTML_JS:
 		case FORMAT_LATEX:
+		case FORMAT_TYPST:
 			try (final OutputStreamWriter fw=new OutputStreamWriter(new FileOutputStream(file),StandardCharsets.UTF_8)) {
 				return writeReportToBufferedWriter(fw,file,fileFormat,exportAllItems);
 			} catch (IOException e) {return false;}
@@ -959,11 +1016,13 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeDOCX+" (*.docx)","docx");
 		FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
 		FileFilter tex=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTEX+" (*.tex)","tex");
+		FileFilter typ=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTYP+" (*.typ)","typ");
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(pdf);
 		fc.addChoosableFileFilter(html);
 		fc.addChoosableFileFilter(htmljs);
 		fc.addChoosableFileFilter(tex);
+		fc.addChoosableFileFilter(typ);
 		fc.setFileFilter(docx);
 		fc.setAcceptAllFileFilterUsed(false);
 
@@ -977,6 +1036,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
 			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
 			if (fc.getFileFilter()==tex) file=new File(file.getAbsoluteFile()+".tex");
+			if (fc.getFileFilter()==typ) file=new File(file.getAbsoluteFile()+".typ");
 		}
 
 		if (file.exists()) {
@@ -998,6 +1058,12 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		if (file.getName().toLowerCase().endsWith(".tex")) {
 			/* Export als LaTeX-Dokument */
 			if (!save(owner,file,FileFormat.FORMAT_LATEX,false)) MsgBox.error(owner,StatisticsBasePanel.writeErrorTitle,String.format(StatisticsBasePanel.writeErrorInfo,file.toString()));
+			return;
+		}
+
+		if (file.getName().toLowerCase().endsWith(".typ")) {
+			/* Export als Typst-Dokument */
+			if (!save(owner,file,FileFormat.FORMAT_TYPST,false)) MsgBox.error(owner,StatisticsBasePanel.writeErrorTitle,String.format(StatisticsBasePanel.writeErrorInfo,file.toString()));
 			return;
 		}
 

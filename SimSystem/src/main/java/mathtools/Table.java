@@ -1737,12 +1737,51 @@ public final class Table implements Cloneable {
 	 * @return	Tabelle als &lt;table&gt; HTML-Element
 	 */
 	public String saveToHTML() {
-		if (mode==IndexMode.COLS) {Table t=transpose(); return t.saveToHTML();}
+		return saveToHTML(null,false);
+	}
+
+	/**
+	 * Liefert den 0-basierten Index der letzten Zeile, die nicht nur 0-Werte enthält.
+	 * @param ignoreFirstColumn	Soll die erste Spalte ignoriert werden (d.h. in dieser Nicht-0-Werte zugelassen werden)?
+	 * @return	0-basierter Index der letzten Zeile, die nicht nur 0-Werte enthält (der Wert kann jeweils einschließlich zwischen -1 und der Anzahl an Zeilen -1 liegen)
+	 */
+	public int findLastNonNullRow(final boolean ignoreFirstColumn) {
+		int row=data.size()-1;
+		while (row>0) {
+			boolean firstColumn=true;
+			for (var cell: data.get(row)) {
+				if (firstColumn && ignoreFirstColumn) {firstColumn=false; continue;}
+				if (cell.isBlank()) continue;
+				final Double D=NumberTools.getDouble(cell);
+				if (D==null || D.doubleValue()!=0.0) return row;
+			}
+			row--;
+		}
+		return row;
+	}
+
+	/**
+	 * Speichert die Tabelle als &lt;table&gt; HTML-Element (d.h. ohne Dokumentenrumpf)
+	 * @param columnTitles	Optionale Liste mit einer Überschriftenzeile (darf <code>null</code> oder leer sein)
+	 * @param removeTrailingEmptyRows	Leere Zeilen am Tabellenende weglassen?
+	 * @return	Tabelle als &lt;table&gt; HTML-Element
+	 */
+	public String saveToHTML(final List<String> columnTitles, final boolean removeTrailingEmptyRows) {
+		if (mode==IndexMode.COLS) {Table t=transpose(); return t.saveToHTML(columnTitles,removeTrailingEmptyRows);}
 
 		final StringBuilder sb=new StringBuilder();
 
 		sb.append("<table>\n");
-		for (int i=0;i<data.size();i++) {
+		if (columnTitles!=null && columnTitles.size()>0) {
+			sb.append("  <tr>");
+			for(String cell : columnTitles) sb.append("<th>"+cell+"</th>");
+			sb.append("</tr>\n");
+		}
+		int outputRows=data.size();
+		if (removeTrailingEmptyRows && outputRows>100) {
+			outputRows=Math.min(outputRows,findLastNonNullRow(true)+2);
+		}
+		for (int i=0;i<outputRows;i++) {
 			sb.append("  <tr>");
 			for(String cell : data.get(i)) sb.append("<td>"+cell+"</td>");
 			sb.append("</tr>\n");
@@ -1757,34 +1796,71 @@ public final class Table implements Cloneable {
 	 * @return	Tabelle als LaTeX-Table-Objekt
 	 */
 	public String saveToLaTeX() {
-		if (mode==IndexMode.COLS) {Table t=transpose(); return t.saveToLaTeX();}
+		return saveToLaTeX(null,false);
+	}
+
+	/**
+	 * Speichert die Tabelle als LaTeX-Table-Objekt
+	 * @param columnTitles	Optionale Liste mit einer Überschriftenzeile (darf <code>null</code> oder leer sein)
+	 * @param removeTrailingEmptyRows	Leere Zeilen am Tabellenende weglassen?
+	 * @return	Tabelle als LaTeX-Table-Objekt
+	 */
+	public String saveToLaTeX(final List<String> columnTitles, final boolean removeTrailingEmptyRows) {
+		if (mode==IndexMode.COLS) {Table t=transpose(); return t.saveToLaTeX(columnTitles,removeTrailingEmptyRows);}
 
 		if (data.isEmpty()) return "";
-		final int lines=data.size();
-		final int cols=data.get(0).size();
+		int cols=data.get(0).size();
+		if (columnTitles!=null) cols=Math.max(cols,columnTitles.size());
 
 		final StringBuilder result=new StringBuilder();
 
-		result.append("\\begin{table}[H]\n");
-		result.append("\\begin{center}\n");
-		result.append("\\begin{tabular}{r");
+		final boolean useLongTable=(data.size()>10);
+
+		if (useLongTable) {
+			result.append("\\begin{longtable}");
+		} else {
+			result.append("\\begin{table}[H]\n");
+			result.append("\\begin{center}\n");
+			result.append("\\begin{tabular}");
+		}
+		result.append("{r");
 		for (int i=1;i<cols;i++) result.append("|r");
 		result.append("}\n");
 
-		for (int i=0;i<lines;i++) {
+		if (columnTitles!=null && columnTitles.size()>0) {
+			for (int j=0;j<columnTitles.size();j++) {
+				result.append(columnTitles.get(j).replace(",","{,}").replace("%","\\%"));
+				if (j<columnTitles.size()-1) result.append("&");
+			}
+			result.append("\\\\\n");
+			result.append("\\hline\n");
+		}
+
+		int outputRows=data.size();
+		if (removeTrailingEmptyRows && outputRows>100) {
+			outputRows=Math.min(outputRows,findLastNonNullRow(true)+2);
+		}
+		for (int i=0;i<outputRows;i++) {
 			final List<String> line=data.get(i);
-			for (int j=0;j<cols;j++) {
+			for (int j=0;j<line.size();j++) {
 				result.append(line.get(j).replace(",","{,}").replace("%","\\%"));
 				if (j<cols-1) result.append("&");
 			}
-			if (i<lines-1) result.append("\\\\\n"); else result.append("\n");
+			if (i<outputRows-1) result.append("\\\\\n"); else result.append("\n");
 		}
 
-		result.append("\\end{tabular}\n");
-		result.append("\\end{center}\n");
+		if (!useLongTable) {
+			result.append("\\end{tabular}\n");
+			result.append("\\end{center}\n");
+		}
+		if (useLongTable) result.append("\\\\");
 		result.append("\\caption{"+ExportTitle+"}\n");
 		result.append("%\\label{LabelForTable}\n");
-		result.append("\\end{table}\n");
+		if (useLongTable) {
+			result.append("\\end{longtable}\n");
+		} else {
+			result.append("\\end{table}\n");
+		}
 
 		return result.toString();
 	}
@@ -1794,11 +1870,21 @@ public final class Table implements Cloneable {
 	 * @return	Tabelle als LaTeTypst-Table-Objekt
 	 */
 	public String saveToTypst() {
-		if (mode==IndexMode.COLS) {Table t=transpose(); return t.saveToTypst();}
+		return saveToTypst(null,false);
+	}
+
+	/**
+	 * Speichert die Tabelle als Typst-Table-Objekt
+	 * @param columnTitles	Optionale Liste mit einer Überschriftenzeile (darf <code>null</code> oder leer sein)
+	 * @param removeTrailingEmptyRows	Leere Zeilen am Tabellenende weglassen?
+	 * @return	Tabelle als LaTeTypst-Table-Objekt
+	 */
+	public String saveToTypst(final List<String> columnTitles, final boolean removeTrailingEmptyRows) {
+		if (mode==IndexMode.COLS) {Table t=transpose(); return t.saveToTypst(columnTitles,removeTrailingEmptyRows);}
 
 		if (data.isEmpty()) return "";
-		final int lines=data.size();
-		final int cols=data.get(0).size();
+		int cols=data.get(0).size();
+		if (columnTitles!=null) cols=Math.max(cols,columnTitles.size());
 
 		final Function<String,String> escapeTypstField=s->s.replace("[","\\[").replace("]","\\]");
 
@@ -1808,14 +1894,31 @@ public final class Table implements Cloneable {
 		result.append("table(\n");
 		result.append("  columns: "+cols+",\n");
 
-		for (int i=0;i<lines;i++) {
+		if (columnTitles!=null && columnTitles.size()>0) {
+			result.append("  table.header(\n");
+			result.append("    ");
+			for (int j=0;j<columnTitles.size();j++) {
+				result.append("[*");
+				result.append(escapeTypstField.apply(columnTitles.get(j)));
+				result.append("*]");
+				if (j<cols-1) result.append(", ");
+			}
+			result.append("\n");
+			result.append("  ),\n");
+		}
+
+		int outputRows=data.size();
+		if (removeTrailingEmptyRows && outputRows>100) {
+			outputRows=Math.min(outputRows,findLastNonNullRow(true)+2);
+		}
+		for (int i=0;i<outputRows;i++) {
 			final List<String> line=data.get(i);
 			result.append("  ");
-			for (int j=0;j<cols;j++) {
+			for (int j=0;j<line.size();j++) {
 				result.append("[");
 				result.append(escapeTypstField.apply(line.get(j)));
 				result.append("]");
-				if (j<cols-1 || i<lines-1) result.append(",");
+				if (j<cols-1 || i<outputRows-1) result.append(",");
 				if (j<cols-1) result.append(" ");
 			}
 			result.append("\n");

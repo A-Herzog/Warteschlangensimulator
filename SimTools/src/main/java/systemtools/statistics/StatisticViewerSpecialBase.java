@@ -57,6 +57,11 @@ public abstract class StatisticViewerSpecialBase implements StatisticViewer {
 	}
 
 	@Override
+	public int saveTypst(BufferedWriter bw, File mainFile, int nextImageNr) {
+		return 0;
+	}
+
+	@Override
 	public boolean saveDOCX(DOCXWriter doc) {
 		return false;
 	}

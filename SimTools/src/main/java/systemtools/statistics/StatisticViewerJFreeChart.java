@@ -443,6 +443,26 @@ public abstract class StatisticViewerJFreeChart implements StatisticViewer {
 	}
 
 	@Override
+	public int saveTypst(BufferedWriter bw, File mainFile, int nextImageNr) throws IOException {
+		if (chartPanel==null) firstChartRequest();
+
+		String s=mainFile.getName();
+		int i=s.lastIndexOf('.');
+		if (i>=0) s=s.substring(0,i);
+
+		File bildFile=new File(mainFile.getParent(),s+String.format("%03d",nextImageNr)+".png");
+
+		bw.write("#figure("); bw.newLine();
+		bw.write("  image(\""+bildFile.getName()+"\", width: 100%),"); bw.newLine();
+		bw.write(")"); bw.newLine();
+		bw.newLine();
+
+		new SaveImageThread(bildFile);
+
+		return nextImageNr+1;
+	}
+
+	@Override
 	public boolean saveDOCX(DOCXWriter doc) {
 		if (chartPanel==null) firstChartRequest();
 

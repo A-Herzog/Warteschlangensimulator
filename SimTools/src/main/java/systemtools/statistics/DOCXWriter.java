@@ -185,7 +185,16 @@ public class DOCXWriter {
 	 * Gibt eine Tabelle aus.
 	 * @param table	Auszugebende Tabelle
 	 */
-	public void writeTable(Table table) {
+	public void writeTable(final Table table) {
+		writeTable(table,-1);
+	}
+
+	/**
+	 * Gibt eine Tabelle aus.
+	 * @param table	Auszugebende Tabelle
+	 * @param outputLines	Anzahl der auszugebenden Zeilen (Werte &le;0 werden als "alle Zeilen" interpretiert)
+	 */
+	public void writeTable(Table table, final int outputLines) {
 		endParagraph();
 
 		if (table.getMode()==Table.IndexMode.COLS) table=table.transpose();
@@ -193,20 +202,27 @@ public class DOCXWriter {
 
 		final XWPFTable outputTable=doc.createTable();
 
-		for (int i=0;i<data.size();i++) {
+		final int lines=(outputLines>0)?Math.min(outputLines,data.size()):data.size();
+		for (int i=0;i<lines;i++) {
 			final XWPFTableRow outputRow;
 			if (outputTable.getRows().size()>i) outputRow=outputTable.getRows().get(i); else outputRow=outputTable.createRow();
 			final List<String> dataRow=data.get(i);
+			/*
 			ReportStyle.ReportFont font;
 			if (i==0) font=style.tableHeadingFont; else {
 				if (i==data.size()-1) font=style.tableLastLineTextFont; else font=style.tableTextFont;
 			}
+			 */
 
 			for (int j=0;j<dataRow.size();j++) {
 				XWPFTableCell cell;
 				if (outputRow.getTableCells().size()>j) cell=outputRow.getTableCells().get(j); else cell=outputRow.addNewTableCell();
+				cell.setText(dataRow.get(j));
+				/* Erzeugt unnötigen Platz in den Zellen; kurze Tabellen sind wichtiger als eine fette Überschriftenzeile */
+				/*
 				final XWPFRun r=createRun(cell.addParagraph(),font);
 				r.setText(dataRow.get(j));
+				 */
 			}
 		}
 	}

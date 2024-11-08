@@ -566,6 +566,8 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 	public static String fileTypeSCE="SciLab-Skript";
 	/** Bezeichner für Dateiformat LaTeX */
 	public static String fileTypeTEX="LaTeX-Datei";
+	/** Bezeichner für Dateiformat Typst */
+	public static String fileTypeTYP="Typst-Datei";
 
 	/** Der hier eingetragene Programmname wird in html-Reports verwendet. */
 	public static String program_name="";

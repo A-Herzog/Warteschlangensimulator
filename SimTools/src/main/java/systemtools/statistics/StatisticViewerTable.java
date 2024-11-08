@@ -27,7 +27,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.print.PrinterException;
 import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -877,6 +876,14 @@ public class StatisticViewerTable implements StatisticViewer {
 	 * @return	{@link Table}-Objekt, welches die in dem Viewer vorliegenden Tabellendaten enthält
 	 */
 	public Table toTable() {
+		return toTableInt();
+	}
+
+	/**
+	 * Wandelt die intern vorliegenden Tabellendaten in ein {@link Table}-Objekt um und liefert dieses zurück.
+	 * @return	{@link Table}-Objekt, welches die in dem Viewer vorliegenden Tabellendaten enthält
+	 */
+	private Table toTableInt() {
 		if (columnNames.isEmpty()) buildTable();
 		buildTableModel();
 
@@ -911,32 +918,14 @@ public class StatisticViewerTable implements StatisticViewer {
 		return toTable().save(file);
 	}
 
-	/**
-	 * Fügt eine einzelne Zeile zu einer {@link BufferedWriter}-Ausgabe hinzu.
-	 * @param bw	Ausgabestream, der später zur html-Datei wird
-	 * @param line	Auszugebende Datenzeile
-	 * @throws IOException	Die Exception wird ausgelöst, wenn die Dateiausgabe nicht durchgeführt werden konnte.
-	 * @see #saveHtml(BufferedWriter, File, int, boolean)
-	 */
-	private void saveLineToTable(BufferedWriter bw, List<String> line) throws IOException {
-		if (line==null) return;
-		bw.write("  <tr>");
-		for (int i=0;i<line.size();i++) bw.write("<td>"+line.get(i)+"</td>");
-		bw.write("</tr>");
-		bw.newLine();
-	}
-
 	@Override
 	public int saveHtml(BufferedWriter bw, File mainFile, int nextImageNr, boolean imagesInline) throws IOException {
 		if (columnNames.isEmpty()) buildTable();
 		buildTableModel();
 
-		bw.write("<table>");
+		bw.write(showTable.saveToHTML(showColumnNames,true));
 		bw.newLine();
-		saveLineToTable(bw,showColumnNames);
-		for (int i=0;i<showTable.getSize(0);i++) saveLineToTable(bw,showTable.getLine(i));
-		bw.write("</table>");
-		bw.newLine();
+
 		return nextImageNr;
 	}
 
@@ -945,13 +934,19 @@ public class StatisticViewerTable implements StatisticViewer {
 		if (columnNames.isEmpty()) buildTable();
 		buildTableModel();
 
-		try (final ByteArrayOutputStream stream=new ByteArrayOutputStream()) {
-			toTable().save(stream,Table.SaveMode.SAVEMODE_TEX);
-			final byte[] b=stream.toByteArray();
-			char[] c=new char[b.length];
-			for (int i=0;i<b.length;i++) c[i]=(char)b[i];
-			bw.write(c);
-		}
+		bw.write(showTable.saveToLaTeX(showColumnNames,true));
+		bw.newLine();
+
+		return nextImageNr;
+	}
+
+	@Override
+	public int saveTypst(BufferedWriter bw, File mainFile, int nextImageNr) throws IOException {
+		if (columnNames.isEmpty()) buildTable();
+		buildTableModel();
+
+		bw.write(showTable.saveToTypst(showColumnNames,true));
+		bw.newLine();
 
 		return nextImageNr;
 	}
@@ -1046,8 +1041,10 @@ public class StatisticViewerTable implements StatisticViewer {
 	}
 
 	@Override
-	public boolean saveDOCX(DOCXWriter doc) {
-		doc.writeTable(toTable());
+	public boolean saveDOCX(final DOCXWriter doc) {
+		final Table t=toTableInt();
+		final int lines=Math.min(t.getSize(0),t.findLastNonNullRow(true)+2);
+		doc.writeTable(t,lines);
 		return true;
 	}
 
@@ -1057,7 +1054,7 @@ public class StatisticViewerTable implements StatisticViewer {
 		buildTableModel();
 
 		if (!pdf.writeStyledTableHeader(showColumnNames)) return false;
-		final int size=showTable.getSize(0);
+		final int size=Math.min(showTable.getSize(0),showTable.findLastNonNullRow(true)+2);
 		for (int i=0;i<size;i++) if (!pdf.writeStyledTableLine(showTable.getLine(i),i==size-1)) return false;
 
 		return true;

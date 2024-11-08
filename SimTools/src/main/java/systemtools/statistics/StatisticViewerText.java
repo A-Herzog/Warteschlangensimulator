@@ -792,7 +792,8 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		boolean inParagraph=false;
 
 		for (int i=0;i<lines.size();i++) {
-			final String line=lines.get(i);
+			String line=lines.get(i);
+			line=line.replace("*","\\*");
 			final int type=lineTypes.get(i);
 			final int indent=indentLevel.get(i);
 
@@ -1176,6 +1177,18 @@ public abstract class StatisticViewerText implements StatisticViewer {
 			reset();
 		} else {
 			bw.write(getLaTeXText());
+		}
+		return nextImageNr;
+	}
+
+	@Override
+	public int saveTypst(final BufferedWriter bw, final File mainFile, final int nextImageNr) throws IOException {
+		if (textPane==null) {
+			buildText();
+			bw.write(getTypstText());
+			reset();
+		} else {
+			bw.write(getTypstText());
 		}
 		return nextImageNr;
 	}
