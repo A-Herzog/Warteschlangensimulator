@@ -82,6 +82,8 @@ public class UsageStatisticsDialog extends BaseDialog {
 			label.setEditable(false);
 			label.setOpaque(false);
 			label.setBackground(new Color(0,0,0,0));
+			label.setCaretColor(label.getBackground());
+			label.setHighlighter(null);
 			line.add(label);
 			label.addHyperlinkListener(e->{
 				if (e.getEventType()!=HyperlinkEvent.EventType.ACTIVATED) return;
