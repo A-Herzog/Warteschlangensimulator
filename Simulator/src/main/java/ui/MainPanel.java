@@ -156,7 +156,6 @@ import ui.dialogs.ProblemReporterDialog;
 import ui.dialogs.SelectElementByIdDialog;
 import ui.dialogs.SelectExampleDialog;
 import ui.dialogs.SetupDialog;
-import ui.dialogs.StationStatisticsDialog;
 import ui.dialogs.SystemInfoWindow;
 import ui.dialogs.UsageStatisticsDialog;
 import ui.dialogs.VarianceAnalysisDialog;
@@ -795,7 +794,6 @@ public class MainPanel extends MainPanelBase {
 		addAction("SimulationAnimationScreenshotModeCustom",e->commandSimulationAnimationScreenshotModeCustom());
 		addAction("SimulationSimulation",e->commandSimulationSimulation(null,null,null,Simulator.logTypeFull,null));
 		addAction("SimulationSimulationLog",e->commandSimulationSimulationLog());
-		addAction("SimulationStatisticsSetup",e->commandSimulationStatisticsSetup());
 		addAction("SimulationCheckServerConnection",e->commandSimulationCheckServerConnection());
 		addAction("SimulationFindWarmUpSize",e->commandSimulationFindWarmUpSize());
 		addAction("SimulationFindBatchSize",e->commandSimulationFindBatchSize());
@@ -1482,7 +1480,6 @@ public class MainPanel extends MainPanelBase {
 		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.StartSimulation"),Images.SIMULATION.getIcon(),Language.tr("Main.Menu.StartSimulation.Mnemonic"),KeyEvent.VK_F5,"SimulationSimulation");
 		createMenuItem(menu,Language.tr("Main.Menu.RecordSimulation"),Images.SIMULATION_LOG.getIcon(),Language.tr("Main.Menu.RecordSimulation.Mnemonic"),"SimulationSimulationLog");
-		createMenuItem(menu,Language.tr("Main.Menu.StatisticsSetup"),Images.SIMULATION_STATISTICS.getIcon(),Language.tr("Main.Menu.StatisticsSetup.Mnemonic"),"SimulationStatisticsSetup");
 		menuSimulationCheckServerConnection=createMenuItem(menu,Language.tr("Main.Menu.SimulationCheckServerConnection"),Language.tr("Main.Menu.SimulationCheckServerConnection.Mnemonic"),"SimulationCheckServerConnection");
 
 		menu.addSeparator();
@@ -3471,23 +3468,6 @@ public class MainPanel extends MainPanelBase {
 	}
 
 	/**
-	 * Befehl: Simulation - Statistikaufzeichnung konfigurieren
-	 */
-	private void commandSimulationStatisticsSetup() {
-		final EditModel modelOrig=editorPanel.getModel();
-		final EditModel model=modelOrig.clone();
-		final StationStatisticsDialog dialog=new StationStatisticsDialog(this,model);
-		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
-			if (!modelOrig.equalsEditModel(model)) {
-				final File file=editorPanel.getLastFile();
-				editorPanel.setModel(model);
-				editorPanel.setModelChanged(true);
-				editorPanel.setLastFile(file);
-			}
-		}
-	}
-
-	/**
 	 * Befehl: Simulation - Verbindung zum Simulationsserver prüfen
 	 */
 	private void commandSimulationCheckServerConnection() {
@@ -3663,6 +3643,7 @@ public class MainPanel extends MainPanelBase {
 			}
 			setCurrentPanel(editorPanel);
 			enableMenuBar(true);
+			statisticsPanel.recreateViewers();
 			statisticsPanel.updateChartSetupInViewers(SetupData.getSetup().chartSetup);
 		},template);
 	}

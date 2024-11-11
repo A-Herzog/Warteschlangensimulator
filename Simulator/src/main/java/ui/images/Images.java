@@ -495,6 +495,9 @@ public enum Images {
 	/** Symbol "Modelleigenschaften - Seite 'Statistik'" */
 	MODELPROPERTIES_STATISTICS("sum.png"),
 
+	/** Symbol "Modelleigenschaften - Seite 'Statistik'" - Button "In der Statistik zu erfassende Stationen" */
+	MODELPROPERTIES_STATISTICS_STATIONS("station.png"),
+
 	/** Symbol "Modelleigenschaften - Seite 'Simulation' - Startwert für Zufallszahlengenerator festlegen" */
 	MODELPROPERTIES_SIMULATION_RANDOM_SEED("calculator.png"),
 

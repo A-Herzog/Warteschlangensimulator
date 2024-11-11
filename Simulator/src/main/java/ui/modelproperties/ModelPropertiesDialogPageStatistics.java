@@ -20,6 +20,7 @@ import java.awt.FlowLayout;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,6 +32,8 @@ import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import statistics.StatisticsTimePerformanceIndicator;
 import systemtools.MsgBox;
+import ui.dialogs.StationStatisticsDialog;
+import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
 
 /**
@@ -75,6 +78,7 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 	public void build(JPanel content) {
 		JPanel sub;
 		Object[] data;
+		JButton button;
 
 		content.setLayout(new FlowLayout(FlowLayout.LEFT));
 		JPanel lines;
@@ -167,6 +171,14 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 		final ButtonGroup buttonGroup=new ButtonGroup();
 		buttonGroup.add(optionPrecisionMoments);
 		buttonGroup.add(optionPrecisionWelford);
+
+		/* In der Statistik zu erfassende Stationen */
+
+		lines.add(Box.createVerticalStrut(25));
+
+		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(button=new JButton(Language.tr("StationStatistics.Title"),Images.MODELPROPERTIES_STATISTICS_STATIONS.getIcon()));
+		button.addActionListener(e->	new StationStatisticsDialog(dialog,model));
 	}
 
 	/**
