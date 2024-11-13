@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-04 08:33+0100\n"
+"POT-Creation-Date: 2024-11-09 00:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37584,6 +37584,9 @@ msgstr "Auslastung"
 msgid "SystemInfo.Load.CPUCount"
 msgstr "Anzahl logische CPU-Kerne"
 
+msgid "SystemInfo.Load.CPUSeconds"
+msgstr "Volllast-CPU-Sekunden seit Programmstart"
+
 msgid "SystemInfo.Load.Load"
 msgstr "Arbeitslast"
 
@@ -38273,6 +38276,9 @@ msgstr "Wenn der Simulator für Sie nützlich ist<br>und wenn Sie einen GitHub-A
 
 msgid "UsageStatistics.Info"
 msgstr "Bislang wurden %s Kundenankünfte simuliert."
+
+msgid "UsageStatistics.InfoSeconds"
+msgstr "Dafür wurden %s Volllast-CPU-Sekunden benötigt."
 
 msgid "UsageStatistics.Title"
 msgstr "Nutzungsstatistik"

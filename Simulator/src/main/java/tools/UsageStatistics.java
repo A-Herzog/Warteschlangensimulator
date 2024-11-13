@@ -32,6 +32,10 @@ public class UsageStatistics {
 	private final SetupData setup;
 	/** Anzahl der bislang simulierten Kundenanküfte */
 	private long clients;
+	/** Volllast-CPU-Sekunden */
+	private long cpuSeconds;
+	/** Bereits in der Statistik erfasste Volllast-CPU-Sekunden seit Programmstart */
+	private long cpuSecondsSinceStart;
 
 	/**
 	 * Konstruktor der Klasse.<br>
@@ -40,6 +44,8 @@ public class UsageStatistics {
 	 */
 	private UsageStatistics() {
 		clients=0;
+		cpuSeconds=0;
+		cpuSecondsSinceStart=0;
 		setup=SetupData.getSetup();
 		loadFromSetup();
 	}
@@ -54,12 +60,23 @@ public class UsageStatistics {
 	}
 
 	/**
+	 * Liefert die Anzahl an Volllast-CPU-Sekunden seit Programmstart.
+	 * @return	Volllast-CPU-Sekunden seit Programmstart
+	 */
+	public static double getCPUSeconds() {
+		return ProcessHandle.current().info().totalCpuDuration().get().getSeconds()/Runtime.getRuntime().availableProcessors();
+	}
+
+	/**
 	 * Lädt die Statistikdaten aus dem System-Setup
 	 * @see SetupData#usageStatistics
 	 */
 	public void loadFromSetup() {
-		final Long L=NumberTools.getNotNegativeLong(setup.usageStatistics);
+		Long L;
+		L=NumberTools.getNotNegativeLong(setup.usageStatistics);
 		if (L!=null) clients=L;
+		L=NumberTools.getNotNegativeLong(setup.usageCPUTime);
+		if (L!=null) cpuSeconds=L;
 	}
 
 	/**
@@ -68,16 +85,25 @@ public class UsageStatistics {
 	 */
 	private void saveToSetup() {
 		setup.usageStatistics=""+clients;
+		setup.usageCPUTime=""+cpuSeconds;
 		setup.saveSetup();
 	}
 
 	/**
-	 * Liefert die Anzahl der bislang simulierten Kundenanküfte
+	 * Liefert die Anzahl der bislang simulierten Kundenanküfte.
 	 * @return	Anzahl der bislang simulierten Kundenanküfte
 	 * @see UsageStatistics#addSimulationClients(long)
 	 */
 	public long getSimulationClients() {
 		return clients;
+	}
+
+	/**
+	 * Liefert die Anzahl an bislang für die Simulation verwendeten Volllast-CPU-Sekunden.
+	 * @return	Anzahl an bislang für die Simulation verwendeten Volllast-CPU-Sekunden
+	 */
+	public long getCPUSeonds() {
+		return cpuSeconds;
 	}
 
 	/**
@@ -87,7 +113,13 @@ public class UsageStatistics {
 	 */
 	public void addSimulationClients(final long clients) {
 		if (clients<=0) return;
+
 		this.clients+=clients;
+
+		final long seconds=(long)Math.floor(getCPUSeconds());
+		this.cpuSeconds+=(seconds-cpuSecondsSinceStart);
+		cpuSecondsSinceStart=seconds;
+
 		saveToSetup();
 	}
 }

@@ -29,6 +29,7 @@ import javax.swing.event.HyperlinkEvent;
 
 import language.Language;
 import mathtools.NumberTools;
+import mathtools.TimeTools;
 import mathtools.distribution.swing.JOpenURL;
 import systemtools.BaseDialog;
 import systemtools.GUITools;
@@ -55,7 +56,9 @@ public class UsageStatisticsDialog extends BaseDialog {
 	public UsageStatisticsDialog(final Component owner) {
 		super(owner,Language.tr("UsageStatistics.Title"));
 
-		final long count=UsageStatistics.getInstance().getSimulationClients();
+		final UsageStatistics usageStatistics=UsageStatistics.getInstance();
+		final long count=usageStatistics.getSimulationClients();
+		final long seconds=usageStatistics.getCPUSeonds();
 
 		JPanel line;
 
@@ -69,7 +72,13 @@ public class UsageStatisticsDialog extends BaseDialog {
 
 		/* Anzahl an Ankünften */
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(new JLabel("<html><body><b>"+String.format(Language.tr("UsageStatistics.Info"),NumberTools.formatLong(count))+"</b></body></html>"));
+		final StringBuilder text=new StringBuilder();
+		text.append("<html><body>");
+		text.append("<b>"+String.format(Language.tr("UsageStatistics.Info"),NumberTools.formatLong(count))+"</b>");
+		text.append("<br>");
+		text.append("<b>"+String.format(Language.tr("UsageStatistics.InfoSeconds"),TimeTools.formatLongTime(seconds))+"</b>");
+		text.append("</body></html>");
+		line.add(new JLabel(text.toString()));
 
 		/* GitHub-Link */
 		if (count>=1_000_000_000) {

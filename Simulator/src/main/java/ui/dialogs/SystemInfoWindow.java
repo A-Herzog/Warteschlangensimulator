@@ -66,6 +66,7 @@ import systemtools.BaseDialog;
 import systemtools.GUITools;
 import systemtools.MsgBox;
 import tools.SetupData;
+import tools.UsageStatistics;
 import ui.images.Images;
 import ui.tools.FlatLaFHelper;
 import ui.tools.WindowSizeStorage;
@@ -495,7 +496,8 @@ public class SystemInfoWindow extends JFrame {
 			infoText.append("<span>");
 		}
 		infoText.append(Language.tr("SystemInfo.Load.LoadSystem")+": "+NumberTools.formatPercent(Math.min(1,workLoadSystem)));
-		infoText.append("</span>");
+		infoText.append("</span><br>");
+		infoText.append(Language.tr("SystemInfo.Load.CPUSeconds")+": "+NumberTools.formatLong(Math.round(UsageStatistics.getCPUSeconds())));
 		infoText.append("</p>\n");
 
 		/* Ausgabe: Threads */

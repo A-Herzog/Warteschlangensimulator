@@ -840,10 +840,16 @@ public class SetupData extends SetupBase {
 	public boolean useHighContrasts;
 
 	/**
-	 * Nutzungsstatistik<br>
+	 * Nutzungsstatistik (simulierte Ankünfte)<br>
 	 * Wird von {@link UsageStatistics} verwendet.
 	 */
 	public String usageStatistics;
+
+	/**
+	 * Nutzungsstatistik (Volllast-CPU-Sekunden)<br>
+	 * Wird von {@link UsageStatistics} verwendet.
+	 */
+	public String usageCPUTime;
 
 	/**
 	 * Schaltfläche "Feedback" in der Symbolleiste anzeigen
@@ -1621,6 +1627,7 @@ public class SetupData extends SetupBase {
 		useShadows=true;
 		useHighContrasts=false;
 		usageStatistics="";
+		usageCPUTime="";
 		showFeedbackButton=true;
 		showQuickAccess=true;
 		showQuickFilter=true;
@@ -2434,6 +2441,11 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("usagestatistics")) {
 				usageStatistics=e.getTextContent();
+				continue;
+			}
+
+			if (name.equals("usagecputime")) {
+				usageCPUTime=e.getTextContent();
 				continue;
 			}
 
@@ -3274,6 +3286,11 @@ public class SetupData extends SetupBase {
 		if (!usageStatistics.isEmpty()) {
 			root.appendChild(node=doc.createElement("UsageStatistics"));
 			node.setTextContent(usageStatistics);
+		}
+
+		if (!usageCPUTime.isEmpty()) {
+			root.appendChild(node=doc.createElement("UsageCPUTime"));
+			node.setTextContent(usageCPUTime);
 		}
 
 		if (!showFeedbackButton) {
