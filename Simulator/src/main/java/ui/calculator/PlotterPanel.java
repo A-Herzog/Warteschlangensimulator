@@ -124,7 +124,7 @@ public class PlotterPanel extends JPanel {
 	private double currentUnzoomMinY=-10;
 	/** Vom Nutzer festgelegter maximaler Y-Wert (der beim Klicken auf "Standardzoom" wieder eingestellt wird) */
 	private double currentUnzoomMaxY=10;
-	/** Wird von {@link #unzoom()}, {@link #inputXChanged()} und {@link #inputYChanged()} temporär auf <code>true</code> gesetzt, um Benachrichtigungsschleifen zu verhindern */
+	/** Wird von {@link #unzoom()}, {@link #inputXChanged(boolean)} und {@link #inputYChanged()} temporär auf <code>true</code> gesetzt, um Benachrichtigungsschleifen zu verhindern */
 	private boolean justChangingZoom=false;
 
 	/**
@@ -177,8 +177,8 @@ public class PlotterPanel extends JPanel {
 
 		inputMaxX.setMaximumSize(inputMaxX.getPreferredSize());
 		inputMinX.setMaximumSize(inputMinX.getPreferredSize());
-		inputMinX.addKeyListener(new KeyAdapter() {@Override public void keyReleased(KeyEvent e) {inputXChanged();}});
-		inputMaxX.addKeyListener(new KeyAdapter() {@Override public void keyReleased(KeyEvent e) {inputXChanged();}});
+		inputMinX.addKeyListener(new KeyAdapter() {@Override public void keyReleased(KeyEvent e) {inputXChanged(true);}});
+		inputMaxX.addKeyListener(new KeyAdapter() {@Override public void keyReleased(KeyEvent e) {inputXChanged(true);}});
 
 		inputMinX.setText("-10");
 		inputMaxX.setText("10");
@@ -411,8 +411,9 @@ public class PlotterPanel extends JPanel {
 
 	/**
 	 * Wird aufgerufen, wenn der Nutzer den minimalen oder den maximalen X-Wert verändert.
+	 * @param keepYRange	Soll der bisherige y-Bereich beibehalten (<code>true</code>) oder auf Basis der Funktionen automatisch neu bestimmt werden (<code>false</code>)
 	 */
-	private void inputXChanged() {
+	private void inputXChanged(final boolean keepYRange) {
 		data.removeAllSeries();
 
 		final Double minD=NumberTools.getDouble(inputMinX,true);
@@ -442,8 +443,10 @@ public class PlotterPanel extends JPanel {
 		}
 		minY=Math.floor(minY);
 		maxY=Math.ceil(maxY);
-		inputMinY.setText(NumberTools.formatNumber(minY));
-		inputMaxY.setText(NumberTools.formatNumber(maxY));
+		if (!keepYRange) {
+			inputMinY.setText(NumberTools.formatNumber(minY));
+			inputMaxY.setText(NumberTools.formatNumber(maxY));
+		}
 
 		final XYItemRenderer renderer=plot.getRenderer();
 		for (Graph graph: graphs) {
@@ -456,7 +459,9 @@ public class PlotterPanel extends JPanel {
 		justChangingZoom=true;
 		try {
 			if (maxX>minX) plot.getDomainAxis().setRange(minX,maxX);
-			if (maxY>minY) plot.getRangeAxis().setRange(minY,maxY);
+			if (!keepYRange) {
+				if (maxY>minY) plot.getRangeAxis().setRange(minY,maxY);
+			}
 		} finally {
 			justChangingZoom=false;
 		}
@@ -510,10 +515,11 @@ public class PlotterPanel extends JPanel {
 	 * Lädt die Graphen nach einer Änderung der Daten neu in die Darstellung.
 	 * Diese Methode muss manuell aufgerufen werden, das Panel kann Änderungen
 	 * an der Liste der Graphen nicht automatisch erkennen.
+	 * @param keepYRange	Soll der bisherige y-Bereich beibehalten (<code>true</code>) oder auf Basis der Funktionen automatisch neu bestimmt werden (<code>false</code>)
 	 * @see #getGraphs()
 	 */
-	public void reload() {
-		inputXChanged();
+	public void reload(final boolean keepYRange) {
+		inputXChanged(keepYRange);
 	}
 
 	/**
@@ -552,7 +558,7 @@ public class PlotterPanel extends JPanel {
 	/**
 	 * Liefert die Liste der Graphen
 	 * @return	Liste der Graphen
-	 * @see #reload()
+	 * @see #reload(boolean)
 	 */
 	public List<Graph> getGraphs() {
 		return graphs;

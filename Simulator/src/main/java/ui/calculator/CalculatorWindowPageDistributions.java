@@ -175,7 +175,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		line.add(Box.createHorizontalStrut(10));
 		final JLabel label=new JLabel(Language.tr("CalculatorDialog.Tab.Distributions.MaxX")+":");
 		line.add(label);
-		line.add(maxXInput=new JTextField("200",10));
+		line.add(maxXInput=new JTextField("200",5));
 		label.setLabelFor(maxXInput);
 		maxXInput.addKeyListener(new KeyAdapter() {
 			@Override public void keyReleased(KeyEvent e) {maxXAuto.setSelected(false); maxXCheck();}

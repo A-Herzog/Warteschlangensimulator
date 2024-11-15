@@ -90,7 +90,7 @@ public class CalculatorWindowPagePlotter extends CalculatorWindowPage {
 		});
 
 		/* Start */
-		plotter.reload();
+		plotter.reload(false);
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class CalculatorWindowPagePlotter extends CalculatorWindowPage {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				graph.expression=field.getText();
-				plotter.reload();
+				plotter.reload(true);
 			}
 		});
 		final JPanel buttonsPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -139,7 +139,7 @@ public class CalculatorWindowPagePlotter extends CalculatorWindowPage {
 			dialog.setVisible(true);
 			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 				field.setText(graph.expression=dialog.getExpression());
-				plotter.reload();
+				plotter.reload(true);
 			}
 		});
 
@@ -155,7 +155,7 @@ public class CalculatorWindowPagePlotter extends CalculatorWindowPage {
 		clearButton.setPreferredSize(new Dimension(26,26));
 		clearButton.setIcon(Images.EXTRAS_CALCULATOR_PLOTTER_CLEAR.getIcon());
 		clearButton.setToolTipText(Language.tr("CalculatorDialog.Plotter.ClearPlot"));
-		clearButton.addActionListener(e->{field.setText(graph.expression=""); plotter.reload();});
+		clearButton.addActionListener(e->{field.setText(graph.expression=""); plotter.reload(true);});
 
 		return panel;
 	}
@@ -189,7 +189,7 @@ public class CalculatorWindowPagePlotter extends CalculatorWindowPage {
 		colorChooser.addClickListener(e->{
 			graph.color=colorChooser.getColor();
 			setupColorButton(colorButton,graph);
-			plotter.reload();
+			plotter.reload(true);
 			popupMenu.setVisible(false);
 		});
 		popupMenu.add(colorChooser);
