@@ -21,6 +21,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -85,7 +86,7 @@ import mathtools.distribution.tools.FileDropperData;
  * Zeigt den grafischen Verlauf von Dichte und Verteilungsfunktion einer Verteilung
  * vom Typ <code>AbstractContinuousDistribution</code> an.
  * @author Alexander Herzog
- * @version 1.9
+ * @version 2.0
  * @see AbstractRealDistribution
  */
 public class JDistributionPanel extends JPanel implements JGetImage {
@@ -669,6 +670,24 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		}
 
 		/**
+		 * Gradienten-Hintergrundfarbe im Falle der hellen Darstellung
+		 * @see #paintDistributionRect(Graphics, Rectangle, Rectangle, double)
+		 */
+		private final Color COLOR_BACKGROUND_GRADIENT_LIGHT=new Color(235,235,255);
+
+		/**
+		 * Farbe für die Dichte
+		 * @see #paintDensity(Graphics, Rectangle, double)
+		 */
+		private final Color COLOR_DENSITY=new Color(1f,0f,0f,0.15f);
+
+		/**
+		 * Farbe für die Darstellung des Erwartungswertes
+		 * @see #paintExpectedValue(Graphics, Rectangle, double)
+		 */
+		private final Color COLOR_EXPECTED_VALUE=Color.GREEN.darker();
+
+		/**
 		 * Zeichnet den Rahmen für die Darstellung der Verteilungsdaten
 		 * @param g	Ausgabe Ziel
 		 * @param r	Ausgbebereich
@@ -682,7 +701,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			/* Hintergrund */
 			final Graphics2D g2d=(Graphics2D)g;
 			g2d.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
-			final GradientPaint gp=new GradientPaint(0,0,isDark?Color.GRAY:new Color(235,235,255),0,dataRect.height,isDark?Color.DARK_GRAY:Color.WHITE);
+			final GradientPaint gp=new GradientPaint(0,0,isDark?Color.GRAY:COLOR_BACKGROUND_GRADIENT_LIGHT,0,dataRect.height,isDark?Color.DARK_GRAY:Color.WHITE);
 			g2d.setPaint(gp);
 			g2d.fillRect(dataRect.x,dataRect.y,dataRect.width,dataRect.height);
 
@@ -704,11 +723,11 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			g.drawString(s,r.x+r.width-g.getFontMetrics().stringWidth(s),r.y+r.height);
 
 			if ((plotType==DENSITY) || (plotType==BOTH)) {
-				g.setColor(Color.red);
+				g.setColor(Color.RED);
 				g.drawString((distribution instanceof DataDistributionImpl)?CountDensityLabel:DensityLabel,dataRect.x+2+2,dataRect.y+fontDelta+2);
 			}
 			if ((plotType==CUMULATIVEPROBABILITY) || (plotType==BOTH)) {
-				g.setColor(Color.blue);
+				g.setColor(Color.BLUE);
 				g.drawString(CumulativeProbabilityLabel,dataRect.x+2+2,dataRect.y+2*fontDelta+2);
 			}
 		}
@@ -723,7 +742,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		private void paintCumulativeProbability(final Graphics g, final Rectangle dataRect, final double maxXValue) {
 			double lastY=0,y=0;
 
-			g.setColor(Color.blue);
+			g.setColor(Color.BLUE);
 
 			final double distMaxX=distribution.getSupportUpperBound();
 			for (int i=dataRect.x;i<=dataRect.x+dataRect.width;i++) {
@@ -759,7 +778,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 				} catch (IllegalArgumentException | MathRuntimeException e) {}
 			}
 
-			g.setColor(new Color(1f,0f,0f,0.15f));
+			g.setColor(COLOR_DENSITY);
 
 			for (int i=dataRect.x;i<=dataRect.x+dataRect.width;i++) {
 				final double x=maxXValue*(i-dataRect.x)/(dataRect.width+1);
@@ -775,7 +794,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 				lastY=y;
 			}
 
-			g.setColor(Color.red);
+			g.setColor(Color.RED);
 			for (int i=dataRect.x;i<=dataRect.x+dataRect.width;i++) {
 				double x=maxXValue*(i-dataRect.x)/(dataRect.width+1);
 				try {y=distribution.density(x)/maxY;} catch (IllegalArgumentException | MathRuntimeException e) {}
@@ -785,6 +804,44 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 				if (i>dataRect.x) g.drawLine(i-1,y1,i,y2);
 				lastY=y;
 			}
+		}
+
+		/**
+		 * Senkrechte Linie für Erwartungswert einzeichnen
+		 * @param g	Ausgabe Ziel
+		 * @param dataRect	Zeichenbereich
+		 * @param maxXValue	Maximal darzustellender x-Wert
+		 * @see #paintToRectangle(Graphics, Rectangle, double)
+		 */
+		private void paintExpectedValue(final Graphics g, final Rectangle dataRect, final double maxXValue) {
+			final double expectedValue=distribution.getNumericalMean();
+			if (Double.isNaN(expectedValue) || Double.isInfinite(expectedValue)) return;
+
+			final double d=expectedValue/maxXValue;
+			if (d<=0 || d>=1) return;
+			final int x=(int)Math.round(d*dataRect.width);
+			final int xPos=x+dataRect.x;
+			g.setColor(COLOR_EXPECTED_VALUE);
+			g.drawLine(xPos,dataRect.y+1,xPos,dataRect.y+dataRect.height-1);
+
+			final String s="E="+NumberTools.formatNumber(expectedValue);
+			final FontMetrics metrics=g.getFontMetrics();
+
+			final int xDrawPosition;
+			if (d<=0.5) {
+				xDrawPosition=xPos+2;
+			} else {
+				xDrawPosition=xPos-2-metrics.stringWidth(s);
+			}
+
+			final int yShift;
+			if (x<=metrics.stringWidth(CumulativeProbabilityLabel)+5) {
+				yShift=3*metrics.getAscent()+2*metrics.getDescent();
+			} else {
+				yShift=metrics.getAscent();
+			}
+
+			g.drawString(s,xDrawPosition,dataRect.y+yShift+2);
 		}
 
 		/**
@@ -817,6 +874,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			paintDistributionRect(g,r,dataRect,maxXValue);
 			if ((plotType==CUMULATIVEPROBABILITY) || (plotType==BOTH))  paintCumulativeProbability(g,dataRect,maxXValue);
 			if ((plotType==DENSITY) || (plotType==BOTH)) paintDensity(g,dataRect,maxXValue);
+			paintExpectedValue(g,dataRect,maxXValue);
 		}
 
 		@Override
