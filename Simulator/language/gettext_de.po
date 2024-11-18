@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-09 00:12+0100\n"
+"POT-Creation-Date: 2024-11-11 10:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27939,6 +27939,180 @@ msgstr "ModellElementAnimationAufzeichnungElementID"
 
 msgid "Surface.AnimationRecord.XML.Root"
 msgstr "ModellElementAnimationAufzeichnung"
+
+msgid "Surface.AnimationTable.DefaultText"
+msgstr "Text"
+
+msgid "Surface.AnimationTable.Dialog.Align"
+msgstr "Ausrichtung"
+
+msgid "Surface.AnimationTable.Dialog.Align.Center"
+msgstr "zentriert"
+
+msgid "Surface.AnimationTable.Dialog.Align.Left"
+msgstr "linksbündig"
+
+msgid "Surface.AnimationTable.Dialog.Align.Right"
+msgstr "rechtsbündig"
+
+msgid "Surface.AnimationTable.Dialog.BackgroundColor"
+msgstr "Hintergrundfarbe"
+
+msgid "Surface.AnimationTable.Dialog.Bold"
+msgstr "Fett"
+
+msgid "Surface.AnimationTable.Dialog.CellEditHint"
+msgstr "Die einzelnen Einträge können per Doppelklick bearbeitet werden."
+
+msgid "Surface.AnimationTable.Dialog.ColCount"
+msgstr "Spaltenanzahl"
+
+msgid "Surface.AnimationTable.Dialog.Color"
+msgstr "Schriftfarbe"
+
+msgid "Surface.AnimationTable.Dialog.ColorBordersInner"
+msgstr "Farbe für innere Linien"
+
+msgid "Surface.AnimationTable.Dialog.ColorBordersOuter"
+msgstr "Farbe für den äußeren Rahmen"
+
+msgid "Surface.AnimationTable.Dialog.FontFamily"
+msgstr "Schriftart"
+
+msgid "Surface.AnimationTable.Dialog.FontSize"
+msgstr "Schriftgröße"
+
+msgid "Surface.AnimationTable.Dialog.FontSize.Error.Info"
+msgstr "Die angegebene Schriftgröße ist ungültig. Die Schriftgröße muss eine positive ganze Zahl sein."
+
+msgid "Surface.AnimationTable.Dialog.FontSize.Error.Title"
+msgstr "Ungültige Schriftgröße"
+
+msgid "Surface.AnimationTable.Dialog.FontSize.HTMLLaTeX"
+msgstr "HTML- und LaTeX-Symbole"
+
+msgid "Surface.AnimationTable.Dialog.FontSize.HTMLLaTeX.Info"
+msgstr "HTML- und LaTeX-Symbole in der Eingabe interpretieren"
+
+msgid "Surface.AnimationTable.Dialog.FontSize.LaTeX"
+msgstr "LaTeX-Formatierungen"
+
+msgid "Surface.AnimationTable.Dialog.FontSize.LaTeX.Info"
+msgstr "LaTeX-Formatierungen in der Eingabe interpretieren"
+
+msgid "Surface.AnimationTable.Dialog.FontSize.Markdown"
+msgstr "Markdown"
+
+msgid "Surface.AnimationTable.Dialog.FontSize.Markdown.Info"
+msgstr "Einfache Markdown-Formatierungen interpretieren"
+
+msgid "Surface.AnimationTable.Dialog.Italic"
+msgstr "Kursiv"
+
+msgid "Surface.AnimationTable.Dialog.RowCount"
+msgstr "Zeilenanzahl"
+
+msgid "Surface.AnimationTable.Dialog.TabCells"
+msgstr "Zellen"
+
+msgid "Surface.AnimationTable.Dialog.TabLayout"
+msgstr "Aussehen"
+
+msgid "Surface.AnimationTable.Dialog.TextColor"
+msgstr "Textfarbe"
+
+msgid "Surface.AnimationTable.Dialog.TextColor.Info"
+msgstr "Wird keine Textfarbe für die Zelle angegeben, so wird die globale Vorgabe für die Tabelle verwendet."
+
+msgid "Surface.AnimationTable.Dialog.Title"
+msgstr "Tabelle bearbeiten"
+
+msgid "Surface.AnimationTable.DialogCell.Mode"
+msgstr "Modus"
+
+msgid "Surface.AnimationTable.DialogCell.Mode.Expression"
+msgstr "Rechenausdruck"
+
+msgid "Surface.AnimationTable.DialogCell.Mode.Text"
+msgstr "Text"
+
+msgid "Surface.AnimationTable.DialogCell.Percent"
+msgstr "Ergebnis des Rechenausdrucks als Prozentwert ausgeben"
+
+msgid "Surface.AnimationTable.DialogCell.TextExpression"
+msgstr "Text/Ausdruck"
+
+msgid "Surface.AnimationTable.DialogCell.Title"
+msgstr "Tabellenzelle bearbeiten"
+
+msgid "Surface.AnimationTable.Infotext"
+msgstr "Tabellen können auf der Zeichenfläche sowohl statische Inhalte als auch die Ergebnisse von Rechenausdrücken darstellen."
+
+msgid "Surface.AnimationTable.Name"
+msgstr "Tabelle"
+
+msgid "Surface.AnimationTable.Tooltip"
+msgstr "Tabellen können sowohl statische Inhalte als auch die Ergebnisse von Rechenausdrücken darstellen"
+
+msgid "Surface.AnimationTable.XML.BordersInner"
+msgstr "ModellElementTabelleRahmenInnen"
+
+msgid "Surface.AnimationTable.XML.BordersOuter"
+msgstr "ModellElementTabelleRahmenAussen"
+
+msgid "Surface.AnimationTable.XML.Cell"
+msgstr "ModellElementTabelleZelle"
+
+msgid "Surface.AnimationTable.XML.Cell.Align"
+msgstr "Ausrichtung"
+
+msgid "Surface.AnimationTable.XML.Cell.BackgroundColor"
+msgstr "Hintergrundfarbe"
+
+msgid "Surface.AnimationTable.XML.Cell.Color"
+msgstr "Farbe"
+
+msgid "Surface.AnimationTable.XML.Cell.Mode"
+msgstr "Modus"
+
+msgid "Surface.AnimationTable.XML.Cell.Mode.Expression"
+msgstr "Ausdruck"
+
+msgid "Surface.AnimationTable.XML.Cell.Mode.ExpressionPercent"
+msgstr "AusdruckProzent"
+
+msgid "Surface.AnimationTable.XML.Cell.Mode.Text"
+msgstr "Text"
+
+msgid "Surface.AnimationTable.XML.Color"
+msgstr "ModellElementFarbe"
+
+msgid "Surface.AnimationTable.XML.FontFamily"
+msgstr "ModellElementSchriftart"
+
+msgid "Surface.AnimationTable.XML.FontSize"
+msgstr "ModellElementSchriftgrosse"
+
+msgid "Surface.AnimationTable.XML.FontSize.Bold"
+msgstr "fett"
+
+msgid "Surface.AnimationTable.XML.FontSize.Italic"
+msgstr "kursiv"
+
+msgid "Surface.AnimationTable.XML.FontSize.LaTeX"
+msgstr "LaTeX"
+
+msgid "Surface.AnimationTable.XML.FontSize.Markdown"
+msgstr "Markdown"
+
+msgid "Surface.AnimationTable.XML.FontSize.Symbols"
+msgstr "Symbole"
+
+msgid "Surface.AnimationTable.XML.Root"
+msgstr "ModellElementTabelle"
+
+msgid "Surface.AnimationTable.XML.Row"
+msgstr "ModellElementTabelleZeile"
 
 msgid "Surface.AnimationText.Dialog.Alpha"
 msgstr "Deckkraft der Hintergrundfarbe"

@@ -449,7 +449,7 @@
 
 <!-- Beschreibung der Modell-Elemente: Einzelne Elemente -->
 
-<!ELEMENT ModellElemente (ModellElementKante | ModellElementText | ModellElementLink | ModellElementEcke | ModellElementLinie | ModellElementKasten | ModellElementEllipse | ModellElementBild | ModellElementNotiz | ModellElementQuelle | ModellElementMehrfachQuelle | ModellElementTabellenQuelle | ModellElementDatenbankQuelle | ModellElementDDEQuelle | ModellElementEnde | ModellElementSpeichernEnde | ModellElementZuweisung | ModellElementZuweisungText | ModellElementFertigungsplanZuweisung | ModellElementKosten | ModellElementVerzoegerung | ModellElementVerzoegerungSkript | ModellElementTrennen | ModellElementZusammenfassen | ModellElementMehrfachZusammenfassen | ModellElementZusammenfuehren | ModellElementZerteilen | ModellElementDuplizieren | ModellElementVerzweigen | ModellElementVerzweigenJS | ModellElementZurueckschrecken | ModellElementBedienstation | ModellElementBedingung | ModellElementBedingungMehrfach | ModellElementBedingungScript | ModellElementSignal | ModellElementSchranke | ModellElementSchrankePull | ModellElementRessourceBelegen | ModellElementRessourceFreigeben | ModellElementKundenstatistik | ModellElementVariable | ModellElementSkript | ModellElementZaehler | ModellElementZaehlerBatch | ModellElementZaehlerMehrfach | ModellElementDurchsatz | ModellElementZustandsstatistik | ModellElementAufzeichnung | ModellElementDateiausgabe | ModellElementEingabe | ModellElementEingabeScript | ModellElementEingabeDB | ModellElementEingabeDDE | ModellElementScriptDateiausgabe | ModellElementDatenbankausgabe | ModellElementAusgabeDDE | ModellElementAusgabeLog | ModellElementBenutzerstatistik | ModellElementDifferenzZaehler | ModellElementBereichStart | ModellElementBereichEnde | ModellElementAusleiten | ModellElementLogikIf | ModellElementLogikElseIf | ModellElementLogikElse | ModellElementLogikEndIf | ModellElementLogikWhile | ModellElementLogikEndWhile | ModellElementLogikDo | ModellElementLogikUntil | ModellElementTransportStart | ModellElementTransportZiel | ModellElementTransporterStart | ModellElementTransportParkplatz | ModellElementWegpunkt | ModellElementTeleportStart | ModellElementDuplizierenTeleportStart | ModellElementVerzweigenTeleportStart | ModellElementTeleportZiel | ModellElementFliessband | ModellElementAnalogerWert | ModellElementAnalogWertZuweisung | ModellElementTank | ModellElementFluss | ModellElementFlussSignal | ModellElementSensor | ModellElementVentilSetups | ModellElementAktion | ModellElementIcon | ModellElementAnimationText | ModellElementAnimationTextJS | ModellElementAnimationTextAuswahl | ModellElementAnimationBalken | ModellElementAnimationStapelBalken | ModellElementAnimationAmpel | ModellElementAnimationLCD | ModellElementAnimationAnalogSkala | ModellElementAnimationBalkenDiagramm | ModellElementAnimationLinienDiagramm | ModellElementAnimationTortenDiagramm | ModellElementAnimationUhr | ModellElementAnimationBild | ModellElementAnimationAufzeichnung | ModellElementAnimationAlarm | ModellElementPause | ModellElementUntermodell | ModellElementUntermodellEingang | ModellElementUntermodellAusgang | ModellElementDiagrammDashboard | ModellElementReferenz | ModellElementSchaltflaeche | ModellElementSchieberegler | ModellElementCheckbox | ModellElementRadiobutton | ModellEbene)*>
+<!ELEMENT ModellElemente (ModellElementKante | ModellElementText | ModellElementLink | ModellElementEcke | ModellElementLinie | ModellElementKasten | ModellElementEllipse | ModellElementBild | ModellElementNotiz | ModellElementQuelle | ModellElementMehrfachQuelle | ModellElementTabellenQuelle | ModellElementDatenbankQuelle | ModellElementDDEQuelle | ModellElementEnde | ModellElementSpeichernEnde | ModellElementZuweisung | ModellElementZuweisungText | ModellElementFertigungsplanZuweisung | ModellElementKosten | ModellElementVerzoegerung | ModellElementVerzoegerungSkript | ModellElementTrennen | ModellElementZusammenfassen | ModellElementMehrfachZusammenfassen | ModellElementZusammenfuehren | ModellElementZerteilen | ModellElementDuplizieren | ModellElementVerzweigen | ModellElementVerzweigenJS | ModellElementZurueckschrecken | ModellElementBedienstation | ModellElementBedingung | ModellElementBedingungMehrfach | ModellElementBedingungScript | ModellElementSignal | ModellElementSchranke | ModellElementSchrankePull | ModellElementRessourceBelegen | ModellElementRessourceFreigeben | ModellElementKundenstatistik | ModellElementVariable | ModellElementSkript | ModellElementZaehler | ModellElementZaehlerBatch | ModellElementZaehlerMehrfach | ModellElementDurchsatz | ModellElementZustandsstatistik | ModellElementAufzeichnung | ModellElementDateiausgabe | ModellElementEingabe | ModellElementEingabeScript | ModellElementEingabeDB | ModellElementEingabeDDE | ModellElementScriptDateiausgabe | ModellElementDatenbankausgabe | ModellElementAusgabeDDE | ModellElementAusgabeLog | ModellElementBenutzerstatistik | ModellElementDifferenzZaehler | ModellElementBereichStart | ModellElementBereichEnde | ModellElementAusleiten | ModellElementLogikIf | ModellElementLogikElseIf | ModellElementLogikElse | ModellElementLogikEndIf | ModellElementLogikWhile | ModellElementLogikEndWhile | ModellElementLogikDo | ModellElementLogikUntil | ModellElementTransportStart | ModellElementTransportZiel | ModellElementTransporterStart | ModellElementTransportParkplatz | ModellElementWegpunkt | ModellElementTeleportStart | ModellElementDuplizierenTeleportStart | ModellElementVerzweigenTeleportStart | ModellElementTeleportZiel | ModellElementFliessband | ModellElementAnalogerWert | ModellElementAnalogWertZuweisung | ModellElementTank | ModellElementFluss | ModellElementFlussSignal | ModellElementSensor | ModellElementVentilSetups | ModellElementAktion | ModellElementIcon | ModellElementAnimationText | ModellElementAnimationTextJS | ModellElementAnimationTextAuswahl | ModellElementAnimationBalken | ModellElementAnimationStapelBalken | ModellElementAnimationAmpel | ModellElementAnimationLCD | ModellElementAnimationAnalogSkala | ModellElementAnimationBalkenDiagramm | ModellElementAnimationLinienDiagramm | ModellElementAnimationTortenDiagramm | ModellElementAnimationUhr | ModellElementAnimationBild | ModellElementAnimationAufzeichnung | ModellElementAnimationAlarm | ModellElementPause | ModellElementUntermodell | ModellElementUntermodellEingang | ModellElementUntermodellAusgang | ModellElementDiagrammDashboard | ModellElementReferenz | ModellElementSchaltflaeche | ModellElementSchieberegler | ModellElementCheckbox | ModellElementRadiobutton | ModellElementTabelle | ModellEbene)*>
 
 <!ELEMENT ModellEbene (#PCDATA)>
 <!ATTLIST ModellEbene
@@ -1926,6 +1926,24 @@
 >
 <!ELEMENT ModellElementRadiobuttonVariable (#PCDATA)>
 <!ELEMENT ModellElementRadiobuttonWert (#PCDATA)>
+
+<!ELEMENT ModellElementTabelle (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementTabelleZeile | ModellElementTabelleRahmenAussen | ModellElementTabelleRahmenInnen)*>
+<!ATTLIST ModellElementTabelle
+  id	CDATA	#REQUIRED
+  geschuetzt	CDATA	#IMPLIED
+  statistik		CDATA	#IMPLIED
+  SymbolSpiegeln	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementTabelleZeile (ModellElementTabelleZelle)*>
+<!ELEMENT ModellElementTabelleZelle (#PCDATA)>
+<!ATTLIST ModellElementTabelleZelle
+  Modus				CDATA	#REQUIRED
+  Ausrichtung		CDATA	#IMPLIED
+  Farbe				CDATA	#IMPLIED
+  Hintergrundfarbe	CDATA	#IMPLIED
+>
+<!ELEMENT ModellElementTabelleRahmenAussen (#PCDATA)>
+<!ELEMENT ModellElementTabelleRahmenInnen (#PCDATA)>
 
 
 
@@ -4632,6 +4650,24 @@
 >
 <!ELEMENT ModelElementRadiobuttonVariable (#PCDATA)>
 <!ELEMENT ModelElementRadiobuttonValue (#PCDATA)>
+
+<!ELEMENT ModelElementTable (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementTableRow | ModelElementTableBorderOuter | ModelElementTableBorderInner)*>
+<!ATTLIST ModelElementTable
+  id		CDATA	#REQUIRED
+  protected	CDATA	#IMPLIED
+  statistics	CDATA	#IMPLIED
+  MirrorSymbol	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementTableRow (ModelElementTableCell)*>
+<!ELEMENT ModelElementTableCell (#PCDATA)>
+<!ATTLIST ModelElementTableCell
+  Mode				CDATA	#REQUIRED
+  Align				CDATA	#IMPLIED
+  Color				CDATA	#IMPLIED
+  BackgroundColor	CDATA	#IMPLIED
+>
+<!ELEMENT ModelElementTableBorderOuter (#PCDATA)>
+<!ELEMENT ModelElementTableBorderInner (#PCDATA)>
 
 
 

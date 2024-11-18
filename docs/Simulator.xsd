@@ -620,6 +620,7 @@
   <xs:element ref="ModellElementSchieberegler"/>  
   <xs:element ref="ModellElementCheckbox"/>
   <xs:element ref="ModellElementRadiobutton"/>
+  <xs:element ref="ModellElementTabelle"/>
   <xs:element ref="ModellEbene"/> 
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
@@ -2083,6 +2084,32 @@
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
+<xs:element name="ModellElementTabelle"><xs:complexType><xs:complexContent><xs:extension base="ModellElementEinfachBasis">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element ref="ModellElementTabelleZeile"/>
+	<xs:element name="ModellElementTabelleRahmenAussen" type="xs:string"/>
+	<xs:element name="ModellElementTabelleRahmenInnen" type="xs:string"/>
+	<xs:element name="ModellElementSchriftart" type="xs:string"/>
+	<xs:element ref="ModellElementSchriftgrosse"/>
+	<xs:element name="ModellElementFarbe" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementTabelleZeile"><xs:complexType>
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element ref="ModellElementTabelleZelle" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:choice></xs:sequence>
+</xs:complexType></xs:element>
+
+<xs:element name="ModellElementTabelleZelle"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Modus" type="xs:string"/>
+	<xs:attribute name="Ausrichtung" type="xs:string"/>
+	<xs:attribute name="Farbe" type="xs:string"/>
+	<xs:attribute name="Hintergrundfarbe" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+
 
 
 <!-- Beschreibung der Statistik-Dateien -->
@@ -3134,6 +3161,7 @@
   <xs:element ref="ModelElementSlider"/>
   <xs:element ref="ModelElementCheckbox"/>
   <xs:element ref="ModelElementRadiobutton"/>
+  <xs:element ref="ModelElementTable"/>
   <xs:element ref="ModelLayer"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
@@ -4398,7 +4426,7 @@
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
-<xs:element name="ModelElementAnimationLCD"><xs:complexType><xs:complexContent><xs:extension base="ModellElementEinfachBasis">
+<xs:element name="ModelElementAnimationLCD"><xs:complexType><xs:complexContent><xs:extension base="ModelElementSimpleBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
 	<xs:element ref="ModelElementAnimationLCDExpression"/>
 	<xs:element name="ModelElementAnimationLCDDigits" type="xs:string"/>
@@ -4412,7 +4440,7 @@
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
-<xs:element name="ModelElementAnimationPointerMeasuring"><xs:complexType><xs:complexContent><xs:extension base="ModellElementEinfachBasis">
+<xs:element name="ModelElementAnimationPointerMeasuring"><xs:complexType><xs:complexContent><xs:extension base="ModelElementSimpleBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
 	<xs:element ref="ModelElementAnimationPointerMeasuringExpression"/>
 	<xs:element name="ModelElementAnimationPointerMeasuringColor" type="xs:string"/>
@@ -4597,6 +4625,32 @@
 	<xs:element name="ModelElementRadiobuttonValue" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementTable"><xs:complexType><xs:complexContent><xs:extension base="ModelElementSimpleBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element ref="ModelElementTableRow"/>
+	<xs:element name="ModelElementTableBorderOuter" type="xs:string"/>
+	<xs:element name="ModelElementTableBorderInner" type="xs:string"/>
+	<xs:element name="ModelElementFontFamily" type="xs:string"/>
+	<xs:element ref="ModelElementFontSize"/>
+	<xs:element name="ModelElementColor" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementTableRow"><xs:complexType>
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element ref="ModelElementTableCell" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:choice></xs:sequence>
+</xs:complexType></xs:element>
+
+<xs:element name="ModelElementTableCell"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Mode" type="xs:string"/>
+	<xs:attribute name="Align" type="xs:string"/>
+	<xs:attribute name="Color" type="xs:string"/>
+	<xs:attribute name="BackgroundColor" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 
 

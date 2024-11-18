@@ -348,6 +348,7 @@ public final class ModelElementCatalog {
 				addElement(new ModelElementAnimationTextValue(null,null),Language.tr("Surface.AnimationText.Name"),GROUP_ANIMATION);
 				addElement(new ModelElementAnimationTextValueJS(null,null),Language.tr("Surface.AnimationTextJS.Name"),GROUP_ANIMATION);
 				addElement(new ModelElementAnimationTextSelect(null,null),Language.tr("Surface.AnimationTextSelect.Name"),GROUP_ANIMATION);
+				addElement(new ModelElementAnimationTable(null,null),Language.tr("Surface.AnimationTable.Name"),GROUP_ANIMATION);
 				addElement(new ModelElementAnimationBar(null,null),Language.tr("Surface.AnimationBar.Name"),GROUP_ANIMATION);
 				addElement(new ModelElementAnimationBarStack(null,null),Language.tr("Surface.AnimationBarStack.Name"),GROUP_ANIMATION);
 				addElement(new ModelElementAnimationLCD(null,null),Language.tr("Surface.AnimationLCD.Name"),GROUP_ANIMATION);

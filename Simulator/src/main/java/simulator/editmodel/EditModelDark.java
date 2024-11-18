@@ -29,6 +29,7 @@ import ui.modeleditor.elements.ModelElementAnimationImage;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
 import ui.modeleditor.elements.ModelElementAnimationPieChart;
 import ui.modeleditor.elements.ModelElementAnimationRecord;
+import ui.modeleditor.elements.ModelElementAnimationTable;
 import ui.modeleditor.elements.ModelElementAnimationTextSelect;
 import ui.modeleditor.elements.ModelElementAnimationTextValue;
 import ui.modeleditor.elements.ModelElementAnimationTextValueJS;
@@ -115,6 +116,7 @@ public class EditModelDark {
 		if (element instanceof ModelElementAnimationRecord) processAnimationAnimationRecord((ModelElementAnimationRecord)element,modeFrom,modeTo);
 		if (element instanceof ModelElementAnimationClock) processAnimationClock((ModelElementAnimationClock)element,modeFrom,modeTo);
 		if (element instanceof ModelElementAnimationImage) processAnimationImage((ModelElementAnimationImage)element,modeFrom,modeTo);
+		if (element instanceof ModelElementAnimationTable) processAnimationTable((ModelElementAnimationTable)element,modeFrom,modeTo);
 
 		/* Optische Gestaltung */
 		if (element instanceof ModelElementText) processText((ModelElementText)element,modeFrom,modeTo);
@@ -257,6 +259,26 @@ public class EditModelDark {
 	}
 
 	/**
+	 * Verarbeitet ein {@link ModelElementAnimationTable}-Element.
+	 * @param element	Zu verarbeitendes Element
+	 * @param modeFrom	Ausgangs-Farbmodus
+	 * @param modeTo	Ziel-Farbmodus
+	 * @see #processElement(ModelElement, ColorMode, ColorMode)
+	 */
+	private static void processAnimationTable(final ModelElementAnimationTable element, final ColorMode modeFrom, final ColorMode modeTo) {
+		processColor(element.getColor(),c->element.setColor(c),modeFrom,modeTo);
+		processColor(element.getBordersInner(),c->element.setBordersInner(c),modeFrom,modeTo);
+		processColor(element.getBordersOuter(),c->element.setBordersOuter(c),modeFrom,modeTo);
+		boolean changed=false;
+		final var cells=element.getCells();
+		for (var row: cells) for (var cell: row) {
+			if (processColor(cell.textColor,c->cell.textColor=c,modeFrom,modeTo)) changed=true;
+			if (processColor(cell.backgroundColor,c->cell.backgroundColor=c,modeFrom,modeTo)) changed=true;
+		}
+		if (changed) element.setCells(cells);
+	}
+
+	/**
 	 * Verarbeitet ein {@link ModelElementText}-Element.
 	 * @param element	Zu verarbeitendes Element
 	 * @param modeFrom	Ausgangs-Farbmodus
@@ -319,10 +341,12 @@ public class EditModelDark {
 	 * @param setColor	Callback zum setzen einer neuen Farbe
 	 * @param modeFrom	Ausgangs-Farbmodus
 	 * @param modeTo	Ziel-Farbmodus
+	 * @return	Liefert <code>true</code>, wenn eine Farbänderung vorgenommen wurde
 	 */
-	private static void processColor(final Color color, final Consumer<Color> setColor, final ColorMode modeFrom, final ColorMode modeTo) {
+	private static boolean processColor(final Color color, final Consumer<Color> setColor, final ColorMode modeFrom, final ColorMode modeTo) {
 		final Color newColor=processColor(color,modeFrom,modeTo);
 		if (newColor!=null) setColor.accept(newColor);
+		return newColor!=null;
 	}
 
 	/**

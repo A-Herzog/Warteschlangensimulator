@@ -517,6 +517,9 @@ public class InfoPanel {
 	/** Info-ID für den "Alarm"-Bearbeiten-Dialog (Gruppe "Animation") */
 	public static final String stationAnimationAlarm=groupElement+"AnimationAlarm";
 
+	/** Info-ID für den "Tabelle"-Bearbeiten-Dialog (Gruppe "Animation") */
+	public static final String stationAnimationTable=groupElement+"AnimationTable";
+
 	/* Stationen - Animation - Interaktiv */
 
 	/** Info-ID für den "Schaltfläche"-Bearbeiten-Dialog (Gruppe "Animation - Interaktiv") */
@@ -1249,6 +1252,10 @@ public class InfoPanel {
 		register(stationAnimationAlarm,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_ANIMATION+"|"+Language.tr("Surface.AnimationAlarm.Name"),
 				()->Language.tr("Surface.AnimationAlarm.Infotext"));
+
+		register(stationAnimationTable,
+				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_ANIMATION+"|"+Language.tr("Surface.AnimationTable.Name"),
+				()->Language.tr("Surface.AnimationTable.Infotext"));
 
 		/* Stationen - Animation - Interaktiv */
 
