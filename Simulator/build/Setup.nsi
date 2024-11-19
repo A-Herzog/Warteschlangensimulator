@@ -192,6 +192,7 @@ Section "Install" Inst
   File "..\..\Release\Simulator.sh"
   File "..\..\Release\Simulator.bat"
   File "..\..\Release\SimulatorCLI.bat"
+  File "..\..\Release\Simulator.ico"
   File "..\..\Release\JDBC.cfg"
   File "..\tools\JDDE\JavaDDEx64.dll"
   File "..\tools\JDDE\JavaDDE.dll"
@@ -229,7 +230,7 @@ Section "Install" Inst
   SetOutPath "$INSTDIR" ; Otherwise the shortcut will have the dictionaries as working directory
   
   ; CreateShortCut "$SMPROGRAMS\${PrgName}.lnk" "$INSTDIR\${PROGEXE}"
-  CreateShortCut "$SMPROGRAMS\${PrgName}.lnk" "$INSTDIR\${PROGBAT}" "" "$INSTDIR\${PROGEXE}" 0 SW_SHOWMINIMIZED
+  CreateShortCut "$SMPROGRAMS\${PrgName}.lnk" "$INSTDIR\${PROGBAT}" "" "$INSTDIR\Simulator.ico" 0 SW_SHOWMINIMIZED
   
   !insertmacro MULTIUSER_RegistryAddInstallInfo
   !insertmacro MULTIUSER_RegistryAddInstallSizeInfo
@@ -240,6 +241,7 @@ Section "Install" Inst
   
   ; Remove files from old installations
   Delete "$INSTDIR\Simulator_Reset.exe"
+  Delete "$INSTDIR\Simulator.exe"
   
   ; Remove failed update setup files
   Delete "$APPDATA\Temp\${SetupFileName}.part"
@@ -270,6 +272,7 @@ Section "un.Uninstall" uninst
   Delete "$INSTDIR\Simulator.exe"
   Delete "$INSTDIR\Simulator.old"
   Delete "$INSTDIR\Simulator.new"
+  Delete "$INSTDIR\Simulator.ico"
   Delete "$INSTDIR\Simulator.jar"
   Delete "$INSTDIR\Simulator_Reset.exe" ; Not installed anymore - but kept in uninstaller when uninstalling old releases
   Delete "$INSTDIR\Simulator.cfg"

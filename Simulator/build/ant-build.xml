@@ -311,6 +311,7 @@
 			</fileset>
 		</copy>
 		<copy file="${Simulator.location}/JDBC.cfg" todir="${Release.location}"/>
+		<copy file="${Simulator.location}/src/main/java/ui/res/Symbol.ico" tofile="${Release.location}/Simulator.ico"/>
 		
 		<echo message="Copy help files" />		
 		<copy todir="${Release.location}/docs">
@@ -453,6 +454,7 @@
 
 		<echo message="Clean up" />
 		<delete file="${Release.location}/Simulator.exe" />
+		<delete file="${Release.location}/Simulator.ico" />
 		<delete file="${Release.location}/Simulator.sh" />
 		<delete file="${Release.location}/Simulator.bat" />
 		<delete file="${Release.location}/Splashscreen.png" />
