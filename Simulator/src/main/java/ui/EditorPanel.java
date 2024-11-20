@@ -363,7 +363,7 @@ public final class EditorPanel extends EditorPanelBase {
 	 * Diese Klasse ermöglicht, in {@link Action}-Objekten
 	 * {@link Runnable}-Objekte zu verwenden.
 	 */
-	private static class FunctionalAction extends AbstractAction {
+	public static class FunctionalAction extends AbstractAction {
 		/**
 		 * Serialisierungs-ID der Klasse
 		 * @see Serializable

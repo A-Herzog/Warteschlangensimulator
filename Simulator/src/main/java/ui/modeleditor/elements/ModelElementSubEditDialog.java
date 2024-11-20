@@ -18,23 +18,24 @@ package ui.modeleditor.elements;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.Icon;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 
 import language.Language;
 import simulator.editmodel.EditModel;
@@ -121,94 +122,58 @@ public class ModelElementSubEditDialog extends BaseDialog {
 		final JPanel content=new JPanel(new BorderLayout());
 		all.add(content,BorderLayout.CENTER);
 
+		final InputMap im=content.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		final ActionMap am=content.getActionMap();
+
+		/* Toolbar oben */
+		if (!readOnly) {
+			final JToolBar toolbar=new JToolBar(SwingConstants.HORIZONTAL);
+			content.add(toolbar,BorderLayout.NORTH);
+			final JButton editButton=new JButton(Language.tr("Main.Menu.Edit"),Images.GENERAL_EDIT.getIcon());
+			toolbar.add(editButton);
+			editButton.addActionListener(e->showEditMenu(editButton));
+		}
+
 		/* Zeichenfläche */
 		content.add(editorPanel=new EditorPanel(this,ownModel,false,readOnly,false,false),BorderLayout.CENTER);
 		editorPanel.setSavedViewsButtonVisible(false);
 		if (!isFullSubModel) editorPanel.setRestrictedCatalog(true);
 
 		/* Hotkeys */
-		final InputMap im=content.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-		final ActionMap am=content.getActionMap();
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_A,InputEvent.CTRL_DOWN_MASK),"EditSelectAll");
+		am.put("EditSelectAll",new EditorPanel.FunctionalAction(()->processMenuCommand("EditSelectAll")));
+
+		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_C,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK),"EditCopyModel");
+		am.put("EditCopyModel",new EditorPanel.FunctionalAction(()->processMenuCommand("EditCopyModel")));
+
+		if (!readOnly) {
+			im.put(KeyStroke.getKeyStroke(KeyEvent.VK_X,InputEvent.CTRL_DOWN_MASK),"EditCut");
+			am.put("EditCut",new EditorPanel.FunctionalAction(()->processMenuCommand("EditCut")));
+		}
 
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT,InputEvent.CTRL_DOWN_MASK),"zoomOut");
-		am.put("zoomOut",new AbstractAction() {
-			/**
-			 * Serialisierungs-ID der Klasse
-			 * @see Serializable
-			 */
-			private static final long serialVersionUID = -8149785411312199622L;
-			@Override public void actionPerformed(ActionEvent e) {editorPanel.zoomOut();}
-		});
+		am.put("zoomOut",new EditorPanel.FunctionalAction(()->editorPanel.zoomOut()));
 
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ADD,InputEvent.CTRL_DOWN_MASK),"zoomIn");
-		am.put("zoomIn",new AbstractAction() {
-			/**
-			 * Serialisierungs-ID der Klasse
-			 * @see Serializable
-			 */
-			private static final long serialVersionUID = -4571322864625867012L;
-			@Override public void actionPerformed(ActionEvent e) {editorPanel.zoomIn();}
-		});
+		am.put("zoomIn",new EditorPanel.FunctionalAction(()->editorPanel.zoomIn()));
 
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY,InputEvent.CTRL_DOWN_MASK),"zoomDefault");
-		am.put("zoomDefault",new AbstractAction() {
-			/**
-			 * Serialisierungs-ID der Klasse
-			 * @see Serializable
-			 */
-			private static final long serialVersionUID = -8292205126167185688L;
-			@Override public void actionPerformed(ActionEvent e) {editorPanel.zoomDefault();}
-		});
+		am.put("zoomDefault",new EditorPanel.FunctionalAction(()->editorPanel.zoomDefault()));
 
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_NUMPAD0,InputEvent.CTRL_DOWN_MASK),"center");
-		am.put("center",new AbstractAction() {
-			/**
-			 * Serialisierungs-ID der Klasse
-			 * @see Serializable
-			 */
-			private static final long serialVersionUID = -6623607719135188208L;
-			@Override public void actionPerformed(ActionEvent e) {editorPanel.centerModel();}
-		});
+		am.put("center",new EditorPanel.FunctionalAction(()->editorPanel.centerModel()));
 
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_HOME,InputEvent.CTRL_DOWN_MASK),"scrollTop");
-		am.put("scrollTop",new AbstractAction() {
-			/**
-			 * Serialisierungs-ID der Klasse
-			 * @see Serializable
-			 */
-			private static final long serialVersionUID = 1935060801261351379L;
-			@Override public void actionPerformed(ActionEvent e) {editorPanel.scrollToTop();}
-		});
+		am.put("scrollTop",new EditorPanel.FunctionalAction(()->editorPanel.scrollToTop()));
 
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_F2,0),"templates");
-		am.put("templates",new AbstractAction() {
-			/**
-			 * Serialisierungs-ID der Klasse
-			 * @see Serializable
-			 */
-			private static final long serialVersionUID=1935060801261351379L;
-			@Override public void actionPerformed(ActionEvent e) {editorPanel.setTemplatesVisible(!editorPanel.isTemplatesVisible(),false);}
-		});
+		am.put("templates",new EditorPanel.FunctionalAction(()->editorPanel.setTemplatesVisible(!editorPanel.isTemplatesVisible(),false)));
 
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_F12,0),"navigator");
-		am.put("navigator",new AbstractAction() {
-			/**
-			 * Serialisierungs-ID der Klasse
-			 * @see Serializable
-			 */
-			private static final long serialVersionUID=-2815050201810091625L;
-			@Override public void actionPerformed(ActionEvent e) {editorPanel.setNavigatorVisible(!editorPanel.isNavigatorVisible(),false);}
-		});
+		am.put("navigator",new EditorPanel.FunctionalAction(()->editorPanel.setNavigatorVisible(!editorPanel.isNavigatorVisible(),false)));
 
 		im.put(KeyStroke.getKeyStroke(KeyEvent.VK_F12,InputEvent.CTRL_DOWN_MASK),"explorer");
-		am.put("explorer",new AbstractAction() {
-			/**
-			 * Serialisierungs-ID der Klasse
-			 * @see Serializable
-			 */
-			private static final long serialVersionUID=1935060801261351379L;
-			@Override public void actionPerformed(ActionEvent e) {editorPanel.showExplorer();}
-		});
+		am.put("explorer",new EditorPanel.FunctionalAction(()->editorPanel.showExplorer()));
 
 		/* Dialog starten */
 		setSizeRespectingScreensize(1024,768);
@@ -344,5 +309,197 @@ public class ModelElementSubEditDialog extends BaseDialog {
 		});
 
 		popup.show(button,0,button.getHeight());
+	}
+
+	/**
+	 * Stellt ein hervorzuhebendes Zeichen für den Menüpunkt ein
+	 * @param menu	Menüpunkt
+	 * @param languageString	Der erste Buchstabe dieses Strings wird in dem Menüpunkt hervorgehoben
+	 */
+	private static void setMnemonic(final JMenuItem menu, final String languageString) {
+		if (languageString==null || languageString.isBlank()) return;
+		final char c=languageString.charAt(0);
+		if (c!=' ') menu.setMnemonic(c);
+	}
+
+	/**
+	 * Erstellt ein Menüpunkt-Objekt.
+	 * @param title	Name des neuen Menüpunkts
+	 * @param icon	Pfad zu dem Icon, das neben dem neuen Menüpunkt angezeigt werden soll (kann <code>null</code> sein, wenn kein Icon angezeigt werden soll)
+	 * @param mnemonic	Hervorzuhebender Buchstabe in dem Namen des Menüpunkts (kann <code>'\0'</code> sein, wenn nichts hervorgehoben werden soll)
+	 * @param hotkey	Taste, die als Hotkey für den Menüpunkt verwendet werden soll (kann <code>null</code> sein, für kein Hotkey)
+	 * @param hotkeyMask Strg oder Umschalt (oder beides) für den Menüpunkt-Hotkey
+	 * @param actionCommand	Auszuführender Befehl
+	 * @return	Neuer Menüpunkt
+	 */
+	private JMenuItem buildMenuItem(final String title, final Icon icon, final String mnemonic, final int hotkey, final int hotkeyMask, final String actionCommand) {
+		final JMenuItem item=new JMenuItem(title);
+		if (icon!=null) item.setIcon(icon);
+		setMnemonic(item,mnemonic);
+		if (hotkey!=0) item.setAccelerator(KeyStroke.getKeyStroke(hotkey,hotkeyMask));
+		item.addActionListener(e->processMenuCommand(actionCommand));
+		return item;
+	}
+
+	/**
+	 * Erstellt ein Menüpunkt-Objekt und fügt es in ein Menü ein.
+	 * @param parent	Übergeordnetes Menü
+	 * @param title	Name des neuen Menüpunkts
+	 * @param icon	Pfad zu dem Icon, das neben dem neuen Menüpunkt angezeigt werden soll (kann <code>null</code> sein, wenn kein Icon angezeigt werden soll)
+	 * @param mnemonic	Hervorzuhebender Buchstabe in dem Namen des Menüpunkts (kann <code>'\0'</code> sein, wenn nichts hervorgehoben werden soll)
+	 * @param hotkey	Taste, die als Hotkey für den Menüpunkt verwendet werden soll (kann <code>null</code> sein, für kein Hotkey)
+	 * @param actionCommand	Auszuführender Befehl
+	 * @return	Neuer Menüpunkt
+	 */
+	private JMenuItem createMenuItem(final JPopupMenu parent, final String title, final Icon icon, final String mnemonic, final int hotkey, final String actionCommand) {
+		final JMenuItem item=buildMenuItem(title,icon,mnemonic,hotkey,0,actionCommand);
+		parent.add(item);
+		return item;
+	}
+
+	/**
+	 * Erstellt ein Menüpunkt-Objekt und fügt es in ein Menü ein.
+	 * @param parent	Übergeordnetes Menü
+	 * @param title	Name des neuen Menüpunkts
+	 * @param icon	Pfad zu dem Icon, das neben dem neuen Menüpunkt angezeigt werden soll (kann <code>null</code> sein, wenn kein Icon angezeigt werden soll)
+	 * @param mnemonic	Hervorzuhebender Buchstabe in dem Namen des Menüpunkts (kann <code>'\0'</code> sein, wenn nichts hervorgehoben werden soll)
+	 * @param hotkey	Taste, die als Hotkey für den Menüpunkt verwendet werden soll (kann <code>null</code> sein, für kein Hotkey)
+	 * @param actionCommand	Auszuführender Befehl
+	 * @return	Neuer Menüpunkt
+	 */
+	private JMenuItem createMenuItem(final JMenu parent, final String title, final Icon icon, final String mnemonic, final int hotkey, final String actionCommand) {
+		final JMenuItem item=buildMenuItem(title,icon,mnemonic,hotkey,0,actionCommand);
+		parent.add(item);
+		return item;
+	}
+
+	/**
+	 * Erstellt ein Menüpunkt-Objekt und fügt es in ein Menü ein.
+	 * @param parent	Übergeordnetes Menü
+	 * @param title	Name des neuen Menüpunkts
+	 * @param icon	Pfad zu dem Icon, das neben dem neuen Menüpunkt angezeigt werden soll (kann <code>null</code> sein, wenn kein Icon angezeigt werden soll)
+	 * @param mnemonic	Hervorzuhebender Buchstabe in dem Namen des Menüpunkts (kann <code>'\0'</code> sein, wenn nichts hervorgehoben werden soll)
+	 * @param hotkey	Taste, die als Hotkey für den Menüpunkt verwendet werden soll (kann <code>null</code> sein, für kein Hotkey); Hotkey wird mit "Strg" kombiniert
+	 * @param actionCommand	Auszuführender Befehl
+	 * @return	Neuer Menüpunkt
+	 */
+	private JMenuItem createMenuItemCtrl(final JPopupMenu parent, final String title, final Icon icon, final String mnemonic, final int hotkey, final String actionCommand) {
+		final JMenuItem item=buildMenuItem(title,icon,mnemonic,hotkey,InputEvent.CTRL_DOWN_MASK,actionCommand);
+		parent.add(item);
+		return item;
+	}
+
+	/**
+	 * Erstellt ein Menüpunkt-Objekt und fügt es in ein Menü ein.
+	 * @param parent	Übergeordnetes Menü
+	 * @param title	Name des neuen Menüpunkts
+	 * @param icon	Pfad zu dem Icon, das neben dem neuen Menüpunkt angezeigt werden soll (kann <code>null</code> sein, wenn kein Icon angezeigt werden soll)
+	 * @param mnemonic	Hervorzuhebender Buchstabe in dem Namen des Menüpunkts (kann <code>'\0'</code> sein, wenn nichts hervorgehoben werden soll)
+	 * @param hotkey	Taste, die als Hotkey für den Menüpunkt verwendet werden soll (kann <code>null</code> sein, für kein Hotkey); Hotkey wird mit "Strg" kombiniert
+	 * @param actionCommand	Auszuführender Befehl
+	 * @return	Neuer Menüpunkt
+	 */
+	private JMenuItem createMenuItemCtrl(final JMenu parent, final String title, final Icon icon, final String mnemonic, final int hotkey, final String actionCommand) {
+		final JMenuItem item=buildMenuItem(title,icon,mnemonic,hotkey,InputEvent.CTRL_DOWN_MASK,actionCommand);
+		parent.add(item);
+		return item;
+	}
+
+	/**
+	 * Erstellt ein Menüpunkt-Objekt und fügt es in ein Menü ein.
+	 * @param parent	Übergeordnetes Menü
+	 * @param title	Name des neuen Menüpunkts
+	 * @param icon	Pfad zu dem Icon, das neben dem neuen Menüpunkt angezeigt werden soll (kann <code>null</code> sein, wenn kein Icon angezeigt werden soll)
+	 * @param mnemonic	Hervorzuhebender Buchstabe in dem Namen des Menüpunkts (kann <code>'\0'</code> sein, wenn nichts hervorgehoben werden soll)
+	 * @param hotkey	Taste, die als Hotkey für den Menüpunkt verwendet werden soll (kann <code>null</code> sein, für kein Hotkey); Hotkey wird mit "Umschalt" kombiniert
+	 * @param actionCommand	Auszuführender Befehl
+	 * @return	Neuer Menüpunkt
+	 */
+	private JMenuItem createMenuItemShift(final JPopupMenu parent, final String title, final Icon icon, final String mnemonic, final int hotkey, final String actionCommand) {
+		final JMenuItem item=buildMenuItem(title,icon,mnemonic,hotkey,InputEvent.SHIFT_DOWN_MASK,actionCommand);
+		parent.add(item);
+		return item;
+	}
+
+
+	/**
+	 * Erstellt ein Menüpunkt-Objekt und fügt es in ein Menü ein.
+	 * @param parent	Übergeordnetes Menü
+	 * @param title	Name des neuen Menüpunkts
+	 * @param icon	Pfad zu dem Icon, das neben dem neuen Menüpunkt angezeigt werden soll (kann <code>null</code> sein, wenn kein Icon angezeigt werden soll)
+	 * @param mnemonic	Hervorzuhebender Buchstabe in dem Namen des Menüpunkts (kann <code>'\0'</code> sein, wenn nichts hervorgehoben werden soll)
+	 * @param hotkey	Taste, die als Hotkey für den Menüpunkt verwendet werden soll (kann <code>null</code> sein, für kein Hotkey); Hotkey wird mit "Strg"+"Umschalt" kombiniert
+	 * @param actionCommand	Auszuführender Befehl
+	 * @return	Neuer Menüpunkt
+	 */
+	private JMenuItem createMenuItemCtrlShift(final JPopupMenu parent, final String title, final Icon icon, final String mnemonic, final int hotkey, final String actionCommand) {
+		final JMenuItem item=buildMenuItem(title,icon,mnemonic,hotkey,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK,actionCommand);
+		parent.add(item);
+		return item;
+	}
+
+	/**
+	 * Zeigt das Bearbeiten-Menü an.
+	 * @param invoker	Aufrufer (Schaltfläche an der das Menü ausgerichtet werden soll)
+	 */
+	private void showEditMenu(final JComponent invoker) {
+		final JPopupMenu menu=new JPopupMenu();
+
+		JMenu submenu;
+
+		createMenuItemCtrl(menu,Language.tr("Main.Menu.Edit.Cut"),Images.EDIT_CUT.getIcon(),Language.tr("Main.Menu.Edit.Cut.Mnemonic"),KeyEvent.VK_X,"EditCut");
+		createMenuItemCtrl(menu,Language.tr("Main.Menu.Edit.Copy"),Images.EDIT_COPY.getIcon(),Language.tr("Main.Menu.Edit.Copy.Mnemonic"),KeyEvent.VK_C,"EditCopy");
+		createMenuItemCtrlShift(menu,Language.tr("Main.Menu.Edit.CopyAsImage"),Images.EDIT_COPY_AS_IMAGE.getIcon(),Language.tr("Main.Menu.Edit.CopyAsImage.Mnemonic"),KeyEvent.VK_C,"EditCopyModel");
+		createMenuItemCtrl(menu,Language.tr("Main.Menu.Edit.Paste"),Images.EDIT_PASTE.getIcon(),Language.tr("Main.Menu.Edit.Paste.Mnemonic"),KeyEvent.VK_V,"EditPaste");
+		createMenuItem(menu,Language.tr("Main.Menu.Edit.Delete"),Images.EDIT_DELETE.getIcon(),Language.tr("Main.Menu.Edit.Delete.Mnemonic"),KeyEvent.VK_DELETE,"EditDelete");
+		createMenuItemShift(menu,Language.tr("Main.Menu.Edit.DeleteAndCloseGap"),Images.EDIT_EDGES_ADD.getIcon(),Language.tr("Main.Menu.Edit.DeleteAndCloseGap.Mnemonic"),KeyEvent.VK_DELETE,"EditDeleteAndCloseGap");
+		createMenuItemCtrl(menu,Language.tr("Main.Menu.Edit.SelectAll"),null,Language.tr("Main.Menu.Edit.SelectAll.Mnemonic"),KeyEvent.VK_A,"EditSelectAll");
+		menu.addSeparator();
+		menu.add(submenu=new JMenu(Language.tr("Main.Menu.Edit.Arrange")));
+		createMenuItemCtrl(submenu,Language.tr("Main.Menu.Edit.MoveFront"),Images.MOVE_FRONT.getIcon(),Language.tr("Main.Menu.Edit.MoveFront.Mnemonic"),KeyEvent.VK_PAGE_UP,"EditSendFront");
+		createMenuItem(submenu,Language.tr("Main.Menu.Edit.MoveForwards"),Images.MOVE_FRONT_STEP.getIcon(),Language.tr("Main.Menu.Edit.MoveForwards.Mnemonic"),KeyEvent.VK_PAGE_UP,"EditSendForwards");
+		createMenuItem(submenu,Language.tr("Main.Menu.Edit.MoveBackwards"),Images.MOVE_BACK_STEP.getIcon(),Language.tr("Main.Menu.Edit.MoveBackwards.Mnemonic"),KeyEvent.VK_PAGE_DOWN,"EditSendBackwards");
+		createMenuItemCtrl(submenu,Language.tr("Main.Menu.Edit.MoveBack"),Images.MOVE_BACK.getIcon(),Language.tr("Main.Menu.Edit.MoveBack.Mnemonic"),KeyEvent.VK_PAGE_DOWN,"EditSendBackground");
+		menu.add(submenu=new JMenu(Language.tr("Main.Menu.Edit.Align")));
+		createMenuItem(submenu,Language.tr("Main.Menu.Edit.Align.Top"),Images.ALIGN_TOP.getIcon(),Language.tr("Main.Menu.Edit.Align.Top.Mnemonic"),0,"EditAlignTop");
+		createMenuItem(submenu,Language.tr("Main.Menu.Edit.Align.Middle"),Images.ALIGN_MIDDLE.getIcon(),Language.tr("Main.Menu.Edit.Align.Middle.Mnemonic"),0,"EditAlignMiddle");
+		createMenuItem(submenu,Language.tr("Main.Menu.Edit.Align.Bottom"),Images.ALIGN_BOTTOM.getIcon(),Language.tr("Main.Menu.Edit.Align.Bottom.Mnemonic"),0,"AlignBottom");
+		submenu.addSeparator();
+		createMenuItem(submenu,Language.tr("Main.Menu.Edit.Align.Left"),Images.ALIGN_LEFT.getIcon(),Language.tr("Main.Menu.Edit.Align.Left.Mnemonic"),0,"EditAlignLeft");
+		createMenuItem(submenu,Language.tr("Main.Menu.Edit.Align.Center"),Images.ALIGN_CENTER.getIcon(),Language.tr("Main.Menu.Edit.Align.Center.Mnemonic"),0,"EditAlignCenter");
+		createMenuItem(submenu,Language.tr("Main.Menu.Edit.Align.Right"),Images.ALIGN_RIGHT.getIcon(),Language.tr("Main.Menu.Edit.Align.Right.Mnemonic"),0,"EditAlignRight");
+
+		menu.show(invoker,0,invoker.getHeight());
+	}
+
+	/**
+	 * Führt einen Menübefehl aus.
+	 * @param command	Menübefehl
+	 * @see #showEditMenu(JComponent)
+	 */
+	private void processMenuCommand(final String command) {
+		if (command.equals("EditCut")) editorPanel.cutSelectedElementsToClipboard();
+		if (command.equals("EditCopy")) editorPanel.copySelectedElementsToClipboard();
+		if (command.equals("EditCopyModel")) {
+			if (editorPanel.getOriginalSurface().getElementCount()==0) {
+				MsgBox.error(this,Language.tr("Main.Menu.Edit.CopyAsImage.ErrorTitle"),Language.tr("Main.Menu.Edit.CopyAsImage.ErrorInfo"));
+				return;
+			}
+			editorPanel.exportModelToClipboard();
+		}
+		if (command.equals("EditPaste")) editorPanel.pasteFromClipboard();
+		if (command.equals("EditDelete")) editorPanel.deleteSelectedElements();
+		if (command.equals("EditDeleteAndCloseGap")) editorPanel.deleteSelectedElementAndCloseGap();
+		if (command.equals("EditSelectAll")) editorPanel.selectAll();
+		if (command.equals("EditSendFront")) editorPanel.moveSelectedElementToFront(true);
+		if (command.equals("EditSendForwards")) editorPanel.moveSelectedElementToFront(false);
+		if (command.equals("EditSendBackwards")) editorPanel.moveSelectedElementToBack(false);
+		if (command.equals("EditSendBackground")) editorPanel.moveSelectedElementToBack(true);
+		if (command.equals("EditAlignTop")) editorPanel.alignSelectedElementsTop();
+		if (command.equals("EditAlignMiddle")) editorPanel.alignSelectedElementsMiddle();
+		if (command.equals("EditAlignBottom")) editorPanel.alignSelectedElementsBottom();
+		if (command.equals("EditAlignLeft")) editorPanel.alignSelectedElementsLeft();
+		if (command.equals("EditAlignCenter")) editorPanel.alignSelectedElementsCenter();
+		if (command.equals("EditAlignRight")) editorPanel.alignSelectedElementsRight();
 	}
 }
