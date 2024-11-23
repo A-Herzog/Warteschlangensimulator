@@ -357,6 +357,9 @@ public enum Images {
 	/** Symbol "Hinein zoomen" */
 	ZOOM_IN("zoom_in.png"),
 
+	/** Symbol "Seitenverhältnis" (Zoom) */
+	ZOOM_ASPECT("arrow_in.png"),
+
 	/** Symbol "Heraus zoomen" */
 	ZOOM_OUT("zoom_out.png"),
 

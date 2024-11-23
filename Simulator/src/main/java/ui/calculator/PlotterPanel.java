@@ -17,9 +17,12 @@ package ui.calculator;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -44,7 +47,9 @@ import javax.swing.Box;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
@@ -68,6 +73,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import language.Language;
 import mathtools.NumberTools;
+import mathtools.Table;
 import mathtools.distribution.swing.CommonVariables;
 import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
@@ -140,9 +146,11 @@ public class PlotterPanel extends JPanel {
 		toolbar.setFloatable(false);
 		add(toolbar,BorderLayout.NORTH);
 		addToolbarIcon(toolbar,Language.tr("CalculatorDialog.Plotter.Toolbar.Zoom"),Language.tr("CalculatorDialog.Plotter.Toolbar.Zoom.Hint"),Images.ZOOM.getIcon(),e->unzoom());
-		addToolbarIcon(toolbar,Language.tr("CalculatorDialog.Plotter.Toolbar.Copy"),Language.tr("CalculatorDialog.Plotter.Toolbar.Copy.Hint"),Images.EDIT_COPY.getIcon(),e->copyToClipboard());
+		addToolbarIcon(toolbar,Language.tr("CalculatorDialog.Plotter.Toolbar.Aspect"),Language.tr("CalculatorDialog.Plotter.Toolbar.Aspect.Hint"),Images.ZOOM_ASPECT.getIcon(),e->aspect());
+		addToolbarIcon(toolbar,Language.tr("CalculatorDialog.Plotter.Toolbar.AutoY"),Language.tr("CalculatorDialog.Plotter.Toolbar.AutoY.Hint"),Images.ZOOM_ASPECT.getIcon(),e->aspect());
+		addToolbarIcon(toolbar,Language.tr("CalculatorDialog.Plotter.Toolbar.Copy"),Language.tr("CalculatorDialog.Plotter.Toolbar.Copy.Hint"),Images.EDIT_COPY.getIcon(),e->copyToClipboard((JButton)e.getSource()));
 		addToolbarIcon(toolbar,Language.tr("CalculatorDialog.Plotter.Toolbar.Print"),Language.tr("CalculatorDialog.Plotter.Toolbar.Print.Hint"),Images.GENERAL_PRINT.getIcon(),e->print());
-		addToolbarIcon(toolbar,Language.tr("CalculatorDialog.Plotter.Toolbar.Save"),Language.tr("CalculatorDialog.Plotter.Toolbar.Save.Hint"),Images.GENERAL_SAVE.getIcon(),e->save());
+		addToolbarIcon(toolbar,Language.tr("CalculatorDialog.Plotter.Toolbar.Save"),Language.tr("CalculatorDialog.Plotter.Toolbar.Save.Hint"),Images.GENERAL_SAVE.getIcon(),e->save((JButton)e.getSource()));
 
 		/* Panel mit Zoomfeldern */
 		final JPanel outer=new JPanel(new BorderLayout());
@@ -274,11 +282,73 @@ public class PlotterPanel extends JPanel {
 	}
 
 	/**
-	 * Kopiert die aktuelle Darstellung in die Zwischenablage.
+	 * Anzahl der Schritte in der Wertetabelle
+	 * @see #buildTable()
 	 */
-	public void copyToClipboard() {
-		final SetupData setup=SetupData.getSetup();
-		ImageTools.copyImageToClipboard(ImageTools.drawToImage(chart,setup.imageSize,setup.imageSize));
+	private static final int TABLE_STEPS=1000;
+
+	/**
+	 * Erstellt eine Wertetabelle.
+	 * @return	Wertetabelle
+	 */
+	private Table buildTable() {
+		final Table table=new Table();
+		final List<String> row=new ArrayList<>();
+
+		row.add("x");
+		final List<ExpressionCalc> calcs=new ArrayList<>();
+		for (var graph: graphs) {
+			final ExpressionCalc calc=graph.getParser();
+			if (calc!=null) {
+				row.add(graph.expression);
+				calcs.add(calc);
+			}
+		}
+		table.addLine(row);
+
+		final double[] xArr=new double[1];
+		final double minX=plot.getDomainAxis().getRange().getLowerBound();
+		final double maxX=plot.getDomainAxis().getRange().getUpperBound();
+		for (int i=0;i<=TABLE_STEPS;i++) {
+			final double x=minX+(maxX-minX)*i/TABLE_STEPS;
+			row.clear();
+			row.add(NumberTools.formatNumberMax(x));
+			for (var calc: calcs) {
+				try {
+					xArr[0]=x;
+					final double y=calc.calc(xArr);
+					row.add(NumberTools.formatNumberMax(y));
+				} catch (MathCalcError e) {
+					row.add("-");
+				}
+			}
+			table.addLine(row);
+		}
+
+		return table;
+	}
+
+	/**
+	 * Kopiert die aktuelle Darstellung in die Zwischenablage.
+	 * @param parent	Kopieren-Schaltfläche (zum Ausrichten des Popup-Menüs)
+	 */
+	public void copyToClipboard(final Component parent) {
+		final JPopupMenu popup=new JPopupMenu();
+		JMenuItem item;
+
+		popup.add(item=new JMenuItem(Language.tr("CalculatorDialog.Plotter.Toolbar.Copy.Table"),Images.GENERAL_TABLE.getIcon()));
+		item.addActionListener(e->{
+			final Table table=buildTable();
+			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(table.toString()),null);
+		});
+
+		popup.add(item=new JMenuItem(Language.tr("CalculatorDialog.Plotter.Toolbar.Copy.Graphics"),Images.EXTRAS_CALCULATOR_PLOTTER.getIcon()));
+		item.addActionListener(e->{
+			final SetupData setup=SetupData.getSetup();
+			ImageTools.copyImageToClipboard(ImageTools.drawToImage(chart,setup.imageSize,setup.imageSize));
+		});
+
+		popup.show(parent,0,parent.getHeight());
 	}
 
 	/**
@@ -302,52 +372,37 @@ public class PlotterPanel extends JPanel {
 	/**
 	 * Fragt einen Dateinamen ab und speichert die aktuelle Darstellung
 	 * unter dem gewählten Namen.
+	 * @param parent	Speichern-Schaltfläche (zum Ausrichten des Popup-Menüs)
 	 * @return	Gibt an, ob die Darstellung gespeichert werden konnte. (Gründe für <code>false</code> können sowohl Fehler aus auch nutzerseitige Abbrüche sein.)
 	 * @see #save(File)
 	 */
-	public boolean save() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
-		fc.setDialogTitle(StatisticsBasePanel.viewersSaveImage);
-		final FileFilter jpg=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeJPG+" (*.jpg, *.jpeg)","jpg","jpeg");
-		final FileFilter gif=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
-		final FileFilter png=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
-		final FileFilter bmp=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
-		final FileFilter tiff=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
-		final FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
-		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
-		fc.addChoosableFileFilter(png);
-		fc.addChoosableFileFilter(jpg);
-		fc.addChoosableFileFilter(gif);
-		fc.addChoosableFileFilter(bmp);
-		fc.addChoosableFileFilter(tiff);
-		fc.addChoosableFileFilter(docx);
-		fc.addChoosableFileFilter(pdf);
-		fc.setFileFilter(png);
-		fc.setAcceptAllFileFilterUsed(false);
+	public boolean save(final Component parent) {
+		final JPopupMenu popup=new JPopupMenu();
+		JMenuItem item;
 
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return false;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
+		popup.add(item=new JMenuItem(Language.tr("CalculatorDialog.Plotter.Toolbar.Save.Table"),Images.GENERAL_TABLE.getIcon()));
+		item.addActionListener(e->{
+			final File file=Table.showSaveDialog(this,Language.tr("CalculatorDialog.Plotter.Toolbar.Save.Table"),null);
+			if (file==null) return;
+			final Table table=buildTable();
+			if (!table.save(file)) {
+				MsgBox.error(this,StatisticsBasePanel.viewersSaveTableErrorTitle,String.format(StatisticsBasePanel.viewersSaveTableErrorInfo,file.toString()));
+			}
+		});
 
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
-			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
-			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
-			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
-			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
-			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
-			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
-		}
+		popup.add(item=new JMenuItem(Language.tr("CalculatorDialog.Plotter.Toolbar.Save.Graphics"),Images.EXTRAS_CALCULATOR_PLOTTER.getIcon()));
+		item.addActionListener(e->{
+			final File file=selectImageFile();
+			if (file==null) return;
+			if (!save(file)) {
+				MsgBox.error(this,StatisticsBasePanel.viewersSaveImageErrorTitle,String.format(StatisticsBasePanel.viewersSaveImageErrorInfo,file.toString()));
+			}
 
-		if (file.exists()) {
-			if (!MsgBox.confirmOverwrite(this,file)) return false;
-		}
+		});
 
-		if (!save(file)) {
-			MsgBox.error(this,StatisticsBasePanel.viewersSaveImageErrorTitle,String.format(StatisticsBasePanel.viewersSaveImageErrorInfo,file.toString()));
-			return false;
-		}
+		popup.show(parent,0,parent.getHeight());
+
+
 
 		return true;
 	}
@@ -370,11 +425,57 @@ public class PlotterPanel extends JPanel {
 	}
 
 	/**
+	 * Zeigt einen Dialog zur Auswahl eines Dateinamens zum Speichern einer Grafik an.
+	 * @return	Liefert im Erfolgsfall den Dateinamen, sonst <code>null</code>
+	 */
+	private File selectImageFile() {
+		final JFileChooser fc=new JFileChooser();
+		CommonVariables.initialDirectoryToJFileChooser(fc);
+		fc.setDialogTitle(StatisticsBasePanel.viewersSaveImage);
+		final FileFilter jpg=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeJPG+" (*.jpg, *.jpeg)","jpg","jpeg");
+		final FileFilter gif=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
+		final FileFilter png=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
+		final FileFilter bmp=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
+		final FileFilter tiff=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
+		final FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
+		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
+		fc.addChoosableFileFilter(png);
+		fc.addChoosableFileFilter(jpg);
+		fc.addChoosableFileFilter(gif);
+		fc.addChoosableFileFilter(bmp);
+		fc.addChoosableFileFilter(tiff);
+		fc.addChoosableFileFilter(docx);
+		fc.addChoosableFileFilter(pdf);
+		fc.setFileFilter(png);
+		fc.setAcceptAllFileFilterUsed(false);
+
+		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return null;
+		CommonVariables.initialDirectoryFromJFileChooser(fc);
+		File file=fc.getSelectedFile();
+
+		if (file.getName().indexOf('.')<0) {
+			if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
+			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
+			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
+			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
+			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
+			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
+			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
+		}
+
+		if (file.exists()) {
+			if (!MsgBox.confirmOverwrite(this,file)) return null;
+		}
+
+		return file;
+	}
+
+	/**
 	 * Speichert die Darstellung unter dem angegebenen Namen.
 	 * Existiert die Ausgabedatei bereits, so wird diese überschrieben.
 	 * @param file	Dateiname unter dem die Darstellung gespeichert werden soll.
 	 * @return	Gibt an, ob das Speichern erfolgreich ausgeführt werden konnte.
-	 * @see #save()
+	 * @see #save(Component)
 	 */
 	public boolean save(File file) {
 		String s="png";
@@ -509,6 +610,108 @@ public class PlotterPanel extends JPanel {
 		inputMaxX.setText(NumberTools.formatNumber(currentUnzoomMaxX));
 		inputMinY.setText(NumberTools.formatNumber(currentUnzoomMinY));
 		inputMaxY.setText(NumberTools.formatNumber(currentUnzoomMaxY));
+	}
+
+	/**
+	 * Stellt ein Seitenverhältnis von 1: ein.
+	 */
+	public void aspect() {
+		final double zoomMinX=plot.getDomainAxis().getRange().getLowerBound();
+		final double zoomMaxX=plot.getDomainAxis().getRange().getUpperBound();
+		final double oldZoomMinY=plot.getRangeAxis().getRange().getLowerBound();
+		final double oldZoomMaxY=plot.getRangeAxis().getRange().getUpperBound();
+
+		final double screenWidth=chartPanel.getScreenDataArea().getWidth();
+		final double screenHeight=chartPanel.getScreenDataArea().getHeight();
+
+		final double newYRange=(zoomMaxX-zoomMinX)/screenWidth*screenHeight;
+
+		double newZoomMinY=(oldZoomMaxY+oldZoomMinY)/2-newYRange/2;
+		double newZoomMaxY=(oldZoomMaxY+oldZoomMinY)/2+newYRange/2;
+		if (oldZoomMaxY+oldZoomMinY>1) {
+			newZoomMinY=Math.round(newZoomMinY*1000)/1000;
+			newZoomMaxY=Math.round(newZoomMaxY*1000)/1000;
+		}
+
+		justChangingZoom=true;
+		try {
+			plot.getRangeAxis().setRange(newZoomMinY,newZoomMaxY);
+		} finally {
+			justChangingZoom=false;
+		}
+
+		inputMinY.setText(NumberTools.formatNumber(newZoomMinY));
+		inputMaxY.setText(NumberTools.formatNumber(newZoomMaxY));
+	}
+
+	/**
+	 * Skaliert den dargestellten y-Bereich passend zu den angezeigten Funktionen.
+	 */
+	public void autoZoomY() {
+		/* x-Bereich */
+		final double minX=plot.getDomainAxis().getRange().getLowerBound();
+		final double maxX=plot.getDomainAxis().getRange().getUpperBound();
+
+		/* y-Werte ermitteln & sortieren */
+		final List<Double> valuesList=new ArrayList<>();
+		final double[] xArr=new double[1];
+		for (var graph: graphs) if (!graph.expression.isBlank()) {
+			final ExpressionCalc calc=graph.getParser();
+			if (calc!=null) for (int i=0;i<=TABLE_STEPS;i++) {
+				final double x=minX+(maxX-minX)*i/TABLE_STEPS;
+				xArr[0]=x;
+				double y;
+				try {
+					y=calc.calc(xArr);
+					valuesList.add(y);
+				} catch (MathCalcError e) {}
+			}
+		}
+		if (valuesList.size()==0) return;
+		final double[] values=valuesList.stream().mapToDouble(Double::doubleValue).sorted().toArray();
+
+		/* y-Bereich */
+		final double minY=values[0];
+		final double maxY=values[values.length-1];
+
+		/* 80%-Bereich */
+		final double minYmain=values[(int)Math.round(values.length*0.1)];
+		final double maxYmain=values[(int)Math.round(values.length*0.9)];
+
+		double useMinY;
+		if (minY>=minYmain-(maxYmain-minYmain)*0.5) {
+			useMinY=minY;
+		} else {
+			/* Kleine y-Werte ragen weit raus */
+			useMinY=minYmain;
+		}
+
+		double useMaxY;
+		if (maxY<=maxYmain+(maxYmain-minYmain)*0.5) {
+			useMaxY=maxY;
+		} else {
+			/* Kleine y-Werte ragen weit raus */
+			useMaxY=maxYmain;
+		}
+
+		/* y-Bereich runden */
+		if (Math.abs(useMinY)>=1000) useMinY=Math.floor(useMinY/100)*100;
+		if (Math.abs(useMinY)>=100) useMinY=Math.floor(useMinY/10)*10;
+		if (Math.abs(useMinY)>=5) useMinY=Math.floor(useMinY);
+		if (Math.abs(useMaxY)>=1000) useMaxY=Math.ceil(useMaxY/100)*100;
+		if (Math.abs(useMaxY)>=100) useMaxY=Math.ceil(useMaxY/10)*10;
+		if (Math.abs(useMaxY)>=5) useMaxY=Math.ceil(useMaxY);
+
+		/* Werte einstellen */
+		justChangingZoom=true;
+		try {
+			plot.getRangeAxis().setRange(useMinY,useMaxY);
+		} finally {
+			justChangingZoom=false;
+		}
+
+		inputMinY.setText(NumberTools.formatNumber(useMinY));
+		inputMaxY.setText(NumberTools.formatNumber(useMaxY));
 	}
 
 	/**

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-11 10:33+0100\n"
+"POT-Creation-Date: 2024-11-17 00:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1270,16 +1270,34 @@ msgid "CalculatorDialog.Plotter.BuildExpression"
 msgstr "Build expression"
 
 msgid "CalculatorDialog.Plotter.ClearPlot"
-msgstr "Clear plot"
+msgstr "Clear plot (Shift+Click=Delete all plots)"
 
 msgid "CalculatorDialog.Plotter.SelectColor"
 msgstr "Select color"
 
+msgid "CalculatorDialog.Plotter.Toolbar.Aspect"
+msgstr "Aspect ratio"
+
+msgid "CalculatorDialog.Plotter.Toolbar.Aspect.Hint"
+msgstr "Scales the y-axis so that an aspect ratio of 1:1 results in relation to the x-axis."
+
+msgid "CalculatorDialog.Plotter.Toolbar.AutoY"
+msgstr "Auto zoom"
+
+msgid "CalculatorDialog.Plotter.Toolbar.AutoY.Hint"
+msgstr "Scales the y-axis to match the graphs displayed."
+
 msgid "CalculatorDialog.Plotter.Toolbar.Copy"
 msgstr "Copy"
 
+msgid "CalculatorDialog.Plotter.Toolbar.Copy.Graphics"
+msgstr "Copy graphics"
+
 msgid "CalculatorDialog.Plotter.Toolbar.Copy.Hint"
 msgstr "Copies the graphics to the clipboard."
+
+msgid "CalculatorDialog.Plotter.Toolbar.Copy.Table"
+msgstr "Copy table"
 
 msgid "CalculatorDialog.Plotter.Toolbar.Print"
 msgstr "Print"
@@ -1290,8 +1308,14 @@ msgstr "Prints the graphics."
 msgid "CalculatorDialog.Plotter.Toolbar.Save"
 msgstr "Save"
 
+msgid "CalculatorDialog.Plotter.Toolbar.Save.Graphics"
+msgstr "Save graphics"
+
 msgid "CalculatorDialog.Plotter.Toolbar.Save.Hint"
 msgstr "Saves the graphics as a file."
+
+msgid "CalculatorDialog.Plotter.Toolbar.Save.Table"
+msgstr "Save table"
 
 msgid "CalculatorDialog.Plotter.Toolbar.Zoom"
 msgstr "Default zoom"
@@ -23270,6 +23294,14 @@ msgstr "Exporting graphics"
 
 msgid "Statistic.Viewer.SaveTable"
 msgstr "Save table"
+
+msgid "Statistic.Viewer.SaveTable.Error.Info"
+msgstr ""
+"The table could not be saved in the file\n"
+"%s"
+
+msgid "Statistic.Viewer.SaveTable.Error.Title"
+msgstr "Error saving the table"
 
 msgid "Statistic.Viewer.SaveText"
 msgstr "Save text"

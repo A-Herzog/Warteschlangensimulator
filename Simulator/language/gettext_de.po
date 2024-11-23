@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-11 10:33+0100\n"
+"POT-Creation-Date: 2024-11-17 00:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1270,16 +1270,34 @@ msgid "CalculatorDialog.Plotter.BuildExpression"
 msgstr "Ausdruck bearbeiten"
 
 msgid "CalculatorDialog.Plotter.ClearPlot"
-msgstr "Funktion löschen"
+msgstr "Funktion löschen (Umschalt+Klick=Alle Funktionen löschen)"
 
 msgid "CalculatorDialog.Plotter.SelectColor"
 msgstr "Farbe auswählen"
 
+msgid "CalculatorDialog.Plotter.Toolbar.Aspect"
+msgstr "Seitenverhältnis"
+
+msgid "CalculatorDialog.Plotter.Toolbar.Aspect.Hint"
+msgstr "Skaliert die y-Achse so, dass sich im Verhältnis zur x-Achse ein Seitenverhältnis von 1:1 ergibt."
+
+msgid "CalculatorDialog.Plotter.Toolbar.AutoY"
+msgstr "Autozoom"
+
+msgid "CalculatorDialog.Plotter.Toolbar.AutoY.Hint"
+msgstr "Skaliert die y-Achse passend zu den dargestellten Graphen."
+
 msgid "CalculatorDialog.Plotter.Toolbar.Copy"
 msgstr "Kopieren"
 
+msgid "CalculatorDialog.Plotter.Toolbar.Copy.Graphics"
+msgstr "Grafik kopieren"
+
 msgid "CalculatorDialog.Plotter.Toolbar.Copy.Hint"
 msgstr "Kopiert die Darstellung in die Zwischenablage."
+
+msgid "CalculatorDialog.Plotter.Toolbar.Copy.Table"
+msgstr "Wertetabelle kopieren"
 
 msgid "CalculatorDialog.Plotter.Toolbar.Print"
 msgstr "Drucken"
@@ -1290,8 +1308,14 @@ msgstr "Druckt die Darstellung aus."
 msgid "CalculatorDialog.Plotter.Toolbar.Save"
 msgstr "Speichern"
 
+msgid "CalculatorDialog.Plotter.Toolbar.Save.Graphics"
+msgstr "Grafik speichern"
+
 msgid "CalculatorDialog.Plotter.Toolbar.Save.Hint"
 msgstr "Speichert die Darstellung in einer Datei."
+
+msgid "CalculatorDialog.Plotter.Toolbar.Save.Table"
+msgstr "Wertetabelle speichern"
 
 msgid "CalculatorDialog.Plotter.Toolbar.Zoom"
 msgstr "Standardzoom"
@@ -23319,6 +23343,15 @@ msgstr "Exportieren von Grafiken"
 
 msgid "Statistic.Viewer.SaveTable"
 msgstr "Tabelle speichern"
+
+msgid "Statistic.Viewer.SaveTable.Error.Info"
+msgstr ""
+"Die Tabelle konnte nicht in der Datei\n"
+"%s\n"
+"gespeichert werden."
+
+msgid "Statistic.Viewer.SaveTable.Error.Title"
+msgstr "Fehler beim Speichern der Tabelle"
 
 msgid "Statistic.Viewer.SaveText"
 msgstr "Text speichern"

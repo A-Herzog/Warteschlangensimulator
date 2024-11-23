@@ -20,6 +20,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -57,8 +58,10 @@ public class CalculatorWindowPagePlotter extends CalculatorWindowPage {
 
 	/** Funktionsplotter */
 	private final PlotterPanel plotter;
+	/** Graphen im Funktionsplotter */
+	private final List<PlotterPanel.Graph> plotterGraphs=new ArrayList<>();
 	/** Eingabefelder für den Funktionsplotter */
-	private final List<JTextField> plotterField;
+	private final List<JTextField> plotterField=new ArrayList<>();
 
 
 	/**
@@ -67,8 +70,6 @@ public class CalculatorWindowPagePlotter extends CalculatorWindowPage {
 	 */
 	public CalculatorWindowPagePlotter(final JTabbedPane tabs) {
 		super(tabs);
-
-		plotterField=new ArrayList<>();
 
 		/* Plotter */
 		add(plotter=new PlotterPanel(),BorderLayout.CENTER);
@@ -79,7 +80,7 @@ public class CalculatorWindowPagePlotter extends CalculatorWindowPage {
 		plotterInput.setLayout(new BoxLayout(plotterInput,BoxLayout.PAGE_AXIS));
 		plotterInput.add(getPlotterInputLine(plotter,"10*sin(x)",Color.BLUE));
 		plotterInput.add(getPlotterInputLine(plotter,"x^2/5-10",Color.RED));
-		plotterInput.add(getPlotterInputLine(plotter,"",Color.GREEN));
+		plotterInput.add(getPlotterInputLine(plotter,"x",Color.GREEN));
 		plotter.addRedrawDoneListener(()->{
 			final List<PlotterPanel.Graph> graphs=plotter.getGraphs();
 			for (int i=0;i<graphs.size();i++) {
@@ -128,6 +129,7 @@ public class CalculatorWindowPagePlotter extends CalculatorWindowPage {
 		final JPanel buttonsPanel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panel.add(buttonsPanel,BorderLayout.EAST);
 		plotterField.add(field);
+		plotterGraphs.add(graph);
 
 		final JButton buildButton=new JButton();
 		buttonsPanel.add(buildButton);
@@ -155,7 +157,15 @@ public class CalculatorWindowPagePlotter extends CalculatorWindowPage {
 		clearButton.setPreferredSize(new Dimension(26,26));
 		clearButton.setIcon(Images.EXTRAS_CALCULATOR_PLOTTER_CLEAR.getIcon());
 		clearButton.setToolTipText(Language.tr("CalculatorDialog.Plotter.ClearPlot"));
-		clearButton.addActionListener(e->{field.setText(graph.expression=""); plotter.reload(true);});
+		clearButton.addActionListener(e->{
+			if ((e.getModifiers() & ActionEvent.SHIFT_MASK)!=0) {
+				plotterGraphs.forEach(g->g.expression="");
+				plotterField.forEach(f->f.setText(""));
+			} else {
+				field.setText(graph.expression="");
+			}
+			plotter.reload(true);
+		});
 
 		return panel;
 	}

@@ -740,6 +740,8 @@ public class LanguageStaticLoader {
 		StatisticsBasePanel.viewersSaveImageErrorTitle=Language.tr("Statistic.Viewer.SaveImage.Error.Title");
 		StatisticsBasePanel.viewersSaveImageErrorInfo=Language.tr("Statistic.Viewer.SaveImage.Error.Info");
 		StatisticsBasePanel.viewersLoadImage=Language.tr("Statistic.Viewer.LoadImage");
+		StatisticsBasePanel.viewersSaveTableErrorTitle=Language.tr("Statistic.Viewer.SaveTable.Error.Title");
+		StatisticsBasePanel.viewersSaveTableErrorInfo=Language.tr("Statistic.Viewer.SaveTable.Error.Info");
 		StatisticsBasePanel.viewersChartSetupTitle=Language.tr("Statistic.Viewer.DiagramSettings.Title");
 		StatisticsBasePanel.viewersChartSetupDefaults=Language.tr("Statistic.Viewer.DiagramSettings.Defaults");
 		StatisticsBasePanel.viewersChartSetupDefaultsHint=Language.tr("Statistic.Viewer.DiagramSettings.Defaults.Hint");
