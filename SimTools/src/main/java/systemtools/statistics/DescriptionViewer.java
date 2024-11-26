@@ -24,6 +24,8 @@ import java.awt.event.ComponentEvent;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Consumer;
 
 import javax.swing.JButton;
@@ -105,12 +107,14 @@ public class DescriptionViewer extends JPanel {
 
 		textPane=new JTextPane();
 		textPane.setEditable(false);
+		textPane.setHighlighter(null);
+		textPane.setCaretColor(textPane.getBackground());
 		textPane.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES,Boolean.TRUE);
 
 		textPane.addHyperlinkListener(e->linkClicked(e));
 		add(new JScrollPane(textPane),BorderLayout.CENTER);
 
-		SwingUtilities.invokeLater(new InitRunnable());
+		SwingUtilities.invokeLater(new InitRunnable(0));
 	}
 
 	/**
@@ -118,13 +122,16 @@ public class DescriptionViewer extends JPanel {
 	 */
 	private class InitRunnable implements Runnable {
 		/**
-		 * Konstruktor der Klasse
+		 * Wie oft wurde schon versucht, den Viewer anzupassen?
 		 */
-		public InitRunnable() {
-			/*
-			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-			 */
+		private final int count;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param count	Wie oft wurde schon versucht, den Viewer anzupassen?
+		 */
+		public InitRunnable(final int count) {
+			this.count=count;
 		}
 
 		/**
@@ -150,7 +157,15 @@ public class DescriptionViewer extends JPanel {
 			}
 
 			if (toolbar.getHeight()<20) {
-				SwingUtilities.invokeLater(new InitRunnable());
+				if (count>20) {
+					new Timer().schedule(new TimerTask() {
+						@Override public void run() {
+							new InitRunnable(count+1);
+						}
+					},5000);
+				} else {
+					SwingUtilities.invokeLater(new InitRunnable(count+1));
+				}
 				return;
 			}
 			descriptionVisible=true;
