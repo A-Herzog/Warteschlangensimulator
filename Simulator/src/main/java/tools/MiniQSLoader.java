@@ -37,6 +37,7 @@ import mathtools.distribution.LogNormalDistributionImpl;
 import simulator.editmodel.EditModel;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.AnimationExpression;
 import ui.modeleditor.elements.BatchRecord;
@@ -53,6 +54,7 @@ import ui.modeleditor.elements.ModelElementDuplicate;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementProcess;
 import ui.modeleditor.elements.ModelElementSeparate;
+import ui.modeleditor.elements.ModelElementSet;
 import ui.modeleditor.elements.ModelElementSignal;
 import ui.modeleditor.elements.ModelElementSource;
 import ui.modeleditor.elements.ModelElementSourceRecord;
@@ -118,7 +120,19 @@ public class MiniQSLoader {
 	private void loadElement(final JSONObject element) {
 		final ElementData data=new ElementData(element);
 		if (!data.load(model)) return;
-		model.surface.add(data.modelElement);
+
+		for (var modelElement: data.modelElements) {
+			modelElement.setId(model.surface.getNextFreeId());
+			model.surface.add(modelElement);
+		}
+
+		for (int i=1;i<data.modelElements.length;i++) {
+			final ModelElementEdge edge=new ModelElementEdge(model,model.surface,data.modelElements[i-1],data.modelElements[i]);
+			model.surface.add(edge);
+			data.modelElements[i-1].addEdgeOut(edge);
+			data.modelElements[i].addEdgeIn(edge);
+		}
+
 		list.add(data);
 	}
 
@@ -135,12 +149,12 @@ public class MiniQSLoader {
 		obj=element.get("boxId1");
 		if (!(obj instanceof String)) return;
 		final String boxId1=(String)obj;
-		final ModelElementPosition box1=list.stream().filter(data->data.boxId.equals(boxId1)).map(data->data.modelElement).findFirst().orElseGet(()->null);
+		final ModelElementPosition box1=list.stream().filter(data->data.boxId.equals(boxId1)).map(data->data.getLastElement()).findFirst().orElseGet(()->null);
 
 		obj=element.get("boxId2");
 		if (!(obj instanceof String)) return;
 		final String boxId2=(String)obj;
-		final ModelElementPosition box2=list.stream().filter(data->data.boxId.equals(boxId2)).map(data->data.modelElement).findFirst().orElseGet(()->null);
+		final ModelElementPosition box2=list.stream().filter(data->data.boxId.equals(boxId2)).map(data->data.getFirstElement()).findFirst().orElseGet(()->null);
 
 		if (box1!=null && box2!=null) {
 			final ModelElementEdge edge=new ModelElementEdge(model,model.surface,box1,box2);
@@ -220,10 +234,10 @@ public class MiniQSLoader {
 		public int nr;
 
 		/**
-		 * Aus den json-Daten generiertes Modellelement
+		 * Aus den json-Daten generierte Modellelemente
 		 * @see #load(EditModel)
 		 */
-		public ModelElementPosition modelElement;
+		public ModelElementPosition[] modelElements;
 
 		/**
 		 * Konstruktor
@@ -231,6 +245,22 @@ public class MiniQSLoader {
 		 */
 		public ElementData(final JSONObject element) {
 			this.element=element;
+		}
+
+		/**
+		 * Liefert das erstes Modellelement aus der Reihe der Modellelemente, die in Summe das json-Element repräsentieren.
+		 * @return	Erstes Modellelement aus der Reihe der Modellelemente, die in Summe das json-Element repräsentieren
+		 */
+		public ModelElementPosition getFirstElement() {
+			return modelElements[0];
+		}
+
+		/**
+		 * Liefert das letzte Modellelement aus der Reihe der Modellelemente, die in Summe das json-Element repräsentieren.
+		 * @return	Letzte Modellelement aus der Reihe der Modellelemente, die in Summe das json-Element repräsentieren
+		 */
+		public ModelElementPosition getLastElement() {
+			return modelElements[modelElements.length-1];
 		}
 
 		/**
@@ -307,6 +337,41 @@ public class MiniQSLoader {
 		}
 
 		/**
+		 * Lädt einen boolschen Wert aus einem json-Objekt.
+		 * @param setup	json-Objekt aus dem der Wert geladen werden soll
+		 * @param key	Schlüssel unter dem der Wert abgelegt ist
+		 * @param defaultValue	Wert der zurückgegeben werden soll, wenn der Schlüssel in dem json-Objekt nicht existiert
+		 * @return	Boolscher Wert
+		 */
+		private boolean loadBoolean(final JSONObject setup, final String key, final boolean defaultValue) {
+			if (!setup.has(key)) return defaultValue;
+
+			final Object obj=setup.get(key);
+			if (obj instanceof Boolean) return ((Boolean)obj).booleanValue();
+			if (obj instanceof Integer) {
+				final int i=((Integer)obj).intValue();
+				if (defaultValue) {
+					if (i==0) return false;
+				} else {
+					if (i!=0) return true;
+				}
+				return defaultValue;
+			}
+			if (obj instanceof String) {
+				final Integer I=NumberTools.getInteger((String)obj);
+				if (I==null) return defaultValue;
+				if (defaultValue) {
+					if (I.intValue()==0) return false;
+				} else {
+					if (I.intValue()!=0) return true;
+				}
+				return defaultValue;
+			}
+			return defaultValue;
+
+		}
+
+		/**
 		 * Liefert (sofern vorhanden) das Einstellungen-Unterobjekt des aktuellen json-Objektes.
 		 * @return	Einstellungen-json-Unterobjekt (oder <code>null</code>, wenn nicht vorhanden)
 		 */
@@ -322,7 +387,7 @@ public class MiniQSLoader {
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
 		 */
-		private ModelElementSource loadSource(final EditModel model) {
+		private ModelElementPosition[] loadSource(final EditModel model) {
 			final JSONObject setup=getSetup();
 			if (setup==null) return null;
 
@@ -341,7 +406,7 @@ public class MiniQSLoader {
 			}
 			element.setName(name);
 
-			return element;
+			return new ModelElementPosition[]{element};
 		}
 
 		/**
@@ -349,7 +414,7 @@ public class MiniQSLoader {
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
 		 */
-		private ModelElementDelay loadDelay(final EditModel model) {
+		private ModelElementPosition[] loadDelay(final EditModel model) {
 			final JSONObject setup=getSetup();
 			if (setup==null) return null;
 
@@ -365,7 +430,7 @@ public class MiniQSLoader {
 			}
 			element.setName(name);
 
-			return element;
+			return new ModelElementPosition[]{element};
 		}
 
 		/**
@@ -373,7 +438,7 @@ public class MiniQSLoader {
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
 		 */
-		private ModelElementProcess loadProcess(final EditModel model) {
+		private ModelElementPosition[] loadProcess(final EditModel model) {
 			final JSONObject setup=getSetup();
 			if (setup==null) return null;
 
@@ -381,14 +446,20 @@ public class MiniQSLoader {
 			final double CVS=loadDouble(setup,"CVS");
 			final int b=loadInt(setup,"b");
 			final int c=loadInt(setup,"c");
+			final int policy=loadInt(setup,"policy");
 			if (ES<=0 || CVS<0 || b<1 || c<1) return null;
 
-			final ModelElementProcess element=new ModelElementProcess(model,model.surface);
-			if (CVS==1.0) {
-				element.getWorking().set(new ExponentialDistribution(ES));
-			} else {
-				element.getWorking().set(new LogNormalDistributionImpl(ES,CVS*ES));
+			final List<ModelElementBox> elements=new ArrayList<>();
 
+			final ModelElementProcess element=new ModelElementProcess(model,model.surface);
+			if (policy==2 || policy==-2) {
+				element.getWorking().set("ClientData(1)");
+			} else {
+				if (CVS==1.0) {
+					element.getWorking().set(new ExponentialDistribution(ES));
+				} else {
+					element.getWorking().set(new LogNormalDistributionImpl(ES,CVS*ES));
+				}
 			}
 			element.setBatchMinimum(b);
 			element.setBatchMaximum(b);
@@ -397,7 +468,22 @@ public class MiniQSLoader {
 
 			model.resources.add(new ModelResource("Operators "+name,1));
 
-			return element;
+			elements.add(element);
+
+			if (policy==2 || policy==-2) {
+				final ModelElementSet set=new ModelElementSet(model,model.surface);
+				String expression="";
+				if (CVS==1.0) {
+					expression="ExpDist("+NumberTools.formatNumberMax(ES)+")";
+				} else {
+					expression="LogNormalDist("+NumberTools.formatNumberMax(ES)+";"+NumberTools.formatNumberMax(CVS*ES)+")";
+				}
+				set.getRecord().setData(new String[]{"ClientData(1)"},new String[]{expression});
+				set.setName("S");
+				elements.add(0,set);
+			}
+
+			return elements.toArray(ModelElementBox[]::new);
 		}
 
 		/**
@@ -414,11 +500,25 @@ public class MiniQSLoader {
 			final int policy=loadInt(setup,"policy");
 			final String successNextBox=loadString(setup,"SuccessNextBox");
 
-			final ModelElementProcess process=(ModelElementProcess)modelElement;
+			final ModelElementProcess process=(ModelElementProcess)getLastElement();
 
 			/* Bedienreihenfolge */
 			if (policy!=1) {
-				final String priority=(policy==0)?"random()":"-w";
+				String priority="";
+				switch (policy) {
+				case 0:
+					priority="random()";
+					break;
+				case -1:
+					priority="-w";
+					break;
+				case 2:
+					priority="-ClientData(1)";
+					break;
+				case -2:
+					priority="ClientData(1)";
+					break;
+				}
 				for (String clientType: stations.stream().filter(station->station instanceof ModelElementSource).map(source->source.getName()).toArray(String[]::new)) {
 					process.setPriority(clientType,priority);
 				}
@@ -459,7 +559,7 @@ public class MiniQSLoader {
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
 		 */
-		private ModelElementDecide loadDecide(final EditModel model) {
+		private ModelElementPosition[] loadDecide(final EditModel model) {
 			final JSONObject setup=getSetup();
 			if (setup==null) return null;
 
@@ -479,7 +579,7 @@ public class MiniQSLoader {
 			}
 			element.setName(name);
 
-			return element;
+			return new ModelElementPosition[]{element};
 		}
 
 		/**
@@ -487,12 +587,12 @@ public class MiniQSLoader {
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
 		 */
-		private ModelElementDuplicate loadDuplicate(final EditModel model) {
+		private ModelElementPosition[] loadDuplicate(final EditModel model) {
 			final ModelElementDuplicate element=new ModelElementDuplicate(model,model.surface);
 
 			element.setName(name);
 
-			return element;
+			return new ModelElementPosition[]{element};
 		}
 
 		/**
@@ -500,13 +600,13 @@ public class MiniQSLoader {
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
 		 */
-		private ModelElementCounter loadCounter(final EditModel model) {
+		private ModelElementPosition[] loadCounter(final EditModel model) {
 			final ModelElementCounter element=new ModelElementCounter(model,model.surface);
 
 			element.setName(name);
 			element.setGroupName(Language.tr("Editor.ImportWebQS.CounterGroup"));
 
-			return element;
+			return new ModelElementPosition[]{element};
 		}
 
 		/**
@@ -514,12 +614,12 @@ public class MiniQSLoader {
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
 		 */
-		private ModelElementDispose loadDispose(final EditModel model) {
+		private ModelElementPosition[] loadDispose(final EditModel model) {
 			final ModelElementDispose element=new ModelElementDispose(model,model.surface);
 
 			element.setName(name);
 
-			return element;
+			return new ModelElementPosition[]{element};
 		}
 
 		/**
@@ -527,7 +627,7 @@ public class MiniQSLoader {
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
 		 */
-		private ModelElementBatch loadBatch(final EditModel model) {
+		private ModelElementPosition[] loadBatch(final EditModel model) {
 			final JSONObject setup=getSetup();
 			if (setup==null) return null;
 
@@ -541,7 +641,7 @@ public class MiniQSLoader {
 			record.setBatchMode(BatchMode.BATCH_MODE_TEMPORARY);
 			element.setName(name);
 
-			return element;
+			return new ModelElementPosition[]{element};
 		}
 
 		/**
@@ -549,12 +649,12 @@ public class MiniQSLoader {
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
 		 */
-		private ModelElementSeparate loadSeparate(final EditModel model) {
+		private ModelElementPosition[] loadSeparate(final EditModel model) {
 			final ModelElementSeparate element=new ModelElementSeparate(model,model.surface);
 
 			element.setName(name);
 
-			return element;
+			return new ModelElementPosition[]{element};
 		}
 
 		/**
@@ -562,12 +662,12 @@ public class MiniQSLoader {
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
 		 */
-		private ModelElementSignal loadSignal(final EditModel model) {
+		private ModelElementPosition[] loadSignal(final EditModel model) {
 			final ModelElementSignal element=new ModelElementSignal(model,model.surface);
 
 			element.setName(name);
 
-			return element;
+			return new ModelElementPosition[]{element};
 		}
 
 		/**
@@ -575,21 +675,23 @@ public class MiniQSLoader {
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
 		 */
-		private ModelElementBarrier loadBarrier(final EditModel model) {
+		private ModelElementPosition[] loadBarrier(final EditModel model) {
 			final JSONObject setup=getSetup();
 			if (setup==null) return null;
 
 			final int release=loadInt(setup,"release");
 			final int signalNr=loadInt(setup,"signal");
+			final boolean storeSignals=loadBoolean(setup,"storeSignals",true);
 			if (release<0 || signalNr<=0) return null;
 
 			final ModelElementBarrier element=new ModelElementBarrier(model,model.surface);
 			final ModelElementBarrierSignalOption option=new ModelElementBarrierSignalOption();
 			option.setInitialClients(release);
+			option.setStoreSignals(storeSignals);
 			element.getOptions().add(option);
 			element.setName(name);
 
-			return element;
+			return new ModelElementPosition[]{element};
 		}
 
 		/**
@@ -605,8 +707,8 @@ public class MiniQSLoader {
 			final ElementData signalElement=elements.stream().filter(element->element.type.equals("Signal")).filter(signal->nr==signalNr).findFirst().orElseGet(()->null);
 			if (signalElement==null) return;
 
-			final ModelElementBarrier barrier=(ModelElementBarrier)modelElement;
-			barrier.getOptions().get(0).setSignalName(signalElement.modelElement.getName());
+			final ModelElementBarrier barrier=(ModelElementBarrier)getFirstElement();
+			barrier.getOptions().get(0).setSignalName(signalElement.getFirstElement().getName());
 		}
 
 		/**
@@ -614,7 +716,7 @@ public class MiniQSLoader {
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
 		 */
-		private ModelElementAnimationLineDiagram loadDiagram(final EditModel model) {
+		private ModelElementPosition[] loadDiagram(final EditModel model) {
 			final JSONObject setup=getSetup();
 			if (setup==null) return null;
 			final double xrange=loadDouble(setup,"xrange");
@@ -626,7 +728,7 @@ public class MiniQSLoader {
 			element.setName(name);
 			element.setSize(new Dimension(650,250));
 
-			return element;
+			return new ModelElementPosition[]{element};
 		}
 
 		/**
@@ -643,16 +745,16 @@ public class MiniQSLoader {
 			final ElementData dataSourceElement=elements.stream().filter(element->(element.type+"-"+element.nr).equals(source)).findFirst().orElseGet(()->null);
 			if (dataSourceElement==null) return;
 
-			final ModelElementAnimationLineDiagram diagram=(ModelElementAnimationLineDiagram)modelElement;
+			final ModelElementAnimationLineDiagram diagram=(ModelElementAnimationLineDiagram)getFirstElement();
 			final List<Object[]> expressionData=diagram.getExpressionData();
 			expressionData.add(new Object[] {
-					new AnimationExpression("WIP("+dataSourceElement.modelElement.getId()+")"),
+					new AnimationExpression("WIP("+dataSourceElement.getLastElement().getId()+")"),
 					Double.valueOf(0),
 					Double.valueOf(10),
 					Color.BLUE,
 					Integer.valueOf(2)
 			});
-			((ModelElementAnimationLineDiagram)modelElement).setExpressionData(expressionData);
+			((ModelElementAnimationLineDiagram)getFirstElement()).setExpressionData(expressionData);
 		}
 
 		/**
@@ -660,7 +762,7 @@ public class MiniQSLoader {
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
 		 */
-		private ModelElementText loadText(final EditModel model) {
+		private ModelElementPosition[] loadText(final EditModel model) {
 			final JSONObject setup=getSetup();
 			if (setup==null) return null;
 
@@ -672,7 +774,7 @@ public class MiniQSLoader {
 			element.setText(text);
 			element.setTextSize(fontSize);
 
-			return element;
+			return new ModelElementPosition[]{element};
 		}
 
 		/**
@@ -687,27 +789,36 @@ public class MiniQSLoader {
 			name=loadString("name"); if (name==null) return false;
 			nr=loadInt("nr"); if (nr<=0) return false;
 			final int top=loadInt("top"); if (top<=0) return false;
-			final int left=loadInt("left"); if (left<=0) return false;
+			int left=loadInt("left"); if (left<=0) return false;
 
 			switch (type) {
-			case "Source": modelElement=loadSource(model); break;
-			case "Delay": modelElement=loadDelay(model); break;
-			case "Process": modelElement=loadProcess(model); break;
-			case "Decide": modelElement=loadDecide(model); break;
-			case "Duplicate": modelElement=loadDuplicate(model); break;
-			case "Counter": modelElement=loadCounter(model); break;
-			case "Dispose": modelElement=loadDispose(model); break;
-			case "Batch": modelElement=loadBatch(model); break;
-			case "Separate": modelElement=loadSeparate(model); break;
-			case "Signal": modelElement=loadSignal(model); break;
-			case "Barrier": modelElement=loadBarrier(model); break;
-			case "Text": modelElement=loadText(model); break;
-			case "Diagram": modelElement=loadDiagram(model); break;
+			case "Source": modelElements=loadSource(model); break;
+			case "Delay": modelElements=loadDelay(model); break;
+			case "Process": modelElements=loadProcess(model); break;
+			case "Decide": modelElements=loadDecide(model); break;
+			case "Duplicate": modelElements=loadDuplicate(model); break;
+			case "Counter": modelElements=loadCounter(model); break;
+			case "Dispose": modelElements=loadDispose(model); break;
+			case "Batch": modelElements=loadBatch(model); break;
+			case "Separate": modelElements=loadSeparate(model); break;
+			case "Signal": modelElements=loadSignal(model); break;
+			case "Barrier": modelElements=loadBarrier(model); break;
+			case "Text": modelElements=loadText(model); break;
+			case "Diagram": modelElements=loadDiagram(model); break;
 			}
 
-			if (modelElement==null) return false;
+			if (modelElements==null) return false;
 
-			modelElement.setPosition(new Point(left,top));
+			if (modelElements.length==1) {
+				modelElements[0].setPosition(new Point(left,top));
+			} else {
+				left-=50;
+				for (int i=0;i<modelElements.length;i++) {
+					modelElements[i].setPosition(new Point(left,top));
+					left+=125;
+				}
+			}
+
 			return true;
 		}
 
@@ -717,9 +828,9 @@ public class MiniQSLoader {
 		 */
 		public void init(final List<ElementData> list) {
 			switch (type) {
-			case "Process": initProcess(list,modelElement.getSurface().getElements()); break;
-			case "Barrier": initBarrier(list,modelElement.getSurface().getElements()); break;
-			case "Diagram": initDiagram(list,modelElement.getSurface().getElements()); break;
+			case "Process": initProcess(list,getLastElement().getSurface().getElements()); break;
+			case "Barrier": initBarrier(list,getLastElement().getSurface().getElements()); break;
+			case "Diagram": initDiagram(list,getLastElement().getSurface().getElements()); break;
 			}
 		}
 	}
