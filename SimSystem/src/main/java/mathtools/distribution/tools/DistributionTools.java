@@ -371,6 +371,9 @@ public final class DistributionTools {
 	/** Bezeichner "Skalierung" */
 	public static String DistScale="Skalierung";
 
+	/** Bezeichner "Inverse Skalierung" */
+	public static String DistInverseScale="Inverse Skalierung";
+
 	/** Bezeichner "Am wahrscheinlichsten" (für Dreiecksverteilung) */
 	public static String DistMostLikely="Am wahrscheinlichsten";
 

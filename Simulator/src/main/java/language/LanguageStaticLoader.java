@@ -286,6 +286,7 @@ public class LanguageStaticLoader {
 		DistributionTools.DistRange=Language.tr("Distribution.Range");
 		DistributionTools.DistLocation=Language.tr("Distribution.Location");
 		DistributionTools.DistScale=Language.tr("Distribution.Scale");
+		DistributionTools.DistInverseScale=Language.tr("Distribution.InverseScale");
 		DistributionTools.DistMostLikely=Language.tr("Distribution.MostLikely");
 		DistributionTools.DistDegreesOfFreedom=Language.tr("Distribution.DegreesOfFreedom");
 		DistributionTools.DistMean=Language.tr("Distribution.Mean");

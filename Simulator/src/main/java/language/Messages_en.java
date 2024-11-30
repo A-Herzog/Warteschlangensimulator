@@ -23182,6 +23182,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[56525] = "<p>Gets the median of the number of busy transporters in the specified transporter group.</p>";
     t[56528] = "ParameterCompare.XML.Inputs.Data.XMLMode";
     t[56529] = "XMLMode";
+    t[56530] = "Distribution.InverseScale";
+    t[56531] = "Inverse scale";
     t[56532] = "Statistics.DistributionOfTheTransferTimesTotal";
     t[56533] = "Distribution of the transfer times (totaled over multiple client arrivals)";
     t[56534] = "ModelDescription.Action.Action.Java";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[58853] = "ModelElementPause";
     t[58860] = "Window.Layers.Add.Title";
     t[58861] = "Add";
-    t[58870] = "Surface.TransportSource.Dialog.Ressource.Priority";
-    t[58871] = "Priority on resource request";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[58870] = "Surface.TransportSource.Dialog.Ressource.Priority";
+    t[58871] = "Priority on resource request";
     t[58876] = "Surface.ExpressionTableModelText.Dialog.Value";
     t[58877] = "Text";
     t[58880] = "Statistics.WaitingTransferProcessTimesAtStationsClients.Short";

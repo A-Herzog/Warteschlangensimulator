@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-17 00:26+0100\n"
+"POT-Creation-Date: 2024-11-20 09:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3417,6 +3417,9 @@ msgstr "Inverse Gauß-Verteilung"
 
 msgid "Distribution.InverseGaussianWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Inverse_Normalverteilung"
+
+msgid "Distribution.InverseScale"
+msgstr "Inverse Skalierung"
 
 msgid "Distribution.IrwinHall"
 msgstr "Irwin-Hall-Verteilung"

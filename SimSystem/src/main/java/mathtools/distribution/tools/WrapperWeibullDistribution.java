@@ -59,7 +59,7 @@ public class WrapperWeibullDistribution extends AbstractDistributionWrapper {
 		final WeibullDistribution dist=(WeibullDistribution)distribution;
 		final double beta=dist.getShape();
 		final double lambda=1/dist.getScale();
-		final String info=DistributionTools.DistScale+"="+NumberTools.formatNumber(lambda,3)+"; Form="+NumberTools.formatNumber(beta,3);
+		final String info=DistributionTools.DistInverseScale+"="+NumberTools.formatNumber(lambda,3)+"; Form="+NumberTools.formatNumber(beta,3);
 
 		final double mu=distribution.getNumericalMean();
 		final double sigma=Math.sqrt(distribution.getNumericalVariance());
@@ -73,9 +73,51 @@ public class WrapperWeibullDistribution extends AbstractDistributionWrapper {
 		return new DistributionWrapperInfo(distribution,sk,mode,info,null);
 	}
 
+	/**
+	 * Berechnet den quadrierten Variationskoeffizienten für einen vorgegebenen Parameter &alpha;
+	 * @param alpha	Verteilungsparameter &alpha; (=Form)
+	 * @return	Quadrierter Variationskoeffizient
+	 */
+	public static double calcSCV(final double alpha) {
+		final double gammaAlphaInv=Gamma.gamma(1/alpha);
+		return 2*alpha*Gamma.gamma(2/alpha)/gammaAlphaInv/gammaAlphaInv-1;
+	}
+
 	@Override
 	public AbstractRealDistribution getDistribution(double mean, double sd) {
-		return null;
+		if (mean<=0.0) return null;
+		final double cv=sd/mean;
+		final double scv=cv*cv;
+
+		/* Alpha per Bisektionsverfahren bestimmen */
+		double alphaMin=0.08;
+		double alphaMax=80;
+		double scvAlphaMin=5301247.466455577;
+		double scvAlphaMax=2.5244789703471326E-4;
+		final double alpha;
+		if (scv>=scvAlphaMin) {
+			alpha=alphaMin;
+		} else if (scv<=scvAlphaMax) {
+			alpha=alphaMax;
+		} else {
+			while (alphaMax-alphaMin>0.00001) {
+				double alphaMean=(alphaMin+alphaMax)/2;
+				double scvAlphaMean=calcSCV(alphaMean);
+				if (scvAlphaMean>scv) {
+					alphaMin=alphaMean;
+					scvAlphaMin=scvAlphaMean;
+				} else {
+					alphaMax=alphaMean;
+					scvAlphaMax=scvAlphaMean;
+				}
+			}
+			alpha=(alphaMin+alphaMax)/2;
+		}
+
+		/* Beta aus der Formel für den Erwartungswert bestimmen */
+		final double beta=mean/Gamma.gamma(1+1/alpha);
+
+		return new WeibullDistribution(alpha,beta);
 	}
 
 	@Override

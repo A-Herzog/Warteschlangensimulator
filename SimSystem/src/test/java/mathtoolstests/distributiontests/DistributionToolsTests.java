@@ -33,6 +33,7 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ChiSquaredDistribution;
 import org.apache.commons.math3.distribution.ExponentialDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
+import org.apache.commons.math3.distribution.WeibullDistribution;
 import org.junit.jupiter.api.Test;
 
 import mathtools.distribution.ArcsineDistribution;
@@ -215,6 +216,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof SineDistribution) exactStdAvailable=false;
 			if (dist1 instanceof ArcsineDistribution) exactStdAvailable=false;
 			if (dist1 instanceof ChiDistributionImpl) exactStdAvailable=false;
+			if (dist1 instanceof WeibullDistribution) exactStdAvailable=false;
 			if (exactStdAvailable) {
 				assertEquals(2,DistributionTools.getStandardDeviation(dist1),10E-10,"Verteilung: "+name);
 				assertEquals(2.0/3.0,DistributionTools.getCV(dist1),10E-10,"Verteilung: "+name);
@@ -272,6 +274,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof SineDistribution) exactStdAvailable=false;
 			if (dist1 instanceof ArcsineDistribution) exactStdAvailable=false;
 			if (dist1 instanceof ChiDistributionImpl) exactStdAvailable=false;
+			if (dist1 instanceof WeibullDistribution) exactStdAvailable=false;
 			if (exactStdAvailable) {
 				assertEquals(2,DistributionTools.getStandardDeviation(dist1),10E-10,"Verteilung: "+name);
 				assertEquals(2.0/3.0,DistributionTools.getCV(dist1),10E-10,"Verteilung: "+name);
