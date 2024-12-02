@@ -33,6 +33,7 @@ import java.util.function.Consumer;
 import java.util.function.DoubleConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -659,19 +660,20 @@ public class ModelElement {
 
 	/**
 	 * Erstellt einen Menüpunkt im Kontextmenü zum Hinzufügen eines Animationselements zu diesem Element
-	 * @param element	Animationselement, das hinzugefügt werden soll, wenn der Menüpunkt angeklickt wird
+	 * @param elements	Animationselemente, die hinzugefügt werden sollen, wenn der Menüpunkt angeklickt wird
 	 * @param text	Optionaler Text für den Menüpunkt (wird hier <code>null</code> übergeben, so wird der Kontextmenü-Name von <code>element</code> verwendet)
 	 * @param parentMenu	Übergeordnetes Menü (Rubrik innerhalb des Kontextmenüs)
-	 * @param addElement	Callback, das aufgerufen werden kann, wenn ein Element zur Zeichenfläche hinzugefügt werden soll
+	 * @param addElements	Callback, das aufgerufen werden kann, wenn Elemente zur Zeichenfläche hinzugefügt werden sollen
 	 * @return	Neuer Menüpunkt (schon in <code>parentMenu</code> eingefügt)
 	 * @see ModelElement#addVisualizationContextMenuItems(JMenu, Consumer)
 	 */
-	protected final JMenuItem addVisualizationMenuItem(final ModelElementPosition element, final String text, final JMenu parentMenu, final Consumer<ModelElementPosition> addElement) {
+	protected final JMenuItem addVisualizationMenuItem(final ModelElementPosition[] elements, final String text, final JMenu parentMenu, final Consumer<ModelElementPosition[]> addElements) {
+		final ModelElementPosition element=elements[0];
 		final JMenuItem item=new JMenuItem((text==null || text.trim().isEmpty())?element.getContextMenuElementName():text);
 		item.setToolTipText(element.getToolTip());
 		final Icon icon=element.getAddElementIcon();
 		if (icon!=null) item.setIcon(icon);
-		item.addActionListener(e->addElement.accept(element));
+		item.addActionListener(e->addElements.accept(elements));
 		parentMenu.add(item);
 		return item;
 	}
@@ -870,9 +872,9 @@ public class ModelElement {
 	 * Fügt optionale Menüpunkte zu einem "Visualisierungen hinzufügen"-Untermenü hinzu, welche
 	 * es ermöglichen, zu dem aktuellen Element direkt passende Animationselemente hinzuzufügen.
 	 * @param parentMenu	Untermenü des Kontextmenüs, welches die Einträge aufnimmt
-	 * @param addElement	Callback, das aufgerufen werden kann, wenn ein Element zur Zeichenfläche hinzugefügt werden soll
+	 * @param addElements	Callback, das aufgerufen werden kann, wenn Elemente zur Zeichenfläche hinzugefügt werden sollen
 	 */
-	protected void addVisualizationContextMenuItems(final JMenu parentMenu, final Consumer<ModelElementPosition> addElement) {
+	protected void addVisualizationContextMenuItems(final JMenu parentMenu, final Consumer<ModelElementPosition[]> addElements) {
 	}
 
 	/**
@@ -1117,8 +1119,13 @@ public class ModelElement {
 			JMenu menu;
 			/* Visualisierungen hinzufügen */
 			menu=new JMenu(Language.tr("Surface.Popup.AddVisualization"));
-			final Consumer<ModelElementPosition> addElement=e->surfacePanel.startAddElement(e);
-			addVisualizationContextMenuItems(menu,addElement);
+			final Consumer<ModelElementPosition[]> addElements=elements->{
+				final ModelElementPosition element=elements[0];
+				final ModelElementPosition[] additions=Stream.of(elements).skip(1).toArray(ModelElementPosition[]::new);
+				surfacePanel.startAddElementMulti(element,additions);
+			};
+
+			addVisualizationContextMenuItems(menu,addElements);
 			if (menu.getItemCount()>0) {
 				ModelSurfacePanel.sortMenu(menu);
 				menu.setIcon(Images.MODELEDITOR_ELEMENT_ADD_VISUALIZATION.getIcon());

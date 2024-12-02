@@ -69,6 +69,7 @@ import ui.modeleditor.elements.ModelElementAnimationTextValue;
 import ui.modeleditor.elements.ModelElementAnimationTrafficLights;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementReference;
+import ui.modeleditor.elements.ModelElementText;
 import ui.modeleditor.fastpaint.Shapes;
 import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
 import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
@@ -1342,37 +1343,41 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	 * Erstellt einen Kontextmenüpunkt (und fügt ihn in ein Menü ein) zur Visualisierung von Daten des aktuellen Elements in Form einer Ampel
 	 * @param condition	Bedingung für "rot"
 	 * @param parentMenu	Menü in das der Menüpunkt eingefügt werden soll
-	 * @param addElement	Callback, das aufgerufen werden kann, wenn ein Element zur Zeichenfläche hinzugefügt werden soll
+	 * @param addElements	Callback, das aufgerufen werden kann, wenn Elemente zur Zeichenfläche hinzugefügt werden sollen
 	 * @return	Neuer Menüpunkt (schon in <code>parentMenu</code> eingefügt)
 	 * @see ModelElementBox#addVisualizationMenuItem(JMenu, Consumer, VisualizationType)
 	 */
-	protected final JMenuItem addVisualizationTrafficLightsMenuItem(final String condition, final JMenu parentMenu, final Consumer<ModelElementPosition> addElement) {
+	protected final JMenuItem addVisualizationTrafficLightsMenuItem(final String condition, final JMenu parentMenu, final Consumer<ModelElementPosition[]> addElements) {
 		final String referenceName=getNameForReference();
 		final ModelElementAnimationTrafficLights element=new ModelElementAnimationTrafficLights(null,null);
 		element.setLightsCount(2);
 		element.setExpressionOne(condition);
-
 		element.setName(referenceName);
-		return addVisualizationMenuItem(element,element.getContextMenuElementName(),parentMenu,addElement);
+
+		final ModelElementText addon=ModelSurfacePanel.getVisualizationPlainText(referenceName,11,0,-20);
+
+		return addVisualizationMenuItem(new ModelElementPosition[] {element,addon},element.getContextMenuElementName(),parentMenu,addElements);
 	}
 
 	/**
 	 * Erstellt einen Kontextmenüpunkt (und fügt ihn in ein Menü ein) zur Visualisierung von Daten des aktuellen Elements in Form einer Ampel
 	 * @param condition	Bedingung für "rot"
 	 * @param parentMenu	Menü in das der Menüpunkt eingefügt werden soll
-	 * @param addElement	Callback, das aufgerufen werden kann, wenn ein Element zur Zeichenfläche hinzugefügt werden soll
+	 * @param addElements	Callback, das aufgerufen werden kann, wenn Elemente zur Zeichenfläche hinzugefügt werden sollen
 	 * @param info	Zusätzliche Ausgabe beim Menüpunkt
 	 * @return	Neuer Menüpunkt (schon in <code>parentMenu</code> eingefügt)
 	 * @see ModelElementBox#addVisualizationMenuItem(JMenu, Consumer, VisualizationType)
 	 */
-	protected final JMenuItem addVisualizationTrafficLightsMenuItem(final String condition, final JMenu parentMenu, final Consumer<ModelElementPosition> addElement, final String info) {
+	protected final JMenuItem addVisualizationTrafficLightsMenuItem(final String condition, final JMenu parentMenu, final Consumer<ModelElementPosition[]> addElements, final String info) {
 		final String referenceName=getNameForReference();
 		final ModelElementAnimationTrafficLights element=new ModelElementAnimationTrafficLights(null,null);
 		element.setLightsCount(2);
 		element.setExpressionOne(condition);
-
 		element.setName(referenceName);
-		return addVisualizationMenuItem(element,element.getContextMenuElementName()+((info==null || info.isEmpty())?"":(" - "+info)),parentMenu,addElement);
+
+		final ModelElementText addon=ModelSurfacePanel.getVisualizationPlainText(referenceName,11,0,-20);
+
+		return addVisualizationMenuItem(new ModelElementPosition[] {element,addon},element.getContextMenuElementName()+((info==null || info.isEmpty())?"":(" - "+info)),parentMenu,addElements);
 	}
 
 	/**
@@ -1700,17 +1705,20 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	/**
 	 * Erstellt einen Kontextmenüpunkt (und fügt ihn in ein Menü ein) zur Visualisierung von Daten des aktuellen Elements
 	 * @param parentMenu	Menü in das der Menüpunkt eingefügt werden soll
-	 * @param addElement	Callback, das aufgerufen werden kann, wenn ein Element zur Zeichenfläche hinzugefügt werden soll
+	 * @param addElements	Callback, das aufgerufen werden kann, wenn Elemente zur Zeichenfläche hinzugefügt werden sollen
 	 * @param type	Art der Visualisierung
 	 * @return	Neuer Menüpunkt (schon in <code>parentMenu</code> eingefügt)
 	 * @see ModelElementBox.VisualizationType
 	 */
-	protected final JMenuItem addVisualizationMenuItem(final JMenu parentMenu, Consumer<ModelElementPosition> addElement, final VisualizationType type) {
-		final Consumer<ModelElementPosition> addElementOrig=addElement;
+	protected final JMenuItem addVisualizationMenuItem(final JMenu parentMenu, Consumer<ModelElementPosition[]> addElements, final VisualizationType type) {
+		final Consumer<ModelElementPosition[]> addElementOrig=addElements;
 		final String referenceName=getNameForReference();
 		String addonInfo=null;
 		ModelElementPosition element=null;
+		ModelElementPosition addon=null;
 		List<Object[]> data;
+
+		final String stationInfo=" "+Language.tr("Surface.Popup.AddVisualization.AtStation")+" "+referenceName;
 
 		switch (type) {
 		case TEXT_WIP_CURRENT:
@@ -1784,211 +1792,278 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			element=ModelSurfacePanel.getVisualizationText("WaitingTime_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageWaitingTime");
 			break;
+
+			/* LCD-Anzeigen */
+
 		case LCD_WIP_CURRENT:
 			element=ModelSurfacePanel.getVisualizationLCD("wip("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValue");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValue")+stationInfo,11,0,-20);
 			break;
 		case LCD_WIP_AVERAGE:
 			element=ModelSurfacePanel.getVisualizationLCD("wip_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValue");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValue")+stationInfo,11,0,-20);
 			break;
 		case LCD_NQ_CURRENT:
 			element=ModelSurfacePanel.getVisualizationLCD("NQ("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting")+stationInfo,11,0,-20);
 			break;
 		case LCD_NQ_AVERAGE:
 			element=ModelSurfacePanel.getVisualizationLCD("NQ_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting")+stationInfo,11,0,-20);
 			break;
 		case LCD_NQ_CURRENT_1:
 			element=ModelSurfacePanel.getVisualizationLCD("NQ("+getId()+";1)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting1");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting1")+stationInfo,11,0,-20);
 			break;
 		case LCD_NQ_CURRENT_2:
 			element=ModelSurfacePanel.getVisualizationLCD("NQ("+getId()+";2)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting2");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting2")+stationInfo,11,0,-20);
 			break;
 		case LCD_NQ_CURRENT_3:
 			element=ModelSurfacePanel.getVisualizationLCD("NQ("+getId()+";3)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting3");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting3")+stationInfo,11,0,-20);
 			break;
 		case LCD_NQ_AVERAGE_1:
 			element=ModelSurfacePanel.getVisualizationLCD("NQ_avg("+getId()+";1)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting1");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting1")+stationInfo,11,0,-20);
 			break;
 		case LCD_NQ_AVERAGE_2:
 			element=ModelSurfacePanel.getVisualizationLCD("NQ_avg("+getId()+";2)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting2");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting2")+stationInfo,11,0,-20);
 			break;
 		case LCD_NQ_AVERAGE_3:
 			element=ModelSurfacePanel.getVisualizationLCD("NQ_avg("+getId()+";3)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting3");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting3")+stationInfo,11,0,-20);
 			break;
 		case LCD_COUNTER_VALUE:
 			element=ModelSurfacePanel.getVisualizationLCD("counter("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CounterValue");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CounterValue")+stationInfo,11,0,-20);
 			break;
 		case LCD_ANALOG_VALUE:
 			element=ModelSurfacePanel.getVisualizationLCD("AnalogValue("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AnalogValue");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AnalogValue")+stationInfo,11,0,-20);
 			break;
 		case LCD_WIP_CLIENT:
 			element=ModelSurfacePanel.getVisualizationLCD("wip()");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal")+stationInfo,11,0,-20);
 			break;
 		case LCD_W_CLIENT:
 			element=ModelSurfacePanel.getVisualizationLCD("WaitingTime_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageWaitingTime");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageWaitingTime")+stationInfo,11,0,-20);
 			break;
+
+			/* Zeigermessinstrumente */
+
 		case SCALE_WIP_CURRENT:
 			element=ModelSurfacePanel.getVisualizationPointer("wip("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValue");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValue")+stationInfo,11,0,50);
 			break;
 		case SCALE_WIP_AVERAGE:
 			element=ModelSurfacePanel.getVisualizationPointer("wip_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValue");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValue")+stationInfo,11,0,50);
 			break;
 		case SCALE_NQ_CURRENT:
 			element=ModelSurfacePanel.getVisualizationPointer("NQ("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting")+stationInfo,11,0,50);
 			break;
 		case SCALE_NQ_AVERAGE:
 			element=ModelSurfacePanel.getVisualizationPointer("NQ_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting")+stationInfo,11,0,50);
 			break;
 		case SCALE_NQ_CURRENT_1:
 			element=ModelSurfacePanel.getVisualizationPointer("NQ("+getId()+";1)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting1");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting1")+stationInfo,11,0,50);
 			break;
 		case SCALE_NQ_CURRENT_2:
 			element=ModelSurfacePanel.getVisualizationPointer("NQ("+getId()+";2)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting2");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting2")+stationInfo,11,0,50);
 			break;
 		case SCALE_NQ_CURRENT_3:
 			element=ModelSurfacePanel.getVisualizationPointer("NQ("+getId()+";3)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting3");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting3")+stationInfo,11,0,50);
 			break;
 		case SCALE_NQ_AVERAGE_1:
 			element=ModelSurfacePanel.getVisualizationPointer("NQ_avg("+getId()+";1)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting1");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting1")+stationInfo,11,0,50);
 			break;
 		case SCALE_NQ_AVERAGE_2:
 			element=ModelSurfacePanel.getVisualizationPointer("NQ_avg("+getId()+";2)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting2");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting2")+stationInfo,11,0,50);
 			break;
 		case SCALE_NQ_AVERAGE_3:
 			element=ModelSurfacePanel.getVisualizationPointer("NQ_avg("+getId()+";3)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting3");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting3")+stationInfo,11,0,50);
 			break;
 		case SCALE_COUNTER_VALUE:
 			element=ModelSurfacePanel.getVisualizationPointer("counter("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CounterValue");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CounterValue")+stationInfo,11,0,50);
 			break;
 		case SCALE_ANALOG_VALUE:
 			element=ModelSurfacePanel.getVisualizationPointer("AnalogValue("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AnalogValue");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AnalogValue")+stationInfo,11,0,50);
 			break;
 		case SCALE_WIP_CLIENT:
 			element=ModelSurfacePanel.getVisualizationPointer("wip()");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal")+stationInfo,11,0,50);
 			break;
 		case SCALE_W_CLIENT:
 			element=ModelSurfacePanel.getVisualizationPointer("WaitingTime_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageWaitingTime");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageWaitingTime")+stationInfo,11,0,50);
 			break;
+
+			/* Einzelne Balken */
+
 		case BAR_WIP_CURRENT:
 			element=ModelSurfacePanel.getVisualizationBar("wip("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValue");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValue")+stationInfo,11,0,-20);
 			break;
 		case BAR_WIP_AVERAGE:
 			element=ModelSurfacePanel.getVisualizationBar("wip_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValue");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValue")+stationInfo,11,0,-20);
 			break;
 		case BAR_NQ_CURRENT:
 			element=ModelSurfacePanel.getVisualizationBar("NQ("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting")+stationInfo,11,0,-20);
 			break;
 		case BAR_NQ_AVERAGE:
 			element=ModelSurfacePanel.getVisualizationBar("NQ_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting")+stationInfo,11,0,-20);
 			break;
 		case BAR_NQ_CURRENT_1:
 			element=ModelSurfacePanel.getVisualizationBar("NQ("+getId()+";1)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting1");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting1")+stationInfo,11,0,-20);
 			break;
 		case BAR_NQ_CURRENT_2:
 			element=ModelSurfacePanel.getVisualizationBar("NQ("+getId()+";2)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting2");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting2")+stationInfo,11,0,-20);
 			break;
 		case BAR_NQ_CURRENT_3:
 			element=ModelSurfacePanel.getVisualizationBar("NQ("+getId()+";3)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting3");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting3")+stationInfo,11,0,-20);
 			break;
 		case BAR_NQ_AVERAGE_1:
 			element=ModelSurfacePanel.getVisualizationBar("NQ_avg("+getId()+";1)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting1");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting1")+stationInfo,11,0,-20);
 			break;
 		case BAR_NQ_AVERAGE_2:
 			element=ModelSurfacePanel.getVisualizationBar("NQ_avg("+getId()+";2)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting2");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting2")+stationInfo,11,0,-20);
 			break;
 		case BAR_NQ_AVERAGE_3:
 			element=ModelSurfacePanel.getVisualizationBar("NQ_avg("+getId()+";3)");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting3");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageValueWaiting3")+stationInfo,11,0,-20);
 			break;
 		case BAR_COUNTER_PART:
 			element=ModelSurfacePanel.getVisualizationBar("part("+getId()+")");
 			((ModelElementAnimationBar)element).setMaxValue(1);
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CounterPart");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CounterPart")+stationInfo,11,0,-20);
 			break;
 		case BAR_ANALOG_VALUE:
 			element=ModelSurfacePanel.getVisualizationBar("AnalogValue("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AnalogValue");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AnalogValue")+stationInfo,11,0,-20);
 			break;
+
+			/* Liniendiagramme */
+
 		case CHART_WIP:
 			element=ModelSurfacePanel.getVisualizationChart("wip("+getId()+")","wip_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValue");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValue")+stationInfo,0,-20);
 			break;
 		case CHART_NQ:
 			element=ModelSurfacePanel.getVisualizationChart("NQ("+getId()+")","NQ_avg("+getId()+")");
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueWaiting")+stationInfo,0,-20);
 			break;
 		case CHART_ANALOG_VALUE:
 			data=new ArrayList<>();
 			data.add(new Object[]{new AnimationExpression("AnalogValue("+getId()+")"),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(2)});
 			element=ModelSurfacePanel.getVisualizationChart(data);
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AnalogValue");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AnalogValue")+stationInfo,0,-20);
 			break;
+
+			/* Histogramme */
+
 		case HISTOGRAM_WIP:
 			element=ModelSurfacePanel.getVisualizationHistogram();
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueHistogram");
-			addElement=newElement->{
+			addElements=newElements->{
 				final var histData=ModelSurfacePanel.getHistogramData(parentMenu,"WIP_hist("+getId()+";%d)","WIP_hist("+getId()+";%d;%d)");
 				if (histData==null) return;
-				((ModelElementAnimationBarChart)newElement).setExpressionData(histData);
-				addElementOrig.accept(newElement);
+				((ModelElementAnimationBarChart)newElements[0]).setExpressionData(histData);
+				addElementOrig.accept(newElements);
 			};
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueHistogram")+stationInfo,0,-20);
 			break;
 		case HISTOGRAM_NQ:
 			element=ModelSurfacePanel.getVisualizationHistogram();
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.CurrentValueWaitingHistogram");
-			addElement=newElement->{
+			addElements=newElements->{
 				final var histData=ModelSurfacePanel.getHistogramData(parentMenu,"NQ_hist("+getId()+";%d)","NQ_hist("+getId()+";%d;%d)");
 				if (histData==null) return;
-				((ModelElementAnimationBarChart)newElement).setExpressionData(histData);
-				addElementOrig.accept(newElement);
+				((ModelElementAnimationBarChart)newElements[0]).setExpressionData(histData);
+				addElementOrig.accept(newElements);
 			};
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentValueWaitingHistogram")+stationInfo,0,-20);
 			break;
+
+			/* X-Y-Diagramme */
+
 		case RECORD:
 			element=ModelSurfacePanel.getVisualizationRecord();
 			((ModelElementAnimationRecord)element).setRecordId(getId());
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.Record");
+			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.Record")+stationInfo,0,-20);
 			break;
 		}
 
 		if (element!=null) {
 			element.setName(referenceName+((addonInfo==null)?"":(" - "+addonInfo)));
-			return addVisualizationMenuItem(element,element.getContextMenuElementName()+((addonInfo==null)?"":(" - "+addonInfo)),parentMenu,addElement);
+			final List<ModelElementPosition> elements=new ArrayList<>();
+			elements.add(element);
+			if (addon!=null) elements.add(addon);
+			return addVisualizationMenuItem(elements.toArray(ModelElementPosition[]::new),element.getContextMenuElementName()+((addonInfo==null)?"":(" - "+addonInfo)),parentMenu,addElements);
 		} else {
 			return null;
 		}

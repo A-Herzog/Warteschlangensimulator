@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-20 09:18+0100\n"
+"POT-Creation-Date: 2024-11-30 23:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32750,6 +32750,9 @@ msgstr "Änderungsrate"
 
 msgid "Surface.Popup.AddVisualization.AnalogValue"
 msgstr "Aktueller Wert"
+
+msgid "Surface.Popup.AddVisualization.AtStation"
+msgstr "an"
 
 msgid "Surface.Popup.AddVisualization.AverageNQTotal"
 msgstr "Mittlere Gesamtanzahl an wartenden Kunden im System"

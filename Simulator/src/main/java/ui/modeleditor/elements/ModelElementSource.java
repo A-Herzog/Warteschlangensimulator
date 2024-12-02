@@ -288,16 +288,16 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 	 * Fügt optionale Menüpunkte zu einem "Visualisierungen hinzufügen"-Untermenü hinzu, welche
 	 * es ermöglichen zu dem aktuellen Element direkt passende Animationselemente hinzuzufügen.
 	 * @param parentMenu	Untermenü des Popupmenüs, welches die Einträge aufnimmt
-	 * @param addElement	Callback, das aufgerufen werden kann, wenn ein Element zur Zeichenfläche hinzugefügt werden soll
+	 * @param addElements	Callback, das aufgerufen werden kann, wenn Elemente zur Zeichenfläche hinzugefügt werden sollen
 	 */
 	@Override
-	protected void addVisualizationContextMenuItems(final JMenu parentMenu, final Consumer<ModelElementPosition> addElement) {
-		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.TEXT_WIP_CLIENT);
-		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.LCD_WIP_CLIENT);
-		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.SCALE_WIP_CLIENT);
-		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.TEXT_W_CLIENT);
-		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.LCD_W_CLIENT);
-		addVisualizationMenuItem(parentMenu,addElement,VisualizationType.SCALE_W_CLIENT);
+	protected void addVisualizationContextMenuItems(final JMenu parentMenu, final Consumer<ModelElementPosition[]> addElements) {
+		addVisualizationMenuItem(parentMenu,addElements,VisualizationType.TEXT_WIP_CLIENT);
+		addVisualizationMenuItem(parentMenu,addElements,VisualizationType.LCD_WIP_CLIENT);
+		addVisualizationMenuItem(parentMenu,addElements,VisualizationType.SCALE_WIP_CLIENT);
+		addVisualizationMenuItem(parentMenu,addElements,VisualizationType.TEXT_W_CLIENT);
+		addVisualizationMenuItem(parentMenu,addElements,VisualizationType.LCD_W_CLIENT);
+		addVisualizationMenuItem(parentMenu,addElements,VisualizationType.SCALE_W_CLIENT);
 	}
 
 	/**

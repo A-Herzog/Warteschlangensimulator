@@ -83,6 +83,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -325,6 +326,8 @@ public final class ModelSurfacePanel extends JPanel {
 
 	/** Hinzuzufügendes Element */
 	private transient ModelElement modeAddElement;
+	/** Weitere Elemente die relativ zu {@link #modeAddElement} ausgerichtet und hinzugefügt werden sollen */
+	private transient ModelElement[] modeAddElementMore;
 	/** Element von dem aus nach dem Einfügen eines neuen Elements eine Verbindung zu dem neuen Element hergestellt werden soll */
 	private transient ModelElementBox modeAddElementSource;
 	/** Datenobjekt zum Einfügen aus der Zwischenablage */
@@ -995,6 +998,11 @@ public final class ModelSurfacePanel extends JPanel {
 			setCursor(Cursor.getDefaultCursor());
 			modeAddElementSource=null;
 		}
+		if (mode==ClickMode.MODE_NORMAL) {
+			modeAddElement=null;
+			modeAddElementMore=null;
+
+		}
 		if (fireStateChange) fireStateChangeListener();
 	}
 
@@ -1219,6 +1227,22 @@ public final class ModelSurfacePanel extends JPanel {
 		surface.setSelectedElement(null);
 		fireSelectionListener();
 		modeAddElement=element;
+		modeAddElementMore=null;
+		modeAddElementSource=null;
+		setMode(ClickMode.MODE_ADD_ELEMENT);
+	}
+
+	/**
+	 * Beginnt mit dem Hinzufügen eines Elements (welches keine Kante ist).
+	 * @param element	Vorlage für das hinzuzufügende Element
+	 * @param elements	Optionale Vorlagen für weitere hinzuzufügende Elemente (kann <code>null</code> sein)
+	 */
+	public void startAddElementMulti(final ModelElementPosition element, final ModelElementPosition[] elements) {
+		if (readOnly) return;
+		surface.setSelectedElement(null);
+		fireSelectionListener();
+		modeAddElement=element;
+		modeAddElementMore=elements;
 		modeAddElementSource=null;
 		setMode(ClickMode.MODE_ADD_ELEMENT);
 	}
@@ -2402,17 +2426,52 @@ public final class ModelSurfacePanel extends JPanel {
 	/**
 	 * Fügt einen Menüpunkt zum Einfügen einer Visualisierung zu einem Menü hinzu
 	 * @param parentMenu	Übergeordnetes Menü
-	 * @param element	Visualisierungselement das durch den Menüpunkt eingefügt werden soll
+	 * @param elements	Visualisierungselemente die durch den Menüpunkt eingefügt werden sollen
 	 * @return	Liefert den bereits eingefügten Menüpunkt zurück
 	 */
-	private JMenuItem addVisualizationContextMenuItem(final JMenu parentMenu, final ModelElementPosition element) {
+	private JMenuItem addVisualizationContextMenuItem(final JMenu parentMenu, final ModelElementPosition[] elements) {
+		final ModelElementPosition element=elements[0];
+		final ModelElementPosition[] additions=Stream.of(elements).skip(1).toArray(ModelElementPosition[]::new);
 		final JMenuItem item=new JMenuItem(element.getContextMenuElementName()+" - "+element.getName());
 		item.setToolTipText(element.getToolTip());
 		final Icon icon=element.getAddElementIcon();
 		if (icon!=null) item.setIcon(icon);
-		item.addActionListener(e->startAddElement(element));
+		item.addActionListener(e->startAddElementMulti(element,additions));
 		parentMenu.add(item);
 		return item;
+	}
+
+	/**
+	 * Erstellt ein Text-Element.
+	 * @param info	Anzuzeigender Text
+	 * @param fontSize	Schriftgröße (Werte &le;0 für Standardgröße)
+	 * @param deltaX	x-Achsen-Verschiebung gegenüber Ausgangsposition
+	 * @param deltaY	y-Achsen-Verschiebung gegenüber Ausgangsposition
+	 * @return	Text-Element
+	 * @see #addVisualizationContextMenuItems(JMenu)
+	 */
+	public static ModelElementText getVisualizationPlainText(final String info, final int fontSize, final int deltaX, final int deltaY) {
+		final ModelElementText text=new ModelElementText(null,null);
+		final var p=text.getPosition(true);
+		text.setPosition(new Point(p.x+deltaX,p.y+deltaY));
+		text.setText(info);
+		if (fontSize>0) text.setTextSize(fontSize);
+
+		if (FlatLaFHelper.isDark()) EditModelDark.processElement(text,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+
+		return text;
+	}
+
+	/**
+	 * Erstellt ein Text-Element.
+	 * @param info	Anzuzeigender Text
+	 * @param deltaX	x-Achsen-Verschiebung gegenüber Ausgangsposition
+	 * @param deltaY	y-Achsen-Verschiebung gegenüber Ausgangsposition
+	 * @return	Text-Element
+	 * @see #addVisualizationContextMenuItems(JMenu)
+	 */
+	public static ModelElementText getVisualizationPlainText(final String info, final int deltaX, final int deltaY) {
+		return getVisualizationPlainText(info,-1,deltaX,deltaY);
 	}
 
 	/**
@@ -2654,28 +2713,75 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @param parentMenu	Übergeordnetes Menü
 	 */
 	private void addVisualizationContextMenuItems(final JMenu parentMenu) {
-		addVisualizationContextMenuItem(parentMenu,getVisualizationText(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()"));
-		addVisualizationContextMenuItem(parentMenu,getVisualizationText(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),"wip_avg()"));
-		addVisualizationContextMenuItem(parentMenu,getVisualizationText(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()"));
-		addVisualizationContextMenuItem(parentMenu,getVisualizationText(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),"NQ_avg()"));
+		/* Texte */
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {getVisualizationText(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()")});
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {getVisualizationText(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),"wip_avg()")});
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {getVisualizationText(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()")});
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {getVisualizationText(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),"NQ_avg()")});
 
-		addVisualizationContextMenuItem(parentMenu,getVisualizationLCD(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()"));
-		addVisualizationContextMenuItem(parentMenu,getVisualizationLCD(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),"wip_avg()"));
-		addVisualizationContextMenuItem(parentMenu,getVisualizationLCD(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()"));
-		addVisualizationContextMenuItem(parentMenu,getVisualizationLCD(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),"NQ_avg()"));
+		/* LCD-Anzeigen */
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {
+				getVisualizationLCD(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()"),
+				getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),11,0,-20)
+		});
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {
+				getVisualizationLCD(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),"wip_avg()"),
+				getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),11,0,-20)
+		});
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {
+				getVisualizationLCD(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()"),
+				getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),11,0,-20)
+		});
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {
+				getVisualizationLCD(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),"NQ_avg()"),
+				getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),11,0,-20)
+		});
 
-		addVisualizationContextMenuItem(parentMenu,getVisualizationPointer(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()"));
-		addVisualizationContextMenuItem(parentMenu,getVisualizationPointer(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),"wip_avg()"));
-		addVisualizationContextMenuItem(parentMenu,getVisualizationPointer(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()"));
-		addVisualizationContextMenuItem(parentMenu,getVisualizationPointer(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),"NQ_avg()"));
+		/* Zeigermessinstrumente */
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {
+				getVisualizationPointer(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()"),
+				getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),11,0,50)
+		});
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {
+				getVisualizationPointer(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),"wip_avg()"),
+				getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),11,0,50)
+		});
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {
+				getVisualizationPointer(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()"),
+				getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),11,0,50)
+		});
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {
+				getVisualizationPointer(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),"NQ_avg()"),
+				getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),11,0,50)
+		});
 
-		addVisualizationContextMenuItem(parentMenu,getVisualizationBar(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()"));
-		addVisualizationContextMenuItem(parentMenu,getVisualizationBar(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),"wip_avg()"));
-		addVisualizationContextMenuItem(parentMenu,getVisualizationBar(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()"));
-		addVisualizationContextMenuItem(parentMenu,getVisualizationBar(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),"NQ_avg()"));
+		/* Einzelne Balken */
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {
+				getVisualizationBar(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()"),
+				getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),11,0,-20)
+		});
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {
+				getVisualizationBar(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),"wip_avg()"),
+				getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageWIPTotal"),11,0,-20)
+		});
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {
+				getVisualizationBar(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()"),
+				getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),11,0,-20)
+		});
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {
+				getVisualizationBar(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),"NQ_avg()"),
+				getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AverageNQTotal"),11,0,-20)
+		});
 
-		addVisualizationContextMenuItem(parentMenu,getVisualizationChart(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()","wip_avg()"));
-		addVisualizationContextMenuItem(parentMenu,getVisualizationChart(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()","NQ_avg()"));
+		/* Liniendiagramme */
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {
+				getVisualizationChart(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),"wip()","wip_avg()"),
+				getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentWIPTotal"),0,-20)
+		});
+		addVisualizationContextMenuItem(parentMenu,new ModelElementPosition[] {
+				getVisualizationChart(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),"NQ()","NQ_avg()"),
+				getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.CurrentNQTotal"),0,-20)
+		});
 	}
 
 	/**
@@ -3470,8 +3576,19 @@ public final class ModelSurfacePanel extends JPanel {
 			if (SwingUtilities.isLeftMouseButton(e) && mode==ClickMode.MODE_ADD_ELEMENT && modeAddElement!=null) {
 				if (surface==null || readOnly) return;
 				final ModelElement element=modeAddElement.clone(model,surface);
-				element.setPosition(new Point((int)Math.round(e.getX()/zoom),(int)Math.round(e.getY()/zoom)));
+				final var p=new Point((int)Math.round(e.getX()/zoom),(int)Math.round(e.getY()/zoom));
+				element.setPosition(p);
+				final var pBase=modeAddElement.getPosition(true);
 				surface.add(element);
+				if (modeAddElementMore!=null) {
+					for (var el1: modeAddElementMore) {
+						final ModelElement el2=el1.clone(model,surface);
+						final var pEl=el1.getPosition(true);
+						el2.setPosition(new Point(pEl.x-pBase.x+p.x,pEl.y-pBase.y+p.y));
+						surface.add(el2);
+					}
+					modeAddElementMore=null;
+				}
 				if (modeAddElementSource!=null) {
 					if (modeAddElementSource.canAddEdgeOut() && (element instanceof ModelElementBox) && ((ModelElementBox)element).canAddEdgeIn()) {
 						final ModelElementEdge edge=new ModelElementEdge(model,surface,modeAddElementSource,element);
@@ -3519,7 +3636,7 @@ public final class ModelSurfacePanel extends JPanel {
 						if (((ModelElementPosition)element).addEdgeIn(edge)) {
 							surface.add(edge);
 						} else {
-							((ModelElementPosition)modeAddElement).removeConnectionNotify(edge);
+							modeAddElement.removeConnectionNotify(edge);
 						}
 					}
 					setMode(ClickMode.MODE_ADD_EDGE_STEP1);
