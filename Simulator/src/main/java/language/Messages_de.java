@@ -2807,7 +2807,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[6930] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.ByExpression";
     t[6931] = "Transport bei erf\u00fcllter Bedingung ausl\u00f6sen";
     t[6934] = "Surface.Popup.AddLongRunStatistics.Success.Title";
-    t[6935] = "Laufzeitstatistik kann nicht hinzugef\u00fcgt werden";
+    t[6935] = "Laufzeitstatistik hinzugef\u00fcgt";
     t[6936] = "ExternalConnect.Dialog.Mode.Full";
     t[6937] = "\u00dcber Plugin-Schnittstelle und direkt als Import";
     t[6938] = "ParameterCompare.Toolbar.ProcessResults.ResultsLongRun";
@@ -24311,7 +24311,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[59382] = "Main.Menu.View.ShowRaster.SmallPlus.Mnemonic";
     t[59383] = "K";
     t[59384] = "Surface.Popup.AddLongRunStatistics.Error.Title";
-    t[59385] = "Laufzeitstatistik hinzugef\u00fcgt";
+    t[59385] = "Laufzeitstatistik kann nicht hinzugef\u00fcgt werden";
     t[59392] = "ParameterCompare.Settings.Output.Mode.XML.Label";
     t[59393] = "XML-Element";
     t[59396] = "LoadCalculator.NumberOfLines";

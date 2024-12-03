@@ -2807,7 +2807,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[6930] = "Surface.TransportSource.Dialog.Tab.RoutingTargets.Edit.Dialog.ByExpression";
     t[6931] = "Trigger transport at fulfilled condition";
     t[6934] = "Surface.Popup.AddLongRunStatistics.Success.Title";
-    t[6935] = "Cannot add run time statistics";
+    t[6935] = "Run time statistics added";
     t[6936] = "ExternalConnect.Dialog.Mode.Full";
     t[6937] = "Via plugin interface and directly as import";
     t[6938] = "ParameterCompare.Toolbar.ProcessResults.ResultsLongRun";
@@ -7769,7 +7769,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18772] = "Optimizer.Tab.ControlVariables.MoveDown.Hint";
     t[18773] = "Moves the current control variable one position down in the list";
     t[18774] = "Surface.Popup.AddLongRunStatistics.Error.Info";
-    t[18775] = "The run time statistics value \"%s\" has been added.";
+    t[18775] = "The run time statistics value \"%s\" is already in the list of values to be recorded.";
     t[18776] = "NotesDialog.Delete.Confirm.Info";
     t[18777] = "Do you really want to delete the current note?";
     t[18778] = "BuildClientSourceTable.Setup.ColumnName";
@@ -21969,7 +21969,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53604] = "ParameterCompare.ConnectParameters.Info2";
     t[53605] = "The values of the other input parameters are available via the following variables:";
     t[53606] = "Surface.Popup.AddLongRunStatistics.Success.Info";
-    t[53607] = "The run time statistics value \"%s\" is already in the list of values to be recorded.";
+    t[53607] = "The run time statistics value \"%s\" has been added.";
     t[53610] = "Simulation.Creator.NoRepeatCountAllowed";
     t[53611] = "The simulation should be repeated %d times. By the following reason this is not possible: %s";
     t[53614] = "Optimizer.Round.NoModelsForNextRound";
@@ -24311,7 +24311,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[59382] = "Main.Menu.View.ShowRaster.SmallPlus.Mnemonic";
     t[59383] = "S";
     t[59384] = "Surface.Popup.AddLongRunStatistics.Error.Title";
-    t[59385] = "Run time statistics added";
+    t[59385] = "Cannot add run time statistics";
     t[59392] = "ParameterCompare.Settings.Output.Mode.XML.Label";
     t[59393] = "XML element";
     t[59396] = "LoadCalculator.NumberOfLines";
