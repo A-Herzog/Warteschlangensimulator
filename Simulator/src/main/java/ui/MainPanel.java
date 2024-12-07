@@ -845,6 +845,7 @@ public class MainPanel extends MainPanelBase {
 		addAction("HelpLiteratureHedtstueck",e->commandHelpLiterature(5));
 		addAction("HelpLiteratureGutenschwager",e->commandHelpLiterature(6));
 		addAction("HelpWiki",e->commandHelpWiki());
+		addAction("HelpSupportForum",e->commandHelpSupportForum());
 		addAction("HelpSupport",e->commandHelpSupport());
 		addAction("HelpSupportData",e->commandHelpSupportData());
 		addAction("HelpHomepage",e->commandHelpHomepage());
@@ -1553,19 +1554,20 @@ public class MainPanel extends MainPanelBase {
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.Waldmann"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureWaldmann"),"HelpLiteratureWaldmann");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.Hedtstueck"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureHedtstueck"),"HelpLiteratureHedtstueck");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.RecommendedLiterature.Gutenschwager"),Images.HELP_BOOK.getIcon(),Language.tr("Main.Menu.Help.RecommendedLiterature.Mnemonic.LiteratureGutenschwager"),"HelpLiteratureGutenschwager");
-		menu.addSeparator();
-		createMenuItem(menu,Language.tr("Main.Menu.Help.Wiki"),Language.tr("Main.Menu.Help.Wiki.Mnemonic"),"HelpWiki");
-		createMenuItem(menu,Language.tr("Main.Menu.Help.Support"),Images.HELP_EMAIL.getIcon(),Language.tr("Main.Menu.Help.Support.Mnemonic"),"HelpSupport");
-		createMenuItem(menu,Language.tr("Main.Menu.Help.SupportData"),Images.HELP_BUG_REPORT.getIcon(),Language.tr("Main.Menu.Help.SupportData.Mnemonic"),"HelpSupportData");
-		createMenuItem(menu,Language.tr("Main.Menu.Help.Homepage"),Images.HELP_HOMEPAGE.getIcon(),Language.tr("Main.Menu.Help.Homepage.Mnemonic"),"HelpHomepage");
 		menu.add(submenu=new JMenu(Language.tr("Main.Menu.Help.WebServices")));
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.WebServices.MiniWarteschlangensimulator"),Language.tr("Main.Menu.Help.WebServices.MiniWarteschlangensimulator.Mnemonic"),"HelpWebServicesMiniWarteschlangensimulator");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.WebServices.QueueCalc"),Language.tr("Main.Menu.Help.WebServices.QueueCalc.Mnemonic"),"HelpWebServicesQueueCalc");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.WebServices.MiniSimulator"),Language.tr("Main.Menu.Help.WebServices.MiniSimulator.Mnemonic"),"HelpWebServicesMiniSimulator");
 		createMenuItem(submenu,Language.tr("Main.Menu.Help.WebServices.Distributions"),Language.tr("Main.Menu.Help.WebServices.Distributions.Mnemonic"),"HelpWebServicesDistributions");
+		menu.addSeparator();
+		createMenuItem(menu,Language.tr("Main.Menu.Help.SupportForum"),Images.HELP_FORUM.getIcon(),Language.tr("Main.Menu.Help.SupportForum.Mnemonic"),"HelpSupportForum");
+		createMenuItem(menu,Language.tr("Main.Menu.Help.Support"),Images.HELP_EMAIL.getIcon(),Language.tr("Main.Menu.Help.Support.Mnemonic"),"HelpSupport");
+		createMenuItem(menu,Language.tr("Main.Menu.Help.SupportData"),Images.HELP_BUG_REPORT.getIcon(),Language.tr("Main.Menu.Help.SupportData.Mnemonic"),"HelpSupportData");
+		createMenuItem(menu,Language.tr("Main.Menu.Help.Homepage"),Images.HELP_HOMEPAGE.getIcon(),Language.tr("Main.Menu.Help.Homepage.Mnemonic"),"HelpHomepage");
+		createMenuItem(menu,Language.tr("Main.Menu.Help.Wiki"),Language.tr("Main.Menu.Help.Wiki.Mnemonic"),"HelpWiki");
+		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.Updates"),Images.SETUP_PAGE_UPDATE.getIcon(),Language.tr("Main.Menu.Help.Updates.Mnemonic"),"HelpUpdates");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.DataPrivacy"),Images.HELP_DATA_PRIVACY.getIcon(),Language.tr("Main.Menu.Help.DataPrivacy.Mnemonic"),"HelpDataPrivacy");
-		menu.addSeparator();
 		createMenuItem(menu,Language.tr("Main.Menu.Help.UsageStatistics"),Language.tr("Main.Menu.Help.UsageStatistics.Mnemonic"),"HelpUsageStatistics");
 		createMenuItem(menu,Language.tr("Main.Menu.Help.LicenseInformation"),Language.tr("Main.Menu.Help.LicenseInformation.Mnemonic"),"HelpLicense");
 		createMenuItemCtrlShift(menu,Language.tr("Main.Menu.Help.ProgramInformation"),Images.GENERAL_INFO.getIcon(),Language.tr("Main.Menu.Help.ProgramInformation.Mnemonic"),KeyEvent.VK_F1,"HelpInfo");
@@ -4222,6 +4224,13 @@ public class MainPanel extends MainPanelBase {
 	 */
 	private void commandHelpWiki() {
 		openWebpage("https://"+REPOSITORY_URL+"/wiki");
+	}
+
+	/**
+	 * Befehl: Hilfe - Support-Forum
+	 */
+	private void commandHelpSupportForum() {
+		openWebpage("https://"+REPOSITORY_URL+"/discussions");
 	}
 
 	/**

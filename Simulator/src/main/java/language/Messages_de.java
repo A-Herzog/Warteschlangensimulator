@@ -7618,6 +7618,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18429] = "Taxi";
     t[18432] = "Statistics.FileOutput.Info";
     t[18433] = "W\u00e4hrend der Simulation wurden Dateiausgaben generiert:";
+    t[18436] = "Main.Menu.Help.SupportForum.Mnemonic";
+    t[18437] = "F";
     t[18446] = "Surface.AnimationTextSelect.XML.BackgroundColor";
     t[18447] = "ModellElementHintergrundfarbe";
     t[18454] = "Surface.OutputJS.XML.Script.Java";
@@ -8026,14 +8028,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19425] = "Tabelle";
     t[19428] = "Surface.Source.XML.Threshold.Direction.Down";
     t[19429] = "nach unten";
-    t[19434] = "Animation.Toolbar.Speed.Maximal";
-    t[19435] = "Maximal";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[19434] = "Animation.Toolbar.Speed.Maximal";
+    t[19435] = "Maximal";
     t[19436] = "Surface.SourceDDE.XML.Workbook";
     t[19437] = "ModellElementDDEQuelleArbeitsmappe";
     t[19440] = "Surface.AnimationBarChart.HistogramWizard.SelectColor";
@@ -10032,14 +10034,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24277] = "3 Lichter (Rot, Gelb und Gr\u00fcn)";
     t[24280] = "Surface.Process.Label.WaitingCancelation";
     t[24281] = "Warteabbruch";
-    t[24282] = "Surface.XML.Transporter.Distances";
-    t[24283] = "ModellTransporterEntfernung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[24282] = "Surface.XML.Transporter.Distances";
+    t[24283] = "ModellTransporterEntfernung";
     t[24288] = "Statistics.XML.Element.InterLeavingStations";
     t[24289] = "StatistikZwischenabgangszeitenStationen";
     t[24290] = "Main.Menu.View.Statistics.HeatMapRotateNext";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29283] = "%sK von %sK Kundenank\u00fcnfte simuliert / %sM Ereignisse / %sK Ereignisse pro Sekunde";
     t[29284] = "Surface.Link.Dialog.Link";
     t[29285] = "Linkziel";
-    t[29294] = "ExpressionBuilder.MathematicalFunctions.Factorial.Info";
-    t[29295] = "<p>Berechnet die Fakult\u00e4t des vor dem !-Zeichen stehenden Wertes.</p><p>Beispiel: <tt>6!</tt> liefert 720.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29294] = "ExpressionBuilder.MathematicalFunctions.Factorial.Info";
+    t[29295] = "<p>Berechnet die Fakult\u00e4t des vor dem !-Zeichen stehenden Wertes.</p><p>Beispiel: <tt>6!</tt> liefert 720.</p>";
     t[29300] = "Surface.AnimationDiagram.XML.LabelsTime";
     t[29301] = "ModellElementAchsenbeschriftungZeit";
     t[29312] = "Surface.DecideJS.XML.Script";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33989] = "Letzter Kundentyp";
     t[33992] = "SystemInfo.Tools.UserInterface.MemoryUsage";
     t[33993] = "Speicherbelegung anzeigen";
-    t[33994] = "Main.Menu.AnalogValues.Exact";
-    t[33995] = "\u00c4nderungen exakt anzeigen (langsam)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33994] = "Main.Menu.AnalogValues.Exact";
+    t[33995] = "\u00c4nderungen exakt anzeigen (langsam)";
     t[33996] = "Surface.AnimationTextJS.XML.FontSize.Bold";
     t[33997] = "fett";
     t[33998] = "Resources.Group.EditName.Dialog.Failure.Available";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39045] = "Datenbankquelle bearbeiten";
     t[39046] = "Main.Menu.Edit.MoveBackwards";
     t[39047] = "Eine Stufe nach hinten";
-    t[39052] = "Surface.AnimationTextSelect.XML.FontSize.Italic";
-    t[39053] = "kursiv";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39052] = "Surface.AnimationTextSelect.XML.FontSize.Italic";
+    t[39053] = "kursiv";
     t[39056] = "ModelLoadData.ProcessError.InvalidCellID";
     t[39057] = "Der Zellbezeichner \"%s\" f\u00fcr Datensatz %d ist ung\u00fcltig.";
     t[39058] = "ExpressionBuilder.StatisticalFunctions.Sum.Info";
@@ -16331,7 +16333,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39738] = "Surface.Action.Dialog.Edit.Tabs.Action.Analog.Element.ID";
     t[39739] = "ID des zugeh\u00f6rigen Analogwert-Elements";
     t[39746] = "Main.Menu.Help.Support";
-    t[39747] = "Unterst\u00fctzung & Support";
+    t[39747] = "Unterst\u00fctzung & Support per E-Mail";
     t[39748] = "Surface.Action.XML.Record.Condition.ThresholdDirection.Up";
     t[39749] = "NachOben";
     t[39754] = "ExpressionBuilder.TrigonometricFunctions.CotangensHyperbolicus";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43897] = "Java-Laufzeitumgebung mit Kompiler automatisch installieren.<br>(Keine Admin-Rechte notwendig, keine weitere Nutzerinteraktion notwendig.)";
     t[43900] = "Main.Menu.Edit.MoveBackwards.Mnemonic";
     t[43901] = " ";
-    t[43902] = "ParameterCompare.XML.Outputs.Data.Digits";
-    t[43903] = "Nachkommastellen";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[43902] = "ParameterCompare.XML.Outputs.Data.Digits";
+    t[43903] = "Nachkommastellen";
     t[43904] = "Surface.TeleportDestination.Tooltip";
     t[43905] = "Zielpunkt f\u00fcr einen Teleporttransport, der einen Kunden ohne Zeitbedarf von einer Teleportstartstation aus bef\u00f6rdert.";
     t[43910] = "Statistics.Dashboard.EditDialog.XML.Button";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48833] = "Simulationsergebnisse";
     t[48838] = "Surface.MultiSourceTable.Dialog";
     t[48839] = "Kundenquelle bearbeiten";
-    t[48842] = "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime.Short";
-    t[48843] = "Mittlere Zwischenankunftszeit";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[48842] = "Surface.PopupMenu.ParameterCompare.ChangeInterarrivalTime.Short";
+    t[48843] = "Mittlere Zwischenankunftszeit";
     t[48844] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesByClientTypes.VarianceOfTheTime";
     t[48845] = "<p>Liefert die Varianz \u00fcber die Wartezeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>\n<p>Alternativ sind auch folgende andere Parametrierungen m\u00f6glich:</p>\n<ul>\n<li>ID einer Kundenquelle (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Station und ID einer Quelle (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Quelle im zweiten Parameter erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>3 Parameter: ID einer Station, ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Mehrfachquelle im zweiten Parameter erzeugten Kundentyps)</li>\n</ul>";
     t[48848] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.CoefficientOfVariationOfTheNumber";
@@ -20396,6 +20398,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49633] = "Es wurde an dem Ausgangstank kein Ventil gew\u00e4hlt, das mit dem Fluss verbunden werden soll.";
     t[49634] = "Surface.Text.XML.FontSize.Markdown";
     t[49635] = "Markdown";
+    t[49646] = "Main.Menu.Help.SupportForum";
+    t[49647] = "Support-Forum";
     t[49648] = "InfoDialog.OS";
     t[49649] = "Betriebssystem";
     t[49650] = "Simulation.Creator.NoValue";
@@ -22066,16 +22070,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53829] = "Intervallabh\u00e4ngige Zwischenankunftszeiten";
     t[53834] = "ParameterCompare.ScriptRunner.Results.Save.Error.Info";
     t[53835] = "Das Speichern der Skript-Ergebnisse in der Datei\n%s\nist fehlgeschlagen.";
-    t[53844] = "Statistic.FastAccess.Template.ClientsAtStationProcessByClientType";
-    t[53845] = "Mittlere Anzahl an Kunden in Bedienung (nach Kundentyp)";
-    t[53848] = "Surface.Dispose.NameStopp";
-    t[53849] = "Notausgang";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[53844] = "Statistic.FastAccess.Template.ClientsAtStationProcessByClientType";
+    t[53845] = "Mittlere Anzahl an Kunden in Bedienung (nach Kundentyp)";
+    t[53848] = "Surface.Dispose.NameStopp";
+    t[53849] = "Notausgang";
     t[53852] = "Surface.TransportSource.XML.Type.WaitingTime";
     t[53853] = "Wartezeit";
     t[53862] = "Main.Menu.View.MouseWheelZoom";
@@ -24072,16 +24076,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[58841] = "Summiert die Rechenzeiten aller Ergebnisdateien in einem Verzeichnis.";
     t[58846] = "ExpressionBuilder.MathematicalFunctions.IntegerPart";
     t[58847] = "Ganzzahl-Anteil";
-    t[58848] = "Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStationProcess";
-    t[58849] = "Momentane Anzahl an Kunden in Bedienung der Station: %s";
-    t[58852] = "Surface.AnimationPause.XML.Root";
-    t[58853] = "ModellElementPause";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[58848] = "Surface.PopupMenu.SimulationStatisticsData.Data.ClientsAtStationProcess";
+    t[58849] = "Momentane Anzahl an Kunden in Bedienung der Station: %s";
+    t[58852] = "Surface.AnimationPause.XML.Root";
+    t[58853] = "ModellElementPause";
     t[58860] = "Window.Layers.Add.Title";
     t[58861] = "Hinzuf\u00fcgen";
     t[58870] = "Surface.TransportSource.Dialog.Ressource.Priority";

@@ -337,7 +337,7 @@ public enum Images {
 	ALIGN_RIGHT("shape_align_right.png"),
 
 	/** Symbol "Alle Elemente ausrichten" */
-	ARRANGE("Layout.png"),
+	ARRANGE("layout.png"),
 
 	/** Symbol "Anordnen - ganz nach vorne" */
 	MOVE_FRONT("shape_move_front.png"),
@@ -973,6 +973,9 @@ public enum Images {
 
 	/** Symbol für Untereinträge von "Sachverzeichnis" */
 	HELP_BOOK_INDEX("book_key.png"),
+
+	/** Symbol "Forum" */
+	HELP_FORUM("emoticon_smile.png"),
 
 	/** Symbol "E-Mail" */
 	HELP_EMAIL("email.png"),

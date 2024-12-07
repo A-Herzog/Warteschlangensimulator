@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-01 00:17+0100\n"
+"POT-Creation-Date: 2024-12-02 12:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12386,7 +12386,7 @@ msgid "Main.Menu.Help.ScriptingReference.pdf"
 msgstr "Warteschlangensimulator-Scripting-de.pdf"
 
 msgid "Main.Menu.Help.Support"
-msgstr "Unterstützung & Support"
+msgstr "Unterstützung & Support per E-Mail"
 
 msgid "Main.Menu.Help.Support.Mnemonic"
 msgstr "U"
@@ -12396,6 +12396,12 @@ msgstr "Problemreport erstellen..."
 
 msgid "Main.Menu.Help.SupportData.Mnemonic"
 msgstr "P"
+
+msgid "Main.Menu.Help.SupportForum"
+msgstr "Support-Forum"
+
+msgid "Main.Menu.Help.SupportForum.Mnemonic"
+msgstr "F"
 
 msgid "Main.Menu.Help.Textbook"
 msgstr "Lehrbuch zum Simulator..."
