@@ -240,7 +240,7 @@ public class UpdateSystem {
 
 			if (!updateInstaller.renameTo(updateInstallerRun)) return false;
 
-			final String[] cmd=new String[]{updateInstallerRun.getAbsolutePath(),"/S","/D="+SetupData.getProgramFolder().toString()};
+			final String[] cmd=new String[]{updateInstallerRun.getAbsolutePath(),"/Update","/D="+SetupData.getProgramFolder().toString()};
 			Runtime.getRuntime().addShutdownHook(new Thread(()->runCommand(cmd),"RunUpdateThread"));
 			System.exit(0);
 

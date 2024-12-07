@@ -67,6 +67,14 @@ ShowUninstDetails nevershow
 ; Settings for the modern user interface (MUI)
 ; ============================================================
 
+Function IsUpdate
+  ${GetParameters} $R1
+  ${GetOptions} $R1 "/Update" $R2
+  ${IfNot} ${Errors}
+      Abort
+  ${EndIf}
+FunctionEnd
+
 !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\orange-install.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\orange-uninstall.ico"
 !define MUI_HEADERIMAGE
@@ -91,8 +99,10 @@ ShowUninstDetails nevershow
 
 !define MUI_UNABORTWARNING_TEXT "$(LANGNAME_UnAbortWarning)"
 
+!define MUI_PAGE_CUSTOMFUNCTION_PRE IsUpdate
 !insertmacro MULTIUSER_PAGE_INSTALLMODE
 !insertmacro MUI_PAGE_INSTFILES
+!define MUI_PAGE_CUSTOMFUNCTION_PRE IsUpdate
 !insertmacro MUI_PAGE_FINISH
 
 !insertmacro MULTIUSER_UNPAGE_INSTALLMODE
@@ -247,6 +257,13 @@ Section "Install" Inst
   Delete "$APPDATA\Temp\${SetupFileName}.part"
   Delete "$APPDATA\Temp\${SetupFileName}"
   
+  ; Start simulator after update (since update installation will not show a finish page)
+  ${GetParameters} $R1
+  ${GetOptions} $R1 "/Update" $R2
+  ${IfNot} ${Errors}
+    Exec "$INSTDIR\${PROGBAT}"
+  ${EndIf}  
+  
   IfSilent 0 notSilent
   UserInfo::getAccountType
   Pop $0
@@ -335,7 +352,11 @@ SectionEnd
 
 Function .onInit  
   !insertmacro MULTIUSER_INIT
-  !insertmacro MUI_LANGDLL_DISPLAY
+  ${GetParameters} $R1
+  ${GetOptions} $R1 "/Update" $R2
+  ${If} ${Errors}
+    !insertmacro MUI_LANGDLL_DISPLAY
+  ${EndIf}
 FunctionEnd
 
 
