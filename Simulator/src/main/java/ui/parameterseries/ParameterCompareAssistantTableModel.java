@@ -118,8 +118,8 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 			}
 			break;
 		case MODE_VARIABLE:
-			final int i=model.globalVariablesNames.indexOf(record.getTag());
-			if (i>=0) testString=model.globalVariablesExpressions.get(i);
+			final var globalVariable=model.getGlobalVariableByName(record.getTag());
+			if (globalVariable!=null) testString=globalVariable.getExpression();
 			break;
 		case MODE_MAP:
 			final Object obj=model.globalMapInitial.get(record.getTag());
@@ -232,8 +232,8 @@ public class ParameterCompareAssistantTableModel extends JTableExtAbstractTableM
 			if (resource!=null) return ""+resource.getCount();
 			break;
 		case MODE_VARIABLE:
-			final int i=model.globalVariablesNames.indexOf(record.getTag());
-			if (i>=0) return model.globalVariablesExpressions.get(i);
+			final var globalVariable=model.getGlobalVariableByName(record.getTag());
+			if (globalVariable!=null) return globalVariable.getExpression();
 			break;
 		case MODE_MAP:
 			final Object obj=model.globalMapInitial.get(record.getTag());

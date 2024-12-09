@@ -265,8 +265,8 @@ public class ParameterCompareSetupValueInputPanel extends JPanel {
 			if (resource!=null) info=String.format(Language.tr("ParameterCompare.Settings.Input.Mode.Resource.Info"),resource.getCount());
 			break;
 		case 1:
-			final int index=model.globalVariablesNames.indexOf(varCombo.getSelectedItem());
-			if (index>=0) info=String.format(Language.tr("ParameterCompare.Settings.Input.Mode.GlobalVariable.Info"),model.globalVariablesExpressions.get(index));
+			final var globalVariable=model.getGlobalVariableByName((String)varCombo.getSelectedItem());
+			if (globalVariable!=null) info=String.format(Language.tr("ParameterCompare.Settings.Input.Mode.GlobalVariable.Info"),globalVariable.getExpression());
 			break;
 		case 2:
 			final Object obj=model.globalMapInitial.get(mapCombo.getSelectedItem());

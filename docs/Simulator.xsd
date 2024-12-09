@@ -172,6 +172,7 @@
 <xs:element name="InitialeVariable"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Name" type="xs:string" use="required"/>
+	<xs:attribute name="NachWertFragen" type="xs:integer"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -2713,6 +2714,7 @@
 <xs:element name="InitialVariable"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Name" type="xs:string" use="required"/>
+	<xs:attribute name="AskForValue" type="xs:integer"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 

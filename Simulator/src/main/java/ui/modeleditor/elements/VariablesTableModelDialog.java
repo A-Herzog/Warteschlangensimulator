@@ -31,6 +31,7 @@ import java.util.Set;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -80,6 +81,8 @@ public class VariablesTableModelDialog extends BaseDialog {
 	private final JRadioButton optionProcess;
 	/** Option: Bisherige Verweilzeit des aktuellen Kunden zuweisen */
 	private final JRadioButton optionResidence;
+	/** Option: Soll beim Start der Simulation/Animation nach einem Update des Wertes gefragt werden? */
+	private final JCheckBox checkAskForValueOnStart;
 
 	/**
 	 * Konstruktor der Klasse <code>VariablesTableModelDialog</code>
@@ -96,6 +99,25 @@ public class VariablesTableModelDialog extends BaseDialog {
 	 * @param modelUserFunctions	Modellspezifische nutzerdefinierte Funktionen (kann <code>null</code> sein)
 	 */
 	public VariablesTableModelDialog(final Component owner, final Runnable help, final String variable, final String expression, final String[] names, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final boolean showUserSpecificOptions, final boolean clientDataOnly, final ExpressionCalcModelUserFunctions modelUserFunctions) {
+		this(owner,help,variable,expression,null,names,initialVariableValues,stationIDs,stationNameIDs,showUserSpecificOptions,clientDataOnly,modelUserFunctions);
+	}
+
+	/**
+	 * Konstruktor der Klasse <code>VariablesTableModelDialog</code>
+	 * @param owner	Übergeordnetes Element (zur Ausrichtung des Dialogs)
+	 * @param help	Wird aufgerufen, wenn der Nutzer auf "Hilfe" klickt
+	 * @param variable	Bisheriger Name der Variable (kann "" für neue Einträge sein)
+	 * @param expression	Bisheriger Ausdruck (kann "" für neue Einträge sein)
+	 * @param askForValueOnStart	Soll beim Start der Simulation/Animation nach einem Update des Wertes gefragt werden? (kann <code>null</code> sein, dann wird diese Option nicht angeboten)
+	 * @param names	Liste aller bisher vorhandenen Variablennamen
+	 * @param initialVariableValues	Liste der vorhandenen initialen Variablenzuweisungen
+	 * @param stationIDs	Zuordnung von Stations-IDs zu Stationsnamen
+	 * @param stationNameIDs	Zuordnung von Stations-IDs zu nutzerdefinierten Stationsnamen
+	 * @param showUserSpecificOptions	Auswahloptionen für Wartezeit des Kunden usw.
+	 * @param clientDataOnly	Nur clientdata(...)-Zuweisungen zulassen und keine globalen Variablen?
+	 * @param modelUserFunctions	Modellspezifische nutzerdefinierte Funktionen (kann <code>null</code> sein)
+	 */
+	public VariablesTableModelDialog(final Component owner, final Runnable help, final String variable, final String expression, final Boolean askForValueOnStart, final String[] names, final Map<String,String> initialVariableValues, final Map<Integer,String> stationIDs, final Map<Integer,String> stationNameIDs, final boolean showUserSpecificOptions, final boolean clientDataOnly, final ExpressionCalcModelUserFunctions modelUserFunctions) {
 		super(owner,Language.tr("Surface.Set.Table.Edit"),false);
 
 		this.modelUserFunctions=modelUserFunctions;
@@ -175,6 +197,14 @@ public class VariablesTableModelDialog extends BaseDialog {
 			optionProcess=null;
 			optionResidence=null;
 			this.expression.setText(expression.trim().isEmpty()?"0":expression);
+		}
+
+		if (askForValueOnStart!=null) {
+			content.add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			panel.add(checkAskForValueOnStart=new JCheckBox(Language.tr("Surface.Set.Table.Edit.AskForValueOnStart"),askForValueOnStart.booleanValue()));
+
+		} else {
+			checkAskForValueOnStart=null;
 		}
 
 		setMinSizeRespectingScreensize(500,0);
@@ -283,5 +313,13 @@ public class VariablesTableModelDialog extends BaseDialog {
 			if (optionResidence.isSelected()) return ModelElementSetRecord.SPECIAL_RESIDENCE;
 		}
 		return expression.getText();
+	}
+
+	/**
+	 * Liefert die Information, ob beim Start der Simulation/Animation nach einem Update des Wertes gefragt werden soll.
+	 * @return	Soll beim Start der Simulation/Animation nach einem Update des Wertes gefragt werden?
+	 */
+	final boolean getAskForValueOnStart() {
+		return (checkAskForValueOnStart!=null && checkAskForValueOnStart.isSelected());
 	}
 }

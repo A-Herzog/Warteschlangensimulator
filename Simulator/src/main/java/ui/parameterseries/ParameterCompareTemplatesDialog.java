@@ -371,7 +371,7 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 	private static List<TemplateRecord> getTemplatesVariables(final EditModel model) {
 		final List<TemplateRecord> list=new ArrayList<>();
 
-		for (String name: model.globalVariablesNames) {
+		for (String name: model.globalVariables.stream().map(variable->variable.getName()).toArray(String[]::new)) {
 			final TemplateRecord record=new TemplateRecord(
 					TemplateMode.MODE_VARIABLES,
 					String.format(Language.tr("ParameterCompare.Settings.Input.List.Templates.GlobalVariable"),name)
@@ -596,8 +596,8 @@ public class ParameterCompareTemplatesDialog extends BaseDialog {
 			if (resource!=null) return ""+resource.getCount();
 			break;
 		case MODE_VARIABLE:
-			final int i=model.globalVariablesNames.indexOf(record.getTag());
-			if (i>=0) return model.globalVariablesExpressions.get(i);
+			final var globalVariable=model.getGlobalVariableByName(record.getTag());
+			if (globalVariable!=null) return globalVariable.getExpression();
 			break;
 		case MODE_MAP:
 			final Object obj=model.globalMapInitial.get(record.getTag());

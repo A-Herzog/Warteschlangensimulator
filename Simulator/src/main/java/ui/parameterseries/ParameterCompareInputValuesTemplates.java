@@ -163,7 +163,7 @@ public class ParameterCompareInputValuesTemplates {
 
 		if (modes.contains(Mode.VARIABLES)) {
 			list2=null;
-			for (String name: model.globalVariablesNames) {
+			for (String name: model.globalVariables.stream().map(variable->variable.getName()).toArray(String[]::new)) {
 				final ParameterCompareSetupValueInput input=new ParameterCompareSetupValueInput();
 				input.setName(String.format(Language.tr("ParameterCompare.Settings.Input.List.Templates.GlobalVariable"),name));
 				input.setMode(ModelChanger.Mode.MODE_VARIABLE);

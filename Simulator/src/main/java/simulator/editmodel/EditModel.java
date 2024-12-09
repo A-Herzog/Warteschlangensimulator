@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
@@ -271,14 +272,9 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	public boolean useWelford;
 
 	/**
-	 * Liste der Namen der globalen Variablen
+	 * Liste der globalen Variablen
 	 */
-	public final List<String> globalVariablesNames;
-
-	/**
-	 * Liste der Ausdrücke zu den globalen Variablen
-	 */
-	public final List<String> globalVariablesExpressions;
+	public final List<GlobalVariable> globalVariables;
 
 	/**
 	 * Art der Erfassung der Werte der globalen Variablen in der Statistik
@@ -491,8 +487,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clientData=new ModelClientData();
 		schedules=new ModelSchedules();
 		longRunStatistics=new ModelLongRunStatistics();
-		globalVariablesNames=new ArrayList<>();
-		globalVariablesExpressions=new ArrayList<>();
+		globalVariables=new ArrayList<>();
 		variableRecord=VariableRecord.OFF;
 		globalMapInitial=new HashMap<>();
 		sequences=new ModelSequences();
@@ -582,8 +577,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		batchMeansSize=1;
 		collectWaitingTimes=false;
 		useWelford=false;
-		globalVariablesNames.clear();
-		globalVariablesExpressions.clear();
+		globalVariables.clear();
 		variableRecord=VariableRecord.OFF;
 		globalMapInitial.clear();
 		for (int i=0;i<surfaceColors.length;i++) surfaceColors[i]=DEFAULT_COLORS[i];
@@ -655,8 +649,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.batchMeansSize=batchMeansSize;
 		clone.collectWaitingTimes=collectWaitingTimes;
 		clone.useWelford=useWelford;
-		clone.globalVariablesNames.addAll(globalVariablesNames);
-		clone.globalVariablesExpressions.addAll(globalVariablesExpressions);
+		clone.globalVariables.addAll(globalVariables.stream().map(variable->new GlobalVariable(variable)).collect(Collectors.toList()));
 		clone.variableRecord=variableRecord;
 		clone.globalMapInitial.clear();
 		clone.globalMapInitial.putAll(globalMapInitial);
@@ -744,10 +737,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (batchMeansSize!=otherModel.batchMeansSize) return false;
 		if (collectWaitingTimes!=otherModel.collectWaitingTimes) return false;
 		if (useWelford!=otherModel.useWelford) return false;
-		if (globalVariablesNames.size()!=otherModel.globalVariablesNames.size()) return false;
-		for (int i=0;i<globalVariablesNames.size();i++) if (!globalVariablesNames.get(i).equals(otherModel.globalVariablesNames.get(i))) return false;
-		if (globalVariablesExpressions.size()!=otherModel.globalVariablesExpressions.size()) return false;
-		for (int i=0;i<globalVariablesExpressions.size();i++) if (!globalVariablesExpressions.get(i).equals(otherModel.globalVariablesExpressions.get(i))) return false;
+		if (globalVariables.size()!=otherModel.globalVariables.size()) return false;
+		for (int i=0;i<globalVariables.size();i++) if (!globalVariables.get(i).equalsGlobalVariable(otherModel.globalVariables.get(i))) return false;
 		if (variableRecord!=otherModel.variableRecord) return false;
 		if (!Objects.deepEquals(globalMapInitial,otherModel.globalMapInitial)) return false;
 		for (int i=0;i<surfaceColors.length;i++) if (!Objects.equals(surfaceColors[i],otherModel.surfaceColors[i])) return false;
@@ -977,11 +968,8 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		}
 
 		if (Language.trAll("Surface.XML.GlobalVariable",name)) {
-			final String varName=Language.trAllAttribute("Surface.XML.GlobalVariable.Name",node);
-			if (varName!=null && !varName.trim().isEmpty()) {
-				globalVariablesNames.add(varName);
-				globalVariablesExpressions.add(text);
-			}
+			final GlobalVariable globalVariable=GlobalVariable.loadFromXML(node);
+			if (globalVariable!=null) globalVariables.add(globalVariable);
 			return null;
 		}
 
@@ -1328,11 +1316,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		schedules.addToXML(doc,node);
 		longRunStatistics.addToXML(doc,node);
 
-		for (int i=0;i<Math.min(globalVariablesNames.size(),globalVariablesExpressions.size());i++) {
-			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.GlobalVariable")));
-			sub.setAttribute(Language.trPrimary("Surface.XML.GlobalVariable.Name"),globalVariablesNames.get(i));
-			sub.setTextContent(globalVariablesExpressions.get(i));
-		}
+		for (var globalVariable: globalVariables) globalVariable.saveToXML(node);
 
 		if (variableRecord!=VariableRecord.OFF) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.VariableRecording")));
@@ -1721,7 +1705,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	 * @return	Array mit im Modell definierten Variablennamen
 	 */
 	public String[] getModelVariableNames() {
-		return globalVariablesNames.toArray(new String[0]);
+		return globalVariables.stream().map(variable->variable.getName()).toArray(String[]::new);
 	}
 
 	/**
@@ -1730,8 +1714,17 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	 */
 	public Map<String,String> getInitialVariablesWithValues() {
 		final Map<String,String> map=new HashMap<>();
-		for (int i=0;i<globalVariablesNames.size();i++) map.put(globalVariablesNames.get(i),globalVariablesExpressions.get(i));
+		for (var globalVariable: globalVariables) map.put(globalVariable.getName(),globalVariable.getExpression());
 		return map;
+	}
+
+	/**
+	 * Liefert das Objekt für die globale Variable mit dem angegebenen Namen.
+	 * @param name	Name der globalen Variable
+	 * @return	Zugehöriges Objekt oder <code>null</code>, wenn es keine Variable mit dem entsprechenden Namen gibt
+	 */
+	public GlobalVariable getGlobalVariableByName(final String name) {
+		return globalVariables.stream().filter(variable->variable.getName().equalsIgnoreCase(name)).findFirst().orElseGet(()->null);
 	}
 
 	/**
@@ -1864,11 +1857,12 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (batchMeansSize>1) searcher.testInteger(Language.tr("Editor.DialogBase.Search.BatchMeansSize"),batchMeansSize,newBatchMeansSize->{if (newBatchMeansSize>1) batchMeansSize=newBatchMeansSize;});
 
 		/* Startwerte für globale Variablen */
-		for (int i=0;i<globalVariablesNames.size();i++) {
+		for (int i=0;i<globalVariables.size();i++) {
 			final int index=i;
-			final String name=globalVariablesNames.get(index);
-			searcher.testString(Language.tr("Editor.DialogBase.Search.Variable"),name,newName->globalVariablesNames.set(index,newName));
-			searcher.testString(String.format(Language.tr("Editor.DialogBase.Search.Variable.InitialValue"),name),globalVariablesExpressions.get(index),newExpression->globalVariablesExpressions.set(index,newExpression));
+			final var globalVariable=globalVariables.get(index);
+			final String name=globalVariable.getName();
+			searcher.testString(Language.tr("Editor.DialogBase.Search.Variable"),name,newName->globalVariable.setName(newName));
+			searcher.testString(String.format(Language.tr("Editor.DialogBase.Search.Variable.InitialValue"),name),globalVariable.getExpression(),newExpression->globalVariable.setExpression(newExpression));
 		}
 
 		/* Fertigungspläne */

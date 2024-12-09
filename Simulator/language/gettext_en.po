@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-02 12:04+0100\n"
+"POT-Creation-Date: 2024-12-07 22:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4141,6 +4141,9 @@ msgstr "Record variable values"
 
 msgid "Editor.Dialog.Tab.InitialVariableValues.RecordVariables.VariablesAndMaps"
 msgstr "Record variable and map values"
+
+msgid "Editor.Dialog.Tab.InitialVariableValues.UpdateValues"
+msgstr "Initial values for the global variables"
 
 msgid "Editor.Dialog.Tab.InitialVariableValuesMap"
 msgstr "Initial variable values - global map"
@@ -34302,6 +34305,9 @@ msgstr "Move down"
 msgid "Surface.Set.Table.Edit"
 msgstr "Edit assignment"
 
+msgid "Surface.Set.Table.Edit.AskForValueOnStart"
+msgstr "Ask for new value when starting simulation/animation"
+
 msgid "Surface.Set.Table.Edit.Mode.Expression"
 msgstr "Evaluate and assign expression"
 
@@ -37156,6 +37162,9 @@ msgstr "The value specified as the initial value for the key \"%s\" in the globa
 
 msgid "Surface.XML.GlobalVariable"
 msgstr "InitialVariable"
+
+msgid "Surface.XML.GlobalVariable.AskForValueOnStart"
+msgstr "AskForValue"
 
 msgid "Surface.XML.GlobalVariable.Name"
 msgstr "Name"

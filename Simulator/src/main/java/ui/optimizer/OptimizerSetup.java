@@ -580,7 +580,7 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 	 * @return	Liste der globalen Variablen
 	 */
 	public static String[] getGlobalVariables(final EditModel model) {
-		return model.globalVariablesNames.toArray(new String[0]);
+		return model.globalVariables.stream().map(variable->variable.getName()).toArray(String[]::new);
 	}
 
 	/**
@@ -590,11 +590,9 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 	 * @return	Ausdruck, der den Startwert der globalen Variable darstellt, oder <code>null</code>, wenn keine Variable oder kein Startwert ermittelt werden konnte
 	 */
 	public static String getGlobalVariablesStartValues(final EditModel model, final String variableName) {
-		for (int i=0;i<model.globalVariablesNames.size();i++) if (model.globalVariablesNames.get(i).equalsIgnoreCase(variableName)) {
-			if (i>=model.globalVariablesExpressions.size()) return null;
-			return model.globalVariablesExpressions.get(i);
-		}
-		return null;
+		final var globalVariable=model.getGlobalVariableByName(variableName);
+		if (globalVariable==null) return null;
+		return globalVariable.getExpression();
 	}
 
 	/**

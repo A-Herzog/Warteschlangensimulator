@@ -118,7 +118,8 @@
 
 <!ELEMENT InitialeVariable (#PCDATA)*>
 <!ATTLIST InitialeVariable
-  Name	CDATA	#REQUIRED
+  Name				CDATA	#REQUIRED
+  NachWertFragen	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellVariablenAufzeichnen (#PCDATA)*>
@@ -2844,7 +2845,8 @@
 
 <!ELEMENT InitialVariable (#PCDATA)*>
 <!ATTLIST InitialVariable
-  Name	CDATA	#REQUIRED
+  Name			CDATA	#REQUIRED
+  AskForValue	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelVariableRecording (#PCDATA)*>

@@ -131,6 +131,7 @@ import ui.commandline.CommandLineSystem;
 import ui.compare.ComparePanel;
 import ui.compare.CompareSelectDialog;
 import ui.dialogs.AnimationRecordSetupDialog;
+import ui.dialogs.AskForVariableValuesDialog;
 import ui.dialogs.CopyInstallationDialog;
 import ui.dialogs.DataCheckDialog;
 import ui.dialogs.DataPrivacyDialog;
@@ -3183,6 +3184,11 @@ public class MainPanel extends MainPanelBase {
 
 		FilePathHelper.checkFilePaths(editModel,editorPanel.getLastFile());
 
+		if (AskForVariableValuesDialog.dialogNeeded(editModel)) {
+			final var dialog=new AskForVariableValuesDialog(this,editModel);
+			if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return null;
+		}
+
 		checkAutoSave();
 
 		final File folder=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParentFile();
@@ -3396,6 +3402,11 @@ public class MainPanel extends MainPanelBase {
 		}
 
 		if (!testEmptyModel(editModel,true)) return;
+
+		if (AskForVariableValuesDialog.dialogNeeded(editModel)) {
+			final var dialog=new AskForVariableValuesDialog(this,editModel);
+			if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
+		}
 
 		checkAutoSave();
 

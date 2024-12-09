@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-02 12:04+0100\n"
+"POT-Creation-Date: 2024-12-07 22:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4146,6 +4146,9 @@ msgstr "Variablenwerte erfassen"
 
 msgid "Editor.Dialog.Tab.InitialVariableValues.RecordVariables.VariablesAndMaps"
 msgstr "Variablen und Zuordnungsdaten erfassen"
+
+msgid "Editor.Dialog.Tab.InitialVariableValues.UpdateValues"
+msgstr "Startwerte für die globalen Variablen"
 
 msgid "Editor.Dialog.Tab.InitialVariableValuesMap"
 msgstr "Initiale Variablenwerte - globale Zuordnung"
@@ -34359,6 +34362,9 @@ msgstr "Nach unten"
 msgid "Surface.Set.Table.Edit"
 msgstr "Zuweisung bearbeiten"
 
+msgid "Surface.Set.Table.Edit.AskForValueOnStart"
+msgstr "Beim Start von Simulation/Animation nach neuem Wert fragen"
+
 msgid "Surface.Set.Table.Edit.Mode.Expression"
 msgstr "Ausdruck auswerten und zuweisen"
 
@@ -37214,6 +37220,9 @@ msgstr "Der als initialer Wert für den Schlüssel \"%s\" der globalen Zuordnung
 
 msgid "Surface.XML.GlobalVariable"
 msgstr "InitialeVariable"
+
+msgid "Surface.XML.GlobalVariable.AskForValueOnStart"
+msgstr "NachWertFragen"
 
 msgid "Surface.XML.GlobalVariable.Name"
 msgstr "Name"

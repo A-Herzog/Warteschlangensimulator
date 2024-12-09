@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.swing.Icon;
 import javax.swing.JScrollPane;
@@ -29,6 +30,7 @@ import javax.swing.table.TableCellEditor;
 
 import language.Language;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.GlobalVariable;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.JTableExt;
@@ -70,6 +72,9 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 	private final Map<String,String> initialVariableValues;
 	/** Liste mit den Ausdrücken für die Variablen (aus dem Modell oder aus dem Zuweisungsdatensatz) */
 	private final List<String> expressions;
+	/** Soll beim Start der Simulation nach einem Update für den Wert gefragt werden? (nur bei den globalen Variablen; ist <code>null</code>, wenn es sich um die Daten eines Zuweisungs-Elements handelt) */
+	private final List<Boolean> askForValueOnStart;
+
 	/** Zuordnung von Stations-IDs zu Stationsbeschreibungen */
 	private final Map<Integer,String> stationIDs;
 	/** Zuordnung von Stations-IDs zu Stationsnamen */
@@ -99,6 +104,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 		variables=new ArrayList<>(Arrays.asList(record.getVariables()));
 		initialVariableValues=element.getModel().getInitialVariablesWithValues();
 		expressions=new ArrayList<>(Arrays.asList(record.getExpressions()));
+		askForValueOnStart=null;
 		updateTable();
 	}
 
@@ -121,9 +127,10 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 		this.helpRunnable=helpRunnable;
 		this.clientDataOnly=false;
 
-		variables=new ArrayList<>(model.globalVariablesNames);
+		variables=new ArrayList<>(model.globalVariables.stream().map(variable->variable.getName()).collect(Collectors.toList()));
 		initialVariableValues=model.getInitialVariablesWithValues();
-		expressions=new ArrayList<>(model.globalVariablesExpressions);
+		expressions=new ArrayList<>(model.globalVariables.stream().map(variable->variable.getExpression()).collect(Collectors.toList()));
+		askForValueOnStart=new ArrayList<>(model.globalVariables.stream().map(variable->variable.isAskForValueOnStart()).collect(Collectors.toList()));
 		updateTable();
 	}
 
@@ -251,13 +258,14 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 				dialog=new VariablesTableModelDialog(table,helpRunnable,"","",getVariableNames(false,variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,true,clientDataOnly,element.getModel().userFunctions);
 			}
 			if (model!=null) {
-				dialog=new VariablesTableModelDialog(table,helpRunnable,"","",model.surface.getVariableNames(variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,false,clientDataOnly,model.userFunctions);
+				dialog=new VariablesTableModelDialog(table,helpRunnable,"","",false,model.surface.getVariableNames(variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,false,clientDataOnly,model.userFunctions);
 			}
 			if (dialog==null) return;
 			dialog.setVisible(true);
 			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 				variables.add(dialog.getVariable());
 				expressions.add(dialog.getExpression());
+				if (askForValueOnStart!=null) askForValueOnStart.add(dialog.getAskForValueOnStart());
 				updateTable();
 			}
 		}
@@ -286,6 +294,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 		public void actionPerformed(ActionEvent e) {
 			if (readOnly) return;
 			String s;
+			boolean b;
 			switch (col) {
 			case 0:
 				VariablesTableModelDialog dialog=null;
@@ -293,13 +302,14 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 					dialog=new VariablesTableModelDialog(table,helpRunnable,variables.get(row),expressions.get(row),getVariableNames(false,variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,true,clientDataOnly,element.getModel().userFunctions);
 				}
 				if (model!=null) {
-					dialog=new VariablesTableModelDialog(table,helpRunnable,variables.get(row),expressions.get(row),model.surface.getVariableNames(variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,false,clientDataOnly,model.userFunctions);
+					dialog=new VariablesTableModelDialog(table,helpRunnable,variables.get(row),expressions.get(row),askForValueOnStart.get(row),model.surface.getVariableNames(variables.toArray(new String[0])),initialVariableValues,stationIDs,stationNameIDs,false,clientDataOnly,model.userFunctions);
 				}
 				if (dialog==null) return;
 				dialog.setVisible(true);
 				if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 					variables.set(row,dialog.getVariable());
 					expressions.set(row,dialog.getExpression());
+					if (askForValueOnStart!=null) askForValueOnStart.set(row,dialog.getAskForValueOnStart());
 					updateTable();
 				}
 				break;
@@ -307,6 +317,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 				if (row>0) {
 					s=variables.get(row); variables.set(row,variables.get(row-1)); variables.set(row-1,s);
 					s=expressions.get(row); expressions.set(row,expressions.get(row-1)); expressions.set(row-1,s);
+					b=askForValueOnStart.get(row); askForValueOnStart.set(row,askForValueOnStart.get(row-1)); askForValueOnStart.set(row-1,b);
 					updateTable();
 				}
 				break;
@@ -314,6 +325,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 				if (row<variables.size()-1) {
 					s=variables.get(row); variables.set(row,variables.get(row+1)); variables.set(row+1,s);
 					s=expressions.get(row); expressions.set(row,expressions.get(row+1)); expressions.set(row+1,s);
+					b=askForValueOnStart.get(row); askForValueOnStart.set(row,askForValueOnStart.get(row+1)); askForValueOnStart.set(row+1,b);
 					updateTable();
 				}
 				break;
@@ -346,6 +358,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 			}
 			variables.remove(row);
 			expressions.remove(row);
+			if (askForValueOnStart!=null) askForValueOnStart.remove(row);
 			updateTable();
 		}
 	}
@@ -372,10 +385,10 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 		}
 
 		if (model!=null) {
-			model.globalVariablesNames.clear();
-			model.globalVariablesExpressions.clear();
-			model.globalVariablesNames.addAll(variables);
-			model.globalVariablesExpressions.addAll(expressions);
+			model.globalVariables.clear();
+			for (int i=0;i<variables.size();i++) {
+				model.globalVariables.add(new GlobalVariable(variables.get(i),expressions.get(i),askForValueOnStart.get(i)));
+			}
 		}
 	}
 

@@ -195,9 +195,9 @@ public final class JSRunComplexScriptModel extends JSBaseCommand {
 		if (!(variableName instanceof String)) return "";
 
 		final EditModel model=runner.getChangedModel();
-		final int index=model.globalVariablesNames.indexOf(variableName);
-		if (index<0) return "";
-		return model.globalVariablesExpressions.get(index);
+		final var globalVariable=model.getGlobalVariableByName((String)variableName);
+		if (globalVariable==null) return null;
+		return globalVariable.getExpression();
 	}
 
 	/**
@@ -211,10 +211,9 @@ public final class JSRunComplexScriptModel extends JSBaseCommand {
 		if (!(variableName instanceof String)) return false;
 
 		final EditModel model=runner.getChangedModel().clone();
-		final int index=model.globalVariablesNames.indexOf(variableName);
-		if (index<0) return false;
-
-		model.globalVariablesExpressions.set(index,expression);
+		final var globalVariable=model.getGlobalVariableByName((String)variableName);
+		if (globalVariable==null) return false;
+		globalVariable.setExpression(expression);
 		runner.setChangedModel(model);
 		return true;
 	}

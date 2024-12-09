@@ -425,16 +425,13 @@ public class RunModel {
 	}
 
 	/**
-	 * Stellt die Liste der globalen Variablen zusammen und belegt diese mit ihren Startwerten.
-	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
-	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
-	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #getRunModel(EditModel, String, boolean, boolean)
+	 * Liefert eine Liste mit allen globalen Variablen in dem Modell.
+	 * @param editModel	Modell aus dem die Daten ausgelesen werden sollen
+	 * @return	Liefert im Erfolgsfall ein Objekt vom Typ <code>List&lt;String&gt;</code>, sonst einen String
 	 */
-	private static String initVariables(final EditModel editModel, final RunModel runModel) {
-		/* Variablenliste aufstellen */
+	public static Object getAllVariableNames(final EditModel editModel) {
 		final List<String> variables=new ArrayList<>();
-		for (String variable: editModel.globalVariablesNames) {
+		for (String variable: editModel.globalVariables.stream().map(variable->variable.getName()).toArray(String[]::new)) {
 			boolean inList=false;
 			for (String s: variables) if (s.equalsIgnoreCase(variable)) {inList=true; break;}
 			for (String s: RunModel.additionalVariables) if (s.equalsIgnoreCase(variable)) {inList=true; break;}
@@ -453,13 +450,30 @@ public class RunModel {
 			}
 		}
 		variables.addAll(Arrays.asList(RunModel.additionalVariables));
-		runModel.variableNames=variables.toArray(new String[0]);
+		return variables;
+	}
+
+	/**
+	 * Stellt die Liste der globalen Variablen zusammen und belegt diese mit ihren Startwerten.
+	 * @param editModel	Editor-Modell dem die Daten entnommen werden soll
+	 * @param runModel	Laufzeit-Modell in das die entsprechenden Daten eingetragen werden sollen
+	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+	 * @see #getRunModel(EditModel, String, boolean, boolean)
+	 */
+	private static String initVariables(final EditModel editModel, final RunModel runModel) {
+		/* Variablenliste aufstellen */
+		final Object varList=getAllVariableNames(editModel);
+		if (varList instanceof String) return (String)varList;
+		@SuppressWarnings("unchecked")
+		final List<String> variables=(List<String>)varList;
+		runModel.variableNames=variables.toArray(String[]::new);
 
 		/* Initiale Werte für Variablen bestimmen */
 		runModel.variableInitialValues=new ExpressionCalc[runModel.variableNames.length];
-		for (int i=0;i<FastMath.min(editModel.globalVariablesNames.size(),editModel.globalVariablesExpressions.size());i++) {
-			final String varName=editModel.globalVariablesNames.get(i);
-			final String varExpression=editModel.globalVariablesExpressions.get(i);
+		for (int i=0;i<editModel.globalVariables.size();i++) {
+			final var globalVariable=editModel.globalVariables.get(i);
+			final String varName=globalVariable.getName();
+			final String varExpression=globalVariable.getExpression();
 			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 			final int error=calc.parse(varExpression);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidInitialVariableExpression"),varName,varExpression,error+1);

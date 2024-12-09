@@ -222,9 +222,9 @@ public class ModelImpl implements ModelInterface {
 	public String getGlobalVariableInitialValue(final String variableName) {
 		if (variableName==null) return "";
 
-		final int index=model.globalVariablesNames.indexOf(variableName);
-		if (index<0) return "";
-		return model.globalVariablesExpressions.get(index);
+		final var globalVariable=model.getGlobalVariableByName(variableName);
+		if (globalVariable==null) return "";
+		return globalVariable.getExpression();
 	}
 
 	/**
@@ -238,10 +238,10 @@ public class ModelImpl implements ModelInterface {
 		if (expression==null || expression.trim().isEmpty()) return false;
 		if (variableName==null) return false;
 
-		final int index=model.globalVariablesNames.indexOf(variableName);
-		if (index<0) return false;
+		final var globalVariable=model.getGlobalVariableByName(variableName);
+		if (globalVariable==null) return false;
 
-		model.globalVariablesExpressions.set(index,expression);
+		globalVariable.setExpression(expression);
 		return true;
 	}
 
