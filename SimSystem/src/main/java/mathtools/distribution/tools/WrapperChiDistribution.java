@@ -16,6 +16,7 @@
 package mathtools.distribution.tools;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
+import org.apache.commons.math3.special.Gamma;
 
 import mathtools.NumberTools;
 import mathtools.distribution.ChiDistributionImpl;
@@ -60,6 +61,25 @@ public class WrapperChiDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	public AbstractRealDistribution getDistribution(double mean, double sd) {
+		if (mean>18.45) return null;
+		final double factor=Math.sqrt(2);
+		int k=0;
+		double gammaK=Gamma.gamma(1.0/2.0);
+		double last=0;
+		while (k<341) {
+			k++;
+			final double gammaKPlus1=Gamma.gamma((k+1)/2.0);
+			final double y=factor*gammaKPlus1/gammaK;
+			if (y>=mean) {
+				if (last>0 && (mean-last)/(y-last)<0.5) {
+					return new ChiDistributionImpl(k-1);
+				} else {
+					return new ChiDistributionImpl(k);
+				}
+			}
+			gammaK=gammaKPlus1;
+			last=y;
+		}
 		return null;
 	}
 
