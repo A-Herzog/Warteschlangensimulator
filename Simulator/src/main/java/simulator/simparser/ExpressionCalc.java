@@ -200,6 +200,8 @@ public class ExpressionCalc extends CalcSystem {
 		functions.add(new CalcSymbolStationText());
 
 		functions.add(new CalcSymbolSimDataSimTime());
+		functions.add(new CalcSymbolSimDataSimTimeTime());
+		functions.add(new CalcSymbolSimDataSimTimeDay());
 		functions.add(new CalcSymbolSimDataWarmUp());
 		functions.add(new CalcSymbolRepeatCount());
 		functions.add(new CalcSymbolRepeatCurrent());

@@ -587,19 +587,23 @@ The commands for which these additional parameterization options are available a
 <table class="border">
   <tr><td colspan="2"><h3>General simulation data</h3></td></tr>
 
-  <tr><td>SimTime()</td><td rowspan="2">Gets the current simulation time in seconds.</td></tr>
+  <tr><td>SimTime()</td><td rowspan="2">Returns the current simulation time in seconds.</td></tr>
   <tr><td>TNow()</td></tr>
   
-  <tr><td>WarmUp()</td><td rowspan="2">Get 1 if the simulation is in the warm-up phase, otherwise 0.</td></tr>
+  <tr><td>TNowTime()</td><td>Returns the current simulation time within the day as a value per second, i.e. a value between 0 (inclusive) and 86400 (exclusive).</td></tr>
+  
+  <tr><td>TNowDay()</td><td>Returns the current simulation day, i.e. an integer of 0 or a higher value.</td></tr>
+  
+  <tr><td>WarmUp()</td><td rowspan="2">Returns 1 if the simulation is in the warm-up phase, otherwise 0.</td></tr>
   <tr><td>isWarmUp()</td></tr>
   
-  <tr><td>RepeatCurrent()</td><td rowspan="2">Gets the current repeat number of the simulation (1-based value).</td></tr>
+  <tr><td>RepeatCurrent()</td><td rowspan="2">Returns the current repeat number of the simulation (1-based value).</td></tr>
   <tr><td>WiederholungNummer()</td></tr>
   
-  <tr><td>RepeatCount()</td><td rowspan="2">Gets the number of planned repeats of the simulation.</td></tr>
+  <tr><td>RepeatCount()</td><td rowspan="2">Returns the number of planned repeats of the simulation.</td></tr>
   <tr><td>WiederholungenAnzahl()</td></tr>
     
-  <tr><td>$("Name")</td><td>Gets the ID of the element with the name which is enter between the quotation marks. If there is not station with this name, the function will return -1.</td></tr>
+  <tr><td>$("Name")</td><td>Returns the ID of the element with the name which is enter between the quotation marks. If there is not station with this name, the function will return -1.</td></tr>
   
   <tr><td>§("Key")</td><td>Returns the value from the map which can be accessed by <tt>getMapGlobal()</tt> at scripting elements.</td></tr>
 

@@ -115,6 +115,18 @@ public class ExpressionBuilderSimulationData {
 			addTreeNode(
 					group,
 					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPITime")+" (TNowTime)",
+					"TNowTime()",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPITime.Info"));
+			addTreeNode(
+					group,
+					filterUpper,
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPIDay")+" (TNowDay)",
+					"TNowDay()",
+					Language.tr("ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPIDay.Info"));
+			addTreeNode(
+					group,
+					filterUpper,
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.isWarmUp")+" (isWarmUp)",
 					"isWarmUp()",
 					Language.tr("ExpressionBuilder.SimulationCharacteristics.isWarmUp.Info"));

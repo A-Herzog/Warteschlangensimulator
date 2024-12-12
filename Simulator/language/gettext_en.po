@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-07 22:53+0100\n"
+"POT-Creation-Date: 2024-12-10 08:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7945,6 +7945,22 @@ msgstr "Current simulation time"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPI.Info"
 msgstr "<p>Returns the current simulation time measured in seconds since the simulation started.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPIDay"
+msgstr "Current day"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPIDay.Info"
+msgstr ""
+"<p>Returns the current simulation day, i.e. an integer with a value of 0 or higher.</p>\n"
+"<p>It is <tt>TNow()=TNowDay()+TNowTime()</tt>.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPITime"
+msgstr "Current time in day"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPITime.Info"
+msgstr ""
+"<p>Returns the current simulation time measured in seconds within the current day. The result value is between 0 (inclusive) and 86400 (exclusive).</p>\n"
+"<p>It is <tt>TNow()=TNowDay()+TNowTime()</tt>.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.DownNumber"
 msgstr "Number down"

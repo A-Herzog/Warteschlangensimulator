@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-07 22:53+0100\n"
+"POT-Creation-Date: 2024-12-10 08:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7940,6 +7940,22 @@ msgstr "Aktuelle Simulationszeit"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPI.Info"
 msgstr "<p>Liefert die aktuelle Simulationszeit gemessen in Sekunden seit Beginn der Simulation.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPIDay"
+msgstr "Aktueller Simulationstag"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPIDay.Info"
+msgstr ""
+"<p>Liefert den aktuellen Simulationstag, d.h. eine Ganzzahl mit Wert 0 oder höher.</p>\n"
+"<p>Es gilt <tt>TNow()=TNowDay()+TNowTime()</tt>.</p>"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPITime"
+msgstr "Aktuelle Simulationszeit innerhalb des Tages"
+
+msgid "ExpressionBuilder.SimulationCharacteristics.CurrentTimeKPITime.Info"
+msgstr ""
+"<p>Liefert die aktuelle Simulationszeit gemessen in Sekunden innerhalb des aktuellen Tages. Der Ergebniswert liegt zwischen 0 (inklusive) und 86400 (exklusive).</p>\n"
+"<p>Es gilt <tt>TNow()=TNowDay()+TNowTime()</tt>.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics.DownNumber"
 msgstr "Anzahl in Pause"

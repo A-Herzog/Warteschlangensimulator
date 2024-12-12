@@ -26,23 +26,31 @@ Several alternative parameterizations are possible for the commands shown below 
 
 \item
 \cmd{SimTime()} or \cmd{TNow()}:\\
-Gets the current simulation time in seconds.
+Returns the current simulation time in seconds.
+
+\item
+\cmd{TNowTime()}:\\
+Returns the current simulation time within the day as a value per second, i.e. a value between 0 (inclusive) and 86400 (exclusive).
+
+\item
+\cmd{TNowDay()}:\\
+Returns the current simulation day, i.e. an integer of 0 or a higher value.
 
 \item
 \cmd{WarmUp()} or \cmd{isWarmUp()}:\\
-Get 1 if the simulation is in the warm-up phase, otherwise 0.
+Returns 1 if the simulation is in the warm-up phase, otherwise 0.
 
 \item
 \cmd{RepeatCurrent()}:\\
-Gets the current repeat number of the simulation (1-based value).
+Returns the current repeat number of the simulation (1-based value).
 
 \item
 \cmd{RepeatCount()}:\\
-Gets the number of planned repeats of the simulation.
+Returns the number of planned repeats of the simulation.
 
 \item
 \cmd{\$("Name")}:\\
-Gets the ID of the element with the name which is enter between the quotation marks.
+Returns the ID of the element with the name which is enter between the quotation marks.
 If there is not station with this name, the function will return -1.
 
 \item
