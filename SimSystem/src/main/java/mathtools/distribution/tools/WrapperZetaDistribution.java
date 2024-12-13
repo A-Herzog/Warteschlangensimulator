@@ -20,6 +20,7 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import mathtools.NumberTools;
 import mathtools.distribution.DiscreteZetaDistributionImpl;
 import parser.coresymbols.CalcSymbolPreOperator;
+import parser.symbols.CalcSymbolPreOperatorZeta;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionZeta;
 
 /**
@@ -72,9 +73,34 @@ public class WrapperZetaDistribution extends AbstractDistributionWrapper {
 		return new DistributionWrapperInfo(E,std,null,1.0,info,null); /* immer Modus=1.0 */
 	}
 
+	/**
+	 * Berechnet den Erwartungswert der Zeta-Verteilung basierend auf dem Verteilungsparameter s.
+	 * @param s	Verteilungsparameter s
+	 * @return	Erwartungswert der Zeta-Verteilung
+	 */
+	private double getMeanFromS(final double s) {
+		/* mean=zeta(s-1)/zeta(s) */
+		return CalcSymbolPreOperatorZeta.zeta(s-1)/CalcSymbolPreOperatorZeta.zeta(s);
+	}
+
 	@Override
 	public AbstractRealDistribution getDistribution(double mean, double sd) {
-		return null;
+		if (mean<=1 || mean>=2.24) return null;
+
+		double sMin=2.4; /* Für kleinere Werte wird die Berechnung der Zeta-Funktion arg ungenau */
+		double sMax=50;
+
+		while (sMax-sMin>0.01) {
+			final double sMiddle=(sMin+sMax)/2;
+			final double sMiddleMean=getMeanFromS(sMiddle);
+			if (sMiddleMean>mean) {
+				sMin=sMiddle;
+			} else {
+				sMax=sMiddle;
+			}
+		}
+
+		return new DiscreteZetaDistributionImpl((sMin+sMax)/2);
 	}
 
 	@Override

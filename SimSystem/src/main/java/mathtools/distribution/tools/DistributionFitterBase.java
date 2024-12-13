@@ -262,7 +262,8 @@ public abstract class DistributionFitterBase {
 				final AbstractRealDistribution fit2=wrapper.getDistributionForFit(100,0,10,200);
 				final AbstractRealDistribution fit3=wrapper.getDistributionForFit(1,0.5,10,200);
 				final AbstractRealDistribution fit4=wrapper.getDistributionForFit(1.8,4,1,200); /* Damit auch die F-Verteilung dabei ist. */
-				if (fit1!=null || fit2!=null || fit3!=null || fit4!=null) {
+				final AbstractRealDistribution fit5=wrapper.getDistributionForFit(2.5,4,1,200); /* Damit auch die Zeta-Verteilung dabei ist. */
+				if (fit1!=null || fit2!=null || fit3!=null || fit4!=null || fit5!=null) {
 					fitDistributions.add(wrapper.getClass());
 				}
 			}

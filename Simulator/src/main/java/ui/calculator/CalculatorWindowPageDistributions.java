@@ -621,7 +621,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 			final double mean=distribution.getNumericalMean();
 			final double variance=distribution.getNumericalVariance();
 			final double upperBound=distribution.getSupportUpperBound();
-			if (Double.isNaN(mean) || Double.isNaN(variance)) return super.getRealMaxXValue();
+			if (Double.isNaN(mean) || Double.isNaN(variance) || mean==Double.MAX_VALUE || variance==Double.MAX_VALUE) return super.getRealMaxXValue();
 			double maxX;
 			if (variance==0) {
 				maxX=2*mean;
