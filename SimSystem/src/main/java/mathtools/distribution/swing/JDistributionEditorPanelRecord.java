@@ -34,6 +34,7 @@ import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteGeometricDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
+import mathtools.distribution.DiscreteLogarithmicDistributionImpl;
 import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
 import mathtools.distribution.DiscreteNegativeHyperGeomDistributionImpl;
 import mathtools.distribution.DiscretePoissonDistributionImpl;
@@ -98,6 +99,7 @@ import mathtools.distribution.tools.WrapperLaplaceDistribution;
 import mathtools.distribution.tools.WrapperLevyDistribution;
 import mathtools.distribution.tools.WrapperLogLogisticDistribution;
 import mathtools.distribution.tools.WrapperLogNormalDistribution;
+import mathtools.distribution.tools.WrapperLogarithmicDistribution;
 import mathtools.distribution.tools.WrapperLogisticDistribution;
 import mathtools.distribution.tools.WrapperMaxwellBoltzmannDistribution;
 import mathtools.distribution.tools.WrapperNegativeBinomialDistribution;
@@ -318,6 +320,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new ZetaDistributionPanel());
 		allRecords.add(new DiscreteUniformDistributionPanel());
 		allRecords.add(new GeometricDistributionPanel());
+		allRecords.add(new LogarithmicDistributionPanel());
 		allRecords.add(new HalfNormalDistributionPanel());
 		allRecords.add(new UQuadraticDistributionPanel());
 		allRecords.add(new ReciprocalDistributionPanel());
@@ -1945,6 +1948,32 @@ public abstract class JDistributionEditorPanelRecord {
 				fields[0].setBackground(NumberTools.getTextFieldDefaultBackground());
 			}
 			return new DiscreteGeometricDistributionImpl(p);
+		}
+	}
+
+	/** Logarithmische Verteilung */
+	private static class LogarithmicDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public LogarithmicDistributionPanel() {
+			super(new WrapperLogarithmicDistribution(),new String[]{"p"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			return new String[]{NumberTools.formatNumberMax(DiscreteLogarithmicDistributionImpl.getPFromMean(meanD))};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((DiscreteLogarithmicDistributionImpl)distribution).p)
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double p=NumberTools.getPositiveDouble(fields[0],true); if (p==null) return null;
+			return new DiscreteLogarithmicDistributionImpl(p);
 		}
 	}
 }

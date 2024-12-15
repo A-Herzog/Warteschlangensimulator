@@ -41,6 +41,7 @@ import mathtools.distribution.ChiDistributionImpl;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteGeometricDistributionImpl;
+import mathtools.distribution.DiscreteLogarithmicDistributionImpl;
 import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
 import mathtools.distribution.DiscretePoissonDistributionImpl;
 import mathtools.distribution.DiscreteUniformDistributionImpl;
@@ -194,6 +195,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof ErlangDistributionImpl) exactMeanAvailable=false;
 			if (dist1 instanceof TrapezoidDistributionImpl) exactMeanAvailable=false;
 			if (dist1 instanceof ChiDistributionImpl) exactMeanAvailable=false;
+			if (dist1 instanceof DiscreteLogarithmicDistributionImpl) exactMeanAvailable=false;
 			if (exactMeanAvailable) {
 				assertEquals(3.0,DistributionTools.getMean(dist1),0.00001,"Verteilung: "+name);
 			}
@@ -210,6 +212,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof DiscreteNegativeBinomialDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof HalfNormalDistribution) exactStdAvailable=false;
 			if (dist1 instanceof DiscretePoissonDistributionImpl) exactStdAvailable=false;
+			if (dist1 instanceof DiscreteLogarithmicDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof TrapezoidDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof UQuadraticDistribution) exactStdAvailable=false;
 			if (dist1 instanceof IrwinHallDistribution) exactStdAvailable=false;
@@ -265,6 +268,7 @@ class DistributionToolsTests {
 			if (dist1 instanceof DiscreteBinomialDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof DiscreteUniformDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof DiscretePoissonDistributionImpl) exactStdAvailable=false;
+			if (dist1 instanceof DiscreteLogarithmicDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof DiscreteNegativeBinomialDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof DiscreteGeometricDistributionImpl) exactStdAvailable=false;
 			if (dist1 instanceof HalfNormalDistribution) exactStdAvailable=false;

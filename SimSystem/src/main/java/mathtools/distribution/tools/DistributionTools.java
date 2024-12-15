@@ -305,6 +305,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Geometrische Verteilung */
 	public static String DistGeometricWikipedia="https://de.wikipedia.org/wiki/Geometrische_Verteilung";
 
+	/** Logarithmische Verteilung */
+	public static String[] DistLogarithmic=new String[]{"Logarithmische Verteilung"};
+
+	/** Wikipedia-Seite Logarithmische Verteilung */
+	public static String DistLogarithmicWikipedia="https://de.wikipedia.org/wiki/Logarithmische_Verteilung";
+
 	/** Halbe Normalverteilung */
 	public static String[] DistHalfNormal=new String[]{"Halbe Normalverteilung"};
 
@@ -454,6 +460,7 @@ public final class DistributionTools {
 				new WrapperNegativeHyperGeomDistribution(),
 				new WrapperZetaDistribution(),
 				new WrapperDiscreteUniformDistribution(),
+				new WrapperLogarithmicDistribution(),
 				new WrapperHalfNormalDistribution(),
 				new WrapperGeometricDistribution(),
 				new WrapperUQuadraticDistribution(),

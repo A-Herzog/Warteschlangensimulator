@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-10 08:39+0100\n"
+"POT-Creation-Date: 2024-12-13 22:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3458,6 +3458,12 @@ msgstr "Lognormal distribution"
 
 msgid "Distribution.LogNormalWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Log-normal_distribution"
+
+msgid "Distribution.Logarithmic"
+msgstr "Logarithmic distribution"
+
+msgid "Distribution.LogarithmicWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Logarithmic_distribution"
 
 msgid "Distribution.Logistic"
 msgstr "Logistic distribution"
@@ -7226,6 +7232,15 @@ msgid "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNu
 msgstr ""
 "<p>Generates a random number according to the log-normal distribution with the parameters &mu; and &sigma; according to the third and fourth parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogarithmicDist"
+msgstr "Logarithmic distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogarithmicDist.DensityInfo"
+msgstr "<p>Calculates the value of the count density of the logarithmic distribution at the location specified as the first parameter with the distribution parameter according to the second parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogarithmicDist.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the logarithmic distribution with the given parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution"
 msgstr "Logistic distribution"

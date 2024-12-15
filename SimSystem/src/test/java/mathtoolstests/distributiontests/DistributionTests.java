@@ -37,6 +37,7 @@ import mathtools.distribution.ChiDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteGeometricDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
+import mathtools.distribution.DiscreteLogarithmicDistributionImpl;
 import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
 import mathtools.distribution.DiscreteNegativeHyperGeomDistributionImpl;
 import mathtools.distribution.DiscretePoissonDistributionImpl;
@@ -2550,6 +2551,38 @@ class DistributionTests {
 
 		testDistributionTools(dist);
 		testDistributionParameters(dist,new double[] {0.2});
+
+		double rnd=dist.random(new DummyRandomGenerator(0.5));
+		assertTrue(rnd>=0);
+	}
+
+	/**
+	 * Test: Logarithmische Verteilung
+	 * @see DiscreteLogarithmicDistributionImpl
+	 */
+	@Test
+	void testLogarithmicDistribution() {
+		DiscreteLogarithmicDistributionImpl dist;
+
+		dist=new DiscreteLogarithmicDistributionImpl(0.9);
+		assertEquals(0.9,dist.p);
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(1,dist.cumulativeProbability(1000000),0.000001);
+		assertEquals(-Double.MAX_VALUE,dist.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,dist.inverseCumulativeProbability(2));
+		assertEquals(3.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(3)),0.000001);
+		assertEquals(4.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(4)),0.000001);
+		assertEquals(-0.9/(1-0.9)/Math.log(1-0.9),dist.getNumericalMean());
+		assertEquals(-0.9*(Math.log(1-0.9)+0.9)/(1-0.9)/(1-0.9)/Math.log(1-0.9)/Math.log(1-0.9),dist.getNumericalVariance());
+		assertEquals(1,dist.getSupportLowerBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+
+		dist=new DiscreteLogarithmicDistributionImpl(0.4);
+		testDistributionParameters(dist,new double[] {0.4});
 
 		double rnd=dist.random(new DummyRandomGenerator(0.5));
 		assertTrue(rnd>=0);

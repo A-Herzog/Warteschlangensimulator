@@ -265,6 +265,13 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist.RandomNumberInfo"));
 
+		/* Logarithmische Verteilung */
+
+		addDiscreteDist(group,filterUpper,"LogarithmicDist","p",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogarithmicDist"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogarithmicDist.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogarithmicDist.RandomNumberInfo"));
+
 		return group;
 
 	}

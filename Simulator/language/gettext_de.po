@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-10 08:39+0100\n"
+"POT-Creation-Date: 2024-12-13 22:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3462,6 +3462,12 @@ msgstr "Lognormalverteilung"
 
 msgid "Distribution.LogNormalWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Logarithmische_Normalverteilung"
+
+msgid "Distribution.Logarithmic"
+msgstr "Logarithmische Verteilung"
+
+msgid "Distribution.LogarithmicWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Logarithmische_Verteilung"
 
 msgid "Distribution.Logistic"
 msgstr "Logistische Verteilung"
@@ -7222,6 +7228,15 @@ msgid "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNu
 msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der Log-Normalverteilung mit den Parametern &mu; und &sigma; gemäß dem dritten und vierten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n"
 "<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogarithmicDist"
+msgstr "Logarithmische Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogarithmicDist.DensityInfo"
+msgstr "<p>Berechnet den Wert der Zähldichte der logarithmischen Verteilung an der als ersten Parameter angegebenen Stelle mit dem Verteilungsparameter gemäß dem zweiten Funktionsparameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogarithmicDist.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der logarithmischen Verteilung mit dem angegebenen Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogisticDistribution"
 msgstr "Logistische Verteilung"
