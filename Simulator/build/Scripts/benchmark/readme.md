@@ -26,6 +26,30 @@ Die Ergebnisse werden an die Datei benchmark-result.txt angehängt.
 
 
 
+## benchmarkFixedTime
+
+Performs a single benchmark run using the specified number of CPU cores.
+Results are appended to benchmark-results.txt.
+The number of arrivals is scaled with the number of used CPU cores.
+
+Führt einen einzelnen Benchmark-Lauf unter Verwendung der angegebenen Anzahl an CPU-Kernen durch.
+Die Ergebnisse werden an die Datei benchmark-results.txt angehängt.
+Die Anzahl an simulierten Ankünften wird mit der Anzahl an verwendeten CPU-Kernen skaliert.
+
+
+
+## benchmarkFixedTime-upto
+
+Performs benchmarks runs using the 1,2,... up to the specified number of CPU cores.
+Results are appended to benchmark-result.txt.
+The number of arrivals is scaled with the number of used CPU cores.
+
+Führt einen Benchmark-Läufe unter Verwendung von 1,2,... bis zur angegebenen Anzahl an CPU-Kernen durch.
+Die Ergebnisse werden an die Datei benchmark-result.txt angehängt.
+Die Anzahl an simulierten Ankünften wird mit der Anzahl an verwendeten CPU-Kernen skaliert.
+
+
+
 ## benchmark-native-upto
 
 Uses Graal native image version of simulator (created by compile-native.sh).
