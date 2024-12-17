@@ -89,6 +89,7 @@ public class CommandSetMaxThreads extends AbstractCommand {
 		}
 
 		out.println(String.format(Language.tr("CommandLine.SetMaxThreads.Info.MultiCore"),oldMultiCore?Language.tr("CommandLine.SetMaxThreads.Info.MultiCore.OldState.Yes"):Language.tr("CommandLine.SetMaxThreads.Info.MultiCore.OldState.No")));
+		out.println(String.format(Language.tr("CommandLine.SetMaxThreads.Info.NUMA"),setup.useNUMAMode?Language.tr("CommandLine.SetMaxThreads.Info.MultiCore.OldState.Yes"):Language.tr("CommandLine.SetMaxThreads.Info.MultiCore.OldState.No")));
 		final String oldMax=(oldMultiCoreMax<=0 || oldMultiCoreMax>=1024)?Language.tr("CommandLine.SetMaxThreads.Info.MaxThreads.Unlimited"):(""+oldMultiCoreMax);
 		final String newMax=(maxThreads<=0 || maxThreads>=1024)?Language.tr("CommandLine.SetMaxThreads.Info.MaxThreads.Unlimited"):(""+maxThreads);
 		out.println(String.format(Language.tr("CommandLine.SetMaxThreads.Info.MaxThreads"),newMax,oldMax));

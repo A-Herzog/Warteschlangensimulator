@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-13 22:32+0100\n"
+"POT-Creation-Date: 2024-12-15 11:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2696,6 +2696,9 @@ msgstr "deaktiviert"
 
 msgid "CommandLine.SetMaxThreads.Info.MultiCore.OldState.Yes"
 msgstr "aktiviert"
+
+msgid "CommandLine.SetMaxThreads.Info.NUMA"
+msgstr "Getrennte Datenmodelle für die Threads"
 
 msgid "CommandLine.SetMaxThreads.Name"
 msgstr "SetMaxThreads"

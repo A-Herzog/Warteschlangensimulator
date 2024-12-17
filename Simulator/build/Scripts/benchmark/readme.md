@@ -117,14 +117,6 @@ Landeseinstellung ein Dezimalkomma oder ein Dezimalpunkt verwendet.
 
 
 
-## activate-numa
-
-Activates NUMA mode in Warteschlangensimulator.
-
-Aktiviert den NUMA-Modus im Warteschlangensimulator.
-
-
-
 ## compile-native
 
 Compiles Warteschlangensimulator to a native Linux-based image using Graal AOT compiler.
