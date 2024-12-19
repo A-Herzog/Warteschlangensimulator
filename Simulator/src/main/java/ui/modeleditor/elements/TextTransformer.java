@@ -350,6 +350,9 @@ public class TextTransformer {
 		addEntity(entitiesHTML,"harrow;",8596);
 		addEntity(entitiesHTML,"crarrow;",8629);
 		addEntity(entitiesHTML,"exists;",8707);
+		addEntity(entitiesHTML,"image;",8465);
+		addEntity(entitiesHTML,"real;",8476);
+		addEntity(entitiesHTML,"alefsym;",8501);
 
 		addEntity(entitiesLaTeX,"leftarrow",8592);
 		addEntity(entitiesLaTeX,"gets",8592);
@@ -460,6 +463,7 @@ public class TextTransformer {
 		addEntity(entitiesLaTeX,"forall",8704);
 		addEntity(entitiesLaTeX,"exists",8707);
 		addEntity(entitiesLaTeX,"infty",8734);
+		addEntity(entitiesLaTeX,"times",215);
 	}
 
 	/**
