@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -159,6 +160,8 @@ public class CommandLineDialog extends BaseDialog {
 		tab.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		viewer=new JTextPane();
 		viewer.setEditable(false);
+		viewer.setHighlighter(null);
+		viewer.setCaretColor(viewer.getBackground());
 		viewer.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		viewer.setContentType("text/html");
 		JScrollPane sp=new JScrollPane(viewer);
@@ -182,6 +185,8 @@ public class CommandLineDialog extends BaseDialog {
 		p.add(new JLabel(labelResults));
 
 		tab.add(new JScrollPane(results=new JTextArea(20,80),ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER));
+		final var font=results.getFont();
+		results.setFont(new Font(Font.MONOSPACED,font.getStyle(),font.getSize()+1));
 		results.setEditable(false);
 
 		/* Initialisierung Dialogs */
