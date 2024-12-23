@@ -91,6 +91,7 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 				options.add("-cp");
 				options.add(baseFolder.toString());
 				options.add("--release=11");
+				options.add("-Xlint:-options");
 
 				boolean success=false;
 				ClassLoaderCache.globalCompilerLock.lock();
