@@ -30,6 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import language.Language;
+import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
@@ -123,6 +124,20 @@ public class ModelElementReleaseDialog extends ModelElementBaseDialog {
 
 		content.add(distributionEditor=new DistributionBySubTypeEditor(element.getModel(),element.getSurface(),readOnly,Language.tr("Surface.Release.Dialog.DelayedRelease"),((ModelElementRelease)element).getReleaseDelay(),DistributionBySubTypeEditor.Mode.MODE_CLIENTS));
 		distributionEditor.addUserChangeListener(e->checkBoxDelayRelease.setSelected(true));
+
+		final var loader=new DistributionOrExpressionFromOtherStation(element.getModel());
+		distributionEditor.setupSpecialButton(Language.tr("Surface.LoadTimes.Button.Title"),Language.tr("Surface.LoadTimes.Button.Tooltip"),Images.MODEL_ADD_STATION.getIcon(),loader.getShowLoadMenu(record->{
+			if (record.id==element.getId()) {
+				if (record.type==null) {
+					distributionEditor.setDataForCurrentView(distributionEditor.getCurrentData().get());
+				} else {
+					distributionEditor.setDataForCurrentView(distributionEditor.getCurrentData().get(record.type));
+				}
+			} else {
+				distributionEditor.setDataForCurrentView(record.data);
+			}
+		}));
+
 
 		return content;
 	}

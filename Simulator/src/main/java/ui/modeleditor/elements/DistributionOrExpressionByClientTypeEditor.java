@@ -29,9 +29,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Consumer;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -44,6 +46,7 @@ import org.apache.commons.math3.distribution.ExponentialDistribution;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionPanel;
+import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
 import simulator.runmodel.RunModel;
 import simulator.simparser.ExpressionCalc;
@@ -125,6 +128,9 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 	/** Eingabefeld für den Rechenausdruck */
 	private final JTextField expressionEdit;
 
+	/** Konfigurierbare Schaltfläche (z.B. für Datenübernahme von anderen Stationen) */
+	private final JButton specialButton;
+
 	/**
 	 * Konstruktor der Klasse <code>DistributionOrExpressionByClientTypeEditor</code>
 	 * @param model	Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
@@ -197,6 +203,10 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 		}));
 		modeSelect.setEnabled(!readOnly);
 
+		sub.add(Box.createHorizontalStrut(10));
+		sub.add(specialButton=new JButton());
+		specialButton.setVisible(false);
+
 		add(editArea=new JPanel(new CardLayout()),BorderLayout.CENTER);
 
 		editArea.add(sub=new JPanel(new BorderLayout()),"dist");
@@ -215,6 +225,21 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 			@Override public void keyPressed(KeyEvent e) {expressionEditChanged();}
 		});
 		((JPanel)obj[0]).add(ModelElementBaseDialog.getExpressionEditButton(this,expressionEdit,false,true,model,surface),BorderLayout.EAST);
+	}
+
+	/**
+	 * Konfiguriert und aktiviert die zusätzliche Schaltfläche.
+	 * @param text	Beschriftung der Schaltfläche (darf <code>null</code> sein)
+	 * @param tooltip	Tooltip für die Schaltfläche (darf <code>null</code> sein)
+	 * @param icon	Icon auf der Schaltfläche (darf <code>null</code> sein)
+	 * @param callback	Wird beim Anklicken aufgerufen
+	 */
+	public void setupSpecialButton(final String text, final String tooltip, final Icon icon, Consumer<JButton> callback) {
+		if (text!=null) specialButton.setText(text);
+		if (tooltip!=null) specialButton.setToolTipText(tooltip);
+		if (icon!=null) specialButton.setIcon(icon);
+		specialButton.addActionListener(e->callback.accept(specialButton));
+		specialButton.setVisible(true && !readOnly);
 	}
 
 	/**
@@ -308,6 +333,27 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 
 		final Integer index=clientTypesMap.get(name);
 		if (index!=null) setData(index,distribution,expression);
+	}
+
+	/**
+	 * Stellt neue Daten für die aktuell angezeigte Seite ein.
+	 * @param data	Neue Daten (Verteilung oder Rechenausdruck)
+	 */
+	public void setDataForCurrentView(final Object data) {
+		if (data instanceof AbstractRealDistribution) {
+			if (clientTypeSelect.getSelectedIndex()>0) clientTypeActive.setSelected(false);
+			modeSelect.setSelectedIndex(0);
+			activeModeChanged();
+			distributionPanel.setDistribution(DistributionTools.cloneDistribution((AbstractRealDistribution)data));
+			activeClientTypeChanged();
+		}
+		if (data instanceof String) {
+			if (clientTypeSelect.getSelectedIndex()>0) clientTypeActive.setSelected(false);
+			modeSelect.setSelectedIndex(1);
+			activeModeChanged();
+			expressionEdit.setText((String)data);
+			activeClientTypeChanged();
+		}
 	}
 
 	/**

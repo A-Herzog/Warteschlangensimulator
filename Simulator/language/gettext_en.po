@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-15 11:04+0100\n"
+"POT-Creation-Date: 2024-12-23 22:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31692,6 +31692,24 @@ msgstr "ModelElementLink"
 
 msgid "Surface.Link.XML.Text"
 msgstr "ModelElementLinkText"
+
+msgid "Surface.LoadTimes.Button.Title"
+msgstr "Copy data"
+
+msgid "Surface.LoadTimes.Button.Tooltip"
+msgstr "Copy data from another station"
+
+msgid "Surface.LoadTimes.Mode.Cancel"
+msgstr "Waiting time tolerance"
+
+msgid "Surface.LoadTimes.Mode.PostProcessing"
+msgstr "Post processing time"
+
+msgid "Surface.LoadTimes.Mode.Service"
+msgstr "Service time"
+
+msgid "Surface.LoadTimes.Mode.Setup"
+msgstr "Setup time"
 
 msgid "Surface.Logic.Dialog.Condition"
 msgstr "Flow control condition"

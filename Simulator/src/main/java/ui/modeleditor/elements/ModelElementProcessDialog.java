@@ -212,6 +212,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		tabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		JPanel tab, area, sub, line;
 		JLabel label;
+		DistributionOrExpressionFromOtherStation loader;
 
 		/* Tab "Bedienzeiten" */
 		tabs.addTab(Language.tr("Surface.Process.Dialog.Tab.ProcessingTimes"),tab=new JPanel(new BorderLayout()));
@@ -236,6 +237,19 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		distributionsWorking=new DistributionBySubTypeEditor(element.getModel(),element.getSurface(),readOnly,Language.tr("Surface.Process.Dialog.DistributionOfProcessingTimes"),process.getWorking(),DistributionBySubTypeEditor.Mode.MODE_CLIENTS);
 		tab.add(distributionsWorking,BorderLayout.CENTER);
 
+		loader=new DistributionOrExpressionFromOtherStation(element.getModel());
+		distributionsWorking.setupSpecialButton(Language.tr("Surface.LoadTimes.Button.Title"),Language.tr("Surface.LoadTimes.Button.Tooltip"),Images.MODEL_ADD_STATION.getIcon(),loader.getShowLoadMenu(record->{
+			if (record.id==element.getId()) {
+				if (record.type==null) {
+					distributionsWorking.setDataForCurrentView(distributionsWorking.getCurrentData().get());
+				} else {
+					distributionsWorking.setDataForCurrentView(distributionsWorking.getCurrentData().get(record.type));
+				}
+			} else {
+				distributionsWorking.setDataForCurrentView(record.data);
+			}
+		}));
+
 		/* Tab "Rüstzeiten" */
 		tabs.addTab(Language.tr("Surface.Process.Dialog.Tab.SetupTimes"),tab=new JPanel(new BorderLayout()));
 		tab.add(area=new JPanel(),BorderLayout.NORTH);
@@ -255,6 +269,15 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		area.add(canCancelInSetupTime=new JCheckBox(Language.tr("Surface.Process.Dialog.Tab.SetupTimes.CanCancelInSetupTime"),process.isCanCancelInSetupTime()));
 		canCancelInSetupTime.setToolTipText(Language.tr("Surface.Process.Dialog.Tab.SetupTimes.CanCancelInSetupTime.Info"));
 
+		loader=new DistributionOrExpressionFromOtherStation(element.getModel());
+		editorSetupTimes.setupSpecialButton(Language.tr("Surface.LoadTimes.Button.Title"),Language.tr("Surface.LoadTimes.Button.Tooltip"),Images.MODEL_ADD_STATION.getIcon(),loader.getShowLoadMenu(record->{
+			if (record.id==element.getId()) {
+				editorSetupTimes.setDataForCurrentView(editorSetupTimes.getCurrentData().get(record.type,record.type2));
+			} else {
+				editorSetupTimes.setDataForCurrentView(record.data);
+			}
+		}));
+
 		/* Tab "Nachbearbeitungszeiten" */
 		tabs.addTab(Language.tr("Surface.Process.Dialog.Tab.PostProcessingTimes"),tab=new JPanel(new BorderLayout()));
 		tab.add(area=new JPanel(),BorderLayout.NORTH);
@@ -269,6 +292,19 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		distributionsPostProcessing.addUserChangeListener(e->{checkBoxPostProcessing.setSelected(true); updateTabTitles();});
 		tab.add(distributionsPostProcessing,BorderLayout.CENTER);
 
+		loader=new DistributionOrExpressionFromOtherStation(element.getModel());
+		distributionsPostProcessing.setupSpecialButton(Language.tr("Surface.LoadTimes.Button.Title"),Language.tr("Surface.LoadTimes.Button.Tooltip"),Images.MODEL_ADD_STATION.getIcon(),loader.getShowLoadMenu(record->{
+			if (record.id==element.getId()) {
+				if (record.type==null) {
+					distributionsPostProcessing.setDataForCurrentView(distributionsPostProcessing.getCurrentData().get());
+				} else {
+					distributionsPostProcessing.setDataForCurrentView(distributionsPostProcessing.getCurrentData().get(record.type));
+				}
+			} else {
+				distributionsPostProcessing.setDataForCurrentView(record.data);
+			}
+		}));
+
 		/* Tab "Wartezeittoleranzen" */
 		tabs.addTab(Language.tr("Surface.Process.Dialog.Tab.WaitingTimeTolerances"),tab=new JPanel(new BorderLayout()));
 		tab.add(area=new JPanel(),BorderLayout.NORTH);
@@ -282,6 +318,19 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		distributionsCancel=new DistributionBySubTypeEditor(element.getModel(),element.getSurface(),readOnly,Language.tr("Surface.Process.Dialog.DistributionOfWaitingTimeTolerances"),process.getCancel(),DistributionBySubTypeEditor.Mode.MODE_CLIENTS);
 		distributionsCancel.addUserChangeListener(e->{checkBoxCancel.setSelected(true); updateTabTitles();});
 		tab.add(distributionsCancel,BorderLayout.CENTER);
+
+		loader=new DistributionOrExpressionFromOtherStation(element.getModel());
+		distributionsCancel.setupSpecialButton(Language.tr("Surface.LoadTimes.Button.Title"),Language.tr("Surface.LoadTimes.Button.Tooltip"),Images.MODEL_ADD_STATION.getIcon(),loader.getShowLoadMenu(record->{
+			if (record.id==element.getId()) {
+				if (record.type==null) {
+					distributionsCancel.setDataForCurrentView(distributionsCancel.getCurrentData().get());
+				} else {
+					distributionsCancel.setDataForCurrentView(distributionsCancel.getCurrentData().get(record.type));
+				}
+			} else {
+				distributionsCancel.setDataForCurrentView(record.data);
+			}
+		}));
 
 		/* Tab "Prioritäten und Batch-Größen" */
 		tabs.addTab(Language.tr("Surface.Process.Dialog.Tab.PrioritiesAndBatchSizes"),tab=new JPanel(new BorderLayout()));

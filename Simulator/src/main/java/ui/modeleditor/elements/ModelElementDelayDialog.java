@@ -39,6 +39,7 @@ import mathtools.NumberTools;
 import simulator.simparser.ExpressionCalc;
 import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.MsgBox;
+import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
@@ -149,6 +150,24 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 		content.add(distributions=new DistributionOrExpressionByClientTypeEditor(element.getModel(),element.getSurface(),readOnly,Language.tr("Surface.Delay.Dialog.DelayDistribution"),Language.tr("Surface.Delay.Dialog.DelayExpression")),BorderLayout.CENTER);
 		distributions.setData(delayElement.getDelayTime(),delayElement.getDelayExpression());
 		for (String clientType: distributions.getClientTypes()) distributions.setData(clientType,delayElement.getDelayTime(clientType),delayElement.getDelayExpression(clientType));
+
+		final var loader=new DistributionOrExpressionFromOtherStation(element.getModel());
+		distributions.setupSpecialButton(Language.tr("Surface.LoadTimes.Button.Title"),Language.tr("Surface.LoadTimes.Button.Tooltip"),Images.MODEL_ADD_STATION.getIcon(),loader.getShowLoadMenu(record->{
+			if (record.id==element.getId()) {
+				Object obj;
+				if (record.type==null) {
+					obj=distributions.getGlobalDistribution();
+					if (obj==null) obj=distributions.getGlobalExpression();
+					distributions.setDataForCurrentView(obj);
+				} else {
+					obj=distributions.getDistributions().get(record.type);
+					if (obj==null) obj=distributions.getExpressions().get(record.type);
+					distributions.setDataForCurrentView(obj);
+				}
+			} else {
+				distributions.setDataForCurrentView(record.data);
+			}
+		}));
 
 		/* Bereich unten */
 		final JPanel bottom=new JPanel();

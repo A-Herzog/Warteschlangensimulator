@@ -34,9 +34,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -51,6 +53,7 @@ import org.apache.commons.math3.distribution.ExponentialDistribution;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionPanel;
+import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
@@ -125,6 +128,9 @@ public class DistributionBySubTypeEditor extends JPanel {
 	private final JPanel expressionLines;
 	/** Eingabefeld für die Formel */
 	private final JTextField expressionEdit;
+
+	/** Konfigurierbare Schaltfläche (z.B. für Datenübernahme von anderen Stationen) */
+	private final JButton specialButton;
 
 	/**
 	 * Konstruktor der Klasse <code>DistributionBySubTypeEditor</code>
@@ -243,6 +249,10 @@ public class DistributionBySubTypeEditor extends JPanel {
 		}));
 		modeSelect.setEnabled(!readOnly);
 
+		sub.add(Box.createHorizontalStrut(10));
+		sub.add(specialButton=new JButton());
+		specialButton.setVisible(false);
+
 		add(cards=new JPanel(new CardLayout()),BorderLayout.CENTER);
 		cards.add(distributionPanel=new JDistributionPanel(null,3600,!readOnly,s->toExpression(s)) {
 			private static final long serialVersionUID = -8375312389773855243L;
@@ -271,12 +281,47 @@ public class DistributionBySubTypeEditor extends JPanel {
 		/* Verarbeitung starten */
 		subTypeLast=-1;
 		subTypeSelect.addActionListener(e->activeClientTypeChanged());
-		modeSelect.addActionListener(e->{
-			setCard((modeSelect.getSelectedIndex()==0)?cardDistribution:cardExpression);
-			if (subTypeSelect.getSelectedIndex()>0 && !readOnly) useGlobal.setSelected(false);
-			checkExpression();
-		});
+		modeSelect.addActionListener(e->activeModeChanged());
 		subTypeSelect.setSelectedIndex(0);
+	}
+
+	/**
+	 * Konfiguriert und aktiviert die zusätzliche Schaltfläche.
+	 * @param text	Beschriftung der Schaltfläche (darf <code>null</code> sein)
+	 * @param tooltip	Tooltip für die Schaltfläche (darf <code>null</code> sein)
+	 * @param icon	Icon auf der Schaltfläche (darf <code>null</code> sein)
+	 * @param callback	Wird beim Anklicken aufgerufen
+	 */
+	public void setupSpecialButton(final String text, final String tooltip, final Icon icon, Consumer<JButton> callback) {
+		if (text!=null) specialButton.setText(text);
+		if (tooltip!=null) specialButton.setToolTipText(tooltip);
+		if (icon!=null) specialButton.setIcon(icon);
+		specialButton.addActionListener(e->callback.accept(specialButton));
+		specialButton.setVisible(true);
+	}
+
+	/**
+	 * Stellt neue Daten für die aktuell angezeigte Seite ein.
+	 * @param data	Neue Daten (Verteilung oder Rechenausdruck)
+	 */
+	public void setDataForCurrentView(final Object data) {
+		if (data instanceof AbstractRealDistribution) {
+			if (subTypeSelect.getSelectedIndex()>0) useGlobal.setSelected(false);
+			modeSelect.setSelectedIndex(0);
+			activeModeChanged();
+			distributionPanel.setDistribution(DistributionTools.cloneDistribution((AbstractRealDistribution)data));
+			activeClientTypeChanged();
+			fireUserChangeListener();
+		}
+		if (data instanceof String) {
+			if (subTypeSelect.getSelectedIndex()>0) useGlobal.setSelected(false);
+			modeSelect.setSelectedIndex(1);
+			activeModeChanged();
+			expressionEdit.setText((String)data);
+			checkExpression();
+			activeClientTypeChanged();
+			fireUserChangeListener();
+		}
 	}
 
 	/**
@@ -331,6 +376,14 @@ public class DistributionBySubTypeEditor extends JPanel {
 	}
 
 	/**
+	 * Liefert das aktive interne Datenobjekt.
+	 * @return	Aktives internes Datenobjekt
+	 */
+	public DistributionSystem getCurrentData() {
+		return data;
+	}
+
+	/**
 	 * Stellt die aktive Karte in {@link #cards} ein,
 	 * d.h. wechselt zwischen Verteilungseditor und Formeleingabe.
 	 * @param cardName	Name der anzuzeigenden Karte
@@ -363,6 +416,17 @@ public class DistributionBySubTypeEditor extends JPanel {
 
 		final int error=ExpressionCalc.check(expressionEdit.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),true),model.userFunctions);
 		if (error>=0) expressionEdit.setBackground(Color.red); else expressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
+	}
+
+	/**
+	 * Wird aufgerufen, wenn zwischen Verteilungseditor und
+	 * Rechenausdruck-Eingabe umgeschaltet wird.
+	 * @see #modeSelect
+	 */
+	private void activeModeChanged() {
+		setCard((modeSelect.getSelectedIndex()==0)?cardDistribution:cardExpression);
+		if (subTypeSelect.getSelectedIndex()>0 && !readOnly) useGlobal.setSelected(false);
+		checkExpression();
 	}
 
 	/**

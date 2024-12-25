@@ -32,9 +32,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -49,6 +51,7 @@ import org.apache.commons.math3.distribution.ExponentialDistribution;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.swing.JDistributionPanel;
+import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
 import systemtools.BaseDialog;
@@ -117,6 +120,9 @@ public class DistributionSetupTimesEditor extends JPanel {
 	 */
 	private List<ActionListener> userChangeListeners;
 
+	/** Konfigurierbare Schaltfläche (z.B. für Datenübernahme von anderen Stationen) */
+	private final JButton specialButton;
+
 	/**
 	 * Konstruktor der Klasse <code>DistributionSetupTimesEditor</code>
 	 * @param model	Element vom Typ <code>EditModel</code> (wird benötigt, um die Liste der globalen Variablen zu laden)
@@ -184,6 +190,10 @@ public class DistributionSetupTimesEditor extends JPanel {
 			infoLabel.setLabelFor(modeSelect);
 			modeSelect.setEnabled(!readOnly);
 
+			line.add(Box.createHorizontalStrut(10));
+			line.add(specialButton=new JButton());
+			specialButton.setVisible(false);
+
 			add(cards=new JPanel(new CardLayout()),BorderLayout.CENTER);
 			cards.add(distributionPanel=new JDistributionPanel(null,3600,!readOnly,s->toExpression(s)) {
 				private static final long serialVersionUID = -8375312389773855243L;
@@ -213,10 +223,7 @@ public class DistributionSetupTimesEditor extends JPanel {
 			/* Verarbeitung starten */
 			typeLast=-1;
 			typeCombo.addActionListener(e->activeClientTypeChanged());
-			modeSelect.addActionListener(e->{
-				setCard((modeSelect.getSelectedIndex()==0)?cardDistribution:cardExpression);
-				fireUserChangeListener();
-			});
+			modeSelect.addActionListener(e->activeModeChanged());
 
 			typeCombo.setSelectedIndex(0);
 		} else {
@@ -225,10 +232,52 @@ public class DistributionSetupTimesEditor extends JPanel {
 			assistantButton=null;
 			infoLabel=null;
 			modeSelect=null;
+			specialButton=null;
 			cards=null;
 			distributionPanel=null;
 			expressionLines=null;
 			expressionEdit=null;
+		}
+	}
+
+	/**
+	 * Konfiguriert und aktiviert die zusätzliche Schaltfläche.
+	 * @param text	Beschriftung der Schaltfläche (darf <code>null</code> sein)
+	 * @param tooltip	Tooltip für die Schaltfläche (darf <code>null</code> sein)
+	 * @param icon	Icon auf der Schaltfläche (darf <code>null</code> sein)
+	 * @param callback	Wird beim Anklicken aufgerufen
+	 */
+	public void setupSpecialButton(final String text, final String tooltip, final Icon icon, Consumer<JButton> callback) {
+		if (specialButton==null) return;
+
+		if (text!=null) specialButton.setText(text);
+		if (tooltip!=null) specialButton.setToolTipText(tooltip);
+		if (icon!=null) specialButton.setIcon(icon);
+		specialButton.addActionListener(e->callback.accept(specialButton));
+		specialButton.setVisible(true);
+	}
+
+	/**
+	 * Stellt neue Daten für die aktuell angezeigte Seite ein.
+	 * @param data	Neue Daten (Verteilung oder Rechenausdruck)
+	 */
+	public void setDataForCurrentView(final Object data) {
+		if (data instanceof AbstractRealDistribution) {
+			activeCheckBox.setSelected(true);
+			modeSelect.setSelectedIndex(0);
+			activeModeChanged();
+			distributionPanel.setDistribution(DistributionTools.cloneDistribution((AbstractRealDistribution)data));
+			activeClientTypeChanged();
+			fireUserChangeListener();
+		}
+		if (data instanceof String) {
+			activeCheckBox.setSelected(true);
+			modeSelect.setSelectedIndex(1);
+			activeModeChanged();
+			expressionEdit.setText((String)data);
+			checkExpression();
+			activeClientTypeChanged();
+			fireUserChangeListener();
 		}
 	}
 
@@ -299,6 +348,14 @@ public class DistributionSetupTimesEditor extends JPanel {
 	}
 
 	/**
+	 * Liefert das aktive interne Datenobjekt.
+	 * @return	Aktives internes Datenobjekt
+	 */
+	public DistributionSystemSetupTimes getCurrentData() {
+		return data;
+	}
+
+	/**
 	 * Gibt an, ob mindestens eine Rüstzeit hinterlegt ist
 	 * @return	Gibt <code>true</code> zurück, wenn mindestens eine Rüstzeit vorhanden ist
 	 */
@@ -339,6 +396,16 @@ public class DistributionSetupTimesEditor extends JPanel {
 
 		final int error=ExpressionCalc.check(expressionEdit.getText(),surface.getMainSurfaceVariableNames(model.getModelVariableNames(),true),model.userFunctions);
 		if (error>=0) expressionEdit.setBackground(Color.red); else expressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
+	}
+
+	/**
+	 * Wird aufgerufen, wenn zwischen Verteilungseditor und
+	 * Rechenausdruck-Eingabe umgeschaltet wird.
+	 * @see #modeSelect
+	 */
+	private void activeModeChanged() {
+		setCard((modeSelect.getSelectedIndex()==0)?cardDistribution:cardExpression);
+		fireUserChangeListener();
 	}
 
 	/**
