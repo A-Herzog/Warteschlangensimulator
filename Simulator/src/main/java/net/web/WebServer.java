@@ -34,6 +34,7 @@ import org.nanohttpd.protocols.http.IHTTPSession;
 import org.nanohttpd.protocols.http.NanoHTTPD;
 import org.nanohttpd.protocols.http.response.Response;
 import org.nanohttpd.protocols.http.response.Status;
+import org.nanohttpd.util.IHandler;
 
 import language.Language;
 
@@ -156,6 +157,12 @@ public class WebServer {
 		 */
 		public ServerSystem(final int port) {
 			super(port);
+			setHTTPHandler(new IHandler<IHTTPSession, Response>() {
+				@Override
+				public Response handle(IHTTPSession input) {
+					return serveRequest(input);
+				}
+			});
 		}
 
 		/**
@@ -214,8 +221,12 @@ public class WebServer {
 			};
 		}
 
-		@Override
-		public Response serve(IHTTPSession session) {
+		/**
+		 * Reagiert auf eine Anfrage
+		 * @param session	Anfrage
+		 * @return	Rückmeldung
+		 */
+		private Response serveRequest(IHTTPSession session) {
 			/* Passwortabfrage */
 			if (authRequestInfo!=null && authName!=null && authPassword!=null) {
 				final String[] data=getAuthorizationData(session);
