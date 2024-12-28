@@ -127,8 +127,8 @@ public class GlassInfo {
 		glassPane.add(Box.createVerticalGlue());
 		glassPane.add(Box.createVerticalGlue());
 		final JPanel infoPanel=new JPanel(new FlowLayout(FlowLayout.CENTER));
-		infoPanel.add(new JLabel("<html><body style='color: white; font-size: large; font-weight: bold;'>"+info+"</body></html>"));
-		infoPanel.setBackground(new Color(0,0,0,64));
+		infoPanel.add(new JLabel("<html><body style='color: white; font-size: x-large; font-weight: bold;'>"+info+"</body></html>"));
+		infoPanel.setBackground(new Color(0,0,0,40));
 		infoPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 		infoPanel.setMaximumSize(new Dimension(width,1000));
 		infoPanel.setOpaque(true);
