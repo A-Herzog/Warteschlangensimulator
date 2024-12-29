@@ -49,9 +49,11 @@ kann hier für jeden Kundentyp eine individuelle Verteilung bzw. ein individuell
 <u>Hinweis zu individuellen Bedienzeiten und Batch-Verarbeitung:</u><br>
 Prinzipiell widersprechen sich pro Kundentyp individuelle Bedienzeiten und die gleichzeitige Bedienung von mehreren Kunden
 (von möglicherweise verschiedenen Typen). Dennoch kann dies in der Simulation verwendet werden. In diesem Fall wird für jeden
-in dem Batch enthaltenen Kundentyp eine Bedienzeit gemäß der vorgegebenen Verteilung bestimmt. Diese Bedienzeit gilt dann
-für alle in dem Batch enthaltenen Kunden des jeweiligen Kundentyps. Die Ressourcen werden so lange belegt, bis das
-Maximum der Bedienzeiten der enthaltenen Kundentypen erreicht ist.
+in dem Batch enthaltenen Kundentyp eine Bedienzeit gemäß der vorgegebenen Verteilung bzw. des vorgegebenen Rechenausdrucks bestimmt.
+Diese Bedienzeit gilt dann für alle in dem Batch enthaltenen Kunden des jeweiligen Kundentyps. Die Ressourcen werden so lange belegt,
+bis das Maximum der Bedienzeiten der enthaltenen Kundentypen erreicht ist. Wird die Bedienzeit über einen Rechenausdruck bestimmt
+und werden in diesem kundenspezifische Daten verwendet, so erfolgt die Auswertung (pro Kundentyp) jeweils für den Kunden mit der
+höchsten Bedienpriorität.
 </p>
 
 <h3>Rüstzeiten</h3>
