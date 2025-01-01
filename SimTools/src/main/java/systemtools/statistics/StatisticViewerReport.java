@@ -697,7 +697,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	 * @see #writeLaTeXFoot(BufferedWriter)
 	 */
 	private void writeLaTeXHead(final BufferedWriter bw) throws IOException {
-		bw.write("\\documentclass{article}"); bw.newLine();
+		bw.write("\\documentclass[a4paper]{article}"); bw.newLine();
 		bw.newLine();
 		bw.write("\\usepackage[utf8]{inputenc}"); bw.newLine();
 		bw.write("\\usepackage[T1]{fontenc}"); bw.newLine();
