@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-23 22:51+0100\n"
+"POT-Creation-Date: 2025-01-01 19:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3453,6 +3453,12 @@ msgstr "https://de.wikipedia.org/wiki/Levy-Verteilung"
 
 msgid "Distribution.Location"
 msgstr "Lage"
+
+msgid "Distribution.LogCauchy"
+msgstr "Log-Cauchy-Verteilung"
+
+msgid "Distribution.LogCauchyWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Log-Cauchy_distribution"
 
 msgid "Distribution.LogLogistic"
 msgstr "Log-Logistische Verteilung"

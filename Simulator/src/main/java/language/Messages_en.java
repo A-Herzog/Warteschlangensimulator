@@ -14466,6 +14466,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35031] = "No example selected";
     t[35032] = "Surface.AnimationClock.Dialog.LineColor";
     t[35033] = "Pointer color";
+    t[35046] = "Distribution.LogCauchyWikipedia";
+    t[35047] = "https://en.wikipedia.org/wiki/Log-Cauchy_distribution";
     t[35050] = "LoadCalculator.Tab.ErlangB.Link";
     t[35051] = "http://en.wikipedia.org/wiki/Erlang_(unit)#Erlang_B_formula";
     t[35054] = "ExpressionBuilder.CommandName.WaitingTime";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38977] = "Standard deviation";
     t[38980] = "Surface.Input.Dialog.Variable.ProcessTime";
     t[38981] = "The pseudo variable \"p\" stands for the process time of the client.";
-    t[38982] = "Statistics.XML.ExpressionData";
-    t[38983] = "StatisticsRunTimeValue";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38982] = "Statistics.XML.ExpressionData";
+    t[38983] = "StatisticsRunTimeValue";
     t[38988] = "Surface.TankValveSetup.Table.Edit.Tank";
     t[38989] = "Tank";
     t[38990] = "ModelDescription.Match.Mode";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43839] = "InterArrivalTimes";
     t[43840] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.Number";
     t[43841] = "<p>Returns the number of operators in the specified resource.</p>\n<p>If the resource is defined by a shift plan the number can vary during the simulation time. For resources with an unlimited capacity \"0\" is returned.</p>";
-    t[43842] = "ModelDescription.Barrier.ClientsPerSignal";
-    t[43843] = "Release per signal";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[43842] = "ModelDescription.Barrier.ClientsPerSignal";
+    t[43843] = "Release per signal";
     t[43846] = "Surface.Process.Dialog.ResourceCheckOrder.InOrder";
     t[43847] = "In specified order";
     t[43848] = "Surface.DelayJS.XML.Script.Language";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48769] = "Indigo";
     t[48774] = "Surface.OutputDDE.Table.Up";
     t[48775] = "Move output element up";
-    t[48776] = "ExpressionBuilder.ClientsAtStation.CurrentNumber";
-    t[48777] = "<p>Returns the current number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[48776] = "ExpressionBuilder.ClientsAtStation.CurrentNumber";
+    t[48777] = "<p>Returns the current number of clients at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[48778] = "FindElementDirect.DialogHint";
     t[48779] = "In this dialog you can search for elements based on their name or ID.";
     t[48782] = "Surface.Conveyor.Name";
@@ -20220,6 +20222,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49139] = "Distribution of the process times at the stations (totaled over multiple client arrivals)";
     t[49140] = "Surface.Action.Dialog.Info.PlaySound";
     t[49141] = "Play sound (%s)";
+    t[49148] = "Distribution.LogCauchy";
+    t[49149] = "Log-Cauchy distribution";
     t[49152] = "Surface.Source.Dialog.ClientCount.Error.Title";
     t[49153] = "Invalid number of arriving clients";
     t[49164] = "Surface.OutputDDE.XML.Root";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53747] = "Threshold";
     t[53750] = "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution.DensityInfo";
     t[53751] = "<p>Calculates the value of the count density of the hypergeometrical distribution at the location specified as the first parameter with the distribution parameters according to the next function parameters.</p>";
-    t[53754] = "ModelDescription.TankFlowBySignal.SignalName";
-    t[53755] = "Signal name to start the flow";
-    t[53758] = "Surface.Popup.AddVisualization.CurrentValueWaiting3";
-    t[53759] = "Current value (waiting in queue 3)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[53754] = "ModelDescription.TankFlowBySignal.SignalName";
+    t[53755] = "Signal name to start the flow";
+    t[53758] = "Surface.Popup.AddVisualization.CurrentValueWaiting3";
+    t[53759] = "Current value (waiting in queue 3)";
     t[53766] = "Surface.UserStatistic.XML.Root";
     t[53767] = "ModelElementUserStatistics";
     t[53768] = "Surface.XML.PathSegments.Connection";
@@ -24072,16 +24076,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[58685] = "Default author e-mail address for new models";
     t[58686] = "SettingsDialog.ModellSecurity.AllowOpenLinks";
     t[58687] = "When clicking on links";
-    t[58690] = "Simulation.Log.Abort";
-    t[58691] = "Abort";
-    t[58692] = "ModelDescription.Costs.Station";
-    t[58693] = "Station costs";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[58690] = "Simulation.Log.Abort";
+    t[58691] = "Abort";
+    t[58692] = "ModelDescription.Costs.Station";
+    t[58693] = "Station costs";
     t[58702] = "Surface.Action.Tooltip";
     t[58703] = "Triggers an event if a condition is met.";
     t[58712] = "Statistic.FastAccess.SelectXMLTag.ElementContent";

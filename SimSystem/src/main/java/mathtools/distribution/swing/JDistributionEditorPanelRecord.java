@@ -52,6 +52,7 @@ import mathtools.distribution.JohnsonDistributionImpl;
 import mathtools.distribution.KumaraswamyDistribution;
 import mathtools.distribution.LaplaceDistributionImpl;
 import mathtools.distribution.LevyDistribution;
+import mathtools.distribution.LogCauchyDistributionImpl;
 import mathtools.distribution.LogLogisticDistributionImpl;
 import mathtools.distribution.LogNormalDistributionImpl;
 import mathtools.distribution.LogisticDistributionImpl;
@@ -97,6 +98,7 @@ import mathtools.distribution.tools.WrapperJohnsonDistribution;
 import mathtools.distribution.tools.WrapperKumaraswamyDistribution;
 import mathtools.distribution.tools.WrapperLaplaceDistribution;
 import mathtools.distribution.tools.WrapperLevyDistribution;
+import mathtools.distribution.tools.WrapperLogCauchyDistribution;
 import mathtools.distribution.tools.WrapperLogLogisticDistribution;
 import mathtools.distribution.tools.WrapperLogNormalDistribution;
 import mathtools.distribution.tools.WrapperLogarithmicDistribution;
@@ -312,6 +314,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new LevyDistributionPanel());
 		allRecords.add(new MaxwellBoltzmannDistributionPanel());
 		allRecords.add(new StudentTDistributionPanel());
+		allRecords.add(new LogCauchyDistributionPanel());
 		allRecords.add(new HyperGeomDistributionPanel());
 		allRecords.add(new BinomialDistributionPanel());
 		allRecords.add(new PoissonDistributionPanel());
@@ -1700,6 +1703,38 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double d1=NumberTools.getDouble(fields[0],true); if (d1==null) return null;
 			final Double d2=NumberTools.getPositiveDouble(fields[1],true); if (d2==null) return null;
 			return new HalfNormalDistribution(d1,d2);
+		}
+	}
+
+
+	/** Log-Cauchy-Verteilung */
+	private static class LogCauchyDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public LogCauchyDistributionPanel() {
+			super(new WrapperLogCauchyDistribution(),new String[]{"mu","sigma"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			return new String[]{
+					NumberTools.formatNumber(Math.log(Math.max(meanD,0.001))),
+					NumberTools.formatNumber(0.5),
+			};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((LogCauchyDistributionImpl)distribution).mu),
+					NumberTools.formatNumberMax(((LogCauchyDistributionImpl)distribution).sigma),
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double mu=NumberTools.getDouble(fields[0],true); if (mu==null) return null;
+			final Double sigma=NumberTools.getPositiveDouble(fields[1],true); if (sigma==null) return null;
+			return new LogCauchyDistributionImpl(mu,sigma);
 		}
 	}
 

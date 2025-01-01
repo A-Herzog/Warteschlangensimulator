@@ -357,7 +357,9 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		public void run() {
 			indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(null,distSize,distSize);
 			for (long i=0;i<count;i++) {
-				indicator.add(DistributionRandomNumber.random(distribution));
+				double value=DistributionRandomNumber.random(distribution);
+				value=Math.max(-1E50,Math.min(1E50,value));
+				indicator.add(value);
 			}
 		}
 
@@ -426,6 +428,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		final StringBuilder result=new StringBuilder();
 		for (int i=0;i<randomNumberCount;i++) {
 			result.append(NumberTools.formatNumberMax(DistributionRandomNumber.random(distribution)));
+			result.append("\n");
 		}
 
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(result.toString()),null);
@@ -495,7 +498,8 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		double min=Double.MAX_VALUE;
 		double max=-Double.MAX_VALUE;
 		for (int i=0;i<count;i++) {
-			final double value=DistributionRandomNumber.random(distribution);
+			double value=DistributionRandomNumber.random(distribution);
+			value=Math.min(1E50,Math.max(-10E50,value));
 			numbers[i]=value;
 			if (value<min) min=value;
 			if (value>max) max=value;
@@ -537,7 +541,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 			table.addLine(new String[] {NumberTools.formatNumberMax(numbers[nr++]),"",NumberTools.formatNumberMax(min+step*i),NumberTools.formatNumberMax(min+step*(i+1)),"=(C"+(nr+1)+"+D"+(nr+1)+")/2",cmd});
 		}
 
-		for (int i=nr;i<count;i++) table.addLine(new String[] {NumberTools.formatNumberMax(DistributionRandomNumber.random(distribution))});
+		for (int i=nr;i<count;i++) table.addLine(new String[] {NumberTools.formatNumberMax(numbers[i])});
 
 		/* Diagramm aufbauen */
 
@@ -621,7 +625,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 			final double mean=distribution.getNumericalMean();
 			final double variance=distribution.getNumericalVariance();
 			final double upperBound=distribution.getSupportUpperBound();
-			if (Double.isNaN(mean) || Double.isNaN(variance) || mean==Double.MAX_VALUE || variance==Double.MAX_VALUE) return super.getRealMaxXValue();
+			if (Double.isNaN(mean) || Double.isNaN(variance) || mean==Double.POSITIVE_INFINITY || variance==Double.POSITIVE_INFINITY || mean==Double.MAX_VALUE || variance==Double.MAX_VALUE) return super.getRealMaxXValue();
 			double maxX;
 			if (variance==0) {
 				maxX=2*mean;

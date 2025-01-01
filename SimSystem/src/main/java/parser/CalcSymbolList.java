@@ -149,6 +149,7 @@ import parser.symbols.distributions.CalcSymbolDistributionJohnsonSU;
 import parser.symbols.distributions.CalcSymbolDistributionKumaraswamy;
 import parser.symbols.distributions.CalcSymbolDistributionLaplace;
 import parser.symbols.distributions.CalcSymbolDistributionLevy;
+import parser.symbols.distributions.CalcSymbolDistributionLogCauchy;
 import parser.symbols.distributions.CalcSymbolDistributionLogLogistic;
 import parser.symbols.distributions.CalcSymbolDistributionLogNormal;
 import parser.symbols.distributions.CalcSymbolDistributionLogistic;
@@ -358,6 +359,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionSine());
 			addSymbol(new CalcSymbolDistributionArcsine());
 			addSymbol(new CalcSymbolDistributionWignerHalfCircle());
+			addSymbol(new CalcSymbolDistributionLogCauchy());
 
 			addSymbol(new CalcSymbolEmpiricalDistributionPDF());
 			addSymbol(new CalcSymbolEmpiricalDistributionCDF());

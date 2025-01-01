@@ -113,6 +113,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Cauchy-Verteilung */
 	public static String DistCauchyWikipedia="https://de.wikipedia.org/wiki/Cauchy-Verteilung";
 
+	/** Log-Cauchy-Verteilung */
+	public static String[] DistLogCauchy=new String[]{"Log-Cauchy-Verteilung"};
+
+	/** Wikipedia-Seite Cauchy-Verteilung */
+	public static String DistLogCauchyWikipedia="https://en.wikipedia.org/wiki/Log-Cauchy_distribution"; /* Keine deutsche Wikipedia-Seite vorhanden */
+
 	/** Weibull-Verteilung */
 	public static String[] DistWeibull=new String[]{"Weibull-Verteilung"};
 
@@ -469,7 +475,8 @@ public final class DistributionTools {
 				new WrapperIrwinHallDistribution(),
 				new WrapperSineDistribution(),
 				new WrapperArcsineDistribution(),
-				new WrapperWignerHalfCircleDistribution()
+				new WrapperWignerHalfCircleDistribution(),
+				new WrapperLogCauchyDistribution()
 		};
 	}
 

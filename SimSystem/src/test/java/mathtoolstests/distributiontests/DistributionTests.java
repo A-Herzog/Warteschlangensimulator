@@ -55,6 +55,7 @@ import mathtools.distribution.JohnsonDistributionImpl;
 import mathtools.distribution.KumaraswamyDistribution;
 import mathtools.distribution.LaplaceDistributionImpl;
 import mathtools.distribution.LevyDistribution;
+import mathtools.distribution.LogCauchyDistributionImpl;
 import mathtools.distribution.LogLogisticDistributionImpl;
 import mathtools.distribution.LogNormalDistributionImpl;
 import mathtools.distribution.LogisticDistributionImpl;
@@ -101,7 +102,7 @@ class DistributionTests {
 		final AbstractRealDistribution distribution2=DistributionTools.cloneDistribution(distribution);
 		assertTrue(DistributionTools.compare(distribution,distribution2));
 
-		if (!Double.isNaN(distribution.getNumericalMean())) {
+		if (!Double.isNaN(distribution.getNumericalMean()) && !Double.isInfinite(distribution.getNumericalMean())) {
 			assertEquals(distribution.getNumericalMean(),DistributionTools.getMean(distribution));
 			final AbstractRealDistribution distribution3;
 			if (distribution instanceof AbstractDiscreteRealDistribution) {
@@ -116,7 +117,7 @@ class DistributionTests {
 				assertNull(distribution3);
 			}
 		}
-		if (!Double.isNaN(distribution.getNumericalVariance())) {
+		if (!Double.isNaN(distribution.getNumericalVariance()) && !Double.isInfinite(distribution.getNumericalVariance())) {
 			final double var1=distribution.getNumericalVariance();
 			final double var2=FastMath.pow(DistributionTools.getStandardDeviation(distribution),2);
 			assertEquals(var1,var2,Math.max(var1,var2)*0.000001);
@@ -2699,8 +2700,8 @@ class DistributionTests {
 	}
 
 	/**
-	 * Test: Arcus Sinus-Verteilung
-	 * @see ArcsineDistribution
+	 * Test: Wigner Halbkreis-Verteilung
+	 * @see WignerHalfCircleDistributionImpl
 	 */
 	@Test
 	void testWignerHalfCircleDist() {
@@ -2767,6 +2768,79 @@ class DistributionTests {
 
 		testDistributionTools(dist);
 		testDistributionParameters(dist,new double[]{5,2});
+	}
+
+	/**
+	 * Test: Log-Cauchy-Verteilung
+	 * @see LogCauchyDistributionImpl
+	 */
+	@Test
+	void testLogCauchyDist() {
+		LogCauchyDistributionImpl dist;
+
+		dist=new LogCauchyDistributionImpl(4,0.25);
+		assertEquals(4,dist.mu);
+		assertEquals(0.25,dist.sigma);
+
+		dist=new LogCauchyDistributionImpl(4.5,0.5);
+		assertEquals(4.5,dist.mu);
+		assertEquals(0.5,dist.sigma);
+
+		assertEquals(Double.POSITIVE_INFINITY,dist.getNumericalMean());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getNumericalVariance());
+		assertEquals(0,dist.getSupportLowerBound());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getSupportUpperBound());
+		assertFalse(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		assertEquals(0,dist.density(-1));
+		assertTrue(dist.density(4)>0);
+		assertTrue(dist.density(5)>0);
+		assertTrue(dist.density(6)>0);
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(0,dist.cumulativeProbability(0));
+		assertTrue(dist.cumulativeProbability(4)>0);
+		assertTrue(dist.cumulativeProbability(5)>0);
+		assertTrue(dist.cumulativeProbability(6)>0);
+
+		dist=(LogCauchyDistributionImpl)DistributionTools.cloneDistribution(dist);
+		assertEquals(4.5,dist.mu);
+		assertEquals(0.5,dist.sigma);
+		assertEquals(Double.POSITIVE_INFINITY,dist.getNumericalMean());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getNumericalVariance());
+		assertEquals(0,dist.getSupportLowerBound());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getSupportUpperBound());
+		assertFalse(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+
+		dist=new LogCauchyDistributionImpl(dist);
+		assertEquals(4.5,dist.mu);
+		assertEquals(0.5,dist.sigma);
+		assertEquals(Double.POSITIVE_INFINITY,dist.getNumericalMean());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getNumericalVariance());
+		assertEquals(0,dist.getSupportLowerBound());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getSupportUpperBound());
+		assertFalse(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=dist.clone();
+		assertEquals(4.5,dist.mu);
+		assertEquals(0.5,dist.sigma);
+		assertEquals(Double.POSITIVE_INFINITY,dist.getNumericalMean());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getNumericalVariance());
+		assertEquals(0,dist.getSupportLowerBound());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getSupportUpperBound());
+		assertFalse(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[]{4.5,0.5});
 	}
 
 	/**

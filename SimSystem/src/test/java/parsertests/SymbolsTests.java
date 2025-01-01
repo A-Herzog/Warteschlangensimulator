@@ -3596,6 +3596,22 @@ class SymbolsTests {
 		variables=new String[]{"a","b"};
 		testDistribution(cmd,variables,new double[]{900,2700});
 
+		/* Log-Cauchy-Verteilung */
+
+		cmd="LogCauchyDist(x;mu;sigma;0)";
+		variables=new String[]{"x","mu","sigma"};
+		assertTrue(testDistribution(cmd,variables,new double[]{10,4.5,0.5})>0);
+
+		cmd="LogCauchyDist(x;mu;sigma;1)";
+		variables=new String[]{"x","mu","sigma"};
+		assertTrue(testDistribution(cmd,variables,new double[]{10,4.5,0.5})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{10,4.5,0.5})<1);
+		testDistributionThrows("LogCauchyDist(x;mu;sigma;2)",variables,new double[]{10,4.5,0.5});
+
+		cmd="LogCauchyDist(mu;sigma)";
+		variables=new String[]{"mu","sigma"};
+		testDistribution(cmd,variables,new double[]{4.5,0.5});
+
 		/* Log-Logistische Verteilung */
 
 		cmd="LogLogisticDistribution(x;a;b;0)";
