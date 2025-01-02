@@ -132,9 +132,9 @@ public class CalcSymbolPreOperatorErlangC extends CalcSymbolPreOperator {
 
 		double ENQ=0; for (int i=c+1;i<Cn.length;i++) ENQ+=(i-c)*Cn[i]*pi0;
 		double EN=0; for (int i=1;i<Cn.length;i++) EN+=i*Cn[i]*pi0;
-		double EW=ENQ/lambda;
-		double EV=EW+1/mu;
-		double PA=ENQ*nu/lambda;
+		final double EW=ENQ/lambda;
+		final double PA=ENQ*nu/lambda;
+		final double EV=EW+1/mu*(1-PA);
 
 		switch (mode) {
 		case 0:

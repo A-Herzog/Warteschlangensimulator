@@ -1068,7 +1068,7 @@ class SymbolsTests {
 		assertTrue(calc.parse()<0);
 		try {
 			d=calc.calc();
-			assertEquals(189.91,d,0.01);
+			assertEquals(183.97,d,0.01);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
