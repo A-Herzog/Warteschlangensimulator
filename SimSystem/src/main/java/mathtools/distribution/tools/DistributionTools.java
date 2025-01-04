@@ -317,6 +317,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Logarithmische Verteilung */
 	public static String DistLogarithmicWikipedia="https://de.wikipedia.org/wiki/Logarithmische_Verteilung";
 
+	/** Borel-Verteilung */
+	public static String[] DistBorel=new String[]{"Borel-Verteilung"};
+
+	/** Wikipedia-Seite Borel-Verteilung */
+	public static String DistBorelWikipedia="https://en.wikipedia.org/wiki/Borel_distribution"; /* leide keine Wikipedia-Seite vorhanden */
+
 	/** Halbe Normalverteilung */
 	public static String[] DistHalfNormal=new String[]{"Halbe Normalverteilung"};
 
@@ -476,7 +482,8 @@ public final class DistributionTools {
 				new WrapperSineDistribution(),
 				new WrapperArcsineDistribution(),
 				new WrapperWignerHalfCircleDistribution(),
-				new WrapperLogCauchyDistribution()
+				new WrapperLogCauchyDistribution(),
+				new WrapperBorelDistribution()
 		};
 	}
 

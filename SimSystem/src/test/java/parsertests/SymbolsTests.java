@@ -3088,6 +3088,53 @@ class SymbolsTests {
 				assertTrue(false);
 			}
 		}
+
+		/* Borel-Verteilung - Dichte */
+
+		calc=new CalcSystem("BorelDist(x;a)",new String[]{"x","a"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{-1,0.5});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		try {
+			d=calc.calc(new double[]{0,0.5});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		for (int k=1;k<10;k++) {
+			try {
+				d=calc.calc(new double[]{k,0.5});
+				assertTrue(d>0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		calc=new CalcSystem("BorelDist(x;y;z;a;b)",new String[]{"x","y","z","a","b"});
+		assertTrue(calc.parse()<0);
+		d=calc.calcOrDefault(new double[]{1,2,3,4,5},-17);
+		assertEquals(-17.0,d);
+
+		/* Borel-Verteilung - Zufallszahlen */
+
+		calc=new CalcSystem("BorelDist(a)",new String[]{"a"});
+		assertTrue(calc.parse()<0);
+
+		for (int i=0;i<100;i++) {
+			try {
+				d=calc.calc(new double[]{0.5});
+				assertTrue(d>=0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
 	}
 
 	/**

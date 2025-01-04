@@ -35,6 +35,7 @@ import mathtools.distribution.AbstractDiscreteRealDistribution;
 import mathtools.distribution.ArcsineDistribution;
 import mathtools.distribution.ChiDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
+import mathtools.distribution.DiscreteBorelDistributionImpl;
 import mathtools.distribution.DiscreteGeometricDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
 import mathtools.distribution.DiscreteLogarithmicDistributionImpl;
@@ -2584,6 +2585,39 @@ class DistributionTests {
 
 		dist=new DiscreteLogarithmicDistributionImpl(0.4);
 		testDistributionParameters(dist,new double[] {0.4});
+
+		double rnd=dist.random(new DummyRandomGenerator(0.5));
+		assertTrue(rnd>=0);
+	}
+
+	/**
+	 * Test: Borel-Verteilung
+	 * @see DiscreteBorelDistributionImpl
+	 */
+	@Test
+	void testBorelDistribution() {
+		DiscreteBorelDistributionImpl dist;
+
+		dist=new DiscreteBorelDistributionImpl(0.5);
+		assertEquals(0.5,dist.mu);
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(1,dist.cumulativeProbability(1000000),0.000001);
+		assertEquals(-Double.MAX_VALUE,dist.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,dist.inverseCumulativeProbability(2));
+		assertEquals(3.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(3)),0.000001);
+		assertEquals(4.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(4)),0.000001);
+		assertEquals(1/(1-0.5),dist.getNumericalMean());
+		assertEquals(0.5/Math.pow(1-0.5,3),dist.getNumericalVariance());
+
+		assertEquals(1,dist.getSupportLowerBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+
+		dist=new DiscreteBorelDistributionImpl(0.5);
+		testDistributionParameters(dist,new double[] {0.5});
 
 		double rnd=dist.random(new DummyRandomGenerator(0.5));
 		assertTrue(rnd>=0);

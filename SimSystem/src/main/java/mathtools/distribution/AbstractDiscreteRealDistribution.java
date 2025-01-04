@@ -85,7 +85,9 @@ public abstract class AbstractDiscreteRealDistribution extends AbstractRealDistr
 		double pSum=0;
 		while (pSum<p && k<MAX_K) {
 			k++;
-			pSum+=getCountDensity(k);
+			final double density=getCountDensity(k);
+			if (k>100 && density==0) return k;
+			pSum+=density;
 		}
 
 		return k;

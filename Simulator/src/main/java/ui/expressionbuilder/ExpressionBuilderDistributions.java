@@ -272,6 +272,13 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogarithmicDist.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogarithmicDist.RandomNumberInfo"));
 
+		/* Borel-Verteilung */
+
+		addDiscreteDist(group,filterUpper,"BorelDist","mu",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BorelDist"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BorelDist.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BorelDist.RandomNumberInfo"));
+
 		return group;
 
 	}
@@ -673,6 +680,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.WignerHalfCircleDistribution.RandomNumberInfo"));
+
+		/* Log-Cauchy-Verteilung */
+
+		addDist(group,filterUpper,"LogCauchyDist","mu;sigma",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogCauchyDist"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogCauchyDist.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogCauchyDist.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogCauchyDist.RandomNumberInfo"));
 
 		return group;
 	}

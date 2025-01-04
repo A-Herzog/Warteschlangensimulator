@@ -32,6 +32,7 @@ import mathtools.distribution.ArcsineDistribution;
 import mathtools.distribution.ChiDistributionImpl;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
+import mathtools.distribution.DiscreteBorelDistributionImpl;
 import mathtools.distribution.DiscreteGeometricDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
 import mathtools.distribution.DiscreteLogarithmicDistributionImpl;
@@ -76,6 +77,7 @@ import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.WrapperArcsineDistribution;
 import mathtools.distribution.tools.WrapperBetaDistribution;
 import mathtools.distribution.tools.WrapperBinomialDistribution;
+import mathtools.distribution.tools.WrapperBorelDistribution;
 import mathtools.distribution.tools.WrapperCauchyDistribution;
 import mathtools.distribution.tools.WrapperChiDistribution;
 import mathtools.distribution.tools.WrapperChiSquaredDistribution;
@@ -332,6 +334,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new SineDistributionPanel());
 		allRecords.add(new ArcsineDistributionPanel());
 		allRecords.add(new WignerHalfCircleDistributionPanel());
+		allRecords.add(new BorelDistributionPanel());
 	}
 
 	/**
@@ -2009,6 +2012,32 @@ public abstract class JDistributionEditorPanelRecord {
 		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
 			final Double p=NumberTools.getPositiveDouble(fields[0],true); if (p==null) return null;
 			return new DiscreteLogarithmicDistributionImpl(p);
+		}
+	}
+
+	/** Borel-Verteilung */
+	private static class BorelDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public BorelDistributionPanel() {
+			super(new WrapperBorelDistribution(),new String[]{"mu"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			return new String[]{NumberTools.formatNumberMax(DiscreteLogarithmicDistributionImpl.getPFromMean(Math.max(1,meanD)))};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((DiscreteBorelDistributionImpl)distribution).mu)
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double mu=NumberTools.getDouble(fields[0],true); if (mu==null || mu<0 || mu>1) return null;
+			return new DiscreteBorelDistributionImpl(mu);
 		}
 	}
 }

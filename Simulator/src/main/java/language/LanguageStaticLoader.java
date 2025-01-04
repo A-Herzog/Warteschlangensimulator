@@ -267,9 +267,11 @@ public class LanguageStaticLoader {
 		DistributionTools.DistDiscreteUniform=Language.trAll("Distribution.DiscreteUniform");
 		DistributionTools.DistDiscreteUniformWikipedia=Language.tr("Distribution.DiscreteUniformWikipedia");
 		DistributionTools.DistGeometric=Language.trAll("Distribution.Geometric");
+		DistributionTools.DistGeometricWikipedia=Language.tr("Distribution.GeometricWikipedia");
 		DistributionTools.DistLogarithmic=Language.trAll("Distribution.Logarithmic");
 		DistributionTools.DistLogarithmicWikipedia=Language.tr("Distribution.LogarithmicWikipedia");
-		DistributionTools.DistGeometricWikipedia=Language.tr("Distribution.GeometricWikipedia");
+		DistributionTools.DistBorel=Language.trAll("Distribution.Borel");
+		DistributionTools.DistBorelWikipedia=Language.tr("Distribution.BorelWikipedia");
 		DistributionTools.DistHalfNormal=Language.trAll("Distribution.HalfNormal");
 		DistributionTools.DistHalfNormalWikipedia=Language.tr("Distribution.HalfNormalWikipedia");
 		DistributionTools.DistUQuadratic=Language.trAll("Distribution.UQuadratic");

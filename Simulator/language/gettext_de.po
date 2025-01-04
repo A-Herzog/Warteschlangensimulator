@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-01 19:15+0100\n"
+"POT-Creation-Date: 2025-01-03 19:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3288,6 +3288,12 @@ msgstr "Binomialverteilung"
 
 msgid "Distribution.BinomialWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Binomialverteilung"
+
+msgid "Distribution.Borel"
+msgstr "Borel-Verteilung"
+
+msgid "Distribution.BorelWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Borel_distribution"
 
 msgid "Distribution.CV"
 msgstr "Variationskoeffizient"
@@ -6727,6 +6733,15 @@ msgstr "<p>Berechnet den Wert der Zähldichte der Binomial-Verteilung an der als
 msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistributionDirect.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Binomial-Verteilung mit dem angegebenen Erwartungswert und der angegbebenen Standardabweichung.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.BorelDist"
+msgstr "Borel-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BorelDist.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Borel-Verteilung an der als ersten Parameter angegebenen Stelle mit dem Verteilungsparameter gemäß des zweiten Parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BorelDist.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Borel-Verteilung mit dem Verteilungsparameter gemäß dem angegebenen Parameter.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.CauchyDistribution"
 msgstr "Cauchy-Verteilung"
 
@@ -7197,6 +7212,18 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Levy-Verteilung an der
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LevyDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Levy-Verteilung mit den Parametern &mu; und c gemäß dem ersten und zweiten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogCauchyDist"
+msgstr "Log-Cauchy-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogCauchyDist.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Log-Cauchy-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern gemäß dem zweiten mu) und dritten (sigma) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogCauchyDist.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Log-Cauchy-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern gemäß dem zweiten (mu) und dritten (sigma) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogCauchyDist.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Log-Cauchy-Verteilung mit den Parametern gemäß dem ersten (mu) und zweiten (sigma) Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution"
 msgstr "Log-Logistische Verteilung"
