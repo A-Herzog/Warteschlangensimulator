@@ -68,7 +68,7 @@ public class DateTimePanel extends JPanel {
 
 		add(timeEdit=new JTextField(8));
 		ModelElementBaseDialog.addUndoFeature(timeEdit);
-		timeEdit.setEditable(!readOnly);
+		timeEdit.setEnabled(!readOnly);
 		EditorPanelBase.addCheckInput(timeEdit,()->{
 			Long L=TimeTools.getTime(timeEdit,true);
 			if (L!=null) lastValidTime=L;

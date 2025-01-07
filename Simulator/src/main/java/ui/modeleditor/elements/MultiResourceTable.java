@@ -130,7 +130,6 @@ public class MultiResourceTable extends JPanel {
 		final JPanel line;
 		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 		line.add(alternativesList=new JComboBox<>());
-		alternativesList.setEditable(false);
 		alternativesList.addActionListener(e->selectAlternative());
 		line.add(alternativeUp=addButton(e->alternativeMoveUp(),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Up"),Images.ARROW_UP.getIcon()));
 		line.add(alternativeDown=addButton(e->alternativeMoveDown(),Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative.Down"),Images.ARROW_DOWN.getIcon()));
@@ -183,7 +182,7 @@ public class MultiResourceTable extends JPanel {
 	 */
 	private void updateAlternativesList(final int select) {
 		final int count=data.size();
-		final ComboBoxModel<String> model=new ComboBoxModel<String>() {
+		final ComboBoxModel<String> model=new ComboBoxModel<>() {
 			private Object sel;
 			@Override public int getSize() {return count;}
 			@Override public String getElementAt(int index) {return Language.tr("Surface.Process.Dialog.Tab.Operators.Alternative")+" "+(index+1);}

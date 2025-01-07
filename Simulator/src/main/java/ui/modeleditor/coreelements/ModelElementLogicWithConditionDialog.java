@@ -84,7 +84,7 @@ public class ModelElementLogicWithConditionDialog extends ModelElementBaseDialog
 		final Object[] data=getInputPanel(Language.tr("Surface.Logic.Dialog.Condition")+":",((ModelElementLogicWithCondition)element).getCondition());
 		final JPanel content=(JPanel)data[0];
 		condition=(JTextField)data[1];
-		condition.setEditable(!readOnly);
+		condition.setEnabled(!readOnly);
 		condition.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

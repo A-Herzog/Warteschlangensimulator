@@ -157,7 +157,7 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 			@Override public void keyReleased(KeyEvent e) {optionExpression.setSelected(true); checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {optionExpression.setSelected(true); checkData(false);}
 		});
-		editExpression.setEditable(!readOnly);
+		editExpression.setEnabled(!readOnly);
 		line.add(getExpressionEditButton(this,editExpression,false,false,element.getModel(),element.getSurface()));
 		if (!readOnly) line.add(AnimationExpressionPanel.getTemplatesButton(element.getModel(),command->{editExpression.setText(command); checkData(false);}));
 
@@ -211,7 +211,7 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		/* Schriftgröße */
 		data=getInputPanel(Language.tr("Surface.AnimationText.Dialog.FontSize")+":","",5);
 		sizeField=(JTextField)data[1];
-		sizeField.setEditable(!readOnly);
+		sizeField.setEnabled(!readOnly);
 		content.add((JPanel)data[0]);
 		sizeField.addActionListener(e->NumberTools.getNotNegativeInteger(sizeField,true));
 
@@ -226,14 +226,14 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		data=ScriptEditorAreaBuilder.getInputPanel(Language.tr("Surface.AnimationText.Dialog.OptionalPreText")+":","",30,ScriptEditorAreaBuilder.TextAreaMode.TEXT_ELEMENT);
 		content.add(line=(JPanel)data[0]);
 		preText=(RSyntaxTextArea)data[1];
-		preText.setEditable(!readOnly);
+		preText.setEnabled(!readOnly);
 		line.add(new JPreviewButton(preText));
 
 		/* Optionaler Text nach dem Haupttext */
 		data=ScriptEditorAreaBuilder.getInputPanel(Language.tr("Surface.AnimationText.Dialog.OptionalPostText")+":","",30,ScriptEditorAreaBuilder.TextAreaMode.TEXT_ELEMENT);
 		content.add(line=(JPanel)data[0]);
 		postText=(RSyntaxTextArea)data[1];
-		postText.setEditable(!readOnly);
+		postText.setEnabled(!readOnly);
 		line.add(new JPreviewButton(postText));
 
 		/* Zeile für Einstellungen zu Pre- und Posttext */

@@ -134,7 +134,7 @@ public class ModelElementInputDDEDialog extends ModelElementBaseDialog {
 		optionDefaultValue.addActionListener(e->checkData(false));
 		line.add(defaultValueEdit=new JTextField(input.getDefaultValue(),10));
 		ModelElementBaseDialog.addUndoFeature(defaultValueEdit);
-		defaultValueEdit.setEditable(!readOnly);
+		defaultValueEdit.setEnabled(!readOnly);
 		defaultValueEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionDefaultValue.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {optionDefaultValue.setSelected(true); checkData(false);}
@@ -162,7 +162,7 @@ public class ModelElementInputDDEDialog extends ModelElementBaseDialog {
 		data=getInputPanel(Language.tr("Surface.InputDDE.Dialog.Variable")+":",input.getVariable());
 		content.add(line=(JPanel)data[0]);
 		variableEdit=(JTextField)data[1];
-		variableEdit.setEditable(!readOnly);
+		variableEdit.setEnabled(!readOnly);
 		variableEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

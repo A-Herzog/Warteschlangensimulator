@@ -79,13 +79,13 @@ public class ModelElementSourceBatchEditor1 extends ModelElementSourceBatchEdito
 
 		panel.add(label=new JLabel(Language.tr("Surface.Source.DialogBatchSize.Minimum")+":"));
 		panel.add(sizeMin=new JTextField(5));
-		sizeMin.setEditable(false);
+		sizeMin.setEnabled(false);
 		sizeMin.setText("1");
 		label.setLabelFor(sizeMin);
 		panel.add(label=new JLabel(Language.tr("Surface.Source.DialogBatchSize.Maximum")+":"));
 		panel.add(sizeMax=new JTextField(5));
 		ModelElementBaseDialog.addUndoFeature(sizeMax);
-		sizeMax.setEditable(!readOnly);
+		sizeMax.setEnabled(!readOnly);
 		sizeMax.setText("1");
 		label.setLabelFor(sizeMax);
 
@@ -125,7 +125,7 @@ public class ModelElementSourceBatchEditor1 extends ModelElementSourceBatchEdito
 			scroll.add((JPanel)data[0]);
 			final JTextField input=(JTextField)data[1];
 			rates.add(input);
-			input.setEditable(!readOnly);
+			input.setEnabled(!readOnly);
 			input.addKeyListener(new KeyListener() {
 				@Override public void keyTyped(KeyEvent e) {checkData(false); fireChangeListeners();}
 				@Override public void keyReleased(KeyEvent e) {checkData(false); fireChangeListeners();}

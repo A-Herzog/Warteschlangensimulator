@@ -110,7 +110,7 @@ public class ModelElementSeizeDialog extends ModelElementBaseDialog {
 		sub=(JPanel)data[0];
 		textResourcePriority=(JTextField)data[1];
 		sub.add(getExpressionEditButton(this,textResourcePriority,false,false,element.getModel(),element.getSurface()),BorderLayout.EAST);
-		textResourcePriority.setEditable(!readOnly);
+		textResourcePriority.setEnabled(!readOnly);
 		content.add(sub,BorderLayout.NORTH);
 		textResourcePriority.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkInput(false);}

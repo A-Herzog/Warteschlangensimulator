@@ -136,7 +136,7 @@ public class ModelElementAnimationTextSelectDialog extends ModelElementBaseDialo
 		/* Standardtext */
 		data=getInputPanel(Language.tr("Surface.AnimationTextSelect.Dialog.DefaultValue")+":","");
 		defaultTextEdit=(JTextField)data[1];
-		defaultTextEdit.setEditable(!readOnly);
+		defaultTextEdit.setEnabled(!readOnly);
 		tab.add((JPanel)data[0],BorderLayout.SOUTH);
 
 		/* Tab "Darstellung" */
@@ -153,7 +153,7 @@ public class ModelElementAnimationTextSelectDialog extends ModelElementBaseDialo
 		/* Schriftgröße */
 		data=getInputPanel(Language.tr("Surface.AnimationText.Dialog.FontSize")+":","",5);
 		sizeField=(JTextField)data[1];
-		sizeField.setEditable(!readOnly);
+		sizeField.setEnabled(!readOnly);
 		tab.add((JPanel)data[0]);
 		sizeField.addActionListener(e->NumberTools.getNotNegativeInteger(sizeField,true));
 

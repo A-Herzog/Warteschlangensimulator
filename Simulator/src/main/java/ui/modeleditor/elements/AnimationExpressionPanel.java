@@ -174,7 +174,6 @@ public class AnimationExpressionPanel extends JPanel {
 				Images.MODE_EXPRESSION,
 				Images.SCRIPT_MODE_JAVASCRIPT
 		}));
-		modeSelect.setEditable(false);
 		modeSelect.setEnabled(!readOnly);
 		box.add(Box.createVerticalGlue());
 
@@ -320,7 +319,7 @@ public class AnimationExpressionPanel extends JPanel {
 			if (!(element instanceof ModelElementBox)) continue;
 
 			if (element instanceof ModelElementSource) {
-				final String name=((ModelElementSource)element).getName();
+				final String name=element.getName();
 				if (!name.isBlank()) {
 					final int[] oldValue=results.get(name);
 					if (oldValue!=null && oldValue.length==1) continue;

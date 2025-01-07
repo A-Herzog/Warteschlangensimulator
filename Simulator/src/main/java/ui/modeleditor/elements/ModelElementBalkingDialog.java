@@ -179,7 +179,7 @@ public class ModelElementBalkingDialog extends ModelElementBaseDialog {
 		optionProbability.setEnabled(!readOnly);
 		line.add(probability=new JTextField(5));
 		ModelElementBaseDialog.addUndoFeature(probability);
-		probability.setEditable(!readOnly);
+		probability.setEnabled(!readOnly);
 		probability.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionProbability.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {optionProbability.setSelected(true); checkData(false);}
@@ -196,7 +196,7 @@ public class ModelElementBalkingDialog extends ModelElementBaseDialog {
 		line=(JPanel)data[0];
 		content.add(line);
 		expression=(JTextField)data[1];
-		expression.setEditable(!readOnly);
+		expression.setEnabled(!readOnly);
 		expression.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionCondition.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {optionCondition.setSelected(true); checkData(false);}

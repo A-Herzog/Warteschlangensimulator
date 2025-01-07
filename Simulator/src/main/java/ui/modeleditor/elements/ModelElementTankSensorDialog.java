@@ -190,7 +190,7 @@ public class ModelElementTankSensorDialog extends ModelElementBaseDialog {
 		data=getInputPanel(Language.tr("Surface.TankSensor.Dialog.Threshold")+":","",10);
 		content.add((JPanel)data[0]);
 		thresholdEdit=(JTextField)data[1];
-		thresholdEdit.setEditable(!readOnly);
+		thresholdEdit.setEnabled(!readOnly);
 		thresholdEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

@@ -87,7 +87,7 @@ public class DDEEditPanel extends JPanel {
 		final JPanel line=(JPanel)data[0];
 		add(line);
 		editWorkbook=(JTextField)data[1];
-		editWorkbook.setEditable(!readOnly);
+		editWorkbook.setEnabled(!readOnly);
 
 		if (!readOnly) {
 			final JButton selectButton=new JButton(Language.tr("Surface.DDE.Select.Button.Title"));
@@ -100,17 +100,17 @@ public class DDEEditPanel extends JPanel {
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.DDE.Table")+":",element.getTable());
 		add((JPanel)data[0]);
 		editTable=(JTextField)data[1];
-		editTable.setEditable(!readOnly);
+		editTable.setEnabled(!readOnly);
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.DDE.StartRow")+":",""+element.getStartRow());
 		add((JPanel)data[0]);
 		editStartRow=(JTextField)data[1];
-		editStartRow.setEditable(!readOnly);
+		editStartRow.setEnabled(!readOnly);
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.DDE.Column")+":",""+element.getColumn());
 		add((JPanel)data[0]);
 		editColumn=(JTextField)data[1];
-		editColumn.setEditable(!readOnly);
+		editColumn.setEnabled(!readOnly);
 
 		checkData(false);
 	}
@@ -138,7 +138,7 @@ public class DDEEditPanel extends JPanel {
 		final JPanel line=(JPanel)data[0];
 		add(line);
 		editWorkbook=(JTextField)data[1];
-		editWorkbook.setEditable(!readOnly);
+		editWorkbook.setEnabled(!readOnly);
 
 		if (!readOnly) {
 			final JButton selectButton=new JButton(Language.tr("Surface.DDE.Select.Button.Title"));
@@ -151,7 +151,7 @@ public class DDEEditPanel extends JPanel {
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.DDE.Table")+":",table);
 		add((JPanel)data[0]);
 		editTable=(JTextField)data[1];
-		editTable.setEditable(!readOnly);
+		editTable.setEnabled(!readOnly);
 
 		editStartRow=null;
 		editColumn=null;

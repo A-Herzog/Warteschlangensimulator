@@ -127,7 +127,7 @@ public class BatchRecordPanel extends JPanel {
 		line.add(label=new JLabel(Language.tr("Surface.Batch.Dialog.BatchSizeFixed")+":"));
 		line.add(batchFieldFixed=new JTextField(10));
 		ModelElementBaseDialog.addUndoFeature(batchFieldFixed);
-		batchFieldFixed.setEditable(!readOnly);
+		batchFieldFixed.setEnabled(!readOnly);
 		batchFieldFixed.setText(""+batchRecord.getBatchSizeFixed());
 		label.setLabelFor(batchFieldFixed);
 		batchFieldFixed.addKeyListener(new KeyListener() {
@@ -145,7 +145,7 @@ public class BatchRecordPanel extends JPanel {
 		line.add(label=new JLabel(Language.tr("Surface.Batch.Dialog.BatchSizeMin")+":"));
 		line.add(batchFieldMin=new JTextField(10));
 		ModelElementBaseDialog.addUndoFeature(batchFieldMin);
-		batchFieldMin.setEditable(!readOnly);
+		batchFieldMin.setEnabled(!readOnly);
 		batchFieldMin.setText(""+batchRecord.getBatchSizeMin());
 		label.setLabelFor(batchFieldMin);
 		batchFieldMin.addKeyListener(new KeyListener() {
@@ -158,7 +158,7 @@ public class BatchRecordPanel extends JPanel {
 		line.add(label=new JLabel(Language.tr("Surface.Batch.Dialog.BatchSizeMax")+":"));
 		line.add(batchFieldMax=new JTextField(10));
 		ModelElementBaseDialog.addUndoFeature(batchFieldMax);
-		batchFieldMax.setEditable(!readOnly);
+		batchFieldMax.setEnabled(!readOnly);
 		batchFieldMax.setText(""+batchRecord.getBatchSizeMax());
 		label.setLabelFor(batchFieldMax);
 		batchFieldMax.addKeyListener(new KeyListener() {
@@ -194,7 +194,7 @@ public class BatchRecordPanel extends JPanel {
 			@Override public void keyReleased(KeyEvent e) {setActive(); optionTemporary.setSelected(true); checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {setActive(); optionTemporary.setSelected(true); checkData(false);}
 		});
-		tempTypeField.setEditable(!readOnly);
+		tempTypeField.setEnabled(!readOnly);
 
 		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(optionNewType=new JRadioButton(Language.tr("Surface.Batch.Dialog.SendAsNewClient")));
@@ -207,7 +207,7 @@ public class BatchRecordPanel extends JPanel {
 			@Override public void keyReleased(KeyEvent e) {setActive(); optionNewType.setSelected(true); checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {setActive(); optionNewType.setSelected(true); checkData(false);}
 		});
-		newTypeField.setEditable(!readOnly);
+		newTypeField.setEnabled(!readOnly);
 
 		buttonGroup=new ButtonGroup();
 		buttonGroup.add(optionForward);

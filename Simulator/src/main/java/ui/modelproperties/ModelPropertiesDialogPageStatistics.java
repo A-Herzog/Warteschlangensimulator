@@ -97,7 +97,7 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 		sub=(JPanel)data[0];
 		lines.add(sub);
 		distributionRecordHours=(JTextField)data[1];
-		distributionRecordHours.setEditable(!readOnly);
+		distributionRecordHours.setEnabled(!readOnly);
 		addKeyListener(distributionRecordHours,()->checkDistributionRecordHours());
 		sub.add(new JLabel(" ("+Language.tr("Editor.Dialog.Tab.Simulation.DistributionRecordHours.Info")+")"));
 
@@ -107,7 +107,7 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 		sub=(JPanel)data[0];
 		lines.add(sub);
 		stateRecordSize=(JTextField)data[1];
-		stateRecordSize.setEditable(!readOnly);
+		stateRecordSize.setEnabled(!readOnly);
 		addKeyListener(stateRecordSize,()->checkStateRecordSize());
 
 		/* Zwischenüberschrift: "Kundendaten" */
@@ -131,7 +131,7 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 		sub=(JPanel)data[0];
 		lines.add(sub);
 		distributionRecordClientDataValues=(JTextField)data[1];
-		distributionRecordClientDataValues.setEditable(!readOnly);
+		distributionRecordClientDataValues.setEnabled(!readOnly);
 		addKeyListener(distributionRecordClientDataValues,()->checkDistributionRecordClientDataValues());
 		sub.add(new JLabel(" ("+Language.tr("Editor.Dialog.Tab.Simulation.DistributionRecordHours.Info")+")"));
 

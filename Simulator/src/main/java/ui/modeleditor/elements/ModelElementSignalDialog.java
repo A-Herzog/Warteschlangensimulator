@@ -77,7 +77,7 @@ public class ModelElementSignalDialog extends ModelElementBaseDialog {
 
 		final JPanel panel=(JPanel)data[0];
 		signalDelay=(JTextField)data[1];
-		signalDelay.setEditable(!readOnly);
+		signalDelay.setEnabled(!readOnly);
 		signalDelay.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

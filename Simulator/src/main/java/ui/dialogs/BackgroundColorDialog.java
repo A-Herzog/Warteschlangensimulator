@@ -131,7 +131,7 @@ public class BackgroundColorDialog extends BaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
-		backgroundImageScale.setEditable(!readOnly);
+		backgroundImageScale.setEnabled(!readOnly);
 
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(optionImageInSubModels=new JCheckBox(Language.tr("Window.BackgroundColor.ImageInSubModels"),useImageInSubModels));

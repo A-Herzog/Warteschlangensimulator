@@ -162,7 +162,7 @@ public class ModelElementHoldMultiDialog extends ModelElementBaseDialog {
 			final JTextField input=(JTextField)data[1];
 			inputPanel.add(getExpressionEditButton(this,input,true,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
 
-			input.setEditable(!readOnly);
+			input.setEnabled(!readOnly);
 			String condition=holdMulti.getConditions().get(edges[i].getId());
 			if (condition==null) condition="";
 			input.setText(condition);

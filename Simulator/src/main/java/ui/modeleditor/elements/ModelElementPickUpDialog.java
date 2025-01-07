@@ -193,7 +193,7 @@ public class ModelElementPickUpDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {optionTemporary.setSelected(true);}
 			@Override public void keyPressed(KeyEvent e) {optionTemporary.setSelected(true);}
 		});
-		tempTypeField.setEditable(!readOnly);
+		tempTypeField.setEnabled(!readOnly);
 
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(optionNewType=new JRadioButton(Language.tr("Surface.PickUp.Dialog.Mode.Batch")));
@@ -205,7 +205,7 @@ public class ModelElementPickUpDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {optionNewType.setSelected(true);}
 			@Override public void keyPressed(KeyEvent e) {optionNewType.setSelected(true);}
 		});
-		newTypeField.setEditable(!readOnly);
+		newTypeField.setEnabled(!readOnly);
 
 		ButtonGroup buttonGroup=new ButtonGroup();
 		buttonGroup.add(optionForward);

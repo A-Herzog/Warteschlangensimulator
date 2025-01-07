@@ -126,7 +126,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 			@Override public void keyReleased(KeyEvent e) {checkData(false); maxValueCheckBox.setSelected(true);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false); maxValueCheckBox.setSelected(true);}
 		});
-		maxValueEdit.setEditable(!readOnly);
+		maxValueEdit.setEnabled(!readOnly);
 		lines.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(minValueCheckBox=new JCheckBox(Language.tr("Surface.AnimationBarChart.Dialog.Data.ManualMinValue")));
 		minValueCheckBox.setEnabled(!readOnly);
@@ -137,7 +137,7 @@ public class ModelElementAnimationBarChartDialog extends ModelElementBaseDialog 
 			@Override public void keyReleased(KeyEvent e) {checkData(false); minValueCheckBox.setSelected(true);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false); minValueCheckBox.setSelected(true);}
 		});
-		minValueEdit.setEditable(!readOnly);
+		minValueEdit.setEnabled(!readOnly);
 
 		/* Achsenbeschriftung */
 		lines.add(axisLabels=new AxisDrawerEdit(AxisDrawer.Mode.OFF,null,"",readOnly));

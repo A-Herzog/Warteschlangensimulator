@@ -111,7 +111,7 @@ public class ModelPropertiesDialogPageOutputAnalysis extends ModelPropertiesDial
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Range")+":",""+range,10);
 		lines.add((JPanel)data[0]);
 		correlationRange=(JTextField)data[1];
-		correlationRange.setEditable(!readOnly);
+		correlationRange.setEnabled(!readOnly);
 		addKeyListener(correlationRange,()->{
 			NumberTools.getPositiveLong(correlationRange,true);
 			if (correlationMode.getSelectedIndex()==0) correlationMode.setSelectedIndex(1);
@@ -130,7 +130,7 @@ public class ModelPropertiesDialogPageOutputAnalysis extends ModelPropertiesDial
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size")+":",""+size,10);
 		lines.add(sub=(JPanel)data[0]);
 		batchMeansSize=(JTextField)data[1];
-		batchMeansSize.setEditable(!readOnly);
+		batchMeansSize.setEnabled(!readOnly);
 		addKeyListener(batchMeansSize,()->NumberTools.getPositiveLong(batchMeansSize,true));
 		sub.add(button=new JButton(Language.tr("Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Auto"),Images.MSGBOX_OK.getIcon()));
 		button.setToolTipText(Language.tr("Editor.Dialog.Tab.OutputAnalysis.BatchMeans.Size.Auto.Hint"));
@@ -149,7 +149,7 @@ public class ModelPropertiesDialogPageOutputAnalysis extends ModelPropertiesDial
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.HalfWidth")+":",NumberTools.formatNumberMax(model.finishConfidenceHalfWidth),10);
 		lines.add((JPanel)data[0]);
 		finishConfidenceHalfWidth=(JTextField)data[1];
-		finishConfidenceHalfWidth.setEditable(!readOnly);
+		finishConfidenceHalfWidth.setEnabled(!readOnly);
 		addKeyListener(finishConfidenceHalfWidth,()->{
 			useFinishConfidence.setEnabled(true);
 			NumberTools.getPositiveDouble(finishConfidenceHalfWidth,true);
@@ -158,7 +158,7 @@ public class ModelPropertiesDialogPageOutputAnalysis extends ModelPropertiesDial
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.OutputAnalysis.FinishConfidence.Level")+":",NumberTools.formatPercent(model.finishConfidenceLevel),10);
 		lines.add((JPanel)data[0]);
 		finishConfidenceLevel=(JTextField)data[1];
-		finishConfidenceLevel.setEditable(!readOnly);
+		finishConfidenceLevel.setEnabled(!readOnly);
 		addKeyListener(finishConfidenceLevel,()->{
 			useFinishConfidence.setEnabled(true); NumberTools.getPositiveDouble(finishConfidenceLevel,true);
 		});

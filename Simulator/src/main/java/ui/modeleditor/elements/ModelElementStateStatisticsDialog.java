@@ -86,7 +86,7 @@ public class ModelElementStateStatisticsDialog extends ModelElementBaseDialog {
 	protected JComponent getContentPanel() {
 		final Object[] data=getInputPanel(Language.tr("Surface.StateStatistics.Dialog.GroupName")+":",((ModelElementStateStatistics)element).getGroupName());
 		groupName=(JTextField)data[1];
-		groupName.setEditable(!readOnly);
+		groupName.setEnabled(!readOnly);
 		groupName.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

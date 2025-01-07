@@ -152,7 +152,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {optionTemporary.setSelected(true); checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {optionTemporary.setSelected(true); checkData(false);}
 		});
-		tempTypeField.setEditable(!readOnly);
+		tempTypeField.setEnabled(!readOnly);
 
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(optionNewType=new JRadioButton(Language.tr("Surface.Match.Dialog.OptionBatch")+":"));
@@ -165,7 +165,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {optionNewType.setSelected(true); checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {optionNewType.setSelected(true); checkData(false);}
 		});
-		newTypeField.setEditable(!readOnly);
+		newTypeField.setEnabled(!readOnly);
 
 		buttonGroup=new ButtonGroup();
 		buttonGroup.add(optionForward);
@@ -193,7 +193,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {optionPropertyNumber.setSelected(true); checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {optionPropertyNumber.setSelected(true); checkData(false);}
 		});
-		optionPropertyNumberField.setEditable(!readOnly);
+		optionPropertyNumberField.setEnabled(!readOnly);
 
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(optionPropertyText=new JRadioButton(Language.tr("Surface.Match.Dialog.OptionProperty.Text")+":"));
@@ -206,7 +206,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {optionPropertyText.setSelected(true); checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {optionPropertyText.setSelected(true); checkData(false);}
 		});
-		optionPropertyTextField.setEditable(!readOnly);
+		optionPropertyTextField.setEnabled(!readOnly);
 
 		buttonGroup=new ButtonGroup();
 		buttonGroup.add(optionPropertyNone);
@@ -222,7 +222,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 		data=getInputPanel(Language.tr("Surface.Match.Dialog.Condition")+":","");
 		line=(JPanel)data[0];
 		condition=(JTextField)data[1];
-		condition.setEditable(!readOnly);
+		condition.setEnabled(!readOnly);
 		condition.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {if (!condition.getText().trim().isEmpty()) conditionEnabled.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {if (!condition.getText().trim().isEmpty()) conditionEnabled.setSelected(true); checkData(false);}

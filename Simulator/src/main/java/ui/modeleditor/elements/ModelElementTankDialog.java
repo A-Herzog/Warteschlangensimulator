@@ -113,7 +113,7 @@ public class ModelElementTankDialog extends ModelElementBaseDialog {
 	 * @param mul	Mit {@link #MULTIPLY} multiplizieren oder beim Umrechnen dadurch dividieren?
 	 */
 	private void loadValue(double value, final JTextField text, final JComboBox<String> unit, boolean mul) {
-		text.setEditable(!readOnly);
+		text.setEnabled(!readOnly);
 		text.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -168,7 +168,7 @@ public class ModelElementTankDialog extends ModelElementBaseDialog {
 			data=getInputPanel(Language.tr("Surface.Tank.Dialog.Capacity")+":",NumberTools.formatNumberMax(tank.getCapacity()),10);
 			tabInner.add((JPanel)data[0]);
 			capacity=(JTextField)data[1];
-			capacity.setEditable(!readOnly);
+			capacity.setEnabled(!readOnly);
 			capacity.addKeyListener(new KeyListener() {
 				@Override public void keyTyped(KeyEvent e) {checkData(false);}
 				@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -179,7 +179,7 @@ public class ModelElementTankDialog extends ModelElementBaseDialog {
 			data=getInputPanel(Language.tr("Surface.Tank.Dialog.InitialValue")+":",NumberTools.formatNumberMax(tank.getInitialValue()),10);
 			tabInner.add((JPanel)data[0]);
 			initalValue=(JTextField)data[1];
-			initalValue.setEditable(!readOnly);
+			initalValue.setEnabled(!readOnly);
 			initalValue.addKeyListener(new KeyListener() {
 				@Override public void keyTyped(KeyEvent e) {checkData(false);}
 				@Override public void keyReleased(KeyEvent e) {checkData(false);}

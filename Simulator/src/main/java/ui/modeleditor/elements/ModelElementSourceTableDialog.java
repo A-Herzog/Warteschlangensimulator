@@ -174,7 +174,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
-		tableEdit.setEditable(!readOnly);
+		tableEdit.setEnabled(!readOnly);
 
 		final JPanel tools=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		((JPanel)data[0]).add(tools,BorderLayout.EAST);
@@ -245,7 +245,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
 		clientsEdit.setText(String.join("\n",source.getNewClientTypes()).trim());
-		clientsEdit.setEditable(!readOnly);
+		clientsEdit.setEnabled(!readOnly);
 		addUndoFeature(clientsEdit);
 
 		/* Button: Kundentypen aus Tabelle laden */

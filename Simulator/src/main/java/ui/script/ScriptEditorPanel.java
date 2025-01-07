@@ -307,14 +307,14 @@ public class ScriptEditorPanel extends JPanel {
 
 		buttonNew=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.New"),Images.SCRIPT_NEW.getIcon(),Language.tr("Surface.ScriptEditor.New.Hint"),readOnly);
 		buttonLoad=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Load"),Images.SCRIPT_LOAD.getIcon(),Language.tr("Surface.ScriptEditor.Load.Hint"),readOnly);
-		buttonSave=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Save"),Images.SCRIPT_SAVE.getIcon(),Language.tr("Surface.ScriptEditor.Save.Hint"),readOnly);
+		buttonSave=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Save"),Images.SCRIPT_SAVE.getIcon(),Language.tr("Surface.ScriptEditor.Save.Hint"),false);
 		addCustomToolbarButtons(toolbar);
 		toolbar.addSeparator();
 		buttonSearch=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Search"),Images.GENERAL_FIND.getIcon(),Language.tr("Surface.ScriptEditor.Search.Hint"),false);
 		buttonTools=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Tools"),Images.SCRIPT_TOOLS.getIcon(),Language.tr("Surface.ScriptEditor.Tools.Hint"),readOnly);
 		buttonCheck=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Check"),Images.SIMULATION_CHECK.getIcon(),Language.tr("Surface.ScriptEditor.Check.Hint"),readOnly);
 		toolbar.addSeparator();
-		buttonHelp=addToolbarButton(toolbar,Language.tr("Main.Toolbar.Help"),Images.HELP.getIcon(),Language.tr("Surface.ScriptEditor.Help.Hint"),readOnly);
+		buttonHelp=addToolbarButton(toolbar,Language.tr("Main.Toolbar.Help"),Images.HELP.getIcon(),Language.tr("Surface.ScriptEditor.Help.Hint"),false);
 
 		/* Testen, ob das Tools-Button überhaupt benötigt wird */
 		final ScriptPopup popup=new ScriptPopup(buttonTools,model,statistics,ScriptPopup.ScriptMode.Javascript,helpRunnalbe);
@@ -702,10 +702,9 @@ public class ScriptEditorPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (readOnly) return;
 			final Object source=e.getSource();
 
-			if (source instanceof FileDropperData) {
+			if (!readOnly && (source instanceof FileDropperData)) {
 				final FileDropperData data=(FileDropperData)e.getSource();
 				final File file=data.getFile();
 				if (file.isFile()) {
@@ -715,7 +714,7 @@ public class ScriptEditorPanel extends JPanel {
 				return;
 			}
 
-			if (source==buttonNew) {
+			if (!readOnly && source==buttonNew) {
 				if (allowDiscard()) {
 					setCurrentScript(null);
 					scriptEditJavascript.setText("");
@@ -726,7 +725,7 @@ public class ScriptEditorPanel extends JPanel {
 				return;
 			}
 
-			if (source==buttonLoad) {
+			if (!readOnly && source==buttonLoad) {
 				if (allowDiscard()) {
 					if (commandLoad(null)) fireKeyAction();
 				}
@@ -742,7 +741,7 @@ public class ScriptEditorPanel extends JPanel {
 				commandSearchPopup();
 			}
 
-			if (source==buttonCheck) {
+			if (!readOnly && source==buttonCheck) {
 				final DynamicRunner runner=DynamicFactory.getFactory().test(scriptEditJava.getText(),scriptSettings);
 				if (runner.isOk()) {
 					MsgBox.info(ScriptEditorPanel.this,Language.tr("Surface.ScriptEditor.Check.Success.Title"),Language.tr("Surface.ScriptEditor.Check.Success.Info"));
@@ -752,7 +751,7 @@ public class ScriptEditorPanel extends JPanel {
 				return;
 			}
 
-			if (source==buttonTools) {
+			if (!readOnly && source==buttonTools) {
 				commandToolsPopup();
 				return;
 			}
@@ -862,8 +861,8 @@ public class ScriptEditorPanel extends JPanel {
 	public void setEditable(final boolean editable) {
 		if (readOnly) return;
 		for (int i=0;i<toolbar.getComponentCount();i++) if (toolbar.getComponent(i) instanceof JButton) ((JButton)toolbar.getComponent(i)).setEnabled(editable);
-		scriptEditJavascript.setEditable(editable);
-		scriptEditJava.setEditable(editable);
+		scriptEditJavascript.setEnabled(editable);
+		scriptEditJava.setEnabled(editable);
 		languageCombo.setEnabled(editable);
 	}
 }

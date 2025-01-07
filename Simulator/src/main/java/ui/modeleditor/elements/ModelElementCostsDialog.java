@@ -113,7 +113,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 		data=getInputPanel(Language.tr("Surface.Costs.Dialog.StationCosts")+":",costs.getStationCosts());
 		content.add(line=(JPanel)data[0]);
 		stationCosts=(JTextField)data[1];
-		stationCosts.setEditable(!readOnly);
+		stationCosts.setEnabled(!readOnly);
 		stationCosts.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -124,7 +124,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 		data=getInputPanel(Language.tr("Surface.Costs.Dialog.WaitingCosts")+":",costs.getClientWaitingCosts());
 		content.add(line=(JPanel)data[0]);
 		clientWaitingCosts=(JTextField)data[1];
-		clientWaitingCosts.setEditable(!readOnly);
+		clientWaitingCosts.setEnabled(!readOnly);
 		clientWaitingCosts.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -135,7 +135,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 		data=getInputPanel(Language.tr("Surface.Costs.Dialog.TransferCosts")+":",costs.getClientTransferCosts());
 		content.add(line=(JPanel)data[0]);
 		clientTransferCosts=(JTextField)data[1];
-		clientTransferCosts.setEditable(!readOnly);
+		clientTransferCosts.setEnabled(!readOnly);
 		clientTransferCosts.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -146,7 +146,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 		data=getInputPanel(Language.tr("Surface.Costs.Dialog.ProcessCosts")+":",costs.getClientProcessCosts());
 		content.add(line=(JPanel)data[0]);
 		clientProcessCosts=(JTextField)data[1];
-		clientProcessCosts.setEditable(!readOnly);
+		clientProcessCosts.setEnabled(!readOnly);
 		clientProcessCosts.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

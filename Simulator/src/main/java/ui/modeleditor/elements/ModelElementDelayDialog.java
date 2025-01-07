@@ -178,7 +178,7 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 		final Object[] data=getInputPanel(Language.tr("Surface.Delay.Dialog.CostsPerClient")+":",delayElement.getCosts());
 		textCosts=(JTextField)data[1];
 		bottom.add(sub=(JPanel)data[0]);
-		textCosts.setEditable(!readOnly);
+		textCosts.setEnabled(!readOnly);
 		textCosts.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

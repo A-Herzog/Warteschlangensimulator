@@ -105,6 +105,7 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 			setup.add((JPanel)data[0]);
 			onlyCheckOnArrival=(JComboBox<String>)data[1];
 			onlyCheckOnArrival.setSelectedIndex(holdJS.isOnlyCheckOnArrival()?1:0);
+			onlyCheckOnArrival.setEnabled(!readOnly);
 
 			JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 			setup.add(line);
@@ -115,6 +116,7 @@ public class ModelElementHoldJSDialog extends ModelElementBaseDialog {
 			setup.add(line=(JPanel)obj[0]);
 			condition=(JTextField)obj[1];
 			line.add(getExpressionEditButton(this,condition,true,false,element.getModel(),element.getSurface()),BorderLayout.EAST);
+			condition.setEnabled(!readOnly);
 			condition.addKeyListener(new KeyAdapter() {
 				@Override public void keyReleased(KeyEvent e) {checkCondition(false);}
 			});

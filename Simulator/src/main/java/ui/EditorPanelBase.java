@@ -599,7 +599,7 @@ public abstract class EditorPanelBase extends JPanel {
 
 		ModelElementBaseDialog.addUndoFeature(text);
 
-		if (readOnly) text.setEditable(false);
+		if (readOnly) text.setEnabled(false);
 		return text;
 	}
 

@@ -113,7 +113,7 @@ public class ModelElementLinkDialog extends ModelElementBaseDialog {
 			/* Schriftgröße */
 			data=getInputPanel(Language.tr("Surface.Link.Dialog.FontSize")+":",""+link.getTextSize(),5);
 			sizeField=(JTextField)data[1];
-			sizeField.setEditable(!readOnly);
+			sizeField.setEnabled(!readOnly);
 			content.add((JPanel)data[0]);
 			sizeField.addActionListener(e->checkData(false));
 		}

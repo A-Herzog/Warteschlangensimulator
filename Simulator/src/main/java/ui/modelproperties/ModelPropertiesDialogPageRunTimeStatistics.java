@@ -73,7 +73,7 @@ public class ModelPropertiesDialogPageRunTimeStatistics extends ModelPropertiesD
 		line.add(label);
 		line.add(stepWideEdit=new JTextField(10));
 		ModelElementBaseDialog.addUndoFeature(stepWideEdit);
-		stepWideEdit.setEditable(!readOnly);
+		stepWideEdit.setEnabled(!readOnly);
 		addKeyListener(stepWideEdit,()->NumberTools.getPositiveDouble(stepWideEdit,true));
 		line.add(stepWideCombo=new JComboBox<>(new String[] {
 				Language.tr("Statistics.Seconds"),

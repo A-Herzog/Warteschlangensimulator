@@ -180,7 +180,7 @@ public class ModelElementBarrierPullDialog extends ModelElementBaseDialog {
 		final Object[] data=getInputPanel(Language.tr("Surface.BarrierPull.Dialog.MaxNumber")+":",""+((ModelElementBarrierPull)element).getNextMax());
 		content.add((JPanel)data[0]);
 		maxEdit=(JTextField)data[1];
-		maxEdit.setEditable(!readOnly);
+		maxEdit.setEnabled(!readOnly);
 		maxEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

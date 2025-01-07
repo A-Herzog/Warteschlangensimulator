@@ -85,7 +85,7 @@ public class ModelElementRecordDialog extends ModelElementBaseDialog {
 	private JTextField addTextField(final JPanel parent, final String label, final String value) {
 		final Object[] data=getInputPanel(label+":",value);
 		final JTextField expression=(JTextField)data[1];
-		expression.setEditable(!readOnly);
+		expression.setEnabled(!readOnly);
 		expression.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

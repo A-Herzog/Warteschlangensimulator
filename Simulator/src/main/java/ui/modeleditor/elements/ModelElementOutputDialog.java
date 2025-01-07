@@ -143,7 +143,7 @@ public class ModelElementOutputDialog extends ModelElementBaseDialog {
 			line=(JPanel)data[0];
 			fileNameEdit=(JTextField)data[1];
 			upperPanel.add(line);
-			fileNameEdit.setEditable(!readOnly);
+			fileNameEdit.setEnabled(!readOnly);
 			fileNameEdit.addKeyListener(new KeyListener() {
 				@Override public void keyTyped(KeyEvent e) {updateInfo();}
 				@Override public void keyReleased(KeyEvent e) {updateInfo();}

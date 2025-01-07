@@ -197,7 +197,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		lines.add(sub);
 		terminationCondition=(JTextField)data[1];
 		sub.add(ModelElementBaseDialog.getExpressionEditButton(dialog,terminationCondition,true,false,model,model.surface),BorderLayout.EAST);
-		terminationCondition.setEditable(!readOnly);
+		terminationCondition.setEnabled(!readOnly);
 		addKeyListener(terminationCondition,()->{
 			terminationByCondition.setSelected(true);
 			checkTerminationCondition();
@@ -216,7 +216,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		sub=(JPanel)data[0];
 		lines.add(sub);
 		terminationTime=(JTextField)data[1];
-		terminationTime.setEditable(!readOnly);
+		terminationTime.setEnabled(!readOnly);
 		addKeyListener(terminationTime,()->{
 			terminationByTime.setSelected(true);
 			checkTerminationTime();
@@ -235,7 +235,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		sub=(JPanel)data[0];
 		lines.add(sub);
 		fixedSeed=(JTextField)data[1];
-		fixedSeed.setEditable(!readOnly);
+		fixedSeed.setEnabled(!readOnly);
 		addKeyListener(fixedSeed,()->{
 			useFixedSeed.setSelected(true);
 			checkFixedSeed();
@@ -264,7 +264,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		sub=(JPanel)data[0];
 		lines.add(sub);
 		repeatCount=(JTextField)data[1];
-		repeatCount.setEditable(!readOnly);
+		repeatCount.setEnabled(!readOnly);
 		addKeyListener(repeatCount,()->checkRepeatCount());
 
 		/* Simulation abbrechen, wenn ein Rechenausdruck nicht ausgerechnet werden kann. */

@@ -193,7 +193,7 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 			@Override public void keyPressed(KeyEvent e) {checkClients(false);}
 		});
 		clientsEdit.setText(String.join("\n",source.getNewClientTypes()).trim());
-		clientsEdit.setEditable(!readOnly);
+		clientsEdit.setEnabled(!readOnly);
 		addUndoFeature(clientsEdit);
 
 		/* Button: Kundentypen aus Tabelle laden */

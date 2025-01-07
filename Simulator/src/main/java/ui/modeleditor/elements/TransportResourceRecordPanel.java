@@ -113,7 +113,7 @@ public class TransportResourceRecordPanel extends JPanel {
 		sub=(JPanel)obj[0];
 		textResourcePriority=(JTextField)obj[1];
 		sub.add(ModelElementBaseDialog.getExpressionEditButton(this,textResourcePriority,false,false,model,surface),BorderLayout.EAST);
-		textResourcePriority.setEditable(!readOnly);
+		textResourcePriority.setEnabled(!readOnly);
 		add(sub,BorderLayout.NORTH);
 		textResourcePriority.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}

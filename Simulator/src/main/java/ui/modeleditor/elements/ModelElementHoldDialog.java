@@ -113,7 +113,7 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 
 		final Object[] data=getInputPanel(Language.tr("Surface.Hold.Dialog.Condition")+":",hold.getCondition());
 		condition=(JTextField)data[1];
-		condition.setEditable(!readOnly);
+		condition.setEnabled(!readOnly);
 		condition.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -153,7 +153,7 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 		useMaxWaitingTime.setEnabled(!readOnly);
 		useMaxWaitingTime.addActionListener(e->checkData(false));
 		line.add(maxWaitingTime=new JTextField(hold.getMaxWaitingTime(),10));
-		maxWaitingTime.setEditable(!readOnly);
+		maxWaitingTime.setEnabled(!readOnly);
 		maxWaitingTime.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {useMaxWaitingTime.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {useMaxWaitingTime.setSelected(true); checkData(false);}

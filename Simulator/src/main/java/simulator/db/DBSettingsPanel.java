@@ -119,7 +119,7 @@ public class DBSettingsPanel extends JPanel {
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Database.Config")+":",settings.getConfig());
 		add(line=(JPanel)data[0]);
 		editConfig=(JTextField)data[1];
-		editConfig.setEditable(!readOnly);
+		editConfig.setEnabled(!readOnly);
 		editConfig.addKeyListener(new KeyAdapter() {
 			@Override public void keyReleased(KeyEvent e) {fireChangedNotify();}
 		});
@@ -133,7 +133,7 @@ public class DBSettingsPanel extends JPanel {
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Database.User")+":",settings.getUser());
 		add((JPanel)data[0]);
 		editUser=(JTextField)data[1];
-		editUser.setEditable(!readOnly);
+		editUser.setEnabled(!readOnly);
 		editUser.addKeyListener(new KeyAdapter() {
 			@Override public void keyReleased(KeyEvent e) {fireChangedNotify();}
 		});
@@ -141,7 +141,7 @@ public class DBSettingsPanel extends JPanel {
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Database.Password")+":",settings.getPassword());
 		add((JPanel)data[0]);
 		editPassword=(JTextField)data[1];
-		editPassword.setEditable(!readOnly);
+		editPassword.setEnabled(!readOnly);
 		editPassword.addKeyListener(new KeyAdapter() {
 			@Override public void keyReleased(KeyEvent e) {fireChangedNotify();}
 		});

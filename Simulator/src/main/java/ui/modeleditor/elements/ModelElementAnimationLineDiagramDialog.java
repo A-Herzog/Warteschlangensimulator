@@ -108,7 +108,7 @@ public class ModelElementAnimationLineDiagramDialog extends ModelElementBaseDial
 		data=getInputPanel(Language.tr("Surface.AnimationDiagram.Dialog.Data.TimeRange")+":","1",5);
 		setup.add(line=(JPanel)data[0],BorderLayout.NORTH);
 		timeAreaEdit=(JTextField)data[1];
-		timeAreaEdit.setEditable(!readOnly);
+		timeAreaEdit.setEnabled(!readOnly);
 		timeAreaEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

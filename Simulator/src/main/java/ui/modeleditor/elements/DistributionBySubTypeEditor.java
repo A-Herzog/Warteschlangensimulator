@@ -271,7 +271,7 @@ public class DistributionBySubTypeEditor extends JPanel {
 		expressionLines.add(sub);
 		expressionEdit=(JTextField)obj[1];
 		sub.add(ModelElementBaseDialog.getExpressionEditButton(this,expressionEdit,false,true,model,surface),BorderLayout.EAST);
-		expressionEdit.setEditable(!readOnly);
+		expressionEdit.setEnabled(!readOnly);
 		expressionEdit.addKeyListener(new KeyListener(){
 			@Override public void keyTyped(KeyEvent e) {fireUserChangeListener(); checkExpression(); if (subTypeSelect.getSelectedIndex()>0 && !readOnly) useGlobal.setSelected(false);}
 			@Override public void keyPressed(KeyEvent e) {fireUserChangeListener(); checkExpression(); if (subTypeSelect.getSelectedIndex()>0 && !readOnly) useGlobal.setSelected(false);}

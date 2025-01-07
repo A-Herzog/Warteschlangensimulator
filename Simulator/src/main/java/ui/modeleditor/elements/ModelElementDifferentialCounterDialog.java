@@ -73,7 +73,7 @@ public class ModelElementDifferentialCounterDialog extends ModelElementBaseDialo
 
 		final Object[] data=getInputPanel(Language.tr("Surface.DifferentialCounter.Dialog.Increment")+":",""+counterElement.getChange(),7);
 		change=(JTextField)data[1];
-		change.setEditable(!readOnly);
+		change.setEnabled(!readOnly);
 		change.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

@@ -108,7 +108,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 		data=getInputPanel(Language.tr("Surface.AnimationPointerMeasuring.Dialog.MinValue")+":","",10);
 		content.add((JPanel)data[0]);
 		editMinValue=(JTextField)data[1];
-		editMinValue.setEditable(!readOnly);
+		editMinValue.setEnabled(!readOnly);
 		editMinValue.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -119,7 +119,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 		data=getInputPanel(Language.tr("Surface.AnimationPointerMeasuring.Dialog.MaxValue")+":","",10);
 		content.add((JPanel)data[0]);
 		editMaxValue=(JTextField)data[1];
-		editMaxValue.setEditable(!readOnly);
+		editMaxValue.setEnabled(!readOnly);
 		editMaxValue.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -134,7 +134,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 		line.add(Box.createHorizontalStrut(10));
 		line.add(editYellowAreaStartValue=new JTextField("",7));
 		ModelElementBaseDialog.addUndoFeature(editYellowAreaStartValue);
-		editYellowAreaStartValue.setEditable(!readOnly);
+		editYellowAreaStartValue.setEnabled(!readOnly);
 		editYellowAreaStartValue.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -149,7 +149,7 @@ public class ModelElementAnimationPointerMeasuringDialog extends ModelElementBas
 		line.add(Box.createHorizontalStrut(10));
 		line.add(editRedAreaStartValue=new JTextField("",7));
 		ModelElementBaseDialog.addUndoFeature(editRedAreaStartValue);
-		editRedAreaStartValue.setEditable(!readOnly);
+		editRedAreaStartValue.setEnabled(!readOnly);
 		editRedAreaStartValue.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

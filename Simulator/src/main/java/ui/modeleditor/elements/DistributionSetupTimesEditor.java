@@ -213,7 +213,7 @@ public class DistributionSetupTimesEditor extends JPanel {
 			expressionLines.add(line);
 			expressionEdit=(JTextField)obj[1];
 			line.add(ModelElementBaseDialog.getExpressionEditButton(this,expressionEdit,false,true,model,surface),BorderLayout.EAST);
-			expressionEdit.setEditable(!readOnly);
+			expressionEdit.setEnabled(!readOnly);
 			expressionEdit.addKeyListener(new KeyListener(){
 				@Override public void keyTyped(KeyEvent e) {fireUserChangeListener(); activeCheckBox.setSelected(true); checkExpression(); activeClientTypeChanged(); fireUserChangeListener();}
 				@Override public void keyPressed(KeyEvent e) {fireUserChangeListener(); activeCheckBox.setSelected(true); checkExpression(); activeClientTypeChanged(); fireUserChangeListener();}

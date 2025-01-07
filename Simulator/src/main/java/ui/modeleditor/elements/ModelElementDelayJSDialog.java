@@ -161,7 +161,7 @@ public class ModelElementDelayJSDialog extends ModelElementBaseDialog {
 		final Object[] data=getInputPanel(Language.tr("Surface.DelayJS.Dialog.CostsPerClient")+":",delayJS.getCosts());
 		textCosts=(JTextField)data[1];
 		bottom.add(sub=(JPanel)data[0]);
-		textCosts.setEditable(!readOnly);
+		textCosts.setEnabled(!readOnly);
 		textCosts.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -173,6 +173,7 @@ public class ModelElementDelayJSDialog extends ModelElementBaseDialog {
 		bottom.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(hasClientsList=new JCheckBox(Language.tr("Surface.DelayJS.Dialog.HasClientsList"),delayJS.hasClientsList()));
 		hasClientsList.setToolTipText(Language.tr("Surface.DelayJS.Dialog.HasClientsList.Tooltip"));
+		hasClientsList.setEnabled(!readOnly);
 
 		return content;
 	}

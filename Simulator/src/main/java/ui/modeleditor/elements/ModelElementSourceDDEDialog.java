@@ -123,7 +123,7 @@ public class ModelElementSourceDDEDialog extends ModelElementBaseDialog {
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
 		clientsEdit.setText(String.join("\n",source.getNewClientTypes()).trim());
-		clientsEdit.setEditable(!readOnly);
+		clientsEdit.setEnabled(!readOnly);
 		addUndoFeature(clientsEdit);
 
 		/* Start */

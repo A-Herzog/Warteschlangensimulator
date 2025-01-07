@@ -217,7 +217,7 @@ public abstract class DecideDataPanel extends JPanel {
 			data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Rate")+":",decideText,10);
 			option.add(line=(JPanel)data[0],BorderLayout.CENTER);
 			final JTextField input=(JTextField)data[1];
-			input.setEditable(!readOnly);
+			input.setEnabled(!readOnly);
 			input.addKeyListener(new KeyListener(){
 				@Override public void keyTyped(KeyEvent e) {getRates(false);}
 				@Override public void keyPressed(KeyEvent e) {getRates(false);}
@@ -252,7 +252,7 @@ public abstract class DecideDataPanel extends JPanel {
 				input.setEditable(false);
 				input.setText(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Condition.Else"));
 			} else {
-				input.setEditable(!readOnly);
+				input.setEnabled(!readOnly);
 				String condition;
 				if (oldPanel!=null) {
 					condition=(oldPanel.conditions.size()-1>i)?oldPanel.conditions.get(i).getText():""; /* -1, da wir die letzte alte Bedingung ("Wenn keine der Bedingungnen zutrifft" nicht als echte Bedingung übernehmen wollen */
@@ -306,7 +306,7 @@ public abstract class DecideDataPanel extends JPanel {
 			data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Multiplicity")+":",decideText,10);
 			option.add(line=(JPanel)data[0],BorderLayout.CENTER);
 			final JTextField input=(JTextField)data[1];
-			input.setEditable(!readOnly);
+			input.setEnabled(!readOnly);
 			input.addKeyListener(new KeyListener(){
 				@Override public void keyTyped(KeyEvent e) {getMultiplicity(false);}
 				@Override public void keyPressed(KeyEvent e) {getMultiplicity(false);}
@@ -365,7 +365,7 @@ public abstract class DecideDataPanel extends JPanel {
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Key")+":",keyString);
 		content.add((JPanel)data[0]);
 		key=(JTextField)data[1];
-		key.setEditable(!readOnly);
+		key.setEnabled(!readOnly);
 		key.addKeyListener(new KeyListener(){
 			@Override public void keyTyped(KeyEvent e) {getCheckKeyValues(false);}
 			@Override public void keyPressed(KeyEvent e) {getCheckKeyValues(false);}
@@ -402,7 +402,7 @@ public abstract class DecideDataPanel extends JPanel {
 				input.setEditable(false);
 				input.setText(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Value.Else"));
 			} else {
-				input.setEditable(!readOnly);
+				input.setEnabled(!readOnly);
 				if (oldPanel!=null) {
 					input.setText((i<oldPanel.values.size()-1)?oldPanel.values.get(i).getText():"");
 				} else {

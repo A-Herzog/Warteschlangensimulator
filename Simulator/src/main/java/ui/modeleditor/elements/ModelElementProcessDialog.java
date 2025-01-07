@@ -338,7 +338,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		sub.add(label=new JLabel(Language.tr("Surface.Process.Dialog.MinimumBatchSize")+":"));
 		sub.add(textBatchMin=new JTextField(4));
 		ModelElementBaseDialog.addUndoFeature(textBatchMin);
-		textBatchMin.setEditable(!readOnly);
+		textBatchMin.setEnabled(!readOnly);
 		textBatchMin.setText(""+process.getBatchMinimum());
 		label.setLabelFor(textBatchMin);
 		textBatchMin.addKeyListener(new KeyListener() {
@@ -349,7 +349,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		sub.add(label=new JLabel(Language.tr("Surface.Process.Dialog.MaximumBatchSize")+":"));
 		sub.add(textBatchMax=new JTextField(4));
 		ModelElementBaseDialog.addUndoFeature(textBatchMax);
-		textBatchMax.setEditable(!readOnly);
+		textBatchMax.setEnabled(!readOnly);
 		textBatchMax.setText(""+process.getBatchMaximum());
 		label.setLabelFor(textBatchMax);
 		textBatchMax.addKeyListener(new KeyListener() {
@@ -405,7 +405,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		textResourcePriority=(JTextField)data[1];
 		area.add(sub=(JPanel)data[0]);
 		sub.add(getExpressionEditButton(this,textResourcePriority,false,false,element.getModel(),element.getSurface()),BorderLayout.EAST);
-		textResourcePriority.setEditable(!readOnly);
+		textResourcePriority.setEnabled(!readOnly);
 		textResourcePriority.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkInput(false);}
 			@Override public void keyReleased(KeyEvent e) {checkInput(false);}
@@ -446,7 +446,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		data=getInputPanel(Language.tr("Surface.Process.Dialog.CostsPerClient")+":",process.getCosts());
 		textCosts=(JTextField)data[1];
 		sub.add((JPanel)data[0]);
-		textCosts.setEditable(!readOnly);
+		textCosts.setEnabled(!readOnly);
 		textCosts.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkInput(false);}
 			@Override public void keyReleased(KeyEvent e) {checkInput(false);}
@@ -457,7 +457,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		data=getInputPanel(Language.tr("Surface.Process.Dialog.CostsPerProcessingSecond")+":",process.getCostsPerProcessSecond());
 		textCostsPerProcessSecond=(JTextField)data[1];
 		sub.add((JPanel)data[0]);
-		textCostsPerProcessSecond.setEditable(!readOnly);
+		textCostsPerProcessSecond.setEnabled(!readOnly);
 		textCostsPerProcessSecond.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkInput(false);}
 			@Override public void keyReleased(KeyEvent e) {checkInput(false);}
@@ -468,7 +468,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		data=getInputPanel(Language.tr("Surface.Process.Dialog.CostsPerPostProcessingSecond")+":",process.getCostsPerPostProcessSecond());
 		textCostsPerPostProcessSecond=(JTextField)data[1];
 		sub.add((JPanel)data[0]);
-		textCostsPerPostProcessSecond.setEditable(!readOnly);
+		textCostsPerPostProcessSecond.setEnabled(!readOnly);
 		textCostsPerPostProcessSecond.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkInput(false);}
 			@Override public void keyReleased(KeyEvent e) {checkInput(false);}

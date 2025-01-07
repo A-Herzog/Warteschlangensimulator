@@ -131,7 +131,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 		line.add(label=new JLabel(Language.tr("Surface.AnimationBar.Dialog.Minimum")+":"));
 		line.add(editMinimum=new JTextField(10));
 		ModelElementBaseDialog.addUndoFeature(editMinimum);
-		editMinimum.setEditable(!readOnly);
+		editMinimum.setEnabled(!readOnly);
 		editMinimum.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -141,7 +141,7 @@ public class ModelElementAnimationBarDialog extends ModelElementBaseDialog {
 		line.add(label=new JLabel(Language.tr("Surface.AnimationBar.Dialog.Maximum")+":"));
 		line.add(editMaximum=new JTextField(10));
 		ModelElementBaseDialog.addUndoFeature(editMaximum);
-		editMaximum.setEditable(!readOnly);
+		editMaximum.setEnabled(!readOnly);
 		editMaximum.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

@@ -59,7 +59,7 @@ public class ModelSecurityCheckScriptDialog extends BaseDialog {
 		final RSyntaxTextArea editor=new RSyntaxTextArea();
 		ScriptEditorAreaBuilder.setupFontSize(editor);
 		editor.setText(script);
-		editor.setEditable(false);
+		editor.setEnabled(false);
 
 		switch (scriptType) {
 		case SCRIPT_JAVASCRIPT: editor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT); break;

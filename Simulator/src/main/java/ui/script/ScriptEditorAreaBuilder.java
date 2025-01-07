@@ -265,7 +265,7 @@ public class ScriptEditorAreaBuilder {
 		ModelElementBaseDialog.addUndoFeature(editor);
 
 		/* Read-only */
-		editor.setEditable(!readOnly);
+		editor.setEnabled(!readOnly);
 
 		/* Links */
 		editor.addHyperlinkListener(l->{
@@ -359,7 +359,7 @@ public class ScriptEditorAreaBuilder {
 		ModelElementBaseDialog.addUndoFeature(editor);
 
 		/* Read-only */
-		editor.setEditable(!readOnly);
+		editor.setEnabled(!readOnly);
 
 		/* Links */
 		editor.addHyperlinkListener(l->{
@@ -410,7 +410,7 @@ public class ScriptEditorAreaBuilder {
 		ModelElementBaseDialog.addUndoFeature(editor);
 
 		/* Read-only */
-		editor.setEditable(!readOnly);
+		editor.setEnabled(!readOnly);
 
 		/* Links */
 		editor.addHyperlinkListener(l->{

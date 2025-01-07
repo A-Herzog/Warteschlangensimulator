@@ -124,7 +124,7 @@ public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
 			line=(JPanel)data[0];
 			fileNameEdit=(JTextField)data[1];
 			upperPanel.add(line);
-			fileNameEdit.setEditable(!readOnly);
+			fileNameEdit.setEnabled(!readOnly);
 			final JButton button=new JButton();
 			button.setIcon(Images.GENERAL_SELECT_FILE.getIcon());
 			button.setToolTipText(Language.tr("Surface.Output.Dialog.FileName.Select"));

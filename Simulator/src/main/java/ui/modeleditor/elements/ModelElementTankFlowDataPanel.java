@@ -151,7 +151,7 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 		stopTime.addActionListener(e->checkData(false));
 		line.add(stopTimeEdit=new JTextField("1",10));
 		ModelElementBaseDialog.addUndoFeature(stopTimeEdit);
-		stopTimeEdit.setEditable(!readOnly);
+		stopTimeEdit.setEnabled(!readOnly);
 		stopTimeEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {stopTime.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {stopTime.setSelected(true); checkData(false);}
@@ -165,7 +165,7 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 		stopQuantity.addActionListener(e->checkData(false));
 		line.add(stopQuantityEdit=new JTextField("1",10));
 		ModelElementBaseDialog.addUndoFeature(stopQuantityEdit);
-		stopQuantityEdit.setEditable(!readOnly);
+		stopQuantityEdit.setEnabled(!readOnly);
 		stopQuantityEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {stopQuantity.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {stopQuantity.setSelected(true); checkData(false);}

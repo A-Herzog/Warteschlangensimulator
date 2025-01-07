@@ -312,7 +312,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		add(namePanel=(JPanel)data[0],BorderLayout.NORTH);
 		nameEdit=(JTextField)data[1];
 		namePanel.setVisible(false);
-		nameEdit.setEditable(!readOnly);
+		nameEdit.setEnabled(!readOnly);
 		nameEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -424,7 +424,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		panel.add(sub);
 		sub.add(ModelElementBaseDialog.getExpressionEditButton(this,(JTextField)data[1],false,true,model,surface),BorderLayout.EAST);
 		expression=(JTextField)data[1];
-		expression.setEditable(!readOnly);
+		expression.setEnabled(!readOnly);
 		expression.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -467,7 +467,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		panel.add(sub);
 		sub.add(ModelElementBaseDialog.getExpressionEditButton(this,(JTextField)data[1],true,false,model,surface),BorderLayout.EAST);
 		condition=(JTextField)data[1];
-		condition.setEditable(!readOnly);
+		condition.setEnabled(!readOnly);
 		condition.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -480,7 +480,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		panel.add(sub);
 		sub.add(ModelElementBaseDialog.getExpressionEditButton(this,(JTextField)data[1],false,false,model,surface),BorderLayout.EAST);
 		conditionMinDistance=(JTextField)data[1];
-		conditionMinDistance.setEditable(!readOnly);
+		conditionMinDistance.setEnabled(!readOnly);
 		conditionMinDistance.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -500,7 +500,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		panel.add(sub);
 		sub.add(ModelElementBaseDialog.getExpressionEditButton(this,(JTextField)data[1],false,false,model,surface),BorderLayout.EAST);
 		thresholdExpression=(JTextField)data[1];
-		thresholdExpression.setEditable(!readOnly);
+		thresholdExpression.setEnabled(!readOnly);
 		thresholdExpression.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -510,7 +510,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Source.Dialog.Threshold.ThresholdValue")+":","",10);
 		panel.add((JPanel)data[0]);
 		thresholdExpressionValue=(JTextField)data[1];
-		thresholdExpressionValue.setEditable(!readOnly);
+		thresholdExpressionValue.setEnabled(!readOnly);
 		thresholdExpressionValue.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -571,7 +571,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		line.add(new JLabel(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.Label")+":"));
 
 		card.add(new JScrollPane(intervalExpressions=new JTextArea()),BorderLayout.CENTER);
-		intervalExpressions.setEditable(!readOnly);
+		intervalExpressions.setEnabled(!readOnly);
 		intervalExpressions.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -611,7 +611,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		line.add(new JLabel(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Label")+":"));
 
 		card.add(new JScrollPane(intervalDistributions=new JTextArea()),BorderLayout.CENTER);
-		intervalDistributions.setEditable(!readOnly);
+		intervalDistributions.setEnabled(!readOnly);
 		intervalDistributions.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -652,7 +652,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		line.add(label=new JLabel(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.DataStream.Values")+":"));
 
 		card.add(new JScrollPane(dataStream=new JTextArea()),BorderLayout.CENTER);
-		dataStream.setEditable(!readOnly);
+		dataStream.setEnabled(!readOnly);
 		dataStream.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -685,7 +685,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		sub.add(batchField=new JTextField(15));
 		ModelElementBaseDialog.addUndoFeature(batchField);
 		sub.add(ModelElementBaseDialog.getExpressionEditButton(this,batchField,false,false,model,surface));
-		batchField.setEditable(!readOnly);
+		batchField.setEnabled(!readOnly);
 		batchField.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {optionFixedSize.setSelected(true); updateBatchInfo();checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {optionFixedSize.setSelected(true); updateBatchInfo();checkData(false);}
@@ -757,7 +757,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		final JTextPane pane=new JTextPane();
 		sub.add(pane);
 		pane.setOpaque(false);
-		pane.setEditable(false);
+		pane.setEnabled(false);
 		pane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 		pane.setPreferredSize(new Dimension(650,150));
 		pane.setText(Language.tr("Surface.Source.Dialog.CountInfo"));
@@ -822,7 +822,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Source.Dialog.AdditionalCondition.Label")+":","");
 		panel.add(line=(JPanel)data[0]);
 		additionalArrivalCondition=(JTextField)data[1];
-		additionalArrivalCondition.setEditable(!readOnly);
+		additionalArrivalCondition.setEnabled(!readOnly);
 		additionalArrivalCondition.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

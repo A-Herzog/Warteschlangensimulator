@@ -116,7 +116,7 @@ public class ModelElementAnimationTrafficLightsDialog extends ModelElementBaseDi
 				expressionTwo.setEnabled(false);
 			} else {
 				expressionTwo.setEnabled(true);
-				expressionTwo.setEditable(!readOnly);
+				expressionTwo.setEnabled(!readOnly);
 			}
 			checkData(false);
 		});
@@ -125,7 +125,7 @@ public class ModelElementAnimationTrafficLightsDialog extends ModelElementBaseDi
 		content.add(line=(JPanel)data[0]);
 		expressionOne=(JTextField)data[1];
 		line.add(getExpressionEditButton(this,expressionOne,true,false,element.getModel(),element.getSurface()),BorderLayout.EAST);
-		expressionOne.setEditable(!readOnly);
+		expressionOne.setEnabled(!readOnly);
 		expressionOne.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -136,7 +136,7 @@ public class ModelElementAnimationTrafficLightsDialog extends ModelElementBaseDi
 		content.add(line=(JPanel)data[0]);
 		expressionTwo=(JTextField)data[1];
 		line.add(getExpressionEditButton(this,expressionTwo,true,false,element.getModel(),element.getSurface()),BorderLayout.EAST);
-		expressionTwo.setEditable(!readOnly);
+		expressionTwo.setEnabled(!readOnly);
 		expressionTwo.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}

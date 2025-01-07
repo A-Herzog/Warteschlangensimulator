@@ -218,7 +218,7 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 		final Object[] obj=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.DistributionByClientTypeEditor.Expression")+":","");
 		sub.add((JPanel)obj[0],BorderLayout.NORTH);
 		expressionEdit=(JTextField)obj[1];
-		expressionEdit.setEditable(!readOnly);
+		expressionEdit.setEnabled(!readOnly);
 		expressionEdit.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {expressionEditChanged();}
 			@Override public void keyReleased(KeyEvent e) {expressionEditChanged();}

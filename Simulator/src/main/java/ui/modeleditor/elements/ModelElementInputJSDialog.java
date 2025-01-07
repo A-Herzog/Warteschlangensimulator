@@ -113,7 +113,7 @@ public class ModelElementInputJSDialog extends ModelElementBaseDialog {
 			data=getInputPanel(Language.tr("Surface.InputJS.Dialog.FileName")+":",input.getInputFile());
 			upperPanel.add(line=(JPanel)data[0]);
 			fileNameEdit=(JTextField)data[1];
-			fileNameEdit.setEditable(!readOnly);
+			fileNameEdit.setEnabled(!readOnly);
 			fileNameEdit.addKeyListener(new KeyListener() {
 				@Override public void keyTyped(KeyEvent e) {checkData(false);}
 				@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -145,7 +145,7 @@ public class ModelElementInputJSDialog extends ModelElementBaseDialog {
 			optionDefaultValue.addActionListener(e->checkData(false));
 			line.add(defaultValueEdit=new JTextField(NumberTools.formatNumber(input.getDefaultValue()),10));
 			ModelElementBaseDialog.addUndoFeature(defaultValueEdit);
-			defaultValueEdit.setEditable(!readOnly);
+			defaultValueEdit.setEnabled(!readOnly);
 			defaultValueEdit.addKeyListener(new KeyListener() {
 				@Override public void keyTyped(KeyEvent e) {optionDefaultValue.setSelected(true); checkData(false);}
 				@Override public void keyReleased(KeyEvent e) {optionDefaultValue.setSelected(true); checkData(false);}

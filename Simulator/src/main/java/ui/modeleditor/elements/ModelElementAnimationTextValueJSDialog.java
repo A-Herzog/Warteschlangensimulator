@@ -145,7 +145,7 @@ public final class ModelElementAnimationTextValueJSDialog extends ModelElementBa
 		/* Schriftgröße */
 		data=getInputPanel(Language.tr("Surface.AnimationText.Dialog.FontSize")+":","",5);
 		sizeField=(JTextField)data[1];
-		sizeField.setEditable(!readOnly);
+		sizeField.setEnabled(!readOnly);
 		tab.add((JPanel)data[0]);
 		sizeField.addActionListener(e->NumberTools.getNotNegativeInteger(sizeField,true));
 

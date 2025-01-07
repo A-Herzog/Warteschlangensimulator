@@ -105,7 +105,7 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 	 * @param mul	Mit {@link #MULTIPLY} multiplizieren oder beim Umrechnen dadurch dividieren?
 	 */
 	private void loadValue(double value, final JTextField text, final JComboBox<String> unit, boolean mul) {
-		text.setEditable(!readOnly);
+		text.setEnabled(!readOnly);
 		text.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -189,7 +189,7 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 		data=getInputPanel(Language.tr("Surface.AnalogValue.Dialog.InitialValue")+":",NumberTools.formatNumberMax(analogValue.getInitialValue()),10);
 		content.add((JPanel)data[0]);
 		initalValue=(JTextField)data[1];
-		initalValue.setEditable(!readOnly);
+		initalValue.setEnabled(!readOnly);
 		initalValue.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
@@ -203,7 +203,7 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 		valueMinUse.setEnabled(!readOnly);
 		valueMinUse.addActionListener(e->checkData(false));
 		valueMin=(JTextField)data[2];
-		valueMin.setEditable(!readOnly);
+		valueMin.setEnabled(!readOnly);
 		valueMin.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {valueMinUse.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {valueMinUse.setSelected(true); checkData(false);}
@@ -216,7 +216,7 @@ public class ModelElementAnalogValueDialog extends ModelElementBaseDialog {
 		valueMaxUse.setEnabled(!readOnly);
 		valueMaxUse.addActionListener(e->checkData(false));
 		valueMax=(JTextField)data[2];
-		valueMax.setEditable(!readOnly);
+		valueMax.setEnabled(!readOnly);
 		valueMax.addKeyListener(new KeyListener() {
 			@Override public void keyTyped(KeyEvent e) {valueMaxUse.setSelected(true); checkData(false);}
 			@Override public void keyReleased(KeyEvent e) {valueMaxUse.setSelected(true); checkData(false);}

@@ -115,7 +115,7 @@ public class ModelElementSetStatisticsModeDialog extends ModelElementBaseDialog 
 			@Override public void keyReleased(KeyEvent e) {optionModeCondition.setSelected(true); checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {optionModeCondition.setSelected(true); checkData(false);}
 		});
-		editCondition.setEditable(!readOnly);
+		editCondition.setEnabled(!readOnly);
 		((JPanel)data[0]).add(getExpressionEditButton(this,editCondition,true,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
 
 		final ButtonGroup buttonGroup=new ButtonGroup();

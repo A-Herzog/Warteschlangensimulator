@@ -66,7 +66,7 @@ public class NewClientTypesPanel extends JPanel {
 			final JLabel label=new JLabel(String.format(Language.tr("NewClientTypeEdit.Edge")+":",i+1));
 			content.add(label);
 			final JPlaceholderTextField field=new JPlaceholderTextField(value);
-			field.setEditable(!readOnly);
+			field.setEnabled(!readOnly);
 			label.setLabelFor(field);
 			field.setPlaceholder(Language.tr("NewClientTypeEdit.InfoShort"));
 			field.setToolTipText(Language.tr("NewClientTypeEdit.Info"));

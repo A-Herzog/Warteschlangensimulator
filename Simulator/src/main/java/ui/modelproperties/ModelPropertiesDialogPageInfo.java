@@ -125,7 +125,7 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 		sub=(JPanel)data[0];
 		lines.add(sub);
 		timeStepsPerSecond=(JTextField)data[1];
-		timeStepsPerSecond.setEditable(!readOnly);
+		timeStepsPerSecond.setEnabled(!readOnly);
 		addKeyListener(timeStepsPerSecond,()->checkTimeStepsPerSecond());
 
 		timeStepsPerSecondResetButton=new JButton(Images.EDIT_UNDO.getIcon());
