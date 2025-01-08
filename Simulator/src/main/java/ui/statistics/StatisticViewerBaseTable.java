@@ -91,7 +91,6 @@ public class StatisticViewerBaseTable extends StatisticViewerTable {
 	@Override
 	public void setData(final List<List<String>> data, final List<String> columnNames) {
 		if (exportTable!=null) {
-			exportTable.addLine(columnNames);
 			data.forEach(exportTable::addLine);
 			return;
 		}
@@ -101,7 +100,6 @@ public class StatisticViewerBaseTable extends StatisticViewerTable {
 	@Override
 	public void setData(final String[][] arrayData, final String[] arrayColumnNames) {
 		if (exportTable!=null) {
-			exportTable.addLine(arrayColumnNames);
 			for (var line: arrayData) exportTable.addLine(line);
 			return;
 		}
@@ -111,7 +109,6 @@ public class StatisticViewerBaseTable extends StatisticViewerTable {
 	@Override
 	public void setData(final Table table, final String[] arrayColumnNames) {
 		if (exportTable!=null) {
-			exportTable.addLine(arrayColumnNames);
 			table.getData().forEach(exportTable::addLine);
 			return;
 		}
@@ -121,7 +118,6 @@ public class StatisticViewerBaseTable extends StatisticViewerTable {
 	@Override
 	public void setData(final Table table, final List<String> columnNames) {
 		if (exportTable!=null) {
-			exportTable.addLine(columnNames);
 			table.getData().forEach(exportTable::addLine);
 			return;
 		}
