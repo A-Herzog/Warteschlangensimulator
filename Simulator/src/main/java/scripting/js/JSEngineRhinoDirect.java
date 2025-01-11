@@ -113,7 +113,6 @@ public class JSEngineRhinoDirect extends JSEngine {
 	@Override
 	public boolean initScript(final String script) {
 		try (Context cx=contextFactory.enterContext()) {
-			cx.setOptimizationLevel(9);
 			this.script=cx.compileString(script,"script",1,null);
 		} catch (Exception e) {
 			compileError=e.getMessage();
@@ -128,7 +127,6 @@ public class JSEngineRhinoDirect extends JSEngine {
 		context=contextFactory.enterContext(context);
 		try {
 			context.setWrapFactory(wrapFactory);
-			context.setOptimizationLevel(9);
 			script.exec(context,scope);
 		} finally {
 			Context.exit();
@@ -175,7 +173,6 @@ public class JSEngineRhinoDirect extends JSEngine {
 		@Override
 		protected void onContextCreated(Context cx) {
 			cx.setLanguageVersion(Context.VERSION_ES6);
-			cx.setOptimizationLevel(9);
 			cx.setGeneratingDebug(false);
 		}
 	}

@@ -2202,7 +2202,7 @@ public final class Table implements Cloneable {
 				final Sheet sheet=wb.createSheet(TableFileTableName);
 				saveToSheet(wb,sheet);
 				try (FileOutputStream fo=new FileOutputStream(file)) {wb.write(fo);}
-				if (wb instanceof SXSSFWorkbook) ((SXSSFWorkbook)wb).dispose();
+				if (wb instanceof SXSSFWorkbook) ((SXSSFWorkbook)wb).close();
 			} catch (IOException e) {return false;}
 			return true;
 		}

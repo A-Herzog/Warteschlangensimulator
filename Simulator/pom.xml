@@ -34,13 +34,13 @@
 	<dependency>
     		<groupId>org.apache.xmlgraphics</groupId>
     		<artifactId>fop</artifactId>
-    		<version>2.9</version>
+    		<version>2.10</version>
 	</dependency>	
 	<!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-codec -->
 	<dependency>
     		<groupId>org.apache.xmlgraphics</groupId>
     		<artifactId>batik-codec</artifactId>
-    		<version>1.17</version>
+    		<version>1.18</version>
 		<exclusions>
 			<exclusion>
 				<groupId>xml-apis</groupId>
@@ -52,19 +52,19 @@
 	<dependency>
     		<groupId>org.hsqldb</groupId>
     		<artifactId>hsqldb</artifactId>
-    		<version>2.7.3</version>
+    		<version>2.7.4</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.firebirdsql.jdbc/jaybird -->
 	<dependency>
     		<groupId>org.firebirdsql.jdbc</groupId>
     		<artifactId>jaybird</artifactId>
-    		<version>5.0.5.java11</version>
+    		<version>5.0.6.java11</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
 	<dependency>
     		<groupId>org.mariadb.jdbc</groupId>
     		<artifactId>mariadb-java-client</artifactId>
-    		<version>3.4.1</version>
+    		<version>3.5.1</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.nanohttpd/nanohttpd -->
 	<!--
@@ -96,13 +96,13 @@
 	<dependency>
     		<groupId>org.mozilla</groupId>
     		<artifactId>rhino</artifactId>
-    		<version>1.7.15</version>
+    		<version>1.8.0</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/com.fifesoft/rsyntaxtextarea -->
 	<dependency>
     		<groupId>com.fifesoft</groupId>
     		<artifactId>rsyntaxtextarea</artifactId>
-    		<version>3.5.1</version>
+    		<version>3.5.3</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/com.fifesoft/autocomplete -->
 	<dependency>
@@ -132,13 +132,13 @@
 	<dependency>
     		<groupId>org.commonmark</groupId>
     		<artifactId>commonmark</artifactId>
-    		<version>0.22.0</version>
+    		<version>0.24.0</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.commonmark/commonmark-ext-autolink -->
 	<dependency>
     		<groupId>org.commonmark</groupId>
     		<artifactId>commonmark-ext-autolink</artifactId>
-    		<version>0.22.0</version>
+    		<version>0.24.0</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.jdatepicker/jdatepicker -->
 	<dependency>
@@ -162,31 +162,31 @@
 	<dependency>
     	<groupId>org.eclipse.jgit</groupId>
     	<artifactId>org.eclipse.jgit</artifactId>
-    	<version>6.10.0.202406032230-r</version>
+    	<version>7.1.0.202411261347-r</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/com.github.mwiede/jsch -->
 	<dependency>
     	<groupId>com.github.mwiede</groupId>
     	<artifactId>jsch</artifactId>
-    	<version>0.2.19</version>
+    	<version>0.2.21</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit.ssh.jsch -->
 	<dependency>
     	<groupId>org.eclipse.jgit</groupId>
     	<artifactId>org.eclipse.jgit.ssh.jsch</artifactId>
-    	<version>6.10.0.202406032230-r</version>
+    	<version>7.1.0.202411261347-r</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.json/json -->
 	<dependency>
     	<groupId>org.json</groupId>
     	<artifactId>json</artifactId>
-    	<version>20240303</version>
+    	<version>20241224</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/com.formdev/flatlaf -->
 	<dependency>
     		<groupId>com.formdev</groupId>
     		<artifactId>flatlaf</artifactId>
-    		<version>3.5.1</version>
+    		<version>3.5.4</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
 	<!--

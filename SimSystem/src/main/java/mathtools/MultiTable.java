@@ -545,7 +545,7 @@ public final class MultiTable {
 
 			/* In Datei schreiben */
 			try (FileOutputStream fo=new FileOutputStream(file)) {wb.write(fo);}
-			if (wb instanceof SXSSFWorkbook) ((SXSSFWorkbook)wb).dispose();
+			if (wb instanceof SXSSFWorkbook) ((SXSSFWorkbook)wb).close();
 			return true;
 
 		} catch (IOException e) {return false;}
