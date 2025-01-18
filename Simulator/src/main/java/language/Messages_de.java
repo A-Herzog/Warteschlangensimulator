@@ -2105,7 +2105,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[5158] = "Surface.DistributionSystem.XML.Distribution";
     t[5159] = "ModellElementVerteilung";
     t[5162] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DensityInfo";
-    t[5163] = "<p>Berechnet den Wert der Dichte der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>\n<p>Beispiel: <tt>GammaDist(7;5;3;0)</tt> liefert 0,03992278718149.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
+    t[5163] = "<p>Berechnet den Wert der Dichte der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>\n<p>Beispiel: <tt>GammaDist(7;5;3;0)</tt> liefert %s.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
     t[5166] = "Statistic.Tree.Parameter.BookmarkJump.Hint";
     t[5167] = "Wechselt zum n\u00e4chsten markierten Baumeintrag";
     t[5168] = "Surface.AnimationText.Dialog.PercentValue";
@@ -2174,6 +2174,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[5329] = "Anzahl";
     t[5330] = "SoundSelectPanel.Play.ErrorTitle";
     t[5331] = "Sound-Ausgabefehler";
+    t[5338] = "ExpressionBuilder.ProbabilityDistributions.UniformDistribution.DensityInfo";
+    t[5339] = "<p>Berechnet den Wert der Dichte der Gleichverteilung an der als ersten Parameter angegebenen Stelle und \u00fcber den als zweiten und dritten Parameter angegebenen Bereich [a;b].</p>\n<p>Beispiel: <tt>UniformDist(%s;2;4;0)</tt> liefert %s.</p>";
     t[5356] = "Surface.ScriptEditor.Search.RemoveMarkOccurrence";
     t[5357] = "Suchtreffer-Markierungen entfernen";
     t[5362] = "Surface.XML.DistributionRecordHours";
@@ -2841,7 +2843,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[6974] = "Surface.Record.Tooltip";
     t[6975] = "Speichert jeweils ein oder zwei Zahlenwerte, wenn ein Kunde die Station passiert.";
     t[6984] = "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DistributionFunctionInfo";
-    t[6985] = "<p>Berechnet den Wert der Verteilungsfunktion der Exponentialverteilung an der als ersten Parameter angegebenen Stelle und mit dem Verteilungsparameter &lambda; gem\u00e4\u00df dem Kehrwert des zweiten Parameters.</p>\n<p>Beispiel: <tt>ExpDist(5;2;1)</tt> liefert 0,9179150013761.</p>";
+    t[6985] = "<p>Berechnet den Wert der Verteilungsfunktion der Exponentialverteilung an der als ersten Parameter angegebenen Stelle und mit dem Verteilungsparameter &lambda; gem\u00e4\u00df dem Kehrwert des zweiten Parameters.</p>\n<p>Beispiel: <tt>ExpDist(5;2;1)</tt> liefert %s.</p>";
     t[6986] = "JSRunner.Templates.Empty";
     t[6987] = "Es gibt momentan keine Vorschl\u00e4ge f\u00fcr Javascript-Programme.";
     t[6994] = "GraphVizExport.Options.Option.SubModels";
@@ -2989,7 +2991,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[7306] = "Color.FFFFE0";
     t[7307] = "Hellgelb";
     t[7308] = "ExpressionBuilder.TrigonometricFunctions.DegreeToRadians.Info";
-    t[7309] = "<p>Interpretiert den vor dem \u00b0-Zeichen stehenden Wert als Gradangabe und wandelt diese in Bogenma\u00df um, d.h. multipliziert sie mit 2*pi und dividiert sie durch 360.</p><p>Beispiel: <tt>180\u00b0</tt> liefert 3,1415926535898.</p>";
+    t[7309] = "<p>Interpretiert den vor dem \u00b0-Zeichen stehenden Wert als Gradangabe und wandelt diese in Bogenma\u00df um, d.h. multipliziert sie mit 2*pi und dividiert sie durch 360.</p><p>Beispiel: <tt>180\u00b0</tt> liefert %s.</p>";
     t[7312] = "Surface.Barrier.Dialog.Description.PerSignal.All";
     t[7313] = "alle wartenden Kunden";
     t[7314] = "Surface.AnimationTable.XML.FontSize.Italic";
@@ -3134,8 +3136,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[7595] = "gif-Dateien";
     t[7598] = "ModelGenerator.ServiceDiscipline.LIFO";
     t[7599] = "LIFO (in umgekehrter Ankunftsreihenfolge)";
-    t[7600] = "ModelGenerator.ServiceDistribution.LogNormalLowCV";
-    t[7601] = "Lognormalverteilung (CV[S]=0,25)";
+    t[7600] = "Surface.Tank.Dialog.InitialValue.ErrorInfo";
+    t[7601] = "Der angegebene initiale F\u00fcllstand \"%s\" ist ung\u00fcltig. Es muss eine nichtnegative Zahl angegeben werden.";
     t[7602] = "Surface.InputDDE.Infotext";
     t[7603] = "Passiert ein Kunde diese Station, so wird ein Wert \u00fcber eine DDE-Verbindung aus einer laufenden Excel-Instanz geladen und einer Variable zugewiesen.";
     t[7608] = "Main.Menu.File.Settings";
@@ -3249,7 +3251,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[7898] = "BuildClientSourceTable.Edit.Name";
     t[7899] = "Name der Spalte";
     t[7900] = "ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus.Info";
-    t[7901] = "<p>Berechnet den Wert der Arcus-Cotangens-hyperbolicus-Funktion des als Parameter \u00fcbergebenen Wertes.</p><p>Beispiel: <tt>arccoth(2)</tt> liefert 0,54930614433405.</p>";
+    t[7901] = "<p>Berechnet den Wert der Arcus-Cotangens-hyperbolicus-Funktion des als Parameter \u00fcbergebenen Wertes.</p><p>Beispiel: <tt>arccoth(2)</tt> liefert %s.</p>";
     t[7902] = "ParameterCompare.Templates.Maximum";
     t[7903] = "Maximaler Wert";
     t[7906] = "Editor.Dialog.Tab.OutputAnalysis";
@@ -3259,7 +3261,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[7914] = "Wait.Status.LongRun";
     t[7915] = "%sK von %sK Kundenank\u00fcnfte simuliert / %s Kunden im System / %sM Ereignisse / %sK Ereignisse pro Sekunde";
     t[7920] = "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DistributionFunctionInfo";
-    t[7921] = "<p>Berechnet den Wert der Verteilungsfunktion der Beta-Verteilung an der als ersten Parameter angegebenen Stelle mit unterer Grenze, obererer Grenze, Erwartungswert und Standardabweichung gem\u00e4\u00df dem zweiten bis f\u00fcnftem Parameter.</p><p>Beispiel: <tt>BetaDistDirect(7;0;10;5;2;1)</tt> liefert 0,81942684533674.</p>";
+    t[7921] = "<p>Berechnet den Wert der Verteilungsfunktion der Beta-Verteilung an der als ersten Parameter angegebenen Stelle mit unterer Grenze, obererer Grenze, Erwartungswert und Standardabweichung gem\u00e4\u00df dem zweiten bis f\u00fcnftem Parameter.</p><p>Beispiel: <tt>BetaDistDirect(7;0;10;5;2;1)</tt> liefert %s.</p>";
     t[7922] = "Statistics.TransferTimesByStations";
     t[7923] = "Transferzeiten nach Stationen";
     t[7932] = "Surface.AnimationImage.Dialog.Images.Up";
@@ -3324,8 +3326,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[8051] = "Prozentwert";
     t[8054] = "Surface.InteractiveRadiobutton.Tooltip";
     t[8055] = "Radiobutton, das w\u00e4hrend der Animation eine Aktion ausl\u00f6st, wenn es angeklickt wird.";
-    t[8058] = "ModelGenerator.ServiceDistribution.LogNormalVeryHighCV";
-    t[8059] = "Lognormalverteilung (CV[S]=1,5)";
     t[8060] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.MinimalTime";
     t[8061] = "<p>Liefert die minimale Bedienzeit \u00fcber alle Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>\n<p>Alternativ sind auch folgende andere Parametrierungen m\u00f6glich:</p>\n<ul>\n<li>ID einer Kundenquelle (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Station und ID einer Quelle (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Quelle im zweiten Parameter erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>3 Parameter: ID einer Station, ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Mehrfachquelle im zweiten Parameter erzeugten Kundentyps)</li>\n</ul>";
     t[8062] = "ModelDescription.Resources.infinite";
@@ -4033,7 +4033,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9680] = "ModelDescription.Delay.Distribution";
     t[9681] = "Verteilung zur Verz\u00f6gerung im allgemeinen Fall";
     t[9682] = "ExpressionBuilder.Rounding.round.Info";
-    t[9683] = "<p>Rundet den als Parameter \u00fcbergebenen Wert zur n\u00e4chsten ganzen Zahl auf oder ab.</p><p>Beispiel: <tt>round(1,4)</tt> liefert 1 und <tt>round(1,5)</tt> liefert 2.</p>";
+    t[9683] = "<p>Rundet den als Parameter \u00fcbergebenen Wert zur n\u00e4chsten ganzen Zahl auf oder ab.</p><p>Beispiel: <tt>round(%s)</tt> liefert 1 und <tt>round(%s)</tt> liefert 2.</p>";
     t[9684] = "Surface.TankSensor.Dialog.Threshold.Direction";
     t[9685] = "Signal ausl\u00f6sen bei";
     t[9686] = "Simulation.Log.InteractiveSlider";
@@ -4049,7 +4049,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9702] = "ExpressionBuilder.ProbabilityDistributions.UniformDistribution";
     t[9703] = "Gleichverteilung";
     t[9704] = "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DistributionFunctionInfo";
-    t[9705] = "<p>Berechnet den Wert der Verteilungsfunktion der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gem\u00e4\u00df dem zweiten und dritten Parameter.</p><p>Beispiel: <tt>GammaDistDirect(7;5;3;1)</tt> liefert 0,78517079628442.</p>";
+    t[9705] = "<p>Berechnet den Wert der Verteilungsfunktion der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gem\u00e4\u00df dem zweiten und dritten Parameter.</p><p>Beispiel: <tt>GammaDistDirect(7;5;3;1)</tt> liefert %s.</p>";
     t[9714] = "Surface.Delay.Dialog.DelayTimeIs.TransferTime";
     t[9715] = "Transferzeit";
     t[9716] = "ThreadCalibration.Status.Precompiling";
@@ -4069,7 +4069,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[9752] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Title";
     t[9753] = "Ausdruck zur Statistikerfassung bearbeiten";
     t[9754] = "Statistics.ErlangCompare.Info.Process.CV";
-    t[9755] = "Der Variationskoeffizient der Bedienzeiten betr\u00e4gt %s. Die Formel geht jedoch von 1,0 aus.";
+    t[9755] = "Der Variationskoeffizient der Bedienzeiten betr\u00e4gt %s. Die Formel geht jedoch von %s aus.";
     t[9760] = "Surface.ExpressionTableModel.DeleteAll.Confirmation.Title";
     t[9761] = "Alle Datenreihe entfernen";
     t[9768] = "Examples.Baustellenampel";
@@ -4538,8 +4538,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[10967] = "Maximalwert";
     t[10968] = "Surface.XML.FlowData.Destination";
     t[10969] = "ModellElementFlussZiel";
-    t[10970] = "ExpressionBuilder.ProbabilityDistributions.UniformDistribution,DensityInfo";
-    t[10971] = "<p>Berechnet den Wert der Dichte der Gleichverteilung an der als ersten Parameter angegebenen Stelle und \u00fcber den als zweiten und dritten Parameter angegebenen Bereich [a;b].</p>\n<p>Beispiel: <tt>UniformDist(2,5;2;4;0)</tt> liefert 0,5.</p>";
     t[10974] = "Surface.CounterMulti.Table.Heading.Condition";
     t[10975] = "Bedingung";
     t[10980] = "ExpressionBuilder.ClientsInSystemProcess.MinimalNumber";
@@ -4966,8 +4964,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[11931] = "Anzahl";
     t[11932] = "Distribution.NegativeHyperGeomWikipedia";
     t[11933] = "https://de.wikipedia.org/wiki/Negative_hypergeometrische_Verteilung";
-    t[11936] = "ModelGenerator.Model.Description.Properties.ServiceLognormalHighCV";
-    t[11937] = "Lognormalverteilte Bedienzeiten (CV[S]=0,75)";
     t[11944] = "CommandLine.FolderSimulation.OutputFileExists";
     t[11945] = "Es existiert bereits eine Ausgabedatei zu dieser Datei.";
     t[11948] = "Surface.HoldJS.Dialog.HoldTimeIs.TransferTime";
@@ -5615,7 +5611,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[13442] = "Resources.Failure.MoveUp";
     t[13443] = "Nach oben verschieben";
     t[13444] = "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DensityInfo";
-    t[13445] = "<p>Berechnet den Wert der Dichte der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gem\u00e4\u00df dem zweiten und dritten Parameter.</p><p>Beispiel: <tt>GammaDistDirect(7;5;3;0)</tt> liefert 0,07727661686311.</p>";
+    t[13445] = "<p>Berechnet den Wert der Dichte der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gem\u00e4\u00df dem zweiten und dritten Parameter.</p><p>Beispiel: <tt>GammaDistDirect(7;5;3;0)</tt> liefert %s.</p>";
     t[13446] = "ModelGenerator.Visualization.MeanRhoTitle";
     t[13447] = "Mittlere Auslastung der Bediener";
     t[13452] = "Surface.Process.Dialog.TimeIs.ProcessingTime";
@@ -6022,16 +6018,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14405] = "ModellZusatzStatistikElement";
     t[14406] = "Statistics.DistributionOfTheResidenceTimesTotal";
     t[14407] = "Verteilung der Verweilzeiten (summiert \u00fcber mehrfache Kundenank\u00fcnfte)";
+    t[14408] = "BuildClientSourceTable.InputTable.Error.Process.Title";
+    t[14409] = "Verarbeitung der Tabelle nicht m\u00f6glich";
+    t[14414] = "Statistics.StdDevUserTime";
+    t[14415] = "Standardabweichung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
-    t[14408] = "BuildClientSourceTable.InputTable.Error.Process.Title";
-    t[14409] = "Verarbeitung der Tabelle nicht m\u00f6glich";
-    t[14414] = "Statistics.StdDevUserTime";
-    t[14415] = "Standardabweichung";
     t[14424] = "Surface.InputDDE.Dialog.Variable";
     t[14425] = "Variable";
     t[14436] = "Surface.PopupMenu.QuickFix.Slider.Step";
@@ -6123,7 +6119,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14628] = "Surface.Batch.Dialog.BatchSize.Error.InfoFixed";
     t[14629] = "Der angegebene Wert \"%s\" f\u00fcr die Batch-Gr\u00f6\u00dfe ist ung\u00fcltig. Es muss eine positive ganze Zahl oder ein Rechenausdruck angegeben werden.";
     t[14630] = "ExpressionBuilder.MathematicalFunctions.FractionPart.info";
-    t[14631] = "<p>Liefert den Nachkomma-Anteil des als Parameters \u00fcbergebenen Wertes.</p><p>Beispiel: <tt>frac(3,4)</tt> liefert 0,4.</p>";
+    t[14631] = "<p>Liefert den Nachkomma-Anteil des als Parameters \u00fcbergebenen Wertes.</p><p>Beispiel: <tt>frac(%s)</tt> liefert %s.</p>";
     t[14640] = "Surface.SourceMulti.Tooltip";
     t[14641] = "Quelle, die Ank\u00fcnfte mehrerer Typen generiert.";
     t[14646] = "ModelDescription.Process.ProcessTimeType.Transfer";
@@ -6133,7 +6129,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[14654] = "ScriptPopup.Output.Separator";
     t[14655] = "Elementtrenner in Arrays";
     t[14660] = "ExpressionBuilder.StatisticalFunctions.StandardDeviation.Info";
-    t[14661] = "<p>Berechnet die korrigierte Stichprobenstandardabweichung der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>sd(1;2;3;4)</tt> liefert 1,2909944487358.</p>";
+    t[14661] = "<p>Berechnet die korrigierte Stichprobenstandardabweichung der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>sd(1;2;3;4)</tt> liefert %s.</p>";
     t[14662] = "CommandLine.ServerMQTTTest.Description.Short";
     t[14663] = "Simulator als MQTT-basierten Echo-Testserver starten.";
     t[14664] = "Editor.DialogBase.Description.Dialog.Info";
@@ -6878,8 +6874,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[16565] = "Maximum";
     t[16588] = "Main.Toolbar.Help";
     t[16589] = "Hilfe";
-    t[16590] = "Surface.Set.Table.Add";
-    t[16591] = "Zuweisung hinzuf\u00fcgen";
     t[16596] = "Surface.AnimationPieChart.XML.DiagramDrawMode.Pie";
     t[16597] = "Kreissegment";
     t[16598] = "Surface.Decide.Dialog.DecideBy.LeastClientsNextProcessStation.Info";
@@ -7461,7 +7455,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18034] = "FileType.AllTables";
     t[18035] = "Alle Tabellendateien";
     t[18036] = "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DensityInfo";
-    t[18037] = "<p>Berechnet den Wert der Dichte der Erlang-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern n und &lambda; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>\n<p>Beispiel: <tt>ErlangDist(7;5;3;0)</tt> liefert 0,03992278718149.</p>";
+    t[18037] = "<p>Berechnet den Wert der Dichte der Erlang-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern n und &lambda; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>\n<p>Beispiel: <tt>ErlangDist(7;5;3;0)</tt> liefert %s.</p>";
     t[18048] = "Statistics.Dashboard.EditDialog.Tab.BackgroundColor";
     t[18049] = "Hintergrundfarbe";
     t[18060] = "SettingsDialog.ManualUpdate.Download.Folder";
@@ -8028,18 +8022,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[19377] = "Im Normalfall werden die Kunden gem\u00e4\u00df dem hinterlegten Fertigungsplan zum n\u00e4chsten Transportziel geroutet.";
     t[19378] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.MaximalTime";
     t[19379] = "<p>Liefert die maximale Transferzeit, die bisher an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstanden ist (\u00fcber alle Kundentypen).</p>";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_4 (java.lang.String[] t) {
     t[19392] = "Surface.AnimationBarChart.XML.Set";
     t[19393] = "ModellElementDiagrammElement";
     t[19396] = "ExpressionBuilder.TrigonometricFunctions.TangensHyperbolicus";
     t[19397] = "Tangens hyperbolicus";
     t[19398] = "ExternalConnect.Dialog.TreeInfo";
     t[19399] = "Im Plugin-Verzeichnis gefundene Klassen, die die Plugin-Schnittstelle unterst\u00fctzen";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_4 (java.lang.String[] t) {
     t[19408] = "Statistics.WaitingTimesByClientTypes";
     t[19409] = "Wartezeiten nach Kundentypen";
     t[19414] = "Statistics.XML.Element.WaitingClients";
@@ -8531,7 +8525,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20586] = "DistributionFitterMultiModal.Mode";
     t[20587] = "Modalwert der Verteilung";
     t[20590] = "ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation.Info";
-    t[20591] = "<p>Berechnet den Variationskoeffizienten der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>cv(1;2;3;4)</tt> liefert 0,51639777949432.</p>";
+    t[20591] = "<p>Berechnet den Variationskoeffizienten der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>cv(1;2;3;4)</tt> liefert %s.</p>";
     t[20596] = "StationStatistics.MaxThroughputIntervalLength.ColNames";
     t[20597] = "Stationen";
     t[20602] = "ExpressionBuilder.CommandName.Resource";
@@ -8633,7 +8627,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20820] = "Examples.Transporter";
     t[20821] = "Transport von Bauteilen mit Hilfe von Transportern";
     t[20828] = "ExpressionBuilder.TrigonometricFunctions.ArcusCotangens.Info";
-    t[20829] = "<p>Berechnet den Wert der Arcus-Cotangens-Funktion des als Parameter \u00fcbergebenen Wertes. Der Winkel wird dabei in <b>Bogenma\u00df</b> (Vollkreis=2pi) angenommen.</p><p>Beispiel: <tt>arccot(0)</tt> liefert 1,5707963267949.</p>";
+    t[20829] = "<p>Berechnet den Wert der Arcus-Cotangens-Funktion des als Parameter \u00fcbergebenen Wertes. Der Winkel wird dabei in <b>Bogenma\u00df</b> (Vollkreis=2pi) angenommen.</p><p>Beispiel: <tt>arccot(0)</tt> liefert %s.</p>";
     t[20834] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.HistogramMultiple";
     t[20835] = "<p>Liefert den Anteil der Kunden, der an der Bedienstation, deren ID in dem Parameter angegeben wurde, einen bestimmten Zeitbereich (in Sekunden) warten musste (ausschlie\u00dflich der unteren angegebenen und einschlie\u00dflich der oberen angegebenen Grenze).</p>";
     t[20836] = "ModelGenerator.ServiceDistribution";
@@ -8669,7 +8663,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[20928] = "Surface.AnalogAssign.Dialog.Expression";
     t[20929] = "Ausdruck";
     t[20932] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DistributionFunctionInfo";
-    t[20933] = "<p>Berechnet den Wert der Verteilungsfunktion der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>\n<p>Beispiel: <tt>GammaDist(7;5;3;1)</tt> liefert 0,087695308502.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
+    t[20933] = "<p>Berechnet den Wert der Verteilungsfunktion der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>\n<p>Beispiel: <tt>GammaDist(7;5;3;1)</tt> liefert %s.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
     t[20934] = "Optimizer.ControlVariableEdit.Title";
     t[20935] = "Kontrollvariable bearbeiten";
     t[20938] = "Surface.Rectangle.Dialog.Rounding.Off";
@@ -9385,7 +9379,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[22610] = "Main.Menu.Help.References";
     t[22611] = "Referenzen";
     t[22612] = "ExpressionBuilder.MathematicalFunctions.IntegerPart.Info";
-    t[22613] = "<p>Liefert den Ganzzahl-Anteil des als Parameters \u00fcbergebenen Wertes.</p><p>Beispiel: <tt>int(3,4)</tt> liefert 3.</p>";
+    t[22613] = "<p>Liefert den Ganzzahl-Anteil des als Parameters \u00fcbergebenen Wertes.</p><p>Beispiel: <tt>int(%s)</tt> liefert 3.</p>";
     t[22614] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.HistogramMultiple";
     t[22615] = "<p>Liefert den Anteil der Kunden, der einen bestimmten Zeitbereich (in Sekunden) als Transferzeit verbracht hat (ausschlie\u00dflich der unteren angegebenen und einschlie\u00dflich der oberen angegebenen Grenze).</p>";
     t[22616] = "Surface.Connection.ArrowMode.Global";
@@ -10034,18 +10028,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[24213] = "Maximale Breite des Logos (in mm)";
     t[24216] = "FitDialog.TypeSelect.MultiModal.LogNormal";
     t[24217] = "Multimodale Verteilung in Log-Normalverteilungen zerlegen";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_5 (java.lang.String[] t) {
     t[24218] = "Surface.TransportSource.XML.TimeBase";
     t[24219] = "Zeitbasis";
     t[24220] = "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info.Plural";
     t[24221] = "An der Station befinden sich %s Kunden.";
     t[24222] = "Surface.Dispose.Dialog.Table.Select";
     t[24223] = "Ausgabetabellendatei ausw\u00e4hlen";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_5 (java.lang.String[] t) {
     t[24228] = "Surface.Barrier.XML.NeedAllSignalsToRelease";
     t[24229] = "ModellElementSchrankeAlleSignaleBenoetigt";
     t[24232] = "Surface.TankSensor.Dialog.Threshold.Direction.Down";
@@ -10349,7 +10343,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25020] = "Surface.XML.TimedChecks.Error";
     t[25021] = "Der in Element %s angegebene Wert \"%s\" f\u00fcr die Abst\u00e4nde der zeitabh\u00e4ngigen Pr\u00fcfungen ist ung\u00fcltig. Ea muss eine positive Ganzzahl (an Millisekunden) angegeben werden.";
     t[25024] = "Statistics.ErlangCompare.Info.Source.CV";
-    t[25025] = "Der Variationskoeffizient der Zwischenankunftszeiten betr\u00e4gt %s. Die Formel geht jedoch von 1,0 aus.";
+    t[25025] = "Der Variationskoeffizient der Zwischenankunftszeiten betr\u00e4gt %s. Die Formel geht jedoch von %s aus.";
     t[25032] = "Main.Menu.Extras.ExecuteCommand";
     t[25033] = "Kommandozeilenbefehl ausf\u00fchren...";
     t[25034] = "QuickAccess";
@@ -10543,7 +10537,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25576] = "Surface.UserStatistic.Table.Edit.IsContinuous.No";
     t[25577] = "Diskrete Werte";
     t[25580] = "ExpressionBuilder.StatisticalFunctions.Variance.Info";
-    t[25581] = "<p>Berechnet die korrigierte Stichprobenvarianz der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>var(1;2;3;4)</tt> liefert 1,6666666666667.</p>";
+    t[25581] = "<p>Berechnet die korrigierte Stichprobenvarianz der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>var(1;2;3;4)</tt> liefert %s.</p>";
     t[25582] = "JDistributionEditor.Load.Title";
     t[25583] = "Verteilung laden";
     t[25586] = "Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue.Error.Title";
@@ -11341,7 +11335,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[27498] = "XML.OptimizerNotActive.NoInfo";
     t[27499] = "Optimierer-Einstellungendatei nicht laden.";
     t[27500] = "ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient.Info";
-    t[27501] = "<p>Berechnet den quadrierten Variationskoeffizienten der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>scv(1;2;3;4)</tt> liefert 0,26666666666667.</p>";
+    t[27501] = "<p>Berechnet den quadrierten Variationskoeffizienten der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>scv(1;2;3;4)</tt> liefert %s.</p>";
     t[27504] = "Surface.SourceTable.Dialog.TableMode.Direct";
     t[27505] = "Tabelle direkt verwenden";
     t[27508] = "Surface.Reference.Dialog.Element";
@@ -12040,18 +12034,18 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29219] = "Kosten pro gearbeiteter Stunde f\u00fcr Bedienergruppe \"%s\"";
     t[29226] = "ModelDescription.Process.ResourceCheckOrder.InOrder";
     t[29227] = "In angegebener Reihenfolge";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_6 (java.lang.String[] t) {
     t[29228] = "ExpressionCalculator.Toolbar.Load";
     t[29229] = "Laden";
     t[29230] = "ModelDescription.Match.Mode.Temporary";
     t[29231] = "Tempor\u00e4ren Batch erzeugen";
     t[29232] = "Surface.Process.XML.CampaignMode";
     t[29233] = "ModellElementKampagnenModus";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_6 (java.lang.String[] t) {
     t[29236] = "Statistics.XML.Disribution.StepWideError";
     t[29237] = "Die in dem Element \"%s\" angegebene Schrittweite ist ung\u00fcltig.";
     t[29246] = "Dialog.Button.TextGenerator.ImageSize";
@@ -12179,7 +12173,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29498] = "Surface.HoldMulti.Name.Short";
     t[29499] = "Multibedingung";
     t[29500] = "ExpressionBuilder.MathematicalFunctions.ZetaFunction.Info";
-    t[29501] = "<p>Liefert den Wert des Zeta-Funktion f\u00fcr den als Parameter \u00fcbergebenen Wert.</p><p>Beispiel: <tt>zeta(2)</tt> liefert 1,64493.</p>";
+    t[29501] = "<p>Liefert den Wert des Zeta-Funktion f\u00fcr den als Parameter \u00fcbergebenen Wert.</p><p>Beispiel: <tt>zeta(2)</tt> liefert %s.</p>";
     t[29510] = "Surface.Action.XML.Record.Condition.ThresholdValue";
     t[29511] = "Wert";
     t[29512] = "AutoRestore.Dialog.DeleteAllInfoYes";
@@ -12321,7 +12315,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29810] = "Simulation.Log.Batching.MinMaxInfo";
     t[29811] = "Kunde: %s, Station: %s, wartende Kunden: %d/%d - Minimale Batchgr\u00f6\u00dfe erreicht, aber maximale Batch-Gr\u00f6\u00dfe noch nicht";
     t[29820] = "ExpressionBuilder.MathematicalConstants.tau.Info";
-    t[29821] = "<p>Liefert Durchmesser des Einheitskreises<br>&tau;&asymp;6,28318530717959.</p>";
+    t[29821] = "<p>Liefert Durchmesser des Einheitskreises<br>&tau;&asymp;%s.</p>";
     t[29824] = "Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes";
     t[29825] = "Verteilung der Anzahlen an Kunden in den Warteschlangen an den Stationen (nach Kundentypen)";
     t[29826] = "SettingsDialog.WindowSizeProgrmStart.FullScreen";
@@ -12345,7 +12339,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29870] = "Surface.Process.XML.Distribution.ClientType";
     t[29871] = "Kundentyp";
     t[29874] = "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DensityInfo";
-    t[29875] = "<p>Berechnet den Wert der Dichte der Normalverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem zweiten und dritten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Beispiel: <tt>NormalDist(7;5;3;0)</tt> liefert 0,10648266850745.</p>";
+    t[29875] = "<p>Berechnet den Wert der Dichte der Normalverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem zweiten und dritten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Beispiel: <tt>NormalDist(7;5;3;0)</tt> liefert %s.</p>";
     t[29876] = "Surface.AssignString.Dialog.Condition.Error.Title";
     t[29877] = "Ung\u00fcltige Bedingung";
     t[29878] = "Optimizer.Target.Minimize";
@@ -12467,7 +12461,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30124] = "Statistic.FastAccess.SelectXMLTag.InsertMethod.AtTheEnd";
     t[30125] = "Am Ende";
     t[30130] = "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DistributionFunctionInfo";
-    t[30131] = "<p>Berechnet den Wert der Verteilungsfunktion der Normalverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem zweiten und dritten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Beispiel: <tt>NormalDist(7;5;3;1)</tt> liefert 0,74750746245308.</p>";
+    t[30131] = "<p>Berechnet den Wert der Verteilungsfunktion der Normalverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem zweiten und dritten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Beispiel: <tt>NormalDist(7;5;3;1)</tt> liefert %s.</p>";
     t[30132] = "ExpressionCalculator.Tab.Clients.TransferWaitingTime";
     t[30133] = "Mittlere Transferzeit der Kunden";
     t[30134] = "Optimizer.Tab.Optimization.Step.Result.Save.ErrorInfo";
@@ -12587,7 +12581,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[30380] = "Animation.Icon.Computer";
     t[30381] = "Computer";
     t[30382] = "ExpressionBuilder.Rounding.floor.Info";
-    t[30383] = "<p>Rundet den als Parameter \u00fcbergebenen Wert zur n\u00e4chsten ganzen Zahl ab.</p><p>Beispiel: <tt>floor(1,9)</tt> liefert 1.</p>";
+    t[30383] = "<p>Rundet den als Parameter \u00fcbergebenen Wert zur n\u00e4chsten ganzen Zahl ab.</p><p>Beispiel: <tt>floor(%s)</tt> liefert 1.</p>";
     t[30386] = "Main.Menu.Extras.FitDistribution";
     t[30387] = "Verteilung anpassen...";
     t[30392] = "ModelDescription.Batch.NewClientType";
@@ -13525,7 +13519,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[32604] = "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect";
     t[32605] = "Irwin-Hall-Verteilung (direkte Kenngr\u00f6\u00dfen)";
     t[32610] = "ExpressionBuilder.StatisticalFunctions.Median.Info";
-    t[32611] = "<p>Berechnet den Median der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>median(1;2;3;100)</tt> liefert 2,5.</p>";
+    t[32611] = "<p>Berechnet den Median der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>median(1;2;3;100)</tt> liefert %s.</p>";
     t[32612] = "Editor.DialogBase.Search.Table";
     t[32613] = "Tabelle";
     t[32614] = "Surface.AnimationPointerMeasuring.Tooltip";
@@ -13924,12 +13918,10 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33573] = "<p>Liefert den Exzess (W\u00f6lbung) der Statistik-Kenngr\u00f6\u00dfe die als Wert <tt>nr</tt> (1-basierend) an Statistik-Station id aufgezeichnet wird.</p>";
     t[33580] = "Surface.AnimationTable.XML.Cell.Mode.Expression";
     t[33581] = "Ausdruck";
-    t[33584] = "ModelGenerator.ServiceDistribution.LogNormalHighCV";
-    t[33585] = "Lognormalverteilung (CV[S]=0,75)";
     t[33586] = "Surface.SourceMulti.XML.Source";
     t[33587] = "ModellElementMehrfachQuelleDaten";
     t[33590] = "ExpressionBuilder.MathematicalConstants.e.Info";
-    t[33591] = "<p>Liefert die eulersche Zahl<br>e&asymp;2,718281828459.</p>";
+    t[33591] = "<p>Liefert die eulersche Zahl<br>e&asymp;%s.</p>";
     t[33594] = "Simulation.Log.DecideByKeyValue";
     t[33595] = "Verzweigen (Texteigenschaft)";
     t[33602] = "Surface.Delay.Dialog.DelayTimeIs.Nothing";
@@ -13967,7 +13959,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33658] = "ModelDescription.AnimationPause.ClientType";
     t[33659] = "Ausl\u00f6sen bei Kundentyp";
     t[33660] = "ExpressionBuilder.TrigonometricFunctions.ArcusCosinus.Info";
-    t[33661] = "<p>Berechnet den Wert der Arcus-Cosinus-Funktion des als Parameter \u00fcbergebenen Wertes. Der Winkel wird dabei in <b>Bogenma\u00df</b> (Vollkreis=2pi) angenommen.</p><p>Beispiel: <tt>arccos(0)</tt> liefert 1,5707963267949.</p>";
+    t[33661] = "<p>Berechnet den Wert der Arcus-Cosinus-Funktion des als Parameter \u00fcbergebenen Wertes. Der Winkel wird dabei in <b>Bogenma\u00df</b> (Vollkreis=2pi) angenommen.</p><p>Beispiel: <tt>arccos(0)</tt> liefert %s.</p>";
     t[33664] = "Simulation.Log.Release.InfoDelay2";
     t[33665] = "Station: %s";
     t[33668] = "Statistic.Viewer.Report.Settings.Reset.AllPages";
@@ -14046,12 +14038,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33903] = "Verzweigen und Teleportieren (Stationseigenschaften)";
     t[33906] = "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution";
     t[33907] = "Halbe Normalverteilung";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_7 (java.lang.String[] t) {
     t[33912] = "Statistics.Variables";
     t[33913] = "Globale Variablen";
     t[33924] = "ExpressionCalculator.Results.NoResult";
@@ -14060,6 +14046,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33931] = "<p>Liefert die Summe der bisher an der Bedienstation, deren ID in dem Parameter angegeben wurde, entstandenen Verweilzeiten (\u00fcber alle Kundentypen).</p>";
     t[33934] = "Simulator.Creator.UnknownParserSymbol";
     t[33935] = "Unbekanntes Symbol";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_7 (java.lang.String[] t) {
     t[33938] = "ParameterCompare.Settings.VarianceAnalysis.ErrorInfo";
     t[33939] = "Die angegebene Anzahl an Wiederholungen \"%s\" ist ung\u00fcltig. Es muss eine positive Ganzzahl angegeben werden.";
     t[33940] = "Statistics.DistributionOfStationsResidenceTimes";
@@ -14081,7 +14073,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[33974] = "Surface.Output.XML.Element.Type.WaitingTime";
     t[33975] = "Wartezeit";
     t[33984] = "ExpressionBuilder.Rounding.ceil.Info";
-    t[33985] = "<p>Rundet den als Parameter \u00fcbergebenen Wert zur n\u00e4chsten ganzen Zahl auf.</p><p>Beispiel: <tt>ceil(1,1)</tt> liefert 2.</p>";
+    t[33985] = "<p>Rundet den als Parameter \u00fcbergebenen Wert zur n\u00e4chsten ganzen Zahl auf.</p><p>Beispiel: <tt>ceil(%s)</tt> liefert 2.</p>";
     t[33988] = "ScriptPopup.Simulation.LastClientType";
     t[33989] = "Letzter Kundentyp";
     t[33992] = "SystemInfo.Tools.UserInterface.MemoryUsage";
@@ -14331,7 +14323,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34616] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingAvg";
     t[34617] = "Mittlere Wartezeitkosten";
     t[34622] = "ExpressionBuilder.ProbabilityDistributions.UniformDistribution.DistributionFunctionInfo";
-    t[34623] = "<p>Berechnet den Wert der Verteilungsfunktion der Gleichverteilung an der als ersten Parameter angegebenen Stelle und \u00fcber den als zweiten und dritten Parameter angegebenen Bereich [a;b].</p>\n<p>Beispiel: <tt>UniformDist(2,5;2;4;1)</tt> liefert 0,25.</p>";
+    t[34623] = "<p>Berechnet den Wert der Verteilungsfunktion der Gleichverteilung an der als ersten Parameter angegebenen Stelle und \u00fcber den als zweiten und dritten Parameter angegebenen Bereich [a;b].</p>\n<p>Beispiel: <tt>UniformDist(%s;2;4;1)</tt> liefert %s.</p>";
     t[34626] = "ExpressionBuilder.Error.Title";
     t[34627] = "Ung\u00fcltiger Ausdruck";
     t[34632] = "Statistic.Viewer.Report.Settings.MenuItem";
@@ -14447,7 +14439,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34934] = "Surface.TankValveSetup.Table.Edit.Tank.ErrorTitle";
     t[34935] = "Kein Tank gew\u00e4hlt";
     t[34940] = "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DistributionFunctionInfo";
-    t[34941] = "<p>Berechnet den Wert der Verteilungsfunktion der Log-Normalverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem zweiten und dritten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Beispiel: <tt>LogNormalDist(7;5;3;1)</tt> liefert 0,81166409548103.</p>";
+    t[34941] = "<p>Berechnet den Wert der Verteilungsfunktion der Log-Normalverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem zweiten und dritten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Beispiel: <tt>LogNormalDist(7;5;3;1)</tt> liefert %s.</p>";
     t[34942] = "Optimizer.Error.NoStatistics";
     t[34943] = "Die Simulation hat kein Statistikergebnisse geliefert.";
     t[34952] = "Surface.Output.XML.Element.TypeDescription.ProcessTime";
@@ -14781,7 +14773,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[35792] = "ExpressionBuilder.ClientsInSystemQueue";
     t[35793] = "Wartende Kunden im System";
     t[35796] = "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DensityInfo";
-    t[35797] = "<p>Berechnet den Wert der Dichte der Exponentialverteilung an der als ersten Parameter angegebenen Stelle und mit dem Verteilungsparameter &lambda; gem\u00e4\u00df dem Kehrwert des zweiten Parameters.</p>\n<p>Beispiel: <tt>ExpDist(5;2;0)</tt> liefert 0,04104249931195.</p>";
+    t[35797] = "<p>Berechnet den Wert der Dichte der Exponentialverteilung an der als ersten Parameter angegebenen Stelle und mit dem Verteilungsparameter &lambda; gem\u00e4\u00df dem Kehrwert des zweiten Parameters.</p>\n<p>Beispiel: <tt>ExpDist(5;2;0)</tt> liefert %s.</p>";
     t[35798] = "Main.Menu.View.MouseWheelZoom.FixWindowPosition";
     t[35799] = "Fenstermitte fixieren";
     t[35800] = "NotesDialog.Edit";
@@ -15827,7 +15819,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38386] = "Surface.AnimationPieChart.XML.DiagramDrawMode";
     t[38387] = "ModellElementSegmentDarstellung";
     t[38388] = "ExpressionBuilder.BasicArithmetics.Percent.Info";
-    t[38389] = "<p>Interpretiert den vor dem %-Zeichen stehenden Wert als Prozentwert, d.h. dividiert ihn durch 100.</p><p>Beispiel: <tt>30%</tt> liefert 0,3.</p>";
+    t[38389] = "<p>Interpretiert den vor dem %%-Zeichen stehenden Wert als Prozentwert, d.h. dividiert ihn durch 100.</p><p>Beispiel: <tt>30%%</tt> liefert %s.</p>";
     t[38390] = "ModelDescription.AnalogValue.InitialValue";
     t[38391] = "Startwert";
     t[38404] = "Statistic.Viewer.Report.NoTablesSelected.Title";
@@ -16052,12 +16044,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38941] = "MinimumN";
     t[38946] = "Surface.AnimationTrafficLights.XML.Condition";
     t[38947] = "ModellElementAmpelBedingung";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_8 (java.lang.String[] t) {
     t[38948] = "Surface.PopupMenu.ParameterCompare.ChangeVariableValue";
     t[38949] = "Parameterreihe: Initiale Variablenwerte";
     t[38962] = "Surface.AnalogAssign.Dialog.Mode";
@@ -16066,6 +16052,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[38967] = "Mitteleres Aquamarine";
     t[38976] = "FitDialogMultiModalGenerator.StandardDeviation";
     t[38977] = "Standardabweichung";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_8 (java.lang.String[] t) {
     t[38980] = "Surface.Input.Dialog.Variable.ProcessTime";
     t[38981] = "Die Pseudovariable \"p\" repr\u00e4sentiert die Bedienzeit des Kunden.";
     t[38982] = "Statistics.XML.ExpressionData";
@@ -16303,7 +16295,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39556] = "Surface.AnimationTable.Infotext";
     t[39557] = "Tabellen k\u00f6nnen auf der Zeichenfl\u00e4che sowohl statische Inhalte als auch die Ergebnisse von Rechenausdr\u00fccken darstellen.";
     t[39558] = "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DensityInfo";
-    t[39559] = "<p>Berechnet den Wert der Dichte der Log-Normalverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem zweiten und dritten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Beispiel: <tt>LogNormalDist(7;5;3;0)</tt> liefert 3,40712431368569.</p>";
+    t[39559] = "<p>Berechnet den Wert der Dichte der Log-Normalverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mu; und &sigma; gem\u00e4\u00df dem zweiten und dritten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n<p>Beispiel: <tt>LogNormalDist(7;5;3;0)</tt> liefert %s.</p>";
     t[39570] = "Window.CannotShowModel.Info";
     t[39571] = "Es liegen noch keine Statistikdaten vor, zu denen das zugeh\u00f6rige Modell angezeigt werden k\u00f6nnte.";
     t[39572] = "Simulation.Creator.InvalidTransportTime";
@@ -17919,7 +17911,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43502] = "ExpressionBuilder.ProbabilityDistributions.FDistribution";
     t[43503] = "F-Verteilung";
     t[43512] = "ExpressionBuilder.StatisticalFunctions.Mean.Info";
-    t[43513] = "<p>Berechnet den arithmetischen Mittelwert der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>mean(1;2;3;4)</tt> liefert 2,5.</p>";
+    t[43513] = "<p>Berechnet den arithmetischen Mittelwert der als Parameter \u00fcbergebenen Werte.</p><p>Beispiel: <tt>mean(1;2;3;4)</tt> liefert %s.</p>";
     t[43514] = "ScriptPopup.Output.Separator.Semicolon.Hint";
     t[43515] = "Semikolons als Trenner verwenden";
     t[43516] = "ExternalConnect.Dialog.Compile.ErrorNotDirectory";
@@ -18058,12 +18050,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43817] = "ModellElementSpeichernEndeTabelle";
     t[43822] = "Transporter.Group.Edit.Dialog.DownTime.Expression";
     t[43823] = "Ausdruck";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_9 (java.lang.String[] t) {
     t[43826] = "Optimizer.Tab.ControlVariables.Constrains";
     t[43827] = "Nebenbedingungen";
     t[43830] = "Surface.Match.Dialog.TransferData.Numbers";
@@ -18072,6 +18058,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[43833] = "Beim Laden eines ModellElementZurueckschrecken-Elements.";
     t[43834] = "UserTemplates.TemplatesDialog.Use";
     t[43835] = "In Modell einf\u00fcgen";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_9 (java.lang.String[] t) {
     t[43836] = "Simulation.Creator.TankValveSetup.IDIsNoTank";
     t[43837] = "An Element id=%d wurde eine Ventilkonfiguration f\u00fcr Tank id=%d angegeben. Es existiert jedoch kein Tank mit dieser ID.";
     t[43838] = "Surface.Source.XML.DataStream.InterArrivalTimes";
@@ -19989,7 +19981,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48558] = "ExpressionBuilder.SimulationCharacteristics.Kurt";
     t[48559] = "Exzess (W\u00f6lbung)";
     t[48562] = "ExpressionBuilder.MathematicalConstants.Pi.Info";
-    t[48563] = "<p>Liefert die Kreiszahl<br>Pi&asymp;3,1415926535898.</p>";
+    t[48563] = "<p>Liefert die Kreiszahl<br>Pi&asymp;%s.</p>";
     t[48564] = "Surface.XML.TransportParking.WaitingCapacity";
     t[48565] = "ModellElementTransporterWarteplaetze";
     t[48574] = "Statistics.XML.Element.ResidenceClients";
@@ -20064,12 +20056,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48725] = "Parameterreihe: Standardabweichung der Verz\u00f6gerung variieren";
     t[48740] = "Optimizer.SaveBestResult.Title";
     t[48741] = "Optimierung abgebrochen";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_10 (java.lang.String[] t) {
     t[48744] = "Simulation.Log.WaitingCancelation.Info";
     t[48745] = "Kunde: %s, Station: %s";
     t[48746] = "Statistic.FastAccess.Template.ResourceUtilization.rho";
@@ -20078,6 +20064,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48759] = "Kunde: %s, Station: %s, Verzweigung zu Ausgang %d von %d";
     t[48760] = "ParameterCompare.Mode.ArrivalCount";
     t[48761] = "Anzahl an Ank\u00fcnften";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_10 (java.lang.String[] t) {
     t[48764] = "ScriptPopup.Client.ValueNumber.Get.Hint";
     t[48765] = "Liest eine kundenbasierende Zahlen-Eigenschaft aus";
     t[48766] = "ModelDescription.InteractiveCheckbox.Description.Variable";
@@ -20421,7 +20413,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[49588] = "Surface.SourceTable.Dialog.Table.Preview.TabRaw";
     t[49589] = "Tabellendaten";
     t[49596] = "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DistributionFunctionInfo";
-    t[49597] = "<p>Berechnet den Wert der Verteilungsfunktion der Erlang-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern n und &lambda; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>\n<p>Beispiel: <tt>ErlangDist(7;5;3;1)</tt> liefert 0,087695308502.</p>";
+    t[49597] = "<p>Berechnet den Wert der Verteilungsfunktion der Erlang-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern n und &lambda; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>\n<p>Beispiel: <tt>ErlangDist(7;5;3;1)</tt> liefert %s.</p>";
     t[49598] = "ModelDescription.DelayJS.Mode";
     t[49599] = "Verz\u00f6gerung f\u00fcr den Kunden erfassen als";
     t[49602] = "Statistics.DistributionOfTheInterArrivalTimesBatch";
@@ -21179,7 +21171,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[51462] = "Animation.Icon.Briefcase";
     t[51463] = "Aktentasche";
     t[51464] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm.Info";
-    t[51465] = "<p>Berechnet den Logarithmus des als Parameter \u00fcbergebenen Wertes zur als Basis e&asymp;2,718281828459.</p><p>Beispiel: <tt>ln(10)</tt> liefert 2,302585092994.</p>";
+    t[51465] = "<p>Berechnet den Logarithmus des als Parameter \u00fcbergebenen Wertes zur als Basis e&asymp;%s.</p><p>Beispiel: <tt>ln(10)</tt> liefert %s.</p>";
     t[51466] = "Schedule.EditDialog.Settings";
     t[51467] = "Einstellungen";
     t[51474] = "AnimationExpression.ExpressionTemplates.CounterPart";
@@ -21793,7 +21785,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52986] = "ModelSecurityCheck.Station.WithName";
     t[52987] = "%s (id=%d)";
     t[52988] = "ModelGenerator.Model.Description.Properties.ServiceLognormal";
-    t[52989] = "Lognormalverteilte Bedienzeiten (CV[S]=0,25)";
+    t[52989] = "Log-normalverteilte Bedienzeiten";
     t[53010] = "Surface.XML.Level";
     t[53011] = "Niveau";
     t[53014] = "Color.20B2AA";
@@ -22070,12 +22062,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53707] = "Name der verwendeten Javascript-Umgebung als Variable.";
     t[53708] = "Statistic.FastAccess.Template.Expression";
     t[53709] = "Ausdruck";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_11 (java.lang.String[] t) {
     t[53712] = "Surface.XML.LineMode";
     t[53713] = "ModellElementVerbindungsdarstellungsart";
     t[53718] = "Surface.XML.Tank.Valve.TimeBase.PerSecond";
@@ -22084,6 +22070,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53721] = "Simulationssystem";
     t[53724] = "Distribution.LogNormalWikipedia";
     t[53725] = "https://de.wikipedia.org/wiki/Logarithmische_Normalverteilung";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_11 (java.lang.String[] t) {
     t[53730] = "Editor.Dialog.Tab.Simulation.Criteria.NoKeepDialogOpen";
     t[53731] = "Dialog ge\u00f6ffnet lassen, um die Einstellungen zu ver\u00e4ndern.";
     t[53736] = "Surface.Line.Dialog.Arrow.Medium";
@@ -22446,8 +22438,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54581] = "Zeitwert";
     t[54582] = "ModelDescription.Action.Condition.Threshold.Up";
     t[54583] = "beim \u00dcberschreiten des Schwellenwerts ausl\u00f6sen";
-    t[54586] = "ModelGenerator.Model.Description.Properties.ServiceLognormalVeryHighCV";
-    t[54587] = "Lognormalverteilte Bedienzeiten (CV[S]=1,5)";
+    t[54586] = "Surface.Set.Table.Add";
+    t[54587] = "Zuweisung hinzuf\u00fcgen";
     t[54592] = "ExpressionBuilder.ProbabilityDistributions.PertDistribution.DensityInfo";
     t[54593] = "<p>Berechnet den Wert der Dichte der Pert-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;c] und dem Wert b mit der h\u00f6chsten Wahrscheinlichkeitsdichte gem\u00e4\u00df dem zweiten (a), dem dritten (b) und dem vierten (c) Parameter.</p>";
     t[54598] = "Schedule.And";
@@ -22959,7 +22951,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[55818] = "LogSimulation.Heading";
     t[55819] = "Simulationsergebnisse";
     t[55820] = "ExpressionBuilder.Rounding.trunc.Info";
-    t[55821] = "<p>Schneidet die Nachkommastellen der als Parameter \u00fcbergebenen Zahl ab.</p><p>Beispiele: <tt>trunc(1,4)</tt> und <tt>trunc(1,5)</tt> liefern 1 und <tt>trunc(-1,5)</tt> und <tt>trunc(-1,4)</tt> liefern -1.</p>";
+    t[55821] = "<p>Schneidet die Nachkommastellen der als Parameter \u00fcbergebenen Zahl ab.</p><p>Beispiele: <tt>trunc(%s)</tt> und <tt>trunc(%s)</tt> liefern 1 und <tt>trunc(%s)</tt> und <tt>trunc(%s)</tt> liefern -1.</p>";
     t[55822] = "Statistics.XML.Count";
     t[55823] = "Anzahl";
     t[55824] = "Surface.Text.Dialog.Italic";
@@ -23000,8 +22992,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[55891] = "%d Modelle wurden simuliert.";
     t[55894] = "Surface.AnimationTextSelect.XML.TextDefault";
     t[55895] = "TextVorgabe";
-    t[55896] = "Surface.Tank.Dialog.InitialValue.ErrorInfo";
-    t[55897] = "Der angegebene initiale F\u00fcllstand \"%s\" ist ung\u00fcltig. Es muss eine nichtnegative Zahl angegeben werden.";
     t[55902] = "Surface.Connection.ArrowMode.Medium";
     t[55903] = "Mittel";
     t[55904] = "Statistics.SystemData.RunDate";
@@ -23509,7 +23499,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[57224] = "Distribution.Unknown";
     t[57225] = "unbekannte Verteilung";
     t[57226] = "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DensityInfo";
-    t[57227] = "<p>Berechnet den Wert der Dichte der Beta-Verteilung an der als ersten Parameter angegebenen Stelle mit unterer Grenze, obererer Grenze, Erwartungswert und Standardabweichung gem\u00e4\u00df dem zweiten bis f\u00fcnftem Parameter.</p><p>Beispiel: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> liefert 1,31344828230159.</p>";
+    t[57227] = "<p>Berechnet den Wert der Dichte der Beta-Verteilung an der als ersten Parameter angegebenen Stelle mit unterer Grenze, obererer Grenze, Erwartungswert und Standardabweichung gem\u00e4\u00df dem zweiten bis f\u00fcnftem Parameter.</p><p>Beispiel: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> liefert %s.</p>";
     t[57228] = "Examples.Type.Real";
     t[57229] = "Reale Beispiele";
     t[57232] = "Statistics.Filter.EngineInitError.General";
@@ -23569,7 +23559,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[57390] = "Surface.Input.Dialog.Variable.ErrorTitle";
     t[57391] = "Ung\u00fcltiger Variablenname";
     t[57392] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction.Info";
-    t[57393] = "<p>Berechnet den Wert der Exponentialfunktion mit dem als Parameter \u00fcbergebenen Wert.</p><p>Beispiel: <tt>exp(10)</tt> liefert 22026,465794807.</p><p>Diese Funktion ist gleichwertig zu <tt>e^Wert</tt>.</p>";
+    t[57393] = "<p>Berechnet den Wert der Exponentialfunktion mit dem als Parameter \u00fcbergebenen Wert.</p><p>Beispiel: <tt>exp(10)</tt> liefert %s.</p><p>Diese Funktion ist gleichwertig zu <tt>e^Wert</tt>.</p>";
     t[57394] = "Surface.Decide.XML.Connection.Value";
     t[57395] = "Texteigenschaft";
     t[57398] = "ParameterCompare.Table.AddModelByAssistant.Column.Min";
@@ -24076,12 +24066,6 @@ public class Messages_de extends java.util.ResourceBundle {
     t[58635] = "Zum Modell-Editor zur\u00fcckkehren.";
     t[58640] = "Surface.Action.Dialog.Edit.Tabs.Action.Assign.Variable.ErrorTitle";
     t[58641] = "Ung\u00fcltiger Variablenname";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_12 (java.lang.String[] t) {
     t[58642] = "ProxySettings.UseAuthentification";
     t[58643] = "Mit Nutzername und Passwort am Proxy-Server anmelden";
     t[58650] = "Color.4682B4";
@@ -24092,6 +24076,12 @@ public class Messages_de extends java.util.ResourceBundle {
     t[58659] = "Ausgabedatei";
     t[58660] = "Surface.SourceTable.Dialog.Table.Preview.Header.Time";
     t[58661] = "Zeitpunkt";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_12 (java.lang.String[] t) {
     t[58664] = "Statistics.XML.Value";
     t[58665] = "Wert";
     t[58680] = "Optimizer.XML.IntegerNumber";
@@ -24339,7 +24329,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[59302] = "Statistics.Average";
     t[59303] = "Mittelwert";
     t[59304] = "Statistics.ErlangCompare.Info.Process.CancelCV";
-    t[59305] = "Der Variationskoeffizient der Wartezeittoleranzen betr\u00e4gt %s. Die Formel geht jedoch von 1,0 aus.";
+    t[59305] = "Der Variationskoeffizient der Wartezeittoleranzen betr\u00e4gt %s. Die Formel geht jedoch von %s aus.";
     t[59308] = "Surface.InputDDE.Dialog.Variable.ErrorInfo";
     t[59309] = "Der angegebene Variablenname \"%s\" ist ung\u00fcltig.";
     t[59312] = "Simulation.Log.Balking.NormalProcessing";

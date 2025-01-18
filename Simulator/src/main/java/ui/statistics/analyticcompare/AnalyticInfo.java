@@ -249,9 +249,9 @@ public class AnalyticInfo {
 		info.calculated.append("P1"+StatisticTools.formatNumberExt(P1,2,true)+"\n");
 
 		info.setResults(ENQ,EN,EW,EV,simulationResults);
-		if (source.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Source.CV"),StatisticTools.formatNumberExt(source.cv,false)));
+		if (source.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Source.CV"),StatisticTools.formatNumberExt(source.cv,false),StatisticTools.formatNumberExt(1.0,false)));
 		if (source.batch!=1) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Source.Batch"));
-		if (process.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Process.CV"),StatisticTools.formatNumberExt(process.cv,false)));
+		if (process.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Process.CV"),StatisticTools.formatNumberExt(process.cv,false),StatisticTools.formatNumberExt(1.0,false)));
 		if (process.batchMean!=1.0) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.Batch"));
 		if (process.cancelDistribution!=null) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.CancelDistribution"));
 		if (!process.distributionIsExact) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.DistributionNotExact"));
@@ -306,7 +306,7 @@ public class AnalyticInfo {
 		if (process.cv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Process.CV"),StatisticTools.formatNumberExt(process.cv,false)));
 		if (process.batchMean!=1.0) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.Batch"));
 		if (process.cancelDistribution!=null) {
-			if (process.cancelCv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Process.CancelCV"),StatisticTools.formatNumberExt(process.cv,false)));
+			if (process.cancelCv!=1.0) info.addInfo(String.format(Language.tr("Statistics.ErlangCompare.Info.Process.CancelCV"),StatisticTools.formatNumberExt(process.cv,false),StatisticTools.formatNumberExt(1.0,false)));
 		}
 		if (!process.distributionIsExact) info.addInfo(Language.tr("Statistics.ErlangCompare.Info.Process.DistributionNotExact"));
 

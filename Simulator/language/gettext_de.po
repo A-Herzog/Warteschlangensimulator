@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-03 19:08+0100\n"
+"POT-Creation-Date: 2025-01-13 08:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5800,7 +5800,7 @@ msgid "ExpressionBuilder.BasicArithmetics.Percent"
 msgstr "Prozent"
 
 msgid "ExpressionBuilder.BasicArithmetics.Percent.Info"
-msgstr "<p>Interpretiert den vor dem %-Zeichen stehenden Wert als Prozentwert, d.h. dividiert ihn durch 100.</p><p>Beispiel: <tt>30%</tt> liefert 0,3.</p>"
+msgstr "<p>Interpretiert den vor dem %%-Zeichen stehenden Wert als Prozentwert, d.h. dividiert ihn durch 100.</p><p>Beispiel: <tt>30%%</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.BasicArithmetics.Plus"
 msgstr "Plus"
@@ -6456,13 +6456,13 @@ msgid "ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction"
 msgstr "Exponentialfunktion"
 
 msgid "ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction.Info"
-msgstr "<p>Berechnet den Wert der Exponentialfunktion mit dem als Parameter übergebenen Wert.</p><p>Beispiel: <tt>exp(10)</tt> liefert 22026,465794807.</p><p>Diese Funktion ist gleichwertig zu <tt>e^Wert</tt>.</p>"
+msgstr "<p>Berechnet den Wert der Exponentialfunktion mit dem als Parameter übergebenen Wert.</p><p>Beispiel: <tt>exp(10)</tt> liefert %s.</p><p>Diese Funktion ist gleichwertig zu <tt>e^Wert</tt>.</p>"
 
 msgid "ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm"
 msgstr "Natürlicher Logarithmus"
 
 msgid "ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm.Info"
-msgstr "<p>Berechnet den Logarithmus des als Parameter übergebenen Wertes zur als Basis e&asymp;2,718281828459.</p><p>Beispiel: <tt>ln(10)</tt> liefert 2,302585092994.</p>"
+msgstr "<p>Berechnet den Logarithmus des als Parameter übergebenen Wertes zur als Basis e&asymp;%s.</p><p>Beispiel: <tt>ln(10)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.Info"
 msgstr "Per Doppelklick auf einen Eintrag in der Baumstruktur kann das Symbol in den Ausdruck eingefügt werden."
@@ -6525,19 +6525,19 @@ msgid "ExpressionBuilder.MathematicalConstants.Pi"
 msgstr "Kreiszahl Pi"
 
 msgid "ExpressionBuilder.MathematicalConstants.Pi.Info"
-msgstr "<p>Liefert die Kreiszahl<br>Pi&asymp;3,1415926535898.</p>"
+msgstr "<p>Liefert die Kreiszahl<br>Pi&asymp;%s.</p>"
 
 msgid "ExpressionBuilder.MathematicalConstants.e"
 msgstr "Eulersche Zahl e"
 
 msgid "ExpressionBuilder.MathematicalConstants.e.Info"
-msgstr "<p>Liefert die eulersche Zahl<br>e&asymp;2,718281828459.</p>"
+msgstr "<p>Liefert die eulersche Zahl<br>e&asymp;%s.</p>"
 
 msgid "ExpressionBuilder.MathematicalConstants.tau"
 msgstr "Einheitskreisdurchmesser Tau"
 
 msgid "ExpressionBuilder.MathematicalConstants.tau.Info"
-msgstr "<p>Liefert Durchmesser des Einheitskreises<br>&tau;&asymp;6,28318530717959.</p>"
+msgstr "<p>Liefert Durchmesser des Einheitskreises<br>&tau;&asymp;%s.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions"
 msgstr "Mathematische Funktionen"
@@ -6576,7 +6576,7 @@ msgid "ExpressionBuilder.MathematicalFunctions.FractionPart"
 msgstr "Nachkomma-Anteil"
 
 msgid "ExpressionBuilder.MathematicalFunctions.FractionPart.info"
-msgstr "<p>Liefert den Nachkomma-Anteil des als Parameters übergebenen Wertes.</p><p>Beispiel: <tt>frac(3,4)</tt> liefert 0,4.</p>"
+msgstr "<p>Liefert den Nachkomma-Anteil des als Parameters übergebenen Wertes.</p><p>Beispiel: <tt>frac(%s)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.GammaFunction"
 msgstr "Gamma-Funktion"
@@ -6606,7 +6606,7 @@ msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart"
 msgstr "Ganzzahl-Anteil"
 
 msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart.Info"
-msgstr "<p>Liefert den Ganzzahl-Anteil des als Parameters übergebenen Wertes.</p><p>Beispiel: <tt>int(3,4)</tt> liefert 3.</p>"
+msgstr "<p>Liefert den Ganzzahl-Anteil des als Parameters übergebenen Wertes.</p><p>Beispiel: <tt>int(%s)</tt> liefert 3.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.Inverse"
 msgstr "Inverse"
@@ -6674,7 +6674,7 @@ msgid "ExpressionBuilder.MathematicalFunctions.ZetaFunction"
 msgstr "Zeta-Funktion"
 
 msgid "ExpressionBuilder.MathematicalFunctions.ZetaFunction.Info"
-msgstr "<p>Liefert den Wert des Zeta-Funktion für den als Parameter übergebenen Wert.</p><p>Beispiel: <tt>zeta(2)</tt> liefert 1,64493.</p>"
+msgstr "<p>Liefert den Wert des Zeta-Funktion für den als Parameter übergebenen Wert.</p><p>Beispiel: <tt>zeta(2)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions"
 msgstr "Wahrscheinlichkeitsverteilungen"
@@ -6707,10 +6707,10 @@ msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect"
 msgstr "Beta-Verteilung (direkte Kenngrößen)"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DensityInfo"
-msgstr "<p>Berechnet den Wert der Dichte der Beta-Verteilung an der als ersten Parameter angegebenen Stelle mit unterer Grenze, obererer Grenze, Erwartungswert und Standardabweichung gemäß dem zweiten bis fünftem Parameter.</p><p>Beispiel: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> liefert 1,31344828230159.</p>"
+msgstr "<p>Berechnet den Wert der Dichte der Beta-Verteilung an der als ersten Parameter angegebenen Stelle mit unterer Grenze, obererer Grenze, Erwartungswert und Standardabweichung gemäß dem zweiten bis fünftem Parameter.</p><p>Beispiel: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DistributionFunctionInfo"
-msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Beta-Verteilung an der als ersten Parameter angegebenen Stelle mit unterer Grenze, obererer Grenze, Erwartungswert und Standardabweichung gemäß dem zweiten bis fünftem Parameter.</p><p>Beispiel: <tt>BetaDistDirect(7;0;10;5;2;1)</tt> liefert 0,81942684533674.</p>"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Beta-Verteilung an der als ersten Parameter angegebenen Stelle mit unterer Grenze, obererer Grenze, Erwartungswert und Standardabweichung gemäß dem zweiten bis fünftem Parameter.</p><p>Beispiel: <tt>BetaDistDirect(7;0;10;5;2;1)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Beta-Verteilung mit unterer Grenze, obererer Grenze, Erwartungswert und Standardabweichung gemäß dem ersten bis viertem Parameter.</p><p>Beispiel: <tt>BetaDistDirect(0;10;5;5)</tt>.</p>"
@@ -6875,12 +6875,12 @@ msgstr "Erlang-Verteilung"
 msgid "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DensityInfo"
 msgstr ""
 "<p>Berechnet den Wert der Dichte der Erlang-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern n und &lambda; gemäß dem zweiten und dritten Parameter.</p>\n"
-"<p>Beispiel: <tt>ErlangDist(7;5;3;0)</tt> liefert 0,03992278718149.</p>"
+"<p>Beispiel: <tt>ErlangDist(7;5;3;0)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DistributionFunctionInfo"
 msgstr ""
 "<p>Berechnet den Wert der Verteilungsfunktion der Erlang-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern n und &lambda; gemäß dem zweiten und dritten Parameter.</p>\n"
-"<p>Beispiel: <tt>ErlangDist(7;5;3;1)</tt> liefert 0,087695308502.</p>"
+"<p>Beispiel: <tt>ErlangDist(7;5;3;1)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberInfo"
 msgstr ""
@@ -6898,12 +6898,12 @@ msgstr "Exponentialverteilung"
 msgid "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DensityInfo"
 msgstr ""
 "<p>Berechnet den Wert der Dichte der Exponentialverteilung an der als ersten Parameter angegebenen Stelle und mit dem Verteilungsparameter &lambda; gemäß dem Kehrwert des zweiten Parameters.</p>\n"
-"<p>Beispiel: <tt>ExpDist(5;2;0)</tt> liefert 0,04104249931195.</p>"
+"<p>Beispiel: <tt>ExpDist(5;2;0)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DistributionFunctionInfo"
 msgstr ""
 "<p>Berechnet den Wert der Verteilungsfunktion der Exponentialverteilung an der als ersten Parameter angegebenen Stelle und mit dem Verteilungsparameter &lambda; gemäß dem Kehrwert des zweiten Parameters.</p>\n"
-"<p>Beispiel: <tt>ExpDist(5;2;1)</tt> liefert 0,9179150013761.</p>"
+"<p>Beispiel: <tt>ExpDist(5;2;1)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.RandomNumberInfo"
 msgstr ""
@@ -6972,12 +6972,12 @@ msgstr "Gamma-Verteilung"
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DensityInfo"
 msgstr ""
 "<p>Berechnet den Wert der Dichte der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gemäß dem zweiten und dritten Parameter.</p>\n"
-"<p>Beispiel: <tt>GammaDist(7;5;3;0)</tt> liefert 0,03992278718149.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>"
+"<p>Beispiel: <tt>GammaDist(7;5;3;0)</tt> liefert %s.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DistributionFunctionInfo"
 msgstr ""
 "<p>Berechnet den Wert der Verteilungsfunktion der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gemäß dem zweiten und dritten Parameter.</p>\n"
-"<p>Beispiel: <tt>GammaDist(7;5;3;1)</tt> liefert 0,087695308502.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>"
+"<p>Beispiel: <tt>GammaDist(7;5;3;1)</tt> liefert %s.</p><p>Es gelten <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> und <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberInfo"
 msgstr ""
@@ -6993,10 +6993,10 @@ msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect"
 msgstr "Gamma-Verteilung (direkte Kenngrößen)"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DensityInfo"
-msgstr "<p>Berechnet den Wert der Dichte der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gemäß dem zweiten und dritten Parameter.</p><p>Beispiel: <tt>GammaDistDirect(7;5;3;0)</tt> liefert 0,07727661686311.</p>"
+msgstr "<p>Berechnet den Wert der Dichte der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gemäß dem zweiten und dritten Parameter.</p><p>Beispiel: <tt>GammaDistDirect(7;5;3;0)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DistributionFunctionInfo"
-msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gemäß dem zweiten und dritten Parameter.</p><p>Beispiel: <tt>GammaDistDirect(7;5;3;1)</tt> liefert 0,78517079628442.</p>"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gemäß dem zweiten und dritten Parameter.</p><p>Beispiel: <tt>GammaDistDirect(7;5;3;1)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Gamma-Verteilung mit Erwartungswert und Standardabweichung gemäß dem ersten und zweiten Parameter.</p><p>Beispiel: <tt>GammaDistDirect(5;3)</tt>.</p>"
@@ -7248,12 +7248,12 @@ msgstr "Log-Normalverteilung"
 msgid "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DensityInfo"
 msgstr ""
 "<p>Berechnet den Wert der Dichte der Log-Normalverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mu; und &sigma; gemäß dem zweiten und dritten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n"
-"<p>Beispiel: <tt>LogNormalDist(7;5;3;0)</tt> liefert 3,40712431368569.</p>"
+"<p>Beispiel: <tt>LogNormalDist(7;5;3;0)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DistributionFunctionInfo"
 msgstr ""
 "<p>Berechnet den Wert der Verteilungsfunktion der Log-Normalverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mu; und &sigma; gemäß dem zweiten und dritten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n"
-"<p>Beispiel: <tt>LogNormalDist(7;5;3;1)</tt> liefert 0,81166409548103.</p>"
+"<p>Beispiel: <tt>LogNormalDist(7;5;3;1)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNumberInfo"
 msgstr ""
@@ -7336,12 +7336,12 @@ msgstr "Normalverteilung"
 msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DensityInfo"
 msgstr ""
 "<p>Berechnet den Wert der Dichte der Normalverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mu; und &sigma; gemäß dem zweiten und dritten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n"
-"<p>Beispiel: <tt>NormalDist(7;5;3;0)</tt> liefert 0,10648266850745.</p>"
+"<p>Beispiel: <tt>NormalDist(7;5;3;0)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DistributionFunctionInfo"
 msgstr ""
 "<p>Berechnet den Wert der Verteilungsfunktion der Normalverteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &mu; und &sigma; gemäß dem zweiten und dritten Parameter. &mu; ist dabei der Erwartungswert und &sigma; die Standardabweichung.</p>\n"
-"<p>Beispiel: <tt>NormalDist(7;5;3;1)</tt> liefert 0,74750746245308.</p>"
+"<p>Beispiel: <tt>NormalDist(7;5;3;1)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumberInfo"
 msgstr ""
@@ -7531,15 +7531,15 @@ msgstr "<p>Erzeugt eine Zufallszahl gemäß der U-quadratischen Verteilung mit d
 msgid "ExpressionBuilder.ProbabilityDistributions.UniformDistribution"
 msgstr "Gleichverteilung"
 
-msgid "ExpressionBuilder.ProbabilityDistributions.UniformDistribution,DensityInfo"
+msgid "ExpressionBuilder.ProbabilityDistributions.UniformDistribution.DensityInfo"
 msgstr ""
 "<p>Berechnet den Wert der Dichte der Gleichverteilung an der als ersten Parameter angegebenen Stelle und über den als zweiten und dritten Parameter angegebenen Bereich [a;b].</p>\n"
-"<p>Beispiel: <tt>UniformDist(2,5;2;4;0)</tt> liefert 0,5.</p>"
+"<p>Beispiel: <tt>UniformDist(%s;2;4;0)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.UniformDistribution.DistributionFunctionInfo"
 msgstr ""
 "<p>Berechnet den Wert der Verteilungsfunktion der Gleichverteilung an der als ersten Parameter angegebenen Stelle und über den als zweiten und dritten Parameter angegebenen Bereich [a;b].</p>\n"
-"<p>Beispiel: <tt>UniformDist(2,5;2;4;1)</tt> liefert 0,25.</p>"
+"<p>Beispiel: <tt>UniformDist(%s;2;4;1)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.UniformDistribution.RandomNumberInfo"
 msgstr ""
@@ -7606,25 +7606,25 @@ msgid "ExpressionBuilder.Rounding.ceil"
 msgstr "Aufrunden"
 
 msgid "ExpressionBuilder.Rounding.ceil.Info"
-msgstr "<p>Rundet den als Parameter übergebenen Wert zur nächsten ganzen Zahl auf.</p><p>Beispiel: <tt>ceil(1,1)</tt> liefert 2.</p>"
+msgstr "<p>Rundet den als Parameter übergebenen Wert zur nächsten ganzen Zahl auf.</p><p>Beispiel: <tt>ceil(%s)</tt> liefert 2.</p>"
 
 msgid "ExpressionBuilder.Rounding.floor"
 msgstr "Abrunden"
 
 msgid "ExpressionBuilder.Rounding.floor.Info"
-msgstr "<p>Rundet den als Parameter übergebenen Wert zur nächsten ganzen Zahl ab.</p><p>Beispiel: <tt>floor(1,9)</tt> liefert 1.</p>"
+msgstr "<p>Rundet den als Parameter übergebenen Wert zur nächsten ganzen Zahl ab.</p><p>Beispiel: <tt>floor(%s)</tt> liefert 1.</p>"
 
 msgid "ExpressionBuilder.Rounding.round"
 msgstr "Runden"
 
 msgid "ExpressionBuilder.Rounding.round.Info"
-msgstr "<p>Rundet den als Parameter übergebenen Wert zur nächsten ganzen Zahl auf oder ab.</p><p>Beispiel: <tt>round(1,4)</tt> liefert 1 und <tt>round(1,5)</tt> liefert 2.</p>"
+msgstr "<p>Rundet den als Parameter übergebenen Wert zur nächsten ganzen Zahl auf oder ab.</p><p>Beispiel: <tt>round(%s)</tt> liefert 1 und <tt>round(%s)</tt> liefert 2.</p>"
 
 msgid "ExpressionBuilder.Rounding.trunc"
 msgstr "Dezimalstellen abschneiden"
 
 msgid "ExpressionBuilder.Rounding.trunc.Info"
-msgstr "<p>Schneidet die Nachkommastellen der als Parameter übergebenen Zahl ab.</p><p>Beispiele: <tt>trunc(1,4)</tt> und <tt>trunc(1,5)</tt> liefern 1 und <tt>trunc(-1,5)</tt> und <tt>trunc(-1,4)</tt> liefern -1.</p>"
+msgstr "<p>Schneidet die Nachkommastellen der als Parameter übergebenen Zahl ab.</p><p>Beispiele: <tt>trunc(%s)</tt> und <tt>trunc(%s)</tt> liefern 1 und <tt>trunc(%s)</tt> und <tt>trunc(%s)</tt> liefern -1.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics"
 msgstr "Simulationskenngrößen"
@@ -9317,7 +9317,7 @@ msgid "ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation"
 msgstr "Vairationskoeffizient"
 
 msgid "ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation.Info"
-msgstr "<p>Berechnet den Variationskoeffizienten der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>cv(1;2;3;4)</tt> liefert 0,51639777949432.</p>"
+msgstr "<p>Berechnet den Variationskoeffizienten der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>cv(1;2;3;4)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Kurt"
 msgstr "Exzess"
@@ -9335,7 +9335,7 @@ msgid "ExpressionBuilder.StatisticalFunctions.Mean"
 msgstr "Mittelwert"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Mean.Info"
-msgstr "<p>Berechnet den arithmetischen Mittelwert der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>mean(1;2;3;4)</tt> liefert 2,5.</p>"
+msgstr "<p>Berechnet den arithmetischen Mittelwert der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>mean(1;2;3;4)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.StatisticalFunctions.MeanGeometric"
 msgstr "Geometrisches Mittel"
@@ -9353,7 +9353,7 @@ msgid "ExpressionBuilder.StatisticalFunctions.Median"
 msgstr "Median"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Median.Info"
-msgstr "<p>Berechnet den Median der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>median(1;2;3;100)</tt> liefert 2,5.</p>"
+msgstr "<p>Berechnet den Median der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>median(1;2;3;100)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Minimum"
 msgstr "Minimum"
@@ -9377,13 +9377,13 @@ msgid "ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient"
 msgstr "Quadrierter Vairationskoeffizient"
 
 msgid "ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient.Info"
-msgstr "<p>Berechnet den quadrierten Variationskoeffizienten der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>scv(1;2;3;4)</tt> liefert 0,26666666666667.</p>"
+msgstr "<p>Berechnet den quadrierten Variationskoeffizienten der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>scv(1;2;3;4)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.StatisticalFunctions.StandardDeviation"
 msgstr "Standardabweichung"
 
 msgid "ExpressionBuilder.StatisticalFunctions.StandardDeviation.Info"
-msgstr "<p>Berechnet die korrigierte Stichprobenstandardabweichung der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>sd(1;2;3;4)</tt> liefert 1,2909944487358.</p>"
+msgstr "<p>Berechnet die korrigierte Stichprobenstandardabweichung der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>sd(1;2;3;4)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Sum"
 msgstr "Summe"
@@ -9395,7 +9395,7 @@ msgid "ExpressionBuilder.StatisticalFunctions.Variance"
 msgstr "Varianz"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Variance.Info"
-msgstr "<p>Berechnet die korrigierte Stichprobenvarianz der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>var(1;2;3;4)</tt> liefert 1,6666666666667.</p>"
+msgstr "<p>Berechnet die korrigierte Stichprobenvarianz der als Parameter übergebenen Werte.</p><p>Beispiel: <tt>var(1;2;3;4)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.SymbolCountInfo"
 msgstr "Es stehen insgesamt %d Symbole zur Verfügung."
@@ -9410,7 +9410,7 @@ msgid "ExpressionBuilder.TrigonometricFunctions.ArcusCosinus"
 msgstr "Arcus Cosinus"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.ArcusCosinus.Info"
-msgstr "<p>Berechnet den Wert der Arcus-Cosinus-Funktion des als Parameter übergebenen Wertes. Der Winkel wird dabei in <b>Bogenmaß</b> (Vollkreis=2pi) angenommen.</p><p>Beispiel: <tt>arccos(0)</tt> liefert 1,5707963267949.</p>"
+msgstr "<p>Berechnet den Wert der Arcus-Cosinus-Funktion des als Parameter übergebenen Wertes. Der Winkel wird dabei in <b>Bogenmaß</b> (Vollkreis=2pi) angenommen.</p><p>Beispiel: <tt>arccos(0)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.ArcusCosinusHyperbolicus"
 msgstr "Arcus Cosinus hyperbolicus"
@@ -9422,13 +9422,13 @@ msgid "ExpressionBuilder.TrigonometricFunctions.ArcusCotangens"
 msgstr "Arcus Cotangens"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.ArcusCotangens.Info"
-msgstr "<p>Berechnet den Wert der Arcus-Cotangens-Funktion des als Parameter übergebenen Wertes. Der Winkel wird dabei in <b>Bogenmaß</b> (Vollkreis=2pi) angenommen.</p><p>Beispiel: <tt>arccot(0)</tt> liefert 1,5707963267949.</p>"
+msgstr "<p>Berechnet den Wert der Arcus-Cotangens-Funktion des als Parameter übergebenen Wertes. Der Winkel wird dabei in <b>Bogenmaß</b> (Vollkreis=2pi) angenommen.</p><p>Beispiel: <tt>arccot(0)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus"
 msgstr "Arcus Cotangens hyperbolicus"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus.Info"
-msgstr "<p>Berechnet den Wert der Arcus-Cotangens-hyperbolicus-Funktion des als Parameter übergebenen Wertes.</p><p>Beispiel: <tt>arccoth(2)</tt> liefert 0,54930614433405.</p>"
+msgstr "<p>Berechnet den Wert der Arcus-Cotangens-hyperbolicus-Funktion des als Parameter übergebenen Wertes.</p><p>Beispiel: <tt>arccoth(2)</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.ArcusSinus"
 msgstr "Arcus Sinus"
@@ -9482,7 +9482,7 @@ msgid "ExpressionBuilder.TrigonometricFunctions.DegreeToRadians"
 msgstr "Grad in Bogenmaß"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.DegreeToRadians.Info"
-msgstr "<p>Interpretiert den vor dem °-Zeichen stehenden Wert als Gradangabe und wandelt diese in Bogenmaß um, d.h. multipliziert sie mit 2*pi und dividiert sie durch 360.</p><p>Beispiel: <tt>180°</tt> liefert 3,1415926535898.</p>"
+msgstr "<p>Interpretiert den vor dem °-Zeichen stehenden Wert als Gradangabe und wandelt diese in Bogenmaß um, d.h. multipliziert sie mit 2*pi und dividiert sie durch 360.</p><p>Beispiel: <tt>180°</tt> liefert %s.</p>"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.Sinus"
 msgstr "Sinus"
@@ -14480,13 +14480,7 @@ msgid "ModelGenerator.Model.Description.Properties.ServiceLJF"
 msgstr "Lange Aufträge vorziehen (LJF)"
 
 msgid "ModelGenerator.Model.Description.Properties.ServiceLognormal"
-msgstr "Lognormalverteilte Bedienzeiten (CV[S]=0,25)"
-
-msgid "ModelGenerator.Model.Description.Properties.ServiceLognormalHighCV"
-msgstr "Lognormalverteilte Bedienzeiten (CV[S]=0,75)"
-
-msgid "ModelGenerator.Model.Description.Properties.ServiceLognormalVeryHighCV"
-msgstr "Lognormalverteilte Bedienzeiten (CV[S]=1,5)"
+msgstr "Log-normalverteilte Bedienzeiten"
 
 msgid "ModelGenerator.Model.Description.Properties.ServiceRandom"
 msgstr "Bedienung der Kunden in zufälliger Reihenfolge"
@@ -14604,15 +14598,6 @@ msgstr "Exponentialverteilung"
 
 msgid "ModelGenerator.ServiceDistribution.LogNormal"
 msgstr "Lognormalverteilung"
-
-msgid "ModelGenerator.ServiceDistribution.LogNormalHighCV"
-msgstr "Lognormalverteilung (CV[S]=0,75)"
-
-msgid "ModelGenerator.ServiceDistribution.LogNormalLowCV"
-msgstr "Lognormalverteilung (CV[S]=0,25)"
-
-msgid "ModelGenerator.ServiceDistribution.LogNormalVeryHighCV"
-msgstr "Lognormalverteilung (CV[S]=1,5)"
 
 msgid "ModelGenerator.ServiceUtilization"
 msgstr "Auslastung"
@@ -24489,10 +24474,10 @@ msgid "Statistics.ErlangCompare.Info.Process.Batch"
 msgstr "An der Bedienstation treten Batch-Bedienungen auf, die durch die Formel nicht berücksichtigt werden."
 
 msgid "Statistics.ErlangCompare.Info.Process.CV"
-msgstr "Der Variationskoeffizient der Bedienzeiten beträgt %s. Die Formel geht jedoch von 1,0 aus."
+msgstr "Der Variationskoeffizient der Bedienzeiten beträgt %s. Die Formel geht jedoch von %s aus."
 
 msgid "Statistics.ErlangCompare.Info.Process.CancelCV"
-msgstr "Der Variationskoeffizient der Wartezeittoleranzen beträgt %s. Die Formel geht jedoch von 1,0 aus."
+msgstr "Der Variationskoeffizient der Wartezeittoleranzen beträgt %s. Die Formel geht jedoch von %s aus."
 
 msgid "Statistics.ErlangCompare.Info.Process.CancelDistribution"
 msgstr "Die Kunden sind nur begrenzt lange bereit zu warten. Dies wird in der Formel nicht berücksichtigt."
@@ -24504,7 +24489,7 @@ msgid "Statistics.ErlangCompare.Info.Source.Batch"
 msgstr "An der Kundenquelle treten Batch-Ankünfte auf, die durch die Formel nicht berücksichtigt werden."
 
 msgid "Statistics.ErlangCompare.Info.Source.CV"
-msgstr "Der Variationskoeffizient der Zwischenankunftszeiten beträgt %s. Die Formel geht jedoch von 1,0 aus."
+msgstr "Der Variationskoeffizient der Zwischenankunftszeiten beträgt %s. Die Formel geht jedoch von %s aus."
 
 msgid "Statistics.ErlangCompare.InfoOk"
 msgstr "Anwendbarkeit der Formel auf das Modell"

@@ -21,6 +21,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 import language.Language;
+import mathtools.NumberTools;
 import ui.expressionbuilder.ExpressionBuilder.ExpressionSymbol;
 import ui.expressionbuilder.ExpressionBuilder.ExpressionSymbolType;
 
@@ -108,7 +109,7 @@ public class ExpressionBuilderBasics {
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.BasicArithmetics.Multiply")+" (*)","*",Language.tr("ExpressionBuilder.BasicArithmetics.Multiply.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.BasicArithmetics.Divide")+" (/)","/",Language.tr("ExpressionBuilder.BasicArithmetics.Divide.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.BasicArithmetics.Potentiate")+" (^)","^",Language.tr("ExpressionBuilder.BasicArithmetics.Potentiate.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.BasicArithmetics.Percent")+" (%)","%",Language.tr("ExpressionBuilder.BasicArithmetics.Percent.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.BasicArithmetics.Percent")+" (%)","%",String.format(Language.tr("ExpressionBuilder.BasicArithmetics.Percent.Info"),NumberTools.formatNumber(0.3)));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.BasicArithmetics.Modulo")+" (mod)","mod("+value+"A;"+value+"B)",Language.tr("ExpressionBuilder.BasicArithmetics.Modulo.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.BasicArithmetics.If")+" (if)","if("+Language.tr("ExpressionBuilder.BasicArithmetics.If.Parameters")+")",Language.tr("ExpressionBuilder.BasicArithmetics.If.Info"));
 		if (group.getChildCount()>0) root.add(group);
@@ -116,10 +117,10 @@ public class ExpressionBuilderBasics {
 		/* Runden */
 
 		group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.Rounding"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.Rounding.round")+" (round)","round("+value+")",Language.tr("ExpressionBuilder.Rounding.round.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.Rounding.floor")+" (floor)","floor("+value+")",Language.tr("ExpressionBuilder.Rounding.floor.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.Rounding.ceil")+" (ceil)","ceil("+value+")",Language.tr("ExpressionBuilder.Rounding.ceil.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.Rounding.trunc")+" (trunc)","trunc("+value+")",Language.tr("ExpressionBuilder.Rounding.trunc.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.Rounding.round")+" (round)","round("+value+")",String.format(Language.tr("ExpressionBuilder.Rounding.round.Info"),NumberTools.formatNumberMax(1.4),NumberTools.formatNumberMax(1.5)));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.Rounding.floor")+" (floor)","floor("+value+")",String.format(Language.tr("ExpressionBuilder.Rounding.floor.Info"),NumberTools.formatNumberMax(1.9)));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.Rounding.ceil")+" (ceil)","ceil("+value+")",String.format(Language.tr("ExpressionBuilder.Rounding.ceil.Info"),NumberTools.formatNumberMax(1.1)));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.Rounding.trunc")+" (trunc)","trunc("+value+")",String.format(Language.tr("ExpressionBuilder.Rounding.trunc.Info"),NumberTools.formatNumberMax(1.4),NumberTools.formatNumberMax(1.5),NumberTools.formatNumberMax(-1.5),NumberTools.formatNumberMax(-1.4)));
 		if (group.getChildCount()>0) root.add(group);
 
 		/* Mathematische Funktionen */
@@ -131,8 +132,8 @@ public class ExpressionBuilderBasics {
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Potentiate")+" (power)","power("+value+"A;"+value+"B)",Language.tr("ExpressionBuilder.MathematicalFunctions.Potentiate.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.AbsolutValue")+" (abs)","abs("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.AbsolutValue.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Sign")+" (sign)","sign("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.Sign.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.IntegerPart")+" (int)","int("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.IntegerPart.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.FractionPart")+" (frac)","frac("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.FractionPart.info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.IntegerPart")+" (int)","int("+value+")",String.format(Language.tr("ExpressionBuilder.MathematicalFunctions.IntegerPart.Info"),NumberTools.formatNumber(3.4)));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.FractionPart")+" (frac)","frac("+value+")",String.format(Language.tr("ExpressionBuilder.MathematicalFunctions.FractionPart.info"),NumberTools.formatNumber(3.4),NumberTools.formatNumber(0.4)));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Factorial")+" (!)","!",Language.tr("ExpressionBuilder.MathematicalFunctions.Factorial.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Inverse")+" (Inverse)","Inverse("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.Inverse.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Binomial")+" (binom)","binom(n;k)",Language.tr("ExpressionBuilder.MathematicalFunctions.Binomial.Info"));
@@ -140,7 +141,7 @@ public class ExpressionBuilderBasics {
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.GammaFunction")+" (gamma)","gamma("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.GammaFunction.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.GammaPFunction")+" (gammaP)","gammaP(a;x)",Language.tr("ExpressionBuilder.MathematicalFunctions.GammaPFunction.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.GammaQFunction")+" (gammaQ)","gammaQ(a;x)",Language.tr("ExpressionBuilder.MathematicalFunctions.GammaQFunction.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.ZetaFunction")+" (zeta)","zeta("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.ZetaFunction.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.ZetaFunction")+" (zeta)","zeta("+value+")",String.format(Language.tr("ExpressionBuilder.MathematicalFunctions.ZetaFunction.Info"),NumberTools.formatNumberMax(1.64493)));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Random")+" (random)","random()",Language.tr("ExpressionBuilder.MathematicalFunctions.Random.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.RandomRange")+" (randomRange)","randomRange("+value+";"+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.RandomRange.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.RandomRangeInt")+" (randomIntRange)","randomIntRange("+value+";"+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.RandomRangeInt.Info"));
@@ -151,8 +152,8 @@ public class ExpressionBuilderBasics {
 		/* Mathematische Funktionen -> Exponential- und Logarithmus-Funktionen */
 
 		sub=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions"));
-		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction")+" (exp)","exp("+value+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction.Info"));
-		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm")+" (ln)","ln("+value+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction")+" (exp)","exp("+value+")",String.format(Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction.Info"),NumberTools.formatNumberMax(22026.465794807)));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm")+" (ln)","ln("+value+")",String.format(Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm.Info"),NumberTools.formatNumberMax(2.718281828459),NumberTools.formatNumberMax(2.302585092994)));
 		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.10Logarithm")+" (lg)","lg("+value+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.10Logarithm.Info"));
 		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.2Logarithm")+" (ld)","ld("+value+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.2Logarithm.Info"));
 		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.AnyBaseLogarithm")+" (log)","log("+value+";"+Language.tr("ExpressionBuilder.Base")+")",Language.tr("ExpressionBuilder.ExponentialAndLogarithmFunctions.AnyBaseLogarithm.Info"));
@@ -166,9 +167,9 @@ public class ExpressionBuilderBasics {
 		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.Tangens")+" (tan)","tan("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.Tangens.Info"));
 		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.Cotangens")+" (cot)","cot("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.Cotangens.Info"));
 		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusSinus")+" (arcsin)","arcsin("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusSinus.Info"));
-		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCosinus")+" (arccos)","arccos("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCosinus.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCosinus")+" (arccos)","arccos("+value+")",String.format(Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCosinus.Info"),NumberTools.formatNumberMax(1.5707963267949)));
 		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusTangens")+" (arctan)","arctan("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusTangens.Info"));
-		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangens")+" (arccot)","arccot("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangens.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangens")+" (arccot)","arccot("+value+")",String.format(Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangens.Info"),NumberTools.formatNumberMax(1.5707963267949)));
 		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicus")+" (sinh)","sinh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicus.Info"));
 		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.CosinusHyperbolicus")+" (cosh)","cosh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.CosinusHyperbolicus.Info"));
 		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.TangensHyperbolicus")+" (tanh)","tanh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.TangensHyperbolicus.Info"));
@@ -176,8 +177,8 @@ public class ExpressionBuilderBasics {
 		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusSinusHyperbolicus")+" (arcsinh)","arcsinh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusSinusHyperbolicus.Info"));
 		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCosinusHyperbolicus")+" (arccosh)","arccosh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCosinusHyperbolicus.Info"));
 		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusTangensHyperbolicus")+" (arctanh)","arctanh("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusTangensHyperbolicus.Info"));
-		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus")+" (arccoth)","arccoth("+value+")",Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus.Info"));
-		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.DegreeToRadians")+" (°)","°",Language.tr("ExpressionBuilder.TrigonometricFunctions.DegreeToRadians.Info"));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus")+" (arccoth)","arccoth("+value+")",String.format(Language.tr("ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus.Info"),NumberTools.formatNumberMax(0.54930614433405)));
+		addTreeNode(sub,filterUpper,Language.tr("ExpressionBuilder.TrigonometricFunctions.DegreeToRadians")+" (°)","°",String.format(Language.tr("ExpressionBuilder.TrigonometricFunctions.DegreeToRadians.Info"),NumberTools.formatNumberMax(3.1415926535898)));
 		if (sub.getChildCount()>0) group.add(sub);
 
 		if (group.getChildCount()>0) root.add(group);
@@ -185,9 +186,9 @@ public class ExpressionBuilderBasics {
 		/* Mathematische Konstanten */
 
 		group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.MathematicalConstants"));
-		addTreeNodeConst(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalConstants.Pi"),"pi",Language.tr("ExpressionBuilder.MathematicalConstants.Pi.Info"));
-		addTreeNodeConst(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalConstants.e"),"e",Language.tr("ExpressionBuilder.MathematicalConstants.e.Info"));
-		addTreeNodeConst(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalConstants.tau"),"tau",Language.tr("ExpressionBuilder.MathematicalConstants.tau.Info"));
+		addTreeNodeConst(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalConstants.Pi"),"pi",String.format(Language.tr("ExpressionBuilder.MathematicalConstants.Pi.Info"),NumberTools.formatNumberMax(3.1415926535898)));
+		addTreeNodeConst(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalConstants.e"),"e",String.format(Language.tr("ExpressionBuilder.MathematicalConstants.e.Info"),NumberTools.formatNumberMax(2.718281828459)));
+		addTreeNodeConst(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalConstants.tau"),"tau",String.format(Language.tr("ExpressionBuilder.MathematicalConstants.tau.Info"),NumberTools.formatNumberMax(6.28318530717959)));
 		if (group.getChildCount()>0) root.add(group);
 
 		/* Logik-Funktionen */
@@ -210,14 +211,14 @@ public class ExpressionBuilderBasics {
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Maximum")+" (max)","max("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Maximum.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Range")+" (range)","range("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Range.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Sum")+" (sum)","sum("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Sum.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Mean")+" (mean)","mean("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Mean.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Mean")+" (mean)","mean("+value+"A;"+value+"B;"+value+"C;...)",String.format(Language.tr("ExpressionBuilder.StatisticalFunctions.Mean.Info"),NumberTools.formatNumberMax(2.5)));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.MeanGeometric")+" (geomean)","geomean("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.MeanGeometric.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.MeanHarmonic")+" (harmonicmean)","harmonicmean("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.MeanHarmonic.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Median")+" (median)","median("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Median.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Variance")+" (var)","var("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Variance.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.StandardDeviation")+" (sd)","sd("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.StandardDeviation.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation")+" (cv)","cv("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation.Info"));
-		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient")+" (scv)","scv("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Median")+" (median)","median("+value+"A;"+value+"B;"+value+"C;...)",String.format(Language.tr("ExpressionBuilder.StatisticalFunctions.Median.Info"),NumberTools.formatNumberMax(2.5)));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Variance")+" (var)","var("+value+"A;"+value+"B;"+value+"C;...)",String.format(Language.tr("ExpressionBuilder.StatisticalFunctions.Variance.Info"),NumberTools.formatNumberMax(1.6666666666667)));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.StandardDeviation")+" (sd)","sd("+value+"A;"+value+"B;"+value+"C;...)",String.format(Language.tr("ExpressionBuilder.StatisticalFunctions.StandardDeviation.Info"),NumberTools.formatNumberMax(1.2909944487358)));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation")+" (cv)","cv("+value+"A;"+value+"B;"+value+"C;...)",String.format(Language.tr("ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation.Info"),NumberTools.formatNumberMax(0.51639777949432)));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient")+" (scv)","scv("+value+"A;"+value+"B;"+value+"C;...)",String.format(Language.tr("ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient.Info"),NumberTools.formatNumberMax(0.26666666666667)));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Sk")+" (sk)","sk("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Sk.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.StatisticalFunctions.Kurt")+" (kurt)","kurt("+value+"A;"+value+"B;"+value+"C;...)",Language.tr("ExpressionBuilder.StatisticalFunctions.Kurt.Info"));
 

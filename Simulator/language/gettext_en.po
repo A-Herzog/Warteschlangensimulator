@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-03 19:08+0100\n"
+"POT-Creation-Date: 2025-01-13 08:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5794,7 +5794,7 @@ msgid "ExpressionBuilder.BasicArithmetics.Percent"
 msgstr "Percent"
 
 msgid "ExpressionBuilder.BasicArithmetics.Percent.Info"
-msgstr "<p>Interprets the value before the % sign as a percentage value, that is, divides it by 100.</p><p> Example: <tt>30%</tt> returns 0.3.</p>"
+msgstr "<p>Interprets the value before the %% sign as a percentage value, that is, divides it by 100.</p><p> Example: <tt>30%%</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.BasicArithmetics.Plus"
 msgstr "Plus"
@@ -6450,13 +6450,13 @@ msgid "ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction"
 msgstr "Exponential function"
 
 msgid "ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction.Info"
-msgstr "<p>Calculates the value of the exponential function for the value passed as parameter. </p> <p>Example: <tt>exp(10)</tt> returns 22026.465794807.</p> <p> This function is equivalent to <tt>e^value</tt>.</p>"
+msgstr "<p>Calculates the value of the exponential function for the value passed as parameter. </p> <p>Example: <tt>exp(10)</tt> returns %s.</p> <p> This function is equivalent to <tt>e^value</tt>.</p>"
 
 msgid "ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm"
 msgstr "Natural logarithm"
 
 msgid "ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm.Info"
-msgstr "<p>Calculates the logarithm of the value passed as parameter to the base value e&asymp;2.718281828459.</p> <p>Example: <tt>ln(10)</tt> returns 2.302585092994.</p>"
+msgstr "<p>Calculates the logarithm of the value passed as parameter to the base value e&asymp;%s.</p> <p>Example: <tt>ln(10)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.Info"
 msgstr "By double-clicking on an entry in the tree structure, a symbol can be inserted into the expression."
@@ -6521,7 +6521,7 @@ msgstr "Number Pi"
 msgid "ExpressionBuilder.MathematicalConstants.Pi.Info"
 msgstr ""
 "<p>Returns the number<br>\n"
-"Pi&asymp;3.1415926535898.</p>"
+"Pi&asymp;%s.</p>"
 
 msgid "ExpressionBuilder.MathematicalConstants.e"
 msgstr "Euler's number e"
@@ -6529,13 +6529,13 @@ msgstr "Euler's number e"
 msgid "ExpressionBuilder.MathematicalConstants.e.Info"
 msgstr ""
 "<p>Returns Euler's number<br>\n"
-"e&asymp;2.718281828459.</p>"
+"e&asymp;%s.</p>"
 
 msgid "ExpressionBuilder.MathematicalConstants.tau"
 msgstr "Unit circle diameter Tau"
 
 msgid "ExpressionBuilder.MathematicalConstants.tau.Info"
-msgstr "<p>Returns the diameter of the unit circle<br>&tau;&asymp;6.28318530717959.</p>"
+msgstr "<p>Returns the diameter of the unit circle<br>&tau;&asymp;%s.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions"
 msgstr "Mathematical functions"
@@ -6574,7 +6574,7 @@ msgid "ExpressionBuilder.MathematicalFunctions.FractionPart"
 msgstr "Fraction part"
 
 msgid "ExpressionBuilder.MathematicalFunctions.FractionPart.info"
-msgstr "<p>Returns the fractional part of the value passed as parameter.</p> <p>Example: <tt>frac(3.4)</tt> returns 0.4.</p>"
+msgstr "<p>Returns the fractional part of the value passed as parameter.</p> <p>Example: <tt>frac(%s)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.GammaFunction"
 msgstr "Gamma function"
@@ -6604,7 +6604,7 @@ msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart"
 msgstr "Integer part"
 
 msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart.Info"
-msgstr "<p>Returns the integer part of the value passed as parameter.</p> <p>Example: <tt>int(3.4)</tt> returns 3.</p>"
+msgstr "<p>Returns the integer part of the value passed as parameter.</p> <p>Example: <tt>int(%s)</tt> returns 3.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.Inverse"
 msgstr "Inverse"
@@ -6672,7 +6672,7 @@ msgid "ExpressionBuilder.MathematicalFunctions.ZetaFunction"
 msgstr "Zeta function"
 
 msgid "ExpressionBuilder.MathematicalFunctions.ZetaFunction.Info"
-msgstr "<p>Returns the value of the Zeta function for the parameter passed as parameter.</p> <p>Example: <tt>zeta(2)</tt> returns 1.64493.</p>"
+msgstr "<p>Returns the value of the Zeta function for the parameter passed as parameter.</p> <p>Example: <tt>zeta(2)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions"
 msgstr "Probability distributions"
@@ -6707,12 +6707,12 @@ msgstr "Beta distribution (direct characteristics)"
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DensityInfo"
 msgstr ""
 "<p>Calculates the value of the density of the beta distribution at the location specified as first parameter with lower bound, upper bound, mean value and standard deviation according to the second to fiveth parameters.</p>\n"
-"<p>Example: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> returns 1.31344828230159.</p>"
+"<p>Example: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DistributionFunctionInfo"
 msgstr ""
 "<p>Calculates the value of the distribution function of the beta distribution at the location specified as first parameter with lower bound, upper bound, mean and standard deviation specified in parameters two to five.</p>\n"
-"<p>Example: <tt>BetaDistDirect(7;0;10;5;2;1)</tt> returns 0.81942684533674.</p>"
+"<p>Example: <tt>BetaDistDirect(7;0;10;5;2;1)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.RandomNumberInfo"
 msgstr ""
@@ -6878,12 +6878,12 @@ msgstr "Erlang distribution"
 msgid "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DensityInfo"
 msgstr ""
 "<p>Calculates the value of the density of the Erlang distribution at the location specified as first parameter with the parameters n and &lambda; according to the second and third parameters.</p>\n"
-"<p>Example: <tt>ErlangDist(7;5;3;0)</tt> returns 0.03992278718149.</p>"
+"<p>Example: <tt>ErlangDist(7;5;3;0)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DistributionFunctionInfo"
 msgstr ""
 "<p>Calculates the value of the distribution function of the Erlang distribution at the location specified as first parameter with the parameters n and &lambda; according to the second and third parameters.</p>\n"
-"<p>Example: <tt>ErlangDist(7;5;3;1)</tt> returns 0.087695308502.</p>"
+"<p>Example: <tt>ErlangDist(7;5;3;1)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberInfo"
 msgstr ""
@@ -6901,12 +6901,12 @@ msgstr "Exponential distribution"
 msgid "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DensityInfo"
 msgstr ""
 "<p>Calculates the value of the density of the exponential distribution at the location specified as first parameter and with the distribution parameter &lambda; according to the reciprocal of the second parameter.</p>\n"
-"<p>Example: <tt>ExpDist(5;2;0)</tt> returns 0.04104249931195.</p>"
+"<p>Example: <tt>ExpDist(5;2;0)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DistributionFunctionInfo"
 msgstr ""
 "<p>Calculates the value of the distribution function of the exponential distribution at the location specified as first parameter and with the distribution parameter &lambda; according to the reciprocal of the second parameter.</p>\n"
-"<p>Example: <tt>ExpDist(5;2;1)</tt> returns 0.9179150013761.</p>"
+"<p>Example: <tt>ExpDist(5;2;1)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.RandomNumberInfo"
 msgstr ""
@@ -6975,12 +6975,12 @@ msgstr "Gamma distribution"
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DensityInfo"
 msgstr ""
 "<p>Calculates the value of the density of the gamma distribution at the location specified as first parameter with the parameters &alpha; and &beta; according to the second and third parameters.</p>\n"
-"<p>Example: <tt>GammaDist(7;5;3;0)</tt> returns 0.03992278718149.</p><p>It is <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> and <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>"
+"<p>Example: <tt>GammaDist(7;5;3;0)</tt> returns %s.</p><p>It is <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> and <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DistributionFunctionInfo"
 msgstr ""
 "<p>Calculates the value of the distribution function of the gamma distribution at the location specified as first parameter with the parameters &alpha; and &beta; according to the second and third parameters.</p>\n"
-"<p>Example: <tt>GammaDist(7;5;3;1)</tt> returns 0.087695308502.</p><p>It is <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> and <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>"
+"<p>Example: <tt>GammaDist(7;5;3;1)</tt> returns %s.</p><p>It is <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> and <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberInfo"
 msgstr ""
@@ -6998,12 +6998,12 @@ msgstr "Gamma distribution (direct characteristics)"
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DensityInfo"
 msgstr ""
 "<p>Calculates the value of the density of the gamma distribution at the location specified as first parameter with mean and standard deviation specified in parameters two and three.</p>\n"
-"<p>Example: <tt>GammaDistDirect(7;5;3;0)</tt> returns 0.07727661686311.</p>"
+"<p>Example: <tt>GammaDistDirect(7;5;3;0)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DistributionFunctionInfo"
 msgstr ""
 "<p>Calculates the value of the distribution function of the gamma distribution at the location specified as first parameter with mean and standard deviation specified in parameters two and three.</p>\n"
-"<p>Example: <tt>GammaDistDirect(7;5;3;1)</tt> returns 0.78517079628442.</p>"
+"<p>Example: <tt>GammaDistDirect(7;5;3;1)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberInfo"
 msgstr ""
@@ -7252,12 +7252,12 @@ msgstr "Log-normal distribution"
 msgid "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DensityInfo"
 msgstr ""
 "<p>Calculates the value of the desity of the log-normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n"
-"<p>Example: <tt>LogNormalDist(7;5;3;0)</tt> returns 3.40712431368569.</p>"
+"<p>Example: <tt>LogNormalDist(7;5;3;0)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DistributionFunctionInfo"
 msgstr ""
 "<p>Calculates the value of the distribution function of the log-normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n"
-"<p>Example: <tt>LogNormalDist(7;5;3;1)</tt> returns 0.81166409548103.</p>"
+"<p>Example: <tt>LogNormalDist(7;5;3;1)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNumberInfo"
 msgstr ""
@@ -7340,12 +7340,12 @@ msgstr "Normal distribution"
 msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DensityInfo"
 msgstr ""
 "<p>Calculates the value of the density of the normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n"
-"<p>Example: <tt>NormalDist(7;5;3;0)</tt> returns 0.10648266850745.</p>"
+"<p>Example: <tt>NormalDist(7;5;3;0)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DistributionFunctionInfo"
 msgstr ""
 "<p>Calculates the value of the distribution function of the normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n"
-"<p>Example: <tt>NormalDist(7;5;3;1)</tt> returns 0.74750746245308.</p>"
+"<p>Example: <tt>NormalDist(7;5;3;1)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumberInfo"
 msgstr ""
@@ -7534,15 +7534,15 @@ msgstr "<p>Generates a random number according to the U-quadratic distribution w
 msgid "ExpressionBuilder.ProbabilityDistributions.UniformDistribution"
 msgstr "Uniform distribution"
 
-msgid "ExpressionBuilder.ProbabilityDistributions.UniformDistribution,DensityInfo"
+msgid "ExpressionBuilder.ProbabilityDistributions.UniformDistribution.DensityInfo"
 msgstr ""
 "<p>Calculates the value of the density of the uniform distribution at the location specified as the first parameter and the range [a;b] specified as second and third parameters.</p>\n"
-"<p>Example: <tt>UniformDist(2.5;2;4;0)</tt> returns 0.5.</p>"
+"<p>Example: <tt>UniformDist(%s;2;4;0)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.UniformDistribution.DistributionFunctionInfo"
 msgstr ""
 "<p>Calculates the value of the distribution function of the uniform distribution at the location specified as the first parameter and the range [a;b] specified as second and third parameters.</p>\n"
-"<p>Example: <tt>UniformDist(2.5;2;4;1)</tt> returns 0.25.</p>"
+"<p>Example: <tt>UniformDist(%s;2;4;1)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.UniformDistribution.RandomNumberInfo"
 msgstr ""
@@ -7609,25 +7609,25 @@ msgid "ExpressionBuilder.Rounding.ceil"
 msgstr "Round up"
 
 msgid "ExpressionBuilder.Rounding.ceil.Info"
-msgstr "<p>Rounds the value passed as parameter to the next integer (in upper direction).</p><p>Example: <tt>ceil(1.1)</tt> returns 2.</p>"
+msgstr "<p>Rounds the value passed as parameter to the next integer (in upper direction).</p><p>Example: <tt>ceil(%s)</tt> returns 2.</p>"
 
 msgid "ExpressionBuilder.Rounding.floor"
 msgstr "Round down"
 
 msgid "ExpressionBuilder.Rounding.floor.Info"
-msgstr "<p>Rounds the value passed as parameter to the next integer (in lower direction).</p><p>Example: <tt>floor(1.9)</tt> returns 1.</p>"
+msgstr "<p>Rounds the value passed as parameter to the next integer (in lower direction).</p><p>Example: <tt>floor(%s)</tt> returns 1.</p>"
 
 msgid "ExpressionBuilder.Rounding.round"
 msgstr "Round"
 
 msgid "ExpressionBuilder.Rounding.round.Info"
-msgstr "<p>Rounds the value passed as parameter up or down to the next integer.</p><p>Example: <tt>round(1.4)</tt> returns 1 and <tt>round(1.5)</tt> returns 2.</p>"
+msgstr "<p>Rounds the value passed as parameter up or down to the next integer.</p><p>Example: <tt>round(%s)</tt> returns 1 and <tt>round(%s)</tt> returns 2.</p>"
 
 msgid "ExpressionBuilder.Rounding.trunc"
 msgstr "Truncate decimal digits"
 
 msgid "ExpressionBuilder.Rounding.trunc.Info"
-msgstr "<p>Truncates the decimal digits of the number passed as parameter.</p><p>Examples: <tt>trunc(1.4)</tt> and <tt>trunc(1.5)</tt> will return 1 and <tt>trunc(-1.5)</tt> and <tt>trunc(-1.4)</tt> will return -1.</p>"
+msgstr "<p>Truncates the decimal digits of the number passed as parameter.</p><p>Examples: <tt>trunc(%s)</tt> and <tt>trunc(%s)</tt> will return 1 and <tt>trunc(%s)</tt> and <tt>trunc(%s)</tt> will return -1.</p>"
 
 msgid "ExpressionBuilder.SimulationCharacteristics"
 msgstr "Simulation characteristics"
@@ -9291,7 +9291,7 @@ msgid "ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation"
 msgstr "Coefficient of variation"
 
 msgid "ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation.Info"
-msgstr "<p>Calculates the variation coefficients of the values passed as parameters.</p> <p>Example: <tt>cv(1;2;3;4)</tt> returns 0.51639777949432.</p>"
+msgstr "<p>Calculates the variation coefficients of the values passed as parameters.</p> <p>Example: <tt>cv(1;2;3;4)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Kurt"
 msgstr "Kurtosis"
@@ -9309,7 +9309,7 @@ msgid "ExpressionBuilder.StatisticalFunctions.Mean"
 msgstr "Mean"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Mean.Info"
-msgstr "<p>Calculates the arithmetic mean of the values passed as parameters.</p> <p>Example: <tt>mean(1;2;3;4)</tt> returns 2.5.</p>"
+msgstr "<p>Calculates the arithmetic mean of the values passed as parameters.</p> <p>Example: <tt>mean(1;2;3;4)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.StatisticalFunctions.MeanGeometric"
 msgstr "Geometric mean"
@@ -9327,7 +9327,7 @@ msgid "ExpressionBuilder.StatisticalFunctions.Median"
 msgstr "Median"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Median.Info"
-msgstr "<p>Calculates the median of the values passed as parameters.</p> <p>Example: <tt>median(1;2;3;100)</tt> returns 2.5.</p>"
+msgstr "<p>Calculates the median of the values passed as parameters.</p> <p>Example: <tt>median(1;2;3;100)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Minimum"
 msgstr "Minimum"
@@ -9351,13 +9351,13 @@ msgid "ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient"
 msgstr "Squared variation coefficient"
 
 msgid "ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient.Info"
-msgstr "<p>Calculates the squared variation coefficient of the values passed as parameters.</p> <p>Example: <tt>scv(1;2;3;4)</tt> returns 0.26666666666667.</p>"
+msgstr "<p>Calculates the squared variation coefficient of the values passed as parameters.</p> <p>Example: <tt>scv(1;2;3;4)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.StatisticalFunctions.StandardDeviation"
 msgstr "Standard deviation"
 
 msgid "ExpressionBuilder.StatisticalFunctions.StandardDeviation.Info"
-msgstr "<p>Calculates the corrected sample standard deviation of the values passed as parameters.</p> <p>Example: <tt>sd(1;2;3;4)</tt> returns 1.2909944487358.<p>"
+msgstr "<p>Calculates the corrected sample standard deviation of the values passed as parameters.</p> <p>Example: <tt>sd(1;2;3;4)</tt> returns %s.<p>"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Sum"
 msgstr "Sum"
@@ -9369,7 +9369,7 @@ msgid "ExpressionBuilder.StatisticalFunctions.Variance"
 msgstr "Variance"
 
 msgid "ExpressionBuilder.StatisticalFunctions.Variance.Info"
-msgstr "<p>Calculates the corrected sample variance of the values passed as parameters.</p> <p> Example: <tt>var(1;2;3;4)</tt> returns 1.6666666666667</p>"
+msgstr "<p>Calculates the corrected sample variance of the values passed as parameters.</p> <p> Example: <tt>var(1;2;3;4)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.SymbolCountInfo"
 msgstr "A total of %d symbols are available."
@@ -9384,7 +9384,7 @@ msgid "ExpressionBuilder.TrigonometricFunctions.ArcusCosinus"
 msgstr "Arcus cosine"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.ArcusCosinus.Info"
-msgstr "<p>Calculates the value of the arc cosine function with the value passed as parameter. The angle is assumed in <b>radian</b> (full circle=2pi).</p> <p> Example: <tt>arccos(0)</tt> returns 1.5707963267949.</p>"
+msgstr "<p>Calculates the value of the arc cosine function with the value passed as parameter. The angle is assumed in <b>radian</b> (full circle=2pi).</p> <p> Example: <tt>arccos(0)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.ArcusCosinusHyperbolicus"
 msgstr "Arcus cosine hyperbolicus"
@@ -9396,13 +9396,13 @@ msgid "ExpressionBuilder.TrigonometricFunctions.ArcusCotangens"
 msgstr "Arcus cotangent"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.ArcusCotangens.Info"
-msgstr "<p>Calculates the value of the arc cotangent function with the value passed as parameter. The angle is assumed in <b>radian</b> (full circle=2pi).</p> <p> Example: <tt>arccot(0)</tt> returns 1.5707963267949.</p>"
+msgstr "<p>Calculates the value of the arc cotangent function with the value passed as parameter. The angle is assumed in <b>radian</b> (full circle=2pi).</p> <p> Example: <tt>arccot(0)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus"
 msgstr "Arcus cotangent hyperbolicus"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus.Info"
-msgstr "<p>Calculates the value of the arc cotangent hyperbolicus function with the value passed as parameter.</p> <p> Example: <tt>arccoth(2)</tt> returns 0.54930614433405.</p>"
+msgstr "<p>Calculates the value of the arc cotangent hyperbolicus function with the value passed as parameter.</p> <p> Example: <tt>arccoth(2)</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.ArcusSinus"
 msgstr "Arcus sine"
@@ -9456,7 +9456,7 @@ msgid "ExpressionBuilder.TrigonometricFunctions.DegreeToRadians"
 msgstr "Degree to radians"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.DegreeToRadians.Info"
-msgstr "<p>Interprets the value before the ° sign as a degree value and converts it into radians, that is, multiplying it by 2 * pi and dividing it by 360.</p> <p> Example: <tt>180°</tt> returns 3.1415926535898.</p>"
+msgstr "<p>Interprets the value before the ° sign as a degree value and converts it into radians, that is, multiplying it by 2 * pi and dividing it by 360.</p> <p> Example: <tt>180°</tt> returns %s.</p>"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.Sinus"
 msgstr "Sine"
@@ -14449,13 +14449,7 @@ msgid "ModelGenerator.Model.Description.Properties.ServiceLJF"
 msgstr "Prioritize long jobs (LJF)"
 
 msgid "ModelGenerator.Model.Description.Properties.ServiceLognormal"
-msgstr "Lognormal distributed service times (CV[S]=0.25)"
-
-msgid "ModelGenerator.Model.Description.Properties.ServiceLognormalHighCV"
-msgstr "Lognormal distributed service times (CV[S]=0.75)"
-
-msgid "ModelGenerator.Model.Description.Properties.ServiceLognormalVeryHighCV"
-msgstr "Lognormal distributed service times (CV[S]=1.5)"
+msgstr "Lognormal distributed service times"
 
 msgid "ModelGenerator.Model.Description.Properties.ServiceRandom"
 msgstr "Serving clients in random order"
@@ -14573,15 +14567,6 @@ msgstr "Exponential distribution"
 
 msgid "ModelGenerator.ServiceDistribution.LogNormal"
 msgstr "Lognormal distribution"
-
-msgid "ModelGenerator.ServiceDistribution.LogNormalHighCV"
-msgstr "Lognormal distribution (CV[S]=0.75)"
-
-msgid "ModelGenerator.ServiceDistribution.LogNormalLowCV"
-msgstr "Lognormal distribution (CV[S]=0.25)"
-
-msgid "ModelGenerator.ServiceDistribution.LogNormalVeryHighCV"
-msgstr "Lognormal distribution (CV[S]=1.5)"
 
 msgid "ModelGenerator.ServiceUtilization"
 msgstr "Utilization"
@@ -24439,10 +24424,10 @@ msgid "Statistics.ErlangCompare.Info.Process.Batch"
 msgstr "Batch service occur at the process station which is not considered by the formula."
 
 msgid "Statistics.ErlangCompare.Info.Process.CV"
-msgstr "The coefficient of variation of the service times is %s. But the formula uses 1.0."
+msgstr "The coefficient of variation of the service times is %s. But the formula uses %s."
 
 msgid "Statistics.ErlangCompare.Info.Process.CancelCV"
-msgstr "The coefficient of variation of the waiting cancelation times is %s. But the formula uses 1.0."
+msgstr "The coefficient of variation of the waiting cancelation times is %s. But the formula uses %s."
 
 msgid "Statistics.ErlangCompare.Info.Process.CancelDistribution"
 msgstr "Clients are only willing to wait for a limited time. This is not considered in the formula."
@@ -24454,7 +24439,7 @@ msgid "Statistics.ErlangCompare.Info.Source.Batch"
 msgstr "Batch arrivals occur at the clientsource which are not considered by the formula."
 
 msgid "Statistics.ErlangCompare.Info.Source.CV"
-msgstr "The coefficient of variation of the inter-arrival times is %s. But the formula uses 1.0."
+msgstr "The coefficient of variation of the inter-arrival times is %s. But the formula uses %s."
 
 msgid "Statistics.ErlangCompare.InfoOk"
 msgstr "Applicability of the formula to the model"

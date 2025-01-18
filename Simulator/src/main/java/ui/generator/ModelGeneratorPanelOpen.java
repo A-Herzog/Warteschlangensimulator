@@ -145,9 +145,9 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 		comboServiceDistribution=addCombo(this,Language.tr("ModelGenerator.ServiceDistribution"),new String[]{
 				Language.tr("ModelGenerator.ServiceDistribution.Deterministic"),
 				Language.tr("ModelGenerator.ServiceDistribution.Exp"),
-				Language.tr("ModelGenerator.ServiceDistribution.LogNormalLowCV"),
-				Language.tr("ModelGenerator.ServiceDistribution.LogNormalHighCV"),
-				Language.tr("ModelGenerator.ServiceDistribution.LogNormalVeryHighCV")
+				Language.tr("ModelGenerator.ServiceDistribution.LogNormal")+" (CV[S]="+NumberTools.formatNumberMax(0.25)+")",
+				Language.tr("ModelGenerator.ServiceDistribution.LogNormal")+" (CV[S]="+NumberTools.formatNumberMax(0.75)+")",
+				Language.tr("ModelGenerator.ServiceDistribution.LogNormal")+" (CV[S]="+NumberTools.formatNumberMax(1.5)+")"
 		});
 		comboServiceDistribution.setSelectedIndex(1);
 		comboServiceUtilization=addCombo(this,Language.tr("ModelGenerator.ServiceUtilization"),new String[]{
@@ -259,13 +259,13 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceExp"));
 			break;
 		case 2:
-			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLognormal"));
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLognormal")+" (CV[S]="+NumberTools.formatNumberMax(0.25)+")");
 			break;
 		case 3:
-			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLognormalHighCV"));
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLognormal")+" (CV[S]="+NumberTools.formatNumberMax(0.75)+")");
 			break;
 		case 4:
-			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLognormalVeryHighCV"));
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLognormal")+" (CV[S]="+NumberTools.formatNumberMax(1.5)+")");
 			break;
 		}
 		switch (discipline) {

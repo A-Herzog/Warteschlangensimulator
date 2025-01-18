@@ -2105,7 +2105,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5158] = "Surface.DistributionSystem.XML.Distribution";
     t[5159] = "ModelElementDistribution";
     t[5162] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DensityInfo";
-    t[5163] = "<p>Calculates the value of the density of the gamma distribution at the location specified as first parameter with the parameters &alpha; and &beta; according to the second and third parameters.</p>\n<p>Example: <tt>GammaDist(7;5;3;0)</tt> returns 0.03992278718149.</p><p>It is <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> and <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
+    t[5163] = "<p>Calculates the value of the density of the gamma distribution at the location specified as first parameter with the parameters &alpha; and &beta; according to the second and third parameters.</p>\n<p>Example: <tt>GammaDist(7;5;3;0)</tt> returns %s.</p><p>It is <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> and <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
     t[5166] = "Statistic.Tree.Parameter.BookmarkJump.Hint";
     t[5167] = "Jumps the the next tree entry marked as bookmark";
     t[5168] = "Surface.AnimationText.Dialog.PercentValue";
@@ -2174,6 +2174,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[5329] = "Count";
     t[5330] = "SoundSelectPanel.Play.ErrorTitle";
     t[5331] = "Sound output error";
+    t[5338] = "ExpressionBuilder.ProbabilityDistributions.UniformDistribution.DensityInfo";
+    t[5339] = "<p>Calculates the value of the density of the uniform distribution at the location specified as the first parameter and the range [a;b] specified as second and third parameters.</p>\n<p>Example: <tt>UniformDist(%s;2;4;0)</tt> returns %s.</p>";
     t[5356] = "Surface.ScriptEditor.Search.RemoveMarkOccurrence";
     t[5357] = "Remove mark occurrence";
     t[5362] = "Surface.XML.DistributionRecordHours";
@@ -2841,7 +2843,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[6974] = "Surface.Record.Tooltip";
     t[6975] = "Records one or two numerical values when a client passes this station.";
     t[6984] = "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DistributionFunctionInfo";
-    t[6985] = "<p>Calculates the value of the distribution function of the exponential distribution at the location specified as first parameter and with the distribution parameter &lambda; according to the reciprocal of the second parameter.</p>\n<p>Example: <tt>ExpDist(5;2;1)</tt> returns 0.9179150013761.</p>";
+    t[6985] = "<p>Calculates the value of the distribution function of the exponential distribution at the location specified as first parameter and with the distribution parameter &lambda; according to the reciprocal of the second parameter.</p>\n<p>Example: <tt>ExpDist(5;2;1)</tt> returns %s.</p>";
     t[6986] = "JSRunner.Templates.Empty";
     t[6987] = "There are not suggestions for Javascript programs at the moment.";
     t[6994] = "GraphVizExport.Options.Option.SubModels";
@@ -2989,7 +2991,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7306] = "Color.FFFFE0";
     t[7307] = "Light yellow";
     t[7308] = "ExpressionBuilder.TrigonometricFunctions.DegreeToRadians.Info";
-    t[7309] = "<p>Interprets the value before the \u00b0 sign as a degree value and converts it into radians, that is, multiplying it by 2 * pi and dividing it by 360.</p> <p> Example: <tt>180\u00b0</tt> returns 3.1415926535898.</p>";
+    t[7309] = "<p>Interprets the value before the \u00b0 sign as a degree value and converts it into radians, that is, multiplying it by 2 * pi and dividing it by 360.</p> <p> Example: <tt>180\u00b0</tt> returns %s.</p>";
     t[7312] = "Surface.Barrier.Dialog.Description.PerSignal.All";
     t[7313] = "all waiting clients";
     t[7314] = "Surface.AnimationTable.XML.FontSize.Italic";
@@ -3134,8 +3136,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7595] = "gif files";
     t[7598] = "ModelGenerator.ServiceDiscipline.LIFO";
     t[7599] = "LIFO (in inverse arrival order)";
-    t[7600] = "ModelGenerator.ServiceDistribution.LogNormalLowCV";
-    t[7601] = "Lognormal distribution (CV[S]=0.25)";
+    t[7600] = "Surface.Tank.Dialog.InitialValue.ErrorInfo";
+    t[7601] = "The specified initial value \"%s\" is invalid. A non-negative number has to be entered.";
     t[7602] = "Surface.InputDDE.Infotext";
     t[7603] = "If a client passes this station, a value is loaded via a DDE connection from a running Excel instance and is assigned to a variable.";
     t[7608] = "Main.Menu.File.Settings";
@@ -3249,7 +3251,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7898] = "BuildClientSourceTable.Edit.Name";
     t[7899] = "Name of the column";
     t[7900] = "ExpressionBuilder.TrigonometricFunctions.ArcusCotangensHyperbolicus.Info";
-    t[7901] = "<p>Calculates the value of the arc cotangent hyperbolicus function with the value passed as parameter.</p> <p> Example: <tt>arccoth(2)</tt> returns 0.54930614433405.</p>";
+    t[7901] = "<p>Calculates the value of the arc cotangent hyperbolicus function with the value passed as parameter.</p> <p> Example: <tt>arccoth(2)</tt> returns %s.</p>";
     t[7902] = "ParameterCompare.Templates.Maximum";
     t[7903] = "Maximum value";
     t[7906] = "Editor.Dialog.Tab.OutputAnalysis";
@@ -3259,7 +3261,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[7914] = "Wait.Status.LongRun";
     t[7915] = "%sK of %sK client arrivals simulated / %s clients in the system / %sM events / %sK events per second";
     t[7920] = "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DistributionFunctionInfo";
-    t[7921] = "<p>Calculates the value of the distribution function of the beta distribution at the location specified as first parameter with lower bound, upper bound, mean and standard deviation specified in parameters two to five.</p>\n<p>Example: <tt>BetaDistDirect(7;0;10;5;2;1)</tt> returns 0.81942684533674.</p>";
+    t[7921] = "<p>Calculates the value of the distribution function of the beta distribution at the location specified as first parameter with lower bound, upper bound, mean and standard deviation specified in parameters two to five.</p>\n<p>Example: <tt>BetaDistDirect(7;0;10;5;2;1)</tt> returns %s.</p>";
     t[7922] = "Statistics.TransferTimesByStations";
     t[7923] = "Transfer times by stations";
     t[7932] = "Surface.AnimationImage.Dialog.Images.Up";
@@ -3324,8 +3326,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[8051] = "Percent value";
     t[8054] = "Surface.InteractiveRadiobutton.Tooltip";
     t[8055] = "Radiobutton which triggers an action if clicked during animation.";
-    t[8058] = "ModelGenerator.ServiceDistribution.LogNormalVeryHighCV";
-    t[8059] = "Lognormal distribution (CV[S]=1.5)";
     t[8060] = "ExpressionBuilder.SimulationCharacteristics.ProcessingTimesByClientTypes.MinimalTime";
     t[8061] = "<p>Returns the minimal duration over all processing times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[8062] = "ModelDescription.Resources.infinite";
@@ -4033,7 +4033,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9680] = "ModelDescription.Delay.Distribution";
     t[9681] = "Delay distribution in general case";
     t[9682] = "ExpressionBuilder.Rounding.round.Info";
-    t[9683] = "<p>Rounds the value passed as parameter up or down to the next integer.</p><p>Example: <tt>round(1.4)</tt> returns 1 and <tt>round(1.5)</tt> returns 2.</p>";
+    t[9683] = "<p>Rounds the value passed as parameter up or down to the next integer.</p><p>Example: <tt>round(%s)</tt> returns 1 and <tt>round(%s)</tt> returns 2.</p>";
     t[9684] = "Surface.TankSensor.Dialog.Threshold.Direction";
     t[9685] = "Trigger signal at";
     t[9686] = "Simulation.Log.InteractiveSlider";
@@ -4049,7 +4049,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9702] = "ExpressionBuilder.ProbabilityDistributions.UniformDistribution";
     t[9703] = "Uniform distribution";
     t[9704] = "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DistributionFunctionInfo";
-    t[9705] = "<p>Calculates the value of the distribution function of the gamma distribution at the location specified as first parameter with mean and standard deviation specified in parameters two and three.</p>\n<p>Example: <tt>GammaDistDirect(7;5;3;1)</tt> returns 0.78517079628442.</p>";
+    t[9705] = "<p>Calculates the value of the distribution function of the gamma distribution at the location specified as first parameter with mean and standard deviation specified in parameters two and three.</p>\n<p>Example: <tt>GammaDistDirect(7;5;3;1)</tt> returns %s.</p>";
     t[9714] = "Surface.Delay.Dialog.DelayTimeIs.TransferTime";
     t[9715] = "transfer time";
     t[9716] = "ThreadCalibration.Status.Precompiling";
@@ -4069,7 +4069,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[9752] = "Editor.Dialog.Tab.RunTimeStatistics.Table.Edit.Title";
     t[9753] = "Edit statistic record expression";
     t[9754] = "Statistics.ErlangCompare.Info.Process.CV";
-    t[9755] = "The coefficient of variation of the service times is %s. But the formula uses 1.0.";
+    t[9755] = "The coefficient of variation of the service times is %s. But the formula uses %s.";
     t[9760] = "Surface.ExpressionTableModel.DeleteAll.Confirmation.Title";
     t[9761] = "Remove all data rows";
     t[9768] = "Examples.Baustellenampel";
@@ -4538,8 +4538,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[10967] = "Maximum value";
     t[10968] = "Surface.XML.FlowData.Destination";
     t[10969] = "ModelElementFlowDestination";
-    t[10970] = "ExpressionBuilder.ProbabilityDistributions.UniformDistribution,DensityInfo";
-    t[10971] = "<p>Calculates the value of the density of the uniform distribution at the location specified as the first parameter and the range [a;b] specified as second and third parameters.</p>\n<p>Example: <tt>UniformDist(2.5;2;4;0)</tt> returns 0.5.</p>";
     t[10974] = "Surface.CounterMulti.Table.Heading.Condition";
     t[10975] = "Bedingung";
     t[10980] = "ExpressionBuilder.ClientsInSystemProcess.MinimalNumber";
@@ -4966,8 +4964,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11931] = "Count";
     t[11932] = "Distribution.NegativeHyperGeomWikipedia";
     t[11933] = "https://en.wikipedia.org/wiki/Negative_hypergeometric_distribution";
-    t[11936] = "ModelGenerator.Model.Description.Properties.ServiceLognormalHighCV";
-    t[11937] = "Lognormal distributed service times (CV[S]=0.75)";
     t[11944] = "CommandLine.FolderSimulation.OutputFileExists";
     t[11945] = "There is already an output file for this file.";
     t[11948] = "Surface.HoldJS.Dialog.HoldTimeIs.TransferTime";
@@ -5615,7 +5611,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[13442] = "Resources.Failure.MoveUp";
     t[13443] = "Move up";
     t[13444] = "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DensityInfo";
-    t[13445] = "<p>Calculates the value of the density of the gamma distribution at the location specified as first parameter with mean and standard deviation specified in parameters two and three.</p>\n<p>Example: <tt>GammaDistDirect(7;5;3;0)</tt> returns 0.07727661686311.</p>";
+    t[13445] = "<p>Calculates the value of the density of the gamma distribution at the location specified as first parameter with mean and standard deviation specified in parameters two and three.</p>\n<p>Example: <tt>GammaDistDirect(7;5;3;0)</tt> returns %s.</p>";
     t[13446] = "ModelGenerator.Visualization.MeanRhoTitle";
     t[13447] = "Mean operator utilization";
     t[13452] = "Surface.Process.Dialog.TimeIs.ProcessingTime";
@@ -6022,16 +6018,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14405] = "ModelAdditionalStatisticsElement";
     t[14406] = "Statistics.DistributionOfTheResidenceTimesTotal";
     t[14407] = "Distribution of the residence times (totaled over multiple client arrivals)";
+    t[14408] = "BuildClientSourceTable.InputTable.Error.Process.Title";
+    t[14409] = "Table processing not possible";
+    t[14414] = "Statistics.StdDevUserTime";
+    t[14415] = "Standard deviation";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
-    t[14408] = "BuildClientSourceTable.InputTable.Error.Process.Title";
-    t[14409] = "Table processing not possible";
-    t[14414] = "Statistics.StdDevUserTime";
-    t[14415] = "Standard deviation";
     t[14424] = "Surface.InputDDE.Dialog.Variable";
     t[14425] = "Variable";
     t[14436] = "Surface.PopupMenu.QuickFix.Slider.Step";
@@ -6123,7 +6119,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14628] = "Surface.Batch.Dialog.BatchSize.Error.InfoFixed";
     t[14629] = "The specified value \"%s\" for the batch size is invalid. A positive integer number or a calculation expression has to be entered.";
     t[14630] = "ExpressionBuilder.MathematicalFunctions.FractionPart.info";
-    t[14631] = "<p>Returns the fractional part of the value passed as parameter.</p> <p>Example: <tt>frac(3.4)</tt> returns 0.4.</p>";
+    t[14631] = "<p>Returns the fractional part of the value passed as parameter.</p> <p>Example: <tt>frac(%s)</tt> returns %s.</p>";
     t[14640] = "Surface.SourceMulti.Tooltip";
     t[14641] = "Source that generates arrivals for multiple types.";
     t[14646] = "ModelDescription.Process.ProcessTimeType.Transfer";
@@ -6133,7 +6129,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14654] = "ScriptPopup.Output.Separator";
     t[14655] = "Element separator in arrays";
     t[14660] = "ExpressionBuilder.StatisticalFunctions.StandardDeviation.Info";
-    t[14661] = "<p>Calculates the corrected sample standard deviation of the values passed as parameters.</p> <p>Example: <tt>sd(1;2;3;4)</tt> returns 1.2909944487358.<p>";
+    t[14661] = "<p>Calculates the corrected sample standard deviation of the values passed as parameters.</p> <p>Example: <tt>sd(1;2;3;4)</tt> returns %s.<p>";
     t[14662] = "CommandLine.ServerMQTTTest.Description.Short";
     t[14663] = "Starts the program as MQTT-based echo test server.";
     t[14664] = "Editor.DialogBase.Description.Dialog.Info";
@@ -6878,8 +6874,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[16565] = "Maximum";
     t[16588] = "Main.Toolbar.Help";
     t[16589] = "Help";
-    t[16590] = "Surface.Set.Table.Add";
-    t[16591] = "Add assignment";
     t[16596] = "Surface.AnimationPieChart.XML.DiagramDrawMode.Pie";
     t[16597] = "CircleSegment";
     t[16598] = "Surface.Decide.Dialog.DecideBy.LeastClientsNextProcessStation.Info";
@@ -7461,7 +7455,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18034] = "FileType.AllTables";
     t[18035] = "All table files";
     t[18036] = "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DensityInfo";
-    t[18037] = "<p>Calculates the value of the density of the Erlang distribution at the location specified as first parameter with the parameters n and &lambda; according to the second and third parameters.</p>\n<p>Example: <tt>ErlangDist(7;5;3;0)</tt> returns 0.03992278718149.</p>";
+    t[18037] = "<p>Calculates the value of the density of the Erlang distribution at the location specified as first parameter with the parameters n and &lambda; according to the second and third parameters.</p>\n<p>Example: <tt>ErlangDist(7;5;3;0)</tt> returns %s.</p>";
     t[18048] = "Statistics.Dashboard.EditDialog.Tab.BackgroundColor";
     t[18049] = "Background color";
     t[18060] = "SettingsDialog.ManualUpdate.Download.Folder";
@@ -8028,18 +8022,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19377] = "In the default case the clients are routed to the next transport destination station by the sequence link to the client.";
     t[19378] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesAtStations.MaximalTime";
     t[19379] = "<p>Returns the maximal duration over all transfer times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_4 (java.lang.String[] t) {
     t[19392] = "Surface.AnimationBarChart.XML.Set";
     t[19393] = "ModelElementDiagramElement";
     t[19396] = "ExpressionBuilder.TrigonometricFunctions.TangensHyperbolicus";
     t[19397] = "Tangent hyperbolicus";
     t[19398] = "ExternalConnect.Dialog.TreeInfo";
     t[19399] = "Classes found in the plugin directory that support the plugin interface";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_4 (java.lang.String[] t) {
     t[19408] = "Statistics.WaitingTimesByClientTypes";
     t[19409] = "Waiting times by client types";
     t[19414] = "Statistics.XML.Element.WaitingClients";
@@ -8531,7 +8525,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20586] = "DistributionFitterMultiModal.Mode";
     t[20587] = "Mode of the distribution";
     t[20590] = "ExpressionBuilder.StatisticalFunctions.CoefficientOfVariation.Info";
-    t[20591] = "<p>Calculates the variation coefficients of the values passed as parameters.</p> <p>Example: <tt>cv(1;2;3;4)</tt> returns 0.51639777949432.</p>";
+    t[20591] = "<p>Calculates the variation coefficients of the values passed as parameters.</p> <p>Example: <tt>cv(1;2;3;4)</tt> returns %s.</p>";
     t[20596] = "StationStatistics.MaxThroughputIntervalLength.ColNames";
     t[20597] = "Stations";
     t[20602] = "ExpressionBuilder.CommandName.Resource";
@@ -8633,7 +8627,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20820] = "Examples.Transporter";
     t[20821] = "Transport of components using transporters";
     t[20828] = "ExpressionBuilder.TrigonometricFunctions.ArcusCotangens.Info";
-    t[20829] = "<p>Calculates the value of the arc cotangent function with the value passed as parameter. The angle is assumed in <b>radian</b> (full circle=2pi).</p> <p> Example: <tt>arccot(0)</tt> returns 1.5707963267949.</p>";
+    t[20829] = "<p>Calculates the value of the arc cotangent function with the value passed as parameter. The angle is assumed in <b>radian</b> (full circle=2pi).</p> <p> Example: <tt>arccot(0)</tt> returns %s.</p>";
     t[20834] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.HistogramMultiple";
     t[20835] = "<p>Returns the fraction of clients, who had to wait at the station whose ID is specified for the specified range of seconds (exclusive the lower and inclusive the upper bound).</p>";
     t[20836] = "ModelGenerator.ServiceDistribution";
@@ -8669,7 +8663,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20928] = "Surface.AnalogAssign.Dialog.Expression";
     t[20929] = "Expression";
     t[20932] = "ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DistributionFunctionInfo";
-    t[20933] = "<p>Calculates the value of the distribution function of the gamma distribution at the location specified as first parameter with the parameters &alpha; and &beta; according to the second and third parameters.</p>\n<p>Example: <tt>GammaDist(7;5;3;1)</tt> returns 0.087695308502.</p><p>It is <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> and <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
+    t[20933] = "<p>Calculates the value of the distribution function of the gamma distribution at the location specified as first parameter with the parameters &alpha; and &beta; according to the second and third parameters.</p>\n<p>Example: <tt>GammaDist(7;5;3;1)</tt> returns %s.</p><p>It is <tt>&alpha;=mean<sup>2</sup>/sd<sup>2</sup></tt> and <tt>&beta;=sd<sup>2</sup>/mean</tt>.</p>";
     t[20934] = "Optimizer.ControlVariableEdit.Title";
     t[20935] = "Edit control variable";
     t[20938] = "Surface.Rectangle.Dialog.Rounding.Off";
@@ -9385,7 +9379,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[22610] = "Main.Menu.Help.References";
     t[22611] = "References";
     t[22612] = "ExpressionBuilder.MathematicalFunctions.IntegerPart.Info";
-    t[22613] = "<p>Returns the integer part of the value passed as parameter.</p> <p>Example: <tt>int(3.4)</tt> returns 3.</p>";
+    t[22613] = "<p>Returns the integer part of the value passed as parameter.</p> <p>Example: <tt>int(%s)</tt> returns 3.</p>";
     t[22614] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.HistogramMultiple";
     t[22615] = "<p>Returns the fraction of clients, who had spent the specified range of seconds as transfer time (exclusive the lower and inclusive the upper bound).</p>";
     t[22616] = "Surface.Connection.ArrowMode.Global";
@@ -10034,18 +10028,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24213] = "Maximum width of the logo (in mm)";
     t[24216] = "FitDialog.TypeSelect.MultiModal.LogNormal";
     t[24217] = "Decompose multimodal distribution into log-normal distributions";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_5 (java.lang.String[] t) {
     t[24218] = "Surface.TransportSource.XML.TimeBase";
     t[24219] = "TimeBase";
     t[24220] = "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients.Info.Plural";
     t[24221] = "%s clients are at the stations.";
     t[24222] = "Surface.Dispose.Dialog.Table.Select";
     t[24223] = "Select output table file";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_5 (java.lang.String[] t) {
     t[24228] = "Surface.Barrier.XML.NeedAllSignalsToRelease";
     t[24229] = "ModelElementBarrierAllSignalsNeeded";
     t[24232] = "Surface.TankSensor.Dialog.Threshold.Direction.Down";
@@ -10349,7 +10343,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25020] = "Surface.XML.TimedChecks.Error";
     t[25021] = "At element %s the value \"%s\" for the specified distance of timed checks is invalid. A positive integer number (for the milli seconds value) has to be specified.";
     t[25024] = "Statistics.ErlangCompare.Info.Source.CV";
-    t[25025] = "The coefficient of variation of the inter-arrival times is %s. But the formula uses 1.0.";
+    t[25025] = "The coefficient of variation of the inter-arrival times is %s. But the formula uses %s.";
     t[25032] = "Main.Menu.Extras.ExecuteCommand";
     t[25033] = "Execute command-line command...";
     t[25034] = "QuickAccess";
@@ -10543,7 +10537,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25576] = "Surface.UserStatistic.Table.Edit.IsContinuous.No";
     t[25577] = "Discrete values";
     t[25580] = "ExpressionBuilder.StatisticalFunctions.Variance.Info";
-    t[25581] = "<p>Calculates the corrected sample variance of the values passed as parameters.</p> <p> Example: <tt>var(1;2;3;4)</tt> returns 1.6666666666667</p>";
+    t[25581] = "<p>Calculates the corrected sample variance of the values passed as parameters.</p> <p> Example: <tt>var(1;2;3;4)</tt> returns %s.</p>";
     t[25582] = "JDistributionEditor.Load.Title";
     t[25583] = "Load distribution";
     t[25586] = "Surface.AnimationPointerMeasuring.Dialog.RedAreaStartValue.Error.Title";
@@ -11341,7 +11335,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27498] = "XML.OptimizerNotActive.NoInfo";
     t[27499] = "Do not load optimizer settings file.";
     t[27500] = "ExpressionBuilder.StatisticalFunctions.SquaredVariationCoefficient.Info";
-    t[27501] = "<p>Calculates the squared variation coefficient of the values passed as parameters.</p> <p>Example: <tt>scv(1;2;3;4)</tt> returns 0.26666666666667.</p>";
+    t[27501] = "<p>Calculates the squared variation coefficient of the values passed as parameters.</p> <p>Example: <tt>scv(1;2;3;4)</tt> returns %s.</p>";
     t[27504] = "Surface.SourceTable.Dialog.TableMode.Direct";
     t[27505] = "Use table directly";
     t[27508] = "Surface.Reference.Dialog.Element";
@@ -12040,18 +12034,18 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29219] = "Costs per working hour in operators group \"%s\"";
     t[29226] = "ModelDescription.Process.ResourceCheckOrder.InOrder";
     t[29227] = "In specified order";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_6 (java.lang.String[] t) {
     t[29228] = "ExpressionCalculator.Toolbar.Load";
     t[29229] = "Load";
     t[29230] = "ModelDescription.Match.Mode.Temporary";
     t[29231] = "Generate temporary batch";
     t[29232] = "Surface.Process.XML.CampaignMode";
     t[29233] = "ModelElementCampaignMode";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_6 (java.lang.String[] t) {
     t[29236] = "Statistics.XML.Disribution.StepWideError";
     t[29237] = "The step wide specified in element \"%s\" is invalid.";
     t[29246] = "Dialog.Button.TextGenerator.ImageSize";
@@ -12179,7 +12173,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29498] = "Surface.HoldMulti.Name.Short";
     t[29499] = "Multi condition";
     t[29500] = "ExpressionBuilder.MathematicalFunctions.ZetaFunction.Info";
-    t[29501] = "<p>Returns the value of the Zeta function for the parameter passed as parameter.</p> <p>Example: <tt>zeta(2)</tt> returns 1.64493.</p>";
+    t[29501] = "<p>Returns the value of the Zeta function for the parameter passed as parameter.</p> <p>Example: <tt>zeta(2)</tt> returns %s.</p>";
     t[29510] = "Surface.Action.XML.Record.Condition.ThresholdValue";
     t[29511] = "Value";
     t[29512] = "AutoRestore.Dialog.DeleteAllInfoYes";
@@ -12321,7 +12315,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29810] = "Simulation.Log.Batching.MinMaxInfo";
     t[29811] = "Client: %s, station: %s, waiting clients: %d/%d - minimum batch size reached but not yet maximum batch size";
     t[29820] = "ExpressionBuilder.MathematicalConstants.tau.Info";
-    t[29821] = "<p>Returns the diameter of the unit circle<br>&tau;&asymp;6.28318530717959.</p>";
+    t[29821] = "<p>Returns the diameter of the unit circle<br>&tau;&asymp;%s.</p>";
     t[29824] = "Statistics.DistributionOfNumberOfClientsAtStationQueuesByClientTypes";
     t[29825] = "Distribution of the numbers of clients at the queues at the stations (by client types)";
     t[29826] = "SettingsDialog.WindowSizeProgrmStart.FullScreen";
@@ -12345,7 +12339,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29870] = "Surface.Process.XML.Distribution.ClientType";
     t[29871] = "ClientType";
     t[29874] = "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DensityInfo";
-    t[29875] = "<p>Calculates the value of the density of the normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>NormalDist(7;5;3;0)</tt> returns 0.10648266850745.</p>";
+    t[29875] = "<p>Calculates the value of the density of the normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>NormalDist(7;5;3;0)</tt> returns %s.</p>";
     t[29876] = "Surface.AssignString.Dialog.Condition.Error.Title";
     t[29877] = "Invalid condition";
     t[29878] = "Optimizer.Target.Minimize";
@@ -12467,7 +12461,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30124] = "Statistic.FastAccess.SelectXMLTag.InsertMethod.AtTheEnd";
     t[30125] = "At the end";
     t[30130] = "ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DistributionFunctionInfo";
-    t[30131] = "<p>Calculates the value of the distribution function of the normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>NormalDist(7;5;3;1)</tt> returns 0.74750746245308.</p>";
+    t[30131] = "<p>Calculates the value of the distribution function of the normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>NormalDist(7;5;3;1)</tt> returns %s.</p>";
     t[30132] = "ExpressionCalculator.Tab.Clients.TransferWaitingTime";
     t[30133] = "Average transfer time of the clients";
     t[30134] = "Optimizer.Tab.Optimization.Step.Result.Save.ErrorInfo";
@@ -12587,7 +12581,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[30380] = "Animation.Icon.Computer";
     t[30381] = "Computer";
     t[30382] = "ExpressionBuilder.Rounding.floor.Info";
-    t[30383] = "<p>Rounds the value passed as parameter to the next integer (in lower direction).</p><p>Example: <tt>floor(1.9)</tt> returns 1.</p>";
+    t[30383] = "<p>Rounds the value passed as parameter to the next integer (in lower direction).</p><p>Example: <tt>floor(%s)</tt> returns 1.</p>";
     t[30386] = "Main.Menu.Extras.FitDistribution";
     t[30387] = "Fit distribution...";
     t[30392] = "ModelDescription.Batch.NewClientType";
@@ -13525,7 +13519,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[32604] = "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistributionDirect";
     t[32605] = "Irwin-Hall distribution (direct characteristics)";
     t[32610] = "ExpressionBuilder.StatisticalFunctions.Median.Info";
-    t[32611] = "<p>Calculates the median of the values passed as parameters.</p> <p>Example: <tt>median(1;2;3;100)</tt> returns 2.5.</p>";
+    t[32611] = "<p>Calculates the median of the values passed as parameters.</p> <p>Example: <tt>median(1;2;3;100)</tt> returns %s.</p>";
     t[32612] = "Editor.DialogBase.Search.Table";
     t[32613] = "Table";
     t[32614] = "Surface.AnimationPointerMeasuring.Tooltip";
@@ -13924,12 +13918,10 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33573] = "<p>Gets the excess kurtosis of the performance indicator <tt>nr</tt> (1 based) recorded at station id.</p>";
     t[33580] = "Surface.AnimationTable.XML.Cell.Mode.Expression";
     t[33581] = "Expression";
-    t[33584] = "ModelGenerator.ServiceDistribution.LogNormalHighCV";
-    t[33585] = "Lognormal distribution (CV[S]=0.75)";
     t[33586] = "Surface.SourceMulti.XML.Source";
     t[33587] = "ModelElementMultiSourceData";
     t[33590] = "ExpressionBuilder.MathematicalConstants.e.Info";
-    t[33591] = "<p>Returns Euler's number<br>\ne&asymp;2.718281828459.</p>";
+    t[33591] = "<p>Returns Euler's number<br>\ne&asymp;%s.</p>";
     t[33594] = "Simulation.Log.DecideByKeyValue";
     t[33595] = "Decide by string property";
     t[33602] = "Surface.Delay.Dialog.DelayTimeIs.Nothing";
@@ -13967,7 +13959,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33658] = "ModelDescription.AnimationPause.ClientType";
     t[33659] = "Trigger on client type";
     t[33660] = "ExpressionBuilder.TrigonometricFunctions.ArcusCosinus.Info";
-    t[33661] = "<p>Calculates the value of the arc cosine function with the value passed as parameter. The angle is assumed in <b>radian</b> (full circle=2pi).</p> <p> Example: <tt>arccos(0)</tt> returns 1.5707963267949.</p>";
+    t[33661] = "<p>Calculates the value of the arc cosine function with the value passed as parameter. The angle is assumed in <b>radian</b> (full circle=2pi).</p> <p> Example: <tt>arccos(0)</tt> returns %s.</p>";
     t[33664] = "Simulation.Log.Release.InfoDelay2";
     t[33665] = "Station: %s";
     t[33668] = "Statistic.Viewer.Report.Settings.Reset.AllPages";
@@ -14046,12 +14038,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33903] = "Decide and teleport by station data";
     t[33906] = "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution";
     t[33907] = "Half normal distribution";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_7 (java.lang.String[] t) {
     t[33912] = "Statistics.Variables";
     t[33913] = "Global variables";
     t[33924] = "ExpressionCalculator.Results.NoResult";
@@ -14060,6 +14046,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33931] = "<p>Returns the sum of the residence times that have previously occurred at the station whose ID was specified in the parameter (over all client types).</p>";
     t[33934] = "Simulator.Creator.UnknownParserSymbol";
     t[33935] = "Unknown symbol";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_7 (java.lang.String[] t) {
     t[33938] = "ParameterCompare.Settings.VarianceAnalysis.ErrorInfo";
     t[33939] = "The number of repeatations \"%s\" is invalid. A positive integer number has to be specified.";
     t[33940] = "Statistics.DistributionOfStationsResidenceTimes";
@@ -14081,7 +14073,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33974] = "Surface.Output.XML.Element.Type.WaitingTime";
     t[33975] = "WaitingTime";
     t[33984] = "ExpressionBuilder.Rounding.ceil.Info";
-    t[33985] = "<p>Rounds the value passed as parameter to the next integer (in upper direction).</p><p>Example: <tt>ceil(1.1)</tt> returns 2.</p>";
+    t[33985] = "<p>Rounds the value passed as parameter to the next integer (in upper direction).</p><p>Example: <tt>ceil(%s)</tt> returns 2.</p>";
     t[33988] = "ScriptPopup.Simulation.LastClientType";
     t[33989] = "Last client type";
     t[33992] = "SystemInfo.Tools.UserInterface.MemoryUsage";
@@ -14331,7 +14323,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34616] = "ExpressionBuilder.SimulationCharacteristics.Costs.WaitingAvg";
     t[34617] = "Average waiting time costs";
     t[34622] = "ExpressionBuilder.ProbabilityDistributions.UniformDistribution.DistributionFunctionInfo";
-    t[34623] = "<p>Calculates the value of the distribution function of the uniform distribution at the location specified as the first parameter and the range [a;b] specified as second and third parameters.</p>\n<p>Example: <tt>UniformDist(2.5;2;4;1)</tt> returns 0.25.</p>";
+    t[34623] = "<p>Calculates the value of the distribution function of the uniform distribution at the location specified as the first parameter and the range [a;b] specified as second and third parameters.</p>\n<p>Example: <tt>UniformDist(%s;2;4;1)</tt> returns %s.</p>";
     t[34626] = "ExpressionBuilder.Error.Title";
     t[34627] = "Invalid expression";
     t[34632] = "Statistic.Viewer.Report.Settings.MenuItem";
@@ -14447,7 +14439,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34934] = "Surface.TankValveSetup.Table.Edit.Tank.ErrorTitle";
     t[34935] = "No tank selected";
     t[34940] = "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DistributionFunctionInfo";
-    t[34941] = "<p>Calculates the value of the distribution function of the log-normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>LogNormalDist(7;5;3;1)</tt> returns 0.81166409548103.</p>";
+    t[34941] = "<p>Calculates the value of the distribution function of the log-normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>LogNormalDist(7;5;3;1)</tt> returns %s.</p>";
     t[34942] = "Optimizer.Error.NoStatistics";
     t[34943] = "The simulation did not return statistics data.";
     t[34952] = "Surface.Output.XML.Element.TypeDescription.ProcessTime";
@@ -14781,7 +14773,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[35792] = "ExpressionBuilder.ClientsInSystemQueue";
     t[35793] = "Waiting client in the system";
     t[35796] = "ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DensityInfo";
-    t[35797] = "<p>Calculates the value of the density of the exponential distribution at the location specified as first parameter and with the distribution parameter &lambda; according to the reciprocal of the second parameter.</p>\n<p>Example: <tt>ExpDist(5;2;0)</tt> returns 0.04104249931195.</p>";
+    t[35797] = "<p>Calculates the value of the density of the exponential distribution at the location specified as first parameter and with the distribution parameter &lambda; according to the reciprocal of the second parameter.</p>\n<p>Example: <tt>ExpDist(5;2;0)</tt> returns %s.</p>";
     t[35798] = "Main.Menu.View.MouseWheelZoom.FixWindowPosition";
     t[35799] = "Fix window position";
     t[35800] = "NotesDialog.Edit";
@@ -15827,7 +15819,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38386] = "Surface.AnimationPieChart.XML.DiagramDrawMode";
     t[38387] = "ModelElementSegmentDisplay";
     t[38388] = "ExpressionBuilder.BasicArithmetics.Percent.Info";
-    t[38389] = "<p>Interprets the value before the % sign as a percentage value, that is, divides it by 100.</p><p> Example: <tt>30%</tt> returns 0.3.</p>";
+    t[38389] = "<p>Interprets the value before the %% sign as a percentage value, that is, divides it by 100.</p><p> Example: <tt>30%%</tt> returns %s.</p>";
     t[38390] = "ModelDescription.AnalogValue.InitialValue";
     t[38391] = "Initial value";
     t[38404] = "Statistic.Viewer.Report.NoTablesSelected.Title";
@@ -16052,12 +16044,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38941] = "MinimumNQ";
     t[38946] = "Surface.AnimationTrafficLights.XML.Condition";
     t[38947] = "ModelElementAnimationTrafficLightsCondition";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_8 (java.lang.String[] t) {
     t[38948] = "Surface.PopupMenu.ParameterCompare.ChangeVariableValue";
     t[38949] = "Parameter series: change value of variable";
     t[38962] = "Surface.AnalogAssign.Dialog.Mode";
@@ -16066,6 +16052,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38967] = "Medium aquamarine";
     t[38976] = "FitDialogMultiModalGenerator.StandardDeviation";
     t[38977] = "Standard deviation";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_8 (java.lang.String[] t) {
     t[38980] = "Surface.Input.Dialog.Variable.ProcessTime";
     t[38981] = "The pseudo variable \"p\" stands for the process time of the client.";
     t[38982] = "Statistics.XML.ExpressionData";
@@ -16303,7 +16295,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39556] = "Surface.AnimationTable.Infotext";
     t[39557] = "Tables can display both static content and the results of calculation expressions on the drawing surface.";
     t[39558] = "ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DensityInfo";
-    t[39559] = "<p>Calculates the value of the desity of the log-normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>LogNormalDist(7;5;3;0)</tt> returns 3.40712431368569.</p>";
+    t[39559] = "<p>Calculates the value of the desity of the log-normal distribution at the location specified as the first parameter with the parameters &mu; and &sigma; according to the second and third parameters. &mu; is the expected value and &sigma; the standard deviation.</p>\n<p>Example: <tt>LogNormalDist(7;5;3;0)</tt> returns %s.</p>";
     t[39570] = "Window.CannotShowModel.Info";
     t[39571] = "There are no statistics data available for which the model can be displayed.";
     t[39572] = "Simulation.Creator.InvalidTransportTime";
@@ -17919,7 +17911,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43502] = "ExpressionBuilder.ProbabilityDistributions.FDistribution";
     t[43503] = "F distribution";
     t[43512] = "ExpressionBuilder.StatisticalFunctions.Mean.Info";
-    t[43513] = "<p>Calculates the arithmetic mean of the values passed as parameters.</p> <p>Example: <tt>mean(1;2;3;4)</tt> returns 2.5.</p>";
+    t[43513] = "<p>Calculates the arithmetic mean of the values passed as parameters.</p> <p>Example: <tt>mean(1;2;3;4)</tt> returns %s.</p>";
     t[43514] = "ScriptPopup.Output.Separator.Semicolon.Hint";
     t[43515] = "Use semicolons as separators";
     t[43516] = "ExternalConnect.Dialog.Compile.ErrorNotDirectory";
@@ -18058,12 +18050,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43817] = "ModelElementSaveDisposeTable";
     t[43822] = "Transporter.Group.Edit.Dialog.DownTime.Expression";
     t[43823] = "Expression";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_9 (java.lang.String[] t) {
     t[43826] = "Optimizer.Tab.ControlVariables.Constrains";
     t[43827] = "Constrains";
     t[43830] = "Surface.Match.Dialog.TransferData.Numbers";
@@ -18072,6 +18058,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43833] = "While loading a ModelElementBalking element.";
     t[43834] = "UserTemplates.TemplatesDialog.Use";
     t[43835] = "Insert into model";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_9 (java.lang.String[] t) {
     t[43836] = "Simulation.Creator.TankValveSetup.IDIsNoTank";
     t[43837] = "At element id=%d a valve setup for tank id=%d was specified. But there is no tank with this id.";
     t[43838] = "Surface.Source.XML.DataStream.InterArrivalTimes";
@@ -19989,7 +19981,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48558] = "ExpressionBuilder.SimulationCharacteristics.Kurt";
     t[48559] = "excess kurtosis";
     t[48562] = "ExpressionBuilder.MathematicalConstants.Pi.Info";
-    t[48563] = "<p>Returns the number<br>\nPi&asymp;3.1415926535898.</p>";
+    t[48563] = "<p>Returns the number<br>\nPi&asymp;%s.</p>";
     t[48564] = "Surface.XML.TransportParking.WaitingCapacity";
     t[48565] = "ModelElementTransporterWaitingCapacity";
     t[48574] = "Statistics.XML.Element.ResidenceClients";
@@ -20064,12 +20056,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48725] = "Parameter series: change standard deviation of delay time";
     t[48740] = "Optimizer.SaveBestResult.Title";
     t[48741] = "Optimization canceled";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_10 (java.lang.String[] t) {
     t[48744] = "Simulation.Log.WaitingCancelation.Info";
     t[48745] = "Client: %s, station: %s";
     t[48746] = "Statistic.FastAccess.Template.ResourceUtilization.rho";
@@ -20078,6 +20064,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48759] = "Client: %s, station: %s, branch to output %d of %d";
     t[48760] = "ParameterCompare.Mode.ArrivalCount";
     t[48761] = "Number of arrivals";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_10 (java.lang.String[] t) {
     t[48764] = "ScriptPopup.Client.ValueNumber.Get.Hint";
     t[48765] = "Gets a client-based number property value";
     t[48766] = "ModelDescription.InteractiveCheckbox.Description.Variable";
@@ -20421,7 +20413,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49588] = "Surface.SourceTable.Dialog.Table.Preview.TabRaw";
     t[49589] = "Table data";
     t[49596] = "ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DistributionFunctionInfo";
-    t[49597] = "<p>Calculates the value of the distribution function of the Erlang distribution at the location specified as first parameter with the parameters n and &lambda; according to the second and third parameters.</p>\n<p>Example: <tt>ErlangDist(7;5;3;1)</tt> returns 0.087695308502.</p>";
+    t[49597] = "<p>Calculates the value of the distribution function of the Erlang distribution at the location specified as first parameter with the parameters n and &lambda; according to the second and third parameters.</p>\n<p>Example: <tt>ErlangDist(7;5;3;1)</tt> returns %s.</p>";
     t[49598] = "ModelDescription.DelayJS.Mode";
     t[49599] = "Count delay for the clients as";
     t[49602] = "Statistics.DistributionOfTheInterArrivalTimesBatch";
@@ -21179,7 +21171,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51462] = "Animation.Icon.Briefcase";
     t[51463] = "Briefcase";
     t[51464] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.NaturalLogarithm.Info";
-    t[51465] = "<p>Calculates the logarithm of the value passed as parameter to the base value e&asymp;2.718281828459.</p> <p>Example: <tt>ln(10)</tt> returns 2.302585092994.</p>";
+    t[51465] = "<p>Calculates the logarithm of the value passed as parameter to the base value e&asymp;%s.</p> <p>Example: <tt>ln(10)</tt> returns %s.</p>";
     t[51466] = "Schedule.EditDialog.Settings";
     t[51467] = "Settings";
     t[51474] = "AnimationExpression.ExpressionTemplates.CounterPart";
@@ -21793,7 +21785,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52986] = "ModelSecurityCheck.Station.WithName";
     t[52987] = "%s (id=%d)";
     t[52988] = "ModelGenerator.Model.Description.Properties.ServiceLognormal";
-    t[52989] = "Lognormal distributed service times (CV[S]=0.25)";
+    t[52989] = "Lognormal distributed service times";
     t[53010] = "Surface.XML.Level";
     t[53011] = "Level";
     t[53014] = "Color.20B2AA";
@@ -22070,12 +22062,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53707] = "The name of the current Javascript engine as a variable.";
     t[53708] = "Statistic.FastAccess.Template.Expression";
     t[53709] = "Expression";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_11 (java.lang.String[] t) {
     t[53712] = "Surface.XML.LineMode";
     t[53713] = "ModelElementConnectionDrawStyle";
     t[53718] = "Surface.XML.Tank.Valve.TimeBase.PerSecond";
@@ -22084,6 +22070,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53721] = "Simulation system";
     t[53724] = "Distribution.LogNormalWikipedia";
     t[53725] = "https://en.wikipedia.org/wiki/Log-normal_distribution";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_11 (java.lang.String[] t) {
     t[53730] = "Editor.Dialog.Tab.Simulation.Criteria.NoKeepDialogOpen";
     t[53731] = "Leave dialog open to change settings.";
     t[53736] = "Surface.Line.Dialog.Arrow.Medium";
@@ -22446,8 +22438,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54581] = "Time value";
     t[54582] = "ModelDescription.Action.Condition.Threshold.Up";
     t[54583] = "trigger when values exceeds threshold";
-    t[54586] = "ModelGenerator.Model.Description.Properties.ServiceLognormalVeryHighCV";
-    t[54587] = "Lognormal distributed service times (CV[S]=1.5)";
+    t[54586] = "Surface.Set.Table.Add";
+    t[54587] = "Add assignment";
     t[54592] = "ExpressionBuilder.ProbabilityDistributions.PertDistribution.DensityInfo";
     t[54593] = "<p>Calculates the value of the density of the Pert distribution at the location specified as the first parameter with the parameters [a;c] and most likely value b according to the second (a), third (b) and fourth (c) parameter.</p>";
     t[54598] = "Schedule.And";
@@ -22959,7 +22951,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[55818] = "LogSimulation.Heading";
     t[55819] = "Simulation results";
     t[55820] = "ExpressionBuilder.Rounding.trunc.Info";
-    t[55821] = "<p>Truncates the decimal digits of the number passed as parameter.</p><p>Examples: <tt>trunc(1.4)</tt> and <tt>trunc(1.5)</tt> will return 1 and <tt>trunc(-1.5)</tt> and <tt>trunc(-1.4)</tt> will return -1.</p>";
+    t[55821] = "<p>Truncates the decimal digits of the number passed as parameter.</p><p>Examples: <tt>trunc(%s)</tt> and <tt>trunc(%s)</tt> will return 1 and <tt>trunc(%s)</tt> and <tt>trunc(%s)</tt> will return -1.</p>";
     t[55822] = "Statistics.XML.Count";
     t[55823] = "Count";
     t[55824] = "Surface.Text.Dialog.Italic";
@@ -23000,8 +22992,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[55891] = "%d models were simulated.";
     t[55894] = "Surface.AnimationTextSelect.XML.TextDefault";
     t[55895] = "TextDefault";
-    t[55896] = "Surface.Tank.Dialog.InitialValue.ErrorInfo";
-    t[55897] = "The specified initial value \"%s\" is invalid. A non-negative number has to be entered.";
     t[55902] = "Surface.Connection.ArrowMode.Medium";
     t[55903] = "Medium";
     t[55904] = "Statistics.SystemData.RunDate";
@@ -23509,7 +23499,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[57224] = "Distribution.Unknown";
     t[57225] = "unknown distribution";
     t[57226] = "ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DensityInfo";
-    t[57227] = "<p>Calculates the value of the density of the beta distribution at the location specified as first parameter with lower bound, upper bound, mean value and standard deviation according to the second to fiveth parameters.</p>\n<p>Example: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> returns 1.31344828230159.</p>";
+    t[57227] = "<p>Calculates the value of the density of the beta distribution at the location specified as first parameter with lower bound, upper bound, mean value and standard deviation according to the second to fiveth parameters.</p>\n<p>Example: <tt>BetaDistDirect(7;0;10;5;2;0)</tt> returns %s.</p>";
     t[57228] = "Examples.Type.Real";
     t[57229] = "Real examples";
     t[57232] = "Statistics.Filter.EngineInitError.General";
@@ -23569,7 +23559,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[57390] = "Surface.Input.Dialog.Variable.ErrorTitle";
     t[57391] = "Invalid variable name";
     t[57392] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction.Info";
-    t[57393] = "<p>Calculates the value of the exponential function for the value passed as parameter. </p> <p>Example: <tt>exp(10)</tt> returns 22026.465794807.</p> <p> This function is equivalent to <tt>e^value</tt>.</p>";
+    t[57393] = "<p>Calculates the value of the exponential function for the value passed as parameter. </p> <p>Example: <tt>exp(10)</tt> returns %s.</p> <p> This function is equivalent to <tt>e^value</tt>.</p>";
     t[57394] = "Surface.Decide.XML.Connection.Value";
     t[57395] = "Value";
     t[57398] = "ParameterCompare.Table.AddModelByAssistant.Column.Min";
@@ -24076,12 +24066,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[58635] = "Return to model editor.";
     t[58640] = "Surface.Action.Dialog.Edit.Tabs.Action.Assign.Variable.ErrorTitle";
     t[58641] = "Invalid variable name";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_12 (java.lang.String[] t) {
     t[58642] = "ProxySettings.UseAuthentification";
     t[58643] = "Authentificate using user name and password";
     t[58650] = "Color.4682B4";
@@ -24092,6 +24076,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[58659] = "Output file";
     t[58660] = "Surface.SourceTable.Dialog.Table.Preview.Header.Time";
     t[58661] = "Time stamp";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_12 (java.lang.String[] t) {
     t[58664] = "Statistics.XML.Value";
     t[58665] = "Value";
     t[58680] = "Optimizer.XML.IntegerNumber";
@@ -24339,7 +24329,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[59302] = "Statistics.Average";
     t[59303] = "Average";
     t[59304] = "Statistics.ErlangCompare.Info.Process.CancelCV";
-    t[59305] = "The coefficient of variation of the waiting cancelation times is %s. But the formula uses 1.0.";
+    t[59305] = "The coefficient of variation of the waiting cancelation times is %s. But the formula uses %s.";
     t[59308] = "Surface.InputDDE.Dialog.Variable.ErrorInfo";
     t[59309] = "The choosen variable name \"%s\" is invalid.";
     t[59312] = "Simulation.Log.Balking.NormalProcessing";

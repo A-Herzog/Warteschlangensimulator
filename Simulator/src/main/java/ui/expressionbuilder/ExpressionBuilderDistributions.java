@@ -22,6 +22,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
 import language.Language;
+import mathtools.NumberTools;
 import ui.expressionbuilder.ExpressionBuilder.ExpressionSymbol;
 import ui.expressionbuilder.ExpressionBuilder.ExpressionSymbolType;
 
@@ -295,8 +296,8 @@ public class ExpressionBuilderDistributions {
 
 		addDist(group,filterUpper,"ExpDist","mean",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DensityInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DistributionFunctionInfo"),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DensityInfo"),NumberTools.formatNumberMax(0.04104249931195)),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.DistributionFunctionInfo"),NumberTools.formatNumberMax(0.9179150013761)),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ExponentialDistribution.RandomNumberRangeInfo"));
 
@@ -304,16 +305,16 @@ public class ExpressionBuilderDistributions {
 
 		addDist(group,filterUpper,"UniformDist","a;b",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.UniformDistribution"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.UniformDistribution,DensityInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.UniformDistribution.DistributionFunctionInfo"),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.UniformDistribution.DensityInfo"),NumberTools.formatNumberMax(2.5),NumberTools.formatNumberMax(0.5)),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.UniformDistribution.DistributionFunctionInfo"),NumberTools.formatNumberMax(2.5),NumberTools.formatNumberMax(0.25)),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.UniformDistribution.RandomNumberInfo"));
 
 		/* Normalverteilung */
 
 		addDist(group,filterUpper,"NormalDist","mu;sigma",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DensityInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DistributionFunctionInfo"),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DensityInfo"),NumberTools.formatNumberMax(0.10648266850745)),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DistributionFunctionInfo"),NumberTools.formatNumberMax(0.74750746245308)),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumberRangeInfo"));
 
@@ -321,8 +322,8 @@ public class ExpressionBuilderDistributions {
 
 		addDist(group,filterUpper,"LogNormalDist","mu;sigma",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DensityInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DistributionFunctionInfo"),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DensityInfo"),NumberTools.formatNumberMax(3.40712431368569)),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.DistributionFunctionInfo"),NumberTools.formatNumberMax(0.81166409548103)),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogNormalDistribution.RandomNumberRangeInfo"));
 
@@ -330,8 +331,8 @@ public class ExpressionBuilderDistributions {
 
 		addDist(group,filterUpper,"GammaDist","alpha;beta",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DensityInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DistributionFunctionInfo"),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DensityInfo"),NumberTools.formatNumberMax(0.03992278718149)),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution.DistributionFunctionInfo"),NumberTools.formatNumberMax(0.087695308502)),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistribution.RandomNumberRangeInfo"));
 
@@ -339,8 +340,8 @@ public class ExpressionBuilderDistributions {
 
 		addDist(group,filterUpper,"GammaDistDirect","mean;sd",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DensityInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DistributionFunctionInfo"),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DensityInfo"),NumberTools.formatNumberMax(0.07727661686311)),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.DistributionFunctionInfo"),NumberTools.formatNumberMax(0.78517079628442)),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberRangeInfo"));
 
@@ -348,8 +349,8 @@ public class ExpressionBuilderDistributions {
 
 		addDist(group,filterUpper,"ErlangDist","n;lambda",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DensityInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DistributionFunctionInfo"),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DensityInfo"),NumberTools.formatNumberMax(0.03992278718149)),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.DistributionFunctionInfo"),NumberTools.formatNumberMax(0.087695308502)),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberRangeInfo"));
 
@@ -365,8 +366,8 @@ public class ExpressionBuilderDistributions {
 
 		addDist(group,filterUpper,"BetaDistDirect","a;b;mean;sd",
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DensityInfo"),
-				Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DistributionFunctionInfo"),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DensityInfo"),NumberTools.formatNumberMax(1.31344828230159)),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.DistributionFunctionInfo"),NumberTools.formatNumberMax(0.81942684533674)),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.BetaDistributionDirect.RandomNumberInfo"));
 
 		/* Weibull-Verteilung */
