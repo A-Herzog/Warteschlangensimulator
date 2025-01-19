@@ -55,6 +55,7 @@ import java.util.stream.Stream;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.DefaultListModel;
@@ -413,9 +414,10 @@ public final class EditorPanel extends EditorPanelBase {
 		inputMap.put(strokeAddEgde,"ToggleAddEdge");
 		inputMap.put(strokePreviousView,"PreviousSavedView");
 		inputMap.put(strokeNextView,"NextSavedView");
-		getActionMap().put("ToggleAddEdge",new FunctionalAction(()->toggleAddEdge()));
-		getActionMap().put("PreviousSavedView",new FunctionalAction(()->savedViewSelect(-1)));
-		getActionMap().put("NextSavedView",new FunctionalAction(()->savedViewSelect(1)));
+		final ActionMap actionMap=getActionMap();
+		actionMap.put("ToggleAddEdge",new FunctionalAction(()->toggleAddEdge()));
+		actionMap.put("PreviousSavedView",new FunctionalAction(()->savedViewSelect(-1)));
+		actionMap.put("NextSavedView",new FunctionalAction(()->savedViewSelect(1)));
 	}
 
 	/**

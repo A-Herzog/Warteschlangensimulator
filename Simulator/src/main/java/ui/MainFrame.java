@@ -34,6 +34,7 @@ import systemtools.MainFrameBase;
 import systemtools.MainPanelBase;
 import systemtools.MsgBox;
 import tools.SetupData;
+import tools.SplashScreenHelper;
 
 /**
  * Diese Klasse stellt das Programmfenster des Simulators dar.
@@ -77,6 +78,9 @@ public class MainFrame extends MainFrameBase {
 		super(PROGRAM_NAME,loadFile);
 
 		final MainPanelBase panel=new MainPanel(this,PROGRAM_NAME,false);
+
+		SplashScreenHelper.setProgress(1,Language.tr("Splashscreen.LoadingMenu"));
+
 		setMainPanel(panel);
 
 		if (panel instanceof MainPanel) getMainPanel().setReloadWindow(new ReloadWindow());

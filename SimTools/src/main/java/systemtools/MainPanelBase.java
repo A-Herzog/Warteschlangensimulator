@@ -1585,12 +1585,19 @@ public abstract class MainPanelBase extends JPanel {
 	}
 
 	/**
+	 * Zwischengespeichertes {@link ActionMap}-Objekt
+	 * @see #addAction(String, Consumer)
+	 */
+	private ActionMap actionMap=null;
+
+	/**
 	 * Legt eine Aktion an und fügt diese in die {@link ActionMap} des Panels ein.
 	 * @param name	Name der Aktion
 	 * @param action	Auszuführendes Callback beim Aufruf der Aktion
 	 */
 	protected final void addAction(final String name, final Consumer<ActionEvent> action) {
-		getActionMap().put(name,new AbstractAction() {
+		if (actionMap==null) actionMap=getActionMap();
+		actionMap.put(name,new AbstractAction() {
 			private static final long serialVersionUID = -2948533211269447928L;
 
 			@Override

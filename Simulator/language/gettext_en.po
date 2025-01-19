@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-13 08:14+0100\n"
+"POT-Creation-Date: 2025-01-15 10:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12005,6 +12005,9 @@ msgstr ""
 "In total, %d different element<br>\n"
 "templates are available."
 
+msgid "Main.Menu.Elements.Mnemonic"
+msgstr "E"
+
 msgid "Main.Menu.Extras"
 msgstr "Extras"
 
@@ -22283,6 +22286,12 @@ msgstr "The maximum playback time for files is limited to 10 seconds in this pre
 
 msgid "SoundSelectPanel.Tone"
 msgstr "Tone"
+
+msgid "Splashscreen.LoadingMenu"
+msgstr "Loading menu"
+
+msgid "Splashscreen.LoadingWindow"
+msgstr "Loading program window"
 
 msgid "StationStatistics.DialogHint"
 msgstr "The simulation can be accelerated and the scope of statistics reduced by deactivating the statistics recording at individual stations. In the default case it is recommended to leave the recording at all stations in the active state. The recording of the maximum throughput requires the definition of intervals to be considered in each case. These interval lengths can be defined individually for each station. For better comparability of the values, however, the use of a uniform value is recommended."

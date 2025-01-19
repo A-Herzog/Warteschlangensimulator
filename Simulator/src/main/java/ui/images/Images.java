@@ -20,7 +20,6 @@ import java.awt.image.BaseMultiResolutionImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -1958,7 +1957,7 @@ public enum Images {
 	/**
 	 * URLs des Icons
 	 */
-	private URL[] urls;
+	private List<URL> urls;
 
 	/**
 	 * Bild
@@ -1971,11 +1970,18 @@ public enum Images {
 	private Icon icon;
 
 	/**
+	 * Zugehörige Klasse
+	 * @see #addURL(List, String, String)
+	 */
+	private Class<? extends Images> cls;
+
+	/**
 	 * Konstruktor des Enum
 	 * @param name	Dateiname des Icons
 	 */
 	Images(final String name) {
 		this.name=name;
+		cls=getClass();
 	}
 
 	/**
@@ -1987,12 +1993,12 @@ public enum Images {
 	private void addURL(final List<URL> list, final String folder, final String name) {
 		URL url;
 
-		url=getClass().getResource(folder+"/"+name);
+		url=cls.getResource(folder+"/"+name);
 		if (url!=null) {
 			list.add(url);
 		} else {
 			if (name.contains("_")) {
-				url=getClass().getResource(folder+"/"+name.replace('_','-'));
+				url=cls.getResource(folder+"/"+name.replace('_','-'));
 				if (url!=null) list.add(url);
 			}
 		}
@@ -2003,13 +2009,20 @@ public enum Images {
 	 * @return	URL des Icons
 	 */
 	public URL[] getURLs() {
+		return getURLsList().toArray(URL[]::new);
+	}
+
+	/**
+	 * Liefert die URL des Icons
+	 * @return	URL des Icons
+	 */
+	private List<URL> getURLsList() {
 		if (urls==null) {
-			List<URL> list=new ArrayList<>();
-			addURL(list,"res",name);
-			addURL(list,"res24",name);
-			addURL(list,"res32",name);
-			addURL(list,"res48",name);
-			urls=list.toArray(new URL[0]);
+			urls=new ArrayList<>();
+			addURL(urls,"res",name);
+			addURL(urls,"res24",name);
+			addURL(urls,"res32",name);
+			addURL(urls,"res48",name);
 		}
 		assert(urls!=null);
 		return urls;
@@ -2029,14 +2042,13 @@ public enum Images {
 	}
 
 	/**
-	 * Liefert basierend auf einer oder mehreren URLs das Standardbild (das Bild für die erste URL)
-	 * @param urls	Liste mit URLs
-	 * @return	Bild für die erste URL
+	 * Liefert basierend auf einer URL das Bild
+	 * @param url	URL
+	 * @return	Bild für die URL
 	 */
-	private Image getDefaultImage(final URL[] urls) {
-		if (urls==null || urls.length==0) return null;
+	private Image getDefaultImage(final URL url) {
 		try {
-			return ImageIO.read(urls[0]);
+			return ImageIO.read(url);
 		} catch (IOException e) {
 			assert(false);
 			return null;
@@ -2050,20 +2062,27 @@ public enum Images {
 	public Image getImage() {
 		if (image!=null) return image;
 
-		final URL[] urls=getURLs();
-		assert(urls.length>0);
+		final boolean oldCacheState=ImageIO.getUseCache(); /* Cache wird nur benötigt, wenn in einem Stream kein Seeking möglich ist, was hier nicht der Fall ist. */
+		if (oldCacheState) ImageIO.setUseCache(false);
 
-		if (urls.length==1) return image=getDefaultImage(urls);
+		try {
+			final List<URL> urls=getURLsList();
+			assert(urls.size()>0);
 
-		final Image[] images=Arrays.asList(urls).stream().map(url->{
-			try {
-				return ImageIO.read(url);
-			} catch (IOException e) {
-				return image=getDefaultImage(urls);
-			}
-		}).toArray(Image[]::new);
+			if (urls.size()==1) return image=getDefaultImage(urls.get(0));
 
-		return image=new BaseMultiResolutionImage(0,images);
+			final Image[] images=urls.stream().map(url->{
+				try {
+					return ImageIO.read(url);
+				} catch (IOException e) {
+					return null;
+				}
+			}).filter(image->image!=null).toArray(Image[]::new);
+
+			return image=new BaseMultiResolutionImage(0,images);
+		} finally {
+			if (oldCacheState) ImageIO.setUseCache(true);
+		}
 	}
 
 	/**

@@ -16,7 +16,6 @@
 package start;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
-import java.awt.SplashScreen;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
@@ -45,6 +44,7 @@ import systemtools.statistics.PDFWriterBase;
 import systemtools.statistics.StatisticsBasePanel;
 import tools.JarSecurity;
 import tools.SetupData;
+import tools.SplashScreenHelper;
 import ui.MainFrame;
 import ui.MainPanel;
 import ui.UpdateSystem;
@@ -104,7 +104,10 @@ public class Main {
 	 * Nimmt alle GUI-unabhängigen Vorbereitungen zum Start des Simulators vor.
 	 */
 	public static void prepare() {
+		SplashScreenHelper.setProgress(0.4,"Loading configuration");
 		final SetupData setup=SetupData.getSetup();
+
+		SplashScreenHelper.setProgress(0.6,"Loading language");
 
 		/* Sprache */
 		Language.init(setup.language);
@@ -154,6 +157,8 @@ public class Main {
 	 * @param args	Kommandozeilen-Parameter
 	 */
 	public static void main(final String[] args) {
+		SplashScreenHelper.setProgress(0.2,"Loading libraries");
+
 		/* Jar-Dateien auf Veränderungen prüfen */
 		JarSecurity.work();
 
@@ -181,12 +186,7 @@ public class Main {
 
 		/* Parameter verarbeiten */
 		if (args.length>0) {
-			/* Splash-Screen wird automatisch geschlossen, wenn ein Fenster geöffnet wird. Allerdings bleibt er im Kommandozeilen-Modus beliebig lange sichtbar. Daher wird er hier explizit geschlossen. */
-			try {
-				final SplashScreen splashScreen=SplashScreen.getSplashScreen();
-				if (splashScreen!=null) splashScreen.close();
-			} catch (UnsupportedOperationException e) {}
-
+			SplashScreenHelper.close(); /* Splash-Screen wird automatisch geschlossen, wenn ein Fenster geöffnet wird. Allerdings bleibt er im Kommandozeilen-Modus beliebig lange sichtbar. Daher wird er hier explizit geschlossen. */
 			if (processCommandLineArguments(args)) return;
 		}
 
@@ -195,7 +195,7 @@ public class Main {
 
 		/* Grafische Oberfläche starten */
 		try {
-			SwingUtilities.invokeAndWait(new RunSimulator());
+			SwingUtilities.invokeAndWait(()->runSimulator());
 		} catch (InvocationTargetException | InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -204,60 +204,49 @@ public class Main {
 	/**
 	 * Ausführen der grafischen Oberfläche über ein <code>invokeLater</code>.
 	 */
-	private static final class RunSimulator implements Runnable {
-		/**
-		 * Konstruktor der Klasse
-		 */
-		public RunSimulator() {
-			/*
-			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-			 */
+	public static void runSimulator() {
+		final SetupData setup=SetupData.getSetup();
+
+		/* Look & Feel */
+		FlatLaFHelper.init();
+		FlatLaFHelper.setCombinedMenuBar(setup.lookAndFeelCombinedMenu);
+		GUITools.setupUI(setup.lookAndFeel);
+		FlatLaFHelper.setup();
+
+		/* Skalierung */
+		GUITools.setupFontSizeFixSystemScaling();
+		final double scaling=setup.scaleGUI;
+		GUITools.setupFontSize(scaling);
+		BaseDialog.windowScaling=scaling;
+
+		/* Meldungsdialoge */
+		MsgBox.setBackend(new MsgBoxBackendTaskDialog());
+
+		/* Filter für Verteilungsliste in Verteilungseditoren */
+		JDistributionEditorPanel.registerFilterGetter(()->{
+			final String s=setup.distributionListFilter.trim();
+			return (s.isEmpty())?String.join("\n",JDistributionEditorPanelRecord.getDefaultHighlights()):s;
+		});
+		JDistributionEditorPanel.registerFilterSetter(list->{
+			setup.distributionListFilter=list;
+			setup.saveSetup();
+		});
+
+		/* Schriftart */
+		if (setup.fontName!=null && !setup.fontName.trim().isEmpty()) {
+			GUITools.setFontName(setup.fontName);
+			ModelElementBox.DEFAULT_FONT_LARGE=new Font(setup.fontName,ModelElementBox.DEFAULT_FONT_LARGE.getStyle(),ModelElementBox.DEFAULT_FONT_LARGE.getSize());
+			ModelElementBox.DEFAULT_FONT_SMALL=new Font(setup.fontName,ModelElementBox.DEFAULT_FONT_SMALL.getStyle(),ModelElementBox.DEFAULT_FONT_SMALL.getSize());
+			ModelElementBox.DEFAULT_FONT_TYPE=setup.fontName;
+			FontCache.defaultFamily.name=setup.fontName;
 		}
 
-		@Override
-		public void run() {
-			final SetupData setup=SetupData.getSetup();
+		/* Touch-Unterstützung in der Online-Hilfe */
+		JScrollPaneTouch.TOUCH_SCROLL_ACTIVE=setup.touchSupport;
 
-			/* Look & Feel */
-			FlatLaFHelper.init();
-			FlatLaFHelper.setCombinedMenuBar(setup.lookAndFeelCombinedMenu);
-			GUITools.setupUI(setup.lookAndFeel);
-			FlatLaFHelper.setup();
+		SplashScreenHelper.setProgress(0.8,Language.tr("Splashscreen.LoadingWindow"));
 
-			/* Skalierung */
-			GUITools.setupFontSizeFixSystemScaling();
-			final double scaling=setup.scaleGUI;
-			GUITools.setupFontSize(scaling);
-			BaseDialog.windowScaling=scaling;
-
-			/* Meldungsdialoge */
-			MsgBox.setBackend(new MsgBoxBackendTaskDialog());
-
-			/* Filter für Verteilungsliste in Verteilungseditoren */
-			JDistributionEditorPanel.registerFilterGetter(()->{
-				final String s=setup.distributionListFilter.trim();
-				return (s.isEmpty())?String.join("\n",JDistributionEditorPanelRecord.getDefaultHighlights()):s;
-			});
-			JDistributionEditorPanel.registerFilterSetter(list->{
-				setup.distributionListFilter=list;
-				setup.saveSetup();
-			});
-
-			/* Schriftart */
-			if (setup.fontName!=null && !setup.fontName.trim().isEmpty()) {
-				GUITools.setFontName(setup.fontName);
-				ModelElementBox.DEFAULT_FONT_LARGE=new Font(setup.fontName,ModelElementBox.DEFAULT_FONT_LARGE.getStyle(),ModelElementBox.DEFAULT_FONT_LARGE.getSize());
-				ModelElementBox.DEFAULT_FONT_SMALL=new Font(setup.fontName,ModelElementBox.DEFAULT_FONT_SMALL.getStyle(),ModelElementBox.DEFAULT_FONT_SMALL.getSize());
-				ModelElementBox.DEFAULT_FONT_TYPE=setup.fontName;
-				FontCache.defaultFamily.name=setup.fontName;
-			}
-
-			/* Touch-Unterstützung in der Online-Hilfe */
-			JScrollPaneTouch.TOUCH_SCROLL_ACTIVE=setup.touchSupport;
-
-			/* Start */
-			new MainFrame(loadFile,null);
-		}
+		/* Start */
+		new MainFrame(loadFile,null);
 	}
 }

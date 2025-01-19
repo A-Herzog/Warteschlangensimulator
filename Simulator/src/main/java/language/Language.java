@@ -93,9 +93,10 @@ public class Language {
 	 * @param language	Kürzel der Sprache
 	 * @see #init(String)
 	 */
-	private void selectLanguage(String language) {
-		i18n=(language.equalsIgnoreCase("de"))?i18n_de:i18n_en;
-		res=(language.equalsIgnoreCase("de"))?res_de:res_en;
+	private void selectLanguage(final String language) {
+		final boolean isDe=language.equalsIgnoreCase("de");
+		i18n=isDe?i18n_de:i18n_en;
+		res=isDe?res_de:res_en;
 		languageID=language;
 	}
 
