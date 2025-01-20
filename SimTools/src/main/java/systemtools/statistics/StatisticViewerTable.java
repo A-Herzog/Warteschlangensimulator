@@ -39,6 +39,7 @@ import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -1055,7 +1056,13 @@ public class StatisticViewerTable implements StatisticViewer {
 		if (columnNames.isEmpty()) buildTable();
 		buildTableModel();
 
-		if (!pdf.writeStyledTableHeader(showColumnNames)) return false;
+		final var filteredShowColumnNames=showColumnNames.stream().map(name->{
+			name=name.replace(" "+new String(Character.toChars(9660)),"");
+			name=name.replace(" "+new String(Character.toChars(9650)),"");
+			name=name.replace(" "+new String(Character.toChars(9745)),"");
+			return name;
+		}).collect(Collectors.toList());
+		if (!pdf.writeStyledTableHeader(filteredShowColumnNames)) return false;
 		final int size=Math.min(showTable.getSize(0),showTable.findLastNonNullRow(true)+2);
 		for (int i=0;i<size;i++) if (!pdf.writeStyledTableLine(showTable.getLine(i),i==size-1)) return false;
 
