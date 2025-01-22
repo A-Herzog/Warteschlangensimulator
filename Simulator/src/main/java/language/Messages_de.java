@@ -2337,7 +2337,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[5748] = "ModelDescription.AnalogValue.UpdateStepWide";
     t[5749] = "Aktualisierungsbenachrichtigung (Sekundenabstand)";
     t[5750] = "ExpressionBuilder.ProbabilityDistributions.KumaraswamyDistribution.RandomNumberInfo";
-    t[5751] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Kumaraswamy-Verteilung gem\u00e4\u00dfden beiden Verteilungsparameter im ersten und zweiten Parameter bestimmt und \u00fcber den Tr\u00e4gerbereich gem\u00e4\u00df dem dritten und vierten Parameter.\n\n\n\n mit Tr\u00e4gerbereich gem\u00e4\u00df dem ersten und zweiten Parameter.</p>";
+    t[5751] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Kumaraswamy-Verteilung gem\u00e4\u00dfden beiden Verteilungsparameter im ersten und zweiten Parameter bestimmt und \u00fcber den Tr\u00e4gerbereich gem\u00e4\u00df dem dritten und vierten Parameter.</p>";
     t[5756] = "ExpressionCalculator.Toolbar.Tools";
     t[5757] = "Befehl";
     t[5758] = "Statistics.ResidenceTimes";
