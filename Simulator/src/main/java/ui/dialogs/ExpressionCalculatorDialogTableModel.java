@@ -159,7 +159,7 @@ public class ExpressionCalculatorDialogTableModel extends JTableExtAbstractTable
 		if (obj instanceof Long) return NumberTools.formatLong((Long)obj);
 		if (obj instanceof Float) return NumberTools.formatNumber((Float)obj);
 		if (obj instanceof Double) return NumberTools.formatNumber((Double)obj);
-		if (obj instanceof Number) return ((Number)obj).toString();
+		if (obj instanceof Number) return obj.toString();
 		if (obj instanceof Character) return encodeHTML(((Character)obj).toString());
 		if (obj instanceof String) return encodeHTML((String)obj);
 		if (obj instanceof Object[]) return encodeHTML(Arrays.toString(((Object[])obj)));

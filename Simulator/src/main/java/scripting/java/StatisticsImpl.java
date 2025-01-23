@@ -558,7 +558,7 @@ public class StatisticsImpl implements StatisticsInterface {
 			return "";
 		}
 
-		if (!(fileName instanceof String)) return "";
+		if (fileName==null) return "";
 
 		final File file=new File(fileName);
 		if (!file.exists()) {

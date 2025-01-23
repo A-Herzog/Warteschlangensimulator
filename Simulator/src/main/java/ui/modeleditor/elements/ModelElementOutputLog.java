@@ -179,6 +179,7 @@ public class ModelElementOutputLog extends ModelElementMultiInSingleOutBox imple
 	 * @return	Ausgabe aktiv
 	 * @see #setOutputActive(boolean)
 	 */
+	@Override
 	public boolean isOutputActive() {
 		return outputActive;
 	}

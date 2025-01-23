@@ -288,7 +288,7 @@ public class SelectIDDialog extends BaseDialog {
 	 */
 	private static void getAllNames(final ModelSurface surface, final List<String> allNames) {
 		for (ModelElement element: surface.getElements()) if (element instanceof ModelElementBox) {
-			allNames.add(((ModelElementBox)element).getName());
+			allNames.add(element.getName());
 			if (element instanceof ModelElementSub) getAllNames(((ModelElementSub)element).getSubSurface(),allNames);
 		}
 	}

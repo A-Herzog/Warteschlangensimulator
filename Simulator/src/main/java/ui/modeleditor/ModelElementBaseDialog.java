@@ -854,7 +854,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	protected void storeData() {
 		storeBaseProperties();
 		SwingUtilities.invokeLater(()-> {
-			if (element instanceof ModelElementBox) ((ModelElementBox)element).fireChanged();
+			element.fireChanged();
 			element.getSurface().updateAdditionalIcons();
 			if (surfacePanel!=null) {
 				surfacePanel.fireStateChangeListener();

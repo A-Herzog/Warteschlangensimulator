@@ -226,7 +226,7 @@ public class MainFrame extends MainFrameBase {
 	 * @return	Konnte ein Reloaded durchgeführt werden?
 	 */
 	private boolean processReload() {
-		if (!(getMainPanel() instanceof MainPanel)) return false;
+		if (getMainPanel()==null) return false;
 
 		if (!getMainPanel().allowReloadWindow()) return false;
 

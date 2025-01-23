@@ -215,7 +215,6 @@ class DistributionTests {
 	@Test
 	void testErlangDistribution() {
 		final ErlangDistributionImpl erlang=new ErlangDistributionImpl(1,2);
-		assertTrue(erlang instanceof GammaDistribution);
 		testDistributionParameters(erlang,new double[]{1,2});
 	}
 
@@ -541,17 +540,14 @@ class DistributionTests {
 
 		never=new NeverDistributionImpl();
 
-		assertTrue(never instanceof OnePointDistributionImpl);
 		assertEquals(NeverDistributionImpl.NEVER,never.point);
 
 		never=never.clone();
 
-		assertTrue(never instanceof OnePointDistributionImpl);
 		assertEquals(NeverDistributionImpl.NEVER,never.point);
 
 		never=(NeverDistributionImpl)DistributionTools.cloneDistribution(never);
 
-		assertTrue(never instanceof OnePointDistributionImpl);
 		assertEquals(NeverDistributionImpl.NEVER,never.point);
 
 		testDistributionTools(never);

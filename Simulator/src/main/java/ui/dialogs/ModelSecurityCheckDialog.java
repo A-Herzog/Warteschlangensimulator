@@ -201,7 +201,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 			final String script=((ElementWithScript)element).getScript();
 			list.add(new CriticalElement((ModelElementBox)element,scriptMode,script));
 		}
-		if ((element instanceof ElementWithAnimationScripts) && (element instanceof ModelElementPosition)) {
+		if (element instanceof ElementWithAnimationScripts) {
 			list.addAll(Arrays.asList(((ElementWithAnimationScripts)element).getAnimationScripts()).stream().map(expression->new CriticalElement(element,expression)).collect(Collectors.toList()));
 		}
 

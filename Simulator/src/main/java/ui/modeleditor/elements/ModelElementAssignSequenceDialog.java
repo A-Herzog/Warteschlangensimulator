@@ -62,13 +62,11 @@ public class ModelElementAssignSequenceDialog extends ModelElementBaseDialog {
 		for (ModelSequence sequence: sequences.getSequences()) model.addElement(sequence.getName());
 		sequenceCombo.setModel(model);
 
-		if (element instanceof ModelElementAssignSequence) {
-			final String sequenceName=element.getSequence();
-			int index=-1;
-			for (int i=0;i<sequences.getSequences().size();i++) if (sequences.getSequences().get(i).getName().equalsIgnoreCase(sequenceName)) {index=i; break;}
-			if (index<0 && sequenceCombo.getModel().getSize()>0) index=0;
-			if (index>=0) sequenceCombo.setSelectedIndex(index);
-		}
+		final String sequenceName=element.getSequence();
+		int index=-1;
+		for (int i=0;i<sequences.getSequences().size();i++) if (sequences.getSequences().get(i).getName().equalsIgnoreCase(sequenceName)) {index=i; break;}
+		if (index<0 && sequenceCombo.getModel().getSize()>0) index=0;
+		if (index>=0) sequenceCombo.setSelectedIndex(index);
 
 		setVisible(true);
 	}

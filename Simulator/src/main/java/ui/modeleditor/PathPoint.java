@@ -29,7 +29,6 @@ import javax.swing.JPanel;
 
 import language.Language;
 import ui.modeleditor.coreelements.ModelElement;
-import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.elements.ModelElementWayPoint;
 
@@ -118,7 +117,7 @@ public class PathPoint {
 		final String name=element.getName();
 		if (parent!=null) {
 			String parentName=parent.getName().trim();
-			if (parentName.isEmpty() && parent instanceof ModelElementBox) parentName=parent.getTypeName();
+			if (parentName.isEmpty()) parentName=parent.getTypeName();
 			return name+" (id="+element.getId()+") in "+parentName+" (id="+parent.getId()+")";
 		} else {
 			return name+" (id="+element.getId()+")";

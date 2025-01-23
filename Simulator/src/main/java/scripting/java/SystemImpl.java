@@ -208,7 +208,7 @@ public class SystemImpl implements SystemInterface {
 
 	@Override
 	public void set(final String varName, final Object varValue) {
-		if (varName==null || varValue==null || !(varName instanceof String)) return;
+		if (varName==null || varValue==null) return;
 		if (!(varValue instanceof String) && !(varValue instanceof Double) && !(varValue instanceof Integer) && !(varValue instanceof Long)) return;
 
 		int index=-1;

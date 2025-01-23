@@ -140,7 +140,7 @@ public class ModelElementSubDialog extends ModelElementBaseDialog {
 			content.add(main=new JPanel(new BorderLayout()),BorderLayout.CENTER);
 			main.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 			sub.add(label=new JLabel(Language.tr("Surface.Sub.Dialog.Description")+":"));
-			main.add(new ScriptEditorAreaBuilder.RScrollPane(description=ScriptEditorAreaBuilder.getPlainTextField(((ModelElementSub)element).getDescription(),readOnly,ScriptEditorAreaBuilder.TextAreaMode.ELEMENT_DESCRIPTION)),BorderLayout.CENTER);
+			main.add(new ScriptEditorAreaBuilder.RScrollPane(description=ScriptEditorAreaBuilder.getPlainTextField((element).getDescription(),readOnly,ScriptEditorAreaBuilder.TextAreaMode.ELEMENT_DESCRIPTION)),BorderLayout.CENTER);
 			label.setLabelFor(description);
 		}
 		return content;
@@ -182,7 +182,7 @@ public class ModelElementSubDialog extends ModelElementBaseDialog {
 		if (element instanceof ModelElementSub) {
 			((ModelElementSub)element).setInputCount((Integer)inputField.getValue());
 			((ModelElementSub)element).setOutputCount((Integer)outputField.getValue());
-			((ModelElementSub)element).setDescription(description.getText());
+			element.setDescription(description.getText());
 		}
 	}
 

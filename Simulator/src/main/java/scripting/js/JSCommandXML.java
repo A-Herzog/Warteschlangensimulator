@@ -475,7 +475,7 @@ public class JSCommandXML extends JSBaseCommand {
 			return "";
 		}
 
-		if (!(obj instanceof String)) return "";
+		if (obj==null) return "";
 
 		final File file=new File(obj);
 		if (!file.exists()) {

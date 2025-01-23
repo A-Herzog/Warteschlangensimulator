@@ -464,11 +464,14 @@ public class GitSetup {
 	 */
 	private boolean initRemote(final SimpleGitWorker git) {
 		switch (serverAuth) {
-		case NONE: return git.initRemote(serverURL);
-		case PASSWORD: return git.initRemote(serverURL,authName,authPassword);
+		case NONE:
+			return git.initRemote(serverURL);
+		case PASSWORD:
+			return git.initRemote(serverURL,authName,authPassword);
 		case KEY:
-			if (authKeyPassphrase.isEmpty())	return git.initRemote(serverURL,new File(authKey)); else git.initRemote(serverURL,new File(authKey),authKeyPassphrase);
-		default: return git.initRemote(serverURL);
+			if (authKeyPassphrase.isEmpty()) return git.initRemote(serverURL,new File(authKey)); else return git.initRemote(serverURL,new File(authKey),authKeyPassphrase);
+		default:
+			return git.initRemote(serverURL);
 		}
 	}
 

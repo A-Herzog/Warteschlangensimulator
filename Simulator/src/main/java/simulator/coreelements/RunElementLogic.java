@@ -162,7 +162,7 @@ public abstract class RunElementLogic extends RunElement {
 		while (element!=null) {
 			/* Ziel erreicht? */
 			if (element!=start && sub.isEmpty()) {
-				for (Class<?> test: classes) if (test.equals(element.getClass())) return ((ModelElementLogic)element).getId();
+				for (Class<?> test: classes) if (test.equals(element.getClass())) return element.getId();
 			}
 
 			/* Verarbeitung: Beginn/Ende von Sub-Bereichen */

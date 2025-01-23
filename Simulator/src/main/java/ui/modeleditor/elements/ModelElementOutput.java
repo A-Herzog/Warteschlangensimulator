@@ -256,6 +256,7 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	 * @return	Ausgabe aktiv
 	 * @see #setOutputActive(boolean)
 	 */
+	@Override
 	public boolean isOutputActive() {
 		return outputActive;
 	}
@@ -265,6 +266,7 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	 * @param outputActive	Ausgabe aktiv
 	 * @see #isOutputActive()
 	 */
+	@Override
 	public void setOutputActive(boolean outputActive) {
 		this.outputActive=outputActive;
 	}

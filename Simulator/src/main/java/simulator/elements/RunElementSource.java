@@ -67,7 +67,7 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 		final RunElementSource run=new RunElementSource((ModelElementSource)element);
 
 		run.record=new RunElementSourceRecord();
-		final RunModelCreatorStatus error=run.record.load(((ModelElementSource)element).getRecord(),((ModelElementSource)element).getName(),element.getId(),editModel,runModel,0);
+		final RunModelCreatorStatus error=run.record.load(((ModelElementSource)element).getRecord(),element.getName(),element.getId(),editModel,runModel,0);
 		if (!error.isOk()) return error.message;
 		run.clientTypeName=run.record.clientTypeName;
 
@@ -85,7 +85,7 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 
 		if (findNextId(((ModelElementSource)element).getEdgeOut())<0) return RunModelCreatorStatus.noEdgeOut(element);
 
-		return RunElementSourceRecord.test(((ModelElementSource)element).getRecord(),((ModelElementSource)element).getName(),element.getId());
+		return RunElementSourceRecord.test(((ModelElementSource)element).getRecord(),element.getName(),element.getId());
 	}
 
 	@Override

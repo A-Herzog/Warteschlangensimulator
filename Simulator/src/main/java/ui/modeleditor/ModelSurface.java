@@ -2403,7 +2403,7 @@ public final class ModelSurface {
 	 * @see #smartRename(ModelElement)
 	 */
 	private boolean isNameInUse(final String name, final ModelElement ignoreElement) {
-		return elements.stream().filter(e->(e instanceof ModelElementBox) && e!=ignoreElement).map(e->((ModelElementBox)e).getName()).filter(s->s.equals(name)).findFirst().isPresent();
+		return elements.stream().filter(e->(e instanceof ModelElementBox) && e!=ignoreElement).map(e->e.getName()).filter(s->s.equals(name)).findFirst().isPresent();
 	}
 
 	/**

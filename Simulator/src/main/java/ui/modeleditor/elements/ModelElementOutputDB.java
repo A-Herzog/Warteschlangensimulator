@@ -195,6 +195,7 @@ public class ModelElementOutputDB extends ModelElementMultiInSingleOutBox implem
 	 * @return	Ausgabe aktiv
 	 * @see #setOutputActive(boolean)
 	 */
+	@Override
 	public boolean isOutputActive() {
 		return outputActive;
 	}

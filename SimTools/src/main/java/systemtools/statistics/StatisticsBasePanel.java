@@ -881,7 +881,6 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (dataViewer==null  || dataViewer.length!=1 || dataViewer[0]==null) return;
-				if (!(dataViewer[0] instanceof StatisticViewer)) return;
 				final StatisticViewer viewer=dataViewer[0];
 				if (viewer.getType()==ViewerType.TYPE_TEXT || viewer.getType()==ViewerType.TYPE_SPECIAL) return; /* Die eigene Kopierroutinen verwenden (für Teile des Textes). Hier immer alles zu kopieren, würde erheblich stören. */
 				if (!viewer.getCanDo(StatisticViewer.CanDoAction.CAN_DO_COPY)) return;
@@ -894,7 +893,6 @@ public abstract class StatisticsBasePanel extends JPanel implements AbstractRepo
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (dataViewer==null  || dataViewer.length!=1 || dataViewer[0]==null) return;
-				if (!(dataViewer[0] instanceof StatisticViewer)) return;
 				final StatisticViewer viewer=dataViewer[0];
 				if (viewer.getType()==ViewerType.TYPE_TEXT || viewer.getType()==ViewerType.TYPE_SPECIAL) return; /* Die eigene Kopierroutinen verwenden (für Teile des Textes). Hier immer alles zu kopieren, würde erheblich stören. */
 				if (!viewer.getCanDo(StatisticViewer.CanDoAction.CAN_DO_COPY)) return;
