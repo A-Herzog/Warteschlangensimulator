@@ -23,6 +23,8 @@ import java.awt.event.KeyListener;
 import java.io.Serializable;
 
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -69,6 +71,7 @@ public class ModelElementBaseIDDialog extends BaseDialog {
 		this.oldID=oldID;
 		this.mainSurface=mainSurface;
 
+		addUserButton(Language.tr("Editor.DialogBase.ID.NextFree"),Language.tr("Editor.DialogBase.ID.NextFree.Tooltip"),(Icon)null);
 		final JPanel content=createGUI(help);
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 		final Object[] data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.DialogBase.ID.NewID")+":",""+oldID,10);
@@ -85,7 +88,7 @@ public class ModelElementBaseIDDialog extends BaseDialog {
 		line.add(info=new JLabel());
 
 		checkData(false);
-		setMinSizeRespectingScreensize(500,0);
+		setMinSizeRespectingScreensize(600,0);
 		pack();
 		setLocationRelativeTo(this.owner);
 		setVisible(true);
@@ -125,7 +128,7 @@ public class ModelElementBaseIDDialog extends BaseDialog {
 			if (otherElement==null) {
 				setInfo(Language.tr("Editor.DialogBase.ID.NewIDNotInUse"));
 			} else {
-				setInfo(Language.tr("Editor.DialogBase.ID.NewIDInUse"));
+				setInfo(String.format(Language.tr("Editor.DialogBase.ID.NewIDInUse"),otherElement.getContextMenuElementName()));
 			}
 		}
 
@@ -144,5 +147,10 @@ public class ModelElementBaseIDDialog extends BaseDialog {
 	public int getNewID() {
 		if (getClosedBy()!=CLOSED_BY_OK) return -1;
 		return NumberTools.getInteger(editID,true);
+	}
+
+	@Override
+	protected void userButtonClick(final int nr, final JButton button) {
+		editID.setText(""+mainSurface.getNextFreeId());
 	}
 }

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 14:41+0100\n"
+"POT-Creation-Date: 2025-01-22 09:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4672,11 +4672,17 @@ msgstr "Neue ID"
 
 msgid "Editor.DialogBase.ID.NewIDInUse"
 msgstr ""
-"Die angegebene neue ID wird bereits von einem anderen Element verwendet.\n"
+"Die angegebene neue ID wird bereits von einem anderen Element (%s) verwendet.\n"
 "Die ID des anderen Elements wird geändert."
 
 msgid "Editor.DialogBase.ID.NewIDNotInUse"
 msgstr "Die angegebene neue ID wird bisher nicht verwendet."
+
+msgid "Editor.DialogBase.ID.NextFree"
+msgstr "Nächste freie ID"
+
+msgid "Editor.DialogBase.ID.NextFree.Tooltip"
+msgstr "Wählt die kleinste bislang nicht verwendete ID (ungleich der bisherigen ID)"
 
 msgid "Editor.DialogBase.ID.Title"
 msgstr "ID ändern"

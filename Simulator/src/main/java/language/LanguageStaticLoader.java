@@ -296,10 +296,15 @@ public class LanguageStaticLoader {
 		DistributionTools.DistMostLikely=Language.tr("Distribution.MostLikely");
 		DistributionTools.DistDegreesOfFreedom=Language.tr("Distribution.DegreesOfFreedom");
 		DistributionTools.DistMean=Language.tr("Distribution.Mean");
+		DistributionTools.DistMeanWikipedia="https://de.wikipedia.org/wiki/Mittelwert"; // FIXME 5x Language
 		DistributionTools.DistStdDev=Language.tr("Distribution.StdDev");
+		DistributionTools.DistStdDevWikipedia="https://de.wikipedia.org/wiki/Standardabweichung";
 		DistributionTools.DistCV=Language.tr("Distribution.CV");
+		DistributionTools.DistCVWikipedia="https://de.wikipedia.org/wiki/Variationskoeffizient";
 		DistributionTools.DistSkewness=Language.tr("Distribution.Skewness");
+		DistributionTools.DistSkewnessWikipedia="https://de.wikipedia.org/wiki/Schiefe_(Statistik)";
 		DistributionTools.DistMode=Language.tr("Distribution.Mode");
+		DistributionTools.DistModeWikipedia="https://de.wikipedia.org/wiki/Modus_(Statistik)";
 		DistributionTools.DistParameter=Language.tr("Distribution.Parameter");
 		JDataDistributionPanel.errorString=Language.tr("Distribution.NoDistribution");
 
@@ -435,7 +440,12 @@ public class LanguageStaticLoader {
 		JDistributionPanel.SaveButtonTable=Language.tr("Dialog.Button.Save.Table");
 		JDistributionPanel.SaveButtonRandomNumbers=Language.tr("Dialog.Button.Save.RandomNumbers");
 		JDistributionPanel.SaveButtonImage=Language.tr("Dialog.Button.Save.Image");
-		JDistributionPanel.WikiButtonLabel=Language.tr("Dialog.Button.Help");
+		JDistributionPanel.InfoButtonLabel="Info"; // FIXME 6x Language
+		JDistributionPanel.InfoButtonTooltip="Zeigt weitere Informationen zu dem gewählten Verteilungstyp an";
+		JDistributionPanel.InfoWindowParameters="Aktuell gewählte Parameter";
+		JDistributionPanel.InfoWindowMore="Weitere Informationen";
+		JDistributionPanel.WebAppButtonLabel="Wahrscheinlichkeitsverteilungsanzeige-WebApp";
+		JDistributionPanel.WikiButtonLabel="Wikipedia";
 		JDistributionPanel.WikiButtonTooltip=Language.tr("JDistributionEditor.Wikipedia.Info");
 		JDistributionPanel.ChangeDistributionType=Language.tr("JDistributionEditor.QuickSelect");
 		JDistributionPanel.ChangeDistributionTypeHighlightList=Language.tr("JDistributionEditor.QuickSelectInfo");
