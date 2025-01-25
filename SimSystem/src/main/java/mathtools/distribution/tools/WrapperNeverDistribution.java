@@ -49,6 +49,16 @@ public class WrapperNeverDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return null;
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return DistributionTools.DistNeverInfo;
+	}
+
+	@Override
 	public boolean isHiddenInNamesList() {
 		return true;
 	}

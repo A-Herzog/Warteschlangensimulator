@@ -52,6 +52,16 @@ public class WrapperBetaDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Beta";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final ExtBetaDistributionImpl betaDist=(ExtBetaDistributionImpl)distribution;
 		final double alpha=betaDist.getAlpha();

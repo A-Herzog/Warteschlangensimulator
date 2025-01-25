@@ -52,6 +52,16 @@ public class WrapperExponentialDistribution extends AbstractDistributionWrapper 
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Exponential";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return DistributionTools.DistExpInfo;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		return new DistributionWrapperInfo(distribution,2.0,0.0); /* Schiefe=2 immer */
 	}

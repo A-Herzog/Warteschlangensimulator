@@ -52,6 +52,16 @@ public class WrapperReciprocalDistribution  extends AbstractDistributionWrapper 
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Reciprocal";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(final AbstractRealDistribution distribution) {
 		return new DistributionWrapperInfo(distribution,null,((ReciprocalDistribution)distribution).getSupportLowerBound());
 	}

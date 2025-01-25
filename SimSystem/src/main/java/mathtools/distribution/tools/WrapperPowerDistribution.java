@@ -52,6 +52,16 @@ public class WrapperPowerDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Power";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final PowerDistributionImpl powerDist=(PowerDistributionImpl)distribution;
 		final double a=powerDist.a;

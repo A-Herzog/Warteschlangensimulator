@@ -52,6 +52,16 @@ public class WrapperHalfNormalDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "HalfNormal";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final HalfNormalDistribution dist=(HalfNormalDistribution)distribution;
 		return new DistributionWrapperInfo(distribution,dist.getSkewness(),dist.getMode());

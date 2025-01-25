@@ -122,6 +122,18 @@ public abstract class AbstractDistributionWrapper {
 	protected abstract String getWikipediaURL();
 
 	/**
+	 * Liefert den Namen der Verteilung für die Wahrscheinlichkeitsverteilungs-WebApp.
+	 * @return	Namen der Verteilung für die Wahrscheinlichkeitsverteilungs-WebApp (oder <code>null</code>, wenn kein passender Name vorliegt)
+	 */
+	protected abstract String getWebAppDistributionName();
+
+	/**
+	 * Liefert einen HTML-formatierten Infotext für diese Verteilung.
+	 * @return	HTML-formatierter Infotext für diese Verteilung (oder <code>null</code>, wenn keine weiteren Informationen verfügbar sind)
+	 */
+	protected abstract String getInfoHTML();
+
+	/**
 	 * Soll die Verteilung in der Auswahlliste angezeigt werden?
 	 * @return	Verteilung anzeigen
 	 */

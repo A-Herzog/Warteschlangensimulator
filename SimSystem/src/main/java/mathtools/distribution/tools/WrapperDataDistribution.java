@@ -51,6 +51,16 @@ public class WrapperDataDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return null;
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(final AbstractRealDistribution distribution) {
 		final DataDistributionImpl dataDist=(DataDistributionImpl)distribution;
 		final int c=dataDist.densityData.length;

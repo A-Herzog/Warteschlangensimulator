@@ -52,6 +52,16 @@ public class WrapperBinomialDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Binomial";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected boolean canSetMeanExact() {
 		return false;
 	}

@@ -52,6 +52,16 @@ public class WrapperPertDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Pert";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final PertDistributionImpl pertDist=(PertDistributionImpl)distribution;
 		final double A=pertDist.lowerBound;

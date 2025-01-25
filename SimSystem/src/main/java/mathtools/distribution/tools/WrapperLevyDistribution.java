@@ -52,6 +52,16 @@ public class WrapperLevyDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Levy";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final double mu=((LevyDistribution)distribution).mu;
 		final double c=((LevyDistribution)distribution).c;

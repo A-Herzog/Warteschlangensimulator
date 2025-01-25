@@ -52,6 +52,16 @@ public class WrapperArcsineDistribution  extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Arcsine";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(final AbstractRealDistribution distribution) {
 		return new DistributionWrapperInfo(distribution,0.0,null); /* Schiefe=0 immer */
 	}

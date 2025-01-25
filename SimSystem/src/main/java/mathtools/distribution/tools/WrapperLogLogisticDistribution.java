@@ -52,6 +52,16 @@ public class WrapperLogLogisticDistribution extends AbstractDistributionWrapper 
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "LogLogistic";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final LogLogisticDistributionImpl dist=(LogLogisticDistributionImpl)distribution;
 		final double alpha=dist.alpha;

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-22 09:08+0100\n"
+"POT-Creation-Date: 2025-01-24 11:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3294,6 +3294,9 @@ msgstr "https://en.wikipedia.org/wiki/Borel_distribution"
 msgid "Distribution.CV"
 msgstr "Coefficient of variation"
 
+msgid "Distribution.CV.Wikipedia"
+msgstr "https://en.wikipedia.org/wiki/Coefficient_of_variation"
+
 msgid "Distribution.Cauchy"
 msgstr "Cauchy distribution"
 
@@ -3351,11 +3354,23 @@ msgstr "Expected value"
 msgid "Distribution.Erlang"
 msgstr "Erlang distribution"
 
+msgid "Distribution.ErlangInfo"
+msgstr ""
+"<p>The Erlang distribution is a special case of the <b>Gamma distribution</b>. When modeling, it therefore almost always makes more sense to use the gamma distribution directly.</p>\n"
+"<p>From a mathematical point of view, the Erlang distribution represents the successive execution of several exponential distributions and is therefore important in theory.</p>"
+
 msgid "Distribution.ErlangWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Erlang_distribution"
 
 msgid "Distribution.Exp"
 msgstr "Exponential distribution"
+
+msgid "Distribution.ExpInfo"
+msgstr ""
+"<p>The exponential distribution has <b>only one parameter</b>, which defines both the expected value and the standard deviation. This has the advantage that only the expected value needs to be collected from the historical data in order to use the exponential distribution for modeling; the disadvantage, however, is that only the expected value can be set.</p>\n"
+"<p>With the exponential distribution, the standard deviation always has the same value as the expected value. This always results in a <b>coefficient of variation of 1</b>.</p>\n"
+"<p>The special property of the exponential distribution is that the probability that the event under consideration (e.g. a client arrival) will occur within the next minute is independent of whether the last event of this type occurred a minute or an hour ago. This property is also known as <b>memorylessness</b>. This usually applies to the intervals between the arrivals of independent clients. However, it practically never applies to e.g. service times.</p>\n"
+"<p>Consequently, the exponential distribution is usually very suitable for modeling <b>inter-arrival times</b>. However, other probability distributions (such as the log-normal distribution, the gamma distribution or the triangular distribution) should be used for modeling service times and similar variables.</p>"
 
 msgid "Distribution.ExpWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Exponential_distribution"
@@ -3380,6 +3395,12 @@ msgstr "https://en.wikipedia.org/wiki/Frechet_distribution"
 
 msgid "Distribution.Gamma"
 msgstr "Gamma distribution"
+
+msgid "Distribution.GammaInfo"
+msgstr ""
+"<p>The gamma distribution is very suitable for modeling service times and similar durations. In Warteschlangensimulator, the distribution is parameterized using the <b>expected value and standard deviation</b>.</p>\n"
+"<p>If these two values can be derived from historical data, the distribution is very suitable for modeling. If such values are not available, the triangular distribution can be used if necessary.</p>\n"
+"<p>The gamma distribution is usually also available in <b>spreadsheet programs</b>. However, the parameterization is usually not done via expected value and standard deviation. Manual conversions are necessary here (see documentation of the respective program).</p>"
 
 msgid "Distribution.GammaWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Gamma_distribution"
@@ -3471,6 +3492,12 @@ msgstr "https://en.wikipedia.org/wiki/Log-logistic_distribution"
 msgid "Distribution.LogNormal"
 msgstr "Lognormal distribution"
 
+msgid "Distribution.LogNormalInfo"
+msgstr ""
+"<p>The log-normal distribution is very suitable for modeling service times and similar durations. In Warteschlangensimulator, the distribution is parameterized using the <b>expected value and standard deviation</b>.</p>\n"
+"<p>If these two values can be derived from historical data, the distribution is very suitable for modeling. If such values are not available, the triangular distribution can be used if necessary.</p>\n"
+"<p>The log-normal distribution is usually also available in <b>spreadsheet programs</b>. However, the parameterization is usually not done via expected value and standard deviation. Manual conversions are necessary here (see documentation of the respective program).</p>"
+
 msgid "Distribution.LogNormalWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Log-normal_distribution"
 
@@ -3495,8 +3522,14 @@ msgstr "https://en.wikipedia.org/wiki/Maxwell-Boltzmann_distribution"
 msgid "Distribution.Mean"
 msgstr "Mean"
 
+msgid "Distribution.Mean.Wikipedia"
+msgstr "https://en.wikipedia.org/wiki/Mean"
+
 msgid "Distribution.Mode"
 msgstr "Mode"
+
+msgid "Distribution.Mode.Wikipedia"
+msgstr "https://en.wikipedia.org/wiki/Mode_(statistics)"
 
 msgid "Distribution.MostLikely"
 msgstr "Most likely"
@@ -3522,6 +3555,12 @@ msgstr "No distribution selected"
 msgid "Distribution.Normal"
 msgstr "Normal distribution"
 
+msgid "Distribution.NormalInfo"
+msgstr ""
+"<p>The normal distribution results as a <b>theoretical limit distribution</b> when many independent distributions are executed one after the other.</p>\n"
+"<p>The parameters of the normal distribution are both its expected value and its standard deviation. This means that the parameters of the normal distribution can be set very easily (in practically any software).</p>\n"
+"<p>The normal distribution can always take on negative values. It is therefore <b>not suitable for modeling durations</b>. Log-normal distribution or gamma distribution are usually much better suited for this purpose. These can also be parameterized directly in Warteschlangensimulator via expected value and standard deviation.</p>"
+
 msgid "Distribution.NormalWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Normal_distribution"
 
@@ -3542,6 +3581,12 @@ msgstr "https://en.wikipedia.org/wiki/PERT_distribution"
 
 msgid "Distribution.Point"
 msgstr "One point distribution"
+
+msgid "Distribution.PointInfo"
+msgstr ""
+"<p>The one-point distribution is <b>not a probability distribution in the true sense of the word</b>. While normal probability distributions always return a (different) random value, the one-point distribution always returns the one set value.</p>\n"
+"<p>This means that the one-point distribution is <b>deterministic</b>.</p>\n"
+"<p>The purpose of the one-point distribution is that it can be used to model constant service times etc. without having to deviate from the notation of the probability distributions.</p>"
 
 msgid "Distribution.Poisson"
 msgstr "Poisson distribution"
@@ -3618,8 +3663,14 @@ msgstr "Sine distribution"
 msgid "Distribution.Skewness"
 msgstr "Skewness"
 
+msgid "Distribution.Skewness.Wikipedia"
+msgstr "https://en.wikipedia.org/wiki/Skewness"
+
 msgid "Distribution.StdDev"
 msgstr "Standard deviation"
+
+msgid "Distribution.StdDev.Wikipedia"
+msgstr "https://en.wikipedia.org/wiki/Standard_deviation"
 
 msgid "Distribution.StudentT"
 msgstr "Student t-distribution"
@@ -3635,6 +3686,12 @@ msgstr "https://en.wikipedia.org/wiki/Trapezoidal_distribution"
 
 msgid "Distribution.Triangular"
 msgstr "Triangular distribution"
+
+msgid "Distribution.TriangularInfo"
+msgstr ""
+"<p>The triangular distribution is always used when <b>expected value and standard deviation cannot be collected</b>, i.e. when no evaluable historical data is available. With the triangular distribution, the smallest value that has ever occurred (minimum), the most frequently occurring value (mode) and the largest value that has ever occurred (maximum) has to be set instead.</p>\n"
+"<p>This procedure, which differs greatly from the usual parameterization of many distributions, makes the triangular distribution interesting for cases in which no historical data is available from which the expected value and standard deviation can be determined.</p>\n"
+"<p>The problem with querying the parameters is that the <b>mode</b>, i.e. the value at which the probability density is highest, has to be specified. This usually does not match the mean value of the data.</p>"
 
 msgid "Distribution.TriangularWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Triangular_distribution"
@@ -3653,6 +3710,13 @@ msgstr "End"
 
 msgid "Distribution.Uniform.Start"
 msgstr "Start"
+
+msgid "Distribution.UniformInfo"
+msgstr ""
+"<p>The uniform distribution is parameterized via the minimum possible value and the maximum possible value that it can assume. The expected value is then exactly the midpoint between these two values.</p>\n"
+"<p>The uniform distribution assigns the same probability to each value between the minimum and the maximum.</p>\n"
+"<p>Even if this seems relatively useful at first glance, <b>almost no real processes</b> are subject to a uniform distribution.</p>\n"
+"<p>A further disadvantage is that the otherwise usual parameters of expected value and standard deviation can only be set indirectly via the range of the distribution.</p>"
 
 msgid "Distribution.UniformWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Continuous_uniform_distribution"
@@ -11189,6 +11253,21 @@ msgstr "Show data"
 msgid "JDistributionEditor.Edit.Info"
 msgstr "Shows a dialog for editing the distribution"
 
+msgid "JDistributionEditor.Info"
+msgstr "Info"
+
+msgid "JDistributionEditor.Info.Tooltip"
+msgstr "Displays further information on the selected distribution type"
+
+msgid "JDistributionEditor.InfoWindow.MoreInfo"
+msgstr "More information"
+
+msgid "JDistributionEditor.InfoWindow.Parameters"
+msgstr "Current distribution parameters"
+
+msgid "JDistributionEditor.InfoWindow.WebApp"
+msgstr "Probability distributions plotter webapp"
+
 msgid "JDistributionEditor.Load"
 msgstr "Load"
 
@@ -11233,6 +11312,9 @@ msgstr "Reduces the value of the parameter by %s"
 
 msgid "JDistributionEditor.ValueUp"
 msgstr "Increases the value of the parameter by %s"
+
+msgid "JDistributionEditor.Wikipedia"
+msgstr "Wikipedia"
 
 msgid "JDistributionEditor.Wikipedia.Info"
 msgstr "Opens a browser window with additional information about the selected distribution type"

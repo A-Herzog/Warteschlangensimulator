@@ -48,7 +48,17 @@ public class WrapperKumaraswamyDistribution extends AbstractDistributionWrapper 
 
 	@Override
 	protected String getWikipediaURL() {
-		return DistributionTools.DistReciprocalWikipedia;
+		return DistributionTools.DistKumaraswamyWikipedia;
+	}
+
+	@Override
+	protected String getWebAppDistributionName() {
+		return "Kumaraswamy";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
 	}
 
 	@Override

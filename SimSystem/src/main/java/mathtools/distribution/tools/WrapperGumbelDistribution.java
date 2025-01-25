@@ -53,6 +53,16 @@ public class WrapperGumbelDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Gumbel";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final GumbelDistribution dist=(GumbelDistribution)distribution;
 		final double location=dist.getLocation();

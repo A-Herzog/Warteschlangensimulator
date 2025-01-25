@@ -52,6 +52,16 @@ public class WrapperCauchyDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Cauchy";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final CauchyDistribution dist=(CauchyDistribution)distribution;
 		final String info2=DistributionTools.DistScale+"="+NumberTools.formatNumber(dist.getScale(),3);

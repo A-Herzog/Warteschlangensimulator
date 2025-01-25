@@ -52,6 +52,16 @@ public class WrapperFrechetDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Frechet";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final FrechetDistributionImpl frechetDist=(FrechetDistributionImpl)distribution;
 		final double delta=frechetDist.delta;

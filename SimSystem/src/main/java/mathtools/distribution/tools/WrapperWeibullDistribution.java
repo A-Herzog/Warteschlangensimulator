@@ -55,6 +55,16 @@ public class WrapperWeibullDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Weibull";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final WeibullDistribution dist=(WeibullDistribution)distribution;
 		final double beta=dist.getShape();

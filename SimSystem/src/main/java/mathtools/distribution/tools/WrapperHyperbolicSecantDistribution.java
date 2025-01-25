@@ -52,6 +52,16 @@ public class WrapperHyperbolicSecantDistribution extends AbstractDistributionWra
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "HyperbolicSecant";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final HyperbolicSecantDistributionImpl dist=(HyperbolicSecantDistributionImpl)distribution;
 		return new DistributionWrapperInfo(distribution,0.0,dist.mu); /* Schiefe=0 immer */

@@ -52,6 +52,16 @@ public class WrapperTriangularDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Triangular";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return DistributionTools.DistTriangularInfo;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final double A=((TriangularDistributionImpl)distribution).lowerBound;
 		final double B=((TriangularDistributionImpl)distribution).upperBound;

@@ -41,6 +41,9 @@ import mathtools.distribution.swing.JDistributionPanel;
  * @see AbstractRealDistribution
  */
 public final class DistributionTools {
+	/** Basis-URL für die Verteilungsanzeige-WebApp */
+	public static String WebAppBaseURL="https://a-herzog.github.io/Distributions/?distribution=";
+
 	/** Empirische Daten */
 	public static String[] DistData=new String[]{"Empirische Daten"};
 
@@ -53,11 +56,11 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Niemals-Verteilung */
 	public static String DistNeverWikipedia=null;
 
+	/** Infotext zur Niemals-Verteilung */
+	public static String DistNeverInfo=null;
+
 	/** Punkt "unendlich" */
 	public static String[] DistInfinite=new String[]{"unendlich"};
-
-	/** Wikipedia-Seite Punkt "unendlich" */
-	public static String DistInfiniteWikipedia=null;
 
 	/** Ein-Punkt-Verteilung */
 	public static String[] DistPoint=new String[]{"Ein-Punkt-Verteilung"};
@@ -65,11 +68,22 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Ein-Punkt-Verteilung */
 	public static String DistPointWikipedia=null;
 
+	/** Infotext zur Ein-Punkt-Verteilung */
+	public static String DistPointInfo="<p>Bei der Ein-Punkt-Verteilung handelt es sich um <b>keine Wahrscheinlichkeitsverteilung im eigentlichen Sinne</b>. Während normale Wahrscheinlichkeitsverteilung stets einen (verschiedenen) zufälligen Wert liefern, liefert die Ein-Punkt-Verteilung stets den einen, eingestellten Wert zurück.</p>"+
+			"<p>Das bedeutet, die Ein-Punkt-Verteilung ist <b>deterministisch.</p>"+
+			"<p>Der Sinn der Ein-Punkt-Verteilung besteht darin, dass mit ihr konstante Bediendauern usw. modelliert werden können, ohne dabei von der Notation der Wahrscheinlichkeitsverteilungen abweichen zu müssen.</p>";
+
 	/** Gleichverteilung */
 	public static String[] DistUniform=new String[]{"Gleichverteilung"};
 
 	/** Wikipedia-Seite Gleichverteilung */
 	public static String DistUniformWikipedia="https://de.wikipedia.org/wiki/Stetige_Gleichverteilung";
+
+	/** Infotext zur Gleichverteilung */
+	public static String DistUniformInfo="<p>Die Gleichverteilung wird über den minimal möglichen Wert und den maximal möglichen Wert, den sie annehmen kann, parametrisiert. Der Erwartungswert ist dann genau der Mittelpunkt zwischen diesen beiden Werten.</p>"+
+			"<p>Die Gleichverteilung ordnet jedem Wert zwischen dem Minimum und dem Maximum dieselbe Wahrscheinlichkeit zu.</p>"+
+			"<p>Auch wenn dies auf den ersten Blick relativ nützlich erscheint, so unterliegen doch <b>fast keine realen Prozesse</b> einer Gleichverteilung.</p>"+
+			"<p>Ein weiterer Nachteil besteht darin, dass die ansonsten üblichen Kenngrößen Erwartungswert und Standardabweichung nur indirekt über den Bereich der Verteilung eingestellt werden können.</p>";
 
 	/** Exponentialverteilung */
 	public static String[] DistExp=new String[]{"Exponentialverteilung"};
@@ -77,17 +91,34 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Exponentialverteilung */
 	public static String DistExpWikipedia="https://de.wikipedia.org/wiki/Exponentialverteilung";
 
+	/** Infotext zur Exponentialverteilung */
+	public static String DistExpInfo=
+			"<p>Die Exponentialverteilung besitzt <b>nur einen Parameter</b>, der zugleich Erwartungswert und Standardabweichung festlegt. Dies bringt den Vorteil mit sich, dass nur der Erwartungswert aus den historischen Daten erhoben werden muss, um die Exponentialverteilung für die Modellierung verwenden zu können; der Nachteil besteht jedoch damit zugleich darin, dass auch nur der Erwartungswert eingestellt werden kann.</p>"+
+					"<p>Bei der Exponentialverteilung besitzt die Standardabweichung immer denselben Wert wie der Erwartungswert. Damit ergibt sich <b>stets ein Variationskoeffizient von 1</b>.</p>"+
+					"<p>Die Besonderheit der Exponentialverteilung besteht darin, dass die Wahrscheinlichkeit dafür, dass das zu betrachtete Ereignis (z.B. eine Kundenankunft) innerhalb der nächsten Minute eintritt, unabhängig davon ist, ob das letzte Ereignis dieser Art vor einer Minute oder einer Stunde eingetreten ist. Diese Eigenschaft wird auch <b>Gedächtnislosigkeit</b> genannt. Für die Abstände der Ankünfte von unabhängigen Kunden tritt dies üblicherweise zu. Für z.B. Bediendauern hingegen praktisch nie.</p>"+
+					"<p>Folglich ist die Exponentialverteilung für die Modellierung von <b>Zwischenankunftszeiten</b> meist sehr gut geeignet. Für die Modellierung von Bediendauern und ähnlichen Größen sollte jedoch auf andere Wahrscheinlichkeitsverteilungen (wie z.B. die Log-Normalverteilung, die Gamma-Verteilung oder die Dreiecksverteilung) zurückgegriffen werden.</p>";
+
 	/** Normalverteilung */
 	public static String[] DistNormal=new String[]{"Normalverteilung"};
 
 	/** Wikipedia-Seite Normalverteilung */
 	public static String DistNormalWikipedia="https://de.wikipedia.org/wiki/Normalverteilung";
 
-	/** Lognormalverteilung */
+	/** Infotext zur Normalverteilung */
+	public static String DistNormalInfo="<p>Die Normalverteilung ergibt sich als <b>theoretische Grenzverteilung</b> bei der Hintereinanderausführung vieler jeweils unabhängiger Verteilungen.</p>"+
+			"<p>Die Parameter der Normalverteilung sind zugleich deren Erwartungswert und deren Standardabweichung. Dies hat zur Folge, dass die Kenngrößen der Normalverteilung (in praktisch jeder Software) sehr einfach eingestellt werden können.</p>"+
+			"<p>Die Normalverteilung kann stets auch negative Werte annehmen. Daher eignet sich diese <b>eher nicht zur Modellierung von Zeitdauern</b>. Lognormalverteilung oder Gamma-Verteilung sind für diesen Zweck meist wesentlich besser geeignet. Auch diese können im Warteschlangensimulator direkt über Erwartungswert und Standardabweichung parametrisiert werden.</p>";
+
+	/** Log-Normalverteilung */
 	public static String[] DistLogNormal=new String[]{"Lognormalverteilung"};
 
-	/** Wikipedia-Seite Lognormalverteilung */
+	/** Wikipedia-Seite Log-Normalverteilung */
 	public static String DistLogNormalWikipedia="https://de.wikipedia.org/wiki/Logarithmische_Normalverteilung";
+
+	/** Infotext zur Log-Normalverteilung */
+	public static String DistLogNormalInfo="<p>Die Lognormalverteilung eignet sich sehr gut zur Modellierung von Bediendauern und ähnlichen Zeitdauern. Im Warteschlangensimulator wird die Verteilung über <b>Erwartungswert und Standardabweichung</b> parametrisiert.</p>"+
+			"<p>Können diese beiden Werte aus den historischen Daten abgeleitet werden, so eigent sich die Verteilung sehr gut zur Modellierung. Stehen derartige Werte nicht zur Verfügung, so kann ggf. auf die Dreiecksverteilung zurückgegriffen werden.</p>"+
+			"<p>In <b>Tabellenkalkulationen</b> ist üblicherweise auch die Lognrmalverteilung hinterlegt. Allerdings erfolgt doch die Parametrisierung meist nicht über Erwartungswert und Standardabweichung. Manuelle Umrechnungen sind hier nötig (siehe Dokumentation des jeweiligen Programms).</p>";
 
 	/** Erlang-Verteilung */
 	public static String[] DistErlang=new String[]{"Erlang-Verteilung"};
@@ -95,11 +126,20 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Erlang-Verteilung */
 	public static String DistErlangWikipedia="https://de.wikipedia.org/wiki/Erlang-Verteilung";
 
+	/** Infotext zur Erlang-Verteilung */
+	public static String DistErlangInfo="<p>Die Erlang-Verteilung stellt einen Spezialfall der <b>Gamma-Verteilung</b> dar. Bei der Modellierung ist es daher fast immer sinnvoller, direkt die Gamma-Verteilung zu verwenden.</p>"+
+			"<p>Von mathematischen Standpunkt her stellt die Erlang-Verteilung die Hintereinanderausführung mehrerer Exponentialverteilungen dar und ist daher in der Theorie von Bedeutung.</p>";
+
 	/** Gamma-Verteilung */
 	public static String[] DistGamma=new String[]{"Gamma-Verteilung"};
 
 	/** Wikipedia-Seite Gamma-Verteilung */
 	public static String DistGammaWikipedia="https://de.wikipedia.org/wiki/Gammaverteilung";
+
+	/** Infotext zur Gamma-Verteilung */
+	public static String DistGammaInfo="<p>Die Gamma-Verteilung eignet sich sehr gut zur Modellierung von Bediendauern und ähnlichen Zeitdauern. Im Warteschlangensimulator wird die Verteilung über <b>Erwartungswert und Standardabweichung</b> parametrisiert.</p>"+
+			"<p>Können diese beiden Werte aus den historischen Daten abgeleitet werden, so eigent sich die Verteilung sehr gut zur Modellierung. Stehen derartige Werte nicht zur Verfügung, so kann ggf. auf die Dreiecksverteilung zurückgegriffen werden.</p>"+
+			"<p>In <b>Tabellenkalkulationen</b> ist üblicherweise auch die Gamma-Verteilung hinterlegt. Allerdings erfolgt doch die Parametrisierung meist nicht über Erwartungswert und Standardabweichung. Manuelle Umrechnungen sind hier nötig (siehe Dokumentation des jeweiligen Programms).</p>";
 
 	/** Beta-Verteilung */
 	public static String[] DistBeta=new String[]{"Beta-Verteilung"};
@@ -154,6 +194,11 @@ public final class DistributionTools {
 
 	/** Wikipedia-Seite Dreiecksverteilung */
 	public static String DistTriangularWikipedia="https://de.wikipedia.org/wiki/Dreiecksverteilung";
+
+	/** Infotext zur Dreiecksverteilung */
+	public static String DistTriangularInfo="<p>Die Dreiecksverteilung kommt immer dann zum Einsatz, wenn <b>Erwartungswert und Standardabweichung nicht erhoben werden können</b>, d.h. wenn keine auswertbaren historischen Daten vorliegen. Bei der Dreiecksverteilung müssen stattdessen der kleinste je aufgetretene Wert (Minimum), der am häufigsten auftretende Wert (Modus) und größete je aufgetretene Wert (Maximum) eingestellt werden.</p>"+
+			"<p>Diese von der sonst bei vielen Verteilungen üblichen Parametrisierung stark abweichende Vorgehensweise macht die Dreiecksverteilung für Fälle, in denen keine historischen Daten vorhanden sind, aus denen Erwartungswert und Standardabweichung erhoben werden können, interessant.</p>"+
+			"<p>Das Problem bei der Abfrage der Parameter besteht darin, dass der <b>Modus</b>, d.h. der Wert an dem die Wahrscheinlichkeitsdichte am höchsten ist, angegeben werden muss. Dieser stimmt üblicherweise nicht mit dem Mittelwert der Daten überein.</p>";
 
 	/** Trapezverteilung */
 	public static String[] DistTrapezoid=new String[]{"Trapezverteilung"};
@@ -401,17 +446,32 @@ public final class DistributionTools {
 	/** Bezeichner "Mittelwert" */
 	public static String DistMean="Mittelwert";
 
+	/** Wikipedia-Seite zum Mittelwert */
+	public static String DistMeanWikipedia="https://de.wikipedia.org/wiki/Mittelwert";
+
 	/** Bezeichner "Standardabweichung" */
 	public static String DistStdDev="Standardabweichung";
+
+	/** Wikipedia-Seite zur Standardabweichung*/
+	public static String DistStdDevWikipedia="https://de.wikipedia.org/wiki/Standardabweichung";
 
 	/** Bezeichner "Variationskoeffizient" */
 	public static String DistCV="Variationskoeffizient";
 
+	/** Wikipedia-Seite zum Variationskoeffizient */
+	public static String DistCVWikipedia="https://de.wikipedia.org/wiki/Variationskoeffizient";
+
 	/** Bezeichner "Schiefe" */
 	public static String DistSkewness="Schiefe";
 
+	/** Wikipedia-Seite zur Schiefe */
+	public static String DistSkewnessWikipedia="https://de.wikipedia.org/wiki/Schiefe_(Statistik)";
+
 	/** Bezeichner "Modus" */
 	public static String DistMode="Modus";
+
+	/** Wikipedia-Seite zum Modus */
+	public static String DistModeWikipedia="https://de.wikipedia.org/wiki/Modus_(Statistik)";
 
 	/** Bezeichner "Parameter" */
 	public static String DistParameter="Parameter";
@@ -600,6 +660,34 @@ public final class DistributionTools {
 		} catch (URISyntaxException e) {
 			return null;
 		}
+	}
+
+	/**
+	 * Liefert den Link zur Wahrscheinlichkeitsverteilungen-Webapp-Seite zu einer Verteilung.
+	 * @param distribution Verteilungsobjekt, zu dem der Wahrscheinlichkeitsverteilungen-Webapp-Link geliefert werden soll
+	 * @return	URL zur Wahrscheinlichkeitsverteilungen-Webapp-Seite zu der Verteilung (oder <code>null</code>, wenn keine passende Adresse vorliegt)
+	 */
+	public static URI getDistributionWebAppLink(final AbstractRealDistribution distribution) {
+		final AbstractDistributionWrapper wrapper=getWrapper(distribution);
+		if (wrapper==null) return null;
+		String url=wrapper.getWebAppDistributionName();
+		if (url==null || url.isBlank()) return null;
+		try {
+			return new URI(WebAppBaseURL+url);
+		} catch (URISyntaxException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * Liefert einen HTML-formatierten Infotext zu dem Verteilungstyp.
+	 * @param distribution	Verteilungsobjekt, zu dem der Infotext geliefert werden soll
+	 * @return	HTML-formatierter Infotext (oder <code>null</code>, wenn kein Infotext vorhanden ist)
+	 */
+	public static String getDistributionInfoHTML(final AbstractRealDistribution distribution) {
+		final AbstractDistributionWrapper wrapper=getWrapper(distribution);
+		if (wrapper==null) return null;
+		return wrapper.getInfoHTML();
 	}
 
 	/**

@@ -52,6 +52,16 @@ public class WrapperLaplaceDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Laplace";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final double mu=((LaplaceDistributionImpl)distribution).mu;
 		final double b=((LaplaceDistributionImpl)distribution).b;

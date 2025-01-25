@@ -52,6 +52,16 @@ public class WrapperSineDistribution  extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Sine";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(final AbstractRealDistribution distribution) {
 		return new DistributionWrapperInfo(distribution,0.0,distribution.getNumericalMean()); /* Schiefe=0 immer */
 	}

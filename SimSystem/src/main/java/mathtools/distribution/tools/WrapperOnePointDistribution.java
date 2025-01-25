@@ -50,6 +50,16 @@ public class WrapperOnePointDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "OnePoint";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return DistributionTools.DistPointInfo;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(final AbstractRealDistribution distribution) {
 		final double point=((OnePointDistributionImpl)distribution).point;
 		return new DistributionWrapperInfo(distribution,0.0,point);

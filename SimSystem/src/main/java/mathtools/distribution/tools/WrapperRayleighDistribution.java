@@ -52,6 +52,16 @@ public class WrapperRayleighDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Rayleigh";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final double sigma=((RayleighDistributionImpl)distribution).mean;
 		final String info="sigma="+NumberTools.formatNumber(sigma,3);

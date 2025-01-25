@@ -51,6 +51,16 @@ public class WrapperIrwinHallDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "IrwinHall";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(final AbstractRealDistribution distribution) {
 		Double mode=null;
 		final IrwinHallDistribution dist=(IrwinHallDistribution)distribution;

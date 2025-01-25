@@ -52,6 +52,16 @@ public class WrapperChiSquaredDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Chi2";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final ChiSquaredDistribution dist=(ChiSquaredDistribution)distribution;
 		final double n=dist.getDegreesOfFreedom();

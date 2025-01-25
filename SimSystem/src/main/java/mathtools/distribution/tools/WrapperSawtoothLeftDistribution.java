@@ -52,6 +52,16 @@ public class WrapperSawtoothLeftDistribution extends AbstractDistributionWrapper
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "SawtoothLeft";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final SawtoothLeftDistribution sawtooth=(SawtoothLeftDistribution)distribution;
 		final double A=sawtooth.a;

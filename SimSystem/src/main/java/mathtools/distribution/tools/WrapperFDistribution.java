@@ -52,6 +52,16 @@ public class WrapperFDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "F";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final FDistribution dist=(FDistribution)distribution;
 		final double m=dist.getNumeratorDegreesOfFreedom();

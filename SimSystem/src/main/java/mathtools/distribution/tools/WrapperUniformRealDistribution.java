@@ -52,8 +52,20 @@ public class WrapperUniformRealDistribution extends AbstractDistributionWrapper 
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Uniform";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return DistributionTools.DistUniformInfo;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(final AbstractRealDistribution distribution) {
-		return new DistributionWrapperInfo(distribution,0.0,null); /* Schiefe=0 immer */
+		final UniformRealDistribution uniform=(UniformRealDistribution)distribution;
+		final String info1=DistributionTools.DistRange+"=["+NumberTools.formatNumber(uniform.getSupportLowerBound(),3)+";"+NumberTools.formatNumber(uniform.getSupportUpperBound(),3)+"]";
+		return new DistributionWrapperInfo(distribution,0.0,null,info1,null); /* Schiefe=0 immer */
 	}
 
 	@Override

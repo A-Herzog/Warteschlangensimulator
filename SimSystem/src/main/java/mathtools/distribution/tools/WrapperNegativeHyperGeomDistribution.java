@@ -51,6 +51,16 @@ public class WrapperNegativeHyperGeomDistribution extends AbstractDistributionWr
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "NegativeHypergeometric";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final DiscreteNegativeHyperGeomDistributionImpl dist=(DiscreteNegativeHyperGeomDistributionImpl)distribution;
 		final double mode=dist.getMode();

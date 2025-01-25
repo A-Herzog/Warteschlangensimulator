@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-22 09:08+0100\n"
+"POT-Creation-Date: 2025-01-24 11:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3298,6 +3298,9 @@ msgstr "https://en.wikipedia.org/wiki/Borel_distribution"
 msgid "Distribution.CV"
 msgstr "Variationskoeffizient"
 
+msgid "Distribution.CV.Wikipedia"
+msgstr "https://de.wikipedia.org/wiki/Variationskoeffizient"
+
 msgid "Distribution.Cauchy"
 msgstr "Cauchy-Verteilung"
 
@@ -3355,11 +3358,23 @@ msgstr "Erwartungswert"
 msgid "Distribution.Erlang"
 msgstr "Erlang-Verteilung"
 
+msgid "Distribution.ErlangInfo"
+msgstr ""
+"<p>Die Erlang-Verteilung stellt einen Spezialfall der <b>Gamma-Verteilung</b> dar. Bei der Modellierung ist es daher fast immer sinnvoller, direkt die Gamma-Verteilung zu verwenden.</p>\n"
+"<p>Von mathematischen Standpunkt her stellt die Erlang-Verteilung die Hintereinanderausführung mehrerer Exponentialverteilungen dar und ist daher in der Theorie von Bedeutung.</p>"
+
 msgid "Distribution.ErlangWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Erlang-Verteilung"
 
 msgid "Distribution.Exp"
 msgstr "Exponentialverteilung"
+
+msgid "Distribution.ExpInfo"
+msgstr ""
+"<p>Die Exponentialverteilung besitzt <b>nur einen Parameter</b>, der zugleich Erwartungswert und Standardabweichung festlegt. Dies bringt den Vorteil mit sich, dass nur der Erwartungswert aus den historischen Daten erhoben werden muss, um die Exponentialverteilung für die Modellierung verwenden zu können; der Nachteil besteht jedoch damit zugleich darin, dass auch nur der Erwartungswert eingestellt werden kann.</p>\n"
+"<p>Bei der Exponentialverteilung besitzt die Standardabweichung immer denselben Wert wie der Erwartungswert. Damit ergibt sich <b>stets ein Variationskoeffizient von 1</b>.</p>\n"
+"<p>Die Besonderheit der Exponentialverteilung besteht darin, dass die Wahrscheinlichkeit dafür, dass das zu betrachtete Ereignis (z.B. eine Kundenankunft) innerhalb der nächsten Minute eintritt, unabhängig davon ist, ob das letzte Ereignis dieser Art vor einer Minute oder einer Stunde eingetreten ist. Diese Eigenschaft wird auch <b>Gedächtnislosigkeit</b> genannt. Für die Abstände der Ankünfte von unabhängigen Kunden tritt dies üblicherweise zu. Für z.B. Bediendauern hingegen praktisch nie.</p>\n"
+"<p>Folglich ist die Exponentialverteilung für die Modellierung von <b>Zwischenankunftszeiten</b> meist sehr gut geeignet. Für die Modellierung von Bediendauern und ähnlichen Größen sollte jedoch auf andere Wahrscheinlichkeitsverteilungen (wie z.B. die Log-Normalverteilung, die Gamma-Verteilung oder die Dreiecksverteilung) zurückgegriffen werden.</p>"
 
 msgid "Distribution.ExpWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Exponentialverteilung"
@@ -3384,6 +3399,12 @@ msgstr "https://de.wikipedia.org/wiki/Frechet-Verteilung"
 
 msgid "Distribution.Gamma"
 msgstr "Gamma-Verteilung"
+
+msgid "Distribution.GammaInfo"
+msgstr ""
+"<p>Die Gamma-Verteilung eignet sich sehr gut zur Modellierung von Bediendauern und ähnlichen Zeitdauern. Im Warteschlangensimulator wird die Verteilung über <b>Erwartungswert und Standardabweichung</b> parametrisiert.</p>\n"
+"<p>Können diese beiden Werte aus den historischen Daten abgeleitet werden, so eigent sich die Verteilung sehr gut zur Modellierung. Stehen derartige Werte nicht zur Verfügung, so kann ggf. auf die Dreiecksverteilung zurückgegriffen werden.</p>\n"
+"<p>In <b>Tabellenkalkulationen</b> ist üblicherweise auch die Gamma-Verteilung hinterlegt. Allerdings erfolgt doch die Parametrisierung meist nicht über Erwartungswert und Standardabweichung. Manuelle Umrechnungen sind hier nötig (siehe Dokumentation des jeweiligen Programms).</p>"
 
 msgid "Distribution.GammaWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Gammaverteilung"
@@ -3475,6 +3496,12 @@ msgstr "https://en.wikipedia.org/wiki/Log-logistic_distribution"
 msgid "Distribution.LogNormal"
 msgstr "Lognormalverteilung"
 
+msgid "Distribution.LogNormalInfo"
+msgstr ""
+"<p>Die Lognormalverteilung eignet sich sehr gut zur Modellierung von Bediendauern und ähnlichen Zeitdauern. Im Warteschlangensimulator wird die Verteilung über <b>Erwartungswert und Standardabweichung</b> parametrisiert.</p>\n"
+"<p>Können diese beiden Werte aus den historischen Daten abgeleitet werden, so eigent sich die Verteilung sehr gut zur Modellierung. Stehen derartige Werte nicht zur Verfügung, so kann ggf. auf die Dreiecksverteilung zurückgegriffen werden.</p>\n"
+"<p>In <b>Tabellenkalkulationen</b> ist üblicherweise auch die Lognrmalverteilung hinterlegt. Allerdings erfolgt doch die Parametrisierung meist nicht über Erwartungswert und Standardabweichung. Manuelle Umrechnungen sind hier nötig (siehe Dokumentation des jeweiligen Programms).</p>"
+
 msgid "Distribution.LogNormalWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Logarithmische_Normalverteilung"
 
@@ -3499,8 +3526,14 @@ msgstr "https://de.wikipedia.org/wiki/Maxwell-Boltzmann-Verteilung"
 msgid "Distribution.Mean"
 msgstr "Mittelwert"
 
+msgid "Distribution.Mean.Wikipedia"
+msgstr "https://de.wikipedia.org/wiki/Mittelwert"
+
 msgid "Distribution.Mode"
 msgstr "Modus"
+
+msgid "Distribution.Mode.Wikipedia"
+msgstr "https://de.wikipedia.org/wiki/Modus_(Statistik)"
 
 msgid "Distribution.MostLikely"
 msgstr "Am wahrscheinlichsten"
@@ -3526,6 +3559,12 @@ msgstr "Keine Verteilung angegeben"
 msgid "Distribution.Normal"
 msgstr "Normalverteilung"
 
+msgid "Distribution.NormalInfo"
+msgstr ""
+"<p>Die Normalverteilung ergibt sich als <b>theoretische Grenzverteilung</b> bei der Hintereinanderausführung vieler jeweils unabhängiger Verteilungen.</p>\n"
+"<p>Die Parameter der Normalverteilung sind zugleich deren Erwartungswert und deren Standardabweichung. Dies hat zur Folge, dass die Kenngrößen der Normalverteilung (in praktisch jeder Software) sehr einfach eingestellt werden können.</p>\n"
+"<p>Die Normalverteilung kann stets auch negative Werte annehmen. Daher eignet sich diese <b>eher nicht zur Modellierung von Zeitdauern</b>. Lognormalverteilung oder Gamma-Verteilung sind für diesen Zweck meist wesentlich besser geeignet. Auch diese können im Warteschlangensimulator direkt über Erwartungswert und Standardabweichung parametrisiert werden.</p>"
+
 msgid "Distribution.NormalWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Normalverteilung"
 
@@ -3546,6 +3585,12 @@ msgstr "https://en.wikipedia.org/wiki/PERT_distribution"
 
 msgid "Distribution.Point"
 msgstr "Ein-Punkt-Verteilung"
+
+msgid "Distribution.PointInfo"
+msgstr ""
+"<p>Bei der Ein-Punkt-Verteilung handelt es sich um <b>keine Wahrscheinlichkeitsverteilung im eigentlichen Sinne</b>. Während normale Wahrscheinlichkeitsverteilung stets einen (verschiedenen) zufälligen Wert liefern, liefert die Ein-Punkt-Verteilung stets den einen, eingestellten Wert zurück.</p>\n"
+"<p>Das bedeutet, die Ein-Punkt-Verteilung ist <b>deterministisch.</p>\n"
+"<p>Der Sinn der Ein-Punkt-Verteilung besteht darin, dass mit ihr konstante Bediendauern usw. modelliert werden können, ohne dabei von der Notation der Wahrscheinlichkeitsverteilungen abweichen zu müssen.</p>"
 
 msgid "Distribution.Poisson"
 msgstr "Poisson-Verteilung"
@@ -3622,8 +3667,14 @@ msgstr "Sinus-Verteilung"
 msgid "Distribution.Skewness"
 msgstr "Schiefe"
 
+msgid "Distribution.Skewness.Wikipedia"
+msgstr "https://de.wikipedia.org/wiki/Schiefe_(Statistik)"
+
 msgid "Distribution.StdDev"
 msgstr "Standardabweichung"
+
+msgid "Distribution.StdDev.Wikipedia"
+msgstr "https://de.wikipedia.org/wiki/Standardabweichung"
 
 msgid "Distribution.StudentT"
 msgstr "Studentsche t-Verteilung"
@@ -3639,6 +3690,12 @@ msgstr "https://de.wikipedia.org/wiki/Trapezverteilung"
 
 msgid "Distribution.Triangular"
 msgstr "Dreiecksverteilung"
+
+msgid "Distribution.TriangularInfo"
+msgstr ""
+"<p>Die Dreiecksverteilung kommt immer dann zum Einsatz, wenn <b>Erwartungswert und Standardabweichung nicht erhoben werden können</b>, d.h. wenn keine auswertbaren historischen Daten vorliegen. Bei der Dreiecksverteilung müssen stattdessen der kleinste je aufgetretene Wert (Minimum), der am häufigsten auftretende Wert (Modus) und größete je aufgetretene Wert (Maximum) eingestellt werden.</p>\n"
+"<p>Diese von der sonst bei vielen Verteilungen üblichen Parametrisierung stark abweichende Vorgehensweise macht die Dreiecksverteilung für Fälle, in denen keine historischen Daten vorhanden sind, aus denen Erwartungswert und Standardabweichung erhoben werden können, interessant.</p>\n"
+"<p>Das Problem bei der Abfrage der Parameter besteht darin, dass der <b>Modus</b>, d.h. der Wert an dem die Wahrscheinlichkeitsdichte am höchsten ist, angegeben werden muss. Dieser stimmt üblicherweise nicht mit dem Mittelwert der Daten überein.</p>"
 
 msgid "Distribution.TriangularWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Dreiecksverteilung"
@@ -3657,6 +3714,13 @@ msgstr "Ende"
 
 msgid "Distribution.Uniform.Start"
 msgstr "Start"
+
+msgid "Distribution.UniformInfo"
+msgstr ""
+"<p>Die Gleichverteilung wird über den minimal möglichen Wert und den maximal möglichen Wert, den sie annehmen kann, parametrisiert. Der Erwartungswert ist dann genau der Mittelpunkt zwischen diesen beiden Werten.</p>\n"
+"<p>Die Gleichverteilung ordnet jedem Wert zwischen dem Minimum und dem Maximum dieselbe Wahrscheinlichkeit zu.</p>\n"
+"<p>Auch wenn dies auf den ersten Blick relativ nützlich erscheint, so unterliegen doch <b>fast keine realen Prozesse</b> einer Gleichverteilung.</p>\n"
+"<p>Ein weiterer Nachteil besteht darin, dass die ansonsten üblichen Kenngrößen Erwartungswert und Standardabweichung nur indirekt über den Bereich der Verteilung eingestellt werden können.</p>"
 
 msgid "Distribution.UniformWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Stetige_Gleichverteilung"
@@ -11216,6 +11280,21 @@ msgstr "Daten anzeigen"
 msgid "JDistributionEditor.Edit.Info"
 msgstr "Öffnet den Dialog zum Bearbeiten der Verteilung"
 
+msgid "JDistributionEditor.Info"
+msgstr "Info"
+
+msgid "JDistributionEditor.Info.Tooltip"
+msgstr "Zeigt weitere Informationen zu dem gewählten Verteilungstyp an"
+
+msgid "JDistributionEditor.InfoWindow.MoreInfo"
+msgstr "Weitere Informationen"
+
+msgid "JDistributionEditor.InfoWindow.Parameters"
+msgstr "Aktuell gewählte Parameter"
+
+msgid "JDistributionEditor.InfoWindow.WebApp"
+msgstr "Wahrscheinlichkeitsverteilungsanzeige-WebApp"
+
 msgid "JDistributionEditor.Load"
 msgstr "Laden"
 
@@ -11260,6 +11339,9 @@ msgstr "Verringert den Wert des Parameters um %s"
 
 msgid "JDistributionEditor.ValueUp"
 msgstr "Erhöht den Wert des Parameters um %s"
+
+msgid "JDistributionEditor.Wikipedia"
+msgstr "Wikipedia"
 
 msgid "JDistributionEditor.Wikipedia.Info"
 msgstr "Öffnet ein Browserfenster mit weiteren Informationen zu dem gewählten Verteilungstyp"

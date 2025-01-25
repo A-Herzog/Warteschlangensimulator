@@ -52,6 +52,16 @@ public class WrapperTrapezoidDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Trapezoid";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final double a=((TrapezoidDistributionImpl)distribution).a;
 		final double b=((TrapezoidDistributionImpl)distribution).b;

@@ -53,6 +53,16 @@ public class WrapperZetaDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Zeta";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final DiscreteZetaDistributionImpl dist=(DiscreteZetaDistributionImpl)distribution;
 

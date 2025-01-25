@@ -53,6 +53,16 @@ public class WrapperGammaDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Gamma";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return DistributionTools.DistGammaInfo;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final GammaDistribution dist=(GammaDistribution)distribution;
 		final double alpha=dist.getShape();

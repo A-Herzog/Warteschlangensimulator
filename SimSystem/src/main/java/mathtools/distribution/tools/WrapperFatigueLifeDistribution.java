@@ -52,6 +52,16 @@ public class WrapperFatigueLifeDistribution extends AbstractDistributionWrapper 
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "FatigueLife";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final FatigueLifeDistributionImpl fatigueDist=(FatigueLifeDistributionImpl)distribution;
 		final double mu=fatigueDist.mu;

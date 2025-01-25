@@ -53,6 +53,16 @@ public class WrapperLogCauchyDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "LogCauchy";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final LogCauchyDistributionImpl dist=(LogCauchyDistributionImpl)distribution;
 		final String info1="mu="+NumberTools.formatNumber(dist.mu,3)+"; sigma="+NumberTools.formatNumber(dist.sigma,3);

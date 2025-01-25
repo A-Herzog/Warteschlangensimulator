@@ -52,6 +52,16 @@ public class WrapperStudentTDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "StudentT";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final StudentTDistributionImpl dist=(StudentTDistributionImpl)distribution;
 		final double E=dist.getNumericalMean();

@@ -51,6 +51,16 @@ public class WrapperErlangDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Erlang";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return DistributionTools.DistErlangInfo;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final ErlangDistributionImpl dist=(ErlangDistributionImpl)distribution;
 		final double n=dist.getShape();

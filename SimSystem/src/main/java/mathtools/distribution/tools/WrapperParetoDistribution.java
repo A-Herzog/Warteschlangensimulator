@@ -52,6 +52,16 @@ public class WrapperParetoDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Pareto";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final ParetoDistributionImpl dist=(ParetoDistributionImpl)distribution;
 		final double xmin=dist.xmin;

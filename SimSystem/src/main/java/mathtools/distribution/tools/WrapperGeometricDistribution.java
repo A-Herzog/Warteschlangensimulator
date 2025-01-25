@@ -52,6 +52,16 @@ public class WrapperGeometricDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Geometric";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final DiscreteGeometricDistributionImpl dist=(DiscreteGeometricDistributionImpl)distribution;
 		final String info="p="+NumberTools.formatNumber(dist.p,3);

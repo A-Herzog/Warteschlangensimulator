@@ -51,6 +51,16 @@ public class WrapperDiscreteUniformDistribution extends AbstractDistributionWrap
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "DiscreteUniform";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected boolean canSetMeanExact() {
 		return false;
 	}

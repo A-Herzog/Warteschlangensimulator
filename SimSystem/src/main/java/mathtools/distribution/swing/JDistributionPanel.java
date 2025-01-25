@@ -121,9 +121,19 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	public static String SaveButtonRandomNumbers="Zufallszahlen erzeugen und speichern";
 	/** Bezeichner für Menüpunkt "Bild kopieren" im Speichern-Menü */
 	public static String SaveButtonImage="Bild speichern";
-	/** Bezeichner für Dialogschaltfläche "Hilfe" */
-	public static String WikiButtonLabel="Hilfe";
-	/** Bezeichner für Tooltip für Dialogschaltfläche "Hilfe" */
+	/** Bezeichner für Dialogschaltfläche "Info" */
+	public static String InfoButtonLabel="Info";
+	/** Bezeichner für Tooltip für Dialogschaltfläche "Info" */
+	public static String InfoButtonTooltip="Zeigt weitere Informationen zu dem gewählten Verteilungstyp an";
+	/** Zwischenüberschrift "Aktuell gewählte Parameter" im Info-Fenster */
+	public static String InfoWindowParameters="Aktuell gewählte Parameter";
+	/** Zwischenüberschrift "Weitere Informationen" im Info-Fenster */
+	public static String InfoWindowMore="Weitere Informationen";
+	/** Bezeichner für den Link zur Wahrscheinlichkeitsverteilungsanzeige-WebApp */
+	public static String WebAppButtonLabel="Wahrscheinlichkeitsverteilungsanzeige-WebApp";
+	/** Bezeichner für Dialogschaltfläche "Wikipedia" */
+	public static String WikiButtonLabel="Wikipedia";
+	/** Bezeichner für Tooltip für Dialogschaltfläche "Wikipedia" */
 	public static String WikiButtonTooltip="Öffnet ein Browserfenster mit weiteren Informationen zu dem gewählten Verteilungstyp";
 	/** Untermenü zur Schnellauswahl des Verteilungstyps */
 	public static String ChangeDistributionType="Verteilungstyp";
@@ -174,7 +184,10 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	/** "Bearbeiten"-Schaltfläche */
 	private final JButton edit;
 
-	/** "Hilfe"-Schaltfläche (ruft die Wikipedia auf) */
+	/** "Info"-Schaltfläche */
+	private final JButton help;
+
+	/** "Wikipedia"-Schaltfläche */
 	private final JButton wiki;
 
 	/** Funktionsplotter innerhalb des Panels */
@@ -278,10 +291,15 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			infoPanelEast.add(save);
 		} catch (SecurityException e) {}
 
+		infoPanelEast.add(help=new JButton(InfoButtonLabel));
+		help.setToolTipText(InfoButtonTooltip);
+		help.addActionListener(e->actionInfo());
+		help.setIcon(SimSystemsSwingImages.HELP.getIcon());
+
 		infoPanelEast.add(wiki=new JButton(WikiButtonLabel));
 		wiki.setToolTipText(WikiButtonTooltip);
 		wiki.addActionListener(e->actionWiki());
-		wiki.setIcon(SimSystemsSwingImages.HELP.getIcon());
+		wiki.setIcon(SimSystemsSwingImages.WEB.getIcon());
 
 		if (showEditButton) {
 			infoPanelEast.add(edit=new JButton(EditButtonLabel));
@@ -368,6 +386,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		repaint();
 		plotter.repaint();
 		wiki.setVisible(DistributionTools.getDistributionWikipediaLink(distribution)!=null);
+		help.setVisible(DistributionTools.getDistributionInfoHTML(distribution)!=null);
 	}
 
 	/**
@@ -1088,6 +1107,14 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	}
 
 	/**
+	 * Info-Dialog zu der gewählten Verteilung öffnen
+	 * @see #help
+	 */
+	private void actionInfo() {
+		new JDistributionPanelInfo(this,distribution);
+	}
+
+	/**
 	 * Wikipedia-Seite zu der gewählten Verteilung öffnen
 	 * @see #wiki
 	 */
@@ -1218,6 +1245,11 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		item.addActionListener(ev->saveRandomNumbers());
 		sub.add(item=new JMenuItem(SaveButtonImage,SimSystemsSwingImages.COPY_AS_IMAGE.getIcon()));
 		item.addActionListener(ev->saveImage());
+
+		if (DistributionTools.getDistributionInfoHTML(distribution)!=null) {
+			popup.add(item=new JMenuItem(help.getText(),help.getIcon()));
+			item.addActionListener(ev->actionInfo());
+		}
 
 		if (DistributionTools.getDistributionWikipediaLink(distribution)!=null) {
 			popup.add(item=new JMenuItem(wiki.getText(),wiki.getIcon()));

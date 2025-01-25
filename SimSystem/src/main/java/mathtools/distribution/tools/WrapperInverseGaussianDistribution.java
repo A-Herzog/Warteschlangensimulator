@@ -52,6 +52,16 @@ public class WrapperInverseGaussianDistribution extends AbstractDistributionWrap
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "InverseGaussian";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final InverseGaussianDistributionImpl inverseGaussianDist=(InverseGaussianDistributionImpl)distribution;
 		final double lambda=inverseGaussianDist.lambda;

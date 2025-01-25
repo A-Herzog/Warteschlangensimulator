@@ -52,6 +52,16 @@ public class WrapperBorelDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Borel";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final DiscreteBorelDistributionImpl dist=(DiscreteBorelDistributionImpl)distribution;
 		final String info="mu="+NumberTools.formatNumber(dist.mu,3);

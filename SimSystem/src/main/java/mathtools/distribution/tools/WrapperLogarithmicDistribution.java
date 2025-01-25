@@ -52,6 +52,16 @@ public class WrapperLogarithmicDistribution extends AbstractDistributionWrapper 
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Logarithmic";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final DiscreteLogarithmicDistributionImpl dist=(DiscreteLogarithmicDistributionImpl)distribution;
 		final String info="p="+NumberTools.formatNumber(dist.p,3);

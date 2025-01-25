@@ -52,6 +52,16 @@ public class WrapperWignerHalfCircleDistribution extends AbstractDistributionWra
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "WignerSemicircle";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		return new DistributionWrapperInfo(distribution,0.0,((WignerHalfCircleDistributionImpl)distribution).m); /* Schiefe=0 immer */
 	}

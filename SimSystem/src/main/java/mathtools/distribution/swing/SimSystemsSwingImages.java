@@ -77,6 +77,9 @@ public enum SimSystemsSwingImages {
 	/** Symbol "Hilfe" */
 	HELP("help.png"),
 
+	/** Symbol "Webseite" */
+	WEB("world.png"),
+
 	/** Symbol "Einstellungen" */
 	SETUP("cog.png"),
 

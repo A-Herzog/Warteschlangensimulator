@@ -52,6 +52,16 @@ public class WrapperNegativeBinomialDistribution extends AbstractDistributionWra
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "NegativeBinomial";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected boolean canSetMeanExact() {
 		return false;
 	}

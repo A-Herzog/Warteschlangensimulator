@@ -51,6 +51,16 @@ public class WrapperHyperGeomDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Hypergeometric";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final DiscreteHyperGeomDistributionImpl dist=(DiscreteHyperGeomDistributionImpl)distribution;
 		final double sk=dist.getSkewness();

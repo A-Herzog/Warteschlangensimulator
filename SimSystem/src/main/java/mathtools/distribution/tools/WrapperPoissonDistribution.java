@@ -52,6 +52,16 @@ public class WrapperPoissonDistribution extends AbstractDistributionWrapper {
 	}
 
 	@Override
+	protected String getWebAppDistributionName() {
+		return "Poisson";
+	}
+
+	@Override
+	protected String getInfoHTML() {
+		return null;
+	}
+
+	@Override
 	protected DistributionWrapperInfo getInfoInt(AbstractRealDistribution distribution) {
 		final DiscretePoissonDistributionImpl dist=(DiscretePoissonDistributionImpl)distribution;
 		final String info="lambda="+NumberTools.formatNumber(dist.lambda,3);
