@@ -15,12 +15,14 @@
  */
 package ui.dialogs;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.table.TableCellEditor;
 
 import language.Language;
@@ -33,6 +35,7 @@ import ui.modeleditor.ElementRendererTools;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ModelElementSub;
+import ui.tools.FlatLaFHelper;
 
 /**
  * Zeigt die Suchtreffer aus {@link FindAndReplaceDialog}
@@ -101,7 +104,12 @@ public class FindAndReplaceDialogTableModel extends JTableExtAbstractTableModel 
 			for (FullTextSearch.SearchMatch result: results) {
 				final JCheckBox checkBox=new JCheckBox("",result.canReplace());
 				checkBox.setEnabled(result.canReplace());
-				checkBox.setOpaque(false);
+				if (FlatLaFHelper.isActive()) {
+					checkBox.setBackground(UIManager.getColor("Table.background"));
+				} else {
+					checkBox.setOpaque(false);
+				}
+				checkBox.setBackground(Color.WHITE);
 				selected.add(checkBox);
 				stationIcons.add(null);
 			}
