@@ -25,7 +25,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import org.apache.commons.math3.distribution.AbstractRealDistribution;
+
 import language.Language;
+import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
 import ui.modeleditor.coreelements.ModelElementBox;
 
@@ -139,7 +142,7 @@ public class DistributionOrExpressionFromOtherStation {
 				if (stationRecords.length==1) {
 					menu.add(stationRecords[0].getMenuItem(loadData));
 				} else {
-					final JMenu sub=new JMenu(stationRecords[0].getStationName());
+					final JMenu sub=new JMenu("<html><body><b>"+stationRecords[0].getStationName()+"</b></body></html>");
 					menu.add(sub);
 					for (var record: stationRecords) sub.add(record.getMenuItem(loadData));
 				}
@@ -273,6 +276,7 @@ public class DistributionOrExpressionFromOtherStation {
 		 */
 		public JMenuItem getMenuItem(final Consumer<Record> loadData) {
 			final StringBuilder text=new StringBuilder();
+			text.append("<html><body><b>");
 			text.append(getStationName());
 			if (type!=null) {
 				text.append(" - ");
@@ -287,6 +291,18 @@ public class DistributionOrExpressionFromOtherStation {
 				text.append(" - ");
 				text.append(typeString);
 			}
+			text.append("</b><br>");
+			if (data instanceof AbstractRealDistribution) {
+				final var dist=(AbstractRealDistribution)data;
+				text.append(DistributionTools.getDistributionName(dist));
+				text.append(" (");
+				text.append(DistributionTools.getDistributionInfo(dist));
+				text.append(")");
+			}
+			if (data instanceof String) {
+				text.append((String)data);
+			}
+			text.append("</body</html>");
 			final var item=new JMenuItem(text.toString());
 			item.addActionListener(e->loadData.accept(this));
 			return item;
