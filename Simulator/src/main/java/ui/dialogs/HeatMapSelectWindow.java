@@ -28,6 +28,7 @@ import java.awt.event.WindowEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.BooleanSupplier;
 
@@ -265,9 +266,11 @@ public class HeatMapSelectWindow extends JFrame {
 		setResizable(false);
 		pack();
 		SwingUtilities.invokeLater(()->{
-			all.setPreferredSize(new Dimension(getWidth(),all.getPreferredSize().height));
+			final int maxWidth=Collections.list(buttonGroup.getElements()).stream().map(b->b.getWidth()).reduce(Math::max).orElse(0);
+			all.setPreferredSize(new Dimension(maxWidth+25,all.getPreferredSize().height+75));
 			pack();
 		});
+
 		setLocationRelativeTo(ownerWindow);
 		WindowSizeStorage.window(this,"heatmapselect",false);
 	}
