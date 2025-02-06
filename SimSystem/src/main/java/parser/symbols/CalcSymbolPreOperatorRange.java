@@ -19,7 +19,7 @@ import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
- * Differenz auf größtem und kleinstem Wert der Datenreihe, die aus den übergebenen Parametern gebildet wird
+ * Differenz aus größtem und kleinstem Wert der Datenreihe, die aus den übergebenen Parametern gebildet wird
  * @author Alexander Herzog
  * @see CalcSymbolPreOperatorMin
  * @see CalcSymbolPreOperatorMax

@@ -65,4 +65,9 @@ public class CalcSymbolPreOperatorRandomValues extends CalcSymbolPreOperator {
 		}
 		return parameters[parameters.length-1];
 	}
+
+	@Override
+	protected boolean isDeterministic() {
+		return false;
+	}
 }
