@@ -63,6 +63,13 @@ public class WaitPanel extends JPanel {
 	private Window parentWindow;
 
 	/**
+	 * Wurden die GUI-Elemente bereits initialisiert?
+	 * @see #initGUI()
+	 * @see #setSimulator(AnySimulator, Runnable)
+	 */
+	private boolean guiReady=false;
+
+	/**
 	 * Wurde die Simulation erfolgreich beendet?
 	 * @see #finalizeSimulation(boolean)
 	 * @see #isSimulationSuccessful()
@@ -115,7 +122,16 @@ public class WaitPanel extends JPanel {
 	 * Konstruktor der Klasse {@link WaitPanel}
 	 */
 	public WaitPanel() {
-		super(new BorderLayout());
+		super();
+	}
+
+	/**
+	 * Verzögerter Aufbau der GUI-Elemente
+	 * (nicht im Konstruktor, sondern bei der ersten tatsächlichen Verwendung)
+	 * @see #setSimulator(AnySimulator, Runnable)
+	 */
+	private void initGUI() {
+		setLayout(new BorderLayout());
 
 		JPanel mainarea, p1x, p1a, p1b, p2;
 
@@ -137,14 +153,16 @@ public class WaitPanel extends JPanel {
 		mainarea.add(p1x=new JPanel()); p1x.setLayout(new BoxLayout(p1x,BoxLayout.X_AXIS));
 		mainarea.add(p1a=new JPanel()); p1a.setLayout(new BoxLayout(p1a,BoxLayout.X_AXIS));
 		mainarea.add(p1b=new JPanel()); p1b.setLayout(new BoxLayout(p1b,BoxLayout.X_AXIS));
-		mainarea.add(Box.createVerticalStrut(10));
+		mainarea.add(Box.createVerticalStrut(20));
 		mainarea.add(progress=new JProgressBar(0,100));
-		mainarea.add(Box.createVerticalStrut(10));
+		mainarea.add(Box.createVerticalStrut(20));
 		mainarea.add(p2=new JPanel()); p2.setLayout(new BoxLayout(p2,BoxLayout.X_AXIS));
 		mainarea.add(Box.createVerticalGlue());
 		mainarea.add(Box.createVerticalGlue());
 
 		progress.setStringPainted(true);
+		final var oldPreferredSize=progress.getPreferredSize();
+		progress.setPreferredSize(new Dimension(oldPreferredSize.width,(int)Math.round(oldPreferredSize.height*1.25)));
 
 		p1x.add(Box.createHorizontalGlue());
 		p1x.add(new WaitPanelAnimation());
@@ -170,6 +188,8 @@ public class WaitPanel extends JPanel {
 			private static final long serialVersionUID = 190237083100271239L;
 			@Override public void actionPerformed(ActionEvent e) {abortSimulation();}
 		});
+
+		guiReady=true;
 	}
 
 	/**
@@ -207,6 +227,8 @@ public class WaitPanel extends JPanel {
 	 * @param simulationDone	Wird aufgerufen, wenn die Simulation beendet wurde (erfolgreich oder per Nutzerabbruch). Wird hier <code>null</code> übergeben, so erfolgt keine Rückmeldung.
 	 */
 	public final void setSimulator(final AnySimulator simulator, final Runnable simulationDone) {
+		if (!guiReady) initGUI();
+
 		abortRun=false;
 		cancel.setEnabled(true);
 		simulationSuccessful=false;
