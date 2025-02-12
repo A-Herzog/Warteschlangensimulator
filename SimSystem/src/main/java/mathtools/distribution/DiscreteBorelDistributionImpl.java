@@ -31,7 +31,7 @@ public final class DiscreteBorelDistributionImpl extends AbstractDiscreteRealDis
 	private static final long serialVersionUID=4768211128889252690L;
 
 	/**
-	 * Verteilungsparameter &lambda;
+	 * Verteilungsparameter &mu;
 	 */
 	public final double mu;
 

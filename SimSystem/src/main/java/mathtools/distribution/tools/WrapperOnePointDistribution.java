@@ -51,7 +51,7 @@ public class WrapperOnePointDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected String getWebAppDistributionName() {
-		return "OnePoint";
+		return null;
 	}
 
 	@Override

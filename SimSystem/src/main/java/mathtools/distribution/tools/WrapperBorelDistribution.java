@@ -72,7 +72,7 @@ public class WrapperBorelDistribution extends AbstractDistributionWrapper {
 	public AbstractRealDistribution getDistribution(double mean, double sd) {
 		final Double mu=DiscreteBorelDistributionImpl.getMuFromMean(mean);
 		if (mu==null) return null;
-		return new DiscreteBorelDistributionImpl(1-1/mean);
+		return new DiscreteBorelDistributionImpl(mu);
 	}
 
 	@Override
