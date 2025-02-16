@@ -24,6 +24,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 /**
  * Basisklasse für Socket-basierte Server-Dienste.
@@ -167,7 +168,9 @@ public abstract class SocketServerBase {
 		int read=0;
 		while (read<count) {
 			try {
-				read+=input.read(result,read,count-read);
+				final int readStep=input.read(result,read,count-read);
+				if (readStep<0) return Arrays.copyOf(result,read);
+				read+=readStep;
 			} catch (IOException e) {
 				return null;
 			}
@@ -182,7 +185,7 @@ public abstract class SocketServerBase {
 	 */
 	protected static byte[] readData(final InputStream input) {
 		final int size=readInteger(input);
-		if (size<0) return null;
+		if (size<0 || size>1024*1024*1024) return null;
 		return readData(input,size);
 	}
 
@@ -195,7 +198,7 @@ public abstract class SocketServerBase {
 	protected static String readString(final InputStream input, final int count) {
 		final byte[] bytes=readData(input,count);
 		if (bytes==null) return null;
-		return new String(bytes,StandardCharsets.UTF_8)	;
+		return new String(bytes,StandardCharsets.UTF_8);
 	}
 
 	/**
