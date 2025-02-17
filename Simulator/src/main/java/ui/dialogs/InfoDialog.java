@@ -146,7 +146,7 @@ public class InfoDialog extends JDialog {
 		list.add("");
 
 		/* Java-Version */
-		list.add(Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+", "+System.getProperty("os.arch")+")");
+		list.add(Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.vendor")+" "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+", "+System.getProperty("os.arch")+")");
 		list.add(Language.tr("InfoDialog.JavaPath")+": "+System.getProperty("java.home"));
 		if (alwaysShowBits || !System.getProperty("os.arch").contains("64")) {
 			list.add(Language.tr("InfoDialog.Is64Bit")+": "+(System.getProperty("os.arch").contains("64")?Language.tr("InfoDialog.Is64Bit.Yes"):Language.tr("InfoDialog.Is64Bit.No")));
@@ -242,6 +242,9 @@ public class InfoDialog extends JDialog {
 		label.setBackground(new Color(0,0,0,0));
 		p3.add(label);
 		label.addHyperlinkListener(new LinkListener());
+		label.getCaret().setVisible(false);
+		label.setCaretColor(label.getBackground());
+		label.setHighlighter(null);
 
 		mainarea.add(Box.createVerticalGlue());
 
