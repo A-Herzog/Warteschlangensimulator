@@ -67,14 +67,20 @@ public class ModelExplorer extends JPanel {
 		final Point p2=surface.getLowerRightModelCorner();
 		final int xSize=Math.max(100,p2.x-p1.x);
 		final int ySize=Math.max(100,p2.y-p1.y);
-		if ((int)Math.round(((double)xSize)/ySize*maxYSize)>maxXSize) {
-			image=surfacePanel.getImageWithBackground(maxXSize,(int)Math.round(((double)ySize)/xSize*maxXSize));
+		if (this.surface.getElementCount()==0) {
+			final int size=Math.min(maxXSize,maxYSize);
+			image=new BufferedImage(size,size,BufferedImage.TYPE_INT_ARGB);
 		} else {
-			image=surfacePanel.getImageWithBackground((int)Math.round(((double)xSize)/ySize*maxYSize),maxYSize);
+			if ((int)Math.round(((double)xSize)/ySize*maxYSize)>maxXSize) {
+				image=surfacePanel.getImageWithBackground(maxXSize,(int)Math.round(((double)ySize)/xSize*maxXSize));
+			} else {
+				image=surfacePanel.getImageWithBackground((int)Math.round(((double)xSize)/ySize*maxYSize),maxYSize);
+			}
 		}
 
 		/* Größe einstellen */
-		final Dimension d=new Dimension(image.getWidth()+2,image.getHeight()+2);
+		Dimension d=new Dimension(image.getWidth()+2,image.getHeight()+2);
+		if (d.width<5 && d.height<5) d=new Dimension(200,200);
 		setPreferredSize(d);
 		setSize(d);
 		setMinimumSize(d);
