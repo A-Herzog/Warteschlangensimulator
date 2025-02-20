@@ -821,6 +821,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 					break;
 				case FORMAT_TYPST:
 					writeTypstHead(bw);
+					break;
 				default:
 					break;
 				}
