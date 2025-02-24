@@ -65,7 +65,7 @@ public class LicenseViewer extends BaseDialog{
 	 * HTML-Kopf für die Ausgabe der html-formatierten Lizenztexte.
 	 * @see #htmlFooter
 	 */
-	private static final String htmlHeader="<html><head><style>body {font-family: sans-serif; margin: 5px;}</style></head><body>";
+	private static final String htmlHeader="<html><head><style>body {font-family: sans-serif; margin: 5px;} code {font-size: 100%;}</style></head><body>";
 
 	/**
 	 * HTML-Fußbereich für die Ausgabe der html-formatierten Lizenztexte.
@@ -132,9 +132,11 @@ public class LicenseViewer extends BaseDialog{
 		super(owner,Language.tr("LicenseViewer.Title"));
 
 		/* Allgemeines */
+		showCloseButton=true;
 		final JPanel content=createGUI(null);
 		content.setLayout(new BorderLayout());
 		final JTabbedPane tabs=new JTabbedPane();
+		tabs.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		content.add(tabs,BorderLayout.CENTER);
 
 		/* Tabs anlegen */
@@ -145,7 +147,7 @@ public class LicenseViewer extends BaseDialog{
 		addViewer(tabs,LicensePart.SIMULATOR_COMPONENTS,null,false);
 
 		/* Starten */
-		setMinSizeRespectingScreensize(600,500);
+		setMinSizeRespectingScreensize(800,600);
 		setResizable(true);
 		setLocationRelativeTo(getOwner());
 		setVisible(true);
