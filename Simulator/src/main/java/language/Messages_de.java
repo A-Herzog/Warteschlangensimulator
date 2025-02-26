@@ -22569,7 +22569,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[56124] = "ExpressionBuilder.ProbabilityDistributions.BetaDistribution";
     t[56125] = "Beta-Verteilung";
     t[56130] = "FitDialog.InfoValuesRounded";
-    t[56131] = "Die Eingabewerte wurden auf ganze Zahlen gerundet.";
+    t[56131] = "Die Eingabewerte wurden Zahlen gerundet.";
     t[56142] = "Surface.XML.TransportTransporterSource.WaitingCapacity";
     t[56143] = "ModellElementTransporterWarteplaetze";
     t[56144] = "Simulation.Log.TransportSource.Info";

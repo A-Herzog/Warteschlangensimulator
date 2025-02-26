@@ -29,7 +29,7 @@ import mathtools.NumberTools;
 /**
  * Klasse zur Modellierung von Verteilungen, die in Form einer empirischen Dichte gegeben sind
  * @author Alexander Herzog
- * @version 1.5
+ * @version 1.6
  */
 public final class DataDistributionImpl extends AbstractRealDistribution implements Serializable, Cloneable, DistributionWithRandom  {
 	/**
@@ -588,6 +588,14 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 			if (x==max) mode.add(i);
 		}
 		return mode.stream().mapToDouble(Integer::doubleValue).map(d->d/argumentScaleFactor).toArray();
+	}
+
+	/**
+	 * Liefert den Umrechnungsfaktor zwischen den Verteilungsschritten und dem Trägerbereich.
+	 * @return	Umrechnungsfaktor zwischen den Verteilungsschritten und dem Trägerbereich
+	 */
+	public double getArgumentScaleFactor() {
+		return argumentScaleFactor;
 	}
 
 	@Override

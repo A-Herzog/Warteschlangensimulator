@@ -219,14 +219,23 @@ public abstract class DistributionFitterBase {
 			m2=i;
 		}
 		outputPlain.append(ValueCount+": "+count+"\n");
-		outputPlain.append(ValueRange+": "+m1+".."+m2+"\n");
+		final double inputScale=samples.getArgumentScaleFactor();
+		if (inputScale==1.0) {
+			outputPlain.append(ValueRange+": "+m1+".."+m2+"\n");
+		} else {
+			outputPlain.append(ValueRange+": "+NumberTools.formatNumber(m1/inputScale,3)+".."+NumberTools.formatNumber(m2/inputScale,3)+"\n");
+		}
 		outputPlain.append("\n");
 		outputPlain.append(Mean+": "+NumberTools.formatNumber(mean,3)+"\n");
 		outputPlain.append(StdDev+": "+NumberTools.formatNumber(sd,3)+"\n");
 		outputPlain.append("\n");
 		outputHTML.append("<p>");
 		outputHTML.append(ValueCount+": "+count+"<br>\n");
-		outputHTML.append(ValueRange+": "+m1+".."+m2+"<br>\n");
+		if (inputScale==1.0) {
+			outputHTML.append(ValueRange+": "+m1+".."+m2+"<br>\n");
+		} else {
+			outputHTML.append(ValueRange+": "+NumberTools.formatNumber(m1/inputScale,3)+".."+NumberTools.formatNumber(m2/inputScale,3)+"<br>\n");
+		}
 		outputHTML.append("</p>");
 		outputHTML.append("<p>");
 		outputHTML.append(Mean+": "+NumberTools.formatNumber(mean,3)+"<br>\n");
@@ -300,20 +309,33 @@ public abstract class DistributionFitterBase {
 		for (double d: values[0]) maxValue=Math.max(d,maxValue);
 		maxValue=Math.ceil(maxValue);
 		int maxIndex=(int)Math.round(maxValue);
-		DataDistributionImpl distribution=new DataDistributionImpl(maxValue+1,maxIndex+1);
-		boolean hasFloat=false;
+		DataDistributionImpl distribution;
+		boolean roundedValues=false;
 		if (values.length==1) {
-			for (double d: values[0]) {
-				distribution.densityData[(int)Math.max(0,Math.min(Math.floor(d),maxIndex))]++;
-				if (Math.abs(Math.round(d)-d)>0.0001) hasFloat=true;
+			if (maxIndex+1>=100) {
+				/* Normales Vorgehen (Ganzzahlwerte verwenden) */
+				distribution=new DataDistributionImpl(maxValue+1,maxIndex+1);
+				for (double d: values[0]) {
+					final double dUsed=Math.floor(d);
+					distribution.densityData[(int)Math.max(0,Math.min(dUsed,maxIndex))]++;
+					if (Math.abs(dUsed-d)>0.0001) roundedValues=true;
+				}
+			} else {
+				distribution=new DataDistributionImpl(maxValue+1,100);
+				for (double d: values[0]) {
+					final int i=(int)Math.floor(d*100/(maxValue+1));
+					distribution.densityData[Math.max(0,Math.min(i,99))]++;
+					if (Math.abs(Math.round(d*100)-d*100)>0.0001) roundedValues=true;
+				}
 			}
 		} else {
+			distribution=new DataDistributionImpl(maxValue+1,maxIndex+1);
 			for (int i=0;i<Math.min(values[0].length,values[1].length);i++) {
 				distribution.densityData[(int)Math.max(0,Math.min(Math.floor(values[0][i]),maxIndex))]=values[1][i];
-				if (Math.abs(Math.round(values[0][i])-values[0][i])>0.0001) hasFloat=true;
-				if (Math.abs(Math.round(values[1][i])-values[1][i])>0.0001) hasFloat=true;
+				if (Math.abs(Math.round(values[0][i])-values[0][i])>0.0001) roundedValues=true;
+				if (Math.abs(Math.round(values[1][i])-values[1][i])>0.0001) roundedValues=true;
 			}
 		}
-		return new Object[]{distribution,hasFloat};
+		return new Object[]{distribution,roundedValues};
 	}
 }

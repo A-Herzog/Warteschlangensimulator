@@ -320,32 +320,36 @@ public abstract class FitDialogBase extends BaseDialog {
 
 		final Object[] obj=DistributionFitterBase.dataDistributionFromValues(newValues);
 		if (obj==null) return false;
-		inputDistribution.setDistribution((DataDistributionImpl)obj[0]);
-		final double[] density=((DataDistributionImpl)obj[0]).densityData;
+		final DataDistributionImpl dataDist=(DataDistributionImpl)obj[0];
+		inputDistribution.setDistribution(dataDist);
+		final double[] density=dataDist.densityData;
 		hasFloat=(Boolean)obj[1];
 
 		/* Messwerte-Diagramm füllen */
 		inputValuesMax=density.length-1;
-		double inputValueMin=-1;
-		for (int i=0;i<density.length;i++) if (density[i]!=0) {inputValueMin=i; break;}
+		double inputValuesMin=-1;
+		for (int i=0;i<density.length;i++) if (density[i]!=0) {inputValuesMin=i; break;}
+
+		inputValuesMax/=dataDist.getArgumentScaleFactor();
+		inputValuesMin/=dataDist.getArgumentScaleFactor();
 
 		/* Messwerte-Liste füllen */
-		StringBuilder sb=new StringBuilder();
-		sb.append("<h2>"+Language.tr("FitDalog.Loaded.Title")+"</h2>");
-		sb.append("<p>");
-		sb.append(String.format(Language.tr("FitDalog.Loaded.Info"),NumberTools.formatLong(newValues[0].length))+"<br>");
-		if (inputValueMin>=0) sb.append(String.format(Language.tr("FitDalog.Loaded.Min"),NumberTools.formatNumber(inputValueMin))+"<br>");
-		sb.append(String.format(Language.tr("FitDalog.Loaded.Max"),NumberTools.formatNumber(inputValuesMax)));
-		sb.append("</p>");
-		sb.append("<h2>"+Language.tr("FitDalog.Loaded.List")+"</h2>");
-		sb.append("<p>");
+		final StringBuilder info=new StringBuilder();
+		info.append("<h2>"+Language.tr("FitDalog.Loaded.Title")+"</h2>");
+		info.append("<p>");
+		info.append(String.format(Language.tr("FitDalog.Loaded.Info"),NumberTools.formatLong(newValues[0].length))+"<br>");
+		if (inputValuesMin>=0) info.append(String.format(Language.tr("FitDalog.Loaded.Min"),NumberTools.formatNumber(inputValuesMin))+"<br>");
+		info.append(String.format(Language.tr("FitDalog.Loaded.Max"),NumberTools.formatNumber(inputValuesMax)));
+		info.append("</p>");
+		info.append("<h2>"+Language.tr("FitDalog.Loaded.List")+"</h2>");
+		info.append("<p>");
 		for (int i=0;i<Math.min(100,newValues[0].length);i++) {
-			if (newValues.length==1) sb.append(NumberTools.formatNumber(newValues[0][i],2)+"<br>"); else sb.append(NumberTools.formatNumber(newValues[0][i],0)+": "+NumberTools.formatNumber(newValues[1][i],2)+"<br>");
+			if (newValues.length==1) info.append(NumberTools.formatNumber(newValues[0][i],2)+"<br>"); else info.append(NumberTools.formatNumber(newValues[0][i],0)+": "+NumberTools.formatNumber(newValues[1][i],2)+"<br>");
 		}
-		if (newValues[0].length>=100) sb.append("...<br>\n");
-		sb.append("</p>");
+		if (newValues[0].length>=100) info.append("...<br>\n");
+		info.append("</p>");
 
-		inputValues.setText((FlatLaFHelper.isDark()?htmlHeadDark:htmlHead)+sb.toString()+htmlFoot);
+		inputValues.setText((FlatLaFHelper.isDark()?htmlHeadDark:htmlHead)+info.toString()+htmlFoot);
 		inputValues.setSelectionStart(0);
 		inputValues.setSelectionEnd(0);
 

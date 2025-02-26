@@ -22569,7 +22569,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[56124] = "ExpressionBuilder.ProbabilityDistributions.BetaDistribution";
     t[56125] = "Beta distribution";
     t[56130] = "FitDialog.InfoValuesRounded";
-    t[56131] = "The input values have been rounded to integer numbers.";
+    t[56131] = "The input values have been rounded.";
     t[56142] = "Surface.XML.TransportTransporterSource.WaitingCapacity";
     t[56143] = "ModelElementTransporterWaitingCapacity";
     t[56144] = "Simulation.Log.TransportSource.Info";
