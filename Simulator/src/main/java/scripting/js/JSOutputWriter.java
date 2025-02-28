@@ -39,6 +39,18 @@ public class JSOutputWriter extends Writer {
 	private final StringBuilder results;
 
 	/**
+	 * Gibt, an ob Ausgaben in {@link #resultsLine} oder {@link #results} erfolgen.
+	 */
+	private int resultsLineMode;
+
+	/**
+	 * Interner Puffer, falls es nur eine Zeile gibt
+	 * (für den Fall <code>outputCallback==null</code>).
+	 * @see #getResults()
+	 */
+	private String resultsLine;
+
+	/**
 	 * Temporärer {@link StringBuilder} für Ausgaben,
 	 * die an {@link #outputCallback} weitergeleitet
 	 * werden sollen.
@@ -61,6 +73,8 @@ public class JSOutputWriter extends Writer {
 		super();
 		this.outputCallback=outputCallback;
 		if (outputCallback==null) {
+			resultsLine=null;
+			resultsLineMode=0;
 			results=new StringBuilder();
 			outputCallbackBuilder=null;
 		} else {
@@ -74,11 +88,15 @@ public class JSOutputWriter extends Writer {
 	 */
 	public void reset() {
 		if (results!=null && results.length()>0) results.setLength(0);
+		resultsLine=null;
+		resultsLineMode=0;
 	}
 
 	@Override
 	public void write(char[] cbuf, int off, int len) throws IOException {
 		if (outputCallback==null) {
+			if (resultsLineMode==1) results.append(resultsLine);
+			resultsLineMode=2;
 			if (results.length()<maxOutputChars) results.append(cbuf,off,len);
 		} else {
 			outputCallbackBuilder.append(cbuf,off,len);
@@ -102,7 +120,20 @@ public class JSOutputWriter extends Writer {
 	 */
 	public void addOutput(final String line) {
 		if (outputCallback==null) {
-			if (results.length()<maxOutputChars) results.append(line);
+			switch (resultsLineMode) {
+			case 0:
+				resultsLine=line;
+				resultsLineMode=1;
+				break;
+			case 1:
+				results.append(resultsLine);
+				if (results.length()<maxOutputChars) results.append(line);
+				resultsLineMode=2;
+				break;
+			case 2:
+				if (results.length()<maxOutputChars) results.append(line);
+				break;
+			}
 		} else {
 			outputCallback.accept(line);
 		}
@@ -114,6 +145,8 @@ public class JSOutputWriter extends Writer {
 	 */
 	public void addExceptionMessage(final Exception e) {
 		if (outputCallback==null) {
+			if (resultsLineMode==1) results.append(resultsLine);
+			resultsLineMode=2;
 			if (results.length()>0) results.append("\n");
 			results.append(e.getMessage());
 			results.append("\n");
@@ -128,6 +161,7 @@ public class JSOutputWriter extends Writer {
 	 * @return	Ergebnisse; Puffer wird durch die Ausgabe nicht verändert.
 	 */
 	public String getResults() {
+		if (resultsLineMode==1) return resultsLine;
 		if (results==null) return "";
 		return results.toString();
 	}
