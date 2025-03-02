@@ -523,7 +523,7 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 
 	@Override
 	public String[] getNewClientTypes() {
-		return clientTypeNames.toArray(new String[0]);
+		return clientTypeNames.toArray(String[]::new);
 	}
 
 	@Override

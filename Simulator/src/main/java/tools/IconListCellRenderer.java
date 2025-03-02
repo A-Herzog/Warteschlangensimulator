@@ -72,7 +72,7 @@ public class IconListCellRenderer extends DefaultListCellRenderer {
 	 * @param icons	Ressourcennamen der Icons zu den Einträgen
 	 */
 	public IconListCellRenderer(final Container parent, final List<String> icons) {
-		this(parent,(icons==null)?new String[0]:icons.toArray(new String[0]));
+		this(parent,(icons==null)?new String[0]:icons.toArray(String[]::new));
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class IconListCellRenderer extends DefaultListCellRenderer {
 	 * @param icons	Icons zu den Einträgen
 	 */
 	public IconListCellRenderer(final List<ImageIcon> icons) {
-		this((icons==null)?new ImageIcon[0]:icons.toArray(new ImageIcon[0]));
+		this((icons==null)?new ImageIcon[0]:icons.toArray(ImageIcon[]::new));
 	}
 
 	/**
@@ -166,7 +166,7 @@ public class IconListCellRenderer extends DefaultListCellRenderer {
 	 * @return	Liste mit Icons zur Verwendung in {@link IconListCellRenderer#IconListCellRenderer(Icon[])}
 	 */
 	public static Icon[] buildIconsList(final Container parent, final List<Object> icons) {
-		return buildIconsList(parent,(icons==null)?new Object[0]:icons.toArray(new Object[0]));
+		return buildIconsList(parent,(icons==null)?new Object[0]:icons.toArray(Object[]::new));
 	}
 
 	/**
@@ -195,7 +195,7 @@ public class IconListCellRenderer extends DefaultListCellRenderer {
 	 * @return	Liste mit Icons zur Verwendung in {@link IconListCellRenderer#IconListCellRenderer(Icon[])}
 	 */
 	public static Icon[] buildClientTypeIcons(final List<String> clientTypeNames, final EditModel model) {
-		return buildClientTypeIcons((clientTypeNames==null)?new String[0]:clientTypeNames.toArray(new String[0]),model);
+		return buildClientTypeIcons((clientTypeNames==null)?new String[0]:clientTypeNames.toArray(String[]::new),model);
 	}
 
 	/**
@@ -226,7 +226,7 @@ public class IconListCellRenderer extends DefaultListCellRenderer {
 	 * @return	Liste mit Icons zur Verwendung in {@link IconListCellRenderer#IconListCellRenderer(Icon[])}
 	 */
 	public static Icon[] buildResourceTypeIcons(final List<String> resourceTypeNames, final EditModel model) {
-		return buildResourceTypeIcons((resourceTypeNames==null)?new String[0]:resourceTypeNames.toArray(new String[0]),model);
+		return buildResourceTypeIcons((resourceTypeNames==null)?new String[0]:resourceTypeNames.toArray(String[]::new),model);
 	}
 
 	/**
@@ -257,6 +257,6 @@ public class IconListCellRenderer extends DefaultListCellRenderer {
 	 * @return	Liste mit Icons zur Verwendung in {@link IconListCellRenderer#IconListCellRenderer(Icon[])}
 	 */
 	public static Icon[] buildTransporterTypeIcons(final List<String> transporterTypeNames, final EditModel model) {
-		return buildTransporterTypeIcons((transporterTypeNames==null)?new String[0]:transporterTypeNames.toArray(new String[0]),model);
+		return buildTransporterTypeIcons((transporterTypeNames==null)?new String[0]:transporterTypeNames.toArray(String[]::new),model);
 	}
 }

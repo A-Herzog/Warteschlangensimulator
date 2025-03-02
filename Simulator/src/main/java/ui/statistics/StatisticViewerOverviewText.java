@@ -4319,7 +4319,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		final List<String> names=new ArrayList<>();
 		names.add(Language.tr("Statistics.TextSettings.DropdownName"));
 		if (mode==Mode.MODE_OVERVIEW) names.add(Language.tr("Statistics.ResultsOverview.Filter"));
-		return names.toArray(new String[0]);
+		return names.toArray(String[]::new);
 	}
 
 	@Override
@@ -4327,7 +4327,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		final List<Icon> icons=new ArrayList<>();
 		icons.add(Images.GENERAL_NUMBERS.getIcon());
 		if (mode==Mode.MODE_OVERVIEW) icons.add(SimToolsImages.STATISTICS_TEXT.getIcon());
-		return icons.toArray(new Icon[0]);
+		return icons.toArray(Icon[]::new);
 	}
 
 	@Override

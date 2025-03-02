@@ -596,7 +596,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 
 		final List<String> variables=new ArrayList<>(Arrays.asList(surface.getMainSurfaceVariableNames(model.getModelVariableNames(),hasClientData)));
 		if (additionalVariableNames!=null) variables.addAll(Arrays.asList(additionalVariableNames));
-		return getExpressionEditButton(owner,inputLine,isCompare,variables.toArray(new String[0]),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface),hasClientData,false,model.userFunctions);
+		return getExpressionEditButton(owner,inputLine,isCompare,variables.toArray(String[]::new),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(mainSurface),ExpressionBuilder.getStationNameIDs(mainSurface),hasClientData,false,model.userFunctions);
 	}
 
 	/**
@@ -1276,7 +1276,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		final JLabel label=new JLabel(labelText);
 		panel.add(label);
-		final JComboBox<String> comboBox=new JComboBox<>(values.toArray(new String[0]));
+		final JComboBox<String> comboBox=new JComboBox<>(values.toArray(String[]::new));
 		comboBox.setEditable(true);
 		if (value!=null) comboBox.getEditor().setItem(value);
 		panel.add(comboBox);
@@ -1306,7 +1306,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		final JPanel panel=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		final JLabel label=new JLabel(labelText);
 		panel.add(label);
-		final JComboBox<String> comboBox=new JComboBox<>(values.toArray(new String[0]));
+		final JComboBox<String> comboBox=new JComboBox<>(values.toArray(String[]::new));
 		comboBox.setEditable(false);
 		panel.add(comboBox);
 		label.setLabelFor(comboBox);
@@ -1336,7 +1336,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		if (initialValue!=null) index=fontFamilies.indexOf(initialValue);
 		if (index<0 && fontFamilies.size()>0) index=0;
 
-		final JComboBox<FontCache.FontFamily> comboBox=new JComboBox<>(fontFamilies.toArray(new FontCache.FontFamily[0]));
+		final JComboBox<FontCache.FontFamily> comboBox=new JComboBox<>(fontFamilies.toArray(FontCache.FontFamily[]::new));
 		if (index>=0) comboBox.setSelectedIndex(index);
 		comboBox.setRenderer(new FontFamilyComboBoxCellRenderer());
 

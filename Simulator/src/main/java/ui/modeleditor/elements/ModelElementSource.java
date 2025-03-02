@@ -281,7 +281,7 @@ public class ModelElementSource extends ModelElementBox implements ElementWithNe
 			panels.add(createContextMenuSliderValue(Language.tr("Surface.Source.Dialog.Tab.BatchSize"),initial,20,batchChanger));
 		}
 
-		return panels.toArray(new JPanel[0]);
+		return panels.toArray(JPanel[]::new);
 	}
 
 	/**

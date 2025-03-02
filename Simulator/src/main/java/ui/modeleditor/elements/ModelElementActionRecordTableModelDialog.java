@@ -316,7 +316,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(triggerSignal=new JRadioButton(bold1+Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Signal")+bold2));
 			triggerSignal.addActionListener(e->checkData(false));
-			final String[] triggerSignalNames=model.surface.getAllSignalNames().toArray(new String[0]);
+			final String[] triggerSignalNames=model.surface.getAllSignalNames().toArray(String[]::new);
 			line.add(triggerSignalName=new JComboBox<>(triggerSignalNames));
 			final String triggerSignalNameCurrent=record.getConditionSignal();
 			int index=-1;
@@ -580,7 +580,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			}
 		}
 
-		analogIDNames=names.toArray(new String[0]);
+		analogIDNames=names.toArray(String[]::new);
 		analogIDs=ids.stream().mapToInt(Integer::intValue).toArray();
 	}
 
@@ -595,7 +595,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		for (String s: defaultVariablesList) if (s.equalsIgnoreCase(add)) return defaultVariablesList;
 		final List<String> list=new ArrayList<>(Arrays.asList(defaultVariablesList));
 		list.add(add);
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	/**

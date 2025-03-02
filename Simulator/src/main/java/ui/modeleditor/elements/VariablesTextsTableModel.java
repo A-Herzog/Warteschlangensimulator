@@ -131,9 +131,9 @@ public class VariablesTextsTableModel extends JTableExtAbstractTableModel {
 
 		return makeEditPanelSmallBorder(
 				text,
-				icons.toArray(new Icon[0]),
-				hints.toArray(new String[0]),
-				listeners.toArray(new ActionListener[0]));
+				icons.toArray(Icon[]::new),
+				hints.toArray(String[]::new),
+				listeners.toArray(ActionListener[]::new));
 	}
 
 	@Override

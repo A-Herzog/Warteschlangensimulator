@@ -123,16 +123,16 @@ public class RunElementUserStatisticData extends RunElementData {
 			}
 		}
 
-		this.keysDiscrete=keysDiscrete.toArray(new String[0]);
+		this.keysDiscrete=keysDiscrete.toArray(String[]::new);
 		this.isTimeDiscrete=new boolean[isTimeDiscrete.size()];
 		for (int i=0;i<this.isTimeDiscrete.length;i++) this.isTimeDiscrete[i]=isTimeDiscrete.get(i);
-		this.expressionsDiscrete=expressionsDiscrete.toArray(new ExpressionCalc[0]);
+		this.expressionsDiscrete=expressionsDiscrete.toArray(ExpressionCalc[]::new);
 		this.indexDiscrete=indexDiscrete.stream().mapToInt(I->I.intValue()).toArray();
 
-		this.keysContinuous=keysContinuous.toArray(new String[0]);
+		this.keysContinuous=keysContinuous.toArray(String[]::new);
 		this.isTimeContinuous=new boolean[isTimeContinuous.size()];
 		for (int i=0;i<this.isTimeContinuous.length;i++) this.isTimeContinuous[i]=isTimeContinuous.get(i);
-		this.expressionsContinuous=expressionsContinuous.toArray(new ExpressionCalc[0]);
+		this.expressionsContinuous=expressionsContinuous.toArray(ExpressionCalc[]::new);
 		this.indexContinuous=indexContinuous.stream().mapToInt(I->I.intValue()).toArray();
 
 		indicatorsDiscrete=new StatisticsDataPerformanceIndicatorWithNegativeValues[this.expressionsDiscrete.length];

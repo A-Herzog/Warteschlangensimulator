@@ -168,7 +168,7 @@ public class ModelElementBarrierPullDialog extends ModelElementBaseDialog {
 		final JLabel label=new JLabel(Language.tr("Surface.BarrierPull.Dialog.ControlledElement")+":");
 		line.add(label);
 
-		line.add(select=new JComboBox<>(stationsLong.toArray(new String[0])));
+		line.add(select=new JComboBox<>(stationsLong.toArray(String[]::new)));
 		select.setEnabled(!readOnly);
 		final String selectString=((ModelElementBarrierPull)element).getNextName();
 		int selectIndex=stations.indexOf(selectString);

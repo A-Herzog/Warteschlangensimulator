@@ -526,7 +526,7 @@ public class ModelElementSourceMulti extends ModelElementBox implements ElementW
 			final String name=record.getName();
 			if (list.indexOf(name)<0) list.add(name);
 		}
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	@Override

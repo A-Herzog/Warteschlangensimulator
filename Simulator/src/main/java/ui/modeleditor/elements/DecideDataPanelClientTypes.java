@@ -147,7 +147,7 @@ public class DecideDataPanelClientTypes extends JPanel {
 		if (clientType==null) {
 			items=new String[]{Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.Else")};
 		} else {
-			items=allClientTypesList.toArray(new String[0]);
+			items=allClientTypesList.toArray(String[]::new);
 		}
 		final JComboBox<String> input=new JComboBox<>(items);
 		if (clientType==null) {

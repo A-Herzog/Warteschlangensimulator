@@ -374,7 +374,7 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 	 */
 	@Override
 	public ModelElementEdge[] getEdgesIn() {
-		return connections.toArray(new ModelElementEdge[0]);
+		return connections.toArray(ModelElementEdge[]::new);
 	}
 
 	/**

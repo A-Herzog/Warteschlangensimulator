@@ -120,7 +120,7 @@ public class ModelElementBalkingDialog extends ModelElementBaseDialog {
 
 		final List<String> namesList=((element.getSurface().getParentSurface()==null)?element.getSurface():element.getSurface().getParentSurface()).getClientTypes();
 		namesList.add(0,Language.tr("Surface.Balking.Dialog.ClientType.GlobalName"));
-		clientNames=namesList.toArray(new String[0]);
+		clientNames=namesList.toArray(String[]::new);
 
 		clientIcons=new Object[clientNames.length];
 		clientIcons[0]=Images.MODELPROPERTIES_CLIENTS_GROUPS.getIcon();

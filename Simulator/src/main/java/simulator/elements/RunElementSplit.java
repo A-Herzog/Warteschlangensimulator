@@ -71,7 +71,7 @@ public class RunElementSplit extends RunElementPassThrough {
 			if (!error.isOk()) return error.message;
 			list.add(record);
 		}
-		split.records=list.toArray(new RunElementSourceRecord[0]);
+		split.records=list.toArray(RunElementSourceRecord[]::new);
 
 		/* Kundendatenfelder kopieren? */
 		split.copyClientData=splitElement.isCopyClientData();

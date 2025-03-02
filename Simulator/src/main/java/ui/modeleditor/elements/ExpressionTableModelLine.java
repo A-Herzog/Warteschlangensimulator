@@ -213,9 +213,9 @@ public class ExpressionTableModelLine extends JTableExtAbstractTableModel {
 			return makeEditPanelSmallBorderIcon(
 					new ImageIcon(image),
 					"",
-					icons.toArray(new Icon[0]),
-					hints.toArray(new String[0]),
-					actions.toArray(new ActionListener[0])
+					icons.toArray(Icon[]::new),
+					hints.toArray(String[]::new),
+					actions.toArray(ActionListener[]::new)
 					);
 		default:
 			return null;

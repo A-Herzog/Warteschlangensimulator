@@ -151,7 +151,7 @@ public class DistributionBySubTypeEditor extends JPanel {
 		this.readOnly=readOnly;
 		switch(mode) {
 		case MODE_CLIENTS:
-			subTypes=surface.getClientTypes().toArray(new String[0]);
+			subTypes=surface.getClientTypes().toArray(String[]::new);
 			break;
 		case MODE_TRANSPORT_DESTINATION:
 			final Set<String> destinations=new HashSet<>();
@@ -165,10 +165,10 @@ public class DistributionBySubTypeEditor extends JPanel {
 					}
 				}
 			}
-			subTypes=destinations.toArray(new String[0]);
+			subTypes=destinations.toArray(String[]::new);
 			break;
 		default:
-			subTypes=surface.getClientTypes().toArray(new String[0]);
+			subTypes=surface.getClientTypes().toArray(String[]::new);
 		}
 		sourceData=data;
 		this.data=data.clone();
@@ -195,7 +195,7 @@ public class DistributionBySubTypeEditor extends JPanel {
 			break;
 		}
 		for (String typ : subTypes) items.add(typeLabel+" \""+typ+"\"");
-		sub.add(subTypeSelect=new JComboBox<>(items.toArray(new String[0])));
+		sub.add(subTypeSelect=new JComboBox<>(items.toArray(String[]::new)));
 		if (mode==Mode.MODE_CLIENTS) {
 			final AnimationImageSource imageSource=new AnimationImageSource();
 			final List<Object> modeIcons=new ArrayList<>();

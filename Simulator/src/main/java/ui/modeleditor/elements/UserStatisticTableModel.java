@@ -179,7 +179,7 @@ public class UserStatisticTableModel extends JTableExtAbstractTableModel {
 				hints.add(Language.tr("Surface.UserStatistic.Table.MoveDown"));
 				listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_DOWN));
 			}
-			return makeEditPanelSmallBorder(expressions.get(rowIndex),icons.toArray(new Icon[0]),hints.toArray(new String[0]),listeners.toArray(new ActionListener[0]));
+			return makeEditPanelSmallBorder(expressions.get(rowIndex),icons.toArray(Icon[]::new),hints.toArray(String[]::new),listeners.toArray(ActionListener[]::new));
 		}
 		return null;
 	}

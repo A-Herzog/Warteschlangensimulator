@@ -133,7 +133,7 @@ public class BarrierSignalTableModelDialog extends BaseDialog {
 		List<String> types=new ArrayList<>();
 		types.add(Language.tr("Surface.Barrier.Dialog.ClientType.All"));
 		types.addAll(Arrays.asList(clientTypes));
-		line.add(clientType=new JComboBox<>(types.toArray(new String[0])));
+		line.add(clientType=new JComboBox<>(types.toArray(String[]::new)));
 
 		label.setLabelFor(signal);
 

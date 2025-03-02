@@ -206,7 +206,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		}
 
 		if (list.size()==0) return null;
-		return list.toArray(new CriticalElement[0]);
+		return list.toArray(CriticalElement[]::new);
 	}
 
 	@Override

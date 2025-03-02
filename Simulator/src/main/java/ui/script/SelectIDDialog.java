@@ -317,7 +317,7 @@ public class SelectIDDialog extends BaseDialog {
 			if (preferProcessStations && selectedIndex<0 && ((element instanceof ModelElementProcess) || (element instanceof ModelElementDelay))) selectedIndex=names.size()-1;
 		}
 
-		return names.toArray(new String[0]);
+		return names.toArray(String[]::new);
 	}
 
 	@Override

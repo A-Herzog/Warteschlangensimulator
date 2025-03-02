@@ -130,7 +130,7 @@ public class CompareSelectDialog extends BaseDialog  {
 		if (statisticFiles==null) return new File[0];
 		List<File> files=new ArrayList<>();
 		for (File file : statisticFiles) if (file!=null) files.add(file);
-		return files.toArray(new File[0]);
+		return files.toArray(File[]::new);
 	}
 
 	@Override
@@ -174,7 +174,7 @@ public class CompareSelectDialog extends BaseDialog  {
 			if (s.isEmpty()) continue;
 			files.add(new File(s));
 		}
-		statisticFiles=files.toArray(new File[0]);
+		statisticFiles=files.toArray(File[]::new);
 	}
 
 	/**

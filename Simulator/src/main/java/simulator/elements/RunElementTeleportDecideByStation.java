@@ -135,7 +135,7 @@ public class RunElementTeleportDecideByStation extends RunElement {
 
 		decide.mode=mode;
 		decide.decideModeOnTie=decideElement.getDecideByStationOnTie();
-		decide.destinationStrings=decideElement.getDestinations().toArray(new String[0]);
+		decide.destinationStrings=decideElement.getDestinations().toArray(String[]::new);
 		decide.destinationIDs=new int[decide.destinationStrings.length];
 		decide.nextIds=new int[decide.destinationStrings.length];
 		int count=0;

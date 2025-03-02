@@ -918,7 +918,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 				infos.add(Language.tr("Animation.SkipWarmUp.OptionDefault.Info"));
 				infos.add(Language.tr("Animation.SkipWarmUp.OptionSkip.Info"));
 				infos.add(Language.tr("Animation.SkipWarmUp.OptionFast.Info"));
-				final int result=MsgBox.options(this,Language.tr("Animation.SkipWarmUp.Title"),String.format("<html><body>"+Language.tr("Animation.SkipWarmUp")+"</body></html>",NumberTools.formatLong(FastMath.round(model.warmUpTime*model.clientCount))),options.toArray(new String[0]),infos.toArray(new String[0]));
+				final int result=MsgBox.options(this,Language.tr("Animation.SkipWarmUp.Title"),String.format("<html><body>"+Language.tr("Animation.SkipWarmUp")+"</body></html>",NumberTools.formatLong(FastMath.round(model.warmUpTime*model.clientCount))),options.toArray(String[]::new),infos.toArray(String[]::new));
 				switch (result) {
 				case 0:	/* nicht ändern */ break;
 				case 1: skip=true; break;
@@ -2356,7 +2356,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 					this,
 					editModel,
 					simData,
-					variables.toArray(new String[0]),
+					variables.toArray(String[]::new),
 					name->simData.runData.variableValues[variableIndices.get(name)],
 					null,
 					simData.runData.getMapGlobal(),
@@ -2376,7 +2376,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 					this,
 					editModel,
 					simData,
-					variables.toArray(new String[0]),
+					variables.toArray(String[]::new),
 					name->simData.runData.variableValues[variableIndices.get(name)],
 					(name,value)->{simData.runData.variableValues[variableIndices.get(name)]=value; simData.runData.updateVariableValueForStatistics(simData,variableIndices.get(name));},
 					simData.runData.getMapGlobal(),

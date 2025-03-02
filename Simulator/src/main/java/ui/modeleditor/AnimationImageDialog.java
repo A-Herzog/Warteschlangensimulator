@@ -191,7 +191,7 @@ public class AnimationImageDialog extends BaseDialog {
 		inUse.addAll(Arrays.asList(animationImages.getGlobalNames()));
 		inUse.addAll(Arrays.asList(animationImages.getLocalNames()));
 
-		final AnimationSingleImageDialog dialog=new AnimationSingleImageDialog(this,null,image,inUse.toArray(new String[0]),help);
+		final AnimationSingleImageDialog dialog=new AnimationSingleImageDialog(this,null,image,inUse.toArray(String[]::new),help);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			animationImages.set(dialog.getImageName(),dialog.getImage());
@@ -213,7 +213,7 @@ public class AnimationImageDialog extends BaseDialog {
 
 		int index=list.getSelectedIndex();
 		final String name=animationImages.getLocalNames()[index];
-		final AnimationSingleImageDialog dialog=new AnimationSingleImageDialog(this,name,animationImages.getLocal(name),inUse.toArray(new String[0]),help);
+		final AnimationSingleImageDialog dialog=new AnimationSingleImageDialog(this,name,animationImages.getLocal(name),inUse.toArray(String[]::new),help);
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			if (dialog.getImageName().equals(name)) {

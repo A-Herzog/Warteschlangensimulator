@@ -165,7 +165,7 @@ public class ModelElementTankValveSetupTableModelDialog extends BaseDialog {
 
 		final List<String> list=new ArrayList<>();
 		for (int i=0;i<tankValvesCount[tankIndex];i++) list.add(Language.tr("Surface.TankValveSetup.Table.Edit.Valve")+" "+(i+1));
-		valveCombo.setModel(new DefaultComboBoxModel<>(list.toArray(new String[0])));
+		valveCombo.setModel(new DefaultComboBoxModel<>(list.toArray(String[]::new)));
 
 		lastValveNr=Math.max(0,Math.min(tankValvesCount[tankIndex]-1,lastValveNr));
 		valveCombo.setSelectedIndex(lastValveNr);

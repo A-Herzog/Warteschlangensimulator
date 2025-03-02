@@ -71,7 +71,7 @@ public class RunElementDuplicate extends RunElement {
 		}
 		if (duplicate.connectionIds.size()==0) return String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId());
 
-		duplicate.clientTypeNames=duplicateElement.getChangedClientTypes().toArray(new String[0]);
+		duplicate.clientTypeNames=duplicateElement.getChangedClientTypes().toArray(String[]::new);
 		duplicate.clientTypeIcons=new String[duplicate.clientTypeNames.length];
 		for (int i=0;i<duplicate.clientTypeIcons.length;i++) duplicate.clientTypeIcons[i]=editModel.clientData.getIcon(duplicate.clientTypeNames[i]);
 

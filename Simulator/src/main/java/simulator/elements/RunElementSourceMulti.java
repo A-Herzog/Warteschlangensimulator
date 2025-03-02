@@ -89,7 +89,7 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 			if (!error.isOk()) return error.message;
 			list.add(record);
 		}
-		run.records=list.toArray(new RunElementSourceRecord[0]);
+		run.records=list.toArray(RunElementSourceRecord[]::new);
 
 		run.mode=edit.getMode();
 		run.maxClientArrival=edit.getMaxClientArrival();

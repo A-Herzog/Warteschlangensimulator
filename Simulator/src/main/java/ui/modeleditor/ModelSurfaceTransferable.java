@@ -136,6 +136,6 @@ public class ModelSurfaceTransferable implements Transferable, Serializable {
 		dataFlavors.add(TXT_FLAVOR);
 		dataFlavors.add(IMAGE_FLAVOR);
 
-		return dataFlavors.toArray(new DataFlavor[0]);
+		return dataFlavors.toArray(DataFlavor[]::new);
 	}
 }

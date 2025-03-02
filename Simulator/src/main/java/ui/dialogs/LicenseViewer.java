@@ -286,7 +286,7 @@ public class LicenseViewer extends BaseDialog{
 
 		String text="";
 		try {
-			text=String.join("\n",Files.readAllLines(file.toPath()).toArray(new String[0]));
+			text=String.join("\n",Files.readAllLines(file.toPath()).toArray(String[]::new));
 		} catch (IOException e) {
 			return getHTMLError(file);
 		}
@@ -305,7 +305,7 @@ public class LicenseViewer extends BaseDialog{
 
 		String md="";
 		try {
-			md=String.join("\n",Files.readAllLines(file.toPath()).toArray(new String[0]));
+			md=String.join("\n",Files.readAllLines(file.toPath()).toArray(String[]::new));
 		} catch (IOException e) {
 			return getHTMLError(file);
 		}

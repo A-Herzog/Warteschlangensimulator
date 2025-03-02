@@ -137,7 +137,7 @@ public class ModelElementAnimationImageTableModel extends JTableExtAbstractTable
 				infos.add(Language.tr("Surface.AnimationImage.Dialog.Images.Down"));
 				actions.add(new EditButtonListener(2,rowIndex));
 			}
-			return makeEditPanelSmallBorderIcon(Images.MODELEDITOR_ELEMENT_ANIMATION_IMAGE.getIcon(),exp,icons.toArray(new Icon[0]),infos.toArray(new String[0]),actions.toArray(new ActionListener[0]));
+			return makeEditPanelSmallBorderIcon(Images.MODELEDITOR_ELEMENT_ANIMATION_IMAGE.getIcon(),exp,icons.toArray(Icon[]::new),infos.toArray(String[]::new),actions.toArray(ActionListener[]::new));
 		case 1:
 			return makePanel(ScaledImageCache.getScaledImageCache().getScaledImage(images.get(rowIndex),50,50));
 		default:

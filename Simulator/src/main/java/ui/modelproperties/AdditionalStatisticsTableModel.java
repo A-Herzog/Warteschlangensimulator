@@ -128,7 +128,7 @@ public class AdditionalStatisticsTableModel extends JTableExtAbstractTableModel 
 			return makeEditPanelSmallBorderIcon(
 					Images.MODELPROPERTIES_RUNTIME_STATISTICS.getIcon(),
 					data.get(rowIndex).expression,
-					icons.toArray(new Icon[0]),hints.toArray(new String[0]),actions.toArray(new ActionListener[0])
+					icons.toArray(Icon[]::new),hints.toArray(String[]::new),actions.toArray(ActionListener[]::new)
 					);
 		case 1:
 			return makePanel(data.get(rowIndex).getModeInfo(),null);

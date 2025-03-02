@@ -109,7 +109,7 @@ public class TransportTargetSystemPanel extends JPanel {
 		setLayout(new BorderLayout());
 
 		/* Daten vorbereiten */
-		final String[] clientTypes=surface.getClientTypes().toArray(new String[0]);
+		final String[] clientTypes=surface.getClientTypes().toArray(String[]::new);
 		final String[] variables=surface.getMainSurfaceVariableNames(model.getModelVariableNames(),true);
 		stations=SequencesEditPanel.getDestinationStations(surface);
 

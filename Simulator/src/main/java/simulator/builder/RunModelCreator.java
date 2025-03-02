@@ -151,7 +151,7 @@ public final class RunModelCreator {
 		templatesList.add(new RunElementAnimationAlarm(null));
 		templatesList.add(new RunElementAnimationPause(null));
 
-		templates=templatesList.toArray(new RunElement[0]);
+		templates=templatesList.toArray(RunElement[]::new);
 	}
 
 	/**

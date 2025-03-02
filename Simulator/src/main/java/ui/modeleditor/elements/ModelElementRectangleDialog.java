@@ -116,7 +116,7 @@ public class ModelElementRectangleDialog extends ModelElementBaseDialog {
 			if (i==10) add=" ("+Language.tr("Surface.Rectangle.Dialog.Rounding.Max")+")";
 			values.add(NumberTools.formatPercent(i/10.0,0)+add);
 		}
-		line.add(rounding=new JComboBox<>(values.toArray(new String[0])));
+		line.add(rounding=new JComboBox<>(values.toArray(String[]::new)));
 		label.setLabelFor(rounding);
 		rounding.setEnabled(!readOnly);
 		rounding.setSelectedIndex((int)Math.round(rectangle.getRounding()*10));

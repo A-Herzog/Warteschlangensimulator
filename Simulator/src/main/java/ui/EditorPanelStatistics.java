@@ -311,7 +311,7 @@ public class EditorPanelStatistics {
 	 * @see #buildTooltip(Statistics, ModelElementBox)
 	 */
 	private String formatStatisticsData(final List<String> lines) {
-		return formatStatisticsData(lines.toArray(new String[0]));
+		return formatStatisticsData(lines.toArray(String[]::new));
 	}
 
 	/**

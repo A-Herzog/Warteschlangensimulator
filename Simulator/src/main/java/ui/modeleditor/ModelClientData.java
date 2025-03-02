@@ -255,7 +255,7 @@ public final class ModelClientData implements Cloneable {
 	public String[] list() {
 		final List<String> list=new ArrayList<>(colorMap.keySet());
 		for (String s: iconMap.keySet()) if (list.indexOf(s)<0) list.add(s);
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	/**

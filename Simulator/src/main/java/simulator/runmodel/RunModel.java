@@ -538,7 +538,7 @@ public class RunModel {
 		runModel.stoppOnCalcError=editModel.stoppOnCalcError;
 
 		/* Liste der Kundentypen */
-		runModel.clientTypes=editModel.surface.getClientTypes().toArray(new String[0]);
+		runModel.clientTypes=editModel.surface.getClientTypes().toArray(String[]::new);
 		runModel.clientTypesMap=new HashMap<>();
 		for (int i=0;i<runModel.clientTypes.length;i++) runModel.clientTypesMap.put(runModel.clientTypes[i],i);
 

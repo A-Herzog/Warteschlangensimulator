@@ -222,7 +222,7 @@ public class RunElementInput extends RunElementPassThrough {
 			buffer.add(line);
 		}
 
-		return buffer.toArray(new String[0]);
+		return buffer.toArray(String[]::new);
 	}
 
 	/**
@@ -250,7 +250,7 @@ public class RunElementInput extends RunElementPassThrough {
 			buffer.add(line.get(0));
 		}
 
-		return buffer.toArray(new String[0]);
+		return buffer.toArray(String[]::new);
 	}
 
 	/**

@@ -134,7 +134,7 @@ public final class ModelAnimationImages implements Cloneable {
 	 * @return	Namen der hier lokal gespeicherten Bilder
 	 */
 	public String[] getLocalNames() {
-		return names.toArray(new String[0]);
+		return names.toArray(String[]::new);
 	}
 
 	/**
@@ -150,7 +150,7 @@ public final class ModelAnimationImages implements Cloneable {
 			names.add(entry.getKey());
 			names.add(entry.getValue());
 		}
-		return names.toArray(new String[0]);
+		return names.toArray(String[]::new);
 	}
 
 	/**

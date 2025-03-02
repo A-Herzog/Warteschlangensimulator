@@ -204,7 +204,7 @@ public class ModelElementTransportSourceDialog extends ModelElementBaseDialog {
 			}
 		}
 
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	@Override

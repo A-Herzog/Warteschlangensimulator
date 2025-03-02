@@ -1584,7 +1584,7 @@ public class ScriptEditorAreaBuilder {
 	 */
 	public static synchronized void setEntityAutoComplete(final RSyntaxTextArea textField, boolean enable) {
 		if (enable) {
-			final String[] words=TextTransformer.getAllSymbolsFull().toArray(new String[0]);
+			final String[] words=TextTransformer.getAllSymbolsFull().toArray(String[]::new);
 			final DefaultCompletionProvider entityAutoCompleteProvider=new DefaultCompletionProvider(words) {
 				@Override
 				protected boolean isValidChar(char ch) {

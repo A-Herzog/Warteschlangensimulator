@@ -178,7 +178,7 @@ public final class ModelElementSetRecord implements Cloneable {
 	 * @return	Liste aller Variablennamen
 	 */
 	public String[] getVariables() {
-		final String[] arr=variables.toArray(new String[0]);
+		final String[] arr=variables.toArray(String[]::new);
 		return Arrays.copyOf(arr,arr.length);
 	}
 
@@ -187,7 +187,7 @@ public final class ModelElementSetRecord implements Cloneable {
 	 * @return	Liste aller Ausdrücke
 	 */
 	public String[] getExpressions() {
-		final String[] arr=expressions.toArray(new String[0]);
+		final String[] arr=expressions.toArray(String[]::new);
 		return Arrays.copyOf(arr,arr.length);
 	}
 

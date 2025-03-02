@@ -258,7 +258,7 @@ public class OutputDBTableModel extends JTableExtAbstractTableModel {
 			for (int i=0;i<cols.size();i++) if (cols.get(i).equalsIgnoreCase(sel)) {index=i; break;}
 			if (index<0) {cols.add(sel); index=cols.size()-1;}
 		}
-		final JComboBox<String> comboBox=new JComboBox<>(cols.toArray(new String[0]));
+		final JComboBox<String> comboBox=new JComboBox<>(cols.toArray(String[]::new));
 		if (index>=0) comboBox.setSelectedIndex(index);
 		comboBox.addActionListener(new TableButtonListener(rowIndex,ActionIndex.ACTION_COMBO_COLUMN_CHANGE,comboBox));
 		Box box=Box.createVerticalBox();

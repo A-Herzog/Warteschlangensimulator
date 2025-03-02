@@ -103,7 +103,7 @@ public class WayPointTableModel extends JTableExtAbstractTableModel {
 			}
 		}
 
-		return stations.toArray(new String[0]);
+		return stations.toArray(String[]::new);
 	}
 
 	@Override
@@ -210,7 +210,7 @@ public class WayPointTableModel extends JTableExtAbstractTableModel {
 				hints.add(Language.tr("Surface.WayPoint.Table.MoveDown"));
 				listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_DOWN));
 			}
-			return makeButtonPanel(null,hints.toArray(new String[0]),icons.toArray(new Icon[0]),listeners.toArray(new ActionListener[0]));
+			return makeButtonPanel(null,hints.toArray(String[]::new),icons.toArray(Icon[]::new),listeners.toArray(ActionListener[]::new));
 		}
 
 		return null;

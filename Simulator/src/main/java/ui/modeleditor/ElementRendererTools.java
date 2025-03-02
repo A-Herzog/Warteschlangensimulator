@@ -632,7 +632,7 @@ public class ElementRendererTools {
 	 * @return	Listendarstellung mit Elementen und Beschreibungen
 	 */
 	public static JList<InfoRecord> buildList(final List<InfoRecord> data, final GradientStyle useGradient) {
-		final JList<ElementRendererTools.InfoRecord> list=new JList<>(data.toArray(new ElementRendererTools.InfoRecord[0]));
+		final JList<ElementRendererTools.InfoRecord> list=new JList<>(data.toArray(ElementRendererTools.InfoRecord[]::new));
 		list.setCellRenderer(new InfoRecordListCellRenderer(useGradient));
 		return list;
 	}

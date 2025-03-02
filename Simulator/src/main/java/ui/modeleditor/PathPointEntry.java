@@ -112,7 +112,7 @@ public class PathPointEntry {
 	private String[] getNextStationNames() {
 		final List<String> list=options.stream().map(p->p.getLongName()).collect(Collectors.toList());
 		list.add(0,Language.tr("PathEditor.NoSelection"));
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	/**

@@ -122,10 +122,10 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 		max=Math.max(max,iconURL.length);
 		max=Math.max(max,listener.length);
 		for (int i=1;i<=max;i++) {
-			if (title.length<i) {List<String> l=new ArrayList<>(Arrays.asList(title)); l.add(null); title=l.toArray(new String[0]);}
-			if (tooltip.length<i) {List<String> l=new ArrayList<>(Arrays.asList(tooltip)); l.add(null); tooltip=l.toArray(new String[0]);}
-			if (iconURL.length<i) {List<URL> l=new ArrayList<>(Arrays.asList(iconURL)); l.add(null); iconURL=l.toArray(new URL[0]);}
-			if (listener.length<i) {List<ActionListener> l=new ArrayList<>(Arrays.asList(listener)); l.add(null); listener=l.toArray(new ActionListener[0]);}
+			if (title.length<i) {List<String> l=new ArrayList<>(Arrays.asList(title)); l.add(null); title=l.toArray(String[]::new);}
+			if (tooltip.length<i) {List<String> l=new ArrayList<>(Arrays.asList(tooltip)); l.add(null); tooltip=l.toArray(String[]::new);}
+			if (iconURL.length<i) {List<URL> l=new ArrayList<>(Arrays.asList(iconURL)); l.add(null); iconURL=l.toArray(URL[]::new);}
+			if (listener.length<i) {List<ActionListener> l=new ArrayList<>(Arrays.asList(listener)); l.add(null); listener=l.toArray(ActionListener[]::new);}
 		}
 
 		final JPanel p=new JPanel(new BorderLayout());
@@ -179,10 +179,10 @@ public abstract class JTableExtAbstractTableModel extends AbstractTableModel {
 		max=Math.max(max,icons.length);
 		max=Math.max(max,listener.length);
 		for (int i=1;i<=max;i++) {
-			if (title.length<i) {List<String> l=new ArrayList<>(Arrays.asList(title)); l.add(null); title=l.toArray(new String[0]);}
-			if (tooltip.length<i) {List<String> l=new ArrayList<>(Arrays.asList(tooltip)); l.add(null); tooltip=l.toArray(new String[0]);}
-			if (icons.length<i) {List<Icon> l=new ArrayList<>(Arrays.asList(icons)); l.add(null); icons=l.toArray(new Icon[0]);}
-			if (listener.length<i) {List<ActionListener> l=new ArrayList<>(Arrays.asList(listener)); l.add(null); listener=l.toArray(new ActionListener[0]);}
+			if (title.length<i) {List<String> l=new ArrayList<>(Arrays.asList(title)); l.add(null); title=l.toArray(String[]::new);}
+			if (tooltip.length<i) {List<String> l=new ArrayList<>(Arrays.asList(tooltip)); l.add(null); tooltip=l.toArray(String[]::new);}
+			if (icons.length<i) {List<Icon> l=new ArrayList<>(Arrays.asList(icons)); l.add(null); icons=l.toArray(Icon[]::new);}
+			if (listener.length<i) {List<ActionListener> l=new ArrayList<>(Arrays.asList(listener)); l.add(null); listener=l.toArray(ActionListener[]::new);}
 		}
 
 		final JPanel p=new JPanel(new BorderLayout());

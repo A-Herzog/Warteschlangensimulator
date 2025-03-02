@@ -125,7 +125,7 @@ public class VariablesTableModelDialog extends BaseDialog {
 		final Set<String> tempVariableNames=new HashSet<>();
 		if (names!=null) tempVariableNames.addAll(Arrays.asList(names));
 		if (initialVariableValues!=null) tempVariableNames.addAll(initialVariableValues.keySet());
-		this.names=tempVariableNames.toArray(new String[0]);
+		this.names=tempVariableNames.toArray(String[]::new);
 
 		this.clientDataOnly=clientDataOnly;
 
@@ -266,7 +266,7 @@ public class VariablesTableModelDialog extends BaseDialog {
 				if (!inList) namesList.add(var);
 			}
 		}
-		final int error=ExpressionCalc.check(expression,namesList.toArray(new String[0]),modelUserFunctions);
+		final int error=ExpressionCalc.check(expression,namesList.toArray(String[]::new),modelUserFunctions);
 		if (error<0) {
 			this.expression.setBackground(NumberTools.getTextFieldDefaultBackground());
 		} else {

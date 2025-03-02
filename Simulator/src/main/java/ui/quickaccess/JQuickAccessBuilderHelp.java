@@ -85,7 +85,7 @@ public class JQuickAccessBuilderHelp extends JQuickAccessBuilder {
 			final int index=text.toLowerCase().indexOf(quickAccessText.toLowerCase());
 			String info=null;
 			if (pages.size()==1) {
-				final String pageName=indexSystem.getPageName(pages.toArray(new String[0])[0]);
+				final String pageName=indexSystem.getPageName(pages.toArray(String[]::new)[0]);
 				if (pageName!=null) info=" ("+String.format(HelpBase.buttonSearchResultOnPage,pageName)+")";
 			}
 			if (info==null) {
@@ -122,7 +122,7 @@ public class JQuickAccessBuilderHelp extends JQuickAccessBuilder {
 		if (pageNames==null || pageNames.size()==0) return;
 
 		if (pageNames.size()==1) {
-			processPage(owner,pageNames.toArray(new String[0])[0]);
+			processPage(owner,pageNames.toArray(String[]::new)[0]);
 			return;
 		}
 

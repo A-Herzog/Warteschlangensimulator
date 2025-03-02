@@ -180,7 +180,7 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 					path.add(model.elementsFast[id].name);
 				}
 			}
-			tabOuter.add(new JScrollPane(new JList<>(path.toArray(new String[0]))));
+			tabOuter.add(new JScrollPane(new JList<>(path.toArray(String[]::new))));
 		}
 
 		/* Icons auf den Tabs */

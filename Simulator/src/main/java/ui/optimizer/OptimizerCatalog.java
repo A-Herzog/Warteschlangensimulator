@@ -46,7 +46,7 @@ public class OptimizerCatalog {
 	public String[] getOptimizerNames() {
 		final List<String> names=new ArrayList<>();
 		for (OptimizerBase optimizer: list) names.add(optimizer.getName());
-		return names.toArray(new String[0]);
+		return names.toArray(String[]::new);
 	}
 
 	/**

@@ -269,7 +269,7 @@ public class ModelElementAnimationEditClientDialog extends BaseDialog {
 	private static String[] buildClientTypesList(final RunModel model)  {
 		final List<String> list=new ArrayList<>();
 		for (int i=0;i<model.clientTypes.length;i++) list.add(String.format("%s (id=%d)",model.clientTypes[i],i));
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	/**

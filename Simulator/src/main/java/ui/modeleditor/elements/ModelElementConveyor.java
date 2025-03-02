@@ -478,7 +478,7 @@ public class ModelElementConveyor extends ModelElementMultiInSingleOutBox implem
 			panels.add(createContextMenuSliderValue(Language.tr("Surface.Conveyor.Dialog.TransportTime"),transportTime,300,transportTimeChanger));
 		}
 
-		return panels.toArray(new JPanel[0]);
+		return panels.toArray(JPanel[]::new);
 	}
 
 	/**

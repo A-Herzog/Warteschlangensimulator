@@ -78,8 +78,8 @@ public class RunElementCounterMulti extends RunElementPassThrough {
 			if (counterName.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.EmptyCounterName"),element.getId(),i+1);
 			counterNames.add(counterName);
 		}
-		counter.conditions=conditions.toArray(new String[0]);
-		counter.counterNames=counterNames.toArray(new String[0]);
+		counter.conditions=conditions.toArray(String[]::new);
+		counter.counterNames=counterNames.toArray(String[]::new);
 
 		final String counterName=counterElement.getCounterNames().get(size-1);
 		if (counterName.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.EmptyCounterNameElse"),element.getId());

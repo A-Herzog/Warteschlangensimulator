@@ -166,7 +166,7 @@ public class EditModelExamples {
 		public static String[] getNames() {
 			final List<String> list=Stream.of(values()).map(keyWord->keyWord.getName()).collect(Collectors.toList());
 			list.add(0,Language.tr("Examples.KeyWords.All"));
-			return list.toArray(new String[0]);
+			return list.toArray(String[]::new);
 		}
 	}
 

@@ -399,7 +399,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 
 			/* Aufzeichnung der Thread-basierenden Konfidenzniveaus für die Wartezeiten */
 			final double[] confidenceLevels=StatisticViewerOverviewText.getConfidenceLevels();
-			final double[] halfWidth=StatisticsDataPerformanceIndicator.getConfidenceHalfWideByMultiStatistics(partialWaitingTime.toArray(new StatisticsDataPerformanceIndicator[0]),statistics.clientsAllWaitingTimes,confidenceLevels);
+			final double[] halfWidth=StatisticsDataPerformanceIndicator.getConfidenceHalfWideByMultiStatistics(partialWaitingTime.toArray(StatisticsDataPerformanceIndicator[]::new),statistics.clientsAllWaitingTimes,confidenceLevels);
 			if (halfWidth!=null) for (int i=0;i<halfWidth.length;i++) {
 				((StatisticsSimpleValuePerformanceIndicator)statistics.threadBasedConfidence.get(NumberTools.formatPercent(1-confidenceLevels[i]))).set(halfWidth[i]);
 			}

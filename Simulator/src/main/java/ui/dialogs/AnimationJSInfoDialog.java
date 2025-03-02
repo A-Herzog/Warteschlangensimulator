@@ -68,7 +68,7 @@ public class AnimationJSInfoDialog extends BaseDialog {
 		final JPanel content=createGUI(()->Help.topicModal(this.owner,"AnimationJS"));
 
 		/* Liste */
-		final JList<CallbackLoggerWithJS.JSData> list=new JList<>(data.toArray(new CallbackLoggerWithJS.JSData[0]));
+		final JList<CallbackLoggerWithJS.JSData> list=new JList<>(data.toArray(CallbackLoggerWithJS.JSData[]::new));
 		list.setCellRenderer(new JSDataListCellRenderer());
 		content.setLayout(new BorderLayout());
 		content.add(new JScrollPane(list),BorderLayout.CENTER);

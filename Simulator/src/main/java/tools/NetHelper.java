@@ -241,7 +241,7 @@ public class NetHelper {
 					if (inputLine.length()>65535) inputLine=inputLine.substring(0,65535);
 					lines.add(inputLine);
 				}
-				return lines.toArray(new String[0]);
+				return lines.toArray(String[]::new);
 			}
 		} catch (IOException e) {return null;}
 	}

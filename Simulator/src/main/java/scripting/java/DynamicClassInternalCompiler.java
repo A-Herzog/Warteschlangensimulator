@@ -59,7 +59,7 @@ public class DynamicClassInternalCompiler extends DynamicClassFileBased {
 
 		final ByteArrayOutputStream out=new ByteArrayOutputStream();
 		final ByteArrayOutputStream err=new ByteArrayOutputStream();
-		final int result=compiler.run(null,out,err,arguments.toArray(new String[0]));
+		final int result=compiler.run(null,out,err,arguments.toArray(String[]::new));
 
 		String s;
 

@@ -330,7 +330,7 @@ public class ModelElementTank extends ModelElementBox {
 		};
 		panels.add(createContextMenuSliderValue(Language.tr("Surface.Tank.Dialog.Capacity"),capacity,100,capacityChanger));
 
-		return panels.toArray(new JPanel[0]);
+		return panels.toArray(JPanel[]::new);
 	}
 
 	/**

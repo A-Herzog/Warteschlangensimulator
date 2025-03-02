@@ -185,7 +185,7 @@ public class RunElementInputDB extends RunElementPassThrough {
 					list.add(iterator.next());
 				}
 				if (list.size()==0) return String.format(Language.tr("Simulation.Creator.DatabaseError.NoRows"),inputElement.getId(),inputElement.getTable());
-				inputStrings=list.toArray(new String[0]);
+				inputStrings=list.toArray(String[]::new);
 
 			} else {
 				final List<Double> list=new ArrayList<>();

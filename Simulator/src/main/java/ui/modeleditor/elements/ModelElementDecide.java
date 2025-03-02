@@ -922,7 +922,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 */
 	@Override
 	public ModelElementEdge[] getEdgesIn() {
-		return connectionsIn.toArray(new ModelElementEdge[0]);
+		return connectionsIn.toArray(ModelElementEdge[]::new);
 	}
 
 	/**
@@ -970,7 +970,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	 */
 	@Override
 	public ModelElementEdge[] getEdgesOut() {
-		return connectionsOut.toArray(new ModelElementEdge[0]);
+		return connectionsOut.toArray(ModelElementEdge[]::new);
 	}
 
 	/**
@@ -1270,7 +1270,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 	public String[] getNewClientTypes() {
 		final Set<String> set=new HashSet<>();
 		if (newClientTypes!=null) for (String newClientType: newClientTypes) set.add(newClientType);
-		return set.toArray(new String[0]);
+		return set.toArray(String[]::new);
 	}
 
 	@Override

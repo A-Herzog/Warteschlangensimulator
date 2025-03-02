@@ -144,7 +144,7 @@ public class ModelElementPickUpDialog extends ModelElementBaseDialog {
 			queueNames=new String[]{"<"+Language.tr("Surface.PickUp.Dialog.NoQueueAvailable")+">"};
 			queueIDs=new int[]{-1};
 		} else {
-			queueNames=names.toArray(new String[0]);
+			queueNames=names.toArray(String[]::new);
 			queueIDs=new int[queueNames.length];
 			for (int i=0;i<queueIDs.length;i++) queueIDs[i]=ids.get(i);
 		}

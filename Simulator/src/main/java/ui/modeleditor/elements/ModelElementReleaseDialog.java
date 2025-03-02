@@ -82,7 +82,7 @@ public class ModelElementReleaseDialog extends ModelElementBaseDialog {
 	private String[] getSeizes() {
 		List<String> names=new ArrayList<>();
 		for (ModelElement e: element.getSurface().getElements()) if (e instanceof ModelElementSeize) names.add(e.getName());
-		return names.toArray(new String[0]);
+		return names.toArray(String[]::new);
 	}
 
 	@Override

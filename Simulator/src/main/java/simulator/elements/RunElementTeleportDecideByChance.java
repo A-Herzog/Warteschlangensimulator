@@ -66,7 +66,7 @@ public class RunElementTeleportDecideByChance extends RunElement {
 		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_CHANCE) return null;
 		final RunElementTeleportDecideByChance decide=new RunElementTeleportDecideByChance((ModelElementDecideAndTeleport)element);
 
-		decide.destinationStrings=decideElement.getDestinations().toArray(new String[0]);
+		decide.destinationStrings=decideElement.getDestinations().toArray(String[]::new);
 		final List<String> rates=decideElement.getRates();
 		decide.probabilites=new double[decide.destinationStrings.length];
 		decide.probabilitesStrings=new String[decide.destinationStrings.length];

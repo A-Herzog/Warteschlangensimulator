@@ -180,7 +180,7 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 	 */
 	private JPopupMenu getPopupWithPanel(final List<JQuickAccessRecord> data) {
 		/* Panel mit den Einträgen */
-		final JList<JQuickAccessRecord> list=new JList<>(data.toArray(new JQuickAccessRecord[0]));
+		final JList<JQuickAccessRecord> list=new JList<>(data.toArray(JQuickAccessRecord[]::new));
 		list.setCellRenderer(new QuickAccessListCellRenderer());
 		list.addMouseListener(new MouseAdapter() {
 			@Override

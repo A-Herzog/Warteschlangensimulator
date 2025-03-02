@@ -287,7 +287,7 @@ public class PathBuilder {
 		for (Connection connection: connections) for (ModelElement next: connection.next) {
 			list.add(getFromToString(connection.previous,next));
 		}
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	/**
@@ -295,7 +295,7 @@ public class PathBuilder {
 	 * @return	Logging-Informationen des letzten Laufs
 	 */
 	public String[] getRunLog() {
-		return runLog.toArray(new String[0]);
+		return runLog.toArray(String[]::new);
 	}
 
 	/**

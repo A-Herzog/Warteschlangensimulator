@@ -158,7 +158,7 @@ public class ModelBreakPointDialog extends BaseDialog {
 	public static String[] getClientTypesList(final String[] list) {
 		final List<String> temp=new ArrayList<>(Arrays.asList(list));
 		temp.add(0,Language.tr("Surface.PopupMenu.BreakPoint.Option.ClientType.All"));
-		return temp.toArray(new String[0]);
+		return temp.toArray(String[]::new);
 	}
 
 	/**
@@ -176,7 +176,7 @@ public class ModelBreakPointDialog extends BaseDialog {
 	 * @return	Liste bestehen aus "Alle" als erstem Eintrag und dann den Kundentypennamen
 	 */
 	public static String[] getClientTypesList(final EditModel editModel) {
-		return getClientTypesList(editModel.surface.getClientTypes().toArray(new String[0]));
+		return getClientTypesList(editModel.surface.getClientTypes().toArray(String[]::new));
 	}
 
 	/**
@@ -191,7 +191,7 @@ public class ModelBreakPointDialog extends BaseDialog {
 
 		icons.add(0,Images.MODELPROPERTIES_CLIENTS_GROUPS.getIcon());
 
-		return icons.toArray(new Icon[0]);
+		return icons.toArray(Icon[]::new);
 	}
 
 	/**
@@ -200,12 +200,12 @@ public class ModelBreakPointDialog extends BaseDialog {
 	 * @return	Icons-Liste bestehen aus "Alle" als erstem Eintrag und dann den Kundentypennamen
 	 */
 	public static Icon[] getClientTypesListIcons(final EditModel editModel) {
-		final String[] clientTypes=editModel.surface.getClientTypes().toArray(new String[0]);
+		final String[] clientTypes=editModel.surface.getClientTypes().toArray(String[]::new);
 		final List<Icon> icons=new ArrayList<>(Arrays.asList(IconListCellRenderer.buildClientTypeIcons(clientTypes,editModel)));
 
 		icons.add(0,Images.MODELPROPERTIES_CLIENTS_GROUPS.getIcon());
 
-		return icons.toArray(new Icon[0]);
+		return icons.toArray(Icon[]::new);
 	}
 
 	/**

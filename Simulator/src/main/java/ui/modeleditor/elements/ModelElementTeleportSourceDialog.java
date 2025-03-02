@@ -93,7 +93,7 @@ public class ModelElementTeleportSourceDialog extends ModelElementBaseDialog {
 		final JLabel label=new JLabel(Language.tr("Surface.TeleportSource.Dialog.Target")+":");
 		line.add(label);
 		final List<String> destinations=getTeleportDestinations();
-		line.add(destination=new JComboBox<>(destinations.toArray(new String[0])));
+		line.add(destination=new JComboBox<>(destinations.toArray(String[]::new)));
 		label.setLabelFor(destination);
 		if (element instanceof ModelElementTeleportSource) {
 			final String dest=((ModelElementTeleportSource)element).getDestination();

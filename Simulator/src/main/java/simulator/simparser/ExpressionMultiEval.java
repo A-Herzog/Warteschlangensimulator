@@ -159,7 +159,7 @@ public class ExpressionMultiEval {
 	 */
 	public String parseToTree(final String condition) {
 		List<Object> tokens=tokenize(condition);
-		return String.join("\n",getParseTree(tokens).toArray(new String[0]));
+		return String.join("\n",getParseTree(tokens).toArray(String[]::new));
 	}
 
 	/**

@@ -268,6 +268,6 @@ public class StatisticViewerMovementSankey extends StatisticViewerJFreeChart {
 			}
 		});
 
-		return buttons.toArray(new JButton[0]);
+		return buttons.toArray(JButton[]::new);
 	}
 }

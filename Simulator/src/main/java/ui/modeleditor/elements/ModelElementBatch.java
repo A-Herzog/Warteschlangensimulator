@@ -266,7 +266,7 @@ public class ModelElementBatch extends ModelElementMultiInSingleOutBox implement
 			}
 		}
 
-		return panels.toArray(new JPanel[0]);
+		return panels.toArray(JPanel[]::new);
 	}
 
 	/**

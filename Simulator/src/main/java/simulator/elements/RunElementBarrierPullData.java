@@ -145,7 +145,7 @@ public class RunElementBarrierPullData extends RunElementData implements RunElem
 			final List<RunElement> list=new ArrayList<>();
 			getBarrierAddOns(simData,nextControlled,list);
 			getPathAddOns(simData,nextDirect,nextControlled,list);
-			nextControlledAddon=list.toArray(new RunElement[0]);
+			nextControlledAddon=list.toArray(RunElement[]::new);
 		}
 	}
 

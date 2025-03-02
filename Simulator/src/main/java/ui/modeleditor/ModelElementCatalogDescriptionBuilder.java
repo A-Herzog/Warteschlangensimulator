@@ -162,11 +162,11 @@ public class ModelElementCatalogDescriptionBuilder {
 		final ModelElementCatalog catalog=ModelElementCatalog.getCatalog();
 		for (Map.Entry<String,Map<String,ModelElementPosition>> entry: catalog.getAll().entrySet()) {
 			final Map<String,ModelElementPosition> group=entry.getValue();
-			final String[] names=group.keySet().toArray(new String[0]);
+			final String[] names=group.keySet().toArray(String[]::new);
 			Arrays.sort(names);
 			final List<ModelElementPosition> elements=new ArrayList<>();
 			for (String name: names) elements.add(group.get(name));
-			result.put(entry.getKey(),getGroupImage(elements.toArray(new ModelElementPosition[0]),zoom));
+			result.put(entry.getKey(),getGroupImage(elements.toArray(ModelElementPosition[]::new),zoom));
 		}
 
 		return result;

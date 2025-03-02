@@ -177,7 +177,7 @@ public class NextEventsViewerDialog extends BaseDialog {
 			if (text!=null) result.add(new JLabel("<html><body>"+simData.formatScaledSimTime(event.time)+":<br>"+text+"<br>&nbsp;</body></html>"));
 		}
 
-		return result.toArray(new JLabel[0]);
+		return result.toArray(JLabel[]::new);
 	}
 
 	/**

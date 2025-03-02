@@ -257,7 +257,7 @@ public class ModelElementAction extends ModelElementBox implements ModelElementS
 			final String variable=record.getAssignVariable();
 			if (variable!=null && !variable.isEmpty()) variableNames.add(variable);
 		}
-		return variableNames.toArray(new String[0]);
+		return variableNames.toArray(String[]::new);
 	}
 
 	@Override
@@ -267,7 +267,7 @@ public class ModelElementAction extends ModelElementBox implements ModelElementS
 			final String signal=record.getSignalName();
 			if (signal!=null && !signal.isEmpty()) signalNames.add(signal);
 		}
-		return signalNames.toArray(new String[0]);
+		return signalNames.toArray(String[]::new);
 	}
 
 	@Override
@@ -297,6 +297,6 @@ public class ModelElementAction extends ModelElementBox implements ModelElementS
 			}
 			list.add(animationExpression);
 		}
-		return list.toArray(new AnimationExpression[0]);
+		return list.toArray(AnimationExpression[]::new);
 	}
 }

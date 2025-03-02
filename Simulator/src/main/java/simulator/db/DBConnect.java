@@ -298,7 +298,7 @@ public class DBConnect implements Closeable {
 	 */
 	public String[] listTables() {
 		if (tableNames==null) tableNames=buildTableNamesList();
-		return tableNames.toArray(new String[0]);
+		return tableNames.toArray(String[]::new);
 	}
 
 	/**
@@ -383,7 +383,7 @@ public class DBConnect implements Closeable {
 
 		if (columnNames==null) columnNames=new HashMap<>();
 		if (!columnNames.containsKey(exactTableName)) columnNames.put(exactTableName,buildColumnNamesList(exactTableName));
-		return columnNames.get(exactTableName).toArray(new String[0]);
+		return columnNames.get(exactTableName).toArray(String[]::new);
 	}
 
 	/**
@@ -486,14 +486,14 @@ public class DBConnect implements Closeable {
 		}
 
 		/* Iterator bauen */
-		final String selectCols=String.join(", ",selectColumns.toArray(new String[0])).replace(";","");
+		final String selectCols=String.join(", ",selectColumns.toArray(String[]::new)).replace(";","");
 		final String primary=selectColumns.get(0);
 		final List<String> secondary=new ArrayList<>(selectColumns); secondary.remove(0);
 		try {
-			return new TableReadDoubleIterator(statement.executeQuery("SELECT "+selectCols+" FROM "+exactTableName+orderQuery+";"),primary,secondary.toArray(new String[0]));
+			return new TableReadDoubleIterator(statement.executeQuery("SELECT "+selectCols+" FROM "+exactTableName+orderQuery+";"),primary,secondary.toArray(String[]::new));
 		} catch (SQLException e1) {
 			try {
-				return new TableReadDoubleIterator(statement.executeQuery("SELECT "+selectCols+" FROM "+exactTableName+orderQuery),primary,secondary.toArray(new String[0]));
+				return new TableReadDoubleIterator(statement.executeQuery("SELECT "+selectCols+" FROM "+exactTableName+orderQuery),primary,secondary.toArray(String[]::new));
 			} catch (SQLException e2) {
 				return new TableReadDoubleIterator();
 			}
@@ -556,10 +556,10 @@ public class DBConnect implements Closeable {
 
 		/* Iterator bauen */
 		try {
-			final String selectCols=String.join(", ",selectColumns.toArray(new String[0])).replace(";","");
+			final String selectCols=String.join(", ",selectColumns.toArray(String[]::new)).replace(";","");
 			final String primary=selectColumns.get(0);
 			final List<String> secondary=new ArrayList<>(selectColumns); secondary.remove(0);
-			return new TableReadStringIterator(statement.executeQuery("SELECT "+selectCols+" FROM "+exactTableName+orderQuery+";"),primary,secondary.toArray(new String[0]));
+			return new TableReadStringIterator(statement.executeQuery("SELECT "+selectCols+" FROM "+exactTableName+orderQuery+";"),primary,secondary.toArray(String[]::new));
 		} catch (SQLException e) {
 			return new TableReadStringIterator();
 		}
@@ -664,7 +664,7 @@ public class DBConnect implements Closeable {
 				for (int i=0;i<meta.getColumnCount();i++) columnNamesList.add(meta.getColumnName(i+1));
 			} catch (SQLException e) {}
 
-			return columnNamesList.toArray(new String[0]);
+			return columnNamesList.toArray(String[]::new);
 		}
 
 		/**
@@ -779,7 +779,7 @@ public class DBConnect implements Closeable {
 				for (int i=0;i<meta.getColumnCount();i++) columnNamesList.add(meta.getColumnName(i+1));
 			} catch (SQLException e) {}
 
-			return columnNamesList.toArray(new String[0]);
+			return columnNamesList.toArray(String[]::new);
 		}
 
 		/**
@@ -876,7 +876,7 @@ public class DBConnect implements Closeable {
 			names.add(driver.getClass().getName());
 		}
 
-		return names.toArray(new String[0]);
+		return names.toArray(String[]::new);
 	}
 
 	/**

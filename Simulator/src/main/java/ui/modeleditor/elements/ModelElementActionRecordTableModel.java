@@ -248,7 +248,7 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 			icons.add(Images.EDIT_DELETE.getIcon());
 			listener.add(new EditButtonListener(rowIndex,Command.CMD_DELETE));
 
-			return makeButtonPanel(null,tooltip.toArray(new String[0]),icons.toArray(new Icon[0]),listener.toArray(new ActionListener[0]));
+			return makeButtonPanel(null,tooltip.toArray(String[]::new),icons.toArray(Icon[]::new),listener.toArray(ActionListener[]::new));
 		}
 	}
 

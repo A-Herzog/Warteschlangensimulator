@@ -347,7 +347,7 @@ public class RunElementTankData extends RunElementAnalogProcessingData {
 	public RunElementTankFlow[] getOutgoingFlows() {
 		lock.acquireUninterruptibly();
 		try {
-			return outgoing.toArray(new RunElementTankFlow[0]);
+			return outgoing.toArray(RunElementTankFlow[]::new);
 		} finally {
 			lock.release();
 		}
@@ -360,7 +360,7 @@ public class RunElementTankData extends RunElementAnalogProcessingData {
 	public RunElementTankFlow[] getIncomingFlows() {
 		lock.acquireUninterruptibly();
 		try {
-			return incoming.toArray(new RunElementTankFlow[0]);
+			return incoming.toArray(RunElementTankFlow[]::new);
 		} finally {
 			lock.release();
 		}

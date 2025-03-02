@@ -231,7 +231,7 @@ public class RunElementSourceRecord {
 				}
 			}
 			if (signals.size()==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoSignalForBarrier"),id));
-			this.signals=signalNames.toArray(new String[0]);
+			this.signals=signalNames.toArray(String[]::new);
 			break;
 		case NEXT_INTERVAL_EXPRESSIONS:
 			if (record.getIntervalExpressionsIntervalTime()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.IntervalExpressions.IntervalTimeInvalid"),id,record.getIntervalExpressionsIntervalTime()));
@@ -242,7 +242,7 @@ public class RunElementSourceRecord {
 				error=ExpressionCalc.check(intervalExpressions.get(i),runModel.variableNames,editModel.userFunctions);
 				if (error>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.IntervalExpressions"),id,i+1,intervalExpressions.get(i),error+1));
 			}
-			this.intervalExpressions=intervalExpressions.toArray(new String[0]);
+			this.intervalExpressions=intervalExpressions.toArray(String[]::new);
 			break;
 		case NEXT_INTERVAL_DISTRIBUTIONS:
 			if (record.getIntervalDistributionsIntervalTime()<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.IntervalDistributions.IntervalTimeInvalid"),id,record.getIntervalDistributionsIntervalTime()));
@@ -253,7 +253,7 @@ public class RunElementSourceRecord {
 				error=ExpressionCalc.check(intervalDistributions.get(i),runModel.variableNames,editModel.userFunctions);
 				if (error>=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.IntervalDistributions"),id,i+1,intervalDistributions.get(i),error+1));
 			}
-			this.intervalDistributions=intervalDistributions.toArray(new String[0]);
+			this.intervalDistributions=intervalDistributions.toArray(String[]::new);
 			break;
 		case NEXT_STREAM:
 			/* Werte laden */
@@ -356,8 +356,8 @@ public class RunElementSourceRecord {
 			keys.add(key);
 			values.add(value);
 		}
-		stringKeys=keys.toArray(new String[0]);
-		stringValues=values.toArray(new String[0]);
+		stringKeys=keys.toArray(String[]::new);
+		stringValues=values.toArray(String[]::new);
 
 		return RunModelCreatorStatus.ok;
 	}

@@ -72,7 +72,7 @@ public class SimDynamicSetup implements DynamicSetup {
 			list.addAll(Arrays.asList(userImports.split("\\n")));
 		}
 		list.addAll(SetupData.getSetup().dynamicImportClasses);
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	@Override

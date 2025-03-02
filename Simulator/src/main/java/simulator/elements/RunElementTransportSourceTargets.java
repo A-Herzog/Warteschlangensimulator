@@ -137,7 +137,7 @@ public class RunElementTransportSourceTargets {
 
 			routingClientType=new int[routingClientTypeList.size()];
 			for (int i=0;i<routingClientTypeList.size();i++) routingClientType[i]=routingClientTypeList.get(i);
-			routingExpression=routingExpressionList.toArray(new String[0]);
+			routingExpression=routingExpressionList.toArray(String[]::new);
 			routingDestination=new int[routingDestinationList.size()];
 			for (int i=0;i<routingDestinationList.size();i++) routingDestination[i]=routingDestinationList.get(i);
 		}

@@ -62,7 +62,7 @@ public class RunElementTeleportDecideByCondition extends RunElement {
 		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_CONDITION) return null;
 		final RunElementTeleportDecideByCondition decide=new RunElementTeleportDecideByCondition((ModelElementDecideAndTeleport)element);
 
-		decide.destinationStrings=decideElement.getDestinations().toArray(new String[0]);
+		decide.destinationStrings=decideElement.getDestinations().toArray(String[]::new);
 		final List<String> editConditions=decideElement.getConditions();
 		decide.conditions=new String[decide.destinationStrings.length];
 		decide.destinationIDs=new int[decide.destinationStrings.length];

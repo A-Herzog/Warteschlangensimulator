@@ -1677,7 +1677,7 @@ public class RunData {
 		if (freeResourcesListener==null) {
 			final List<FreeResourcesListener> elements=new ArrayList<>();
 			for (Map.Entry<Integer,RunElement> entry: runModel.elements.entrySet()) if (entry.getValue() instanceof FreeResourcesListener) elements.add((FreeResourcesListener)(entry.getValue()));
-			freeResourcesListener=elements.toArray(new FreeResourcesListener[0]);
+			freeResourcesListener=elements.toArray(FreeResourcesListener[]::new);
 			freeResourcesListenerPriority=new ExpressionCalc[freeResourcesListener.length];
 			freeResourcesListenerPriorityConst=new Double[freeResourcesListener.length];
 			for (int i=0;i<freeResourcesListener.length;i++) {
@@ -1806,7 +1806,7 @@ public class RunData {
 		if (freeTransporterListener==null) {
 			final List<TransporterPosition> elements=new ArrayList<>();
 			for (Map.Entry<Integer,RunElement> entry: runModel.elements.entrySet()) if (entry.getValue() instanceof TransporterPosition) elements.add((TransporterPosition)(entry.getValue()));
-			freeTransporterListener=elements.toArray(new TransporterPosition[0]);
+			freeTransporterListener=elements.toArray(TransporterPosition[]::new);
 			freeTransporterListenerPriority=new Double[freeTransporterListener.length];
 		}
 
@@ -1922,7 +1922,7 @@ public class RunData {
 			for (Map.Entry<Integer,RunElement> element: simData.runModel.elements.entrySet()) {
 				if (element.getValue() instanceof StateChangeListener) list.add((StateChangeListener)element.getValue());
 			}
-			stateChangeListener=list.toArray(new StateChangeListener[0]);
+			stateChangeListener=list.toArray(StateChangeListener[]::new);
 			lastStateChange=-1;
 		}
 
@@ -1956,7 +1956,7 @@ public class RunData {
 			if (stateChangeListenerRemove!=null) {
 				final List<StateChangeListener> list=new ArrayList<>(Arrays.asList(stateChangeListener));
 				list.remove(stateChangeListenerRemove);
-				stateChangeListener=list.toArray(new StateChangeListener[0]);
+				stateChangeListener=list.toArray(StateChangeListener[]::new);
 				stateChangeListenerRemove=null;
 			}
 
@@ -2023,7 +2023,7 @@ public class RunData {
 			for (Map.Entry<Integer,RunElement> element: simData.runModel.elements.entrySet()) {
 				if (element.getValue() instanceof ClientMoveListener) list.add((ClientMoveListener)element.getValue());
 			}
-			clientMoveListener=list.toArray(new ClientMoveListener[0]);
+			clientMoveListener=list.toArray(ClientMoveListener[]::new);
 		}
 
 		if (clientMoveListener.length==0) return; /* Nix zu tun. */
@@ -2034,7 +2034,7 @@ public class RunData {
 		if (clientMoveListenerRemove!=null) {
 			List<ClientMoveListener> list=new ArrayList<>(Arrays.asList(clientMoveListener));
 			list.remove(clientMoveListenerRemove);
-			clientMoveListener=list.toArray(new ClientMoveListener[0]);
+			clientMoveListener=list.toArray(ClientMoveListener[]::new);
 			clientMoveListenerRemove=null;
 		}
 	}
@@ -2067,7 +2067,7 @@ public class RunData {
 			for (Map.Entry<Integer,RunElement> element: simData.runModel.elements.entrySet()) {
 				if (element.getValue() instanceof TransporterMoveListener) list.add((TransporterMoveListener)element.getValue());
 			}
-			transporterMoveListener=list.toArray(new TransporterMoveListener[0]);
+			transporterMoveListener=list.toArray(TransporterMoveListener[]::new);
 		}
 
 		for (TransporterMoveListener listener: transporterMoveListener) listener.transporterMoveNotify(simData,transporter);
@@ -2076,7 +2076,7 @@ public class RunData {
 		if (transporterMoveListenerRemove!=null) {
 			List<TransporterMoveListener> list=new ArrayList<>(Arrays.asList(transporterMoveListener));
 			list.remove(transporterMoveListenerRemove);
-			transporterMoveListener=list.toArray(new TransporterMoveListener[0]);
+			transporterMoveListener=list.toArray(TransporterMoveListener[]::new);
 			transporterMoveListenerRemove=null;
 		}
 	}
@@ -2102,7 +2102,7 @@ public class RunData {
 			for (Map.Entry<Integer,RunElement> element: simData.runModel.elements.entrySet()) {
 				if (element.getValue() instanceof SignalListener) list.add((SignalListener)element.getValue());
 			}
-			signalListener=list.toArray(new SignalListener[0]);
+			signalListener=list.toArray(SignalListener[]::new);
 		}
 
 		for (SignalListener listener: signalListener) listener.signalNotify(simData,signalName);

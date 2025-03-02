@@ -980,14 +980,14 @@ public class LanguageStaticLoader {
 		BaseCommandLineSystem.commandReportErrorOutputExists=Language.tr("CommandLine.ReportBase.Error.Output");
 		BaseCommandLineSystem.commandReportDone=Language.tr("CommandLine.ReportBase.Done");
 		BaseCommandLineSystem.commandHelpName=Language.tr("CommandLine.Help.Name");
-		BaseCommandLineSystem.commandHelpNamesOtherLanguages=Language.trOther("CommandLine.Help.Name").toArray(new String[0]);
+		BaseCommandLineSystem.commandHelpNamesOtherLanguages=Language.trOther("CommandLine.Help.Name").toArray(String[]::new);
 		BaseCommandLineSystem.commandHelpHelpShort=Language.tr("CommandLine.Help.Help.Short");
 		BaseCommandLineSystem.commandHelpHelpLong=Language.tr("CommandLine.Help.Help.Long");
 		BaseCommandLineSystem.commandHelpInfo1=Language.tr("CommandLine.Help.Info1");
 		BaseCommandLineSystem.commandHelpInfo2=Language.tr("CommandLine.Help.Info2");
 		BaseCommandLineSystem.commandHelpError=Language.tr("CommandLine.Help.Error");
 		BaseCommandLineSystem.commandInteractiveName=Language.trAll("CommandLine.Interactive.Name");
-		BaseCommandLineSystem.commandInteractiveNamesOtherLanguages=Language.trOther("CommandLine.Interactive.Name").toArray(new String[0]);
+		BaseCommandLineSystem.commandInteractiveNamesOtherLanguages=Language.trOther("CommandLine.Interactive.Name").toArray(String[]::new);
 		BaseCommandLineSystem.commandHelpInteractiveShort=Language.tr("CommandLine.Interactive.Description.Short");
 		BaseCommandLineSystem.commandHelpInteractiveLong=Language.tr("CommandLine.Interactive.Description.Long");
 		BaseCommandLineSystem.commandHelpInteractiveStart=Language.tr("CommandLine.Interactive.Start");

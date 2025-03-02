@@ -716,7 +716,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 
 	@Override
 	public String[] getNewClientTypes() {
-		return subSurface.getClientTypesThisSurfaceOnly().toArray(new String[0]);
+		return subSurface.getClientTypesThisSurfaceOnly().toArray(String[]::new);
 	}
 
 	@Override
@@ -801,7 +801,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	@Override
 	public ModelElementEdge[] getEdgesIn() {
 		if (connectionsIn==null) return new ModelElementEdge[0];
-		return connectionsIn.toArray(new ModelElementEdge[0]);
+		return connectionsIn.toArray(ModelElementEdge[]::new);
 	}
 
 	/**
@@ -811,7 +811,7 @@ public class ModelElementSub extends ModelElementBox implements ElementWithNewCl
 	@Override
 	public ModelElementEdge[] getEdgesOut() {
 		if (connectionsOut==null) return new ModelElementEdge[0];
-		return connectionsOut.toArray(new ModelElementEdge[0]);
+		return connectionsOut.toArray(ModelElementEdge[]::new);
 	}
 
 	/**

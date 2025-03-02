@@ -647,7 +647,7 @@ public final class ModelElementCatalog {
 
 			Map<String,ModelElementPosition> elements=elementsGroups.get(groupName);
 			if (elements!=null) {
-				String[] names=new ArrayList<>(elements.keySet()).toArray(new String[0]);
+				String[] names=new ArrayList<>(elements.keySet()).toArray(String[]::new);
 				Arrays.sort(names);
 				List<ModelElement> sub=new ArrayList<>();
 				for (String name: names) {

@@ -214,7 +214,7 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 		case NEXT_SIGNAL:
 			sb.append(Language.tr("Surface.MultiSourceTable.Info.NextSignal"));
 			sb.append(" (");
-			sb.append(String.join(", ",record.getArrivalSignalNames().toArray(new String[0])));
+			sb.append(String.join(", ",record.getArrivalSignalNames().toArray(String[]::new)));
 			sb.append(")");
 			break;
 		case NEXT_INTERVAL_EXPRESSIONS:
@@ -313,7 +313,7 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 					hints.add(Language.tr("Surface.MultiSourceTable.MoveDown"));
 					listener.add(e->moveDown(rowIndex));
 				}
-				return makeEditPanelSmallBorderIcon(null,getInfoText(record),icons.toArray(new Icon[0]),hints.toArray(new String[0]),listener.toArray(new ActionListener[0]));
+				return makeEditPanelSmallBorderIcon(null,getInfoText(record),icons.toArray(Icon[]::new),hints.toArray(String[]::new),listener.toArray(ActionListener[]::new));
 
 			}
 		default:

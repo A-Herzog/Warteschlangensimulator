@@ -129,7 +129,7 @@ public class SetupDialogPageUI extends SetupDialogPage {
 		final List<String> lookAndFeels=new ArrayList<>();
 		lookAndFeels.add(Language.tr("SettingsDialog.LookAndFeel.System"));
 		lookAndFeels.addAll(Arrays.asList(GUITools.listLookAndFeels()));
-		line.add(lookAndFeel=new JComboBox<>(lookAndFeels.toArray(new String[0])));
+		line.add(lookAndFeel=new JComboBox<>(lookAndFeels.toArray(String[]::new)));
 		label.setLabelFor(lookAndFeel);
 
 		/* Menü in Titelzeile kombinieren? (Für Flat-Look&amp;Feels unter Windows) */
@@ -241,8 +241,8 @@ public class SetupDialogPageUI extends SetupDialogPage {
 		final List<Images> startModelIcons=new ArrayList<>();
 		startModelIcons.add(Images.MODEL_NEW);
 		while (startModelIcons.size()<models.size()) startModelIcons.add(Images.MODEL_LOAD);
-		line.add(startModel=new JComboBox<>(models.toArray(new String[0])));
-		startModel.setRenderer(new IconListCellRenderer(startModelIcons.toArray(new Images[0])));
+		line.add(startModel=new JComboBox<>(models.toArray(String[]::new)));
+		startModel.setRenderer(new IconListCellRenderer(startModelIcons.toArray(Images[]::new)));
 		label.setLabelFor(startModel);
 
 		/*

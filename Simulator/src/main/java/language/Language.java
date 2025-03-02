@@ -208,7 +208,7 @@ public class Language {
 		for (String s: trOther(id)) {
 			if (s.contains(";")) all.addAll(Arrays.asList(s.split(";"))); else all.add(s);
 		}
-		result=all.toArray(new String[0]);
+		result=all.toArray(String[]::new);
 		allCache.put(id,result);
 		return result;
 	}

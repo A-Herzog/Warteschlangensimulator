@@ -687,9 +687,9 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		sub.add(ModelElementBaseDialog.getExpressionEditButton(this,batchField,false,false,model,surface));
 		batchField.setEnabled(!readOnly);
 		batchField.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {optionFixedSize.setSelected(true); updateBatchInfo();checkData(false);}
-			@Override public void keyReleased(KeyEvent e) {optionFixedSize.setSelected(true); updateBatchInfo();checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {optionFixedSize.setSelected(true); updateBatchInfo();checkData(false);}
+			@Override public void keyTyped(KeyEvent e) {optionFixedSize.setSelected(true); updateBatchInfo(); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {optionFixedSize.setSelected(true); updateBatchInfo(); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {optionFixedSize.setSelected(true); updateBatchInfo(); checkData(false);}
 		});
 
 		panel.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));

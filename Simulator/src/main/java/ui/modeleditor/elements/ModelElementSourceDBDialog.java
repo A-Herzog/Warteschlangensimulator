@@ -267,15 +267,15 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 			if (comboTable.getModel().getSize()>0 && comboTable.getSelectedIndex()>=0) cols=columns.get(comboTable.getSelectedItem());
 		}
 
-		changeComboAndRestore(comboLoad,cols.toArray(new String[0]));
+		changeComboAndRestore(comboLoad,cols.toArray(String[]::new));
 		comboLoad.setEnabled(!readOnly && cols.size()>0);
 
-		changeComboAndRestore(comboClientType,cols.toArray(new String[0]));
+		changeComboAndRestore(comboClientType,cols.toArray(String[]::new));
 		comboClientType.setEnabled(!readOnly && cols.size()>0);
 
 		final List<String> cols2=new ArrayList<>(cols);
 		cols2.add(0,"<"+Language.tr("Surface.SourceDB.Dialog.ColumnInfo.DoNotUse")+">");
-		changeComboAndRestore(comboInfo,cols2.toArray(new String[0]));
+		changeComboAndRestore(comboInfo,cols2.toArray(String[]::new));
 		comboInfo.setEnabled(!readOnly);
 	}
 

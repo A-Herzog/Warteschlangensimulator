@@ -190,7 +190,7 @@ public class ServerPanelTLSDialog extends BaseDialog {
 
 		/* KeyTool ausführen */
 		try {
-			final Process p=Runtime.getRuntime().exec(commandLine.toArray(new String[0]));
+			final Process p=Runtime.getRuntime().exec(commandLine.toArray(String[]::new));
 			if (p==null) {
 				MsgBox.error(this,Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore"),Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore.ExecuteError"));
 				return;

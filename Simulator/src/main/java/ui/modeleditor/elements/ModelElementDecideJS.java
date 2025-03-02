@@ -530,7 +530,7 @@ public class ModelElementDecideJS extends ModelElementBox implements ModelElemen
 	 */
 	@Override
 	public ModelElementEdge[] getEdgesIn() {
-		return connectionsIn.toArray(new ModelElementEdge[0]);
+		return connectionsIn.toArray(ModelElementEdge[]::new);
 	}
 
 	/**
@@ -578,7 +578,7 @@ public class ModelElementDecideJS extends ModelElementBox implements ModelElemen
 	 */
 	@Override
 	public ModelElementEdge[] getEdgesOut() {
-		return connectionsOut.toArray(new ModelElementEdge[0]);
+		return connectionsOut.toArray(ModelElementEdge[]::new);
 	}
 
 	/**

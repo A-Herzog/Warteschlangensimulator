@@ -145,7 +145,7 @@ public class HandlerPost implements WebServerHandler {
 			if (files.size()==0) {
 				return buildResponse(Language.tr("WebServer.Upload.ErrorNoData"),-1);
 			} else {
-				final String fileName=files.get(files.keySet().toArray(new String[0])[0]);
+				final String fileName=files.get(files.keySet().toArray(String[]::new)[0]);
 				id=fileLoaderNewModel.apply(new UploadInfo(new File(fileName),session.getRemoteIpAddress(),origFileName));
 			}
 		} catch (IOException | ResponseException e) {
@@ -206,7 +206,7 @@ public class HandlerPost implements WebServerHandler {
 			if (files.size()==0) {
 				return null;
 			} else {
-				final String fileName=files.get(files.keySet().toArray(new String[0])[0]);
+				final String fileName=files.get(files.keySet().toArray(String[]::new)[0]);
 				return fileLoaderFilter.apply(request,new UploadInfo(new File(fileName),session.getRemoteIpAddress(),origFileName));
 			}
 		} catch (IOException | ResponseException e) {

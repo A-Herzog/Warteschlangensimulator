@@ -152,7 +152,7 @@ public class RunElementOutput extends RunElementPassThrough {
 			results.add(new ModelElementOutput.OutputRecord(mode,""));
 		}
 
-		return results.toArray(new ModelElementOutput.OutputRecord[0]);
+		return results.toArray(ModelElementOutput.OutputRecord[]::new);
 	}
 
 	/**

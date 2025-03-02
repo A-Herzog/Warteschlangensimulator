@@ -287,7 +287,7 @@ public class ModelElementSet extends ModelElementMultiInSingleOutBox implements 
 			if (!inList) variables.add(var);
 		}
 
-		return variables.toArray(new String[0]);
+		return variables.toArray(String[]::new);
 	}
 
 	/**

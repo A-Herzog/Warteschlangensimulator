@@ -64,7 +64,7 @@ public class CommandBuildCatalogDescriptions extends AbstractCommand {
 		List<String> list=new ArrayList<>();
 		list.addAll(Arrays.asList(Language.trAll("CommandLine.BuildCatalogDescriptions.Name")));
 		for (String s: Language.trOther("CommandLine.BuildCatalogDescriptions.Name")) if (!list.contains(s)) list.add(s);
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	@Override

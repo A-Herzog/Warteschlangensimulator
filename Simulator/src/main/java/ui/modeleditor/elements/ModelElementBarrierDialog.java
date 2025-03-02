@@ -92,8 +92,8 @@ public class ModelElementBarrierDialog extends ModelElementBaseDialog {
 		table.setModel(tableSignal=new BarrierSignalTableModel(
 				table,
 				((ModelElementBarrier)element).getOptions(),
-				element.getSurface().getAllSignalNames().toArray(new String[0]),
-				element.getSurface().getClientTypes().toArray(new String[0]),
+				element.getSurface().getAllSignalNames().toArray(String[]::new),
+				element.getSurface().getClientTypes().toArray(String[]::new),
 				readOnly,
 				helpRunnable));
 		table.getColumnModel().getColumn(0).setMaxWidth(225);

@@ -105,7 +105,7 @@ public class ClientInputTableProcessor {
 			break;
 		}
 
-		this.columns=columns.toArray(new ColumnData[0]);
+		this.columns=columns.toArray(ColumnData[]::new);
 
 		return true;
 	}
@@ -361,7 +361,7 @@ public class ClientInputTableProcessor {
 				if (line.size()<=col) break;
 				results.add(encodeHTML(line.get(col)));
 			}
-			return results.toArray(new String[0]);
+			return results.toArray(String[]::new);
 		}
 
 		/**
@@ -536,7 +536,7 @@ public class ClientInputTableProcessor {
 				columnClientDataIndexList.remove(columnClientDataIndexList.size()-1);
 			}
 
-			columnTypes=columnTypesList.toArray(new ColumnMode[0]);
+			columnTypes=columnTypesList.toArray(ColumnMode[]::new);
 			columnClientDataIndex=columnClientDataIndexList.stream().mapToInt(I->I.intValue()).toArray();
 		}
 
@@ -563,7 +563,7 @@ public class ClientInputTableProcessor {
 				columnClientDataIndexList.remove(columnClientDataIndexList.size()-1);
 			}
 
-			columnTypes=columnTypesList.toArray(new ColumnMode[0]);
+			columnTypes=columnTypesList.toArray(ColumnMode[]::new);
 			columnClientDataIndex=columnClientDataIndexList.stream().mapToInt(I->I.intValue()).toArray();
 		}
 

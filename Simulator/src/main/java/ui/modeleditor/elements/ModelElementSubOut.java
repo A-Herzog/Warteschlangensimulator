@@ -286,6 +286,6 @@ public class ModelElementSubOut extends ModelElementSubConnect implements ModelE
 	 */
 	@Override
 	public ModelElementEdge[] getEdgesIn() {
-		return connectionsIn.toArray(new ModelElementEdge[0]);
+		return connectionsIn.toArray(ModelElementEdge[]::new);
 	}
 }

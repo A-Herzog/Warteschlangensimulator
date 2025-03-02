@@ -71,7 +71,7 @@ public class RunElementTeleportDecideByKeyValue extends RunElement {
 		/* Mehrere Werte pro Wert-Eintrag? */
 		final boolean multiTextValues=decideElement.isMultiTextValues();
 
-		decide.destinationStrings=decideElement.getDestinations().toArray(new String[0]);
+		decide.destinationStrings=decideElement.getDestinations().toArray(String[]::new);
 		decide.destinationIDs=new int[decide.destinationStrings.length];
 		decide.values=new String[decide.destinationStrings.length-1][];
 		final List<String> values=decideElement.getValues();

@@ -50,7 +50,7 @@ public class CommandSetDynamicThreadBalance extends AbstractCommand {
 		List<String> list=new ArrayList<>();
 		list.addAll(Arrays.asList(Language.trAll("CommandLine.SetDynamicThreadBalance.Name")));
 		for (String s: Language.trOther("CommandLine.SetDynamicThreadBalance.Name")) if (!list.contains(s)) list.add(s);
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	@Override

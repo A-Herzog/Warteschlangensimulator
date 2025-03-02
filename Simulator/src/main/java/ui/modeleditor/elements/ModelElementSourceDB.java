@@ -574,7 +574,7 @@ public class ModelElementSourceDB extends ModelElementBox implements ElementWith
 
 	@Override
 	public String[] getNewClientTypes() {
-		return clientTypeNames.toArray(new String[0]);
+		return clientTypeNames.toArray(String[]::new);
 	}
 
 	@Override

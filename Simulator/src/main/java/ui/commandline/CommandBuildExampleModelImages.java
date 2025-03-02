@@ -35,7 +35,7 @@ public class CommandBuildExampleModelImages extends AbstractCommand {
 		List<String> list=new ArrayList<>();
 		list.addAll(Arrays.asList(Language.trAll("CommandLine.BuildExampleModelImages.Name")));
 		for (String s: Language.trOther("CommandLine.BuildExampleModelImages.Name")) if (!list.contains(s)) list.add(s);
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	@Override

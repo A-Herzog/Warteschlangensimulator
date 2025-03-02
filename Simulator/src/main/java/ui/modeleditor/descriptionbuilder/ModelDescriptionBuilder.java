@@ -122,7 +122,7 @@ public abstract class ModelDescriptionBuilder {
 	 */
 	public String[] getClientTypes() {
 		if (clientTypes==null) {
-			clientTypes=model.surface.getClientTypes().toArray(new String[0]);
+			clientTypes=model.surface.getClientTypes().toArray(String[]::new);
 		}
 		return clientTypes;
 	}

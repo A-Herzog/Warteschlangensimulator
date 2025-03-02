@@ -61,7 +61,7 @@ public class RunElementTeleportDecideByClientType extends RunElement {
 		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_CLIENTTYPE) return null;
 		final RunElementTeleportDecideByClientType decide=new RunElementTeleportDecideByClientType((ModelElementDecideAndTeleport)element);
 
-		decide.destinationStrings=decideElement.getDestinations().toArray(new String[0]);
+		decide.destinationStrings=decideElement.getDestinations().toArray(String[]::new);
 		decide.clientTypeConnectionIndex=new int[decide.destinationStrings.length];
 		decide.destinationIDs=new int[decide.destinationStrings.length];
 		int count=0;

@@ -298,7 +298,7 @@ public class StatisticViewerMovementTable extends StatisticViewerBaseTable {
 			}
 		}
 
-		return columns.toArray(new String[0]);
+		return columns.toArray(String[]::new);
 	}
 
 	@Override
@@ -370,6 +370,6 @@ public class StatisticViewerMovementTable extends StatisticViewerBaseTable {
 			button.addActionListener(e->new StatisticViewerMovementVisualizationDialog(getViewer(false),statistics));
 		}
 
-		return buttons.toArray(new JButton[0]);
+		return buttons.toArray(JButton[]::new);
 	}
 }

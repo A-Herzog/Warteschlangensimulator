@@ -182,7 +182,7 @@ public class ModelElementTankTableModel extends JTableExtAbstractTableModel {
 			icons.add(Images.EDIT_DELETE.getIcon());
 			listener.add(new ButtonListener(rowIndex));
 
-			return makeButtonPanel(title.toArray(new String[0]),tooltip.toArray(new String[0]),icons.toArray(new Icon[0]),listener.toArray(new ActionListener[0]));
+			return makeButtonPanel(title.toArray(String[]::new),tooltip.toArray(String[]::new),icons.toArray(Icon[]::new),listener.toArray(ActionListener[]::new));
 		default:
 			return "";
 		}

@@ -493,7 +493,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 			panels.add(createContextMenuSliderDistributionMean(Language.tr("Surface.Delay.AverageDelayTime"),timeBase,distributionGlobal,300,distributionChanger));
 		}
 
-		return panels.toArray(new JPanel[0]);
+		return panels.toArray(JPanel[]::new);
 	}
 
 	/**

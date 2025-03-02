@@ -64,7 +64,7 @@ public class PageSetupProcess implements TutorialPage {
 		final List<Map<String,Integer>> resList=process.getNeededResources();
 		if (resList.size()!=1) return null;
 		final Map<String,Integer> res=resList.get(0);
-		final String[] resNames=res.keySet().toArray(new String[0]);
+		final String[] resNames=res.keySet().toArray(String[]::new);
 		if (resNames.length!=1) return null;
 		Integer I=res.get(resNames[0]);
 		if (I==null || I.intValue()!=1) return null;

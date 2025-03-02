@@ -218,7 +218,7 @@ public class SequencesEditPanel extends JPanel {
 		}
 
 		list.sort(String::compareTo);
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	/**
@@ -273,7 +273,7 @@ public class SequencesEditPanel extends JPanel {
 	 * @return	Liefert <code>true</code>, wenn der Dialog per "Ok" geschlossen wurde
 	 */
 	private boolean editDialog(final ModelSequence sequence, final int index) {
-		final SequenceEditDialog dialog=new SequenceEditDialog(this,sequence,sequencesList.toArray(new ModelSequence[0]),index,destinations,help,model);
+		final SequenceEditDialog dialog=new SequenceEditDialog(this,sequence,sequencesList.toArray(ModelSequence[]::new),index,destinations,help,model);
 		return dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK;
 	}
 
@@ -325,7 +325,7 @@ public class SequencesEditPanel extends JPanel {
 		if (readOnly) return;
 
 		final ModelSequence sequence=sequencesList.get(index).clone();
-		final SequenceCopyDialog dialog=new SequenceCopyDialog(this,sequence,sequencesList.toArray(new ModelSequence[0]),help);
+		final SequenceCopyDialog dialog=new SequenceCopyDialog(this,sequence,sequencesList.toArray(ModelSequence[]::new),help);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 			sequencesList.add(sequence);
 			updateList(Integer.MAX_VALUE);

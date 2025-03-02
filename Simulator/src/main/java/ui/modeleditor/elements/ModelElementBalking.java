@@ -298,7 +298,7 @@ public class ModelElementBalking extends ModelElementBox implements ModelElement
 			panels.add(createContextMenuSliderProbability(Language.tr("Surface.Balking.BalkingProbability"),globalData.getProbability(),probabilityChanger));
 		}
 
-		return panels.toArray(new JPanel[0]);
+		return panels.toArray(JPanel[]::new);
 	}
 
 	/**
@@ -506,7 +506,7 @@ public class ModelElementBalking extends ModelElementBox implements ModelElement
 	 */
 	@Override
 	public ModelElementEdge[] getEdgesIn() {
-		return connectionsIn.toArray(new ModelElementEdge[0]);
+		return connectionsIn.toArray(ModelElementEdge[]::new);
 	}
 
 	/**
@@ -539,7 +539,7 @@ public class ModelElementBalking extends ModelElementBox implements ModelElement
 	 */
 	@Override
 	public ModelElementEdge[] getEdgesOut() {
-		return connectionsOut.toArray(new ModelElementEdge[0]);
+		return connectionsOut.toArray(ModelElementEdge[]::new);
 	}
 
 	/**

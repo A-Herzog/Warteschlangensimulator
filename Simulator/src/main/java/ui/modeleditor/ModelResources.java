@@ -178,7 +178,7 @@ public final class ModelResources implements Cloneable {
 	public String[] list() {
 		final List<String> names=new ArrayList<>();
 		for (ModelResource resource: list) names.add(resource.getName());
-		return names.toArray(new String[0]);
+		return names.toArray(String[]::new);
 	}
 
 	/**
@@ -186,7 +186,7 @@ public final class ModelResources implements Cloneable {
 	 * @return	Liste aller registrierten Bedienertypen
 	 */
 	public ModelResource[] getResources() {
-		return list.toArray(new ModelResource[0]);
+		return list.toArray(ModelResource[]::new);
 	}
 
 	/**

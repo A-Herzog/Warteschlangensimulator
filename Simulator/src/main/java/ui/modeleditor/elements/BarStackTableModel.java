@@ -145,9 +145,9 @@ public class BarStackTableModel extends JTableExtAbstractTableModel {
 			return makeEditPanelSmallBorderIcon(
 					Images.MODELEDITOR_ELEMENT_ANIMATION_BAR_STACK.getIcon(),
 					info,
-					icons.toArray(new Icon[0]),
-					names.toArray(new String[0]),
-					events.toArray(new ActionListener[0])
+					icons.toArray(Icon[]::new),
+					names.toArray(String[]::new),
+					events.toArray(ActionListener[]::new)
 					);
 		case 1:
 			final JPanel colorPanel=new JPanel();

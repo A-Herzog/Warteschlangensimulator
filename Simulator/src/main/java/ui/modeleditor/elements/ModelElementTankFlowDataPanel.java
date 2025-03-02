@@ -126,7 +126,7 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 		/* Quelle */
 		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(label=new JLabel(Language.tr("Surface.TankFlowPanel.Source")+":"));
-		line.add(sourceID=new JComboBox<>(sourceNames.toArray(new String[0])));
+		line.add(sourceID=new JComboBox<>(sourceNames.toArray(String[]::new)));
 		label.setLabelFor(sourceID);
 		sourceID.setEnabled(!readOnly);
 		sourceID.addActionListener(e->updateValveComboSource());
@@ -135,7 +135,7 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 		/* Ziel */
 		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(label=new JLabel(Language.tr("Surface.TankFlowPanel.Destination")+":"));
-		line.add(destinationID=new JComboBox<>(destinationNames.toArray(new String[0])));
+		line.add(destinationID=new JComboBox<>(destinationNames.toArray(String[]::new)));
 		label.setLabelFor(destinationID);
 		destinationID.setEnabled(!readOnly);
 		destinationID.addActionListener(e->updateValveComboDestination());
@@ -176,7 +176,7 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 		line.add(stopSignal=new JRadioButton(Language.tr("Surface.TankFlowPanel.StopCondition.Signal")+":"));
 		stopSignal.setEnabled(!readOnly && signalNames.size()>0);
 		stopSignal.addActionListener(e->checkData(false));
-		line.add(stopSignalCombo=new JComboBox<>(signalNames.toArray(new String[0])));
+		line.add(stopSignalCombo=new JComboBox<>(signalNames.toArray(String[]::new)));
 		stopSignalCombo.setEnabled(!readOnly && signalNames.size()>0);
 		stopSignalCombo.addActionListener(e->{stopSignal.setSelected(true); checkData(false);});
 
@@ -247,7 +247,7 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 
 		final List<String> valves=new ArrayList<>();
 		for (int i=0;i<count;i++) valves.add(String.format(Language.tr("Surface.TankFlowPanel.ValveNr"),i+1));
-		sourceValve.setModel(new DefaultComboBoxModel<>(valves.toArray(new String[0])));
+		sourceValve.setModel(new DefaultComboBoxModel<>(valves.toArray(String[]::new)));
 		sourceValve.setEnabled(!readOnly);
 
 		if (reflowDialog!=null) reflowDialog.run();
@@ -272,7 +272,7 @@ public class ModelElementTankFlowDataPanel extends JPanel {
 
 		final List<String> valves=new ArrayList<>();
 		for (int i=0;i<count;i++) valves.add(String.format(Language.tr("Surface.TankFlowPanel.ValveNr"),i+1));
-		destinationValve.setModel(new DefaultComboBoxModel<>(valves.toArray(new String[0])));
+		destinationValve.setModel(new DefaultComboBoxModel<>(valves.toArray(String[]::new)));
 		destinationValve.setEnabled(!readOnly);
 
 		if (reflowDialog!=null) reflowDialog.run();

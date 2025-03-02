@@ -233,7 +233,7 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 		parent.add(line);
 		final JLabel label=new JLabel(name);
 		line.add(label);
-		final JComboBox<String> combo=new JComboBox<>(entries!=null?entries.toArray(new String[0]):new String[0]);
+		final JComboBox<String> combo=new JComboBox<>(entries!=null?entries.toArray(String[]::new):new String[0]);
 		line.add(combo);
 		label.setLabelFor(combo);
 		return combo;
@@ -487,7 +487,7 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 			commands.add(String.format(command,val));
 		}
 
-		return commands.toArray(new String[0]);
+		return commands.toArray(String[]::new);
 	}
 
 	/**

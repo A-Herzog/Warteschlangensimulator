@@ -98,7 +98,7 @@ public class ModelElementTankFlowBySignalDialog extends ModelElementBaseDialog {
 		final JLabel label;
 		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(label=new JLabel(Language.tr("Surface.TankFlowBySignal.Dialog.SignalName")+":"));
-		line.add(signalCombo=new JComboBox<>(signalNames.toArray(new String[0])));
+		line.add(signalCombo=new JComboBox<>(signalNames.toArray(String[]::new)));
 		label.setLabelFor(signalCombo);
 		if (index>=0) signalCombo.setSelectedIndex(index);
 

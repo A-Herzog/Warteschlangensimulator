@@ -109,7 +109,7 @@ public class RunElementCounterData extends RunElementData implements RunElementD
 			for (String name: counterStatistic.getNames()) {
 				if (name.startsWith(groupNameExt)) list.add((StatisticsSimpleCountPerformanceIndicator)counterStatistic.get(name));
 			}
-			indicators=list.toArray(new StatisticsSimpleCountPerformanceIndicator[0]);
+			indicators=list.toArray(StatisticsSimpleCountPerformanceIndicator[]::new);
 			indicatorsSize=counterStatistic.size();
 		}
 

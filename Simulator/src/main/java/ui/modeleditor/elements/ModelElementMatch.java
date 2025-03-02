@@ -892,7 +892,7 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 	 */
 	@Override
 	public ModelElementEdge[] getEdgesIn() {
-		if (connectionsIn==null) return new ModelElementEdge[0]; else return connectionsIn.toArray(new ModelElementEdge[0]);
+		if (connectionsIn==null) return new ModelElementEdge[0]; else return connectionsIn.toArray(ModelElementEdge[]::new);
 	}
 
 	/**

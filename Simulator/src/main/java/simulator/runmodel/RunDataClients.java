@@ -431,7 +431,7 @@ public final class RunDataClients {
 			while (!clientsInUse.isEmpty()) disposeClient(clientsInUse.get(0),simData);
 		} else {
 			if (clientsInUseFast!=null) {
-				final RunDataClient[] list=clientsInUseFast.toArray(new RunDataClient[0]);
+				final RunDataClient[] list=clientsInUseFast.toArray(RunDataClient[]::new);
 				for (RunDataClient client: list) disposeClient(client,simData);
 				clientsInUseFast.clear();
 			}

@@ -192,7 +192,7 @@ public class OptimizerParallelKernelGenetic extends OptimizerParallelKernelBase 
 		}
 
 		storeControlValues(controls);
-		return models.toArray(new EditModel[0]);
+		return models.toArray(EditModel[]::new);
 	}
 
 	@Override

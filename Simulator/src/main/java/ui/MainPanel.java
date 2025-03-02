@@ -1918,7 +1918,7 @@ public class MainPanel extends MainPanelBase {
 		while (files.size()>5) files.remove(files.size()- 1); /* Maximal die letzten 5 Dateien merken */
 
 		if (setup.useLastFiles) {
-			setup.lastFiles=files.toArray(new String[0]);
+			setup.lastFiles=files.toArray(String[]::new);
 		} else {
 			setup.lastFiles=null;
 		}
@@ -3767,7 +3767,7 @@ public class MainPanel extends MainPanelBase {
 				final List<Statistics> stat=parameterCompare.getCompareModels();
 				if (stat!=null && !stat.isEmpty()) {
 					if (isDiscardModelOk()) {
-						commandExtrasCompare(stat.toArray(new Statistics[0]));
+						commandExtrasCompare(stat.toArray(Statistics[]::new));
 						return;
 					}
 				}
@@ -3804,7 +3804,7 @@ public class MainPanel extends MainPanelBase {
 				final List<Statistics> stat=parameterCompare.getCompareModels();
 				if (stat!=null && !stat.isEmpty()) {
 					if (isDiscardModelOk()) {
-						commandExtrasCompare(stat.toArray(new Statistics[0]));
+						commandExtrasCompare(stat.toArray(Statistics[]::new));
 						return;
 					}
 				}
@@ -4571,7 +4571,7 @@ public class MainPanel extends MainPanelBase {
 		options.add("<b>"+Language.tr("NoJDK.OptionCancel")+"</b>");
 		info.add(Language.tr("NoJDK.OptionCancel.Info"));
 
-		final int result=MsgBox.options(parent,Language.tr("NoJDK.Title"),infoText.toString(),options.toArray(new String[0]),info.toArray(new String[0]));
+		final int result=MsgBox.options(parent,Language.tr("NoJDK.Title"),infoText.toString(),options.toArray(String[]::new),info.toArray(String[]::new));
 
 		if (autoInstallPossible && downloader.isFile()) {
 			switch (result) {

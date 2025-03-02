@@ -463,7 +463,7 @@ public class ModelElementDisposeWithTable extends ModelElementBox implements Mod
 	 */
 	@Override
 	public ModelElementEdge[] getEdgesIn() {
-		return connections.toArray(new ModelElementEdge[0]);
+		return connections.toArray(ModelElementEdge[]::new);
 	}
 
 	/**

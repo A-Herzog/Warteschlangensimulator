@@ -98,7 +98,7 @@ public class RunElementAnalogAssign extends RunElementPassThrough {
 		assign.changeID=listID.stream().mapToInt(Integer::intValue).toArray();
 		assign.changeRate=new boolean[listRate.size()];
 		for (int i=0;i<assign.changeRate.length;i++) assign.changeRate[i]=listRate.get(i);
-		assign.changeExpression=listExpression.toArray(new String[0]);
+		assign.changeExpression=listExpression.toArray(String[]::new);
 
 		return assign;
 	}

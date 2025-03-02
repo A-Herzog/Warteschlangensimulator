@@ -205,7 +205,7 @@ public class TransporterTableModelDialog extends BaseDialog {
 		userFunctions=model.userFunctions;
 		final List<String> list=new ArrayList<>(Arrays.asList(variables));
 		list.add(ModelTransporter.DEFAULT_DISTANCE);
-		variablesWithDistances=list.toArray(new String[0]);
+		variablesWithDistances=list.toArray(String[]::new);
 		this.names=names;
 		final String name=transporter.getName();
 		int nr=-1;

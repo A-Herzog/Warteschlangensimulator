@@ -553,7 +553,7 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 
 	@Override
 	public String[] getNewClientTypes() {
-		return clientTypeNames.toArray(new String[0]);
+		return clientTypeNames.toArray(String[]::new);
 	}
 
 	@Override

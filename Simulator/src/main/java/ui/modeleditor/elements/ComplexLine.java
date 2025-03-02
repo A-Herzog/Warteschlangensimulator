@@ -138,7 +138,7 @@ public final class ComplexLine implements Cloneable {
 		y+=-dirA.y*lenA;
 		list.add(new Point2D.Double(x,y));
 
-		return list.toArray(new Point2D.Double[0]);
+		return list.toArray(Point2D.Double[]::new);
 	}
 
 	/**

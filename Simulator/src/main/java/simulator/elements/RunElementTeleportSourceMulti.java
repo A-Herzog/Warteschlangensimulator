@@ -72,7 +72,7 @@ public class RunElementTeleportSourceMulti extends RunElement {
 			for (int j=0;j<multiplicity;j++) destinationsResults.add(destination);
 		}
 
-		source.destinationStrings=destinationsResults.toArray(new String[0]);
+		source.destinationStrings=destinationsResults.toArray(String[]::new);
 		if (source.destinationStrings.length==0) return String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId());
 
 		/* Namen -> IDs */

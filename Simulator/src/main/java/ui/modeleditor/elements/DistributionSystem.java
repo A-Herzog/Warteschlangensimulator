@@ -219,7 +219,7 @@ public final class DistributionSystem implements Cloneable {
 		final List<String> names=new ArrayList<>();
 		for (Map.Entry<String,AbstractRealDistribution> entry: distributionByType.entrySet()) if (names.indexOf(entry.getKey())<0) names.add(entry.getKey());
 		for (Map.Entry<String,String> entry: expressionByType.entrySet()) if (names.indexOf(entry.getKey())<0) names.add(entry.getKey());
-		return names.toArray(new String[0]);
+		return names.toArray(String[]::new);
 	}
 
 	/**

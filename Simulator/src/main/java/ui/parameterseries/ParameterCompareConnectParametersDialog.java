@@ -132,14 +132,14 @@ public class ParameterCompareConnectParametersDialog extends BaseDialog {
 	}
 
 	/**
-	 * Liefert ein Rechenobjekt mit registierten Variablennamen.
+	 * Liefert ein Rechenobjekt mit registrierten Variablennamen.
 	 * @return	Rechenobjekt
 	 */
 	private ExpressionCalc getExpressionCalc() {
 		final List<String> params=new ArrayList<>();
 		for (int i=0;i<setup.getInput().size();i++) params.add(String.format("param%d",i+1));
 
-		return new ExpressionCalc(params.toArray(new String[0]),userFunctions);
+		return new ExpressionCalc(params.toArray(String[]::new),userFunctions);
 	}
 
 	/**

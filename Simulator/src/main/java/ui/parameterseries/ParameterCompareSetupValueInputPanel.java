@@ -162,7 +162,7 @@ public class ParameterCompareSetupValueInputPanel extends JPanel {
 
 		cardPanel.add(sub=new JPanel(),"2");
 		sub.setLayout(new BoxLayout(sub,BoxLayout.PAGE_AXIS));
-		mapCombo=getComboBox(sub,Language.tr("ParameterCompare.Settings.Input.Mode.GlobalMap.Label"),new ArrayList<>(model.globalMapInitial.keySet()).toArray(new String[0]));
+		mapCombo=getComboBox(sub,Language.tr("ParameterCompare.Settings.Input.Mode.GlobalMap.Label"),new ArrayList<>(model.globalMapInitial.keySet()).toArray(String[]::new));
 		if (mapCombo.getItemCount()>0) mapCombo.setSelectedIndex(0);
 		mapCombo.addActionListener(e->updateInfo());
 

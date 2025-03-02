@@ -191,7 +191,7 @@ public class ModelElementAnalogAssignTableModelDialog extends BaseDialog {
 			}
 		}
 
-		idNames=names.toArray(new String[0]);
+		idNames=names.toArray(String[]::new);
 		idAllowRates=new boolean[rates.size()]; for (int i=0;i<rates.size();i++) idAllowRates[i]=rates.get(i);
 		this.ids=ids.stream().mapToInt(Integer::intValue).toArray();
 	}

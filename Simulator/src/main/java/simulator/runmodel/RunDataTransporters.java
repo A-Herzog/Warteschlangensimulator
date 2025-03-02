@@ -151,7 +151,7 @@ public final class RunDataTransporters implements Cloneable {
 		/* Liste der Variablen - ergänzt um die Distanz-Variable */
 		final List<String> variablesList=new ArrayList<>(Arrays.asList(variables));
 		variablesList.add(ModelTransporter.DEFAULT_DISTANCE);
-		variableNamesWithDistance=variablesList.toArray(new String[0]);
+		variableNamesWithDistance=variablesList.toArray(String[]::new);
 
 		/* Alle Transportertypen durchlaufen */
 		for (ModelTransporter transporter: transporters.getTransporters()) {
@@ -233,7 +233,7 @@ public final class RunDataTransporters implements Cloneable {
 				}
 				failures.add(runFailure);
 			}
-			final RunDataTransporterFailure[] failuresArray=failures.toArray(new RunDataTransporterFailure[0]);
+			final RunDataTransporterFailure[] failuresArray=failures.toArray(RunDataTransporterFailure[]::new);
 
 			/* Anzahl pro Station für Transportertyp */
 			final List<RunDataTransporter> runTransporterList=new ArrayList<>();
@@ -260,13 +260,13 @@ public final class RunDataTransporters implements Cloneable {
 					runTransporterList.add(runTransporter);
 				}
 			}
-			transporterList.add(runTransporterList.toArray(new RunDataTransporter[0]));
+			transporterList.add(runTransporterList.toArray(RunDataTransporter[]::new));
 		}
 
 		/* Daten in globale Arrays eintragen */
-		type=typeList.toArray(new String[0]);
+		type=typeList.toArray(String[]::new);
 		distances=distancesList.toArray(new double[0][][]);
-		expressionString=expressionList.toArray(new String[0]);
+		expressionString=expressionList.toArray(String[]::new);
 		expression=new ExpressionCalc[expressionString.length];
 		this.transporters=transporterList.toArray(new RunDataTransporter[0][]);
 
@@ -480,7 +480,7 @@ public final class RunDataTransporters implements Cloneable {
 	public RunDataTransporter[] getTransporters() {
 		List<RunDataTransporter> transporterList=new ArrayList<>();
 		for (RunDataTransporter[] list: transporters) for (RunDataTransporter transporter: list) transporterList.add(transporter);
-		return transporterList.toArray(new RunDataTransporter[0]);
+		return transporterList.toArray(RunDataTransporter[]::new);
 	}
 
 	/**

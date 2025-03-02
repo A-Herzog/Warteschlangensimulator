@@ -73,7 +73,7 @@ public final class ModelSchedules implements Cloneable {
 	public static String[] getScheduleNames(final List<ModelSchedule> schedules) {
 		final List<String> names=new ArrayList<>();
 		for (ModelSchedule schedule: schedules) if (!schedule.getName().isEmpty()) names.add(schedule.getName());
-		return names.toArray(new String[0]);
+		return names.toArray(String[]::new);
 	}
 
 	/**

@@ -95,7 +95,7 @@ public class RunElementDecideByClientType extends RunElement {
 		}
 
 		/* Kundentypzuweisungen */
-		decide.clientTypeNames=((ModelElementDecide)element).getChangedClientTypes().toArray(new String[0]);
+		decide.clientTypeNames=((ModelElementDecide)element).getChangedClientTypes().toArray(String[]::new);
 		decide.clientTypeIcons=new String[decide.clientTypeNames.length];
 		for (int i=0;i<decide.clientTypeIcons.length;i++) decide.clientTypeIcons[i]=editModel.clientData.getIcon(decide.clientTypeNames[i]);
 

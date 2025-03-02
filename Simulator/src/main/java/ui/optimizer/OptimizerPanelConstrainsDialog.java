@@ -100,7 +100,7 @@ public class OptimizerPanelConstrainsDialog extends BaseDialog {
 	protected boolean checkData() {
 		final List<String> varsMaxList=new ArrayList<>();
 		for (int i=0;i<1_000;i++) varsMaxList.add(String.format("Var%d",i+1));
-		final String[] varsMaxArray=varsMaxList.toArray(new String[0]);
+		final String[] varsMaxArray=varsMaxList.toArray(String[]::new);
 
 		final List<String> newConstrains=getConstrainsFromGUI();
 		for (int i=0;i<newConstrains.size();i++) {

@@ -84,8 +84,8 @@ public class RunElementAssignString extends RunElementPassThrough {
 			keys.add(key);
 			values.add(value);
 		}
-		assign.stringKeys=keys.toArray(new String[0]);
-		assign.stringValues=values.toArray(new String[0]);
+		assign.stringKeys=keys.toArray(String[]::new);
+		assign.stringValues=values.toArray(String[]::new);
 
 		/* Optionale Bedingung */
 		final String condition=assignElement.getCondition();

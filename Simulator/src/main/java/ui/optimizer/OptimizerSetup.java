@@ -558,7 +558,7 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 			final ModelResource resource=model.resources.get(name);
 			if (resource.getMode()==ModelResource.Mode.MODE_NUMBER && resource.getCount()>=0) resources.add(name);
 		}
-		return resources.toArray(new String[0]);
+		return resources.toArray(String[]::new);
 	}
 
 	/**

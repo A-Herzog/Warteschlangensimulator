@@ -105,7 +105,7 @@ public class ModelElementBatchMultiDialog extends ModelElementBaseDialog {
 		content.add(line,BorderLayout.NORTH);
 		final JLabel label=new JLabel(Language.tr("Surface.BatchMulti.Dialog.ClientType")+":");
 		line.add(label);
-		line.add(selectClientType=new JComboBox<>(clientTypes.toArray(new String[0])));
+		line.add(selectClientType=new JComboBox<>(clientTypes.toArray(String[]::new)));
 		label.setLabelFor(selectClientType);
 		if (clientTypes.size()>0) selectClientType.setSelectedIndex(0);
 		selectClientType.addActionListener(e->selectedClientTypeChanged());

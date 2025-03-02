@@ -148,12 +148,12 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 			for (String s: namesList) if (s.equalsIgnoreCase(var)) {inList=true; break;}
 			if (!inList) namesList.add(var);
 		}
-		variables=namesList.toArray(new String[0]);
+		variables=namesList.toArray(String[]::new);
 		userFunctions=model.userFunctions;
 
 		/* Daten vorbereiten */
 		this.readOnly=readOnly;
-		clientTypes=surface.getClientTypes().toArray(new String[0]);
+		clientTypes=surface.getClientTypes().toArray(String[]::new);
 		clientTypeDistribution=new ArrayList<>();
 		for (int i=0;i<clientTypes.length;i++) clientTypeDistribution.add(null);
 		clientTypeExpression=new ArrayList<>();
@@ -175,7 +175,7 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 		List<String> items=new ArrayList<>();
 		items.add(Language.tr("Surface.DistributionByClientTypeEditor.Global"));
 		for (String typ : clientTypes) items.add(Language.tr("Surface.DistributionByClientTypeEditor.ByType")+" \""+typ+"\"");
-		sub.add(clientTypeSelect=new JComboBox<>(items.toArray(new String[0])));
+		sub.add(clientTypeSelect=new JComboBox<>(items.toArray(String[]::new)));
 		final AnimationImageSource imageSource=new AnimationImageSource();
 		final List<Object> modeIcons=new ArrayList<>();
 		modeIcons.add(Images.MODELPROPERTIES_CLIENTS_GROUPS.getIcon());

@@ -182,7 +182,7 @@ public class ModelElementTankValveSetupTableModel extends JTableExtAbstractTable
 			icons.add(Images.EDIT_DELETE.getIcon());
 			hints.add(Language.tr("Surface.TankValveSetup.Table.Delete"));
 			listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_DELETE));
-			return makeButtonPanel(null,hints.toArray(new String[0]),icons.toArray(new Icon[0]),listeners.toArray(new ActionListener[0]));
+			return makeButtonPanel(null,hints.toArray(String[]::new),icons.toArray(Icon[]::new),listeners.toArray(ActionListener[]::new));
 		}
 
 		return null;

@@ -60,7 +60,7 @@ public class RunElementTeleportDecideBySequence extends RunElement {
 		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_SEQUENCE) return null;
 		final RunElementTeleportDecideBySequence decide=new RunElementTeleportDecideBySequence((ModelElementDecideAndTeleport)element);
 
-		decide.destinationStrings=decideElement.getDestinations().toArray(new String[0]);
+		decide.destinationStrings=decideElement.getDestinations().toArray(String[]::new);
 		final List<Integer> destinationIDs=new ArrayList<>();
 		if (decide.destinationStrings.length==0) return String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId());
 

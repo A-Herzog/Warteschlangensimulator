@@ -161,10 +161,10 @@ public class SoundSystemPanel extends JPanel {
 		modes.add(Language.tr("SoundSelectPanel.Frequency"));
 		modesImages.add(Images.SOUND);
 
-		line.add(modeSelect=new JComboBox<>(modes.toArray(new String[0])));
+		line.add(modeSelect=new JComboBox<>(modes.toArray(String[]::new)));
 		modeSelect.setEnabled(!readOnly);
 		modeSelect.setSelectedIndex(0);
-		modeSelect.setRenderer(new IconListCellRenderer(modesImages.toArray(new Images[0])));
+		modeSelect.setRenderer(new IconListCellRenderer(modesImages.toArray(Images[]::new)));
 
 		/* Cards */
 		cards=new JPanel(cardLayout=new CardLayout());
@@ -176,7 +176,7 @@ public class SoundSystemPanel extends JPanel {
 		line.add(systemEventSoundSelect=new JComboBox<>(soundSystem.getSystemSounds()));
 		icons=new ArrayList<>();
 		for (int i=0;i<systemEventSoundSelect.getItemCount();i++) icons.add(Images.SOUND);
-		systemEventSoundSelect.setRenderer(new IconListCellRenderer(icons.toArray(new Images[0])));
+		systemEventSoundSelect.setRenderer(new IconListCellRenderer(icons.toArray(Images[]::new)));
 		systemEventSoundSelect.setEnabled(!readOnly);
 		systemEventSoundSelect.setSelectedIndex(0);
 
@@ -187,7 +187,7 @@ public class SoundSystemPanel extends JPanel {
 			line.add(systemSoundFileSelect=new JComboBox<>(Stream.of(soundSystem.getSoundFiles()).map(file->file.toString()).toArray(String[]::new)));
 			icons=new ArrayList<>();
 			for (int i=0;i<systemSoundFileSelect.getItemCount();i++) icons.add(Images.SOUND);
-			systemSoundFileSelect.setRenderer(new IconListCellRenderer(icons.toArray(new Images[0])));
+			systemSoundFileSelect.setRenderer(new IconListCellRenderer(icons.toArray(Images[]::new)));
 			systemSoundFileSelect.setEnabled(!readOnly);
 			systemSoundFileSelect.setSelectedIndex(0);
 		} else {
@@ -228,10 +228,10 @@ public class SoundSystemPanel extends JPanel {
 		cards.add(line,hasWindowsSounds?"4":"3");
 		final List<String> toneList=new ArrayList<>();
 		for (int i=0;i<SoundSystem.fullToneNameList.size();i++) toneList.add(SoundSystem.fullToneNameList.get(i)+" ("+NumberTools.formatNumber(SoundSystem.fullToneFrequencyList.get(i),2)+Language.tr("SoundSelectPanel.Hz")+")");
-		line.add(toneSelect=new JComboBox<>(toneList.toArray(new String[0])));
+		line.add(toneSelect=new JComboBox<>(toneList.toArray(String[]::new)));
 		icons=new ArrayList<>();
 		for (int i=0;i<toneSelect.getItemCount();i++) icons.add(Images.SOUND);
-		toneSelect.setRenderer(new IconListCellRenderer(icons.toArray(new Images[0])));
+		toneSelect.setRenderer(new IconListCellRenderer(icons.toArray(Images[]::new)));
 		toneSelect.setEnabled(!readOnly);
 		toneSelect.setSelectedIndex(57);
 

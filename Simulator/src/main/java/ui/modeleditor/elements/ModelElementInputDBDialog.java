@@ -310,12 +310,12 @@ public class ModelElementInputDBDialog extends ModelElementBaseDialog {
 			if (comboTable.getModel().getSize()>0 && comboTable.getSelectedIndex()>=0) cols=columns.get(comboTable.getSelectedItem());
 		}
 
-		changeComboAndRestore(comboLoad,cols.toArray(new String[0]));
+		changeComboAndRestore(comboLoad,cols.toArray(String[]::new));
 		comboLoad.setEnabled(!readOnly && cols.size()>0);
 
 		final List<String> cols2=new ArrayList<>(cols);
 		cols2.add(0,"<"+Language.tr("Surface.InputDB.Dialog.ColumnSort.DoNotUse")+">");
-		changeComboAndRestore(comboSort,cols2.toArray(new String[0]));
+		changeComboAndRestore(comboSort,cols2.toArray(String[]::new));
 		comboSort.setEnabled(!readOnly);
 
 		comboSortMode.setEnabled(!readOnly);

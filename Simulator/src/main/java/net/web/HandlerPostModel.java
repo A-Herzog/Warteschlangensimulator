@@ -88,7 +88,7 @@ public class HandlerPostModel implements WebServerHandler {
 			if (files.size()==0) {
 				return Language.tr("WebServer.Upload.ErrorNoData");
 			} else {
-				final String fileName=files.get(files.keySet().toArray(new String[0])[0]);
+				final String fileName=files.get(files.keySet().toArray(String[]::new)[0]);
 				final File file=new File(fileName);
 				final Object obj=loadModel(file);
 				if (obj instanceof String) return (String)obj;

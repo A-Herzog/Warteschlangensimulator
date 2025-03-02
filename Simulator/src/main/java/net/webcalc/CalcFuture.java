@@ -345,7 +345,7 @@ public class CalcFuture {
 	public String[] getMessages() {
 		lock.lock();
 		try {
-			return messages.toArray(new String[0]);
+			return messages.toArray(String[]::new);
 		} finally {
 			lock.unlock();
 		}

@@ -216,7 +216,7 @@ public class AnalyticProcess {
 			cNeeded=-1;
 			cAvailable=-1;
 		} else {
-			final String[] keys=process.getNeededResources().get(0).keySet().toArray(new String[0]);
+			final String[] keys=process.getNeededResources().get(0).keySet().toArray(String[]::new);
 			cNeeded=process.getNeededResources().get(0).get(keys[0]);
 			cAvailable=getAvailableOperators(keys[0],resources);
 		}

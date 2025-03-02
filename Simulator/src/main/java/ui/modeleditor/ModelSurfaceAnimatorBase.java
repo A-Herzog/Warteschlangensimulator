@@ -289,7 +289,7 @@ public class ModelSurfaceAnimatorBase {
 	private ElementWithAnimationDisplay[] getAnimationElements() {
 		final List<ElementWithAnimationDisplay> list=new ArrayList<>();
 		for (ModelElement element: surface.getElements()) if (element instanceof ElementWithAnimationDisplay) list.add((ElementWithAnimationDisplay)element);
-		return list.toArray(new ElementWithAnimationDisplay[0]);
+		return list.toArray(ElementWithAnimationDisplay[]::new);
 	}
 
 	/**
@@ -1350,7 +1350,7 @@ public class ModelSurfaceAnimatorBase {
 	protected void preProcess(final SimulationData simData) {
 		final List<RunDataClient> list=simData.runData.clients.requestClientsInUseList();
 		if (clientsList==null || clientsList.length!=list.size()) {
-			clientsList=list.toArray(new RunDataClient[0]);
+			clientsList=list.toArray(RunDataClient[]::new);
 		} else {
 			clientsList=list.toArray(clientsList);
 		}

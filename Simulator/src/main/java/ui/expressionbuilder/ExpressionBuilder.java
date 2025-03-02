@@ -743,7 +743,7 @@ public class ExpressionBuilder extends BaseDialog {
 				if (!inList) tempVariables.add(var);
 			}
 			if (initialVariables!=null) tempVariables.addAll(initialVariables.keySet());
-			this.variables=tempVariables.toArray(new String[0]);
+			this.variables=tempVariables.toArray(String[]::new);
 			this.initialVariableValues=initialVariables;
 			if (stations==null) this.stations=new HashMap<>(); else this.stations=stations;
 			if (stationNames==null) this.stationNames=new HashMap<>(); else this.stationNames=stationNames;

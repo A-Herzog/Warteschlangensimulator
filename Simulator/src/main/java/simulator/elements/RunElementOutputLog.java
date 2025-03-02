@@ -94,8 +94,8 @@ public class RunElementOutputLog extends RunElementPassThrough {
 			modeOutputList.add(mode);
 			dataOutputList.add(data);
 		}
-		output.mode=modeOutputList.toArray(new ModelElementOutputLog.OutputMode[0]);
-		output.data=dataOutputList.toArray(new Object[0]);
+		output.mode=modeOutputList.toArray(ModelElementOutputLog.OutputMode[]::new);
+		output.data=dataOutputList.toArray(Object[]::new);
 
 		return output;
 	}

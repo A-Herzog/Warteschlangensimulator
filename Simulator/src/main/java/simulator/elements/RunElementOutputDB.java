@@ -118,9 +118,9 @@ public class RunElementOutputDB extends RunElementPassThrough {
 			columnOutputList.add(column);
 			dataOutputList.add(data);
 		}
-		output.mode=modeOutputList.toArray(new ModelElementOutputDB.OutputMode[0]);
-		output.column=columnOutputList.toArray(new String[0]);
-		output.data=dataOutputList.toArray(new Object[0]);
+		output.mode=modeOutputList.toArray(ModelElementOutputDB.OutputMode[]::new);
+		output.column=columnOutputList.toArray(String[]::new);
+		output.data=dataOutputList.toArray(Object[]::new);
 
 		return output;
 	}

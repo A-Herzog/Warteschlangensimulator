@@ -895,7 +895,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 	 */
 	@Override
 	public ModelElementEdge[] getEdgesIn() {
-		return connectionsIn.toArray(new ModelElementEdge[0]);
+		return connectionsIn.toArray(ModelElementEdge[]::new);
 	}
 
 	/**
@@ -1057,7 +1057,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 			panels.add(createContextMenuSliderValue(Language.tr("Surface.Process.Dialog.BatchSize"),initial,20,batchChanger));
 		}
 
-		return panels.toArray(new JPanel[0]);
+		return panels.toArray(JPanel[]::new);
 	}
 
 	/**

@@ -65,7 +65,7 @@ public final class CommandBenchmark extends AbstractSimulationCommand {
 		if (!list.contains(Language.tr("CommandLine.Benchmark.Name2"))) list.add(Language.tr("CommandLine.Benchmark.Name2"));
 		for (String s: Language.trOther("CommandLine.Benchmark.Name2")) if (!list.contains(s)) list.add(s);
 
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	@Override

@@ -141,7 +141,7 @@ public class DistributionSetupTimesEditor extends JPanel {
 		this.readOnly=readOnly;
 		dataOriginal=data;
 		this.data=data.clone();
-		clientTypes=surface.getClientTypes().toArray(new String[0]);
+		clientTypes=surface.getClientTypes().toArray(String[]::new);
 
 		/* GUI aufbauen */
 		setLayout(new BorderLayout());

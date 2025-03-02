@@ -198,10 +198,10 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 			}
 
 			return makeButtonPanel(
-					titles.toArray(new String[0]),
-					tooltips.toArray(new String[0]),
-					icons.toArray(new Icon[0]),
-					listeners.toArray(new ActionListener[0]));
+					titles.toArray(String[]::new),
+					tooltips.toArray(String[]::new),
+					icons.toArray(Icon[]::new),
+					listeners.toArray(ActionListener[]::new));
 		}
 
 		return "";
@@ -279,7 +279,7 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 		final EditModel model=element.getModel();
 		final ModelSurface surface=model.surface;
 		final List<String> variables=new ArrayList<>(Arrays.asList(surface.getMainSurfaceVariableNames(model.getModelVariableNames(),true)));
-		final ExpressionBuilder dialog=new ExpressionBuilder(table,condition.get(index),true,variables.toArray(new String[0]),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(surface),ExpressionBuilder.getStationNameIDs(surface),true,false,false,model.userFunctions);
+		final ExpressionBuilder dialog=new ExpressionBuilder(table,condition.get(index),true,variables.toArray(String[]::new),model.getInitialVariablesWithValues(),ExpressionBuilder.getStationIDs(surface),ExpressionBuilder.getStationNameIDs(surface),true,false,false,model.userFunctions);
 
 		dialog.setVisible(true);
 		if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {

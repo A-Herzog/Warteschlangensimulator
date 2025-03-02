@@ -186,7 +186,7 @@ public class SequenceEditTableModel extends JTableExtAbstractTableModel {
 		final List<String> next=new ArrayList<>();
 		next.add(Language.tr("Editor.Dialog.Sequences.Edit.Column.Next.Default"));
 		for (int i=0;i<steps.size();i++) next.add(String.format(Language.tr("Editor.Dialog.Sequences.Edit.Column.Next.Step"),i+1));
-		final JComboBox<String> combo=new JComboBox<>(next.toArray(new String[0]));
+		final JComboBox<String> combo=new JComboBox<>(next.toArray(String[]::new));
 
 		int selIndex=Math.max(0,steps.get(index).getNext()+1);
 		if (selIndex>=next.size()) {
@@ -234,7 +234,7 @@ public class SequenceEditTableModel extends JTableExtAbstractTableModel {
 				icons.add(Images.ARROW_DOWN.getIcon());
 				listener.add(e->commandMoveDown(rowIndex));
 			}
-			return makeButtonPanel(null,title.toArray(new String[0]),icons.toArray(new Icon[0]),listener.toArray(new ActionListener[0]));
+			return makeButtonPanel(null,title.toArray(String[]::new),icons.toArray(Icon[]::new),listener.toArray(ActionListener[]::new));
 		default:
 			return null;
 		}

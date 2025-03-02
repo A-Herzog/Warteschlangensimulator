@@ -288,6 +288,6 @@ public class StatisticViewerMovementText extends StatisticViewerText {
 		}
 
 		if (buttons.size()==0) return null;
-		return buttons.toArray(new JButton[0]);
+		return buttons.toArray(JButton[]::new);
 	}
 }

@@ -89,7 +89,7 @@ public class OptimizerKernelBase {
 	 * @see #addMessage(String)
 	 */
 	public final String[] getMessages() {
-		return messages.toArray(new String[0]);
+		return messages.toArray(String[]::new);
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class OptimizerKernelBase {
 	private String[] getVariableNames(final int count) {
 		final List<String> list=new ArrayList<>();
 		for (int i=1;i<=count;i++) list.add(String.format("Var%d",i));
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	/**

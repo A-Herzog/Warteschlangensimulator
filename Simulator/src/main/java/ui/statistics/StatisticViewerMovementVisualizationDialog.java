@@ -158,7 +158,7 @@ public class StatisticViewerMovementVisualizationDialog extends BaseDialog {
 
 		final List<String> pathNames=new ArrayList<>();
 		for (int i=0;i<paths.size();i++) pathNames.add(Language.tr("Statistics.ClientMovement.Visualization.Path")+" "+(i+1)+": "+paths.get(i).toString());
-		setup.add(comboBox=new JComboBox<>(pathNames.toArray(new String[0])),BorderLayout.CENTER);
+		setup.add(comboBox=new JComboBox<>(pathNames.toArray(String[]::new)),BorderLayout.CENTER);
 		label.setLabelFor(comboBox);
 		if (comboBox.getItemCount()>0) comboBox.setSelectedIndex(0);
 		comboBox.addActionListener(e->pathSelectionChanged());

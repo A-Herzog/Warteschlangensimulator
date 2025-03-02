@@ -208,7 +208,7 @@ public class ClientTypeLoader {
 						break;
 					}
 				}
-				record.getSetRecord().setData(variables.toArray(new String[0]),expressions.toArray(new String[0]));
+				record.getSetRecord().setData(variables.toArray(String[]::new),expressions.toArray(String[]::new));
 			} else {
 				record.getStringRecord().getKeys().add((String)data[0]);
 				record.getStringRecord().getValues().add((String)data[1]);

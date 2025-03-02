@@ -218,7 +218,7 @@ public class BookDataDialog extends BaseDialog {
 		exampleModelsList.add(new BookExampleModel("Modell-8.3.xml","8.3","Steuerung des Transportziels über Texteigenschaften"));
 		exampleModelsList.add(new BookExampleModel("Modell-8.4.xml","8.4","Schichtpläne"));
 		exampleModelsList.add(new BookExampleModel("Modell-8.6.xml","8.6","Bediener mit Ausfallzeiten"));
-		exampleModels=exampleModelsList.toArray(new BookExampleModel[0]);
+		exampleModels=exampleModelsList.toArray(BookExampleModel[]::new);
 	}
 
 	/**
@@ -598,7 +598,7 @@ public class BookDataDialog extends BaseDialog {
 		cmd.add(file.toString());
 
 		try {
-			Runtime.getRuntime().exec(cmd.toArray(new String[0]));
+			Runtime.getRuntime().exec(cmd.toArray(String[]::new));
 			return true;
 		} catch (IOException e) {}
 

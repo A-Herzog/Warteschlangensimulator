@@ -126,7 +126,7 @@ public class ModelElementSourceRecordSignalTableModel extends JTableExtAbstractT
 	 * @return	Auswahlbox zur Auswahl eines Auslösesignals
 	 */
 	private JComboBox<String> getSignalCombo(final int rowIndex, final String signal) {
-		final JComboBox<String> combo=new JComboBox<>(signalNames.toArray(new String[0]));
+		final JComboBox<String> combo=new JComboBox<>(signalNames.toArray(String[]::new));
 
 		int selIndex=signalNames.indexOf(signal);
 		if (selIndex<0 && signalNames.size()>0) selIndex=0;
@@ -156,7 +156,7 @@ public class ModelElementSourceRecordSignalTableModel extends JTableExtAbstractT
 			icons.add(Images.EDIT_DELETE.getIcon());
 			hints.add(Language.tr("Surface.Source.Dialog.Signals.Table.Delete"));
 			listeners.add(new TableButtonListener(rowIndex,ActionIndex.ACTION_DELETE));
-			return makeButtonPanel(null,hints.toArray(new String[0]),icons.toArray(new Icon[0]),listeners.toArray(new ActionListener[0]));
+			return makeButtonPanel(null,hints.toArray(String[]::new),icons.toArray(Icon[]::new),listeners.toArray(ActionListener[]::new));
 		}
 
 		return null;

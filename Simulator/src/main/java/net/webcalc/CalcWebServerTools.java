@@ -207,7 +207,7 @@ public class CalcWebServerTools {
 		}
 		if (!isEmpty) data.add(part.toString().trim());
 
-		return data.toArray(new String[0]);
+		return data.toArray(String[]::new);
 	}
 
 	/**

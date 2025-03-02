@@ -134,7 +134,7 @@ public abstract class DynamicClassFileBased extends DynamicClassBase {
 		className=className.substring(0,index);
 
 		/* Klasse laden */
-		try (final URLClassLoader loader=new URLClassLoader(folderURLs.toArray(new URL[0]))) {
+		try (final URLClassLoader loader=new URLClassLoader(folderURLs.toArray(URL[]::new))) {
 			return loader.loadClass(className);
 		} catch (ClassNotFoundException | UnsupportedClassVersionError | IOException e) {
 			return e.getMessage();

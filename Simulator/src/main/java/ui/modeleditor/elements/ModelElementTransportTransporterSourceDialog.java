@@ -338,7 +338,7 @@ public class ModelElementTransportTransporterSourceDialog extends ModelElementBa
 			}
 		}
 
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	/**

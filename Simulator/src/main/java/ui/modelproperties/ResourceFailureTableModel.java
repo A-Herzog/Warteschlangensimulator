@@ -207,7 +207,7 @@ public class ResourceFailureTableModel extends JTableExtAbstractTableModel {
 				icons.add(Images.ARROW_DOWN.getIcon());
 				listener.add(new EditButtonListener(2,rowIndex));
 			}
-			return makeButtonPanel(null,title.toArray(new String[0]),icons.toArray(new Icon[0]),listener.toArray(new ActionListener[0]));
+			return makeButtonPanel(null,title.toArray(String[]::new),icons.toArray(Icon[]::new),listener.toArray(ActionListener[]::new));
 		default: return null;
 		}
 	}

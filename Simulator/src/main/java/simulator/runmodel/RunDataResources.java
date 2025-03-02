@@ -348,7 +348,7 @@ public final class RunDataResources implements Cloneable {
 					operatorsList.addAll(Arrays.asList(operators));
 				}
 			}
-			operators=operatorsList.toArray(new RunDataResourceOperator[0]);
+			operators=operatorsList.toArray(RunDataResourceOperator[]::new);
 
 		}
 		return operators;

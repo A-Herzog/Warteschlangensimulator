@@ -87,7 +87,7 @@ public class ModelRestoreDialog extends BaseDialog {
 
 		final JPanel content=createGUI(()->Help.topicModal(this,"AutoRestoreSelect"));
 		content.setLayout(new BorderLayout());
-		content.add(new JScrollPane(list=new JList<>(getListData().toArray(new JLabel[0]))),BorderLayout.CENTER);
+		content.add(new JScrollPane(list=new JList<>(getListData().toArray(JLabel[]::new))),BorderLayout.CENTER);
 		list.setCellRenderer(new JLabelRender());
 		list.addMouseListener(new MouseAdapter() {
 			@Override

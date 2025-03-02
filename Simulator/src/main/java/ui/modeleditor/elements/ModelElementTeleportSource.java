@@ -388,7 +388,7 @@ public class ModelElementTeleportSource extends ModelElementBox implements Model
 	 */
 	@Override
 	public ModelElementEdge[] getEdgesIn() {
-		return connections.toArray(new ModelElementEdge[0]);
+		return connections.toArray(ModelElementEdge[]::new);
 	}
 
 	/**

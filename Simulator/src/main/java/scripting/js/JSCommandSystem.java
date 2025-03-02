@@ -1039,7 +1039,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 		while (m.find()) {
 			if (m.group(1)!=null) list.add(m.group(1)); else list.add(m.group(2));
 		}
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	/**

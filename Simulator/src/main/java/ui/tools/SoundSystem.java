@@ -156,7 +156,7 @@ public class SoundSystem {
 				final String propNames[]=(String[])toolkit.getDesktopProperty("win.propNames");
 				if (propNames!=null) Arrays.asList(propNames).stream().filter(propName->propName.startsWith(WIN_SOUND_PREFIX)).map(propName->propName.substring(WIN_SOUND_PREFIX.length())).forEach(list::add);
 			}
-			systemSounds=list.toArray(new String[0]);
+			systemSounds=list.toArray(String[]::new);
 		}
 		return systemSounds;
 	}

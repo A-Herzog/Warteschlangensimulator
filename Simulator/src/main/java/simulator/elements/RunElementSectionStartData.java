@@ -59,7 +59,7 @@ public class RunElementSectionStartData extends RunElementData {
 					if (((RunElementSectionStart)element).sectionNameLower.equals(nameLower)) list.add(((RunElementSectionStart)element).getData(simData));
 				}
 			}
-			moreSectionStartStations=list.toArray(new RunElementSectionStartData[0]);
+			moreSectionStartStations=list.toArray(RunElementSectionStartData[]::new);
 		}
 
 		/* Kunden, die über die Station selbst und über alle anderen Eingänge in denselben Abschnitt eingetreten sind. */

@@ -517,12 +517,12 @@ public class ModelElementReference extends ModelElementBox implements ModelEleme
 
 	@Override
 	public ModelElementEdge[] getEdgesIn() {
-		return connectionsIn.toArray(new ModelElementEdge[0]);
+		return connectionsIn.toArray(ModelElementEdge[]::new);
 	}
 
 	@Override
 	public ModelElementEdge[] getEdgesOut() {
-		return connectionsOut.toArray(new ModelElementEdge[0]);
+		return connectionsOut.toArray(ModelElementEdge[]::new);
 	}
 
 	/**

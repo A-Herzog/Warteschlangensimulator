@@ -636,7 +636,7 @@ public class GitSetup {
 			if (fileName.length()<=folderName.length()) continue;
 			list.add(fileName.substring(folderName.length()));
 		}
-		return list.toArray(new String[0]);
+		return list.toArray(String[]::new);
 	}
 
 	/**

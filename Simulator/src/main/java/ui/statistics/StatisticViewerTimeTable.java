@@ -282,7 +282,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			columns.add(String.format(Language.tr("Statistics.ConfidenceLevel"),StatisticTools.formatPercent(1-level)));
 		}
 
-		return columns.toArray(new String[0]);
+		return columns.toArray(String[]::new);
 	}
 
 	/**
@@ -334,7 +334,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			for (int i=0;i<halfWidth.length;i++) line.add(String.format("[%s;%s]",StatisticTools.formatNumber(mean-halfWidth[i]),StatisticTools.formatNumber(mean+halfWidth[i])));
 		}
 
-		return line.toArray(new String[0]);
+		return line.toArray(String[]::new);
 	}
 
 	/**
@@ -362,7 +362,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			line.add(StatisticTools.formatNumber(data.getQuantil(p)));
 		}
 
-		return line.toArray(new String[0]);
+		return line.toArray(String[]::new);
 	}
 
 	/**
@@ -397,7 +397,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 			for (int i=0;i<halfWidth.length;i++) line.add(String.format("[%s;%s]",StatisticTools.formatNumber(mean-halfWidth[i]),StatisticTools.formatNumber(mean+halfWidth[i])));
 		}
 
-		return line.toArray(new String[0]);
+		return line.toArray(String[]::new);
 	}
 
 	/**
@@ -419,7 +419,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		line.add(StatisticTools.formatNumber(data.getTimeMin()));
 		line.add(StatisticTools.formatNumber(data.getTimeMax()));
 
-		return line.toArray(new String[0]);
+		return line.toArray(String[]::new);
 	}
 
 	/**

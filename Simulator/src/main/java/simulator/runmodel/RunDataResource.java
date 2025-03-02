@@ -265,7 +265,7 @@ public final class RunDataResource implements Cloneable {
 			}
 			failures.add(runFailure);
 		}
-		this.failuresGlobal=failures.toArray(new RunDataResourceFailure[0]);
+		this.failuresGlobal=failures.toArray(RunDataResourceFailure[]::new);
 
 		/* Ausfälle und Schichtpläne können nicht gleichzeitig verwendet werden. */
 		if (this.failuresGlobal.length>0 && available==-2) return String.format(Language.tr("Simulation.Creator.NoFailureAndSchedule"),name);
@@ -694,7 +694,7 @@ public final class RunDataResource implements Cloneable {
 
 		for (int i=0;i<operatorsNew.size();i++) operatorsNew.get(i).index=i;
 
-		operators=operatorsNew.toArray(new RunDataResourceOperatorFull[0]);
+		operators=operatorsNew.toArray(RunDataResourceOperatorFull[]::new);
 		operatorsThin=operators;
 
 		/* Animationssystem benachrichtigen, dass es eine neue Ressourcenliste gibt. */

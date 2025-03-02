@@ -98,7 +98,7 @@ public final class DistributionSystemSetupTimes implements Cloneable {
 			}
 		}
 
-		return names.toArray(new String[0]);
+		return names.toArray(String[]::new);
 	}
 
 	/**

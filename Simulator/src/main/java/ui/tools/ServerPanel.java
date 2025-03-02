@@ -416,7 +416,7 @@ public final class ServerPanel extends SpecialPanel {
 		content.add(new JScrollPane(calcOutput=new JTextArea()),BorderLayout.CENTER);
 		calcOutput.setEditable(false);
 		serverCalc.addOutputListener(list->{
-			final String text=String.join("\n",list.toArray(new String[0]));
+			final String text=String.join("\n",list.toArray(String[]::new));
 			calcOutput.setText(text);
 			calcOutput.setCaretPosition(text.length());
 		});

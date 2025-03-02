@@ -1112,7 +1112,7 @@ public final class ModelSurface {
 				if (intensity!=null && intensity>0) {
 					final List<Point> polyline=edge.getPolylinePoints(zoom);
 					if (polyline!=null) {
-						heatMap.polyline(polyline.toArray(new Point[0]),HeatMapImage.mixColors(colorLow,colorHigh,intensity),intensity);
+						heatMap.polyline(polyline.toArray(Point[]::new),HeatMapImage.mixColors(colorLow,colorHigh,intensity),intensity);
 					}
 				}
 			}
@@ -1881,7 +1881,7 @@ public final class ModelSurface {
 			}
 		}
 
-		return variables.toArray(new String[0]);
+		return variables.toArray(String[]::new);
 	}
 
 	/**
@@ -1901,7 +1901,7 @@ public final class ModelSurface {
 			for (String s: namesList) if (s.equalsIgnoreCase(var)) {inList=true; break;}
 			if (!inList) namesList.add(var);
 		}
-		return namesList.toArray(new String[0]);
+		return namesList.toArray(String[]::new);
 	}
 
 	/**

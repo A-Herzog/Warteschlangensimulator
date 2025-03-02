@@ -73,7 +73,7 @@ public class PriorityTableModel extends JTableExtAbstractTableModel {
 		this.readOnly=readOnly;
 		this.element=element;
 
-		clientTypes=element.getSurface().getClientTypes().toArray(new String[0]);
+		clientTypes=element.getSurface().getClientTypes().toArray(String[]::new);
 		priorities=new String[clientTypes.length];
 		if (element instanceof ModelElementProcess) {
 			for (int i=0;i<clientTypes.length;i++) priorities[i]=((ModelElementProcess)element).getPriority(clientTypes[i]);

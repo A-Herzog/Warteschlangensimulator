@@ -169,7 +169,7 @@ public class SetupDialogSpellChecking extends BaseDialog {
 		/* Tab "Nutzerdefinierte Wörter" */
 		tabs.addTab(Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking.UserWords"),tabOuter=new JPanel(new BorderLayout()));
 		tabOuter.add(new JScrollPane(userWords=new JTextArea()));
-		userWords.setText(String.join("\n",HunspellDictionaries.getUserDictionaryWords().toArray(new String[0])));
+		userWords.setText(String.join("\n",HunspellDictionaries.getUserDictionaryWords().toArray(String[]::new)));
 
 		/* Tab "Zu prüfende Elemente" */
 		tabs.addTab(Language.tr("SettingsDialog.Tabs.ProgramStart.SpellChecking.Mode"),tabOuter=new JPanel(new BorderLayout()));

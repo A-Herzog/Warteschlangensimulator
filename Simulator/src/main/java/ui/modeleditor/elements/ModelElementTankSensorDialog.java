@@ -156,7 +156,7 @@ public class ModelElementTankSensorDialog extends ModelElementBaseDialog {
 			}
 		}
 
-		tankNames=names.toArray(new String[0]);
+		tankNames=names.toArray(String[]::new);
 	}
 
 	@Override

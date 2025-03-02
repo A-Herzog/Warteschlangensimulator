@@ -90,7 +90,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			set.add(s);
 			if (onlyFirstClientType && set.size()>0) break;
 		}
-		return set.toArray(new String[0]);
+		return set.toArray(String[]::new);
 	}
 
 	/**
@@ -682,7 +682,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			if (dataIndex!=null && dataFormula!=null) {
 				this.dataIndex=new int[dataIndex.size()];
 				for (int i=0;i<this.dataIndex.length;i++) this.dataIndex[i]=dataIndex.get(i);
-				this.dataFormula=dataFormula.toArray(new String[0]);
+				this.dataFormula=dataFormula.toArray(String[]::new);
 			}
 
 			return -1;
@@ -726,7 +726,7 @@ public abstract class RunElementSourceExtern extends RunElement implements RunSo
 			if (dataIndex!=null && dataFormula!=null) {
 				this.dataIndex=new int[dataIndex.size()];
 				for (int i=0;i<this.dataIndex.length;i++) this.dataIndex[i]=dataIndex.get(i);
-				this.dataFormula=dataFormula.toArray(new String[0]);
+				this.dataFormula=dataFormula.toArray(String[]::new);
 			}
 
 			return -1;

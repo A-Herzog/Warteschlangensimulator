@@ -334,7 +334,7 @@ public class ModelElementLink extends ModelElementPosition implements ElementWit
 		options.add(Language.trPrimary("Surface.Link.XML.ConfirmDialog.OptionEdit"));
 		info.add(Language.trPrimary("Surface.Link.XML.ConfirmDialog.OptionEditInfo"));
 
-		final int result=MsgBox.options(owner,Language.trPrimary("Surface.Link.XML.ConfirmDialog.Title"),String.format(MsgBox.OpenURLInfo,link),options.toArray(new String[0]),info.toArray(new String[0]));
+		final int result=MsgBox.options(owner,Language.trPrimary("Surface.Link.XML.ConfirmDialog.Title"),String.format(MsgBox.OpenURLInfo,link),options.toArray(String[]::new),info.toArray(String[]::new));
 
 		if (MsgBox.allowOpenURL) {
 			switch (result) {

@@ -333,7 +333,7 @@ public class ModelElementTransportSource extends ModelElementBox implements Mode
 			panels.add(createContextMenuSliderDistributionMean(Language.tr("Surface.TransportSource.AverageTransportTimeGlobal"),transportTimeRecord.getTimeBase(),distribution,300,distributionChanger));
 		}
 
-		return panels.toArray(new JPanel[0]);
+		return panels.toArray(JPanel[]::new);
 	}
 
 
@@ -518,7 +518,7 @@ public class ModelElementTransportSource extends ModelElementBox implements Mode
 	 */
 	@Override
 	public ModelElementEdge[] getEdgesIn() {
-		return connections.toArray(new ModelElementEdge[0]);
+		return connections.toArray(ModelElementEdge[]::new);
 	}
 
 	/**
