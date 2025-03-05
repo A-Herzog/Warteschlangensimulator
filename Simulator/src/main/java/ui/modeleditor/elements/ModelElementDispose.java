@@ -24,7 +24,6 @@ import java.util.function.Consumer;
 
 import javax.swing.Icon;
 import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import org.w3c.dom.Document;
@@ -263,18 +262,7 @@ public class ModelElementDispose extends ModelElementBox implements ModelElement
 	 */
 	@Override
 	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
-		JMenuItem item;
-		final Icon icon=Images.EDIT_EDGES_DELETE.getIcon();
-
-		if (connections!=null && connections.size()>0) {
-			popupMenu.add(item=new JMenuItem(Language.tr("Surface.PopupMenu.RemoveAllEdges")));
-			item.addActionListener(e->{
-				for (ModelElementEdge element : new ArrayList<>(connections)) surface.remove(element);
-			});
-			if (icon!=null) item.setIcon(icon);
-			item.setEnabled(!readOnly);
-			popupMenu.addSeparator();
-		}
+		addEdgesInContextMenu(popupMenu,surface,readOnly);
 	}
 
 	/**
