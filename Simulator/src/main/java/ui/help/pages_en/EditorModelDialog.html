@@ -491,6 +491,15 @@ it shows whether the simulation model can be parallelized across all available C
 if not, which model properties prevent this.
 </p>
 
+<h3>Random numbers generator</h3>
+
+<p>
+Various methods are available in the simulator for generating pseudo-random numbers, on the basis of which the values of the set distribution functions are calculated.
+All available generators are equally suitable for the simulation. Using the ThreadLocalRandom generator leads to the fastest simulation.
+All other generators work more slowly when the simulation is distributed over several CPU cores.
+Unless there are explicit reasons not to use ThreadLocalRandom, this setting should be retained.
+</p>
+
 <h3>Number of time steps per simulation second</h3>
 
 <p>

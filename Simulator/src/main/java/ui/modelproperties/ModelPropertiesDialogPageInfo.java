@@ -20,8 +20,10 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -41,6 +43,16 @@ import ui.modeleditor.ModelElementBaseDialog;
  * @see ModelPropertiesDialogPage
  */
 public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
+	/**
+	 * Modus für Zufallszahlengenerator
+	 */
+	private JComboBox<String> randomMode;
+
+	/**
+	 * Schaltfläche zum Zurücksetzen des Modus für Zufallszahlengenerator
+	 */
+	private JButton randomModeResetButton;
+
 	/**
 	 * Eingabefeld für die Anzahl an Zeitschritten pro Sekunde
 	 */
@@ -112,6 +124,32 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 
 		lines.setLayout(new BoxLayout(lines,BoxLayout.PAGE_AXIS));
 
+		/* Zufallszahlengenerator */
+
+		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(new JLabel("<html><b>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.RandomMode")+":</b></html>"));
+		sub.add(Box.createHorizontalStrut(1));
+		sub.add(randomMode=new JComboBox<>(EditModel.RandomMode.getAllNames()));
+		randomMode.setEnabled(!readOnly);
+		randomMode.setSelectedIndex(EditModel.RandomMode.getIndex(model.randomMode));
+		randomMode.addActionListener(e->checkRandomMode());
+
+		randomModeResetButton=new JButton(Images.EDIT_UNDO.getIcon());
+		randomModeResetButton.setToolTipText(Language.tr("Editor.Dialog.Tab.SimulationSystem.RandomMode.ResetToDefault"));
+		randomModeResetButton.addActionListener(e->{
+			randomMode.setSelectedIndex(0);
+			checkRandomMode();
+		});
+		sub.add(randomModeResetButton);
+
+		lines.add(sub=new JPanel(new BorderLayout()));
+		sub.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
+		sub.add(new JLabel("<html>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.RandomMode.Info")+"</html>"));
+
+		checkRandomMode();
+
+		lines.add(Box.createVerticalStrut(10));
+
 		/* Zwischenüberschrift: "Anzahl an Zeitschritten pro Sekunde" */
 
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -148,6 +186,14 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 	}
 
 	/**
+	 * Prüft die Einstellungen zum Zufallszahlengenerator
+	 * (und aktiviert oder deaktiviert die Reset-Schaltfläche).
+	 */
+	private void checkRandomMode() {
+		randomModeResetButton.setEnabled(randomMode.getSelectedIndex()!=0);
+	}
+
+	/**
 	 * Prüft die Eingaben im Anzahl an Zeitschritten pro Sekunde Eingabefeld
 	 * @return	Liefert <code>true</code>, wenn der eingestellte Wert gültig ist
 	 */
@@ -180,6 +226,7 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 
 	@Override
 	public void storeData() {
+		model.randomMode=EditModel.RandomMode.fromIndex(randomMode.getSelectedIndex());
 		final Long L=NumberTools.getNotNegativeLong(timeStepsPerSecond,true);
 		if (L!=null) model.timeStepsPerSecond=L.longValue();
 	}

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-23 16:38+0100\n"
+"POT-Creation-Date: 2025-03-05 18:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4649,6 +4649,15 @@ msgstr "Die Simulation des Modells kann über alle CPU-Kerne parallelisiert werd
 
 msgid "Editor.Dialog.Tab.SimulationSystem.Ok"
 msgstr "Das Modell ist fehlerfrei und kann simuliert werden."
+
+msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode"
+msgstr "Zufallszahlengenerator"
+
+msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.Info"
+msgstr "Alle angebotenen Generatoren sind für die Simulation geeignet. Allerdings arbeitet der Modus \"ThreadLocalRandom\" am schnellsten."
+
+msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.ResetToDefault"
+msgstr "Auf Vorgabewert zurücksetzen"
 
 msgid "Editor.Dialog.Tab.SimulationSystem.RepeatNotOk"
 msgstr "Die Simulation des Modells soll %d mal wiederholt werden. Dies ist jedoch aus folgendem Grund nicht möglich:"
@@ -37470,6 +37479,9 @@ msgstr "ModellZufallszahlenStartwert"
 msgid "Surface.XML.ModelName"
 msgstr "ModellName"
 
+msgid "Surface.XML.ModelRandomMode"
+msgstr "ModellZufallszahlenModus"
+
 msgid "Surface.XML.ModelRepeatCount"
 msgstr "ModellWiederholungen"
 
@@ -39481,6 +39493,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Editor.Dialog.Tab.Simulation.Criteria.ErrorAtLeastOne"
 #~ msgstr "Es muss mindestens ein Kriterium zum Beenden der Simulation angegeben werden."
+
+#~ msgid "Editor.Dialog.Tab.Simulation.RandomMode"
+#~ msgstr "Zufallszahlengenerator"
 
 #~ msgid "Editor.Edit"
 #~ msgstr "Bearbeiten"

@@ -21,6 +21,7 @@
   <xs:element ref="ModellAbbruchzeit"/>
   <xs:element ref="ModellAbbruchKonfidenz"/>
   <xs:element ref="ModellZufallszahlenStartwert"/>
+  <xs:element name="ModellZufallszahlenModus" type="xs:string"/>
   <xs:element ref="ModellAutokorrelation"/>
   <xs:element name="ModellBatchGroesse" type="xs:string"/>
   <xs:element name="ModellWelfordVerverwenden" type="xs:string"/>
@@ -2561,6 +2562,7 @@
   <xs:element ref="ModelTerminationTime"/>
   <xs:element ref="ModelTerminationConfidence"/>
   <xs:element ref="ModelRandomNumbersSeed"/>
+  <xs:element name="ModelRandomNumbersMode" type="xs:string"/>
   <xs:element ref="ModelAutocorrelation"/>
   <xs:element name="ModelBatchSize" type="xs:string"/>
   <xs:element name="ModelUseWelford" type="xs:string"/>

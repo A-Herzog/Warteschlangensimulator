@@ -22,6 +22,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.math3.random.MersenneTwister;
+import org.apache.commons.math3.random.Well19937c;
 import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
@@ -242,13 +244,28 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 
 	/**
 	 * Bereitet den globalen Zufallszahlengenerator für die Simulation vor.
+	 * @param randomMode	Zu verwendender Zufallszahlengenerator
 	 * @param fixedSeed	Soll ein fester Startwert verwendet werden?
 	 */
-	private static void prepareStatic(final boolean fixedSeed) {
-		if (fixedSeed) {
+	private static void prepareStatic(final EditModel.RandomMode randomMode, final boolean fixedSeed) {
+		switch (randomMode) {
+		case THREAD_LOCAL_RANDOM:
+			if (fixedSeed) {
+				/* ThreadLocalRandomGenerator ist nicht seedable, daher Fallback zu JDKRandom */
+				DistributionRandomNumber.generator=new SeedableThreadLocalRandomGenerator();
+			} else {
+				DistributionRandomNumber.generator=new ThreadLocalRandomGenerator();
+			}
+			break;
+		case RANDOM:
 			DistributionRandomNumber.generator=new SeedableThreadLocalRandomGenerator();
-		} else {
-			DistributionRandomNumber.generator=new ThreadLocalRandomGenerator();
+			break;
+		case WELL19937C:
+			DistributionRandomNumber.generator=new SeedableThreadLocalRandomGenerator(()->new Well19937c());
+			break;
+		case MERSENNE_TWISTER:
+			DistributionRandomNumber.generator=new SeedableThreadLocalRandomGenerator(()->new MersenneTwister());
+			break;
 		}
 	}
 
@@ -266,7 +283,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * @return	Liefert <code>null</code> zurück, wenn die Simulation erfolgreich vorbereitet werden konnte, sonst eine Fehlermeldung
 	 */
 	public PrepareError prepare(final boolean allowLoadBalancer) {
-		prepareStatic(editModel.useFixedSeed);
+		prepareStatic(editModel.randomMode,editModel.useFixedSeed);
 
 		final Object obj=RunModel.getRunModel(editModel,editModelPath,false,SetupData.getSetup().useMultiCoreSimulation);
 		if (obj instanceof StartAnySimulator.PrepareError) return (StartAnySimulator.PrepareError)obj;

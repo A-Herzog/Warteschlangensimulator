@@ -30,10 +30,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.math3.random.MersenneTwister;
+import org.apache.commons.math3.random.Well19937c;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -233,6 +238,89 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	 * @see #useFixedSeed
 	 */
 	public long fixedSeed;
+
+	/**
+	 * Zufallszahlengenerator-Modus für die Simulation
+	 */
+	public enum RandomMode {
+		/** {@link ThreadLocalRandom} verwenden */
+		THREAD_LOCAL_RANDOM("ThreadLocalRandom"),
+		/** Pro Thread gekapselte Version von {@link Random} verwenden */
+		RANDOM("Random"),
+		/** Pro Thread gekapselte Version von {@link Well19937c} verwenden */
+		WELL19937C("Well19937c"),
+		/** Pro Thread gekapselte Version von {@link MersenneTwister} verwenden */
+		MERSENNE_TWISTER("MersenneTwister");
+
+		/**
+		 * Standardmäßig zu verwendender Modus
+		 */
+		public static RandomMode defaultRandomMode=THREAD_LOCAL_RANDOM;
+
+		/**
+		 * Name des Zufallszahlengenerators (zum Speichern der Auswahl als Zeichenkette)
+		 */
+		public final String name;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param name	Name des Zufallszahlengenerators (zum Speichern der Auswahl als Zeichenkette)
+		 */
+		RandomMode(final String name) {
+			this.name=name;
+		}
+
+		/**
+		 * Liefert den Zufallszahlengenerator-Modus basierend auf einem Namen.
+		 * @param name	Name zu dem der passende Zufallszahlengenerator-Modus geliefert werden soll
+		 * @return	Zufallszahlengenerator-Modus (basierend auf dem Namen) oder {@link RandomMode#defaultRandomMode}, wenn kein passender Eintrag gefunden wurde
+		 */
+		public static RandomMode fromName(final String name) {
+			return Stream.of(values()).filter(randomMode->randomMode.name.equalsIgnoreCase(name)).findFirst().orElseGet(()->defaultRandomMode);
+		}
+
+		/**
+		 * Liefert den Zufallszahlengenerator-Modus basierend seinem Index in der Liste aller Modi.
+		 * @param index	Index zu dem der Zufallszahlengenerator-Modus geliefert werden soll
+		 * @return	Zufallszahlengenerator-Modus (basierend auf dem Index) oder {@link RandomMode#defaultRandomMode}, wenn der Index außerhalb des zulässigen Bereichs liegt
+		 * @see #getIndex(RandomMode)
+		 */
+		public static RandomMode fromIndex(final int index) {
+			if (index<0 || index>=values().length) return defaultRandomMode;
+			return values()[index];
+		}
+
+		/**
+		 * Liefert eine Liste aller Zufallszahlengenerator-Modi.
+		 * @return	Liste aller Zufallszahlengenerator-Modi
+		 */
+		public static String[] getAllNames() {
+			return Stream.of(values()).map(randomMode->randomMode.name).toArray(String[]::new);
+		}
+
+		/**
+		 * Liefert der Index eines Zufallszahlengenerator-Modus in der Liste aller Modi.
+		 * @param randomMode	Zufallszahlengenerator-Modus
+		 * @return	Index des Zufallszahlengenerator-Modus in der Liste aller Modi
+		 * @see #fromIndex(int)
+		 */
+		public static int getIndex(final RandomMode randomMode) {
+			int index=0;
+			int defaultIndex=0;
+			for (var testRandomMode: values()) {
+				if (testRandomMode==randomMode) return index;
+				if (testRandomMode==defaultRandomMode) defaultIndex=index;
+				index++;
+			}
+			return defaultIndex;
+		}
+	}
+
+	/**
+	 * Zufallszahlengenerator-Modus für die Simulation
+	 * @see RandomMode
+	 */
+	public RandomMode randomMode;
 
 	/**
 	 * Zusätzliche Laufzeitstatistik.<br>
@@ -571,6 +659,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		surface=new ModelSurface(this,resources,schedules,null);
 		useFixedSeed=false;
 		fixedSeed=0;
+		randomMode=RandomMode.defaultRandomMode;
 		longRunStatistics.clear();
 		correlationRange=-1;
 		correlationMode=Statistics.CorrelationMode.CORRELATION_MODE_OFF;
@@ -639,6 +728,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.finishConfidenceLevel=finishConfidenceLevel;
 		clone.useFixedSeed=useFixedSeed;
 		clone.fixedSeed=fixedSeed;
+		clone.randomMode=randomMode;
 		clone.surface=surface.clone(false,clone.resources,clone.schedules,surface.getParentSurface(),clone); /* surface.getParentSurface() ist normalerweise null, es sei den, es wird ein SubSurface in ein EditModel eingehängt, um dieses SubModel bearbeiten zu können */
 		clone.resources.setDataFrom(resources);
 		clone.clientData.setDataFrom(clientData);
@@ -727,6 +817,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (Math.abs(finishConfidenceLevel-otherModel.finishConfidenceLevel)>0.000001) return false;
 		if (useFixedSeed!=otherModel.useFixedSeed) return false;
 		if (fixedSeed!=otherModel.fixedSeed) return false;
+		if (randomMode!=otherModel.randomMode) return false;
 		if (!surface.equalsModelSurface(otherModel.surface,ignoreAnimationData)) return false;
 		if (!resources.equalsResources(otherModel.resources)) return false;
 		if (!clientData.equalsModelClientData(otherModel.clientData)) return false;
@@ -894,12 +985,18 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			}
 			return null;
 		}
+
 		if (Language.trAll("Surface.XML.ModelFixedSeed",name)) {
 			final Long L=NumberTools.getLong(text);
 			if (L==null) return String.format(Language.tr("Surface.Model.ErrorSeed"),text);
 			fixedSeed=L;
 			final String s=Language.trAllAttribute("Surface.XML.Active",node);
 			useFixedSeed=!s.trim().isEmpty() && !s.equals("0");
+			return null;
+		}
+
+		if (Language.trAll("Surface.XML.ModelRandomMode",name)) {
+			randomMode=RandomMode.fromName(text);
 			return null;
 		}
 
@@ -1293,6 +1390,9 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (useFixedSeed || fixedSeed!=0) {
 			sub=addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelFixedSeed"),fixedSeed);
 			sub.setAttribute(Language.trPrimary("Surface.XML.Active"),useFixedSeed?"1":"0");
+		}
+		if (randomMode!=RandomMode.defaultRandomMode) {
+			addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelRandomMode"),randomMode.name);
 		}
 		if (correlationMode!=Statistics.CorrelationMode.CORRELATION_MODE_OFF && correlationRange>0) {
 			sub=addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelCorrelation"),correlationRange);

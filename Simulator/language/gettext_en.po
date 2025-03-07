@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-23 16:38+0100\n"
+"POT-Creation-Date: 2025-03-05 18:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4643,6 +4643,15 @@ msgstr "The simulation of the model can be parallelized over all CPU cores."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.Ok"
 msgstr "The model is error-free and can be simulated."
+
+msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode"
+msgstr "Random numbers generator"
+
+msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.Info"
+msgstr "All generators offered are suitable for simulation. But the mode \"ThreadLocalRandom\" works the fastest."
+
+msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.ResetToDefault"
+msgstr "Reset to default value"
 
 msgid "Editor.Dialog.Tab.SimulationSystem.RepeatNotOk"
 msgstr "The simulation of the model should be repeated %d times. But this is not possible due to the following reason:"
@@ -37417,6 +37426,9 @@ msgstr "ModelRandomNumbersSeed"
 msgid "Surface.XML.ModelName"
 msgstr "ModelName"
 
+msgid "Surface.XML.ModelRandomMode"
+msgstr "ModelRandomNumbersMode"
+
 msgid "Surface.XML.ModelRepeatCount"
 msgstr "ModelRepeats"
 
@@ -39407,6 +39419,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Editor.Dialog.Tab.Simulation.Criteria.ErrorAtLeastOne"
 #~ msgstr "There has to be at least one criterion for terminating the simulation."
+
+#~ msgid "Editor.Dialog.Tab.Simulation.RandomMode"
+#~ msgstr "Random numbers generator"
 
 #~ msgid "Editor.Edit"
 #~ msgstr "Edit"

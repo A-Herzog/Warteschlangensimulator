@@ -4,7 +4,7 @@
 
 <!-- Beschreibung der Modell-Dateien -->
 
-<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellAutorEMail | ModellBeschreibung | ModellAufwaermphase | ModellAufwaermphaseSekunden | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellAutokorrelation | ModellBatchGroesse | ModellWelfordVerverwenden | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellVariablenAufzeichnen | InitialeZuordnung | ModellFarbe | ModellHintergrundBild | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellZeitschritteProSekunde | ModellStatistikVerteilungStunden | ModellStatistikMaximalerAufzuzeichnenderZustand | ModellStatistikVerteilungWerte | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellElementVerbindungspfeil | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellKundenStationenZeitSummeAufzeichnen | ModellKundenTextDatenAufzeichnen | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten | ModellPluginsVerzeichnis | ModellJavaImports | GespeicherteAnsicht | KiritischeStationenSignatur | ModellNutzerdefinierteRechenfunktion)*>
+<!ELEMENT Modell (ModellVersion | ModellName | ModellAutor | ModellAutorEMail | ModellBeschreibung | ModellAufwaermphase | ModellAufwaermphaseSekunden | ModellWiederholungen | ModellKunden | ModellAbbruchbedingung | ModellAbbruchzeit | ModellAbbruchKonfidenz | ModellZufallszahlenStartwert | ModellZufallszahlenModus | ModellAutokorrelation | ModellBatchGroesse | ModellWelfordVerverwenden | ModellElemente | Ressourcen | KundentypenDaten | ModellZeitplaene | ModellZusatzStatistik | InitialeVariable | ModellVariablenAufzeichnen | InitialeZuordnung | ModellFarbe | ModellHintergrundBild | ModellFertigungsplaene | ModellTransporterListe | ModellPfadsegmente | ModellAnimationsBilder | ModellZeitschritteProSekunde | ModellStatistikVerteilungStunden | ModellStatistikMaximalerAufzuzeichnenderZustand | ModellStatistikVerteilungWerte | ModellBeiRechenfehlerAbbrechen | ModellKantenNormal | ModellKantenSelektiert | ModellElementVerbindungsdarstellungsart | ModellElementVerbindungspfeil | ModellZeitabhaengigePruefungen | ModellPfadaufzeichnung | ModellKundenStationenZeitSummeAufzeichnen | ModellKundenTextDatenAufzeichnen | ModellUnvollstaendigeKundenAufzeichnung | Benutzervorlagen | ExterneDaten | ModellPluginsVerzeichnis | ModellJavaImports | GespeicherteAnsicht | KiritischeStationenSignatur | ModellNutzerdefinierteRechenfunktion)*>
 <!ATTLIST Modell
   xmlns					CDATA	#IMPLIED
   xmlns:xsi				CDATA	#IMPLIED
@@ -45,6 +45,8 @@
 <!ATTLIST ModellZufallszahlenStartwert
   Aktiv	(0|1)	#REQUIRED
 >
+
+<!ELEMENT ModellZufallszahlenModus (#PCDATA)>
 
 <!ELEMENT ModellAutokorrelation (#PCDATA)>
 <!ATTLIST ModellAutokorrelation
@@ -2731,7 +2733,7 @@
 
 <!-- Documentation of the model files -->
 
-<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelAuthorEMail | ModelDescription | ModelWarmUpPhase | ModelWarmUpPhaseSeconds | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelAutocorrelation | ModelBatchSize | ModelUseWelford | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelVariableRecording | InitialMap | ModelColor | ModelBackgroundImage | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelTimeStepsPerSecond | ModelStatisticsDistributionHours | ModelStatisticsMaxStateRecording | ModelStatisticsDistributionValues | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelElementConnectionArrowStyle | ModelTimedChecks | ModelPathRecording | ModelRecordClientStationTimeSum | ModelRecordClientTextData | ModelRecordIncompleteClients | UserTemplates | ExternalData | ModelPluginsFolder| ModelJavaImports | SavedView | CriticalStationsSignature | ModelUserDefinedCalculationFunction)*>
+<!ELEMENT Model (ModelVersion | ModelName | ModelAuthor | ModelAuthorEMail | ModelDescription | ModelWarmUpPhase | ModelWarmUpPhaseSeconds | ModelRepeats | ModelClients |  ModelTerminationCondition | ModelTerminationTime | ModelTerminationConfidence | ModelRandomNumbersSeed | ModelRandomNumbersMode | ModelAutocorrelation | ModelBatchSize | ModelUseWelford | ModelElements | Resources | ClientTypeData | ModelSchedules | ModelAdditionalStatistics | InitialVariable | ModelVariableRecording | InitialMap | ModelColor | ModelBackgroundImage | ModelSequences | ModelTransporters | ModelPathSegments | ModelAnimationImages | ModelTimeStepsPerSecond | ModelStatisticsDistributionHours | ModelStatisticsMaxStateRecording | ModelStatisticsDistributionValues | ModelStoppOnCalcError | ModelEdgesNormal | ModelEdgesSelected | ModelElementConnectionDrawStyle | ModelElementConnectionArrowStyle | ModelTimedChecks | ModelPathRecording | ModelRecordClientStationTimeSum | ModelRecordClientTextData | ModelRecordIncompleteClients | UserTemplates | ExternalData | ModelPluginsFolder| ModelJavaImports | SavedView | CriticalStationsSignature | ModelUserDefinedCalculationFunction)*>
 <!ATTLIST Model
   xmlns	CDATA	#IMPLIED
   xmlns:xsi	CDATA	#IMPLIED
@@ -2772,6 +2774,8 @@
 <!ATTLIST ModelRandomNumbersSeed
   Active	(0|1)	#REQUIRED
 >
+
+<!ELEMENT ModelRandomNumbersMode (#PCDATA)>
 
 <!ELEMENT ModelAutocorrelation (#PCDATA)>
 <!ATTLIST ModelAutocorrelation
