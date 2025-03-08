@@ -137,8 +137,8 @@ public class RunElementOutputDDE extends RunElementPassThrough {
 		if (!new DDEConnect().available()) return RunModelCreatorStatus.noDDE(element);
 
 		/* DDE Daten */
-		if (outputElement.getWorkbook().trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.OutputDDE.NoWorkbook"),outputElement.getId()));
-		if (outputElement.getTable().trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.OutputDDE.NoWorkbook"),outputElement.getId()));
+		if (outputElement.getWorkbook().isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.OutputDDE.NoWorkbook"),outputElement.getId()));
+		if (outputElement.getTable().isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.OutputDDE.NoWorkbook"),outputElement.getId()));
 		if (outputElement.getStartRow()<1) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.OutputDDE.InvalidStartRow"),outputElement.getId(),outputElement.getStartRow()),RunModelCreatorStatus.Status.DDE_OUTPUT_INVALID_ROW);
 		if (Table.numberFromColumnName(outputElement.getColumn())<0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.OutputDDE.InvalidStartColumn"),outputElement.getId(),outputElement.getColumn()),RunModelCreatorStatus.Status.DDE_OUTPUT_INVALID_COL);
 

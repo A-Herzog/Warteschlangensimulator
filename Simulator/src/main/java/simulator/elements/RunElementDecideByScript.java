@@ -102,7 +102,7 @@ public class RunElementDecideByScript extends RunElement {
 			if (id<0) return RunModelCreatorStatus.edgeToNowhere(element,edge);
 		}
 
-		if (decideElement.getScript().trim().isEmpty()) {
+		if (decideElement.getScript().isBlank()) {
 			return RunModelCreatorStatus.noScript(element);
 		}
 

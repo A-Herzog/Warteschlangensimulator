@@ -128,7 +128,7 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 		setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
 		this.tabName=tabName;
-		if (topInfo!=null && !topInfo.trim().isEmpty()) addTopInfo(this,topInfo);
+		if (topInfo!=null && !topInfo.isBlank()) addTopInfo(this,topInfo);
 		this.infoLinkText=infoLinkText;
 		this.infoLinkURL=infoLinkURL;
 
@@ -207,7 +207,7 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 		add(panel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		panel.add(checkBox=new JCheckBox(label));
 		checkBox.addActionListener(e->calc());
-		if (linkTitle!=null && !linkTitle.trim().isEmpty() && linkHref!=null && !linkHref.trim().isEmpty()) {
+		if (linkTitle!=null && !linkTitle.isBlank() && linkHref!=null && !linkHref.isBlank()) {
 			panel.add(buildInfoLink(linkTitle,linkHref));
 		}
 
@@ -329,7 +329,7 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(result=new JLabel());
 
-		if (infoLinkText!=null && !infoLinkText.trim().isEmpty() && infoLinkURL!=null && !infoLinkURL.trim().isEmpty()) addInfoLink(this,infoLinkText,infoLinkURL);
+		if (infoLinkText!=null && !infoLinkText.isBlank() && infoLinkURL!=null && !infoLinkURL.isBlank()) addInfoLink(this,infoLinkText,infoLinkURL);
 	}
 
 	/**

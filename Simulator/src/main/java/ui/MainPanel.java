@@ -963,10 +963,10 @@ public class MainPanel extends MainPanelBase {
 		menuSimulationAnimationAnalogValuesExact.setSelected(setup.useSlowModeAnimation);
 
 		/* Simulation - Animation - Screenshots */
-		menuSimulationAnimationScreenshotModeHome.setSelected(setup.imagePathAnimation==null || setup.imagePathAnimation.trim().isEmpty());
-		menuSimulationAnimationScreenshotModeCustom.setSelected(setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty());
+		menuSimulationAnimationScreenshotModeHome.setSelected(setup.imagePathAnimation==null || setup.imagePathAnimation.isBlank());
+		menuSimulationAnimationScreenshotModeCustom.setSelected(setup.imagePathAnimation!=null && !setup.imagePathAnimation.isBlank());
 		custom="";
-		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty()) custom=" ("+setup.imagePathAnimation.trim()+")";
+		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.isBlank()) custom=" ("+setup.imagePathAnimation.trim()+")";
 		menuSimulationAnimationScreenshotModeCustom.setText(Language.tr("Main.Menu.AnimationScreenshotMode.Custom")+custom);
 
 		/* Simulation - Serververbindung */
@@ -1581,13 +1581,13 @@ public class MainPanel extends MainPanelBase {
 			submenu.add(createTextOnlyItem(Language.tr("Main.Menu.AnimationScreenshotMode")));
 			menuSimulationAnimationScreenshotModeHome=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.AnimationScreenshotMode.Home")+" ("+FileSystemView.getFileSystemView().getHomeDirectory()+")",null,"SimulationAnimationScreenshotModeHome");
 			String custom="";
-			if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty()) custom=" ("+setup.imagePathAnimation.trim()+")";
+			if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.isBlank()) custom=" ("+setup.imagePathAnimation.trim()+")";
 			menuSimulationAnimationScreenshotModeCustom=createRadioButtonMenuItem(submenu,Language.tr("Main.Menu.AnimationScreenshotMode.Custom")+custom,null,"SimulationAnimationScreenshotModeCustom");
 			buttonGroup=new ButtonGroup();
 			buttonGroup.add(menuSimulationAnimationScreenshotModeHome);
 			buttonGroup.add(menuSimulationAnimationScreenshotModeCustom);
-			menuSimulationAnimationScreenshotModeHome.setSelected(setup.imagePathAnimation==null || setup.imagePathAnimation.trim().isEmpty());
-			menuSimulationAnimationScreenshotModeCustom.setSelected(setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty());
+			menuSimulationAnimationScreenshotModeHome.setSelected(setup.imagePathAnimation==null || setup.imagePathAnimation.isBlank());
+			menuSimulationAnimationScreenshotModeCustom.setSelected(setup.imagePathAnimation!=null && !setup.imagePathAnimation.isBlank());
 
 			menu.addSeparator();
 			createMenuItem(menu,Language.tr("Main.Menu.StartSimulation"),Images.SIMULATION.getIcon(),Language.tr("Main.Menu.StartSimulation.Mnemonic"),KeyEvent.VK_F5,"SimulationSimulation");
@@ -3470,7 +3470,7 @@ public class MainPanel extends MainPanelBase {
 	private void commandSimulationAnimationScreenshotModeCustom() {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
-		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty() && new File(setup.imagePathAnimation).isDirectory()) {
+		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.isBlank() && new File(setup.imagePathAnimation).isDirectory()) {
 			fc.setCurrentDirectory(new File(setup.imagePathAnimation));
 		}
 		fc.setDialogTitle(Language.tr("Batch.Output.Folder.Button.Hint"));
@@ -3613,7 +3613,7 @@ public class MainPanel extends MainPanelBase {
 			return;
 		}
 
-		if (parts.length==2 || parts[2].trim().isEmpty()) {
+		if (parts.length==2 || parts[2].isBlank()) {
 			new ServerStatus(parts[0],L.intValue(),true,null).showMessage(getOwnerWindow());
 		} else {
 			new ServerStatus(parts[0],L.intValue(),true,parts[2]).showMessage(getOwnerWindow());

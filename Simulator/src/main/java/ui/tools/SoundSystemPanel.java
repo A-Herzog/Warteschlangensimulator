@@ -248,7 +248,7 @@ public class SoundSystemPanel extends JPanel {
 		});
 
 		/* Daten laden */
-		if (oldSound==null || oldSound.trim().isEmpty()) oldSound=SoundSystem.BEEP_SOUND;
+		if (oldSound==null || oldSound.isBlank()) oldSound=SoundSystem.BEEP_SOUND;
 		setSound(oldSound,maxSeconds);
 
 		modeChanged();

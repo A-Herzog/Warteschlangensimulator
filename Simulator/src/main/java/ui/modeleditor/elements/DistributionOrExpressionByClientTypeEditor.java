@@ -181,7 +181,7 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 		modeIcons.add(Images.MODELPROPERTIES_CLIENTS_GROUPS.getIcon());
 		for (String typ : clientTypes) {
 			String icon=model.clientData.getIcon(typ);
-			if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
+			if (icon==null || icon.isBlank()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
 			modeIcons.add(imageSource.get(icon,model.animationImages,16));
 		}
 		clientTypeSelect.setRenderer(new IconListCellRenderer(IconListCellRenderer.buildIconsList(this,modeIcons)));
@@ -307,7 +307,7 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 			clientTypeDistribution.set(index,distribution);
 			clientTypeExpression.set(index,expression);
 			if (distribution!=null) modes[index]=0; else {
-				if (expression!=null && !expression.trim().isEmpty()) modes[index]=1; else modes[index]=0;
+				if (expression!=null && !expression.isBlank()) modes[index]=1; else modes[index]=0;
 			}
 		}
 	}
@@ -329,7 +329,7 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 	 * @param expression	Zu setzender Ausdruck (wird nur berücksichtigt, wenn <code>distribution==null</code> ist; muss dann ungleich <code>null</code> sein)
 	 */
 	public void setData(final String name, final AbstractRealDistribution distribution, final String expression) {
-		if (name==null || name.trim().isEmpty()) {setData(-1,distribution,expression); return;}
+		if (name==null || name.isBlank()) {setData(-1,distribution,expression); return;}
 
 		final Integer index=clientTypesMap.get(name);
 		if (index!=null) setData(index,distribution,expression);
@@ -466,12 +466,12 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 			String expr=clientTypeExpression.get(clientTypeLast-1);
 
 			clientTypeActive.setEnabled(!readOnly);
-			clientTypeActive.setSelected(dist==null && (expr==null || expr.trim().isEmpty()));
+			clientTypeActive.setSelected(dist==null && (expr==null || expr.isBlank()));
 
 			if (dist==null) dist=distribution;
 			if (dist==null) dist=new ExponentialDistribution(null,300,ExponentialDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
 			distributionPanel.setDistribution(dist);
-			if (expr==null || expr.trim().isEmpty()) expr=expression;
+			if (expr==null || expr.isBlank()) expr=expression;
 			if (expr==null) expr="";
 			expressionEdit.setText(expr);
 			modeSelect.setSelectedIndex(clientTypeActive.isSelected()?modeGlobal:modes[clientTypeLast-1]);
@@ -501,7 +501,7 @@ public class DistributionOrExpressionByClientTypeEditor extends JPanel {
 			final AbstractRealDistribution dist=clientTypeDistribution.get(i);
 			if (dist!=null) oldClientTypes.put(clientTypes[i],dist); else {
 				final String expr=clientTypeExpression.get(i);
-				if (expr!=null && !expr.trim().isEmpty()) oldClientTypes.put(clientTypes[i],expr);
+				if (expr!=null && !expr.isBlank()) oldClientTypes.put(clientTypes[i],expr);
 			}
 		}
 

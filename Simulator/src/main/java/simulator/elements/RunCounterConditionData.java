@@ -74,7 +74,7 @@ public class RunCounterConditionData {
 	public String test(final String[] variableNames, final ExpressionCalcModelUserFunctions userFunctions, final int id) {
 		/* Bedingung */
 		final String condition=counterCondition.getCondition();
-		if (!condition.trim().isEmpty()) {
+		if (!condition.isBlank()) {
 			final int error=ExpressionMultiEval.check(condition,variableNames,userFunctions);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.CounterCondition"),condition,id,error+1);
 		}
@@ -89,7 +89,7 @@ public class RunCounterConditionData {
 	public void build(final RunModel runModel) {
 		/* Bedingung */
 		final String condition=counterCondition.getCondition();
-		if (condition.trim().isEmpty()) {
+		if (condition.isBlank()) {
 			this.condition=null;
 		} else {
 			this.condition=new ExpressionMultiEval(runModel.variableNames,runModel.modelUserFunctions);

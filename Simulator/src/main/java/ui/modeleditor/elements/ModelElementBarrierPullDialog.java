@@ -122,7 +122,7 @@ public class ModelElementBarrierPullDialog extends ModelElementBaseDialog {
 	 */
 	private void buildStationsList(final ModelSurface surface, final String parentElementName) {
 		for (ModelElement element: surface.getElements()) {
-			if (element instanceof ModelElementBox && !element.getName().trim().isEmpty()) {
+			if (element instanceof ModelElementBox && !element.getName().isBlank()) {
 				final String name=element.getName();
 				if (!stations.contains(name) && !forbiddenStation((ModelElementBox)element)) {
 					stations.add(name);
@@ -135,7 +135,7 @@ public class ModelElementBarrierPullDialog extends ModelElementBaseDialog {
 			}
 			if (element instanceof ModelElementSub) {
 				final String parentName;
-				if (element.getName().trim().isEmpty()) {
+				if (element.getName().isBlank()) {
 					parentName=String.format("id=%d",element.getId());
 				} else {
 					parentName=String.format("%s (id=%d)",element.getName(),element.getId());
@@ -208,7 +208,7 @@ public class ModelElementBarrierPullDialog extends ModelElementBaseDialog {
 		}
 
 		final String text=maxEdit.getText();
-		if (!text.trim().isEmpty()) {
+		if (!text.isBlank()) {
 			final int error=ExpressionCalc.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),false),element.getModel().userFunctions);
 			if (error>=0) {
 				maxEdit.setBackground(Color.RED);

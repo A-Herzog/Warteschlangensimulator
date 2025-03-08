@@ -192,7 +192,7 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 
 			/* Zeit ja/nein (altes XML-Format) */
 			s=Language.trAllAttribute("ParameterCompare.XML.Outputs.Data.IsTime",node);
-			if (!s.trim().isEmpty() && !s.trim().equals("0")) format=OutputFormat.FORMAT_TIME;
+			if (!s.isBlank() && !s.trim().equals("0")) format=OutputFormat.FORMAT_TIME;
 
 			/* Format */
 			s=Language.trAllAttribute("ParameterCompare.XML.Outputs.Data.Format",node);
@@ -209,7 +209,7 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 
 			/* Nachkommastellen */
 			s=Language.trAllAttribute("ParameterCompare.XML.Outputs.Data.Digits",node);
-			if (!s.trim().isEmpty()) {
+			if (!s.isBlank()) {
 				final Integer I=NumberTools.getInteger(s);
 				if (I==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("ParameterCompare.XML.Outputs.Data.Digits"),name,node.getParentNode().getNodeName());
 				if (I.intValue()>0) digits=I.intValue();
@@ -217,7 +217,7 @@ public final class ParameterCompareSetupValueOutput extends ParameterCompareSetu
 
 			/* Alte Art der Unterscheidung: XML / Script */
 			s=Language.trAllAttribute("ParameterCompare.XML.Outputs.Data.IsScript",node);
-			if (!s.trim().isEmpty() && !s.trim().equals("0")) mode=OutputMode.MODE_SCRIPT_JS;
+			if (!s.isBlank() && !s.trim().equals("0")) mode=OutputMode.MODE_SCRIPT_JS;
 
 			/* Inhalt */
 			tag=content;

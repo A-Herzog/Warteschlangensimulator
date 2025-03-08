@@ -214,7 +214,7 @@ public class ModelElementTransportSourceRouter extends ModelElementBox implement
 	 */
 	@Override
 	protected String getErrorMessage() {
-		if (defaultStation==null || defaultStation.trim().isEmpty()) return Language.tr("Surface.ErrorInfo.NoDefaultDestination");
+		if (defaultStation==null || defaultStation.isBlank()) return Language.tr("Surface.ErrorInfo.NoDefaultDestination");
 
 		return null;
 	}

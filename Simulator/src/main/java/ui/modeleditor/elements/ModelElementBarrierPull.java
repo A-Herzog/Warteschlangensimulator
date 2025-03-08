@@ -349,7 +349,7 @@ public class ModelElementBarrierPull extends ModelElementMultiInSingleOutBox imp
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		if (!nextName.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.BarrierPull.ControlledStation"),nextName,1000);
+		if (!nextName.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.BarrierPull.ControlledStation"),nextName,1000);
 		if (nextMax!=null) descriptionBuilder.addProperty(Language.tr("ModelDescription.BarrierPull.MaxClients"),""+nextMax,2000);
 	}
 

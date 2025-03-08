@@ -227,7 +227,7 @@ public class DBSettingsPanel extends JPanel {
 
 		if (currentType.selectSource==DBConnectSetup.SelectSource.FILE_SQLITE) {
 			final JFileChooser fc;
-			if (!editConfig.getText().trim().isEmpty()) fc=new JFileChooser(editConfig.getText()); else {
+			if (!editConfig.getText().isBlank()) fc=new JFileChooser(editConfig.getText()); else {
 				fc=new JFileChooser();
 				CommonVariables.initialDirectoryToJFileChooser(fc);
 			}
@@ -247,7 +247,7 @@ public class DBSettingsPanel extends JPanel {
 
 		if (currentType.selectSource==DBConnectSetup.SelectSource.FILE_GENERAL) {
 			final JFileChooser fc;
-			if (!editConfig.getText().trim().isEmpty()) fc=new JFileChooser(editConfig.getText()); else {
+			if (!editConfig.getText().isBlank()) fc=new JFileChooser(editConfig.getText()); else {
 				fc=new JFileChooser();
 				CommonVariables.initialDirectoryToJFileChooser(fc);
 			}
@@ -273,7 +273,7 @@ public class DBSettingsPanel extends JPanel {
 
 		if (currentType.selectSource==DBConnectSetup.SelectSource.FILE_ACCESS) {
 			final JFileChooser fc;
-			if (!editConfig.getText().trim().isEmpty()) fc=new JFileChooser(editConfig.getText()); else {
+			if (!editConfig.getText().isBlank()) fc=new JFileChooser(editConfig.getText()); else {
 				fc=new JFileChooser();
 				CommonVariables.initialDirectoryToJFileChooser(fc);
 			}

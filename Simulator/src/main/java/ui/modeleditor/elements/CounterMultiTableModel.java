@@ -352,7 +352,7 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 				}
 			}
 
-			if (counter.get(i).trim().isEmpty()) {
+			if (counter.get(i).isBlank()) {
 				ok=false;
 				if (showErrorMessage) {
 					MsgBox.error(table,Language.tr("Surface.CounterMulti.Table.Heading.CounterName.ErrorTitle"),String.format(Language.tr("Surface.CounterMulti.Table.Heading.CounterName.ErrorInfo"),i+1));
@@ -361,7 +361,7 @@ public final class CounterMultiTableModel extends JTableExtAbstractTableModel {
 			}
 		}
 
-		if (counterElse.trim().isEmpty()) {
+		if (counterElse.isBlank()) {
 			ok=false;
 			if (showErrorMessage) {
 				MsgBox.error(table,Language.tr("Surface.CounterMulti.Table.Heading.Condition.Else.ErrorTitle"),Language.tr("Surface.CounterMulti.Table.Heading.Condition.Else.ErrorInfo"));

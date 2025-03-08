@@ -66,7 +66,7 @@ public class SimDynamicSetup implements DynamicSetup {
 	@Override
 	public String[] getImports(final String userImports) {
 		final List<String> list=new ArrayList<>();
-		if (userImports==null || userImports.trim().isEmpty()) {
+		if (userImports==null || userImports.isBlank()) {
 			list.addAll(Arrays.asList(defaultImports.split("\\n")));
 		} else {
 			list.addAll(Arrays.asList(userImports.split("\\n")));
@@ -108,19 +108,19 @@ public class SimDynamicSetup implements DynamicSetup {
 
 		path=getDefaultJavaPath();
 		if (getCompilerFromJDKPath(path)!=null) {
-			if (setup.javaJDKPath.trim().isEmpty()) {setup.javaJDKPath=path; setup.saveSetup();}
+			if (setup.javaJDKPath.isBlank()) {setup.javaJDKPath=path; setup.saveSetup();}
 			return path;
 		}
 
 		path=findJDK(setup.javaJDKPath.trim());
 		if (getCompilerFromJDKPath(path)!=null) {
-			if (setup.javaJDKPath.trim().isEmpty()) {setup.javaJDKPath=path; setup.saveSetup();}
+			if (setup.javaJDKPath.isBlank()) {setup.javaJDKPath=path; setup.saveSetup();}
 			return path;
 		}
 
 		path=findJDK(getDefaultJavaPath());
 		if (getCompilerFromJDKPath(path)!=null) {
-			if (setup.javaJDKPath.trim().isEmpty()) {setup.javaJDKPath=path; setup.saveSetup();}
+			if (setup.javaJDKPath.isBlank()) {setup.javaJDKPath=path; setup.saveSetup();}
 			return path;
 		}
 
@@ -145,7 +145,7 @@ public class SimDynamicSetup implements DynamicSetup {
 	 * @see #getJDKPath()
 	 */
 	private String findJDK(String startPath) {
-		if (startPath==null || startPath.trim().isEmpty()) return null;
+		if (startPath==null || startPath.isBlank()) return null;
 		startPath=startPath.trim();
 		if (startPath.endsWith(File.separator)) startPath=startPath.substring(0,startPath.length()-1);
 		final int index=startPath.lastIndexOf(File.separator);
@@ -177,7 +177,7 @@ public class SimDynamicSetup implements DynamicSetup {
 	 * @return	Kompiler-Datei oder <code>null</code>, wenn kein Kompiler gefunden wurde.
 	 */
 	public static File getCompilerFromJDKPath(final String path) {
-		if (path==null || path.trim().isEmpty()) return null;
+		if (path==null || path.isBlank()) return null;
 
 		String compilerName=path;
 		if (!compilerName.endsWith(File.separator)) compilerName=compilerName+File.separator;

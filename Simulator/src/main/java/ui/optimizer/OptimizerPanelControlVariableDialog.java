@@ -377,7 +377,7 @@ public class OptimizerPanelControlVariableDialog extends BaseDialog {
 			}
 			break;
 		case 3:
-			if (xmlTagEdit.getText().trim().isEmpty()) {
+			if (xmlTagEdit.getText().isBlank()) {
 				ok=false;
 				if (showErrorMessages) {
 					MsgBox.error(this,Language.tr("Optimizer.ControlVariableEdit.Error.NoXMLTitle"),Language.tr("Optimizer.ControlVariableEdit.Error.NoXMLInfo"));

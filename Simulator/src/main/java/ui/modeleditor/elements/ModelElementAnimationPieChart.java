@@ -879,29 +879,29 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationPieChart.XML.LineColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationPieChart.XML.LineColor",name) && !content.isBlank()) {
 			borderColor=EditModel.loadColor(content);
 			if (borderColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationPieChart.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationPieChart.XML.BackgroundColor",name) && !content.isBlank()) {
 			backgroundColor=EditModel.loadColor(content);
 			if (backgroundColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationPieChart.XML.GradientColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationPieChart.XML.GradientColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			gradientColor=color;
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationPieChart.XML.Set",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationPieChart.XML.Set",name) && !content.isBlank()) {
 			final String colorString=Language.trAllAttribute("Surface.AnimationPieChart.XML.Set.PieColor",node);
 			final Color color;
-			if (colorString.trim().isEmpty()) {
+			if (colorString.isBlank()) {
 				color=Color.BLACK;
 			} else {
 				color=EditModel.loadColor(colorString);

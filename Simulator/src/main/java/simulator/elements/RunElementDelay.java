@@ -117,7 +117,7 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 
 		/* Kosten */
 		final String text=delayElement.getCosts();
-		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
+		if (text==null || text.isBlank()  || text.trim().equals("0")) {
 			delay.costs=null;
 		} else {
 			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);

@@ -209,10 +209,10 @@ public class SequencesEditPanel extends JPanel {
 		if (surface.getParentSurface()!=null) surface=surface.getParentSurface();
 
 		for (ModelElement e: surface.getElements()) {
-			if (e instanceof ModelElementTransportDestination && !e.getName().trim().isEmpty()) list.add(e.getName());
+			if (e instanceof ModelElementTransportDestination && !e.getName().isBlank()) list.add(e.getName());
 			if (e instanceof ModelElementSub) {
 				for (ModelElement e2: ((ModelElementSub)e).getSubSurface().getElements()) {
-					if (e2 instanceof ModelElementTransportDestination && !e2.getName().trim().isEmpty()) list.add(e2.getName());
+					if (e2 instanceof ModelElementTransportDestination && !e2.getName().isBlank()) list.add(e2.getName());
 				}
 			}
 		}

@@ -361,7 +361,7 @@ public class ModelElementCounterMulti extends ModelElementMultiInSingleOutBox {
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		if (!groupName.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.CounterMulti.Group"),groupName,1000);
+		if (!groupName.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.CounterMulti.Group"),groupName,1000);
 
 		final int size=Math.min(counterNames.size(),conditions.size()+1);
 		for (int i=0;i<size;i++) if (i<size-1) {

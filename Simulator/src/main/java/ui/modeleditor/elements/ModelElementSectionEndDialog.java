@@ -81,10 +81,10 @@ public class ModelElementSectionEndDialog extends ModelElementBaseDialog {
 
 		final ModelSurface mainSurface=(element.getSurface().getParentSurface()==null)?element.getSurface():element.getSurface().getParentSurface();
 		for (ModelElement element: mainSurface.getElements()) {
-			if (element instanceof ModelElementSectionStart && !element.getName().trim().isEmpty() && !list.contains(element.getName())) list.add(element.getName());
+			if (element instanceof ModelElementSectionStart && !element.getName().isBlank() && !list.contains(element.getName())) list.add(element.getName());
 			if (element instanceof ModelElementSub) {
 				for (ModelElement element2 : ((ModelElementSub)element).getSubSurface().getElements()) {
-					if (element2 instanceof ModelElementSectionStart && !element2.getName().trim().isEmpty() && !list.contains(element2.getName())) list.add(element2.getName());
+					if (element2 instanceof ModelElementSectionStart && !element2.getName().isBlank() && !list.contains(element2.getName())) list.add(element2.getName());
 				}
 			}
 		}

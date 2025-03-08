@@ -634,12 +634,12 @@ public abstract class DecideDataPanel extends JPanel {
 	 * @return	Gibt an, ob der Wert gültig ist
 	 */
 	private boolean checkValue(final String value) {
-		if (value.trim().isEmpty()) return false;
+		if (value.isBlank()) return false;
 
 		if (valuesMulti.isSelected()) {
 			final String[] v=value.split(";");
 			if (v==null || v.length==0) return false;
-			for (String s: v) if (s.trim().isEmpty()) return false;
+			for (String s: v) if (s.isBlank()) return false;
 		}
 
 		return true;
@@ -654,7 +654,7 @@ public abstract class DecideDataPanel extends JPanel {
 		boolean ok=true;
 
 		/* Schlüssel */
-		if (key.getText().trim().isEmpty()) {
+		if (key.getText().isBlank()) {
 			key.setBackground(Color.red);
 			ok=false;
 			if (showErrorMessages) {

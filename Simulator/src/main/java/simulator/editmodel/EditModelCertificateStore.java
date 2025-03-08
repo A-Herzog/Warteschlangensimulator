@@ -86,7 +86,7 @@ public class EditModelCertificateStore {
 	 * @return	SHA256-Hashwert
 	 */
 	public static String hash(final String data) {
-		if (data==null || data.trim().isEmpty()) return "";
+		if (data==null || data.isBlank()) return "";
 		try {
 			final MessageDigest digest=MessageDigest.getInstance("SHA-256");
 			final byte[] hash=digest.digest(data.getBytes(StandardCharsets.UTF_8));
@@ -146,28 +146,28 @@ public class EditModelCertificateStore {
 		int mode=0;
 		for (String line: lines) switch (mode) {
 		case 1:
-			if (line.trim().isEmpty()) break;
+			if (line.isBlank()) break;
 			try {
 				publicKeyBytes=Base64.getDecoder().decode(line.trim());
 			} catch (IllegalArgumentException e) {publicKeyBytes=null;}
 			mode=0;
 			break;
 		case 2:
-			if (line.trim().isEmpty()) break;
+			if (line.isBlank()) break;
 			try {
 				privateKeyBytes=Base64.getDecoder().decode(line.trim());
 			} catch (IllegalArgumentException e) {privateKeyBytes=null;}
 			mode=0;
 			break;
 		case 3:
-			if (line.trim().isEmpty()) break;
+			if (line.isBlank()) break;
 			try {
 				userName=new String(Base64.getDecoder().decode(line.trim()));
 			} catch (IllegalArgumentException e) {userName=null;}
 			mode=4;
 			break;
 		case 4:
-			if (line.trim().isEmpty()) break;
+			if (line.isBlank()) break;
 			try {
 				final byte[] bytes=Base64.getDecoder().decode(line.trim());
 				final PublicKey key=kf.generatePublic(new X509EncodedKeySpec(bytes));

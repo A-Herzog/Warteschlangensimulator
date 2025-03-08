@@ -56,7 +56,7 @@ public class RunElementInteractiveCheckbox extends RunElement {
 		final RunElementInteractiveCheckbox checkbox=new RunElementInteractiveCheckbox(checkboxElement);
 
 		/* Variable */
-		if (checkboxElement.getVariable().trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.CheckboxNoVariable"),checkboxElement.getId());
+		if (checkboxElement.getVariable().isBlank()) return String.format(Language.tr("Simulation.Creator.CheckboxNoVariable"),checkboxElement.getId());
 		int index=-1;
 		for (int j=0;j<runModel.variableNames.length;j++) if (runModel.variableNames[j].equalsIgnoreCase(checkboxElement.getVariable())) {index=j; break;}
 		if (index<0) return String.format(Language.tr("Simulation.Creator.SetInternalError"),element.getId());
@@ -75,7 +75,7 @@ public class RunElementInteractiveCheckbox extends RunElement {
 		final ModelElementInteractiveCheckbox checkboxElement=(ModelElementInteractiveCheckbox)element;
 
 		/* Variable */
-		if (checkboxElement.getVariable().trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.CheckboxNoVariable"),checkboxElement.getId()));
+		if (checkboxElement.getVariable().isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.CheckboxNoVariable"),checkboxElement.getId()));
 
 		return RunModelCreatorStatus.ok;
 	}

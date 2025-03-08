@@ -447,13 +447,13 @@ public class ModelElementAnimationClock extends ModelElementAnimationCustomDrawE
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
 
-		if (Language.trAll("Surface.AnimationClock.XML.Color",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationClock.XML.Color",name) && !content.isBlank()) {
 			color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationClock.XML.LineColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationClock.XML.LineColor",name) && !content.isBlank()) {
 			lineColor=EditModel.loadColor(content);
 			if (lineColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;

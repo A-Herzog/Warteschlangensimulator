@@ -320,7 +320,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			line.add(triggerSignalName=new JComboBox<>(triggerSignalNames));
 			final String triggerSignalNameCurrent=record.getConditionSignal();
 			int index=-1;
-			if (!triggerSignalNameCurrent.trim().isEmpty()) for (int i=0;i<triggerSignalNames.length;i++) if (triggerSignalNameCurrent.equalsIgnoreCase(triggerSignalNames[i])) {index=i; break;}
+			if (!triggerSignalNameCurrent.isBlank()) for (int i=0;i<triggerSignalNames.length;i++) if (triggerSignalNameCurrent.equalsIgnoreCase(triggerSignalNames[i])) {index=i; break;}
 			if (index<0 && triggerSignalNames.length>0) index=0;
 			if (index>=0) triggerSignalName.setSelectedIndex(0);
 			triggerSignalName.addActionListener(e->{triggerSignal.setSelected(true); checkData(false);});
@@ -591,7 +591,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	 * @return	Neue Variablenliste die den zusätzlichen Variablennamen auf jeden Fall enthält
 	 */
 	private String[] getExtVariablesList(final String[] defaultVariablesList, final String add) {
-		if (add==null || add.trim().isEmpty()) return defaultVariablesList;
+		if (add==null || add.isBlank()) return defaultVariablesList;
 		for (String s: defaultVariablesList) if (s.equalsIgnoreCase(add)) return defaultVariablesList;
 		final List<String> list=new ArrayList<>(Arrays.asList(defaultVariablesList));
 		list.add(add);

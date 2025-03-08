@@ -463,73 +463,73 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 
 		if (Language.trAll("Optimizer.XML.Kernel.SerialSetup",name)) {
 			s=Language.trAllAttribute("Optimizer.XML.Kernel.SerialSetup.ChangeSpeed1",node);
-			if (!s.trim().isEmpty()) {
+			if (!s.isBlank()) {
 				D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(s));
 				if (D==0 || D.doubleValue()>1) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Kernel.SerialSetup.ChangeSpeed1"),name)+" "+" "+Language.tr("Optimizer.XMLError.ValueHasToBeNumberBetween0And1");
 				serialChangeSpeed1=D.doubleValue();
 			}
 			s=Language.trAllAttribute("Optimizer.XML.Kernel.SerialSetup.ChangeSpeed2",node);
-			if (!s.trim().isEmpty()) {
+			if (!s.isBlank()) {
 				D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(s));
 				if (D==0 || D.doubleValue()>1) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Kernel.SerialSetup.ChangeSpeed2"),name)+" "+" "+Language.tr("Optimizer.XMLError.ValueHasToBeNumberBetween0And1");
 				serialChangeSpeed2=D.doubleValue();
 			}
 			s=Language.trAllAttribute("Optimizer.XML.Kernel.SerialSetup.ChangeSpeed3",node);
-			if (!s.trim().isEmpty()) {
+			if (!s.isBlank()) {
 				D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(s));
 				if (D==0 || D.doubleValue()>1) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Kernel.SerialSetup.ChangeSpeed3"),name)+" "+" "+Language.tr("Optimizer.XMLError.ValueHasToBeNumberBetween0And1");
 				serialChangeSpeed3=D.doubleValue();
 			}
 			s=Language.trAllAttribute("Optimizer.XML.Kernel.SerialSetup.ChangeSpeed4",node);
-			if (!s.trim().isEmpty()) {
+			if (!s.isBlank()) {
 				D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(s));
 				if (D==0 || D.doubleValue()>1) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Kernel.SerialSetup.ChangeSpeed4"),name)+" "+" "+Language.tr("Optimizer.XMLError.ValueHasToBeNumberBetween0And1");
 				serialChangeSpeed4=D.doubleValue();
 			}
 			s=Language.trAllAttribute("Optimizer.XML.Kernel.SerialSetup.Annealing",node);
-			if (!s.trim().isEmpty() && !s.equals("0")) serialSimulatedAnnealing=true;
+			if (!s.isBlank() && !s.equals("0")) serialSimulatedAnnealing=true;
 			return null;
 		}
 
 		if (Language.trAll("Optimizer.XML.Kernel.SerialSetup",name)) {
 			s=Language.trAllAttribute("Optimizer.XML.Kernel.GeneticSetup.PopulationSize",node);
-			if (!s.trim().isEmpty()) {
+			if (!s.isBlank()) {
 				final Long L=NumberTools.getPositiveLong(s);
 				if (L==0) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Kernel.GeneticSetup.PopulationSize"),name)+" "+" "+Language.tr("Optimizer.XMLError.ValueHasToBePositiveIntegerNumber");
 				geneticPopulationSize=L.intValue();
 			}
 			s=Language.trAllAttribute("Optimizer.XML.Kernel.GeneticSetup.EvolutionPressure",node);
-			if (!s.trim().isEmpty()) {
+			if (!s.isBlank()) {
 				D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(s));
 				if (D==0 || D.doubleValue()>1) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Kernel.GeneticSetup.EvolutionPressure"),name)+" "+" "+Language.tr("Optimizer.XMLError.ValueHasToBeNumberBetween0And1");
 				geneticEvolutionPressure=D.doubleValue();
 			}
 			s=Language.trAllAttribute("Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed1",node);
-			if (!s.trim().isEmpty()) {
+			if (!s.isBlank()) {
 				D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(s));
 				if (D==0 || D.doubleValue()>1) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed1"),name)+" "+" "+Language.tr("Optimizer.XMLError.ValueHasToBeNumberBetween0And1");
 				geneticChangeSpeed1=D.doubleValue();
 			}
 			s=Language.trAllAttribute("Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed2",node);
-			if (!s.trim().isEmpty()) {
+			if (!s.isBlank()) {
 				D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(s));
 				if (D==0 || D.doubleValue()>1) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed2"),name)+" "+" "+Language.tr("Optimizer.XMLError.ValueHasToBeNumberBetween0And1");
 				geneticChangeSpeed2=D.doubleValue();
 			}
 			s=Language.trAllAttribute("Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed3",node);
-			if (!s.trim().isEmpty()) {
+			if (!s.isBlank()) {
 				D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(s));
 				if (D==0 || D.doubleValue()>1) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed3"),name)+" "+" "+Language.tr("Optimizer.XMLError.ValueHasToBeNumberBetween0And1");
 				geneticChangeSpeed3=D.doubleValue();
 			}
 			s=Language.trAllAttribute("Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed4",node);
-			if (!s.trim().isEmpty()) {
+			if (!s.isBlank()) {
 				D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(s));
 				if (D==0 || D.doubleValue()>1) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed4"),name)+" "+" "+Language.tr("Optimizer.XMLError.ValueHasToBeNumberBetween0And1");
 				geneticChangeSpeed4=D.doubleValue();
 			}
 			s=Language.trAllAttribute("Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed5",node);
-			if (!s.trim().isEmpty()) {
+			if (!s.isBlank()) {
 				D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(s));
 				if (D==0 || D.doubleValue()>1) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Optimizer.XML.Kernel.GeneticSetup.ChangeSpeed5"),name)+" "+" "+Language.tr("Optimizer.XMLError.ValueHasToBeNumberBetween0And1");
 				geneticChangeSpeed5=D.doubleValue();

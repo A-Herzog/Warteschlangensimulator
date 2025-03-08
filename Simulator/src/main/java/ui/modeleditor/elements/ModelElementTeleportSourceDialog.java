@@ -113,9 +113,9 @@ public class ModelElementTeleportSourceDialog extends ModelElementBaseDialog {
 		final Set<String> destinations=new HashSet<>();
 
 		for (ModelElement e1: element.getModel().surface.getElements()) {
-			if (e1 instanceof ModelElementTeleportDestination && !e1.getName().trim().isEmpty()) destinations.add(e1.getName());
+			if (e1 instanceof ModelElementTeleportDestination && !e1.getName().isBlank()) destinations.add(e1.getName());
 			if (e1 instanceof ModelElementSub) for (ModelElement e2: ((ModelElementSub)e1).getSubSurface().getElements()) {
-				if (e2 instanceof ModelElementTeleportDestination && !e2.getName().trim().isEmpty()) destinations.add(e2.getName());
+				if (e2 instanceof ModelElementTeleportDestination && !e2.getName().isBlank()) destinations.add(e2.getName());
 			}
 		}
 

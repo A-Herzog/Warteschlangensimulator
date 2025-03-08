@@ -346,7 +346,7 @@ public final class CreateSankey extends BaseDialog {
 
 	@Override
 	protected boolean checkData() {
-		if (outputFile.isSelected() && editFile.getText().trim().isEmpty()) {
+		if (outputFile.isSelected() && editFile.getText().isBlank()) {
 			MsgBox.error(this,Language.tr("Simulation.ClientMovement.OutputFile.NoFileErrorTitle"),Language.tr("Simulation.ClientMovement.OutputFile.NoFileErrorInfo"));
 			return false;
 		}

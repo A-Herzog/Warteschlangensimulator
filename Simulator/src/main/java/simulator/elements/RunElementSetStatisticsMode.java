@@ -61,7 +61,7 @@ public class RunElementSetStatisticsMode extends RunElementPassThrough {
 		set.mode=setElement.getMode();
 		if (set.mode==ModelElementSetStatisticsMode.Mode.CONDITION) {
 			final String condition=setElement.getCondition();
-			if (condition==null || condition.trim().isEmpty()) {
+			if (condition==null || condition.isBlank()) {
 				return String.format(Language.tr("Simulation.Creator.SetStatisticsModeCondition.Missing"),element.getId());
 			} else {
 				final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);

@@ -75,14 +75,14 @@ public class RunElementCounterMulti extends RunElementPassThrough {
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidCounterExpression"),element.getId(),i+1,condition,error+1);
 			conditions.add(condition);
 			final String counterName=counterElement.getCounterNames().get(i);
-			if (counterName.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.EmptyCounterName"),element.getId(),i+1);
+			if (counterName.isBlank()) return String.format(Language.tr("Simulation.Creator.EmptyCounterName"),element.getId(),i+1);
 			counterNames.add(counterName);
 		}
 		counter.conditions=conditions.toArray(String[]::new);
 		counter.counterNames=counterNames.toArray(String[]::new);
 
 		final String counterName=counterElement.getCounterNames().get(size-1);
-		if (counterName.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.EmptyCounterNameElse"),element.getId());
+		if (counterName.isBlank()) return String.format(Language.tr("Simulation.Creator.EmptyCounterNameElse"),element.getId());
 		counter.counterNameElse=counterName;
 
 		/* Gruppe */
@@ -106,11 +106,11 @@ public class RunElementCounterMulti extends RunElementPassThrough {
 		if (size==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InternalErrorNoCounters"),element.getId()));
 		for (int i=0;i<size-1;i++) {
 			final String counterName=counterElement.getCounterNames().get(i);
-			if (counterName.trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.EmptyCounterName"),element.getId(),i+1));
+			if (counterName.isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.EmptyCounterName"),element.getId(),i+1));
 		}
 
 		final String counterName=counterElement.getCounterNames().get(size-1);
-		if (counterName.trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.EmptyCounterNameElse"),element.getId()));
+		if (counterName.isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.EmptyCounterNameElse"),element.getId()));
 
 		/* Gruppe */
 		if (counterElement.getGroupName().isEmpty()) return RunModelCreatorStatus.noGroupName(element);

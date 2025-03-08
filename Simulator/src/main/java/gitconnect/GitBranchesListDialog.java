@@ -229,7 +229,7 @@ public class GitBranchesListDialog extends BaseDialog {
 	private void commandAdd() {
 		final String newBranchName=JOptionPane.showInputDialog(this,Language.tr("Git.ListBranches.Add.Prompt")+":");
 		if (newBranchName==null) return;
-		if (newBranchName.trim().isEmpty())  {
+		if (newBranchName.isBlank())  {
 			MsgBox.error(this,Language.tr("Git.ListBranches.Add"),Language.tr("Git.ListBranches.Add.ErrorInvalidName"));
 			return;
 		}

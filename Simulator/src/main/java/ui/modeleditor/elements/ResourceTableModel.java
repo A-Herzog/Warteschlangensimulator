@@ -179,7 +179,7 @@ public class ResourceTableModel extends JTableExtAbstractTableModel {
 		final ModelResource resource=resources.getNoAutoAdd(resourceName);
 		String icon=null;
 		if (resource!=null) icon=resource.getIcon();
-		if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_OPERATOR_ICON_NAME;
+		if (icon==null || icon.isBlank()) icon=ModelSurfaceAnimatorBase.DEFAULT_OPERATOR_ICON_NAME;
 		return new ImageIcon(imageSource.get(icon,model.animationImages,16));
 	}
 

@@ -151,7 +151,7 @@ public class ModelElementNote extends ModelElementPosition implements ElementWit
 	 */
 	@Override
 	public String getToolTip() {
-		if (note==null || note.trim().isEmpty()) return Language.tr("Surface.Note.Tooltip");
+		if (note==null || note.isBlank()) return Language.tr("Surface.Note.Tooltip");
 
 		final StringBuilder result=new StringBuilder();
 		result.append(Language.tr("Surface.Note.Tooltip"));
@@ -385,7 +385,7 @@ public class ModelElementNote extends ModelElementPosition implements ElementWit
 
 		/* Text */
 		for (String line: note.trim().split("\\n")) {
-			/* if (line.trim().isEmpty()) continue; */
+			/* if (line.isBlank()) continue; */
 			sub=doc.createElement(Language.trPrimary("Surface.Note.XML.Text"));
 			node.appendChild(sub);
 			sub.setTextContent(line.trim());

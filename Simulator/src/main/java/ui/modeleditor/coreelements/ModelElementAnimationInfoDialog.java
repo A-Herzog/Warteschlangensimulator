@@ -297,7 +297,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 	private JButton addButton(final JToolBar toolbar, final String name, final Icon icon, final String hint, final ActionListener listener) {
 		final JButton button=new JButton(name);
 		if (icon!=null) button.setIcon(icon);
-		if (hint!=null && !hint.trim().isEmpty()) button.setToolTipText(hint);
+		if (hint!=null && !hint.isBlank()) button.setToolTipText(hint);
 		button.addActionListener(listener);
 		toolbar.add(button);
 		return button;

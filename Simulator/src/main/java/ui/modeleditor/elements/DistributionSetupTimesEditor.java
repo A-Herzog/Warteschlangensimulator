@@ -389,7 +389,7 @@ public class DistributionSetupTimesEditor extends JPanel {
 	 * Prüft den eingegeben Rechenausdruck.
 	 */
 	private void checkExpression() {
-		if (expressionEdit.getText().trim().isEmpty()) {
+		if (expressionEdit.getText().isBlank()) {
 			expressionEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 			return;
 		}

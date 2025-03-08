@@ -59,7 +59,7 @@ public class URLLoader {
 		if (urlFile==null || !urlFile.isFile()) return null;
 
 		final String content=Table.loadTextFromFile(urlFile);
-		if (content==null || content.trim().isEmpty()) return null;
+		if (content==null || content.isBlank()) return null;
 
 		final String[] lines=content.split("\n");
 

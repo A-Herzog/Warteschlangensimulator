@@ -145,7 +145,7 @@ public class ModelElementLink extends ModelElementPosition implements ElementWit
 	 * @param text	Darzustellender Text
 	 */
 	public void setText(String text) {
-		if (text==null || text.trim().isEmpty()) text=Language.tr("Surface.Link.DefaultText");
+		if (text==null || text.isBlank()) text=Language.tr("Surface.Link.DefaultText");
 		this.text=text;
 		fireChanged();
 	}
@@ -163,7 +163,7 @@ public class ModelElementLink extends ModelElementPosition implements ElementWit
 	 * @param link	Link
 	 */
 	public void setLink(String link) {
-		if (link==null || link.trim().isEmpty()) link="";
+		if (link==null || link.isBlank()) link="";
 		this.link=link;
 		fireChanged();
 	}
@@ -383,7 +383,7 @@ public class ModelElementLink extends ModelElementPosition implements ElementWit
 	@Override
 	public Runnable getProperties(final Component owner, final boolean readOnly, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			if (link.trim().isEmpty() || !openLink(owner,link)) {
+			if (link.isBlank() || !openLink(owner,link)) {
 				new ModelElementLinkDialog(owner,ModelElementLink.this,readOnly?ModelElementBaseDialog.ReadOnlyMode.FULL_READ_ONLY:ModelElementBaseDialog.ReadOnlyMode.ALLOW_ALL);
 			}
 		};
@@ -392,7 +392,7 @@ public class ModelElementLink extends ModelElementPosition implements ElementWit
 	@Override
 	public Runnable getPropertiesSemiEditable(final Component owner, final ModelClientData clientData, final ModelSequences sequences) {
 		return ()->{
-			if (link.trim().isEmpty() || !openLink(owner,link)) {
+			if (link.isBlank() || !openLink(owner,link)) {
 				new ModelElementLinkDialog(owner,ModelElementLink.this,ModelElementBaseDialog.ReadOnlyMode.ALLOW_CONTENT_DATA_EDIT);
 			}
 		};

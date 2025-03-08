@@ -163,7 +163,7 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 	 * @param priority	Neue Priorität für Kundes des Kundentyps
 	 */
 	public void setPriority(final String clientType, final String priority) {
-		if (clientType==null || clientType.trim().isEmpty()) return;
+		if (clientType==null || clientType.isBlank()) return;
 		if (priority==null) this.priority.put(clientType,""); else this.priority.put(clientType,priority);
 	}
 
@@ -381,7 +381,7 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		addVisualizationMenuItem(parentMenu,addElements,VisualizationType.BAR_WIP_AVERAGE);
 		addVisualizationMenuItem(parentMenu,addElements,VisualizationType.CHART_WIP);
 		addVisualizationMenuItem(parentMenu,addElements,VisualizationType.HISTOGRAM_WIP);
-		if (!condition.trim().isEmpty()) {
+		if (!condition.isBlank()) {
 			addVisualizationTrafficLightsMenuItem("!("+condition+")",parentMenu,addElements);
 		}
 	}
@@ -499,7 +499,7 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 
 		if (Language.trAll("Surface.Hold.XML.Priority",name)) {
 			final String typ=Language.trAllAttribute("Surface.Hold.XML.Priority.ClientType",node);
-			if (!typ.trim().isEmpty()) priority.put(typ,content);
+			if (!typ.isBlank()) priority.put(typ,content);
 			return null;
 		}
 
@@ -549,11 +549,11 @@ public class ModelElementHold extends ModelElementMultiInSingleOutBox implements
 		boolean needPrioInfo=false;
 		for (String clientType: clientTypes) {
 			final String prio=priority.get(clientType);
-			if (prio!=null && !prio.trim().isEmpty() && !prio.equals(DEFAULT_CLIENT_PRIORITY)) {needPrioInfo=true; break;}
+			if (prio!=null && !prio.isBlank() && !prio.equals(DEFAULT_CLIENT_PRIORITY)) {needPrioInfo=true; break;}
 		}
 		if (needPrioInfo) for (String clientType: clientTypes) {
 			final String prio=priority.get(clientType);
-			if (prio!=null && !prio.trim().isEmpty()) {
+			if (prio!=null && !prio.isBlank()) {
 				descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.Hold.ClientTypePriority"),clientType),prio,8000);
 			} else {
 				descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.Hold.ClientTypePriority"),clientType),DEFAULT_CLIENT_PRIORITY,8000);

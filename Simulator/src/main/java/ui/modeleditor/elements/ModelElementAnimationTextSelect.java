@@ -656,7 +656,7 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		sub.setTextContent(EditModel.saveColor(color));
 
 		/* Standardtext */
-		if (textDefault!=null && !textDefault.trim().isEmpty()) {
+		if (textDefault!=null && !textDefault.isBlank()) {
 			sub=doc.createElement(Language.trPrimary("Surface.AnimationTextSelect.XML.TextDefault"));
 			node.appendChild(sub);
 			sub.setTextContent(textDefault);
@@ -719,7 +719,7 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		}
 
 		/* Farbe */
-		if (Language.trAll("Surface.AnimationTextSelect.XML.Color",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationTextSelect.XML.Color",name) && !content.isBlank()) {
 			color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
@@ -734,7 +734,7 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		/* Bedingungsabhängige Texte */
 		if (Language.trAll("Surface.AnimationTextSelect.XML.TextExpression",name)) {
 			final String expr=Language.trAllAttribute("Surface.AnimationTextSelect.XML.TextExpression.Expression",node);
-			if (!expr.trim().isEmpty()) {
+			if (!expr.isBlank()) {
 				textExpressions.add(expr);
 				textValues.add(content);
 			}
@@ -742,12 +742,12 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		}
 
 		/* Hintergrund */
-		if (Language.trAll("Surface.AnimationTextSelect.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationTextSelect.XML.BackgroundColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			fillColor=color;
 			final String alpha=Language.trAllAttribute("Surface.AnimationTextSelect.XML.BackgroundColor.Alpha",node);
-			if (!alpha.trim().isEmpty()) {
+			if (!alpha.isBlank()) {
 				final Double D=NumberTools.getDouble(alpha);
 				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationTextSelect.XML.BackgroundColor.Alpha"),name,node.getParentNode().getNodeName());
 				fillAlpha=D;
@@ -756,12 +756,12 @@ public class ModelElementAnimationTextSelect extends ModelElementPosition implem
 		}
 
 		/* Schatten */
-		if (Language.trAll("Surface.AnimationTextSelect.XML.ShadowColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationTextSelect.XML.ShadowColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			shadowColor=color;
 			final String alpha=Language.trAllAttribute("Surface.AnimationTextSelect.XML.ShadowColor.Alpha",node);
-			if (!alpha.trim().isEmpty()) {
+			if (!alpha.isBlank()) {
 				final Double D=NumberTools.getDouble(alpha);
 				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationTextSelect.XML.ShadowColor.Alpha"),name,node.getParentNode().getNodeName());
 				shadowAlpha=D;

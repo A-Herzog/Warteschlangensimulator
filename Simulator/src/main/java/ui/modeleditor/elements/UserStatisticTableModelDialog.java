@@ -148,7 +148,7 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 	private boolean checkData(final boolean showErrorMessage) {
 		boolean ok=true;
 
-		if (key.getText().trim().isEmpty()) {
+		if (key.getText().isBlank()) {
 			key.setBackground(Color.RED);
 			ok=false;
 			if (showErrorMessage) {
@@ -159,7 +159,7 @@ public class UserStatisticTableModelDialog extends BaseDialog {
 			key.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
-		if (expression.getText().trim().isEmpty()) {
+		if (expression.getText().isBlank()) {
 			expression.setBackground(Color.RED);
 			ok=false;
 			if (showErrorMessage) {

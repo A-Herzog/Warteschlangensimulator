@@ -133,7 +133,7 @@ public class PriorityTableModel extends JTableExtAbstractTableModel {
 	private Icon getClientTypeIcon(final String name) {
 		String icon=null;
 		if (name!=null) icon=element.getModel().clientData.getIcon(name);
-		if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
+		if (icon==null || icon.isBlank()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
 		return new ImageIcon(imageSource.get(icon,element.getModel().animationImages,16));
 	}
 

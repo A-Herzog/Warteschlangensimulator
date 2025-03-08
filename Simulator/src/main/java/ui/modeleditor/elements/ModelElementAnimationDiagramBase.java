@@ -609,19 +609,19 @@ public abstract class ModelElementAnimationDiagramBase extends ModelElementPosit
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationDiagram.XML.LineColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationDiagram.XML.LineColor",name) && !content.isBlank()) {
 			borderColor=EditModel.loadColor(content);
 			if (borderColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationDiagram.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationDiagram.XML.BackgroundColor",name) && !content.isBlank()) {
 			backgroundColor=EditModel.loadColor(content);
 			if (backgroundColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationDiagram.XML.GradientColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationDiagram.XML.GradientColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			gradientColor=color;

@@ -435,7 +435,7 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 		sub.setTextContent(tableFileName);
 		if (numbersAreDistances) sub.setAttribute(Language.trPrimary("Surface.SourceTable.XML.NumbersAre"),Language.trPrimary("Surface.SourceTable.XML.NumbersAre.Distances"));
 		if (readBottomUp) sub.setAttribute(Language.trPrimary("Surface.SourceTable.XML.ReadOrder"),Language.trPrimary("Surface.SourceTable.XML.ReadOrder.BottomToTop"));
-		if (!importSettings.trim().isEmpty()) {
+		if (!importSettings.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceTable.XML.ImportMode")));
 			sub.setTextContent(importSettings);
 		}
@@ -541,7 +541,7 @@ public class ModelElementSourceTable extends ModelElementBox implements ElementW
 
 		descriptionBuilder.addEdgeOut(getEdgeOut());
 
-		if (tableFileName!=null && !tableFileName.trim().isEmpty()) {
+		if (tableFileName!=null && !tableFileName.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceTable.Table"),tableFileName,1000);
 			if (readBottomUp) {
 				descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceTable.ReadDirection"),Language.tr("ModelDescription.SourceTable.ReadDirection.BottomToTop"),1500);

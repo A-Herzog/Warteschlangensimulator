@@ -251,7 +251,7 @@ public class WebServer {
 	public String start(final int port) {
 		if (serverSystem!=null) return Language.tr("SimulationServer.Setup.WebServer.MessageStartErrorAlreadyRunning");
 		serverSystem=new ServerSystem(port);
-		if (tlsKeyStoreFile!=null && !tlsKeyStoreFile.trim().isEmpty() && tlsKeyStorePassword!=null && !tlsKeyStorePassword.trim().isEmpty()) {
+		if (tlsKeyStoreFile!=null && !tlsKeyStoreFile.isBlank() && tlsKeyStorePassword!=null && !tlsKeyStorePassword.isBlank()) {
 			final String error=serverSystem.initTLS(new File(tlsKeyStoreFile),tlsKeyStorePassword);
 			if (error!=null) {
 				serverSystem=null;

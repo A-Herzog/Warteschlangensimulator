@@ -100,7 +100,7 @@ public class RunElementAnimationAlarm extends RunElementPassThrough {
 
 		/* Bedingung */
 		final String condition=alarmElement.getCondition();
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			alarm.condition=null;
 		} else {
 			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);

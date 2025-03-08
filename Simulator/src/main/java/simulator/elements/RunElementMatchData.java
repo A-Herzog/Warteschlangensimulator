@@ -88,7 +88,7 @@ public class RunElementMatchData extends RunElementData implements RunElementMul
 		selectQueuedClients=new int[numberOfQueues];
 		Arrays.fill(selectQueuedClients,0);
 
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			this.condition=null;
 		} else {
 			this.condition=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);

@@ -383,7 +383,7 @@ public class OutputTableModel extends JTableExtAbstractTableModel {
 						if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return;
 						s=dialog.getExpression();
 						if (s==null) return;
-						if (s.trim().isEmpty()) {output.set(row,new ModelElementOutput.OutputRecord(m,"")); break;}
+						if (s.isBlank()) {output.set(row,new ModelElementOutput.OutputRecord(m,"")); break;}
 						int error=ExpressionCalc.check(s,variables,model.userFunctions);
 						if (error<0) {output.set(row,new ModelElementOutput.OutputRecord(m,s)); break;}
 						MsgBox.error(table,Language.tr("Surface.Output.Table.ExpressionError.Title"),String.format(Language.tr("Surface.Output.Table.ExpressionError.Info"),s,error+1));

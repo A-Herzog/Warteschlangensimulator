@@ -239,7 +239,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		process.priority=new String[runModel.clientTypes.length];
 		for (int i=0;i<process.priority.length;i++) {
 			String priorityString=processElement.getPriority(runModel.clientTypes[i]);
-			if (priorityString==null || priorityString.trim().isEmpty()) priorityString=ModelElementProcess.DEFAULT_CLIENT_PRIORITY;
+			if (priorityString==null || priorityString.isBlank()) priorityString=ModelElementProcess.DEFAULT_CLIENT_PRIORITY;
 			if (priorityString.equalsIgnoreCase(ModelElementProcess.DEFAULT_CLIENT_PRIORITY)) {
 				process.priority[i]=null; /* Default Priorität als null vermerken */
 			} else {
@@ -271,7 +271,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		String text;
 
 		text=processElement.getCosts();
-		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
+		if (text==null || text.isBlank()  || text.trim().equals("0")) {
 			process.costs=null;
 		} else {
 			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
@@ -280,7 +280,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		}
 
 		text=processElement.getCostsPerProcessSecond();
-		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
+		if (text==null || text.isBlank()  || text.trim().equals("0")) {
 			process.costsPerProcessSecond=null;
 		} else {
 			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
@@ -289,7 +289,7 @@ public class RunElementProcess extends RunElement implements FreeResourcesListen
 		}
 
 		text=processElement.getCostsPerPostProcessSecond();
-		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
+		if (text==null || text.isBlank()  || text.trim().equals("0")) {
 			process.costsPerPostProcessSecond=null;
 		} else {
 			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);

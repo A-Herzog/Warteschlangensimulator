@@ -350,7 +350,7 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 	 */
 	@Override
 	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
-		if (inputFile!=null && !inputFile.trim().isEmpty()) {
+		if (inputFile!=null && !inputFile.isBlank()) {
 			final File input=new File(inputFile);
 			if (input.isFile()) {
 				final JMenuItem item=new JMenuItem("<html><body><b>"+Language.tr("Surface.Output.OpenInputFile")+"</b></body></html>");
@@ -368,7 +368,7 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 	 * @return	Gibt <code>true</code> zurück, wenn die Datei geöffnet werden konnte.
 	 */
 	public boolean openInputFile() {
-		if (inputFile==null || inputFile.trim().isEmpty()) return false;
+		if (inputFile==null || inputFile.isBlank()) return false;
 		final File input=new File(inputFile);
 		if (!input.isFile()) return false;
 		try {
@@ -493,7 +493,7 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		if (!inputFile.trim().isEmpty()) {
+		if (!inputFile.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Input.File"),inputFile,2000);
 		}
 
@@ -514,7 +514,7 @@ public class ModelElementInput extends ModelElementMultiInSingleOutBox implement
 		}
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.Input.EOFMode"),modeInfo,3000);
 
-		if (!variable.trim().isEmpty()) {
+		if (!variable.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Input.Variable"),variable,4000);
 		}
 

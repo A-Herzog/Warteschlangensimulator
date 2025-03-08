@@ -134,7 +134,7 @@ public abstract class MQTTSimClientBase {
 			options.setAutomaticReconnect(true);
 
 			/* Zugangsdaten */
-			if (username!=null && !username.trim().isEmpty() && password!=null && !password.trim().isEmpty()) {
+			if (username!=null && !username.isBlank() && password!=null && !password.isBlank()) {
 				options.setUserName(username);
 				options.setPassword(password.getBytes(StandardCharsets.UTF_8));
 			}
@@ -155,7 +155,7 @@ public abstract class MQTTSimClientBase {
 		}
 
 		/* Topic abonnieren */
-		if (topics!=null) for (String topic: topics) if (topic!=null && !topic.trim().isEmpty()) {
+		if (topics!=null) for (String topic: topics) if (topic!=null && !topic.isBlank()) {
 			try {
 				mqtt.subscribe(topic,2);
 			} catch (MqttException e) {
@@ -214,7 +214,7 @@ public abstract class MQTTSimClientBase {
 	 */
 	protected boolean send(final String topic, final byte[] data, final List<UserProperty> userProperties, final int qos) {
 		if (mqtt==null) return false;
-		if (topic==null || topic.trim().isEmpty()) return false;
+		if (topic==null || topic.isBlank()) return false;
 		if (data==null) return false;
 
 		final MqttMessage message=new MqttMessage(data);

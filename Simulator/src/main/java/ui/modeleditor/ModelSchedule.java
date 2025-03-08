@@ -317,7 +317,7 @@ public final class ModelSchedule implements Cloneable {
 		slots=new int[values.length];
 		for (int i=0;i<values.length;i++) {
 			Integer I=0;
-			if (!values[i].trim().isEmpty()) I=NumberTools.getNotNegativeInteger(values[i]);
+			if (!values[i].isBlank()) I=NumberTools.getNotNegativeInteger(values[i]);
 			if (I==null) return String.format(Language.tr("Surface.Schedule.ErrorScheduleValue"),i+1,node.getNodeName());
 			slots[i]=I;
 		}

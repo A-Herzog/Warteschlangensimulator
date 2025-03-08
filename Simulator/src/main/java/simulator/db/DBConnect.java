@@ -143,7 +143,7 @@ public class DBConnect implements Closeable {
 	 * @see DBSettings
 	 */
 	public DBConnect(final DBSettings settings, final boolean allowCreateLocalFile) {
-		this((settings==null)?null:DBConnectSetups.getByType(settings.getType()),(settings==null)?null:settings.getProcessedConfig(),(settings==null || settings.getUser().trim().isEmpty())?null:settings.getUser(),(settings==null || settings.getPassword().trim().isEmpty())?null:settings.getPassword(),allowCreateLocalFile);
+		this((settings==null)?null:DBConnectSetups.getByType(settings.getType()),(settings==null)?null:settings.getProcessedConfig(),(settings==null || settings.getUser().isBlank())?null:settings.getUser(),(settings==null || settings.getPassword().isBlank())?null:settings.getPassword(),allowCreateLocalFile);
 	}
 
 	/**
@@ -155,7 +155,7 @@ public class DBConnect implements Closeable {
 	 */
 	private boolean localDataTest(final DBConnectSetup setup, final String config) {
 		if (setup.selectSource.isFile) {
-			if (config==null || config.trim().isEmpty()) return false;
+			if (config==null || config.isBlank()) return false;
 			final File file=new File(config);
 			if (!file.isFile()) {
 				initError="File does not exist: "+config;
@@ -165,7 +165,7 @@ public class DBConnect implements Closeable {
 		}
 
 		if (setup.selectSource.isFolder) {
-			if (config==null || config.trim().isEmpty()) return false;
+			if (config==null || config.isBlank()) return false;
 			final File file=new File(config);
 			if (!file.isDirectory()) {
 				initError="Folder does not exist: "+config;
@@ -404,7 +404,7 @@ public class DBConnect implements Closeable {
 	 * @return	Nummer der Spalte oder -1, wenn Tabelle oder Spalte nicht gefunden werden konnten
 	 */
 	private int getColumnNumber(final String exactTableName, final String columnName) {
-		if (columnName==null || columnName.trim().isEmpty()) return 0; /* Wenn keine Spalte angegeben, erste Spalte verwenden */
+		if (columnName==null || columnName.isBlank()) return 0; /* Wenn keine Spalte angegeben, erste Spalte verwenden */
 
 		final String[] names=listColumns(exactTableName);
 		for (int i=0;i<names.length;i++) if (names[i].equalsIgnoreCase(columnName)) return i;
@@ -422,7 +422,7 @@ public class DBConnect implements Closeable {
 	 * @return	Name der Spalte in korrekter Groß- und Kleinschreibung
 	 */
 	private String getExactColumnName(final String exactTableName, final String columnName) {
-		if (columnName==null || columnName.trim().isEmpty()) return null;
+		if (columnName==null || columnName.isBlank()) return null;
 
 		for (String name: listColumns(exactTableName)) if (name.equalsIgnoreCase(columnName)) return name;
 		return null;
@@ -673,7 +673,7 @@ public class DBConnect implements Closeable {
 		 * @return	Zugehöriger Index oder -1, wenn die Tabelle keine entsprechende Spalte enthält
 		 */
 		private int getColumnIndex(String name) {
-			if (name==null || name.trim().isEmpty()) return -1;
+			if (name==null || name.isBlank()) return -1;
 
 			if (name.startsWith("\"") && name.endsWith("\"")) name=name.substring(1,name.length()-1);
 
@@ -788,7 +788,7 @@ public class DBConnect implements Closeable {
 		 * @return	Zugehöriger Index oder -1, wenn die Tabelle keine entsprechende Spalte enthält
 		 */
 		private int getColumnIndex(String name) {
-			if (name==null || name.trim().isEmpty()) return -1;
+			if (name==null || name.isBlank()) return -1;
 
 			if (name.startsWith("\"") && name.endsWith("\"")) name=name.substring(1,name.length()-1);
 

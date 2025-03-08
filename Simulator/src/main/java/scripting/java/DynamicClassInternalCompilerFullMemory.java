@@ -46,7 +46,7 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 	@Override
 	public Object prepare(String text) {
 		/* Daten vorhanden? */
-		if (text==null || text.trim().isEmpty()) return DynamicStatus.NO_INPUT_FILE_OR_DATA;
+		if (text==null || text.isBlank()) return DynamicStatus.NO_INPUT_FILE_OR_DATA;
 
 		/* Klassenname bestimmen */
 		final String className=getClassName(text);
@@ -102,7 +102,7 @@ public class DynamicClassInternalCompilerFullMemory extends DynamicClassBase {
 				}
 
 				final String result=writer.getBuffer().toString();
-				if (result==null || result.trim().isEmpty()) return CompilerResult.success();
+				if (result==null || result.isBlank()) return CompilerResult.success();
 				if (success) return CompilerResult.warning(result); else return CompilerResult.error(result);
 
 			} catch (IOException e) {

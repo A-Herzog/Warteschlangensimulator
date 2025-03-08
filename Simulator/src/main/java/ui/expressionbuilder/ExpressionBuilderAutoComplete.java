@@ -128,7 +128,7 @@ public class ExpressionBuilderAutoComplete {
 	 * @return	Neuer AutoComplete-Datensatz (kann <code>null</code> sein, wenn kein AutoComplete-Datensatz erzeugt werden konnte)
 	 */
 	private BasicCompletion getAutoCompleteRecord(final String shortDescription, final String summary, final Icon icon, final String command) {
-		if (command==null || command.trim().isEmpty()) return null;
+		if (command==null || command.isBlank()) return null;
 		final BasicCompletion completion=new BasicCompletion(autoCompleteProvider,command,shortDescription);
 
 		if (icon!=null) completion.setIcon(icon);

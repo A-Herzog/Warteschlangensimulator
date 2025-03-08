@@ -123,7 +123,7 @@ public class ExpressionMultiEval {
 
 		/* Letztes Symbol aufnehmen */
 		final String s=symbol.toString();
-		if (!s.trim().isEmpty()) tokens.add(s.trim());
+		if (!s.isBlank()) tokens.add(s.trim());
 
 		return tokens;
 	}

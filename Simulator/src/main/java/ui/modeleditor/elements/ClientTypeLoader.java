@@ -148,7 +148,7 @@ public class ClientTypeLoader {
 	 * @see #processArrivalLine(List)
 	 */
 	private void processArrivalColumn(final ModelElementSourceRecord record, final String column) {
-		if (column==null || column.trim().isEmpty()) return;
+		if (column==null || column.isBlank()) return;
 		final int index=column.indexOf('=');
 		if (index<1 || index>=column.length()) return;
 		final String name=column.substring(0,index).trim();
@@ -223,7 +223,7 @@ public class ClientTypeLoader {
 	 * @see #processArrivalColumn(ModelElementSourceRecord, String)
 	 */
 	private void processArrivalColumnBatch(final ModelElementSourceRecord record, final String batchData) {
-		if (batchData==null || batchData.trim().isEmpty()) return;
+		if (batchData==null || batchData.isBlank()) return;
 		int index=batchData.indexOf('=');
 		if (index<1 || index>=batchData.length()) {
 			record.setBatchSize(batchData);

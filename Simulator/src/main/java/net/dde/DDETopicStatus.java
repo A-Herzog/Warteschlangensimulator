@@ -39,7 +39,7 @@ public class DDETopicStatus extends DDETopic {
 		final EditorPanel editorPanel=mainPanel.editorPanel;
 
 		addItemStatic("Version",MainPanel.VERSION);
-		addItemUpdateable("Model",()->(editorPanel.getModel().name.trim().isEmpty())?Language.tr("WebServer.Status.CurrentModel.NoName"):editorPanel.getModel().name);
+		addItemUpdateable("Model",()->(editorPanel.getModel().name.isBlank())?Language.tr("WebServer.Status.CurrentModel.NoName"):editorPanel.getModel().name);
 		addItemUpdateable("Changed",()->(editorPanel.isModelChanged()?"1":"0"));
 		addItemUpdateable("Mode",()->{
 			String s=Language.tr("WebServer.Status.Mode.Special");

@@ -62,7 +62,7 @@ public class ProblemReporter {
 		/** Programmeinstellungen */
 		SETUP(()->Language.tr("ProblemReporter.Item.Setup")),
 		/** Informationen zum zuletzt aufgetretenen Fehler */
-		LAST_ERROR(()->Language.tr("ProblemReporter.Item.LastError"),()->{final String error=SetupData.getSetup().lastError; return (error!=null && !error.trim().isEmpty());}),
+		LAST_ERROR(()->Language.tr("ProblemReporter.Item.LastError"),()->{final String error=SetupData.getSetup().lastError; return (error!=null && !error.isBlank());}),
 		/** Systeminformationen */
 		SYSTEM_INFO(()->Language.tr("ProblemReporter.Item.SystemInfo")),
 		/** Programminformationen */
@@ -163,7 +163,7 @@ public class ProblemReporter {
 	 * @return	 Liefer <code>true</code>, wenn ein Plugins-Ordner in dem Modell registriert ist und dieser auch existiert.
 	 */
 	private static boolean testPluginFiles(final EditModel model) {
-		return (model.pluginsFolder!=null && !model.pluginsFolder.trim().isEmpty() && new File(model.pluginsFolder).isDirectory());
+		return (model.pluginsFolder!=null && !model.pluginsFolder.isBlank() && new File(model.pluginsFolder).isDirectory());
 	}
 
 	/**

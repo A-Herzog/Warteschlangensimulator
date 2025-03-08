@@ -601,8 +601,8 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationRecord.XML.Labels"));
 		node.appendChild(sub);
 		sub.setTextContent(""+axisLabels.nr);
-		if (!axisLabelXText.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.AnimationRecord.XML.LabelTextX"),axisLabelXText);
-		if (!axisLabelYText.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.AnimationRecord.XML.LabelTextY"),axisLabelYText);
+		if (!axisLabelXText.isBlank()) sub.setAttribute(Language.trPrimary("Surface.AnimationRecord.XML.LabelTextX"),axisLabelXText);
+		if (!axisLabelYText.isBlank()) sub.setAttribute(Language.trPrimary("Surface.AnimationRecord.XML.LabelTextY"),axisLabelYText);
 	}
 
 	/**
@@ -631,7 +631,7 @@ public class ModelElementAnimationRecord extends ModelElementAnimationDiagramBas
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationRecord.XML.DataColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationRecord.XML.DataColor",name) && !content.isBlank()) {
 			dataColor=EditModel.loadColor(content);
 			if (dataColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;

@@ -715,7 +715,7 @@ public class ModelElementCatalogDescriptionBuilder {
 				}
 
 				/* Normale Textzeile */
-				boolean thisIsEmpty=s.trim().isEmpty();
+				boolean thisIsEmpty=s.isBlank();
 				if (!thisIsEmpty) text.append(replaceSpecialChars(s));
 				if (!thisIsEmpty || !lastWasEmpty) text.append("\n");
 				lastWasEmpty=thisIsEmpty;
@@ -763,7 +763,7 @@ public class ModelElementCatalogDescriptionBuilder {
 					continue;
 				}
 
-				if (line.trim().isEmpty() && start) continue;
+				if (line.isBlank() && start) continue;
 				start=false;
 
 				String newLine;

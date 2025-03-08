@@ -159,7 +159,7 @@ public class CounterConditionPanel extends JPanel {
 		/* Bedingung */
 		if (checkCondition.isSelected()) {
 			final String text=editCondition.getText();
-			if (text.trim().isEmpty()) {
+			if (text.isBlank()) {
 				ok=false;
 				editCondition.setBackground(Color.RED);
 				if (showErrorMessage) {

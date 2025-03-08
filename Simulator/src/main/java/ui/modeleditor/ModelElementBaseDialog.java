@@ -524,7 +524,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 			panel.add(box,BorderLayout.CENTER);
 		}
 
-		if (placeholder!=null && !placeholder.trim().isEmpty()) field.setPlaceholder(placeholder);
+		if (placeholder!=null && !placeholder.isBlank()) field.setPlaceholder(placeholder);
 
 		label.setLabelFor(field);
 		if (value!=null) field.setText(value);

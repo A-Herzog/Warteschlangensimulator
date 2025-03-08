@@ -227,7 +227,7 @@ public class RunElementTankFlow {
 			if (stopQuantity<=0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.AnalogFlow.InvalidStopQuantity"),id,NumberTools.formatNumber(stopQuantity)));
 			break;
 		case STOP_BY_SIGNAL:
-			if (stopSignal.trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.AnalogFlow.NoStopSignal"),id));
+			if (stopSignal.isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.AnalogFlow.NoStopSignal"),id));
 			break;
 		default:
 			return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SetInternalError"),id));

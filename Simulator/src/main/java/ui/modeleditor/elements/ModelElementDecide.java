@@ -734,7 +734,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.Connection")));
 			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Element"),""+element.getId());
 			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Type"),Language.trPrimary("Surface.XML.Connection.Type.Out"));
-			if (newClientTypes!=null && newClientTypes.size()>i && !newClientTypes.get(i).trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.XML.Connection.NewClientType"),newClientTypes.get(i).trim());
+			if (newClientTypes!=null && newClientTypes.size()>i && !newClientTypes.get(i).isBlank()) sub.setAttribute(Language.trPrimary("Surface.XML.Connection.NewClientType"),newClientTypes.get(i).trim());
 			switch (mode) {
 			case MODE_CHANCE:
 				sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Connection.Rate"),rates.get(i));
@@ -835,7 +835,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				connectionsOutIds.add(I);
 
 				final String newClientType=Language.trAllAttribute("Surface.XML.Connection.NewClientType",node);
-				if (!newClientType.trim().isEmpty()) {
+				if (!newClientType.isBlank()) {
 					if (newClientTypes==null) newClientTypes=new ArrayList<>();
 					while (newClientTypes.size()<connectionsOutIds.size()-1) newClientTypes.add("");
 					newClientTypes.add(newClientType);

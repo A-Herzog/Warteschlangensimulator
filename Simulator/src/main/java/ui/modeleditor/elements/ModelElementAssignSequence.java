@@ -162,7 +162,7 @@ public class ModelElementAssignSequence extends ModelElementMultiInSingleOutBox 
 	@Override
 	public String getSubTypeName() {
 		if (surface==null) return null;
-		if (sequence==null || sequence.trim().isEmpty()) return null;
+		if (sequence==null || sequence.isBlank()) return null;
 		return Language.tr("Surface.AssignSequence.SequenceName")+": "+sequence;
 	}
 

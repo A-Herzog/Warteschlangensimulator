@@ -297,8 +297,8 @@ public class HandlerAnimation implements WebServerHandler {
 
 		if (!(mainPanel.currentPanel instanceof AnimationPanel)) {
 			info=new HashMap<>();
-			info.put("staticImages",new HashMap<String,String>());
-			info.put("movingImages",new HashMap<String,String>());
+			info.put("staticImages",new HashMap<>());
+			info.put("movingImages",new HashMap<>());
 			info.put("logs",Language.tr("WebServer.Animation.Error.NoAnimationRunning"));
 		} else {
 			info=((AnimationPanel)(mainPanel.currentPanel)).getAnimationStepInfo();
@@ -340,7 +340,7 @@ public class HandlerAnimation implements WebServerHandler {
 	 * @see #process(IHTTPSession)
 	 */
 	private void calculateExpression(final WebServerResponse response, final String expression) {
-		if (expression==null || expression.trim().isEmpty()) return;
+		if (expression==null || expression.isBlank()) return;
 		if (!(mainPanel.currentPanel instanceof AnimationPanel)) return;
 
 		AnimationPanel animationPanel=(AnimationPanel)mainPanel.currentPanel;

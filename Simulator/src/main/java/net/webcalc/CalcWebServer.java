@@ -142,7 +142,7 @@ public class CalcWebServer extends WebServer {
 	 * @param versionRest	Zu verwendende REST-Version (z.B. "v1" oder <code>null</code> für "jeweils neuste Version")
 	 */
 	private void addRestHandlers(final List<WebServerHandler> handlers, final String versionRest) {
-		final String restURL=(versionRest==null || versionRest.trim().isEmpty())?"":("/"+versionRest);
+		final String restURL=(versionRest==null || versionRest.isBlank())?"":("/"+versionRest);
 
 		if (model==null) {
 			handlers.add(new HandlerPost(restURL+"/jobs.json","model",info->processFile(info),ResponseMode.JSON));
@@ -724,7 +724,7 @@ public class CalcWebServer extends WebServer {
 	 * @return	Webserver-Antwort-Objekt
 	 */
 	private WebServerResponse setLanguage(final String request) {
-		if (request==null || request.trim().isEmpty()) return null;
+		if (request==null || request.isBlank()) return null;
 		final String lang=request.trim().toLowerCase();
 		if (!Language.isSupportedLanguage(lang)) return null;
 
@@ -785,7 +785,7 @@ public class CalcWebServer extends WebServer {
 		final SetupData setup=SetupData.getSetup();
 		final String languageOld=setup.language;
 
-		if (request==null || request.trim().isEmpty()) return buildLanguageResponse(ResponseMode.JSON,languageOld,"",false);
+		if (request==null || request.isBlank()) return buildLanguageResponse(ResponseMode.JSON,languageOld,"",false);
 
 		ResponseMode responseMode=null;
 		if (request.toLowerCase().endsWith(".json")) {
@@ -850,7 +850,7 @@ public class CalcWebServer extends WebServer {
 		}
 
 		/* Anfrage aufbereiten */
-		if (request==null || request.trim().isEmpty()) return null;
+		if (request==null || request.isBlank()) return null;
 		final Table table=getAssignmentsTable(request);
 
 		/* Externe Daten laden */

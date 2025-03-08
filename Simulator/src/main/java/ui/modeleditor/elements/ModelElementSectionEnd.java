@@ -164,7 +164,7 @@ public class ModelElementSectionEnd extends ModelElementMultiInSingleOutBox {
 	@Override
 	public String getSubTypeName() {
 		if (surface==null) return null;
-		if (sectionStartName==null || sectionStartName.trim().isEmpty()) return null;
+		if (sectionStartName==null || sectionStartName.isBlank()) return null;
 		return Language.tr("Surface.SectionEnd.SectionName")+": "+sectionStartName;
 	}
 
@@ -286,7 +286,7 @@ public class ModelElementSectionEnd extends ModelElementMultiInSingleOutBox {
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		if (sectionStartName!=null && !sectionStartName.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SectionEnd.SectionStartName"),sectionStartName,1000);
+		if (sectionStartName!=null && !sectionStartName.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SectionEnd.SectionStartName"),sectionStartName,1000);
 	}
 
 	@Override

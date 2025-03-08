@@ -221,7 +221,7 @@ public class NotesDialog extends BaseDialog {
 		text.append("<br>");
 		text.append("<b>");
 		int count=0;
-		for (String line: note.getNote().split("\\\n")) if (!line.trim().isEmpty()) {
+		for (String line: note.getNote().split("\\\n")) if (!line.isBlank()) {
 			if (count>0) text.append("<br>");
 			if (count>=3) {text.append("..."); break;}
 			text.append(encodeHTMLentities(line));
@@ -253,7 +253,7 @@ public class NotesDialog extends BaseDialog {
 		text.append("<br>");
 		text.append("<b>");
 		int count=0;
-		for (String line: element.getDescription().split("\\\n")) if (!line.trim().isEmpty()) {
+		for (String line: element.getDescription().split("\\\n")) if (!line.isBlank()) {
 			if (count>0) text.append("<br>");
 			if (count>=3) {text.append("..."); break;}
 			text.append(encodeHTMLentities(line));
@@ -409,7 +409,7 @@ public class NotesDialog extends BaseDialog {
 	 */
 	private static void findDescriptions(final List<ModelElement> elements, final ModelSurface surface) {
 		for (ModelElement element: surface.getElements()) {
-			if (!element.getDescription().trim().isEmpty()) elements.add(element);
+			if (!element.getDescription().isBlank()) elements.add(element);
 			if (element instanceof ModelElementSub) findDescriptions(elements,((ModelElementSub)element).getSubSurface());
 		}
 	}
@@ -433,7 +433,7 @@ public class NotesDialog extends BaseDialog {
 	public static boolean hasNotesOrDescriptions(final ModelSurface surface) {
 		for (ModelElement element: surface.getElements()) {
 			if (element instanceof ModelElementNote) return true;
-			if (!element.getDescription().trim().isEmpty()) return true;
+			if (!element.getDescription().isBlank()) return true;
 			if (element instanceof ModelElementSub) {
 				if (hasNotesOrDescriptions(((ModelElementSub)element).getSubSurface())) return true;
 			}

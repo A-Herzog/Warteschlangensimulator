@@ -467,7 +467,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 */
 	public void setClientText(final String key, final String value) {
 		if (simData==null || client==null) return;
-		if (key==null || key.trim().isEmpty()) return;
+		if (key==null || key.isBlank()) return;
 		client.setUserDataString(key,(value==null)?"":value);
 	}
 
@@ -1197,7 +1197,7 @@ public final class JSCommandSystem extends JSBaseCommand {
 	 * @param signalName Name des Signal
 	 */
 	public void signal(final String signalName) {
-		if (simData==null || signalName==null || signalName.trim().isEmpty()) return;
+		if (simData==null || signalName==null || signalName.isBlank()) return;
 		if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.Signal"),-1,String.format(Language.tr("Simulation.Log.Signal.Info2"),signalName));
 		simData.runData.fireSignal(simData,signalName);
 	}

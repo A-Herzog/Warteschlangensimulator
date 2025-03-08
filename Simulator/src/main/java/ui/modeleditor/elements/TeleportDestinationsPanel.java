@@ -180,9 +180,9 @@ public class TeleportDestinationsPanel extends JPanel {
 		final Set<String> destinations=new HashSet<>();
 
 		for (ModelElement e1: model.surface.getElements()) {
-			if (e1 instanceof ModelElementTeleportDestination && !e1.getName().trim().isEmpty()) destinations.add(e1.getName());
+			if (e1 instanceof ModelElementTeleportDestination && !e1.getName().isBlank()) destinations.add(e1.getName());
 			if (e1 instanceof ModelElementSub) for (ModelElement e2: ((ModelElementSub)e1).getSubSurface().getElements()) {
-				if (e2 instanceof ModelElementTeleportDestination && !e2.getName().trim().isEmpty()) destinations.add(e2.getName());
+				if (e2 instanceof ModelElementTeleportDestination && !e2.getName().isBlank()) destinations.add(e2.getName());
 			}
 		}
 
@@ -198,9 +198,9 @@ public class TeleportDestinationsPanel extends JPanel {
 		final Map<String, ModelElementTeleportDestination> map=new HashMap<>();
 
 		for (ModelElement e1: model.surface.getElements()) {
-			if (e1 instanceof ModelElementTeleportDestination && !e1.getName().trim().isEmpty()) map.put(e1.getName(),(ModelElementTeleportDestination)e1);
+			if (e1 instanceof ModelElementTeleportDestination && !e1.getName().isBlank()) map.put(e1.getName(),(ModelElementTeleportDestination)e1);
 			if (e1 instanceof ModelElementSub) for (ModelElement e2: ((ModelElementSub)e1).getSubSurface().getElements()) {
-				if (e2 instanceof ModelElementTeleportDestination && !e2.getName().trim().isEmpty()) map.put(e2.getName(),(ModelElementTeleportDestination)e2);
+				if (e2 instanceof ModelElementTeleportDestination && !e2.getName().isBlank()) map.put(e2.getName(),(ModelElementTeleportDestination)e2);
 			}
 		}
 

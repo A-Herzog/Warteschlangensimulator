@@ -270,7 +270,7 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 			id++;
 			final StringBuilder sb=new StringBuilder();
 			sb.append(Language.tr("Statistics.Resource"));
-			if (!resource.getName().trim().isEmpty()) {
+			if (!resource.getName().isBlank()) {
 				sb.append(" \"");
 				sb.append(resource.getName());
 				sb.append("\"");
@@ -295,7 +295,7 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 			id++;
 			final StringBuilder sb=new StringBuilder();
 			sb.append(Language.tr("Statistics.Transporter"));
-			if (!transporter.getName().trim().isEmpty()) {
+			if (!transporter.getName().isBlank()) {
 				sb.append(" \"");
 				sb.append(transporter.getName());
 				sb.append("\"");
@@ -568,7 +568,7 @@ public class ModelElementAnimationBarChartHistogramWizard extends BaseDialog {
 		public HistogramIDRecord(final ModelElementBox element) {
 			final StringBuilder sb=new StringBuilder();
 			sb.append(element.getTypeName());
-			if (!element.getName().trim().isEmpty()) {
+			if (!element.getName().isBlank()) {
 				sb.append(" \"");
 				sb.append(element.getName());
 				sb.append("\"");

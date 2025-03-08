@@ -222,7 +222,7 @@ public class DDEServerSystem {
 
 		@Override
 		protected boolean onExecute(final String command) {
-			if (command==null || command.trim().isEmpty()) return false;
+			if (command==null || command.isBlank()) return false;
 			return processCommand(command);
 		}
 	}

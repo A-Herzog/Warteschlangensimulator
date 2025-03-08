@@ -110,7 +110,7 @@ public class ModelElementAnalogAssignTableModel extends JTableExtAbstractTableMo
 		final int id=changeID.get(index);
 		final ModelElement elementID=element.getSurface().getByIdIncludingSubModels(id);
 		final String name=elementID.getName();
-		if (name==null || name.trim().isEmpty()) {
+		if (name==null || name.isBlank()) {
 			return String.format(Language.tr("Surface.AnalogAssign.Dialog.ID.NoName"),id);
 		} else {
 			return String.format(Language.tr("Surface.AnalogAssign.Dialog.ID.Name"),id,name);

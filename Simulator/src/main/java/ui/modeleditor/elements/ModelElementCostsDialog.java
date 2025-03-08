@@ -195,7 +195,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 		boolean ok=true;
 
 		text=stationCosts.getText();
-		if (!text.trim().isEmpty()) {
+		if (!text.isBlank()) {
 			final int error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				stationCosts.setBackground(Color.RED);
@@ -212,7 +212,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 		}
 
 		text=clientWaitingCosts.getText();
-		if (!text.trim().isEmpty()) {
+		if (!text.isBlank()) {
 			final int error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				clientWaitingCosts.setBackground(Color.RED);
@@ -229,7 +229,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 		}
 
 		text=clientTransferCosts.getText();
-		if (!text.trim().isEmpty()) {
+		if (!text.isBlank()) {
 			final int error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				clientTransferCosts.setBackground(Color.RED);
@@ -246,7 +246,7 @@ public class ModelElementCostsDialog extends ModelElementBaseDialog {
 		}
 
 		text=clientProcessCosts.getText();
-		if (!text.trim().isEmpty()) {
+		if (!text.isBlank()) {
 			final int error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				clientProcessCosts.setBackground(Color.RED);

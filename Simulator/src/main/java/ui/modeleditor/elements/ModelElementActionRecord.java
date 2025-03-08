@@ -487,7 +487,7 @@ public class ModelElementActionRecord {
 	 * @see ModelElementActionRecord#getConditionSignal()
 	 */
 	public void setConditionSignal(final String signalName) {
-		if (signalName==null || signalName.trim().isEmpty()) return;
+		if (signalName==null || signalName.isBlank()) return;
 		conditionType=ConditionType.CONDITION_SIGNAL;
 		conditionSignal=signalName.trim();
 	}

@@ -84,7 +84,7 @@ public class RunElementHoldData extends RunElementData implements RunElementData
 		waitingClients=new ArrayList<>();
 		lastRelease=-Long.MAX_VALUE;
 
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			this.condition=null;
 		} else {
 			this.condition=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);

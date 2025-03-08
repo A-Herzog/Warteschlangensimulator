@@ -224,9 +224,9 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 		condition=(JTextField)data[1];
 		condition.setEnabled(!readOnly);
 		condition.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {if (!condition.getText().trim().isEmpty()) conditionEnabled.setSelected(true); checkData(false);}
-			@Override public void keyReleased(KeyEvent e) {if (!condition.getText().trim().isEmpty()) conditionEnabled.setSelected(true); checkData(false);}
-			@Override public void keyPressed(KeyEvent e) {if (!condition.getText().trim().isEmpty()) conditionEnabled.setSelected(true); checkData(false);}
+			@Override public void keyTyped(KeyEvent e) {if (!condition.getText().isBlank()) conditionEnabled.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {if (!condition.getText().isBlank()) conditionEnabled.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {if (!condition.getText().isBlank()) conditionEnabled.setSelected(true); checkData(false);}
 		});
 		line.add(getExpressionEditButton(this,condition,true,true,element.getModel(),element.getSurface()),BorderLayout.EAST);
 		content.add(line);
@@ -291,7 +291,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 			break;
 		}
 
-		conditionEnabled.setSelected(!match.getCondition().trim().isEmpty());
+		conditionEnabled.setSelected(!match.getCondition().isBlank());
 		condition.setText(match.getCondition());
 
 		switch (match.getTransferTimes()) {
@@ -371,7 +371,7 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 
 		if (conditionEnabled.isSelected()) {
 			final String text=condition.getText();
-			if (text.trim().isEmpty()) {
+			if (text.isBlank()) {
 				condition.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
 				final int error=ExpressionMultiEval.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),element.getModel().userFunctions);

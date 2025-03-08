@@ -143,7 +143,7 @@ public class ServerPanelTLSDialog extends BaseDialog {
 	 */
 	private void generateKeyStore() {
 		/* KeyStore-Datei bestimmen */
-		if (editFile.getText().trim().isEmpty()) {
+		if (editFile.getText().isBlank()) {
 			MsgBox.error(this,Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore"),Language.tr("SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorNoKeyStoreFile"));
 			return;
 		}

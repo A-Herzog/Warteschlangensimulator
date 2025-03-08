@@ -601,7 +601,7 @@ public class ModelElementAnimationImage extends ModelElementPosition implements 
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationImage.XML.LineColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationImage.XML.LineColor",name) && !content.isBlank()) {
 			borderColor=EditModel.loadColor(content);
 			if (borderColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;

@@ -266,7 +266,7 @@ public class BatchRecord implements Cloneable {
 	 * @param newClientType	Neuer Kundentyp oder leerer String, wenn die Kunden einzeln weitergeleitet werden sollen
 	 */
 	public void setNewClientType(final String newClientType) {
-		if (newClientType==null || newClientType.trim().isEmpty()) {
+		if (newClientType==null || newClientType.isBlank()) {
 			this.newClientType="";
 			batchMode=BatchMode.BATCH_MODE_COLLECT;
 		} else {
@@ -497,7 +497,7 @@ public class BatchRecord implements Cloneable {
 
 		if (Language.trAll("Surface.Batch.XML.ClientType",name)) {
 			newClientType=content;
-			if (!content.trim().isEmpty() && batchMode==BatchMode.BATCH_MODE_COLLECT) batchMode=BatchMode.BATCH_MODE_PERMANENT;
+			if (!content.isBlank() && batchMode==BatchMode.BATCH_MODE_COLLECT) batchMode=BatchMode.BATCH_MODE_PERMANENT;
 			return null;
 		}
 
@@ -563,7 +563,7 @@ public class BatchRecord implements Cloneable {
 	 */
 	public void buildDescription(final String clientType, final ModelDescriptionBuilder descriptionBuilder, final int level) {
 		/* Ausgangskundentyp */
-		if (clientType!=null && !clientType.trim().isEmpty()) {
+		if (clientType!=null && !clientType.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.SourceClientType"),clientType,level);
 		}
 
@@ -595,7 +595,7 @@ public class BatchRecord implements Cloneable {
 		}
 
 		/* Neuer Kundentyp */
-		if ((batchMode==BatchMode.BATCH_MODE_TEMPORARY || batchMode==BatchMode.BATCH_MODE_PERMANENT) && !newClientType.trim().isEmpty()) {
+		if ((batchMode==BatchMode.BATCH_MODE_TEMPORARY || batchMode==BatchMode.BATCH_MODE_PERMANENT) && !newClientType.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.NewClientType"),newClientType,level+2);
 		}
 

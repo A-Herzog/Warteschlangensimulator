@@ -54,7 +54,7 @@ public class RunElementInteractiveRadiobutton extends RunElement {
 		final RunElementInteractiveRadiobutton radiobutton=new RunElementInteractiveRadiobutton(radiobuttonElement);
 
 		/* Variable */
-		if (radiobuttonElement.getVariable().trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.RadiobuttonNoVariable"),radiobuttonElement.getId());
+		if (radiobuttonElement.getVariable().isBlank()) return String.format(Language.tr("Simulation.Creator.RadiobuttonNoVariable"),radiobuttonElement.getId());
 		int index=-1;
 		for (int j=0;j<runModel.variableNames.length;j++) if (runModel.variableNames[j].equalsIgnoreCase(radiobuttonElement.getVariable())) {index=j; break;}
 		if (index<0) return String.format(Language.tr("Simulation.Creator.SetInternalError"),element.getId());
@@ -72,7 +72,7 @@ public class RunElementInteractiveRadiobutton extends RunElement {
 		final ModelElementInteractiveRadiobutton radiobuttonElement=(ModelElementInteractiveRadiobutton)element;
 
 		/* Variable */
-		if (radiobuttonElement.getVariable().trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.RadiobuttonNoVariable"),radiobuttonElement.getId()));
+		if (radiobuttonElement.getVariable().isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.RadiobuttonNoVariable"),radiobuttonElement.getId()));
 
 		return RunModelCreatorStatus.ok;
 	}

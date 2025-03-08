@@ -46,7 +46,7 @@ public class CalcWebServerTools {
 	 */
 	public static Document jsonToXml(final String rootName, final String json) {
 		if (json==null) return null;
-		if (json.trim().isEmpty()) return null;
+		if (json.isBlank()) return null;
 
 		final String fullJson="{\""+rootName+"\": "+json+"}";
 		final Element root=directJsonToXmlConverter(fullJson);

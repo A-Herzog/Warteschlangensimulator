@@ -208,7 +208,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	 * @return	Ausgabe-Stationsname (ist nie <code>null</code>)
 	 */
 	private String fullStationName(final String statisticName) {
-		if (statisticName==null || statisticName.trim().isEmpty()) return "";
+		if (statisticName==null || statisticName.isBlank()) return "";
 		return statisticName;
 	}
 
@@ -225,7 +225,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	 */
 	public static double[] getConfidenceLevels() {
 		final String level=SetupData.getSetup().batchMeansConfidenceLevels;
-		if (level==null || level.trim().isEmpty()) return DEFAULT_CONFIDENCE_LEVELS;
+		if (level==null || level.isBlank()) return DEFAULT_CONFIDENCE_LEVELS;
 		final List<Double> levels=new ArrayList<>();
 		for (String value: level.split(";")) {
 			final Double D=NumberTools.getProbability(value);
@@ -241,7 +241,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	 */
 	public static double[] getQuantilLevels() {
 		final String level=SetupData.getSetup().quantilLevels;
-		if (level==null || level.trim().isEmpty()) return StatisticsDataPerformanceIndicator.storeQuantilValues;
+		if (level==null || level.isBlank()) return StatisticsDataPerformanceIndicator.storeQuantilValues;
 		final List<Double> levels=new ArrayList<>();
 		for (String value: level.split(";")) {
 			final Double D=NumberTools.getProbability(value);
@@ -634,7 +634,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	private void buildOverviewModel() {
 		addHeading(2,Language.tr("Statistics.SimulationModel"));
 		beginParagraph();
-		if (!statistics.editModel.name.trim().isEmpty()) addLine(Language.tr("Statistics.SimulationModel.Name")+": "+statistics.editModel.name);
+		if (!statistics.editModel.name.isBlank()) addLine(Language.tr("Statistics.SimulationModel.Name")+": "+statistics.editModel.name);
 
 		long sum=0;
 		for (StatisticsDataPerformanceIndicator indicator: (StatisticsDataPerformanceIndicator[])statistics.clientsInterarrivalTime.getAll(StatisticsDataPerformanceIndicator.class)) sum+=indicator.getCount();
@@ -1531,15 +1531,15 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 		addHeading(2,Language.tr("Statistics.SystemData.EditUser"));
 		beginParagraph();
-		if (statistics.editModel.author!=null && !statistics.editModel.author.trim().isEmpty()) addLine(Language.tr("Statistics.SystemData.EditUser")+": "+statistics.editModel.author);
-		if (statistics.editModel.authorEMail!=null && !statistics.editModel.authorEMail.trim().isEmpty()) addLine(Language.tr("Statistics.SystemData.EditUserEMail")+": "+statistics.editModel.authorEMail);
+		if (statistics.editModel.author!=null && !statistics.editModel.author.isBlank()) addLine(Language.tr("Statistics.SystemData.EditUser")+": "+statistics.editModel.author);
+		if (statistics.editModel.authorEMail!=null && !statistics.editModel.authorEMail.isBlank()) addLine(Language.tr("Statistics.SystemData.EditUserEMail")+": "+statistics.editModel.authorEMail);
 		addLine(Language.tr("Statistics.SystemData.RunUser")+": "+statistics.simulationData.runUser);
 		endParagraph();
 
 		addHeading(2,Language.tr("Editor.GeneralData.Description"));
 		beginParagraph();
 		String s=statistics.editModel.description;
-		if (s.trim().isEmpty()) addLine(Language.tr("Editor.GeneralData.Description.NoDescription")); else for (String line: s.split("\\n"))  addLine(line);
+		if (s.isBlank()) addLine(Language.tr("Editor.GeneralData.Description.NoDescription")); else for (String line: s.split("\\n"))  addLine(line);
 		endParagraph();
 
 		if (statistics.editModel.useClientCount) {
@@ -2275,8 +2275,8 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addLine(Language.tr("Statistics.SystemData.RunThreads")+": "+statistics.simulationData.runThreads);
 		if (statistics.simulationData.runRepeatCount>1) addLine(Language.tr("Statistics.SystemData.RepeatCount")+": "+NumberTools.formatLong(statistics.simulationData.runRepeatCount));
 		addLine(Language.tr("Statistics.SystemData.RunOS")+": "+statistics.simulationData.runOS);
-		if (statistics.editModel.author!=null && !statistics.editModel.author.trim().isEmpty()) addLine(Language.tr("Statistics.SystemData.EditUser")+": "+statistics.editModel.author);
-		if (statistics.editModel.authorEMail!=null && !statistics.editModel.authorEMail.trim().isEmpty()) addLine(Language.tr("Statistics.SystemData.EditUserEMail")+": "+statistics.editModel.authorEMail);
+		if (statistics.editModel.author!=null && !statistics.editModel.author.isBlank()) addLine(Language.tr("Statistics.SystemData.EditUser")+": "+statistics.editModel.author);
+		if (statistics.editModel.authorEMail!=null && !statistics.editModel.authorEMail.isBlank()) addLine(Language.tr("Statistics.SystemData.EditUserEMail")+": "+statistics.editModel.authorEMail);
 		addLine(Language.tr("Statistics.SystemData.RunUser")+": "+statistics.simulationData.runUser);
 		endParagraph();
 

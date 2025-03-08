@@ -67,7 +67,7 @@ public class JavaImportsDialog extends BaseDialog {
 
 		/* Eingabefeld */
 		String imports=SimDynamicSetup.defaultImports;
-		if (initalJavaImports!=null && !initalJavaImports.trim().isEmpty()) imports=initalJavaImports;
+		if (initalJavaImports!=null && !initalJavaImports.isBlank()) imports=initalJavaImports;
 		content.add(new JScrollPane(importsEdit=new JTextArea(imports)),BorderLayout.CENTER);
 
 		/* Dialog starten */

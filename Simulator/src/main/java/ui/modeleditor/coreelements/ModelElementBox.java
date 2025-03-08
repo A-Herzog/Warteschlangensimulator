@@ -759,7 +759,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		if (error!=null) return error;
 
 		if (Language.trAll("Surface.XML.BackgroundColor",name)) {
-			if (!content.trim().isEmpty()) {
+			if (!content.isBlank()) {
 				final Color color=EditModel.loadColor(content);
 				if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 				userBackgroundColor=color;
@@ -768,7 +768,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		}
 
 		if (Language.trAll("Surface.XML.BackgroundColor.Image",name)) {
-			if (!content.trim().isEmpty()) 	try {
+			if (!content.isBlank()) 	try {
 				final ByteArrayInputStream stream=new ByteArrayInputStream(Base64.getDecoder().decode(content));
 				final boolean useCache=ImageIO.getUseCache();
 				try {
@@ -1244,7 +1244,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		final EditModel model=getModel();
 		if (model==null || surface==null || shape==null) return;
 
-		if (name==null || name.trim().isEmpty()) {
+		if (name==null || name.isBlank()) {
 			shape.setAdditionalIcon(null);
 			lastAdditionalIcon=null;
 			return;
@@ -1265,7 +1265,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		final EditModel model=getModel();
 		if (model==null || surface==null || shape==null) return;
 
-		if (name==null || name.trim().isEmpty()) {
+		if (name==null || name.isBlank()) {
 			shape.setAdditionalIcon(null);
 			lastAdditionalIcon=null;
 			return;
@@ -1290,7 +1290,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		final EditModel model=getModel();
 		if (model==null || surface==null || shape==null) return;
 
-		if (name==null || name.trim().isEmpty()) {
+		if (name==null || name.isBlank()) {
 			shape.setAdditionalIcon(null);
 			lastAdditionalIcon=null;
 			return;
@@ -1330,7 +1330,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	private String getNameForReference() {
 		final StringBuilder sb=new StringBuilder();
 		sb.append(getTypeName());
-		if (!getName().trim().isEmpty()) {
+		if (!getName().isBlank()) {
 			sb.append(" \"");
 			sb.append(getName());
 			sb.append("\"");

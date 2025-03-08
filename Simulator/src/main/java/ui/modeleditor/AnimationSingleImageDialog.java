@@ -107,7 +107,7 @@ public class AnimationSingleImageDialog extends BaseDialog {
 
 		final String name=nameEdit.getText();
 
-		if (name.trim().isEmpty()) {
+		if (name.isBlank()) {
 			ok=false;
 			nameEdit.setBackground(Color.RED);
 			if (showErrorMessages) {

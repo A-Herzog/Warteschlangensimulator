@@ -121,7 +121,7 @@ public class ModelElementWayPoint extends ModelElementPosition {
 	 * @param icon	Namen des Icons, das in dem Element angezeigt werden soll
 	 */
 	public void setIcon(final String icon) {
-		if (icon==null || icon.trim().isEmpty()) this.icon=DEFAULT_ICON; else this.icon=icon;
+		if (icon==null || icon.isBlank()) this.icon=DEFAULT_ICON; else this.icon=icon;
 		final int[] size=imageSource.getNativeSize(this.icon,getModel().animationImages);
 		setSize(new Dimension(size[0],size[1]));
 	}

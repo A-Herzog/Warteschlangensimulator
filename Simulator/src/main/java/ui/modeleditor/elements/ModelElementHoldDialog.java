@@ -199,7 +199,7 @@ public class ModelElementHoldDialog extends ModelElementBaseDialog {
 		boolean ok=true;
 
 		final String text=condition.getText();
-		if (text.trim().isEmpty()) {
+		if (text.isBlank()) {
 			ok=false;
 			condition.setBackground(Color.RED);
 			if (showErrorMessage) {

@@ -101,7 +101,7 @@ public class DDETopicCalc extends DDETopic {
 	 * @return	Liefert im Erfolgsfall das Ergebnis als Zeichenkette und im Fehlerfall eine leere Zeichenkette
 	 */
 	private synchronized String calcExpression(final String expression) {
-		if (expression==null || expression.trim().isEmpty()) return "";
+		if (expression==null || expression.isBlank()) return "";
 		if (!(mainPanel.currentPanel instanceof AnimationPanel)) return "";
 
 		AnimationPanel animationPanel=(AnimationPanel)mainPanel.currentPanel;

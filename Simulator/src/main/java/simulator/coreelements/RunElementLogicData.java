@@ -39,7 +39,7 @@ public class RunElementLogicData extends RunElementData {
 	 */
 	public RunElementLogicData(final RunElement station, final String condition, final String[] variableNames, final SimulationData simData) {
 		super(station,simData);
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			this.condition=null;
 		} else {
 			this.condition=new ExpressionMultiEval(variableNames,simData.runModel.modelUserFunctions);

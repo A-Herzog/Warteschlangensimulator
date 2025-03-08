@@ -50,8 +50,8 @@ public class ScriptPopupItem {
 	 * @return	Popupmenü-Eintrag basierend auf den Daten, die dem Konstruktur übergeben wurden
 	 */
 	protected JMenuItem buildMenuItem() {
-		final JMenuItem item=(name==null || name.trim().isEmpty())?new JMenuItem():new JMenuItem(name.trim());
-		if (hint!=null && !hint.trim().isEmpty()) item.setToolTipText(hint.trim());
+		final JMenuItem item=(name==null || name.isBlank())?new JMenuItem():new JMenuItem(name.trim());
+		if (hint!=null && !hint.isBlank()) item.setToolTipText(hint.trim());
 		if (icon!=null) item.setIcon(icon);
 		return item;
 	}
@@ -61,8 +61,8 @@ public class ScriptPopupItem {
 	 * @return	Popupmenü-Untermenü-Eintrag basierend auf den Daten, die dem Konstruktur übergeben wurden
 	 */
 	protected JMenu buildMenu() {
-		final JMenu item=(name==null || name.trim().isEmpty())?new JMenu():new JMenu(name.trim());
-		if (hint!=null && !hint.trim().isEmpty()) item.setToolTipText(hint.trim());
+		final JMenu item=(name==null || name.isBlank())?new JMenu():new JMenu(name.trim());
+		if (hint!=null && !hint.isBlank()) item.setToolTipText(hint.trim());
 		if (icon!=null) item.setIcon(icon);
 		return item;
 	}

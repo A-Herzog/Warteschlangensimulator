@@ -323,7 +323,7 @@ public class ExpressionBuilder extends BaseDialog {
 			final Map<String,String[]> tempMap=new HashMap<>();
 			for (Map.Entry<Integer,String> entry: settings.stationNames.entrySet()) {
 				String title=entry.getValue();
-				if (title.trim().isEmpty()) continue;
+				if (title.isBlank()) continue;
 				if (group==null) group=new DefaultMutableTreeNode(Language.tr("ExpressionBuilder.SimulationCharacteristics.StationIDsByNames"));
 				String longTitle=settings.stations.get(entry.getKey());
 				if (longTitle==null) longTitle=title;
@@ -359,7 +359,7 @@ public class ExpressionBuilder extends BaseDialog {
 	 * @return	Wurzelelement der neuen Baumstruktur
 	 */
 	public static TreeNode buildTreeData(final String filter, final ExpressionBuilderSettings settings) {
-		final String filterUpper=(filter!=null && !filter.trim().isEmpty())?filter.trim().toUpperCase():null;
+		final String filterUpper=(filter!=null && !filter.isBlank())?filter.trim().toUpperCase():null;
 
 		final DefaultMutableTreeNode root=new DefaultMutableTreeNode();
 
@@ -663,7 +663,7 @@ public class ExpressionBuilder extends BaseDialog {
 			if (element instanceof ModelElementSub) {addStationNameIDs(map,((ModelElementSub)element).getSubSurface()); continue;}
 			if (element instanceof ModelElementBox) {
 				String name=element.getName();
-				if (name.trim().isEmpty()) continue;
+				if (name.isBlank()) continue;
 				map.put(element.getId(),name);
 			}
 		}

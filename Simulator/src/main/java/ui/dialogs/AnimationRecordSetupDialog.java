@@ -184,7 +184,7 @@ public class AnimationRecordSetupDialog extends BaseDialog {
 	private boolean checkData(final boolean showErrorMessages) {
 		boolean ok=true;
 
-		if (editVideo.getText().trim().isEmpty()) {
+		if (editVideo.getText().isBlank()) {
 			editVideo.setBackground(Color.RED);
 			ok=false;
 			if (showErrorMessages) {

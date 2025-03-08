@@ -297,7 +297,7 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 	 */
 	@Override
 	public String getColumn() {
-		if (startColumn==null || startColumn.trim().isEmpty()) return "A"; else return startColumn;
+		if (startColumn==null || startColumn.isBlank()) return "A"; else return startColumn;
 	}
 
 	/**
@@ -472,12 +472,12 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 			sub.setTextContent("0");
 		}
 
-		if (workbook!=null && !workbook.trim().isEmpty()) {
+		if (workbook!=null && !workbook.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.OutputDDE.XML.Workbook")));
 			sub.setTextContent(workbook);
 		}
 
-		if (table!=null && !table.trim().isEmpty()) {
+		if (table!=null && !table.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.OutputDDE.XML.Table")));
 			sub.setTextContent(table);
 		}
@@ -487,7 +487,7 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 			sub.setTextContent(""+startRow);
 		}
 
-		if (startColumn!=null && !startColumn.trim().isEmpty()) {
+		if (startColumn!=null && !startColumn.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.OutputDDE.XML.Column")));
 			sub.setTextContent(startColumn);
 		}
@@ -620,10 +620,10 @@ public class ModelElementOutputDDE extends ModelElementMultiInSingleOutBox imple
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDDE.Property"),value,1000);
 		}
 
-		if (workbook!=null && !workbook.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDDE.Workbook"),table,1000);
-		if (table!=null && !table.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDDE.Table"),table,2000);
+		if (workbook!=null && !workbook.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDDE.Workbook"),table,1000);
+		if (table!=null && !table.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDDE.Table"),table,2000);
 		if (startRow>0) descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDDE.StartRow"),""+startRow,3000);
-		if (startColumn!=null && !startColumn.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDDE.Column"),table,4000);
+		if (startColumn!=null && !startColumn.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDDE.Column"),table,4000);
 
 		if (!outputActive) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDDE.Active"),Language.tr("ModelDescription.OutputDDE.Active.Off"),10000);

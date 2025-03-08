@@ -422,7 +422,7 @@ public class ModelElementOutputDB extends ModelElementMultiInSingleOutBox implem
 
 		db.saveToXML(doc,node);
 
-		if (table!=null && !table.trim().isEmpty()) {
+		if (table!=null && !table.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.OutputDB.XML.Table")));
 			sub.setTextContent(table);
 		}
@@ -522,7 +522,7 @@ public class ModelElementOutputDB extends ModelElementMultiInSingleOutBox implem
 
 		db.buildDescription(descriptionBuilder,1000);
 
-		if (table!=null && !table.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDB.Table"),table,2000);
+		if (table!=null && !table.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputDB.Table"),table,2000);
 
 
 		final String[] modeDesciptions=getModeNameDescriptions();

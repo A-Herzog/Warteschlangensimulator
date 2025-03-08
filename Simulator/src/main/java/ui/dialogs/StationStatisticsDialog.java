@@ -384,7 +384,7 @@ public class StationStatisticsDialog extends BaseDialog {
 		 */
 		public void setForAll() {
 			String newValue=JOptionPane.showInputDialog(table,Language.tr("StationStatistics.MaxThroughputIntervalLength.SetForAllTitle"),"3600");
-			if (newValue==null || newValue.trim().isEmpty()) return;
+			if (newValue==null || newValue.isBlank()) return;
 			newValue=newValue.trim();
 
 			updateTable();

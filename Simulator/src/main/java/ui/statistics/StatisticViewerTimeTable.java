@@ -228,7 +228,7 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	 * @return	Ausgabe-Stationsname (ist nie <code>null</code>)
 	 */
 	private String fullStationName(final String statisticName) {
-		if (statisticName==null || statisticName.trim().isEmpty()) return "";
+		if (statisticName==null || statisticName.isBlank()) return "";
 		return statisticName;
 	}
 

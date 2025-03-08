@@ -202,7 +202,7 @@ public class DistributionBySubTypeEditor extends JPanel {
 			modeIcons.add(Images.MODELPROPERTIES_CLIENTS_GROUPS.getIcon());
 			for (String typ : subTypes) {
 				String icon=model.clientData.getIcon(typ);
-				if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
+				if (icon==null || icon.isBlank()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
 				modeIcons.add(imageSource.get(icon,model.animationImages,16));
 			}
 			subTypeSelect.setRenderer(new IconListCellRenderer(IconListCellRenderer.buildIconsList(this,modeIcons)));
@@ -409,7 +409,7 @@ public class DistributionBySubTypeEditor extends JPanel {
 	 * Prüft den eingegeben Rechenausdruck.
 	 */
 	private void checkExpression() {
-		if (expressionEdit.getText().trim().isEmpty()) {
+		if (expressionEdit.getText().isBlank()) {
 			expressionEdit.setBackground(Color.red);
 			return;
 		}

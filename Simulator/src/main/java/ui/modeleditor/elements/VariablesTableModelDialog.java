@@ -190,13 +190,13 @@ public class VariablesTableModelDialog extends BaseDialog {
 			optionTransfer.setSelected(expression.equals(ModelElementSetRecord.SPECIAL_TRANSFER));
 			optionProcess.setSelected(expression.equals(ModelElementSetRecord.SPECIAL_PROCESS));
 			optionResidence.setSelected(expression.equals(ModelElementSetRecord.SPECIAL_RESIDENCE));
-			if (optionExpression.isSelected()) this.expression.setText(expression.trim().isEmpty()?"0":expression);
+			if (optionExpression.isSelected()) this.expression.setText(expression.isBlank()?"0":expression);
 		} else {
 			optionWaiting=null;
 			optionTransfer=null;
 			optionProcess=null;
 			optionResidence=null;
-			this.expression.setText(expression.trim().isEmpty()?"0":expression);
+			this.expression.setText(expression.isBlank()?"0":expression);
 		}
 
 		if (askForValueOnStart!=null) {

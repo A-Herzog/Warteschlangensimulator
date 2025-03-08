@@ -115,7 +115,7 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 		source.priorityClientString=new String[runModel.clientTypes.length];
 		for (int i=0;i<source.priorityClientString.length;i++) {
 			String priorityString=sourceElement.getClientPriority(runModel.clientTypes[i]);
-			if (priorityString==null || priorityString.trim().isEmpty()) priorityString=ModelElementTransportTransporterSource.DEFAULT_CLIENT_PRIORITY;
+			if (priorityString==null || priorityString.isBlank()) priorityString=ModelElementTransportTransporterSource.DEFAULT_CLIENT_PRIORITY;
 			final ExpressionCalc calc=new ExpressionCalc(runModel.variableNames,runModel.modelUserFunctions);
 			err=calc.parse(priorityString);
 			if (err>=0) return String.format(Language.tr("Simulation.Creator.TransporterSourceClientPriority"),element.getId(),runModel.clientTypes[i],priorityString,err+1);

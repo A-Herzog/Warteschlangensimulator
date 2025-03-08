@@ -131,7 +131,7 @@ public class CommandServerWebFixed extends AbstractCommand {
 		final CalcWebServer server=new CalcWebServer(model);
 
 		/* Zugangsdaten */
-		if (authName!=null && !authName.trim().isEmpty() && authPassword!=null && !authPassword.trim().isEmpty()) {
+		if (authName!=null && !authName.isBlank() && authPassword!=null && !authPassword.isBlank()) {
 			server.setAuthData(Language.tr("SimulationServer.AuthRequestInfo"),authName,authPassword);
 		} else {
 			server.setAuthData(null,null,null);

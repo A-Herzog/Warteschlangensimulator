@@ -238,7 +238,7 @@ public class CompareSelectDialog extends BaseDialog  {
 		}
 
 		int nextFree=-1;
-		for (int i=0;i<statisticTextFields.length;i++) if (statisticTextFields[i].getText().trim().isEmpty()) {nextFree=i; break;}
+		for (int i=0;i<statisticTextFields.length;i++) if (statisticTextFields[i].getText().isBlank()) {nextFree=i; break;}
 		if (nextFree==-1) {
 			if (lastDrop==-1) nextFree=0; else {
 				if (lastDrop==statisticTextFields.length-1) nextFree=0; else nextFree=lastDrop+1;

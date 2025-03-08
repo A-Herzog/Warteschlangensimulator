@@ -70,7 +70,7 @@ public class RunElementRecordData extends RunElementData {
 		this.expression1=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 		this.expression1.parse(expression1);
 
-		if (expression2==null || expression2.trim().isEmpty()) {
+		if (expression2==null || expression2.isBlank()) {
 			this.expression2=null;
 		} else {
 			this.expression2=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);

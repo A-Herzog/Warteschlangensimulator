@@ -456,17 +456,17 @@ public class ModelElementInputDB extends ModelElementMultiInSingleOutBox impleme
 
 		db.saveToXML(doc,node);
 
-		if (table!=null && !table.trim().isEmpty()) {
+		if (table!=null && !table.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.InputDB.XML.Table")));
 			sub.setTextContent(table);
 		}
 
-		if (loadColumn!=null && !loadColumn.trim().isEmpty()) {
+		if (loadColumn!=null && !loadColumn.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.InputDB.XML.LoadColumn")));
 			sub.setTextContent(loadColumn);
 		}
 
-		if (sortColumn!=null && !sortColumn.trim().isEmpty()) {
+		if (sortColumn!=null && !sortColumn.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.InputDB.XML.SortColumn")));
 			String sortModeString=null;
 			switch (sortMode) {
@@ -591,10 +591,10 @@ public class ModelElementInputDB extends ModelElementMultiInSingleOutBox impleme
 
 		db.buildDescription(descriptionBuilder,1000);
 
-		if (table!=null && !table.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDB.Table"),table,2000);
-		if (loadColumn!=null && !loadColumn.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDB.ColumnLoad"),loadColumn,3000);
+		if (table!=null && !table.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDB.Table"),table,2000);
+		if (loadColumn!=null && !loadColumn.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDB.ColumnLoad"),loadColumn,3000);
 
-		if (sortColumn!=null && !sortColumn.trim().isEmpty()) {
+		if (sortColumn!=null && !sortColumn.isBlank()) {
 			final String dir;
 			switch (sortMode) {
 			case ASCENDING: dir=Language.tr("ModelDescription.InputDB.ColumnSort.Ascending"); break;
@@ -621,7 +621,7 @@ public class ModelElementInputDB extends ModelElementMultiInSingleOutBox impleme
 		}
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDB.EOFMode"),modeInfo,5000);
 
-		if (!variable.trim().isEmpty()) {
+		if (!variable.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDB.Variable"),variable,6000);
 		}
 	}

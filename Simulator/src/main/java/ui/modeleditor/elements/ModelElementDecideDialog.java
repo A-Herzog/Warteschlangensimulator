@@ -102,7 +102,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 			String name;
 			if (edgeEnd instanceof ModelElementBox) {
 				name=((ModelElementBox)edgeEnd).getTypeName();
-				if (!edgeEnd.getName().trim().isEmpty()) name+=" \""+edgeEnd.getName()+"\"";
+				if (!edgeEnd.getName().isBlank()) name+=" \""+edgeEnd.getName()+"\"";
 			} else {
 				name=edgeEnd.getName();
 			}

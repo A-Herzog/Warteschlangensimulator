@@ -78,7 +78,7 @@ public class RunElementDisposeWithTable extends RunElement {
 		/* Tabellendatei zum Speichern der Kunden */
 		final String tableFileName=disposeElement.getOutputFile();
 
-		if (tableFileName==null || tableFileName.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoOutputFile"),element.getId());
+		if (tableFileName==null || tableFileName.isBlank()) return String.format(Language.tr("Simulation.Creator.NoOutputFile"),element.getId());
 		dispose.clientsOutputTable=new File(tableFileName.trim());
 
 		dispose.csvMode=tableFileName.trim().toLowerCase().endsWith(".csv");
@@ -92,7 +92,7 @@ public class RunElementDisposeWithTable extends RunElement {
 
 		final ModelElementDisposeWithTable dispose=(ModelElementDisposeWithTable)element;
 
-		if (dispose.getOutputFile().trim().isEmpty()) return RunModelCreatorStatus.noOutputFile(element);
+		if (dispose.getOutputFile().isBlank()) return RunModelCreatorStatus.noOutputFile(element);
 
 		return RunModelCreatorStatus.ok;
 	}

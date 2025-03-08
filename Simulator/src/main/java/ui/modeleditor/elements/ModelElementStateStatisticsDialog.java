@@ -104,7 +104,7 @@ public class ModelElementStateStatisticsDialog extends ModelElementBaseDialog {
 	private boolean checkData(final boolean showErrorMessage) {
 		if (readOnly) return false;
 
-		if (groupName.getText().trim().isEmpty()) {
+		if (groupName.getText().isBlank()) {
 			groupName.setBackground(Color.red);
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.StateStatistics.Dialog.GroupName.Error.Title"),Language.tr("Surface.StateStatistics.Dialog.GroupName.Error.Info"));
 			return false;

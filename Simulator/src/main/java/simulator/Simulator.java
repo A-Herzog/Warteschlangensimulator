@@ -346,7 +346,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	private void writeBaseDataToStatistics(final Statistics statistics) {
 		statistics.editModel=editModel.clone();
 		statistics.editModel.version=EditModel.systemVersion;
-		if (statistics.editModel.author==null || statistics.editModel.author.trim().isEmpty()) statistics.editModel.author=EditModel.getDefaultAuthor();
+		if (statistics.editModel.author==null || statistics.editModel.author.isBlank()) statistics.editModel.author=EditModel.getDefaultAuthor();
 
 		statistics.simulationData.runUser=EditModel.getDefaultAuthor();
 		statistics.simulationData.runTime=runTime;

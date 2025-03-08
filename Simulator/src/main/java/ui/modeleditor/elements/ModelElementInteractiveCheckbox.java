@@ -521,7 +521,7 @@ public class ModelElementInteractiveCheckbox extends ModelElementPosition implem
 
 	@Override
 	public String[] getVariables() {
-		if (variable==null || variable.trim().isEmpty()) return new String[0]; else return new String[]{variable.trim()};
+		if (variable==null || variable.isBlank()) return new String[0]; else return new String[]{variable.trim()};
 	}
 
 	/**

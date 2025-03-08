@@ -127,7 +127,7 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 			break;
 		case TEXT:
 			match.matchPropertyString=matchElement.getMatchPropertyString();
-			if (match.matchPropertyString.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.InvalidMatchPropertyText"),element.getId());
+			if (match.matchPropertyString.isBlank()) return String.format(Language.tr("Simulation.Creator.InvalidMatchPropertyText"),element.getId());
 			break;
 
 		}
@@ -143,7 +143,7 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 
 		/* Bedingung */
 		final String condition=matchElement.getCondition();
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			match.condition=null;
 		} else {
 			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);

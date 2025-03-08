@@ -127,7 +127,7 @@ public class ModelElementBalkingDialog extends ModelElementBaseDialog {
 		final AnimationImageSource imageSource=new AnimationImageSource();
 		for (int i=1;i<clientNames.length;i++) {
 			String icon=element.getModel().clientData.getIcon(clientNames[i]);
-			if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
+			if (icon==null || icon.isBlank()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
 			clientIcons[i]=imageSource.get(icon,element.getModel().animationImages,16);
 		}
 

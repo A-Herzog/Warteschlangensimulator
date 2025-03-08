@@ -168,7 +168,7 @@ public class ModelElementBalkingData {
 	 * @param newName	Neuer Kundentyp-Namen
 	 */
 	public void renameClientType(final String oldName, final String newName) {
-		if (oldName==null || oldName.trim().isEmpty() || newName==null || newName.trim().isEmpty()) return;
+		if (oldName==null || oldName.isBlank() || newName==null || newName.isBlank()) return;
 		if (clientType==null) return;
 		if (clientType.equalsIgnoreCase(oldName)) clientType=newName;
 	}
@@ -244,7 +244,7 @@ public class ModelElementBalkingData {
 		}
 
 		final String type=Language.trAllAttribute("Surface.Balking.XML.Expression.ClientType",node);
-		if (type!=null && !type.trim().isEmpty()) clientType=type;
+		if (type!=null && !type.isBlank()) clientType=type;
 
 		return null;
 	}
@@ -257,13 +257,13 @@ public class ModelElementBalkingData {
 	 */
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder, final int level) {
 		if (expression==null) {
-			if (clientType==null || clientType.trim().isEmpty()) {
+			if (clientType==null || clientType.isBlank()) {
 				descriptionBuilder.addProperty(Language.tr("ModelDescription.Balking.Probability"),NumberTools.formatPercent(probability),level);
 			} else {
 				descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.Balking.ProbabilityClientType"),clientType),NumberTools.formatPercent(probability),level);
 			}
 		} else {
-			if (clientType==null || clientType.trim().isEmpty()) {
+			if (clientType==null || clientType.isBlank()) {
 				descriptionBuilder.addProperty(Language.tr("ModelDescription.Balking.Expression"),expression,level);
 			} else {
 				descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.Balking.ExpressionClientType"),clientType),expression,level);
@@ -279,13 +279,13 @@ public class ModelElementBalkingData {
 	 */
 	public void search(final FullTextSearch searcher, final ModelElementBox station) {
 		if (expression!=null) {
-			if (clientType==null || clientType.trim().isEmpty()) {
+			if (clientType==null || clientType.isBlank()) {
 				searcher.testString(station,Language.tr("Editor.DialogBase.Search.BalkingExpressionGlobal"),expression,newExpression->{expression=newExpression;});
 			} else {
 				searcher.testString(station,String.format(Language.tr("Editor.DialogBase.Search.BalkingExpressionClientType"),clientType),expression,newExpression->{expression=newExpression;});
 			}
 		} else {
-			if (clientType==null || clientType.trim().isEmpty()) {
+			if (clientType==null || clientType.isBlank()) {
 				searcher.testDouble(station,Language.tr("Editor.DialogBase.Search.BalkingProbabilityGlobal"),probability,newProbability->{if (newProbability>=0) probability=newProbability;});
 			} else {
 				searcher.testDouble(station,String.format(Language.tr("Editor.DialogBase.Search.BalkingProbabilityClientType"),clientType),probability,newProbability->{if (newProbability>=0) probability=newProbability;});

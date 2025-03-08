@@ -58,7 +58,7 @@ public class FilePathHelper {
 		}
 
 		/* Pfade im Modell als solches */
-		if (model.pluginsFolder!=null && !model.pluginsFolder.trim().isEmpty()) {
+		if (model.pluginsFolder!=null && !model.pluginsFolder.isBlank()) {
 			final String oldPluginsFolder=model.pluginsFolder.trim();
 			final String newPluginsFolder=checkInputFolder(oldPluginsFolder,modelFile);
 			if (!newPluginsFolder.equals(oldPluginsFolder)) {

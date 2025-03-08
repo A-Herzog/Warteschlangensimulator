@@ -89,7 +89,7 @@ public class RunElementDelayJS extends RunElementPassThrough implements DelayWit
 
 		/* Kosten */
 		final String text=delayElement.getCosts();
-		if (text==null || text.trim().isEmpty()  || text.trim().equals("0")) {
+		if (text==null || text.isBlank()  || text.trim().equals("0")) {
 			delay.costs=null;
 		} else {
 			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
@@ -113,7 +113,7 @@ public class RunElementDelayJS extends RunElementPassThrough implements DelayWit
 		if (edgeError!=null) return edgeError;
 
 		/* Skript */
-		if (delayElement.getScript().trim().isEmpty()) {
+		if (delayElement.getScript().isBlank()) {
 			return RunModelCreatorStatus.noScript(element);
 		}
 

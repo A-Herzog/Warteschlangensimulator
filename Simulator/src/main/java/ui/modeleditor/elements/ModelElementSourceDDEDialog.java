@@ -148,7 +148,7 @@ public class ModelElementSourceDDEDialog extends ModelElementBaseDialog {
 			if (showErrorMessages) return false;
 		}
 
-		if (clientsEdit.getText().trim().isEmpty()) {
+		if (clientsEdit.getText().isBlank()) {
 			clientsEdit.setBackground(Color.RED);
 			ok=false;
 			if (showErrorMessages) {
@@ -178,6 +178,6 @@ public class ModelElementSourceDDEDialog extends ModelElementBaseDialog {
 		final String s=clientsEdit.getText().trim();
 		final String[] lines=s.split("\n");
 		source.getClientTypeNames().clear();
-		for (String line: lines) if (!line.trim().isEmpty()) source.getClientTypeNames().add(line.trim());
+		for (String line: lines) if (!line.isBlank()) source.getClientTypeNames().add(line.trim());
 	}
 }

@@ -736,7 +736,7 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationDiagram.XML.Labels"));
 		node.appendChild(sub);
 		sub.setTextContent(""+yAxisLabels.nr);
-		if (!axisLabelText.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.LabelText"),axisLabelText);
+		if (!axisLabelText.isBlank()) sub.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.LabelText"),axisLabelText);
 	}
 
 	/**

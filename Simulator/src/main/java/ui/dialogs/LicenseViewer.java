@@ -227,7 +227,7 @@ public class LicenseViewer extends BaseDialog{
 		final JPanel panel=new JPanel(new BorderLayout());
 
 		panel.add(new JScrollPane(viewer),BorderLayout.CENTER);
-		if (headerText!=null && !headerText.trim().isEmpty()) {
+		if (headerText!=null && !headerText.isBlank()) {
 			if (withHyperlink) {
 				panel.add(getTextPane(headerText),BorderLayout.NORTH);
 			} else {

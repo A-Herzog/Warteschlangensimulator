@@ -116,7 +116,7 @@ public abstract class ParameterCompareSetupBase {
 	 * @param node	XML-Knoten für das Element
 	 */
 	protected void addPropertiesToXML(Document doc, Element node) {
-		if (name!=null && !name.trim().isEmpty()) {
+		if (name!=null && !name.isBlank()) {
 			final Element sub=doc.createElement(Language.tr("ParameterCompare.XML.Name"));
 			node.appendChild(sub);
 			sub.setTextContent(name);

@@ -140,7 +140,7 @@ public class GraphVizExport {
 		output.add("  node [fontname=\"Sans-Serif\"]");
 		output.add("  edge [fontname=\"Sans-Serif\", fontsize=9.0]");
 
-		if (!model.name.trim().isEmpty()) {
+		if (!model.name.isBlank()) {
 			output.add("");
 			output.add("  label=<"+encodeText(model.name.trim())+">");
 			output.add("  fontname=\"Sans-Serif\"");

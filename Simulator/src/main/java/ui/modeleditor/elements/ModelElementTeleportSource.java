@@ -198,7 +198,7 @@ public class ModelElementTeleportSource extends ModelElementBox implements Model
 	 */
 	@Override
 	protected String getErrorMessage() {
-		if (destination==null || destination.trim().isEmpty()) return Language.tr("Surface.ErrorInfo.NoTeleportDestination");
+		if (destination==null || destination.isBlank()) return Language.tr("Surface.ErrorInfo.NoTeleportDestination");
 
 		return null;
 	}
@@ -219,7 +219,7 @@ public class ModelElementTeleportSource extends ModelElementBox implements Model
 	 */
 	@Override
 	protected String getInfoMessage() {
-		if (destination==null || destination.trim().isEmpty()) return null;
+		if (destination==null || destination.isBlank()) return null;
 		return "\u2192 "+destination;
 	}
 
@@ -429,7 +429,7 @@ public class ModelElementTeleportSource extends ModelElementBox implements Model
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		if (destination!=null && !destination.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.TeleportSource.Destination"),destination,100000);
+		if (destination!=null && !destination.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.TeleportSource.Destination"),destination,100000);
 	}
 
 	@Override

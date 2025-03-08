@@ -116,7 +116,7 @@ public class RunElementBarrier extends RunElementPassThrough implements SignalLi
 			if (barrier.needAllSignalsToRelease && !barrier.storeSignals[i]) return String.format(Language.tr("Simulation.Creator.NeedAllSignalsToRelease.StoreSignalsNeeded"),element.getId());
 
 			final String type=option.getClientType();
-			if (type==null || type.trim().isEmpty()) {
+			if (type==null || type.isBlank()) {
 				barrier.clientType[i]=-1;
 			} else {
 				barrier.clientType[i]=runModel.getClientTypeNr(type);

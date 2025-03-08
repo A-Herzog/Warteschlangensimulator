@@ -620,7 +620,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	 */
 	public static String getDefaultAuthor() {
 		final SetupData setup=SetupData.getSetup();
-		if (setup.defaultUserName!=null && !setup.defaultUserName.trim().isEmpty()) return setup.defaultUserName;
+		if (setup.defaultUserName!=null && !setup.defaultUserName.isBlank()) return setup.defaultUserName;
 		return SetupBase.getDisplayUserName();
 	}
 
@@ -630,7 +630,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	 */
 	public static String getDefaultAuthorEMail() {
 		final SetupData setup=SetupData.getSetup();
-		if (setup.defaultUserEMail!=null && !setup.defaultUserEMail.trim().isEmpty()) return setup.defaultUserEMail;
+		if (setup.defaultUserEMail!=null && !setup.defaultUserEMail.isBlank()) return setup.defaultUserEMail;
 		return "";
 	}
 
@@ -880,7 +880,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	 * @see #saveColor(Color)
 	 */
 	public static Color loadColor(final String content) {
-		if (content==null || content.trim().isEmpty()) return null;
+		if (content==null || content.isBlank()) return null;
 		final String[] parts=content.split(",");
 		Integer C1=null, C2=null, C3=null;
 		if (parts.length==3) {
@@ -937,7 +937,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			if (L==null || L==0) return String.format(Language.tr("Surface.Model.ErrorClients"),text);
 			clientCount=L;
 			final String s=Language.trAllAttribute("Surface.XML.Active",node);
-			useClientCount=!s.trim().isEmpty() && !s.equals("0");
+			useClientCount=!s.isBlank() && !s.equals("0");
 			return null;
 		}
 		if (Language.trAll("Surface.XML.ModelWarmUpPhase",name)) {
@@ -961,13 +961,13 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (Language.trAll("Surface.XML.ModelTerminationCondition",name)) {
 			terminationCondition=text;
 			final String s=Language.trAllAttribute("Surface.XML.Active",node);
-			useTerminationCondition=!s.trim().isEmpty() && !s.equals("0");
+			useTerminationCondition=!s.isBlank() && !s.equals("0");
 			return null;
 		}
 		if (Language.trAll("Surface.XML.ModelTerminationTime",name)) {
 			finishTime=TimeTools.getTime(text);
 			final String s=Language.trAllAttribute("Surface.XML.Active",node);
-			useFinishTime=!s.trim().isEmpty() && !s.equals("0");
+			useFinishTime=!s.isBlank() && !s.equals("0");
 			return null;
 		}
 		if (Language.trAll("Surface.XML.ModelTerminationConfidence",name)) {
@@ -978,7 +978,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			if (level==null || level>=1) return String.format(Language.tr("Surface.Model.ErrorTerminationConfidenceLevel"),Language.trAllAttribute("Surface.XML.Level",node));
 
 			final String s=Language.trAllAttribute("Surface.XML.Active",node);
-			useFinishConfidence=!s.trim().isEmpty() && !s.equals("0");
+			useFinishConfidence=!s.isBlank() && !s.equals("0");
 			if (useFinishConfidence) {
 				finishConfidenceHalfWidth=halfWidth;
 				finishConfidenceLevel=level;
@@ -991,7 +991,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 			if (L==null) return String.format(Language.tr("Surface.Model.ErrorSeed"),text);
 			fixedSeed=L;
 			final String s=Language.trAllAttribute("Surface.XML.Active",node);
-			useFixedSeed=!s.trim().isEmpty() && !s.equals("0");
+			useFixedSeed=!s.isBlank() && !s.equals("0");
 			return null;
 		}
 
@@ -1264,24 +1264,24 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (Language.trAll("Surface.XML.PathRecording",name)) {
 			String s;
 			s=Language.trAllAttribute("Surface.XML.PathRecording.StationTransitions",node);
-			recordStationTransitions=!s.trim().isEmpty() && !s.equals("0");
+			recordStationTransitions=!s.isBlank() && !s.equals("0");
 			s=Language.trAllAttribute("Surface.XML.PathRecording.ClientPaths",node);
-			recordClientPaths=!s.trim().isEmpty() && !s.equals("0");
+			recordClientPaths=!s.isBlank() && !s.equals("0");
 			return null;
 		}
 
 		if (Language.trAll("Surface.XML.RecordStationTotalClientTimes",name)) {
-			recordStationTotalClientTimes=!text.trim().isEmpty() && !text.equals("0");
+			recordStationTotalClientTimes=!text.isBlank() && !text.equals("0");
 			return null;
 		}
 
 		if (Language.trAll("Surface.XML.RecordClientTextData",name)) {
-			recordClientTextData=!text.trim().isEmpty() && !text.equals("0");
+			recordClientTextData=!text.isBlank() && !text.equals("0");
 			return null;
 		}
 
 		if (Language.trAll("Surface.XML.RecordIncompleteClients",name)) {
-			recordIncompleteClients=!text.trim().isEmpty() && !text.equals("0");
+			recordIncompleteClients=!text.isBlank() && !text.equals("0");
 			return null;
 		}
 
@@ -1554,13 +1554,13 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		modelLoadData.addDataToXML(doc,node);
 
-		if (pluginsFolder!=null && !pluginsFolder.trim().isEmpty()) {
+		if (pluginsFolder!=null && !pluginsFolder.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.PluginsFolder")));
 			sub.setTextContent(pluginsFolder);
 			if (pluginsFolderAllowClassLoad) sub.setAttribute(Language.trPrimary("Surface.XML.PluginsFolder.AllowClassLoading"),"1");
 		}
 
-		if (javaImports!=null && !javaImports.trim().isEmpty()) {
+		if (javaImports!=null && !javaImports.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.JavaImports")));
 			sub.setTextContent(javaImports);
 		}
@@ -1672,7 +1672,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		}
 
 		/* Abbruchbedingung eingestellt */
-		if (useTerminationCondition && !terminationCondition.trim().isEmpty()) {
+		if (useTerminationCondition && !terminationCondition.isBlank()) {
 			reasons.add(Language.tr("Surface.SingleCoreReason.TerminalConditionUsed"));
 		}
 

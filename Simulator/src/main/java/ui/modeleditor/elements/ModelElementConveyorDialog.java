@@ -298,7 +298,7 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 		/* Kapazität - Benötigt individuell */
 		for (int i=0;i<capacityNeeded.size();i++) {
 			final JTextField field=capacityNeeded.get(i);
-			if (field.getText().trim().isEmpty()) {
+			if (field.getText().isBlank()) {
 				field.setBackground(NumberTools.getTextFieldDefaultBackground());
 			} else {
 				error=ExpressionCalc.check(field.getText(),variables,userFunctions);

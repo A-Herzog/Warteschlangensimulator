@@ -216,7 +216,7 @@ public class QueueingCalculatorInputPanel {
 		line.add(field=new JTextField(value,15));
 		ModelElementBaseDialog.addUndoFeature(field);
 		final String infoText=records.get(lastFieldType).info;
-		line.add(info=new JLabel((infoText!=null && !infoText.trim().isEmpty())?"<html><body>("+infoText+")</body></html>":""));
+		line.add(info=new JLabel((infoText!=null && !infoText.isBlank())?"<html><body>("+infoText+")</body></html>":""));
 
 		field.addActionListener(e->changeListener.run());
 		field.addKeyListener(new KeyAdapter() {
@@ -259,7 +259,7 @@ public class QueueingCalculatorInputPanel {
 				}
 			}
 			final Record record=records.get(newFieldType);
-			if (record.info==null || record.info.trim().isEmpty()) {
+			if (record.info==null || record.info.isBlank()) {
 				info.setText("");
 			} else {
 				info.setText("<html><body>("+record.info+")</body></html>");

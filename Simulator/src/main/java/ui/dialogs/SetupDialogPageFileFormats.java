@@ -317,7 +317,7 @@ public class SetupDialogPageFileFormats extends SetupDialogPage {
 	private String selectFolder(final String title, final String oldFolder) {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
-		if (oldFolder!=null && !oldFolder.trim().isEmpty() && new File(oldFolder).isDirectory()) {
+		if (oldFolder!=null && !oldFolder.isBlank() && new File(oldFolder).isDirectory()) {
 			fc.setCurrentDirectory(new File(oldFolder));
 		}
 		fc.setDialogTitle(title);
@@ -366,11 +366,11 @@ public class SetupDialogPageFileFormats extends SetupDialogPage {
 		}
 		useBackupFiles.setSelected(setup.useBackupFiles);
 
-		if (setup.customExcelRowName!=null && !setup.customExcelRowName.trim().isEmpty()) excelRow.setText(setup.customExcelRowName.trim());
-		if (setup.customExcelColName!=null && !setup.customExcelColName.trim().isEmpty()) excelCol.setText(setup.customExcelColName.trim());
+		if (setup.customExcelRowName!=null && !setup.customExcelRowName.isBlank()) excelRow.setText(setup.customExcelRowName.trim());
+		if (setup.customExcelColName!=null && !setup.customExcelColName.isBlank()) excelCol.setText(setup.customExcelColName.trim());
 
 		imageSize.setText(""+Math.min(5000,Math.max(50,setup.imageSize)));
-		if (setup.imagePathAnimation==null || setup.imagePathAnimation.trim().isEmpty()) {
+		if (setup.imagePathAnimation==null || setup.imagePathAnimation.isBlank()) {
 			imagesAnimationHome.setSelected(true);
 		} else {
 			imagesAnimationFolder.setSelected(true);

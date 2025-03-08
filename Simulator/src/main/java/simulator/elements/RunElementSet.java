@@ -104,7 +104,7 @@ public class RunElementSet extends RunElementPassThrough {
 
 		/* Optionale Bedingung */
 		final String condition=setElement.getCondition();
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			set.condition=null;
 		} else {
 			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);

@@ -122,7 +122,7 @@ public class StartAnySimulator {
 	public static Object[] getServerSetup() {
 		final SetupData setup=SetupData.getSetup();
 		if (!setup.serverUse) return null;
-		if (setup.serverData==null || setup.serverData.trim().isEmpty()) return null;
+		if (setup.serverData==null || setup.serverData.isBlank()) return null;
 
 		final String[] parts=setup.serverData.split(":");
 		if (parts.length<2 || parts.length>3) return null;

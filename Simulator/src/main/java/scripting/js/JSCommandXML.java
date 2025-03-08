@@ -736,7 +736,7 @@ public class JSCommandXML extends JSBaseCommand {
 	 * @return	Zugehörige ID oder -1, wenn keine passende Station gefunden wurde
 	 */
 	public int getStationID(final String name) {
-		if (name==null || name.trim().isEmpty()) return -1;
+		if (name==null || name.isBlank()) return -1;
 
 		if (model==null) model=getModelFromXml(xml);
 

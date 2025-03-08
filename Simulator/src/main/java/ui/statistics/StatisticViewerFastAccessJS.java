@@ -200,7 +200,7 @@ public class StatisticViewerFastAccessJS extends StatisticViewerFastAccessBase {
 		setup.filterJavascript=text;
 		setup.saveSetupWithWarning(null);
 
-		if (text.trim().isEmpty()) {
+		if (text.isBlank()) {
 			lastInterpretedFilterResult="";
 			setResults(lastInterpretedFilterResult);
 		} else {

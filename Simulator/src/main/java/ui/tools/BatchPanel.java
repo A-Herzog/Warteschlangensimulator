@@ -137,7 +137,7 @@ public class BatchPanel extends SpecialPanel {
 		line.add(folderButton=new JButton(Images.GENERAL_SELECT_FOLDER.getIcon()),BorderLayout.EAST);
 		folderButton.addActionListener(e->commandSelectFolder());
 		folderButton.setToolTipText(Language.tr("BatchPanel.Directory.Hint"));
-		if (setupData.batchFolder.trim().isEmpty()) folderEdit.setText(System.getProperty("user.home")+"\\Desktop"); else folderEdit.setText(setupData.batchFolder);
+		if (setupData.batchFolder.isBlank()) folderEdit.setText(System.getProperty("user.home")+"\\Desktop"); else folderEdit.setText(setupData.batchFolder);
 
 		/* Modus */
 
@@ -246,7 +246,7 @@ public class BatchPanel extends SpecialPanel {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
 		final String oldFolder=folderEdit.getText().trim();
-		if (!oldFolder.trim().isEmpty() && new File(oldFolder).isDirectory()) fc.setCurrentDirectory(new File(oldFolder));
+		if (!oldFolder.isBlank() && new File(oldFolder).isDirectory()) fc.setCurrentDirectory(new File(oldFolder));
 		fc.setDialogTitle(Language.tr("BatchPanel.Directory.Caption"));
 		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		if (fc.showOpenDialog(this)!=JFileChooser.APPROVE_OPTION) return;
@@ -346,7 +346,7 @@ public class BatchPanel extends SpecialPanel {
 				MsgBox.error(this,Language.tr("BatchPanel.Script.ErrorTitle"),String.format(Language.tr("BatchPanel.Script.ErrorInfo"),scriptEdit.getText()));
 				return null;
 			}
-			if (resultsEdit.getText().trim().isEmpty()) {
+			if (resultsEdit.getText().isBlank()) {
 				MsgBox.error(this,Language.tr("BatchPanel.ResultsFile.ErrorTitle"),Language.tr("BatchPanel.ResultsFile.ErrorInfo"));
 				return null;
 			}

@@ -504,7 +504,7 @@ public class RunModel {
 	 */
 	private static String initGeneralData(final EditModel editModel, final String modelPath, final RunModel runModel) {
 		/* Auch Modelle ohne explizites Ende-Kriterium zulassen. In ModelPropertiesDialogPageSimulation erfolgt hierzu eine Warnung. */
-		/* if (!editModel.useClientCount && !editModel.useFinishTime && !(editModel.useTerminationCondition && !editModel.terminationCondition.trim().isEmpty()) && !editModel.useFinishConfidence) return Language.tr("Simulation.Creator.NoEndCriteria"); */
+		/* if (!editModel.useClientCount && !editModel.useFinishTime && !(editModel.useTerminationCondition && !editModel.terminationCondition.isBlank()) && !editModel.useFinishConfidence) return Language.tr("Simulation.Creator.NoEndCriteria"); */
 
 		/* Simulationszeiteinheit */
 		runModel.scaleToSimTime=editModel.timeStepsPerSecond;
@@ -668,7 +668,7 @@ public class RunModel {
 		runModel.realArrivingClientCount=getArrivingRealClientCount(runModel);
 
 		/* Abbruchbedingung */
-		if (editModel.useTerminationCondition && !editModel.terminationCondition.trim().isEmpty()) {
+		if (editModel.useTerminationCondition && !editModel.terminationCondition.isBlank()) {
 			runModel.terminationCondition=new ExpressionMultiEval(runModel.variableNames,editModel.userFunctions);
 			final int error=runModel.terminationCondition.parse(editModel.terminationCondition);
 			if (error>=0) return String.format(Language.tr("Simulation.Creator.InvalidTerminationCondition"),editModel.terminationCondition,error+1);

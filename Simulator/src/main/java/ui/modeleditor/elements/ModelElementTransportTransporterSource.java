@@ -409,7 +409,7 @@ public class ModelElementTransportTransporterSource extends ModelElementBox impl
 	@Override
 	protected String getErrorMessage() {
 		final String defaultStation=transportTargetSystem.getDefaultStation();
-		if (defaultStation==null || defaultStation.trim().isEmpty()) return Language.tr("Surface.ErrorInfo.NoDefaultDestination");
+		if (defaultStation==null || defaultStation.isBlank()) return Language.tr("Surface.ErrorInfo.NoDefaultDestination");
 
 		if (transporterType.isEmpty()) return Language.tr("Surface.ErrorInfo.NoTransporterTypeSelected");
 		for (String name: getModel().transporters.getNames()) if (name.equalsIgnoreCase(transporterType)) return null;
@@ -801,7 +801,7 @@ public class ModelElementTransportTransporterSource extends ModelElementBox impl
 		/* Prioritäten */
 		for (String clientTypeName: descriptionBuilder.getClientTypes()) {
 			String priority=clientPriority.get(clientTypeName);
-			if (priority==null || priority.trim().isEmpty()) priority=DEFAULT_CLIENT_PRIORITY;
+			if (priority==null || priority.isBlank()) priority=DEFAULT_CLIENT_PRIORITY;
 			descriptionBuilder.addProperty(String.format(Language.tr("ModelDescription.TransportTransporterSource.ClientPriority"),clientTypeName),priority,6000);
 		}
 
@@ -809,7 +809,7 @@ public class ModelElementTransportTransporterSource extends ModelElementBox impl
 		transportTargetSystem.buildDescriptionProperty(descriptionBuilder);
 
 		/* Bereich verlassen */
-		if (sectionStartName!=null && !sectionStartName.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.TransportTransporterSource.SectionStartName"),sectionStartName,100000);
+		if (sectionStartName!=null && !sectionStartName.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.TransportTransporterSource.SectionStartName"),sectionStartName,100000);
 	}
 
 	@Override

@@ -301,7 +301,7 @@ public class SimpleGitWorker implements Closeable {
 	 */
 	public boolean initRemote(final String remoteURL, final String remoteName, final String remotePassword) {
 		if (this.remoteName!=null || this.keyFile!=null) return true;
-		if (remoteName==null || remoteName.trim().isEmpty() || remotePassword==null || remotePassword.trim().isEmpty()) return false;
+		if (remoteName==null || remoteName.isBlank() || remotePassword==null || remotePassword.isBlank()) return false;
 
 		if (!initRemote(remoteURL)) return false;
 
@@ -397,7 +397,7 @@ public class SimpleGitWorker implements Closeable {
 	 */
 	public boolean checkoutBranch(final String branchName) {
 		if (git==null) return false;
-		if (branchName==null || branchName.trim().isEmpty()) return false;
+		if (branchName==null || branchName.isBlank()) return false;
 
 		try {
 			final CheckoutCommand checkout=git.checkout();
@@ -418,7 +418,7 @@ public class SimpleGitWorker implements Closeable {
 	 */
 	public boolean createBranch(final String branchShortName) {
 		if (git==null) return false;
-		if (branchShortName==null || branchShortName.trim().isEmpty() || branchShortName.contains("/")) return false;
+		if (branchShortName==null || branchShortName.isBlank() || branchShortName.contains("/")) return false;
 
 		try {
 			git.branchCreate().setName(branchShortName).call();
@@ -540,7 +540,7 @@ public class SimpleGitWorker implements Closeable {
 	@SuppressWarnings("resource") /* Das Repository wird über git.close() und damit über close() dieses Objektes geschlossen. */
 	public Status mergeOtherBranchToCurrent(final String branchName, final String message) {
 		if (git==null) return Status.NOT_INIT;
-		if (branchName==null || branchName.trim().isEmpty()) return Status.NO_FILES;
+		if (branchName==null || branchName.isBlank()) return Status.NO_FILES;
 
 		final Repository repository=git.getRepository();
 
@@ -706,7 +706,7 @@ public class SimpleGitWorker implements Closeable {
 	@SuppressWarnings("resource") /* Das Repository wird über git.close() und damit über close() dieses Objektes geschlossen. */
 	public Status pushBranch(final String branchName, final boolean force) {
 		if (git==null || (remoteName==null && keyFile==null)) return Status.NOT_INIT;
-		if (branchName==null || branchName.trim().isEmpty()) return Status.NO_FILES;
+		if (branchName==null || branchName.isBlank()) return Status.NO_FILES;
 
 		final Repository repository=git.getRepository();
 		Ref branch;

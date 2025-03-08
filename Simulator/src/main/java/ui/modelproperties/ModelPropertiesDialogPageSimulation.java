@@ -307,7 +307,7 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 	 * @see #checkData()
 	 */
 	private int checkTerminationCondition() {
-		if (terminationCondition.getText().trim().isEmpty()) {
+		if (terminationCondition.getText().isBlank()) {
 			terminationCondition.setBackground(NumberTools.getTextFieldDefaultBackground());
 			return -1;
 		}

@@ -652,7 +652,7 @@ public class StatisticsImpl implements StatisticsInterface {
 	 */
 	@Override
 	public int getStationID(final String name) {
-		if (name==null || name.trim().isEmpty()) return -1;
+		if (name==null || name.isBlank()) return -1;
 
 		if (model==null) model=JSCommandXML.getModelFromXml(xml);
 

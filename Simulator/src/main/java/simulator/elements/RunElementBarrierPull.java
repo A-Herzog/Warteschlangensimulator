@@ -81,7 +81,7 @@ public class RunElementBarrierPull extends RunElementPassThrough implements Stat
 
 		/* Freigaberegeln */
 		final String nextName=barrierElement.getNextName();
-		if (nextName.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.BarrierPull.NoNext"),element.getId());
+		if (nextName.isBlank()) return String.format(Language.tr("Simulation.Creator.BarrierPull.NoNext"),element.getId());
 
 		final int error=ExpressionCalc.check(barrierElement.getNextMax(),runModel.variableNames,runModel.modelUserFunctions);
 		if (error>=0) return String.format(Language.tr("Simulation.Creator.BarrierPull.InvalidNextMax"),element.getId(),barrierElement.getNextMax(),error+1);
@@ -103,7 +103,7 @@ public class RunElementBarrierPull extends RunElementPassThrough implements Stat
 
 		/* Freigaberegeln */
 		final String nextName=barrierElement.getNextName();
-		if (nextName.trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.BarrierPull.NoNext"),element.getId()));
+		if (nextName.isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.BarrierPull.NoNext"),element.getId()));
 		final int nextID=getNextID(nextName,element.getModel());
 		if (nextID<0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.BarrierPull.InvalidNext"),element.getId(),nextName));
 

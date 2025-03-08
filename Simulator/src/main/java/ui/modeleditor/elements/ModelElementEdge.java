@@ -345,7 +345,7 @@ public final class ModelElementEdge extends ModelElement {
 		/* Beschriftung anzeigen */
 
 		final String name=getName();
-		if (name!=null && !name.trim().isEmpty()) {
+		if (name!=null && !name.isBlank()) {
 			popupMenu.add(check=new JCheckBoxMenuItem(Language.tr("Surface.Connection.ShowLabel"),drawName));
 			check.addActionListener(e->{drawName=!drawName; fireChanged();});
 		}
@@ -423,7 +423,7 @@ public final class ModelElementEdge extends ModelElement {
 	private void contextAddTeleport(final ModelSurfacePanel surfacePanel, final ModelElementPosition element1, final ModelElementPosition element2, final Point point) {
 		/* Namen abfragen */
 		final String name=JOptionPane.showInputDialog(surfacePanel.getParent(),Language.tr("Surface.Connection.AddTeleport.TargetName"),String.format("->id=%d",element2.getId()));
-		if (name==null || name.trim().isEmpty()) return;
+		if (name==null || name.isBlank()) return;
 
 		/* Positionen berechnen */
 		Point p;

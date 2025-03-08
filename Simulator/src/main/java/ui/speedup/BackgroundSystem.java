@@ -286,7 +286,7 @@ public class BackgroundSystem {
 		/* Übersetzen */
 		lastCompileThread=new Thread(()->{
 			final Thread currentThread=Thread.currentThread();
-			for (String script: scripts) if (script!=null && !script.trim().isEmpty()) { /* Um die Systembelastung zu begrenzen, immer nur ein Skript zur Zeit übersetzen. */
+			for (String script: scripts) if (script!=null && !script.isBlank()) { /* Um die Systembelastung zu begrenzen, immer nur ein Skript zur Zeit übersetzen. */
 				if (currentThread.isInterrupted()) return;
 				dynamicFactory.test(script,scriptSettings);
 			}

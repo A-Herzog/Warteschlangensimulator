@@ -379,7 +379,7 @@ public final class ModelElementTankFlowData implements Cloneable {
 			}
 			break;
 		case STOP_BY_SIGNAL:
-			if (stopSignal!=null && !stopSignal.trim().isEmpty()) {
+			if (stopSignal!=null && !stopSignal.isBlank()) {
 				parent.appendChild(sub=doc.createElement(Language.trPrimary("Surface.XML.FlowData.StopSignal")));
 				sub.setTextContent(stopSignal);
 			}

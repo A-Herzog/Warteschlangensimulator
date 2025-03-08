@@ -181,7 +181,7 @@ public class IconListCellRenderer extends DefaultListCellRenderer {
 		final Icon[] result=new Icon[(clientTypeNames==null)?0:clientTypeNames.length];
 		if (clientTypeNames!=null) for (int i=0;i<clientTypeNames.length;i++) if (clientTypeNames[i]!=null) {
 			String icon=model.clientData.getIcon(clientTypeNames[i]);
-			if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
+			if (icon==null || icon.isBlank()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
 			result[i]=new ImageIcon(imageSource.get(icon,model.animationImages,16));
 		}
 		return result;
@@ -212,7 +212,7 @@ public class IconListCellRenderer extends DefaultListCellRenderer {
 			final ModelResource resource=model.resources.get(resourceTypeNames[i]);
 			String icon=null;
 			if (resource!=null) icon=resource.getIcon();
-			if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_OPERATOR_ICON_NAME;
+			if (icon==null || icon.isBlank()) icon=ModelSurfaceAnimatorBase.DEFAULT_OPERATOR_ICON_NAME;
 			result[i]=new ImageIcon(imageSource.get(icon,model.animationImages,16));
 		}
 		return result;
@@ -243,7 +243,7 @@ public class IconListCellRenderer extends DefaultListCellRenderer {
 			final ModelTransporter transporter=model.transporters.get(transporterTypeNames[i]);
 			String icon=null;
 			if (transporter!=null) icon=transporter.getEastLoadedIcon();
-			if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_TRANSPORTER_EAST_ICON_NAME;
+			if (icon==null || icon.isBlank()) icon=ModelSurfaceAnimatorBase.DEFAULT_TRANSPORTER_EAST_ICON_NAME;
 			result[i]=new ImageIcon(imageSource.get(icon,model.animationImages,16));
 		}
 		return result;

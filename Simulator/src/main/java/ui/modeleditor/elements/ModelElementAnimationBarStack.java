@@ -892,7 +892,7 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationBarStack.XML.Labels"));
 		node.appendChild(sub);
 		sub.setTextContent(""+axisLabels.nr);
-		if (!axisLabelText.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.AnimationBarStack.XML.LabelText"),axisLabelText);
+		if (!axisLabelText.isBlank()) sub.setAttribute(Language.trPrimary("Surface.AnimationBarStack.XML.LabelText"),axisLabelText);
 	}
 
 	/**
@@ -943,26 +943,26 @@ public class ModelElementAnimationBarStack extends ModelElementPosition implemen
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationBarStack.XML.LineColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationBarStack.XML.LineColor",name) && !content.isBlank()) {
 			borderColor=EditModel.loadColor(content);
 			if (borderColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationBarStack.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationBarStack.XML.BackgroundColor",name) && !content.isBlank()) {
 			backgroundColor=EditModel.loadColor(content);
 			if (backgroundColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationBarStack.XML.GradientColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationBarStack.XML.GradientColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			gradientColor=color;
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationBarStack.XML.BarColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationBarStack.XML.BarColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			barColors.add(color);

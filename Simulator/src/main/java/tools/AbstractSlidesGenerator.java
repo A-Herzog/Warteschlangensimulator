@@ -96,12 +96,12 @@ public abstract class AbstractSlidesGenerator {
 	protected final XSLFSlide addTitleSlide(final XMLSlideShow pptx, final String title, final String subTitle) {
 		final XSLFSlide slide=addSlide(pptx,SlideLayout.TITLE);
 
-		if (title!=null && !title.trim().isEmpty()) {
+		if (title!=null && !title.isBlank()) {
 			final XSLFTextShape text=slide.getPlaceholder(0);
 			if (text!=null) text.setText(title);
 		}
 
-		if (subTitle!=null && !subTitle.trim().isEmpty()) {
+		if (subTitle!=null && !subTitle.isBlank()) {
 			final XSLFTextShape text=slide.getPlaceholder(1);
 			if (text!=null) text.setText(subTitle);
 		}
@@ -119,12 +119,12 @@ public abstract class AbstractSlidesGenerator {
 	protected final XSLFSlide addContentSlide(final XMLSlideShow pptx, final String title, final String content) {
 		final XSLFSlide slide=addSlide(pptx,SlideLayout.TITLE_AND_CONTENT);
 
-		if (title!=null && !title.trim().isEmpty()) {
+		if (title!=null && !title.isBlank()) {
 			final XSLFTextShape text=slide.getPlaceholder(0);
 			if (text!=null) text.setText(title);
 		}
 
-		if (content!=null && !content.trim().isEmpty()) {
+		if (content!=null && !content.isBlank()) {
 			final XSLFTextShape text=slide.getPlaceholder(1);
 			if (text!=null) {
 				text.setText(content);
@@ -146,7 +146,7 @@ public abstract class AbstractSlidesGenerator {
 	protected final XSLFSlide addContentSlide(final XMLSlideShow pptx, final String title, final String[] content, final double contentTextSize) {
 		final XSLFSlide slide=addSlide(pptx,SlideLayout.TITLE_AND_CONTENT);
 
-		if (title!=null && !title.trim().isEmpty()) {
+		if (title!=null && !title.isBlank()) {
 			final XSLFTextShape text=slide.getPlaceholder(0);
 			if (text!=null) text.setText(title);
 		}
@@ -178,7 +178,7 @@ public abstract class AbstractSlidesGenerator {
 	protected final XSLFSlide addContentSlide(final XMLSlideShow pptx, final String title, final Consumer<XSLFTextShape> content) {
 		final XSLFSlide slide=addSlide(pptx,SlideLayout.TITLE_AND_CONTENT);
 
-		if (title!=null && !title.trim().isEmpty()) {
+		if (title!=null && !title.isBlank()) {
 			final XSLFTextShape text=slide.getPlaceholder(0);
 			if (text!=null) text.setText(title);
 		}

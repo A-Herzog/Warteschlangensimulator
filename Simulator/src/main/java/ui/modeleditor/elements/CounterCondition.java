@@ -114,7 +114,7 @@ public class CounterCondition {
 		final Document doc=parent.getOwnerDocument();
 		Element node;
 
-		if (!condition.trim().isEmpty()) {
+		if (!condition.isBlank()) {
 			parent.appendChild(node=doc.createElement(Language.tr("Surface.CounterCondition.Condition")));
 			node.setTextContent(condition);
 		}
@@ -159,7 +159,7 @@ public class CounterCondition {
 	 * @param newClientTypeName	Neuer Kundentypname
 	 */
 	public void clientTypeRenamed(final String oldClientTypeName, final String newClientTypeName) {
-		if (oldClientTypeName==null || oldClientTypeName.trim().isEmpty() || newClientTypeName==null || newClientTypeName.isEmpty()) return;
+		if (oldClientTypeName==null || oldClientTypeName.isBlank() || newClientTypeName==null || newClientTypeName.isEmpty()) return;
 		final int index=clientTypes.indexOf(oldClientTypeName);
 		if (index>=0) clientTypes.set(index,newClientTypeName);
 	}
@@ -170,7 +170,7 @@ public class CounterCondition {
 	 * @param position	Position, an der die Daten ausgegeben werden sollen
 	 */
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder, final int position) {
-		if (!condition.trim().isEmpty()) {
+		if (!condition.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("Surface.CounterCondition.Condition.Name"),condition,2000);
 		}
 

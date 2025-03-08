@@ -271,7 +271,7 @@ public final class ModelTransporterFailure implements Cloneable {
 	 * @see FailureMode#FAILURE_BY_EXPRESSION
 	 */
 	public void setFailureByExpression(final String expression) {
-		if (expression!=null && !expression.trim().isEmpty()) {
+		if (expression!=null && !expression.isBlank()) {
 			modeFailure=FailureMode.FAILURE_BY_EXPRESSION;
 			interDownTimeExpression=expression;
 		}
@@ -372,11 +372,11 @@ public final class ModelTransporterFailure implements Cloneable {
 		String s;
 
 		s=Language.trAllAttribute("Surface.XML.Transporter.FailureExpression",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			downTimeExpression=s;
 		} else {
 			s=Language.trAllAttribute("Surface.XML.Transporter.FailureDistribution",node);
-			if (!s.trim().isEmpty()) {
+			if (!s.isBlank()) {
 				final AbstractRealDistribution dist=DistributionTools.distributionFromString(s,86400);
 				if (dist==null) return String.format(Language.tr("Surface.Transporter.ErrorDistribution"),s,transporterName);
 				downTimeDistribution=dist;
@@ -384,7 +384,7 @@ public final class ModelTransporterFailure implements Cloneable {
 		}
 
 		s=Language.trAllAttribute("Surface.XML.Transporter.FailureByNumber",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			final Integer I=NumberTools.getNotNegativeInteger(s);
 			if (I==null) return String.format(Language.tr("Surface.Transporter.ErrorFailureNumber"),s,transporterName);
 			modeFailure=FailureMode.FAILURE_BY_NUMBER;
@@ -392,7 +392,7 @@ public final class ModelTransporterFailure implements Cloneable {
 		}
 
 		s=Language.trAllAttribute("Surface.XML.Transporter.FailureByDistance",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			final Double D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(s));
 			if (D==null) return String.format(Language.tr("Surface.Transporter.ErrorFailureDistance"),s,transporterName);
 			modeFailure=FailureMode.FAILURE_BY_DISTANCE;
@@ -400,7 +400,7 @@ public final class ModelTransporterFailure implements Cloneable {
 		}
 
 		s=Language.trAllAttribute("Surface.XML.Transporter.FailureByWorkingTime",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			final Double D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(s));
 			if (D==null) return String.format(Language.tr("Surface.Transporter.ErrorFailureTime"),s,transporterName);
 			modeFailure=FailureMode.FAILURE_BY_WORKING_TIME;
@@ -408,7 +408,7 @@ public final class ModelTransporterFailure implements Cloneable {
 		}
 
 		s=Language.trAllAttribute("Surface.XML.Transporter.FailureByDistribution",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			final AbstractRealDistribution dist=DistributionTools.distributionFromString(s,86400);
 			if (dist==null) return String.format(Language.tr("Surface.Transporter.ErrorInterDistribution"),s,transporterName);
 			interDownTimeDistribution=dist;
@@ -416,7 +416,7 @@ public final class ModelTransporterFailure implements Cloneable {
 		}
 
 		s=Language.trAllAttribute("Surface.XML.Transporter.FailureByExpression",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			modeFailure=FailureMode.FAILURE_BY_EXPRESSION;
 			interDownTimeExpression=s;
 		}

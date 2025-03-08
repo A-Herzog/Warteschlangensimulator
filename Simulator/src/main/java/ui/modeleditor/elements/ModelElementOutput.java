@@ -531,7 +531,7 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	 */
 	@Override
 	protected void addContextMenuItems(final Component owner, final JPopupMenu popupMenu, final ModelSurfacePanel surfacePanel, final Point point, final boolean readOnly) {
-		if (outputFile!=null && !outputFile.trim().isEmpty()) {
+		if (outputFile!=null && !outputFile.isBlank()) {
 			final File output=new File(outputFile);
 			if (output.isFile()) {
 				final JMenuItem item=new JMenuItem("<html><body><b>"+Language.tr("Surface.Output.OpenOutputFile")+"</b></body></html>");
@@ -549,7 +549,7 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 	 * @return	Gibt <code>true</code> zurück, wenn die Datei geöffnet werden konnte.
 	 */
 	public boolean openOutputFile() {
-		if (outputFile==null || outputFile.trim().isEmpty()) return false;
+		if (outputFile==null || outputFile.isBlank()) return false;
 		final File output=new File(outputFile);
 		if (!output.isFile()) return false;
 		try {
@@ -782,7 +782,7 @@ public class ModelElementOutput extends ModelElementMultiInSingleOutBox implemen
 			buildOutputDescription(descriptionBuilder,record,Language.tr("ModelDescription.Output.Property"),2000);
 		}
 
-		if (!outputFile.trim().isEmpty()) {
+		if (!outputFile.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Output.File"),outputFile,3000);
 		}
 

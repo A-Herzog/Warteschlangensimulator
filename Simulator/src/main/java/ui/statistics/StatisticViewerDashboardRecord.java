@@ -219,7 +219,7 @@ public class StatisticViewerDashboardRecord {
 	 * @return	Textinhalt für die Kachel
 	 */
 	private String getXMLData(final Statistics statistics, final String xml) {
-		if (xml==null || xml.trim().isEmpty()) return null;
+		if (xml==null || xml.isBlank()) return null;
 
 		final Document doc=statistics.saveToXMLDocument();
 		try (Scanner selectors=new Scanner(xml)) {
@@ -428,11 +428,11 @@ public class StatisticViewerDashboardRecord {
 		}
 		output.add(format.id);
 		output.add(""+digits);
-		if (preText!=null && !preText.trim().isEmpty()) output.add(preText); else output.add("");
-		if (postText!=null && !postText.trim().isEmpty()) output.add(postText); else output.add("");
+		if (preText!=null && !preText.isBlank()) output.add(preText); else output.add("");
+		if (postText!=null && !postText.isBlank()) output.add(postText); else output.add("");
 		if (autoHeading) output.add("1"); else output.add("0");
-		if (heading!=null && !heading.trim().isEmpty()) output.add(heading); else output.add("");
-		if (xmlData!=null && !xmlData.trim().isEmpty()) output.add(xmlData); else output.add("");
+		if (heading!=null && !heading.isBlank()) output.add(heading); else output.add("");
+		if (xmlData!=null && !xmlData.isBlank()) output.add(xmlData); else output.add("");
 	}
 
 	/**
@@ -538,7 +538,7 @@ public class StatisticViewerDashboardRecord {
 
 			/* Überschrift oben */
 
-			if (heading!=null && !heading.trim().isEmpty()) {
+			if (heading!=null && !heading.isBlank()) {
 				final JPanel headingLine=new JPanel(new FlowLayout(FlowLayout.CENTER));
 				add(headingLine,BorderLayout.NORTH);
 				headingLine.setOpaque(false);

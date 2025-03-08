@@ -134,13 +134,13 @@ public abstract class RunElement {
 	 */
 	public static final String buildName(final ModelElementPosition element, final String name) {
 		final StringBuilder sb=new StringBuilder();
-		if (name!=null && !name.trim().isEmpty()) {
+		if (name!=null && !name.isBlank()) {
 			sb.append(name);
 			sb.append(" ");
 		}
 		if (element!=null) {
 			final String s=element.getName();
-			if (s!=null && !s.trim().isEmpty()) {
+			if (s!=null && !s.isBlank()) {
 				sb.append("\"");
 				sb.append(s);
 				sb.append("\" ");

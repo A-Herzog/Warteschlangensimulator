@@ -190,7 +190,7 @@ public class DDEEditPanel extends JPanel {
 		if (readOnly) return false;
 		boolean ok=true;
 
-		if (editWorkbook.getText().trim().isEmpty()) {
+		if (editWorkbook.getText().isBlank()) {
 			ok=false;
 			if (showErrorMessages) {
 				MsgBox.error(this,Language.tr("Surface.DDE.Workbook.ErrorTitle"),Language.tr("Surface.DDE.Workbook.ErrorInfo"));
@@ -198,7 +198,7 @@ public class DDEEditPanel extends JPanel {
 			}
 		}
 
-		if (editTable.getText().trim().isEmpty()) {
+		if (editTable.getText().isBlank()) {
 			ok=false;
 			if (showErrorMessages) {
 				MsgBox.error(this,Language.tr("Surface.DDE.Table.ErrorTitle"),Language.tr("Surface.DDE.Table.ErrorInfo"));

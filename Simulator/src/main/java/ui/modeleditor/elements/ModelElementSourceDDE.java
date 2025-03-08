@@ -208,7 +208,7 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 	 */
 	@Override
 	public String getColumn() {
-		if (column==null || column.trim().isEmpty()) return "A"; else return column;
+		if (column==null || column.isBlank()) return "A"; else return column;
 	}
 
 	/**
@@ -441,12 +441,12 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 			sub.setAttribute(Language.trPrimary("Surface.XML.Connection.Type"),Language.trPrimary("Surface.XML.Connection.Type.Out"));
 		}
 
-		if (workbook!=null && !workbook.trim().isEmpty()) {
+		if (workbook!=null && !workbook.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceDDE.XML.Workbook")));
 			sub.setTextContent(workbook);
 		}
 
-		if (table!=null && !table.trim().isEmpty()) {
+		if (table!=null && !table.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceDDE.XML.Table")));
 			sub.setTextContent(table);
 		}
@@ -456,7 +456,7 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 			sub.setTextContent(""+startRow);
 		}
 
-		if (column!=null && !column.trim().isEmpty()) {
+		if (column!=null && !column.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceDDE.XML.Column")));
 			sub.setTextContent(column);
 		}
@@ -571,10 +571,10 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 
 		descriptionBuilder.addEdgeOut(getEdgeOut());
 
-		if (workbook!=null && !workbook.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDDE.Workbook"),table,1000);
-		if (table!=null && !table.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDDE.Table"),table,2000);
+		if (workbook!=null && !workbook.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDDE.Workbook"),table,1000);
+		if (table!=null && !table.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDDE.Table"),table,2000);
 		if (startRow>0) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDDE.StartRow"),""+startRow,3000);
-		if (column!=null && !column.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDDE.Column"),table,4000);
+		if (column!=null && !column.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDDE.Column"),table,4000);
 
 		final StringBuilder sb=new StringBuilder();
 		if (clientTypeNames!=null) for (String clientType: clientTypeNames) {

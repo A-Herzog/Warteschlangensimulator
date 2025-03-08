@@ -531,12 +531,12 @@ public class ModelElementRectangle extends ModelElementDecoration {
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
 
-		if (Language.trAll("Surface.Rectangle.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.Rectangle.XML.BackgroundColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			fillColor=color;
 			final String alpha=Language.trAllAttribute("Surface.Rectangle.XML.BackgroundColor.Alpha",node);
-			if (!alpha.trim().isEmpty()) {
+			if (!alpha.isBlank()) {
 				final Double D=NumberTools.getDouble(alpha);
 				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Rectangle.XML.BackgroundColor.Alpha"),name,node.getParentNode().getNodeName());
 				fillAlpha=D;
@@ -544,7 +544,7 @@ public class ModelElementRectangle extends ModelElementDecoration {
 			return null;
 		}
 
-		if (Language.trAll("Surface.Rectangle.XML.GradientColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.Rectangle.XML.GradientColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			gradientColor=color;

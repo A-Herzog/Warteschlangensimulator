@@ -525,7 +525,7 @@ public class MiniQSLoader {
 			}
 
 			/* Warteabbrecher */
-			if (EWT>0 && CVWT>=0 && successNextBox!=null && !successNextBox.trim().isEmpty() && process.getEdgeOutSuccess()!=null && process.getEdgeOutCancel()!=null) {
+			if (EWT>0 && CVWT>=0 && successNextBox!=null && !successNextBox.isBlank() && process.getEdgeOutSuccess()!=null && process.getEdgeOutCancel()!=null) {
 				/* Ausgänge in der richtigen Reihenfolge angeordnet? */
 				if (!process.getEdgeOutSuccess().getConnectionEnd().getName().equals(successNextBox)) {
 					/* Umsortieren */

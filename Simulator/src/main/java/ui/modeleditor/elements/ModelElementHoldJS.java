@@ -407,7 +407,7 @@ public class ModelElementHoldJS extends ModelElementMultiInSingleOutBox implemen
 
 		Element sub;
 
-		if (condition!=null && !condition.trim().isEmpty()) {
+		if (condition!=null && !condition.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.HoldJS.XML.AdditionalCondition")));
 			sub.setTextContent(condition);
 		}

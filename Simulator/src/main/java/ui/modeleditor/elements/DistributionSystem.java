@@ -144,7 +144,7 @@ public final class DistributionSystem implements Cloneable {
 	 * @return	Liefert einen <code>String</code>, eine <code>AbstractRealDistribution</code> oder <code>null</code> zurück.
 	 */
 	public Object get(final String subType) {
-		if (subType==null || subType.trim().isEmpty()) return get();
+		if (subType==null || subType.isBlank()) return get();
 		final String s=expressionByType.get(subType);
 		if (s!=null) return s;
 		return distributionByType.get(subType);
@@ -304,21 +304,21 @@ public final class DistributionSystem implements Cloneable {
 				parent.appendChild(sub=doc.createElement(Language.trPrimary("Surface.DistributionSystem.XML.Distribution")));
 				sub.setTextContent(DistributionTools.distributionToString(distribution));
 			}
-			if (typeLangKey!=null && !typeLangKey.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.DistributionSystem.XML.Distribution.Type"),Language.tr(typeLangKey));
+			if (typeLangKey!=null && !typeLangKey.isBlank()) sub.setAttribute(Language.trPrimary("Surface.DistributionSystem.XML.Distribution.Type"),Language.tr(typeLangKey));
 			if (additionalData!=null) additionalData.accept(sub);
 		}
-		if (subLangKey!=null && !subLangKey.trim().isEmpty()) {
+		if (subLangKey!=null && !subLangKey.isBlank()) {
 			for (Map.Entry<String,AbstractRealDistribution> entry : distributionByType.entrySet()) if (entry.getValue()!=null) {
 				if (expressionByType.get(entry.getKey())!=null) continue;
 				parent.appendChild(sub=doc.createElement(Language.trPrimary("Surface.DistributionSystem.XML.Distribution")));
 				sub.setAttribute(Language.trPrimary(subLangKey),entry.getKey());
-				if (typeLangKey!=null && !typeLangKey.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.DistributionSystem.XML.Distribution.Type"),Language.tr(typeLangKey));
+				if (typeLangKey!=null && !typeLangKey.isBlank()) sub.setAttribute(Language.trPrimary("Surface.DistributionSystem.XML.Distribution.Type"),Language.tr(typeLangKey));
 				sub.setTextContent(DistributionTools.distributionToString(entry.getValue()));
 			}
 			for (Map.Entry<String,String> entry : expressionByType.entrySet()) if (entry.getValue()!=null) {
 				parent.appendChild(sub=doc.createElement(Language.trPrimary("Surface.DistributionSystem.XML.Expression")));
 				sub.setAttribute(Language.trPrimary(subLangKey),entry.getKey());
-				if (typeLangKey!=null && !typeLangKey.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.DistributionSystem.XML.Distribution.Type"),Language.tr(typeLangKey));
+				if (typeLangKey!=null && !typeLangKey.isBlank()) sub.setAttribute(Language.trPrimary("Surface.DistributionSystem.XML.Distribution.Type"),Language.tr(typeLangKey));
 				sub.setTextContent(entry.getValue());
 			}
 		}
@@ -365,11 +365,11 @@ public final class DistributionSystem implements Cloneable {
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
 	public String loadDistribution(final Element node) {
-		final String type=(subLangKey==null || subLangKey.trim().isEmpty())?"":Language.trAllAttribute(subLangKey,node);
+		final String type=(subLangKey==null || subLangKey.isBlank())?"":Language.trAllAttribute(subLangKey,node);
 		final AbstractRealDistribution dist=DistributionTools.distributionFromString(node.getTextContent(),3000);
 
 		if (dist==null) return String.format(Language.tr("Surface.XML.ElementSubError"),node.getNodeName(),node.getParentNode().getNodeName());
-		if (type==null || type.trim().isEmpty()) {
+		if (type==null || type.isBlank()) {
 			distribution=dist;
 		} else {
 			distributionByType.put(type,dist);
@@ -386,10 +386,10 @@ public final class DistributionSystem implements Cloneable {
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
 	 */
 	public String loadExpression(final Element node) {
-		final String type=(subLangKey==null || subLangKey.trim().isEmpty())?"":Language.trAllAttribute(subLangKey,node);
+		final String type=(subLangKey==null || subLangKey.isBlank())?"":Language.trAllAttribute(subLangKey,node);
 		final String expr=node.getTextContent();
 
-		if (type==null || type.trim().isEmpty()) {
+		if (type==null || type.isBlank()) {
 			expression=expr;
 		} else {
 			expressionByType.put(type,expr);
@@ -430,7 +430,7 @@ public final class DistributionSystem implements Cloneable {
 	 * @return	Wert des Subtyp-Attribues
 	 */
 	public String getSubAttribute(final Element node) {
-		if (subLangKey==null || subLangKey.trim().isEmpty()) return "";
+		if (subLangKey==null || subLangKey.isBlank()) return "";
 		return Language.trAllAttribute(subLangKey,node);
 	}
 
@@ -441,7 +441,7 @@ public final class DistributionSystem implements Cloneable {
 	 */
 	public boolean isGlobal(final Element node) {
 		final String sub=getSubAttribute(node);
-		return (sub==null || sub.trim().isEmpty());
+		return (sub==null || sub.isBlank());
 	}
 
 	/**

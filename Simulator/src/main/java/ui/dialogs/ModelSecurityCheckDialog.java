@@ -130,7 +130,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		content.add(new JScrollPane(table),BorderLayout.CENTER);
 
 		/* Externem Nutzer / Zertifikat vertrauen */
-		if (signatureUserName!=null && !signatureUserName.trim().isEmpty() && signaturePublicKey!=null) {
+		if (signatureUserName!=null && !signatureUserName.isBlank() && signaturePublicKey!=null) {
 			JPanel line;
 			final JPanel bottom=new JPanel();
 			bottom.setLayout(new BoxLayout(bottom,BoxLayout.PAGE_AXIS));
@@ -244,7 +244,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 	public static List<CriticalElement> getCriticalModelProperties(final EditModel model) {
 		final List<CriticalElement> list=new ArrayList<>();
 
-		if (!model.pluginsFolder.trim().isEmpty()) {
+		if (!model.pluginsFolder.isBlank()) {
 			list.add(new CriticalElement(-1,Language.tr("ExternalConnect.Dialog.Title"),CriticalType.SCRIPT_JAVA,model.pluginsFolder));
 		}
 
@@ -375,7 +375,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		public CriticalElement(final ModelElementBox station, final CriticalType type, final String info) {
 			stationType=station.getTypeName();
 			stationId=station.getId();
-			if (station.getName().trim().isEmpty())	{
+			if (station.getName().isBlank())	{
 				stationName=String.format(Language.tr("ModelSecurityCheck.Station.NoName"),station.getId());
 			} else {
 				stationName=String.format(Language.tr("ModelSecurityCheck.Station.WithName"),station.getName(),station.getId());
@@ -394,7 +394,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		public CriticalElement(final ModelElementBox station, final ElementWithScript.ScriptMode type, final String info) {
 			stationType=station.getTypeName();
 			stationId=station.getId();
-			if (station.getName().trim().isEmpty())	{
+			if (station.getName().isBlank())	{
 				stationName=String.format(Language.tr("ModelSecurityCheck.Station.NoName"),station.getId());
 			} else {
 				stationName=String.format(Language.tr("ModelSecurityCheck.Station.WithName"),station.getName(),station.getId());
@@ -417,7 +417,7 @@ public class ModelSecurityCheckDialog extends BaseDialog {
 		public CriticalElement(final ModelElementPosition station, AnimationExpression expression) {
 			stationType=station.getContextMenuElementName();
 			stationId=station.getId();
-			if (station.getName().trim().isEmpty())	{
+			if (station.getName().isBlank())	{
 				stationName=String.format(Language.tr("ModelSecurityCheck.Station.NoName"),station.getId());
 			} else {
 				stationName=String.format(Language.tr("ModelSecurityCheck.Station.WithName"),station.getName(),station.getId());

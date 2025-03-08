@@ -65,7 +65,7 @@ public class RunElementTeleportDecideByKeyValue extends RunElement {
 		final RunElementTeleportDecideByKeyValue decide=new RunElementTeleportDecideByKeyValue((ModelElementDecideAndTeleport)element);
 
 		/* Schlüssel */
-		if (decideElement.getKey().trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoKey"),element.getId());
+		if (decideElement.getKey().isBlank()) return String.format(Language.tr("Simulation.Creator.NoKey"),element.getId());
 		decide.key=decideElement.getKey();
 
 		/* Mehrere Werte pro Wert-Eintrag? */
@@ -91,7 +91,7 @@ public class RunElementTeleportDecideByKeyValue extends RunElement {
 					for (String s: v) if (s.isEmpty()) return String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),count+1);
 					decide.values[count]=v;
 				} else {
-					if (value.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),count+1);
+					if (value.isBlank()) return String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),count+1);
 					decide.values[count]=new String[]{value};
 				}
 			}
@@ -108,7 +108,7 @@ public class RunElementTeleportDecideByKeyValue extends RunElement {
 		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_KEY_VALUE) return null;
 
 		/* Schlüssel */
-		if (decideElement.getKey().trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoKey"),element.getId()));
+		if (decideElement.getKey().isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoKey"),element.getId()));
 
 		/* Mehrere Werte pro Wert-Eintrag? */
 		final boolean multiTextValues=decideElement.isMultiTextValues();
@@ -126,9 +126,9 @@ public class RunElementTeleportDecideByKeyValue extends RunElement {
 				if (multiTextValues) {
 					final String[] v=value.split(";");
 					if (v.length==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),count+1));
-					for (String s: v) if (s.trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),count+1));
+					for (String s: v) if (s.isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),count+1));
 				} else {
-					if (value.trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),count+1));
+					if (value.isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),count+1));
 				}
 			}
 			count++;

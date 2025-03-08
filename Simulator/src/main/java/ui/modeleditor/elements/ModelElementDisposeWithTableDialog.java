@@ -187,7 +187,7 @@ public class ModelElementDisposeWithTableDialog extends ModelElementBaseDialog {
 	private boolean checkData(final boolean showErrorMessages) {
 		boolean ok=true;
 
-		if (clientsOutputTable.getText().trim().isEmpty()) {
+		if (clientsOutputTable.getText().isBlank()) {
 			clientsOutputTable.setBackground(Color.RED);
 			ok=false;
 			if (showErrorMessages) {

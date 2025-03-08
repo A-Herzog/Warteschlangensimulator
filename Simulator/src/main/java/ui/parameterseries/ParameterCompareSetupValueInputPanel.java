@@ -298,7 +298,7 @@ public class ParameterCompareSetupValueInputPanel extends JPanel {
 		boolean ok=true;
 
 		if (nameEdit!=null) {
-			if (nameEdit.getText().trim().isEmpty()) {
+			if (nameEdit.getText().isBlank()) {
 				nameEdit.setBackground(Color.RED);
 				ok=false;
 				if (showErrorMessage) {

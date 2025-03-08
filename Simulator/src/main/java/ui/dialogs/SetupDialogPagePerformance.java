@@ -263,7 +263,7 @@ public class SetupDialogPagePerformance extends SetupDialogPage {
 		button=new JButton(Language.tr("SettingsDialog.Tabs.Simulation.Server.CheckConnection"));
 		button.setIcon(Images.EXTRAS_SERVER.getIcon());
 		button.addActionListener(e->{
-			final String key=(serverKey.getText().trim().isEmpty())?null:serverKey.getText().trim();
+			final String key=(serverKey.getText().isBlank())?null:serverKey.getText().trim();
 			final int port=((Integer)serverPort.getValue()).intValue();
 			new ServerStatus(serverName.getText(),port,true,key).showMessage(this);
 		});

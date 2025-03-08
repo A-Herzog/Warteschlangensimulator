@@ -184,7 +184,7 @@ public class SimulationData extends SimData {
 		runModel.clientCountDiv=clientCountDiv;
 		/* System.out.println("Thread-"+(threadNr+1)+": "+simDays+" "+simDaysByOtherThreads); */
 
-		if (runModel.pluginsFolder!=null && !runModel.pluginsFolder.trim().isEmpty()) {
+		if (runModel.pluginsFolder!=null && !runModel.pluginsFolder.isBlank()) {
 			pluginsConnect=new ExternalConnect(new File(runModel.pluginsFolder));
 		}
 

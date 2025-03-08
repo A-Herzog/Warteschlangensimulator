@@ -315,7 +315,7 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 
 		/* Bisherige Kundentypen ersetzen */
 		if (clientTypes.size()==0) return;
-		if (!clientsEdit.getText().trim().isEmpty()) {
+		if (!clientsEdit.getText().isBlank()) {
 			if (!MsgBox.confirm(this,Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton"),String.format(Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm"),clientTypes.size()),Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoYes"),Language.tr("Surface.SourceDB.Dialog.ClientTypes.LoadButton.ReplaceConfirm,InfoNo"))) return;
 		}
 		final StringBuilder text=new StringBuilder();
@@ -333,7 +333,7 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
 	 */
 	private boolean checkClients(final boolean showErrorMessages) {
-		if (clientsEdit.getText().trim().isEmpty()) {
+		if (clientsEdit.getText().isBlank()) {
 			clientsEdit.setBackground(Color.RED);
 			if (showErrorMessages) MsgBox.error(this,Language.tr("Surface.SourceDB.Dialog.ClientTypes.ErrorTitle"),Language.tr("Surface.SourceDB.Dialog.ClientTypes.ErrorInfo"));
 			return false;
@@ -385,6 +385,6 @@ public class ModelElementSourceDBDialog extends ModelElementBaseDialog {
 		final String s=clientsEdit.getText().trim();
 		final String[] lines=s.split("\n");
 		source.getClientTypeNames().clear();
-		for (String line: lines) if (!line.trim().isEmpty()) source.getClientTypeNames().add(line.trim());
+		for (String line: lines) if (!line.isBlank()) source.getClientTypeNames().add(line.trim());
 	}
 }

@@ -258,7 +258,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 		/* Start */
 
 		importSettings=source.getImportSettings();
-		mode.setSelectedIndex(importSettings.trim().isEmpty()?1:0);
+		mode.setSelectedIndex(importSettings.isBlank()?1:0);
 		updateTooltip();
 		checkData(false);
 
@@ -349,7 +349,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 
 		/* Bisherige Kundentypen ersetzen */
 		if (clientTypes.size()==0) return;
-		if (!clientsEdit.getText().trim().isEmpty()) {
+		if (!clientsEdit.getText().isBlank()) {
 			if (!MsgBox.confirm(this,Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton"),String.format(Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm"),clientTypes.size()),Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoYes"),Language.tr("Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm.InfoNo"))) return;
 		}
 		final StringBuilder text=new StringBuilder();
@@ -369,7 +369,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 	private boolean checkData(final boolean showErrorMessages) {
 		boolean ok=true;
 
-		if (tableEdit.getText().trim().isEmpty()) {
+		if (tableEdit.getText().isBlank()) {
 			tableEdit.setBackground(Color.RED);
 			ok=false;
 			if (showErrorMessages) {
@@ -380,7 +380,7 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 			tableEdit.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
-		if (clientsEdit.getText().trim().isEmpty()) {
+		if (clientsEdit.getText().isBlank()) {
 			clientsEdit.setBackground(Color.RED);
 			ok=false;
 			if (showErrorMessages) {
@@ -412,6 +412,6 @@ public class ModelElementSourceTableDialog extends ModelElementBaseDialog {
 		final String s=clientsEdit.getText().trim();
 		final String[] lines=s.split("\n");
 		source.getClientTypeNames().clear();
-		for (String line: lines) if (!line.trim().isEmpty()) source.getClientTypeNames().add(line.trim());
+		for (String line: lines) if (!line.isBlank()) source.getClientTypeNames().add(line.trim());
 	}
 }

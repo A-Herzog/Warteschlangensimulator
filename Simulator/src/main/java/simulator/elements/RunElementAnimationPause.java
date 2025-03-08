@@ -85,7 +85,7 @@ public class RunElementAnimationPause extends RunElementPassThrough {
 
 		/* Bedingung */
 		final String condition=pauseElement.getCondition();
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			pause.condition=null;
 		} else {
 			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);

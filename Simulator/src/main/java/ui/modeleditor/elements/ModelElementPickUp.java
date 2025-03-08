@@ -192,7 +192,7 @@ public class ModelElementPickUp extends ModelElementMultiInSingleOutBox implemen
 	 * @param newClientType	Neuer Kundentyp oder leerer String, wenn die Kunden einzeln weitergeleitet werden sollen
 	 */
 	public void setNewClientType(final String newClientType) {
-		if (newClientType==null || newClientType.trim().isEmpty()) {
+		if (newClientType==null || newClientType.isBlank()) {
 			this.newClientType="";
 			batchMode=BatchMode.BATCH_MODE_COLLECT;
 		} else {
@@ -460,7 +460,7 @@ public class ModelElementPickUp extends ModelElementMultiInSingleOutBox implemen
 
 		if (Language.trAll("Surface.PickUp.XML.ClientType",name)) {
 			newClientType=content;
-			if (!content.trim().isEmpty() && batchMode==BatchMode.BATCH_MODE_COLLECT) batchMode=BatchMode.BATCH_MODE_PERMANENT;
+			if (!content.isBlank() && batchMode==BatchMode.BATCH_MODE_COLLECT) batchMode=BatchMode.BATCH_MODE_PERMANENT;
 			return null;
 		}
 
@@ -526,7 +526,7 @@ public class ModelElementPickUp extends ModelElementMultiInSingleOutBox implemen
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.PickUp.SendAlone"),sendAloneIfQueueEmpty?Language.tr("Dialog.Button.Yes"):Language.tr("Dialog.Button.No"),2500);
 
 		/* Neuer Kundentyp */
-		if ((batchMode==BatchMode.BATCH_MODE_TEMPORARY || batchMode==BatchMode.BATCH_MODE_PERMANENT) && !newClientType.trim().isEmpty()) {
+		if ((batchMode==BatchMode.BATCH_MODE_TEMPORARY || batchMode==BatchMode.BATCH_MODE_PERMANENT) && !newClientType.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.PickUp.NewClientType"),newClientType,3000);
 		}
 	}

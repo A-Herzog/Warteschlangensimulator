@@ -171,7 +171,7 @@ public final class ModelSequenceStep implements Cloneable {
 
 		target=Language.trAllAttribute("Surface.XML.SequenceStep.Target",node);
 		final String s=Language.trAllAttribute("Surface.XML.SequenceStep.Next",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			final Integer I=NumberTools.getNotNegativeInteger(s);
 			if (I==null) return String.format(Language.tr("Surface.XML.AttributeError"),Language.trPrimary("Surface.XML.SequenceStep.Next"),node.getNodeName());
 			next=I.intValue();

@@ -302,7 +302,7 @@ public class ModelElementInputDDE extends ModelElementMultiInSingleOutBox implem
 	 */
 	@Override
 	public String getColumn() {
-		if (column==null || column.trim().isEmpty()) return "A"; else return column;
+		if (column==null || column.isBlank()) return "A"; else return column;
 	}
 
 	/**
@@ -431,12 +431,12 @@ public class ModelElementInputDDE extends ModelElementMultiInSingleOutBox implem
 
 		Element sub;
 
-		if (workbook!=null && !workbook.trim().isEmpty()) {
+		if (workbook!=null && !workbook.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.InputDDE.XML.Workbook")));
 			sub.setTextContent(workbook);
 		}
 
-		if (table!=null && !table.trim().isEmpty()) {
+		if (table!=null && !table.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.InputDDE.XML.Table")));
 			sub.setTextContent(table);
 		}
@@ -446,7 +446,7 @@ public class ModelElementInputDDE extends ModelElementMultiInSingleOutBox implem
 			sub.setTextContent(""+startRow);
 		}
 
-		if (column!=null && !column.trim().isEmpty()) {
+		if (column!=null && !column.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.InputDDE.XML.Column")));
 			sub.setTextContent(column);
 		}
@@ -559,10 +559,10 @@ public class ModelElementInputDDE extends ModelElementMultiInSingleOutBox implem
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		if (workbook!=null && !workbook.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDDE.Workbook"),table,1000);
-		if (table!=null && !table.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDDE.Table"),table,2000);
+		if (workbook!=null && !workbook.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDDE.Workbook"),table,1000);
+		if (table!=null && !table.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDDE.Table"),table,2000);
 		if (startRow>0) descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDDE.StartRow"),""+startRow,3000);
-		if (column!=null && !column.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDDE.Column"),table,4000);
+		if (column!=null && !column.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDDE.Column"),table,4000);
 
 		String modeInfo="";
 		switch (eofMode) {
@@ -581,7 +581,7 @@ public class ModelElementInputDDE extends ModelElementMultiInSingleOutBox implem
 		}
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDDE.EOFMode"),modeInfo,5000);
 
-		if (!variable.trim().isEmpty()) {
+		if (!variable.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.InputDDE.Variable"),variable,6000);
 		}
 	}

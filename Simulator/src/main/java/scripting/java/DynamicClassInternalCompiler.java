@@ -51,7 +51,7 @@ public class DynamicClassInternalCompiler extends DynamicClassFileBased {
 		arguments.add("-d");
 		arguments.add(outputFolder.toString());
 
-		if (classPath!=null && !classPath.trim().isEmpty()) {
+		if (classPath!=null && !classPath.isBlank()) {
 			arguments.add("-cp");
 			arguments.add(classPath);
 		}

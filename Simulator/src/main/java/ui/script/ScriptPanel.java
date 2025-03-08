@@ -272,7 +272,7 @@ public abstract class ScriptPanel extends JPanel {
 	private void commandLoadExample() {
 		final ScriptEditorPanel.ScriptMode mode=editor.getMode();
 		final String newScript=example.get(mode);
-		if (newScript==null || newScript.trim().isEmpty()) return;
+		if (newScript==null || newScript.isBlank()) return;
 		if (!editor.allowDiscard()) return;
 		editor.setScript(mode,newScript);
 	}

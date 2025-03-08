@@ -118,7 +118,7 @@ public class SimulationServerGUIConnect {
 		setup.simulationServerLimitThreadCount=limitThreadCount;
 		setup.saveSetup();
 
-		server=new SimulationServer(s->output(s),port,(key!=null && key.trim().isEmpty())?null:key,limitThreadCount);
+		server=new SimulationServer(s->output(s),port,(key!=null && key.isBlank())?null:key,limitThreadCount);
 		if (server.start()) return true;
 		server=null;
 		return false;

@@ -314,7 +314,7 @@ public class RunElementInput extends RunElementPassThrough {
 		}
 
 		/* Eingabedatei */
-		if (inputElement.getInputFile().trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoInputFile"),element.getId());
+		if (inputElement.getInputFile().isBlank()) return String.format(Language.tr("Simulation.Creator.NoInputFile"),element.getId());
 		final File inputFile=new File(inputElement.getInputFile());
 		if (!testOnly) {
 			if (input.assignMode==AssignMode.CLIENT_TEXT) {
@@ -339,7 +339,7 @@ public class RunElementInput extends RunElementPassThrough {
 		if (edgeError!=null) return edgeError;
 
 		/* Eingabedatei */
-		if (inputElement.getInputFile().trim().isEmpty()) return RunModelCreatorStatus.noInputFile(element);
+		if (inputElement.getInputFile().isBlank()) return RunModelCreatorStatus.noInputFile(element);
 
 		return RunModelCreatorStatus.ok;
 	}

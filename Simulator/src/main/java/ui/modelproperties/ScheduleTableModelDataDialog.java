@@ -224,7 +224,7 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 	 */
 	private JButton getButton(final String name, final String tooltip, final Images icon, final BiConsumer<JButton, ActionEvent> action) {
 		final JButton button=new JButton(name,icon.getIcon());
-		if (tooltip!=null && !tooltip.trim().isEmpty()) button.setToolTipText(tooltip);
+		if (tooltip!=null && !tooltip.isBlank()) button.setToolTipText(tooltip);
 		if (action!=null) button.addActionListener(e->action.accept(button,e));
 		return button;
 	}

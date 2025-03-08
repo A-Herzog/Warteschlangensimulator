@@ -88,7 +88,7 @@ public class GlassInfo {
 	 * @param force	Anzeige erzwingen, auch wenn noch nicht genug Zeit zwischen der letzten Anzeige und dieser erfolgt ist?
 	 */
 	public static void info(final Component parent, final String info, final int width, final boolean force) {
-		if (info==null || info.trim().isEmpty()) return;
+		if (info==null || info.isBlank()) return;
 		if (parent==null) return;
 
 		/* Setup: Anzeige von Infos aktiv? */

@@ -114,14 +114,14 @@ public class ProblemReporterDialog extends BaseDialog {
 	 */
 	private void selectFile() {
 		final File lastFile;
-		if (inputEdit.getText().trim().isEmpty()) lastFile=null; else lastFile=new File(inputEdit.getText());
+		if (inputEdit.getText().isBlank()) lastFile=null; else lastFile=new File(inputEdit.getText());
 		final File newFile=ProblemReporter.selectOutputFile(this,lastFile);
 		if (newFile!=null) inputEdit.setText(newFile.toString());
 	}
 
 	@Override
 	protected boolean checkData() {
-		if (inputEdit.getText().trim().isEmpty()) {
+		if (inputEdit.getText().isBlank()) {
 			MsgBox.error(this,Language.tr("ProblemReporter.Dialog.OutputFile.ErrorTitle"),Language.tr("ProblemReporter.Dialog.OutputFile.ErrorInfo"));
 			return false;
 		}

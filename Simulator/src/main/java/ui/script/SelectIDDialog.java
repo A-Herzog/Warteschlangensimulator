@@ -310,7 +310,7 @@ public class SelectIDDialog extends BaseDialog {
 			final ModelElementBox element=ids.get(this.ids[i]);
 			final StringBuilder sb=new StringBuilder();
 			sb.append(element.getTypeName());
-			if (!element.getName().trim().isEmpty()) sb.append(String.format(" \"%s\"",element.getName()));
+			if (!element.getName().isBlank()) sb.append(String.format(" \"%s\"",element.getName()));
 			sb.append(String.format(" (id=%d)",element.getId()));
 			names.add(sb.toString());
 

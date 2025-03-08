@@ -84,7 +84,7 @@ public class RunElementOutputJS extends RunElementPassThrough {
 		output.outputActive=outputElement.isOutputActive();
 
 		/* Ausgabedatei */
-		if (outputElement.getOutputFile().trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoOutputFile"),element.getId());
+		if (outputElement.getOutputFile().isBlank()) return String.format(Language.tr("Simulation.Creator.NoOutputFile"),element.getId());
 		output.outputFile=outputElement.getOutputFileWithFullPath(runModel.modelPath);
 		output.outputFileOverwrite=outputElement.isOutputFileOverwrite();
 
@@ -126,7 +126,7 @@ public class RunElementOutputJS extends RunElementPassThrough {
 		if (edgeError!=null) return edgeError;
 
 		/* Ausgabedatei */
-		if (outputElement.getOutputFile().trim().isEmpty()) return RunModelCreatorStatus.noOutputFile(element);
+		if (outputElement.getOutputFile().isBlank()) return RunModelCreatorStatus.noOutputFile(element);
 
 		return RunModelCreatorStatus.ok;
 	}

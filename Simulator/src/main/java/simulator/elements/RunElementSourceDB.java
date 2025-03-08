@@ -59,7 +59,7 @@ public class RunElementSourceDB extends RunElementSourceExtern {
 
 			final List<String> data=new ArrayList<>();
 			data.add(sourceElement.getClientTypeColumn());
-			if (!sourceElement.getInfoColumn().trim().isEmpty()) data.add(sourceElement.getInfoColumn());
+			if (!sourceElement.getInfoColumn().isBlank()) data.add(sourceElement.getInfoColumn());
 			final Iterator<Double> iterator=connect.readTableColumn(sourceElement.getTable(),sourceElement.getLoadColumn(),null,null,data.toArray(String[]::new));
 			final List<String> row=new ArrayList<>();
 			while (iterator.hasNext()) {

@@ -191,7 +191,7 @@ public class ModelElementDelayJSDialog extends ModelElementBaseDialog {
 		ok=ok && editor.checkData();
 
 		final String text=textCosts.getText();
-		if (!text.trim().isEmpty()) {
+		if (!text.isBlank()) {
 			final int error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				textCosts.setBackground(Color.red);

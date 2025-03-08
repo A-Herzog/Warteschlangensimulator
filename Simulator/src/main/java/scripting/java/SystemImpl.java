@@ -390,7 +390,7 @@ public class SystemImpl implements SystemInterface {
 
 	@Override
 	public void signal(String signalName) {
-		if (signalName==null || signalName.trim().isEmpty()) return;
+		if (signalName==null || signalName.isBlank()) return;
 		if (simData.loggingActive) simData.logEventExecution(Language.tr("Simulation.Log.Signal"),-1,String.format(Language.tr("Simulation.Log.Signal.Info2"),signalName));
 		simData.runData.fireSignal(simData,signalName);
 	}

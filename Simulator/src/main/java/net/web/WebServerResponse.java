@@ -518,7 +518,7 @@ public class WebServerResponse {
 		nanoResponse.setStatus(returnCode);
 		for (Map.Entry<String,String> entry: userHeaders.entrySet()) nanoResponse.addHeader(entry.getKey(),entry.getValue());
 
-		if (downloadName!=null&& !downloadName.trim().isEmpty()) nanoResponse.addHeader("Content-Disposition","attachment; filename="+downloadName);
+		if (downloadName!=null&& !downloadName.isBlank()) nanoResponse.addHeader("Content-Disposition","attachment; filename="+downloadName);
 
 		return nanoResponse;
 	}

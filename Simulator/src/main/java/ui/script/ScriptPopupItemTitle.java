@@ -53,7 +53,7 @@ public class ScriptPopupItemTitle extends ScriptPopupItem {
 	@Override
 	protected JMenuItem buildMenuItem() {
 		final JMenuItem item;
-		if (title==null || title.trim().isEmpty()) {
+		if (title==null || title.isBlank()) {
 			item=new JMenuItem();
 		} else {
 			if (isHTML) {

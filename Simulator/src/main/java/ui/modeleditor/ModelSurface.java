@@ -438,7 +438,7 @@ public final class ModelSurface {
 	public void add(final ModelElement element) {
 		elements.add(element);
 		element.addedToSurface();
-		if (activeLayer!=null && !activeLayer.trim().isEmpty()) element.getLayers().add(activeLayer);
+		if (activeLayer!=null && !activeLayer.isBlank()) element.getLayers().add(activeLayer);
 		fireRedraw();
 		fireStateChangeListener();
 	}
@@ -1380,7 +1380,7 @@ public final class ModelSurface {
 
 		if (Language.trAll("Surface.XML.Layer",name)) {
 			final String layer=node.getTextContent();
-			if (!layer.trim().isEmpty()) {
+			if (!layer.isBlank()) {
 				layers.add(layer);
 				final String visible=Language.trAllAttribute("Surface.XML.Layer.Visible",node);
 				if (!visible.isEmpty() && !visible.equals("0")) visibleLayers.add(layer);
@@ -1911,7 +1911,7 @@ public final class ModelSurface {
 	 */
 	private boolean isSignalListEmpty(final String[] signalList) {
 		if (signalList==null || signalList.length==0) return true;
-		for (String signal: signalList) if (signal!=null && !signal.trim().isEmpty()) return false;
+		for (String signal: signalList) if (signal!=null && !signal.isBlank()) return false;
 		return true;
 	}
 
@@ -2467,7 +2467,7 @@ public final class ModelSurface {
 
 		if (element==null || !elements.contains(element) || !(element instanceof ModelElementBox)) return;
 		final ModelElementBox box=(ModelElementBox)element;
-		if (box.getName().trim().isEmpty()) return;
+		if (box.getName().isBlank()) return;
 
 		/* Namen auftrennen */
 		final Object[] parts=splitName(box.getName());
@@ -2530,7 +2530,7 @@ public final class ModelSurface {
 	 * @return	Name der Ebene für neue Elemente (kann <code>null</code> sein)
 	 */
 	public String getActiveLayer() {
-		if (activeLayer!=null && activeLayer.trim().isEmpty()) return null;
+		if (activeLayer!=null && activeLayer.isBlank()) return null;
 		return activeLayer;
 	}
 
@@ -2539,6 +2539,6 @@ public final class ModelSurface {
 	 * @param layer	Name der Ebene für neue Elemente (kann <code>null</code> sein)
 	 */
 	public void setActiveLayer(final String layer) {
-		if (layer!=null && layer.trim().isEmpty()) activeLayer=null; else activeLayer=(layer==null)?null:layer.trim();
+		if (layer!=null && layer.isBlank()) activeLayer=null; else activeLayer=(layer==null)?null:layer.trim();
 	}
 }

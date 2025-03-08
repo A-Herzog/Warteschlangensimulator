@@ -142,7 +142,7 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 		final ModelClientData clientData=model.clientData;
 		for (int i=0;i<typesUsed.size();i++) {
 			String icon=clientData.getIcon(typesUsed.get(i));
-			if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
+			if (icon==null || icon.isBlank()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
 			tabs.setIconAt(i+1,new ImageIcon(imageSource.get(icon,model.animationImages,16)));
 		}
 
@@ -160,7 +160,7 @@ public class ModelElementSourceTablePreviewDialog extends BaseDialog {
 	 * @return	Liefert im Erfolgsfall die Tabelle, sonst <code>null</code>. (Im Fehlerfall wird direkt eine Fehlermeldung angezeigt.)
 	 */
 	private Table loadTable(final String tableFileName) {
-		if (tableFileName==null || tableFileName.trim().isEmpty()) {
+		if (tableFileName==null || tableFileName.isBlank()) {
 			MsgBox.error(owner,Language.tr("Surface.SourceTable.Dialog.Table.Preview.ErrorNoFile.Title"),Language.tr("Surface.SourceTable.Dialog.Table.Preview.ErrorNoFile.Info"));
 			return null;
 		}

@@ -338,12 +338,12 @@ public final class ModelClientData implements Cloneable {
 			if (Language.trAll("Surface.XML.ClientData",e.getNodeName())) {
 				/* Name */
 				final String name=Language.trAllAttribute("Surface.XML.ClientData.Name",e);
-				if (name.trim().isEmpty()) continue;
+				if (name.isBlank()) continue;
 
 				/* Farbe */
 				String color=Language.trAllAttribute("Surface.XML.ClientData.Color",e);
 				if (color==null || color.isEmpty()) color=e.getTextContent();
-				if (!color.trim().isEmpty()) {
+				if (!color.isBlank()) {
 					final Color c=EditModel.loadColor(color);
 					if (c==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.XML.ClientData.Color"),e.getNodeName(),e.getParentNode().getNodeName());
 					colorMap.put(name,c);

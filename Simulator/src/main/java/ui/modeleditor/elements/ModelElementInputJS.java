@@ -485,7 +485,7 @@ public class ModelElementInputJS extends ModelElementMultiInSingleOutBox impleme
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		if (!inputFile.trim().isEmpty()) {
+		if (!inputFile.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.InputJS.File"),inputFile,2000);
 		}
 

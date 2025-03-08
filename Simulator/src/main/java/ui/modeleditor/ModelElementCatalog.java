@@ -576,7 +576,7 @@ public final class ModelElementCatalog {
 	 * @return	Liefert <code>true</code>, wenn der Eintrag angezeigt werden soll
 	 */
 	private boolean showElement(final String name, final ModelElement element, final String filter, final TemplatesListMode templatesListMode) {
-		if (filter!=null && !filter.trim().isEmpty()) {
+		if (filter!=null && !filter.isBlank()) {
 			if (!name.toLowerCase().contains(filter.trim().toLowerCase())) return false;
 		}
 		switch (templatesListMode) {

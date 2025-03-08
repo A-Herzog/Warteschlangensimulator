@@ -295,7 +295,7 @@ public class ModelElementStateStatistics extends ModelElementMultiInSingleOutBox
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		if (!groupName.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.StateStatistics.Group"),groupName,1000);
+		if (!groupName.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.StateStatistics.Group"),groupName,1000);
 	}
 
 	@Override

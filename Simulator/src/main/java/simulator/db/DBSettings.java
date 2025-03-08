@@ -262,9 +262,9 @@ public final class DBSettings implements Cloneable {
 	 */
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder, final int position) {
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.Database.Type"),type,position);
-		if (config!=null && !config.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Database.Config"),config,position+1);
-		if (user!=null && !user.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Database.User"),user,position+2);
-		if (password!=null && !password.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Database.Password"),password,position+3);
+		if (config!=null && !config.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Database.Config"),config,position+1);
+		if (user!=null && !user.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Database.User"),user,position+2);
+		if (password!=null && !password.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Database.Password"),password,position+3);
 	}
 
 	@Override
@@ -273,15 +273,15 @@ public final class DBSettings implements Cloneable {
 		sb.append(type);
 		sb.append(" (");
 		boolean first=true;
-		if (config!=null && !config.trim().isEmpty()) {
+		if (config!=null && !config.isBlank()) {
 			if (first) first=false; else sb.append(", ");
 			sb.append(Language.tr("ModelDescription.Database.Config")+": "+config);
 		}
-		if (user!=null && !user.trim().isEmpty()) {
+		if (user!=null && !user.isBlank()) {
 			if (first) first=false; else sb.append(", ");
 			sb.append(Language.tr("ModelDescription.Database.User")+": "+user);
 		}
-		if (password!=null && !password.trim().isEmpty()) {
+		if (password!=null && !password.isBlank()) {
 			if (first) first=false; else sb.append(", ");
 			sb.append(Language.tr("ModelDescription.Database.Password")+": "+password);
 		}

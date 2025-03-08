@@ -459,22 +459,22 @@ public class ModelElementSourceDB extends ModelElementBox implements ElementWith
 
 		db.saveToXML(doc,node);
 
-		if (table!=null && !table.trim().isEmpty()) {
+		if (table!=null && !table.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceDB.XML.Table")));
 			sub.setTextContent(table);
 		}
 
-		if (loadColumn!=null && !loadColumn.trim().isEmpty()) {
+		if (loadColumn!=null && !loadColumn.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceDB.XML.LoadColumn")));
 			sub.setTextContent(loadColumn);
 		}
 
-		if (clientTypeColumn!=null && !clientTypeColumn.trim().isEmpty()) {
+		if (clientTypeColumn!=null && !clientTypeColumn.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceDB.XML.ClientTypeColumn")));
 			sub.setTextContent(clientTypeColumn);
 		}
 
-		if (infoColumn!=null && !infoColumn.trim().isEmpty()) {
+		if (infoColumn!=null && !infoColumn.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceDB.XML.InfoColumn")));
 			sub.setTextContent(infoColumn);
 		}
@@ -594,10 +594,10 @@ public class ModelElementSourceDB extends ModelElementBox implements ElementWith
 
 		db.buildDescription(descriptionBuilder,1000);
 
-		if (table!=null && !table.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDB.Table"),table,2000);
-		if (loadColumn!=null && !loadColumn.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDB.ColumnLoad"),loadColumn,3000);
-		if (clientTypeColumn!=null && !clientTypeColumn.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDB.ColumnClientType"),clientTypeColumn,4000);
-		if (infoColumn!=null && !infoColumn.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDB.ColumnInfo"),infoColumn,5000);
+		if (table!=null && !table.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDB.Table"),table,2000);
+		if (loadColumn!=null && !loadColumn.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDB.ColumnLoad"),loadColumn,3000);
+		if (clientTypeColumn!=null && !clientTypeColumn.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDB.ColumnClientType"),clientTypeColumn,4000);
+		if (infoColumn!=null && !infoColumn.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.SourceDB.ColumnInfo"),infoColumn,5000);
 
 		final StringBuilder sb=new StringBuilder();
 		if (clientTypeNames!=null) for (String clientType: clientTypeNames) {

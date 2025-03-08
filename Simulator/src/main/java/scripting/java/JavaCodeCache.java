@@ -84,7 +84,7 @@ public class JavaCodeCache {
 	public DynamicMethod getCachedMethod(final String script, final String imports, final String additionalClassPath) {
 		synchronized(this) {
 			final DynamicMethod dynamicMethod;
-			if (imports==null || imports.trim().isEmpty()) {
+			if (imports==null || imports.isBlank()) {
 				dynamicMethod=mapNoUserImports.get(script);
 			} else {
 				final Map<String,DynamicMethod> methodsMap=map.computeIfAbsent(imports,i->new HashMap<>());
@@ -103,7 +103,7 @@ public class JavaCodeCache {
 	 */
 	public void storeMethod(final String script, final String imports, final DynamicMethod method) {
 		synchronized(this) {
-			if (imports==null || imports.trim().isEmpty()) {
+			if (imports==null || imports.isBlank()) {
 				mapNoUserImports.put(script,method);
 			} else {
 				final Map<String,DynamicMethod> methodsMap=map.computeIfAbsent(imports,i->new HashMap<>());

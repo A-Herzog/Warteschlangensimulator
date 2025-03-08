@@ -69,7 +69,7 @@ public class RunElementClientIcon extends RunElementPassThrough {
 
 		/* Optionale Bedingung */
 		final String condition=assignIconElement.getCondition();
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			assignIcon.condition=null;
 		} else {
 			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);

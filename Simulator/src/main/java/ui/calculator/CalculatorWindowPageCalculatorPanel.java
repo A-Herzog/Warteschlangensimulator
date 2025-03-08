@@ -183,7 +183,7 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 	 * @param expression	Neuer Rechenausdruck
 	 */
 	public void setExpression(final String expression) {
-		if (expression==null || expression.trim().isEmpty()) return;
+		if (expression==null || expression.isBlank()) return;
 
 		inputEdit.setText(expression);
 		outputEdit.setText(calc(inputEdit.getText()));
@@ -207,7 +207,7 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 	 * @return	Liefert das Ergebnis als Zeichenkette oder eine Fehlermeldung
 	 */
 	private String calc(final String expression) {
-		if (expression==null || expression.trim().isEmpty()) return "";
+		if (expression==null || expression.isBlank()) return "";
 
 		final ExpressionCalc calc=new ExpressionCalc(null,null);
 		final int error=calc.parse(expression);

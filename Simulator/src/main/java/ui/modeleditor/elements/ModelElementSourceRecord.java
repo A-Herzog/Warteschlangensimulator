@@ -1198,7 +1198,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 			sub.setTextContent("0");
 		}
 
-		if (name!=null && !name.trim().isEmpty()) {
+		if (name!=null && !name.isBlank()) {
 			sub=doc.createElement(Language.trPrimary("Surface.XML.Element.Name"));
 			node.appendChild(sub);
 			sub.setTextContent(name);
@@ -1452,7 +1452,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		}
 
 		if (Language.trAll("Surface.Source.XML.Threshold",name)) {
-			if (!content.trim().isEmpty()) {
+			if (!content.isBlank()) {
 				thresholdExpression=content;
 				nextMode=NextMode.NEXT_THRESHOLD;
 				final String thresholdValueString=Language.trAllAttribute("Surface.Source.XML.Threshold.Value",node);
@@ -1472,7 +1472,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		}
 
 		if (Language.trAll("Surface.Source.XML.Signal",name)) {
-			if (!content.trim().isEmpty()) {
+			if (!content.isBlank()) {
 				nextMode=NextMode.NEXT_SIGNAL;
 				signalNames.add(content);
 			}
@@ -1484,7 +1484,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		}
 
 		if (Language.trAll("Surface.Source.XML.IntervalExpression",name)) {
-			if (!content.trim().isEmpty()) {
+			if (!content.isBlank()) {
 				nextMode=NextMode.NEXT_INTERVAL_EXPRESSIONS;
 				intervalExpressions.add(content);
 			}
@@ -1506,7 +1506,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 		}
 
 		if (Language.trAll("Surface.Source.XML.IntervalDistribution",name)) {
-			if (!content.trim().isEmpty()) {
+			if (!content.isBlank()) {
 				nextMode=NextMode.NEXT_INTERVAL_DISTRIBUTIONS;
 				intervalDistributions.add(content);
 			}
@@ -1555,7 +1555,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 			if (D==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			arrivalsStart=D;
 			final String arrivalStartTimeBaseString=Language.trAllAttribute("Surface.Source.XML.Expression.ArrivalStart.TimeBase",node);
-			if (arrivalStartTimeBaseString.trim().isEmpty()) {
+			if (arrivalStartTimeBaseString.isBlank()) {
 				arrivalStartTimeBase=null;
 			} else {
 				arrivalStartTimeBase=ModelSurface.getTimeBaseInteger(arrivalStartTimeBaseString);

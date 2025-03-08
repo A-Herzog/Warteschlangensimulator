@@ -341,7 +341,7 @@ public class ModelElementRelease extends ModelElementMultiInSingleOutBox impleme
 		super.buildDescription(descriptionBuilder);
 
 		/* Zugehöriges "Ressource belegen"-Element */
-		if (seizeName!=null && !seizeName.trim().isEmpty()) {
+		if (seizeName!=null && !seizeName.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Release.Seize"),seizeName,1000);
 		}
 

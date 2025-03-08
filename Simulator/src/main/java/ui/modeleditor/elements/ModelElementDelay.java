@@ -242,7 +242,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	 * @param expression	Neuer Ausdruck zur Bestimmung der Wartezeiten oder <code>null</code>, wenn für den Kundentyp kein individueller Ausdruck definiert werden soll oder statt dessen eine Verteilung verwendet werden soll
 	 */
 	public void setDelayTime(final String clientType, final AbstractRealDistribution distribution, final String expression) {
-		if (clientType==null || clientType.trim().isEmpty()) return;
+		if (clientType==null || clientType.isBlank()) return;
 		if (distribution==null) {
 			distributionByType.remove(clientType);
 			if (expression!=null) expressionByType.put(clientType,expression); else expressionByType.remove(clientType);
@@ -668,7 +668,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 			sub.setTextContent(entry.getValue());
 		}
 
-		if (costs!=null && !costs.trim().isEmpty() && !costs.trim().equals("0")) {
+		if (costs!=null && !costs.isBlank() && !costs.trim().equals("0")) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Delay.XML.Costs")));
 			sub.setTextContent(costs);
 		}
@@ -710,7 +710,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 			final String typ=Language.trAllAttribute("Surface.Delay.XML.Distribution.ClientType",node);
 			final AbstractRealDistribution dist=DistributionTools.distributionFromString(content,3000);
 			if (dist==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
-			if (typ==null || typ.trim().isEmpty()) {
+			if (typ==null || typ.isBlank()) {
 				distributionGlobal=dist;
 				expressionGlobal=null;
 				loadGlobalProperties(node);
@@ -723,7 +723,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		if (Language.trAll("Surface.Delay.XML.Expression",name)) {
 			final String typ=Language.trAllAttribute("Surface.Delay.XML.Expression.ClientType",node);
 			final String expression=content;
-			if (typ==null || typ.trim().isEmpty()) {
+			if (typ==null || typ.isBlank()) {
 				expressionGlobal=expression;
 				distributionGlobal=null;
 				loadGlobalProperties(node);
@@ -826,7 +826,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		descriptionBuilder.addTimeBaseProperty(timeBase,5000);
 
 		/* Kosten an der Station */
-		if (costs!=null && !costs.trim().isEmpty() && !costs.trim().equals("0")) {
+		if (costs!=null && !costs.isBlank() && !costs.trim().equals("0")) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.StationCostsPerClient"),costs,1000);
 		}
 	}

@@ -434,11 +434,11 @@ public class ModelElementCosts extends ModelElementMultiInSingleOutBox {
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		if (!stationCosts.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.Station"),stationCosts,1000);
-		if (!clientWaitingCosts.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.ClientWaiting"),clientWaitingCosts,2000);
-		if (!clientTransferCosts.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.ClientTransfer"),clientTransferCosts,3000);
-		if (!clientProcessCosts.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.ClientProcess"),clientProcessCosts,4000);
-		if (!condition.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.Condition"),condition,5000);
+		if (!stationCosts.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.Station"),stationCosts,1000);
+		if (!clientWaitingCosts.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.ClientWaiting"),clientWaitingCosts,2000);
+		if (!clientTransferCosts.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.ClientTransfer"),clientTransferCosts,3000);
+		if (!clientProcessCosts.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.ClientProcess"),clientProcessCosts,4000);
+		if (!condition.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Costs.Condition"),condition,5000);
 	}
 
 	@Override

@@ -119,7 +119,7 @@ public class ModelElementRecordDialog extends ModelElementBaseDialog {
 	 */
 	private boolean checkInput(final JTextField expression, final boolean showErrorMessage, final String errorExpression, final String errorEmpty) {
 		final String text=expression.getText();
-		if (!text.trim().isEmpty()) {
+		if (!text.isBlank()) {
 			final int error=ExpressionCalc.check(text,element.getSurface().getMainSurfaceVariableNames(element.getModel().getModelVariableNames(),true),element.getModel().userFunctions);
 			if (error>=0) {
 				expression.setBackground(Color.red);

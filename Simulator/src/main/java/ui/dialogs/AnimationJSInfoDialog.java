@@ -178,7 +178,7 @@ public class AnimationJSInfoDialog extends BaseDialog {
 		private void addResult(final String result, final StringBuilder sb) {
 			sb.append("<div style=\"margin-top: 5px; margin-left: 10px;\">\n");
 			sb.append("<span style=\"text-decoration: underline;\">"+Language.tr("Animation.JSResults.ReturnValue")+":</span><br><b>\n");
-			if (result.trim().isEmpty()) {
+			if (result.isBlank()) {
 				sb.append(Language.tr("Animation.JSResults.NoReturnValue")+"<br>\n");
 			} else {
 				for (String line: result.split("\\n")) sb.append(encodeHTML(line)+"<br>\n");

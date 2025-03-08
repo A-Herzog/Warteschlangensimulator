@@ -567,7 +567,7 @@ public class ScriptEditorAreaBuilder {
 	 * @param command	Einzufügendes Text
 	 */
 	private void addAutoComplete(final String shortDescription, final String summary, final Icon icon, final String command) {
-		if (command==null || command.trim().isEmpty()) return;
+		if (command==null || command.isBlank()) return;
 		final BasicCompletion completion=new BasicCompletion(autoCompleteProvider,command);
 
 		if (icon!=null) completion.setIcon(icon);

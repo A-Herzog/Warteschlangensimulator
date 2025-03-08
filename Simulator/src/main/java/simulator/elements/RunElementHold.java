@@ -72,7 +72,7 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 
 		/* Bedingung */
 		final String condition=holdElement.getCondition();
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			hold.condition=null;
 		} else {
 			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);
@@ -84,7 +84,7 @@ public class RunElementHold extends RunElementPassThrough implements StateChange
 		hold.priority=new String[runModel.clientTypes.length];
 		for (int i=0;i<hold.priority.length;i++) {
 			String priorityString=holdElement.getPriority(runModel.clientTypes[i]);
-			if (priorityString==null || priorityString.trim().isEmpty()) priorityString=ModelElementHold.DEFAULT_CLIENT_PRIORITY;
+			if (priorityString==null || priorityString.isBlank()) priorityString=ModelElementHold.DEFAULT_CLIENT_PRIORITY;
 			if (priorityString.equalsIgnoreCase(ModelElementHold.DEFAULT_CLIENT_PRIORITY)) {
 				hold.priority[i]=null; /* Default Priorität als null vermerken */
 			} else {

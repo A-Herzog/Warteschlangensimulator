@@ -83,7 +83,7 @@ public abstract class DynamicClassFileBased extends DynamicClassBase {
 	@Override
 	public Object prepare(final String text) {
 		/* Daten vorhanden? */
-		if (text==null || text.trim().isEmpty()) return DynamicStatus.NO_INPUT_FILE_OR_DATA;
+		if (text==null || text.isBlank()) return DynamicStatus.NO_INPUT_FILE_OR_DATA;
 
 		/* Voraussetzungen ok? */
 		if (!DynamicFactory.isWindows()) return DynamicStatus.UNSUPPORTED_OS;
@@ -168,7 +168,7 @@ public abstract class DynamicClassFileBased extends DynamicClassBase {
 	 * @return	Verzeichnis für temporäre Dateien oder <code>null</code>, wenn die Erstellung fehlgeschlagen ist
 	 */
 	protected static File getTempFolder(final String tempFolderName) {
-		if (tempFolderName==null || tempFolderName.trim().isEmpty()) return null;
+		if (tempFolderName==null || tempFolderName.isBlank()) return null;
 		String tempFolder=System.getProperty("java.io.tmpdir");
 		if (!tempFolder.endsWith(File.separator)) tempFolder=tempFolder+File.separator;
 		tempFolder=tempFolder+tempFolderName+File.separator;

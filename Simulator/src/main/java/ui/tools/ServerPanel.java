@@ -570,7 +570,7 @@ public final class ServerPanel extends SpecialPanel {
 		authPasswordEdit.setEnabled(!serverCalcWeb.isRunning() && !serverWeb.isRunning() && !serverMQTT.isRunning());
 		tlsButton.setEnabled(!serverCalcWeb.isRunning() && !serverWeb.isRunning());
 		final SetupData setupData=SetupData.getSetup();
-		if (setupData.serverTLSKeyStoreFile!=null && !setupData.serverTLSKeyStoreFile.trim().isEmpty() && setupData.serverTLSKeyStorePassword!=null && !setupData.serverTLSKeyStorePassword.trim().isEmpty()) {
+		if (setupData.serverTLSKeyStoreFile!=null && !setupData.serverTLSKeyStoreFile.isBlank() && setupData.serverTLSKeyStorePassword!=null && !setupData.serverTLSKeyStorePassword.isBlank()) {
 			tlsButton.setIcon(Images.GENERAL_LOCK_CLOSED.getIcon());
 		} else {
 			tlsButton.setIcon(Images.GENERAL_LOCK_OPEN.getIcon());
@@ -868,7 +868,7 @@ public final class ServerPanel extends SpecialPanel {
 
 		final StringBuilder sb=new StringBuilder();
 
-		if (setup.serverTLSKeyStoreFile!=null && !setup.serverTLSKeyStoreFile.trim().isEmpty() && setup.serverTLSKeyStorePassword!=null && !setup.serverTLSKeyStorePassword.trim().isEmpty()) {
+		if (setup.serverTLSKeyStoreFile!=null && !setup.serverTLSKeyStoreFile.isBlank() && setup.serverTLSKeyStorePassword!=null && !setup.serverTLSKeyStorePassword.isBlank()) {
 			sb.append("https");
 		} else {
 			sb.append("http");

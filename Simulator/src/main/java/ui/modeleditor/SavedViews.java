@@ -84,7 +84,7 @@ public class SavedViews {
 	 */
 	public String loadFromXML(final Element node) {
 		final String name=Language.trAllAttribute("SavedView.XML.Name",node);
-		if (name.trim().isEmpty()) return null;
+		if (name.isBlank()) return null;
 		if (nameInUse(name)) return String.format("SavedView.XML.ErrorName",name);
 
 		final Integer x=NumberTools.getNotNegativeInteger(Language.trAllAttribute("SavedView.XML.X",node));

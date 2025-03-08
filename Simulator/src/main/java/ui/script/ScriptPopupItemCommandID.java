@@ -139,7 +139,7 @@ public class ScriptPopupItemCommandID extends ScriptPopupItemCommandModel {
 		final SelectIDDialog dialog=new SelectIDDialog(owner,model,help,stationTypes,preferProcessStations,allowEmpty,allowNames);
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return null;
 		final String name=dialog.getSelectedName();
-		if (name!=null && !name.trim().isEmpty()) {
+		if (name!=null && !name.isBlank()) {
 			return "\""+name+"\"";
 		} else {
 			final int id=dialog.getSelectedID();

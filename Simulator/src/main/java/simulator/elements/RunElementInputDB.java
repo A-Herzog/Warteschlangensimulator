@@ -176,7 +176,7 @@ public class RunElementInputDB extends RunElementPassThrough {
 		try (DBConnect connect=new DBConnect(inputElement.getDb(),false)) {
 			if (connect.getInitError()!=null) return Language.tr("Simulation.Creator.DatabaseError")+": "+connect.getInitError();
 
-			final String sortColumn=(inputElement.getSortColumn().trim().isEmpty())?null:inputElement.getSortColumn();
+			final String sortColumn=(inputElement.getSortColumn().isBlank())?null:inputElement.getSortColumn();
 
 			if (assignMode==AssignMode.CLIENT_TEXT) {
 				final List<String> list=new ArrayList<>();

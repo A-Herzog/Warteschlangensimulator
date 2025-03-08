@@ -783,7 +783,7 @@ public class ListPopup {
 	 */
 	public static JMenuItem getMenuItem(final String title, final String hint, final Icon icon, final ActionListener listener) {
 		final JMenuItem item=new JMenuItem(title);
-		if (hint!=null && !hint.trim().isEmpty()) item.setToolTipText(hint);
+		if (hint!=null && !hint.isBlank()) item.setToolTipText(hint);
 		if (icon!=null) item.setIcon(icon);
 		item.addActionListener(listener);
 		return item;
@@ -798,7 +798,7 @@ public class ListPopup {
 	 */
 	public static JMenu getSubMenu(final String title, final String hint, final Icon icon) {
 		final JMenu menu=new JMenu(title);
-		if (hint!=null && !hint.trim().isEmpty()) menu.setToolTipText(hint);
+		if (hint!=null && !hint.isBlank()) menu.setToolTipText(hint);
 		if (icon!=null) menu.setIcon(icon);
 		return menu;
 	}

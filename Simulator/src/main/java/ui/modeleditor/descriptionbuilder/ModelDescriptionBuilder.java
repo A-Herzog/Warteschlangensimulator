@@ -347,7 +347,7 @@ public abstract class ModelDescriptionBuilder {
 		final String next=getBoxStationName(station);
 		if (next==null) return;
 		if (nextElementSuggestion==null) nextElementSuggestion=station;
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			addProperty(Language.tr("ModelDescription.NextElement"),next,Integer.MAX_VALUE);
 		} else {
 			addProperty(condition,next,Integer.MAX_VALUE);
@@ -363,7 +363,7 @@ public abstract class ModelDescriptionBuilder {
 		final ModelElementTeleportDestination destination=getTeleportDestination(destinationName);
 		if (destination==null) return;
 		if (nextElementSuggestion==null) nextElementSuggestion=destination;
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			addProperty(Language.tr("ModelDescription.NextElement"),destinationName,Integer.MAX_VALUE);
 		} else {
 			addProperty(condition,destinationName,Integer.MAX_VALUE);
@@ -466,7 +466,7 @@ public abstract class ModelDescriptionBuilder {
 	protected String getModelDescriptionTitle() {
 		final StringBuilder sb=new StringBuilder();
 		sb.append(Language.tr("ModelDescription.Dialog.Save.OutputTitle"));
-		if (!model.name.trim().isEmpty()) {
+		if (!model.name.isBlank()) {
 			sb.append(" \"");
 			sb.append(model.name);
 			sb.append("\"");

@@ -550,7 +550,7 @@ public class ExpressionCalc extends CalcSystem {
 	 * @return	Gibt <code>true</code> zurück, wenn die Zeichenkette als Variablenname verwendet werden kann.
 	 */
 	public static boolean checkVariableName(final String variableName) {
-		if (variableName==null || variableName.trim().isEmpty()) return false;
+		if (variableName==null || variableName.isBlank()) return false;
 		final ExpressionCalc calc=new ExpressionCalc(null,null);
 		if (calc.isKnownSymbol(variableName)) return false;
 		for (int i=0;i<variableName.length();i++) {

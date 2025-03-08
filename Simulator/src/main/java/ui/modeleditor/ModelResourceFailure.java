@@ -301,7 +301,7 @@ public final class ModelResourceFailure implements Cloneable {
 	 * @see FailureMode#FAILURE_BY_EXPRESSION
 	 */
 	public void setFailureByExpression(final String expression) {
-		if (expression!=null && !expression.trim().isEmpty()) {
+		if (expression!=null && !expression.isBlank()) {
 			modeFailure=FailureMode.FAILURE_BY_EXPRESSION;
 			interDownTimeExpression=expression;
 		}
@@ -405,12 +405,12 @@ public final class ModelResourceFailure implements Cloneable {
 		boolean dataLoadedPart2=false;
 
 		s=Language.trAllAttribute("Surface.XML.Resource.FailureExpression",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			downTimeExpression=s;
 			dataLoadedPart1=true;
 		} else {
 			s=Language.trAllAttribute("Surface.XML.Resource.FailureDistribution",node);
-			if (!s.trim().isEmpty()) {
+			if (!s.isBlank()) {
 				final AbstractRealDistribution dist=DistributionTools.distributionFromString(s,86400);
 				if (dist==null) return String.format(Language.tr("Surface.Resource.ErrorDistribution"),s,resourceName);
 				downTimeDistribution=dist;
@@ -419,7 +419,7 @@ public final class ModelResourceFailure implements Cloneable {
 		}
 
 		s=Language.trAllAttribute("Surface.XML.Resource.FailureByNumber",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			final Integer I=NumberTools.getNotNegativeInteger(s);
 			if (I==null) return String.format(Language.tr("Surface.Resource.ErrorFailureNumber"),s,resourceName);
 			modeFailure=FailureMode.FAILURE_BY_NUMBER;
@@ -428,7 +428,7 @@ public final class ModelResourceFailure implements Cloneable {
 		}
 
 		s=Language.trAllAttribute("Surface.XML.Resource.FailureByAvailableTime",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			final Double D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(s));
 			if (D==null) return String.format(Language.tr("Surface.Resource.ErrorFailureTime"),s,resourceName);
 			modeFailure=FailureMode.FAILURE_BY_AVAILABLE_TIME;
@@ -437,7 +437,7 @@ public final class ModelResourceFailure implements Cloneable {
 		}
 
 		s=Language.trAllAttribute("Surface.XML.Resource.FailureByWorkingTime",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			final Double D=NumberTools.getPositiveDouble(NumberTools.systemNumberToLocalNumber(s));
 			if (D==null) return String.format(Language.tr("Surface.Resource.ErrorFailureTime"),s,resourceName);
 			modeFailure=FailureMode.FAILURE_BY_WORKING_TIME;
@@ -446,7 +446,7 @@ public final class ModelResourceFailure implements Cloneable {
 		}
 
 		s=Language.trAllAttribute("Surface.XML.Resource.FailureByDistribution",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			final AbstractRealDistribution dist=DistributionTools.distributionFromString(s,86400);
 			if (dist==null) return String.format(Language.tr("Surface.Resource.ErrorInterDistribution"),s,resourceName);
 			interDownTimeDistribution=dist;
@@ -455,7 +455,7 @@ public final class ModelResourceFailure implements Cloneable {
 		}
 
 		s=Language.trAllAttribute("Surface.XML.Resource.FailureByExpression",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			modeFailure=FailureMode.FAILURE_BY_EXPRESSION;
 			interDownTimeExpression=s;
 			dataLoadedPart2=true;

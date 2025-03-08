@@ -424,7 +424,7 @@ public class ModelElementCounter extends ModelElementMultiInSingleOutBox impleme
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		if (!groupName.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Counter.Group"),groupName,1000);
+		if (!groupName.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Counter.Group"),groupName,1000);
 		counterCondition.buildDescription(descriptionBuilder,2000);
 	}
 

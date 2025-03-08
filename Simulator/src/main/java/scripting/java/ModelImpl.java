@@ -235,7 +235,7 @@ public class ModelImpl implements ModelInterface {
 	 */
 	@Override
 	public boolean setGlobalVariableInitialValue(final String variableName, final String expression) {
-		if (expression==null || expression.trim().isEmpty()) return false;
+		if (expression==null || expression.isBlank()) return false;
 		if (variableName==null) return false;
 
 		final var globalVariable=model.getGlobalVariableByName(variableName);
@@ -345,7 +345,7 @@ public class ModelImpl implements ModelInterface {
 	 */
 	@Override
 	public int getStationID(final String name) {
-		if (name==null || name.trim().isEmpty()) return -1;
+		if (name==null || name.isBlank()) return -1;
 		return getStationID(model.surface,name);
 	}
 }

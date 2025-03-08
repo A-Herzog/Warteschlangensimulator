@@ -162,7 +162,7 @@ public abstract class ModelElementLogicWithCondition extends ModelElementLogic {
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		if (!condition.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Logic.Condition"),condition,1000);
+		if (!condition.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Logic.Condition"),condition,1000);
 	}
 
 	@Override

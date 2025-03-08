@@ -194,7 +194,7 @@ public class ModelElementTankFlowBySignal extends ModelElementBox {
 
 		data.saveToXML(doc,node);
 
-		if (signalName!=null && !signalName.trim().isEmpty()) {
+		if (signalName!=null && !signalName.isBlank()) {
 			Element sub;
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.TankFlowBySignal.XML.SignalName")));
 			sub.setTextContent(signalName);
@@ -270,7 +270,7 @@ public class ModelElementTankFlowBySignal extends ModelElementBox {
 	@Override
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
-		if (signalName!=null && !signalName.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.TankFlowBySignal.SignalName"),signalName,1000);
+		if (signalName!=null && !signalName.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.TankFlowBySignal.SignalName"),signalName,1000);
 		data.buildDescription(descriptionBuilder,2000);
 	}
 

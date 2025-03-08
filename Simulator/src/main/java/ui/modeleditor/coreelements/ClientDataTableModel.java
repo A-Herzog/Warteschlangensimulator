@@ -92,7 +92,7 @@ public class ClientDataTableModel extends JTableExtAbstractTableModel {
 			final Set<String> keys=client.getUserDataStringKeys();
 			for (String key: keys) {
 				final String value=client.getUserDataString(key);
-				if (value!=null && !value.trim().isEmpty()) records.add(new Record(key,value));
+				if (value!=null && !value.isBlank()) records.add(new Record(key,value));
 			}
 		}
 

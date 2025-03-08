@@ -101,7 +101,7 @@ public class StatisticViewerFastAccessJava extends StatisticViewerFastAccessBase
 
 		/* Filtertext laden */
 		String s=SetupData.getSetup().filterJava;
-		if (s.trim().isEmpty()) s=ScriptEditorPanel.DEFAULT_JAVA;
+		if (s.isBlank()) s=ScriptEditorPanel.DEFAULT_JAVA;
 		filter.setText(s);
 		lastSavedFilterText="";
 	}

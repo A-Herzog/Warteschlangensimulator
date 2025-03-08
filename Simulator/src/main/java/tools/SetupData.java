@@ -2925,7 +2925,7 @@ public class SetupData extends SetupBase {
 			node.setTextContent(showTemplates?"1":"0");
 		}
 
-		if (startModel!=null && !startModel.trim().isEmpty()) {
+		if (startModel!=null && !startModel.isBlank()) {
 			root.appendChild(node=doc.createElement("StartModel"));
 			node.setTextContent(startModel);
 		}
@@ -2949,7 +2949,7 @@ public class SetupData extends SetupBase {
 			node.setTextContent(NumberTools.localNumberToSystemNumber(NumberTools.formatNumber(scaleGUI)));
 		}
 
-		if ((lookAndFeel!=null && !lookAndFeel.trim().isEmpty()) || !lookAndFeelCombinedMenu) {
+		if ((lookAndFeel!=null && !lookAndFeel.isBlank()) || !lookAndFeelCombinedMenu) {
 			root.appendChild(node=doc.createElement("LookAndFeel"));
 			if (lookAndFeel!=null) node.setTextContent(lookAndFeel);
 			if (!lookAndFeelCombinedMenu) node.setAttribute("combinedMenu","0");
@@ -2981,7 +2981,7 @@ public class SetupData extends SetupBase {
 			if (!imagesInline) node.setAttribute("Inline","0");
 		}
 
-		if (imagePathAnimation!=null && !imagePathAnimation.trim().isEmpty()) {
+		if (imagePathAnimation!=null && !imagePathAnimation.isBlank()) {
 			root.appendChild(node=doc.createElement("ImagesAnimation"));
 			node.setTextContent(imagePathAnimation);
 		}
@@ -3101,7 +3101,7 @@ public class SetupData extends SetupBase {
 			node.setTextContent("0");
 		}
 
-		if (!lastLogFile.isEmpty() || !singleLineEventLog || !logGrouped || !logColors || !logFormatedTime || !logPrintIDs || logMaxRecords>0 || logMode==LogMode.DDE || !logDDEworkbook.trim().isEmpty() || !logDDEsheet.trim().isEmpty() || !logStationIDs.isEmpty() || !logTypeArrival || !logTypeLeave || !logTypeInfoStation || !logTypeInfoSystem) {
+		if (!lastLogFile.isEmpty() || !singleLineEventLog || !logGrouped || !logColors || !logFormatedTime || !logPrintIDs || logMaxRecords>0 || logMode==LogMode.DDE || !logDDEworkbook.isBlank() || !logDDEsheet.isBlank() || !logStationIDs.isEmpty() || !logTypeArrival || !logTypeLeave || !logTypeInfoStation || !logTypeInfoSystem) {
 			root.appendChild(node=doc.createElement("Logging"));
 			node.setTextContent(lastLogFile);
 			if (!singleLineEventLog) node.setAttribute("CompactFormat","0");
@@ -3111,9 +3111,9 @@ public class SetupData extends SetupBase {
 			if (!logPrintIDs) node.setAttribute("PrintIDs","0");
 			if (logMaxRecords>0) node.setAttribute("MaxRecords",""+logMaxRecords);
 			if (logMode==LogMode.DDE) node.setAttribute("DDE","1");
-			if (!logDDEworkbook.trim().isEmpty()) node.setAttribute("DDEWorkbook",logDDEworkbook);
-			if (!logDDEsheet.trim().isEmpty()) node.setAttribute("DDESheet",logDDEsheet);
-			if (!logStationIDs.trim().isEmpty()) node.setAttribute("IDs",logStationIDs);
+			if (!logDDEworkbook.isBlank()) node.setAttribute("DDEWorkbook",logDDEworkbook);
+			if (!logDDEsheet.isBlank()) node.setAttribute("DDESheet",logDDEsheet);
+			if (!logStationIDs.isBlank()) node.setAttribute("IDs",logStationIDs);
 			if (!logTypeArrival) node.setAttribute("TypeArrival","0");
 			if (!logTypeLeave) node.setAttribute("TypeLeave","0");
 			if (!logTypeInfoStation) node.setAttribute("TypeInfoStation","0");
@@ -3165,17 +3165,17 @@ public class SetupData extends SetupBase {
 			node.setTextContent("1");
 		}
 
-		if (filterJavascript!=null && !filterJavascript.trim().isEmpty()) {
+		if (filterJavascript!=null && !filterJavascript.isBlank()) {
 			root.appendChild(node=doc.createElement("FilterJavascript"));
 			node.setTextContent(filterJavascript);
 		}
 
-		if (filterJava!=null && !filterJava.trim().isEmpty()) {
+		if (filterJava!=null && !filterJava.isBlank()) {
 			root.appendChild(node=doc.createElement("FilterJava"));
 			node.setTextContent(filterJava);
 		}
 
-		if (filterList!=null && !filterList.trim().isEmpty()) {
+		if (filterList!=null && !filterList.isBlank()) {
 			root.appendChild(node=doc.createElement("FilterListe"));
 			node.setTextContent(filterList);
 		}
@@ -3185,12 +3185,12 @@ public class SetupData extends SetupBase {
 			node.setTextContent(""+lastFilterMode);
 		}
 
-		if (scriptScriptRunner!=null && !scriptScriptRunner.trim().isEmpty()) {
+		if (scriptScriptRunner!=null && !scriptScriptRunner.isBlank()) {
 			root.appendChild(node=doc.createElement("Javascript"));
 			node.setTextContent(scriptScriptRunner);
 		}
 
-		if (scriptCalculator!=null && !scriptCalculator.trim().isEmpty()) {
+		if (scriptCalculator!=null && !scriptCalculator.isBlank()) {
 			root.appendChild(node=doc.createElement("CalculatorScript"));
 			node.setTextContent(scriptCalculator);
 		}
@@ -3200,12 +3200,12 @@ public class SetupData extends SetupBase {
 			node.setTextContent(""+scriptFontSize);
 		}
 
-		if (fontName!=null && !fontName.trim().isEmpty()) {
+		if (fontName!=null && !fontName.isBlank()) {
 			root.appendChild(node=doc.createElement("FontName"));
 			node.setTextContent(fontName);
 		}
 
-		if (commandLineDialogParameters!=null && !commandLineDialogParameters.trim().isEmpty()) {
+		if (commandLineDialogParameters!=null && !commandLineDialogParameters.isBlank()) {
 			root.appendChild(node=doc.createElement("CommandLineParameters"));
 			node.setTextContent(commandLineDialogParameters);
 		}
@@ -3319,11 +3319,11 @@ public class SetupData extends SetupBase {
 			if (serverData!=null) node.setTextContent(serverData);
 		}
 
-		if (simulationServerAutoStart || simulationServerPort!=8183 || (simulationServerPasswort!=null && !simulationServerPasswort.trim().isEmpty()) || simulationServerLimitThreadCount) {
+		if (simulationServerAutoStart || simulationServerPort!=8183 || (simulationServerPasswort!=null && !simulationServerPasswort.isBlank()) || simulationServerLimitThreadCount) {
 			root.appendChild(node=doc.createElement("NetworkSimulationServer"));
 			if (simulationServerAutoStart) node.setAttribute("AutoStart","1");
 			node.setAttribute("Port",""+simulationServerPort);
-			if (simulationServerPasswort!=null && !simulationServerPasswort.trim().isEmpty()) node.setAttribute("Passwort",""+simulationServerPasswort);
+			if (simulationServerPasswort!=null && !simulationServerPasswort.isBlank()) node.setAttribute("Passwort",""+simulationServerPasswort);
 			if (simulationServerLimitThreadCount) node.setAttribute("Limited","1");
 		}
 
@@ -3361,10 +3361,10 @@ public class SetupData extends SetupBase {
 			node.setAttribute("AutoStart","1");
 		}
 
-		if ((customExcelRowName!=null && !customExcelRowName.trim().isEmpty()) || (customExcelColName!=null && !customExcelColName.trim().isEmpty())) {
+		if ((customExcelRowName!=null && !customExcelRowName.isBlank()) || (customExcelColName!=null && !customExcelColName.isBlank())) {
 			root.appendChild(node=doc.createElement("ExcelDDE"));
-			if (customExcelRowName!=null && !customExcelRowName.trim().isEmpty()) node.setAttribute("RowIdentifier",""+customExcelRowName);
-			if (customExcelColName!=null && !customExcelColName.trim().isEmpty()) node.setAttribute("ColumnIdentifier",""+customExcelColName);
+			if (customExcelRowName!=null && !customExcelRowName.isBlank()) node.setAttribute("RowIdentifier",""+customExcelRowName);
+			if (customExcelColName!=null && !customExcelColName.isBlank()) node.setAttribute("ColumnIdentifier",""+customExcelColName);
 		}
 
 		if (socketServerAutoStart || socketServerPort!=1000) {
@@ -3481,12 +3481,12 @@ public class SetupData extends SetupBase {
 			node.setTextContent("1");
 		}
 
-		if (defaultUserName!=null && !defaultUserName.trim().isEmpty()) {
+		if (defaultUserName!=null && !defaultUserName.isBlank()) {
 			root.appendChild(node=doc.createElement("DefaultUserName"));
 			node.setTextContent(defaultUserName);
 		}
 
-		if (defaultUserEMail!=null && !defaultUserEMail.trim().isEmpty()) {
+		if (defaultUserEMail!=null && !defaultUserEMail.isBlank()) {
 			root.appendChild(node=doc.createElement("DefaultUserEMail"));
 			node.setTextContent(defaultUserEMail);
 		}
@@ -3548,12 +3548,12 @@ public class SetupData extends SetupBase {
 			if (!showApproxSignOnValuesNearZero) node.setAttribute("UseApproxSign","0");
 		}
 
-		if (batchMeansConfidenceLevels!=null && !batchMeansConfidenceLevels.trim().isEmpty()) {
+		if (batchMeansConfidenceLevels!=null && !batchMeansConfidenceLevels.isBlank()) {
 			root.appendChild(node=doc.createElement("BatchMeansConfidenceLevels"));
 			node.setTextContent(batchMeansConfidenceLevels);
 		}
 
-		if (quantilLevels!=null && !quantilLevels.trim().isEmpty()) {
+		if (quantilLevels!=null && !quantilLevels.isBlank()) {
 			root.appendChild(node=doc.createElement("QuantilLevels"));
 			node.setTextContent(quantilLevels);
 		}
@@ -3576,7 +3576,7 @@ public class SetupData extends SetupBase {
 			node.setTextContent(cls);
 		}
 
-		if (eBook!=null && !eBook.trim().isEmpty()) {
+		if (eBook!=null && !eBook.isBlank()) {
 			root.appendChild(node=doc.createElement("eBook"));
 			node.setTextContent(eBook);
 		}
@@ -3598,7 +3598,7 @@ public class SetupData extends SetupBase {
 			if (!batchOutputFile.isEmpty()) node.setAttribute("OutputFile",batchOutputFile);
 		}
 
-		if (distributionListFilter!=null && !distributionListFilter.trim().isEmpty()) {
+		if (distributionListFilter!=null && !distributionListFilter.isBlank()) {
 			root.appendChild(node=doc.createElement("DistributionListFilter"));
 			node.setTextContent(distributionListFilter.trim());
 		}
@@ -3681,7 +3681,7 @@ public class SetupData extends SetupBase {
 			node.setTextContent("1");
 		}
 
-		if (lastError!=null && !lastError.trim().isEmpty()) {
+		if (lastError!=null && !lastError.isBlank()) {
 			root.appendChild(node=doc.createElement("LastError"));
 			node.setTextContent(lastError);
 		}

@@ -572,7 +572,7 @@ public class ModelElementSeize extends ModelElementBox implements ModelElementEd
 			final Long L=NumberTools.getPositiveLong(Language.trAllAttribute("Surface.Seize.XML.Operators.Count",node));
 			if (L==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Seize.XML.Operators.Count"),name,node.getParentNode().getNodeName());
 			final int i=(int)((long)L);
-			if (!typ.trim().isEmpty()) resources.put(typ,i);
+			if (!typ.isBlank()) resources.put(typ,i);
 			return null;
 		}
 
@@ -726,7 +726,7 @@ public class ModelElementSeize extends ModelElementBox implements ModelElementEd
 	 * @param newResourcePriority Neue Ressourcen-Priorisierungs-Formel
 	 */
 	public void setResourcePriority(final String newResourcePriority) {
-		if (newResourcePriority==null || newResourcePriority.trim().isEmpty()) return;
+		if (newResourcePriority==null || newResourcePriority.isBlank()) return;
 		resourcePriority=newResourcePriority;
 	}
 
@@ -797,7 +797,7 @@ public class ModelElementSeize extends ModelElementBox implements ModelElementEd
 		descriptionBuilder.addProperty(Language.tr("ModelDescription.Seize.Resources"),sb.toString(),1000);
 
 		/* Ressourcenpriorität */
-		if (resourcePriority!=null && !resourcePriority.trim().isEmpty()) {
+		if (resourcePriority!=null && !resourcePriority.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Seize.ResourcePriority"),resourcePriority,2000);
 		} else {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Seize.ResourcePriority"),ModelElementProcess.DEFAULT_RESOURCE_PRIORITY,2000);

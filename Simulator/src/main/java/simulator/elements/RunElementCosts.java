@@ -88,7 +88,7 @@ public class RunElementCosts extends RunElementPassThrough {
 		String text;
 
 		text=costsElement.getStationCosts();
-		if (text==null || text.trim().isEmpty()) {
+		if (text==null || text.isBlank()) {
 			costs.stationCosts=null;
 		} else {
 			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
@@ -97,7 +97,7 @@ public class RunElementCosts extends RunElementPassThrough {
 		}
 
 		text=costsElement.getClientWaitingCosts();
-		if (text==null || text.trim().isEmpty()) {
+		if (text==null || text.isBlank()) {
 			costs.clientWaitingCosts=null;
 		} else {
 			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
@@ -106,7 +106,7 @@ public class RunElementCosts extends RunElementPassThrough {
 		}
 
 		text=costsElement.getClientTransferCosts();
-		if (text==null || text.trim().isEmpty()) {
+		if (text==null || text.isBlank()) {
 			costs.clientTransferCosts=null;
 		} else {
 			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
@@ -115,7 +115,7 @@ public class RunElementCosts extends RunElementPassThrough {
 		}
 
 		text=costsElement.getClientProcessCosts();
-		if (text==null || text.trim().isEmpty()) {
+		if (text==null || text.isBlank()) {
 			costs.clientProcessCosts=null;
 		} else {
 			final int error=ExpressionCalc.check(text,runModel.variableNames,runModel.modelUserFunctions);
@@ -125,7 +125,7 @@ public class RunElementCosts extends RunElementPassThrough {
 
 		/* Optionale Bedingung */
 		final String condition=costsElement.getCondition();
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			costs.condition=null;
 		} else {
 			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);

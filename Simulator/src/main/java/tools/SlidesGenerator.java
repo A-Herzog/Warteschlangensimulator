@@ -53,7 +53,7 @@ public class SlidesGenerator extends AbstractSlidesGenerator {
 	protected boolean buildSlides(XMLSlideShow pptx) {
 		/* Titelfolie */
 		final String name;
-		if (model.name.trim().isEmpty()) name=Language.tr("SlidesGenerator.Modell"); else name=model.name;
+		if (model.name.isBlank()) name=Language.tr("SlidesGenerator.Modell"); else name=model.name;
 		addTitleSlide(pptx,name,MainFrame.PROGRAM_NAME+" "+Language.tr("SlidesGenerator.ModelType"));
 
 		/* Abbildung */
@@ -63,9 +63,9 @@ public class SlidesGenerator extends AbstractSlidesGenerator {
 		}
 
 		/* Beschreibung */
-		if (model.description!=null && !model.description.trim().isEmpty()) {
+		if (model.description!=null && !model.description.isBlank()) {
 			final List<String> lines=new ArrayList<>(Arrays.asList(model.description.split("\\n")));
-			final String[] content=lines.stream().filter(line->!line.trim().isEmpty()).toArray(String[]::new);
+			final String[] content=lines.stream().filter(line->!line.isBlank()).toArray(String[]::new);
 			if (content.length>0) addContentSlide(pptx,Language.tr("SlidesGenerator.ModellDescription"),content,12);
 		}
 

@@ -258,7 +258,7 @@ public class ModelElementTransportSource extends ModelElementBox implements Mode
 	@Override
 	protected String getErrorMessage() {
 		final String defaultStation=transportTargetSystem.getDefaultStation();
-		if (defaultStation==null || defaultStation.trim().isEmpty()) return Language.tr("Surface.ErrorInfo.NoDefaultDestination");
+		if (defaultStation==null || defaultStation.isBlank()) return Language.tr("Surface.ErrorInfo.NoDefaultDestination");
 
 		return null;
 	}
@@ -589,7 +589,7 @@ public class ModelElementTransportSource extends ModelElementBox implements Mode
 		transportTargetSystem.buildDescriptionProperty(descriptionBuilder);
 
 		/* Bereich verlassen */
-		if (sectionStartName!=null && !sectionStartName.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.TransportSource.SectionStartName"),sectionStartName,100000);
+		if (sectionStartName!=null && !sectionStartName.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.TransportSource.SectionStartName"),sectionStartName,100000);
 	}
 
 	@Override

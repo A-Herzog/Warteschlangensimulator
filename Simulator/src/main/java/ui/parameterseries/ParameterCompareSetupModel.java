@@ -260,7 +260,7 @@ public final class ParameterCompareSetupModel extends ParameterCompareSetupBase 
 			final Double D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(content));
 			if (D==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			final String n=Language.trAllAttribute("ParameterCompare.XML.Models.ValueName",node);
-			if (n.trim().isEmpty()) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("ParameterCompare.XML.Models.ValueName"),name,node.getParentNode().getNodeName());
+			if (n.isBlank()) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("ParameterCompare.XML.Models.ValueName"),name,node.getParentNode().getNodeName());
 			input.put(n,D);
 			return null;
 		}
@@ -269,7 +269,7 @@ public final class ParameterCompareSetupModel extends ParameterCompareSetupBase 
 			final Double D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(content));
 			if (D==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			final String n=Language.trAllAttribute("ParameterCompare.XML.Models.ValueName",node);
-			if (n.trim().isEmpty()) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("ParameterCompare.XML.Models.ValueName"),name,node.getParentNode().getNodeName());
+			if (n.isBlank()) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("ParameterCompare.XML.Models.ValueName"),name,node.getParentNode().getNodeName());
 			output.put(n,D);
 			return null;
 		}

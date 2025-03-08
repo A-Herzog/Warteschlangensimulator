@@ -669,7 +669,7 @@ public class ModelElement {
 	 */
 	protected final JMenuItem addVisualizationMenuItem(final ModelElementPosition[] elements, final String text, final JMenu parentMenu, final Consumer<ModelElementPosition[]> addElements) {
 		final ModelElementPosition element=elements[0];
-		final JMenuItem item=new JMenuItem((text==null || text.trim().isEmpty())?element.getContextMenuElementName():text);
+		final JMenuItem item=new JMenuItem((text==null || text.isBlank())?element.getContextMenuElementName():text);
 		item.setToolTipText(element.getToolTip());
 		final Icon icon=element.getAddElementIcon();
 		if (icon!=null) item.setIcon(icon);
@@ -931,7 +931,7 @@ public class ModelElement {
 	public boolean hasAnimationStatisticsData(final SimulationData simData) {
 		if (simData==null) return false;
 		final String info=getAnimationRunTimeStatisticsData(simData);
-		return (info!=null && !info.trim().isEmpty());
+		return (info!=null && !info.isBlank());
 	}
 
 	/**
@@ -1397,7 +1397,7 @@ public class ModelElement {
 			return null;
 		}
 
-		if (Language.trAll("Surface.XML.ModelElementLayer",name) && content!=null && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.XML.ModelElementLayer",name) && content!=null && !content.isBlank()) {
 			layers.add(content);
 		}
 
@@ -1425,7 +1425,7 @@ public class ModelElement {
 
 		if (canSetDeleteProtection()) {
 			final String s=Language.trAllAttribute("Surface.XML.Element.DeleteProtection",node);
-			if (!s.trim().isEmpty() && !s.equals("0")) deleteProtection=true;
+			if (!s.isBlank() && !s.equals("0")) deleteProtection=true;
 		}
 
 		String error=loadPropertiesFromMainNode(node);

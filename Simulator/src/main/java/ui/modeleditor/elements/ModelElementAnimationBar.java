@@ -867,7 +867,7 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 		sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.Max"),NumberTools.formatSystemNumber(maxValue));
 		sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.Direction"),getDirectionString(direction));
 		sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.Labels"),""+axisLabels.nr);
-		if (!axisLabelText.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.LabelText"),axisLabelText);
+		if (!axisLabelText.isBlank()) sub.setAttribute(Language.trPrimary("Surface.AnimationBar.XML.DataArea.LabelText"),axisLabelText);
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationBar.XML.LineWidth"));
 		node.appendChild(sub);
@@ -944,26 +944,26 @@ public class ModelElementAnimationBar extends ModelElementPosition implements El
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationBar.XML.LineColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationBar.XML.LineColor",name) && !content.isBlank()) {
 			borderColor=EditModel.loadColor(content);
 			if (borderColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationBar.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationBar.XML.BackgroundColor",name) && !content.isBlank()) {
 			backgroundColor=EditModel.loadColor(content);
 			if (backgroundColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationBar.XML.GradientColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationBar.XML.GradientColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			gradientColor=color;
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationBar.XML.BarColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationBar.XML.BarColor",name) && !content.isBlank()) {
 			barColor=EditModel.loadColor(content);
 			if (barColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;

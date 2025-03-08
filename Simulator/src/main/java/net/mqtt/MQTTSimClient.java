@@ -118,7 +118,7 @@ public class MQTTSimClient extends MQTTSimClientBase {
 		this.echoTopic=echoTopic;
 		this.workTopic=workTopic;
 
-		if (loadTopic!=null && !loadTopic.trim().isEmpty()) {
+		if (loadTopic!=null && !loadTopic.isBlank()) {
 			loadInfoThread=new LoadInfoThread(loadTopic);
 			loadInfoThread.start();
 		}
@@ -143,7 +143,7 @@ public class MQTTSimClient extends MQTTSimClientBase {
 		this.echoTopic=echoTopic;
 		this.workTopic=workTopic;
 
-		if (loadTopic!=null && !loadTopic.trim().isEmpty()) {
+		if (loadTopic!=null && !loadTopic.isBlank()) {
 			loadInfoThread=new LoadInfoThread(loadTopic);
 			loadInfoThread.start();
 		}
@@ -155,7 +155,7 @@ public class MQTTSimClient extends MQTTSimClientBase {
 
 	@Override
 	protected void processRequest(final String requestTopic, final String responseTopic, final byte[] payload, final List<UserProperty> userProperties) {
-		if (requestTopic==null || responseTopic.trim().isEmpty()) return;
+		if (requestTopic==null || responseTopic.isBlank()) return;
 
 		if (requestTopic.equals(echoTopic)) {
 			send(responseTopic,getEcho(payload),userProperties);

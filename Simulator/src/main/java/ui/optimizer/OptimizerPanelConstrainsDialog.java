@@ -92,7 +92,7 @@ public class OptimizerPanelConstrainsDialog extends BaseDialog {
 	 */
 	private List<String> getConstrainsFromGUI() {
 		final List<String> newConstrains=new ArrayList<>();
-		for (String line: textArea.getText().split("\n")) if (!line.trim().isEmpty()) newConstrains.add(line.trim());
+		for (String line: textArea.getText().split("\n")) if (!line.isBlank()) newConstrains.add(line.trim());
 		return newConstrains;
 	}
 

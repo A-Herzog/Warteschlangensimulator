@@ -101,7 +101,7 @@ public class ProxyDialog extends BaseDialog {
 		proxyPort=(JTextField)data[1];
 
 		main.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		line.add(useAuthentification=new JCheckBox(Language.tr("ProxySettings.UseAuthentification"),!setup.proxyUser.trim().isEmpty() || !setup.proxyPassword.trim().isEmpty()));
+		line.add(useAuthentification=new JCheckBox(Language.tr("ProxySettings.UseAuthentification"),!setup.proxyUser.isBlank() || !setup.proxyPassword.isBlank()));
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("ProxySettings.ProxyUser")+":",""+setup.proxyUser);
 		main.add((JPanel)data[0]);
@@ -160,7 +160,7 @@ public class ProxyDialog extends BaseDialog {
 			proxyHost.setBackground(NumberTools.getTextFieldDefaultBackground());
 			proxyPort.setBackground(NumberTools.getTextFieldDefaultBackground());
 		} else {
-			if (proxyHost.getText().trim().isEmpty()) {
+			if (proxyHost.getText().isBlank()) {
 				ok=false;
 				proxyHost.setBackground(Color.RED);
 				if (showErrorMessages) {

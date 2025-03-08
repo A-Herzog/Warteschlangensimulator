@@ -59,7 +59,7 @@ public class RunElementInteractiveSlider extends RunElement {
 		final RunElementInteractiveSlider slider=new RunElementInteractiveSlider(sliderElement);
 
 		/* Variable */
-		if (sliderElement.getVariable().trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.SliderNoVariable"),sliderElement.getId());
+		if (sliderElement.getVariable().isBlank()) return String.format(Language.tr("Simulation.Creator.SliderNoVariable"),sliderElement.getId());
 		int index=-1;
 		for (int j=0;j<runModel.variableNames.length;j++) if (runModel.variableNames[j].equalsIgnoreCase(sliderElement.getVariable())) {index=j; break;}
 		if (index<0) return String.format(Language.tr("Simulation.Creator.SetInternalError"),element.getId());
@@ -83,7 +83,7 @@ public class RunElementInteractiveSlider extends RunElement {
 		final ModelElementInteractiveSlider sliderElement=(ModelElementInteractiveSlider)element;
 
 		/* Variable */
-		if (sliderElement.getVariable().trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SliderNoVariable"),sliderElement.getId()));
+		if (sliderElement.getVariable().isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SliderNoVariable"),sliderElement.getId()));
 
 		/* Bereich */
 		if (sliderElement.getMinValue()>=sliderElement.getMaxValue()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SliderMinMaxError"),sliderElement.getId(),NumberTools.formatNumber(sliderElement.getMinValue()),NumberTools.formatNumber(sliderElement.getMaxValue())),RunModelCreatorStatus.Status.SLIDER_MAX_LOWER_THAN_MIN);

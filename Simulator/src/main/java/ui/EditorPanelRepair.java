@@ -137,7 +137,7 @@ public class EditorPanelRepair {
 			final String resourceName=String.format(Language.tr("Window.Check.AutoFixResources.ResourceName"),p.getId());
 
 			/* Nutzer fragen */
-			final String processName=(p.getName().trim().isEmpty())?("id="+p.getId()):("\""+p.getName()+"\" (id="+p.getId()+")");
+			final String processName=(p.getName().isBlank())?("id="+p.getId()):("\""+p.getName()+"\" (id="+p.getId()+")");
 			if (!MsgBox.confirm(owner,Language.tr("Window.Check.AutoFixResources.Title"),String.format(Language.tr("Window.Check.AutoFixResources.Info"),processName),Language.tr("Window.Check.AutoFixResources.YesInfo"),Language.tr("Window.Check.AutoFixResources.NoInfo"))) return RepairState.USER_CANCELED;
 
 			/* Kein AutoAdd, wenn es die Ressource schon gibt. */

@@ -60,7 +60,7 @@ public class HandlerStatus extends HandlerText {
 		sb.append("{\n");
 
 		sb.append("  \"version\": \""+MainPanel.VERSION+"\",\n");
-		sb.append("  \"model\": \""+(model.name.trim().isEmpty()?Language.tr("WebServer.Status.CurrentModel.NoName"):escapeString(model.name))+"\",\n");
+		sb.append("  \"model\": \""+(model.name.isBlank()?Language.tr("WebServer.Status.CurrentModel.NoName"):escapeString(model.name))+"\",\n");
 		sb.append("  \"changed\": \""+(editorPanel.isModelChanged()?"1":"0")+"\",\n");
 
 		String s=Language.tr("WebServer.Status.Mode.Special");

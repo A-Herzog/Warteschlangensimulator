@@ -74,7 +74,7 @@ public class RunElementHoldJS extends RunElementPassThrough implements StateChan
 
 		/* Optionale Bedingung */
 		String condition=holdElement.getCondition();
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			hold.condition=null;
 		} else {
 			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);

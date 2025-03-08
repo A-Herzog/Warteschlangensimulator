@@ -413,7 +413,7 @@ public class ModelElementDelayJS extends ModelElementMultiInSingleOutBox impleme
 			break;
 		}
 
-		if (costs!=null && !costs.trim().isEmpty() && !costs.trim().equals("0")) {
+		if (costs!=null && !costs.isBlank() && !costs.trim().equals("0")) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.DelayJS.XML.Costs")));
 			sub.setTextContent(costs);
 		}
@@ -510,7 +510,7 @@ public class ModelElementDelayJS extends ModelElementMultiInSingleOutBox impleme
 		}
 
 		/* Kosten an der Station */
-		if (costs!=null && !costs.trim().isEmpty() && !costs.trim().equals("0")) {
+		if (costs!=null && !costs.isBlank() && !costs.trim().equals("0")) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.DelayJS.StationCostsPerClient"),costs,1000);
 		}
 	}

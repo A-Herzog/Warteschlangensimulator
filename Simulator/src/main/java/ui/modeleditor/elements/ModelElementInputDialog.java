@@ -223,7 +223,7 @@ public class ModelElementInputDialog extends ModelElementBaseDialog {
 		boolean ok=true;
 
 		/* Datei */
-		if (fileNameEdit.getText().trim().isEmpty()) {
+		if (fileNameEdit.getText().isBlank()) {
 			fileNameEdit.setBackground(Color.red);
 			ok=false;
 			if (showErrorMessage) {

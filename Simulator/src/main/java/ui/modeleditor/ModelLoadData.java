@@ -418,7 +418,7 @@ public final class ModelLoadData implements Cloneable {
 	 * @return	Liefert im Erfolgsfall einen Zahlenwert, sonst eine Zeichenkette
 	 */
 	private Object getCellValue(final String cellName, final int nr) {
-		if (cellName==null || cellName.trim().isEmpty()) return String.format(Language.tr("ModelLoadData.ProcessError.NoCellID"),nr+1);
+		if (cellName==null || cellName.isBlank()) return String.format(Language.tr("ModelLoadData.ProcessError.NoCellID"),nr+1);
 		final int[] index=Table.cellIDToNumbers(cellName);
 		if (index==null || index.length!=2) return String.format(Language.tr("ModelLoadData.ProcessError.InvalidCellID"),cellName,nr+1);
 

@@ -113,7 +113,7 @@ public class VariablesTextsTableModelDialog extends BaseDialog {
 	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
 	 */
 	private boolean checkData(final boolean showErrorMessage) {
-		if (keyEdit.getText().trim().isEmpty()) {
+		if (keyEdit.getText().isBlank()) {
 			keyEdit.setBackground(Color.RED);
 			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.AssignString.Table.Edit.Dialog.Key.Error.Title"),Language.tr("Surface.AssignString.Table.Edit.Dialog.Key.Error.Info"));
 			return false;

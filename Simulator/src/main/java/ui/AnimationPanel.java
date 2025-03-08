@@ -1556,14 +1556,14 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			submenu.add(menuScreenshotModeHome=new JRadioButtonMenuItem(Language.tr("Main.Menu.AnimationScreenshotMode.Home")+" ("+FileSystemView.getFileSystemView().getHomeDirectory()+")"));
 			menuScreenshotModeHome.addActionListener(new ToolBarListener());
 			String custom="";
-			if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty()) custom=" ("+setup.imagePathAnimation.trim()+")";
+			if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.isBlank()) custom=" ("+setup.imagePathAnimation.trim()+")";
 			submenu.add(menuScreenshotModeCustom=new JRadioButtonMenuItem(Language.tr("Main.Menu.AnimationScreenshotMode.Custom")+custom));
 			menuScreenshotModeCustom.addActionListener(new ToolBarListener());
 			buttonGroup=new ButtonGroup();
 			buttonGroup.add(menuScreenshotModeHome);
 			buttonGroup.add(menuScreenshotModeCustom);
-			menuScreenshotModeHome.setSelected(setup.imagePathAnimation==null || setup.imagePathAnimation.trim().isEmpty());
-			menuScreenshotModeCustom.setSelected(setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty());
+			menuScreenshotModeHome.setSelected(setup.imagePathAnimation==null || setup.imagePathAnimation.isBlank());
+			menuScreenshotModeCustom.setSelected(setup.imagePathAnimation!=null && !setup.imagePathAnimation.isBlank());
 		}
 
 		popup.add(menuShowLog=new JCheckBoxMenuItem(Language.tr("SettingsDialog.Tabs.Simulation.ShowSingleStepLogData")));
@@ -1797,7 +1797,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 */
 	private File getNextScreenshotFile(final String path) {
 		final File folder;
-		if (path==null || path.trim().isEmpty()) {
+		if (path==null || path.isBlank()) {
 			folder=FileSystemView.getFileSystemView().getHomeDirectory();
 		} else {
 			folder=new File(path);
@@ -2217,7 +2217,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private void commandScreenshotModeCustom() {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
-		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty() && new File(setup.imagePathAnimation).isDirectory()) {
+		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.isBlank() && new File(setup.imagePathAnimation).isDirectory()) {
 			fc.setCurrentDirectory(new File(setup.imagePathAnimation));
 		}
 		fc.setDialogTitle(Language.tr("Batch.Output.Folder.Button.Hint"));
@@ -2239,7 +2239,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 */
 	private void updateScreenshotButtonHint() {
 		String folder=FileSystemView.getFileSystemView().getHomeDirectory().toString();
-		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.trim().isEmpty()) folder=setup.imagePathAnimation.trim();
+		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.isBlank()) folder=setup.imagePathAnimation.trim();
 		buttonScreenshot.setToolTipText(Language.tr("Animation.Toolbar.Image.Info")+" ("+Language.tr("Animation.Toolbar.Image.Info.Folder")+": "+folder+")"+" ("+keyStrokeToString(KeyStroke.getKeyStroke(KeyEvent.VK_S,InputEvent.CTRL_DOWN_MASK+InputEvent.SHIFT_DOWN_MASK))+")");
 	}
 

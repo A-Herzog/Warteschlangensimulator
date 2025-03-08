@@ -1000,7 +1000,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		}
 
 		/* Textfarbe */
-		if (Language.trAll("Surface.AnimationText.XML.Color",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationText.XML.Color",name) && !content.isBlank()) {
 			color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
@@ -1034,12 +1034,12 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		}
 
 		/* Hintergrund */
-		if (Language.trAll("Surface.AnimationText.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationText.XML.BackgroundColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			fillColor=color;
 			final String alpha=Language.trAllAttribute("Surface.AnimationText.XML.BackgroundColor.Alpha",node);
-			if (!alpha.trim().isEmpty()) {
+			if (!alpha.isBlank()) {
 				final Double D=NumberTools.getDouble(alpha);
 				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationText.XML.BackgroundColor.Alpha"),name,node.getParentNode().getNodeName());
 				fillAlpha=D;
@@ -1048,12 +1048,12 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 		}
 
 		/* Schatten */
-		if (Language.trAll("Surface.AnimationText.XML.ShadowColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationText.XML.ShadowColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			shadowColor=color;
 			final String alpha=Language.trAllAttribute("Surface.AnimationText.XML.ShadowColor.Alpha",node);
-			if (!alpha.trim().isEmpty()) {
+			if (!alpha.isBlank()) {
 				final Double D=NumberTools.getDouble(alpha);
 				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationText.XML.ShadowColor.Alpha"),name,node.getParentNode().getNodeName());
 				shadowAlpha=D;

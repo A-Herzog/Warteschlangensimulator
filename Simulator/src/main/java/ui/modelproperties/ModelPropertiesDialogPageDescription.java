@@ -163,9 +163,9 @@ public class ModelPropertiesDialogPageDescription extends ModelPropertiesDialogP
 		sub.add(buttonAsNameToSurface=new JButton(),BorderLayout.EAST);
 		buttonAsNameToSurface.setIcon(Images.MODELPROPERTIES_DESCRIPTION_ADD_TO_SURFACE.getIcon());
 		buttonAsNameToSurface.setToolTipText(Language.tr("Editor.Dialog.Tab.ModelDescription.NameOfTheModel.AddNameToModel"));
-		buttonAsNameToSurface.setEnabled(!readOnly && !model.name.trim().isEmpty());
+		buttonAsNameToSurface.setEnabled(!readOnly && !model.name.isBlank());
 		buttonAsNameToSurface.addActionListener(e->addNameToModel(name.getText().trim()));
-		addKeyListener(name,()->buttonAsNameToSurface.setEnabled(!readOnly && !name.getText().trim().isEmpty()));
+		addKeyListener(name,()->buttonAsNameToSurface.setEnabled(!readOnly && !name.getText().isBlank()));
 
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.ModelDescription.Author")+":",(model.author==null)?"":model.author);
 		top.add((JPanel)data[0]);
@@ -199,9 +199,9 @@ public class ModelPropertiesDialogPageDescription extends ModelPropertiesDialogP
 		builder.run();
 		final String autoDescription=builder.getText();
 		buttonAutoDescription.setIcon(Images.MODELPROPERTIES_DESCRIPTION_AUTO_CREATE.getIcon());
-		buttonAutoDescription.setEnabled(!readOnly && !autoDescription.trim().isEmpty());
+		buttonAutoDescription.setEnabled(!readOnly && !autoDescription.isBlank());
 		buttonAutoDescription.addActionListener(e->{
-			if (!description.getText().trim().isEmpty()) {
+			if (!description.getText().isBlank()) {
 				if (!MsgBox.confirm(dialog,Language.tr("Editor.Dialog.Tab.ModelDescription.ModelDescription.Auto.ReplaceTitle"),Language.tr("Editor.Dialog.Tab.ModelDescription.ModelDescription.Auto.ReplaceInfo"),Language.tr("Editor.Dialog.Tab.ModelDescription.ModelDescription.Auto.ReplaceYes"),Language.tr("Editor.Dialog.Tab.ModelDescription.ModelDescription.Auto.ReplaceNo"))) return;
 			}
 			description.setText(autoDescription);

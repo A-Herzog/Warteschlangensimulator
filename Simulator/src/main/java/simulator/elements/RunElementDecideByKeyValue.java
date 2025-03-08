@@ -69,7 +69,7 @@ public class RunElementDecideByKeyValue extends RunElement {
 		final RunElementDecideByKeyValue decide=new RunElementDecideByKeyValue((ModelElementDecide)element);
 
 		/* Schlüssel */
-		if (((ModelElementDecide)element).getKey().trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoKey"),element.getId());
+		if (((ModelElementDecide)element).getKey().isBlank()) return String.format(Language.tr("Simulation.Creator.NoKey"),element.getId());
 		decide.key=((ModelElementDecide)element).getKey();
 
 		decide.connectionIds=new ArrayList<>();
@@ -91,7 +91,7 @@ public class RunElementDecideByKeyValue extends RunElement {
 				for (String s: v) if (s.isEmpty()) return String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1);
 				decide.values[i]=v;
 			} else {
-				if (value.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1);
+				if (value.isBlank()) return String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1);
 				decide.values[i]=new String[]{value};
 			}
 		}
@@ -118,7 +118,7 @@ public class RunElementDecideByKeyValue extends RunElement {
 		if (((ModelElementDecide)element).getMode()!=ModelElementDecide.DecideMode.MODE_KEY_VALUE) return null;
 
 		/* Schlüssel */
-		if (((ModelElementDecide)element).getKey().trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoKey"),element.getId()));
+		if (((ModelElementDecide)element).getKey().isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoKey"),element.getId()));
 
 		final ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
 		final List<String> values=((ModelElementDecide)element).getValues();
@@ -132,9 +132,9 @@ public class RunElementDecideByKeyValue extends RunElement {
 			if (multiTextValues) {
 				final String[] v=value.split(";");
 				if (v.length==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1));
-				for (String s: v) if (s.trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1));
+				for (String s: v) if (s.isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1));
 			} else {
-				if (value.trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1));
+				if (value.isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoValue"),element.getId(),i+1));
 			}
 		}
 

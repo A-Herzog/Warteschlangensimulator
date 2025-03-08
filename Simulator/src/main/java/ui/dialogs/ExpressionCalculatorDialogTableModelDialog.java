@@ -188,7 +188,7 @@ public class ExpressionCalculatorDialogTableModelDialog extends BaseDialog {
 	 * @return	Liefer <code>true</code>, wenn der Schlüssel gültig ist
 	 */
 	private boolean testKey(final String key) {
-		if (key==null || key.trim().isEmpty()) return false;
+		if (key==null || key.isBlank()) return false;
 		for (int i=0;i<keys.length;i++) {
 			if (i==keyIndex) continue;
 			if (key.equals(keys[i])) return false;

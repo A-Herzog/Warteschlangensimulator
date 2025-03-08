@@ -525,7 +525,7 @@ public class RunModelFixerHelper {
 	private static List<String> getSectionNames(final ModelSurface surface) {
 		final List<String> names=new ArrayList<>();
 		for (ModelElement element: surface.getElements()) {
-			if (element instanceof ModelElementSectionStart && !element.getName().trim().isEmpty()) names.add(element.getName());
+			if (element instanceof ModelElementSectionStart && !element.getName().isBlank()) names.add(element.getName());
 			if (element instanceof ModelElementSub) names.addAll(getSectionNames(((ModelElementSub)element).getSubSurface()));
 		}
 		return names;
@@ -621,7 +621,7 @@ public class RunModelFixerHelper {
 	private static List<String> getTeleportDestinations(final ModelSurface surface) {
 		final List<String> names=new ArrayList<>();
 		for (ModelElement element: surface.getElements()) {
-			if (element instanceof ModelElementTeleportDestination && !element.getName().trim().isEmpty()) names.add(element.getName());
+			if (element instanceof ModelElementTeleportDestination && !element.getName().isBlank()) names.add(element.getName());
 			if (element instanceof ModelElementSub) names.addAll(getSectionNames(((ModelElementSub)element).getSubSurface()));
 		}
 		return names;

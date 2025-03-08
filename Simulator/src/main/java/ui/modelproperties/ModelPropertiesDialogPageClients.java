@@ -113,7 +113,7 @@ public class ModelPropertiesDialogPageClients extends ModelPropertiesDialogPage 
 	public static boolean editClientData(final Component owner, final Runnable help, final EditModel model, final String clientType, final boolean readOnly) {
 		final Color color=model.clientData.getColor(clientType);
 		String icon=model.clientData.getIcon(clientType);
-		if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
+		if (icon==null || icon.isBlank()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
 		final double[] costs=model.clientData.getCosts(clientType);
 
 		final ClientDataDialog dialog=new ClientDataDialog(owner,help,color,icon,costs,model.animationImages,readOnly);
@@ -201,7 +201,7 @@ public class ModelPropertiesDialogPageClients extends ModelPropertiesDialogPage 
 	private JLabel getLabel(final String clientType) {
 		final Color color=model.clientData.getColor(clientType);
 		String iconName=model.clientData.getIcon(clientType);
-		if (iconName==null || iconName.trim().isEmpty()) iconName=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
+		if (iconName==null || iconName.isBlank()) iconName=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
 		final double[] costs=model.clientData.getCosts(clientType);
 
 		/* Text aufbauen */

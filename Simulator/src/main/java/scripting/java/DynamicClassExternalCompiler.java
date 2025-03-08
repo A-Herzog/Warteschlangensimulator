@@ -44,7 +44,7 @@ public class DynamicClassExternalCompiler extends DynamicClassFileBased {
 		if (compiler==null) return DynamicStatus.NO_COMPILER;
 
 		final ProcessBuilder pb=new ProcessBuilder();
-		if (classPath!=null && !classPath.trim().isEmpty()) {
+		if (classPath!=null && !classPath.isBlank()) {
 			pb.command(compiler.toString(),"-encoding","UTF-8","-d",outputFolder.toString(),"-cp",classPath,javaFile.toString());
 		} else {
 			pb.command(compiler.toString(),"-encoding","UTF-8","-d",outputFolder.toString(),javaFile.toString());

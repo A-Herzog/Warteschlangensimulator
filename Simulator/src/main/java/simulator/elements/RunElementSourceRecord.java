@@ -436,7 +436,7 @@ public class RunElementSourceRecord {
 			double sum=0; for (double d: rates) sum+=d;
 			if (sum==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceBatchRatesZero"),id));
 		} else {
-			if (batchSize.trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceInvalidBatchSize"),id,batchSize,0));
+			if (batchSize.isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.SourceInvalidBatchSize"),id,batchSize,0));
 		}
 
 		return RunModelCreatorStatus.ok;

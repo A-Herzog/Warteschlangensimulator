@@ -302,13 +302,13 @@ public class RunElementActionRecord {
 			/* hier nichts zu prüfen */
 			break;
 		case ACTION_ASSIGN:
-			if (editRecord.getAssignVariable().trim().isEmpty()) Language.tr("Simulation.Creator.Action.NoVariableName");
+			if (editRecord.getAssignVariable().isBlank()) Language.tr("Simulation.Creator.Action.NoVariableName");
 			break;
 		case ACTION_SCRIPT:
 			/* nicht vorzubereiten */
 			break;
 		case ACTION_SIGNAL:
-			if (editRecord.getSignalName().trim().isEmpty()) Language.tr("Simulation.Creator.Action.NoSignalName");
+			if (editRecord.getSignalName().isBlank()) Language.tr("Simulation.Creator.Action.NoSignalName");
 			break;
 		case ACTION_STOP:
 			/* nichts vorzubereiten */
@@ -512,7 +512,7 @@ public class RunElementActionRecord {
 	 */
 	public boolean checkTriggerSignal(final String signalName) {
 		if (conditionType==ConditionType.CONDITION_SIGNAL) {
-			if (conditionSignalName==null || conditionSignalName.trim().isEmpty()) return false;
+			if (conditionSignalName==null || conditionSignalName.isBlank()) return false;
 			if (signalName.equalsIgnoreCase(conditionSignalName)) return true;
 			return false;
 		} else {

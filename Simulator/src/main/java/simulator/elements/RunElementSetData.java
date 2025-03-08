@@ -87,7 +87,7 @@ public class RunElementSetData extends RunElementData {
 			}
 		}
 
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			this.condition=null;
 		} else {
 			this.condition=new ExpressionMultiEval(runModel.variableNames,runModel.modelUserFunctions);

@@ -261,7 +261,7 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 	 * @param text	Darzustellender Text
 	 */
 	public void setText(String text) {
-		if (text==null || text.trim().isEmpty()) text=Language.tr("Surface.Text.DefaultText");
+		if (text==null || text.isBlank()) text=Language.tr("Surface.Text.DefaultText");
 		this.text=text;
 		fireChanged();
 	}
@@ -753,7 +753,7 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 
 		/* Text */
 		for (String line: text.trim().split("\\n")) {
-			/* if (line.trim().isEmpty()) continue; */
+			/* if (line.isBlank()) continue; */
 			sub=doc.createElement(Language.trPrimary("Surface.Text.XML.Text"));
 			node.appendChild(sub);
 			sub.setTextContent(line.trim());
@@ -853,7 +853,7 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 		}
 
 		/* Farbe */
-		if (Language.trAll("Surface.Text.XML.Color",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.Text.XML.Color",name) && !content.isBlank()) {
 			color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
@@ -875,12 +875,12 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 		}
 
 		/* Hintergrund */
-		if (Language.trAll("Surface.Text.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.Text.XML.BackgroundColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			fillColor=color;
 			final String alpha=Language.trAllAttribute("Surface.Text.XML.BackgroundColor.Alpha",node);
-			if (!alpha.trim().isEmpty()) {
+			if (!alpha.isBlank()) {
 				final Double D=NumberTools.getDouble(alpha);
 				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Text.XML.BackgroundColor.Alpha"),name,node.getParentNode().getNodeName());
 				fillAlpha=D;
@@ -889,12 +889,12 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 		}
 
 		/* Schatten */
-		if (Language.trAll("Surface.Text.XML.ShadowColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.Text.XML.ShadowColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			shadowColor=color;
 			final String alpha=Language.trAllAttribute("Surface.Text.XML.ShadowColor.Alpha",node);
-			if (!alpha.trim().isEmpty()) {
+			if (!alpha.isBlank()) {
 				final Double D=NumberTools.getDouble(alpha);
 				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Text.XML.ShadowColor.Alpha"),name,node.getParentNode().getNodeName());
 				shadowAlpha=D;
@@ -903,7 +903,7 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 		}
 
 		/* Rotation */
-		if (Language.trAll("Surface.Text.XML.Rotation",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.Text.XML.Rotation",name) && !content.isBlank()) {
 			final Double D=NumberTools.getDouble(content);
 			if (D==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Text.XML.Rotation"),name,node.getParentNode().getNodeName());
 			rotation=fixRotation(D);

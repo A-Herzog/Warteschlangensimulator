@@ -226,7 +226,7 @@ public class ModelElementAnimationInfoClientDialog extends BaseDialog {
 	private void addInfo(final JPanel parent, final String name, final String value, final String info) {
 		final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		parent.add(line);
-		if (info!=null && !info.trim().isEmpty()) {
+		if (info!=null && !info.isBlank()) {
 			line.add(new JLabel("<html><body>"+name+": <b>"+value+"</b> ("+info+")</body></html>"));
 		} else {
 			line.add(new JLabel("<html><body>"+name+": <b>"+value+"</b></body></html>"));

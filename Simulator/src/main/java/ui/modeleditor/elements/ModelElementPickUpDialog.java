@@ -111,31 +111,31 @@ public class ModelElementPickUpDialog extends ModelElementBaseDialog {
 
 		for (ModelElement element: element.getSurface().getElements()) {
 			if (element instanceof ModelElementProcess) {
-				names.add(((element.getName().trim().isEmpty())?Language.tr("Surface.PickUp.Dialog.Station"):element.getName())+" (id="+element.getId()+")");
+				names.add(((element.getName().isBlank())?Language.tr("Surface.PickUp.Dialog.Station"):element.getName())+" (id="+element.getId()+")");
 				ids.add(element.getId());
 			}
 			if (element instanceof ModelElementHold) {
-				names.add(((element.getName().trim().isEmpty())?Language.tr("Surface.PickUp.Dialog.Station"):element.getName())+" (id="+element.getId()+")");
+				names.add(((element.getName().isBlank())?Language.tr("Surface.PickUp.Dialog.Station"):element.getName())+" (id="+element.getId()+")");
 				ids.add(element.getId());
 			}
 			if (element instanceof ModelElementHoldMulti) {
-				names.add(((element.getName().trim().isEmpty())?Language.tr("Surface.PickUp.Dialog.Station"):element.getName())+" (id="+element.getId()+")");
+				names.add(((element.getName().isBlank())?Language.tr("Surface.PickUp.Dialog.Station"):element.getName())+" (id="+element.getId()+")");
 				ids.add(element.getId());
 			}
 			if (element instanceof ModelElementHoldJS) {
-				names.add(((element.getName().trim().isEmpty())?Language.tr("Surface.PickUp.Dialog.Station"):element.getName())+" (id="+element.getId()+")");
+				names.add(((element.getName().isBlank())?Language.tr("Surface.PickUp.Dialog.Station"):element.getName())+" (id="+element.getId()+")");
 				ids.add(element.getId());
 			}
 			if (element instanceof ModelElementBarrier) {
-				names.add(((element.getName().trim().isEmpty())?Language.tr("Surface.PickUp.Dialog.Station"):element.getName())+" (id="+element.getId()+")");
+				names.add(((element.getName().isBlank())?Language.tr("Surface.PickUp.Dialog.Station"):element.getName())+" (id="+element.getId()+")");
 				ids.add(element.getId());
 			}
 			if (element instanceof ModelElementBarrierPull) {
-				names.add(((element.getName().trim().isEmpty())?Language.tr("Surface.PickUp.Dialog.Station"):element.getName())+" (id="+element.getId()+")");
+				names.add(((element.getName().isBlank())?Language.tr("Surface.PickUp.Dialog.Station"):element.getName())+" (id="+element.getId()+")");
 				ids.add(element.getId());
 			}
 			if (element instanceof ModelElementConveyor) {
-				names.add(((element.getName().trim().isEmpty())?Language.tr("Surface.PickUp.Dialog.Station"):element.getName())+" (id="+element.getId()+")");
+				names.add(((element.getName().isBlank())?Language.tr("Surface.PickUp.Dialog.Station"):element.getName())+" (id="+element.getId()+")");
 				ids.add(element.getId());
 			}
 		}

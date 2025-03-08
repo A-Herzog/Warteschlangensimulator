@@ -127,7 +127,7 @@ public class DDEConnect {
 	private String getCellName(final int row, final int column) {
 		nameBuilderCache.setLength(0);
 
-		if (setup.customExcelRowName!=null && !setup.customExcelRowName.trim().isEmpty()) {
+		if (setup.customExcelRowName!=null && !setup.customExcelRowName.isBlank()) {
 			nameBuilderCache.append(setup.customExcelRowName.trim());
 		} else {
 			nameBuilderCache.append(EXCEL_LANGUAGE_DEFAULT_ROW_IDENTIFIER);
@@ -135,7 +135,7 @@ public class DDEConnect {
 
 		nameBuilderCache.append(row+1);
 
-		if (setup.customExcelColName!=null && !setup.customExcelColName.trim().isEmpty()) {
+		if (setup.customExcelColName!=null && !setup.customExcelColName.isBlank()) {
 			nameBuilderCache.append(setup.customExcelColName.trim());
 		} else {
 			nameBuilderCache.append(EXCEL_LANGUAGE_DEFAULT_COL_IDENTIFIER);
@@ -172,7 +172,7 @@ public class DDEConnect {
 	 * @see #disconnect(DDEClientConversation)
 	 */
 	private DDEClientConversation connect(final String workbook, final String sheet) {
-		if (workbook==null || sheet==null || workbook.trim().isEmpty() || sheet.trim().isEmpty()) return null;
+		if (workbook==null || sheet==null || workbook.isBlank() || sheet.isBlank()) return null;
 
 		final DDEClientConversation conversation=getConversation();
 		if (conversation==null) return null;
@@ -229,7 +229,7 @@ public class DDEConnect {
 			int row=startRow;
 			while (true) {
 				final String result=readCell(conversation,row,column);
-				if (result==null || result.trim().isEmpty()) break;
+				if (result==null || result.isBlank()) break;
 				list.add(result);
 				row++;
 			}
@@ -259,7 +259,7 @@ public class DDEConnect {
 			int row=startRow;
 			while (true) {
 				final String result=readCell(conversation,row,column);
-				if (result==null || result.trim().isEmpty()) break;
+				if (result==null || result.isBlank()) break;
 				final Double D=NumberTools.getDouble(result);
 				if (D==null) break;
 				list.add(D);
@@ -389,7 +389,7 @@ public class DDEConnect {
 
 			/* Nächste Zeile verfügbar? */
 			final String result=readCell(conversation,nextRow,column);
-			if (result==null || result.trim().isEmpty()) {disconnect(); return;}
+			if (result==null || result.isBlank()) {disconnect(); return;}
 			final Double D=NumberTools.getDouble(result);
 			if (D==null) {disconnect(); return;}
 			next=D;
@@ -401,7 +401,7 @@ public class DDEConnect {
 			while (true) {
 				try {
 					final String cell=conversation.request(getCellName(nextRow,col));
-					if (cell==null || cell.trim().isEmpty()) break;
+					if (cell==null || cell.isBlank()) break;
 					nextData.add(cell.trim());
 					col++;
 				} catch (DDEException e) {break;}

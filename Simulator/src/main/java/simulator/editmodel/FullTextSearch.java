@@ -160,7 +160,7 @@ public class FullTextSearch {
 	 * @return	Liefert den Bereich des Suchtreffers zurück, wenn die Zeichenkette zu dem Suchbegriff passt, sonst <code>null</code>.
 	 */
 	public boolean testIntern(final ModelElement element, final String description, final String testString, final Consumer<String> setNewText, final IntConsumer setNewInteger, final LongConsumer setNewLong, final DoubleConsumer setNewDouble) {
-		if (testString==null || testString.trim().isEmpty()) return false;
+		if (testString==null || testString.isBlank()) return false;
 
 		if (regexPattern!=null) {
 			final Matcher matcher=regexPattern.matcher(testString);

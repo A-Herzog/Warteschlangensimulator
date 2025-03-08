@@ -477,7 +477,7 @@ public final class ModelResource implements Cloneable {
 				node.setAttribute(Language.trPrimary("Surface.XML.Resource.SetupTime.TimeBase"),ModelSurface.getTimeBaseString(moveTimeBase));
 			}
 		}
-		if (moveTimesExpression!=null && !moveTimesExpression.trim().isEmpty()) {
+		if (moveTimesExpression!=null && !moveTimesExpression.isBlank()) {
 			node.setAttribute(Language.trPrimary("Surface.XML.Resource.SetupTime.Expression"),moveTimesExpression.trim());
 			if (moveTimeBase!=ModelSurface.TimeBase.TIMEBASE_SECONDS) {
 				node.setAttribute(Language.trPrimary("Surface.XML.Resource.SetupTime.TimeBase"),ModelSurface.getTimeBaseString(moveTimeBase));
@@ -541,19 +541,19 @@ public final class ModelResource implements Cloneable {
 		/* Kosten */
 
 		s=Language.trAllAttribute("Surface.XML.Resource.CostsPerHour",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			final Double D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(s));
 			if (D==null) return String.format(Language.tr("Surface.Resource.ErrorCostsPerHour"),s,name);
 			costsPerActiveHour=D;
 		}
 		s=Language.trAllAttribute("Surface.XML.Resource.CostsPerProcessHour",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			final Double D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(s));
 			if (D==null) return String.format(Language.tr("Surface.Resource.ErrorCostsPerProcessHour"),s,name);
 			costsPerProcessHour=D;
 		}
 		s=Language.trAllAttribute("Surface.XML.Resource.CostsPerIdleHour",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			final Double D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(s));
 			if (D==null) return String.format(Language.tr("Surface.Resource.ErrorCostsPerIdleHour"),s,name);
 			costsPerIdleHour=D;
@@ -581,14 +581,14 @@ public final class ModelResource implements Cloneable {
 		/* Rüstzeiten */
 
 		s=Language.trAllAttribute("Surface.XML.Resource.SetupTime.Distribution",node);
-		if (!s.trim().isEmpty()) {
+		if (!s.isBlank()) {
 			moveTimesDistribution=DistributionTools.distributionFromString(s,3600);
 			if (moveTimesDistribution==null) return String.format(Language.tr("Surface.Resource.ErrorMoveTimeDistribution"),s,name);
 			final String timeBaseName=Language.trAllAttribute("Surface.XML.Resource.SetupTime.TimeBase",node);
 			moveTimeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
 		} else {
 			s=Language.trAllAttribute("Surface.XML.Resource.SetupTime.Expression",node);
-			if (!s.trim().isEmpty()) moveTimesExpression=s;
+			if (!s.isBlank()) moveTimesExpression=s;
 			final String timeBaseName=Language.trAllAttribute("Surface.XML.Resource.SetupTime.TimeBase",node);
 			moveTimeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
 		}

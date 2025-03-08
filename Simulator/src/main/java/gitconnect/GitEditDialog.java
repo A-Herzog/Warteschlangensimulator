@@ -457,7 +457,7 @@ public class GitEditDialog extends BaseDialog {
 		final GitSetup setup=getNewSetup();
 
 		/* Kein Verzeichnis angegeben */
-		if (setup.localFolder.trim().isEmpty()) {
+		if (setup.localFolder.isBlank()) {
 			labelLocalFolder.setIcon(Images.GENERAL_OFF.getIcon());
 			labelLocalFolder.setText(Language.tr("Git.List.Tab.LocalFolder.LocalFolder.Info.NoFolderSelected"));
 			buttonInitLocal.setVisible(false);
@@ -626,7 +626,7 @@ public class GitEditDialog extends BaseDialog {
 	private void commandSelectKeyFile() {
 		final JFileChooser fc=new JFileChooser();
 		CommonVariables.initialDirectoryToJFileChooser(fc);
-		if (!editAuthKey.getText().trim().isEmpty()) fc.setSelectedFile(new File(editAuthKey.getText()));
+		if (!editAuthKey.getText().isBlank()) fc.setSelectedFile(new File(editAuthKey.getText()));
 		fc.setDialogTitle(Language.tr("Git.List.Tab.Server.Auth.Key.SelectKey"));
 
 		if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
@@ -675,7 +675,7 @@ public class GitEditDialog extends BaseDialog {
 	private void commandTestServerConnection() {
 		final GitSetup setup=getNewSetup();
 
-		if (setup.serverURL.trim().isEmpty()) {
+		if (setup.serverURL.isBlank()) {
 			MsgBox.error(this,Language.tr("Git.List.Tab.Server.Button.Test"),Language.tr("Git.List.Tab.Server.Button.Test.Error.NoServerURL"));
 			return;
 		}
@@ -694,7 +694,7 @@ public class GitEditDialog extends BaseDialog {
 	private void commandClone() {
 		final GitSetup setup=getNewSetup();
 
-		if (setup.serverURL.trim().isEmpty()) {
+		if (setup.serverURL.isBlank()) {
 			MsgBox.error(this,Language.tr("Git.List.Tab.Server.Button.Clone"),Language.tr("Git.List.Tab.Server.Button.Test.Error.NoServerURL"));
 			return;
 		}

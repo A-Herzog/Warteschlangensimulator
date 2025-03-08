@@ -299,7 +299,7 @@ public class LogSetupDialog extends BaseDialog {
 
 		parent.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(option=new JCheckBox(label));
-		if (tooltip!=null && !tooltip.trim().isEmpty()) {
+		if (tooltip!=null && !tooltip.isBlank()) {
 			option.setToolTipText(tooltip);
 		}
 		if (field!=null) line.add(field);
@@ -355,9 +355,9 @@ public class LogSetupDialog extends BaseDialog {
 		line.add(label=new JLabel(labelText+": "),BorderLayout.WEST);
 		label.setBorder(BorderFactory.createEmptyBorder(0,8,0,0));
 		line.add(field=new JPlaceholderTextField(),BorderLayout.CENTER);
-		if (placeholder!=null && !placeholder.trim().isEmpty()) field.setPlaceholder(placeholder);
+		if (placeholder!=null && !placeholder.isBlank()) field.setPlaceholder(placeholder);
 		label.setLabelFor(field);
-		if (tooltip!=null && !tooltip.trim().isEmpty()) {
+		if (tooltip!=null && !tooltip.isBlank()) {
 			label.setToolTipText(tooltip);
 			field.setToolTipText(tooltip);
 		}
@@ -425,7 +425,7 @@ public class LogSetupDialog extends BaseDialog {
 	 * @see #checkData()
 	 */
 	private boolean checkIDs(final JTextField field, final boolean showErrorMessage) {
-		if (field.getText().trim().isEmpty()) {
+		if (field.getText().isBlank()) {
 			field.setBackground(NumberTools.getTextFieldDefaultBackground());
 			return true;
 		}

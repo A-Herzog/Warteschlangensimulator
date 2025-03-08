@@ -116,7 +116,7 @@ public class ParameterCompareSetupModelDialog extends BaseDialog {
 	private boolean checkData(final boolean showErrorMessage) {
 		boolean ok=true;
 
-		if (nameEdit.getText().trim().isEmpty()) {
+		if (nameEdit.getText().isBlank()) {
 			nameEdit.setBackground(Color.RED);
 			ok=false;
 			if (showErrorMessage) {

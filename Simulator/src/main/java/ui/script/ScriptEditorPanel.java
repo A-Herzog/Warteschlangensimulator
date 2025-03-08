@@ -273,7 +273,7 @@ public class ScriptEditorPanel extends JPanel {
 
 		JPanel line;
 
-		if (scriptName!=null && !scriptName.trim().isEmpty()) {
+		if (scriptName!=null && !scriptName.isBlank()) {
 			add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 			line.add(new JLabel(scriptName+":"));
 		}

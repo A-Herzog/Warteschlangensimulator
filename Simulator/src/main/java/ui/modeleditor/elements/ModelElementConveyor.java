@@ -212,7 +212,7 @@ public class ModelElementConveyor extends ModelElementMultiInSingleOutBox implem
 	 * @param capacityNeededGlobal	Im allgemeinen gültige Formel zur Bestimmung des Platzbedarfes
 	 */
 	public void setCapacityNeededGlobal(final String capacityNeededGlobal) {
-		if (capacityNeededGlobal==null || capacityNeededGlobal.trim().isEmpty()) return;
+		if (capacityNeededGlobal==null || capacityNeededGlobal.isBlank()) return;
 		this.capacityNeededGlobal=capacityNeededGlobal;
 		fireChanged();
 	}
@@ -232,8 +232,8 @@ public class ModelElementConveyor extends ModelElementMultiInSingleOutBox implem
 	 * @param capacityNeeded	Formel oder <code>null</code>, wenn die Standardformel für diesen Kundentyp verwendet werden eoll
 	 */
 	public void setCapacityNeeded(final String clientType, final String capacityNeeded) {
-		if (clientType==null || clientType.trim().isEmpty()) return;
-		if (capacityNeeded==null || capacityNeeded.trim().isEmpty()) {
+		if (clientType==null || clientType.isBlank()) return;
+		if (capacityNeeded==null || capacityNeeded.isBlank()) {
 			this.capacityNeeded.remove(clientType);
 		} else {
 			this.capacityNeeded.put(clientType,capacityNeeded);

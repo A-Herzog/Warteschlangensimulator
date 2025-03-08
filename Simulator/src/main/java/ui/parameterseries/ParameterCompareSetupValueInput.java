@@ -170,7 +170,7 @@ public final class ParameterCompareSetupValueInput extends ParameterCompareSetup
 		if (Language.trAll("ParameterCompare.XML.Inputs.Data",name)) {
 			String s;
 			s=Language.trAllAttribute("ParameterCompare.XML.Inputs.Data.Mode",node);
-			if (s!=null && !s.trim().isEmpty()) {
+			if (s!=null && !s.isBlank()) {
 				final Integer I=NumberTools.getNotNegativeInteger(s);
 				if (I==null || I.intValue()>3) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("ParameterCompare.XML.Inputs.Data.Mode"),name,node.getParentNode().getNodeName());
 				switch (I.intValue()) {
@@ -181,7 +181,7 @@ public final class ParameterCompareSetupValueInput extends ParameterCompareSetup
 				}
 			}
 			s=Language.trAllAttribute("ParameterCompare.XML.Inputs.Data.XMLMode",node);
-			if (s!=null && !s.trim().isEmpty()) {
+			if (s!=null && !s.isBlank()) {
 				final Integer I=NumberTools.getNotNegativeInteger(s);
 				if (I==null || I.intValue()>6) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("ParameterCompare.XML.Inputs.Data.XMLMode"),name,node.getParentNode().getNodeName());
 				xmlMode=I.intValue();

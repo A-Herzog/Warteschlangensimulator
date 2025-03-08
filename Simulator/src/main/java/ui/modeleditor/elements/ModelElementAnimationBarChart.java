@@ -977,7 +977,7 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationBarChart.XML.Labels"));
 		node.appendChild(sub);
 		sub.setTextContent(""+axisLabels.nr);
-		if (!axisLabelText.trim().isEmpty()) sub.setAttribute(Language.trPrimary("Surface.AnimationBarChart.XML.LabelText"),axisLabelText);
+		if (!axisLabelText.isBlank()) sub.setAttribute(Language.trPrimary("Surface.AnimationBarChart.XML.LabelText"),axisLabelText);
 
 		for (int i=0;i<expression.size();i++) {
 			sub=doc.createElement(Language.trPrimary("Surface.AnimationBarChart.XML.Set"));
@@ -1007,19 +1007,19 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationBarChart.XML.LineColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationBarChart.XML.LineColor",name) && !content.isBlank()) {
 			borderColor=EditModel.loadColor(content);
 			if (borderColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationBarChart.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationBarChart.XML.BackgroundColor",name) && !content.isBlank()) {
 			backgroundColor=EditModel.loadColor(content);
 			if (backgroundColor==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationBarChart.XML.GradientColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationBarChart.XML.GradientColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			gradientColor=color;
@@ -1027,14 +1027,14 @@ public class ModelElementAnimationBarChart extends ModelElementPosition implemen
 		}
 
 		if (Language.trAll("Surface.AnimationBarChart.XML.Use3D",name)) {
-			use3D=(!content.trim().isEmpty() && !content.equals("0"));
+			use3D=(!content.isBlank() && !content.equals("0"));
 			return null;
 		}
 
-		if (Language.trAll("Surface.AnimationBarChart.XML.Set",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationBarChart.XML.Set",name) && !content.isBlank()) {
 			final String colorString=Language.trAllAttribute("Surface.AnimationBarChart.XML.Set.BarColor",node);
 			final Color color;
-			if (colorString.trim().isEmpty()) {
+			if (colorString.isBlank()) {
 				color=Color.BLACK;
 			} else {
 				color=EditModel.loadColor(colorString);

@@ -89,7 +89,7 @@ public class RunElementAssignString extends RunElementPassThrough {
 
 		/* Optionale Bedingung */
 		final String condition=assignElement.getCondition();
-		if (condition==null || condition.trim().isEmpty()) {
+		if (condition==null || condition.isBlank()) {
 			assign.condition=null;
 		} else {
 			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);

@@ -374,7 +374,7 @@ public class OutputLogTableModel extends JTableExtAbstractTableModel {
 						if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) break;
 						s=dialog.getExpression();
 						if (s==null) break;
-						if (s.trim().isEmpty()) {data.set(row,""); break;}
+						if (s.isBlank()) {data.set(row,""); break;}
 						int error=ExpressionCalc.check(s,variables,model.userFunctions);
 						if (error<0) {data.set(row,s); break;}
 						MsgBox.error(table,Language.tr("Surface.Output.Table.ExpressionError.Title"),String.format(Language.tr("Surface.Output.Table.ExpressionError.Info"),s,error+1));

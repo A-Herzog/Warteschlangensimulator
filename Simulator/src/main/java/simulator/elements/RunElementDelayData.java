@@ -67,7 +67,7 @@ public class RunElementDelayData extends RunElementData {
 		}
 
 		/* Kosten pro Bedienung */
-		if (costs==null || costs.trim().isEmpty()) {
+		if (costs==null || costs.isBlank()) {
 			this.costs=null;
 		} else {
 			this.costs=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);

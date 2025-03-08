@@ -361,7 +361,7 @@ public class ModelElementTeleportSourceMulti extends ModelElementBox implements 
 		}
 
 		if (Language.trAll("Surface.TeleportSourceMulti.XML.Destination",name)) {
-			if (!content.trim().isEmpty()) {
+			if (!content.isBlank()) {
 				final String multiplicityString=Language.trAllAttribute("Surface.TeleportSourceMulti.XML.DestinationQuantity",node);
 				final Integer multiplicity=NumberTools.getInteger(multiplicityString);
 				if (multiplicity!=null && multiplicity>=0) {
@@ -451,7 +451,7 @@ public class ModelElementTeleportSourceMulti extends ModelElementBox implements 
 
 		for (int i=0;i<Math.min(destinations.size(),destinationsMultiplicity.size());i++) {
 			final String destination=destinations.get(i);
-			if (destination==null || destination.trim().isEmpty()) continue;
+			if (destination==null || destination.isBlank()) continue;
 			final int multiplicity=destinationsMultiplicity.get(i);
 			if (multiplicity<=0) continue;
 			if (multiplicity==1) {

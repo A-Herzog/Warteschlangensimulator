@@ -145,7 +145,7 @@ public final class ModelElementAssignStringRecord implements Cloneable {
 
 		if (Language.trAll("Surface.AssignString.XML.Assignment",node.getNodeName())) {
 			final String key=Language.trAllAttribute("Surface.AssignString.XML.Assignment.Key",node);
-			if (!key.trim().isEmpty()) {
+			if (!key.isBlank()) {
 				keys.add(key);
 				values.add(node.getTextContent());
 			}

@@ -279,7 +279,7 @@ public final class TransportResourceRecord implements Cloneable {
 		}
 
 		/* Ressourcenpriorität */
-		if (resourcePriority==null || resourcePriority.trim().isEmpty()) {
+		if (resourcePriority==null || resourcePriority.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.TransportResourceRecord.ResourcePriority"),ModelElementProcess.DEFAULT_RESOURCE_PRIORITY,2000);
 		} else {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.TransportResourceRecord.ResourcePriority"),resourcePriority,2000);

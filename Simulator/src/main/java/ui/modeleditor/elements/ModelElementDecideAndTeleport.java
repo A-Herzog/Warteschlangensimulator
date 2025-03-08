@@ -621,7 +621,7 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 		}
 
 		if (Language.trAll("Surface.TeleportSourceMulti.XML.Destination",name)) {
-			if (!content.trim().isEmpty()) destinations.add(content.trim());
+			if (!content.isBlank()) destinations.add(content.trim());
 
 			/* Chance */
 			final String rateString=Language.trAllAttribute("Surface.Decide.XML.Connection.Rate",node);

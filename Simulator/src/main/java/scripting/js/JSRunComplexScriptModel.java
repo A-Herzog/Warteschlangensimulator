@@ -207,7 +207,7 @@ public final class JSRunComplexScriptModel extends JSBaseCommand {
 	 * @return	Gibt <code>true</code> zurück, wenn das Modell erfolgreich verändert werden konnte.
 	 */
 	public boolean setGlobalVariableInitialValue(final Object variableName, final String expression) {
-		if (expression==null || expression.trim().isEmpty()) return false;
+		if (expression==null || expression.isBlank()) return false;
 		if (!(variableName instanceof String)) return false;
 
 		final EditModel model=runner.getChangedModel().clone();
@@ -317,7 +317,7 @@ public final class JSRunComplexScriptModel extends JSBaseCommand {
 	 * @return	Zugehörige ID oder -1, wenn keine passende Station gefunden wurde
 	 */
 	public int getStationID(final String name) {
-		if (name==null || name.trim().isEmpty()) return -1;
+		if (name==null || name.isBlank()) return -1;
 		final EditModel editModel=runner.getChangedModel();
 		return getStationID(editModel.surface,name);
 	}

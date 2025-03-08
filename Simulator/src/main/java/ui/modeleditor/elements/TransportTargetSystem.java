@@ -279,13 +279,13 @@ public final class TransportTargetSystem implements Cloneable {
 	public String loadProperties(final Element node) {
 		if (Language.trAll("Surface.TransportSource.XML.Route",node.getNodeName())) {
 			final String clientType=Language.trAllAttribute("Surface.TransportSource.XML.Route.ClientType",node);
-			if (clientType!=null && !clientType.trim().isEmpty()) {
+			if (clientType!=null && !clientType.isBlank()) {
 				routing.add(TransportTargetRecord.getByClientType(clientType,node.getTextContent()));
 				mode=RoutingMode.ROUTING_MODE_EXPLICITE;
 				return null;
 			}
 			final String expression=Language.trAllAttribute("Surface.TransportSource.XML.Route.Expression",node);
-			if (expression!=null && !expression.trim().isEmpty()) {
+			if (expression!=null && !expression.isBlank()) {
 				routing.add(TransportTargetRecord.getByExpression(expression,node.getTextContent()));
 				mode=RoutingMode.ROUTING_MODE_EXPLICITE;
 				return null;

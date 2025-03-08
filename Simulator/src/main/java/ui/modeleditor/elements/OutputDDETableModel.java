@@ -364,7 +364,7 @@ public class OutputDDETableModel extends JTableExtAbstractTableModel {
 					while (true) {
 						s=JOptionPane.showInputDialog(table,Language.tr("Surface.OutputDDE.Table.EditExpression"),s);
 						if (s==null) break;
-						if (s.trim().isEmpty()) {data.set(row,""); break;}
+						if (s.isBlank()) {data.set(row,""); break;}
 						int error=ExpressionCalc.check(s,variableNames,userFunctions);
 						if (error<0) {data.set(row,s); break;}
 						MsgBox.error(table,Language.tr("Surface.OutputDDE.Table.ExpressionError.Title"),String.format(Language.tr("Surface.OutputDDE.Table.ExpressionError.Info"),s,error+1));

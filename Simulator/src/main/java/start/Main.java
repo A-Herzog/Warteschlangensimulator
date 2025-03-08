@@ -233,7 +233,7 @@ public class Main {
 		});
 
 		/* Schriftart */
-		if (setup.fontName!=null && !setup.fontName.trim().isEmpty()) {
+		if (setup.fontName!=null && !setup.fontName.isBlank()) {
 			GUITools.setFontName(setup.fontName);
 			ModelElementBox.DEFAULT_FONT_LARGE=new Font(setup.fontName,ModelElementBox.DEFAULT_FONT_LARGE.getStyle(),ModelElementBox.DEFAULT_FONT_LARGE.getSize());
 			ModelElementBox.DEFAULT_FONT_SMALL=new Font(setup.fontName,ModelElementBox.DEFAULT_FONT_SMALL.getStyle(),ModelElementBox.DEFAULT_FONT_SMALL.getSize());

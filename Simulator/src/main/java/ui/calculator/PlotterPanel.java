@@ -834,7 +834,7 @@ public class PlotterPanel extends JPanel {
 		 * @see #variableName
 		 */
 		private ExpressionCalc getParser() {
-			if (expression==null || expression.trim().isEmpty()) return null;
+			if (expression==null || expression.isBlank()) return null;
 			final ExpressionCalc calc=new ExpressionCalc(variableName,null);
 			if (calc.parse(expression)>=0) return null;
 			return calc;

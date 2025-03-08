@@ -510,7 +510,7 @@ public class ModelElementDisposeWithTable extends ModelElementBox implements Mod
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		if (!clientsOutputTable.trim().isEmpty()) {
+		if (!clientsOutputTable.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Output.File"),clientsOutputTable,3000);
 		}
 

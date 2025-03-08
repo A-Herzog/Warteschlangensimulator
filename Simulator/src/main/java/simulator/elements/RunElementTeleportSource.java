@@ -56,7 +56,7 @@ public class RunElementTeleportSource extends RunElement {
 	 * @return	Teleport-Ziel-Element Objekt oder <code>null</code>, wenn kein Teleport-Ziel mit dem angegebenen Namen gefunden wurde
 	 */
 	public static ModelElementTeleportDestination getDestination(final EditModel editModel, final String name) {
-		if (name==null || name.trim().isEmpty()) return null;
+		if (name==null || name.isBlank()) return null;
 
 		for (ModelElement e1 : editModel.surface.getElements()) {
 			if (e1 instanceof ModelElementTeleportDestination && e1.getName().equals(name)) return (ModelElementTeleportDestination)e1;
@@ -89,7 +89,7 @@ public class RunElementTeleportSource extends RunElement {
 		final RunElementTeleportSource source=new RunElementTeleportSource(sourceElement);
 
 		source.destinationString=sourceElement.getDestination();
-		if (source.destinationString.trim().isEmpty()) return String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId());
+		if (source.destinationString.isBlank()) return String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId());
 		source.destinationID=getDestinationID(editModel,source.destinationString);
 		if (source.destinationID<0) return String.format(Language.tr("Simulation.Creator.InvalidTeleportDestination"),element.getId(),source.destinationString);
 
@@ -103,7 +103,7 @@ public class RunElementTeleportSource extends RunElement {
 		final ModelElementTeleportSource sourceElement=(ModelElementTeleportSource)element;
 
 		final String destinationString=sourceElement.getDestination();
-		if (destinationString.trim().isEmpty()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId()),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);
+		if (destinationString.isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId()),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);
 		final int destinationID=getDestinationID(element.getModel(),destinationString);
 		if (destinationID<0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidTeleportDestination"),element.getId(),destinationString),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);
 

@@ -211,7 +211,7 @@ public class HTMLOutputBuilder extends SpecialOutputBuilder {
 	 */
 	private void outputElementName(final ModelElement element) {
 		final String name=element.getName();
-		if (name==null || name.trim().isEmpty()) {
+		if (name==null || name.isBlank()) {
 			outputBody.append("/* id="+element.getId()+" */\n");
 		} else {
 			outputBody.append("/* \""+encodeHTML(name,true)+"\" id="+element.getId()+" */\n");

@@ -1301,7 +1301,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		String[] lines;
 		boolean linesOk;
 
-		if (namePanel.isVisible() && nameEdit.getText().trim().isEmpty()) {
+		if (namePanel.isVisible() && nameEdit.getText().isBlank()) {
 			nameEdit.setBackground(Color.red);
 			if (showErrorMessage) {
 				MsgBox.error(this,Language.tr("Surface.Source.Dialog.ErrorName.Title"),Language.tr("Surface.Source.Dialog.ErrorName.Info"));
@@ -1317,7 +1317,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 
 		/* Infotext zu Anzahl an intervallabhängigen Ankünften aktualisieren */
 		intervals=intervalExpressions.getText().trim().split("\\n");
-		intervalCount=(intervals.length==1 && intervals[0].trim().isEmpty())?0:intervals.length;
+		intervalCount=(intervals.length==1 && intervals[0].isBlank())?0:intervals.length;
 		if (intervalCount==0) {
 			intervalExpressionsInfo.setText(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.Info.Empty"));
 		} else {
@@ -1331,7 +1331,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 
 		/* Infotext zu Anzahl an intervallabhängigen Zwischenankunftszeiten aktualisieren */
 		intervals=intervalDistributions.getText().trim().split("\\n");
-		intervalCount=(intervals.length==1 && intervals[0].trim().isEmpty())?0:intervals.length;
+		intervalCount=(intervals.length==1 && intervals[0].isBlank())?0:intervals.length;
 		if (intervalCount==0) {
 			intervalDistributionsInfo.setText(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Info.Empty"));
 		} else {
@@ -1707,7 +1707,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	 * @param surface	Zeichenfläche (muss bei Umbenennung benachrichtigt werden). Es kann sich auch um eine Sub-Zeichenfläche handeln, die Information wird dann zur Hauptzeichenfläche weitergereicht.
 	 */
 	public static void renameClients(final String oldName, final String newName, final ModelClientData clientData, final ModelSurface surface) {
-		if (oldName!=null && newName!=null && !oldName.trim().isEmpty() && !newName.trim().isEmpty() && !oldName.equals(newName)) {
+		if (oldName!=null && newName!=null && !oldName.isBlank() && !newName.isBlank() && !oldName.equals(newName)) {
 			if (clientData!=null) clientData.copyDataIfNotExistent(oldName,newName);
 			surface.objectRenamed(oldName,newName,ModelDataRenameListener.RenameType.RENAME_TYPE_CLIENT_TYPE,true);
 		}

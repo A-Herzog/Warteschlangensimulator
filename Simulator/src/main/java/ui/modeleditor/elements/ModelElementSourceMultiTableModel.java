@@ -277,7 +277,7 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 		switch (columnIndex) {
 		case 0:
 			String icon=clientData.getIcon(record.getName());
-			if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
+			if (icon==null || icon.isBlank()) icon=ModelSurfaceAnimatorBase.DEFAULT_CLIENT_ICON_NAME;
 			final Image image=imageSource.get(icon,model.animationImages,16);
 			if (hasActivation) {
 				return makeEditPanelSmallBorderIcon(

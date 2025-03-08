@@ -189,7 +189,7 @@ public class EditTemplateDialog extends BaseDialog {
 	private boolean checkData(final boolean showErrorMessage) {
 		boolean ok=true;
 
-		if (editName.getText().trim().isEmpty()) {
+		if (editName.getText().isBlank()) {
 			editName.setBackground(Color.RED);
 			ok=false;
 			if (showErrorMessage) {

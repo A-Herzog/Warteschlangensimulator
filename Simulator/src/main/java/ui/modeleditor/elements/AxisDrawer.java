@@ -214,7 +214,7 @@ public class AxisDrawer {
 	public void setAxisValues(final double min, final double max, Mode mode, String label) {
 		if (mode==null) mode=Mode.OFF;
 		if (min==max) mode=Mode.OFF;
-		if (label!=null && label.trim().isEmpty()) label=null;
+		if (label!=null && label.isBlank()) label=null;
 		if (minValue==min && maxValue==max && this.mode==mode && Objects.equals(label,this.label) && numberFormat==NumberFormat.NUMBER) return;
 		numberFormat=NumberFormat.NUMBER;
 		minValue=min;
@@ -234,7 +234,7 @@ public class AxisDrawer {
 	public void setAxisTimeValues(final long min, Mode mode, String label) {
 		if (mode==null) mode=Mode.OFF;
 		if (min==0) mode=Mode.OFF;
-		if (label!=null && label.trim().isEmpty()) label=null;
+		if (label!=null && label.isBlank()) label=null;
 		if (minValue==min && maxValue==0 && this.mode==mode && Objects.equals(label,this.label) && numberFormat==NumberFormat.TIME) return;
 		numberFormat=NumberFormat.TIME;
 		minValue=min;

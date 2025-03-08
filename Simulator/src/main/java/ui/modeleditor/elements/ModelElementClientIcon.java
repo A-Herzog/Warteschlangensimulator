@@ -351,7 +351,7 @@ public class ModelElementClientIcon extends ModelElementMultiInSingleOutBox  {
 	@Override
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
-		if (!icon.trim().isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.ClientIcon.Icon"),icon,1000);
+		if (!icon.isBlank()) descriptionBuilder.addProperty(Language.tr("ModelDescription.ClientIcon.Icon"),icon,1000);
 		if (!condition.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.ClientIcon.Condition"),condition,2000);
 	}
 

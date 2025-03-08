@@ -155,7 +155,7 @@ public class FastAccessSelectorBuilder {
 	 * @see StatisticViewerText#processContextClick(StatisticsBasePanel, String)
 	 */
 	public boolean addToPopup(final JPopupMenu menu, final String xmlSelector) {
-		if (xmlSelector==null || xmlSelector.trim().isEmpty() || fastAccessAdd==null) return false;
+		if (xmlSelector==null || xmlSelector.isBlank() || fastAccessAdd==null) return false;
 
 		if (menu.getComponentCount()>0) menu.addSeparator();
 

@@ -207,21 +207,21 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 		hasWaitingCancelations=b;
 		if (hasWaitingCancelations) waitingCancelEvents=new ArrayList<>(INITIAL_QUEUE_SIZE); else waitingCancelEvents=null;
 
-		if (costs==null || costs.trim().isEmpty()) {
+		if (costs==null || costs.isBlank()) {
 			this.costs=null;
 		} else {
 			this.costs=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.costs.parse(costs);
 		}
 
-		if (costsPerProcessSecond==null || costsPerProcessSecond.trim().isEmpty()) {
+		if (costsPerProcessSecond==null || costsPerProcessSecond.isBlank()) {
 			this.costsPerProcessSecond=null;
 		} else {
 			this.costsPerProcessSecond=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);
 			this.costsPerProcessSecond.parse(costsPerProcessSecond);
 		}
 
-		if (costsPerPostProcessSecond==null || costsPerPostProcessSecond.trim().isEmpty()) {
+		if (costsPerPostProcessSecond==null || costsPerPostProcessSecond.isBlank()) {
 			this.costsPerPostProcessSecond=null;
 		} else {
 			this.costsPerPostProcessSecond=new ExpressionCalc(variableNames,simData.runModel.modelUserFunctions);

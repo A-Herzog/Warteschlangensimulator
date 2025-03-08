@@ -144,29 +144,29 @@ public abstract class OptimizerBase {
 			final ControlVariable controlVariable=setup.controlVariables.get(i);
 			switch (controlVariable.mode) {
 			case MODE_RESOURCE:
-				if (controlVariable.tag==null || controlVariable.tag.trim().isEmpty()) return String.format(Language.tr("Optimizer.Error.NoResourceNameForControlVariables"),i+1);
+				if (controlVariable.tag==null || controlVariable.tag.isBlank()) return String.format(Language.tr("Optimizer.Error.NoResourceNameForControlVariables"),i+1);
 				if (!OptimizerSetup.isResourceNameOk(model,controlVariable.tag)) return String.format(Language.tr("Optimizer.Error.ResourceNameForControlVariablesInvalid"),i+1,controlVariable.tag);
 				break;
 			case MODE_VARIABLE:
-				if (controlVariable.tag==null || controlVariable.tag.trim().isEmpty()) return String.format(Language.tr("Optimizer.Error.NoVariableNameForControlVariables"),i+1);
+				if (controlVariable.tag==null || controlVariable.tag.isBlank()) return String.format(Language.tr("Optimizer.Error.NoVariableNameForControlVariables"),i+1);
 				if (!OptimizerSetup.isGlobalVariableOk(model,controlVariable.tag)) return String.format(Language.tr("Optimizer.Error.VariableNameForControlVariablesInvalid"),i+1,controlVariable.tag);
 				break;
 			case MODE_MAP:
-				if (controlVariable.tag==null || controlVariable.tag.trim().isEmpty()) return String.format(Language.tr("Optimizer.Error.NoKeyNameForControlVariables"),i+1);
+				if (controlVariable.tag==null || controlVariable.tag.isBlank()) return String.format(Language.tr("Optimizer.Error.NoKeyNameForControlVariables"),i+1);
 				if (model.globalMapInitial.get(controlVariable.tag)==null) return String.format(Language.tr("Optimizer.Error.KeyForControlVariablesInvalid"),i+1,controlVariable.tag);
 				break;
 			case MODE_XML:
-				if (controlVariable.tag==null || controlVariable.tag.trim().isEmpty()) return String.format(Language.tr("Optimizer.Error.NoXMLTagForControlVariables"),i+1);
+				if (controlVariable.tag==null || controlVariable.tag.isBlank()) return String.format(Language.tr("Optimizer.Error.NoXMLTagForControlVariables"),i+1);
 				break;
 			}
 		}
 
-		if (setup.outputFolder==null || setup.outputFolder.trim().isEmpty()) return Language.tr("Optimizer.Error.NoOutputFolder");
+		if (setup.outputFolder==null || setup.outputFolder.isBlank()) return Language.tr("Optimizer.Error.NoOutputFolder");
 		outputFolder=new File(setup.outputFolder);
 		if (!outputFolder.isDirectory()) return String.format(Language.tr("Optimizer.Error.OutputFolderDoesNotExists"),setup.outputFolder);
 
 
-		if (setup.target==null || setup.target.trim().isEmpty()) return Language.tr("Optimizer.Error.NoTarget");
+		if (setup.target==null || setup.target.isBlank()) return Language.tr("Optimizer.Error.NoTarget");
 		if (setup.targetType==OptimizerSetup.TargetType.TARGET_TYPE_SCRIPT) {
 			File file=new File(setup.target);
 			if (!file.isFile()) return String.format(Language.tr("Optimizer.Error.TargetScriptDoesNotExists"),setup.target);

@@ -244,7 +244,7 @@ public class ModelElementDecoration extends ModelElementPosition implements Elem
 			return null;
 		}
 
-		if (Language.trAll("Surface.XML.Color",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.XML.Color",name) && !content.isBlank()) {
 			color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;

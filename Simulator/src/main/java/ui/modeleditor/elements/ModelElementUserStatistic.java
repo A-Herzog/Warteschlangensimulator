@@ -445,7 +445,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 		for (int i=0;i<Math.min(Math.min(Math.min(key.size(),expression.size()),isTime.size()),isContinuous.size());i++) {
 			final String k=key.get(i);
 			final String e=expression.get(i);
-			if (k==null || k.trim().isEmpty() || e==null || e.trim().isEmpty()) continue;
+			if (k==null || k.isBlank() || e==null || e.isBlank()) continue;
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.UserStatistic.XML.Record")));
 			sub.setAttribute(Language.trPrimary("Surface.UserStatistic.XML.Record.Key"),k);
 			sub.setAttribute(Language.trPrimary("Surface.UserStatistic.XML.Record.IsTime"),isTime.get(i)?"1":"0");
@@ -476,7 +476,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 			final String isTimeString=Language.trAllAttribute("Surface.UserStatistic.XML.Record.IsTime",node);
 			final String isContinuousString=Language.trAllAttribute("Surface.UserStatistic.XML.Record.IsContinuous",node);
 			final String e=content;
-			if (!keyString.trim().isEmpty() && !e.trim().isEmpty()) {
+			if (!keyString.isBlank() && !e.isBlank()) {
 				key.add(keyString.trim());
 				isTime.add(isTimeString==null || isTimeString.isEmpty() || !isTimeString.equals("0"));
 				isContinuous.add(isContinuousString!=null && isContinuousString.equals("1"));

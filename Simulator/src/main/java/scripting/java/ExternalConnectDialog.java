@@ -134,7 +134,7 @@ public class ExternalConnectDialog extends BaseDialog {
 			final JFileChooser fc=new JFileChooser();
 			CommonVariables.initialDirectoryToJFileChooser(fc);
 			final String oldFolder=folder.getText().trim();
-			if (!oldFolder.trim().isEmpty() && new File(oldFolder).isDirectory()) fc.setCurrentDirectory(new File(oldFolder));
+			if (!oldFolder.isBlank() && new File(oldFolder).isDirectory()) fc.setCurrentDirectory(new File(oldFolder));
 			fc.setDialogTitle(Language.tr("ExternalConnect.Dialog.Folder.Tooltip"));
 			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return;

@@ -71,7 +71,7 @@ public class ClientInputTableProcessor {
 		for (int i=0;i<colData.size();i++) {
 			final List<String> columnData=colData.get(i);
 			if (columnData==null || columnData.size()<2) continue;
-			if (columnData.get(0).trim().isEmpty()) continue;
+			if (columnData.get(0).isBlank()) continue;
 			final ColumnData column=new ColumnData(columnData,i);
 			column.index=indexCounter;
 			indexCounter++;

@@ -562,7 +562,7 @@ public class ModelElementOutputJS extends ModelElementMultiInSingleOutBox implem
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
 
-		if (!outputFile.trim().isEmpty()) {
+		if (!outputFile.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.OutputJS.File"),outputFile,2000);
 		}
 

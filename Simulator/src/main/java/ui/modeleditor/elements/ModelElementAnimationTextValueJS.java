@@ -723,7 +723,7 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 		}
 
 		/* Farbe */
-		if (Language.trAll("Surface.AnimationTextJS.XML.Color",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationTextJS.XML.Color",name) && !content.isBlank()) {
 			color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
@@ -739,12 +739,12 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 		}
 
 		/* Hintergrund */
-		if (Language.trAll("Surface.AnimationTextJS.XML.BackgroundColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationTextJS.XML.BackgroundColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			fillColor=color;
 			final String alpha=Language.trAllAttribute("Surface.AnimationTextJS.XML.BackgroundColor.Alpha",node);
-			if (!alpha.trim().isEmpty()) {
+			if (!alpha.isBlank()) {
 				final Double D=NumberTools.getDouble(alpha);
 				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationTextJS.XML.BackgroundColor.Alpha"),name,node.getParentNode().getNodeName());
 				fillAlpha=D;
@@ -753,12 +753,12 @@ public class ModelElementAnimationTextValueJS extends ModelElementPosition imple
 		}
 
 		/* Schatten */
-		if (Language.trAll("Surface.AnimationTextJS.XML.ShadowColor",name) && !content.trim().isEmpty()) {
+		if (Language.trAll("Surface.AnimationTextJS.XML.ShadowColor",name) && !content.isBlank()) {
 			final Color color=EditModel.loadColor(content);
 			if (color==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			shadowColor=color;
 			final String alpha=Language.trAllAttribute("Surface.AnimationTextJS.XML.ShadowColor.Alpha",node);
-			if (!alpha.trim().isEmpty()) {
+			if (!alpha.isBlank()) {
 				final Double D=NumberTools.getDouble(alpha);
 				if (D==null || D<0 || D>1) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationTextJS.XML.ShadowColor.Alpha"),name,node.getParentNode().getNodeName());
 				shadowAlpha=D;

@@ -250,7 +250,7 @@ public class ClientImpl implements ClientInterface {
 	@Override
 	public void setText(final String key, final String value) {
 		if (client==null) return;
-		if (key==null || key.trim().isEmpty()) return;
+		if (key==null || key.isBlank()) return;
 		client.setUserDataString(key,(value==null)?"":value);
 	}
 

@@ -1928,7 +1928,7 @@ public final class ModelSurfacePanel extends JPanel {
 			if (addDescription) {
 				/* Überschrift */
 				final String name;
-				if (model.name.trim().isEmpty()) name=Language.tr("SlidesGenerator.Modell"); else name=model.name;
+				if (model.name.isBlank()) name=Language.tr("SlidesGenerator.Modell"); else name=model.name;
 				addHeadingToDOCX(docx,name+"\n"+MainFrame.PROGRAM_NAME+" "+Language.tr("SlidesGenerator.ModelType"));
 			}
 
@@ -1937,9 +1937,9 @@ public final class ModelSurfacePanel extends JPanel {
 
 			if (addDescription) {
 				/* Beschreibung */
-				if (model.description!=null && !model.description.trim().isEmpty()) {
+				if (model.description!=null && !model.description.isBlank()) {
 					final List<String> lines=new ArrayList<>(Arrays.asList(model.description.split("\\n")));
-					final String[] content=lines.stream().filter(line->!line.trim().isEmpty()).toArray(String[]::new);
+					final String[] content=lines.stream().filter(line->!line.isBlank()).toArray(String[]::new);
 					if (content.length>0) {
 						addHeadingToDOCX(docx,Language.tr("SlidesGenerator.ModellDescription"));
 						final XWPFParagraph p=docx.createParagraph();
@@ -2879,7 +2879,7 @@ public final class ModelSurfacePanel extends JPanel {
 			for (ModelResource resource: model.resources.getResources()) {
 				if (resource.getMode()==ModelResource.Mode.MODE_NUMBER && resource.getCount()>0) {
 					String icon=resource.getIcon();
-					if (icon==null || icon.trim().isEmpty()) icon=ModelSurfaceAnimatorBase.DEFAULT_OPERATOR_ICON_NAME;
+					if (icon==null || icon.isBlank()) icon=ModelSurfaceAnimatorBase.DEFAULT_OPERATOR_ICON_NAME;
 					subMenu.add(item=new JMenuItem(resource.getName(),new ImageIcon(imageSource.get(icon,model.animationImages,16))));
 					item.addActionListener(e->{
 						final TemplateRecord record=new TemplateRecord(TemplateMode.MODE_OPERATORS,Language.tr("Surface.PopupMenu.ParameterCompare.ChangeOperatorCount.Short"));
@@ -3938,7 +3938,7 @@ public final class ModelSurfacePanel extends JPanel {
 					String description="";
 					if (element instanceof ModelElementBox) {
 						final String additional=getAdditionalTooltip(element);
-						if (additional!=null && !additional.trim().isEmpty()) tooltip=tooltip+"<br>"+additional;
+						if (additional!=null && !additional.isBlank()) tooltip=tooltip+"<br>"+additional;
 						description=getTooltipDescription((ModelElementBox)element);
 						if (description==null) description="";
 						if (!description.isEmpty()) description="<hr>"+description;
@@ -3974,7 +3974,7 @@ public final class ModelSurfacePanel extends JPanel {
 						descriptionBuilder.append(el.getId());
 
 						final String additional=getAdditionalTooltip(element);
-						if (additional!=null && !additional.trim().isEmpty()) tooltip=tooltip+"<br>"+additional;
+						if (additional!=null && !additional.isBlank()) tooltip=tooltip+"<br>"+additional;
 
 						descriptionBuilder.append("<br>&nbsp;\n</p>");
 						description=descriptionBuilder.toString();

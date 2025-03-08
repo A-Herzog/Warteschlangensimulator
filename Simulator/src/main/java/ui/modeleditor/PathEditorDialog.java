@@ -162,7 +162,7 @@ public class PathEditorDialog extends BaseDialog {
 			}
 
 			/* Test: Transporter-relevantes Element? */
-			if (element.getName().trim().isEmpty()) continue;
+			if (element.getName().isBlank()) continue;
 			boolean transporterElement=false;
 			if (element instanceof ModelElementTransportTransporterSource) transporterElement=true;
 			if (element instanceof ModelElementTransportParking) transporterElement=true;

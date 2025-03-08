@@ -59,13 +59,13 @@ public class NetHelper {
 	public static Proxy getProxy() {
 		final SetupData setup=SetupData.getSetup();
 
-		if (!setup.useProxy || setup.proxyHost.trim().isEmpty()) {
+		if (!setup.useProxy || setup.proxyHost.isBlank()) {
 			return Proxy.NO_PROXY;
 		}
 
 		/* Authentifikator */
 		Authenticator authenticator;
-		if (setup.proxyUser.trim().isEmpty() && setup.proxyPassword.trim().isEmpty()) {
+		if (setup.proxyUser.isBlank() && setup.proxyPassword.isBlank()) {
 			/* Keine Authentifikation */
 			authenticator=null;
 		} else {
@@ -202,7 +202,7 @@ public class NetHelper {
 			if (status!=HttpURLConnection.HTTP_MOVED_PERM) lastURI=uri;
 			uri=new URI(connect.getHeaderField("Location"));
 			final List<String> newCookiesList=connect.getHeaderFields().get("Set-Cookie");
-			if (newCookiesList!=null) for (String newCookies: newCookiesList) if (newCookies!=null && !newCookies.trim().isEmpty()) {
+			if (newCookiesList!=null) for (String newCookies: newCookiesList) if (newCookies!=null && !newCookies.isBlank()) {
 				final boolean secure=newCookies.contains("Secure");
 				for (String record: newCookies.split(";")) {
 					record=record.trim();

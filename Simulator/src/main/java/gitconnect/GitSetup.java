@@ -426,7 +426,7 @@ public class GitSetup {
 	 * @see PrivateKeyStatus
 	 */
 	public PrivateKeyStatus getPrivateKeyStatus() {
-		if (authKey==null || authKey.trim().isEmpty()) return PrivateKeyStatus.NO_KEY;
+		if (authKey==null || authKey.isBlank()) return PrivateKeyStatus.NO_KEY;
 		final File keyFile=new File(authKey);
 		if (!keyFile.isFile()) return PrivateKeyStatus.NO_FILE;
 
@@ -446,7 +446,7 @@ public class GitSetup {
 	 */
 	public boolean isFileInRepositoryFolder(final File file) {
 		if (file==null || !file.isFile()) return false;
-		if (localFolder==null || localFolder.trim().isEmpty()) return false;
+		if (localFolder==null || localFolder.isBlank()) return false;
 		final File folder=new File(localFolder);
 		if (!folder.isDirectory()) return false;
 
@@ -612,7 +612,7 @@ public class GitSetup {
 	 * @return	Liste der Angaben relativ zur Basis des Repositories (Dateien, die nicht im Repository liegen, werden nicht in die Ausgabeliste übernommen)
 	 */
 	private String[] makeFilesRelative(final File[] files) {
-		if (files==null || localFolder==null || localFolder.trim().isEmpty()) return new String[0];
+		if (files==null || localFolder==null || localFolder.isBlank()) return new String[0];
 
 		String folderName;
 		try {

@@ -334,7 +334,7 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 	 * @param newClientType	Neuer Kundentyp oder leerer String, wenn die Kunden einzeln weitergeleitet werden sollen
 	 */
 	public void setNewClientType(final String newClientType) {
-		if (newClientType==null || newClientType.trim().isEmpty()) {
+		if (newClientType==null || newClientType.isBlank()) {
 			this.newClientType="";
 			matchMode=MatchMode.MATCH_MODE_COLLECT;
 		} else {
@@ -620,7 +620,7 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 			addVisualizationMenuItem(parentMenu,addElements,VisualizationType.BAR_NQ_CURRENT_3);
 			addVisualizationMenuItem(parentMenu,addElements,VisualizationType.BAR_NQ_AVERAGE_3);
 		}
-		if (!condition.trim().isEmpty()) {
+		if (!condition.isBlank()) {
 			addVisualizationTrafficLightsMenuItem("!("+condition+")",parentMenu,addElements);
 		}
 	}
@@ -749,7 +749,7 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 			break;
 		}
 
-		if (!condition.trim().isEmpty()) {
+		if (!condition.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Match.XML.Condition")));
 			sub.setTextContent(condition);
 		}
@@ -816,7 +816,7 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 
 		if (Language.trAll("Surface.Match.XML.ClientType",name)) {
 			newClientType=content;
-			if (!content.trim().isEmpty() && matchMode==MatchMode.MATCH_MODE_COLLECT) matchMode=MatchMode.MATCH_MODE_PERMANENT;
+			if (!content.isBlank() && matchMode==MatchMode.MATCH_MODE_COLLECT) matchMode=MatchMode.MATCH_MODE_PERMANENT;
 			return null;
 		}
 
@@ -985,12 +985,12 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 		}
 
 		/* Neuer Kundentyp */
-		if ((matchMode==MatchMode.MATCH_MODE_TEMPORARY || matchMode==MatchMode.MATCH_MODE_PERMANENT) && !newClientType.trim().isEmpty()) {
+		if ((matchMode==MatchMode.MATCH_MODE_TEMPORARY || matchMode==MatchMode.MATCH_MODE_PERMANENT) && !newClientType.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Match.NewClientType"),newClientType,3000);
 		}
 
 		/* Bedingung */
-		if (!condition.trim().isEmpty()) {
+		if (!condition.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Match.Condition"),condition,4000);
 		}
 

@@ -592,7 +592,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		}
 
 		text=textCosts.getText();
-		if (!text.trim().isEmpty()) {
+		if (!text.isBlank()) {
 			error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				textCosts.setBackground(Color.red);
@@ -609,7 +609,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		}
 
 		text=textCostsPerProcessSecond.getText();
-		if (!text.trim().isEmpty()) {
+		if (!text.isBlank()) {
 			error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				textCostsPerProcessSecond.setBackground(Color.red);
@@ -626,7 +626,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		}
 
 		text=textCostsPerPostProcessSecond.getText();
-		if (!text.trim().isEmpty()) {
+		if (!text.isBlank()) {
 			error=ExpressionCalc.check(text,variables,userFunctions);
 			if (error>=0) {
 				textCostsPerPostProcessSecond.setBackground(Color.red);
