@@ -992,7 +992,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
 		final FileFilter md=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeMD+" (*.md)","md");
 		final FileFilter tex=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTEX+" (*.tex)","tex");
-		final FileFilter typ=new FileNameExtensionFilter(Table.FileTypeTypst+" (*.typ)","typ");
+		final FileFilter typ=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTYP+" (*.typ)","typ");
 		fc.addChoosableFileFilter(docx);
 		fc.addChoosableFileFilter(odt);
 		fc.addChoosableFileFilter(rtf);
