@@ -681,7 +681,7 @@ public class SetupData extends SetupBase {
 	public boolean showTemplates;
 
 	/**
-	 * Verzögerung bei der Animation (0..10)
+	 * Verzögerung bei der Animation (0..1000)
 	 */
 	public int animationDelay;
 
@@ -1598,7 +1598,7 @@ public class SetupData extends SetupBase {
 		logTypeInfoSystem=true;
 		highPriority=false;
 		showTemplates=false;
-		animationDelay=4;
+		animationDelay=400;
 		animationWarmUpMode=AnimationMode.ANIMATION_WARMUP_SKIP;
 		filterJavascript="";
 		filterJava="";
@@ -2276,7 +2276,8 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("animationsverzoegerung") || name.equals("animationdelay")) {
 				Integer j=NumberTools.getInteger(e.getTextContent());
-				if (j!=null) animationDelay=Math.min(10,Math.max(0,j));
+				if (j!=null) animationDelay=Math.min(1000,Math.max(0,j));
+				if (animationDelay<10 && animationDelay!=5) animationDelay*=100; /* Alten Modus umrechnen (Werte <10 gibt's nicht mehr, außer 0 und 5) */
 				continue;
 			}
 
@@ -3125,7 +3126,7 @@ public class SetupData extends SetupBase {
 			node.setTextContent("1");
 		}
 
-		if (animationDelay!=4) {
+		if (animationDelay!=400) {
 			root.appendChild(node=doc.createElement("AnimationDelay"));
 			node.setTextContent(""+animationDelay);
 		}

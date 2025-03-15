@@ -77,7 +77,7 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 
 	/**
 	 * Aktuelle Simulationszeit
-	 * @see #process(SimulationData, RunDataClient, int)
+	 * @see #process(SimulationData, RunDataClient, double)
 	 */
 	private long currentTime;
 
@@ -97,13 +97,13 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 
 	/**
 	 * Simulationszeit an der die letzte Bewegung stattgefunden hat
-	 * @see #processMulti(SimulationData, RunDataClient, int)
+	 * @see #processMulti(SimulationData, RunDataClient, double)
 	 */
 	private long lastMultiMoveTime;
 
 	/**
 	 * Liste der sich bewegenden Kunden-Icons
-	 * @see #processMulti(SimulationData, RunDataClient, int)
+	 * @see #processMulti(SimulationData, RunDataClient, double)
 	 */
 	private List<MoveClient> multiMovedClients;
 
@@ -239,7 +239,7 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 	}
 
 	/**
-	 * Läuft gerade eine Verarbeitung in {@link #process(SimulationData, RunDataClient, int)}?<br>
+	 * Läuft gerade eine Verarbeitung in {@link #process(SimulationData, RunDataClient, double)}?<br>
 	 * Wird die process-Methode synchronized, so kann es einen Deadlock geben. Mit Hilfe dieser
 	 * Abfrage hingegen werden doppelte Zeichenbefehle notfalls einfach verworfen.
 	 */
@@ -251,7 +251,7 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 	 * @param client	Kunde, der sich bewegt hat (kann auch <code>null</code> sein)
 	 * @param delay	Verzögerung pro Animationsschritt
 	 */
-	public void process(final SimulationData simData, final RunDataClient client, int delay) {
+	public void process(final SimulationData simData, final RunDataClient client, double delay) {
 		if (inProcessClient) return;
 		inProcessClient=true;
 		try {
@@ -285,7 +285,7 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 	 * @param transporter	Transporter, der sich bewegt hat (darf nicht <code>null</code> sein)
 	 * @param delay	Verzögerung pro Animationsschritt
 	 */
-	public void process(final SimulationData simData, final RunDataTransporter transporter, final int delay) {
+	public void process(final SimulationData simData, final RunDataTransporter transporter, final double delay) {
 		currentTime=simData.currentTime;
 		preProcess(simData);
 
@@ -313,9 +313,9 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 	 * @param simData	Simulationsdaten-Objekt
 	 * @param client	Kunde, der sich bewegt hat (kann auch <code>null</code> sein)
 	 * @param delay	Verzögerung pro Animationsschritt
-	 * @see #process(SimulationData, RunDataClient, int)
+	 * @see #process(SimulationData, RunDataClient, double)
 	 */
-	private void processSingle(final SimulationData simData, final RunDataClient client, final int delay) {
+	private void processSingle(final SimulationData simData, final RunDataClient client, final double delay) {
 		if (client==null || client.lastStationID==-1 || client.nextStationID==-1) return;
 
 		animate(new MoveClient(client),delay,simData);
@@ -327,9 +327,9 @@ public class ModelSurfaceAnimator extends ModelSurfaceAnimatorBase {
 	 * @param simData	Simulationsdaten-Objekt
 	 * @param client	Kunde, der sich bewegt hat (kann auch <code>null</code> sein)
 	 * @param delay	Verzögerung pro Animationsschritt
-	 * @see #process(SimulationData, RunDataClient, int)
+	 * @see #process(SimulationData, RunDataClient, double)
 	 */
-	private void processMulti(final SimulationData simData, RunDataClient client, final int delay) {
+	private void processMulti(final SimulationData simData, RunDataClient client, final double delay) {
 		if (client!=null && (client.lastStationID==-1 || client.nextStationID==-1)) client=null;
 		boolean forceMove=false;
 		if (client!=null) {

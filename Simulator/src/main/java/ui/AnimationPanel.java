@@ -209,15 +209,15 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private transient SimulationData simData;
 	/** Stellt sicher, dass {@link #simulator} nicht auf <code>null</code> gesetzt wird, während {@link #updateViewer(SimulationData)} läuft */
 	private Semaphore mutex;
-	/** Zeitpunkt (bezogen auf die Simulationszeit) des letzten Aufrufs von {@link #delaySystem(SimulationData, int)} */
+	/** Zeitpunkt (bezogen auf die Simulationszeit) des letzten Aufrufs von {@link #delaySystem(SimulationData, double)} */
 	private long lastTimeStep;
 	/** Zeit für einen Zeitschritt ({@link #calculateMinimalTimeStep()}) */
 	private double delaySystem;
 	/** Tatsächliche Verzögerung pro Animationsschritt (0..100); ist im Einzelschrittmodus 100, während {@link #delay} unverändert bleibt */
-	private int delayInt;
+	private double delayInt;
 	/** Verzögerung pro Animationsschritt (0..100) */
-	private int delay;
-	/** Wird von {@link #animationDelayChanged()} auf <code>true</code> gesetzt und dann von {@link #delaySystem(SimulationData, int)} ausgewertet, wenn sich die Animationsgeschwindigkeit geändert hat. */
+	private double delay;
+	/** Wird von {@link #animationDelayChanged()} auf <code>true</code> gesetzt und dann von {@link #delaySystem(SimulationData, double)} ausgewertet, wenn sich die Animationsgeschwindigkeit geändert hat. */
 	private boolean speedChanged;
 
 	/** Listener für Klicks auf die verschiedenen Symbolleisten-Schaltflächen */
@@ -505,7 +505,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		logScroll.setMaximumSize(new Dimension(1000,logToolBar.getHeight()+10));
 		logScroll.setPreferredSize(new Dimension(0,logToolBar.getHeight()+10));
 
-		delay=setup.animationDelay*10;
+		delay=setup.animationDelay/10.0;
 		delayInt=delay;
 		animationDelayChanged();
 
@@ -721,7 +721,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		if (logTextHistoryPlain!=null) logTextHistoryPlain.clear();
 
 		/* Geschwindigkeit einstellen */
-		delay=setup.animationDelay*10;
+		delay=setup.animationDelay/10.0;
 		delayInt=delay;
 		animationDelayChanged();
 
@@ -1061,7 +1061,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @param simData	Simulationsdatenobjekt
 	 * @param timeStepDelay	Verzögerungswert (0..25)
 	 */
-	private void delaySystem(final SimulationData simData, int timeStepDelay) {
+	private void delaySystem(final SimulationData simData, double timeStepDelay) {
 		if (lastTimeStep>0) {
 			double seconds=(simData.currentTime-lastTimeStep)*simData.runModel.scaleToSeconds;
 
@@ -1084,7 +1084,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 				if (steps<1) steps=1;
 				if (steps>40) steps=40;
 				delayMS=FastMath.min(FastMath.round(FastMath.sqrt(100.0*delayMS/steps)/100),500);
-				if (timeStepDelay>10) delayMS=FastMath.max(delay,timeStepDelay/2);
+				if (timeStepDelay>10) delayMS=(int)FastMath.max(delay,timeStepDelay/2);
 				if (delayMS>0) delayMS=FastMath.max(delayMS,10);
 			}
 
@@ -1143,7 +1143,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (surfaceAnimator.testBreakPoints(simData,client)) {
 				playPause();
 				surfaceAnimator.updateSurfaceAnimationDisplayElements(simData,true,false);
-				if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4));
+				if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4.0));
 				surfacePanel.repaint();
 			}
 		}
@@ -1165,11 +1165,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 				if (setup.respectPauseCommand && isRunning()) playPause();
 			};
 			if (logger==null || !logger.isActive()) {
-				delaySystem(simData,delayInt/4); /* Verzögerungen von einem Ereignis zum nächsten ausschalten im Einzelschrittmodus. */
+				delaySystem(simData,delayInt/4.0); /* Verzögerungen von einem Ereignis zum nächsten ausschalten im Einzelschrittmodus. */
 			} else {
 				updateStatus(simData.currentTime,false); /* Aber Statuszeile muss aktualisiert werden. (Passiert sonst in delaySystem.) */
 			}
-			if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4));
+			if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4.0));
 			surfacePanel.repaint(); /* Wichtig, sonst wird im Einzelschrittmodus der letzte Schritt nicht korrekt dargestellt (und Zahlenwerte an den Stationen stimmen nicht!) */
 		} finally {mutex.release();}
 
@@ -1211,11 +1211,11 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 			if (simData.runData.isWarmUp && fastWarmUp) return true;
 			this.simData=simData;
 			if (logger==null || !logger.isActive()) {
-				delaySystem(simData,delayInt/4); /* Verzögerungen von einem Ereignis zum nächsten ausschalten im Einzelschrittmodus. */
+				delaySystem(simData,delayInt/4.0); /* Verzögerungen von einem Ereignis zum nächsten ausschalten im Einzelschrittmodus. */
 			} else {
 				updateStatus(simData.currentTime,false); /* Aber Statuszeile muss aktualisiert werden. (Passiert sonst in delaySystem.) */
 			}
-			surfaceAnimator.process(simData,transporter,FastMath.min(20,delayInt/4));
+			surfaceAnimator.process(simData,transporter,FastMath.min(20,delayInt/4.0));
 		} finally {
 			mutex.release();
 		}
@@ -1302,8 +1302,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 */
 	private void animationDelayChanged() {
 		speedChanged=true;
-		if (delay/10!=setup.animationDelay) {
-			setup.animationDelay=delay/10;
+		if (delay!=setup.animationDelay) {
+			setup.animationDelay=(int)(delay*10);
 			setup.saveSetup();
 		}
 	}
@@ -1479,26 +1479,38 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	}
 
 	/**
+	 * Umrechnung der Geschindigkeits-Slieder-Positionen in tatsächliche Verzögerungen
+	 * @see #animationSpeedPopup()
+	 * @see #speed(int)
+	 * @see #delay
+	 * @see #delayInt
+	 */
+	private static final double[] speedSteps=new double[] {0,0.5,1.5,2.5,8,10,20,30,40,50,60,70,80,90,100,110};
+
+	/**
 	 * Zeigt das Popupmenü zur Einstellung der Simulationsgeschwindigkeit an.
 	 * @see #buttonSpeed
 	 */
 	private void animationSpeedPopup() {
 		final JPopupMenu popup=new JPopupMenu();
 
-		final JSlider slider=new JSlider(SwingConstants.VERTICAL,0,11,6);
+		final JSlider slider=new JSlider(SwingConstants.VERTICAL,0,15,10);
 		slider.setMinorTickSpacing(1);
 		slider.setPaintTicks(true);
 		final Dictionary<Integer,JComponent> labels=new Hashtable<>();
-		labels.put(11,new JLabel(Language.tr("Animation.Toolbar.Speed.Maximal")));
-		labels.put(10, new JLabel(Language.tr("Animation.Toolbar.Speed.Fast")));
+		labels.put(15,new JLabel(Language.tr("Animation.Toolbar.Speed.Maximal")));
+		labels.put(11, new JLabel(Language.tr("Animation.Toolbar.Speed.Fast")));
 		labels.put(7,new JLabel(Language.tr("Animation.Toolbar.Speed.Normal")));
 		labels.put(1,new JLabel(Language.tr("Animation.Toolbar.Speed.Slow")));
 		labels.put(0,new JLabel(Language.tr("Animation.Toolbar.Speed.RealTime")));
 		slider.setLabelTable(labels);
 		slider.setPaintLabels(true);
-		slider.setValue(FastMath.min(11,FastMath.max(0,11-delay/10)));
+		for (int i=0;i<speedSteps.length;i++) if (delay<=speedSteps[i]) {
+			slider.setValue(15-i);
+			break;
+		}
 		slider.addChangeListener(e->{
-			delay=(11-slider.getValue())*10;
+			delay=speedSteps[15-slider.getValue()];
 			delayInt=delay;
 			animationDelayChanged();
 		});
@@ -1753,11 +1765,14 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 
 	/**
 	 * Verändert die Geschwindigkeit der Animation.
-	 * @param delta	"+1" für schneller und "-1" für lansgamer
+	 * @param delta	"+1" für schneller und "-1" für langsamer
 	 */
 	private void speed(final int delta) {
-		int value=FastMath.min(11,FastMath.max(0,11-delay/10+delta));
-		delay=(11-value)*10;
+		int speedStep=7;
+		for (int i=0;i<speedSteps.length;i++) if (delay<=speedSteps[i]) {speedStep=i; break;}
+		speedStep=Math.max(0,Math.min(speedSteps.length-1,speedStep-delta));
+		delay=speedSteps[speedStep];
+
 		delayInt=delay;
 		animationDelayChanged();
 	}
@@ -2297,7 +2312,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * Liefert den momentan gewählten Delay-Wert für die Übertragung an Unter-Animator-Elemente
 	 * @return	Aktueller Delay-Wert
 	 */
-	public int getDelayIntern() {
+	public double getDelayIntern() {
 		return delayInt;
 	}
 

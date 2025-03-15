@@ -66,7 +66,7 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 	 * Gewählter Delay-Wert
 	 * @see AnimationPanel#getDelayIntern()
 	 */
-	private int delayInt;
+	private double delayInt;
 	/**
 	 * Simulationsdatenobjekt
 	 * @see #updateViewer(SimulationData)
@@ -133,7 +133,7 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 			if (surfaceAnimator.testBreakPoints(simData,client)) {
 				mainAnimationPanel.playPause();
 				surfaceAnimator.updateSurfaceAnimationDisplayElements(simData,true,false);
-				if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4));
+				if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4.0));
 				surfacePanel.repaint();
 			}
 		}
@@ -150,7 +150,7 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 		this.simData=simData;
 
 		/* keine normale Verzögerung hier, da diese schon auf der Hauptebene erfolgt */
-		if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4));
+		if (!moveByTransport) surfaceAnimator.process(simData,client,FastMath.min(20,delayInt/4.0));
 		return true;
 	}
 
@@ -170,7 +170,7 @@ public class ModelElementSubAnimationDialog extends BaseDialog implements RunMod
 		this.simData=simData;
 
 		/* keine normale Verzögerung hier, da diese schon auf der Hauptebene erfolgt */
-		surfaceAnimator.process(simData,transporter,FastMath.min(20,delayInt/4));
+		surfaceAnimator.process(simData,transporter,FastMath.min(20,delayInt/4.0));
 		return true;
 	}
 

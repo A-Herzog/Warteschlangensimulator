@@ -217,9 +217,9 @@ public class ModelSurfaceAnimatorBase {
 	 * Wird während der Animation eines Schritts
 	 * auf <code>false</code> und danach auf
 	 * <code>true</code> gesetzt.
-	 * @see #animate(MoveClient, int, SimulationData)
-	 * @see #animate(List, int, SimulationData, boolean)
-	 * @see #animate(String, String, RunDataTransporter, int, SimulationData)
+	 * @see #animate(MoveClient, double, SimulationData)
+	 * @see #animate(List, double, SimulationData, boolean)
+	 * @see #animate(String, String, RunDataTransporter, double, SimulationData)
 	 */
 	private volatile boolean animationDone;
 
@@ -1297,7 +1297,7 @@ public class ModelSurfaceAnimatorBase {
 	 * @param delay	Zu verwendende Verzögerung
 	 * @param simData	Simulationsdatenobjekt
 	 */
-	private void animatePathList(final List<AnimationPath> pathList, final int delay, final SimulationData simData) {
+	private void animatePathList(final List<AnimationPath> pathList, final double delay, final SimulationData simData) {
 		if (pathList==null || pathList.size()==0) return;
 		int points=0;
 		for (AnimationPath path: pathList) points=FastMath.max(points,path.getPointCount());
@@ -1311,7 +1311,7 @@ public class ModelSurfaceAnimatorBase {
 			if (multiCore && !slowMode) drawClientsMutex.release();
 		}
 
-		int delayIntegrator=0;
+		double delayIntegrator=0;
 		for (int i=0;i<points-1;i++) {
 			if (multiCore && !slowMode) drawClientsMutex.acquireUninterruptibly();
 			try {
@@ -1324,9 +1324,9 @@ public class ModelSurfaceAnimatorBase {
 
 			doPaintSurface(simData);
 
-			while (delayIntegrator>10) {
+			while (delayIntegrator>2) {
 				try {
-					Thread.sleep(5);
+					Thread.sleep(1);
 				} catch (InterruptedException e) {Thread.currentThread().interrupt(); break;}
 				delayIntegrator-=10;
 			}
@@ -1362,7 +1362,7 @@ public class ModelSurfaceAnimatorBase {
 	 * Solch ein Liste wird für die <code>animate</code>-Funktion benötigt.
 	 * @param client	Zu animierender Kunde
 	 * @return	Liste mit zu animierenden Kunden
-	 * @see #animate(MoveClient, int, SimulationData)
+	 * @see #animate(MoveClient, double, SimulationData)
 	 */
 	protected List<MoveClient> getMoveClientList(final RunDataClient client) {
 		List<MoveClient> list=new ArrayList<>(1);
@@ -1377,7 +1377,7 @@ public class ModelSurfaceAnimatorBase {
 	 * @param simData	Simulationsdatenobjekt
 	 * @param lastStep	Handelt es sich um den letzten Schritt einer mehrteiligen Animation (wenn ja, werden die Endzustände der Kunden eingezeichnet)
 	 */
-	protected void animate(final List<MoveClient> clients, final int delay, final SimulationData simData, final boolean lastStep) {
+	protected void animate(final List<MoveClient> clients, final double delay, final SimulationData simData, final boolean lastStep) {
 		animationDone=false;
 		buildStaticClientsDrawList(clients,null,simData.currentTime);
 		final List<AnimationPath> pathList=getAnimationPathes(clients);
@@ -1394,7 +1394,7 @@ public class ModelSurfaceAnimatorBase {
 	 * @param delay	Verzögerung pro Animationsschritt
 	 * @param simData	Simulationsdatenobjekt
 	 */
-	protected void animate(final MoveClient client, final int delay, final SimulationData simData) {
+	protected void animate(final MoveClient client, final double delay, final SimulationData simData) {
 		animationDone=false;
 		buildStaticClientsDrawListSingle(client,null,simData.currentTime);
 		final List<AnimationPath> pathList=getAnimationPath(client);
@@ -1413,7 +1413,7 @@ public class ModelSurfaceAnimatorBase {
 	 * @param delay	Verzögerung pro Animationsschritt
 	 * @param simData	Simulationsdatenobjekt
 	 */
-	protected void animate(final String transporterIconEast, final String transporterIconWest, final RunDataTransporter transporter, final int delay, final SimulationData simData) {
+	protected void animate(final String transporterIconEast, final String transporterIconWest, final RunDataTransporter transporter, final double delay, final SimulationData simData) {
 		animationDone=false;
 		buildStaticClientsDrawListSingle(null,transporter,simData.currentTime);
 		final List<AnimationPath> pathList=getAnimationPath(transporter,transporterIconEast,transporterIconWest,transporter.lastPosition,transporter.position);
@@ -1548,7 +1548,7 @@ public class ModelSurfaceAnimatorBase {
 	 * der Erstellung gültige Verschiebung (die noch abgearbeitet werden muss) und noch nicht
 	 * die neue Verschiebung.
 	 * @author Alexander Herzog
-	 * @see ModelSurfaceAnimatorBase#animate(MoveClient, int, SimulationData)
+	 * @see ModelSurfaceAnimatorBase#animate(MoveClient, double, SimulationData)
 	 * @see ModelSurfaceAnimatorBase#getMoveClientList(RunDataClient)
 	 */
 	protected static class MoveClient {
