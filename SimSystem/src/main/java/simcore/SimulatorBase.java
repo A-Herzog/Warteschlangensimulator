@@ -176,7 +176,7 @@ public abstract class SimulatorBase {
 	/**
 	 * Bricht die Simulation vorzeitig ab.
 	 */
-	public final void cancel() {
+	public void cancel() {
 		for (SimThread t : threads) if (t!=null) {
 			t.interrupt();
 			t.directAbortThread();
@@ -190,7 +190,7 @@ public abstract class SimulatorBase {
 	 * Prüft, ob die Simulationsthreads noch laufen.
 	 * @return Liefert <code>true</code> wenn mindestens ein Thread noch aktiv ist.
 	 */
-	public final boolean isRunning() {
+	public boolean isRunning() {
 		if (!started) return true;
 		for (Thread t : threads) if (t!=null && t.isAlive()) return true;
 		return false;
@@ -209,7 +209,7 @@ public abstract class SimulatorBase {
 	 * Wartet bis alle Simulationsthreads beendet sind und berechnet dann die gesamte Laufzeit.
 	 * @return Liefert immer null zurück.
 	 */
-	public final String finalizeRun() {
+	public String finalizeRun() {
 		if (runTime>0) return null; /* finalizeRun() wurde schon einmal ausgeführt */
 		long simDoneTime=0;
 		int i=0;

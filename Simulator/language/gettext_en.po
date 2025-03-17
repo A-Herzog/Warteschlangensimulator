@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-05 18:06+0100\n"
+"POT-Creation-Date: 2025-03-15 22:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20486,6 +20486,9 @@ msgstr "The resources specified for serving the clients at element id=%d are inv
 
 msgid "Simulation.Creator.ProcessResourcePriority"
 msgstr "At element id=%d the invalid resource priority \"%s\" is specified."
+
+msgid "Simulation.Creator.RNGLocked"
+msgstr "The selected random number generator mode cannot be activated at the moment. First end the other simulations within this process."
 
 msgid "Simulation.Creator.RadiobuttonNoVariable"
 msgstr "At station id=%d no name was specified for the variable to be changed."

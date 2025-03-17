@@ -243,11 +243,23 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	}
 
 	/**
+	 * Speichert, ob der Zufallszahlengenerator für die Simulation erfolgreich konfiguriert werden konnte.
+	 * @see #prepareRandomNumbers(simulator.editmodel.EditModel.RandomMode, boolean)
+	 * @see #cancel()
+	 * @see #finalizeRun()
+	 */
+	private boolean successfulRequestedRandomNumbersGenerator=false;
+
+	/**
 	 * Bereitet den globalen Zufallszahlengenerator für die Simulation vor.
 	 * @param randomMode	Zu verwendender Zufallszahlengenerator
 	 * @param fixedSeed	Soll ein fester Startwert verwendet werden?
+	 * @return	Liefert <code>true</code>, wenn der Zufallszahlengenerator erfolgreich initialisiert werden konnte
 	 */
-	private static void prepareStatic(final EditModel.RandomMode randomMode, final boolean fixedSeed) {
+	private boolean prepareRandomNumbers(final EditModel.RandomMode randomMode, final boolean fixedSeed) {
+		if (!DistributionRandomNumberManager.getInstance().requestMode(randomMode,fixedSeed)) return false;
+		successfulRequestedRandomNumbersGenerator=true;
+
 		switch (randomMode) {
 		case THREAD_LOCAL_RANDOM:
 			if (fixedSeed) {
@@ -267,6 +279,36 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 			DistributionRandomNumber.generator=new SeedableThreadLocalRandomGenerator(()->new MersenneTwister());
 			break;
 		}
+		return true;
+	}
+
+	@Override
+	public final void cancel() {
+		super.cancel();
+		if (successfulRequestedRandomNumbersGenerator) {
+			successfulRequestedRandomNumbersGenerator=false;
+			DistributionRandomNumberManager.getInstance().releaseMode();
+		}
+	}
+
+	@Override
+	public final String finalizeRun() {
+		final String result=super.finalizeRun();
+		if (successfulRequestedRandomNumbersGenerator) {
+			successfulRequestedRandomNumbersGenerator=false;
+			DistributionRandomNumberManager.getInstance().releaseMode();
+		}
+		return result;
+	}
+
+	@Override
+	public boolean isRunning() {
+		final boolean result=super.isRunning();
+		if (!result && successfulRequestedRandomNumbersGenerator) {
+			successfulRequestedRandomNumbersGenerator=false;
+			DistributionRandomNumberManager.getInstance().releaseMode();
+		}
+		return result;
 	}
 
 	/**
@@ -283,7 +325,9 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 	 * @return	Liefert <code>null</code> zurück, wenn die Simulation erfolgreich vorbereitet werden konnte, sonst eine Fehlermeldung
 	 */
 	public PrepareError prepare(final boolean allowLoadBalancer) {
-		prepareStatic(editModel.randomMode,editModel.useFixedSeed);
+		if (!prepareRandomNumbers(editModel.randomMode,editModel.useFixedSeed)) {
+			return new PrepareError(Language.tr("Simulation.Creator.RNGLocked"),-1);
+		}
 
 		final Object obj=RunModel.getRunModel(editModel,editModelPath,false,SetupData.getSetup().useMultiCoreSimulation);
 		if (obj instanceof StartAnySimulator.PrepareError) return (StartAnySimulator.PrepareError)obj;

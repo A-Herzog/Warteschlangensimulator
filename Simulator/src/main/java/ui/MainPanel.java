@@ -2193,16 +2193,17 @@ public class MainPanel extends MainPanelBase {
 			return commandFileStatisticsLoad(root,file);
 		}
 		for (String test: new OptimizerSetup().getRootNodeNames()) if (name.equalsIgnoreCase(test)) {
+			BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 			if ((currentPanel instanceof OptimizerPanel)) {
 				return ((OptimizerPanel)currentPanel).dragDropLoadFile(file);
 			} else {
 				if (!MsgBox.confirm(getOwnerWindow(),Language.tr("XML.OptimizerNotActive.Title"),Language.tr("XML.OptimizerNotActive.Info"),Language.tr("XML.OptimizerNotActive.YesInfo"),Language.tr("XML.OptimizerNotActive.NoInfo"))) return false;
-
 				if (!commandSimulationOptimizer()) return false;
 				return ((OptimizerPanel)currentPanel).dragDropLoadFile(file);
 			}
 		}
 		for (String test: new ParameterCompareSetup(null).getRootNodeNames()) if (name.equalsIgnoreCase(test)) {
+			BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 			if ((currentPanel instanceof ParameterComparePanel)) {
 				return ((ParameterComparePanel)currentPanel).dragDropLoadFile(this,file);
 			} else {
@@ -3831,14 +3832,14 @@ public class MainPanel extends MainPanelBase {
 			MsgBox.warning(this,Language.tr("ModelLoadData.IncompatibleWarning.Title"),Language.tr("ModelLoadData.IncompatibleWarning.ParameterSeries"));
 		}
 
+		checkAutoSave();
+		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
+
 		final String editModelPath=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParent();
 		final Statistics miniStatistics=ParameterComparePanel.generateMiniStatistics(this,editModel,editModelPath,statisticsPanel.getStatistics());
 		if (miniStatistics==null) return false;
 
 		final ParameterComparePanel parameterComparePanel=getParameterComparePanel(editModel,miniStatistics,template);
-
-		checkAutoSave();
-		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 
 		enableMenuBar(false);
 		setCurrentPanel(parameterComparePanel);
@@ -3882,6 +3883,9 @@ public class MainPanel extends MainPanelBase {
 		final EditModel editModel=editorPanel.getModel();
 		final String editModelPath=(editorPanel.getLastFile()==null)?null:editorPanel.getLastFile().getParent();
 
+		checkAutoSave();
+		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
+
 		final Statistics miniStatistics=ParameterComparePanel.generateMiniStatistics(this,editModel,editModelPath,statisticsPanel.getStatistics());
 		if (miniStatistics==null) return false;
 
@@ -3889,9 +3893,6 @@ public class MainPanel extends MainPanelBase {
 		if (dialog.getClosedBy()!=BaseDialog.CLOSED_BY_OK) return false;
 
 		final ParameterComparePanel parameterComparePanel=getParameterComparePanelVariance(editModel,miniStatistics,dialog.getRepeatCount());
-
-		checkAutoSave();
-		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 
 		enableMenuBar(false);
 		setCurrentPanel(parameterComparePanel);
@@ -3936,16 +3937,15 @@ public class MainPanel extends MainPanelBase {
 			MsgBox.warning(this,Language.tr("ModelLoadData.IncompatibleWarning.Title"),Language.tr("ModelLoadData.IncompatibleWarning.Optimization"));
 		}
 
+		checkAutoSave();
+		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
+
 		final OptimizerPanelPrepareDialog dialog=new OptimizerPanelPrepareDialog(this,editModel,editModelPath,statisticsPanel.getStatistics(),OptimizerPanelPrepareDialog.Mode.MODE_OPTIMIZATION);
 		final Statistics miniStatistics=dialog.getMiniStatistics();
 		if (miniStatistics==null) {
 			MsgBox.error(getOwnerWindow(),Language.tr("Optimizer.PreparationFailed"),dialog.getError());
 			return false;
 		}
-
-		checkAutoSave();
-
-		BackgroundSystem.getBackgroundSystem(editorPanel).stop();
 
 		enableMenuBar(false);
 		setCurrentPanel(new OptimizerPanel(getOwnerWindow(),editModel,editModelPath,miniStatistics,()->{

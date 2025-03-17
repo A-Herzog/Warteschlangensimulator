@@ -120,6 +120,7 @@ public class ParameterCompareRunner {
 		if (model.getSingleCoreReason().size()==0) return 1; /* Modell als solches kann bereits parallel simuliert werden */
 		if (model.repeatCount>1) return 1; /* Modell als solches kann bereits parallel simuliert werden */
 		if (!SetupData.getSetup().useMultiCoreSimulation) return 1; /* Multi-Code per Setup verboten */
+		if (model.useFixedSeed) return 1; /* Wir können nicht mehrere Simulationen mit einem Seed parallel ausführen. */
 
 		final Runtime rt=Runtime.getRuntime();
 		final int maxThreadMemory=(int)Math.max(1,(rt.maxMemory())/1024/1024/100);

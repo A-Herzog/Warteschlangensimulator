@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-05 18:06+0100\n"
+"POT-Creation-Date: 2025-03-15 22:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20528,6 +20528,9 @@ msgstr "Die für die Bedienung von Kunden an Element id=%d angegebenen notwendig
 
 msgid "Simulation.Creator.ProcessResourcePriority"
 msgstr "Für Element id=%d wurde die ungültige Ressourcen-Priorität \"%s\" angegeben."
+
+msgid "Simulation.Creator.RNGLocked"
+msgstr "Der gewählte Zufallszahlengeneratormodus kann momentan nicht aktiviert werden. Beenden Sie erst die anderen Simulationen innerhalb dieses Prozesses."
 
 msgid "Simulation.Creator.RadiobuttonNoVariable"
 msgstr "An Station id=%d wurde kein Name für die zu ändernde Variable angegeben."

@@ -203,6 +203,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 		int threadCount=Math.min(SetupData.getSetup().useMultiCoreSimulationMaxCount,Math.max(1,Math.min(rt.availableProcessors(),maxThreadMemory)));
 
 		threadCount=Math.min(threadCount,4);
+		if (model[0].useFixedSeed) threadCount=1;
 
 		int started=0;
 		for (int i=0;i<simulator.length;i++) if (simulator[i] instanceof StartAnySimulator) {
@@ -357,6 +358,7 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 						logOutput("  "+Language.tr("Optimizer.Error.ErrorStartingSimulation")+":");
 						logOutput("  "+error.error);
 						logOutput(Language.tr("Optimizer.OptimizationCanceled"));
+						timer.cancel();
 						done(true);
 						return;
 					}
@@ -392,7 +394,8 @@ public abstract class OptimizerParallelBase extends OptimizerBase {
 	 * @param editModelPath	Pfad zur zugehörigen Modelldatei (als Basis für relative Pfade in Ausgabeelementen)
 	 */
 	private synchronized void runModels(final EditModel[] models, final String editModelPath) {
-		final boolean hasMultiCoreModel=Stream.of(models).filter(model->model!=null && model.getSingleCoreReason().size()==0).findFirst().isPresent();
+		boolean hasMultiCoreModel=Stream.of(models).filter(model->model!=null && model.getSingleCoreReason().size()==0).findFirst().isPresent();
+		for (var model: models) if (model!=null && model.useFixedSeed) {hasMultiCoreModel=true; break;}
 
 		if (hasMultiCoreModel) {
 			runModelsSerial(models,editModelPath);
