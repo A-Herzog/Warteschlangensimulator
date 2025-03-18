@@ -2062,26 +2062,28 @@ public enum Images {
 	public Image getImage() {
 		if (image!=null) return image;
 
-		final boolean oldCacheState=ImageIO.getUseCache(); /* Cache wird nur benötigt, wenn in einem Stream kein Seeking möglich ist, was hier nicht der Fall ist. */
-		if (oldCacheState) ImageIO.setUseCache(false);
+		synchronized(this) {
+			final boolean oldCacheState=ImageIO.getUseCache(); /* Cache wird nur benötigt, wenn in einem Stream kein Seeking möglich ist, was hier nicht der Fall ist. */
+			if (oldCacheState) ImageIO.setUseCache(false);
 
-		try {
-			final List<URL> urls=getURLsList();
-			assert(urls.size()>0);
+			try {
+				final List<URL> urls=getURLsList();
+				assert(urls.size()>0);
 
-			if (urls.size()==1) return image=getDefaultImage(urls.get(0));
+				if (urls.size()==1) return image=getDefaultImage(urls.get(0));
 
-			final Image[] images=urls.stream().map(url->{
-				try {
-					return ImageIO.read(url);
-				} catch (IOException e) {
-					return null;
-				}
-			}).filter(image->image!=null).toArray(Image[]::new);
+				final Image[] images=urls.stream().map(url->{
+					try {
+						return ImageIO.read(url);
+					} catch (IOException e) {
+						return null;
+					}
+				}).filter(image->image!=null).toArray(Image[]::new);
 
-			return image=new BaseMultiResolutionImage(0,images);
-		} finally {
-			if (oldCacheState) ImageIO.setUseCache(true);
+				return image=new BaseMultiResolutionImage(0,images);
+			} finally {
+				if (oldCacheState) ImageIO.setUseCache(true);
+			}
 		}
 	}
 
