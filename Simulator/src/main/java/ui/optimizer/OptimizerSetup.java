@@ -457,7 +457,7 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 		}
 
 		if (Language.trAll("Optimizer.XML.Kernel",name)) {
-			optimizerName=new OptimizerCatalog(null).getCanonicalOptimizerName(name);
+			optimizerName=new OptimizerCatalog(null).getCanonicalOptimizerName(text);
 			return null;
 		}
 
