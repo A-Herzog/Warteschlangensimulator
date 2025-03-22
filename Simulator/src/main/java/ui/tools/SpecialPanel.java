@@ -25,6 +25,7 @@ import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -120,7 +121,10 @@ public class SpecialPanel extends JPanel {
 		toolbar.setFloatable(false);
 
 		waitIndicator=new JLabel();
-		waitIndicator.setIcon(Images.GENERAL_WAIT_INDICATOR.getIcon());
+		final var busyIcon=new ImageIcon(Images.GENERAL_WAIT_INDICATOR.getURLs()[0]);
+		busyIcon.setImageObserver(this); /* sonst bleibt die Animation stehen */
+		waitIndicator.setIcon(busyIcon);
+
 		waitIndicator.setVisible(false);
 		top.add(waitIndicator,BorderLayout.EAST);
 		waitIndicator.setBorder(BorderFactory.createEmptyBorder(5,5,0,15));
