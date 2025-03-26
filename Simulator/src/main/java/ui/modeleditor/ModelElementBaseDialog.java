@@ -294,9 +294,11 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 				if (getMaximumSize().width==Integer.MAX_VALUE) infoPanel.setPreferredSize(infoPanel.getSize());
 			}
 			setDialogSizeLater();
-			setLocationRelativeTo(this.owner);
-			if (makeDialogVisible) {
-				setVisible(true);
+			if (this.owner!=null) {
+				setLocationRelativeTo(this.owner);
+				if (makeDialogVisible) {
+					setVisible(true);
+				}
 			}
 		});
 	}

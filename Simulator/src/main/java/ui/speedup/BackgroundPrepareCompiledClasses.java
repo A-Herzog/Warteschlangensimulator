@@ -24,11 +24,16 @@ import simulator.Simulator;
 import simulator.editmodel.EditModel;
 import simulator.examples.EditModelExamples;
 import tools.SetupData;
+import ui.modeleditor.elements.ModelElementProcess;
+import ui.modeleditor.elements.ModelElementProcessDialog;
+import ui.modeleditor.elements.ModelElementSource;
+import ui.modeleditor.elements.ModelElementSourceDialog;
+import ui.modelproperties.ModelPropertiesDialog;
 
 /**
  * Wird diese Klasse instanziert, so wird geprüft, ob im Setup die Hintergrundsimulation
  * aktiv ist und wenn ja wird ein kleines Modell auf einem CPU-Kern simuliert und die
- * Ergebnisse werden verworfen. Ziel ist es, den Kompiler zu motivieren, die Simulator-Kernklassen
+ * Ergebnisse werden verworfen. Ziel ist es, den Compiler zu motivieren, die Simulator-Kernklassen
  * schon einmal zu übersetzen, so dass die erste echte Simulation dann mit volle Geschwindigkeit
  * laufen kann.
  * @author Alexander Herzog
@@ -92,5 +97,14 @@ public class BackgroundPrepareCompiledClasses {
 			simulator.start();
 			simulator.getStatistic();
 		}
+
+		/* Stationsdialoge vorab laden */
+		final ModelElementSource source=(ModelElementSource)model.surface.getElements().stream().filter(element->element instanceof ModelElementSource).findFirst().get();
+		new ModelElementSourceDialog(null,source,false,model.clientData);
+		final ModelElementProcess process=(ModelElementProcess)model.surface.getElements().stream().filter(element->element instanceof ModelElementProcess).findFirst().get();
+		new ModelElementProcessDialog(null,process,false);
+
+		/* Modelleigenschaftendialog vorab laden */
+		new ModelPropertiesDialog(null,model,false,null);
 	}
 }

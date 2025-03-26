@@ -73,7 +73,7 @@ public final class ModelElementSourceDialog extends ModelElementBaseDialog {
 		super(owner,Language.tr("Surface.Source.Dialog.Title"),element,"ModelElementSource",readOnly,false);
 		oldName=element.getName();
 		this.clientData=clientData;
-		setVisible(true);
+		if (owner!=null) setVisible(true);
 	}
 
 	@Override

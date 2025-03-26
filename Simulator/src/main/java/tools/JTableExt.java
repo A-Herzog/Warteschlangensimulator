@@ -189,7 +189,7 @@ public final class JTableExt extends JTable {
 	private void setPreferredRowHeight(int margin) {
 		for (int row=0;row<getRowCount();row++) {
 			int newHeight=getPreferredRowHeight(row,margin);
-			if (newHeight!=getRowHeight(row)) setRowHeight(row,newHeight);
+			if (newHeight!=getRowHeight(row)) setRowHeight(row,Math.max(1,newHeight));
 		}
 	}
 
