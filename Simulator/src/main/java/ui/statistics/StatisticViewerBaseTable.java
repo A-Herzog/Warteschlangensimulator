@@ -84,7 +84,7 @@ public class StatisticViewerBaseTable extends StatisticViewerTable {
 
 	/**
 	 * Tabelle für den Export
-	 * @get {@link #getExportTable()}
+	 * @see #getExportTable()
 	 */
 	private Table exportTable;
 

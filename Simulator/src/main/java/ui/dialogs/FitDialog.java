@@ -156,6 +156,16 @@ public class FitDialog extends FitDialogBase {
 		 */
 		private static final long serialVersionUID=-7146981632299189728L;
 
+		/**
+		 * Konstruktor der Klasse
+		 */
+		public FitRenderer() {
+			/*
+			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+			 */
+		}
+
 		@Override
 		public Component getListCellRendererComponent(JList<? extends Object> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 

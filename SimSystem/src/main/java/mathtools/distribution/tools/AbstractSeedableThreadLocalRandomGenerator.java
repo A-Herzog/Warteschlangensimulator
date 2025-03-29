@@ -41,6 +41,16 @@ public abstract class AbstractSeedableThreadLocalRandomGenerator implements Rand
 	 */
 	protected abstract RandomGenerator getGenerator();
 
+	/**
+	 * Konstruktor der Klasse
+	 */
+	public AbstractSeedableThreadLocalRandomGenerator() {
+		/*
+		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
+		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
+		 */
+	}
+
 	@Override
 	public void setSeed(int seed) {
 		getGenerator().setSeed(seed);
