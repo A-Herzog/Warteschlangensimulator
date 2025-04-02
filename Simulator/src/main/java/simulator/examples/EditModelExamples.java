@@ -338,6 +338,7 @@ public class EditModelExamples {
 		addExample(Language.trAll("Examples.SJF-LJF"),"SJF-LJF",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
 		addExample(Language.trAll("Examples.MultiServiceSpeed"),"MultiServiceSpeed",ExampleType.TYPE_COMPARE,ExampleKeyWord.PRIORITIES);
 		addExample(Language.trAll("Examples.MinimumWaitingTimes"),"MinimumWaitingTimes",ExampleType.TYPE_COMPARE,ExampleKeyWord.PRIORITIES,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.SatisfactionFIFOLIFO"),"SatisfactionFIFOLIFO",ExampleType.TYPE_COMPARE,ExampleKeyWord.PRIORITIES,ExampleKeyWord.ROUTING);
 
 		/* Beispiele, die mathematische Zusammenh‰nge verdeutlichen */
 		addExample(Language.trAll("Examples.LawOfLargeNumbers"),"GesetzDerGroﬂenZahlen",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-15 22:53+0100\n"
+"POT-Creation-Date: 2025-03-26 09:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5725,6 +5725,9 @@ msgstr "Effects of rework on the residence times"
 
 msgid "Examples.SJF-LJF"
 msgstr "Service order depending on service time"
+
+msgid "Examples.SatisfactionFIFOLIFO"
+msgstr "Customer satisfaction at FIFO and LIFO"
 
 msgid "Examples.SetUpTimeReduction"
 msgstr "Strategies for avoiding setup times"

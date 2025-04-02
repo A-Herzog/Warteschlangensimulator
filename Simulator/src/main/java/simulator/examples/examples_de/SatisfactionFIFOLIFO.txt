@@ -1,0 +1,1 @@
+Die Bedienreihenfolgen FIFO und LIFO führen zu derselben mittleren Wartezeit für die Kunden. Allerdings ist die Streuung der Wartezeiten im LIFO-Fall höher als im FIFO-Fall. Je nach dem, wie die Zufriedenheit der Kunden aus der Wartezeit der Kunden abgeleitet wird, kann diese im LIFO-Fall höher ausfallen als im FIFO-Fall.

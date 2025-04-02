@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.7.0</ModelVersion>
+  <ModelName>Customer satisfaction at FIFO and LIFO</ModelName>
+  <ModelDescription>The FIFO and LIFO queuing disciplines lead to the same average waiting time for customers.
+However, the variance in waiting times is higher in the LIFO case than in the FIFO case.
+Depending on how customer satisfaction is derived from the customer waiting time,
+this can be higher in the LIFO case than in the FIFO case.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="150"/>
+      <ModelElementConnection Element="3" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDuplicate id="2">
+      <ModelElementSize h="50" w="100" x="300" y="150"/>
+      <ModelElementConnection Element="3" Type="In"/>
+      <ModelElementConnection Element="6" Type="Out"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+    </ModelElementDuplicate>
+    <ModelElementEdge id="3">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="4">
+      <ModelElementName>FIFO</ModelElementName>
+      <ModelElementSize h="50" w="100" x="500" y="50"/>
+      <ModelElementConnection Element="6" Type="In"/>
+      <ModelElementConnection Element="11" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="FIFO"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="5">
+      <ModelElementName>LIFO</ModelElementName>
+      <ModelElementSize h="50" w="100" x="500" y="250"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">-w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">-w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="LIFO"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="6">
+      <ModelElementName>Original</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="7">
+      <ModelElementName>Copy 1</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementUserStatistics id="8">
+      <ModelElementName>FIFO</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="50"/>
+      <ModelElementBackgroundColor>0,180,0</ModelElementBackgroundColor>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="13" Type="Out"/>
+      <ModelElementUserStatisticsRecord IsContinuous="0" IsTime="0" Key="ZufriedenheitFIFO">max(min(1;1-(w-100)/200);0)</ModelElementUserStatisticsRecord>
+    </ModelElementUserStatistics>
+    <ModelElementUserStatistics id="9">
+      <ModelElementName>LIFO</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="250"/>
+      <ModelElementBackgroundColor>255,0,0</ModelElementBackgroundColor>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementUserStatisticsRecord IsContinuous="0" IsTime="0" Key="ZufriedenheitLIFO">max(min(1;1-(w-100)/200);0)</ModelElementUserStatisticsRecord>
+    </ModelElementUserStatistics>
+    <ModelElementDispose id="10">
+      <ModelElementSize h="50" w="100" x="900" y="150"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="14" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="11">
+      <ModelElementConnection Element1="4" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="5" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="13">
+      <ModelElementConnection Element1="8" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="14">
+      <ModelElementConnection Element1="9" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="15">
+      <ModelElementName>Satisfaction FIFO</ModelElementName>
+      <ModelElementSize h="30" w="98" x="700" y="125"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">Statistics_avg(8;1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="16">
+      <ModelElementName>Satisfaction LIFO</ModelElementName>
+      <ModelElementSize h="30" w="98" x="700" y="325"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Percent value">Statistics_avg(9;1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="17">
+      <ModelElementSize h="171" w="394" x="50" y="300"/>
+      <ModelElementTextLine>**Model assumptions:**</ModelElementTextLine>
+      <ModelElementTextLine>If the waiting time for a customer is less than 100 seconds, the</ModelElementTextLine>
+      <ModelElementTextLine>customer is 100% satisfied. If the waiting time is more than 300</ModelElementTextLine>
+      <ModelElementTextLine>seconds, the customer is 0% satisfied. Between 100 and 300</ModelElementTextLine>
+      <ModelElementTextLine>seconds, satisfaction drops linearly from 100% to 0%.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>**Caution:**</ModelElementTextLine>
+      <ModelElementTextLine>The psychological effect that LIFO may generally be perceived</ModelElementTextLine>
+      <ModelElementTextLine>as an unfair strategy is not taken into account in the model.</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="18">
+      <ModelElementSize h="23" w="341" x="50" y="50"/>
+      <ModelElementTextLine>Customer satisfaction at FIFO and LIFO</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationBarDiagram id="19">
+      <ModelElementSize h="200" w="100" x="850" y="350"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementUse3D>1</ModelElementUse3D>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMaximumValue>1</ModelElementMaximumValue>
+      <ModelElementAxisLabels Text="Satisfaction">2</ModelElementAxisLabels>
+      <ModelElementDiagramElement BarColor="0,180,0">Statistics_avg(8;1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">Statistics_avg(9;1)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementAnimationText id="20">
+      <ModelElementName>Average waiting time</ModelElementName>
+      <ModelElementSize h="30" w="95" x="500" y="125"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Number">WaitingTime_avg(4)</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Pretext="E[W]=" Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="21">
+      <ModelElementName>Average waiting time</ModelElementName>
+      <ModelElementSize h="30" w="95" x="500" y="325"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Number">WaitingTime_avg(5)</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Pretext="E[W]=" Symbols="1"/>
+    </ModelElementAnimationText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="FIFO" Type="Number" Value="1"/>
+    <Resource Name="LIFO" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+</Model>

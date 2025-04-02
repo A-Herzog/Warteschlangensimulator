@@ -1,0 +1,1 @@
+The FIFO and LIFO queuing disciplines lead to the same average waiting time for customers. However, the variance in waiting times is higher in the LIFO case than in the FIFO case. Depending on how customer satisfaction is derived from the customer waiting time, this can be higher in the LIFO case than in the FIFO case.

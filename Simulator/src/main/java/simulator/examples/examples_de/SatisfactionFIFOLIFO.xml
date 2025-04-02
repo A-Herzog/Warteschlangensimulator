@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.7.0</ModellVersion>
+  <ModellName>Kundenzufriedenheit bei FIFO und LIFO</ModellName>
+  <ModellBeschreibung>Die Bedienreihenfolgen FIFO und LIFO führen zu derselben mittleren Wartezeit für die Kunden.
+Allerdings ist die Streuung der Wartezeiten im LIFO-Fall höher als im FIFO-Fall.
+Je nach dem, wie die Zufriedenheit der Kunden aus der Wartezeit der Kunden abgeleitet wird,
+kann diese im LIFO-Fall höher ausfallen als im FIFO-Fall.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="150"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementDuplizieren id="2">
+      <ModellElementGroesse h="50" w="100" x="300" y="150"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+    </ModellElementDuplizieren>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="4">
+      <ModellElementName>FIFO</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="500" y="50"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="FIFO"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="5">
+      <ModellElementName>LIFO</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="500" y="250"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">-w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="LIFO"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="6">
+      <ModellElementName>Original</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="7">
+      <ModellElementName>Kopie 1</ModellElementName>
+      <ModellElementVerbindung Element1="2" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBenutzerstatistik id="8">
+      <ModellElementName>FIFO</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="50"/>
+      <ModellElementHintergrundfarbe>0,180,0</ModellElementHintergrundfarbe>
+      <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
+      <ModellElementBenutzerstatistikEintrag Bezeichner="ZufriedenheitFIFO" IstKontinuierlich="0" IstZeitangabe="0">max(min(1;1-(w-100)/200);0)</ModellElementBenutzerstatistikEintrag>
+    </ModellElementBenutzerstatistik>
+    <ModellElementBenutzerstatistik id="9">
+      <ModellElementName>LIFO</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="250"/>
+      <ModellElementHintergrundfarbe>255,0,0</ModellElementHintergrundfarbe>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementBenutzerstatistikEintrag Bezeichner="ZufriedenheitLIFO" IstKontinuierlich="0" IstZeitangabe="0">max(min(1;1-(w-100)/200);0)</ModellElementBenutzerstatistikEintrag>
+    </ModellElementBenutzerstatistik>
+    <ModellElementEnde id="10">
+      <ModellElementGroesse h="50" w="100" x="900" y="150"/>
+      <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="11">
+      <ModellElementVerbindung Element1="4" Element2="8" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="5" Element2="9" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="13">
+      <ModellElementVerbindung Element1="8" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="14">
+      <ModellElementVerbindung Element1="9" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="15">
+      <ModellElementName>Zufriedenheit FIFO</ModellElementName>
+      <ModellElementGroesse h="30" w="85" x="700" y="125"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">Statistics_avg(8;1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="16">
+      <ModellElementName>Zufriedenheit LIFO</ModellElementName>
+      <ModellElementGroesse h="30" w="85" x="700" y="325"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert" Nachkommastellen="0">Statistics_avg(9;1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="17">
+      <ModellElementGroesse h="190" w="434" x="50" y="300"/>
+      <ModellElementTextzeile>**Modellannahmen:**</ModellElementTextzeile>
+      <ModellElementTextzeile>Beträgt die Wartezeit eines Kunden weniger als 100 Sekunden,</ModellElementTextzeile>
+      <ModellElementTextzeile>so ist der Kunde zu 100% zufrieden. Beträgt die Wartezeit mehr</ModellElementTextzeile>
+      <ModellElementTextzeile>als 300 Sekunden, so ist der Kunde zu 0% zufrieden. Zwischen 100</ModellElementTextzeile>
+      <ModellElementTextzeile>und 300 Sekunden fällt die Zufriedenheit linear von 100% auf 0% ab.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>**Achtung:**</ModellElementTextzeile>
+      <ModellElementTextzeile>Der psychologische Effekt, dass LIFO evtl. generell als eine</ModellElementTextzeile>
+      <ModellElementTextzeile>ungerechte Strategie empfunden wird, wird in dem Modell</ModellElementTextzeile>
+      <ModellElementTextzeile>nicht berücksichtigt.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="18">
+      <ModellElementGroesse h="23" w="345" x="50" y="50"/>
+      <ModellElementTextzeile>Kundenzufriedenheit bei FIFO und LIFO</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBalkenDiagramm id="19">
+      <ModellElementGroesse h="200" w="100" x="850" y="350"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
+      <ModellElement3DEffekt>1</ModellElement3DEffekt>
+      <ModellElementMinimalwert>0</ModellElementMinimalwert>
+      <ModellElementMaximalwert>1</ModellElementMaximalwert>
+      <ModellElementAchsenbeschriftung Text="Zufriedenheit">2</ModellElementAchsenbeschriftung>
+      <ModellElementDiagrammElement Balkenfarbe="0,180,0">Statistics_avg(8;1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Balkenfarbe="255,0,0">Statistics_avg(9;1)</ModellElementDiagrammElement>
+    </ModellElementAnimationBalkenDiagramm>
+    <ModellElementAnimationText id="20">
+      <ModellElementName>Mittlere Wartezeit</ModellElementName>
+      <ModellElementGroesse h="30" w="118" x="500" y="125"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="0">WaitingTime_avg(4)</ModellElementAnimationsmodus>
+      <ModellElementAnimationTextZusatz Pretext="E[W]=" Symbole="1"/>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="21">
+      <ModellElementName>Mittlere Wartezeit</ModellElementName>
+      <ModellElementGroesse h="30" w="118" x="500" y="325"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="0">WaitingTime_avg(5)</ModellElementAnimationsmodus>
+      <ModellElementAnimationTextZusatz Pretext="E[W]=" Symbole="1"/>
+    </ModellElementAnimationText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="FIFO" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="LIFO" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
+</Modell>
