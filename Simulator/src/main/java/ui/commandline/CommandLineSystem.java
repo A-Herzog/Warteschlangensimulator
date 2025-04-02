@@ -86,6 +86,8 @@ public class CommandLineSystem extends BaseCommandLineSystem {
 		list.add(new CommandGC(this));
 		list.add(new CommandJavaProperties(this));
 		list.add(new CommandCountSimTime(this));
+		list.add(new CommandSetLanguage(this));
+		list.add(new CommandSetNumberFormat(this));
 
 		return list;
 	}

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-26 09:54+0100\n"
+"POT-Creation-Date: 2025-03-31 09:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2663,6 +2663,27 @@ msgstr "on"
 msgid "CommandLine.SetDynamicThreadBalance.Name"
 msgstr "SetDynamic;SetDynamicThreadBalance;SetDynamicBalance"
 
+msgid "CommandLine.SetLanguage.Changed"
+msgstr "The language was changed from \"%s\" to \"%s\"."
+
+msgid "CommandLine.SetLanguage.Description.Long"
+msgstr "The command expects the abbreviation of the language to be used in the future as a parameter."
+
+msgid "CommandLine.SetLanguage.Description.Short"
+msgstr "Sets the program language."
+
+msgid "CommandLine.SetLanguage.Error.AvailableLanguages"
+msgstr "Available languages:"
+
+msgid "CommandLine.SetLanguage.Error.CannotSaveSetup"
+msgstr "The changed setup cannot be saved."
+
+msgid "CommandLine.SetLanguage.Error.UnknownLanguage"
+msgstr "Unknown language \"%s\"."
+
+msgid "CommandLine.SetLanguage.Name"
+msgstr "Language"
+
 msgid "CommandLine.SetMaxThreads.Description.Long"
 msgstr ""
 "The function expects the maximum number of threads to be used as parameter.\n"
@@ -2727,6 +2748,29 @@ msgstr "on"
 
 msgid "CommandLine.SetNUMA.Name"
 msgstr "SetNUMAMode;SetNUMA;UseNUMAMode;UseNUMA"
+
+msgid "CommandLine.SetNumberFormat.Changed"
+msgstr "The decimal separator mode was changed from \"%s\" to \"%s\"."
+
+msgid "CommandLine.SetNumberFormat.Description.Long"
+msgstr ""
+"The command expects the decimal separator mode to be used in future as a parameter.\n"
+"The modes \"os\", \"language\", \"comma\" and \"point\" are available for selection."
+
+msgid "CommandLine.SetNumberFormat.Description.Short"
+msgstr "Sets the mode for the decimal separator."
+
+msgid "CommandLine.SetNumberFormat.Error.AvailableModes"
+msgstr "Available modes:"
+
+msgid "CommandLine.SetNumberFormat.Error.CannotSaveSetup"
+msgstr "The changed setup cannot be saved."
+
+msgid "CommandLine.SetNumberFormat.Error.UnknownMode"
+msgstr "Unknown mode \"%s\"."
+
+msgid "CommandLine.SetNumberFormat.Name"
+msgstr "Decimalseparator"
 
 msgid "CommandLine.Simulation.Description.Long"
 msgstr ""

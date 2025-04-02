@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-26 09:54+0100\n"
+"POT-Creation-Date: 2025-03-31 09:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2665,6 +2665,27 @@ msgstr "an"
 msgid "CommandLine.SetDynamicThreadBalance.Name"
 msgstr "SetDynamic;SetDynamicThreadBalance;SetDynamicBalance"
 
+msgid "CommandLine.SetLanguage.Changed"
+msgstr "Die Sprache wurde von \"%s\" zu \"%s\" geändert."
+
+msgid "CommandLine.SetLanguage.Description.Long"
+msgstr "Der Befehl erwartet das Kürzel der zukünftig zu verwendenden Sprache als Parameter."
+
+msgid "CommandLine.SetLanguage.Description.Short"
+msgstr "Stellt die Programmsprache ein."
+
+msgid "CommandLine.SetLanguage.Error.AvailableLanguages"
+msgstr "Verfügbare Sprachen:"
+
+msgid "CommandLine.SetLanguage.Error.CannotSaveSetup"
+msgstr "Die geänderten Einstellungen konnte nicht gespeichert werden."
+
+msgid "CommandLine.SetLanguage.Error.UnknownLanguage"
+msgstr "Unbekannte Sprache \"%s\"."
+
+msgid "CommandLine.SetLanguage.Name"
+msgstr "Sprache"
+
 msgid "CommandLine.SetMaxThreads.Description.Long"
 msgstr ""
 "Die Funktion erwartet als Parameter die erlaubte Maximalanzahl an Threads.\n"
@@ -2729,6 +2750,29 @@ msgstr "an"
 
 msgid "CommandLine.SetNUMA.Name"
 msgstr "SetNUMAMode;SetNUMA;UseNUMAMode;UseNUMA"
+
+msgid "CommandLine.SetNumberFormat.Changed"
+msgstr "Der Dezimaltrennermodus wurde von \"%s\" zu \"%s\" geändert."
+
+msgid "CommandLine.SetNumberFormat.Description.Long"
+msgstr ""
+"Der Befehl erwartet den zukünftig zu verwendenden Dezimaltrenner-Modus als Parameter.\n"
+"Zur Auswahl stehen die Modi \"os\", \"language\", \"comma\" und \"point\"."
+
+msgid "CommandLine.SetNumberFormat.Description.Short"
+msgstr "Stellt den Modus für den Dezimaltrenner ein."
+
+msgid "CommandLine.SetNumberFormat.Error.AvailableModes"
+msgstr "Verfügbare Modi:"
+
+msgid "CommandLine.SetNumberFormat.Error.CannotSaveSetup"
+msgstr "Die geänderten Einstellungen konnte nicht gespeichert werden."
+
+msgid "CommandLine.SetNumberFormat.Error.UnknownMode"
+msgstr "Unbekannter Modus \"%s\"."
+
+msgid "CommandLine.SetNumberFormat.Name"
+msgstr "Dezimaltrenner"
 
 msgid "CommandLine.Simulation.Description.Long"
 msgstr ""
