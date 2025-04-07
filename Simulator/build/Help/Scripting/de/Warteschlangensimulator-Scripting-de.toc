@@ -16,63 +16,68 @@
 \contentsline {chapter}{\numberline {8}Funktionen mit mehreren Parametern}{17}{chapter.8}%
 \contentsline {chapter}{\numberline {9}Logik-Funktionen}{19}{chapter.9}%
 \contentsline {chapter}{\numberline {10}Wahrscheinlichkeitsverteilungen}{21}{chapter.10}%
-\contentsline {section}{\numberline {10.1}Hypergeometrische Verteilung $Hg(N,K,n)$}{21}{section.10.1}%
-\contentsline {section}{\numberline {10.2}Binomial-Verteilung $B(n,p)$}{21}{section.10.2}%
-\contentsline {section}{\numberline {10.3}Binomial-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{21}{section.10.3}%
-\contentsline {section}{\numberline {10.4}Poisson-Verteilung $P(l)$}{21}{section.10.4}%
-\contentsline {section}{\numberline {10.5}Zeta-Verteilung $Z(s)$}{21}{section.10.5}%
-\contentsline {section}{\numberline {10.6}Negative hypergeometrische Verteilung $NHg(N,K,n)$}{22}{section.10.6}%
-\contentsline {section}{\numberline {10.7}Negative Binomial-Verteilung $NB(r,p)$}{22}{section.10.7}%
-\contentsline {section}{\numberline {10.8}Negative Binomial-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{22}{section.10.8}%
-\contentsline {section}{\numberline {10.9}Diskrete Gleichverteilung über das Intervall $[a;b]$ (Ganzzahlen)}{22}{section.10.9}%
-\contentsline {section}{\numberline {10.10}Exponentialverteilung mit Mittelwert $a$}{22}{section.10.10}%
-\contentsline {section}{\numberline {10.11}Gleichverteilung über das Intervall $[a;b]$}{22}{section.10.11}%
-\contentsline {section}{\numberline {10.12}Normalverteilung mit Mittelwert $a$ und Standardabweichung $b$}{22}{section.10.12}%
-\contentsline {section}{\numberline {10.13}Lognormalverteilung mit Mittelwert $a$ und Standardabweichung $b$}{23}{section.10.13}%
-\contentsline {section}{\numberline {10.14}Gamma-Verteilung mit Parametern $\alpha =a$ und $\beta =b$}{23}{section.10.14}%
-\contentsline {section}{\numberline {10.15}Gamma-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{23}{section.10.15}%
-\contentsline {section}{\numberline {10.16}Erlang-Verteilung mit Parametern $n$ und $\lambda =l$}{23}{section.10.16}%
-\contentsline {section}{\numberline {10.17}Beta-Verteilung in dem Intervall $[a;b]$ und mit Parametern $\alpha =c$ und $\beta =d$}{23}{section.10.17}%
-\contentsline {section}{\numberline {10.18}Beta-Verteilung in dem Intervall $[a;b]$ und mit Mittelwert $c$ und Standardabweichung $d$}{24}{section.10.18}%
-\contentsline {section}{\numberline {10.19}Weibull-Verteilung mit Parametern Scale=$a$ und Form=$b$}{24}{section.10.19}%
-\contentsline {section}{\numberline {10.20}Cauchy-Verteilung mit Mittelwert $a$ und Scale=$b$}{24}{section.10.20}%
-\contentsline {section}{\numberline {10.21}Chi$^2$-Verteilung mit $n$ Freiheitsgraden}{24}{section.10.21}%
-\contentsline {section}{\numberline {10.22}Chi-Verteilung mit $n$ Freiheitsgraden}{24}{section.10.22}%
-\contentsline {section}{\numberline {10.23}F-Verteilung mit $a$ Freiheitsgraden im Zähler und $b$ Freiheitsgraden im Nenner}{25}{section.10.23}%
-\contentsline {section}{\numberline {10.24}Johnson-SU-Verteilung mit den Parametern $\gamma =a$, $\xi =b$, $\delta =c$ und $\lambda =d$}{25}{section.10.24}%
-\contentsline {section}{\numberline {10.25}Dreiecksverteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{25}{section.10.25}%
-\contentsline {section}{\numberline {10.26}Trapezverteilung über $[a;d]$ mit Gleichverteilung im Bereich $[b;c]$}{25}{section.10.26}%
-\contentsline {section}{\numberline {10.27}Pert-Verteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{25}{section.10.27}%
-\contentsline {section}{\numberline {10.28}Laplace-Verteilung mit Mittelwert $mu$ und Skalierungsfaktor $b$}{26}{section.10.28}%
-\contentsline {section}{\numberline {10.29}Pareto-Verteilung mit Skalierungsparameter $x_{\rm min}=xmin$ und Formparameter $\alpha =a$}{26}{section.10.29}%
-\contentsline {section}{\numberline {10.30}Logistische Verteilung mit Mittelwert $\mu =mu$ und Skalierungsparameter $s$}{26}{section.10.30}%
-\contentsline {section}{\numberline {10.31}Inverse Gauß-Verteilung mit $\lambda =l$ und Mittelwert $mu$}{26}{section.10.31}%
-\contentsline {section}{\numberline {10.32}Rayleigh-Verteilung mit Mittelwert $mu$}{26}{section.10.32}%
-\contentsline {section}{\numberline {10.33}Log-Logistische Verteilung mit $\alpha $ und Mittelwert $\beta $}{27}{section.10.33}%
-\contentsline {section}{\numberline {10.34}Potenzverteilung auf dem Bereich $[a;b]$ mit Exponent $c$}{27}{section.10.34}%
-\contentsline {section}{\numberline {10.35}Gumbel-Verteilung mit Lage $a$ und Skalierung $b$}{27}{section.10.35}%
-\contentsline {section}{\numberline {10.36}Gumbel-Verteilung mit Erwartungswert $a$ und Standardabweichung $b$}{27}{section.10.36}%
-\contentsline {section}{\numberline {10.37}Fatigue-Life-Verteilung mit Lageparameter $\mu $, Skalierungsparameter $\beta $ und Formparameter $\gamma $}{27}{section.10.37}%
-\contentsline {section}{\numberline {10.38}Frechet-Verteilung mit Lageparameter $\delta $, Skalierungsparameter $\beta $ und Formparameter $\alpha $}{28}{section.10.38}%
-\contentsline {section}{\numberline {10.39}Hyperbolische Sekanten-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{28}{section.10.39}%
-\contentsline {section}{\numberline {10.40}Linke Sägezahnverteilung über $[a;b]$}{28}{section.10.40}%
-\contentsline {section}{\numberline {10.41}Linke Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{28}{section.10.41}%
-\contentsline {section}{\numberline {10.42}Rechte Sägezahnverteilung über $[a;b]$}{28}{section.10.42}%
-\contentsline {section}{\numberline {10.43}Rechte Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{29}{section.10.43}%
-\contentsline {section}{\numberline {10.44}Levy-Verteilung mit Lageparameter $\mu $ und Formparameter $c$}{29}{section.10.44}%
-\contentsline {section}{\numberline {10.45}Maxwell-Boltzmann-Verteilung mit Parameter a}{29}{section.10.45}%
-\contentsline {section}{\numberline {10.46}Studentsche t-Verteilung mit Parametern $\mu $ und $\nu $}{29}{section.10.46}%
-\contentsline {section}{\numberline {10.47}Halbe Normalverteilung mit Mittelwert $a$}{29}{section.10.47}%
-\contentsline {section}{\numberline {10.48}U-quadratische Verteilung über das Intervall $[a;b]$}{29}{section.10.48}%
-\contentsline {section}{\numberline {10.49}Reziproke Verteilung über das Intervall $[a;b]$}{30}{section.10.49}%
-\contentsline {section}{\numberline {10.50}Kumaraswamy-Verteilung mit Parametern $a$ und $b$ über das Intervall $[c;d]$}{30}{section.10.50}%
-\contentsline {section}{\numberline {10.51}Irwin-Hall-Verteilung mit Parameter $n$}{30}{section.10.51}%
-\contentsline {section}{\numberline {10.52}Irwin-Hall-Verteilung mit Mittelwert $a$}{30}{section.10.52}%
-\contentsline {section}{\numberline {10.53}Sinus-Verteilung über das Intervall $[a;b]$}{30}{section.10.53}%
-\contentsline {section}{\numberline {10.54}Arcus Sinus-Verteilung über das Intervall $[a;b]$}{30}{section.10.54}%
-\contentsline {section}{\numberline {10.55}Verteilung aus empirischen Daten}{31}{section.10.55}%
-\contentsline {section}{\numberline {10.56}Zufällige Auswahl eines von mehreren Werten}{31}{section.10.56}%
-\contentsline {section}{\numberline {10.57}Zufallszahlen gemäß benutzerdefinierter Verteilung}{31}{section.10.57}%
+\contentsline {section}{\numberline {10.1}Geometrische Verteilung}{21}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Hypergeometrische Verteilung $Hg(N,K,n)$}{21}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Binomial-Verteilung $B(n,p)$}{21}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Binomial-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{21}{section.10.4}%
+\contentsline {section}{\numberline {10.5}Poisson-Verteilung $P(l)$}{21}{section.10.5}%
+\contentsline {section}{\numberline {10.6}Zeta-Verteilung $Z(s)$}{22}{section.10.6}%
+\contentsline {section}{\numberline {10.7}Negative hypergeometrische Verteilung $NHg(N,K,n)$}{22}{section.10.7}%
+\contentsline {section}{\numberline {10.8}Negative Binomial-Verteilung $NB(r,p)$}{22}{section.10.8}%
+\contentsline {section}{\numberline {10.9}Negative Binomial-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{22}{section.10.9}%
+\contentsline {section}{\numberline {10.10}Diskrete Gleichverteilung über das Intervall $[a;b]$ (Ganzzahlen)}{22}{section.10.10}%
+\contentsline {section}{\numberline {10.11}Logarithmische Verteilung}{22}{section.10.11}%
+\contentsline {section}{\numberline {10.12}Borel-Verteilung}{22}{section.10.12}%
+\contentsline {section}{\numberline {10.13}Exponentialverteilung mit Mittelwert $a$}{22}{section.10.13}%
+\contentsline {section}{\numberline {10.14}Gleichverteilung über das Intervall $[a;b]$}{23}{section.10.14}%
+\contentsline {section}{\numberline {10.15}Normalverteilung mit Mittelwert $a$ und Standardabweichung $b$}{23}{section.10.15}%
+\contentsline {section}{\numberline {10.16}Lognormalverteilung mit Mittelwert $a$ und Standardabweichung $b$}{23}{section.10.16}%
+\contentsline {section}{\numberline {10.17}Gamma-Verteilung mit Parametern $\alpha =a$ und $\beta =b$}{23}{section.10.17}%
+\contentsline {section}{\numberline {10.18}Gamma-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{23}{section.10.18}%
+\contentsline {section}{\numberline {10.19}Erlang-Verteilung mit Parametern $n$ und $\lambda =l$}{24}{section.10.19}%
+\contentsline {section}{\numberline {10.20}Beta-Verteilung in dem Intervall $[a;b]$ und mit Parametern $\alpha =c$ und $\beta =d$}{24}{section.10.20}%
+\contentsline {section}{\numberline {10.21}Beta-Verteilung in dem Intervall $[a;b]$ und mit Mittelwert $c$ und Standardabweichung $d$}{24}{section.10.21}%
+\contentsline {section}{\numberline {10.22}Weibull-Verteilung mit Parametern Scale=$a$ und Form=$b$}{24}{section.10.22}%
+\contentsline {section}{\numberline {10.23}Cauchy-Verteilung mit Mittelwert $a$ und Scale=$b$}{24}{section.10.23}%
+\contentsline {section}{\numberline {10.24}Chi$^2$-Verteilung mit $n$ Freiheitsgraden}{25}{section.10.24}%
+\contentsline {section}{\numberline {10.25}Chi-Verteilung mit $n$ Freiheitsgraden}{25}{section.10.25}%
+\contentsline {section}{\numberline {10.26}F-Verteilung mit $a$ Freiheitsgraden im Zähler und $b$ Freiheitsgraden im Nenner}{25}{section.10.26}%
+\contentsline {section}{\numberline {10.27}Johnson-SU-Verteilung mit den Parametern $\gamma =a$, $\xi =b$, $\delta =c$ und $\lambda =d$}{25}{section.10.27}%
+\contentsline {section}{\numberline {10.28}Dreiecksverteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{25}{section.10.28}%
+\contentsline {section}{\numberline {10.29}Trapezverteilung über $[a;d]$ mit Gleichverteilung im Bereich $[b;c]$}{26}{section.10.29}%
+\contentsline {section}{\numberline {10.30}Pert-Verteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{26}{section.10.30}%
+\contentsline {section}{\numberline {10.31}Laplace-Verteilung mit Mittelwert $mu$ und Skalierungsfaktor $b$}{26}{section.10.31}%
+\contentsline {section}{\numberline {10.32}Pareto-Verteilung mit Skalierungsparameter $x_{\rm min}=xmin$ und Formparameter $\alpha =a$}{26}{section.10.32}%
+\contentsline {section}{\numberline {10.33}Logistische Verteilung mit Mittelwert $\mu =mu$ und Skalierungsparameter $s$}{26}{section.10.33}%
+\contentsline {section}{\numberline {10.34}Inverse Gauß-Verteilung mit $\lambda =l$ und Mittelwert $mu$}{26}{section.10.34}%
+\contentsline {section}{\numberline {10.35}Rayleigh-Verteilung mit Mittelwert $mu$}{27}{section.10.35}%
+\contentsline {section}{\numberline {10.36}Log-Logistische Verteilung mit $\alpha $ und Mittelwert $\beta $}{27}{section.10.36}%
+\contentsline {section}{\numberline {10.37}Potenzverteilung auf dem Bereich $[a;b]$ mit Exponent $c$}{27}{section.10.37}%
+\contentsline {section}{\numberline {10.38}Gumbel-Verteilung mit Lage $a$ und Skalierung $b$}{27}{section.10.38}%
+\contentsline {section}{\numberline {10.39}Gumbel-Verteilung mit Erwartungswert $a$ und Standardabweichung $b$}{27}{section.10.39}%
+\contentsline {section}{\numberline {10.40}Fatigue-Life-Verteilung mit Lageparameter $\mu $, Skalierungsparameter $\beta $ und Formparameter $\gamma $}{28}{section.10.40}%
+\contentsline {section}{\numberline {10.41}Frechet-Verteilung mit Lageparameter $\delta $, Skalierungsparameter $\beta $ und Formparameter $\alpha $}{28}{section.10.41}%
+\contentsline {section}{\numberline {10.42}Hyperbolische Sekanten-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{28}{section.10.42}%
+\contentsline {section}{\numberline {10.43}Linke Sägezahnverteilung über $[a;b]$}{28}{section.10.43}%
+\contentsline {section}{\numberline {10.44}Linke Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{29}{section.10.44}%
+\contentsline {section}{\numberline {10.45}Rechte Sägezahnverteilung über $[a;b]$}{29}{section.10.45}%
+\contentsline {section}{\numberline {10.46}Rechte Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{29}{section.10.46}%
+\contentsline {section}{\numberline {10.47}Levy-Verteilung mit Lageparameter $\mu $ und Formparameter $c$}{29}{section.10.47}%
+\contentsline {section}{\numberline {10.48}Maxwell-Boltzmann-Verteilung mit Parameter a}{29}{section.10.48}%
+\contentsline {section}{\numberline {10.49}Studentsche t-Verteilung mit Parametern $\mu $ und $\nu $}{29}{section.10.49}%
+\contentsline {section}{\numberline {10.50}Halbe Normalverteilung mit Startwert $s$ unverschobenem Mittelwert $\mu $}{30}{section.10.50}%
+\contentsline {section}{\numberline {10.51}U-quadratische Verteilung über das Intervall $[a;b]$}{30}{section.10.51}%
+\contentsline {section}{\numberline {10.52}Reziproke Verteilung über das Intervall $[a;b]$}{30}{section.10.52}%
+\contentsline {section}{\numberline {10.53}Kumaraswamy-Verteilung mit Parametern $a$ und $b$ über das Intervall $[c;d]$}{30}{section.10.53}%
+\contentsline {section}{\numberline {10.54}Irwin-Hall-Verteilung mit Parameter $n$}{30}{section.10.54}%
+\contentsline {section}{\numberline {10.55}Irwin-Hall-Verteilung mit Mittelwert $a$}{30}{section.10.55}%
+\contentsline {section}{\numberline {10.56}Sinus-Verteilung über das Intervall $[a;b]$}{31}{section.10.56}%
+\contentsline {section}{\numberline {10.57}Arcus Sinus-Verteilung über das Intervall $[a;b]$}{31}{section.10.57}%
+\contentsline {section}{\numberline {10.58}Wigner Halbkreis-Verteilung mit Erwartungswert $m$ und Radius $R$}{31}{section.10.58}%
+\contentsline {section}{\numberline {10.59}Log-Cauchy-Verteilung mit Parametern $mu$ und $sigma$}{31}{section.10.59}%
+\contentsline {section}{\numberline {10.60}Verteilung aus empirischen Daten}{31}{section.10.60}%
+\contentsline {section}{\numberline {10.61}Zufällige Auswahl eines von mehreren Werten}{32}{section.10.61}%
+\contentsline {section}{\numberline {10.62}Zufallszahlen gemäß benutzerdefinierter Verteilung}{32}{section.10.62}%
 \contentsline {chapter}{\numberline {11}Erlang-C-Rechner}{33}{chapter.11}%
 \contentsline {chapter}{\numberline {12}Allen-Cunneen-Approximationsformel}{35}{chapter.12}%
 \contentsline {chapter}{\numberline {13}Zugriff auf die Modelleigenschaften}{37}{chapter.13}%
@@ -89,35 +94,35 @@
 \contentsline {section}{\numberline {13.4}Kunden nach Kundentypen}{43}{section.13.4}%
 \contentsline {subsection}{\numberline {13.4.1}Anzahl an Kunden im System nach Kundentypen}{43}{subsection.13.4.1}%
 \contentsline {subsection}{\numberline {13.4.2}Anzahl an wartenden Kunden im System nach Kundentypen}{44}{subsection.13.4.2}%
-\contentsline {subsection}{\numberline {13.4.3}Anzahl an Kunden in Bedienung nach Kundentypen}{45}{subsection.13.4.3}%
-\contentsline {section}{\numberline {13.5}Zähler und Durchsatz}{46}{section.13.5}%
+\contentsline {subsection}{\numberline {13.4.3}Anzahl an Kunden in Bedienung nach Kundentypen}{46}{subsection.13.4.3}%
+\contentsline {section}{\numberline {13.5}Zähler und Durchsatz}{47}{section.13.5}%
 \contentsline {section}{\numberline {13.6}Wartezeiten}{47}{section.13.6}%
 \contentsline {subsection}{\numberline {13.6.1}Wartezeiten an einer Station}{47}{subsection.13.6.1}%
 \contentsline {subsection}{\numberline {13.6.2}Wartezeiten über alle Kundentypen}{48}{subsection.13.6.2}%
-\contentsline {subsection}{\numberline {13.6.3}Wartezeiten für einen Kundentypen}{48}{subsection.13.6.3}%
-\contentsline {section}{\numberline {13.7}Transferzeiten}{49}{section.13.7}%
-\contentsline {subsection}{\numberline {13.7.1}Transferzeiten an einer Station}{49}{subsection.13.7.1}%
+\contentsline {subsection}{\numberline {13.6.3}Wartezeiten für einen Kundentypen}{49}{subsection.13.6.3}%
+\contentsline {section}{\numberline {13.7}Transferzeiten}{50}{section.13.7}%
+\contentsline {subsection}{\numberline {13.7.1}Transferzeiten an einer Station}{50}{subsection.13.7.1}%
 \contentsline {subsection}{\numberline {13.7.2}Transferzeiten über alle Kundentypen}{50}{subsection.13.7.2}%
 \contentsline {subsection}{\numberline {13.7.3}Transferzeiten für einen Kundentypen}{51}{subsection.13.7.3}%
 \contentsline {section}{\numberline {13.8}Bedienzeiten}{52}{section.13.8}%
 \contentsline {subsection}{\numberline {13.8.1}Bedienzeiten an einer Station}{52}{subsection.13.8.1}%
-\contentsline {subsection}{\numberline {13.8.2}Bedienzeiten über alle Kundentypen}{52}{subsection.13.8.2}%
-\contentsline {subsection}{\numberline {13.8.3}Bedienzeiten für einen Kundentypen}{53}{subsection.13.8.3}%
+\contentsline {subsection}{\numberline {13.8.2}Bedienzeiten über alle Kundentypen}{53}{subsection.13.8.2}%
+\contentsline {subsection}{\numberline {13.8.3}Bedienzeiten für einen Kundentypen}{54}{subsection.13.8.3}%
 \contentsline {section}{\numberline {13.9}Verweilzeiten}{54}{section.13.9}%
 \contentsline {subsection}{\numberline {13.9.1}Verweilzeiten an einer Station}{54}{subsection.13.9.1}%
 \contentsline {subsection}{\numberline {13.9.2}Verweilzeiten über alle Kundentypen}{55}{subsection.13.9.2}%
 \contentsline {subsection}{\numberline {13.9.3}Verweilzeiten für einen Kundentypen}{56}{subsection.13.9.3}%
-\contentsline {subsection}{\numberline {13.9.4}Rüstzeiten an einer Station}{56}{subsection.13.9.4}%
-\contentsline {section}{\numberline {13.10}Flussgrad}{57}{section.13.10}%
-\contentsline {subsection}{\numberline {13.10.1}Flussgrad an einer Station}{57}{subsection.13.10.1}%
-\contentsline {subsection}{\numberline {13.10.2}Flussgrad über alle Kundentypen}{57}{subsection.13.10.2}%
-\contentsline {subsection}{\numberline {13.10.3}Flussgrad für einen Kundentypen}{57}{subsection.13.10.3}%
+\contentsline {subsection}{\numberline {13.9.4}Rüstzeiten an einer Station}{57}{subsection.13.9.4}%
+\contentsline {section}{\numberline {13.10}Flussgrad}{58}{section.13.10}%
+\contentsline {subsection}{\numberline {13.10.1}Flussgrad an einer Station}{58}{subsection.13.10.1}%
+\contentsline {subsection}{\numberline {13.10.2}Flussgrad über alle Kundentypen}{58}{subsection.13.10.2}%
+\contentsline {subsection}{\numberline {13.10.3}Flussgrad für einen Kundentypen}{58}{subsection.13.10.3}%
 \contentsline {section}{\numberline {13.11}Auslastung der Ressourcen}{58}{section.13.11}%
 \contentsline {subsection}{\numberline {13.11.1}Auslastung einer Ressource}{58}{subsection.13.11.1}%
 \contentsline {subsection}{\numberline {13.11.2}Auslastung aller Ressourcen zusammen}{59}{subsection.13.11.2}%
-\contentsline {section}{\numberline {13.12}Auslastung der Transporter}{59}{section.13.12}%
-\contentsline {subsection}{\numberline {13.12.1}Auslastung einer Transportergruppe}{59}{subsection.13.12.1}%
-\contentsline {subsection}{\numberline {13.12.2}Auslastung aller Transporter zusammen}{60}{subsection.13.12.2}%
+\contentsline {section}{\numberline {13.12}Auslastung der Transporter}{60}{section.13.12}%
+\contentsline {subsection}{\numberline {13.12.1}Auslastung einer Transportergruppe}{60}{subsection.13.12.1}%
+\contentsline {subsection}{\numberline {13.12.2}Auslastung aller Transporter zusammen}{61}{subsection.13.12.2}%
 \contentsline {section}{\numberline {13.13}Zugriff auf Statistik-Stationen Datenfelder}{61}{section.13.13}%
 \contentsline {section}{\numberline {13.14}Zugriff auf Analogwerte}{62}{section.13.14}%
 \contentsline {section}{\numberline {13.15}Zugriff auf Kundenobjekt-spezifische Datenfelder}{62}{section.13.15}%

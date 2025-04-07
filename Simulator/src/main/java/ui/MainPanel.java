@@ -281,7 +281,7 @@ public class MainPanel extends MainPanelBase {
 	/**
 	 * Programmversion
 	 */
-	public static final String VERSION="5.7.0";
+	public static final String VERSION="5.8.0";
 
 	/**
 	 * Ist dies ein offizieller Release-Build?

@@ -2920,6 +2920,29 @@ For the expression to be displayed in the clock any expression the simulation ca
 Optionally, you can set the time to be displayed as a 24-hour digital value in addition to a 12-hour analog clock.
 
 
+\section{Table}
+\label{ref:ModelElementAnimationTable}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementAnimationTable.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+The table element allows to display data in table form during the animation of a model.
+Any computable expression can be displayed (which includes the functions for determining queue lengths at
+individual stations as well as access to all user-defined simulation variables). The output is in table form
+on the drawing surface. For classical simulation, the simulation data elements are without further meaning.
+
+\subsection*{Settings}
+
+For the texts, you can set whether some special HTML and LaTeX symbols should
+be interpreted accordingly, whether formatting should be performed according to the Markdown symbols
+\texttt{\#}, \texttt{\#\#}, \texttt{\#\#\#}, \texttt{*} and \texttt{**} and whether the LaTeX symbols
+\texttt{\_\{...\}}, \texttt{\^{}\{...\}}, \texttt{\textbackslash frac\{...\}\{...\}} and \texttt{\textbackslash binom\{...\}\{...\}}
+are to be interpreted.
+
+
 \section{Text by simulation data}
 \label{ref:ModelElementAnimationTextSelect}
 

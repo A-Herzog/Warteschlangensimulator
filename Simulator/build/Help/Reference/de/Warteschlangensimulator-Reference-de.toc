@@ -103,7 +103,8 @@
 \contentsline {section}{\numberline {11.13}Simulationsdatentortendiagramm}{63}{section.11.13}%
 \contentsline {section}{\numberline {11.14}Simulationszeit}{63}{section.11.14}%
 \contentsline {section}{\numberline {11.15}Skriptergebnis als Text}{63}{section.11.15}%
-\contentsline {section}{\numberline {11.16}Text gemäß Simulationsdaten}{64}{section.11.16}%
+\contentsline {section}{\numberline {11.16}Tabelle}{64}{section.11.16}%
+\contentsline {section}{\numberline {11.17}Text gemäß Simulationsdaten}{64}{section.11.17}%
 \contentsline {chapter}{\numberline {12}Animation - Interaktiv}{65}{chapter.12}%
 \contentsline {section}{\numberline {12.1}Animation pausieren}{65}{section.12.1}%
 \contentsline {section}{\numberline {12.2}Checkbox}{65}{section.12.2}%

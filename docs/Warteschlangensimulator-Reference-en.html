@@ -2960,6 +2960,27 @@ For the expression to be displayed in the clock any expression the simulation ca
 Optionally, you can set the time to be displayed as a 24-hour digital value in addition to a 12-hour analog clock.
 </p>
 
+<h3>Table<a name="refModelElementAnimationTable"></a></h3>
+
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANAAAACaCAYAAADYZ8Z+AAAFhUlEQVR4Xu3cy8vtYxjG8c12moiIMnCKMqIUpSgxUcycDUwYmTAlf4BIGImcykDZ9kwZKRmJzBiKgWPOkoQcBvu6S0+t1u+37ue+997r+n7qGu33dz/vvu791HrX+777wAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8/xLyP+ClcYCiXew0lgg8Q5WGgsk3sFKFOiN/SdRoDf2n0SB3th/EgV6Y/9JFOiN/SdRoDf2n0SB3th/EgV6Y/9JFOiN/SdRoDf2n0SB3th/EgV6Y/9JFOiN/SdRoDf2n0SB3th/EgV6Y/9JFOiN/SdRoDf2n0SB3th/EgV6Y/9JFOiN/SdRoDf2n0SB3th/EgV6Y/9JFOiN/SdRoDf2n0SBx5cTlFnYfxIFHl+4QMeYXQscn+uOm7OVN5VZ3HtN27XA8bnuuOECHaN2LXB8rjtuPldm//3de03btcDxue644QIdo7oL7D5vX1T1VjXXRneB3efti6requba6C6w+7x9UdVb1Vwb3QV2n7cvqnqrmmuju8Du8/ZFVW9Vc210F9h93r6o6q1qro3uArvOu0E5pHyp/KF8q7yl3Kps84YSn//Lyq7uVWLeJ8rY09KslX3eXneBXedxgZbJPm+vu8Cq8w4qzyrjOUtzWDlNGZ2jxAWM5+5QlrpU+VX5W7lWGT+vpVkr+7y97gKrzuMCHcla2eftdRdYdd4TSsz9UXlIuVA5WTlPuV8Zf1Rm20uzuDDjeecrm5yifKjE848rm1T1VjXXRneBVedxgXZTNddGd4Gzz7tM+Uf5RrlEWepcJd5siM/vamWT8U2Fd5QTldGTSnz8R8qpyiazewtVc210Fzj7PC5QTtVcG90Fzj5v/AcZL8l2dZ8S855XNtn0psIjSrhZiYv+p3Klss3s3kLVXBvdBc4+jwuUUzXXRneBs8/7QIl58Q96V/EmQMz7WNlmfFPhL+V25Xsl/vxRZanZvYWquTa6C5x9Hhcop2quje4CZ5/3gzLOnZWflaXGNxXGvK8cVJYa58xSNddGd4Gzz+MC5VTNtdFd4Ozz4qXSOHdW4kdslrpAiTcLxnnXKWuNc2apmmuju8DZ53GBcqrm2ugucPZ5vygx70zlaHlaGf+ekcPKWuOcWarm2ugucPZ5XKCcqrk2ugucfV68zRzzblS6Xa/ES7d46fewMr7UvEtZanZvoWquje4CZ5/HBcqpmmuju8DZ5z2nxLxXlS6nK58p8Xk8poT4xmn8+XfK0m/8zu4tVM210V3g7PO4QDlVc210Fzj7vKuUmBcvoW5T1npQiXlvK5u8qMTHv6ecpIT49YZ3lfj4+MbrNvHDp/Hctl9/WGr2Pux0Fzj7PC5Qzux92OkusOq8F5SYG1/EP6NcrsSvVJ+hXKPERYgLGF/0x5+PblHivHg7/WJlk/hG609KPH+nssnXSnz8A0pcpCuUtar2YaO7wKrzuEBcoKOiu8Cq8+If0mvKeM7S/K7co4zOUr5S4rm7laXiwsTz8Qt5m95UWPr3Wiv7vL3uAqvO4wIdyVrZ5+11F9h13k1KfJH+hRJfjP+mxH/q8ZRykbLJ60p8/i8pu3pFiXmHlFFc3LhI8d9oxYX/VFmrax97q7vArvO4QMt07WNvUaA39p9Egd7YfxIFemP/SRTojf0nUaA39p9Egd7YfxIFemP/SRTojf0nUaA39p9Egd7YfxIFemP/SRTojf0nUaA39p9Egd7YfxIFemP/SRTojf0nUaA39p9Egd7YfxIFemP/SRTojf0nUaA39p9Egd7YfxIFemP/SRTojf0njQUS72ClsUDiHaw0Fki8g5XGAol3AAAAAAAAAAAAAAAAAAAAAAAAACDlP+0CVGacc0SdAAAAAElFTkSuQmCC" width="150" style="float: left;">
+
+<p>
+The table element allows to display data in table form during the animation of a model.
+Any computable expression can be displayed (which includes the functions for determining queue lengths at
+individual stations as well as access to all user-defined simulation variables). The output is in table form
+on the drawing surface. For classical simulation, the simulation data elements are without further meaning.
+</p>
+
+<h4>Settings</h4>
+
+<p>
+For the texts, you can set whether some special HTML and LaTeX symbols should
+be interpreted accordingly, whether formatting should be performed according to the Markdown symbols
+<tt>#</tt>, <tt>##</tt>, <tt>###</tt>, <tt>*</tt> and <tt>**</tt> and whether the LaTeX symbols
+<tt>_{...}</tt>, <tt>^{...}</tt>, <tt>\frac{...}{...}</tt> and <tt>\binom{...}{...}</tt>
+are to be interpreted.
+</p>
+
 <h3>Text by simulation data<a name="refModelElementAnimationTextSelect"></a></h3>
 
 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALgAAACyCAYAAADxqAWhAAAFY0lEQVR4Xu3dyYsdVRiG8WicEESJAwQ1rai4UhAUAgoOG0F3zi7c6EoXuhI0/gESCeomojiBCyFtBEFwoyC6CYo7RVw4gFEjJprEIMFZJO+7yEcq36m6p4bb9fzgWdinqrpT52u4lZu2160DAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD43wYFrEkMOHrxb+WibH2bOqSaZNcBjikOzqJF2ToDjl7FwVm0aNF1Kz0OOEocnEWLFl230uOAVvoerNLrlx4HtNL3YJVev/Q4oJVFB6vp/PjxWJSt2ya1qg6oX9UOtVFh5koHq0nT+fHjsShbNwYcrZQOVpOm8+PHY1G27jeKvlXx+NgX6nSFmYqD0VbT+fHjsShbZ8DRSRyMtrLzs3XLjtuqvP6OukD5Jclbysc9qjBT2WBlsvOzdcuOY8DRSTZYmez8bN2y4z5XXl9RkQfex+1SmKlssDLZ+dm6Zccx4OgkG6xMdn62btlxh1U8Lmu/wkzFgWgrOz9bt+w4BhydxIFoKzs/W7fsuN9VPC7rL4WZigPRVnZ+tm7ZcQw4OokD0VZ2frZu2XFfKa/7LXvguLLBymTnZ+uWHceAo5NssDLZ+X8rr5+rouw625XX/UbPijpHbVE+7l2FmcoGK5Odz4BjVNlgZbLz9ymv+7+j7Drnq70qHh/zQ+m1CjMVB6Ot7HwGHKOKg9FWdv5Dyj+QsEdF2XXsMvWmOqh8/Q/VDQozVzpYTbLzGXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANCbExSwJjHgA4n/K7Shm5uz1dsKPYsDN3Rzw4APLA7c0M3NbjXXP//g4sAN3dww4Eti7oPaFfdtSbBR3XDflgQb1Q33bUmwUd1w35YEG9UN921JsFHdcN+WxFAbdaNaVd8r//q/n5R/4ettKvOG8tf/iurqPuXrfanifSoNIxtqQxhwjKKvDVmvnlPx85S2U52mIv+qcH+D+Lw7ValL1SHlX0nuXywbv67SMLK+NoQBPxJG1teGPKV83V/UI2pFnaw2qgdUfCs8e+nhgY6f70LV5BT1ifL5W1WTvu4bKutroxhwTELtjbpc/aN+VJeoUucpP4z667tGNYkPne+rE1W0Tfn4T9Wpqknt+4ae1N4oBhyTUnuj4sD4JUdX9ytf7wXVpOmh83Fltyh/I/6hrlKZ2vcNPam9UQw4JqX2Rn2sfD0PXFd+SPT1PlOZ+ND5p7pD7VNef0KVqn3f0JPaG8WAY1Jqb9TPKl63VgdUqfjQGftIrVel4nUwUbU3igHHpNTeKL8UiNetld9CL7VJ+WEyXu861Va8Diaq9kYx4JiU2ht1UPl6Z6mxPKPin9PtVG3F62Ciam8UA45Jqb1R/ms8X+8mNbTrlV+a+KXNYyq+lLpblap939CT2hvFgGNSam/U88rXe00N5Qz1jfLX8aQyv7Hj9b2q9I2p2vcNPam9UQw4JqX2Rl2tfD2/RLhdtfWw8vXeU01eUj5+lzpJmf/57AfKx/uNoYz/cZbPy/55LUbCgDPga1rtAbcXla/rh7xn1RXKPzJ2ptqsPKj+BvFDodejW5U/n/+68mLVxG8E7Vc+/y7VZI/y8Q8qD/qVCiNjwBnwNa2vAfdGv67i5yntsLpXRRvUD8rn3aNKeaB9vn9goumhs/TPhZH1tSEM+JEwsqE25Gblh7jvlB/WflP+od+n1UWqyQ7lr/9l1dWrytdbVZG/sTzo/t9U+Bvya4WRMeBHY8ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwDP8BF64Mml99LTcAAAAASUVORK5CYII=" width="150" style="float: left;">

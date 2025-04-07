@@ -1,0 +1,1 @@
+Combines an open and a closed queueing system: Clients of types A and B arrive and are served by 3 operators. Temporary batches of one client and one operator are formed. Clients and operator move through the system together. At the exit, the batches are separated again: the clients leave the system and the operators are routed back to the start.

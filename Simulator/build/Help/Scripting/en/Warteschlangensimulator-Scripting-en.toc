@@ -15,61 +15,66 @@
 \contentsline {chapter}{\numberline {8}Functions with multiple parameters}{17}{chapter.8}%
 \contentsline {chapter}{\numberline {9}Logic functions}{19}{chapter.9}%
 \contentsline {chapter}{\numberline {10}Probability distributions}{21}{chapter.10}%
-\contentsline {section}{\numberline {10.1}Hypergeometric distribution $Hg(N,K,n)$}{21}{section.10.1}%
-\contentsline {section}{\numberline {10.2}Binomial distribution $B(n,p)$}{21}{section.10.2}%
-\contentsline {section}{\numberline {10.3}Binomial distribution with mean $a$ and standard deviation $b$}{21}{section.10.3}%
-\contentsline {section}{\numberline {10.4}Poisson distribution $P(l)$}{21}{section.10.4}%
-\contentsline {section}{\numberline {10.5}Zeta distribution $Z(s)$}{21}{section.10.5}%
-\contentsline {section}{\numberline {10.6}Negative hypergeometric distribution $NHg(N,K,n)$}{22}{section.10.6}%
-\contentsline {section}{\numberline {10.7}Negative binomial distribution $NB(r,p)$}{22}{section.10.7}%
-\contentsline {section}{\numberline {10.8}Negative binomial distribution with mean $a$ and standard deviation $b$}{22}{section.10.8}%
-\contentsline {section}{\numberline {10.9}Discrete uniform distribution in the interval $[a;b]$ (integer numbers)}{22}{section.10.9}%
-\contentsline {section}{\numberline {10.10}Exponential distribution with mean $a$}{22}{section.10.10}%
-\contentsline {section}{\numberline {10.11}Uniform distribution in the interval $[a;b]$}{22}{section.10.11}%
-\contentsline {section}{\numberline {10.12}Normal distribution with mean $a$ and standard deviation $b$}{22}{section.10.12}%
-\contentsline {section}{\numberline {10.13}Log-normal distribution with mean $a$ and standard deviation $b$}{23}{section.10.13}%
-\contentsline {section}{\numberline {10.14}Gamma distribution with parameters $\alpha =a$ and $\beta =b$}{23}{section.10.14}%
-\contentsline {section}{\numberline {10.15}Gamma distribution with mean $a$ and standard deviation $b$}{23}{section.10.15}%
-\contentsline {section}{\numberline {10.16}Erlang distribution with parameters $n$ and $\lambda =l$}{23}{section.10.16}%
-\contentsline {section}{\numberline {10.17}Beta distribution in the interval $[a;b]$ and with parameters $\alpha =c$ and $\beta =d$}{24}{section.10.17}%
-\contentsline {section}{\numberline {10.18}Beta distribution in the interval $[a;b]$ and with mean $c$ and standard deviation $d$}{24}{section.10.18}%
-\contentsline {section}{\numberline {10.19}Weibull distribution with parameters Scale=$a$ and Form=$b$}{24}{section.10.19}%
-\contentsline {section}{\numberline {10.20}Cauchy distribution with mean $a$ and Scale=$b$}{24}{section.10.20}%
-\contentsline {section}{\numberline {10.21}Chi$^2$ distribution with $n$ degrees of freedom}{24}{section.10.21}%
-\contentsline {section}{\numberline {10.22}Chi distribution with $n$ degrees of freedom}{25}{section.10.22}%
-\contentsline {section}{\numberline {10.23}F distribution with $a$ degrees of freedom for the numerator and $b$ degrees of freedom for the denominator}{25}{section.10.23}%
-\contentsline {section}{\numberline {10.24}Johnson SU distribution with parameters $\gamma =a$, $\xi =b$, $\delta =c$ and $\lambda =d$}{25}{section.10.24}%
-\contentsline {section}{\numberline {10.25}Triangular distribution over $[a;c]$ with most likely value $b$}{25}{section.10.25}%
-\contentsline {section}{\numberline {10.26}Trapezoid distribution over $[a;d]$ with uniform distribution in $[b;c]$}{25}{section.10.26}%
-\contentsline {section}{\numberline {10.27}Pert distribution over $[a;c]$ with most likely value $b$}{26}{section.10.27}%
-\contentsline {section}{\numberline {10.28}Laplace distribution with mean $mu$ and scale factor $b$}{26}{section.10.28}%
-\contentsline {section}{\numberline {10.29}Pareto distribution with scale parameter $x_{\rm min}=xmin$ and shape parameter $\alpha =a$}{26}{section.10.29}%
-\contentsline {section}{\numberline {10.30}Logistic distribution with mean $\mu =mu$ and scale parameter $s$}{26}{section.10.30}%
-\contentsline {section}{\numberline {10.31}Inverse gaussian distribution with $\lambda =l$ and mean $mu$}{26}{section.10.31}%
-\contentsline {section}{\numberline {10.32}Rayleigh distribution with mean $mu$}{26}{section.10.32}%
-\contentsline {section}{\numberline {10.33}Log-Logistic distribution with $\alpha $ and mean $\beta $}{27}{section.10.33}%
-\contentsline {section}{\numberline {10.34}Power distribution on $[a;b]$ with exponent $c$}{27}{section.10.34}%
-\contentsline {section}{\numberline {10.35}Gumbel distribution with location $a$ and scale $b$}{27}{section.10.35}%
-\contentsline {section}{\numberline {10.36}Gumbel distribution with expected value $a$ and standard deviation $b$}{27}{section.10.36}%
-\contentsline {section}{\numberline {10.37}Fatigue life distribution with location parameter $\mu $, scale parameter $\beta $ and form parameter $\gamma $}{27}{section.10.37}%
-\contentsline {section}{\numberline {10.38}Frechet distribution with location parameter $\delta $, scale parameter $\beta $ and form parameter $\alpha $}{28}{section.10.38}%
-\contentsline {section}{\numberline {10.39}Hyperbolic secant distribution with mean $a$ and standard deviation $b$}{28}{section.10.39}%
-\contentsline {section}{\numberline {10.40}Left sawtooth distribution over $[a;b]$}{28}{section.10.40}%
-\contentsline {section}{\numberline {10.41}Left sawtooth distribution with mean $a$ and standard deviation $b$}{28}{section.10.41}%
-\contentsline {section}{\numberline {10.42}Right sawtooth distribution over $[a;b]$}{28}{section.10.42}%
-\contentsline {section}{\numberline {10.43}Right sawtooth distribution with mean $a$ and standard deviation $b$}{29}{section.10.43}%
-\contentsline {section}{\numberline {10.44}Levy distribution with location parameter $\mu $ and form parameter $c$}{29}{section.10.44}%
-\contentsline {section}{\numberline {10.45}Maxwell Boltzmann distribution with parameter a}{29}{section.10.45}%
-\contentsline {section}{\numberline {10.46}Student t-distribution with parameters $\mu $ and $\nu $}{29}{section.10.46}%
-\contentsline {section}{\numberline {10.47}Half normal distribution with mean $a$}{29}{section.10.47}%
-\contentsline {section}{\numberline {10.48}U-quadratic distribution in the interval $[a;b]$}{29}{section.10.48}%
-\contentsline {section}{\numberline {10.49}Reciprocal distribution in the interval $[a;b]$}{30}{section.10.49}%
-\contentsline {section}{\numberline {10.50}Kumaraswamy distribution with parameters $a$ und $b$ over the interval $[c;d]$}{30}{section.10.50}%
-\contentsline {section}{\numberline {10.51}Irwin-Hall distribution with parameter $n$}{30}{section.10.51}%
-\contentsline {section}{\numberline {10.52}Irwin-Hall distribution with mean $a$}{30}{section.10.52}%
-\contentsline {section}{\numberline {10.53}Sine distribution in the interval $[a;b]$}{30}{section.10.53}%
-\contentsline {section}{\numberline {10.54}Arcsine distribution in the interval $[a;b]$}{30}{section.10.54}%
-\contentsline {section}{\numberline {10.55}Distribution based on empirical values}{31}{section.10.55}%
+\contentsline {section}{\numberline {10.1}Geometric distribution}{21}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Hypergeometric distribution $Hg(N,K,n)$}{21}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Binomial distribution $B(n,p)$}{21}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Binomial distribution with mean $a$ and standard deviation $b$}{21}{section.10.4}%
+\contentsline {section}{\numberline {10.5}Poisson distribution $P(l)$}{21}{section.10.5}%
+\contentsline {section}{\numberline {10.6}Zeta distribution $Z(s)$}{22}{section.10.6}%
+\contentsline {section}{\numberline {10.7}Negative hypergeometric distribution $NHg(N,K,n)$}{22}{section.10.7}%
+\contentsline {section}{\numberline {10.8}Negative binomial distribution $NB(r,p)$}{22}{section.10.8}%
+\contentsline {section}{\numberline {10.9}Negative binomial distribution with mean $a$ and standard deviation $b$}{22}{section.10.9}%
+\contentsline {section}{\numberline {10.10}Discrete uniform distribution in the interval $[a;b]$ (integer numbers)}{22}{section.10.10}%
+\contentsline {section}{\numberline {10.11}Logarithmic distribution}{22}{section.10.11}%
+\contentsline {section}{\numberline {10.12}Borel distribution}{22}{section.10.12}%
+\contentsline {section}{\numberline {10.13}Exponential distribution with mean $a$}{22}{section.10.13}%
+\contentsline {section}{\numberline {10.14}Uniform distribution in the interval $[a;b]$}{23}{section.10.14}%
+\contentsline {section}{\numberline {10.15}Normal distribution with mean $a$ and standard deviation $b$}{23}{section.10.15}%
+\contentsline {section}{\numberline {10.16}Log-normal distribution with mean $a$ and standard deviation $b$}{23}{section.10.16}%
+\contentsline {section}{\numberline {10.17}Gamma distribution with parameters $\alpha =a$ and $\beta =b$}{23}{section.10.17}%
+\contentsline {section}{\numberline {10.18}Gamma distribution with mean $a$ and standard deviation $b$}{23}{section.10.18}%
+\contentsline {section}{\numberline {10.19}Erlang distribution with parameters $n$ and $\lambda =l$}{24}{section.10.19}%
+\contentsline {section}{\numberline {10.20}Beta distribution in the interval $[a;b]$ and with parameters $\alpha =c$ and $\beta =d$}{24}{section.10.20}%
+\contentsline {section}{\numberline {10.21}Beta distribution in the interval $[a;b]$ and with mean $c$ and standard deviation $d$}{24}{section.10.21}%
+\contentsline {section}{\numberline {10.22}Weibull distribution with parameters Scale=$a$ and Form=$b$}{24}{section.10.22}%
+\contentsline {section}{\numberline {10.23}Cauchy distribution with mean $a$ and Scale=$b$}{24}{section.10.23}%
+\contentsline {section}{\numberline {10.24}Chi$^2$ distribution with $n$ degrees of freedom}{25}{section.10.24}%
+\contentsline {section}{\numberline {10.25}Chi distribution with $n$ degrees of freedom}{25}{section.10.25}%
+\contentsline {section}{\numberline {10.26}F distribution with $a$ degrees of freedom for the numerator and $b$ degrees of freedom for the denominator}{25}{section.10.26}%
+\contentsline {section}{\numberline {10.27}Johnson SU distribution with parameters $\gamma =a$, $\xi =b$, $\delta =c$ and $\lambda =d$}{25}{section.10.27}%
+\contentsline {section}{\numberline {10.28}Triangular distribution over $[a;c]$ with most likely value $b$}{25}{section.10.28}%
+\contentsline {section}{\numberline {10.29}Trapezoid distribution over $[a;d]$ with uniform distribution in $[b;c]$}{26}{section.10.29}%
+\contentsline {section}{\numberline {10.30}Pert distribution over $[a;c]$ with most likely value $b$}{26}{section.10.30}%
+\contentsline {section}{\numberline {10.31}Laplace distribution with mean $mu$ and scale factor $b$}{26}{section.10.31}%
+\contentsline {section}{\numberline {10.32}Pareto distribution with scale parameter $x_{\rm min}=xmin$ and shape parameter $\alpha =a$}{26}{section.10.32}%
+\contentsline {section}{\numberline {10.33}Logistic distribution with mean $\mu =mu$ and scale parameter $s$}{26}{section.10.33}%
+\contentsline {section}{\numberline {10.34}Inverse gaussian distribution with $\lambda =l$ and mean $mu$}{26}{section.10.34}%
+\contentsline {section}{\numberline {10.35}Rayleigh distribution with mean $mu$}{27}{section.10.35}%
+\contentsline {section}{\numberline {10.36}Log-Logistic distribution with $\alpha $ and mean $\beta $}{27}{section.10.36}%
+\contentsline {section}{\numberline {10.37}Power distribution on $[a;b]$ with exponent $c$}{27}{section.10.37}%
+\contentsline {section}{\numberline {10.38}Gumbel distribution with location $a$ and scale $b$}{27}{section.10.38}%
+\contentsline {section}{\numberline {10.39}Gumbel distribution with expected value $a$ and standard deviation $b$}{27}{section.10.39}%
+\contentsline {section}{\numberline {10.40}Fatigue life distribution with location parameter $\mu $, scale parameter $\beta $ and form parameter $\gamma $}{28}{section.10.40}%
+\contentsline {section}{\numberline {10.41}Frechet distribution with location parameter $\delta $, scale parameter $\beta $ and form parameter $\alpha $}{28}{section.10.41}%
+\contentsline {section}{\numberline {10.42}Hyperbolic secant distribution with mean $a$ and standard deviation $b$}{28}{section.10.42}%
+\contentsline {section}{\numberline {10.43}Left sawtooth distribution over $[a;b]$}{28}{section.10.43}%
+\contentsline {section}{\numberline {10.44}Left sawtooth distribution with mean $a$ and standard deviation $b$}{28}{section.10.44}%
+\contentsline {section}{\numberline {10.45}Right sawtooth distribution over $[a;b]$}{29}{section.10.45}%
+\contentsline {section}{\numberline {10.46}Right sawtooth distribution with mean $a$ and standard deviation $b$}{29}{section.10.46}%
+\contentsline {section}{\numberline {10.47}Levy distribution with location parameter $\mu $ and form parameter $c$}{29}{section.10.47}%
+\contentsline {section}{\numberline {10.48}Maxwell Boltzmann distribution with parameter a}{29}{section.10.48}%
+\contentsline {section}{\numberline {10.49}Student t-distribution with parameters $\mu $ and $\nu $}{29}{section.10.49}%
+\contentsline {section}{\numberline {10.50}Half normal distribution with start $s$ and unshifted mean $\mu $}{29}{section.10.50}%
+\contentsline {section}{\numberline {10.51}U-quadratic distribution in the interval $[a;b]$}{30}{section.10.51}%
+\contentsline {section}{\numberline {10.52}Reciprocal distribution in the interval $[a;b]$}{30}{section.10.52}%
+\contentsline {section}{\numberline {10.53}Kumaraswamy distribution with parameters $a$ und $b$ over the interval $[c;d]$}{30}{section.10.53}%
+\contentsline {section}{\numberline {10.54}Irwin-Hall distribution with parameter $n$}{30}{section.10.54}%
+\contentsline {section}{\numberline {10.55}Irwin-Hall distribution with mean $a$}{30}{section.10.55}%
+\contentsline {section}{\numberline {10.56}Sine distribution in the interval $[a;b]$}{30}{section.10.56}%
+\contentsline {section}{\numberline {10.57}Arcsine distribution in the interval $[a;b]$}{31}{section.10.57}%
+\contentsline {section}{\numberline {10.58}Wigner half-circle distribution with mean $m$ and radius $R$}{31}{section.10.58}%
+\contentsline {section}{\numberline {10.59}Log-Cauchy distribution with parameters $mu$ and $sigma$}{31}{section.10.59}%
+\contentsline {section}{\numberline {10.60}Distribution based on empirical values}{31}{section.10.60}%
 \contentsline {chapter}{\numberline {11}Erlang C calculator}{33}{chapter.11}%
 \contentsline {section}{\numberline {11.1}Random selection of one of several values}{33}{section.11.1}%
 \contentsline {section}{\numberline {11.2}Random numbers according to a user-defined distribution}{34}{section.11.2}%

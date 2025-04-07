@@ -102,7 +102,8 @@
 \contentsline {section}{\numberline {11.13}Simulation data pie chart}{52}{section.11.13}%
 \contentsline {section}{\numberline {11.14}Simulation data traffic lights}{53}{section.11.14}%
 \contentsline {section}{\numberline {11.15}Simulation time}{53}{section.11.15}%
-\contentsline {section}{\numberline {11.16}Text by simulation data}{53}{section.11.16}%
+\contentsline {section}{\numberline {11.16}Table}{53}{section.11.16}%
+\contentsline {section}{\numberline {11.17}Text by simulation data}{53}{section.11.17}%
 \contentsline {chapter}{\numberline {12}Animation - Interactive}{55}{chapter.12}%
 \contentsline {section}{\numberline {12.1}Button}{55}{section.12.1}%
 \contentsline {section}{\numberline {12.2}Checkbox}{55}{section.12.2}%
