@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-31 09:18+0200\n"
+"POT-Creation-Date: 2025-04-09 13:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2471,9 +2471,7 @@ msgstr ""
 "3. Dateiname der Ausgabedatei"
 
 msgid "CommandLine.ResetConfig.Description.Long"
-msgstr ""
-"Setzt die Konfiguration des Simulators auf den Auslieferungszustand zurück.\n"
-"Lediglich die eingetragenen Lizenzschlüssel bleiben erhalten."
+msgstr "Setzt die Konfiguration des Simulators auf den Auslieferungszustand zurück."
 
 msgid "CommandLine.ResetConfig.Description.Short"
 msgstr "Konfiguration zurücksetzen."
@@ -2773,6 +2771,54 @@ msgstr "Unbekannter Modus \"%s\"."
 
 msgid "CommandLine.SetNumberFormat.Name"
 msgstr "Dezimaltrenner"
+
+msgid "CommandLine.Setup.Change"
+msgstr "Ändern"
+
+msgid "CommandLine.Setup.Description.Long"
+msgstr "Dieser Befehl erwartet keine weiteren Parameter."
+
+msgid "CommandLine.Setup.Description.Short"
+msgstr "Interaktive Konfiguration des Simulators."
+
+msgid "CommandLine.Setup.Language"
+msgstr "Sprache"
+
+msgid "CommandLine.Setup.LoadBalancer"
+msgstr "Load-Balancer"
+
+msgid "CommandLine.Setup.MaxThreads"
+msgstr "Maximalanzahl an Threads"
+
+msgid "CommandLine.Setup.MaxThreads.Info"
+msgstr "U+Enter für unbegrenzt oder Zahl+Enter für die Anzahl an Threads"
+
+msgid "CommandLine.Setup.MaxThreads.unlimited"
+msgstr "unbegrenzt"
+
+msgid "CommandLine.Setup.MultiCoreSimulation"
+msgstr "Mehrkern-Simulation"
+
+msgid "CommandLine.Setup.NUMA"
+msgstr "NUMA-kompatibler Modus"
+
+msgid "CommandLine.Setup.Name"
+msgstr "Setup"
+
+msgid "CommandLine.Setup.NumberFormat"
+msgstr "Zahlenformat"
+
+msgid "CommandLine.Setup.Quit"
+msgstr "Quit"
+
+msgid "CommandLine.Setup.Return"
+msgstr "Enter"
+
+msgid "CommandLine.Setup.off"
+msgstr "aus"
+
+msgid "CommandLine.Setup.on"
+msgstr "an"
 
 msgid "CommandLine.Simulation.Description.Long"
 msgstr ""

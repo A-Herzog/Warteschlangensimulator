@@ -49,7 +49,7 @@ public class CommandSetLanguage extends AbstractCommand {
 
 	@Override
 	public String[] getKeys() {
-		List<String> list=new ArrayList<>();
+		final List<String> list=new ArrayList<>();
 		list.addAll(Arrays.asList(Language.trAll("CommandLine.SetLanguage.Name")));
 		for (String s: Language.trOther("CommandLine.SetLanguage.Name")) if (!list.contains(s)) list.add(s);
 		return list.toArray(String[]::new);

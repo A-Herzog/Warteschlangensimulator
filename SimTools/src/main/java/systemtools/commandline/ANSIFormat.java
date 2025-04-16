@@ -85,6 +85,37 @@ public class ANSIFormat {
 	}
 
 	/**
+	 * Verschiebt den Cursor um die angegebene Anzahl an Zeilen nach oben.
+	 * @param lineCount	Anzahl an Zeilen
+	 * @see #moveCursorDown(int)
+	 */
+	public final void moveCursorUp(final int lineCount) {
+		if (!active) return;
+		System.out.print("\033["+lineCount+"A");
+		System.out.flush();
+	}
+
+	/**
+	 * Verschiebt den Cursor um die angegebene Anzahl an Zeilen nach unten.
+	 * @param lineCount	Anzahl an Zeilen
+	 * @see #moveCursorUp(int)
+	 */
+	public final void moveCursorDown(final int lineCount) {
+		if (!active) return;
+		System.out.print("\033["+lineCount+"B");
+		System.out.flush();
+	}
+
+	/**
+	 * Löscht auf dem Bildschirm alles nach der aktuellen Cursorposition.
+	 */
+	public final void eraseAfterCursor() {
+		if (!active) return;
+		System.out.print("\033[0J");
+		System.out.flush();
+	}
+
+	/**
 	 * Setzt alle Formateinstellungen zurück.<br>
 	 * ("ESC[0m")
 	 */

@@ -46,7 +46,7 @@ public class CommandSetMaxThreads extends AbstractCommand {
 
 	@Override
 	public String[] getKeys() {
-		List<String> list=new ArrayList<>();
+		final List<String> list=new ArrayList<>();
 		list.add(Language.tr("CommandLine.SetMaxThreads.Name"));
 		for (String s: Language.trOther("CommandLine.SetMaxThreads.Name")) if (!list.contains(s)) list.add(s);
 		return list.toArray(String[]::new);

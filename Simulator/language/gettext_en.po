@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-31 09:18+0200\n"
+"POT-Creation-Date: 2025-04-09 13:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2471,9 +2471,7 @@ msgstr ""
 "3. File name of the output file"
 
 msgid "CommandLine.ResetConfig.Description.Long"
-msgstr ""
-"Resets the configuration of the simulator.\n"
-"Only the entered license keys will be kept."
+msgstr "Resets the configuration of the simulator."
 
 msgid "CommandLine.ResetConfig.Description.Short"
 msgstr "Resets the program configuration."
@@ -2771,6 +2769,54 @@ msgstr "Unknown mode \"%s\"."
 
 msgid "CommandLine.SetNumberFormat.Name"
 msgstr "Decimalseparator"
+
+msgid "CommandLine.Setup.Change"
+msgstr "Change"
+
+msgid "CommandLine.Setup.Description.Long"
+msgstr "This command expects no additional parameters."
+
+msgid "CommandLine.Setup.Description.Short"
+msgstr "Interactive simulator configuration."
+
+msgid "CommandLine.Setup.Language"
+msgstr "Language"
+
+msgid "CommandLine.Setup.LoadBalancer"
+msgstr "Load balancer"
+
+msgid "CommandLine.Setup.MaxThreads"
+msgstr "Maximum number of threads"
+
+msgid "CommandLine.Setup.MaxThreads.Info"
+msgstr "U+Return for unlimited or Number+Enter for number of threads"
+
+msgid "CommandLine.Setup.MaxThreads.unlimited"
+msgstr "unlimited"
+
+msgid "CommandLine.Setup.MultiCoreSimulation"
+msgstr "Multi-core simulation"
+
+msgid "CommandLine.Setup.NUMA"
+msgstr "NUMA aware mode"
+
+msgid "CommandLine.Setup.Name"
+msgstr "Setup"
+
+msgid "CommandLine.Setup.NumberFormat"
+msgstr "Number format"
+
+msgid "CommandLine.Setup.Quit"
+msgstr "Beenden"
+
+msgid "CommandLine.Setup.Return"
+msgstr "Return"
+
+msgid "CommandLine.Setup.off"
+msgstr "off"
+
+msgid "CommandLine.Setup.on"
+msgstr "an"
 
 msgid "CommandLine.Simulation.Description.Long"
 msgstr ""

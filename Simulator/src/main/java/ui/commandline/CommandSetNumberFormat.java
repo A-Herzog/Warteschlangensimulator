@@ -49,7 +49,7 @@ public class CommandSetNumberFormat extends AbstractCommand {
 
 	@Override
 	public String[] getKeys() {
-		List<String> list=new ArrayList<>();
+		final List<String> list=new ArrayList<>();
 		list.addAll(Arrays.asList(Language.trAll("CommandLine.SetNumberFormat.Name")));
 		for (String s: Language.trOther("CommandLine.SetNumberFormat.Name")) if (!list.contains(s)) list.add(s);
 		return list.toArray(String[]::new);
