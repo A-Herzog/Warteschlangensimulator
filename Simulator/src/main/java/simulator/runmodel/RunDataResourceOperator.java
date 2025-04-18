@@ -17,7 +17,6 @@ package simulator.runmodel;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
-import mathtools.distribution.tools.DistributionRandomNumber;
 import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
 import ui.modeleditor.ModelSurface;
@@ -137,7 +136,7 @@ public class RunDataResourceOperator {
 		double additionalTime=0;
 		if (stationID!=stationIDLast && stationIDLast>=0) {
 			if (moveDistribution!=null) {
-				additionalTime=DistributionRandomNumber.randomNonNegative(moveDistribution);
+				additionalTime=simData.runData.random.randomNonNegative(moveDistribution);
 			} else {
 				if (moveExpression!=null) {
 					if (moveExpressionObj==null) {

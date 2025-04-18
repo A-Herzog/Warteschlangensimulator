@@ -20,7 +20,6 @@ import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.TimeTools;
-import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
 import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
@@ -196,7 +195,7 @@ public class RunElementTransportSource extends RunElement implements FreeResourc
 	 */
 	private double getReleaseDelay(final SimulationData simData, final int targetID) {
 		if (releaseDelayDistributions!=null && releaseDelayDistributions[targetID]!=null) {
-			return DistributionRandomNumber.randomNonNegative(releaseDelayDistributions[targetID])*releaseDelayTimeBaseMultiply;
+			return simData.runData.random.randomNonNegative(releaseDelayDistributions[targetID])*releaseDelayTimeBaseMultiply;
 		}
 		if (releaseDelayExpressions!=null && releaseDelayExpressions[targetID]!=null) {
 			final RunElementTransportSourceData data=getData(simData);

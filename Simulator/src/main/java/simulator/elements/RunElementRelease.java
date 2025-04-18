@@ -20,7 +20,6 @@ import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.TimeTools;
-import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
 import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
@@ -154,7 +153,7 @@ public class RunElementRelease extends RunElementPassThrough {
 			/* Verzögerung bei der Ressourcenfreigabe bestimmen */
 			double value=0.0;
 			if (distributionDelayedRelease[client.type]!=null) {
-				value=DistributionRandomNumber.randomNonNegative(distributionDelayedRelease[client.type]);
+				value=simData.runData.random.randomNonNegative(distributionDelayedRelease[client.type]);
 			} else {
 				final ExpressionCalc calc=getData(simData).delayExpression[client.type];
 				if (calc!=null) {

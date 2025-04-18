@@ -15,14 +15,12 @@
  */
 package parser.symbols;
 
-import mathtools.distribution.tools.DistributionRandomNumber;
 import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
 /**
  * Zufallszahl im Bereich [a,b)<br>
  * @author Alexander Herzog
- * @see DistributionRandomNumber#nextDouble()
  */
 public final class CalcSymbolPreOperatorRandomRange extends CalcSymbolPreOperator {
 	/**
@@ -58,7 +56,7 @@ public final class CalcSymbolPreOperatorRandomRange extends CalcSymbolPreOperato
 		final double a=Math.min(parameters[0],parameters[1]);
 		final double b=Math.max(parameters[0],parameters[1]);
 
-		return a+DistributionRandomNumber.nextDouble()*(b-a);
+		return a+calcSystem.getRandomDouble()*(b-a);
 	}
 
 	@Override
@@ -68,6 +66,6 @@ public final class CalcSymbolPreOperatorRandomRange extends CalcSymbolPreOperato
 		final double a=Math.min(parameters[0],parameters[1]);
 		final double b=Math.max(parameters[0],parameters[1]);
 
-		return a+DistributionRandomNumber.nextDouble()*(b-a);
+		return a+calcSystem.getRandomDouble()*(b-a);
 	}
 }

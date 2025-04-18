@@ -23,7 +23,6 @@ import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.TimeTools;
-import mathtools.distribution.tools.DistributionRandomNumber;
 import parser.MathCalcError;
 import simulator.coreelements.RunElementData;
 import simulator.events.WaitingCancelEvent;
@@ -253,7 +252,7 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 		if (distributionCancel[client.type]!=null || expressionCancel[client.type]!=null) {
 			double maxWaitingTime;
 			if (distributionCancel[client.type]!=null) {
-				maxWaitingTime=DistributionRandomNumber.randomNonNegative(distributionCancel[client.type]);
+				maxWaitingTime=simData.runData.random.randomNonNegative(distributionCancel[client.type]);
 			} else {
 				simData.runData.setClientVariableValues(client);
 				try {
@@ -349,7 +348,7 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 		final int type=client.type;
 		if (expressionProcess[type]==null) {
 			if (distributionProcess[type]==null) return 0.0;
-			return DistributionRandomNumber.randomNonNegative(distributionProcess[type])*station.timeBaseMultiply;
+			return simData.runData.random.randomNonNegative(distributionProcess[type])*station.timeBaseMultiply;
 		} else {
 			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*simData.runModel.scaleToSeconds;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);
@@ -375,7 +374,7 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 		if (lastClientIndex>=0) {
 			if (expressionSetup[lastClientIndex][nextClientIndex]==null) {
 				if (distributionSetup[lastClientIndex][nextClientIndex]!=null) {
-					time=DistributionRandomNumber.randomNonNegative(distributionSetup[lastClientIndex][nextClientIndex])*station.timeBaseMultiply;
+					time=simData.runData.random.randomNonNegative(distributionSetup[lastClientIndex][nextClientIndex])*station.timeBaseMultiply;
 				}
 			} else {
 				final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*simData.runModel.scaleToSeconds;
@@ -402,7 +401,7 @@ public class RunElementProcessData extends RunElementData implements RunElementD
 		final int type=client.type;
 		if (expressionPostProcess[type]==null) {
 			if (distributionPostProcess[type]==null) return 0.0;
-			return DistributionRandomNumber.randomNonNegative(distributionPostProcess[type])*station.timeBaseMultiply;
+			return simData.runData.random.randomNonNegative(distributionPostProcess[type])*station.timeBaseMultiply;
 		} else {
 			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*simData.runModel.scaleToSeconds;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);

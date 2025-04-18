@@ -34,6 +34,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.NumberTools;
+import mathtools.distribution.tools.RandomGeneratorMode;
 import scripting.java.ImportSettingsBuilder;
 import simulator.StartAnySimulator;
 import simulator.StartAnySimulator.AdditionalPrepareErrorInfo;
@@ -223,6 +224,11 @@ public class RunModel {
 	 * Kopier-Basis verwendet wird.
 	 */
 	public RunDataTransporters transportersTemplate;
+
+	/**
+	 * Zufallszahlen-Generator-Modus
+	 */
+	public RandomGeneratorMode randomGeneratorMode;
 
 	/**
 	 * Festen Seed für den Zufallszahlengenerator verwenden?
@@ -693,6 +699,13 @@ public class RunModel {
 		}
 
 		/* Seed für Zufallszahlengenerator */
+		switch (editModel.randomMode) {
+		case THREAD_LOCAL_RANDOM: runModel.randomGeneratorMode=RandomGeneratorMode.THREAD_LOCAL_RANDOM; break;
+		case RANDOM: runModel.randomGeneratorMode=RandomGeneratorMode.RANDOM; break;
+		case WELL19937C: runModel.randomGeneratorMode=RandomGeneratorMode.WELL19937C; break;
+		case MERSENNE_TWISTER: runModel.randomGeneratorMode=RandomGeneratorMode.MERSENNE_TWISTER; break;
+		default: runModel.randomGeneratorMode=RandomGeneratorMode.THREAD_LOCAL_RANDOM; break;
+		}
 		runModel.useFixedSeed=editModel.useFixedSeed;
 		runModel.fixedSeed=editModel.fixedSeed;
 

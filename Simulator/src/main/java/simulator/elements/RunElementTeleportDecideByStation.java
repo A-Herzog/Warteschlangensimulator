@@ -21,7 +21,6 @@ import java.util.stream.IntStream;
 import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
-import mathtools.distribution.tools.DistributionRandomNumber;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
@@ -243,10 +242,10 @@ public class RunElementTeleportDecideByStation extends RunElement {
 				nr=bestIndices[bestIndicesUsed-1];
 				break;
 			case RANDOM: /* Bei gleichem Wert Ziel zufällig wählen. */
-				nr=(int)FastMath.round(FastMath.floor(bestIndicesUsed*DistributionRandomNumber.nextDouble()));
+				nr=(int)FastMath.round(FastMath.floor(bestIndicesUsed*simData.runData.random.nextDouble()));
 				break;
 			default:
-				nr=bestIndices[(int)FastMath.round(FastMath.floor(bestIndicesUsed*DistributionRandomNumber.nextDouble()))];
+				nr=bestIndices[(int)FastMath.round(FastMath.floor(bestIndicesUsed*simData.runData.random.nextDouble()))];
 				break;
 			}
 		}

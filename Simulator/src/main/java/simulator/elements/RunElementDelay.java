@@ -23,7 +23,6 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
 import language.Language;
 import mathtools.TimeTools;
-import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
 import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
@@ -159,7 +158,7 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 		/* Verzögerung bestimmen */
 		double value;
 		if (distribution[client.type]!=null) {
-			value=DistributionRandomNumber.randomNonNegative(distribution[client.type]);
+			value=simData.runData.random.randomNonNegative(distribution[client.type]);
 		} else {
 			simData.runData.setClientVariableValues(client);
 			try {

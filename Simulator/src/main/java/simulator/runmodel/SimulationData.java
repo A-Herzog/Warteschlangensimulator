@@ -21,6 +21,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.NumberTools;
+import mathtools.distribution.tools.DistributionRandomNumberThreadLocal;
 import scripting.java.ExternalConnect;
 import simcore.SimData;
 import simcore.eventcache.AssociativeEventCache;
@@ -155,7 +156,7 @@ public class SimulationData extends SimData {
 		this.simulator=simulator;
 
 		this.runModel=runModel;
-		this.runData=new RunData(runModel,dynamicLoadBalancer);
+		this.runData=new RunData(runModel,dynamicLoadBalancer,null);
 		if (useStatistics!=null) {
 			statistics=useStatistics;
 		} else {
@@ -356,7 +357,8 @@ public class SimulationData extends SimData {
 		if (day>0) { /* Wenn mehrere Wiederholungen simuliert werden und dies nicht der erste Tag ist, Statistik sichern und RunData neu initialisieren */
 			lastDaysStatistics=statistics;
 			statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours,runModel.stateRecordSize,runModel.distributionRecordClientDataValues,runModel.useWelford);
-			runData=new RunData(runModel,dynamicLoadBalancer);
+			final DistributionRandomNumberThreadLocal oldRandom=runData.random;
+			runData=new RunData(runModel,dynamicLoadBalancer,oldRandom);
 		}
 
 		currentTime=0;

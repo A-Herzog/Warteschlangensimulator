@@ -19,7 +19,6 @@ import java.util.Arrays;
 
 import org.apache.commons.math3.util.FastMath;
 
-import mathtools.distribution.tools.DistributionRandomNumber;
 import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
@@ -69,7 +68,7 @@ public abstract class CalcSymbolDiscreteDistribution extends CalcSymbolPreOperat
 	 * @see #calcProbability(double[], int)
 	 */
 	private int getRandomNumber(final double[] parameters) {
-		final double d=DistributionRandomNumber.nextDouble();
+		final double d=calcSystem.getRandomDouble();
 		double sum=0;
 		for (int k=0;k<MAX_K;k++) {
 			final double p=calcProbability(parameters,k);

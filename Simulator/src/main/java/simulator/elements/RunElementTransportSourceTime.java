@@ -19,7 +19,6 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
-import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
 import parser.MathCalcError;
 import simulator.editmodel.EditModel;
@@ -123,7 +122,7 @@ public class RunElementTransportSourceTime {
 	public double getTransportTime(final SimulationData simData, final RunDataClient client, final ExpressionCalc[] delayExpression, final String stationName) {
 		double value;
 		if (distribution[client.stationInformationInt]!=null) {
-			value=DistributionRandomNumber.randomNonNegative(distribution[client.stationInformationInt]);
+			value=simData.runData.random.randomNonNegative(distribution[client.stationInformationInt]);
 		} else {
 			final double additionalWaitingTime=(simData.currentTime-client.lastWaitingStart)*simData.runModel.scaleToSeconds;
 			simData.runData.setClientVariableValues(client,additionalWaitingTime);

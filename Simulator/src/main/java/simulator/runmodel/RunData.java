@@ -29,7 +29,7 @@ import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.NumberTools;
-import mathtools.distribution.tools.DistributionRandomNumber;
+import mathtools.distribution.tools.DistributionRandomNumberThreadLocal;
 import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementAnalogProcessing;
@@ -71,6 +71,11 @@ public class RunData {
 	 * @see #setStationData(RunElement, RunElementData)
 	 */
 	private final RunModel runModel;
+
+	/**
+	 * System zur zur Erzeugung von Pseudo-Zufallszahlen
+	 */
+	public final DistributionRandomNumberThreadLocal random;
 
 	/**
 	 * Anzahl der bereits eingetroffenen Kunden<br>
@@ -389,9 +394,15 @@ public class RunData {
 	 * Konstruktor der Klasse <code>RunData</code>
 	 * @param runModel	Globales Laufzeitmodell, auf dessen Basis hier die Laufzeitdaten vorbereitet werden können (z.B. Arrays in passender Größe angelegt werden usw.)
 	 * @param dynamicLoadBalancer	Optional ein Load-Balancer für die Ankünfte über alle Threads (kann <code>null</code> sein)
+	 * @param useThisRandom	Optionales {@link DistributionRandomNumberThreadLocal}-Objekt weiterverwenden (bei der Simulation mehrerer Tage - würde jeder Tag wieder mit einem neuen Random (mit Seed) ausgestattet, würden sich die Tage wiederholen)
 	 */
-	public RunData(final RunModel runModel, final DynamicLoadBalancer dynamicLoadBalancer) {
+	public RunData(final RunModel runModel, final DynamicLoadBalancer dynamicLoadBalancer, final DistributionRandomNumberThreadLocal useThisRandom) {
 		this.runModel=runModel;
+		if (useThisRandom==null) {
+			random=new DistributionRandomNumberThreadLocal(runModel.randomGeneratorMode,runModel.useFixedSeed,runModel.fixedSeed);
+		} else {
+			random=useThisRandom;
+		}
 		scale=runModel.scaleToSeconds;
 		this.dynamicLoadBalancer=dynamicLoadBalancer;
 		clientsArrived=0;
@@ -459,8 +470,10 @@ public class RunData {
 			runtimeMapGlobal.putAll(runModel.globalMapInitial);
 		}
 
-		if (nr==0 && simData.runModel.useFixedSeed) {
-			DistributionRandomNumber.generator.setSeed(simData.runModel.fixedSeed+simData.threadNr);
+		/* Zufallszahlengenerator initialisieren */
+		if (nr==0) {
+			/* Nur am ersten Tag notwendig; danach übernimmt jedes neue RunData-Objekt das random-Objekt vom Vorgänger, siehe SimulatioData#initDay */
+			random.init();
 		}
 
 		for (RunElement element: runModel.elementsFast) {
@@ -1653,7 +1666,7 @@ public class RunData {
 				if (bestIndex.size()==1) {
 					return bestIndex.get(0).intValue();
 				} else {
-					return bestIndex.get((int)FastMath.round(FastMath.floor(bestIndex.size()*DistributionRandomNumber.nextDouble()))).intValue();
+					return bestIndex.get((int)FastMath.round(FastMath.floor(bestIndex.size()*simData.runData.random.nextDouble()))).intValue();
 				}
 			} finally {
 				if (secondaryPriorityListInUse) canUseGlobalSecondaryPriorityList=true;
@@ -1661,7 +1674,7 @@ public class RunData {
 		}
 
 		/* Zufällige Auswahl der Station */
-		return (int)FastMath.round(FastMath.floor(indexList.size()*DistributionRandomNumber.nextDouble()));
+		return (int)FastMath.round(FastMath.floor(indexList.size()*simData.runData.random.nextDouble()));
 	}
 
 	/**
@@ -1864,7 +1877,7 @@ public class RunData {
 					if (maxIndex.size()==1) {
 						select=0;
 					} else {
-						select=(int)FastMath.round(FastMath.floor(maxIndex.size()*DistributionRandomNumber.nextDouble()));
+						select=(int)FastMath.round(FastMath.floor(maxIndex.size()*simData.runData.random.nextDouble()));
 					}
 					final int index=maxIndex.remove(select);
 

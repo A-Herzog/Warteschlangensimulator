@@ -24,7 +24,6 @@ import java.util.Map;
 import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
-import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
 import parser.MathCalcError;
 import simulator.coreelements.RunElement;
@@ -363,13 +362,13 @@ public final class RunDataTransporters implements Cloneable {
 		if (carriesClients) {
 			/* Lade- und Entladezeiten */
 			if (transporter.loadDistribution!=null) {
-				time+=DistributionRandomNumber.randomNonNegative(transporter.loadDistribution);
+				time+=simData.runData.random.randomNonNegative(transporter.loadDistribution);
 			}
 			if (transporter.loadExpression!=null) {
 				time+=FastMath.max(0,transporter.loadExpression.calcOrDefault(simData.runData.variableValues,0.0));
 			}
 			if (transporter.unloadDistribution!=null) {
-				time+=DistributionRandomNumber.randomNonNegative(transporter.unloadDistribution);
+				time+=simData.runData.random.randomNonNegative(transporter.unloadDistribution);
 			}
 			if (transporter.unloadExpression!=null) {
 				time+=FastMath.max(0,transporter.unloadExpression.calcOrDefault(simData.runData.variableValues,0.0));

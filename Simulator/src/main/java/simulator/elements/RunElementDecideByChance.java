@@ -20,7 +20,6 @@ import java.util.List;
 
 import language.Language;
 import mathtools.NumberTools;
-import mathtools.distribution.tools.DistributionRandomNumber;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
 import simulator.editmodel.EditModel;
@@ -183,7 +182,7 @@ public class RunElementDecideByChance extends RunElement {
 			if (nr<0) nr=probabilitesStrings.length-1;
 		} else {
 			/* Einfache Wahrscheinlichkeiten */
-			final double rnd=DistributionRandomNumber.nextDouble();
+			final double rnd=simData.runData.random.nextDouble();
 			double sum=0;
 			for (int i=0;i<probabilites.length;i++) {
 				sum+=probabilites[i];

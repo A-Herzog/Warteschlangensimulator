@@ -19,7 +19,6 @@ import java.util.Arrays;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
-import mathtools.distribution.tools.DistributionRandomNumber;
 import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
@@ -103,7 +102,7 @@ public abstract class CalcSymbolDistribution extends CalcSymbolPreOperator {
 		if (parameters.length==parameterCount) {
 			AbstractRealDistribution distribution=fastGetDistribution(parameters);
 			if (distribution==null) throw error();
-			return DistributionRandomNumber.randomNonNegative(distribution);
+			return calcSystem.getRandomNonNegative(distribution);
 		}
 
 		/* Dichte oder Verteilung */
@@ -134,7 +133,7 @@ public abstract class CalcSymbolDistribution extends CalcSymbolPreOperator {
 		if (parameters.length==parameterCount) {
 			final AbstractRealDistribution distribution=fastGetDistribution(parameters);
 			if (distribution==null) return fallbackValue;
-			return DistributionRandomNumber.randomNonNegative(distribution);
+			return calcSystem.getRandomNonNegative(distribution);
 		}
 
 		/* Dichte oder Verteilung */

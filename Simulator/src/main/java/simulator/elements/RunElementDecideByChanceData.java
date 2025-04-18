@@ -15,7 +15,6 @@
  */
 package simulator.elements;
 
-import mathtools.distribution.tools.DistributionRandomNumber;
 import parser.MathCalcError;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
@@ -91,7 +90,7 @@ public class RunElementDecideByChanceData extends RunElementData {
 		}
 		if (sum==0.0) return 0;
 
-		final double rnd=DistributionRandomNumber.nextDouble()*sum;
+		final double rnd=simData.runData.random.nextDouble()*sum;
 		double d=0.0;
 		for (int i=0;i<rates.length-1;i++) { /* -1; spart einen Rechenschritt, da wir so oder so einfach den Fallback-Wert verwenden. */
 			d+=calculatedRates[i];

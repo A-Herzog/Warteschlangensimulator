@@ -24,7 +24,6 @@ import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.NumberTools;
-import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
 import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
@@ -448,7 +447,7 @@ public class RunElementSourceRecord {
 	 * @return	Ankunfts-Batch-Größe
 	 */
 	public int getMultiBatchSize(final SimulationData simData) {
-		final double p=DistributionRandomNumber.nextDouble();
+		final double p=simData.runData.random.nextDouble();
 		for (int i=0;i<batchSizesPSums.length;i++) if (batchSizesPSums[i]>=p) return i+1;
 		return batchSizesPSums.length-1;
 	}
@@ -540,7 +539,7 @@ public class RunElementSourceRecord {
 					arrivalCount++;
 
 					/* Ankunftszeitpunkt */
-					long timeMS=FastMath.round((nextSlotNr*duration+duration*DistributionRandomNumber.nextDouble())*simData.runModel.scaleToSimTime);
+					long timeMS=FastMath.round((nextSlotNr*duration+duration*simData.runData.random.nextDouble())*simData.runModel.scaleToSimTime);
 
 					/* Ankunfts-Event-Objekt holen */
 					final SystemArrivalEvent nextArrival=(SystemArrivalEvent)simData.getEvent(SystemArrivalEvent.class);
@@ -682,7 +681,7 @@ public class RunElementSourceRecord {
 			final SystemArrivalEvent nextArrival=(SystemArrivalEvent)simData.getEvent(SystemArrivalEvent.class);
 
 			/* Ausführungszeitpunkt festlegen */
-			final double rnd=DistributionRandomNumber.nextDouble();
+			final double rnd=simData.runData.random.nextDouble();
 			final long arrivalTimeMS=(intervalStartSec+Math.round(intervalExpressionsIntervalTime*rnd))*simData.runModel.scaleToSimTime;
 			nextArrival.init(arrivalTimeMS);
 
@@ -780,7 +779,7 @@ public class RunElementSourceRecord {
 			if (isFirstArrival && firstArrivalAt0) {
 				rawTimeDelta=0;
 			} else {
-				rawTimeDelta=DistributionRandomNumber.randomNonNegative(distribution);
+				rawTimeDelta=simData.runData.random.randomNonNegative(distribution);
 			}
 			return scheduleNextArrivalTime(simData,rawTimeDelta,isFirstArrival,element,stationName);
 		}

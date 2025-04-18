@@ -19,7 +19,6 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
-import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
 import parser.MathCalcError;
 import simulator.events.ResourcesReCheckEvent;
@@ -154,7 +153,7 @@ public class RunDataResourceFailure {
 	 */
 	public void scheduleDownTime(final SimulationData simData, final long availableStartTime, final String resourceName) {
 		if (failureMode==ModelResourceFailure.FailureMode.FAILURE_BY_DISTRIBUTION) {
-			double d=DistributionRandomNumber.randomNonNegative(failureDistribution);
+			double d=simData.runData.random.randomNonNegative(failureDistribution);
 			pauseStartTime=availableStartTime+FastMath.round(d*simData.runModel.scaleToSimTime);
 			if (pauseStartTime<=simData.currentTime) pauseStartTime=simData.currentTime+1;
 			scheduleResourceCheckEvent(simData,pauseStartTime);
@@ -194,7 +193,7 @@ public class RunDataResourceFailure {
 				return 0;
 			}
 		} else {
-			return FastMath.round(DistributionRandomNumber.randomNonNegative(downTimeDistribution)*simData.runModel.scaleToSimTime);
+			return FastMath.round(simData.runData.random.randomNonNegative(downTimeDistribution)*simData.runModel.scaleToSimTime);
 		}
 	}
 

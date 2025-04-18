@@ -18,7 +18,6 @@ package simulator.elements;
 import java.util.List;
 
 import language.Language;
-import mathtools.distribution.tools.DistributionRandomNumber;
 import simulator.builder.RunModelCreatorStatus;
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementPassThrough;
@@ -191,7 +190,7 @@ public class RunElementBalking extends RunElementPassThrough {
 			final ExpressionMultiEval condition=data.conditions[client.type];
 			if (condition==null) {
 				final double p=probability[client.type];
-				final double rnd=DistributionRandomNumber.nextDouble();
+				final double rnd=simData.runData.random.nextDouble();
 				balking=(rnd<p);
 			} else {
 				simData.runData.setClientVariableValues(client);

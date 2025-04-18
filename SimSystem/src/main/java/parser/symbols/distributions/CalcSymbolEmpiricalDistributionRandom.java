@@ -18,7 +18,6 @@ package parser.symbols.distributions;
 import java.util.Arrays;
 
 import mathtools.distribution.DataDistributionImpl;
-import mathtools.distribution.tools.DistributionRandomNumber;
 import parser.MathCalcError;
 import parser.coresymbols.CalcSymbolPreOperator;
 
@@ -56,7 +55,7 @@ public class CalcSymbolEmpiricalDistributionRandom extends CalcSymbolPreOperator
 		final double[] data=Arrays.copyOf(parameters,parameters.length-1);
 		final DataDistributionImpl dist=new DataDistributionImpl(upper,data);
 		dist.normalizeDensity();
-		return DistributionRandomNumber.randomNonNegative(dist);
+		return calcSystem.getRandomNonNegative(dist);
 	}
 
 	@Override

@@ -27,7 +27,7 @@ import org.apache.commons.math3.util.FastMath;
 import mathtools.distribution.DistributionWithRandom;
 
 /**
- * Da die Klasse <code>AbstractContinuousDistribution</code> keine Funktionen zur
+ * Da die Klasse {@link AbstractRealDistribution} keine Funktionen zur
  * Erzeugung von Zufallszahlen gemäß der jeweiligen Verteilung enthält, wird
  * dies durch diese Klasse nachgerüstet.<br><br>
  * Die Klasse besitzt nur eine statische Methode <code>Random</code> die eine Zufallszahl erzeugt.

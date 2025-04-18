@@ -472,6 +472,7 @@ public class ExpressionCalc extends CalcSystem {
 	public double calc(double[] variableValues, final SimulationData simData, final RunDataClient client) throws MathCalcError {
 		if (simData!=null && (runElements==null || this.simData!=simData)) {
 			this.simData=simData;
+			setRandomGenerator(simData.runData.random);
 			prepareRunElementData();
 		}
 		currentClient=client;
@@ -491,6 +492,7 @@ public class ExpressionCalc extends CalcSystem {
 
 		if (simData!=null && (runElements==null || this.simData!=simData)) {
 			this.simData=simData;
+			setRandomGenerator(simData.runData.random);
 			prepareRunElementData();
 		}
 		currentClient=client;

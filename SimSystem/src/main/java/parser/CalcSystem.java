@@ -19,7 +19,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.math3.distribution.AbstractRealDistribution;
+
 import mathtools.NumberTools;
+import mathtools.distribution.tools.DistributionRandomNumber;
+import mathtools.distribution.tools.DistributionRandomNumberThreadLocal;
 import parser.coresymbols.CalcSymbol;
 import parser.coresymbols.CalcSymbolMiddleOperator;
 import parser.coresymbols.CalcSymbolPreOperator;
@@ -55,6 +59,14 @@ public class CalcSystem extends CalcSystemBase {
 	 * @see NumberTools#fastPositiveFractionalResults
 	 */
 	public static final Double[] fastPositiveFractionalResults=NumberTools.fastPositiveFractionalResults;
+
+	/**
+	 * Pseudo-Zufallszahlengenerator (kann <code>null</code> sein, dann wird {@link DistributionRandomNumber} verwendet)
+	 * @see #setRandomGenerator(DistributionRandomNumberThreadLocal)
+	 * @see #getRandomDouble()
+	 * @see #getRandomNonNegative(AbstractRealDistribution)
+	 */
+	private DistributionRandomNumberThreadLocal randomGenerator;
 
 	/**
 	 * Zuordnung, die besondere Werte zur Kommunikation eines Symbols mit ihren Parametern vorh‰lt.
@@ -139,6 +151,48 @@ public class CalcSystem extends CalcSystemBase {
 	 */
 	public CalcSystem(final String text, final List<String> variables) {
 		super(text,variables);
+	}
+
+	/**
+	 * Stellt ein System zur Generierung von Pseudo-Zufallszahlen ein.
+	 * @param randomGenerator	Pseudo-Zufallszahlengenerator
+	 * @see DistributionRandomNumberThreadLocal
+	 */
+	public void setRandomGenerator(final DistributionRandomNumberThreadLocal randomGenerator) {
+		this.randomGenerator=randomGenerator;
+	}
+
+	/**
+	 * Liefert eine Pseudo-Zufallszahl im Bereich [0,1].
+	 * Ist ein spezieller Generator hinterlegt, so wird dieser verwendet;
+	 * ansonsten wird {@link DistributionRandomNumber} verwendet.
+	 * @return	Pseudo-Zufallszahl im Bereich [0,1]
+	 * @see DistributionRandomNumber
+	 * @see DistributionRandomNumberThreadLocal
+	 */
+	public double getRandomDouble() {
+		if (randomGenerator==null) {
+			return DistributionRandomNumber.nextDouble();
+		} else {
+			return randomGenerator.nextDouble();
+		}
+	}
+
+	/**
+	 * Liefert eine nicht-negative Pseudo-Zufallszahl gem‰ﬂ einer Verteilungsfunktion.
+	 * Ist ein spezieller Generator hinterlegt, so wird dieser verwendet;
+	 * ansonsten wird {@link DistributionRandomNumber} verwendet.
+	 * @param distribution	Verteilungsfunktion
+	 * @return	Pseudo-Zufallszahl gem‰ﬂ der angegebenen Verteilung
+	 * @see DistributionRandomNumber
+	 * @see DistributionRandomNumberThreadLocal
+	 */
+	public double getRandomNonNegative(final AbstractRealDistribution distribution) {
+		if (randomGenerator==null) {
+			return DistributionRandomNumber.randomNonNegative(distribution);
+		} else {
+			return randomGenerator.randomNonNegative(distribution);
+		}
 	}
 
 	/**

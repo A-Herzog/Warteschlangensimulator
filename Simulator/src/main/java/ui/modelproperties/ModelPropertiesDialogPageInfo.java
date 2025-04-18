@@ -142,10 +142,6 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 		});
 		sub.add(randomModeResetButton);
 
-		lines.add(sub=new JPanel(new BorderLayout()));
-		sub.setBorder(BorderFactory.createEmptyBorder(0,5,0,0));
-		sub.add(new JLabel("<html>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.RandomMode.Info")+"</html>"));
-
 		checkRandomMode();
 
 		lines.add(Box.createVerticalStrut(10));

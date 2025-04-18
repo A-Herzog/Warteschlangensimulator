@@ -19,7 +19,6 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
-import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
 import parser.MathCalcError;
 import simulator.events.TransporterPauseEndEvent;
@@ -120,7 +119,7 @@ public class RunDataTransporterFailure {
 	 */
 	public void scheduleDownTime(final SimulationData simData, final long availableStartTime, final String logTransporterName) {
 		if (failureMode==ModelTransporterFailure.FailureMode.FAILURE_BY_DISTRIBUTION) {
-			double d=DistributionRandomNumber.randomNonNegative(failureDistribution);
+			double d=simData.runData.random.randomNonNegative(failureDistribution);
 			pauseStartTime=availableStartTime+FastMath.round(d*simData.runModel.scaleToSimTime);
 			if (pauseStartTime<=simData.currentTime) pauseStartTime=simData.currentTime+1;
 		}
@@ -152,7 +151,7 @@ public class RunDataTransporterFailure {
 				return 0;
 			}
 		} else {
-			return FastMath.round(DistributionRandomNumber.randomNonNegative(downTimeDistribution)*simData.runModel.scaleToSimTime);
+			return FastMath.round(simData.runData.random.randomNonNegative(downTimeDistribution)*simData.runModel.scaleToSimTime);
 		}
 	}
 
