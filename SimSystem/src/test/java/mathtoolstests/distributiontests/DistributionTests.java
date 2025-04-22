@@ -34,6 +34,7 @@ import org.junit.jupiter.api.Test;
 import mathtools.distribution.AbstractDiscreteRealDistribution;
 import mathtools.distribution.ArcsineDistribution;
 import mathtools.distribution.ChiDistributionImpl;
+import mathtools.distribution.CosineDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteBorelDistributionImpl;
 import mathtools.distribution.DiscreteGeometricDistributionImpl;
@@ -2170,6 +2171,73 @@ class DistributionTests {
 		dist=dist.clone();
 		assertEquals((2.0+5.0)/2,dist.getNumericalMean());
 		assertEquals((0.25-2.0/Math.PI/Math.PI)*Math.pow(5.0-2.0,2.0),dist.getNumericalVariance());
+		assertEquals(2,dist.getSupportLowerBound());
+		assertEquals(5,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[]{2,5});
+	}
+
+	/**
+	 * Test: Cosinus-Verteilung
+	 * @see CosineDistributionImpl
+	 */
+	@Test
+	void testCosineDist() {
+		CosineDistributionImpl dist;
+
+		dist=new CosineDistributionImpl(-2,-5);
+		assertEquals(-2,dist.a);
+		assertTrue(dist.b>=-2);
+
+		dist=new CosineDistributionImpl(2,5);
+		assertEquals(2,dist.a);
+		assertEquals(5,dist.b);
+
+		assertEquals((2.0+5.0)/2,dist.getNumericalMean());
+		assertEquals((Math.PI*Math.PI-6)*(2-5)*(2-5)/(12*Math.PI*Math.PI),dist.getNumericalVariance());
+		assertEquals(2,dist.getSupportLowerBound());
+		assertEquals(5,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		assertEquals(0,dist.density(-1));
+		assertEquals(0,dist.density(1));
+		assertTrue(dist.density(3)>0);
+		assertEquals(0,dist.density(6));
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(0,dist.cumulativeProbability(1));
+		assertEquals(0,dist.cumulativeProbability(2));
+		assertTrue(dist.cumulativeProbability(3)>0);
+		assertEquals(1,dist.cumulativeProbability(5));
+		assertEquals(1,dist.cumulativeProbability(6));
+
+		dist=(CosineDistributionImpl)DistributionTools.cloneDistribution(dist);
+		assertEquals((2.0+5.0)/2,dist.getNumericalMean());
+		assertEquals((Math.PI*Math.PI-6)*(2-5)*(2-5)/(12*Math.PI*Math.PI),dist.getNumericalVariance());
+		assertEquals(2,dist.getSupportLowerBound());
+		assertEquals(5,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=new CosineDistributionImpl(dist);
+		assertEquals((2.0+5.0)/2,dist.getNumericalMean());
+		assertEquals((Math.PI*Math.PI-6)*(2-5)*(2-5)/(12*Math.PI*Math.PI),dist.getNumericalVariance());
+		assertEquals(2,dist.getSupportLowerBound());
+		assertEquals(5,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=dist.clone();
+		assertEquals((2.0+5.0)/2,dist.getNumericalMean());
+		assertEquals((Math.PI*Math.PI-6)*(2-5)*(2-5)/(12*Math.PI*Math.PI),dist.getNumericalVariance());
 		assertEquals(2,dist.getSupportLowerBound());
 		assertEquals(5,dist.getSupportUpperBound());
 		assertTrue(dist.isSupportLowerBoundInclusive());

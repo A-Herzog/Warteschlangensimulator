@@ -666,6 +666,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.SineDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.SineDistribution.RandomNumberInfo"));
 
+		/* Cosinus-Verteilung */
+
+		addDist(group,filterUpper,"CosineDist","a;b",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.CosineDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.CosineDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.CosineDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.CosineDistribution.RandomNumberInfo"));
+
 		/* Arcus Sinus-Verteilung */
 
 		addDist(group,filterUpper,"ArcsineDist","a;b",

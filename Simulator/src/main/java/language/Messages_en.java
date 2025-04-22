@@ -5034,8 +5034,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[12019] = "The maximum script run time has been exceeded.";
     t[12020] = "ThreadCalibration.Results.ClientsPerSecond";
     t[12021] = "Clients/second";
-    t[12024] = "ThreadCalibration.Menu";
-    t[12025] = "Calculate number of threads dependent performance...";
+    t[12024] = "ExpressionBuilder.ProbabilityDistributions.CosineDistribution";
+    t[12025] = "Cosine distribution";
     t[12028] = "Optimizer.Tab.Optimization.yAxisLogarithmic";
     t[12029] = "y axis logarithmic";
     t[12030] = "ModelDescription.Action.Action";
@@ -6004,8 +6004,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14317] = "Initial value for global map";
     t[14324] = "Surface.CounterMulti.Dialog.GroupName.Error.Info";
     t[14325] = "No group name was specified for the counter.";
-    t[14326] = "Simulation.Creator.RNGLocked";
-    t[14327] = "The selected random number generator mode cannot be activated at the moment. First end the other simulations within this process.";
     t[14328] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations";
     t[14329] = "Waiting times at a station";
     t[14330] = "Git.List.Push";
@@ -6022,14 +6020,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[14361] = "Call center example model";
     t[14362] = "ExpressionBuilder.TrigonometricFunctions.ArcusSinusHyperbolicus.Info";
     t[14363] = "<p>Calculates the value of the arc sine hyperbolicus function with the value passed as parameter.</p> <p> Example: <tt>arcsinh(0)</tt> return 0.</p>";
+    t[14368] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.2Logarithm";
+    t[14369] = "Logarithm to base 2";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_3 (java.lang.String[] t) {
-    t[14368] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.2Logarithm";
-    t[14369] = "Logarithm to base 2";
     t[14372] = "Animation.SkipWarmUp.Title";
     t[14373] = "Skip warm-up phase";
     t[14374] = "Git.List.Add";
@@ -6356,6 +6354,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15169] = "Average time";
     t[15172] = "Simulation.Element.SourceTable.Name";
     t[15173] = "Table source";
+    t[15178] = "ExpressionBuilder.ProbabilityDistributions.CosineDistribution.DensityInfo";
+    t[15179] = "<p>Calculates the value of the density of the cosine distribution at the location specified as the first parameter with the parameters [a;b] according to the second (a) and the third (b) parameter.</p>";
     t[15186] = "Simulation.Creator.ReleaseUnknownResource";
     t[15187] = "For the release resource element id=%d a seize resource element is needed. The specified seize resource element \"%s\" does not exist.";
     t[15190] = "Examples.LimitedNumberOfClientsAtAStation";
@@ -7698,6 +7698,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18495] = "External data sources";
     t[18496] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesOverAll.VarianceOfTheTime";
     t[18497] = "<p>Returns the variance over all transfer times for all clients.</p>";
+    t[18500] = "ExpressionBuilder.ProbabilityDistributions.CosineDistribution.RandomNumberInfo";
+    t[18501] = "<p>Generates a random number according to the cosine distribution with the parameters [a;b] according to the first (a) and the second (b) parameter.</p>";
     t[18504] = "ExpressionCalculator.Toolbar.Tools.Hint";
     t[18505] = "Insert script command";
     t[18514] = "Surface.AnimationPieChart.Tooltip";
@@ -8026,14 +8028,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[19257] = "Variable";
     t[19260] = "Optimizer.Error.NoTarget";
     t[19261] = "No target was defined.";
-    t[19270] = "ScriptPopup.Clients.count";
-    t[19271] = "Number of waiting clients";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_4 (java.lang.String[] t) {
+    t[19270] = "ScriptPopup.Clients.count";
+    t[19271] = "Number of waiting clients";
     t[19280] = "Statistic.FastAccess.Template.SaveStatisticsNext.Tooltip";
     t[19281] = "Saves the statistic results as an XML file in some directory";
     t[19286] = "ModelDescription.PickUp.NewClientType";
@@ -8698,8 +8700,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[20875] = "Update manually";
     t[20882] = "Surface.TransportSource.Dialog.DelayTimeIs.WaitingTime";
     t[20883] = "waiting time";
-    t[20888] = "Editor.Dialog.Tab.SimulationSystem.RandomMode.Info";
-    t[20889] = "All generators offered are suitable for simulation. But the mode \"ThreadLocalRandom\" works the fastest.";
     t[20890] = "Surface.HoldJS.XML.Condition.Java";
     t[20891] = "Java";
     t[20892] = "Color.B8860B";
@@ -11486,6 +11486,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[27723] = "Overwrite";
     t[27738] = "Statistic.FastAccess.Template.ClientsInSystemQueue.Tooltip";
     t[27739] = "Inserts at the current position the command to output the average number of waiting clients in the system.";
+    t[27744] = "Distribution.CosineWikipedia";
+    t[27745] = "https://en.wikipedia.org/wiki/Raised_cosine_distribution";
     t[27746] = "Main.Menu.Help.SupportData.Mnemonic";
     t[27747] = "p";
     t[27748] = "ExpressionBuilder.StatisticalFunctions.Kurt";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29023] = "File output";
     t[29024] = "Surface.PickUp.Dialog.SendTemporaryBatched.Error.Title";
     t[29025] = "Missing name for client type";
-    t[29030] = "CommandLine.SetNumberFormat.Name";
-    t[29031] = "Decimalseparator";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29030] = "CommandLine.SetNumberFormat.Name";
+    t[29031] = "Decimalseparator";
     t[29032] = "SettingsDialog.ProxySettings";
     t[29033] = "Proxy configuration";
     t[29038] = "Statistic.Viewer.Context.Copy.Column";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33679] = "Runs the selected program function";
     t[33680] = "Simulation.Creator.InvalidOutputExpression";
     t[33681] = "The expression used in the %d th output of element id=%d is invalid at character %d.";
-    t[33682] = "ExpressionBuilder.ProbabilityDistributions.WeibullDistribution";
-    t[33683] = "Weibull distribution";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[33682] = "ExpressionBuilder.ProbabilityDistributions.WeibullDistribution";
+    t[33683] = "Weibull distribution";
     t[33686] = "Examples.DelayJS";
     t[33687] = "Homogenization of the number of clients";
     t[33696] = "Simulation.Log.CounterMulti";
@@ -14116,6 +14118,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[33869] = "Standard deviation of the inter-arrival times";
     t[33880] = "RecordAnimation.Scale";
     t[33881] = "Scaling";
+    t[33884] = "Distribution.Cosine";
+    t[33885] = "Cosine distribution";
     t[33896] = "Dialog.Button.Delete";
     t[33897] = "Delete";
     t[33902] = "Simulation.Element.TeleportDecideByStation.Name";
@@ -16048,16 +16052,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[38741] = "The e-book pdf version can be linked directly to the simulator via the input field below. It is then directly available in addition to the online help. The quick access (Ctrl+E) can be used to search directly in the table of contents and the index and to open the respective matching pages in the pdf.";
     t[38742] = "Statistics.ClientMovement.Visualization.UnknownStation";
     t[38743] = "unknown station";
-    t[38746] = "ModelDescription.AnimationPause.OnlyOnce";
-    t[38747] = "Trigger only once";
-    t[38752] = "Simulation.Creator.AnalogFlow.NoStopSignal";
-    t[38753] = "At element id=%d no signal name for stopping the flow was specified.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[38746] = "ModelDescription.AnimationPause.OnlyOnce";
+    t[38747] = "Trigger only once";
+    t[38752] = "Simulation.Creator.AnalogFlow.NoStopSignal";
+    t[38753] = "At element id=%d no signal name for stopping the flow was specified.";
     t[38756] = "ExpressionBuilder.ProbabilityDistributions.GumbelDistribution.RandomNumberRangeInfo";
     t[38757] = "<p>Generates a random number according to the Gumbel distribution with the expected value and the standard deviation defined by parameters three and four.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
     t[38760] = "Surface.Sub.Dialog.Description";
@@ -18054,16 +18058,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[43595] = "For transporter typ \"%s\" the specified down time expression \"%s\" is invalid at character %d.";
     t[43596] = "NotesDialog.Status.Main";
     t[43597] = "The note is on the <b>main surface</b>.";
-    t[43598] = "URLLoader.Error.InfoLoad";
-    t[43599] = "An error occurred while loading the data from\n%s";
-    t[43608] = "CommandLine.ServerMQTTFixed.Name";
-    t[43609] = "ServerMQTTFixed";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[43598] = "URLLoader.Error.InfoLoad";
+    t[43599] = "An error occurred while loading the data from\n%s";
+    t[43608] = "CommandLine.ServerMQTTFixed.Name";
+    t[43609] = "ServerMQTTFixed";
     t[43618] = "ModelDescription.Seize.Timeout";
     t[43619] = "Maximum waiting time for the resources to be released";
     t[43624] = "Main.Menu.View.ShowRaster.Mnemonic";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48517] = "Show script";
     t[48520] = "Surface.Decide.ByChance";
     t[48521] = "Random";
-    t[48522] = "Distribution.PoissonWikipedia";
-    t[48523] = "https://en.wikipedia.org/wiki/Poisson_distribution";
-    t[48524] = "Statistics.DistributionOfTheSetupTimes";
-    t[48525] = "Distribution of the setup times";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[48522] = "Distribution.PoissonWikipedia";
+    t[48523] = "https://en.wikipedia.org/wiki/Poisson_distribution";
+    t[48524] = "Statistics.DistributionOfTheSetupTimes";
+    t[48525] = "Distribution of the setup times";
     t[48528] = "Main.Menu.Edit.Align";
     t[48529] = "Align";
     t[48534] = "Statistics.AverageInterArrivalTime";
@@ -21342,8 +21346,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[51633] = "Erlang C (extended)";
     t[51640] = "CommandLine.SetDynamicThreadBalance.Error.CannotSaveSetup";
     t[51641] = "The changed setup cannot be saved.";
-    t[51644] = "Surface.AnimationTable.Dialog.Align.Right";
-    t[51645] = "right-justified";
+    t[51644] = "ExpressionBuilder.ProbabilityDistributions.CosineDistribution.DistributionFunctionInfo";
+    t[51645] = "<p>Calculates the value of the distribution function of the cosine distribution at the location specified as the first parameter with the parameters [a;b] according to the second (a) and the third (b) parameter.</p>";
     t[51656] = "Statistics.ClientMovement.Visualization.Title";
     t[51657] = "Visualize paths";
     t[51664] = "Surface.LogicDo.XML.Root";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53439] = "no name defined";
     t[53442] = "Resources.Group.InUse.Single";
     t[53443] = "<b>Attention:</b><br>\nThe selected operators group is in use by the element with the following ID:";
-    t[53454] = "Statistics.ClientMovement.Visualization.Tools";
-    t[53455] = "Export model as image";
-    t[53456] = "Distribution.FatigueLifeWikipedia";
-    t[53457] = "https://en.wikipedia.org/wiki/Birnbaum%E2%80%93Saunders_distribution";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[53454] = "Statistics.ClientMovement.Visualization.Tools";
+    t[53455] = "Export model as image";
+    t[53456] = "Distribution.FatigueLifeWikipedia";
+    t[53457] = "https://en.wikipedia.org/wiki/Birnbaum%E2%80%93Saunders_distribution";
     t[53458] = "ExpressionBuilder.ClientsInServiceProcess.MinimalNumber";
     t[53459] = "<p>Returns the minimal number of clients in service process at the station whose ID is specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[53460] = "Schedule.EditDialog.Load.Hint";
@@ -22312,6 +22316,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54013] = "There is no element with id %d.";
     t[54014] = "Surface.TeleportSource.Tooltip";
     t[54015] = "Source for a timeless transport to a teleport transport destination station.";
+    t[54016] = "ThreadCalibration.Menu";
+    t[54017] = "Calculate number of threads dependent performance...";
     t[54022] = "ExpressionBuilder.SimulationCharacteristics.UserStatistics.CurrentNumber";
     t[54023] = "<p>Gets the current value of the performance indicator <tt>nr</tt> (1 based) recorded at station id.</p>";
     t[54034] = "SimulationServer.Toolbar.MQTTStart.Hint";
@@ -22456,6 +22462,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54353] = "Waiting times by stations and client types";
     t[54356] = "CalcWebServer.Status.Unknown";
     t[54357] = "Unknown";
+    t[54360] = "Surface.AnimationTable.Dialog.Align.Right";
+    t[54361] = "right-justified";
     t[54362] = "Surface.SourceTable.Dialog.ClientTypes.LoadButton.ReplaceConfirm";
     t[54363] = "Do you want to replace the previous client types with the %d client types from the table?";
     t[54380] = "FitDialogMultiModal.InitialDensity";
@@ -24068,6 +24076,12 @@ public class Messages_en extends java.util.ResourceBundle {
     t[58311] = "ModelElementSliderVariable";
     t[58314] = "Main.Menu.Edit.MoveFront.Mnemonic";
     t[58315] = "F";
+  }
+  /**
+   * Part of the language array creation
+   * @param t	Language data array
+   */
+  static void clinit_part_12 (java.lang.String[] t) {
     t[58324] = "Surface.PopupMenu.BreakPoint.Condition.Error.Title";
     t[58325] = "Invalid condition";
     t[58328] = "Statistics.Utilization.Minimum";
@@ -24076,12 +24090,6 @@ public class Messages_en extends java.util.ResourceBundle {
     t[58331] = "Condition";
     t[58334] = "Schedule.EditDialog.Save.File";
     t[58335] = "Save schedule to file...";
-  }
-  /**
-   * Part of the language array creation
-   * @param t	Language data array
-   */
-  static void clinit_part_12 (java.lang.String[] t) {
     t[58336] = "Statistic.Viewer.Context.Filter.SelectAll";
     t[58337] = "All";
     t[58350] = "Surface.TankFlowPanel.SourceDestination.ErrorInfo";

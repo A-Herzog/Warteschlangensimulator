@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-09 13:22+0200\n"
+"POT-Creation-Date: 2025-04-17 21:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3405,6 +3405,12 @@ msgstr "https://en.wikipedia.org/wiki/Chi-squared_distribution"
 msgid "Distribution.ChiWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Chi_distribution"
 
+msgid "Distribution.Cosine"
+msgstr "Cosine distribution"
+
+msgid "Distribution.CosineWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Raised_cosine_distribution"
+
 msgid "Distribution.Data"
 msgstr "Empirical data"
 
@@ -4736,9 +4742,6 @@ msgstr "The model is error-free and can be simulated."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode"
 msgstr "Random numbers generator"
-
-msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.Info"
-msgstr "All generators offered are suitable for simulation. But the mode \"ThreadLocalRandom\" works the fastest."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.ResetToDefault"
 msgstr "Reset to default value"
@@ -6968,6 +6971,18 @@ msgid "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.RandomNu
 msgstr ""
 "<p>Generates a random number according to the Chi<sup>2</sup> distribution with the number of degrees of freedom according to third parameter.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.CosineDistribution"
+msgstr "Cosine distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.CosineDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the cosine distribution at the location specified as the first parameter with the parameters [a;b] according to the second (a) and the third (b) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.CosineDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the cosine distribution at the location specified as the first parameter with the parameters [a;b] according to the second (a) and the third (b) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.CosineDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the cosine distribution with the parameters [a;b] according to the first (a) and the second (b) parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.CustomDistribution"
 msgstr "User-defined distribution"
@@ -20579,9 +20594,6 @@ msgstr "The resources specified for serving the clients at element id=%d are inv
 
 msgid "Simulation.Creator.ProcessResourcePriority"
 msgstr "At element id=%d the invalid resource priority \"%s\" is specified."
-
-msgid "Simulation.Creator.RNGLocked"
-msgstr "The selected random number generator mode cannot be activated at the moment. First end the other simulations within this process."
 
 msgid "Simulation.Creator.RadiobuttonNoVariable"
 msgstr "At station id=%d no name was specified for the variable to be changed."
@@ -39519,6 +39531,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 #~ msgid "Editor.Dialog.Tab.Simulation.RandomMode"
 #~ msgstr "Random numbers generator"
 
+#~ msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.Info"
+#~ msgstr "All generators offered are suitable for simulation. But the mode \"ThreadLocalRandom\" works the fastest."
+
 #~ msgid "Editor.Edit"
 #~ msgstr "Edit"
 
@@ -39795,6 +39810,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Simulation.Creator.NoLicense"
 #~ msgstr "This program version is not licensed. The simulation cannot be started."
+
+#~ msgid "Simulation.Creator.RNGLocked"
+#~ msgstr "The selected random number generator mode cannot be activated at the moment. First end the other simulations within this process."
 
 #~ msgid "Simulation.Java.Error.NoCompiler"
 #~ msgstr "The Java compiler \"javac\" could not be found."

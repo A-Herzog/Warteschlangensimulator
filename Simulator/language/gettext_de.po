@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-09 13:22+0200\n"
+"POT-Creation-Date: 2025-04-17 21:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3409,6 +3409,12 @@ msgstr "https://de.wikipedia.org/wiki/Chi-Quadrat-Verteilung"
 msgid "Distribution.ChiWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Chi_distribution"
 
+msgid "Distribution.Cosine"
+msgstr "Cosinus-Verteilung"
+
+msgid "Distribution.CosineWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Raised_cosine_distribution"
+
 msgid "Distribution.Data"
 msgstr "Empirische Daten"
 
@@ -4742,9 +4748,6 @@ msgstr "Das Modell ist fehlerfrei und kann simuliert werden."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode"
 msgstr "Zufallszahlengenerator"
-
-msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.Info"
-msgstr "Alle angebotenen Generatoren sind für die Simulation geeignet. Allerdings arbeitet der Modus \"ThreadLocalRandom\" am schnellsten."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.ResetToDefault"
 msgstr "Auf Vorgabewert zurücksetzen"
@@ -6964,6 +6967,18 @@ msgid "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.RandomNu
 msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der Chi<sup>2</sup>-Verteilung mit der Anzahl an Freiheitsgraden gemäß dritten Parameter.</p>\n"
 "<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.CosineDistribution"
+msgstr "Cosinus-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.CosineDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Cosinus-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;b] gemäß dem zweiten (a) und dem dritten (b) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.CosineDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Cosinus-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern [a;b] gemäß dem zweiten (a) und dem dritten (b) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.CosineDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Cosinus-Verteilung mit den Parametern [a;b] gemäß dem ersten (a) und dem zweiten (b) Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.CustomDistribution"
 msgstr "Benutzerdefinierte Verteilung"
@@ -20621,9 +20636,6 @@ msgstr "Die für die Bedienung von Kunden an Element id=%d angegebenen notwendig
 
 msgid "Simulation.Creator.ProcessResourcePriority"
 msgstr "Für Element id=%d wurde die ungültige Ressourcen-Priorität \"%s\" angegeben."
-
-msgid "Simulation.Creator.RNGLocked"
-msgstr "Der gewählte Zufallszahlengeneratormodus kann momentan nicht aktiviert werden. Beenden Sie erst die anderen Simulationen innerhalb dieses Prozesses."
 
 msgid "Simulation.Creator.RadiobuttonNoVariable"
 msgstr "An Station id=%d wurde kein Name für die zu ändernde Variable angegeben."
@@ -39593,6 +39605,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 #~ msgid "Editor.Dialog.Tab.Simulation.RandomMode"
 #~ msgstr "Zufallszahlengenerator"
 
+#~ msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.Info"
+#~ msgstr "Alle angebotenen Generatoren sind für die Simulation geeignet. Allerdings arbeitet der Modus \"ThreadLocalRandom\" am schnellsten."
+
 #~ msgid "Editor.Edit"
 #~ msgstr "Bearbeiten"
 
@@ -39873,6 +39888,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Simulation.Creator.NoLicense"
 #~ msgstr "Diese Programmversion ist nicht lizensiert. Die Simulation kann nicht gestartet werden."
+
+#~ msgid "Simulation.Creator.RNGLocked"
+#~ msgstr "Der gewählte Zufallszahlengeneratormodus kann momentan nicht aktiviert werden. Beenden Sie erst die anderen Simulationen innerhalb dieses Prozesses."
 
 #~ msgid "Simulation.Java.Error.NoCompiler"
 #~ msgstr "Der Java-Kompiler \"javac\" konnte nicht gefunden werden."

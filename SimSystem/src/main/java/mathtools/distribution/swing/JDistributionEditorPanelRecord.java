@@ -30,6 +30,7 @@ import org.apache.commons.math3.distribution.UniformRealDistribution;
 import mathtools.NumberTools;
 import mathtools.distribution.ArcsineDistribution;
 import mathtools.distribution.ChiDistributionImpl;
+import mathtools.distribution.CosineDistributionImpl;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteBorelDistributionImpl;
@@ -81,6 +82,7 @@ import mathtools.distribution.tools.WrapperBorelDistribution;
 import mathtools.distribution.tools.WrapperCauchyDistribution;
 import mathtools.distribution.tools.WrapperChiDistribution;
 import mathtools.distribution.tools.WrapperChiSquaredDistribution;
+import mathtools.distribution.tools.WrapperCosineDistribution;
 import mathtools.distribution.tools.WrapperDataDistribution;
 import mathtools.distribution.tools.WrapperDiscreteUniformDistribution;
 import mathtools.distribution.tools.WrapperErlangDistribution;
@@ -332,6 +334,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new KumaraswamyDistributionPanel());
 		allRecords.add(new IrwinHallDistributionPanel());
 		allRecords.add(new SineDistributionPanel());
+		allRecords.add(new CosineDistributionPanel());
 		allRecords.add(new ArcsineDistributionPanel());
 		allRecords.add(new WignerHalfCircleDistributionPanel());
 		allRecords.add(new BorelDistributionPanel());
@@ -1596,6 +1599,45 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double d2=NumberTools.getDouble(fields[1],true); if (d2==null) return null;
 			if (d1>=d2) return null;
 			return new SineDistribution(d1,d2);
+		}
+	}
+
+	/** Cosinus-Verteilung */
+	private static class CosineDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public CosineDistributionPanel() {
+			super(new WrapperCosineDistribution(),new String[]{JDistributionEditorPanel.DistUniformStart,JDistributionEditorPanel.DistUniformEnd});
+		}
+
+		@Override
+		public String[] getEditValues(final double meanD, final String mean, final double stdD, final String std, final String lower, final String upper, final double maxXValue) {
+			return new String[]{lower,upper};
+		}
+
+		@Override
+		public String[] getValues(final AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((CosineDistributionImpl)distribution).getSupportLowerBound()),
+					NumberTools.formatNumberMax(((CosineDistributionImpl)distribution).getSupportUpperBound())
+			};
+		}
+
+		@Override
+		public void setValues(final JTextField[] fields, final double mean, final double sd) {
+			CosineDistributionImpl distribution=(CosineDistributionImpl)wrapper.getDistribution(mean,sd);
+			if (distribution!=null) {
+				if (distribution.getSupportLowerBound()<0) distribution=new CosineDistributionImpl(0,mean*2);
+				final String[] text=getValues(distribution);
+				if (text!=null && text.length==fields.length) for (int i=0;i<text.length;i++) fields[i].setText(text[i]);
+			}
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(final JTextField[] fields, final double maxXValue) {
+			final Double d1=NumberTools.getDouble(fields[0],true); if (d1==null) return null;
+			final Double d2=NumberTools.getDouble(fields[1],true); if (d2==null) return null;
+			if (d1>=d2) return null;
+			return new CosineDistributionImpl(d1,d2);
 		}
 	}
 

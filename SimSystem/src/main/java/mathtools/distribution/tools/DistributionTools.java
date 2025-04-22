@@ -401,8 +401,14 @@ public final class DistributionTools {
 	/** Sinus-Verteilung */
 	public static String[] DistSine=new String[]{"Sinus-Verteilung"};
 
-	/** Wikipedia-Seite Sine-Verteilung */
+	/** Wikipedia-Seite Sinus-Verteilung */
 	public static String DistSineWikipedia=""; /* leide keine Wikipedia-Seite vorhanden */
+
+	/** Cosinus-Verteilung */
+	public static String[] DistCosine=new String[]{"Cosinus-Verteilung"};
+
+	/** Wikipedia-Seite Cosinus-Verteilung */
+	public static String DistCosineWikipedia="https://en.wikipedia.org/wiki/Raised_cosine_distribution";
 
 	/** Arcus Sinus-Verteilung */
 	public static String[] DistArcsine=new String[]{"Arcus Sinus-Verteilung"};
@@ -540,6 +546,7 @@ public final class DistributionTools {
 				new WrapperKumaraswamyDistribution(),
 				new WrapperIrwinHallDistribution(),
 				new WrapperSineDistribution(),
+				new WrapperCosineDistribution(),
 				new WrapperArcsineDistribution(),
 				new WrapperWignerHalfCircleDistribution(),
 				new WrapperLogCauchyDistribution(),

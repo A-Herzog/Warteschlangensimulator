@@ -291,6 +291,8 @@ public class LanguageStaticLoader {
 		DistributionTools.DistIrwinHall=Language.trAll("Distribution.IrwinHall");
 		DistributionTools.DistIrwinHallWikipedia=Language.tr("Distribution.IrwinHallWikipedia");
 		DistributionTools.DistSine=Language.trAll("Distribution.Sine");
+		DistributionTools.DistCosine=Language.trAll("Distribution.Cosine");
+		DistributionTools.DistCosineWikipedia=Language.tr("Distribution.CosineWikipedia");
 		DistributionTools.DistArcsine=Language.trAll("Distribution.Arcsine");
 		DistributionTools.DistWignerHalfCircle=Language.trAll("Distribution.WignerHalfCircle");
 		DistributionTools.DistWignerHalfCircleWikipedia=Language.tr("Distribution.WignerHalfCircleWikipedia");

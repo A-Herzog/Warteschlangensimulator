@@ -133,6 +133,7 @@ import parser.symbols.distributions.CalcSymbolDistributionBetaDirect;
 import parser.symbols.distributions.CalcSymbolDistributionCauchy;
 import parser.symbols.distributions.CalcSymbolDistributionChi;
 import parser.symbols.distributions.CalcSymbolDistributionChiSquare;
+import parser.symbols.distributions.CalcSymbolDistributionCosine;
 import parser.symbols.distributions.CalcSymbolDistributionExp;
 import parser.symbols.distributions.CalcSymbolDistributionF;
 import parser.symbols.distributions.CalcSymbolDistributionFatigueLife;
@@ -359,6 +360,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionIrwinHall());
 			addSymbol(new CalcSymbolDistributionIrwinHallDirect());
 			addSymbol(new CalcSymbolDistributionSine());
+			addSymbol(new CalcSymbolDistributionCosine());
 			addSymbol(new CalcSymbolDistributionArcsine());
 			addSymbol(new CalcSymbolDistributionWignerHalfCircle());
 			addSymbol(new CalcSymbolDistributionLogCauchy());
