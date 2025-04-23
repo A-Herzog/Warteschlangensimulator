@@ -699,13 +699,7 @@ public class RunModel {
 		}
 
 		/* Seed für Zufallszahlengenerator */
-		switch (editModel.randomMode) {
-		case THREAD_LOCAL_RANDOM: runModel.randomGeneratorMode=RandomGeneratorMode.THREAD_LOCAL_RANDOM; break;
-		case RANDOM: runModel.randomGeneratorMode=RandomGeneratorMode.RANDOM; break;
-		case WELL19937C: runModel.randomGeneratorMode=RandomGeneratorMode.WELL19937C; break;
-		case MERSENNE_TWISTER: runModel.randomGeneratorMode=RandomGeneratorMode.MERSENNE_TWISTER; break;
-		default: runModel.randomGeneratorMode=RandomGeneratorMode.THREAD_LOCAL_RANDOM; break;
-		}
+		runModel.randomGeneratorMode=editModel.randomMode;
 		runModel.useFixedSeed=editModel.useFixedSeed;
 		runModel.fixedSeed=editModel.fixedSeed;
 

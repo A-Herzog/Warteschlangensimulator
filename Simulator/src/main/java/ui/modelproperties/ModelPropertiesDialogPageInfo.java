@@ -30,6 +30,7 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
+import mathtools.distribution.tools.RandomGeneratorMode;
 import simulator.StartAnySimulator;
 import simulator.editmodel.EditModel;
 import systemtools.MsgBox;
@@ -129,9 +130,9 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(new JLabel("<html><b>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.RandomMode")+":</b></html>"));
 		sub.add(Box.createHorizontalStrut(1));
-		sub.add(randomMode=new JComboBox<>(EditModel.RandomMode.getAllNames()));
+		sub.add(randomMode=new JComboBox<>(RandomGeneratorMode.getAllNames()));
 		randomMode.setEnabled(!readOnly);
-		randomMode.setSelectedIndex(EditModel.RandomMode.getIndex(model.randomMode));
+		randomMode.setSelectedIndex(RandomGeneratorMode.getIndex(model.randomMode));
 		randomMode.addActionListener(e->checkRandomMode());
 
 		randomModeResetButton=new JButton(Images.EDIT_UNDO.getIcon());
@@ -222,7 +223,7 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 
 	@Override
 	public void storeData() {
-		model.randomMode=EditModel.RandomMode.fromIndex(randomMode.getSelectedIndex());
+		model.randomMode=RandomGeneratorMode.fromIndex(randomMode.getSelectedIndex());
 		final Long L=NumberTools.getNotNegativeLong(timeStepsPerSecond,true);
 		if (L!=null) model.timeStepsPerSecond=L.longValue();
 	}

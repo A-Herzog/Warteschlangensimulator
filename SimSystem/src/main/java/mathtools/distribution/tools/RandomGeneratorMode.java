@@ -17,10 +17,19 @@ package mathtools.distribution.tools;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
+import org.apache.commons.math3.random.ISAACRandom;
+import org.apache.commons.math3.random.JDKRandomGenerator;
 import org.apache.commons.math3.random.MersenneTwister;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.Well1024a;
+import org.apache.commons.math3.random.Well19937a;
 import org.apache.commons.math3.random.Well19937c;
+import org.apache.commons.math3.random.Well44497a;
+import org.apache.commons.math3.random.Well44497b;
+import org.apache.commons.math3.random.Well512a;
 
 /**
  * Stellt ein, welcher Pseudo-Zufallszahlen-Generator in {@link DistributionRandomNumberThreadLocal}
@@ -29,13 +38,25 @@ import org.apache.commons.math3.random.Well19937c;
  */
 public enum RandomGeneratorMode {
 	/** {@link ThreadLocalRandom} verwenden */
-	THREAD_LOCAL_RANDOM("ThreadLocalRandom"),
+	THREAD_LOCAL_RANDOM("ThreadLocalRandom",useSeed->useSeed?new JDKRandomGenerator():new LightweightThreadLocalRandomWrapper(ThreadLocalRandom.current())),
 	/** Pro Thread gekapselte Version von {@link Random} verwenden */
-	RANDOM("Random"),
+	RANDOM("Random",useSeed->new JDKRandomGenerator()),
+	/** Pro Thread gekapselte Version von {@link Well512a} verwenden */
+	WELL512A("Well512a",useSeed->new Well512a()),
+	/** Pro Thread gekapselte Version von {@link Well1024a} verwenden */
+	WELL1024A("Well1024a",useSeed->new Well1024a()),
+	/** Pro Thread gekapselte Version von {@link Well19937a} verwenden */
+	WELL19937A("Well19937a",useSeed->new Well19937a()),
 	/** Pro Thread gekapselte Version von {@link Well19937c} verwenden */
-	WELL19937C("Well19937c"),
+	WELL19937C("Well19937c",useSeed->new Well19937c()),
+	/** Pro Thread gekapselte Version von {@link Well44497a} verwenden */
+	WELL44497A("Well44497a",useSeed->new Well44497a()),
+	/** Pro Thread gekapselte Version von {@link Well44497b} verwenden */
+	WELL44497B("Well44497b",useSeed->new Well44497b()),
 	/** Pro Thread gekapselte Version von {@link MersenneTwister} verwenden */
-	MERSENNE_TWISTER("MersenneTwister");
+	MERSENNE_TWISTER("MersenneTwister",useSeed->new MersenneTwister()),
+	/** Pro Thread gekapselte Version von {@link ISAACRandom} verwenden */
+	ISAAC("ISAAC",useSeed->new ISAACRandom());
 
 	/**
 	 * Standardmäßig zu verwendender Modus
@@ -48,11 +69,18 @@ public enum RandomGeneratorMode {
 	public final String name;
 
 	/**
+	 * Callback zur Erzeugung eines Generator gemäß des Typs
+	 */
+	private final Function<Boolean,RandomGenerator> getterCallback;
+
+	/**
 	 * Konstruktor des Enum
 	 * @param name	Name des Zufallszahlengenerators (zum Speichern der Auswahl als Zeichenkette)
+	 * @param getterCallback	Callback zur Erzeugung eines Generator gemäß des Typs
 	 */
-	RandomGeneratorMode(final String name) {
+	RandomGeneratorMode(final String name, final Function<Boolean,RandomGenerator> getterCallback) {
 		this.name=name;
+		this.getterCallback=getterCallback;
 	}
 
 	/**
@@ -98,5 +126,87 @@ public enum RandomGeneratorMode {
 			index++;
 		}
 		return defaultIndex;
+	}
+
+	/**
+	 * Erzeugt einen Generator gemäß des Typs
+	 * @param useSeed	Muss es möglich sein, den für den Generator einen Seed zu setzen
+	 * @return	Neues Generator-Objekt
+	 */
+	public RandomGenerator getGenerator(final boolean useSeed) {
+		return getterCallback.apply(useSeed);
+	}
+
+	/**
+	 * Sorgt dafür, dass {@link ThreadLocalRandom} über ein {@link RandomGenerator}-Interface angesprochen werden kann.
+	 */
+	private static class LightweightThreadLocalRandomWrapper implements RandomGenerator {
+		/**
+		 * {@link ThreadLocalRandom}-Objekt
+		 */
+		private final ThreadLocalRandom random;
+
+		/**
+		 * Konstruktor
+		 * @param random	{@link ThreadLocalRandom}-Objekt
+		 */
+		private LightweightThreadLocalRandomWrapper(final ThreadLocalRandom random) {
+			this.random=random;
+		}
+
+		@Override
+		public void setSeed(int seed) {
+			/* Nicht seedable */
+		}
+
+		@Override
+		public void setSeed(int[] seed) {
+			/* Nicht seedable */
+		}
+
+		@Override
+		public void setSeed(long seed) {
+			/* Nicht seedable */
+		}
+
+		@Override
+		public void nextBytes(byte[] bytes) {
+			random.nextBytes(bytes);
+		}
+
+		@Override
+		public int nextInt() {
+			return random.nextInt();
+		}
+
+		@Override
+		public int nextInt(int n) {
+			return random.nextInt(n);
+		}
+
+		@Override
+		public long nextLong() {
+			return random.nextLong();
+		}
+
+		@Override
+		public boolean nextBoolean() {
+			return random.nextBoolean();
+		}
+
+		@Override
+		public float nextFloat() {
+			return random.nextFloat();
+		}
+
+		@Override
+		public double nextDouble() {
+			return random.nextDouble();
+		}
+
+		@Override
+		public double nextGaussian() {
+			return random.nextGaussian();
+		}
 	}
 }

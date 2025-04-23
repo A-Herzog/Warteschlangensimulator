@@ -15,18 +15,13 @@
  */
 package mathtools.distribution.tools;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.CauchyDistribution;
 import org.apache.commons.math3.distribution.ExponentialDistribution;
 import org.apache.commons.math3.distribution.GammaDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.distribution.UniformRealDistribution;
-import org.apache.commons.math3.random.JDKRandomGenerator;
-import org.apache.commons.math3.random.MersenneTwister;
 import org.apache.commons.math3.random.RandomGenerator;
-import org.apache.commons.math3.random.Well19937c;
 import org.apache.commons.math3.util.FastMath;
 
 import mathtools.distribution.DistributionWithRandom;
@@ -38,7 +33,7 @@ import mathtools.distribution.DistributionWithRandom;
  * Objekte dieser Klasse müssen thread-individuell verwendet werden.
  * Aus Performance-Gründen ist diese Klasse nicht thread-sicher.
  * @author Alexander Herzog
- * @version 1.0
+ * @version 1.1
  */
 public class DistributionRandomNumberThreadLocal {
 	/**
@@ -119,21 +114,7 @@ public class DistributionRandomNumberThreadLocal {
 	 * der später die Zahlen nutzen soll (zumindest wenn der Modus ThreadLocalRandom verwendet wird).
 	 */
 	public void init() {
-		switch (mode) {
-		case THREAD_LOCAL_RANDOM:
-			/* ThreadLocalRandomGenerator ist nicht seedable, daher Fallback zu JDKRandom */
-			generator=useSeed?new JDKRandomGenerator():new LightweightThreadLocalRandomWrapper(ThreadLocalRandom.current());
-			break;
-		case RANDOM:
-			generator=new JDKRandomGenerator();
-			break;
-		case WELL19937C:
-			generator=new Well19937c();
-			break;
-		case MERSENNE_TWISTER:
-			generator=new MersenneTwister();
-			break;
-		}
+		generator=mode.getGenerator(useSeed);
 		if (useSeed) generator.setSeed(seed);
 	}
 
@@ -305,78 +286,5 @@ public class DistributionRandomNumberThreadLocal {
 			d=random(distribution);
 		}
 		return (d>=0)?d:0;
-	}
-
-	/**
-	 * Sorgt dafür, dass {@link ThreadLocalRandom} über ein {@link RandomGenerator}-Interface angesprochen werden kann.
-	 */
-	private static class LightweightThreadLocalRandomWrapper implements RandomGenerator {
-		/**
-		 * {@link ThreadLocalRandom}-Objekt
-		 */
-		private final ThreadLocalRandom random;
-
-		/**
-		 * Konstruktor
-		 * @param random	{@link ThreadLocalRandom}-Objekt
-		 */
-		private LightweightThreadLocalRandomWrapper(final ThreadLocalRandom random) {
-			this.random=random;
-		}
-
-		@Override
-		public void setSeed(int seed) {
-			/* Nicht seedable */
-		}
-
-		@Override
-		public void setSeed(int[] seed) {
-			/* Nicht seedable */
-		}
-
-		@Override
-		public void setSeed(long seed) {
-			/* Nicht seedable */
-		}
-
-		@Override
-		public void nextBytes(byte[] bytes) {
-			random.nextBytes(bytes);
-		}
-
-		@Override
-		public int nextInt() {
-			return random.nextInt();
-		}
-
-		@Override
-		public int nextInt(int n) {
-			return random.nextInt(n);
-		}
-
-		@Override
-		public long nextLong() {
-			return random.nextLong();
-		}
-
-		@Override
-		public boolean nextBoolean() {
-			return random.nextBoolean();
-		}
-
-		@Override
-		public float nextFloat() {
-			return random.nextFloat();
-		}
-
-		@Override
-		public double nextDouble() {
-			return random.nextDouble();
-		}
-
-		@Override
-		public double nextGaussian() {
-			return random.nextGaussian();
-		}
 	}
 }
