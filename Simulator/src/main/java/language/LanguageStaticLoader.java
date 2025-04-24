@@ -296,6 +296,8 @@ public class LanguageStaticLoader {
 		DistributionTools.DistArcsine=Language.trAll("Distribution.Arcsine");
 		DistributionTools.DistWignerHalfCircle=Language.trAll("Distribution.WignerHalfCircle");
 		DistributionTools.DistWignerHalfCircleWikipedia=Language.tr("Distribution.WignerHalfCircleWikipedia");
+		DistributionTools.DistLogGamma=Language.trAll("Distribution.LogGamma");
+		DistributionTools.DistLogGammaWikipedia=Language.tr("Distribution.LogGammaWikipedia");
 		DistributionTools.DistUnknown=Language.tr("Distribution.Unknown");
 		DistributionTools.DistDataPoint=Language.tr("Distribution.DataPoint");
 		DistributionTools.DistDataPoints=Language.tr("Distribution.DataPoints");

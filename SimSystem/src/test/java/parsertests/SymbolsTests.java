@@ -3909,6 +3909,29 @@ class SymbolsTests {
 		variables=new String[]{"a","b"};
 		testDistribution(cmd,variables,new double[]{50,150});
 
+		/* Cosinus-Verteilung */
+
+		cmd="CosineDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{49,50,150}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,50,150}));
+		assertTrue(testDistribution(cmd,variables,new double[]{100,50,150})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{150,50,150}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{151,50,150}));
+
+		cmd="CosineDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{49,50,150}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,50,150}));
+		assertTrue(testDistribution(cmd,variables,new double[]{100,50,150})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{150,50,150}));
+		assertEquals(1,testDistribution(cmd,variables,new double[]{151,50,150}));
+		testDistributionThrows("CosineDist(x;a;b;2)",variables,new double[]{100,50,150});
+
+		cmd="CosineDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{50,150});
+
 		/* Student-t Verteilung */
 
 		cmd="StudentTDist(x;mu;nu;0)";
@@ -3990,6 +4013,25 @@ class SymbolsTests {
 		cmd="WignerHalfCircleDist(a;b)";
 		variables=new String[]{"a","b"};
 		testDistribution(cmd,variables,new double[]{5,2});
+
+		/* Log-Gamma-Verteilung */
+
+		cmd="LogGammaDist(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,4.5,3.5}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{1,4.5,3.5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{2,4.5,3.5})>0);
+
+		cmd="LogGammaDist(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,4.5,3.5}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{1,4.5,3.5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{2,4.5,3.5})>0);
+		testDistributionThrows("LogGammaDist(x;a;b;2)",variables,new double[]{2,4.5,3.5});
+
+		cmd="LogGammaDist(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{4.5,3.5});
 	}
 
 	/**

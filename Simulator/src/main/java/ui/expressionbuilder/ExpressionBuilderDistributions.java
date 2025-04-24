@@ -698,6 +698,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogCauchyDist.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogCauchyDist.RandomNumberInfo"));
 
+		/* Log-Gamma-Verteilung */
+
+		addDist(group,filterUpper,"LogGammaDist","a;b",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogGammaDistribution"),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.LogGammaDistribution.DensityInfo"),NumberTools.formatNumberMax(0.03992278718149)),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.LogGammaDistribution.DistributionFunctionInfo"),NumberTools.formatNumberMax(0.087695308502)),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogGammaDistribution.RandomNumberInfo"));
+
 		return group;
 	}
 

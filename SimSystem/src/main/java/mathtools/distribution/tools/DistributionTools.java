@@ -422,6 +422,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite  Wigner Halbkreis-Verteilung */
 	public static String DistWignerHalfCircleWikipedia="https://en.wikipedia.org/wiki/Wigner_semicircle_distribution";
 
+	/** Log-Gamma-Verteilung */
+	public static String[] DistLogGamma=new String[]{"Log-Gamma-Verteilung"};
+
+	/** Wikipedia-Seite  Log-Gamma-Verteilung */
+	public static String DistLogGammaWikipedia="https://de.wikipedia.org/wiki/Logarithmische_Gammaverteilung";
+
 	/** Warnung "unbekannte Verteilung" */
 	public static String DistUnknown="unbekannte Verteilung";
 
@@ -550,7 +556,8 @@ public final class DistributionTools {
 				new WrapperArcsineDistribution(),
 				new WrapperWignerHalfCircleDistribution(),
 				new WrapperLogCauchyDistribution(),
-				new WrapperBorelDistribution()
+				new WrapperBorelDistribution(),
+				new WrapperLogGammaDistribution()
 		};
 	}
 

@@ -58,6 +58,7 @@ import mathtools.distribution.KumaraswamyDistribution;
 import mathtools.distribution.LaplaceDistributionImpl;
 import mathtools.distribution.LevyDistribution;
 import mathtools.distribution.LogCauchyDistributionImpl;
+import mathtools.distribution.LogGammaDistributionImpl;
 import mathtools.distribution.LogLogisticDistributionImpl;
 import mathtools.distribution.LogNormalDistributionImpl;
 import mathtools.distribution.LogisticDistributionImpl;
@@ -2939,6 +2940,81 @@ class DistributionTests {
 
 		testDistributionTools(dist);
 		testDistributionParameters(dist,new double[]{4.5,0.5});
+	}
+
+	/**
+	 * Test: Log-Gamma-Verteilung
+	 * @see LogGammaDistributionImpl
+	 */
+	@Test
+	void testLogGammaDist() {
+		LogGammaDistributionImpl dist;
+
+		dist=new LogGammaDistributionImpl(4,3);
+		assertEquals(4,dist.a);
+		assertEquals(3,dist.b);
+
+		dist=new LogGammaDistributionImpl(4.5,3.5);
+		assertEquals(4.5,dist.a);
+		assertEquals(3.5,dist.b);
+
+		assertEquals(Math.pow(1.0-1.0/3.5,-4.5),dist.getNumericalMean());
+		assertEquals(Math.pow(1.0-2.0/3.5,-4.5)-Math.pow(1.0-1.0/3.5,-2*4.5),dist.getNumericalVariance());
+		assertEquals(1.00,dist.getSupportLowerBound());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		assertEquals(0,dist.density(-1));
+		assertEquals(0,dist.density(0));
+		assertEquals(0,dist.density(1));
+		assertTrue(dist.density(2)>0);
+		assertTrue(dist.density(3)>0);
+		assertTrue(dist.density(4)>0);
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(0,dist.cumulativeProbability(0));
+		assertEquals(0,dist.cumulativeProbability(1));
+		assertTrue(dist.cumulativeProbability(2)>0);
+		assertTrue(dist.cumulativeProbability(3)>0);
+		assertTrue(dist.cumulativeProbability(4)>0);
+
+		dist=(LogGammaDistributionImpl)DistributionTools.cloneDistribution(dist);
+		assertEquals(4.5,dist.a);
+		assertEquals(3.5,dist.b);
+		assertEquals(Math.pow(1.0-1.0/3.5,-4.5),dist.getNumericalMean());
+		assertEquals(Math.pow(1.0-2.0/3.5,-4.5)-Math.pow(1.0-1.0/3.5,-2*4.5),dist.getNumericalVariance());
+		assertEquals(1.00,dist.getSupportLowerBound());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=new LogGammaDistributionImpl(dist);
+		assertEquals(4.5,dist.a);
+		assertEquals(3.5,dist.b);
+		assertEquals(Math.pow(1.0-1.0/3.5,-4.5),dist.getNumericalMean());
+		assertEquals(Math.pow(1.0-2.0/3.5,-4.5)-Math.pow(1.0-1.0/3.5,-2*4.5),dist.getNumericalVariance());
+		assertEquals(1.00,dist.getSupportLowerBound());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		dist=dist.clone();
+		assertEquals(4.5,dist.a);
+		assertEquals(3.5,dist.b);
+		assertEquals(Math.pow(1.0-1.0/3.5,-4.5),dist.getNumericalMean());
+		assertEquals(Math.pow(1.0-2.0/3.5,-4.5)-Math.pow(1.0-1.0/3.5,-2*4.5),dist.getNumericalVariance());
+		assertEquals(1.00,dist.getSupportLowerBound());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[]{4.5,3.5});
 	}
 
 	/**

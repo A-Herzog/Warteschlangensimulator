@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-17 21:12+0200\n"
+"POT-Creation-Date: 2025-04-23 10:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3582,6 +3582,12 @@ msgstr "Log-Cauchy-Verteilung"
 
 msgid "Distribution.LogCauchyWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Log-Cauchy_distribution"
+
+msgid "Distribution.LogGamma"
+msgstr "Log-Gamma-Verteilung"
+
+msgid "Distribution.LogGammaWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Logarithmische_Gammaverteilung"
 
 msgid "Distribution.LogLogistic"
 msgstr "Log-Logistische Verteilung"
@@ -7399,13 +7405,25 @@ msgid "ExpressionBuilder.ProbabilityDistributions.LogCauchyDist"
 msgstr "Log-Cauchy-Verteilung"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogCauchyDist.DensityInfo"
-msgstr "<p>Berechnet den Wert der Dichte der Log-Cauchy-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern gemäß dem zweiten mu) und dritten (sigma) Parameter.</p>"
+msgstr "<p>Berechnet den Wert der Dichte der Log-Cauchy-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern gemäß dem zweiten (mu) und dritten (sigma) Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogCauchyDist.DistributionFunctionInfo"
 msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Log-Cauchy-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern gemäß dem zweiten (mu) und dritten (sigma) Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogCauchyDist.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Log-Cauchy-Verteilung mit den Parametern gemäß dem ersten (mu) und zweiten (sigma) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogGammaDistribution"
+msgstr "Log-Gamma-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogGammaDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Log-Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern gemäß dem zweiten (a) und dritten b) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogGammaDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Log-Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern gemäß dem zweiten (a) und dritten (b) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogGammaDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Log-Gamma-Verteilung mit den Parametern gemäß dem ersten (a) und zweiten (b) Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution"
 msgstr "Log-Logistische Verteilung"

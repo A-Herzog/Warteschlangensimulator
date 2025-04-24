@@ -17,24 +17,24 @@ package parser.symbols.distributions;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
-import mathtools.distribution.CosineDistributionImpl;
+import mathtools.distribution.LogGammaDistributionImpl;
 
 /**
  * Sinus-Verteilung
  * @author Alexander Herzog
- * @see CosineDistributionImpl
+ * @see LogGammaDistributionImpl
  */
-public class CalcSymbolDistributionCosine extends CalcSymbolDistribution {
+public class CalcSymbolDistributionLogGamma extends CalcSymbolDistribution {
 	/**
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"CosineDist","CosineDistribution","CosinusVerteilung"};
+	private static final String[] names=new String[]{"LogGammaDist","LogGammaDistribution","LogGammaVerteilung"};
 
 	/**
 	 * Konstruktor der Klasse
 	 */
-	public CalcSymbolDistributionCosine() {
+	public CalcSymbolDistributionLogGamma() {
 		/*
 		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
 		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
@@ -53,6 +53,6 @@ public class CalcSymbolDistributionCosine extends CalcSymbolDistribution {
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
-		return new CosineDistributionImpl(parameters[0],parameters[1]);
+		return new LogGammaDistributionImpl(parameters[0],parameters[1]);
 	}
 }
