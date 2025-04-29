@@ -120,16 +120,6 @@ Ist dieser Zeitpunkt in der Simulation erreicht bzw. überschritten und ist die 
 so wird die Simulation beendet.
 </p>
 
-<h3>Fester Startwert für Zufallszahlengenerator</h3>
-<p>
-Ist diese Option aktiviert, so wird der Zufallszahlengenerator vor jedem Simulations- bzw.
-Animationslauf mit demselben, festen in diesem Feld eingestellten Startwert initialisiert.
-Dies hat zur Folge des jeweils dieselbe Folge von Zufallszahlen entsteht und damit bei
-einem wiederholten Start z.B. der Animation exakt dieselben Ereignisse in exakt derselben
-Reihenfolge auftreten. Allerdings verhindert die Verwendung eines festen Startwertes für
-den Zufallszahlengenerator die Verteilung der Simulation auf mehrere CPU-Kerne.
-</p>
-
 <h3>Anzahl an Wiederholungen des gesamten Simulationslaufs</h3>
 <p>
 Über dieses Feld kann eingestellt werden, dass der gesamte Simulationslauf
@@ -507,7 +497,17 @@ oder, wenn nicht, welche Modelleigenschaften dies verhindern.
 <p>
 Im Simulator stehen verschiedene Methoden zur Erzeugung von Pseudo-Zufallszahlen, auf deren Basis die Werte der eingestellten Verteilungsfunktionen berechnet werden, zur Verfügung.
 Alle verfügbaren Generatoren eignen sich in gleichem Maße für die Simulation.
-</p> 
+</p>
+
+<h3>Fester Startwert für Zufallszahlengenerator</h3>
+<p>
+Ist diese Option aktiviert, so wird der Zufallszahlengenerator vor jedem Simulations- bzw.
+Animationslauf mit demselben, festen in diesem Feld eingestellten Startwert initialisiert.
+Dies hat zur Folge des jeweils dieselbe Folge von Zufallszahlen entsteht und damit bei
+einem wiederholten Start z.B. der Animation exakt dieselben Ereignisse in exakt derselben
+Reihenfolge auftreten. Allerdings verhindert die Verwendung eines festen Startwertes für
+den Zufallszahlengenerator die Verteilung der Simulation auf mehrere CPU-Kerne.
+</p>
 
 <h3>Anzahl an Zeitschritten pro Simulationssekunde</h3>
 

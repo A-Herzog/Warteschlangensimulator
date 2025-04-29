@@ -31,7 +31,6 @@ import javax.swing.JTextField;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
-import mathtools.distribution.tools.ThreadLocalRandomGenerator;
 import parser.MathCalcError;
 import simulator.editmodel.EditModel;
 import simulator.simparser.ExpressionCalc;
@@ -69,10 +68,6 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 	private JCheckBox terminationByTime;
 	/** Eingabefeld "Zeitpunkt an dem die Simulation endet" */
 	private JTextField terminationTime;
-	/** Option "Fester Startwert für Zufallszahlengenerator" */
-	private JCheckBox useFixedSeed;
-	/** Eingabefeld "Startwert" */
-	private JTextField fixedSeed;
 	/** Eingabefeld "Anzahl an Wiederholungen des gesamten Simulationslaufs" */
 	private JTextField repeatCount;
 	/** Option "Simulation abbrechen, wenn ein Rechenausdruck nicht ausgerechnet werden kann" */
@@ -224,35 +219,6 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 
 		lines.add(Box.createVerticalStrut(25));
 
-		/* Fester Startwert für Zufallszahlengenerator */
-
-		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		sub.add(useFixedSeed=new JCheckBox("<html><b>"+Language.tr("Editor.Dialog.Tab.Simulation.FixedSeed")+"</b></html>"));
-		useFixedSeed.setEnabled(!readOnly);
-		useFixedSeed.setSelected(model.useFixedSeed);
-
-		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.Simulation.FixedSeed.Value")+":",""+model.fixedSeed,20);
-		sub=(JPanel)data[0];
-		lines.add(sub);
-		fixedSeed=(JTextField)data[1];
-		fixedSeed.setEnabled(!readOnly);
-		addKeyListener(fixedSeed,()->{
-			useFixedSeed.setSelected(true);
-			checkFixedSeed();
-		});
-		if (!readOnly) {
-			final JButton fixedSeedButton=new JButton(Language.tr("Editor.Dialog.Tab.Simulation.FixedSeed.RandomButton"));
-			fixedSeedButton.setToolTipText(Language.tr("Editor.Dialog.Tab.Simulation.FixedSeed.RandomButton.Hint"));
-			fixedSeedButton.setIcon(Images.MODELPROPERTIES_SIMULATION_RANDOM_SEED.getIcon());
-			sub.add(fixedSeedButton);
-			fixedSeedButton.addActionListener(e->{
-				fixedSeed.setText(""+Math.abs(new ThreadLocalRandomGenerator().nextLong()));
-				useFixedSeed.setSelected(true);
-			});
-		}
-
-		lines.add(Box.createVerticalStrut(25));
-
 		/* Weitere Simulationseinstellungen */
 
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -328,16 +294,6 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 	}
 
 	/**
-	 * Prüft den eingegebenen Startwert für den Zufallszahlengenerator.
-	 * @return	Liefert <code>true</code>, wenn der eingegebene Startwert für den Zufallszahlengenerator gültig ist.
-	 * @see #fixedSeed
-	 * @see #checkData()
-	 */
-	private boolean checkFixedSeed() {
-		return (NumberTools.getLong(fixedSeed,true)!=null);
-	}
-
-	/**
 	 * Prüft die angegebene Anzahl an Wiederholungen der Simulation.
 	 * @return	Liefert <code>true</code>, wenn die angegebene Anzahl an Wiederholungen der Simulation gültig ist.
 	 * @see #repeatCount
@@ -396,12 +352,6 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 			return false;
 		}
 
-		final boolean seedOk=checkFixedSeed();
-		if (!seedOk && useFixedSeed.isSelected()) {
-			MsgBox.error(dialog,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.Simulation.FixedSeed.Error"),fixedSeed.getText()));
-			return false;
-		}
-
 		if (!checkRepeatCount()) {
 			MsgBox.error(dialog,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.Simulation.RepeatCount.Error"),repeatCount.getText()));
 			return false;
@@ -439,10 +389,6 @@ public class ModelPropertiesDialogPageSimulation extends ModelPropertiesDialogPa
 		model.useFinishTime=terminationByTime.isSelected();
 		L=TimeTools.getTime(terminationTime,true);
 		if (L==null) model.finishTime=10*86400; else model.finishTime=L;
-
-		model.useFixedSeed=useFixedSeed.isSelected();
-		L=NumberTools.getLong(fixedSeed,true);
-		if (L!=null) model.fixedSeed=L;
 
 		L=NumberTools.getPositiveLong(repeatCount,true);
 		if (L!=null) model.repeatCount=(int)L.longValue();

@@ -23,6 +23,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,6 +32,7 @@ import javax.swing.JTextField;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.RandomGeneratorMode;
+import mathtools.distribution.tools.ThreadLocalRandomGenerator;
 import simulator.StartAnySimulator;
 import simulator.editmodel.EditModel;
 import systemtools.MsgBox;
@@ -48,6 +50,16 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 	 * Modus für Zufallszahlengenerator
 	 */
 	private JComboBox<String> randomMode;
+
+	/**
+	 * Option "Fester Startwert für Zufallszahlengenerator"
+	 */
+	private JCheckBox useFixedSeed;
+
+	/**
+	 * Eingabefeld "Startwert"
+	 */
+	private JTextField fixedSeed;
 
 	/**
 	 * Schaltfläche zum Zurücksetzen des Modus für Zufallszahlengenerator
@@ -145,7 +157,36 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 
 		checkRandomMode();
 
-		lines.add(Box.createVerticalStrut(10));
+		lines.add(Box.createVerticalStrut(25));
+
+		/* Fester Startwert für Zufallszahlengenerator */
+
+		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(useFixedSeed=new JCheckBox("<html><b>"+Language.tr("Editor.Dialog.Tab.Simulation.FixedSeed")+"</b></html>"));
+		useFixedSeed.setEnabled(!readOnly);
+		useFixedSeed.setSelected(model.useFixedSeed);
+
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.Simulation.FixedSeed.Value")+":",""+model.fixedSeed,20);
+		sub=(JPanel)data[0];
+		lines.add(sub);
+		fixedSeed=(JTextField)data[1];
+		fixedSeed.setEnabled(!readOnly);
+		addKeyListener(fixedSeed,()->{
+			useFixedSeed.setSelected(true);
+			checkFixedSeed();
+		});
+		if (!readOnly) {
+			final JButton fixedSeedButton=new JButton(Language.tr("Editor.Dialog.Tab.Simulation.FixedSeed.RandomButton"));
+			fixedSeedButton.setToolTipText(Language.tr("Editor.Dialog.Tab.Simulation.FixedSeed.RandomButton.Hint"));
+			fixedSeedButton.setIcon(Images.MODELPROPERTIES_SIMULATION_RANDOM_SEED.getIcon());
+			sub.add(fixedSeedButton);
+			fixedSeedButton.addActionListener(e->{
+				fixedSeed.setText(""+Math.abs(new ThreadLocalRandomGenerator().nextLong()));
+				useFixedSeed.setSelected(true);
+			});
+		}
+
+		lines.add(Box.createVerticalStrut(25));
 
 		/* Zwischenüberschrift: "Anzahl an Zeitschritten pro Sekunde" */
 
@@ -173,6 +214,8 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 
 		checkTimeStepsPerSecond();
 
+		lines.add(Box.createVerticalStrut(25));
+
 		/* Zwischenüberschrift: "Informationen zum Modell" */
 
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -188,6 +231,16 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 	 */
 	private void checkRandomMode() {
 		randomModeResetButton.setEnabled(randomMode.getSelectedIndex()!=0);
+	}
+
+	/**
+	 * Prüft den eingegebenen Startwert für den Zufallszahlengenerator.
+	 * @return	Liefert <code>true</code>, wenn der eingegebene Startwert für den Zufallszahlengenerator gültig ist.
+	 * @see #fixedSeed
+	 * @see #checkData()
+	 */
+	private boolean checkFixedSeed() {
+		return (NumberTools.getLong(fixedSeed,true)!=null);
 	}
 
 	/**
@@ -213,6 +266,12 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 
 	@Override
 	public boolean checkData() {
+		final boolean seedOk=checkFixedSeed();
+		if (!seedOk && useFixedSeed.isSelected()) {
+			MsgBox.error(dialog,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.Simulation.FixedSeed.Error"),fixedSeed.getText()));
+			return false;
+		}
+
 		if (!checkTimeStepsPerSecond()) {
 			MsgBox.error(dialog,Language.tr("Dialog.Title.Error"),String.format(Language.tr("Editor.Dialog.Tab.SimulationSystem.TimeStepsPerSecond.Error"),timeStepsPerSecond.getText()));
 			return false;
@@ -224,7 +283,12 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 	@Override
 	public void storeData() {
 		model.randomMode=RandomGeneratorMode.fromIndex(randomMode.getSelectedIndex());
-		final Long L=NumberTools.getNotNegativeLong(timeStepsPerSecond,true);
+
+		model.useFixedSeed=useFixedSeed.isSelected();
+		Long L=NumberTools.getLong(fixedSeed,true);
+		if (L!=null) model.fixedSeed=L;
+
+		L=NumberTools.getNotNegativeLong(timeStepsPerSecond,true);
 		if (L!=null) model.timeStepsPerSecond=L.longValue();
 	}
 }

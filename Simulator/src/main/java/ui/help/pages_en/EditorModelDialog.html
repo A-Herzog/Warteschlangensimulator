@@ -116,17 +116,6 @@ If this time is reached or exceeded and if the option
 the simulation process will be terminated.
 </p>
 
-<h3>Fixed seed value for random number generator</h3>
-<p>
-If this option is activated, the random numbers generator is initialized
-with the same fixed seed value as set in this field before each simulation
-or animation run. This results in the same sequence of random numbers for
-each simulation or animation run. For example, in the animation exactly
-the same events will occur in exactly the same order. However, the use of a
-fixed seed value for the random numbers generator prevents the distribution
-of the simulation over multiple CPU cores.
-</p>
-
 <h3>Number of repetitions of the entire simulation run</h3>
 <p>
 This field can be used to repeat the entire simulation run several times.
@@ -496,6 +485,18 @@ if not, which model properties prevent this.
 <p>
 Various methods are available in the simulator for generating pseudo-random numbers, on the basis of which the values of the set distribution functions are calculated.
 All available generators are equally suitable for the simulation.
+</p>
+
+<h3>Fixed seed value for random number generator</h3>
+
+<p>
+If this option is activated, the random numbers generator is initialized
+with the same fixed seed value as set in this field before each simulation
+or animation run. This results in the same sequence of random numbers for
+each simulation or animation run. For example, in the animation exactly
+the same events will occur in exactly the same order. However, the use of a
+fixed seed value for the random numbers generator prevents the distribution
+of the simulation over multiple CPU cores.
 </p>
 
 <h3>Number of time steps per simulation second</h3>
