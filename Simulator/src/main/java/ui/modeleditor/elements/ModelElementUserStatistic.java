@@ -57,6 +57,8 @@ import ui.modeleditor.fastpaint.Shapes;
  * Statistikdaten erfasst.
  * @author Alexander Herzog
  * @see Statistics#userStatistics
+ * @see Statistics#userStatisticsIntervalCount
+ * @see Statistics#userStatisticsIntervalMean
  * @see Statistics#userStatisticsContinuous
  */
 public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
@@ -136,6 +138,11 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	private RecordMode recordMode;
 
 	/**
+	 * Sekunden pro Intervall (Werte &le;0 zur Deaktivierung der Intervall-Erfassung)
+	 */
+	private double intervalLengthSeconds;
+
+	/**
 	 * Liste mit den Statistikbezeichnern
 	 * @see #getKeys()
 	 */
@@ -167,6 +174,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	public ModelElementUserStatistic(final EditModel model, final ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_RECTANGLE);
 		recordMode=RecordMode.getDefault();
+		intervalLengthSeconds=0;
 		key=new ArrayList<>();
 		isTime=new ArrayList<>();
 		expression=new ArrayList<>();
@@ -212,6 +220,24 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	}
 
 	/**
+	 * Liefert die Sekunden pro Intervall.
+	 * @return	Sekunden pro Intervall (Werte &le;0 zur Deaktivierung der Intervall-Erfassung)
+	 * @see #setIntervalLengthSeconds(double)
+	 */
+	public double getIntervalLengthSeconds() {
+		return intervalLengthSeconds;
+	}
+
+	/**
+	 * Stellt die Sekunden pro Intervall ein.
+	 * @param intervalLengthSeconds	Sekunden pro Intervall (Werte &le;0 zur Deaktivierung der Intervall-Erfassung)
+	 * @see #getIntervalLengthSeconds()
+	 */
+	public void setIntervalLengthSeconds(final double intervalLengthSeconds) {
+		this.intervalLengthSeconds=Math.max(intervalLengthSeconds,0);
+	}
+
+	/**
 	 * Liefert die Liste mit den Statistikbezeichnern
 	 * @return	Liste mit Statistikbezeichnern
 	 */
@@ -236,8 +262,8 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	}
 
 	/**
-	 * Rückgabewert für {@link ModelElementUserStatistic#getIsTimeForKey(String)}
-	 * @see ModelElementUserStatistic#getIsTimeForKey(String)
+	 * Rückgabewert für {@link ModelElementUserStatistic#getIsTimeForKey(String, List)}
+	 * @see ModelElementUserStatistic#getIsTimeForKey(String, List)
 	 */
 	public enum IsTime {
 		/** Bezeichner ist Zeitangabe */
@@ -273,12 +299,17 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 	/**
 	 * Gibt an, ob die Statistik zu einem Bezeichner eine Zeitangabe ist oder nicht
 	 * @param key	Bezeichner, zu dem ermittelt werden soll, ob es sich um eine Zeitangabe handelt oder nicht
+	 * @param clientTypes	Liste der Kundentypen (darf <code>null</code> sein), um auch kundentyp-spezifische Schlüssel zu identifizieren
 	 * @return	Gibt <code>null</code> zurück, wenn es keine Statistik zu dem angegebenen Bezeichner gibt, sonst wahr oder falsch.
 	 * @see IsTime
 	 */
-	public IsTime getIsTimeForKey(final String key) {
+	public IsTime getIsTimeForKey(final String key, final List<String> clientTypes) {
 		for (int i=0;i<Math.min(this.key.size(),isTime.size());i++) {
-			if (this.key.get(i).equalsIgnoreCase(key)) return IsTime.fromBoolean(isTime.get(i));
+			final String k=this.key.get(i);
+			if (k.equalsIgnoreCase(key)) return IsTime.fromBoolean(isTime.get(i));
+			if (clientTypes!=null) for (var clientType: clientTypes) {
+				if ((k+" "+clientType).equalsIgnoreCase(key)) return IsTime.fromBoolean(isTime.get(i));
+			}
 		}
 		return IsTime.NOT_FOUND;
 	}
@@ -303,6 +334,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 		final ModelElementUserStatistic otherStation=(ModelElementUserStatistic)element;
 
 		if (recordMode!=otherStation.recordMode) return false;
+		if (intervalLengthSeconds!=otherStation.intervalLengthSeconds) return false;
 		if (key.size()!=otherStation.key.size()) return false;
 		if (isTime.size()!=otherStation.isTime.size()) return false;
 		if (expression.size()!=otherStation.expression.size()) return false;
@@ -325,6 +357,7 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 		if (element instanceof ModelElementUserStatistic) {
 			final ModelElementUserStatistic copySource=(ModelElementUserStatistic)element;
 			recordMode=copySource.recordMode;
+			intervalLengthSeconds=copySource.intervalLengthSeconds;
 			key.addAll(copySource.key);
 			isTime.addAll(copySource.isTime);
 			expression.addAll(copySource.expression);
@@ -442,6 +475,11 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 			sub.setTextContent(recordMode.getName());
 		}
 
+		if (intervalLengthSeconds>0) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.UserStatistic.XML.IntervalLength")));
+			sub.setTextContent(NumberTools.formatSystemNumber(intervalLengthSeconds));
+		}
+
 		for (int i=0;i<Math.min(Math.min(Math.min(key.size(),expression.size()),isTime.size()),isContinuous.size());i++) {
 			final String k=key.get(i);
 			final String e=expression.get(i);
@@ -468,6 +506,13 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 
 		if (Language.trAll("Surface.UserStatistic.XML.Mode",name)) {
 			recordMode=RecordMode.byName(content);
+			return null;
+		}
+
+		if (Language.trAll("Surface.UserStatistic.XML.IntervalLength",name)) {
+			final Double D=NumberTools.getDouble(content);
+			if (D==null) return String.format(Language.tr("Surface.XML.ElementSubError"),node.getNodeName(),node.getParentNode().getNodeName());
+			intervalLengthSeconds=Math.max(D,0);
 			return null;
 		}
 
@@ -589,6 +634,10 @@ public class ModelElementUserStatistic extends ModelElementMultiInSingleOutBox {
 			final int index=i;
 			searcher.testString(this,Language.tr("Editor.DialogBase.Search.Key"),key.get(index),newKey->key.set(index,newKey));
 			searcher.testString(this,String.format(Language.tr("Editor.DialogBase.Search.ExpressionForKey"),key.get(index)),expression.get(index),newExpression->expression.set(index,newExpression));
+		}
+
+		if (intervalLengthSeconds>0.0) {
+			searcher.testDouble(Language.tr("Editor.DialogBase.Search.IntervalLength"),intervalLengthSeconds,newIntervalLengthSeconds->intervalLengthSeconds=Math.max(newIntervalLengthSeconds,0));
 		}
 	}
 }

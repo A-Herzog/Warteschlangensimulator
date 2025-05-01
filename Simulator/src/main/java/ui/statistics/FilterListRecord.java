@@ -285,7 +285,8 @@ public final class FilterListRecord {
 	 */
 	private String processXML(final Statistics statistics, final FilterListFormat format, final String xml) {
 		final String text=ModelChanger.getStatisticValue(statistics,xml);
-		final Double D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(text));
+		if (text.contains(";")) return text;
+		final Double D=NumberTools.getDouble(text);
 		if (D==null) return text;
 		return formatNumber(D.doubleValue(),format);
 	}

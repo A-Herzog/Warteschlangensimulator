@@ -679,6 +679,46 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 	}
 
 	/**
+	 * Fügt eine Datenreihe zu dem Diagramm hinzu
+	 * @param title	Titel der Datenreihe
+	 * @param paint	Farbe der Datenreihe
+	 * @param dist	Darzustellende Daten
+	 * @param steps	Maximale Anzahl an Datenpunkten, die angezeigt werden sollen
+	 * @return	Neu erzeugt (und bereits zu <code>plot</code> hinzugefügte) Datenreihe
+	 */
+	protected XYSeries addSeriesTruncated(final String title, final Paint paint, final long[] dist, final int steps) {
+		final XYSeries series=new XYSeries(title);
+		for (int i=0;i<Math.min(dist.length,steps);i++) {
+			series.add(i,dist[i],false);
+			series.fireSeriesChanged();
+		}
+		data.addSeries(series);
+		plot.getRenderer().setSeriesPaint(data.getSeriesCount()-1,paint);
+
+		return series;
+	}
+
+	/**
+	 * Fügt eine Datenreihe zu dem Diagramm hinzu
+	 * @param title	Titel der Datenreihe
+	 * @param paint	Farbe der Datenreihe
+	 * @param dist	Darzustellende Daten
+	 * @param steps	Maximale Anzahl an Datenpunkten, die angezeigt werden sollen
+	 * @return	Neu erzeugt (und bereits zu <code>plot</code> hinzugefügte) Datenreihe
+	 */
+	protected XYSeries addSeriesTruncated(final String title, final Paint paint, final double[] dist, final int steps) {
+		final XYSeries series=new XYSeries(title);
+		for (int i=0;i<Math.min(dist.length,steps);i++) {
+			series.add(i,dist[i],false);
+			series.fireSeriesChanged();
+		}
+		data.addSeries(series);
+		plot.getRenderer().setSeriesPaint(data.getSeriesCount()-1,paint);
+
+		return series;
+	}
+
+	/**
 	 * Fügt eine Datenreihe zu dem Diagramm zur zweiten y-Achse hinzu
 	 * @param title	Titel der Datenreihe
 	 * @param paint	Farbe der Datenreihe

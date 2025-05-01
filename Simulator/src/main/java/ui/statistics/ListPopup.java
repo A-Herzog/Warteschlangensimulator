@@ -640,6 +640,8 @@ public class ListPopup {
 		if (statistics.userStatistics.getNames().length>0) {
 			sub=getSubList(list,Language.tr("Statistic.FastAccess.Template.UserStatistics"),null,null);
 			final String xmlMain=Language.tr("Statistics.XML.UserStatistics");
+			final String xmlMainCount=Language.tr("Statistics.XML.UserStatisticsIntervalCount");
+			final String xmlMainMean=Language.tr("Statistics.XML.UserStatisticsInterval");
 			for (String name: statistics.userStatistics.getNames()) {
 				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.UserStatisticsKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
 				sub2=getSubList(sub,name,null,null);
@@ -649,6 +651,17 @@ public class ListPopup {
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.CV"),null,null,XMLMode.XML_NUMBER,xmlSub+CV);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Minimum"),null,null,mode,xmlSub+Min);
 				tryAddRecord(sub2,allowAdd,Language.tr("Statistics.Maximum"),null,null,mode,xmlSub+Max);
+				if (statistics.userStatisticsIntervalCount.getOrNull(name)!=null || statistics.userStatisticsIntervalMean.getOrNull(name)!=null) {
+					sub2.list.add(null);
+				}
+				if (statistics.userStatisticsIntervalCount.getOrNull(name)!=null) {
+					final String xmlSubCount=xmlMainCount+"->"+Language.tr("Statistics.XML.UserStatisticsIntervalKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
+					tryAddRecord(sub2,allowAdd,Language.tr("Statistics.CountPerInterval"),null,null,XMLMode.XML_TEXT,xmlSubCount);
+				}
+				if (statistics.userStatisticsIntervalMean.getOrNull(name)!=null) {
+					final String xmlSubMean=xmlMainMean+"->"+Language.tr("Statistics.XML.UserStatisticsIntervalKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
+					tryAddRecord(sub2,allowAdd,Language.tr("Statistics.AveragePerInterval"),null,null,XMLMode.XML_TEXT,xmlSubMean);
+				}
 			}
 		}
 
@@ -892,7 +905,7 @@ public class ListPopup {
 		boolean lastSubIsSeparator=false;
 		for (Object sub: main.list) {
 			if (sub==null) {
-				if (menu.getComponentCount()>0) {
+				if (menu.getMenuComponentCount()>0) {
 					if (!lastSubIsSeparator) menu.addSeparator();
 					lastSubIsSeparator=true;
 				}
@@ -904,7 +917,7 @@ public class ListPopup {
 				if (addSubLevel2(menu,(ScriptHelperSub)sub,listener)) lastSubIsSeparator=false;
 			}
 		}
-		if (menu.getComponentCount()>0 && menu.getComponent(menu.getComponentCount()-1) instanceof javax.swing.JPopupMenu.Separator) menu.remove(menu.getComponentCount()-1);
+		if (menu.getMenuComponentCount()>0 && menu.getMenuComponent(menu.getMenuComponentCount()-1) instanceof javax.swing.JPopupMenu.Separator) menu.remove(menu.getMenuComponentCount()-1);
 		return true;
 	}
 
@@ -921,7 +934,10 @@ public class ListPopup {
 		for (int i=indexFrom;i<=indexTo;i++) {
 			final Object sub=list.get(i);
 			if (sub==null) {
-				if (parent.getComponentCount()>0 && !lastSubIsSeparator) {parent.addSeparator(); lastSubIsSeparator=true;}
+				if (parent.getComponentCount()>0 && !lastSubIsSeparator) {
+					parent.addSeparator();
+					lastSubIsSeparator=true;
+				}
 				continue;
 			}
 			lastSubIsSeparator=false;

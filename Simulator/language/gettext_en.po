@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-23 10:45+0200\n"
+"POT-Creation-Date: 2025-04-28 11:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5071,6 +5071,9 @@ msgstr "Inter-arrival threshold expression"
 
 msgid "Editor.DialogBase.Search.InterarrivalArrival.Threshold.Value"
 msgstr "Inter-arrival threshold value"
+
+msgid "Editor.DialogBase.Search.IntervalLength"
+msgstr "Interval length"
 
 msgid "Editor.DialogBase.Search.JavaImports"
 msgstr "Imports for user-defined Java code"
@@ -23185,6 +23188,9 @@ msgstr "Inserts at the current position the command to output the waiting time f
 msgid "Statistic.Interval"
 msgstr "Interval"
 
+msgid "Statistic.MeanPerInterval"
+msgstr "Mean per interval"
+
 msgid "Statistic.Previous"
 msgstr "Previous"
 
@@ -23961,6 +23967,9 @@ msgstr "Average number of waiting clients (by client types)"
 msgid "Statistics.AveragePathLength"
 msgstr "Average path length"
 
+msgid "Statistics.AveragePerInterval"
+msgstr "Average per interval"
+
 msgid "Statistics.AverageProcessTime"
 msgstr "Average process time"
 
@@ -24309,6 +24318,9 @@ msgstr "Costs for the busy time of the resource"
 
 msgid "Statistics.CountPathLength"
 msgstr "Number of counted client paths"
+
+msgid "Statistics.CountPerInterval"
+msgstr "Arrivals per interval"
 
 msgid "Statistics.Counter"
 msgstr "Counter"
@@ -25845,6 +25857,12 @@ msgstr "User-defined statistics"
 msgid "Statistics.UserStatistics.Details"
 msgstr "User-defined statistics - details"
 
+msgid "Statistics.UserStatistics.IntervallCount"
+msgstr "User-defined statistics - interval sums"
+
+msgid "Statistics.UserStatistics.IntervallMean"
+msgstr "User-defined statistics - interval means"
+
 msgid "Statistics.UserStatistics.NothingRecorded"
 msgstr "No user-defined statistic data have been recorded."
 
@@ -26585,6 +26603,15 @@ msgstr "StatisticsUserDefinedContinuous"
 
 msgid "Statistics.XML.UserStatisticsContinuousKey"
 msgstr "StatisticsUserDefinedContinuousRecord"
+
+msgid "Statistics.XML.UserStatisticsInterval"
+msgstr "StatisticsUserDefinedInterval"
+
+msgid "Statistics.XML.UserStatisticsIntervalCount"
+msgstr "StatisticsUserDefinedIntervalCount"
+
+msgid "Statistics.XML.UserStatisticsIntervalKey"
+msgstr "StatisticsUserDefinedIntervalRecord"
 
 msgid "Statistics.XML.UserStatisticsKey"
 msgstr "StatisticsUserDefinedRecord"
@@ -34844,6 +34871,9 @@ msgstr "At source id=%d a fixed number of client arrivals to be simulated is spe
 msgid "Surface.SingleCoreReason.FixedSeed"
 msgstr "A fixed seed value for the random numbers generator is defined."
 
+msgid "Surface.SingleCoreReason.IntervalBasedRecordingActive"
+msgstr "At station id=%d data for individual intervals is recorded."
+
 msgid "Surface.SingleCoreReason.OutputElementUsed"
 msgstr "The input/output element id=%d requires a complete sequential processing."
 
@@ -37045,6 +37075,15 @@ msgstr "The specified value \"%s\" for the failure time for the transporter grou
 msgid "Surface.Transporter.ErrorInterDistribution"
 msgstr "The specified value \"%s\" for the distribution of the times between two down times for the transporter group \"%s\" is invalid."
 
+msgid "Surface.UserStatistic.Dialog.IntervalRecording"
+msgstr "Record discrete values additionally based on intervals; interval length:"
+
+msgid "Surface.UserStatistic.Dialog.IntervalRecording.ErrorInfo"
+msgstr "The given interval length \"%s\" is invalid. A positive number has to be entered."
+
+msgid "Surface.UserStatistic.Dialog.IntervalRecording.ErrorTitle"
+msgstr "Invalid interval length"
+
 msgid "Surface.UserStatistic.Dialog.RecordMode"
 msgstr "Recording mode"
 
@@ -37125,6 +37164,9 @@ msgstr "Move record up"
 
 msgid "Surface.UserStatistic.Tooltip"
 msgstr "Allows to record user-defined statistic data"
+
+msgid "Surface.UserStatistic.XML.IntervalLength"
+msgstr "StatisticsUserDefinedIntervalLength"
 
 msgid "Surface.UserStatistic.XML.Mode"
 msgstr "StatisticsUserDefinedMode"

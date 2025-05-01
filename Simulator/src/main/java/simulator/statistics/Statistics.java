@@ -487,6 +487,16 @@ public class Statistics extends StatisticsBase {
 	public final StatisticsMultiPerformanceIndicator userStatistics;
 
 	/**
+	 * Erfassung von nutzerdefinierten Statistikdaten (Anzahl an diskreten Werten pro Intervall)
+	 */
+	public final StatisticsMultiPerformanceIndicator userStatisticsIntervalCount;
+
+	/**
+	 * Erfassung von nutzerdefinierten Statistikdaten (diskrete Werte pro Intervall)
+	 */
+	public final StatisticsMultiPerformanceIndicator userStatisticsIntervalMean;
+
+	/**
 	 * Erfassung von nutzerdefinierten Statistikdaten (zeitkontinuierliche Werte)
 	 */
 	public final StatisticsMultiPerformanceIndicator userStatisticsContinuous;
@@ -717,6 +727,8 @@ public class Statistics extends StatisticsBase {
 
 		/* Nutzerdefinierte Statistik */
 		addPerformanceIndicator(userStatistics=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatistics"),new StatisticsDataPerformanceIndicatorWithNegativeValues(Language.trAll("Statistics.XML.UserStatisticsKey"),dataToRecordInClientDataDistribution,dataToRecordInClientDataDistribution,batchSize,useWelford,true)));
+		addPerformanceIndicator(userStatisticsIntervalCount=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatisticsIntervalCount"),new StatisticsDataCollector(Language.trAll("Statistics.XML.UserStatisticsIntervalKey"))));
+		addPerformanceIndicator(userStatisticsIntervalMean=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatisticsInterval"),new StatisticsDataCollector(Language.trAll("Statistics.XML.UserStatisticsIntervalKey"))));
 		addPerformanceIndicator(userStatisticsContinuous=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.UserStatisticsContinuous"),new StatisticsTimeContinuousPerformanceIndicator(Language.trAll("Statistics.XML.UserStatisticsContinuousKey"))));
 
 		/* Nutzerdefinierte Variablen */

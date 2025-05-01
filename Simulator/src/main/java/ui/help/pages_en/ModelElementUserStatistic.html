@@ -11,6 +11,7 @@
 
 <p>
 If a client passes through this element, some user-definable statistic information are recorded.
+The recording can optionally be differentiated by client type and time interval.
 </p>
 
 <h2>Settings</h2>
@@ -33,6 +34,12 @@ However, a client type-specific recording can also be set. In this case,
 an individual data record is created for each client type that passes through
 the station, the name of which is composed of a specified data record name
 and the name of the client type.
+</p>
+<p>
+Interval-based recording can also be activated.
+In this case, the number and average value of the values recorded
+in the interval is recorded for each interval (the length of which can be set)
+for each discrete-time value. Recording begins at the end of the warm-up phase.
 </p>
 
 </body>

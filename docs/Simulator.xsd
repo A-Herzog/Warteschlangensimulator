@@ -2185,6 +2185,8 @@
   <xs:element ref="StatistikRessourcenLeerlaufKosten"/>
   <xs:element ref="StatistikLaufzeitWerte"/>
   <xs:element ref="StatistikBenutzerdefiniert"/>
+  <xs:element ref="StatistikBenutzerdefiniertIntervallAnzahl"/>
+  <xs:element ref="StatistikBenutzerdefiniertIntervall"/>
   <xs:element ref="StatistikBenutzerdefiniertKontinuierlich"/>
   <xs:element ref="StatistikVariablen"/>
   <xs:element ref="StatistikStatusZeit"/>
@@ -2432,9 +2434,17 @@
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatistikBenutzerdefiniert"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element name="StatistikBenutzerdefiniertModus" type="xs:string"/>
+  <xs:element name="StatistikBenutzerdefiniertIntervallLaenge" type="xs:string"/>
   <xs:element ref="StatistikBenutzerdefiniertDatensatz" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatistikBenutzerdefiniertDatensatz" type="StatistikBasis"/>
+<xs:element name="StatistikBenutzerdefiniertIntervallAnzahl"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatistikBenutzerdefiniertIntervallDatensatz" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatistikBenutzerdefiniertIntervall"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatistikBenutzerdefiniertIntervallDatensatz" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatistikBenutzerdefiniertIntervallDatensatz" type="StatistikBasis"/>
 <xs:element name="StatistikBenutzerdefiniertKontinuierlich"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatistikBenutzerdefiniertKontinuierlichDatensatz" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
@@ -4729,6 +4739,8 @@
   <xs:element ref="StatisticsResourcesIdleTimeCosts"/>
   <xs:element ref="StatisticsRunTimeValues"/>
   <xs:element ref="StatisticsUserDefined"/>
+  <xs:element ref="StatisticsUserDefinedIntervalCount"/>
+  <xs:element ref="StatisticsUserDefinedInterval"/>
   <xs:element ref="StatisticsUserDefinedContinuous"/>
   <xs:element ref="StatisticsVariables"/>
   <xs:element ref="StatisticsStatusTime"/>
@@ -4976,9 +4988,17 @@
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatisticsUserDefined"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element name="StatisticsUserDefinedMode" type="xs:string"/>
+  <xs:element name="StatisticsUserDefinedIntervalLength" type="xs:string"/>
   <xs:element ref="StatisticsUserDefinedRecord" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 <xs:element name="StatisticsUserDefinedRecord" type="StatisticsBase"/>
+<xs:element name="StatisticsUserDefinedIntervalCount"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatisticsUserDefinedIntervalRecord" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatisticsUserDefinedInterval"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:element ref="StatisticsUserDefinedIntervalRecord" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice></xs:sequence></xs:complexType></xs:element>
+<xs:element name="StatisticsUserDefinedIntervalRecord" type="StatisticsBase"/>
 <xs:element name="StatisticsUserDefinedContinuous"><xs:complexType><xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
   <xs:element ref="StatisticsUserDefinedContinuousRecord" minOccurs="0" maxOccurs="unbounded"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>

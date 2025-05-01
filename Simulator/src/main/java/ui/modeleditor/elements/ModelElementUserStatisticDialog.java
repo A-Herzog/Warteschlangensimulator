@@ -17,6 +17,9 @@ package ui.modeleditor.elements;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,12 +27,17 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 import language.Language;
+import mathtools.NumberTools;
+import systemtools.MsgBox;
 import tools.JTableExt;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -58,6 +66,18 @@ public class ModelElementUserStatisticDialog extends ModelElementBaseDialog {
 	 * @see	ModelElementUserStatistic.RecordMode
 	 */
 	private JComboBox<?> recordMode;
+
+	/**
+	 * Intervallbasierende Aufzeichnung aktivieren?
+	 * @see #editIntervalRecording
+	 */
+	private JCheckBox selectIntervalRecording;
+
+	/**
+	 * Im Falle einer intervallbasierenden Aufzeichnung: Intervalllänge
+	 * @see #selectIntervalRecording
+	 */
+	private JTextField editIntervalRecording;
 
 	/**
 	 * Konstruktor der Klasse
@@ -96,6 +116,7 @@ public class ModelElementUserStatisticDialog extends ModelElementBaseDialog {
 			final JPanel settingsArea=new JPanel();
 			settingsArea.setLayout(new BoxLayout(settingsArea,BoxLayout.PAGE_AXIS));
 			content.add(settingsArea,BorderLayout.SOUTH);
+
 			final Object[] data=getComboBoxPanel(Language.tr("Surface.UserStatistic.Dialog.RecordMode")+":",new String[] {
 					Language.tr("Surface.UserStatistic.Dialog.RecordMode.Global"),
 					Language.tr("Surface.UserStatistic.Dialog.RecordMode.ClientType"),
@@ -104,13 +125,28 @@ public class ModelElementUserStatisticDialog extends ModelElementBaseDialog {
 			settingsArea.add((JPanel)data[0]);
 			recordMode=(JComboBox<?>)data[1];
 			recordMode.setEnabled(!readOnly);
-
 			switch (station.getRecordMode()) {
 			case GLOBAL: recordMode.setSelectedIndex(0); break;
 			case CLIENT_TYPE: recordMode.setSelectedIndex(1); break;
 			case BOTH: recordMode.setSelectedIndex(2); break;
 			default: recordMode.setSelectedIndex(0); break;
 			}
+
+			final JPanel line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+			settingsArea.add(line);
+			line.add(selectIntervalRecording=new JCheckBox(Language.tr("Surface.UserStatistic.Dialog.IntervalRecording")));
+			selectIntervalRecording.setSelected(station.getIntervalLengthSeconds()>0);
+			selectIntervalRecording.setEnabled(!readOnly);
+			selectIntervalRecording.addActionListener(e->checkData(false));
+			line.add(editIntervalRecording=new JTextField(10));
+			editIntervalRecording.setText(NumberTools.formatNumberMax(station.getIntervalLengthSeconds()==0.0?3600:station.getIntervalLengthSeconds()));
+			editIntervalRecording.setEditable(!readOnly);
+			editIntervalRecording.addKeyListener(new KeyAdapter() {
+				@Override public void keyTyped(KeyEvent e) {selectIntervalRecording.setSelected(true); checkData(false);}
+				@Override public void keyReleased(KeyEvent e) {selectIntervalRecording.setSelected(true); checkData(false);}
+				@Override public void keyPressed(KeyEvent e) {selectIntervalRecording.setSelected(true); checkData(false);}
+			});
+			line.add(new JLabel(Language.tr("Statistic.Seconds")));
 		}
 
 		return content;
@@ -132,6 +168,35 @@ public class ModelElementUserStatisticDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected void setDialogSizeLater() {
+	}
+
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
+	private boolean checkData(final boolean showErrorMessage) {
+		boolean ok=true;
+
+		if (selectIntervalRecording.isSelected()) {
+			final Double D=NumberTools.getPositiveDouble(editIntervalRecording,true);
+			if (D==null) {
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Surface.UserStatistic.Dialog.IntervalRecording.ErrorTitle"),String.format(Language.tr("Surface.UserStatistic.Dialog.IntervalRecording.ErrorInfo"),editIntervalRecording.getText()));
+					return false;
+				}
+				ok=false;
+			}
+		} else {
+			editIntervalRecording.setBackground(NumberTools.getTextFieldDefaultBackground());
+		}
+
+		return ok;
+	}
+
+	@Override
+	protected boolean checkData() {
+		return checkData(true);
 	}
 
 	/**
@@ -162,6 +227,8 @@ public class ModelElementUserStatisticDialog extends ModelElementBaseDialog {
 			case 1: ((ModelElementUserStatistic)element).setRecordMode(ModelElementUserStatistic.RecordMode.CLIENT_TYPE); break;
 			case 2: ((ModelElementUserStatistic)element).setRecordMode(ModelElementUserStatistic.RecordMode.BOTH); break;
 			}
+
+			((ModelElementUserStatistic)element).setIntervalLengthSeconds(selectIntervalRecording.isSelected()?NumberTools.getDouble(editIntervalRecording,true):0);
 		}
 
 		/* Formate für alle Schlüssel auflisten */

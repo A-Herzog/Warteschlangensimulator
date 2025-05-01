@@ -499,6 +499,8 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	private boolean testUserStatisticsAvailable(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
 			if (statistic.userStatistics.size()>0) return true;
+			if (statistic.userStatisticsIntervalCount.size()>0) return true;
+			if (statistic.userStatisticsIntervalMean.size()>0) return true;
 			if (statistic.userStatisticsContinuous.size()>0) return true;
 		}
 		return false;
@@ -511,7 +513,22 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	 */
 	private boolean testUserStatisticsDiscreteAvailable(final Statistics[] statistics) {
 		for (Statistics statistic: statistics) {
+			if (statistic.userStatisticsIntervalCount.size()>0) return true;
+			if (statistic.userStatisticsIntervalMean.size()>0) return true;
 			if (statistic.userStatistics.size()>0) return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Sind Benutzerstatistikdaten, die sich auf Intervalle beziehen, in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt intervallspezifische Benutzerstatistikdaten enthalten sind
+	 */
+	private boolean testUserStatisticsIntervalAvailable(final Statistics[] statistics) {
+		for (Statistics statistic: statistics) {
+			if (statistic.userStatisticsIntervalCount.size()>0) return true;
+			if (statistic.userStatisticsIntervalMean.size()>0) return true;
 		}
 		return false;
 	}
@@ -2013,8 +2030,26 @@ public class StatisticsPanel extends StatisticsBasePanel {
 				group.addChild(new StatisticNode(Language.tr("Statistics.UserStatistics.Details"),viewer));
 
 				viewer=new ArrayList<>();
-				for(Statistics statistic : statistics) viewer.add(new StatisticViewerUserStatisticLineChart(statistic));
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerUserStatisticLineChart(statistic,StatisticViewerUserStatisticLineChart.Mode.MODE_ALL));
 				group.addChild(new StatisticNode(Language.tr("Statistics.UserStatistics"),viewer));
+
+				if (testUserStatisticsIntervalAvailable(statistics)) {
+					viewer=new ArrayList<>();
+					for(Statistics statistic : statistics) viewer.add(new StatisticViewerUserStatisticTable(statistic,StatisticViewerUserStatisticTable.Mode.MODE_INTERVAL_COUNT));
+					group.addChild(new StatisticNode(Language.tr("Statistics.UserStatistics.IntervallCount"),viewer));
+
+					viewer=new ArrayList<>();
+					for(Statistics statistic : statistics) viewer.add(new StatisticViewerUserStatisticTable(statistic,StatisticViewerUserStatisticTable.Mode.MODE_INTERVAL));
+					group.addChild(new StatisticNode(Language.tr("Statistics.UserStatistics.IntervallMean"),viewer));
+
+					viewer=new ArrayList<>();
+					for(Statistics statistic : statistics) viewer.add(new StatisticViewerUserStatisticLineChart(statistic,StatisticViewerUserStatisticLineChart.Mode.MODE_INTERVAL_COUNT));
+					group.addChild(new StatisticNode(Language.tr("Statistics.UserStatistics.IntervallCount"),viewer));
+
+					viewer=new ArrayList<>();
+					for(Statistics statistic : statistics) viewer.add(new StatisticViewerUserStatisticLineChart(statistic,StatisticViewerUserStatisticLineChart.Mode.MODE_INTERVAL));
+					group.addChild(new StatisticNode(Language.tr("Statistics.UserStatistics.IntervallMean"),viewer));
+				}
 			}
 
 		}

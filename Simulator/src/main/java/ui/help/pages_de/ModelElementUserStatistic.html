@@ -12,6 +12,7 @@
 <p>
 Durchläuft ein Kunde dieses Element, so wird das Ergebnis einer oder mehrerer Formelauswertungen
 als benutzerdefinierter Statistikdatensatz erfasst.
+Die Erfassung kann dabei optional nach Kundentypen und Zeitintervallen ausdifferenziert werden. 
 </p>
 
 <h2>Einstellungen</h2>
@@ -35,6 +36,12 @@ eine kundentypspezifische Erfassung eingestellt werden. In diesem Fall wird für
 jeden Kundentyp, der die Station passiert, ein individueller Datensatz, dessen
 Name sich ein aus angegebenen Datensatznamen und dem Namen des Kundentyps
 zusammensetzt, erstellt.
+</p>
+<p>
+Außerdem kann zusätzlich eine intervallbasierte Erfassung aktiviert werden.
+In diesem Fall wird pro Intervall (dessen Länge einstellbar ist) für jeden
+zeitdiskreten Wert die Anzahl und der Mittelwert der in dem Intervall erfassten Werte
+aufgezeichnet. Die Erfassung beginnt mit dem Ende der Einschwingphase.
 </p>
  
 </body>

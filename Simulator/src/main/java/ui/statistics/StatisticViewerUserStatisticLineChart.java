@@ -21,6 +21,7 @@ import java.net.URL;
 import language.Language;
 import mathtools.distribution.DataDistributionImpl;
 import simulator.statistics.Statistics;
+import statistics.StatisticsDataCollector;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import systemtools.statistics.StatisticViewerLineChart;
 import ui.help.Help;
@@ -35,6 +36,22 @@ import ui.tools.FlatLaFHelper;
 public class StatisticViewerUserStatisticLineChart extends StatisticViewerLineChart {
 	/** Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen */
 	private final Statistics statistics;
+	/** Gibt an, welche Daten genau ausgegeben werden sollen */
+	private final Mode mode;
+
+	/**
+	 * Wählt die von {@link StatisticViewerUserStatisticLineChart} auszugebende Information aus.
+	 * @author Alexander Herzog
+	 * @see StatisticViewerUserStatisticLineChart#StatisticViewerUserStatisticLineChart(Statistics, Mode)
+	 */
+	public enum Mode {
+		/** Diagramm mit der Verteilung der Werte */
+		MODE_ALL,
+		/** Diagramm mit den Anzahlen pro Intervall */
+		MODE_INTERVAL_COUNT,
+		/** Diagramm mit den Mittelwerten pro Intervall */
+		MODE_INTERVAL
+	}
 
 	/** Farben für die Diagrammlinien */
 	private static final Color[] COLORS=new Color[]{Color.RED,Color.BLUE,Color.GREEN,Color.BLACK};
@@ -42,10 +59,13 @@ public class StatisticViewerUserStatisticLineChart extends StatisticViewerLineCh
 	/**
 	 * Konstruktor der Klasse
 	 * @param statistics	Statistikobjekt, aus dem die anzuzeigenden Daten entnommen werden sollen
+	 * @param mode	Gibt an, welche Daten genau ausgegeben werden sollen
+	 * @see Mode
 	 */
-	public StatisticViewerUserStatisticLineChart(final Statistics statistics) {
+	public StatisticViewerUserStatisticLineChart(final Statistics statistics, final Mode mode) {
 		super();
 		this.statistics=statistics;
+		this.mode=mode;
 	}
 
 	/**
@@ -73,8 +93,11 @@ public class StatisticViewerUserStatisticLineChart extends StatisticViewerLineCh
 		return true;
 	}
 
-	@Override
-	protected void firstChartRequest() {
+	/**
+	 * Generiert ein Diagramm mit der Verteilung der Werte.
+	 * @see Mode#MODE_ALL
+	 */
+	private void buildDefaultChart() {
 		initLineChart(Language.tr("Statistics.UserStatistics"));
 		if (isAllUserStatisticsTime()) {
 			setupChartTimeValue(Language.tr("Statistics.UserStatistics"),Language.tr("Statistics.UserStatistics"),Language.tr("Statistics.NumberOfClients"));
@@ -94,5 +117,58 @@ public class StatisticViewerUserStatisticLineChart extends StatisticViewerLineCh
 
 		/* Infotext  */
 		addDescription("PlotUser");
+	}
+
+	/**
+	 * Generiert ein Diagramm mit den Anzahlen pro Intervall.
+	 * @see Mode#MODE_INTERVAL_COUNT
+	 */
+	private void buildIntervalCountChart() {
+		initLineChart(Language.tr("Statistics.UserStatistics"));
+
+		setupChartValue(Language.tr("Statistics.UserStatistics"),Language.tr("Statistic.Interval"),Language.tr("Statistics.NumberOfClients"));
+
+		int i=0;
+		for (String name: statistics.userStatisticsIntervalCount.getNames()) {
+			final StatisticsDataCollector indicator=(StatisticsDataCollector)statistics.userStatisticsIntervalCount.get(name);
+			addSeriesTruncated(name,COLORS[i++%COLORS.length],indicator.getValuesReadOnly(),10_000);
+		}
+
+		smartZoom(0);
+		initTooltips();
+
+		/* Infotext  */
+		addDescription("PlotUserIntervalCount");
+	}
+
+	/**
+	 * Generiert ein Diagramm mit den Mittelwerten pro Intervall.
+	 * @see Mode#MODE_INTERVAL
+	 */
+	private void buildIntervalMeanChart() {
+		initLineChart(Language.tr("Statistics.UserStatistics"));
+
+		setupChartValue(Language.tr("Statistics.UserStatistics"),Language.tr("Statistic.Interval"),Language.tr("Statistic.MeanPerInterval"));
+
+		int i=0;
+		for (String name: statistics.userStatisticsIntervalMean.getNames()) {
+			final StatisticsDataCollector indicator=(StatisticsDataCollector)statistics.userStatisticsIntervalMean.get(name);
+			addSeriesTruncated(name,COLORS[i++%COLORS.length],indicator.getValuesReadOnly(),10_000);
+		}
+
+		smartZoom(0);
+		initTooltips();
+
+		/* Infotext  */
+		addDescription("PlotUserInterval");
+	}
+
+	@Override
+	protected void firstChartRequest() {
+		switch(mode) {
+		case MODE_ALL: buildDefaultChart(); break;
+		case MODE_INTERVAL_COUNT: buildIntervalCountChart(); break;
+		case MODE_INTERVAL: buildIntervalMeanChart(); break;
+		}
 	}
 }

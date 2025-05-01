@@ -112,6 +112,8 @@ public class ScriptPopupItemSub extends ScriptPopupItem {
 				popupMenu.add(item);
 			}
 		}
+
+		if (popupMenu.getMenuComponentCount()>0 && popupMenu.getMenuComponent(popupMenu.getMenuComponentCount()-1) instanceof javax.swing.JPopupMenu.Separator) popupMenu.remove(popupMenu.getMenuComponentCount()-1);
 	}
 
 	/**
@@ -156,6 +158,8 @@ public class ScriptPopupItemSub extends ScriptPopupItem {
 				popupMenu.add(item);
 			}
 		}
+
+		if (popupMenu.getComponentCount()>0 && popupMenu.getComponent(popupMenu.getComponentCount()-1) instanceof javax.swing.JPopupMenu.Separator) popupMenu.remove(popupMenu.getComponentCount()-1);
 	}
 
 	/**
@@ -199,6 +203,8 @@ public class ScriptPopupItemSub extends ScriptPopupItem {
 				popupMenu.add(sub);
 			}
 		}
+
+		if (popupMenu.getMenuComponentCount()>0 && popupMenu.getMenuComponent(popupMenu.getMenuComponentCount()-1) instanceof javax.swing.JPopupMenu.Separator) popupMenu.remove(popupMenu.getMenuComponentCount()-1);
 	}
 
 	/**
@@ -228,5 +234,7 @@ public class ScriptPopupItemSub extends ScriptPopupItem {
 				popupMenu.add(sub);
 			}
 		}
+
+		if (popupMenu.getComponentCount()>0 && popupMenu.getComponent(popupMenu.getComponentCount()-1) instanceof javax.swing.JPopupMenu.Separator) popupMenu.remove(popupMenu.getComponentCount()-1);
 	}
 }

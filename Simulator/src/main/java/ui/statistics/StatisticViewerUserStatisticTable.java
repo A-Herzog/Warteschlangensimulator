@@ -17,13 +17,16 @@ package ui.statistics;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.distribution.DataDistributionImpl;
 import simulator.statistics.Statistics;
+import statistics.StatisticsDataCollector;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import statistics.StatisticsMultiPerformanceIndicator;
 import statistics.StatisticsTimeContinuousPerformanceIndicator;
@@ -53,7 +56,11 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerBaseTable 
 		/** Übersichtstabelle */
 		MODE_DEFAULT,
 		/** Tabelle mit Verteilung der Daten */
-		MODE_DETAILS
+		MODE_DETAILS,
+		/** Tabelle mit den Anzahlen pro Intervall */
+		MODE_INTERVAL_COUNT,
+		/** Tabelle mit den Mittelwerten pro Intervall */
+		MODE_INTERVAL
 	}
 
 	/**
@@ -280,11 +287,11 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerBaseTable 
 			}
 		}
 
-		List<Double> sum=new ArrayList<>();
+		final List<Double> sum=new ArrayList<>();
 		for (DataDistributionImpl dist: dists) sum.add(dist.sum());
 
 		if (dists.size()>0)	for (int i=0;i<dists.get(0).densityData.length;i++) {
-			List<String> line=new ArrayList<>();
+			final List<String> line=new ArrayList<>();
 			line.add(NumberTools.formatLongNoGrouping(Math.round(i*scale)));
 			for (int j=0;j<dists.size();j++) {
 				double value=dists.get(j).densityData[i];
@@ -300,11 +307,94 @@ public class StatisticViewerUserStatisticTable extends StatisticViewerBaseTable 
 		addDescription("TableUserStatisticDetails");
 	}
 
+	/**
+	 * Erstellt die Tabelle mit den Anzahlen pro Intervall
+	 * @see Mode#MODE_INTERVAL_COUNT
+	 */
+	private void buildIntervalCount() {
+		final Table table=new Table();
+		final List<String> headers=new ArrayList<>();
+
+		final List<String> types=Arrays.asList(statistics.userStatisticsIntervalCount.getNames());
+		final List<StatisticsDataCollector> data=types.stream().map(name->(StatisticsDataCollector)statistics.userStatisticsIntervalCount.get(name)).collect(Collectors.toList());
+		final int count=data.stream().mapToInt(c->c.getCount()).max().orElseGet(()->0);
+
+		headers.add("Intervall");
+		headers.addAll(types);
+
+		for (int i=0;i<count;i++) {
+			final List<String> line=new ArrayList<>();
+			line.add(NumberTools.formatLong(i));
+			for (var c: data) {
+				if (i>=c.getCount()) {line.add(""); continue;}
+				final long value=Math.round(c.getValue(i));
+				line.add(NumberTools.formatLong(value));
+			}
+			table.addLine(line);
+		}
+
+		final List<String> line=new ArrayList<>();
+		line.add(Language.tr("Statistics.XML.Sum"));
+		for (var c: data) {
+			line.add(NumberTools.formatLong(Math.round(c.getSum())));
+		}
+		table.addLine(line);
+
+		setData(table,headers);
+
+		/* Infotext  */
+		addDescription("TableUserStatisticIntervalCount");
+	}
+
+	/**
+	 * Erstellt die Tabelle mit den Mitterlwerten pro Intervall
+	 * @see Mode#MODE_INTERVAL
+	 */
+	private void buildIntervalMean() {
+		final Table table=new Table();
+		final List<String> headers=new ArrayList<>();
+
+		final List<String> types=Arrays.asList(statistics.userStatisticsIntervalMean.getNames());
+		final List<StatisticsDataCollector> data=types.stream().map(name->(StatisticsDataCollector)statistics.userStatisticsIntervalMean.get(name)).collect(Collectors.toList());
+		final List<StatisticViewerOverviewText.UserStatisticsFormat> formats=types.stream().map(name->StatisticViewerOverviewText.isUserStatisticsTime(statistics,name)).collect(Collectors.toList());
+
+		headers.add("Intervall");
+		headers.addAll(types);
+
+		final int count=data.stream().mapToInt(c->c.getCount()).max().orElseGet(()->0);
+		for (int i=0;i<count;i++) {
+			final List<String> line=new ArrayList<>();
+			line.add(NumberTools.formatLong(i));
+			int j=0;
+			for (var c: data) {
+				if (i>=c.getCount()) {line.add(""); continue;}
+				switch (formats.get(j)) {
+				case NUMBER:
+				case MIXED:
+					line.add(StatisticTools.formatNumber(c.getValue(i)));
+					break;
+				case TIME:
+					line.add(StatisticTools.formatExactTime(c.getValue(i)));
+					break;
+				}
+				j++;
+			}
+			table.addLine(line);
+		}
+
+		setData(table,headers);
+
+		/* Infotext  */
+		addDescription("TableUserStatisticInterval");
+	}
+
 	@Override
 	protected void buildTable() {
 		switch (mode) {
 		case MODE_DEFAULT: buildDefaultTable(); break;
 		case MODE_DETAILS: buildDetailsTable(); break;
+		case MODE_INTERVAL_COUNT: buildIntervalCount(); break;
+		case MODE_INTERVAL: buildIntervalMean(); break;
 		}
 	}
 }

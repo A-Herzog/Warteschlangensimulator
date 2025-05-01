@@ -89,6 +89,7 @@ import ui.modeleditor.elements.ModelElementSourceMulti;
 import ui.modeleditor.elements.ModelElementSourceRecord;
 import ui.modeleditor.elements.ModelElementSourceTable;
 import ui.modeleditor.elements.ModelElementSub;
+import ui.modeleditor.elements.ModelElementUserStatistic;
 import ui.modeleditor.templates.UserTemplates;
 import ui.tools.FlatLaFHelper;
 
@@ -1533,6 +1534,12 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 
 		if (element instanceof ModelElementAnimationConnect) {
 			reasons.add(Language.tr("Surface.SingleCoreReason.AnimationMode"));
+		}
+
+		/* Intervallbasierte Statistikerfassung */
+
+		if (element instanceof ModelElementUserStatistic && ((ModelElementUserStatistic)element).inputConnected() && ((ModelElementUserStatistic)element).getIntervalLengthSeconds()>0) {
+			reasons.add(String.format(Language.tr("Surface.SingleCoreReason.IntervalBasedRecordingActive"),element.getId()));
 		}
 
 		/* Ein- und Ausgabe */

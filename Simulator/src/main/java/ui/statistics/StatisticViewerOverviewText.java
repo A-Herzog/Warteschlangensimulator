@@ -67,6 +67,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.elements.ElementWithOutputFile;
+import ui.modeleditor.elements.ModelElementSub;
 import ui.modeleditor.elements.ModelElementUserStatistic;
 import ui.statistics.FastAccessSelectorBuilder.IndicatorMode;
 import ui.tools.FlatLaFHelper;
@@ -3957,11 +3958,12 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	 * @see UserStatisticsFormat
 	 */
 	public static UserStatisticsFormat isUserStatisticsTime(final Statistics statistics, final String key) {
+		final List<String> clientTypes=statistics.editModel.surface.getClientTypes();
 		UserStatisticsFormat result=null;
 
 		for (ModelElement element: statistics.editModel.surface.getElements()) {
 			if (element instanceof ModelElementUserStatistic) {
-				final ModelElementUserStatistic.IsTime B=((ModelElementUserStatistic)element).getIsTimeForKey(key);
+				final ModelElementUserStatistic.IsTime B=((ModelElementUserStatistic)element).getIsTimeForKey(key,clientTypes);
 				if (B!=ModelElementUserStatistic.IsTime.NOT_FOUND) {
 					if (result==null) {
 						if (B.bool) result=UserStatisticsFormat.TIME; else result=UserStatisticsFormat.NUMBER;
@@ -3970,10 +3972,10 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 					}
 				}
 			}
-			if (element instanceof ModelElementUserStatistic) {
-				for (ModelElement sub: element.getSurface().getElements()) {
+			if (element instanceof ModelElementSub) {
+				for (ModelElement sub: ((ModelElementSub)element).getSubSurface().getElements()) {
 					if (sub instanceof ModelElementUserStatistic) {
-						final ModelElementUserStatistic.IsTime B=((ModelElementUserStatistic)sub).getIsTimeForKey(key);
+						final ModelElementUserStatistic.IsTime B=((ModelElementUserStatistic)sub).getIsTimeForKey(key,clientTypes);
 						if (B!=ModelElementUserStatistic.IsTime.NOT_FOUND) {
 							if (result==null) {
 								if (B.bool) result=UserStatisticsFormat.TIME; else result=UserStatisticsFormat.NUMBER;

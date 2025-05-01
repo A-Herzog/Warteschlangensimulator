@@ -1778,9 +1778,27 @@ public class ScriptPopup {
 		if (statistics.userStatistics.getNames().length>0) {
 			parent.addChild(sub=new ScriptPopupItemSub(Language.tr("Statistic.FastAccess.Template.UserStatistics"),null,null));
 			final String xmlMain=Language.tr("Statistics.XML.UserStatistics");
+			final String xmlMainCount=Language.tr("Statistics.XML.UserStatisticsIntervalCount");
+			final String xmlMainMean=Language.tr("Statistics.XML.UserStatisticsInterval");
 			for (String name: statistics.userStatistics.getNames()) {
-				xmlSub=Language.tr("Statistics.XML.UserStatisticsKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
-				sub.addChild(new ScriptPopupItemStatistics(name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+mean,scriptMode));
+				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.UserStatisticsKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
+				sub.addChild(sub2=new ScriptPopupItemSub(name,null,null));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean,scriptMode));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std,scriptMode));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.CV"),null,null,XMLMode.XML_NUMBER,xmlSub+CV,scriptMode));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Minimum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Min,scriptMode));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Maximum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Max,scriptMode));
+				if (statistics.userStatisticsIntervalCount.getOrNull(name)!=null || statistics.userStatisticsIntervalMean.getOrNull(name)!=null) {
+					sub2.addSeparator();
+				}
+				if (statistics.userStatisticsIntervalCount.getOrNull(name)!=null) {
+					final String xmlSubCount=xmlMainCount+"->"+Language.tr("Statistics.XML.UserStatisticsIntervalKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
+					sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.CountPerInterval"),null,null,XMLMode.XML_TEXT,xmlSubCount,scriptMode));
+				}
+				if (statistics.userStatisticsIntervalMean.getOrNull(name)!=null) {
+					final String xmlSubMean=xmlMainMean+"->"+Language.tr("Statistics.XML.UserStatisticsIntervalKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
+					sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.AveragePerInterval"),null,null,XMLMode.XML_TEXT,xmlSubMean,scriptMode));
+				}
 			}
 		}
 
@@ -1788,8 +1806,13 @@ public class ScriptPopup {
 			parent.addChild(sub=new ScriptPopupItemSub(Language.tr("Statistic.FastAccess.Template.UserStatisticsContinuous"),null,null));
 			final String xmlMain=Language.tr("Statistics.XML.UserStatisticsContinuous");
 			for (String name: statistics.userStatisticsContinuous.getNames()) {
-				xmlSub=Language.tr("Statistics.XML.UserStatisticsContinuousKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]";
-				sub.addChild(new ScriptPopupItemStatistics(name,null,null,XMLMode.XML_NUMBER,xmlMain+"->"+xmlSub+"->"+mean,scriptMode));
+				xmlSub=xmlMain+"->"+Language.tr("Statistics.XML.UserStatisticsContinuousKey")+"["+Language.tr("Statistics.XML.Type")+"=\""+name+"\"]->";
+				sub.addChild(sub2=new ScriptPopupItemSub(name,null,null));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Average"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+mean,scriptMode));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.StdDev"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Std,scriptMode));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.CV"),null,null,XMLMode.XML_NUMBER,xmlSub+CV,scriptMode));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Minimum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Min,scriptMode));
+				sub2.addChild(new ScriptPopupItemStatistics(Language.tr("Statistics.Maximum"),null,null,XMLMode.XML_NUMBER_TIME,xmlSub+Max,scriptMode));
 			}
 		}
 

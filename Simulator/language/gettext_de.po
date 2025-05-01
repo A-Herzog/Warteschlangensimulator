@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-23 10:45+0200\n"
+"POT-Creation-Date: 2025-04-28 11:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5077,6 +5077,9 @@ msgstr "Ankunftsschwellenwertausdruck"
 
 msgid "Editor.DialogBase.Search.InterarrivalArrival.Threshold.Value"
 msgstr "Ankunftsschwellenwert"
+
+msgid "Editor.DialogBase.Search.IntervalLength"
+msgstr "Intervalllänge"
 
 msgid "Editor.DialogBase.Search.JavaImports"
 msgstr "Imports für nutzerdefinierten Java-Code"
@@ -23227,6 +23230,9 @@ msgstr "Fügt an der aktuellen Position den Befehl zur Ausgabe der Wartezeit üb
 msgid "Statistic.Interval"
 msgstr "Intervall"
 
+msgid "Statistic.MeanPerInterval"
+msgstr "Mittelwert pro Intervall"
+
 msgid "Statistic.Previous"
 msgstr "Vorherige"
 
@@ -24006,6 +24012,9 @@ msgstr "Mittlere Anzahl an wartenden Kunden (nach Kundentypen)"
 msgid "Statistics.AveragePathLength"
 msgstr "Mittlere Pfadelänge"
 
+msgid "Statistics.AveragePerInterval"
+msgstr "Mittelwert pro Intervall"
+
 msgid "Statistics.AverageProcessTime"
 msgstr "Mittlere Bedienzeit"
 
@@ -24354,6 +24363,9 @@ msgstr "Kosten für die Arbeitszeit der Ressource"
 
 msgid "Statistics.CountPathLength"
 msgstr "Anzahl an gezählten Kundenpfaden"
+
+msgid "Statistics.CountPerInterval"
+msgstr "Ankünfte pro Intervall"
 
 msgid "Statistics.Counter"
 msgstr "Zähler"
@@ -25890,6 +25902,12 @@ msgstr "Benutzerdefinierte Statistik"
 msgid "Statistics.UserStatistics.Details"
 msgstr "Benutzerdefinierte Statistik - Details"
 
+msgid "Statistics.UserStatistics.IntervallCount"
+msgstr "Benutzerdefinierte Statistik - Intervallsummen"
+
+msgid "Statistics.UserStatistics.IntervallMean"
+msgstr "Benutzerdefinierte Statistik - Intervallmittelwerte"
+
 msgid "Statistics.UserStatistics.NothingRecorded"
 msgstr "Es wurden keine benutzerdefinierten Statistikdaten aufgezeichnet."
 
@@ -26630,6 +26648,15 @@ msgstr "StatistikBenutzerdefiniertKontinuierlich"
 
 msgid "Statistics.XML.UserStatisticsContinuousKey"
 msgstr "StatistikBenutzerdefiniertKontinuierlichDatensatz"
+
+msgid "Statistics.XML.UserStatisticsInterval"
+msgstr "StatistikBenutzerdefiniertIntervall"
+
+msgid "Statistics.XML.UserStatisticsIntervalCount"
+msgstr "StatistikBenutzerdefiniertIntervallAnzahl"
+
+msgid "Statistics.XML.UserStatisticsIntervalKey"
+msgstr "StatistikBenutzerdefiniertIntervallDatensatz"
 
 msgid "Statistics.XML.UserStatisticsKey"
 msgstr "StatistikBenutzerdefiniertDatensatz"
@@ -34896,6 +34923,9 @@ msgstr "Bei Quelle id=%d ist eine feste Anzahl an zu simulierenden Ankunftsereig
 msgid "Surface.SingleCoreReason.FixedSeed"
 msgstr "Es ist ein fester Startwert für den Zufallszahlengenerator eingestellt."
 
+msgid "Surface.SingleCoreReason.IntervalBasedRecordingActive"
+msgstr "An Station id=%d werden Daten zu einzelnen Intervallen erfasst."
+
 msgid "Surface.SingleCoreReason.OutputElementUsed"
 msgstr "Das Eingabe/Ausgabe-Element id=%d erfordert eine vollständig sequienzielle Verarbeitung."
 
@@ -37098,6 +37128,15 @@ msgstr "Der angegebene Wert \"%s\" für die Ausfallzeit für die Transportergrup
 msgid "Surface.Transporter.ErrorInterDistribution"
 msgstr "Der angegebene Wert \"%s\" für die Verteilung der Abstände der Ausfälle für die Transportergruppe \"%s\" ist ungültig."
 
+msgid "Surface.UserStatistic.Dialog.IntervalRecording"
+msgstr "Diskrete Werte zusätzlich intervallbasierend erfassen; Intervalllänge:"
+
+msgid "Surface.UserStatistic.Dialog.IntervalRecording.ErrorInfo"
+msgstr "Der angegebene Wert für die Intervalllänge \"%s\" ist ungültig. Es muss eine positive Zahl angegeben werden."
+
+msgid "Surface.UserStatistic.Dialog.IntervalRecording.ErrorTitle"
+msgstr "Ungültige Intervalllänge"
+
 msgid "Surface.UserStatistic.Dialog.RecordMode"
 msgstr "Erfassungsmodus"
 
@@ -37178,6 +37217,9 @@ msgstr "Eintrag nach oben verschieben"
 
 msgid "Surface.UserStatistic.Tooltip"
 msgstr "Ermöglicht die Erfassung von nutzerdefinierten Statistikdaten"
+
+msgid "Surface.UserStatistic.XML.IntervalLength"
+msgstr "StatistikBenutzerdefiniertIntervallLaenge"
 
 msgid "Surface.UserStatistic.XML.Mode"
 msgstr "StatistikBenutzerdefiniertModus"

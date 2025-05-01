@@ -40,6 +40,8 @@ public class RunElementUserStatistic extends RunElementPassThrough {
 	private boolean recordModeGlobal;
 	/** Erfassung der Statistikdaten pro Kundentyp? */
 	private boolean recordModeClientType;
+	/** Sekunden pro Intervall (Werte &le;0 zur Deaktivierung der Intervall-Erfassung) */
+	private double intervalLengthSeconds;
 
 	/** Array der Nutzerdaten-Statistik-Bezeichner unter denen die Werte erfasst werden sollen */
 	private String[] keys;
@@ -71,6 +73,7 @@ public class RunElementUserStatistic extends RunElementPassThrough {
 		/* Statistikgrößen */
 		userStatistic.recordModeGlobal=userStatisticElement.getRecordMode().containsGlobal;
 		userStatistic.recordModeClientType=userStatisticElement.getRecordMode().containsClientType;
+		userStatistic.intervalLengthSeconds=userStatisticElement.getIntervalLengthSeconds();
 		final List<String> keys=userStatisticElement.getKeys();
 		final List<Boolean> isTime=userStatisticElement.getIsTime();
 		final List<String> expressions=userStatisticElement.getExpressions();
@@ -125,7 +128,7 @@ public class RunElementUserStatistic extends RunElementPassThrough {
 		RunElementUserStatisticData data;
 		data=(RunElementUserStatisticData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementUserStatisticData(this,recordModeGlobal,recordModeClientType,keys,isTime,expressions,isContinuous,simData.runModel.variableNames,simData.runModel.clientTypes,simData);
+			data=new RunElementUserStatisticData(this,recordModeGlobal,recordModeClientType,intervalLengthSeconds,keys,isTime,expressions,isContinuous,simData.runModel.variableNames,simData.runModel.clientTypes,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -141,5 +144,11 @@ public class RunElementUserStatistic extends RunElementPassThrough {
 
 		/* Kunde zur nächsten Station leiten */
 		StationLeaveEvent.addLeaveEvent(simData,client,this,0);
+	}
+
+	@Override
+	public void endWarmUpNotify(final SimulationData simData) {
+		getData(simData).startTime=simData.currentTime;
+
 	}
 }
