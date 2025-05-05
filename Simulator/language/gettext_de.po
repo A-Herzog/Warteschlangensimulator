@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-28 11:20+0200\n"
+"POT-Creation-Date: 2025-04-29 21:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3537,6 +3537,12 @@ msgstr "https://en.wikipedia.org/wiki/Hyperbolic_secant_distribution"
 
 msgid "Distribution.Infinite"
 msgstr "unendlich"
+
+msgid "Distribution.InverseGamma"
+msgstr "Inverse Gamma-Verteilung"
+
+msgid "Distribution.InverseGammaWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Inverse-gamma_distribution"
 
 msgid "Distribution.InverseGaussian"
 msgstr "Inverse Gauß-Verteilung"
@@ -7280,6 +7286,18 @@ msgstr "<p>Berechnet den Wert der Zähldichte der Hypergeometrischen Verteilung 
 
 msgid "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Hypergeometrischen Verteilung mit den angegebenen Parametern.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution"
+msgstr "Inverse Gamma-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Inversen Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gemäß dem zweiten und dritten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Inversen Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gemäß dem zweiten und dritten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.RandomNumberInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Inversen Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gemäß dem zweiten und dritten Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution"
 msgstr "Inverse Gauß-Verteilung"

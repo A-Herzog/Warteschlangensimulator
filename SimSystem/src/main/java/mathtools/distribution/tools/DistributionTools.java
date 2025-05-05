@@ -141,6 +141,12 @@ public final class DistributionTools {
 			"<p>Können diese beiden Werte aus den historischen Daten abgeleitet werden, so eigent sich die Verteilung sehr gut zur Modellierung. Stehen derartige Werte nicht zur Verfügung, so kann ggf. auf die Dreiecksverteilung zurückgegriffen werden.</p>"+
 			"<p>In <b>Tabellenkalkulationen</b> ist üblicherweise auch die Gamma-Verteilung hinterlegt. Allerdings erfolgt doch die Parametrisierung meist nicht über Erwartungswert und Standardabweichung. Manuelle Umrechnungen sind hier nötig (siehe Dokumentation des jeweiligen Programms).</p>";
 
+	/** Inverse Gamma-Verteilung */
+	public static String[] DistInverseGamma=new String[]{"Inverse Gamma-Verteilung"};
+
+	/** Wikipedia-Seite Inverse Gamma-Verteilung */
+	public static String DistInverseGammaWikipedia="https://en.wikipedia.org/wiki/Inverse-gamma_distribution";
+
 	/** Beta-Verteilung */
 	public static String[] DistBeta=new String[]{"Beta-Verteilung"};
 
@@ -511,6 +517,7 @@ public final class DistributionTools {
 				new WrapperLogNormalDistribution(),
 				new WrapperErlangDistribution(),
 				new WrapperGammaDistribution(),
+				new WrapperInverseGammaDistribution(),
 				new WrapperBetaDistribution(),
 				new WrapperCauchyDistribution(),
 				new WrapperWeibullDistribution(),

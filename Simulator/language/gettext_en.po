@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-28 11:20+0200\n"
+"POT-Creation-Date: 2025-04-29 21:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3533,6 +3533,12 @@ msgstr "https://en.wikipedia.org/wiki/Hyperbolic_secant_distribution"
 
 msgid "Distribution.Infinite"
 msgstr "infinite"
+
+msgid "Distribution.InverseGamma"
+msgstr "Inverse gamma distribution"
+
+msgid "Distribution.InverseGammaWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Inverse-gamma_distribution"
 
 msgid "Distribution.InverseGaussian"
 msgstr "Inverse gaussian distribution"
@@ -7289,6 +7295,18 @@ msgstr "<p>Calculates the value of the count density of the hypergeometrical dis
 
 msgid "ExpressionBuilder.ProbabilityDistributions.HypergeometricDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the hypergeometric distribution with the given parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution"
+msgstr "Inverse gamma distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the inverse gamma distribution at the location specified as first parameter with the parameters &alpha; and &beta; according to the second and third parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the inverse gamma distribution at the location specified as first parameter with the parameters &alpha; and &beta; according to the second and third parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.RandomNumberInfo"
+msgstr "<p>Calculates the value of the distribution function of the inverse gamma distribution at the location specified as first parameter with the parameters &alpha; and &beta; according to the second and third parameters.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution"
 msgstr "Inverse gaussian distribution"

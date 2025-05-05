@@ -51,6 +51,7 @@ import mathtools.distribution.FatigueLifeDistributionImpl;
 import mathtools.distribution.FrechetDistributionImpl;
 import mathtools.distribution.HalfNormalDistribution;
 import mathtools.distribution.HyperbolicSecantDistributionImpl;
+import mathtools.distribution.InverseGammaDistributionImpl;
 import mathtools.distribution.InverseGaussianDistributionImpl;
 import mathtools.distribution.IrwinHallDistribution;
 import mathtools.distribution.JohnsonDistributionImpl;
@@ -294,6 +295,50 @@ class DistributionTests {
 
 		testDistributionTools(new ExtBetaDistributionImpl(1,200,2,3)); /* obere Grenze ist wichtig, da beim Test versucht wird, den Erwartungswert 123 einzustellen */
 		testDistributionParameters(beta,new double[] {2,3,4,7});
+	}
+
+	/**
+	 * Test: Inverse Gamma-Verteilung
+	 * @see InverseGammaDistributionImpl
+	 */
+	@Test
+	void testInverseGammaDistribution() {
+		InverseGammaDistributionImpl inverseGamma;
+
+		inverseGamma=new InverseGammaDistributionImpl(-1,-1);
+		assertTrue(inverseGamma.alpha>0);
+		assertTrue(inverseGamma.beta>0);
+
+		inverseGamma=new InverseGammaDistributionImpl(5,3);
+
+		assertEquals(5,inverseGamma.alpha);
+		assertEquals(3,inverseGamma.beta);
+		assertTrue(!inverseGamma.isSupportLowerBoundInclusive());
+		assertTrue(!inverseGamma.isSupportUpperBoundInclusive());
+		assertTrue(inverseGamma.isSupportConnected());
+		assertEquals(0,inverseGamma.getSupportLowerBound());
+		assertEquals(Double.MAX_VALUE,inverseGamma.getSupportUpperBound());
+		assertEquals(3.0/(5.0-1),inverseGamma.getNumericalMean());
+		assertEquals(3.0*3.0/(5.0-1)/(5.0-1)/(5.0-2),inverseGamma.getNumericalVariance());
+		assertEquals(0,inverseGamma.density(0));
+		assertEquals(0,inverseGamma.cumulativeProbability(0));
+
+		inverseGamma=inverseGamma.clone();
+
+		assertEquals(5,inverseGamma.alpha);
+		assertEquals(3,inverseGamma.beta);
+		assertTrue(!inverseGamma.isSupportLowerBoundInclusive());
+		assertTrue(!inverseGamma.isSupportUpperBoundInclusive());
+		assertTrue(inverseGamma.isSupportConnected());
+		assertEquals(0,inverseGamma.getSupportLowerBound());
+		assertEquals(Double.MAX_VALUE,inverseGamma.getSupportUpperBound());
+		assertEquals(3.0/(5.0-1),inverseGamma.getNumericalMean());
+		assertEquals(3.0*3.0/(5.0-1)/(5.0-1)/(5.0-2),inverseGamma.getNumericalVariance());
+		assertEquals(0,inverseGamma.density(0));
+		assertEquals(0,inverseGamma.cumulativeProbability(0));
+
+		testDistributionTools(inverseGamma);
+		testDistributionParameters(inverseGamma,new double[] {5,3});
 	}
 
 	/**

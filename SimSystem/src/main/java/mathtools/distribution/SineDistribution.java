@@ -44,7 +44,7 @@ public class SineDistribution extends AbstractRealDistribution implements Clonea
 	public final double b;
 
 	/**
-	 * Vorabbrechnete Varianz
+	 * Vorab berechnete Varianz
 	 * @see #getNumericalVariance()
 	 */
 	private final double variance;

@@ -144,6 +144,7 @@ import parser.symbols.distributions.CalcSymbolDistributionGumbel;
 import parser.symbols.distributions.CalcSymbolDistributionGumbelDirect;
 import parser.symbols.distributions.CalcSymbolDistributionHalfNormal;
 import parser.symbols.distributions.CalcSymbolDistributionHyperbolicSecant;
+import parser.symbols.distributions.CalcSymbolDistributionInverseGamma;
 import parser.symbols.distributions.CalcSymbolDistributionInverseGaussian;
 import parser.symbols.distributions.CalcSymbolDistributionIrwinHall;
 import parser.symbols.distributions.CalcSymbolDistributionIrwinHallDirect;
@@ -366,6 +367,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionWignerHalfCircle());
 			addSymbol(new CalcSymbolDistributionLogCauchy());
 			addSymbol(new CalcSymbolDistributionLogGamma());
+			addSymbol(new CalcSymbolDistributionInverseGamma());
 
 			addSymbol(new CalcSymbolEmpiricalDistributionPDF());
 			addSymbol(new CalcSymbolEmpiricalDistributionCDF());
@@ -397,7 +399,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolTruncatedDistribution(new CalcSymbolDistributionFatigueLife()));
 			addSymbol(new CalcSymbolTruncatedDistribution(new CalcSymbolDistributionFrechet()));
 			addSymbol(new CalcSymbolTruncatedDistribution(new CalcSymbolDistributionHyperbolicSecant()));
-			
+
 			addSymbol(new CalcSymbolPreOperatorSqrt());
 			addSymbol(new CalcSymbolPreOperatorCbrt());
 			addSymbol(new CalcSymbolPreOperatorSqr());
@@ -641,10 +643,6 @@ public class CalcSymbolList {
 		if (listPreOperatorUser==null) listPreOperatorUser=getUserFunctions();
 
 		if (listPreOperatorUser!=null) for (CalcSymbol sym: listPreOperatorUser) for (String s: sym.getNames()) if (!s.isEmpty() && s.equalsIgnoreCase(name) && s.length()>len) {select=sym; len=s.length();}
-		for (CalcSymbol sym: listPreOperator) for (String s: sym.getNames()) if (!s.isEmpty() && s.equalsIgnoreCase(name) && s.length()>len) {select=sym; len=s.length();}
-		for (CalcSymbol sym: listMiddleOperator) for (String s: sym.getNames()) if (!s.isEmpty() && s.equalsIgnoreCase(name) && s.length()>len) {select=sym; len=s.length();}
-		for (CalcSymbol sym: listPostOperator) for (String s: sym.getNames()) if (!s.isEmpty() && s.equalsIgnoreCase(name) && s.length()>len) {select=sym; len=s.length();}
-		for (CalcSymbol sym: listConst) for (String s: sym.getNames()) if (!s.isEmpty() && s.equalsIgnoreCase(name) && s.length()>len) {select=sym; len=s.length();}
 
 		for (int i=0;i<variables.length;i++) if (variables[i]!=null && variables[i].equalsIgnoreCase(name) && variables[i].length()>len) {
 			CalcSymbolVariable variable=new CalcSymbolVariable();
@@ -652,6 +650,11 @@ public class CalcSymbolList {
 			select=variable;
 			len=variables[i].length();
 		}
+
+		for (CalcSymbol sym: listPreOperator) for (String s: sym.getNames()) if (!s.isEmpty() && s.equalsIgnoreCase(name) && s.length()>len) {select=sym; len=s.length();}
+		for (CalcSymbol sym: listMiddleOperator) for (String s: sym.getNames()) if (!s.isEmpty() && s.equalsIgnoreCase(name) && s.length()>len) {select=sym; len=s.length();}
+		for (CalcSymbol sym: listPostOperator) for (String s: sym.getNames()) if (!s.isEmpty() && s.equalsIgnoreCase(name) && s.length()>len) {select=sym; len=s.length();}
+		for (CalcSymbol sym: listConst) for (String s: sym.getNames()) if (!s.isEmpty() && s.equalsIgnoreCase(name) && s.length()>len) {select=sym; len=s.length();}
 
 		if (select!=null) select=select.cloneSymbol();
 		return select;

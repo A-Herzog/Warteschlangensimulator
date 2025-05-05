@@ -354,6 +354,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ErlangDistribution.RandomNumberRangeInfo"));
 
+		/* Inverse Gamma-Verteilung */
+
+		addDist(group,filterUpper,"InverseGammaDist","alpha;beta",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution"),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.DensityInfo"),NumberTools.formatNumberMax(0.03992278718149)),
+				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.DistributionFunctionInfo"),NumberTools.formatNumberMax(0.087695308502)),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.RandomNumberInfo"));
+
 		/* Beta-Verteilung */
 
 		addDist(group,filterUpper,"BetaDist","a;b;alpha;beta",

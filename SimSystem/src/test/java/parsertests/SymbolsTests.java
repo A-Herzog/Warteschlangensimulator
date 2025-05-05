@@ -3150,7 +3150,7 @@ class SymbolsTests {
 		try {
 			return calc.calc(values);
 		} catch (MathCalcError e) {
-			assertTrue(false);
+			assertTrue(false,e.getMessage());
 			return -1;
 		}
 	}
@@ -3477,6 +3477,21 @@ class SymbolsTests {
 		cmd="HyperbolicSecantDistribution(a;b)";
 		variables=new String[]{"a","b"};
 		testDistribution(cmd,variables,new double[]{1,2});
+
+		/* Inverse Gamma-Verteilung */
+
+		cmd="InverseGammaDistribution(x;alpha;beta;0)";
+		variables=new String[]{"x","alpha","beta"};
+		assertTrue(testDistribution(cmd,variables,new double[]{20,5,100})>0);
+
+		cmd="InverseGammaDistribution(x;alpha;beta;1)";
+		variables=new String[]{"x","alpha","beta"};
+		assertTrue(testDistribution(cmd,variables,new double[]{20,5,100})>0);
+		testDistributionThrows("HyperbolicSecantDistribution(x;alpha;beta;2)",variables,new double[]{20,5,100});
+
+		cmd="InverseGammaDistribution(alpha;beta)";
+		variables=new String[]{"alpha","beta"};
+		testDistribution(cmd,variables,new double[]{5,100});
 
 		/* Inverse Gauﬂverteilung */
 

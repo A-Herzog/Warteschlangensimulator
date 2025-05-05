@@ -295,6 +295,11 @@ one of these probability distributions:
   <tr><td>GammaDistDirect(a;b)</td><td>Generates a random number based on this distribution</td></tr>
   <tr><td>GammaDistDirectRange(min;max;a;b)</td><td>Generates a random number based on this distribution but limits the range of the value to min...max.</td></tr>
     
+  <tr><td colspan="2"><b>Inverse gamma distribution with parameters &alpha;=a and &beta;=b</b></td></tr>
+  <tr><td>InverseGammaDist(x;a;b;0)</td><td>Calculates the probability density at x</td></tr>
+  <tr><td>InverseGammaDist(x;a;b;1)</td><td>Calculates the cumulative distribution function at x</td></tr>
+  <tr><td>InverseGammaDist(a;b)</td><td>Generates a random number based on this distribution</td></tr>
+    
   <tr><td colspan="2"><b>Erlang distribution with parameters n and &lambda;=l</b></td></tr>
   <tr><td>ErlangDist(x;n;l;0)</td><td>Calculates the probability density at x</td></tr>
   <tr><td>ErlangDist(x;n;l;1)</td><td>Calculates the cumulative distribution function at x</td></tr>

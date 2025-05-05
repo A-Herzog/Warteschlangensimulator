@@ -48,6 +48,7 @@ import mathtools.distribution.FatigueLifeDistributionImpl;
 import mathtools.distribution.FrechetDistributionImpl;
 import mathtools.distribution.HalfNormalDistribution;
 import mathtools.distribution.HyperbolicSecantDistributionImpl;
+import mathtools.distribution.InverseGammaDistributionImpl;
 import mathtools.distribution.InverseGaussianDistributionImpl;
 import mathtools.distribution.IrwinHallDistribution;
 import mathtools.distribution.JohnsonDistributionImpl;
@@ -97,6 +98,7 @@ import mathtools.distribution.tools.WrapperGumbelDistribution;
 import mathtools.distribution.tools.WrapperHalfNormalDistribution;
 import mathtools.distribution.tools.WrapperHyperGeomDistribution;
 import mathtools.distribution.tools.WrapperHyperbolicSecantDistribution;
+import mathtools.distribution.tools.WrapperInverseGammaDistribution;
 import mathtools.distribution.tools.WrapperInverseGaussianDistribution;
 import mathtools.distribution.tools.WrapperIrwinHallDistribution;
 import mathtools.distribution.tools.WrapperJohnsonDistribution;
@@ -321,6 +323,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new MaxwellBoltzmannDistributionPanel());
 		allRecords.add(new StudentTDistributionPanel());
 		allRecords.add(new LogCauchyDistributionPanel());
+		allRecords.add(new InverseGammaDistributionPanel());
 		allRecords.add(new HyperGeomDistributionPanel());
 		allRecords.add(new BinomialDistributionPanel());
 		allRecords.add(new PoissonDistributionPanel());
@@ -1783,6 +1786,38 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double mu=NumberTools.getDouble(fields[0],true); if (mu==null) return null;
 			final Double sigma=NumberTools.getPositiveDouble(fields[1],true); if (sigma==null) return null;
 			return new LogCauchyDistributionImpl(mu,sigma);
+		}
+	}
+
+	/** Inverse Gamma-Verteilung */
+	private static class InverseGammaDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public InverseGammaDistributionPanel() {
+			super(new WrapperInverseGammaDistribution(),new String[]{"alpha","beta"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			final InverseGammaDistributionImpl dist=(InverseGammaDistributionImpl)new WrapperInverseGammaDistribution().getDistribution(meanD,stdD);
+			return new String[]{
+					NumberTools.formatNumber(dist.alpha),
+					NumberTools.formatNumber(dist.beta),
+			};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((InverseGammaDistributionImpl)distribution).alpha),
+					NumberTools.formatNumberMax(((InverseGammaDistributionImpl)distribution).beta),
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double alpha=NumberTools.getPositiveDouble(fields[0],true); if (alpha==null) return null;
+			final Double beta=NumberTools.getPositiveDouble(fields[1],true); if (beta==null) return null;
+			return new InverseGammaDistributionImpl(alpha,beta);
 		}
 	}
 

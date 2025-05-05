@@ -20,6 +20,13 @@ This file lists the third-party components used by "SimSystem" project and their
 - License URL: https://www.apache.org/licenses/LICENSE-2.0
 - Homepage: http://commons.apache.org/proper/commons-math/ 
 
+### Apache Commons Numbers Gamma 
+
+- Repository: https://mvnrepository.com/artifact/org.apache.commons/commons-numbers-gamma
+- License: Apache 2.0
+- License URL: https://www.apache.org/licenses/LICENSE-2.0
+- Homepage: https://commons.apache.org/proper/commons-numbers/
+
 ### Apache POI
 
 - Repository: https://mvnrepository.com/artifact/org.apache.poi/poi

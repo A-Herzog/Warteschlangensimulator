@@ -35,6 +35,12 @@
     		<artifactId>commons-math3</artifactId>
     		<version>3.6.1</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-numbers-gamma -->
+	<dependency>
+    	<groupId>org.apache.commons</groupId>
+    	<artifactId>commons-numbers-gamma</artifactId>
+    	<version>1.2</version>
+	</dependency>
 	<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 	<dependency>
     		<groupId>commons-io</groupId>

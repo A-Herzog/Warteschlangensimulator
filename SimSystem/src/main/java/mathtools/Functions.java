@@ -16,7 +16,6 @@
 package mathtools;
 
 import org.apache.commons.math3.special.Gamma;
-import org.apache.commons.math3.util.FastMath;
 
 /**
  * Enthält einige Hilfsfunktionen
@@ -46,7 +45,7 @@ public final class Functions {
 	 * @return	Gamma(x)
 	 */
 	public static double getGamma(double x) {
-		return FastMath.exp(Gamma.logGamma(x));
+		return Gamma.gamma(x);
 	}
 
 	/**

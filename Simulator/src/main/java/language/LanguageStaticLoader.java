@@ -205,6 +205,8 @@ public class LanguageStaticLoader {
 		DistributionTools.DistGamma=Language.trAll("Distribution.Gamma");
 		DistributionTools.DistGammaWikipedia=Language.tr("Distribution.GammaWikipedia");
 		DistributionTools.DistGammaInfo=Language.tr("Distribution.GammaInfo");
+		DistributionTools.DistInverseGamma=Language.trAll("Distribution.InverseGamma");
+		DistributionTools.DistInverseGammaWikipedia=Language.tr("Distribution.InverseGammaWikipedia");
 		DistributionTools.DistBeta=Language.trAll("Distribution.Beta");
 		DistributionTools.DistBetaWikipedia=Language.tr("Distribution.BetaWikipedia");
 		DistributionTools.DistCauchy=Language.trAll("Distribution.Cauchy");
