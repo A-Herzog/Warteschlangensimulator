@@ -145,7 +145,7 @@ Der Warteschlangensimulator kann auf einem leistungsstarken System im Servermodu
 
 Alternativ können Parameterreihenkonfigurationen gespeichert und dann per **Kommandozeile** auf einem Rechenserver ohne jegliche grafische Oberfläche ausgeführt werden.
 
-### Buch: "Simulation mit dem Warteschlangensimulator"
+## Buch: "Simulation mit dem Warteschlangensimulator"
 
 [<img src="Images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.png" style="float: right; max-width: 30%; padding-left: 5px">](https://www.springer.com/gp/book/9783658346676)
 
@@ -165,6 +165,6 @@ Alternativ können Parameterreihenkonfigurationen gespeichert und dann per **Kom
 Die im Lehrbuch vorgestellten Beispiele sind auch als Warteschlangensimulator-Modelle direkt im Simulator und auf der 
 [GitHub-Lehrbuchbeispiele](https://github.com/A-Herzog/Warteschlangensimulator/tree/master/Simulator/src/main/java/ui/help/bookexamples)-Seite verfügbar.
 
-### Veröffentlichungen
+## Veröffentlichungen
 
 Eine Liste mit allen Veröffentlichungen zum Warteschlangensimulator finden Sie auf der [Veröffentlichungen-GitHub-Wiki](https://github.com/A-Herzog/Warteschlangensimulator/wiki/Publication-list)-Seite.

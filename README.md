@@ -144,7 +144,7 @@ Warteschlangensimulator can be started on a performant system in server mode. If
 
 Alternatively, parameter series configurations can be saved and then executed via **command line** on a calculation server without any graphical interface.
 
-### Textbook: "Simulation mit dem Warteschlangensimulator" (in German)
+## Textbook: "Simulation mit dem Warteschlangensimulator" (in German)
 
 [<img src="Images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.png" style="float: right; max-width: 30%; padding-left: 5px">](https://www.springer.com/gp/book/9783658346676)
 
@@ -164,6 +164,6 @@ Citing "Simulation mit dem Warteschlangensimulator" using BibTeX:
 The examples shown in the textbook are also available as Warteschlangensimulator models from within the program and also from the
 [GitHub textbook examples page](https://github.com/A-Herzog/Warteschlangensimulator/tree/master/Simulator/src/main/java/ui/help/bookexamples).
 
-### Publication list
+## Publication list
 
 A list of all publications on Warteschlangensimulator can be found on the [Publication list GitHub Wiki](https://github.com/A-Herzog/Warteschlangensimulator/wiki/Publication-list) page.
