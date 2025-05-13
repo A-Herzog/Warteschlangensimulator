@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-29 21:39+0200\n"
+"POT-Creation-Date: 2025-05-02 19:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13761,6 +13761,18 @@ msgstr "Pfad zur Bedienstation mit den wenigsten Kunden wählen"
 
 msgid "ModelDescription.Decide.Mode.LeastClientsNextStation"
 msgstr "Pfad zur nächsten Station mit den wenigsten Kunden wählen"
+
+msgid "ModelDescription.Decide.Mode.LongestQueueNextProcessStation"
+msgstr "Pfad zur Bedienstation mit der längsten Warteschlange wählen"
+
+msgid "ModelDescription.Decide.Mode.LongestQueueNextStation"
+msgstr "Pfad zur nächsten Station mit der längsten Warteschlange wählen"
+
+msgid "ModelDescription.Decide.Mode.MostClientsNextProcessStation"
+msgstr "Pfad zur Bedienstation mit den meisten Kunden wählen"
+
+msgid "ModelDescription.Decide.Mode.MostClientsNextStation"
+msgstr "Pfad zur nächsten Station mit den meisten Kunden wählen"
 
 msgid "ModelDescription.Decide.Mode.Rate"
 msgstr "Zufällig verzweigen"
@@ -30154,11 +30166,17 @@ msgstr "Kundentyp"
 msgid "Surface.Decide.ByClientsAtStation"
 msgstr "Minimum N"
 
+msgid "Surface.Decide.ByClientsAtStationMax"
+msgstr "Maximum N"
+
 msgid "Surface.Decide.ByCondition"
 msgstr "Bedingung"
 
 msgid "Surface.Decide.ByQueueLength"
 msgstr "Minimum NQ"
+
+msgid "Surface.Decide.ByQueueLengthMax"
+msgstr "Maximum NQ"
 
 msgid "Surface.Decide.BySequence"
 msgstr "Reihenfolge"
@@ -30224,6 +30242,42 @@ msgid "Surface.Decide.Dialog.DecideBy.LeastClientsNextStation.Info"
 msgstr ""
 "Der Kunde wird über den Pfad weitergeleitet,\n"
 "bei dem die nächste Station die geringste\n"
+"Anzahl an aktuellen Kunden besitzt."
+
+msgid "Surface.Decide.Dialog.DecideBy.LongestQueueNextProcessStation"
+msgstr "Längste Warteschlange an der nächsten Bedienstation"
+
+msgid "Surface.Decide.Dialog.DecideBy.LongestQueueNextProcessStation.Info"
+msgstr ""
+"Der Kunde wird über den Pfad weitergeleitet,\n"
+"bei dem bei der nächsten Bedienstation die \n"
+"längste Warteschlangenlänge vorliegt."
+
+msgid "Surface.Decide.Dialog.DecideBy.LongestQueueNextStation"
+msgstr "Längste Warteschlange an der nächsten Station"
+
+msgid "Surface.Decide.Dialog.DecideBy.LongestQueueNextStation.Info"
+msgstr ""
+"Der Kunde wird über den Pfad weitergeleitet,\n"
+"bei dem bei der nächsten Station die \n"
+"längste Warteschlangenlänge vorliegt."
+
+msgid "Surface.Decide.Dialog.DecideBy.MostClientsNextProcessStation"
+msgstr "Höchste Anzahl an Kunden an der nächsten Bedienstation"
+
+msgid "Surface.Decide.Dialog.DecideBy.MostClientsNextProcessStation.Info"
+msgstr ""
+"Der Kunde wird über den Pfad weitergeleitet,\n"
+"bei dem die nächste Bedienstation die höchste\n"
+"Anzahl an aktuellen Kunden besitzt."
+
+msgid "Surface.Decide.Dialog.DecideBy.MostClientsNextStation"
+msgstr "Höchste Anzahl an Kunden an der nächsten Station"
+
+msgid "Surface.Decide.Dialog.DecideBy.MostClientsNextStation.Info"
+msgstr ""
+"Der Kunde wird über den Pfad weitergeleitet,\n"
+"bei dem die nächste Station die höchste\n"
 "Anzahl an aktuellen Kunden besitzt."
 
 msgid "Surface.Decide.Dialog.DecideBy.Sequence"
@@ -30400,17 +30454,29 @@ msgstr "Kundentyp"
 msgid "Surface.Decide.XML.Mode.ByClientsAtStationNext"
 msgstr "MinimumN"
 
+msgid "Surface.Decide.XML.Mode.ByClientsAtStationNextMax"
+msgstr "MaximumN"
+
 msgid "Surface.Decide.XML.Mode.ByClientsAtStationProcess"
 msgstr "BedienstationMinimumN"
+
+msgid "Surface.Decide.XML.Mode.ByClientsAtStationProcessMax"
+msgstr "BedienstationMaximumN"
 
 msgid "Surface.Decide.XML.Mode.ByCondition"
 msgstr "Bedingung"
 
 msgid "Surface.Decide.XML.Mode.ByQueueLengthNext"
-msgstr "MinimumN"
+msgstr "MinimumNQ"
+
+msgid "Surface.Decide.XML.Mode.ByQueueLengthNextMax"
+msgstr "MaximumNQ"
 
 msgid "Surface.Decide.XML.Mode.ByQueueLengthProcess"
 msgstr "BedienstationMinimumNQ"
+
+msgid "Surface.Decide.XML.Mode.ByQueueLengthProcessMax"
+msgstr "BedienstationMaximumNQ"
 
 msgid "Surface.Decide.XML.Mode.BySequence"
 msgstr "Reihenfolge"

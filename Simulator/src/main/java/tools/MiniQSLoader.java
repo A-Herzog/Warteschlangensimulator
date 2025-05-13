@@ -572,6 +572,8 @@ public class MiniQSLoader {
 			case 0: element.setMode(ModelElementDecide.DecideMode.MODE_CHANCE); break;
 			case 1: element.setMode(ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION); break;
 			case 2: element.setMode(ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION); break;
+			case 3: element.setMode(ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION); break;
+			case 4: element.setMode(ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION); break;
 			}
 			if (mode==0) {
 				if (rates==null) return null;

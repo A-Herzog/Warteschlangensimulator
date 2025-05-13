@@ -75,10 +75,18 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		MODE_SHORTEST_QUEUE_NEXT_STATION,
 		/** Kürzeste Warteschlange an der nächsten Bedienstation */
 		MODE_SHORTEST_QUEUE_PROCESS_STATION,
-		/** Wenigster Kunden an der nächsten Station */
+		/** Wenigste Kunden an der nächsten Station */
 		MODE_MIN_CLIENTS_NEXT_STATION,
-		/** Wenigster Kunden an der nächsten Bedienstation */
+		/** Wenigste Kunden an der nächsten Bedienstation */
 		MODE_MIN_CLIENTS_PROCESS_STATION,
+		/** Längste Warteschlange an der nächsten Station */
+		MODE_LONGEST_QUEUE_NEXT_STATION,
+		/** Längste Warteschlange an der nächsten Bedienstation */
+		MODE_LONGEST_QUEUE_PROCESS_STATION,
+		/** Meiste Kunden an der nächsten Station */
+		MODE_MAX_CLIENTS_NEXT_STATION,
+		/** Meiste Kunden an der nächsten Bedienstation */
+		MODE_MAX_CLIENTS_PROCESS_STATION,
 		/** Gemäß Wert eines Kundendaten-Textfeldes */
 		MODE_KEY_VALUE
 	}
@@ -293,6 +301,18 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			case MODE_MIN_CLIENTS_PROCESS_STATION:
 				name="";
 				break;
+			case MODE_LONGEST_QUEUE_NEXT_STATION:
+				name="";
+				break;
+			case MODE_LONGEST_QUEUE_PROCESS_STATION:
+				name="";
+				break;
+			case MODE_MAX_CLIENTS_NEXT_STATION:
+				name="";
+				break;
+			case MODE_MAX_CLIENTS_PROCESS_STATION:
+				name="";
+				break;
 			case MODE_KEY_VALUE:
 				s=(i>=values.size())?Language.tr("Dialog.Title.Error").toUpperCase():(key+"="+values.get(i));
 				name=(i<connectionsOut.size()-1)?s:Language.tr("Surface.Decide.AllOtherValues");
@@ -372,6 +392,18 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		case MODE_MIN_CLIENTS_PROCESS_STATION:
 			if (decideByStationOnTie!=decide.decideByStationOnTie) return false;
 			break;
+		case MODE_LONGEST_QUEUE_NEXT_STATION:
+			if (decideByStationOnTie!=decide.decideByStationOnTie) return false;
+			break;
+		case MODE_LONGEST_QUEUE_PROCESS_STATION:
+			if (decideByStationOnTie!=decide.decideByStationOnTie) return false;
+			break;
+		case MODE_MAX_CLIENTS_NEXT_STATION:
+			if (decideByStationOnTie!=decide.decideByStationOnTie) return false;
+			break;
+		case MODE_MAX_CLIENTS_PROCESS_STATION:
+			if (decideByStationOnTie!=decide.decideByStationOnTie) return false;
+			break;
 		case MODE_KEY_VALUE:
 			if (!key.equals(decide.key)) return false;
 			List<String> values2=decide.values;
@@ -447,6 +479,18 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				/* nichts zu kopieren */
 				break;
 			case MODE_MIN_CLIENTS_PROCESS_STATION:
+				/* nichts zu kopieren */
+				break;
+			case MODE_LONGEST_QUEUE_NEXT_STATION:
+				/* nichts zu kopieren */
+				break;
+			case MODE_LONGEST_QUEUE_PROCESS_STATION:
+				/* nichts zu kopieren */
+				break;
+			case MODE_MAX_CLIENTS_NEXT_STATION:
+				/* nichts zu kopieren */
+				break;
+			case MODE_MAX_CLIENTS_PROCESS_STATION:
 				/* nichts zu kopieren */
 				break;
 			case MODE_KEY_VALUE:
@@ -544,6 +588,10 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		case MODE_SHORTEST_QUEUE_PROCESS_STATION: return Language.tr("Surface.Decide.ByQueueLength");
 		case MODE_MIN_CLIENTS_NEXT_STATION: return Language.tr("Surface.Decide.ByClientsAtStation");
 		case MODE_MIN_CLIENTS_PROCESS_STATION: return Language.tr("Surface.Decide.ByClientsAtStation");
+		case MODE_LONGEST_QUEUE_NEXT_STATION: return Language.tr("Surface.Decide.ByQueueLengthMax");
+		case MODE_LONGEST_QUEUE_PROCESS_STATION: return Language.tr("Surface.Decide.ByQueueLengthMax");
+		case MODE_MAX_CLIENTS_NEXT_STATION: return Language.tr("Surface.Decide.ByClientsAtStationMax");
+		case MODE_MAX_CLIENTS_PROCESS_STATION: return Language.tr("Surface.Decide.ByClientsAtStationMax");
 		case MODE_KEY_VALUE: return Language.tr("Surface.Decide.ByStringProperty");
 		default: return null;
 		}
@@ -709,6 +757,10 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 		case MODE_SHORTEST_QUEUE_PROCESS_STATION: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByQueueLengthProcess")); break;
 		case MODE_MIN_CLIENTS_NEXT_STATION: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByClientsAtStationNext")); break;
 		case MODE_MIN_CLIENTS_PROCESS_STATION: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByClientsAtStationProcess")); break;
+		case MODE_LONGEST_QUEUE_NEXT_STATION: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByQueueLengthNextMax")); break;
+		case MODE_LONGEST_QUEUE_PROCESS_STATION: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByQueueLengthProcessMax")); break;
+		case MODE_MAX_CLIENTS_NEXT_STATION: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByClientsAtStationNextMax")); break;
+		case MODE_MAX_CLIENTS_PROCESS_STATION: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByClientsAtStationProcessMax")); break;
 		case MODE_KEY_VALUE: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByStringProperty")); break;
 		}
 
@@ -718,7 +770,8 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			sub.setAttribute(Language.trPrimary("Surface.Decide.XML.Key.MultiTextValues"),multiTextValues?"1":"0");
 		}
 
-		if (mode==DecideMode.MODE_MIN_CLIENTS_NEXT_STATION || mode==DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION || mode==DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION) {
+		if (mode==DecideMode.MODE_MIN_CLIENTS_NEXT_STATION || mode==DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION || mode==DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION ||
+				mode==DecideMode.MODE_MAX_CLIENTS_NEXT_STATION || mode==DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION || mode==DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION || mode==DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Decide.DecideByStationOnTie.XMLName")));
 			sub.setTextContent(decideByStationOnTie.getName());
 		}
@@ -772,6 +825,18 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			case MODE_MIN_CLIENTS_PROCESS_STATION:
 				/* nichts zu speichern */
 				break;
+			case MODE_LONGEST_QUEUE_NEXT_STATION:
+				/* nichts zu speichern */
+				break;
+			case MODE_LONGEST_QUEUE_PROCESS_STATION:
+				/* nichts zu speichern */
+				break;
+			case MODE_MAX_CLIENTS_NEXT_STATION:
+				/* nichts zu speichern */
+				break;
+			case MODE_MAX_CLIENTS_PROCESS_STATION:
+				/* nichts zu speichern */
+				break;
 			case MODE_KEY_VALUE:
 				if (i<connectionsOut.size()-1) {
 					String value=(i>=values.size())?"":values.get(i);
@@ -804,6 +869,10 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			if (Language.trAll("Surface.Decide.XML.Mode.ByQueueLengthProcess",content)) {mode=DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION; ok=true;}
 			if (Language.trAll("Surface.Decide.XML.Mode.ByClientsAtStationNext",content)) {mode=DecideMode.MODE_MIN_CLIENTS_NEXT_STATION; ok=true;}
 			if (Language.trAll("Surface.Decide.XML.Mode.ByClientsAtStationProcess",content)) {mode=DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION; ok=true;}
+			if (Language.trAll("Surface.Decide.XML.Mode.ByQueueLengthNextMax",content)) {mode=DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION; ok=true;}
+			if (Language.trAll("Surface.Decide.XML.Mode.ByQueueLengthProcessMax",content)) {mode=DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION; ok=true;}
+			if (Language.trAll("Surface.Decide.XML.Mode.ByClientsAtStationNextMax",content)) {mode=DecideMode.MODE_MAX_CLIENTS_NEXT_STATION; ok=true;}
+			if (Language.trAll("Surface.Decide.XML.Mode.ByClientsAtStationProcessMax",content)) {mode=DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION; ok=true;}
 			if (Language.trAll("Surface.Decide.XML.Mode.ByStringProperty",content)) {mode=DecideMode.MODE_KEY_VALUE; ok=true;}
 			if (!ok) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
@@ -1237,6 +1306,38 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				descriptionBuilder.addConditionalEdgeOut(Language.tr("ModelDescription.NextElement")+newClientType,edge);
 			}
 			break;
+		case MODE_LONGEST_QUEUE_NEXT_STATION:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.LongestQueueNextStation"),1000);
+			for (int i=0;i<connectionsOut.size();i++) {
+				final ModelElementEdge edge=connectionsOut.get(i);
+				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
+				descriptionBuilder.addConditionalEdgeOut(Language.tr("ModelDescription.NextElement")+newClientType,edge);
+			}
+			break;
+		case MODE_LONGEST_QUEUE_PROCESS_STATION:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.LongestQueueNextProcessStation"),1000);
+			for (int i=0;i<connectionsOut.size();i++) {
+				final ModelElementEdge edge=connectionsOut.get(i);
+				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
+				descriptionBuilder.addConditionalEdgeOut(Language.tr("ModelDescription.NextElement")+newClientType,edge);
+			}
+			break;
+		case MODE_MAX_CLIENTS_NEXT_STATION:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.MostClientsNextStation"),1000);
+			for (int i=0;i<connectionsOut.size();i++) {
+				final ModelElementEdge edge=connectionsOut.get(i);
+				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
+				descriptionBuilder.addConditionalEdgeOut(Language.tr("ModelDescription.NextElement")+newClientType,edge);
+			}
+			break;
+		case MODE_MAX_CLIENTS_PROCESS_STATION:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.MostClientsNextProcessStation"),1000);
+			for (int i=0;i<connectionsOut.size();i++) {
+				final ModelElementEdge edge=connectionsOut.get(i);
+				String newClientType=getNewClientType(i); if (!newClientType.isEmpty()) newClientType=", "+newClientType;
+				descriptionBuilder.addConditionalEdgeOut(Language.tr("ModelDescription.NextElement")+newClientType,edge);
+			}
+			break;
 		case MODE_KEY_VALUE:
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.StringProperty"),1000);
 			for (int i=0;i<connectionsOut.size();i++) {
@@ -1320,6 +1421,18 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			/* Keine Konfiguration */
 			break;
 		case MODE_MIN_CLIENTS_PROCESS_STATION:
+			/* Keine Konfiguration */
+			break;
+		case MODE_LONGEST_QUEUE_NEXT_STATION:
+			/* Keine Konfiguration */
+			break;
+		case MODE_LONGEST_QUEUE_PROCESS_STATION:
+			/* Keine Konfiguration */
+			break;
+		case MODE_MAX_CLIENTS_NEXT_STATION:
+			/* Keine Konfiguration */
+			break;
+		case MODE_MAX_CLIENTS_PROCESS_STATION:
 			/* Keine Konfiguration */
 			break;
 		case MODE_KEY_VALUE:

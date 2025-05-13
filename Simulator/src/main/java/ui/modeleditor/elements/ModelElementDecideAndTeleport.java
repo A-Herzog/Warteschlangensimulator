@@ -242,6 +242,18 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 		case MODE_MIN_CLIENTS_PROCESS_STATION:
 			/* immer alles ok */
 			break;
+		case MODE_LONGEST_QUEUE_NEXT_STATION:
+			/* immer alles ok */
+			break;
+		case MODE_LONGEST_QUEUE_PROCESS_STATION:
+			/* immer alles ok */
+			break;
+		case MODE_MAX_CLIENTS_NEXT_STATION:
+			/* immer alles ok */
+			break;
+		case MODE_MAX_CLIENTS_PROCESS_STATION:
+			/* immer alles ok */
+			break;
 		case MODE_KEY_VALUE:
 			if (!key.equals(decide.key)) return false;
 			List<String> values2=decide.values;
@@ -304,6 +316,18 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 				/* nichts zu kopieren */
 				break;
 			case MODE_MIN_CLIENTS_PROCESS_STATION:
+				/* nichts zu kopieren */
+				break;
+			case MODE_LONGEST_QUEUE_NEXT_STATION:
+				/* nichts zu kopieren */
+				break;
+			case MODE_LONGEST_QUEUE_PROCESS_STATION:
+				/* nichts zu kopieren */
+				break;
+			case MODE_MAX_CLIENTS_NEXT_STATION:
+				/* nichts zu kopieren */
+				break;
+			case MODE_MAX_CLIENTS_PROCESS_STATION:
 				/* nichts zu kopieren */
 				break;
 			case MODE_KEY_VALUE:
@@ -498,6 +522,10 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 		case MODE_SHORTEST_QUEUE_PROCESS_STATION: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByQueueLengthProcess")); break;
 		case MODE_MIN_CLIENTS_NEXT_STATION: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByClientsAtStationNext")); break;
 		case MODE_MIN_CLIENTS_PROCESS_STATION: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByClientsAtStationProcess")); break;
+		case MODE_LONGEST_QUEUE_NEXT_STATION: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByQueueLengthNextMax")); break;
+		case MODE_LONGEST_QUEUE_PROCESS_STATION: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByQueueLengthProcessMax")); break;
+		case MODE_MAX_CLIENTS_NEXT_STATION: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByClientsAtStationNextMax")); break;
+		case MODE_MAX_CLIENTS_PROCESS_STATION: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByClientsAtStationProcessMax")); break;
 		case MODE_KEY_VALUE: sub.setTextContent(Language.trPrimary("Surface.Decide.XML.Mode.ByStringProperty")); break;
 		}
 
@@ -560,6 +588,18 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 			case MODE_MIN_CLIENTS_PROCESS_STATION:
 				/* nichts zu speichern */
 				break;
+			case MODE_LONGEST_QUEUE_NEXT_STATION:
+				/* nichts zu speichern */
+				break;
+			case MODE_LONGEST_QUEUE_PROCESS_STATION:
+				/* nichts zu speichern */
+				break;
+			case MODE_MAX_CLIENTS_NEXT_STATION:
+				/* nichts zu speichern */
+				break;
+			case MODE_MAX_CLIENTS_PROCESS_STATION:
+				/* nichts zu speichern */
+				break;
 			case MODE_KEY_VALUE:
 				if (i<destinations.size()-1) {
 					String value=(i>=values.size())?"":values.get(i);
@@ -593,6 +633,10 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 			if (Language.trAll("Surface.Decide.XML.Mode.ByClientsAtStationNext",content)) {mode=DecideMode.MODE_MIN_CLIENTS_NEXT_STATION; ok=true;}
 			if (Language.trAll("Surface.Decide.XML.Mode.ByClientsAtStationProcess",content)) {mode=DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION; ok=true;}
 			if (Language.trAll("Surface.Decide.XML.Mode.ByStringProperty",content)) {mode=DecideMode.MODE_KEY_VALUE; ok=true;}
+			if (Language.trAll("Surface.Decide.XML.Mode.ByQueueLengthNextMax",content)) {mode=DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION; ok=true;}
+			if (Language.trAll("Surface.Decide.XML.Mode.ByQueueLengthProcessMax",content)) {mode=DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION; ok=true;}
+			if (Language.trAll("Surface.Decide.XML.Mode.ByClientsAtStationNextMax",content)) {mode=DecideMode.MODE_MAX_CLIENTS_NEXT_STATION; ok=true;}
+			if (Language.trAll("Surface.Decide.XML.Mode.ByClientsAtStationProcessMax",content)) {mode=DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION; ok=true;}
 			if (!ok) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			return null;
 		}
@@ -936,6 +980,34 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 				descriptionBuilder.addConditionalTeleportDestination(Language.tr("ModelDescription.NextElement"),destinationName);
 			}
 			break;
+		case MODE_LONGEST_QUEUE_NEXT_STATION:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.LongestQueueNextStation"),1000);
+			for (int i=0;i<destinations.size();i++) {
+				final String destinationName=destinations.get(i);
+				descriptionBuilder.addConditionalTeleportDestination(Language.tr("ModelDescription.NextElement"),destinationName);
+			}
+			break;
+		case MODE_LONGEST_QUEUE_PROCESS_STATION:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.LongestQueueNextProcessStation"),1000);
+			for (int i=0;i<destinations.size();i++) {
+				final String destinationName=destinations.get(i);
+				descriptionBuilder.addConditionalTeleportDestination(Language.tr("ModelDescription.NextElement"),destinationName);
+			}
+			break;
+		case MODE_MAX_CLIENTS_NEXT_STATION:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.MostClientsNextStation"),1000);
+			for (int i=0;i<destinations.size();i++) {
+				final String destinationName=destinations.get(i);
+				descriptionBuilder.addConditionalTeleportDestination(Language.tr("ModelDescription.NextElement"),destinationName);
+			}
+			break;
+		case MODE_MAX_CLIENTS_PROCESS_STATION:
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.MostClientsNextProcessStation"),1000);
+			for (int i=0;i<destinations.size();i++) {
+				final String destinationName=destinations.get(i);
+				descriptionBuilder.addConditionalTeleportDestination(Language.tr("ModelDescription.NextElement"),destinationName);
+			}
+			break;
 		case MODE_KEY_VALUE:
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Decide.Mode"),Language.tr("ModelDescription.Decide.Mode.StringProperty"),1000);
 			for (int i=0;i<destinations.size();i++) {
@@ -1008,6 +1080,18 @@ public class ModelElementDecideAndTeleport extends ModelElementBox implements Mo
 			/* Keine Konfiguration */
 			break;
 		case MODE_MIN_CLIENTS_PROCESS_STATION:
+			/* Keine Konfiguration */
+			break;
+		case MODE_LONGEST_QUEUE_NEXT_STATION:
+			/* Keine Konfiguration */
+			break;
+		case MODE_LONGEST_QUEUE_PROCESS_STATION:
+			/* Keine Konfiguration */
+			break;
+		case MODE_MAX_CLIENTS_NEXT_STATION:
+			/* Keine Konfiguration */
+			break;
+		case MODE_MAX_CLIENTS_PROCESS_STATION:
 			/* Keine Konfiguration */
 			break;
 		case MODE_KEY_VALUE:

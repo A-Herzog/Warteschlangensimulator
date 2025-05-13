@@ -127,6 +127,18 @@ public abstract class DecideDataPanel extends JPanel {
 	/** Auswahlbox 4 für Verhalten bei Gleichstand */
 	private JComboBox<String> comboBoxAtTie4;
 
+	/** Auswahlbox 5 für Verhalten bei Gleichstand */
+	private JComboBox<String> comboBoxAtTie5;
+
+	/** Auswahlbox 6 für Verhalten bei Gleichstand */
+	private JComboBox<String> comboBoxAtTie6;
+
+	/** Auswahlbox 7 für Verhalten bei Gleichstand */
+	private JComboBox<String> comboBoxAtTie7;
+
+	/** Auswahlbox  für Verhalten bei Gleichstand */
+	private JComboBox<String> comboBoxAtTie8;
+
 	/**
 	 * HTML-Vorspann zum Anzeigen der Ziele als fette Texte
 	 */
@@ -166,6 +178,10 @@ public abstract class DecideDataPanel extends JPanel {
 				Language.tr("Surface.Decide.Dialog.DecideBy.ShortestQueueNextProcessStation"),
 				Language.tr("Surface.Decide.Dialog.DecideBy.LeastClientsNextStation"),
 				Language.tr("Surface.Decide.Dialog.DecideBy.LeastClientsNextProcessStation"),
+				Language.tr("Surface.Decide.Dialog.DecideBy.LongestQueueNextStation"),
+				Language.tr("Surface.Decide.Dialog.DecideBy.LongestQueueNextProcessStation"),
+				Language.tr("Surface.Decide.Dialog.DecideBy.MostClientsNextStation"),
+				Language.tr("Surface.Decide.Dialog.DecideBy.MostClientsNextProcessStation"),
 				Language.tr("Surface.Decide.Dialog.DecideBy.StringProperty")
 		}));
 		modeSelect.setRenderer(new IconListCellRenderer(new Images[]{
@@ -177,6 +193,10 @@ public abstract class DecideDataPanel extends JPanel {
 				Images.MODELEDITOR_ELEMENT_DECIDE_BY_SHORTEST_QUEUE_NEXT_PROCESS_STATION,
 				Images.MODELEDITOR_ELEMENT_DECIDE_BY_LEAST_CLIENTS_NEXT_STATION,
 				Images.MODELEDITOR_ELEMENT_DECIDE_BY_LEAST_CLIENTS_NEXT_PROCESS_STATION,
+				Images.MODELEDITOR_ELEMENT_DECIDE_BY_LONGEST_QUEUE_NEXT_STATION,
+				Images.MODELEDITOR_ELEMENT_DECIDE_BY_LONGEST_QUEUE_NEXT_PROCESS_STATION,
+				Images.MODELEDITOR_ELEMENT_DECIDE_BY_MOST_CLIENTS_NEXT_STATION,
+				Images.MODELEDITOR_ELEMENT_DECIDE_BY_MOST_CLIENTS_NEXT_PROCESS_STATION,
 				Images.MODELEDITOR_ELEMENT_DECIDE_BY_TEXT_PROPERTY
 		}));
 		modeSelect.setEnabled(!readOnly);
@@ -352,8 +372,44 @@ public abstract class DecideDataPanel extends JPanel {
 		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		comboBoxAtTie4=addAtTieComboBox(sub,decide);
 
+		/* Seite "Längste Warteschlange an der nächsten Station" */
+		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(8));
+		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
+		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.LongestQueueNextStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		comboBoxAtTie5=addAtTieComboBox(sub,decide);
+
+		/* Seite "Längste Warteschlange an der nächsten Bedienstation" */
+		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(9));
+		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
+		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.LongestQueueNextProcessStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		comboBoxAtTie6=addAtTieComboBox(sub,decide);
+
+		/* Seite "Meiste Kunden an der nächsten Station" */
+		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(10));
+		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
+		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.MostClientsNextStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		comboBoxAtTie7=addAtTieComboBox(sub,decide);
+
+		/* Seite "Meiste Kunden an der nächsten Bedienstation" */
+		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(11));
+		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
+		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.MostClientsNextProcessStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		comboBoxAtTie8=addAtTieComboBox(sub,decide);
+
 		/* Seite "Texteigenschaft" */
-		contentCards.add(content=new JPanel(),modeSelect.getItemAt(8));
+		contentCards.add(content=new JPanel(),modeSelect.getItemAt(12));
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		final String keyString;
@@ -429,7 +485,11 @@ public abstract class DecideDataPanel extends JPanel {
 			case MODE_SHORTEST_QUEUE_PROCESS_STATION: modeSelect.setSelectedIndex(5); break;
 			case MODE_MIN_CLIENTS_NEXT_STATION: modeSelect.setSelectedIndex(6); break;
 			case MODE_MIN_CLIENTS_PROCESS_STATION: modeSelect.setSelectedIndex(7); break;
-			case MODE_KEY_VALUE: modeSelect.setSelectedIndex(8); getCheckKeyValues(false); break;
+			case MODE_LONGEST_QUEUE_NEXT_STATION: modeSelect.setSelectedIndex(8); break;
+			case MODE_LONGEST_QUEUE_PROCESS_STATION: modeSelect.setSelectedIndex(9); break;
+			case MODE_MAX_CLIENTS_NEXT_STATION: modeSelect.setSelectedIndex(10); break;
+			case MODE_MAX_CLIENTS_PROCESS_STATION: modeSelect.setSelectedIndex(11); break;
+			case MODE_KEY_VALUE: modeSelect.setSelectedIndex(12); getCheckKeyValues(false); break;
 			}
 		} else {
 			modeSelect.setSelectedIndex(oldPanel.modeSelect.getSelectedIndex());
@@ -508,7 +568,11 @@ public abstract class DecideDataPanel extends JPanel {
 			if (comboBoxAtTie1!=null && comboBoxAtTie1!=source) comboBoxAtTie1.setSelectedIndex(index);
 			if (comboBoxAtTie2!=null && comboBoxAtTie2!=source) comboBoxAtTie2.setSelectedIndex(index);
 			if (comboBoxAtTie3!=null && comboBoxAtTie3!=source) comboBoxAtTie3.setSelectedIndex(index);
-			if (comboBoxAtTie4!=null && comboBoxAtTie1!=source) comboBoxAtTie4.setSelectedIndex(index);
+			if (comboBoxAtTie4!=null && comboBoxAtTie4!=source) comboBoxAtTie4.setSelectedIndex(index);
+			if (comboBoxAtTie5!=null && comboBoxAtTie5!=source) comboBoxAtTie5.setSelectedIndex(index);
+			if (comboBoxAtTie6!=null && comboBoxAtTie6!=source) comboBoxAtTie6.setSelectedIndex(index);
+			if (comboBoxAtTie7!=null && comboBoxAtTie7!=source) comboBoxAtTie7.setSelectedIndex(index);
+			if (comboBoxAtTie8!=null && comboBoxAtTie8!=source) comboBoxAtTie8.setSelectedIndex(index);
 		});
 
 		return comboBox;
@@ -697,7 +761,11 @@ public abstract class DecideDataPanel extends JPanel {
 		case 5: return true;
 		case 6: return true;
 		case 7: return true;
-		case 8: return getCheckKeyValues(true);
+		case 8: return true;
+		case 9: return true;
+		case 10: return true;
+		case 11: return true;
+		case 12: return getCheckKeyValues(true);
 		default: return false;
 		}
 	}
@@ -716,7 +784,11 @@ public abstract class DecideDataPanel extends JPanel {
 		case 5: mode=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION; break;
 		case 6: mode=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION; break;
 		case 7: mode=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION; break;
-		case 8: mode=ModelElementDecide.DecideMode.MODE_KEY_VALUE; break;
+		case 8: mode=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION; break;
+		case 9: mode=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION; break;
+		case 10: mode=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION; break;
+		case 11: mode=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION; break;
+		case 12: mode=ModelElementDecide.DecideMode.MODE_KEY_VALUE; break;
 		}
 
 		decide.setMode(mode);
@@ -765,6 +837,34 @@ public abstract class DecideDataPanel extends JPanel {
 			break;
 		case MODE_MIN_CLIENTS_PROCESS_STATION:
 			switch (comboBoxAtTie4.getSelectedIndex()) {
+			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
+			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
+			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			}
+			break;
+		case MODE_LONGEST_QUEUE_NEXT_STATION:
+			switch (comboBoxAtTie5.getSelectedIndex()) {
+			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
+			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
+			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			}
+			break;
+		case MODE_LONGEST_QUEUE_PROCESS_STATION:
+			switch (comboBoxAtTie6.getSelectedIndex()) {
+			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
+			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
+			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			}
+			break;
+		case MODE_MAX_CLIENTS_NEXT_STATION:
+			switch (comboBoxAtTie7.getSelectedIndex()) {
+			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
+			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
+			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			}
+			break;
+		case MODE_MAX_CLIENTS_PROCESS_STATION:
+			switch (comboBoxAtTie8.getSelectedIndex()) {
 			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
 			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
 			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;

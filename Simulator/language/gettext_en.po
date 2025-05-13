@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-29 21:39+0200\n"
+"POT-Creation-Date: 2025-05-02 19:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13736,6 +13736,18 @@ msgstr "Select path to process station with least clients"
 
 msgid "ModelDescription.Decide.Mode.LeastClientsNextStation"
 msgstr "Select path to next station with least clients"
+
+msgid "ModelDescription.Decide.Mode.LongestQueueNextProcessStation"
+msgstr "Select path to process station with longest queue"
+
+msgid "ModelDescription.Decide.Mode.LongestQueueNextStation"
+msgstr "Select path to nextstation with longest queue"
+
+msgid "ModelDescription.Decide.Mode.MostClientsNextProcessStation"
+msgstr "Select path to process station with most clients"
+
+msgid "ModelDescription.Decide.Mode.MostClientsNextStation"
+msgstr "Select path to next station with most clients"
 
 msgid "ModelDescription.Decide.Mode.Rate"
 msgstr "Decide by random"
@@ -30109,11 +30121,17 @@ msgstr "Client type"
 msgid "Surface.Decide.ByClientsAtStation"
 msgstr "Minimum N"
 
+msgid "Surface.Decide.ByClientsAtStationMax"
+msgstr "Maximum N"
+
 msgid "Surface.Decide.ByCondition"
 msgstr "Condition"
 
 msgid "Surface.Decide.ByQueueLength"
 msgstr "Minimum NQ"
+
+msgid "Surface.Decide.ByQueueLengthMax"
+msgstr "Maximum NQ"
 
 msgid "Surface.Decide.BySequence"
 msgstr "Sequence"
@@ -30179,6 +30197,38 @@ msgstr ""
 "Send the client to the path at which on the next station\n"
 "there is the least number of clients."
 
+msgid "Surface.Decide.Dialog.DecideBy.LongestQueueNextProcessStation"
+msgstr "Longest queue at the next station"
+
+msgid "Surface.Decide.Dialog.DecideBy.LongestQueueNextProcessStation.Info"
+msgstr ""
+"Sends the client to the path at which the next station\n"
+"has the longest queue."
+
+msgid "Surface.Decide.Dialog.DecideBy.LongestQueueNextStation"
+msgstr "Longest queue at the next station"
+
+msgid "Surface.Decide.Dialog.DecideBy.LongestQueueNextStation.Info"
+msgstr ""
+"Sends the client to the path at which the next station\n"
+"has the longest queue."
+
+msgid "Surface.Decide.Dialog.DecideBy.MostClientsNextProcessStation"
+msgstr "Highest number of clients at the next process station"
+
+msgid "Surface.Decide.Dialog.DecideBy.MostClientsNextProcessStation.Info"
+msgstr ""
+"Send the client to the path at which on the next process station\n"
+"there is the highest number of clients."
+
+msgid "Surface.Decide.Dialog.DecideBy.MostClientsNextStation"
+msgstr "Highest number of clients at the next station"
+
+msgid "Surface.Decide.Dialog.DecideBy.MostClientsNextStation.Info"
+msgstr ""
+"Send the client to the path at which on the next station\n"
+"there is the highest number of clients."
+
 msgid "Surface.Decide.Dialog.DecideBy.Sequence"
 msgstr "Sequence"
 
@@ -30195,7 +30245,7 @@ msgstr "Shortest queue at the next station"
 
 msgid "Surface.Decide.Dialog.DecideBy.ShortestQueueNextStation.Info"
 msgstr ""
-"Send the client to the path at which the next station\n"
+"Sends the client to the path at which the next station\n"
 "has the shortest queue."
 
 msgid "Surface.Decide.Dialog.DecideBy.StringProperty"
@@ -30351,8 +30401,14 @@ msgstr "ClientType"
 msgid "Surface.Decide.XML.Mode.ByClientsAtStationNext"
 msgstr "MinimumN"
 
+msgid "Surface.Decide.XML.Mode.ByClientsAtStationNextMax"
+msgstr "MaximumN"
+
 msgid "Surface.Decide.XML.Mode.ByClientsAtStationProcess"
 msgstr "ProcessStationMinimumN"
+
+msgid "Surface.Decide.XML.Mode.ByClientsAtStationProcessMax"
+msgstr "ProcessStationMaximumN"
 
 msgid "Surface.Decide.XML.Mode.ByCondition"
 msgstr "Condition"
@@ -30360,8 +30416,14 @@ msgstr "Condition"
 msgid "Surface.Decide.XML.Mode.ByQueueLengthNext"
 msgstr "MinimumNQ"
 
+msgid "Surface.Decide.XML.Mode.ByQueueLengthNextMax"
+msgstr "MaximumNQ"
+
 msgid "Surface.Decide.XML.Mode.ByQueueLengthProcess"
 msgstr "ProcessStationMinimumNQ"
+
+msgid "Surface.Decide.XML.Mode.ByQueueLengthProcessMax"
+msgstr "ProcessStationMaximumNQ"
 
 msgid "Surface.Decide.XML.Mode.BySequence"
 msgstr "Sequence"

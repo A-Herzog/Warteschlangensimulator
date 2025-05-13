@@ -1626,6 +1626,18 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen' - wenigste Kunden an der nächsten Bedienstation" */
 	MODELEDITOR_ELEMENT_DECIDE_BY_LEAST_CLIENTS_NEXT_PROCESS_STATION("Process.png"),
 
+	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen' - nach längster Warteschlange an der nächsten Station" */
+	MODELEDITOR_ELEMENT_DECIDE_BY_LONGEST_QUEUE_NEXT_STATION("station.png"),
+
+	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen' - nach längster Warteschlange an der nächsten Bedienstation" */
+	MODELEDITOR_ELEMENT_DECIDE_BY_LONGEST_QUEUE_NEXT_PROCESS_STATION("Process.png"),
+
+	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen' - meiste Kunden an der nächsten Station" */
+	MODELEDITOR_ELEMENT_DECIDE_BY_MOST_CLIENTS_NEXT_STATION("station.png"),
+
+	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen' - meiste Kunden an der nächsten Bedienstation" */
+	MODELEDITOR_ELEMENT_DECIDE_BY_MOST_CLIENTS_NEXT_PROCESS_STATION("Process.png"),
+
 	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Verzweigen' - nach Texteigenschaft" */
 	MODELEDITOR_ELEMENT_DECIDE_BY_TEXT_PROPERTY("Text.png"),
 

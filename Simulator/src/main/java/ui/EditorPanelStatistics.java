@@ -260,9 +260,13 @@ public class EditorPanelStatistics {
 			case MODE_KEY_VALUE: return new RunElementDecideByKeyValue(decide).name;
 			case MODE_MIN_CLIENTS_NEXT_STATION: return new RunElementDecideByStation(decide).name;
 			case MODE_MIN_CLIENTS_PROCESS_STATION: return new RunElementDecideByStation(decide).name;
+			case MODE_MAX_CLIENTS_NEXT_STATION: return new RunElementDecideByStation(decide).name;
+			case MODE_MAX_CLIENTS_PROCESS_STATION: return new RunElementDecideByStation(decide).name;
 			case MODE_SEQUENCE: return new RunElementDecideBySequence(decide).name;
 			case MODE_SHORTEST_QUEUE_NEXT_STATION: return new RunElementDecideByStation(decide).name;
 			case MODE_SHORTEST_QUEUE_PROCESS_STATION: return new RunElementDecideByStation(decide).name;
+			case MODE_LONGEST_QUEUE_NEXT_STATION: return new RunElementDecideByStation(decide).name;
+			case MODE_LONGEST_QUEUE_PROCESS_STATION: return new RunElementDecideByStation(decide).name;
 			}
 		}
 

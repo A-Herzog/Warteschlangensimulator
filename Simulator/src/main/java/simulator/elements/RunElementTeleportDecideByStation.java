@@ -128,8 +128,9 @@ public class RunElementTeleportDecideByStation extends RunElement {
 		if (!(element instanceof ModelElementDecideAndTeleport)) return null;
 		final ModelElementDecideAndTeleport decideElement=(ModelElementDecideAndTeleport)element;
 		final ModelElementDecide.DecideMode mode=decideElement.getMode();
-		if (mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION) return null;
-		final boolean processStation=(mode==ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION);
+		if (mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION &&
+				mode!=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION && mode!=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION) return null;
+		final boolean processStation=(mode==ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION);
 		final RunElementTeleportDecideByStation decide=new RunElementTeleportDecideByStation((ModelElementDecideAndTeleport)element);
 
 		decide.mode=mode;
@@ -157,8 +158,9 @@ public class RunElementTeleportDecideByStation extends RunElement {
 		if (!(element instanceof ModelElementDecideAndTeleport)) return null;
 		final ModelElementDecideAndTeleport decideElement=(ModelElementDecideAndTeleport)element;
 		final ModelElementDecide.DecideMode mode=decideElement.getMode();
-		if (mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION) return null;
-		final boolean processStation=(mode==ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION);
+		if (mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION &&
+				mode!=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION && mode!=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION) return null;
+		final boolean processStation=(mode==ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION);
 
 		final List<String> destinationStrings=decideElement.getDestinations();
 		if (destinationStrings.size()==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId()),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);
@@ -211,6 +213,14 @@ public class RunElementTeleportDecideByStation extends RunElement {
 			case MODE_MIN_CLIENTS_NEXT_STATION:
 			case MODE_MIN_CLIENTS_PROCESS_STATION:
 				value=next[i].getData(simData).reportedClientsAtStation(simData);
+				break;
+			case MODE_LONGEST_QUEUE_NEXT_STATION:
+			case MODE_LONGEST_QUEUE_PROCESS_STATION:
+				value=-next[i].getData(simData).clientsAtStationQueue;
+				break;
+			case MODE_MAX_CLIENTS_NEXT_STATION:
+			case MODE_MAX_CLIENTS_PROCESS_STATION:
+				value=-next[i].getData(simData).reportedClientsAtStation(simData);
 				break;
 			default:
 				/* Andere Fälle wurden schon in build ausgefiltert. */
