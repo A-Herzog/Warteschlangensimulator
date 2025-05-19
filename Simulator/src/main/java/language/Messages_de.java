@@ -4654,8 +4654,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[11333] = "IDs";
     t[11338] = "WebServer.Status.Mode.Special";
     t[11339] = "Sonderfunktion";
-    t[11340] = "Surface.InputDB.XML.DefaultValue";
-    t[11341] = "ModellElementEingabeDBVorgabewert";
+    t[11340] = "Examples.LoadBalancer";
+    t[11341] = "Lastverteilungsstrategien";
     t[11346] = "XML.OptimizerNotActive.Title";
     t[11347] = "Optimierer nicht aktiv";
     t[11358] = "Statistics.Dashboard.ResetTiles.InfoNo";
@@ -20442,6 +20442,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50557] = "Letzter Kundentyp";
     t[50558] = "ExpressionCalculator.Tab.Map.Column.Value.Old";
     t[50559] = "Bisheriger Wert";
+    t[50560] = "Surface.InputDB.XML.DefaultValue";
+    t[50561] = "ModellElementEingabeDBVorgabewert";
     t[50562] = "Surface.Costs.Dialog.Title";
     t[50563] = "Kosten bearbeiten";
     t[50566] = "Main.Menu.File.ExportModel";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54627] = "Maximum NQ";
     t[54634] = "Surface.UserStatistic.Table.Edit.Expression.ErrorTitle";
     t[54635] = "Ung\u00fcltiger Ausdruck";
-    t[54640] = "Surface.XML.Resource.Type";
-    t[54641] = "Typ";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54640] = "Surface.XML.Resource.Type";
+    t[54641] = "Typ";
     t[54648] = "ModelDescription.Barrier.ClientType.All";
     t[54649] = "Alle Kundentypen";
     t[54650] = "Statistics.Counter";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[59393] = "Ecke auf Pfad einf\u00fcgen";
     t[59398] = "Simulation.Log.CounterBatch";
     t[59399] = "Batch-Z\u00e4hler ausgel\u00f6st";
-    t[59402] = "ExpressionBuilder.MathematicalFunctions.Binomial.Info";
-    t[59403] = "<p>Berechnet den Binomialkoeffizient.</p>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59402] = "ExpressionBuilder.MathematicalFunctions.Binomial.Info";
+    t[59403] = "<p>Berechnet den Binomialkoeffizient.</p>";
     t[59404] = "BatchPanel.Directory.ErrorInfo";
     t[59405] = "Das angegebene Verzeichnis\n%s\nexistiert nicht.";
     t[59406] = "Simulation.Element.OutputJS.Name";

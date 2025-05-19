@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.8.0</ModelVersion>
+  <ModelName>Load balancing strategies</ModelName>
+  <ModelDescription>In this example model, different strategies for load balancing between two parallel process stations are compared.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="300"/>
+      <ModelElementConnection Element="18" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (55)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementDuplicate id="2">
+      <ModelElementSize h="50" w="100" x="250" y="300"/>
+      <ModelElementConnection Element="18" Type="In"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+      <ModelElementConnection Element="21" Type="Out"/>
+      <ModelElementConnection Element="36" Type="Out"/>
+    </ModelElementDuplicate>
+    <ModelElementDecide id="3">
+      <ModelElementSize h="50" w="100" x="650" y="100"/>
+      <ModelElementDecideMode>MinimumN</ModelElementDecideMode>
+      <ModelElementDecideAtTie>Random</ModelElementDecideAtTie>
+      <ModelElementConnection Element="20" Type="In"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="4">
+      <ModelElementSize h="50" w="100" x="650" y="300"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="35" Type="In"/>
+      <ModelElementConnection Element="12" Rate="1" Type="Out"/>
+      <ModelElementConnection Element="13" Rate="1" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="5">
+      <ModelElementSize h="50" w="100" x="650" y="500"/>
+      <ModelElementDecideMode>MaximumN</ModelElementDecideMode>
+      <ModelElementDecideAtTie>Random</ModelElementDecideAtTie>
+      <ModelElementConnection Element="37" Type="In"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+      <ModelElementConnection Element="17" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementProcessStation id="6">
+      <ModelElementName>1 A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="850" y="50"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="23" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="MaxN">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Random">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="1A"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="7">
+      <ModelElementName>1 B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="850" y="150"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="24" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="MaxN">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Random">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="1B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="8">
+      <ModelElementConnection Element1="3" Element2="6" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="9">
+      <ModelElementConnection Element1="3" Element2="7" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="10">
+      <ModelElementName>2 A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="850" y="250"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="26" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="MaxN">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Random">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="2A"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="11">
+      <ModelElementName>2 B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="850" y="350"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="MaxN">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Random">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="2B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="12">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="10" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="13">
+      <ModelElementName>Rate 1 (50%)</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="11" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="14">
+      <ModelElementName>3 A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="850" y="450"/>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Element="29" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="MaxN">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Random">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="3A"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="15">
+      <ModelElementName>3 B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="850" y="550"/>
+      <ModelElementConnection Element="17" Type="In"/>
+      <ModelElementConnection Element="30" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementPriority ClientType="MaxN">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Random">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="3B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="16">
+      <ModelElementConnection Element1="5" Element2="14" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="17">
+      <ModelElementConnection Element1="5" Element2="15" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="18">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="22">
+      <ModelElementSize h="50" w="100" x="1050" y="100"/>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="24" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="23">
+      <ModelElementConnection Element1="6" Element2="22" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="24">
+      <ModelElementConnection Element1="7" Element2="22" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementDispose id="25">
+      <ModelElementSize h="50" w="100" x="1050" y="300"/>
+      <ModelElementConnection Element="26" Type="In"/>
+      <ModelElementConnection Element="27" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="26">
+      <ModelElementConnection Element1="10" Element2="25" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="27">
+      <ModelElementConnection Element1="11" Element2="25" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementDispose id="28">
+      <ModelElementSize h="50" w="100" x="1050" y="500"/>
+      <ModelElementConnection Element="29" Type="In"/>
+      <ModelElementConnection Element="30" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="29">
+      <ModelElementConnection Element1="14" Element2="28" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="30">
+      <ModelElementConnection Element1="15" Element2="28" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementText id="31">
+      <ModelElementSize h="23" w="227" x="50" y="50"/>
+      <ModelElementTextLine>Load balancing strategies</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAssignment id="32">
+      <ModelElementName>MinN</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="100"/>
+      <ModelElementConnection Element="51" Type="In"/>
+      <ModelElementConnection Element="20" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementAssignment id="33">
+      <ModelElementName>Random</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="300"/>
+      <ModelElementConnection Element="21" Type="In"/>
+      <ModelElementConnection Element="35" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementAssignment id="34">
+      <ModelElementName>MaxN</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="500"/>
+      <ModelElementConnection Element="49" Type="In"/>
+      <ModelElementConnection Element="37" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementEdge id="19">
+      <ModelElementName>Original</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="50" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="20">
+      <ModelElementName>New client type: MinN</ModelElementName>
+      <ModelElementConnection Element1="32" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="21">
+      <ModelElementName>Copy 1</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="33" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="35">
+      <ModelElementName>New client type: Random</ModelElementName>
+      <ModelElementConnection Element1="33" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="36">
+      <ModelElementName>Copy 2</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="48" Type="Edge"/>
+      <ModelElementConnectionDrawStyle>Direct</ModelElementConnectionDrawStyle>
+    </ModelElementEdge>
+    <ModelElementEdge id="37">
+      <ModelElementName>New client type: MaxN</ModelElementName>
+      <ModelElementConnection Element1="34" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="38">
+      <ModelElementSize h="38" w="125" x="650" y="50"/>
+      <ModelElementTextLine>Lowest number of</ModelElementTextLine>
+      <ModelElementTextLine>clients at the station</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="39">
+      <ModelElementSize h="38" w="114" x="650" y="250"/>
+      <ModelElementTextLine>Random selection</ModelElementTextLine>
+      <ModelElementTextLine>of the next station</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="40">
+      <ModelElementSize h="38" w="125" x="650" y="450"/>
+      <ModelElementTextLine>Highest number of</ModelElementTextLine>
+      <ModelElementTextLine>clients at the station</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationBarDiagram id="41">
+      <ModelElementSize h="150" w="100" x="100" y="400"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementUse3D>1</ModelElementUse3D>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMaximumValue>90</ModelElementMaximumValue>
+      <ModelElementAxisLabels Text="Average waiting time">2</ModelElementAxisLabels>
+      <ModelElementDiagramElement BarColor="0,180,0">Wartezeit_avg(32)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="0,0,255">Wartezeit_avg(33)</ModelElementDiagramElement>
+      <ModelElementDiagramElement BarColor="255,0,0">Wartezeit_avg(34)</ModelElementDiagramElement>
+    </ModelElementAnimationBarDiagram>
+    <ModelElementAnimationText id="42">
+      <ModelElementName>Average waiting time</ModelElementName>
+      <ModelElementSize h="30" w="87" x="450" y="50"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Time value">Wartezeit_avg(32)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="43">
+      <ModelElementName>Average waiting time</ModelElementName>
+      <ModelElementSize h="30" w="87" x="450" y="250"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Time value">Wartezeit_avg(33)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="44">
+      <ModelElementName>Average waiting time</ModelElementName>
+      <ModelElementSize h="30" w="87" x="450" y="450"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Time value">Wartezeit_avg(34)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="45">
+      <ModelElementName>Average utilization</ModelElementName>
+      <ModelElementSize h="30" w="93" x="1050" y="170"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">(Resource_avg(1)+Resource_avg(2))/2</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="46">
+      <ModelElementName>Average utilization</ModelElementName>
+      <ModelElementSize h="30" w="93" x="1050" y="370"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">(Resource_avg(3)+Resource_avg(4))/2</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="47">
+      <ModelElementName>Average utilization</ModelElementName>
+      <ModelElementSize h="30" w="93" x="1050" y="570"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">(Resource_avg(5)+Resource_avg(6))/2</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementVertex id="48">
+      <ModelElementSize h="10" w="10" x="295" y="520"/>
+      <ModelElementConnection Element="36" Type="In"/>
+      <ModelElementConnection Element="49" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="49">
+      <ModelElementConnection Element1="48" Element2="34" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVertex id="50">
+      <ModelElementSize h="10" w="10" x="295" y="120"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="51" Type="Out"/>
+    </ModelElementVertex>
+    <ModelElementEdge id="51">
+      <ModelElementConnection Element1="50" Element2="32" Type="Edge"/>
+    </ModelElementEdge>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="1A" Type="Number" Value="1"/>
+    <Resource Name="1B" Type="Number" Value="1"/>
+    <Resource Name="2A" Type="Number" Value="1"/>
+    <Resource Name="2B" Type="Number" Value="1"/>
+    <Resource Name="3A" Type="Number" Value="1"/>
+    <Resource Name="3B" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+</Model>

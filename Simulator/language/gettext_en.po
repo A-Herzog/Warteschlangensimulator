@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-02 19:28+0200\n"
+"POT-Creation-Date: 2025-05-06 08:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5785,6 +5785,9 @@ msgstr "Law of large numbers"
 
 msgid "Examples.LimitedNumberOfClientsAtAStation"
 msgstr "Limited number of clients at a station"
+
+msgid "Examples.LoadBalancer"
+msgstr "Load balancing strategies"
 
 msgid "Examples.LocalVersusGlobalWarehouse"
 msgstr "Use of central warehouses close to the factory"

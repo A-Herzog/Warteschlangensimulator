@@ -1,0 +1,1 @@
+In diesem Beispielmodell werden verschiedene Strategien zur Lastverteilung zwischen zwei parallelen Bedienstationen verglichen.
