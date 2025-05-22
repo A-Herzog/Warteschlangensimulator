@@ -20,7 +20,10 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
+import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.commons.math3.util.FastMath;
+
+import de.erichseifert.vectorgraphics2d.VectorGraphics2D;
 
 /**
  * Einfacher Text-Renderer
@@ -109,7 +112,6 @@ public class ModelElementTextRendererPlain extends ModelElementTextRenderer {
 	protected void processLines(String[] lines) {
 		this.lines=lines;
 	}
-
 	@Override
 	public void setStyle(final int fontSize, final boolean bold, final boolean italic, final String fontFamily, final ModelElementText.TextAlign textAlign) {
 		if (fontSize==this.fontSize && bold==this.bold && italic==this.italic && fontFamily.equals(this.fontFamily) && textAlign==this.textAlign) return;
@@ -126,6 +128,20 @@ public class ModelElementTextRendererPlain extends ModelElementTextRenderer {
 		int style=Font.PLAIN;
 		if (bold) style+=Font.BOLD;
 		if (italic) style+=Font.ITALIC;
+
+		/*
+		 * "Sans" und "Serif" werden von jedem SVG-Renderer anders umgesetzt,
+		 * daher machen wir hier konkrete Vorgaben, so dass die Laufweite
+		 * vorab korrekt berechnet werden kann und Texte und Sub- und Subskripte
+		 * zusammen passen.
+		 */
+		String fontFamily=this.fontFamily;
+		if (graphics instanceof SVGGraphics2D || graphics instanceof VectorGraphics2D) {
+			if (fontFamily.equals(FontCache.FontFamily.DIALOG.name)) fontFamily=FontCache.FontFamily.WIN_VERDANA.name;
+			if (fontFamily.equals(FontCache.FontFamily.SANS.name)) fontFamily=FontCache.FontFamily.WIN_VERDANA.name;
+			if (fontFamily.equals(FontCache.FontFamily.SERIF.name)) fontFamily=FontCache.FontFamily.WIN_CAMBRIA.name;
+		}
+
 		font=FontCache.getFontCache().getFont(fontFamily,style,(int)Math.round(fontSize*zoom));
 
 		graphics.setFont(font);

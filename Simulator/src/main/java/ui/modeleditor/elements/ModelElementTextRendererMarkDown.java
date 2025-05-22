@@ -22,6 +22,10 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.batik.svggen.SVGGraphics2D;
+
+import de.erichseifert.vectorgraphics2d.VectorGraphics2D;
+
 /**
  * Text-Renderer, der Markdown interpretiert
  * @author Alexander Herzog
@@ -54,7 +58,7 @@ public class ModelElementTextRendererMarkDown extends ModelElementTextRenderer {
 
 		/**
 		 * Font-Elemente, welches aus den Einstellungen zusammengesetzt wird
-		 * @see #setupFont(int, String, double)
+		 * @see #setupFont(Graphics, int, String, double)
 		 */
 		public Font font;
 
@@ -74,12 +78,13 @@ public class ModelElementTextRendererMarkDown extends ModelElementTextRenderer {
 
 		/**
 		 * Generiert ein Font-Objekt aus den Einstellungen
+		 * @param graphics	Grafik-Objekt in das der Text geschrieben werden soll
 		 * @param fontSize	Schriftgröße
 		 * @param fontFamily	Schriftart
 		 * @param zoom	Zoom-Level
 		 * @see #font
 		 */
-		public void setupFont(final int fontSize, final String fontFamily, final double zoom) {
+		public void setupFont(final Graphics graphics, final int fontSize, String fontFamily, final double zoom) {
 			int style=Font.PLAIN;
 			if (bold) style+=Font.BOLD;
 			if (italic) style+=Font.ITALIC;
@@ -89,6 +94,19 @@ public class ModelElementTextRendererMarkDown extends ModelElementTextRenderer {
 			case 2: add=4; if (!bold) style+=Font.BOLD; break;
 			case 3: add=2; if (!bold) style+=Font.BOLD; break;
 			}
+
+			/*
+			 * "Sans" und "Serif" werden von jedem SVG-Renderer anders umgesetzt,
+			 * daher machen wir hier konkrete Vorgaben, so dass die Laufweite
+			 * vorab korrekt berechnet werden kann und Texte und Sub- und Subskripte
+			 * zusammen passen.
+			 */
+			if (graphics instanceof SVGGraphics2D || graphics instanceof VectorGraphics2D) {
+				if (fontFamily.equals(FontCache.FontFamily.DIALOG.name)) fontFamily=FontCache.FontFamily.WIN_VERDANA.name;
+				if (fontFamily.equals(FontCache.FontFamily.SANS.name)) fontFamily=FontCache.FontFamily.WIN_VERDANA.name;
+				if (fontFamily.equals(FontCache.FontFamily.SERIF.name)) fontFamily=FontCache.FontFamily.WIN_CAMBRIA.name;
+			}
+
 			font=FontCache.getFontCache().getFont(fontFamily,style,(int)Math.round((fontSize+add)*zoom));
 		}
 	}
@@ -295,7 +313,7 @@ public class ModelElementTextRendererMarkDown extends ModelElementTextRenderer {
 			int lAscent=0;
 			int lDescent=0;
 			for (LineElement element: line) {
-				element.setupFont(fontSize,fontFamily,zoom);
+				element.setupFont(graphics,fontSize,fontFamily,zoom);
 				graphics.setFont(element.font);
 				final FontMetrics metrics=graphics.getFontMetrics();
 				lWidth+=metrics.stringWidth(element.text);

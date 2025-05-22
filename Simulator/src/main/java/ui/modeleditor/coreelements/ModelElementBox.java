@@ -38,10 +38,12 @@ import javax.swing.Icon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import de.erichseifert.vectorgraphics2d.VectorGraphics2D;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.coreelements.RunElement;
@@ -439,6 +441,13 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 	private Font lastBoxFontSmall;
 
 	/**
+	 * Bezog sich der letzte Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * auf einen Export als Vektorgrafik?
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private boolean lastWasExport=false;
+
+	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -462,15 +471,33 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			}
 		}
 
-		if (lastZoomFontBox!=zoom || lastFontDefaultBox==null || lastFontBoldBox==null || lastUseHighContrasts!=setup.useHighContrasts || !boxFontLarge.equals(lastBoxFontLarge) || !boxFontSmall.equals(lastBoxFontSmall)) {
-			lastBoxFontLarge=new Font(boxFontLarge.getName(),boxFontLarge.getStyle(),boxFontLarge.getSize());
-			lastBoxFontSmall=new Font(boxFontSmall.getName(),boxFontSmall.getStyle(),boxFontSmall.getSize());
-			lastFontDefaultBox=new Font(boxFontSmall.getName(),setup.useHighContrasts?Font.BOLD:boxFontSmall.getStyle(),(int)FastMath.round(boxFontSmall.getSize()*zoom));
-			lastFontDefaultBoxSmaller=new Font(boxFontSmall.getName(),setup.useHighContrasts?Font.BOLD:boxFontSmall.getStyle(),(int)FastMath.round(boxFontSmall.getSize()*zoom*0.85));
-			lastFontBoldBox=new Font(boxFontLarge.getName(),boxFontLarge.getStyle(),(int)FastMath.round(boxFontLarge.getSize()*zoom));
+		final boolean isExport=(graphics instanceof SVGGraphics2D || graphics instanceof VectorGraphics2D);
+		if (isExport || lastWasExport || lastZoomFontBox!=zoom || lastFontDefaultBox==null || lastFontBoldBox==null || lastUseHighContrasts!=setup.useHighContrasts || !boxFontLarge.equals(lastBoxFontLarge) || !boxFontSmall.equals(lastBoxFontSmall)) {
+			String fontNameLarge=boxFontLarge.getName();
+			String fontNameSmall=boxFontSmall.getName();
+			if (isExport) {
+				/*
+				 * "Sans" und "Serif" werden von jedem SVG-Renderer anders umgesetzt,
+				 * daher machen wir hier konkrete Vorgaben, so dass die Laufweite
+				 * vorab korrekt berechnet werden kann und Texte und Sub- und Subskripte
+				 * zusammen passen.
+				 */
+				if (fontNameLarge.equals(FontCache.FontFamily.DIALOG.name)) fontNameLarge=FontCache.FontFamily.WIN_VERDANA.name;
+				if (fontNameLarge.equals(FontCache.FontFamily.SANS.name)) fontNameLarge=FontCache.FontFamily.WIN_VERDANA.name;
+				if (fontNameLarge.equals(FontCache.FontFamily.SERIF.name)) fontNameLarge=FontCache.FontFamily.WIN_CAMBRIA.name;
+				if (fontNameSmall.equals(FontCache.FontFamily.DIALOG.name)) fontNameSmall=FontCache.FontFamily.WIN_VERDANA.name;
+				if (fontNameSmall.equals(FontCache.FontFamily.SANS.name)) fontNameSmall=FontCache.FontFamily.WIN_VERDANA.name;
+				if (fontNameSmall.equals(FontCache.FontFamily.SERIF.name)) fontNameSmall=FontCache.FontFamily.WIN_CAMBRIA.name;
+			}
+			lastBoxFontLarge=new Font(fontNameLarge,boxFontLarge.getStyle(),boxFontLarge.getSize());
+			lastBoxFontSmall=new Font(fontNameSmall,boxFontSmall.getStyle(),boxFontSmall.getSize());
+			lastFontDefaultBox=new Font(fontNameSmall,setup.useHighContrasts?Font.BOLD:boxFontSmall.getStyle(),(int)FastMath.round(boxFontSmall.getSize()*zoom));
+			lastFontDefaultBoxSmaller=new Font(fontNameSmall,setup.useHighContrasts?Font.BOLD:boxFontSmall.getStyle(),(int)FastMath.round(boxFontSmall.getSize()*zoom*0.85));
+			lastFontBoldBox=new Font(fontNameLarge,boxFontLarge.getStyle(),(int)FastMath.round(boxFontLarge.getSize()*zoom));
 			lastZoomFontBox=zoom;
 			lastUseHighContrasts=setup.useHighContrasts;
 		}
+		lastWasExport=isExport;
 
 		final Rectangle objectRect=drawRect(graphics,drawRect,zoom,borderColor,borderWidth,getDrawBackgroundColor(),1);
 		if (objectRect==null) return;

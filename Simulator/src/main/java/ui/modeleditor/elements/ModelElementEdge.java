@@ -33,10 +33,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
+import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import de.erichseifert.vectorgraphics2d.VectorGraphics2D;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
@@ -961,6 +963,13 @@ public final class ModelElementEdge extends ModelElement {
 	private Color textColor;
 
 	/**
+	 * Bezog sich der letzte Aufruf von {@link #drawText(Graphics, Point, double)}
+	 * auf einen Export als Vektorgrafik?
+	 * @see #drawText(Graphics, Point, double)
+	 */
+	private boolean lastWasExport=false;
+
+	/**
 	 * Gibt {@link #getName()} aus.
 	 * @param graphics	Ausgabe-Grafikobjekt
 	 * @param middle	Mittelpunkt des Textes
@@ -968,16 +977,33 @@ public final class ModelElementEdge extends ModelElement {
 	 */
 	private void drawText(final Graphics graphics, final Point middle, final double zoom) {
 		final String text=getName();
-		if (text!=null && !text.isEmpty()) {
-			if (zoom!=lastZoomFont || lastFont==null) {
-				lastFont=new Font(ModelElementBox.DEFAULT_FONT_TYPE,Font.PLAIN,(int)Math.round(11*zoom));
-				lastZoomFont=zoom;
-			}
-			graphics.setFont(lastFont);
-			if (textColor==null) textColor=FlatLaFHelper.isDark()?EditModel.BLACK_COLOR_IN_DARK_MODE:Color.BLACK;
-			graphics.setColor(textColor);
-			graphics.drawString(text,middle.x-graphics.getFontMetrics().stringWidth(text)/2,middle.y+graphics.getFontMetrics().getAscent());
+		if (text==null || text.isBlank()) return;
+
+		if (lastWasExport) {
+			lastFont=null;
+			lastWasExport=false;
 		}
+		final boolean isExport=(graphics instanceof SVGGraphics2D || graphics instanceof VectorGraphics2D);
+		if (isExport) {
+			lastFont=null;
+			lastWasExport=true;
+		}
+		if (zoom!=lastZoomFont || lastFont==null) {
+			/*
+			 * "Sans" und "Serif" werden von jedem SVG-Renderer anders umgesetzt,
+			 * daher machen wir hier konkrete Vorgaben, so dass die Laufweite
+			 * vorab korrekt berechnet werden kann und Texte und Sub- und Subskripte
+			 * zusammen passen.
+			 */
+			final String fontName=isExport?FontCache.FontFamily.WIN_VERDANA.name:ModelElementBox.DEFAULT_FONT_TYPE;
+			lastFont=new Font(fontName,Font.PLAIN,(int)Math.round(11*zoom));
+			lastZoomFont=zoom;
+		}
+
+		graphics.setFont(lastFont);
+		if (textColor==null) textColor=FlatLaFHelper.isDark()?EditModel.BLACK_COLOR_IN_DARK_MODE:Color.BLACK;
+		graphics.setColor(textColor);
+		graphics.drawString(text,middle.x-graphics.getFontMetrics().stringWidth(text)/2,middle.y+graphics.getFontMetrics().getAscent());
 	}
 
 	/**

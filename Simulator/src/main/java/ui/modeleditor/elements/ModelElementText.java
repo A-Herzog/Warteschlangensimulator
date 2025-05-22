@@ -29,10 +29,12 @@ import java.util.function.Supplier;
 
 import javax.swing.Icon;
 
+import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import de.erichseifert.vectorgraphics2d.VectorGraphics2D;
 import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
@@ -594,6 +596,13 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 	private ModelElementTextRenderer textRenderer;
 
 	/**
+	 * Bezog sich der letzte Aufruf von {@link #drawToGraphics(Graphics, Rectangle, double, boolean)}
+	 * auf einen Export als Vektorgrafik?
+	 * @see #drawToGraphics(Graphics, Rectangle, double, boolean)
+	 */
+	private boolean lastWasExport=false;
+
+	/**
 	 * Zeichnet das Element in ein <code>Graphics</code>-Objekt
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param drawRect	Tatsächlich sichtbarer Ausschnitt
@@ -603,6 +612,16 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 	@Override
 	public void drawToGraphics(final Graphics graphics, final Rectangle drawRect, final double zoom, final boolean showSelectionFrames) {
 		setClip(graphics,drawRect,null);
+
+		/* Neues Render-Objekt vor und nach dem Export anlegen */
+		if (lastWasExport) {
+			textRenderer=null;
+			lastWasExport=false;
+		}
+		if (graphics instanceof SVGGraphics2D || graphics instanceof VectorGraphics2D) {
+			textRenderer=null;
+			lastWasExport=true;
+		}
 
 		/* Renderer vorbereiten */
 		if (interpretMarkdown || interpretLaTeX) {

@@ -36,10 +36,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.commons.math3.util.FastMath;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import de.erichseifert.vectorgraphics2d.VectorGraphics2D;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
@@ -580,6 +582,23 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 	private int lastStrokeWidth;
 
 	/**
+	 * Konfiguriert die Schriftart im Grafik-Objekt für die Beschriftung der Segmente.
+	 * @param graphics	Grafik-Objekt
+	 * @param rectangle	Ausgaberechteck
+	 */
+	private void setupFont(final Graphics2D graphics, final Rectangle rectangle) {
+		/*
+		 * "Sans" und "Serif" werden von jedem SVG-Renderer anders umgesetzt,
+		 * daher machen wir hier konkrete Vorgaben, so dass die Laufweite
+		 * vorab korrekt berechnet werden kann und Texte und Sub- und Subskripte
+		 * zusammen passen.
+		 */
+		final boolean isExport=(graphics instanceof SVGGraphics2D || graphics instanceof VectorGraphics2D);
+		final var fontFamily=isExport?FontCache.FontFamily.WIN_VERDANA:FontCache.defaultFamily;
+		graphics.setFont(FontCache.getFontCache().getFont(fontFamily,0,11*Math.min(rectangle.width,rectangle.height)/100));
+	}
+
+	/**
 	 * Zeichnet Dummy-Segmente während der Editor aktiv ist (und noch keine Animationsdaten vorliegen)
 	 * @param g	Grafik-Ausgabeobjekt
 	 * @param rectangle	Ausgaberechteck
@@ -595,7 +614,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 			for (int i=0;i<filler.length;i++) filler[i]=new GradientFill(false);
 		}
 
-		g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,11*Math.min(rectangle.width,rectangle.height)/100));
+		setupFont(g,rectangle);
 
 		if (drawMode==DrawMode.DONUT) {
 			int strokeWidth=2*Math.min(rectangle.width,rectangle.height)/7;
@@ -657,7 +676,7 @@ public class ModelElementAnimationPieChart extends ModelElementPosition implemen
 				for (int i=0;i<filler.length;i++) filler[i]=new GradientFill(false);
 			}
 
-			g.setFont(FontCache.getFontCache().getFont(FontCache.defaultFamily,0,11*Math.min(rectangle.width,rectangle.height)/100));
+			setupFont(g,rectangle);
 
 			if (drawMode==DrawMode.DONUT) {
 				int strokeWidth=2*Math.min(rectangle.width,rectangle.height)/7;

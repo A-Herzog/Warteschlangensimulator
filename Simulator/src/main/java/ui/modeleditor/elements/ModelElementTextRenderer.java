@@ -18,6 +18,10 @@ package ui.modeleditor.elements;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import org.apache.batik.svggen.SVGGraphics2D;
+
+import de.erichseifert.vectorgraphics2d.VectorGraphics2D;
+
 /**
  * Basisklasse für Text-Renderer für {@link ModelElementText}
  * @author Alexander Herzog
@@ -229,6 +233,13 @@ public abstract class ModelElementTextRenderer {
 	protected abstract void processLines(final String[] lines);
 
 	/**
+	 * Bezog sich der letzte Aufruf von {@link #calc(Graphics, double)}
+	 * auf einen Export als Vektorgrafik?
+	 * @see #calc(Graphics, double)
+	 */
+	private boolean lastWasExport=false;
+
+	/**
 	 * Berechnet die Ausgabedaten neu.<br>
 	 * Es wird dabei geprüft, ob eine Neuberechnung tatsächlich nötig ist.
 	 * Nur dann wird diese tatsächlich ausgeführt.
@@ -237,15 +248,18 @@ public abstract class ModelElementTextRenderer {
 	 * @see #calcIntern(Graphics, double)
 	 */
 	public final void calc(final Graphics graphics, final double zoom) {
-		if (!needRecalc && lastZoom==zoom) return;
+		final boolean isExport=(graphics instanceof SVGGraphics2D || graphics instanceof VectorGraphics2D);
+		if (!needRecalc && lastZoom==zoom && !isExport && !lastWasExport) return;
+		lastWasExport=false;
 		calcIntern(graphics,zoom);
 		if (lastShadowColor!=null) {
 			final int delta=getShadowDelta(zoom);
 			width+=delta;
 			height+=delta;
 		}
-		needRecalc=false;
+		needRecalc=!isExport;
 		lastZoom=zoom;
+		lastWasExport=isExport;
 	}
 
 	/**

@@ -23,8 +23,10 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.util.Objects;
 
+import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.commons.math3.util.FastMath;
 
+import de.erichseifert.vectorgraphics2d.VectorGraphics2D;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -284,6 +286,13 @@ public class AxisDrawer {
 	}
 
 	/**
+	 * Bezog sich der letzte Aufruf von {@link #prepare(Graphics2D, double, int)}
+	 * auf einen Export als Vektorgrafik?
+	 * @see #prepare(Graphics2D, double, int)
+	 */
+	private boolean lastWasExport;
+
+	/**
 	 * Bereitet die Darstellung der Texte vor (Berechnung der Schriftarten usw.)
 	 * @param graphics	<code>Graphics</code>-Objekt in das das Element eingezeichnet werden soll
 	 * @param zoom	Zoomfaktor (zur Berechnung der Fontgröße)
@@ -296,8 +305,10 @@ public class AxisDrawer {
 		graphics.setColor(fontColor);
 
 		/* Font einstellen */
-		if (axisFont==null || axisFontZoom!=zoom) {
-			axisFont=new Font(ModelElementBox.DEFAULT_FONT_TYPE,Font.PLAIN,(int)FastMath.round(11*zoom));
+		final boolean isExport=(graphics instanceof SVGGraphics2D || graphics instanceof VectorGraphics2D);
+		if (axisFont==null || axisFontZoom!=zoom || isExport || lastWasExport) {
+			final String fontFamilyName=isExport?FontCache.FontFamily.WIN_VERDANA.name:ModelElementBox.DEFAULT_FONT_TYPE;
+			axisFont=new Font(fontFamilyName,Font.PLAIN,(int)FastMath.round(11*zoom));
 			axisFontZoom=zoom;
 			graphics.setFont(axisFont);
 			final FontMetrics fontMetrics=graphics.getFontMetrics();
@@ -305,6 +316,7 @@ public class AxisDrawer {
 			axisFontDescent=fontMetrics.getDescent();
 			needUpdateTextWidth=true;
 		}
+		lastWasExport=isExport;
 		graphics.setFont(axisFont);
 
 		/* Zahlen an Achsen vorbereiten */
