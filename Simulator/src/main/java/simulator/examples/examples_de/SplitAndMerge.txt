@@ -1,0 +1,3 @@
+In diesem Beispielmodell werden zu untersuchende Proben, die am System eintreffen, in zwei Teilproben aufgeteilt,
+die im Folgenden unabhängig analysiert werden. Die Gesamtprobe wird freigegeben, wenn die beiden Teilergebnisse
+vorliegen. Die Gesamtverweilzeit einer Probe ergibt sich folglich als das Maximum der beiden Teilverweilzeiten.

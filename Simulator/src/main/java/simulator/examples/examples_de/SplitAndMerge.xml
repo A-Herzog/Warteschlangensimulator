@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.8.0</ModellVersion>
+  <ModellName>Aufteilen und Zusammenführen von (Teil-)Proben</ModellName>
+  <ModellBeschreibung>In diesem Beispielmodell werden zu untersuchende Proben, die am System eintreffen, in zwei Teilproben aufgeteilt,
+die im Folgenden unabhängig analysiert werden. Die Gesamtprobe wird freigegeben, wenn die beiden Teilergebnisse
+vorliegen. Die Gesamtverweilzeit einer Probe ergibt sich folglich als das Maximum der beiden Teilverweilzeiten.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Proben</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
+      <ModellElementVerbindung Element="4" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVariable id="2">
+      <ModellElementGroesse h="50" w="100" x="250" y="200"/>
+      <ModellElementVerbindung Element="4" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="5" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(1)">ClientNumber()</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementDuplizieren id="3">
+      <ModellElementGroesse h="50" w="100" x="400" y="200"/>
+      <ModellElementVerbindung Element="5" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+    </ModellElementDuplizieren>
+    <ModellElementKante id="4">
+      <ModellElementName>Ankünfte (Proben)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="5">
+      <ModellElementVerbindung Element1="2" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBedienstation id="6">
+      <ModellElementName>Analyse A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="100"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (80)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Ergebnis">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Proben">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener A"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="7">
+      <ModellElementName>Analyse B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="300"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="21" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (80)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Ergebnis">w</ModellElementPrioritaet>
+      <ModellElementPrioritaet Kundentyp="Proben">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener B"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementKante id="8">
+      <ModellElementName>Original</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementName>Kopie 1</ModellElementName>
+      <ModellElementVerbindung Element1="3" Element2="7" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZusammenfuehren id="10">
+      <ModellElementName>Ergebnis</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="850" y="200"/>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
+      <ModellElementMatchEigenschaft Typ="Zahl">1</ModellElementMatchEigenschaft>
+      <ModellElementBatchModus>Dauerhaft</ModellElementBatchModus>
+      <ModellElementKundentyp>Ergebnis</ModellElementKundentyp>
+      <ModellElementZusammenfuehrenUebertragenZeiten>Maximum</ModellElementZusammenfuehrenUebertragenZeiten>
+      <ModellElementZusammenfuehrenUebertragenWerte>Maximum</ModellElementZusammenfuehrenUebertragenWerte>
+    </ModellElementZusammenfuehren>
+    <ModellElementEnde id="13">
+      <ModellElementGroesse h="50" w="100" x="1250" y="200"/>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementAnimationText id="15">
+      <ModellElementName>Mittlere Verweilzeit</ModellElementName>
+      <ModellElementGroesse h="30" w="114" x="550" y="170"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">ResidenceTime_Avg(6)</ModellElementAnimationsmodus>
+      <ModellElementAnimationTextZusatz Pretext="E[V]=" Symbole="1"/>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="16">
+      <ModellElementName>Mittlere Verweilzeit</ModellElementName>
+      <ModellElementGroesse h="30" w="114" x="550" y="375"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">ResidenceTime_Avg(7)</ModellElementAnimationsmodus>
+      <ModellElementAnimationTextZusatz Pretext="E[V]=" Symbole="1"/>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="17">
+      <ModellElementName>Mittlere Verweilzeit (Stationen)</ModellElementName>
+      <ModellElementGroesse h="30" w="124" x="1100" y="275"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,165,165</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Statistik_avg(18;1)</ModellElementAnimationsmodus>
+      <ModellElementAnimationTextZusatz Pretext="E[V]=" Symbole="1"/>
+    </ModellElementAnimationText>
+    <ModellElementBenutzerstatistik id="18">
+      <ModellElementGroesse h="50" w="100" x="1100" y="200"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+      <ModellElementBenutzerstatistikEintrag Bezeichner="Station_ResidenceTime" IstKontinuierlich="0" IstZeitangabe="1">max(ClientData(2);ClientData(3))</ModellElementBenutzerstatistikEintrag>
+    </ModellElementBenutzerstatistik>
+    <ModellElementKante id="14">
+      <ModellElementName>Neuer Kundentyp "Ergebnis"</ModellElementName>
+      <ModellElementVerbindung Element1="10" Element2="18" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="19">
+      <ModellElementVerbindung Element1="18" Element2="13" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVariable id="11">
+      <ModellElementGroesse h="50" w="100" x="700" y="100"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="22" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(2)" Wert="Verweilzeit"/>
+    </ModellElementVariable>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="6" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVariable id="20">
+      <ModellElementGroesse h="50" w="100" x="700" y="300"/>
+      <ModellElementVerbindung Element="21" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(3)" Wert="Verweilzeit"/>
+    </ModellElementVariable>
+    <ModellElementKante id="21">
+      <ModellElementVerbindung Element1="7" Element2="20" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="22">
+      <ModellElementVerbindung Element1="11" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="23">
+      <ModellElementVerbindung Element1="20" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="24">
+      <ModellElementGroesse h="23" w="432" x="50" y="50"/>
+      <ModellElementTextzeile>Aufteilen und Zusammenführen von (Teil-)Proben</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="25">
+      <ModellElementGroesse h="152" w="224" x="250" y="300"/>
+      <ModellElementTextzeile>An dem System treffen Proben ein,</ModellElementTextzeile>
+      <ModellElementTextzeile>die in zwei Teilproben, die jeweils</ModellElementTextzeile>
+      <ModellElementTextzeile>unabhängig analysiert werden,</ModellElementTextzeile>
+      <ModellElementTextzeile>aufgeteilt werden. Die Auslastung</ModellElementTextzeile>
+      <ModellElementTextzeile>an beiden Analysestationen beträgt</ModellElementTextzeile>
+      <ModellElementTextzeile>&amp;rho;=80%. Es ergibt sich jeweils</ModellElementTextzeile>
+      <ModellElementTextzeile>eine mittlere Verweilzeit von</ModellElementTextzeile>
+      <ModellElementTextzeile>E[V]=400 Sekunden.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="26">
+      <ModellElementGroesse h="114" w="168" x="850" y="280"/>
+      <ModellElementTextzeile>Die Gesamtprobe wird erst</ModellElementTextzeile>
+      <ModellElementTextzeile>freigegeben, wenn beide</ModellElementTextzeile>
+      <ModellElementTextzeile>Teilergebnisse vorliegen.</ModellElementTextzeile>
+      <ModellElementTextzeile>D.h. Die Gesamtverweilzeit</ModellElementTextzeile>
+      <ModellElementTextzeile>ist das Maximum der</ModellElementTextzeile>
+      <ModellElementTextzeile>beiden Teilverweilzeiten.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener A" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener B" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten>
+    <KundenDaten Icon="folder-green" Name="Ergebnis"/>
+    <KundenDaten Icon="icon_package" Name="Kunden"/>
+    <KundenDaten Icon="icon_package" Name="Proben"/>
+  </KundentypenDaten>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
+</Modell>

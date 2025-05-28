@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.8.0</ModelVersion>
+  <ModelName>Splitting and merging (partial) samples</ModelName>
+  <ModelDescription>In this example model, samples to be tested that arrive at the system are divided into two subsamples, which are then
+analyzed independently. The entrie sample is released when the two partial results are available. The total residence  time
+of a sample is therefore the maximum of the two partial residence  times.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Samples</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="200"/>
+      <ModelElementConnection Element="4" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementVariable id="2">
+      <ModelElementSize h="50" w="100" x="250" y="200"/>
+      <ModelElementConnection Element="4" Type="In"/>
+      <ModelElementConnection Element="5" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(1)">ClientNumber()</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementDuplicate id="3">
+      <ModelElementSize h="50" w="100" x="400" y="200"/>
+      <ModelElementConnection Element="5" Type="In"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+    </ModelElementDuplicate>
+    <ModelElementEdge id="4">
+      <ModelElementName>Arrivals (Samples)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="5">
+      <ModelElementConnection Element1="2" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="6">
+      <ModelElementName>Analysis A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="100"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (80)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Ergebnis">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Proben">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Samples">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener A"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="7">
+      <ModelElementName>Analysis B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="300"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="21" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (80)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Ergebnis">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Proben">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Samples">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementEdge id="8">
+      <ModelElementName>Original</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="9">
+      <ModelElementName>Copy 1</ModelElementName>
+      <ModelElementConnection Element1="3" Element2="7" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementMatch id="10">
+      <ModelElementName>Result</ModelElementName>
+      <ModelElementSize h="50" w="100" x="850" y="200"/>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+      <ModelElementMatchProperty Type="Number">1</ModelElementMatchProperty>
+      <ModelElementBatchMode>Permanent</ModelElementBatchMode>
+      <ModelElementClientType>Result</ModelElementClientType>
+      <ModelElementMatchTransferTimes>Max</ModelElementMatchTransferTimes>
+      <ModelElementMatchTransferNumbers>Max</ModelElementMatchTransferNumbers>
+    </ModelElementMatch>
+    <ModelElementDispose id="13">
+      <ModelElementSize h="50" w="100" x="1250" y="200"/>
+      <ModelElementConnection Element="19" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementAnimationText id="15">
+      <ModelElementName>Average residence time</ModelElementName>
+      <ModelElementSize h="30" w="99" x="550" y="170"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">ResidenceTime_Avg(6)</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Pretext="E[V]=" Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="16">
+      <ModelElementName>Average residence time</ModelElementName>
+      <ModelElementSize h="30" w="99" x="550" y="375"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">ResidenceTime_Avg(7)</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Pretext="E[V]=" Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="17">
+      <ModelElementName>Average residence time (stations)</ModelElementName>
+      <ModelElementSize h="30" w="141" x="1100" y="275"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,165,165</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Statistik_avg(18;1)</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Pretext="E[V]=" Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementUserStatistics id="18">
+      <ModelElementSize h="50" w="100" x="1100" y="200"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+      <ModelElementUserStatisticsRecord IsContinuous="0" IsTime="1" Key="Station_ResidenceTime">max(ClientData(2);ClientData(3))</ModelElementUserStatisticsRecord>
+    </ModelElementUserStatistics>
+    <ModelElementEdge id="14">
+      <ModelElementName>New client type "Result"</ModelElementName>
+      <ModelElementConnection Element1="10" Element2="18" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementConnection Element1="18" Element2="13" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVariable id="11">
+      <ModelElementSize h="50" w="100" x="700" y="100"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="22" Type="Out"/>
+      <ModelElementAssignmentData Value="ResidenceTime" Variable="ClientData(2)"/>
+    </ModelElementVariable>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="6" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVariable id="20">
+      <ModelElementSize h="50" w="100" x="700" y="300"/>
+      <ModelElementConnection Element="21" Type="In"/>
+      <ModelElementConnection Element="23" Type="Out"/>
+      <ModelElementAssignmentData Value="ResidenceTime" Variable="ClientData(3)"/>
+    </ModelElementVariable>
+    <ModelElementEdge id="21">
+      <ModelElementConnection Element1="7" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="22">
+      <ModelElementConnection Element1="11" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="23">
+      <ModelElementConnection Element1="20" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="24">
+      <ModelElementSize h="23" w="337" x="50" y="50"/>
+      <ModelElementTextLine>Splitting and merging (partial) samples</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="25">
+      <ModelElementSize h="152" w="209" x="250" y="300"/>
+      <ModelElementTextLine>Samples arrive at the system and</ModelElementTextLine>
+      <ModelElementTextLine>are divided into two subsamples,</ModelElementTextLine>
+      <ModelElementTextLine>each of which is analyzed</ModelElementTextLine>
+      <ModelElementTextLine>independently. The utilization at</ModelElementTextLine>
+      <ModelElementTextLine>both analysis stations is</ModelElementTextLine>
+      <ModelElementTextLine>&amp;rho;=80%. This results in an</ModelElementTextLine>
+      <ModelElementTextLine>average dwell time of E[V]=400</ModelElementTextLine>
+      <ModelElementTextLine>seconds in each case.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="26">
+      <ModelElementSize h="133" w="167" x="850" y="280"/>
+      <ModelElementTextLine>The entire sample is only</ModelElementTextLine>
+      <ModelElementTextLine>released when both partial</ModelElementTextLine>
+      <ModelElementTextLine>results are available. This</ModelElementTextLine>
+      <ModelElementTextLine>means that the total</ModelElementTextLine>
+      <ModelElementTextLine>residence time is the</ModelElementTextLine>
+      <ModelElementTextLine>maximum of the two</ModelElementTextLine>
+      <ModelElementTextLine>partial residence times.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Bediener A" Type="Number" Value="1"/>
+    <Resource Name="Bediener B" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="folder-green" Name="Ergebnis"/>
+    <ClientData Icon="icon_package" Name="Kunden"/>
+    <ClientData Icon="icon_package" Name="Proben"/>
+    <ClientData Icon="folder-green" Name="Result"/>
+    <ClientData Icon="icon_package" Name="Samples"/>
+  </ClientTypeData>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+</Model>

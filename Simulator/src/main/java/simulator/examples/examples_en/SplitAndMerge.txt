@@ -1,0 +1,3 @@
+In this example model, samples to be tested that arrive at the system are divided into two subsamples, which are then
+analyzed independently. The entrie sample is released when the two partial results are available. The total residence  time
+of a sample is therefore the maximum of the two partial residence  times.
