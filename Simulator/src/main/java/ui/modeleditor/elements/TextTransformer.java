@@ -71,13 +71,13 @@ public class TextTransformer {
 	 * Liste der HTML-Entities
 	 * @see #processIntern(String)
 	 */
-	private static Map<Character,Map<String,String>> entitiesHTML;
+	public static final Map<Character,Map<String,String>> entitiesHTML;
 
 	/**
 	 * Liste der LaTeX-Symbole
 	 * @see #processIntern(String)
 	 */
-	private static Map<Character,Map<String,String>> entitiesLaTeX;
+	public static final Map<Character,Map<String,String>> entitiesLaTeX;
 
 	/**
 	 * Länge des längsten Schlüssels

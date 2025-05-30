@@ -120,6 +120,7 @@ import ui.modeleditor.ModelSurfaceLinks;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.SavedViews;
 import ui.modeleditor.ScaledImageCache;
+import ui.modeleditor.TikZExport;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementListGroup;
@@ -2255,6 +2256,7 @@ public final class EditorPanel extends EditorPanelBase {
 		final FileFilter html=new FileNameExtensionFilter(Language.tr("FileType.HTML")+" (*.html)","html");
 		final FileFilter drawio=new FileNameExtensionFilter(Language.tr("FileType.drawio")+" (*.drawio)","drawio");
 		final FileFilter dot=new FileNameExtensionFilter(Language.tr("FileType.dot")+" (*.dot)","dot");
+		final FileFilter tex=new FileNameExtensionFilter(Language.tr("FileType.LaTeX")+" (*.tex)","tex");
 		fc.addChoosableFileFilter(png);
 		fc.addChoosableFileFilter(jpg);
 		fc.addChoosableFileFilter(gif);
@@ -2268,6 +2270,7 @@ public final class EditorPanel extends EditorPanelBase {
 		fc.addChoosableFileFilter(html);
 		fc.addChoosableFileFilter(drawio);
 		fc.addChoosableFileFilter(dot);
+		fc.addChoosableFileFilter(tex);
 		fc.setFileFilter(png);
 		fc.setAcceptAllFileFilterUsed(false);
 
@@ -2289,6 +2292,7 @@ public final class EditorPanel extends EditorPanelBase {
 			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
 			if (fc.getFileFilter()==drawio) file=new File(file.getAbsoluteFile()+".drawio");
 			if (fc.getFileFilter()==dot) file=new File(file.getAbsoluteFile()+".dot");
+			if (fc.getFileFilter()==tex) file=new File(file.getAbsoluteFile()+".tex");
 		}
 
 		return file;
@@ -2339,6 +2343,7 @@ public final class EditorPanel extends EditorPanelBase {
 		if (file.getName().toLowerCase().endsWith(".tif")) format="tiff";
 		if (file.getName().toLowerCase().endsWith(".drawio")) format="drawio";
 		if (file.getName().toLowerCase().endsWith(".dot")) format="dot";
+		if (file.getName().toLowerCase().endsWith(".tex")) format="tex";
 
 		if (format.equalsIgnoreCase("html")) {
 			/* HTML-Modus */
@@ -2391,6 +2396,13 @@ public final class EditorPanel extends EditorPanelBase {
 			final GraphVizExport export=new GraphVizExport();
 			export.process(model,includeStatistics?statistics:null,includeSubModels);
 			if (!export.saveDot(file,model)) return Language.tr("Editor.ExportModel.Error");
+			return null;
+		}
+
+		if (format.equalsIgnoreCase("tex")) {
+			/* TikZ-Modus */
+			final TikZExport export=new TikZExport(model.surface,SetupData.getSetup().showIDs);
+			if (!export.save(file)) return Language.tr("Editor.ExportModel.Error");
 			return null;
 		}
 
