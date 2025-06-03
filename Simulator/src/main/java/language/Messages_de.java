@@ -7345,7 +7345,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18072] = "ModelGenerator.ClosedModel.SelectName";
     t[18073] = "Geschlossenes Warteschlangennetz";
     t[18076] = "Editor.AddEdge.PlacePoint1.Long";
-    t[18077] = "Klicken Sie jetzt das Ausgangselement f\u00fcr die neue Verkn\u00fcpfung an.";
+    t[18077] = "Klicken Sie jetzt das <b>Ausgangselement</b> f\u00fcr die neue Verkn\u00fcpfung an.";
     t[18078] = "Statistics.ClientMovement.Sankey.Tooltip";
     t[18079] = "Als Sankey-Diagramm exportieren";
     t[18080] = "ExternalConnect.Dialog.Mode.Full";
@@ -10835,7 +10835,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[26486] = "Optimizer.SaveBestResult.InfoNo";
     t[26487] = "Bestes Ergebnis nicht speichern.";
     t[26490] = "Editor.AddEdge.PlacePoint2.Long";
-    t[26491] = "Klicken Sie jetzt das Zielelement f\u00fcr die neue Verkn\u00fcpfung an.";
+    t[26491] = "Klicken Sie jetzt das <b>Zielelement</b> f\u00fcr die neue Verkn\u00fcpfung an.";
     t[26492] = "ExpressionBuilder.CommandName.Transporter";
     t[26493] = "Transporter";
     t[26498] = "ModelDescription.Batch.Size";

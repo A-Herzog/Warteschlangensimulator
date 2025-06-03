@@ -1909,11 +1909,11 @@ public final class EditorPanel extends EditorPanelBase {
 			setStatusBarInfo(statusHTMLStart+statusHTMLOrange+Language.tr("Editor.AddElement.PlaceElement")+statusHTMLSpanEnd+statusHTMLEnd,null,Images.MODEL_ADD_STATION.getIcon());
 			break;
 		case MODE_ADD_EDGE_STEP1:
-			setAdditionalInfoLabel(InfoPanel.getInstance().isVisible(InfoPanel.globalAddEdge),statusHTMLStart+"<b>"+Language.tr("Editor.AddEdge.PlacePoint1.Long")+"</b>"+statusHTMLEnd);
+			setAdditionalInfoLabel(InfoPanel.getInstance().isVisible(InfoPanel.globalAddEdge),statusHTMLStart+Language.tr("Editor.AddEdge.PlacePoint1.Long")+statusHTMLEnd,Images.EDIT_EDGES_ADD_STEP1.getIcon());
 			setStatusBarInfo(statusHTMLStart+statusHTMLOrange+Language.tr("Editor.AddEdge.PlacePoint1")+statusHTMLSpanEnd+statusHTMLEnd,null,Images.EDIT_EDGES_ADD.getIcon());
 			break;
 		case MODE_ADD_EDGE_STEP2:
-			setAdditionalInfoLabel(InfoPanel.getInstance().isVisible(InfoPanel.globalAddEdge),statusHTMLStart+"<b>"+Language.tr("Editor.AddEdge.PlacePoint2.Long")+"</b>"+statusHTMLEnd);
+			setAdditionalInfoLabel(InfoPanel.getInstance().isVisible(InfoPanel.globalAddEdge),statusHTMLStart+Language.tr("Editor.AddEdge.PlacePoint2.Long")+statusHTMLEnd,Images.EDIT_EDGES_ADD_STEP2.getIcon());
 			setStatusBarInfo(statusHTMLStart+statusHTMLOrange+Language.tr("Editor.AddEdge.PlacePoint2")+statusHTMLSpanEnd+statusHTMLEnd,null,Images.EDIT_EDGES_ADD.getIcon());
 			break;
 		case MODE_INSERT_ELEMENTS_FROM_CLIPBOARD:
@@ -1943,10 +1943,21 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @see #additionalInfoLabel
 	 */
 	private void setAdditionalInfoLabel(final boolean show, final String text) {
-		additionalInfoArea.setVisible(show && text!=null);
-		if (text!=null) additionalInfoLabel.setText(statusHTMLStart+"<b>"+text+"</b>"+statusHTMLEnd);
+		setAdditionalInfoLabel(show,text,null);
+	}
 
-		additionalInfoLabel.setIcon(Images.GENERAL_INFO.getIcon());
+	/**
+	 * Zeigt eine zusätzliche Infozeile über dem Modelleditor an.
+	 * @param show	Zeile anzeigen oder ausblenden?
+	 * @param text	Anzuzeigender Text
+	 * @param icon	Vor dem Text anzuzeigendes Icon
+	 * @see #additionalInfoArea
+	 * @see #additionalInfoLabel
+	 */
+	private void setAdditionalInfoLabel(final boolean show, final String text, final Icon icon) {
+		additionalInfoArea.setVisible(show && text!=null);
+		if (text!=null) additionalInfoLabel.setText(statusHTMLStart+text+statusHTMLEnd);
+		additionalInfoLabel.setIcon((icon==null)?Images.GENERAL_INFO.getIcon():icon);
 	}
 
 	/**

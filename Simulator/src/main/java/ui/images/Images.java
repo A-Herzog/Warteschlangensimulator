@@ -305,6 +305,12 @@ public enum Images {
 	/** Symbol "Verbindungskante hinzufügen" */
 	EDIT_EDGES_ADD("link_add.png"),
 
+	/** Symbol "Verbindungskante hinzufügen" - Erste Station anklicken */
+	EDIT_EDGES_ADD_STEP1("link_add_step1.png"),
+
+	/** Symbol "Verbindungskante hinzufügen" - Zweite Station anklicken */
+	EDIT_EDGES_ADD_STEP2("link_add_step2.png"),
+
 	/** Symbol "Verbindungskante hinzufügen - Panel schließen" */
 	EDIT_EDGES_ADD_CLOSEPANEL("application_side_contract2.png"),
 
