@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-30 14:46+0200\n"
+"POT-Creation-Date: 2025-05-30 14:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14689,6 +14689,9 @@ msgstr "Multiple process stations (number of stations: %d)"
 msgid "ModelGenerator.Model.Description.Properties.Priorities"
 msgstr "Different service priorities for the different client types"
 
+msgid "ModelGenerator.Model.Description.Properties.Queue.LeastClientsAtStation"
+msgstr "Least clients at the station"
+
 msgid "ModelGenerator.Model.Description.Properties.Queue.Random"
 msgstr "Queue selection: random (50%/50%)"
 
@@ -14790,6 +14793,9 @@ msgstr "Retry"
 
 msgid "ModelGenerator.SelectQueue"
 msgstr "Selecting the queue / process station"
+
+msgid "ModelGenerator.SelectQueue.LeastClientsAtStation"
+msgstr "Least clients at the station"
 
 msgid "ModelGenerator.SelectQueue.Random"
 msgstr "Random"

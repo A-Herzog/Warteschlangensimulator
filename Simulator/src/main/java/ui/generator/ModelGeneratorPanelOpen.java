@@ -120,7 +120,8 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 		addHeading(this,Language.tr("ModelGenerator.Queue"),true);
 		comboSelectQueue=addCombo(this,Language.tr("ModelGenerator.SelectQueue"),new String[]{
 				Language.tr("ModelGenerator.SelectQueue.Random"),
-				Language.tr("ModelGenerator.SelectQueue.Shortest")
+				Language.tr("ModelGenerator.SelectQueue.Shortest"),
+				Language.tr("ModelGenerator.SelectQueue.LeastClientsAtStation")
 		});
 		comboSelectQueue.setEnabled(false);
 		checkWaitingTimeTolerance=addCheckBox(this,Language.tr("ModelGenerator.UseWaitingTimeTolerance"),false);
@@ -236,13 +237,13 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 	 * @param discipline	FIFO (0), LIFO (1), Random (2), SJF (3) oder LJF (4)
 	 * @param stations	Anzahl an Stationen
 	 * @param sharedResource	Bediener zwischen den Stationen geteilt?
-	 * @param shortestQueue	Kunden wählen kürzeste Warteschlange?
+	 * @param shortestMode	Kunden wählen kürzeste Warteschlange? 0: Aus, 1: Min[NQ], 2: Min[N]
 	 * @param useWaitingTimeTolerance	Kunden sind nur bereit, begrenzt lange zu warten?
 	 * @param useRetry	Wiederholungen nach Warteabbrüchen?
 	 * @param useForwarding	Weiterleitungen?
 	 * @return	Beschreibung für das Modell
 	 */
-	private String buildDescription(final int clientTypes, final boolean priorities, final int arrivalBatch, final int serviceBatch, final int serviceDistribution, final int discipline, final int stations, final boolean sharedResource, final boolean shortestQueue, final boolean useWaitingTimeTolerance, final boolean useRetry, final boolean useForwarding) {
+	private String buildDescription(final int clientTypes, final boolean priorities, final int arrivalBatch, final int serviceBatch, final int serviceDistribution, final int discipline, final int stations, final boolean sharedResource, final int shortestMode, final boolean useWaitingTimeTolerance, final boolean useRetry, final boolean useForwarding) {
 		final StringBuilder description=new StringBuilder();
 		description.append(Language.tr("ModelGenerator.Model.Description"));
 		description.append("\n\n");
@@ -287,10 +288,16 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 		}
 		if (stations>1) {
 			description.append("\n- "+String.format(Language.tr("ModelGenerator.Model.Description.Properties.MultiStations"),stations));
-			if (shortestQueue) {
-				description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.Queue.Shortest"));
-			} else {
+			switch (shortestMode) {
+			case 0:
 				description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.Queue.Random"));
+				break;
+			case 1:
+				description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.Queue.Shortest"));
+				break;
+			case 2:
+				description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.Queue.LeastClientsAtStation"));
+				break;
 			}
 			if (sharedResource) description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.SharedResource"));
 		}
@@ -315,7 +322,7 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 		final int utilization=comboServiceUtilization.getSelectedIndex();
 		final int stations=spinnerStationCount.getNumber().intValue();
 		final boolean sharedResource=checkSharedResource.isSelected();
-		final boolean shortestQueue=(comboSelectQueue.getSelectedIndex()==1);
+		final int shortestMode=comboSelectQueue.getSelectedIndex(); /* 0: Off, 1: Min[NQ], 2: Min[N] */
 		final boolean useWaitingTimeTolerance=checkWaitingTimeTolerance.isSelected();
 		final boolean useRetry=checkRetry.isSelected();
 		final boolean useForwarding=checkForwarding.isSelected();
@@ -357,7 +364,7 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 		final double waitingTimeTolerance=600;
 
 		/* Modell anlegen */
-		final EditModel model=buildModel(Language.tr("ModelGenerator.Model.Name"),buildDescription(clientTypes,priorities,arrivalBatch,serviceBatch,serviceDistribution,discipline,stations,sharedResource,shortestQueue,useWaitingTimeTolerance,useRetry,useForwarding));
+		final EditModel model=buildModel(Language.tr("ModelGenerator.Model.Name"),buildDescription(clientTypes,priorities,arrivalBatch,serviceBatch,serviceDistribution,discipline,stations,sharedResource,shortestMode,useWaitingTimeTolerance,useRetry,useForwarding));
 
 		/* Ressourcen */
 		for (int i=0;i<resourceGroups;i++) {
@@ -451,20 +458,31 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 			model.surface.add(decide=new ModelElementDecide(model,model.surface));
 			yPosition=yPositionCenter;
 			decide.setPosition(new Point(xPosition,yPosition));
-			if (shortestQueue) {
-				decide.setMode(ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION);
-			} else {
+			switch (shortestMode) {
+			case 0:
 				decide.setMode(ModelElementDecide.DecideMode.MODE_CHANCE);
+				break;
+			case 1:
+				decide.setMode(ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION);
+				break;
+			case 2:
+				decide.setMode(ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION);
+				break;
 			}
 			yPosition+=100;
 
 			/* Infotext unter Verzweigen */
 			description=new StringBuilder();
 			description.append(Language.tr("ModelGenerator.SelectQueue")+":\n");
-			if (shortestQueue) {
-				description.append(Language.tr("ModelGenerator.SelectQueue.Shortest"));
-			} else {
+			switch (shortestMode) {
+			case 0:
 				description.append(Language.tr("ModelGenerator.SelectQueue.Random"));
+				break;
+			case 1:
+				description.append(Language.tr("ModelGenerator.SelectQueue.Shortest"));
+				break;
+			case 2:
+				description.append(Language.tr("ModelGenerator.SelectQueue.LeastClientsAtStation"));
 			}
 			addSmallInfo(model,description.toString(),xPosition,yPosition);
 

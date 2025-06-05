@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-30 14:46+0200\n"
+"POT-Creation-Date: 2025-05-30 14:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14715,6 +14715,9 @@ msgstr "Mehrere Bedienstationen (Anzahl: %d)"
 msgid "ModelGenerator.Model.Description.Properties.Priorities"
 msgstr "Verschiedene Bedienprioritäten für die verschiednen Kundentypen"
 
+msgid "ModelGenerator.Model.Description.Properties.Queue.LeastClientsAtStation"
+msgstr "Wenigste Kunden an der Station"
+
 msgid "ModelGenerator.Model.Description.Properties.Queue.Random"
 msgstr "Warteschlangenwahl: zufällig (50%/50%)"
 
@@ -14816,6 +14819,9 @@ msgstr "Wiederholer"
 
 msgid "ModelGenerator.SelectQueue"
 msgstr "Auswahl der Bedienstation"
+
+msgid "ModelGenerator.SelectQueue.LeastClientsAtStation"
+msgstr "Wenigste Kunden an der Station"
 
 msgid "ModelGenerator.SelectQueue.Random"
 msgstr "Zufällig"
