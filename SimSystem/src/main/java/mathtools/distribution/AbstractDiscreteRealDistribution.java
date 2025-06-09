@@ -94,11 +94,21 @@ public abstract class AbstractDiscreteRealDistribution extends AbstractRealDistr
 	}
 
 	/**
-	 * Zähldichtewert für einen bestimmten Wert
+	 * Zähldichtewert für einen bestimmten Wert.
 	 * @param k	Wert, für den die Zähldichte ermittelt werden soll
 	 * @return	Zähldichte
 	 */
 	protected abstract double getCountDensity(final int k);
+
+	/**
+	 * Liefert den Wert der Zähldichte an einem bestimmten Wert.
+	 * @param x	Wert, für den die Zähldichte ermittelt werden soll
+	 * @return	Zähldichte
+	 */
+	public final double countDensity(final int x) {
+		if (x<0) return 0;
+		return getCountDensity(x);
+	}
 
 	@Override
 	public double random(final RandomGenerator generator) {

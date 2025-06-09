@@ -75,6 +75,7 @@ import org.apache.commons.math3.exception.MathRuntimeException;
 
 import mathtools.NumberTools;
 import mathtools.Table;
+import mathtools.distribution.AbstractDiscreteRealDistribution;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionRandomNumber;
@@ -86,7 +87,7 @@ import mathtools.distribution.tools.FileDropperData;
  * Zeigt den grafischen Verlauf von Dichte und Verteilungsfunktion einer Verteilung
  * vom Typ <code>AbstractContinuousDistribution</code> an.
  * @author Alexander Herzog
- * @version 2.0
+ * @version 2.1
  * @see AbstractRealDistribution
  */
 public class JDistributionPanel extends JPanel implements JGetImage {
@@ -695,10 +696,18 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		private final Color COLOR_BACKGROUND_GRADIENT_LIGHT=new Color(235,235,255);
 
 		/**
-		 * Farbe für die Dichte
-		 * @see #paintDensity(Graphics, Rectangle, double)
+		 * Farbe für die Dichte (Füllbereich)
+		 * @see #paintDensityDiscrete(Graphics, Rectangle, double)
+		 * @see #paintDensityContinuous(Graphics, Rectangle, double)
 		 */
 		private final Color COLOR_DENSITY=new Color(1f,0f,0f,0.15f);
+
+		/**
+		 * Farbe für die Dichte (Linie)
+		 * @see #paintDensityDiscrete(Graphics, Rectangle, double)
+		 * @see #paintDensityContinuous(Graphics, Rectangle, double)
+		 */
+		private final Color COLOR_DENSITY_LINE=Color.RED;
 
 		/**
 		 * Farbe für die Darstellung des Erwartungswertes
@@ -776,18 +785,61 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		}
 
 		/**
-		 * Dichte einzeichnen
+		 * Dichte einer kontinuierlichen Verteilung einzeichnen
 		 * @param g	Ausgabe Ziel
 		 * @param dataRect	Zeichenbereich
 		 * @param maxXValue	Maximal darzustellender x-Wert
 		 * @see #paintToRectangle(Graphics, Rectangle, double)
 		 */
-		private void paintDensity(final Graphics g, final Rectangle dataRect, final double maxXValue) {
-			double lastY=0;
-			double y=0;
+		private void paintDensityDiscrete(final Graphics g, final Rectangle dataRect, final double maxXValue) {
+			final double distMaxX=distribution.getSupportUpperBound();
+			final AbstractDiscreteRealDistribution dist=(AbstractDiscreteRealDistribution)distribution;
 
+			/* Maximal auftretenden y-Wert der Dichte bestimmen */
+			double maxY=0.001;
+			for (int x=0;x<=Math.min(distMaxX,maxXValue);x++) try {
+				final double d=(x>distMaxX)?0:dist.countDensity(x);
+				if (!Double.isInfinite(d) && !Double.isNaN(d)) maxY=Math.max(maxY,d);
+			} catch (IllegalArgumentException | MathRuntimeException e) {}
+
+			final int yBase=dataRect.y+dataRect.height-1;
+			final int halfXBarWidth=Math.max(1,(int)Math.round(dataRect.width/Math.min(distMaxX,maxXValue)/4));
+
+			for (int x=0;x<=Math.min(distMaxX,maxXValue);x++) {
+				try {
+					final double y=dist.countDensity(x);
+					final int x2=dataRect.x+dataRect.width-(int)Math.round(dataRect.width*x/maxXValue);
+					final int y2=Math.min((int)Math.round(dataRect.height*y/maxY),dataRect.height-2);
+
+					final int barX=Math.max(dataRect.x+1,x2-halfXBarWidth);
+					final int barY=yBase-y2;
+					final int barWidth=Math.min(2*halfXBarWidth,dataRect.x+dataRect.width-barX-1);
+					final int barHeight=y2;
+
+					/* Balken zeichnen */
+					g.setColor(COLOR_DENSITY);
+					if (barWidth>2) {
+						g.fillRect(barX,barY,barWidth,barHeight);
+						g.setColor(COLOR_DENSITY_LINE);
+					}
+
+					/* Rahmen zeichnen */
+					g.drawRect(barX,barY,barWidth,barHeight);
+				} catch (IllegalArgumentException | MathRuntimeException e) {}
+			}
+		}
+
+		/**
+		 * Dichte einer kontinuierlichen Verteilung einzeichnen
+		 * @param g	Ausgabe Ziel
+		 * @param dataRect	Zeichenbereich
+		 * @param maxXValue	Maximal darzustellender x-Wert
+		 * @see #paintToRectangle(Graphics, Rectangle, double)
+		 */
+		private void paintDensityContinuous(final Graphics g, final Rectangle dataRect, final double maxXValue) {
 			final double distMaxX=distribution.getSupportUpperBound();
 
+			/* Maximal auftretenden y-Wert der Dichte bestimmen */
 			double maxY=0.001;
 			for (int i=dataRect.x;i<=dataRect.x+dataRect.width;i++) {
 				double x=maxXValue*(i-dataRect.x)/(dataRect.width+1);
@@ -797,8 +849,12 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 				} catch (IllegalArgumentException | MathRuntimeException e) {}
 			}
 
-			g.setColor(COLOR_DENSITY);
+			double lastY=0;
+			double y=0;
 
+			/* Füllbereich zeichnen */
+			final int base=dataRect.y+dataRect.height-1;
+			g.setColor(COLOR_DENSITY);
 			for (int i=dataRect.x;i<=dataRect.x+dataRect.width;i++) {
 				final double x=maxXValue*(i-dataRect.x)/(dataRect.width+1);
 				try {y=(x>distMaxX)?0:distribution.density(x)/maxY;} catch (IllegalArgumentException | MathRuntimeException e) {}
@@ -807,13 +863,13 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 
 				if (i>dataRect.x) {
 					/* g.drawLine(i-1,y1,i,y2); */
-					final int base=dataRect.y+dataRect.height-1;
 					g.fillPolygon(new int[]{i-1,i-1,i,i},new int[]{base,y1,y2,base}, 4);
 				}
 				lastY=y;
 			}
 
-			g.setColor(Color.RED);
+			/* Linie zeichnen */
+			g.setColor(COLOR_DENSITY_LINE);
 			for (int i=dataRect.x;i<=dataRect.x+dataRect.width;i++) {
 				double x=maxXValue*(i-dataRect.x)/(dataRect.width+1);
 				try {y=distribution.density(x)/maxY;} catch (IllegalArgumentException | MathRuntimeException e) {}
@@ -892,7 +948,13 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 
 			paintDistributionRect(g,r,dataRect,maxXValue);
 			if ((plotType==CUMULATIVEPROBABILITY) || (plotType==BOTH))  paintCumulativeProbability(g,dataRect,maxXValue);
-			if ((plotType==DENSITY) || (plotType==BOTH)) paintDensity(g,dataRect,maxXValue);
+			if ((plotType==DENSITY) || (plotType==BOTH)) {
+				if (distribution instanceof AbstractDiscreteRealDistribution) {
+					paintDensityDiscrete(g,dataRect,maxXValue);
+				} else {
+					paintDensityContinuous(g,dataRect,maxXValue);
+				}
+			}
 			paintExpectedValue(g,dataRect,maxXValue);
 		}
 
