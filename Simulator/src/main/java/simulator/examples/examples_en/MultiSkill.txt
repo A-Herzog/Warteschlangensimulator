@@ -1,0 +1,1 @@
+The model examines the effects of training operators so that they can serve clients of several types.

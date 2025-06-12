@@ -6730,8 +6730,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[16431] = "Default sizes";
     t[16432] = "Main.Menu.Edit.Delete";
     t[16433] = "Delete";
-    t[16438] = "ParameterCompare.Settings.Input.List.Templates.ArrivalClientCount.Title";
-    t[16439] = "Number of arriving clients";
+    t[16438] = "Examples.MultiSkill";
+    t[16439] = "Operator training for greater flexibility";
     t[16444] = "Simulation.Log.CounterBatch.Info";
     t[16445] = "Client: %s, station: %s, coutner name: %s";
     t[16448] = "Surface.XML.Transporter.Capacity";
@@ -21322,6 +21322,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52763] = "Select script file";
     t[52764] = "Surface.AssignSequence.Dialog.Sequence";
     t[52765] = "Sequence";
+    t[52770] = "ParameterCompare.Settings.Input.List.Templates.ArrivalClientCount.Title";
+    t[52771] = "Number of arriving clients";
     t[52774] = "SimulationServer.Toolbar.CalcWebStop.Hint";
     t[52775] = "Stops the web server";
     t[52778] = "Statistics.ErlangCompare.Times";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54609] = "Least common multiple";
     t[54618] = "ParameterCompare.Table.Column.Input";
     t[54619] = "Input parameter";
-    t[54620] = "Editor.DialogBase.Search.FontSize.Small";
-    t[54621] = "Small font size";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54620] = "Editor.DialogBase.Search.FontSize.Small";
+    t[54621] = "Small font size";
     t[54622] = "Simulation.Log.InputDB.Info";
     t[54623] = "Client: %s, station: %s, %s:=%s";
     t[54626] = "Surface.Decide.ByQueueLengthMax";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[59377] = "Transport time";
     t[59380] = "ExpressionBuilder.ProbabilityDistributions.EmpiricalDistribution.Quantil";
     t[59381] = "Quantil";
-    t[59382] = "Git.List.PushAll.Info";
-    t[59383] = "The push command was executed on all configuration records.<br>Successful: %d<br>Error: %d";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59382] = "Git.List.PushAll.Info";
+    t[59383] = "The push command was executed on all configuration records.<br>Successful: %d<br>Error: %d";
     t[59384] = "Simulation.Log.EndOfSimulation.ClientAtStoppStation.Warning";
     t[59385] = "The simulation was terminated because a %s type client arrived at the emergency exit station id=%d.";
     t[59392] = "Surface.Connection.AddVertex";
