@@ -84,7 +84,7 @@
 	<dependency>
     		<groupId>org.postgresql</groupId>
     		<artifactId>postgresql</artifactId>
-    		<version>42.7.5</version>
+    		<version>42.7.7</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/net.sf.ucanaccess/ucanaccess -->
 	<dependency>
