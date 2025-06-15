@@ -12,7 +12,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <link href="./libs/bootstrap.min.css" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" rel="stylesheet">
-  <link href="./libs/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+  <link href="./libs/bootstrap-icons.min.css" integrity="sha384-CK2SzKma4jA5H/MXDUU7i1TqZlCFaD4T01vtyDFvPlD97JQyS+IsSh1nI2EFbpyk" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
   <script defer src="./libs/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"></script>
   <script>
     let selectedLanguage=localStorage.getItem('selectedLanguage');
@@ -94,7 +94,7 @@ Programm und Dokumentation sind auf Deutsch und auf Englisch verfügbar<br>
 </p>
 </div>
 <div class="col-md-6">
-<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_de_small.webp" data-large-src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_de.webp" class="rounded shadow zoom" alt="Screenshot Warteschlangensimulator" title="Screenshot Warteschlangensimulator" style="aspect-ratio: 506 / 381; width: 100%;">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_de_small.webp" data-large-src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_de.webp" class="rounded shadow zoom" alt="Screenshot Warteschlangensimulator" title="Screenshot Warteschlangensimulator" style="aspect-ratio: 506 / 381; width: 100%;" fetchpriority="high">
 </div>
 </div>
 
@@ -111,6 +111,21 @@ Bei der Ausführung von Animation und Simulationen werden automatisch Statistikd
 <div class="h4 bi-rocket-takeoff"> Schnelle Simulation</div>
 Der Warteschlangensimulator verfügt über einen sehr schnellen, mehrkernfähigen Simulationskern. Auf Desktop-Systemen sind für viele Simulationsmodelle &gt;100.000 Ankünfte/Sekunde/Kern möglich. Damit ist der Simulator schnell genug für eine interaktive, explorative Modellanalyse. Zur Generierung von hochpräzisen Forschungsergebnissen können Modelle mit mehr als einer Milliarde Ankünften innerhalb von Sekunden bis wenigen Minuten simuliert werden.
 </div>
+</div>
+<div class="row mt-4">
+<div class="h4 bi-flask"> Anwendungsgebiete</div>
+<p>
+In allen Produktions- und Logistikprozessen, in denen <strong>Unsicherheiten</strong> auftreten (unbekannte Ankunftszeiten der Kunden, variable Bedienzeiten, Ausfälle von Ressourcen ...) treten Wartezeiten auf. Je bessere diese Zusammenhänge verstanden sind, desto besser lassen sich unnötige Wartezeiten vermeiden. Wird nur mit Mittelwerten gerechnet, so lassen sich diese Probleme nicht erkennen. Bezogen auf die mittlere Bediendauer reicht die verfügbare Bedienleistung an den Supermarktkassen meist aus - und trotzdem entstehen häufig unerfreuliche Wartezeiten.
+</p>
+<p>
+Besteht ein Bedienprozess nicht nur aus einer Station, sondern aus einem ganzen <strong>Netz</strong> inkl. Rückkopplungen und komplexen Verzweigungsregeln - was in vielen Produktionsprozessen den Normalfall darstellt - ist nur auf Basis von statischen Rechnungen überhaupt nicht mehr erkennbar, welche Stationen die eigentlichen Engpässe darstellen.
+</p>
+<p>
+Mit Hilfe eines Simulationsmodells lassen sich die relevanten Eigenschaften eines realen Produktions- oder Logistikprozesses abbilden und am Computer simulieren. Dies beinhaltet sowohl stochastische Bedienzeiten als auch Verzweigungen und vernetzte Prozesse, komplexe Regeln zur Steuerung der Freigabe von Werkstücken, Ressourcen mit variabler Verfügbarkeit (Schichtpläne und auch unerwartete Ausfälle) und Abhängigkeiten zwischen verschiedenen Stationen.
+</p>
+<p>
+Änderungen oder Erweiterungen an einem realen Produktionssystem vorzunehmen, ist meist mit hohen Risiken und Kosten verbunden. Mit Hilfe eines Simulationsmodells lassen sich die Auswirkungen von Änderungen an einem System gefahrlos und untersuchen und es lässt sich so eine optimale Steuerungsstrategie ermitteln.
+</p>
 </div>
 </div>
 

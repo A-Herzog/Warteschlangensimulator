@@ -12,7 +12,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <link href="./libs/bootstrap.min.css" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" rel="stylesheet">
-  <link href="./libs/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+  <link href="./libs/bootstrap-icons.min.css" integrity="sha384-CK2SzKma4jA5H/MXDUU7i1TqZlCFaD4T01vtyDFvPlD97JQyS+IsSh1nI2EFbpyk" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
   <script defer src="./libs/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"></script>
   <script>
     let selectedLanguage=localStorage.getItem('selectedLanguage');
@@ -94,7 +94,7 @@ Available languages in program and for documentation: English, German<br>
 </p>
 </div>
 <div class="col-md-6">
-<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_small.webp" data-large-src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en.webp" class="rounded shadow zoom" alt="Screenshot Warteschlangensimulator" title="Screenshot Warteschlangensimulator" style="aspect-ratio: 506 / 381; width: 100%;">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_small.webp" data-large-src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en.webp" class="rounded shadow zoom" alt="Screenshot Warteschlangensimulator" title="Screenshot Warteschlangensimulator" style="aspect-ratio: 506 / 381; width: 100%;" fetchpriority="high">
 </div>
 </div>
 
@@ -111,6 +111,21 @@ When running an animation or a simulation, statistic data about all client types
 <div class="h4 bi-rocket-takeoff"> Fast simulation</div>
 Warteschlangensimulator has a very fast, multicore capable simulation engine. On desktop systems for many simulation models &gt;100.000 arrivals/second/core are possible. This makes the simulator fast enough to be used in an interactive way for exploratory model analysis. Also for high precision research questions models with more than 1 billion arrivals can be simulated within seconds to few minutes.
 </div>
+</div>
+<div class="row mt-4">
+<div class="h4 bi-flask"> Application fields</div>
+<p>
+In all production and logistics processes where <strong>uncertainties</strong> occur (unknown arrival times of customers, variable service times, failure of resources ...) waiting times occur. The better these relationships are understood, the better unnecessary waiting times can be avoided. If only average values are calculated, these problems cannot be detected. In relation to the average service time, the available service capacity at the supermarket checkouts is usually sufficient - and yet unpleasant waiting times often occur.
+</p>
+<p>
+If a service process consists not only of one station, but of an entire <strong>network</strong> including feedback and complex branching rules - which is the normal case in many production processes - it is no longer possible to identify which stations are the actual bottlenecks only on the basis of static calculations.
+</p>
+<p>
+With the help of a simulation model, the relevant characteristics of a real production or logistics process can be depicted and simulated on the computer. This includes stochastic service times as well as branching and networked processes, complex rules for controlling the release of workpieces, resources with variable availability (shift schedules and also unexpected failures) and dependencies between different stations.
+</p>
+<p>
+Making changes or extensions to a real production system is usually associated with high risks and costs. With the help of a simulation model, the effects of changes to a system can be safely examined and an optimal control strategy can be determined.
+</p>
 </div>
 </div>
 
