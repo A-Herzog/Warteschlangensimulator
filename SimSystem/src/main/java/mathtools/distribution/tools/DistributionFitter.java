@@ -17,6 +17,7 @@ package mathtools.distribution.tools;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -225,9 +226,11 @@ public class DistributionFitter extends DistributionFitterBase {
 		double maxDiff=0;
 
 		final double[] cdf=samples.cumulativeDensity;
-		for (int i=0;i<cdf.length;i++) {
-			final double d=dist.cumulativeProbability(i);
-			if (d>0.99999) break;
+		final double scaleFactor=samples.getArgumentScaleFactor();
+		final int len=cdf.length;
+		for (int i=0;i<len;i++) {
+			final double d=dist.cumulativeProbability(i/scaleFactor);
+			if (d>0.9999) break;
 			if (i==0 && (Double.isInfinite(d) || Double.isNaN(d))) continue;
 			maxDiff=FastMath.max(maxDiff,Math.abs(cdf[i]-d));
 		}
@@ -246,23 +249,31 @@ public class DistributionFitter extends DistributionFitterBase {
 		int steps=0;
 
 		final double[] cdf=samples.cumulativeDensity;
+		final int len=cdf.length;
+		final double scaleFactor=samples.getArgumentScaleFactor();
 		double d1=dist.cumulativeProbability(0);
-		for (int i=1;i<cdf.length;i++) {
-			final double d2=dist.cumulativeProbability(i);
+		for (int i=0;i<len;i++) {
+			final double d2=dist.cumulativeProbability((i+1)/scaleFactor);
 			if (Double.isInfinite(d1) || Double.isNaN(d1)) continue;
 			if (Double.isInfinite(d2) || Double.isNaN(d2)) continue;
 			final double delta=d2-d1;
 			d1=d2;
-			if (d2>0.99999) break;
+			if (d2>0.9999) break;
 			if (delta<=0) continue;
 			steps++;
-			final double samplesDelta=cdf[i]-cdf[i-1];
+			final double samplesDelta=(i==0)?cdf[0]:(cdf[i]-cdf[i-1]);
 			sumRelDif+=count*(samplesDelta-delta)*(samplesDelta-delta)/delta;
 		}
 
-		ChiSquaredDistribution chiSqr=new ChiSquaredDistribution(Math.max(steps-1,1));
+		final ChiSquaredDistribution chiSqr=new ChiSquaredDistribution(Math.max(steps-1,1));
 		return 1-chiSqr.cumulativeProbability(sumRelDif);
 	}
+
+	/**
+	 * Standardnormalverteilung für {@link #calcPValueAndersonDarling(AbstractRealDistribution)}
+	 * @see #calcPValueAndersonDarling(AbstractRealDistribution)
+	 */
+	private static final AbstractRealDistribution stdNormal=new NormalDistribution();
 
 	/**
 	 * p-Value gemäß Anderson-Darling-Anpassungstest ausrechnen
@@ -281,8 +292,10 @@ public class DistributionFitter extends DistributionFitterBase {
 		final int n=count;
 		final double[] y=new double[count];
 		int offset=0;
-		for (int index1=0;index1<rawSamples.densityData.length;index1++) {
-			int count=(int)Math.round(rawSamples.densityData[index1]);
+		final var densityData=rawSamples.densityData;
+		final int len=densityData.length;
+		for (int index1=0;index1<len;index1++) {
+			final int count=(int)Math.round(densityData[index1]);
 			for (int index2=0;index2<count;index2++) {
 				y[offset]=(index1-mean)/stdDev;
 				offset++;
@@ -290,10 +303,13 @@ public class DistributionFitter extends DistributionFitterBase {
 		}
 
 		/* Summe S berechnen */
-		final AbstractRealDistribution stdNormal=new NormalDistribution();
 		double s=0;
+		final double[] cdf=new double[n];
+		Arrays.fill(cdf,-1);
 		for (int i=1;i<=n;i++) {
-			final double value=Math.log(stdNormal.cumulativeProbability(y[i-1]))+Math.log(1-stdNormal.cumulativeProbability(y[n-i]));
+			if (cdf[i-1]==-1) cdf[i-1]=stdNormal.cumulativeProbability(y[i-1]);
+			if (cdf[n-i]==-1) cdf[n-i]=stdNormal.cumulativeProbability(y[n-i]);
+			final double value=Math.log(cdf[i-1])+Math.log(1-cdf[n-i]);
 			if (!Double.isNaN(value) && !Double.isInfinite(value)) {
 				s+=(2*i-1)*value;
 			} else {

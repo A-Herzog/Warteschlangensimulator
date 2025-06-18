@@ -1061,11 +1061,28 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 	 */
 	public double getMean() {
 		if (densityData.length==0) return 0;
+
+		final double scale=1/argumentScaleFactor;
+
+		boolean isDiscrete=true;
+		for (int i=0;i<densityData.length;i++) {
+			if (densityData[i]==0.0) continue;
+			final double frac=(scale*i)%1.0;
+			if (frac>scale/2 && frac<1-scale/2) {
+				isDiscrete=false; break;
+			}
+		}
+
 		double densitySum=0, sum=0;
-		double scale=1/argumentScaleFactor;
 		for (int i=0;i<densityData.length;i++) {
 			densitySum+=densityData[i];
-			sum+=densityData[i]*(scale*(i+0.5));
+			final double factor;
+			if (isDiscrete) {
+				factor=Math.round(scale*i);
+			} else {
+				factor=scale*(i+0.5);
+			}
+			sum+=densityData[i]*factor;
 		}
 		if (densitySum==0.0) return 0.0;
 		sum/=densitySum;
@@ -1118,11 +1135,28 @@ public final class DataDistributionImpl extends AbstractRealDistribution impleme
 	 */
 	private double getXSqr() {
 		if (densityData.length==0) return 0;
+
+		final double scale=1/argumentScaleFactor;
+
+		boolean isDiscrete=true;
+		for (int i=0;i<densityData.length;i++) {
+			if (densityData[i]==0.0) continue;
+			final double frac=(scale*i)%1.0;
+			if (frac>scale/2 && frac<1-scale/2) {
+				isDiscrete=false; break;
+			}
+		}
+
 		double densitySum=0, sum=0;
-		double scale=1/argumentScaleFactor;
 		for (int i=0;i<densityData.length;i++) {
 			densitySum+=densityData[i];
-			sum+=densityData[i]*(scale*(i+0.5))*(scale*(i+0.5));
+			final double factor;
+			if (isDiscrete) {
+				factor=Math.round(scale*i);
+			} else {
+				factor=scale*(i+0.5);
+			}
+			sum+=densityData[i]*factor*factor;
 		}
 		if (densitySum==0.0) return 0.0;
 		sum/=densitySum;

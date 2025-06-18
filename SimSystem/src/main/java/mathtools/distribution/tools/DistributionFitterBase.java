@@ -206,12 +206,11 @@ public abstract class DistributionFitterBase {
 		clear();
 		if (dist==null || dist.densityData.length<2) return false;
 		samples=dist.clone();
+		final double mean=samples.getMean();
+		final double sd=samples.getStandardDeviation();
 		rawSamples=dist.clone();
 		count=(int)Math.round(samples.sum());
 		samples.normalizeDensity();
-
-		final double mean=samples.getMean();
-		final double sd=samples.getStandardDeviation();
 
 		int m1=-1; int m2=0;
 		for (int i=0;i<samples.densityData.length;i++) if (samples.densityData[i]>0) {
