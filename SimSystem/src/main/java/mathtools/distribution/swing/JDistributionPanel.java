@@ -78,10 +78,11 @@ import mathtools.Table;
 import mathtools.distribution.AbstractDiscreteRealDistribution;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
-import mathtools.distribution.tools.DistributionRandomNumber;
+import mathtools.distribution.tools.DistributionRandomNumberThreadLocal;
 import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
+import mathtools.distribution.tools.RandomGeneratorMode;
 
 /**
  * Zeigt den grafischen Verlauf von Dichte und Verteilungsfunktion einer Verteilung
@@ -172,6 +173,8 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	public static String RandomNumbersError="Die Anzahl an Zufallszahlen muss eine positive Ganzzahl sein.";
 	/** Kontextmenü-Eintrag "In Rechenausdruck umwandeln" */
 	public static String ToCalculationExpression="In Rechenausdruck umwandeln";
+	/** Kontextmenü-Eintrag "Generator" */
+	public static String Generator="Generator";
 
 	/** Info-Text zu der Verteilung */
 	private final JLabel info;
@@ -248,6 +251,11 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	public static final int BOTH=3;
 
 	/**
+	 * Zu verwendender Pseudo-Zufalllszahlengenerator
+	 */
+	private RandomGeneratorMode randomMode;
+
+	/**
 	 * Konstruktor der Klasse <code>DistributionPanel</code>
 	 * @param distribution Zu ladende Verteilung (vom Typ {@link AbstractRealDistribution})
 	 * @param maxXValue Maximal darzustellender x-Wert
@@ -260,6 +268,8 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		this.maxXValue=maxXValue;
 		this.plotType=plotType;
 		this.toExpression=toExpression;
+
+		randomMode=RandomGeneratorMode.defaultRandomGeneratorMode;
 
 		setLayout(new BorderLayout(0,0));
 
@@ -596,7 +606,9 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		}
 
 		final double[] arr=new double[(int)Math.min(count.longValue(),1_000_000)];
-		for (int i=0;i<arr.length;i++) arr[i]=DistributionRandomNumber.random(distribution);
+		final var generator=new DistributionRandomNumberThreadLocal(randomMode);
+		generator.init();
+		for (int i=0;i<arr.length;i++) arr[i]=generator.random(distribution);
 
 		return DoubleStream.of(arr).mapToObj(NumberTools::formatNumberMax).collect(Collectors.joining("\n"));
 
@@ -1130,6 +1142,16 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		menu.add(item=new JMenuItem(CopyButtonImage,SimSystemsSwingImages.COPY_AS_IMAGE.getIcon()));
 		item.addActionListener(e->copyImageToClipboard(getToolkit().getSystemClipboard(),imageSize));
 
+		menu.addSeparator();
+
+		final JMenu sub=new JMenu(Generator);
+		menu.add(sub);
+		for (var mode: RandomGeneratorMode.values()) {
+			final JRadioButtonMenuItem generatorItem=new JRadioButtonMenuItem(mode.name,mode==randomMode);
+			sub.add(generatorItem);
+			generatorItem.addActionListener(e2->randomMode=mode);
+		}
+
 		menu.show(copy,0,copy.getHeight());
 	}
 
@@ -1164,6 +1186,16 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		item.addActionListener(e->saveRandomNumbers());
 		menu.add(item=new JMenuItem(SaveButtonImage,SimSystemsSwingImages.COPY_AS_IMAGE.getIcon()));
 		item.addActionListener(e->saveImage());
+
+		menu.addSeparator();
+
+		final JMenu sub=new JMenu(Generator);
+		menu.add(sub);
+		for (var mode: RandomGeneratorMode.values()) {
+			final JRadioButtonMenuItem generatorItem=new JRadioButtonMenuItem(mode.name,mode==randomMode);
+			sub.add(generatorItem);
+			generatorItem.addActionListener(e2->randomMode=mode);
+		}
 
 		menu.show(save,0,save.getHeight());
 	}
@@ -1307,6 +1339,13 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		item.addActionListener(ev->saveRandomNumbers());
 		sub.add(item=new JMenuItem(SaveButtonImage,SimSystemsSwingImages.COPY_AS_IMAGE.getIcon()));
 		item.addActionListener(ev->saveImage());
+
+		popup.add(sub=new JMenu(Generator));
+		for (var mode: RandomGeneratorMode.values()) {
+			final JRadioButtonMenuItem generatorItem=new JRadioButtonMenuItem(mode.name,mode==randomMode);
+			sub.add(generatorItem);
+			generatorItem.addActionListener(e2->randomMode=mode);
+		}
 
 		if (DistributionTools.getDistributionInfoHTML(distribution)!=null) {
 			popup.add(item=new JMenuItem(help.getText(),help.getIcon()));

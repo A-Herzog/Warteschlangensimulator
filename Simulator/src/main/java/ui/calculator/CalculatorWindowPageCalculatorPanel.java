@@ -42,9 +42,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -54,6 +56,8 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TableChart;
 import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.tools.DistributionRandomNumberThreadLocal;
+import mathtools.distribution.tools.RandomGeneratorMode;
 import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
@@ -98,17 +102,17 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 	 * @see #randomNumbersCopy(String)
 	 * @see #randomNumbersSave(String)
 	 */
-	private final CommonCalculationRepeatCount commonCalculationRepeatCount;
+	private final CommonCalculationRepeatSetup commonCalculationRepeatSetup;
 
 	/**
 	 * Konstruktor der Klasse
 	 * @param window	Gesamtes Fenster
-	 * @param commonCalculationRepeatCount Objekt zur Synchronisation der Anzahl an zu berechnenden Wiederholungen zwischen mehreren Panels
+	 * @param commonCalculationRepeatSetup Objekt zur Synchronisation der Anzahl an zu berechnenden Wiederholungen zwischen mehreren Panels
 	 * @param initialExpression	Initial anzuzeigender Ausdruck (kann <code>null</code> sein)
 	 */
-	public CalculatorWindowPageCalculatorPanel(final Window window, final CommonCalculationRepeatCount commonCalculationRepeatCount, final String initialExpression) {
+	public CalculatorWindowPageCalculatorPanel(final Window window, final CommonCalculationRepeatSetup commonCalculationRepeatSetup, final String initialExpression) {
 		this.window=window;
-		this.commonCalculationRepeatCount=commonCalculationRepeatCount;
+		this.commonCalculationRepeatSetup=commonCalculationRepeatSetup;
 
 		Object[] data;
 		JPanel line;
@@ -210,6 +214,9 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		if (expression==null || expression.isBlank()) return "";
 
 		final ExpressionCalc calc=new ExpressionCalc(null,null);
+		final var generator=new DistributionRandomNumberThreadLocal(commonCalculationRepeatSetup.randomMode);
+		generator.init();
+		calc.setRandomGenerator(generator);
 		final int error=calc.parse(expression);
 		if (error>=0) return String.format(Language.tr("CalculatorDialog.Expression.ParseError"),error+1);
 		double d;
@@ -228,7 +235,7 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 	 */
 	private void processRepeatCountInput(final JTextField input) {
 		final Long L=NumberTools.getPositiveLong(input,true);
-		if (L!=null) commonCalculationRepeatCount.repeatCount=L.longValue();
+		if (L!=null) commonCalculationRepeatSetup.repeatCount=L.longValue();
 	}
 
 	/**
@@ -255,6 +262,8 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		private final String expression;
 		/** Anzahl an Zufallszahlen, die in diesem Thread erzeugt werden sollen */
 		private final long count;
+		/** Zu verwendender Pseudo-Zufalllszahlengenerator */
+		private final RandomGeneratorMode randomMode;
 		/** Statistikobjekt zur Erfassung der Daten / zur Ermittlung der Kenngrößen */
 		private StatisticsDataPerformanceIndicatorWithNegativeValues indicator;
 
@@ -262,12 +271,14 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		 * Konstruktor
 		 * @param expression	Ausdruck, der wiederholt ausgewertet werden soll
 		 * @param count	Anzahl an Zufallszahlen, die in diesem Thread erzeugt werden sollen
+		 * @param randomMode	Zu verwendender Pseudo-Zufalllszahlengenerator
 		 * @param nr	1-basierte Nummer des Threads (zur Definition des Namens des Threads)
 		 */
-		public RandomNumbersIndicatorsThread(final String expression, final long count, final int nr) {
+		public RandomNumbersIndicatorsThread(final String expression, final long count, final RandomGeneratorMode randomMode, final int nr) {
 			super("Random number generator thread "+nr);
 			this.expression=expression;
 			this.count=count;
+			this.randomMode=randomMode;
 			this.indicator=null;
 		}
 
@@ -280,6 +291,10 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		public void run() {
 			final ExpressionCalc calc=new ExpressionCalc(null,null);
 			calc.parse(expression);
+
+			final var generator=new DistributionRandomNumberThreadLocal(randomMode);
+			generator.init();
+			calc.setRandomGenerator(generator);
 
 			indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(null,distSize,distSize);
 			try {
@@ -306,12 +321,12 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		final ExpressionCalc calc=buildExpressionCalc(expression);
 		if (calc==null) return;
 
-		final long randomNumberCount=commonCalculationRepeatCount.repeatCount;
+		final long randomNumberCount=commonCalculationRepeatSetup.repeatCount;
 		final int threadCount=Math.min(32,Runtime.getRuntime().availableProcessors());
 		final RandomNumbersIndicatorsThread[] threads=new RandomNumbersIndicatorsThread[threadCount];
 		for (int i=0;i<threads.length;i++) {
 			final long count=randomNumberCount/threads.length;
-			threads[i]=new RandomNumbersIndicatorsThread(expression,(i==threads.length-1)?(randomNumberCount-(threads.length-1)*count):count,i+1);
+			threads[i]=new RandomNumbersIndicatorsThread(expression,(i==threads.length-1)?(randomNumberCount-(threads.length-1)*count):count,commonCalculationRepeatSetup.randomMode,i+1);
 		}
 		for (RandomNumbersIndicatorsThread thread: threads) thread.start();
 		for (RandomNumbersIndicatorsThread thread: threads) try {thread.join();} catch (InterruptedException e) {}
@@ -359,9 +374,13 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		final ExpressionCalc calc=buildExpressionCalc(expression);
 		if (calc==null) return;
 
+		final var generator=new DistributionRandomNumberThreadLocal(commonCalculationRepeatSetup.randomMode);
+		generator.init();
+		calc.setRandomGenerator(generator);
+
 		final StringBuilder result=new StringBuilder();
 		try {
-			for (int i=0;i<commonCalculationRepeatCount.repeatCount;i++) {
+			for (int i=0;i<commonCalculationRepeatSetup.repeatCount;i++) {
 				result.append(NumberTools.formatNumberMax(calc.calc()));
 				result.append("\n");
 			}
@@ -396,13 +415,17 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		final ExpressionCalc calc=buildExpressionCalc(expression);
 		if (calc==null) return false;
 
+		final var generator=new DistributionRandomNumberThreadLocal(commonCalculationRepeatSetup.randomMode);
+		generator.init();
+		calc.setRandomGenerator(generator);
+
 		final String lineSeparator=System.lineSeparator();
 
 		try(OutputStream stream=new FileOutputStream(file)) {
 			try (OutputStreamWriter writer=new OutputStreamWriter(stream,StandardCharsets.UTF_8)) {
 				try (BufferedWriter bufferedWriter=new BufferedWriter(writer)) {
 					try {
-						for (int i=0;i<commonCalculationRepeatCount.repeatCount;i++) {
+						for (int i=0;i<commonCalculationRepeatSetup.repeatCount;i++) {
 							bufferedWriter.write(NumberTools.formatNumberMax(calc.calc()));
 							bufferedWriter.write(lineSeparator);
 						}
@@ -430,7 +453,7 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 	 * @return	Zufallszahlen-Tabelle mit eingebettetem Diagramm oder <code>null</code>, wenn keine Tabelle erstellt werden konnte
 	 */
 	private TableChart buildTableChart(final String expression) {
-		if (commonCalculationRepeatCount.repeatCount<16+FREQUENCY_DISTRIBUTION_STEPS) return null;
+		if (commonCalculationRepeatSetup.repeatCount<16+FREQUENCY_DISTRIBUTION_STEPS) return null;
 
 		/* Tabelle erstellen */
 
@@ -439,7 +462,10 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		final ExpressionCalc calc=buildExpressionCalc(expression);
 		if (calc==null) return null;
 
-		final int count=(int)Math.min(100_000,commonCalculationRepeatCount.repeatCount);
+		final int count=(int)Math.min(100_000,commonCalculationRepeatSetup.repeatCount);
+		final var generator=new DistributionRandomNumberThreadLocal(commonCalculationRepeatSetup.randomMode);
+		generator.init();
+		calc.setRandomGenerator(generator);
 		final double[] numbers=new double[count];
 		double min=Double.MAX_VALUE;
 		double max=-Double.MAX_VALUE;
@@ -556,7 +582,7 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		editorPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.setOpaque(false);
 		line.setBorder(BorderFactory.createEmptyBorder(0,25,0,0));
-		final JTextField editor=new JTextField(""+commonCalculationRepeatCount.repeatCount,10);
+		final JTextField editor=new JTextField(""+commonCalculationRepeatSetup.repeatCount,10);
 		ModelElementBaseDialog.addUndoFeature(editor);
 		line.add(editor);
 		label.setLabelFor(editor);
@@ -566,6 +592,14 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 			@Override public void keyPressed(KeyEvent e) {processRepeatCountInput(editor);}
 		});
 		popup.add(editorPanel);
+
+		final JMenu generatorSubMenu=new JMenu(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generator"));
+		popup.add(generatorSubMenu);
+		for (var mode: RandomGeneratorMode.values()) {
+			final JRadioButtonMenuItem generatorItem=new JRadioButtonMenuItem(mode.name,mode==commonCalculationRepeatSetup.randomMode);
+			generatorSubMenu.add(generatorItem);
+			generatorItem.addActionListener(e->commonCalculationRepeatSetup.randomMode=mode);
+		}
 
 		popup.addSeparator();
 
@@ -587,17 +621,23 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 	/**
 	 * Klasse zur Synchronisation der Anzahl an zu berechnenden Wiederholungen zwischen mehreren Panels
 	 */
-	public static class CommonCalculationRepeatCount {
+	public static class CommonCalculationRepeatSetup {
 		/**
 		 * Anzahl an zu berechnenden Wiederholungen
 		 */
 		public long repeatCount;
 
 		/**
+		 * Zu verwendender Pseudo-Zufalllszahlengenerator
+		 */
+		public RandomGeneratorMode randomMode;
+
+		/**
 		 * Konstruktor der Klasse
 		 */
-		public CommonCalculationRepeatCount() {
+		public CommonCalculationRepeatSetup() {
 			repeatCount=1_000_000;
+			randomMode=RandomGeneratorMode.defaultRandomGeneratorMode;
 		}
 	}
 }

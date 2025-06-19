@@ -479,6 +479,7 @@ public class LanguageStaticLoader {
 		JDistributionPanel.RandomNumbersCount=Language.tr("Dialog.RandomNumbers.Count");
 		JDistributionPanel.RandomNumbersError=Language.tr("Dialog.RandomNumbers.Error");
 		JDistributionPanel.ToCalculationExpression=Language.tr("Dialog.ConvertDistributionToExpression");
+		JDistributionPanel.Generator=Language.tr("Dialog.RandomNumbers.Generator");
 
 		/* GUITools */
 		GUITools.errorNoGraphicsOutputAvailable=Language.tr("Window.ErrorNoGraphics");

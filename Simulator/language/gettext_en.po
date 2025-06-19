@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-03 07:55+0200\n"
+"POT-Creation-Date: 2025-06-13 00:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1372,6 +1372,9 @@ msgstr "Generate random numbers"
 
 msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generated"
 msgstr "Generated random numbers"
+
+msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generator"
+msgstr "Generator"
 
 msgid "CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Save"
 msgstr "Save..."
@@ -3326,6 +3329,9 @@ msgstr "Number of random numbers to be generated"
 
 msgid "Dialog.RandomNumbers.Error"
 msgstr "The number of random numbers must be a positive integer number."
+
+msgid "Dialog.RandomNumbers.Generator"
+msgstr "Generator"
 
 msgid "Dialog.SaveNow.Cancel.Info"
 msgstr "Do not execute the current command. All data will remain unchanged."
@@ -34494,6 +34500,12 @@ msgstr "Java code"
 
 msgid "Surface.ScriptEditor.Help.Hint"
 msgstr "Shows a help page with information about the usage of the scripting function."
+
+msgid "Surface.ScriptEditor.Interfaces"
+msgstr "Interfaces"
+
+msgid "Surface.ScriptEditor.Interfaces.Hint"
+msgstr "Opens one of the Java interface files whose interfaces are made available via the \"sim\" object."
 
 msgid "Surface.ScriptEditor.Language"
 msgstr "Language"

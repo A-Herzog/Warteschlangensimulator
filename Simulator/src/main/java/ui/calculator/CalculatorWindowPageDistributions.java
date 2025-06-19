@@ -41,9 +41,11 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
@@ -62,9 +64,10 @@ import mathtools.distribution.swing.CommonVariables;
 import mathtools.distribution.swing.JDistributionEditorPanel;
 import mathtools.distribution.swing.JDistributionPanel;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
-import mathtools.distribution.tools.DistributionRandomNumber;
+import mathtools.distribution.tools.DistributionRandomNumberThreadLocal;
 import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.DistributionWrapperInfo;
+import mathtools.distribution.tools.RandomGeneratorMode;
 import statistics.StatisticsDataPerformanceIndicatorWithNegativeValues;
 import systemtools.MsgBox;
 import tools.SetupData;
@@ -118,6 +121,11 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 	private long randomNumberCount;
 
 	/**
+	 * Zu verwendender Pseudo-Zufalllszahlengenerator
+	 */
+	private RandomGeneratorMode randomMode;
+
+	/**
 	 * Callback, um einen Rechenausdruck auf der Rechnerseite des Dialogs einzustellen
 	 */
 	private final Consumer<String> setCalculationExpression;
@@ -135,6 +143,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		this.setCalculationExpression=setCalculationExpression;
 
 		randomNumberCount=1_000_000;
+		randomMode=RandomGeneratorMode.defaultRandomGeneratorMode;
 
 		/* Symbolleiste */
 		JButton button;
@@ -274,15 +283,17 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 
 		JMenuItem item;
 		JPanel line;
+		JLabel label;
 
 		final JPanel editorPanel=new JPanel();
 		editorPanel.setOpaque(false);
 		editorPanel.setLayout(new BoxLayout(editorPanel,BoxLayout.PAGE_AXIS));
+
 		editorPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.setOpaque(false);
 		line.add(Box.createHorizontalStrut(20));
-		final JLabel label=new JLabel(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Count")+":");
-		line.add(label);
+		line.add(label=new JLabel(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Count")+":"));
+
 		editorPanel.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.setOpaque(false);
 		line.setBorder(BorderFactory.createEmptyBorder(0,25,0,0));
@@ -295,7 +306,16 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 			@Override public void keyReleased(KeyEvent e) {processInput(editor);}
 			@Override public void keyPressed(KeyEvent e) {processInput(editor);}
 		});
+
 		popup.add(editorPanel);
+
+		final JMenu generatorSubMenu=new JMenu(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generator"));
+		popup.add(generatorSubMenu);
+		for (var mode: RandomGeneratorMode.values()) {
+			final JRadioButtonMenuItem generatorItem=new JRadioButtonMenuItem(mode.name,mode==randomMode);
+			generatorSubMenu.add(generatorItem);
+			generatorItem.addActionListener(e->randomMode=mode);
+		}
 
 		popup.addSeparator();
 
@@ -333,6 +353,8 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		private final AbstractRealDistribution distribution;
 		/** Anzahl an Zufallszahlen, die in diesem Thread erzeugt werden sollen */
 		private final long count;
+		/** Zu verwendender Pseudo-Zufalllszahlengenerator */
+		private final RandomGeneratorMode randomMode;
 		/** Statistikobjekt zur Erfassung der Daten / zur Ermittlung der Kenngrößen */
 		private StatisticsDataPerformanceIndicatorWithNegativeValues indicator;
 
@@ -340,12 +362,14 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		 * Konstruktor
 		 * @param distribution	Verteilung auf deren Basis Zufallszahlen erzeugt werden sollen
 		 * @param count	Anzahl an Zufallszahlen, die in diesem Thread erzeugt werden sollen
+		 * @param randomMode	Zu verwendender Pseudo-Zufalllszahlengenerator
 		 * @param nr	1-basierte Nummer des Threads (zur Definition des Namens des Threads)
 		 */
-		public RandomNumbersIndicatorsThread(final AbstractRealDistribution distribution, final long count, final int nr) {
+		public RandomNumbersIndicatorsThread(final AbstractRealDistribution distribution, final long count, final RandomGeneratorMode randomMode, final int nr) {
 			super("Random number generator thread "+nr);
 			this.distribution=distribution;
 			this.count=count;
+			this.randomMode=randomMode;
 		}
 
 		/**
@@ -356,8 +380,10 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		@Override
 		public void run() {
 			indicator=new StatisticsDataPerformanceIndicatorWithNegativeValues(null,distSize,distSize);
+			final var generator=new DistributionRandomNumberThreadLocal(randomMode);
+			generator.init();
 			for (long i=0;i<count;i++) {
-				double value=DistributionRandomNumber.random(distribution);
+				double value=generator.random(distribution);
 				value=Math.max(-1E50,Math.min(1E50,value));
 				indicator.add(value);
 			}
@@ -382,7 +408,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		final RandomNumbersIndicatorsThread[] threads=new RandomNumbersIndicatorsThread[threadCount];
 		for (int i=0;i<threads.length;i++) {
 			final long count=randomNumberCount/threads.length;
-			threads[i]=new RandomNumbersIndicatorsThread(distribution,(i==threads.length-1)?(randomNumberCount-(threads.length-1)*count):count,i+1);
+			threads[i]=new RandomNumbersIndicatorsThread(distribution,(i==threads.length-1)?(randomNumberCount-(threads.length-1)*count):count,randomMode,i+1);
 		}
 		for (RandomNumbersIndicatorsThread thread: threads) thread.start();
 		for (RandomNumbersIndicatorsThread thread: threads) try {thread.join();} catch (InterruptedException e) {}
@@ -424,10 +450,12 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 	 */
 	private void randomNumbersCopy() {
 		final AbstractRealDistribution distribution=distributionEditor.getDistribution();
+		final var generator=new DistributionRandomNumberThreadLocal(randomMode);
+		generator.init();
 
 		final StringBuilder result=new StringBuilder();
 		for (int i=0;i<randomNumberCount;i++) {
-			result.append(NumberTools.formatNumberMax(DistributionRandomNumber.random(distribution)));
+			result.append(NumberTools.formatNumberMax(generator.random(distribution)));
 			result.append("\n");
 		}
 
@@ -458,13 +486,15 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		}
 
 		final AbstractRealDistribution distribution=distributionEditor.getDistribution();
+		final var generator=new DistributionRandomNumberThreadLocal(randomMode);
+		generator.init();
 		final String lineSeparator=System.lineSeparator();
 
 		try(OutputStream stream=new FileOutputStream(file)) {
 			try (OutputStreamWriter writer=new OutputStreamWriter(stream,StandardCharsets.UTF_8)) {
 				try (BufferedWriter bufferedWriter=new BufferedWriter(writer)) {
 					for (int i=0;i<randomNumberCount;i++) {
-						bufferedWriter.write(NumberTools.formatNumberMax(DistributionRandomNumber.random(distribution)));
+						bufferedWriter.write(NumberTools.formatNumberMax(generator.random(distribution)));
 						bufferedWriter.write(lineSeparator);
 					}
 					return true;
@@ -493,12 +523,14 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 		final Table table=new Table();
 
 		final AbstractRealDistribution distribution=distributionEditor.getDistribution();
+		final var generator=new DistributionRandomNumberThreadLocal(randomMode);
+		generator.init();
 		final int count=(int)Math.min(100_000,randomNumberCount);
 		final double[] numbers=new double[count];
 		double min=Double.MAX_VALUE;
 		double max=-Double.MAX_VALUE;
 		for (int i=0;i<count;i++) {
-			double value=DistributionRandomNumber.random(distribution);
+			double value=generator.random(distribution);
 			value=Math.min(1E50,Math.max(-10E50,value));
 			numbers[i]=value;
 			if (value<min) min=value;

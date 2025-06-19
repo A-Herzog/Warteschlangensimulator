@@ -48,7 +48,7 @@ public class CalculatorWindowPageCalculator extends CalculatorWindowPage {
 	/**
 	 * Anzahl an zu berechnenden Wiederholungen
 	 */
-	private CalculatorWindowPageCalculatorPanel.CommonCalculationRepeatCount calculationRepeatCount;
+	private CalculatorWindowPageCalculatorPanel.CommonCalculationRepeatSetup calculationRepeatCount;
 
 	/**
 	 * Konstruktor der Klasse
@@ -63,7 +63,7 @@ public class CalculatorWindowPageCalculator extends CalculatorWindowPage {
 		add(lines,BorderLayout.NORTH);
 		lines.setLayout(new BoxLayout(lines,BoxLayout.PAGE_AXIS));
 
-		calculationRepeatCount=new CalculatorWindowPageCalculatorPanel.CommonCalculationRepeatCount();
+		calculationRepeatCount=new CalculatorWindowPageCalculatorPanel.CommonCalculationRepeatSetup();
 		calculationPanel=new CalculatorWindowPageCalculatorPanel[5];
 
 		for (int i=0;i<calculationPanel.length;i++) {
