@@ -288,24 +288,60 @@ public class ExternalConnectDialog extends BaseDialog {
 	}
 
 	/**
+	 * Liefert das Java-Beispieldateien-Verzeichnis.
+	 * @return	Java-Beispieldateien-Verzeichnis oder <code>null</code>, wenn kein entsprechendes Verzeichnis existiert
+	 */
+	public static File getExampleFolder() {
+		final File folder1=new File(new File(SetupData.getProgramFolder(),"build"),"UserScripts");
+		if (folder1.isDirectory()) return folder1;
+
+		final File folder2=new File(SetupData.getProgramFolder(),"UserScripts");
+		if (folder2.isDirectory()) return folder2;
+
+		return null;
+	}
+
+	/**
+	 * Liefert das Java-Interface-Dateien-Verzeichnis.
+	 * @return	Java-Interface-Dateien-Verzeichnis oder <code>null</code>, wenn kein entsprechendes Verzeichnis existiert
+	 */
+	public static File getInterfacesFolder() {
+		final File baseFolder=getExampleFolder();
+		if (baseFolder==null) return null;
+
+		final File folder1=new File(baseFolder,"scripting");
+		if (!folder1.isDirectory()) return null;
+
+		final File folder2=new File(folder1,"java");
+		if (!folder2.isDirectory()) return null;
+
+		return folder2;
+	}
+
+	/**
+	 * Liefert eine Liste der Java-Interface-Dateien mit vollständigem Pfad.
+	 * @return	Liste der Java-Interface-Dateien (kann leer sein, wenn die Dateien nicht gefunden wurden, ist aber nie <code>null</code>)
+	 */
+	public static File[] getInterfaceFiles() {
+		final File folder=getInterfacesFolder();
+		if (folder==null) return new File[0];
+
+		final File[] files=folder.listFiles(file->file.getName().endsWith(".java"));
+		if (files==null) return new File[0];
+		return files;
+	}
+
+	/**
 	 * Öffnet das Verzeichnis, in dem sich die Beispiel-Skripte befinden.
 	 */
 	private void commandOpenExamplesFolder() {
-		boolean ok=false;
-
-		final File folder1=new File(SetupData.getProgramFolder(),"userscripts");
-		final File folder2=new File(new File(SetupData.getProgramFolder(),"build"),"UserScripts");
-
-		if (folder1.isDirectory()) {
-			try {Desktop.getDesktop().open(folder1); ok=true;} catch (IOException e) {ok=false;}
-		} else {
-			if (folder2.isDirectory()) {
-				try {Desktop.getDesktop().open(folder2); ok=true;} catch (IOException e) {ok=false;}
+		final File folder=getExampleFolder();
+		if (folder!=null) {
+			try {
+				Desktop.getDesktop().open(folder);
+			} catch (IOException e) {
+				MsgBox.error(this,Language.tr("ExternalConnect.Dialog.ExamplesLink.ErrorTitle"),String.format(Language.tr("ExternalConnect.Dialog.ExamplesLink.ErrorInfo"),folder.toString()));
 			}
-		}
-
-		if (!ok) {
-			MsgBox.error(this,Language.tr("ExternalConnect.Dialog.ExamplesLink.ErrorTitle"),String.format(Language.tr("ExternalConnect.Dialog.ExamplesLink.ErrorInfo"),folder1.toString()));
 		}
 	}
 

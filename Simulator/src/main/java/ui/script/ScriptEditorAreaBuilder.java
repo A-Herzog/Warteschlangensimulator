@@ -24,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -61,6 +62,7 @@ import org.fife.ui.rtextarea.SearchEngine;
 import language.Language;
 import mathtools.distribution.swing.JOpenURL;
 import mathtools.distribution.tools.FileDropper;
+import mathtools.distribution.tools.FileDropperData;
 import net.dde.DDEConnect;
 import systemtools.JSearchSettingsSync;
 import systemtools.MsgBox;
@@ -195,6 +197,29 @@ public class ScriptEditorAreaBuilder {
 	 */
 	public void addFileDropper(final ActionListener fileDropListener) {
 		this.fileDropListener=fileDropListener;
+	}
+
+	/**
+	 * Fügt eine Datei-Drag&amp;Drop-Funktionalität zu dem Eingabefeld hinzu
+	 * @param fileDropperDataConsumer	Listener, der benachrichtigt werden soll, wenn eine Datei auf dem Feld abgelegt wurde
+	 */
+	public void addFileDropperData(final Consumer<FileDropperData> fileDropperDataConsumer) {
+		this.fileDropListener=e->fileDropperDataConsumer.accept((FileDropperData)e.getSource());
+	}
+
+	/**
+	 * Fügt eine Datei-Drag&amp;Drop-Funktionalität zu dem Eingabefeld hinzu
+	 * @param fileConsumer	Listener, der benachrichtigt werden soll, wenn eine Datei auf dem Feld abgelegt wurde
+	 */
+	public void addFileDropperFile(final Consumer<File> fileConsumer) {
+		this.fileDropListener=e->{
+			final FileDropperData data=(FileDropperData)e.getSource();
+			final File file=data.getFile();
+			if (file.isFile()) {
+				fileConsumer.accept(file);
+				data.dragDropConsumed();
+			}
+		};
 	}
 
 	/**

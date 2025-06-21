@@ -17,13 +17,14 @@ package ui.script;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,10 +53,10 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 
 import language.Language;
 import mathtools.distribution.swing.CommonVariables;
-import mathtools.distribution.tools.FileDropperData;
 import scripting.java.DynamicErrorInfo;
 import scripting.java.DynamicFactory;
 import scripting.java.DynamicRunner;
+import scripting.java.ExternalConnectDialog;
 import scripting.java.ImportSettingsBuilder;
 import scripting.js.JSRunDataFilterTools;
 import simulator.editmodel.EditModel;
@@ -207,22 +208,19 @@ public class ScriptEditorPanel extends JPanel {
 	/** Skriptfunktionen, die im Vorlagen-Popupmenü angeboten werden sollen */
 	private final ScriptPopup.ScriptFeature[] scriptFeatures;
 
+	/** Liste der Java-Interface-Dateien */
+	private final File[] interfaceFiles;
+
 	/** Toolbar in dem Panel */
 	private final JToolBar toolbar;
-	/** "Neu"-Schaltfläche */
-	private final JButton buttonNew;
-	/** "Laden"-Schaltfläche */
-	private final JButton buttonLoad;
-	/** "Speichern"-Schaltfläche */
-	private final JButton buttonSave;
 	/** "Suchen"-Schaltfläche */
 	private final JButton buttonSearch;
 	/** "Prüfen"-Schaltfläche */
 	private final JButton buttonCheck;
 	/** "Tools"-Schaltfläche */
 	private final JButton buttonTools;
-	/** "Hilfe"-Schaltfläche */
-	private final JButton buttonHelp;
+	/** "Schnittstellen"-Schaltfläche */
+	private final JButton buttonInterfaces;
 	/** Eingabefeld für Javascript-Code */
 	private final RSyntaxTextArea scriptEditJavascript;
 	/** Eingabefeld für Java-Code */
@@ -271,6 +269,8 @@ public class ScriptEditorPanel extends JPanel {
 		this.statistics=statistics;
 		this.scriptFeatures=scriptFeatures;
 
+		interfaceFiles=ExternalConnectDialog.getInterfaceFiles();
+
 		JPanel line;
 
 		if (scriptName!=null && !scriptName.isBlank()) {
@@ -305,16 +305,21 @@ public class ScriptEditorPanel extends JPanel {
 		languageCombo.setMaximumSize(new Dimension(languageCombo.getPreferredSize().width,languageCombo.getMaximumSize().height));
 		toolbar.add(Box.createHorizontalStrut(5));
 
-		buttonNew=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.New"),Images.SCRIPT_NEW.getIcon(),Language.tr("Surface.ScriptEditor.New.Hint"),readOnly);
-		buttonLoad=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Load"),Images.SCRIPT_LOAD.getIcon(),Language.tr("Surface.ScriptEditor.Load.Hint"),readOnly);
-		buttonSave=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Save"),Images.SCRIPT_SAVE.getIcon(),Language.tr("Surface.ScriptEditor.Save.Hint"),false);
+		addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.New"),Images.SCRIPT_NEW.getIcon(),Language.tr("Surface.ScriptEditor.New.Hint"),readOnly,()->commandNew());
+		addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Load"),Images.SCRIPT_LOAD.getIcon(),Language.tr("Surface.ScriptEditor.Load.Hint"),readOnly,()->commandLoad(null));
+		addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Save"),Images.SCRIPT_SAVE.getIcon(),Language.tr("Surface.ScriptEditor.Save.Hint"),false,()->commandSave());
 		addCustomToolbarButtons(toolbar);
 		toolbar.addSeparator();
-		buttonSearch=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Search"),Images.GENERAL_FIND.getIcon(),Language.tr("Surface.ScriptEditor.Search.Hint"),false);
-		buttonTools=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Tools"),Images.SCRIPT_TOOLS.getIcon(),Language.tr("Surface.ScriptEditor.Tools.Hint"),readOnly);
-		buttonCheck=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Check"),Images.SIMULATION_CHECK.getIcon(),Language.tr("Surface.ScriptEditor.Check.Hint"),readOnly);
+		buttonSearch=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Search"),Images.GENERAL_FIND.getIcon(),Language.tr("Surface.ScriptEditor.Search.Hint"),false,()->commandSearchPopup());
+		buttonTools=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Tools"),Images.SCRIPT_TOOLS.getIcon(),Language.tr("Surface.ScriptEditor.Tools.Hint"),readOnly,()->commandToolsPopup());
+		if (interfaceFiles.length>0) {
+			buttonInterfaces=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Interfaces"),Images.SCRIPT_MODE_JAVA.getIcon(),Language.tr("Surface.ScriptEditor.Interfaces.Hint"),false,()->commandInterfacesPopup());
+		} else {
+			buttonInterfaces=null;
+		}
+		buttonCheck=addToolbarButton(toolbar,Language.tr("Surface.ScriptEditor.Check"),Images.SIMULATION_CHECK.getIcon(),Language.tr("Surface.ScriptEditor.Check.Hint"),readOnly,()->commandCheck());
 		toolbar.addSeparator();
-		buttonHelp=addToolbarButton(toolbar,Language.tr("Main.Toolbar.Help"),Images.HELP.getIcon(),Language.tr("Surface.ScriptEditor.Help.Hint"),false);
+		addToolbarButton(toolbar,Language.tr("Main.Toolbar.Help"),Images.HELP.getIcon(),Language.tr("Surface.ScriptEditor.Help.Hint"),false,()->commandHelp());
 
 		/* Testen, ob das Tools-Button überhaupt benötigt wird */
 		final ScriptPopup popup=new ScriptPopup(buttonTools,model,statistics,ScriptPopup.ScriptMode.Javascript,helpRunnalbe);
@@ -328,14 +333,14 @@ public class ScriptEditorPanel extends JPanel {
 		builder=new ScriptEditorAreaBuilder(ScriptPopup.ScriptMode.Javascript,readOnly,e->fireKeyAction());
 		builder.addAutoCompleteFeatures(scriptFeatures);
 		if (script!=null && mode==ScriptMode.Javascript) builder.setText(script);
-		builder.addFileDropper(new ButtonListener());
+		builder.addFileDropperFile(file->commandLoad(file));
 		scriptEditJavascript=builder.get();
 
 		builder=new ScriptEditorAreaBuilder(ScriptPopup.ScriptMode.Java,readOnly,e->fireKeyAction());
 		builder.addAutoCompleteFeatures(scriptFeatures);
 		builder.setText(DEFAULT_JAVA);
 		if (script!=null && mode==ScriptMode.Java) builder.setText(script);
-		builder.addFileDropper(new ButtonListener());
+		builder.addFileDropperFile(file->commandLoad(file));
 		scriptEditJava=builder.get();
 
 		lastScript=(script==null)?"":script;
@@ -435,14 +440,15 @@ public class ScriptEditorPanel extends JPanel {
 	 * @param icon	Optionales Icon für die Schaltfläche (darf <code>null</code> sein)
 	 * @param hint	Tooltip für die Schaltfläche (darf <code>null</code> sein)
 	 * @param readOnly	Soll die Schaltfläche aktiviert sein (<code>false</code>) oder deaktiviert werden (<code>true</code>)?
+	 * @param callback	Funktion die beim Anklicken der Schaltfläche aufgerufen werden soll
 	 * @return	Neue Schaltfläche (ist bereits in die Symbolleiste eingefügt)
 	 */
-	private JButton addToolbarButton(final JToolBar toolbar, final String title, final Icon icon, final String hint, final boolean readOnly) {
+	private JButton addToolbarButton(final JToolBar toolbar, final String title, final Icon icon, final String hint, final boolean readOnly, final Runnable callback) {
 		final JButton button=new JButton(title);
 		toolbar.add(button);
 		if (hint!=null) button.setToolTipText(hint);
 		if (icon!=null) button.setIcon(icon);
-		button.addActionListener(new ButtonListener());
+		if (!readOnly) button.addActionListener(e->callback.run());
 		button.setEnabled(!readOnly);
 		return button;
 	}
@@ -455,6 +461,7 @@ public class ScriptEditorPanel extends JPanel {
 	private void languageChanged() {
 		scriptEditMultiLayout.show(scriptEditMulti,""+languageCombo.getSelectedIndex());
 		buttonCheck.setVisible(languageCombo.getSelectedIndex()==1 && (DynamicFactory.isWindows() || DynamicFactory.isInMemoryProcessing()));
+		if (buttonInterfaces!=null) buttonInterfaces.setVisible(languageCombo.getSelectedIndex()==1);
 		fireKeyAction();
 	}
 
@@ -504,11 +511,24 @@ public class ScriptEditorPanel extends JPanel {
 	}
 
 	/**
+	 * Befehl: Neues Skript
+	 */
+	private void commandNew() {
+		if (!allowDiscard()) return;
+		setCurrentScript(null);
+		scriptEditJavascript.setText("");
+		scriptEditJava.setText("");
+		lastScript="";
+		fireKeyAction();
+	}
+
+	/**
 	 * Befehl: Skript laden
 	 * @param file	Zu ladende Datei (wird <code>null</code> übergeben, so wird ein Dateiauswahldialog angezeigt)
 	 * @return	Liefert <code>true</code>, wenn eine Datei geladen wurde
 	 */
 	private boolean commandLoad(File file) {
+		if (!allowDiscard()) return false;
 		if (file==null) {
 			final JFileChooser fc=new JFileChooser();
 			CommonVariables.initialDirectoryToJFileChooser(fc);
@@ -542,6 +562,7 @@ public class ScriptEditorPanel extends JPanel {
 		final String text=JSRunDataFilterTools.loadText(file);
 		if (text==null) return false;
 		setCurrentScript(text);
+		fireKeyAction();
 		return true;
 	}
 
@@ -587,6 +608,7 @@ public class ScriptEditorPanel extends JPanel {
 		final String script=getScript();
 		if (!JSRunDataFilterTools.saveText(script,file,false)) return false;
 		lastScript=script;
+		fireKeyAction();
 		return true;
 	}
 
@@ -687,87 +709,46 @@ public class ScriptEditorPanel extends JPanel {
 	}
 
 	/**
-	 * Reagiert auf Klicks auf die Schaltflächen
+	 * Befehl: Skript prüfen (für Java-Code)
 	 */
-	private class ButtonListener implements ActionListener {
-		/**
-		 * Konstruktor der Klasse
-		 */
-		public ButtonListener() {
-			/*
-			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-			 */
+	private void commandCheck() {
+		final DynamicRunner runner=DynamicFactory.getFactory().test(scriptEditJava.getText(),scriptSettings);
+		if (runner.isOk()) {
+			MsgBox.info(ScriptEditorPanel.this,Language.tr("Surface.ScriptEditor.Check.Success.Title"),Language.tr("Surface.ScriptEditor.Check.Success.Info"));
+		} else {
+			new DynamicErrorInfo(ScriptEditorPanel.this,runner);
+		}
+	}
+
+	/**
+	 * Befehl: Hilfe
+	 */
+	private void commandHelp() {
+		switch (languageCombo.getSelectedIndex()) {
+		case 0:
+			Help.topicModal(ScriptEditorPanel.this,"JS");
+			break;
+		case 1:
+			Help.topicModal(ScriptEditorPanel.this,"Java");
+			break;
+		}
+	}
+
+	/**
+	 * Befehl: Java-Interface-Dateien öffnen
+	 */
+	private void commandInterfacesPopup() {
+		final JPopupMenu popup=new JPopupMenu();
+
+		for (var file: interfaceFiles) {
+			final JMenuItem item=new JMenuItem(file.getName(),Images.SCRIPT_MODE_JAVA.getIcon());
+			item.addActionListener(e->{
+				try {Desktop.getDesktop().open(file);} catch (IOException e1) {}
+			});
+			popup.add(item);
 		}
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			final Object source=e.getSource();
-
-			if (!readOnly && (source instanceof FileDropperData)) {
-				final FileDropperData data=(FileDropperData)e.getSource();
-				final File file=data.getFile();
-				if (file.isFile()) {
-					if (allowDiscard()) commandLoad(file);
-					data.dragDropConsumed();
-				}
-				return;
-			}
-
-			if (!readOnly && source==buttonNew) {
-				if (allowDiscard()) {
-					setCurrentScript(null);
-					scriptEditJavascript.setText("");
-					scriptEditJava.setText("");
-					lastScript="";
-					fireKeyAction();
-				}
-				return;
-			}
-
-			if (!readOnly && source==buttonLoad) {
-				if (allowDiscard()) {
-					if (commandLoad(null)) fireKeyAction();
-				}
-				return;
-			}
-
-			if (source==buttonSave) {
-				if (commandSave()) fireKeyAction();
-				return;
-			}
-
-			if (source==buttonSearch) {
-				commandSearchPopup();
-			}
-
-			if (!readOnly && source==buttonCheck) {
-				final DynamicRunner runner=DynamicFactory.getFactory().test(scriptEditJava.getText(),scriptSettings);
-				if (runner.isOk()) {
-					MsgBox.info(ScriptEditorPanel.this,Language.tr("Surface.ScriptEditor.Check.Success.Title"),Language.tr("Surface.ScriptEditor.Check.Success.Info"));
-				} else {
-					new DynamicErrorInfo(ScriptEditorPanel.this,runner);
-				}
-				return;
-			}
-
-			if (!readOnly && source==buttonTools) {
-				commandToolsPopup();
-				return;
-			}
-
-			if (source==buttonHelp) {
-				switch (languageCombo.getSelectedIndex()) {
-				case 0:
-					Help.topicModal(ScriptEditorPanel.this,"JS");
-					break;
-				case 1:
-					Help.topicModal(ScriptEditorPanel.this,"Java");
-					break;
-				}
-				return;
-			}
-		}
+		popup.show(buttonInterfaces,0,buttonInterfaces.getHeight());
 	}
 
 	/**
