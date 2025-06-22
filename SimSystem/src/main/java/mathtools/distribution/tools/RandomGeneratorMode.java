@@ -56,7 +56,15 @@ public enum RandomGeneratorMode {
 	/** Pro Thread gekapselte Version von {@link MersenneTwister} verwenden */
 	MERSENNE_TWISTER("MersenneTwister",useSeed->new MersenneTwister()),
 	/** Pro Thread gekapselte Version von {@link ISAACRandom} verwenden */
-	ISAAC("ISAAC",useSeed->new ISAACRandom());
+	ISAAC("ISAAC",useSeed->new ISAACRandom()),
+	/** Pro Thread gekapselte Version von {@link XoRoShiRo128PlusPlus} verwenden */
+	XOROSHIRO128PLUSPLUS("XoRoShiRo128++",useSeed->new XoRoShiRo128PlusPlus()),
+	/** Pro Thread gekapselte Version von {@link XoRoShiRo128StarStar} verwenden */
+	XOROSHIRO128STARSTAR("XoRoShiRo128**",useSeed->new XoRoShiRo128StarStar()),
+	/** Pro Thread gekapselte Version von {@link XoRoShiRo64StarStar} verwenden */
+	XOROSHIRO64STARSTAR("XoRoShiRo64**",useSeed->new XoRoShiRo64StarStar()),
+	/** Pro Thread gekapselte Version von {@link L32X64Mix} verwenden */
+	L32X64MIX("L32X64Mix",useSeed->new L32X64Mix());
 
 	/**
 	 * Standardmäßig zu verwendender Modus
