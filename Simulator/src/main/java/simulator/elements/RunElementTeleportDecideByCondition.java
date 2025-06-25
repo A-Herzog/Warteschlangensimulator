@@ -28,7 +28,7 @@ import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
-import ui.modeleditor.elements.ModelElementDecide;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementDecideAndTeleport;
 import ui.modeleditor.elements.ModelElementSub;
 
@@ -59,11 +59,11 @@ public class RunElementTeleportDecideByCondition extends RunElement {
 	public Object build(EditModel editModel, RunModel runModel, ModelElement element, ModelElementSub parent, boolean testOnly) {
 		if (!(element instanceof ModelElementDecideAndTeleport)) return null;
 		final ModelElementDecideAndTeleport decideElement=(ModelElementDecideAndTeleport)element;
-		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_CONDITION) return null;
+		if (decideElement.getDecideRecord().getMode()!=DecideRecord.DecideMode.MODE_CONDITION) return null;
 		final RunElementTeleportDecideByCondition decide=new RunElementTeleportDecideByCondition((ModelElementDecideAndTeleport)element);
 
 		decide.destinationStrings=decideElement.getDestinations().toArray(String[]::new);
-		final List<String> editConditions=decideElement.getConditions();
+		final List<String> editConditions=decideElement.getDecideRecord().getConditions();
 		decide.conditions=new String[decide.destinationStrings.length];
 		decide.destinationIDs=new int[decide.destinationStrings.length];
 		int count=0;
@@ -89,7 +89,7 @@ public class RunElementTeleportDecideByCondition extends RunElement {
 	public RunModelCreatorStatus test(ModelElement element) {
 		if (!(element instanceof ModelElementDecideAndTeleport)) return null;
 		final ModelElementDecideAndTeleport decideElement=(ModelElementDecideAndTeleport)element;
-		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_CONDITION) return null;
+		if (decideElement.getDecideRecord().getMode()!=DecideRecord.DecideMode.MODE_CONDITION) return null;
 
 		final List<String> destinationStrings=decideElement.getDestinations();
 		if (destinationStrings.size()==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId()),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);

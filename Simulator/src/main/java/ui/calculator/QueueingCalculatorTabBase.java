@@ -51,6 +51,7 @@ import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.coreelements.ModelElementBox;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementAnimationTextValue;
 import ui.modeleditor.elements.ModelElementCounter;
 import ui.modeleditor.elements.ModelElementDecide;
@@ -542,8 +543,8 @@ public abstract class QueueingCalculatorTabBase extends JPanel {
 		final ModelElementDecide decide=new ModelElementDecide(model,model.surface);
 		model.surface.add(decide);
 		decide.setPosition(new Point(x,y));
-		decide.getConditions().add(condition);
-		decide.setMode(ModelElementDecide.DecideMode.MODE_CONDITION);
+		decide.getDecideRecord().setMode(DecideRecord.DecideMode.MODE_CONDITION);
+		decide.getDecideRecord().getConditions().add(condition);
 		return decide;
 	}
 

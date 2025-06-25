@@ -27,7 +27,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
-import ui.modeleditor.elements.ModelElementDecide;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementDecideAndTeleport;
 import ui.modeleditor.elements.ModelElementSub;
 
@@ -61,20 +61,20 @@ public class RunElementTeleportDecideByKeyValue extends RunElement {
 	public Object build(EditModel editModel, RunModel runModel, ModelElement element, ModelElementSub parent, boolean testOnly) {
 		if (!(element instanceof ModelElementDecideAndTeleport)) return null;
 		final ModelElementDecideAndTeleport decideElement=(ModelElementDecideAndTeleport)element;
-		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_KEY_VALUE) return null;
+		if (decideElement.getDecideRecord().getMode()!=DecideRecord.DecideMode.MODE_KEY_VALUE) return null;
 		final RunElementTeleportDecideByKeyValue decide=new RunElementTeleportDecideByKeyValue((ModelElementDecideAndTeleport)element);
 
 		/* Schlüssel */
-		if (decideElement.getKey().isBlank()) return String.format(Language.tr("Simulation.Creator.NoKey"),element.getId());
-		decide.key=decideElement.getKey();
+		if (decideElement.getDecideRecord().getKey().isBlank()) return String.format(Language.tr("Simulation.Creator.NoKey"),element.getId());
+		decide.key=decideElement.getDecideRecord().getKey();
 
 		/* Mehrere Werte pro Wert-Eintrag? */
-		final boolean multiTextValues=decideElement.isMultiTextValues();
+		final boolean multiTextValues=decideElement.getDecideRecord().isMultiTextValues();
 
 		decide.destinationStrings=decideElement.getDestinations().toArray(String[]::new);
 		decide.destinationIDs=new int[decide.destinationStrings.length];
 		decide.values=new String[decide.destinationStrings.length-1][];
-		final List<String> values=decideElement.getValues();
+		final List<String> values=decideElement.getDecideRecord().getValues();
 		int count=0;
 		if (decide.destinationStrings.length==0) return String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId());
 		for (String destination: decide.destinationStrings) {
@@ -105,16 +105,16 @@ public class RunElementTeleportDecideByKeyValue extends RunElement {
 	public RunModelCreatorStatus test(ModelElement element) {
 		if (!(element instanceof ModelElementDecideAndTeleport)) return null;
 		final ModelElementDecideAndTeleport decideElement=(ModelElementDecideAndTeleport)element;
-		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_KEY_VALUE) return null;
+		if (decideElement.getDecideRecord().getMode()!=DecideRecord.DecideMode.MODE_KEY_VALUE) return null;
 
 		/* Schlüssel */
-		if (decideElement.getKey().isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoKey"),element.getId()));
+		if (decideElement.getDecideRecord().getKey().isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoKey"),element.getId()));
 
 		/* Mehrere Werte pro Wert-Eintrag? */
-		final boolean multiTextValues=decideElement.isMultiTextValues();
+		final boolean multiTextValues=decideElement.getDecideRecord().isMultiTextValues();
 
 		final List<String> destinationStrings=decideElement.getDestinations();
-		final List<String> values=decideElement.getValues();
+		final List<String> values=decideElement.getDecideRecord().getValues();
 		int count=0;
 		if (destinationStrings.size()==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId()),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);
 		for (String destination: destinationStrings) {

@@ -29,6 +29,7 @@ import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementDecide;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementSub;
@@ -66,7 +67,7 @@ public class RunElementDecideByChance extends RunElement {
 	@Override
 	public Object build(final EditModel editModel, final RunModel runModel, final ModelElement element, final ModelElementSub parent, final boolean testOnly) {
 		if (!(element instanceof ModelElementDecide)) return null;
-		if (((ModelElementDecide)element).getMode()!=ModelElementDecide.DecideMode.MODE_CHANCE) return null;
+		if (((ModelElementDecide)element).getDecideRecord(). getMode()!=DecideRecord.DecideMode.MODE_CHANCE) return null;
 
 		final RunElementDecideByChance decide=new RunElementDecideByChance((ModelElementDecide)element);
 
@@ -77,7 +78,7 @@ public class RunElementDecideByChance extends RunElement {
 		if (edges.length==0) return String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId());
 		decide.probabilites=new double[edges.length];
 		decide.probabilitesStrings=new String[edges.length];
-		final List<String> editRates=((ModelElementDecide)element).getRates();
+		final List<String> editRates=((ModelElementDecide)element).getDecideRecord().getRates();
 		for (ModelElementEdge edge : edges) {
 			final int id=findNextId(edge);
 			if (id<0) return String.format(Language.tr("Simulation.Creator.EdgeToNowhere"),element.getId(),edge.getId());
@@ -117,13 +118,13 @@ public class RunElementDecideByChance extends RunElement {
 	@Override
 	public RunModelCreatorStatus test(final ModelElement element) {
 		if (!(element instanceof ModelElementDecide)) return null;
-		if (((ModelElementDecide)element).getMode()!=ModelElementDecide.DecideMode.MODE_CHANCE) return null;
+		if (((ModelElementDecide)element).getDecideRecord(). getMode()!=DecideRecord.DecideMode.MODE_CHANCE) return null;
 
 		double sum=0;
 		ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
 		if (edges.length==0) return RunModelCreatorStatus.noEdgeOut(element);
 		int count=0;
-		final List<String> editRates=((ModelElementDecide)element).getRates();
+		final List<String> editRates=((ModelElementDecide)element).getDecideRecord().getRates();
 		for (ModelElementEdge edge : edges) {
 			final int id=findNextId(edge);
 			if (id<0) return RunModelCreatorStatus.edgeToNowhere(element,edge);
@@ -131,7 +132,7 @@ public class RunElementDecideByChance extends RunElement {
 			final String rateString=(count>=editRates.size())?"1":editRates.get(count);
 			if (sum>=0) {
 				Double D=NumberTools.getDouble(rateString);
-				if (D==null) sum=-1; else sum+=Math.max(0,D);
+				if (sum!=-1 && D==null) sum=-1; else sum+=Math.max(0,D);
 			}
 			count++;
 		}

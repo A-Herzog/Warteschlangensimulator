@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-13 00:11+0200\n"
+"POT-Creation-Date: 2025-06-24 22:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13597,6 +13597,48 @@ msgstr "den folgenden Schwellenwert überschreitet:"
 msgid "ModelDescription.Assign.Condition"
 msgstr "Bedingung"
 
+msgid "ModelDescription.AssignMulti.ClientType"
+msgstr "Kundentyp \"%s\""
+
+msgid "ModelDescription.AssignMulti.ClientType.Else"
+msgstr "Andere Kundentypen"
+
+msgid "ModelDescription.AssignMulti.Condition"
+msgstr "Bedingung \"%s\""
+
+msgid "ModelDescription.AssignMulti.Condition.Else"
+msgstr "Alle anderen Fälle"
+
+msgid "ModelDescription.AssignMulti.Mode"
+msgstr "Modus"
+
+msgid "ModelDescription.AssignMulti.Mode.ClientType"
+msgstr "Zuweisen nach Kundentype"
+
+msgid "ModelDescription.AssignMulti.Mode.Condition"
+msgstr "Zuweisen gemäß Bedingung"
+
+msgid "ModelDescription.AssignMulti.Mode.Rate"
+msgstr "Zufällig zuweisen"
+
+msgid "ModelDescription.AssignMulti.Mode.Sequence"
+msgstr "Optionen reihum bedienen"
+
+msgid "ModelDescription.AssignMulti.Mode.StringProperty"
+msgstr "Texteigenschaft"
+
+msgid "ModelDescription.AssignMulti.NewClientType"
+msgstr "Neuer Kundentyp \"%s\":"
+
+msgid "ModelDescription.AssignMulti.Rate"
+msgstr "Rate %s"
+
+msgid "ModelDescription.AssignMulti.StringProperty"
+msgstr "Fall %s=%s"
+
+msgid "ModelDescription.AssignMulti.StringProperty.Else"
+msgstr "Alle anderen Fälle"
+
 msgid "ModelDescription.AssignString.Assignment"
 msgstr "Zuweisung"
 
@@ -20961,6 +21003,9 @@ msgstr "Animation pausieren"
 msgid "Simulation.Element.Assign.Name"
 msgstr "Zuweisung"
 
+msgid "Simulation.Element.AssignMulti.Name"
+msgstr "Mehrfach-Typzuweisung"
+
 msgid "Simulation.Element.AssignSequence.Name"
 msgstr "Fertigungsplan zuweisen"
 
@@ -21322,6 +21367,12 @@ msgid "Simulation.Log.Assign"
 msgstr "Kundentypänderung"
 
 msgid "Simulation.Log.Assign.Info"
+msgstr "Kunde: id=%d \"%s\"->\"%s\", Station: %s"
+
+msgid "Simulation.Log.AssignMulti"
+msgstr "Mehrfach-Typzuweisung"
+
+msgid "Simulation.Log.AssignMulti.Info"
 msgstr "Kunde: id=%d \"%s\"->\"%s\", Station: %s"
 
 msgid "Simulation.Log.AssignSequence"
@@ -28936,6 +28987,66 @@ msgstr "ModellElementZuweisungBedingung"
 msgid "Surface.Assign.XML.Root"
 msgstr "ModellElementZuweisung"
 
+msgid "Surface.AssignMulti.Dialog.BranchingRules"
+msgstr "Zuweisungsregeln"
+
+msgid "Surface.AssignMulti.Dialog.ClientType.ErrorInfo"
+msgstr "Es muss ein Name für den Kundentyp angegeben werden."
+
+msgid "Surface.AssignMulti.Dialog.ClientType.ErrorTitle"
+msgstr "Ungültiger Kundentyp"
+
+msgid "Surface.AssignMulti.Dialog.ClientTypeLabel"
+msgstr "Kundentyp \"%s\""
+
+msgid "Surface.AssignMulti.Dialog.ClientTypeNr"
+msgstr "Neuer Kundentyp Nr. %d"
+
+msgid "Surface.AssignMulti.Dialog.Condition.Condition"
+msgstr "Bedingung"
+
+msgid "Surface.AssignMulti.Dialog.Condition.Error.Info"
+msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."
+
+msgid "Surface.AssignMulti.Dialog.Condition.Error.Title"
+msgstr "Ungültige Bedingung"
+
+msgid "Surface.AssignMulti.Dialog.Condition.UseCondition"
+msgstr "Zuweisung nur durchführen, wenn Bedingung erfüllt ist"
+
+msgid "Surface.AssignMulti.Dialog.NewClientTypes"
+msgstr "Neue Kundentypen"
+
+msgid "Surface.AssignMulti.Dialog.NumberOfClientTypes"
+msgstr "Anzahl an Optionen"
+
+msgid "Surface.AssignMulti.Dialog.RemoveClientType"
+msgstr "Kundentyp entfernen"
+
+msgid "Surface.AssignMulti.Dialog.RemoveClientType.Error"
+msgstr "Es können nicht alle Kundentypen entfernt werden."
+
+msgid "Surface.AssignMulti.Dialog.Title"
+msgstr "Mehrfach-Typzuweisung"
+
+msgid "Surface.AssignMulti.Infotext"
+msgstr "An einer Mehrfach-Typzuweisung-Station kann einem Kunden in Abhängigkeit von einer Bedingung ein neuer Kundentyp zugewiesen werden."
+
+msgid "Surface.AssignMulti.Name"
+msgstr "Multi-Typzuweisung"
+
+msgid "Surface.AssignMulti.Tooltip"
+msgstr "Führt eine Kundentypzuweisung in Abhängigkeit von einer Bedinung durch."
+
+msgid "Surface.AssignMulti.XML.AssignRecord"
+msgstr "ModellElementZuweisungMehrfachDatensatz"
+
+msgid "Surface.AssignMulti.XML.Condition"
+msgstr "ModellElementZuweisungMehrfachBedingung"
+
+msgid "Surface.AssignMulti.XML.Root"
+msgstr "ModellElementZuweisungMehrfach"
+
 msgid "Surface.AssignSequence.Dialog.Sequence"
 msgstr "Fertigungsplan"
 
@@ -29526,9 +29637,6 @@ msgstr "Icon"
 
 msgid "Surface.ClientIcon.Tooltip"
 msgstr "Weist den Kunden, die dieses Element durchlaufen, einen neues Icon zu."
-
-msgid "Surface.ClientIcon.XML.Assign"
-msgstr "ModellElementIconBedingung"
 
 msgid "Surface.ClientIcon.XML.Condition"
 msgstr "ModellElementIconBedingung"
@@ -36612,6 +36720,9 @@ msgstr "ModellElementTeleportStartZuZiel"
 msgid "Surface.TeleportSource.XML.Root"
 msgstr "ModellElementTeleportStart"
 
+msgid "Surface.TeleportSourceMulti.Dialog.BranchingRules"
+msgstr "Verzweigungsregeln"
+
 msgid "Surface.TeleportSourceMulti.Dialog.DestinationCount"
 msgstr "Anzahl an Teleport-Ausgängen"
 
@@ -36629,6 +36740,9 @@ msgstr "Es können nicht alle Ziele entfernt werden."
 
 msgid "Surface.TeleportSourceMulti.Dialog.Target"
 msgstr "Teleportationsziel"
+
+msgid "Surface.TeleportSourceMulti.Dialog.TeleportTargets"
+msgstr "Teleportziele"
 
 msgid "Surface.TeleportSourceMulti.Dialog.Title"
 msgstr "Duplizieren und Teleportieren bearbeiten"
@@ -40175,6 +40289,9 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "Surface.AnimationText.Dialog.FontColor"
 #~ msgstr "Schriftfarbe"
+
+#~ msgid "Surface.ClientIcon.XML.Assign"
+#~ msgstr "ModellElementIconBedingung"
 
 #~ msgid "Surface.Costs.Condition.Error.Info"
 #~ msgstr "Die angegebene Bedingung \"%s\" ist ab Zeichen %d fehlerhaft."

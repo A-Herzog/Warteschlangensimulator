@@ -73,6 +73,11 @@ public abstract class DecideDataPanel extends JPanel {
 	 */
 	private final ElementWithDecideData decide;
 
+	/**
+	 * Datensatz mit den Einstellungen innerhalb von {@link #decide}
+	 */
+	private final DecideRecord decideRecord;
+
 	/** Auswahlbox für die Verzweigungsart */
 	private JComboBox<String> modeSelect;
 	/** Konfigurationspanel für die gewählte Verzweigungsart */
@@ -158,6 +163,7 @@ public abstract class DecideDataPanel extends JPanel {
 	public DecideDataPanel(final ModelElement element, final DecideDataPanel oldPanel, final boolean readOnly) {
 		this.element=element;
 		this.decide=(ElementWithDecideData)element;
+		this.decideRecord=decide.getDecideRecord();
 		this.readOnly=readOnly;
 
 		setLayout(new BorderLayout());
@@ -167,38 +173,47 @@ public abstract class DecideDataPanel extends JPanel {
 		JLabel label;
 		Object[] data;
 
+		final boolean allowQueueDecideModes=decideRecord.allowQueueDecideModes;
+
 		add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 		sub.add(label=new JLabel(Language.tr("Surface.Decide.Dialog.DecideBy")+":"));
-		sub.add(modeSelect=new JComboBox<>(new String[]{
-				Language.tr("Surface.Decide.Dialog.DecideBy.Chance"),
-				Language.tr("Surface.Decide.Dialog.DecideBy.Condition"),
-				Language.tr("Surface.Decide.Dialog.DecideBy.ClientType"),
-				Language.tr("Surface.Decide.Dialog.DecideBy.Sequence"),
-				Language.tr("Surface.Decide.Dialog.DecideBy.ShortestQueueNextStation"),
-				Language.tr("Surface.Decide.Dialog.DecideBy.ShortestQueueNextProcessStation"),
-				Language.tr("Surface.Decide.Dialog.DecideBy.LeastClientsNextStation"),
-				Language.tr("Surface.Decide.Dialog.DecideBy.LeastClientsNextProcessStation"),
-				Language.tr("Surface.Decide.Dialog.DecideBy.LongestQueueNextStation"),
-				Language.tr("Surface.Decide.Dialog.DecideBy.LongestQueueNextProcessStation"),
-				Language.tr("Surface.Decide.Dialog.DecideBy.MostClientsNextStation"),
-				Language.tr("Surface.Decide.Dialog.DecideBy.MostClientsNextProcessStation"),
-				Language.tr("Surface.Decide.Dialog.DecideBy.StringProperty")
-		}));
-		modeSelect.setRenderer(new IconListCellRenderer(new Images[]{
-				Images.MODELEDITOR_ELEMENT_DECIDE_BY_CHANCE,
-				Images.MODELEDITOR_ELEMENT_DECIDE_BY_CONDITION,
-				Images.MODELEDITOR_ELEMENT_DECIDE_BY_CLIENT_TYPE,
-				Images.MODELEDITOR_ELEMENT_DECIDE_BY_SEQUENCE,
-				Images.MODELEDITOR_ELEMENT_DECIDE_BY_SHORTEST_QUEUE_NEXT_STATION,
-				Images.MODELEDITOR_ELEMENT_DECIDE_BY_SHORTEST_QUEUE_NEXT_PROCESS_STATION,
-				Images.MODELEDITOR_ELEMENT_DECIDE_BY_LEAST_CLIENTS_NEXT_STATION,
-				Images.MODELEDITOR_ELEMENT_DECIDE_BY_LEAST_CLIENTS_NEXT_PROCESS_STATION,
-				Images.MODELEDITOR_ELEMENT_DECIDE_BY_LONGEST_QUEUE_NEXT_STATION,
-				Images.MODELEDITOR_ELEMENT_DECIDE_BY_LONGEST_QUEUE_NEXT_PROCESS_STATION,
-				Images.MODELEDITOR_ELEMENT_DECIDE_BY_MOST_CLIENTS_NEXT_STATION,
-				Images.MODELEDITOR_ELEMENT_DECIDE_BY_MOST_CLIENTS_NEXT_PROCESS_STATION,
-				Images.MODELEDITOR_ELEMENT_DECIDE_BY_TEXT_PROPERTY
-		}));
+
+		final List<String> modeSelectNames=new ArrayList<>();
+		modeSelectNames.add(Language.tr("Surface.Decide.Dialog.DecideBy.Chance"));
+		modeSelectNames.add(Language.tr("Surface.Decide.Dialog.DecideBy.Condition"));
+		modeSelectNames.add(Language.tr("Surface.Decide.Dialog.DecideBy.ClientType"));
+		modeSelectNames.add(Language.tr("Surface.Decide.Dialog.DecideBy.Sequence"));
+		if (allowQueueDecideModes) {
+			modeSelectNames.add(Language.tr("Surface.Decide.Dialog.DecideBy.ShortestQueueNextStation"));
+			modeSelectNames.add(Language.tr("Surface.Decide.Dialog.DecideBy.ShortestQueueNextProcessStation"));
+			modeSelectNames.add(Language.tr("Surface.Decide.Dialog.DecideBy.LeastClientsNextStation"));
+			modeSelectNames.add(Language.tr("Surface.Decide.Dialog.DecideBy.LeastClientsNextProcessStation"));
+			modeSelectNames.add(Language.tr("Surface.Decide.Dialog.DecideBy.LongestQueueNextStation"));
+			modeSelectNames.add(Language.tr("Surface.Decide.Dialog.DecideBy.LongestQueueNextProcessStation"));
+			modeSelectNames.add(Language.tr("Surface.Decide.Dialog.DecideBy.MostClientsNextStation"));
+			modeSelectNames.add(Language.tr("Surface.Decide.Dialog.DecideBy.MostClientsNextProcessStation"));
+		}
+		modeSelectNames.add(Language.tr("Surface.Decide.Dialog.DecideBy.StringProperty"));
+		sub.add(modeSelect=new JComboBox<>(modeSelectNames.toArray(String[]::new)));
+
+		final List<Images> imagesList=new ArrayList<>();
+		imagesList.add(Images.MODELEDITOR_ELEMENT_DECIDE_BY_CHANCE);
+		imagesList.add(Images.MODELEDITOR_ELEMENT_DECIDE_BY_CONDITION);
+		imagesList.add(Images.MODELEDITOR_ELEMENT_DECIDE_BY_CLIENT_TYPE);
+		imagesList.add(Images.MODELEDITOR_ELEMENT_DECIDE_BY_SEQUENCE);
+		if (allowQueueDecideModes) {
+			imagesList.add(Images.MODELEDITOR_ELEMENT_DECIDE_BY_SHORTEST_QUEUE_NEXT_STATION);
+			imagesList.add(Images.MODELEDITOR_ELEMENT_DECIDE_BY_SHORTEST_QUEUE_NEXT_PROCESS_STATION);
+			imagesList.add(Images.MODELEDITOR_ELEMENT_DECIDE_BY_LEAST_CLIENTS_NEXT_STATION);
+			imagesList.add(Images.MODELEDITOR_ELEMENT_DECIDE_BY_LEAST_CLIENTS_NEXT_PROCESS_STATION);
+			imagesList.add(Images.MODELEDITOR_ELEMENT_DECIDE_BY_LONGEST_QUEUE_NEXT_STATION);
+			imagesList.add(Images.MODELEDITOR_ELEMENT_DECIDE_BY_LONGEST_QUEUE_NEXT_PROCESS_STATION);
+			imagesList.add(Images.MODELEDITOR_ELEMENT_DECIDE_BY_MOST_CLIENTS_NEXT_STATION);
+			imagesList.add(Images.MODELEDITOR_ELEMENT_DECIDE_BY_MOST_CLIENTS_NEXT_PROCESS_STATION);
+		}
+		imagesList.add(Images.MODELEDITOR_ELEMENT_DECIDE_BY_TEXT_PROPERTY);
+
+		modeSelect.setRenderer(new IconListCellRenderer(imagesList.toArray(Images[]::new)));
 		modeSelect.setEnabled(!readOnly);
 		label.setLabelFor(modeSelect);
 		modeSelect.addActionListener(e->setActiveCard((String)modeSelect.getSelectedItem()));
@@ -214,8 +229,10 @@ public abstract class DecideDataPanel extends JPanel {
 		labels2=new ArrayList<>();
 		labels4=new ArrayList<>();
 
+		int tabIndex=0;
+
 		/* Seite "Zufall" */
-		contentCards.add(content=new JPanel(),modeSelect.getItemAt(0));
+		contentCards.add(content=new JPanel(),modeSelect.getItemAt(tabIndex++));
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		rates=new ArrayList<>();
@@ -232,7 +249,7 @@ public abstract class DecideDataPanel extends JPanel {
 			if (oldPanel!=null) {
 				decideText=(oldPanel.rates.size()>i)?oldPanel.rates.get(i).getText():"1";
 			} else {
-				decideText=(decide.getRates().size()<=i)?"1":decide.getRates().get(i);
+				decideText=(decideRecord.getRates().size()<=i)?"1":decideRecord.getRates().get(i);
 			}
 			data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Rate")+":",decideText,10);
 			option.add(line=(JPanel)data[0],BorderLayout.CENTER);
@@ -249,7 +266,7 @@ public abstract class DecideDataPanel extends JPanel {
 		}
 
 		/* Seite "Bedingung" */
-		contentCards.add(content=new JPanel(),modeSelect.getItemAt(1));
+		contentCards.add(content=new JPanel(),modeSelect.getItemAt(tabIndex++));
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		conditions=new ArrayList<>();
@@ -277,7 +294,7 @@ public abstract class DecideDataPanel extends JPanel {
 				if (oldPanel!=null) {
 					condition=(oldPanel.conditions.size()-1>i)?oldPanel.conditions.get(i).getText():""; /* -1, da wir die letzte alte Bedingung ("Wenn keine der Bedingungnen zutrifft" nicht als echte Bedingung übernehmen wollen */
 				} else {
-					condition=(i>=decide.getConditions().size())?"":decide.getConditions().get(i);
+					condition=(i>=decideRecord.getConditions().size())?"":decideRecord.getConditions().get(i);
 				}
 				if (condition==null) condition="";
 				input.setText(condition);
@@ -292,19 +309,19 @@ public abstract class DecideDataPanel extends JPanel {
 		}
 
 		/* Seite "Kundentyp" */
-		contentCards.add(content=new JPanel(),modeSelect.getItemAt(2));
+		contentCards.add(content=new JPanel(),modeSelect.getItemAt(tabIndex++));
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 		content.add(clientTypesPanelOuter=new JPanel(new BorderLayout()));
 		clientTypesPanelOuter.add(clientTypesPanel=new DecideDataPanelClientTypes(element,destinations,readOnly,()->reloadClientTypeSettings()));
 		if (oldPanel!=null) {
 			clientTypesPanel.loadData(oldPanel.clientTypesPanel);
 		} else {
-			clientTypesPanel.loadData(decide.getClientTypes());
+			clientTypesPanel.loadData(decideRecord.getClientTypes());
 		}
 		labels3=clientTypesPanel.getLabels();
 
 		/* Seite "Reihenfolge" */
-		contentCards.add(content=new JPanel(),modeSelect.getItemAt(3));
+		contentCards.add(content=new JPanel(),modeSelect.getItemAt(tabIndex++));
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		multiplicity=new ArrayList<>();
@@ -321,7 +338,7 @@ public abstract class DecideDataPanel extends JPanel {
 			if (oldPanel!=null) {
 				decideText=(oldPanel.multiplicity.size()>i)?oldPanel.multiplicity.get(i).getText():"1";
 			} else {
-				decideText=(decide.getMultiplicity().size()<=i)?"1":(""+decide.getMultiplicity().get(i));
+				decideText=(decideRecord.getMultiplicity().size()<=i)?"1":(""+decideRecord.getMultiplicity().get(i));
 			}
 			data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Multiplicity")+":",decideText,10);
 			option.add(line=(JPanel)data[0],BorderLayout.CENTER);
@@ -336,87 +353,91 @@ public abstract class DecideDataPanel extends JPanel {
 			multiplicity.add(input);
 		}
 
-		/* Seite "Kürzeste Warteschlange an der nächsten Station" */
-		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(4));
-		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
-		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.ShortestQueueNextStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		comboBoxAtTie1=addAtTieComboBox(sub,decide);
+		if (allowQueueDecideModes) {
 
-		/* Seite "Kürzeste Warteschlange an der nächsten Bedienstation" */
-		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(5));
-		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
-		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.ShortestQueueNextProcessStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		comboBoxAtTie2=addAtTieComboBox(sub,decide);
+			/* Seite "Kürzeste Warteschlange an der nächsten Station" */
+			contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(tabIndex++));
+			contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
+			content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.ShortestQueueNextStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			comboBoxAtTie1=addAtTieComboBox(sub,decide);
 
-		/* Seite "Geringste Anzahl an Kunden an der nächsten Station" */
-		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(6));
-		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
-		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.LeastClientsNextStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		comboBoxAtTie3=addAtTieComboBox(sub,decide);
+			/* Seite "Kürzeste Warteschlange an der nächsten Bedienstation" */
+			contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(tabIndex++));
+			contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
+			content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.ShortestQueueNextProcessStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			comboBoxAtTie2=addAtTieComboBox(sub,decide);
 
-		/* Seite "Geringste Anzahl an Kunden an der nächsten Bedienstation" */
-		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(7));
-		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
-		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.LeastClientsNextProcessStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		comboBoxAtTie4=addAtTieComboBox(sub,decide);
+			/* Seite "Geringste Anzahl an Kunden an der nächsten Station" */
+			contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(tabIndex++));
+			contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
+			content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.LeastClientsNextStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			comboBoxAtTie3=addAtTieComboBox(sub,decide);
 
-		/* Seite "Längste Warteschlange an der nächsten Station" */
-		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(8));
-		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
-		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.LongestQueueNextStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		comboBoxAtTie5=addAtTieComboBox(sub,decide);
+			/* Seite "Geringste Anzahl an Kunden an der nächsten Bedienstation" */
+			contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(tabIndex++));
+			contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
+			content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.LeastClientsNextProcessStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			comboBoxAtTie4=addAtTieComboBox(sub,decide);
 
-		/* Seite "Längste Warteschlange an der nächsten Bedienstation" */
-		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(9));
-		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
-		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.LongestQueueNextProcessStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		comboBoxAtTie6=addAtTieComboBox(sub,decide);
+			/* Seite "Längste Warteschlange an der nächsten Station" */
+			contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(tabIndex++));
+			contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
+			content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.LongestQueueNextStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			comboBoxAtTie5=addAtTieComboBox(sub,decide);
 
-		/* Seite "Meiste Kunden an der nächsten Station" */
-		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(10));
-		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
-		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.MostClientsNextStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		comboBoxAtTie7=addAtTieComboBox(sub,decide);
+			/* Seite "Längste Warteschlange an der nächsten Bedienstation" */
+			contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(tabIndex++));
+			contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
+			content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.LongestQueueNextProcessStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			comboBoxAtTie6=addAtTieComboBox(sub,decide);
 
-		/* Seite "Meiste Kunden an der nächsten Bedienstation" */
-		contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(11));
-		contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
-		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.MostClientsNextProcessStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
-		content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-		comboBoxAtTie8=addAtTieComboBox(sub,decide);
+			/* Seite "Meiste Kunden an der nächsten Station" */
+			contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(tabIndex++));
+			contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
+			content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.MostClientsNextStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			comboBoxAtTie7=addAtTieComboBox(sub,decide);
+
+			/* Seite "Meiste Kunden an der nächsten Bedienstation" */
+			contentCards.add(contentOuter=new JPanel(new BorderLayout()),modeSelect.getItemAt(tabIndex++));
+			contentOuter.add(content=new JPanel(),BorderLayout.NORTH);
+			content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			sub.add(new JLabel("<html><body>"+Language.tr("Surface.Decide.Dialog.DecideBy.MostClientsNextProcessStation.Info").replaceAll("\\n","<br>")+"</body></html>"));
+			content.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			comboBoxAtTie8=addAtTieComboBox(sub,decide);
+
+		}
 
 		/* Seite "Texteigenschaft" */
-		contentCards.add(content=new JPanel(),modeSelect.getItemAt(12));
+		contentCards.add(content=new JPanel(),modeSelect.getItemAt(tabIndex++));
 		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
 
 		final String keyString;
 		if (oldPanel!=null) {
 			keyString=oldPanel.key.getText();
 		} else {
-			keyString=decide.getKey();
+			keyString=decideRecord.getKey();
 		}
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Decide.Dialog.OutgoingEdge.Key")+":",keyString);
 		content.add((JPanel)data[0]);
@@ -433,14 +454,14 @@ public abstract class DecideDataPanel extends JPanel {
 		if (oldPanel!=null) {
 			multiValues=oldPanel.valuesMulti.isSelected();
 		} else {
-			multiValues=decide.isMultiTextValues();
+			multiValues=decideRecord.isMultiTextValues();
 		}
 		line.add(valuesMulti=new JCheckBox(Language.tr("Surface.Decide.Dialog.OutgoingEdge.MultiValues"),multiValues));
 		valuesMulti.setToolTipText(Language.tr("Surface.Decide.Dialog.OutgoingEdge.MultiValues.Hint"));
 		valuesMulti.addActionListener(e->getCheckKeyValues(false));
 
 		values=new ArrayList<>();
-		final List<String> valuesList=decide.getValues();
+		final List<String> valuesList=decideRecord.getValues();
 		for (int i=0;i<destinations.size();i++) {
 			final String name=destinations.get(i);
 
@@ -476,7 +497,7 @@ public abstract class DecideDataPanel extends JPanel {
 
 		/* Aktive Karte einstellen */
 		if (oldPanel==null) {
-			switch (decide.getMode()) {
+			switch (decideRecord.getMode()) {
 			case MODE_CHANCE: modeSelect.setSelectedIndex(0); break;
 			case MODE_CONDITION: modeSelect.setSelectedIndex(1); break;
 			case MODE_CLIENTTYPE: modeSelect.setSelectedIndex(2); break;
@@ -489,7 +510,7 @@ public abstract class DecideDataPanel extends JPanel {
 			case MODE_LONGEST_QUEUE_PROCESS_STATION: modeSelect.setSelectedIndex(9); break;
 			case MODE_MAX_CLIENTS_NEXT_STATION: modeSelect.setSelectedIndex(10); break;
 			case MODE_MAX_CLIENTS_PROCESS_STATION: modeSelect.setSelectedIndex(11); break;
-			case MODE_KEY_VALUE: modeSelect.setSelectedIndex(12); getCheckKeyValues(false); break;
+			case MODE_KEY_VALUE: modeSelect.setSelectedIndex(allowQueueDecideModes?12:4); getCheckKeyValues(false); break;
 			}
 		} else {
 			modeSelect.setSelectedIndex(oldPanel.modeSelect.getSelectedIndex());
@@ -554,7 +575,7 @@ public abstract class DecideDataPanel extends JPanel {
 				Images.MODELEDITOR_ELEMENT_DECIDE_AT_TIE_LAST
 		}));
 
-		switch (decide.getDecideByStationOnTie()) {
+		switch (decideRecord.getDecideByStationOnTie()) {
 		case FIRST: comboBox.setSelectedIndex(0); break;
 		case RANDOM: comboBox.setSelectedIndex(1); break;
 		case LAST: comboBox.setSelectedIndex(2); break;
@@ -749,15 +770,16 @@ public abstract class DecideDataPanel extends JPanel {
 	/**
 	 * Wird beim Klicken auf "Ok" aufgerufen, um zu prüfen, ob die Daten in der aktuellen Form
 	 * in Ordnung sind und gespeichert werden können.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
 	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
 	 */
-	public boolean checkDataWithErrorMessage() {
+	public boolean checkData(final boolean showErrorMessage) {
 		switch (modeSelect.getSelectedIndex()) {
-		case 0: return getRates(true)!=null;
-		case 1: return getConditions(true)!=null;
-		case 2: return clientTypesPanel.checkClientTypes();
-		case 3: return getMultiplicity(true)!=null;
-		case 4: return true;
+		case 0: return getRates(showErrorMessage)!=null;
+		case 1: return getConditions(showErrorMessage)!=null;
+		case 2: return clientTypesPanel.checkClientTypes(showErrorMessage);
+		case 3: return getMultiplicity(showErrorMessage)!=null;
+		case 4: if (decideRecord.allowQueueDecideModes) return true; else return getCheckKeyValues(showErrorMessage);
 		case 5: return true;
 		case 6: return true;
 		case 7: return true;
@@ -765,7 +787,7 @@ public abstract class DecideDataPanel extends JPanel {
 		case 9: return true;
 		case 10: return true;
 		case 11: return true;
-		case 12: return getCheckKeyValues(true);
+		case 12: return getCheckKeyValues(showErrorMessage);
 		default: return false;
 		}
 	}
@@ -774,106 +796,106 @@ public abstract class DecideDataPanel extends JPanel {
 	 * Schreibt die Daten aus der GUI in das Element zurück
 	 */
 	public void storeData() {
-		ModelElementDecide.DecideMode mode=ModelElementDecide.DecideMode.MODE_CHANCE;
+		DecideRecord.DecideMode mode=DecideRecord.DecideMode.getDefaultMode();
 		switch (modeSelect.getSelectedIndex()) {
-		case 0: mode=ModelElementDecide.DecideMode.MODE_CHANCE; break;
-		case 1: mode=ModelElementDecide.DecideMode.MODE_CONDITION; break;
-		case 2: mode=ModelElementDecide.DecideMode.MODE_CLIENTTYPE; break;
-		case 3: mode=ModelElementDecide.DecideMode.MODE_SEQUENCE; break;
-		case 4: mode=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION; break;
-		case 5: mode=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION; break;
-		case 6: mode=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION; break;
-		case 7: mode=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION; break;
-		case 8: mode=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION; break;
-		case 9: mode=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION; break;
-		case 10: mode=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION; break;
-		case 11: mode=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION; break;
-		case 12: mode=ModelElementDecide.DecideMode.MODE_KEY_VALUE; break;
+		case 0: mode=DecideRecord.DecideMode.MODE_CHANCE; break;
+		case 1: mode=DecideRecord.DecideMode.MODE_CONDITION; break;
+		case 2: mode=DecideRecord.DecideMode.MODE_CLIENTTYPE; break;
+		case 3: mode=DecideRecord.DecideMode.MODE_SEQUENCE; break;
+		case 4: if (decideRecord.allowQueueDecideModes) mode=DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION; else mode=DecideRecord.DecideMode.MODE_KEY_VALUE; break;
+		case 5: mode=DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION; break;
+		case 6: mode=DecideRecord.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION; break;
+		case 7: mode=DecideRecord.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION; break;
+		case 8: mode=DecideRecord.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION; break;
+		case 9: mode=DecideRecord.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION; break;
+		case 10: mode=DecideRecord.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION; break;
+		case 11: mode=DecideRecord.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION; break;
+		case 12: mode=DecideRecord.DecideMode.MODE_KEY_VALUE; break;
 		}
 
-		decide.setMode(mode);
+		decideRecord.setMode(mode);
 
 		switch (mode) {
 		case MODE_CHANCE:
-			final List<String> ratesList=decide.getRates();
+			final List<String> ratesList=decideRecord.getRates();
 			ratesList.clear();
 			ratesList.addAll(getRates(false));
 			break;
 		case MODE_CONDITION:
-			final List<String> conditionsList=decide.getConditions();
+			final List<String> conditionsList=decideRecord.getConditions();
 			conditionsList.clear();
 			conditionsList.addAll(getConditions(false));
 			break;
 		case MODE_CLIENTTYPE:
-			final List<List<String>> clientTypesList=decide.getClientTypes();
+			final List<List<String>> clientTypesList=decideRecord.getClientTypes();
 			clientTypesList.clear();
 			clientTypesList.addAll(clientTypesPanel.getClientTypes());
 			break;
 		case MODE_SEQUENCE:
-			final List<Integer> multiplicityList=decide.getMultiplicity();
+			final List<Integer> multiplicityList=decideRecord.getMultiplicity();
 			multiplicityList.clear();
 			multiplicityList.addAll(getMultiplicity(false));
 			break;
 		case MODE_SHORTEST_QUEUE_NEXT_STATION:
 			switch (comboBoxAtTie1.getSelectedIndex()) {
-			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
-			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
-			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			case 0: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.FIRST); break;
+			case 1: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.RANDOM); break;
+			case 2: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.LAST); break;
 			}
 			break;
 		case MODE_SHORTEST_QUEUE_PROCESS_STATION:
 			switch (comboBoxAtTie2.getSelectedIndex()) {
-			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
-			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
-			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			case 0: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.FIRST); break;
+			case 1: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.RANDOM); break;
+			case 2: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.LAST); break;
 			}
 			break;
 		case MODE_MIN_CLIENTS_NEXT_STATION:
 			switch (comboBoxAtTie3.getSelectedIndex()) {
-			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
-			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
-			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			case 0: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.FIRST); break;
+			case 1: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.RANDOM); break;
+			case 2: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.LAST); break;
 			}
 			break;
 		case MODE_MIN_CLIENTS_PROCESS_STATION:
 			switch (comboBoxAtTie4.getSelectedIndex()) {
-			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
-			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
-			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			case 0: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.FIRST); break;
+			case 1: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.RANDOM); break;
+			case 2: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.LAST); break;
 			}
 			break;
 		case MODE_LONGEST_QUEUE_NEXT_STATION:
 			switch (comboBoxAtTie5.getSelectedIndex()) {
-			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
-			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
-			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			case 0: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.FIRST); break;
+			case 1: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.RANDOM); break;
+			case 2: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.LAST); break;
 			}
 			break;
 		case MODE_LONGEST_QUEUE_PROCESS_STATION:
 			switch (comboBoxAtTie6.getSelectedIndex()) {
-			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
-			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
-			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			case 0: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.FIRST); break;
+			case 1: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.RANDOM); break;
+			case 2: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.LAST); break;
 			}
 			break;
 		case MODE_MAX_CLIENTS_NEXT_STATION:
 			switch (comboBoxAtTie7.getSelectedIndex()) {
-			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
-			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
-			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			case 0: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.FIRST); break;
+			case 1: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.RANDOM); break;
+			case 2: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.LAST); break;
 			}
 			break;
 		case MODE_MAX_CLIENTS_PROCESS_STATION:
 			switch (comboBoxAtTie8.getSelectedIndex()) {
-			case 0: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.FIRST); break;
-			case 1: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.RANDOM); break;
-			case 2: decide.setDecideByStationOnTie(ElementWithDecideData.DecideByStationOnTie.LAST); break;
+			case 0: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.FIRST); break;
+			case 1: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.RANDOM); break;
+			case 2: decideRecord.setDecideByStationOnTie(DecideRecord.DecideByStationOnTie.LAST); break;
 			}
 			break;
 		case MODE_KEY_VALUE:
-			decide.setKey(key.getText().trim());
-			decide.setMultiTextValues(valuesMulti.isSelected());
-			final List<String> valuesList=decide.getValues();
+			decideRecord.setKey(key.getText().trim());
+			decideRecord.setMultiTextValues(valuesMulti.isSelected());
+			final List<String> valuesList=decideRecord.getValues();
 			valuesList.clear();
 			for (int i=0;i<values.size()-1;i++) valuesList.add(values.get(i).getText().trim());
 			break;

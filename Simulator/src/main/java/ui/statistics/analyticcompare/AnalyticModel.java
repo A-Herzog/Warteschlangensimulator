@@ -25,6 +25,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
 import ui.modeleditor.elements.ModelElementAssign;
+import ui.modeleditor.elements.ModelElementAssignMulti;
 import ui.modeleditor.elements.ModelElementAssignString;
 import ui.modeleditor.elements.ModelElementClientIcon;
 import ui.modeleditor.elements.ModelElementCosts;
@@ -161,6 +162,7 @@ public class AnalyticModel {
 			ModelElementCounterBatch.class,
 			ModelElementAssign.class,
 			ModelElementAssignString.class,
+			ModelElementAssignMulti.class,
 			ModelElementClientIcon.class,
 			ModelElementCosts.class,
 			ModelElementThroughput.class,

@@ -170,7 +170,7 @@ public final class ModelElementDecideDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected boolean checkData() {
-		return decideDataPanel.checkDataWithErrorMessage();
+		return decideDataPanel.checkData(true);
 	}
 
 	/**

@@ -28,7 +28,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
-import ui.modeleditor.elements.ModelElementDecide;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementDecideAndTeleport;
 import ui.modeleditor.elements.ModelElementSub;
 
@@ -57,14 +57,14 @@ public class RunElementTeleportDecideBySequence extends RunElement {
 	public Object build(EditModel editModel, RunModel runModel, ModelElement element, ModelElementSub parent, boolean testOnly) {
 		if (!(element instanceof ModelElementDecideAndTeleport)) return null;
 		final ModelElementDecideAndTeleport decideElement=(ModelElementDecideAndTeleport)element;
-		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_SEQUENCE) return null;
+		if (decideElement.getDecideRecord().getMode()!=DecideRecord.DecideMode.MODE_SEQUENCE) return null;
 		final RunElementTeleportDecideBySequence decide=new RunElementTeleportDecideBySequence((ModelElementDecideAndTeleport)element);
 
 		decide.destinationStrings=decideElement.getDestinations().toArray(String[]::new);
 		final List<Integer> destinationIDs=new ArrayList<>();
 		if (decide.destinationStrings.length==0) return String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId());
 
-		final List<Integer> edgesMultiplicity=decideElement.getMultiplicity();
+		final List<Integer> edgesMultiplicity=decideElement.getDecideRecord().getMultiplicity();
 
 		for (int i=0;i<decide.destinationStrings.length;i++) {
 			final String destination=decide.destinationStrings[i];
@@ -83,7 +83,7 @@ public class RunElementTeleportDecideBySequence extends RunElement {
 	public RunModelCreatorStatus test(ModelElement element) {
 		if (!(element instanceof ModelElementDecideAndTeleport)) return null;
 		final ModelElementDecideAndTeleport decideElement=(ModelElementDecideAndTeleport)element;
-		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_CONDITION) return null;
+		if (decideElement.getDecideRecord().getMode()!=DecideRecord.DecideMode.MODE_CONDITION) return null;
 
 		final List<String> destinationStrings=decideElement.getDestinations();
 		if (destinationStrings.size()==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId()),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);

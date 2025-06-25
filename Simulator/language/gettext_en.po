@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-13 00:11+0200\n"
+"POT-Creation-Date: 2025-06-24 22:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13572,6 +13572,48 @@ msgstr "exceeds threshold value"
 msgid "ModelDescription.Assign.Condition"
 msgstr "Condition"
 
+msgid "ModelDescription.AssignMulti.ClientType"
+msgstr "Client type \"%s\""
+
+msgid "ModelDescription.AssignMulti.ClientType.Else"
+msgstr "Other client types"
+
+msgid "ModelDescription.AssignMulti.Condition"
+msgstr "Condition \"%s\""
+
+msgid "ModelDescription.AssignMulti.Condition.Else"
+msgstr "All other cases"
+
+msgid "ModelDescription.AssignMulti.Mode"
+msgstr "Mode"
+
+msgid "ModelDescription.AssignMulti.Mode.ClientType"
+msgstr "Decide by client type"
+
+msgid "ModelDescription.AssignMulti.Mode.Condition"
+msgstr "Decide by condition"
+
+msgid "ModelDescription.AssignMulti.Mode.Rate"
+msgstr "Decide by random"
+
+msgid "ModelDescription.AssignMulti.Mode.Sequence"
+msgstr "Use options in turn"
+
+msgid "ModelDescription.AssignMulti.Mode.StringProperty"
+msgstr "String property"
+
+msgid "ModelDescription.AssignMulti.NewClientType"
+msgstr "New client type \"%s\":"
+
+msgid "ModelDescription.AssignMulti.Rate"
+msgstr "Rate %s"
+
+msgid "ModelDescription.AssignMulti.StringProperty"
+msgstr "Case %s=%s"
+
+msgid "ModelDescription.AssignMulti.StringProperty.Else"
+msgstr "All other cases"
+
 msgid "ModelDescription.AssignString.Assignment"
 msgstr "Assignment"
 
@@ -20919,6 +20961,9 @@ msgstr "Pause animation"
 msgid "Simulation.Element.Assign.Name"
 msgstr "Assignment"
 
+msgid "Simulation.Element.AssignMulti.Name"
+msgstr "Multi type assignment"
+
 msgid "Simulation.Element.AssignSequence.Name"
 msgstr "Assign sequence"
 
@@ -21280,6 +21325,12 @@ msgid "Simulation.Log.Assign"
 msgstr "Client type changr"
 
 msgid "Simulation.Log.Assign.Info"
+msgstr "Client: id=%d: \"%s\"->\"%s\", station: %s"
+
+msgid "Simulation.Log.AssignMulti"
+msgstr "Multi type assignment"
+
+msgid "Simulation.Log.AssignMulti.Info"
 msgstr "Client: id=%d: \"%s\"->\"%s\", station: %s"
 
 msgid "Simulation.Log.AssignSequence"
@@ -28891,6 +28942,66 @@ msgstr "ModelElementAssignmentCondition"
 msgid "Surface.Assign.XML.Root"
 msgstr "ModelElementAssignment"
 
+msgid "Surface.AssignMulti.Dialog.BranchingRules"
+msgstr "Assignment rules"
+
+msgid "Surface.AssignMulti.Dialog.ClientType.ErrorInfo"
+msgstr "A name for the client type has to be specified."
+
+msgid "Surface.AssignMulti.Dialog.ClientType.ErrorTitle"
+msgstr "Invalid client type"
+
+msgid "Surface.AssignMulti.Dialog.ClientTypeLabel"
+msgstr "Client type \"%s\""
+
+msgid "Surface.AssignMulti.Dialog.ClientTypeNr"
+msgstr "New client type %d"
+
+msgid "Surface.AssignMulti.Dialog.Condition.Condition"
+msgstr "Condition"
+
+msgid "Surface.AssignMulti.Dialog.Condition.Error.Info"
+msgstr "The specified condition \"%s\" is invalid at character %d."
+
+msgid "Surface.AssignMulti.Dialog.Condition.Error.Title"
+msgstr "Invalid condition"
+
+msgid "Surface.AssignMulti.Dialog.Condition.UseCondition"
+msgstr "Only apply settings if condition is met"
+
+msgid "Surface.AssignMulti.Dialog.NewClientTypes"
+msgstr "New client types"
+
+msgid "Surface.AssignMulti.Dialog.NumberOfClientTypes"
+msgstr "Number of options"
+
+msgid "Surface.AssignMulti.Dialog.RemoveClientType"
+msgstr "Remove client type"
+
+msgid "Surface.AssignMulti.Dialog.RemoveClientType.Error"
+msgstr "Not all client types can be removed."
+
+msgid "Surface.AssignMulti.Dialog.Title"
+msgstr "Multi type assignment"
+
+msgid "Surface.AssignMulti.Infotext"
+msgstr "At a multiple type assignment station, a new client type can be assigned to a client depending on a condition."
+
+msgid "Surface.AssignMulti.Name"
+msgstr "Multi type assignment"
+
+msgid "Surface.AssignMulti.Tooltip"
+msgstr "Performs a client type assignment depending on a condition."
+
+msgid "Surface.AssignMulti.XML.AssignRecord"
+msgstr "ModelElementAssignmentRecord"
+
+msgid "Surface.AssignMulti.XML.Condition"
+msgstr "ModelElementAssignmentMultiCondition"
+
+msgid "Surface.AssignMulti.XML.Root"
+msgstr "ModelElementAssignmentMulti"
+
 msgid "Surface.AssignSequence.Dialog.Sequence"
 msgstr "Sequence"
 
@@ -29481,9 +29592,6 @@ msgstr "Icon"
 
 msgid "Surface.ClientIcon.Tooltip"
 msgstr "Assigns a new icon to the clients who are passing this element."
-
-msgid "Surface.ClientIcon.XML.Assign"
-msgstr "ModelElementIconCondition"
 
 msgid "Surface.ClientIcon.XML.Condition"
 msgstr "ModelElementIconCondition"
@@ -36556,6 +36664,9 @@ msgstr "ModelElementTeleportOriginToTarget"
 msgid "Surface.TeleportSource.XML.Root"
 msgstr "ModelElementTeleportOrigin"
 
+msgid "Surface.TeleportSourceMulti.Dialog.BranchingRules"
+msgstr "Branching rules"
+
 msgid "Surface.TeleportSourceMulti.Dialog.DestinationCount"
 msgstr "Number of teleport destinations"
 
@@ -36573,6 +36684,9 @@ msgstr "It is not possible to remove all targets."
 
 msgid "Surface.TeleportSourceMulti.Dialog.Target"
 msgstr "Teleport destination"
+
+msgid "Surface.TeleportSourceMulti.Dialog.TeleportTargets"
+msgstr "Teleport targets"
 
 msgid "Surface.TeleportSourceMulti.Dialog.Title"
 msgstr "Edit duplicate and teleport"
@@ -40093,6 +40207,9 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "Surface.AnimationText.Dialog.FontColor"
 #~ msgstr "Font color"
+
+#~ msgid "Surface.ClientIcon.XML.Assign"
+#~ msgstr "ModelElementIconCondition"
 
 #~ msgid "Surface.Costs.Condition.Error.Info"
 #~ msgstr "The specified condition \"%s\" is invalid at character %d."

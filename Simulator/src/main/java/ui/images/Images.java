@@ -1425,7 +1425,6 @@ public enum Images {
 	/** Symbol "Modelleditor - Kontextmenü 'Visualisierung hinzufügen'" */
 	MODELEDITOR_ELEMENT_ADD_VISUALIZATION("chart_bar.png"),
 
-
 	/** Symbol "Modelleditor - Kontextmenü 'Laufzeitstatistik hinzufügen'" */
 	MODELEDITOR_ELEMENT_ADD_LONG_RUN_STATISTICS("chart_curve_add.png"),
 
@@ -1560,6 +1559,15 @@ public enum Images {
 
 	/** Symbol "Modelleditor - Gruppe 'Zuweisungen' - Element 'Typzuweisung'" */
 	MODELEDITOR_ELEMENT_ASSIGN("Assign.png"),
+
+	/** Symbol "Modelleditor - Gruppe 'Zuweisungen' - Element 'Mehrfach-Typzuweisung'" */
+	MODELEDITOR_ELEMENT_ASSIGN_MULTI("Assign.png"),
+
+	/** Symbol "Modelleditor - Gruppe 'Zuweisungen' - Element 'Mehrfach-Typzuweisung'" - "Kundentyp" */
+	MODELEDITOR_ELEMENT_ASSIGN_MULTI_CLIENT_TYPE("user.png"),
+
+	/** Symbol "Modelleditor - Gruppe 'Zuweisungen' - Element 'Mehrfach-Typzuweisung'" - "Bedingung" */
+	MODELEDITOR_ELEMENT_ASSIGN_MULTI_CONDITION("Decide.png"),
 
 	/** Symbol "Modelleditor - Gruppe 'Zuweisungen' - Element 'Textzuweisung'" */
 	MODELEDITOR_ELEMENT_ASSIGN_STRING("Assign.png"),

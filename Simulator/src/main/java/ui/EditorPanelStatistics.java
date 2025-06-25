@@ -43,6 +43,7 @@ import statistics.StatisticsTimePerformanceIndicator;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ModelElementAssign;
+import ui.modeleditor.elements.ModelElementAssignMulti;
 import ui.modeleditor.elements.ModelElementBatch;
 import ui.modeleditor.elements.ModelElementCounter;
 import ui.modeleditor.elements.ModelElementCounterBatch;
@@ -253,7 +254,7 @@ public class EditorPanelStatistics {
 	private String elementStatisticsNameSpecial(final ModelElementBox element) {
 		if (element instanceof ModelElementDecide) {
 			final ModelElementDecide decide=(ModelElementDecide)element;
-			switch (decide.getMode()) {
+			switch (decide.getDecideRecord().getMode()) {
 			case MODE_CHANCE: return new RunElementDecideByChance(decide).name;
 			case MODE_CLIENTTYPE: return new RunElementDecideByClientType(decide).name;
 			case MODE_CONDITION: return new RunElementDecideByCondition(decide).name;
@@ -477,6 +478,18 @@ public class EditorPanelStatistics {
 	}
 
 	/**
+	 * Generiert den Tooltip-Text für eine Mehrfach-Zuweisung-Station.
+	 * @param statistics	Statistikobjekt dem die Daten entnommen werden sollen
+	 * @param element	Station für die die Statistikdaten zurückgegeben werden sollen
+	 * @return	html-formatierte Statistikdaten oder <code>null</code>, wenn keine Daten dazu zur Verfügung stehen
+	 * @see #buildTooltip(Statistics, ModelElementBox)
+	 */
+	private String buildTooltipAssignMulti(final Statistics statistics, final ModelElementBox element) {
+		// TODI
+		return "";
+	}
+
+	/**
 	 * Generiert den Tooltip-Text für eine Station, bei der alle Arten von Zeiten auftreten können.
 	 * @param statistics	Statistikobjekt dem die Daten entnommen werden sollen
 	 * @param element	Station für die die Statistikdaten zurückgegeben werden sollen
@@ -599,6 +612,7 @@ public class EditorPanelStatistics {
 	private String buildTooltip(final Statistics statistics, final ModelElementBox element) {
 		if (element instanceof ModelElementSource) return buildTooltipSource(statistics,element);
 		if (element instanceof ModelElementAssign) return buildTooltipAssign(statistics,element);
+		if (element instanceof ModelElementAssignMulti) return buildTooltipAssignMulti(statistics,element);
 		if (element instanceof ModelElementProcess) return buildTooltipAllTimes(statistics,element);
 
 		if (element instanceof ModelElementTransportSource) return buildTooltipAllTimes(statistics,element);

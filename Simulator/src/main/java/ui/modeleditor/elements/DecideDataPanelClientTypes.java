@@ -260,20 +260,21 @@ public class DecideDataPanelClientTypes extends JPanel {
 
 	/**
 	 * Prüft die Einstellungen.
-	 * @return	Liefert im Erfolgsfall <code>true</code> (im Fehlerfall wird außerdem eine Fehlermeldung ausgegeben)
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Liefert im Erfolgsfall <code>true</code>
 	 */
-	public boolean checkClientTypes() {
+	public boolean checkClientTypes(final boolean showErrorMessage) {
 		final List<String> usedClientTypes=new ArrayList<>();
 
 		for (int i=0;i<clientTypeCombos.size()-1;i++) for (int j=0;j<clientTypeCombos.get(i).size();j++) {
 			final JComboBox<?> comboBox=clientTypeCombos.get(i).get(j);
 			if (comboBox.getSelectedIndex()<0) {
-				MsgBox.error(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorMissing.Title"),String.format(Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorMissing.Info"),i+1));
+				if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorMissing.Title"),String.format(Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorMissing.Info"),i+1));
 				return false;
 			}
 			final String name=(String)comboBox.getSelectedItem();
 			if (usedClientTypes.indexOf(name)>=0) {
-				MsgBox.error(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorDouble.Title"),String.format(Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorDouble.Info"),i+1,name));
+				if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorDouble.Title"),String.format(Language.tr("Surface.Decide.Dialog.OutgoingEdge.ClientType.ErrorDouble.Info"),i+1,name));
 				return false;
 			}
 			usedClientTypes.add(name);

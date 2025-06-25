@@ -328,7 +328,7 @@ public class TeleportDestinationsPanel extends JPanel {
 
 	/**
 	 * Entfernt eine Ziel-Zeile.
-	 * @param comboBox	Zugehörge Auswahlbox
+	 * @param comboBox	Zugehörige Auswahlbox
 	 */
 	private void removeTarget(final JComboBox<String> comboBox) {
 		final int nr=destinationsComboBoxes.indexOf(comboBox);

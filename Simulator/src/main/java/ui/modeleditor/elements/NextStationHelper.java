@@ -65,6 +65,7 @@ public class NextStationHelper {
 	 */
 	private static void groupAssign(final ModelElementBox source, final JMenu parentMenu, final Consumer<ModelElementBox> addNextStation) {
 		if (!(source instanceof ModelElementAssign)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementAssign(null,null));
+		if (!(source instanceof ModelElementAssignMulti)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementAssignMulti(null,null));
 		if (!(source instanceof ModelElementDecide)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementDecide(null,null));
 		if (!(source instanceof ModelElementDuplicate)) source.addNextStationMenuItem(parentMenu,addNextStation,new ModelElementDuplicate(null,null));
 	}

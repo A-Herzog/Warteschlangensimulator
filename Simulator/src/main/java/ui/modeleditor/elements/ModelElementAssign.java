@@ -307,7 +307,7 @@ public class ModelElementAssign extends ModelElementMultiInSingleOutBox implemen
 		String error=super.loadProperty(name,content,node);
 		if (error!=null) return error;
 
-		if (Language.trAll("Surface.ClientIcon.XML.Assign",name)) {
+		if (Language.trAll("Surface.Assign.XML.Condition",name)) {
 			condition=content;
 			return null;
 		}

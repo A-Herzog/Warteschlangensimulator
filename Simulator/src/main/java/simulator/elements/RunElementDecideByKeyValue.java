@@ -27,6 +27,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementDecide;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementSub;
@@ -64,22 +65,22 @@ public class RunElementDecideByKeyValue extends RunElement {
 	@Override
 	public Object build(final EditModel editModel, final RunModel runModel, final ModelElement element, final ModelElementSub parent, final boolean testOnly) {
 		if (!(element instanceof ModelElementDecide)) return null;
-		if (((ModelElementDecide)element).getMode()!=ModelElementDecide.DecideMode.MODE_KEY_VALUE) return null;
+		if (((ModelElementDecide)element).getDecideRecord(). getMode()!=DecideRecord.DecideMode.MODE_KEY_VALUE) return null;
 
 		final RunElementDecideByKeyValue decide=new RunElementDecideByKeyValue((ModelElementDecide)element);
 
 		/* Schlüssel */
-		if (((ModelElementDecide)element).getKey().isBlank()) return String.format(Language.tr("Simulation.Creator.NoKey"),element.getId());
-		decide.key=((ModelElementDecide)element).getKey();
+		if (((ModelElementDecide)element).getDecideRecord().getKey().isBlank()) return String.format(Language.tr("Simulation.Creator.NoKey"),element.getId());
+		decide.key=((ModelElementDecide)element).getDecideRecord().getKey();
 
 		decide.connectionIds=new ArrayList<>();
 		final ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
-		final List<String> values=((ModelElementDecide)element).getValues();
+		final List<String> values=((ModelElementDecide)element).getDecideRecord().getValues();
 		if (edges.length==0) return String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId());
 		decide.values=new String[Math.max(0,edges.length-1)][];
 
 		/* Mehrere Werte pro Wert-Eintrag? */
-		final boolean multiTextValues=((ModelElementDecide)element).isMultiTextValues();
+		final boolean multiTextValues=((ModelElementDecide)element).getDecideRecord().isMultiTextValues();
 
 		/* Werte */
 		for (int i=0;i<edges.length-1;i++) {
@@ -115,16 +116,16 @@ public class RunElementDecideByKeyValue extends RunElement {
 	@Override
 	public RunModelCreatorStatus test(ModelElement element) {
 		if (!(element instanceof ModelElementDecide)) return null;
-		if (((ModelElementDecide)element).getMode()!=ModelElementDecide.DecideMode.MODE_KEY_VALUE) return null;
+		if (((ModelElementDecide)element).getDecideRecord(). getMode()!=DecideRecord.DecideMode.MODE_KEY_VALUE) return null;
 
 		/* Schlüssel */
-		if (((ModelElementDecide)element).getKey().isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoKey"),element.getId()));
+		if (((ModelElementDecide)element).getDecideRecord().getKey().isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoKey"),element.getId()));
 
 		final ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
-		final List<String> values=((ModelElementDecide)element).getValues();
+		final List<String> values=((ModelElementDecide)element).getDecideRecord().getValues();
 
 		/* Mehrere Werte pro Wert-Eintrag? */
-		final boolean multiTextValues=((ModelElementDecide)element).isMultiTextValues();
+		final boolean multiTextValues=((ModelElementDecide)element).getDecideRecord().isMultiTextValues();
 
 		/* Werte */
 		for (int i=0;i<edges.length-1;i++) {

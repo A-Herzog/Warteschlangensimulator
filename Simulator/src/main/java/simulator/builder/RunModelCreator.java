@@ -59,6 +59,11 @@ public final class RunModelCreator {
 		templatesList.add(new RunElementDisposeWithTable(null));
 		templatesList.add(new RunElementAssign(null));
 		templatesList.add(new RunElementAssignString(null));
+		templatesList.add(new RunElementAssignMultiByChance(null));
+		templatesList.add(new RunElementAssignMultiByCondition(null));
+		templatesList.add(new RunElementAssignMultiByClientType(null));
+		templatesList.add(new RunElementAssignMultiBySequence(null));
+		templatesList.add(new RunElementAssignMultiByKeyValue(null));
 		templatesList.add(new RunElementDelay(null));
 		templatesList.add(new RunElementDelayJS(null));
 		templatesList.add(new RunElementBatch(null));

@@ -40,6 +40,7 @@ import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.AnimationExpression;
 import ui.modeleditor.elements.AxisDrawer;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
 import ui.modeleditor.elements.ModelElementCounter;
 import ui.modeleditor.elements.ModelElementDecide;
@@ -460,13 +461,13 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 			decide.setPosition(new Point(xPosition,yPosition));
 			switch (shortestMode) {
 			case 0:
-				decide.setMode(ModelElementDecide.DecideMode.MODE_CHANCE);
+				decide.getDecideRecord().setMode(DecideRecord.DecideMode.MODE_CHANCE);
 				break;
 			case 1:
-				decide.setMode(ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION);
+				decide.getDecideRecord().setMode(DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION);
 				break;
 			case 2:
-				decide.setMode(ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION);
+				decide.getDecideRecord().setMode(DecideRecord.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION);
 				break;
 			}
 			yPosition+=100;
@@ -695,10 +696,10 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 
 				if (useRetry && retryTeleportDestination!=null) {
 					model.surface.add(retryDecide[i]=new ModelElementDecide(model,model.surface));
-					retryDecide[i].setMode(ModelElementDecide.DecideMode.MODE_CHANCE);
-					retryDecide[i].getRates().clear();
-					retryDecide[i].getRates().add(NumberTools.formatNumberMax(0.75));
-					retryDecide[i].getRates().add(NumberTools.formatNumberMax(0.25));
+					retryDecide[i].getDecideRecord().setMode(DecideRecord.DecideMode.MODE_CHANCE);
+					retryDecide[i].getDecideRecord().getRates().clear();
+					retryDecide[i].getDecideRecord().getRates().add(NumberTools.formatNumberMax(0.75));
+					retryDecide[i].getDecideRecord().getRates().add(NumberTools.formatNumberMax(0.25));
 					retryDecide[i].setPosition(new Point(xPosition+150,processes[i].getPosition(true).y+50));
 
 					model.surface.add(retryTeleportSource[i]=new ModelElementTeleportSource(model,model.surface));
@@ -729,10 +730,10 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 			}
 
 			model.surface.add(forwardingDecide=new ModelElementDecide(model,model.surface));
-			forwardingDecide.setMode(ModelElementDecide.DecideMode.MODE_CHANCE);
-			forwardingDecide.getRates().clear();
-			forwardingDecide.getRates().add(NumberTools.formatNumberMax(0.1));
-			forwardingDecide.getRates().add(NumberTools.formatNumberMax(0.9));
+			forwardingDecide.getDecideRecord().setMode(DecideRecord.DecideMode.MODE_CHANCE);
+			forwardingDecide.getDecideRecord().getRates().clear();
+			forwardingDecide.getDecideRecord().getRates().add(NumberTools.formatNumberMax(0.1));
+			forwardingDecide.getDecideRecord().getRates().add(NumberTools.formatNumberMax(0.9));
 			forwardingDecide.setPosition(new Point(xPosition,yPosition+(useWaitingTimeTolerance?-50:0)));
 
 			model.surface.add(forwardingTeleportSource=new ModelElementTeleportSource(model,model.surface));

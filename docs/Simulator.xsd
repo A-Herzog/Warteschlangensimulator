@@ -526,6 +526,7 @@
   <xs:element ref="ModellElementZuweisung"/>
   <xs:element ref="ModellElementZuweisungText"/>
   <xs:element ref="ModellElementFertigungsplanZuweisung"/>
+  <xs:element ref="ModellElementZuweisungMehrfach"/>
   <xs:element ref="ModellElementKosten"/>
   <xs:element ref="ModellElementVerzoegerung"/>
   <xs:element ref="ModellElementVerzoegerungSkript"/>
@@ -954,6 +955,24 @@
     <xs:element name="ModellElementFertigungsplan" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementZuweisungMehrfach"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>    
+    <xs:element name="ModellElementVerzweigungsmodus" type="xs:string"/>
+	<xs:element ref="ModellElementVerzweigSchluessel"/>
+	<xs:element name="ModellElementVerzweigBeiGleichstand" type="xs:string"/>
+    <xs:element ref="ModellElementZuweisungMehrfachDatensatz"/>
+	<xs:element name="ModellElementZuweisungMehrfachBedingung" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementZuweisungMehrfachDatensatz"><xs:complexType>
+    <xs:attribute name="Rate" type="xs:string"/>
+    <xs:attribute name="Bedingung" type="xs:string"/>
+    <xs:attribute name="Kundentyp" type="xs:string"/>
+    <xs:attribute name="Vielfachheit" type="xs:string"/>
+    <xs:attribute name="Texteigenschaft" type="xs:string"/>
+</xs:complexType></xs:element>
 
 <xs:element name="ModellElementKosten"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -3079,6 +3098,7 @@
   <xs:element ref="ModelElementAssignment"/>
   <xs:element ref="ModelElementAssignmentText"/>  
   <xs:element ref="ModelElementSequenceAssignment"/>
+  <xs:element ref="ModelElementAssignmentMulti"/>
   <xs:element ref="ModelElementCosts"/>
   <xs:element ref="ModelElementDelay"/>
   <xs:element ref="ModelElementDelayScript"/>
@@ -3506,6 +3526,24 @@
     <xs:element name="ModelElementSequence" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementAssignmentMulti"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>  
+    <xs:element name="ModelElementDecideMode" type="xs:string"/>
+	<xs:element ref="ModelElementDecideKey"/>
+	<xs:element name="ModelElementDecideAtTie" type="xs:string"/>
+    <xs:element ref="ModelElementAssignmentRecord"/>
+	<xs:element name="ModelElementAssignmentMultiCondition" type="xs:string"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementAssignmentRecord"><xs:complexType>
+    <xs:attribute name="Rate" type="xs:string"/>
+    <xs:attribute name="Condition" type="xs:string"/>
+    <xs:attribute name="ClientType" type="xs:string"/>
+    <xs:attribute name="Multiplicity" type="xs:string"/>
+    <xs:attribute name="Value" type="xs:string"/>
+</xs:complexType></xs:element>
 
 <xs:element name="ModelElementCosts"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>

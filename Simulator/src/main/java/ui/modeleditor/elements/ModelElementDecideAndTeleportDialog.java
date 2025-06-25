@@ -62,11 +62,11 @@ public class ModelElementDecideAndTeleportDialog extends ModelElementBaseDialog 
 	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
-	 * @param element	Zu bearbeitendes {@link ModelElementDecide}
+	 * @param element	Zu bearbeitendes {@link ModelElementDecideAndTeleport}
 	 * @param readOnly	Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
 	 */
 	public ModelElementDecideAndTeleportDialog(final Component owner, final ModelElementDecideAndTeleport element, final boolean readOnly) {
-		super(owner,Language.tr("Surface.Decide.Dialog.Title"),element,"ModelElementDecideAndTeleport",readOnly);
+		super(owner,Language.tr("Surface.TeleportSourceMulti.Dialog.Title"),element,"ModelElementDecideAndTeleport",readOnly);
 	}
 
 	@Override
@@ -86,14 +86,12 @@ public class ModelElementDecideAndTeleportDialog extends ModelElementBaseDialog 
 
 	@Override
 	protected String getInfoPanelID() {
-		return InfoPanel.stationDecide;
+		return InfoPanel.stationTeleportSourceMulti;
 	}
 
 	@Override
 	protected JComponent getContentPanel() {
-
-
-		final ModelElementDecideAndTeleport decide=(ModelElementDecideAndTeleport)element;
+		final ModelElementDecideAndTeleport teleportSource=(ModelElementDecideAndTeleport)element;
 
 		final JPanel content=new JPanel(new BorderLayout());
 		final JTabbedPane tabs=new JTabbedPane();
@@ -102,11 +100,11 @@ public class ModelElementDecideAndTeleportDialog extends ModelElementBaseDialog 
 		JPanel tab;
 
 		/* Teleportziele */
-		tabs.addTab("Teleportziele",tab=new JPanel(new BorderLayout()));
-		tab.add(teleportDestinations=new TeleportDestinationsPanel(decide.getDestinations(),element.getModel(),readOnly));
+		tabs.addTab(Language.tr("Surface.TeleportSourceMulti.Dialog.TeleportTargets"),tab=new JPanel(new BorderLayout()));
+		tab.add(teleportDestinations=new TeleportDestinationsPanel(teleportSource.getDestinations(),element.getModel(),readOnly));
 
 		/* Verzweigungsregeln */
-		tabs.addTab("Verzweigungsregeln",tab=new JPanel(new BorderLayout()));
+		tabs.addTab(Language.tr("Surface.TeleportSourceMulti.Dialog.BranchingRules"),tab=new JPanel(new BorderLayout()));
 		tab.add(decideDataPanel=new DecideAndTeleportDecideDataPanel());
 
 		/* Icons */
@@ -207,7 +205,7 @@ public class ModelElementDecideAndTeleportDialog extends ModelElementBaseDialog 
 
 	@Override
 	protected boolean checkData() {
-		return decideDataPanel.checkDataWithErrorMessage();
+		return decideDataPanel.checkData(true);
 	}
 
 	@Override

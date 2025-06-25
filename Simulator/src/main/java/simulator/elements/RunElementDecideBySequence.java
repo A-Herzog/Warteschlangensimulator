@@ -27,6 +27,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementDecide;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementSub;
@@ -60,7 +61,7 @@ public class RunElementDecideBySequence extends RunElement {
 	@Override
 	public Object build(final EditModel editModel, final RunModel runModel, final ModelElement element, final ModelElementSub parent, final boolean testOnly) {
 		if (!(element instanceof ModelElementDecide)) return null;
-		if (((ModelElementDecide)element).getMode()!=ModelElementDecide.DecideMode.MODE_SEQUENCE) return null;
+		if (((ModelElementDecide)element).getDecideRecord(). getMode()!=DecideRecord.DecideMode.MODE_SEQUENCE) return null;
 
 		final RunElementDecideBySequence decide=new RunElementDecideBySequence((ModelElementDecide)element);
 
@@ -68,7 +69,7 @@ public class RunElementDecideBySequence extends RunElement {
 		final ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
 		if (edges.length==0) return String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId());
 
-		final List<Integer> edgesMultiplicity=((ModelElementDecide)element).getMultiplicity();
+		final List<Integer> edgesMultiplicity=((ModelElementDecide)element).getDecideRecord().getMultiplicity();
 
 		for (int i=0;i<edges.length;i++) {
 			final ModelElementEdge edge=edges[i];
@@ -79,7 +80,15 @@ public class RunElementDecideBySequence extends RunElement {
 		}
 
 		/* Kundentypzuweisungen */
-		decide.clientTypeNames=((ModelElementDecide)element).getChangedClientTypes().toArray(String[]::new);
+		decide.clientTypeNames=new String[edgesMultiplicity.stream().mapToInt(Integer::intValue).sum()];
+		final List<String> names=((ModelElementDecide)element).getChangedClientTypes();
+		int nr=0;
+		for (int i=0;i<names.size();i++) {
+			final int count=edgesMultiplicity.get(i);
+			for (int j=0;j<count;j++) decide.clientTypeNames[nr+j]=names.get(i);
+			nr+=count;
+		}
+
 		decide.clientTypeIcons=new String[decide.clientTypeNames.length];
 		for (int i=0;i<decide.clientTypeIcons.length;i++) decide.clientTypeIcons[i]=editModel.clientData.getIcon(decide.clientTypeNames[i]);
 
@@ -89,7 +98,7 @@ public class RunElementDecideBySequence extends RunElement {
 	@Override
 	public RunModelCreatorStatus test(final ModelElement element) {
 		if (!(element instanceof ModelElementDecide)) return null;
-		if (((ModelElementDecide)element).getMode()!=ModelElementDecide.DecideMode.MODE_SEQUENCE) return null;
+		if (((ModelElementDecide)element).getDecideRecord(). getMode()!=DecideRecord.DecideMode.MODE_SEQUENCE) return null;
 
 		ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
 		if (edges.length==0) return RunModelCreatorStatus.noEdgeOut(element);

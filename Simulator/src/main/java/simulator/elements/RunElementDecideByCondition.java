@@ -28,6 +28,7 @@ import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementDecide;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementSub;
@@ -63,7 +64,7 @@ public class RunElementDecideByCondition extends RunElement {
 	@Override
 	public Object build(final EditModel editModel, final RunModel runModel, final ModelElement element, final ModelElementSub parent, final boolean testOnly) {
 		if (!(element instanceof ModelElementDecide)) return null;
-		if (((ModelElementDecide)element).getMode()!=ModelElementDecide.DecideMode.MODE_CONDITION) return null;
+		if (((ModelElementDecide)element).getDecideRecord(). getMode()!=DecideRecord.DecideMode.MODE_CONDITION) return null;
 
 		final RunElementDecideByCondition decide=new RunElementDecideByCondition((ModelElementDecide)element);
 
@@ -72,7 +73,7 @@ public class RunElementDecideByCondition extends RunElement {
 		if (edges.length==0) return String.format(Language.tr("Simulation.Creator.NoEdgeOut"),element.getId());
 		decide.conditions=new String[edges.length-1];
 
-		final List<String> editConditions=((ModelElementDecide)element).getConditions();
+		final List<String> editConditions=((ModelElementDecide)element).getDecideRecord().getConditions();
 		for (int i=0;i<edges.length;i++) {
 			final ModelElementEdge edge=edges[i];
 			final int id=findNextId(edge);
@@ -99,7 +100,7 @@ public class RunElementDecideByCondition extends RunElement {
 	@Override
 	public RunModelCreatorStatus test(final ModelElement element) {
 		if (!(element instanceof ModelElementDecide)) return null;
-		if (((ModelElementDecide)element).getMode()!=ModelElementDecide.DecideMode.MODE_CONDITION) return null;
+		if (((ModelElementDecide)element).getDecideRecord(). getMode()!=DecideRecord.DecideMode.MODE_CONDITION) return null;
 
 		ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
 		if (edges.length==0) return RunModelCreatorStatus.noEdgeOut(element);

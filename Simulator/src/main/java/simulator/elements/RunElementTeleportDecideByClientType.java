@@ -27,7 +27,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
-import ui.modeleditor.elements.ModelElementDecide;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementDecideAndTeleport;
 import ui.modeleditor.elements.ModelElementSub;
 
@@ -58,7 +58,7 @@ public class RunElementTeleportDecideByClientType extends RunElement {
 	public Object build(EditModel editModel, RunModel runModel, ModelElement element, ModelElementSub parent, boolean testOnly) {
 		if (!(element instanceof ModelElementDecideAndTeleport)) return null;
 		final ModelElementDecideAndTeleport decideElement=(ModelElementDecideAndTeleport)element;
-		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_CLIENTTYPE) return null;
+		if (decideElement.getDecideRecord().getMode()!=DecideRecord.DecideMode.MODE_CLIENTTYPE) return null;
 		final RunElementTeleportDecideByClientType decide=new RunElementTeleportDecideByClientType((ModelElementDecideAndTeleport)element);
 
 		decide.destinationStrings=decideElement.getDestinations().toArray(String[]::new);
@@ -73,7 +73,7 @@ public class RunElementTeleportDecideByClientType extends RunElement {
 			count++;
 		}
 
-		final List<List<String>> clientTypes=decideElement.getClientTypes();
+		final List<List<String>> clientTypes=decideElement.getDecideRecord().getClientTypes();
 		if (clientTypes.size()<decide.destinationStrings.length-1) return String.format(Language.tr("Simulation.Creator.NotClientTypesForAllDecideConnections"),element.getId());
 
 		/* Array der Verbindungs-Indices erstellen und erstmal alle Kundentypen auf die letzte "Sonst"-Ecke einstellen */
@@ -97,7 +97,7 @@ public class RunElementTeleportDecideByClientType extends RunElement {
 	public RunModelCreatorStatus test(ModelElement element) {
 		if (!(element instanceof ModelElementDecideAndTeleport)) return null;
 		final ModelElementDecideAndTeleport decideElement=(ModelElementDecideAndTeleport)element;
-		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_CLIENTTYPE) return null;
+		if (decideElement.getDecideRecord().getMode()!=DecideRecord.DecideMode.MODE_CLIENTTYPE) return null;
 
 		final List<String> destinationStrings=decideElement.getDestinations();
 		if (destinationStrings.size()==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId()),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);

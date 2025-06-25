@@ -27,6 +27,7 @@ import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementDecide;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementSub;
@@ -62,13 +63,13 @@ public class RunElementDecideByClientType extends RunElement {
 	@Override
 	public Object build(final EditModel editModel, final RunModel runModel, final ModelElement element, final ModelElementSub parent, final boolean testOnly) {
 		if (!(element instanceof ModelElementDecide)) return null;
-		if (((ModelElementDecide)element).getMode()!=ModelElementDecide.DecideMode.MODE_CLIENTTYPE) return null;
+		if (((ModelElementDecide)element).getDecideRecord(). getMode()!=DecideRecord.DecideMode.MODE_CLIENTTYPE) return null;
 
 		final RunElementDecideByClientType decide=new RunElementDecideByClientType((ModelElementDecide)element);
 
 		decide.connectionIds=new ArrayList<>();
 		ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
-		List<List<String>> clientTypes=((ModelElementDecide)element).getClientTypes();
+		List<List<String>> clientTypes=((ModelElementDecide)element).getDecideRecord().getClientTypes();
 		if (clientTypes.size()<edges.length-1) return String.format(Language.tr("Simulation.Creator.NotClientTypesForAllDecideConnections"),element.getId());
 
 		/* Ausgangskanten erfassen */
@@ -105,10 +106,10 @@ public class RunElementDecideByClientType extends RunElement {
 	@Override
 	public RunModelCreatorStatus test(final ModelElement element) {
 		if (!(element instanceof ModelElementDecide)) return null;
-		if (((ModelElementDecide)element).getMode()!=ModelElementDecide.DecideMode.MODE_CLIENTTYPE) return null;
+		if (((ModelElementDecide)element).getDecideRecord(). getMode()!=DecideRecord.DecideMode.MODE_CLIENTTYPE) return null;
 
 		ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
-		List<List<String>> clientTypes=((ModelElementDecide)element).getClientTypes();
+		List<List<String>> clientTypes=((ModelElementDecide)element).getDecideRecord().getClientTypes();
 		if (clientTypes.size()<edges.length-1) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NotClientTypesForAllDecideConnections"),element.getId()));
 
 		/* Ausgangskanten erfassen */

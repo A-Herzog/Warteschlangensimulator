@@ -42,6 +42,7 @@ import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.AnimationExpression;
 import ui.modeleditor.elements.BatchRecord;
 import ui.modeleditor.elements.BatchRecord.BatchMode;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
 import ui.modeleditor.elements.ModelElementBarrier;
 import ui.modeleditor.elements.ModelElementBarrierSignalOption;
@@ -568,16 +569,17 @@ public class MiniQSLoader {
 			if (mode<0 || mode>2) return null;
 
 			final ModelElementDecide element=new ModelElementDecide(model,model.surface);
+			final DecideRecord decideRecord=element.getDecideRecord();
 			switch (mode) {
-			case 0: element.setMode(ModelElementDecide.DecideMode.MODE_CHANCE); break;
-			case 1: element.setMode(ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION); break;
-			case 2: element.setMode(ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION); break;
-			case 3: element.setMode(ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION); break;
-			case 4: element.setMode(ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION); break;
+			case 0: decideRecord.setMode(DecideRecord.DecideMode.MODE_CHANCE); break;
+			case 1: decideRecord.setMode(DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION); break;
+			case 2: decideRecord.setMode(DecideRecord.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION); break;
+			case 3: decideRecord.setMode(DecideRecord.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION); break;
+			case 4: decideRecord.setMode(DecideRecord.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION); break;
 			}
 			if (mode==0) {
 				if (rates==null) return null;
-				element.getRates().addAll(Arrays.asList(rates.split(";")));
+				decideRecord.getRates().addAll(Arrays.asList(rates.split(";")));
 			}
 			element.setName(name);
 

@@ -29,7 +29,7 @@ import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
 import ui.modeleditor.coreelements.ModelElement;
-import ui.modeleditor.elements.ModelElementDecide;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementDecideAndTeleport;
 import ui.modeleditor.elements.ModelElementSub;
 
@@ -62,11 +62,11 @@ public class RunElementTeleportDecideByChance extends RunElement {
 	public Object build(EditModel editModel, RunModel runModel, ModelElement element, ModelElementSub parent, boolean testOnly) {
 		if (!(element instanceof ModelElementDecideAndTeleport)) return null;
 		final ModelElementDecideAndTeleport decideElement=(ModelElementDecideAndTeleport)element;
-		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_CHANCE) return null;
+		if (decideElement.getDecideRecord().getMode()!=DecideRecord.DecideMode.MODE_CHANCE) return null;
 		final RunElementTeleportDecideByChance decide=new RunElementTeleportDecideByChance((ModelElementDecideAndTeleport)element);
 
 		decide.destinationStrings=decideElement.getDestinations().toArray(String[]::new);
-		final List<String> rates=decideElement.getRates();
+		final List<String> rates=decideElement.getDecideRecord().getRates();
 		decide.probabilites=new double[decide.destinationStrings.length];
 		decide.probabilitesStrings=new String[decide.destinationStrings.length];
 		decide.destinationIDs=new int[decide.destinationStrings.length];
@@ -108,10 +108,10 @@ public class RunElementTeleportDecideByChance extends RunElement {
 	public RunModelCreatorStatus test(ModelElement element) {
 		if (!(element instanceof ModelElementDecideAndTeleport)) return null;
 		final ModelElementDecideAndTeleport decideElement=(ModelElementDecideAndTeleport)element;
-		if (decideElement.getMode()!=ModelElementDecide.DecideMode.MODE_CHANCE) return null;
+		if (decideElement.getDecideRecord().getMode()!=DecideRecord.DecideMode.MODE_CHANCE) return null;
 
 		final List<String> destinationStrings=decideElement.getDestinations();
-		final List<String> rates=decideElement.getRates();
+		final List<String> rates=decideElement.getDecideRecord().getRates();
 		double sum=0;
 		int count=0;
 		if (destinationStrings.size()==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId()),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);

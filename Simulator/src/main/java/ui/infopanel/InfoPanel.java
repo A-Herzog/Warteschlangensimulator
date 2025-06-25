@@ -255,6 +255,9 @@ public class InfoPanel {
 	/** Info-ID für den "Textzuweisung"-Bearbeiten-Dialog (Gruppe "Zuweisungen") */
 	public static final String stationAssignString=groupElement+"AssignString";
 
+	/** Info-ID für den "Mehrfach-Typzuweisung"-Bearbeiten-Dialog (Gruppe "Zuweisungen") */
+	public static final String stationAssignMulti=groupElement+"AssignMulti";
+
 	/** Info-ID für den "Kosten"-Bearbeiten-Dialog (Gruppe "Zuweisungen") */
 	public static final String stationCosts=groupElement+"Costs";
 
@@ -909,6 +912,10 @@ public class InfoPanel {
 		register(stationAssignString,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_ASSIGN+"|"+Language.tr("Surface.AssignString.Name"),
 				()->Language.tr("Surface.AssignString.Infotext"));
+
+		register(stationAssignMulti,
+				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_ASSIGN+"|"+Language.tr("Surface.AssignMulti.Name"),
+				()->Language.tr("Surface.AssignMulti.Infotext"));
 
 		register(stationCosts,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_ASSIGN+"|"+Language.tr("Surface.Costs.Name"),

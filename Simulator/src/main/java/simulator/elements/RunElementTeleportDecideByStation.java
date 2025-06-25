@@ -32,8 +32,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
-import ui.modeleditor.elements.ElementWithDecideData;
-import ui.modeleditor.elements.ModelElementDecide;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementDecideAndTeleport;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementProcess;
@@ -49,7 +48,7 @@ import ui.modeleditor.elements.ModelElementVertex;
  */
 public class RunElementTeleportDecideByStation extends RunElement {
 	/** Wie soll bei Gleichstand zwischen mehreren Ausgängen entschieden werden? */
-	private ElementWithDecideData.DecideByStationOnTie decideModeOnTie;
+	private DecideRecord.DecideByStationOnTie decideModeOnTie;
 	/** Namen der Teleport-Zielstationen */
 	private String[] destinationStrings;
 	/** IDs der Teleport-Zielstationen */
@@ -62,7 +61,7 @@ public class RunElementTeleportDecideByStation extends RunElement {
 	/** Über die jeweiligen Ausgangskanten folgenden relevanten Stationen (Übersetzung der IDs aus {@link #nextIds}) */
 	private RunElement[] next;
 	/** Verzweigungsmodus (4 Modi: kürzeste Warteschlange/wenigste Kunden an der nächsten Station/Bedienstation) */
-	private ModelElementDecide.DecideMode mode;
+	private DecideRecord.DecideMode mode;
 
 	/**
 	 * Konstruktor der Klasse
@@ -127,14 +126,14 @@ public class RunElementTeleportDecideByStation extends RunElement {
 	public Object build(EditModel editModel, RunModel runModel, ModelElement element, ModelElementSub parent, boolean testOnly) {
 		if (!(element instanceof ModelElementDecideAndTeleport)) return null;
 		final ModelElementDecideAndTeleport decideElement=(ModelElementDecideAndTeleport)element;
-		final ModelElementDecide.DecideMode mode=decideElement.getMode();
-		if (mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION &&
-				mode!=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION && mode!=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION) return null;
-		final boolean processStation=(mode==ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION);
+		final DecideRecord.DecideMode mode=decideElement.getDecideRecord().getMode();
+		if (mode!=DecideRecord.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION && mode!=DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION &&
+				mode!=DecideRecord.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION && mode!=DecideRecord.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION) return null;
+		final boolean processStation=(mode==DecideRecord.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION || mode==DecideRecord.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION || mode==DecideRecord.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION);
 		final RunElementTeleportDecideByStation decide=new RunElementTeleportDecideByStation((ModelElementDecideAndTeleport)element);
 
 		decide.mode=mode;
-		decide.decideModeOnTie=decideElement.getDecideByStationOnTie();
+		decide.decideModeOnTie=decideElement.getDecideRecord().getDecideByStationOnTie();
 		decide.destinationStrings=decideElement.getDestinations().toArray(String[]::new);
 		decide.destinationIDs=new int[decide.destinationStrings.length];
 		decide.nextIds=new int[decide.destinationStrings.length];
@@ -157,10 +156,10 @@ public class RunElementTeleportDecideByStation extends RunElement {
 	public RunModelCreatorStatus test(ModelElement element) {
 		if (!(element instanceof ModelElementDecideAndTeleport)) return null;
 		final ModelElementDecideAndTeleport decideElement=(ModelElementDecideAndTeleport)element;
-		final ModelElementDecide.DecideMode mode=decideElement.getMode();
-		if (mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION &&
-				mode!=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION && mode!=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION) return null;
-		final boolean processStation=(mode==ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION);
+		final DecideRecord.DecideMode mode=decideElement.getDecideRecord().getMode();
+		if (mode!=DecideRecord.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION && mode!=DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION &&
+				mode!=DecideRecord.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION && mode!=DecideRecord.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION) return null;
+		final boolean processStation=(mode==DecideRecord.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION || mode==DecideRecord.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION || mode==DecideRecord.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION);
 
 		final List<String> destinationStrings=decideElement.getDestinations();
 		if (destinationStrings.size()==0) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoTeleportDestination"),element.getId()),RunModelCreatorStatus.Status.TELEPORT_INVALID_DESTINATION);

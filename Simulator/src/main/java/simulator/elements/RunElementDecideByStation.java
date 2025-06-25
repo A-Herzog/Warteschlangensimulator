@@ -32,7 +32,7 @@ import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
-import ui.modeleditor.elements.ElementWithDecideData;
+import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementDecide;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementProcess;
@@ -48,7 +48,7 @@ import ui.modeleditor.elements.ModelElementVertex;
  */
 public class RunElementDecideByStation extends RunElement {
 	/** Wie soll bei Gleichstand zwischen mehreren Ausgängen entschieden werden? */
-	private ElementWithDecideData.DecideByStationOnTie decideModeOnTie;
+	private DecideRecord.DecideByStationOnTie decideModeOnTie;
 	/** IDs der über die auslaufenden Kanten erreichbaren Folgestationen */
 	private List<Integer> connectionIds;
 	/** Über die auslaufenden Kanten erreichbaren Folgestationen (aus {@link #connectionIds} abgeleitet) */
@@ -58,7 +58,7 @@ public class RunElementDecideByStation extends RunElement {
 	/** Über die jeweiligen Ausgangskanten folgenden relevanten Stationen (Übersetzung der IDs aus {@link #nextIds}) */
 	private RunElement[] next;
 	/** Verzweigungsmodus (4 Modi: kürzeste Warteschlange/wenigste Kunden an der nächsten Station/Bedienstation) */
-	private ModelElementDecide.DecideMode mode;
+	private DecideRecord.DecideMode mode;
 
 	/** Kundentyp-Zuweisungen an den Ausgängen */
 	private String[] clientTypeNames;
@@ -124,14 +124,14 @@ public class RunElementDecideByStation extends RunElement {
 	@Override
 	public Object build(final EditModel editModel, final RunModel runModel, final ModelElement element, final ModelElementSub parent, final boolean testOnly) {
 		if (!(element instanceof ModelElementDecide)) return null;
-		final ModelElementDecide.DecideMode mode=((ModelElementDecide)element).getMode();
-		if (mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION &&
-				mode!=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION && mode!=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION) return null;
-		final boolean processStation=(mode==ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION);
+		final DecideRecord.DecideMode mode=((ModelElementDecide)element).getDecideRecord().getMode();
+		if (mode!=DecideRecord.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION && mode!=DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION &&
+				mode!=DecideRecord.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION && mode!=DecideRecord.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION) return null;
+		final boolean processStation=(mode==DecideRecord.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION || mode==DecideRecord.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION || mode==DecideRecord.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION);
 
 		RunElementDecideByStation decide=new RunElementDecideByStation((ModelElementDecide)element);
 		decide.mode=mode;
-		decide.decideModeOnTie=((ModelElementDecide)element).getDecideByStationOnTie();
+		decide.decideModeOnTie=((ModelElementDecide)element).getDecideRecord().getDecideByStationOnTie();
 
 		decide.connectionIds=new ArrayList<>();
 		decide.nextIds=new ArrayList<>();
@@ -157,10 +157,10 @@ public class RunElementDecideByStation extends RunElement {
 	@Override
 	public RunModelCreatorStatus test(final ModelElement element) {
 		if (!(element instanceof ModelElementDecide)) return null;
-		final ModelElementDecide.DecideMode mode=((ModelElementDecide)element).getMode();
-		if (mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION &&
-				mode!=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION && mode!=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION && mode!=ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION) return null;
-		final boolean processStation=(mode==ModelElementDecide.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION || mode==ModelElementDecide.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION);
+		final DecideRecord.DecideMode mode=((ModelElementDecide)element).getDecideRecord().getMode();
+		if (mode!=DecideRecord.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION && mode!=DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION &&
+				mode!=DecideRecord.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION && mode!=DecideRecord.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION && mode!=DecideRecord.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION) return null;
+		final boolean processStation=(mode==DecideRecord.DecideMode.MODE_MIN_CLIENTS_PROCESS_STATION || mode==DecideRecord.DecideMode.MODE_SHORTEST_QUEUE_PROCESS_STATION || mode==DecideRecord.DecideMode.MODE_MAX_CLIENTS_PROCESS_STATION || mode==DecideRecord.DecideMode.MODE_LONGEST_QUEUE_PROCESS_STATION);
 
 		ModelElementEdge[] edges=((ModelElementDecide)element).getEdgesOut();
 		if (edges.length==0) return RunModelCreatorStatus.noEdgeOut(element);

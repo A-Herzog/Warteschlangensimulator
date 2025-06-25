@@ -195,6 +195,7 @@ public final class ModelElementCatalog {
 			try {
 				addElement(new ModelElementAssign(null,null),null,GROUP_ASSIGN);
 				addElement(new ModelElementAssignString(null,null),null,GROUP_ASSIGN);
+				addElement(new ModelElementAssignMulti(null,null),null,GROUP_ASSIGN);
 				addElement(new ModelElementCosts(null,null),null,GROUP_ASSIGN);
 				addElement(new ModelElementSet(null,null),null,GROUP_ASSIGN);
 				addElement(new ModelElementSetJS(null,null),null,GROUP_ASSIGN);
