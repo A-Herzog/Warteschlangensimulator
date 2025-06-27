@@ -37,6 +37,8 @@ import tools.SetupData;
 import ui.EditorPanel;
 import ui.help.Help;
 import ui.infopanel.InfoPanel;
+import ui.modeleditor.coreelements.ModelElementPosition;
+import ui.modeleditor.elements.ModelElementText;
 import ui.tools.FlatLaFHelper;
 
 /**
@@ -160,6 +162,24 @@ public class ModelGeneratorDialog extends BaseDialog {
 	}
 
 	/**
+	 * Verschiebt das Modell bei Bedarf nach unten, wenn es sonst Elemente gäbe, die nach oben aus der Zeichenfläche herausragen würden.
+	 * @param model	Zu prüfendes und ggf. anzupassendes Modell
+	 */
+	private void fixModelPosition(final EditModel model) {
+		final int minY=model.surface.getElements().stream().filter(e->e instanceof ModelElementPosition).map(e->(ModelElementPosition)e).mapToInt(e->e.getPosition(true).y).min().orElseGet(()->100);
+		if (minY<50) {
+			final int delta=50-minY;
+			final ModelElementText heading=model.surface.getElements().stream().filter(e->e instanceof ModelElementText).map(e->(ModelElementText)e).filter(text->text.getTextSize()>=16).findFirst().orElseGet(()->null);
+			for (var element: model.surface.getElements()) if (element instanceof ModelElementPosition && element!=heading) {
+				final var posElement=(ModelElementPosition)element;
+				final var pos=posElement.getPosition(false);
+				pos.y+=delta;
+				posElement.setPosition(pos);
+			}
+		}
+	}
+
+	/**
 	 * Liefert das aktuelle Modell aus dem Generator-Panel
 	 * @return	Modell aus dem Generator-Panel
 	 */
@@ -168,6 +188,7 @@ public class ModelGeneratorDialog extends BaseDialog {
 		if (index<0) return null;
 		final EditModel model=setups.get(index).getModel();
 		if (FlatLaFHelper.isDark()) EditModelDark.processModel(model,EditModelDark.ColorMode.LIGHT,EditModelDark.ColorMode.DARK);
+		fixModelPosition(model);
 		return model;
 	}
 
