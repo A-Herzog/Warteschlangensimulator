@@ -82,17 +82,19 @@ public class SplashScreenHelper {
 				final var size=splashScreen.getSize();
 				final var graphics=splashScreen.createGraphics();
 
+				final int barHeight=20;
+
 				graphics.setColor(Color.GRAY);
-				graphics.fillRect(0,size.height-20,size.width,size.height);
+				graphics.fillRect(0,size.height-barHeight,size.width,size.height);
 				graphics.setColor(Color.BLUE);
-				graphics.fillRect(0,size.height-20,(int)Math.round(size.width*Math.max(0,Math.min(1,fraction))),size.height);
+				graphics.fillRect(0,size.height-barHeight,(int)Math.round(size.width*Math.max(0,Math.min(1,fraction))),size.height);
 
 				if (info!=null && !info.isBlank()) {
 					graphics.setColor(Color.WHITE);
 					final var metrics=graphics.getFontMetrics();
 					final int oldFontHeight=metrics.getAscent()+metrics.getDescent();
 					final var oldFontSize=graphics.getFont().getSize();
-					graphics.setFont(graphics.getFont().deriveFont(16/oldFontHeight*oldFontSize));
+					graphics.setFont(graphics.getFont().deriveFont((barHeight-4)/oldFontHeight*oldFontSize));
 					final var descent=metrics.getDescent();
 					graphics.drawString(info,5,size.height-descent-2);
 				}
