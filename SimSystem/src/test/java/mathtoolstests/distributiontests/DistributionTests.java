@@ -34,6 +34,7 @@ import org.junit.jupiter.api.Test;
 import mathtools.distribution.AbstractDiscreteRealDistribution;
 import mathtools.distribution.ArcsineDistribution;
 import mathtools.distribution.ChiDistributionImpl;
+import mathtools.distribution.ContinuousBernoulliDistribution;
 import mathtools.distribution.CosineDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
 import mathtools.distribution.DiscreteBorelDistributionImpl;
@@ -1343,6 +1344,122 @@ class DistributionTests {
 
 		testDistributionTools(h);
 		testDistributionParameters(h,new double[] {2,3});
+	}
+
+	/**
+	 * Test: Kontinuierliche Bernoulli-Verteilung
+	 * @see ContinuousBernoulliDistribution
+	 */
+	@Test
+	void ContinuousBernoulliDistribution() {
+		ContinuousBernoulliDistribution dist;
+
+		dist=new ContinuousBernoulliDistribution(2,1,0.5);
+		assertEquals(2,dist.b);
+
+		dist=new ContinuousBernoulliDistribution(100,400,0.5);
+		assertEquals(100,dist.a);
+		assertEquals(400,dist.b);
+		assertEquals(0.5,dist.lambda);
+
+		assertEquals(100,dist.getSupportLowerBound());
+		assertEquals(400,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		assertEquals(0,dist.density(-1));
+		assertEquals(0,dist.density(99));
+		assertTrue(dist.density(100)>0);
+		assertTrue(dist.density(200)>0);
+		assertTrue(dist.density(400)>0);
+		assertEquals(0,dist.density(401));
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(0,dist.cumulativeProbability(0));
+		assertEquals(0,dist.cumulativeProbability(100));
+		assertTrue(dist.cumulativeProbability(200)>0);
+		assertEquals(1,dist.cumulativeProbability(400));
+		assertEquals(1,dist.cumulativeProbability(401));
+
+		dist=(ContinuousBernoulliDistribution)DistributionTools.cloneDistribution(dist);
+		assertEquals(100,dist.a);
+		assertEquals(400,dist.b);
+		assertEquals(0.5,dist.lambda);
+
+		assertEquals(100,dist.getSupportLowerBound());
+		assertEquals(400,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		assertEquals(0,dist.density(-1));
+		assertEquals(0,dist.density(99));
+		assertTrue(dist.density(100)>0);
+		assertTrue(dist.density(200)>0);
+		assertTrue(dist.density(400)>0);
+		assertEquals(0,dist.density(401));
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(0,dist.cumulativeProbability(0));
+		assertEquals(0,dist.cumulativeProbability(100));
+		assertTrue(dist.cumulativeProbability(200)>0);
+		assertEquals(1,dist.cumulativeProbability(400));
+		assertEquals(1,dist.cumulativeProbability(401));
+
+		dist=new ContinuousBernoulliDistribution(dist);
+		assertEquals(100,dist.a);
+		assertEquals(400,dist.b);
+		assertEquals(0.5,dist.lambda);
+
+		assertEquals(100,dist.getSupportLowerBound());
+		assertEquals(400,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		assertEquals(0,dist.density(-1));
+		assertEquals(0,dist.density(99));
+		assertTrue(dist.density(100)>0);
+		assertTrue(dist.density(200)>0);
+		assertTrue(dist.density(400)>0);
+		assertEquals(0,dist.density(401));
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(0,dist.cumulativeProbability(0));
+		assertEquals(0,dist.cumulativeProbability(100));
+		assertTrue(dist.cumulativeProbability(200)>0);
+		assertEquals(1,dist.cumulativeProbability(400));
+		assertEquals(1,dist.cumulativeProbability(401));
+
+		dist=dist.clone();
+		assertEquals(100,dist.a);
+		assertEquals(400,dist.b);
+		assertEquals(0.5,dist.lambda);
+
+		assertEquals(100,dist.getSupportLowerBound());
+		assertEquals(400,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		assertEquals(0,dist.density(-1));
+		assertEquals(0,dist.density(99));
+		assertTrue(dist.density(100)>0);
+		assertTrue(dist.density(200)>0);
+		assertTrue(dist.density(400)>0);
+		assertEquals(0,dist.density(401));
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(0,dist.cumulativeProbability(0));
+		assertEquals(0,dist.cumulativeProbability(100));
+		assertTrue(dist.cumulativeProbability(200)>0);
+		assertEquals(1,dist.cumulativeProbability(400));
+		assertEquals(1,dist.cumulativeProbability(401));
+
+		testDistributionTools(dist);
+		dist=new ContinuousBernoulliDistribution(100,400,0.2);
+		testDistributionParameters(dist,new double[]{100,400,0.2}); /* Parameter wird zum Testen verdoppelt, daher lambda=0.2, damit wir unter 1 bleiben */
 	}
 
 	/**

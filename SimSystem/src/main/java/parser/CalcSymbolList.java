@@ -133,6 +133,7 @@ import parser.symbols.distributions.CalcSymbolDistributionBetaDirect;
 import parser.symbols.distributions.CalcSymbolDistributionCauchy;
 import parser.symbols.distributions.CalcSymbolDistributionChi;
 import parser.symbols.distributions.CalcSymbolDistributionChiSquare;
+import parser.symbols.distributions.CalcSymbolDistributionContinuousBernoulli;
 import parser.symbols.distributions.CalcSymbolDistributionCosine;
 import parser.symbols.distributions.CalcSymbolDistributionExp;
 import parser.symbols.distributions.CalcSymbolDistributionF;
@@ -368,6 +369,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionLogCauchy());
 			addSymbol(new CalcSymbolDistributionLogGamma());
 			addSymbol(new CalcSymbolDistributionInverseGamma());
+			addSymbol(new CalcSymbolDistributionContinuousBernoulli());
 
 			addSymbol(new CalcSymbolEmpiricalDistributionPDF());
 			addSymbol(new CalcSymbolEmpiricalDistributionCDF());

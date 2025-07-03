@@ -341,7 +341,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		/* Start */
 		if (initialTab>=0 && initialTab<tabs.getTabCount()) tabs.setSelectedIndex(initialTab);
 		recalc();
-		setMinSizeRespectingScreensize(850,400);
+		setMinSizeRespectingScreensize(850+Math.max(tabs.getTabCount()-6,0)*100,400);
 		pack();
 		final Dimension size=getSize();
 		setSize(size);

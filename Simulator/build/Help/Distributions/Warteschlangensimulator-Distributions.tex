@@ -798,4 +798,20 @@ shape&=&\frac{mean^2}{sd^2}+2\\
 scale&=&\frac{mean^3}{sd^2}+mean
 \end{eqnarray*}
 
+
+
+
+\section*{Continuous Bernoulli distribution}
+\cm{Continuous Bernoulli distribution (a;b;lambda)}~\\
+\cm{Kontinuierliche Bernoulli-Verteilung (a;b;lambda)}
+
+Conversion between distribution parameters and stochastic characteristics
+\begin{eqnarray*}
+mean&=&\frac{\lambda}{2\lambda-1}+\frac{1}{2\tanh^{-1}(1-2\lambda)} ~\text{if}~ \lambda\neq\frac{1}{2} ~\text{for}~ \lambda=\frac{1}{2}:~ 2\\
+sd&=&\sqrt{-\frac{(1-\lambda)\lambda}{(1-2\lambda)^2}+\frac{1}{(2\tanh^{-1}(1-2\lambda))^2}} ~\text{if}~ \lambda\neq\frac{1}{2} ~\text{for}~ \lambda=\frac{1}{2}:~ \frac{1}{\sqrt{2}}\\
+\end{eqnarray*}
+
+
+
+
 \end{document}

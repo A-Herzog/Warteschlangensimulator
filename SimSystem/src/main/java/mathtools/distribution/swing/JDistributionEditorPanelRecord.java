@@ -30,6 +30,7 @@ import org.apache.commons.math3.distribution.UniformRealDistribution;
 import mathtools.NumberTools;
 import mathtools.distribution.ArcsineDistribution;
 import mathtools.distribution.ChiDistributionImpl;
+import mathtools.distribution.ContinuousBernoulliDistribution;
 import mathtools.distribution.CosineDistributionImpl;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
@@ -84,6 +85,7 @@ import mathtools.distribution.tools.WrapperBorelDistribution;
 import mathtools.distribution.tools.WrapperCauchyDistribution;
 import mathtools.distribution.tools.WrapperChiDistribution;
 import mathtools.distribution.tools.WrapperChiSquaredDistribution;
+import mathtools.distribution.tools.WrapperContinuousBernoulliDistribution;
 import mathtools.distribution.tools.WrapperCosineDistribution;
 import mathtools.distribution.tools.WrapperDataDistribution;
 import mathtools.distribution.tools.WrapperDiscreteUniformDistribution;
@@ -324,6 +326,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new StudentTDistributionPanel());
 		allRecords.add(new LogCauchyDistributionPanel());
 		allRecords.add(new InverseGammaDistributionPanel());
+		allRecords.add(new ContinuousBernoulliDistributionPanel());
 		allRecords.add(new HyperGeomDistributionPanel());
 		allRecords.add(new BinomialDistributionPanel());
 		allRecords.add(new PoissonDistributionPanel());
@@ -1818,6 +1821,40 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double alpha=NumberTools.getPositiveDouble(fields[0],true); if (alpha==null) return null;
 			final Double beta=NumberTools.getPositiveDouble(fields[1],true); if (beta==null) return null;
 			return new InverseGammaDistributionImpl(alpha,beta);
+		}
+	}
+
+	/** Kontinuierliche Bernoulli-Verteilung */
+	private static class ContinuousBernoulliDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public ContinuousBernoulliDistributionPanel() {
+			super (new WrapperContinuousBernoulliDistribution(),new String[] {"a","b","lambda"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			return new String[]{
+					NumberTools.formatNumber(Math.max(0,meanD-3*stdD)),
+					NumberTools.formatNumber(meanD+3*stdD),
+					NumberTools.formatNumber(0.25),
+			};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((ContinuousBernoulliDistribution)distribution).a),
+					NumberTools.formatNumberMax(((ContinuousBernoulliDistribution)distribution).b),
+					NumberTools.formatNumberMax(((ContinuousBernoulliDistribution)distribution).lambda)
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double a=NumberTools.getDouble(fields[0],true); if (a==null) return null;
+			final Double b=NumberTools.getDouble(fields[1],true); if (b==null || a>b) return null;
+			final Double lambda=NumberTools.getDouble(fields[2],true); if (lambda==null || lambda<=0 || lambda>=1) return null;
+			return new ContinuousBernoulliDistribution(a,b,lambda);
 		}
 	}
 

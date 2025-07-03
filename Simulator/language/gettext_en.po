@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-24 22:36+0200\n"
+"POT-Creation-Date: 2025-06-28 18:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3410,6 +3410,12 @@ msgstr "https://en.wikipedia.org/wiki/Chi-squared_distribution"
 
 msgid "Distribution.ChiWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Chi_distribution"
+
+msgid "Distribution.ContinuousBernoulli"
+msgstr "Continuous Bernoulli distribution"
+
+msgid "Distribution.ContinuousBernoulliWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Continuous_Bernoulli_distribution"
 
 msgid "Distribution.Cosine"
 msgstr "Cosine distribution"
@@ -7001,6 +7007,18 @@ msgid "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.RandomNu
 msgstr ""
 "<p>Generates a random number according to the Chi<sup>2</sup> distribution with the number of degrees of freedom according to third parameter.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist"
+msgstr "Continuous Bernoulli distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist.DensityInfo"
+msgstr "<p>Calculates the value of the density of the continuous Bernoulli distribution at the location specified as first parameter over the range specified by the parameters two and three and with distribution parameter according to the fourth parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the continuous Bernoulli distribution at the location specified as first parameter over the range specified by the parameters two and three and with distribution parameter according to the fourth parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the continuous Bernoulli distribution over the range specified by the parameters one and two and with distribution parameter according to the third parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.CosineDistribution"
 msgstr "Cosine distribution"

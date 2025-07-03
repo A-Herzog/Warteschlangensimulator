@@ -4047,6 +4047,40 @@ class SymbolsTests {
 		cmd="LogGammaDist(a;b)";
 		variables=new String[]{"a","b"};
 		testDistribution(cmd,variables,new double[]{4.5,3.5});
+
+		/* Kontinuierliche Bernoulli-Verteilung */
+
+		cmd="ContinuousBernoulliDist(x;a;b;l;0)";
+		variables=new String[]{"x","a","b","l"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,100,400,0.3}));
+		assertTrue(testDistribution(cmd,variables,new double[]{200,100,400,0.3})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,100,400,0.3}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,100,400,0.5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{200,100,400,0.5})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,100,400,0.5}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,100,400,0.7}));
+		assertTrue(testDistribution(cmd,variables,new double[]{200,100,400,0.7})>0);
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,100,400,0.7}));
+
+		cmd="ContinuousBernoulliDist(x;a;b;l;1)";
+		variables=new String[]{"x","a","b","l"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,100,400,0.3}));
+		assertTrue(testDistribution(cmd,variables,new double[]{200,100,400,0.3})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{500,100,400,0.3}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,100,400,0.5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{200,100,400,0.5})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{500,100,400,0.5}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,100,400,0.7}));
+		assertTrue(testDistribution(cmd,variables,new double[]{200,100,400,0.7})>0);
+		assertEquals(1,testDistribution(cmd,variables,new double[]{500,100,400,0.7}));
+
+		testDistributionThrows("ContinuousBernoulliDist(x;a;b;l;2)",variables,new double[]{1000,900,2700});
+
+		cmd="ContinuousBernoulliDist(a;b;l)";
+		variables=new String[]{"a","b","l"};
+		testDistribution(cmd,variables,new double[]{100,400,0.3});
+		testDistribution(cmd,variables,new double[]{100,400,0.5});
+		testDistribution(cmd,variables,new double[]{100,400,0.7});
 	}
 
 	/**

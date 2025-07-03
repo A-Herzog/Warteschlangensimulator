@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-24 22:36+0200\n"
+"POT-Creation-Date: 2025-06-28 18:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3414,6 +3414,12 @@ msgstr "https://de.wikipedia.org/wiki/Chi-Quadrat-Verteilung"
 
 msgid "Distribution.ChiWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Chi_distribution"
+
+msgid "Distribution.ContinuousBernoulli"
+msgstr "Kontinuierliche Bernoulli-Verteilung"
+
+msgid "Distribution.ContinuousBernoulliWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Continuous_Bernoulli_distribution"
 
 msgid "Distribution.Cosine"
 msgstr "Cosinus-Verteilung"
@@ -6997,6 +7003,18 @@ msgid "ExpressionBuilder.ProbabilityDistributions.ChiSquareDistribution.RandomNu
 msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der Chi<sup>2</sup>-Verteilung mit der Anzahl an Freiheitsgraden gemäß dritten Parameter.</p>\n"
 "<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist"
+msgstr "Kontinuierliche Bernoulli-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der kontinuierliche Bernoulli-Verteilung an der als ersten Parameter angegebenen Stelle über dem Bereich gemäß der Parameter zwei und drei und dem Verteilungsparameter gemäß dem vierten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der kontinuierliche Bernoulli-Verteilung an der als ersten Parameter angegebenen Stelle über dem Bereich gemäß der Parameter zwei und drei und dem Verteilungsparameter gemäß dem vierten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der kontinuierliche Bernoulli-Verteilung über dem Bereich gemäß der Parameter eins und zwei und dem Verteilungsparameter gemäß dem dritten Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.CosineDistribution"
 msgstr "Cosinus-Verteilung"
