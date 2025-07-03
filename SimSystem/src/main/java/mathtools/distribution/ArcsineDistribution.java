@@ -66,7 +66,7 @@ public class ArcsineDistribution extends AbstractRealDistribution implements Clo
 	public double density(double x) {
 		if (x<=a || x>=b) return 0;
 		x=(x-a)/(b-a);
-		return 1.0/Math.PI/Math.sqrt(x*(1-x));
+		return 1.0/Math.PI/Math.sqrt(x*(1-x))/(b-a);
 	}
 
 	@Override

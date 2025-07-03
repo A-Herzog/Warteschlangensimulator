@@ -79,7 +79,7 @@ public class SineDistribution extends AbstractRealDistribution implements Clonea
 	public double density(double x) {
 		if (x<=a || x>=b) return 0;
 		x=(x-a)/(b-a);
-		return pdfFactor*Math.sin(Math.PI*x);
+		return pdfFactor*Math.sin(Math.PI*x)/(b-a);
 	}
 
 	@Override

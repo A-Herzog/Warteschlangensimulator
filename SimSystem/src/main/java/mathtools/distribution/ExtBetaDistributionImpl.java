@@ -88,7 +88,8 @@ public final class ExtBetaDistributionImpl extends BetaDistribution implements C
 	@Override
 	public double density(final double x) {
 		if ((x<domainLowerBound) || (x>domainUpperBound)) return 0;
-		return super.density((x-domainLowerBound)*inverseRange);
+		if (domainUpperBound==domainLowerBound) return (x==domainUpperBound)?Double.POSITIVE_INFINITY:0;
+		return super.density((x-domainLowerBound)*inverseRange)/(domainUpperBound-domainLowerBound);
 	}
 
 	@Override
