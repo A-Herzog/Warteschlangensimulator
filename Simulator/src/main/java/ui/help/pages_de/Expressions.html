@@ -1318,6 +1318,14 @@ Die Befehle, für die diese zusätzlichen Parametrierungsmöglichkeiten zur Verf
   <tr><td>Anteil(id)</td><td rowspan="2">Liefert den Anteil des Zählerwertes innerhalb der Zählergruppe, in der er sich befindet.<br>(Kann nur auf "Zähler"-Elemente angewandt werden.)</td></tr>
   <tr><td>Part(id)</td></tr>
   
+  <tr><td>Zähler(id;index)</td><td rowspan="4">Liefert den Wert des Zählers mit 1-basierendem Index index an der Mehrfachzählerstation mit ID id.</td></tr>
+  <tr><td>Counter(id;index)</td></tr>
+  <tr><td>Value(id;index)</td></tr>
+  <tr><td>Wert(id;index)</td></tr>
+
+  <tr><td>Anteil(id;index)</td><td rowspan="2">Liefert den Anteil des Zählerwertes innerhalb der Zählergruppe, in der er sich befindet. Dabei ist index der 1-basierende Index des Zähler an der Mehrfachzählerstation mit ID id.</td></tr>
+  <tr><td>Part(id;index)</td></tr>  
+  
   <tr><td>Zähler_Mittelwert(id)</td><td rowspan="10">Liefert den Mittelwert des Differenzzählers, dessen ID in dem Parameter angegeben wurde.</td></tr>
   <tr><td>Zähler_Mittel(id)</td></tr>
   <tr><td>Counter_Mean(id)</td></tr>

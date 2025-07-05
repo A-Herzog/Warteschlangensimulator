@@ -4517,7 +4517,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[11010] = "XML.RootElementNameError";
     t[11011] = "The root element of the file to be loaded has to be named \"%s\" but is \"%s\".";
     t[11016] = "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Info";
-    t[11017] = "<p>Returns the value of the counter whose ID has been specified in the parameter.</p> <p>The object whose ID has been specified must be a <b>counter</b>, a <b>difference counter</b> or a <b>throughput counter</b>.</p>";
+    t[11017] = "<p>Returns the value of the counter whose ID has been specified in the parameter.</p> <p>The object whose ID has been specified must be a <b>counter</b>, a <b>difference counter</b> or a <b>throughput counter</b>.</p><p>Optionally, a second parameter can be specified, which then specifies the 1-based index within a <b>multi counter</b>.</p>";
     t[11018] = "Surface.Counter.Dialog.GroupName";
     t[11019] = "Name of the counter group";
     t[11020] = "ModelGenerator.RetryDelayDistribution";
@@ -5293,7 +5293,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[12868] = "Surface.AnalogAssign.Dialog.Delete.ConfirmInfoYes";
     t[12869] = "Delete assignment now.";
     t[12870] = "ExpressionBuilder.SimulationCharacteristics.Counter.Part.Info";
-    t[12871] = "<p>Returns the amount that the value of the counter whose ID is specified in the parameter is relative to all counters of the counter group.</p>\n<p>The object whose ID has been specified must be a <b>counter</b>.</p>";
+    t[12871] = "<p>Returns the amount that the value of the counter whose ID is specified in the parameter is relative to all counters of the counter group.</p>\n<p>The object whose ID has been specified must be a <b>counter</b>.</p><p>Optionally, a second parameter can be specified, which then specifies the 1-based index within a <b>multi counter</b>.</p>";
     t[12872] = "Surface.PopupMenu.SimulationStatisticsData.Data.LastLeaveByClientType";
     t[12873] = "Last client leave of client type \"%s\": %s";
     t[12874] = "Surface.Connection.LineMode.MultiLine";

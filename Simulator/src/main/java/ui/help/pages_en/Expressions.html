@@ -1318,7 +1318,15 @@ The commands for which these additional parameterization options are available a
   <tr><td>Anteil(id)</td><td rowspan="2">Gets the share of the counter value in the counter group.<br>(Can only be applied on "Counter" elements.)</td></tr>
   <tr><td>Part(id)</td></tr>
   
-  <tr><td>Zähler_Mittelwert(id)</td><td rowspan="10">Returns the mean value of the differnce counter whose ID has been specified in the parameter.</td></tr>
+  <tr><td>Zähler(id;index)</td><td rowspan="4">Gets the value of the counter with 1-based index at multi counter station id.</td></tr>
+  <tr><td>Counter(id;index)</td></tr>
+  <tr><td>Value(id;index)</td></tr>
+  <tr><td>Wert(id;index)</td></tr>
+
+  <tr><td>Anteil(id;index)</td><td rowspan="2">Gets the share of the counter with 1-based index in the counter group at multi counter station id.</td></tr>
+  <tr><td>Part(id;index)</td></tr>  
+  
+  <tr><td>Zähler_Mittelwert(id)</td><td rowspan="10">Returns the mean value of the difference counter whose ID has been specified in the parameter.</td></tr>
   <tr><td>Zähler_Mittel(id)</td></tr>
   <tr><td>Counter_Mean(id)</td></tr>
   <tr><td>Counter_Average(id)</td></tr>
@@ -1329,7 +1337,7 @@ The commands for which these additional parameterization options are available a
   <tr><td>Wert_Mittelwert(id)</td></tr>
   <tr><td>Wert_Mittel(id)</td></tr>
   
-  <tr><td>Zähler_Maximum(id)</td><td rowspan="8">Returns the maximum value of the differnce counter whose ID has been specified in the parameter.</td></tr>
+  <tr><td>Zähler_Maximum(id)</td><td rowspan="8">Returns the maximum value of the difference counter whose ID has been specified in the parameter.</td></tr>
   <tr><td>Zähler_Max(id)</td></tr>
   <tr><td>Counter_Maximum(id)</td></tr>
   <tr><td>Counter_Max(id)</td></tr>
@@ -1338,7 +1346,7 @@ The commands for which these additional parameterization options are available a
   <tr><td>Wert_Maximum(id)</td></tr>
   <tr><td>Wert_Max(id)</td></tr>
   
-  <tr><td>Zähler_Minimum(id)</td><td rowspan="8">Returns the minimum value of the differnce counter whose ID has been specified in the parameter.</td></tr>
+  <tr><td>Zähler_Minimum(id)</td><td rowspan="8">Returns the minimum value of the difference counter whose ID has been specified in the parameter.</td></tr>
   <tr><td>Zähler_Min(id)</td></tr>
   <tr><td>Counter_Minimum(id)</td></tr>
   <tr><td>Counter_Min(id)</td></tr>
@@ -1347,7 +1355,7 @@ The commands for which these additional parameterization options are available a
   <tr><td>Wert_Minimum(id)</td></tr>
   <tr><td>Wert_Min(id)</td></tr>
   
-  <tr><td>Zähler_Standardabweichung(id)</td><td rowspan="10">Returns the standard deviation of the differnce counter whose ID has been specified in the parameter.</td></tr>
+  <tr><td>Zähler_Standardabweichung(id)</td><td rowspan="10">Returns the standard deviation of the difference counter whose ID has been specified in the parameter.</td></tr>
   <tr><td>Zähler_Std(id)</td></tr>
   <tr><td>Zähler_SD(id)</td></tr>
   <tr><td>Counter_Std(id)</td></tr>

@@ -743,6 +743,14 @@ Liefert den Anteil des Zählerwertes innerhalb der Zählergruppe, in der er sich
 (Kann nur auf ,,Zähler''-Elemente angewandt werden.)
 
 \item
+\cmd{Zähler(id;index)} oder \cmd{Counter(id;index)} oder \cmd{Value(id;index)} oder \cmd{Wert(id;index)}:\\
+Liefert den Wert des Zählers mit 1-basiertem Index \cm{index} an der Mehfachzählerstation \cm{id}.
+
+\item
+\cmd{Anteil(id;index)} oder \cmd{Part(id;index)}:\\
+Liefert den Anteil des Zählerwertes des Zählers mit dem 1-basierend Index \cm{index} innerhalb der Zählergruppe, in der er sich befindet an der Mehrfachzählerstation \cm{id}.
+
+\item
 \cmd{Zähler\_Mittelwert(id)} oder \cmd{Zähler\_Mittel(id)} oder \cmd{Counter\_Mean(id)} oder \cmd{Counter\_Average(id)} oder \cmd{Counter\_avg(id)} oder \cmd{Value\_Mean(id)} oder \cmd{Value\_Average(id)} oder \cmd{Value\_avg(id)} oder \cmd{Wert\_Mittelwert(id)} oder \cmd{Wert\_Mittel(id)}:\\
 Liefert den Mittelwert des Differenzzählers, dessen \cm{id} in dem Parameter angegeben wurde.
 

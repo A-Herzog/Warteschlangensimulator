@@ -4517,7 +4517,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[11010] = "XML.RootElementNameError";
     t[11011] = "Das Wurzelelement der zu ladenden Daten muss \"%s\" hei\u00dfen, ist hier aber \"%s\".";
     t[11016] = "ExpressionBuilder.SimulationCharacteristics.Counter.Counter.Info";
-    t[11017] = "<p>Liefert den Wert des Z\u00e4hlers, dessen ID in dem Parameter angegeben wurde.</p><p>Bei dem Objekt, dessen ID angegben wurde, muss es sich um einen <b>Z\u00e4hler</b>, um einen <b>Differenzz\u00e4hler</b> oder um einen <b>Durchsatzz\u00e4hler</b> handeln.</p>";
+    t[11017] = "<p>Liefert den Wert des Z\u00e4hlers, dessen ID in dem Parameter angegeben wurde.</p><p>Bei dem Objekt, dessen ID angegben wurde, muss es sich um einen <b>Z\u00e4hler</b>, um einen <b>Differenzz\u00e4hler</b> oder um einen <b>Durchsatzz\u00e4hler</b> handeln.</p><p>Optional kann noch ein zweiter Parameter angegeben werden, der dann den 1-basierten Index innerhalb eines <b>Mehrfachz\u00e4hlers</b> angibt.</p>";
     t[11018] = "Surface.Counter.Dialog.GroupName";
     t[11019] = "Name der Z\u00e4hlergruppe";
     t[11020] = "ModelGenerator.RetryDelayDistribution";
@@ -5293,7 +5293,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[12868] = "Surface.AnalogAssign.Dialog.Delete.ConfirmInfoYes";
     t[12869] = "Zuweisung jetzt l\u00f6schen.";
     t[12870] = "ExpressionBuilder.SimulationCharacteristics.Counter.Part.Info";
-    t[12871] = "<p>Liefert den Anteil, den der Wert des Z\u00e4hlers, dessen ID in dem Parameter angegeben wurde, bezogen auf alle Z\u00e4hler der Z\u00e4hlergruppe besitzt.</p><p>Bei dem Objekt, dessen ID angegben wurde, muss es sich um einen <b>Z\u00e4hler</b> handeln.</p>";
+    t[12871] = "<p>Liefert den Anteil, den der Wert des Z\u00e4hlers, dessen ID in dem Parameter angegeben wurde, bezogen auf alle Z\u00e4hler der Z\u00e4hlergruppe besitzt.</p><p>Bei dem Objekt, dessen ID angegben wurde, muss es sich um einen <b>Z\u00e4hler</b> handeln.</p><p>Optional kann noch ein zweiter Parameter angegeben werden, der dann den 1-basierten Index innerhalb eines <b>Mehrfachz\u00e4hlers</b> angibt.</p>";
     t[12872] = "Surface.PopupMenu.SimulationStatisticsData.Data.LastLeaveByClientType";
     t[12873] = "Letzter Kundenabgang von Kundentyp \"%s\": %s";
     t[12874] = "Surface.Connection.LineMode.MultiLine";

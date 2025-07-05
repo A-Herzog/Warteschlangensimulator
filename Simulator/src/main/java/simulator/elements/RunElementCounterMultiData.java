@@ -15,8 +15,12 @@
  */
 package simulator.elements;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import simulator.coreelements.RunElement;
 import simulator.coreelements.RunElementData;
+import simulator.coreelements.RunElementDataWithMultiValues;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
 import statistics.StatisticsMultiPerformanceIndicator;
@@ -28,13 +32,59 @@ import statistics.StatisticsSimpleCountPerformanceIndicator;
  * @see RunElementCounter
  * @see RunElementData
  */
-public class RunElementCounterMultiData extends RunElementData {
-	/** Bedingungen für die Mehrfachzähler */
+public class RunElementCounterMultiData extends RunElementData implements RunElementDataWithMultiValues {
+	/**
+	 * Zugehöriges Statistikobjekt
+	 */
+	private final StatisticsMultiPerformanceIndicator counterStatistic;
+
+	/**
+	 * Bedingungen für die Mehrfachzähler
+	 */
 	public final ExpressionMultiEval[] conditions;
-	/** Statistikobjekte der Mehrfachzähler */
+
+	/**
+	 * Statistikobjekte der Mehrfachzähler
+	 */
 	public final StatisticsSimpleCountPerformanceIndicator[] statistic;
-	/** Statistikobjekt des Mehrfachzählers, der verwendet werden soll, wenn keine der Bedingungen zutrifft */
+
+	/**
+	 * Statistikobjekt des Mehrfachzählers, der verwendet werden soll, wenn keine der Bedingungen zutrifft
+	 */
 	public final StatisticsSimpleCountPerformanceIndicator statisticElse;
+
+	/**
+	 * Name der Zählergruppe in ggf. für die Statistik angepassten Schreibweise
+	 */
+	private final String groupName;
+
+	/**
+	 * Ist der Gruppenname leer?<br>
+	 * Dies beschleunigt {@link #getValue(int, boolean)}
+	 */
+	private final boolean groupNameIsEmpty;
+
+	/**
+	 * Name der Zählergruppe mit angehängtem "-", so dass bei der Zählung
+	 * alle passenden Zähler in der Gruppe in der Statistik leichter
+	 * bzw. speichersparsamer gefunden werden können
+	 */
+	private final String groupNameExt;
+
+
+	/**
+	 * Statistikobjekte für die Zähler in der Gruppe<br>
+	 * (Ist notwendig, um in {@link #getValue(int, boolean)} auch einen Anteil liefern zu können.)
+	 */
+	private StatisticsSimpleCountPerformanceIndicator[] indicators;
+
+	/**
+	 * Entspricht dieser Wert noch der Anzahl an Einträgen in {@link #counterStatistic},
+	 * so kann {@link #indicators} in {@link #getValue(int, boolean)} direkt weiterverwendet
+	 * werden, ansonsten muss es neu aufgebaut werden.
+	 */
+	private int indicatorsSize;
+
 
 	/**
 	 * Konstruktor der Klasse <code>RunElementCounterData</code>
@@ -50,7 +100,12 @@ public class RunElementCounterMultiData extends RunElementData {
 	public RunElementCounterMultiData(final RunElement station, final String groupName, final String[] conditions, final String[] counterNames, final String counterNameElse, final StatisticsMultiPerformanceIndicator counterStatistic, final String[] variableNames, final SimulationData simData) {
 		super(station,simData);
 
-		final String groupNameExt=groupName.replace('-','_')+"-";
+		this.counterStatistic=counterStatistic;
+
+		this.groupName=groupName.replace('-','_');
+		groupNameExt=this.groupName+"-";
+		groupNameIsEmpty=this.groupName.isEmpty();
+
 		this.conditions=new ExpressionMultiEval[conditions.length];
 		statistic=new StatisticsSimpleCountPerformanceIndicator[conditions.length];
 
@@ -60,5 +115,44 @@ public class RunElementCounterMultiData extends RunElementData {
 			statistic[i]=(StatisticsSimpleCountPerformanceIndicator)counterStatistic.get(groupNameExt+counterNames[i]);
 		}
 		statisticElse=(StatisticsSimpleCountPerformanceIndicator)counterStatistic.get(groupNameExt+counterNameElse);
+	}
+
+	@Override
+	public int getValueCount() {
+		return statistic.length+1; /* "+1" für "statisticElse" */
+	}
+
+	@Override
+	public double getValue(int index, boolean fullValue) {
+		/* Ungültiger Index */
+		if (index<0 || index>statistic.length) return 0;
+
+		final StatisticsSimpleCountPerformanceIndicator stat=(index==statistic.length)?statisticElse:statistic[index];
+
+		/* Aktueller Wert */
+		if (fullValue) return stat.get();
+
+		/* Anteil */
+		if (groupNameIsEmpty) return 1.0; /* Kein Gruppenname, keine Summe */
+
+		/* Liste der Statistikdaten für diese Gruppe */
+		if (indicators==null || indicatorsSize!=counterStatistic.size()) {
+			final List<StatisticsSimpleCountPerformanceIndicator> list=new ArrayList<>();
+			for (String name: counterStatistic.getNames()) {
+				if (name.startsWith(groupNameExt)) list.add((StatisticsSimpleCountPerformanceIndicator)counterStatistic.get(name));
+			}
+			indicators=list.toArray(StatisticsSimpleCountPerformanceIndicator[]::new);
+			indicatorsSize=counterStatistic.size();
+		}
+
+		/* Summe berechnen */
+		long sum=0;
+		for (StatisticsSimpleCountPerformanceIndicator indicator: indicators) sum+=indicator.get();
+
+		if (sum>0) {
+			return ((double)stat.get())/sum;
+		} else {
+			return 0.0;
+		}
 	}
 }

@@ -78,6 +78,14 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 	}
 
 	/**
+	 * Können Daten für eine Station und darin für einen bestimmten Index (der kein Kundentyp ist) berechnet werden?
+	 * @return	Wird hier <code>true</code> zurückgegeben, so muss {@link #calcStationIndex(RunElementData, int)} implementiert werden.
+	 */
+	protected boolean hasStationAndIndexData() {
+		return false;
+	}
+
+	/**
 	 * Berechnet die Daten über alle Stationen hinweg
 	 * @return	Wert berechnet über alle Stationen hinweg
 	 * @see #hasAllData()
@@ -102,6 +110,16 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 	 * @return	Wert berechnet für Station und darin den angegebenen Kundentyp
 	 */
 	protected double calcStationClient(final RunElementData data, final int clientTypeIndex) {
+		return 0.0;
+	}
+
+	/**
+	 * Berechnet den Wert für eine Station und darin für einen Index
+	 * @param data	Laufzeit-Datenobjekt der Station
+	 * @param index	Index für den der Wert berechnet werden soll
+	 * @return	Wert berechnet für Station und darin den angegebenen Index
+	 */
+	protected double calcStationIndex(final RunElementData data, final int index) {
 		return 0.0;
 	}
 
@@ -214,6 +232,16 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 			return calcStationClient(stationData,clientTypeIndex);
 		}
 
+		/* Station und Indexwert an Station (der aber nicht Kundentyp-ID ist) */
+		if (parameters.length==2 && hasStationAndIndexData()) {
+			final RunElementData stationData=getRunElementDataForID(parameters[0]);
+			if (stationData==null) return 0.0;
+
+			final int intID=(int)FastMath.round(parameters[1]);
+
+			return calcStationIndex(stationData,intID-1); /* "-1": Umrechnung von nutzerseitig 1-basierendem Index auf internen 0-basierenden Index */
+		}
+
 		/* Station und Kundentyp an Mehrfachquelle */
 		if (parameters.length==3 && hasStationAndClientData()) {
 			final RunElementData stationData=getRunElementDataForID(parameters[0]);
@@ -311,6 +339,16 @@ public abstract class CalcSymbolStationData extends CalcSymbolSimData {
 			if (clientTypeIndex<0) return fallbackValue;
 
 			return calcStationClient(stationData,clientTypeIndex);
+		}
+
+		/* Station und Indexwert an Station (der aber nicht Kundentyp-ID ist) */
+		if (parameters.length==2 && hasStationAndIndexData()) {
+			final RunElementData stationData=getRunElementDataForID(parameters[0]);
+			if (stationData==null) return 0.0;
+
+			final int intID=(int)FastMath.round(parameters[1]);
+
+			return calcStationIndex(stationData,intID-1); /* "-1": Umrechnung von nutzerseitig 1-basierendem Index auf internen 0-basierenden Index */
 		}
 
 		/* Station und Kundentyp an Mehrfachquelle */

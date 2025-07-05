@@ -16,6 +16,7 @@
 package simulator.simparser.symbols;
 
 import simulator.coreelements.RunElementData;
+import simulator.coreelements.RunElementDataWithMultiValues;
 import simulator.coreelements.RunElementDataWithValue;
 import simulator.simparser.coresymbols.CalcSymbolStationData;
 
@@ -50,5 +51,16 @@ public class CalcSymbolSimDataCounterPart extends CalcSymbolStationData {
 	protected double calc(final RunElementData data) {
 		if (!(data instanceof RunElementDataWithValue)) return 0;
 		return ((RunElementDataWithValue)data).getValue(false);
+	}
+
+	@Override
+	protected boolean hasStationAndIndexData() {
+		return true;
+	}
+
+	@Override
+	protected double calcStationIndex(final RunElementData data, final int index) {
+		if (!(data instanceof RunElementDataWithMultiValues)) return 0;
+		return ((RunElementDataWithMultiValues)data).getValue(index,false);
 	}
 }
