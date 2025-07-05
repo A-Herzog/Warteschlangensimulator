@@ -7589,7 +7589,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[18638] = "ModelDescription.Input.EOFMode.Terminate";
     t[18639] = "Simulation beenden";
     t[18640] = "ExpressionBuilder.MathematicalFunctions.RandomRangeInt.Info";
-    t[18641] = "<p>Liefert eine zuf\u00e4llige Ganzzahl x und y (jeweils einschlie\u00dflich). Es muss x<=y sein.</p>";
+    t[18641] = "<p>Liefert eine zuf\u00e4llige Ganzzahl im Bereich von x bis y (jeweils einschlie\u00dflich). Es muss x&le;y sein.</p>";
     t[18644] = "Surface.Conveyor.Dialog.CapacityNeededGlobal.ErrorInfo";
     t[18645] = "Die ben\u00f6tigte Kapazit\u00e4t pro Kunde (im Standardfall) \"%s\" ist ab Zeichen %d ung\u00fcltig.";
     t[18648] = "SettingsDialog.Tabs.Updates";

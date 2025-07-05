@@ -7589,7 +7589,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[18638] = "ModelDescription.Input.EOFMode.Terminate";
     t[18639] = "Terminate simulation";
     t[18640] = "ExpressionBuilder.MathematicalFunctions.RandomRangeInt.Info";
-    t[18641] = "<p>Integer random number in range x and y (both inclusive). Thereby x<=y has to be satisfied.</p>";
+    t[18641] = "<p>Integer random number in range from x to y (both inclusive). Thereby x&le;y has to be satisfied.</p>";
     t[18644] = "Surface.Conveyor.Dialog.CapacityNeededGlobal.ErrorInfo";
     t[18645] = "The needed capacity per client (in the default case) \"%s\" is invalid at character %d.";
     t[18648] = "SettingsDialog.Tabs.Updates";

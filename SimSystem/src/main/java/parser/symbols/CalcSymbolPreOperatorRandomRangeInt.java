@@ -56,7 +56,7 @@ public final class CalcSymbolPreOperatorRandomRangeInt extends CalcSymbolPreOper
 		final long a=Math.round(Math.min(parameters[0],parameters[1]));
 		final long b=Math.round(Math.max(parameters[0],parameters[1]));
 
-		return a+Math.round(calcSystem.getRandomDouble()*(b-a));
+		return a+Math.floor(calcSystem.getRandomDouble()*(b-a+1));
 	}
 
 	@Override
@@ -66,6 +66,6 @@ public final class CalcSymbolPreOperatorRandomRangeInt extends CalcSymbolPreOper
 		final long a=Math.round(Math.min(parameters[0],parameters[1]));
 		final long b=Math.round(Math.max(parameters[0],parameters[1]));
 
-		return a+Math.round(calcSystem.getRandomDouble()*(b-a));
+		return a+Math.floor(calcSystem.getRandomDouble()*(b-a+1));
 	}
 }
