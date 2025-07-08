@@ -1,0 +1,1 @@
+In the three-doors problem, the candidate has to choose one of three possible doors. Behind one of the three is a prize; behind the others only rivets. The quiz master then opens one door other than the one selected by the candidate (but behind which there is also no prize). The candidate is then given the choice to change their mind again.

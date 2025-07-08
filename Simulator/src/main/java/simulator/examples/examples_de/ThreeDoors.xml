@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.8.0</ModellVersion>
+  <ModellName>Drei-Tore-Ptoblem</ModellName>
+  <ModellBeschreibung>Bei dem Drei-Tore-Problem muss der Kandidat eines von drei möglichen
+Toren auswählen. Hinter einem der drei befindet sich ein Gewinn; hinter den anderen nur Nieten.
+Der Quizmaster öffnet danach ein anderes als das vom Kandidaten ausgewähltes Tor
+(hinter dem sich aber auch kein Gewinn befindet). Der Kandidat wird danach vor die Wahl
+gestellt, sich noch einmal umzuentscheiden.
+
+Naiv könnte man meinen, dass ein Umentscheiden ohne Bedeutung ist: Egal, welches
+der drei Tore der Kandidat wählt, beträgt die Gewinnwahrscheinlichkeit stets 1/3.
+Dies stimmt jedoch so nicht: Da der Quizmaster nie das Gewinn-Tor öffnet, beträgt
+die Gewinnwahrscheinlichkeit 1/3 für "Wahl beibehalten" zu 2/3 für "Wahl ändern".
+
+Die Fragestellung ist in der Literatur auch als das Ziegenproblem bekannt, siehe:
+https://de.wikipedia.org/wiki/Ziegenproblem</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Kandidat</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="600"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementAusdruck ErsteAnkunftBeiStart="1" Zeitbasis="Sekunden">10</ModellElementAusdruck>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVariable id="2">
+      <ModellElementName>Gewinn</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="250" y="600"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="Prize">randomIntRange(1;3)</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementKante id="3">
+      <ModellElementName>Ankünfte (Kandidat)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="2" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationBild id="4">
+      <ModellElementGroesse h="50" w="50" x="150" y="150"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten Ausdruck="Prize==1">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACO0lEQVR4XoVSS2sTURTOSlfu/AndCC78Bd2JLgQXKt0ICkWKSyNKwEGr0YKgFbStsVJtatVakCQ1UUtKxEljdGHBBs2TtJnbPDqTpA1JJiUk+bxn2plOquKBjzn3fI9zZxgLAIuOsN9yPBK2hM2z//FdgkTEolYrR8CFwl7zv/guQWx5P9T6AGLL+zp03rtR56M/tvk/At4uPEZwsQ8zPntDFMVEnBtoYyhwtsjP7ueeESx8OoOR17ZsVwAneziGJ/wluL5uYOx9AaqqwtjIn8ViEfY3WTg+yLg4mlTIYwR8ET1OxhiezCuYDZYx6lVA5Xy3vXHSM6Sdr73I4uHcOqzjaZDHCAiKgRYvvPpc5gIZ/qWKZrgzm4Pjo4wbL+nGgMNVwNUJBldAxqI4v2UEhERfp9lsaiJzXZ/O4pF3HbYpZsza7TZkWUbym9CCHsCWrO1EPAp6Db3oRg53HrZnDHNiSZuVy2XEY79QSPughA/tBmyEDrQamdtIJaPax8rn82DSCtbWmAYKVhQFqyspVDJPQVryGAG5wcOd4uQAaqm7UJiIijSNhjRkQJXuY5PNoC7dg5qyg7TkMQJK3oMt+cE5ZK2noIz1Y9N7CbXvgiYmUE8z4khDWvKYX2GrkbmFSuAKlPELyAl9kPpPYPX0UQ3U04w40pCWPOYAZ/XnSU7c7Lr6X8E1pCWPOaCHY5ijUY0cQy1+Hmr6MhcPaqCeZsSRZke7+yfq4MNeDoHDzZHgqO+AepoR12v2/AbbXw90kJBZdwAAAABJRU5ErkJggg==</ModellElementBildDaten>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementAnimationBild>
+    <ModellElementAnimationBild id="5">
+      <ModellElementGroesse h="50" w="50" x="150" y="250"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten Ausdruck="Prize==2">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACO0lEQVR4XoVSS2sTURTOSlfu/AndCC78Bd2JLgQXKt0ICkWKSyNKwEGr0YKgFbStsVJtatVakCQ1UUtKxEljdGHBBs2TtJnbPDqTpA1JJiUk+bxn2plOquKBjzn3fI9zZxgLAIuOsN9yPBK2hM2z//FdgkTEolYrR8CFwl7zv/guQWx5P9T6AGLL+zp03rtR56M/tvk/At4uPEZwsQ8zPntDFMVEnBtoYyhwtsjP7ueeESx8OoOR17ZsVwAneziGJ/wluL5uYOx9AaqqwtjIn8ViEfY3WTg+yLg4mlTIYwR8ET1OxhiezCuYDZYx6lVA5Xy3vXHSM6Sdr73I4uHcOqzjaZDHCAiKgRYvvPpc5gIZ/qWKZrgzm4Pjo4wbL+nGgMNVwNUJBldAxqI4v2UEhERfp9lsaiJzXZ/O4pF3HbYpZsza7TZkWUbym9CCHsCWrO1EPAp6Db3oRg53HrZnDHNiSZuVy2XEY79QSPughA/tBmyEDrQamdtIJaPax8rn82DSCtbWmAYKVhQFqyspVDJPQVryGAG5wcOd4uQAaqm7UJiIijSNhjRkQJXuY5PNoC7dg5qyg7TkMQJK3oMt+cE5ZK2noIz1Y9N7CbXvgiYmUE8z4khDWvKYX2GrkbmFSuAKlPELyAl9kPpPYPX0UQ3U04w40pCWPOYAZ/XnSU7c7Lr6X8E1pCWPOaCHY5ijUY0cQy1+Hmr6MhcPaqCeZsSRZke7+yfq4MNeDoHDzZHgqO+AepoR12v2/AbbXw90kJBZdwAAAABJRU5ErkJggg==</ModellElementBildDaten>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementAnimationBild>
+    <ModellElementAnimationBild id="6">
+      <ModellElementGroesse h="50" w="50" x="150" y="350"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten Ausdruck="Prize==3">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACO0lEQVR4XoVSS2sTURTOSlfu/AndCC78Bd2JLgQXKt0ICkWKSyNKwEGr0YKgFbStsVJtatVakCQ1UUtKxEljdGHBBs2TtJnbPDqTpA1JJiUk+bxn2plOquKBjzn3fI9zZxgLAIuOsN9yPBK2hM2z//FdgkTEolYrR8CFwl7zv/guQWx5P9T6AGLL+zp03rtR56M/tvk/At4uPEZwsQ8zPntDFMVEnBtoYyhwtsjP7ueeESx8OoOR17ZsVwAneziGJ/wluL5uYOx9AaqqwtjIn8ViEfY3WTg+yLg4mlTIYwR8ET1OxhiezCuYDZYx6lVA5Xy3vXHSM6Sdr73I4uHcOqzjaZDHCAiKgRYvvPpc5gIZ/qWKZrgzm4Pjo4wbL+nGgMNVwNUJBldAxqI4v2UEhERfp9lsaiJzXZ/O4pF3HbYpZsza7TZkWUbym9CCHsCWrO1EPAp6Db3oRg53HrZnDHNiSZuVy2XEY79QSPughA/tBmyEDrQamdtIJaPax8rn82DSCtbWmAYKVhQFqyspVDJPQVryGAG5wcOd4uQAaqm7UJiIijSNhjRkQJXuY5PNoC7dg5qyg7TkMQJK3oMt+cE5ZK2noIz1Y9N7CbXvgiYmUE8z4khDWvKYX2GrkbmFSuAKlPELyAl9kPpPYPX0UQ3U04w40pCWPOYAZ/XnSU7c7Lr6X8E1pCWPOaCHY5ijUY0cQy1+Hmr6MhcPaqCeZsSRZke7+yfq4MNeDoHDzZHgqO+AepoR12v2/AbbXw90kJBZdwAAAABJRU5ErkJggg==</ModellElementBildDaten>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementAnimationBild>
+    <ModellElementText id="7">
+      <ModellElementGroesse h="23" w="44" x="50" y="150"/>
+      <ModellElementTextzeile>Tor 1</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="8">
+      <ModellElementGroesse h="23" w="44" x="50" y="250"/>
+      <ModellElementTextzeile>Tor 2</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="9">
+      <ModellElementGroesse h="23" w="44" x="50" y="350"/>
+      <ModellElementTextzeile>Tor 3</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="10">
+      <ModellElementGroesse h="32" w="74" x="150" y="100"/>
+      <ModellElementTextzeile>Tatsächlicher</ModellElementTextzeile>
+      <ModellElementTextzeile>Gewinn</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementEnde id="11">
+      <ModellElementGroesse h="50" w="100" x="1500" y="600"/>
+      <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementText id="13">
+      <ModellElementGroesse h="32" w="143" x="230" y="555"/>
+      <ModellElementTextzeile>Tor, hinter dem sich der</ModellElementTextzeile>
+      <ModellElementTextzeile>Gewinn befindet festlegen</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementVariable id="14">
+      <ModellElementName>Auswahl</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="400" y="600"/>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="Select">randomIntRange(1;3)</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="2" Element2="14" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVariable id="15">
+      <ModellElementName>Reset</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1350" y="600"/>
+      <ModellElementVerbindung Element="45" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="Select">0</ModellElementVariablenzuweisung>
+      <ModellElementVariablenzuweisung Variable="Prize">0</ModellElementVariablenzuweisung>
+      <ModellElementVariablenzuweisung Variable="Open">0</ModellElementVariablenzuweisung>
+      <ModellElementVariablenzuweisung Variable="FinalSelect">0</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementKante id="17">
+      <ModellElementVerbindung Element1="15" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="18">
+      <ModellElementGroesse h="32" w="63" x="250" y="100"/>
+      <ModellElementTextzeile>Wahl des</ModellElementTextzeile>
+      <ModellElementTextzeile>Kandidaten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBild id="19">
+      <ModellElementGroesse h="50" w="50" x="250" y="150"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten Ausdruck="Select==1">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACaklEQVR4Xo2TSUwTURjHuUg8cFBj9ICNQFsIq7LbWnDD0hpIiFGQqKjxztWDHvCkBxK9mXhRAUUSUwXKKvtatlYRqnTK2pbO0unYoa3Rg3+fJZIyZqKHf+bN997/977ve+/FAIiREztTnMtOFV2UxqP1VyBazJSOYiZPCtL4fwEYi66KtxrAzxngHTlRJ53/J4Ce0PpFeyW27NXwDBb8cPfnxUrXyALocW0dbzUiuHQ9AmDHz8HVk9MsXRcBcHOn4kizbpF6m0m9dmIObZuvQvxUiq8zWgRsl0EPFmPdnBVea82kVk3pppU3qbXLLSmKGHa6aEFYLIfovILQSg3RTYSdN7C1YIAwlQn/WCr4sXwyriDjMnAD5+HtKsLGu1xQr9Tcn3qX/fNlCK/fRtB+BqIth+ycBWEiDfxwMri+JLBdR8GYE+AbKIW7rQDUS5XgaFAeiAC8o5rYzeFCF2+9gBBVg8DccQiWDPhHU4hBBbY7gZiPwDdkJOZCUE2qoKMh6fCuJnoG8uPcfXmMuFgN8YN+O/UhNbj3SWA6FQSQCK5fD0eT8tvS80TFThOjO+rqzr7HTpRAnK8CP0J271dup94eD7anAJvtWnx5lmDadQrRPxsdxxp9FiMCs0bwo9kki7PkqwfbmQG6NRlesw6LT+JtsoC1tsxJ/3Q5AtZLpAcVoHtPw9OhiaTO9ZaAbi/G/KNDXlnA6tv0dWGmAp4uDZzN6u+OJlXj0ovEx5+fKkLLjWnwmDSwPdwflgWQyxF0tqQEyfnWR8d/62P9wVrbg32+2ftxP2UBztfJ16RGqabv7q2y3Nmz8y5+AQ/P1RLJOW5eAAAAAElFTkSuQmCC</ModellElementBildDaten>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementAnimationBild>
+    <ModellElementAnimationBild id="20">
+      <ModellElementGroesse h="50" w="50" x="250" y="250"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten Ausdruck="Select==2">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACaklEQVR4Xo2TSUwTURjHuUg8cFBj9ICNQFsIq7LbWnDD0hpIiFGQqKjxztWDHvCkBxK9mXhRAUUSUwXKKvtatlYRqnTK2pbO0unYoa3Rg3+fJZIyZqKHf+bN997/977ve+/FAIiREztTnMtOFV2UxqP1VyBazJSOYiZPCtL4fwEYi66KtxrAzxngHTlRJ53/J4Ce0PpFeyW27NXwDBb8cPfnxUrXyALocW0dbzUiuHQ9AmDHz8HVk9MsXRcBcHOn4kizbpF6m0m9dmIObZuvQvxUiq8zWgRsl0EPFmPdnBVea82kVk3pppU3qbXLLSmKGHa6aEFYLIfovILQSg3RTYSdN7C1YIAwlQn/WCr4sXwyriDjMnAD5+HtKsLGu1xQr9Tcn3qX/fNlCK/fRtB+BqIth+ycBWEiDfxwMri+JLBdR8GYE+AbKIW7rQDUS5XgaFAeiAC8o5rYzeFCF2+9gBBVg8DccQiWDPhHU4hBBbY7gZiPwDdkJOZCUE2qoKMh6fCuJnoG8uPcfXmMuFgN8YN+O/UhNbj3SWA6FQSQCK5fD0eT8tvS80TFThOjO+rqzr7HTpRAnK8CP0J271dup94eD7anAJvtWnx5lmDadQrRPxsdxxp9FiMCs0bwo9kki7PkqwfbmQG6NRlesw6LT+JtsoC1tsxJ/3Q5AtZLpAcVoHtPw9OhiaTO9ZaAbi/G/KNDXlnA6tv0dWGmAp4uDZzN6u+OJlXj0ovEx5+fKkLLjWnwmDSwPdwflgWQyxF0tqQEyfnWR8d/62P9wVrbg32+2ftxP2UBztfJ16RGqabv7q2y3Nmz8y5+AQ/P1RLJOW5eAAAAAElFTkSuQmCC</ModellElementBildDaten>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementAnimationBild>
+    <ModellElementAnimationBild id="21">
+      <ModellElementGroesse h="50" w="50" x="250" y="350"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten Ausdruck="Select==3">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACaklEQVR4Xo2TSUwTURjHuUg8cFBj9ICNQFsIq7LbWnDD0hpIiFGQqKjxztWDHvCkBxK9mXhRAUUSUwXKKvtatlYRqnTK2pbO0unYoa3Rg3+fJZIyZqKHf+bN997/977ve+/FAIiREztTnMtOFV2UxqP1VyBazJSOYiZPCtL4fwEYi66KtxrAzxngHTlRJ53/J4Ce0PpFeyW27NXwDBb8cPfnxUrXyALocW0dbzUiuHQ9AmDHz8HVk9MsXRcBcHOn4kizbpF6m0m9dmIObZuvQvxUiq8zWgRsl0EPFmPdnBVea82kVk3pppU3qbXLLSmKGHa6aEFYLIfovILQSg3RTYSdN7C1YIAwlQn/WCr4sXwyriDjMnAD5+HtKsLGu1xQr9Tcn3qX/fNlCK/fRtB+BqIth+ycBWEiDfxwMri+JLBdR8GYE+AbKIW7rQDUS5XgaFAeiAC8o5rYzeFCF2+9gBBVg8DccQiWDPhHU4hBBbY7gZiPwDdkJOZCUE2qoKMh6fCuJnoG8uPcfXmMuFgN8YN+O/UhNbj3SWA6FQSQCK5fD0eT8tvS80TFThOjO+rqzr7HTpRAnK8CP0J271dup94eD7anAJvtWnx5lmDadQrRPxsdxxp9FiMCs0bwo9kki7PkqwfbmQG6NRlesw6LT+JtsoC1tsxJ/3Q5AtZLpAcVoHtPw9OhiaTO9ZaAbi/G/KNDXlnA6tv0dWGmAp4uDZzN6u+OJlXj0ovEx5+fKkLLjWnwmDSwPdwflgWQyxF0tqQEyfnWR8d/62P9wVrbg32+2ftxP2UBztfJ16RGqabv7q2y3Nmz8y5+AQ/P1RLJOW5eAAAAAElFTkSuQmCC</ModellElementBildDaten>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementAnimationBild>
+    <ModellElementText id="22">
+      <ModellElementGroesse h="32" w="91" x="350" y="100"/>
+      <ModellElementTextzeile>Vom Quizmaster</ModellElementTextzeile>
+      <ModellElementTextzeile>geöffnetes Tor</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBild id="23">
+      <ModellElementGroesse h="50" w="50" x="345" y="150"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten Ausdruck="Open==1">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACl0lEQVR4XqWSS08TYRSGa2LiToyXhSH+AP8De4M7V8bEBBeGkIiJ1BiigFqV7gSJgEipMEgboKIMLaUXaAv0QlsV2tpqodDLdGY67TBTTAWbmr62k2hCYIMu3px85zzvOV9yjgyA7H90IHFU7Xskk8m6dPzbLB1x79Jr82A+m8D4DWC8JFif4Scb9jhpmq47tAFFUQSz/qmYCVkghG3gVo2I2jQIm4YRsw5jZ2USwvJbZBdHy1wsNLOvQcVsZkIO8CEr1swE9CPd0BEqaMf1IDQGqIgZaNUqONQK8JZeCKYe8EF7UGqQSCS6mIgLfGAOdt0ruHwRTDhFjDlEqK0C+ozb6CJz6NRxID0iopYxpN89RZ5Uggp5RmTpWChD+6cQ8S2gVCphxruDUbsIlUXAqXMXUHO2Fs8ms2jXZCqRkxg26AStbUNgsLUki/vIciYVw97enlTUOfMYMPHoMfCoOVOLk6fP48EYi7tqGh2VWGWqLB8L4mN3E2TpxOYvQRBQKBRQLBZhC+QrX+ag1LF4qKXROpLGHRWFpv4k3lhzElNlq55Nsrcso4JLApf4inw+LxVi6e8YnGPRRqQqU5NoHojj5ssttI+msLohSkyVZcN+xIn7RVlyI/w6szKFbGUL20wCoigisM6BMCfROrSOloEo+qbj8H7JSEaBY8B5Z5Hqb4RbpXBLa4yuetzU/BB4hxq5gE3IxUJMjk0ncrnc1h9ls9ktLuxlWH0PkhWzpUvOTMsvH/t7SP5FC+ma6C1tTnaCMzwHZ1WBdWjA2DVgFwhQ5AtQg81YVt4oG/uf+D601B8/cMquPvkJvbLx6rtHDePTjxs4o6Lhh1lxfXeu41rh/b0rS5rb9XLtrUsXDz3lf9WBxFH1G0ONGnKnbDF4AAAAAElFTkSuQmCC</ModellElementBildDaten>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementAnimationBild>
+    <ModellElementSkript id="16">
+      <ModellElementName>Öffnen</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="600"/>
+      <ModellElementVerbindung Element="24" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
+      <ModellElementSkriptText Sprache="Javascript">let prize=Simulation.calc("Prize");
+let select=Simulation.calc("Select");
+
+let openOptions=[];
+for (let i=1;i&lt;=3;i++) if (i!=prize &amp;&amp; i!=select) openOptions.push(i);
+
+let open;
+if (openOptions.length==1) {
+	open=openOptions[0];
+} else {
+	open=openOptions[Simulation.calc("randomIntRange(0;1)")];
+}
+Simulation.set("Open",open)</ModellElementSkriptText>
+    </ModellElementSkript>
+    <ModellElementKante id="24">
+      <ModellElementVerbindung Element1="14" Element2="16" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="25">
+      <ModellElementGroesse h="23" w="162" x="50" y="50"/>
+      <ModellElementTextzeile>Drei-Tore-Problem</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="26">
+      <ModellElementGroesse h="32" w="121" x="390" y="555"/>
+      <ModellElementTextzeile>Auswahl eines Tores</ModellElementTextzeile>
+      <ModellElementTextzeile>durch den Kandidaten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationBild id="28">
+      <ModellElementGroesse h="50" w="50" x="350" y="250"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten Ausdruck="Open==2">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACl0lEQVR4XqWSS08TYRSGa2LiToyXhSH+AP8De4M7V8bEBBeGkIiJ1BiigFqV7gSJgEipMEgboKIMLaUXaAv0QlsV2tpqodDLdGY67TBTTAWbmr62k2hCYIMu3px85zzvOV9yjgyA7H90IHFU7Xskk8m6dPzbLB1x79Jr82A+m8D4DWC8JFif4Scb9jhpmq47tAFFUQSz/qmYCVkghG3gVo2I2jQIm4YRsw5jZ2USwvJbZBdHy1wsNLOvQcVsZkIO8CEr1swE9CPd0BEqaMf1IDQGqIgZaNUqONQK8JZeCKYe8EF7UGqQSCS6mIgLfGAOdt0ruHwRTDhFjDlEqK0C+ozb6CJz6NRxID0iopYxpN89RZ5Uggp5RmTpWChD+6cQ8S2gVCphxruDUbsIlUXAqXMXUHO2Fs8ms2jXZCqRkxg26AStbUNgsLUki/vIciYVw97enlTUOfMYMPHoMfCoOVOLk6fP48EYi7tqGh2VWGWqLB8L4mN3E2TpxOYvQRBQKBRQLBZhC+QrX+ag1LF4qKXROpLGHRWFpv4k3lhzElNlq55Nsrcso4JLApf4inw+LxVi6e8YnGPRRqQqU5NoHojj5ssttI+msLohSkyVZcN+xIn7RVlyI/w6szKFbGUL20wCoigisM6BMCfROrSOloEo+qbj8H7JSEaBY8B5Z5Hqb4RbpXBLa4yuetzU/BB4hxq5gE3IxUJMjk0ncrnc1h9ls9ktLuxlWH0PkhWzpUvOTMsvH/t7SP5FC+ma6C1tTnaCMzwHZ1WBdWjA2DVgFwhQ5AtQg81YVt4oG/uf+D601B8/cMquPvkJvbLx6rtHDePTjxs4o6Lhh1lxfXeu41rh/b0rS5rb9XLtrUsXDz3lf9WBxFH1G0ONGnKnbDF4AAAAAElFTkSuQmCC</ModellElementBildDaten>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementAnimationBild>
+    <ModellElementAnimationBild id="29">
+      <ModellElementGroesse h="50" w="50" x="350" y="350"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten Ausdruck="Open==3">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACl0lEQVR4XqWSS08TYRSGa2LiToyXhSH+AP8De4M7V8bEBBeGkIiJ1BiigFqV7gSJgEipMEgboKIMLaUXaAv0QlsV2tpqodDLdGY67TBTTAWbmr62k2hCYIMu3px85zzvOV9yjgyA7H90IHFU7Xskk8m6dPzbLB1x79Jr82A+m8D4DWC8JFif4Scb9jhpmq47tAFFUQSz/qmYCVkghG3gVo2I2jQIm4YRsw5jZ2USwvJbZBdHy1wsNLOvQcVsZkIO8CEr1swE9CPd0BEqaMf1IDQGqIgZaNUqONQK8JZeCKYe8EF7UGqQSCS6mIgLfGAOdt0ruHwRTDhFjDlEqK0C+ozb6CJz6NRxID0iopYxpN89RZ5Uggp5RmTpWChD+6cQ8S2gVCphxruDUbsIlUXAqXMXUHO2Fs8ms2jXZCqRkxg26AStbUNgsLUki/vIciYVw97enlTUOfMYMPHoMfCoOVOLk6fP48EYi7tqGh2VWGWqLB8L4mN3E2TpxOYvQRBQKBRQLBZhC+QrX+ag1LF4qKXROpLGHRWFpv4k3lhzElNlq55Nsrcso4JLApf4inw+LxVi6e8YnGPRRqQqU5NoHojj5ssttI+msLohSkyVZcN+xIn7RVlyI/w6szKFbGUL20wCoigisM6BMCfROrSOloEo+qbj8H7JSEaBY8B5Z5Hqb4RbpXBLa4yuetzU/BB4hxq5gE3IxUJMjk0ncrnc1h9ls9ktLuxlWH0PkhWzpUvOTMsvH/t7SP5FC+ma6C1tTnaCMzwHZ1WBdWjA2DVgFwhQ5AtQg81YVt4oG/uf+D601B8/cMquPvkJvbLx6rtHDePTjxs4o6Lhh1lxfXeu41rh/b0rS5rb9XLtrUsXDz3lf9WBxFH1G0ONGnKnbDF4AAAAAElFTkSuQmCC</ModellElementBildDaten>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementAnimationBild>
+    <ModellElementCheckbox id="30">
+      <ModellElementName>Umentscheiden?</ModellElementName>
+      <ModellElementGroesse h="19" w="128" x="350" y="435"/>
+      <ModellElementCheckboxVariable>Change</ModellElementCheckboxVariable>
+      <ModellElementCheckboxWertAusgewaehlt>1</ModellElementCheckboxWertAusgewaehlt>
+      <ModellElementCheckboxWertUnausgewaehlt>0</ModellElementCheckboxWertUnausgewaehlt>
+    </ModellElementCheckbox>
+    <ModellElementAnimationBild id="31">
+      <ModellElementGroesse h="50" w="50" x="600" y="250"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten Ausdruck="(FinalSelect!=0) &amp;&amp; (Prize==FinalSelect)">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACpElEQVR4XqWT3UuTcRTHzx/glWBd1EUXEZVCUV4UGRNKHAiROJMoKihCiuwFFsJkoa0y6QUlErUsMxRTy4aWpTMtmpkvs6nTXD6zpWZT9/bs/Rl8OysaakFQF4cfPPy+n/P9nvN7CAD9T/32QeqgmJCO1ME20vtfUNjXSmHvM9KLzaR2aylm+f3lYlmonQRpXImwrR6SUwfJ8RKhmRr4R5RwNpFgf0yyPwIkHaWH+mUIT5ezqA6B6Xz4hBx4x4/Da86B/0sJAsItuDplsNVR+hIAW44NtpMY/laL0FwZX86FXzjJ4mPwjB6EOKSA+CEDnrGz8FsqMVtD4sxDio0COK9GMqu4cy0CUyy2nELLzSx4xw7BM7wPLTcUcPWlwvl+N0NUcBtUmKoiTRTAwzKE57UIfr0M/+Rp+Cay4f14BB7Tfu6cDne/nMXJcLzdBuc7OXyWKlgryRAFeJ9TMCx2svXznPsEWz/K1g9ANGbAPZAGV+8uOPQ7YH+9BfauRAaUw1JBzijA00JOydHK3c9Be30zRppTIQ5nstU9LE7hrkkYrF6PBtUKLLzaxE3KMFFGYhTA+zVIticMyIWtLwtNVzfC9HTnz9w9yTDWxqMhbyWs2rXsYDs85rsYK1kUgfer8ZnUCMzcZuuHMatPQ1txPBoL1qDxwiq0Fq5m8TostG9gV9mY61Zj6NqiIdobKW6+nsSAtZoHmPdjZZHczu4k2N8ksu0ELOgSOMpeuEylMBaROHCJ4qKASPHjUNg7UuD7VMpDKuLhZfLUeXBdW/lMhtt4Bg5jCYRHcvRrSPFLFwVEih9HCu9XcPQq4RXu81YewP+5EuJ4BWa7lBgsJKHvIskXa5YAImW9RzGTdyhfKKcecylhtJgieXsMVyi/t+AvP9O/1HfPReQgG+3L0AAAAABJRU5ErkJggg==</ModellElementBildDaten>
+      <ModellElementBildDaten Ausdruck="(FinalSelect!=0) &amp;&amp; (Prize!=FinalSelect)">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAASUlEQVR4XrXLOQ4AMAgDQf7/6aRDYsNhioy0lcHsk1Mk4RNr8bgqxaOpgKNSwFHNcVBzHNQcBzXHQenBg6kUj6paPGYSPq2eVy77HZlnj0rwtgAAAABJRU5ErkJggg==</ModellElementBildDaten>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementAnimationBild>
+    <ModellElementText id="32">
+      <ModellElementGroesse h="32" w="92" x="450" y="100"/>
+      <ModellElementTextzeile>Finale  Wahl des</ModellElementTextzeile>
+      <ModellElementTextzeile>Kandidaten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementVerzweigen id="33">
+      <ModellElementName>Umentscheiden?</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="600"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="Change==1" Element="34" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="37" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="27">
+      <ModellElementVerbindung Element1="16" Element2="33" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVariable id="35">
+      <ModellElementName>Nein</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="900" y="650"/>
+      <ModellElementVerbindung Element="37" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="44" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="FinalSelect">Select</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementAnimationBild id="38">
+      <ModellElementGroesse h="50" w="50" x="450" y="150"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten Ausdruck="FinalSelect==1">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACaklEQVR4Xo2TSUwTURjHuUg8cFBj9ICNQFsIq7LbWnDD0hpIiFGQqKjxztWDHvCkBxK9mXhRAUUSUwXKKvtatlYRqnTK2pbO0unYoa3Rg3+fJZIyZqKHf+bN997/977ve+/FAIiREztTnMtOFV2UxqP1VyBazJSOYiZPCtL4fwEYi66KtxrAzxngHTlRJ53/J4Ce0PpFeyW27NXwDBb8cPfnxUrXyALocW0dbzUiuHQ9AmDHz8HVk9MsXRcBcHOn4kizbpF6m0m9dmIObZuvQvxUiq8zWgRsl0EPFmPdnBVea82kVk3pppU3qbXLLSmKGHa6aEFYLIfovILQSg3RTYSdN7C1YIAwlQn/WCr4sXwyriDjMnAD5+HtKsLGu1xQr9Tcn3qX/fNlCK/fRtB+BqIth+ycBWEiDfxwMri+JLBdR8GYE+AbKIW7rQDUS5XgaFAeiAC8o5rYzeFCF2+9gBBVg8DccQiWDPhHU4hBBbY7gZiPwDdkJOZCUE2qoKMh6fCuJnoG8uPcfXmMuFgN8YN+O/UhNbj3SWA6FQSQCK5fD0eT8tvS80TFThOjO+rqzr7HTpRAnK8CP0J271dup94eD7anAJvtWnx5lmDadQrRPxsdxxp9FiMCs0bwo9kki7PkqwfbmQG6NRlesw6LT+JtsoC1tsxJ/3Q5AtZLpAcVoHtPw9OhiaTO9ZaAbi/G/KNDXlnA6tv0dWGmAp4uDZzN6u+OJlXj0ovEx5+fKkLLjWnwmDSwPdwflgWQyxF0tqQEyfnWR8d/62P9wVrbg32+2ftxP2UBztfJ16RGqabv7q2y3Nmz8y5+AQ/P1RLJOW5eAAAAAElFTkSuQmCC</ModellElementBildDaten>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementAnimationBild>
+    <ModellElementAnimationBild id="39">
+      <ModellElementGroesse h="50" w="50" x="450" y="250"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten Ausdruck="FinalSelect==2">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACaklEQVR4Xo2TSUwTURjHuUg8cFBj9ICNQFsIq7LbWnDD0hpIiFGQqKjxztWDHvCkBxK9mXhRAUUSUwXKKvtatlYRqnTK2pbO0unYoa3Rg3+fJZIyZqKHf+bN997/977ve+/FAIiREztTnMtOFV2UxqP1VyBazJSOYiZPCtL4fwEYi66KtxrAzxngHTlRJ53/J4Ce0PpFeyW27NXwDBb8cPfnxUrXyALocW0dbzUiuHQ9AmDHz8HVk9MsXRcBcHOn4kizbpF6m0m9dmIObZuvQvxUiq8zWgRsl0EPFmPdnBVea82kVk3pppU3qbXLLSmKGHa6aEFYLIfovILQSg3RTYSdN7C1YIAwlQn/WCr4sXwyriDjMnAD5+HtKsLGu1xQr9Tcn3qX/fNlCK/fRtB+BqIth+ycBWEiDfxwMri+JLBdR8GYE+AbKIW7rQDUS5XgaFAeiAC8o5rYzeFCF2+9gBBVg8DccQiWDPhHU4hBBbY7gZiPwDdkJOZCUE2qoKMh6fCuJnoG8uPcfXmMuFgN8YN+O/UhNbj3SWA6FQSQCK5fD0eT8tvS80TFThOjO+rqzr7HTpRAnK8CP0J271dup94eD7anAJvtWnx5lmDadQrRPxsdxxp9FiMCs0bwo9kki7PkqwfbmQG6NRlesw6LT+JtsoC1tsxJ/3Q5AtZLpAcVoHtPw9OhiaTO9ZaAbi/G/KNDXlnA6tv0dWGmAp4uDZzN6u+OJlXj0ovEx5+fKkLLjWnwmDSwPdwflgWQyxF0tqQEyfnWR8d/62P9wVrbg32+2ftxP2UBztfJ16RGqabv7q2y3Nmz8y5+AQ/P1RLJOW5eAAAAAElFTkSuQmCC</ModellElementBildDaten>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementAnimationBild>
+    <ModellElementAnimationBild id="40">
+      <ModellElementGroesse h="50" w="50" x="450" y="350"/>
+      <ModellElementLinienBreite>1</ModellElementLinienBreite>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementBildDaten Ausdruck="FinalSelect==3">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACaklEQVR4Xo2TSUwTURjHuUg8cFBj9ICNQFsIq7LbWnDD0hpIiFGQqKjxztWDHvCkBxK9mXhRAUUSUwXKKvtatlYRqnTK2pbO0unYoa3Rg3+fJZIyZqKHf+bN997/977ve+/FAIiREztTnMtOFV2UxqP1VyBazJSOYiZPCtL4fwEYi66KtxrAzxngHTlRJ53/J4Ce0PpFeyW27NXwDBb8cPfnxUrXyALocW0dbzUiuHQ9AmDHz8HVk9MsXRcBcHOn4kizbpF6m0m9dmIObZuvQvxUiq8zWgRsl0EPFmPdnBVea82kVk3pppU3qbXLLSmKGHa6aEFYLIfovILQSg3RTYSdN7C1YIAwlQn/WCr4sXwyriDjMnAD5+HtKsLGu1xQr9Tcn3qX/fNlCK/fRtB+BqIth+ycBWEiDfxwMri+JLBdR8GYE+AbKIW7rQDUS5XgaFAeiAC8o5rYzeFCF2+9gBBVg8DccQiWDPhHU4hBBbY7gZiPwDdkJOZCUE2qoKMh6fCuJnoG8uPcfXmMuFgN8YN+O/UhNbj3SWA6FQSQCK5fD0eT8tvS80TFThOjO+rqzr7HTpRAnK8CP0J271dup94eD7anAJvtWnx5lmDadQrRPxsdxxp9FiMCs0bwo9kki7PkqwfbmQG6NRlesw6LT+JtsoC1tsxJ/3Q5AtZLpAcVoHtPw9OhiaTO9ZaAbi/G/KNDXlnA6tv0dWGmAp4uDZzN6u+OJlXj0ovEx5+fKkLLjWnwmDSwPdwflgWQyxF0tqQEyfnWR8d/62P9wVrbg32+2ftxP2UBztfJ16RGqabv7q2y3Nmz8y5+AQ/P1RLJOW5eAAAAAElFTkSuQmCC</ModellElementBildDaten>
+      <ModellElementBildDaten>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModellElementBildDaten>
+    </ModellElementAnimationBild>
+    <ModellElementSkript id="42">
+      <ModellElementName>Ja</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="900" y="550"/>
+      <ModellElementVerbindung Element="34" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="41" Typ="Auslaufend"/>
+      <ModellElementSkriptText Sprache="Javascript">let select=Simulation.calc("Select");
+let open=Simulation.calc("Open");
+
+let finalSelect=0;
+for (let i=1;i&lt;=3;i++) if (i!=select &amp;&amp; i!=open) finalSelect=i;
+
+Simulation.set("FinalSelect",finalSelect);</ModellElementSkriptText>
+    </ModellElementSkript>
+    <ModellElementText id="43">
+      <ModellElementGroesse h="16" w="49" x="600" y="225"/>
+      <ModellElementTextzeile>Gewinn?</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKante id="34">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="33" Element2="42" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="37">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="33" Element2="35" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVerzoegerung id="36">
+      <ModellElementGroesse h="50" w="100" x="1200" y="600"/>
+      <ModellElementVerbindung Element="46" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="45" Typ="Auslaufend"/>
+      <ModellElementAusdruck Typ="Bedienzeit" Zeitbasis="Sekunden">1</ModellElementAusdruck>
+    </ModellElementVerzoegerung>
+    <ModellElementKante id="45">
+      <ModellElementVerbindung Element1="36" Element2="15" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZaehlerMehrfach id="47">
+      <ModellElementName>Gewinn?</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1050" y="600"/>
+      <ModellElementVerbindung Element="41" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="44" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="46" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>CountWins</ModellElementZaehlerGruppe>
+      <ModellElementZaehlerMehrfachZaehler Bedingung="FinalSelect==Prize">Win</ModellElementZaehlerMehrfachZaehler>
+      <ModellElementZaehlerMehrfachZaehler>Loose</ModellElementZaehlerMehrfachZaehler>
+    </ModellElementZaehlerMehrfach>
+    <ModellElementKante id="41">
+      <ModellElementVerbindung Element1="42" Element2="47" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="44">
+      <ModellElementVerbindung Element1="35" Element2="47" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="46">
+      <ModellElementVerbindung Element1="47" Element2="36" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="48">
+      <ModellElementName>Anteil Gewinne</ModellElementName>
+      <ModellElementGroesse h="30" w="85" x="750" y="150"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(47;1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="49">
+      <ModellElementName>Anteil Verlust</ModellElementName>
+      <ModellElementGroesse h="30" w="85" x="750" y="200"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(47;2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="50">
+      <ModellElementGroesse h="32" w="179" x="535" y="555"/>
+      <ModellElementTextzeile>Quizmaster öffnet Tor hinter dem</ModellElementTextzeile>
+      <ModellElementTextzeile>sich kein Gewinn befindet</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="51">
+      <ModellElementName>Anzahl an Spielen</ModellElementName>
+      <ModellElementGroesse h="30" w="78" x="750" y="100"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert" Nachkommastellen="0">Counter(47;1)+Counter(47;2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="52">
+      <ModellElementGroesse h="16" w="407" x="900" y="355"/>
+      <ModellElementTextzeile>Die Fragestellung ist in der Literatur auch als das Ziegenproblem bekannt:</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementLink id="53">
+      <ModellElementGroesse h="16" w="201" x="900" y="375"/>
+      <ModellElementLinkText>de.wikipedia.org/wiki/Ziegenproblem</ModellElementLinkText>
+      <ModellElementLinkZiel>https://de.wikipedia.org/wiki/Ziegenproblem</ModellElementLinkZiel>
+      <ModellElementSchriftgrosse>12</ModellElementSchriftgrosse>
+    </ModellElementLink>
+    <ModellElementText id="54">
+      <ModellElementGroesse h="32" w="153" x="875" y="505"/>
+      <ModellElementTextzeile>Finale Auswahl eines Tores</ModellElementTextzeile>
+      <ModellElementTextzeile>durch den Kandidaten</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="55">
+      <ModellElementGroesse h="190" w="611" x="900" y="100"/>
+      <ModellElementTextzeile>Bei dem Drei-Tore-Problem muss der Kandidat eines von drei möglichen</ModellElementTextzeile>
+      <ModellElementTextzeile>Toren auswählen. Hinter einem der drei befindet sich ein Gewinn; hinter den anderen nur Nieten.</ModellElementTextzeile>
+      <ModellElementTextzeile>Der Quizmaster öffnet danach ein anderes als das vom Kandidaten ausgewähltes Tor</ModellElementTextzeile>
+      <ModellElementTextzeile>(hinter dem sich aber auch kein Gewinn befindet). Der Kandidat wird danach vor die Wahl</ModellElementTextzeile>
+      <ModellElementTextzeile>gestellt, sich noch einmal umzuentscheiden.</ModellElementTextzeile>
+      <ModellElementTextzeile/>
+      <ModellElementTextzeile>Naiv könnte man meinen, dass ein Umentscheiden ohne Bedeutung ist: Egal, welches</ModellElementTextzeile>
+      <ModellElementTextzeile>der drei Tore der Kandidat wählt, beträgt die Gewinnwahrscheinlichkeit stets 1/3.</ModellElementTextzeile>
+      <ModellElementTextzeile>Dies stimmt jedoch so nicht: Da der Quizmaster nie das Gewinn-Tor öffnet, beträgt</ModellElementTextzeile>
+      <ModellElementTextzeile>die Gewinnwahrscheinlichkeit 1/3 für "Wahl beibehalten" zu 2/3 für "Wahl ändern".</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
+  <KundentypenDaten/>
+  <InitialeVariable Name="Open">0</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
+  <KiritischeStationenSignatur>
+    <SignaturStation Hash="boHyx/NLG6PV93lIEPpwREj6cspVUnkmKl+OwJ4uETQ=" Signatur="Sr3gY8jNeKzorVS8uNOqopx/v+vwyaIC8Km29MA6SmCbCixQZKC/Dh40CgqBXee/oaltxx18FPAo9YGkCLp0qsSHBwtuOfJj0fqeuO6ihzkNjbWRQ53u14uLDwSBjVCixLbin4rC5/5uyIZTmGtYYDyubW0CLpzhE1DCFSAivhyVk0vSAK3R0RHPg5uaXEPY082MyAI6xNoZcSKt3h36yIhxBfxpCVl+sA/MFO479ePbEgUcjIoOcjt+DYDAHI5WMqMu8UjYBG73X+X65Nolm6g41/hxaxxT4Y5GA61gFrAFPjt+ObV9vHAwZ1JEuJKUH6SzTTASAkVkY+b5ADYRQrZROLZG/J7CgN43xflYVbquNzj6qOeK/7rziWqzfS7f3dJZTJe60TfCWomvsoL8zfqH9UUCGZzh+YKWLdjxZB7hQpJqOTi5FfIb7BEpSDhHvooW9LvJBylYl0eAuPTZdUu/HAA6L6NMCL5Q/SA4WgwsLjIIMQPtHzeI/QBaw7hrtuQFs6NjCF2RZkLVzAgS0phowq1uYFQqLj5B+SD93UkaNj4HWzW2c4+wq3bPi6qcnBrz6QtABm32wgt0PF6TAp5j6EELbTWWO0Qd9e99I+VHWs9UtNZ0fXDClFH+Zey86x8T6p8lOSHbkh1oqNcfD4G648V2v/rytvX3jcJiBwQ=" id="16"/>
+    <SignaturStation Hash="7ft/0IAIw+AMsgLGFvIhU11mzeRfrCP72TMHVYQX56g=" Signatur="bnNMfTtIcovDc0MqoCfHK+8lEI6ClP68LX3WlsSNFu9wrIENDvugPI/CxPKjLJbbU75qnhmHOqP2xnFmIsUBC2SzRxu2VfRaBb8bfJhcNBrix4bgaB6XCULLy3Z2JyeQFiZUovit33UPjqL6BH9W+ILM7U8awueQtfvheIK7kyUPOlYTldG30Df1eoCOmlh+pJsVsKEGggKab5LIab9XGltQhBMxJodZlH0v6fYD2CaUyVRsYPh/ECqxmaIWlEundSTx3hLf7i73mvZgHRybkWgzFbhkNmjbruOzmZrmHLWKMNCM4dgGq9Pzfi52KRGuiViAOKWjImEVuhvbKft9P9hN8d9QXksnBwdmj6dWevi9vvAGgppYesJElTkAM6DVdJJvNXp5lUAO0mNpodOXMinB9ANqfz5PeaZPNr65nG+FZaOQ88dAhzJC6j8MbTRRPOiDTirYgZPErXTSXeYChU30i7IwXlo5M5aahdUo42Ay3/5+z3bJtpqCDbHNIyOchV1Yp9yTkfhc4SRx/cF2BUUEKdjQkScme7xXLnFQHpxP5eo7j/iKeBcd7ym8d09eNCaP6ohiMSIrCyZRG+l2hDLvAYBDXvXZIvNZc/4IgCwghdll+aoUHaG/1jqfCAzO9LZvQrxjZIgkhhTYYjyrZoK/9s6rXRKgojrlGq5pM5c=" id="42"/>
+    <SignaturNutzername Signatur="XkYku6zTX13zuQjd3RvuPJdBkoWYzyy/55FfTzsvCtW5lmYtwtTawDFQCgxZDY9yOOZFfiH9xkTSpi4mFjFhxYyxphr1z/WdS40n6sVzYjfxgYBd3wfoSB0jMMlJTVgBxq6FBUFWwqLbXCYHUMj+3QuHiosT31TLtAS+k3/k/puLnUkCCjHUOsV6Yi8bbqOqJ6YOPeg1xpfk7UTVVl8gINpDiNn7T255dGpokE1W9aahmUv8yeATcqhoDV5iJHce2DHQNwAADR2GScnwSDXtrwIrk1B8ZPcbCpL4vsN+xNyr24EUyvx4RsAvvf3URVsHjVg5O/zosyfkOVTWreFUIDeiUd7befieVhwmJos8xzrSwy/LEop3H6BDW77HrWJWRjlLy8CapIAs5KrmsLjzsR5/4IhvICt57jbIDVEqacOdxCsmsRfoBGxXN37jDajRJPPZ018acu343GsoRHE0TX/SH1vrrLftigXfkO9YQAU7PmO2zvoOtt5Zh8aZmdErTHLjiWp333T5iwxsdFfD2kXca6VUkQYYlWS5MUAN3o2yGnxjw1pRUynG9ucw5kC/waHHLVEMe6WXHNfOUsOsWWZEthHCHiz/4Uif3uBOJk8ucNft9SM1b60YYut74JG/5C0CNhzVQQi6OXaBa5Xwev/Q7qiJKo/ez+bqMXwJOhI=">Alexander Herzog</SignaturNutzername>
+    <SignaturOeffentlicherSchluessel>MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAi9Dd2kqC9Kha2/jfGKX5cWmqSDpgqUW1dBmGaA0LvYb1/mDMPwXbBx3xrmsvaRm3VtgCktftPAEhGqec0isrN1HLefxNyYN0g71OAAYkxvd8wv+QbhZidHMONLabBRAfT+nqlr4r78gGcSlcE1QVQMAxSQAsR8pKdV3QDGuP6qjh3xZRO3TSatAqIfZx5HJZSFVez5KMk6kLY16kw4BTdao2Ubsm7Rh3zF1/u2RP6jrRDprkOgSRZJSJWgmWFGvrOJ8UwTWRElPSoAyrJ5ySCNzEu/Q+j1Uz4BwaOo88D4bCHP3L41fFr0T42m/D8H/k7ngmC3SzKD1HM3D510gK2pG0vmIRQg2SwI8Yg7/upD0MtsZAIBThkweJ1Xgd1AV1deSTWAhOgwUQ+6ULCDA/qy7K8Hm7D+pZ1N1a4jpNxno5nGuhIrU8ztJ2wffQ2mDIgqRHhfhUxcptxtkKyOMFyWPYUGAfNSuu/0caOb06jaEGlL0ZqtlYWKZgiaxQylMeEyF+29t2KghJt9O+sUf33r10maOmbnz/asRfCtyqg9JkH0K4H/5Ojap3tlt8NpmteVnZbQSc7wL+CkWXtdXHIBcFqt/otBp6qQKZgUX27SS16untBS/pUC5bl6eSRok1WjrMSacY29tZ5Yjz0gCMiiussTRaA6ICcC+JbAuzWK0CAwEAAQ==</SignaturOeffentlicherSchluessel>
+  </KiritischeStationenSignatur>
+</Modell>

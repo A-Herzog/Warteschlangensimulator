@@ -351,6 +351,7 @@ public class EditModelExamples {
 		addExample(Language.trAll("Examples.ZentralerGrenzwertsatz"),"ZentralerGrenzwertsatz",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
 		addExample(Language.trAll("Examples.BusStoppParadoxon"),"BusStoppParadoxon",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
 		addExample(Language.trAll("Examples.RandomNumberGenerators"),"RandomNumberGenerators",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
+		addExample(Language.trAll("Examples.ThreeDoorsProblem"),"ThreeDoors",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
 	}
 
 	/**

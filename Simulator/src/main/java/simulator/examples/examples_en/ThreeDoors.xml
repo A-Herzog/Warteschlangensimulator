@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.8.0</ModelVersion>
+  <ModelName>Three doors problem</ModelName>
+  <ModelDescription>In the three-doors problem, the candidate has to choose one of three possible doors.
+Behind one of the three is a prize; behind the others only rivets. The quiz master then
+opens one door other than the one selected by the candidate (but behind which there
+is also no prize). The candidate is then given the choice to change their mind again.
+
+Naively, you might think that a change of mind is irrelevant: regardless of which of the
+three doors the candidate chooses, the probability of winning is always 1/3.
+However, this is not true: as the quiz master never opens the winning door,
+the probability of winning is 1/3 for “Keep choice” to 2/3 for “Change choice”.
+
+The problem is also known in the literature as the Monty Hall problem:
+https://en.wikipedia.org/wiki/Monty_Hall_problem</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Candidates</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="600"/>
+      <ModelElementConnection Element="3" Type="Out"/>
+      <ModelElementExpression FirstArrivalAtStart="1" TimeBase="Seconds">10</ModelElementExpression>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementVariable id="2">
+      <ModelElementName>Prize</ModelElementName>
+      <ModelElementSize h="50" w="100" x="250" y="600"/>
+      <ModelElementConnection Element="3" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementAssignmentData Variable="Prize">randomIntRange(1;3)</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementEdge id="3">
+      <ModelElementName>Arrivals (Candidates)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationImage id="4">
+      <ModelElementSize h="50" w="50" x="150" y="150"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData Expression="Prize==1">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACO0lEQVR4XoVSS2sTURTOSlfu/AndCC78Bd2JLgQXKt0ICkWKSyNKwEGr0YKgFbStsVJtatVakCQ1UUtKxEljdGHBBs2TtJnbPDqTpA1JJiUk+bxn2plOquKBjzn3fI9zZxgLAIuOsN9yPBK2hM2z//FdgkTEolYrR8CFwl7zv/guQWx5P9T6AGLL+zp03rtR56M/tvk/At4uPEZwsQ8zPntDFMVEnBtoYyhwtsjP7ueeESx8OoOR17ZsVwAneziGJ/wluL5uYOx9AaqqwtjIn8ViEfY3WTg+yLg4mlTIYwR8ET1OxhiezCuYDZYx6lVA5Xy3vXHSM6Sdr73I4uHcOqzjaZDHCAiKgRYvvPpc5gIZ/qWKZrgzm4Pjo4wbL+nGgMNVwNUJBldAxqI4v2UEhERfp9lsaiJzXZ/O4pF3HbYpZsza7TZkWUbym9CCHsCWrO1EPAp6Db3oRg53HrZnDHNiSZuVy2XEY79QSPughA/tBmyEDrQamdtIJaPax8rn82DSCtbWmAYKVhQFqyspVDJPQVryGAG5wcOd4uQAaqm7UJiIijSNhjRkQJXuY5PNoC7dg5qyg7TkMQJK3oMt+cE5ZK2noIz1Y9N7CbXvgiYmUE8z4khDWvKYX2GrkbmFSuAKlPELyAl9kPpPYPX0UQ3U04w40pCWPOYAZ/XnSU7c7Lr6X8E1pCWPOaCHY5ijUY0cQy1+Hmr6MhcPaqCeZsSRZke7+yfq4MNeDoHDzZHgqO+AepoR12v2/AbbXw90kJBZdwAAAABJRU5ErkJggg==</ModelElementImageData>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementAnimationImage>
+    <ModelElementAnimationImage id="5">
+      <ModelElementSize h="50" w="50" x="150" y="250"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData Expression="Prize==2">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACO0lEQVR4XoVSS2sTURTOSlfu/AndCC78Bd2JLgQXKt0ICkWKSyNKwEGr0YKgFbStsVJtatVakCQ1UUtKxEljdGHBBs2TtJnbPDqTpA1JJiUk+bxn2plOquKBjzn3fI9zZxgLAIuOsN9yPBK2hM2z//FdgkTEolYrR8CFwl7zv/guQWx5P9T6AGLL+zp03rtR56M/tvk/At4uPEZwsQ8zPntDFMVEnBtoYyhwtsjP7ueeESx8OoOR17ZsVwAneziGJ/wluL5uYOx9AaqqwtjIn8ViEfY3WTg+yLg4mlTIYwR8ET1OxhiezCuYDZYx6lVA5Xy3vXHSM6Sdr73I4uHcOqzjaZDHCAiKgRYvvPpc5gIZ/qWKZrgzm4Pjo4wbL+nGgMNVwNUJBldAxqI4v2UEhERfp9lsaiJzXZ/O4pF3HbYpZsza7TZkWUbym9CCHsCWrO1EPAp6Db3oRg53HrZnDHNiSZuVy2XEY79QSPughA/tBmyEDrQamdtIJaPax8rn82DSCtbWmAYKVhQFqyspVDJPQVryGAG5wcOd4uQAaqm7UJiIijSNhjRkQJXuY5PNoC7dg5qyg7TkMQJK3oMt+cE5ZK2noIz1Y9N7CbXvgiYmUE8z4khDWvKYX2GrkbmFSuAKlPELyAl9kPpPYPX0UQ3U04w40pCWPOYAZ/XnSU7c7Lr6X8E1pCWPOaCHY5ijUY0cQy1+Hmr6MhcPaqCeZsSRZke7+yfq4MNeDoHDzZHgqO+AepoR12v2/AbbXw90kJBZdwAAAABJRU5ErkJggg==</ModelElementImageData>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementAnimationImage>
+    <ModelElementAnimationImage id="6">
+      <ModelElementSize h="50" w="50" x="150" y="350"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData Expression="Prize==3">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACO0lEQVR4XoVSS2sTURTOSlfu/AndCC78Bd2JLgQXKt0ICkWKSyNKwEGr0YKgFbStsVJtatVakCQ1UUtKxEljdGHBBs2TtJnbPDqTpA1JJiUk+bxn2plOquKBjzn3fI9zZxgLAIuOsN9yPBK2hM2z//FdgkTEolYrR8CFwl7zv/guQWx5P9T6AGLL+zp03rtR56M/tvk/At4uPEZwsQ8zPntDFMVEnBtoYyhwtsjP7ueeESx8OoOR17ZsVwAneziGJ/wluL5uYOx9AaqqwtjIn8ViEfY3WTg+yLg4mlTIYwR8ET1OxhiezCuYDZYx6lVA5Xy3vXHSM6Sdr73I4uHcOqzjaZDHCAiKgRYvvPpc5gIZ/qWKZrgzm4Pjo4wbL+nGgMNVwNUJBldAxqI4v2UEhERfp9lsaiJzXZ/O4pF3HbYpZsza7TZkWUbym9CCHsCWrO1EPAp6Db3oRg53HrZnDHNiSZuVy2XEY79QSPughA/tBmyEDrQamdtIJaPax8rn82DSCtbWmAYKVhQFqyspVDJPQVryGAG5wcOd4uQAaqm7UJiIijSNhjRkQJXuY5PNoC7dg5qyg7TkMQJK3oMt+cE5ZK2noIz1Y9N7CbXvgiYmUE8z4khDWvKYX2GrkbmFSuAKlPELyAl9kPpPYPX0UQ3U04w40pCWPOYAZ/XnSU7c7Lr6X8E1pCWPOaCHY5ijUY0cQy1+Hmr6MhcPaqCeZsSRZke7+yfq4MNeDoHDzZHgqO+AepoR12v2/AbbXw90kJBZdwAAAABJRU5ErkJggg==</ModelElementImageData>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementAnimationImage>
+    <ModelElementText id="7">
+      <ModelElementSize h="23" w="57" x="50" y="150"/>
+      <ModelElementTextLine>Door 1</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="8">
+      <ModelElementSize h="23" w="57" x="50" y="250"/>
+      <ModelElementTextLine>Door 2</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="9">
+      <ModelElementSize h="23" w="57" x="50" y="350"/>
+      <ModelElementTextLine>Door 3</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="10">
+      <ModelElementSize h="32" w="33" x="150" y="100"/>
+      <ModelElementTextLine>Actual</ModelElementTextLine>
+      <ModelElementTextLine>prize</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementDispose id="11">
+      <ModelElementSize h="50" w="100" x="1500" y="600"/>
+      <ModelElementConnection Element="17" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementText id="13">
+      <ModelElementSize h="32" w="143" x="230" y="555"/>
+      <ModelElementTextLine>Tor, hinter dem sich der</ModelElementTextLine>
+      <ModelElementTextLine>Gewinn befindet festlegen</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementVariable id="14">
+      <ModelElementName>Selection</ModelElementName>
+      <ModelElementSize h="50" w="100" x="400" y="600"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="24" Type="Out"/>
+      <ModelElementAssignmentData Variable="Select">randomIntRange(1;3)</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="2" Element2="14" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVariable id="15">
+      <ModelElementName>Reset</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1350" y="600"/>
+      <ModelElementConnection Element="45" Type="In"/>
+      <ModelElementConnection Element="17" Type="Out"/>
+      <ModelElementAssignmentData Variable="Select">0</ModelElementAssignmentData>
+      <ModelElementAssignmentData Variable="Prize">0</ModelElementAssignmentData>
+      <ModelElementAssignmentData Variable="Open">0</ModelElementAssignmentData>
+      <ModelElementAssignmentData Variable="FinalSelect">0</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementEdge id="17">
+      <ModelElementConnection Element1="15" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="18">
+      <ModelElementSize h="32" w="72" x="250" y="100"/>
+      <ModelElementTextLine>Choice of the</ModelElementTextLine>
+      <ModelElementTextLine>candidate</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationImage id="19">
+      <ModelElementSize h="50" w="50" x="250" y="150"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData Expression="Select==1">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACaklEQVR4Xo2TSUwTURjHuUg8cFBj9ICNQFsIq7LbWnDD0hpIiFGQqKjxztWDHvCkBxK9mXhRAUUSUwXKKvtatlYRqnTK2pbO0unYoa3Rg3+fJZIyZqKHf+bN997/977ve+/FAIiREztTnMtOFV2UxqP1VyBazJSOYiZPCtL4fwEYi66KtxrAzxngHTlRJ53/J4Ce0PpFeyW27NXwDBb8cPfnxUrXyALocW0dbzUiuHQ9AmDHz8HVk9MsXRcBcHOn4kizbpF6m0m9dmIObZuvQvxUiq8zWgRsl0EPFmPdnBVea82kVk3pppU3qbXLLSmKGHa6aEFYLIfovILQSg3RTYSdN7C1YIAwlQn/WCr4sXwyriDjMnAD5+HtKsLGu1xQr9Tcn3qX/fNlCK/fRtB+BqIth+ycBWEiDfxwMri+JLBdR8GYE+AbKIW7rQDUS5XgaFAeiAC8o5rYzeFCF2+9gBBVg8DccQiWDPhHU4hBBbY7gZiPwDdkJOZCUE2qoKMh6fCuJnoG8uPcfXmMuFgN8YN+O/UhNbj3SWA6FQSQCK5fD0eT8tvS80TFThOjO+rqzr7HTpRAnK8CP0J271dup94eD7anAJvtWnx5lmDadQrRPxsdxxp9FiMCs0bwo9kki7PkqwfbmQG6NRlesw6LT+JtsoC1tsxJ/3Q5AtZLpAcVoHtPw9OhiaTO9ZaAbi/G/KNDXlnA6tv0dWGmAp4uDZzN6u+OJlXj0ovEx5+fKkLLjWnwmDSwPdwflgWQyxF0tqQEyfnWR8d/62P9wVrbg32+2ftxP2UBztfJ16RGqabv7q2y3Nmz8y5+AQ/P1RLJOW5eAAAAAElFTkSuQmCC</ModelElementImageData>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementAnimationImage>
+    <ModelElementAnimationImage id="20">
+      <ModelElementSize h="50" w="50" x="250" y="250"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData Expression="Select==2">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACaklEQVR4Xo2TSUwTURjHuUg8cFBj9ICNQFsIq7LbWnDD0hpIiFGQqKjxztWDHvCkBxK9mXhRAUUSUwXKKvtatlYRqnTK2pbO0unYoa3Rg3+fJZIyZqKHf+bN997/977ve+/FAIiREztTnMtOFV2UxqP1VyBazJSOYiZPCtL4fwEYi66KtxrAzxngHTlRJ53/J4Ce0PpFeyW27NXwDBb8cPfnxUrXyALocW0dbzUiuHQ9AmDHz8HVk9MsXRcBcHOn4kizbpF6m0m9dmIObZuvQvxUiq8zWgRsl0EPFmPdnBVea82kVk3pppU3qbXLLSmKGHa6aEFYLIfovILQSg3RTYSdN7C1YIAwlQn/WCr4sXwyriDjMnAD5+HtKsLGu1xQr9Tcn3qX/fNlCK/fRtB+BqIth+ycBWEiDfxwMri+JLBdR8GYE+AbKIW7rQDUS5XgaFAeiAC8o5rYzeFCF2+9gBBVg8DccQiWDPhHU4hBBbY7gZiPwDdkJOZCUE2qoKMh6fCuJnoG8uPcfXmMuFgN8YN+O/UhNbj3SWA6FQSQCK5fD0eT8tvS80TFThOjO+rqzr7HTpRAnK8CP0J271dup94eD7anAJvtWnx5lmDadQrRPxsdxxp9FiMCs0bwo9kki7PkqwfbmQG6NRlesw6LT+JtsoC1tsxJ/3Q5AtZLpAcVoHtPw9OhiaTO9ZaAbi/G/KNDXlnA6tv0dWGmAp4uDZzN6u+OJlXj0ovEx5+fKkLLjWnwmDSwPdwflgWQyxF0tqQEyfnWR8d/62P9wVrbg32+2ftxP2UBztfJ16RGqabv7q2y3Nmz8y5+AQ/P1RLJOW5eAAAAAElFTkSuQmCC</ModelElementImageData>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementAnimationImage>
+    <ModelElementAnimationImage id="21">
+      <ModelElementSize h="50" w="50" x="250" y="350"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData Expression="Select==3">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACaklEQVR4Xo2TSUwTURjHuUg8cFBj9ICNQFsIq7LbWnDD0hpIiFGQqKjxztWDHvCkBxK9mXhRAUUSUwXKKvtatlYRqnTK2pbO0unYoa3Rg3+fJZIyZqKHf+bN997/977ve+/FAIiREztTnMtOFV2UxqP1VyBazJSOYiZPCtL4fwEYi66KtxrAzxngHTlRJ53/J4Ce0PpFeyW27NXwDBb8cPfnxUrXyALocW0dbzUiuHQ9AmDHz8HVk9MsXRcBcHOn4kizbpF6m0m9dmIObZuvQvxUiq8zWgRsl0EPFmPdnBVea82kVk3pppU3qbXLLSmKGHa6aEFYLIfovILQSg3RTYSdN7C1YIAwlQn/WCr4sXwyriDjMnAD5+HtKsLGu1xQr9Tcn3qX/fNlCK/fRtB+BqIth+ycBWEiDfxwMri+JLBdR8GYE+AbKIW7rQDUS5XgaFAeiAC8o5rYzeFCF2+9gBBVg8DccQiWDPhHU4hBBbY7gZiPwDdkJOZCUE2qoKMh6fCuJnoG8uPcfXmMuFgN8YN+O/UhNbj3SWA6FQSQCK5fD0eT8tvS80TFThOjO+rqzr7HTpRAnK8CP0J271dup94eD7anAJvtWnx5lmDadQrRPxsdxxp9FiMCs0bwo9kki7PkqwfbmQG6NRlesw6LT+JtsoC1tsxJ/3Q5AtZLpAcVoHtPw9OhiaTO9ZaAbi/G/KNDXlnA6tv0dWGmAp4uDZzN6u+OJlXj0ovEx5+fKkLLjWnwmDSwPdwflgWQyxF0tqQEyfnWR8d/62P9wVrbg32+2ftxP2UBztfJ16RGqabv7q2y3Nmz8y5+AQ/P1RLJOW5eAAAAAElFTkSuQmCC</ModelElementImageData>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementAnimationImage>
+    <ModelElementText id="22">
+      <ModelElementSize h="32" w="87" x="350" y="100"/>
+      <ModelElementTextLine>Door opened by</ModelElementTextLine>
+      <ModelElementTextLine>the quizmaster</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationImage id="23">
+      <ModelElementSize h="50" w="50" x="345" y="150"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData Expression="Open==1">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACl0lEQVR4XqWSS08TYRSGa2LiToyXhSH+AP8De4M7V8bEBBeGkIiJ1BiigFqV7gSJgEipMEgboKIMLaUXaAv0QlsV2tpqodDLdGY67TBTTAWbmr62k2hCYIMu3px85zzvOV9yjgyA7H90IHFU7Xskk8m6dPzbLB1x79Jr82A+m8D4DWC8JFif4Scb9jhpmq47tAFFUQSz/qmYCVkghG3gVo2I2jQIm4YRsw5jZ2USwvJbZBdHy1wsNLOvQcVsZkIO8CEr1swE9CPd0BEqaMf1IDQGqIgZaNUqONQK8JZeCKYe8EF7UGqQSCS6mIgLfGAOdt0ruHwRTDhFjDlEqK0C+ozb6CJz6NRxID0iopYxpN89RZ5Uggp5RmTpWChD+6cQ8S2gVCphxruDUbsIlUXAqXMXUHO2Fs8ms2jXZCqRkxg26AStbUNgsLUki/vIciYVw97enlTUOfMYMPHoMfCoOVOLk6fP48EYi7tqGh2VWGWqLB8L4mN3E2TpxOYvQRBQKBRQLBZhC+QrX+ag1LF4qKXROpLGHRWFpv4k3lhzElNlq55Nsrcso4JLApf4inw+LxVi6e8YnGPRRqQqU5NoHojj5ssttI+msLohSkyVZcN+xIn7RVlyI/w6szKFbGUL20wCoigisM6BMCfROrSOloEo+qbj8H7JSEaBY8B5Z5Hqb4RbpXBLa4yuetzU/BB4hxq5gE3IxUJMjk0ncrnc1h9ls9ktLuxlWH0PkhWzpUvOTMsvH/t7SP5FC+ma6C1tTnaCMzwHZ1WBdWjA2DVgFwhQ5AtQg81YVt4oG/uf+D601B8/cMquPvkJvbLx6rtHDePTjxs4o6Lhh1lxfXeu41rh/b0rS5rb9XLtrUsXDz3lf9WBxFH1G0ONGnKnbDF4AAAAAElFTkSuQmCC</ModelElementImageData>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementAnimationImage>
+    <ModelElementScript id="16">
+      <ModelElementName>Open door</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="600"/>
+      <ModelElementConnection Element="24" Type="In"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+      <ModelElementScriptText Language="Javascript">let prize=Simulation.calc("Prize");
+let select=Simulation.calc("Select");
+
+let openOptions=[];
+for (let i=1;i&lt;=3;i++) if (i!=prize &amp;&amp; i!=select) openOptions.push(i);
+
+let open;
+if (openOptions.length==1) {
+	open=openOptions[0];
+} else {
+	open=openOptions[Simulation.calc("randomIntRange(0;1)")];
+}
+Simulation.set("Open",open)</ModelElementScriptText>
+    </ModelElementScript>
+    <ModelElementEdge id="24">
+      <ModelElementConnection Element1="14" Element2="16" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="25">
+      <ModelElementSize h="23" w="184" x="50" y="50"/>
+      <ModelElementTextLine>Three doors problem</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="26">
+      <ModelElementSize h="32" w="121" x="390" y="555"/>
+      <ModelElementTextLine>Auswahl eines Tores</ModelElementTextLine>
+      <ModelElementTextLine>durch den Kandidaten</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationImage id="28">
+      <ModelElementSize h="50" w="50" x="350" y="250"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData Expression="Open==2">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACl0lEQVR4XqWSS08TYRSGa2LiToyXhSH+AP8De4M7V8bEBBeGkIiJ1BiigFqV7gSJgEipMEgboKIMLaUXaAv0QlsV2tpqodDLdGY67TBTTAWbmr62k2hCYIMu3px85zzvOV9yjgyA7H90IHFU7Xskk8m6dPzbLB1x79Jr82A+m8D4DWC8JFif4Scb9jhpmq47tAFFUQSz/qmYCVkghG3gVo2I2jQIm4YRsw5jZ2USwvJbZBdHy1wsNLOvQcVsZkIO8CEr1swE9CPd0BEqaMf1IDQGqIgZaNUqONQK8JZeCKYe8EF7UGqQSCS6mIgLfGAOdt0ruHwRTDhFjDlEqK0C+ozb6CJz6NRxID0iopYxpN89RZ5Uggp5RmTpWChD+6cQ8S2gVCphxruDUbsIlUXAqXMXUHO2Fs8ms2jXZCqRkxg26AStbUNgsLUki/vIciYVw97enlTUOfMYMPHoMfCoOVOLk6fP48EYi7tqGh2VWGWqLB8L4mN3E2TpxOYvQRBQKBRQLBZhC+QrX+ag1LF4qKXROpLGHRWFpv4k3lhzElNlq55Nsrcso4JLApf4inw+LxVi6e8YnGPRRqQqU5NoHojj5ssttI+msLohSkyVZcN+xIn7RVlyI/w6szKFbGUL20wCoigisM6BMCfROrSOloEo+qbj8H7JSEaBY8B5Z5Hqb4RbpXBLa4yuetzU/BB4hxq5gE3IxUJMjk0ncrnc1h9ls9ktLuxlWH0PkhWzpUvOTMsvH/t7SP5FC+ma6C1tTnaCMzwHZ1WBdWjA2DVgFwhQ5AtQg81YVt4oG/uf+D601B8/cMquPvkJvbLx6rtHDePTjxs4o6Lhh1lxfXeu41rh/b0rS5rb9XLtrUsXDz3lf9WBxFH1G0ONGnKnbDF4AAAAAElFTkSuQmCC</ModelElementImageData>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementAnimationImage>
+    <ModelElementAnimationImage id="29">
+      <ModelElementSize h="50" w="50" x="350" y="350"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData Expression="Open==3">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACl0lEQVR4XqWSS08TYRSGa2LiToyXhSH+AP8De4M7V8bEBBeGkIiJ1BiigFqV7gSJgEipMEgboKIMLaUXaAv0QlsV2tpqodDLdGY67TBTTAWbmr62k2hCYIMu3px85zzvOV9yjgyA7H90IHFU7Xskk8m6dPzbLB1x79Jr82A+m8D4DWC8JFif4Scb9jhpmq47tAFFUQSz/qmYCVkghG3gVo2I2jQIm4YRsw5jZ2USwvJbZBdHy1wsNLOvQcVsZkIO8CEr1swE9CPd0BEqaMf1IDQGqIgZaNUqONQK8JZeCKYe8EF7UGqQSCS6mIgLfGAOdt0ruHwRTDhFjDlEqK0C+ozb6CJz6NRxID0iopYxpN89RZ5Uggp5RmTpWChD+6cQ8S2gVCphxruDUbsIlUXAqXMXUHO2Fs8ms2jXZCqRkxg26AStbUNgsLUki/vIciYVw97enlTUOfMYMPHoMfCoOVOLk6fP48EYi7tqGh2VWGWqLB8L4mN3E2TpxOYvQRBQKBRQLBZhC+QrX+ag1LF4qKXROpLGHRWFpv4k3lhzElNlq55Nsrcso4JLApf4inw+LxVi6e8YnGPRRqQqU5NoHojj5ssttI+msLohSkyVZcN+xIn7RVlyI/w6szKFbGUL20wCoigisM6BMCfROrSOloEo+qbj8H7JSEaBY8B5Z5Hqb4RbpXBLa4yuetzU/BB4hxq5gE3IxUJMjk0ncrnc1h9ls9ktLuxlWH0PkhWzpUvOTMsvH/t7SP5FC+ma6C1tTnaCMzwHZ1WBdWjA2DVgFwhQ5AtQg81YVt4oG/uf+D601B8/cMquPvkJvbLx6rtHDePTjxs4o6Lhh1lxfXeu41rh/b0rS5rb9XLtrUsXDz3lf9WBxFH1G0ONGnKnbDF4AAAAAElFTkSuQmCC</ModelElementImageData>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementAnimationImage>
+    <ModelElementCheckbox id="30">
+      <ModelElementName>Change decision?</ModelElementName>
+      <ModelElementSize h="19" w="137" x="350" y="435"/>
+      <ModelElementCheckboxVariable>Change</ModelElementCheckboxVariable>
+      <ModelElementCheckboxValueChecked>1</ModelElementCheckboxValueChecked>
+      <ModelElementCheckboxValueUnchecked>0</ModelElementCheckboxValueUnchecked>
+    </ModelElementCheckbox>
+    <ModelElementAnimationImage id="31">
+      <ModelElementSize h="50" w="50" x="600" y="250"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData Expression="(FinalSelect!=0) &amp;&amp; (Prize==FinalSelect)">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACpElEQVR4XqWT3UuTcRTHzx/glWBd1EUXEZVCUV4UGRNKHAiROJMoKihCiuwFFsJkoa0y6QUlErUsMxRTy4aWpTMtmpkvs6nTXD6zpWZT9/bs/Rl8OysaakFQF4cfPPy+n/P9nvN7CAD9T/32QeqgmJCO1ME20vtfUNjXSmHvM9KLzaR2aylm+f3lYlmonQRpXImwrR6SUwfJ8RKhmRr4R5RwNpFgf0yyPwIkHaWH+mUIT5ezqA6B6Xz4hBx4x4/Da86B/0sJAsItuDplsNVR+hIAW44NtpMY/laL0FwZX86FXzjJ4mPwjB6EOKSA+CEDnrGz8FsqMVtD4sxDio0COK9GMqu4cy0CUyy2nELLzSx4xw7BM7wPLTcUcPWlwvl+N0NUcBtUmKoiTRTAwzKE57UIfr0M/+Rp+Cay4f14BB7Tfu6cDne/nMXJcLzdBuc7OXyWKlgryRAFeJ9TMCx2svXznPsEWz/K1g9ANGbAPZAGV+8uOPQ7YH+9BfauRAaUw1JBzijA00JOydHK3c9Be30zRppTIQ5nstU9LE7hrkkYrF6PBtUKLLzaxE3KMFFGYhTA+zVIticMyIWtLwtNVzfC9HTnz9w9yTDWxqMhbyWs2rXsYDs85rsYK1kUgfer8ZnUCMzcZuuHMatPQ1txPBoL1qDxwiq0Fq5m8TostG9gV9mY61Zj6NqiIdobKW6+nsSAtZoHmPdjZZHczu4k2N8ksu0ELOgSOMpeuEylMBaROHCJ4qKASPHjUNg7UuD7VMpDKuLhZfLUeXBdW/lMhtt4Bg5jCYRHcvRrSPFLFwVEih9HCu9XcPQq4RXu81YewP+5EuJ4BWa7lBgsJKHvIskXa5YAImW9RzGTdyhfKKcecylhtJgieXsMVyi/t+AvP9O/1HfPReQgG+3L0AAAAABJRU5ErkJggg==</ModelElementImageData>
+      <ModelElementImageData Expression="(FinalSelect!=0) &amp;&amp; (Prize!=FinalSelect)">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAASUlEQVR4XrXLOQ4AMAgDQf7/6aRDYsNhioy0lcHsk1Mk4RNr8bgqxaOpgKNSwFHNcVBzHNQcBzXHQenBg6kUj6paPGYSPq2eVy77HZlnj0rwtgAAAABJRU5ErkJggg==</ModelElementImageData>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementAnimationImage>
+    <ModelElementText id="32">
+      <ModelElementSize h="32" w="79" x="450" y="100"/>
+      <ModelElementTextLine>Final choice of</ModelElementTextLine>
+      <ModelElementTextLine>the candidate</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementDecide id="33">
+      <ModelElementName>Change?</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="600"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection Condition="Change==1" Element="34" Type="Out"/>
+      <ModelElementConnection Element="37" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="27">
+      <ModelElementConnection Element1="16" Element2="33" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVariable id="35">
+      <ModelElementName>No</ModelElementName>
+      <ModelElementSize h="50" w="100" x="900" y="650"/>
+      <ModelElementConnection Element="37" Type="In"/>
+      <ModelElementConnection Element="44" Type="Out"/>
+      <ModelElementAssignmentData Variable="FinalSelect">Select</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementAnimationImage id="38">
+      <ModelElementSize h="50" w="50" x="450" y="150"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData Expression="FinalSelect==1">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACaklEQVR4Xo2TSUwTURjHuUg8cFBj9ICNQFsIq7LbWnDD0hpIiFGQqKjxztWDHvCkBxK9mXhRAUUSUwXKKvtatlYRqnTK2pbO0unYoa3Rg3+fJZIyZqKHf+bN997/977ve+/FAIiREztTnMtOFV2UxqP1VyBazJSOYiZPCtL4fwEYi66KtxrAzxngHTlRJ53/J4Ce0PpFeyW27NXwDBb8cPfnxUrXyALocW0dbzUiuHQ9AmDHz8HVk9MsXRcBcHOn4kizbpF6m0m9dmIObZuvQvxUiq8zWgRsl0EPFmPdnBVea82kVk3pppU3qbXLLSmKGHa6aEFYLIfovILQSg3RTYSdN7C1YIAwlQn/WCr4sXwyriDjMnAD5+HtKsLGu1xQr9Tcn3qX/fNlCK/fRtB+BqIth+ycBWEiDfxwMri+JLBdR8GYE+AbKIW7rQDUS5XgaFAeiAC8o5rYzeFCF2+9gBBVg8DccQiWDPhHU4hBBbY7gZiPwDdkJOZCUE2qoKMh6fCuJnoG8uPcfXmMuFgN8YN+O/UhNbj3SWA6FQSQCK5fD0eT8tvS80TFThOjO+rqzr7HTpRAnK8CP0J271dup94eD7anAJvtWnx5lmDadQrRPxsdxxp9FiMCs0bwo9kki7PkqwfbmQG6NRlesw6LT+JtsoC1tsxJ/3Q5AtZLpAcVoHtPw9OhiaTO9ZaAbi/G/KNDXlnA6tv0dWGmAp4uDZzN6u+OJlXj0ovEx5+fKkLLjWnwmDSwPdwflgWQyxF0tqQEyfnWR8d/62P9wVrbg32+2ftxP2UBztfJ16RGqabv7q2y3Nmz8y5+AQ/P1RLJOW5eAAAAAElFTkSuQmCC</ModelElementImageData>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementAnimationImage>
+    <ModelElementAnimationImage id="39">
+      <ModelElementSize h="50" w="50" x="450" y="250"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData Expression="FinalSelect==2">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACaklEQVR4Xo2TSUwTURjHuUg8cFBj9ICNQFsIq7LbWnDD0hpIiFGQqKjxztWDHvCkBxK9mXhRAUUSUwXKKvtatlYRqnTK2pbO0unYoa3Rg3+fJZIyZqKHf+bN997/977ve+/FAIiREztTnMtOFV2UxqP1VyBazJSOYiZPCtL4fwEYi66KtxrAzxngHTlRJ53/J4Ce0PpFeyW27NXwDBb8cPfnxUrXyALocW0dbzUiuHQ9AmDHz8HVk9MsXRcBcHOn4kizbpF6m0m9dmIObZuvQvxUiq8zWgRsl0EPFmPdnBVea82kVk3pppU3qbXLLSmKGHa6aEFYLIfovILQSg3RTYSdN7C1YIAwlQn/WCr4sXwyriDjMnAD5+HtKsLGu1xQr9Tcn3qX/fNlCK/fRtB+BqIth+ycBWEiDfxwMri+JLBdR8GYE+AbKIW7rQDUS5XgaFAeiAC8o5rYzeFCF2+9gBBVg8DccQiWDPhHU4hBBbY7gZiPwDdkJOZCUE2qoKMh6fCuJnoG8uPcfXmMuFgN8YN+O/UhNbj3SWA6FQSQCK5fD0eT8tvS80TFThOjO+rqzr7HTpRAnK8CP0J271dup94eD7anAJvtWnx5lmDadQrRPxsdxxp9FiMCs0bwo9kki7PkqwfbmQG6NRlesw6LT+JtsoC1tsxJ/3Q5AtZLpAcVoHtPw9OhiaTO9ZaAbi/G/KNDXlnA6tv0dWGmAp4uDZzN6u+OJlXj0ovEx5+fKkLLjWnwmDSwPdwflgWQyxF0tqQEyfnWR8d/62P9wVrbg32+2ftxP2UBztfJ16RGqabv7q2y3Nmz8y5+AQ/P1RLJOW5eAAAAAElFTkSuQmCC</ModelElementImageData>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementAnimationImage>
+    <ModelElementAnimationImage id="40">
+      <ModelElementSize h="50" w="50" x="450" y="350"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementImageData Expression="FinalSelect==3">iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACaklEQVR4Xo2TSUwTURjHuUg8cFBj9ICNQFsIq7LbWnDD0hpIiFGQqKjxztWDHvCkBxK9mXhRAUUSUwXKKvtatlYRqnTK2pbO0unYoa3Rg3+fJZIyZqKHf+bN997/977ve+/FAIiREztTnMtOFV2UxqP1VyBazJSOYiZPCtL4fwEYi66KtxrAzxngHTlRJ53/J4Ce0PpFeyW27NXwDBb8cPfnxUrXyALocW0dbzUiuHQ9AmDHz8HVk9MsXRcBcHOn4kizbpF6m0m9dmIObZuvQvxUiq8zWgRsl0EPFmPdnBVea82kVk3pppU3qbXLLSmKGHa6aEFYLIfovILQSg3RTYSdN7C1YIAwlQn/WCr4sXwyriDjMnAD5+HtKsLGu1xQr9Tcn3qX/fNlCK/fRtB+BqIth+ycBWEiDfxwMri+JLBdR8GYE+AbKIW7rQDUS5XgaFAeiAC8o5rYzeFCF2+9gBBVg8DccQiWDPhHU4hBBbY7gZiPwDdkJOZCUE2qoKMh6fCuJnoG8uPcfXmMuFgN8YN+O/UhNbj3SWA6FQSQCK5fD0eT8tvS80TFThOjO+rqzr7HTpRAnK8CP0J271dup94eD7anAJvtWnx5lmDadQrRPxsdxxp9FiMCs0bwo9kki7PkqwfbmQG6NRlesw6LT+JtsoC1tsxJ/3Q5AtZLpAcVoHtPw9OhiaTO9ZaAbi/G/KNDXlnA6tv0dWGmAp4uDZzN6u+OJlXj0ovEx5+fKkLLjWnwmDSwPdwflgWQyxF0tqQEyfnWR8d/62P9wVrbg32+2ftxP2UBztfJ16RGqabv7q2y3Nmz8y5+AQ/P1RLJOW5eAAAAAElFTkSuQmCC</ModelElementImageData>
+      <ModelElementImageData>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR4XuWQOQ4AIAgEeTa/12xBIXJGrZyEbmcKiF7AzMM6vTPB0CONRLLgRiqysEU6MjgOgCXyYWB7YjdiBkAl4spCFEllAUPr9O4KE5mDLMOAKI80AAAAAElFTkSuQmCC</ModelElementImageData>
+    </ModelElementAnimationImage>
+    <ModelElementScript id="42">
+      <ModelElementName>Yes</ModelElementName>
+      <ModelElementSize h="50" w="100" x="900" y="550"/>
+      <ModelElementConnection Element="34" Type="In"/>
+      <ModelElementConnection Element="41" Type="Out"/>
+      <ModelElementScriptText Language="Javascript">let select=Simulation.calc("Select");
+let open=Simulation.calc("Open");
+
+let finalSelect=0;
+for (let i=1;i&lt;=3;i++) if (i!=select &amp;&amp; i!=open) finalSelect=i;
+
+Simulation.set("FinalSelect",finalSelect);</ModelElementScriptText>
+    </ModelElementScript>
+    <ModelElementText id="43">
+      <ModelElementSize h="16" w="53" x="600" y="225"/>
+      <ModelElementTextLine>Winning?</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementEdge id="34">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="33" Element2="42" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="37">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="33" Element2="35" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDelay id="36">
+      <ModelElementSize h="50" w="100" x="1200" y="600"/>
+      <ModelElementConnection Element="46" Type="In"/>
+      <ModelElementConnection Element="45" Type="Out"/>
+      <ModelElementExpression TimeBase="Seconds" Type="ProcessTime">1</ModelElementExpression>
+    </ModelElementDelay>
+    <ModelElementEdge id="45">
+      <ModelElementConnection Element1="36" Element2="15" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementCounterMulti id="47">
+      <ModelElementName>Winning?</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1050" y="600"/>
+      <ModelElementConnection Element="41" Type="In"/>
+      <ModelElementConnection Element="44" Type="In"/>
+      <ModelElementConnection Element="46" Type="Out"/>
+      <ModelElementCounterGroup>CountWins</ModelElementCounterGroup>
+      <ModelElementCounterMultiCounter Condition="FinalSelect==Prize">Win</ModelElementCounterMultiCounter>
+      <ModelElementCounterMultiCounter>Loose</ModelElementCounterMultiCounter>
+    </ModelElementCounterMulti>
+    <ModelElementEdge id="41">
+      <ModelElementConnection Element1="42" Element2="47" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="44">
+      <ModelElementConnection Element1="35" Element2="47" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="46">
+      <ModelElementConnection Element1="47" Element2="36" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="48">
+      <ModelElementName>Share of won games</ModelElementName>
+      <ModelElementSize h="30" w="98" x="750" y="150"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(47;1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="49">
+      <ModelElementName>Share of lost games</ModelElementName>
+      <ModelElementSize h="30" w="98" x="750" y="200"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(47;2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="50">
+      <ModelElementSize h="32" w="179" x="535" y="555"/>
+      <ModelElementTextLine>Quizmaster öffnet Tor hinter dem</ModelElementTextLine>
+      <ModelElementTextLine>sich kein Gewinn befindet</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="51">
+      <ModelElementName>Number of games</ModelElementName>
+      <ModelElementSize h="30" w="76" x="750" y="100"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Digits="0" Type="Number">Counter(47;1)+Counter(47;2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="52">
+      <ModelElementSize h="16" w="381" x="900" y="355"/>
+      <ModelElementTextLine>The problem is also known in the literature as the Monty Hall problem:</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementLink id="53">
+      <ModelElementSize h="16" w="230" x="900" y="375"/>
+      <ModelElementLinkText>en.wikipedia.org/wiki/Monty_Hall_problem</ModelElementLinkText>
+      <ModelElementLinkTarget>https://en.wikipedia.org/wiki/Monty_Hall_problem</ModelElementLinkTarget>
+      <ModelElementFontSize>12</ModelElementFontSize>
+    </ModelElementLink>
+    <ModelElementText id="54">
+      <ModelElementSize h="32" w="153" x="875" y="505"/>
+      <ModelElementTextLine>Finale Auswahl eines Tores</ModelElementTextLine>
+      <ModelElementTextLine>durch den Kandidaten</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="55">
+      <ModelElementSize h="171" w="539" x="900" y="100"/>
+      <ModelElementTextLine>In the three-doors problem, the candidate has to choose one of three possible doors.</ModelElementTextLine>
+      <ModelElementTextLine>Behind one of the three is a prize; behind the others only rivets. The quiz master then</ModelElementTextLine>
+      <ModelElementTextLine>opens one door other than the one selected by the candidate (but behind which there</ModelElementTextLine>
+      <ModelElementTextLine>is also no prize). The candidate is then given the choice to change their mind again.</ModelElementTextLine>
+      <ModelElementTextLine/>
+      <ModelElementTextLine>Naively, you might think that a change of mind is irrelevant: regardless of which of the</ModelElementTextLine>
+      <ModelElementTextLine>three doors the candidate chooses, the probability of winning is always 1/3.</ModelElementTextLine>
+      <ModelElementTextLine>However, this is not true: as the quiz master never opens the winning door,</ModelElementTextLine>
+      <ModelElementTextLine>the probability of winning is 1/3 for “Keep choice” to 2/3 for “Change choice”.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random"/>
+  <ClientTypeData/>
+  <InitialVariable Name="Open">0</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+  <CriticalStationsSignature>
+    <SignatureStation Hash="boHyx/NLG6PV93lIEPpwREj6cspVUnkmKl+OwJ4uETQ=" Signature="Sr3gY8jNeKzorVS8uNOqopx/v+vwyaIC8Km29MA6SmCbCixQZKC/Dh40CgqBXee/oaltxx18FPAo9YGkCLp0qsSHBwtuOfJj0fqeuO6ihzkNjbWRQ53u14uLDwSBjVCixLbin4rC5/5uyIZTmGtYYDyubW0CLpzhE1DCFSAivhyVk0vSAK3R0RHPg5uaXEPY082MyAI6xNoZcSKt3h36yIhxBfxpCVl+sA/MFO479ePbEgUcjIoOcjt+DYDAHI5WMqMu8UjYBG73X+X65Nolm6g41/hxaxxT4Y5GA61gFrAFPjt+ObV9vHAwZ1JEuJKUH6SzTTASAkVkY+b5ADYRQrZROLZG/J7CgN43xflYVbquNzj6qOeK/7rziWqzfS7f3dJZTJe60TfCWomvsoL8zfqH9UUCGZzh+YKWLdjxZB7hQpJqOTi5FfIb7BEpSDhHvooW9LvJBylYl0eAuPTZdUu/HAA6L6NMCL5Q/SA4WgwsLjIIMQPtHzeI/QBaw7hrtuQFs6NjCF2RZkLVzAgS0phowq1uYFQqLj5B+SD93UkaNj4HWzW2c4+wq3bPi6qcnBrz6QtABm32wgt0PF6TAp5j6EELbTWWO0Qd9e99I+VHWs9UtNZ0fXDClFH+Zey86x8T6p8lOSHbkh1oqNcfD4G648V2v/rytvX3jcJiBwQ=" id="16"/>
+    <SignatureStation Hash="7ft/0IAIw+AMsgLGFvIhU11mzeRfrCP72TMHVYQX56g=" Signature="bnNMfTtIcovDc0MqoCfHK+8lEI6ClP68LX3WlsSNFu9wrIENDvugPI/CxPKjLJbbU75qnhmHOqP2xnFmIsUBC2SzRxu2VfRaBb8bfJhcNBrix4bgaB6XCULLy3Z2JyeQFiZUovit33UPjqL6BH9W+ILM7U8awueQtfvheIK7kyUPOlYTldG30Df1eoCOmlh+pJsVsKEGggKab5LIab9XGltQhBMxJodZlH0v6fYD2CaUyVRsYPh/ECqxmaIWlEundSTx3hLf7i73mvZgHRybkWgzFbhkNmjbruOzmZrmHLWKMNCM4dgGq9Pzfi52KRGuiViAOKWjImEVuhvbKft9P9hN8d9QXksnBwdmj6dWevi9vvAGgppYesJElTkAM6DVdJJvNXp5lUAO0mNpodOXMinB9ANqfz5PeaZPNr65nG+FZaOQ88dAhzJC6j8MbTRRPOiDTirYgZPErXTSXeYChU30i7IwXlo5M5aahdUo42Ay3/5+z3bJtpqCDbHNIyOchV1Yp9yTkfhc4SRx/cF2BUUEKdjQkScme7xXLnFQHpxP5eo7j/iKeBcd7ym8d09eNCaP6ohiMSIrCyZRG+l2hDLvAYBDXvXZIvNZc/4IgCwghdll+aoUHaG/1jqfCAzO9LZvQrxjZIgkhhTYYjyrZoK/9s6rXRKgojrlGq5pM5c=" id="42"/>
+    <SignatureUserName Signature="XkYku6zTX13zuQjd3RvuPJdBkoWYzyy/55FfTzsvCtW5lmYtwtTawDFQCgxZDY9yOOZFfiH9xkTSpi4mFjFhxYyxphr1z/WdS40n6sVzYjfxgYBd3wfoSB0jMMlJTVgBxq6FBUFWwqLbXCYHUMj+3QuHiosT31TLtAS+k3/k/puLnUkCCjHUOsV6Yi8bbqOqJ6YOPeg1xpfk7UTVVl8gINpDiNn7T255dGpokE1W9aahmUv8yeATcqhoDV5iJHce2DHQNwAADR2GScnwSDXtrwIrk1B8ZPcbCpL4vsN+xNyr24EUyvx4RsAvvf3URVsHjVg5O/zosyfkOVTWreFUIDeiUd7befieVhwmJos8xzrSwy/LEop3H6BDW77HrWJWRjlLy8CapIAs5KrmsLjzsR5/4IhvICt57jbIDVEqacOdxCsmsRfoBGxXN37jDajRJPPZ018acu343GsoRHE0TX/SH1vrrLftigXfkO9YQAU7PmO2zvoOtt5Zh8aZmdErTHLjiWp333T5iwxsdFfD2kXca6VUkQYYlWS5MUAN3o2yGnxjw1pRUynG9ucw5kC/waHHLVEMe6WXHNfOUsOsWWZEthHCHiz/4Uif3uBOJk8ucNft9SM1b60YYut74JG/5C0CNhzVQQi6OXaBa5Xwev/Q7qiJKo/ez+bqMXwJOhI=">Alexander Herzog</SignatureUserName>
+    <SignaturePublicKey>MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAi9Dd2kqC9Kha2/jfGKX5cWmqSDpgqUW1dBmGaA0LvYb1/mDMPwXbBx3xrmsvaRm3VtgCktftPAEhGqec0isrN1HLefxNyYN0g71OAAYkxvd8wv+QbhZidHMONLabBRAfT+nqlr4r78gGcSlcE1QVQMAxSQAsR8pKdV3QDGuP6qjh3xZRO3TSatAqIfZx5HJZSFVez5KMk6kLY16kw4BTdao2Ubsm7Rh3zF1/u2RP6jrRDprkOgSRZJSJWgmWFGvrOJ8UwTWRElPSoAyrJ5ySCNzEu/Q+j1Uz4BwaOo88D4bCHP3L41fFr0T42m/D8H/k7ngmC3SzKD1HM3D510gK2pG0vmIRQg2SwI8Yg7/upD0MtsZAIBThkweJ1Xgd1AV1deSTWAhOgwUQ+6ULCDA/qy7K8Hm7D+pZ1N1a4jpNxno5nGuhIrU8ztJ2wffQ2mDIgqRHhfhUxcptxtkKyOMFyWPYUGAfNSuu/0caOb06jaEGlL0ZqtlYWKZgiaxQylMeEyF+29t2KghJt9O+sUf33r10maOmbnz/asRfCtyqg9JkH0K4H/5Ojap3tlt8NpmteVnZbQSc7wL+CkWXtdXHIBcFqt/otBp6qQKZgUX27SS16untBS/pUC5bl6eSRok1WjrMSacY29tZ5Yjz0gCMiiussTRaA6ICcC+JbAuzWK0CAwEAAQ==</SignaturePublicKey>
+  </CriticalStationsSignature>
+</Model>

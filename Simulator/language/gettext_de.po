@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-04 00:16+0200\n"
+"POT-Creation-Date: 2025-07-05 02:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5887,6 +5887,9 @@ msgstr "Warteschlangensystemdesign"
 
 msgid "Examples.SystemDesignWithControl"
 msgstr "Warteschlangensystemdesign mit Steuerung"
+
+msgid "Examples.ThreeDoorsProblem"
+msgstr "Drei-Tore-Problem"
 
 msgid "Examples.Transport"
 msgstr "Transport von Bauteilen zwischen mehreren Fabriken"

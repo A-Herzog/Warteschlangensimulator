@@ -13020,6 +13020,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[31925] = "Icon for client type";
     t[31926] = "ExpressionBuilder.SimulationCharacteristics.SquaredCoefficientOfVariationOfTheTime";
     t[31927] = "Squared coefficient of variation of the times";
+    t[31932] = "Examples.ThreeDoorsProblem";
+    t[31933] = "Three doors problem";
     t[31940] = "ExpressionBuilder.LogicFunctions.Nor.Info";
     t[31941] = "<p>Returns 0, if at least one parameter is not equal to 0, and 1 otherwise.</p>";
     t[31944] = "Statistics.AverageWaitingTime";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34609] = "The autocorrelation is recorded only for 10s intervals.\nTherefore, the above values always end in a full 10's value.";
     t[34610] = "Surface.SingleCoreReason.AdditionalStatistics";
     t[34611] = "Statistical data over the progression of some values over the simulation process are recorded.";
-    t[34612] = "Simulation.Log.Decide.AssignInfo";
-    t[34613] = "Type assignment for client: id=%d: \"%s\"->\"%s\", station: %s";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34612] = "Simulation.Log.Decide.AssignInfo";
+    t[34613] = "Type assignment for client: id=%d: \"%s\"->\"%s\", station: %s";
     t[34616] = "Main.Menu.SimulationFindBatchSize";
     t[34617] = "Determine statistics batch size...";
     t[34620] = "Statistics.MinimumSetupTime";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39807] = "Optimization target: The target value should be in the range [%s;%s]";
     t[39808] = "Color.66CDAA";
     t[39809] = "Medium aquamarine";
-    t[39810] = "Surface.Delay.Tooltip";
-    t[39811] = "Delays client passing this element according to a given distribution.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39810] = "Surface.Delay.Tooltip";
+    t[39811] = "Delays client passing this element according to a given distribution.";
     t[39816] = "ExpressionBuilder.SimulationCharacteristics.ClientData.isWarmUpClient.Info";
     t[39817] = "Gets 0 or 1 depending on whether the client was generated during the warm-up phase (1) or not (0).";
     t[39822] = "Statistics.Hours";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44503] = "Resets the model to the initial settings.";
     t[44508] = "Surface.Process.XML.Operators.Alternative";
     t[44509] = "Alternative";
-    t[44510] = "Surface.Resource.ErrorFailureNumber";
-    t[44511] = "The specified value \"%s\" for the number of clients to be served before a failure occures for the resource type \"%s\" is invalid. A positive integer number has to be entered.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44510] = "Surface.Resource.ErrorFailureNumber";
+    t[44511] = "The specified value \"%s\" for the number of clients to be served before a failure occures for the resource type \"%s\" is invalid. A positive integer number has to be entered.";
     t[44518] = "Compare.TooFewModels.InfoAtLeastTwo";
     t[44519] = "Alt least two statistic files have to be selected to be compared.";
     t[44520] = "Statistics.ResidenceTimesByClientType";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[49371] = "Generate parameter series for the current model...";
     t[49378] = "Surface.XML.Connection.Type.In";
     t[49379] = "In";
-    t[49380] = "Editor.DialogBase.Search.OutputFile";
-    t[49381] = "Output file";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[49380] = "Editor.DialogBase.Search.OutputFile";
+    t[49381] = "Output file";
     t[49386] = "Dialog.InvalidID.Title";
     t[49387] = "Invalid station id";
     t[49388] = "Surface.AnimationRecord.Dialog.Appearance";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54405] = "The Java KeyTool for creating the key store file could not be found.";
     t[54406] = "ParameterCompare.Templates.Minimum.ErrorTitle";
     t[54407] = "Invalid minimum value";
-    t[54422] = "Surface.XML.Transporter.Distances.DestinationStation";
-    t[54423] = "Destination";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54422] = "Surface.XML.Transporter.Distances.DestinationStation";
+    t[54423] = "Destination";
     t[54426] = "Statistics.ModelRemarks";
     t[54427] = "Notes on the results";
     t[54432] = "Schedule.Rename.Title";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[59201] = "AnalogRate";
     t[59202] = "Main.Menu.Edit.MoveBack.Mnemonic";
     t[59203] = "B";
-    t[59210] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.CoefficientOfVariationOfTheTime";
-    t[59211] = "<p>Returns the coefficient of variation over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59210] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.CoefficientOfVariationOfTheTime";
+    t[59211] = "<p>Returns the coefficient of variation over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[59212] = "Surface.PopupMenu.MoveForwards";
     t[59213] = "Move forwards";
     t[59214] = "Simulation.Log.AssignString";

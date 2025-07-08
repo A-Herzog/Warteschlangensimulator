@@ -1,0 +1,1 @@
+Bei dem Drei-Tore-Problem muss der Kandidat eines von drei möglichen Toren auswählen. Hinter einem der drei befindet sich ein Gewinn; hinter den anderen nur Nieten. Der Quizmaster öffnet danach ein anderes als das vom Kandidaten ausgewähltes Tor (hinter dem sich aber auch kein Gewinn befindet). Der Kandidat wird danach vor die Wahl gestellt, sich noch einmal umzuentscheiden.
