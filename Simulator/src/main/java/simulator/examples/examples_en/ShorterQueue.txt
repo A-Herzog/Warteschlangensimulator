@@ -1,0 +1,1 @@
+If there are two queues to choose from whose lengths differ by only 1 and there is no other information about the systems, it is generally a good idea to go for the shorter of the two queues. However, the longer the two partial queues are (and if the difference in length is still 1), the smaller the probability advantage for the shorter queue gets.

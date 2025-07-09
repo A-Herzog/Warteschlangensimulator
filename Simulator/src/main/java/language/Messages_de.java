@@ -20432,6 +20432,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[50279] = "Es wurde an dem Ausgangstank kein Ventil gew\u00e4hlt, das mit dem Fluss verbunden werden soll.";
     t[50282] = "Simulation.Creator.InvalidLongRunExpression";
     t[50283] = "Der Laufzeitstatistikausdruck \"%s\" ist ab Zeichen %d ung\u00fcltig.";
+    t[50284] = "Examples.ShorterQueue";
+    t[50285] = "L\u00e4ngere Wartezeit an k\u00fcrzerer Schlange";
     t[50286] = "Surface.Text.Dialog.ShadowColor";
     t[50287] = "Schatten";
     t[50294] = "Surface.ExpressionTableModel.Dialog.Mode";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54395] = "Die Daten werden verarbeitet.";
     t[54404] = "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorKeyToolNotFound";
     t[54405] = "Das Java KeyTool zur Erzeugung der Key-Store-Datei konnte nicht gefunden werden.";
-    t[54406] = "ParameterCompare.Templates.Minimum.ErrorTitle";
-    t[54407] = "Ung\u00fcltiger Minimalwert";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54406] = "ParameterCompare.Templates.Minimum.ErrorTitle";
+    t[54407] = "Ung\u00fcltiger Minimalwert";
     t[54422] = "Surface.XML.Transporter.Distances.DestinationStation";
     t[54423] = "Ziel";
     t[54426] = "Statistics.ModelRemarks";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[59197] = "B";
     t[59200] = "ExpressionBuilder.CommandName.AnalogRate";
     t[59201] = "AnalogRate";
-    t[59202] = "Main.Menu.Edit.MoveBack.Mnemonic";
-    t[59203] = "H";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59202] = "Main.Menu.Edit.MoveBack.Mnemonic";
+    t[59203] = "H";
     t[59210] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.CoefficientOfVariationOfTheTime";
     t[59211] = "<p>Liefert den Variationskoeffizienten \u00fcber die Transferzeiten der Kunden, die an der Bedienstation, deren ID in dem Parameter angegeben wurde, erzeugt wurden.</p>\n<p>Alternativ sind auch folgende andere Parametrierungen m\u00f6glich:</p>\n<ul>\n<li>ID einer Kundenquelle (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Station und ID einer Quelle (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Quelle im zweiten Parameter erzeugten Kundentyps)</li>\n<li>2 Parameter: ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Kunden des dort erzeugten Kundentyps)</li>\n<li>3 Parameter: ID einer Station, ID einer Mehrfachquelle und 1-basierter Index eines Kundentyps (dann beziehen sich die Ergebnisse auf die Station aus dem ersten Parameter und an der Station auf die Kunden des an der Mehrfachquelle im zweiten Parameter erzeugten Kundentyps)</li>\n</ul>";
     t[59212] = "Surface.PopupMenu.MoveForwards";

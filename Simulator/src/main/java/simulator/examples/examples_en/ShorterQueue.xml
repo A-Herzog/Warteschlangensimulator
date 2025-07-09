@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.8.0</ModelVersion>
+  <ModelName>Choosing the shorter queue</ModelName>
+  <ModelDescription>If there are two queues to choose from, the length of which differs by only 1 and there is no other information
+that speaks for or against one or the other queue, i.e. it can be assumed that the service processes at the
+process stations following the queues are subject to the same distribution, it obviously makes sense to select
+the shorter of the two queues.
+
+However, due to the stochastic nature of the service  processes, it may be the case that the service times
+at the longer queue are shorter than the service times at the shorter queue, so that the operator would
+be reached faster at the longer queue.
+
+The longer the two queues are (and if it is still assumed that the difference in length is only 1), the more
+frequently this case will occur. If the values for the number of clients in the subsystems are 0 and 1,
+the probability of being served first in the system with 0 clients is 100%. However, the more clients
+there are in the two subsystems, the more the probabilities shift towards 50%:50.
+
+The probability of having to wait longer at the shorter queue can be calculated analytically on this page:
+https://a-herzog.github.io/QueueCalc/?function=ShortestQueueValues</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="4">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="500"/>
+      <ModelElementConnection Element="31" Type="Out"/>
+      <ModelElementArrivalSignal>Signal</ModelElementArrivalSignal>
+      <ModelElementBatchData Size="ShorterQueue"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="5">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="400" y="300"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="15" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener A"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="6">
+      <ModelElementName>B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="400" y="500"/>
+      <ModelElementConnection Element="31" Type="In"/>
+      <ModelElementConnection Element="16" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDecide id="14">
+      <ModelElementSize h="50" w="100" x="700" y="400"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementConnection Element="16" Type="In"/>
+      <ModelElementConnection Condition="(Running==1) &amp;&amp; (WIP(5)==0 || WIP(6)==0)" Element="18" Type="Out"/>
+      <ModelElementConnection Element="20" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="15">
+      <ModelElementConnection Element1="5" Element2="14" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="16">
+      <ModelElementConnection Element1="6" Element2="14" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="17">
+      <ModelElementSize h="50" w="100" x="1250" y="400"/>
+      <ModelElementConnection Element="20" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementVariable id="19">
+      <ModelElementSize h="50" w="100" x="700" y="600"/>
+      <ModelElementConnection Element="18" Type="In"/>
+      <ModelElementConnection Element="22" Type="Out"/>
+      <ModelElementAssignmentData Variable="Running">0</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementDecide id="21">
+      <ModelElementSize h="50" w="100" x="850" y="600"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Condition="WIP(5)==0" Element="25" Type="Out"/>
+      <ModelElementConnection Element="26" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="22">
+      <ModelElementConnection Element1="19" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementCounter id="23">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1050" y="550"/>
+      <ModelElementConnection Element="25" Type="In"/>
+      <ModelElementConnection Element="28" Type="Out"/>
+      <ModelElementCounterGroup>Faster</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementCounter id="24">
+      <ModelElementName>B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1055" y="650"/>
+      <ModelElementConnection Element="26" Type="In"/>
+      <ModelElementConnection Element="29" Type="Out"/>
+      <ModelElementCounterGroup>Faster</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementEdge id="25">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="21" Element2="23" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="26">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="21" Element2="24" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="27">
+      <ModelElementSize h="50" w="100" x="1250" y="600"/>
+      <ModelElementConnection Element="28" Type="In"/>
+      <ModelElementConnection Element="29" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="28">
+      <ModelElementConnection Element1="23" Element2="27" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="29">
+      <ModelElementConnection Element1="24" Element2="27" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementSource id="9">
+      <ModelElementName>Clients</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="300"/>
+      <ModelElementConnection Element="3" Type="Out"/>
+      <ModelElementArrivalSignal>Signal</ModelElementArrivalSignal>
+      <ModelElementBatchData Size="ShorterQueue+1"/>
+    </ModelElementSource>
+    <ModelElementEdge id="31">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="4" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="18">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="14" Element2="19" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="20">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="14" Element2="17" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="11">
+      <ModelElementName>Station with the higher number of clients</ModelElementName>
+      <ModelElementSize h="30" w="168" x="400" y="375"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">ShorterQueue+1</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="30">
+      <ModelElementName>Station with the lower number of clients</ModelElementName>
+      <ModelElementSize h="30" w="163" x="400" y="450"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">ShorterQueue</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="32">
+      <ModelElementName>Shorter waiting time at station A</ModelElementName>
+      <ModelElementSize h="30" w="133" x="1050" y="500"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(23)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="33">
+      <ModelElementName>Shorter waiting time at station B</ModelElementName>
+      <ModelElementSize h="30" w="133" x="1050" y="730"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(24)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="34">
+      <ModelElementSize h="23" w="246" x="50" y="50"/>
+      <ModelElementTextLine>Choosing the shorter queue</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="35">
+      <ModelElementSize h="19" w="429" x="50" y="125"/>
+      <ModelElementTextLine>Triggers the next arrival when there are no more clients in the system</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="36">
+      <ModelElementSize h="57" w="491" x="50" y="240"/>
+      <ModelElementTextLine>The trigger generates n+1 arrivals at station A and n arrivals at station B.</ModelElementTextLine>
+      <ModelElementTextLine>Records which station runs empty first, i.e. at which a client queuing afterwards</ModelElementTextLine>
+      <ModelElementTextLine>would reach the operator first.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="37">
+      <ModelElementSize h="64" w="357" x="50" y="600"/>
+      <ModelElementTextLine>In general, the probability of being served first in the shorter queue</ModelElementTextLine>
+      <ModelElementTextLine>is higher than in the longer queue. However, these two probabilities</ModelElementTextLine>
+      <ModelElementTextLine>become more and more equal the longer the two queues are</ModelElementTextLine>
+      <ModelElementTextLine>(if the difference in length is basically only 1).</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationPieDiagram id="38">
+      <ModelElementSize h="100" w="100" x="850" y="480"/>
+      <ModelElementLineWidth>0</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementSegmentLabel>Off</ModelElementSegmentLabel>
+      <ModelElementSegmentDisplay>CircleSegment</ModelElementSegmentDisplay>
+      <ModelElementDiagramElement SegmentColor="255,0,0">Part(23)</ModelElementDiagramElement>
+      <ModelElementDiagramElement SegmentColor="0,180,0">Part(24)</ModelElementDiagramElement>
+    </ModelElementAnimationPieDiagram>
+    <ModelElementLink id="39">
+      <ModelElementSize h="19" w="388" x="50" y="735"/>
+      <ModelElementLinkText>a-herzog.github.io/QueueCalc/?function=ShortestQueueValues</ModelElementLinkText>
+      <ModelElementLinkTarget>https://a-herzog.github.io/QueueCalc/?function=ShortestQueueValues</ModelElementLinkTarget>
+      <ModelElementFontSize>14</ModelElementFontSize>
+    </ModelElementLink>
+    <ModelElementText id="40">
+      <ModelElementSize h="19" w="271" x="50" y="715"/>
+      <ModelElementTextLine>Analytical online calculator for this question:</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAction id="1">
+      <ModelElementSize h="50" w="100" x="50" y="150"/>
+      <ModelElementActionRecord ActionType="Signal" Condition="WIP()==0" ConditionMinimumDistance="1" ConditionType="Condition" active="1">Signal</ModelElementActionRecord>
+    </ModelElementAction>
+    <ModelElementVariable id="2">
+      <ModelElementSize h="50" w="100" x="250" y="300"/>
+      <ModelElementConnection Element="3" Type="In"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementAssignmentData Variable="Running">1</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementEdge id="3">
+      <ModelElementName>Arrivals (Clients)</ModelElementName>
+      <ModelElementConnection Element1="9" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="7">
+      <ModelElementConnection Element1="2" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Bediener A" Type="Number" Value="1"/>
+    <Resource Name="Bediener B" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <InitialVariable AskForValue="1" Name="ShorterQueue">20</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+</Model>

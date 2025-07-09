@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>5.8.0</ModellVersion>
+  <ModellName>Wahl der kürzeren Warteschlange</ModellName>
+  <ModellBeschreibung>Stehen zwei Warteschlangen zur Auswahl, deren Länge sich nur um 1 unterscheidet und liegen sonst keine Informationen
+vor, die für oder gegen die eine oder die andere Warteschlange sprechen, d.h. kann angenommen werden, dass die
+Bedienprozesse an den auf die Warteschlangen folgenden Bedienschalter derselben Verteilung unterliegen, so ist es
+offensichtlich sinnvoll, sich an die kürzere der beiden Schlangen anzustellen.
+
+Aufgrund der stochastischen Natur der Bedienprozesse, kann jedoch der Fall eintreten, dass die Bedienzeiten an der längeren
+Warteschlange in dem Maße kürzer ausfallen, als die Bediendauern an der kürzeren Warteschlange, so dass man an der
+längeren Warteschlange schneller zum Bediener gelangen würde.
+
+Je länger die beiden Warteschlangen sind (und wenn weiterhin angenommen wird, dass die Längendifferenz nur 1 beträgt),
+desto häufiger wird dieser Fall auftreten. Betragen die Werte für die Anzahlen an Kunden in den Teilsystemen 0 und 1,
+so beträgt die Wahrscheinlichkeit, an dem System, in dem sich 0 Kunden befinden, zuerst bedient zu werden, 100%.
+Je mehr Kunden sich jedoch in den beiden Teilsystemen befinden, desto mehr verschieben sich die Wahrscheinlichkeiten
+hin zu 50%:50.
+
+Analytisch lässt sich die Wahrscheinlichkeit, an der kürzeren Warteschlange länger warten zu müssen, auf dieser
+Seite berechnen:
+https://a-herzog.github.io/QueueCalc/?function=ShortestQueueValues</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="4">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="500"/>
+      <ModellElementVerbindung Element="31" Typ="Auslaufend"/>
+      <ModellElementAnkunftssignal>Signal</ModellElementAnkunftssignal>
+      <ModellElementBatch Groesse="ShorterQueue"/>
+    </ModellElementQuelle>
+    <ModellElementBedienstation id="5">
+      <ModellElementName>A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="400" y="300"/>
+      <ModellElementVerbindung Element="3" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener A"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementBedienstation id="6">
+      <ModellElementName>B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="400" y="500"/>
+      <ModellElementVerbindung Element="31" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
+      <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (50)</ModellElementVerteilung>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+      <ModellElementBediener Alternative="1" Anzahl="1" Gruppe="Bediener B"/>
+      <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
+    </ModellElementBedienstation>
+    <ModellElementVerzweigen id="14">
+      <ModellElementGroesse h="50" w="100" x="700" y="400"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="(Running==1) &amp;&amp; (WIP(5)==0 || WIP(6)==0)" Element="18" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="20" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="15">
+      <ModellElementVerbindung Element1="5" Element2="14" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="16">
+      <ModellElementVerbindung Element1="6" Element2="14" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="17">
+      <ModellElementGroesse h="50" w="100" x="1250" y="400"/>
+      <ModellElementVerbindung Element="20" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementVariable id="19">
+      <ModellElementGroesse h="50" w="100" x="700" y="600"/>
+      <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="22" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="Running">0</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementVerzweigen id="21">
+      <ModellElementGroesse h="50" w="100" x="850" y="600"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="WIP(5)==0" Element="25" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="22">
+      <ModellElementVerbindung Element1="19" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZaehler id="23">
+      <ModellElementName>A</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1050" y="550"/>
+      <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="28" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Faster</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementZaehler id="24">
+      <ModellElementName>B</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1055" y="650"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="29" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>Faster</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementKante id="25">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="21" Element2="23" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="26">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="21" Element2="24" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="27">
+      <ModellElementGroesse h="50" w="100" x="1250" y="600"/>
+      <ModellElementVerbindung Element="28" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="29" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementKante id="28">
+      <ModellElementVerbindung Element1="23" Element2="27" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="29">
+      <ModellElementVerbindung Element1="24" Element2="27" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementQuelle id="9">
+      <ModellElementName>Kunden</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="300"/>
+      <ModellElementVerbindung Element="2" Typ="Auslaufend"/>
+      <ModellElementAnkunftssignal>Signal</ModellElementAnkunftssignal>
+      <ModellElementBatch Groesse="ShorterQueue+1"/>
+    </ModellElementQuelle>
+    <ModellElementKante id="31">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="4" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="18">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="14" Element2="19" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="20">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="14" Element2="17" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="11">
+      <ModellElementName>Station mit der höheren Anzahl an Kunden</ModellElementName>
+      <ModellElementGroesse h="30" w="178" x="400" y="375"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">ShorterQueue+1</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="30">
+      <ModellElementName>Station mit der geringeren Anzahl an Kunden</ModellElementName>
+      <ModellElementGroesse h="30" w="189" x="400" y="450"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">ShorterQueue</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="32">
+      <ModellElementName>Kürzere Wartezeit an Station A</ModellElementName>
+      <ModellElementGroesse h="30" w="129" x="1050" y="500"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(23)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="33">
+      <ModellElementName>Kürzere Wartezeit an Station B</ModellElementName>
+      <ModellElementGroesse h="30" w="129" x="1050" y="730"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(24)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="34">
+      <ModellElementGroesse h="23" w="294" x="50" y="50"/>
+      <ModellElementTextzeile>Wahl der kürzeren Warteschlange</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="35">
+      <ModellElementGroesse h="19" w="596" x="50" y="125"/>
+      <ModellElementTextzeile>Trigger löst immer dann die nächste Ankunft aus, wenn sich kein Kunde mehr im System befindet</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="36">
+      <ModellElementGroesse h="57" w="610" x="50" y="240"/>
+      <ModellElementTextzeile>Durch den Trigger werden an Station A n+1 Ankünfte generiert und an Station B n Ankünfte.</ModellElementTextzeile>
+      <ModellElementTextzeile>Erfasst, welche Station zuerst leer läuft, d.h. an welcher ein sich danach anstellender Kunde zuerst</ModellElementTextzeile>
+      <ModellElementTextzeile>zum Bediener gelangen würde.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementText id="37">
+      <ModellElementGroesse h="80" w="397" x="50" y="600"/>
+      <ModellElementTextzeile>Generell ist die Wahrscheinlichkeit, an der kürzeren Warteschlange zu erst</ModellElementTextzeile>
+      <ModellElementTextzeile>bedient zu werden, höher als an der längeren Warteschlange. Allerdings</ModellElementTextzeile>
+      <ModellElementTextzeile>gleichen sich diese beiden Wahrscheinlichkeiten immer weiter an, je länger</ModellElementTextzeile>
+      <ModellElementTextzeile>die beiden Warteschlangen sind (wenn der Längenunterschied</ModellElementTextzeile>
+      <ModellElementTextzeile>grundsätzlich nur 1 beträgt).</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationTortenDiagramm id="38">
+      <ModellElementGroesse h="100" w="100" x="850" y="480"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementSegmentBeschriftung>Aus</ModellElementSegmentBeschriftung>
+      <ModellElementSegmentDarstellung>Kreissegment</ModellElementSegmentDarstellung>
+      <ModellElementDiagrammElement Segmentfarbe="255,0,0">Part(23)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Segmentfarbe="0,180,0">Part(24)</ModellElementDiagrammElement>
+    </ModellElementAnimationTortenDiagramm>
+    <ModellElementLink id="39">
+      <ModellElementGroesse h="19" w="388" x="50" y="735"/>
+      <ModellElementLinkText>a-herzog.github.io/QueueCalc/?function=ShortestQueueValues</ModellElementLinkText>
+      <ModellElementLinkZiel>https://a-herzog.github.io/QueueCalc/?function=ShortestQueueValues</ModellElementLinkZiel>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+    </ModellElementLink>
+    <ModellElementText id="40">
+      <ModellElementGroesse h="19" w="326" x="50" y="715"/>
+      <ModellElementTextzeile>Analytischer Online-Rechner für diese Fragestellung:</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAktion id="41">
+      <ModellElementGroesse h="50" w="100" x="50" y="150"/>
+      <ModellElementAktionDatensatz Aktionstyp="Signal" Bedingung="WIP()==0" BedingungMindestabstand="1" Bedingungstyp="Bedingung" aktiv="1">Signal</ModellElementAktionDatensatz>
+    </ModellElementAktion>
+    <ModellElementVariable id="1">
+      <ModellElementGroesse h="50" w="100" x="250" y="300"/>
+      <ModellElementVerbindung Element="2" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="3" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="Running">1</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementKante id="2">
+      <ModellElementName>Ankünfte (Kunden)</ModellElementName>
+      <ModellElementVerbindung Element1="9" Element2="1" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="3">
+      <ModellElementVerbindung Element1="1" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig">
+    <Ressource Name="Bediener A" Typ="Anzahl" Wert="1"/>
+    <Ressource Name="Bediener B" Typ="Anzahl" Wert="1"/>
+  </Ressourcen>
+  <KundentypenDaten/>
+  <InitialeVariable NachWertFragen="1" Name="ShorterQueue">20</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
+</Modell>

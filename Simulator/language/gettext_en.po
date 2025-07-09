@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-05 02:22+0200\n"
+"POT-Creation-Date: 2025-07-07 18:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5866,6 +5866,9 @@ msgstr "Resource shared between multiple stations"
 
 msgid "Examples.Shiftplan"
 msgstr "Shiftplans"
+
+msgid "Examples.ShorterQueue"
+msgstr "Longer waiting time at shorter queue"
 
 msgid "Examples.SplitAndJoin"
 msgstr "Splitting and joining of (partial) products"

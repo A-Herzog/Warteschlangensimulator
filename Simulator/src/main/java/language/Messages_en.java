@@ -20432,6 +20432,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[50279] = "At the source tank no valve has been selected to be connected to the flow.";
     t[50282] = "Simulation.Creator.InvalidLongRunExpression";
     t[50283] = "The long run statistics expression \"%s\" is invalid at character %d.";
+    t[50284] = "Examples.ShorterQueue";
+    t[50285] = "Longer waiting time at shorter queue";
     t[50286] = "Surface.Text.Dialog.ShadowColor";
     t[50287] = "Shadow";
     t[50294] = "Surface.ExpressionTableModel.Dialog.Mode";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54395] = "Data processing is running.";
     t[54404] = "SimulationServer.Setup.TLSInfo.GenerateKeyStore.ErrorKeyToolNotFound";
     t[54405] = "The Java KeyTool for creating the key store file could not be found.";
-    t[54406] = "ParameterCompare.Templates.Minimum.ErrorTitle";
-    t[54407] = "Invalid minimum value";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[54406] = "ParameterCompare.Templates.Minimum.ErrorTitle";
+    t[54407] = "Invalid minimum value";
     t[54422] = "Surface.XML.Transporter.Distances.DestinationStation";
     t[54423] = "Destination";
     t[54426] = "Statistics.ModelRemarks";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[59197] = "E";
     t[59200] = "ExpressionBuilder.CommandName.AnalogRate";
     t[59201] = "AnalogRate";
-    t[59202] = "Main.Menu.Edit.MoveBack.Mnemonic";
-    t[59203] = "B";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[59202] = "Main.Menu.Edit.MoveBack.Mnemonic";
+    t[59203] = "B";
     t[59210] = "ExpressionBuilder.SimulationCharacteristics.TransferTimesByClientTypes.CoefficientOfVariationOfTheTime";
     t[59211] = "<p>Returns the coefficient of variation over all transfer times of the clients created at the station whose ID was specified in the parameter.</p>\n<p>Alternatively, the following other parameterizations are also possible:</p>\n<li>ID of a client source (in this case the results refer to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a station and ID of a source (in this case the results refer to a station and at the station to the clients which are created at the selected source)</li>\n<li>2 parameter: ID of a multi source and 1-based index of the client type at the source (in this case the results refer to the clients which are created at the selected multi source)</li>\n<li>3 parameter: ID of a station, ID of a multi source and 1-based index of the client type at the source  (in this case the results refer to a station and at the station to the clients which are created at the selected multi source)</li>\n<ul>\n</ul>";
     t[59212] = "Surface.PopupMenu.MoveForwards";
