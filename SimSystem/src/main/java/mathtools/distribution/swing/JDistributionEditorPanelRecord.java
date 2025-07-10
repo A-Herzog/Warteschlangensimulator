@@ -47,6 +47,7 @@ import mathtools.distribution.ErlangDistributionImpl;
 import mathtools.distribution.ExtBetaDistributionImpl;
 import mathtools.distribution.FatigueLifeDistributionImpl;
 import mathtools.distribution.FrechetDistributionImpl;
+import mathtools.distribution.GeneralizedRademacherDistribution;
 import mathtools.distribution.HalfNormalDistribution;
 import mathtools.distribution.HyperbolicSecantDistributionImpl;
 import mathtools.distribution.InverseGammaDistributionImpl;
@@ -95,6 +96,7 @@ import mathtools.distribution.tools.WrapperFDistribution;
 import mathtools.distribution.tools.WrapperFatigueLifeDistribution;
 import mathtools.distribution.tools.WrapperFrechetDistribution;
 import mathtools.distribution.tools.WrapperGammaDistribution;
+import mathtools.distribution.tools.WrapperGeneralizedRademacherDistribution;
 import mathtools.distribution.tools.WrapperGeometricDistribution;
 import mathtools.distribution.tools.WrapperGumbelDistribution;
 import mathtools.distribution.tools.WrapperHalfNormalDistribution;
@@ -347,6 +349,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new WignerHalfCircleDistributionPanel());
 		allRecords.add(new BorelDistributionPanel());
 		allRecords.add(new LogGammaDistributionPanel());
+		allRecords.add(new GeneralizedRademacherDistributionPanel());
 	}
 
 	/**
@@ -2190,6 +2193,42 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double a=NumberTools.getPositiveDouble(fields[0],true); if (a==null) return null;
 			final Double b=NumberTools.getPositiveDouble(fields[1],true); if (b==null) return null;
 			return new LogGammaDistributionImpl(a,b);
+		}
+	}
+
+	/** Verallgemeinerte Rademacher-Verteilung */
+	private static class GeneralizedRademacherDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public GeneralizedRademacherDistributionPanel() {
+			super(new WrapperGeneralizedRademacherDistribution(),new String[]{"a","b","P(a)"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			final var wrapper=new WrapperGeneralizedRademacherDistribution();
+			final var dist=(GeneralizedRademacherDistribution)wrapper.getDistribution(meanD,stdD);
+			if (dist==null) {
+				return new String[] {NumberTools.formatNumber(50),NumberTools.formatNumber(100),NumberTools.formatNumber(0.5)};
+			} else {
+				return new String[] {NumberTools.formatNumber(dist.a),NumberTools.formatNumber(dist.b),NumberTools.formatNumber(dist.pA)};
+			}
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((GeneralizedRademacherDistribution)distribution).a),
+					NumberTools.formatNumberMax(((GeneralizedRademacherDistribution)distribution).b),
+					NumberTools.formatNumberMax(((GeneralizedRademacherDistribution)distribution).pA),
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double a=NumberTools.getNotNegativeDouble(fields[0],true); if (a==null) return null;
+			final Double b=NumberTools.getNotNegativeDouble(fields[1],true); if (b==null || b<a) return null;
+			final Double pA=NumberTools.getNotNegativeDouble(fields[2],true); if (pA==null || pA>1) return null;
+			return new GeneralizedRademacherDistribution(a,b,pA);
 		}
 	}
 }

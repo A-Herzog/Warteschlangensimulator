@@ -440,6 +440,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite kontinuierliche Bernoulli-Verteilung */
 	public static String DistContinuousBernoulliWikipedia="https://en.wikipedia.org/wiki/Continuous_Bernoulli_distribution";
 
+	/** Verallgemeinerte Rademacher-Verteilung */
+	public static String[] DistGeneralizedRademacher=new String[]{"Verallgemeinerte Rademacher-Verteilung"};
+
+	/** Wikipedia-Seite Verallgemeinerte Rademacher-Verteilung */
+	public static String DistGeneralizedRademacherWikipedia="https://de.wikipedia.org/wiki/Rademacherverteilung";
+
 	/** Warnung "unbekannte Verteilung" */
 	public static String DistUnknown="unbekannte Verteilung";
 
@@ -571,7 +577,8 @@ public final class DistributionTools {
 				new WrapperLogCauchyDistribution(),
 				new WrapperBorelDistribution(),
 				new WrapperLogGammaDistribution(),
-				new WrapperContinuousBernoulliDistribution()
+				new WrapperContinuousBernoulliDistribution(),
+				new WrapperGeneralizedRademacherDistribution()
 		};
 	}
 

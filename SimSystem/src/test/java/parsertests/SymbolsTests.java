@@ -4081,6 +4081,37 @@ class SymbolsTests {
 		testDistribution(cmd,variables,new double[]{100,400,0.3});
 		testDistribution(cmd,variables,new double[]{100,400,0.5});
 		testDistribution(cmd,variables,new double[]{100,400,0.7});
+
+		/* Verallgemeinerte Rademacher-Verteilung */
+
+		cmd="GeneralizedRademacherDist(x;a;b;pA;0)";
+		variables=new String[]{"x","a","b","pA"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,100,400,0.3}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,100,400,0.3}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,100,400,0.5}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,100,400,0.5}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,100,400,0.7}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{500,100,400,0.7}));
+
+		cmd="GeneralizedRademacherDist(x;a;b;pA;1)";
+		variables=new String[]{"x","a","b","pA"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,100,400,0.3}));
+		assertEquals(0.3,testDistribution(cmd,variables,new double[]{200,100,400,0.3}));
+		assertEquals(1,testDistribution(cmd,variables,new double[]{500,100,400,0.3}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,100,400,0.5}));
+		assertEquals(0.5,testDistribution(cmd,variables,new double[]{200,100,400,0.5}));
+		assertEquals(1,testDistribution(cmd,variables,new double[]{500,100,400,0.5}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{50,100,400,0.7}));
+		assertEquals(0.7,testDistribution(cmd,variables,new double[]{200,100,400,0.7}));
+		assertEquals(1,testDistribution(cmd,variables,new double[]{500,100,400,0.7}));
+
+		testDistributionThrows("GeneralizedRademacherDist(x;a;b;pA;2)",variables,new double[]{100,50,150,0.5});
+
+		cmd="GeneralizedRademacherDist(a;b;pA)";
+		variables=new String[]{"a","b","pA"};
+		testDistribution(cmd,variables,new double[]{100,400,0.3});
+		testDistribution(cmd,variables,new double[]{100,400,0.5});
+		testDistribution(cmd,variables,new double[]{100,400,0.7});
 	}
 
 	/**

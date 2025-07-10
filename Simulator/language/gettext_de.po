@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-07 18:44+0200\n"
+"POT-Creation-Date: 2025-07-08 13:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3516,6 +3516,12 @@ msgstr ""
 
 msgid "Distribution.GammaWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Gammaverteilung"
+
+msgid "Distribution.GeneralizedRademacher"
+msgstr "Verallgemeinerte Rademacher-Verteilung"
+
+msgid "Distribution.GeneralizedRademacherWikipedia"
+msgstr "https://de.wikipedia.org/wiki/Rademacherverteilung"
 
 msgid "Distribution.Geometric"
 msgstr "Geometrische Verteilung"
@@ -7244,6 +7250,18 @@ msgstr "<p>Erzeugt eine Zufallszahl gemäß der Gamma-Verteilung mit Erwartungsw
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberRangeInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Gamma-Verteilung mit Erwartungswert und Standardabweichung gemäß dem dritten und vierten Parameter.</p>\\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GeneralizedRademacherDist"
+msgstr "Verallgemeinerte Rademacher-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GeneralizedRademacherDist.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der verallgemeinerten Rademacher-Verteilung an der als ersten Parameter angegebenen Stelle mit x-Werten a und b gemäß dem zweiten und dritten Parameter sowie dem Wert P(a) gemäß dem vierten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GeneralizedRademacherDist.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der verallgemeinerten Rademacher-Verteilung an der als ersten Parameter angegebenen Stelle mit x-Werten a und b gemäß dem zweiten und dritten Parameter sowie dem Wert P(a) gemäß dem vierten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GeneralizedRademacherDist.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der verallgemeinerten Rademacher-Verteilung mit x-Werten a und b gemäß dem ersten und zweiten Parameter sowie dem Wert P(a) gemäß dem dritten Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GeometricDistribution"
 msgstr "Geometrische Verteilung"

@@ -50,6 +50,7 @@ import mathtools.distribution.ErlangDistributionImpl;
 import mathtools.distribution.ExtBetaDistributionImpl;
 import mathtools.distribution.FatigueLifeDistributionImpl;
 import mathtools.distribution.FrechetDistributionImpl;
+import mathtools.distribution.GeneralizedRademacherDistribution;
 import mathtools.distribution.HalfNormalDistribution;
 import mathtools.distribution.HyperbolicSecantDistributionImpl;
 import mathtools.distribution.InverseGammaDistributionImpl;
@@ -82,6 +83,7 @@ import mathtools.distribution.UQuadraticDistribution;
 import mathtools.distribution.WignerHalfCircleDistributionImpl;
 import mathtools.distribution.tools.DistributionRandomNumber;
 import mathtools.distribution.tools.DistributionTools;
+import mathtools.distribution.tools.WrapperGeneralizedRademacherDistribution;
 
 /**
  * Prüft die Funktionsweise der verschiedenen Wahrscheinlichkeitsverteilungen
@@ -3177,6 +3179,180 @@ class DistributionTests {
 
 		testDistributionTools(dist);
 		testDistributionParameters(dist,new double[]{4.5,3.5});
+	}
+
+	/**
+	 * Test: Verallgemeinerte Rademacher-Verteilung
+	 * @see GeneralizedRademacherDistribution
+	 */
+	@Test
+	void testGeneralizedRademacherDist() {
+		GeneralizedRademacherDistribution dist;
+
+		dist=new GeneralizedRademacherDistribution(50,100,2);
+		assertEquals(50,dist.a);
+		assertEquals(100,dist.b);
+		assertEquals(1,dist.pA);
+
+		dist=new GeneralizedRademacherDistribution(100,50,0.25);
+		assertEquals(50,dist.a);
+		assertEquals(100,dist.b);
+		assertEquals(0.75,dist.pA);
+
+		dist=new GeneralizedRademacherDistribution(50,100,0.25);
+		assertEquals(50,dist.a);
+		assertEquals(100,dist.b);
+		assertEquals(0.25,dist.pA);
+
+		assertEquals(50*0.25+100*0.75,dist.getNumericalMean());
+		assertEquals(50*50*0.25+100*100*0.75-Math.pow(50*0.25+100*0.75,2),dist.getNumericalVariance());
+		assertEquals(Double.NEGATIVE_INFINITY,dist.getSupportLowerBound());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getSupportUpperBound());
+		assertFalse(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		assertEquals(0,dist.density(-1));
+		assertEquals(0,dist.density(0));
+		assertEquals(0,dist.density(49));
+		assertEquals(Double.POSITIVE_INFINITY,dist.density(50));
+		assertEquals(0,dist.density(51));
+		assertEquals(0,dist.density(99));
+		assertEquals(Double.POSITIVE_INFINITY,dist.density(100));
+		assertEquals(0,dist.density(101));
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(0,dist.cumulativeProbability(0));
+		assertEquals(0,dist.cumulativeProbability(49));
+		assertEquals(0.25,dist.cumulativeProbability(50));
+		assertEquals(0.25,dist.cumulativeProbability(51));
+		assertEquals(0.25,dist.cumulativeProbability(99));
+		assertEquals(1,dist.cumulativeProbability(100));
+		assertEquals(1,dist.cumulativeProbability(101));
+
+		dist=(GeneralizedRademacherDistribution)DistributionTools.cloneDistribution(dist);
+		assertEquals(50,dist.a);
+		assertEquals(100,dist.b);
+		assertEquals(0.25,dist.pA);
+
+		assertEquals(50*0.25+100*0.75,dist.getNumericalMean());
+		assertEquals(50*50*0.25+100*100*0.75-Math.pow(50*0.25+100*0.75,2),dist.getNumericalVariance());
+		assertEquals(Double.NEGATIVE_INFINITY,dist.getSupportLowerBound());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getSupportUpperBound());
+		assertFalse(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		assertEquals(0,dist.density(-1));
+		assertEquals(0,dist.density(0));
+		assertEquals(0,dist.density(49));
+		assertEquals(Double.POSITIVE_INFINITY,dist.density(50));
+		assertEquals(0,dist.density(51));
+		assertEquals(0,dist.density(99));
+		assertEquals(Double.POSITIVE_INFINITY,dist.density(100));
+		assertEquals(0,dist.density(101));
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(0,dist.cumulativeProbability(0));
+		assertEquals(0,dist.cumulativeProbability(49));
+		assertEquals(0.25,dist.cumulativeProbability(50));
+		assertEquals(0.25,dist.cumulativeProbability(51));
+		assertEquals(0.25,dist.cumulativeProbability(99));
+		assertEquals(1,dist.cumulativeProbability(100));
+		assertEquals(1,dist.cumulativeProbability(101));
+
+		dist=new GeneralizedRademacherDistribution(dist);
+		assertEquals(50,dist.a);
+		assertEquals(100,dist.b);
+		assertEquals(0.25,dist.pA);
+
+		assertEquals(50*0.25+100*0.75,dist.getNumericalMean());
+		assertEquals(50*50*0.25+100*100*0.75-Math.pow(50*0.25+100*0.75,2),dist.getNumericalVariance());
+		assertEquals(Double.NEGATIVE_INFINITY,dist.getSupportLowerBound());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getSupportUpperBound());
+		assertFalse(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		assertEquals(0,dist.density(-1));
+		assertEquals(0,dist.density(0));
+		assertEquals(0,dist.density(49));
+		assertEquals(Double.POSITIVE_INFINITY,dist.density(50));
+		assertEquals(0,dist.density(51));
+		assertEquals(0,dist.density(99));
+		assertEquals(Double.POSITIVE_INFINITY,dist.density(100));
+		assertEquals(0,dist.density(101));
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(0,dist.cumulativeProbability(0));
+		assertEquals(0,dist.cumulativeProbability(49));
+		assertEquals(0.25,dist.cumulativeProbability(50));
+		assertEquals(0.25,dist.cumulativeProbability(51));
+		assertEquals(0.25,dist.cumulativeProbability(99));
+		assertEquals(1,dist.cumulativeProbability(100));
+		assertEquals(1,dist.cumulativeProbability(101));
+
+		dist=dist.clone();
+		assertEquals(50,dist.a);
+		assertEquals(100,dist.b);
+		assertEquals(0.25,dist.pA);
+
+		assertEquals(50*0.25+100*0.75,dist.getNumericalMean());
+		assertEquals(50*50*0.25+100*100*0.75-Math.pow(50*0.25+100*0.75,2),dist.getNumericalVariance());
+		assertEquals(Double.NEGATIVE_INFINITY,dist.getSupportLowerBound());
+		assertEquals(Double.POSITIVE_INFINITY,dist.getSupportUpperBound());
+		assertFalse(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		assertEquals(0,dist.density(-1));
+		assertEquals(0,dist.density(0));
+		assertEquals(0,dist.density(49));
+		assertEquals(Double.POSITIVE_INFINITY,dist.density(50));
+		assertEquals(0,dist.density(51));
+		assertEquals(0,dist.density(99));
+		assertEquals(Double.POSITIVE_INFINITY,dist.density(100));
+		assertEquals(0,dist.density(101));
+
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertEquals(0,dist.cumulativeProbability(0));
+		assertEquals(0,dist.cumulativeProbability(49));
+		assertEquals(0.25,dist.cumulativeProbability(50));
+		assertEquals(0.25,dist.cumulativeProbability(51));
+		assertEquals(0.25,dist.cumulativeProbability(99));
+		assertEquals(1,dist.cumulativeProbability(100));
+		assertEquals(1,dist.cumulativeProbability(101));
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[]{50,100,0.25},false);
+
+		/* Verteilung aus Erwartungswert und Standardabweichung */
+
+		final var wrapper=new WrapperGeneralizedRademacherDistribution();
+
+		dist=(GeneralizedRademacherDistribution)wrapper.getDistribution(75,Math.sqrt(625));
+		assertEquals(50,dist.a);
+		assertEquals(100,dist.b);
+		assertEquals(0.5,dist.pA);
+		assertEquals(0.5,dist.pB);
+		assertEquals(75,dist.getNumericalMean());
+		assertEquals(625,dist.getNumericalVariance());
+
+		dist=(GeneralizedRademacherDistribution)wrapper.getDistribution(75,Math.sqrt(400));
+		assertEquals(55,dist.a);
+		assertEquals(95,dist.b);
+		assertEquals(0.5,dist.pA);
+		assertEquals(0.5,dist.pB);
+		assertEquals(75,dist.getNumericalMean());
+		assertEquals(400,dist.getNumericalVariance());
+
+		dist=(GeneralizedRademacherDistribution)wrapper.getDistribution(20,Math.sqrt(900));
+		assertEquals(2.6794,dist.a,0.01);
+		assertEquals(71.9615,dist.b,0.01);
+		assertEquals(0.75,dist.pA);
+		assertEquals(0.25,dist.pB);
+		assertEquals(20,dist.getNumericalMean());
+		assertEquals(900,dist.getNumericalVariance());
 	}
 
 	/**

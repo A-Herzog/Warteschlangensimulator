@@ -714,6 +714,22 @@ public class ExpressionBuilderDistributions {
 				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.LogGammaDistribution.DistributionFunctionInfo"),NumberTools.formatNumberMax(0.087695308502)),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogGammaDistribution.RandomNumberInfo"));
 
+		/* Kontinuierliche Bernoulli-Verteilung */
+
+		addDist(group,filterUpper,"ContinuousBernoulliDist","a;b;lambda",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist.RandomNumberInfo"));
+
+		/* Verallgemeinerte Rademacher-Verteilung */
+
+		addDist(group,filterUpper,"GeneralizedRademacherDist","a;b;pA",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GeneralizedRademacherDist"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GeneralizedRademacherDist.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GeneralizedRademacherDist.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.GeneralizedRademacherDist.RandomNumberInfo"));
+
 		return group;
 	}
 

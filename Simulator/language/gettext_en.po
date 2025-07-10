@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-07 18:44+0200\n"
+"POT-Creation-Date: 2025-07-08 13:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3512,6 +3512,12 @@ msgstr ""
 
 msgid "Distribution.GammaWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Gamma_distribution"
+
+msgid "Distribution.GeneralizedRademacher"
+msgstr "Generalized Rademacher distribution"
+
+msgid "Distribution.GeneralizedRademacherWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Rademacher_distribution"
 
 msgid "Distribution.Geometric"
 msgstr "Geometric distribution"
@@ -7253,6 +7259,18 @@ msgstr ""
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GammaDistributionDirect.RandomNumberRangeInfo"
 msgstr "<p>Generates a random number according to the gamma distribution with mean and standard deviation specified in parameters three and four.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GeneralizedRademacherDist"
+msgstr "Generalized Rademacher distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GeneralizedRademacherDist.DensityInfo"
+msgstr "<p>Calculates the value of the density of the generalized Rademacher distribution at the location specified as first parameter with x-values a and b specified in parameters two and three and probability P(a) as specified in parameter four.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GeneralizedRademacherDist.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the generalized Rademacher distribution at the location specified as first parameter with x-values a and b specified in parameters two and three and probability P(a) as specified in parameter four.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.GeneralizedRademacherDist.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the generalized Rademacher distribution with x-values a and b specified in parameters one and two and probability P(a) as specified in parameter three.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.GeometricDistribution"
 msgstr "Geometric distribution"

@@ -141,6 +141,7 @@ import parser.symbols.distributions.CalcSymbolDistributionFatigueLife;
 import parser.symbols.distributions.CalcSymbolDistributionFrechet;
 import parser.symbols.distributions.CalcSymbolDistributionGamma;
 import parser.symbols.distributions.CalcSymbolDistributionGammaDirect;
+import parser.symbols.distributions.CalcSymbolGeneralizedRademacherDistribution;
 import parser.symbols.distributions.CalcSymbolDistributionGumbel;
 import parser.symbols.distributions.CalcSymbolDistributionGumbelDirect;
 import parser.symbols.distributions.CalcSymbolDistributionHalfNormal;
@@ -370,6 +371,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionLogGamma());
 			addSymbol(new CalcSymbolDistributionInverseGamma());
 			addSymbol(new CalcSymbolDistributionContinuousBernoulli());
+			addSymbol(new CalcSymbolGeneralizedRademacherDistribution());
 
 			addSymbol(new CalcSymbolEmpiricalDistributionPDF());
 			addSymbol(new CalcSymbolEmpiricalDistributionCDF());
