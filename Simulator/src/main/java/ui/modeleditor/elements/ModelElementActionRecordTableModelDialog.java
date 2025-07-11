@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
@@ -100,6 +101,8 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 	private final JRadioButton triggerThreshold;
 	/** Art der Bedingung: Signal */
 	private final JRadioButton triggerSignal;
+	/** Art der Bedingung: Mit vorheriger Aktion */
+	private final JRadioButton triggerWithPrevious;
 
 	/** Art der auszulösenden Aktion: Variablenzuweisung */
 	private final JRadioButton actionAssign;
@@ -248,7 +251,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			timeIntervalTimeBase.addActionListener(e->triggerTime.setSelected(true));
 
 			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
-			line.add(timeLimitRepetitions=new JCheckBox(Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.LimitRepetitions"),record.getTimeRepeatCount()>0));
+			line.add(timeLimitRepetitions=new JCheckBox(Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Time.LimitRepetitions")+":",record.getTimeRepeatCount()>0));
 			final JSpinner spinner=new JSpinner(timeLimitRepetitionsCount=new SpinnerNumberModel(Math.max(1,record.getTimeRepeatCount()),1,10000,1));
 			JSpinner.NumberEditor editor=new JSpinner.NumberEditor(spinner);
 			editor.getFormat().setGroupingUsed(false);
@@ -261,6 +264,8 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 				@Override public void keyReleased(KeyEvent e) {timeLimitRepetitions.setSelected(true); triggerTime.setSelected(true);}
 				@Override public void keyPressed(KeyEvent e) {timeLimitRepetitions.setSelected(true); triggerTime.setSelected(true);}
 			});
+
+			tab.add(Box.createVerticalStrut(15));
 
 			/* Bedingung */
 
@@ -279,6 +284,8 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			conditionMinDistanceEdit=(JTextField)data[1];
 			line.add(new JLabel(Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Condition.MinDistance.Seconds")));
 			addKeyListener(conditionEdit,()->triggerCondition.setSelected(true));
+
+			tab.add(Box.createVerticalStrut(15));
 
 			/* Schwellenwert */
 
@@ -311,11 +318,15 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			case THRESHOLD_UP: thresholdDirectionUp.setSelected(true); break;
 			}
 
+			tab.add(Box.createVerticalStrut(15));
+
 			/* Signal */
 
 			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(triggerSignal=new JRadioButton(bold1+Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Signal")+bold2));
 			triggerSignal.addActionListener(e->checkData(false));
+
+			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			final String[] triggerSignalNames=model.surface.getAllSignalNames().toArray(String[]::new);
 			line.add(triggerSignalName=new JComboBox<>(triggerSignalNames));
 			final String triggerSignalNameCurrent=record.getConditionSignal();
@@ -325,6 +336,15 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			if (index>=0) triggerSignalName.setSelectedIndex(0);
 			triggerSignalName.addActionListener(e->{triggerSignal.setSelected(true); checkData(false);});
 
+			tab.add(Box.createVerticalStrut(15));
+
+			/* Mit vorheriger Aktion */
+
+			tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			line.add(triggerWithPrevious=new JRadioButton(bold1+Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.WithPrevious")+bold2));
+			triggerWithPrevious.addActionListener(e->checkData(false));
+
+
 			/* Auslöser-Radiobuttons zusammenfassen */
 
 			buttonGroup=new ButtonGroup();
@@ -332,12 +352,14 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			buttonGroup.add(triggerCondition);
 			buttonGroup.add(triggerThreshold);
 			buttonGroup.add(triggerSignal);
+			buttonGroup.add(triggerWithPrevious);
 
 			switch (record.getConditionType()) {
 			case CONDITION_TIME: triggerTime.setSelected(true); break;
 			case CONDITION_CONDITION: triggerCondition.setSelected(true); break;
 			case CONDITION_THRESHOLD: triggerThreshold.setSelected(true); break;
 			case CONDITION_SIGNAL: triggerSignal.setSelected(true); break;
+			case CONDITION_WITH_PREVIOUS: triggerWithPrevious.setSelected(true); break;
 			}
 		} else {
 			triggerTime=null;
@@ -345,6 +367,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 			triggerThreshold=null;
 			triggerSignal=null;
 			triggerSignalName=null;
+			triggerWithPrevious=null;
 
 			timeInitial=null;
 			timeInitialTimeBase=null;
@@ -386,6 +409,8 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		line.add(ModelElementBaseDialog.getExpressionEditButton(this,assignExpressionEdit,false,false,model,surface),BorderLayout.EAST);
 		addKeyListener(assignExpressionEdit,()->actionAssign.setSelected(true));
 
+		tab.add(Box.createVerticalStrut(15));
+
 		/* Analoger Wert */
 
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -409,6 +434,8 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		line.add(ModelElementBaseDialog.getExpressionEditButton(this,analogExpressionEdit,false,false,model,surface),BorderLayout.EAST);
 		addKeyListener(analogExpressionEdit,()->actionAnalog.setSelected(true));
 
+		tab.add(Box.createVerticalStrut(15));
+
 		/* Signal auslösen */
 
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
@@ -422,11 +449,15 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		signalNameEdit=(JTextField)data[1];
 		addKeyListener(signalNameEdit,()->actionSignal.setSelected(true));
 
+		tab.add(Box.createVerticalStrut(15));
+
 		/* Simulation beenden */
 
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(actionStop=new JRadioButton(bold1+Language.tr("Surface.Action.Dialog.Edit.Tabs.Action.EndSimulation")+bold2));
 		actionStop.addActionListener(e->checkData(false));
+
+		tab.add(Box.createVerticalStrut(15));
 
 		/* Sound abspielen */
 
@@ -435,7 +466,9 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		actionSound.addActionListener(e->checkData(false));
 		tab.add(soundEdit=new SoundSystemPanel(record.getSound(),record.getSoundMaxSeconds(),readOnly));
 
-		/* Javascript ausführen */
+		tab.add(Box.createVerticalStrut(15));
+
+		/* Skript ausführen */
 
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(actionScript=new JRadioButton(bold1+Language.tr("Surface.Action.Dialog.Edit.Tabs.Action.JS")+bold2));
@@ -821,6 +854,10 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 
 			if (triggerSignal.isSelected()) {
 				record.setConditionSignal((String)triggerSignalName.getSelectedItem());
+			}
+
+			if (triggerWithPrevious.isSelected()) {
+				record.setTriggerWithPreviousAction();
 			}
 		}
 

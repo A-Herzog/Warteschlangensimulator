@@ -64,7 +64,7 @@ public class RunElementActionRecord {
 	private ModelElementActionRecord.ActionMode actionMode;
 
 	/** Art der Bedingung, die die Aktion auslösen soll */
-	private ModelElementActionRecord.ConditionType conditionType;
+	public ModelElementActionRecord.ConditionType conditionType;
 	/** Art der Aktion */
 	private ModelElementActionRecord.ActionType actionType;
 
@@ -132,11 +132,14 @@ public class RunElementActionRecord {
 	/** Wert des Schwellenwertausdrucks bei der letzten Prüfung ({@link #lastThresholdCheckTime}) */
 	private double lastThresholdCheckValue;
 
+	/** Nächste, sofort auszuführende Aktion */
+	public RunElementActionRecord nextAction;
+
 	/**
 	 * Konstruktor der Klasse
 	 * @param editRecord	Zugehöriges Editor-Element
 	 * @param stationID	ID der Station aus der das Element stammt
-	 * @see #build(EditModel, RunModel, boolean)
+	 * @see #build(EditModel, RunModel, boolean, boolean)
 	 */
 	public RunElementActionRecord(final ModelElementActionRecord editRecord, final int stationID) {
 		actionMode=editRecord.getActionMode();
@@ -183,10 +186,11 @@ public class RunElementActionRecord {
 	 * @param editModel	Editor-Modell
 	 * @param runModel	Laufzeit-Modell
 	 * @param testOnly	Wird hier <code>true</code> übergeben, so werden externe Datenquellen nicht wirklich geladen
+	 * @param isFirst	Ist dies die erste Aktion ist der Liste der Aktionen?
 	 * @return	Liefert <code>null</code>, wenn die Daten korrekt verarbeitet werden konnten, und eine Zeichenkette im Fehlerfall
 	 */
-	public String build(final EditModel editModel, final RunModel runModel, final boolean testOnly) {
-		final String testError=test();
+	public String build(final EditModel editModel, final RunModel runModel, final boolean testOnly, final boolean isFirst) {
+		final String testError=test(isFirst);
 		if (testError!=null) return testError;
 
 		int error;
@@ -219,6 +223,9 @@ public class RunElementActionRecord {
 				break;
 			case CONDITION_SIGNAL:
 				conditionSignalName=editRecord.getConditionSignal();
+				break;
+			case CONDITION_WITH_PREVIOUS:
+				if (isFirst) return Language.tr("Simulation.Creator.Action.CannotTriggerFirstWithPrevious");
 				break;
 			}
 		}
@@ -270,9 +277,10 @@ public class RunElementActionRecord {
 
 	/**
 	 * Prüft, ob der im Konstruktor übergebene Editor-Datensatz in Ordnung ist
+	 * @param isFirst	Ist dies die erste Aktion ist der Liste der Aktionen?
 	 * @return	Liefert <code>null</code>, wenn die Daten korrekt verarbeitet werden konnten, und eine Zeichenkette im Fehlerfall
 	 */
-	public String test() {
+	public String test(final boolean isFirst) {
 		if (actionMode==ModelElementActionRecord.ActionMode.TRIGGER_AND_ACTION) {
 			/* Bedingung */
 			switch (editRecord.getConditionType()) {
@@ -290,6 +298,9 @@ public class RunElementActionRecord {
 				break;
 			case CONDITION_SIGNAL:
 				/* hier nichts zu prüfen */
+				break;
+			case CONDITION_WITH_PREVIOUS:
+				if (isFirst) return Language.tr("Simulation.Creator.Action.CannotTriggerFirstWithPrevious");
 				break;
 			default:
 				return Language.tr("Simulation.Creator.Action.ErrorUnknownTrigger");
@@ -350,6 +361,8 @@ public class RunElementActionRecord {
 				lastThresholdCheckTime=-1;
 				break;
 			case CONDITION_SIGNAL:
+				break;
+			case CONDITION_WITH_PREVIOUS:
 				break;
 			}
 		}
@@ -607,6 +620,11 @@ public class RunElementActionRecord {
 				SoundSystem.getInstance().playAll(sound,soundMaxSeconds);
 			}
 			break;
+		}
+
+		/* Wenn verlinkt, nächste Aktion ausführen */
+		if (nextAction!=null) {
+			nextAction.runAction(simData,stationLogName,stationLogColor);
 		}
 	}
 }

@@ -29,6 +29,7 @@ import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementAction;
 import ui.modeleditor.elements.ModelElementActionRecord;
+import ui.modeleditor.elements.ModelElementActionRecord.ConditionType;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
@@ -65,7 +66,7 @@ public class RunElementAction extends RunElement implements StateChangeListener,
 			final ModelElementActionRecord editRecord=actionElement.getRecordsList().get(i);
 			if (!editRecord.isActive()) continue;
 			final RunElementActionRecord record=new RunElementActionRecord(editRecord,action.id);
-			final String error=record.build(editModel,runModel,testOnly);
+			final String error=record.build(editModel,runModel,testOnly,i==0);
 			if (error!=null) return error+" ("+String.format(Language.tr("Simulation.Creator.Action.ErrorInfo"),actionElement.getId(),i+1)+")";
 			action.records.add(record);
 		}
@@ -80,7 +81,7 @@ public class RunElementAction extends RunElement implements StateChangeListener,
 
 		for (int i=0;i<actionElement.getRecordsList().size();i++) {
 			final RunElementActionRecord record=new RunElementActionRecord(actionElement.getRecordsList().get(i),id);
-			final String error=record.test();
+			final String error=record.test(i==0);
 			if (error!=null) return new RunModelCreatorStatus(error+" ("+String.format(Language.tr("Simulation.Creator.Action.ErrorInfo"),actionElement.getId(),i+1)+")");
 		}
 
@@ -104,6 +105,7 @@ public class RunElementAction extends RunElement implements StateChangeListener,
 		if (data==null) {
 			final RunElementActionRecord[] dataRecords=records.stream().map(record->new RunElementActionRecord(record)).toArray(RunElementActionRecord[]::new);
 			for (int i=0;i<dataRecords.length;i++) dataRecords[i].initRunData(simData,i);
+			for (int i=1;i<dataRecords.length;i++) if (dataRecords[i].conditionType==ConditionType.CONDITION_WITH_PREVIOUS) dataRecords[i-1].nextAction=dataRecords[i];
 			data=new RunElementActionData(this,dataRecords,simData);
 			simData.runData.setStationData(this,data);
 		}

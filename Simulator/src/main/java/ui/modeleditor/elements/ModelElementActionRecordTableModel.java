@@ -34,6 +34,7 @@ import tools.JTableExt;
 import tools.JTableExtAbstractTableModel;
 import ui.images.Images;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.elements.ModelElementActionRecord.ConditionType;
 
 /**
  * Tabelle die mögliche Aktionen, die ein {@link ModelElementAction}-Element
@@ -166,6 +167,9 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 				result.append(Language.tr("Surface.Action.Dialog.Info.Signal")+": ");
 				result.append("<b>"+record.getConditionSignal()+"</b> ");
 				break;
+			case CONDITION_WITH_PREVIOUS:
+				result.append(Language.tr("Surface.Action.Dialog.Info.WithPrevious"));
+				break;
 			}
 			result.append("<br>");
 		}
@@ -264,6 +268,23 @@ public class ModelElementActionRecordTableModel extends JTableExtAbstractTableMo
 		case 1: return Language.tr("Surface.Action.Dialog.Columns.Edit");
 		default: return super.getColumnName(column);
 		}
+	}
+
+	/**
+	 * Prüft, ob die eingegebenen Daten in Ordnung sind.
+	 * @param showErrorMessage	Wird hier <code>true</code> übergeben, so wird eine Fehlermeldung ausgegeben, wenn die Daten nicht in Ordnung sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Daten in Ordnung sind.
+	 */
+	public boolean checkData(final boolean showErrorMessage) {
+		boolean ok=true;
+		if (records.size()>0 && records.get(0).getConditionType()==ConditionType.CONDITION_WITH_PREVIOUS) {
+			if (showErrorMessage) {
+				MsgBox.error(table,Language.tr("Surface.Action.Dialog.Error.CannotTriggerFirstWithPrevious.Title"),Language.tr("Surface.Action.Dialog.Error.CannotTriggerFirstWithPrevious.Info"));
+				return false;
+			}
+			ok=false;
+		}
+		return ok;
 	}
 
 	/**

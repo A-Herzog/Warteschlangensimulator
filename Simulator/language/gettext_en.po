@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-08 13:28+0200\n"
+"POT-Creation-Date: 2025-07-10 00:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13476,6 +13476,12 @@ msgstr "trigger when values exceeds threshold"
 msgid "ModelDescription.Action.Condition.Threshold.Value"
 msgstr "value"
 
+msgid "ModelDescription.Action.Condition.WithPrevious.Previous"
+msgstr "Start with previous action"
+
+msgid "ModelDescription.Action.Condition.WithPrevious.Trigger"
+msgstr "Trigger"
+
 msgid "ModelDescription.Action.EnabledStatus"
 msgstr "Activation status"
 
@@ -20204,6 +20210,9 @@ msgstr "approx. %s sec. remaining"
 
 msgid "Simulation.Creator.Action.AnalogNoElement"
 msgstr "There is no element with the specified id %d."
+
+msgid "Simulation.Creator.Action.CannotTriggerFirstWithPrevious"
+msgstr "The first action cannot be triggered by a previous action."
 
 msgid "Simulation.Creator.Action.ErrorInfo"
 msgstr "At element id=%d at action %d."
@@ -27000,8 +27009,17 @@ msgstr "Invalid time intervals between triggers"
 msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.LimitRepetitions"
 msgstr "Limit number of action triggers"
 
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.WithPrevious"
+msgstr "Trigger with previous action"
+
 msgid "Surface.Action.Dialog.Enable"
 msgstr "Enable"
+
+msgid "Surface.Action.Dialog.Error.CannotTriggerFirstWithPrevious.Info"
+msgstr "You cannot set the first action in the list to be triggered together with the previous action."
+
+msgid "Surface.Action.Dialog.Error.CannotTriggerFirstWithPrevious.Title"
+msgstr "Invalid condition"
 
 msgid "Surface.Action.Dialog.Info.ActionAnalog"
 msgstr "Action: In element id=%d set analog value to <b>%s</b>."
@@ -27056,6 +27074,9 @@ msgstr "Repetitions"
 
 msgid "Surface.Action.Dialog.Info.Time.Repeat.Unlimited"
 msgstr "unlimited"
+
+msgid "Surface.Action.Dialog.Info.WithPrevious"
+msgstr "Trigger with previous action"
 
 msgid "Surface.Action.Dialog.MoveDown"
 msgstr "Move down"
@@ -27152,6 +27173,9 @@ msgstr "Threshold"
 
 msgid "Surface.Action.XML.Record.ConditionType.Time"
 msgstr "Time"
+
+msgid "Surface.Action.XML.Record.ConditionType.WithPrevious"
+msgstr "PreviousAction"
 
 msgid "Surface.Action.XML.Record.Time.Initial"
 msgstr "TimeInitial"

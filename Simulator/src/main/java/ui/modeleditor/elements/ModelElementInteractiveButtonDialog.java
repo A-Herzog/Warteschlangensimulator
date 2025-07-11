@@ -93,6 +93,11 @@ public class ModelElementInteractiveButtonDialog extends ModelElementBaseDialog 
 	protected void setDialogSizeLater() {
 	}
 
+	@Override
+	protected boolean checkData() {
+		return tableData.checkData(true);
+	}
+
 	/**
 	 * Speichert die Dialog-Daten in dem zugehörigen Daten-Objekt.<br>
 	 * (Diese Routine wird beim Klicken auf "Ok" nach <code>checkData</code> aufgerufen.

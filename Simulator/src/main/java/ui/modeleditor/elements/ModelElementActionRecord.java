@@ -71,7 +71,9 @@ public class ModelElementActionRecord {
 		/** Aktion durch Schwellenwert auslösen */
 		CONDITION_THRESHOLD,
 		/** Aktion durch Signalauslösen */
-		CONDITION_SIGNAL
+		CONDITION_SIGNAL,
+		/** Aktion mit vorheriger Aktion auslösen */
+		CONDITION_WITH_PREVIOUS
 	}
 
 	/**
@@ -289,6 +291,9 @@ public class ModelElementActionRecord {
 				break;
 			case CONDITION_SIGNAL:
 				if (!Objects.equals(conditionSignal,otherRecord.conditionSignal)) return false;
+				break;
+			case CONDITION_WITH_PREVIOUS:
+				/* Nichts zu vergleichen */
 				break;
 			}
 		}
@@ -546,6 +551,13 @@ public class ModelElementActionRecord {
 	}
 
 	/**
+	 * Aktion mit vorheriger Aktion auslösen.
+	 */
+	public void setTriggerWithPreviousAction() {
+		conditionType=ConditionType.CONDITION_WITH_PREVIOUS;
+	}
+
+	/**
 	 * Gibt an, welcher Art die auszulösende Aktion sein soll.
 	 * @return	Art der Aktion
 	 * @see ActionType
@@ -779,6 +791,8 @@ public class ModelElementActionRecord {
 			case CONDITION_CONDITION: type=Language.trPrimary("Surface.Action.XML.Record.ConditionType.Condition"); break;
 			case CONDITION_THRESHOLD: type=Language.trPrimary("Surface.Action.XML.Record.ConditionType.Threshold"); break;
 			case CONDITION_SIGNAL: type=Language.trPrimary("Surface.Action.XML.Record.ConditionType.Signal"); break;
+			case CONDITION_WITH_PREVIOUS: type=Language.trPrimary("Surface.Action.XML.Record.ConditionType.WithPrevious"); break;
+
 			default: type=""; break;
 			}
 			node.setAttribute(Language.trPrimary("Surface.Action.XML.Record.ConditionType"),type);
@@ -829,6 +843,9 @@ public class ModelElementActionRecord {
 			case CONDITION_SIGNAL:
 				node.setAttribute(Language.trPrimary("Surface.Action.XML.Record.Condition.Signal"),conditionSignal);
 				break;
+			case CONDITION_WITH_PREVIOUS:
+				/* Keine weiteren zu speichernden Einstellungen */
+				break;
 			}
 		}
 
@@ -874,6 +891,7 @@ public class ModelElementActionRecord {
 			if (Language.trAll("Surface.Action.XML.Record.ConditionType.Condition",conditionTypeString)) conditionType=ConditionType.CONDITION_CONDITION;
 			if (Language.trAll("Surface.Action.XML.Record.ConditionType.Threshold",conditionTypeString)) conditionType=ConditionType.CONDITION_THRESHOLD;
 			if (Language.trAll("Surface.Action.XML.Record.ConditionType.Signal",conditionTypeString)) conditionType=ConditionType.CONDITION_SIGNAL;
+			if (Language.trAll("Surface.Action.XML.Record.ConditionType.WithPrevious",conditionTypeString)) conditionType=ConditionType.CONDITION_WITH_PREVIOUS;
 		}
 
 		/* Typ der Aktion */
@@ -922,6 +940,9 @@ public class ModelElementActionRecord {
 				break;
 			case CONDITION_SIGNAL:
 				conditionSignal=Language.trAllAttribute("Surface.Action.XML.Record.Condition.Signal",node);
+				break;
+			case CONDITION_WITH_PREVIOUS:
+				/* Keine weiteren zu ladenden Einstellungen */
 				break;
 			}
 		}
@@ -1001,6 +1022,9 @@ public class ModelElementActionRecord {
 			case CONDITION_SIGNAL:
 				descriptionBuilder.addProperty(Language.tr("ModelDescription.Action.Condition.Signal"),conditionSignal,level);
 				break;
+			case CONDITION_WITH_PREVIOUS:
+				descriptionBuilder.addProperty(Language.tr("ModelDescription.Action.Condition.WithPrevious.Trigger"),Language.tr("ModelDescription.Action.Condition.WithPrevious.Previous")	,level);
+				break;
 			}
 		}
 
@@ -1060,6 +1084,9 @@ public class ModelElementActionRecord {
 			break;
 		case CONDITION_SIGNAL:
 			searcher.testString(station,Language.tr("Surface.Action.Dialog.Edit.Tabs.Trigger.Signal"),conditionSignal,newConditionSignal->{conditionSignal=newConditionSignal;});
+			break;
+		case CONDITION_WITH_PREVIOUS:
+			/* Keine weiteren suchbaren Einstellungen */
 			break;
 		}
 

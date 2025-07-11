@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-08 13:28+0200\n"
+"POT-Creation-Date: 2025-07-10 00:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13501,6 +13501,12 @@ msgstr "beim Überschreiten des Schwellenwerts auslösen"
 msgid "ModelDescription.Action.Condition.Threshold.Value"
 msgstr "Wert"
 
+msgid "ModelDescription.Action.Condition.WithPrevious.Previous"
+msgstr "Mit vorheriger Aktion auslösen"
+
+msgid "ModelDescription.Action.Condition.WithPrevious.Trigger"
+msgstr "Auslöser"
+
 msgid "ModelDescription.Action.EnabledStatus"
 msgstr "Aktivierungsstatus"
 
@@ -20244,6 +20250,9 @@ msgstr "noch ca. %s Sek."
 
 msgid "Simulation.Creator.Action.AnalogNoElement"
 msgstr "Es existiert kein Element mit der angegebenen id %d."
+
+msgid "Simulation.Creator.Action.CannotTriggerFirstWithPrevious"
+msgstr "Die erste Aktion kann nicht von einer vorherigen Aktion ausgelöst werden."
 
 msgid "Simulation.Creator.Action.ErrorInfo"
 msgstr "In Element id=%d bei Aktion %d."
@@ -27045,8 +27054,17 @@ msgstr "Ungültiger Zeitabstand zwischen den Auslösungen"
 msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.Time.LimitRepetitions"
 msgstr "Anzahl an Aktionsauslösungen begrenzen"
 
+msgid "Surface.Action.Dialog.Edit.Tabs.Trigger.WithPrevious"
+msgstr "Mit vorheriger Aktion auslösen"
+
 msgid "Surface.Action.Dialog.Enable"
 msgstr "Aktivieren"
+
+msgid "Surface.Action.Dialog.Error.CannotTriggerFirstWithPrevious.Info"
+msgstr "Für die erste der Aktionen in der Liste kann nicht eingestellt werden, dass diese zusammen mit der vorherigen Aktion ausgelöst werden soll."
+
+msgid "Surface.Action.Dialog.Error.CannotTriggerFirstWithPrevious.Title"
+msgstr "Bedingung fehlerhaft"
 
 msgid "Surface.Action.Dialog.Info.ActionAnalog"
 msgstr "Aktion: In Element id=%d analogen Wert auf <b>%s</b> setzen."
@@ -27101,6 +27119,9 @@ msgstr "Wiederholungen"
 
 msgid "Surface.Action.Dialog.Info.Time.Repeat.Unlimited"
 msgstr "unbegrenzt"
+
+msgid "Surface.Action.Dialog.Info.WithPrevious"
+msgstr "Mit vorheriger Aktion auslösen"
 
 msgid "Surface.Action.Dialog.MoveDown"
 msgstr "Nach unten verschieben"
@@ -27197,6 +27218,9 @@ msgstr "Schwellenwert"
 
 msgid "Surface.Action.XML.Record.ConditionType.Time"
 msgstr "Zeitgesteuert"
+
+msgid "Surface.Action.XML.Record.ConditionType.WithPrevious"
+msgstr "VorherigeAktion"
 
 msgid "Surface.Action.XML.Record.Time.Initial"
 msgstr "ZeitInitial"

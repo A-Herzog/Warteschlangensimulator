@@ -65,7 +65,7 @@ public class RunElementInteractiveButton extends RunElement {
 			final ModelElementActionRecord editRecord=buttonElement.getRecordsList().get(i);
 			if (!editRecord.isActive()) continue;
 			final RunElementActionRecord record=new RunElementActionRecord(editRecord,id);
-			final String error=record.build(editModel,runModel,testOnly);
+			final String error=record.build(editModel,runModel,testOnly,i==0);
 			if (error!=null) return error+" ("+String.format(Language.tr("Simulation.Creator.Action.ErrorInfo"),buttonElement.getId(),i+1)+")";
 			button.records.add(record);
 		}
@@ -80,7 +80,7 @@ public class RunElementInteractiveButton extends RunElement {
 
 		for (int i=0;i<buttonElement.getRecordsList().size();i++) {
 			final RunElementActionRecord record=new RunElementActionRecord(buttonElement.getRecordsList().get(i),id);
-			final String error=record.test();
+			final String error=record.test(i==0);
 			if (error!=null) return new RunModelCreatorStatus(error+" ("+String.format(Language.tr("Simulation.Creator.Action.ErrorInfo"),buttonElement.getId(),i+1)+")");
 		}
 
