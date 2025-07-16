@@ -26,6 +26,7 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -70,6 +71,8 @@ public class BackgroundColorDialog extends BaseDialog {
 	private final JCheckBox optionImageInSubModels;
 	/** Reihenfolge von Raster und Hintergrundbild */
 	private final JComboBox<String> orderComboBox;
+	/** Schaltfläche zum Entfernen des Hintergrundbildes */
+	private final JButton removeButton;
 
 	/**
 	 * Konstruktor der Klasse
@@ -151,9 +154,20 @@ public class BackgroundColorDialog extends BaseDialog {
 		default: orderComboBox.setSelectedIndex(0); break;
 		}
 
+		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(removeButton=new JButton(Language.tr("Window.BackgroundColor.RemoveImage"),Images.EDIT_DELETE.getIcon()));
+		removeButton.setEnabled(!readOnly && image!=null);
+		removeButton.addActionListener(e->{
+			backgroundImage.setImage(null);
+			removeButton.setEnabled(true);
+		});
+
 		/* Icons auf Tabs */
 		tabs.setIconAt(0,Images.EDIT_BACKGROUND_COLOR.getIcon());
 		tabs.setIconAt(1,Images.EDIT_BACKGROUND_IMAGE.getIcon());
+
+		/* Hintergrundbild mit Entfernen-Schaltfläche verbinden */
+		backgroundImage.addChangeListener(e->removeButton.setEnabled(!readOnly && backgroundImage.getImage()!=null));
 
 		/* Dialog starten */
 		pack();
