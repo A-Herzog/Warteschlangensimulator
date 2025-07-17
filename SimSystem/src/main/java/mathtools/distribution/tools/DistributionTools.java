@@ -159,6 +159,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Cauchy-Verteilung */
 	public static String DistCauchyWikipedia="https://de.wikipedia.org/wiki/Cauchy-Verteilung";
 
+	/** Halbe Cauchy-Verteilung */
+	public static String[] DistHalfCauchy=new String[]{"Halbe Cauchy-Verteilung"};
+
+	/** Wikipedia-Seite Halbe Cauchy-Verteilung */
+	public static String DistHalfCauchyWikipedia=""; /* leider keine Wikipedia-Seite vorhanden */
+
 	/** Log-Cauchy-Verteilung */
 	public static String[] DistLogCauchy=new String[]{"Log-Cauchy-Verteilung"};
 
@@ -372,7 +378,7 @@ public final class DistributionTools {
 	public static String[] DistBorel=new String[]{"Borel-Verteilung"};
 
 	/** Wikipedia-Seite Borel-Verteilung */
-	public static String DistBorelWikipedia="https://en.wikipedia.org/wiki/Borel_distribution"; /* leide keine Wikipedia-Seite vorhanden */
+	public static String DistBorelWikipedia="https://en.wikipedia.org/wiki/Borel_distribution"; /* leider keine Wikipedia-Seite vorhanden */
 
 	/** Halbe Normalverteilung */
 	public static String[] DistHalfNormal=new String[]{"Halbe Normalverteilung"};
@@ -408,7 +414,7 @@ public final class DistributionTools {
 	public static String[] DistSine=new String[]{"Sinus-Verteilung"};
 
 	/** Wikipedia-Seite Sinus-Verteilung */
-	public static String DistSineWikipedia=""; /* leide keine Wikipedia-Seite vorhanden */
+	public static String DistSineWikipedia=""; /* leider keine Wikipedia-Seite vorhanden */
 
 	/** Cosinus-Verteilung */
 	public static String[] DistCosine=new String[]{"Cosinus-Verteilung"};
@@ -420,7 +426,7 @@ public final class DistributionTools {
 	public static String[] DistArcsine=new String[]{"Arcus Sinus-Verteilung"};
 
 	/** Wikipedia-Seite Arcus Sine-Verteilung */
-	public static String DistArcsineWikipedia=""; /* leide keine Wikipedia-Seite vorhanden */
+	public static String DistArcsineWikipedia=""; /* leider keine Wikipedia-Seite vorhanden */
 
 	/** Wigner Halbkreis-Verteilung */
 	public static String[] DistWignerHalfCircle=new String[]{"Wigner Halbkreis-Verteilung"};
@@ -532,6 +538,7 @@ public final class DistributionTools {
 				new WrapperInverseGammaDistribution(),
 				new WrapperBetaDistribution(),
 				new WrapperCauchyDistribution(),
+				new WrapperHalfCauchyDistribution(),
 				new WrapperWeibullDistribution(),
 				new WrapperChiSquaredDistribution(),
 				new WrapperChiDistribution(),

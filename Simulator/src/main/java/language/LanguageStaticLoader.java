@@ -211,6 +211,7 @@ public class LanguageStaticLoader {
 		DistributionTools.DistBetaWikipedia=Language.tr("Distribution.BetaWikipedia");
 		DistributionTools.DistCauchy=Language.trAll("Distribution.Cauchy");
 		DistributionTools.DistCauchyWikipedia=Language.tr("Distribution.CauchyWikipedia");
+		DistributionTools.DistHalfCauchy=Language.trAll("Distribution.HalfCauchy");
 		DistributionTools.DistLogCauchy=Language.trAll("Distribution.LogCauchy");
 		DistributionTools.DistLogCauchyWikipedia=Language.tr("Distribution.LogCauchyWikipedia");
 		DistributionTools.DistWeibull=Language.trAll("Distribution.Weibull");

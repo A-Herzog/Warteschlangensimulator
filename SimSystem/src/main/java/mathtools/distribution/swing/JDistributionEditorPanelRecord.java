@@ -48,6 +48,7 @@ import mathtools.distribution.ExtBetaDistributionImpl;
 import mathtools.distribution.FatigueLifeDistributionImpl;
 import mathtools.distribution.FrechetDistributionImpl;
 import mathtools.distribution.GeneralizedRademacherDistribution;
+import mathtools.distribution.HalfCauchyDistribution;
 import mathtools.distribution.HalfNormalDistribution;
 import mathtools.distribution.HyperbolicSecantDistributionImpl;
 import mathtools.distribution.InverseGammaDistributionImpl;
@@ -99,6 +100,7 @@ import mathtools.distribution.tools.WrapperGammaDistribution;
 import mathtools.distribution.tools.WrapperGeneralizedRademacherDistribution;
 import mathtools.distribution.tools.WrapperGeometricDistribution;
 import mathtools.distribution.tools.WrapperGumbelDistribution;
+import mathtools.distribution.tools.WrapperHalfCauchyDistribution;
 import mathtools.distribution.tools.WrapperHalfNormalDistribution;
 import mathtools.distribution.tools.WrapperHyperGeomDistribution;
 import mathtools.distribution.tools.WrapperHyperbolicSecantDistribution;
@@ -329,6 +331,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new LogCauchyDistributionPanel());
 		allRecords.add(new InverseGammaDistributionPanel());
 		allRecords.add(new ContinuousBernoulliDistributionPanel());
+		allRecords.add(new HalfCauchyDistributionPanel());
 		allRecords.add(new HyperGeomDistributionPanel());
 		allRecords.add(new BinomialDistributionPanel());
 		allRecords.add(new PoissonDistributionPanel());
@@ -1858,6 +1861,40 @@ public abstract class JDistributionEditorPanelRecord {
 			final Double b=NumberTools.getDouble(fields[1],true); if (b==null || a>b) return null;
 			final Double lambda=NumberTools.getDouble(fields[2],true); if (lambda==null || lambda<=0 || lambda>=1) return null;
 			return new ContinuousBernoulliDistribution(a,b,lambda);
+		}
+	}
+
+	/** Halbe Cauchy-Verteilung */
+	private static class HalfCauchyDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public HalfCauchyDistributionPanel() {
+			super(new WrapperHalfCauchyDistribution(),new String[]{"mu","sigma"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			return new String[]{mean,NumberTools.formatNumberMax(maxXValue/10)};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((HalfCauchyDistribution)distribution).mu),
+					NumberTools.formatNumberMax(((HalfCauchyDistribution)distribution).sigma)
+			};
+		}
+
+		@Override
+		public void setValues(final JTextField[] fields, final double mean, final double sd) {
+			fields[0].setText(NumberTools.formatNumberMax(mean));
+			fields[1].setText(NumberTools.formatNumberMax(sd));
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double d1=NumberTools.getDouble(fields[0],true); if (d1==null) return null;
+			final Double d2=NumberTools.getPositiveDouble(fields[1],true); if (d2==null) return null;
+			return new HalfCauchyDistribution(d1,d2);
 		}
 	}
 

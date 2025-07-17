@@ -3445,6 +3445,25 @@ class SymbolsTests {
 		variables=new String[]{"a","b"};
 		testDistribution(cmd,variables,new double[]{1,2});
 
+		/* Halbe Cauchy-Verteilung */
+
+		cmd="HalfCauchyDist(x;mu;sigma;0)";
+		variables=new String[]{"x","mu","sigma"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{99,100,50}));
+		assertTrue(testDistribution(cmd,variables,new double[]{100,100,50})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{120,100,50})>0);
+
+		cmd="HalfCauchyDist(x;mu;sigma;1)";
+		variables=new String[]{"x","mu","sigma"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{99,100,50}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{100,100,50}));
+		assertTrue(testDistribution(cmd,variables,new double[]{120,100,50})>0);
+		testDistributionThrows("HalfCauchyDist(x;mu;sigma;2)",variables,new double[]{110,100,50});
+
+		cmd="HalfCauchyDist(mu;sigma)";
+		variables=new String[]{"mu","sigma"};
+		testDistribution(cmd,variables,new double[]{100,50});
+
 		/* Halbe Normalverteilung */
 
 		cmd="HalfNormalDist(x;a;b;0)";

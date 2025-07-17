@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-11 00:07+0200\n"
+"POT-Creation-Date: 2025-07-16 11:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3530,6 +3530,9 @@ msgstr "Gumbel distribution"
 
 msgid "Distribution.GumbelWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Gumbel_distribution"
+
+msgid "Distribution.HalfCauchy"
+msgstr "Half Cauchy distribution"
 
 msgid "Distribution.HalfNormal"
 msgstr "Half normal distribution"
