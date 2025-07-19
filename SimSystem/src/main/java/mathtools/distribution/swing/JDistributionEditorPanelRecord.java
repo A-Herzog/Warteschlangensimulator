@@ -40,6 +40,7 @@ import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
 import mathtools.distribution.DiscreteLogarithmicDistributionImpl;
 import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
 import mathtools.distribution.DiscreteNegativeHyperGeomDistributionImpl;
+import mathtools.distribution.DiscretePlanckDistributionImpl;
 import mathtools.distribution.DiscretePoissonDistributionImpl;
 import mathtools.distribution.DiscreteUniformDistributionImpl;
 import mathtools.distribution.DiscreteZetaDistributionImpl;
@@ -124,6 +125,7 @@ import mathtools.distribution.tools.WrapperNormalDistribution;
 import mathtools.distribution.tools.WrapperOnePointDistribution;
 import mathtools.distribution.tools.WrapperParetoDistribution;
 import mathtools.distribution.tools.WrapperPertDistribution;
+import mathtools.distribution.tools.WrapperPlanckDistribution;
 import mathtools.distribution.tools.WrapperPoissonDistribution;
 import mathtools.distribution.tools.WrapperPowerDistribution;
 import mathtools.distribution.tools.WrapperRayleighDistribution;
@@ -335,6 +337,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new HyperGeomDistributionPanel());
 		allRecords.add(new BinomialDistributionPanel());
 		allRecords.add(new PoissonDistributionPanel());
+		allRecords.add(new PlanckDistributionPanel());
 		allRecords.add(new NegativeBinomialDistributionPanel());
 		allRecords.add(new NegativeHyperGeomDistributionPanel());
 		allRecords.add(new ZetaDistributionPanel());
@@ -1984,6 +1987,32 @@ public abstract class JDistributionEditorPanelRecord {
 		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
 			final Double lambda=NumberTools.getPositiveDouble(fields[0],true); if (lambda==null) return null;
 			return new DiscretePoissonDistributionImpl(lambda);
+		}
+	}
+
+	/** Planck-Verteilung */
+	private static class PlanckDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public PlanckDistributionPanel() {
+			super(new WrapperPlanckDistribution(),new String[]{"lambda"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			return new String[]{NumberTools.formatNumber(WrapperPlanckDistribution.lambdaFromMean(meanD))};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((DiscretePlanckDistributionImpl)distribution).lambda)
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double lambda=NumberTools.getPositiveDouble(fields[0],true); if (lambda==null) return null;
+			return new DiscretePlanckDistributionImpl(lambda);
 		}
 	}
 

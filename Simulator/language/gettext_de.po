@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-16 11:49+0200\n"
+"POT-Creation-Date: 2025-07-19 17:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3712,6 +3712,9 @@ msgstr "Pert-Verteilung"
 msgid "Distribution.PertWikipedia"
 msgstr "https://en.wikipedia.org/wiki/PERT_distribution"
 
+msgid "Distribution.Planck"
+msgstr "Planck-Verteilung"
+
 msgid "Distribution.Point"
 msgstr "Ein-Punkt-Verteilung"
 
@@ -7304,6 +7307,18 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Gumbel-Verteilung an d
 msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistributionDirect.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Gumbel-Verteilung mit Erwartungswert und Standardabweichung gemäß den Parametern eins und zwei.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfCauchyDist"
+msgstr "Halbe Cauchy-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfCauchyDist.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der halben Cauchy-Verteilung an der als ersten Parameter angegebenen Stelle mit Startpunkt und Skaleriung gemäß den Parametern zwei und drei.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfCauchyDist.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der halben Cauchy-Verteilung an der als ersten Parameter angegebenen Stelle mit Startpunkt und Skaleriung gemäß den Parametern zwei und drei.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfCauchyDist.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der halben Cauchy-Verteilung mit Startpunkt und Skaleriung gemäß den Parametern eins und zwei.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution"
 msgstr "Halbe Normalverteilung"
 
@@ -7657,6 +7672,15 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Pert-Verteilung an der
 
 msgid "ExpressionBuilder.ProbabilityDistributions.PertDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Pert-Verteilung mit den Parametern [a;c] und dem Wert b mit der höchsten Wahrscheinlichkeitsdichte gemäß dem ersten (a), dem zweiten (b) und dem dritten (c) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PlanckDistribution"
+msgstr "Planck-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PlanckDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Zähldichte der Planck-Verteilung an der als ersten Parameter angegebenen Stelle mit den Verteilungsparametern gemäß den weiteren Funktionsparametern.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PlanckDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Planck-Verteilung mit den angegebenen Parametern.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.PoissonDistribution"
 msgstr "Poisson-Verteilung"

@@ -3135,6 +3135,51 @@ class SymbolsTests {
 				assertTrue(false);
 			}
 		}
+
+		/* Planck-Verteilung - Dichte */
+
+		calc=new CalcSystem("PlanckDist(x;l)",new String[]{"x","l"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{-1,0.2});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		for (int k=0;k<10;k++) {
+			try {
+				d=calc.calc(new double[]{k,0.2});
+				assertTrue(d>0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		final CalcSystem calcFinal6=calc;
+		assertThrowsExactly(MathCalcError.class,()->{
+			calcFinal6.calc(new double[]{3,-0.2});
+		});
+
+		calc=new CalcSystem("PlanckDist(x;y;z;a;b)",new String[]{"x","y","z","a","b"});
+		assertTrue(calc.parse()<0);
+		d=calc.calcOrDefault(new double[]{1,2,3,4,5},-17);
+		assertEquals(-17.0,d);
+
+		/* Planck-Verteilung - Zufallszahlen */
+
+		calc=new CalcSystem("PlanckDist(l)",new String[]{"l"});
+		assertTrue(calc.parse()<0);
+
+		for (int i=0;i<100;i++) {
+			try {
+				d=calc.calc(new double[]{0.2});
+				assertTrue(d>=0.0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
 	}
 
 	/**

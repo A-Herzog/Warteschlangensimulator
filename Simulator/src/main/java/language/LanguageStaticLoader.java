@@ -269,6 +269,7 @@ public class LanguageStaticLoader {
 		DistributionTools.DistBinomialWikipedia=Language.tr("Distribution.BinomialWikipedia");
 		DistributionTools.DistPoisson=Language.trAll("Distribution.Poisson");
 		DistributionTools.DistPoissonWikipedia=Language.tr("Distribution.PoissonWikipedia");
+		DistributionTools.DistPlanck=Language.trAll("Distribution.Planck");
 		DistributionTools.DistNegativeBinomial=Language.trAll("Distribution.NegativeBinomial");
 		DistributionTools.DistNegativeBinomialWikipedia=Language.tr("Distribution.NegativeBinomialWikipedia");
 		DistributionTools.DistNegativeHyperGeom=Language.trAll("Distribution.NegativeHyperGeom");

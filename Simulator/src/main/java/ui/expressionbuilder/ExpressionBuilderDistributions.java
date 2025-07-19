@@ -280,6 +280,13 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.BorelDist.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.BorelDist.RandomNumberInfo"));
 
+		/* Planck-Verteilung */
+
+		addDiscreteDist(group,filterUpper,"PlanckDist","l",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.PlanckDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.PlanckDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.PlanckDistribution.RandomNumberInfo"));
+
 		return group;
 
 	}
@@ -721,6 +728,15 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.ContinuousBernoulliDist.RandomNumberInfo"));
+
+		/* Halbe Cauchy-Verteilung */
+
+		addDist(group,filterUpper,"HalfCauchyDist","mu;sigma",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.HalfCauchyDist"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.HalfCauchyDist.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.HalfCauchyDist.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.HalfCauchyDist.RandomNumberInfo"));
+
 
 		/* Verallgemeinerte Rademacher-Verteilung */
 

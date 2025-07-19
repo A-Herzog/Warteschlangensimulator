@@ -815,12 +815,12 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 			} catch (IllegalArgumentException | MathRuntimeException e) {}
 
 			final int yBase=dataRect.y+dataRect.height-1;
-			final int halfXBarWidth=Math.max(1,(int)Math.round(dataRect.width/Math.min(distMaxX,maxXValue)/4));
+			final int halfXBarWidth=Math.max(1,(int)Math.round(dataRect.width/maxXValue/4));
 
 			for (int x=0;x<=Math.min(distMaxX,maxXValue);x++) {
 				try {
 					final double y=dist.countDensity(x);
-					final int x2=dataRect.x+dataRect.width-(int)Math.round(dataRect.width*x/maxXValue);
+					final int x2=dataRect.x+(int)Math.round(dataRect.width*x/maxXValue);
 					final int y2=Math.min((int)Math.round(dataRect.height*y/maxY),dataRect.height-2);
 
 					final int barX=Math.max(dataRect.x+1,x2-halfXBarWidth);

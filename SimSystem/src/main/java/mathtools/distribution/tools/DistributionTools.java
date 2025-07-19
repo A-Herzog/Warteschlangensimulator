@@ -338,6 +338,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Poisson-Verteilung */
 	public static String DistPoissonWikipedia="https://de.wikipedia.org/wiki/Poisson-Verteilung";
 
+	/** Planck-Verteilung */
+	public static String[] DistPlanck=new String[]{"Planck-Verteilung"};
+
+	/** Wikipedia-Seite Planck-Verteilung */
+	public static String DistPlanckWikipedia=""; /* leider keine Wikipedia-Seite vorhanden */
+
 	/** Negative Binomialverteilung */
 	public static String[] DistNegativeBinomial=new String[]{"Negative Binomialverteilung"};
 
@@ -378,7 +384,7 @@ public final class DistributionTools {
 	public static String[] DistBorel=new String[]{"Borel-Verteilung"};
 
 	/** Wikipedia-Seite Borel-Verteilung */
-	public static String DistBorelWikipedia="https://en.wikipedia.org/wiki/Borel_distribution"; /* leider keine Wikipedia-Seite vorhanden */
+	public static String DistBorelWikipedia="https://en.wikipedia.org/wiki/Borel_distribution"; /* leider keine deutsche Wikipedia-Seite vorhanden */
 
 	/** Halbe Normalverteilung */
 	public static String[] DistHalfNormal=new String[]{"Halbe Normalverteilung"};
@@ -566,6 +572,7 @@ public final class DistributionTools {
 				new WrapperHyperGeomDistribution(),
 				new WrapperBinomialDistribution(),
 				new WrapperPoissonDistribution(),
+				new WrapperPlanckDistribution(),
 				new WrapperNegativeBinomialDistribution(),
 				new WrapperNegativeHyperGeomDistribution(),
 				new WrapperZetaDistribution(),

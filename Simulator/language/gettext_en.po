@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-16 11:49+0200\n"
+"POT-Creation-Date: 2025-07-19 17:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3708,6 +3708,9 @@ msgstr "Pert distribution"
 msgid "Distribution.PertWikipedia"
 msgstr "https://en.wikipedia.org/wiki/PERT_distribution"
 
+msgid "Distribution.Planck"
+msgstr "Planck distribution"
+
 msgid "Distribution.Point"
 msgstr "One point distribution"
 
@@ -7313,6 +7316,18 @@ msgstr "<p>Calculates the value of the distribution function of the Gumbel distr
 msgid "ExpressionBuilder.ProbabilityDistributions.GumbelDistributionDirect.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Gumbel distribution with the expected value and the standard deviation defined by parameters one and two.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfCauchyDist"
+msgstr "Half Cauchy distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfCauchyDist.DensityInfo"
+msgstr "<p>Calculates the value of the density of the half Cauchy distribution at the location specified as the first parameter with start point and scale defined by parameters two and three.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfCauchyDist.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the half Cauchy distribution at the location specified as the first parameter with start point and scale defined by parameters two and three.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.HalfCauchyDist.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the half Cauchy distribution with start point and scale defined by parameters one and two.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.HalfNormalDistribution"
 msgstr "Half normal distribution"
 
@@ -7667,14 +7682,23 @@ msgstr "<p>Calculates the value of the distribution function of the Pert distrib
 msgid "ExpressionBuilder.ProbabilityDistributions.PertDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Pert distribution with the parameters [a;c] and most likely value b according to the first (a), second (b) and third (c) parameter.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.PlanckDistribution"
+msgstr "Planck distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PlanckDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the count density of the Planck distribution at the location specified as the first parameter with the distribution parameters according to the next function parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PlanckDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Planck distribution with the given parameter.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.PoissonDistribution"
 msgstr "Poisson distribution"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.DensityInfo"
-msgstr "<p>Calculates the value of the count density of the Poisson distribution at the location specified as the first parameter with the distribution parameters according to the next function parameters.</p>"
+msgstr "<p>Calculates the value of the count density of the Poisson distribution at the location specified as the first parameter with the distribution parameters according to the next function parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.PoissonDistribution.RandomNumberInfo"
-msgstr "<p>Generates a random number according to the Poisson distribution with the given parameters.</p>"
+msgstr "<p>Generates a random number according to the Poisson distribution with the given parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.PowerDistribution"
 msgstr "Power distribution"

@@ -43,6 +43,7 @@ import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
 import mathtools.distribution.DiscreteLogarithmicDistributionImpl;
 import mathtools.distribution.DiscreteNegativeBinomialDistributionImpl;
 import mathtools.distribution.DiscreteNegativeHyperGeomDistributionImpl;
+import mathtools.distribution.DiscretePlanckDistributionImpl;
 import mathtools.distribution.DiscretePoissonDistributionImpl;
 import mathtools.distribution.DiscreteUniformDistributionImpl;
 import mathtools.distribution.DiscreteZetaDistributionImpl;
@@ -2631,6 +2632,36 @@ class DistributionTests {
 
 		testDistributionTools(dist);
 		testDistributionParameters(dist,new double[] {7.5});
+
+		double rnd=dist.random(new DummyRandomGenerator(0.5));
+		assertTrue(rnd>=0);
+	}
+
+	/**
+	 * Test: Planck-Verteilung
+	 * @see DiscretePlanckDistributionImpl
+	 */
+	@Test
+	void testDiscretePlanckDistributionImpl() {
+		DiscretePlanckDistributionImpl dist;
+
+		dist=new DiscretePlanckDistributionImpl(0.5);
+		assertEquals(0.5,dist.lambda);
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertTrue(dist.cumulativeProbability(1)>0);
+		assertEquals(-Double.MAX_VALUE,dist.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,dist.inverseCumulativeProbability(2));
+		assertEquals(2.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(2)),0.000001);
+		assertEquals(3.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(3)),0.000001);
+		assertEquals(1.0/(FastMath.exp(0.5)-1.0),dist.getNumericalMean());
+		assertEquals(FastMath.exp(-0.5)/Math.pow(FastMath.exp(-0.5)-1,2),dist.getNumericalVariance());
+		assertEquals(0,dist.getSupportLowerBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertFalse(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[] {0.5});
 
 		double rnd=dist.random(new DummyRandomGenerator(0.5));
 		assertTrue(rnd>=0);
