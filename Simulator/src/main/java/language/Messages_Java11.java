@@ -41,8 +41,12 @@ public class Messages_Java11 {
 	 * @return	Gibt <code>true</code> zurück, wenn Übersetzungen für GUI-Elemente fehlen (d.h. wenn Oracle Java in Version 11 oder höher verwendet wird).
 	 */
 	public static boolean isFixNeeded() {
-		if (!System.getProperty("java.vm.vendor").toLowerCase().contains("oracle")) return false;
-		final String[] parts=System.getProperty("java.version").split("\\.");
+		final String vendor=System.getProperty("java.vm.vendor");
+		if (vendor==null) return false;
+		if (!vendor.toLowerCase().contains("oracle")) return false;
+		final String version=System.getProperty("java.version");
+		if (version==null) return false;
+		final String[] parts=version.split("\\.");
 		if (parts.length<1) return false;
 		try {
 			final int majorVersion=Integer.parseInt(parts[0]);
