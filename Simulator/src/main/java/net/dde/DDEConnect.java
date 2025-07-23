@@ -30,7 +30,7 @@ import tools.SetupData;
 /**
  * Diese Klasse erlaubt den DDE-Zugriff auf Excel
  * @author Alexander Herzog
- * @version 1.1
+ * @version 1.2
  */
 public class DDEConnect {
 	/**
@@ -195,7 +195,9 @@ public class DDEConnect {
 	private String readCell(final DDEClientConversation conversation, final int row, final int column) {
 		if (conversation==null) return null;
 		try {
-			return conversation.request(getCellName(row,column));
+			final String result=conversation.request(getCellName(row,column));
+			if (result==null) return null;
+			return result.trim();
 		} catch (DDEException e) {
 			return null;
 		}
