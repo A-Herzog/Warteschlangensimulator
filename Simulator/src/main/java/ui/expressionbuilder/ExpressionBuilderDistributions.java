@@ -721,6 +721,14 @@ public class ExpressionBuilderDistributions {
 				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.LogGammaDistribution.DistributionFunctionInfo"),NumberTools.formatNumberMax(0.087695308502)),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogGammaDistribution.RandomNumberInfo"));
 
+		/* Log-Laplace-Verteilung */
+
+		addDist(group,filterUpper,"LogLaplaceDist","c;s",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogLaplaceDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogLaplaceDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogLaplaceDistribution.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.LogLaplaceDistribution.RandomNumberInfo"));
+
 		/* Kontinuierliche Bernoulli-Verteilung */
 
 		addDist(group,filterUpper,"ContinuousBernoulliDist","a;b;lambda",

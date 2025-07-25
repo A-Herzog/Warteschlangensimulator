@@ -302,6 +302,8 @@ public class LanguageStaticLoader {
 		DistributionTools.DistWignerHalfCircleWikipedia=Language.tr("Distribution.WignerHalfCircleWikipedia");
 		DistributionTools.DistLogGamma=Language.trAll("Distribution.LogGamma");
 		DistributionTools.DistLogGammaWikipedia=Language.tr("Distribution.LogGammaWikipedia");
+		DistributionTools.DistLogLaplace=Language.trAll("Distribution.LogLaplace");
+		DistributionTools.DistLogLaplaceWikipedia=Language.tr("Distribution.LogLaplaceWikipedia");
 		DistributionTools.DistContinuousBernoulli=Language.trAll("Distribution.ContinuousBernoulli");
 		DistributionTools.DistContinuousBernoulliWikipedia=Language.tr("Distribution.ContinuousBernoulliWikipedia");
 		DistributionTools.DistGeneralizedRademacher=Language.trAll("Distribution.GeneralizedRademacher");

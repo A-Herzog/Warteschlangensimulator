@@ -446,6 +446,12 @@ public final class DistributionTools {
 	/** Wikipedia-Seite  Log-Gamma-Verteilung */
 	public static String DistLogGammaWikipedia="https://de.wikipedia.org/wiki/Logarithmische_Gammaverteilung";
 
+	/** Log-Laplace-Verteilung */
+	public static String[] DistLogLaplace=new String[]{"Log-Laplace-Verteilung"};
+
+	/** Wikipedia-Seite  Log-Laplace-Verteilung */
+	public static String DistLogLaplaceWikipedia="https://en.wikipedia.org/wiki/Log-Laplace_distribution";
+
 	/** Kontinuierliche Bernoulli-Verteilung */
 	public static String[] DistContinuousBernoulli=new String[]{"Kontinuierliche Bernoulli-Verteilung"};
 
@@ -591,6 +597,7 @@ public final class DistributionTools {
 				new WrapperLogCauchyDistribution(),
 				new WrapperBorelDistribution(),
 				new WrapperLogGammaDistribution(),
+				new WrapperLogLaplaceDistribution(),
 				new WrapperContinuousBernoulliDistribution(),
 				new WrapperGeneralizedRademacherDistribution()
 		};

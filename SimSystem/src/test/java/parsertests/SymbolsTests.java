@@ -4176,6 +4176,25 @@ class SymbolsTests {
 		testDistribution(cmd,variables,new double[]{100,400,0.3});
 		testDistribution(cmd,variables,new double[]{100,400,0.5});
 		testDistribution(cmd,variables,new double[]{100,400,0.7});
+
+		/* Log-Laplace-Verteilung */
+
+		cmd="LogLaplaceDist(x;c;s;0)";
+		variables=new String[]{"x","c","s"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,2.5,5}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{5,2.5,5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{7,2.5,5})>0);
+
+		cmd="LogLaplaceDist(x;c;s;1)";
+		variables=new String[]{"x","c","s"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,2.5,5}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{5,2.5,5}));
+		assertTrue(testDistribution(cmd,variables,new double[]{7,2.5,5})>0);
+		testDistributionThrows("LogLaplaceDist(x;c;s;2)",variables,new double[]{10,2.5,5});
+
+		cmd="LogLaplaceDist(c;s)";
+		variables=new String[]{"c","s"};
+		testDistribution(cmd,variables,new double[]{2.5,5});
 	}
 
 	/**

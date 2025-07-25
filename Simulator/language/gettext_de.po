@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-19 17:58+0200\n"
+"POT-Creation-Date: 2025-07-25 11:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3615,6 +3615,12 @@ msgstr "Log-Gamma-Verteilung"
 
 msgid "Distribution.LogGammaWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Logarithmische_Gammaverteilung"
+
+msgid "Distribution.LogLaplace"
+msgstr "Log-Laplace-Verteilung"
+
+msgid "Distribution.LogLaplaceWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Log-Laplace_distribution"
 
 msgid "Distribution.LogLogistic"
 msgstr "Log-Logistische Verteilung"
@@ -7520,6 +7526,18 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Log-Gamma-Verteilung a
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogGammaDistribution.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Log-Gamma-Verteilung mit den Parametern gemäß dem ersten (a) und zweiten (b) Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogLaplaceDistribution"
+msgstr "Log-Laplace-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogLaplaceDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Log-Laplace-Verteilung an der als ersten Parameter angegebenen Stelle mit dem Parameter c gemäß dem zweiten Parameter und dem Startpunkt gemäß dem dritten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogLaplaceDistribution.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Log-Laplace-Verteilung an der als ersten Parameter angegebenen Stelle mit dem Parameter c gemäß dem zweiten Parameter und dem Startpunkt gemäß dem dritten Parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogLaplaceDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Log-Laplace-Verteilung mit dem Parameter c gemäß dem ersten Parameter und dem Startpunkt gemäß dem zweiten Parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution"
 msgstr "Log-Logistische Verteilung"

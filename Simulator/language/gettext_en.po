@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-19 17:58+0200\n"
+"POT-Creation-Date: 2025-07-25 11:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3611,6 +3611,12 @@ msgstr "Log-Gamma distribution"
 
 msgid "Distribution.LogGammaWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Logarithmische_Gammaverteilung"
+
+msgid "Distribution.LogLaplace"
+msgstr "Log-Laplace distribution"
+
+msgid "Distribution.LogLaplaceWikipedia"
+msgstr "https://en.wikipedia.org/wiki/Log-Laplace_distribution"
 
 msgid "Distribution.LogLogistic"
 msgstr "Log-logistic distribution"
@@ -7529,6 +7535,18 @@ msgstr "<p>Calculates the value of the distribution function of the Log-Gamma di
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogGammaDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Log-Gamma distribution with the parameters according to the first (a) and second (b) parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogLaplaceDistribution"
+msgstr "Log-Laplace distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogLaplaceDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the density of the Log-Laplace distribution at the location specified as the first parameter with the parameter c according to the second Paramerer and with starting point according to the third parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogLaplaceDistribution.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the Log-Laplace distribution at the location specified as the first parameter with the parameter c according to the second Paramerer and with starting point according to the third parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.LogLaplaceDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Log-Laplace distribution with the parameter c according to the first parameter and the starting point according to the second parameter.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.LogLogisticDistribution"
 msgstr "Log-logistic distribution"
