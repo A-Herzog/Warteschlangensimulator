@@ -24,9 +24,11 @@ import java.awt.event.KeyListener;
 import java.io.Serializable;
 
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -54,6 +56,11 @@ public class ModelElementSourceDDEDialog extends ModelElementBaseDialog {
 	private DDEEditPanel editDDE;
 
 	/**
+	 * Option: Zeitangabenspalte beschreibt Zwischenankunftszeiten (Alternative: feste Zeitpunkte)
+	 */
+	private JRadioButton optionDistances;
+
+	/**
 	 * Eingabebereich für die Namen der zu ladenden Kundentypen
 	 */
 	private JTextArea clientsEdit;
@@ -73,7 +80,7 @@ public class ModelElementSourceDDEDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected void setDialogSize() {
-		setMinSizeRespectingScreensize(550,600);
+		setMinSizeRespectingScreensize(550,750);
 		pack();
 		setMaxSizeRespectingScreensize(1024,768);
 	}
@@ -110,6 +117,27 @@ public class ModelElementSourceDDEDialog extends ModelElementBaseDialog {
 		if (warmUpAdvice!=null) top.add(warmUpAdvice);
 
 		top.add(editDDE=new DDEEditPanel(this,source,readOnly,helpRunnable));
+
+		/* Radiobuttons für Tabellenspalte 1 */
+
+		line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		top.add(line);
+		line.add(new JLabel(Language.tr("Surface.SourceDDE.Dialog.ColumnOne")));
+
+		final JRadioButton optionTimeStamps;
+		line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		top.add(line);
+		line.add(optionTimeStamps=new JRadioButton(Language.tr("Surface.SourceDDE.Dialog.ColumnOne.TimeStamps"),!source.isNumbersAreDistances()));
+		optionTimeStamps.setEnabled(!readOnly);
+
+		line=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		top.add(line);
+		line.add(optionDistances=new JRadioButton(Language.tr("Surface.SourceDDE.Dialog.ColumnOne.Distances"),source.isNumbersAreDistances()));
+		optionDistances.setEnabled(!readOnly);
+
+		final ButtonGroup buttonGroup=new ButtonGroup();
+		buttonGroup.add(optionTimeStamps);
+		buttonGroup.add(optionDistances);
 
 		/* Center: Kundentypnamen */
 
@@ -179,5 +207,7 @@ public class ModelElementSourceDDEDialog extends ModelElementBaseDialog {
 		final String[] lines=s.split("\n");
 		source.getClientTypeNames().clear();
 		for (String line: lines) if (!line.isBlank()) source.getClientTypeNames().add(line.trim());
+
+		source.setNumbersAreDistances(optionDistances.isSelected());
 	}
 }

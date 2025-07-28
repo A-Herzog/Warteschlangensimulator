@@ -674,6 +674,9 @@
 <!ELEMENT ModellElementDDEQuelleTabelle (#PCDATA)>
 <!ELEMENT ModellElementDDEQuelleStartzeile (#PCDATA)>
 <!ELEMENT ModellElementDDEQuelleSpalte (#PCDATA)>
+<!ATTLIST ModellElementDDEQuelleSpalte
+  Zahlenwerte	CDATA	#IMPLIED
+>
 <!ELEMENT ModellElementDDEQuelleKundentyp (#PCDATA)>
 
 <!ELEMENT ModellElementEnde (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementEndeStopp)*>
@@ -3427,6 +3430,9 @@
 <!ELEMENT ModelElementDDESourceTable (#PCDATA)>
 <!ELEMENT ModelElementDDESourceStartRow (#PCDATA)>
 <!ELEMENT ModelElementDDESourceColumn (#PCDATA)>
+<!ATTLIST ModelElementDDESourceColumn
+  NumberValues	CDATA	#IMPLIED
+>
 <!ELEMENT ModelElementDDESourceClientType (#PCDATA)>
 
 <!ELEMENT ModelElementDispose (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDisposeStopp)*>

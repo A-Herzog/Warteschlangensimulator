@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-25 11:05+0200\n"
+"POT-Creation-Date: 2025-07-25 23:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35962,6 +35962,15 @@ msgstr "No client types to be loaded from the table have been specified."
 msgid "Surface.SourceDDE.Dialog.ClientTypes.ErrorTitle"
 msgstr "No client types specified"
 
+msgid "Surface.SourceDDE.Dialog.ColumnOne"
+msgstr "Interpretation of the time data"
+
+msgid "Surface.SourceDDE.Dialog.ColumnOne.Distances"
+msgstr "Values are distances between arrivals"
+
+msgid "Surface.SourceDDE.Dialog.ColumnOne.TimeStamps"
+msgstr "Values are time stamps"
+
 msgid "Surface.SourceDDE.Dialog.Title"
 msgstr "Edit Excel DDE source"
 
@@ -35982,6 +35991,12 @@ msgstr "ModelElementDDESourceClientType"
 
 msgid "Surface.SourceDDE.XML.Column"
 msgstr "ModelElementDDESourceColumn"
+
+msgid "Surface.SourceDDE.XML.NumbersAre"
+msgstr "NumberValues"
+
+msgid "Surface.SourceDDE.XML.NumbersAre.Distances"
+msgstr "Distances"
 
 msgid "Surface.SourceDDE.XML.Root"
 msgstr "ModelElementDDESource"

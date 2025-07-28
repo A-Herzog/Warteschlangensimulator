@@ -47,10 +47,11 @@ public class RunElementSourceDDE extends RunElementSourceExtern {
 	 * Lädt die Kundenankünfte über eine DDE-Verbindung.
 	 * @param sourceElement	Editor-Element aus dem die DDE-Einstellungen geladen werden
 	 * @param clientTypes	Kundentypen die beim Laden der Daten berücksichtigt werden sollen
+	 * @param numbersAreDistances	Gibt an, ob die Zahlen Zeitpunkte (<code>false</code>) oder Zwischenankunftszeiten (<code>true</code>) sind
 	 * @param runModel	Laufzeitmodell
 	 * @return	Liefert im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung
 	 */
-	private String loadTable(final ModelElementSourceDDE sourceElement, final List<String> clientTypes, final RunModel runModel) {
+	private String loadTable(final ModelElementSourceDDE sourceElement, final List<String> clientTypes, final boolean numbersAreDistances, final RunModel runModel) {
 		final Table table=new Table();
 
 		final DDEConnect connect=new DDEConnect();
@@ -81,7 +82,7 @@ public class RunElementSourceDDE extends RunElementSourceExtern {
 
 		if (table.getSize(0)==0) return String.format(Language.tr("Simulation.Creator.DDEError.NoRows"),sourceElement.getId(),sourceElement.getTable());
 
-		return loadTable(table,clientTypes,false,false,runModel.scaleToSimTime);
+		return loadTable(table,clientTypes,numbersAreDistances,false,runModel.scaleToSimTime);
 	}
 
 	@Override
@@ -103,7 +104,7 @@ public class RunElementSourceDDE extends RunElementSourceExtern {
 
 		/* Tabelle verarbeiten */
 		if (!testOnly) {
-			error=source.loadTable(sourceElement,clientTypes,runModel);
+			error=source.loadTable(sourceElement,clientTypes,sourceElement.isNumbersAreDistances(),runModel);
 			if (error!=null) return error;
 		}
 

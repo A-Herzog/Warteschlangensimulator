@@ -912,10 +912,16 @@
 	<xs:element name="ModellElementDDEQuelleArbeitsmappe" type="xs:string"/>
 	<xs:element name="ModellElementDDEQuelleTabelle" type="xs:string"/>
 	<xs:element name="ModellElementDDEQuelleStartzeile" type="xs:string"/>
-	<xs:element name="ModellElementDDEQuelleSpalte" type="xs:string"/>
+	<xs:element ref="ModellElementDDEQuelleSpalte"/>
 	<xs:element name="ModellElementDDEQuelleKundentyp" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementDDEQuelleSpalte"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Zahlenwerte" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
 
 <xs:element name="ModellElementEnde"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>
@@ -3487,6 +3493,12 @@
 	<xs:element name="ModelElementDDESourceClientType" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementDDESourceColumn"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="NumberValues" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
   
 <xs:element name="ModelElementDispose"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="1"><xs:choice>

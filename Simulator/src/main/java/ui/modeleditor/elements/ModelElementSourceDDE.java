@@ -99,6 +99,13 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 	private final List<String> clientTypeNames=new ArrayList<>();
 
 	/**
+	 * Gibt an, ob die Zahlen in der ersten Spalte absolute Zeitangaben oder Abstände vom jeweils vorherigen Wert sind.
+	 * @see #isNumbersAreDistances()
+	 * @see #setNumbersAreDistances(boolean)
+	 */
+	private boolean numbersAreDistances=false;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementSourceDDE</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -229,6 +236,22 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 	}
 
 	/**
+	 * Gibt an, ob die Zahlen in der ersten Spalte absolute Zeitangaben oder Abstände sind.
+	 * @return	Gibt <code>true</code> zurück, wenn die Zeitangaben in der ersten Spalte Abstände sind
+	 */
+	public boolean isNumbersAreDistances() {
+		return numbersAreDistances;
+	}
+
+	/**
+	 * Stellt ein, ob die Zahlen in der ersten Spalte absolute Zeitangaben oder Abstände sind.
+	 * @param numbersAreDistances	Wird <code>true</code> angegeben, so werden die Zeitangaben in der ersten Spalte als Abstände interpretiert
+	 */
+	public void setNumbersAreDistances(final boolean numbersAreDistances) {
+		this.numbersAreDistances=numbersAreDistances;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -254,6 +277,8 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 		if (clientTypeNames.size()!=((ModelElementSourceDDE)element).clientTypeNames.size()) return false;
 		for (int i=0;i<clientTypeNames.size();i++) if (!clientTypeNames.get(i).equals(((ModelElementSourceDDE)element).clientTypeNames.get(i))) return false;
 
+		if (numbersAreDistances!=otherSource.numbersAreDistances) return false;
+
 		return true;
 	}
 
@@ -275,6 +300,8 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 
 			clientTypeNames.clear();
 			clientTypeNames.addAll(source.clientTypeNames);
+
+			numbersAreDistances=source.numbersAreDistances;
 		}
 	}
 
@@ -459,6 +486,7 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 		if (column!=null && !column.isBlank()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.SourceDDE.XML.Column")));
 			sub.setTextContent(column);
+			if (numbersAreDistances) sub.setAttribute(Language.trPrimary("Surface.SourceTable.XML.NumbersAre"),Language.trPrimary("Surface.SourceTable.XML.NumbersAre.Distances"));
 		}
 
 		for (String clientTypeName : clientTypeNames) {
@@ -508,6 +536,8 @@ public class ModelElementSourceDDE extends ModelElementBox implements ElementWit
 
 		if (Language.trAll("Surface.SourceDDE.XML.Column",name)) {
 			column=content;
+			final String numbersAre=Language.trAllAttribute("Surface.SourceDDE.XML.NumbersAre",node);
+			if (Language.trAll("Surface.SourceDDE.XML.NumbersAre.Distances",numbersAre)) numbersAreDistances=true;
 			return null;
 		}
 

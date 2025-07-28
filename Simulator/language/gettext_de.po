@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-25 11:05+0200\n"
+"POT-Creation-Date: 2025-07-25 23:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36018,6 +36018,15 @@ msgstr "Es wurden keine Kundentypennamen, die aus der Tabelle geladen werden sol
 msgid "Surface.SourceDDE.Dialog.ClientTypes.ErrorTitle"
 msgstr "Keine Kundentypen angegeben"
 
+msgid "Surface.SourceDDE.Dialog.ColumnOne"
+msgstr "Interpretation der Zeitangaben"
+
+msgid "Surface.SourceDDE.Dialog.ColumnOne.Distances"
+msgstr "Zahlenwerte sind Abstände zwischen Ankunftszeitpunkten"
+
+msgid "Surface.SourceDDE.Dialog.ColumnOne.TimeStamps"
+msgstr "Zahlenwerte sind Zeitangaben"
+
 msgid "Surface.SourceDDE.Dialog.Title"
 msgstr "Excel-DDE-Quelle bearbeiten"
 
@@ -36038,6 +36047,12 @@ msgstr "ModellElementDDEQuelleKundentyp"
 
 msgid "Surface.SourceDDE.XML.Column"
 msgstr "ModellElementDDEQuelleSpalte"
+
+msgid "Surface.SourceDDE.XML.NumbersAre"
+msgstr "Zahlenwerte"
+
+msgid "Surface.SourceDDE.XML.NumbersAre.Distances"
+msgstr "Abstaende"
 
 msgid "Surface.SourceDDE.XML.Root"
 msgstr "ModellElementDDEQuelle"
