@@ -34,6 +34,7 @@ import mathtools.distribution.ContinuousBernoulliDistribution;
 import mathtools.distribution.CosineDistributionImpl;
 import mathtools.distribution.DataDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
+import mathtools.distribution.DiscreteBoltzmannDistributionImpl;
 import mathtools.distribution.DiscreteBorelDistributionImpl;
 import mathtools.distribution.DiscreteGeometricDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
@@ -85,6 +86,7 @@ import mathtools.distribution.tools.DistributionTools;
 import mathtools.distribution.tools.WrapperArcsineDistribution;
 import mathtools.distribution.tools.WrapperBetaDistribution;
 import mathtools.distribution.tools.WrapperBinomialDistribution;
+import mathtools.distribution.tools.WrapperBoltzmannDistribution;
 import mathtools.distribution.tools.WrapperBorelDistribution;
 import mathtools.distribution.tools.WrapperCauchyDistribution;
 import mathtools.distribution.tools.WrapperChiDistribution;
@@ -359,6 +361,7 @@ public abstract class JDistributionEditorPanelRecord {
 		allRecords.add(new LogGammaDistributionPanel());
 		allRecords.add(new LogLaplaceDistributionPanel());
 		allRecords.add(new GeneralizedRademacherDistributionPanel());
+		allRecords.add(new BoltzmannDistributionPanel());
 	}
 
 	/**
@@ -2227,6 +2230,37 @@ public abstract class JDistributionEditorPanelRecord {
 		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
 			final Double mu=NumberTools.getDouble(fields[0],true); if (mu==null || mu<0 || mu>1) return null;
 			return new DiscreteBorelDistributionImpl(mu);
+		}
+	}
+
+	/** Boltzmannverteilung */
+	private static class BoltzmannDistributionPanel extends JDistributionEditorPanelRecord {
+		/** Konstruktor der Klasse */
+		public BoltzmannDistributionPanel() {
+			super(new WrapperBoltzmannDistribution(),new String[]{"lambda","N"});
+		}
+
+		@Override
+		public String[] getEditValues(double meanD, String mean, double stdD, String std, String lower, String upper, double maxXValue) {
+			if (meanD<=0 || stdD<=0) return new String[]{NumberTools.formatNumber(0.5),"20"};
+			final double lambda=0.25;
+			final int N=(int)Math.round(3*meanD);
+			return new String[]{NumberTools.formatNumber(lambda,3),""+N};
+		}
+
+		@Override
+		public String[] getValues(AbstractRealDistribution distribution) {
+			return new String[] {
+					NumberTools.formatNumberMax(((DiscreteBoltzmannDistributionImpl)distribution).lambda),
+					""+((DiscreteBoltzmannDistributionImpl)distribution).N
+			};
+		}
+
+		@Override
+		public AbstractRealDistribution getDistribution(JTextField[] fields, double maxXValue) {
+			final Double lambda=NumberTools.getPositiveDouble(fields[0],true); if (lambda==null) return null;
+			final Long N=NumberTools.getPositiveLong(fields[1],true); if (N==null) return null;
+			return new DiscreteBoltzmannDistributionImpl(lambda,N.intValue());
 		}
 	}
 

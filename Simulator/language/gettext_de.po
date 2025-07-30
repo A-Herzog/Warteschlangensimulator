@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-25 23:23+0200\n"
+"POT-Creation-Date: 2025-07-28 11:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3384,6 +3384,9 @@ msgstr "Binomialverteilung"
 
 msgid "Distribution.BinomialWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Binomialverteilung"
+
+msgid "Distribution.Boltzmann"
+msgstr "Boltzmann-Verteilung"
 
 msgid "Distribution.Borel"
 msgstr "Borel-Verteilung"
@@ -6967,6 +6970,15 @@ msgstr "<p>Berechnet den Wert der Zähldichte der Binomial-Verteilung an der als
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistributionDirect.RandomNumberInfo"
 msgstr "<p>Erzeugt eine Zufallszahl gemäß der Binomial-Verteilung mit dem angegebenen Erwartungswert und der angegbebenen Standardabweichung.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BoltzmannDistribution"
+msgstr "Boltzmann-Verteilung"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BoltzmannDistribution.DensityInfo"
+msgstr "<p>Berechnet den Wert der Zähldichte der Boltzmann-Verteilung an der als ersten Parameter angegebenen Stelle mit den Verteilungsparametern &lambda; and N gemäß den weiteren Funktionsparametern.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BoltzmannDistribution.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Boltzmann-Verteilung mit den angegebenen Parametern &lambda; und N.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BorelDist"
 msgstr "Borel-Verteilung"

@@ -117,6 +117,7 @@ import parser.symbols.CalcSymbolPreOperatorVariance;
 import parser.symbols.CalcSymbolPreOperatorZeta;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionBinomial;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionBinomialDirect;
+import parser.symbols.distributions.CalcSymbolDiscreteDistributionBoltzmann;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionBorel;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionGeometric;
 import parser.symbols.distributions.CalcSymbolDiscreteDistributionHyperGeom;
@@ -324,6 +325,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDiscreteDistributionGeometric());
 			addSymbol(new CalcSymbolDiscreteDistributionLogarithmic());
 			addSymbol(new CalcSymbolDiscreteDistributionBorel());
+			addSymbol(new CalcSymbolDiscreteDistributionBoltzmann());
 
 			addSymbol(new CalcSymbolDistributionExp());
 			addSymbol(new CalcSymbolDistributionUniform());

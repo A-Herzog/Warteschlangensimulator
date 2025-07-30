@@ -37,6 +37,7 @@ import mathtools.distribution.ChiDistributionImpl;
 import mathtools.distribution.ContinuousBernoulliDistribution;
 import mathtools.distribution.CosineDistributionImpl;
 import mathtools.distribution.DiscreteBinomialDistributionImpl;
+import mathtools.distribution.DiscreteBoltzmannDistributionImpl;
 import mathtools.distribution.DiscreteBorelDistributionImpl;
 import mathtools.distribution.DiscreteGeometricDistributionImpl;
 import mathtools.distribution.DiscreteHyperGeomDistributionImpl;
@@ -2883,6 +2884,43 @@ class DistributionTests {
 
 		double rnd=dist.random(new DummyRandomGenerator(0.5));
 		assertTrue(rnd>=0);
+	}
+
+	/**
+	 * Test: Boltzmann-Verteilung
+	 * @see DiscreteBoltzmannDistributionImpl
+	 */
+	@Test
+	void testDiscreteBoltzmannDistribution() {
+		DiscreteBoltzmannDistributionImpl dist;
+
+		dist=new DiscreteBoltzmannDistributionImpl(0.25,20);
+		assertEquals(0.25,dist.lambda);
+		assertEquals(20,dist.N);
+		assertEquals(0,dist.cumulativeProbability(-1));
+		assertTrue(dist.cumulativeProbability(0)>0);
+		assertEquals(1,dist.cumulativeProbability(20),0.000001);
+		assertEquals(1,dist.cumulativeProbability(21),0.000001);
+		assertEquals(-Double.MAX_VALUE,dist.inverseCumulativeProbability(-1));
+		assertEquals(Double.MAX_VALUE,dist.inverseCumulativeProbability(2));
+		assertEquals(2.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(2)),0.000001);
+		assertEquals(3.0,dist.inverseCumulativeProbability(dist.cumulativeProbability(3)),0.000001);
+		final double z=Math.exp(-0.25);
+		final double zN=Math.exp(-0.25*20);
+		assertEquals(z/(1.0-z)-20*zN/(1.0-zN),dist.getNumericalMean());
+		assertEquals(z/(1.0-z)/(1.0-z)-20*20*zN/(1.0-zN)/(1.0-zN),dist.getNumericalVariance());
+		assertEquals(0,dist.getSupportLowerBound());
+		assertEquals(19,dist.getSupportUpperBound());
+		assertTrue(dist.isSupportLowerBoundInclusive());
+		assertTrue(dist.isSupportUpperBoundInclusive());
+		assertTrue(dist.isSupportConnected());
+
+		testDistributionTools(dist);
+		testDistributionParameters(dist,new double[] {0.25,20});
+
+		double rnd=dist.random(new DummyRandomGenerator(0.5));
+		assertTrue(rnd>=0);
+		assertTrue(rnd<=19);
 	}
 
 	/**

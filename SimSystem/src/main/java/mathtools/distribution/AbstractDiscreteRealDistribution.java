@@ -58,7 +58,7 @@ public abstract class AbstractDiscreteRealDistribution extends AbstractRealDistr
 			sum+=getCountDensity(i);
 			if (sum>=1) break;
 		}
-		return sum;
+		return Math.min(1,sum);
 	}
 
 	@Override

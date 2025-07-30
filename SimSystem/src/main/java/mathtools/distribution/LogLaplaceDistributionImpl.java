@@ -67,7 +67,7 @@ public class LogLaplaceDistributionImpl extends AbstractRealDistribution impleme
 		final double c2=this.c*this.c;
 		final double c4=c2*c2;
 		mean=(this.c>1)?(s+c2/(this.c-1)/(this.c+1)):Double.POSITIVE_INFINITY;
-		variance=(this.c>1)?(c2/(this.c-2)/(this.c+2)-c4/(this.c-1)/(this.c-1)/(this.c+1)/(this.c+1)):Double.POSITIVE_INFINITY;
+		variance=(this.c>2)?(c2/(this.c-2)/(this.c+2)-c4/(this.c-1)/(this.c-1)/(this.c+1)/(this.c+1)):Double.POSITIVE_INFINITY;
 	}
 
 	/**

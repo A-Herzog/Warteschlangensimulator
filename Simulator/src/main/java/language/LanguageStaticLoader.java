@@ -284,6 +284,7 @@ public class LanguageStaticLoader {
 		DistributionTools.DistLogarithmicWikipedia=Language.tr("Distribution.LogarithmicWikipedia");
 		DistributionTools.DistBorel=Language.trAll("Distribution.Borel");
 		DistributionTools.DistBorelWikipedia=Language.tr("Distribution.BorelWikipedia");
+		DistributionTools.DistBoltzmann=Language.trAll("Distribution.Boltzmann");
 		DistributionTools.DistHalfNormal=Language.trAll("Distribution.HalfNormal");
 		DistributionTools.DistHalfNormalWikipedia=Language.tr("Distribution.HalfNormalWikipedia");
 		DistributionTools.DistUQuadratic=Language.trAll("Distribution.UQuadratic");

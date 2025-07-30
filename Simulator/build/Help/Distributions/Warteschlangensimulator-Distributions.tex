@@ -836,6 +836,8 @@ scale&=&\frac{mean^3}{sd^2}+mean
 
 
 
+
+
 \section*{Generalized Rademacher distribution}
 \cm{Generalized Rademacher distribution (a;b;pa)}~\\
 \cm{Verallgemeinerte Rademacher-Verteilung (a;b;pa)}
@@ -845,6 +847,7 @@ Conversion between distribution parameters and stochastic characteristics
 mean&=&a\cdot P(a)+b\cdot(1-P(A))\\
 sd&=&sqrt{a^2\cdot P(a)+b^2\cdot(1-P(A))-mean^2}
 \end{eqnarray*}
+
 
 
 
@@ -860,5 +863,15 @@ sd&=&\sqrt{-\frac{(1-\lambda)\lambda}{(1-2\lambda)^2}+\frac{1}{(2\tanh^{-1}(1-2\
 \end{eqnarray*}
 
 
+
+
+
+\section*{Boltzmann distribution}
+\cm{Boltzmann distribution (lambda;N)}
+\cm{Boltzmann-Verteilung (lambda;N)}
+\begin{eqnarray*}
+mean&=&\frac{\exp(-\lambda)}{1-\exp(-\lambda)}-N\cdot\frac{\exp(-\lambda N)}{1-\exp(-\lambda N)}\\
+sd&=&\sqrt{\frac{\exp(-\lambda)}{(\exp(-\lambda))^2}-N^2\cdot\frac{\exp(-\lambda N)}{(1-\exp(-\lambda N))^2}}
+\end{eqnarray*}
 
 \end{document}

@@ -287,6 +287,13 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.PlanckDistribution.DensityInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.PlanckDistribution.RandomNumberInfo"));
 
+		/* Boltzmann-Verteilung */
+
+		addDiscreteDist(group,filterUpper,"BoltzmannDist","l;N",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BoltzmannDistribution"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BoltzmannDistribution.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.BoltzmannDistribution.RandomNumberInfo"));
+
 		return group;
 
 	}

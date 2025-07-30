@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-25 23:23+0200\n"
+"POT-Creation-Date: 2025-07-28 11:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3380,6 +3380,9 @@ msgstr "Binomial distribution"
 
 msgid "Distribution.BinomialWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Binomial_distribution"
+
+msgid "Distribution.Boltzmann"
+msgstr "Boltzmann distribution"
 
 msgid "Distribution.Borel"
 msgstr "Borel distribution"
@@ -6971,6 +6974,15 @@ msgstr "<p>Calculates the value of the count density of the Binomial distributio
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BinomialDistributionDirect.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Binomial distribution with the given mean and standard deviation.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BoltzmannDistribution"
+msgstr "Boltzmann distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BoltzmannDistribution.DensityInfo"
+msgstr "<p>Calculates the value of the count density of the Boltzmann distribution at the location specified as the first parameter with the distribution parameters &lambda; and N according to the next function parameters.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.BoltzmannDistribution.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the Boltzmann distribution with the given parameters &lambda; and N.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.BorelDist"
 msgstr "Borel distribution"

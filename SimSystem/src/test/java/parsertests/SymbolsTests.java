@@ -3180,6 +3180,60 @@ class SymbolsTests {
 				assertTrue(false);
 			}
 		}
+
+		/* Boltzmann-Verteilung - Dichte */
+
+		calc=new CalcSystem("BoltzmannDist(x;l;N)",new String[]{"x","l","N"});
+		assertTrue(calc.parse()<0);
+
+		try {
+			d=calc.calc(new double[]{-1,0.25,20});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		for (int k=0;k<=19;k++) {
+			try {
+				d=calc.calc(new double[]{k,0.25,20});
+				assertTrue(d>0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
+
+		try {
+			d=calc.calc(new double[]{20,0.25,20});
+			assertEquals(0,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		final CalcSystem calcFinal7=calc;
+		assertThrowsExactly(MathCalcError.class,()->{
+			calcFinal7.calc(new double[]{3,-0.25,20});
+		});
+
+		calc=new CalcSystem("BoltzmannDist(x;y;z;a;b)",new String[]{"x","y","z","a","b"});
+		assertTrue(calc.parse()<0);
+		d=calc.calcOrDefault(new double[]{1,2,3,4,5},-17);
+		assertEquals(-17.0,d);
+
+		/* Boltzmann-Verteilung - Zufallszahlen */
+
+		calc=new CalcSystem("BoltzmannDist(l;N)",new String[]{"l","N"});
+		assertTrue(calc.parse()<0);
+
+		for (int i=0;i<100;i++) {
+			try {
+				d=calc.calc(new double[]{0.25,20});
+				assertTrue(d>=0);
+				assertTrue(d<=19);
+				assertTrue(d%1.0==0.0);
+			} catch (MathCalcError e) {
+				assertTrue(false);
+			}
+		}
 	}
 
 	/**
