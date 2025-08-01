@@ -211,6 +211,7 @@ public class CalcSystem extends CalcSystemBase {
 	 */
 	@Override
 	public int parse(String text) {
+		if (text!=null) text=text.trim();
 		this.text=text;
 		root=null;
 		unsetPlainNumber();

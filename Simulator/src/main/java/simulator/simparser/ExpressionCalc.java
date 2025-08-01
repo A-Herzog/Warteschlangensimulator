@@ -607,7 +607,8 @@ public class ExpressionCalc extends CalcSystem {
 	private StringBuilder parseStringBuilder;
 
 	@Override
-	public int parse(final String text) {
+	public int parse(String text) {
+		if (text!=null) text=text.trim();
 		if (text==null || text.isEmpty()) return 0;
 
 		if (text.indexOf('$')<0 && text.indexOf('§')<0) return super.parse(text);
