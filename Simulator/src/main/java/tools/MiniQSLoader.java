@@ -411,6 +411,47 @@ public class MiniQSLoader {
 		}
 
 		/**
+		 * Erzeugt eine Signal-basierte Kundenquelle aus dem json-Basisobjekt.
+		 * @param model	Übergeordnetes Modell für das neue Element
+		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
+		 */
+		private ModelElementPosition[] loadSignalSource(final EditModel model) {
+			final JSONObject setup=getSetup();
+			if (setup==null) return null;
+
+			final int b=loadInt(setup,"b");
+			final int signalNr=loadInt(setup,"signal");
+			if (signalNr<=0 || b<1) return null;
+
+			final ModelElementSource element=new ModelElementSource(model,model.surface);
+			final ModelElementSourceRecord record=element.getRecord();
+			record.setBatchSize(""+b);
+			record.setSignalMode();
+
+			element.setName(name);
+
+			return new ModelElementPosition[]{element};
+		}
+
+		/**
+		 * Nachgelagerte Initialisierung für eine Signal-basierte Quelle
+		 * @param elements	Liste mit allen json-Elementen
+		 * @param stations	Liste mit allen Modellstationen
+		 * @see #init(List)
+		 */
+		private void initSignalSource(final List<ElementData> elements, final List<ModelElement> stations) {
+			final JSONObject setup=getSetup();
+			final int signalNr=loadInt(setup,"signal");
+
+			final ElementData signalElement=elements.stream().filter(element->element.type.equals("Signal")).filter(signal->nr==signalNr).findFirst().orElseGet(()->null);
+			if (signalElement==null) return;
+
+			final ModelElementSource source=(ModelElementSource)getFirstElement();
+			final ModelElementSourceRecord record=source.getRecord();
+			record.getArrivalSignalNames().add(signalElement.getFirstElement().getName());
+		}
+
+		/**
 		 * Erzeugt eine Verzögerungsstation aus dem json-Basisobjekt.
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
@@ -797,6 +838,7 @@ public class MiniQSLoader {
 
 			switch (type) {
 			case "Source": modelElements=loadSource(model); break;
+			case "SignalSource": modelElements=loadSignalSource(model); break;
 			case "Delay": modelElements=loadDelay(model); break;
 			case "Process": modelElements=loadProcess(model); break;
 			case "Decide": modelElements=loadDecide(model); break;
@@ -832,6 +874,7 @@ public class MiniQSLoader {
 		 */
 		public void init(final List<ElementData> list) {
 			switch (type) {
+			case "SignalSource": initSignalSource(list,getLastElement().getSurface().getElements()); break;
 			case "Process": initProcess(list,getLastElement().getSurface().getElements()); break;
 			case "Barrier": initBarrier(list,getLastElement().getSurface().getElements()); break;
 			case "Diagram": initDiagram(list,getLastElement().getSurface().getElements()); break;
