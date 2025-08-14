@@ -1,5 +1,5 @@
 /**
- * Copyright 2025 Alexander Herzog
+ * Copyright 2020 Alexander Herzog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,24 +17,24 @@ package parser.symbols.distributions;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
-import mathtools.distribution.InverseGammaDistributionImpl;
+import mathtools.distribution.InverseGaussianDistributionImpl;
 
 /**
- * Inverse Gamma-Verteilung
+ * Inverse Gauß-Verteilung
  * @author Alexander Herzog
- * @see InverseGammaDistributionImpl
+ * @see InverseGaussianDistributionImpl
  */
-public final class CalcSymbolDistributionInverseGamma extends CalcSymbolDistribution {
+public final class CalcSymbolDistributionInverseGaussianDirect extends CalcSymbolDistribution {
 	/**
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"InverseGammaDist","InverseGammaDistribution","InverseGammaVerteilung"};
+	private static final String[] names=new String[]{"InverseGaussianDistDirect","InverseGaussianDistributionDirect","InverseGaussVerteilungDirekt"};
 
 	/**
 	 * Konstruktor der Klasse
 	 */
-	public CalcSymbolDistributionInverseGamma() {
+	public CalcSymbolDistributionInverseGaussianDirect() {
 		/*
 		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
 		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
@@ -53,7 +53,8 @@ public final class CalcSymbolDistributionInverseGamma extends CalcSymbolDistribu
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
-		if (parameters[0]<=0 || parameters[1]<=0) return null;
-		return new InverseGammaDistributionImpl(parameters[0],parameters[1]);
+		final double mean=parameters[0];
+		final double sd=parameters[1];
+		return new InverseGaussianDistributionImpl(mean*mean*mean/sd/sd,mean);
 	}
 }

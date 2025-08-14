@@ -3605,11 +3605,26 @@ class SymbolsTests {
 		cmd="InverseGammaDistribution(x;alpha;beta;1)";
 		variables=new String[]{"x","alpha","beta"};
 		assertTrue(testDistribution(cmd,variables,new double[]{20,5,100})>0);
-		testDistributionThrows("HyperbolicSecantDistribution(x;alpha;beta;2)",variables,new double[]{20,5,100});
+		testDistributionThrows("InverseGammaDistribution(x;alpha;beta;2)",variables,new double[]{20,5,100});
 
 		cmd="InverseGammaDistribution(alpha;beta)";
 		variables=new String[]{"alpha","beta"};
 		testDistribution(cmd,variables,new double[]{5,100});
+
+		/* Inverse Gamma-Verteilung direkt */
+
+		cmd="InverseGammaDistributionDirect(x;mean;std;0)";
+		variables=new String[]{"x","mean","std"};
+		assertTrue(testDistribution(cmd,variables,new double[]{100,100,50})>0);
+
+		cmd="InverseGammaDistributionDirect(x;mean;std;1)";
+		variables=new String[]{"x","mean","std"};
+		assertTrue(testDistribution(cmd,variables,new double[]{100,100,50})>0);
+		testDistributionThrows("InverseGammaDistributionDirect(x;mean;std;2)",variables,new double[]{100,100,50});
+
+		cmd="InverseGammaDistributionDirect(mean;std)";
+		variables=new String[]{"mean","std"};
+		testDistribution(cmd,variables,new double[]{100,50});
 
 		/* Inverse Gaußverteilung */
 
@@ -3628,6 +3643,24 @@ class SymbolsTests {
 		cmd="InverseGaussianDist(l;mu)";
 		variables=new String[]{"l","mu"};
 		testDistribution(cmd,variables,new double[]{900,1800});
+
+		/* Inverse Gaußverteilung direkt  */
+
+		cmd="InverseGaussianDistDirect(x;mean;std;0)";
+		variables=new String[]{"x","mean","std"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,100,50}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,100,50})>0);
+
+		cmd="InverseGaussianDistDirect(x;mean;std;1)";
+		variables=new String[]{"x","mean","std"};
+		assertEquals(0,testDistribution(cmd,variables,new double[]{-0.1,100,50}));
+		assertEquals(0,testDistribution(cmd,variables,new double[]{0,100,50}));
+		assertTrue(testDistribution(cmd,variables,new double[]{1000,100,50})>0);
+		testDistributionThrows("InverseGaussianDistDirect(x;mean;std;2)",variables,new double[]{1000,100,50});
+
+		cmd="InverseGaussianDistDirect(mean;std)";
+		variables=new String[]{"mean","std"};
+		testDistribution(cmd,variables,new double[]{100,50});
 
 		/* Irwin-Hall-Verteilung */
 

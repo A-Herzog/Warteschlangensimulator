@@ -72,6 +72,7 @@ public class WrapperInverseGaussianDistribution extends AbstractDistributionWrap
 
 	@Override
 	public AbstractRealDistribution getDistribution(double mean, double sd) {
+		if (sd<=0) return null;
 		return new InverseGaussianDistributionImpl(mean*mean*mean/sd/sd,mean);
 	}
 

@@ -20,21 +20,21 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import mathtools.distribution.InverseGammaDistributionImpl;
 
 /**
- * Inverse Gamma-Verteilung
+ * Inverse Gamma-Verteilung - Parameter sind hier Erwartungswert und Standardabweichung
  * @author Alexander Herzog
  * @see InverseGammaDistributionImpl
  */
-public final class CalcSymbolDistributionInverseGamma extends CalcSymbolDistribution {
+public final class CalcSymbolDistributionInverseGammaDirect extends CalcSymbolDistribution {
 	/**
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"InverseGammaDist","InverseGammaDistribution","InverseGammaVerteilung"};
+	private static final String[] names=new String[]{"InverseGammaDistDirect","InverseGammaDistributionDirect","InverseGammaVerteilungDirekt"};
 
 	/**
 	 * Konstruktor der Klasse
 	 */
-	public CalcSymbolDistributionInverseGamma() {
+	public CalcSymbolDistributionInverseGammaDirect() {
 		/*
 		 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
 		 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
@@ -53,7 +53,13 @@ public final class CalcSymbolDistributionInverseGamma extends CalcSymbolDistribu
 
 	@Override
 	protected AbstractRealDistribution getDistribution(double[] parameters) {
-		if (parameters[0]<=0 || parameters[1]<=0) return null;
-		return new InverseGammaDistributionImpl(parameters[0],parameters[1]);
+		if (parameters[0]<0 || parameters[1]<0) return null;
+
+		final double mean=parameters[0];
+		final double sd=parameters[1];
+		final double alpha=((sd<=0)?0:(mean*mean/sd/sd))+2;
+		final double beta=Math.max(((sd<=0)?0:(mean*mean*mean/sd/sd))+mean,0.0001);
+
+		return new InverseGammaDistributionImpl(alpha,beta);
 	}
 }

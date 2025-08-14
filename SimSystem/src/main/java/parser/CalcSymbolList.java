@@ -149,7 +149,9 @@ import parser.symbols.distributions.CalcSymbolDistributionHalfCauchy;
 import parser.symbols.distributions.CalcSymbolDistributionHalfNormal;
 import parser.symbols.distributions.CalcSymbolDistributionHyperbolicSecant;
 import parser.symbols.distributions.CalcSymbolDistributionInverseGamma;
+import parser.symbols.distributions.CalcSymbolDistributionInverseGammaDirect;
 import parser.symbols.distributions.CalcSymbolDistributionInverseGaussian;
+import parser.symbols.distributions.CalcSymbolDistributionInverseGaussianDirect;
 import parser.symbols.distributions.CalcSymbolDistributionIrwinHall;
 import parser.symbols.distributions.CalcSymbolDistributionIrwinHallDirect;
 import parser.symbols.distributions.CalcSymbolDistributionJohnsonSU;
@@ -348,6 +350,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionPareto());
 			addSymbol(new CalcSymbolDistributionLogistic());
 			addSymbol(new CalcSymbolDistributionInverseGaussian());
+			addSymbol(new CalcSymbolDistributionInverseGaussianDirect());
 			addSymbol(new CalcSymbolDistributionRayleigh());
 			addSymbol(new CalcSymbolDistributionLogLogistic());
 			addSymbol(new CalcSymbolDistributionPower());
@@ -377,6 +380,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolDistributionLogGamma());
 			addSymbol(new CalcSymbolDistributionLogLaplace());
 			addSymbol(new CalcSymbolDistributionInverseGamma());
+			addSymbol(new CalcSymbolDistributionInverseGammaDirect());
 			addSymbol(new CalcSymbolDistributionContinuousBernoulli());
 			addSymbol(new CalcSymbolGeneralizedRademacherDistribution());
 			addSymbol(new CalcSymbolDistributionHalfCauchy());

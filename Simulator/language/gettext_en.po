@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 11:35+0200\n"
+"POT-Creation-Date: 2025-08-06 21:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7401,11 +7401,23 @@ msgstr "<p>Calculates the value of the distribution function of the inverse gamm
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.RandomNumberInfo"
 msgstr "<p>Calculates the value of the distribution function of the inverse gamma distribution at the location specified as first parameter with the parameters &alpha; and &beta; according to the second and third parameters.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistributionDirect"
+msgstr "Inverse gamma distribution (direct characteristics)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistributionDirect.DensityInfo"
+msgstr "<p>Calculates the value of the density of the inverse gamma distribution at the location specified as the first parameter with the expected value and the standard deviation defined by parameters two and three.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistributionDirect.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the inverse gamma distribution at the location specified as the first parameter with the expected value and the standard deviation defined by parameters two and three.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistributionDirect.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the inverse gamma distribution with the expected value and the standard deviation defined by parameters one and two.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution"
 msgstr "Inverse gaussian distribution"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.DensityInfo"
-msgstr "<p>Calculates the value of the density of the Inverse gaussian distribution at the location specified as the first parameter with the parameters according to the second (lambda) and third (mu; mean) parameters.</p>"
+msgstr "<p>Calculates the value of the density of the inverse gaussian distribution at the location specified as the first parameter with the parameters according to the second (lambda) and third (mu; mean) parameters.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.DistributionFunctionInfo"
 msgstr "<p>Calculates the value of the distribution function of the inverse gaussian distribution at the location specified as the first parameter with the parameters according to the second (lambda) and third (mu; mean) parameters.</p>"
@@ -7417,6 +7429,18 @@ msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.Ra
 msgstr ""
 "<p>Generates a random number according to the inverse gaussian distribution with the parameters according to the third (lambda) and fourth (mu; mean) parameters.</p>\n"
 "<p>The first and second parameter specify the range in which the random number should be located.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistributionDirect"
+msgstr "Inverse gaussian distribution (direct characteristics)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistributionDirect.DensityInfo"
+msgstr "<p>Calculates the value of the density of the inverse gaussian distribution at the location specified as the first parameter with the expected value and the standard deviation defined by parameters two and three.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistributionDirect.DistributionFunctionInfo"
+msgstr "<p>Calculates the value of the distribution function of the inverse gaussian distribution at the location specified as the first parameter with the expected value and the standard deviation defined by parameters two and three.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistributionDirect.RandomNumberInfo"
+msgstr "<p>Generates a random number according to the inverse gaussian distribution with the expected value and the standard deviation defined by parameters one and two.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution"
 msgstr "Irwin-Hall distribution"

@@ -376,6 +376,14 @@ public class ExpressionBuilderDistributions {
 				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.DistributionFunctionInfo"),NumberTools.formatNumberMax(0.087695308502)),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.RandomNumberInfo"));
 
+		/* Inverse Gamma-Verteilung - Direkt */
+
+		addDist(group,filterUpper,"InverseGammaDistDirect","mean;sd",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGammaDistributionDirect"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGammaDistributionDirect.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGammaDistributionDirect.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGammaDistributionDirect.RandomNumberInfo"));
+
 		/* Beta-Verteilung */
 
 		addDist(group,filterUpper,"BetaDist","a;b;alpha;beta",
@@ -504,6 +512,14 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberRangeInfo"));
+
+		/* Inverse Gauﬂ-Verteilung */
+
+		addDist(group,filterUpper,"InverseGaussianDistDirect","mean;sd",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistributionDirect"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistributionDirect.DensityInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistributionDirect.DistributionFunctionInfo"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistributionDirect.RandomNumberInfo"));
 
 		/* Rayleigh-Verteilung */
 

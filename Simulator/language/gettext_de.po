@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-28 11:35+0200\n"
+"POT-Creation-Date: 2025-08-06 21:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7392,6 +7392,18 @@ msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Inversen Gamma-Verteil
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.RandomNumberInfo"
 msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Inversen Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gemäß dem zweiten und dritten Parameter.</p>"
 
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistributionDirect"
+msgstr "Inverse Gamma-Verteilung (direkte Kenngrößen)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistributionDirect.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Inversen Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gemäß den Parametern zwei und drei.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistributionDirect.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Inversen Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gemäß den Parametern zwei und drei.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistributionDirect.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Inversen Gamma-Verteilung mit Erwartungswert und Standardabweichung gemäß den Parametern eins und zwei.</p>"
+
 msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution"
 msgstr "Inverse Gauß-Verteilung"
 
@@ -7408,6 +7420,18 @@ msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.Ra
 msgstr ""
 "<p>Erzeugt eine Zufallszahl gemäß der inversen Gauß-Verteilung mit den Parametern gemäß dem dritten (lambda) und viertem (mu; Mittelwert) Parameter.</p>\n"
 "<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistributionDirect"
+msgstr "Inverse Gauß-Verteilung (direkte Kenngrößen)"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistributionDirect.DensityInfo"
+msgstr "<p>Berechnet den Wert der Dichte der Inversen Gauß-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gemäß den Parametern zwei und drei.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistributionDirect.DistributionFunctionInfo"
+msgstr "<p>Berechnet den Wert der Verteilungsfunktion der Inversen Gauß-Verteilung an der als ersten Parameter angegebenen Stelle mit Erwartungswert und Standardabweichung gemäß den Parametern zwei und drei.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistributionDirect.RandomNumberInfo"
+msgstr "<p>Erzeugt eine Zufallszahl gemäß der Inversen Gauß-Verteilung mit Erwartungswert und Standardabweichung gemäß den Parametern eins und zwei.</p>"
 
 msgid "ExpressionBuilder.ProbabilityDistributions.IrwinHallDistribution"
 msgstr "Irwin-Hall-Verteilung"
