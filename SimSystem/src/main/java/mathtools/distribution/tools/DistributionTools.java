@@ -153,6 +153,10 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Beta-Verteilung */
 	public static String DistBetaWikipedia="https://de.wikipedia.org/wiki/Beta-Verteilung";
 
+	/** Infotext zur Beta-Verteilung */
+	public static String DistBetaInfo="<p>Die Beta-Verteilung besitzt als besondere Eigenschaft einen abgeschlossenen Träger, d.h. sie nimmt nur positiv Werte in einem begrenzten Bereich an. Sie eignet sich damit besonders zur Modellierung von Prozessen, bei denen bekannt ist, dass diese eine endliche Höchstdauer aufweisen.</p>"+
+			"<p>Die Beta-Verteilung besitzt neben der Vorgabe des Trägerbereichs zwei Parameter über die sie sehr flexibel konfiguriert werden kann. Diese Flexibilität macht die Umrechnung vorgebener Kenngrößen (Erwartungswert und Standardabweichung) auf die Parameter der Beta-Verteilung allerdings auch schwierig.</p>";
+
 	/** Cauchy-Verteilung */
 	public static String[] DistCauchy=new String[]{"Cauchy-Verteilung"};
 
@@ -177,6 +181,10 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Weibull-Verteilung */
 	public static String DistWeibullWikipedia="https://de.wikipedia.org/wiki/Weibull-Verteilung";
 
+	/** Infotext zur Weibull-Verteilung */
+	public static String DistWeibullInfo="<p>Die Weibull-Verteilung wird häufig zur Modellierung von Lebensdauern verwendet, da bei ihr explizit eingestellt werden kann, ob die Ausfallrate mit fortschreitender Zeit ansteigt, fällt oder konstant bleibt.</p>"+
+			"<p>Wird der Formparameter auf einen Wert kleiner als eins eingestellt, so fällt die Ausfallrate mit der Zeit (Kinderkrankheiten). Wird ein Wert größer als eins verwendet, so steigt die Ausfallrate (Verschleißausfälle).</p>";
+
 	/** Chi-Verteilung */
 	public static String[] DistChi=new String[]{"Chi-Verteilung"};
 
@@ -189,11 +197,18 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Chi^2-Verteilung */
 	public static String DistChiSquareWikipedia="https://de.wikipedia.org/wiki/Chi-Quadrat-Verteilung";
 
+	/** Infotext zur Chi^2-Verteilung */
+	public static String DistChiSquareInfo="<p>Bei der Chi^2-Verteilung handelt es sich, ähnlich wie bei der Normalverteilung, um die additiven Überlagerung mehrerer unabhängiger Einzelverteilungen. Während die Normalverteilung die Grenzverteilung bei der Überlagerung unendlich vieler Verteilung ist, gibt bei der Chi^2-Verteilung die Anzahl an Freiheitsgraden die Anzahl an Summanden an.</p>"+
+			"<p>Die Chi^2-Verteilung ergibt sich als Summe der quadrierten Werte von so vielen standardnormalverteilten Zufallsvariablen wie der Werte der Freiheitsgrade angibt.</p>";
+
 	/** F-Verteilung */
 	public static String[] DistF=new String[]{"F-Verteilung"};
 
 	/** Wikipedia-Seite F-Verteilung */
 	public static String DistFWikipedia="https://de.wikipedia.org/wiki/F-Verteilung";
+
+	/** Infotext zur F-Verteilung */
+	public static String DistFInfo="<p>Die F-Verteilung ist der Quotient zweier Chi^2-verteilter Zufallsvariablen. Die F-Verteilung wird vor allem in der Testtheorie, zur Ermillung der Signifikanz der Unterschiede zwischen verschiedenen Stichproben in Bezug auf deren Varianzen verwendet.</p>";
 
 	/** Jonhson-SU-Verteilung */
 	public static String[] DistJohnson=new String[]{"Jonhson-SU-Verteilung"};
@@ -217,6 +232,9 @@ public final class DistributionTools {
 
 	/** Wikipedia-Seite Dreiecksverteilung */
 	public static String DistTrapezoidWikipedia="https://de.wikipedia.org/wiki/Trapezverteilung";
+
+	/** Infotext zur Trapezverteilung */
+	public static String DistTrapezoidInfo="<p>Die Trapezverteilung stellt eine Kombination aus einer Dreiecksverteilung und einer Gleichverteilung dar. Während die Trapezverteilung genauso wie die Gleichverteilung in der Mitte über einen Bereich konstanter Dichte verfügt, besitzt sie an den Rändern des Trägerbereichs einen Anstieg und einen Abfall der Dichte mit einstellbarer Steigung.</p>";
 
 	/** Pert-Verteilung */
 	public static String[] DistPert=new String[]{"Pert-Verteilung"};
@@ -296,11 +314,17 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Sägezahnverteilung (links) */
 	public static String DistSawtoothLeftWikipedia="https://de.wikipedia.org/wiki/Dreiecksverteilung";
 
+	/** Infotext zur Sägezahnverteilung (links) */
+	public static String DistSawtoothLeftInfo="<p>Die Sägezahnverteilung stellt einen vereinfachten Spezialfall der Dreiecksverteilung dar. Die Sägezahnverteilung wird lediglich über ihren Trägerbereich definiert.</p>";
+
 	/** Sägezahnverteilung (rechts) */
 	public static String[] DistSawtoothRight=new String[]{"Rechte Sägezahn-Verteilung"};
 
 	/** Wikipedia-Seite Sägezahnverteilung (rechts) */
 	public static String DistSawtoothRightWikipedia="https://de.wikipedia.org/wiki/Dreiecksverteilung";
+
+	/** Infotext zur Sägezahnverteilung (rechts) */
+	public static String DistSawtoothRightInfo="<p>Die Sägezahnverteilung stellt einen vereinfachten Spezialfall der Dreiecksverteilung dar. Die Sägezahnverteilung wird lediglich über ihren Trägerbereich definiert.</p>";
 
 	/** Levy-Verteilung */
 	public static String[] DistLevy=new String[]{"Levy-Verteilung"};
@@ -326,11 +350,19 @@ public final class DistributionTools {
 	/** Wikipedia-Seite Hypergeometrische Verteilung */
 	public static String DistHyperGeomWikipedia="https://de.wikipedia.org/wiki/Hypergeometrische_Verteilung";
 
+	/** Infotext zur Hypergeometrische Verteilung */
+	public static String DistHyperGeomInfo="<p>Die hypergeometrische Verteilung ist eine diskrete Wahrscheinlichkeitsverteilung. Sie ist folglich nicht dafür geeignet, Zeitdauern zu beschreiben, sondern zufällige Prozesse, die jeweils diskrete Werte annehmen können.</p>"+
+			"<p>Die hypergeometrische Verteilung beschreibt die Wahrscheinlichkeiten beim <b>Ziehen ohne Zurücklegen</b> aus einer Urne in der Kugeln mit zwei verschiedenen Farben enthalten sind.</p>";
+
 	/** Binomialverteilung */
 	public static String[] DistBinomial=new String[]{"Binomialverteilung"};
 
 	/** Wikipedia-Seite Binomialverteilung */
 	public static String DistBinomialWikipedia="https://de.wikipedia.org/wiki/Binomialverteilung";
+
+	/** Infotext zur Binomialverteilung */
+	public static String DistBinomialInfo="<p>Die Binomialverteilung ist eine diskrete Wahrscheinlichkeitsverteilung. Sie ist folglich nicht dafür geeignet, Zeitdauern zu beschreiben, sondern zufällige Prozesse, die jeweils diskrete Werte annehmen können.</p>"+
+			"<p>Die Binomialverteilung beschreibt die Wahrscheinlichkeiten beim <b>Ziehen mit Zurücklegen</b> aus einer Urne in der Kugeln mit zwei verschiedenen Farben enthalten sind.</p>";
 
 	/** Poisson-Verteilung */
 	public static String[] DistPoisson=new String[]{"Poisson-Verteilung"};

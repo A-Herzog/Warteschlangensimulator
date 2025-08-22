@@ -61,7 +61,7 @@ public class WrapperWeibullDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected String getInfoHTML() {
-		return null;
+		return DistributionTools.DistWeibullInfo;
 	}
 
 	@Override

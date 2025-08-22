@@ -58,7 +58,7 @@ public class WrapperSawtoothLeftDistribution extends AbstractDistributionWrapper
 
 	@Override
 	protected String getInfoHTML() {
-		return null;
+		return DistributionTools.DistSawtoothLeftInfo;
 	}
 
 	@Override

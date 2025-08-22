@@ -58,7 +58,7 @@ public class WrapperChiSquaredDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected String getInfoHTML() {
-		return null;
+		return DistributionTools.DistChiSquareInfo;
 	}
 
 	@Override

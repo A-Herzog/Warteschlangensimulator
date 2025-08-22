@@ -58,7 +58,7 @@ public class WrapperFDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected String getInfoHTML() {
-		return null;
+		return DistributionTools.DistFInfo;
 	}
 
 	@Override

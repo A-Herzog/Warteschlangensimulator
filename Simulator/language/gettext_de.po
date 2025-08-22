@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-06 21:41+0200\n"
+"POT-Creation-Date: 2025-08-12 11:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3376,11 +3376,21 @@ msgstr "Arcus Sinus-Verteilung"
 msgid "Distribution.Beta"
 msgstr "Beta-Verteilung"
 
+msgid "Distribution.BetaInfo"
+msgstr ""
+"<p>Die Beta-Verteilung besitzt als besondere Eigenschaft einen abgeschlossenen Träger, d.h. sie nimmt nur positiv Werte in einem begrenzten Bereich an. Sie eignet sich damit besonders zur Modellierung von Prozessen, bei denen bekannt ist, dass diese eine endliche Höchstdauer aufweisen.</p>\n"
+"<p>Die Beta-Verteilung besitzt neben der Vorgabe des Trägerbereichs zwei Parameter über die sie sehr flexibel konfiguriert werden kann. Diese Flexibilität macht die Umrechnung vorgebener Kenngrößen (Erwartungswert und Standardabweichung) auf die Parameter der Beta-Verteilung allerdings auch schwierig.</p>"
+
 msgid "Distribution.BetaWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Beta-Verteilung"
 
 msgid "Distribution.Binomial"
 msgstr "Binomialverteilung"
+
+msgid "Distribution.BinomialInfo"
+msgstr ""
+"<p>Die Binomialverteilung ist eine diskrete Wahrscheinlichkeitsverteilung. Sie ist folglich nicht dafür geeignet, Zeitdauern zu beschreiben, sondern zufällige Prozesse, die jeweils diskrete Werte annehmen können.</p>\n"
+"<p>Die Binomialverteilung beschreibt die Wahrscheinlichkeiten beim <b>Ziehen mit Zurücklegen</b> aus einer Urne in der Kugeln mit zwei verschiedenen Farben enthalten sind.</p>"
 
 msgid "Distribution.BinomialWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Binomialverteilung"
@@ -3411,6 +3421,11 @@ msgstr "Chi-Verteilung"
 
 msgid "Distribution.ChiSquare"
 msgstr "Chi^2-Verteilung"
+
+msgid "Distribution.ChiSquareInfo"
+msgstr ""
+"<p>Bei der Chi^2-Verteilung handelt es sich, ähnlich wie bei der Normalverteilung, um die additiven Überlagerung mehrerer unabhängiger Einzelverteilungen. Während die Normalverteilung die Grenzverteilung bei der Überlagerung unendlich vieler Verteilung ist, gibt bei der Chi^2-Verteilung die Anzahl an Freiheitsgraden die Anzahl an Summanden an.</p>\n"
+"<p>Die Chi^2-Verteilung ergibt sich als Summe der quadrierten Werte von so vielen standardnormalverteilten Zufallsvariablen wie der Werte der Freiheitsgrade angibt.</p>"
 
 msgid "Distribution.ChiSquareWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Chi-Quadrat-Verteilung"
@@ -3493,6 +3508,9 @@ msgstr "https://de.wikipedia.org/wiki/Exponentialverteilung"
 msgid "Distribution.F"
 msgstr "F-Verteilung"
 
+msgid "Distribution.FInfo"
+msgstr "<p>Die F-Verteilung ist der Quotient zweier Chi^2-verteilter Zufallsvariablen. Die F-Verteilung wird vor allem in der Testtheorie, zur Ermillung der Signifikanz der Unterschiede zwischen verschiedenen Stichproben in Bezug auf deren Varianzen verwendet.</p>"
+
 msgid "Distribution.FWikipedia"
 msgstr "https://de.wikipedia.org/wiki/F-Verteilung"
 
@@ -3549,6 +3567,11 @@ msgstr "https://de.wikipedia.org/wiki/Normalverteilung"
 
 msgid "Distribution.HyperGeom"
 msgstr "Hypergeometrische Verteilung"
+
+msgid "Distribution.HyperGeomInfo"
+msgstr ""
+"<p>Die hypergeometrische Verteilung ist eine diskrete Wahrscheinlichkeitsverteilung. Sie ist folglich nicht dafür geeignet, Zeitdauern zu beschreiben, sondern zufällige Prozesse, die jeweils diskrete Werte annehmen können.</p>\n"
+"<p>Die hypergeometrische Verteilung beschreibt die Wahrscheinlichkeiten beim <b>Ziehen ohne Zurücklegen</b> aus einer Urne in der Kugeln mit zwei verschiedenen Farben enthalten sind.</p>"
 
 msgid "Distribution.HyperGeomWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Hypergeometrische_Verteilung"
@@ -3775,11 +3798,17 @@ msgstr "https://en.wikipedia.org/wiki/Reciprocal_distribution"
 msgid "Distribution.SawtoothLeft"
 msgstr "Linke Sägezahnverteilung"
 
+msgid "Distribution.SawtoothLeftInfo"
+msgstr "<p>Die Sägezahnverteilung stellt einen vereinfachten Spezialfall der Dreiecksverteilung dar. Die Sägezahnverteilung wird lediglich über ihren Trägerbereich definiert.</p>"
+
 msgid "Distribution.SawtoothLeftWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Dreiecksverteilung"
 
 msgid "Distribution.SawtoothRight"
 msgstr "Rechte Sägezahnverteilung"
+
+msgid "Distribution.SawtoothRightInfo"
+msgstr "<p>Die Sägezahnverteilung stellt einen vereinfachten Spezialfall der Dreiecksverteilung dar. Die Sägezahnverteilung wird lediglich über ihren Trägerbereich definiert.</p>"
 
 msgid "Distribution.SawtoothRightWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Dreiecksverteilung"
@@ -3826,6 +3855,9 @@ msgstr "https://de.wikipedia.org/wiki/Studentsche_t-Verteilung"
 msgid "Distribution.Trapezoid"
 msgstr "Trapezverteilung"
 
+msgid "Distribution.TrapezoidInfo"
+msgstr "<p>Die Trapezverteilung stellt eine Kombination aus einer Dreiecksverteilung und einer Gleichverteilung dar. Während die Trapezverteilung genauso wie die Gleichverteilung in der Mitte über einen Bereich konstanter Dichte verfügt, besitzt sie an den Rändern des Trägerbereichs einen Anstieg und einen Abfall der Dichte mit einstellbarer Steigung.</p>"
+
 msgid "Distribution.TrapezoidWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Trapezverteilung"
 
@@ -3871,6 +3903,11 @@ msgstr "unbekannte Verteilung"
 
 msgid "Distribution.Weibull"
 msgstr "Weibull-Verteilung"
+
+msgid "Distribution.WeibullInfo"
+msgstr ""
+"<p>Die Weibull-Verteilung wird häufig zur Modellierung von Lebensdauern verwendet, da bei ihr explizit eingestellt werden kann, ob die Ausfallrate mit fortschreitender Zeit ansteigt, fällt oder konstant bleibt.</p>\n"
+"<p>Wird der Formparameter auf einen Wert kleiner als eins eingestellt, so fällt die Ausfallrate mit der Zeit (Kinderkrankheiten). Wird ein Wert größer als eins verwendet, so steigt die Ausfallrate (Verschleißausfälle).</p>"
 
 msgid "Distribution.WeibullWikipedia"
 msgstr "https://de.wikipedia.org/wiki/Weibull-Verteilung"

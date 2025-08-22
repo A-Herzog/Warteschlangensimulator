@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-06 21:41+0200\n"
+"POT-Creation-Date: 2025-08-12 11:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3372,11 +3372,21 @@ msgstr "Arcsine distribution"
 msgid "Distribution.Beta"
 msgstr "Beta distribution"
 
+msgid "Distribution.BetaInfo"
+msgstr ""
+"<p>The beta distribution has a special property in that it has a finite support, i.e., it only takes positive values within a limited range. This makes it particularly suitable for modeling processes that are known to have a finite maximum duration.</p>\n"
+"<p>In addition to specifying the support range, the beta distribution has two parameters that allow it to be configured very flexibly. However, this flexibility also makes it difficult to convert specified parameters (expected value and standard deviation) to the parameters of the beta distribution.</p>"
+
 msgid "Distribution.BetaWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Beta_distribution"
 
 msgid "Distribution.Binomial"
 msgstr "Binomial distribution"
+
+msgid "Distribution.BinomialInfo"
+msgstr ""
+"<p>The binomial distribution is a discrete probability distribution. It is therefore not suitable for describing durations, but rather random processes that can each take on discrete values.</p>\n"
+"<p>The binomial distribution describes the probabilities when <b>drawing with replacement</b> from an urn containing balls of two different colors.</p>"
 
 msgid "Distribution.BinomialWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Binomial_distribution"
@@ -3407,6 +3417,11 @@ msgstr "Chi distribution"
 
 msgid "Distribution.ChiSquare"
 msgstr "Chi^2 distribution"
+
+msgid "Distribution.ChiSquareInfo"
+msgstr ""
+"<p>Similar to the normal distribution, the chi-squared distribution is the additive superposition of several independent individual distributions. While the normal distribution is the limit distribution when superimposing an infinite number of distributions, in the chi-squared distribution, the number of degrees of freedom indicates the number of summands.</p>\n"
+"<p>The Chi^2 distribution is calculated as the sum of the squared values of as many standard normally distributed random variables as specified by the degrees of freedom.</p>"
 
 msgid "Distribution.ChiSquareWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Chi-squared_distribution"
@@ -3489,6 +3504,9 @@ msgstr "https://en.wikipedia.org/wiki/Exponential_distribution"
 msgid "Distribution.F"
 msgstr "F distribution"
 
+msgid "Distribution.FInfo"
+msgstr "<p>The F distribution is the quotient of two Chi^2-distributed random variables. The F distribution is mainly used in test theory to determine the significance of differences between different samples in terms of their variances.</p>"
+
 msgid "Distribution.FWikipedia"
 msgstr "https://en.wikipedia.org/wiki/F-distribution"
 
@@ -3545,6 +3563,11 @@ msgstr "https://en.wikipedia.org/wiki/Normal_distribution"
 
 msgid "Distribution.HyperGeom"
 msgstr "Hypergeometric distribution"
+
+msgid "Distribution.HyperGeomInfo"
+msgstr ""
+"<p>The hypergeometric distribution is a discrete probability distribution. It is therefore not suitable for describing durations of time, but rather random processes that can each take on discrete values.</p>\n"
+"<p>The hypergeometric distribution describes the probabilities when <b>drawing without replacement</b> from an urn containing balls of two different colors.</p>"
 
 msgid "Distribution.HyperGeomWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Hypergeometric_distribution"
@@ -3771,11 +3794,17 @@ msgstr "https://en.wikipedia.org/wiki/Reciprocal_distribution"
 msgid "Distribution.SawtoothLeft"
 msgstr "Left sawtooth distribution"
 
+msgid "Distribution.SawtoothLeftInfo"
+msgstr "<p>The sawtooth distribution is a simplified special case of the triangular distribution. The sawtooth distribution is defined solely by its carrier range.</p>"
+
 msgid "Distribution.SawtoothLeftWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Triangular_distribution"
 
 msgid "Distribution.SawtoothRight"
 msgstr "Right sawtooth distribution"
+
+msgid "Distribution.SawtoothRightInfo"
+msgstr "<p>The sawtooth distribution is a simplified special case of the triangular distribution. The sawtooth distribution is defined solely by its carrier range.</p>"
 
 msgid "Distribution.SawtoothRightWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Triangular_distribution"
@@ -3822,6 +3851,9 @@ msgstr "https://en.wikipedia.org/wiki/Student%27s_t-distribution"
 msgid "Distribution.Trapezoid"
 msgstr "Trapezoid distribution"
 
+msgid "Distribution.TrapezoidInfo"
+msgstr "<p>The trapezoidal distribution is a combination of a triangular distribution and an uniform distribution. While the trapezoidal distribution, like the uniform distribution, has a constant density in the middle over a range, it has an increase and decrease in density at the edges of the carrier range with an adjustable gradient.</p>"
+
 msgid "Distribution.TrapezoidWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Trapezoidal_distribution"
 
@@ -3867,6 +3899,11 @@ msgstr "unknown distribution"
 
 msgid "Distribution.Weibull"
 msgstr "Weibull distribution"
+
+msgid "Distribution.WeibullInfo"
+msgstr ""
+"<p>The Weibull distribution is often used to model lifetimes, as it allows you to explicitly set whether the failure rate increases, decreases, or remains constant over time.</p>\n"
+"<p>If the form parameter is set to a value less than one, the failure rate decreases over time (teething problems). If a value greater than one is used, the failure rate increases (wear and tear failures).</p>"
 
 msgid "Distribution.WeibullWikipedia"
 msgstr "https://en.wikipedia.org/wiki/Weibull_distribution"

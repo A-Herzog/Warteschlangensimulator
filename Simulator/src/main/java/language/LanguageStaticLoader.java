@@ -209,6 +209,7 @@ public class LanguageStaticLoader {
 		DistributionTools.DistInverseGammaWikipedia=Language.tr("Distribution.InverseGammaWikipedia");
 		DistributionTools.DistBeta=Language.trAll("Distribution.Beta");
 		DistributionTools.DistBetaWikipedia=Language.tr("Distribution.BetaWikipedia");
+		DistributionTools.DistBetaInfo=Language.tr("Distribution.BetaInfo");
 		DistributionTools.DistCauchy=Language.trAll("Distribution.Cauchy");
 		DistributionTools.DistCauchyWikipedia=Language.tr("Distribution.CauchyWikipedia");
 		DistributionTools.DistHalfCauchy=Language.trAll("Distribution.HalfCauchy");
@@ -216,12 +217,15 @@ public class LanguageStaticLoader {
 		DistributionTools.DistLogCauchyWikipedia=Language.tr("Distribution.LogCauchyWikipedia");
 		DistributionTools.DistWeibull=Language.trAll("Distribution.Weibull");
 		DistributionTools.DistWeibullWikipedia=Language.tr("Distribution.WeibullWikipedia");
+		DistributionTools.DistWeibullInfo=Language.tr("Distribution.WeibullInfo");
 		DistributionTools.DistChi=Language.trAll("Distribution.Chi");
 		DistributionTools.DistChiWikipedia=Language.tr("Distribution.ChiWikipedia");
 		DistributionTools.DistChiSquare=Language.trAll("Distribution.ChiSquare");
 		DistributionTools.DistChiSquareWikipedia=Language.tr("Distribution.ChiSquareWikipedia");
+		DistributionTools.DistChiSquareInfo=Language.tr("Distribution.ChiSquareInfo");
 		DistributionTools.DistF=Language.trAll("Distribution.F");
 		DistributionTools.DistFWikipedia=Language.tr("Distribution.FWikipedia");
+		DistributionTools.DistFInfo=Language.tr("Distribution.FInfo");
 		DistributionTools.DistJohnson=Language.trAll("Distribution.DistJohnsonSU");
 		DistributionTools.DistJohnsonWikipedia=Language.tr("Distribution.DistJohnsonSUWikipedia");
 		DistributionTools.DistTriangular=Language.trAll("Distribution.Triangular");
@@ -229,6 +233,7 @@ public class LanguageStaticLoader {
 		DistributionTools.DistTriangularInfo=Language.tr("Distribution.TriangularInfo");
 		DistributionTools.DistTrapezoid=Language.trAll("Distribution.Trapezoid");
 		DistributionTools.DistTrapezoidWikipedia=Language.tr("Distribution.TrapezoidWikipedia");
+		DistributionTools.DistTrapezoidInfo=Language.tr("Distribution.TrapezoidInfo");
 		DistributionTools.DistPert=Language.trAll("Distribution.Pert");
 		DistributionTools.DistPertWikipedia=Language.tr("Distribution.PertWikipedia");
 		DistributionTools.DistLaplace=Language.trAll("Distribution.Laplace");
@@ -255,8 +260,10 @@ public class LanguageStaticLoader {
 		DistributionTools.DistHyperbolicSecantWikipedia=Language.tr("Distribution.HyperbolicSecantWikipedia");
 		DistributionTools.DistSawtoothLeft=Language.trAll("Distribution.SawtoothLeft");
 		DistributionTools.DistSawtoothLeftWikipedia=Language.tr("Distribution.SawtoothLeftWikipedia");
+		DistributionTools.DistSawtoothLeftInfo=Language.tr("Distribution.SawtoothLeftInfo");
 		DistributionTools.DistSawtoothRight=Language.trAll("Distribution.SawtoothRight");
 		DistributionTools.DistSawtoothRightWikipedia=Language.tr("Distribution.SawtoothRightWikipedia");
+		DistributionTools.DistSawtoothRightInfo=Language.tr("Distribution.SawtoothRightInfo");
 		DistributionTools.DistLevy=Language.trAll("Distribution.Levy");
 		DistributionTools.DistLevyWikipedia=Language.tr("Distribution.LevyWikipedia");
 		DistributionTools.DistMaxwellBoltzmann=Language.trAll("Distribution.MaxwellBoltzmann");
@@ -265,8 +272,10 @@ public class LanguageStaticLoader {
 		DistributionTools.DistStudentTWikipedia=Language.tr("Distribution.StudentTWikipedia");
 		DistributionTools.DistHyperGeom=Language.trAll("Distribution.HyperGeom");
 		DistributionTools.DistHyperGeomWikipedia=Language.tr("Distribution.HyperGeomWikipedia");
+		DistributionTools.DistHyperGeomInfo=Language.tr("Distribution.HyperGeomInfo");
 		DistributionTools.DistBinomial=Language.trAll("Distribution.Binomial");
 		DistributionTools.DistBinomialWikipedia=Language.tr("Distribution.BinomialWikipedia");
+		DistributionTools.DistBinomialInfo=Language.tr("Distribution.BinomialInfo");
 		DistributionTools.DistPoisson=Language.trAll("Distribution.Poisson");
 		DistributionTools.DistPoissonWikipedia=Language.tr("Distribution.PoissonWikipedia");
 		DistributionTools.DistPlanck=Language.trAll("Distribution.Planck");

@@ -58,7 +58,7 @@ public class WrapperBetaDistribution extends AbstractDistributionWrapper {
 
 	@Override
 	protected String getInfoHTML() {
-		return null;
+		return DistributionTools.DistBetaInfo;
 	}
 
 	@Override
