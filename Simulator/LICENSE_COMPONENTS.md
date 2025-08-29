@@ -549,6 +549,13 @@ http://java.sun.com/products/java-media/jai
 - License URL: http://creativecommons.org/licenses/by-nc-sa/4.0/
 - Homepage: http://codefisher.org/pastel-svg/
 
+### svgrepo.com icons
+
+- License: Creative Commons (CC0 1.0) Public Domain
+- License URL: https://www.svgrepo.com/page/licensing/#CC0
+- License URL: https://creativecommons.org/publicdomain/zero/1.0/deed.en
+- Homepage: https://www.svgrepo.com
+
 ---
 
 ## Installer

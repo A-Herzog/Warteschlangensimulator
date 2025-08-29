@@ -276,6 +276,95 @@ public class AnimationImageSource {
 	/** Name für Animationssymbol "Wassertropfen" */
 	public static String iconNameWaterDrop="Wassertropfen";
 
+	/* https://www.svgrepo.com/ Icons (CC0 license) */
+
+	/** Name für Animationssymbol "Avatar Weiblich 1" */
+	public static String iconAvatarFemaleGirl1="Avatar Weiblich 1";
+	/** Name für Animationssymbol "Avatar Weiblich 2" */
+	public static String iconAvatarFemaleGirl2="Avatar Weiblich 2";
+	/** Name für Animationssymbol "Avatar Weiblich 3" */
+	public static String iconAvatarFemaleGirl3="Avatar Weiblich 3";
+	/** Name für Animationssymbol "Avatar Weiblich 4" */
+	public static String iconAvatarFemaleGirl4="Avatar Weiblich 4";
+	/** Name für Animationssymbol "Avatar Weiblich 5" */
+	public static String iconAvatarFemaleGirl5="Avatar Weiblich 5";
+	/** Name für Animationssymbol "Avatar Männlich 1" */
+	public static String iconAvatarBoyMale1="Avatar Männlich 1";
+	/** Name für Animationssymbol "Avatar Männlich 2" */
+	public static String iconAvatarBoyMale2="Avatar Männlich 2";
+	/** Name für Animationssymbol "Avatar Männlich 3" */
+	public static String iconAvatarBoyMale3="Avatar Männlich 3";
+	/** Name für Animationssymbol "Avatar Männlich 4" */
+	public static String iconAvatarBoyMale4="Avatar Männlich 4";
+	/** Name für Animationssymbol "Avatar Männlich 5" */
+	public static String iconAvatarBoyMale5="Avatar Männlich 5";
+	/** Name für Animationssymbol "Vergütung" */
+	public static String iconReward="Vergütung";
+	/** Name für Animationssymbol "Zielscheibe" */
+	public static String iconTarget="Zielscheibe";
+	/** Name für Animationssymbol "Sparschwein" */
+	public static String iconSavings="Sparschwein";
+	/** Name für Animationssymbol "Papierflieger" */
+	public static String iconDirection="Papierflieger";
+	/** Name für Animationssymbol "Reagenzglas" */
+	public static String iconTestTube="Reagenzglas";
+	/** Name für Animationssymbol "Tortendiagramm" */
+	public static String iconPieChart="Tortendiagramm";
+	/** Name für Animationssymbol "Vertrag" */
+	public static String iconContract="Vertrag";
+	/** Name für Animationssymbol "Sanduhr" */
+	public static String iconHourGlass="Sanduhr";
+	/** Name für Animationssymbol "Tresor" */
+	public static String iconSafe="Tresor";
+	/** Name für Animationssymbol "Leistungssteigerung" */
+	public static String iconPerformanceIncrease="Leistungssteigerung";
+	/** Name für Animationssymbol "Verkäufer" */
+	public static String iconSalesman="Verkäufer";
+	/** Name für Animationssymbol "Magnet" */
+	public static String iconMagnet="Magnet";
+	/** Name für Animationssymbol "Leistungsrückgang" */
+	public static String iconPerformanceDecline="Leistungsrückgang";
+	/** Name für Animationssymbol "Handschlag" */
+	public static String iconHandshake="Handschlag";
+	/** Name für Animationssymbol "Datentrends" */
+	public static String iconDataTrends="Datentrends";
+	/** Name für Animationssymbol "Unternehmen" */
+	public static String iconCompany="Unternehmen";
+	/** Name für Animationssymbol "Rechner" */
+	public static String iconCalculator="Rechner";
+	/** Name für Animationssymbol "Heißluftballon" */
+	public static String iconHotAirBalloon="Heißluftballon";
+	/** Name für Animationssymbol "Flugzeug" */
+	public static String iconAirplane="Flugzeug";
+	/** Name für Animationssymbol "Segelboot" */
+	public static String iconSailboat="Segelboot";
+	/** Name für Animationssymbol "" */
+	public static String iconBus="Bus";
+	/** Name für Animationssymbol "Kreuzfahrtschiff" */
+	public static String iconShipCruise="Kreuzfahrtschiff";
+	/** Name für Animationssymbol "Hubschrauber" */
+	public static String iconHelicopter="Hubschrauber";
+	/** Name für Animationssymbol "Containerschiff" */
+	public static String iconShipFreight="Containerschiff";
+	/** Name für Animationssymbol "Gabelstapler" */
+	public static String iconForkliftTruck="Gabelstapler";
+	/** Name für Animationssymbol "Fahrrad" */
+	public static String iconBike="Fahrrad";
+	/** Name für Animationssymbol "Motorroller" */
+	public static String iconScooter="Motorroller";
+	/** Name für Animationssymbol "Zug" */
+	public static String iconTrain="Zug";
+	/** Name für Animationssymbol "Zapfsäule" */
+	public static String iconFuelPump="Zapfsäule";
+	/** Name für Animationssymbol "Prellbock" */
+	public static String iconBufferStop="Prellbock";
+	/** Name für Animationssymbol "Rakete" */
+	public static String iconRocket="Rakete";
+	/** Name für Animationssymbol "Ampel" */
+	public static String iconTrafficLights="Ampel";
+	/** Name für Animationssymbol "Straßenbahn" */
+	public static String iconTram="Straßenbahn";
+
 	/**
 	 * Prefix für dynamisch generierte Icons, die einfach nur Farben darstellen
 	 * @see #loadImageFromResource(String, ModelAnimationImages, int)
@@ -407,6 +496,59 @@ public class AnimationImageSource {
 		ICONS.put(iconNameTrafficCone,"traffic-cone");
 		ICONS.put(iconNameUmbrella,"umbrella");
 		ICONS.put(iconNameWaterDrop,"water");
+
+		/* https://www.svgrepo.com/ Icons (CC0 license) */
+
+		/* https://www.svgrepo.com/collection/simple-smiling-avatar-vectors/ */
+		ICONS.put(iconAvatarFemaleGirl1,"avatar-female-girl-1");
+		ICONS.put(iconAvatarFemaleGirl2,"avatar-female-girl-2");
+		ICONS.put(iconAvatarFemaleGirl3,"avatar-female-girl-3");
+		ICONS.put(iconAvatarFemaleGirl4,"avatar-female-girl-4");
+		ICONS.put(iconAvatarFemaleGirl5,"avatar-female-girl-5");
+		ICONS.put(iconAvatarBoyMale1,"avatar-boy-male-1");
+		ICONS.put(iconAvatarBoyMale2,"avatar-boy-male-2");
+		ICONS.put(iconAvatarBoyMale3,"avatar-boy-male-3");
+		ICONS.put(iconAvatarBoyMale4,"avatar-boy-male-4");
+		ICONS.put(iconAvatarBoyMale5,"avatar-boy-male-5");
+
+		/* https://www.svgrepo.com/collection/outlined-business-vectors/ */
+		ICONS.put(iconReward,"reward");
+		ICONS.put(iconTarget,"target");
+		ICONS.put(iconSavings,"savings");
+		ICONS.put(iconDirection,"direction");
+		ICONS.put(iconTestTube,"qualitative-change");
+		ICONS.put(iconPieChart,"data-report");
+		ICONS.put(iconContract,"record");
+		ICONS.put(iconHourGlass,"point-in-time");
+		ICONS.put(iconSafe,"safe");
+		ICONS.put(iconPerformanceIncrease,"performance-increase");
+		ICONS.put(iconSalesman,"salesman");
+		ICONS.put(iconMagnet,"magnet");
+		ICONS.put(iconPerformanceDecline,"decline-in-performance");
+		ICONS.put(iconHandshake,"cooperate");
+		ICONS.put(iconDataTrends,"data-trends");
+		ICONS.put(iconCompany,"company");
+		ICONS.put(iconCalculator,"calculator");
+
+		/* https://www.svgrepo.com/collection/transport-line-filled-vectors/ */
+		ICONS.put(iconHotAirBalloon,"hot-air-balloon");
+		ICONS.put(iconAirplane,"airplane");
+		ICONS.put(iconSailboat,"sailboat");
+		ICONS.put(iconBus,"bus");
+		ICONS.put(iconShipCruise,"ship-cruise");
+		ICONS.put(iconHelicopter,"helicopter");
+		ICONS.put(iconShipFreight,"freighter");
+		ICONS.put(iconForkliftTruck,"scraper");
+		ICONS.put(iconBike,"bike");
+		ICONS.put(iconScooter,"scooter");
+		ICONS.put(iconTrain,"train");
+
+		/* https://www.svgrepo.com/collection/transportation-flat-icons/ */
+		ICONS.put(iconFuelPump,"fuel-tank");
+		ICONS.put(iconBufferStop,"train-fence");
+		ICONS.put(iconRocket,"rocket");
+		ICONS.put(iconTrafficLights,"traffic-lights");
+		ICONS.put(iconTram,"tram");
 
 		/* Dynamisch generierte Icons */
 

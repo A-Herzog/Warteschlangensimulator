@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-12 11:13+0200\n"
+"POT-Creation-Date: 2025-08-15 11:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,6 +47,9 @@ msgstr "Erstellen des Videos"
 msgid "Animation.GlassHint"
 msgstr "F6 = Start / Pause der Animation<br>F7 = Einzelschritt<br>Strg + \"+\" / \"-\" = Animation schneller / langsamer"
 
+msgid "Animation.Icon.Airplane"
+msgstr "Flugzeug"
+
 msgid "Animation.Icon.ArrowDown"
 msgstr "Pfeil - nach unten"
 
@@ -61,6 +64,36 @@ msgstr "Pfeil - nach oben"
 
 msgid "Animation.Icon.Attach"
 msgstr "Büroklammer"
+
+msgid "Animation.Icon.AvatarBoyMale1"
+msgstr "Avatar Männlich 1"
+
+msgid "Animation.Icon.AvatarBoyMale2"
+msgstr "Avatar Männlich 2"
+
+msgid "Animation.Icon.AvatarBoyMale3"
+msgstr "Avatar Männlich 3"
+
+msgid "Animation.Icon.AvatarBoyMale4"
+msgstr "Avatar Männlich 4"
+
+msgid "Animation.Icon.AvatarBoyMale5"
+msgstr "Avatar Männlich 5"
+
+msgid "Animation.Icon.AvatarFemaleGirl1"
+msgstr "Avatar Weiblich 1"
+
+msgid "Animation.Icon.AvatarFemaleGirl2"
+msgstr "Avatar Weiblich 2"
+
+msgid "Animation.Icon.AvatarFemaleGirl3"
+msgstr "Avatar Weiblich 3"
+
+msgid "Animation.Icon.AvatarFemaleGirl4"
+msgstr "Avatar Weiblich 4"
+
+msgid "Animation.Icon.AvatarFemaleGirl5"
+msgstr "Avatar Weiblich 5"
 
 msgid "Animation.Icon.BallBlack"
 msgstr "Kreis - Schwarz"
@@ -92,6 +125,9 @@ msgstr "Batterie"
 msgid "Animation.Icon.Bell"
 msgstr "Glocke"
 
+msgid "Animation.Icon.Bike"
+msgstr "Fahrrad"
+
 msgid "Animation.Icon.Book"
 msgstr "Buch"
 
@@ -101,14 +137,23 @@ msgstr "Bausteine"
 msgid "Animation.Icon.Briefcase"
 msgstr "Aktentasche"
 
+msgid "Animation.Icon.BufferStop"
+msgstr "Prellbock"
+
 msgid "Animation.Icon.Bug"
 msgstr "Käfer"
+
+msgid "Animation.Icon.Bus"
+msgstr "Bus"
 
 msgid "Animation.Icon.CD"
 msgstr "CD"
 
 msgid "Animation.Icon.Cake"
 msgstr "Kuchen"
+
+msgid "Animation.Icon.Calculator"
+msgstr "Rechner"
 
 msgid "Animation.Icon.Candle"
 msgstr "Kerze"
@@ -158,14 +203,26 @@ msgstr "Farbe - Weiß"
 msgid "Animation.Icon.ColorYelow"
 msgstr "Farbe - Gelb"
 
+msgid "Animation.Icon.Company"
+msgstr "Unternehmen"
+
 msgid "Animation.Icon.Computer"
 msgstr "Computer"
+
+msgid "Animation.Icon.Contract"
+msgstr "Vertrag"
+
+msgid "Animation.Icon.DataTrends"
+msgstr "Datentrends"
 
 msgid "Animation.Icon.Database"
 msgstr "Datenbank"
 
 msgid "Animation.Icon.Digit"
 msgstr "Ziffer"
+
+msgid "Animation.Icon.Direction"
+msgstr "Papierflieger"
 
 msgid "Animation.Icon.Disk"
 msgstr "Diskette"
@@ -230,14 +287,32 @@ msgstr "Ordner - Lila"
 msgid "Animation.Icon.FolderRed"
 msgstr "Ordner - Rot"
 
+msgid "Animation.Icon.ForkliftTruck"
+msgstr "Gabelstapler"
+
+msgid "Animation.Icon.FuelPump"
+msgstr "Zapfsäule"
+
 msgid "Animation.Icon.Hamburger"
 msgstr "Hamburger"
 
 msgid "Animation.Icon.Hand"
 msgstr "Hand"
 
+msgid "Animation.Icon.Handshake"
+msgstr "Handschlag"
+
 msgid "Animation.Icon.Heart"
 msgstr "Herz"
+
+msgid "Animation.Icon.Helicopter"
+msgstr "Hubschrauber"
+
+msgid "Animation.Icon.HotAirBalloon"
+msgstr "Heißluftballon"
+
+msgid "Animation.Icon.HourGlass"
+msgstr "Sanduhr"
 
 msgid "Animation.Icon.House"
 msgstr "Haus"
@@ -281,6 +356,9 @@ msgstr "LKW nach links"
 msgid "Animation.Icon.LorryLeftEmpty"
 msgstr "LKW nach links (leer)"
 
+msgid "Animation.Icon.Magnet"
+msgstr "Magnet"
+
 msgid "Animation.Icon.MoneyDollar"
 msgstr "Geld - Dollar"
 
@@ -314,6 +392,12 @@ msgstr "Farbpalette"
 msgid "Animation.Icon.Penguin"
 msgstr "Pinguin"
 
+msgid "Animation.Icon.PerformanceDecline"
+msgstr "Leistungsrückgang"
+
+msgid "Animation.Icon.PerformanceIncrease"
+msgstr "Leistungssteigerung"
+
 msgid "Animation.Icon.PersonBlue"
 msgstr "Person - Blau"
 
@@ -332,11 +416,41 @@ msgstr "Person - Rot"
 msgid "Animation.Icon.PersonSuit"
 msgstr "Person - Anzug"
 
+msgid "Animation.Icon.PieChart"
+msgstr "Tortendiagramm"
+
 msgid "Animation.Icon.Pin"
 msgstr "Stecknadel"
 
 msgid "Animation.Icon.Questionmark"
 msgstr "Fragezeichen"
+
+msgid "Animation.Icon.Reward"
+msgstr "Vergütung"
+
+msgid "Animation.Icon.Rocket"
+msgstr "Rakete"
+
+msgid "Animation.Icon.Safe"
+msgstr "Tresor"
+
+msgid "Animation.Icon.Sailboat"
+msgstr "Segelboot"
+
+msgid "Animation.Icon.Salesman"
+msgstr "Verkäufer"
+
+msgid "Animation.Icon.Savings"
+msgstr "Sparschwein"
+
+msgid "Animation.Icon.Scooter"
+msgstr "Motorroller"
+
+msgid "Animation.Icon.ShipCruise"
+msgstr "Kreuzfahrtschiff"
+
+msgid "Animation.Icon.ShipFreight"
+msgstr "Containerschiff"
 
 msgid "Animation.Icon.Smiley"
 msgstr "Smiley"
@@ -356,14 +470,29 @@ msgstr "Symbol - Frau"
 msgid "Animation.Icon.SymbolMale"
 msgstr "Symbol - Mann"
 
+msgid "Animation.Icon.Target"
+msgstr "Zielscheibe"
+
 msgid "Animation.Icon.Taxi"
 msgstr "Taxi"
+
+msgid "Animation.Icon.TestTube"
+msgstr "Reagenzglas"
 
 msgid "Animation.Icon.Toolbox"
 msgstr "Werkzeugkasten"
 
 msgid "Animation.Icon.TrafficCone"
 msgstr "Pylon"
+
+msgid "Animation.Icon.TrafficLights"
+msgstr "Ampel"
+
+msgid "Animation.Icon.Train"
+msgstr "Zug"
+
+msgid "Animation.Icon.Tram"
+msgstr "Straßenbahn"
 
 msgid "Animation.Icon.Umbrella"
 msgstr "Regenschirm"

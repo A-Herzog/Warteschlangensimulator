@@ -388,7 +388,7 @@ public class ImageChooser extends JPanel {
 			repaint();
 		},modelImages);
 
-		/* Vierspaltiges Layout */ menu.setLayout(new GridLayout((int)Math.round(Math.ceil(menu.getComponentCount()/4.0)),4));
+		/* 6-spaltiges Layout */ menu.setLayout(new GridLayout((int)Math.round(Math.ceil(menu.getComponentCount()/6.0)),6));
 
 		menu.show(parent,0,parent.getHeight());
 	}
