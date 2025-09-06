@@ -29,6 +29,7 @@
     div.anchor {scroll-margin-top: 100px;}
     .zoom {transition: all 0.1s ease-in-out;}
     .zoom:hover {transform: scale(1.025);}
+	.container {margin-top: 20px;}
     .container a {text-decoration: none;}
     .container a:hover {text-decoration: underline;}
     a.btn:hover {text-decoration: none;}
@@ -38,6 +39,8 @@
     .video_placeholder img {aspect-ratio: 16/9; width: 90%; cursor: pointer;}
     .video_placeholder div.playbutton {position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%); font-size: 800%; opacity: 33%; cursor: pointer; transition: 0.5s;}
     .video_placeholder:hover div.playbutton {color: red; opacity: 90%;}
+	.mt15 {margin-top: 15px;}
+	.mt30 {margin-top: 30px;}
   </style>
 </head>
 
@@ -60,7 +63,7 @@
 </div></nav>
 
 <main>
-<div class="container" style="margin-top: 20px" data-bs-spy="scroll" data-bs-target="#navbar_main">
+<div class="container" data-bs-spy="scroll" data-bs-target="#navbar_main">
 
 
 
@@ -79,7 +82,7 @@
   <li>Modelling capabilities can be extended via JavaScript or Java code</li>
   <li>Option to read/write data from or to external files or databases</li>
 </ul>
-<p style="margin-top: 30px;">
+<p class="mt30">
 <a role="button" class="btn btn-primary bi-windows zoom" href="https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/SimulatorSetup.exe"> Download installer for Windows</a>
 </p>
 <p>
@@ -90,11 +93,11 @@ Available for <a href="https://github.com/A-Herzog/Warteschlangensimulator/wiki/
 License: <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" title="Apache License 2.0 full text">Apache License 2.0</a> (private and commercial use without restrictions)<br>
 System requirements: <a href="https://adoptium.net/" target="_blank" title="OpenJDK binaries for download">Java 11 or higher</a><br>
 Available languages in program and for documentation: English, German<br>
-<a href="https://doi.org/10.5281/zenodo.12606913" target="_blank" title="Zenodo DOI"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.12606913.svg" alt="Zenodo DOI for Warteschlangensimulator repository"></a>
+<a href="https://doi.org/10.5281/zenodo.12606913" target="_blank" title="Zenodo DOI"><img src="zenodo.12606913.svg" width="191" height="20" alt="Zenodo DOI for Warteschlangensimulator repository"></a>
 </p>
 </div>
 <div class="col-md-6">
-<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_small.webp" data-large-src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en.webp" class="rounded shadow zoom" alt="Screenshot Warteschlangensimulator" title="Screenshot Warteschlangensimulator" style="aspect-ratio: 506 / 381; width: 100%;" fetchpriority="high">
+<img src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en_small.webp" data-large-src="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_en.webp" class="rounded shadow zoom" alt="Screenshot Warteschlangensimulator" title="Screenshot Warteschlangensimulator">
 </div>
 </div>
 
@@ -137,7 +140,7 @@ Making changes or extensions to a real production system is usually associated w
 <h2 class="bi-download"> Download</h2>
 <div class="container">
 
-<div class="row" style="margin-top: 30px;"><div class="col">
+<div class="row mt30"><div class="col">
 Latest version:
 <img src="https://img.shields.io/github/v/release/a-herzog/warteschlangensimulator" loading="lazy" alt="Latest Warteschlangensimulator release" title="Latest Warteschlangensimulator release" height="20">
 <img src="https://img.shields.io/github/release-date/a-herzog/warteschlangensimulator" loading="lazy" alt="Release date of latest Warteschlangensimulator version" title="Release date of latest Warteschlangensimulator version" height="20">
@@ -154,7 +157,7 @@ Total downloads: <img src="https://img.shields.io/github/downloads/a-herzog/wart
   <div class="card-header h5 bi-windows"> Windows installer</div>
   <div class="card-body">
   <a role="button" class="btn btn-primary bi-download zoom" href="https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/SimulatorSetup.exe"> Download installer for Windows</a>
-  <ul style="margin-top: 15px;">
+  <ul class="mt15">
   <li>For Windows 7 to 11</li>
   <li>32 bit and 64 bit supported</li>
   <li>Download size: 135 MB</li>
@@ -169,7 +172,7 @@ Total downloads: <img src="https://img.shields.io/github/downloads/a-herzog/wart
   <div class="card-header h5 bi-file-zip"> Zip package</div>
   <div class="card-body">
   <a role="button" class="btn btn-primary bi-download zoom" href="https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator.zip"> Download zip package</a><br>
-  <ul style="margin-top: 15px;">
+  <ul class="mt15">
   <li>For <a href="https://github.com/A-Herzog/Warteschlangensimulator/wiki/Supported-platforms" target="_blank">Windows, Linux and MacOS</a></li>
   <li>Extract &amp; run</li>
   <li>Portable usage</li>
@@ -184,7 +187,7 @@ Total downloads: <img src="https://img.shields.io/github/downloads/a-herzog/wart
   <div class="card-header h5 bi-file-play"> Linux AppImage</div>
   <div class="card-body">
   <a role="button" class="btn btn-primary bi-download zoom" href="https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Warteschlangensimulator-x86_64.AppImage"> Download Linux AppImage</a><br>
-  <ul style="margin-top: 15px;">
+  <ul class="mt15">
   <li>For Linux</li>
   <li>Download &amp; run</li>
   <li>Portable usage</li>
@@ -199,7 +202,7 @@ Total downloads: <img src="https://img.shields.io/github/downloads/a-herzog/wart
   <div class="card-header h5 bi-filetype-java"> Source code</div>
   <div class="card-body">
   <a role="button" class="btn btn-primary bi-github zoom" href="https://github.com/A-Herzog/Warteschlangensimulator" target="_blank"> Get source code from GitHub</a>
-  <ul style="margin-top: 15px;">
+  <ul class="mt15">
   <li>Warteschlangensimulator is <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" title="Apache License 2.0 full text">open source</a>, you can download the full source code.</li>
   <li>Source code is <strong>not</strong> needed for using Warteschlangensimulator</li>
   <li><a href="https://github.com/A-Herzog/Warteschlangensimulator/blob/master/BUILD.md" target="_blank" title="Build process information in Warteschlangensimulator GitHub wiki">Notes on build process</a></li>
@@ -212,7 +215,7 @@ Total downloads: <img src="https://img.shields.io/github/downloads/a-herzog/wart
   <div class="card-header h5 bi-fire"> Development releases</div>
   <div class="card-body">
   <a role="button" class="btn btn-primary bi-github zoom" href="https://github.com/A-Herzog/Warteschlangensimulator/releases" target="_blank"> Releases list</a>
-  <ul style="margin-top: 15px;">
+  <ul class="mt15">
   <li>Includes the newest development versions</li>
   <li>Contains the very latest features</li>
   <li>But also may be not as stable as the official releases</li>
@@ -222,7 +225,7 @@ Total downloads: <img src="https://img.shields.io/github/downloads/a-herzog/wart
 </div>
 </div>
 
-<div class="row" style="margin-top: 30px;"><div class="col">
+<div class="row mt30"><div class="col">
 <ul>
   <li>Installer, zip package and AppImage include full documentation and English and German user interface languages</li>
   <li>Free storage size required for installation: 150 MB</li>
@@ -234,7 +237,7 @@ Total downloads: <img src="https://img.shields.io/github/downloads/a-herzog/wart
 </div>
 </div>
 
-<div class="row" style="margin-top: 15px;"><div class="col">
+<div class="row mt15"><div class="col">
 <i class="bi-heart-fill" style="color: red; font-size: 120%; padding-right: 10px;"></i>
 <span class="text-secondary" title='There is no "Donate" button and also no commercial version with more features. If you want to support Warteschlangensimulator, just give it a GitHub star.'>If you like Warteschlangensimulator and if its useful for you, you can give it a <a href="https://github.com/A-Herzog/Warteschlangensimulator" target="_blank" title="Warteschlangensimulator GitHub repository">star at GitHub</a> if you want to.</span>
 </div>
@@ -404,7 +407,7 @@ In addition, many online resources are available:
 <ul>
 <li><a class="bi-book" href="https://www.springer.com/gp/book/9783658346676" target="_blank"> <strong>Textbook</strong>: "Simulation mit dem Warteschlangensimulator" (in German)</a></li>
 <li><a class="bi-wikipedia" href="https://github.com/A-Herzog/Warteschlangensimulator/wiki" target="_blank"> <strong>Wiki</strong> about Warteschlangensimulator</a></li>
-<li>Digital Object Identifier (DOI) for Warteschlangensimulator: <a href="https://doi.org/10.5281/zenodo.12606913" target="_blank" title="Zenodo DOI"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.12606913.svg" alt="Zenodo DOI for Warteschlangensimulator repository"></a></li>
+<li>Digital Object Identifier (DOI) for Warteschlangensimulator: <a href="https://doi.org/10.5281/zenodo.12606913" target="_blank" title="Zenodo DOI"><img src="zenodo.12606913.svg" width="191" height="20" alt="Zenodo DOI for Warteschlangensimulator repository"></a></li>
 </ul>
 <p>
 Citing "Simulation mit dem Warteschlangensimulator" using BibTeX:
