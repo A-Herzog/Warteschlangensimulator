@@ -317,7 +317,9 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 				if (row>0) {
 					s=variables.get(row); variables.set(row,variables.get(row-1)); variables.set(row-1,s);
 					s=expressions.get(row); expressions.set(row,expressions.get(row-1)); expressions.set(row-1,s);
-					b=askForValueOnStart.get(row); askForValueOnStart.set(row,askForValueOnStart.get(row-1)); askForValueOnStart.set(row-1,b);
+					if (askForValueOnStart!=null) {
+						b=askForValueOnStart.get(row); askForValueOnStart.set(row,askForValueOnStart.get(row-1)); askForValueOnStart.set(row-1,b);
+					}
 					updateTable();
 				}
 				break;
@@ -325,7 +327,9 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 				if (row<variables.size()-1) {
 					s=variables.get(row); variables.set(row,variables.get(row+1)); variables.set(row+1,s);
 					s=expressions.get(row); expressions.set(row,expressions.get(row+1)); expressions.set(row+1,s);
-					b=askForValueOnStart.get(row); askForValueOnStart.set(row,askForValueOnStart.get(row+1)); askForValueOnStart.set(row+1,b);
+					if (askForValueOnStart!=null) {
+						b=askForValueOnStart.get(row); askForValueOnStart.set(row,askForValueOnStart.get(row+1)); askForValueOnStart.set(row+1,b);
+					}
 					updateTable();
 				}
 				break;
@@ -387,7 +391,7 @@ public class VariablesTableModel extends JTableExtAbstractTableModel {
 		if (model!=null) {
 			model.globalVariables.clear();
 			for (int i=0;i<variables.size();i++) {
-				model.globalVariables.add(new GlobalVariable(variables.get(i),expressions.get(i),askForValueOnStart.get(i)));
+				model.globalVariables.add(new GlobalVariable(variables.get(i),expressions.get(i),(askForValueOnStart!=null)?askForValueOnStart.get(i):false));
 			}
 		}
 	}
