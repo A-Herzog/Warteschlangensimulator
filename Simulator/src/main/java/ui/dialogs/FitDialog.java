@@ -38,8 +38,9 @@ import mathtools.distribution.LogNormalDistributionImpl;
 import mathtools.distribution.swing.JDistributionEditorDialog;
 import mathtools.distribution.swing.JDistributionPanel;
 import mathtools.distribution.tools.DistributionFitter;
-import mathtools.distribution.tools.DistributionRandomNumber;
+import mathtools.distribution.tools.DistributionRandomNumberThreadLocal;
 import mathtools.distribution.tools.DistributionTools;
+import mathtools.distribution.tools.RandomGeneratorMode;
 import tools.SetupData;
 import ui.infopanel.InfoPanel;
 
@@ -132,8 +133,24 @@ public class FitDialog extends FitDialogBase {
 		final AbstractRealDistribution dist=dialog.getNewDistribution();
 		if (dist==null) return null;
 
-		final double[] result=new double[1_000_000];
-		for (int i=0;i<result.length;i++) result[i]=DistributionRandomNumber.random(dist);
+		/* Zufallszahlen parallel generieren */
+		final double[] result=new double[100_000];
+		final int cpuCount=Runtime.getRuntime().availableProcessors();
+		final Thread[] thread=new Thread[cpuCount];
+		for (int i=0;i<cpuCount;i++) {
+			final int a=i*(result.length/cpuCount);
+			final int b=(i<cpuCount-1)?((i+1)*(result.length/cpuCount)-1):(result.length-1);
+			thread[i]=new Thread(()->{
+				final var generator=new DistributionRandomNumberThreadLocal(RandomGeneratorMode.THREAD_LOCAL_RANDOM);
+				generator.init();
+				for (int j=a;j<=b;j++) result[j]=generator.random(dist);
+			});
+		}
+		for (int i=0;i<cpuCount;i++) thread[i].start();
+		try {
+			for (int i=0;i<cpuCount;i++) thread[i].join();
+		} catch (InterruptedException e) {}
+
 		return result;
 	}
 
