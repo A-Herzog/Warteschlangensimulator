@@ -117,6 +117,7 @@ public class CopyInstallationDialog extends BaseDialog {
 		destinationFolderInput=(JTextField)data[1];
 		final JButton button=new JButton(Images.GENERAL_SELECT_FOLDER.getIcon());
 		line.add(button,BorderLayout.EAST);
+		line.setMaximumSize(new Dimension(10000,25));
 		button.setToolTipText(Language.tr("CopyInstallation.DestinationFolder.Select"));
 		button.addActionListener(e->commandSelectDestinationFolder());
 
@@ -135,10 +136,10 @@ public class CopyInstallationDialog extends BaseDialog {
 		setMinSizeRespectingScreensize(650,0);
 		pack();
 		SwingUtilities.invokeLater(()->{
-			all.setPreferredSize(new Dimension(getWidth(),all.getPreferredSize().height));
+			all.setPreferredSize(new Dimension(Math.min(getWidth(),600),all.getPreferredSize().height+50));
 			pack();
+			setLocationRelativeTo(owner);
 		});
-		setLocationRelativeTo(owner);
 		setVisible(true);
 	}
 
