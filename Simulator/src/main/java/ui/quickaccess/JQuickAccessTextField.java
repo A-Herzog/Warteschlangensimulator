@@ -27,6 +27,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -401,14 +402,18 @@ public abstract class JQuickAccessTextField extends JPlaceholderTextField {
 					if (e.getKeyCode()==KeyEvent.VK_ENTER) processEnter();
 				}
 			});
-			synchronized (JQuickAccessTextField.this) {
-				if (popupMode==PopupMode.PANEL) menu.setFocusable(false);
-				menu.show(JQuickAccessTextField.this,0,getHeight());
-				if (popupMode==PopupMode.PANEL) menu.setFocusable(true);
-				closePopup();
-				requestFocus();
-				lastMenu=menu;
-			}
+			try {
+				SwingUtilities.invokeAndWait(()->{
+					synchronized (JQuickAccessTextField.this) {
+						if (popupMode==PopupMode.PANEL) menu.setFocusable(false);
+						menu.show(JQuickAccessTextField.this,0,getHeight());
+						if (popupMode==PopupMode.PANEL) menu.setFocusable(true);
+						closePopup();
+						requestFocus();
+						lastMenu=menu;
+					}
+				});
+			} catch (InvocationTargetException|InterruptedException e1) {	}
 		}
 	}
 
