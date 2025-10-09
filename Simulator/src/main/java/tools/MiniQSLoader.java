@@ -60,6 +60,7 @@ import ui.modeleditor.elements.ModelElementSignal;
 import ui.modeleditor.elements.ModelElementSource;
 import ui.modeleditor.elements.ModelElementSourceRecord;
 import ui.modeleditor.elements.ModelElementText;
+import ui.modeleditor.elements.ModelElementThroughput;
 
 /**
  * Erlaubt das Laden von Modellen aus dem "Mini Warteschlangensimulator"
@@ -777,6 +778,18 @@ public class MiniQSLoader {
 		}
 
 		/**
+		 * Erzeugt eine Durchsatz-Messungs-Station.
+		 * @param model	Übergeordnetes Modell für das neue Element
+		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
+		 */
+		private ModelElementPosition[] loadThroughput(final EditModel model) {
+			final ModelElementThroughput element=new ModelElementThroughput(model,model.surface);
+			element.setName(name);
+
+			return new ModelElementPosition[]{element};
+		}
+
+		/**
 		 * Nachgelagerte Initialisierung für ein Liniendiagramm
 		 * @param elements	Liste mit allen json-Elementen
 		 * @param stations	Liste mit allen Modellstationen
@@ -811,7 +824,7 @@ public class MiniQSLoader {
 			final JSONObject setup=getSetup();
 			if (setup==null) return null;
 
-			final String text=loadString(setup,"text");
+			final String text=loadString(setup,"text").replace("\\n","\n");
 			final int fontSize=loadInt(setup,"fontSize");
 			if (text==null || fontSize<=0) return null;
 
@@ -851,6 +864,7 @@ public class MiniQSLoader {
 			case "Barrier": modelElements=loadBarrier(model); break;
 			case "Text": modelElements=loadText(model); break;
 			case "Diagram": modelElements=loadDiagram(model); break;
+			case "Throughput": modelElements=loadThroughput(model); break;
 			}
 
 			if (modelElements==null) return false;
