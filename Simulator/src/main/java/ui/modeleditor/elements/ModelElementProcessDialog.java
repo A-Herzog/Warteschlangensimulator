@@ -270,13 +270,15 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		canCancelInSetupTime.setToolTipText(Language.tr("Surface.Process.Dialog.Tab.SetupTimes.CanCancelInSetupTime.Info"));
 
 		loader=new DistributionOrExpressionFromOtherStation(element.getModel());
-		editorSetupTimes.setupSpecialButton(Language.tr("Surface.LoadTimes.Button.Title"),Language.tr("Surface.LoadTimes.Button.Tooltip"),Images.MODEL_ADD_STATION.getIcon(),loader.getShowLoadMenu(record->{
-			if (record.id==element.getId()) {
-				editorSetupTimes.setDataForCurrentView(editorSetupTimes.getCurrentData().get(record.type,record.type2));
-			} else {
-				editorSetupTimes.setDataForCurrentView(record.data);
-			}
-		}));
+		if (editorSetupTimes!=null) {
+			editorSetupTimes.setupSpecialButton(Language.tr("Surface.LoadTimes.Button.Title"),Language.tr("Surface.LoadTimes.Button.Tooltip"),Images.MODEL_ADD_STATION.getIcon(),loader.getShowLoadMenu(record->{
+				if (record.id==element.getId()) {
+					editorSetupTimes.setDataForCurrentView(editorSetupTimes.getCurrentData().get(record.type,record.type2));
+				} else {
+					editorSetupTimes.setDataForCurrentView(record.data);
+				}
+			}));
+		}
 
 		/* Tab "Nachbearbeitungszeiten" */
 		tabs.addTab(Language.tr("Surface.Process.Dialog.Tab.PostProcessingTimes"),tab=new JPanel(new BorderLayout()));

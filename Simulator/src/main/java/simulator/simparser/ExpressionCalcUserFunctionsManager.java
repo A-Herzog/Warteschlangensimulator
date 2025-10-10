@@ -91,9 +91,8 @@ public class ExpressionCalcUserFunctionsManager {
 		final int[] results=new int[userFunctions.size()];
 		Arrays.fill(results,-1);
 
-		ExpressionCalc.userFunctions=new ArrayList<>();
-		ExpressionCalc.userFunctionsJS=new ArrayList<>();
-		ExpressionCalc.userFunctionsJava=new ArrayList<>();
+		ExpressionCalc.initUserFunctionsLists();
+
 		for (int i=0;i<userFunctions.size();i++) {
 			final UserFunction userFunction=userFunctions.get(i);
 			final Object obj=userFunction.compile();

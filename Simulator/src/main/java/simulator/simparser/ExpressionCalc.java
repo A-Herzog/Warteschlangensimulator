@@ -442,6 +442,18 @@ public class ExpressionCalc extends CalcSystem {
 	 */
 	static List<CalcSymbolUserFunctionJava> userFunctionsJava=null;
 
+	/**
+	 * Initialisiert die Listen-Variablen für die nutzerdefinierten Funktionen
+	 * @see #userFunctions
+	 * @see #userFunctionsJS
+	 * @see #userFunctionsJava
+	 */
+	public static synchronized void initUserFunctionsLists() {
+		userFunctions=new ArrayList<>();
+		userFunctionsJS=new ArrayList<>();
+		userFunctionsJava=new ArrayList<>();
+	}
+
 	@Override
 	protected List<CalcSymbolPreOperator> getUserFunctions() {
 		final boolean hasUserFunctions=(!justCompilingUserFunction && userFunctions!=null && userFunctions.size()>0);

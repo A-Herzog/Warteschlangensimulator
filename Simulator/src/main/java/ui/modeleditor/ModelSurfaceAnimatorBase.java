@@ -1324,11 +1324,13 @@ public class ModelSurfaceAnimatorBase {
 
 			doPaintSurface(simData);
 
-			while (delayIntegrator>2) {
+			boolean doDelay=delayIntegrator>2;
+			while (doDelay) {
 				try {
 					Thread.sleep(1);
 				} catch (InterruptedException e) {Thread.currentThread().interrupt(); break;}
 				delayIntegrator-=10;
+				doDelay=delayIntegrator>2;
 			}
 			delayIntegrator+=delay;
 		}

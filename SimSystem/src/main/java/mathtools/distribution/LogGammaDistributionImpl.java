@@ -26,7 +26,7 @@ import org.apache.commons.math3.special.Gamma;
  * @author Alexander Herzog
  * @version 1.0
  */
-public class LogGammaDistributionImpl extends AbstractRealDistribution {
+public class LogGammaDistributionImpl extends AbstractRealDistribution implements Cloneable {
 	/**
 	 * Serialisierungs-ID der Klasse
 	 * @see Serializable

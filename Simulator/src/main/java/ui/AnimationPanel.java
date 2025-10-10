@@ -215,7 +215,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	private double delaySystem;
 	/** Tatsächliche Verzögerung pro Animationsschritt (0..100); ist im Einzelschrittmodus 100, während {@link #delay} unverändert bleibt */
 	private double delayInt;
-	/** Verzögerung pro Animationsschritt (0..100) */
+	/** Verzögerung pro Animationsschritt (0..1000) */
 	private double delay;
 	/** Wird von {@link #animationDelayChanged()} auf <code>true</code> gesetzt und dann von {@link #delaySystem(SimulationData, double)} ausgewertet, wenn sich die Animationsgeschwindigkeit geändert hat. */
 	private boolean speedChanged;
@@ -1302,7 +1302,7 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 */
 	private void animationDelayChanged() {
 		speedChanged=true;
-		if (delay!=setup.animationDelay) {
+		if (Math.abs(delay*10-setup.animationDelay)>1) {
 			setup.animationDelay=(int)(delay*10);
 			setup.saveSetup();
 		}
