@@ -306,6 +306,7 @@ public class MainPanel extends MainPanelBase {
 		SECURE_JAVA_VERSIONS.put(22,2);
 		SECURE_JAVA_VERSIONS.put(23,2);
 		SECURE_JAVA_VERSIONS.put(24,2);
+		SECURE_JAVA_VERSIONS.put(25,0);
 	}
 
 	/**
