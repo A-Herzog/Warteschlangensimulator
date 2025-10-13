@@ -28,157 +28,168 @@
 \contentsline {section}{\numberline {10.10}Diskrete Gleichverteilung über das Intervall $[a;b]$ (Ganzzahlen)}{22}{section.10.10}%
 \contentsline {section}{\numberline {10.11}Logarithmische Verteilung}{22}{section.10.11}%
 \contentsline {section}{\numberline {10.12}Borel-Verteilung}{22}{section.10.12}%
-\contentsline {section}{\numberline {10.13}Exponentialverteilung mit Mittelwert $a$}{22}{section.10.13}%
-\contentsline {section}{\numberline {10.14}Gleichverteilung über das Intervall $[a;b]$}{23}{section.10.14}%
-\contentsline {section}{\numberline {10.15}Normalverteilung mit Mittelwert $a$ und Standardabweichung $b$}{23}{section.10.15}%
-\contentsline {section}{\numberline {10.16}Lognormalverteilung mit Mittelwert $a$ und Standardabweichung $b$}{23}{section.10.16}%
-\contentsline {section}{\numberline {10.17}Gamma-Verteilung mit Parametern $\alpha =a$ und $\beta =b$}{23}{section.10.17}%
-\contentsline {section}{\numberline {10.18}Gamma-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{23}{section.10.18}%
-\contentsline {section}{\numberline {10.19}Erlang-Verteilung mit Parametern $n$ und $\lambda =l$}{24}{section.10.19}%
-\contentsline {section}{\numberline {10.20}Beta-Verteilung in dem Intervall $[a;b]$ und mit Parametern $\alpha =c$ und $\beta =d$}{24}{section.10.20}%
-\contentsline {section}{\numberline {10.21}Beta-Verteilung in dem Intervall $[a;b]$ und mit Mittelwert $c$ und Standardabweichung $d$}{24}{section.10.21}%
-\contentsline {section}{\numberline {10.22}Weibull-Verteilung mit Parametern Scale=$a$ und Form=$b$}{24}{section.10.22}%
-\contentsline {section}{\numberline {10.23}Cauchy-Verteilung mit Mittelwert $a$ und Scale=$b$}{24}{section.10.23}%
-\contentsline {section}{\numberline {10.24}Chi$^2$-Verteilung mit $n$ Freiheitsgraden}{25}{section.10.24}%
-\contentsline {section}{\numberline {10.25}Chi-Verteilung mit $n$ Freiheitsgraden}{25}{section.10.25}%
-\contentsline {section}{\numberline {10.26}F-Verteilung mit $a$ Freiheitsgraden im Zähler und $b$ Freiheitsgraden im Nenner}{25}{section.10.26}%
-\contentsline {section}{\numberline {10.27}Johnson-SU-Verteilung mit den Parametern $\gamma =a$, $\xi =b$, $\delta =c$ und $\lambda =d$}{25}{section.10.27}%
-\contentsline {section}{\numberline {10.28}Dreiecksverteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{25}{section.10.28}%
-\contentsline {section}{\numberline {10.29}Trapezverteilung über $[a;d]$ mit Gleichverteilung im Bereich $[b;c]$}{26}{section.10.29}%
-\contentsline {section}{\numberline {10.30}Pert-Verteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{26}{section.10.30}%
-\contentsline {section}{\numberline {10.31}Laplace-Verteilung mit Mittelwert $mu$ und Skalierungsfaktor $b$}{26}{section.10.31}%
-\contentsline {section}{\numberline {10.32}Pareto-Verteilung mit Skalierungsparameter $x_{\rm min}=xmin$ und Formparameter $\alpha =a$}{26}{section.10.32}%
-\contentsline {section}{\numberline {10.33}Logistische Verteilung mit Mittelwert $\mu =mu$ und Skalierungsparameter $s$}{26}{section.10.33}%
-\contentsline {section}{\numberline {10.34}Inverse Gauß-Verteilung mit $\lambda =l$ und Mittelwert $mu$}{26}{section.10.34}%
-\contentsline {section}{\numberline {10.35}Rayleigh-Verteilung mit Mittelwert $mu$}{27}{section.10.35}%
-\contentsline {section}{\numberline {10.36}Log-Logistische Verteilung mit $\alpha $ und Mittelwert $\beta $}{27}{section.10.36}%
-\contentsline {section}{\numberline {10.37}Potenzverteilung auf dem Bereich $[a;b]$ mit Exponent $c$}{27}{section.10.37}%
-\contentsline {section}{\numberline {10.38}Gumbel-Verteilung mit Lage $a$ und Skalierung $b$}{27}{section.10.38}%
-\contentsline {section}{\numberline {10.39}Gumbel-Verteilung mit Erwartungswert $a$ und Standardabweichung $b$}{27}{section.10.39}%
-\contentsline {section}{\numberline {10.40}Fatigue-Life-Verteilung mit Lageparameter $\mu $, Skalierungsparameter $\beta $ und Formparameter $\gamma $}{28}{section.10.40}%
-\contentsline {section}{\numberline {10.41}Frechet-Verteilung mit Lageparameter $\delta $, Skalierungsparameter $\beta $ und Formparameter $\alpha $}{28}{section.10.41}%
-\contentsline {section}{\numberline {10.42}Hyperbolische Sekanten-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{28}{section.10.42}%
-\contentsline {section}{\numberline {10.43}Linke Sägezahnverteilung über $[a;b]$}{28}{section.10.43}%
-\contentsline {section}{\numberline {10.44}Linke Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{29}{section.10.44}%
-\contentsline {section}{\numberline {10.45}Rechte Sägezahnverteilung über $[a;b]$}{29}{section.10.45}%
-\contentsline {section}{\numberline {10.46}Rechte Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{29}{section.10.46}%
-\contentsline {section}{\numberline {10.47}Levy-Verteilung mit Lageparameter $\mu $ und Formparameter $c$}{29}{section.10.47}%
-\contentsline {section}{\numberline {10.48}Maxwell-Boltzmann-Verteilung mit Parameter a}{29}{section.10.48}%
-\contentsline {section}{\numberline {10.49}Studentsche t-Verteilung mit Parametern $\mu $ und $\nu $}{29}{section.10.49}%
-\contentsline {section}{\numberline {10.50}Halbe Normalverteilung mit Startwert $s$ unverschobenem Mittelwert $\mu $}{30}{section.10.50}%
-\contentsline {section}{\numberline {10.51}U-quadratische Verteilung über das Intervall $[a;b]$}{30}{section.10.51}%
-\contentsline {section}{\numberline {10.52}Reziproke Verteilung über das Intervall $[a;b]$}{30}{section.10.52}%
-\contentsline {section}{\numberline {10.53}Kumaraswamy-Verteilung mit Parametern $a$ und $b$ über das Intervall $[c;d]$}{30}{section.10.53}%
-\contentsline {section}{\numberline {10.54}Irwin-Hall-Verteilung mit Parameter $n$}{30}{section.10.54}%
-\contentsline {section}{\numberline {10.55}Irwin-Hall-Verteilung mit Mittelwert $a$}{30}{section.10.55}%
-\contentsline {section}{\numberline {10.56}Sinus-Verteilung über das Intervall $[a;b]$}{31}{section.10.56}%
-\contentsline {section}{\numberline {10.57}Arcus Sinus-Verteilung über das Intervall $[a;b]$}{31}{section.10.57}%
-\contentsline {section}{\numberline {10.58}Wigner Halbkreis-Verteilung mit Erwartungswert $m$ und Radius $R$}{31}{section.10.58}%
-\contentsline {section}{\numberline {10.59}Log-Cauchy-Verteilung mit Parametern $mu$ und $sigma$}{31}{section.10.59}%
-\contentsline {section}{\numberline {10.60}Verteilung aus empirischen Daten}{31}{section.10.60}%
-\contentsline {section}{\numberline {10.61}Zufällige Auswahl eines von mehreren Werten}{32}{section.10.61}%
-\contentsline {section}{\numberline {10.62}Zufallszahlen gemäß benutzerdefinierter Verteilung}{32}{section.10.62}%
-\contentsline {chapter}{\numberline {11}Erlang-C-Rechner}{33}{chapter.11}%
-\contentsline {chapter}{\numberline {12}Allen-Cunneen-Approximationsformel}{35}{chapter.12}%
-\contentsline {chapter}{\numberline {13}Zugriff auf die Modelleigenschaften}{37}{chapter.13}%
-\contentsline {section}{\numberline {13.1}Allgemeine Simulationsdaten}{37}{section.13.1}%
-\contentsline {section}{\numberline {13.2}Kunden im System}{38}{section.13.2}%
-\contentsline {subsection}{\numberline {13.2.1}Anzahl an Kunden im System}{38}{subsection.13.2.1}%
-\contentsline {subsection}{\numberline {13.2.2}Anzahl an wartenden Kunden im System}{38}{subsection.13.2.2}%
-\contentsline {subsection}{\numberline {13.2.3}Anzahl an Kunden in Bedienung im System}{39}{subsection.13.2.3}%
-\contentsline {section}{\numberline {13.3}Kunden an den Stationen}{40}{section.13.3}%
-\contentsline {subsection}{\numberline {13.3.1}Anzahl an Kunden an einer Station}{40}{subsection.13.3.1}%
-\contentsline {subsection}{\numberline {13.3.2}Anzahl an Kunden in der Warteschlange an einer Station}{41}{subsection.13.3.2}%
-\contentsline {subsection}{\numberline {13.3.3}Anzahl an Kunden in Bedienung an einer Station}{42}{subsection.13.3.3}%
-\contentsline {subsection}{\numberline {13.3.4}Anzahl an Ankünften und Abhängen an einer Station}{43}{subsection.13.3.4}%
-\contentsline {section}{\numberline {13.4}Kunden nach Kundentypen}{43}{section.13.4}%
-\contentsline {subsection}{\numberline {13.4.1}Anzahl an Kunden im System nach Kundentypen}{43}{subsection.13.4.1}%
-\contentsline {subsection}{\numberline {13.4.2}Anzahl an wartenden Kunden im System nach Kundentypen}{44}{subsection.13.4.2}%
-\contentsline {subsection}{\numberline {13.4.3}Anzahl an Kunden in Bedienung nach Kundentypen}{46}{subsection.13.4.3}%
-\contentsline {section}{\numberline {13.5}Zähler und Durchsatz}{47}{section.13.5}%
-\contentsline {section}{\numberline {13.6}Wartezeiten}{47}{section.13.6}%
-\contentsline {subsection}{\numberline {13.6.1}Wartezeiten an einer Station}{47}{subsection.13.6.1}%
-\contentsline {subsection}{\numberline {13.6.2}Wartezeiten über alle Kundentypen}{48}{subsection.13.6.2}%
-\contentsline {subsection}{\numberline {13.6.3}Wartezeiten für einen Kundentypen}{49}{subsection.13.6.3}%
-\contentsline {section}{\numberline {13.7}Transferzeiten}{50}{section.13.7}%
-\contentsline {subsection}{\numberline {13.7.1}Transferzeiten an einer Station}{50}{subsection.13.7.1}%
-\contentsline {subsection}{\numberline {13.7.2}Transferzeiten über alle Kundentypen}{50}{subsection.13.7.2}%
-\contentsline {subsection}{\numberline {13.7.3}Transferzeiten für einen Kundentypen}{51}{subsection.13.7.3}%
-\contentsline {section}{\numberline {13.8}Bedienzeiten}{52}{section.13.8}%
-\contentsline {subsection}{\numberline {13.8.1}Bedienzeiten an einer Station}{52}{subsection.13.8.1}%
-\contentsline {subsection}{\numberline {13.8.2}Bedienzeiten über alle Kundentypen}{53}{subsection.13.8.2}%
-\contentsline {subsection}{\numberline {13.8.3}Bedienzeiten für einen Kundentypen}{54}{subsection.13.8.3}%
-\contentsline {section}{\numberline {13.9}Verweilzeiten}{54}{section.13.9}%
-\contentsline {subsection}{\numberline {13.9.1}Verweilzeiten an einer Station}{54}{subsection.13.9.1}%
-\contentsline {subsection}{\numberline {13.9.2}Verweilzeiten über alle Kundentypen}{55}{subsection.13.9.2}%
-\contentsline {subsection}{\numberline {13.9.3}Verweilzeiten für einen Kundentypen}{56}{subsection.13.9.3}%
-\contentsline {subsection}{\numberline {13.9.4}Rüstzeiten an einer Station}{57}{subsection.13.9.4}%
-\contentsline {section}{\numberline {13.10}Flussgrad}{58}{section.13.10}%
-\contentsline {subsection}{\numberline {13.10.1}Flussgrad an einer Station}{58}{subsection.13.10.1}%
-\contentsline {subsection}{\numberline {13.10.2}Flussgrad über alle Kundentypen}{58}{subsection.13.10.2}%
-\contentsline {subsection}{\numberline {13.10.3}Flussgrad für einen Kundentypen}{58}{subsection.13.10.3}%
-\contentsline {section}{\numberline {13.11}Auslastung der Ressourcen}{58}{section.13.11}%
-\contentsline {subsection}{\numberline {13.11.1}Auslastung einer Ressource}{58}{subsection.13.11.1}%
-\contentsline {subsection}{\numberline {13.11.2}Auslastung aller Ressourcen zusammen}{59}{subsection.13.11.2}%
-\contentsline {section}{\numberline {13.12}Auslastung der Transporter}{60}{section.13.12}%
-\contentsline {subsection}{\numberline {13.12.1}Auslastung einer Transportergruppe}{60}{subsection.13.12.1}%
-\contentsline {subsection}{\numberline {13.12.2}Auslastung aller Transporter zusammen}{61}{subsection.13.12.2}%
-\contentsline {section}{\numberline {13.13}Zugriff auf Statistik-Stationen Datenfelder}{61}{section.13.13}%
-\contentsline {section}{\numberline {13.14}Zugriff auf Analogwerte}{62}{section.13.14}%
-\contentsline {section}{\numberline {13.15}Zugriff auf Kundenobjekt-spezifische Datenfelder}{62}{section.13.15}%
-\contentsline {section}{\numberline {13.16}Zugriff auf die Kosten}{63}{section.13.16}%
-\contentsline {chapter}{\numberline {14}Vergleiche}{65}{chapter.14}%
-\contentsline {section}{\numberline {14.1}Vergleichsfunktion}{65}{section.14.1}%
-\contentsline {part}{II\hspace {1em}Referenz der Javascript-Befehle}{67}{part.2}%
-\contentsline {chapter}{\numberline {15}\texttt {Statistics}-Objekt}{69}{chapter.15}%
-\contentsline {section}{\numberline {15.1}Definition des Ausgabeformats}{69}{section.15.1}%
-\contentsline {section}{\numberline {15.2}Zugriff auf die Statistik-XML-Daten}{70}{section.15.2}%
-\contentsline {section}{\numberline {15.3}Speichern der Statistikdaten in Dateien}{71}{section.15.3}%
-\contentsline {section}{\numberline {15.4}Zugriff auf das Modell}{71}{section.15.4}%
-\contentsline {section}{\numberline {15.5}Abfrage der zugehörigen Statistikdatei}{72}{section.15.5}%
-\contentsline {chapter}{\numberline {16}\texttt {System}-Objekt}{73}{chapter.16}%
-\contentsline {chapter}{\numberline {17}\texttt {Simulation}-Objekt}{75}{chapter.17}%
-\contentsline {section}{\numberline {17.1}Basisfunktionen}{75}{section.17.1}%
-\contentsline {section}{\numberline {17.2}Zugriff auf kundenspezifische Daten}{76}{section.17.2}%
-\contentsline {section}{\numberline {17.3}Temporäre Batche}{78}{section.17.3}%
-\contentsline {section}{\numberline {17.4}Zugriff auf Parameter des Simulationsmodells}{79}{section.17.4}%
-\contentsline {section}{\numberline {17.5}Zugriff auf den aktuellen Eingabewert}{80}{section.17.5}%
-\contentsline {section}{\numberline {17.6}Anzahl an Bedienern in einer Ressource}{80}{section.17.6}%
-\contentsline {section}{\numberline {17.7}Letzter Kundentyp an einer Bedienstation}{80}{section.17.7}%
-\contentsline {section}{\numberline {17.8}Signale auslösen}{80}{section.17.8}%
-\contentsline {section}{\numberline {17.9}Löst die Skriptverarbeitung an einer Station aus}{81}{section.17.9}%
-\contentsline {section}{\numberline {17.10}Meldung in Logging ausgeben}{81}{section.17.10}%
-\contentsline {section}{\numberline {17.11}Kunden an Verzögerungen-Stationen freigeben}{81}{section.17.11}%
-\contentsline {section}{\numberline {17.12}Kunden in der Warteschlange an einer Bedienstation}{81}{section.17.12}%
-\contentsline {chapter}{\numberline {18}\texttt {Clients}-Objekt}{83}{chapter.18}%
-\contentsline {chapter}{\numberline {19}\texttt {Output}-Objekt}{85}{chapter.19}%
-\contentsline {chapter}{\numberline {20}\texttt {FileOutput}-Objekt}{87}{chapter.20}%
-\contentsline {chapter}{\numberline {21}\texttt {Model}-Objekt}{89}{chapter.21}%
-\contentsline {chapter}{\numberline {22}XML-Auswahlbefehle}{91}{chapter.22}%
-\contentsline {part}{III\hspace {1em}Referenz der Java-Befehle}{93}{part.3}%
-\contentsline {chapter}{\numberline {23}\texttt {StatisticsInterface} abrufbar über \texttt {sim.getStatistics()}}{95}{chapter.23}%
-\contentsline {section}{\numberline {23.1}Definition des Ausgabeformats}{95}{section.23.1}%
-\contentsline {section}{\numberline {23.2}Zugriff auf die Statistik-XML-Daten}{96}{section.23.2}%
-\contentsline {section}{\numberline {23.3}Speichern der Statistikdaten in Dateien}{97}{section.23.3}%
-\contentsline {section}{\numberline {23.4}Zugriff auf das Modell}{97}{section.23.4}%
-\contentsline {section}{\numberline {23.5}Abfrage der zugehörigen Statistikdatei}{98}{section.23.5}%
-\contentsline {chapter}{\numberline {24}\texttt {RuntimeInterface} abrufbar über \texttt {sim.getRuntime}}{99}{chapter.24}%
-\contentsline {chapter}{\numberline {25}\texttt {SystemInterface} abrufbar über \texttt {sim.getSystem()}}{101}{chapter.25}%
-\contentsline {section}{\numberline {25.1}Basisfunktionen}{101}{section.25.1}%
-\contentsline {section}{\numberline {25.2}Zugriff auf Parameter des Simulationsmodells}{102}{section.25.2}%
-\contentsline {section}{\numberline {25.3}Anzahl an Bedienern in einer Ressource}{102}{section.25.3}%
-\contentsline {section}{\numberline {25.4}Letzter Kundentyp an einer Bedienstation}{103}{section.25.4}%
-\contentsline {section}{\numberline {25.5}Signale auslösen}{103}{section.25.5}%
-\contentsline {section}{\numberline {25.6}Löst die Skriptverarbeitung an einer Station aus}{103}{section.25.6}%
-\contentsline {section}{\numberline {25.7}Externen Code aufrufen}{103}{section.25.7}%
-\contentsline {section}{\numberline {25.8}Meldung in Logging ausgeben}{104}{section.25.8}%
-\contentsline {section}{\numberline {25.9}Kunden an Verzögerungen-Stationen freigeben}{104}{section.25.9}%
-\contentsline {section}{\numberline {25.10}Kunden in der Warteschlange an einer Bedienstation}{104}{section.25.10}%
-\contentsline {chapter}{\numberline {26}\texttt {ClientInterface} abrufbar über \texttt {sim.getClient()}}{105}{chapter.26}%
-\contentsline {section}{\numberline {26.1}Temporäre Batche}{107}{section.26.1}%
-\contentsline {chapter}{\numberline {27}\texttt {InputValueInterface} abrufbar über \texttt {sim.getInputValue()}}{109}{chapter.27}%
-\contentsline {chapter}{\numberline {28}\texttt {ClientsInterface} abrufbar über \texttt {sim.getClients()}}{111}{chapter.28}%
-\contentsline {chapter}{\numberline {29}\texttt {OutputInterface} abrufbar über \texttt {sim.getOutput()}}{113}{chapter.29}%
-\contentsline {chapter}{\numberline {30}\texttt {FileOutputInterface} abrufbar über \texttt {sim.getFileOutput()}}{115}{chapter.30}%
-\contentsline {chapter}{\numberline {31}\texttt {ModelInterface} abrufbar über \texttt {sim.getModel()}}{117}{chapter.31}%
-\contentsline {chapter}{\numberline {32}XML-Auswahlbefehle}{119}{chapter.32}%
+\contentsline {section}{\numberline {10.13}Planck-Verteilung}{22}{section.10.13}%
+\contentsline {section}{\numberline {10.14}Boltzmann-Verteilung}{23}{section.10.14}%
+\contentsline {section}{\numberline {10.15}Exponentialverteilung mit Mittelwert $a$}{23}{section.10.15}%
+\contentsline {section}{\numberline {10.16}Gleichverteilung über das Intervall $[a;b]$}{23}{section.10.16}%
+\contentsline {section}{\numberline {10.17}Normalverteilung mit Mittelwert $a$ und Standardabweichung $b$}{23}{section.10.17}%
+\contentsline {section}{\numberline {10.18}Lognormalverteilung mit Mittelwert $a$ und Standardabweichung $b$}{23}{section.10.18}%
+\contentsline {section}{\numberline {10.19}Gamma-Verteilung mit Parametern $\alpha =a$ und $\beta =b$}{23}{section.10.19}%
+\contentsline {section}{\numberline {10.20}Gamma-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{24}{section.10.20}%
+\contentsline {section}{\numberline {10.21}Erlang-Verteilung mit Parametern $n$ und $\lambda =l$}{24}{section.10.21}%
+\contentsline {section}{\numberline {10.22}Inverse Gamma-Verteilung mit Parametern $\alpha =a$ und $\beta =b$}{24}{section.10.22}%
+\contentsline {section}{\numberline {10.23}Inverse Gamma-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{24}{section.10.23}%
+\contentsline {section}{\numberline {10.24}Beta-Verteilung in dem Intervall $[a;b]$ und mit Parametern $\alpha =c$ und $\beta =d$}{24}{section.10.24}%
+\contentsline {section}{\numberline {10.25}Beta-Verteilung in dem Intervall $[a;b]$ und mit Mittelwert $c$ und Standardabweichung $d$}{25}{section.10.25}%
+\contentsline {section}{\numberline {10.26}Weibull-Verteilung mit Parametern Scale=$a$ und Form=$b$}{25}{section.10.26}%
+\contentsline {section}{\numberline {10.27}Cauchy-Verteilung mit Mittelwert $a$ und Scale=$b$}{25}{section.10.27}%
+\contentsline {section}{\numberline {10.28}Halbe Cauchy-Verteilung mit Startpunkt $\mu $ und Skalierung $\sigma $}{25}{section.10.28}%
+\contentsline {section}{\numberline {10.29}Chi$^2$-Verteilung mit $n$ Freiheitsgraden}{25}{section.10.29}%
+\contentsline {section}{\numberline {10.30}Chi-Verteilung mit $n$ Freiheitsgraden}{25}{section.10.30}%
+\contentsline {section}{\numberline {10.31}F-Verteilung mit $a$ Freiheitsgraden im Zähler und $b$ Freiheitsgraden im Nenner}{26}{section.10.31}%
+\contentsline {section}{\numberline {10.32}Johnson-SU-Verteilung mit den Parametern $\gamma =a$, $\xi =b$, $\delta =c$ und $\lambda =d$}{26}{section.10.32}%
+\contentsline {section}{\numberline {10.33}Dreiecksverteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{26}{section.10.33}%
+\contentsline {section}{\numberline {10.34}Trapezverteilung über $[a;d]$ mit Gleichverteilung im Bereich $[b;c]$}{26}{section.10.34}%
+\contentsline {section}{\numberline {10.35}Pert-Verteilung über $[a;c]$ mit der höchsten Wahrscheinlichkeitsdichte bei $b$}{26}{section.10.35}%
+\contentsline {section}{\numberline {10.36}Laplace-Verteilung mit Mittelwert $mu$ und Skalierungsfaktor $b$}{27}{section.10.36}%
+\contentsline {section}{\numberline {10.37}Pareto-Verteilung mit Skalierungsparameter $x_{\rm min}=xmin$ und Formparameter $\alpha =a$}{27}{section.10.37}%
+\contentsline {section}{\numberline {10.38}Logistische Verteilung mit Mittelwert $\mu =mu$ und Skalierungsparameter $s$}{27}{section.10.38}%
+\contentsline {section}{\numberline {10.39}Inverse Gauß-Verteilung mit $\lambda =l$ und Mittelwert $mu$}{27}{section.10.39}%
+\contentsline {section}{\numberline {10.40}Inverse Gauß-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{27}{section.10.40}%
+\contentsline {section}{\numberline {10.41}Rayleigh-Verteilung mit Mittelwert $mu$}{28}{section.10.41}%
+\contentsline {section}{\numberline {10.42}Log-Logistische Verteilung mit $\alpha $ und Mittelwert $\beta $}{28}{section.10.42}%
+\contentsline {section}{\numberline {10.43}Potenzverteilung auf dem Bereich $[a;b]$ mit Exponent $c$}{28}{section.10.43}%
+\contentsline {section}{\numberline {10.44}Gumbel-Verteilung mit Lage $a$ und Skalierung $b$}{28}{section.10.44}%
+\contentsline {section}{\numberline {10.45}Gumbel-Verteilung mit Erwartungswert $a$ und Standardabweichung $b$}{28}{section.10.45}%
+\contentsline {section}{\numberline {10.46}Fatigue-Life-Verteilung mit Lageparameter $\mu $, Skalierungsparameter $\beta $ und Formparameter $\gamma $}{29}{section.10.46}%
+\contentsline {section}{\numberline {10.47}Frechet-Verteilung mit Lageparameter $\delta $, Skalierungsparameter $\beta $ und Formparameter $\alpha $}{29}{section.10.47}%
+\contentsline {section}{\numberline {10.48}Hyperbolische Sekanten-Verteilung mit Mittelwert $a$ und Standardabweichung $b$}{29}{section.10.48}%
+\contentsline {section}{\numberline {10.49}Linke Sägezahnverteilung über $[a;b]$}{29}{section.10.49}%
+\contentsline {section}{\numberline {10.50}Linke Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{29}{section.10.50}%
+\contentsline {section}{\numberline {10.51}Rechte Sägezahnverteilung über $[a;b]$}{30}{section.10.51}%
+\contentsline {section}{\numberline {10.52}Rechte Sägezahnverteilung über mit Erwartungswert $a$ und Standardabweichung $b$}{30}{section.10.52}%
+\contentsline {section}{\numberline {10.53}Levy-Verteilung mit Lageparameter $\mu $ und Formparameter $c$}{30}{section.10.53}%
+\contentsline {section}{\numberline {10.54}Maxwell-Boltzmann-Verteilung mit Parameter a}{30}{section.10.54}%
+\contentsline {section}{\numberline {10.55}Studentsche t-Verteilung mit Parametern $\mu $ und $\nu $}{30}{section.10.55}%
+\contentsline {section}{\numberline {10.56}Halbe Normalverteilung mit Startwert $s$ unverschobenem Mittelwert $\mu $}{30}{section.10.56}%
+\contentsline {section}{\numberline {10.57}U-quadratische Verteilung über das Intervall $[a;b]$}{31}{section.10.57}%
+\contentsline {section}{\numberline {10.58}Reziproke Verteilung über das Intervall $[a;b]$}{31}{section.10.58}%
+\contentsline {section}{\numberline {10.59}Kumaraswamy-Verteilung mit Parametern $a$ und $b$ über das Intervall $[c;d]$}{31}{section.10.59}%
+\contentsline {section}{\numberline {10.60}Irwin-Hall-Verteilung mit Parameter $n$}{31}{section.10.60}%
+\contentsline {section}{\numberline {10.61}Irwin-Hall-Verteilung mit Mittelwert $a$}{31}{section.10.61}%
+\contentsline {section}{\numberline {10.62}Sinus-Verteilung über das Intervall $[a;b]$}{31}{section.10.62}%
+\contentsline {section}{\numberline {10.63}Cosinus-Verteilung über das Intervall $[a;b]$}{32}{section.10.63}%
+\contentsline {section}{\numberline {10.64}Arcus Sinus-Verteilung über das Intervall $[a;b]$}{32}{section.10.64}%
+\contentsline {section}{\numberline {10.65}Wigner Halbkreis-Verteilung mit Erwartungswert $m$ und Radius $R$}{32}{section.10.65}%
+\contentsline {section}{\numberline {10.66}Log-Cauchy-Verteilung mit Parametern $mu$ und $sigma$}{32}{section.10.66}%
+\contentsline {section}{\numberline {10.67}Log-Gamma-Verteilung mit Parametern $a$ und $a$}{32}{section.10.67}%
+\contentsline {section}{\numberline {10.68}Kontinuierliche Bernoulli-Verteilung über $[a;b]$ mit Parameter $\lambda $}{32}{section.10.68}%
+\contentsline {section}{\numberline {10.69}Verallgemeinerte Rademacher-Verteilung mit Punkten $a$ und $b$ und Wahrscheinlichkeit $P(a)$}{33}{section.10.69}%
+\contentsline {section}{\numberline {10.70}Log-Laplace-Verteilung mit Parameter $c$ und Startpunkt $s$}{33}{section.10.70}%
+\contentsline {section}{\numberline {10.71}Verteilung aus empirischen Daten}{33}{section.10.71}%
+\contentsline {section}{\numberline {10.72}Zufällige Auswahl eines von mehreren Werten}{33}{section.10.72}%
+\contentsline {section}{\numberline {10.73}Zufallszahlen gemäß benutzerdefinierter Verteilung}{34}{section.10.73}%
+\contentsline {chapter}{\numberline {11}Erlang-C-Rechner}{35}{chapter.11}%
+\contentsline {chapter}{\numberline {12}Allen-Cunneen-Approximationsformel}{37}{chapter.12}%
+\contentsline {chapter}{\numberline {13}Zugriff auf die Modelleigenschaften}{39}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Allgemeine Simulationsdaten}{39}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Kunden im System}{40}{section.13.2}%
+\contentsline {subsection}{\numberline {13.2.1}Anzahl an Kunden im System}{40}{subsection.13.2.1}%
+\contentsline {subsection}{\numberline {13.2.2}Anzahl an wartenden Kunden im System}{40}{subsection.13.2.2}%
+\contentsline {subsection}{\numberline {13.2.3}Anzahl an Kunden in Bedienung im System}{41}{subsection.13.2.3}%
+\contentsline {section}{\numberline {13.3}Kunden an den Stationen}{42}{section.13.3}%
+\contentsline {subsection}{\numberline {13.3.1}Anzahl an Kunden an einer Station}{42}{subsection.13.3.1}%
+\contentsline {subsection}{\numberline {13.3.2}Anzahl an Kunden in der Warteschlange an einer Station}{43}{subsection.13.3.2}%
+\contentsline {subsection}{\numberline {13.3.3}Anzahl an Kunden in Bedienung an einer Station}{44}{subsection.13.3.3}%
+\contentsline {subsection}{\numberline {13.3.4}Anzahl an Ankünften und Abhängen an einer Station}{45}{subsection.13.3.4}%
+\contentsline {section}{\numberline {13.4}Kunden nach Kundentypen}{45}{section.13.4}%
+\contentsline {subsection}{\numberline {13.4.1}Anzahl an Kunden im System nach Kundentypen}{45}{subsection.13.4.1}%
+\contentsline {subsection}{\numberline {13.4.2}Anzahl an wartenden Kunden im System nach Kundentypen}{46}{subsection.13.4.2}%
+\contentsline {subsection}{\numberline {13.4.3}Anzahl an Kunden in Bedienung nach Kundentypen}{48}{subsection.13.4.3}%
+\contentsline {section}{\numberline {13.5}Zähler und Durchsatz}{49}{section.13.5}%
+\contentsline {section}{\numberline {13.6}Wartezeiten}{49}{section.13.6}%
+\contentsline {subsection}{\numberline {13.6.1}Wartezeiten an einer Station}{49}{subsection.13.6.1}%
+\contentsline {subsection}{\numberline {13.6.2}Wartezeiten über alle Kundentypen}{50}{subsection.13.6.2}%
+\contentsline {subsection}{\numberline {13.6.3}Wartezeiten für einen Kundentypen}{51}{subsection.13.6.3}%
+\contentsline {section}{\numberline {13.7}Transferzeiten}{52}{section.13.7}%
+\contentsline {subsection}{\numberline {13.7.1}Transferzeiten an einer Station}{52}{subsection.13.7.1}%
+\contentsline {subsection}{\numberline {13.7.2}Transferzeiten über alle Kundentypen}{53}{subsection.13.7.2}%
+\contentsline {subsection}{\numberline {13.7.3}Transferzeiten für einen Kundentypen}{53}{subsection.13.7.3}%
+\contentsline {section}{\numberline {13.8}Bedienzeiten}{54}{section.13.8}%
+\contentsline {subsection}{\numberline {13.8.1}Bedienzeiten an einer Station}{54}{subsection.13.8.1}%
+\contentsline {subsection}{\numberline {13.8.2}Bedienzeiten über alle Kundentypen}{55}{subsection.13.8.2}%
+\contentsline {subsection}{\numberline {13.8.3}Bedienzeiten für einen Kundentypen}{56}{subsection.13.8.3}%
+\contentsline {section}{\numberline {13.9}Verweilzeiten}{57}{section.13.9}%
+\contentsline {subsection}{\numberline {13.9.1}Verweilzeiten an einer Station}{57}{subsection.13.9.1}%
+\contentsline {subsection}{\numberline {13.9.2}Verweilzeiten über alle Kundentypen}{57}{subsection.13.9.2}%
+\contentsline {subsection}{\numberline {13.9.3}Verweilzeiten für einen Kundentypen}{58}{subsection.13.9.3}%
+\contentsline {subsection}{\numberline {13.9.4}Rüstzeiten an einer Station}{59}{subsection.13.9.4}%
+\contentsline {section}{\numberline {13.10}Flussgrad}{60}{section.13.10}%
+\contentsline {subsection}{\numberline {13.10.1}Flussgrad an einer Station}{60}{subsection.13.10.1}%
+\contentsline {subsection}{\numberline {13.10.2}Flussgrad über alle Kundentypen}{60}{subsection.13.10.2}%
+\contentsline {subsection}{\numberline {13.10.3}Flussgrad für einen Kundentypen}{60}{subsection.13.10.3}%
+\contentsline {section}{\numberline {13.11}Auslastung der Ressourcen}{60}{section.13.11}%
+\contentsline {subsection}{\numberline {13.11.1}Auslastung einer Ressource}{60}{subsection.13.11.1}%
+\contentsline {subsection}{\numberline {13.11.2}Auslastung aller Ressourcen zusammen}{61}{subsection.13.11.2}%
+\contentsline {section}{\numberline {13.12}Auslastung der Transporter}{62}{section.13.12}%
+\contentsline {subsection}{\numberline {13.12.1}Auslastung einer Transportergruppe}{62}{subsection.13.12.1}%
+\contentsline {subsection}{\numberline {13.12.2}Auslastung aller Transporter zusammen}{63}{subsection.13.12.2}%
+\contentsline {section}{\numberline {13.13}Zugriff auf Statistik-Stationen Datenfelder}{63}{section.13.13}%
+\contentsline {section}{\numberline {13.14}Zugriff auf Analogwerte}{64}{section.13.14}%
+\contentsline {section}{\numberline {13.15}Zugriff auf Kundenobjekt-spezifische Datenfelder}{64}{section.13.15}%
+\contentsline {section}{\numberline {13.16}Zugriff auf die Kosten}{65}{section.13.16}%
+\contentsline {chapter}{\numberline {14}Vergleiche}{67}{chapter.14}%
+\contentsline {section}{\numberline {14.1}Vergleichsfunktion}{67}{section.14.1}%
+\contentsline {part}{II\hspace {1em}Referenz der Javascript-Befehle}{69}{part.2}%
+\contentsline {chapter}{\numberline {15}\texttt {Statistics}-Objekt}{71}{chapter.15}%
+\contentsline {section}{\numberline {15.1}Definition des Ausgabeformats}{71}{section.15.1}%
+\contentsline {section}{\numberline {15.2}Zugriff auf die Statistik-XML-Daten}{72}{section.15.2}%
+\contentsline {section}{\numberline {15.3}Speichern der Statistikdaten in Dateien}{73}{section.15.3}%
+\contentsline {section}{\numberline {15.4}Zugriff auf das Modell}{73}{section.15.4}%
+\contentsline {section}{\numberline {15.5}Abfrage der zugehörigen Statistikdatei}{74}{section.15.5}%
+\contentsline {chapter}{\numberline {16}\texttt {System}-Objekt}{75}{chapter.16}%
+\contentsline {chapter}{\numberline {17}\texttt {Simulation}-Objekt}{77}{chapter.17}%
+\contentsline {section}{\numberline {17.1}Basisfunktionen}{77}{section.17.1}%
+\contentsline {section}{\numberline {17.2}Zugriff auf kundenspezifische Daten}{78}{section.17.2}%
+\contentsline {section}{\numberline {17.3}Temporäre Batche}{80}{section.17.3}%
+\contentsline {section}{\numberline {17.4}Zugriff auf Parameter des Simulationsmodells}{81}{section.17.4}%
+\contentsline {section}{\numberline {17.5}Zugriff auf den aktuellen Eingabewert}{82}{section.17.5}%
+\contentsline {section}{\numberline {17.6}Anzahl an Bedienern in einer Ressource}{82}{section.17.6}%
+\contentsline {section}{\numberline {17.7}Letzter Kundentyp an einer Bedienstation}{82}{section.17.7}%
+\contentsline {section}{\numberline {17.8}Signale auslösen}{82}{section.17.8}%
+\contentsline {section}{\numberline {17.9}Löst die Skriptverarbeitung an einer Station aus}{83}{section.17.9}%
+\contentsline {section}{\numberline {17.10}Meldung in Logging ausgeben}{83}{section.17.10}%
+\contentsline {section}{\numberline {17.11}Kunden an Verzögerungen-Stationen freigeben}{83}{section.17.11}%
+\contentsline {section}{\numberline {17.12}Kunden in der Warteschlange an einer Bedienstation}{83}{section.17.12}%
+\contentsline {chapter}{\numberline {18}\texttt {Clients}-Objekt}{85}{chapter.18}%
+\contentsline {chapter}{\numberline {19}\texttt {Output}-Objekt}{87}{chapter.19}%
+\contentsline {chapter}{\numberline {20}\texttt {FileOutput}-Objekt}{89}{chapter.20}%
+\contentsline {chapter}{\numberline {21}\texttt {Model}-Objekt}{91}{chapter.21}%
+\contentsline {chapter}{\numberline {22}XML-Auswahlbefehle}{93}{chapter.22}%
+\contentsline {part}{III\hspace {1em}Referenz der Java-Befehle}{95}{part.3}%
+\contentsline {chapter}{\numberline {23}\texttt {StatisticsInterface} abrufbar über \texttt {sim.getStatistics()}}{97}{chapter.23}%
+\contentsline {section}{\numberline {23.1}Definition des Ausgabeformats}{97}{section.23.1}%
+\contentsline {section}{\numberline {23.2}Zugriff auf die Statistik-XML-Daten}{98}{section.23.2}%
+\contentsline {section}{\numberline {23.3}Speichern der Statistikdaten in Dateien}{99}{section.23.3}%
+\contentsline {section}{\numberline {23.4}Zugriff auf das Modell}{99}{section.23.4}%
+\contentsline {section}{\numberline {23.5}Abfrage der zugehörigen Statistikdatei}{100}{section.23.5}%
+\contentsline {chapter}{\numberline {24}\texttt {RuntimeInterface} abrufbar über \texttt {sim.getRuntime}}{101}{chapter.24}%
+\contentsline {chapter}{\numberline {25}\texttt {SystemInterface} abrufbar über \texttt {sim.getSystem()}}{103}{chapter.25}%
+\contentsline {section}{\numberline {25.1}Basisfunktionen}{103}{section.25.1}%
+\contentsline {section}{\numberline {25.2}Zugriff auf Parameter des Simulationsmodells}{104}{section.25.2}%
+\contentsline {section}{\numberline {25.3}Anzahl an Bedienern in einer Ressource}{104}{section.25.3}%
+\contentsline {section}{\numberline {25.4}Letzter Kundentyp an einer Bedienstation}{105}{section.25.4}%
+\contentsline {section}{\numberline {25.5}Signale auslösen}{105}{section.25.5}%
+\contentsline {section}{\numberline {25.6}Löst die Skriptverarbeitung an einer Station aus}{105}{section.25.6}%
+\contentsline {section}{\numberline {25.7}Externen Code aufrufen}{105}{section.25.7}%
+\contentsline {section}{\numberline {25.8}Meldung in Logging ausgeben}{106}{section.25.8}%
+\contentsline {section}{\numberline {25.9}Kunden an Verzögerungen-Stationen freigeben}{106}{section.25.9}%
+\contentsline {section}{\numberline {25.10}Kunden in der Warteschlange an einer Bedienstation}{106}{section.25.10}%
+\contentsline {chapter}{\numberline {26}\texttt {ClientInterface} abrufbar über \texttt {sim.getClient()}}{107}{chapter.26}%
+\contentsline {section}{\numberline {26.1}Temporäre Batche}{109}{section.26.1}%
+\contentsline {chapter}{\numberline {27}\texttt {InputValueInterface} abrufbar über \texttt {sim.getInputValue()}}{111}{chapter.27}%
+\contentsline {chapter}{\numberline {28}\texttt {ClientsInterface} abrufbar über \texttt {sim.getClients()}}{113}{chapter.28}%
+\contentsline {chapter}{\numberline {29}\texttt {OutputInterface} abrufbar über \texttt {sim.getOutput()}}{115}{chapter.29}%
+\contentsline {chapter}{\numberline {30}\texttt {FileOutputInterface} abrufbar über \texttt {sim.getFileOutput()}}{117}{chapter.30}%
+\contentsline {chapter}{\numberline {31}\texttt {ModelInterface} abrufbar über \texttt {sim.getModel()}}{119}{chapter.31}%
+\contentsline {chapter}{\numberline {32}XML-Auswahlbefehle}{121}{chapter.32}%

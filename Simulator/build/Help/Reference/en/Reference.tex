@@ -834,6 +834,26 @@ be increased by one. If non of the conditions it met, the counter for the "else"
 will be increased.
 
 
+\section{Multi type assignment}
+\label{ref:ModelElementAssignMulti}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementAssignMulti.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+The multi type assignment element assigns a new client type (for the statistics) to the clients who are passing this element.
+Different client types can be assigned depending on configurable conditions.
+
+\subsection*{Settings}
+
+Any number of client types can be specified and for each a condition as to when this assignment should be applied.
+
+The optional condition allows an assignment to be made only under certain conditions,
+when a client passes the station.
+
+
 \section{Script}
 \label{ref:ModelElementSetJS}
 
@@ -3310,6 +3330,7 @@ An element from which the settings are to be used has to be specified.
 \end{wrapfigure}
 
 If a client passes through this element, some user-definable statistic information are recorded.
+The recording can optionally be differentiated by client type and time interval.
 
 \subsection*{Settings}
 
@@ -3329,6 +3350,11 @@ However, a client type-specific recording can also be set. In this case,
 an individual data record is created for each client type that passes through
 the station, the name of which is composed of a specified data record name
 and the name of the client type.
+
+Interval-based recording can also be activated.
+In this case, the number and average value of the values recorded
+in the interval is recorded for each interval (the length of which can be set)
+for each discrete-time value. Recording begins at the end of the warm-up phase.
 
 
 \section{Sub model}

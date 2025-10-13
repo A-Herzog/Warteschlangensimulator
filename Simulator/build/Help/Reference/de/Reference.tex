@@ -821,6 +821,26 @@ In den Einstellungen muss festgelegt werden, ob die Statistikerfassung für die 
 die dieses Element passieren, ein oder ausgeschaltet werden soll.
 
 
+\section{Multi-Typzuweisung}
+\label{ref:ModelElementAssignMulti}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementAssignMulti.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+Das Mehrfach-Zuweisung-Element weist den Kunden, die es passieren, einen neuen Kundentyp dem sie in der Statistik zugeordnet werden sollen, zu.
+Es können dabei verschiedene Kundentypen in Abhängigkeit von konfigurierbaren Bedingungen zugewiesen werden. 
+
+\subsection*{Einstellungen}
+
+Es können beliebig viele Kundentypen angegeben werden und für jeden eine Bedingung, wann diese Zuweisung angewendet werden soll.
+
+Die optionale Bedingung ermöglicht es, dass nur unter bestimmten Voraussetzungen eine Zuweisung erfolgt,
+wenn ein Kunde die Station passiert.
+
+
 \section{Multizähler}
 \label{ref:ModelElementCounterMulti}
 
@@ -3538,6 +3558,7 @@ Es muss ein Element angegeben werden, dessen Daten das Referenzelement verwenden
 
 Durchläuft ein Kunde dieses Element, so wird das Ergebnis einer oder mehrerer Formelauswertungen
 als benutzerdefinierter Statistikdatensatz erfasst.
+Die Erfassung kann dabei optional nach Kundentypen und Zeitintervallen ausdifferenziert werden. 
 
 \subsection*{Einstellungen}
 
@@ -3558,6 +3579,11 @@ eine kundentypspezifische Erfassung eingestellt werden. In diesem Fall wird für
 jeden Kundentyp, der die Station passiert, ein individueller Datensatz, dessen
 Name sich ein aus angegebenen Datensatznamen und dem Namen des Kundentyps
 zusammensetzt, erstellt.
+
+Außerdem kann zusätzlich eine intervallbasierte Erfassung aktiviert werden.
+In diesem Fall wird pro Intervall (dessen Länge einstellbar ist) für jeden
+zeitdiskreten Wert die Anzahl und der Mittelwert der in dem Intervall erfassten Werte
+aufgezeichnet. Die Erfassung beginnt mit dem Ende der Einschwingphase.
 
 
 \section{Untermodell}
