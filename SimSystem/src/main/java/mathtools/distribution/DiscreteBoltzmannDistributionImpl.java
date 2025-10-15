@@ -30,7 +30,7 @@ public final class DiscreteBoltzmannDistributionImpl extends AbstractDiscreteRea
 	private static final long serialVersionUID=-827465333857497087L;
 
 	/**
-	 * Parameter &lambda&gt;0
+	 * Parameter &lambda;&gt;0
 	 */
 	public final double lambda;
 
@@ -59,7 +59,7 @@ public final class DiscreteBoltzmannDistributionImpl extends AbstractDiscreteRea
 
 	/**
 	 * Konstruktor der Klasse
-	 * @param lambda	Parameter &lambda&gt;0
+	 * @param lambda	Parameter &lambda;&gt;0
 	 * @param N	Parameter N&gt;0, natürliche Zahl
 	 */
 	public DiscreteBoltzmannDistributionImpl(final double lambda, final int N) {
