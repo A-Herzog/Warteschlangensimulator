@@ -39,7 +39,6 @@ import ui.modeleditor.ModelResource;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
-import ui.modeleditor.elements.AnimationExpression;
 import ui.modeleditor.elements.BatchRecord;
 import ui.modeleditor.elements.BatchRecord.BatchMode;
 import ui.modeleditor.elements.DecideRecord;
@@ -804,14 +803,15 @@ public class MiniQSLoader {
 			if (dataSourceElement==null) return;
 
 			final ModelElementAnimationLineDiagram diagram=(ModelElementAnimationLineDiagram)getFirstElement();
-			final List<Object[]> expressionData=diagram.getExpressionData();
-			expressionData.add(new Object[] {
-					new AnimationExpression("WIP("+dataSourceElement.getLastElement().getId()+")"),
-					Double.valueOf(0),
-					Double.valueOf(10),
+			final List<ModelElementAnimationLineDiagram.Series> expressionData=diagram.getExpressionData();
+			expressionData.add(new ModelElementAnimationLineDiagram.Series(
+					"WIP("+dataSourceElement.getLastElement().getId()+")",
+					0,
+					10,
 					Color.BLUE,
-					Integer.valueOf(2)
-			});
+					2,
+					ModelElementAnimationLineDiagram.LineMode.LINE
+					));
 			((ModelElementAnimationLineDiagram)getFirstElement()).setExpressionData(expressionData);
 		}
 

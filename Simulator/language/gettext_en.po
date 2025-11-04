@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-15 11:48+0200\n"
+"POT-Creation-Date: 2025-10-15 08:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28219,6 +28219,9 @@ msgstr "ModelElementDiagramElement"
 msgid "Surface.AnimationDiagram.XML.Set.LineColor"
 msgstr "LineColor"
 
+msgid "Surface.AnimationDiagram.XML.Set.LineStyle"
+msgstr "LineStyle"
+
 msgid "Surface.AnimationDiagram.XML.Set.LineWidth"
 msgstr "LineWidth"
 
@@ -31412,6 +31415,18 @@ msgstr "Invalid minimum value"
 
 msgid "Surface.ExpressionTableModel.Dialog.Mode"
 msgstr "Display mode"
+
+msgid "Surface.ExpressionTableModel.Dialog.Mode.DashDotted"
+msgstr "Dash-dotted line"
+
+msgid "Surface.ExpressionTableModel.Dialog.Mode.DashedLong"
+msgstr "Dashed line (long)"
+
+msgid "Surface.ExpressionTableModel.Dialog.Mode.DashedMedium"
+msgstr "Dashed line (medium)"
+
+msgid "Surface.ExpressionTableModel.Dialog.Mode.DashedShort"
+msgstr "Dashed line (short)"
 
 msgid "Surface.ExpressionTableModel.Dialog.Mode.Line"
 msgstr "Line"

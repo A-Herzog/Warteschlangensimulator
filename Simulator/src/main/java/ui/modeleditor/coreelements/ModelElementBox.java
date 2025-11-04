@@ -61,11 +61,11 @@ import ui.modeleditor.ModelTransporter;
 import ui.modeleditor.ModelTransporters;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilderStyled;
-import ui.modeleditor.elements.AnimationExpression;
 import ui.modeleditor.elements.ElementWithAnimationDisplay;
 import ui.modeleditor.elements.FontCache;
 import ui.modeleditor.elements.ModelElementAnimationBar;
 import ui.modeleditor.elements.ModelElementAnimationBarChart;
+import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
 import ui.modeleditor.elements.ModelElementAnimationRecord;
 import ui.modeleditor.elements.ModelElementAnimationTextValue;
 import ui.modeleditor.elements.ModelElementAnimationTrafficLights;
@@ -1743,7 +1743,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 		String addonInfo=null;
 		ModelElementPosition element=null;
 		ModelElementPosition addon=null;
-		List<Object[]> data;
+		List<ModelElementAnimationLineDiagram.Series> data;
 
 		final String stationInfo=" "+Language.tr("Surface.Popup.AddVisualization.AtStation")+" "+referenceName;
 
@@ -2044,7 +2044,7 @@ public class ModelElementBox extends ModelElementPosition implements ElementWith
 			break;
 		case CHART_ANALOG_VALUE:
 			data=new ArrayList<>();
-			data.add(new Object[]{new AnimationExpression("AnalogValue("+getId()+")"),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(2)});
+			data.add(new ModelElementAnimationLineDiagram.Series("AnalogValue("+getId()+")",0,10,Color.RED,2,ModelElementAnimationLineDiagram.LineMode.LINE));
 			element=ModelSurfacePanel.getVisualizationChart(data);
 			addonInfo=Language.tr("Surface.Popup.AddVisualization.AnalogValue");
 			addon=ModelSurfacePanel.getVisualizationPlainText(Language.tr("Surface.Popup.AddVisualization.AnalogValue")+stationInfo,0,-20);

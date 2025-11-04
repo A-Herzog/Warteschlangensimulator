@@ -1776,6 +1776,7 @@
   Minimum		CDATA	#IMPLIED
   Maximum		CDATA	#IMPLIED
   Linienfarbe	CDATA	#IMPLIED
+  Linienstil	CDATA	#IMPLIED
   Linienbreite	CDATA	#IMPLIED
   Balkenfarbe	CDATA	#IMPLIED
   Segmentfarbe	CDATA	#IMPLIED
@@ -4530,6 +4531,7 @@
   Minimum		CDATA	#IMPLIED
   Maximum		CDATA	#IMPLIED
   LineColor		CDATA	#IMPLIED
+  LineStyle		CDATA	#IMPLIED
   LineWidth		CDATA	#IMPLIED
   BarColor		CDATA	#IMPLIED
   SegmentColor	CDATA	#IMPLIED

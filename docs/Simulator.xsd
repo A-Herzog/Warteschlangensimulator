@@ -1960,6 +1960,7 @@
     <xs:attribute name="Minimum" type="xs:string"/>
 	<xs:attribute name="Maximum" type="xs:string"/>
 	<xs:attribute name="Linienfarbe" type="xs:string"/>
+	<xs:attribute name="Linienstil" type="xs:string"/>
 	<xs:attribute name="Linienbreite" type="xs:string"/>
     <xs:attribute name="Balkenfarbe" type="xs:string"/>
 	<xs:attribute name="Segmentfarbe" type="xs:string"/>
@@ -4539,6 +4540,7 @@
     <xs:attribute name="Minimum" type="xs:string"/>
 	<xs:attribute name="Maximum" type="xs:string"/>
 	<xs:attribute name="LineColor" type="xs:string"/>
+	<xs:attribute name="LineStyle" type="xs:string"/>
 	<xs:attribute name="LineWidth" type="xs:string"/>
     <xs:attribute name="BarColor" type="xs:string"/>
 	<xs:attribute name="SegmentColor" type="xs:string"/>

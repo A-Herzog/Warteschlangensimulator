@@ -517,7 +517,7 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 				final String name=line.get(0);
 				line.remove(0);
 				final double[] data=line.stream().mapToDouble(s->NumberTools.getDouble(s)).toArray();
-				addSeries(name,(Color)element.getExpressionData().get(i-1)[3],data);
+				addSeries(name,element.getExpressionData().get(i-1).color,data);
 			}
 
 			smartZoom(1);

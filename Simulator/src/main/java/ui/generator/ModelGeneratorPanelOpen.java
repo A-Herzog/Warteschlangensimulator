@@ -38,7 +38,6 @@ import simulator.editmodel.EditModel;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSurface;
 import ui.modeleditor.coreelements.ModelElementPosition;
-import ui.modeleditor.elements.AnimationExpression;
 import ui.modeleditor.elements.AxisDrawer;
 import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
@@ -853,16 +852,16 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 			diagram.setYAxisLabels(AxisDrawer.Mode.FULL);
 			model.surface.add(diagram);
 
-			final List<Object[]> list=new ArrayList<>();
+			final List<ModelElementAnimationLineDiagram.Series> list=new ArrayList<>();
 			final int maxY=(utilization==2)?20:10;
 			if (sources.length==1) {
-				list.add(new Object[] {new AnimationExpression("WIP()"),Integer.valueOf(0),Integer.valueOf(maxY),Color.BLUE,Integer.valueOf(1)});
-				list.add(new Object[] {new AnimationExpression("WIP_avg()"),Integer.valueOf(0),Integer.valueOf(maxY),Color.BLUE,Integer.valueOf(3)});
+				list.add(new ModelElementAnimationLineDiagram.Series("WIP()",0,maxY,Color.BLUE,1,ModelElementAnimationLineDiagram.LineMode.LINE));
+				list.add(new ModelElementAnimationLineDiagram.Series("WIP_avg()",0,maxY,Color.BLUE,3,ModelElementAnimationLineDiagram.LineMode.LINE));
 			} else {
 				final Color[] colors=new Color[] {Color.BLUE,Color.RED,Color.GREEN,Color.GRAY,Color.ORANGE};
 				for (int i=0;i<sources.length;i++) {
-					list.add(new Object[] {new AnimationExpression("WIP("+sources[i].getId()+")"),Integer.valueOf(0),Integer.valueOf(maxY),colors[i],Integer.valueOf(1)});
-					list.add(new Object[] {new AnimationExpression("WIP_avg("+sources[i].getId()+")"),Integer.valueOf(0),Integer.valueOf(maxY),colors[i],Integer.valueOf(3)});
+					list.add(new ModelElementAnimationLineDiagram.Series("WIP("+sources[i].getId()+")",0,maxY,colors[i],1,ModelElementAnimationLineDiagram.LineMode.LINE));
+					list.add(new ModelElementAnimationLineDiagram.Series("WIP_avg("+sources[i].getId()+")",0,maxY,colors[i],3,ModelElementAnimationLineDiagram.LineMode.LINE));
 				}
 			}
 			diagram.setExpressionData(list);

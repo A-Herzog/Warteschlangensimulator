@@ -20,6 +20,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 import javax.swing.BoxLayout;
@@ -29,6 +30,7 @@ import javax.swing.JPanel;
 import language.Language;
 import systemtools.BaseDialog;
 import systemtools.LabeledColorChooserButton;
+import tools.IconListCellRenderer;
 import ui.modeleditor.ModelElementBaseDialog;
 
 /**
@@ -47,7 +49,7 @@ public class ExpressionTableModelDialog2 extends BaseDialog {
 	private static final long serialVersionUID = -6910980984317800965L;
 
 	/**
-	 * Auswahl der Darstellungsart: Linie oder Punkte
+	 * Auswahl der Darstellungsart
 	 */
 	private final JComboBox<?> mode;
 
@@ -82,10 +84,11 @@ public class ExpressionTableModelDialog2 extends BaseDialog {
 	 * @param owner	Übergeordnetes Element
 	 * @param color	Bisherige Farbe
 	 * @param width	Bisherige Linienbreite
+	 * @param lineMode Bisheriger Linienmodus
 	 * @param helpRunnable	Hilfe-Callback
 	 * @see ExpressionTableModelLine
 	 */
-	public ExpressionTableModelDialog2(final Component owner, final Color color, final int width, final Runnable helpRunnable) {
+	public ExpressionTableModelDialog2(final Component owner, final Color color, final int width, final ModelElementAnimationLineDiagram.LineMode lineMode, final Runnable helpRunnable) {
 		super(owner,Language.tr("Surface.ExpressionTableModel.Dialog"));
 
 		JPanel content=createGUI(helpRunnable);
@@ -98,11 +101,23 @@ public class ExpressionTableModelDialog2 extends BaseDialog {
 		JPanel line;
 
 		data=ModelElementBaseDialog.getComboBoxPanel(Language.tr("Surface.ExpressionTableModel.Dialog.Mode")+":",new String[]{
+				Language.tr("Surface.ExpressionTableModel.Dialog.Mode.Line"),
 				Language.tr("Surface.ExpressionTableModel.Dialog.Mode.Points"),
-				Language.tr("Surface.ExpressionTableModel.Dialog.Mode.Line")
+				Language.tr("Surface.ExpressionTableModel.Dialog.Mode.DashedShort"),
+				Language.tr("Surface.ExpressionTableModel.Dialog.Mode.DashedMedium"),
+				Language.tr("Surface.ExpressionTableModel.Dialog.Mode.DashedLong"),
+				Language.tr("Surface.ExpressionTableModel.Dialog.Mode.DashDotted"),
 		});
 		lineArea.add((JPanel)data[0]);
 		mode=(JComboBox<?>)data[1];
+		mode.setRenderer(new IconListCellRenderer(new BufferedImage[]{
+				ComplexLine.getExample(0),
+				ComplexLine.getExample(4),
+				ComplexLine.getExample(1),
+				ComplexLine.getExample(2),
+				ComplexLine.getExample(3),
+				ComplexLine.getExample(6)
+		}));
 
 		lineArea.add(modeSetupArea=new JPanel(modeSetupAreaLayout=new CardLayout()),BorderLayout.NORTH);
 
@@ -114,8 +129,19 @@ public class ExpressionTableModelDialog2 extends BaseDialog {
 		modeSetupArea.add((JPanel)data[0],"1");
 		lineWidth=(JComboBox<?>)data[1];
 
-		mode.addActionListener(e->modeSetupAreaLayout.show(modeSetupArea,""+mode.getSelectedIndex()));
-		mode.setSelectedIndex((width>0)?1:0);
+		mode.addActionListener(e->{
+			final String card=(mode.getSelectedIndex()==1)?"0":"1";
+			modeSetupAreaLayout.show(modeSetupArea,card);
+		});
+		switch (lineMode) {
+		case LINE: mode.setSelectedIndex(0); break;
+		case POINTS: mode.setSelectedIndex(1); break;
+		case DASHED_SHORT: mode.setSelectedIndex(2); break;
+		case DASHED_MEDIUM: mode.setSelectedIndex(3); break;
+		case DASHED_LONG: mode.setSelectedIndex(4); break;
+		case POINT_DASH: mode.setSelectedIndex(5); break;
+		default: mode.setSelectedIndex(0); break;
+		}
 
 		lineArea.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(colorChooser=new LabeledColorChooserButton(Language.tr("Surface.ExpressionTableModel.Dialog.LineColor")+":",color));
@@ -168,10 +194,23 @@ public class ExpressionTableModelDialog2 extends BaseDialog {
 	 */
 	public int getLineWidth() {
 		if (lineWidth==null) return 1;
+		return ((mode.getSelectedIndex()==1)?pointSize.getSelectedIndex():lineWidth.getSelectedIndex())+1;
+	}
+
+	/**
+	 * Liefert den gewählten Linienmodus (nur für Liniendiagramme)
+	 * @return	Neuer Linienmodus
+	 */
+	public ModelElementAnimationLineDiagram.LineMode getLineMode() {
+		if (mode==null) return ModelElementAnimationLineDiagram.LineMode.LINE;
 		switch (mode.getSelectedIndex()) {
-		case 0: return -(pointSize.getSelectedIndex()+1);
-		case 1: return lineWidth.getSelectedIndex()+1;
-		default: return 1;
+		case 0: return ModelElementAnimationLineDiagram.LineMode.LINE;
+		case 1: return ModelElementAnimationLineDiagram.LineMode.POINTS;
+		case 2: return ModelElementAnimationLineDiagram.LineMode.DASHED_SHORT;
+		case 3: return ModelElementAnimationLineDiagram.LineMode.DASHED_MEDIUM;
+		case 4: return ModelElementAnimationLineDiagram.LineMode.DASHED_LONG;
+		case 5: return ModelElementAnimationLineDiagram.LineMode.POINT_DASH;
+		default: return ModelElementAnimationLineDiagram.LineMode.LINE;
 		}
 	}
 }

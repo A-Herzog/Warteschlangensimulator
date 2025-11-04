@@ -2595,7 +2595,7 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @return	Diagramm-Animations-Element
 	 * @see #addVisualizationContextMenuItems(JMenu)
 	 */
-	public static ModelElementAnimationLineDiagram getVisualizationChart(List<Object[]> data) {
+	public static ModelElementAnimationLineDiagram getVisualizationChart(List<ModelElementAnimationLineDiagram.Series> data) {
 		final ModelElementAnimationLineDiagram chart=new ModelElementAnimationLineDiagram(null,null);
 		chart.setExpressionData(data);
 		chart.setTimeArea(3600);
@@ -2616,9 +2616,9 @@ public final class ModelSurfacePanel extends JPanel {
 	 * @see #addVisualizationContextMenuItems(JMenu)
 	 */
 	public static ModelElementAnimationLineDiagram getVisualizationChart(final String expressionCurrent, final String expressionAverage) {
-		final List<Object[]> data=new ArrayList<>();
-		data.add(new Object[]{new AnimationExpression(expressionCurrent),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(1)});
-		data.add(new Object[]{new AnimationExpression(expressionAverage),Double.valueOf(0),Double.valueOf(10),Color.RED,Integer.valueOf(3)});
+		final List<ModelElementAnimationLineDiagram.Series> data=new ArrayList<>();
+		data.add(new ModelElementAnimationLineDiagram.Series(expressionCurrent,0,10,Color.RED,1,ModelElementAnimationLineDiagram.LineMode.LINE));
+		data.add(new ModelElementAnimationLineDiagram.Series(expressionAverage,0,10,Color.RED,3,ModelElementAnimationLineDiagram.LineMode.LINE));
 		final ModelElementAnimationLineDiagram chart=getVisualizationChart(data);
 		return chart;
 	}

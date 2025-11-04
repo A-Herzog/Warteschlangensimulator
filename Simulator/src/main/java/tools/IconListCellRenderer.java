@@ -18,6 +18,7 @@ package tools;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.List;
@@ -109,6 +110,21 @@ public class IconListCellRenderer extends DefaultListCellRenderer {
 		} else {
 			this.icons=new ImageIcon[icons.length];
 			for (int i=0;i<icons.length;i++) this.icons[i]=icons[i].getIcon();
+		}
+	}
+
+	/**
+	 * Konstruktor der Klasse
+	 * @param icons	Icons zu den Einträgen
+	 */
+	public IconListCellRenderer(final BufferedImage[] icons) {
+		if (icons==null) {
+			this.icons=new ImageIcon[0];
+		} else {
+			this.icons=new ImageIcon[icons.length];
+			for (int i=0;i<icons.length;i++) {
+				this.icons[i]=new ImageIcon(icons[i]);
+			}
 		}
 	}
 

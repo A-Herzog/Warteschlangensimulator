@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Semaphore;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import javax.swing.JMenu;
@@ -58,6 +60,207 @@ import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
  * @author Alexander Herzog
  */
 public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagramBase {
+	/**
+	 * Darstellungsmodus für einen Graphen
+	 */
+	public enum LineMode {
+		/** Darstellung als durchgezogene Linie */
+		LINE(null,()->Language.tr("Surface.ExpressionTableModel.Dialog.Mode.Line"),test->Language.trAll("Surface.ExpressionTableModel.Dialog.Mode.Line",test)),
+		/** Darstellung als Punkte */
+		POINTS(null,()->Language.tr("Surface.ExpressionTableModel.Dialog.Mode.Points"),test->Language.trAll("Surface.ExpressionTableModel.Dialog.Mode.Points",test)),
+		/** Darstellung als gestrichelte Linie (kurze Strichlängen) */
+		DASHED_SHORT(new float[] {3},()->Language.tr("Surface.ExpressionTableModel.Dialog.Mode.DashedShort"),test->Language.trAll("Surface.ExpressionTableModel.Dialog.Mode.DashedShort",test)),
+		/** Darstellung als gestrichelte Linie (mittellange Strichlängen) */
+		DASHED_MEDIUM(new float[] {5},()->Language.tr("Surface.ExpressionTableModel.Dialog.Mode.DashedMedium"),test->Language.trAll("Surface.ExpressionTableModel.Dialog.Mode.DashedMedium",test)),
+		/** Darstellung als gestrichelte Linie (lange Strichlängen) */
+		DASHED_LONG(new float[] {7},()->Language.tr("Surface.ExpressionTableModel.Dialog.Mode.DashedLong"),test->Language.trAll("Surface.ExpressionTableModel.Dialog.Mode.DashedLong",test)),
+		/** /** Darstellung als strichpunktierte Linie */
+		POINT_DASH(new float[] {5,3,1,3},()->Language.tr("Surface.ExpressionTableModel.Dialog.Mode.DashDotted"),test->Language.trAll("Surface.ExpressionTableModel.Dialog.Mode.DashDotted",test));
+
+		/**
+		 * Stroke-Modus (kann <code>null</code> sein)
+		 */
+		public final float[] dash;
+
+		/**
+		 * Abfragefunktion für den XML-Bezeichner für den Linienstil in der aktuellen Sprache
+		 */
+		private final Supplier<String> xmlNameGetter;
+
+		/**
+		 * Prüffunktion für einen XML-Bezeichner für den Linienstil
+		 */
+		private final Predicate<String> xmlNameTester;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param dash	Stroke-Modus (kann <code>null</code> sein)
+		 * @param xmlNameGetter	Abfragefunktion für den XML-Bezeichner für den Linienstil in der aktuellen Sprache
+		 * @param xmlNameTester Prüffunktion für einen XML-Bezeichner für den Linienstil
+		 */
+		LineMode(final float[] dash, final Supplier<String> xmlNameGetter, final Predicate<String> xmlNameTester) {
+			this.dash=dash;
+			this.xmlNameGetter=xmlNameGetter;
+			this.xmlNameTester=xmlNameTester;
+		}
+
+		/**
+		 * Liefert den XML-Bezeichner für den Linienstil in der aktuellen Sprache.
+		 * @return	XML-Bezeichner für den Linienstil in der aktuellen Sprache
+		 */
+		public String getXMLName() {
+			return xmlNameGetter.get();
+		}
+
+		/**
+		 * Liefert den Linienstil, der zu dem angegebenen XML-Bezeichner passt.
+		 * @param xmlName	XML-Bezeichner
+		 * @return	Zugehöriger Linienstil (oder Fallback-Wert)
+		 */
+		public static LineMode getFromXMLName(final String xmlName) {
+			for (var lineMode: values()) if (lineMode.xmlNameTester.test(xmlName)) return lineMode;
+			return LineMode.LINE;
+		}
+	}
+
+	/**
+	 * Repräsentiert einen einzelnen anzuzeigenden Graphen
+	 */
+	public static class Series {
+		/** Rechenausdruck */
+		public AnimationExpression expression;
+		/** Minimalwert */
+		public double minValue;
+		/** Maximalwert */
+		public double maxValue;
+		/** Farbe */
+		public Color color;
+		/** Linienbreite */
+		public int width;
+		/** Linienmodus */
+		public LineMode lineMode;
+
+		/**
+		 * Konstruktor
+		 */
+		public Series() {
+			expression=new AnimationExpression("0");
+			minValue=0;
+			maxValue=10;
+			color=Color.BLUE;
+			width=1;
+			lineMode=LineMode.LINE;
+		}
+
+		/**
+		 * Konstruktor
+		 * @param expression	Rechenausdruck
+		 * @param minValue	Minimalwert
+		 * @param maxValue	Maximalwert
+		 * @param color	Farbe
+		 * @param width	Linienbreite
+		 * @param lineMode	Linienmodus
+		 */
+		public Series(final AnimationExpression expression, final double minValue, final double maxValue, final Color color, final int width, final LineMode lineMode) {
+			this.expression=expression;
+			this.minValue=minValue;
+			this.maxValue=maxValue;
+			this.color=color;
+			this.width=width;
+			this.lineMode=lineMode;
+		}
+
+		/**
+		 * Konstruktor
+		 * @param expression	Rechenausdruck
+		 * @param minValue	Minimalwert
+		 * @param maxValue	Maximalwert
+		 * @param color	Farbe
+		 * @param width	Linienbreite
+		 * @param lineMode	Linienmodus
+		 */
+		public Series(final String expression, final double minValue, final double maxValue, final Color color, final int width, final LineMode lineMode) {
+			this(new AnimationExpression(expression),minValue,maxValue,color,width,lineMode);
+		}
+
+		/**
+		 * Copy-Konstruktor
+		 * @param copySource	Zu kopierendes Ausgangsobjekt
+		 */
+		public Series(final Series copySource) {
+			expression=new AnimationExpression(copySource.expression);
+			minValue=copySource.minValue;
+			maxValue=copySource.maxValue;
+			color=copySource.color;
+			width=copySource.width;
+			lineMode=copySource.lineMode;
+		}
+
+		/**
+		 * Vergleicht diesen Graphendatensatz mit einem anderen Graphendatensatz
+		 * @param otherSeries	Zum Vergleich heranzuziehender Graphendatensatz
+		 * @return Liefert <code>true</code>, wenn die beiden Datensätze inhaltlich identisch sind
+		 */
+		public boolean equalsSeries(final Series otherSeries) {
+			if (otherSeries==null) return false;
+			if (!expression.equalsAnimationExpression(otherSeries.expression)) return false;
+			if (minValue!=otherSeries.minValue) return false;
+			if (maxValue!=otherSeries.maxValue) return false;
+			if (color!=otherSeries.color) return false;
+			if (width!=otherSeries.width) return false;
+			if (lineMode!=otherSeries.lineMode) return false;
+			return true;
+		}
+
+		/**
+		 * Speichert die Daten in einem xml-Element.
+		 * @param node	xml-Element in das die Daten geschrieben werden sollen.
+		 */
+		public void save(final Element node) {
+			expression.storeToXML(node);
+			node.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.Set.Minimum"),NumberTools.formatSystemNumber(minValue));
+			node.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.Set.Maximum"),NumberTools.formatSystemNumber(maxValue));
+			node.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.Set.LineColor"),EditModel.saveColor(color));
+			node.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.Set.LineWidth"),""+width);
+			node.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.Set.LineStyle"),lineMode.getXMLName());
+		}
+
+		/**
+		 * Lädt die Daten aus einem xml-Element.
+		 * @param node	xml-Element, aus dem das Datum geladen werden soll
+		 * @param name	Name des xml-Elements
+		 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
+		 */
+		public String load(final Element node, final String name) {
+			Double D;
+			D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(Language.trAllAttribute("Surface.AnimationDiagram.XML.Set.Minimum",node)));
+			if (D==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationDiagram.XML.Set.Minimum"),name,node.getParentNode().getNodeName());
+			minValue=D;
+			D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(Language.trAllAttribute("Surface.AnimationDiagram.XML.Set.Maximum",node)));
+			if (D==null || D<=minValue) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationDiagram.XML.Set.Maximum"),name,node.getParentNode().getNodeName());
+			maxValue=D;
+
+			color=EditModel.loadColor(Language.trAllAttribute("Surface.AnimationDiagram.XML.Set.LineColor",node));
+			if (color==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationDiagram.XML.Set.LineColor"),name,node.getParentNode().getNodeName());
+
+			Integer I;
+			I=NumberTools.getInteger(Language.trAllAttribute("Surface.AnimationDiagram.XML.Set.LineWidth",node));
+			if (I==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationDiagram.XML.Set.LineWidth"),name,node.getParentNode().getNodeName());
+			width=I;
+			if (width<0) {
+				lineMode=LineMode.POINTS;
+				width=Math.abs(width);
+			}
+
+			lineMode=LineMode.getFromXMLName(Language.trAllAttribute("Surface.AnimationDiagram.XML.Set.LineStyle",node));
+
+			expression=new AnimationExpression();
+			expression.loadFromXML(node);
+
+			return null;
+		}
+	}
+
 	/**
 	 * Sichert ab, dass Simulations- und Zeichenthread
 	 * nicht gleichzeitig auf {@link #recordedDrawValues}
@@ -96,39 +299,9 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	private long scaleToSimTime;
 
 	/**
-	 * Rechenausdrücke
-	 * @see #getExpressionData()
-	 * @see #setExpressionData(List)
+	 * Darzustellende Graphen
 	 */
-	private final List<AnimationExpression> expression=new ArrayList<>();
-
-	/**
-	 * Minimalwerte
-	 * @see #getExpressionData()
-	 * @see #setExpressionData(List)
-	 */
-	private final List<Double> minValue=new ArrayList<>();
-
-	/**
-	 * Maximalwerte
-	 * @see #getExpressionData()
-	 * @see #setExpressionData(List)
-	 */
-	private final List<Double> maxValue=new ArrayList<>();
-
-	/**
-	 * Linienfarben
-	 * @see #getExpressionData()
-	 * @see #setExpressionData(List)
-	 */
-	private final List<Color> expressionColor=new ArrayList<>();
-
-	/**
-	 * Linienbreiten
-	 * @see #getExpressionData()
-	 * @see #setExpressionData(List)
-	 */
-	private final List<Integer> expressionWidth=new ArrayList<>();
+	private final List<Series> series=new ArrayList<>();
 
 	/**
 	 * Im Diagramm darzustellender Zeitbereich (in Sekunden)
@@ -185,54 +358,20 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	}
 
 	/**
-	 * Liefert eine Liste der vorhandenen Diagramm-Einträge.<br>
-	 * Jeder Diagramm-Eintrag besteht aus 5 Objekten in einem Array: Ausdruck (AnimationExpression), Minimalwert (Double), Maximalwert (Double), Linienfarbe (Color), Linienbreite (Integer).
+	 * Liefert eine Liste der vorhandenen Diagramm-Einträge.
 	 * @return	Liste der Diagramm-Einträge
 	 */
-	public List<Object[]> getExpressionData() {
-		final List<Object[]> data=new ArrayList<>();
-		for (int i=0;i<expression.size();i++) {
-			if (i>=minValue.size()) break;
-			if (i>=maxValue.size()) break;
-			if (i>=expressionColor.size()) break;
-			if (i>=expressionWidth.size()) break;
-
-			Object[] row=new Object[5];
-			row[0]=expression.get(i);
-			row[1]=minValue.get(i);
-			row[2]=maxValue.get(i);
-			row[3]=expressionColor.get(i);
-			row[4]=expressionWidth.get(i);
-
-			data.add(row);
-		}
-		return data;
+	public List<Series> getExpressionData() {
+		return series.stream().map(graph->new Series(graph)).collect(Collectors.toList());
 	}
 
 	/**
-	 * Ersetzt die bisherigen Diagramm-Einträge durch eine neue Liste.<br>
-	 * Jeder Diagramm-Eintrag besteht aus 5 Objekten in einem Array: Ausdruck (AnimationExpression), Minimalwert (Double), Maximalwert (Double), Linienfarbe (Color), Linienbreite (Integer).
+	 * Ersetzt die bisherigen Diagramm-Einträge durch eine neue Liste.
 	 * @param data	Liste der neuen Diagramm-Einträge
 	 */
-	public void setExpressionData(final List<Object[]> data) {
-		expression.clear();
-		minValue.clear();
-		maxValue.clear();
-		expressionColor.clear();
-		expressionWidth.clear();
-
-		for (Object[] row: data) if (row.length==5) {
-			if (!(row[0] instanceof AnimationExpression)) continue;
-			if (!(row[1] instanceof Double) && !(row[1] instanceof Integer)) continue;
-			if (!(row[2] instanceof Double) && !(row[2] instanceof Integer)) continue;
-			if (!(row[3] instanceof Color)) continue;
-			if (!(row[4] instanceof Integer)) continue;
-			expression.add((AnimationExpression)row[0]);
-			if (row[1] instanceof Double) minValue.add((Double)row[1]); else minValue.add(Double.valueOf(((Integer)row[1]).intValue()));
-			if (row[2] instanceof Double) maxValue.add((Double)row[2]); else maxValue.add(Double.valueOf(((Integer)row[2]).intValue()));
-			expressionColor.add((Color)row[3]);
-			expressionWidth.add((Integer)row[4]);
-		}
+	public void setExpressionData(final List<Series> data) {
+		series.clear();
+		data.stream().map(graph->new Series(graph)).forEach(series::add);
 	}
 
 	/**
@@ -317,38 +456,8 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		if (!(element instanceof ModelElementAnimationLineDiagram)) return false;
 		final ModelElementAnimationLineDiagram other=(ModelElementAnimationLineDiagram)element;
 
-		if (expression.size()!=other.expression.size()) return false;
-		for (int i=0;i<expression.size();i++) if (!expression.get(i).equalsAnimationExpression(other.expression.get(i))) return false;
-		if (minValue.size()!=other.minValue.size()) return false;
-		for (int i=0;i<minValue.size();i++) {
-			Double D1=minValue.get(i);
-			Double D2=other.minValue.get(i);
-			if (D1==null || D2==null) return false;
-			double d1=D1;
-			double d2=D2;
-			if (d1!=d2) return false;
-		}
-		if (maxValue.size()!=other.maxValue.size()) return false;
-		for (int i=0;i<maxValue.size();i++) {
-			Double D1=maxValue.get(i);
-			Double D2=other.maxValue.get(i);
-			if (D1==null || D2==null) return false;
-			double d1=D1;
-			double d2=D2;
-			if (d1!=d2) return false;
-		}
-		if (expressionColor.size()!=other.expressionColor.size()) return false;
-		for (int i=0;i<expressionColor.size();i++) if (!expressionColor.get(i).equals(other.expressionColor.get(i))) return false;
-
-		if (expressionWidth.size()!=other.expressionWidth.size()) return false;
-		for (int i=0;i<expressionWidth.size();i++) {
-			Integer I1=expressionWidth.get(i);
-			Integer I2=other.expressionWidth.get(i);
-			if (I1==null || I2==null) return false;
-			int i1=I1;
-			int i2=I2;
-			if (i1!=i2) return false;
-		}
+		if (series.size()!=other.series.size()) return false;
+		for (int i=0;i<series.size();i++) if (!series.get(i).equalsSeries(other.series.get(i))) return false;
 
 		if (timeArea!=other.timeArea) return false;
 		if (xAxisLabels!=other.xAxisLabels) return false;
@@ -368,16 +477,8 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		if (element instanceof ModelElementAnimationLineDiagram) {
 			final ModelElementAnimationLineDiagram source=(ModelElementAnimationLineDiagram)element;
 
-			expression.clear();
-			expression.addAll(source.expression.stream().map(ex->new AnimationExpression(ex)).collect(Collectors.toList()));
-			minValue.clear();
-			minValue.addAll(source.minValue);
-			maxValue.clear();
-			maxValue.addAll(source.maxValue);
-			expressionColor.clear();
-			expressionColor.addAll(source.expressionColor);
-			expressionWidth.clear();
-			expressionWidth.addAll(source.expressionWidth);
+			series.clear();
+			source.series.stream().map(graph->new Series(graph)).forEach(series::add);
 
 			timeArea=source.timeArea;
 			xAxisLabels=source.xAxisLabels;
@@ -471,34 +572,44 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	 * @param zoom	Zoomfaktor
 	 */
 	private void drawDummyDiagramLines(final Graphics2D g, final Rectangle rectangle, final double zoom) {
-		if (expressionColor.size()==0) {
+		if (series.size()==0) {
 			g.setColor(Color.BLUE);
 			g.setStroke(new BasicStroke(Math.max(1,Math.round(2*zoom))));
 			drawDummyLine(g,rectangle,0);
 		} else {
-			for (int i=0;i<Math.min(3,Math.min(expressionColor.size(),expressionWidth.size()));i++) {
-				g.setColor(expressionColor.get(i));
-				final int width=expressionWidth.get(i);
-				if (width>=0) {
-					g.setStroke(new BasicStroke(Math.max(1,Math.round(width*zoom))));
-					drawDummyLine(g,rectangle,i);
+			for (int i=0;i<Math.min(3,series.size());i++) {
+				final Series s=series.get(i);
+				g.setColor(s.color);
+				if (s.lineMode==LineMode.POINTS) {
+					drawDummyPoints(g,rectangle,(int)Math.max(1,Math.round(s.width*zoom)),i);
 				} else {
-					drawDummyPoints(g,rectangle,(int)Math.max(1,Math.round(-width*zoom)),i);
+					final int width=s.width;
+					final float strokeWide=Math.max(1,Math.round(width*zoom));
+					final float[] baseDash=s.lineMode.dash;
+					if (baseDash==null) {
+						g.setStroke(new BasicStroke(strokeWide));
+					} else {
+						final float[] dash=new float[baseDash.length];
+						final float scale=width*(float)zoom;
+						for (int j=0;j<baseDash.length;j++) dash[j]=baseDash[j]*scale;
+						g.setStroke(new BasicStroke(strokeWide,BasicStroke.CAP_BUTT,BasicStroke.JOIN_MITER,10.0f,dash,0.0f));
+					}
+					drawDummyLine(g,rectangle,i);
 				}
 			}
 		}
 
 		setTimeXAxis(-timeArea,xAxisLabels,null);
-		boolean drawYAxis=minValue.size()>0;
+		boolean drawYAxis=series.size()>0;
 		if (drawYAxis) {
 			double min=0;
 			double max=0;
-			Double minD=minValue.get(0);
-			Double maxD=maxValue.get(0);
+			Double minD=series.get(0).minValue;
+			Double maxD=series.get(0).maxValue;
 			if (minD!=null && maxD!=null) {min=minD; max=maxD;}
-			for (int i=1;i<minValue.size();i++) {
-				minD=minValue.get(i);
-				maxD=maxValue.get(i);
+			for (int i=1;i<series.size();i++) {
+				minD=series.get(i).minValue;
+				maxD=series.get(i).maxValue;
 				if (minD==null || minD!=min || maxD==null || maxD!=max) {drawYAxis=false; break;}
 			}
 			if (drawYAxis) setYAxis(min,max,yAxisLabels,axisLabelText);
@@ -559,6 +670,18 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		for (int i=0;i<drawIntegersMinus.length;i++) drawIntegersMinus[i]=-i;
 	}
 
+	/**
+	 * Cache für das PolyLine-x-Koordinaten-Array für gestrichelte Linien
+	 * @see #drawDiagramData(Graphics2D, Rectangle, double)
+	 */
+	private int[] xPointsCache=null;
+
+	/**
+	 * Cache für das PolyLine-y-Koordinaten-Array für gestrichelte Linien
+	 * @see #drawDiagramData(Graphics2D, Rectangle, double)
+	 */
+	private int[] yPointsCache=null;
+
 	@Override
 	protected void drawDiagramData(final Graphics2D g, final Rectangle rectangle, final double zoom) {
 		if (recordedValues==null) {
@@ -576,17 +699,27 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 			/* Beim ersten Aufruf: Stroke und Color vorbereiten */
 			if (drawCacheStroke==null || zoom!=lastZoom) {
 				lastZoom=zoom;
-				drawCacheStroke=new BasicStroke[expression.size()];
+				drawCacheStroke=new BasicStroke[series.size()];
 				for (int i=0;i<drawCacheStroke.length;i++) {
-					final int width=expressionWidth.get(i);
-					if (width>=0) {
-						final BasicStroke stroke=new BasicStroke(Math.max(1,Math.round(width*zoom)));
+					final Series s=series.get(i);
+					final int width=s.width;
+					if (s.lineMode!=LineMode.POINTS) {
+						final float strokeWide=Math.max(1,Math.round(width*zoom));
+						final float[] baseDash=s.lineMode.dash;
+						final BasicStroke stroke;
+						if (baseDash==null) {
+							stroke=new BasicStroke(strokeWide);
+						} else {
+							final float[] dash=new float[baseDash.length];
+							for (int j=0;j<baseDash.length;j++) dash[j]=baseDash[j]*strokeWide;
+							stroke=new BasicStroke(strokeWide,BasicStroke.CAP_BUTT,BasicStroke.JOIN_MITER,10.0f,dash,0.0f);
+						}
 						if (i==0 || !stroke.equals(drawCacheStroke[i-1])) drawCacheStroke[i]=stroke; else drawCacheStroke[i]=null;
 					}
 				}
-				drawCacheColor=new Color[expression.size()];
+				drawCacheColor=new Color[series.size()];
 				for (int i=0;i<drawCacheColor.length;i++) {
-					final Color color=expressionColor.get(i);
+					final Color color=series.get(i).color;
 					if (i==0 || !color.equals(drawCacheColor[i-1])) drawCacheColor[i]=color; else drawCacheColor[i]=null;
 				}
 			}
@@ -603,9 +736,10 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 			for (int i=0;i<valuesLength;i++) drawCacheXValues[i]=rectangle.x+(int)FastMath.round((recordedTimeStamps[i]-minTime)*scaleX);
 
 			/* Für alle Datenreihen... */
-			for (int i=0;i<expression.size();i++) {
-				final double min=minValue.get(i);
-				final double max=maxValue.get(i);
+			for (int i=0;i<series.size();i++) {
+				final Series s=series.get(i);
+				final double min=s.minValue;
+				final double max=s.maxValue;
 				final double scaleY=(rectangle.height-2)/(max-min);
 
 				/* y-Positionen bestimmen */
@@ -631,17 +765,22 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 				if (drawCacheStroke[i]!=null) g.setStroke(drawCacheStroke[i]);
 
 				/* Zeichnen */
-				if (valuesLength>0) {
-					final int width=expressionWidth.get(i);
-					final int radius=(int)Math.round(-width*zoom);
-					int lastIndex=0;
+				if (valuesLength==0) continue;
+				final LineMode mode=s.lineMode;
+
+				if (mode.dash==null) {
+					/* Durchgezogene Linie oder Punkte -> einfach */
+					final int width=s.width;
+					final int radius=(int)Math.round(width*zoom);
+					int x2=drawCacheXValues[0];
+					int y2=drawCacheYValues[0];
 					for (int j=1;j<valuesLength;j++) {
-						final int x1=drawCacheXValues[lastIndex];
-						final int x2=drawCacheXValues[j];
-						final int y1=drawCacheYValues[lastIndex];
-						final int y2=drawCacheYValues[j];
+						final int x1=x2;
+						final int y1=y2;
+						x2=drawCacheXValues[j];
+						y2=drawCacheYValues[j];
 						if (x1==x2 && y1==y2) continue;
-						if (width>=0) {
+						if (mode!=LineMode.POINTS) {
 							/* Linie */
 							if (x1==x2) {
 								/* Nur y-Änderung */
@@ -650,13 +789,46 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 								/* x(alt)->x(neu) dann y(alt)->y(neu) */
 								g.drawLine(x1,y1,x2,y1);
 								g.drawLine(x2,y1,x2,y2);
-
 							}
 						} else {
 							g.fillOval(x2-radius,y2-radius,2*radius,2*radius);
 						}
-						lastIndex=j;
 					}
+				} else {
+					/* Gestrichelte Linie -> als PolyLine */
+					final int maxPointsNeeded=2*drawCacheXValues.length+1;
+					if (xPointsCache==null || xPointsCache.length<maxPointsNeeded) {
+						xPointsCache=new int[maxPointsNeeded];
+						yPointsCache=new int[maxPointsNeeded];
+					}
+					xPointsCache[0]=drawCacheXValues[0];
+					yPointsCache[0]=drawCacheYValues[0];
+					int pointsUsed=1;
+
+					int x2=drawCacheXValues[0];
+					int y2=drawCacheYValues[0];
+					for (int j=1;j<valuesLength;j++) {
+						final int x1=x2;
+						final int y1=y2;
+						x2=drawCacheXValues[j];
+						y2=drawCacheYValues[j];
+						if (x1==x2 && y1==y2) continue;
+						if (x1==x2) {
+							/* Nur y-Änderung */
+							xPointsCache[pointsUsed]=x2;
+							yPointsCache[pointsUsed]=y2;
+							pointsUsed++;
+						} else {
+							/* x(alt)->x(neu) dann y(alt)->y(neu) */
+							xPointsCache[pointsUsed]=x2;
+							yPointsCache[pointsUsed]=y1;
+							pointsUsed++;
+							xPointsCache[pointsUsed]=x2;
+							yPointsCache[pointsUsed]=y2;
+							pointsUsed++;
+						}
+					}
+					g.drawPolyline(xPointsCache,yPointsCache,pointsUsed);
 				}
 			}
 		} finally {
@@ -715,14 +887,10 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 
 		Element sub;
 
-		for (int i=0;i<expression.size();i++) {
+		for (int i=0;i<series.size();i++) {
 			sub=doc.createElement(Language.trPrimary("Surface.AnimationDiagram.XML.Set"));
 			node.appendChild(sub);
-			expression.get(i).storeToXML(sub);
-			sub.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.Set.Minimum"),NumberTools.formatSystemNumber(minValue.get(i)));
-			sub.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.Set.Maximum"),NumberTools.formatSystemNumber(maxValue.get(i)));
-			sub.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.Set.LineColor"),EditModel.saveColor(expressionColor.get(i)));
-			sub.setAttribute(Language.trPrimary("Surface.AnimationDiagram.XML.Set.LineWidth"),""+expressionWidth.get(i));
+			series.get(i).save(sub);
 		}
 
 		sub=doc.createElement(Language.trPrimary("Surface.AnimationDiagram.XML.Range"));
@@ -752,28 +920,10 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		if (error!=null) return error;
 
 		if (Language.trAll("Surface.AnimationDiagram.XML.Set",name)) {
-			Double D;
-			D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(Language.trAllAttribute("Surface.AnimationDiagram.XML.Set.Minimum",node)));
-			if (D==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationDiagram.XML.Set.Minimum"),name,node.getParentNode().getNodeName());
-			double minValue=D;
-			D=NumberTools.getDouble(NumberTools.systemNumberToLocalNumber(Language.trAllAttribute("Surface.AnimationDiagram.XML.Set.Maximum",node)));
-			if (D==null || D<=minValue) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationDiagram.XML.Set.Maximum"),name,node.getParentNode().getNodeName());
-			this.minValue.add(minValue);
-			maxValue.add(D);
-
-			final Color color=EditModel.loadColor(Language.trAllAttribute("Surface.AnimationDiagram.XML.Set.LineColor",node));
-			if (color==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationDiagram.XML.Set.LineColor"),name,node.getParentNode().getNodeName());
-			expressionColor.add(color);
-
-			Integer I;
-			I=NumberTools.getInteger(Language.trAllAttribute("Surface.AnimationDiagram.XML.Set.LineWidth",node));
-			if (I==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.AnimationDiagram.XML.Set.LineWidth"),name,node.getParentNode().getNodeName());
-			expressionWidth.add(I);
-
-			final AnimationExpression ex=new AnimationExpression();
-			ex.loadFromXML(node);
-			expression.add(ex);
-
+			final Series s=new Series();
+			error=s.load(node,name);
+			if (error!=null) return error;
+			series.add(s);
 			return null;
 		}
 
@@ -830,8 +980,8 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		final int cacheDoubleSize=cacheDouble.size();
 		final int cacheIntegerSize=cacheInteger.size();
 
-		final double[] data=(cacheDoubleSize==0)?new double[expression.size()]:cacheDouble.remove(cacheDoubleSize-1);
-		for (int i=0;i<data.length;i++) data[i]=expression.get(i).getAnimationValue(this,simData);
+		final double[] data=(cacheDoubleSize==0)?new double[series.size()]:cacheDouble.remove(cacheDoubleSize-1);
+		for (int i=0;i<data.length;i++) data[i]=series.get(i).expression.getAnimationValue(this,simData);
 
 		final Integer[] drawData;
 		if (cacheIntegerSize==0) {
@@ -894,15 +1044,13 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 		cacheDouble.clear();
 		cacheInteger.clear();
 
-		for (int i=0;i<expression.size();i++) {
-			expression.get(i).initAnimation(this,simData);
-		}
+		for (Series s: series) s.expression.initAnimation(this,simData);
 
-		if (expression.size()>0) {
+		if (series.size()>0) {
 			boolean drawYAxis=true;
-			double drawYAxisMin=minValue.get(0);
-			double drawYAxisMax=maxValue.get(0);
-			for (int i=1;i<minValue.size();i++) if (drawYAxisMin!=minValue.get(i) || drawYAxisMax!=maxValue.get(i)) {
+			double drawYAxisMin=series.get(0).minValue;
+			double drawYAxisMax=series.get(0).maxValue;
+			for (int i=1;i<series.size();i++) if (drawYAxisMin!=series.get(i).minValue || drawYAxisMax!=series.get(i).maxValue) {
 				drawYAxis=false;
 				break;
 			}
@@ -1002,16 +1150,16 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	private Table getAnimationRunTimeTableData(final SimulationData simData) {
 		final Table table=new Table();
 
-		final int colCount=expression.size()+1;
+		final int colCount=series.size()+1;
 		List<String> line=new ArrayList<>(colCount);
 		line.add(Language.tr("Statistic.Viewer.Chart.Time"));
-		for (int i=0;i<expression.size();i++) {
+		for (int i=0;i<series.size();i++) {
 			final String info;
-			switch (expression.get(i).getMode()) {
-			case Expression: info=expression.get(i).getExpression(); break;
+			switch (series.get(i).expression.getMode()) {
+			case Expression: info=series.get(i).expression.getExpression(); break;
 			case Java: info=Language.tr("ModelDescription.Expression.Java"); break;
 			case Javascript: info=Language.tr("ModelDescription.Expression.Javascript"); break;
-			default: info=expression.get(i).getExpression(); break;
+			default: info=series.get(i).expression.getExpression(); break;
 			}
 			line.add(info);
 		}
@@ -1078,15 +1226,15 @@ public class ModelElementAnimationLineDiagram extends ModelElementAnimationDiagr
 	public void search(final FullTextSearch searcher) {
 		super.search(searcher);
 
-		for (int i=0;i<expression.size();i++) {
+		for (int i=0;i<series.size();i++) {
 			final int index=i;
-			final AnimationExpression ex=expression.get(i);
+			final AnimationExpression ex=series.get(i).expression;
 			if (ex.getMode()==AnimationExpression.ExpressionMode.Expression) {
 				searcher.testString(this,Language.tr("Editor.DialogBase.Search.Expression"),ex.getExpression(),newExpression->ex.setExpression(newExpression));
 			}
-			searcher.testDouble(this,String.format(Language.tr("Editor.DialogBase.Search.MinValueForExpression"),expression.get(index)),minValue.get(index),newMinValue->minValue.set(index,newMinValue));
-			searcher.testDouble(this,String.format(Language.tr("Editor.DialogBase.Search.MaxValueForExpression"),expression.get(index)),maxValue.get(index),newMaxValue->maxValue.set(index,newMaxValue));
-			searcher.testInteger(this,String.format(Language.tr("Editor.DialogBase.Search.LineWidthForExpression"),expression.get(index)),expressionWidth.get(index),newLineWidth->{if (newLineWidth>0) expressionWidth.set(index,newLineWidth);});
+			searcher.testDouble(this,String.format(Language.tr("Editor.DialogBase.Search.MinValueForExpression"),series.get(index).expression),series.get(index).minValue,newMinValue->series.get(index).minValue=newMinValue);
+			searcher.testDouble(this,String.format(Language.tr("Editor.DialogBase.Search.MaxValueForExpression"),series.get(index).expression),series.get(index).maxValue,newMaxValue->series.get(index).maxValue=newMaxValue);
+			searcher.testInteger(this,String.format(Language.tr("Editor.DialogBase.Search.LineWidthForExpression"),series.get(index).expression),series.get(index).width,newLineWidth->{if (newLineWidth>0) series.get(index).width=newLineWidth;});
 		}
 	}
 }
