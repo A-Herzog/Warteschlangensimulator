@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-15 08:43+0200\n"
+"POT-Creation-Date: 2025-10-24 09:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4959,6 +4959,12 @@ msgstr "Das Modell ist fehlerfrei und kann simuliert werden."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode"
 msgstr "Zufallszahlengenerator"
+
+msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.NotGood"
+msgstr "Ungeeigneter Zufallszahlengenerator"
+
+msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.NotGoodInfo"
+msgstr "Der gewählte Zufallszahlengenerator ist aufgrund von Abhängigkeiten zwischen den erzeugten Pseudo-Zufallszahlen für die ereignisorientierte Simulation nicht gut geeignet."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.ResetToDefault"
 msgstr "Auf Vorgabewert zurücksetzen"

@@ -18,6 +18,7 @@ package ui.modelproperties;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -36,6 +37,7 @@ import mathtools.distribution.tools.ThreadLocalRandomGenerator;
 import simulator.StartAnySimulator;
 import simulator.editmodel.EditModel;
 import systemtools.MsgBox;
+import tools.IconListCellRenderer;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
 
@@ -65,6 +67,11 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 	 * Schaltfläche zum Zurücksetzen des Modus für Zufallszahlengenerator
 	 */
 	private JButton randomModeResetButton;
+
+	/**
+	 * Schaltfläche für Hinweis auf unpassenden Generator
+	 */
+	private JButton randomModeInfoButton;
 
 	/**
 	 * Eingabefeld für die Anzahl an Zeitschritten pro Sekunde
@@ -143,6 +150,10 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 		sub.add(new JLabel("<html><b>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.RandomMode")+":</b></html>"));
 		sub.add(Box.createHorizontalStrut(1));
 		sub.add(randomMode=new JComboBox<>(RandomGeneratorMode.getAllNames()));
+		randomMode.setRenderer(new IconListCellRenderer(Stream.of(RandomGeneratorMode.values()).map(mode->{
+			if (mode==RandomGeneratorMode.defaultRandomGeneratorMode) return Images.GENERAL_ON;
+			return mode.isGoodForSimulation?Images.MSGBOX_YES:Images.GENERAL_OFF;
+		}).toArray(Images[]::new)));
 		randomMode.setEnabled(!readOnly);
 		randomMode.setSelectedIndex(RandomGeneratorMode.getIndex(model.randomMode));
 		randomMode.addActionListener(e->checkRandomMode());
@@ -154,6 +165,14 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 			checkRandomMode();
 		});
 		sub.add(randomModeResetButton);
+
+		randomModeInfoButton=new JButton(Images.GENERAL_WARNING.getIcon());
+		randomModeInfoButton.setToolTipText(Language.tr("Editor.Dialog.Tab.SimulationSystem.RandomMode.NotGood"));
+		randomModeInfoButton.addActionListener(e->{
+			MsgBox.info(dialog,Language.tr("Editor.Dialog.Tab.SimulationSystem.RandomMode.NotGood"),Language.tr("Editor.Dialog.Tab.SimulationSystem.RandomMode.NotGoodInfo"));
+		});
+		randomModeInfoButton.setVisible(false);
+		sub.add(randomModeInfoButton);
 
 		checkRandomMode();
 
@@ -230,7 +249,10 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 	 * (und aktiviert oder deaktiviert die Reset-Schaltfläche).
 	 */
 	private void checkRandomMode() {
-		randomModeResetButton.setEnabled(randomMode.getSelectedIndex()!=0);
+		final int index=randomMode.getSelectedIndex();
+		randomModeResetButton.setEnabled(index!=0);
+		final boolean good=RandomGeneratorMode.getAllIsGoodForSimulation()[index];
+		randomModeInfoButton.setVisible(!good);
 	}
 
 	/**

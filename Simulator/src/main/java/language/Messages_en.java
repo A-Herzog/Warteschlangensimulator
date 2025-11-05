@@ -1490,8 +1490,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[3753] = "The specified number of arrivals \"%s\" is invalid. A positive integer number has to be specified.";
     t[3756] = "Surface.Process.Dialog.DistributionOfWaitingTimeTolerances";
     t[3757] = "Waiting time tolerances";
-    t[3772] = "UserDefinedFunctions.Edit.ModeExpression";
-    t[3773] = "Calculation expression";
+    t[3772] = "Editor.Dialog.Tab.SimulationSystem.RandomMode.NotGood";
+    t[3773] = "Unsuitable random number generator";
     t[3776] = "Surface.Sub.XML.ConnectionCount.In";
     t[3777] = "in";
     t[3782] = "Surface.PopupMenu.SimulationStatisticsData.Tab.AllClients";
@@ -17514,8 +17514,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45719] = "Delayed resource release for client type \"%s\"";
     t[45724] = "Statistics.XML.Minimum.Error";
     t[45725] = "The \"minimum\" attribute in the \"%s\" element has to be a number but is \"%s\".";
-    t[45738] = "FindElementDirect.ElementsFound";
-    t[45739] = "%d elements were found matching the search string.";
+    t[45738] = "Editor.Dialog.Tab.SimulationSystem.RandomMode.NotGoodInfo";
+    t[45739] = "The selected random number generator is not well suited for event-driven simulation due to dependencies between the generated pseudo-random numbers.";
     t[45740] = "Surface.InputDB.Dialog.Table.ErrorTitle";
     t[45741] = "No table selected";
     t[45746] = "Statistic.FastAccess.Template.Resource.Set.Tooltip";
@@ -18348,6 +18348,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48037] = "Histogram assistant";
     t[48058] = "SimulationServer.Setup.TLSInfo.GenerateKeyStore.Success";
     t[48059] = "A self-signed certificate has been stored in the specified key store file.\nThe web server can now establish encrypted connections on this basis.\nHowever, because it is a self-signed certificate, browsers will classify the connection as insecure.";
+    t[48062] = "UserDefinedFunctions.Edit.ModeExpression";
+    t[48063] = "Calculation expression";
     t[48076] = "Statistics.XML.Disribution.ElementError";
     t[48077] = "The distribution specified in element \"%s\" is invalid.";
     t[48092] = "Statistic.FastAccess.FilterList.NewLine";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52771] = "Arrival process";
     t[52774] = "Surface.Action.XML.Record.Condition.ThresholdValue";
     t[52775] = "Value";
-    t[52784] = "Main.Menu.View.CenterModel.Mnemonic";
-    t[52785] = " ";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[52784] = "Main.Menu.View.CenterModel.Mnemonic";
+    t[52785] = " ";
     t[52790] = "Simulation.Java.Error.Title";
     t[52791] = "Error in Java code";
     t[52792] = "DistributionFitter.PValue";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[58035] = "The Java classes specified here will be made available via import commands in user-defined Java code.";
     t[58042] = "Surface.Process.XML.StationCosts";
     t[58043] = "ModelElementStationCosts";
-    t[58046] = "SettingsDialog.Default.Hint";
-    t[58047] = "Resets to the default values for the settings on this dialog page.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[58046] = "SettingsDialog.Default.Hint";
+    t[58047] = "Resets to the default values for the settings on this dialog page.";
     t[58050] = "Surface.CounterBatch.SimInfo.BatchGeneral";
     t[58051] = "All batches";
     t[58054] = "ModelDescription.Barrier.StoreSignals.Store";
@@ -22102,6 +22104,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[58093] = "ClientCount";
     t[58096] = "LoadCalculator.AverageWaitingTimeTolerance";
     t[58097] = "Average waiting time tolerance";
+    t[58098] = "FindElementDirect.ElementsFound";
+    t[58099] = "%d elements were found matching the search string.";
     t[58110] = "FastAccessBuilder.Add.Javascript";
     t[58111] = "Add to fast access - Javascript";
     t[58124] = "Surface.CounterBatch.Infotext";
@@ -24072,16 +24076,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[63259] = "StatisticsDownTimes";
     t[63260] = "Editor.Dialog.Tab.SimulationSystem.Ok";
     t[63261] = "The model is error-free and can be simulated.";
-    t[63262] = "Simulation.ClientMovement.OutputFile.R";
-    t[63263] = "R files";
-    t[63266] = "Simulation.CommandLine.Progress3";
-    t[63267] = "approx. %s sec. remaining";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[63262] = "Simulation.ClientMovement.OutputFile.R";
+    t[63263] = "R files";
+    t[63266] = "Simulation.CommandLine.Progress3";
+    t[63267] = "approx. %s sec. remaining";
     t[63282] = "ScriptPopup.Client.Calc.Hint";
     t[63283] = "Calculates an expression in the context of the current client";
     t[63284] = "Surface.Note.Dialog.Icon";

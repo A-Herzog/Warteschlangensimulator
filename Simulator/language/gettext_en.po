@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-15 08:43+0200\n"
+"POT-Creation-Date: 2025-10-24 09:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4953,6 +4953,12 @@ msgstr "The model is error-free and can be simulated."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode"
 msgstr "Random numbers generator"
+
+msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.NotGood"
+msgstr "Unsuitable random number generator"
+
+msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.NotGoodInfo"
+msgstr "The selected random number generator is not well suited for event-driven simulation due to dependencies between the generated pseudo-random numbers."
 
 msgid "Editor.Dialog.Tab.SimulationSystem.RandomMode.ResetToDefault"
 msgstr "Reset to default value"

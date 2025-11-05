@@ -64,7 +64,9 @@ public enum RandomGeneratorMode {
 	/** Pro Thread gekapselte Version von {@link XoRoShiRo64StarStar} verwenden */
 	XOROSHIRO64STARSTAR("XoRoShiRo64**",useSeed->new XoRoShiRo64StarStar()),
 	/** Pro Thread gekapselte Version von {@link L32X64Mix} verwenden */
-	L32X64MIX("L32X64Mix",useSeed->new L32X64Mix());
+	L32X64MIX("L32X64Mix",useSeed->new L32X64Mix()),
+	/** Pro Thread gekapselte Version von {@link Drand48BitsStreamGenerator} verwenden */
+	DRAND48("Drand48",useSeed->new Drand48BitsStreamGenerator(),false);
 
 	/**
 	 * Standardmäßig zu verwendender Modus
@@ -77,6 +79,11 @@ public enum RandomGeneratorMode {
 	public final String name;
 
 	/**
+	 * Ist der Generator für Simulationen geeignet?
+	 */
+	public final boolean isGoodForSimulation;
+
+	/**
 	 * Callback zur Erzeugung eines Generator gemäß des Typs
 	 */
 	private final Function<Boolean,RandomGenerator> getterCallback;
@@ -85,10 +92,21 @@ public enum RandomGeneratorMode {
 	 * Konstruktor des Enum
 	 * @param name	Name des Zufallszahlengenerators (zum Speichern der Auswahl als Zeichenkette)
 	 * @param getterCallback	Callback zur Erzeugung eines Generator gemäß des Typs
+	 * @param isGoodForSimulation	Ist der Generator für Simulationen geeignet?
 	 */
-	RandomGeneratorMode(final String name, final Function<Boolean,RandomGenerator> getterCallback) {
+	RandomGeneratorMode(final String name, final Function<Boolean,RandomGenerator> getterCallback, final boolean isGoodForSimulation) {
 		this.name=name;
 		this.getterCallback=getterCallback;
+		this.isGoodForSimulation=isGoodForSimulation;
+	}
+
+	/**
+	 * Konstruktor des Enum
+	 * @param name	Name des Zufallszahlengenerators (zum Speichern der Auswahl als Zeichenkette)
+	 * @param getterCallback	Callback zur Erzeugung eines Generator gemäß des Typs
+	 */
+	RandomGeneratorMode(final String name, final Function<Boolean,RandomGenerator> getterCallback) {
+		this(name,getterCallback,true);
 	}
 
 	/**
@@ -112,11 +130,19 @@ public enum RandomGeneratorMode {
 	}
 
 	/**
-	 * Liefert eine Liste aller Zufallszahlengenerator-Modi.
-	 * @return	Liste aller Zufallszahlengenerator-Modi
+	 * Liefert eine Liste der Namen aller Zufallszahlengenerator-Modi.
+	 * @return	Liste der Namen aller Zufallszahlengenerator-Modi
 	 */
 	public static String[] getAllNames() {
 		return Stream.of(values()).map(randomMode->randomMode.name).toArray(String[]::new);
+	}
+
+	/**
+	 * Liefert eine Liste der Qualität aller Zufallszahlengenerator-Modi.
+	 * @return	Liste der Qualität aller Zufallszahlengenerator-Modi
+	 */
+	public static Boolean[] getAllIsGoodForSimulation() {
+		return Stream.of(values()).map(randomMode->randomMode.isGoodForSimulation).toArray(Boolean[]::new);
 	}
 
 	/**
