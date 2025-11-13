@@ -66,7 +66,31 @@ public class ExpressionBuilderDistributions {
 	}
 
 	/**
-	 * Fügt einen Eintrag zur Baumstruktur hinzu
+	 * Fügt einen Eintrag zur Baumstruktur hinzu.
+	 * @param group	Gruppe zu der der Eintrag hinzugefügt werden soll
+	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird der Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
+	 * @param name	Name des Eintrags
+	 * @param param	Parameter der Verteilung
+	 * @param langName	Ausgeschriebener Name des Eintrags
+	 * @param langRND	Anzuzeigende Beschreibung für den Zufallszahl-Eintrag
+	 */
+	private static void addRandomOnlyDist(final DefaultMutableTreeNode group, final String filterUpper, final String name, final String param, final String langName, final String langRND) {
+		final String rnd=Language.tr("ExpressionBuilder.ProbabilityDistributions.RandomNumber");
+
+		final DefaultMutableTreeNode sub=new DefaultMutableTreeNode(langName);
+
+		addTreeNode(
+				sub,
+				filterUpper,
+				langName+", "+rnd+" ("+name+")",
+				name+"("+param+")",
+				langRND);
+
+		if (sub.getChildCount()>0) group.add(sub);
+	}
+
+	/**
+	 * Fügt einen Eintrag zur Baumstruktur hinzu.
 	 * @param group	Gruppe zu der der Eintrag hinzugefügt werden soll
 	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird der Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
 	 * @param name	Name des Eintrags
@@ -107,7 +131,7 @@ public class ExpressionBuilderDistributions {
 	}
 
 	/**
-	 * Fügt einen Eintrag zur Baumstruktur hinzu
+	 * Fügt einen Eintrag zur Baumstruktur hinzu.
 	 * @param group	Gruppe zu der der Eintrag hinzugefügt werden soll
 	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird der Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
 	 * @param name	Name des Eintrags
@@ -156,7 +180,7 @@ public class ExpressionBuilderDistributions {
 	}
 
 	/**
-	 * Fügt einen Eintrag zur Baumstruktur hinzu
+	 * Fügt einen Eintrag zur Baumstruktur hinzu.
 	 * @param group	Gruppe zu der der Eintrag hinzugefügt werden soll
 	 * @param filterUpper	Filtertext (kann <code>null</code> sein); ist ein Filtertext angegeben, so wird der Eintrag nur in die Baumstruktur aufgenommen, wenn er zum Filtertext passt
 	 * @param name	Name des Eintrags
@@ -331,6 +355,12 @@ public class ExpressionBuilderDistributions {
 				String.format(Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution.DistributionFunctionInfo"),NumberTools.formatNumberMax(0.74750746245308)),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumberInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistribution.RandomNumberRangeInfo"));
+
+		/* Nichtgekappte Normalverteilung */
+
+		addRandomOnlyDist(group,filterUpper,"NormalDistFull","mu;sigma",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistributionFull"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.NormalDistributionFull.RandomNumberInfo"));
 
 		/* Lognormalverteilung */
 

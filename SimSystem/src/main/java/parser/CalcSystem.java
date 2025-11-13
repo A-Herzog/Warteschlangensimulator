@@ -196,6 +196,23 @@ public class CalcSystem extends CalcSystemBase {
 	}
 
 	/**
+	 * Liefert eine Pseudo-Zufallszahl gem‰ﬂ einer Verteilungsfunktion.
+	 * Ist ein spezieller Generator hinterlegt, so wird dieser verwendet;
+	 * ansonsten wird {@link DistributionRandomNumber} verwendet.
+	 * @param distribution	Verteilungsfunktion
+	 * @return	Pseudo-Zufallszahl gem‰ﬂ der angegebenen Verteilung
+	 * @see DistributionRandomNumber
+	 * @see DistributionRandomNumberThreadLocal
+	 */
+	public double getRandom(final AbstractRealDistribution distribution) {
+		if (randomGenerator==null) {
+			return DistributionRandomNumber.random(distribution);
+		} else {
+			return randomGenerator.random(distribution);
+		}
+	}
+
+	/**
 	 * Liefert eine Liste mit zus‰tzlichen, nicht bereits in {@link CalcSymbolList} enthaltenen Symbolen
 	 * @return	Liste mit zus‰tzlichen Symbolen
 	 */

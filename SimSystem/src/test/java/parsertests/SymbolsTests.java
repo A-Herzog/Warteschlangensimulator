@@ -3919,6 +3919,28 @@ class SymbolsTests {
 		variables=new String[]{"a","b"};
 		testDistribution(cmd,variables,new double[]{600,200});
 
+		/* Nichtgekappte Normalverteilung */
+
+		cmd="NormalDistFull(x;a;b;0)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{-1,600,200})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{0,600,200})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{500,600,200})>0);
+
+		cmd="NormalDistFull(x;a;b;1)";
+		variables=new String[]{"x","a","b"};
+		assertTrue(testDistribution(cmd,variables,new double[]{-1,600,200})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{-1,600,200})<1);
+		assertTrue(testDistribution(cmd,variables,new double[]{0,600,200})<1);
+		assertTrue(testDistribution(cmd,variables,new double[]{0,600,200})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{500,600,200})>0);
+		assertTrue(testDistribution(cmd,variables,new double[]{500,600,200})<1);
+		testDistributionThrows("NormalDist(x;a;b;2)",variables,new double[]{500,600,200});
+
+		cmd="NormalDistFull(a;b)";
+		variables=new String[]{"a","b"};
+		testDistribution(cmd,variables,new double[]{600,200});
+
 		/* Paretoverteilung */
 
 		cmd="ParetoDist(x;a;b;0)";
