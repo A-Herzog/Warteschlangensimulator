@@ -222,6 +222,8 @@ Section "Install" Inst
   
   File /r "..\..\Release\libs\*.jar"
   File /r "..\..\Release\libs\simulator.png"
+  File /r "..\..\Release\libs\simulator@125pct.png"
+  File /r "..\..\Release\libs\simulator@150pct.png"
   
   RmDir /r $INSTDIR\tools   ; On update: delete old tools folder (using other structure)
   
