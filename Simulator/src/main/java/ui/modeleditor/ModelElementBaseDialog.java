@@ -164,7 +164,7 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 	 * @param helpTopic Name des Hilfethemas mit dem die Hilfeschaltfläche verknüpft werden soll
 	 * @param infoPanelID ID für einen Infotext oben im Dialog
 	 * @param readOnly Wird dieser Parameter auf <code>true</code> gesetzt, so wird die "Ok"-Schaltfläche deaktiviert
-	 * @param makeDialogVisible Gibt an, ob der Dialog direkt durch den Konstruktur sichtbar geschaltet werden soll
+	 * @param makeDialogVisible Gibt an, ob der Dialog direkt durch den Konstruktor sichtbar geschaltet werden soll
 	 */
 	protected ModelElementBaseDialog(final Component owner, final String title, final ModelElement element, final String helpTopic, final String infoPanelID, final ReadOnlyMode readOnly, final boolean makeDialogVisible) {
 		super(owner,title+" (id="+element.getId()+")",readOnly==ReadOnlyMode.FULL_READ_ONLY);
@@ -177,7 +177,9 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 		final Container finalContainer=this.owner;
 		helpRunnable=()->Help.topicModal(finalContainer,helpTopic);
 		initUserButtons();
-		final JPanel fullContentPanel=createGUI(helpRunnable);
+		final String previousName=(surfacePanel!=null && readOnly==ReadOnlyMode.ALLOW_ALL && element.getPreviousElement()!=null)?Language.tr("Editor.DialogBase.OkAndPrevious"):null;
+		final String nextName=(surfacePanel!=null && readOnly==ReadOnlyMode.ALLOW_ALL && element.getNextElement()!=null)?Language.tr("Editor.DialogBase.OkAndNext"):null;
+		final JPanel fullContentPanel=createGUI(previousName,nextName,helpRunnable);
 		fullContentPanel.setLayout(new BorderLayout());
 
 		final JPanel infoPanel;
@@ -862,6 +864,9 @@ public abstract class ModelElementBaseDialog extends BaseDialog {
 				surfacePanel.fireStateChangeListener();
 				if (element instanceof ElementWithAnimationDisplay) surfacePanel.updateElementAnimationSystem((ElementWithAnimationDisplay)element);
 			}
+
+			if (getClosedBy()==BaseDialog.CLOSED_BY_NEXT) surfacePanel.showElementProperties(element.getNextElement(),0);
+			if (getClosedBy()==BaseDialog.CLOSED_BY_PREVIOUS) surfacePanel.showElementProperties(element.getPreviousElement(),0);
 		});
 	}
 

@@ -231,6 +231,47 @@ public class ModelElement {
 	}
 
 	/**
+	 * Liefert das im Flieﬂdiagramm unmittelbar vorhergehende Element.<br>
+	 * Gibt es kein vorhergehendes Element oder ist dieses nicht eindeutig, so liefert die Funktion <code>null</code>.
+	 * @return	Unmittelbar vorhergehendes Element (kann <code>null</code> sein)
+	 * @see #getNextElement()
+	 */
+	public ModelElement getPreviousElement() {
+		if (this instanceof ModelElementEdgeMultiIn) {
+			final var box=(ModelElementEdgeMultiIn)this;
+			final var edges=box.getEdgesIn();
+			if (edges==null || edges.length!=1) return null;
+			return edges[0].getConnectionStart();
+		}
+
+		return null;
+	}
+
+	/**
+	 * Liefert das im Flieﬂdiagramm unmittelbar folgende Element.<br>
+	 * Gibt es kein folgendes Element oder ist dieses nicht eindeutig, so liefert die Funktion <code>null</code>.
+	 * @return	Unmittelbar folgendes Element (kann <code>null</code> sein)
+	 * @see #getPreviousElement()
+	 */
+	public ModelElement getNextElement() {
+		if (this instanceof ModelElementEdgeOut) {
+			final var box=(ModelElementEdgeOut)this;
+			final var edge=box.getEdgeOut();
+			if (edge==null) return null;
+			return edge.getConnectionEnd();
+		}
+
+		if (this instanceof ModelElementEdgeMultiOut) {
+			final var box=(ModelElementEdgeMultiOut)this;
+			final var edges=box.getEdgesOut();
+			if (edges==null || edges.length!=1) return null;
+			return edges[0].getConnectionEnd();
+		}
+
+		return null;
+	}
+
+	/**
 	 * Stellt den Namen des Elements ein.
 	 * @param name	Name des Elements
 	 */

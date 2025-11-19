@@ -827,7 +827,8 @@ public class BaseDialog extends JDialog {
 			if (!readOnly) {
 				if (!checkData()) return;
 				storeData();
-			} closedBy=CLOSED_BY_PREVIOUS;
+			}
+			closedBy=CLOSED_BY_PREVIOUS;
 		}
 		if (e.getSource()==nextButton) {
 			if (!readOnly) {

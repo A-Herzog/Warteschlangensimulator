@@ -33,6 +33,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
+import simulator.elements.RunElementTeleportSource;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
@@ -447,5 +448,10 @@ public class ModelElementTeleportSource extends ModelElementBox implements Model
 		super.search(searcher);
 
 		searcher.testString(this,Language.tr("Surface.TeleportSource.Dialog.Target"),destination,newDestination->{destination=newDestination;});
+	}
+
+	@Override
+	public ModelElement getNextElement() {
+		return RunElementTeleportSource.getDestination(getModel(),destination);
 	}
 }
