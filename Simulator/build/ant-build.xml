@@ -401,8 +401,9 @@
 		</exec>
 		<move file="${BuildTools.location}/Simulator.exe" tofile="${Release.location}/Simulator.exe" />
 
-		<copy file="${BuildTools.location}/Simulator.sh" tofile="${Release.location}/Simulator.sh" />
-		<copy file="${BuildTools.location}/Simulator2x.sh" tofile="${Release.location}/Simulator2x.sh" />
+		<copy file="${BuildTools.location}/Simulator-CLI.sh" tofile="${Release.location}/Simulator-CLI.sh" />
+		<copy file="${BuildTools.location}/Simulator-GUI.sh" tofile="${Release.location}/Simulator-GUI.sh" />
+		<copy file="${BuildTools.location}/Simulator-GUI-2x.sh" tofile="${Release.location}/Simulator-GUI-2x.sh" />
 		<copy file="${BuildTools.location}/Simulator.bat" tofile="${Release.location}/Simulator.bat" />
 		<copy file="${BuildTools.location}/SimulatorCLI.bat" tofile="${Release.location}/SimulatorCLI.bat" />
 		<copy file="${BuildTools.location}/Splashscreen.png" tofile="${Release.location}/libs/simulator.png" />
@@ -447,19 +448,16 @@
 				
 		<echo message="Generate zip package" />
 		<zip destfile="${Release.location}/Simulator.zip" level="9">
-			<!--
-			<zipfileset dir="${Release.location}" includes="Simulator.jar,Simulator.exe,Simulator.sh,Simulator2x.sh,SimulatorCLI.bat,Simulator_Reset.exe,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"/>
-			Simulator_Reset.exe removed:
-			-->
-		  <zipfileset dir="${Release.location}" includes="Simulator.jar,Simulator.exe,Simulator.sh,Simulator2x.sh,Simulator.bat,Splashscreen.png,Splashscreen@125pct.png,Splashscreen@150pct.png,SimulatorCLI.bat,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"/>
+		  <zipfileset dir="${Release.location}" includes="Simulator.jar,Simulator.exe,Simulator-CLI.sh,Simulator-GUI.sh,Simulator-GUI-2x.sh,Simulator.bat,Splashscreen.png,Splashscreen@125pct.png,Splashscreen@150pct.png,SimulatorCLI.bat,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"/>
 		  <zipfileset dir="${Simulator.location}/tools/JDDE" includes="*.dll"/>
 		</zip>
 
 		<echo message="Clean up" />
 		<delete file="${Release.location}/Simulator.exe" />
 		<delete file="${Release.location}/Simulator.ico" />
-		<delete file="${Release.location}/Simulator.sh" />
-		<delete file="${Release.location}/Simulator2x.sh" />
+		<delete file="${Release.location}/Simulator-CLI.sh" />
+		<delete file="${Release.location}/Simulator-GUI.sh" />
+		<delete file="${Release.location}/Simulator-GUI-2x.sh" />
 		<delete file="${Release.location}/Simulator.bat" />
 		<delete file="${Release.location}/Splashscreen.png" />
 		<delete file="${Release.location}/Splashscreen@125pct.png" />

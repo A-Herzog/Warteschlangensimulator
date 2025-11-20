@@ -1,0 +1,69 @@
+# Usage:
+# - Download https://github.com/AppImage/pkg2appimage/releases/download/continuous/pkg2appimage-1807-x86_64.AppImage
+# - Place Simulator.zip in the same folder
+# - Place this file in the same folder
+# - run: ./pkg2appimage-1807-x86_64.AppImage AppImageBuilder.yml
+# - clean up: remove new sub folder "Warteschlangensimulator"
+# - output file is in new sub folder "out"
+
+version: 1
+
+app: Warteschlangensimulator
+
+ingredients:
+  script:
+    # Extract Simulator.zip
+    - mkdir -p Simulator
+    - unzip ../Simulator.zip -d Simulator
+    - rm ./Simulator/JavaDDE.dll
+    - rm ./Simulator/JavaDDEx64.dll
+    - rm ./Simulator/Simulator.exe
+    - rm -rf ./Simulator/tools
+    # Download icon
+    - mkdir -p Icon
+    - wget -O ./Icon/Warteschlangensimulator.png https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Simulator/src/main/java/ui/res/Symbol.png
+
+script:
+  # Move simulator binaries to target folder
+  - mkdir -p usr/bin
+  - mv ../Simulator/* ./usr/bin/
+  - chmod u+x ./usr/bin/Simulator-GUI.sh  
+  - rmdir ../Simulator/
+  # Move icon to target folder
+  - mkdir -p usr/share/icons/hicolor/16x16/apps  
+  - cp ../Icon/Warteschlangensimulator.png Warteschlangensimulator.png
+  - mv ../Icon/Warteschlangensimulator.png usr/share/icons/hicolor/16x16/apps/Warteschlangensimulator.png
+  - rmdir ../Icon/
+  # Generate desktop info file
+  - mkdir -p usr/share/applications
+  - cat > usr/share/applications/Warteschlangensimulator.desktop <<\EOF
+  - [Desktop Entry]
+  - Categories=Science;
+  - Encoding=UTF-8
+  - Name=Warteschlangensimulator
+  - Icon=Warteschlangensimulator
+  - GenericName=Warteschlangensimulator
+  - Comment=Warteschlangensimulator
+  - Type=Application
+  - Exec=Simulator-GUI.sh %u
+  - EOF
+  - cp usr/share/applications/Warteschlangensimulator.desktop Warteschlangensimulator.desktop
+  
+AppDir:
+  path: ./AppDir
+
+  app_info:
+    id: io.github.a-herzog
+    name: Warteschlangensimulator
+    exec: "$APPDIR/usr/bin/Simulator-GUI.sh"
+    exec_args: "$@"
+
+  runtime:
+    version: "continuous"
+    env:
+      PATH: '${APPDIR}/usr/bin:${PATH}'
+
+AppImage:
+  sign-key: None
+  arch: x86_64
+  file_name: Warteschlangensimulator.AppImage
