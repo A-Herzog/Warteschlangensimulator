@@ -20,6 +20,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import org.oxbow.swingbits.dialog.task.ICommandLinkPainter;
@@ -132,7 +134,6 @@ public class FlatLaFHelper {
 				/* Es wird der MacOsCommandLinkPainter verwendet (ja, für Linux), der keine Farbanpassungen vorsieht */
 				break;
 			case WINDOWS:
-
 				System.clearProperty(TaskDialog.DESIGN_PROPERTY);
 				break;
 			default:
@@ -140,6 +141,7 @@ public class FlatLaFHelper {
 				break;
 			}
 		}
+
 	}
 
 	/**
@@ -163,6 +165,10 @@ public class FlatLaFHelper {
 	 */
 	public static void setCombinedMenuBar(final boolean combined) {
 		UIManager.put("TitlePane.useWindowDecorations",combined);
+		if (combined && OperatingSystem.getCurrent()==OperatingSystem.LINUX) {
+			JFrame.setDefaultLookAndFeelDecorated(true);
+			JDialog.setDefaultLookAndFeelDecorated(true);
+		}
 	}
 
 	/**
