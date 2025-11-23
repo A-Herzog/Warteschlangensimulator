@@ -123,6 +123,21 @@ public class SystemInfoWindow extends JFrame {
 	private final String markColor;
 
 	/**
+	 * Programmverzeichnis
+	 */
+	private final String infoProgramFolder;
+
+	/**
+	 * Pfad und Dateiname der Konfigurationsdatei
+	 */
+	private final String infoSetupFile;
+
+	/**
+	 * Installationsart
+	 */
+	private final String infoInstallationMode;
+
+	/**
 	 * Name der Java-Variante
 	 */
 	private final String infoVersion;
@@ -241,6 +256,16 @@ public class SystemInfoWindow extends JFrame {
 		});
 
 		/* Statische Daten erheben */
+		infoProgramFolder=Language.tr("InfoDialog.InstallFolder")+": "+SetupData.getProgramFolder();
+		infoSetupFile=Language.tr("InfoDialog.ConfigFile")+": "+SetupData.getSetupFolder()+SetupData.SETUP_FILE_NAME;
+		String mode;
+		switch (SetupData.getOperationMode()) {
+		case PROGRAM_FOLDER_MODE: mode=Language.tr("InfoDialog.InstallMode.ProgramFolder"); break;
+		case USER_FOLDER_MODE: mode=Language.tr("InfoDialog.InstallMode.UserFolder"); break;
+		case PORTABLE_MODE: mode=Language.tr("InfoDialog.InstallMode.Portable"); break;
+		default: mode=Language.tr("InfoDialog.InstallMode.Unknown"); break;
+		}
+		infoInstallationMode=Language.tr("InfoDialog.InstallMode")+": "+mode;
 		infoVersion=Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.vendor")+" "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+", "+System.getProperty("os.arch")+")";
 		infoPath=Language.tr("InfoDialog.JavaPath")+": "+System.getProperty("java.home");
 		infoBit=Language.tr("InfoDialog.Is64Bit")+": "+(System.getProperty("os.arch").contains("64")?Language.tr("InfoDialog.Is64Bit.Yes"):Language.tr("InfoDialog.Is64Bit.No"));
@@ -303,8 +328,8 @@ public class SystemInfoWindow extends JFrame {
 		},UPDATE_SPEED,UPDATE_SPEED);
 
 		/* Fenster vorbereiten */
-		setSize((int)Math.round(480*BaseDialog.windowScaling),(int)Math.round(680*BaseDialog.windowScaling));
-		setMinimumSize(new Dimension((int)Math.round(480*BaseDialog.windowScaling),(int)Math.round(680*BaseDialog.windowScaling)));
+		setSize((int)Math.round(480*BaseDialog.windowScaling),(int)Math.round(780*BaseDialog.windowScaling));
+		setMinimumSize(new Dimension((int)Math.round(480*BaseDialog.windowScaling),(int)Math.round(780*BaseDialog.windowScaling)));
 		pack();
 		setResizable(true);
 		setLocationRelativeTo(ownerWindow);
@@ -423,6 +448,13 @@ public class SystemInfoWindow extends JFrame {
 		infoText.setLength(0);
 
 		infoText.append("<html><body>");
+
+		/* Ausgabe: Programm */
+		infoText.append("<h4>"+Language.tr("SystemInfo.Program")+"</h4>\n");
+		infoText.append("<p>\n");
+		infoText.append(infoProgramFolder+"<br>");
+		infoText.append(infoSetupFile+"<br>");
+		infoText.append(infoInstallationMode+"<br>");
 
 		/* Ausgabe: System */
 		infoText.append("<h4>"+Language.tr("SystemInfo.System")+"</h4>\n");

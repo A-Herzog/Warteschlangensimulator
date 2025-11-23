@@ -10730,6 +10730,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[25925] = "Arrival time";
     t[25926] = "SettingsDialog.Tabs.ProgramStart.SpellChecking.GlobalOffByUser";
     t[25927] = "The spell checker has been globally disabled via the System information dialog.";
+    t[25932] = "SystemInfo.Program";
+    t[25933] = "Program";
     t[25940] = "Surface.TransportParking.Dialog.WaitingPriority.ErrorInfo";
     t[25941] = "The specified priority for requesting free transporters \"%s\" is invalid at character %d.";
     t[25942] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.ChangeRate1.ErrorTitle";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29133] = "Setup input parameters";
     t[29146] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Label";
     t[29147] = "Caluclation expressions for the inter-arrival times per interval (values in seconds)";
-    t[29160] = "Statistics.SystemData.Version";
-    t[29161] = "Used simulator version";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29160] = "Statistics.SystemData.Version";
+    t[29161] = "Used simulator version";
     t[29162] = "Surface.Input.XML.EofMode.Skip";
     t[29163] = "Skip";
     t[29180] = "ScriptPopup.Client.ValueText.Set.Hint";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34255] = "Model";
     t[34256] = "Statistics.XML.ValuesSquared";
     t[34257] = "ValuesSum2";
-    t[34268] = "Statistics.ClientMovement.Visualization.ListDown";
-    t[34269] = "Previous path";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34268] = "Statistics.ClientMovement.Visualization.ListDown";
+    t[34269] = "Previous path";
     t[34272] = "Main.Menu.Model";
     t[34273] = "Model";
     t[34280] = "Surface.Source.Dialog.ArrivalStart";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39485] = "Palette";
     t[39486] = "Main.Menu.View.BackgroundColor.Mnemonic";
     t[39487] = "b";
-    t[39496] = "Statistics.XML.RunThreads";
-    t[39497] = "StatisticsThreads";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39496] = "Statistics.XML.RunThreads";
+    t[39497] = "StatisticsThreads";
     t[39504] = "Statistic.Viewer.SaveTable.Error.Info";
     t[39505] = "The table could not be saved in the file\n%s";
     t[39508] = "Git.List.Tab.Server.Auth.Key.Passphrase.Info";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44191] = "<p>Calculates the value of the arc tangent hyperbolicus function with the value passed as parameter.</p> <p> Example: <tt>arctanh(0)</p> returns 0.</p>";
     t[44194] = "Surface.AnimationImage.Name";
     t[44195] = "Animation image";
-    t[44202] = "ProxySettings.ProxyPassword";
-    t[44203] = "Password";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44202] = "ProxySettings.ProxyPassword";
+    t[44203] = "Password";
     t[44208] = "Simulation.Log.LogicWhile";
     t[44209] = "Logic While";
     t[44214] = "SimulationServer.Setup.TLSInfo.Title";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48961] = "Text alignment";
     t[48966] = "Surface.Batch.XML.BatchMode";
     t[48967] = "ModelElementBatchMode;BatchMode";
-    t[48968] = "Statistics.UtilizationRho.Mean";
-    t[48969] = "Mean relative utilization (rho)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[48968] = "Statistics.UtilizationRho.Mean";
+    t[48969] = "Mean relative utilization (rho)";
     t[48984] = "Surface.AnimationImage.Dialog.Images.Expression.Error.Title";
     t[48985] = "Invalid expression";
     t[48988] = "Statistics.XML.Element.ClientPaths";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53929] = "%d file compiled successfully but with warning.";
     t[53932] = "ExpressionBuilder.LogicFunctions.And";
     t[53933] = "Logic \"and\"";
-    t[53940] = "Surface.AnimationBar.XML.DataArea.Direction.Left";
-    t[53941] = "left";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[53940] = "Surface.AnimationBar.XML.DataArea.Direction.Left";
+    t[53941] = "left";
     t[53942] = "Main.Menu.Edit.UndoRedoSelect.Mnemonic";
     t[53943] = "S";
     t[53946] = "Surface.AssignString.XML.Root";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[58769] = "<p>Generates a random number according to the discrete uniform distribution within the range (integer numbers) specified by the first and the second parameter.</p>";
     t[58770] = "Statistic.FastAccess.Template.StatisticsXMLMedian";
     t[58771] = "Median of a distribution";
-    t[58774] = "SettingsDialog.ImageResolution.Invalid.Title";
-    t[58775] = "Invalid image size entered";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[58774] = "SettingsDialog.ImageResolution.Invalid.Title";
+    t[58775] = "Invalid image size entered";
     t[58778] = "SetupFailure.Title";
     t[58779] = "Saving settings failed";
     t[58780] = "Surface.AnimationPointerMeasuring.XML.Expression.YellowRangeStart";
@@ -24608,6 +24610,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[59897] = "No file to be loaded was specified.";
     t[59898] = "Statistics.DistributionOfTheInterLeaveTimesByClientType";
     t[59899] = "Distribution of the inter-departure times by client types";
+    t[59906] = "InfoDialog.ConfigFile";
+    t[59907] = "Setup file";
     t[59910] = "Editor.Dialog.Sequences.AssignmentsInfo";
     t[59911] = "%d assignments";
     t[59918] = "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution.RandomNumberInfo";

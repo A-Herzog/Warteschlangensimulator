@@ -10730,6 +10730,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[25925] = "Ankunftszeit";
     t[25926] = "SettingsDialog.Tabs.ProgramStart.SpellChecking.GlobalOffByUser";
     t[25927] = "Die Rechtschreibpr\u00fcfung wurde global \u00fcber den Systeminformationen-Dialog deaktiviert.";
+    t[25932] = "SystemInfo.Program";
+    t[25933] = "Programm";
     t[25940] = "Surface.TransportParking.Dialog.WaitingPriority.ErrorInfo";
     t[25941] = "Die angegebene Priorit\u00e4t zum Anfordern freier Transporter \"%s\" ist ab Zeichen %d fehlerhaft.";
     t[25942] = "Optimizer.Tab.Optimization.Kernel.Parameters.Tab.Serial.ChangeRate1.ErrorTitle";
@@ -12038,14 +12040,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[29133] = "Eingabeparameter konfigurieren";
     t[29146] = "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalDistributions.Label";
     t[29147] = "Rechenausdr\u00fccke f\u00fcr die Zwischenankunftszeiten pro Intervall (Werte in Sekunden)";
-    t[29160] = "Statistics.SystemData.Version";
-    t[29161] = "Verwendete Version des Simulators";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29160] = "Statistics.SystemData.Version";
+    t[29161] = "Verwendete Version des Simulators";
     t[29162] = "Surface.Input.XML.EofMode.Skip";
     t[29163] = "Ueberspringen";
     t[29180] = "ScriptPopup.Client.ValueText.Set.Hint";
@@ -14044,14 +14046,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[34255] = "Modell";
     t[34256] = "Statistics.XML.ValuesSquared";
     t[34257] = "WerteSumme2";
-    t[34268] = "Statistics.ClientMovement.Visualization.ListDown";
-    t[34269] = "N\u00e4chster Pfad";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34268] = "Statistics.ClientMovement.Visualization.ListDown";
+    t[34269] = "N\u00e4chster Pfad";
     t[34272] = "Main.Menu.Model";
     t[34273] = "Modell";
     t[34280] = "Surface.Source.Dialog.ArrivalStart";
@@ -16050,14 +16052,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[39485] = "Farbpalette";
     t[39486] = "Main.Menu.View.BackgroundColor.Mnemonic";
     t[39487] = "H";
-    t[39496] = "Statistics.XML.RunThreads";
-    t[39497] = "StatistikThreads";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39496] = "Statistics.XML.RunThreads";
+    t[39497] = "StatistikThreads";
     t[39504] = "Statistic.Viewer.SaveTable.Error.Info";
     t[39505] = "Die Tabelle konnte nicht in der Datei\n%s\ngespeichert werden.";
     t[39508] = "Git.List.Tab.Server.Auth.Key.Passphrase.Info";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[44191] = "<p>Berechnet den Wert der Arcus-Tangens-hyperbolicus-Funktion des als Parameter \u00fcbergebenen Wertes.</p><p>Beispiel: <tt>arctanh(0)</tt> liefert 0.</p>";
     t[44194] = "Surface.AnimationImage.Name";
     t[44195] = "Animationsbild";
-    t[44202] = "ProxySettings.ProxyPassword";
-    t[44203] = "Passwort";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44202] = "ProxySettings.ProxyPassword";
+    t[44203] = "Passwort";
     t[44208] = "Simulation.Log.LogicWhile";
     t[44209] = "Logik While";
     t[44214] = "SimulationServer.Setup.TLSInfo.Title";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48961] = "Ausrichtung";
     t[48966] = "Surface.Batch.XML.BatchMode";
     t[48967] = "ModellElementBatchModus;BatchModus";
-    t[48968] = "Statistics.UtilizationRho.Mean";
-    t[48969] = "Mittlere relative Auslastung (rho)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[48968] = "Statistics.UtilizationRho.Mean";
+    t[48969] = "Mittlere relative Auslastung (rho)";
     t[48984] = "Surface.AnimationImage.Dialog.Images.Expression.Error.Title";
     t[48985] = "Ung\u00fcltiger Ausdruck";
     t[48988] = "Statistics.XML.Element.ClientPaths";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53929] = "%d Datei erfolgreich, aber mit Warnung kompiliert.";
     t[53932] = "ExpressionBuilder.LogicFunctions.And";
     t[53933] = "Logisches \"Und\"";
-    t[53940] = "Surface.AnimationBar.XML.DataArea.Direction.Left";
-    t[53941] = "nach links";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[53940] = "Surface.AnimationBar.XML.DataArea.Direction.Left";
+    t[53941] = "nach links";
     t[53942] = "Main.Menu.Edit.UndoRedoSelect.Mnemonic";
     t[53943] = "S";
     t[53946] = "Surface.AssignString.XML.Root";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[58769] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der diskreten Gleichverteilung \u00fcber den Bereich, der im ersten und zweiten Parameter (jeweils Ganzzahlen) spezifiziert ist.</p>";
     t[58770] = "Statistic.FastAccess.Template.StatisticsXMLMedian";
     t[58771] = "Median einer Verteilung";
-    t[58774] = "SettingsDialog.ImageResolution.Invalid.Title";
-    t[58775] = "Ung\u00fcltige Bildgr\u00f6\u00dfe angegeben";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[58774] = "SettingsDialog.ImageResolution.Invalid.Title";
+    t[58775] = "Ung\u00fcltige Bildgr\u00f6\u00dfe angegeben";
     t[58778] = "SetupFailure.Title";
     t[58779] = "Einstellungen speichern fehlgeschlagen";
     t[58780] = "Surface.AnimationPointerMeasuring.XML.Expression.YellowRangeStart";
@@ -24608,6 +24610,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[59897] = "Es wurde keine zu ladende Datei angegeben.";
     t[59898] = "Statistics.DistributionOfTheInterLeaveTimesByClientType";
     t[59899] = "Verteilung der Zwischenabgangszeiten nach Kundentypen";
+    t[59906] = "InfoDialog.ConfigFile";
+    t[59907] = "Konfigurationsdatei";
     t[59910] = "Editor.Dialog.Sequences.AssignmentsInfo";
     t[59911] = "%d Zuweisungen";
     t[59918] = "ExpressionBuilder.ProbabilityDistributions.RightSawtoothDistribution.RandomNumberInfo";

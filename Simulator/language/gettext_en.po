@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-06 00:08+0100\n"
+"POT-Creation-Date: 2025-11-18 10:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11609,6 +11609,9 @@ msgstr "Elements"
 
 msgid "InfoDialog.BuildDate"
 msgstr "Build date"
+
+msgid "InfoDialog.ConfigFile"
+msgstr "Setup file"
 
 msgid "InfoDialog.Homepage"
 msgstr "Website"
@@ -38705,6 +38708,9 @@ msgstr "Commited"
 
 msgid "SystemInfo.Memory.Used"
 msgstr "Used"
+
+msgid "SystemInfo.Program"
+msgstr "Program"
 
 msgid "SystemInfo.System"
 msgstr "Java runtime environment"

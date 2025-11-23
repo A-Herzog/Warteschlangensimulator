@@ -69,7 +69,6 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.swing.JOpenURL;
 import scripting.java.DynamicFactory;
-import scripting.js.JSEngineNames;
 import systemtools.GUITools;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
@@ -134,6 +133,7 @@ public class InfoDialog extends JDialog {
 
 		/* Installationsverzeichnis */
 		list.add(Language.tr("InfoDialog.InstallFolder")+": "+SetupData.getProgramFolder());
+		list.add(Language.tr("InfoDialog.ConfigFile")+": "+SetupData.getSetupFolder()+SetupData.SETUP_FILE_NAME);
 		final String mode;
 		switch (SetupData.getOperationMode()) {
 		case PROGRAM_FOLDER_MODE: mode=Language.tr("InfoDialog.InstallMode.ProgramFolder"); break;
@@ -154,9 +154,6 @@ public class InfoDialog extends JDialog {
 
 		/* Java-Kompiler verfügbar? */
 		list.add(Language.tr("InfoDialog.JavaCompiler")+": "+(DynamicFactory.hasCompiler()?Language.tr("InfoDialog.JavaCompiler.Yes"):Language.tr("InfoDialog.JavaCompiler.No")));
-
-		/* JS-Engines */
-		list.add(Language.tr("InfoDialog.JSEngine")+": "+String.join(", ",JSEngineNames.available().stream().map(e->e.name).toArray(String[]::new)));
 
 		list.add("");
 
