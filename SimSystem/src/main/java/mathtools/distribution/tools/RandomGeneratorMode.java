@@ -15,6 +15,7 @@
  */
 package mathtools.distribution.tools;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
@@ -41,6 +42,8 @@ public enum RandomGeneratorMode {
 	THREAD_LOCAL_RANDOM("ThreadLocalRandom",useSeed->useSeed?new JDKRandomGenerator():new LightweightThreadLocalRandomWrapper(ThreadLocalRandom.current())),
 	/** Pro Thread gekapselte Version von {@link Random} verwenden */
 	RANDOM("Random",useSeed->new JDKRandomGenerator()),
+	/** Pro Thread gekapselte Version von {@link SecureRandom} verwenden */
+	SECURE_RANDOM("SecureRandom",useSeed->new SecureRandomWrapper()),
 	/** Pro Thread gekapselte Version von {@link Well512a} verwenden */
 	WELL512A("Well512a",useSeed->new Well512a()),
 	/** Pro Thread gekapselte Version von {@link Well1024a} verwenden */
@@ -242,5 +245,80 @@ public enum RandomGeneratorMode {
 		public double nextGaussian() {
 			return random.nextGaussian();
 		}
+	}
+
+	/**
+	 * Sorgt dafür, dass {@link SecureRandom} über ein {@link RandomGenerator}-Interface angesprochen werden kann.
+	 */
+	private static class SecureRandomWrapper implements RandomGenerator {
+		/**
+		 * Internes {@link SecureRandom}-Objekt
+		 */
+		private final SecureRandom secureRandom=new SecureRandom();
+
+		@Override
+		public void setSeed(int seed) {
+			secureRandom.setSeed(seed);
+		}
+
+		@Override
+		public void setSeed(int[] seed) {
+			if (seed==null || seed.length==0) return;
+			final byte[] seedBytes=new byte[seed.length*4];
+			for (int i=0;i<seed.length;i++) {
+				final int value=seed[i];
+				seedBytes[4*i+0]=(byte)(value >>> 24);
+				seedBytes[4*i+1]=(byte)(value >>> 16);
+				seedBytes[4*i+2]=(byte)(value >>> 8);
+				seedBytes[4*i+3]=(byte)value;
+			}
+			secureRandom.setSeed(seedBytes);
+		}
+
+		@Override
+		public void setSeed(long seed) {
+			secureRandom.setSeed(seed);
+		}
+
+		@Override
+		public void nextBytes(byte[] bytes) {
+			secureRandom.nextBytes(bytes);
+		}
+
+		@Override
+		public int nextInt() {
+			return secureRandom.nextInt();
+		}
+
+		@Override
+		public int nextInt(int n) {
+			return secureRandom.nextInt(n);
+		}
+
+		@Override
+		public long nextLong() {
+			return secureRandom.nextLong();
+		}
+
+		@Override
+		public boolean nextBoolean() {
+			return secureRandom.nextBoolean();
+		}
+
+		@Override
+		public float nextFloat() {
+			return secureRandom.nextFloat();
+		}
+
+		@Override
+		public double nextDouble() {
+			return secureRandom.nextDouble();
+		}
+
+		@Override
+		public double nextGaussian() {
+			return secureRandom.nextGaussian();
+		}
+
 	}
 }
