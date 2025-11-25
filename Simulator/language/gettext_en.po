@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-18 10:22+0100\n"
+"POT-Creation-Date: 2025-11-22 14:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7921,6 +7921,12 @@ msgstr "<p>Calculates the value of the distribution function of the Pert distrib
 
 msgid "ExpressionBuilder.ProbabilityDistributions.PertDistribution.RandomNumberInfo"
 msgstr "<p>Generates a random number according to the Pert distribution with the parameters [a;c] and most likely value b according to the first (a), second (b) and third (c) parameter.</p>"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PhaseTypeDistRandom"
+msgstr "Phase-type distribution"
+
+msgid "ExpressionBuilder.ProbabilityDistributions.PhaseTypeDistRandom.RandomNumberInfo"
+msgstr "Generates a random number according to a phase-type distribution specified by the matrix s (given row by row) and the vector alpha."
 
 msgid "ExpressionBuilder.ProbabilityDistributions.PlanckDistribution"
 msgstr "Planck distribution"

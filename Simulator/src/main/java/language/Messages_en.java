@@ -18656,6 +18656,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45595] = "By assigning the elements to different layers, certain aspects of the model can be specifically shown or hidden.";
     t[45600] = "Dialog.Title.Warning";
     t[45601] = "Warning";
+    t[45602] = "ExpressionBuilder.ProbabilityDistributions.PhaseTypeDistRandom.RandomNumberInfo";
+    t[45603] = "Generates a random number according to a phase-type distribution specified by the matrix s (given row by row) and the vector alpha.";
     t[45606] = "Resources.Group.EditName.Dialog.Failure.Number.Error.Title";
     t[45607] = "Invalid failure by number of served clients value";
     t[45608] = "SettingsDialog.ScriptFontSize";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48959] = "Save resource usage";
     t[48960] = "Surface.AnimationTable.Dialog.Align";
     t[48961] = "Text alignment";
-    t[48966] = "Surface.Batch.XML.BatchMode";
-    t[48967] = "ModelElementBatchMode;BatchMode";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[48966] = "Surface.Batch.XML.BatchMode";
+    t[48967] = "ModelElementBatchMode;BatchMode";
     t[48968] = "Statistics.UtilizationRho.Mean";
     t[48969] = "Mean relative utilization (rho)";
     t[48984] = "Surface.AnimationImage.Dialog.Images.Expression.Error.Title";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53927] = "<p>Gets the current repeat number of the simulation.</p>";
     t[53928] = "ExternalConnect.Dialog.Compile.StatusSuccessWarningOne";
     t[53929] = "%d file compiled successfully but with warning.";
-    t[53932] = "ExpressionBuilder.LogicFunctions.And";
-    t[53933] = "Logic \"and\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[53932] = "ExpressionBuilder.LogicFunctions.And";
+    t[53933] = "Logic \"and\"";
     t[53940] = "Surface.AnimationBar.XML.DataArea.Direction.Left";
     t[53941] = "left";
     t[53942] = "Main.Menu.Edit.UndoRedoSelect.Mnemonic";
@@ -23240,6 +23242,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[56679] = "Password";
     t[56680] = "Surface.Decide.Dialog.DecideBy.StringProperty";
     t[56681] = "String property";
+    t[56686] = "ExpressionBuilder.ProbabilityDistributions.PhaseTypeDistRandom";
+    t[56687] = "Phase-type distribution";
     t[56692] = "SettingsDialog.Tabs.Simulation.Local";
     t[56693] = "Local simulation";
     t[56702] = "ScriptPopup.Simulation.getNQ";
@@ -24072,16 +24076,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[58757] = "Record animation as video";
     t[58764] = "LogAnalyzer.OutputFile.Tooltip";
     t[58765] = "Output file for log file analysis";
-    t[58768] = "ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist.RandomNumberInfo";
-    t[58769] = "<p>Generates a random number according to the discrete uniform distribution within the range (integer numbers) specified by the first and the second parameter.</p>";
-    t[58770] = "Statistic.FastAccess.Template.StatisticsXMLMedian";
-    t[58771] = "Median of a distribution";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[58768] = "ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist.RandomNumberInfo";
+    t[58769] = "<p>Generates a random number according to the discrete uniform distribution within the range (integer numbers) specified by the first and the second parameter.</p>";
+    t[58770] = "Statistic.FastAccess.Template.StatisticsXMLMedian";
+    t[58771] = "Median of a distribution";
     t[58774] = "SettingsDialog.ImageResolution.Invalid.Title";
     t[58775] = "Invalid image size entered";
     t[58778] = "SetupFailure.Title";

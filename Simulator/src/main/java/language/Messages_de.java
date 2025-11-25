@@ -18656,6 +18656,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45595] = "Durch die Zuordnung der Elemente auf verschiedene Ebenen k\u00f6nnen bestimmte Aspekte des Modells gezielt ein- oder ausgeblendet werden.";
     t[45600] = "Dialog.Title.Warning";
     t[45601] = "Warnung";
+    t[45602] = "ExpressionBuilder.ProbabilityDistributions.PhaseTypeDistRandom.RandomNumberInfo";
+    t[45603] = "Erzeugt eine Zufallszahl gem\u00e4\u00df  Phasentypverteilung, die \u00fcber die Matrix s (zeilenweise angegeben) und dem Vektor alpha parametrisiert ist.";
     t[45606] = "Resources.Group.EditName.Dialog.Failure.Number.Error.Title";
     t[45607] = "Ung\u00fcltiger Wert f\u00fcr Ausfall nach Anzahl bedienter Kunden";
     t[45608] = "SettingsDialog.ScriptFontSize";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[48959] = "Ressourcennutzung speichern";
     t[48960] = "Surface.AnimationTable.Dialog.Align";
     t[48961] = "Ausrichtung";
-    t[48966] = "Surface.Batch.XML.BatchMode";
-    t[48967] = "ModellElementBatchModus;BatchModus";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[48966] = "Surface.Batch.XML.BatchMode";
+    t[48967] = "ModellElementBatchModus;BatchModus";
     t[48968] = "Statistics.UtilizationRho.Mean";
     t[48969] = "Mittlere relative Auslastung (rho)";
     t[48984] = "Surface.AnimationImage.Dialog.Images.Expression.Error.Title";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53927] = "<p>Liefert die aktuell in Bearbeitung befindliche Wiederholung der Simulation.</p>";
     t[53928] = "ExternalConnect.Dialog.Compile.StatusSuccessWarningOne";
     t[53929] = "%d Datei erfolgreich, aber mit Warnung kompiliert.";
-    t[53932] = "ExpressionBuilder.LogicFunctions.And";
-    t[53933] = "Logisches \"Und\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[53932] = "ExpressionBuilder.LogicFunctions.And";
+    t[53933] = "Logisches \"Und\"";
     t[53940] = "Surface.AnimationBar.XML.DataArea.Direction.Left";
     t[53941] = "nach links";
     t[53942] = "Main.Menu.Edit.UndoRedoSelect.Mnemonic";
@@ -23240,6 +23242,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[56679] = "Passwort";
     t[56680] = "Surface.Decide.Dialog.DecideBy.StringProperty";
     t[56681] = "Texteigenschaft";
+    t[56686] = "ExpressionBuilder.ProbabilityDistributions.PhaseTypeDistRandom";
+    t[56687] = "Phasentypverteilung";
     t[56692] = "SettingsDialog.Tabs.Simulation.Local";
     t[56693] = "Lokale Simulation";
     t[56702] = "ScriptPopup.Simulation.getNQ";
@@ -24072,16 +24076,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[58757] = "Animation als Video aufzeichnen";
     t[58764] = "LogAnalyzer.OutputFile.Tooltip";
     t[58765] = "Ausgabedatei f\u00fcr die Logdatei-Analyse";
-    t[58768] = "ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist.RandomNumberInfo";
-    t[58769] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der diskreten Gleichverteilung \u00fcber den Bereich, der im ersten und zweiten Parameter (jeweils Ganzzahlen) spezifiziert ist.</p>";
-    t[58770] = "Statistic.FastAccess.Template.StatisticsXMLMedian";
-    t[58771] = "Median einer Verteilung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[58768] = "ExpressionBuilder.ProbabilityDistributions.DiscreteUniformDist.RandomNumberInfo";
+    t[58769] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der diskreten Gleichverteilung \u00fcber den Bereich, der im ersten und zweiten Parameter (jeweils Ganzzahlen) spezifiziert ist.</p>";
+    t[58770] = "Statistic.FastAccess.Template.StatisticsXMLMedian";
+    t[58771] = "Median einer Verteilung";
     t[58774] = "SettingsDialog.ImageResolution.Invalid.Title";
     t[58775] = "Ung\u00fcltige Bildgr\u00f6\u00dfe angegeben";
     t[58778] = "SetupFailure.Title";

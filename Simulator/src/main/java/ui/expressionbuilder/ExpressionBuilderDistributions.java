@@ -807,6 +807,13 @@ public class ExpressionBuilderDistributions {
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GeneralizedRademacherDist.DistributionFunctionInfo"),
 				Language.tr("ExpressionBuilder.ProbabilityDistributions.GeneralizedRademacherDist.RandomNumberInfo"));
 
+
+		/* Phasentyp-Verteilung (nur Zufallszahlen) */
+
+		addRandomOnlyDist(group,filterUpper,"PhaseTypeDistRandom","s...;alpha...",
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.PhaseTypeDistRandom"),
+				Language.tr("ExpressionBuilder.ProbabilityDistributions.PhaseTypeDistRandom.RandomNumberInfo"));
+
 		return group;
 	}
 
