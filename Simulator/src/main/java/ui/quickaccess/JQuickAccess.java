@@ -18,6 +18,7 @@ package ui.quickaccess;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
+import java.awt.Font;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.InputEvent;
@@ -49,6 +50,21 @@ import ui.tools.InputContextFix;
  * @see JQuickAccessTextField
  */
 public class JQuickAccess {
+	/**
+	 * Breite des Eingabefeldes (in Textspalten) im kompakten Modus
+	 */
+	public static final int COMPACT_SIZE=12;
+
+	/**
+	 * Breite des Eingabefeldes (in Textspalten) im Normalmodus
+	 */
+	public static final int FULL_SIZE=17;
+
+	/**
+	 * Skalierung der Schriftgröße in dem Eingabefeld im kompakten Modus
+	 */
+	public static final float FONT_SIZE_COMPACT_SCALE=0.7f;
+
 	/**
 	 * Liste aller verfügbaren QuickAccess-Builder (aktiv und deaktiviert).
 	 */
@@ -154,7 +170,7 @@ public class JQuickAccess {
 		final int modifiers=ctrlE.getModifiers();
 		String acceleratorText=(modifiers==0)?"":InputEvent.getModifiersExText(modifiers)+"+";
 		acceleratorText+=KeyEvent.getKeyText(ctrlE.getKeyCode());
-		final JQuickAccessTextField quickAccessTextField=new JQuickAccessTextField(compactMode?9:14,Language.tr("QuickAccess")+(compactMode?"":(" ("+acceleratorText+")")),JQuickAccessTextField.PopupMode.DIRECT) {
+		final JQuickAccessTextField quickAccessTextField=new JQuickAccessTextField(compactMode?COMPACT_SIZE:FULL_SIZE,Language.tr("QuickAccess")+(compactMode?"":(" ("+acceleratorText+")")),JQuickAccessTextField.PopupMode.DIRECT) {
 			/**
 			 * Serialisierungs-ID der Klasse
 			 * @see Serializable
@@ -231,6 +247,30 @@ public class JQuickAccess {
 		});
 
 		setTextFieldSize(textField,sizeSmall);
+	}
+
+	/**
+	 * Konfiguriert die Schriftgröße im Textfeld so, dass es je nach dem, ob es selektiert ist oder nicht,
+	 * die Schriftgröße normal oder kleiner ist.
+	 * @param textField	Zu konfigurierendes Textfeld
+	 * @param sizeSmallFraction	Skalierungsfaktor für die Schriftgröße im nicht-selektierten Fall
+	 */
+	public static void textFieldFontResizer(final JTextField textField, final float sizeSmallFraction) {
+		final Font defaultFont=textField.getFont();
+		final Font smallFont=defaultFont.deriveFont(defaultFont.getSize2D()*sizeSmallFraction);
+
+		textField.addFocusListener(new FocusListener() {
+			@Override public void focusLost(FocusEvent e) {textField.setFont(smallFont);}
+			@Override public void focusGained(FocusEvent e) {textField.setFont(defaultFont);}
+		});
+		textField.addKeyListener(new KeyAdapter() {
+			@Override public void keyPressed(KeyEvent e) {textField.setFont(defaultFont);}
+		});
+		textField.addMouseListener(new MouseAdapter() {
+			@Override public void mousePressed(MouseEvent e) {textField.setFont(defaultFont);}
+		});
+
+		textField.setFont(smallFont);
 	}
 
 	/**
