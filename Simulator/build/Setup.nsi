@@ -68,6 +68,7 @@ ShowUninstDetails nevershow
 ; ============================================================
 
 Function IsUpdate
+  ClearErrors
   ${GetParameters} $R1
   ${GetOptions} $R1 "/Update" $R2
   ${IfNot} ${Errors}
@@ -198,8 +199,7 @@ Section "Install" Inst
   ContinueInstall:
   
   File "..\..\Release\Simulator.jar"
-  File "..\..\Release\Simulator.exe"
-  File "..\..\Release\Simulator.sh"
+  ; File "..\..\Release\Simulator.exe"
   File "..\..\Release\Simulator.bat"
   File "..\..\Release\SimulatorCLI.bat"
   File "..\..\Release\Simulator.ico"
@@ -260,6 +260,7 @@ Section "Install" Inst
   Delete "$APPDATA\Temp\${SetupFileName}"
   
   ; Start simulator after update (since update installation will not show a finish page)
+  ClearErrors
   ${GetParameters} $R1
   ${GetOptions} $R1 "/Update" $R2
   ${IfNot} ${Errors}
@@ -270,7 +271,13 @@ Section "Install" Inst
   UserInfo::getAccountType
   Pop $0
   StrCmp $0 "Admin" notSilent
-  Exec "$INSTDIR\${PROGBAT}"
+  
+  ClearErrors
+  ${GetParameters} $R1
+  ${GetOptions} $R1 "/Silent" $R2
+  ${If} ${Errors}
+    Exec "$INSTDIR\${PROGBAT}"  
+  ${Endif}
   notSilent:
 SectionEnd
 
@@ -354,6 +361,16 @@ SectionEnd
 
 Function .onInit  
   !insertmacro MULTIUSER_INIT
+  
+  ClearErrors
+  ${GetParameters} $R1
+  ${GetOptions} $R1 "/Silent" $R2
+  ${IfNot} ${Errors}
+    SetSilent silent
+	Return
+  ${EndIf}
+  
+  ClearErrors
   ${GetParameters} $R1
   ${GetOptions} $R1 "/Update" $R2
   ${If} ${Errors}
