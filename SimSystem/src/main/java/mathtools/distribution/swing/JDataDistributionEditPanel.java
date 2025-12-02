@@ -140,6 +140,12 @@ public class JDataDistributionEditPanel extends JPanel {
 	 */
 	public static String ButtonSaveDialogTitle="Verteilung speichern";
 
+	/** Schaltfläche "Nach oben" */
+	public static String ButtonUp="Nach oben";
+
+	/** Schaltfläche "Nach unten" */
+	public static String ButtonDown="Nach unten";
+
 	/**
 	 * Fehlermeldung "Laden fehlgeschlagen"
 	 */

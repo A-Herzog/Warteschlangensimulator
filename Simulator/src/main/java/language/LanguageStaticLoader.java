@@ -452,6 +452,8 @@ public class LanguageStaticLoader {
 		JDataDistributionEditPanel.ButtonSave=Language.tr("JDistributionEditor.Save");
 		JDataDistributionEditPanel.ButtonSaveTooltip=Language.tr("JDistributionEditor.Save.Info");
 		JDataDistributionEditPanel.ButtonSaveDialogTitle=Language.tr("JDistributionEditor.Save.Title");
+		JDataDistributionEditPanel.ButtonUp=Language.tr("JDistributionEditor.ButtonUp");
+		JDataDistributionEditPanel.ButtonDown=Language.tr("JDistributionEditor.ButtonDown");
 		JDataDistributionEditPanel.LoadError=Language.tr("JDistributionEditor.Load.Error");
 		JDataDistributionEditPanel.LoadErrorTitle=Language.tr("Dialog.Title.Error");
 		JDataDistributionEditPanel.SaveOverwriteWarning=Language.tr("Dialog.Overwrite.Info");

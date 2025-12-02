@@ -50,6 +50,16 @@ public class JDistributionEditorPanelRecordDialog extends JDialog {
 	private static final long serialVersionUID=3637641916895163877L;
 
 	/**
+	 * "Nach oben" Schaltfläche (verschiebt die gewählte Verteilung einen Platz nach oben)
+	 */
+	private final JButton upButton;
+
+	/**
+	 * "Nach unten" Schaltfläche (verschiebt die gewählte Verteilung einen Platz nach unten)
+	 */
+	private final JButton downButton;
+
+	/**
 	 * Daten für {@link #list}
 	 */
 	private final List<JDistributionEditorPanelRecord> records;
@@ -102,6 +112,7 @@ public class JDistributionEditorPanelRecordDialog extends JDialog {
 				}
 			}
 		});
+		list.addListSelectionListener(e->listSelect());
 
 		/* Info und Buttons unten */
 		final JPanel bottomArea=new JPanel();
@@ -128,6 +139,16 @@ public class JDistributionEditorPanelRecordDialog extends JDialog {
 		buttonPanel.add(cancelButton);
 		cancelButton.addActionListener(e->setVisible(false));
 		cancelButton.setIcon(SimSystemsSwingImages.CANCEL.getIcon());
+
+		/* Nach oben Button */
+		buttonPanel.add(upButton=new JButton(JDataDistributionEditPanel.ButtonUp));
+		upButton.setIcon(SimSystemsSwingImages.UP.getIcon());
+		upButton.addActionListener(e->moveListItem(-1));
+
+		/* Nach unten Button */
+		buttonPanel.add(downButton=new JButton(JDataDistributionEditPanel.ButtonDown));
+		downButton.setIcon(SimSystemsSwingImages.DOWN.getIcon());
+		downButton.addActionListener(e->moveListItem(1));
 
 		/* Hotkey für "Ok" */
 		getRootPane().setDefaultButton(okButton);
@@ -161,6 +182,18 @@ public class JDistributionEditorPanelRecordDialog extends JDialog {
 		final int count=(int)records.stream().filter(record->!record.isSeparator()).count();
 		final int highlightCount=(int)records.stream().filter(record->record.highlight && !record.isSeparator()).count();
 		selectInfo.setText(String.format((highlightCount==1)?JDistributionEditorPanel.SetupListInfoSingular:JDistributionEditorPanel.SetupListInfoPlural,highlightCount,count));
+
+		listSelect();
+	}
+
+	/**
+	 * Aktiviert die Schaltflächen zum Verschieben der gewählten Verteilung
+	 * gemäß der aktuellen Auswahl.
+	 */
+	private void listSelect() {
+		final int selected=list.getSelectedIndex();
+		upButton.setEnabled(selected>0);
+		downButton.setEnabled(selected<records.size()-1);
 	}
 
 	/**

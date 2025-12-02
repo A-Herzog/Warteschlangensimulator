@@ -62,6 +62,12 @@ public enum SimSystemsSwingImages {
 	/** Symbol "Bearbeiten" */
 	EDIT("chart_curve.png"),
 
+	/** Pfeil nach oben */
+	UP("bullet_arrow_up.png"),
+
+	/** Pfeil nach unten */
+	DOWN("bullet_arrow_down.png"),
+
 	/** Symbol "Wert um 10 verringern" */
 	NUMBER_DOWN_10("bullet_arrow_bottom.png"),
 
