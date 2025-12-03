@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-24 08:45+0100\n"
+"POT-Creation-Date: 2025-12-01 10:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39905,6 +39905,9 @@ msgstr "The current help page could not be printed."
 
 msgid "Window.JavaSecurityWarnung"
 msgstr "The Java version you ware using is outdated and may be contains security vulnerabilities. Update:"
+
+msgid "Window.JavaSecurityWarnungNoLink"
+msgstr "The Java version you ware using is outdated and may be contains security vulnerabilities."
 
 msgid "Window.LanguageAutomatic"
 msgstr "The program language was set to <b>English</b>. You can change this via <b>File|Preferences</b>."

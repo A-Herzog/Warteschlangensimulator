@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-24 08:45+0100\n"
+"POT-Creation-Date: 2025-12-01 10:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39964,6 +39964,9 @@ msgstr ""
 
 msgid "Window.JavaSecurityWarnung"
 msgstr "Die von Ihnen verwendete Java-Version ist veraltet und enthält möglicherweise Sicherheitslücken. Update:"
+
+msgid "Window.JavaSecurityWarnungNoLink"
+msgstr "Die von Ihnen verwendete Java-Version ist veraltet und enthält möglicherweise Sicherheitslücken."
 
 msgid "Window.LanguageAutomatic"
 msgstr "Die Programmsprache wurde passend zur Betriebssystemsprache auf <b>Deutsch</b> eingestellt. Sie können dies über <b>Datei|Einstellungen</b> verändern."

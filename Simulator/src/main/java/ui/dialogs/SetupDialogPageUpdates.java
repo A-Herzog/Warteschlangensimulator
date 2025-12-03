@@ -83,16 +83,19 @@ public class SetupDialogPageUpdates extends SetupDialogPage {
 		line.add(new JLabel(Language.tr("InfoDialog.JavaVersion")+": "+System.getProperty("java.version")+" ("+System.getProperty("java.vm.name")+")"));
 
 		/* Update URL */
-		line=addLine();
-		line.add(new JLabel(Language.tr("SettingsDialog.JDK.Info")+": "));
-		line.add(label=new JLabel("<html><body><a href=\"https://"+MainPanel.JDK_URL+"\">https://"+MainPanel.JDK_URL+"</a></body></html>"));
-		label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-		label.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(final MouseEvent e) {
-				if (SwingUtilities.isLeftMouseButton(e)) JOpenURL.open(SetupDialogPageUpdates.this,"https://"+MainPanel.JDK_URL);
-			}
-		});
+		final boolean isWindows=System.getProperty("os.name").toUpperCase().contains("WIN");
+		if (isWindows) {
+			line=addLine();
+			line.add(new JLabel(Language.tr("SettingsDialog.JDK.Info")+": "));
+			line.add(label=new JLabel("<html><body><a href=\"https://"+MainPanel.JDK_URL+"\">https://"+MainPanel.JDK_URL+"</a></body></html>"));
+			label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+			label.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(final MouseEvent e) {
+					if (SwingUtilities.isLeftMouseButton(e)) JOpenURL.open(SetupDialogPageUpdates.this,"https://"+MainPanel.JDK_URL);
+				}
+			});
+		}
 
 		if (setup.updaterAvailable) {
 			addHeading(Language.tr("SettingsDialog.Update.SectionSimulator"));

@@ -2330,7 +2330,13 @@ public class MainPanel extends MainPanelBase {
 			final int[] ver=getJavaVersion();
 			final Integer subVersion=SECURE_JAVA_VERSIONS.get(ver[0]);
 			if (subVersion==null || ver[1]>=subVersion.intValue()) return;
-			setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),"https://"+MainPanel.JDK_URL,MessagePanelIcon.WARNING);
+
+			final boolean isWindows=System.getProperty("os.name").toUpperCase().contains("WIN");
+			if (isWindows) {
+				setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnung"),"https://"+MainPanel.JDK_URL,MessagePanelIcon.WARNING);
+			} else {
+				setMessagePanel(Language.tr("Dialog.Title.Warning"),Language.tr("Window.JavaSecurityWarnungNoLink"),null,MessagePanelIcon.WARNING);
+			}
 			new Timer("HideSecurityInfoPanel").schedule(new TimerTask() {@Override public void run() {setMessagePanel(null,null,null);}},7500);
 		}
 	}
