@@ -17,6 +17,7 @@ package systemtools.statistics;
 
 import java.io.ByteArrayOutputStream;
 
+import org.apache.poi.common.usermodel.PictureType;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.xmlbeans.XmlException;
@@ -123,7 +124,7 @@ public class XWPFDocumentPictureTools {
 		} catch (InvalidFormatException e) {return false;}
 
 		try {
-			createPicture(doc,blipId,doc.getNextPicNameNumber(pictureType),sizeX,sizeY);
+			createPicture(doc,blipId,doc.getNextPicNameNumber(PictureType.findByOoxmlId(pictureType)),sizeX,sizeY);
 		} catch (InvalidFormatException e) {return false;}
 
 		return true;
