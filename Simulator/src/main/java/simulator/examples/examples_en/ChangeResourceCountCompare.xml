@@ -2,7 +2,7 @@
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModelVersion>5.3.0</ModelVersion>
+  <ModelVersion>5.5.0</ModelVersion>
   <ModelName>Workload depending number of operators</ModelName>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">5000000</ModelClients>
@@ -11,7 +11,7 @@
   <ModelElements>
     <ModelElementProcessStation id="1">
       <ModelElementName>variabel</ModelElementName>
-      <ModelElementSize h="50" w="100" x="600" y="150"/>
+      <ModelElementSize h="50" w="100" x="700" y="150"/>
       <ModelElementConnection Element="11" Type="In"/>
       <ModelElementConnection Element="18" Type="Out"/>
       <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (100)</ModelElementDistribution>
@@ -30,17 +30,17 @@
       <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementDispose id="3">
-      <ModelElementSize h="50" w="100" x="900" y="150"/>
+      <ModelElementSize h="50" w="100" x="1050" y="150"/>
       <ModelElementConnection Element="19" Type="In"/>
     </ModelElementDispose>
     <ModelElementText id="6">
-      <ModelElementSize h="23" w="369" x="50" y="50"/>
+      <ModelElementSize h="23" w="364" x="50" y="50"/>
       <ModelElementTextLine>Workload depending number of operators</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="7">
-      <ModelElementSize h="32" w="447" x="450" y="100"/>
+      <ModelElementSize h="32" w="458" x="550" y="100"/>
       <ModelElementTextLine>Number of available operators: 5 or less clients: 1 operator,</ModelElementTextLine>
       <ModelElementTextLine>6 to 9 clients at the station: 2 operators, 10 or more clients at the station: 3 operators</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
@@ -60,26 +60,23 @@
       <ModelElementAxisLabels>2</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="9">
-      <ModelElementSize h="19" w="430" x="50" y="480"/>
+      <ModelElementSize h="19" w="437" x="50" y="480"/>
       <ModelElementTextLine>Number of clients at the process stations (current value and average)</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementScript id="4">
-      <ModelElementSize h="50" w="100" x="450" y="150"/>
+      <ModelElementSize h="50" w="100" x="550" y="150"/>
       <ModelElementConnection Element="22" Type="In"/>
       <ModelElementConnection Element="11" Type="Out"/>
-      <ModelElementScriptText Language="Javascript">var wip=Simulation.getWIP(1);
+      <ModelElementScriptText Language="Javascript">let wip=Simulation.getWIP(1);
 
-var count=1;
+let count=1;
 if (wip&gt;=5) count=2;
 if (wip&gt;=10) count=3;
 
 Simulation.setResourceCount(1,count);</ModelElementScriptText>
     </ModelElementScript>
-    <ModelElementEdge id="11">
-      <ModelElementConnection Element1="4" Element2="1" Type="Edge"/>
-    </ModelElementEdge>
     <ModelElementAnimationLineDiagram id="12">
       <ModelElementSize h="200" w="700" x="50" y="800"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
@@ -92,33 +89,33 @@ Simulation.setResourceCount(1,count);</ModelElementScriptText>
       <ModelElementAxisLabels>2</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="13">
-      <ModelElementSize h="19" w="377" x="50" y="780"/>
+      <ModelElementSize h="19" w="385" x="50" y="780"/>
       <ModelElementTextLine>Current number of operators at the process station "variabel"</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="14">
       <ModelElementName>Number of operators</ModelElementName>
-      <ModelElementSize h="30" w="87" x="600" y="220"/>
+      <ModelElementSize h="30" w="87" x="700" y="220"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Resource_count(1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="15">
       <ModelElementName>Working operators</ModelElementName>
-      <ModelElementSize h="30" w="78" x="700" y="220"/>
+      <ModelElementSize h="30" w="76" x="800" y="220"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Resource(1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementText id="16">
-      <ModelElementSize h="16" w="266" x="50" y="1020"/>
+      <ModelElementSize h="16" w="274" x="50" y="1020"/>
       <ModelElementTextLine>(blue=available operators, red=working operators)</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="17">
-      <ModelElementSize h="56" w="249" x="800" y="225"/>
+      <ModelElementSize h="56" w="272" x="900" y="225"/>
       <ModelElementTextLine>(If an operator is removed from a station, he will finish</ModelElementTextLine>
       <ModelElementTextLine>this current service task anyway. So for a short amount of</ModelElementTextLine>
       <ModelElementTextLine>time the current number of operators at the station can be</ModelElementTextLine>
@@ -127,7 +124,7 @@ Simulation.setResourceCount(1,count);</ModelElementScriptText>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementScript id="5">
-      <ModelElementSize h="50" w="100" x="750" y="150"/>
+      <ModelElementSize h="50" w="100" x="850" y="150"/>
       <ModelElementConnection Element="18" Type="In"/>
       <ModelElementConnection Element="19" Type="Out"/>
       <ModelElementScriptText Language="Javascript">var wip=Simulation.getWIP(1);
@@ -141,12 +138,9 @@ Simulation.setResourceCount(1,count);</ModelElementScriptText>
     <ModelElementEdge id="18">
       <ModelElementConnection Element1="1" Element2="5" Type="Edge"/>
     </ModelElementEdge>
-    <ModelElementEdge id="19">
-      <ModelElementConnection Element1="5" Element2="3" Type="Edge"/>
-    </ModelElementEdge>
     <ModelElementProcessStation id="20">
       <ModelElementName>fixed</ModelElementName>
-      <ModelElementSize h="50" w="100" x="600" y="350"/>
+      <ModelElementSize h="50" w="100" x="700" y="350"/>
       <ModelElementConnection Element="23" Type="In"/>
       <ModelElementConnection Element="25" Type="Out"/>
       <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (100)</ModelElementDistribution>
@@ -174,56 +168,56 @@ Simulation.setResourceCount(1,count);</ModelElementScriptText>
       <ModelElementConnection Element1="21" Element2="20" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementDispose id="24">
-      <ModelElementSize h="50" w="100" x="900" y="350"/>
+      <ModelElementSize h="50" w="100" x="1050" y="350"/>
       <ModelElementConnection Element="25" Type="In"/>
     </ModelElementDispose>
     <ModelElementEdge id="25">
       <ModelElementConnection Element1="20" Element2="24" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="26">
-      <ModelElementSize h="16" w="500" x="50" y="720"/>
+      <ModelElementSize h="16" w="515" x="50" y="720"/>
       <ModelElementTextLine>(blue=station with variable number of operators, purple=station with fixed number of operators)</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="27">
       <ModelElementName>Number of operators</ModelElementName>
-      <ModelElementSize h="30" w="87" x="600" y="420"/>
+      <ModelElementSize h="30" w="87" x="700" y="420"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Resource_count(2)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="28">
       <ModelElementName>Working operators</ModelElementName>
-      <ModelElementSize h="30" w="78" x="700" y="420"/>
+      <ModelElementSize h="30" w="76" x="800" y="420"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">Resource(2)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="29">
       <ModelElementName>E[N_variabel]</ModelElementName>
-      <ModelElementSize h="30" w="56" x="800" y="500"/>
+      <ModelElementSize h="30" w="57" x="800" y="500"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">N_Avg(1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="30">
       <ModelElementName>CV[N_variabel]</ModelElementName>
-      <ModelElementSize h="30" w="63" x="900" y="500"/>
+      <ModelElementSize h="30" w="64" x="900" y="500"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">N_cv(1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="60">
       <ModelElementName>E[N_fixed]</ModelElementName>
-      <ModelElementSize h="30" w="53" x="800" y="575"/>
+      <ModelElementSize h="30" w="55" x="800" y="570"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">N_Avg(20)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="61">
       <ModelElementName>CV[N_fixed]</ModelElementName>
-      <ModelElementSize h="30" w="53" x="900" y="575"/>
+      <ModelElementSize h="30" w="55" x="900" y="570"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">N_cv(20)</ModelElementAnimationMode>
@@ -237,25 +231,59 @@ Simulation.setResourceCount(1,count);</ModelElementScriptText>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="32">
       <ModelElementName>CV[W_variabel]</ModelElementName>
-      <ModelElementSize h="30" w="65" x="1100" y="500"/>
+      <ModelElementSize h="30" w="66" x="1100" y="500"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WaitingTime_cv(1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="122">
       <ModelElementName>E[W_fixed]</ModelElementName>
-      <ModelElementSize h="30" w="53" x="1000" y="570"/>
+      <ModelElementSize h="30" w="55" x="1000" y="570"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WaitingTime_Avg(20)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="123">
       <ModelElementName>CV[W_fixed]</ModelElementName>
-      <ModelElementSize h="30" w="53" x="1100" y="570"/>
+      <ModelElementSize h="30" w="55" x="1100" y="570"/>
       <ModelElementFontSize bold="1">14</ModelElementFontSize>
       <ModelElementColor>255,0,255</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WaitingTime_cv(20)</ModelElementAnimationMode>
     </ModelElementAnimationText>
+    <ModelElementAnimationText id="37">
+      <ModelElementName>Average number of operators</ModelElementName>
+      <ModelElementSize h="30" w="123" x="1200" y="500"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Resource_count_avg(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="38">
+      <ModelElementName>Number of operators</ModelElementName>
+      <ModelElementSize h="30" w="87" x="1200" y="570"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Resource_count_avg(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="39">
+      <ModelElementName>Average utilization</ModelElementName>
+      <ModelElementSize h="30" w="98" x="1350" y="500"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(1)/Resource_count_avg(1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="40">
+      <ModelElementName>Average utilization</ModelElementName>
+      <ModelElementSize h="30" w="98" x="1350" y="570"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(2)/Resource_count_avg(2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementEdge id="11">
+      <ModelElementConnection Element1="4" Element2="1" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementConnection Element1="5" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
   </ModelElements>
   <Resources SecondaryPriority="Random">
     <Resource Icon="status_online" Name="Group variabel" Type="Number" Value="1"/>
@@ -265,6 +293,7 @@ Simulation.setResourceCount(1,count);</ModelElementScriptText>
   <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
   <ModelEdgesSelected Type="0" Width="1"/>
   <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
   <CriticalStationsSignature>
     <SignatureStation Hash="gxS41v8ESRNlQCxrQ6v2vN3Dqj86xKZSEoSKLng/dUs=" Signature="cyCSMZoLhi9yBaTQxURQcKc0aAJPdMFoUwX3iI2jbvteNrmjjdhXwhw+sRSnv9OvEjShULeYHQYdidJVjQRr7uVBV/6+M2ZL1wzHt52Brnm6zUghHQ4XBIcPeSpky2sKp4OMekHpqp5z/1n19006hf7xrszNQO+mFYB7WxpXPNVIqoz3d1n60VaJJxYgQVqklE147yDmC9QCo6AWuI8uGgihcs3PVWnVPlkELXj62X6LrkJW9bF1qm0qOwq29g8aWq4gArDRe+MQFOrk8r8WziTeN+DQLOcf3h1Vv8OLO75F+K+dmG6j6bUGoWzT0jKrmdzreMF6cq5FZ1G3WbgLJTpLauhoT5i87TIEXkHCb7LugVGvlZO+jllfD9Bodn6WkligNG0dyTihKogVgvN6HrXq6J6fF7s7ESPfrfcvnTbFGd9tdY4jWaF71Uma72WsjjYYq3AbWw8GTw63ipBsPQdWeJy0I5kbxpkrS8uiX4AnsY26zrlCuEdsjEtxyhhRWk/YE/5UfVBdkrMjWzdiH8QH5WRKeFnhl2djgcWOm13/AJMdpCwdmtNziToZ5yfM0X1epbu4uOuQj54brffqCKQDlbMycDa6962dYlVETrdO4xrOcdPVCWBAD5Ek7bduz4nlK029JjNN/IC7y0xGRqXQLd72+4vXUaTMKqYf2kM=" id="4"/>
     <SignatureStation Hash="gxS41v8ESRNlQCxrQ6v2vN3Dqj86xKZSEoSKLng/dUs=" Signature="cyCSMZoLhi9yBaTQxURQcKc0aAJPdMFoUwX3iI2jbvteNrmjjdhXwhw+sRSnv9OvEjShULeYHQYdidJVjQRr7uVBV/6+M2ZL1wzHt52Brnm6zUghHQ4XBIcPeSpky2sKp4OMekHpqp5z/1n19006hf7xrszNQO+mFYB7WxpXPNVIqoz3d1n60VaJJxYgQVqklE147yDmC9QCo6AWuI8uGgihcs3PVWnVPlkELXj62X6LrkJW9bF1qm0qOwq29g8aWq4gArDRe+MQFOrk8r8WziTeN+DQLOcf3h1Vv8OLO75F+K+dmG6j6bUGoWzT0jKrmdzreMF6cq5FZ1G3WbgLJTpLauhoT5i87TIEXkHCb7LugVGvlZO+jllfD9Bodn6WkligNG0dyTihKogVgvN6HrXq6J6fF7s7ESPfrfcvnTbFGd9tdY4jWaF71Uma72WsjjYYq3AbWw8GTw63ipBsPQdWeJy0I5kbxpkrS8uiX4AnsY26zrlCuEdsjEtxyhhRWk/YE/5UfVBdkrMjWzdiH8QH5WRKeFnhl2djgcWOm13/AJMdpCwdmtNziToZ5yfM0X1epbu4uOuQj54brffqCKQDlbMycDa6962dYlVETrdO4xrOcdPVCWBAD5Ek7bduz4nlK029JjNN/IC7y0xGRqXQLd72+4vXUaTMKqYf2kM=" id="5"/>
