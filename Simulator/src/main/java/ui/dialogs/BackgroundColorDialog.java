@@ -39,6 +39,7 @@ import mathtools.NumberTools;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import systemtools.OptionalColorChooserButton;
+import tools.IconListCellRenderer;
 import ui.help.Help;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -153,6 +154,10 @@ public class BackgroundColorDialog extends BaseDialog {
 		case IN_FRONT_OF_RASTER: orderComboBox.setSelectedIndex(1); break;
 		default: orderComboBox.setSelectedIndex(0); break;
 		}
+		orderComboBox.setRenderer(new IconListCellRenderer(new Images[]{
+				Images.EDIT_VIEW_RASTER,
+				Images.EDIT_BACKGROUND_IMAGE
+		}));
 
 		tab.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(removeButton=new JButton(Language.tr("Window.BackgroundColor.RemoveImage"),Images.EDIT_DELETE.getIcon()));
