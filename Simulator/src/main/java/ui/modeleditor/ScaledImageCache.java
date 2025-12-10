@@ -15,7 +15,9 @@
  */
 package ui.modeleditor;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.DataBuffer;
@@ -279,12 +281,32 @@ public class ScaledImageCache {
 		/* Größe des skalierten Bildes (evtl. nicht formatfüllend, weil im korrekten Seitenverhältnis) bestimmen */
 		int[] newSize=calcScaledSize(original,width,height);
 		/* In neues Bild einzeichnen */
-		scaledImage.getGraphics().drawImage(original,(width-newSize[0])/2,(height-newSize[1])/2,newSize[0],newSize[1],null);
+		/*
+		final Graphics2D scaledImageGraphics=(Graphics2D)scaledImage.getGraphics();
+		scaledImageGraphics.drawImage(resizeImage(original,newSize[0],newSize[1]),null,(width-newSize[0])/2,(height-newSize[1])/2);
+		scaledImageGraphics.dispose();
+		 */
+		final Graphics2D scaledImageGraphics=(Graphics2D)scaledImage.getGraphics();
+		final Object oldRenderingHint=scaledImageGraphics.getRenderingHint(RenderingHints.KEY_INTERPOLATION);
+		scaledImageGraphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		scaledImageGraphics.drawImage(original,(width-newSize[0])/2,(height-newSize[1])/2,newSize[0],newSize[1],null);
+		if (oldRenderingHint!=null) scaledImageGraphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION,oldRenderingHint);
+		scaledImageGraphics.dispose();
 
 		/* In Cache speichern und zurück geben */
 		storeToCache(hash,scaledImage,width,height);
 		return new Object[]{scaledImage,hash};
 	}
+
+	/*
+	private BufferedImage resizeImage(Image originalImage, int targetWidth, int targetHeight) {
+		final Image resultingImage=originalImage.getScaledInstance(targetWidth,targetHeight,Image.SCALE_SMOOTH);
+		if (resultingImage instanceof BufferedImage) return (BufferedImage)resultingImage;
+		final BufferedImage outputImage=new BufferedImage(targetWidth,targetHeight,BufferedImage.TYPE_INT_RGB);
+		outputImage.getGraphics().drawImage(resultingImage,0,0,null);
+		return outputImage;
+	}
+	 */
 
 	/**
 	 * Liefert eine auf vorgegebene Maße skalierte Fassung eines Bildes
