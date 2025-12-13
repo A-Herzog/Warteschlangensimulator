@@ -29,16 +29,13 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
 import mathtools.Table;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import simulator.db.DBConntectSetupTemplates.DBType;
 import tools.IconListCellRenderer;
 import ui.images.Images;
@@ -226,67 +223,41 @@ public class DBSettingsPanel extends JPanel {
 		final DBConnectSetup currentType=DBConnectSetups.byIndex(comboType.getSelectedIndex());
 
 		if (currentType.selectSource==DBConnectSetup.SelectSource.FILE_SQLITE) {
-			final JFileChooser fc;
-			if (!editConfig.getText().isBlank()) fc=new JFileChooser(editConfig.getText()); else {
-				fc=new JFileChooser();
-				CommonVariables.initialDirectoryToJFileChooser(fc);
-			}
+			final var fc=new PlugableFileChooser(editConfig.getText().isBlank()?null:editConfig.getText(),true);
 			fc.setDialogTitle(Language.tr("Surface.Database.Config.ButtonHintSQLite"));
-			FileFilter sqlite=new FileNameExtensionFilter(Table.FileTypeSQLite+" (*.sqlite3, *.sqlite, *.db, *.db3, *.s3db)","sqlite3","sqlite","db","db3","s3db");
-			fc.addChoosableFileFilter(sqlite);
-			fc.setFileFilter(sqlite);
-			if (fc.showOpenDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-			CommonVariables.initialDirectoryFromJFileChooser(fc);
-			File file=fc.getSelectedFile();
-			if (file.getName().indexOf('.')<0) {
-				if (fc.getFileFilter()==sqlite) file=new File(file.getAbsoluteFile()+".sqlite3");
-			}
+			fc.addChoosableFileFilter(Table.FileTypeSQLite+" (*.sqlite3, *.sqlite, *.db, *.db3, *.s3db)","sqlite3","sqlite","db","db3","s3db");
+			fc.setFileFilter("sqlite3");
+			final File file=fc.showOpenDialogFileWithExtension(this);
+			if (file==null) return;
 			editConfig.setText(file.toString());
 			fireChangedNotify();
 		}
 
 		if (currentType.selectSource==DBConnectSetup.SelectSource.FILE_GENERAL) {
-			final JFileChooser fc;
-			if (!editConfig.getText().isBlank()) fc=new JFileChooser(editConfig.getText()); else {
-				fc=new JFileChooser();
-				CommonVariables.initialDirectoryToJFileChooser(fc);
-			}
+			final var fc=new PlugableFileChooser(editConfig.getText().isBlank()?null:editConfig.getText(),true);
 			fc.setDialogTitle(Language.tr("Surface.Database.Config.ButtonHintFile"));
-			if (fc.showOpenDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-			CommonVariables.initialDirectoryFromJFileChooser(fc);
-			File file=fc.getSelectedFile();
+			final File file=fc.showOpenDialogFileWithExtension(this);
+			if (file==null) return;
 			editConfig.setText(file.toString());
 			fireChangedNotify();
 		}
 
 		if (currentType.selectSource==DBConnectSetup.SelectSource.FOLDER) {
-			final JFileChooser fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
+			final var fc=new PlugableFileChooser(true);
 			fc.setDialogTitle(Language.tr("Surface.Database.Config.ButtonHintHSQLDBLocal"));
-			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-			CommonVariables.initialDirectoryFromJFileChooser(fc);
-			final File file=fc.getSelectedFile();
+			final File file=fc.showSelectDirectoryDialog(this);
+			if (file==null) return;
 			editConfig.setText(file.toString());
 			fireChangedNotify();
 		}
 
 		if (currentType.selectSource==DBConnectSetup.SelectSource.FILE_ACCESS) {
-			final JFileChooser fc;
-			if (!editConfig.getText().isBlank()) fc=new JFileChooser(editConfig.getText()); else {
-				fc=new JFileChooser();
-				CommonVariables.initialDirectoryToJFileChooser(fc);
-			}
+			final var fc=new PlugableFileChooser(editConfig.getText().isBlank()?null:editConfig.getText(),true);
 			fc.setDialogTitle(Language.tr("Surface.Database.Config.ButtonHintAccess"));
-			FileFilter access=new FileNameExtensionFilter(Language.tr("Surface.Database.FileTypeAccess")+" (*.accdb)","accdb");
-			fc.addChoosableFileFilter(access);
-			fc.setFileFilter(access);
-			if (fc.showOpenDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-			CommonVariables.initialDirectoryFromJFileChooser(fc);
-			File file=fc.getSelectedFile();
-			if (file.getName().indexOf('.')<0) {
-				if (fc.getFileFilter()==access) file=new File(file.getAbsoluteFile()+".accdb");
-			}
+			fc.addChoosableFileFilter(Language.tr("Surface.Database.FileTypeAccess")+" (*.accdb)","accdb");
+			fc.setFileFilter("accdb");
+			final File file=fc.showOpenDialogFileWithExtension(this);
+			if (file==null) return;
 			editConfig.setText(file.toString());
 			fireChangedNotify();
 		}

@@ -40,7 +40,6 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -48,14 +47,12 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TableChart;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import mathtools.distribution.tools.DistributionRandomNumberThreadLocal;
 import mathtools.distribution.tools.RandomGeneratorMode;
 import parser.MathCalcError;
@@ -398,18 +395,16 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 	 * @return	Liefert <code>true</code>, wenn die Zufallszahlen gespeichert werden konnten
 	 */
 	private boolean randomNumbersSave(final String expression) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveTitle"));
-		final FileFilter txt=new FileNameExtensionFilter(Table.FileTypeText+" (*.txt, *.tsv)","txt","tsv");
-		fc.addChoosableFileFilter(txt);
-		fc.setFileFilter(txt);
+		fc.addChoosableFileFilter(Table.FileTypeText+" (*.txt, *.tsv)","txt","tsv");
+		fc.setFileFilter("txt");
 		fc.setAcceptAllFileFilterUsed(false);
-		if (fc.showSaveDialog(window)!=JFileChooser.APPROVE_OPTION) return false;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
+		final File file=fc.showSaveDialogFileWithExtension(window);
+		if (file==null) return false;
+
+		if (file.exists()) {
+			if (!MsgBox.confirmOverwrite(this,file)) return false;
 		}
 
 		final ExpressionCalc calc=buildExpressionCalc(expression);
@@ -537,18 +532,16 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 	 * @return	Liefert <code>true</code>, wenn die Zufallszahlen gespeichert werden konnten
 	 */
 	private boolean randomNumbersSaveExt(final String expression) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.SaveTitle"));
-		final FileFilter xlsx=new FileNameExtensionFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx");
-		fc.addChoosableFileFilter(xlsx);
-		fc.setFileFilter(xlsx);
+		fc.addChoosableFileFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx");
+		fc.setFileFilter("xlsx");
 		fc.setAcceptAllFileFilterUsed(false);
-		if (fc.showSaveDialog(window)!=JFileChooser.APPROVE_OPTION) return false;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
+		final File file=fc.showSaveDialogFileWithExtension(window);
+		if (file==null) return false;
+
+		if (file.exists()) {
+			if (!MsgBox.confirmOverwrite(this,file)) return false;
 		}
 
 		final TableChart tableChart=buildTableChart(expression);

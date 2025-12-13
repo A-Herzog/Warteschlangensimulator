@@ -28,7 +28,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -58,7 +57,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 
 /**
  * Diese Klasse enthält Funktionen zum Laden und Speichern von Daten aus bzw. in XML-Dateien
@@ -907,34 +906,8 @@ public final class XMLTools {
 	public static File showLoadDialog(final Container parent, final String title, final File initialFolder, String[] userFilterNames, String[] userFilterExts) {
 		Container c=parent; while ((c!=null) && (!(c instanceof Frame))) c=c.getParent();
 
-		final JFileChooser fc;
-		if (initialFolder==null) {
-			fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-		} else {
-			fc=new JFileChooser(initialFolder);
-		}
-
+		final var fc=new PlugableFileChooser(initialFolder,true);
 		fc.setDialogTitle(title);
-		final FileFilter xml=new FileNameExtensionFilter(fileTypeXML+" (*.xml)","xml");
-		final FileFilter zip=new FileNameExtensionFilter(fileTypeCompressedXML+" (*.zip, *.xmz)","zip","xmz");
-		final FileFilter tar=new FileNameExtensionFilter(fileTypeTARCompressedXML+" (*.tar.gz, *.tar, *.tgz)","tar.gz","tar","tgz");
-		final FileFilter json=new FileNameExtensionFilter(fileTypeJSON+" (*.json)","json");
-		final FileFilter cs=new FileNameExtensionFilter(fileTypeEncryptedXML+" (*.cs)","cs");
-		fc.addChoosableFileFilter(xml);
-		fc.addChoosableFileFilter(zip);
-		fc.addChoosableFileFilter(tar);
-		fc.addChoosableFileFilter(json);
-		fc.addChoosableFileFilter(cs);
-
-		if (userFilterNames==null) userFilterNames=new String[0];
-		if (userFilterExts==null) userFilterExts=new String[0];
-		int userCount=Math.min(userFilterNames.length,userFilterExts.length);
-		final FileFilter[] userFilter=new FileNameExtensionFilter[userCount];
-		for (int i=0;i<userCount;i++) {
-			String[] s=userFilterExts[i].split(";");
-			fc.addChoosableFileFilter(userFilter[i]=new FileNameExtensionFilter(userFilterNames[i],s));
-		}
 
 		final List<String> allTypes=new ArrayList<>();
 		allTypes.add("xml");
@@ -946,26 +919,26 @@ public final class XMLTools {
 		allTypes.add("json");
 		allTypes.add("cs");
 		if (userFilterExts!=null) allTypes.addAll(Arrays.asList(userFilterExts));
-		FileFilter all=new FileNameExtensionFilter(fileTypeAll,allTypes.toArray(String[]::new));
+		final FileFilter all=new FileNameExtensionFilter(fileTypeAll,allTypes.toArray(String[]::new));
 		fc.addChoosableFileFilter(all);
-		fc.setFileFilter(all);
 
-		if (fc.showOpenDialog(c)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==xml) file=new File(file.getAbsoluteFile()+".xml");
-			if (fc.getFileFilter()==zip) file=new File(file.getAbsoluteFile()+".zip");
-			if (fc.getFileFilter()==tar) file=new File(file.getAbsoluteFile()+".tar.gz");
-			if (fc.getFileFilter()==json) file=new File(file.getAbsoluteFile()+".json");
-			if (fc.getFileFilter()==cs) file=new File(file.getAbsoluteFile()+".cs");
-			for (int i=0;i<userCount;i++) if (fc.getFileFilter()==userFilter[i]) {
-				String[] s=userFilterExts[i].split(";");
-				file=new File(file.getAbsoluteFile()+"."+s[0]);
-				break;
-			}
+		fc.addChoosableFileFilter(fileTypeXML+" (*.xml)","xml");
+		fc.addChoosableFileFilter(fileTypeCompressedXML+" (*.zip, *.xmz)","zip","xmz");
+		fc.addChoosableFileFilter(fileTypeTARCompressedXML+" (*.tar.gz, *.tar, *.tgz)","tar.gz","tar","tgz");
+		fc.addChoosableFileFilter(fileTypeJSON+" (*.json)","json");
+		fc.addChoosableFileFilter(fileTypeEncryptedXML+" (*.cs)","cs");
+
+		if (userFilterNames==null) userFilterNames=new String[0];
+		if (userFilterExts==null) userFilterExts=new String[0];
+		int userCount=Math.min(userFilterNames.length,userFilterExts.length);
+		final FileFilter[] userFilter=new FileNameExtensionFilter[userCount];
+		for (int i=0;i<userCount;i++) {
+			String[] s=userFilterExts[i].split(";");
+			fc.addChoosableFileFilter(userFilter[i]=new FileNameExtensionFilter(userFilterNames[i],s));
 		}
-		return file;
+
+		fc.setFileFilter(all);
+		return fc.showOpenDialogFileWithExtension(c);
 	}
 
 	/**
@@ -991,15 +964,8 @@ public final class XMLTools {
 	public static File showSaveDialog(final Container parent, final String title, final File initialFolder, String[] userFilterNames, String[] userFilterExts, final DefaultSaveFormat defaultSaveFormat) {
 		Container c=parent; while ((c!=null) && (!(c instanceof Frame))) c=c.getParent();
 
-		final JFileChooser fc;
-		if (initialFolder==null) {
-			fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-		} else {
-			fc=new JFileChooser(initialFolder);
-		}
+		final var fc=new PlugableFileChooser(initialFolder,true);
 		fc.setDialogTitle(title);
-
 		final FileFilter xml=new FileNameExtensionFilter(fileTypeXML+" (*.xml)","xml");
 		final FileFilter zip=new FileNameExtensionFilter(fileTypeCompressedXML+" (*.zip)","zip");
 		final FileFilter tar=new FileNameExtensionFilter(fileTypeTARCompressedXML+" (*.tar.gz)","tar.gz");
@@ -1028,22 +994,9 @@ public final class XMLTools {
 			fc.addChoosableFileFilter(userFilter[i]=new FileNameExtensionFilter(userFilterNames[i],s));
 		}
 
-		if (fc.showSaveDialog(c)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==xml) file=new File(file.getAbsoluteFile()+".xml");
-			if (fc.getFileFilter()==zip) file=new File(file.getAbsoluteFile()+".zip");
-			if (fc.getFileFilter()==tar) file=new File(file.getAbsoluteFile()+".tar.gz");
-			if (fc.getFileFilter()==json) file=new File(file.getAbsoluteFile()+".json");
-			if (fc.getFileFilter()==cs) file=new File(file.getAbsoluteFile()+".cs");
-			for (int i=0;i<userCount;i++) if (fc.getFileFilter()==userFilter[i]) {
-				String[] s=userFilterExts[i].split(";");
-				file=new File(file.getAbsoluteFile()+"."+s[0]);
-				break;
-			}
-		}
-		return file;
+		fc.setAcceptAllFileFilterUsed(false);
+
+		return fc.showSaveDialogFileWithExtension(c);
 	}
 
 	/**

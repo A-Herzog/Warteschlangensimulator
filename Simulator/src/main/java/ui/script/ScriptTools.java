@@ -18,12 +18,8 @@ package ui.script;
 import java.awt.Component;
 import java.io.File;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import language.Language;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 
 /**
  * Diese Klasse stellt statische Hilfsroutinen für die
@@ -45,39 +41,29 @@ public class ScriptTools {
 	 * @return	Name des Ordners oder <code>null</code>, wenn der Dialog abgebrochen wurde
 	 */
 	public static String selectFolder(final Component owner, final String dialogTitle) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(dialogTitle);
-		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		final File file=fc.getSelectedFile();
+		final File file=fc.showSelectDirectoryDialog(owner);
+		if (file==null) return null;
 		return file.toString();
 	}
 
 	/**
-	 * Zeigt einen Dialog zur Auswahl einer Textdatei an
+	 * Zeigt einen Dialog zur Auswahl einer Textdatei an.
 	 * @param owner	Übergeordnete Komponente
 	 * @param dialogTitle	Dialogtitel
 	 * @param oldFileName	Bisheriger Dateiname (kann <code>null</code> oder leer sein) zur Vorauswahl eines Verzeichnisses
 	 * @return	Name der Datei oder <code>null</code>, wenn der Dialog abgebrochen wurde
 	 */
 	public static String selectTextFile(final Component owner, final String dialogTitle, final String oldFileName) {
-		JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		File initialDirectory=null;
+		if (oldFileName!=null && !oldFileName.isEmpty()) initialDirectory=(new File(oldFileName)).getParentFile();
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		if (dialogTitle!=null) fc.setDialogTitle(dialogTitle);
-		final FileFilter txt=new FileNameExtensionFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
-		fc.addChoosableFileFilter(txt);
-		fc.setFileFilter(txt);
-		if (oldFileName!=null && !oldFileName.isEmpty()) {
-			File oldFile=new File(oldFileName);
-			fc.setCurrentDirectory(oldFile.getParentFile());
-		}
-		if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0 && fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-
+		fc.addChoosableFileFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
+		fc.setFileFilter("txt");
+		final File file=fc.showOpenDialogFileWithExtension(owner);
+		if (file==null) return null;
 		return file.getAbsolutePath();
 	}
 
@@ -89,21 +75,14 @@ public class ScriptTools {
 	 * @return	Name der Datei oder <code>null</code>, wenn der Dialog abgebrochen wurde
 	 */
 	public static String selectJSFile(final Component owner, final String dialogTitle, final String oldFileName) {
-		JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		File initialDirectory=null;
+		if (oldFileName!=null && !oldFileName.isEmpty()) initialDirectory=(new File(oldFileName)).getParentFile();
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		if (dialogTitle!=null) fc.setDialogTitle(dialogTitle);
-		final FileFilter js=new FileNameExtensionFilter(Language.tr("FileType.JS")+" (*.js)","js");
-		fc.addChoosableFileFilter(js);
-		fc.setFileFilter(js);
-		if (oldFileName!=null && !oldFileName.isEmpty()) {
-			File oldFile=new File(oldFileName);
-			fc.setCurrentDirectory(oldFile.getParentFile());
-		}
-		if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0 && fc.getFileFilter()==js) file=new File(file.getAbsoluteFile()+".js");
-
+		fc.addChoosableFileFilter(Language.tr("FileType.JS")+" (*.js)","js");
+		fc.setFileFilter("js");
+		final File file=fc.showOpenDialogFileWithExtension(owner);
+		if (file==null) return null;
 		return file.getAbsolutePath();
 	}
 
@@ -115,21 +94,14 @@ public class ScriptTools {
 	 * @return	Name der Datei oder <code>null</code>, wenn der Dialog abgebrochen wurde
 	 */
 	public static String selectJavaFile(final Component owner, final String dialogTitle, final String oldFileName) {
-		JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		File initialDirectory=null;
+		if (oldFileName!=null && !oldFileName.isEmpty()) initialDirectory=(new File(oldFileName)).getParentFile();
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		if (dialogTitle!=null) fc.setDialogTitle(dialogTitle);
-		final FileFilter java=new FileNameExtensionFilter(Language.tr("FileType.Java")+" (*.java)","java");
-		fc.addChoosableFileFilter(java);
-		fc.setFileFilter(java);
-		if (oldFileName!=null && !oldFileName.isEmpty()) {
-			File oldFile=new File(oldFileName);
-			fc.setCurrentDirectory(oldFile.getParentFile());
-		}
-		if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0 && fc.getFileFilter()==java) file=new File(file.getAbsoluteFile()+".java");
-
+		fc.addChoosableFileFilter(Language.tr("FileType.Java")+" (*.java)","java");
+		fc.setFileFilter("java");
+		final File file=fc.showOpenDialogFileWithExtension(owner);
+		if (file==null) return null;
 		return file.getAbsolutePath();
 	}
 
@@ -141,22 +113,15 @@ public class ScriptTools {
 	 * @return	Name der Datei oder <code>null</code>, wenn der Dialog abgebrochen wurde
 	 */
 	public static String selectJSSaveFile(final Component owner, final String dialogTitle, final String oldFileName) {
-		JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		File initialDirectory=null;
+		if (oldFileName!=null && !oldFileName.isEmpty()) initialDirectory=(new File(oldFileName)).getParentFile();
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		if (dialogTitle!=null) fc.setDialogTitle(dialogTitle);
-		final FileFilter js=new FileNameExtensionFilter(Language.tr("FileType.JS")+" (*.js)","js");
-		fc.addChoosableFileFilter(js);
-		fc.setFileFilter(js);
+		fc.addChoosableFileFilter(Language.tr("FileType.JS")+" (*.js)","js");
+		fc.setFileFilter("js");
 		fc.setAcceptAllFileFilterUsed(false);
-		if (oldFileName!=null && !oldFileName.isEmpty()) {
-			File oldFile=new File(oldFileName);
-			fc.setCurrentDirectory(oldFile.getParentFile());
-		}
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0 && fc.getFileFilter()==js) file=new File(file.getAbsoluteFile()+".js");
-
+		final File file=fc.showSaveDialogFileWithExtension(owner);
+		if (file==null) return null;
 		return file.getAbsolutePath();
 	}
 
@@ -168,22 +133,15 @@ public class ScriptTools {
 	 * @return	Name der Datei oder <code>null</code>, wenn der Dialog abgebrochen wurde
 	 */
 	public static String selectJavaSaveFile(final Component owner, final String dialogTitle, final String oldFileName) {
-		JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		File initialDirectory=null;
+		if (oldFileName!=null && !oldFileName.isEmpty()) initialDirectory=(new File(oldFileName)).getParentFile();
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		if (dialogTitle!=null) fc.setDialogTitle(dialogTitle);
-		final FileFilter java=new FileNameExtensionFilter(Language.tr("FileType.Java")+" (*.java)","java");
-		fc.addChoosableFileFilter(java);
-		fc.setFileFilter(java);
+		fc.addChoosableFileFilter(Language.tr("FileType.Java")+" (*.java)","java");
+		fc.setFileFilter("java");
 		fc.setAcceptAllFileFilterUsed(false);
-		if (oldFileName!=null && !oldFileName.isEmpty()) {
-			File oldFile=new File(oldFileName);
-			fc.setCurrentDirectory(oldFile.getParentFile());
-		}
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0 && fc.getFileFilter()==java) file=new File(file.getAbsoluteFile()+".java");
-
+		final File file=fc.showSaveDialogFileWithExtension(owner);
+		if (file==null) return null;
 		return file.getAbsolutePath();
 	}
 
@@ -195,22 +153,15 @@ public class ScriptTools {
 	 * @return	Name der Datei oder <code>null</code>, wenn der Dialog abgebrochen wurde
 	 */
 	public static String selectTextSaveFile(final Component owner, final String dialogTitle, final String oldFileName) {
-		JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		File initialDirectory=null;
+		if (oldFileName!=null && !oldFileName.isEmpty()) initialDirectory=(new File(oldFileName)).getParentFile();
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		if (dialogTitle!=null) fc.setDialogTitle(dialogTitle);
-		final FileFilter js=new FileNameExtensionFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
-		fc.addChoosableFileFilter(js);
-		fc.setFileFilter(js);
+		fc.addChoosableFileFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
+		fc.setFileFilter("txt");
 		fc.setAcceptAllFileFilterUsed(false);
-		if (oldFileName!=null && !oldFileName.isEmpty()) {
-			File oldFile=new File(oldFileName);
-			fc.setCurrentDirectory(oldFile.getParentFile());
-		}
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0 && fc.getFileFilter()==js) file=new File(file.getAbsoluteFile()+".txt");
-
+		final File file=fc.showSaveDialogFileWithExtension(owner);
+		if (file==null) return null;
 		return file.getAbsolutePath();
 	}
 }

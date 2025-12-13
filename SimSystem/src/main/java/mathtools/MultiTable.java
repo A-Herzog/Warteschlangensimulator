@@ -29,10 +29,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -43,7 +39,7 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.odftoolkit.simple.SpreadsheetDocument;
 
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 
 /**
  * Diese Klasse ermöglichst das Laden und Speichern mehrerer Tabellen in einer Exceldatei
@@ -1078,37 +1074,16 @@ public final class MultiTable {
 	 * @return	Im Erfolgsfall wird der Dateiname zurückgegeben, sonst <code>null</code>
 	 */
 	public static File showSaveDialog(final Component parent, final String title, final File initialDirectory) {
-		JFileChooser fc;
-		if (initialDirectory!=null) fc=new JFileChooser(initialDirectory.toString()); else {
-			fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-		}
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		fc.setDialogTitle(title);
-		FileFilter xlsx=new FileNameExtensionFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx");
-		FileFilter xls=new FileNameExtensionFilter(Table.FileTypeExcelOld+" (*.xls)","xls");
-		FileFilter ods=new FileNameExtensionFilter(Table.FileTypeODS+" (*.ods)","ods");
-		FileFilter docx=new FileNameExtensionFilter(Table.FileTypeWord+" (*.docx)","docx");
-		FileFilter html=new FileNameExtensionFilter(Table.FileTypeHTML+" (*.html, *.htm)","html","htm");
-		fc.addChoosableFileFilter(xlsx);
-		fc.addChoosableFileFilter(xls);
-		fc.addChoosableFileFilter(ods);
-		fc.addChoosableFileFilter(docx);
-		fc.addChoosableFileFilter(html);
-		fc.setFileFilter(xlsx);
+		fc.addChoosableFileFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx");
+		fc.addChoosableFileFilter(Table.FileTypeExcelOld+" (*.xls)","xls");
+		fc.addChoosableFileFilter(Table.FileTypeODS+" (*.ods)","ods");
+		fc.addChoosableFileFilter(Table.FileTypeWord+" (*.docx)","docx");
+		fc.addChoosableFileFilter(Table.FileTypeHTML+" (*.html, *.htm)","html","htm");
+		fc.setFileFilter("xlsx");
 		fc.setAcceptAllFileFilterUsed(false);
-
-		if (fc.showSaveDialog(parent)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
-			if (fc.getFileFilter()==xls) file=new File(file.getAbsoluteFile()+".xls");
-			if (fc.getFileFilter()==ods) file=new File(file.getAbsoluteFile()+".ods");
-			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
-			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
-		}
-		return file;
+		return fc.showSaveDialogFileWithExtension(parent);
 	}
 
 	/**

@@ -46,7 +46,6 @@ import javax.print.attribute.standard.DialogTypeSelection;
 import javax.swing.Box;
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -54,8 +53,6 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.poi.xwpf.usermodel.Document;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -74,7 +71,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import parser.MathCalcError;
 import simulator.simparser.ExpressionCalc;
 import systemtools.ImageTools;
@@ -429,39 +426,20 @@ public class PlotterPanel extends JPanel {
 	 * @return	Liefert im Erfolgsfall den Dateinamen, sonst <code>null</code>
 	 */
 	private File selectImageFile() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(StatisticsBasePanel.viewersSaveImage);
-		final FileFilter jpg=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeJPG+" (*.jpg, *.jpeg)","jpg","jpeg");
-		final FileFilter gif=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
-		final FileFilter png=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
-		final FileFilter bmp=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
-		final FileFilter tiff=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
-		final FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
-		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
-		fc.addChoosableFileFilter(png);
-		fc.addChoosableFileFilter(jpg);
-		fc.addChoosableFileFilter(gif);
-		fc.addChoosableFileFilter(bmp);
-		fc.addChoosableFileFilter(tiff);
-		fc.addChoosableFileFilter(docx);
-		fc.addChoosableFileFilter(pdf);
-		fc.setFileFilter(png);
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeJPG+" (*.jpg, *.jpeg)","jpg","jpeg");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
+		fc.setFileFilter("png");
 		fc.setAcceptAllFileFilterUsed(false);
 
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
-			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
-			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
-			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
-			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
-			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
-			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(this);
+		if (file==null) return null;
 
 		if (file.exists()) {
 			if (!MsgBox.confirmOverwrite(this,file)) return null;

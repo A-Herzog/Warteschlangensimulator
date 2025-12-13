@@ -49,7 +49,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -57,8 +56,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import mathtools.NumberTools;
 import mathtools.Table;
@@ -503,73 +500,28 @@ public class JDataDistributionEditPanel extends JPanel {
 	 * @see #saveButton
 	 */
 	private File getSaveFileName() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(ButtonSaveDialogTitle);
-
-		final FileFilter xlsx=new FileNameExtensionFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx");
-		final FileFilter xls=new FileNameExtensionFilter(Table.FileTypeExcelOld+" (*.xls)","xls");
-		final FileFilter ods=new FileNameExtensionFilter(Table.FileTypeODS+" (*.ods)","ods");
-		final FileFilter txt=new FileNameExtensionFilter(Table.FileTypeText+" (*.txt, *.tsv)","txt","tsv");
-		final FileFilter csv=new FileNameExtensionFilter(Table.FileTypeCSV+" (*.csv)","csv");
-		final FileFilter csvr=new FileNameExtensionFilter(Table.FileTypeCSV+" (*.csvr)","csvr");
-		final FileFilter dif=new FileNameExtensionFilter(Table.FileTypeDIF+" (*.dif)","dif");
-		final FileFilter sylk=new FileNameExtensionFilter(Table.FileTypeSYLK+" (*.slk, *.sylk)","slk","sylk");
-		final FileFilter docx=new FileNameExtensionFilter(Table.FileTypeWord+" (*.docx)","docx");
-		final FileFilter html=new FileNameExtensionFilter(Table.FileTypeHTML+" (*.html)","html");
-		final FileFilter tex=new FileNameExtensionFilter(Table.FileTypeTex+" (*.tex)","tex");
-		final FileFilter typst=new FileNameExtensionFilter(Table.FileTypeTypst+" (*.typ)","typ");
-
-		fc.addChoosableFileFilter(xlsx);
-		fc.addChoosableFileFilter(xls);
-		fc.addChoosableFileFilter(ods);
-		fc.addChoosableFileFilter(txt);
-		fc.addChoosableFileFilter(csv);
-		fc.addChoosableFileFilter(csvr);
-		fc.addChoosableFileFilter(dif);
-		fc.addChoosableFileFilter(sylk);
-		fc.addChoosableFileFilter(docx);
-		fc.addChoosableFileFilter(html);
-		fc.addChoosableFileFilter(tex);
-		fc.addChoosableFileFilter(typst);
-
-		FileFilter jpg=null, gif=null, png=null;
+		fc.addChoosableFileFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx");
+		fc.addChoosableFileFilter(Table.FileTypeExcelOld+" (*.xls)","xls");
+		fc.addChoosableFileFilter(Table.FileTypeODS+" (*.ods)","ods");
+		fc.addChoosableFileFilter(Table.FileTypeText+" (*.txt, *.tsv)","txt","tsv");
+		fc.addChoosableFileFilter(Table.FileTypeCSV+" (*.csv)","csv");
+		fc.addChoosableFileFilter(Table.FileTypeCSV+" (*.csvr)","csvr");
+		fc.addChoosableFileFilter(Table.FileTypeDIF+" (*.dif)","dif");
+		fc.addChoosableFileFilter(Table.FileTypeSYLK+" (*.slk, *.sylk)","slk","sylk");
+		fc.addChoosableFileFilter(Table.FileTypeWord+" (*.docx)","docx");
+		fc.addChoosableFileFilter(Table.FileTypeHTML+" (*.html)","html");
+		fc.addChoosableFileFilter(Table.FileTypeTex+" (*.tex)","tex");
+		fc.addChoosableFileFilter(Table.FileTypeTypst+" (*.typ)","typ");
 		if (saveAsImageButtons) {
-			jpg=new FileNameExtensionFilter(JDistributionPanel.FileTypeJPEG+" (*.jpg, *.jpeg)","jpg","jpeg");
-			gif=new FileNameExtensionFilter(JDistributionPanel.FileTypeGIF+" (*.gif)","gif");
-			png=new FileNameExtensionFilter(JDistributionPanel.FileTypePNG+" (*.png)","png");
-			fc.addChoosableFileFilter(jpg);
-			fc.addChoosableFileFilter(gif);
-			fc.addChoosableFileFilter(png);
+			fc.addChoosableFileFilter(JDistributionPanel.FileTypeJPEG+" (*.jpg, *.jpeg)","jpg","jpeg");
+			fc.addChoosableFileFilter(JDistributionPanel.FileTypeGIF+" (*.gif)","gif");
+			fc.addChoosableFileFilter(JDistributionPanel.FileTypePNG+" (*.png)","png");
 		}
-
-		fc.setFileFilter(xlsx);
+		fc.setFileFilter("xlsx");
 		fc.setAcceptAllFileFilterUsed(false);
-
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
-			if (fc.getFileFilter()==xls) file=new File(file.getAbsoluteFile()+".xls");
-			if (fc.getFileFilter()==ods) file=new File(file.getAbsoluteFile()+".ods");
-			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-			if (fc.getFileFilter()==csv) file=new File(file.getAbsoluteFile()+".csv");
-			if (fc.getFileFilter()==csvr) file=new File(file.getAbsoluteFile()+".csvr");
-			if (fc.getFileFilter()==dif) file=new File(file.getAbsoluteFile()+".dif");
-			if (fc.getFileFilter()==sylk) file=new File(file.getAbsoluteFile()+".sylk");
-			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
-			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
-			if (fc.getFileFilter()==tex) file=new File(file.getAbsoluteFile()+".tex");
-			if (fc.getFileFilter()==typst) file=new File(file.getAbsoluteFile()+".typ");
-			if (saveAsImageButtons) {
-				if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
-				if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
-				if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
-			}
-		}
-		return file;
+		return fc.showSaveDialogFileWithExtension(this);
 	}
 
 	/**

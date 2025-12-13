@@ -52,7 +52,6 @@ import java.util.regex.PatternSyntaxException;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
-import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -61,8 +60,6 @@ import javax.swing.JTextPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.AbstractDocument.LeafElement;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -87,7 +84,7 @@ import org.odftoolkit.simple.text.Paragraph;
 import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TimeTools;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import systemtools.BaseDialog;
 import systemtools.GUITools;
 import systemtools.MsgBox;
@@ -981,45 +978,21 @@ public abstract class StatisticViewerText implements StatisticViewer {
 
 	@Override
 	public void save(final Component owner) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(StatisticsBasePanel.viewersSaveText);
-		final FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeDOCX+" (*.docx)","docx");
-		final FileFilter odt=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeODT+" (*.odt)","odt");
-		final FileFilter rtf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeRTF+" (*.rtf)","rtf");
-		final FileFilter html=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeHTML+" (*.html, *.htm)","html","htm");
-		final FileFilter txt=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTXT+" (*.txt)","txt");
-		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
-		final FileFilter md=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeMD+" (*.md)","md");
-		final FileFilter tex=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTEX+" (*.tex)","tex");
-		final FileFilter typ=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTYP+" (*.typ)","typ");
-		fc.addChoosableFileFilter(docx);
-		fc.addChoosableFileFilter(odt);
-		fc.addChoosableFileFilter(rtf);
-		fc.addChoosableFileFilter(html);
-		fc.addChoosableFileFilter(pdf);
-		fc.addChoosableFileFilter(txt);
-		fc.addChoosableFileFilter(md);
-		fc.addChoosableFileFilter(tex);
-		fc.addChoosableFileFilter(typ);
-		fc.setFileFilter(docx);
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeDOCX+" (*.docx)","docx");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeODT+" (*.odt)","odt");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeRTF+" (*.rtf)","rtf");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeHTML+" (*.html, *.htm)","html","htm");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeTXT+" (*.txt)","txt");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeMD+" (*.md)","md");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeTEX+" (*.tex)","tex");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeTYP+" (*.typ)","typ");
+		fc.setFileFilter("docx");
 		fc.setAcceptAllFileFilterUsed(false);
-
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
-			if (fc.getFileFilter()==odt) file=new File(file.getAbsoluteFile()+".odt");
-			if (fc.getFileFilter()==rtf) file=new File(file.getAbsoluteFile()+".rtf");
-			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
-			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
-			if (fc.getFileFilter()==md) file=new File(file.getAbsoluteFile()+".md");
-			if (fc.getFileFilter()==tex) file=new File(file.getAbsoluteFile()+".tex");
-			if (fc.getFileFilter()==typ) file=new File(file.getAbsoluteFile()+".typ");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(owner);
+		if (file==null) return;
 
 		if (file.exists()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return;

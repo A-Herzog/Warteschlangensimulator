@@ -35,9 +35,6 @@ import java.util.Base64;
 import java.util.function.Supplier;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.poi.xwpf.usermodel.Document;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -45,7 +42,7 @@ import org.jfree.chart.JFreeChart;
 
 import mathtools.Table;
 import mathtools.TableChart;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import systemtools.statistics.PDFWriter;
 import systemtools.statistics.ReportStyle;
 import systemtools.statistics.StatisticsBasePanel;
@@ -141,42 +138,20 @@ public class ImageTools {
 	 * @return	Gewählter Dateiname oder <code>null</code>, wenn die Auswahl abgebrochen wurde
 	 */
 	public static File showSaveDialog(final Component owner, final boolean allowXLSX) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(StatisticsBasePanel.viewersSaveImage);
-		final FileFilter jpg=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeJPG+" (*.jpg, *.jpeg)","jpg","jpeg");
-		final FileFilter gif=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
-		final FileFilter png=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
-		final FileFilter bmp=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
-		final FileFilter tiff=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
-		final FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
-		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
-		final FileFilter xlsx=allowXLSX?new FileNameExtensionFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx"):null;
-		fc.addChoosableFileFilter(png);
-		fc.addChoosableFileFilter(jpg);
-		fc.addChoosableFileFilter(gif);
-		fc.addChoosableFileFilter(bmp);
-		fc.addChoosableFileFilter(tiff);
-		fc.addChoosableFileFilter(docx);
-		fc.addChoosableFileFilter(pdf);
-		if (xlsx!=null) fc.addChoosableFileFilter(xlsx);
-		fc.setFileFilter(png);
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeJPG+" (*.jpg, *.jpeg)","jpg","jpeg");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
+		if (allowXLSX) fc.addChoosableFileFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx");
+		fc.setFileFilter("png");
 		fc.setAcceptAllFileFilterUsed(false);
-
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
-			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
-			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
-			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
-			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
-			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
-			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
-			if (xlsx!=null && fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(owner);
+		if (file==null) return null;
 
 		if (file.exists()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return null;
@@ -191,35 +166,15 @@ public class ImageTools {
 	 * @return	Gewählter Dateiname oder <code>null</code>, wenn die Auswahl abgebrochen wurde
 	 */
 	public static File showLoadDialog(final Component owner) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(StatisticsBasePanel.viewersLoadImage);
-		final FileFilter jpg=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeJPG+" (*.jpg, *.jpeg)","jpg","jpeg");
-		final FileFilter gif=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
-		final FileFilter png=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
-		final FileFilter bmp=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
-		final FileFilter tiff=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
-		fc.addChoosableFileFilter(png);
-		fc.addChoosableFileFilter(jpg);
-		fc.addChoosableFileFilter(gif);
-		fc.addChoosableFileFilter(bmp);
-		fc.addChoosableFileFilter(tiff);
-		fc.setFileFilter(png);
-		fc.setAcceptAllFileFilterUsed(false);
-
-		if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
-			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
-			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
-			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
-			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
-		}
-
-		return file;
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeJPG+" (*.jpg, *.jpeg)","jpg","jpeg");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
+		fc.setFileFilter("png");
+		return fc.showOpenDialogFileWithExtension(owner);
 	}
 
 	/**

@@ -25,13 +25,12 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import language.Language;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.SetupData;
@@ -116,17 +115,11 @@ public class ServerPanelTLSDialog extends BaseDialog {
 		File oldFile=new File(editFile.getText());
 		File initialDirectory=oldFile.getParentFile();
 
-		JFileChooser fc;
-		if (initialDirectory!=null) fc=new JFileChooser(initialDirectory.toString()); else {
-			fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-		}
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		fc.setDialogTitle(Language.tr("SimulationServer.Setup.TLSInfo.KeyStoreFile"));
 
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
+		final File file=fc.showSaveDialogFileWithExtension(this);
+		if (file==null) return;
 		editFile.setText(file.toString());
 	}
 

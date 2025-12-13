@@ -49,7 +49,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
@@ -68,7 +67,6 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -90,7 +88,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TableChart;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
 import simulator.editmodel.EditModel;
@@ -699,21 +697,14 @@ public class OptimizerPanel extends SpecialPanel {
 		popup.add(item=new JMenuItem(Language.tr("Optimizer.Tab.Optimization.Step.Result.Save.Log")));
 		item.setIcon(Images.OPTIMIZER_EXPORT_TEXT.getIcon());
 		item.addActionListener(e->{
-			final JFileChooser fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
+			final var fc=new PlugableFileChooser(true);
 			fc.setDialogTitle(StatisticsBasePanel.viewersSaveText);
-			FileFilter txt=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTXT+" (*.txt)","txt");
-			fc.addChoosableFileFilter(txt);
-			fc.setFileFilter(txt);
+			fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeTXT+" (*.txt)","txt");
+			fc.setFileFilter("txt");
 			fc.setAcceptAllFileFilterUsed(false);
 
-			if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-			CommonVariables.initialDirectoryFromJFileChooser(fc);
-			File file=fc.getSelectedFile();
-
-			if (file.getName().indexOf('.')<0) {
-				if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-			}
+			final File file=fc.showSaveDialogFileWithExtension(owner);
+			if (file==null) return;
 
 			if (file.exists()) {
 				if (!MsgBox.confirmOverwrite(owner,file)) return;
@@ -1309,25 +1300,17 @@ public class OptimizerPanel extends SpecialPanel {
 	 * @return	Ausgewählte Datei oder <code>null</code>, wenn die Auswahl abgebrochen wurde
 	 */
 	private String selectJSOrJavaFile(final String dialogTitle, final String oldFileName) {
-		JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		File initialDirectory=null;
+		if (oldFileName!=null && !oldFileName.isEmpty()) initialDirectory=new File(oldFileName).getParentFile();
+
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		fc.setDialogTitle(dialogTitle);
-		final FileFilter script=new FileNameExtensionFilter(Language.tr("FileType.JSAndJava")+" (*.js,*.java)","js","java");
-		final FileFilter js=new FileNameExtensionFilter(Language.tr("FileType.JS")+" (*.js)","js");
-		final FileFilter java=new FileNameExtensionFilter(Language.tr("FileType.Java")+" (*.java)","java");
-		fc.addChoosableFileFilter(script);
-		fc.addChoosableFileFilter(js);
-		fc.addChoosableFileFilter(java);
+		final FileFilter script=fc.addChoosableFileFilter(Language.tr("FileType.JSAndJava")+" (*.js,*.java)","js","java");
+		fc.addChoosableFileFilter(Language.tr("FileType.JS")+" (*.js)","js");
+		fc.addChoosableFileFilter(Language.tr("FileType.Java")+" (*.java)","java");
 		fc.setFileFilter(script);
-		if (oldFileName!=null && !oldFileName.isEmpty()) {
-			File oldFile=new File(oldFileName);
-			fc.setCurrentDirectory(oldFile.getParentFile());
-		}
-		if (fc.showOpenDialog(this)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0 && fc.getFileFilter()==js) file=new File(file.getAbsoluteFile()+".js");
-		if (file.getName().indexOf('.')<0 && fc.getFileFilter()==java) file=new File(file.getAbsoluteFile()+".java");
+		final File file=fc.showOpenDialogFileWithExtension(this);
+		if (file==null) return null;
 
 		return file.getAbsolutePath();
 	}
@@ -1337,13 +1320,10 @@ public class OptimizerPanel extends SpecialPanel {
 	 * @return	Gewähltes Ausgabeverzeichnis oder <code>null</code>, wenn die Auswahl abgebrochen wurde
 	 */
 	private final String selectFolder() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(Language.tr("Optimizer.Tab.Optimization.Folder.Button.Hint"));
-		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		final File file=fc.getSelectedFile();
+		final File file=fc.showSelectDirectoryDialog(owner);
+		if (file==null) return null;
 		return file.toString();
 	}
 

@@ -40,13 +40,12 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
 import mathtools.NumberTools;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 
 /**
  * System zum Abspielen von beliebigen Klängen
@@ -576,30 +575,17 @@ public class SoundSystem {
 	 * @return	Im Erfolgsfall wird der Dateiname zurückgegeben, sonst <code>null</code>
 	 */
 	public File selectFile(final Component parent, final File initialDirectory) {
-		final JFileChooser fc;
-		if (initialDirectory!=null) fc=new JFileChooser(initialDirectory.toString()); else {
-			fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-		}
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		fc.setDialogTitle(Language.tr("SoundSelectDialog.Title"));
 
 		final String[] formats=getSupportedFormats();
 		final FileFilter all=new FileNameExtensionFilter(Language.tr("SoundSelectDialog.AllSupportedFormats"),formats);
-		final FileFilter[] filters=Stream.of(formats).map(format->new FileNameExtensionFilter(format+" "+Language.tr("SoundSelectDialog.Files"),format)).toArray(FileFilter[]::new);
+		final FileFilter[] filters=Stream.of(formats).map(format->new FileNameExtensionFilter(format+"-"+Language.tr("SoundSelectDialog.Files"),format)).toArray(FileFilter[]::new);
 
 		fc.addChoosableFileFilter(all);
 		Arrays.asList(filters).forEach(filter->fc.addChoosableFileFilter(filter));
-
 		fc.setFileFilter(all);
-		if (fc.showOpenDialog(parent)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0) {
-			for (int i=0;i<filters.length;i++) if (filters[i]==fc.getFileFilter()) {
-				file=new File(file.getAbsoluteFile()+"."+formats[i]);
-				break;
-			}
-		}
-		return file;
+
+		return fc.showOpenDialogFileWithExtension(parent);
 	}
 }

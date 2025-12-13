@@ -28,16 +28,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import mathtools.distribution.tools.FileDropper;
 import systemtools.MsgBox;
 import ui.images.Images;
@@ -151,29 +148,16 @@ public class ModelElementDisposeWithTableDialog extends ModelElementBaseDialog {
 	 * @see #clientsOutputTable
 	 */
 	private void selectTable() {
-		final File oldFile=new File(clientsOutputTable.getText());
-		final File initialDirectory=oldFile.getParentFile();
+		final File initialDirectory=(!clientsOutputTable.getText().isBlank())?(new File(clientsOutputTable.getText())).getParentFile():null;
 
-		JFileChooser fc;
-		if (initialDirectory!=null) fc=new JFileChooser(initialDirectory.toString()); else {
-			fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-		}
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		fc.setDialogTitle(Language.tr("Surface.Output.Dialog.FileName.Select"));
-		final FileFilter txt=new FileNameExtensionFilter(Table.FileTypeText+" (*.txt, *.tsv)","txt","tsv");
-		final FileFilter csv=new FileNameExtensionFilter(Table.FileTypeCSV+" (*.csv)","csv");
-		fc.addChoosableFileFilter(txt);
-		fc.addChoosableFileFilter(csv);
-		fc.setFileFilter(txt);
+		fc.addChoosableFileFilter(Table.FileTypeText+" (*.txt, *.tsv)","txt","tsv");
+		fc.addChoosableFileFilter(Table.FileTypeCSV+" (*.csv)","csv");
+		fc.setFileFilter("txt");
 
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-			if (fc.getFileFilter()==csv) file=new File(file.getAbsoluteFile()+".csv");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(this);
+		if (file==null) return;
 
 		clientsOutputTable.setText(file.toString());
 		checkData(false);

@@ -50,7 +50,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -61,14 +60,12 @@ import javax.swing.JToolBar;
 import javax.swing.ListCellRenderer;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TimeTools;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import systemtools.BaseDialog;
@@ -442,20 +439,14 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 
 		switch (getActiveTab()) {
 		case INFO:
-			final JFileChooser fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-			FileFilter filter;
+			final var fc=new PlugableFileChooser(true);
 			fc.setDialogTitle(Language.tr("FileType.Save.Text"));
-			filter=new FileNameExtensionFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
-			fc.addChoosableFileFilter(filter);
-			fc.setFileFilter(filter);
+			fc.addChoosableFileFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
+			fc.setFileFilter("txt");
 			fc.setAcceptAllFileFilterUsed(false);
-			if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-			CommonVariables.initialDirectoryFromJFileChooser(fc);
-			File file=fc.getSelectedFile();
-			if (file.getName().indexOf('.')<0) {
-				if (fc.getFileFilter()==filter) file=new File(file.getAbsoluteFile()+".txt");
-			}
+			final File file=fc.showSaveDialogFileWithExtension(owner);
+			if (file==null) return;
+
 			if (file.exists()) {
 				if (!MsgBox.confirmOverwrite(owner,file)) return;
 			}

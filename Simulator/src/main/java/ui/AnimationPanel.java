@@ -59,7 +59,6 @@ import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -76,8 +75,6 @@ import javax.swing.JViewport;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
 import org.apache.commons.math3.util.FastMath;
@@ -85,7 +82,7 @@ import org.apache.commons.math3.util.FastMath;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import mathtools.distribution.tools.DistributionTools;
 import simcore.logging.CallbackLoggerData;
 import simulator.Simulator;
@@ -1844,39 +1841,18 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @return	Liefert im Erfolgsfall die gewählte Datei, sonst <code>null</code>
 	 */
 	private File showExportDialog(Component parent, final String title) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(title);
-		final FileFilter jpg=new FileNameExtensionFilter(Language.tr("FileType.jpeg")+" (*.jpg, *.jpeg)","jpg","jpeg");
-		final FileFilter gif=new FileNameExtensionFilter(Language.tr("FileType.gif")+" (*.gif)","gif");
-		final FileFilter png=new FileNameExtensionFilter(Language.tr("FileType.png")+" (*.png)","png");
-		final FileFilter bmp=new FileNameExtensionFilter(Language.tr("FileType.bmp")+" (*.bmp)","bmp");
-		final FileFilter tiff=new FileNameExtensionFilter(Language.tr("FileType.tiff")+" (*.tiff, *.tif)","tiff","tif");
-		final FileFilter pdf=new FileNameExtensionFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
-		fc.addChoosableFileFilter(png);
-		fc.addChoosableFileFilter(jpg);
-		fc.addChoosableFileFilter(gif);
-		fc.addChoosableFileFilter(bmp);
-		fc.addChoosableFileFilter(tiff);
-		fc.addChoosableFileFilter(pdf);
-
-		fc.setFileFilter(png);
+		fc.addChoosableFileFilter(Language.tr("FileType.jpeg")+" (*.jpg, *.jpeg)","jpg","jpeg");
+		fc.addChoosableFileFilter(Language.tr("FileType.gif")+" (*.gif)","gif");
+		fc.addChoosableFileFilter(Language.tr("FileType.png")+" (*.png)","png");
+		fc.addChoosableFileFilter(Language.tr("FileType.bmp")+" (*.bmp)","bmp");
+		fc.addChoosableFileFilter(Language.tr("FileType.tiff")+" (*.tiff, *.tif)","tiff","tif");
+		fc.addChoosableFileFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
+		fc.setFileFilter("png");
 		fc.setAcceptAllFileFilterUsed(false);
 
-		if (fc.showSaveDialog(parent)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
-			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
-			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
-			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
-			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
-			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
-		}
-
-		return file;
+		return fc.showSaveDialogFileWithExtension(parent);
 	}
 
 	/**
@@ -2230,17 +2206,16 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 	 * @see #menuScreenshotModeCustom
 	 */
 	private void commandScreenshotModeCustom() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
-		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.isBlank() && new File(setup.imagePathAnimation).isDirectory()) {
-			fc.setCurrentDirectory(new File(setup.imagePathAnimation));
-		}
+		File initialFolder=null;
+		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.isBlank() && new File(setup.imagePathAnimation).isDirectory()) initialFolder=new File(setup.imagePathAnimation);
+
+		final var fc=new PlugableFileChooser(initialFolder,true);
 		fc.setDialogTitle(Language.tr("Batch.Output.Folder.Button.Hint"));
-		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		final File file=fc.getSelectedFile();
-		setup.imagePathAnimation=file.toString();
+
+		final File folder=fc.showSelectDirectoryDialog(this);
+		if (folder==null) return;
+
+		setup.imagePathAnimation=folder.toString();
 		setup.saveSetup();
 		updateScreenshotButtonHint();
 	}

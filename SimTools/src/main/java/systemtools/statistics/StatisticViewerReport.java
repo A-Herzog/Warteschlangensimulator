@@ -47,15 +47,12 @@ import java.util.function.Supplier;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import mathtools.MultiTable;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import xml.XMLData;
@@ -1009,36 +1006,18 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 	@Override
 	public void save(Component owner) {
 		if (viewers.isEmpty()) return;
-		JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(StatisticsBasePanel.viewersReport);
-		FileFilter html=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeHTML+" (*.html, *.htm)","html","htm");
-		FileFilter htmljs=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeHTMLJS+" (*.html, *.htm)","html","htm");
-		FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeDOCX+" (*.docx)","docx");
-		FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
-		FileFilter tex=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTEX+" (*.tex)","tex");
-		FileFilter typ=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTYP+" (*.typ)","typ");
-		fc.addChoosableFileFilter(docx);
-		fc.addChoosableFileFilter(pdf);
-		fc.addChoosableFileFilter(html);
-		fc.addChoosableFileFilter(htmljs);
-		fc.addChoosableFileFilter(tex);
-		fc.addChoosableFileFilter(typ);
-		fc.setFileFilter(docx);
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeHTML+" (*.html, *.htm)","html","htm");
+		final var htmljs=fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeHTMLJS+" (*.html, *.htm)","html","htm");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeDOCX+" (*.docx)","docx");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeTEX+" (*.tex)","tex");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeTYP+" (*.typ)","typ");
+		fc.setFileFilter("docx");
 		fc.setAcceptAllFileFilterUsed(false);
-
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
-			if (fc.getFileFilter()==htmljs) file=new File(file.getAbsoluteFile()+".html");
-			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
-			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
-			if (fc.getFileFilter()==tex) file=new File(file.getAbsoluteFile()+".tex");
-			if (fc.getFileFilter()==typ) file=new File(file.getAbsoluteFile()+".typ");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(owner);
+		if (file==null) return;
 
 		if (file.exists()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return;

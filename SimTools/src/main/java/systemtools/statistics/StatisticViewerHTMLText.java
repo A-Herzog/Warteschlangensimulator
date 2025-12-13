@@ -36,22 +36,19 @@ import java.util.function.Supplier;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 
 import mathtools.NumberTools;
 import mathtools.Table;
-import mathtools.distribution.swing.CommonVariables;
 import mathtools.distribution.swing.JOpenURL;
+import mathtools.distribution.swing.PlugableFileChooser;
 import systemtools.MsgBox;
 
 /**
@@ -211,20 +208,17 @@ class StatisticViewerHTMLText implements StatisticViewer {
 
 	@Override
 	public void save(Component owner) {
-		JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(StatisticsBasePanel.viewersSaveText);
-		FileFilter html=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeHTML+" (*.html, *.htm)","html","htm");
-		fc.addChoosableFileFilter(html);
-		fc.setFileFilter(html);
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeHTML+" (*.html, *.htm)","html","htm");
+		fc.setFileFilter("html");
 		fc.setAcceptAllFileFilterUsed(false);
 
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
+		final File file=fc.showSaveDialogFileWithExtension(owner);
+		if (file==null) return;
 
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
+		if (file.exists()) {
+			if (!MsgBox.confirmOverwrite(owner,file)) return;
 		}
 
 		save(owner,file);

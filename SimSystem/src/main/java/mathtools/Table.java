@@ -46,10 +46,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -70,7 +66,7 @@ import org.odftoolkit.simple.TextDocument;
 import com.linuxense.javadbf.DBFException;
 import com.linuxense.javadbf.DBFReader;
 
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 
 /**
  * Die Klasse {@link Table} kapselt eine Tabelle aus {@link String}-Objekten.
@@ -2668,54 +2664,21 @@ public final class Table implements Cloneable {
 	 * @return	Im Erfolgsfall wird der Dateiname zurückgegeben, sonst <code>null</code>
 	 */
 	public static File showLoadDialog(final Component parent, final String title, final File initialDirectory) {
-		final JFileChooser fc;
-		if (initialDirectory!=null) fc=new JFileChooser(initialDirectory.toString()); else {
-			fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-		}
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		fc.setDialogTitle(title);
-
-		final FileFilter table=new FileNameExtensionFilter(FileTypeAll,"xlsx","xls","ods","txt","tsv","csv","csvr","sqlite3","sqlite","db","db3","s3db","dbf","dif");
-		final FileFilter xlsx=new FileNameExtensionFilter(FileTypeExcel+" (*.xlsx)","xlsx");
-		final FileFilter xls=new FileNameExtensionFilter(FileTypeExcelOld+" (*.xls)","xls");
-		final FileFilter ods=new FileNameExtensionFilter(FileTypeODS+" (*.ods)","ods");
-		final FileFilter txt=new FileNameExtensionFilter(FileTypeText+" (*.txt, *.tsv)","txt","tsv");
-		final FileFilter csv=new FileNameExtensionFilter(FileTypeCSV+" (*.csv)","csv");
-		final FileFilter csvr=new FileNameExtensionFilter(FileTypeCSVR+" (*.csvr)","csvr");
-		final FileFilter sqlite=new FileNameExtensionFilter(FileTypeSQLite+" (*.sqlite3, *.sqlite, *.db, *.db3, *.s3db)","sqlite3","sqlite","db","db3","s3db");
-		final FileFilter dbf=new FileNameExtensionFilter(FileTypeDBF+" (*.dbf)","dbf");
-		final FileFilter dif=new FileNameExtensionFilter(FileTypeDIF+" (*.dif)","dif");
-		final FileFilter sylk=new FileNameExtensionFilter(FileTypeSYLK+" (*.slk, *.sylk)","slk","sylk");
-
-		fc.addChoosableFileFilter(table);
-		fc.addChoosableFileFilter(xlsx);
-		fc.addChoosableFileFilter(xls);
-		fc.addChoosableFileFilter(ods);
-		fc.addChoosableFileFilter(txt);
-		fc.addChoosableFileFilter(csv);
-		fc.addChoosableFileFilter(csvr);
-		fc.addChoosableFileFilter(sqlite);
-		fc.addChoosableFileFilter(dbf);
-		fc.addChoosableFileFilter(dif);
-		fc.addChoosableFileFilter(sylk);
-
-		fc.setFileFilter(table);
-		if (fc.showOpenDialog(parent)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
-			if (fc.getFileFilter()==xls) file=new File(file.getAbsoluteFile()+".xls");
-			if (fc.getFileFilter()==ods) file=new File(file.getAbsoluteFile()+".ods");
-			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-			if (fc.getFileFilter()==csv) file=new File(file.getAbsoluteFile()+".csv");
-			if (fc.getFileFilter()==csvr) file=new File(file.getAbsoluteFile()+".csvr");
-			if (fc.getFileFilter()==sqlite) file=new File(file.getAbsoluteFile()+".sqlite3");
-			if (fc.getFileFilter()==dbf) file=new File(file.getAbsoluteFile()+".dbf");
-			if (fc.getFileFilter()==dif) file=new File(file.getAbsoluteFile()+".dif");
-			if (fc.getFileFilter()==sylk) file=new File(file.getAbsoluteFile()+".sylk");
-		}
-		return file;
+		fc.addChoosableFileFilter(FileTypeAll,"xlsx","xls","ods","txt","tsv","csv","csvr","sqlite3","sqlite","db","db3","s3db","dbf","dif");
+		fc.addChoosableFileFilter(FileTypeExcel+" (*.xlsx)","xlsx");
+		fc.addChoosableFileFilter(FileTypeExcelOld+" (*.xls)","xls");
+		fc.addChoosableFileFilter(FileTypeODS+" (*.ods)","ods");
+		fc.addChoosableFileFilter(FileTypeText+" (*.txt, *.tsv)","txt","tsv");
+		fc.addChoosableFileFilter(FileTypeCSV+" (*.csv)","csv");
+		fc.addChoosableFileFilter(FileTypeCSVR+" (*.csvr)","csvr");
+		fc.addChoosableFileFilter(FileTypeSQLite+" (*.sqlite3, *.sqlite, *.db, *.db3, *.s3db)","sqlite3","sqlite","db","db3","s3db");
+		fc.addChoosableFileFilter(FileTypeDBF+" (*.dbf)","dbf");
+		fc.addChoosableFileFilter(FileTypeDIF+" (*.dif)","dif");
+		fc.addChoosableFileFilter(FileTypeSYLK+" (*.slk, *.sylk)","slk","sylk");
+		fc.setFileFilter("xlsx");
+		return fc.showOpenDialogFileWithExtension(parent);
 	}
 
 	/**
@@ -2749,64 +2712,24 @@ public final class Table implements Cloneable {
 	 * @return	Im Erfolgsfall wird der Dateiname zurückgegeben, sonst <code>null</code>
 	 */
 	public static File showSaveDialog(final Component parent, final String title, final File initialDirectory, final String customFilterName, final String customFilterExt) {
-		final JFileChooser fc;
-		if (initialDirectory!=null) fc=new JFileChooser(initialDirectory.toString()); else {
-			fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-		}
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		fc.setDialogTitle(title);
-
-		final FileFilter xlsx=new FileNameExtensionFilter(FileTypeExcel+" (*.xlsx)","xlsx");
-		final FileFilter xls=new FileNameExtensionFilter(FileTypeExcelOld+" (*.xls)","xls");
-		final FileFilter ods=new FileNameExtensionFilter(FileTypeODS+" (*.ods)","ods");
-		final FileFilter txt=new FileNameExtensionFilter(FileTypeText+" (*.txt, *.tsv)","txt","tsv");
-		final FileFilter csv=new FileNameExtensionFilter(FileTypeCSV+" (*.csv)","csv");
-		final FileFilter csvr=new FileNameExtensionFilter(FileTypeCSVR+" (*.csvr)","csvr");
-		final FileFilter dif=new FileNameExtensionFilter(FileTypeDIF+" (*.dif)","dif");
-		final FileFilter sylk=new FileNameExtensionFilter(Table.FileTypeSYLK+" (*.slk, *.sylk)","slk","sylk");
-		final FileFilter docx=new FileNameExtensionFilter(FileTypeWord+" (*.docx)","docx");
-		final FileFilter html=new FileNameExtensionFilter(FileTypeHTML+" (*.html, *.htm)","html","htm");
-		final FileFilter tex=new FileNameExtensionFilter(Table.FileTypeTex+" (*.tex)","tex");
-		final FileFilter typst=new FileNameExtensionFilter(FileTypeTypst+" (*.typ)","typ");
-		FileFilter custom=null; if (customFilterName!=null) custom=new FileNameExtensionFilter(customFilterName,customFilterExt);
-
-		fc.addChoosableFileFilter(xlsx);
-		fc.addChoosableFileFilter(xls);
-		fc.addChoosableFileFilter(ods);
-		fc.addChoosableFileFilter(txt);
-		fc.addChoosableFileFilter(csv);
-		fc.addChoosableFileFilter(csvr);
-		fc.addChoosableFileFilter(dif);
-		fc.addChoosableFileFilter(sylk);
-		fc.addChoosableFileFilter(docx);
-		fc.addChoosableFileFilter(html);
-		fc.addChoosableFileFilter(tex);
-		fc.addChoosableFileFilter(typst);
-		if (custom!=null) fc.addChoosableFileFilter(custom);
-
-		fc.setFileFilter(xlsx);
+		fc.addChoosableFileFilter(FileTypeExcel+" (*.xlsx)","xlsx");
+		fc.addChoosableFileFilter(FileTypeExcelOld+" (*.xls)","xls");
+		fc.addChoosableFileFilter(FileTypeODS+" (*.ods)","ods");
+		fc.addChoosableFileFilter(FileTypeText+" (*.txt, *.tsv)","txt","tsv");
+		fc.addChoosableFileFilter(FileTypeCSV+" (*.csv)","csv");
+		fc.addChoosableFileFilter(FileTypeCSVR+" (*.csvr)","csvr");
+		fc.addChoosableFileFilter(FileTypeDIF+" (*.dif)","dif");
+		fc.addChoosableFileFilter(Table.FileTypeSYLK+" (*.slk, *.sylk)","slk","sylk");
+		fc.addChoosableFileFilter(FileTypeWord+" (*.docx)","docx");
+		fc.addChoosableFileFilter(FileTypeHTML+" (*.html, *.htm)","html","htm");
+		fc.addChoosableFileFilter(Table.FileTypeTex+" (*.tex)","tex");
+		fc.addChoosableFileFilter(FileTypeTypst+" (*.typ)","typ");
+		if (customFilterName!=null) fc.addChoosableFileFilter(customFilterName,customFilterExt);
+		fc.setFileFilter("xlsx");
 		fc.setAcceptAllFileFilterUsed(false);
-
-		if (fc.showSaveDialog(parent)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
-			if (fc.getFileFilter()==xls) file=new File(file.getAbsoluteFile()+".xls");
-			if (fc.getFileFilter()==ods) file=new File(file.getAbsoluteFile()+".ods");
-			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-			if (fc.getFileFilter()==csv) file=new File(file.getAbsoluteFile()+".csv");
-			if (fc.getFileFilter()==csvr) file=new File(file.getAbsoluteFile()+".csvr");
-			if (fc.getFileFilter()==dif) file=new File(file.getAbsoluteFile()+".dif");
-			if (fc.getFileFilter()==sylk) file=new File(file.getAbsoluteFile()+".sylk");
-			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
-			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
-			if (fc.getFileFilter()==tex) file=new File(file.getAbsoluteFile()+".tex");
-			if (fc.getFileFilter()==typst) file=new File(file.getAbsoluteFile()+".typ");
-			if (custom!=null && fc.getFileFilter()==custom) file=new File(file.getAbsoluteFile()+"."+customFilterExt);
-		}
-		return file;
+		return fc.showSaveDialogFileWithExtension(parent);
 	}
 
 	/**
@@ -2827,28 +2750,12 @@ public final class Table implements Cloneable {
 	 * @return	Im Erfolgsfall wird der Dateiname zurückgegeben, sonst <code>null</code>
 	 */
 	public static File showSaveDialogXLSXonly(final Component parent, final String title, final File initialDirectory) {
-
-		final JFileChooser fc;
-		if (initialDirectory!=null) fc=new JFileChooser(initialDirectory.toString()); else {
-			fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-		}
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		fc.setDialogTitle(title);
-
-		final FileFilter xlsx=new FileNameExtensionFilter(FileTypeExcel+" (*.xlsx)","xlsx");
-
-		fc.addChoosableFileFilter(xlsx);
-		fc.setFileFilter(xlsx);
+		fc.addChoosableFileFilter(FileTypeExcel+" (*.xlsx)","xlsx");
+		fc.setFileFilter("xlsx");
 		fc.setAcceptAllFileFilterUsed(false);
-
-		if (fc.showSaveDialog(parent)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
-		}
-		return file;
+		return fc.showSaveDialogFileWithExtension(parent);
 	}
 
 	/**

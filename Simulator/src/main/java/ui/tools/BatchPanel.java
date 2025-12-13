@@ -27,7 +27,6 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -36,10 +35,9 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
 import systemtools.JTextAreaOutputStream;
@@ -243,38 +241,31 @@ public class BatchPanel extends SpecialPanel {
 	 * Befehl: Verzeichnis auswählen
 	 */
 	private void commandSelectFolder() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
 		final String oldFolder=folderEdit.getText().trim();
-		if (!oldFolder.isBlank() && new File(oldFolder).isDirectory()) fc.setCurrentDirectory(new File(oldFolder));
+		final File initialDirectory=(!oldFolder.isBlank() && new File(oldFolder).isDirectory())?new File(oldFolder):null;
+
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		fc.setDialogTitle(Language.tr("BatchPanel.Directory.Caption"));
-		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		if (fc.showOpenDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		folderEdit.setText(fc.getSelectedFile().toString());
+		final File folder=fc.showSelectDirectoryDialog(this);
+		if (folder==null) return;
+
+		folderEdit.setText(folder.toString());
 	}
 
 	/**
 	 * Befehl: Filterskript auswählen
 	 */
 	private void commandSelectScript() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
 		final String oldFileName=scriptEdit.getText();
-		if (oldFileName!=null && !oldFileName.isEmpty()) fc.setCurrentDirectory(new File(oldFileName).getParentFile());
+		final File initialDirectory=(oldFileName!=null && !oldFileName.isBlank())?new File(oldFileName).getParentFile():null;
+
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		fc.setDialogTitle(Language.tr("BatchPanel.Script.Caption"));
-		final FileFilter script=new FileNameExtensionFilter(Language.tr("FileType.JSAndJava")+" (*.js,*.java)","js","java");
-		final FileFilter js=new FileNameExtensionFilter(Language.tr("FileType.JS")+" (*.js)","js");
-		final FileFilter java=new FileNameExtensionFilter(Language.tr("FileType.Java")+" (*.java)","java");
-		fc.addChoosableFileFilter(script);
-		fc.addChoosableFileFilter(js);
-		fc.addChoosableFileFilter(java);
+		final FileFilter script=fc.addChoosableFileFilter(Language.tr("FileType.JSAndJava")+" (*.js,*.java)","js","java");
 		fc.setFileFilter(script);
-		if (fc.showOpenDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0 && fc.getFileFilter()==js) file=new File(file.getAbsoluteFile()+".js");
-		if (file.getName().indexOf('.')<0 && fc.getFileFilter()==java) file=new File(file.getAbsoluteFile()+".java");
+		final File file=fc.showOpenDialogFileWithExtension(this);
+		if (file==null) return;
+
 		scriptEdit.setText(file.getAbsolutePath());
 	}
 
@@ -282,18 +273,16 @@ public class BatchPanel extends SpecialPanel {
 	 * Befehl: Ausgabedatei auswählen
 	 */
 	private void commandSelectResultsFile() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
 		final String oldFileName=resultsEdit.getText();
-		if (oldFileName!=null && !oldFileName.isEmpty()) fc.setCurrentDirectory(new File(oldFileName).getParentFile());
+		final File initialDirectory=(oldFileName!=null && !oldFileName.isBlank())?new File(oldFileName).getParentFile():null;
+
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		fc.setDialogTitle(Language.tr("BatchPanel.ResultsFile.Caption"));
-		final FileFilter text=new FileNameExtensionFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
-		fc.addChoosableFileFilter(text);
-		fc.setFileFilter(text);
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0 && fc.getFileFilter()==text) file=new File(file.getAbsoluteFile()+".txt");
+		fc.addChoosableFileFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
+		fc.setFileFilter("txt");
+		final File file=fc.showSaveDialogFileWithExtension(this);
+		if (file==null) return;
+
 		resultsEdit.setText(file.getAbsolutePath());
 	}
 

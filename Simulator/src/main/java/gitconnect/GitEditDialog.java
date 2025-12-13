@@ -30,14 +30,13 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import language.Language;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import mathtools.distribution.tools.FileDropper;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
@@ -435,15 +434,17 @@ public class GitEditDialog extends BaseDialog {
 	 * Befehl: Ordner für das lokale Git-Verzeichnis wählen
 	 */
 	private void commandSelectLocalFolder() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		File initialFolder=null;
 		final String oldFolder=editLocalFolder.getText().trim();
-		if (!oldFolder.isEmpty()) fc.setCurrentDirectory(new File(oldFolder));
+		if (!oldFolder.isEmpty()) initialFolder=new File(oldFolder);
+
+		final var fc=new PlugableFileChooser(initialFolder,true);
 		fc.setDialogTitle(Language.tr("Git.List.Tab.LocalFolder.LocalFolder.Select"));
-		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		editLocalFolder.setText(fc.getSelectedFile().toString());
+
+		final File file=fc.showSelectDirectoryDialog(owner);
+		if (file==null) return;
+
+		editLocalFolder.setText(file.toString());
 		commandTestLocalFolder();
 	}
 
@@ -624,15 +625,15 @@ public class GitEditDialog extends BaseDialog {
 	 * @see #editAuthKey
 	 */
 	private void commandSelectKeyFile() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
+
 		if (!editAuthKey.getText().isBlank()) fc.setSelectedFile(new File(editAuthKey.getText()));
 		fc.setDialogTitle(Language.tr("Git.List.Tab.Server.Auth.Key.SelectKey"));
 
-		if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		editAuthKey.setText(fc.getSelectedFile().toString());
+		final File file=fc.showOpenDialogFileWithExtension(owner);
+		if (file==null) return;
 
+		editAuthKey.setText(fc.getSelectedFile().toString());
 		commandTestPrivateKey();
 	}
 

@@ -29,17 +29,14 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
 import mathtools.NumberTools;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
 import simulator.editmodel.EditModel;
@@ -226,21 +223,14 @@ public class LogAnalyzerDialog extends BaseDialog {
 	 * Wird aufgerufen, wenn der Nutzer die Schaltfläche zur Dateiauswahl für die Log-Datei anklickt.
 	 */
 	public void selectLogFile() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(Language.tr("LogSimulation.LogFile.Select"));
-		FileFilter txt=new FileNameExtensionFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
-		fc.addChoosableFileFilter(txt);
-		fc.setFileFilter(txt);
+		fc.addChoosableFileFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
+		fc.setFileFilter("txt");
 		fc.setAcceptAllFileFilterUsed(true);
 
-		if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-		}
+		final File file=fc.showOpenDialogFileWithExtension(owner);
+		if (file==null) return;
 
 		logFileEdit.setText(file.toString());
 		checkData(false);
@@ -262,33 +252,18 @@ public class LogAnalyzerDialog extends BaseDialog {
 	 * Wird aufgerufen, wenn der Nutzer die Schaltfläche zur Dateiauswahl für die Ausgabedatei anklickt.
 	 */
 	public void selectOutputFile() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(Language.tr("LogAnalyzer.OutputFile.Select"));
-		final FileFilter pdf=new FileNameExtensionFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
-		final FileFilter svg=new FileNameExtensionFilter(Language.tr("FileType.svg")+" (*.svg)","svg");
-		final FileFilter eps=new FileNameExtensionFilter(Language.tr("FileType.eps")+" (*.eps)","eps");
-		final FileFilter drawio=new FileNameExtensionFilter(Language.tr("FileType.drawio")+" (*.drawio)","drawio");
-		FileFilter txt=new FileNameExtensionFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
-		fc.addChoosableFileFilter(pdf);
-		fc.addChoosableFileFilter(svg);
-		fc.addChoosableFileFilter(eps);
-		fc.addChoosableFileFilter(drawio);
-		fc.addChoosableFileFilter(txt);
-		fc.setFileFilter(pdf);
+		fc.addChoosableFileFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
+		fc.addChoosableFileFilter(Language.tr("FileType.svg")+" (*.svg)","svg");
+		fc.addChoosableFileFilter(Language.tr("FileType.eps")+" (*.eps)","eps");
+		fc.addChoosableFileFilter(Language.tr("FileType.drawio")+" (*.drawio)","drawio");
+		fc.addChoosableFileFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
+		fc.setFileFilter("pdf");
 		fc.setAcceptAllFileFilterUsed(false);
 
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
-			if (fc.getFileFilter()==svg) file=new File(file.getAbsoluteFile()+".svg");
-			if (fc.getFileFilter()==eps) file=new File(file.getAbsoluteFile()+".eps");
-			if (fc.getFileFilter()==drawio) file=new File(file.getAbsoluteFile()+".drawio");
-			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(this);
+		if (file==null) return;
 
 		outputFileEdit.setText(file.toString());
 		checkData(false);

@@ -29,8 +29,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
-import javax.swing.JFileChooser;
-
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ExponentialDistribution;
 import org.apache.commons.math3.distribution.LogNormalDistribution;
@@ -46,6 +44,7 @@ import mathtools.distribution.swing.JDataLoader;
 import mathtools.distribution.swing.JDistributionEditorDialog;
 import mathtools.distribution.swing.JDistributionEditorPanel;
 import mathtools.distribution.swing.JDistributionPanel;
+import mathtools.distribution.swing.PlugableFileChooser;
 import mathtools.distribution.swing.SimSystemsSwingImages;
 import mathtools.distribution.tools.DistributionTools;
 
@@ -99,22 +98,24 @@ class DistributionSwingTests {
 	void testData() {
 		/* Wurde der Test von einem Service (außerhalb eines Benutzerkontos) ausgelöst? Wenn ja schlägt JFileChooser(home) fehlt, weil z.B. kein "Desktop"-Ordner ermittelt werden kann. */
 		if (System.getProperty("user.home").toLowerCase().contains("\\system32\\config\\systemprofile")) return;
+		/* Nur unter Windows testen */
+		if (!System.getProperty("user.home").toLowerCase().contains(":\\")) return;
 
-		JFileChooser chooser;
+		PlugableFileChooser chooser;
 
 		final File home=new File(System.getProperty("user.home"));
-		chooser=new JFileChooser(home);
-		CommonVariables.initialDirectoryFromJFileChooser(chooser);
+		chooser=new PlugableFileChooser(home,false);
+		CommonVariables.initialDirectoryFromPlugableFileChooser(chooser);
 
-		chooser=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(chooser);
+		chooser=new PlugableFileChooser();
+		CommonVariables.initialDirectoryToPlugableFileChooser(chooser);
 		assertEquals(home.toString(),chooser.getCurrentDirectory().toString());
 
 		CommonVariables.setInitialDirectoryFromFile(new File(""));
 		CommonVariables.setInitialDirectoryFromFile(new File(System.getProperty("user.home")+"\\file.txt"));
 
-		chooser=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(chooser);
+		chooser=new PlugableFileChooser();
+		CommonVariables.initialDirectoryToPlugableFileChooser(chooser);
 		assertEquals(home.toString(),chooser.getCurrentDirectory().toString());
 	}
 

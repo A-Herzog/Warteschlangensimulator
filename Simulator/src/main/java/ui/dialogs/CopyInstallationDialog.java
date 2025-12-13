@@ -32,7 +32,6 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -42,7 +41,7 @@ import javax.swing.SwingUtilities;
 
 import language.Language;
 import mathtools.NumberTools;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.SetupData;
@@ -179,15 +178,15 @@ public class CopyInstallationDialog extends BaseDialog {
 	 * Zielverzeichnis auswählen
 	 */
 	private void commandSelectDestinationFolder() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
 		final String oldFolder=destinationFolderInput.getText().trim();
-		if (!oldFolder.isEmpty()) fc.setCurrentDirectory(new File(oldFolder));
+		final File initialFolder=(!oldFolder.isEmpty())?new File(oldFolder):null;
+
+		final var fc=new PlugableFileChooser(initialFolder,true);
 		fc.setDialogTitle(Language.tr("CopyInstallation.DestinationFolder.Select"));
-		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		destinationFolderInput.setText(fc.getSelectedFile().toString());
+		final File folder=fc.showSelectDirectoryDialog(owner);
+		if (folder==null) return;
+
+		destinationFolderInput.setText(folder.toString());
 	}
 
 	@Override

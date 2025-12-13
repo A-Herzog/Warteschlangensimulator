@@ -19,7 +19,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileSystemView;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -211,7 +211,7 @@ public class OptimizerSetup extends XMLData implements Cloneable {
 		targetRangeMax=10;
 
 		File folder=CommonVariables.getCommonVariables().lastFileChooserDirectory;
-		if (folder==null) folder=new JFileChooser().getFileSystemView().getDefaultDirectory();
+		if (folder==null) folder=FileSystemView.getFileSystemView().getDefaultDirectory();
 		outputFolder=folder.toString();
 		outputMode=OutputMode.OUTPUT_ALL;
 

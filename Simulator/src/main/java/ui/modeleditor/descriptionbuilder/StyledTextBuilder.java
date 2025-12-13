@@ -31,10 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
 import javax.swing.JTextPane;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
@@ -54,7 +51,7 @@ import org.odftoolkit.simple.style.StyleTypeDefinitions;
 import org.odftoolkit.simple.text.Paragraph;
 
 import language.Language;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
 import systemtools.statistics.PDFWriter;
@@ -716,41 +713,21 @@ public class StyledTextBuilder {
 	 * @return	Liefert im Erfolgsfall den Dateinamen oder <code>null</code>, wenn der Nutzer die Auswahl abgebrochen hat
 	 */
 	public static File getSaveFile(final Component owner, final String title) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
-
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(title);
 
-		final FileFilter docx=new FileNameExtensionFilter(Language.tr("FileType.Word")+" (*.docx)","docx");
-		final FileFilter odt=new FileNameExtensionFilter(Language.tr("FileType.FileTypeODT")+" (*.odt)","odt");
-		final FileFilter pdf=new FileNameExtensionFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
-		final FileFilter html=new FileNameExtensionFilter(Language.tr("FileType.HTML")+" (*.html, *.htm)","html","htm");
-		final FileFilter rtf=new FileNameExtensionFilter(Language.tr("FileType.RTF")+" (*.rtf)","rtf");
-		final FileFilter txt=new FileNameExtensionFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
-		final FileFilter md=new FileNameExtensionFilter(Language.tr("FileType.md")+" (*.md)","md");
-		fc.addChoosableFileFilter(docx);
-		fc.addChoosableFileFilter(odt);
-		fc.addChoosableFileFilter(pdf);
-		fc.addChoosableFileFilter(html);
-		fc.addChoosableFileFilter(rtf);
-		fc.addChoosableFileFilter(txt);
-		fc.addChoosableFileFilter(md);
-		fc.setFileFilter(docx);
+		fc.addChoosableFileFilter(Language.tr("FileType.Word")+" (*.docx)","docx");
+		fc.addChoosableFileFilter(Language.tr("FileType.FileTypeODT")+" (*.odt)","odt");
+		fc.addChoosableFileFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
+		fc.addChoosableFileFilter(Language.tr("FileType.HTML")+" (*.html, *.htm)","html","htm");
+		fc.addChoosableFileFilter(Language.tr("FileType.RTF")+" (*.rtf)","rtf");
+		fc.addChoosableFileFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
+		fc.addChoosableFileFilter(Language.tr("FileType.md")+" (*.md)","md");
+		fc.setFileFilter("docx");
 		fc.setAcceptAllFileFilterUsed(false);
 
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
-			if (fc.getFileFilter()==odt) file=new File(file.getAbsoluteFile()+".odt");
-			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
-			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
-			if (fc.getFileFilter()==rtf) file=new File(file.getAbsoluteFile()+".rtf");
-			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-			if (fc.getFileFilter()==md) file=new File(file.getAbsoluteFile()+".md");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(owner);
+		if (file==null) return null;
 
 		if (file.exists()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return null;

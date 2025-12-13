@@ -35,16 +35,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
 import mathtools.NumberTools;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import net.dde.DDEConnect;
 import simcore.logging.SimLogging;
 import simulator.Simulator;
@@ -369,48 +366,23 @@ public class LogSetupDialog extends BaseDialog {
 	 * Wird aufgerufen, wenn der Nutzer die Schaltfläche zur Dateiauswahl anklickt.
 	 */
 	public void selectFile() {
-		JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(Language.tr("LogSimulation.LogFile.Select"));
-		FileFilter docx=new FileNameExtensionFilter(Language.tr("FileType.Word")+" (*.docx)","docx");
-		FileFilter rtf=new FileNameExtensionFilter(Language.tr("FileType.RTF")+" (*.rtf)","rtf");
-		FileFilter html=new FileNameExtensionFilter(Language.tr("FileType.HTML")+" (*.html, *.htm)","html","htm");
-		FileFilter txt=new FileNameExtensionFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
-		FileFilter pdf=new FileNameExtensionFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
-		FileFilter csv=new FileNameExtensionFilter(Language.tr("FileType.CSV")+" (*.csv)","cslv");
-		FileFilter xlsx=new FileNameExtensionFilter(Language.tr("FileType.Excel")+" (*.xlsx)","xlsx");
-		FileFilter xls=new FileNameExtensionFilter(Language.tr("FileType.ExcelOld")+" (*.xls)","xls");
-		FileFilter ods=new FileNameExtensionFilter(Language.tr("FileType.FileTypeODS")+" (*.ods)","ods");
-		FileFilter odt=new FileNameExtensionFilter(Language.tr("FileType.FileTypeODT")+" (*.odt)","odt");
-		fc.addChoosableFileFilter(xlsx);
-		fc.addChoosableFileFilter(xls);
-		fc.addChoosableFileFilter(csv);
-		fc.addChoosableFileFilter(ods);
-		fc.addChoosableFileFilter(txt);
-		fc.addChoosableFileFilter(docx);
-		fc.addChoosableFileFilter(rtf);
-		fc.addChoosableFileFilter(html);
-		fc.addChoosableFileFilter(pdf);
-		fc.addChoosableFileFilter(odt);
-		fc.setFileFilter(txt);
+		fc.addChoosableFileFilter(Language.tr("FileType.Word")+" (*.docx)","docx");
+		fc.addChoosableFileFilter(Language.tr("FileType.RTF")+" (*.rtf)","rtf");
+		fc.addChoosableFileFilter(Language.tr("FileType.HTML")+" (*.html, *.htm)","html","htm");
+		fc.addChoosableFileFilter(Language.tr("FileType.Text")+" (*.txt)","txt");
+		fc.addChoosableFileFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
+		fc.addChoosableFileFilter(Language.tr("FileType.CSV")+" (*.csv)","cslv");
+		fc.addChoosableFileFilter(Language.tr("FileType.Excel")+" (*.xlsx)","xlsx");
+		fc.addChoosableFileFilter(Language.tr("FileType.ExcelOld")+" (*.xls)","xls");
+		fc.addChoosableFileFilter(Language.tr("FileType.FileTypeODS")+" (*.ods)","ods");
+		fc.addChoosableFileFilter(Language.tr("FileType.FileTypeODT")+" (*.odt)","odt");
+		fc.setFileFilter("txt");
 		fc.setAcceptAllFileFilterUsed(false);
 
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
-			if (fc.getFileFilter()==xls) file=new File(file.getAbsoluteFile()+".xls");
-			if (fc.getFileFilter()==csv) file=new File(file.getAbsoluteFile()+".csv");
-			if (fc.getFileFilter()==ods) file=new File(file.getAbsoluteFile()+".ods");
-			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
-			if (fc.getFileFilter()==rtf) file=new File(file.getAbsoluteFile()+".rtf");
-			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
-			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
-			if (fc.getFileFilter()==odt) file=new File(file.getAbsoluteFile()+".odt");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(owner);
+		if (file==null) return;
 
 		logFileEdit.setText(file.toString());
 	}

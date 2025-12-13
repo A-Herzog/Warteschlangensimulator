@@ -66,7 +66,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -83,11 +82,9 @@ import javax.swing.KeyStroke;
 import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import mathtools.distribution.tools.FileDropperData;
 import simulator.StartAnySimulator;
 import simulator.editmodel.EditModel;
@@ -2251,62 +2248,25 @@ public final class EditorPanel extends EditorPanelBase {
 	 * @return	Liefert im Erfolgsfall die gewählte Datei, sonst <code>null</code>
 	 */
 	private File showExportDialog(Component parent, final String title) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(title);
-		final FileFilter jpg=new FileNameExtensionFilter(Language.tr("FileType.jpeg")+" (*.jpg, *.jpeg)","jpg","jpeg");
-		final FileFilter gif=new FileNameExtensionFilter(Language.tr("FileType.gif")+" (*.gif)","gif");
-		final FileFilter png=new FileNameExtensionFilter(Language.tr("FileType.png")+" (*.png)","png");
-		final FileFilter bmp=new FileNameExtensionFilter(Language.tr("FileType.bmp")+" (*.bmp)","bmp");
-		final FileFilter tiff=new FileNameExtensionFilter(Language.tr("FileType.tiff")+" (*.tiff, *.tif)","tiff","tif");
-		final FileFilter pdf=new FileNameExtensionFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
-		final FileFilter svg=new FileNameExtensionFilter(Language.tr("FileType.svg")+" (*.svg)","svg");
-		final FileFilter eps=new FileNameExtensionFilter(Language.tr("FileType.eps")+" (*.eps)","eps");
-		final FileFilter docx=new FileNameExtensionFilter(Language.tr("FileType.WordImage")+" (*.docx)","docx");
-		final FileFilter pptx=new FileNameExtensionFilter(Language.tr("SlidesGenerator.FileTypePPTX")+" (*.pptx)","pptx");
-		final FileFilter html=new FileNameExtensionFilter(Language.tr("FileType.HTML")+" (*.html)","html");
-		final FileFilter drawio=new FileNameExtensionFilter(Language.tr("FileType.drawio")+" (*.drawio)","drawio");
-		final FileFilter dot=new FileNameExtensionFilter(Language.tr("FileType.dot")+" (*.dot)","dot");
-		final FileFilter tex=new FileNameExtensionFilter(Language.tr("FileType.LaTeX")+" (*.tex)","tex");
-		fc.addChoosableFileFilter(png);
-		fc.addChoosableFileFilter(jpg);
-		fc.addChoosableFileFilter(gif);
-		fc.addChoosableFileFilter(bmp);
-		fc.addChoosableFileFilter(tiff);
-		fc.addChoosableFileFilter(pdf);
-		fc.addChoosableFileFilter(svg);
-		fc.addChoosableFileFilter(eps);
-		fc.addChoosableFileFilter(docx);
-		fc.addChoosableFileFilter(pptx);
-		fc.addChoosableFileFilter(html);
-		fc.addChoosableFileFilter(drawio);
-		fc.addChoosableFileFilter(dot);
-		fc.addChoosableFileFilter(tex);
-		fc.setFileFilter(png);
+		fc.addChoosableFileFilter(Language.tr("FileType.png")+" (*.png)","png");
+		fc.addChoosableFileFilter(Language.tr("FileType.jpeg")+" (*.jpg, *.jpeg)","jpg","jpeg");
+		fc.addChoosableFileFilter(Language.tr("FileType.gif")+" (*.gif)","gif");
+		fc.addChoosableFileFilter(Language.tr("FileType.bmp")+" (*.bmp)","bmp");
+		fc.addChoosableFileFilter(Language.tr("FileType.tiff")+" (*.tiff, *.tif)","tiff","tif");
+		fc.addChoosableFileFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
+		fc.addChoosableFileFilter(Language.tr("FileType.svg")+" (*.svg)","svg");
+		fc.addChoosableFileFilter(Language.tr("FileType.eps")+" (*.eps)","eps");
+		fc.addChoosableFileFilter(Language.tr("FileType.WordImage")+" (*.docx)","docx");
+		fc.addChoosableFileFilter(Language.tr("SlidesGenerator.FileTypePPTX")+" (*.pptx)","pptx");
+		fc.addChoosableFileFilter(Language.tr("FileType.HTML")+" (*.html)","html");
+		fc.addChoosableFileFilter(Language.tr("FileType.drawio")+" (*.drawio)","drawio");
+		fc.addChoosableFileFilter(Language.tr("FileType.dot")+" (*.dot)","dot");
+		fc.addChoosableFileFilter(Language.tr("FileType.LaTeX")+" (*.tex)","tex");
+		fc.setFileFilter("png");
 		fc.setAcceptAllFileFilterUsed(false);
-
-		if (fc.showSaveDialog(parent)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
-			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
-			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
-			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
-			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
-			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
-			if (fc.getFileFilter()==svg) file=new File(file.getAbsoluteFile()+".svg");
-			if (fc.getFileFilter()==eps) file=new File(file.getAbsoluteFile()+".eps");
-			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
-			if (fc.getFileFilter()==pptx) file=new File(file.getAbsoluteFile()+".pptx");
-			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
-			if (fc.getFileFilter()==drawio) file=new File(file.getAbsoluteFile()+".drawio");
-			if (fc.getFileFilter()==dot) file=new File(file.getAbsoluteFile()+".dot");
-			if (fc.getFileFilter()==tex) file=new File(file.getAbsoluteFile()+".tex");
-		}
-
-		return file;
+		return fc.showSaveDialogFileWithExtension(parent);
 	}
 
 	/**

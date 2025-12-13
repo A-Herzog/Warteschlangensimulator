@@ -28,17 +28,14 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
 import mathtools.NumberTools;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.SetupData;
@@ -147,21 +144,14 @@ public class AnimationRecordSetupDialog extends BaseDialog {
 	 * @see #editVideo
 	 */
 	private void selectVideo() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(Language.tr("Window.SelectVideoFile"));
-		final FileFilter avi=new FileNameExtensionFilter(Language.tr("FileType.VideoFile")+" (*.avi)","avi");
-		fc.addChoosableFileFilter(avi);
-		fc.setFileFilter(avi);
+		fc.addChoosableFileFilter(Language.tr("FileType.VideoFile")+" (*.avi)","avi");
+		fc.setFileFilter("avi");
 		fc.setAcceptAllFileFilterUsed(false);
 
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==avi) file=new File(file.getAbsoluteFile()+".avi");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(this);
+		if (file==null) return;
 
 		editVideo.setText(file.toString());
 		checkData(false);

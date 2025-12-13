@@ -25,16 +25,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
 import mathtools.Table;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
@@ -239,26 +236,15 @@ public class ModelElementOutputJSDialog extends ModelElementBaseDialog {
 	 * @see #fileNameEdit
 	 */
 	private void selectFile() {
-		File oldFile=new File(fileNameEdit.getText());
-		File initialDirectory=oldFile.getParentFile();
+		final File initialDirectory=(!fileNameEdit.getText().isBlank())?(new File(fileNameEdit.getText())).getParentFile():null;
 
-		JFileChooser fc;
-		if (initialDirectory!=null) fc=new JFileChooser(initialDirectory.toString()); else {
-			fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-		}
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		fc.setDialogTitle(Language.tr("Surface.Output.Dialog.FileName.Select"));
-		FileFilter txt=new FileNameExtensionFilter(Table.FileTypeText+" (*.txt, *.tsv)","txt","tsv");
-		fc.addChoosableFileFilter(txt);
-		fc.setFileFilter(txt);
+		fc.addChoosableFileFilter(Table.FileTypeText+" (*.txt, *.tsv)","txt","tsv");
+		fc.setFileFilter("txt");
 
-		if (fc.showSaveDialog(ModelElementOutputJSDialog.this)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(ModelElementOutputJSDialog.this);
+		if (file==null) return;
 
 		fileNameEdit.setText(file.toString());
 	}

@@ -31,11 +31,8 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import javax.swing.BorderFactory;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.jfree.chart.ChartFactory;
@@ -56,7 +53,7 @@ import mathtools.NumberTools;
 import mathtools.Table;
 import mathtools.TableChart;
 import mathtools.distribution.DataDistributionImpl;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import systemtools.MsgBox;
 
 /**
@@ -877,45 +874,20 @@ public class StatisticViewerLineChart extends StatisticViewerJFreeChart {
 
 	@Override
 	protected File showSaveDialog(final Component owner) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(StatisticsBasePanel.viewersSaveImage);
-		final FileFilter jpg=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeJPG+" (*.jpg, *.jpeg)","jpg","jpeg");
-		final FileFilter gif=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
-		final FileFilter png=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
-		final FileFilter bmp=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
-		final FileFilter tiff=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
-		final FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
-		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
-		final FileFilter xlsx=canStoreExcelFile()?new FileNameExtensionFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx"):null;
-		final FileFilter sce=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeSCE+" (*.sce)","sce");
-		fc.addChoosableFileFilter(png);
-		fc.addChoosableFileFilter(jpg);
-		fc.addChoosableFileFilter(gif);
-		fc.addChoosableFileFilter(bmp);
-		fc.addChoosableFileFilter(tiff);
-		fc.addChoosableFileFilter(docx);
-		fc.addChoosableFileFilter(pdf);
-		if (xlsx!=null) fc.addChoosableFileFilter(xlsx);
-		fc.addChoosableFileFilter(sce);
-		fc.setFileFilter(png);
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeJPG+" (*.jpg, *.jpeg)","jpg","jpeg");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
+		if (canStoreExcelFile()) fc.addChoosableFileFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeSCE+" (*.sce)","sce");
 		fc.setAcceptAllFileFilterUsed(false);
-
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
-			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
-			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
-			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
-			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
-			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
-			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
-			if (xlsx!=null && fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
-			if (fc.getFileFilter()==sce) file=new File(file.getAbsoluteFile()+".sce");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(owner);
+		if (file==null) return null;
 
 		if (file.exists()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return null;

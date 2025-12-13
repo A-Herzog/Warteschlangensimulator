@@ -26,21 +26,18 @@ import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.commons.math3.util.FastMath;
 
 import language.Language;
 import mathtools.Table;
 import mathtools.TimeTools;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import simulator.statistics.Statistics;
 import statistics.StatisticsLongRunPerformanceIndicator;
 import systemtools.MsgBox;
@@ -238,45 +235,22 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 	 * @see #save(Component)
 	 */
 	private static File selectImageOrVideoFile(final Component owner, final boolean allowXLSX) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(StatisticsBasePanel.viewersSaveImage);
-		final FileFilter avi=new FileNameExtensionFilter(Language.tr("FileType.VideoFile")+" (*.avi)","avi");
-		final FileFilter jpg=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeJPG+" (*.jpg, *.jpeg)","jpg","jpeg");
-		final FileFilter gif=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
-		final FileFilter png=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
-		final FileFilter bmp=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
-		final FileFilter tiff=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
-		final FileFilter docx=new FileNameExtensionFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
-		final FileFilter pdf=new FileNameExtensionFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
-		final FileFilter xlsx=allowXLSX?new FileNameExtensionFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx"):null;
-		fc.addChoosableFileFilter(avi);
-		fc.addChoosableFileFilter(png);
-		fc.addChoosableFileFilter(jpg);
-		fc.addChoosableFileFilter(gif);
-		fc.addChoosableFileFilter(bmp);
-		fc.addChoosableFileFilter(tiff);
-		fc.addChoosableFileFilter(docx);
-		fc.addChoosableFileFilter(pdf);
-		if (xlsx!=null) fc.addChoosableFileFilter(xlsx);
-		fc.setFileFilter(avi);
+		fc.addChoosableFileFilter(Language.tr("FileType.VideoFile")+" (*.avi)","avi");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeJPG+" (*.jpg, *.jpeg)","jpg","jpeg");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeGIF+" (*.gif)","gif");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypePNG+" (*.png)","png");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeBMP+" (*.bmp)","bmp");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypeWordWithImage+" (*.docx)","docx");
+		fc.addChoosableFileFilter(StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf");
+		if (allowXLSX) fc.addChoosableFileFilter(Table.FileTypeExcel+" (*.xlsx)","xlsx");
+		fc.setFileFilter("avi");
 		fc.setAcceptAllFileFilterUsed(false);
 
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==avi) file=new File(file.getAbsoluteFile()+".avi");
-			if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
-			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
-			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
-			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
-			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
-			if (fc.getFileFilter()==docx) file=new File(file.getAbsoluteFile()+".docx");
-			if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
-			if (xlsx!=null && fc.getFileFilter()==xlsx) file=new File(file.getAbsoluteFile()+".xlsx");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(owner);
+		if (file==null) return null;
 
 		if (file.exists()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return null;

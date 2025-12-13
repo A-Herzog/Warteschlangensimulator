@@ -69,7 +69,6 @@ import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -96,6 +95,7 @@ import mathtools.Table;
 import mathtools.Table.SaveMode;
 import mathtools.distribution.swing.CommonVariables;
 import mathtools.distribution.swing.JOpenURL;
+import mathtools.distribution.swing.PlugableFileChooser;
 import mathtools.distribution.tools.AbstractDistributionWrapper;
 import mathtools.distribution.tools.DistributionFitterMultiModal;
 import mathtools.distribution.tools.FileDropperData;
@@ -3478,19 +3478,18 @@ public class MainPanel extends MainPanelBase {
 	 * Befehl: Simulation - Animationskonfiguration - Verzeichnis zum Speichern von Bildern - In ausgewähltem Verzeichnis speichern
 	 */
 	private void commandSimulationAnimationScreenshotModeCustom() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		File initialDirectory=null;
 		if (setup.imagePathAnimation!=null && !setup.imagePathAnimation.isBlank() && new File(setup.imagePathAnimation).isDirectory()) {
-			fc.setCurrentDirectory(new File(setup.imagePathAnimation));
+			initialDirectory=new File(setup.imagePathAnimation);
 		}
+		final var fc=new PlugableFileChooser(initialDirectory,true);
 		fc.setDialogTitle(Language.tr("Batch.Output.Folder.Button.Hint"));
-		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		final File file=fc.getSelectedFile();
-		setup.imagePathAnimation=file.toString();
-		setup.saveSetup();
-		reloadSetup();
+		final File file=fc.showSelectDirectoryDialog(this);
+		if (file!=null) {
+			setup.imagePathAnimation=file.toString();
+			setup.saveSetup();
+			reloadSetup();
+		}
 	}
 
 	/**

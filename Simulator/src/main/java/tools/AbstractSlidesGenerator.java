@@ -27,9 +27,6 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.poi.sl.usermodel.PictureData.PictureType;
 import org.apache.poi.xslf.usermodel.SlideLayout;
@@ -44,7 +41,7 @@ import org.apache.poi.xslf.usermodel.XSLFTextRun;
 import org.apache.poi.xslf.usermodel.XSLFTextShape;
 
 import language.Language;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import systemtools.MsgBox;
 
 /**
@@ -298,21 +295,13 @@ public abstract class AbstractSlidesGenerator {
 	public static final File showSaveDialog(final Component owner, final String title) {
 		Component c=owner; while ((c!=null) && (!(c instanceof Frame))) c=c.getParent();
 
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
-
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(title);
-		final FileFilter pptx=new FileNameExtensionFilter(Language.tr("SlidesGenerator.FileTypePPTX")+" (*.pptx)","pptx");
-		fc.addChoosableFileFilter(pptx);
-		fc.setFileFilter(pptx);
+		fc.addChoosableFileFilter(Language.tr("SlidesGenerator.FileTypePPTX")+" (*.pptx)","pptx");
+		fc.setFileFilter("pptx");
 		fc.setAcceptAllFileFilterUsed(false);
-
-		if (fc.showOpenDialog(c)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==pptx) file=new File(file.getAbsoluteFile()+".pptx");
-		}
+		final File file=fc.showOpenDialogFileWithExtension(c);
+		if (file==null) return null;
 
 		if (file.exists()) {
 			if (!MsgBox.confirmOverwrite(c,file)) return null;

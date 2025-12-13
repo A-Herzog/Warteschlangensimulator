@@ -47,15 +47,13 @@ import java.util.TooManyListenersException;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JToolBar;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import systemtools.BaseDialog;
 import systemtools.ImageTools;
 import systemtools.MsgBox;
@@ -281,16 +279,18 @@ public class ImageChooser extends JPanel {
 	 * @return	Liefert im Erfolgsfall den Dateinamen des Bilddatei, sonst <code>null</code>
 	 */
 	public static File selectImageToLoad(final Component owner) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(Language.tr("Window.LoadImage"));
-		final FileFilter images=new FileNameExtensionFilter(Language.tr("FileType.AllImages")+" (*.jpg, *.jpeg, *.gif, *.png, *.bmp)","jpg","jpeg","gif","png","bmp");
-		fc.addChoosableFileFilter(images);
+		final FileFilter images=fc.addChoosableFileFilter(Language.tr("FileType.AllImages")+" (*.png, *.jpeg, *.jpg, *.gif, *.bmp, *.tiff)","png","jpeg","jpg","gif","bmp","tiff","tif");
+		fc.addChoosableFileFilter(Language.tr("FileType.png")+" (*.png)","png");
+		fc.addChoosableFileFilter(Language.tr("FileType.jpeg")+" (*.jpg, *.jpeg)","jpg","jpeg");
+		fc.addChoosableFileFilter(Language.tr("FileType.gif")+" (*.gif)","gif");
+		fc.addChoosableFileFilter(Language.tr("FileType.bmp")+" (*.bmp)","bmp");
+		fc.addChoosableFileFilter(Language.tr("FileType.tiff")+" (*.tiff, *.tif)","tiff","tif");
 		fc.setFileFilter(images);
 
-		if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		final File file=fc.getSelectedFile();
+		final File file=fc.showOpenDialogFileWithExtension(owner);
+		if (file==null) return null;
 
 		if (!file.exists()) {
 			MsgBox.error(owner,Language.tr("XML.LoadErrorTitle"),String.format(Language.tr("XML.FileNotFound"),file.toString()));
@@ -329,33 +329,18 @@ public class ImageChooser extends JPanel {
 	public boolean saveToFile() {
 		if (image==null) return false;
 
-		JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(Language.tr("Window.SaveImage"));
-		final FileFilter jpg=new FileNameExtensionFilter(Language.tr("FileType.jpeg")+" (*.jpg, *.jpeg)","jpg","jpeg");
-		final FileFilter gif=new FileNameExtensionFilter(Language.tr("FileType.gif")+" (*.gif)","gif");
-		final FileFilter png=new FileNameExtensionFilter(Language.tr("FileType.png")+" (*.png)","png");
-		final FileFilter bmp=new FileNameExtensionFilter(Language.tr("FileType.bmp")+" (*.bmp)","bmp");
-		final FileFilter tiff=new FileNameExtensionFilter(Language.tr("FileType.tiff")+" (*.tiff, *.tif)","tiff","tif");
-		fc.addChoosableFileFilter(png);
-		fc.addChoosableFileFilter(jpg);
-		fc.addChoosableFileFilter(gif);
-		fc.addChoosableFileFilter(bmp);
-		fc.addChoosableFileFilter(tiff);
-		fc.setFileFilter(png);
+		fc.addChoosableFileFilter(Language.tr("FileType.jpeg")+" (*.jpg, *.jpeg)","jpg","jpeg");
+		fc.addChoosableFileFilter(Language.tr("FileType.gif")+" (*.gif)","gif");
+		fc.addChoosableFileFilter(Language.tr("FileType.png")+" (*.png)","png");
+		fc.addChoosableFileFilter(Language.tr("FileType.bmp")+" (*.bmp)","bmp");
+		fc.addChoosableFileFilter(Language.tr("FileType.tiff")+" (*.tiff, *.tif)","tiff","tif");
+		fc.setFileFilter("png");
 		fc.setAcceptAllFileFilterUsed(false);
 
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return false;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
-			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
-			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
-			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
-			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(this);
+		if (file==null) return false;
 
 		if (file.exists()) {
 			if (!MsgBox.confirmOverwrite(this,file)) return false;

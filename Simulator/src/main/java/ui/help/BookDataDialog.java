@@ -46,7 +46,6 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -59,14 +58,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.border.Border;
 import javax.swing.event.AncestorEvent;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.oxbow.swingbits.util.swing.AncestorAdapter;
 
 import language.Language;
-import mathtools.distribution.swing.CommonVariables;
 import mathtools.distribution.swing.JOpenURL;
+import mathtools.distribution.swing.PlugableFileChooser;
 import mathtools.distribution.tools.FileDropper;
 import mathtools.distribution.tools.FileDropperData;
 import simulator.editmodel.EditModel;
@@ -339,22 +336,12 @@ public class BookDataDialog extends BaseDialog {
 		button.setToolTipText(Language.tr("BookData.BookPDF.SelectToolTip"));
 		button.addActionListener(e->{
 			final String initial=new File(pdfEdit.getText().trim()).getParent();
-			final JFileChooser fc;
-			if (initial!=null) fc=new JFileChooser(initial); else {
-				fc=new JFileChooser();
-				CommonVariables.initialDirectoryToJFileChooser(fc);
-			}
+			final var fc=new PlugableFileChooser(initial,true);
 			fc.setDialogTitle(Language.tr("BookData.BookPDF.SelectToolTip"));
-			final FileFilter pdf=new FileNameExtensionFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
-			fc.addChoosableFileFilter(pdf);
-
-			fc.setFileFilter(pdf);
-			if (fc.showOpenDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-			CommonVariables.initialDirectoryFromJFileChooser(fc);
-			File file=fc.getSelectedFile();
-			if (file.getName().indexOf('.')<0) {
-				if (fc.getFileFilter()==pdf) file=new File(file.getAbsoluteFile()+".pdf");
-			}
+			fc.addChoosableFileFilter(Language.tr("FileType.PDF")+" (*.pdf)","pdf");
+			fc.setFileFilter("pdf");
+			final File file=fc.showOpenDialogFileWithExtension(this);
+			if (file==null) return;
 			pdfEdit.setText(file.toString());
 			pdfEditUpdate();
 		});

@@ -35,7 +35,6 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -48,7 +47,7 @@ import javax.swing.tree.DefaultTreeModel;
 
 import language.Language;
 import mathtools.Table;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import tools.IconListCellRenderer;
@@ -131,15 +130,14 @@ public class ExternalConnectDialog extends BaseDialog {
 		sub.add(button=new JButton(Images.GENERAL_SELECT_FOLDER.getIcon()));
 		button.setToolTipText(Language.tr("ExternalConnect.Dialog.Folder.Tooltip"));
 		button.addActionListener(e->{
-			final JFileChooser fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
+			File initialDirectory=null;
 			final String oldFolder=folder.getText().trim();
-			if (!oldFolder.isBlank() && new File(oldFolder).isDirectory()) fc.setCurrentDirectory(new File(oldFolder));
+			if (!oldFolder.isBlank() && new File(oldFolder).isDirectory()) initialDirectory=new File(oldFolder);
+			final var fc=new PlugableFileChooser(initialDirectory,true);
 			fc.setDialogTitle(Language.tr("ExternalConnect.Dialog.Folder.Tooltip"));
-			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-			CommonVariables.initialDirectoryFromJFileChooser(fc);
-			folder.setText(fc.getSelectedFile().toString());
+			final File file=fc.showSelectDirectoryDialog(owner);
+			if (file==null) return;
+			folder.setText(file.toString());
 			updateTree(false);
 		});
 		sub.add(button=new JButton(Images.GENERAL_UPDATE.getIcon()),BorderLayout.EAST);
@@ -522,13 +520,10 @@ public class ExternalConnectDialog extends BaseDialog {
 		}
 
 		/* Zielverzeichnis auswählen */
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(Language.tr("ExternalConnect.Dialog.CopyExampleFiles.SelectDestinationDialogTitle"));
-		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		final File destinationFolder=fc.getSelectedFile();
+		final File destinationFolder=fc.showSelectDirectoryDialog(owner);
+		if (destinationFolder==null) return;
 		if (!destinationFolder.isDirectory()) {
 			MsgBox.error(this,Language.tr("ExternalConnect.Dialog.CopyExampleFiles.NoDestinationError.Title"),String.format(Language.tr("ExternalConnect.Dialog.CopyExampleFiles.NoDestinationError.Info"),destinationFolder.toString()));
 			return;

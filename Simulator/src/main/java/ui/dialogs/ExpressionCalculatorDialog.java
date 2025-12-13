@@ -47,7 +47,6 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -61,8 +60,6 @@ import javax.swing.JToolBar;
 import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -70,7 +67,7 @@ import org.fife.ui.rtextarea.RTextScrollPane;
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import mathtools.distribution.tools.FileDropperData;
 import scripting.java.DynamicFactory;
 import scripting.js.JSRunDataFilterTools;
@@ -965,17 +962,12 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 */
 	private void commandLoadJavaScript(File file) {
 		if (file==null) {
-			JFileChooser fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-			FileFilter filter;
+			final var fc=new PlugableFileChooser(true);
 			fc.setDialogTitle(Language.tr("FileType.Load.JS"));
-			filter=new FileNameExtensionFilter(Language.tr("FileType.JS")+" (*.js)","js");
-			fc.addChoosableFileFilter(filter);
-			fc.setFileFilter(filter);
-			if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-			CommonVariables.initialDirectoryFromJFileChooser(fc);
-			file=fc.getSelectedFile();
-			if (file.getName().indexOf('.')<0 && fc.getFileFilter()==filter) file=new File(file.getAbsoluteFile()+".js");
+			fc.addChoosableFileFilter(Language.tr("FileType.JS")+" (*.js)","js");
+			fc.setFileFilter("js");
+			file=fc.showOpenDialogFileWithExtension(owner);
+			if (file==null) return;
 		}
 
 		final String text=JSRunDataFilterTools.loadText(file);
@@ -990,17 +982,12 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 */
 	private void commandLoadJava(File file) {
 		if (file==null) {
-			JFileChooser fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-			FileFilter filter;
+			final var fc=new PlugableFileChooser(true);
 			fc.setDialogTitle(Language.tr("FileType.Load.Java"));
-			filter=new FileNameExtensionFilter(Language.tr("FileType.Java")+" (*.java)","java");
-			fc.addChoosableFileFilter(filter);
-			fc.setFileFilter(filter);
-			if (fc.showOpenDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-			CommonVariables.initialDirectoryFromJFileChooser(fc);
-			file=fc.getSelectedFile();
-			if (file.getName().indexOf('.')<0 && fc.getFileFilter()==filter) file=new File(file.getAbsoluteFile()+".java");
+			fc.addChoosableFileFilter(Language.tr("FileType.Java")+" (*.java)","java");
+			fc.setFileFilter("java");
+			file=fc.showOpenDialogFileWithExtension(owner);
+			if (file==null) return;
 		}
 
 		final String text=JSRunDataFilterTools.loadText(file);
@@ -1013,20 +1000,14 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 * Speichert den Javascript-Code in einer Datei.
 	 */
 	private void commandSaveJavaScript() {
-		JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
-		FileFilter filter;
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(Language.tr("FileType.Save.JS"));
-		filter=new FileNameExtensionFilter(Language.tr("FileType.JS")+" (*.js)","js");
-		fc.addChoosableFileFilter(filter);
-		fc.setFileFilter(filter);
+		fc.addChoosableFileFilter(Language.tr("FileType.JS")+" (*.js)","js");
+		fc.setFileFilter("js");
 		fc.setAcceptAllFileFilterUsed(false);
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==filter) file=new File(file.getAbsoluteFile()+".js");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(owner);
+		if (file==null) return;
+
 		if (file.exists()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return;
 		}
@@ -1039,20 +1020,14 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 	 * Speichert den Java-Code in einer Datei.
 	 */
 	private void commandSaveJava() {
-		JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
-		FileFilter filter;
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(Language.tr("FileType.Save.Java"));
-		filter=new FileNameExtensionFilter(Language.tr("FileType.Java")+" (*.java)","java");
-		fc.addChoosableFileFilter(filter);
-		fc.setFileFilter(filter);
+		fc.addChoosableFileFilter(Language.tr("FileType.Java")+" (*.java)","java");
+		fc.setFileFilter("java");
 		fc.setAcceptAllFileFilterUsed(false);
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==filter) file=new File(file.getAbsoluteFile()+".java");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(owner);
+		if (file==null) return;
+
 		if (file.exists()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return;
 		}

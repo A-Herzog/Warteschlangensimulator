@@ -70,6 +70,22 @@ public final class CommonVariables {
 	}
 
 	/**
+	 * Trägt das zuletzt verwendete Verzeichnis als initiales Verzeichnis in ein {@link JFileChooser}-Objekt ein
+	 * @param fileChooser	Dateiauswahl-Dialog in dem das initiale Verzeichnis eingestellt werden soll
+	 */
+	public static void initialDirectoryToPlugableFileChooser(final PlugableFileChooser fileChooser) {
+		if (getCommonVariables().lastFileChooserDirectory!=null) fileChooser.setCurrentDirectory(getCommonVariables().lastFileChooserDirectory);
+	}
+
+	/**
+	 * Speichert auf Basis der Auswahl in einem Dateiauswahl-Dialog das zuletzt verwendete Verzeichnis
+	 * @param fileChooser	Dateiauswahl-Dialog aus dem das Verzeichnis ausgelesen und gespeichert werden soll
+	 */
+	public static void initialDirectoryFromPlugableFileChooser(final PlugableFileChooser fileChooser) {
+		getCommonVariables().lastFileChooserDirectory=new File(fileChooser.getCurrentDirectory().toURI());
+	}
+
+	/**
 	 * Speichert auf Basis einer Datei das zuletzt verwendete Verzeichnis
 	 * @param file	Datei dessen Verzeichnis als zuletzt verwendetes Verzeichnis gespeichert werden soll
 	 */

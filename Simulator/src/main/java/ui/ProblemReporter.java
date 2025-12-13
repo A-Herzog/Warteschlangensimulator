@@ -36,12 +36,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import simulator.editmodel.EditModel;
 import simulator.statistics.Statistics;
 import tools.SetupData;
@@ -417,29 +414,18 @@ public class ProblemReporter {
 	 * @return	Gewählte Ausgabedatei oder <code>null</code>, wenn der Dialog abgebrochen wurde
 	 */
 	public static File selectOutputFile(final Component owner, final File lastFile) {
-		final JFileChooser fc;
-		if (lastFile==null || lastFile.getParentFile()==null || !lastFile.getParentFile().isDirectory()) {
-			fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-		} else {
-			fc=new JFileChooser(lastFile.getParent());
-		}
+		File initialFolder=null;
+		if (lastFile!=null && lastFile.getParentFile()!=null && !lastFile.getParentFile().isDirectory()) initialFolder=lastFile.getParentFile();
 
+		final var fc=new PlugableFileChooser(initialFolder,true);
 		fc.setDialogTitle(Language.tr("ProblemReporter.Dialog.Title"));
-
-		final FileFilter zip=new FileNameExtensionFilter(Language.tr("ProblemReporter.Dialog.FileTypeZip")+" (*.zip)","zip");
-
-		fc.addChoosableFileFilter(zip);
-		fc.setFileFilter(zip);
+		fc.addChoosableFileFilter(Language.tr("ProblemReporter.Dialog.FileTypeZip")+" (*.zip)","zip");
+		fc.setFileFilter("zip");
 		fc.setAcceptAllFileFilterUsed(false);
 
-		if (fc.showSaveDialog(owner)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
+		final File file=fc.showSaveDialogFileWithExtension(owner);
+		if (file==null) return null;
 
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==zip) file=new File(file.getAbsoluteFile()+".zip");
-		}
 		return file;
 	}
 }

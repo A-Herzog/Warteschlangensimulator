@@ -36,7 +36,6 @@ import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -52,7 +51,7 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 import language.Language;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import scripting.java.DynamicErrorInfo;
 import scripting.java.DynamicFactory;
 import scripting.java.DynamicRunner;
@@ -530,33 +529,26 @@ public class ScriptEditorPanel extends JPanel {
 	private boolean commandLoad(File file) {
 		if (!allowDiscard()) return false;
 		if (file==null) {
-			final JFileChooser fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
+			final var fc=new PlugableFileChooser(true);
 			final FileFilter filter;
-			final String defaultExt;
 			switch (languageCombo.getSelectedIndex()) {
 			case 0:
 				fc.setDialogTitle(Language.tr("FileType.Load.JS"));
 				filter=new FileNameExtensionFilter(Language.tr("FileType.JS")+" (*.js)","js");
-				defaultExt="js";
 				break;
 			case 1:
 				fc.setDialogTitle(Language.tr("FileType.Load.Java"));
 				filter=new FileNameExtensionFilter(Language.tr("FileType.Java")+" (*.java)","java");
-				defaultExt="java";
 				break;
 			default:
 				fc.setDialogTitle(Language.tr("FileType.Load.JS"));
 				filter=new FileNameExtensionFilter(Language.tr("FileType.JS")+" (*.js)","js");
-				defaultExt="js";
 				break;
 			}
 			fc.addChoosableFileFilter(filter);
 			fc.setFileFilter(filter);
-			if (fc.showOpenDialog(this)!=JFileChooser.APPROVE_OPTION) return false;
-			CommonVariables.initialDirectoryFromJFileChooser(fc);
-			file=fc.getSelectedFile();
-			if (file.getName().indexOf('.')<0 && fc.getFileFilter()==filter) file=new File(file.getAbsoluteFile()+"."+defaultExt);
+			file=fc.showOpenDialogFileWithExtension(this);
+			if (file==null) return false;
 		}
 
 		final String text=JSRunDataFilterTools.loadText(file);
@@ -571,36 +563,28 @@ public class ScriptEditorPanel extends JPanel {
 	 * @return	Liefert im Erfolgsfall <code>true</code>
 	 */
 	private boolean commandSave() {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		final FileFilter filter;
-		final String defaultExt;
 		switch (languageCombo.getSelectedIndex()) {
 		case 0:
 			fc.setDialogTitle(Language.tr("FileType.Save.JS"));
 			filter=new FileNameExtensionFilter(Language.tr("FileType.JS")+" (*.js)","js");
-			defaultExt="js";
 			break;
 		case 1:
 			fc.setDialogTitle(Language.tr("FileType.Save.Java"));
 			filter=new FileNameExtensionFilter(Language.tr("FileType.Java")+" (*.java)","java");
-			defaultExt="java";
 			break;
 		default:
 			fc.setDialogTitle(Language.tr("FileType.Save.JS"));
 			filter=new FileNameExtensionFilter(Language.tr("FileType.JS")+" (*.js)","js");
-			defaultExt="js";
 			break;
 		}
 		fc.addChoosableFileFilter(filter);
 		fc.setFileFilter(filter);
 		fc.setAcceptAllFileFilterUsed(false);
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return false;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==filter) file=new File(file.getAbsoluteFile()+"."+defaultExt);
-		}
+		final File file=fc.showSaveDialogFileWithExtension(this);
+		if (file==null) return false;
+
 		if (file.exists()) {
 			if (!MsgBox.confirmOverwrite(this,file)) return false;
 		}

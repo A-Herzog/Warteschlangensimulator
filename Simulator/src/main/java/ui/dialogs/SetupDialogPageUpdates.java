@@ -25,7 +25,6 @@ import java.util.TimerTask;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -33,8 +32,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
 import language.Language;
-import mathtools.distribution.swing.CommonVariables;
 import mathtools.distribution.swing.JOpenURL;
+import mathtools.distribution.swing.PlugableFileChooser;
 import tools.IconListCellRenderer;
 import tools.SetupData;
 import ui.MainPanel;
@@ -206,13 +205,9 @@ public class SetupDialogPageUpdates extends SetupDialogPage {
 		menu.add(item=new JMenuItem(Language.tr("SettingsDialog.ManualUpdate.Download")));
 		item.setIcon(Images.GENERAL_SAVE.getIcon());
 		item.addActionListener(e->{
-			final JFileChooser fc=new JFileChooser();
-			CommonVariables.initialDirectoryToJFileChooser(fc);
+			final var fc=new PlugableFileChooser(true);
 			fc.setDialogTitle(Language.tr("SettingsDialog.ManualUpdate.Download.Folder"));
-			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-			CommonVariables.initialDirectoryFromJFileChooser(fc);
-			final File file=fc.getSelectedFile();
+			final File file=fc.showSelectDirectoryDialog(this);
 			if (file==null) return;
 			final UpdateSystem updateSystem=UpdateSystem.getUpdateSystem();
 			updateSystem.downloadUpdateToFolder(file);

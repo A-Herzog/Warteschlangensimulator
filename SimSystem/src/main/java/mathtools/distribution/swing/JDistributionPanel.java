@@ -54,7 +54,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -66,8 +65,6 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.ExponentialDistribution;
@@ -630,21 +627,14 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		final String numbers=getRandomNumbers(SaveButtonRandomNumbers);
 		if (numbers==null) return;
 
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(SaveButtonRandomNumbers);
-		FileFilter txt=new FileNameExtensionFilter(Table.FileTypeText+" (*.txt)","txt");
-		fc.addChoosableFileFilter(txt);
-		fc.setFileFilter(txt);
+		fc.addChoosableFileFilter(Table.FileTypeText+" (*.txt)","txt");
+		fc.setFileFilter("txt");
 		fc.setAcceptAllFileFilterUsed(false);
 
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==txt) file=new File(file.getAbsoluteFile()+".txt");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(this);
+		if (file==null) return;
 
 		if (file.exists()) {
 			if (JOptionPane.showConfirmDialog(JDistributionPanel.this,String.format(GraphicsFileOverwriteWarning,file.toString()),GraphicsFileOverwriteWarningTitle,JOptionPane.YES_NO_OPTION)!=JOptionPane.YES_OPTION) return;
@@ -1069,36 +1059,17 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 	 * @see #save
 	 */
 	private File getSaveFileName() {
-		JFileChooser fc;
-		fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
+		final var fc=new PlugableFileChooser(true);
 		fc.setDialogTitle(StoreGraphicsDialogTitle);
 
-		final FileFilter jpg=new FileNameExtensionFilter(FileTypeJPEG+" (*.jpg, *.jpeg)","jpg","jpeg");
-		final FileFilter gif=new FileNameExtensionFilter(FileTypeGIF+" (*.gif)","gif");
-		final FileFilter png=new FileNameExtensionFilter(FileTypePNG+" (*.png)","png");
-		final FileFilter bmp=new FileNameExtensionFilter(FileTypeBMP+" (*.bmp)","bmp");
-		final FileFilter tiff=new FileNameExtensionFilter(FileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
-		fc.addChoosableFileFilter(png);
-		fc.addChoosableFileFilter(jpg);
-		fc.addChoosableFileFilter(gif);
-		fc.addChoosableFileFilter(bmp);
-		fc.addChoosableFileFilter(tiff);
-		fc.setFileFilter(png);
+		fc.addChoosableFileFilter(FileTypeJPEG+" (*.jpg, *.jpeg)","jpg","jpeg");
+		fc.addChoosableFileFilter(FileTypeGIF+" (*.gif)","gif");
+		fc.addChoosableFileFilter(FileTypePNG+" (*.png)","png");
+		fc.addChoosableFileFilter(FileTypeBMP+" (*.bmp)","bmp");
+		fc.addChoosableFileFilter(FileTypeTIFF+" (*.tiff, *.tif)","tiff","tif");
+		fc.setFileFilter("png");
 		fc.setAcceptAllFileFilterUsed(false);
-
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==jpg) file=new File(file.getAbsoluteFile()+".jpg");
-			if (fc.getFileFilter()==gif) file=new File(file.getAbsoluteFile()+".gif");
-			if (fc.getFileFilter()==png) file=new File(file.getAbsoluteFile()+".png");
-			if (fc.getFileFilter()==bmp) file=new File(file.getAbsoluteFile()+".bmp");
-			if (fc.getFileFilter()==tiff) file=new File(file.getAbsoluteFile()+".tiff");
-		}
-		return file;
+		return fc.showSaveDialogFileWithExtension(this);
 	}
 
 	/**

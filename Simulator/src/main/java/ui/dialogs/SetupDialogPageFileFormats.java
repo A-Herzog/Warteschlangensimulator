@@ -26,7 +26,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -35,7 +34,7 @@ import javax.swing.filechooser.FileSystemView;
 
 import language.Language;
 import mathtools.NumberTools;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import systemtools.MsgBox;
 import systemtools.SetupBase;
 import tools.IconListCellRenderer;
@@ -315,17 +314,15 @@ public class SetupDialogPageFileFormats extends SetupDialogPage {
 	 * @return	Neues Verzeichnis oder <code>null</code>, wenn die Auswahl abgebrochen wurde
 	 */
 	private String selectFolder(final String title, final String oldFolder) {
-		final JFileChooser fc=new JFileChooser();
-		CommonVariables.initialDirectoryToJFileChooser(fc);
-		if (oldFolder!=null && !oldFolder.isBlank() && new File(oldFolder).isDirectory()) {
-			fc.setCurrentDirectory(new File(oldFolder));
-		}
+		File initialFolder=null;
+		if (oldFolder!=null && !oldFolder.isBlank() && new File(oldFolder).isDirectory()) initialFolder=new File(oldFolder);
+
+		final var fc=new PlugableFileChooser(initialFolder,true);
 		fc.setDialogTitle(title);
-		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return null;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		final File file=fc.getSelectedFile();
-		return file.toString();
+
+		final File folder=fc.showSelectDirectoryDialog(this);
+		if (folder==null) return null;
+		return folder.toString();
 	}
 
 	@Override

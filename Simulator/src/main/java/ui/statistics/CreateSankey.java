@@ -51,7 +51,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -60,13 +59,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import language.Language;
 import mathtools.NumberTools;
 import mathtools.Table;
-import mathtools.distribution.swing.CommonVariables;
+import mathtools.distribution.swing.PlugableFileChooser;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import systemtools.statistics.StatisticsBasePanel;
@@ -301,30 +298,14 @@ public final class CreateSankey extends BaseDialog {
 	private void selectFile() {
 		final String oldFile=editFile.getText().trim();
 		final File initialFolder=(oldFile.isEmpty())?null:new File(oldFile).getParentFile();
-
-		final JFileChooser fc=new JFileChooser();
-		if (initialFolder==null) {
-			CommonVariables.initialDirectoryToJFileChooser(fc);
-		} else {
-			fc.setCurrentDirectory(initialFolder);
-		}
+		final var fc=new PlugableFileChooser(initialFolder,true);
 		fc.setDialogTitle(Language.tr("Simulation.ClientMovement.OutputFile.Hint"));
-
-		final FileFilter html=new FileNameExtensionFilter(Language.tr("Simulation.ClientMovement.OutputFile.HTML")+" (*.html)","html");
-		final FileFilter r=new FileNameExtensionFilter(Language.tr("Simulation.ClientMovement.OutputFile.R")+" (*.r)","r");
-		fc.addChoosableFileFilter(html);
-		fc.addChoosableFileFilter(r);
-		fc.setFileFilter(html);
+		fc.addChoosableFileFilter(Language.tr("Simulation.ClientMovement.OutputFile.HTML")+" (*.html)","html");
+		fc.addChoosableFileFilter(Language.tr("Simulation.ClientMovement.OutputFile.R")+" (*.r)","r");
+		fc.setFileFilter("html");
 		fc.setAcceptAllFileFilterUsed(false);
-
-		if (fc.showSaveDialog(this)!=JFileChooser.APPROVE_OPTION) return;
-		CommonVariables.initialDirectoryFromJFileChooser(fc);
-		File file=fc.getSelectedFile();
-
-		if (file.getName().indexOf('.')<0) {
-			if (fc.getFileFilter()==html) file=new File(file.getAbsoluteFile()+".html");
-			if (fc.getFileFilter()==r) file=new File(file.getAbsoluteFile()+".r");
-		}
+		final File file=fc.showSaveDialogFileWithExtension(this);
+		if (file==null) return;
 
 		editFile.setText(file.toString());
 		outputFile.setSelected(true);
