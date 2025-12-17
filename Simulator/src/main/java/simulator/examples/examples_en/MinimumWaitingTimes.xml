@@ -23,13 +23,13 @@ the client-specific parameters (like waiting times) of the system.</ModelDescrip
       <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementDispose id="3">
-      <ModelElementSize h="50" w="100" x="800" y="200"/>
+      <ModelElementSize h="50" w="100" x="900" y="200"/>
       <ModelElementConnection Element="7" Type="In"/>
       <ModelElementConnection Element="11" Type="In"/>
     </ModelElementDispose>
     <ModelElementProcessStation id="4">
       <ModelElementName>A</ModelElementName>
-      <ModelElementSize h="50" w="100" x="650" y="150"/>
+      <ModelElementSize h="50" w="100" x="750" y="150"/>
       <ModelElementConnection Element="9" Type="In"/>
       <ModelElementConnection Element="7" Type="Out"/>
       <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (100)</ModelElementDistribution>
@@ -43,7 +43,7 @@ the client-specific parameters (like waiting times) of the system.</ModelDescrip
     </ModelElementEdge>
     <ModelElementProcessStation id="8">
       <ModelElementName>B</ModelElementName>
-      <ModelElementSize h="50" w="100" x="650" y="245"/>
+      <ModelElementSize h="50" w="100" x="750" y="245"/>
       <ModelElementConnection Element="10" Type="In"/>
       <ModelElementConnection Element="11" Type="Out"/>
       <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (100)</ModelElementDistribution>
@@ -53,9 +53,9 @@ the client-specific parameters (like waiting times) of the system.</ModelDescrip
       <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
     </ModelElementProcessStation>
     <ModelElementDecide id="6">
-      <ModelElementSize h="50" w="100" x="450" y="200"/>
+      <ModelElementSize h="50" w="100" x="550" y="200"/>
       <ModelElementDecideMode>Condition</ModelElementDecideMode>
-      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="25" Type="In"/>
       <ModelElementConnection Condition="WIP(4)&lt;Resource_count(1)" Element="9" Type="Out"/>
       <ModelElementConnection Element="10" Type="Out"/>
     </ModelElementDecide>
@@ -73,13 +73,11 @@ the client-specific parameters (like waiting times) of the system.</ModelDescrip
     <ModelElementHold id="12">
       <ModelElementSize h="50" w="100" x="250" y="200"/>
       <ModelElementConnection Element="2" Type="In"/>
-      <ModelElementConnection Element="14" Type="Out"/>
-      <ModelElementHoldCondition ClientBased="1" TimeType="Waiting time">WIP(4)&lt;Resource_count(1) || (WIP(8)&lt;Resource_count(2) &amp;&amp; w&gt;MinWaitingTime)</ModelElementHoldCondition>
+      <ModelElementConnection Element="24" Type="Out"/>
+      <ModelElementHoldCondition MaximumHoldingTime="MinWaitingTime" TimeType="Waiting time">WIP(4)&lt;Resource_count(1) &amp;&amp; WIP(14)==0</ModelElementHoldCondition>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
       <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
     </ModelElementHold>
-    <ModelElementEdge id="14">
-      <ModelElementConnection Element1="12" Element2="6" Type="Edge"/>
-    </ModelElementEdge>
     <ModelElementAnimationBarDiagram id="15">
       <ModelElementSize h="150" w="100" x="650" y="350"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
@@ -125,7 +123,7 @@ the client-specific parameters (like waiting times) of the system.</ModelDescrip
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="23">
-      <ModelElementSize h="30" w="118" x="450" y="100"/>
+      <ModelElementSize h="30" w="118" x="550" y="100"/>
       <ModelElementTextLine>Clients are preferentially</ModelElementTextLine>
       <ModelElementTextLine>assigned to Station A.</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
@@ -185,6 +183,20 @@ the client-specific parameters (like waiting times) of the system.</ModelDescrip
       <ModelElementSliderMaximum>100</ModelElementSliderMaximum>
       <ModelElementSliderStepWide>5</ModelElementSliderStepWide>
     </ModelElementSlider>
+    <ModelElementHold id="14">
+      <ModelElementSize h="50" w="100" x="400" y="200"/>
+      <ModelElementConnection Element="24" Type="In"/>
+      <ModelElementConnection Element="25" Type="Out"/>
+      <ModelElementHoldCondition TimeType="Waiting time">WIP(4)&lt;Resource_count(1) || WIP(8)&lt;Resource_count(2)</ModelElementHoldCondition>
+      <ModelElementPriority ClientType="Clients">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+    </ModelElementHold>
+    <ModelElementEdge id="24">
+      <ModelElementConnection Element1="12" Element2="14" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="25">
+      <ModelElementConnection Element1="14" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
   </ModelElements>
   <Resources SecondaryPriority="Random">
     <Resource Icon="status_online" Name="OperatorsA" Type="Number" Value="4"/>

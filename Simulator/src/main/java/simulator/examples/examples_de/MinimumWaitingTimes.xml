@@ -24,13 +24,13 @@ Allerdings erhöhen Mindestwartezeiten die kundenspezifischen Kenngrößen des S
       <ModellElementBatch Groesse="1"/>
     </ModellElementQuelle>
     <ModellElementEnde id="3">
-      <ModellElementGroesse h="50" w="100" x="800" y="200"/>
+      <ModellElementGroesse h="50" w="100" x="900" y="200"/>
       <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="11" Typ="Einlaufend"/>
     </ModellElementEnde>
     <ModellElementBedienstation id="4">
       <ModellElementName>A</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="650" y="150"/>
+      <ModellElementGroesse h="50" w="100" x="750" y="150"/>
       <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
       <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
@@ -43,7 +43,7 @@ Allerdings erhöhen Mindestwartezeiten die kundenspezifischen Kenngrößen des S
     </ModellElementKante>
     <ModellElementBedienstation id="8">
       <ModellElementName>B</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="650" y="245"/>
+      <ModellElementGroesse h="50" w="100" x="750" y="245"/>
       <ModellElementVerbindung Element="10" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="11" Typ="Auslaufend"/>
       <ModellElementVerteilung Status="Bedienzeit" Typ="Bedienzeiten" Zeitbasis="Sekunden">Exponentialverteilung (100)</ModellElementVerteilung>
@@ -52,9 +52,9 @@ Allerdings erhöhen Mindestwartezeiten die kundenspezifischen Kenngrößen des S
       <ModellElementBedienerPrioritaet>1</ModellElementBedienerPrioritaet>
     </ModellElementBedienstation>
     <ModellElementVerzweigen id="6">
-      <ModellElementGroesse h="50" w="100" x="450" y="200"/>
+      <ModellElementGroesse h="50" w="100" x="550" y="200"/>
       <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
-      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Einlaufend"/>
       <ModellElementVerbindung Bedingung="WIP(4)&lt;Resource_count(1)" Element="9" Typ="Auslaufend"/>
       <ModellElementVerbindung Element="10" Typ="Auslaufend"/>
     </ModellElementVerzweigen>
@@ -72,13 +72,10 @@ Allerdings erhöhen Mindestwartezeiten die kundenspezifischen Kenngrößen des S
     <ModellElementBedingung id="12">
       <ModellElementGroesse h="50" w="100" x="250" y="200"/>
       <ModellElementVerbindung Element="2" Typ="Einlaufend"/>
-      <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
-      <ModellElementBedingungText Kundenbasierend="1" Zeittyp="Wartezeit">WIP(4)&lt;Resource_count(1) || (WIP(8)&lt;Resource_count(2) &amp;&amp; w&gt;MinWaitingTime)</ModellElementBedingungText>
+      <ModellElementVerbindung Element="25" Typ="Auslaufend"/>
+      <ModellElementBedingungText MaximaleHaltezeit="MinWaitingTime" Zeittyp="Wartezeit">WIP(4)&lt;Resource_count(1) &amp;&amp; WIP(14)==0</ModellElementBedingungText>
       <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
     </ModellElementBedingung>
-    <ModellElementKante id="14">
-      <ModellElementVerbindung Element1="12" Element2="6" Typ="Kante"/>
-    </ModellElementKante>
     <ModellElementAnimationBalkenDiagramm id="15">
       <ModellElementGroesse h="150" w="100" x="650" y="350"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
@@ -125,7 +122,7 @@ Allerdings erhöhen Mindestwartezeiten die kundenspezifischen Kenngrößen des S
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="23">
-      <ModellElementGroesse h="30" w="141" x="450" y="100"/>
+      <ModellElementGroesse h="30" w="141" x="550" y="100"/>
       <ModellElementTextzeile>Kunden werden bevorzugt an</ModellElementTextzeile>
       <ModellElementTextzeile>Station A zugewiesen.</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1">11</ModellElementSchriftgrosse>
@@ -187,6 +184,19 @@ Allerdings erhöhen Mindestwartezeiten die kundenspezifischen Kenngrößen des S
       <ModellElementSchiebereglerMaximum>100</ModellElementSchiebereglerMaximum>
       <ModellElementSchiebereglerSchrittweite>5</ModellElementSchiebereglerSchrittweite>
     </ModellElementSchieberegler>
+    <ModellElementBedingung id="14">
+      <ModellElementGroesse h="50" w="100" x="400" y="200"/>
+      <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="24" Typ="Auslaufend"/>
+      <ModellElementBedingungText Zeittyp="Wartezeit">WIP(4)&lt;Resource_count(1) || WIP(8)&lt;Resource_count(2)</ModellElementBedingungText>
+      <ModellElementPrioritaet Kundentyp="Kunden">w</ModellElementPrioritaet>
+    </ModellElementBedingung>
+    <ModellElementKante id="24">
+      <ModellElementVerbindung Element1="14" Element2="6" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="25">
+      <ModellElementVerbindung Element1="12" Element2="14" Typ="Kante"/>
+    </ModellElementKante>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig">
     <Ressource Icon="status_online" Name="BedienerA" Typ="Anzahl" Wert="4"/>
