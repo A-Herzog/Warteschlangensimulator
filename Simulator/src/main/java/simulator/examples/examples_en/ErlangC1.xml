@@ -2,7 +2,7 @@
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModelVersion>5.4.1</ModelVersion>
+  <ModelVersion>5.7.0</ModelVersion>
   <ModelName>Erlang C comparison model</ModelName>
   <ModelDescription>Characteristics of the model (for the Erlang C formula):
 
@@ -54,13 +54,13 @@ P(W&gt;=0)=80%</ModelDescription>
       <ModelElementConnection Element1="1" Element2="3" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="6">
-      <ModelElementSize h="23" w="242" x="50" y="50"/>
+      <ModelElementSize h="23" w="247" x="50" y="50"/>
       <ModelElementTextLine>Erlang C comparison model</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="7">
-      <ModelElementSize h="57" w="506" x="50" y="195"/>
+      <ModelElementSize h="57" w="509" x="50" y="195"/>
       <ModelElementTextLine>As input parameters E[I]:=100 sec., E[S]:=80 sec. and c:=1 are selected.</ModelElementTextLine>
       <ModelElementTextLine>This simple model can be completely described by the Erlang C formula.</ModelElementTextLine>
       <ModelElementTextLine>The analytical results are: E[W]=320 sec., E[V]=400 sec., E[N_{Q}]=3.2 and E[N]=4.</ModelElementTextLine>
@@ -79,7 +79,7 @@ P(W&gt;=0)=80%</ModelDescription>
       <ModelElementAxisLabels>1</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="9">
-      <ModelElementSize h="19" w="549" x="50" y="300"/>
+      <ModelElementSize h="19" w="539" x="50" y="300"/>
       <ModelElementTextLine>Number of clients in the system (current value and average over the complete run time)</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
@@ -90,7 +90,7 @@ P(W&gt;=0)=80%</ModelDescription>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
       <ModelElementUse3D>1</ModelElementUse3D>
-	  <ModelElementMinimumValue>0</ModelElementMinimumValue>
+      <ModelElementMinimumValue>0</ModelElementMinimumValue>
       <ModelElementMaximumValue>0.5</ModelElementMaximumValue>
       <ModelElementAxisLabels>1</ModelElementAxisLabels>
       <ModelElementDiagramElement BarColor="0,0,255">WIP_hist(1;0)</ModelElementDiagramElement>
@@ -107,68 +107,72 @@ P(W&gt;=0)=80%</ModelDescription>
       <ModelElementDiagramElement BarColor="255,165,0">WIP_hist(1;10;1000)</ModelElementDiagramElement>
     </ModelElementAnimationBarDiagram>
     <ModelElementText id="11">
-      <ModelElementSize h="19" w="262" x="700" y="300"/>
+      <ModelElementSize h="19" w="258" x="700" y="300"/>
       <ModelElementTextLine>Fraction of time for the numbers of clients</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="12">
-      <ModelElementSize h="15" w="205" x="700" y="550"/>
+      <ModelElementSize h="15" w="211" x="700" y="550"/>
       <ModelElementTextLine>(blue=0, green=1, red=2..10, orange=11...)</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationText id="13">
-      <ModelElementName>Average waiting time E[W] (in sec.)</ModelElementName>
-      <ModelElementSize h="30" w="148" x="750" y="100"/>
+      <ModelElementName>Average waiting time</ModelElementName>
+      <ModelElementSize h="30" w="117" x="750" y="100"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WaitingTime_avg()</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Posttext=" sec." Pretext="E[W]=" Symbols="1"/>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="14">
-      <ModelElementName>Average residence time E[V] (in sec.)</ModelElementName>
-      <ModelElementSize h="30" w="157" x="750" y="150"/>
+      <ModelElementName>Average residence time</ModelElementName>
+      <ModelElementSize h="30" w="112" x="750" y="150"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">ResidenceTime_avg()</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Posttext=" sec." Pretext="E[V]=" Symbols="1"/>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="15">
-      <ModelElementName>Average queue length E[NQ]</ModelElementName>
-      <ModelElementSize h="30" w="120" x="950" y="100"/>
+      <ModelElementName>Average queue length</ModelElementName>
+      <ModelElementSize h="30" w="94" x="950" y="100"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
       <ModelElementAnimationMode Digits="2" Type="Number">NQ_avg()</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon LaTeX="1" Pretext=" E[N_{Q}]=" Symbols="1"/>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="16">
-      <ModelElementName>Average number of clients in the system E[N]</ModelElementName>
-      <ModelElementSize h="30" w="194" x="950" y="150"/>
+      <ModelElementName>Average number of clients in the system</ModelElementName>
+      <ModelElementSize h="30" w="168" x="950" y="150"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
       <ModelElementAnimationMode Digits="2" Type="Number">WIP_avg()</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Pretext="E[N]=" Symbols="1"/>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="17">
       <ModelElementName>Difference simulation to exact (related to E[NQ])</ModelElementName>
-      <ModelElementSize h="30" w="204" x="1150" y="100"/>
+      <ModelElementSize h="30" w="200" x="1150" y="100"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">abs(NQ_avg()-ErlangC(1/100;1/80;0;1;1000;-1))/ErlangC(1/100;1/80;0;1;1000;-1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="18">
       <ModelElementName>Difference simulation to exact (related to E[N])</ModelElementName>
-      <ModelElementSize h="30" w="197" x="1150" y="150"/>
+      <ModelElementSize h="30" w="193" x="1150" y="150"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">abs(WIP_avg()-ErlangC(1/100;1/80;0;1;1000;-2))/ErlangC(1/100;1/80;0;1;1000;-2)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="19">
       <ModelElementName>Number of simulated clients (in mio.)</ModelElementName>
-      <ModelElementSize h="30" w="155" x="1150" y="200"/>
+      <ModelElementSize h="30" w="152" x="1150" y="200"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Digits="3" Type="Number">NumberIn(3)/1000000</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementText id="20">
-      <ModelElementSize h="64" w="590" x="50" y="600"/>
+      <ModelElementSize h="64" w="577" x="50" y="600"/>
       <ModelElementTextLine>**Possible research question:**</ModelElementTextLine>
       <ModelElementTextLine>How do the values change when the workload increases or decreases?</ModelElementTextLine>
       <ModelElementTextLine>For this purpose, a parameter series for varying the average service times can be created by right-clicking on</ModelElementTextLine>
@@ -186,13 +190,13 @@ P(W&gt;=0)=80%</ModelDescription>
       <ModelElementDiagramElement SegmentColor="0,180,0">ServiceTime_avg()</ModelElementDiagramElement>
     </ModelElementAnimationPieDiagram>
     <ModelElementText id="22">
-      <ModelElementSize h="19" w="221" x="1100" y="300"/>
+      <ModelElementSize h="19" w="223" x="1100" y="300"/>
       <ModelElementTextLine>Ratio of waiting time to service time</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="23">
-      <ModelElementSize h="30" w="115" x="1100" y="470"/>
+      <ModelElementSize h="30" w="119" x="1100" y="470"/>
       <ModelElementTextLine>red=Waiting time E[W]</ModelElementTextLine>
       <ModelElementTextLine>green=Service time E[S]</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">11</ModelElementFontSize>
@@ -200,23 +204,31 @@ P(W&gt;=0)=80%</ModelDescription>
     </ModelElementText>
     <ModelElementAnimationText id="24">
       <ModelElementName>Flow factor E[S]/(E[W]+E[S])</ModelElementName>
-      <ModelElementSize h="30" w="121" x="1100" y="520"/>
+      <ModelElementSize h="30" w="118" x="1100" y="520"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">FlowFactor(1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementText id="25">
-      <ModelElementSize h="16" w="136" x="750" y="600"/>
+      <ModelElementSize h="16" w="141" x="750" y="600"/>
       <ModelElementTextLine>**Analytical comparisons:**</ModelElementTextLine>
       <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementLink id="26">
-      <ModelElementSize h="19" w="189" x="750" y="620"/>
+      <ModelElementSize h="19" w="183" x="750" y="620"/>
       <ModelElementLinkText>a-herzog.github.io/QueueCalc</ModelElementLinkText>
       <ModelElementLinkTarget>https://a-herzog.github.io/QueueCalc/</ModelElementLinkTarget>
       <ModelElementFontSize>14</ModelElementFontSize>
     </ModelElementLink>
+    <ModelElementAnimationText id="27">
+      <ModelElementName>Utilization of the operator</ModelElementName>
+      <ModelElementSize h="30" w="105" x="750" y="200"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>72,209,204</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg()/Resource_count_average()</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Pretext="\rho=" Symbols="1"/>
+    </ModelElementAnimationText>
   </ModelElements>
   <Resources SecondaryPriority="Random">
     <Resource Icon="status_online" Name="Operators group" Type="Number" Value="1"/>
@@ -225,4 +237,5 @@ P(W&gt;=0)=80%</ModelDescription>
   <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
   <ModelEdgesSelected Type="0" Width="1"/>
   <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
 </Model>
