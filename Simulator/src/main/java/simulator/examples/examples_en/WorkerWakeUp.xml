@@ -4,7 +4,7 @@
   <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
   <ModelVersion>5.5.0</ModelVersion>
   <ModelName>Time-controlled service</ModelName>
-  <ModelDescription>The barrier collects incoming clienta and releases them to
+  <ModelDescription>The barrier collects incoming clients and releases them to
 the process station every 15 minutes. This results in longer
 continuous work phases followed by longer idle phases for
 the operator.
@@ -109,7 +109,7 @@ and significantly higher average number of clients in the system.</ModelDescript
     </ModelElementText>
     <ModelElementText id="15">
       <ModelElementSize h="114" w="403" x="450" y="200"/>
-      <ModelElementTextLine>The barrier collects incoming clienta and releases them to</ModelElementTextLine>
+      <ModelElementTextLine>The barrier collects incoming clients and releases them to</ModelElementTextLine>
       <ModelElementTextLine>the process station every 15 minutes. This results in longer</ModelElementTextLine>
       <ModelElementTextLine>continuous work phases followed by longer idle phases for</ModelElementTextLine>
       <ModelElementTextLine>the operator.</ModelElementTextLine>
