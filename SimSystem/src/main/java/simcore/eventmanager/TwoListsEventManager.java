@@ -27,9 +27,8 @@ import simcore.Event;
  * @version 1.0
  * @see EventManager
  * @see ArrayList
- * @deprecated	Bessere Version: {@link MultiArrayEventManager}
+ * Bessere Version: {@link MultiArrayEventManager}
  */
-@Deprecated
 public final class TwoListsEventManager extends EventManagerBase implements EventManager {
 	/** Teilliste 1 */
 	private final List<Event> list1;
