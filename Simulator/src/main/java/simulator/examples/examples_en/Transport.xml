@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>3.0.0</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.2.0</ModelVersion>
   <ModelName>Transport of components between multiple factories</ModelName>
   <ModelAuthor>Alexander Herzog</ModelAuthor>
   <ModelClients Active="1">10000000</ModelClients>
@@ -63,18 +64,24 @@
       <ModelElementSize h="50" w="100" x="550" y="350"/>
       <ModelElementConnection Element="19" Type="In"/>
       <ModelElementDistribution TimeBase="Minutes" Type="TransferTime">Lognormal distribution (10;5)</ModelElementDistribution>
-      <ModelElementTransportRoute>Ankunft C</ModelElementTransportRoute>
+      <ModelElementTransportRoute>Arrival C</ModelElementTransportRoute>
       <ModelElementTransportResource Count="1" Name="Transporter A"/>
       <ModelElementTransportResourcePriority>1</ModelElementTransportResourcePriority>
+      <ModelElementTransportResourceDelayedRelease TimeBase="Minutes">
+        <ModelElementDistribution>Lognormal distribution (10;5)</ModelElementDistribution>
+      </ModelElementTransportResourceDelayedRelease>
     </ModelElementTransportOrigin>
     <ModelElementTransportOrigin id="6">
       <ModelElementName>Departure B</ModelElementName>
       <ModelElementSize h="50" w="100" x="550" y="750"/>
       <ModelElementConnection Element="21" Type="In"/>
       <ModelElementDistribution TimeBase="Minutes" Type="TransferTime">Lognormal distribution (2;1)</ModelElementDistribution>
-      <ModelElementTransportRoute>Ankunft C</ModelElementTransportRoute>
+      <ModelElementTransportRoute>Arrival C</ModelElementTransportRoute>
       <ModelElementTransportResource Count="1" Name="Transporter B"/>
       <ModelElementTransportResourcePriority>1</ModelElementTransportResourcePriority>
+      <ModelElementTransportResourceDelayedRelease TimeBase="Minutes">
+        <ModelElementDistribution>Lognormal distribution (2;1)</ModelElementDistribution>
+      </ModelElementTransportResourceDelayedRelease>
     </ModelElementTransportOrigin>
     <ModelElementRectangle id="7">
       <ModelElementSize h="350" w="650" x="50" y="100"/>
@@ -95,19 +102,19 @@
       <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="13">
-      <ModelElementSize h="23" w="83" x="55" y="105"/>
+      <ModelElementSize h="23" w="84" x="55" y="105"/>
       <ModelElementTextLine>Factory A</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,180,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="14">
-      <ModelElementSize h="23" w="88" x="55" y="505"/>
+      <ModelElementSize h="23" w="90" x="55" y="505"/>
       <ModelElementTextLine>Factory  B</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementTransportDestination id="15">
-      <ModelElementName>Ankunft C</ModelElementName>
+      <ModelElementName>Arrival C</ModelElementName>
       <ModelElementSize h="50" w="100" x="1000" y="650"/>
       <ModelElementConnection Element="22" Type="Out"/>
     </ModelElementTransportDestination>
@@ -135,15 +142,15 @@
       <ModelElementTextLine>from factory C.</ModelElementTextLine>
       <ModelElementTextLine>10 minutes driving</ModelElementTextLine>
       <ModelElementTextLine>time per direction.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="27">
-      <ModelElementSize h="57" w="90" x="550" y="290"/>
+      <ModelElementSize h="57" w="88" x="550" y="290"/>
       <ModelElementTextLine>20 transporter</ModelElementTextLine>
       <ModelElementTextLine>resources are</ModelElementTextLine>
       <ModelElementTextLine>available.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="34">
@@ -151,7 +158,7 @@
       <ModelElementTextLine>4 transporter</ModelElementTextLine>
       <ModelElementTextLine>resources are</ModelElementTextLine>
       <ModelElementTextLine>available.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementProcessStation id="35">
@@ -177,9 +184,9 @@
       <ModelElementConnection Element="69" Type="In"/>
     </ModelElementDispose>
     <ModelElementText id="52">
-      <ModelElementSize h="23" w="83" x="955" y="605"/>
+      <ModelElementSize h="23" w="85" x="955" y="605"/>
       <ModelElementTextLine>Factory C</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementRectangle id="53">
@@ -188,12 +195,12 @@
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementRectangle>
     <ModelElementText id="54">
-      <ModelElementSize h="76" w="114" x="730" y="775"/>
+      <ModelElementSize h="76" w="113" x="730" y="775"/>
       <ModelElementTextLine>Factory B is near</ModelElementTextLine>
       <ModelElementTextLine>to factory C.</ModelElementTextLine>
       <ModelElementTextLine>2 minutes driving</ModelElementTextLine>
       <ModelElementTextLine>time per direction.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementDecide id="56">
@@ -231,18 +238,21 @@
       <ModelElementConnection Element1="31" Element2="29" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="60">
-      <ModelElementSize h="38" w="115" x="1000" y="110"/>
+      <ModelElementSize h="38" w="113" x="1000" y="110"/>
       <ModelElementTextLine>Busy transporter</ModelElementTextLine>
       <ModelElementTextLine>resources</ModelElementTextLine>
-      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationBarDiagram id="61">
       <ModelElementSize h="300" w="100" x="1000" y="150"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementUse3D>1</ModelElementUse3D>
       <ModelElementMinimumValue>0</ModelElementMinimumValue>
       <ModelElementMaximumValue>20</ModelElementMaximumValue>
+      <ModelElementAxisLabels>0</ModelElementAxisLabels>
       <ModelElementDiagramElement BarColor="0,180,0">Resource(3)</ModelElementDiagramElement>
       <ModelElementDiagramElement BarColor="255,0,0">Resource(4)</ModelElementDiagramElement>
     </ModelElementAnimationBarDiagram>
@@ -303,9 +313,9 @@
       <ModelElementLineType>7</ModelElementLineType>
     </ModelElementLine>
     <ModelElementText id="78">
-      <ModelElementSize h="23" w="449" x="50" y="50"/>
+      <ModelElementSize h="23" w="461" x="50" y="50"/>
       <ModelElementTextLine>Transport of components between multiple factories</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementEdge id="19">
@@ -345,4 +355,7 @@
     <ClientData Icon="Ball_green" Name="Rohstoff A"/>
     <ClientData Icon="Ball_red" Name="Rohstoff B"/>
   </ClientTypeData>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
 </Model>
