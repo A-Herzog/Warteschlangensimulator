@@ -8,6 +8,8 @@ import org.mozilla.javascript.NativeJavaObject;
 import org.mozilla.javascript.Script;
 import org.mozilla.javascript.ScriptableObject;
 import org.mozilla.javascript.WrapFactory;
+import org.mozilla.javascript.lc.type.TypeInfo;
+import org.mozilla.javascript.lc.type.impl.factory.ConcurrentFactory;
 
 /**
  * Ausführung von JS-Code über das Rhino-API
@@ -90,7 +92,10 @@ public class JSEngineRhinoDirect extends JSEngine {
 				if ((obj instanceof Integer) || (obj instanceof Double) || (obj instanceof String)) {
 					scope.put(entry.getKey(),scope,obj);
 				} else {
-					scope.put(entry.getKey(),scope,new NativeJavaObject(scope,obj,obj.getClass()));
+					/* alt, nicht mehr gültig: scope.put(entry.getKey(),scope,new NativeJavaObject(scope,obj,obj.getClass())); */
+					ConcurrentFactory factory=new ConcurrentFactory();
+					TypeInfo typeInfo=factory.create(obj.getClass());
+					scope.put(entry.getKey(),scope,new NativeJavaObject(scope,obj,typeInfo));
 				}
 			}
 
@@ -127,7 +132,7 @@ public class JSEngineRhinoDirect extends JSEngine {
 		context=contextFactory.enterContext(context);
 		try {
 			context.setWrapFactory(wrapFactory);
-			script.exec(context,scope);
+			script.exec(context,scope,scope);
 		} finally {
 			Context.exit();
 		}
