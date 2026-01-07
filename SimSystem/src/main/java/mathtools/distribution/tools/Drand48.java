@@ -22,7 +22,7 @@ package mathtools.distribution.tools;
  *    X_{n+1} = (a * X_n + c) mod 2^48
  * with a = 0x5DEECE66DL, c = 0xB.
  *
- * - srand48(seedval) sets the internal 48-bit state to ((seedval << 16) + 0x330E) & mask
+ * - srand48(seedval) sets the internal 48-bit state to ((seedval &lt;&lt; 16) + 0x330E) &amp; mask
  * - drand48() advances state and returns state / 2^48 as a double in [0,1)
  * - erand48(xsubi) advances the state stored in the provided 3-element short[] and returns the double
  *
@@ -50,7 +50,7 @@ public final class Drand48 {
 
 	/**
 	 * Seed the generator (like C's srand48).
-	 * state := ((seedval << 16) + 0x330E) & ((1<<48)-1)
+	 * state := ((seedval &lt;&lt; 16) + 0x330E) &amp; ((1&lt;&lt;48)-1)
 	 * @param seedval seed value
 	 */
 	public void srand48(long seedval) {
@@ -91,7 +91,7 @@ public final class Drand48 {
 	 *
 	 * @param xsubi short[3] (modified in-place)
 	 * @return double in [0,1)
-	 * @throws IllegalArgumentException if xsubi.length < 3
+	 * @throws IllegalArgumentException if xsubi.length &lt; 3
 	 */
 	public static double erand48(short[] xsubi) {
 		if (xsubi == null || xsubi.length < 3) {
@@ -116,7 +116,7 @@ public final class Drand48 {
 	 * Useful because Java's short is signed.
 	 * @param xsubi int[3] (modified in-place)
 	 * @return double in [0,1)
-	 * @throws IllegalArgumentException if xsubi.length < 3
+	 * @throws IllegalArgumentException if xsubi.length &lt; 3
 	 */
 	public static double erand48FromInts(int[] xsubi) {
 		if (xsubi == null || xsubi.length < 3) {
