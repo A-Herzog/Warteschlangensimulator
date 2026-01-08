@@ -80,7 +80,7 @@ public class RunElementOutputDDE extends RunElementPassThrough {
 		output.outputActive=outputElement.isOutputActive();
 
 		/* DDE im Allgemeinen */
-		if (!new DDEConnect().available()) return String.format(Language.tr("Simulation.Creator.DDENotAvailable"),element.getId());
+		if (!DDEConnect.available()) return String.format(Language.tr("Simulation.Creator.DDENotAvailable"),element.getId());
 
 		/* DDE Daten */
 		output.workbook=outputElement.getWorkbook().trim();
@@ -134,7 +134,7 @@ public class RunElementOutputDDE extends RunElementPassThrough {
 		if (edgeError!=null) return edgeError;
 
 		/* DDE im Allgemeinen */
-		if (!new DDEConnect().available()) return RunModelCreatorStatus.noDDE(element);
+		if (!DDEConnect.available()) return RunModelCreatorStatus.noDDE(element);
 
 		/* DDE Daten */
 		if (outputElement.getWorkbook().isBlank()) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.OutputDDE.NoWorkbook"),outputElement.getId()));

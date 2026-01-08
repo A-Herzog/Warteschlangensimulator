@@ -34,6 +34,31 @@ import tools.SetupData;
  */
 public class DDEConnect {
 	/**
+	 * Schaltet das DDE-System global aus.
+	 * @see #available()
+	 */
+	public static boolean deactivated=false;
+
+	/**
+	 * Ergebnis der Prüfung, ob DDE zur Verfügung steht.
+	 * @see #available()
+	 */
+	private enum ActivationMode {
+		/** Noch nicht geprüft */
+		NOT_TESTED,
+		/** Verfügbar */
+		AVAILABLE,
+		/** Nicht verfügbar */
+		NOT_AVAILABLE
+	}
+
+	/**
+	 * Ergebnis der Prüfung, ob DDE zur Verfügung steht.
+	 * @see #available()
+	 */
+	private static ActivationMode activationMode=ActivationMode.NOT_TESTED;
+
+	/**
 	 * Sprachvorgabe-Bezeichner für die Zeilenangaben in Excel
 	 */
 	public static String EXCEL_LANGUAGE_DEFAULT_ROW_IDENTIFIER="R";
@@ -52,6 +77,8 @@ public class DDEConnect {
 	 * @see #getCellName(int, int)
 	 */
 	private final StringBuilder nameBuilderCache;
+
+
 
 	/**
 	 * Konstruktor der Klasse
@@ -160,8 +187,23 @@ public class DDEConnect {
 	 * Gibt an, ob DDE generell verfügbar ist.
 	 * @return	Gibt <code>true</code> zurück, wenn DDE verfügbar ist.
 	 */
-	public boolean available() {
-		return getConversation()!=null;
+	public static synchronized boolean available() {
+		if (deactivated) return false;
+
+		final boolean available;
+
+		switch (activationMode) {
+		case AVAILABLE: return true;
+		case NOT_AVAILABLE: return false;
+		case NOT_TESTED:
+			available=(new DDEConnect().getConversation()!=null);
+			if (available) activationMode=ActivationMode.AVAILABLE; else activationMode=ActivationMode.NOT_AVAILABLE;
+			return available;
+		default:
+			available=(new DDEConnect().getConversation()!=null);
+			if (available) activationMode=ActivationMode.AVAILABLE; else activationMode=ActivationMode.NOT_AVAILABLE;
+			return available;
+		}
 	}
 
 	/**

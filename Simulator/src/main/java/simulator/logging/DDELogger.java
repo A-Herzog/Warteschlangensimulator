@@ -60,7 +60,7 @@ public class DDELogger implements SimLogging {
 		this.printIDs=printIDs;
 		this.printClassNames=printClassNames;
 		connect=new DDEConnect();
-		ready=connect.available();
+		ready=DDEConnect.available();
 		nextRow=0;
 	}
 

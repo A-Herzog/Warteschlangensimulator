@@ -378,8 +378,8 @@ public final class ModelLoadData implements Cloneable {
 			}
 			break;
 		case DDE:
+			if (!DDEConnect.available()) return Language.tr("ModelLoadData.ProcessError.DDENotAvailable");
 			sourceDDE=new DDEConnect();
-			if (!sourceDDE.available()) return Language.tr("ModelLoadData.ProcessError.DDENotAvailable");
 			final List<String> tables=sourceDDE.listTables().get(workbook);
 			if (tables==null) return String.format(Language.tr("ModelLoadData.ProcessError.NoDDEWorkbook"),workbook);
 			sourceDDEWorkbook=workbook;

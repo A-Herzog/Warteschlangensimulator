@@ -215,9 +215,9 @@ public class DataCheckResult {
 		if (table==null || table.isEmpty()) return new DataCheckResult(element,DataType.DDE,"",Language.tr("DataCheck.DDENoTable"));
 		final String data=workbook+";"+table;
 
-		final DDEConnect dde=new DDEConnect();
-		if (!dde.available()) return new DataCheckResult(element,DataType.DDE,data,Language.tr("DataCheck.DDENotAvailable"));
+		if (!DDEConnect.available()) return new DataCheckResult(element,DataType.DDE,data,Language.tr("DataCheck.DDENotAvailable"));
 
+		final DDEConnect dde=new DDEConnect();
 		for (Map.Entry<String,List<String>> entry: dde.listTables().entrySet()) {
 			if (!entry.getKey().equalsIgnoreCase(workbook)) continue;
 			for (String tableName: entry.getValue()) if (tableName.equalsIgnoreCase(table)) return new DataCheckResult(element,DataType.DDE,data);
@@ -240,7 +240,7 @@ public class DataCheckResult {
 		final String data=workbook+";"+table;
 
 		final DDEConnect dde=new DDEConnect();
-		if (!dde.available()) return new DataCheckResult(element,DataType.DDE,data,Language.tr("DataCheck.DDENotAvailable"));
+		if (!DDEConnect.available()) return new DataCheckResult(element,DataType.DDE,data,Language.tr("DataCheck.DDENotAvailable"));
 
 		for (Map.Entry<String,List<String>> entry: dde.listTables().entrySet()) {
 			if (!entry.getKey().equalsIgnoreCase(workbook)) continue;

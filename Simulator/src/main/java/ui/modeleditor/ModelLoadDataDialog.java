@@ -302,11 +302,11 @@ public class ModelLoadDataDialog extends BaseDialog {
 			if (newFile!=null) workbook.setText(newFile.toString());
 			break;
 		case 1:
-			final DDEConnect connect=new DDEConnect();
-			if (!connect.available()) {
+			if (!DDEConnect.available()) {
 				MsgBox.error(this,Language.tr("ModelLoadData.EditDialog.DDEError.Title"),Language.tr("ModelLoadData.EditDialog.DDEError.Info"));
 				return;
 			}
+			final DDEConnect connect=new DDEConnect();
 			final DDEEditPanelDialog dialog=new DDEEditPanelDialog(this,connect.listTables(),workbook.getText(),sheet.getText(),()->Help.topicModal(this,"ModelLoadData"));
 			if (dialog.getClosedBy()==BaseDialog.CLOSED_BY_OK) {
 				workbook.setText(dialog.getSelectedWorkbook());

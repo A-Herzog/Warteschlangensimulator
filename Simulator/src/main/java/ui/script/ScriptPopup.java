@@ -1013,7 +1013,7 @@ public class ScriptPopup {
 		}
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Output.Print"),Language.tr("ScriptPopup.Output.Print.Hint"),Images.SCRIPT_RECORD_TEXT.getIcon(),outputPrint));
 		group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Output.Println"),Language.tr("ScriptPopup.Output.Println.Hint"),Images.SCRIPT_RECORD_TEXT.getIcon(),outputPrintln));
-		if (new DDEConnect().available() && !fileMode) {
+		if (DDEConnect.available() && !fileMode) {
 			group.addChild(new ScriptPopupItemCommand(Language.tr("ScriptPopup.Output.PrintlnDDE"),Language.tr("ScriptPopup.Output.PrintlnDDE.Hint"),Images.SCRIPT_DDE.getIcon(),outputPrintlnDDE));
 		}
 		group.addSeparator();

@@ -138,7 +138,7 @@ public class LogSetupDialog extends BaseDialog {
 
 		/* Auswahl der Ausgabemöglichkeiten */
 
-		if (new DDEConnect().available()) {
+		if (DDEConnect.available()) {
 			content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 			line.add(label=new JLabel(Language.tr("LogSimulation.Mode")+": "));
 			line.add(logMode=new JComboBox<>(new String[] {

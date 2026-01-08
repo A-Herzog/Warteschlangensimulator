@@ -109,7 +109,7 @@ public class RunElementInputDDE extends RunElementPassThrough {
 		if (edgeError!=null) return edgeError;
 
 		/* DDE im Allgemeinen */
-		if (!new DDEConnect().available()) return String.format(Language.tr("Simulation.Creator.DDENotAvailable"),element.getId());
+		if (!DDEConnect.available()) return String.format(Language.tr("Simulation.Creator.DDENotAvailable"),element.getId());
 
 		/* Variable */
 		final int clientDataIndex=CalcSymbolClientUserData.testClientData(inputElement.getVariable());
@@ -183,8 +183,9 @@ public class RunElementInputDDE extends RunElementPassThrough {
 		final RunModelCreatorStatus edgeError=testEdgeOut(inputElement);
 		if (edgeError!=null) return edgeError;
 
+		new DDEConnect();
 		/* DDE im Allgemeinen */
-		if (!new DDEConnect().available()) return RunModelCreatorStatus.noDDE(element);
+		if (!DDEConnect.available()) return RunModelCreatorStatus.noDDE(element);
 
 		return RunModelCreatorStatus.ok;
 	}

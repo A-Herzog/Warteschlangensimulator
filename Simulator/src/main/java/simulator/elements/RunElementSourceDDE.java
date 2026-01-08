@@ -93,7 +93,7 @@ public class RunElementSourceDDE extends RunElementSourceExtern {
 		final RunElementSourceDDE source=new RunElementSourceDDE(sourceElement);
 
 		/* DDE im Allgemeinen */
-		if (!new DDEConnect().available()) return String.format(Language.tr("Simulation.Creator.DDENotAvailable"),element.getId());
+		if (!DDEConnect.available()) return String.format(Language.tr("Simulation.Creator.DDENotAvailable"),element.getId());
 
 		/* Daten aus Edit-Element auslesen */
 		final List<String> clientTypes=sourceElement.getClientTypeNames();
@@ -121,8 +121,9 @@ public class RunElementSourceDDE extends RunElementSourceExtern {
 
 		if (findNextId(((ModelElementSourceDDE)element).getEdgeOut())<0) return RunModelCreatorStatus.noEdgeOut(element);
 
+		new DDEConnect();
 		/* DDE im Allgemeinen */
-		if (!new DDEConnect().available()) return RunModelCreatorStatus.noDDE(element);
+		if (!DDEConnect.available()) return RunModelCreatorStatus.noDDE(element);
 
 		/* Daten aus Edit-Element auslesen */
 		final List<String> clientTypes=((ModelElementSourceDDE)element).getClientTypeNames();

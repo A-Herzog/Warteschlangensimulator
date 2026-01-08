@@ -49,24 +49,6 @@ import ui.modeleditor.elements.*;
  */
 public final class ModelElementCatalog {
 	/**
-	 * Für welche Betriebsart sollen die Elemente angezeigt werden?
-	 * @author Alexander Herzog
-	 * @see ModelElementCatalog#mode
-	 */
-	public enum Mode {
-		/** Betriebsart: Vollständiger Simulator */
-		FULL,
-		/** Betriebsart: Player */
-		PLAYER
-	}
-
-	/**
-	 * Für welche Betriebsart sollen die Elemente angezeigt werden?
-	 * @see Mode
-	 */
-	public static Mode mode=Mode.FULL;
-
-	/**
 	 * Singleton-Instanz von {@link ModelElementCatalog}
 	 * @see #getCatalog()
 	 */
@@ -163,11 +145,9 @@ public final class ModelElementCatalog {
 			try {
 				addElement(new ModelElementSource(null,null),null,GROUP_INPUTOUTPUT);
 				addElement(new ModelElementSourceMulti(null,null),null,GROUP_INPUTOUTPUT);
-				if (mode==Mode.FULL) {
-					addElement(new ModelElementSourceTable(null,null),null,GROUP_INPUTOUTPUT);
-					addElement(new ModelElementSourceDB(null,null),null,GROUP_INPUTOUTPUT);
-					if (new DDEConnect().available()) addElement(new ModelElementSourceDDE(null,null),null,GROUP_INPUTOUTPUT); else addElementHidden(new ModelElementSourceDDE(null,null),null);
-				}
+				addElement(new ModelElementSourceTable(null,null),null,GROUP_INPUTOUTPUT);
+				addElement(new ModelElementSourceDB(null,null),null,GROUP_INPUTOUTPUT);
+				if (DDEConnect.available()) addElement(new ModelElementSourceDDE(null,null),null,GROUP_INPUTOUTPUT); else addElementHidden(new ModelElementSourceDDE(null,null),null);
 				addElement(new ModelElementDispose(null,null),null,GROUP_INPUTOUTPUT);
 				addElement(new ModelElementDisposeWithTable(null,null),null,GROUP_INPUTOUTPUT);
 			} catch (Exception e) {
@@ -287,21 +267,19 @@ public final class ModelElementCatalog {
 
 		/* Daten Ein- und Ausgabe */
 		task=new FutureTask<>(()->{
-			if (mode==Mode.FULL) {
-				try {
-					addElement(new ModelElementInput(null,null),null,GROUP_DATAINPUTOUTPUT);
-					addElement(new ModelElementInputJS(null,null),null,GROUP_DATAINPUTOUTPUT);
-					addElement(new ModelElementInputDB(null,null),null,GROUP_DATAINPUTOUTPUT);
-					if (new DDEConnect().available()) addElement(new ModelElementInputDDE(null,null),null,GROUP_DATAINPUTOUTPUT); else addElementHidden(new ModelElementInputDDE(null,null),null);
-					addElement(new ModelElementOutput(null,null),null,GROUP_DATAINPUTOUTPUT);
-					addElement(new ModelElementOutputJS(null,null),null,GROUP_DATAINPUTOUTPUT);
-					addElement(new ModelElementOutputDB(null,null),null,GROUP_DATAINPUTOUTPUT);
-					if (new DDEConnect().available()) addElement(new ModelElementOutputDDE(null,null),null,GROUP_DATAINPUTOUTPUT); else addElementHidden(new ModelElementOutputDDE(null,null),null);
-					addElement(new ModelElementOutputLog(null,null),null,GROUP_DATAINPUTOUTPUT);
-					addElement(new ModelElementRecord(null,null),null,GROUP_DATAINPUTOUTPUT);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+			try {
+				addElement(new ModelElementInput(null,null),null,GROUP_DATAINPUTOUTPUT);
+				addElement(new ModelElementInputJS(null,null),null,GROUP_DATAINPUTOUTPUT);
+				addElement(new ModelElementInputDB(null,null),null,GROUP_DATAINPUTOUTPUT);
+				if (DDEConnect.available()) addElement(new ModelElementInputDDE(null,null),null,GROUP_DATAINPUTOUTPUT); else addElementHidden(new ModelElementInputDDE(null,null),null);
+				addElement(new ModelElementOutput(null,null),null,GROUP_DATAINPUTOUTPUT);
+				addElement(new ModelElementOutputJS(null,null),null,GROUP_DATAINPUTOUTPUT);
+				addElement(new ModelElementOutputDB(null,null),null,GROUP_DATAINPUTOUTPUT);
+				if (DDEConnect.available()) addElement(new ModelElementOutputDDE(null,null),null,GROUP_DATAINPUTOUTPUT); else addElementHidden(new ModelElementOutputDDE(null,null),null);
+				addElement(new ModelElementOutputLog(null,null),null,GROUP_DATAINPUTOUTPUT);
+				addElement(new ModelElementRecord(null,null),null,GROUP_DATAINPUTOUTPUT);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		},0);
 		executor.execute(task);
