@@ -19,10 +19,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.healthmarketscience.jackcess.Table;
-
 import language.Language;
 import mathtools.NumberTools;
+import mathtools.Table;
 import mathtools.TimeTools;
 import parser.MathCalcError;
 import simulator.builder.RunModelCreatorStatus;
