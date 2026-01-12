@@ -1,6 +1,6 @@
 # Usage:
 # - Download https://github.com/AppImage/pkg2appimage/releases/download/continuous/pkg2appimage-1807-x86_64.AppImage
-# - Place Simulator.zip in the same folder
+# - Place Simulator_Linux.zip in the same folder
 # - Place this file in the same folder
 # - run: ./pkg2appimage-1807-x86_64.AppImage AppImageBuilder.yml
 # - clean up: remove new sub folder "Warteschlangensimulator"
@@ -12,9 +12,9 @@ app: Warteschlangensimulator
 
 ingredients:
   script:
-    # Extract Simulator.zip
+    # Extract Simulator_Linux.zip
     - mkdir -p Simulator
-    - unzip ../Simulator.zip -d Simulator
+    - unzip ../Simulator_Linux.zip -d Simulator
     - rm ./Simulator/JavaDDE.dll
     - rm ./Simulator/JavaDDEx64.dll
     - rm ./Simulator/Simulator.exe

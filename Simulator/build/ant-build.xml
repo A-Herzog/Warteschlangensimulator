@@ -447,9 +447,20 @@
 		</java>		
 				
 		<echo message="Generate zip package" />
-		<zip destfile="${Release.location}/Simulator.zip" level="9">
-		  <zipfileset dir="${Release.location}" includes="Simulator.jar,Simulator.exe,Simulator-CLI.sh,Simulator-GUI.sh,Simulator-GUI-2x.sh,Simulator.bat,Splashscreen.png,Splashscreen@125pct.png,Splashscreen@150pct.png,SimulatorCLI.bat,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"/>
+		<zip destfile="${Release.location}/Simulator_Windows.zip" level="9">
+		  <zipfileset
+		  	dir="${Release.location}"
+		  	includes="Simulator.jar,Simulator.exe,Simulator-CLI.sh,Simulator-GUI.sh,Simulator-GUI-2x.sh,Simulator.bat,Splashscreen.png,Splashscreen@125pct.png,Splashscreen@150pct.png,SimulatorCLI.bat,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"
+		  	excludes="*.sh,userscripts/*.sh,"
+		  />
 		  <zipfileset dir="${Simulator.location}/tools/JDDE" includes="*.dll"/>
+		</zip>
+		<zip destfile="${Release.location}/Simulator_Linux.zip" level="9">
+		  <zipfileset
+		  	dir="${Release.location}"
+		  	includes="Simulator.jar,Simulator.exe,Simulator-CLI.sh,Simulator-GUI.sh,Simulator-GUI-2x.sh,Simulator.bat,Splashscreen.png,Splashscreen@125pct.png,Splashscreen@150pct.png,SimulatorCLI.bat,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"
+		  	excludes="*.exe,*.bat,userscripts/*.bat,tools/*.exe"
+		  />
 		</zip>
 
 		<echo message="Clean up" />

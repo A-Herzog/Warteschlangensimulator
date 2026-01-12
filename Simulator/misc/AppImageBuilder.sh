@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Place this file and AppImageBuilder.yml in an empty folder.
-# Copy Simulator.zip to this folder.
+# Copy Simulator_Linux.zip to this folder.
 # Run this file
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-if [ ! -f "${DIR}/Simulator.zip" ]
+if [ ! -f "${DIR}/Simulator_Linux.zip" ]
 then
-  echo "Simulator.zip not found"
+  echo "Simulator_Linux.zip not found"
   return
 fi
 
