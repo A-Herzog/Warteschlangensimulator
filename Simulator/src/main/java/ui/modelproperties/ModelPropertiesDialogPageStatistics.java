@@ -179,6 +179,7 @@ public class ModelPropertiesDialogPageStatistics extends ModelPropertiesDialogPa
 		lines.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		sub.add(button=new JButton(Language.tr("StationStatistics.Title"),Images.MODELPROPERTIES_STATISTICS_STATIONS.getIcon()));
 		button.addActionListener(e->	new StationStatisticsDialog(dialog,model));
+		button.setEnabled(!readOnly);
 	}
 
 	/**
