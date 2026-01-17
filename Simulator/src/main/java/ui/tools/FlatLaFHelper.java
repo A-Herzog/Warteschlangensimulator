@@ -114,7 +114,7 @@ public class FlatLaFHelper {
 				/* Es wird der MacOsCommandLinkPainter verwendet, der keine Farbanpassungen vorsieht */
 				break;
 			case LINUX:
-				/* Es wird der MacOsCommandLinkPainter verwendet (ja, für Linux), der keine Farbanpassungen vorsieht */
+				System.setProperty(TaskDialog.DESIGN_PROPERTY,TaskDialogWindowsDarkDesign.class.getName());
 				break;
 			case WINDOWS:
 				System.setProperty(TaskDialog.DESIGN_PROPERTY,TaskDialogWindowsDarkDesign.class.getName());
@@ -131,7 +131,7 @@ public class FlatLaFHelper {
 				/* Es wird der MacOsCommandLinkPainter verwendet, der keine Farbanpassungen vorsieht */
 				break;
 			case LINUX:
-				/* Es wird der MacOsCommandLinkPainter verwendet (ja, für Linux), der keine Farbanpassungen vorsieht */
+				System.clearProperty(TaskDialog.DESIGN_PROPERTY);
 				break;
 			case WINDOWS:
 				System.clearProperty(TaskDialog.DESIGN_PROPERTY);
@@ -142,6 +142,14 @@ public class FlatLaFHelper {
 			}
 		}
 
+		// XXX
+		/*
+		Auf Korrektur von
+		https://github.com/JFormDesigner/FlatLaf/issues/1065
+		https://github.com/JFormDesigner/FlatLaf/issues/1076
+		warten.
+		PlugableFileChooser.fileChooserImplClass=FileChooserImplFlatLaF.class;
+		 */
 	}
 
 	/**

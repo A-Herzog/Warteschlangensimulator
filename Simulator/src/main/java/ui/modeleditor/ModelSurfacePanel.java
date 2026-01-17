@@ -42,6 +42,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetAdapter;
+import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -968,6 +969,14 @@ public final class ModelSurfacePanel extends JPanel {
 							if (dropElement(dtde,transfer)) return;
 						}
 						dtde.rejectDrop();
+					}
+					@Override
+					public void dragEnter(DropTargetDragEvent dtde) {
+						dtde.acceptDrag(DnDConstants.ACTION_COPY);
+					}
+					@Override
+					public void dragOver(DropTargetDragEvent dtde) {
+						dtde.acceptDrag(DnDConstants.ACTION_COPY);
 					}
 				});
 			} catch (TooManyListenersException e1) {}
