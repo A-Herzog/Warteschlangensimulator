@@ -256,6 +256,40 @@ public class ReportStyle {
 	public boolean footerDate;
 
 	/*
+	 * Vorgabewerte für Schriftarten
+	 */
+
+	/**
+	 * Vorgabewerte für Schriftarten für die Überschriften (3 Ebenen)
+	 */
+	public static final ReportFont[] headingFontDefault;
+
+	/**
+	 * Vorgabewert für Schriftart für normalen Text
+	 */
+	public static final ReportFont textFontDefault;
+
+	/**
+	 * Vorgabewert für Schriftart für die Tabellenkopfzeile
+	 */
+	public static final ReportFont tableHeadingFontDefault;
+
+	/**
+	 * Vorgabewert für Schriftart für den Tabelleninhalt (abzüglich der letzten Zeile)
+	 */
+	public static final ReportFont tableTextFontDefault;
+
+	/**
+	 * Vorgabewert für Schriftart für die letzte Zeile des Tabelleninhalts
+	 */
+	public static final ReportFont tableLastLineTextFontDefault;
+
+	/**
+	 * Vorgabewert für Schriftart für die Fußzeile
+	 */
+	public static final ReportFont footerFontDefault;
+
+	/*
 	 * Schriftarten
 	 */
 
@@ -324,6 +358,18 @@ public class ReportStyle {
 	 */
 	public boolean logoRepeat;
 
+	static {
+		headingFontDefault=new ReportFont[3];
+		headingFontDefault[0]=new ReportFont(18,true,10);
+		headingFontDefault[1]=new ReportFont(15,true);
+		headingFontDefault[2]=new ReportFont(12,true);
+		textFontDefault=new ReportFont(11,false);
+		tableHeadingFontDefault=new ReportFont(11,true);
+		tableTextFontDefault=new ReportFont(11,false);
+		tableLastLineTextFontDefault=new ReportFont(11,false,25);
+		footerFontDefault=new ReportFont(8,false);
+	}
+
 	/**
 	 * Konstruktor der Klasse
 	 */
@@ -337,14 +383,14 @@ public class ReportStyle {
 		footerDate=false;
 
 		headingFont=new ReportFont[3];
-		headingFont[0]=new ReportFont(18,true,10);
-		headingFont[1]=new ReportFont(15,true);
-		headingFont[2]=new ReportFont(12,true);
-		textFont=new ReportFont(11,false);
-		tableHeadingFont=new ReportFont(11,true);
-		tableTextFont=new ReportFont(11,false);
-		tableLastLineTextFont=new ReportFont(11,false,25);
-		footerFont=new ReportFont(8,false);
+		headingFont[0]=new ReportFont(headingFontDefault[0]);
+		headingFont[1]=new ReportFont(headingFontDefault[1]);
+		headingFont[2]=new ReportFont(headingFontDefault[2]);
+		textFont=new ReportFont(textFontDefault);
+		tableHeadingFont=new ReportFont(tableHeadingFontDefault);
+		tableTextFont=new ReportFont(tableTextFontDefault);
+		tableLastLineTextFont=new ReportFont(tableLastLineTextFontDefault);
+		footerFont=new ReportFont(footerFontDefault);
 		parSkip=10;
 
 		logo=null;
@@ -548,7 +594,6 @@ public class ReportStyle {
 	public void save(final Element parent) {
 		final Document doc=parent.getOwnerDocument();
 		final Element node=doc.createElement(XML_NODE_NAME);
-		parent.appendChild(node);
 
 		/* Seitenränder */
 		if (borderTopMM!=15 || borderRightMM!=10 || borderBottomMM!=15 || borderLeftMM!=10) {
@@ -570,13 +615,13 @@ public class ReportStyle {
 
 		/* Schriftarten */
 		final Element fontsNode=doc.createElement(XML_FONTS);
-		node.appendChild(fontsNode);
-		for (int i=0;i<headingFont.length;i++) headingFont[i].save(fontsNode,XML_FONTS_HEADING+(i+1));
-		textFont.save(fontsNode,XML_FONTS_TEXT);
-		tableHeadingFont.save(fontsNode,XML_FONTS_TABLE_HEADING);
-		tableTextFont.save(fontsNode,XML_FONTS_TABLE_TEXT);
-		tableLastLineTextFont.save(fontsNode,XML_FONTS_TABLE_TEXT_LAST);
-		footerFont.save(fontsNode,XML_FONTS_FOOTER);
+		for (int i=0;i<headingFont.length;i++) if (!headingFont[i].equalsReportFont(headingFontDefault[i])) headingFont[i].save(fontsNode,XML_FONTS_HEADING+(i+1));
+		if (!textFont.equalsReportFont(textFontDefault)) textFont.save(fontsNode,XML_FONTS_TEXT);
+		if (!tableHeadingFont.equalsReportFont(tableHeadingFontDefault)) tableHeadingFont.save(fontsNode,XML_FONTS_TABLE_HEADING);
+		if (!tableTextFont.equalsReportFont(tableTextFontDefault)) tableTextFont.save(fontsNode,XML_FONTS_TABLE_TEXT);
+		if (!tableLastLineTextFont.equalsReportFont(tableLastLineTextFontDefault)) tableLastLineTextFont.save(fontsNode,XML_FONTS_TABLE_TEXT_LAST);
+		if (!footerFont.equalsReportFont(footerFontDefault)) footerFont.save(fontsNode,XML_FONTS_FOOTER);
+		if (fontsNode.hasChildNodes()) node.appendChild(fontsNode);
 		if (parSkip!=10) {
 			final Element sub=doc.createElement(XML_PAR_SKIP);
 			node.appendChild(sub);
@@ -603,6 +648,8 @@ public class ReportStyle {
 				} catch (IOException e) {}
 			}
 		}
+
+		if (node.hasChildNodes()) parent.appendChild(node);
 	}
 
 	/**
