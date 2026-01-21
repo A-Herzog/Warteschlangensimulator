@@ -2950,7 +2950,7 @@ public class SetupData extends SetupBase {
 			node.setTextContent(NumberTools.localNumberToSystemNumber(NumberTools.formatNumber(scaleGUI)));
 		}
 
-		if ((lookAndFeel!=null && !lookAndFeel.isBlank()) || !lookAndFeelCombinedMenu) {
+		if ((lookAndFeel!=null && !lookAndFeel.isBlank() && !lookAndFeel.equals(getDefaultLookAndFeel())) || !lookAndFeelCombinedMenu) {
 			root.appendChild(node=doc.createElement("LookAndFeel"));
 			if (lookAndFeel!=null) node.setTextContent(lookAndFeel);
 			if (!lookAndFeelCombinedMenu) node.setAttribute("combinedMenu","0");
@@ -3063,7 +3063,7 @@ public class SetupData extends SetupBase {
 			node.setTextContent(autoUpdate.name);
 		}
 
-		if (!useMultiCoreSimulation || useMultiCoreSimulationMaxCount!=1024 || useNUMAMode || !useDynamicThreadBalance || useMultiCoreSimulationOnRepeatedSimulations) {
+		if (!useMultiCoreSimulation || useMultiCoreSimulationMaxCount!=1024 || !useNUMAMode || !useDynamicThreadBalance || useMultiCoreSimulationOnRepeatedSimulations) {
 			root.appendChild(node=doc.createElement("AllCPUCoresSimulation"));
 			node.setTextContent(useMultiCoreSimulation?"1":"0");
 			if (useMultiCoreSimulationMaxCount!=1024) node.setAttribute("MaxCount",""+useMultiCoreSimulationMaxCount);
@@ -3564,8 +3564,8 @@ public class SetupData extends SetupBase {
 			node.setTextContent(statisticOverviewFilter);
 		}
 
-		root.appendChild(node=doc.createElement("ChartSetup"));
-		chartSetup.saveToXML(node);
+		node=doc.createElement("ChartSetup");
+		if (chartSetup.saveToXML(node)) root.appendChild(node);
 
 		if (gitSetups.size()>0) {
 			root.appendChild(node=doc.createElement(GitSetup.XML_PARENT_NAME));

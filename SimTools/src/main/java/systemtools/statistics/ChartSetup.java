@@ -439,21 +439,25 @@ public class ChartSetup {
 	/**
 	 * Speichert die gesamten Einstellungen in den Attributen eines XML-Elements
 	 * @param element	XML-Element in dem die Daten gespeichert werden sollen
+	 * @return	Liefert <code>true</code>, wenn in dem angegebenen Element Daten gespeichert wurden
 	 * @see #loadFromXML(Element)
 	 */
-	public void saveToXML(final Element element) {
+	public boolean saveToXML(final Element element) {
+		boolean dataWritten=false;
 		final ChartSetup defaults=new ChartSetup();
 
-		if (!titleFont.equals(defaults.titleFont)) saveFont(element,"Title",titleFont);
-		if (!axisLabelFont.equals(defaults.axisLabelFont)) saveFont(element,"Axis1",axisLabelFont);
-		if (!axisValueFont.equals(defaults.axisValueFont)) saveFont(element,"Axis2",axisValueFont);
-		if (!legendFont.equals(defaults.legendFont)) saveFont(element,"Legend",legendFont);
+		if (!titleFont.equals(defaults.titleFont)) {saveFont(element,"Title",titleFont); dataWritten=true;}
+		if (!axisLabelFont.equals(defaults.axisLabelFont)) {saveFont(element,"Axis1",axisLabelFont); dataWritten=true;}
+		if (!axisValueFont.equals(defaults.axisValueFont)) {saveFont(element,"Axis2",axisValueFont); dataWritten=true;}
+		if (!legendFont.equals(defaults.legendFont)) {saveFont(element,"Legend",legendFont); dataWritten=true;}
 
-		if (!defaults.backgroundColor1.equals(backgroundColor1)) saveColor(element,"Background1",backgroundColor1);
-		if (!defaults.backgroundColor2.equals(backgroundColor2)) saveColor(element,"Background2",backgroundColor2);
+		if (!defaults.backgroundColor1.equals(backgroundColor1)) {saveColor(element,"Background1",backgroundColor1); dataWritten=true;}
+		if (!defaults.backgroundColor2.equals(backgroundColor2)) {saveColor(element,"Background2",backgroundColor2); dataWritten=true;}
 
-		if (!outlineStroke.equals(defaults.outlineStroke)) saveStroke(element,"OutlineWidth",outlineStroke);
-		if (!defaults.outlineColor.equals(outlineColor)) saveColor(element,"OutlineColor",outlineColor);
+		if (!outlineStroke.equals(defaults.outlineStroke)) {saveStroke(element,"OutlineWidth",outlineStroke); dataWritten=true;}
+		if (!defaults.outlineColor.equals(outlineColor)) {saveColor(element,"OutlineColor",outlineColor); dataWritten=true;}
+
+		return dataWritten;
 	}
 
 	/**
