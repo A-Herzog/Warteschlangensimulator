@@ -607,7 +607,7 @@ public class MiniQSLoader {
 
 			final int mode=loadInt(setup,"mode");
 			final String rates=loadString(setup,"rates");
-			if (mode<0 || mode>2) return null;
+			if (mode<0 || mode>5) return null;
 
 			final ModelElementDecide element=new ModelElementDecide(model,model.surface);
 			final DecideRecord decideRecord=element.getDecideRecord();
@@ -617,6 +617,7 @@ public class MiniQSLoader {
 			case 2: decideRecord.setMode(DecideRecord.DecideMode.MODE_MIN_CLIENTS_NEXT_STATION); break;
 			case 3: decideRecord.setMode(DecideRecord.DecideMode.MODE_LONGEST_QUEUE_NEXT_STATION); break;
 			case 4: decideRecord.setMode(DecideRecord.DecideMode.MODE_MAX_CLIENTS_NEXT_STATION); break;
+			case 5: decideRecord.setMode(DecideRecord.DecideMode.MODE_SEQUENCE); break;
 			}
 			if (mode==0) {
 				if (rates==null) return null;
