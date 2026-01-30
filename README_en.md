@@ -3,7 +3,7 @@
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/a-herzog/warteschlangensimulator)](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/)
 ![GitHub](https://img.shields.io/github/license/a-herzog/warteschlangensimulator)
 [![GitHub All Releases](https://img.shields.io/github/downloads/a-herzog/warteschlangensimulator/total)](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12606913.svg)](https://doi.org/10.5281/zenodo.12606913)
+[![DOI](https://a-herzog.github.io/Warteschlangensimulator/zenodo.12606913.svg)](https://doi.org/10.5281/zenodo.12606913)
 
 ([Deutsche Version dieser Readme.](README_de.md))
 
@@ -14,7 +14,8 @@ In the simulator, queueing systems can be modelled and afterwards be simulated i
 ## Download
 
 * **[Windows installer](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/SimulatorSetup.exe)**
-* **[Zip file](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator.zip)** (for use under Windows, Linux, ...)
+* **[Zip file](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator.zip)**
+* **[Linux appimage](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Warteschlangensimulator-x86_64.AppImage)
 * [Source code](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/) ([Notes on the build process](BUILD.md))
 
 The Windows version can be installed with or without admin rights. The zip file version can be used on any platform without installation.
