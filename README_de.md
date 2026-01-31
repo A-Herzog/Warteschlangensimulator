@@ -169,3 +169,9 @@ Die im Lehrbuch vorgestellten Beispiele sind auch als Warteschlangensimulator-Mo
 ## Veröffentlichungen
 
 Eine Liste mit allen Veröffentlichungen zum Warteschlangensimulator finden Sie auf der [Veröffentlichungen-GitHub-Wiki](https://github.com/A-Herzog/Warteschlangensimulator/wiki/Publication-list)-Seite.
+
+## Referenznutzer
+
+[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_SWZ_de.svg" height="75" style="margin-right: 10px; margin-bottom: 10px;" title="Simulationswissenschaftliches Zentrum Clausthal-Göttingen">](https://www.simzentrum.de)
+[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_TUClausthal.svg" height="75" style="margin-right: 10px; margin-bottom: 10px;" title="Technische Universität Clausthal - Institut für Mathematik">](https://www.mathematik.tu-clausthal.de)
+[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_HDa.svg" height="75" style="margin-right: 10px; margin-bottom: 10px;" title="Hochschule Darmstadt - Fachbereich Mathematik und Naturwissenschaften">](https://fbmn.h-da.de)
