@@ -172,6 +172,8 @@ Eine Liste mit allen Veröffentlichungen zum Warteschlangensimulator finden Sie 
 
 ## Referenznutzer
 
-[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_SWZ_de.svg" height="75" style="margin-right: 10px; margin-bottom: 10px;" title="Simulationswissenschaftliches Zentrum Clausthal-Göttingen">](https://www.simzentrum.de)
-[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_TUClausthal.svg" height="75" style="margin-right: 10px; margin-bottom: 10px;" title="Technische Universität Clausthal - Institut für Mathematik">](https://www.mathematik.tu-clausthal.de)
-[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_HDa.svg" height="75" style="margin-right: 10px; margin-bottom: 10px;" title="Hochschule Darmstadt - Fachbereich Mathematik und Naturwissenschaften">](https://fbmn.h-da.de)
+[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_SWZ_de.svg" height="75" title="Simulationswissenschaftliches Zentrum Clausthal-Göttingen">](https://www.simzentrum.de)
+
+[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_TUClausthal.svg" height="75" title="Technische Universität Clausthal - Institut für Mathematik">](https://www.mathematik.tu-clausthal.de)
+
+[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_HDa.svg" height="75" title="Hochschule Darmstadt - Fachbereich Mathematik und Naturwissenschaften">](https://fbmn.h-da.de)
