@@ -25,7 +25,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -173,6 +175,32 @@ public class HunspellDictionaryRecord {
 	}
 
 	/**
+	 * Liste der Zuordnung von alten zu neuen Dateien.
+	 */
+	private static final Map<String,String> updateMap;
+
+	static {
+		updateMap=new HashMap<>();
+		updateMap.put("us_english_dictionary-115.0.xpi","us_english_dictionary-140.0.xpi");
+		updateMap.put("german_dictionary_de_de_for_sp-20180701.1webext.xpi","dictionary_german-2.1.xpi");
+	}
+
+	/**
+	 * Prüft, ob eine neuere Version der Wörterbuchdatei vorhanden ist.
+	 * @param path	Pfad in dem nach den Sprachdatensätzen (xpi- und oxt-Dateien) gesucht werden soll
+	 * @param file	Zu überprüfende Datei
+	 * @return	Neuere Version vorhanden? (Diese nicht verwenden)
+	 */
+	private static boolean isOldVersion(final File path, final File file) {
+		final String newFileName=updateMap.get(file.getName());
+		if (newFileName!=null) {
+			final File newFile=new File(path,newFileName);
+			if (newFile.isFile()) return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Liefert eine Liste mit allen verfügbaren Sprachdatensätzen.
 	 * @param path	Pfad in dem nach den Sprachdatensätzen (xpi- und oxt-Dateien) gesucht werden soll
 	 * @return	Liste mit allen verfügbaren Sprachdatensätzen (kann leer sein, ist aber nie <code>null</code>)
@@ -183,6 +211,7 @@ public class HunspellDictionaryRecord {
 			final File[] files=path.listFiles();
 			if (files!=null) for (File file: files) {
 				final String fileName=file.getName().toLowerCase();
+				if (isOldVersion(path,file)) continue;
 				if (fileName.endsWith(".oxt")) records.addAll(readRecordsFromOXT(file));
 				if (fileName.endsWith(".xpi")) records.addAll(readRecordsFromXPI(file));
 			}

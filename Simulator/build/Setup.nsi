@@ -237,6 +237,9 @@ Section "Install" Inst
   
   SetOutPath "$INSTDIR\dictionaries"
   
+  Delete "$INSTDIR\us_english_dictionary-115.0.xpi" ; Delete old dictionary files
+  Delete "$INSTDIR\german_dictionary_de_de_for_sp-20180701.1webext.xpi"
+  
   File /r "..\..\Release\dictionaries\*.*"
   
   SetOutPath "$INSTDIR" ; Otherwise the shortcut will have the dictionaries as working directory
