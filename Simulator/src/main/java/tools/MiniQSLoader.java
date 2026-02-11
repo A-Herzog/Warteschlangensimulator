@@ -22,6 +22,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.math3.distribution.ExponentialDistribution;
 import org.json.JSONArray;
@@ -623,6 +625,14 @@ public class MiniQSLoader {
 			if (mode==0) {
 				if (rates==null) return null;
 				decideRecord.getRates().addAll(Arrays.asList(rates.split(";")));
+			}
+			if (mode==5) {
+				if (rates==null) return null;
+				decideRecord.getMultiplicity().addAll(Stream.of(rates.split(";")).map(s->{
+					Integer I=NumberTools.getNotNegativeInteger(s);
+					if (I==null || I==0) I=1;
+					return I;
+				}).collect(Collectors.toList()));
 			}
 			element.setName(name);
 
