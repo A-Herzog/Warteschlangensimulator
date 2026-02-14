@@ -397,6 +397,10 @@
 			<arg value="Clausthal"/>
 			<arg value="/fd"/>
 			<arg value="SHA256"/>
+			<arg value="/tr"/>
+			<arg value="http://timestamp.sectigo.com"/>
+			<arg value="/td"/>
+			<arg value="SHA256"/>
 			<arg value="Simulator.exe"/>
 		</exec>
 		<move file="${BuildTools.location}/Simulator.exe" tofile="${Release.location}/Simulator.exe" />
@@ -436,6 +440,10 @@
 			<arg value="/n"/>
 			<arg value="Clausthal"/>
 			<arg value="/fd"/>
+			<arg value="SHA256"/>
+			<arg value="/tr"/>
+			<arg value="http://timestamp.sectigo.com"/>
+			<arg value="/td"/>
 			<arg value="SHA256"/>
 			<arg value="SimulatorSetup.exe"/>
 		</exec>
