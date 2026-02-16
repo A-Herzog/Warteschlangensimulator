@@ -81,31 +81,31 @@ Warteschlangensimulator enables modeling, simulation and optimization of many qu
 
 #### Modelling of queuing systems in the form of flowcharts
   
-[<img src="Images/Screenshot_en_flowchart.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_en_flowchart.png "Click for large view")
+[<img src="Images/Screenshot_en_flowchart.png" alt="Warteschlangensimulator - Modelling" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_en_flowchart.png "Click for large view")
 Complex production and logistics processes can easily be modelled for simulation in Warteschlangensimulator in the form of flowcharts. 
 <br clear="both">
 
 #### Animation
 
-[<img src="Images/Screenshot_en_animation.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_en_animation.png "Click for large view")
+[<img src="Images/Screenshot_en_animation.png" alt="Warteschlangensimulator - Animation" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_en_animation.png "Click for large view")
 All queueing models created as flowchart can be visualized as animation. During the animation the changes in certain values can be followed live (both in the form of text values and in the form of continuously updated diagrams). Certain station types can be used to directly intervene in the control system during a running simulation.
 <br clear="both">
 
 #### Statistics recording
 
-[<img src="Images/Screenshot_en_statistics.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_en_statistics.png "Click for large view")  
+[<img src="Images/Screenshot_en_statistics.png" alt="Warteschlangensimulator - Statistics" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_en_statistics.png "Click for large view")  
 During the simulation of a model, all relevant performance indicators are automatically recorded and are available for evaluation when the simulation is completed. For easy further processing of the data, Warteschlangensimulator uses open file formats, but can also export e.g. tables in formats for common spreadsheet applications.
 <br clear="both">
 
 #### Automation of studies
 
-[<img src="Images/Screenshot_en_parameterseries.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_en_parameterseries.png "Click for large view")
+[<img src="Images/Screenshot_en_parameterseries.png" alt="Warteschlangensimulator - Parameter studies" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_en_parameterseries.png "Click for large view")
 To investigate the effects of changes in individual parameters, these can be varied automatically within a certain range and the simulation results for these parameter series can be displayed in table or graphic form.
 <br clear="both">
 
 #### Queueing networks and complex control strategies
 
-[<img src="Images/Screenshot_en_net.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_en_net.png "Click for large view")
+[<img src="Images/Screenshot_en_net.png" alt="Warteschlangensimulator - Queueing networks" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_en_net.png "Click for large view")
 Branching and barriers can be modelled using complex rules that go far beyond the possibilities of analytical models. Even user-defined scripts can be used to delay or branch customers.
 <br clear="both"> 
   
@@ -132,7 +132,7 @@ In both cases many simulations of a slightly varied model are necessary.
 
 #### Parameter series
 
-[<img src="Images/Screenshot_en_parameterseries.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_en_parameterseries.png "Click for large view")
+[<img src="Images/Screenshot_en_parameterseries.png" alt="Warteschlangensimulator - Parameter studies" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_en_parameterseries.png "Click for large view")
 If only one or more parameters are to be varied and the results recorded in each case, this can be done automatically using the parameter series function: Only the input parameters and their respective variation ranges have to be defined and it has to be specified which parameters are to be recorded. Warteschlangensimulator then does the rest automatically. The result is a table in which the input parameters are compared with the respective characteristics. This table can be further processed in a spreadsheet, for example - but can also be visualized directly in Warteschlangensimulator as a diagram. What-if questions can be answered very comfortably, with little effort for the user and particularly very quickly.
 
 #### Optimization
@@ -147,7 +147,7 @@ Alternatively, parameter series configurations can be saved and then executed vi
 
 ## Textbook: "Simulation mit dem Warteschlangensimulator" (in German)
 
-[<img src="Images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.png" style="float: right; max-width: 30%; padding-left: 5px">](https://www.springer.com/gp/book/9783658346676)
+[<img src="Images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.png" alt="Textbook: Simulation mit dem Warteschlangensimulator (in German)" style="float: right; max-width: 30%; padding-left: 5px">](https://www.springer.com/gp/book/9783658346676)
 
 [A. Herzog: "Simulation mit dem Warteschlangensimulator"](https://www.springer.com/gp/book/9783658346676) (in German)
 
@@ -171,8 +171,8 @@ A list of all publications on Warteschlangensimulator can be found on the [Publi
 
 ## Reference users
 
-[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_SWZ_en.svg" height="75" title="Simulation Science Center Clausthal-Göttingen">](https://www.simzentrum.de)
+[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_SWZ_en.svg" height="75" width="300" title="Simulation Science Center Clausthal-Göttingen" alt="Simulation Science Center Clausthal-Göttingen">](https://www.simzentrum.de)
 
-[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_TUClausthal.svg" height="75" title="Clausthal University of Technology- Institute of Mathematics">](https://www.mathematik.tu-clausthal.de)
+[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_TUClausthal.svg" height="75" width="403" title="Clausthal University of Technology- Institute of Mathematics" alt="Clausthal University of Technology- Institute of Mathematics">](https://www.mathematik.tu-clausthal.de)
 
-[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_HDa.svg" height="75" title="Hochschule Darmstadt - Department of Mathematics and Natural Sciences">](https://fbmn.h-da.de)
+[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_HDa.svg" height="75" width="530" title="Hochschule Darmstadt - Department of Mathematics and Natural Sciences" alt="Hochschule Darmstadt - Department of Mathematics and Natural Sciences">](https://fbmn.h-da.de)

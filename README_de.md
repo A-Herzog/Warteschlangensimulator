@@ -81,31 +81,31 @@ Der Warteschlangensimulator ermöglicht die Modellierung, Simulation und Optimie
 
 #### Modellierung von Warteschlangensystemen in Form von Fließbildern
   
-[<img src="Images/Screenshot_de_flowchart.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_de_flowchart.png "Anklicken für große Ansicht")  
+[<img src="Images/Screenshot_de_flowchart.png" alt="Warteschlangensimulator - Modellierung" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_de_flowchart.png "Anklicken für große Ansicht")  
 Komplexe Produktions- und Logistikprozesse können im Warteschlangensimulator auf einfache Weise in Form von Fließbildern als Simulationsmodelle abgebildet werden.
 <br clear="both">
 
 #### Animation
 
-[<img src="Images/Screenshot_de_animation.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_de_animation.png "Anklicken für große Ansicht")
+[<img src="Images/Screenshot_de_animation.png" alt="Warteschlangensimulator - Animation" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_de_animation.png "Anklicken für große Ansicht")
 Alle als Fließbild angelegten Warteschlangenmodelle können als Animation dargestellt werden. Während der Animation kann die Entwicklung von bestimmten Werten live verfolgt werden (sowohl in Form von Textwerten als auch in Form von laufend aktualisierten Diagrammen). Über bestimmte Stationstypen kann während einer laufenden Simulation direkt in die Steuerung eingegriffen werden.
 <br clear="both">
 
 #### Statistikaufzeichnung
 
-[<img src="Images/Screenshot_de_statistics.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_de_statistics.png "Anklicken für große Ansicht")  
+[<img src="Images/Screenshot_de_statistics.png" alt="Warteschlangensimulator - Statistik" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_de_statistics.png "Anklicken für große Ansicht")  
 Während der Simulation eines Modells werden automatisch alle relevanten Kenngrößen aufgezeichnet und stehen nach Abschluss der Simulation zur Auswertung zur Verfügung. Zur einfachen Weiterverarbeitung der Daten setzt der Warteschlangensimulator auf offene Dateiformate, kann aber z.B. Tabellen auch in Formaten für übliche Tabellenkalkulationen exportieren.
 <br clear="both">
 
 #### Automatisierung von Untersuchungen
 
-[<img src="Images/Screenshot_de_parameterseries.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_de_parameterseries.png "Anklicken für große Ansicht")
+[<img src="Images/Screenshot_de_parameterseries.png" alt="Warteschlangensimulator - Parameterstudien" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_de_parameterseries.png "Anklicken für große Ansicht")
 Zur Untersuchungen der Auswirkungen von Veränderungen einzelner Parameter können diese automatisiert in einem bestimmten Bereich variiert werden und die Simulationsergebnisse in Tabellen- oder Grafikform dargestellt werden.
 <br clear="both">
 
 #### Netze und komplexe Steuerungsregeln
 
-[<img src="Images/Screenshot_de_net.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_de_net.png "Anklicken für große Ansicht")
+[<img src="Images/Screenshot_de_net.png" alt="Warteschlangensimulator - Warteschlangennetzwerke" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_de_net.png "Anklicken für große Ansicht")
 Verzweigungen und Schranken können über komplexe Regeln, die weit über die Möglichkeiten analytischer Modelle hinausgehen, abgebildet werden. Es können dabei sogar nutzerdefinierte Skripte zur Vetzögerung oder Verzweigung von Kunden verwendet werden.
 <br clear="both"> 
   
@@ -132,7 +132,7 @@ In beiden Fällen sind viele Simulationen eines jeweils leicht variierten Modell
 
 #### Parameterreihen
 
-[<img src="Images/Screenshot_de_parameterseries.png" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_de_parameterseries.png "Anklicken für große Ansicht")
+[<img src="Images/Screenshot_de_parameterseries.png" alt="Warteschlangensimulator - Parameterstudien" style="float: right; max-width: 30%; padding-left: 5px;">](Images/Screenshot_de_parameterseries.png "Anklicken für große Ansicht")
 
 Sollen lediglich ein oder mehrere Parameter variiert werden und jeweils die Ergebnisse aufgezeichnet werden, so kann dies mit Hilfe der Parameterreihenfunktion automatisiert erfolgen: Es müssen jeweils nur die Eingabeparameter und ihre jeweiligen Variationsbereiche definiert werden und es muss festgelegt werden, welche Kenngrößen jeweils aufgezeichnet werden sollen. Den Rest führt der Warteschlangensimulator dann selbstständig durch. Als Ergebnis wird eine Tabelle, in der die Eingabeparameter den jeweiligen Kenngrößen gegenübergestellt werden, geliefert. Diese kann z.B. in einer Tabellenkalkulation weiterverarbeitet werden - aber kann auch direkt im Warteschlangensimulator als Diagramm visualisiert werden. Was-wäre-wenn-Fragestellungen lassen sich auf diese Weise sehr konfortabel, mit wenig Aufwand für den Anwender und vor allem auch sehr schnell beantworten.
 
@@ -148,7 +148,7 @@ Alternativ können Parameterreihenkonfigurationen gespeichert und dann per **Kom
 
 ## Buch: "Simulation mit dem Warteschlangensimulator"
 
-[<img src="Images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.png" style="float: right; max-width: 30%; padding-left: 5px">](https://www.springer.com/gp/book/9783658346676)
+[<img src="Images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.png" alt="Buch: Simulation mit dem Warteschlangensimulator" style="float: right; max-width: 30%; padding-left: 5px">](https://www.springer.com/gp/book/9783658346676)
 
 [A. Herzog: "Simulation mit dem Warteschlangensimulator"](https://www.springer.com/gp/book/9783658346676)
 
@@ -172,8 +172,8 @@ Eine Liste mit allen Veröffentlichungen zum Warteschlangensimulator finden Sie 
 
 ## Referenznutzer
 
-[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_SWZ_de.svg" height="75" title="Simulationswissenschaftliches Zentrum Clausthal-Göttingen">](https://www.simzentrum.de)
+[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_SWZ_de.svg" height="75" width="300" title="Simulationswissenschaftliches Zentrum Clausthal-Göttingen" alt="Simulationswissenschaftliches Zentrum Clausthal-Göttingen">](https://www.simzentrum.de)
 
-[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_TUClausthal.svg" height="75" title="Technische Universität Clausthal - Institut für Mathematik">](https://www.mathematik.tu-clausthal.de)
+[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_TUClausthal.svg" height="75" width="403" title="Technische Universität Clausthal - Institut für Mathematik" alt="Technische Universität Clausthal - Institut für Mathematik">](https://www.mathematik.tu-clausthal.de)
 
-[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_HDa.svg" height="75" title="Hochschule Darmstadt - Fachbereich Mathematik und Naturwissenschaften">](https://fbmn.h-da.de)
+[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_HDa.svg" height="75" width="530" title="Hochschule Darmstadt - Fachbereich Mathematik und Naturwissenschaften" alt="Hochschule Darmstadt - Fachbereich Mathematik und Naturwissenschaften">](https://fbmn.h-da.de)
