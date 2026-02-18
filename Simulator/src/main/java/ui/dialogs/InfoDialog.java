@@ -25,6 +25,7 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -133,7 +134,7 @@ public class InfoDialog extends JDialog {
 
 		/* Installationsverzeichnis */
 		list.add(Language.tr("InfoDialog.InstallFolder")+": "+SetupData.getProgramFolder());
-		list.add(Language.tr("InfoDialog.ConfigFile")+": "+SetupData.getSetupFolder()+SetupData.SETUP_FILE_NAME);
+		list.add(Language.tr("InfoDialog.ConfigFile")+": "+SetupData.getSetupFolder()+File.separatorChar+SetupData.SETUP_FILE_NAME);
 		final String mode;
 		switch (SetupData.getOperationMode()) {
 		case PROGRAM_FOLDER_MODE: mode=Language.tr("InfoDialog.InstallMode.ProgramFolder"); break;
