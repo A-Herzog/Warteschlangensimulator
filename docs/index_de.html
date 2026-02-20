@@ -14,6 +14,8 @@
   <link href="./libs/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" rel="stylesheet">
   <link href="./libs/bootstrap-icons.min.css" integrity="sha384-CK2SzKma4jA5H/MXDUU7i1TqZlCFaD4T01vtyDFvPlD97JQyS+IsSh1nI2EFbpyk" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
   <script defer src="./libs/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"></script>
+  <link href="badge-eu-de.svg" rel="preload" as="image" type="image/svg+xml">
+  <link href="https://raw.githubusercontent.com/A-Herzog/Warteschlangensimulator/master/Images/Screenshot_de_small.webp" rel="preload" as="image" type="image/webp">
   <script>
     let selectedLanguage=localStorage.getItem('selectedLanguage');
     if (selectedLanguage==null) selectedLanguage=navigator.language || navigator.userLanguage;
@@ -22,6 +24,8 @@
   <style>
     .navbar-brand {font-size: 140%; font-weight: 600; padding-right: 30px;}
     #logo {width: 32px; height: 32px; background: white; padding: 5px; border-radius: 2px;}
+    #eu-image {width: 42px; height: 42px;}
+    @media (max-width: 1024px) {#eu-image {display: none;}}
     h2 {margin-top: 40px;}
     h3 {margin-top: 40px;}
     .h4 {margin-top: 40px;}
@@ -29,7 +33,9 @@
     div.anchor {scroll-margin-top: 100px;}
     .zoom {transition: all 0.1s ease-in-out;}
     .zoom:hover {transform: scale(1.025);}
-	.container {margin-top: 20px;}
+    .zoom-big {transition: all 0.1s ease-in-out;}
+    .zoom-big:hover {transform: scale(1.6);}
+	  .container {margin-top: 20px;}
     .container a {text-decoration: none;}
     .container a:hover {text-decoration: underline;}
     a.btn:hover {text-decoration: none;}
@@ -39,8 +45,8 @@
     .video_placeholder img {aspect-ratio: 16/9; width: 90%; cursor: pointer;}
     .video_placeholder div.playbutton {position: absolute; top: 50%; left: 45%; transform: translate(-50%, -50%); font-size: 800%; opacity: 33%; cursor: pointer; transition: 0.5s;}
     .video_placeholder:hover div.playbutton {color: red; opacity: 90%;}
-	.mt15 {margin-top: 15px;}
-	.mt30 {margin-top: 30px;}
+  	.mt15 {margin-top: 15px;}
+	  .mt30 {margin-top: 30px;}
   </style>
 </head>
 
@@ -48,18 +54,21 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top" id="navbar_main"><div class="container-fluid">
   <span class="navbar-brand mb-0 h1">
-    <img src=" data:image/webp;base64,UklGRoIBAABXRUJQVlA4WAoAAAAIAAAAIAAAIAAAVlA4TIYAAAAvIAAIACcgEEhSn3wNAkmbLfqK/wKCouuWm/+Axu6vAkdtJElS9kFghsGUmkE2gJQ2+aMaVc1e/4j+T0CUe+Z84CrFcXdkr6eyR1TOqxal+yecXGFHdCRlwNHFsSmOTWETKydy5LBJ6j0iyfEBM4VNUqVXTiLn6vK05WkLNlZHUgGs6FH+X0VYSUbWAAAASUkqAAgAAAAGABIBAwABAAAAAQAAABoBBQABAAAAVgAAABsBBQABAAAAXgAAACgBAwABAAAAAgAAADEBAgAQAAAAZgAAAGmHBAABAAAAdgAAAAAAAABgAAAAAQAAAGAAAAABAAAAcGFpbnQubmV0IDUuMC4yAAUAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAAAqAEAAEAAAAhAAAAA6AEAAEAAAAhAAAABaAEAAEAAAC4AAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAAA==" id="logo" alt="Warteschlangensimulator" title="Warteschlangensimulator">
+    <img src="data:image/webp;base64,UklGRoIBAABXRUJQVlA4WAoAAAAIAAAAIAAAIAAAVlA4TIYAAAAvIAAIACcgEEhSn3wNAkmbLfqK/wKCouuWm/+Axu6vAkdtJElS9kFghsGUmkE2gJQ2+aMaVc1e/4j+T0CUe+Z84CrFcXdkr6eyR1TOqxal+yecXGFHdCRlwNHFsSmOTWETKydy5LBJ6j0iyfEBM4VNUqVXTiLn6vK05WkLNlZHUgGs6FH+X0VYSUbWAAAASUkqAAgAAAAGABIBAwABAAAAAQAAABoBBQABAAAAVgAAABsBBQABAAAAXgAAACgBAwABAAAAAgAAADEBAgAQAAAAZgAAAGmHBAABAAAAdgAAAAAAAABgAAAAAQAAAGAAAAABAAAAcGFpbnQubmV0IDUuMC4yAAUAAJAHAAQAAAAwMjMwAaADAAEAAAABAAAAAqAEAAEAAAAhAAAAA6AEAAEAAAAhAAAABaAEAAEAAAC4AAAAAAAAAAIAAQACAAQAAABSOTgAAgAHAAQAAAAwMTAwAAAAAA==" id="logo" alt="Warteschlangensimulator" title="Warteschlangensimulator">
 	Warteschlangensimulator
   </span>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav me-auto mb-4 mb-lg-0">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav me-auto mb-4 mb-lg-0">
     <li class="nav-item"><a class="nav-link bi-house-door" href="#Home" data-bs-target="#Home"> Start</a></li>
     <li class="nav-item"><a class="nav-link bi-download" href="#Download" data-bs-target="#Download"> Download</a></li>
     <li class="nav-item"><a class="nav-link bi-card-checklist" href="#Features" data-bs-target="#Features"> Funktionen</a></li>
     <li class="nav-item"><a class="nav-link bi-film" href="#Videos"> Videos</a></li>
     <li class="nav-item"><a class="nav-link bi-question-circle" href="#Support" data-bs-target="#Support"> Unterstützung</a></li>
     <li class="nav-item"><a class="nav-link bi-github" href="https://github.com/A-Herzog/Warteschlangensimulator" target="_blank" title="Warteschlangensimulator GitHub page"> GitHub</a></li>
-  </ul></div>
+  </ul>
+  <div class="d-flex"><img src="badge-eu-de.svg" id="eu-image" class="zoom-big" width="42" height="42" alt="Free and opensource, made in the EU" title="Free and open source, made in the EU" data-bs-toggle="tooltip" data-bs-placement="left"></div>
+  </div>
 </div></nav>
 
 <main>
@@ -525,6 +534,8 @@ function loadVideo(element,video) {
   for (let div of element.querySelectorAll('div')) element.removeChild(div);
   videoElement.play();
 }
+
+window.addEventListener("load",()=>[...document.querySelectorAll('[data-bs-toggle="tooltip"]')].map(el=>{el.dataset.bsTitle=el.title; new bootstrap.Tooltip(el);}));
 </script>
 
 </body>
