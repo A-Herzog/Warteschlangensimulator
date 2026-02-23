@@ -7,22 +7,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 import java.util.TimeZone;
 
 import javax.swing.JComponent;
-import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import org.jdatepicker.impl.JDatePanelImpl;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.UtilDateModel;
+import org.jdatepicker.JDatePicker;
+import org.jdatepicker.UtilDateModel;
 
-import language.Language;
 import mathtools.TimeTools;
 import tools.DateTools;
 import ui.EditorPanelBase;
@@ -31,7 +26,7 @@ import ui.modeleditor.ModelElementBaseDialog;
 /**
  * Dieses Panel stellt einen Datum- &amp; Zeit-Editor dar.
  * @author Alexander Herzog
- * @version 1.1
+ * @version 1.2
  */
 public class DateTimePanel extends JPanel {
 	/**
@@ -54,16 +49,20 @@ public class DateTimePanel extends JPanel {
 	public DateTimePanel(final boolean readOnly) {
 		super(new FlowLayout(FlowLayout.LEFT));
 
+		/*
 		Properties i18nStrings=new Properties();
 		i18nStrings.setProperty("text.today",Language.tr("DateTimeEditor.Today"));
 		i18nStrings.setProperty("text.month",Language.tr("DateTimeEditor.Month"));
 		i18nStrings.setProperty("text.year",Language.tr("DateTimeEditor.Year"));
+		final JDatePaneldatePanel=new JDatePanel(dateModel,i18nStrings);
+		final JDatePicker datePicker=new JDatePicker(datePanel,new DateLabelFormatter());
+		 */
 		dateModel=new UtilDateModel();
-		final JDatePanelImpl datePanel=new JDatePanelImpl(dateModel,i18nStrings);
-		final JDatePickerImpl datePicker=new JDatePickerImpl(datePanel,new DateLabelFormatter());
+		final JDatePicker datePicker=new JDatePicker(dateModel);
 		datePicker.setEnabled(!readOnly);
 		if (readOnly) for (Component component: datePicker.getComponents()) if (component instanceof JComponent) ((JComponent)component).setEnabled(false);
 		datePicker.addActionListener(e->fireChangeListener());
+		dateModel.addChangeListener(e->fireChangeListener());
 		add(datePicker);
 
 		add(timeEdit=new JTextField(8));
@@ -89,26 +88,9 @@ public class DateTimePanel extends JPanel {
 		setDate(ms);
 	}
 
-	/**
-	 * Klasse zur Formatierung von Datumsangaben
-	 * @see JDatePickerImpl
-	 */
+	/*
 	private static class DateLabelFormatter extends AbstractFormatter {
-		/**
-		 * Serialisierungs-ID der Klasse
-		 * @see Serializable
-		 */
 		private static final long serialVersionUID = -6177382334742454499L;
-
-		/**
-		 * Konstruktor der Klasse
-		 */
-		public DateLabelFormatter() {
-			/*
-			 * Wird nur benötigt, um einen JavaDoc-Kommentar für diesen (impliziten) Konstruktor
-			 * setzen zu können, damit der JavaDoc-Compiler keine Warnung mehr ausgibt.
-			 */
-		}
 
 		@Override
 		public Object stringToValue(String text) {
@@ -122,6 +104,7 @@ public class DateTimePanel extends JPanel {
 			return DateTools.formatUserDateShort(((Calendar)value).getTimeInMillis()+TimeZone.getDefault().getRawOffset());
 		}
 	}
+	 */
 
 	/**
 	 * Stellt den aktuellen Datum-Uhrzeit-Wert ein.
@@ -131,7 +114,9 @@ public class DateTimePanel extends JPanel {
 	public void setDate(final long ms) {
 		final Date[] parts=DateTools.split(ms);
 
+		dateModel.setSelected(true); /* Sonst führt das setValue(...) zu keiner Änderung im Textfeld */
 		dateModel.setValue(DateTools.toDate(DateTools.toMS(parts[0])+TimeZone.getDefault().getRawOffset()));
+
 		lastValidTime=DateTools.toMS(parts[1])/1000;
 		timeEdit.setText(TimeTools.formatTime(lastValidTime));
 	}

@@ -194,6 +194,7 @@ public class ModelElementAnimationTextValueDialog extends ModelElementBaseDialog
 		line.add(optionDate=new JRadioButton(Language.tr("Surface.AnimationText.Dialog.CurrentSimulationDate")));
 		optionDate.setEnabled(!readOnly);
 		line.add(dateTime=new DateTimePanel(readOnly,DateTools.getNow(false)));
+		dateTime.addChangeListener(e->{optionDate.setSelected(true); checkData(false);});
 
 		final ButtonGroup buttonGroup=new ButtonGroup();
 		buttonGroup.add(optionExpression);
