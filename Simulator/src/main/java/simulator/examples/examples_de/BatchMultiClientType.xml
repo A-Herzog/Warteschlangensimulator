@@ -80,7 +80,7 @@ zurückgeroutet.</ModellBeschreibung>
     <ModellElementVerzweigenJS id="12">
       <ModellElementGroesse h="50" w="100" x="500" y="250"/>
       <ModellElementVerzweigenSkript Sprache="Javascript">let batchContent=Simulation.clientBatchTypeNames();
-let exit=2;
+let exit=3;
 if (batchContent.indexOf("Kunden A")&gt;=0) exit=1;
 if (batchContent.indexOf("Kunden B")&gt;=0) exit=2;
 Output.print(exit);</ModellElementVerzweigenSkript>
@@ -183,7 +183,7 @@ Output.print(exit);</ModellElementVerzweigenSkript>
       <ModellElementVerbindung Element1="21" Element2="30" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="32">
-      <ModellElementGroesse h="48" w="207" x="50" y="165"/>
+      <ModellElementGroesse h="48" w="212" x="50" y="165"/>
       <ModellElementTextzeile>Es werden direkt zu Beginn 3 Bediener</ModellElementTextzeile>
       <ModellElementTextzeile>generiert, die in dem geschlossenen</ModellElementTextzeile>
       <ModellElementTextzeile>Teil des Modells zirkulieren.</ModellElementTextzeile>
@@ -201,19 +201,19 @@ Output.print(exit);</ModellElementVerzweigenSkript>
       <ModellElementVerbindung Element1="12" Element2="33" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="37">
-      <ModellElementGroesse h="23" w="573" x="50" y="50"/>
+      <ModellElementGroesse h="23" w="575" x="50" y="50"/>
       <ModellElementTextzeile>Kombiniertes offenes und geschlossenes Warteschlangensystem</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="39">
-      <ModellElementGroesse h="21" w="304" x="305" y="105"/>
+      <ModellElementGroesse h="21" w="306" x="305" y="105"/>
       <ModellElementTextzeile>Kunden und Bediener zusammenführen</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">16</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="40">
-      <ModellElementGroesse h="64" w="163" x="50" y="470"/>
+      <ModellElementGroesse h="64" w="169" x="50" y="470"/>
       <ModellElementTextzeile>Die beiden Quellen generieren</ModellElementTextzeile>
       <ModellElementTextzeile>fortwährend Kunden, die das</ModellElementTextzeile>
       <ModellElementTextzeile>System durchlaufen und es</ModellElementTextzeile>
@@ -265,7 +265,7 @@ Output.print(exit);</ModellElementVerzweigenSkript>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="49">
-      <ModellElementGroesse h="95" w="585" x="750" y="500"/>
+      <ModellElementGroesse h="95" w="591" x="750" y="500"/>
       <ModellElementTextzeile>In dem Modell treffen Kunden der Typen A und B ein, die durch 3 Bediener bedient werden.</ModellElementTextzeile>
       <ModellElementTextzeile>Es werden dabei temporäre Batch von je einem Kunden und einem Bediener gebildet.</ModellElementTextzeile>
       <ModellElementTextzeile>Kunde und Bediener bewegen sich gemeinsam durch das System. Am Ausgang werden die</ModellElementTextzeile>
@@ -276,35 +276,35 @@ Output.print(exit);</ModellElementVerzweigenSkript>
     </ModellElementText>
     <ModellElementAnimationText id="50">
       <ModellElementName>Mittlere Wartezeit der Kunden A</ModellElementName>
-      <ModellElementGroesse h="30" w="133" x="550" y="505"/>
+      <ModellElementGroesse h="30" w="131" x="550" y="505"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="51">
       <ModellElementName>Mittlere Wartezeit der Kunden B</ModellElementName>
-      <ModellElementGroesse h="30" w="133" x="550" y="555"/>
+      <ModellElementGroesse h="30" w="131" x="550" y="555"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">WaitingTime_avg(2)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="52">
       <ModellElementName>Mittlere Auslastung der Bediener</ModellElementName>
-      <ModellElementGroesse h="30" w="137" x="300" y="600"/>
+      <ModellElementGroesse h="30" w="134" x="300" y="600"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Prozentwert">(3-WIP_avg(7;3))/3</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="53">
       <ModellElementName>Mittlere Anzahl an wartenden Kunden A</ModellElementName>
-      <ModellElementGroesse h="30" w="165" x="300" y="500"/>
+      <ModellElementGroesse h="30" w="161" x="300" y="500"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">WIP_avg(7;1)</ModellElementAnimationsmodus>
     </ModellElementAnimationText>
     <ModellElementAnimationText id="54">
       <ModellElementName>Mittlere Anzahl an wartenden Kunden B</ModellElementName>
-      <ModellElementGroesse h="30" w="165" x="300" y="550"/>
+      <ModellElementGroesse h="30" w="161" x="300" y="550"/>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
       <ModellElementAnimationsmodus Art="Zahlenwert">WIP_avg(7;2)</ModellElementAnimationsmodus>
@@ -331,7 +331,7 @@ Output.print(exit);</ModellElementVerzweigenSkript>
   <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
   <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
   <KiritischeStationenSignatur>
-    <SignaturStation Hash="YJOnAzBjw7FaKUWNJaRCbXkwpqKiwx3mCPG6sxEEK2o=" Signatur="Qy5CwULySh0KVsobm2k8xSpxmvSR3Zkxl55boeCjuhYKqe8V/LgWJiSTO7/sEXJPhghnvlkUw6dN08/oyuRp6cnuW0kCzD01dHNGKvx9rIEGVnHfgJ1RXXqtc4A4Xn7QIdrhm++tBxAAWcxcjWLVyBYNxDhaN5Ai0/K/m0/z+XYY9RPSFGAw4rnucoRW3DcRAXlZjE21cTIyHWUxXrx9FQ+F1rFG1e/Qom5dG/gc3nzTxGs8kHznsYTl3EUr9jgoWJjB6grG6nMM+HOTCabsp5CA1ylJwFpjmV4tuzePKiGVpi1FRHwzNmEJ6oqMAMwYZeL066lYAXCMz6xevZRV9qQZl82huhJrdlipH4ICmbYSy9NCIb7bu2aaf21uWzjKWXKaHQOjL/dPkD9wpHpZQ3pc4qxmjLJlMt7fUDHlI62lFSOn1XFRGC4iYAyihNobZhT85YPvBajwKCP4sGQDmx6YjoPYLxeN7ij+X2qtBpuPFYpzAURF3Xs8eXKvGleYAp/j4vyyBAo/jBu6FWubVbDbV8mLtcMceuVBnAaSaONuU4HnMMBO75qhHOySjRuHKyq5DBtHx0+fNWwvj8kOQ5PSwwv/onw72U+7HPTo9uVmdO6Pghk8kukrwdCA2Rrmljs8wXUEPqCocMYHa4XywqmasPo+XgZw/vmm8q/9c44=" id="12"/>
+    <SignaturStation Hash="0YlOzxlxlMEsnwlbxyTNyzYzMb2lTPJY3AkdM9i8b1A=" Signatur="XVXN5VLZEpBCvmMuyRWqq6sVe7r46Y3+7kbI8u232TxzL1WEexurjtxye7bSU/psrDqm81VijyMGPUdMPfmY7M9ySIL7BHBCAkRnNV13WLgeoVe1nyWTiHW+ID9S4RUmjge+eBG2T0W3W39hLeZP22RInqL32EKUWBojcpCCNTpdpQ37jhXjI8w3YbkerjhVymrflLwLLZ6PD3CzNjuWDCb1PnijFIpWbDGxFmixpz1MQeMpH7qohpkuPSX/3kKiXkVpatjiAJf9c4TlIgO6ZOZ9f97pAMB1OhFMSpNeynHrZreLJjOe7DWXayy8NSe79VLPNWnL62tbjQ6VHat1R8OcGXfsHmoTH1rApoVaaSNsU+LCj2NVTTDz1EWUmXRoaA3cGMr0Rbsym396utJyzVX//yBE3Lik2d580fqqz0Ud8nKdYwEISmFgOsB8CqJNWaROnHWgBziD0Tm9d5ndCN2e3jxZwRLCr0bIv3uoKmUleWAELFD3HdPOWp5lfxtWTF+rDD5vB+8eDjN7PL2gXv87svbhV8i4LNu4yynS/F8riqIHFoijiQJpD0+vV9/lRTjUaxxhhkwZLAaOSyQeQ9bGIg2muFZH7Kt18Wo8TJWwc4d+gTSGn9t/bMbbE7LOnDUsgBQtH/CaXptmHs3gqSiN95X+X3qdljeX7yS8Z+g=" id="12"/>
     <SignaturNutzername Signatur="XkYku6zTX13zuQjd3RvuPJdBkoWYzyy/55FfTzsvCtW5lmYtwtTawDFQCgxZDY9yOOZFfiH9xkTSpi4mFjFhxYyxphr1z/WdS40n6sVzYjfxgYBd3wfoSB0jMMlJTVgBxq6FBUFWwqLbXCYHUMj+3QuHiosT31TLtAS+k3/k/puLnUkCCjHUOsV6Yi8bbqOqJ6YOPeg1xpfk7UTVVl8gINpDiNn7T255dGpokE1W9aahmUv8yeATcqhoDV5iJHce2DHQNwAADR2GScnwSDXtrwIrk1B8ZPcbCpL4vsN+xNyr24EUyvx4RsAvvf3URVsHjVg5O/zosyfkOVTWreFUIDeiUd7befieVhwmJos8xzrSwy/LEop3H6BDW77HrWJWRjlLy8CapIAs5KrmsLjzsR5/4IhvICt57jbIDVEqacOdxCsmsRfoBGxXN37jDajRJPPZ018acu343GsoRHE0TX/SH1vrrLftigXfkO9YQAU7PmO2zvoOtt5Zh8aZmdErTHLjiWp333T5iwxsdFfD2kXca6VUkQYYlWS5MUAN3o2yGnxjw1pRUynG9ucw5kC/waHHLVEMe6WXHNfOUsOsWWZEthHCHiz/4Uif3uBOJk8ucNft9SM1b60YYut74JG/5C0CNhzVQQi6OXaBa5Xwev/Q7qiJKo/ez+bqMXwJOhI=">Alexander Herzog</SignaturNutzername>
     <SignaturOeffentlicherSchluessel>MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAi9Dd2kqC9Kha2/jfGKX5cWmqSDpgqUW1dBmGaA0LvYb1/mDMPwXbBx3xrmsvaRm3VtgCktftPAEhGqec0isrN1HLefxNyYN0g71OAAYkxvd8wv+QbhZidHMONLabBRAfT+nqlr4r78gGcSlcE1QVQMAxSQAsR8pKdV3QDGuP6qjh3xZRO3TSatAqIfZx5HJZSFVez5KMk6kLY16kw4BTdao2Ubsm7Rh3zF1/u2RP6jrRDprkOgSRZJSJWgmWFGvrOJ8UwTWRElPSoAyrJ5ySCNzEu/Q+j1Uz4BwaOo88D4bCHP3L41fFr0T42m/D8H/k7ngmC3SzKD1HM3D510gK2pG0vmIRQg2SwI8Yg7/upD0MtsZAIBThkweJ1Xgd1AV1deSTWAhOgwUQ+6ULCDA/qy7K8Hm7D+pZ1N1a4jpNxno5nGuhIrU8ztJ2wffQ2mDIgqRHhfhUxcptxtkKyOMFyWPYUGAfNSuu/0caOb06jaEGlL0ZqtlYWKZgiaxQylMeEyF+29t2KghJt9O+sUf33r10maOmbnz/asRfCtyqg9JkH0K4H/5Ojap3tlt8NpmteVnZbQSc7wL+CkWXtdXHIBcFqt/otBp6qQKZgUX27SS16untBS/pUC5bl6eSRok1WjrMSacY29tZ5Yjz0gCMiiussTRaA6ICcC+JbAuzWK0CAwEAAQ==</SignaturOeffentlicherSchluessel>
   </KiritischeStationenSignatur>

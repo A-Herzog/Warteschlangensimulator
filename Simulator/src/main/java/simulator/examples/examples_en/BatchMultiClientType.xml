@@ -80,7 +80,7 @@ the operators are routed back to the start.</ModelDescription>
     <ModelElementDecideJS id="12">
       <ModelElementSize h="50" w="100" x="500" y="250"/>
       <ModelElementDecideScript Language="Javascript">let batchContent=Simulation.clientBatchTypeNames();
-let exit=2;
+let exit=3;
 if (batchContent.indexOf("Clients A")&gt;=0) exit=1;
 if (batchContent.indexOf("Clients B")&gt;=0) exit=2;
 Output.print(exit);</ModelElementDecideScript>
@@ -183,7 +183,7 @@ Output.print(exit);</ModelElementDecideScript>
       <ModelElementConnection Element1="21" Element2="30" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="32">
-      <ModelElementSize h="48" w="204" x="50" y="165"/>
+      <ModelElementSize h="48" w="208" x="50" y="165"/>
       <ModelElementTextLine>Three operators are generated right at</ModelElementTextLine>
       <ModelElementTextLine>the beginning, which circulate in the</ModelElementTextLine>
       <ModelElementTextLine>closed part of the model.</ModelElementTextLine>
@@ -201,19 +201,19 @@ Output.print(exit);</ModelElementDecideScript>
       <ModelElementConnection Element1="12" Element2="33" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="37">
-      <ModelElementSize h="23" w="398" x="50" y="50"/>
+      <ModelElementSize h="23" w="396" x="50" y="50"/>
       <ModelElementTextLine>Combined open and closed queueing system</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="39">
-      <ModelElementSize h="21" w="238" x="305" y="105"/>
+      <ModelElementSize h="21" w="235" x="305" y="105"/>
       <ModelElementTextLine>Matching clients and operators</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">16</ModelElementFontSize>
       <ModelElementColor>255,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="40">
-      <ModelElementSize h="64" w="159" x="50" y="470"/>
+      <ModelElementSize h="64" w="163" x="50" y="470"/>
       <ModelElementTextLine>The two sources continuously</ModelElementTextLine>
       <ModelElementTextLine>generate clients who pass</ModelElementTextLine>
       <ModelElementTextLine>through the system and then</ModelElementTextLine>
@@ -265,7 +265,7 @@ Output.print(exit);</ModelElementDecideScript>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="49">
-      <ModelElementSize h="95" w="471" x="750" y="500"/>
+      <ModelElementSize h="95" w="477" x="750" y="500"/>
       <ModelElementTextLine>In the model, clients  of types A and B arrive and are served by 3 operators.</ModelElementTextLine>
       <ModelElementTextLine>Temporary batches of one client and one operator are formed.</ModelElementTextLine>
       <ModelElementTextLine>Clients and operator move through the system together. At the exit,</ModelElementTextLine>
@@ -276,41 +276,41 @@ Output.print(exit);</ModelElementDecideScript>
     </ModelElementText>
     <ModelElementAnimationText id="50">
       <ModelElementName>Average waiting time of the clients A</ModelElementName>
-      <ModelElementSize h="30" w="151" x="550" y="505"/>
+      <ModelElementSize h="30" w="154" x="550" y="505"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WaitingTime_avg(1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="51">
       <ModelElementName>Average waiting time of the clients B</ModelElementName>
-      <ModelElementSize h="30" w="151" x="550" y="555"/>
+      <ModelElementSize h="30" w="154" x="550" y="555"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WaitingTime_avg(2)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="52">
       <ModelElementName>Average utilization of the operators</ModelElementName>
-      <ModelElementSize h="30" w="147" x="300" y="600"/>
+      <ModelElementSize h="30" w="146" x="300" y="600"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Percent value">(3-WIP_avg(7;3))/3</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="53">
       <ModelElementName>Average number of waiting clients A</ModelElementName>
-      <ModelElementSize h="30" w="150" x="300" y="500"/>
+      <ModelElementSize h="30" w="151" x="300" y="500"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WIP_avg(7;1)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementAnimationText id="54">
       <ModelElementName>Average number of waiting clients B</ModelElementName>
-      <ModelElementSize h="30" w="150" x="300" y="550"/>
+      <ModelElementSize h="30" w="151" x="300" y="550"/>
       <ModelElementFontSize>14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
       <ModelElementAnimationMode Type="Number">WIP_avg(7;2)</ModelElementAnimationMode>
     </ModelElementAnimationText>
     <ModelElementText id="55">
-      <ModelElementSize h="38" w="261" x="300" y="650"/>
+      <ModelElementSize h="38" w="259" x="300" y="650"/>
       <ModelElementTextLine>With 2\times E[I]=60, E[S]=50 and c=3 follows:</ModelElementTextLine>
       <ModelElementTextLine>\rho=\frac{E[S]}{E[I]\cdot c}=\frac{50}{30\cdot 3}\approx55.5%</ModelElementTextLine>
       <ModelElementFontSize LaTeX="1" Symbols="1">14</ModelElementFontSize>
@@ -333,7 +333,7 @@ Output.print(exit);</ModelElementDecideScript>
   <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
   <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
   <CriticalStationsSignature>
-    <SignatureStation Hash="EH8/gDgpPWFOx9GIt++UDw5yys8KYSL8FH6v3DO25y8=" Signature="b+k31nesssbXdvnHGmLW0EWZl59a+MwpR2yELqTgZC90+7pGMBYbx+78+vZ+0vLjXaaFt9DA48J/3MiU+qeBSPj5x8tnwtyv6g3fQlpDdfJq67eMGs0fHgET9tHz9PeMRaXgjqQA8MlBlnhjQsNk/8GMmf026AfmfF+mjytM1ZI/RADsh+2vXTmWlw9NuPfI4K5FyF75G0Snv3Q07m4ZTbd3FdR7Z4yRaer2g1EqlcaYhLJWCosrMLYkOr61Pbi2pyH81eeYlpZQQi1cwHBByjCn8CZPnkLftaJIWQgcMUSkmz//n/Xoq83fryog2PUYzxwKytEAA7iHJpriNJG6xrC+ZurbI85J2Z8Dq+Negh8r39Kt24ENjP+ueKyG+hpr36Gj0lKcO5nCx+WE0JU5rP8pQdmyrc9ui62IFWGHL9u19J2eVJNKusYnybSQwfNmQRe/rlWtQqNghoE7Xhr8/CAF+cV3yXWF3ZFKndQvW/5gWrOzkSIUMVdwVa0qLk9eii10KF0hxcZS7Zsb1vQAUv5ugmVZLlQ4bbjVL3nLdG9oxWhzOTGhGZFhYuJ7NXAg4mpRigKjKmOYF4PN+R0gxoCumYgvmsB2SA+Evso32C9Ka5IgiZEFnS5P1pZtOC9wemOPd7Nu3kplm9WBrLptpU5irHiclW4yujy2xbNVbac=" id="12"/>
+    <SignatureStation Hash="PoEdo49szoubmpGn5jadOpLkU8o67tQGHSoFwWzI458=" Signature="XGCZwIX6Y12QQOtCb4WTkMPIfB6/IiqzxSEqM28GKrhGozSPqFPDpn+2/R7lyULu/BMJuGhsAdekLMiwTc/M0ruJJ9DhCUAAIkFJCGPQNZ8ADtle0ThHHET/JTXfzAqjxETCVs5METjjL5CAuMWMlHR2pCWEq7TGZiK+MtcPq1p2jP81wYuX8LwqGzNtElq7o0dqe8VilbFyaf1Jp7KjT0Hp0YNJMv2a3ECFtW9OdOYRGdKATuY/1/ivWhDYL7HoBABvJjRUcl2LUA+E03xrMl3RCWGmT9rFIAGU0kRBF2JLLEGBWzklIRmRcT4tBU0dccyCTlnTIYq0d7apjEtpjEFXwlaY2ecZJmAOyaVAD7nLm1Q7engZAI6som/efZv5HuJD/ptZ4/Igo1PUiZw2LFAcbmE2OjKm/qZGJl+vLr6pOyUVjbnjypEuAN4CzNCjlcN5wJ9tHn6T63RPmBquYUSFz9OBfzXtBN5c563opZBUCCripD7iKdcy6ugIUJlJPIYRJRttkC/vuf08pn0s0Pdd8Dg+g7+mlvXJvuWFdm0Wcmu1D9X3kQFT1nk8+RQ6qTlUJTK+GiB6riByxi+lzQmRNO5Hwms7S/u2y+bo1/aPoA3gRQnnbMO3RNPDtFAhAGhYkXdnSjhlTy3zk0Tx1rMB2YvmONM0EvOaBqPM3Ow=" id="12"/>
     <SignatureUserName Signature="XkYku6zTX13zuQjd3RvuPJdBkoWYzyy/55FfTzsvCtW5lmYtwtTawDFQCgxZDY9yOOZFfiH9xkTSpi4mFjFhxYyxphr1z/WdS40n6sVzYjfxgYBd3wfoSB0jMMlJTVgBxq6FBUFWwqLbXCYHUMj+3QuHiosT31TLtAS+k3/k/puLnUkCCjHUOsV6Yi8bbqOqJ6YOPeg1xpfk7UTVVl8gINpDiNn7T255dGpokE1W9aahmUv8yeATcqhoDV5iJHce2DHQNwAADR2GScnwSDXtrwIrk1B8ZPcbCpL4vsN+xNyr24EUyvx4RsAvvf3URVsHjVg5O/zosyfkOVTWreFUIDeiUd7befieVhwmJos8xzrSwy/LEop3H6BDW77HrWJWRjlLy8CapIAs5KrmsLjzsR5/4IhvICt57jbIDVEqacOdxCsmsRfoBGxXN37jDajRJPPZ018acu343GsoRHE0TX/SH1vrrLftigXfkO9YQAU7PmO2zvoOtt5Zh8aZmdErTHLjiWp333T5iwxsdFfD2kXca6VUkQYYlWS5MUAN3o2yGnxjw1pRUynG9ucw5kC/waHHLVEMe6WXHNfOUsOsWWZEthHCHiz/4Uif3uBOJk8ucNft9SM1b60YYut74JG/5C0CNhzVQQi6OXaBa5Xwev/Q7qiJKo/ez+bqMXwJOhI=">Alexander Herzog</SignatureUserName>
     <SignaturePublicKey>MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAi9Dd2kqC9Kha2/jfGKX5cWmqSDpgqUW1dBmGaA0LvYb1/mDMPwXbBx3xrmsvaRm3VtgCktftPAEhGqec0isrN1HLefxNyYN0g71OAAYkxvd8wv+QbhZidHMONLabBRAfT+nqlr4r78gGcSlcE1QVQMAxSQAsR8pKdV3QDGuP6qjh3xZRO3TSatAqIfZx5HJZSFVez5KMk6kLY16kw4BTdao2Ubsm7Rh3zF1/u2RP6jrRDprkOgSRZJSJWgmWFGvrOJ8UwTWRElPSoAyrJ5ySCNzEu/Q+j1Uz4BwaOo88D4bCHP3L41fFr0T42m/D8H/k7ngmC3SzKD1HM3D510gK2pG0vmIRQg2SwI8Yg7/upD0MtsZAIBThkweJ1Xgd1AV1deSTWAhOgwUQ+6ULCDA/qy7K8Hm7D+pZ1N1a4jpNxno5nGuhIrU8ztJ2wffQ2mDIgqRHhfhUxcptxtkKyOMFyWPYUGAfNSuu/0caOb06jaEGlL0ZqtlYWKZgiaxQylMeEyF+29t2KghJt9O+sUf33r10maOmbnz/asRfCtyqg9JkH0K4H/5Ojap3tlt8NpmteVnZbQSc7wL+CkWXtdXHIBcFqt/otBp6qQKZgUX27SS16untBS/pUC5bl6eSRok1WjrMSacY29tZ5Yjz0gCMiiussTRaA6ICcC+JbAuzWK0CAwEAAQ==</SignaturePublicKey>
   </CriticalStationsSignature>
