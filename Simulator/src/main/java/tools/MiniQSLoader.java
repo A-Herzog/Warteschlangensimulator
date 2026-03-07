@@ -738,12 +738,14 @@ public class MiniQSLoader {
 
 			final int release=loadInt(setup,"release");
 			final int signalNr=loadInt(setup,"signal");
+			final int signalRelease=Math.max(1,loadInt(setup,"signalRelease"));
 			final boolean storeSignals=loadBoolean(setup,"storeSignals",true);
 			if (release<0 || signalNr<=0) return null;
 
 			final ModelElementBarrier element=new ModelElementBarrier(model,model.surface);
 			final ModelElementBarrierSignalOption option=new ModelElementBarrierSignalOption();
 			option.setInitialClients(release);
+			option.setClientsPerSignal(signalRelease);
 			option.setStoreSignals(storeSignals);
 			element.getOptions().add(option);
 			element.setName(name);
