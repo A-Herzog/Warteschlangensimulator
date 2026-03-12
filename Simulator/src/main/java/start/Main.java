@@ -212,6 +212,7 @@ public class Main {
 		FlatLaFHelper.setCombinedMenuBar(setup.lookAndFeelCombinedMenu);
 		GUITools.setupUI(setup.lookAndFeel);
 		FlatLaFHelper.setup();
+		FlatLaFHelper.activateFlatLafFileChooser(setup.lookAndFeelSystemFileChooser);
 
 		/* Skalierung */
 		GUITools.setupFontSizeFixSystemScaling();

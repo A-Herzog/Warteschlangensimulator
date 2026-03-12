@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-01 10:19+0100\n"
+"POT-Creation-Date: 2026-03-12 00:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3259,15 +3259,6 @@ msgstr "Local settings"
 
 msgid "DataPrivacy.Title"
 msgstr "Edit data privacy settings"
-
-msgid "DateTimeEditor.Month"
-msgstr "Month"
-
-msgid "DateTimeEditor.Today"
-msgstr "Today"
-
-msgid "DateTimeEditor.Year"
-msgstr "Year"
 
 msgid "Dialog.Button.Abort"
 msgstr "Abort"
@@ -38856,6 +38847,9 @@ msgstr "Show quick filter"
 msgid "SystemInfo.Tools.UserInterface.UseColorsInCommandLineConsoleOutput"
 msgstr "Use colors in command-line console output"
 
+msgid "SystemInfo.Tools.UserInterface.UseSystemFileChooser"
+msgstr "Use system file chooser dialog (only available in FlatLaf themes)"
+
 msgid "SystemInfo.UserDefinedCode"
 msgstr "User-defined code"
 
@@ -40168,6 +40162,15 @@ msgstr "The file format is unknown respectively is not matching to any of the fi
 
 #~ msgid "CalculatorDialog.Tab.Distributions.GenerateTable.SaveTitle"
 #~ msgstr "Save value table"
+
+#~ msgid "DateTimeEditor.Month"
+#~ msgstr "Month"
+
+#~ msgid "DateTimeEditor.Today"
+#~ msgstr "Today"
+
+#~ msgid "DateTimeEditor.Year"
+#~ msgstr "Year"
 
 #~ msgid "Distribution.ChiQuare"
 #~ msgstr "Chi^2 distribution"

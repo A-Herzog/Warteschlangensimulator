@@ -18,6 +18,7 @@ package ui.tools;
 import java.awt.Component;
 import java.io.File;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -26,6 +27,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.commons.collections4.map.HashedMap;
 
 import com.formdev.flatlaf.util.SystemFileChooser;
+import com.formdev.flatlaf.util.SystemInfo;
 
 import mathtools.distribution.swing.FileChooserImpl;
 import mathtools.distribution.swing.PlugableFileChooser;
@@ -46,7 +48,7 @@ public class FileChooserImplFlatLaF implements FileChooserImpl {
 	 * werden und FileNameExtensionFilter-Objekten gemäß {@link SystemFileChooser},
 	 * um nach außen über {@link FileNameExtensionFilter}-Objekte kommunizieren zu können.
 	 */
-	private final Map<FileNameExtensionFilter,SystemFileChooser.FileNameExtensionFilter> filterMap;
+	private final Map<FileNameExtensionFilter,SystemFileChooser.FileFilter> filterMap;
 
 	/**
 	 * Konstruktor der Klasse
@@ -62,15 +64,39 @@ public class FileChooserImplFlatLaF implements FileChooserImpl {
 	}
 
 	/**
+	 * Der FlatLaF-SystemFileChooser erlaubt keinen "." innerhalb einer Extension.
+	 * Daher müssen wir diese leider ausfiltern.
+	 * @param description	Beschreibung für den Filter
+	 * @param extensions	Liste mit Extensions
+	 * @return	Gefilterte Liste mit Extensions
+	 */
+	private static SystemFileChooser.FileFilter makeExtensionsFlatLaFCompatible(final String description, final String[] extensions) {
+		if (Stream.of(extensions).filter(extension->extension.contains(".")).findFirst().isPresent()) {
+			/* "." in Erweiterungen müssen über einen PatternFilter behandelt werden - den es aber unter MacOS nicht gibt */
+			if (SystemInfo.isMacOS) {
+				final String[] extensionsNew=Stream.of(extensions).map(extension->extension.replace(".","-")).toArray(String[]::new);
+				return new SystemFileChooser.FileNameExtensionFilter(description,extensionsNew);
+			} else {
+				final String[] extensionsNew=Stream.of(extensions).map(extension->"*."+extension).toArray(String[]::new);
+				return new SystemFileChooser.PatternFilter(description,extensionsNew);
+			}
+		} else {
+			/* Keine besondere Verarbeitung nötig */
+			return new SystemFileChooser.FileNameExtensionFilter(description,extensions);
+		}
+	}
+
+
+	/**
 	 * Wandelt einen Filter gemäß {@link JFileChooser} in einen Filter gemäß {@link SystemFileChooser} um.
 	 * @param filter	Filter gemäß {@link JFileChooser}
 	 * @return	Filter gemäß {@link SystemFileChooser} (wird bei Bedarf neu angelegt)
 	 * @see #filterMap
 	 */
-	private SystemFileChooser.FileNameExtensionFilter toNewFilter(final FileFilter filter) {
+	private SystemFileChooser.FileFilter toNewFilter(final FileFilter filter) {
 		if (!(filter instanceof FileNameExtensionFilter)) return null;
 		final FileNameExtensionFilter oldFilter=(FileNameExtensionFilter)filter;
-		return filterMap.computeIfAbsent(oldFilter,old->new SystemFileChooser.FileNameExtensionFilter(old.getDescription(),old.getExtensions()));
+		return filterMap.computeIfAbsent(oldFilter,old->makeExtensionsFlatLaFCompatible(old.getDescription(),old.getExtensions()));
 	}
 
 	/**

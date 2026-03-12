@@ -994,6 +994,7 @@ public class MainPanel extends MainPanelBase {
 			FlatLaFHelper.setCombinedMenuBar(setup.lookAndFeelCombinedMenu);
 			GUITools.setupUI(setup.lookAndFeel);
 			FlatLaFHelper.setup();
+			FlatLaFHelper.activateFlatLafFileChooser(setup.lookAndFeelSystemFileChooser);
 			ElementRendererTools.reloadColors();
 			NumberTools.resetTextFieldDefaultBackground();
 		}

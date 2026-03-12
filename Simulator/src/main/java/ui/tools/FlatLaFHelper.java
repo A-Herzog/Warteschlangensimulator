@@ -36,6 +36,8 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
+import mathtools.distribution.swing.PlugableFileChooser;
+
 /**
  * Helferklasse die die Nutzung der Flag Look &amp; Feels
  * im Simulator erleichtert
@@ -141,15 +143,18 @@ public class FlatLaFHelper {
 				break;
 			}
 		}
+	}
 
-		// XXX
-		/*
-		Auf Korrektur von
-		https://github.com/JFormDesigner/FlatLaf/issues/1065
-		https://github.com/JFormDesigner/FlatLaf/issues/1076
-		warten.
-		PlugableFileChooser.fileChooserImplClass=FileChooserImplFlatLaF.class;
-		 */
+	/**
+	 * Aktiviert oder deaktiviert den SystemFileChooser von FlatLaF.
+	 * @param activate	SystemFileChooser aktivieren?
+	 */
+	public static void activateFlatLafFileChooser(final boolean activate) {
+		if (isActive() && activate) {
+			PlugableFileChooser.fileChooserImplClass=FileChooserImplFlatLaF.class;
+		} else {
+			PlugableFileChooser.fileChooserImplClass=PlugableFileChooser.fileChooserImplClassDefault;
+		}
 	}
 
 	/**

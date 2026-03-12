@@ -679,6 +679,9 @@ public class SystemInfoWindow extends JFrame {
 		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.HelpViewerTouchSupport"),setup.touchSupport));
 		check.addActionListener(e->{setup.touchSupport=!setup.touchSupport; setup.saveSetup();});
 
+		menu.add(check=new JCheckBoxMenuItem(Language.tr("SystemInfo.Tools.UserInterface.UseSystemFileChooser"),setup.lookAndFeelSystemFileChooser));
+		check.addActionListener(e->{setup.lookAndFeelSystemFileChooser=!setup.lookAndFeelSystemFileChooser; setup.saveSetup();});
+
 		/* Simulation */
 
 		menu.add(label=new JMenuItem("<html><b>"+Language.tr("SystemInfo.Tools.Simulation")+"</b></html>"));

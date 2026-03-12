@@ -371,6 +371,11 @@ public class SetupData extends SetupBase {
 	public boolean lookAndFeelCombinedMenu;
 
 	/**
+	 * Soll der SystemFileChooser von FlatLaF verwendet werden?
+	 */
+	public boolean lookAndFeelSystemFileChooser;
+
+	/**
 	 * Modell automatisch speichern?
 	 */
 	public AutoSaveMode autoSaveMode;
@@ -1546,6 +1551,7 @@ public class SetupData extends SetupBase {
 		scaleGUI=1;
 		lookAndFeel=getDefaultLookAndFeel();
 		lookAndFeelCombinedMenu=true;
+		lookAndFeelSystemFileChooser=true;
 		autoSaveMode=AutoSaveMode.AUTOSAVE_OFF;
 		hintDialogs="";
 		imageSize=2000;
@@ -2078,6 +2084,7 @@ public class SetupData extends SetupBase {
 			if (name.equals("lookandfeel")) {
 				lookAndFeel=e.getTextContent();
 				lookAndFeelCombinedMenu=loadBoolean(e.getAttribute("combinedMenu"),true);
+				lookAndFeelSystemFileChooser=loadBoolean(e.getAttribute("systemFileChooser"),true);
 				continue;
 			}
 
@@ -2950,10 +2957,11 @@ public class SetupData extends SetupBase {
 			node.setTextContent(NumberTools.localNumberToSystemNumber(NumberTools.formatNumber(scaleGUI)));
 		}
 
-		if ((lookAndFeel!=null && !lookAndFeel.isBlank() && !lookAndFeel.equals(getDefaultLookAndFeel())) || !lookAndFeelCombinedMenu) {
+		if ((lookAndFeel!=null && !lookAndFeel.isBlank() && !lookAndFeel.equals(getDefaultLookAndFeel())) || !lookAndFeelCombinedMenu || !lookAndFeelSystemFileChooser) {
 			root.appendChild(node=doc.createElement("LookAndFeel"));
 			if (lookAndFeel!=null) node.setTextContent(lookAndFeel);
 			if (!lookAndFeelCombinedMenu) node.setAttribute("combinedMenu","0");
+			if (!lookAndFeelSystemFileChooser) node.setAttribute("systemFileChooser","0");
 		}
 
 		if (autoSaveMode!=AutoSaveMode.AUTOSAVE_OFF) {
