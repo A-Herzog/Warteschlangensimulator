@@ -177,3 +177,5 @@ Eine Liste mit allen Veröffentlichungen zum Warteschlangensimulator finden Sie 
 [<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_TUClausthal.svg" height="75" width="403" title="Technische Universität Clausthal - Institut für Mathematik" alt="Technische Universität Clausthal - Institut für Mathematik">](https://www.mathematik.tu-clausthal.de)
 
 [<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_HDa.svg" height="75" width="530" title="Hochschule Darmstadt - Fachbereich Mathematik und Naturwissenschaften" alt="Hochschule Darmstadt - Fachbereich Mathematik und Naturwissenschaften">](https://fbmn.h-da.de)
+
+[<img src="https://a-herzog.github.io/Warteschlangensimulator/Logo_BASF_150.png" height="75" width="150" title="BASF" alt="BASF">](https://www.basf.com)
