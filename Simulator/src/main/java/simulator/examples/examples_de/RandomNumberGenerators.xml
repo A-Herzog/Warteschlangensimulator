@@ -2,7 +2,7 @@
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModellVersion>5.3.0</ModellVersion>
+  <ModellVersion>5.5.0</ModellVersion>
   <ModellName>Histogramme verschiedener Wahrscheinlichkeitsverteilungen</ModellName>
   <ModellBeschreibung>In diesem Modell werden Kunden an mehreren Verzögerung-Stationen jeweils
 gemäß verschiedenen Wahrscheinlichkeitsverteilungen verzögert. Die Zeitdauern
@@ -603,10 +603,23 @@ Werten und den Histogrammwerten vorliegen.</ModellBeschreibung>
       <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
+    <ModellElementText id="48">
+      <ModellElementGroesse h="16" w="350" x="650" y="1000"/>
+      <ModellElementTextzeile>**Interaktive Ansicht weiterer Wahrscheinlichkeitsverteilungen:**</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementLink id="49">
+      <ModellElementGroesse h="19" w="196" x="650" y="1020"/>
+      <ModellElementLinkText>a-herzog.github.io/Distributions</ModellElementLinkText>
+      <ModellElementLinkZiel>https://a-herzog.github.io/Distributions/</ModellElementLinkZiel>
+      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+    </ModellElementLink>
   </ModellElemente>
   <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
   <KundentypenDaten/>
   <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
   <ModellKantenSelektiert Breite="1" Typ="0"/>
   <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
 </Modell>

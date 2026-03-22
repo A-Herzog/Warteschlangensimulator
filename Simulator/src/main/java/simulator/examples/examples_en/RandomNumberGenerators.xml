@@ -2,7 +2,7 @@
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModelVersion>5.3.0</ModelVersion>
+  <ModelVersion>5.5.0</ModelVersion>
   <ModelName>Histograms of different probability distributions</ModelName>
   <ModelDescription>In this model, clients are delayed at several delay stations each according
 to different probability distributions. The durations are recorded and
@@ -602,10 +602,23 @@ histogram values.</ModelDescription>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
+    <ModelElementText id="48">
+      <ModelElementSize h="16" w="233" x="650" y="1002"/>
+      <ModelElementTextLine>**Interactive probability distribution viewer:**</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementLink id="49">
+      <ModelElementSize h="19" w="196" x="650" y="1022"/>
+      <ModelElementLinkText>a-herzog.github.io/Distributions</ModelElementLinkText>
+      <ModelElementLinkTarget>https://a-herzog.github.io/Distributions/</ModelElementLinkTarget>
+      <ModelElementFontSize>14</ModelElementFontSize>
+    </ModelElementLink>
   </ModelElements>
   <Resources SecondaryPriority="Random"/>
   <ClientTypeData/>
   <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
   <ModelEdgesSelected Type="0" Width="1"/>
   <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
 </Model>
