@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-27 00:42+0100\n"
+"POT-Creation-Date: 2026-04-01 11:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6068,6 +6068,9 @@ msgstr "Shiftplans"
 
 msgid "Examples.ShorterQueue"
 msgstr "Longer waiting time at shorter queue"
+
+msgid "Examples.SingleMultiSkill"
+msgstr "Preferred assignment to single-skill or multi-skill operators"
 
 msgid "Examples.SplitAndJoin"
 msgstr "Splitting and joining of (partial) products"

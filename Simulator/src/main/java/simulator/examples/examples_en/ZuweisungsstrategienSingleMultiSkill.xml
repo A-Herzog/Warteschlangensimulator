@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>5.9.0</ModelVersion>
+  <ModelName>Preferred assignment to single-skill or multi-skill operators</ModelName>
+  <ModelDescription>In call center environments in particular, the question often arises as to whether incoming calls should be routed
+primarily to a suitable single-skill agent or a multi-skill agent (if both are currently available). Single-skill
+agents are generally faster—however, routing calls to a multi-skill agent avoids the need for potential transfers
+that might otherwise be necessary. Which strategy is better in each case depends on the actual numerical values
+for the factors mentioned.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Clients A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="150"/>
+      <ModelElementConnection Element="24" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementSource id="2">
+      <ModelElementName>Clients B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="100" y="450"/>
+      <ModelElementConnection Element="27" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementProcessStation id="3">
+      <ModelElementName>A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1100" y="200"/>
+      <ModelElementConnection Element="26" Type="In"/>
+      <ModelElementConnection Element="10" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="ClientsB">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener A"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="4">
+      <ModelElementName>B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1100" y="400"/>
+      <ModelElementConnection Element="29" Type="In"/>
+      <ModelElementConnection Element="11" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="ClientsB">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementProcessStation id="5">
+      <ModelElementName>A+B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1100" y="300"/>
+      <ModelElementConnection Element="28" Type="In"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Clients A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Clients B">w</ModelElementPriority>
+      <ModelElementPriority ClientType="ClientsB">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Bediener A+B"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDispose id="6">
+      <ModelElementSize h="50" w="100" x="1300" y="300"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Element="17" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="7">
+      <ModelElementConnection Element1="5" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecide id="8">
+      <ModelElementSize h="50" w="100" x="1300" y="200"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="10" Type="In"/>
+      <ModelElementConnection Element="12" Rate="Forwarding" Type="Out"/>
+      <ModelElementConnection Element="17" Rate="1-Forwarding" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="9">
+      <ModelElementSize h="50" w="100" x="1300" y="400"/>
+      <ModelElementDecideMode>Random</ModelElementDecideMode>
+      <ModelElementConnection Element="11" Type="In"/>
+      <ModelElementConnection Element="13" Rate="Forwarding" Type="Out"/>
+      <ModelElementConnection Element="19" Rate="1-Forwarding" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="10">
+      <ModelElementConnection Element1="3" Element2="8" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="11">
+      <ModelElementConnection Element1="4" Element2="9" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAssignment id="30">
+      <ModelElementName>Clients B</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1500" y="200"/>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Element="15" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementAssignment id="21">
+      <ModelElementName>Clients A</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1500" y="400"/>
+      <ModelElementConnection Element="13" Type="In"/>
+      <ModelElementConnection Element="14" Type="Out"/>
+    </ModelElementAssignment>
+    <ModelElementHold id="34">
+      <ModelElementSize h="50" w="100" x="100" y="300"/>
+      <ModelElementConnection Element="24" Type="In"/>
+      <ModelElementConnection Element="27" Type="In"/>
+      <ModelElementConnection Element="73" Type="In"/>
+      <ModelElementConnection Element="36" Type="Out"/>
+      <ModelElementHoldCondition ClientBased="1" TimeType="Waiting time">(Resource(1)&lt;Resource_count(1) &amp;&amp; ClientSourceID()==1) || (Resource(2)&lt;Resource_count(2) &amp;&amp; ClientSourceID()==2) || (Resource(3)&lt;Resource_count(3))</ModelElementHoldCondition>
+      <ModelElementPriority ClientType="Kunden A">w</ModelElementPriority>
+      <ModelElementPriority ClientType="Kunden B">w</ModelElementPriority>
+    </ModelElementHold>
+    <ModelElementEdge id="24">
+      <ModelElementName>Arrivals (Clients A)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="34" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="27">
+      <ModelElementName>Arrivals (Clients B)</ModelElementName>
+      <ModelElementConnection Element1="2" Element2="34" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecide id="35">
+      <ModelElementSize h="50" w="100" x="250" y="300"/>
+      <ModelElementDecideMode>ClientType</ModelElementDecideMode>
+      <ModelElementConnection Element="36" Type="In"/>
+      <ModelElementConnection ClientType="Clients A" Element="43" Type="Out"/>
+      <ModelElementConnection Element="44" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="36">
+      <ModelElementConnection Element1="34" Element2="35" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="40">
+      <ModelElementSize h="23" w="513" x="50" y="50"/>
+      <ModelElementTextLine>Preferred assignment to single-skill or multi-skill operators</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRadiobutton id="41">
+      <ModelElementName>Prefer single skill</ModelElementName>
+      <ModelElementSize h="19" w="130" x="350" y="450"/>
+      <ModelElementRadiobuttonVariable>PreferMultiSkill</ModelElementRadiobuttonVariable>
+      <ModelElementRadiobuttonValue>0</ModelElementRadiobuttonValue>
+    </ModelElementRadiobutton>
+    <ModelElementRadiobutton id="42">
+      <ModelElementName>Prefer multi skill</ModelElementName>
+      <ModelElementSize h="19" w="122" x="350" y="475"/>
+      <ModelElementRadiobuttonVariable>PreferMultiSkill</ModelElementRadiobuttonVariable>
+      <ModelElementRadiobuttonValue>1</ModelElementRadiobuttonValue>
+    </ModelElementRadiobutton>
+    <ModelElementDecide id="37">
+      <ModelElementName>both free?</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="250"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="43" Type="In"/>
+      <ModelElementConnection Condition="Resource(1)&lt;Resource_count(1) &amp;&amp; Resource(3)&lt;Resource_count(3)" Element="47" Type="Out"/>
+      <ModelElementConnection Element="48" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="38">
+      <ModelElementName>both free?</ModelElementName>
+      <ModelElementSize h="50" w="100" x="450" y="350"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="44" Type="In"/>
+      <ModelElementConnection Condition="Resource(2)&lt;Resource_count(2) &amp;&amp; Resource(3)&lt;Resource_count(3)" Element="59" Type="Out"/>
+      <ModelElementConnection Element="60" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="43">
+      <ModelElementName>Clients A</ModelElementName>
+      <ModelElementConnection Element1="35" Element2="37" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="44">
+      <ModelElementName>all other client types</ModelElementName>
+      <ModelElementConnection Element1="35" Element2="38" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecide id="45">
+      <ModelElementName>select</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="100"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="47" Type="In"/>
+      <ModelElementConnection Condition="PreferMultiSkill==0" Element="55" Type="Out"/>
+      <ModelElementConnection Element="56" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="46">
+      <ModelElementSize h="50" w="100" x="650" y="250"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="48" Type="In"/>
+      <ModelElementConnection Condition="Resource(1)&lt;Resource_count(1)" Element="51" Type="Out"/>
+      <ModelElementConnection Element="52" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="47">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="37" Element2="45" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="48">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="37" Element2="46" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementTeleportDestination id="22">
+      <ModelElementName>Zu A</ModelElementName>
+      <ModelElementSize h="30" w="30" x="1000" y="210"/>
+      <ModelElementConnection Element="26" Type="Out"/>
+    </ModelElementTeleportDestination>
+    <ModelElementTeleportDestination id="23">
+      <ModelElementName>Zu B</ModelElementName>
+      <ModelElementSize h="30" w="30" x="1000" y="410"/>
+      <ModelElementConnection Element="29" Type="Out"/>
+    </ModelElementTeleportDestination>
+    <ModelElementTeleportDestination id="25">
+      <ModelElementName>Zu A+B</ModelElementName>
+      <ModelElementSize h="30" w="30" x="1000" y="310"/>
+      <ModelElementConnection Element="28" Type="Out"/>
+    </ModelElementTeleportDestination>
+    <ModelElementEdge id="26">
+      <ModelElementConnection Element1="22" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="28">
+      <ModelElementConnection Element1="25" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="29">
+      <ModelElementConnection Element1="23" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementTeleportOrigin id="49">
+      <ModelElementSize h="30" w="30" x="850" y="210"/>
+      <ModelElementConnection Element="51" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Zu A</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementTeleportOrigin id="50">
+      <ModelElementSize h="30" w="30" x="850" y="260"/>
+      <ModelElementConnection Element="52" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Zu A+B</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementEdge id="51">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="46" Element2="49" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="52">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="46" Element2="50" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementTeleportOrigin id="53">
+      <ModelElementSize h="30" w="30" x="850" y="110"/>
+      <ModelElementConnection Element="55" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Zu A</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementTeleportOrigin id="54">
+      <ModelElementSize h="30" w="30" x="850" y="160"/>
+      <ModelElementConnection Element="56" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Zu A+B</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementEdge id="55">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="45" Element2="53" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="56">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="45" Element2="54" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDecide id="57">
+      <ModelElementSize h="50" w="100" x="650" y="350"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="60" Type="In"/>
+      <ModelElementConnection Condition="Resource(2)&lt;Resource_count(2)" Element="67" Type="Out"/>
+      <ModelElementConnection Element="68" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDecide id="58">
+      <ModelElementName>select</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="500"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="59" Type="In"/>
+      <ModelElementConnection Condition="PreferMultiSkill==0" Element="63" Type="Out"/>
+      <ModelElementConnection Element="64" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="59">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="38" Element2="58" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="60">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="38" Element2="57" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementTeleportOrigin id="61">
+      <ModelElementSize h="30" w="30" x="850" y="510"/>
+      <ModelElementConnection Element="63" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Zu B</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementTeleportOrigin id="62">
+      <ModelElementSize h="30" w="30" x="850" y="460"/>
+      <ModelElementConnection Element="64" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Zu A+B</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementEdge id="63">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="58" Element2="61" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="64">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="58" Element2="62" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementTeleportOrigin id="65">
+      <ModelElementSize h="30" w="30" x="850" y="410"/>
+      <ModelElementConnection Element="67" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Zu B</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementTeleportOrigin id="66">
+      <ModelElementSize h="30" w="30" x="850" y="360"/>
+      <ModelElementConnection Element="68" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Zu A+B</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementEdge id="67">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="57" Element2="65" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="68">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="57" Element2="66" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="39">
+      <ModelElementSize h="76" w="453" x="50" y="575"/>
+      <ModelElementTextLine>Type A clients can be served at stations A or A+B.</ModelElementTextLine>
+      <ModelElementTextLine>Type B clients can be served at stations B or A+B.</ModelElementTextLine>
+      <ModelElementTextLine>After being served at the A+B station, a client always leaves the system.</ModelElementTextLine>
+      <ModelElementTextLine>After being served at station A or station B, the client may be redirected.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="69">
+      <ModelElementSize h="19" w="120" x="1100" y="265"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(1)/Resource_count(1)</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon LaTeX="1" Pretext="&amp;rho;_{A}=" Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="70">
+      <ModelElementSize h="19" w="132" x="1100" y="365"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(3)/Resource_count(3)</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon LaTeX="1" Pretext="&amp;rho;_{A+B}=" Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="71">
+      <ModelElementSize h="19" w="122" x="1100" y="465"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Resource_avg(2)/Resource_count(2)</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon LaTeX="1" Pretext="&amp;rho;_{B}=" Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementTeleportDestination id="72">
+      <ModelElementName>Start</ModelElementName>
+      <ModelElementSize h="30" w="30" x="50" y="310"/>
+      <ModelElementConnection Element="73" Type="Out"/>
+    </ModelElementTeleportDestination>
+    <ModelElementEdge id="73">
+      <ModelElementConnection Element1="72" Element2="34" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementTeleportOrigin id="75">
+      <ModelElementSize h="30" w="30" x="1535" y="310"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="15" Type="In"/>
+      <ModelElementTeleportOriginToTarget>Start</ModelElementTeleportOriginToTarget>
+    </ModelElementTeleportOrigin>
+    <ModelElementEdge id="14">
+      <ModelElementName>New client type: Clients A</ModelElementName>
+      <ModelElementConnection Element1="21" Element2="75" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="15">
+      <ModelElementName>New client type: Clients B</ModelElementName>
+      <ModelElementConnection Element1="30" Element2="75" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="16">
+      <ModelElementName>Average waiting time</ModelElementName>
+      <ModelElementSize h="30" w="95" x="1000" y="520"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Wartezeit_avg()</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Pretext="E[W]=" Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="18">
+      <ModelElementName>Average residence time</ModelElementName>
+      <ModelElementSize h="30" w="99" x="1150" y="520"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>180,0,180</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_avg()</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Pretext="E[V]=" Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementEdge id="13">
+      <ModelElementName>Rate Forwarding</ModelElementName>
+      <ModelElementConnection Element1="9" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementName>Rate 1-Forwarding</ModelElementName>
+      <ModelElementConnection Element1="9" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="12">
+      <ModelElementName>Rate Forwarding</ModelElementName>
+      <ModelElementConnection Element1="8" Element2="30" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="17">
+      <ModelElementName>Rate 1-Forwarding</ModelElementName>
+      <ModelElementConnection Element1="8" Element2="6" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="20">
+      <ModelElementName>Percentage of forwardings  in single-skill operation</ModelElementName>
+      <ModelElementSize h="30" w="210" x="1300" y="520"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,165,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Forwarding</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="31">
+      <ModelElementSize h="76" w="345" x="1100" y="75"/>
+      <ModelElementTextLine>When a multi-skilled operator (A+B) performs the task,</ModelElementTextLine>
+      <ModelElementTextLine>no forwarding is ever necessary.</ModelElementTextLine>
+      <ModelElementTextLine>However, the multi-skilled operator works 20% slower</ModelElementTextLine>
+      <ModelElementTextLine>than either of the two single-skilled operators (A or B).</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Bediener A" Type="Number" Value="1"/>
+    <Resource Name="Bediener B" Type="Number" Value="1"/>
+    <Resource Name="Bediener A+B" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData>
+    <ClientData Icon="user_red" Name="Clients B"/>
+    <ClientData Icon="user_red" Name="ClientsB"/>
+    <ClientData Icon="user_red" Name="Kunden B"/>
+  </ClientTypeData>
+  <InitialVariable Name="PreferMultiSkill">0</InitialVariable>
+  <InitialVariable Name="Forwarding">0,2</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+</Model>

@@ -343,6 +343,7 @@ public class EditModelExamples {
 		addExample(Language.trAll("Examples.LoadBalancer"),"LoadBalancer",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
 		addExample(Language.trAll("Examples.MultiSkill"),"MultiSkill",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
 		addExample(Language.trAll("Examples.ShorterQueue"),"ShorterQueue",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
+		addExample(Language.trAll("Examples.SingleMultiSkill"),"ZuweisungsstrategienSingleMultiSkill",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING,ExampleKeyWord.PRIORITIES);
 
 		/* Beispiele, die mathematische Zusammenh‰nge verdeutlichen */
 		addExample(Language.trAll("Examples.LawOfLargeNumbers"),"GesetzDerGroﬂenZahlen",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);
