@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-12 00:43+0100\n"
+"POT-Creation-Date: 2026-03-27 00:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3263,6 +3263,15 @@ msgstr "Lokale Einstellungen"
 
 msgid "DataPrivacy.Title"
 msgstr "Datenschutzeinstellungen bearbeiten"
+
+msgid "DateTimeEditor.Month"
+msgstr "Monat"
+
+msgid "DateTimeEditor.Today"
+msgstr "Heute"
+
+msgid "DateTimeEditor.Year"
+msgstr "Jahr"
 
 msgid "Dialog.Button.Abort"
 msgstr "Abbruch"
@@ -40240,15 +40249,6 @@ msgstr "Das Dateiformat wurde nicht erkannt bzw. passt zu keinem Dateiformat die
 
 #~ msgid "CalculatorDialog.Tab.Distributions.GenerateTable.SaveTitle"
 #~ msgstr "Wertetabelle speichern"
-
-#~ msgid "DateTimeEditor.Month"
-#~ msgstr "Monat"
-
-#~ msgid "DateTimeEditor.Today"
-#~ msgstr "Heute"
-
-#~ msgid "DateTimeEditor.Year"
-#~ msgstr "Jahr"
 
 #~ msgid "Distribution.ChiQuare"
 #~ msgstr "Chi^2-Verteilung"
