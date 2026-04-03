@@ -545,6 +545,11 @@ public class SetupData extends SetupBase {
 	public AutoUpdate autoUpdate;
 
 	/**
+	 * Blockiert alle Netzwerkverbindungen
+	 */
+	public boolean blockNetwork;
+
+	/**
 	 * Alle CPU-Kerne für Simulation nutzen?
 	 */
 	public boolean useMultiCoreSimulation;
@@ -1576,6 +1581,7 @@ public class SetupData extends SetupBase {
 		lastFiles=null;
 		testJavaVersion=true;
 		autoUpdate=AutoUpdate.INSTALL;
+		blockNetwork=false;
 		useMultiCoreSimulation=true;
 		useMultiCoreSimulationOnRepeatedSimulations=false;
 		useMultiCoreSimulationMaxCount=1024;
@@ -2210,6 +2216,11 @@ public class SetupData extends SetupBase {
 				} else {
 					autoUpdate=AutoUpdate.getByName(content);
 				}
+				continue;
+			}
+
+			if (name.equals("blocknetwork")) {
+				blockNetwork=loadBoolean(e.getTextContent(),false);
 				continue;
 			}
 
@@ -3069,6 +3080,11 @@ public class SetupData extends SetupBase {
 		if (autoUpdate!=AutoUpdate.INSTALL) {
 			root.appendChild(node=doc.createElement("AutoUpdate"));
 			node.setTextContent(autoUpdate.name);
+		}
+
+		if (blockNetwork) {
+			root.appendChild(node=doc.createElement("BlockNetwork"));
+			node.setTextContent("1");
 		}
 
 		if (!useMultiCoreSimulation || useMultiCoreSimulationMaxCount!=1024 || !useNUMAMode || !useDynamicThreadBalance || useMultiCoreSimulationOnRepeatedSimulations) {

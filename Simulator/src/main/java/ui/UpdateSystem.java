@@ -284,6 +284,8 @@ public class UpdateSystem {
 	 * @return	Serververbindung oder <code>null</code>, wenn die Verbindung fehlgeschlagen ist.
 	 */
 	private InputStream openServerFile(final String urlString) {
+		if (SetupData.getSetup().blockNetwork) return null;
+
 		/* URL zusammenbauen */
 		URI uri;
 		try {
@@ -367,6 +369,8 @@ public class UpdateSystem {
 	 * @return	Inhalt der Textdatei oder im Fehlerfall <code>null</code>
 	 */
 	private String downloadTextFile(final String urlString) {
+		if (SetupData.getSetup().blockNetwork) return null;
+
 		URI uri;
 		try {
 			uri=new URI("https://"+urlString);
