@@ -515,6 +515,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	 */
 	public void setPreText(final String preText) {
 		this.preText=(preText==null)?"":preText;
+		fireChanged();
 	}
 
 	/**
@@ -531,6 +532,7 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 	 */
 	public void setPostText(final String postText) {
 		this.postText=(postText==null)?"":postText;
+		fireChanged();
 	}
 
 	/**
@@ -772,6 +774,11 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 			preTextRenderer.setShadowColor(shadowColor,shadowAlpha);
 			preTextRenderer.setStyle(textSize,bold,italic,fontFamily.name,ModelElementText.TextAlign.LEFT);
 			preTextRenderer.calc(graphics,zoom);
+		} else {
+			if (!preTextRenderer.isEmpty()) {
+				preTextRenderer.setText("",interpretSymbols,false);
+				preTextRenderer.calc(graphics,zoom);
+			}
 		}
 
 		/* Main */
@@ -788,6 +795,11 @@ public class ModelElementAnimationTextValue extends ModelElementPosition impleme
 			postTextRenderer.setShadowColor(shadowColor,shadowAlpha);
 			postTextRenderer.setStyle(textSize,bold,italic,fontFamily.name,ModelElementText.TextAlign.LEFT);
 			postTextRenderer.calc(graphics,zoom);
+		} else {
+			if (!postTextRenderer.isEmpty()) {
+				postTextRenderer.setText("",interpretSymbols,false);
+				postTextRenderer.calc(graphics,zoom);
+			}
 		}
 	}
 
