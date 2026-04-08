@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-01 11:20+0200\n"
+"POT-Creation-Date: 2026-04-06 00:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20828,6 +20828,9 @@ msgstr "Die angegebene Batch-Größe bei Element id=%d ist ungültig."
 
 msgid "Simulation.Creator.InvalidCapacityAvailable"
 msgstr "Ungültige verfügbare Kapazität an Station id=%d."
+
+msgid "Simulation.Creator.InvalidCapacityOrCount"
+msgstr "Die Anzahl oder Kapazität für Transportertyp \"%s\" ist ungültig."
 
 msgid "Simulation.Creator.InvalidCounterExpression"
 msgstr "An Station id=%d ist die Zählerbedingung %d \"%s\" ab Zeichen %d ungültig."

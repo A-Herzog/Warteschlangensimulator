@@ -20598,6 +20598,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[54155] = "Sound output";
     t[54160] = "Main.Menu.AnimationScreenshotMode";
     t[54161] = "Folder for saving images";
+    t[54164] = "Simulation.Creator.InvalidCapacityOrCount";
+    t[54165] = "The number of transporters or the capacity for transporters of type \"%s\" is invalid.";
     t[54166] = "Surface.ScriptEditor.Search.RegularExpression";
     t[54167] = "Search string is regular expression";
     t[54172] = "Dialog.Button.TextGenerator.Title";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[57983] = "Avatar Female 2";
     t[57984] = "Animation.Icon.AvatarFemaleGirl3";
     t[57985] = "Avatar Female 3";
-    t[57986] = "Animation.Icon.AvatarFemaleGirl4";
-    t[57987] = "Avatar Female 4";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[57986] = "Animation.Icon.AvatarFemaleGirl4";
+    t[57987] = "Avatar Female 4";
     t[57988] = "Animation.Icon.AvatarFemaleGirl5";
     t[57989] = "Avatar Female 5";
     t[57994] = "ProblemReporter.Dialog.FileTypeZip";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[63171] = "Opens the dialog for selecting an expression";
     t[63174] = "SettingsDialog.FontSizes.Small";
     t[63175] = "Small";
-    t[63180] = "ModelGenerator.ServiceDistribution.LogNormal";
-    t[63181] = "Lognormal distribution";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[63180] = "ModelGenerator.ServiceDistribution.LogNormal";
+    t[63181] = "Lognormal distribution";
     t[63190] = "Resources.Group.EditName.ChangeName.Title";
     t[63191] = "Rename operator group";
     t[63200] = "Surface.SourceTable.Dialog.ReadBottomToTop";

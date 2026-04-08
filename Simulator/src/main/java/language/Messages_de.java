@@ -20598,6 +20598,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[54155] = "Sound-Ausgabe";
     t[54160] = "Main.Menu.AnimationScreenshotMode";
     t[54161] = "Verzeichnis zum Speichern von Bildern";
+    t[54164] = "Simulation.Creator.InvalidCapacityOrCount";
+    t[54165] = "Die Anzahl oder Kapazit\u00e4t f\u00fcr Transportertyp \"%s\" ist ung\u00fcltig.";
     t[54166] = "Surface.ScriptEditor.Search.RegularExpression";
     t[54167] = "Suchbegriff ist regul\u00e4rer Ausdruck";
     t[54172] = "Dialog.Button.TextGenerator.Title";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[57983] = "Avatar Weiblich 2";
     t[57984] = "Animation.Icon.AvatarFemaleGirl3";
     t[57985] = "Avatar Weiblich 3";
-    t[57986] = "Animation.Icon.AvatarFemaleGirl4";
-    t[57987] = "Avatar Weiblich 4";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[57986] = "Animation.Icon.AvatarFemaleGirl4";
+    t[57987] = "Avatar Weiblich 4";
     t[57988] = "Animation.Icon.AvatarFemaleGirl5";
     t[57989] = "Avatar Weiblich 5";
     t[57994] = "ProblemReporter.Dialog.FileTypeZip";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[63171] = "\u00d6ffnet den Dialog zur Auswahl eines Rechenausdrucks";
     t[63174] = "SettingsDialog.FontSizes.Small";
     t[63175] = "Klein";
-    t[63180] = "ModelGenerator.ServiceDistribution.LogNormal";
-    t[63181] = "Lognormalverteilung";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[63180] = "ModelGenerator.ServiceDistribution.LogNormal";
+    t[63181] = "Lognormalverteilung";
     t[63190] = "Resources.Group.EditName.ChangeName.Title";
     t[63191] = "Bedienergruppe umbenannt";
     t[63200] = "Surface.SourceTable.Dialog.ReadBottomToTop";

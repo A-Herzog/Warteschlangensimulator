@@ -128,6 +128,9 @@ public class RunElementTransportTransporterSource extends RunElement implements 
 
 		/* Wie viele Kunden kann ein Transporter des gewählten Typs transportieren? */
 		source.transporterClientCapacity=runModel.transportersTemplate.getTransporterCapacity(source.transporterIndex);
+		if (source.transporterClientCapacity==0) {
+			return String.format(Language.tr("Simulation.Creator.InvalidCapacityOrCount"),sourceElement.getTransporterType());
+		}
 
 		/* Bereich */
 		final String sectionName=sourceElement.getSectionStartName();
