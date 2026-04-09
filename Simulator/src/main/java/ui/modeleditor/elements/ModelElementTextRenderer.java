@@ -134,6 +134,14 @@ public abstract class ModelElementTextRenderer {
 	}
 
 	/**
+	 * Liefert den auszugebenden Text.
+	 * @return	Auszugebender Text
+	 */
+	public final String getText() {
+		return lastText;
+	}
+
+	/**
 	 * Stellt den auszugebenden Text ein.
 	 * @param text	Auszugebender Text
 	 * @param processSymbols	Sollen HTML- und LaTeX-Symbole interpretiert werden?

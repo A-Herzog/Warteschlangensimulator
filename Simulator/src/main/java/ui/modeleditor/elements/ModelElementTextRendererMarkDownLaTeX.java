@@ -637,7 +637,7 @@ public class ModelElementTextRendererMarkDownLaTeX extends ModelElementTextRende
 			final int ascent=metrics.getAscent();
 			final int descent=metrics.getDescent();
 
-			if (sub1==null || sub2==null) {
+			if (sub1==null && sub2==null) {
 				/* Normales Element */
 				return new int[] {metrics.stringWidth(text), ascent, descent};
 			} else {
