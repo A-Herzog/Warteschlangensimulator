@@ -1080,16 +1080,21 @@ public class ModelSurfaceAnimatorBase {
 	 * @param transporterIconWest	Icon für Bewegungen nach links
 	 * @param stationFrom	Startstation
 	 * @param stationTo	Zielstation
+	 * @param delay	Verzögerung pro Animationsschritt
 	 * @return	Animationspfad
 	 * @see AnimationPath
 	 */
-	private AnimationPath getDirectAnimationPath(final RunDataTransporter transporter, final String transporterIconEast, final String transporterIconWest, final ModelElementBox stationFrom, final ModelElementBox stationTo) {
+	private AnimationPath getDirectAnimationPath(final RunDataTransporter transporter, final String transporterIconEast, final String transporterIconWest, final ModelElementBox stationFrom, final ModelElementBox stationTo, final double delay) {
 		final AnimationPath path=new AnimationPath(transporter,transporterIconEast,transporterIconWest);
 		final Point p1=stationFrom.getMiddlePosition(true);
 		final Point p2=stationTo.getMiddlePosition(true);
 
 		final int dist=(int)Math.sqrt((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y));
-		final int steps=ANIMATION_STEPS*dist/DEFAULT_DISTANCE;
+		int steps=TRANSPORTER_ANIMATION_STEPS*dist/DEFAULT_DISTANCE;
+		if (delay<1) {
+			steps=(int)(steps*delay);
+			if (steps<3) steps=3;
+		}
 
 		path.buildRoute(stationFrom,stationTo,steps);
 
@@ -1140,13 +1145,14 @@ public class ModelSurfaceAnimatorBase {
 	 * @param transporterIconWest	Icon für Bewegungen nach links
 	 * @param stationFrom	Startstation
 	 * @param stationTo	Zielstation
+	 * @param delay	Verzögerung pro Animationsschritt
 	 * @return	Animationspfad
 	 * @see AnimationPath
 	 */
-	private AnimationPath getFullTransporterAnimationPath(final RunDataTransporter transporter, final String transporterIconEast, final String transporterIconWest, final ModelElementBox stationFrom, final ModelElementBox stationTo) {
+	private AnimationPath getFullTransporterAnimationPath(final RunDataTransporter transporter, final String transporterIconEast, final String transporterIconWest, final ModelElementBox stationFrom, final ModelElementBox stationTo, final double delay) {
 		final List<ModelElement> elements=getTransporterPathFromStationToStation(stationFrom,stationTo);
 		if (elements==null || elements.size()<3) {
-			return getDirectAnimationPath(transporter,transporterIconEast,transporterIconWest,stationFrom,stationTo);
+			return getDirectAnimationPath(transporter,transporterIconEast,transporterIconWest,stationFrom,stationTo,delay);
 		}
 
 		final AnimationPath path=new AnimationPath(transporter,transporterIconEast,transporterIconWest);
@@ -1275,16 +1281,17 @@ public class ModelSurfaceAnimatorBase {
 	 * @param transporterIconWest	Icon für Bewegungen nach links
 	 * @param transporterStationID1	ID der Startstation
 	 * @param transporterStationID2	ID der Zielstation
+	 * @param delay	Verzögerung pro Animationsschritt
 	 * @return	Liste mit dem einen Animationspfad
 	 * @see AnimationPath
 	 */
-	private List<AnimationPath> getAnimationPath(final RunDataTransporter transporter, final String transporterIconEast, final String transporterIconWest, final int transporterStationID1, final int transporterStationID2) {
+	private List<AnimationPath> getAnimationPath(final RunDataTransporter transporter, final String transporterIconEast, final String transporterIconWest, final int transporterStationID1, final int transporterStationID2, final double delay) {
 		final List<AnimationPath> pathList=new ArrayList<>(1);
 
 		final ModelElement stationFrom=surface.getById(transporterStationID1);
 		final ModelElement stationTo=surface.getById(transporterStationID2);
 		if ((stationFrom instanceof ModelElementBox) && stationTo!=null && (stationTo instanceof ModelElementBox)) {
-			final AnimationPath path=getFullTransporterAnimationPath(transporter,transporterIconEast,transporterIconWest,(ModelElementBox)stationFrom,(ModelElementBox)stationTo);
+			final AnimationPath path=getFullTransporterAnimationPath(transporter,transporterIconEast,transporterIconWest,(ModelElementBox)stationFrom,(ModelElementBox)stationTo,delay);
 			if (path!=null) pathList.add(path);
 		}
 
@@ -1418,7 +1425,7 @@ public class ModelSurfaceAnimatorBase {
 	protected void animate(final String transporterIconEast, final String transporterIconWest, final RunDataTransporter transporter, final double delay, final SimulationData simData) {
 		animationDone=false;
 		buildStaticClientsDrawListSingle(null,transporter,simData.currentTime);
-		final List<AnimationPath> pathList=getAnimationPath(transporter,transporterIconEast,transporterIconWest,transporter.lastPosition,transporter.position);
+		final List<AnimationPath> pathList=getAnimationPath(transporter,transporterIconEast,transporterIconWest,transporter.lastPosition,transporter.position,delay);
 		animatePathList(pathList,fullRecording?1:delay,simData);
 		buildStaticClientsDrawList(null,null,simData.currentTime);
 		updateSurfaceAnimationDisplayElements(simData,false,false);
