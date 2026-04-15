@@ -241,9 +241,41 @@ public enum RandomGeneratorMode {
 			return random.nextDouble();
 		}
 
+		/**
+		 * Es werden immer zwei Pseudozufallszahlen gleichzeitig generiert.
+		 * Steht eine zweite Zahl direkt zur Verfügung?
+		 * @see #nextRandom
+		 * @see #nextGaussian()
+		 */
+		private boolean randomAvailable=false;
+
+		/**
+		 * Es werden immer zwei Pseudozufallszahlen gleichzeitig generiert.
+		 * Wenn eine zweite zur Verfügung steht, so wird sie hier angeboten.
+		 * @see #randomAvailable
+		 * @see #nextGaussian()
+		 */
+		private double nextRandom;
+
 		@Override
 		public double nextGaussian() {
-			return random.nextGaussian();
+			if (randomAvailable) {
+				randomAvailable=false;
+				return nextRandom;
+			}
+
+			double q=10, u=0, v=0;
+			while (q==0 || q>=1) {
+				u=2*nextDouble()-1;
+				v=2*nextDouble()-1;
+				q=u*u+v*v;
+			}
+			final double p=StrictMath.sqrt(-2 * StrictMath.log(q)/q);
+			nextRandom=v*p;
+			randomAvailable=true;
+			return u*p;
+
+			//return random.nextGaussian();
 		}
 	}
 

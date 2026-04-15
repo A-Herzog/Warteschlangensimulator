@@ -136,9 +136,9 @@ public class DistributionRandomNumberThreadLocal {
 
 	/**
 	 * Liefert 1/e.<br>
-	 * Wird in {@link #randomGammaDirect(double, double)} verwendet.<br>
+	 * Wird in {@link #randomGammaDirect(double, double, RandomGenerator)} verwendet.<br>
 	 * Die Vorausberechnung macht die Pseudozufallszahlenerzeugung schneller.
-	 * @see #randomGammaDirect(double, double)
+	 * @see #randomGammaDirect(double, double, RandomGenerator)
 	 */
 	private static final double inverseE=1/FastMath.E;
 
@@ -146,10 +146,11 @@ public class DistributionRandomNumberThreadLocal {
 	 * Liefert eine Pseudozufallszahl gem‰ﬂ der Gamma-Verteilung
 	 * @param shape	Form-Parameter
 	 * @param scale	Skalierungsparameter
+	 * @param generator	Zu verwendender Zufallszahlengenerator
 	 * @return	Pseudozufallszahl
 	 * @see #random(AbstractRealDistribution)
 	 */
-	private double randomGammaDirect(final double shape, final double scale)  {
+	private static double randomGammaDirect(final double shape, final double scale, final RandomGenerator generator)  {
 		/*
 		 * see org.apache.commons.math3.distribution.GammaDistribution.sample()
 		 * By using this method wie avoid creating a GammaDistribution object each time a random number is needed.
@@ -250,7 +251,7 @@ public class DistributionRandomNumberThreadLocal {
 				/* Ist Exp-Verteilung mit E=1/(1/beta) */
 				return -Math.log(1-generator.nextDouble())*beta; /* StrictMath.log ist schneller als FastMath. Math.log laut Code StrictMath.log auf, aber in Wirklichkeit scheint hier der Compiler Magic zu machen, so dass Math.log schneller ist. */
 			}
-			return randomGammaDirect(alpha,beta);
+			return randomGammaDirect(alpha,beta,generator);
 			/*
 			Um Faktor 3 langsamer:
 			final GammaDistribution tempGamma=new GammaDistribution(generator,alpha,beta,GammaDistribution.DEFAULT_INVERSE_ABSOLUTE_ACCURACY);
