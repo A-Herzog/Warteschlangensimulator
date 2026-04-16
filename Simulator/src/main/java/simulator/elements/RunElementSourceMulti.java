@@ -185,9 +185,11 @@ public class RunElementSourceMulti extends RunElement implements StateChangeList
 	@Override
 	public void scheduleInitialArrivals(SimulationData simData) {
 		if (mode==ModelElementSourceMulti.MultiSourceMode.ALL) {
-			for (int i=0;i<records.length;i++) scheduleNextArrival(simData,true,i);
+			if (!simData.runData.nextClientIsLast(simData)) for (int i=0;i<records.length;i++) {
+				scheduleNextArrival(simData,true,i);
+			}
 		} else {
-			scheduleNextArrival(simData,true,0);
+			if (!simData.runData.nextClientIsLast(simData)) scheduleNextArrival(simData,true,0);
 			final RunElementSourceMultiData data=getData(simData);
 			data.isFirstArrival[0]=false;
 		}

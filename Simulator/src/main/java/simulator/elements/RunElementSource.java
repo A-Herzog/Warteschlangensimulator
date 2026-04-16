@@ -138,6 +138,7 @@ public class RunElementSource extends RunElement implements StateChangeListener,
 	 */
 	@Override
 	public void scheduleInitialArrivals(SimulationData simData) {
+		if (simData.runData.nextClientIsLast(simData)) return;
 		scheduleNextArrival(simData,true);
 	}
 

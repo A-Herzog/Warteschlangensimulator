@@ -2402,7 +2402,9 @@ public class RunData {
 			return clientsArrived>=arrivalsToBeSimulated;
 		} else {
 			/* Ankünfte beim Load-Balancer anfragen */
-			if (currentArrivalPackage<=0) currentArrivalPackage=dynamicLoadBalancer.getArrivals();
+			if (currentArrivalPackage<=0) {
+				currentArrivalPackage+=dynamicLoadBalancer.getArrivals();
+			}
 			currentArrivalPackage--;
 			return currentArrivalPackage<0;
 		}
