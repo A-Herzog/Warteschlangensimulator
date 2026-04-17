@@ -3394,7 +3394,7 @@ public class SetupData extends SetupBase {
 
 		if (socketServerAutoStart || socketServerPort!=1000) {
 			root.appendChild(node=doc.createElement("SocketServer"));
-			node.setAttribute("Port",""+webServerPort);
+			node.setAttribute("Port",""+socketServerPort);
 			if (socketServerAutoStart) node.setAttribute("AutoStart","1");
 		}
 
