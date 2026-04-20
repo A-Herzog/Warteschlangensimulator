@@ -33,7 +33,7 @@
 \contentsline {section}{\numberline {10.16}Uniform distribution in the interval $[a;b]$}{23}{section.10.16}%
 \contentsline {section}{\numberline {10.17}Normal distribution with mean $a$ and standard deviation $b$}{23}{section.10.17}%
 \contentsline {section}{\numberline {10.18}Log-normal distribution with mean $a$ and standard deviation $b$}{23}{section.10.18}%
-\contentsline {section}{\numberline {10.19}Gamma distribution with parameters $\alpha =a$ and $\beta =b$}{23}{section.10.19}%
+\contentsline {section}{\numberline {10.19}Gamma distribution with parameters $\alpha =a$ and $\beta =b$}{24}{section.10.19}%
 \contentsline {section}{\numberline {10.20}Gamma distribution with mean $a$ and standard deviation $b$}{24}{section.10.20}%
 \contentsline {section}{\numberline {10.21}Erlang distribution with parameters $n$ and $\lambda =l$}{24}{section.10.21}%
 \contentsline {section}{\numberline {10.22}Inverse gamma distribution with parameters $\alpha =a$ and $\beta =b$}{24}{section.10.22}%
@@ -44,39 +44,39 @@
 \contentsline {section}{\numberline {10.27}Cauchy distribution with mean $a$ and Scale=$b$}{25}{section.10.27}%
 \contentsline {section}{\numberline {10.28}Half Cauchy distribution with start point $\mu $ and scaling $\sigma $}{25}{section.10.28}%
 \contentsline {section}{\numberline {10.29}Chi$^2$ distribution with $n$ degrees of freedom}{25}{section.10.29}%
-\contentsline {section}{\numberline {10.30}Chi distribution with $n$ degrees of freedom}{25}{section.10.30}%
+\contentsline {section}{\numberline {10.30}Chi distribution with $n$ degrees of freedom}{26}{section.10.30}%
 \contentsline {section}{\numberline {10.31}F distribution with $a$ degrees of freedom for the numerator and $b$ degrees of freedom for the denominator}{26}{section.10.31}%
 \contentsline {section}{\numberline {10.32}Johnson SU distribution with parameters $\gamma =a$, $\xi =b$, $\delta =c$ and $\lambda =d$}{26}{section.10.32}%
 \contentsline {section}{\numberline {10.33}Triangular distribution over $[a;c]$ with most likely value $b$}{26}{section.10.33}%
 \contentsline {section}{\numberline {10.34}Trapezoid distribution over $[a;d]$ with uniform distribution in $[b;c]$}{26}{section.10.34}%
-\contentsline {section}{\numberline {10.35}Pert distribution over $[a;c]$ with most likely value $b$}{26}{section.10.35}%
+\contentsline {section}{\numberline {10.35}Pert distribution over $[a;c]$ with most likely value $b$}{27}{section.10.35}%
 \contentsline {section}{\numberline {10.36}Laplace distribution with mean $mu$ and scale factor $b$}{27}{section.10.36}%
 \contentsline {section}{\numberline {10.37}Pareto distribution with scale parameter $x_{\rm min}=xmin$ and shape parameter $\alpha =a$}{27}{section.10.37}%
 \contentsline {section}{\numberline {10.38}Logistic distribution with mean $\mu =mu$ and scale parameter $s$}{27}{section.10.38}%
 \contentsline {section}{\numberline {10.39}Inverse gaussian distribution with $\lambda =l$ and mean $mu$}{27}{section.10.39}%
-\contentsline {section}{\numberline {10.40}Inverse gaussian distribution with mean $a$ and standard deviation $b$}{27}{section.10.40}%
+\contentsline {section}{\numberline {10.40}Inverse gaussian distribution with mean $a$ and standard deviation $b$}{28}{section.10.40}%
 \contentsline {section}{\numberline {10.41}Rayleigh distribution with mean $mu$}{28}{section.10.41}%
 \contentsline {section}{\numberline {10.42}Log-Logistic distribution with $\alpha $ and mean $\beta $}{28}{section.10.42}%
 \contentsline {section}{\numberline {10.43}Power distribution on $[a;b]$ with exponent $c$}{28}{section.10.43}%
 \contentsline {section}{\numberline {10.44}Gumbel distribution with location $a$ and scale $b$}{28}{section.10.44}%
-\contentsline {section}{\numberline {10.45}Gumbel distribution with expected value $a$ and standard deviation $b$}{28}{section.10.45}%
+\contentsline {section}{\numberline {10.45}Gumbel distribution with expected value $a$ and standard deviation $b$}{29}{section.10.45}%
 \contentsline {section}{\numberline {10.46}Fatigue life distribution with location parameter $\mu $, scale parameter $\beta $ and form parameter $\gamma $}{29}{section.10.46}%
 \contentsline {section}{\numberline {10.47}Frechet distribution with location parameter $\delta $, scale parameter $\beta $ and form parameter $\alpha $}{29}{section.10.47}%
 \contentsline {section}{\numberline {10.48}Hyperbolic secant distribution with mean $a$ and standard deviation $b$}{29}{section.10.48}%
 \contentsline {section}{\numberline {10.49}Left sawtooth distribution over $[a;b]$}{29}{section.10.49}%
-\contentsline {section}{\numberline {10.50}Left sawtooth distribution with mean $a$ and standard deviation $b$}{29}{section.10.50}%
+\contentsline {section}{\numberline {10.50}Left sawtooth distribution with mean $a$ and standard deviation $b$}{30}{section.10.50}%
 \contentsline {section}{\numberline {10.51}Right sawtooth distribution over $[a;b]$}{30}{section.10.51}%
 \contentsline {section}{\numberline {10.52}Right sawtooth distribution with mean $a$ and standard deviation $b$}{30}{section.10.52}%
 \contentsline {section}{\numberline {10.53}Levy distribution with location parameter $\mu $ and form parameter $c$}{30}{section.10.53}%
 \contentsline {section}{\numberline {10.54}Maxwell Boltzmann distribution with parameter a}{30}{section.10.54}%
 \contentsline {section}{\numberline {10.55}Student t-distribution with parameters $\mu $ and $\nu $}{30}{section.10.55}%
-\contentsline {section}{\numberline {10.56}Half normal distribution with start $s$ and unshifted mean $\mu $}{30}{section.10.56}%
+\contentsline {section}{\numberline {10.56}Half normal distribution with start $s$ and unshifted mean $\mu $}{31}{section.10.56}%
 \contentsline {section}{\numberline {10.57}U-quadratic distribution in the interval $[a;b]$}{31}{section.10.57}%
 \contentsline {section}{\numberline {10.58}Reciprocal distribution in the interval $[a;b]$}{31}{section.10.58}%
 \contentsline {section}{\numberline {10.59}Kumaraswamy distribution with parameters $a$ und $b$ over the interval $[c;d]$}{31}{section.10.59}%
 \contentsline {section}{\numberline {10.60}Irwin-Hall distribution with parameter $n$}{31}{section.10.60}%
 \contentsline {section}{\numberline {10.61}Irwin-Hall distribution with mean $a$}{31}{section.10.61}%
-\contentsline {section}{\numberline {10.62}Sine distribution in the interval $[a;b]$}{31}{section.10.62}%
+\contentsline {section}{\numberline {10.62}Sine distribution in the interval $[a;b]$}{32}{section.10.62}%
 \contentsline {section}{\numberline {10.63}Cosine distribution in the interval $[a;b]$}{32}{section.10.63}%
 \contentsline {section}{\numberline {10.64}Arcsine distribution in the interval $[a;b]$}{32}{section.10.64}%
 \contentsline {section}{\numberline {10.65}Wigner half-circle distribution with mean $m$ and radius $R$}{32}{section.10.65}%
@@ -89,6 +89,7 @@
 \contentsline {chapter}{\numberline {11}Erlang C calculator}{35}{chapter.11}%
 \contentsline {section}{\numberline {11.1}Random selection of one of several values}{35}{section.11.1}%
 \contentsline {section}{\numberline {11.2}Random numbers according to a user-defined distribution}{36}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Phase-type distribution}{36}{section.11.3}%
 \contentsline {chapter}{\numberline {12}Allen-Cunneen approximation formula}{37}{chapter.12}%
 \contentsline {chapter}{\numberline {13}Accessing model properties}{39}{chapter.13}%
 \contentsline {section}{\numberline {13.1}General simulation data}{39}{section.13.1}%

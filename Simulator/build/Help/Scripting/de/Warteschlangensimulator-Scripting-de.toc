@@ -89,6 +89,7 @@
 \contentsline {section}{\numberline {10.71}Verteilung aus empirischen Daten}{33}{section.10.71}%
 \contentsline {section}{\numberline {10.72}Zufällige Auswahl eines von mehreren Werten}{33}{section.10.72}%
 \contentsline {section}{\numberline {10.73}Zufallszahlen gemäß benutzerdefinierter Verteilung}{34}{section.10.73}%
+\contentsline {section}{\numberline {10.74}Phasentypverteilung}{34}{section.10.74}%
 \contentsline {chapter}{\numberline {11}Erlang-C-Rechner}{35}{chapter.11}%
 \contentsline {chapter}{\numberline {12}Allen-Cunneen-Approximationsformel}{37}{chapter.12}%
 \contentsline {chapter}{\numberline {13}Zugriff auf die Modelleigenschaften}{39}{chapter.13}%
