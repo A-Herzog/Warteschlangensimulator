@@ -14,7 +14,8 @@ In the simulator, queueing systems can be modelled and afterwards be simulated i
 ## Download
 
 * **[Windows installer](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/SimulatorSetup.exe)**
-* **[Zip file](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator.zip)**
+* **[Windows zip file](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator_Windows.zip)**
+* **[Linux zip file](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator_Linux.zip)**
 * **[Linux appimage](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Warteschlangensimulator-x86_64.AppImage)**
 * [Source code](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/) ([Notes on the build process](BUILD.md))
 

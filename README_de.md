@@ -14,7 +14,8 @@ Im Simulator können Warteschlangenmodelle in Form von Fließbildern modelliert 
 ## Download
 
 * **[Windows-Installer](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/SimulatorSetup.exe)**
-* **[Zip-Datei](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator.zip)**
+* **[Windows zip-Datei](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator_Windows.zip)**
+* **[Linux zip-Datei](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Simulator_Linux.zip)**
 * **[Linux AppImage](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/download/Warteschlangensimulator-x86_64.AppImage)**
 * [Quellcode](https://github.com/A-Herzog/Warteschlangensimulator/releases/latest/) ([Hinweise zum Build-Prozess](BUILD.md))
 
