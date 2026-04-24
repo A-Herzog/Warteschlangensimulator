@@ -680,7 +680,7 @@ public class ParameterCompareTableModel extends JTableExtAbstractTableModel {
 		final File file=XMLTools.showSaveDialog(table.getTopLevelAncestor(),Language.tr("Main.Toolbar.SaveStatistics"),SetupData.getSetup().defaultSaveFormatStatistics);
 		if (file==null) return;
 
-		if (file.exists()) {
+		if (file.exists() && !XMLTools.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(table.getTopLevelAncestor(),file)) return;
 		}
 

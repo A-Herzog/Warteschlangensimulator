@@ -310,7 +310,7 @@ public abstract class EditorPanelBase extends JPanel {
 			if (file==null) return null;
 		}
 
-		if (file.exists() && (lastFile==null || !lastFile.equals(file))) {
+		if (file.exists() && (lastFile==null || !lastFile.equals(file)) && !XMLTools.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(getOwnerWindow(),file)) return null;
 		}
 
@@ -349,7 +349,7 @@ public abstract class EditorPanelBase extends JPanel {
 		final File file=XMLTools.showSaveDialog(getParent(),SAVE_MODEL,SetupData.getSetup().defaultSaveFormatModels);
 		if (file==null) return null;
 
-		if (file.exists() && (lastFile==null || !lastFile.equals(file))) {
+		if (file.exists() && (lastFile==null || !lastFile.equals(file)) && !XMLTools.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(getOwnerWindow(),file)) return null;
 		}
 

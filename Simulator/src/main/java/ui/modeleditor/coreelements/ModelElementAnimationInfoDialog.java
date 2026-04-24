@@ -447,7 +447,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 			final File file=fc.showSaveDialogFileWithExtension(owner);
 			if (file==null) return;
 
-			if (file.exists()) {
+			if (file.exists() && !fc.hasOwnOverwritePrompt()) {
 				if (!MsgBox.confirmOverwrite(owner,file)) return;
 			}
 
@@ -466,7 +466,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 		case QUEUE:
 			final File queueFile=Table.showSaveDialog(owner,Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveWaitingClients"));
 			if (queueFile==null) return;
-			if (queueFile.exists()) {
+			if (queueFile.exists() && !Table.saveDialogHasOwnOverwritePrompt()) {
 				if (!MsgBox.confirmOverwrite(owner,queueFile)) return;
 			}
 			final Table queueTable=buildTable(clientWaitingInfo.get());
@@ -478,7 +478,7 @@ public class ModelElementAnimationInfoDialog extends BaseDialog {
 			final File clientFile=Table.showSaveDialog(owner,Language.tr("Surface.PopupMenu.SimulationStatisticsData.SaveClients"));
 			final Table clientTable=buildTable(clientInfo.get());
 			if (clientFile==null) return;
-			if (clientFile.exists()) {
+			if (clientFile.exists() && !Table.saveDialogHasOwnOverwritePrompt()) {
 				if (!MsgBox.confirmOverwrite(owner,clientFile)) return;
 			}
 			if (!clientTable.save(clientFile)) {

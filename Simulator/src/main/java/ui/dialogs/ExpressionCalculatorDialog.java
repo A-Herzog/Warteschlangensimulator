@@ -1008,7 +1008,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		final File file=fc.showSaveDialogFileWithExtension(owner);
 		if (file==null) return;
 
-		if (file.exists()) {
+		if (file.exists() && !fc.hasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return;
 		}
 
@@ -1028,7 +1028,7 @@ public final class ExpressionCalculatorDialog extends BaseDialog {
 		final File file=fc.showSaveDialogFileWithExtension(owner);
 		if (file==null) return;
 
-		if (file.exists()) {
+		if (file.exists() && !fc.hasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return;
 		}
 

@@ -311,7 +311,7 @@ public abstract class ScriptPanel extends JPanel {
 		if (fileName==null) return;
 		final File file=new File(fileName);
 
-		if (file.exists()) {
+		if (file.exists() && !ScriptTools.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(this,file)) return;
 		}
 

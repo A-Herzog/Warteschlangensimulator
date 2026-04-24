@@ -1057,6 +1057,17 @@ public final class XMLTools {
 	}
 
 	/**
+	 * Liefert <code>true</code>, wenn der Speicherndialog bereits eine eigene
+	 * Überschreib-Warnung beim Speichern unter einem vorhandenen Namen
+	 * besitzt.
+	 * @return	Zeigt der Speicherndialog selber Überschreib-Warnungen an?
+	 */
+	public static boolean saveDialogHasOwnOverwritePrompt() {
+		final var fc=new PlugableFileChooser();
+		return fc.hasOwnOverwritePrompt();
+	}
+
+	/**
 	 * Wandelt einen xml-Knoten in json-Text um.<br>
 	 * Es wird dabei eine komplexe Konstruktion, die später wieder geladen werden kann, verwendet.
 	 * @param sb	Ausgabe des json-Codes

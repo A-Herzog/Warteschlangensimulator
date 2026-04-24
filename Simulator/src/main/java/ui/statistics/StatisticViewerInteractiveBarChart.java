@@ -45,6 +45,7 @@ import systemtools.statistics.StatisticViewerBarChart;
 import systemtools.statistics.StatisticsBasePanel;
 import ui.images.Images;
 import ui.mjpeg.MJPEGSystem;
+import ui.script.ScriptTools;
 
 /**
  * Dieser Viewer stellt die Daten der Laufzeitstatistik als interaktives
@@ -252,7 +253,7 @@ public class StatisticViewerInteractiveBarChart extends StatisticViewerBarChart 
 		final File file=fc.showSaveDialogFileWithExtension(owner);
 		if (file==null) return null;
 
-		if (file.exists()) {
+		if (file.exists() && !ScriptTools.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return null;
 		}
 

@@ -302,7 +302,7 @@ public class ModelElementAnimationTableDialog extends BaseDialog {
 		final File file=Table.showSaveDialog(owner,Language.tr("FileType.Save.Table"));
 		if (file==null) return;
 
-		if (file.exists()) {
+		if (file.exists() && !Table.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return;
 		}
 

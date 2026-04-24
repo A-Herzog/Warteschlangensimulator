@@ -403,7 +403,7 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		final File file=fc.showSaveDialogFileWithExtension(window);
 		if (file==null) return false;
 
-		if (file.exists()) {
+		if (file.exists() && !fc.hasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(this,file)) return false;
 		}
 
@@ -540,7 +540,7 @@ public class CalculatorWindowPageCalculatorPanel extends JPanel {
 		final File file=fc.showSaveDialogFileWithExtension(window);
 		if (file==null) return false;
 
-		if (file.exists()) {
+		if (file.exists() && !fc.hasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(this,file)) return false;
 		}
 

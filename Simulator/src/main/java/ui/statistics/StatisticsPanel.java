@@ -360,7 +360,7 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			if (file==null) return null;
 		}
 
-		if (file.exists()) {
+		if (file.exists() && !XMLTools.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(getTopLevelAncestor(),file)) return null;
 		}
 

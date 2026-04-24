@@ -2281,7 +2281,8 @@ public final class EditorPanel extends EditorPanelBase {
 			if (file==null) return null;
 		}
 
-		if (file.exists() && !force) {
+		final var fc=new PlugableFileChooser(true);
+		if (file.exists() && !force && !fc.hasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(getOwnerWindow(),file)) return null;
 		}
 

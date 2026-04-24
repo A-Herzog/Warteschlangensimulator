@@ -385,7 +385,9 @@ public class ScheduleTableModelDataDialog extends BaseDialog {
 		item.addActionListener(e->{
 			final File file=Table.showSaveDialog(this,Language.tr("Schedule.EditDialog.Save.File"));
 			if (file==null) return;
-			if (file.exists()) {if (!MsgBox.confirmOverwrite(this,file)) return;}
+			if (file.exists() && !Table.saveDialogHasOwnOverwritePrompt()) {
+				if (!MsgBox.confirmOverwrite(this,file)) return;
+			}
 			if (!schedulePanel.getDataAsTable().save(file)) MsgBox.error(this,Language.tr("Schedule.EditDialog.Save.File.ErrorTitle"),String.format(Language.tr("Schedule.EditDialog.Save.File.ErrorInfo"),file.toString()));
 		});
 

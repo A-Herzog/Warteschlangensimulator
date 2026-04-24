@@ -898,7 +898,7 @@ public class StatisticViewerTable implements StatisticViewer {
 	public void save(Component owner) {
 		final File file=Table.showSaveDialog(owner,StatisticsBasePanel.viewersSaveTable,null,StatisticsBasePanel.fileTypePDF+" (*.pdf)","pdf"); if (file==null) return;
 
-		if (file.exists()) {
+		if (file.exists() && !Table.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return;
 		}
 

@@ -342,7 +342,7 @@ public class ImageChooser extends JPanel {
 		final File file=fc.showSaveDialogFileWithExtension(this);
 		if (file==null) return false;
 
-		if (file.exists()) {
+		if (file.exists() && !fc.hasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(this,file)) return false;
 			return false;
 		}

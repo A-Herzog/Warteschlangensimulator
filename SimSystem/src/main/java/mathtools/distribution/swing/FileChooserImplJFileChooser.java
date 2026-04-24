@@ -98,4 +98,9 @@ public class FileChooserImplJFileChooser implements FileChooserImpl {
 	public void setFileSelectionMode(final int mode) {
 		fileChooser.setFileSelectionMode(mode);
 	}
+
+	@Override
+	public boolean hasOwnOverwritePrompt() {
+		return false;
+	}
 }

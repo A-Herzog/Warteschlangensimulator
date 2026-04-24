@@ -994,7 +994,7 @@ public abstract class StatisticViewerText implements StatisticViewer {
 		final File file=fc.showSaveDialogFileWithExtension(owner);
 		if (file==null) return;
 
-		if (file.exists()) {
+		if (file.exists() && !fc.hasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return;
 		}
 

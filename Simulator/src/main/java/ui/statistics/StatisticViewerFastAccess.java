@@ -193,7 +193,7 @@ public class StatisticViewerFastAccess extends StatisticViewerSpecialBase {
 		final File file=new File(fileName);
 
 		if (file.exists()) {
-			if (!MsgBox.confirmOverwrite(owner,file)) return;
+			if (!MsgBox.confirmOverwrite(owner,file) && !ScriptTools.saveDialogHasOwnOverwritePrompt()) return;
 		}
 
 		JSRunDataFilterTools.saveText(results.getText(),file,false);

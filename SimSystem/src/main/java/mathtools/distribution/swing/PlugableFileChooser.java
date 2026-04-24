@@ -306,4 +306,14 @@ public class PlugableFileChooser {
 		if (restoreAndSaveInitialDirectory) CommonVariables.initialDirectoryFromPlugableFileChooser(this);
 		return fileChooser.getSelectedFile();
 	}
+
+	/**
+	 * Liefert <code>true</code>, wenn der Dialog bereits eine eigene
+	 * Überschreib-Warnung beim Speichern unter einem vorhandenen Namen
+	 * besitzt.
+	 * @return	Zeigt der Dialog selber Überschreib-Warnungen an?
+	 */
+	public boolean hasOwnOverwritePrompt() {
+		return fileChooser.hasOwnOverwritePrompt();
+	}
 }

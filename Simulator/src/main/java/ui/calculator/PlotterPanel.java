@@ -441,7 +441,7 @@ public class PlotterPanel extends JPanel {
 		final File file=fc.showSaveDialogFileWithExtension(this);
 		if (file==null) return null;
 
-		if (file.exists()) {
+		if (file.exists() && !fc.hasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(this,file)) return null;
 		}
 

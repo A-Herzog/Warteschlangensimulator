@@ -100,5 +100,13 @@ public interface FileChooserImpl {
 	 * @param mode Auswahlmodus (z.B. {@link JFileChooser#DIRECTORIES_ONLY})
 	 */
 	void setFileSelectionMode(final int mode);
+
+	/**
+	 * Liefert <code>true</code>, wenn der Dialog bereits eine eigene
+	 * Überschreib-Warnung beim Speichern unter einem vorhandenen Namen
+	 * besitzt.
+	 * @return	Zeigt der Dialog selber Überschreib-Warnungen an?
+	 */
+	boolean hasOwnOverwritePrompt();
 }
 

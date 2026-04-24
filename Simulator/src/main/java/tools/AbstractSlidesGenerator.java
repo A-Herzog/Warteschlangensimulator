@@ -303,7 +303,7 @@ public abstract class AbstractSlidesGenerator {
 		final File file=fc.showOpenDialogFileWithExtension(c);
 		if (file==null) return null;
 
-		if (file.exists()) {
+		if (file.exists() && !fc.hasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(c,file)) return null;
 		}
 

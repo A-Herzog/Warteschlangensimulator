@@ -729,7 +729,7 @@ public class StyledTextBuilder {
 		final File file=fc.showSaveDialogFileWithExtension(owner);
 		if (file==null) return null;
 
-		if (file.exists()) {
+		if (file.exists() && !fc.hasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return null;
 		}
 

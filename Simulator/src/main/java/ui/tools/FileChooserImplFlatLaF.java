@@ -165,4 +165,9 @@ public class FileChooserImplFlatLaF implements FileChooserImpl {
 	public void setFileSelectionMode(int mode) {
 		fileChooser.setFileSelectionMode(mode);
 	}
+
+	@Override
+	public boolean hasOwnOverwritePrompt() {
+		return true;
+	}
 }

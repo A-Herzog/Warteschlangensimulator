@@ -1019,7 +1019,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		final File file=fc.showSaveDialogFileWithExtension(owner);
 		if (file==null) return;
 
-		if (file.exists()) {
+		if (file.exists() && !fc.hasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return;
 		}
 
@@ -1105,7 +1105,7 @@ public class StatisticViewerReport extends StatisticViewerSpecialBase {
 		File file=MultiTable.showSaveDialog(parent,StatisticsBasePanel.viewersReportSaveWorkbook,null);
 		if (file==null) return;
 
-		if (file.exists()) {
+		if (file.exists() && !MultiTable.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(parent,file)) return;
 		}
 

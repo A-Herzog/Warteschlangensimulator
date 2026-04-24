@@ -419,7 +419,7 @@ public class StatisticViewerFastAccessList extends StatisticViewerFastAccessBase
 		final String fileName=ScriptTools.selectTextSaveFile(getParent(),null,null);
 		if (fileName==null) return false;
 		final File file=new File(fileName);
-		if (file.exists()) {
+		if (file.exists() && !ScriptTools.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(getParent(),file)) return false;
 		}
 

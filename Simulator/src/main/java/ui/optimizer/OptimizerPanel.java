@@ -707,7 +707,7 @@ public class OptimizerPanel extends SpecialPanel {
 			if (file==null) return;
 
 			if (file.exists()) {
-				if (!MsgBox.confirmOverwrite(owner,file)) return;
+				if (!MsgBox.confirmOverwrite(owner,file) && !fc.hasOwnOverwritePrompt()) return;
 			}
 
 			if (!Table.saveTextToFile(log.getText(),file)) {
@@ -721,7 +721,7 @@ public class OptimizerPanel extends SpecialPanel {
 			final File file=Table.showSaveDialog(owner,Language.tr("Optimizer.Tab.Optimization.Step.Result.Save.Table.Title"));
 			if (file==null) return;
 
-			if (file.exists()) {
+			if (file.exists() && !Table.saveDialogHasOwnOverwritePrompt()) {
 				if (!MsgBox.confirmOverwrite(owner,file)) return;
 			}
 
@@ -1124,7 +1124,7 @@ public class OptimizerPanel extends SpecialPanel {
 		final File file=XMLTools.showSaveDialog(getParent(),Language.tr("Optimizer.Settings.Save"),SetupData.getSetup().defaultSaveFormatOptimizerSetups);
 		if (file==null) return false;
 
-		if (file.exists()) {
+		if (file.exists() && !XMLTools.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return false;
 		}
 

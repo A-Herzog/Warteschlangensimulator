@@ -1864,7 +1864,8 @@ public class AnimationPanel extends JPanel implements RunModelAnimationViewer {
 		final File file=showExportDialog(getParent(),Language.tr("Editor.ExportModel"));
 		if (file==null) return;
 
-		if (file.exists()) {
+		final var fc=new PlugableFileChooser();
+		if (file.exists() && !fc.hasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(window,file)) return;
 		}
 

@@ -164,4 +164,15 @@ public class ScriptTools {
 		if (file==null) return null;
 		return file.getAbsolutePath();
 	}
+
+	/**
+	 * Liefert <code>true</code>, wenn der Speicherndialog bereits eine eigene
+	 * Überschreib-Warnung beim Speichern unter einem vorhandenen Namen
+	 * besitzt.
+	 * @return	Zeigt der Speicherndialog selber Überschreib-Warnungen an?
+	 */
+	public static boolean saveDialogHasOwnOverwritePrompt() {
+		final var fc=new PlugableFileChooser();
+		return fc.hasOwnOverwritePrompt();
+	}
 }

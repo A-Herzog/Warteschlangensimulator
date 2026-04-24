@@ -208,7 +208,7 @@ public class UndoRedoDialog extends BaseDialog {
 		final File file=XMLTools.showSaveDialog(this,EditorPanelBase.SAVE_MODEL,SetupData.getSetup().defaultSaveFormatModels);
 		if (file==null) return;
 
-		if (file.exists()) {
+		if (file.exists() && !XMLTools.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(this,file)) return;
 		}
 

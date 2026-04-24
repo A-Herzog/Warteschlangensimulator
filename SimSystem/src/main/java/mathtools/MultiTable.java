@@ -1095,4 +1095,15 @@ public final class MultiTable {
 	public static File showSaveDialog(final Component parent, final String title) {
 		return showSaveDialog(parent,title,null);
 	}
+
+	/**
+	 * Liefert <code>true</code>, wenn der Speicherndialog bereits eine eigene
+	 * Überschreib-Warnung beim Speichern unter einem vorhandenen Namen
+	 * besitzt.
+	 * @return	Zeigt der Speicherndialog selber Überschreib-Warnungen an?
+	 */
+	public static boolean saveDialogHasOwnOverwritePrompt() {
+		final var fc=new PlugableFileChooser();
+		return fc.hasOwnOverwritePrompt();
+	}
 }

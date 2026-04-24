@@ -590,7 +590,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		final File file=Table.showSaveDialog(this,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsLongRun.Save"),null);
 		if (file==null) return;
 
-		if (file.exists()) {
+		if (file.exists() && !Table.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(this,file)) return;
 		}
 
@@ -609,7 +609,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		final File file=Table.showSaveDialog(this,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsLongRunDetails.Save"),null);
 		if (file==null) return;
 
-		if (file.exists()) {
+		if (file.exists() && !Table.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(this,file)) return;
 		}
 
@@ -679,7 +679,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		final File file=Table.showSaveDialog(this,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Save"),null);
 		if (file==null) return;
 
-		if (file.exists()) {
+		if (file.exists() && !Table.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(this,file)) return;
 		}
 
@@ -779,7 +779,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		final File file=Table.showSaveDialogXLSXonly(this,Language.tr("ParameterCompare.Toolbar.ProcessResults.ResultsTable.Save"),null);
 		if (file==null) return;
 
-		if (file.exists()) {
+		if (file.exists() && !Table.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(this,file)) return;
 		}
 
@@ -1307,7 +1307,7 @@ public class ParameterComparePanel extends SpecialPanel {
 		final File file=XMLTools.showSaveDialog(getParent(),Language.tr("ParameterCompare.Settings.Save"),SetupData.getSetup().defaultSaveFormatParameterSeries);
 		if (file==null) return false;
 
-		if (file.exists()) {
+		if (file.exists() && !XMLTools.saveDialogHasOwnOverwritePrompt()) {
 			if (!MsgBox.confirmOverwrite(owner,file)) return false;
 		}
 
