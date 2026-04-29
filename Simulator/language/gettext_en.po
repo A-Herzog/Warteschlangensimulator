@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-06 00:54+0200\n"
+"POT-Creation-Date: 2026-04-21 23:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4657,6 +4657,9 @@ msgstr "Maximum clients distance of autocorrelation recording"
 
 msgid "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Range.Error"
 msgstr "The specified maximum distance of clients for the autocorrelation recording \"%s\" is invalid. A positive integer number has to be specified."
+
+msgid "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.RangeStepping"
+msgstr "Step width for autocorrelation recording"
 
 msgid "Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Warning.Near"
 msgstr "The maximum autocorrelation distance %s<br> to be recorded during the simulation is already quite close to the %s client arrivals that are simulated per CPU core.<br> Therefore, inaccuracies due to boundary effects must be expected."
@@ -26544,6 +26547,12 @@ msgstr "Autocorrelation"
 msgid "Statistics.XML.AutocorrelationData.Error"
 msgstr "The \"Autocorrelation\" attribute in the \"%s\" element has to contain the autocorrelation values."
 
+msgid "Statistics.XML.AutocorrelationRangeStepping"
+msgstr "AutocorrelationStepping"
+
+msgid "Statistics.XML.AutocorrelationRangeStepping.Error"
+msgstr "The \"AutocorrelationStepping\" attribute in the \"%s\" element has to contain a step wide (positive integer)."
+
 msgid "Statistics.XML.BatchCount"
 msgstr "BatchCount"
 
@@ -32833,6 +32842,9 @@ msgstr "The value \"%s\" for the number of client arrivals is invalid. A positiv
 msgid "Surface.Model.ErrorCorrelation"
 msgstr "The value \"%s\" for the number of autocorrelation steps to be recorded is invalid. A positive integer value has to be specified."
 
+msgid "Surface.Model.ErrorCorrelationStepping"
+msgstr "The value \"%s\" for the autocorrelation step width is invalid. A positive integer value has to be specified."
+
 msgid "Surface.Model.ErrorRepeatCount"
 msgstr "The specified number of repetitions of the simulation \"%s\" is invalid. A positive integer number has to be given."
 
@@ -38183,6 +38195,9 @@ msgstr "ModelAutocorrelation"
 
 msgid "Surface.XML.ModelCorrelation.Full"
 msgstr "All"
+
+msgid "Surface.XML.ModelCorrelationStepping"
+msgstr "StepWidth"
 
 msgid "Surface.XML.ModelDescription"
 msgstr "ModelDescription"

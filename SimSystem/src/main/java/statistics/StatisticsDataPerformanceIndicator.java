@@ -76,7 +76,11 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	/** XML-Attribut für "Autokorrelation" */
 	public static String[] xmlNameCorrelation=new String[]{"Autokorrelation"};
 	/** Fehlermeldung, wenn das "Autokorrelation"-Attribut nicht gelesen werden konnte. */
-	public static String xmlNameCorrelationError="Das Autokorrelation-Attribut im \"%S\"-Element muss die Autokorrelationswerte beinhalten.";
+	public static String xmlNameCorrelationError="Das Autokorrelation-Attribut im \"%s\"-Element muss die Autokorrelationswerte beinhalten.";
+	/** XML-Attribut für "AutokorrelationSchrittweite" */
+	public static String[] xmlNameCorrelationRangeStepping=new String[]{"AutokorrelationSchrittweite"};
+	/** Fehlermeldung, wenn das "AutokorrelationSchrittweite"-Attribut nicht gelesen werden konnte. */
+	public static String xmlNameCorrelationRangeSteppingError="Das AutokorrelationSchrittweite-Attribut im \"%s\"-Element muss die Schrittweite (eine positive Ganzzahl) beinhalten.";
 	/** XML-Attribut für "BatchGroesse" */
 	public static String[] xmlNameBatchSize=new String[]{"BatchGroesse"};
 	/** Fehlermeldung, wenn das "Verteilung"-BatchGroesse nicht gelesen werden konnte. */
@@ -114,11 +118,6 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * Quantile, die aus der Häufigkeitsverteilung berechnet und in der xml-Datei gespeichert werden
 	 */
 	public static final double[] storeQuantilValues=new double[] {0.10,0.25,0.5,0.75,0.9};
-
-	/**
-	 * Schrittweite für die Berechnung der Autokorrelation
-	 */
-	public static final int CORRELATION_RANGE_STEPPING=10;
 
 	/**
 	 * Anzahl der erfassten Messwerte
@@ -176,6 +175,17 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	private int densityDataLength;
 
 	/**
+	 * Standard-Schrittweite für die Berechnung der Autokorrelation
+	 * @see #correlationRangeStepping
+	 */
+	public static final int CORRELATION_RANGE_STEPPING_DEFAULT=10;
+
+	/**
+	 * Schrittweite für die Berechnung der Autokorrelation
+	 */
+	private int correlationRangeStepping=CORRELATION_RANGE_STEPPING_DEFAULT;
+
+	/**
 	 * Partialsummen über x_i * x_(i-k) zur Bestimmung der Korrelation
 	 * (nur während der Datenerfassung und beim Zusammenführen relevant)
 	 */
@@ -189,7 +199,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 
 	/**
 	 * Korrelationswerte zur Schrittweite
-	 * @see StatisticsDataPerformanceIndicator#CORRELATION_RANGE_STEPPING
+	 * @see StatisticsDataPerformanceIndicator#correlationRangeStepping
 	 */
 	private double[] correlation;
 
@@ -305,7 +315,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * @param steps	Gibt an, wie viele einzelne Werte für die Häufigkeitsverteilung vorgehalten werden sollen
 	 */
 	public StatisticsDataPerformanceIndicator(final String[] xmlNodeNames, final double upperBound, final int steps) {
-		this(xmlNodeNames,upperBound,steps,-1,1,false);
+		this(xmlNodeNames,upperBound,steps,-1,10,1,false);
 	}
 
 	/**
@@ -315,11 +325,12 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * @param upperBound	Gibt die Obergrenze des Trägers der Häufigkeitsverteilung an
 	 * @param steps	Gibt an, wie viele einzelne Werte für die Häufigkeitsverteilung vorgehalten werden sollen
 	 * @param correlationRange	Reichweite für die Erfassung der Autokorrelation (Werte &le;0 schalten die Erfassung aus)
+	 * @param correlationRangeStepping	Schrittweite für die Berechnung der Autokorrelation
 	 * @param batchSize	Wird hier ein Wert &gt;1 übergeben, so werden Batch-Means erfasst, auf deren Basis später Konfidenzintervalle bestimmt werden können
 	 * @param useWelford	Soll der Welford-Algorithmus zur Erfassung der Varianz verwendet werden? (langsamer, aber bei ganz kleinen Variationskoeffizienten exakter)
 	 */
-	public StatisticsDataPerformanceIndicator(final String[] xmlNodeNames, final double upperBound, final int steps, final int correlationRange, final int batchSize, final boolean useWelford) {
-		this(xmlNodeNames,upperBound,steps,correlationRange,batchSize,useWelford,false);
+	public StatisticsDataPerformanceIndicator(final String[] xmlNodeNames, final double upperBound, final int steps, final int correlationRange, final int correlationRangeStepping, final int batchSize, final boolean useWelford) {
+		this(xmlNodeNames,upperBound,steps,correlationRange,correlationRangeStepping,batchSize,useWelford,false);
 	}
 
 	/**
@@ -329,11 +340,12 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 * @param upperBound	Gibt die Obergrenze des Trägers der Häufigkeitsverteilung an
 	 * @param steps	Gibt an, wie viele einzelne Werte für die Häufigkeitsverteilung vorgehalten werden sollen
 	 * @param correlationRange	Reichweite für die Erfassung der Autokorrelation (Werte &le;0 schalten die Erfassung aus)
+	 * @param correlationRangeStepping	Schrittweite für die Berechnung der Autokorrelation
 	 * @param batchSize	Wird hier ein Wert &gt;1 übergeben, so werden Batch-Means erfasst, auf deren Basis später Konfidenzintervalle bestimmt werden können
 	 * @param useWelford	Soll der Welford-Algorithmus zur Erfassung der Varianz verwendet werden? (langsamer, aber bei ganz kleinen Variationskoeffizienten exakter)
 	 * @param isEmpty	Gibt an, ob es sich bei diesem Objekt um eine leere Kopiervorlage handelt
 	 */
-	public StatisticsDataPerformanceIndicator(final String[] xmlNodeNames, final double upperBound, final int steps, final int correlationRange, final int batchSize, final boolean useWelford, final boolean isEmpty) {
+	public StatisticsDataPerformanceIndicator(final String[] xmlNodeNames, final double upperBound, final int steps, final int correlationRange, final int correlationRangeStepping, final int batchSize, final boolean useWelford, final boolean isEmpty) {
 		super(xmlNodeNames);
 		this.upperBound=upperBound;
 		this.steps=steps;
@@ -345,7 +357,8 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			hasDistribution=false;
 		}
 
-		if (correlationRange>0) correlationTempValues=new double[correlationRange+CORRELATION_RANGE_STEPPING];
+		this.correlationRangeStepping=correlationRangeStepping;
+		if (correlationRange>0) correlationTempValues=new double[correlationRange+correlationRangeStepping];
 
 		this.batchSize=batchSize;
 
@@ -443,9 +456,9 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			correlationTempValues[(int)((count-1)%correlationRange)]=value;
 			int m=correlationRange;
 			if (count<m) m=(int)count;
-			m=m/CORRELATION_RANGE_STEPPING;
+			m=m/correlationRangeStepping;
 			if (value!=0.0) for (int k=1;k<m;k++) {
-				final int index=(int)((count-1+correlationRange-k*CORRELATION_RANGE_STEPPING)%correlationRange);
+				final int index=(int)((count-1+correlationRange-k*correlationRangeStepping)%correlationRange);
 				final double valueMinusK=correlationTempValues[index];
 				if (valueMinusK!=0.0) correlationSums[k]+=value*valueMinusK; /* sum(i=k+1..n)x(i)*x(i-k) wird partiell aufgebaut */
 			}
@@ -657,7 +670,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		/* Autokorrelation */
 		if (correlationTempValues!=null) {
 			Arrays.fill(correlationTempValues,0);
-			if (correlationSums==null) correlationSums=new double[correlationTempValues.length/CORRELATION_RANGE_STEPPING]; else Arrays.fill(correlationSums,0);
+			if (correlationSums==null) correlationSums=new double[correlationTempValues.length/correlationRangeStepping]; else Arrays.fill(correlationSums,0);
 		}
 		correlation=null;
 
@@ -738,7 +751,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 */
 	@Override
 	public StatisticsDataPerformanceIndicator clone() {
-		final StatisticsDataPerformanceIndicator indicator=new StatisticsDataPerformanceIndicator(xmlNodeNames,upperBound,steps,(correlationTempValues==null)?-1:correlationTempValues.length,batchSize,useWelford);
+		final StatisticsDataPerformanceIndicator indicator=new StatisticsDataPerformanceIndicator(xmlNodeNames,upperBound,steps,(correlationTempValues==null)?-1:correlationTempValues.length,correlationRangeStepping,batchSize,useWelford);
 		indicator.copyDataFrom(this);
 		return indicator;
 	}
@@ -750,7 +763,7 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	 */
 	@Override
 	public StatisticsDataPerformanceIndicator cloneEmpty() {
-		return new StatisticsDataPerformanceIndicator(xmlNodeNames,upperBound,steps,(correlationTempValues==null)?-1:correlationTempValues.length,batchSize,useWelford);
+		return new StatisticsDataPerformanceIndicator(xmlNodeNames,upperBound,steps,(correlationTempValues==null)?-1:correlationTempValues.length,correlationRangeStepping,batchSize,useWelford);
 	}
 
 	/**
@@ -998,10 +1011,10 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		correlation[0]=1;
 
 		for (int k=1;k<correlationSums.length;k++) {
-			if (k*CORRELATION_RANGE_STEPPING>count) {
+			if (k*correlationRangeStepping>count) {
 				correlation[k]=0;
 			} else {
-				final double corr=(correlationSums[k]-(count-k*CORRELATION_RANGE_STEPPING)*mean*mean);
+				final double corr=(correlationSums[k]-(count-k*correlationRangeStepping)*mean*mean);
 				if (count>0 && var>0) correlation[k]=corr/count/var;
 			}
 		}
@@ -1021,13 +1034,23 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 		calcCorrelation();
 		if (correlation==null) return 1;
 
-		for (int k=1;k<correlation.length;k++) if (Math.abs(correlation[k])<level) return k*CORRELATION_RANGE_STEPPING;
-		return correlation.length*CORRELATION_RANGE_STEPPING;
+		for (int k=1;k<correlation.length;k++) if (Math.abs(correlation[k])<level) return k*correlationRangeStepping;
+		return correlation.length*correlationRangeStepping;
+	}
+
+	/**
+	 * Liefert die Schrittweite für die Berechnung der Autokorrelation.
+	 * @return Schrittweite für die Berechnung der Autokorrelation
+	 * @see #correlationRangeStepping
+	 * @see #getCorrelationLevelDistance(double)
+	 */
+	public int getCorrelationStepping() {
+		return correlationRangeStepping;
 	}
 
 	/**
 	 * Liefert eine Liste mit allen Autokorrelationskoeffizienten.<br>
-	 * Der erste Eintrag steht dabei für {@link StatisticsDataPerformanceIndicator#CORRELATION_RANGE_STEPPING}
+	 * Der erste Eintrag steht dabei für {@link StatisticsDataPerformanceIndicator#correlationRangeStepping}
 	 * Schritte Entfernung, der zweite für das doppelte davon usw.
 	 * @return	Autokorrelationskoeffizienten
 	 * @see StatisticsDataPerformanceIndicator#isCorrelationAvailable()
@@ -1361,6 +1384,8 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			/* Aufbereitete Daten (werden nur geschrieben, nicht wieder gelesen) */
 			final DataDistributionImpl temp=new DataDistributionImpl(correlation.length,correlation);
 			node.setAttribute(xmlNameCorrelation[0],temp.storeToString());
+			/* Schrittweite */
+			node.setAttribute(xmlNameCorrelationRangeStepping[0],""+correlationRangeStepping);
 			/* Levelwerte */
 			for (double level: AUTOCORRELATION_SAVE_LEVEL) {
 				String s=String.valueOf(Math.round(level*1000));
@@ -1488,6 +1513,13 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			final DataDistributionImpl temp=DataDistributionImpl.createFromString(value,dist.upperBound);
 			if (temp==null) return String.format(xmlNameCorrelationError,node.getNodeName());
 			correlation=temp.densityData;
+		}
+
+		value=getAttributeValue(node,xmlNameCorrelationRangeStepping);
+		if (!value.isEmpty() && hasDistribution) {
+			final Long l=NumberTools.getPositiveLong(value);
+			if (l==null) return String.format(xmlNameCorrelationRangeSteppingError,node.getNodeName());
+			correlationRangeStepping=l.intValue();
 		}
 
 		value=getAttributeValue(node,xmlNameBatchSize);

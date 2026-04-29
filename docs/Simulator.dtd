@@ -50,7 +50,8 @@
 
 <!ELEMENT ModellAutokorrelation (#PCDATA)>
 <!ATTLIST ModellAutokorrelation
-  Alle	(0|1)	#IMPLIED
+  Alle			(0|1)	#IMPLIED
+  Schrittweite	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModellBatchGroesse (#PCDATA)>
@@ -2024,6 +2025,7 @@
   Kurt							CDATA	#IMPLIED
   Verteilung					CDATA	#IMPLIED
   Autokorrelation				CDATA	#IMPLIED
+  AutokorrelationSchrittweite	CDATA	#IMPLIED
   Autokorrelation0100			CDATA	#IMPLIED
   Autokorrelation0050			CDATA	#IMPLIED
   Autokorrelation0010			CDATA	#IMPLIED
@@ -2071,6 +2073,7 @@
   Kurt							CDATA	#IMPLIED
   Verteilung					CDATA	#IMPLIED
   Autokorrelation				CDATA	#IMPLIED
+  AutokorrelationSchrittweite	CDATA	#IMPLIED
   Autokorrelation0100			CDATA	#IMPLIED
   Autokorrelation0050			CDATA	#IMPLIED
   Autokorrelation0010			CDATA	#IMPLIED
@@ -2326,6 +2329,7 @@
   Kurt							CDATA	#IMPLIED
   Verteilung					CDATA	#IMPLIED
   Autokorrelation				CDATA	#IMPLIED
+  AutokorrelationSchrittweite	CDATA	#IMPLIED
   Autokorrelation0100			CDATA	#IMPLIED
   Autokorrelation0050			CDATA	#IMPLIED
   Autokorrelation0010			CDATA	#IMPLIED
@@ -2583,6 +2587,7 @@
   Kurt							CDATA	#IMPLIED
   Verteilung					CDATA	#IMPLIED
   Autokorrelation				CDATA	#IMPLIED
+  AutokorrelationSchrittweite	CDATA	#IMPLIED
   Autokorrelation0100			CDATA	#IMPLIED
   Autokorrelation0050			CDATA	#IMPLIED
   Autokorrelation0010			CDATA	#IMPLIED
@@ -2807,7 +2812,8 @@
 
 <!ELEMENT ModelAutocorrelation (#PCDATA)>
 <!ATTLIST ModelAutocorrelation
-  All	(0|1)	#IMPLIED
+  All		(0|1)	#IMPLIED
+  StepWidth	CDATA	#IMPLIED
 >
 
 <!ELEMENT ModelBatchSize (#PCDATA)>
@@ -4779,6 +4785,7 @@
   Kurt						CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Autocorrelation			CDATA	#IMPLIED
+  AutocorrelationStepping	CDATA	#IMPLIED
   Autocorrelation0100		CDATA	#IMPLIED
   Autocorrelation0050		CDATA	#IMPLIED
   Autocorrelation0010		CDATA	#IMPLIED
@@ -4826,6 +4833,7 @@
   Kurt						CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Autocorrelation			CDATA	#IMPLIED
+  AutocorrelationStepping	CDATA	#IMPLIED
   Autocorrelation0100		CDATA	#IMPLIED
   Autocorrelation0050		CDATA	#IMPLIED
   Autocorrelation0010		CDATA	#IMPLIED
@@ -5081,6 +5089,7 @@
   Kurt						CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Autocorrelation			CDATA	#IMPLIED
+  AutocorrelationStepping	CDATA	#IMPLIED
   Autocorrelation0100		CDATA	#IMPLIED
   Autocorrelation0050		CDATA	#IMPLIED
   Autocorrelation0010		CDATA	#IMPLIED
@@ -5338,6 +5347,7 @@
   Kurt						CDATA	#IMPLIED
   Distribution				CDATA	#IMPLIED
   Autocorrelation			CDATA	#IMPLIED
+  AutocorrelationStepping	CDATA	#IMPLIED
   Autocorrelation0100		CDATA	#IMPLIED
   Autocorrelation0050		CDATA	#IMPLIED
   Autocorrelation0010		CDATA	#IMPLIED

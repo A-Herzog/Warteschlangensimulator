@@ -45,6 +45,7 @@ import simulator.runmodel.RunModel;
 import simulator.simparser.ExpressionCalcModelUserFunctions;
 import simulator.statistics.Statistics;
 import simulator.statistics.Statistics.CorrelationMode;
+import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.SetupBase;
 import tools.SetupData;
 import ui.MainPanel;
@@ -261,6 +262,12 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	 * @see CorrelationMode#CORRELATION_MODE_FULL
 	 */
 	public Statistics.CorrelationMode correlationMode;
+
+	/**
+	 * Schrittweite für die Berechnung der Autokorrelation
+	 * @see RunModel#correlationMode
+	 */
+	public int correlationRangeStepping=StatisticsDataPerformanceIndicator.CORRELATION_RANGE_STEPPING_DEFAULT;
 
 	/**
 	 * Gibt an ob (bei &gt;1) und wenn ja von welcher Größe die Batches
@@ -583,6 +590,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		longRunStatistics.clear();
 		correlationRange=-1;
 		correlationMode=Statistics.CorrelationMode.CORRELATION_MODE_OFF;
+		correlationRangeStepping=StatisticsDataPerformanceIndicator.CORRELATION_RANGE_STEPPING_DEFAULT;
 		batchMeansSize=1;
 		collectWaitingTimes=false;
 		useWelford=false;
@@ -656,6 +664,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		clone.longRunStatistics.setDataFrom(longRunStatistics);
 		clone.correlationRange=correlationRange;
 		clone.correlationMode=correlationMode;
+		clone.correlationRangeStepping=correlationRangeStepping;
 		clone.batchMeansSize=batchMeansSize;
 		clone.collectWaitingTimes=collectWaitingTimes;
 		clone.useWelford=useWelford;
@@ -745,6 +754,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (!longRunStatistics.equalsAdditionalStatistics(otherModel.longRunStatistics)) return false;
 		if (correlationRange!=otherModel.correlationRange) return false;
 		if (correlationMode!=otherModel.correlationMode) return false;
+		if (correlationRangeStepping!=otherModel.correlationRangeStepping) return false;
 		if (batchMeansSize!=otherModel.batchMeansSize) return false;
 		if (collectWaitingTimes!=otherModel.collectWaitingTimes) return false;
 		if (useWelford!=otherModel.useWelford) return false;
@@ -923,11 +933,18 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (Language.trAll("Surface.XML.ModelCorrelation",name)) {
 			final Integer I=NumberTools.getNotNegativeInteger(text);
 			if (I==null) return String.format(Language.tr("Surface.Model.ErrorCorrelation"),text);
-			final String s=Language.trAllAttribute("Surface.XML.ModelCorrelation.Full",node);
+			String s=Language.trAllAttribute("Surface.XML.ModelCorrelation.Full",node);
 			if (s.equals("1")) {
 				correlationMode=Statistics.CorrelationMode.CORRELATION_MODE_FULL;
 			} else {
 				correlationMode=Statistics.CorrelationMode.CORRELATION_MODE_FAST;
+			}
+
+			s=Language.trAllAttribute("Surface.XML.ModelCorrelationStepping",node);
+			if (!s.isBlank()) {
+				final Long L=NumberTools.getPositiveLong(s);
+				if (L==null) return String.format(Language.tr("Surface.Model.ErrorCorrelationStepping"),text);
+				correlationRangeStepping=L.intValue();
 			}
 			correlationRange=I;
 			return null;
@@ -1317,6 +1334,7 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		if (correlationMode!=Statistics.CorrelationMode.CORRELATION_MODE_OFF && correlationRange>0) {
 			sub=addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelCorrelation"),correlationRange);
 			if (correlationMode==Statistics.CorrelationMode.CORRELATION_MODE_FULL) sub.setAttribute(Language.trPrimary("Surface.XML.ModelCorrelation.Full"),"1");
+			if (correlationRangeStepping!=StatisticsDataPerformanceIndicator.CORRELATION_RANGE_STEPPING_DEFAULT) sub.setAttribute(Language.trPrimary("Surface.XML.ModelCorrelationStepping"),""+correlationRangeStepping);
 		}
 		if (batchMeansSize>1) addTextToXML(doc,node,Language.trPrimary("Surface.XML.ModelBatchMeans"),batchMeansSize);
 
@@ -1877,7 +1895,10 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 		longRunStatistics.search(searcher);
 
 		/* Autokorrelation der Messwerte */
-		if (correlationMode!=Statistics.CorrelationMode.CORRELATION_MODE_OFF) searcher.testInteger(Language.tr("Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Range"),correlationRange,newCorrelationRange->{if (newCorrelationRange>0) correlationRange=newCorrelationRange;});
+		if (correlationMode!=Statistics.CorrelationMode.CORRELATION_MODE_OFF) {
+			searcher.testInteger(Language.tr("Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.Range"),correlationRange,newCorrelationRange->{if (newCorrelationRange>0) correlationRange=newCorrelationRange;});
+			searcher.testInteger(Language.tr("Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.RangeStepping"),correlationRangeStepping,newCorrelationRangeStepping->{if (newCorrelationRangeStepping>0) correlationRangeStepping=newCorrelationRangeStepping;});
+		}
 
 		/* Batch-Means-Größe */
 		if (batchMeansSize>1) searcher.testInteger(Language.tr("Editor.DialogBase.Search.BatchMeansSize"),batchMeansSize,newBatchMeansSize->{if (newBatchMeansSize>1) batchMeansSize=newBatchMeansSize;});

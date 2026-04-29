@@ -83,10 +83,11 @@ public class StatisticViewerAutocorrelationLineChart extends StatisticViewerLine
 		final XYSeries series=addSeries(name,color);
 
 		final double[] data=indicator.getCorrelationData();
+		final int step=indicator.getCorrelationStepping();
 		for (int i=0;i<data.length;i++) {
 			final double y=Math.abs(data[i]);
 			if (i>=MAX_SERIES && y<0.01) break;
-			series.add(i*StatisticsDataPerformanceIndicator.CORRELATION_RANGE_STEPPING,y,false);
+			series.add(i*step,y,false);
 		}
 		series.fireSeriesChanged();
 	}

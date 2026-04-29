@@ -111,6 +111,7 @@ import simulator.examples.EditModelExamples;
 import simulator.logging.CallbackLoggerWithJS;
 import simulator.runmodel.RunModel;
 import simulator.statistics.Statistics;
+import statistics.StatisticsDataPerformanceIndicator;
 import systemtools.BaseDialog;
 import systemtools.GUITools;
 import systemtools.MainFrameBase;
@@ -3710,6 +3711,7 @@ public class MainPanel extends MainPanelBase {
 	private void commandSimulationFindBatchSize() {
 		final EditModel editModel=editorPanel.getModel();
 		editModel.correlationMode=Statistics.CorrelationMode.CORRELATION_MODE_FULL;
+		editModel.correlationRangeStepping=StatisticsDataPerformanceIndicator.CORRELATION_RANGE_STEPPING_DEFAULT;
 		editModel.correlationRange=10_000;
 
 		BackgroundSystem.getBackgroundSystem(editorPanel).stop(); /* Das Modell wird in der vorherigen Zeile verändert, kann daher ganz sicher nicht per Background gestartet werden. */

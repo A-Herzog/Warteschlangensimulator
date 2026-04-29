@@ -1260,8 +1260,10 @@ public class LanguageStaticLoader {
 		StatisticsDataPerformanceIndicator.xmlNameMaxError=Language.tr("Statistics.XML.Maximum.Error");
 		StatisticsDataPerformanceIndicator.xmlNameDistribution=Language.trAll("Statistics.XML.Distribution");
 		StatisticsDataPerformanceIndicator.xmlNameDistributionError=Language.tr("Statistics.XML.Distribution.Error");
-		StatisticsDataPerformanceIndicator.xmlNameCorrelationError=Language.tr("Statistics.XML.AutocorrelationData.Error");
 		StatisticsDataPerformanceIndicator.xmlNameCorrelation=Language.trAll("Statistics.XML.Autocorrelation");
+		StatisticsDataPerformanceIndicator.xmlNameCorrelationError=Language.tr("Statistics.XML.AutocorrelationData.Error");
+		StatisticsDataPerformanceIndicator.xmlNameCorrelationRangeStepping=Language.trAll("Statistics.XML.AutocorrelationRangeStepping");
+		StatisticsDataPerformanceIndicator.xmlNameCorrelationRangeSteppingError=Language.tr("Statistics.XML.AutocorrelationRangeStepping.Error");
 		StatisticsDataPerformanceIndicator.xmlNameBatchSize=Language.trAll("Statistics.XML.BatchSize");
 		StatisticsDataPerformanceIndicator.xmlNameBatchSizeError=Language.tr("Statistics.XML.BatchSize.Error");
 		StatisticsDataPerformanceIndicator.xmlNameBatchCount=Language.trAll("Statistics.XML.BatchCount");

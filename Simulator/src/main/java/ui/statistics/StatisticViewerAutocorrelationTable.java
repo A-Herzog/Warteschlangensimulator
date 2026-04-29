@@ -187,7 +187,8 @@ public class StatisticViewerAutocorrelationTable extends StatisticViewerBaseTabl
 		final List<String> line=new ArrayList<>();
 		if (statistics.clientsAllWaitingTimes.isCorrelationAvailable()) {
 			final int length=statistics.clientsAllWaitingTimes.getCorrelationData().length;
-			for (int i=0;i<length;i++) line.add(NumberTools.formatLongNoGrouping(i*StatisticsDataPerformanceIndicator.CORRELATION_RANGE_STEPPING));
+			final int step=statistics.clientsAllWaitingTimes.getCorrelationStepping();
+			for (int i=0;i<length;i++) line.add(NumberTools.formatLongNoGrouping(i*step));
 		}
 		table.addLine(line);
 

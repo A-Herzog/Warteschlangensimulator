@@ -258,6 +258,12 @@ public class RunModel {
 	public Statistics.CorrelationMode correlationMode;
 
 	/**
+	 * Schrittweite für die Berechnung der Autokorrelation
+	 * @see RunModel#correlationMode
+	 */
+	public int correlationRangeStepping;
+
+	/**
 	 * Gibt an ob (bei &gt;1) und wenn ja von welcher Größe die Batches
 	 * sein sollen, auf deren Basis Batch-Means berechnet werden sollen.
 	 */
@@ -706,6 +712,7 @@ public class RunModel {
 		/* Bestimmung der Autokorrelation */
 		runModel.correlationRange=editModel.correlationRange;
 		runModel.correlationMode=editModel.correlationMode;
+		runModel.correlationRangeStepping=editModel.correlationRangeStepping;
 
 		/* Batch-Means */
 		runModel.batchMeansSize=editModel.batchMeansSize;

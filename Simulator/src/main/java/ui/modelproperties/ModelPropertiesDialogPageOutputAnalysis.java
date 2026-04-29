@@ -49,6 +49,8 @@ public class ModelPropertiesDialogPageOutputAnalysis extends ModelPropertiesDial
 	private JComboBox<String> correlationMode;
 	/** Eingabefeld "Maximaler Kundenabstand für Korrelationserfassung" */
 	private JTextField correlationRange;
+	/** Eingabefeld "Schrittweite für Autokorrelationserfassung" */
+	private JTextField correlationRangeStepping;
 	/** Eingabefeld "Batch-Größe" */
 	private JTextField batchMeansSize;
 	/** Option Beenden der Simulation beim Erreichen eines Batch-Means-Konfidenzradius"" */
@@ -114,6 +116,18 @@ public class ModelPropertiesDialogPageOutputAnalysis extends ModelPropertiesDial
 		correlationRange.setEnabled(!readOnly);
 		addKeyListener(correlationRange,()->{
 			NumberTools.getPositiveLong(correlationRange,true);
+			if (correlationMode.getSelectedIndex()==0) correlationMode.setSelectedIndex(1);
+			dialog.testCorrelationWarning();
+		});
+
+		int stepping=model.correlationRangeStepping;
+		if (stepping<=0 || stepping>=100) stepping=10;
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("Editor.Dialog.Tab.OutputAnalysis.RecordAutocorrelation.RangeStepping")+":",""+stepping,10);
+		lines.add((JPanel)data[0]);
+		correlationRangeStepping=(JTextField)data[1];
+		correlationRangeStepping.setEnabled(!readOnly);
+		addKeyListener(correlationRangeStepping,()->{
+			NumberTools.getPositiveLong(correlationRangeStepping,true);
 			if (correlationMode.getSelectedIndex()==0) correlationMode.setSelectedIndex(1);
 			dialog.testCorrelationWarning();
 		});
@@ -251,6 +265,8 @@ public class ModelPropertiesDialogPageOutputAnalysis extends ModelPropertiesDial
 			Long L;
 			L=NumberTools.getPositiveLong(correlationRange,true);
 			if (L!=null) model.correlationRange=L.intValue();
+			L=NumberTools.getPositiveLong(correlationRangeStepping,true);
+			if (L!=null) model.correlationRangeStepping=L.intValue();
 		}
 		model.batchMeansSize=NumberTools.getPositiveLong(batchMeansSize,true).intValue();
 

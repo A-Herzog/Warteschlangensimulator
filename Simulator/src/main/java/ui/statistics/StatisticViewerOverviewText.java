@@ -3829,7 +3829,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 	 */
 	private void outputAutocorrelationData(final StatisticsDataPerformanceIndicator indicator, final int[] maxDistance) {
 		beginParagraph();
-		final int maxSize=(indicator.getCorrelationData().length-1)*StatisticsDataPerformanceIndicator.CORRELATION_RANGE_STEPPING;
+		final int maxSize=(indicator.getCorrelationData().length-1)*indicator.getCorrelationStepping();
 		for (int i=0;i<AUTOCORRELATION_LEVELS.length;i++) {
 			final double level=AUTOCORRELATION_LEVELS[i];
 			final int distance=indicator.getCorrelationLevelDistance(level);
@@ -3869,7 +3869,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 
 		addHeading(2,Language.tr("Statistics.ResultsAutocorrelation.WaitingTime.AllClients"));
 		outputAutocorrelationData(statistics.clientsAllWaitingTimes,maxDistance);
-		final int maxSize=(statistics.clientsAllWaitingTimes.getCorrelationData().length-1)*StatisticsDataPerformanceIndicator.CORRELATION_RANGE_STEPPING;
+		final int maxSize=(statistics.clientsAllWaitingTimes.getCorrelationData().length-1)*statistics.clientsAllWaitingTimes.getCorrelationStepping();
 
 		/* Autokorrelation über die Wartezeiten der einzelnen Kundentypen */
 

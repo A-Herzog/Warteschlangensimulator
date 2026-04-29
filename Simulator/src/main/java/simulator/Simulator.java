@@ -342,7 +342,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 			/* Basisdaten zum Modell und zum Simulationslauf festhalten */
 			writeBaseDataToStatistics(statistics);
 		} else {
-			statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours,runModel.stateRecordSize,runModel.distributionRecordClientDataValues,runModel.useWelford);
+			statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.correlationRangeStepping,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours,runModel.stateRecordSize,runModel.distributionRecordClientDataValues,runModel.useWelford);
 
 			/* Basisdaten zum Modell und zum Simulationslauf festhalten */
 			writeBaseDataToStatistics(statistics);
@@ -412,7 +412,7 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 		if (!isPaused() || !isRunning()) return null;
 		if (threads.length!=1) return null;
 
-		final Statistics statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours,runModel.stateRecordSize,runModel.distributionRecordClientDataValues,runModel.useWelford);
+		final Statistics statistics=new Statistics(runModel.correlationRange,runModel.correlationMode,runModel.correlationRangeStepping,runModel.batchMeansSize,runModel.collectWaitingTimes,runModel.distributionRecordHours,runModel.stateRecordSize,runModel.distributionRecordClientDataValues,runModel.useWelford);
 		writeBaseDataToStatistics(statistics);
 		statistics.addData(((SimulationData)threads[0].simData).statistics);
 		statistics.calc();

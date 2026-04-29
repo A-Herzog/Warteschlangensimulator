@@ -96,6 +96,7 @@
 <xs:element name="ModellAutokorrelation"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="Alle" type="xs:integer"/>
+	<xs:attribute name="Schrittweite" type="xs:integer"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -2271,6 +2272,7 @@
 	<xs:attribute name="Kurt" type="xs:string"/>
 	<xs:attribute name="Verteilung" type="xs:string"/>
 	<xs:attribute name="Autokorrelation" type="xs:string"/>
+	<xs:attribute name="AutokorrelationSchrittweite" type="xs:string"/>
     <xs:attribute name="Autokorrelation0100" type="xs:string"/>
     <xs:attribute name="Autokorrelation0050" type="xs:string"/>
     <xs:attribute name="Autokorrelation0010" type="xs:string"/>
@@ -2675,6 +2677,7 @@
 <xs:element name="ModelAutocorrelation"><xs:complexType><xs:simpleContent>
   <xs:extension base="xs:string">
     <xs:attribute name="All" type="xs:integer"/>
+	<xs:attribute name="StepWidth" type="xs:integer"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -4851,6 +4854,7 @@
 	<xs:attribute name="Kurt" type="xs:string"/>
 	<xs:attribute name="Distribution" type="xs:string"/>
 	<xs:attribute name="Autocorrelation" type="xs:string"/>
+	<xs:attribute name="AutocorrelationStepping" type="xs:string"/>
     <xs:attribute name="Autocorrelation0100" type="xs:string"/>
     <xs:attribute name="Autocorrelation0050" type="xs:string"/>
     <xs:attribute name="Autocorrelation0010" type="xs:string"/>
