@@ -1117,7 +1117,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 
 		final JMenu sub=new JMenu(Generator);
 		menu.add(sub);
-		for (var mode: RandomGeneratorMode.values()) {
+		for (var mode: RandomGeneratorMode.list()) {
 			final JRadioButtonMenuItem generatorItem=new JRadioButtonMenuItem(mode.name,mode==randomMode);
 			sub.add(generatorItem);
 			generatorItem.addActionListener(e2->randomMode=mode);
@@ -1162,7 +1162,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 
 		final JMenu sub=new JMenu(Generator);
 		menu.add(sub);
-		for (var mode: RandomGeneratorMode.values()) {
+		for (var mode: RandomGeneratorMode.list()) {
 			final JRadioButtonMenuItem generatorItem=new JRadioButtonMenuItem(mode.name,mode==randomMode);
 			sub.add(generatorItem);
 			generatorItem.addActionListener(e2->randomMode=mode);
@@ -1312,7 +1312,7 @@ public class JDistributionPanel extends JPanel implements JGetImage {
 		item.addActionListener(ev->saveImage());
 
 		popup.add(sub=new JMenu(Generator));
-		for (var mode: RandomGeneratorMode.values()) {
+		for (var mode: RandomGeneratorMode.list()) {
 			final JRadioButtonMenuItem generatorItem=new JRadioButtonMenuItem(mode.name,mode==randomMode);
 			sub.add(generatorItem);
 			generatorItem.addActionListener(e2->randomMode=mode);

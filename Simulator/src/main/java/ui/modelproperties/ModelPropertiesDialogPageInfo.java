@@ -150,7 +150,7 @@ public class ModelPropertiesDialogPageInfo extends ModelPropertiesDialogPage {
 		sub.add(new JLabel("<html><b>"+Language.tr("Editor.Dialog.Tab.SimulationSystem.RandomMode")+":</b></html>"));
 		sub.add(Box.createHorizontalStrut(1));
 		sub.add(randomMode=new JComboBox<>(RandomGeneratorMode.getAllNames()));
-		randomMode.setRenderer(new IconListCellRenderer(Stream.of(RandomGeneratorMode.values()).map(mode->{
+		randomMode.setRenderer(new IconListCellRenderer(Stream.of(RandomGeneratorMode.list()).map(mode->{
 			if (mode==RandomGeneratorMode.defaultRandomGeneratorMode) return Images.GENERAL_ON;
 			return mode.isGoodForSimulation?Images.MSGBOX_YES:Images.GENERAL_OFF;
 		}).toArray(Images[]::new)));

@@ -308,7 +308,7 @@ public class CalculatorWindowPageDistributions extends CalculatorWindowPage {
 
 		final JMenu generatorSubMenu=new JMenu(Language.tr("CalculatorDialog.Tab.Distributions.GenerateRandomNumbers.Generator"));
 		popup.add(generatorSubMenu);
-		for (var mode: RandomGeneratorMode.values()) {
+		for (var mode: RandomGeneratorMode.list()) {
 			final JRadioButtonMenuItem generatorItem=new JRadioButtonMenuItem(mode.name,mode==randomMode);
 			generatorSubMenu.add(generatorItem);
 			generatorItem.addActionListener(e->randomMode=mode);

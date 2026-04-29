@@ -66,8 +66,37 @@ public enum RandomGeneratorMode {
 	XOROSHIRO128STARSTAR("XoRoShiRo128**",useSeed->new XoRoShiRo128StarStar()),
 	/** Pro Thread gekapselte Version von {@link XoRoShiRo64StarStar} verwenden */
 	XOROSHIRO64STARSTAR("XoRoShiRo64**",useSeed->new XoRoShiRo64StarStar()),
+	/** Pro Thread gekapselte Version von Xoshiro256PlusPlus verwenden (nur in Java 17 oder höher verfügbar) */
+	XOROSHIRO256PLUSPLUS("XoRoShiRo256++",useSeed->RandomGeneratorsByReflection.getByName("Xoshiro256PlusPlus"),true,RandomGeneratorsByReflection.areJava17GeneratorsAvailable()),
 	/** Pro Thread gekapselte Version von {@link L32X64Mix} verwenden */
 	L32X64MIX("L32X64Mix",useSeed->new L32X64Mix()),
+	/** Pro Thread gekapselte Version von L64X128MixRandom verwenden (nur in Java 17 oder höher verfügbar) */
+	L64X128MIX("L64X128Mix",useSeed->RandomGeneratorsByReflection.getByName("L64X128MixRandom"),true,RandomGeneratorsByReflection.areJava17GeneratorsAvailable()),
+	/** Pro Thread gekapselte Version von L64X128StarStarRandom verwenden (nur in Java 17 oder höher verfügbar) */
+	L64X128STARSTAR("L64X128**",useSeed->RandomGeneratorsByReflection.getByName("L64X128StarStarRandom"),true,RandomGeneratorsByReflection.areJava17GeneratorsAvailable()),
+	/** Pro Thread gekapselte Version von L64X256MixRandom verwenden (nur in Java 17 oder höher verfügbar) */
+	L64X256MIX("L64X256Mix",useSeed->RandomGeneratorsByReflection.getByName("L64X256MixRandom"),true,RandomGeneratorsByReflection.areJava17GeneratorsAvailable()),
+	/** Pro Thread gekapselte Version von L64X1024MixRandom verwenden (nur in Java 17 oder höher verfügbar) */
+	L64X1024MIX("L64X1024Mix",useSeed->RandomGeneratorsByReflection.getByName("L64X1024MixRandom"),true,RandomGeneratorsByReflection.areJava17GeneratorsAvailable()),
+	/** Pro Thread gekapselte Version von L128X128MixRandom verwenden (nur in Java 17 oder höher verfügbar) */
+	L128X128MIX("L128X128Mix",useSeed->RandomGeneratorsByReflection.getByName("L128X128MixRandom"),true,RandomGeneratorsByReflection.areJava17GeneratorsAvailable()),
+	/** Pro Thread gekapselte Version von L128X256MixRandom verwenden (nur in Java 17 oder höher verfügbar) */
+	L128X256MIX("L128X256Mix",useSeed->RandomGeneratorsByReflection.getByName("L128X256MixRandom"),true,RandomGeneratorsByReflection.areJava17GeneratorsAvailable()),
+	/** Pro Thread gekapselte Version von L128X1024MixRandom verwenden (nur in Java 17 oder höher verfügbar) */
+	L128X1024MIX("L128X1024Mix",useSeed->RandomGeneratorsByReflection.getByName("L128X1024MixRandom"),true,RandomGeneratorsByReflection.areJava17GeneratorsAvailable()),
+
+	/*
+	Neu:
+	XoRoShiRo256++
+	L64X128Mix
+	L64X128**
+	L64X256Mix
+	L64X1024Mix
+	L128X128Mix
+	L128X256Mix
+	L128X1024Mix
+	 */
+
 	/** Pro Thread gekapselte Version von {@link Drand48BitsStreamGenerator} verwenden */
 	DRAND48("Drand48",useSeed->new Drand48BitsStreamGenerator(),false);
 
@@ -87,6 +116,11 @@ public enum RandomGeneratorMode {
 	public final boolean isGoodForSimulation;
 
 	/**
+	 * Ist der Generator im aktuellen Umfeld (z.B. im verwendeten JDK) verfügbar?
+	 */
+	public final boolean isAvailable;
+
+	/**
 	 * Callback zur Erzeugung eines Generator gemäß des Typs
 	 */
 	private final Function<Boolean,RandomGenerator> getterCallback;
@@ -96,11 +130,23 @@ public enum RandomGeneratorMode {
 	 * @param name	Name des Zufallszahlengenerators (zum Speichern der Auswahl als Zeichenkette)
 	 * @param getterCallback	Callback zur Erzeugung eines Generator gemäß des Typs
 	 * @param isGoodForSimulation	Ist der Generator für Simulationen geeignet?
+	 * @param isAvailable	Ist der Generator im aktuellen Umfeld (z.B. im verwendeten JDK) verfügbar?
 	 */
-	RandomGeneratorMode(final String name, final Function<Boolean,RandomGenerator> getterCallback, final boolean isGoodForSimulation) {
+	RandomGeneratorMode(final String name, final Function<Boolean,RandomGenerator> getterCallback, final boolean isGoodForSimulation, final boolean isAvailable) {
 		this.name=name;
 		this.getterCallback=getterCallback;
 		this.isGoodForSimulation=isGoodForSimulation;
+		this.isAvailable=isAvailable;
+	}
+
+	/**
+	 * Konstruktor des Enum
+	 * @param name	Name des Zufallszahlengenerators (zum Speichern der Auswahl als Zeichenkette)
+	 * @param getterCallback	Callback zur Erzeugung eines Generator gemäß des Typs
+	 * @param isGoodForSimulation	Ist der Generator für Simulationen geeignet?
+	 */
+	RandomGeneratorMode(final String name, final Function<Boolean,RandomGenerator> getterCallback, final boolean isGoodForSimulation) {
+		this(name,getterCallback,isGoodForSimulation,true);
 	}
 
 	/**
@@ -109,7 +155,23 @@ public enum RandomGeneratorMode {
 	 * @param getterCallback	Callback zur Erzeugung eines Generator gemäß des Typs
 	 */
 	RandomGeneratorMode(final String name, final Function<Boolean,RandomGenerator> getterCallback) {
-		this(name,getterCallback,true);
+		this(name,getterCallback,true,true);
+	}
+
+	/**
+	 * Liefert einen Stream der tatsächlich verfügbaren Generatoren.
+	 * @return	Stream der tatsächlich verfügbaren Generatoren
+	 */
+	public static Stream<RandomGeneratorMode> listStream() {
+		return Stream.of(values()).filter(mode->mode.isAvailable);
+	}
+
+	/**
+	 * Liefert eine Liste der tatsächlich verfügbaren Generatoren.
+	 * @return	Liste der tatsächlich verfügbaren Generatoren
+	 */
+	public static RandomGeneratorMode[] list() {
+		return listStream().toArray(RandomGeneratorMode[]::new);
 	}
 
 	/**
@@ -118,7 +180,7 @@ public enum RandomGeneratorMode {
 	 * @return	Zufallszahlengenerator-Modus (basierend auf dem Namen) oder {@link RandomGeneratorMode#defaultRandomGeneratorMode}, wenn kein passender Eintrag gefunden wurde
 	 */
 	public static RandomGeneratorMode fromName(final String name) {
-		return Stream.of(values()).filter(randomGeneratorMode->randomGeneratorMode.name.equalsIgnoreCase(name)).findFirst().orElseGet(()->defaultRandomGeneratorMode);
+		return listStream().filter(randomGeneratorMode->randomGeneratorMode.name.equalsIgnoreCase(name)).findFirst().orElseGet(()->defaultRandomGeneratorMode);
 	}
 
 	/**
@@ -126,26 +188,30 @@ public enum RandomGeneratorMode {
 	 * @param index	Index zu dem der Zufallszahlengenerator-Modus geliefert werden soll
 	 * @return	Zufallszahlengenerator-Modus (basierend auf dem Index) oder {@link RandomGeneratorMode#defaultRandomGeneratorMode}, wenn der Index außerhalb des zulässigen Bereichs liegt
 	 * @see #getIndex(RandomGeneratorMode)
+	 * @see #list()
 	 */
 	public static RandomGeneratorMode fromIndex(final int index) {
-		if (index<0 || index>=values().length) return defaultRandomGeneratorMode;
-		return values()[index];
+		final var list=list();
+		if (index<0 || index>=list.length) return defaultRandomGeneratorMode;
+		return list[index];
 	}
 
 	/**
 	 * Liefert eine Liste der Namen aller Zufallszahlengenerator-Modi.
 	 * @return	Liste der Namen aller Zufallszahlengenerator-Modi
+	 * @see #list()
 	 */
 	public static String[] getAllNames() {
-		return Stream.of(values()).map(randomMode->randomMode.name).toArray(String[]::new);
+		return listStream().map(randomMode->randomMode.name).toArray(String[]::new);
 	}
 
 	/**
 	 * Liefert eine Liste der Qualität aller Zufallszahlengenerator-Modi.
 	 * @return	Liste der Qualität aller Zufallszahlengenerator-Modi
+	 * @see #list()
 	 */
 	public static Boolean[] getAllIsGoodForSimulation() {
-		return Stream.of(values()).map(randomMode->randomMode.isGoodForSimulation).toArray(Boolean[]::new);
+		return listStream().map(randomMode->randomMode.isGoodForSimulation).toArray(Boolean[]::new);
 	}
 
 	/**
@@ -153,11 +219,12 @@ public enum RandomGeneratorMode {
 	 * @param randomGeneratorMode	Zufallszahlengenerator-Modus
 	 * @return	Index des Zufallszahlengenerator-Modus in der Liste aller Modi
 	 * @see #fromIndex(int)
+	 * @see #list()
 	 */
 	public static int getIndex(final RandomGeneratorMode randomGeneratorMode) {
 		int index=0;
 		int defaultIndex=0;
-		for (var testRandomGeneratorMode: values()) {
+		for (var testRandomGeneratorMode: list()) {
 			if (testRandomGeneratorMode==randomGeneratorMode) return index;
 			if (testRandomGeneratorMode==defaultRandomGeneratorMode) defaultIndex=index;
 			index++;
@@ -274,8 +341,6 @@ public enum RandomGeneratorMode {
 			nextRandom=v*p;
 			randomAvailable=true;
 			return u*p;
-
-			//return random.nextGaussian();
 		}
 	}
 
