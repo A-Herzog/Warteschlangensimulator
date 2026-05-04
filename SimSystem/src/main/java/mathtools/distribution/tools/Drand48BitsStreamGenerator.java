@@ -33,12 +33,14 @@ public class Drand48BitsStreamGenerator extends BitsStreamGenerator {
 	/**
 	 * Internes Generatorobjekt
 	 */
-	private Drand48 generator;
+	private final Drand48Interface generator;
 
 	/**
 	 * Konstruktor
+	 * @param generator	internes Generatorobjekt
 	 */
-	public Drand48BitsStreamGenerator() {
+	public Drand48BitsStreamGenerator(final Drand48Interface generator) {
+		this.generator=generator;
 		setSeed(System.currentTimeMillis());
 	}
 
@@ -58,7 +60,7 @@ public class Drand48BitsStreamGenerator extends BitsStreamGenerator {
 
 	@Override
 	public void setSeed(long seed) {
-		generator=new Drand48(seed);
+		generator.srand48(seed);
 	}
 
 	@Override

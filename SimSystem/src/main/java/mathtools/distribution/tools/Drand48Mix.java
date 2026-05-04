@@ -1,5 +1,5 @@
 /**
- * Copyright 2025 Alexander Herzog
+ * Copyright 2026 Alexander Herzog
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ package mathtools.distribution.tools;
  * Notes about Java types: C uses unsigned short for xsubi; Java shorts are signed,
  * so we mask with 0xFFFF when converting to/from the short[].
  */
-public final class Drand48 implements Drand48Interface {
+public final class Drand48Mix implements Drand48Interface {
 	/** LCG parameter (48-bit) MULTIPLIER */
 	private static final long MULTIPLIER = 0x5DEECE66DL;
 	/** LCG parameter (48-bit) ADDEND */
@@ -44,15 +44,35 @@ public final class Drand48 implements Drand48Interface {
 	 * Create and seed the generator with given seedval (like srand48).
 	 * @param seedval seed value (any long; only low bits used similarly to C)
 	 */
-	public Drand48(final long seedval) {
+	public Drand48Mix(final long seedval) {
 		srand48(seedval);
 	}
 
 	/**
 	 * Create and seed the generator with given seedval (like srand48).
 	 */
-	public Drand48() {
+	public Drand48Mix() {
 		srand48(0);
+	}
+
+	/**
+	 * 128-bittige Mix-Funktion
+	 * @param x	Eingangswert
+	 * @return Ausgangswert nach Mix
+	 * @see L32X64Mix#lea32(int)
+	 */
+	public static long mixLong(final long x) {
+		int low = (int) (x & 0xFFFFFFFFL); /* untere 32 Bit */
+		int high = (int) ((x >>> 32) & 0xFFFFFFFFL); /* obere 32 Bit */
+
+		/* Schritt 2: Mix-Funktion auf beide Teile anwenden */
+		int mixedLow = L32X64Mix.lea32(low);
+		int mixedHigh = L32X64Mix.lea32(high);
+
+		/* Schritt 3: Wieder zusammenführen zu einem long */
+		/* Beachte: mixedHigh ist jetzt 32 Bit, aber als int (signed).
+		 * Wir müssen sicherstellen, dass es als unsigned 32-Bit interpretiert wird. */
+		return ((long) mixedHigh << 32) | (mixedLow & 0xFFFFFFFFL);
 	}
 
 	/**
@@ -84,7 +104,7 @@ public final class Drand48 implements Drand48Interface {
 	public int lrand48() {
 		// advance state and return high-order 31 bits
 		state = (state * MULTIPLIER + ADDEND) & MASK48;
-		return (int) (state >>> (48 - 31));
+		return (int) (mixLong(state) >>> (48 - 31));
 	}
 
 	/**
@@ -118,7 +138,7 @@ public final class Drand48 implements Drand48Interface {
 		xsubi[0] = (short) (state & 0xFFFFL);
 		xsubi[1] = (short) ((state >>> 16) & 0xFFFFL);
 		xsubi[2] = (short) ((state >>> 32) & 0xFFFFL);
-		return state / (double) (1L << 48);
+		return mixLong(state) / (double) (1L << 48);
 	}
 
 	/**
@@ -140,7 +160,7 @@ public final class Drand48 implements Drand48Interface {
 		xsubi[0] = (int) (state & 0xFFFFL);
 		xsubi[1] = (int) ((state >>> 16) & 0xFFFFL);
 		xsubi[2] = (int) ((state >>> 32) & 0xFFFFL);
-		return state / (double) (1L << 48);
+		return mixLong(state) / (double) (1L << 48);
 	}
 }
 

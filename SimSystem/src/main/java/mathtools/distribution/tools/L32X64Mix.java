@@ -43,7 +43,7 @@ public class L32X64Mix extends BitsStreamGenerator4States {
 	 * @param x the input value
 	 * @return the output value
 	 */
-	private static int lea32(int x) {
+	public static int lea32(int x) {
 		x = (x ^ (x >>> 16)) * 0xd36d884b;
 		x = (x ^ (x >>> 16)) * 0xd36d884b;
 		return x ^ (x >>> 16);

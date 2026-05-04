@@ -97,8 +97,10 @@ public enum RandomGeneratorMode {
 	L128X1024Mix
 	 */
 
-	/** Pro Thread gekapselte Version von {@link Drand48BitsStreamGenerator} verwenden */
-	DRAND48("Drand48",useSeed->new Drand48BitsStreamGenerator(),false);
+	/** Pro Thread gekapselte Version von {@link Drand48BitsStreamGenerator} mit innerem {@link Drand48} verwenden */
+	DRAND48("Drand48",useSeed->new Drand48BitsStreamGenerator(new Drand48()),false),
+	/** Pro Thread gekapselte Version von {@link Drand48BitsStreamGenerator} mit innerem {@link Drand48Mix} verwenden */
+	DRAND48MIX("Drand48Mix",useSeed->new Drand48BitsStreamGenerator(new Drand48Mix()),false);
 
 	/**
 	 * Standardmäßig zu verwendender Modus
