@@ -45,19 +45,19 @@ public class CosineDistributionImpl extends AbstractRealDistribution implements 
 	private static final long serialVersionUID=8707702684789955027L;
 
 	/**
-	 * Untere Bereichtsgrenze
+	 * Untere Bereichsgrenze
 	 */
 	public final double a;
 
 	/**
-	 * Obere Bereichtsgrenze
+	 * Obere Bereichsgrenze
 	 */
 	public final double b;
 
 	/**
 	 * Konstruktor der Klasse
-	 * @param a	Untere Bereichtsgrenze
-	 * @param b	Obere Bereichtsgrenze
+	 * @param a	Untere Bereichsgrenze
+	 * @param b	Obere Bereichsgrenze
 	 */
 	public CosineDistributionImpl(final double a, final double b) {
 		super(null);
