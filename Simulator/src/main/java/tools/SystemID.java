@@ -345,7 +345,7 @@ public class SystemID {
 		} catch (NoSuchAlgorithmException e) {
 			return null;
 		}
-		kpg.initialize(512);
+		kpg.initialize(2048);
 		final KeyPair kp=kpg.generateKeyPair();
 		return new String[] {
 				HexBin.encode(kp.getPrivate().getEncoded()),
