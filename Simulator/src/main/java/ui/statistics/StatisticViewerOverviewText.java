@@ -1002,7 +1002,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		for (String type: statistics.clientsWaitingTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.clientsWaitingTimes.get(type)).getMean()>0) {writeBlock=true; break;}
 
 		if (writeBlock) {
-			long sum=0;
+			double sum=0;
 			long count=0;
 			if (!headingWritten) {
 				addHeading(2,Language.tr("Statistics.TimesByClientTypes"));
@@ -1018,7 +1018,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				if (statistics.clientsWaitingTimes.size()>1) addLine(Language.tr("Statistics.ClientType")+" "+type+": E[W]="+timeAndNumber(time),xmlMean(indicator));
 			}
 			if (count==0) count=1;
-			final double time=((double)sum)/count;
+			final double time=sum/count;
 			addLine(Language.tr("Statistics.Average")+": E[W]="+timeAndNumber(time),xmlMean(statistics.clientsAllWaitingTimes));
 			addModeLink(Mode.MODE_WAITINGPROCESSING_CLIENTS);
 			endParagraph();
@@ -1030,7 +1030,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		for (String type: statistics.clientsTransferTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.clientsTransferTimes.get(type)).getMean()>0) {writeBlock=true; break;}
 
 		if (writeBlock) {
-			long sum=0;
+			double sum=0;
 			long count=0;
 			if (!headingWritten) {
 				addHeading(2,Language.tr("Statistics.TimesByClientTypes"));
@@ -1046,7 +1046,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				if (statistics.clientsTransferTimes.size()>1) addLine(Language.tr("Statistics.ClientType")+" "+type+": E[T]="+timeAndNumber(time),xmlMean(indicator));
 			}
 			if (count==0) count=1;
-			final double time=((double)sum)/count;
+			final double time=sum/count;
 			addLine(Language.tr("Statistics.Average")+": E[T]="+timeAndNumber(time),xmlMean(statistics.clientsAllTransferTimes));
 			addModeLink(Mode.MODE_WAITINGPROCESSING_CLIENTS);
 			endParagraph();
@@ -1058,7 +1058,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		for (String type: statistics.clientsProcessingTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.clientsProcessingTimes.get(type)).getMean()>0) {writeBlock=true; break;}
 
 		if (writeBlock) {
-			long sum=0;
+			double sum=0;
 			long count=0;
 			if (!headingWritten) {
 				addHeading(2,Language.tr("Statistics.TimesByClientTypes"));
@@ -1074,7 +1074,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				if (statistics.clientsProcessingTimes.size()>1) addLine(Language.tr("Statistics.ClientType")+" "+type+": E[S]="+timeAndNumber(time),xmlMean(indicator));
 			}
 			if (count==0) count=1;
-			final double time=((double)sum)/count;
+			final double time=sum/count;
 			addLine(Language.tr("Statistics.Average")+": E[S]="+timeAndNumber(time),xmlMean(statistics.clientsAllProcessingTimes));
 			addModeLink(Mode.MODE_WAITINGPROCESSING_CLIENTS);
 			endParagraph();
@@ -1086,7 +1086,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		for (String type: statistics.clientsResidenceTimes.getNames()) if (((StatisticsDataPerformanceIndicator)statistics.clientsResidenceTimes.get(type)).getMean()>0) {writeBlock=true; break;}
 
 		if (writeBlock) {
-			long sum=0;
+			double sum=0;
 			long count=0;
 			if (!headingWritten) {
 				addHeading(2,Language.tr("Statistics.TimesByClientTypes"));
@@ -1102,7 +1102,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 				if (statistics.clientsResidenceTimes.size()>1) addLine(Language.tr("Statistics.ClientType")+" "+type+": E[V]="+timeAndNumber(time),xmlMean(indicator));
 			}
 			if (count==0) count=1;
-			final double time=((double)sum)/count;
+			final double time=sum/count;
 			addLine(Language.tr("Statistics.Average")+": E[V]="+timeAndNumber(time),xmlMean(statistics.clientsAllResidenceTimes));
 			addModeLink(Mode.MODE_WAITINGPROCESSING_CLIENTS);
 			endParagraph();
