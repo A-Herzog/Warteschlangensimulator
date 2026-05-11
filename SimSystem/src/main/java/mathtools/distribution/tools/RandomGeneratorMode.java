@@ -40,6 +40,8 @@ import org.apache.commons.math3.random.Well512a;
 public enum RandomGeneratorMode {
 	/** {@link ThreadLocalRandom} verwenden */
 	THREAD_LOCAL_RANDOM("ThreadLocalRandom",useSeed->useSeed?new JDKRandomGenerator():new LightweightThreadLocalRandomWrapper(ThreadLocalRandom.current())),
+	/** {@link ThreadLocalRandom} verwenden - dabei jedes Mal über die Thread-Map gehen */
+	THREAD_LOCAL_RANDOM_SLOW("ThreadLocalRandomSlow",useSeed->useSeed?new JDKRandomGenerator():new LightweightSlowThreadLocalRandomWrapper(),true,true,true),
 	/** Pro Thread gekapselte Version von {@link Random} verwenden */
 	RANDOM("Random",useSeed->new JDKRandomGenerator()),
 	/** Pro Thread gekapselte Version von {@link SecureRandom} verwenden */
@@ -84,19 +86,6 @@ public enum RandomGeneratorMode {
 	L128X256MIX("L128X256Mix",useSeed->RandomGeneratorsByReflection.getByName("L128X256MixRandom"),true,RandomGeneratorsByReflection.areJava17GeneratorsAvailable()),
 	/** Pro Thread gekapselte Version von L128X1024MixRandom verwenden (nur in Java 17 oder höher verfügbar) */
 	L128X1024MIX("L128X1024Mix",useSeed->RandomGeneratorsByReflection.getByName("L128X1024MixRandom"),true,RandomGeneratorsByReflection.areJava17GeneratorsAvailable()),
-
-	/*
-	Neu:
-	XoRoShiRo256++
-	L64X128Mix
-	L64X128**
-	L64X256Mix
-	L64X1024Mix
-	L128X128Mix
-	L128X256Mix
-	L128X1024Mix
-	 */
-
 	/** Pro Thread gekapselte Version von {@link Drand48BitsStreamGenerator} mit innerem {@link Drand48} verwenden */
 	DRAND48("Drand48",useSeed->new Drand48BitsStreamGenerator(new Drand48()),false),
 	/** Pro Thread gekapselte Version von {@link Drand48BitsStreamGenerator} mit innerem {@link Drand48Mix} verwenden */
@@ -123,6 +112,11 @@ public enum RandomGeneratorMode {
 	public final boolean isAvailable;
 
 	/**
+	 * Generator in der Liste anzeigen?
+	 */
+	public final boolean isHidden;
+
+	/**
 	 * Callback zur Erzeugung eines Generator gemäß des Typs
 	 */
 	private final Function<Boolean,RandomGenerator> getterCallback;
@@ -133,12 +127,25 @@ public enum RandomGeneratorMode {
 	 * @param getterCallback	Callback zur Erzeugung eines Generator gemäß des Typs
 	 * @param isGoodForSimulation	Ist der Generator für Simulationen geeignet?
 	 * @param isAvailable	Ist der Generator im aktuellen Umfeld (z.B. im verwendeten JDK) verfügbar?
+	 * @param isHidden	Soll der Generator in der Auswahlliste angezeigt werden?
 	 */
-	RandomGeneratorMode(final String name, final Function<Boolean,RandomGenerator> getterCallback, final boolean isGoodForSimulation, final boolean isAvailable) {
+	RandomGeneratorMode(final String name, final Function<Boolean,RandomGenerator> getterCallback, final boolean isGoodForSimulation, final boolean isAvailable, final boolean isHidden) {
 		this.name=name;
 		this.getterCallback=getterCallback;
 		this.isGoodForSimulation=isGoodForSimulation;
 		this.isAvailable=isAvailable;
+		this.isHidden=isHidden;
+	}
+
+	/**
+	 * Konstruktor des Enum
+	 * @param name	Name des Zufallszahlengenerators (zum Speichern der Auswahl als Zeichenkette)
+	 * @param getterCallback	Callback zur Erzeugung eines Generator gemäß des Typs
+	 * @param isGoodForSimulation	Ist der Generator für Simulationen geeignet?
+	 * @param isAvailable	Ist der Generator im aktuellen Umfeld (z.B. im verwendeten JDK) verfügbar?
+	 */
+	RandomGeneratorMode(final String name, final Function<Boolean,RandomGenerator> getterCallback, final boolean isGoodForSimulation, final boolean isAvailable) {
+		this(name,getterCallback,isGoodForSimulation,isAvailable,false);
 	}
 
 	/**
@@ -148,7 +155,7 @@ public enum RandomGeneratorMode {
 	 * @param isGoodForSimulation	Ist der Generator für Simulationen geeignet?
 	 */
 	RandomGeneratorMode(final String name, final Function<Boolean,RandomGenerator> getterCallback, final boolean isGoodForSimulation) {
-		this(name,getterCallback,isGoodForSimulation,true);
+		this(name,getterCallback,isGoodForSimulation,true,false);
 	}
 
 	/**
@@ -157,7 +164,7 @@ public enum RandomGeneratorMode {
 	 * @param getterCallback	Callback zur Erzeugung eines Generator gemäß des Typs
 	 */
 	RandomGeneratorMode(final String name, final Function<Boolean,RandomGenerator> getterCallback) {
-		this(name,getterCallback,true,true);
+		this(name,getterCallback,true,true,false);
 	}
 
 	/**
@@ -165,7 +172,7 @@ public enum RandomGeneratorMode {
 	 * @return	Stream der tatsächlich verfügbaren Generatoren
 	 */
 	public static Stream<RandomGeneratorMode> listStream() {
-		return Stream.of(values()).filter(mode->mode.isAvailable);
+		return Stream.of(values()).filter(mode->mode.isAvailable && !mode.isHidden);
 	}
 
 	/**
@@ -182,7 +189,7 @@ public enum RandomGeneratorMode {
 	 * @return	Zufallszahlengenerator-Modus (basierend auf dem Namen) oder {@link RandomGeneratorMode#defaultRandomGeneratorMode}, wenn kein passender Eintrag gefunden wurde
 	 */
 	public static RandomGeneratorMode fromName(final String name) {
-		return listStream().filter(randomGeneratorMode->randomGeneratorMode.name.equalsIgnoreCase(name)).findFirst().orElseGet(()->defaultRandomGeneratorMode);
+		return Stream.of(values()).filter(randomGeneratorMode->randomGeneratorMode.name.equalsIgnoreCase(name) && randomGeneratorMode.isAvailable).findFirst().orElseGet(()->defaultRandomGeneratorMode);
 	}
 
 	/**
@@ -254,9 +261,9 @@ public enum RandomGeneratorMode {
 
 		/**
 		 * Konstruktor
-		 * @param random	{@link ThreadLocalRandom}-Objekt
+		 * @param random	 {@link ThreadLocalRandom}-Objekt
 		 */
-		private LightweightThreadLocalRandomWrapper(final ThreadLocalRandom random) {
+		public LightweightThreadLocalRandomWrapper(final ThreadLocalRandom random) {
 			this.random=random;
 		}
 
@@ -308,6 +315,104 @@ public enum RandomGeneratorMode {
 		@Override
 		public double nextDouble() {
 			return random.nextDouble();
+		}
+
+		/**
+		 * Es werden immer zwei Pseudozufallszahlen gleichzeitig generiert.
+		 * Steht eine zweite Zahl direkt zur Verfügung?
+		 * @see #nextRandom
+		 * @see #nextGaussian()
+		 */
+		private boolean randomAvailable=false;
+
+		/**
+		 * Es werden immer zwei Pseudozufallszahlen gleichzeitig generiert.
+		 * Wenn eine zweite zur Verfügung steht, so wird sie hier angeboten.
+		 * @see #randomAvailable
+		 * @see #nextGaussian()
+		 */
+		private double nextRandom;
+
+		@Override
+		public double nextGaussian() {
+			if (randomAvailable) {
+				randomAvailable=false;
+				return nextRandom;
+			}
+
+			double q=10, u=0, v=0;
+			while (q==0 || q>=1) {
+				u=2*nextDouble()-1;
+				v=2*nextDouble()-1;
+				q=u*u+v*v;
+			}
+			final double p=StrictMath.sqrt(-2 * StrictMath.log(q)/q);
+			nextRandom=v*p;
+			randomAvailable=true;
+			return u*p;
+		}
+	}
+
+	/**
+	 * Sorgt dafür, dass {@link ThreadLocalRandom} über ein {@link RandomGenerator}-Interface angesprochen werden kann.<br>
+	 * Bei jedem Aufruf wird dabei {@link ThreadLocalRandom}
+	 */
+	private static class LightweightSlowThreadLocalRandomWrapper implements RandomGenerator {
+		/**
+		 * Konstruktor
+		 */
+		private LightweightSlowThreadLocalRandomWrapper() {
+			/* Keine Verarbeitung */
+		}
+
+		@Override
+		public void setSeed(int seed) {
+			/* Nicht seedable */
+		}
+
+		@Override
+		public void setSeed(int[] seed) {
+			/* Nicht seedable */
+		}
+
+		@Override
+		public void setSeed(long seed) {
+			/* Nicht seedable */
+		}
+
+		@Override
+		public void nextBytes(byte[] bytes) {
+			ThreadLocalRandom.current().nextBytes(bytes);
+		}
+
+		@Override
+		public int nextInt() {
+			return ThreadLocalRandom.current().nextInt();
+		}
+
+		@Override
+		public int nextInt(int n) {
+			return ThreadLocalRandom.current().nextInt(n);
+		}
+
+		@Override
+		public long nextLong() {
+			return ThreadLocalRandom.current().nextLong();
+		}
+
+		@Override
+		public boolean nextBoolean() {
+			return ThreadLocalRandom.current().nextBoolean();
+		}
+
+		@Override
+		public float nextFloat() {
+			return ThreadLocalRandom.current().nextFloat();
+		}
+
+		@Override
+		public double nextDouble() {
+			return ThreadLocalRandom.current().nextDouble();
 		}
 
 		/**
