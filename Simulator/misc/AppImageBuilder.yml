@@ -15,9 +15,6 @@ ingredients:
     # Extract Simulator_Linux.zip
     - mkdir -p Simulator
     - unzip ../Simulator_Linux.zip -d Simulator
-    - rm ./Simulator/JavaDDE.dll
-    - rm ./Simulator/JavaDDEx64.dll
-    - rm ./Simulator/Simulator.exe
     - rm -rf ./Simulator/tools
     # Download icon
     - mkdir -p Icon

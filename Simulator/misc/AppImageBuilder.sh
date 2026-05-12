@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Place this file and AppImageBuilder.yml in an empty folder.
-# Copy Simulator_Linux.zip to this folder.
+# Copy the Simulator_Linux.zip to this folder.
 # Run this file
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
