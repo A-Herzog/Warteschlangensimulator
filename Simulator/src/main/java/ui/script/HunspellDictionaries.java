@@ -84,16 +84,30 @@ public class HunspellDictionaries {
 			"bzw",
 			"usw",
 			"sek",
+			"evtl",
+			"mio",
+			"hochgesetzt",
+			"auskoppeln",
 			/* Eigennamen */
 			"warteschlangensimulator",
 			"erlang",
 			"erlang-",
 			"erlang-b",
 			"erlang-c",
+			"allen-cunneen",
 			"rechner",
 			"formel",
 			"erlang-c-formel",
 			"erlang-c-rechner",
+			"vergleichswerte",
+			"histogrammbalken",
+			"histogrammwerten",
+			"modelleigenschaftendialog",
+			"zwilling",
+			"pull-strategie",
+			"nachfragevorhersage",
+			"quizmaster",
+			"umentscheiden",
 			/* Begriffe aus der Warteschlangentheorie */
 			"abbrecher",
 			"abbrecherquote",
@@ -105,11 +119,15 @@ public class HunspellDictionaries {
 			"zwischenankunftszeitenverteilung",
 			"zwischenankunfts",
 			"nachbearbeitungszeiten",
+			"binomialverteilung",
 			"exponentialverteilung",
 			"exponentialverteilt",
 			"exp-verteilt",
 			"erlang-verteilt",
 			"poisson-verteilung",
+			"lognormalverteilung",
+			"gammaverteilung",
+			"weibullverteilung",
 			"zählvariable",
 			"batche",
 			"batchen",
@@ -140,6 +158,31 @@ public class HunspellDictionaries {
 			"quantils",
 			"statistikdaten",
 			"gleichverteilt",
+			"bedieneranzahlen",
+			"bediendauernverteilung",
+			"batch-größe",
+			"kampagnenfertigung",
+			"pausezeit",
+			"kundentypwechsel",
+			"verzögerungsstation",
+			"verzögerungsstationen",
+			"fabriknahen",
+			"exponentialverteilte",
+			"stationsbasis",
+			"statistikerfassung",
+			"gleichverteilte",
+			"ganzzahl",
+			"skriptergebnis",
+			"auslastungswerte",
+			"warteschlangenlängeabhängige",
+			"statistikergebnisse",
+			"bedienzeitenverteilung",
+			"multi-skill-bediener",
+			"single-skill-bediener",
+			"multi-skill-bedienern",
+			"single-skill-bedienern",
+			"multi-skill-bedienung",
+			"single-skill-bedienung",
 			/* Bezeichner */
 			"mu",
 			"lambda",
@@ -174,11 +217,21 @@ public class HunspellDictionaries {
 			"getoutput",
 			"getmaplocal",
 			"getclass",
-			"getname"
+			"getname",
+			/* Englisch */
+			"submodel",
+			"submodels",
+			"durations",
+			"workpiece",
+			"preconfigured",
+			"subsamples"
 			));
 
 	static {
 		internalDictionary.addAll(TextTransformer.getAllSymbolsPlain());
+		/* LaTeX-Symbole, die nicht vom TextTransformer verwendet werden, aber vom LaTeX-Renderer akzeptiert werden */
+		internalDictionary.add("binom");
+		internalDictionary.add("frac");
 	}
 
 	/**
@@ -291,10 +344,15 @@ public class HunspellDictionaries {
 		} else {
 			list=words.stream().map(line->line.trim()).filter(line->!line.isEmpty()).collect(Collectors.toList());
 		}
-		list.add("");
 
 		try {
-			Files.write(getUserDictionaryFile().toPath(),String.join("\n",list.toArray(new String[0])).getBytes(StandardCharsets.ISO_8859_1),StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
+			final File file=getUserDictionaryFile();
+			if (list.size()==0) {
+				if (file.isFile()) return file.delete(); else return true;
+			} else {
+				list.add("");
+				Files.write(file.toPath(),String.join("\n",list.toArray(String[]::new)).getBytes(StandardCharsets.ISO_8859_1),StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
+			}
 		} catch (IOException e) {
 			return false;
 		}
@@ -308,7 +366,12 @@ public class HunspellDictionaries {
 	public SpellingParser getSpellingParser() {
 		final SpellingParser spellingParser=new SpellingParser(getSpellDictionary());
 		try {
-			spellingParser.setUserDictionary(getUserDictionaryFile());
+			final File userDictionary=getUserDictionaryFile();
+			if (userDictionary.isFile()) {
+				spellingParser.setUserDictionary(userDictionary);
+			} else {
+				spellingParser.setUserDictionary(null);
+			}
 		} catch (IOException e) {}
 		return spellingParser;
 	}
