@@ -7,6 +7,7 @@
 \usepackage{xcolor}
 \usepackage{lmodern}
 \usepackage{wrapfig}
+\usepackage{longtable}
 \textwidth160mm
 \textheight220mm
 \oddsidemargin0mm
@@ -41,6 +42,118 @@ German version:\\
 The English or German version will be used when storing xml data in Warteschlangensimulator. When reading xml files Warteschlangensimulator will always understand both versions.
 
 In the following sections the possible values for "distribution name" and the corresponding "parameters" will be listed. Distribution parameters "mean" and "sd" correspond directly to the stochastic characteristics mean and standard deviation.
+
+
+\section*{List}
+
+{
+\renewcommand{\arraystretch}{1.15}\scriptsize
+\begin{longtable}{l|l}
+\textbf{Command} & \textbf{Stochastic Characteristics} \\ \hline
+\cm{Empirical data (point1;point2;point3;...)} & PDF values at equidistant points \\
+\cm{One point distribution (point)} & $mean = point$, $sd = 0$ \\
+\cm{Uniform distribution (lower;upper)} & $mean = (lower+upper)/2$, $sd = (upper-lower)/\sqrt{12}$ \\
+\cm{Exponential distribution (mean)} & $sd = mean$ \\
+\cm{Normal distribution (mean;sd)} & $mean = mean$, $sd = sd$ \\
+\cm{Lognormal distribution (mean;sd)} & $mean = mean$, $sd = sd$ \\
+\cm{Erlang distribution (shape;scale)} & $mean = shape*scale$, $sd = \sqrt{shape}*scale$ \\
+\cm{Gamma distribution (shape;scale)} & $mean = shape*scale$, $sd = \sqrt{shape}*scale$ \\
+\cm{Beta distribution (alpha;beta;lower;upper)} & $mean = \frac{alpha}{alpha+beta}\cdot(upper-lower)+lower$,\\
+~& $sd = (upper-lower)^2\cdot alpha\cdot \frac{beta}{(alpha+beta)^2(1+alpha+beta)}$ \\
+\cm{Cauchy distribution (median;scale)} & $median = median$ \\
+\cm{Half Cauchy distribution (mu;sigma)} & ~ \\
+\cm{Weibull distribution (scaleInvers;shape)} & $mean = scale*\Gamma(1+(1/shape))$,\\
+~ & $sd = scale*\sqrt{\Gamma(1+2/shape)-(\Gamma(1+1/shape))^2}$ \\
+\cm{Chi distribution (DOF)} & $mean = \sqrt{2}\cdot\Gamma((DOF+1)/2)/\Gamma(DOF/2)$,\\
+~ & $sd = \Big[(2\cdot\Gamma(DOF/2)*\Gamma(1+DOF/2)-$\\
+~ & $(\Gamma((DOF+1)/2))^2)/\Gamma(DOF/2)\Big]^{\frac{1}{2}}$ \\
+\cm{Chi\^{}2 distribution (DOF)} & $mean = DOF$, $sd = \sqrt{2\cdot DOF}$ \\
+\cm{F distribution (NumeratorDOF;DenominatorDOF)} & $mean = \frac{n}{n-2}$,\\
+~ & $sd = \sqrt{2\cdot n^2\cdot\frac{m+n-2}{m\cdot(n-2)\cdot(n-2)\cdot(n-4)}}$ \\
+~ & $m = round\left(2\cdot (2\cdot\widetilde m)^2\cdot\frac{2\cdot\widetilde m-2}{sd^2\cdot (2\cdot\widetilde m-2)^2\cdot (2\cdot\widetilde m-4)-2\cdot (2\cdot\widetilde m)^2}\right)$\\
+~ & with $\widetilde m = mean/(mean-1)$,\\
+~ & $n = round(2\cdot mean/(mean-1))$ \\
+\cm{Johnson SU distribution (gamma;xi;delta;lambda)} & $mean = xi-lambda\cdot\exp(1/(2\cdot delta^2))\cdot\sinh(gamma/delta)$,\\
+~ & $sd = \Big[lambda^2/2\cdot(\exp(1/delta^2)-1)\cdot$\\
+~ & $(\exp(1/delta^2)*\cosh(2*gamma/delta)+1)\Big]^{\frac{1}{2}}$ \\
+\cm{Triangular distribution (lower;mostLikelyX;upper)} & $mean = (lower+mostLikelyX+upper)/3$,\\
+~ & $sd = \Big[(lower^2+upper^2+mostLikelyX^2-lower\cdot upper-$\\
+~ & $lower\cdot mostLikelyX-upper\cdot mostLikelyX)/18\Big]^{\frac{1}{2}}$ \\
+\cm{Trapezoid distribution (a;b;c;d)} & $h = \frac{2}{c+d-a-b}$,\\
+~ & $mean = h\cdot{1}{6}\left(\frac{d^3-c^3}{d-c}-\frac{b^3-a^3}{b-a}\right)$,\\
+~ & $sd = \sqrt{h\cdot{1}{12}\left(\frac{d^4-c^4}{d-c}-\frac{b^4-a^4}{b-a}\right)-mean^2}$ \\
+\cm{Pert distribution (lower;mostLikelyX;upper)} & $mean = (lower+4\cdot mostLikelyX+upper)/6$,\\
+~ & $sd = \Big[((lower+4\cdot mostLikelyX+upper)/6-lower)\cdot$\\
+~ & $(upper-(lower+4\cdot mostLikelyX+upper)/6)/7\Big]^{\frac{1}{2}}$ \\
+~ & $lower = mean-sd\cdot\sqrt{7}$,\\
+~ & $mostLikelyX = mean$,\\
+~ & $upper = mean+sd\cdot\sqrt{7}$ \\
+\cm{Laplace distribution (mean;b)} & $sd = b\cdot\sqrt{2}$ \\
+\cm{Pareto distribution (xmin;alpha)} & $mean = alpha\cdot xmin/(alpha-1)$,\\
+~ & $sd = xmin^2\cdot alpha/(alpha-1)^2/(alpha-2)$,\\
+~ & $alpha = mean/(mean-xmin)$ \\
+\cm{Logistic distribution (mean;s)} & $sd = s\cdot\pi/\sqrt{3}$ \\
+\cm{Inverse gaussian distribution (lambda;mu)} & $mean = mu$,\\
+~ & $sd = mu\cdot\sqrt{mu/lambda}$,\\
+~ & $lambda = mean^3/sd^2$ \\
+\cm{Rayleigh distribution (mean)} & $sd = \sqrt{(4-\pi)/2}\cdot\sqrt{2/\pi}\cdot mean$ \\
+\cm{Log-logistic distribution (alpha;beta)} & $mean = alpha\cdot\pi/beta/\sin(\pi/beta)$,\\
+~ & $sd = alpha\cdot\sqrt{2\cdot\pi/beta/\sin(2\cdot\pi/beta)-\pi^2/beta^2}/sin(\pi/beta)$ \\
+\cm{Power distribution (a;b;c)} & $mean = a+(b-a)\cdot c/(c+1)$,\\
+~ & $sd = (b-a)/(c+1)\cdot\sqrt{c/(c+2)}$ \\
+\cm{Gumbel distribution (mean;sd)} & $mean = mean$, $sd = sd$ \\
+\cm{Fatigue life distribution (mu;beta;gamma)} & $mean = mu+beta\cdot (1+gamma\cdot gamma/2)$,\\
+~ & $sd = beta\cdot gamma\cdot\sqrt{1+5\cdot gamma^2/4}$ \\
+\cm{Frechet distribution (delta;beta;alpha)} & $mean = delta+beta\cdot gamma(1-1/alpha)$,\\
+~ & $sd = beta\cdot\sqrt{gamma(1-2/alpha)-gamma(1-1/alpha)^2}$ \\
+\cm{Hyperbolic secant distribution (mean;sd)} & $mean = mean$, $sd = sd$ \\
+\cm{Left sawtooth distribution (a;b)} & $mean = (2\cdot a+b)/2$, $sd = (b-a)^2/18$ \\
+\cm{Right sawtooth distribution (a;b)} & $mean = (a+2\cdot b)/2$, $sd = (b-a)^2/18$ \\
+\cm{Levy distribution (mu;c)} & $mean = mu$, $sd = \infty$ \\
+\cm{Maxwell Boltzmann distribution (a)} & $mean = 2\cdot a\sqrt{\frac{2}{\pi}}$,\\
+~ & $sd = \sqrt{\frac{a^2(3\pi-8)}{\pi}}$,\\
+~ & $modus = a\sqrt{2}$,\\
+~ & $a = \frac{mean}{2}\cdot\sqrt{\frac{\pi}{2}}$ \\
+\cm{Student t-distribution (mu;nu)} & $mean = \mu$, $sd = \sqrt{\frac{\nu}{\nu-2}}$ for $\nu>2$ \\
+\cm{Half normal distribution (s;mu)} & $theta = \frac{1}{\mu}$,\\
+~ & $mean = \frac{1}{theta}+s$,\\
+~ & $sd = \frac{\pi-2}{2\theta^2}$ \\
+\cm{U-quadratic distribution (a;b)} & $mean = \frac{a+b}{2}$, $sd = \frac{3}{20}\cdot(b-a)^2$ \\
+\cm{Reciprocal distribution (a;b)} & $mean = \frac{b-a}{\log\left(\frac{b}{a}\right)}$,\\
+~ & $sd = \sqrt{\frac{b^2-a^2}{\log\left(\frac{b}{a}\right)}-\left(\frac{b-a}{\log\left(\frac{b}{a}\right)}\right)^2}$ \\
+\cm{Kumaraswamy distribution (a;b;c;d)} & $mean_{\rm unscaled} = \frac{b\Gamma\left(1+\frac{1}{a}\right)\Gamma(b)}{\Gamma\left(1+\frac{1}{a}+b\right)}$,\\
+~ & $sd_{\rm unscaled} = \sqrt{\frac{b\Gamma\left(1+\frac{2}{a}\right)\Gamma(b)}{\Gamma\left(1+\frac{2}{a}+b\right)}-mean_{\rm unscaled}^2}$,\\
+~ & $mean = mean_{\rm unscaled}\cdot(d-c)+c$,\\
+~ & $sd = sd_{\rm unscaled}\cdot(d-c)+c$ \\
+\cm{Irwin-Hall distribution (n)} & $mean = \frac{n}{2}$, $sd = \sqrt{\frac{n}{12}}$ \\
+\cm{Sine distribution (a;b)} & $mean = \frac{a+b}{2}$, $sd = \sqrt{\frac{1}{4}-\frac{2}{\pi^2}}\cdot(b-a)^2$ \\
+\cm{Cosine distribution (a;b)} & $mean = \frac{a+b}{2}$, $sd = (b-a)\sqrt{\frac{\pi^2-6}{12\pi^2}}$ \\
+\cm{Arcsine distribution (a;b)} & $mean = \frac{a+b}{2}$, $sd = \frac{1}{8}\cdot(b-a)^2$ \\
+\cm{Wigner half-circle distribution (m;R)} & $mean = m$, $sd = \frac{R}{2}$ \\
+\cm{Log-Cauchy distribution (mu;sigma)} & $median = \exp(mu)$,\\
+\cm{Log-Gamma distribution (a;b)} & $mean=\left(1-\frac{1}{b}\right)^{-a}$, $std=\sqrt{\left(1-\frac{2}{b}\right)^{-a}-\left(1-\frac{1}{b}\right)^{-2a}}$ \\
+\cm{Log-Laplace distribution (c;s)} & $mean=s+\frac{c^2}{(c-1)(c+1)}$, $std=\sqrt{\frac{c^2}{(c-2)(c+2)}-\frac{c^4}{(c-1)^2(c+1)^2}}$ \\
+\cm{Geometric distribution (p)} & $mean=\frac{1-p}{p}$, $sd=\sqrt{\frac{1-p}{p^2}}$, $p=\frac{1}{1+mean}$ \\
+\cm{Hypergeometric distribution (N;K;n)} & $mean=\frac{n\cdot K}{N}$, $sd=\sqrt{\frac{n\cdot K}{N}\cdot\left(1-\frac{K}{N}\right)\cdot\frac{N-n}{N-1}}$ \\
+\cm{Binomial distribution (n;p)} & $mean=n\cdot p$, $sd=\sqrt{n\cdot p\cdot (1-p)}$, $n=\frac{mean}{p}$, $p=1-\frac{sd^2}{mean}$, \\
+\cm{Poisson distribution (lambda)} & $mean=\lambda$, $sd=\sqrt{\lambda}$ \\
+\cm{Negative binomial distribution (n;r)} & $mean=r(1-p)/p$, $sd=\sqrt{\frac{r(1-p)}{p^2}}$, $p=\frac{mean}{sd^2}$, $r=\frac{mean\cdot p}{1-p}$ \\
+\cm{Negative hypergeometric distribution (N;K;n)} & $mean=n\cdot\frac{N+1}{R+1}$, $sd=\sqrt{n\cdot\frac{(R+1-n)(N-R)(N+1)}{(R+1)^2(R+2)}}$ \\
+\cm{Zeta distribution (s)} & $ mean=\frac{\zeta(s-1)}{\zeta(s)}$, $ sd=\sqrt{\frac{\zeta(s)\zeta(s-2)-\zeta(s-1)^2}{\zeta(s)^2}}$ \\
+\cm{Discrete uniform distribution (a;b)} & $mean=\frac{a+b}{2}$, $sd=\frac{(b-a+1)^2-1}{12}$,\\
+~ &  $b=frac{\sqrt(12\cdot sd^2+1)}{2}+mean-\frac{1}{2}$, $a=2\cdot mean-b$ \\
+\cm{Logarithmic distribution (p)} & $mean==-\frac{p}{(1-p)\log(1-p}$ \\
+\cm{Borel distribution (mu)} & $mean=\frac{1}{1-\mu}$, $variance=\frac{\mu}{(1-\mu)^3}$ \\
+\cm{Planck distribution (lambda)} & $mean=\frac{1}{\exp(\lambda)-1}$, $sd=\frac{\sqrt{\exp(-\lambda)}}{1-\exp(-\lambda))}$ \\
+\cm{Inverse gamma distribution (shape;scale)} & $mean=\frac{scale}{shape-1}$, $sd=\frac{scale}{(shape-1)\sqrt{shape-2}}$ \\
+~ & $shape=\frac{mean^2}{sd^2}+2$, $scale=\frac{mean^3}{sd^2}+mean$ \\
+\cm{Generalized Rademacher distribution (a;b;pa)} & $mean=a\cdot P(a)+b\cdot(1-P(A))$, $sd=\sqrt{a^2\cdot P(a)+b^2\cdot(1-P(A))-mean^2}$ \\
+\cm{Continuous Bernoulli distribution (a;b;lambda)} & $mean=\frac{\lambda}{2\lambda-1}+\frac{1}{2\tanh^{-1}(1-2\lambda)} ~\text{if}~ \lambda\neq\frac{1}{2} ~\text{for}~ \lambda=\frac{1}{2}:~ 2$ \\
+~ & $sd=\sqrt{-\frac{(1-\lambda)\lambda}{(1-2\lambda)^2}+\frac{1}{(2\tanh^{-1}(1-2\lambda))^2}} ~\text{if}~ \lambda\neq\frac{1}{2} ~\text{for}~ \lambda=\frac{1}{2}:~ \frac{1}{\sqrt{2}}$ \\
+\cm{Boltzmann distribution (lambda;N)} & $mean=\frac{\exp(-\lambda)}{1-\exp(-\lambda)}-N\cdot\frac{\exp(-\lambda N)}{1-\exp(-\lambda N)}$ \\
+~ & $sd=\sqrt{\frac{\exp(-\lambda)}{(\exp(-\lambda))^2}-N^2\cdot\frac{\exp(-\lambda N)}{(1-\exp(-\lambda N))^2}}$
+\end{longtable}
+}
 
 
 
@@ -657,7 +770,7 @@ median&=&\exp(mu)
 Conversion between distribution parameters and stochastic characteristics
 \begin{eqnarray*}
 mean&=&\left(1-\frac{1}{b}\right)^{-a}\\
-st&=&\sqrt{\left(1-\frac{2}{b}\right)^{-a}-\left(1-\frac{1}{b}\right)^{-2a}}
+std&=&\sqrt{\left(1-\frac{2}{b}\right)^{-a}-\left(1-\frac{1}{b}\right)^{-2a}}
 \end{eqnarray*}
 
 
@@ -671,7 +784,7 @@ st&=&\sqrt{\left(1-\frac{2}{b}\right)^{-a}-\left(1-\frac{1}{b}\right)^{-2a}}
 Conversion between distribution parameters and stochastic characteristics
 \begin{eqnarray*}
 mean&=&s+\frac{c^2}{(c-1)(c+1)}\\
-st&=&\sqrt{\frac{c^2}{(c-2)(c+2)}-\frac{c^4}{(c-1)^2(c+1)^2}}
+std&=&\sqrt{\frac{c^2}{(c-2)(c+2)}-\frac{c^4}{(c-1)^2(c+1)^2}}
 \end{eqnarray*}
 
 
@@ -679,11 +792,11 @@ st&=&\sqrt{\frac{c^2}{(c-2)(c+2)}-\frac{c^4}{(c-1)^2(c+1)^2}}
 
 
 \section*{Geometric distribution}
-\cm{Geometric distribution (p)}
+\cm{Geometric distribution (p)}~\\
 \cm{Geometrische Verteilung (p)}
 Conversion between distribution parameters and stochastic characteristics
 \begin{eqnarray*}
-mean&=&=\frac{1-p}{p}\\
+mean&=&\frac{1-p}{p}\\
 sd&=&\sqrt{\frac{1-p}{p^2}}\\
 p&=&\frac{1}{1+mean}
 \end{eqnarray*}
@@ -693,7 +806,7 @@ p&=&\frac{1}{1+mean}
 
 
 \section*{Hypergeometric distribution}
-\cm{Hypergeometric distribution (N;K;n)}
+\cm{Hypergeometric distribution (N;K;n)}~\\
 \cm{Hypergeometrische Verteilung (N;K;n)}
 Conversion between distribution parameters and stochastic characteristics
 \begin{eqnarray*}
@@ -706,11 +819,11 @@ sd&=&\sqrt{\frac{n\cdot K}{N}\cdot\left(1-\frac{K}{N}\right)\cdot\frac{N-n}{N-1}
 
 
 \section*{Binomial distribution}
-\cm{Binomial distribution (n;p)}
+\cm{Binomial distribution (n;p)}~\\
 \cm{Binomialverteilung (n;p)}
 Conversion between distribution parameters and stochastic characteristics
 \begin{eqnarray*}
-mean&=&=n\cdot p\\
+mean&=&n\cdot p\\
 sd&=&\sqrt{n\cdot p\cdot (1-p)}\\
 n&=&\frac{mean}{p}\\
 p&=&1-\frac{sd^2}{mean}
@@ -721,11 +834,11 @@ p&=&1-\frac{sd^2}{mean}
 
 
 \section*{Poisson distribution}
-\cm{Poisson distribution (lambda)}
+\cm{Poisson distribution (lambda)}~\\
 \cm{Poisson-Verteilung (lambda)}
 \begin{eqnarray*}
 mean&=&\lambda\\
-sd&=&\lambda
+sd&=&\sqrt{\lambda}
 \end{eqnarray*}
 
 
@@ -733,7 +846,7 @@ sd&=&\lambda
 
 
 \section*{Negative binomial distribution}
-\cm{Negative binomial distribution (n;r)}
+\cm{Negative binomial distribution (n;r)}~\\
 \cm{Negative Binomialverteilung (n;r)}
 \begin{eqnarray*}
 mean&=&r(1-p)/p\\
@@ -747,7 +860,7 @@ r&=&\frac{mean\cdot p}{1-p}
 
 
 \section*{Negative Hypergeometric distribution}
-\cm{Negative hypergeometric distribution (N;K;n)}
+\cm{Negative hypergeometric distribution (N;K;n)}~\\
 \cm{Negative hypergeometrische Verteilung (N;K;n)}
 Conversion between distribution parameters and stochastic characteristics
 \begin{eqnarray*}
@@ -760,7 +873,7 @@ sd&=&\sqrt{n\cdot\frac{(R+1-n)(N-R)(N+1)}{(R+1)^2(R+2)}}
 
 
 \section*{Zeta distribution}
-\cm{Zeta distribution (s)}
+\cm{Zeta distribution (s)}~\\
 \cm{Zeta-Verteilung (s)}
 \begin{eqnarray*}
 mean&=&\frac{\zeta(s-1)}{\zeta(s)}\\
@@ -772,7 +885,7 @@ sd&=&\sqrt{\frac{\zeta(s)\zeta(s-2)-\zeta(s-1)^2}{\zeta(s)^2}}
 
 
 \section*{Discrete uniform distribution}
-\cm{Discrete uniform distribution (a;b)}
+\cm{Discrete uniform distribution (a;b)}~\\
 \cm{Diskrete Gleichverteilung (n;r)}
 \begin{eqnarray*}
 mean&=&\frac{a+b}{2}\\
@@ -786,7 +899,7 @@ a&=2\cdot mean-b&
 
 
 \section*{Logarithmic distribution}
-\cm{Logarithmic distribution (p)}
+\cm{Logarithmic distribution (p)}~\\
 \cm{Logarithmische Verteilung (p)}
 Conversion between distribution parameters and stochastic characteristics
 \begin{eqnarray*}
@@ -798,7 +911,7 @@ mean&=&=-\frac{p}{(1-p)\log(1-p}
 
 
 \section*{Borel distribution}
-\cm{Borel distribution (mu)}
+\cm{Borel distribution (mu)}~\\
 \cm{Borel-Verteilung (mu)}
 Conversion between distribution parameters and stochastic characteristics
 \begin{eqnarray*}
@@ -811,7 +924,7 @@ variance&=&\frac{\mu}{(1-\mu)^3}\\
 
 
 \section*{Planck distribution}
-\cm{Planck distribution (lambda)}
+\cm{Planck distribution (lambda)}~\\
 \cm{Planck-Verteilung (lambda)}
 \begin{eqnarray*}
 mean&=&\frac{1}{\exp(\lambda)-1}\\
@@ -845,7 +958,7 @@ scale&=&\frac{mean^3}{sd^2}+mean
 Conversion between distribution parameters and stochastic characteristics
 \begin{eqnarray*}
 mean&=&a\cdot P(a)+b\cdot(1-P(A))\\
-sd&=&sqrt{a^2\cdot P(a)+b^2\cdot(1-P(A))-mean^2}
+sd&=&\sqrt{a^2\cdot P(a)+b^2\cdot(1-P(A))-mean^2}
 \end{eqnarray*}
 
 
@@ -867,7 +980,7 @@ sd&=&\sqrt{-\frac{(1-\lambda)\lambda}{(1-2\lambda)^2}+\frac{1}{(2\tanh^{-1}(1-2\
 
 
 \section*{Boltzmann distribution}
-\cm{Boltzmann distribution (lambda;N)}
+\cm{Boltzmann distribution (lambda;N)}~\\
 \cm{Boltzmann-Verteilung (lambda;N)}
 \begin{eqnarray*}
 mean&=&\frac{\exp(-\lambda)}{1-\exp(-\lambda)}-N\cdot\frac{\exp(-\lambda N)}{1-\exp(-\lambda N)}\\
