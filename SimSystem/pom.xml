@@ -37,10 +37,16 @@
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-numbers-gamma -->
 	<dependency>
-    	<groupId>org.apache.commons</groupId>
-    	<artifactId>commons-numbers-gamma</artifactId>
-    	<version>1.2</version>
+    		<groupId>org.apache.commons</groupId>
+    		<artifactId>commons-numbers-gamma</artifactId>
+    		<version>1.2</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-rng-core -->
+	<dependency>
+  		<groupId>org.apache.commons</groupId>
+  		<artifactId>commons-rng-core</artifactId>
+  		<version>1.7</version>
+	</dependency>	
 	<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 	<dependency>
     		<groupId>commons-io</groupId>

@@ -31,6 +31,12 @@ import org.apache.commons.math3.random.Well19937c;
 import org.apache.commons.math3.random.Well44497a;
 import org.apache.commons.math3.random.Well44497b;
 import org.apache.commons.math3.random.Well512a;
+import org.apache.commons.rng.core.BaseProvider;
+import org.apache.commons.rng.core.source64.PcgRxsMXs64;
+import org.apache.commons.rng.core.source64.Philox4x64;
+import org.apache.commons.rng.core.source64.XoRoShiRo1024PlusPlus;
+import org.apache.commons.rng.core.source64.XoRoShiRo1024Star;
+import org.apache.commons.rng.core.source64.XoRoShiRo1024StarStar;
 
 /**
  * Stellt ein, welcher Pseudo-Zufallszahlen-Generator in {@link DistributionRandomNumberThreadLocal}
@@ -70,6 +76,12 @@ public enum RandomGeneratorMode {
 	XOROSHIRO64STARSTAR("XoRoShiRo64**",useSeed->new XoRoShiRo64StarStar()),
 	/** Pro Thread gekapselte Version von Xoshiro256PlusPlus verwenden (nur in Java 17 oder höher verfügbar) */
 	XOROSHIRO256PLUSPLUS("XoRoShiRo256++",useSeed->RandomGeneratorsByReflection.getByName("Xoshiro256PlusPlus"),true,RandomGeneratorsByReflection.areJava17GeneratorsAvailable()),
+	/** Pro Thread gekapselte Version von {@link XoRoShiRo1024PlusPlus} verwenden */
+	XOROSHIRO1024PLUSPLUS("XoRoShiRo1024++",useDeed->new CommonsRNGWrapper(seed->new XoRoShiRo1024PlusPlus(new long[] {seed}))),
+	/** Pro Thread gekapselte Version von {@link XoRoShiRo1024Star} verwenden */
+	XOROSHIRO1024STAR("XoRoShiRo1024*",useDeed->new CommonsRNGWrapper(seed->new XoRoShiRo1024Star(new long[] {seed}))),
+	/** Pro Thread gekapselte Version von {@link XoRoShiRo1024StarStar} verwenden */
+	XOROSHIRO1024STARSTAR("XoRoShiRo1024**",useDeed->new CommonsRNGWrapper(seed->new XoRoShiRo1024StarStar(new long[] {seed}))),
 	/** Pro Thread gekapselte Version von {@link L32X64Mix} verwenden */
 	L32X64MIX("L32X64Mix",useSeed->new L32X64Mix()),
 	/** Pro Thread gekapselte Version von L64X128MixRandom verwenden (nur in Java 17 oder höher verfügbar) */
@@ -86,6 +98,10 @@ public enum RandomGeneratorMode {
 	L128X256MIX("L128X256Mix",useSeed->RandomGeneratorsByReflection.getByName("L128X256MixRandom"),true,RandomGeneratorsByReflection.areJava17GeneratorsAvailable()),
 	/** Pro Thread gekapselte Version von L128X1024MixRandom verwenden (nur in Java 17 oder höher verfügbar) */
 	L128X1024MIX("L128X1024Mix",useSeed->RandomGeneratorsByReflection.getByName("L128X1024MixRandom"),true,RandomGeneratorsByReflection.areJava17GeneratorsAvailable()),
+	/** Pro Thread gekapselte Version von {@link PcgRxsMXs64} verwenden */
+	PCGRXSMXS64("PcgRxsMXs64",useDeed->new CommonsRNGWrapper(seed->new PcgRxsMXs64(seed))),
+	/** Pro Thread gekapselte Version von {@link Philox4x64} verwenden */
+	PHILOX4X64("Philox4x64",useDeed->new CommonsRNGWrapper(seed->new Philox4x64(new long[] {seed,seed+1,seed+2,2*seed,2*seed+1,2*seed+2}))),
 	/** Pro Thread gekapselte Version von {@link Drand48BitsStreamGenerator} mit innerem {@link Drand48} verwenden */
 	DRAND48("Drand48",useSeed->new Drand48BitsStreamGenerator(new Drand48()),false),
 	/** Pro Thread gekapselte Version von {@link Drand48BitsStreamGenerator} mit innerem {@link Drand48Mix} verwenden */
@@ -533,6 +549,134 @@ public enum RandomGeneratorMode {
 		public double nextGaussian() {
 			return secureRandom.nextGaussian();
 		}
+	}
 
+	/**
+	 * Sorgt dafür, dass {@link BaseProvider} über ein {@link RandomGenerator}-Interface angesprochen werden können.
+	 */
+	private static class CommonsRNGWrapper implements RandomGenerator {
+		/**
+		 * Generiert einen neuen {@link BaseProvider} mit vorgegebenem Seed
+		 */
+		private final Function<Long,BaseProvider> factory;
+
+		/**
+		 * Internes {@link BaseProvider}-Objekt
+		 */
+		private BaseProvider provider;
+
+		/**
+		 * Erzeugt einen neuen, zufälligen Seed-Wert.
+		 * @return	Seed-Wert
+		 */
+		public static long getSeed() {
+			return Thread.currentThread().getId()+System.currentTimeMillis();
+		}
+
+		/**
+		 * Konstruktor
+		 * @param factory	Generiert einen neuen {@link BaseProvider} mit vorgegebenem Seed
+		 */
+		public CommonsRNGWrapper(final Function<Long,BaseProvider> factory) {
+			this.factory=factory;
+			init(getSeed());
+		}
+
+		/**
+		 * Initialisiert den Generator
+		 * @param seed	Seed-Wert
+		 */
+		private void init(long seed) {
+			provider=factory.apply(seed);
+		}
+
+		@Override
+		public void setSeed(int seed) {
+			init(seed);
+		}
+
+		@Override
+		public void setSeed(int[] seed) {
+			if (seed.length==0) {
+				init(getSeed());
+			} else {
+				init(seed[0]);
+			}
+		}
+
+		@Override
+		public void setSeed(long seed) {
+			init(seed);
+		}
+
+		@Override
+		public void nextBytes(byte[] bytes) {
+			provider.nextBytes(bytes);
+		}
+
+		@Override
+		public int nextInt() {
+			return provider.nextInt();
+		}
+
+		@Override
+		public int nextInt(int n) {
+			return provider.nextInt(n);
+		}
+
+		@Override
+		public long nextLong() {
+			return provider.nextLong();
+		}
+
+		@Override
+		public boolean nextBoolean() {
+			return provider.nextBoolean();
+		}
+
+		@Override
+		public float nextFloat() {
+			return provider.nextFloat();
+		}
+
+		@Override
+		public double nextDouble() {
+			return provider.nextDouble();
+		}
+
+		/**
+		 * Es werden immer zwei Pseudozufallszahlen gleichzeitig generiert.
+		 * Steht eine zweite Zahl direkt zur Verfügung?
+		 * @see #nextRandom
+		 * @see #nextGaussian()
+		 */
+		private boolean randomAvailable=false;
+
+		/**
+		 * Es werden immer zwei Pseudozufallszahlen gleichzeitig generiert.
+		 * Wenn eine zweite zur Verfügung steht, so wird sie hier angeboten.
+		 * @see #randomAvailable
+		 * @see #nextGaussian()
+		 */
+		private double nextRandom;
+
+		@Override
+		public double nextGaussian() {
+			if (randomAvailable) {
+				randomAvailable=false;
+				return nextRandom;
+			}
+
+			double q=10, u=0, v=0;
+			while (q==0 || q>=1) {
+				u=2*nextDouble()-1;
+				v=2*nextDouble()-1;
+				q=u*u+v*v;
+			}
+			final double p=StrictMath.sqrt(-2 * StrictMath.log(q)/q);
+			nextRandom=v*p;
+			randomAvailable=true;
+			return u*p;
+		}
 	}
 }
