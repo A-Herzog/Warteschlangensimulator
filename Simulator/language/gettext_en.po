@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-21 23:57+0200\n"
+"POT-Creation-Date: 2026-05-19 21:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -919,6 +919,9 @@ msgstr "Display values at x axis"
 
 msgid "AxisDrawer.ModeY"
 msgstr "Display values at y axis"
+
+msgid "AxisDrawer.Now"
+msgstr "Now"
 
 msgid "Batch.MultiCoreInfo1"
 msgstr "The model cannot be simulated parallel on multiple CPU cores due to its properties."

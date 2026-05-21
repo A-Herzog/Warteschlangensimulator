@@ -9850,6 +9850,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[23735] = "transfer time";
     t[23736] = "JDistributionEditor.Wikipedia.Info";
     t[23737] = "Opens a browser window with additional information about the selected distribution type";
+    t[23746] = "AxisDrawer.Now";
+    t[23747] = "Now";
     t[23752] = "Statistic.FastAccess.Template.Format.Local";
     t[23753] = "Local format";
     t[23754] = "CommandLine.SetNUMA.Info.CoreCount";
@@ -10032,14 +10034,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[24263] = "ResourceFailure";
     t[24264] = "Main.Menu.Edit.Align.Left.Mnemonic";
     t[24265] = "L";
-    t[24266] = "Git.System.Status.Ahead";
-    t[24267] = "The local branch is newer by %s commits than the branch on the server.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_5 (java.lang.String[] t) {
+    t[24266] = "Git.System.Status.Ahead";
+    t[24267] = "The local branch is newer by %s commits than the branch on the server.";
     t[24268] = "Main.Menu.Help.HelpContent.Mnemonic";
     t[24269] = "C";
     t[24270] = "FindAndReplace.Option.CaseSensitive";
@@ -12038,14 +12040,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[29097] = "Condition";
     t[29098] = "Editor.Dialog.Sequences.Edit.Assignments.Edit.ExpressionError.Title";
     t[29099] = "Invalid expression";
-    t[29106] = "WebServer.Status.Mode.Simulation";
-    t[29107] = "Simulation";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_6 (java.lang.String[] t) {
+    t[29106] = "WebServer.Status.Mode.Simulation";
+    t[29107] = "Simulation";
     t[29108] = "Resources.Group.EditName.Dialog.Tab.SetupTimes.Mode.Off";
     t[29109] = "Off";
     t[29110] = "Surface.XML.RootName.AdditionalStatistics.Element.Mode";
@@ -14044,14 +14046,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[34229] = "Tank \"%s\" (id=%d)";
     t[34230] = "Editor.DialogBase.Search.TransporterGroup.DistancesExpression";
     t[34231] = "Expression for calculating the distances for transporter group \"%s\"";
-    t[34232] = "LogAnalyzer.UseModel.ErrorTitle";
-    t[34233] = "Model file does not exist";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_7 (java.lang.String[] t) {
+    t[34232] = "LogAnalyzer.UseModel.ErrorTitle";
+    t[34233] = "Model file does not exist";
     t[34234] = "XML.ErrorCanceledByUser";
     t[34235] = "Process canceled by user.";
     t[34240] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilization.NumberAverage";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39431] = "Number of waiting clients at the station";
     t[39432] = "Statistic.FastAccess.SelectXMLTag.Property";
     t[39433] = "Property";
-    t[39438] = "Simulation.Java.Error.NoTempFolder";
-    t[39439] = "The folder for temporary data could not be created.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[39438] = "Simulation.Java.Error.NoTempFolder";
+    t[39439] = "The folder for temporary data could not be created.";
     t[39442] = "ParameterCompare.Toolbar.ShowBaseModel.LoadToEditor.NewWindow";
     t[39443] = "Load model to new editor";
     t[39460] = "Optimizer.Tab.Optimization.Step.Result.Save.ErrorTitle";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44149] = "t";
     t[44154] = "Update.Updater.Info";
     t[44155] = "The program is now updated to a new version. This will take a few seconds.\nPlease do not try to start the program again during this time.\nWhen the update is complete, the program starts automatically.";
-    t[44158] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Process.ErrorInfo";
-    t[44159] = "The specified process time costs \"%s\" are invalid.\nA number has to be specified.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[44158] = "Surface.PopupMenu.SimulationStatisticsData.Tab.WaitingClients.Costs.Process.ErrorInfo";
+    t[44159] = "The specified process time costs \"%s\" are invalid.\nA number has to be specified.";
     t[44162] = "Surface.SourceDB.XML.ClientTypeName";
     t[44163] = "ModelElementDatabaseClientType";
     t[44164] = "Editor.Dialog.Sequences.Edit.Column.Control";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48891] = "Warteschlangensimulator-Commandline-en.pdf";
     t[48902] = "Optimizer.SelectedParentsForNextRound";
     t[48903] = "Select as parent generation for next round:";
-    t[48910] = "ParameterCompare.Toolbar.Save";
-    t[48911] = "Save";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[48910] = "ParameterCompare.Toolbar.Save";
+    t[48911] = "Save";
     t[48916] = "ScriptPopup.Output.Separator.Tabs";
     t[48917] = "Tabulators";
     t[48920] = "ParameterCompare.Settings.Input.Info.Error";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53861] = "Off";
     t[53864] = "Editor.Breakpoints.TabBreakpoints.Delete";
     t[53865] = "Delete";
-    t[53872] = "Optimizer.Tab.Optimization.Kernel.Simple";
-    t[53873] = "Optimize variable by variable";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[53872] = "Optimizer.Tab.Optimization.Kernel.Simple";
+    t[53873] = "Optimize variable by variable";
     t[53874] = "Surface.Process.Dialog.Tab.PrioritiesAndBatchSizes.PrioritiesPopup.LIFO";
     t[53875] = "Set LIFO";
     t[53876] = "Surface.Source.Dialog.Tab.BatchSize.ClientPlural";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[58691] = "Station costs per client";
     t[58694] = "Simulation.Log.Reference";
     t[58695] = "Reference";
-    t[58696] = "Animation.Icon.FlagBlue";
-    t[58697] = "Flag - blue";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[58696] = "Animation.Icon.FlagBlue";
+    t[58697] = "Flag - blue";
     t[58706] = "Animation.Icon.World";
     t[58707] = "World";
     t[58710] = "JSRunner.Templates.ChangeService.Info";

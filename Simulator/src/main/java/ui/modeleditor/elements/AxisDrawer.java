@@ -27,6 +27,7 @@ import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.commons.math3.util.FastMath;
 
 import de.erichseifert.vectorgraphics2d.VectorGraphics2D;
+import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -282,7 +283,7 @@ public class AxisDrawer {
 			final double value=minValue+(maxValue-minValue)*i/(steps-1);
 			text[i]=TimeTools.formatLongTime(value);
 		}
-		text[steps-1]="Jetzt";
+		text[steps-1]=Language.tr("AxisDrawer.Now");
 	}
 
 	/**
