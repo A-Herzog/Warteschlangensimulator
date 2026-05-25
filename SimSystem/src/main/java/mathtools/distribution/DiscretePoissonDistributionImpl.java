@@ -79,7 +79,7 @@ public final class DiscretePoissonDistributionImpl extends AbstractDiscreteRealD
 		if (k<0) return 0;
 		if (k<densityCache.length) return densityCache[k];
 
-		return powerFactorial(k)*FastMath.exp(-this.lambda)*FastMath.exp(-lambda);
+		return powerFactorial(k)*FastMath.exp(-this.lambda);
 	}
 
 	@Override
