@@ -308,6 +308,11 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 	private double welfordM2;
 
 	/**
+	 * Aus wie vielen Teilstatistiken wurde diese Gesamtstatistik zusammengesetzt?
+	 */
+	private int parts=1;
+
+	/**
 	 * Konstruktor der Klasse <code>StatisticsDataPerformanceIndicator</code>
 	 * Bei der Datenaufzeichnung wird eine Häufigkeitsverteilung der Werte angelegt
 	 * @param xmlNodeNames	Name des xml-Knotens, in dem die Daten gespeichert werden sollen
@@ -591,6 +596,8 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 				max=Math.max(max,moreDataStatistics.max);
 			}
 		}
+
+		if (count>0) parts++;
 
 		final long countOld=count;
 		final double oldMean=getMean();
@@ -1014,7 +1021,8 @@ public final class StatisticsDataPerformanceIndicator extends StatisticsPerforma
 			if (k*correlationRangeStepping>count) {
 				correlation[k]=0;
 			} else {
-				final double corr=(correlationSums[k]-(count-k*correlationRangeStepping)*mean*mean);
+				final double sub=(count-parts*k*correlationRangeStepping)*mean*mean;
+				final double corr=(correlationSums[k]-sub);
 				if (count>0 && var>0) correlation[k]=corr/count/var;
 			}
 		}
