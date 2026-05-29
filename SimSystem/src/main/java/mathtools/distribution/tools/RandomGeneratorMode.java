@@ -66,6 +66,8 @@ public enum RandomGeneratorMode {
 	WELL44497B("Well44497b",useSeed->new Well44497b()),
 	/** Pro Thread gekapselte Version von {@link MersenneTwister} verwenden */
 	MERSENNE_TWISTER("MersenneTwister",useSeed->new MersenneTwister()),
+	/** Pro Thread gekapselte Version von {@link SFC64} verwenden */
+	SFC64("SFC64",useSeed->new SFC64()),
 	/** Pro Thread gekapselte Version von {@link ISAACRandom} verwenden */
 	ISAAC("ISAAC",useSeed->new ISAACRandom()),
 	/** Pro Thread gekapselte Version von {@link XoRoShiRo128PlusPlus} verwenden */
