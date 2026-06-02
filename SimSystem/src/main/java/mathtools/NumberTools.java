@@ -1178,6 +1178,10 @@ public final class NumberTools {
 			return value;
 		}
 
+		if (value<Long.MIN_VALUE || value>Long.MAX_VALUE) {
+			return value;
+		}
+
 		final long l=(long)value;
 		if (l>0) {
 			if (l>=fastPositiveResults.length) return value;
