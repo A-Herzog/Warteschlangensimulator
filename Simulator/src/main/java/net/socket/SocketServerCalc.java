@@ -83,6 +83,11 @@ public class SocketServerCalc extends SocketServerBase {
 	private final double timeout;
 
 	/**
+	 * Immer englische XML-Bezeichner verwenden (auch wenn im Setup deaktiviert)?
+	 */
+	private boolean alwaysEnglishXML=false;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param timeout	Abbruchzeit in Sekunden (Werte &le;0 bedeuten, dass keine Abbruchzeit gesetzt ist)
 	 */
@@ -136,6 +141,18 @@ public class SocketServerCalc extends SocketServerBase {
 		if (cmd==null) {
 			write(MSG_TYPE_ERROR,output);
 			write("No Command given.",output);
+			return output;
+		}
+
+		if (cmd.equalsIgnoreCase("ALWAYS_ENGLISH_XML_ON")) {
+			alwaysEnglishXML=true;
+			write("Ok.",output);
+			return output;
+		}
+
+		if (cmd.equalsIgnoreCase("ALWAYS_ENGLISH_XML_USER")) {
+			alwaysEnglishXML=false;
+			write("Ok.",output);
 			return output;
 		}
 
@@ -199,7 +216,7 @@ public class SocketServerCalc extends SocketServerBase {
 	 */
 	private SocketServerTask buildTask(final byte[] data, final ByteArrayOutputStream output) {
 		runnerCounter++;
-		final SocketServerTask task=SocketServerTask.loadData(runnerCounter,data,timeout);
+		final SocketServerTask task=SocketServerTask.loadData(runnerCounter,data,timeout,alwaysEnglishXML);
 		if (task==null) {
 			runnerCounter--;
 			write(MSG_TYPE_ERROR,output);

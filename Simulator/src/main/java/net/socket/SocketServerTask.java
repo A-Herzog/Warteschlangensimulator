@@ -21,6 +21,7 @@ import java.util.Base64;
 import java.util.function.BooleanSupplier;
 
 import language.Language;
+import language.LanguageStaticLoader;
 import net.calc.SimulationServer;
 import simulator.AnySimulator;
 import simulator.Simulator;
@@ -80,16 +81,23 @@ public class SocketServerTask {
 	private final double timeout;
 
 	/**
+	 * Immer englische XML-Bezeichner verwenden (auch wenn im Setup deaktiviert)?
+	 */
+	private final boolean alwaysEnglishXML;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param id	ID des Tasks
 	 * @param model	Zu simulierendes Modell
 	 * @param timeout	Abbruchzeit in Sekunden (Werte &le;0 bedeuten, dass keine Abbruchzeit gesetzt ist)
+	 * @param alwaysEnglishXML	Immer englische XML-Bezeichner verwenden (auch wenn im Setup deaktiviert)?
 	 */
-	private SocketServerTask(final int id, final EditModel model, final double timeout) {
+	private SocketServerTask(final int id, final EditModel model, final double timeout, final boolean alwaysEnglishXML) {
 		this.id=id;
 		this.model=model;
 		this.series=null;
 		this.timeout=timeout;
+		this.alwaysEnglishXML=alwaysEnglishXML;
 	}
 
 	/**
@@ -97,12 +105,14 @@ public class SocketServerTask {
 	 * @param id	ID des Tasks
 	 * @param series	Zu simulierende Parameterreihe
 	 * @param timeout	Abbruchzeit in Sekunden (Werte &le;0 bedeuten, dass keine Abbruchzeit gesetzt ist)
+	 * @param alwaysEnglishXML	Immer englische XML-Bezeichner verwenden (auch wenn im Setup deaktiviert)?
 	 */
-	private SocketServerTask(final int id, final ParameterCompareSetup series, final double timeout) {
+	private SocketServerTask(final int id, final ParameterCompareSetup series, final double timeout, final boolean alwaysEnglishXML) {
 		this.id=id;
 		this.model=null;
 		this.series=series;
 		this.timeout=timeout;
+		this.alwaysEnglishXML=alwaysEnglishXML;
 	}
 
 	/**
@@ -145,22 +155,23 @@ public class SocketServerTask {
 	 * @param id	ID für die neue Aufgabe
 	 * @param data	Zu ladende Daten (Modell oder Parameterreihe)
 	 * @param timeout	Abbruchzeit in Sekunden (Werte &le;0 bedeuten, dass keine Abbruchzeit gesetzt ist)
+	 * @param alwaysEnglishXML	Immer englische XML-Bezeichner verwenden (auch wenn im Setup deaktiviert)?
 	 * @return	Liefert im Erfolgsfall ein neues Objekt, sonst <code>null</code>
 	 */
-	public static SocketServerTask loadData(final int id, final byte[] data, final double timeout) {
+	public static SocketServerTask loadData(final int id, final byte[] data, final double timeout, final boolean alwaysEnglishXML) {
 		final EditModel htmlBasedModel=tryLoadHTML(data);
 		if (htmlBasedModel!=null) {
-			return new SocketServerTask(id,htmlBasedModel,timeout);
+			return new SocketServerTask(id,htmlBasedModel,timeout,alwaysEnglishXML);
 		}
 
 		final EditModel model=new EditModel();
 		if (model.loadFromStream(new ByteArrayInputStream(data),FileType.AUTO)==null) {
-			return new SocketServerTask(id,model,timeout);
+			return new SocketServerTask(id,model,timeout,alwaysEnglishXML);
 		}
 
 		final ParameterCompareSetup series=new ParameterCompareSetup(null);
 		if (series.loadFromStream(new ByteArrayInputStream(data),FileType.AUTO)==null) {
-			return new SocketServerTask(id,series,timeout);
+			return new SocketServerTask(id,series,timeout,alwaysEnglishXML);
 		}
 
 		return null;
@@ -235,6 +246,26 @@ public class SocketServerTask {
 	}
 
 	/**
+	 * Führt eine Funktion aus, während die Programmsprache English ist.
+	 * Danach wird auf die Ausgangssprache zurückgestellt.
+	 * @param run	Funktion die im English-Modus ausgeführt werden soll
+	 */
+	private void processInEnglish(final Runnable run) {
+		final SetupData setup=SetupData.getSetup();
+		final String language=setup.language;
+		try {
+			setup.language="en";
+			Language.init("en");
+			LanguageStaticLoader.setLanguage();
+			run.run();
+		} finally {
+			setup.language=language;
+			Language.init(setup.language);
+			LanguageStaticLoader.setLanguage();
+		}
+	}
+
+	/**
 	 * Startet die Simulation eines einfachen Modells.
 	 * @see #start()
 	 * @see #model
@@ -264,9 +295,17 @@ public class SocketServerTask {
 
 		final ByteArrayOutputStream output=new ByteArrayOutputStream();
 		try {
-			final Statistics statistics=simulator.getStatistic();
-			final XMLTools.FileType fileType=SetupData.getSetup().defaultSaveFormatStatistics.fileType;
-			statistics.saveToStream(output,fileType);
+			Statistics statistics=simulator.getStatistic();
+			final SetupData setup=SetupData.getSetup();
+			final XMLTools.FileType fileType=setup.defaultSaveFormatStatistics.fileType;
+
+			if (alwaysEnglishXML && !setup.language.equalsIgnoreCase("en")) {
+				processInEnglish(()->{
+					statistics.getUpdatedLanguage().saveToStream(output,fileType);
+				});
+			} else {
+				statistics.saveToStream(output,fileType);
+			}
 
 		} finally {
 			setResult(output.toByteArray());
@@ -303,8 +342,14 @@ public class SocketServerTask {
 
 			if (runner.waitForFinish()) {
 				final ByteArrayOutputStream output=new ByteArrayOutputStream();
-				final XMLTools.FileType fileType=SetupData.getSetup().defaultSaveFormatParameterSeries.fileType;
-				series.saveToStream(output,fileType);
+				final SetupData setup=SetupData.getSetup();
+				final XMLTools.FileType fileType=setup.defaultSaveFormatParameterSeries.fileType;
+
+				if (alwaysEnglishXML && !setup.language.equalsIgnoreCase("en")) {
+					processInEnglish(()->series.saveToStream(output,fileType));
+				} else {
+					series.saveToStream(output,fileType);
+				}
 				setResult(output.toByteArray());
 			} else {
 				setResult(Language.tr("CalcWebServer.Simulation.Failed").getBytes());

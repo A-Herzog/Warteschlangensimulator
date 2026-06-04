@@ -10,15 +10,17 @@ import socket
 class QS_socket_connect:
     """Allows to communicate with Warteschlangensimulator via a socket connection"""
 
-    def __init__(self, host: str = "localhost", port: int = 10000) -> None:
+    def __init__(self, host: str = "localhost", port: int = 10000, always_english_xml = True) -> None:
         """Allows to communicate with Warteschlangensimulator via a socket connection
 
         Args:
             host (str, optional): Host address to connect to. Default to "localhost"
             port (int, optional): Port to use. Defaults to 10000.
+            always_english_xml (bool, optional): Always use English xml tags (independent of the program language). Defaults to True.
         """
         self.__host: str = host
         self.__port: int = port
+        self.__always_english_xml: bool = always_english_xml
 
     def __send_bytes(self, socket, bytes: Union[bytes, bytearray]):
         socket.sendall(len(bytes).to_bytes(4, "big"))
@@ -28,10 +30,22 @@ class QS_socket_connect:
         self.__send_bytes(socket, bytearray(text, 'utf-8'))
 
     def __send_task(self, task_data: Union[str, bytes, bytearray]):
+        # Set language for xml files
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as connection:
             try:
                 connection.connect((self.__host, self.__port))
 
+                if self.__always_english_xml:
+                    self.__send_string(connection, "Always_English_XML_On")
+                else:
+                    self.__send_string(connection, "Always_English_XML_User")
+            finally:
+                connection.close()
+
+        # Send task
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as connection:
+            try:
+                connection.connect((self.__host, self.__port))
                 self.__send_string(connection, "Task")
 
                 format_ok: bool = False
@@ -57,6 +71,19 @@ class QS_socket_connect:
                 connection.close()
 
     def __direct_process_task(self, task_data: Union[str, bytes, bytearray]):
+        # Set language for xml files
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as connection:
+            try:
+                connection.connect((self.__host, self.__port))
+
+                if self.__always_english_xml:
+                    self.__send_string(connection, "Always_English_XML_On")
+                else:
+                    self.__send_string(connection, "Always_English_XML_User")
+            finally:
+                connection.close()
+
+        # Send task
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as connection:
             try:
                 connection.connect((self.__host, self.__port))
@@ -164,7 +191,7 @@ class QS_socket_connect:
 class QS_full_connect:
     """Runs a Warteschlangensimulator instance in background"""
 
-    def __init__(self, java_path: Union[str, None] = None, simulator_path: Union[str, None] = None, port: int = 10000, timeout: float = -1.0):
+    def __init__(self, java_path: Union[str, None] = None, simulator_path: Union[str, None] = None, port: int = 10000, timeout: float = -1.0, always_english_xml = True):
         """Runs a Warteschlangensimulator instance in background
 
         Args:
@@ -172,6 +199,7 @@ class QS_full_connect:
             simulator_path (str,option ): Path to Simulator.jar (path without file name or path including jar file). Defaults to None.
             port (int, optional): Port to use. Defaults to 10000.
             timeout (float, option): Number of seconds before simulation will be canceled. Negative values means there is no timeout. Defaults to -1.0.
+            always_english_xml (bool, optional): Always use English xml tags (independent of the program language). Defaults to True.
         """
         java_path = get_java_path(java_path)
         if java_path is None: raise RuntimeError("Java not found")
@@ -183,6 +211,7 @@ class QS_full_connect:
 
         self.__port: int = port
         self.__timeout: float = timeout
+        self.__always_english_xml: bool = always_english_xml
 
         self.__process = None
 
@@ -199,7 +228,7 @@ class QS_full_connect:
         self.__process.stdout.readline()
         self.__process.stdout.readline()
 
-        return QS_socket_connect("localhost", self.__port)
+        return QS_socket_connect("localhost", self.__port, self.__always_english_xml)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         if self.__process is None: return False
@@ -208,7 +237,6 @@ class QS_full_connect:
         if self.__process.stdin is not None:
             try:
                 self.__process.stdin.write(bytearray("\n", "utf-8"))
-                self.__process.stdin.flush()
             except BrokenPipeError:
                 pass
 

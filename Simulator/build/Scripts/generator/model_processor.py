@@ -20,6 +20,8 @@ class Model:
     model.save("newModel.xml") or model_as_string=model.get()
     """
 
+    __root : Element
+
     def __init__(self, model: str | ElementTree) -> None:
         """Loads a template file
 
@@ -35,7 +37,10 @@ class Model:
         if isinstance(model, ElementTree):
             self.__tree = model
 
-        self.__root = self.__tree.getroot()
+        root = self.__tree.getroot()
+        if root is None:
+            raise RuntimeError("Cannot read model")
+        self.__root = root
 
     def copy(self):
         """Generates an independend copy of the model
@@ -260,6 +265,16 @@ class Statistics:
             Element: Root element of the statistics data
         """
         return self.__root
+
+    def save(self, outputFile: str) -> None:
+        """Saves the statistics data
+
+        Args:
+            outputFile (str): Model output file
+        """
+        with open(outputFile, 'wb') as f:
+            tree = ElementTree(self.__root)
+            tree.write(f, encoding='UTF-8', method='xml', xml_declaration=True)
 
 
 def get_example_model() -> str:
