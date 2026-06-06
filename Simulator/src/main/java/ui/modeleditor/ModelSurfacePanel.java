@@ -2002,7 +2002,7 @@ public final class ModelSurfacePanel extends JPanel {
 	public boolean saveImageToFile(final File file, String format, final int xSize, final int ySize, final boolean forceWithBackground) {
 		final int PDF_IMAGE_SIZE=2_000;
 		final int MAX_IMAGE_BIGGER_FACTOR=10; /* Eingestellte Exportgröße maximal um diesen Faktor überschreiten */
-		final int MAX_IMAGE_SIZE=10_000; /* Maximale Größe */
+		final int MAX_IMAGE_SIZE=20_000; /* Maximale Größe */
 
 		if (format.equalsIgnoreCase("pdf")) {
 			return ImageTools.saveImage(this,getImage(PDF_IMAGE_SIZE,PDF_IMAGE_SIZE),file);
@@ -2021,9 +2021,10 @@ public final class ModelSurfacePanel extends JPanel {
 		}
 
 		/* gif, jpeg, png, bmp */
-		final int maxXSize=Math.min(MAX_IMAGE_SIZE,MAX_IMAGE_BIGGER_FACTOR*xSize);
-		final int maxYSize=Math.min(MAX_IMAGE_SIZE,MAX_IMAGE_BIGGER_FACTOR*ySize);
-		BufferedImage image=getImageMaxFactor(maxXSize,maxYSize,10,forceWithBackground);
+		final int maxSetupSize=SetupData.getSetup().imageSize;
+		final int maxXSize=Math.min(Math.min(MAX_IMAGE_SIZE,maxSetupSize),MAX_IMAGE_BIGGER_FACTOR*xSize);
+		final int maxYSize=Math.min(Math.min(MAX_IMAGE_SIZE,maxSetupSize),MAX_IMAGE_BIGGER_FACTOR*ySize);
+		BufferedImage image=getImageMaxFactor(maxXSize,maxYSize,50,forceWithBackground);
 		if (format.equalsIgnoreCase("jpg")) format="jpeg";
 
 		final String imageFormat=format.toLowerCase();

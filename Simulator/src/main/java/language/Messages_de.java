@@ -21417,7 +21417,7 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52234] = "Surface.Process.XML.TimeCosts.ProcessingSecond";
     t[52235] = "Bediensekunde";
     t[52238] = "SettingsDialog.ImageResolution.Invalid.Info";
-    t[52239] = "Die Bildgr\u00f6\u00dfe beim Speichern muss eine Ganzzahl zwischen 50 und 5000 sein.";
+    t[52239] = "Die Bildgr\u00f6\u00dfe beim Speichern muss eine Ganzzahl zwischen 50 und 20000 sein.";
     t[52240] = "Surface.Sub.Tooltip";
     t[52241] = "F\u00fcgt ein Untermodell ein.";
     t[52244] = "Statistics.DistributionsValues";

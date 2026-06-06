@@ -366,7 +366,7 @@ public class SetupDialogPageFileFormats extends SetupDialogPage {
 		if (setup.customExcelRowName!=null && !setup.customExcelRowName.isBlank()) excelRow.setText(setup.customExcelRowName.trim());
 		if (setup.customExcelColName!=null && !setup.customExcelColName.isBlank()) excelCol.setText(setup.customExcelColName.trim());
 
-		imageSize.setText(""+Math.min(5000,Math.max(50,setup.imageSize)));
+		imageSize.setText(""+Math.min(20000,Math.max(50,setup.imageSize)));
 		if (setup.imagePathAnimation==null || setup.imagePathAnimation.isBlank()) {
 			imagesAnimationHome.setSelected(true);
 		} else {
@@ -379,7 +379,7 @@ public class SetupDialogPageFileFormats extends SetupDialogPage {
 	@Override
 	public boolean checkData() {
 		final Long L=NumberTools.getPositiveLong(imageSize,true);
-		if (L==null || L<50 || L>5000) {
+		if (L==null || L<50 || L>20000) {
 			MsgBox.error(this,Language.tr("SettingsDialog.ImageResolution.Invalid.Title"),Language.tr("SettingsDialog.ImageResolution.Invalid.Info"));
 			return false;
 		}

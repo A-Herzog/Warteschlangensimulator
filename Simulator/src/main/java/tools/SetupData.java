@@ -2110,7 +2110,7 @@ public class SetupData extends SetupBase {
 
 			if (name.equals("images")) {
 				final Integer j=NumberTools.getInteger(e.getTextContent());
-				if (j!=null) imageSize=Math.min(5000,Math.max(50,j));
+				if (j!=null) imageSize=Math.min(20000,Math.max(50,j));
 				imagesInline=loadBoolean(e.getAttribute("Inline"),true);
 				continue;
 			}

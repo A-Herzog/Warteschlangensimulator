@@ -21417,7 +21417,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52234] = "Surface.Process.XML.TimeCosts.ProcessingSecond";
     t[52235] = "ProcessingSecond";
     t[52238] = "SettingsDialog.ImageResolution.Invalid.Info";
-    t[52239] = "The size for saving images has to be an interger number between 50 and 5000.";
+    t[52239] = "The size for saving images has to be an interger number between 50 and 20000.";
     t[52240] = "Surface.Sub.Tooltip";
     t[52241] = "Adds a sub model.";
     t[52244] = "Statistics.DistributionsValues";
