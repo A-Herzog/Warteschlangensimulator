@@ -101,9 +101,11 @@ public enum RandomGeneratorMode {
 	/** Pro Thread gekapselte Version von L128X1024MixRandom verwenden (nur in Java 17 oder höher verfügbar) */
 	L128X1024MIX("L128X1024Mix",useSeed->RandomGeneratorsByReflection.getByName("L128X1024MixRandom"),true,RandomGeneratorsByReflection.areJava17GeneratorsAvailable()),
 	/** Pro Thread gekapselte Version von {@link PcgRxsMXs64} verwenden */
-	PCGRXSMXS64("PcgRxsMXs64",useDeed->new CommonsRNGWrapper(seed->new PcgRxsMXs64(seed))),
+	PCGRXSMXS64("PcgRxsMXs64",useSeed->new CommonsRNGWrapper(seed->new PcgRxsMXs64(seed))),
 	/** Pro Thread gekapselte Version von {@link Philox4x64} verwenden */
-	PHILOX4X64("Philox4x64",useDeed->new CommonsRNGWrapper(seed->new Philox4x64(new long[] {seed,seed+1,seed+2,2*seed,2*seed+1,2*seed+2}))),
+	PHILOX4X64("Philox4x64",useSeed->new CommonsRNGWrapper(seed->new Philox4x64(new long[] {seed,seed+1,seed+2,2*seed,2*seed+1,2*seed+2}))),
+	/** Pro Thread gekapselte Version von {@link CWG128Random} verwenden */
+	CWG128("CWG128",useSeed->new CWG128Random()),
 	/** Pro Thread gekapselte Version von {@link Drand48BitsStreamGenerator} mit innerem {@link Drand48} verwenden */
 	DRAND48("Drand48",useSeed->new Drand48BitsStreamGenerator(new Drand48()),false),
 	/** Pro Thread gekapselte Version von {@link Drand48BitsStreamGenerator} mit innerem {@link Drand48Mix} verwenden */
