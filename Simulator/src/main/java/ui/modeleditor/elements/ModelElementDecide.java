@@ -37,6 +37,7 @@ import mathtools.NumberTools;
 import simulator.editmodel.EditModel;
 import simulator.editmodel.FullTextSearch;
 import simulator.runmodel.RunModelFixer;
+import simulator.simparser.ExpressionCalc;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
@@ -148,7 +149,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 			final List<String> rates=decideRecord.getRates();
 			while (rates.size()<connectionsOut.size()) rates.add("1");
 			for (int i=0;i<connectionsOut.size();i++) {
-				final Double rate=NumberTools.getPlainDouble(rates.get(i));
+				final Double rate=ExpressionCalc.isConstValue(rates.get(i),getSurface().getMainSurfaceVariableNames(getModel().getModelVariableNames(),true),getModel().userFunctions);
 				if (rate==null) {sum=-1; break;}
 				sum+=Math.max(0,rate);
 			}
@@ -170,7 +171,7 @@ public class ModelElementDecide extends ModelElementBox implements ModelDataRena
 				final String rateString=(i>=rates.size())?"1":rates.get(i);
 				String info="";
 				if (sum>0) {
-					final Double rate=NumberTools.getPlainDouble(rateString);
+					final Double rate=ExpressionCalc.isConstValue(rates.get(i),getSurface().getMainSurfaceVariableNames(getModel().getModelVariableNames(),true),getModel().userFunctions);
 					if (rate!=null) info=" ("+NumberTools.formatPercent(rate/sum)+")";
 				}
 				name=Language.tr("Surface.Decide.Rate")+" "+rateString+info;
