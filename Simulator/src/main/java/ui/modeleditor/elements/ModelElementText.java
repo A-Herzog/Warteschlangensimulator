@@ -671,27 +671,26 @@ public final class ModelElementText extends ModelElementPosition implements Elem
 
 			if (alpha>0 && alpha<=Math.PI/2) {
 				/* Drehung nach oben rechts */
-				x-=rotBoxH*Math.sin(alpha);
-				y+=(rotBoxH-boxH)*Math.cos(alpha);
+				x-=(int)(rotBoxH*Math.sin(alpha));
+				y+=(int)((rotBoxH-boxH)*Math.cos(alpha));
 			}
 
 			if (alpha>Math.PI/2 && alpha<=Math.PI) {
 				/* Drehung nach oben links */
-				x-=rotBoxH*Math.sin(alpha)-rotBoxW*Math.cos(alpha);
-				y-=-rotBoxH*Math.cos(alpha)-Math.sin(2*(alpha-Math.PI/2))*(rotBoxH-boxH);
+				x-=(int)(rotBoxH*Math.sin(alpha)-rotBoxW*Math.cos(alpha));
+				y-=(int)(-rotBoxH*Math.cos(alpha)-Math.sin(2*(alpha-Math.PI/2))*(rotBoxH-boxH));
 			}
 
 			if (alpha>Math.PI && alpha<=3*Math.PI/2) {
 				/* Drehung nach unten links */
-				x-=-boxW*Math.cos(alpha)-Math.sin(2*(alpha-Math.PI))*boxH;
-				y-=boxH+Math.sin(2*(alpha-Math.PI))*(rotBoxH-boxH);
-
+				x-=(int)(-boxW*Math.cos(alpha)-Math.sin(2*(alpha-Math.PI))*boxH);
+				y-=(int)(boxH+Math.sin(2*(alpha-Math.PI))*(rotBoxH-boxH));
 			}
 
 			if (alpha>3*Math.PI/2) {
 				/* Drehung nach unten rechts */
-				x+=Math.sin(2*(alpha-3*Math.PI/2))*boxH;
-				y-=-Math.sin(alpha)*boxH;
+				x+=(int)(Math.sin(2*(alpha-3*Math.PI/2))*boxH);
+				y-=(int)(-Math.sin(alpha)*boxH);
 			}
 
 			boxW=rotBoxW;
