@@ -143,7 +143,7 @@ public final class ModelSurface {
 		 * Multiplikator-Faktor um auf einen Sekundenwert zu kommen.
 		 * @see ModelSurface#TIMEBASE_MULTIPLY
 		 */
-		public final long multiply;
+		public final int multiply;
 
 		/**
 		 * Konstruktor des Enum
@@ -221,7 +221,7 @@ public final class ModelSurface {
 	/**
 	 * Multiplikatoren (relativ zu einer Sekunde) für die Zeitbasis-Werte
 	 */
-	private static final long[] TIMEBASE_MULTIPLY=new long[]{1,60,3600,86400};
+	private static final int[] TIMEBASE_MULTIPLY=new int[]{1,60,3600,86400};
 
 	/**
 	 * Name des XML-Elements, das die Surface-Elemente enthält
