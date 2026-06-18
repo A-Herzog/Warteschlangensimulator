@@ -1708,7 +1708,7 @@ public final class ModelSurfacePanel extends JPanel {
 		final FontMetrics infoFontMetrics=preGraphics.getFontMetrics(infoFont);
 		double totalSize=infoFontSize*(infoFontMetrics.getAscent()+infoFontMetrics.getDescent())/infoFontMetrics.getAscent();
 
-		if (ySurfaceImage>1) ySurfaceImage+=totalSize;
+		if (ySurfaceImage>1) ySurfaceImage+=(int)totalSize;
 
 		final BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_4BYTE_ABGR);
 
@@ -1801,7 +1801,7 @@ public final class ModelSurfacePanel extends JPanel {
 		final FontMetrics infoFontMetrics=preGraphics.getFontMetrics(infoFont);
 		double totalSize=infoFontSize*(infoFontMetrics.getAscent()+infoFontMetrics.getDescent())/infoFontMetrics.getAscent();
 
-		ySurfaceImage+=totalSize;
+		ySurfaceImage+=(int)totalSize;
 
 		final BufferedImage image=new BufferedImage(xSurfaceImage,ySurfaceImage,BufferedImage.TYPE_INT_ARGB);
 		Graphics g=image.getGraphics();
@@ -4075,21 +4075,21 @@ public final class ModelSurfacePanel extends JPanel {
 					if (e.isAltDown() || e.isAltGraphDown()) {
 						if (Math.abs(e.getWheelRotation())==1 && !e.isShiftDown()) {
 							/* Rad */
-							point.x+=viewport.getWidth()/WHEEL_SCROLL_FRACTION*e.getWheelRotation();
+							point.x+=(int)(viewport.getWidth()/WHEEL_SCROLL_FRACTION*e.getWheelRotation());
 							if (point.x<0) point.x=0;
 						} else {
 							/* Rad-Klick */
-							point.y+=viewport.getWidth()/WHEEL_SCROLL_FRACTION*Math.signum(e.getWheelRotation());
+							point.y+=(int)(viewport.getWidth()/WHEEL_SCROLL_FRACTION*Math.signum(e.getWheelRotation()));
 							if (point.y<0) point.y=0;
 						}
 					} else {
 						if (Math.abs(e.getWheelRotation())==1 && !e.isShiftDown()) {
 							/* Rad */
-							point.y+=viewport.getHeight()/WHEEL_SCROLL_FRACTION*e.getWheelRotation();
+							point.y+=(int)(viewport.getHeight()/WHEEL_SCROLL_FRACTION*e.getWheelRotation());
 							if (point.y<0) point.y=0;
 						} else {
 							/* Rad-Klick */
-							point.x+=viewport.getWidth()/WHEEL_SCROLL_FRACTION*Math.signum(e.getWheelRotation());
+							point.x+=(int)(viewport.getWidth()/WHEEL_SCROLL_FRACTION*Math.signum(e.getWheelRotation()));
 							if (point.x<0) point.x=0;
 						}
 					}

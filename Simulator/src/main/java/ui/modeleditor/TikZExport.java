@@ -626,7 +626,7 @@ public class TikZExport {
 
 		@Override
 		public void draw(final List<String> output, final Function<Color,String> getColorName, final boolean showIDs) {
-			int currentY=y;
+			long currentY=y;
 			for (String line: text.split("\\n")) {
 				final StringBuilder text=new StringBuilder();
 

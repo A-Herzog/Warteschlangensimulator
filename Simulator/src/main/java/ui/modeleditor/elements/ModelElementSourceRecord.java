@@ -511,13 +511,13 @@ public final class ModelElementSourceRecord implements Cloneable {
 		}
 
 		if (batchSizeRates!=null) {
-			int count=0;
-			int sum=0;
+			double count=0;
+			double sum=0;
 			for (int i=0;i<batchSizeRates.length;i++) {
 				count+=batchSizeRates[i];
 				sum+=(i+1)*batchSizeRates[i];
 			}
-			return Math.max((int)Math.round(((double)sum)/count),1);
+			return Math.max((int)Math.round(sum/count),1);
 		}
 
 		return 1;
