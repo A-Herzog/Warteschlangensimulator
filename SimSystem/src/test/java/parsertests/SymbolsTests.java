@@ -896,6 +896,47 @@ class SymbolsTests {
 		assertTrue(calc.parse()<0);
 		assertTrue(calc.calcOrDefault(new double[]{1},0)>1);
 
+		/* Sech = 1/CosH */
+
+		calc=new CalcSystem("sech(0)");
+		assertTrue(calc.parse()<0);
+		try {
+			d=calc.calc();
+			assertEquals(1,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("sech(-1)");
+		assertTrue(calc.parse()<0);
+		try {
+			d=calc.calc();
+			assertTrue(d<1);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("sech(1)");
+		assertTrue(calc.parse()<0);
+		try {
+			d=calc.calc();
+			assertTrue(d<1);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("sech(a)",new String[]{"a"});
+		assertTrue(calc.parse()<0);
+		assertEquals(1,calc.calcOrDefault(new double[]{0},123));
+
+		calc=new CalcSystem("sech(a)",new String[]{"a"});
+		assertTrue(calc.parse()<0);
+		assertTrue(calc.calcOrDefault(new double[]{-1},0)<1);
+
+		calc=new CalcSystem("sech(a)",new String[]{"a"});
+		assertTrue(calc.parse()<0);
+		assertTrue(calc.calcOrDefault(new double[]{1},0)<1);
+
 		/* Cot */
 
 		calc=new CalcSystem("cot(pi/2-1)");

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-02 21:25+0200\n"
+"POT-Creation-Date: 2026-06-19 11:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10004,6 +10004,12 @@ msgstr "Cosine hyperbolicus"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.CosinusHyperbolicus.Info"
 msgstr "<p>Calculates the value of the cosine hyperbolicus function with the value passed as parameter.</p> <p> Example: <tt>cosh(0)</tt> returns 1.</p>"
+
+msgid "ExpressionBuilder.TrigonometricFunctions.CosinusHyperbolicusReciprocal"
+msgstr "Reciprocal of the cosine hyperbolicus"
+
+msgid "ExpressionBuilder.TrigonometricFunctions.CosinusHyperbolicusReciprocal.Info"
+msgstr "<p>Calculates the value of the reciprocal of the cosine hyperbolicus function with the value passed as parameter.</p> <p> Example: <tt>sech(0)</tt> returns 1.</p>"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.Cotangens"
 msgstr "Cotangent"
@@ -35664,6 +35670,21 @@ msgstr "Interval duration"
 
 msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.Label"
 msgstr "Caluclation expressions for the numbers per interval"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistribution.DialogTitle"
+msgstr "Number of arrivals per interval"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistribution.Error.NoFixedNumber"
+msgstr "The value in line %d, \"%s\", is not a fixed numeric value."
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistribution.Error.NoLines"
+msgstr "No numbers were provided."
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistribution.Error.Title"
+msgstr "Show distribution"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistributionButton"
+msgstr "Show distribution"
 
 msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.Schedule"
 msgstr "Schedule"

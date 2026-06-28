@@ -102,6 +102,7 @@ import parser.symbols.CalcSymbolPreOperatorRandomValues;
 import parser.symbols.CalcSymbolPreOperatorRange;
 import parser.symbols.CalcSymbolPreOperatorRound;
 import parser.symbols.CalcSymbolPreOperatorSCV;
+import parser.symbols.CalcSymbolPreOperatorSech;
 import parser.symbols.CalcSymbolPreOperatorSign;
 import parser.symbols.CalcSymbolPreOperatorSin;
 import parser.symbols.CalcSymbolPreOperatorSinh;
@@ -426,6 +427,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolPreOperatorPower());
 			addSymbol(new CalcSymbolPreOperatorSinh());
 			addSymbol(new CalcSymbolPreOperatorCosh());
+			addSymbol(new CalcSymbolPreOperatorSech());
 			addSymbol(new CalcSymbolPreOperatorTanh());
 			addSymbol(new CalcSymbolPreOperatorCoth());
 			addSymbol(new CalcSymbolPreOperatorSin());

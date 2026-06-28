@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-02 21:25+0200\n"
+"POT-Creation-Date: 2026-06-19 11:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10025,6 +10025,12 @@ msgstr "Cosinus hyperbolicus"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.CosinusHyperbolicus.Info"
 msgstr "<p>Berechnet den Wert der Cosinus-hyperbolicus-Funktion des als Parameter übergebenen Wertes.</p><p>Beispiel: <tt>cosh(0)</tt> liefert 1.</p>"
+
+msgid "ExpressionBuilder.TrigonometricFunctions.CosinusHyperbolicusReciprocal"
+msgstr "Kehrwert des Cosinus hyperbolicus"
+
+msgid "ExpressionBuilder.TrigonometricFunctions.CosinusHyperbolicusReciprocal.Info"
+msgstr "<p>Berechnet den Wert der Kehrwert der Cosinus-hyperbolicus-Funktion des als Parameter übergebenen Wertes.</p><p>Beispiel: <tt>sech(0)</tt> liefert 1.</p>"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.Cotangens"
 msgstr "Cotangens"
@@ -35720,6 +35726,21 @@ msgstr "Intervalldauer"
 
 msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.Label"
 msgstr "Rechenausdrücke für die Anzahlen pro Intervall"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistribution.DialogTitle"
+msgstr "Anzahl an Ankünften pro Intervall"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistribution.Error.NoFixedNumber"
+msgstr "Der Wert in Zeile %d \"%s\" ist kein fester Zahlenwert."
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistribution.Error.NoLines"
+msgstr "Es wurden keine Anzahlen angegeben."
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistribution.Error.Title"
+msgstr "Verteilung anzeigen"
+
+msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistributionButton"
+msgstr "Verteilung anzeigen"
 
 msgid "Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.Schedule"
 msgstr "Zeitplan"
