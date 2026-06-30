@@ -110,6 +110,10 @@ public enum RandomGeneratorMode {
 	THREEFRY2X64("ThreeFry2X64",useSeed->new Threefry2x64Random()),
 	/** Pro Thread gekapselte Version von {@link AESCounterRandom} verwenden */
 	AESCounter("AESCounter",useSeed->new AESCounterRandom()),
+	/** Pro Thread gekapselte Version von {@link Squares32RandomGenerator} verwenden */
+	SQUARES32("Squares32",useSeed->new Squares32RandomGenerator()),
+	/** Pro Thread gekapselte Version von {@link Squares64RandomGenerator} verwenden */
+	SQUARES64("Squares64",useSeed->new Squares64RandomGenerator()),
 	/** Pro Thread gekapselte Version von {@link Drand48BitsStreamGenerator} mit innerem {@link Drand48} verwenden */
 	DRAND48("Drand48",useSeed->new Drand48BitsStreamGenerator(new Drand48()),false),
 	/** Pro Thread gekapselte Version von {@link Drand48BitsStreamGenerator} mit innerem {@link Drand48Mix} verwenden */
