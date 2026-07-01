@@ -950,7 +950,7 @@
 >
 <!ELEMENT ModellElementBedingungScriptBedingung (#PCDATA)>
 
-<!ELEMENT ModellElementSignal (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSignalVerzoegerteAusloesung)*>
+<!ELEMENT ModellElementSignal (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSignalVerzoegerteAusloesung | ModellElementSignalBedingung)*>
 <!ATTLIST ModellElementSignal
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -958,6 +958,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 <!ELEMENT ModellElementSignalVerzoegerteAusloesung (#PCDATA)>
+<!ELEMENT ModellElementSignalBedingung (#PCDATA)>
 
 <!ELEMENT ModellElementSchranke (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSchrankeOption | ModellElementSchrankeAlleSignaleBenoetigt)*>
 <!ATTLIST ModellElementSchranke
@@ -3710,7 +3711,7 @@
 >
 <!ELEMENT ModelElementHoldScriptAdditionalCondition (#PCDATA)>
 
-<!ELEMENT ModelElementSignal (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSignalDelayedExecution)*>
+<!ELEMENT ModelElementSignal (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementSignalDelayedExecution | ModelElementSignalCondition)*>
 <!ATTLIST ModelElementSignal
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3718,6 +3719,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 <!ELEMENT ModelElementSignalDelayedExecution (#PCDATA)>
+<!ELEMENT ModelElementSignalCondition (#PCDATA)>
 
 <!ELEMENT ModelElementBarrier (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBarrierOption | ModelElementBarrierAllSignalsNeeded)*>
 <!ATTLIST ModelElementBarrier

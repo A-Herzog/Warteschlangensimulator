@@ -15,11 +15,16 @@
  */
 package ui.modeleditor.elements;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
 
+import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,6 +32,8 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.EditModel;
+import simulator.simparser.ExpressionMultiEval;
 import systemtools.MsgBox;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelDataRenameListener;
@@ -56,6 +63,16 @@ public class ModelElementSignalDialog extends ModelElementBaseDialog {
 	private JTextField signalDelay;
 
 	/**
+	 * Checkbox: Soll die Bedingung verwendet werden?
+	 */
+	private JCheckBox useCondition;
+
+	/**
+	 * Eingabefeld für die optionale Bedingung
+	 */
+	private JTextField condition;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param owner	Übergeordnetes Fenster
 	 * @param element	Zu bearbeitendes {@link ModelElementSignal}
@@ -73,9 +90,20 @@ public class ModelElementSignalDialog extends ModelElementBaseDialog {
 	 */
 	@Override
 	protected JComponent getContentPanel() {
-		final Object[] data=getInputPanel(Language.tr("Surface.Signal.Dialog.DelayedExecution")+":",NumberTools.formatNumberMax(((ModelElementSignal)element).getSignalDelay()),7);
+		final var signalElement=(ModelElementSignal)element;
+		final EditModel model=signalElement.getModel();
 
-		final JPanel panel=(JPanel)data[0];
+		final JPanel all=new JPanel(new BorderLayout());
+
+		final JPanel content=new JPanel();
+		content.setLayout(new BoxLayout(content,BoxLayout.PAGE_AXIS));
+		all.add(content,BorderLayout.SOUTH);
+
+		JPanel line;
+		Object[] data;
+
+		data=getInputPanel(Language.tr("Surface.Signal.Dialog.DelayedExecution")+":",NumberTools.formatNumberMax(signalElement.getSignalDelay()),7);
+		content.add(line=(JPanel)data[0]);
 		signalDelay=(JTextField)data[1];
 		signalDelay.setEnabled(!readOnly);
 		signalDelay.addKeyListener(new KeyListener() {
@@ -83,12 +111,27 @@ public class ModelElementSignalDialog extends ModelElementBaseDialog {
 			@Override public void keyReleased(KeyEvent e) {checkData(false);}
 			@Override public void keyPressed(KeyEvent e) {checkData(false);}
 		});
+		line.add(new JLabel(" ("+Language.tr("Statistic.Seconds")+")"));
 
-		panel.add(new JLabel(" ("+Language.tr("Statistic.Seconds")+")"));
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(useCondition=new JCheckBox(Language.tr("Surface.Signal.Dialog.Condition.UseCondition")+":",!signalElement.getCondition().isEmpty()));
+		useCondition.addActionListener(e->checkData(false));
+		useCondition.setEnabled(!readOnly);
+
+		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.Signal.Dialog.AdditionalCondition")+":",signalElement.getCondition());
+		content.add(line=(JPanel)data[0]);
+		line.add(ModelElementBaseDialog.getExpressionEditButton(this,(JTextField)data[1],true,true,model,model.surface),BorderLayout.EAST);
+		condition=(JTextField)data[1];
+		condition.setEnabled(!readOnly);
+		condition.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {useCondition.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {useCondition.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {useCondition.setSelected(true); checkData(false);}
+		});
 
 		checkData(false);
 
-		return panel;
+		return all;
 	}
 
 	/**
@@ -123,12 +166,38 @@ public class ModelElementSignalDialog extends ModelElementBaseDialog {
 	private boolean checkData(final boolean showErrorMessage) {
 		if (readOnly) return false;
 
+		final EditModel model=element.getModel();
+
+		boolean ok=true;
+
 		final Double D=NumberTools.getNotNegativeDouble(signalDelay,true);
 		if (D==null) {
-			if (showErrorMessage) MsgBox.error(this,Language.tr("Surface.Signal.Dialog.DelayedExecution.ErrorTitle"),Language.tr("Surface.Signal.Dialog.DelayedExecution.ErrorInfo"));
-			return false;
+			if (showErrorMessage) {
+				MsgBox.error(this,Language.tr("Surface.Signal.Dialog.DelayedExecution.ErrorTitle"),Language.tr("Surface.Signal.Dialog.DelayedExecution.ErrorInfo"));
+				return false;
+			}
+			ok=false;
 		}
-		return true;
+
+		final String conditionString=condition.getText().trim();
+		if (!useCondition.isSelected() || conditionString.isEmpty()) {
+			condition.setBackground(NumberTools.getTextFieldDefaultBackground());
+		} else {
+			final int error=ExpressionMultiEval.check(conditionString,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
+			if (error>=0) {
+				condition.setBackground(Color.RED);
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Surface.Assign.Dialog.Condition.Error.Title"),String.format(Language.tr("Surface.Assign.Dialog.Condition.Error.Info"),condition,error+1));
+					return false;
+				}
+				ok=false;
+			} else {
+				condition.setBackground(NumberTools.getTextFieldDefaultBackground());
+			}
+		}
+
+
+		return ok;
 	}
 
 	/**
@@ -150,10 +219,14 @@ public class ModelElementSignalDialog extends ModelElementBaseDialog {
 	protected void storeData() {
 		super.storeData();
 
+		final var signalElement=(ModelElementSignal)element;
+
 		if (!oldName.equals(element.getName())) {
 			element.getSurface().objectRenamed(oldName,element.getName(),ModelDataRenameListener.RenameType.RENAME_TYPE_SIGNAL,true);
 		}
 
-		((ModelElementSignal)element).setSignalDelay(NumberTools.getNotNegativeDouble(signalDelay,true));
+		signalElement.setSignalDelay(NumberTools.getNotNegativeDouble(signalDelay,true));
+
+		if (useCondition.isSelected()) signalElement.setCondition(condition.getText().trim()); else signalElement.setCondition("");
 	}
 }

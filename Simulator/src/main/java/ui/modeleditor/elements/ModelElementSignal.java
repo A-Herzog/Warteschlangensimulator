@@ -31,6 +31,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.TimeTools;
 import simulator.editmodel.EditModel;
+import simulator.editmodel.FullTextSearch;
 import ui.images.Images;
 import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelSequences;
@@ -54,12 +55,20 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 	private double signalDelay=0;
 
 	/**
+	 * Zusätzliche optionale Bedingung, die für die Zuweisung erfüllt sein muss (kann <code>null</code> sein)
+	 * @see #getCondition()
+	 * @see #setCondition(String)
+	 */
+	private String condition;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementSignal</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 */
 	public ModelElementSignal(final EditModel model, ModelSurface surface) {
 		super(model,surface,Shapes.ShapeType.SHAPE_RECTANGLE);
+		condition="";
 	}
 
 	/**
@@ -97,6 +106,22 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 	}
 
 	/**
+	 * Liefert die optionale Bedingung, die für die Signalauslösung erfüllt sein muss.
+	 * @return	Bedingung, die für die Signalauslösung erfüllt sein muss (kann <code>null</code> sein)
+	 */
+	public String getCondition() {
+		return condition;
+	}
+
+	/**
+	 * Stellt die Bedingung, die für die Signalauslösung erfüllt sein muss, ein.
+	 * @param condition	Optionale Bedingung, die für die Signalauslösung erfüllt sein muss (kann <code>null</code> sein oder leer sein)
+	 */
+	public void setCondition(final String condition) {
+		this.condition=(condition==null)?"":condition;
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -109,6 +134,7 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 		final ModelElementSignal otherSignal=(ModelElementSignal)element;
 
 		if (otherSignal.signalDelay!=signalDelay) return false;
+		if (!otherSignal.condition.equals(condition)) return false;
 
 		return true;
 	}
@@ -123,6 +149,7 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 		if (element instanceof ModelElementSignal) {
 			final ModelElementSignal sourceSignal=(ModelElementSignal)element;
 			signalDelay=sourceSignal.signalDelay;
+			condition=sourceSignal.condition;
 		}
 	}
 
@@ -234,6 +261,12 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Signal.XML.SignalDelay")));
 			sub.setTextContent(NumberTools.formatSystemNumber(signalDelay));
 		}
+
+		if (!condition.isEmpty()) {
+			final Element sub=doc.createElement(Language.trPrimary("Surface.Signal.XML.Condition"));
+			node.appendChild(sub);
+			sub.setTextContent(condition);
+		}
 	}
 
 	/**
@@ -252,6 +285,11 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 			final Double D=NumberTools.getNotNegativeDouble(content);
 			if (D==null) return String.format("Der Inhalt des %s-Elements eines %s-Elements ist ungültig. Es muss eine nichtnegative Zahl angegeben werden.",name,node.getParentNode().getNodeName());
 			signalDelay=D;
+			return null;
+		}
+
+		if (Language.trAll("Surface.Signal.XML.Condition",name)) {
+			condition=content;
 			return null;
 		}
 
@@ -275,6 +313,18 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 	@Override
 	public void buildDescription(final ModelDescriptionBuilder descriptionBuilder) {
 		super.buildDescription(descriptionBuilder);
+
 		if (signalDelay>0) descriptionBuilder.addProperty(Language.tr("ModelDescription.DelayedSignal"),TimeTools.formatExactSystemTime(signalDelay),1000);
+
+		if (!condition.isEmpty()) descriptionBuilder.addProperty(Language.tr("ModelDescription.Signal.Condition"),condition,2000);
+	}
+
+	@Override
+	public void search(final FullTextSearch searcher) {
+		super.search(searcher);
+
+		if (signalDelay>0) searcher.testDouble(this,Language.tr("Editor.DialogBase.Search.Delay"),signalDelay,newSignalDelay->{signalDelay=Math.max(newSignalDelay,0);});
+
+		if (!condition.isEmpty()) searcher.testString(this,Language.tr("Editor.DialogBase.Search.Condition"),condition,newCondition->condition=newCondition);
 	}
 }

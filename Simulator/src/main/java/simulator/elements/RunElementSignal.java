@@ -25,6 +25,7 @@ import simulator.events.StationLeaveEvent;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
+import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.ModelElementSignal;
 import ui.modeleditor.elements.ModelElementSub;
@@ -40,6 +41,11 @@ public class RunElementSignal extends RunElementPassThrough {
 
 	/** Optionale verzögerte Auslösung des Signals (in MS) */
 	private long signalDelayMS;
+
+	/**
+	 * Optionale zusätzliche Bedingung, die für eine Signalauslösung erfüllt sein muss (kann <code>null</code> sein)
+	 */
+	private String condition;
 
 	/**
 	 * Konstruktor der Klasse
@@ -66,6 +72,16 @@ public class RunElementSignal extends RunElementPassThrough {
 		/* Optionale verzögerte Auslösung des Signals */
 		signal.signalDelayMS=Math.round(signalElement.getSignalDelay()*runModel.scaleToSimTime);
 
+		/* Optionale Bedingung */
+		final String condition=signalElement.getCondition();
+		if (condition==null || condition.isBlank()) {
+			signal.condition=null;
+		} else {
+			final int error=ExpressionMultiEval.check(condition,runModel.variableNames,runModel.modelUserFunctions);
+			if (error>=0) return String.format(Language.tr("Simulation.Creator.SignalCondition"),condition,element.getId(),error+1);
+			signal.condition=condition;
+		}
+
 		return signal;
 	}
 
@@ -85,23 +101,44 @@ public class RunElementSignal extends RunElementPassThrough {
 	}
 
 	@Override
+	public RunElementSignalData getData(final SimulationData simData) {
+		RunElementSignalData data;
+		data=(RunElementSignalData)(simData.runData.getStationData(this));
+		if (data==null) {
+			data=new RunElementSignalData(this,condition,simData.runModel.variableNames,simData);
+			simData.runData.setStationData(this,data);
+		}
+		return data;
+	}
+
+	@Override
 	public void processArrival(final SimulationData simData, final RunDataClient client) {
 		/* Logging */
 		if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Signal"),String.format(Language.tr("Simulation.Log.Signal.Info"),client.logInfo(simData),name,signalName));
 
-		if (signalDelayMS>0) {
-			/* Logging */
-			log(simData,Language.tr("Simulation.Log.Signal"),String.format(Language.tr("Simulation.Log.Signal.InfoDelay1"),TimeTools.formatLongTime(signalDelayMS*simData.runModel.scaleToSeconds)));
+		final RunElementSignalData data=getData(simData);
 
-			/* Ereignis zur verzögerten Signalauslösung anlegen */
-			final FireSignalDelayed event=(FireSignalDelayed)simData.getEvent(FireSignalDelayed.class);
-			event.init(simData.currentTime+signalDelayMS);
-			event.signalStation=this;
-			event.signalName=signalName;
-			if (!simData.runData.stopp) simData.eventManager.addEvent(event);
-		} else {
-			/* Signal direkt auslösen */
-			simData.runData.fireSignal(simData,signalName);
+		boolean fireSignal=true;
+		if (condition!=null) {
+			simData.runData.setClientVariableValues(client);
+			if (!data.condition.eval(simData.runData.variableValues,simData,client)) fireSignal=false;
+		}
+
+		if (fireSignal) {
+			if (signalDelayMS>0) {
+				/* Logging */
+				log(simData,Language.tr("Simulation.Log.Signal"),String.format(Language.tr("Simulation.Log.Signal.InfoDelay1"),TimeTools.formatLongTime(signalDelayMS*simData.runModel.scaleToSeconds)));
+
+				/* Ereignis zur verzögerten Signalauslösung anlegen */
+				final FireSignalDelayed event=(FireSignalDelayed)simData.getEvent(FireSignalDelayed.class);
+				event.init(simData.currentTime+signalDelayMS);
+				event.signalStation=this;
+				event.signalName=signalName;
+				if (!simData.runData.stopp) simData.eventManager.addEvent(event);
+			} else {
+				/* Signal direkt auslösen */
+				simData.runData.fireSignal(simData,signalName);
+			}
 		}
 
 		/* Kunde zur nächsten Station leiten */

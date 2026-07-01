@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-19 11:19+0200\n"
+"POT-Creation-Date: 2026-06-21 17:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5207,6 +5207,9 @@ msgstr "Bedingung für Verbindung zu ID=%d"
 
 msgid "Editor.DialogBase.Search.Costs"
 msgstr "Kosten"
+
+msgid "Editor.DialogBase.Search.Delay"
+msgstr "Verzögerung"
 
 msgid "Editor.DialogBase.Search.Description"
 msgstr "Beschreibung der Station"
@@ -14785,6 +14788,9 @@ msgstr "Ausschalten"
 msgid "ModelDescription.SetStatisticsMode.Mode.On"
 msgstr "Einschalten"
 
+msgid "ModelDescription.Signal.Condition"
+msgstr "Bedingung"
+
 msgid "ModelDescription.SourceDB.ColumnClientType"
 msgstr "Kundentypen Tabellenspalte"
 
@@ -21203,6 +21209,9 @@ msgstr "Der Ausdruck \"%s\", der an Station id=%d zum Ein- bzw. Ausschalten der 
 
 msgid "Simulation.Creator.SetStatisticsModeCondition.Missing"
 msgstr "An Station id=%d wurde kein Ausdruck zum Ein- oder Ausschalten der Kundenstatistik angegeben."
+
+msgid "Simulation.Creator.SignalCondition"
+msgstr "Die Bedingung \"%s\" von Element id=%d enthält an Position %d einen Fehler."
 
 msgid "Simulation.Creator.SignalUnknown"
 msgstr "An Element id=%d soll auf Signal \"%s\" gehört werden. Dieses Signal existiert jedoch nicht."
@@ -35484,6 +35493,12 @@ msgstr "aus"
 msgid "Surface.SetStatisticsMode.XML.StatisticsMode.Mode.On"
 msgstr "ein"
 
+msgid "Surface.Signal.Dialog.AdditionalCondition"
+msgstr "Zusätzliche Bedingung"
+
+msgid "Surface.Signal.Dialog.Condition.UseCondition"
+msgstr "Zusätzliche Bedingung verwenden"
+
 msgid "Surface.Signal.Dialog.DelayedExecution"
 msgstr "Verzögerte Auslösung"
 
@@ -35504,6 +35519,9 @@ msgstr "Signal"
 
 msgid "Surface.Signal.Tooltip"
 msgstr "Löst ein Signal aus, wenn eine Kunde dieses Element durchläuft."
+
+msgid "Surface.Signal.XML.Condition"
+msgstr "ModellElementSignalBedingung"
 
 msgid "Surface.Signal.XML.Root"
 msgstr "ModellElementSignal"

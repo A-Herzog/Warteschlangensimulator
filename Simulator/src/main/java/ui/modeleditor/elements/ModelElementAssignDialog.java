@@ -136,9 +136,9 @@ public class ModelElementAssignDialog extends ModelElementBaseDialog {
 		condition=(JTextField)data[1];
 		condition.setEnabled(!readOnly);
 		condition.addKeyListener(new KeyListener() {
-			@Override public void keyTyped(KeyEvent e) {checkData(false); useCondition.setSelected(true);}
-			@Override public void keyReleased(KeyEvent e) {checkData(false); useCondition.setSelected(true);}
-			@Override public void keyPressed(KeyEvent e) {checkData(false); useCondition.setSelected(true);}
+			@Override public void keyTyped(KeyEvent e) {useCondition.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {useCondition.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {useCondition.setSelected(true); checkData(false);}
 		});
 		line.add(ModelElementBaseDialog.getExpressionEditButton(this,condition,true,true,model,model.surface),BorderLayout.EAST);
 

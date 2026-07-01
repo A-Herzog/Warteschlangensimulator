@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-19 11:19+0200\n"
+"POT-Creation-Date: 2026-06-21 17:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5201,6 +5201,9 @@ msgstr "Condition for connection to ID=%d"
 
 msgid "Editor.DialogBase.Search.Costs"
 msgstr "Costs"
+
+msgid "Editor.DialogBase.Search.Delay"
+msgstr "Delay"
 
 msgid "Editor.DialogBase.Search.Description"
 msgstr "Station description"
@@ -14760,6 +14763,9 @@ msgstr "Switch off"
 msgid "ModelDescription.SetStatisticsMode.Mode.On"
 msgstr "Switch on"
 
+msgid "ModelDescription.Signal.Condition"
+msgstr "Bedingung"
+
 msgid "ModelDescription.SourceDB.ColumnClientType"
 msgstr "Client type table column"
 
@@ -21161,6 +21167,9 @@ msgstr "The expression %s which is used at station id=%d for switching on or off
 
 msgid "Simulation.Creator.SetStatisticsModeCondition.Missing"
 msgstr "At station id=%d no condition for switching the client statistics on or off was given."
+
+msgid "Simulation.Creator.SignalCondition"
+msgstr "The condition \"%s\" at element id=%d is invalid at character %d."
 
 msgid "Simulation.Creator.SignalUnknown"
 msgstr "Element id=%d should listen for signal \"%s\". But there is no signal with this name."
@@ -35428,6 +35437,12 @@ msgstr "off"
 msgid "Surface.SetStatisticsMode.XML.StatisticsMode.Mode.On"
 msgstr "on"
 
+msgid "Surface.Signal.Dialog.AdditionalCondition"
+msgstr "Additional condition"
+
+msgid "Surface.Signal.Dialog.Condition.UseCondition"
+msgstr "Use additional condition"
+
 msgid "Surface.Signal.Dialog.DelayedExecution"
 msgstr "Delayed execution"
 
@@ -35448,6 +35463,9 @@ msgstr "Signal"
 
 msgid "Surface.Signal.Tooltip"
 msgstr "Triggers a signal when a clients passes this element."
+
+msgid "Surface.Signal.XML.Condition"
+msgstr "ModelElementSignalCondition"
 
 msgid "Surface.Signal.XML.Root"
 msgstr "ModelElementSignal"
