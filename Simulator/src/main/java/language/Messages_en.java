@@ -14912,6 +14912,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[39025] = "Check condition at";
     t[39032] = "Animation.Icon.Rocket";
     t[39033] = "Rocket";
+    t[39038] = "ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicusReciprocal";
+    t[39039] = "Reciprocal of the sine hyperbolicus";
     t[39040] = "Surface.DelayJS.Infotext";
     t[39041] = "At delay (script) stations, clients are delayed based on the result value of a script for an adjustable amount of time before they can continue their way through the system. No resourcrs are needed for this. In particular, the delay time is regardless of the number of clients at the station.";
     t[39042] = "ExpressionBuilder.ExponentialAndLogarithmFunctions.ExponentialFunction";
@@ -16050,14 +16052,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41919] = "Model overview";
     t[41920] = "Optimizer.Error.KeyForControlVariablesInvalid";
     t[41921] = "For control variable %d was global map entry \"%s\" selected. But there is no global map entry with this name.";
-    t[41922] = "ModelDescription.InputDDE.EOFMode.Terminate";
-    t[41923] = "Terminate simulation";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_8 (java.lang.String[] t) {
+    t[41922] = "ModelDescription.InputDDE.EOFMode.Terminate";
+    t[41923] = "Terminate simulation";
     t[41938] = "BuildClientSourceTable.Edit.Mode.ClientType";
     t[41939] = "Client types";
     t[41946] = "ExpressionBuilder.SimulationCharacteristics.ResourceUtilizationAll";
@@ -17088,8 +17090,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[44563] = "Current number of clients in the station: %s";
     t[44564] = "FileType.Load.JS";
     t[44565] = "Load Javascript";
-    t[44566] = "Simulation.Creator.Transporter.DoubleNameUsage";
-    t[44567] = "The name \"%s\" is used for multiple transporter types.";
+    t[44566] = "ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicusReciprocal.Info";
+    t[44567] = "<p>Calculates the value of the reciprocal of the sine hyperbolicus function with the value passed as parameter.</p>";
     t[44568] = "ExternalConnect.FolderPackageError.PackageByClassFile";
     t[44569] = "Package name according to file content";
     t[44570] = "Surface.XML.Resource.CostsPerProcessHour";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47119] = "Delays the arriving clients to simulate the movement along a conveyor.";
     t[47120] = "Statistics.State";
     t[47121] = "State";
-    t[47122] = "ScriptPopup.Client.ProcessTime.Hint";
-    t[47123] = "Gets or sets the process time of the client";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[47122] = "ScriptPopup.Client.ProcessTime.Hint";
+    t[47123] = "Gets or sets the process time of the client";
     t[47124] = "Surface.Resource.ErrorFailureNumber";
     t[47125] = "The specified value \"%s\" for the number of clients to be served before a failure occures for the resource type \"%s\" is invalid. A positive integer number has to be entered.";
     t[47132] = "Statistics.Utilization.Kurt";
@@ -18638,6 +18640,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[48707] = "Direct routing";
     t[48710] = "Surface.Conveyor.Dialog.TransportTimeType.TransferTime";
     t[48711] = "Transfer time";
+    t[48720] = "Simulation.Creator.Transporter.DoubleNameUsage";
+    t[48721] = "The name \"%s\" is used for multiple transporter types.";
     t[48734] = "ModelDescription.Input.EOFMode.Terminate";
     t[48735] = "Terminate simulation";
     t[48736] = "Simulation.Element.HoldJS.Name";
@@ -20060,16 +20064,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52629] = "Year";
     t[52630] = "Statistics.XML.RunEvents.Error";
     t[52631] = "The value in the \"%s\" element has to be a non-negative integer value but is \"%s\".";
-    t[52632] = "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.RandomNumberInfo";
-    t[52633] = "<p>Calculates the value of the distribution function of the inverse gamma distribution at the location specified as first parameter with the parameters &alpha; and &beta; according to the second and third parameters.</p>";
-    t[52648] = "Surface.TransportSource.Dialog.Ressource.Priority.ErrorInfo";
-    t[52649] = "The specified priority \"%s\" is invalid at character %d.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[52632] = "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.RandomNumberInfo";
+    t[52633] = "<p>Calculates the value of the distribution function of the inverse gamma distribution at the location specified as first parameter with the parameters &alpha; and &beta; according to the second and third parameters.</p>";
+    t[52648] = "Surface.TransportSource.Dialog.Ressource.Priority.ErrorInfo";
+    t[52649] = "The specified priority \"%s\" is invalid at character %d.";
     t[52652] = "Simulation.ClientMovement.End";
     t[52653] = "End";
     t[52658] = "Simulation.Creator.ProcessBatchRange";
@@ -22066,16 +22070,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[57901] = "Use global default";
     t[57904] = "Surface.Source.Dialog.Condition.Error.Title";
     t[57905] = "Invalid condition";
-    t[57908] = "Simulation.Log.TankFlowByClient";
-    t[57909] = "Flow";
-    t[57910] = "Main.Menu.Extras.OutputTableProcessor.Mnemonic";
-    t[57911] = "o";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[57908] = "Simulation.Log.TankFlowByClient";
+    t[57909] = "Flow";
+    t[57910] = "Main.Menu.Extras.OutputTableProcessor.Mnemonic";
+    t[57911] = "o";
     t[57912] = "Simulation.Log.Parking.Requesting";
     t[57913] = "%s is requesting transporter from id=%d.";
     t[57914] = "Surface.AnalogAssign.Dialog.Mode";
@@ -24072,16 +24076,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[63099] = "Simulation results";
     t[63100] = "Main.Menu.AnalogValues.Exact";
     t[63101] = "Displayes changes exactly (slow)";
-    t[63104] = "Surface.ClientIcon.XML.Root";
-    t[63105] = "ModelElementIcon";
-    t[63106] = "Resources.Group.EditName.Dialog.FailureTitle";
-    t[63107] = "Edit resource failure";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[63104] = "Surface.ClientIcon.XML.Root";
+    t[63105] = "ModelElementIcon";
+    t[63106] = "Resources.Group.EditName.Dialog.FailureTitle";
+    t[63107] = "Edit resource failure";
     t[63108] = "Surface.Match.Dialog.OptionProperty.Number";
     t[63109] = "Match by client data index";
     t[63110] = "Statistics.InDays";

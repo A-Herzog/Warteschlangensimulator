@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-21 17:49+0200\n"
+"POT-Creation-Date: 2026-06-30 10:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10064,6 +10064,12 @@ msgstr "Sinus hyperbolicus"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicus.Info"
 msgstr "<p>Berechnet den Wert der Sinus-hyperbolicus-Funktion des als Parameter übergebenen Wertes.</p><p>Beispiel: <tt>sinh(0)</tt> liefert 0.</p>"
+
+msgid "ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicusReciprocal"
+msgstr "Kehrwert des Sinus hyperbolicus"
+
+msgid "ExpressionBuilder.TrigonometricFunctions.SinusHyperbolicusReciprocal.Info"
+msgstr "<p>Berechnet den Wert der Kehrwert der Sinus-hyperbolicus-Funktion des als Parameter übergebenen Wertes.</p>"
 
 msgid "ExpressionBuilder.TrigonometricFunctions.Tangens"
 msgstr "Tangens"

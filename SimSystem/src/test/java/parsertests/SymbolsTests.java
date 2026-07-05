@@ -2059,15 +2059,15 @@ class SymbolsTests {
 	@Test
 	void testPreOperatorsPRSTV() {
 		CalcSystem calc;
-		double D;
+		double d;
 
 		/* Power */
 
 		calc=new CalcSystem("power(2;3)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(8,D);
+			d=calc.calc();
+			assertEquals(8,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2075,8 +2075,8 @@ class SymbolsTests {
 		calc=new CalcSystem("power(0;0)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(1,D);
+			d=calc.calc();
+			assertEquals(1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2084,8 +2084,8 @@ class SymbolsTests {
 		calc=new CalcSystem("power(0;1)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(0,D);
+			d=calc.calc();
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2093,8 +2093,8 @@ class SymbolsTests {
 		calc=new CalcSystem("power(25;1/2)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(5,D);
+			d=calc.calc();
+			assertEquals(5,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2120,8 +2120,8 @@ class SymbolsTests {
 		calc=new CalcSystem("random()");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertTrue(D>=0);
+			d=calc.calc();
+			assertTrue(d>=0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2129,8 +2129,8 @@ class SymbolsTests {
 		calc=new CalcSystem("random(5)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertTrue(D>=0);
+			d=calc.calc();
+			assertTrue(d>=0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2148,8 +2148,8 @@ class SymbolsTests {
 		calc=new CalcSystem("round(0,4)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(0,D);
+			d=calc.calc();
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2157,8 +2157,8 @@ class SymbolsTests {
 		calc=new CalcSystem("round(0,6)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(1,D);
+			d=calc.calc();
+			assertEquals(1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2166,8 +2166,8 @@ class SymbolsTests {
 		calc=new CalcSystem("round(1)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(1,D);
+			d=calc.calc();
+			assertEquals(1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2175,8 +2175,8 @@ class SymbolsTests {
 		calc=new CalcSystem("round(-1,8)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(-2,D);
+			d=calc.calc();
+			assertEquals(-2,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2184,8 +2184,8 @@ class SymbolsTests {
 		calc=new CalcSystem("round(-1,2)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(-1,D);
+			d=calc.calc();
+			assertEquals(-1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2193,8 +2193,8 @@ class SymbolsTests {
 		calc=new CalcSystem("round(-1)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(-1,D);
+			d=calc.calc();
+			assertEquals(-1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2228,8 +2228,8 @@ class SymbolsTests {
 		calc=new CalcSystem("scv(1;2;3;4;5)"); /* E=3, Var=2,5, SCV=Var/E²=277 */
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(0.277,D,0.001);
+			d=calc.calc();
+			assertEquals(0.277,d,0.001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2243,8 +2243,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sign(3)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(1,D);
+			d=calc.calc();
+			assertEquals(1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2252,8 +2252,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sign(0)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(0,D);
+			d=calc.calc();
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2261,8 +2261,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sign(-3)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(-1,D);
+			d=calc.calc();
+			assertEquals(-1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2284,8 +2284,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sin(0)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(0,D,0.000001);
+			d=calc.calc();
+			assertEquals(0,d,0.000001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2293,8 +2293,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sin(pi/2)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(1,D);
+			d=calc.calc();
+			assertEquals(1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2302,8 +2302,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sin(pi)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(0,D,0.000001);
+			d=calc.calc();
+			assertEquals(0,d,0.000001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2311,8 +2311,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sin(3*pi/2)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(-1,D);
+			d=calc.calc();
+			assertEquals(-1,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2320,8 +2320,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sin(2pi)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(0,D,0.000001);
+			d=calc.calc();
+			assertEquals(0,d,0.000001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2351,8 +2351,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sinh(0)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(0,D);
+			d=calc.calc();
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2360,8 +2360,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sinh(-1)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertTrue(D<0);
+			d=calc.calc();
+			assertTrue(d<0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2369,8 +2369,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sinh(1)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertTrue(D>0);
+			d=calc.calc();
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2384,6 +2384,34 @@ class SymbolsTests {
 		assertTrue(calc.calcOrDefault(new double[]{-1},0)<0);
 
 		calc=new CalcSystem("sinh(a)",new String[]{"a"});
+		assertTrue(calc.parse()<0);
+		assertTrue(calc.calcOrDefault(new double[]{1},0)>0);
+
+		/* Csch = 1/SosH */
+
+		calc=new CalcSystem("csch(-1)");
+		assertTrue(calc.parse()<0);
+		try {
+			d=calc.calc();
+			assertTrue(d<0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("csch(1)");
+		assertTrue(calc.parse()<0);
+		try {
+			d=calc.calc();
+			assertTrue(d>0);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("csch(a)",new String[]{"a"});
+		assertTrue(calc.parse()<0);
+		assertTrue(calc.calcOrDefault(new double[]{-1},0)<0);
+
+		calc=new CalcSystem("csch(a)",new String[]{"a"});
 		assertTrue(calc.parse()<0);
 		assertTrue(calc.calcOrDefault(new double[]{1},0)>0);
 
@@ -2403,8 +2431,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sqr(0)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(0,D);
+			d=calc.calc();
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2412,8 +2440,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sqr(3)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(9,D);
+			d=calc.calc();
+			assertEquals(9,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2421,8 +2449,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sqr(-3)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(9,D);
+			d=calc.calc();
+			assertEquals(9,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2444,8 +2472,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sqrt(0)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(0,D);
+			d=calc.calc();
+			assertEquals(0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2453,8 +2481,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sqrt(25)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(5,D);
+			d=calc.calc();
+			assertEquals(5,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2480,8 +2508,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sd(1;2;3;4;5)"); /* Var=2,5 */
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(Math.sqrt(2.5),D,0.001);
+			d=calc.calc();
+			assertEquals(Math.sqrt(2.5),d,0.001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2495,8 +2523,8 @@ class SymbolsTests {
 		calc=new CalcSystem("sum(1;2;3;4;5)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(15,D,0.001);
+			d=calc.calc();
+			assertEquals(15,d,0.001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2510,8 +2538,8 @@ class SymbolsTests {
 		calc=new CalcSystem("tan(-1)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertTrue(D<0);
+			d=calc.calc();
+			assertTrue(d<0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2519,8 +2547,8 @@ class SymbolsTests {
 		calc=new CalcSystem("tan(0)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(0,D,0.000001);
+			d=calc.calc();
+			assertEquals(0,d,0.000001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2528,8 +2556,8 @@ class SymbolsTests {
 		calc=new CalcSystem("tan(1)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertTrue(D>0);
+			d=calc.calc();
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2551,8 +2579,8 @@ class SymbolsTests {
 		calc=new CalcSystem("tanh(0)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(0.0,D);
+			d=calc.calc();
+			assertEquals(0.0,d);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2560,8 +2588,8 @@ class SymbolsTests {
 		calc=new CalcSystem("tanh(0,1)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertTrue(D>0);
+			d=calc.calc();
+			assertTrue(d>0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2569,8 +2597,8 @@ class SymbolsTests {
 		calc=new CalcSystem("tanh(10000000)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(1.0,D,0.000001);
+			d=calc.calc();
+			assertEquals(1.0,d,0.000001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2578,8 +2606,8 @@ class SymbolsTests {
 		calc=new CalcSystem("tanh(-0,1)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertTrue(D<0);
+			d=calc.calc();
+			assertTrue(d<0);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2587,8 +2615,8 @@ class SymbolsTests {
 		calc=new CalcSystem("tanh(-10000000)");
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(-1.0,D,0.000001);
+			d=calc.calc();
+			assertEquals(-1.0,d,0.000001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
@@ -2618,8 +2646,8 @@ class SymbolsTests {
 		calc=new CalcSystem("var(1;2;3;4;5)"); /* Var=2,5 */
 		assertTrue(calc.parse()<0);
 		try {
-			D=calc.calc();
-			assertEquals(2.5,D,0.001);
+			d=calc.calc();
+			assertEquals(2.5,d,0.001);
 		} catch (MathCalcError e) {
 			assertTrue(false);
 		}
