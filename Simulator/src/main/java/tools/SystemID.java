@@ -68,7 +68,7 @@ public class SystemID {
 	/**
 	 * Zum Ver- und Entschlüsseln zu verwendender Algorithmus
 	 */
-	private static final String algorithm="RSA/ECB/PKCS1Padding";
+	private static final String algorithm="RSA/ECB/OAEPWithSHA-1AndMGF1Padding";
 
 	/**
 	 * Algorithmus zur Key-Generierung
