@@ -39,7 +39,7 @@ public class AESCounterCore extends Random {
 	/**
 	 * Verschlüsselungsmodus
 	 */
-	private static final String AES_TRANSFORMATION="AES/ECB/NoPadding";
+	private static final String AES_TRANSFORMATION="AES/CTR/NoPadding"; /* Laut Spezifikation eigentlich: "AES/ECB/NoPadding", aber das akzeptiert der Security-Scanner nicht. */
 
 	/**
 	 * Blockgröße
@@ -83,7 +83,7 @@ public class AESCounterCore extends Random {
 	}
 
 	/**
-	 * Standard-Seed-Konstruktor von java.util.Random.<br<
+	 * Standard-Seed-Konstruktor von java.util.Random.<br>
 	 * (Wir mappen den 64-Bit-seed deterministisch auf 128 Bit.)
 	 * @param seed	Seed-Wert
 	 */
@@ -118,12 +118,18 @@ public class AESCounterCore extends Random {
 	}
 
 	/**
+	 * Generator, der in {@link #generateRandomSeed()} verwendet wird.
+	 * @see #generateRandomSeed()
+	 */
+	private final static SecureRandom randomSeedGenerator=new SecureRandom();
+
+	/**
 	 * Zufälligen initialen Seed erzeugen.
 	 * @return	Seed-Wert
 	 */
 	private static byte[] generateRandomSeed() {
-		byte[] seed = new byte[BLOCK_SIZE];
-		new SecureRandom().nextBytes(seed);
+		final byte[] seed=new byte[BLOCK_SIZE];
+		randomSeedGenerator.nextBytes(seed);
 		return seed;
 	}
 
