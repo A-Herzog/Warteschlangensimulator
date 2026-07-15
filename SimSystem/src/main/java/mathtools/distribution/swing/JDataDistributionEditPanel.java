@@ -188,6 +188,9 @@ public class JDataDistributionEditPanel extends JPanel {
 	/** Gibt die Anzahl an Werten in der ursprünglich geladenen empirischen Verteilung an. */
 	private int originalSteps;
 
+	/** Verschiebung des rechts an der x-Achse angezeigten Wertes */
+	private int upperBoundAdd;
+
 	/** Zahlenformat für die Beschriftung der y-Achse */
 	private LabelMode labelFormat=LabelMode.LABEL_VALUE;
 
@@ -277,6 +280,7 @@ public class JDataDistributionEditPanel extends JPanel {
 		if (distribution==null) distribution=new DataDistributionImpl(1,1);
 		this.distribution=distribution.clone();
 		originalSteps=distribution.densityData.length;
+		upperBoundAdd=0;
 		distribution.updateCumulativeDensity();
 		this.plotType=plotType;
 		this.editStep=editStep;
@@ -359,6 +363,14 @@ public class JDataDistributionEditPanel extends JPanel {
 	 */
 	public void setImageSaveSize(int imageSize) {
 		this.imageSize=imageSize;
+	}
+
+	/**
+	 * Stellt die Verschiebung des rechts an der x-Achse angezeigten Wertes ein.
+	 * @param upperBoundAdd	Verschiebung des rechts an der x-Achse angezeigten Wertes
+	 */
+	public void setUpperBoundAdd(final int upperBoundAdd) {
+		this.upperBoundAdd=upperBoundAdd;
 	}
 
 	/**
@@ -802,7 +814,7 @@ public class JDataDistributionEditPanel extends JPanel {
 
 			g.setColor(isDark?Color.WHITE:Color.BLACK);
 			g.drawString("0",r.x,r.y+r.height+padding+g.getFontMetrics().getAscent());
-			String s=NumberTools.formatNumber(distribution.upperBound);
+			String s=NumberTools.formatNumber(distribution.upperBound+upperBoundAdd);
 			g.drawString(s,r.x+r.width-g.getFontMetrics().stringWidth(s),r.y+r.height+padding+g.getFontMetrics().getAscent());
 		}
 

@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -584,6 +585,9 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		panel.add(expressionBuilderButton);
 		expressionBuilderButton.setEnabled(!readOnly);
 		expressionBuilderButton.addActionListener(e->editIntervalExpressions());
+		final JButton showArrivalsPerIntervalDistributionButton=new JButton(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistributionButton"),Images.EXPRESSION_BUILDER_DISTRIBUTION.getIcon());
+		panel.add(showArrivalsPerIntervalDistributionButton);
+		showArrivalsPerIntervalDistributionButton.addActionListener(e->showArrivalsPerIntervalDistribution());
 		panel.add(Box.createHorizontalStrut(10));
 		panel.add(intervalExpressionsInfo=new JLabel());
 
@@ -1110,6 +1114,38 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		lines[lineNumber]=dialog.getExpression();
 
 		intervalExpressions.setText(Strings.join(Arrays.asList(lines),'\n'));
+	}
+
+	/**
+	 * Zeigt die Ankünfte pro Intervall als grafische Verteilung an.
+	 * @see #intervalExpressions
+	 */
+	private void showArrivalsPerIntervalDistribution() {
+		final var lines=Stream.of(intervalExpressions.getText().trim().split("\\n")).filter(line->!line.isEmpty()).toArray(String[]::new);
+
+		if (lines.length==0) {
+			MsgBox.error(this,Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistribution.Error.Title"),Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistribution.Error.NoLines"));
+			return;
+		}
+
+		final List<Double> values=new ArrayList<>();
+
+		for (int i=0;i<lines.length;i++) {
+			final String line=lines[i].trim();
+			final var error=ExpressionCalc.check(line,surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
+			if (error>=0) {
+				MsgBox.error(this,Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistribution.Error.Title"),String.format(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.Error.Info"),i+1,line,error+1));
+				return;
+			}
+			final Double value=ExpressionCalc.isConstValue(line,model.surface.getMainSurfaceVariableNames(model.getModelVariableNames(),false),model.userFunctions);
+			if (value==null) {
+				MsgBox.error(this,Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistribution.Error.Title"),String.format(Language.tr("Surface.Source.Dialog.CalculationOfTheInterarrivalTimes.IntervalExpressions.ShowDistribution.Error.NoFixedNumber"),i+1,line));
+				return;
+			}
+			values.add(value);
+		}
+
+		new ModelElementSourceRecordPanelDistributionDialog(this,values.stream().mapToDouble(Double::valueOf).toArray());
 	}
 
 	/**
