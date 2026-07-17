@@ -27,7 +27,7 @@ import mathtools.distribution.DataDistributionImpl;
  * auch negative Werte. Verteilungen enthalten allerdings trotzdem nur positive Werte.<br>
  * Die Zählung wird über die Funktion {@link StatisticsDataPerformanceIndicatorWithNegativeValues#add(double)} realisiert.
  * @author Alexander Herzog
- * @version 1.7
+ * @version 1.8
  */
 public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends StatisticsPerformanceIndicator implements Cloneable {
 	/** XML-Attribut für "Anzahl" */
@@ -102,9 +102,22 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 	private double sum;
 
 	/**
+	 * Speicherung der niederwertigsten Bits bei der Berechnung von {@link #sum}, um die Genauigkeit zu erhöhen.<br>
+	 * <a href="https://en.wikipedia.org/wiki/Kahan_summation_algorithm">https://en.wikipedia.org/wiki/Kahan_summation_algorithm</>
+	 */
+	private double compensationForSum;
+
+	/**
 	 * Summe der quadrierten Messwerte
 	 */
 	private double squaredSum;
+
+	/**
+	 * Speicherung der niederwertigsten Bits bei der Berechnung von {@link #squaredSum}, um die Genauigkeit zu erhöhen.<br>
+	 * <a href="https://en.wikipedia.org/wiki/Kahan_summation_algorithm">https://en.wikipedia.org/wiki/Kahan_summation_algorithm</>
+	 * @see #squaredSum
+	 */
+	private double compensationForSquaredSum;
 
 	/**
 	 * Summe der mit 3 potenzierten Messwerte
@@ -344,9 +357,23 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		}
 
 		/* Summe, quadrierte Summe */
-		sum+=value;
+
+		/* https://en.wikipedia.org/wiki/Kahan_summation_algorithm */
+		/* sum+=value */
+		double y=value-compensationForSum;
+		double t=sum+y;
+		compensationForSum=(t-sum)-y;
+		sum=t;
+
 		final double squared=value*value;
-		squaredSum+=squared;
+
+		/* https://en.wikipedia.org/wiki/Kahan_summation_algorithm */
+		/* squaredSum+=squared */
+		y=squared-compensationForSquaredSum;
+		t=squaredSum+y;
+		compensationForSquaredSum=(t-squaredSum)-y;
+		squaredSum=t;
+
 		cubicSum+=(squared*value);
 		quarticSum+=(squared*squared);
 
@@ -448,9 +475,23 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		}
 
 		/* Summe, quadrierte Summe */
-		sum+=value*count;
+
+		/* https://en.wikipedia.org/wiki/Kahan_summation_algorithm */
+		/* sum+=value*count */
+		double y=value*count-compensationForSum;
+		double t=sum+y;
+		compensationForSum=(t-sum)-y;
+		sum=t;
+
 		final double squared=value*value;
-		squaredSum+=squared*count;
+
+		/* https://en.wikipedia.org/wiki/Kahan_summation_algorithm */
+		/* squaredSum+=squared*count */
+		y=squared*count-compensationForSquaredSum;
+		t=squaredSum+y;
+		compensationForSquaredSum=(t-squaredSum)-y;
+		squaredSum=t;
+
 		cubicSum+=(squared*value)*count;
 		quarticSum+=(squared*squared)*count;
 
@@ -557,7 +598,9 @@ public final class StatisticsDataPerformanceIndicatorWithNegativeValues extends 
 		max=0;
 		count=0;
 		sum=0;
+		compensationForSum=0;
 		squaredSum=0;
+		compensationForSquaredSum=0;
 		cubicSum=0;
 		quarticSum=0;
 
