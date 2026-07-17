@@ -31,6 +31,7 @@ import java.util.zip.ZipOutputStream;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -676,18 +677,50 @@ public final class XMLTools {
 	}
 
 	/**
+	 * Erzeugt und konfiguriert einen {@link DocumentBuilder}
+	 * @return	{@link DocumentBuilder} zur Verarbeitung von XML-Daten oder <code>null</code>, wenn ein Fehler aufgetreten ist
+	 */
+	private DocumentBuilder getDocumentBuilder() {
+		final DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
+
+		dbf.setXIncludeAware(false);
+		dbf.setExpandEntityReferences(false);
+
+		try {
+			dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd",false);
+		} catch (ParserConfigurationException e) {}
+		try {
+			dbf.setFeature("http://xml.org/sax/features/external-general-entities",false);
+		} catch (ParserConfigurationException e) {}
+		try {
+			dbf.setFeature("http://xml.org/sax/features/external-parameter-entities",false);
+		} catch (ParserConfigurationException e) {}
+		try {
+			dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+		} catch (ParserConfigurationException e) {}
+
+		DocumentBuilder db;
+		try {
+			db=dbf.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			lastError=errorInitXMLInterpreter;
+			return null;
+		}
+
+		db.setErrorHandler(null);
+
+		return db;
+	}
+
+	/**
 	 * Lädt XML-Daten aus einem String
 	 * @param text	String, aus dem die Daten geladen werden soll
 	 * @return	Tritt ein Fehler auf, so wird <code>null</code> zurück gegeben, ansonsten das Root-Element der Daten
 	 */
 	private Element loadFromString(final String text) {
-		DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
-		DocumentBuilder db;
-		try {
-			dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd",false);
-			db=dbf.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {lastError=errorInitXMLInterpreter; return null;}
-		db.setErrorHandler(null);
+		final DocumentBuilder db=getDocumentBuilder();
+		if (db==null) return null;
+
 		Element root=null;
 		InputSource is=new InputSource(new StringReader(text));
 		try {root=db.parse(is).getDocumentElement();} catch (SAXException | IOException e) {lastError=errorXMLProcess; return null;}
@@ -854,16 +887,15 @@ public final class XMLTools {
 			}
 		}
 
-		DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
-		DocumentBuilder db;
-		try {
-			dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd",false);
-			db=dbf.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {lastError=errorInitXMLInterpreter; return null;}
-		db.setErrorHandler(null);
+		final DocumentBuilder db=getDocumentBuilder();
+		if (db==null) return null;
+
 		Element root=null;
 		removeLeadingBlankLines(stream);
-		try {root=db.parse(stream,"").getDocumentElement();} catch (SAXException | IOException e) {lastError=errorXMLProcess; return null;}
+		try {root=db.parse(stream,"").getDocumentElement();} catch (SAXException | IOException e) {
+			lastError=errorXMLProcess;
+			return null;
+		}
 
 		return root;
 	}
