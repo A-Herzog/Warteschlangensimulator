@@ -78,20 +78,19 @@ public class SFC64 implements RandomGenerator {
 
 	@Override
 	public double nextDouble() {
-		/* Generates a double in [0.0, 1.0) */
 		return (nextLong() >>> 11) * 0x1.0p-53;
 	}
 
 	@Override
-	public void setSeed(int seed) {
+	public void setSeed(final int seed) {
 		setSeed((long)seed);
 	}
 
 	@Override
 	public void setSeed(int[] seed) {
 		if (seed==null) {
-			seed=new int[4];
-			for (int i=0;i<4;i++) if (seed[i]==0) seed[i]=(int)((System.nanoTime()+i) & 0xffffffffL);
+			seed=new int[2];
+			for (int i=0;i<2;i++) if (seed[i]==0) seed[i]=(int)((System.nanoTime()+i) & 0xffffffffL);
 		}
 		if (seed.length<2) {
 			seed=Arrays.copyOf(seed,2);
@@ -104,7 +103,7 @@ public class SFC64 implements RandomGenerator {
 	}
 
 	@Override
-	public void setSeed(long seed) {
+	public void setSeed(final long seed) {
 		this.a=seed;
 		this.b=seed;
 		this.c=seed;
@@ -114,7 +113,7 @@ public class SFC64 implements RandomGenerator {
 	}
 
 	@Override
-	public void nextBytes(byte[] bytes) {
+	public void nextBytes(final byte[] bytes) {
 		final int len=bytes.length;
 		final int indexLoopLimit=(len & 0x7ffffff8);
 
@@ -150,7 +149,7 @@ public class SFC64 implements RandomGenerator {
 	private static final long POW_32 = 1L << 32;
 
 	@Override
-	public int nextInt(int n) {
+	public int nextInt(final int n) {
 		/* Lemire (2019): Fast Random Integer Generation in an Interval, https://arxiv.org/abs/1805.10941 */
 		long m = (nextInt() & 0xffffffffL) * n;
 		long l = m & 0xffffffffL;
