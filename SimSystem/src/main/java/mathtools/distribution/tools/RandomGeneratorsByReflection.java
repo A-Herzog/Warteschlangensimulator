@@ -23,7 +23,7 @@ import org.apache.commons.math3.random.RandomGenerator;
 /**
  * Ermöglicht den Zugriff auf die Pseudo-Zufallszahlengeneratoren
  * aus Java 17 (indirekt per Reflection über "RandomGeneratorFactory")
- * @eee {@link #getByName(String)}
+ * @see #getByName(String)
  */
 public class RandomGeneratorsByReflection implements RandomGenerator {
 	/**

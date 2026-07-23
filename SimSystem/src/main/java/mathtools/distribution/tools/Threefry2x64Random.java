@@ -18,7 +18,7 @@ package mathtools.distribution.tools;
 import org.apache.commons.math3.random.RandomGenerator;
 
 /**
- * Java-Implementierung des Treefry-Algorithmus in der 2x64-Variante.
+ * Java-Implementierung des Threefry-Algorithmus in der 2x64-Variante.
  */
 public class Threefry2x64Random implements RandomGenerator {
 	/**
