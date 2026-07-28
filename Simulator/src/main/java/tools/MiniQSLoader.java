@@ -489,6 +489,8 @@ public class MiniQSLoader {
 
 			final double ES=loadDouble(setup,"ES");
 			final double CVS=loadDouble(setup,"CVS");
+			final double ES2=loadDouble(setup,"ES2");
+			final double CVS2=loadDouble(setup,"CVS2");
 			final int b=loadInt(setup,"b");
 			final int c=loadInt(setup,"c");
 			final int policy=loadInt(setup,"policy");
@@ -504,6 +506,13 @@ public class MiniQSLoader {
 					element.getWorking().set(new ExponentialDistribution(ES));
 				} else {
 					element.getWorking().set(new LogNormalDistributionImpl(ES,CVS*ES));
+				}
+			}
+			if (ES2>0 && CVS2>=1) {
+				if (CVS2==1.0) {
+					element.getPostProcessing().set(new ExponentialDistribution(ES2));
+				} else {
+					element.getPostProcessing().set(new LogNormalDistributionImpl(ES2,CVS2*ES2));
 				}
 			}
 			element.setBatchMinimum(b);
