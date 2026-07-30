@@ -56,19 +56,23 @@ public abstract class MQTTSimClientBase {
 	}
 
 	/**
+	 * Liste der vertrauten Zertifikate
+	 */
+	public static final TrustManager[] trustCertsDefault=new TrustManager[] {new X509TrustManager() {
+		@Override public java.security.cert.X509Certificate[] getAcceptedIssuers() {return null;}
+		@Override public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+		@Override public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
+	}};
+
+	/**
 	 * Erzeugt eine Factory-Objekt zur Erzeugung von TLS-gesicherten Sockets
 	 * @param tlsVersion	Zu verwendende TLS-Version
+	 * @param trustedCerts	Liste der vertrauten Zertifikate
 	 * @return	Factory-Objekt zur Erzeugung von TLS-gesicherten Sockets
-	 * @see #start(MQTTBrokerURL, String[])
-	 * @see #start(MQTTBrokerURL, String[], String, String)
+	 * @see #start(MQTTBrokerURL, String[], TrustManager[])
+	 * @see #start(MQTTBrokerURL, String[], String, String, TrustManager[])
 	 */
-	private static SocketFactory getTLSSocketFactory(final String tlsVersion) {
-		final TrustManager[] trustAllCerts=new TrustManager[] {new X509TrustManager() {
-			@Override public java.security.cert.X509Certificate[] getAcceptedIssuers() {return null;}
-			@Override public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
-			@Override public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {}
-		}};
-
+	private static SocketFactory getTLSSocketFactory(final String tlsVersion, final TrustManager[] trustedCerts) {
 		final SSLContext sc;
 		try {
 			sc=SSLContext.getInstance(tlsVersion);
@@ -77,7 +81,7 @@ public abstract class MQTTSimClientBase {
 		}
 
 		try {
-			sc.init(null,trustAllCerts,new java.security.SecureRandom());
+			sc.init(null,trustedCerts,new java.security.SecureRandom());
 		} catch (KeyManagementException e) {
 			return null;
 		}
@@ -90,11 +94,12 @@ public abstract class MQTTSimClientBase {
 	 * @param broker	Netzwerkname des MQTT-Brokers (inkl. Protokoll und evtl. Port)
 	 * @param topics	Themen die dieser MQTT-Client abonnieren soll
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #start(MQTTBrokerURL, String[], String, String)
+	 * @param trustCerts	Liste der vertrauten Zertifikate
+	 * @see #start(MQTTBrokerURL, String[], String, String, TrustManager[])
 	 * @see #stop()
 	 */
-	protected String start(final MQTTBrokerURL broker, final String[] topics) {
-		return start(broker,topics,null,null);
+	protected String start(final MQTTBrokerURL broker, final String[] topics, final TrustManager[] trustCerts) {
+		return start(broker,topics,null,null,trustCerts);
 	}
 
 	/**
@@ -103,11 +108,12 @@ public abstract class MQTTSimClientBase {
 	 * @param topics	Themen die dieser MQTT-Client abonnieren soll
 	 * @param username	Nutzername zur Authentifizierung gegenüber dem Broker (kann <code>null</code> sein; nur wenn Name und Password nicht leer sind, werden diese übermittelt)
 	 * @param password	Passwort zur Authentifizierung gegenüber dem Broker (kann <code>null</code> sein; nur wenn Name und Password nicht leer sind, werden diese übermittelt)
+	 * @param trustCerts	Liste der vertrauten Zertifikate
 	 * @return	Liefert im Erfolgsfall <code>null</code>, sonst eine Fehlermeldung
-	 * @see #start(MQTTBrokerURL, String[])
+	 * @see #start(MQTTBrokerURL, String[], TrustManager[])
 	 * @see #stop()
 	 */
-	protected String start(final MQTTBrokerURL broker, final String[] topics, final String username, final String password) {
+	protected String start(final MQTTBrokerURL broker, final String[] topics, final String username, final String password, final TrustManager[] trustCerts) {
 		if (mqtt!=null) return Language.tr("MQTT.Error.AlreadyRunning");
 
 		/* Objekt initialisieren */
@@ -141,7 +147,7 @@ public abstract class MQTTSimClientBase {
 
 			/* Verschlüsselte Verbindung */
 			if (broker.secured!=MQTTBrokerURL.SecurityMode.OFF) {
-				options.setSocketFactory(getTLSSocketFactory("TLSv1.3"));
+				options.setSocketFactory(getTLSSocketFactory("TLSv1.3",trustCerts));
 				if (broker.secured!=MQTTBrokerURL.SecurityMode.ON_NO_VALIDATION) {
 					options.setHttpsHostnameVerificationEnabled(false);
 				}
@@ -172,8 +178,8 @@ public abstract class MQTTSimClientBase {
 
 	/**
 	 * Beendet den MQTT-Klienten.
-	 * @see #start(MQTTBrokerURL, String[])
-	 * @see #start(MQTTBrokerURL, String[], String, String)
+	 * @see #start(MQTTBrokerURL, String[], TrustManager[])
+	 * @see #start(MQTTBrokerURL, String[], String, String, TrustManager[])
 	 */
 	public void stop() {
 		if (mqtt==null) return;

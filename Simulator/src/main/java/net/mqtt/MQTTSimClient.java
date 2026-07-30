@@ -123,7 +123,7 @@ public class MQTTSimClient extends MQTTSimClientBase {
 			loadInfoThread.start();
 		}
 
-		return start(broker,new String[]{echoTopic,workTopic},username,password);
+		return start(broker,new String[]{echoTopic,workTopic},username,password,MQTTSimClientBase.trustCertsDefault);
 	}
 
 	/**
@@ -150,7 +150,7 @@ public class MQTTSimClient extends MQTTSimClientBase {
 
 		this.fixedModel=fixedModel;
 
-		return start(broker,new String[]{echoTopic,workTopic},username,password);
+		return start(broker,new String[]{echoTopic,workTopic},username,password,MQTTSimClientBase.trustCertsDefault);
 	}
 
 	@Override
