@@ -729,8 +729,15 @@ public class MiniQSLoader {
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
 		 */
 		private ModelElementPosition[] loadSignal(final EditModel model) {
+			final JSONObject setup=getSetup();
+			double delay=-1;
+			if (setup!=null) {
+				delay=loadDouble(setup,"delay");
+			}
+
 			final ModelElementSignal element=new ModelElementSignal(model,model.surface);
 
+			if (delay>0) element.setSignalDelay(delay);
 			element.setName(name);
 
 			return new ModelElementPosition[]{element};
