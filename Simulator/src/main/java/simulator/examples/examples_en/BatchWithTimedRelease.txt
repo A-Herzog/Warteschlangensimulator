@@ -1,0 +1,5 @@
+By default, batch operations are controlled based on the batch size.
+This example demonstrates how the time elapsed since the last
+customer arrival can also be used to initiate a service process.
+This additional trigger serves to limit the maximum amount of time
+a customer must wait while a batch is being formed.

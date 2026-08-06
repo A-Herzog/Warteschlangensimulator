@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>6.0.0</ModelVersion>
+  <ModelName>Batch service with an additional time-controlled start</ModelName>
+  <ModelDescription>The operator can serve up to 16 customers at the same time. A service request is triggered
+either when 16 customers are waiting or when no customers have arrived for a certain period
+of time (in order to limit the maximum wait time during batch formation if the operator is idle).</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Kunden</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
+      <ModelElementConnection Element="3" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (50)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementHoldScript id="2">
+      <ModelElementSize h="50" w="100" x="250" y="100"/>
+      <ModelElementConnection Element="3" Type="In"/>
+      <ModelElementConnection Element="6" Type="Out"/>
+      <ModelElementHoldScriptCondition Language="Java" TimeType="Waiting time">void function(SimulationInterface sim) {
+	
+  double batchWaitingTime=(Double)sim.getSystem().calc("BatchWaitingTime");	
+  int batchSize=16;
+  
+  int count=sim.getClients().count();  
+  double now=sim.getSystem().getTime();
+  double lastArrivalTime=(Double)sim.getSystem().calc("LastArrival");
+  
+  /* Wurde die Ausführung durch eine Ankunft getriggert? */
+  boolean wasArrival=false;
+  if (count&gt;0) {
+  	wasArrival=(sim.getClients().clientData(count-1,1)==0);
+  	sim.getClients().clientData(count-1,1,1);
+  }
+
+  /* Kunden nur freigeben, wenn Bedienstation im Leerlauf */
+  if (sim.getSystem().getWIP(4)==0) {
+
+    /* Ein oder mehrere Batche voll? */
+    if (count&gt;=batchSize) {
+  	  int fullBatches=count/batchSize;
+  	  for (int i=0;i&lt;fullBatches*batchSize;i++) {
+  	      sim.getClients().release(i); 		
+  	  }  	
+    } else {
+  	  if (!wasArrival &amp;&amp; lastArrivalTime+batchWaitingTime&lt;=now) {
+  		/* Letzte Ankunft mehr als batchWaitingTime Sekunden her. -&gt; Alle Kunden freigeben. */
+  		for (int i=0;i&lt;count;i++) {
+  		  sim.getClients().release(i);
+  		}
+  	  }
+    }
+  }
+
+  if (wasArrival) {
+    sim.getSystem().set("LastArrival",now);
+    sim.getSystem().triggerScriptExecution(2,now+batchWaitingTime);
+  }
+}
+</ModelElementHoldScriptCondition>
+    </ModelElementHoldScript>
+    <ModelElementEdge id="3">
+      <ModelElementName>Arrivals (Kunden)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="2" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementProcessStation id="4">
+      <ModelElementSize h="50" w="100" x="450" y="100"/>
+      <ModelElementConnection Element="6" Type="In"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementBatchData Maximum="16" Minimum="1"/>
+      <ModelElementDistribution Status="ProcessTime" TimeBase="Seconds" Type="ProcessingTime">Exponential distribution (100)</ModelElementDistribution>
+      <ModelElementPriority ClientType="Kunden">w</ModelElementPriority>
+      <ModelElementOperators Alternative="1" Count="1" Group="Neue Bedienergruppe"/>
+      <ModelElementOperatorsPriority>1</ModelElementOperatorsPriority>
+    </ModelElementProcessStation>
+    <ModelElementDispose id="5">
+      <ModelElementSize h="50" w="100" x="650" y="100"/>
+      <ModelElementConnection Element="7" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementEdge id="6">
+      <ModelElementConnection Element1="2" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="7">
+      <ModelElementConnection Element1="4" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="8">
+      <ModelElementSize h="23" w="464" x="50" y="50"/>
+      <ModelElementTextLine>Batch service with an additional time-controlled start</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="9">
+      <ModelElementName>Time controlled release at</ModelElementName>
+      <ModelElementSize h="30" w="109" x="500" y="300"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Time value">LastArrival+BatchWaitingTime</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="10">
+      <ModelElementName>Last arrival time</ModelElementName>
+      <ModelElementSize h="30" w="67" x="500" y="250"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Time value">LastArrival</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="11">
+      <ModelElementName>Current time</ModelElementName>
+      <ModelElementSize h="30" w="67" x="500" y="200"/>
+      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementColor>0,165,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Time value">TNow()</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationBar id="12">
+      <ModelElementSize h="150" w="50" x="700" y="215"/>
+      <ModelElementDataExpression>(TNow()-LastArrival)/BatchWaitingTime</ModelElementDataExpression>
+      <ModelElementDataArea Direction="up" Labels="0" Maximum="1" Minimum="0"/>
+      <ModelElementLineWidth>1</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
+      <ModelElementBarColor>255,0,255</ModelElementBarColor>
+    </ModelElementAnimationBar>
+    <ModelElementText id="13">
+      <ModelElementSize h="114" w="292" x="50" y="200"/>
+      <ModelElementTextLine>The operator can serve up to 16 customers at</ModelElementTextLine>
+      <ModelElementTextLine>the same time. A service request is triggered</ModelElementTextLine>
+      <ModelElementTextLine>either when 16 customers are waiting or when</ModelElementTextLine>
+      <ModelElementTextLine>no customers have arrived for a certain period</ModelElementTextLine>
+      <ModelElementTextLine>of time (in order to limit the maximum wait time</ModelElementTextLine>
+      <ModelElementTextLine>during batch formation if the operator is idle).</ModelElementTextLine>
+      <ModelElementFontSize LaTeX="1" Symbols="1" italic="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="14">
+      <ModelElementName>Release after</ModelElementName>
+      <ModelElementSize h="26" w="72" x="500" y="350"/>
+      <ModelElementFontSize>11</ModelElementFontSize>
+      <ModelElementColor>255,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">BatchWaitingTime</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Posttext=" sec." Pretext="+ " Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementText id="15">
+      <ModelElementSize h="22" w="47" x="700" y="370"/>
+      <ModelElementTextLine>Last arrival</ModelElementTextLine>
+      <ModelElementTextLine>just now</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">9</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementText id="16">
+      <ModelElementSize h="11" w="75" x="700" y="200"/>
+      <ModelElementTextLine>Release triggered</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">9</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+  </ModelElements>
+  <Resources SecondaryPriority="Random">
+    <Resource Name="Neue Bedienergruppe" Type="Number" Value="1"/>
+  </Resources>
+  <ClientTypeData/>
+  <InitialVariable Name="LastArrival">0</InitialVariable>
+  <InitialVariable Name="BatchWaitingTime">60</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+  <CriticalStationsSignature>
+    <SignatureStation Hash="42R2vNnTVUn0N5y5QO+iqmOrHKs6YOzptaYPkxO5ryY=" Signature="VrF3Ntsxyc2m+KdwXH9dLMWj5czUHd202Z5wjLyJ/6cq0n53jBnWSJnRjH+QfeLjv2EKwZ7wDswLDsPpHPEXW4my+De6RnRTw0JjITn6a0Nq/2XGCxFFJQLSMtfOBhRoSpZyffg1LDTdb3jf1eNyRSBxSRrYTA+GoKxsiNc9ucZvd+/XFX1ugCn/CTnABK2uNV+2tUQLe5NiCr8x0ENpZ/Xcz48FcQN/XggDU0aAn/DEk20NH5J8H9jnNB98P/W8BqEvs9MbIybqaMdr3iWrCAYLOt1SMWcFY8RpjyGkBz3Hi6uw4Ize3+NPXADp6mXFjm1V+x+O9xY3jmcK4iYy7ZoB+o2Cz9RFl7QbskJg8VN7VaDMIi2xid4k2DW6sfYrX71dih6KBPGUybms335NQNzLOwn3yBmM7i+IMQGH71+m/zJiv+APBqRDwVRmnoVYgjIU/OnQXte9Unuaf0z0s80paXOCwbLn3t5JflLcuYEJQN52ZBbDnZfs5aWREgCm5g/wrXCDyGFbv36DfJs1+ekml2cn3KYVu3v/klnPQ16kXssilZqkZzqg6kqKo8aeVk5W5cmFFpI9rSpMY9PUmbuoTKoUfIdvJ/bH9xOQLen6D324u+keDAGKOtsb5jRldoN9KTbvaNfNZ1L4aPhJxqzPnT40mUahcAmGJ1XrpNA=" id="2"/>
+    <SignatureUserName Signature="XkYku6zTX13zuQjd3RvuPJdBkoWYzyy/55FfTzsvCtW5lmYtwtTawDFQCgxZDY9yOOZFfiH9xkTSpi4mFjFhxYyxphr1z/WdS40n6sVzYjfxgYBd3wfoSB0jMMlJTVgBxq6FBUFWwqLbXCYHUMj+3QuHiosT31TLtAS+k3/k/puLnUkCCjHUOsV6Yi8bbqOqJ6YOPeg1xpfk7UTVVl8gINpDiNn7T255dGpokE1W9aahmUv8yeATcqhoDV5iJHce2DHQNwAADR2GScnwSDXtrwIrk1B8ZPcbCpL4vsN+xNyr24EUyvx4RsAvvf3URVsHjVg5O/zosyfkOVTWreFUIDeiUd7befieVhwmJos8xzrSwy/LEop3H6BDW77HrWJWRjlLy8CapIAs5KrmsLjzsR5/4IhvICt57jbIDVEqacOdxCsmsRfoBGxXN37jDajRJPPZ018acu343GsoRHE0TX/SH1vrrLftigXfkO9YQAU7PmO2zvoOtt5Zh8aZmdErTHLjiWp333T5iwxsdFfD2kXca6VUkQYYlWS5MUAN3o2yGnxjw1pRUynG9ucw5kC/waHHLVEMe6WXHNfOUsOsWWZEthHCHiz/4Uif3uBOJk8ucNft9SM1b60YYut74JG/5C0CNhzVQQi6OXaBa5Xwev/Q7qiJKo/ez+bqMXwJOhI=">Alexander Herzog</SignatureUserName>
+    <SignaturePublicKey>MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAi9Dd2kqC9Kha2/jfGKX5cWmqSDpgqUW1dBmGaA0LvYb1/mDMPwXbBx3xrmsvaRm3VtgCktftPAEhGqec0isrN1HLefxNyYN0g71OAAYkxvd8wv+QbhZidHMONLabBRAfT+nqlr4r78gGcSlcE1QVQMAxSQAsR8pKdV3QDGuP6qjh3xZRO3TSatAqIfZx5HJZSFVez5KMk6kLY16kw4BTdao2Ubsm7Rh3zF1/u2RP6jrRDprkOgSRZJSJWgmWFGvrOJ8UwTWRElPSoAyrJ5ySCNzEu/Q+j1Uz4BwaOo88D4bCHP3L41fFr0T42m/D8H/k7ngmC3SzKD1HM3D510gK2pG0vmIRQg2SwI8Yg7/upD0MtsZAIBThkweJ1Xgd1AV1deSTWAhOgwUQ+6ULCDA/qy7K8Hm7D+pZ1N1a4jpNxno5nGuhIrU8ztJ2wffQ2mDIgqRHhfhUxcptxtkKyOMFyWPYUGAfNSuu/0caOb06jaEGlL0ZqtlYWKZgiaxQylMeEyF+29t2KghJt9O+sUf33r10maOmbnz/asRfCtyqg9JkH0K4H/5Ojap3tlt8NpmteVnZbQSc7wL+CkWXtdXHIBcFqt/otBp6qQKZgUX27SS16untBS/pUC5bl6eSRok1WjrMSacY29tZ5Yjz0gCMiiussTRaA6ICcC+JbAuzWK0CAwEAAQ==</SignaturePublicKey>
+  </CriticalStationsSignature>
+</Model>

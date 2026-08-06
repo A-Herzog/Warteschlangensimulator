@@ -16100,6 +16100,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[42047] = "<p>Returns the coefficient of variation over all waiting times for all clients.</p>";
     t[42054] = "Surface.Resource.EditName.Dialog.AddNew.DefaultName";
     t[42055] = "New operators group";
+    t[42058] = "Surface.AnimationTextJS.XML.BackgroundColor";
+    t[42059] = "ModelElementBackgroundColor";
     t[42078] = "Statistics.TotalBig";
     t[42079] = "Total";
     t[42080] = "SimulationServer.Setup.TLSInfo.KeyStoreFile";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[47111] = "ModelElementInterArrivalPerIntervalSetup";
     t[47118] = "Surface.Conveyor.Infotext";
     t[47119] = "Delays the arriving clients to simulate the movement along a conveyor.";
-    t[47120] = "Statistics.State";
-    t[47121] = "State";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[47120] = "Statistics.State";
+    t[47121] = "State";
     t[47122] = "ScriptPopup.Client.ProcessTime.Hint";
     t[47123] = "Gets or sets the process time of the client";
     t[47124] = "Surface.Resource.ErrorFailureNumber";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52627] = "Timed";
     t[52628] = "DateTimeEditor.Year";
     t[52629] = "Year";
-    t[52630] = "Statistics.XML.RunEvents.Error";
-    t[52631] = "The value in the \"%s\" element has to be a non-negative integer value but is \"%s\".";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[52630] = "Statistics.XML.RunEvents.Error";
+    t[52631] = "The value in the \"%s\" element has to be a non-negative integer value but is \"%s\".";
     t[52632] = "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.RandomNumberInfo";
     t[52633] = "<p>Calculates the value of the distribution function of the inverse gamma distribution at the location specified as first parameter with the parameters &alpha; and &beta; according to the second and third parameters.</p>";
     t[52648] = "Surface.TransportSource.Dialog.Ressource.Priority.ErrorInfo";
@@ -20980,8 +20982,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[55039] = "<p>Calculates the value of the distribution function of the log-logistic distribution at the location specified as the first parameter with the parameters according to the second (alpha) and third (beta) parameters.</p>";
     t[55040] = "Surface.AssignMulti.XML.Condition";
     t[55041] = "ModelElementAssignmentMultiCondition";
-    t[55042] = "Surface.AnimationTextJS.XML.BackgroundColor";
-    t[55043] = "ModelElementBackgroundColor";
+    t[55042] = "Examples.BatchWithTimedRelease";
+    t[55043] = "Batch service with an additional time-controlled start";
     t[55044] = "ModelGenerator.Source";
     t[55045] = "Clients source";
     t[55046] = "Statistic.FastAccess.Template.Save";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[57899] = "Difference counter";
     t[57900] = "Surface.DistributionByClientTypeEditor.UseGlobal";
     t[57901] = "Use global default";
-    t[57904] = "Surface.Source.Dialog.Condition.Error.Title";
-    t[57905] = "Invalid condition";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[57904] = "Surface.Source.Dialog.Condition.Error.Title";
+    t[57905] = "Invalid condition";
     t[57908] = "Simulation.Log.TankFlowByClient";
     t[57909] = "Flow";
     t[57910] = "Main.Menu.Extras.OutputTableProcessor.Mnemonic";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[63095] = "The specified value for the failures by presence is invalid. A positive number has to be entered.";
     t[63098] = "LogSimulation.Heading";
     t[63099] = "Simulation results";
-    t[63100] = "Main.Menu.AnalogValues.Exact";
-    t[63101] = "Displayes changes exactly (slow)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[63100] = "Main.Menu.AnalogValues.Exact";
+    t[63101] = "Displayes changes exactly (slow)";
     t[63104] = "Surface.ClientIcon.XML.Root";
     t[63105] = "ModelElementIcon";
     t[63106] = "Resources.Group.EditName.Dialog.FailureTitle";

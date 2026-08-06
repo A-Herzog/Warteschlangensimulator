@@ -1,0 +1,6 @@
+Standardmäßig erfolgt die Steuerung von Batch-Bedienungen über die
+Batch-Größe. In diesem Beispiel wird gezeigt, wir zusätzlich die
+Zeitdauer seit der letzten Kundenankunft genutzt werden kann, um
+einen Bedienprozess zu starten. Dieser zusätzliche Trigger dient
+dazu, die Zeitdauer, die ein Kunde bei der Batch-Bildung maximal
+warten muss, zu begrenzen.

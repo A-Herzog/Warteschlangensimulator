@@ -16100,6 +16100,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[42047] = "<p>Liefert den Variationskoeffizienten \u00fcber alle Wartezeiten aller Kunden.</p>";
     t[42054] = "Surface.Resource.EditName.Dialog.AddNew.DefaultName";
     t[42055] = "Neue Bedienergruppe";
+    t[42058] = "Surface.AnimationTextJS.XML.BackgroundColor";
+    t[42059] = "ModellElementHintergrundfarbe";
     t[42078] = "Statistics.TotalBig";
     t[42079] = "Gesamt";
     t[42080] = "SimulationServer.Setup.TLSInfo.KeyStoreFile";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[47111] = "ModellElementIntervallVerteilungEinstellungen";
     t[47118] = "Surface.Conveyor.Infotext";
     t[47119] = "Verz\u00f6gert die eintreffenden Kunden f\u00fcr eine bestimmte Zeit, um eine Bewegung entlang eines Flie\u00dfbandes zu simulieren.";
-    t[47120] = "Statistics.State";
-    t[47121] = "Zustand";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[47120] = "Statistics.State";
+    t[47121] = "Zustand";
     t[47122] = "ScriptPopup.Client.ProcessTime.Hint";
     t[47123] = "Liefert oder stellt die bisherige Bedienzeit ein";
     t[47124] = "Surface.Resource.ErrorFailureNumber";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52627] = "Zeitgesteuert";
     t[52628] = "DateTimeEditor.Year";
     t[52629] = "Jahr";
-    t[52630] = "Statistics.XML.RunEvents.Error";
-    t[52631] = "Der Wert in dem Element \"%s\" muss eine nicht-negative Ganzzahl sein, ist aber \"%s\".";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[52630] = "Statistics.XML.RunEvents.Error";
+    t[52631] = "Der Wert in dem Element \"%s\" muss eine nicht-negative Ganzzahl sein, ist aber \"%s\".";
     t[52632] = "ExpressionBuilder.ProbabilityDistributions.InverseGammaDistribution.RandomNumberInfo";
     t[52633] = "<p>Berechnet den Wert der Verteilungsfunktion der Inversen Gamma-Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern &alpha; und &beta; gem\u00e4\u00df dem zweiten und dritten Parameter.</p>";
     t[52648] = "Surface.TransportSource.Dialog.Ressource.Priority.ErrorInfo";
@@ -20980,8 +20982,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[55039] = "<p>Berechnet den Wert der Verteilungsfunktion der Log-Logistischen Verteilung an der als ersten Parameter angegebenen Stelle mit den Parametern gem\u00e4\u00df dem zweiten (alpha) und dritten (beta) Parameter.</p>";
     t[55040] = "Surface.AssignMulti.XML.Condition";
     t[55041] = "ModellElementZuweisungMehrfachBedingung";
-    t[55042] = "Surface.AnimationTextJS.XML.BackgroundColor";
-    t[55043] = "ModellElementHintergrundfarbe";
+    t[55042] = "Examples.BatchWithTimedRelease";
+    t[55043] = "Batch-Bedienung mit zus\u00e4tzlichem zeitgesteuertem Bedienstart";
     t[55044] = "ModelGenerator.Source";
     t[55045] = "Kundenquelle";
     t[55046] = "Statistic.FastAccess.Template.Save";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[57899] = "Differenzz\u00e4hler";
     t[57900] = "Surface.DistributionByClientTypeEditor.UseGlobal";
     t[57901] = "Globale Vorgabe verwenden";
-    t[57904] = "Surface.Source.Dialog.Condition.Error.Title";
-    t[57905] = "Bedingung fehlerhaft";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[57904] = "Surface.Source.Dialog.Condition.Error.Title";
+    t[57905] = "Bedingung fehlerhaft";
     t[57908] = "Simulation.Log.TankFlowByClient";
     t[57909] = "Fluss";
     t[57910] = "Main.Menu.Extras.OutputTableProcessor.Mnemonic";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[63095] = "Der angegebene Wert f\u00fcr die Ausf\u00e4lle nach Anwesenheitszeit ist ung\u00fcltig. Eine positive Zahl muss angegeben werden.";
     t[63098] = "LogSimulation.Heading";
     t[63099] = "Simulationsergebnisse";
-    t[63100] = "Main.Menu.AnalogValues.Exact";
-    t[63101] = "\u00c4nderungen exakt anzeigen (langsam)";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[63100] = "Main.Menu.AnalogValues.Exact";
+    t[63101] = "\u00c4nderungen exakt anzeigen (langsam)";
     t[63104] = "Surface.ClientIcon.XML.Root";
     t[63105] = "ModellElementIcon";
     t[63106] = "Resources.Group.EditName.Dialog.FailureTitle";
