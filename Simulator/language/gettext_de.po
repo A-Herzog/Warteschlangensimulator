@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-24 18:17+0200\n"
+"POT-Creation-Date: 2026-08-05 21:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5438,6 +5438,9 @@ msgstr "Ausdruck für Zuweisung an Variable \"%s\""
 
 msgid "Editor.DialogBase.Search.Set.Variable.Name"
 msgstr "Variablenname für Wertzuweisung"
+
+msgid "Editor.DialogBase.Search.SignalName"
+msgstr "Signalname"
 
 msgid "Editor.DialogBase.Search.SignalToStartFlow"
 msgstr "Signal zum Start des Flusses"
@@ -14800,6 +14803,9 @@ msgstr "Einschalten"
 msgid "ModelDescription.Signal.Condition"
 msgstr "Bedingung"
 
+msgid "ModelDescription.Signal.Name"
+msgstr "Signalname"
+
 msgid "ModelDescription.SourceDB.ColumnClientType"
 msgstr "Kundentypen Tabellenspalte"
 
@@ -21045,6 +21051,9 @@ msgstr "Für Element id=%d wurde kein Fertigungsplan gewählt."
 msgid "Simulation.Creator.NoSignalForBarrier"
 msgstr "Für Element id=%d ist kein Auslöse-Signal definiert."
 
+msgid "Simulation.Creator.NoSignalName"
+msgstr "An Element id=%d existiert ein Signal ohne Namen."
+
 msgid "Simulation.Creator.NoSignalOptionsForBarrier"
 msgstr "Für Element id=%d wurden keine Signale für die Freigabe von wartenden Kunden definiert."
 
@@ -21566,6 +21575,9 @@ msgstr "Kundenstatistik"
 
 msgid "Simulation.Element.Signal.Name"
 msgstr "Signal"
+
+msgid "Simulation.Element.SignalMulti.Name"
+msgstr "Mehrfachsignal"
 
 msgid "Simulation.Element.Source.Name"
 msgstr "Quelle"
@@ -32949,6 +32961,48 @@ msgstr "Der angegebene Wert \"%s\" für den maximalen im Histogramm zu erfassend
 msgid "Surface.Model.TimeStepsPerSecond"
 msgstr "Der angegebene Wert \"%s\" für die Anzahl Zeitschritten pro Sekunde ist ungültig. Es muss eine positive Ganzzahl im Bereich von 1000 bis 1000000000 angegeben werden."
 
+msgid "Surface.MultiSignal.Dialog.Name"
+msgstr "Signalname"
+
+msgid "Surface.MultiSignal.Dialog.Name.ErrorInfo"
+msgstr "Der Signalname darf nicht leer sein."
+
+msgid "Surface.MultiSignal.Dialog.Name.ErrorTitle"
+msgstr "Ungültiger Signalname"
+
+msgid "Surface.MultiSignal.Dialog.Title"
+msgstr "Mehrfachsignal bearbeiten"
+
+msgid "Surface.MultiSignal.DialogRecord.Title"
+msgstr "Signaldatensatz bearbeiten"
+
+msgid "Surface.MultiSignal.Infotext"
+msgstr "Trifft ein Kunde an dieser Station ein, so werden mehrere Signale ausgelöst. Auf Basis dieser Signale können z.B. an anderen Stationen Kunden freigegeben werden."
+
+msgid "Surface.MultiSignal.Name"
+msgstr "Mehrfachsignal"
+
+msgid "Surface.MultiSignal.Tooltip"
+msgstr "Löst mehrere Signale aus, wenn eine Kunde dieses Element durchläuft."
+
+msgid "Surface.MultiSignal.XML.Root"
+msgstr "ModellElementSignalMulti"
+
+msgid "Surface.MultiSignal.XML.Signal"
+msgstr "ModellElementSignalMultiSignal"
+
+msgid "Surface.MultiSignal.XML.SignalCondition"
+msgstr "Bedingung"
+
+msgid "Surface.MultiSignal.XML.SignalDelay"
+msgstr "Verzoegerung"
+
+msgid "Surface.MultiSignal.XML.SignalDelay.Error"
+msgstr "Das Verzoegerung-Attribut eines %s-Elements eines %s-Elements ist ungültig. Es muss eine nichtnegative Zahl angegeben werden."
+
+msgid "Surface.MultiSignal.XML.SignalName"
+msgstr "Name"
+
 msgid "Surface.MultiSourceTable.Activate"
 msgstr "Aktivieren"
 
@@ -35537,6 +35591,33 @@ msgstr "ModellElementSignal"
 
 msgid "Surface.Signal.XML.SignalDelay"
 msgstr "ModellElementSignalVerzoegerteAusloesung"
+
+msgid "Surface.SignalMulti.Condition"
+msgstr "Bedingung"
+
+msgid "Surface.SignalMulti.Delay"
+msgstr "Verzögerung"
+
+msgid "Surface.SignalMulti.Table.Heading.Add"
+msgstr "Signal hinzufügen"
+
+msgid "Surface.SignalMulti.Table.Heading.Delete"
+msgstr "Signal löschen"
+
+msgid "Surface.SignalMulti.Table.Heading.Edit"
+msgstr "Signal bearbeiten"
+
+msgid "Surface.SignalMulti.Table.Heading.MoveDown"
+msgstr "Nach unten"
+
+msgid "Surface.SignalMulti.Table.Heading.MoveUp"
+msgstr "Nach oben"
+
+msgid "Surface.SignalMulti.Table.Heading.Settings"
+msgstr "Konfiguration"
+
+msgid "Surface.SignalMulti.Table.Heading.SignalName"
+msgstr "Signalname"
 
 msgid "Surface.SingleCoreReason.AdditionalStatistics"
 msgstr "Es werden Statistikdaten zum Verlauf von Größen über den Simulationsprozess hinweg aufgezeichnet."

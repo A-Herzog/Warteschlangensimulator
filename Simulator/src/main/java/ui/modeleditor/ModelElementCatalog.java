@@ -216,6 +216,7 @@ public final class ModelElementCatalog {
 				addElement(new ModelElementHoldMulti(null,null),null,GROUP_BARRIER);
 				addElement(new ModelElementHoldJS(null,null),null,GROUP_BARRIER);
 				addElement(new ModelElementSignal(null,null),null,GROUP_BARRIER);
+				addElement(new ModelElementSignalMulti(null,null),null,GROUP_BARRIER);
 				addElement(new ModelElementBarrier(null,null),null,GROUP_BARRIER);
 				addElement(new ModelElementBarrierPull(null,null),null,GROUP_BARRIER);
 				addElement(new ModelElementSeize(null,null),null,GROUP_BARRIER);

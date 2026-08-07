@@ -83,6 +83,7 @@ public final class RunModelCreator {
 		templatesList.add(new RunElementHoldMulti(null));
 		templatesList.add(new RunElementHoldJS(null));
 		templatesList.add(new RunElementSignal(null));
+		templatesList.add(new RunElementSignalMulti(null));
 		templatesList.add(new RunElementBarrier(null));
 		templatesList.add(new RunElementBarrierPull(null));
 		templatesList.add(new RunElementSeize(null));

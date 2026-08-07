@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Model element: Multi signal</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<h1>Model element: Multi signal</h1>
+
+<p>
+If a client passes a signal element, the one or more signals are triggered.
+<a href="ModelElementBarrier.html">Barrier</a> elements can be notified by such signals and can release waiting clients.
+</p>
+
+<h2>Settings</h2>
+
+<p>
+Each signal record needs to have a signal name.
+In addition, pro each record a time period can be set by which the triggering of the signal is to be delayed after a client arrival.
+If no delay time is set, the event is triggered as soon as a client arrives at the station.
+</p>
+
+<p>
+The optional condition allows a signal trigger to be made only under certain conditions,
+when a client passes the station.
+</p>
+
+</body>
+</html>

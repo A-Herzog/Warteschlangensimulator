@@ -322,6 +322,9 @@ public class InfoPanel {
 	/** Info-ID für den "Signal"-Bearbeiten-Dialog (Gruppe "Schranken") */
 	public static final String stationSignal=groupElement+"Signal";
 
+	/** Info-ID für den "Mehrfachsignal"-Bearbeiten-Dialog (Gruppe "Schranken") */
+	public static final String stationSignalMulti=groupElement+"SignalMulti";
+
 	/** Info-ID für den "Schranke"-Bearbeiten-Dialog (Gruppe "Schranken") */
 	public static final String stationBarrier=groupElement+"Barrier";
 
@@ -999,6 +1002,10 @@ public class InfoPanel {
 		register(stationSignal,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_BARRIER+"|"+Language.tr("Surface.Signal.Name"),
 				()->Language.tr("Surface.Signal.Infotext"));
+
+		register(stationSignalMulti,
+				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_BARRIER+"|"+Language.tr("Surface.MultiSignal.Name"),
+				()->Language.tr("Surface.MultiSignal.Infotext"));
 
 		register(stationBarrier,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_BARRIER+"|"+Language.tr("Surface.Barrier.Name"),

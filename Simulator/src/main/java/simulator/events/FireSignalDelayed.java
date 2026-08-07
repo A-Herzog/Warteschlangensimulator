@@ -18,6 +18,7 @@ package simulator.events;
 import language.Language;
 import simcore.Event;
 import simcore.SimData;
+import simulator.coreelements.RunElementPassThrough;
 import simulator.elements.RunElementSignal;
 import simulator.runmodel.SimulationData;
 
@@ -31,7 +32,7 @@ public class FireSignalDelayed extends Event {
 	/**
 	 * Signal-Station von der das Ereignis ausgeht (fürs Logging)
 	 */
-	public RunElementSignal signalStation;
+	public RunElementPassThrough signalStation;
 
 	/**
 	 * Name des auszulösenden Signals

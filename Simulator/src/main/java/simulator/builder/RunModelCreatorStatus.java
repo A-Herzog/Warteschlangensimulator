@@ -56,6 +56,9 @@ public class RunModelCreatorStatus {
 		/** Ein notwendige Elementenname fehlt. */
 		NO_NAME((e,s)->RunModelFixerHelper.setName(e,s)),
 
+		/** Ein Teilsignal besitzt keinen Namen. */
+		NO_SIGNAL_NAME,
+
 		/** Ein notwendiger Gruppenname fehlt. */
 		NO_GROUP_NAME((e,s)->RunModelFixerHelper.setGroupName(e,s)),
 
@@ -256,6 +259,16 @@ public class RunModelCreatorStatus {
 	 */
 	public static RunModelCreatorStatus noName(final ModelElement element) {
 		return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoName"),element.getId()),Status.NO_NAME);
+	}
+
+	/**
+	 * Liefert den Fehlerstatus "kein Signalname"
+	 * @param element	Editor-Element auf den sich der Fehler bezieht
+	 * @return	Fehlerstatusobjekt
+	 * @see Status#NO_SIGNAL_NAME
+	 */
+	public static RunModelCreatorStatus noSignalName(final ModelElement element) {
+		return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoSignalName"),element.getId()),Status.NO_SIGNAL_NAME);
 	}
 
 	/**

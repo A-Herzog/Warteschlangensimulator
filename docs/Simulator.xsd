@@ -545,6 +545,7 @@
   <xs:element ref="ModellElementBedingungMehrfach"/>
   <xs:element ref="ModellElementBedingungScript"/>
   <xs:element ref="ModellElementSignal"/>
+  <xs:element ref="ModellElementSignalMulti"/>
   <xs:element ref="ModellElementSchranke"/>
   <xs:element ref="ModellElementSchrankePull"/>
   <xs:element ref="ModellElementRessourceBelegen"/>
@@ -1192,6 +1193,18 @@
 	<xs:element name="ModellElementSignalBedingung" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementSignalMulti"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+	<xs:element name="ModellElementSignalMultiSignal"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementSignalMultiSignal"><xs:complexType>
+  <xs:attribute name="Name" type="xs:string" use="required"/>
+  <xs:attribute name="Verzoegerung" type="xs:string"/>
+  <xs:attribute name="Bedingung" type="xs:string"/>
+</xs:complexType></xs:element>
 
 <xs:element name="ModellElementSchranke"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
@@ -3127,6 +3140,7 @@
   <xs:element ref="ModelElementHoldMulti"/>
   <xs:element ref="ModelElementHoldScript"/>
   <xs:element ref="ModelElementSignal"/>
+  <xs:element ref="ModelElementSignalMulti"/>
   <xs:element ref="ModelElementBarrier"/>
   <xs:element ref="ModelElementBarrierPull"/>
   <xs:element ref="ModelElementSeizeResource"/>
@@ -3773,6 +3787,18 @@
 	<xs:element name="ModelElementSignalCondition" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementSignalMulti"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+	<xs:element name="ModelElementSignalMultiSignal"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementSignalMultiSignal"><xs:complexType>
+  <xs:attribute name="Name" type="xs:string" use="required"/>
+  <xs:attribute name="Delay" type="xs:string"/>
+  <xs:attribute name="Condition" type="xs:string"/>
+</xs:complexType></xs:element>
 
 <xs:element name="ModelElementBarrier"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>

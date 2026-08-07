@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-24 18:17+0200\n"
+"POT-Creation-Date: 2026-08-05 21:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5432,6 +5432,9 @@ msgstr "Expression for assignment to variable \"%s\""
 
 msgid "Editor.DialogBase.Search.Set.Variable.Name"
 msgstr "Variable name for value assignment"
+
+msgid "Editor.DialogBase.Search.SignalName"
+msgstr "Signal name"
 
 msgid "Editor.DialogBase.Search.SignalToStartFlow"
 msgstr "Signal to start the flow"
@@ -14775,6 +14778,9 @@ msgstr "Switch on"
 msgid "ModelDescription.Signal.Condition"
 msgstr "Bedingung"
 
+msgid "ModelDescription.Signal.Name"
+msgstr "Signal name"
+
 msgid "ModelDescription.SourceDB.ColumnClientType"
 msgstr "Client type table column"
 
@@ -21003,6 +21009,9 @@ msgstr "For element id=%d no sequence has been selected."
 msgid "Simulation.Creator.NoSignalForBarrier"
 msgstr "No release signal is defined for element id=%d."
 
+msgid "Simulation.Creator.NoSignalName"
+msgstr "At element id=%d there is a signal without name."
+
 msgid "Simulation.Creator.NoSignalOptionsForBarrier"
 msgstr "At station id=%d no signals for releasing waiting clients are defined."
 
@@ -21524,6 +21533,9 @@ msgstr "Client statistics"
 
 msgid "Simulation.Element.Signal.Name"
 msgstr "Signal"
+
+msgid "Simulation.Element.SignalMulti.Name"
+msgstr "Multi signal"
 
 msgid "Simulation.Element.Source.Name"
 msgstr "Source"
@@ -32896,6 +32908,48 @@ msgstr "The value \"%s\" for the maximum state to be recorded in histogramms is 
 msgid "Surface.Model.TimeStepsPerSecond"
 msgstr "The value \"%s\" for the number of time steps per second is invalid. A positive integer value in the range from 1000 to 1000000000 has to be specified."
 
+msgid "Surface.MultiSignal.Dialog.Name"
+msgstr "Signal name"
+
+msgid "Surface.MultiSignal.Dialog.Name.ErrorInfo"
+msgstr "The signal name is not allowed to be empty."
+
+msgid "Surface.MultiSignal.Dialog.Name.ErrorTitle"
+msgstr "Invalid signal name"
+
+msgid "Surface.MultiSignal.Dialog.Title"
+msgstr "Edit multi signal"
+
+msgid "Surface.MultiSignal.DialogRecord.Title"
+msgstr "Edit signal record"
+
+msgid "Surface.MultiSignal.Infotext"
+msgstr "If a client arrives at this station, signals are triggered. Based on these signals for example clients at other stations can be released."
+
+msgid "Surface.MultiSignal.Name"
+msgstr "Multi signal"
+
+msgid "Surface.MultiSignal.Tooltip"
+msgstr "Triggers multiple signals when a clients passes this element."
+
+msgid "Surface.MultiSignal.XML.Root"
+msgstr "ModelElementSignalMulti"
+
+msgid "Surface.MultiSignal.XML.Signal"
+msgstr "ModelElementSignalMultiSignal"
+
+msgid "Surface.MultiSignal.XML.SignalCondition"
+msgstr "Condition"
+
+msgid "Surface.MultiSignal.XML.SignalDelay"
+msgstr "Delay"
+
+msgid "Surface.MultiSignal.XML.SignalDelay.Error"
+msgstr "The delay attribute of a %s element of a %s element is invalid. A non-negative value has to be entered."
+
+msgid "Surface.MultiSignal.XML.SignalName"
+msgstr "Name"
+
 msgid "Surface.MultiSourceTable.Activate"
 msgstr "Activate"
 
@@ -35481,6 +35535,33 @@ msgstr "ModelElementSignal"
 
 msgid "Surface.Signal.XML.SignalDelay"
 msgstr "ModelElementSignalDelayedExecution"
+
+msgid "Surface.SignalMulti.Condition"
+msgstr "Condition"
+
+msgid "Surface.SignalMulti.Delay"
+msgstr "Delay"
+
+msgid "Surface.SignalMulti.Table.Heading.Add"
+msgstr "Add signal "
+
+msgid "Surface.SignalMulti.Table.Heading.Delete"
+msgstr "Delete signal"
+
+msgid "Surface.SignalMulti.Table.Heading.Edit"
+msgstr "Edit signal"
+
+msgid "Surface.SignalMulti.Table.Heading.MoveDown"
+msgstr "Move down"
+
+msgid "Surface.SignalMulti.Table.Heading.MoveUp"
+msgstr "Move up"
+
+msgid "Surface.SignalMulti.Table.Heading.Settings"
+msgstr "Settings"
+
+msgid "Surface.SignalMulti.Table.Heading.SignalName"
+msgstr "Signal name"
 
 msgid "Surface.SingleCoreReason.AdditionalStatistics"
 msgstr "Statistical data over the progression of some values over the simulation process are recorded."
