@@ -296,6 +296,30 @@ public class MiniQSLoader {
 		}
 
 		/**
+		 * Lädt einen oder zwei nicht-negativen int-Werte aus einem json-Objekt.
+		 * @param setup	json-Objekt aus dem die Werte geladen werden sollen
+		 * @param key	Schlüssel unter dem die Werte abgelegt sind
+		 * @return	Liefert im Erfolgsfall ein Array, sonst <code>null</code>
+		 */
+		private int[] loadOneOrTwoInt(final JSONObject setup, final String key) {
+			if (!setup.has(key)) return null;
+
+			final Object obj=setup.get(key);
+			if (obj instanceof Integer) return new int[]{((Integer)obj).intValue()};
+			if (obj instanceof String) {
+				final String[] arr=((String)obj).split(";");
+				final int[] result=new int[arr.length];
+				for (int i=0;i<arr.length;i++) {
+					final Integer I=NumberTools.getInteger(arr[i]);
+					if (I==null) return null;
+					result[i]=I.intValue();
+				}
+				return result;
+			}
+			return null;
+		}
+
+		/**
 		 * Lädt einen nicht-negativen double-Wert aus einem json-Objekt.
 		 * @param setup	json-Objekt aus dem der Wert geladen werden soll
 		 * @param key	Schlüssel unter dem der Wert abgelegt ist
@@ -397,12 +421,23 @@ public class MiniQSLoader {
 
 			final double EI=loadDouble(setup,"EI");
 			final double CVI=loadDouble(setup,"CVI");
-			final int b=loadInt(setup,"b");
-			if (EI<=0 || CVI<0 || b<1) return null;
+			final int[] b=loadOneOrTwoInt(setup,"b");
+			if (EI<=0 || CVI<0) return null;
 
 			final ModelElementSource element=new ModelElementSource(model,model.surface);
 			final ModelElementSourceRecord record=element.getRecord();
-			record.setBatchSize(""+b);
+			if (b!=null) {
+				if (b.length==1 && b[0]>=1) {
+					record.setBatchSize(""+b);
+				}
+				if (b.length==2 && b[0]>=1 && b[1]>=b[0]) {
+					final int bmin=b[0];
+					final int bmax=b[1];
+					final double[] batchSizes=new double[bmax];
+					for (int i=bmin-1;i<bmax;i++) batchSizes[i]=1;
+					record.setMultiBatchSize(batchSizes);
+				}
+			}
 			if (CVI==1.0) {
 				record.setInterarrivalTimeDistribution(new ExponentialDistribution(EI));
 			} else {
