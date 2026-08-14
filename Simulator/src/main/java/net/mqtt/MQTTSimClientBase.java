@@ -69,23 +69,14 @@ public abstract class MQTTSimClientBase {
 	 * @param tlsVersion	Zu verwendende TLS-Version
 	 * @param trustedCerts	Liste der vertrauten Zertifikate
 	 * @return	Factory-Objekt zur Erzeugung von TLS-gesicherten Sockets
+	 * @throws NoSuchAlgorithmException	Wird ausgelöst, wenn keine entsprechende SocketFactory erzeugt werden konnte.
+	 * @throws KeyManagementException	Wird ausgelöst, wenn keine entsprechende SocketFactory erzeugt werden konnte.
 	 * @see #start(MQTTBrokerURL, String[], TrustManager[])
 	 * @see #start(MQTTBrokerURL, String[], String, String, TrustManager[])
 	 */
-	private static SocketFactory getTLSSocketFactory(final String tlsVersion, final TrustManager[] trustedCerts) {
-		final SSLContext sc;
-		try {
-			sc=SSLContext.getInstance(tlsVersion);
-		} catch (NoSuchAlgorithmException e) {
-			return null;
-		}
-
-		try {
-			sc.init(null,trustedCerts,new java.security.SecureRandom());
-		} catch (KeyManagementException e) {
-			return null;
-		}
-
+	private static SocketFactory getTLSSocketFactory(final String tlsVersion, final TrustManager[] trustedCerts) throws NoSuchAlgorithmException, KeyManagementException {
+		final SSLContext sc=SSLContext.getInstance(tlsVersion);
+		sc.init(null,trustedCerts,new java.security.SecureRandom());
 		return sc.getSocketFactory();
 	}
 
@@ -147,7 +138,11 @@ public abstract class MQTTSimClientBase {
 
 			/* Verschlüsselte Verbindung */
 			if (broker.secured!=MQTTBrokerURL.SecurityMode.OFF) {
-				options.setSocketFactory(getTLSSocketFactory("TLSv1.3",trustCerts));
+				try {
+					options.setSocketFactory(getTLSSocketFactory("TLSv1.3",trustCerts));
+				} catch (NoSuchAlgorithmException | KeyManagementException e) {
+					return String.format(Language.tr("MQTT.Error.ConnectingToServer"),broker);
+				}
 				if (broker.secured!=MQTTBrokerURL.SecurityMode.ON_NO_VALIDATION) {
 					options.setHttpsHostnameVerificationEnabled(false);
 				}
