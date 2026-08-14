@@ -34,6 +34,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.LogNormalDistributionImpl;
 import mathtools.distribution.OnePointDistributionImpl;
+import mathtools.distribution.tools.WrapperGammaDistribution;
 import simulator.editmodel.EditModel;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSurface;
@@ -148,7 +149,10 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 				Language.tr("ModelGenerator.ServiceDistribution.Exp"),
 				Language.tr("ModelGenerator.ServiceDistribution.LogNormal")+" (CV[S]="+NumberTools.formatNumberMax(0.25)+")",
 				Language.tr("ModelGenerator.ServiceDistribution.LogNormal")+" (CV[S]="+NumberTools.formatNumberMax(0.75)+")",
-				Language.tr("ModelGenerator.ServiceDistribution.LogNormal")+" (CV[S]="+NumberTools.formatNumberMax(1.5)+")"
+				Language.tr("ModelGenerator.ServiceDistribution.LogNormal")+" (CV[S]="+NumberTools.formatNumberMax(1.5)+")",
+				Language.tr("ModelGenerator.ServiceDistribution.Gamma")+" (CV[S]="+NumberTools.formatNumberMax(0.25)+")",
+				Language.tr("ModelGenerator.ServiceDistribution.Gamma")+" (CV[S]="+NumberTools.formatNumberMax(0.75)+")",
+				Language.tr("ModelGenerator.ServiceDistribution.Gamma")+" (CV[S]="+NumberTools.formatNumberMax(1.5)+")"
 		});
 		comboServiceDistribution.setSelectedIndex(1);
 		comboServiceUtilization=addCombo(this,Language.tr("ModelGenerator.ServiceUtilization"),new String[]{
@@ -267,6 +271,15 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 			break;
 		case 4:
 			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceLognormal")+" (CV[S]="+NumberTools.formatNumberMax(1.5)+")");
+			break;
+		case 5:
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceGamma")+" (CV[S]="+NumberTools.formatNumberMax(0.25)+")");
+			break;
+		case 6:
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceGamma")+" (CV[S]="+NumberTools.formatNumberMax(0.75)+")");
+			break;
+		case 7:
+			description.append("\n- "+Language.tr("ModelGenerator.Model.Description.Properties.ServiceGamma")+" (CV[S]="+NumberTools.formatNumberMax(1.5)+")");
 			break;
 		}
 		switch (discipline) {
@@ -518,6 +531,15 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 				case 4:
 					setServiceTime="LogNormalDist("+NumberTools.formatNumberMax(serviceTime)+";"+NumberTools.formatNumberMax(3*serviceTime/2)+")";
 					break;
+				case 5:
+					setServiceTime="GammaDistDirect("+NumberTools.formatNumberMax(serviceTime)+";"+NumberTools.formatNumberMax(serviceTime/4)+")";
+					break;
+				case 6:
+					setServiceTime="GammaDistDirect("+NumberTools.formatNumberMax(serviceTime)+";"+NumberTools.formatNumberMax(3*serviceTime/4)+")";
+					break;
+				case 7:
+					setServiceTime="GammaDistDirect("+NumberTools.formatNumberMax(serviceTime)+";"+NumberTools.formatNumberMax(3*serviceTime/2)+")";
+					break;
 				}
 				set[i].getRecord().setData(new String[] {"ClientData(1)"},new String[] {setServiceTime});
 				processX+=200;
@@ -550,6 +572,15 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 					break;
 				case 4:
 					processes[i].getWorking().set(new LogNormalDistributionImpl(serviceTime,3*serviceTime/2));
+					break;
+				case 5:
+					processes[i].getWorking().set(new WrapperGammaDistribution().getDistribution(serviceTime,serviceTime/4));
+					break;
+				case 6:
+					processes[i].getWorking().set(new WrapperGammaDistribution().getDistribution(serviceTime,3*serviceTime/4));
+					break;
+				case 7:
+					processes[i].getWorking().set(new WrapperGammaDistribution().getDistribution(serviceTime,3*serviceTime/2));
 					break;
 				}
 			}
@@ -604,6 +635,18 @@ public class ModelGeneratorPanelOpen extends ModelGeneratorPanelBase {
 			break;
 		case 4:
 			description.append(Language.tr("ModelGenerator.ServiceDistribution.LogNormal")+"\n");
+			cvS=1.5;
+			break;
+		case 5:
+			cvS=0.25;
+			description.append(Language.tr("ModelGenerator.ServiceDistribution.Gamma")+"\n");
+			break;
+		case 6:
+			description.append(Language.tr("ModelGenerator.ServiceDistribution.Gamma")+"\n");
+			cvS=0.75;
+			break;
+		case 7:
+			description.append(Language.tr("ModelGenerator.ServiceDistribution.Gamma")+"\n");
 			cvS=1.5;
 			break;
 		}

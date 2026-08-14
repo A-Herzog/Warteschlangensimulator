@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-05 21:37+0200\n"
+"POT-Creation-Date: 2026-08-07 00:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15127,6 +15127,9 @@ msgstr "Deterministic service times (CV[S]=0)"
 msgid "ModelGenerator.Model.Description.Properties.ServiceExp"
 msgstr "Exponential distributed service times (CV[S]=1)"
 
+msgid "ModelGenerator.Model.Description.Properties.ServiceGamma"
+msgstr "Gamma distributed service times"
+
 msgid "ModelGenerator.Model.Description.Properties.ServiceLIFO"
 msgstr "Serving clients in inverse arrival order (LIFO)"
 
@@ -15252,6 +15255,9 @@ msgstr "deterministic"
 
 msgid "ModelGenerator.ServiceDistribution.Exp"
 msgstr "Exponential distribution"
+
+msgid "ModelGenerator.ServiceDistribution.Gamma"
+msgstr "Gamma distribution"
 
 msgid "ModelGenerator.ServiceDistribution.LogNormal"
 msgstr "Lognormal distribution"

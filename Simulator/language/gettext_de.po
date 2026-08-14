@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-05 21:37+0200\n"
+"POT-Creation-Date: 2026-08-07 00:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15153,6 +15153,9 @@ msgstr "Deterministische Bedienzeiten (CV[S]=0)"
 msgid "ModelGenerator.Model.Description.Properties.ServiceExp"
 msgstr "Exponentialverteilte Bedienzeiten (CV[S]=1)"
 
+msgid "ModelGenerator.Model.Description.Properties.ServiceGamma"
+msgstr "Gamma-verteilte Bedienzeiten"
+
 msgid "ModelGenerator.Model.Description.Properties.ServiceLIFO"
 msgstr "Bedienung der Kunden in umgekehrter Ankunftsreihenfolge (LIFO)"
 
@@ -15278,6 +15281,9 @@ msgstr "Deterministisch"
 
 msgid "ModelGenerator.ServiceDistribution.Exp"
 msgstr "Exponentialverteilung"
+
+msgid "ModelGenerator.ServiceDistribution.Gamma"
+msgstr "Gamma-Verteilung"
 
 msgid "ModelGenerator.ServiceDistribution.LogNormal"
 msgstr "Lognormalverteilung"
