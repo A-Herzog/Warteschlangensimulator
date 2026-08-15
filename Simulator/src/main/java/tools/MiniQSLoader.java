@@ -43,6 +43,7 @@ import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.elements.BatchRecord;
 import ui.modeleditor.elements.BatchRecord.BatchMode;
+import ui.modeleditor.elements.BatchRecord.BatchSizeMode;
 import ui.modeleditor.elements.DecideRecord;
 import ui.modeleditor.elements.ModelElementAnimationLineDiagram;
 import ui.modeleditor.elements.ModelElementBarrier;
@@ -732,13 +733,28 @@ public class MiniQSLoader {
 			final JSONObject setup=getSetup();
 			if (setup==null) return null;
 
-			final int b=loadInt(setup,"b");
-			if (b<1) return null;
+			final int[] b=loadOneOrTwoInt(setup,"b");
+			if (b==null) return null;
+
+			if (b.length==1) {
+				if (b[0]<1) return null;
+			}
+			if (b.length==2) {
+				if (b[0]<1 || b[1]<b[0]) return null;
+			}
 
 			final ModelElementBatch element=new ModelElementBatch(model,model.surface);
 			final BatchRecord record=element.getBatchRecord();
-			record.setBatchSizeMin(""+b);
-			record.setBatchSizeMax(""+b);
+			if (b.length==1) {
+				record.setBatchSizeMode(BatchSizeMode.FIXED);
+				record.setBatchSizeFixed(""+b[0]);
+			}
+			if (b.length==2) {
+				record.setBatchSizeMode(BatchSizeMode.RANGE);
+				record.setBatchSizeMin(""+b[0]);
+				record.setBatchSizeMax(""+b[1]);
+			}
+			record.setNewClientType("Batch");
 			record.setBatchMode(BatchMode.BATCH_MODE_TEMPORARY);
 			element.setName(name);
 
