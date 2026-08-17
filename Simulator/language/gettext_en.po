@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-07 00:10+0200\n"
+"POT-Creation-Date: 2026-08-12 08:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26091,6 +26091,21 @@ msgstr "System"
 msgid "Statistics.SystemData"
 msgstr "System data"
 
+msgid "Statistics.SystemData.Build"
+msgstr "Build status"
+
+msgid "Statistics.SystemData.Build.Custom"
+msgstr "Custom build, not official"
+
+msgid "Statistics.SystemData.Build.Developer"
+msgstr "Test version, not for production use"
+
+msgid "Statistics.SystemData.Build.Official"
+msgstr "Official, ready for production use"
+
+msgid "Statistics.SystemData.Build.Unknown"
+msgstr "Unknown status"
+
 msgid "Statistics.SystemData.ClientsPerSecond"
 msgstr "Clients per second"
 
@@ -26843,6 +26858,21 @@ msgstr "StatisticsSetupTimesStations"
 
 msgid "Statistics.XML.Element.Simulation"
 msgstr "SimulationData"
+
+msgid "Statistics.XML.Element.Simulation.Build"
+msgstr "StatisticsSimulatorState"
+
+msgid "Statistics.XML.Element.Simulation.Build.Custom"
+msgstr "Custom"
+
+msgid "Statistics.XML.Element.Simulation.Build.Developer"
+msgstr "Developer"
+
+msgid "Statistics.XML.Element.Simulation.Build.Official"
+msgstr "Official"
+
+msgid "Statistics.XML.Element.Simulation.Build.Unknown"
+msgstr "Unknown"
 
 msgid "Statistics.XML.Element.ThreadBasedConfidence"
 msgstr "StatisticsThreadBasedWaitingTimeConfidence"

@@ -2250,6 +2250,7 @@
   <xs:element name="StatistikInternerAbbruch" type="xs:string"/>
   <xs:element name="StatistikWiederholungen" type="xs:string"/>
   <xs:element name="StatistikThreadLaufzeiten" type="xs:string"/>
+  <xs:element name="StatistikSimulatorStatus" type="xs:string"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
 <xs:element name="StatistikThreads"><xs:complexType><xs:simpleContent>
@@ -4846,6 +4847,7 @@
   <xs:element name="StatisticsInternalTermination" type="xs:string"/>
   <xs:element name="StatisticsRepeats" type="xs:string"/>
   <xs:element name="StatisticsThreadRunTimes" type="xs:string"/>
+  <xs:element name="StatisticsSimulatorState" type="xs:string"/>
 </xs:choice></xs:sequence></xs:complexType></xs:element>
 
 <xs:element name="StatisticsThreads"><xs:complexType><xs:simpleContent>

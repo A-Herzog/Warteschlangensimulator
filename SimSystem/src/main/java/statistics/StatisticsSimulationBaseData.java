@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.function.Supplier;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -33,9 +34,9 @@ import mathtools.distribution.DataDistributionImpl;
  * Die Erfassung erfolgt im Gegensatz zu den anderen Statistik-Klassen nicht durch den Aufruf
  * einer Zähl-Methode, sondern durch das manuelle Setzen von öffentlichen Feldern.
  * @author Alexander Herzog
- * @version 1.2
+ * @version 1.3
  */
-public final class StatisticsSimulationBaseData extends StatisticsPerformanceIndicator implements Cloneable {
+public class StatisticsSimulationBaseData extends StatisticsPerformanceIndicator implements Cloneable {
 	/** XML-Attribut für "StatistikLaufdatum" */
 	public static String[] xmlNameRunDate=new String[]{"StatistikLaufdatum"};
 	/** XML-Attribut für "StatistikLaufzeit" (=Dauer der Simulation) */
@@ -137,12 +138,67 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 	public String[] warnings;
 
 	/**
+	 * Weitere optionale nutzerdefinierte Datenfelder
+	 * @see #setupCustomData()
+	 * @see #addCustomData(String, Supplier, Supplier)
+	 * @see #getCustomData(String)
+	 * @see #setCustomData(String, String)
+	 * @see #cloneEmpty()
+	 */
+	private final List<CustomData> customData;
+
+	/**
 	 * Konstruktor der Klasse <code>StatisticsSimulationBaseData</code>
 	 * @param xmlNodeName	Name des xml-Knotens, in dem die Daten gespeichert werden sollen
 	 */
 	public StatisticsSimulationBaseData(final String[] xmlNodeName) {
 		super(xmlNodeName);
+		customData=new ArrayList<>();
+		setupCustomData();
 		reset();
+	}
+
+	/**
+	 * Registriert ein nutzerdefiniertes Datenfeld.
+	 * @param name	Name des nutzerdefinierten Datenfeldes
+	 * @param allKeys	XML-Schlüssel aus denen der Wert gelesen werden soll
+	 * @param primaryKey	XML-Schlüssel in den der Wert geschrieben werden soll
+	 * @see #setupCustomData()
+	 */
+	protected final void addCustomData(final String name, final Supplier<List<String>> allKeys, final Supplier<String> primaryKey) {
+		customData.add(new CustomData(name,allKeys,primaryKey));
+	}
+
+	/**
+	 * Kann in abgeleiteten Klassen verwendet werden, um nutzerdefinierte Datenfelder zu konfigurieren.
+	 * @see #addCustomData(String, Supplier, Supplier)
+	 * @see #cloneEmpty()
+	 */
+	protected void setupCustomData() {
+	}
+
+	/**
+	 * Liefert den Wert eines nutzerdefinierten Datenfeldes.
+	 * @param name	Name des nutzerdefinierten Datenfeldes
+	 * @return	Wert des nutzerdefinierten Datenfeldes (kann <code>null</code> sein, wenn es das Datenfeld nicht gibt oder dieses nicht belegt ist)
+	 */
+	public String getCustomData(final String name) {
+		for (var data: customData) if (data.name.equalsIgnoreCase(name)) return data.value;
+		return null;
+	}
+
+	/**
+	 * Stellt den Wert eines nutzerdefinierten Datenfeldes ein.
+	 * @param name	Name des nutzerdefinierten Datenfeldes
+	 * @param value	Neuer Wert für das nutzerdefinierte Datenfeld
+	 * @return	Liefert <code>true</code>, wenn das Datenfeld existiert und der Wert gesetzt werden konnte
+	 */
+	public boolean setCustomData(final String name, final String value) {
+		for (var data: customData) if (data.name.equalsIgnoreCase(name)) {
+			data.value=value;
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -164,6 +220,10 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 				warnings.addAll(Arrays.asList(moreSimulationBaseDataStatistics.warnings));
 				this.warnings=warnings.toArray(String[]::new);
 			}
+		}
+
+		for (var data: moreSimulationBaseDataStatistics.customData) {
+			if (getCustomData(data.value)==null) setCustomData(data.name,data.value);
 		}
 	}
 
@@ -187,6 +247,7 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 		threadRunTimes=new int[]{0};
 		threadDynamicBalance=0.0;
 		threadDynamicBalanceData=new long[]{0};
+		for (var data: customData) data.value=null;
 	}
 
 	/**
@@ -214,6 +275,8 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 		threadRunTimes=Arrays.copyOf(source.threadRunTimes,source.threadRunTimes.length);
 		threadDynamicBalance=source.threadDynamicBalance;
 		threadDynamicBalanceData=Arrays.copyOf(threadDynamicBalanceData,threadDynamicBalanceData.length);
+
+		source.customData.forEach(data->setCustomData(data.name,data.value));
 	}
 
 	/**
@@ -222,7 +285,7 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 	 */
 	@Override
 	public StatisticsSimulationBaseData clone() {
-		final StatisticsSimulationBaseData indicator=new StatisticsSimulationBaseData(xmlNodeNames);
+		final StatisticsSimulationBaseData indicator=cloneEmpty();
 		indicator.copyDataFrom(this);
 		return indicator;
 	}
@@ -234,6 +297,7 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 	 */
 	@Override
 	public StatisticsSimulationBaseData cloneEmpty() {
+		if (customData.size()>0) throw new RuntimeException("Custom data need new cloneEmpty method");
 		return new StatisticsSimulationBaseData(xmlNodeNames);
 	}
 
@@ -301,6 +365,8 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 			node.appendChild(child=doc.createElement(xmlNameWarning[0]));
 			child.setTextContent(warning);
 		}
+
+		for (var data: customData) data.addToXML(doc,node);
 	}
 
 	/**
@@ -378,6 +444,7 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 			}
 			if (multiCompare(name,xmlNameEmergencyShutDown)) {
 				if (!text.isEmpty() && !text.equals("0")) emergencyShutDown=true;
+				continue;
 			}
 			if (multiCompare(name,xmlNameWarning)) {
 				if (warnings==null || warnings.length==0) {
@@ -386,6 +453,11 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 					warnings=Arrays.copyOf(warnings,warnings.length+1);
 					warnings[warnings.length-1]=text;
 				}
+				continue;
+			}
+
+			for (var data: customData) {
+				if (data.tryXMLLoad(name,text)) break;
 			}
 		}
 
@@ -404,6 +476,70 @@ public final class StatisticsSimulationBaseData extends StatisticsPerformanceInd
 		} else {
 			warnings=Arrays.copyOf(warnings,warnings.length+1);
 			warnings[warnings.length-1]=warning;
+		}
+	}
+
+	/**
+	 * Nutzerdefiniertes Datenfeld
+	 */
+	private final class CustomData {
+		/**
+		 * Name des nutzerdefinierten Datenfeldes
+		 */
+		private final String name;
+
+		/**
+		 * Wert des nutzerdefinierten Datenfeldes
+		 */
+		private String value;
+
+		/**
+		 * XML-Schlüssel aus denen der Wert gelesen werden soll
+		 */
+		private final Supplier<List<String>> allKeys;
+
+		/**
+		 * XML-Schlüssel in den der Wert geschrieben werden soll
+		 */
+		private final Supplier<String> primaryKey;
+
+		/**
+		 * Konstruktor der Klasse
+		 * @param name	Name des nutzerdefinierten Datenfeldes
+		 * @param allKeys	XML-Schlüssel aus denen der Wert gelesen werden soll
+		 * @param primaryKey	XML-Schlüssel in den der Wert geschrieben werden soll
+		 */
+		private CustomData(final String name, final Supplier<List<String>> allKeys, final Supplier<String> primaryKey) {
+			this.name=name;
+			value=null;
+			this.allKeys=allKeys;
+			this.primaryKey=primaryKey;
+		}
+
+		/**
+		 * Speichert das Datenfeld in einem XML-Objekt.
+		 * @param doc	XML-Dokument
+		 * @param parent	Übergeordnetes XML-Element
+		 */
+		private void addToXML(final Document doc, final Element parent) {
+			if (value==null || value.isBlank()) return;
+			final Element node=doc.createElement(primaryKey.get());
+			parent.appendChild(node);
+			node.setTextContent(value);
+		}
+
+		/**
+		 * Versucht den Wert des Datenfeldes aus einem XML-Objekt zu laden.
+		 * @param key	Vorliegender Schlüssel
+		 * @param value	Daten als Text in dem Schlüssel
+		 * @return	Liefert <code>true</code>, wenn der Schlüssel zu dem Datenfeld passt und die Daten geladen werden konnten
+		 */
+		private boolean tryXMLLoad(final String key, final String value) {
+			for (var testKey: allKeys.get()) if (testKey.equalsIgnoreCase(key)) {
+				this.value=value;
+				return true;
+			}
+			return false;
 		}
 	}
 }

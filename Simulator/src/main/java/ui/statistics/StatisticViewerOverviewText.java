@@ -2272,6 +2272,25 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		addHeading(1,Language.tr("Statistics.SystemData"));
 		beginParagraph();
 		addLine(Language.tr("Statistics.SystemData.Version")+": "+statistics.editModel.version);
+		final String buildStatus;
+		switch (statistics.simulationData.getBuildState()) {
+		case OFFICIAL:
+			buildStatus=Language.tr("Statistics.SystemData.Build.Official");
+			break;
+		case DEVELOPER:
+			buildStatus=Language.tr("Statistics.SystemData.Build.Developer");
+			break;
+		case CUSTOM:
+			buildStatus=Language.tr("Statistics.SystemData.Build.Custom");
+			break;
+		case UNKNOWN:
+			buildStatus=Language.tr("Statistics.SystemData.Build.Unknown");
+			break;
+		default:
+			buildStatus=Language.tr("Statistics.SystemData.Build.Unknown");
+			break;
+		}
+		addLine(Language.tr("Statistics.SystemData.Build")+": "+buildStatus);
 		addLine(Language.tr("Statistics.SystemData.RunDate")+": "+statistics.simulationData.runDate);
 		addLine(Language.tr("Statistics.SystemData.RunThreads")+": "+statistics.simulationData.runThreads);
 		if (statistics.simulationData.runRepeatCount>1) addLine(Language.tr("Statistics.SystemData.RepeatCount")+": "+NumberTools.formatLong(statistics.simulationData.runRepeatCount));

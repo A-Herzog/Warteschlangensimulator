@@ -36,6 +36,7 @@ import simulator.editmodel.EditModel;
 import simulator.runmodel.DynamicLoadBalancer;
 import simulator.runmodel.RunModel;
 import simulator.runmodel.SimulationData;
+import simulator.statistics.SimulatorStatisticsSimulationBaseData;
 import simulator.statistics.Statistics;
 import statistics.StatisticsDataPerformanceIndicator;
 import statistics.StatisticsSimpleValuePerformanceIndicator;
@@ -387,6 +388,9 @@ public class Simulator extends SimulatorBase implements AnySimulator {
 				((StatisticsSimpleValuePerformanceIndicator)statistics.threadBasedConfidence.get(NumberTools.formatPercent(1-confidenceLevels[i]))).set(halfWidth[i]);
 			}
 		}
+
+		/* Build-Status erfassen */
+		statistics.simulationData.setBuildState(SimulatorStatisticsSimulationBaseData.detectBuildState());
 
 		/* Aufbereitete Daten berechnen */
 		statistics.calc();

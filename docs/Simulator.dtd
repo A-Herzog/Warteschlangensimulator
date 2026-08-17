@@ -1996,7 +1996,7 @@
   xsi:schemaLocation	CDATA	#IMPLIED
 >
 
-<!ELEMENT Simulation (StatistikLaufdatum | StatistikLaufzeit | StatistikSystem | StatistikNutzer | StatistikThreads | StatistikEreignisse | StatistikInternerAbbruch | StatistikWiederholungen | StatistikThreadLaufzeiten)*>
+<!ELEMENT Simulation (StatistikLaufdatum | StatistikLaufzeit | StatistikSystem | StatistikNutzer | StatistikThreads | StatistikEreignisse | StatistikInternerAbbruch | StatistikWiederholungen | StatistikThreadLaufzeiten | StatistikSimulatorStatus)*>
 
 <!ELEMENT StatistikLaufdatum (#PCDATA)>
 <!ELEMENT StatistikLaufzeit (#PCDATA)>
@@ -2012,6 +2012,7 @@
 <!ELEMENT StatistikInternerAbbruch (#PCDATA)>
 <!ELEMENT StatistikWiederholungen (#PCDATA)>
 <!ELEMENT StatistikThreadLaufzeiten (#PCDATA)>
+<!ELEMENT StatistikSimulatorStatus (#PCDATA)>
 
 <!ELEMENT StatistikThreadBasierendeWartzeitKonfidenz (StatistikThreadBasierendeWartzeitKonfidenzLevelHalbeBreite)*>
 
@@ -4771,7 +4772,7 @@
   xsi:schemaLocation	CDATA	#IMPLIED
 >
 
-<!ELEMENT SimulationData (StatisticsRunDate | StatisticsRunTime | StatisticsSystem | StatisticsUser | StatisticsThreads | StatisticsEvents | StatisticsInternalTermination | StatisticsRepeats | StatisticsThreadRunTimes)*>
+<!ELEMENT SimulationData (StatisticsRunDate | StatisticsRunTime | StatisticsSystem | StatisticsUser | StatisticsThreads | StatisticsEvents | StatisticsInternalTermination | StatisticsRepeats | StatisticsThreadRunTimes | StatisticsSimulatorState)*>
 
 <!ELEMENT StatisticsRunDate (#PCDATA)>
 <!ELEMENT StatisticsRunTime (#PCDATA)>
@@ -4787,6 +4788,7 @@
 <!ELEMENT StatisticsInternalTermination (#PCDATA)>
 <!ELEMENT StatisticsRepeats (#PCDATA)>
 <!ELEMENT StatisticsThreadRunTimes (#PCDATA)>
+<!ELEMENT StatisticsSimulatorState (#PCDATA)>
 
 <!ELEMENT StatisticsThreadBasedWaitingTimeConfidence (StatisticsThreadBasedWaitingTimeConfidenceLevelHalfWidth)*>
 

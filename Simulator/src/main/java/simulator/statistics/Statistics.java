@@ -32,7 +32,6 @@ import statistics.StatisticsQuotientPerformanceIndicator;
 import statistics.StatisticsSimpleCountPerformanceIndicator;
 import statistics.StatisticsSimpleValueMaxPerformanceIndicator;
 import statistics.StatisticsSimpleValuePerformanceIndicator;
-import statistics.StatisticsSimulationBaseData;
 import statistics.StatisticsStateTimePerformanceIndicator;
 import statistics.StatisticsTimeAnalogPerformanceIndicator;
 import statistics.StatisticsTimeContinuousPerformanceIndicator;
@@ -58,7 +57,7 @@ public class Statistics extends StatisticsBase {
 	/**
 	 * Technische Basisdaten zur Simulation
 	 */
-	public final StatisticsSimulationBaseData simulationData;
+	public final SimulatorStatisticsSimulationBaseData simulationData;
 
 	/**
 	 * Konfidenzintervalle auf Basis der Threads
@@ -630,7 +629,7 @@ public class Statistics extends StatisticsBase {
 
 		/* Basisdaten */
 		editModel=new EditModel();
-		addPerformanceIndicator(simulationData=new StatisticsSimulationBaseData(Language.trAll("Statistics.XML.Element.Simulation")));
+		addPerformanceIndicator(simulationData=new SimulatorStatisticsSimulationBaseData(Language.trAll("Statistics.XML.Element.Simulation")));
 		addPerformanceIndicator(threadBasedConfidence=new StatisticsMultiPerformanceIndicator(Language.trAll("Statistics.XML.Element.ThreadBasedConfidence"),new StatisticsSimpleValuePerformanceIndicator(Language.trAll("Statistics.XML.Element.ThreadBasedConfidence.Level"))));
 
 		/* Zwischenankunftszeiten */
