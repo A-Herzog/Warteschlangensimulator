@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-12 08:30+0200\n"
+"POT-Creation-Date: 2026-08-16 00:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22902,6 +22902,9 @@ msgstr "Socket"
 
 msgid "SimulationServer.Status.Web"
 msgstr "Fernsteuerung"
+
+msgid "SimulationServer.Status.Working"
+msgstr "Arbeitet"
 
 msgid "SimulationServer.Toolbar.CalcWebStart"
 msgstr "Webserver starten"

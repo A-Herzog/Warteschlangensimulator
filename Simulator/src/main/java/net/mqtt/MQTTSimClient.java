@@ -251,6 +251,14 @@ public class MQTTSimClient extends MQTTSimClientBase {
 	}
 
 	/**
+	 * Liefert die Anzahl der aktiven/laufenden Aufgaben.
+	 * @return	Anzahl der aktiven/laufenden Aufgaben
+	 */
+	public int getActiveTasks() {
+		return list.size();
+	}
+
+	/**
 	 * Thread zur Ausgabe der Systemauslastung
 	 * @see MQTTSimClient#loadInfoThread
 	 */

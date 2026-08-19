@@ -67,6 +67,11 @@ public class SocketServerCalc extends SocketServerBase {
 	private SocketServerTask running;
 
 	/**
+	 * Wird ein Task vorbei an der Warteschlange ausgeführt?
+	 */
+	boolean directTaskRunning=false;
+
+	/**
 	 * Verwaltungsthread, der die Aufgaben aus {@link #queue}
 	 * entnimmt und startet.
 	 */
@@ -258,10 +263,15 @@ public class SocketServerCalc extends SocketServerBase {
 		final SocketServerTask task=buildTask(data,output);
 		if (task==null) return;
 
-		final Thread thread=task.start();
+		directTaskRunning=true;
 		try {
-			thread.join();
-		} catch (InterruptedException e) {}
+			final Thread thread=task.start();
+			try {
+				thread.join();
+			} catch (InterruptedException e) {}
+		} finally {
+			directTaskRunning=false;
+		}
 
 		write(MSG_TYPE_RESULT,output);
 		write(task.getResult(),output);
@@ -283,6 +293,14 @@ public class SocketServerCalc extends SocketServerBase {
 			results.stream().map(task->task.id).forEach(id->result.append(id+"\n"));
 			return result.toString();
 		}
+	}
+
+	/**
+	 * Wird gerade eine Verarbeitung ausgeführt?
+	 * @return	Liefert <code>true</code>, wenn eine Simulation läuft.
+	 */
+	public boolean isWorking() {
+		return directTaskRunning || (running!=null);
 	}
 
 	/**

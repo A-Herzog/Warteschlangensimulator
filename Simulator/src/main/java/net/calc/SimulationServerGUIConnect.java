@@ -142,6 +142,15 @@ public class SimulationServerGUIConnect {
 	}
 
 	/**
+	 * Gibt an, ob der Server momentan Daten verarbeitet.
+	 * @return	Liefert <code>true</code>, wenn momentan eine Simulation läuft.
+	 */
+	public boolean isServerWorking() {
+		if (server==null) return false;
+		return server.getRunningThreads()>0;
+	}
+
+	/**
 	 * Liefert die beim letzten Serverstart verwendete Serverportnummer
 	 * @return	Letzte Serverportnummer
 	 */

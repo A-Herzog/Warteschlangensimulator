@@ -257,4 +257,12 @@ public class SimulationServer extends NetServer {
 		transfer.sendStream(info);
 		return true;
 	}
+
+	/**
+	 * Liefert die Anzahl an momentan laufenden Simulations-Threads.
+	 * @return	Anzahl an momentan laufenden Simulations-Threads
+	 */
+	public int getRunningThreads() {
+		return runningThreads;
+	}
 }

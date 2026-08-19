@@ -892,4 +892,12 @@ public class CalcWebServer extends WebServer {
 		if (instance==null) instance=new CalcWebServer();
 		return instance;
 	}
+
+	/**
+	 * Liefert die Anzahl der aktiven/laufenden Aufgaben.
+	 * @return	Anzahl der aktiven/laufenden Aufgaben
+	 */
+	public int getActiveTasks() {
+		return list.size();
+	}
 }

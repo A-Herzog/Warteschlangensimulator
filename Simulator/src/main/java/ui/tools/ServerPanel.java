@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
@@ -188,6 +190,11 @@ public final class ServerPanel extends SpecialPanel {
 	 * @see ReloadManager
 	 */
 	private final NotifyRunner notifyRunner;
+
+	/**
+	 * Timer zur Aktualisierung der Statuszeile (laufende Aufgaben der verschiedenen Server-Dienste)
+	 */
+	private final Timer timer;
 
 	/**
 	 * Konstruktor der Klasse
@@ -455,23 +462,34 @@ public final class ServerPanel extends SpecialPanel {
 		/* Start der Verarbeitung */
 
 		setupButtons();
+		timer=new Timer();
+		timer.schedule(new TimerTask() {
+			@Override public void run() {updateStatusBar();}
+		},1000,2000);
 	}
 
 	/**
 	 * Liefert einen Beschreibungstext, ob ein Serverdienst läuft oder nicht
 	 * @param running	Läuft der Dienst?
+	 * @param working	Werden gerade Daten verarbeitet?
 	 * @param name	Name des Dienstes
 	 * @return	Beschreibungstext
 	 */
-	private String getServerStatus(final boolean running, final String name) {
+	private String getServerStatus(final boolean running, final boolean working, final String name) {
 		final StringBuilder sb=new StringBuilder();
 		sb.append("<html><body>");
 		sb.append(name);
 		sb.append(":&nbsp;");
 		if (running) {
-			sb.append("<span style=\"color: green;\">");
-			sb.append(Language.tr("SimulationServer.Status.On"));
-			sb.append("</span>");
+			if (working) {
+				sb.append("<span style=\"color: green;\"><b>");
+				sb.append(Language.tr("SimulationServer.Status.Working"));
+				sb.append("</b></span>");
+			} else {
+				sb.append("<span style=\"color: green;\">");
+				sb.append(Language.tr("SimulationServer.Status.On"));
+				sb.append("</span>");
+			}
 		} else {
 			sb.append("<span style=\"color: red;\">");
 			sb.append(Language.tr("SimulationServer.Status.Off"));
@@ -606,17 +624,25 @@ public final class ServerPanel extends SpecialPanel {
 
 		/* Statusleiste */
 
-		calcStatusBar.setText(getServerStatus(serverCalc.isServerRunning(),Language.tr("SimulationServer.Status.Server")));
-		calcWebStatusBar.setText(getServerStatus(serverCalcWeb.isRunning(),Language.tr("SimulationServer.Status.CalcWeb")));
-		webStatusBar.setText(getServerStatus(serverWeb.isRunning(),Language.tr("SimulationServer.Status.Web")));
-		mqttStatusBar.setText(getServerStatus(serverMQTT.isRunning(),Language.tr("SimulationServer.Status.MQTT")));
-		ddeStatusBar.setText(getServerStatus(serverDDE.isRunning(),Language.tr("SimulationServer.Status.DDE")));
-		socketStatusBar.setText(getServerStatus(serverSocket.isRunning(),Language.tr("SimulationServer.Status.Socket")));
+		updateStatusBar();
+
 
 		/* Andere Fenster benachrichtigen */
 		if (triggerNotifiy) {
 			ReloadManager.notify(notifyRunner);
 		}
+	}
+
+	/**
+	 * Aktualisiert die Statuszeileneinträge.
+	 */
+	private void updateStatusBar() {
+		calcStatusBar.setText(getServerStatus(serverCalc.isServerRunning(),serverCalc.isServerWorking(),Language.tr("SimulationServer.Status.Server")));
+		calcWebStatusBar.setText(getServerStatus(serverCalcWeb.isRunning(),serverCalcWeb.getActiveTasks()>0,Language.tr("SimulationServer.Status.CalcWeb")));
+		webStatusBar.setText(getServerStatus(serverWeb.isRunning(),false,Language.tr("SimulationServer.Status.Web")));
+		mqttStatusBar.setText(getServerStatus(serverMQTT.isRunning(),serverMQTT.getActiveTasks()>0,Language.tr("SimulationServer.Status.MQTT")));
+		ddeStatusBar.setText(getServerStatus(serverDDE.isRunning(),false,Language.tr("SimulationServer.Status.DDE")));
+		socketStatusBar.setText(getServerStatus(serverSocket.isRunning(),serverSocket.isWorking(),Language.tr("SimulationServer.Status.Socket")));
 	}
 
 	/**
@@ -902,6 +928,7 @@ public final class ServerPanel extends SpecialPanel {
 
 	@Override
 	public void requestClose() {
+		timer.cancel();
 		serverCalc.removeAllOutputListeners();
 
 		int i;
