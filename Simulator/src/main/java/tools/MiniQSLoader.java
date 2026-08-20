@@ -527,10 +527,20 @@ public class MiniQSLoader {
 			final double CVS=loadDouble(setup,"CVS");
 			final double ES2=loadDouble(setup,"ES2");
 			final double CVS2=loadDouble(setup,"CVS2");
-			final int b=loadInt(setup,"b");
+
+			final int[] b=loadOneOrTwoInt(setup,"b");
+			if (b==null) return null;
+
+			if (b.length==1) {
+				if (b[0]<1) return null;
+			}
+			if (b.length==2) {
+				if (b[0]<1 || b[1]<b[0]) return null;
+			}
+
 			final int c=loadInt(setup,"c");
 			final int policy=loadInt(setup,"policy");
-			if (ES<=0 || CVS<0 || b<1 || c<1) return null;
+			if (ES<=0 || CVS<0 || c<1) return null;
 
 			final List<ModelElementBox> elements=new ArrayList<>();
 
@@ -551,8 +561,13 @@ public class MiniQSLoader {
 					element.getPostProcessing().set(new LogNormalDistributionImpl(ES2,CVS2*ES2));
 				}
 			}
-			element.setBatchMinimum(b);
-			element.setBatchMaximum(b);
+			if (b.length==1) {
+				element.setBatchMinimum(b[0]);
+				element.setBatchMaximum(b[0]);
+			} else {
+				element.setBatchMinimum(b[0]);
+				element.setBatchMaximum(b[1]);
+			}
 			element.getNeededResources().get(0).put("Operators "+name,1);
 			element.setName(name);
 
