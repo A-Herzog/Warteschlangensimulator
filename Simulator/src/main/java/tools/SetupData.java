@@ -1945,12 +1945,16 @@ public class SetupData extends SetupBase {
 			if (home==null) return programFolder;
 			final File homeFolder=new File(home);
 			if (!homeFolder.isDirectory()) return programFolder;
-			final File folder=new File(homeFolder,"."+USER_CONFIGURATION_FOLDER_NAME);
-			if (!folder.isDirectory()) {
-				if (!folder.mkdir()) return programFolder;
+			final File folder1=new File(homeFolder,".config");
+			if (!folder1.isDirectory()) {
+				if (!folder1.mkdir()) return programFolder;
 			}
-			if (!folder.isDirectory()) return programFolder;
-			return folder;
+			final File folder2=new File(folder1,USER_CONFIGURATION_FOLDER_NAME);
+			if (!folder2.isDirectory()) {
+				if (!folder2.mkdir()) return programFolder;
+			}
+			if (!folder2.isDirectory()) return programFolder;
+			return folder2;
 		}
 
 		return programFolder;
