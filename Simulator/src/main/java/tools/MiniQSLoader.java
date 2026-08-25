@@ -758,6 +758,10 @@ public class MiniQSLoader {
 				if (b[0]<1 || b[1]<b[0]) return null;
 			}
 
+			int mode=loadInt(setup,"batchMode");
+			if (mode<0) mode=1;
+			if (mode>1) return null;
+
 			final ModelElementBatch element=new ModelElementBatch(model,model.surface);
 			final BatchRecord record=element.getBatchRecord();
 			if (b.length==1) {
@@ -769,8 +773,19 @@ public class MiniQSLoader {
 				record.setBatchSizeMin(""+b[0]);
 				record.setBatchSizeMax(""+b[1]);
 			}
-			record.setNewClientType("Batch");
-			record.setBatchMode(BatchMode.BATCH_MODE_TEMPORARY);
+			switch (mode) {
+			case 0:
+				record.setBatchMode(BatchMode.BATCH_MODE_COLLECT);
+				break;
+			case 1:
+				record.setNewClientType("Batch");
+				record.setBatchMode(BatchMode.BATCH_MODE_TEMPORARY);
+				break;
+			default:
+				record.setNewClientType("Batch");
+				record.setBatchMode(BatchMode.BATCH_MODE_TEMPORARY);
+				break;
+			}
 			element.setName(name);
 
 			return new ModelElementPosition[]{element};
