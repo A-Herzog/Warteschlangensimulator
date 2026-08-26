@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-16 00:36+0200\n"
+"POT-Creation-Date: 2026-08-18 00:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35574,6 +35574,9 @@ msgstr "ModelElementSignal"
 
 msgid "Surface.Signal.XML.SignalDelay"
 msgstr "ModelElementSignalDelayedExecution"
+
+msgid "Surface.Signal.XML.SignalDelay.Error"
+msgstr "The content of the %s of the %s element is invald. A non negative number has to be specified."
 
 msgid "Surface.SignalMulti.Condition"
 msgstr "Condition"

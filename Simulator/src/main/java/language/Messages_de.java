@@ -20490,6 +20490,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[53539] = "Ergebnisse in Datei %s gespeichert.";
     t[53546] = "Surface.Seize.Dialog.Title";
     t[53547] = "Ressourcenbelegung bearbeiten";
+    t[53554] = "Surface.Signal.XML.SignalDelay.Error";
+    t[53555] = "Der Inhalt des %s-Elements eines %s-Elements ist ung\u00fcltig. Es muss eine nichtnegative Zahl angegeben werden.";
     t[53586] = "Animation.IconDialog.Add";
     t[53587] = "Hinzuf\u00fcgen";
     t[53588] = "Surface.SignalMulti.Table.Heading.Add";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[57701] = "Alle Modelle l\u00f6schen.";
     t[57702] = "Statistics.Utilization.NumberOfOperators.Kurt";
     t[57703] = "Exzess (W\u00f6lbung) der Anzahl an vorhandenen Bedienern";
-    t[57716] = "ModelDescription.InteractiveSlider.Description.Variable";
-    t[57717] = "Variable";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[57716] = "ModelDescription.InteractiveSlider.Description.Variable";
+    t[57717] = "Variable";
     t[57728] = "Dialog.RandomNumbers.Error";
     t[57729] = "Die Anzahl an Zufallszahlen muss eine positive Ganzzahl sein.";
     t[57730] = "Simulation.Log.BatchingDisposeForOldClients.Info";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[62881] = "Bisherige Verweilzeit des aktuellen Kunden zuweisen";
     t[62884] = "Surface.Batch.Dialog.BatchSize.Error.Title";
     t[62885] = "Ung\u00fcltige Batch-Gr\u00f6\u00dfe";
-    t[62886] = "Editor.DialogBase.Search.ClientTypeClientTypeExpression";
-    t[62887] = "Ausdruck f\u00fcr Kundentypen \"%s\" -> \"%s\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[62886] = "Editor.DialogBase.Search.ClientTypeClientTypeExpression";
+    t[62887] = "Ausdruck f\u00fcr Kundentypen \"%s\" -> \"%s\"";
     t[62888] = "Resources.Group.EditName.Dialog.Failure.Number";
     t[62889] = "Ausfall nach Anzahl bedienter Kunden; Anzahl:";
     t[62896] = "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.DensityInfo";

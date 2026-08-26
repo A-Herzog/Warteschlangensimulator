@@ -283,7 +283,7 @@ public class ModelElementSignal extends ModelElementMultiInSingleOutBox implemen
 
 		if (Language.trAll("Surface.Signal.XML.SignalDelay",name)) {
 			final Double D=NumberTools.getNotNegativeDouble(content);
-			if (D==null) return String.format("Der Inhalt des %s-Elements eines %s-Elements ist ungültig. Es muss eine nichtnegative Zahl angegeben werden.",name,node.getParentNode().getNodeName());
+			if (D==null) return String.format(Language.tr("Surface.Signal.XML.SignalDelay.Error"),name,node.getParentNode().getNodeName());
 			signalDelay=D;
 			return null;
 		}

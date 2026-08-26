@@ -20490,6 +20490,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[53539] = "Results saved as file %s.";
     t[53546] = "Surface.Seize.Dialog.Title";
     t[53547] = "Edit seize resource";
+    t[53554] = "Surface.Signal.XML.SignalDelay.Error";
+    t[53555] = "The content of the %s of the %s element is invald. A non negative number has to be specified.";
     t[53586] = "Animation.IconDialog.Add";
     t[53587] = "Add";
     t[53588] = "Surface.SignalMulti.Table.Heading.Add";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[57701] = "Clear list.";
     t[57702] = "Statistics.Utilization.NumberOfOperators.Kurt";
     t[57703] = "Excess kurtosis of the number of available operators";
-    t[57716] = "ModelDescription.InteractiveSlider.Description.Variable";
-    t[57717] = "Variable";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[57716] = "ModelDescription.InteractiveSlider.Description.Variable";
+    t[57717] = "Variable";
     t[57728] = "Dialog.RandomNumbers.Error";
     t[57729] = "The number of random numbers must be a positive integer number.";
     t[57730] = "Simulation.Log.BatchingDisposeForOldClients.Info";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[62881] = "Assign the current residence time of the current client";
     t[62884] = "Surface.Batch.Dialog.BatchSize.Error.Title";
     t[62885] = "Invalid batch size";
-    t[62886] = "Editor.DialogBase.Search.ClientTypeClientTypeExpression";
-    t[62887] = "Expression for client types \"%s\" -> \"%s\"";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[62886] = "Editor.DialogBase.Search.ClientTypeClientTypeExpression";
+    t[62887] = "Expression for client types \"%s\" -> \"%s\"";
     t[62888] = "Resources.Group.EditName.Dialog.Failure.Number";
     t[62889] = "Failure by number of served clients; number:";
     t[62896] = "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.DensityInfo";
