@@ -345,6 +345,7 @@ public class EditModelExamples {
 		addExample(Language.trAll("Examples.ShorterQueue"),"ShorterQueue",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING);
 		addExample(Language.trAll("Examples.SingleMultiSkill"),"ZuweisungsstrategienSingleMultiSkill",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING,ExampleKeyWord.PRIORITIES);
 		addExample(Language.trAll("Examples.BatchWithTimedRelease"),"BatchWithTimedRelease",ExampleType.TYPE_PROPERTIES,ExampleKeyWord.BATCH);
+		addExample(Language.trAll("Examples.ResendOnCollision"),"ResendOnCollision",ExampleType.TYPE_COMPARE,ExampleKeyWord.ROUTING,ExampleKeyWord.TRANSPORT);
 
 		/* Beispiele, die mathematische Zusammenh‰nge verdeutlichen */
 		addExample(Language.trAll("Examples.LawOfLargeNumbers"),"GesetzDerGroﬂenZahlen",ExampleType.TYPE_MATH,ExampleKeyWord.MATH);

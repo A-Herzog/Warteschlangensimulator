@@ -1,0 +1,6 @@
+In dem Modell generiert eine Paketquelle zufällig zu sendende Datenpakete
+(in der Realität wären dies mehrere unabhängige Quellen). Belegen zwei
+Pakete gleichzeitig das Trägermedium, so können beide nicht korrekt
+empfangen werden. Eine erfolgreiche Quittierung bleibt aus und die Quelle
+startet nach einer zufälligen Zeit einen weiteren Sendeversuch. Nach mehreren
+erfolglosen Versuchen wird das Paket jedoch verworfen.

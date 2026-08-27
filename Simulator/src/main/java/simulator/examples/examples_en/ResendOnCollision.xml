@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>6.0.0</ModelVersion>
+  <ModelName>Resend on collision</ModelName>
+  <ModelDescription>In this model, a packet source generates data packets at random times to
+be transmitted (in reality, there would be multiple independent sources).
+If two packets occupy the transmission medium at the same time, neither
+can be received correctly. No successful acknowledgment is received, and
+the source initiates another transmission attempt after a random amount
+of time. However, after several unsuccessful attempts, the packet is
+discarded.</ModelDescription>
+  <ModelAuthor>Alexander Herzog</ModelAuthor>
+  <ModelClients Active="1">10000000</ModelClients>
+  <ModelWarmUpPhase>0.01</ModelWarmUpPhase>
+  <ModelTerminationTime Active="0">10:00:00:00</ModelTerminationTime>
+  <ModelElements>
+    <ModelElementSource id="1">
+      <ModelElementName>Packages</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="450"/>
+      <ModelElementConnection Element="8" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds">Exponential distribution (5)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
+    </ModelElementSource>
+    <ModelElementVariable id="3">
+      <ModelElementName>Set Collision</ModelElementName>
+      <ModelElementSize h="50" w="100" x="200" y="300"/>
+      <ModelElementConnection Element="9" Type="In"/>
+      <ModelElementConnection Element="6" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(1)">1</ModelElementAssignmentData>
+      <ModelElementVariableCondition>N(4)&gt;0</ModelElementVariableCondition>
+    </ModelElementVariable>
+    <ModelElementDelay id="4">
+      <ModelElementName>Air time</ModelElementName>
+      <ModelElementSize h="50" w="100" x="350" y="300"/>
+      <ModelElementConnection Element="6" Type="In"/>
+      <ModelElementConnection Element="7" Type="Out"/>
+      <ModelElementExpression TimeBase="Seconds" Type="ProcessTime">AirTime</ModelElementExpression>
+    </ModelElementDelay>
+    <ModelElementVariable id="5">
+      <ModelElementName>Set Collision</ModelElementName>
+      <ModelElementSize h="50" w="100" x="500" y="300"/>
+      <ModelElementConnection Element="7" Type="In"/>
+      <ModelElementConnection Element="12" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(1)">1</ModelElementAssignmentData>
+      <ModelElementVariableCondition>N(4)&gt;0</ModelElementVariableCondition>
+    </ModelElementVariable>
+    <ModelElementEdge id="6">
+      <ModelElementConnection Element1="3" Element2="4" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="7">
+      <ModelElementConnection Element1="4" Element2="5" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementDispose id="10">
+      <ModelElementName>Success</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1150" y="300"/>
+      <ModelElementConnection Element="34" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementDecide id="11">
+      <ModelElementName>Ok?</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="300"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="12" Type="In"/>
+      <ModelElementConnection Condition="ClientData(1)==0" Element="14" Type="Out"/>
+      <ModelElementConnection Element="26" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementEdge id="12">
+      <ModelElementConnection Element1="5" Element2="11" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementVariable id="16">
+      <ModelElementName>Reset Collision</ModelElementName>
+      <ModelElementSize h="50" w="100" x="650" y="150"/>
+      <ModelElementConnection Element="26" Type="In"/>
+      <ModelElementConnection Element="19" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(1)">0</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementDelay id="18">
+      <ModelElementName>Resend delay</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="150"/>
+      <ModelElementConnection Element="48" Type="In"/>
+      <ModelElementConnection Element="2" Type="Out"/>
+      <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Uniform distribution (5;25)</ModelElementDistribution>
+    </ModelElementDelay>
+    <ModelElementText id="31">
+      <ModelElementSize h="23" w="172" x="50" y="50"/>
+      <ModelElementTextLine>Resend on collision</ModelElementTextLine>
+      <ModelElementFontSize Markdown="1" Symbols="1" bold="1">18</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationPieDiagram id="37">
+      <ModelElementSize h="130" w="130" x="800" y="400"/>
+      <ModelElementLineWidth>0</ModelElementLineWidth>
+      <ModelElementLineColor>0,0,0</ModelElementLineColor>
+      <ModelElementSegmentLabel>BigSegments</ModelElementSegmentLabel>
+      <ModelElementSegmentDisplay>RingSegment</ModelElementSegmentDisplay>
+      <ModelElementDiagramElement SegmentColor="0,180,0">Part(13;1)</ModelElementDiagramElement>
+      <ModelElementDiagramElement SegmentColor="225,0,225">Part(13;2)</ModelElementDiagramElement>
+      <ModelElementDiagramElement SegmentColor="255,0,0">Part(20)</ModelElementDiagramElement>
+    </ModelElementAnimationPieDiagram>
+    <ModelElementAnimationText id="38">
+      <ModelElementName>Average actual transmission time (sucess+loss)</ModelElementName>
+      <ModelElementSize h="30" w="201" x="1000" y="400"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Verweilzeit_Avg()</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Posttext=" sec." Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="15">
+      <ModelElementName>Theoretical utilization</ModelElementName>
+      <ModelElementSize h="30" w="98" x="50" y="520"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">NumberOut(1)/TNow()*1</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementVariable id="17">
+      <ModelElementName>Send Count</ModelElementName>
+      <ModelElementSize h="50" w="100" x="50" y="300"/>
+      <ModelElementConnection Element="2" Type="In"/>
+      <ModelElementConnection Element="8" Type="In"/>
+      <ModelElementConnection Element="9" Type="Out"/>
+      <ModelElementAssignmentData Variable="ClientData(2)">ClientData(2)+1</ModelElementAssignmentData>
+    </ModelElementVariable>
+    <ModelElementDecide id="21">
+      <ModelElementSize h="50" w="100" x="400" y="150"/>
+      <ModelElementDecideMode>Condition</ModelElementDecideMode>
+      <ModelElementConnection Element="19" Type="In"/>
+      <ModelElementConnection Condition="ClientData(2)&lt;MaxRetrys" Element="22" Type="Out"/>
+      <ModelElementConnection Element="23" Type="Out"/>
+    </ModelElementDecide>
+    <ModelElementDispose id="24">
+      <ModelElementName>Discard</ModelElementName>
+      <ModelElementSize h="50" w="100" x="700" y="50"/>
+      <ModelElementConnection Element="36" Type="In"/>
+    </ModelElementDispose>
+    <ModelElementCounterMulti id="13">
+      <ModelElementName>SuccessType</ModelElementName>
+      <ModelElementSize h="50" w="100" x="850" y="300"/>
+      <ModelElementConnection Element="14" Type="In"/>
+      <ModelElementConnection Element="33" Type="Out"/>
+      <ModelElementCounterGroup>SuccessType</ModelElementCounterGroup>
+      <ModelElementCounterMultiCounter Condition="ClientData(2)==1">FirstTry</ModelElementCounterMultiCounter>
+      <ModelElementCounterMultiCounter>WasResend</ModelElementCounterMultiCounter>
+    </ModelElementCounterMulti>
+    <ModelElementEdge id="2">
+      <ModelElementConnection Element1="18" Element2="17" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="8">
+      <ModelElementName>Arrivals (Packages)</ModelElementName>
+      <ModelElementConnection Element1="1" Element2="17" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="9">
+      <ModelElementConnection Element1="17" Element2="3" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="19">
+      <ModelElementConnection Element1="16" Element2="21" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementCounter id="20">
+      <ModelElementName>Discard</ModelElementName>
+      <ModelElementSize h="50" w="100" x="400" y="50"/>
+      <ModelElementConnection Element="23" Type="In"/>
+      <ModelElementConnection Element="35" Type="Out"/>
+      <ModelElementCounterGroup>SuccessType</ModelElementCounterGroup>
+    </ModelElementCounter>
+    <ModelElementEdge id="14">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="11" Element2="13" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="26">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="11" Element2="16" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementAnimationText id="28">
+      <ModelElementName>First-attempt success rate</ModelElementName>
+      <ModelElementSize h="30" w="111" x="650" y="405"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,180,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(13;1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="29">
+      <ModelElementName>Success rate after retry</ModelElementName>
+      <ModelElementSize h="30" w="101" x="650" y="455"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>210,0,210</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(13;2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="30">
+      <ModelElementName>Package loss rate</ModelElementName>
+      <ModelElementSize h="30" w="98" x="650" y="500"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>255,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Percent value">Part(20)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="32">
+      <ModelElementName>Average number of transmission attempts (success+loss)</ModelElementName>
+      <ModelElementSize h="30" w="243" x="1000" y="450"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Statistik_avg(27;1)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementUserStatistics id="27">
+      <ModelElementName>Send count</ModelElementName>
+      <ModelElementSize h="50" w="100" x="1000" y="300"/>
+      <ModelElementConnection Element="33" Type="In"/>
+      <ModelElementConnection Element="34" Type="Out"/>
+      <ModelElementUserStatisticsRecord IsContinuous="0" IsTime="0" Key="SendCount">ClientData(2)</ModelElementUserStatisticsRecord>
+      <ModelElementUserStatisticsRecord IsContinuous="0" IsTime="1" Key="SendCountSuccess">ClientData(2)</ModelElementUserStatisticsRecord>
+    </ModelElementUserStatistics>
+    <ModelElementEdge id="33">
+      <ModelElementConnection Element1="13" Element2="27" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="34">
+      <ModelElementConnection Element1="27" Element2="10" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementUserStatistics id="25">
+      <ModelElementName>Send count</ModelElementName>
+      <ModelElementSize h="50" w="100" x="550" y="50"/>
+      <ModelElementConnection Element="35" Type="In"/>
+      <ModelElementConnection Element="36" Type="Out"/>
+      <ModelElementUserStatisticsRecord IsContinuous="0" IsTime="0" Key="SendCount">ClientData(2)</ModelElementUserStatisticsRecord>
+    </ModelElementUserStatistics>
+    <ModelElementEdge id="35">
+      <ModelElementConnection Element1="20" Element2="25" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="36">
+      <ModelElementConnection Element1="25" Element2="24" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementText id="39">
+      <ModelElementSize h="32" w="168" x="50" y="555"/>
+      <ModelElementTextLine>Ratio of sended new packages</ModelElementTextLine>
+      <ModelElementTextLine>to needed sending time</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" italic="1">12</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementAnimationText id="40">
+      <ModelElementName>Average number of transmission attempts of the successful packages</ModelElementName>
+      <ModelElementSize h="30" w="297" x="1000" y="500"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">Statistik_avg(27;2)</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="43">
+      <ModelElementName>Number of transmission attempts of lost packages is always</ModelElementName>
+      <ModelElementSize h="30" w="256" x="1000" y="550"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,255</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">MaxRetrys</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="42">
+      <ModelElementName>Required actual airtime</ModelElementName>
+      <ModelElementSize h="30" w="96" x="350" y="375"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">AirTime</ModelElementAnimationMode>
+      <ModelElementAnimationTextAddon Posttext=" sec." Symbols="1"/>
+    </ModelElementAnimationText>
+    <ModelElementAnimationText id="41">
+      <ModelElementName>Number of transmission attempts per packet</ModelElementName>
+      <ModelElementSize h="30" w="188" x="550" y="120"/>
+      <ModelElementFontSize bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+      <ModelElementAnimationMode Type="Number">MaxRetrys</ModelElementAnimationMode>
+    </ModelElementAnimationText>
+    <ModelElementText id="44">
+      <ModelElementSize h="133" w="467" x="850" y="50"/>
+      <ModelElementTextLine>In this model, a packet source generates data packets at random times to</ModelElementTextLine>
+      <ModelElementTextLine>be transmitted (in reality, there would be multiple independent sources).</ModelElementTextLine>
+      <ModelElementTextLine>If two packets occupy the transmission medium at the same time, neither</ModelElementTextLine>
+      <ModelElementTextLine>can be received correctly. No successful acknowledgment is received, and</ModelElementTextLine>
+      <ModelElementTextLine>the source initiates another transmission attempt after a random amount</ModelElementTextLine>
+      <ModelElementTextLine>of time. However, after several unsuccessful attempts, the packet is</ModelElementTextLine>
+      <ModelElementTextLine>discarded.</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
+      <ModelElementColor>0,0,0</ModelElementColor>
+    </ModelElementText>
+    <ModelElementRectangle id="45">
+      <ModelElementSize h="175" w="440" x="180" y="250"/>
+      <ModelElementLineWidth>2</ModelElementLineWidth>
+      <ModelElementColor>0,180,180</ModelElementColor>
+    </ModelElementRectangle>
+    <ModelElementText id="46">
+      <ModelElementSize h="19" w="209" x="185" y="255"/>
+      <ModelElementTextLine>Carrier medium (air) occupied</ModelElementTextLine>
+      <ModelElementFontSize Symbols="1" bold="1">14</ModelElementFontSize>
+      <ModelElementColor>0,165,165</ModelElementColor>
+    </ModelElementText>
+    <ModelElementIcon id="47">
+      <ModelElementSize h="50" w="100" x="200" y="150"/>
+      <ModelElementConnection Element="22" Type="In"/>
+      <ModelElementConnection Element="48" Type="Out"/>
+      <ModelElementIconName>flag_purple</ModelElementIconName>
+    </ModelElementIcon>
+    <ModelElementEdge id="22">
+      <ModelElementName>Condition 1</ModelElementName>
+      <ModelElementConnection Element1="21" Element2="47" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="23">
+      <ModelElementName>Case "else"</ModelElementName>
+      <ModelElementConnection Element1="21" Element2="20" Type="Edge"/>
+    </ModelElementEdge>
+    <ModelElementEdge id="48">
+      <ModelElementConnection Element1="47" Element2="18" Type="Edge"/>
+    </ModelElementEdge>
+  </ModelElements>
+  <Resources SecondaryPriority="Random"/>
+  <ClientTypeData>
+    <ClientData Icon="icon_package" Name="Packages"/>
+  </ClientTypeData>
+  <InitialVariable Name="MaxRetrys">5</InitialVariable>
+  <InitialVariable Name="AirTime">1</InitialVariable>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
+</Model>

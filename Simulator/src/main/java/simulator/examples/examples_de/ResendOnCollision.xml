@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
+<Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>6.0.0</ModellVersion>
+  <ModellName>Resend on collision</ModellName>
+  <ModellBeschreibung>In dem Modell generiert eine Paketquelle zufällig zu sendende Datenpakete
+(in der Realität wären dies mehrere unabhängige Quellen). Belegen zwei
+Pakete gleichzeitig das Trägermedium, so können beide nicht korrekt
+empfangen werden. Eine erfolgreiche Quittierung bleibt aus und die Quelle
+startet nach einer zufälligen Zeit einen weiteren Sendeversuch. Nach mehreren
+erfolglosen Versuchen wird das Paket jedoch verworfen.</ModellBeschreibung>
+  <ModellAutor>Alexander Herzog</ModellAutor>
+  <ModellKunden Aktiv="1">10000000</ModellKunden>
+  <ModellAufwaermphase>0.01</ModellAufwaermphase>
+  <ModellAbbruchzeit Aktiv="0">10:00:00:00</ModellAbbruchzeit>
+  <ModellElemente>
+    <ModellElementQuelle id="1">
+      <ModellElementName>Packages</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="450"/>
+      <ModellElementVerbindung Element="8" Typ="Auslaufend"/>
+      <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (5)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
+    </ModellElementQuelle>
+    <ModellElementVariable id="3">
+      <ModellElementName>Set Collision</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="200" y="300"/>
+      <ModellElementVerbindung Element="9" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="6" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(1)">1</ModellElementVariablenzuweisung>
+      <ModellElementVariableBedingung>N(4)&gt;0</ModellElementVariableBedingung>
+    </ModellElementVariable>
+    <ModellElementVerzoegerung id="4">
+      <ModellElementName>Air time</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="350" y="300"/>
+      <ModellElementVerbindung Element="6" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
+      <ModellElementAusdruck Typ="Bedienzeit" Zeitbasis="Sekunden">AirTime</ModellElementAusdruck>
+    </ModellElementVerzoegerung>
+    <ModellElementVariable id="5">
+      <ModellElementName>Set Collision</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="500" y="300"/>
+      <ModellElementVerbindung Element="7" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="12" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(1)">1</ModellElementVariablenzuweisung>
+      <ModellElementVariableBedingung>N(4)&gt;0</ModellElementVariableBedingung>
+    </ModellElementVariable>
+    <ModellElementKante id="6">
+      <ModellElementVerbindung Element1="3" Element2="4" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="7">
+      <ModellElementVerbindung Element1="4" Element2="5" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementEnde id="10">
+      <ModellElementName>Success</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1150" y="300"/>
+      <ModellElementVerbindung Element="34" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementVerzweigen id="11">
+      <ModellElementName>Ok?</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="300"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="12" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="ClientData(1)==0" Element="14" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementKante id="12">
+      <ModellElementVerbindung Element1="5" Element2="11" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementVariable id="16">
+      <ModellElementName>Reset Collision</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="650" y="150"/>
+      <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="19" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(1)">0</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementVerzoegerung id="18">
+      <ModellElementName>Resend delay</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="150"/>
+      <ModellElementVerbindung Element="48" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="2" Typ="Auslaufend"/>
+      <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Gleichverteilung (5;25)</ModellElementVerteilung>
+    </ModellElementVerzoegerung>
+    <ModellElementText id="31">
+      <ModellElementGroesse h="23" w="172" x="50" y="50"/>
+      <ModellElementTextzeile>Resend on collision</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Markdown="1" Symbole="1" fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationTortenDiagramm id="37">
+      <ModellElementGroesse h="130" w="130" x="800" y="400"/>
+      <ModellElementLinienBreite>0</ModellElementLinienBreite>
+      <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
+      <ModellElementSegmentBeschriftung>GrosseSegmente</ModellElementSegmentBeschriftung>
+      <ModellElementSegmentDarstellung>Ringsegment</ModellElementSegmentDarstellung>
+      <ModellElementDiagrammElement Segmentfarbe="0,180,0">Part(13;1)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Segmentfarbe="225,0,225">Part(13;2)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Segmentfarbe="255,0,0">Part(20)</ModellElementDiagrammElement>
+    </ModellElementAnimationTortenDiagramm>
+    <ModellElementAnimationText id="38">
+      <ModellElementName>Mittlere tatsächliche Übertragungszeit (Erfolg+Verlustpakete)</ModellElementName>
+      <ModellElementGroesse h="30" w="252" x="1000" y="400"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Verweilzeit_Avg()</ModellElementAnimationsmodus>
+      <ModellElementAnimationTextZusatz Posttext=" Sek." Symbole="1"/>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="15">
+      <ModellElementName>Theoretische Auslastung</ModellElementName>
+      <ModellElementGroesse h="30" w="102" x="50" y="520"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">NumberOut(1)/TNow()*1</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementVariable id="17">
+      <ModellElementName>Send Count</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="50" y="300"/>
+      <ModellElementVerbindung Element="2" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="8" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="9" Typ="Auslaufend"/>
+      <ModellElementVariablenzuweisung Variable="ClientData(2)">ClientData(2)+1</ModellElementVariablenzuweisung>
+    </ModellElementVariable>
+    <ModellElementVerzweigen id="21">
+      <ModellElementGroesse h="50" w="100" x="400" y="150"/>
+      <ModellElementVerzweigungsmodus>Bedingung</ModellElementVerzweigungsmodus>
+      <ModellElementVerbindung Element="19" Typ="Einlaufend"/>
+      <ModellElementVerbindung Bedingung="ClientData(2)&lt;MaxRetrys" Element="22" Typ="Auslaufend"/>
+      <ModellElementVerbindung Element="23" Typ="Auslaufend"/>
+    </ModellElementVerzweigen>
+    <ModellElementEnde id="24">
+      <ModellElementName>Discard</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="700" y="50"/>
+      <ModellElementVerbindung Element="36" Typ="Einlaufend"/>
+    </ModellElementEnde>
+    <ModellElementZaehlerMehrfach id="13">
+      <ModellElementName>SuccessType</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="850" y="300"/>
+      <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="33" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>SuccessType</ModellElementZaehlerGruppe>
+      <ModellElementZaehlerMehrfachZaehler Bedingung="ClientData(2)==1">FirstTry</ModellElementZaehlerMehrfachZaehler>
+      <ModellElementZaehlerMehrfachZaehler>WasResend</ModellElementZaehlerMehrfachZaehler>
+    </ModellElementZaehlerMehrfach>
+    <ModellElementKante id="2">
+      <ModellElementVerbindung Element1="18" Element2="17" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="8">
+      <ModellElementName>Ankünfte (Packages)</ModellElementName>
+      <ModellElementVerbindung Element1="1" Element2="17" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="9">
+      <ModellElementVerbindung Element1="17" Element2="3" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="19">
+      <ModellElementVerbindung Element1="16" Element2="21" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementZaehler id="20">
+      <ModellElementName>Discard</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="400" y="50"/>
+      <ModellElementVerbindung Element="23" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="35" Typ="Auslaufend"/>
+      <ModellElementZaehlerGruppe>SuccessType</ModellElementZaehlerGruppe>
+    </ModellElementZaehler>
+    <ModellElementKante id="14">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="11" Element2="13" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="26">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="11" Element2="16" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementAnimationText id="28">
+      <ModellElementName>Anteil Erfolg im ersten Versuch</ModellElementName>
+      <ModellElementGroesse h="30" w="130" x="650" y="405"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,180,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(13;1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="29">
+      <ModellElementName>Anteil Erfolg nach Wiederholung</ModellElementName>
+      <ModellElementGroesse h="30" w="133" x="650" y="455"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>210,0,210</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(13;2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="30">
+      <ModellElementName>Anteil Verlust</ModellElementName>
+      <ModellElementGroesse h="30" w="85" x="650" y="500"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>255,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Prozentwert">Part(20)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="32">
+      <ModellElementName>Mittlere Anzahl an Sendeversuchen (Erfolg+Verlustpakete)</ModellElementName>
+      <ModellElementGroesse h="30" w="242" x="1000" y="450"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Statistik_avg(27;1)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementBenutzerstatistik id="27">
+      <ModellElementName>Send count</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="1000" y="300"/>
+      <ModellElementVerbindung Element="33" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="34" Typ="Auslaufend"/>
+      <ModellElementBenutzerstatistikEintrag Bezeichner="SendCount" IstKontinuierlich="0" IstZeitangabe="0">ClientData(2)</ModellElementBenutzerstatistikEintrag>
+      <ModellElementBenutzerstatistikEintrag Bezeichner="SendCountSuccess" IstKontinuierlich="0" IstZeitangabe="1">ClientData(2)</ModellElementBenutzerstatistikEintrag>
+    </ModellElementBenutzerstatistik>
+    <ModellElementKante id="33">
+      <ModellElementVerbindung Element1="13" Element2="27" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="34">
+      <ModellElementVerbindung Element1="27" Element2="10" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementBenutzerstatistik id="25">
+      <ModellElementName>Send count</ModellElementName>
+      <ModellElementGroesse h="50" w="100" x="550" y="50"/>
+      <ModellElementVerbindung Element="35" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="36" Typ="Auslaufend"/>
+      <ModellElementBenutzerstatistikEintrag Bezeichner="SendCount" IstKontinuierlich="0" IstZeitangabe="0">ClientData(2)</ModellElementBenutzerstatistikEintrag>
+    </ModellElementBenutzerstatistik>
+    <ModellElementKante id="35">
+      <ModellElementVerbindung Element1="20" Element2="25" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="36">
+      <ModellElementVerbindung Element1="25" Element2="24" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementText id="39">
+      <ModellElementGroesse h="32" w="196" x="50" y="555"/>
+      <ModellElementTextzeile>Verhältnis von gesendeten neuen</ModellElementTextzeile>
+      <ModellElementTextzeile>Paketen zur notwendiger Sendezeit</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">12</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementAnimationText id="40">
+      <ModellElementName>Mittlere Anzahl an Sendeversuchen der erfolgreichen Pakete</ModellElementName>
+      <ModellElementGroesse h="30" w="251" x="1000" y="500"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">Statistik_avg(27;2)</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="43">
+      <ModellElementName>Anzahl an Sendeversuchen der Verlustpakete ist immer</ModellElementName>
+      <ModellElementGroesse h="30" w="231" x="1000" y="550"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,255</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">MaxRetrys</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="42">
+      <ModellElementName>Notwendige tatsächliche Sendezeit</ModellElementName>
+      <ModellElementGroesse h="30" w="144" x="350" y="375"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">AirTime</ModellElementAnimationsmodus>
+      <ModellElementAnimationTextZusatz Posttext=" Sek." Symbole="1"/>
+    </ModellElementAnimationText>
+    <ModellElementAnimationText id="41">
+      <ModellElementName>Anzahl an Sendeversuchen pro Paket</ModellElementName>
+      <ModellElementGroesse h="30" w="156" x="550" y="120"/>
+      <ModellElementSchriftgrosse fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+      <ModellElementAnimationsmodus Art="Zahlenwert">MaxRetrys</ModellElementAnimationsmodus>
+    </ModellElementAnimationText>
+    <ModellElementText id="44">
+      <ModellElementGroesse h="133" w="456" x="850" y="50"/>
+      <ModellElementTextzeile>In dem Modell generiert eine Paketquelle zufällig zu sendende</ModellElementTextzeile>
+      <ModellElementTextzeile>Datenpakete (in der Realität wären dies mehrere unabhängige Quellen).</ModellElementTextzeile>
+      <ModellElementTextzeile>Belegen zwei Pakete gleichzeitig das Trägermedium, so können beide</ModellElementTextzeile>
+      <ModellElementTextzeile>nicht korrekt empfangen werden. Eine erfolgreiche Quittierung bleibt</ModellElementTextzeile>
+      <ModellElementTextzeile>aus und die Quelle startet nach einer zufälligen Zeit einen weiteren</ModellElementTextzeile>
+      <ModellElementTextzeile>Sendeversuch. Nach mehreren erfolglosen Versuchen wird das Paket</ModellElementTextzeile>
+      <ModellElementTextzeile>jedoch verworfen.</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,0,0</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementKasten id="45">
+      <ModellElementGroesse h="175" w="440" x="180" y="250"/>
+      <ModellElementLinienBreite>2</ModellElementLinienBreite>
+      <ModellElementFarbe>0,180,180</ModellElementFarbe>
+    </ModellElementKasten>
+    <ModellElementText id="46">
+      <ModellElementGroesse h="19" w="191" x="185" y="255"/>
+      <ModellElementTextzeile>Trägermedium (Luft) belegt</ModellElementTextzeile>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">14</ModellElementSchriftgrosse>
+      <ModellElementFarbe>0,165,165</ModellElementFarbe>
+    </ModellElementText>
+    <ModellElementIcon id="47">
+      <ModellElementGroesse h="50" w="100" x="200" y="150"/>
+      <ModellElementVerbindung Element="22" Typ="Einlaufend"/>
+      <ModellElementVerbindung Element="48" Typ="Auslaufend"/>
+      <ModellElementIconName>flag_purple</ModellElementIconName>
+    </ModellElementIcon>
+    <ModellElementKante id="22">
+      <ModellElementName>Bedingung 1</ModellElementName>
+      <ModellElementVerbindung Element1="21" Element2="47" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="23">
+      <ModellElementName>Fall "sonst"</ModellElementName>
+      <ModellElementVerbindung Element1="21" Element2="20" Typ="Kante"/>
+    </ModellElementKante>
+    <ModellElementKante id="48">
+      <ModellElementVerbindung Element1="47" Element2="18" Typ="Kante"/>
+    </ModellElementKante>
+  </ModellElemente>
+  <Ressourcen UntergeordnetePrioritaet="Zufaellig"/>
+  <KundentypenDaten>
+    <KundenDaten Icon="icon_package" Name="Packages"/>
+  </KundentypenDaten>
+  <InitialeVariable Name="MaxRetrys">5</InitialeVariable>
+  <InitialeVariable Name="AirTime">1</InitialeVariable>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
+</Modell>

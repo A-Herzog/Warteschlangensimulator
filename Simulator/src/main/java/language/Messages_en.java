@@ -17932,6 +17932,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46675] = "ModelElementSliderStepWide";
     t[46680] = "Surface.Source.XML.DataStream.Count";
     t[46681] = "Count";
+    t[46682] = "Examples.ResendOnCollision";
+    t[46683] = "Resend on collision";
     t[46696] = "CommandLine.SetNumberFormat.Changed";
     t[46697] = "The decimal separator mode was changed from \"%s\" to \"%s\".";
     t[46698] = "Simulation.Element.SectionEnd.Name";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46973] = "ModelTerminationConfidence";
     t[46974] = "ExpressionBuilder.SimulationCharacteristics.WaitingTimesAtStations.VarianceOfTheTime";
     t[46975] = "<p>Returns the variance over all waiting times that have occurred at the station whose ID was specified in the parameter (over all client types).</p>";
-    t[46976] = "Surface.Action.XML.Record.ActionType.Stopp";
-    t[46977] = "Stopp";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[46976] = "Surface.Action.XML.Record.ActionType.Stopp";
+    t[46977] = "Stopp";
     t[46980] = "JDataLoader.ImportErrorFileError";
     t[46981] = "The file %s could not be loaded.";
     t[46982] = "ExpressionBuilder.ProbabilityDistributions.BinomialDistribution.RandomNumberInfo";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52451] = "Sequences";
     t[52456] = "Surface.Process.Dialog.Priority.Error.Title";
     t[52457] = "Invalid priority";
-    t[52460] = "Surface.PopupMenu.SimulationStatisticsData.SaveError.Info";
-    t[52461] = "An error occured while saving the data to file\n%s.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[52460] = "Surface.PopupMenu.SimulationStatisticsData.SaveError.Info";
+    t[52461] = "An error occured while saving the data to file\n%s.";
     t[52466] = "Statistics.CounterBatch";
     t[52467] = "Batch counter";
     t[52470] = "BuildClientSourceTable.Setup.ModeColumn.Text";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[57697] = "Right sawtooth distribution";
     t[57700] = "ParameterCompare.Table.DeleteModel.Confirm.InfoAllYes";
     t[57701] = "Clear list.";
-    t[57702] = "Statistics.Utilization.NumberOfOperators.Kurt";
-    t[57703] = "Excess kurtosis of the number of available operators";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[57702] = "Statistics.Utilization.NumberOfOperators.Kurt";
+    t[57703] = "Excess kurtosis of the number of available operators";
     t[57716] = "ModelDescription.InteractiveSlider.Description.Variable";
     t[57717] = "Variable";
     t[57728] = "Dialog.RandomNumbers.Error";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[62879] = "DDE server";
     t[62880] = "Surface.Set.Table.Edit.Mode.ResidenceTime";
     t[62881] = "Assign the current residence time of the current client";
-    t[62884] = "Surface.Batch.Dialog.BatchSize.Error.Title";
-    t[62885] = "Invalid batch size";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[62884] = "Surface.Batch.Dialog.BatchSize.Error.Title";
+    t[62885] = "Invalid batch size";
     t[62886] = "Editor.DialogBase.Search.ClientTypeClientTypeExpression";
     t[62887] = "Expression for client types \"%s\" -> \"%s\"";
     t[62888] = "Resources.Group.EditName.Dialog.Failure.Number";
