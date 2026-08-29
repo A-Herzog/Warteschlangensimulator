@@ -7,7 +7,7 @@
 	<property name="SimSystem.location" location="../../SimSystem" />
 	<property name="BuildTools.location" location="." />
 	<property name="NSIS.location" location="C:\Program Files (x86)\NSIS" />
-	<property name="Signer.location" location="C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64" /> 
+	<property name="Signer.location" location="C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64" />
 	<property name="sed.location" location="../language/sed/bin" />
 	<property name="pdfLaTeX32.location" location="C:/Program Files (x86)/MiKTeX 2.9/miktex/bin"/>
 	<property name="pdfLaTeX64.location" location="C:/Program Files/MiKTeX 2.9/miktex/bin/x64"/>
@@ -405,9 +405,8 @@
 		</exec>
 		<move file="${BuildTools.location}/Simulator.exe" tofile="${Release.location}/Simulator.exe" />
 
-		<copy file="${BuildTools.location}/Simulator-CLI.sh" tofile="${Release.location}/Simulator-CLI.sh" />
-		<copy file="${BuildTools.location}/Simulator-GUI.sh" tofile="${Release.location}/Simulator-GUI.sh" />
-		<copy file="${BuildTools.location}/Simulator-GUI-2x.sh" tofile="${Release.location}/Simulator-GUI-2x.sh" />
+		<copy file="${BuildTools.location}/Simulator-CLI.sh" tofile="${Release.location}/warteschlangensimulator-cli.sh" />
+		<copy file="${BuildTools.location}/Simulator-GUI.sh" tofile="${Release.location}/warteschlangensimulator-gui.sh" />
 		<copy file="${BuildTools.location}/Simulator.bat" tofile="${Release.location}/Simulator.bat" />
 		<copy file="${BuildTools.location}/SimulatorCLI.bat" tofile="${Release.location}/SimulatorCLI.bat" />
 		<copy file="${BuildTools.location}/Splashscreen.png" tofile="${Release.location}/libs/simulator.png" />
@@ -458,7 +457,7 @@
 		<zip destfile="${Release.location}/Simulator_Windows.zip" level="9">
 		  <zipfileset
 		  	dir="${Release.location}"
-		  	includes="Simulator.jar,Simulator.exe,Simulator-CLI.sh,Simulator-GUI.sh,Simulator-GUI-2x.sh,Simulator.bat,Splashscreen.png,Splashscreen@125pct.png,Splashscreen@150pct.png,SimulatorCLI.bat,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"
+		  	includes="Simulator.jar,Simulator.exe,warteschlangensimulator-cli.sh,warteschlangensimulator-gui.sh,Simulator.bat,Splashscreen.png,Splashscreen@125pct.png,Splashscreen@150pct.png,SimulatorCLI.bat,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"
 		  	excludes="**/*.sh"
 		  />
 		  <zipfileset dir="${Simulator.location}/tools/JDDE" includes="*.dll"/>
@@ -466,7 +465,7 @@
 		<zip destfile="${Release.location}/Simulator_Linux.zip" level="9">
 		  <zipfileset
 		  	dir="${Release.location}"
-		  	includes="Simulator.jar,Simulator.exe,Simulator-CLI.sh,Simulator-GUI.sh,Simulator-GUI-2x.sh,Simulator.bat,Splashscreen.png,Splashscreen@125pct.png,Splashscreen@150pct.png,SimulatorCLI.bat,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"
+		  	includes="Simulator.jar,Simulator.exe,warteschlangensimulator-cli.sh,warteschlangensimulator-gui.sh,Simulator.bat,Splashscreen.png,Splashscreen@125pct.png,Splashscreen@150pct.png,SimulatorCLI.bat,JDBC.cfg,docs/**,libs/**,tools/**,userscripts/**,dictionaries/**"
 		  	excludes="**/*.exe,**/*.bat"
 		  />
 		</zip>
@@ -474,9 +473,8 @@
 		<echo message="Clean up" />
 		<delete file="${Release.location}/Simulator.exe" />
 		<delete file="${Release.location}/Simulator.ico" />
-		<delete file="${Release.location}/Simulator-CLI.sh" />
-		<delete file="${Release.location}/Simulator-GUI.sh" />
-		<delete file="${Release.location}/Simulator-GUI-2x.sh" />
+		<delete file="${Release.location}/warteschlangensimulator-cli.sh" />
+		<delete file="${Release.location}/warteschlangensimulator-gui.sh" />
 		<delete file="${Release.location}/Simulator.bat" />
 		<delete file="${Release.location}/Splashscreen.png" />
 		<delete file="${Release.location}/Splashscreen@125pct.png" />

@@ -20,14 +20,14 @@ fi
 
 if [ ! -f "${DIR}/pkg2appimage-1807-x86_64.AppImage" ]
 then
-  wget https://github.com/AppImage/pkg2appimage/releases/download/continuous/pkg2appimage-1807-x86_64.AppImage
+  wget https://github.com/AppImageCommunity/pkg2appimage/releases/download/continuous/pkg2appimage-1eceb30-x86_64.AppImage
 fi
-chmod u+x pkg2appimage-1807-x86_64.AppImage
+chmod u+x pkg2appimage-1eceb30-x86_64.AppImage
 
 rm -rf "${DIR}/Warteschlangensimulator"
 rm -rf "${DIR}/out"
 
-./pkg2appimage-1807-x86_64.AppImage AppImageBuilder.yml
+./pkg2appimage-1eceb30-x86_64.AppImage AppImageBuilder.yml
 
 mv ${DIR}/out/Warteschlangensimulator-.*.AppImage "${DIR}/Warteschlangensimulator-x86_64.AppImage"
 

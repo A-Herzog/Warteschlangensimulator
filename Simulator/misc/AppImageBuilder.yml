@@ -24,7 +24,7 @@ script:
   # Move simulator binaries to target folder
   - mkdir -p usr/bin
   - mv ../Simulator/* ./usr/bin/
-  - chmod u+x ./usr/bin/Simulator-GUI.sh  
+  - chmod u+x ./usr/bin/warteschlangensimulator-gui.sh  
   - rmdir ../Simulator/
   # Move icon to target folder
   - mkdir -p usr/share/icons/hicolor/16x16/apps  
@@ -42,7 +42,7 @@ script:
   - GenericName=Warteschlangensimulator
   - Comment=Warteschlangensimulator
   - Type=Application
-  - Exec=Simulator-GUI.sh %u
+  - Exec=warteschlangensimulator-gui.sh %u
   - EOF
   - cp usr/share/applications/Warteschlangensimulator.desktop Warteschlangensimulator.desktop
   
@@ -52,7 +52,7 @@ AppDir:
   app_info:
     id: io.github.a-herzog
     name: Warteschlangensimulator
-    exec: "$APPDIR/usr/bin/Simulator-GUI.sh"
+    exec: "$APPDIR/usr/bin/warteschlangensimulator-gui.sh"
     exec_args: "$@"
 
   runtime:
