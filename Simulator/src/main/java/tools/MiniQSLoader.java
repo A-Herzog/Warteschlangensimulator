@@ -55,6 +55,8 @@ import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementDispose;
 import ui.modeleditor.elements.ModelElementDuplicate;
 import ui.modeleditor.elements.ModelElementEdge;
+import ui.modeleditor.elements.ModelElementMatch;
+import ui.modeleditor.elements.ModelElementMatch.MatchMode;
 import ui.modeleditor.elements.ModelElementProcess;
 import ui.modeleditor.elements.ModelElementSeparate;
 import ui.modeleditor.elements.ModelElementSet;
@@ -805,6 +807,39 @@ public class MiniQSLoader {
 		}
 
 		/**
+		 * Erzeugt eine Match-Station aus dem json-Basisobjekt.
+		 * @param model	Übergeordnetes Modell für das neue Element
+		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
+		 */
+		private ModelElementPosition[] loadMatch(final EditModel model) {
+			final JSONObject setup=getSetup();
+			if (setup==null) return null;
+
+			int mode=loadInt(setup,"batchMode");
+			if (mode<0) mode=1;
+			if (mode>1) return null;
+
+			final ModelElementMatch element=new ModelElementMatch(model,model.surface);
+
+			switch (mode) {
+			case 0:
+				element.setMatchMode(MatchMode.MATCH_MODE_COLLECT);
+				break;
+			case 1:
+				element.setMatchMode(MatchMode.MATCH_MODE_TEMPORARY);
+				element.setNewClientType("Match");
+				break;
+			default:
+				element.setMatchMode(MatchMode.MATCH_MODE_TEMPORARY);
+				element.setNewClientType("Match");
+				break;
+			}
+			element.setName(name);
+
+			return new ModelElementPosition[]{element};
+		}
+
+		/**
 		 * Erzeugt ein Signal aus dem json-Basisobjekt.
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
@@ -983,6 +1018,7 @@ public class MiniQSLoader {
 			case "Dispose": modelElements=loadDispose(model); break;
 			case "Batch": modelElements=loadBatch(model); break;
 			case "Separate": modelElements=loadSeparate(model); break;
+			case "Match": modelElements=loadMatch(model); break;
 			case "Signal": modelElements=loadSignal(model); break;
 			case "Barrier": modelElements=loadBarrier(model); break;
 			case "Text": modelElements=loadText(model); break;
