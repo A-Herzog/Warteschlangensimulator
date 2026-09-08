@@ -21,6 +21,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -397,6 +398,28 @@ public class ScriptEditorAreaBuilder {
 	}
 
 	/**
+	 * Überladene Version von {@link RSyntaxTextArea}, die
+	 * einen Fokus-Fehler in Version 4.0.1 korrigiert.
+	 */
+	private static class RSyntaxTextAreaExt extends RSyntaxTextArea {
+		/**
+		 * Serialisierungs-ID der Klasse
+		 * @see Serializable
+		 */
+		private static final long serialVersionUID=-8214417798855261584L;
+
+		/**
+		 * Konstruktor
+		 * @param rows	Anzahl an Zeilen
+		 * @param cols	Anzahl an Spalten
+		 */
+		public RSyntaxTextAreaExt(final int rows, final int cols) {
+			super(rows,cols);
+			processEvent(new FocusEvent(this,FocusEvent.FOCUS_LOST));
+		}
+	}
+
+	/**
 	 * Generiert ein mehrzeiliges Textfeld für Freitexteingaben (d.h. nicht für Programmcode) mit Rechtschreibkorrektur
 	 * @param rows	Anzahl an Zeilen in dem Eingabefeld
 	 * @param cols	Anzahl an Spalten in dem Eingabefeld
@@ -407,7 +430,7 @@ public class ScriptEditorAreaBuilder {
 	 */
 	public static RSyntaxTextArea getPlainTextField(final int rows, final int cols, final String initialText, final boolean readOnly, final TextAreaMode mode) {
 		/* Konstruktor */
-		final RSyntaxTextArea editor=new RSyntaxTextArea(rows,cols);
+		final RSyntaxTextArea editor=new RSyntaxTextAreaExt(rows,cols);
 
 		/* Keine automatischen Zeilenumbrüche */
 		editor.setLineWrap(false);
@@ -548,7 +571,6 @@ public class ScriptEditorAreaBuilder {
 		 * aber Scrollbalken wollen wir bei einzeiligen Textfeldern auch nicht. */
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		//
 
 		/* Rahmen und Schriftart wie bei {@link JTextField} */
 		field.setFont(UIManager.getDefaults().getFont("TextField.font"));
