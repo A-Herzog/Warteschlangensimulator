@@ -181,10 +181,10 @@ This file lists the third-party components used by "Simulator" project and their
 
 ### UCanAccess
 
-- Repository: https://mvnrepository.com/artifact/net.sf.ucanaccess/ucanaccess
+- Repository: https://mvnrepository.com/artifact/io.github.spannm/ucanaccess
 - License: Apache 2.0
 - License URL: https://www.apache.org/licenses/LICENSE-2.0
-- Homepage: http://ucanaccess.sourceforge.net/site.html
+- Homepage: https://github.com/spannm/ucanaccess
 
 ### VectorGraphics2D
 
@@ -415,10 +415,10 @@ This file lists the third-party components used by "Simulator" project and their
 
 ### Jackcess
 
-- Repository: https://mvnrepository.com/artifact/com.healthmarketscience.jackcess/jackcess
+- Repository: https://mvnrepository.com/artifact/io.github.spannm/jackcess
 - License: Apache 2.0
 - License URL: https://www.apache.org/licenses/LICENSE-2.0
-- Homepage: https://jackcess.sourceforge.io/
+- Homepage: https://github.com/spannm/jackcess
 - Used by: UCanAccess
 
 ### JAI Codec
