@@ -72,7 +72,7 @@ import mathtools.distribution.swing.PlugableFileChooser;
  * Die Klasse {@link Table} kapselt eine Tabelle aus {@link String}-Objekten.
  * Die Klasse stellt Methoden zum Lesen und Schreiben von Tabellen-Dateien zur Verfügung.
  * @author Alexander Herzog
- * @version 4.9
+ * @version 5.0
  */
 public final class Table implements Cloneable {
 	/** Bezeichner beim Speichern für "wahr" */
@@ -111,6 +111,8 @@ public final class Table implements Cloneable {
 	public static String FileTypeTex="LaTeX-Dateien";
 	/** Bezeichner für Dateiformat Typst (im Dateiauswahldialog) */
 	public static String FileTypeTypst="Typst-Dateien";
+	/** Bezeichner für Dateiformat Markdown (im Dateiauswahldialog) */
+	public static String FileTypeMD="Markdown-Dateien";
 	/** Fehlermeldung "Die angegebene Startzelle \"%s\" ist ungültig." */
 	public static String LoadErrorFirstCellInvalid="Die angegebene Startzelle \"%s\" ist ungültig.";
 	/** Fehlermeldung "Die angegebene Endzelle \"%s\" ist ungültig." */
@@ -190,6 +192,9 @@ public final class Table implements Cloneable {
 
 		/** Typst-Datei */
 		SAVEMODE_TYPST(false,true,new String[]{".TYP"}),
+
+		/** Markdown-Datei */
+		SAVEMODE_MD(true,true,new String[] {".MD"}),
 
 		/** Tabelle als CSV-Datei oder als Tabulator-getrennte Werte speichern in Abhängigkeit vom Dateinamen. */
 		SAVEMODE_BYFILENAME(true,true,null);
@@ -1073,6 +1078,36 @@ public final class Table implements Cloneable {
 		if (line.indexOf('\t')>=0) divider='\t';
 		return fromCSVDirect(line,0,line.length(),divider);
 	}
+
+	/**
+	 * Versucht eine Tabelle aus einer Markdown-Datei zu laden
+	 * @param lines	Zeilen der Markdown-Datei
+	 * @return	Liefert im Erfolgsfall <code>true</code>
+	 */
+	private boolean fromMD(final List<String> lines) {
+		if (lines!=null) for (String line: lines) {
+			line=line.trim();
+			if (line.length()<3) continue;
+			if (!line.startsWith("|")) continue;
+			if (!line.endsWith("|")) continue;
+			line=line.substring(1,line.length()-1);
+			final String[] cells=line.split("\\|");
+			boolean isDividerLine=true;
+			for (int i=0;i<cells.length;i++) {
+				cells[i]=cells[i].trim();
+				if (isDividerLine) for (int j=0;j<cells[i].length();j++) if (cells[i].charAt(j)!='-') {
+					isDividerLine=false;
+					break;
+				}
+			}
+			if (isDividerLine) continue;
+			addLine(cells);
+		}
+
+		makeSquare();
+		return true;
+	}
+
 	/**
 	 * Liefert den Dateityp der Tabellendatei gemäß der Dateiendung
 	 * @param file	Datei, von der der Typ bestimmt werden soll
@@ -1441,6 +1476,12 @@ public final class Table implements Cloneable {
 			if (!loadTextLinesFromFile(file,line->data.add(fromCSVR(line)))) return false;
 			makeSquare();
 			return true;
+		}
+
+		if (saveMode==SaveMode.SAVEMODE_MD) {
+			final List<String> lines=loadTextLinesFromFile(file);
+			if (lines==null) return false;
+			return fromMD(lines);
 		}
 
 		/* saveMode==SaveMode.SAVEMODE_CSV + Fallback */
@@ -2006,6 +2047,58 @@ public final class Table implements Cloneable {
 	}
 
 	/**
+	 * Speichert die Tabelle als Markdown-Datei.
+	 * @return	Tabelle als Markdown-Zeichenkette
+	 */
+	public String saveToMD() {
+		if (mode==IndexMode.COLS) {Table t=transpose(); return t.saveToMD();}
+
+		/* Spaltenbreiten berechnen */
+		final int[] colWidth=new int[getSize(1)];
+		for (int j=0;j<colWidth.length;j++) colWidth[j]=columnNameFromNumber(j).length();
+		for (final List<String> row: data) for (int j=0;j<row.size();j++) {
+			colWidth[j]=Math.max(colWidth[j],row.get(j).length());
+		}
+
+		final StringBuilder sb=new StringBuilder();
+
+		/* Überschriftenzeile */
+		sb.append("| ");
+		for (int j=0;j<colWidth.length;j++) {
+			final String name=columnNameFromNumber(j);
+			sb.append(name);
+			final int spaces=colWidth[j]-name.length();
+			for (int k=1;k<=spaces;k++) sb.append(' ');
+			sb.append(" |");
+		}
+		sb.append("\n");
+
+		/* Trennerzeile */
+		sb.append("| ");
+		for (int width: colWidth) {
+			for (int k=1;k<=width;k++) sb.append('-');
+			sb.append(" |");
+		}
+		sb.append("\n");
+
+		/* Datenzeilen */
+		for (List<String> row : data) {
+			sb.append("| ");
+			for (int j=0;j<colWidth.length;j++) {
+				String cell="";
+				if (row.size()>j) cell=row.get(j);
+				sb.append(cell);
+				final int spaces=colWidth[j]-cell.length();
+				for (int k=1;k<=spaces;k++) sb.append(' ');
+				sb.append(" |");
+			}
+			sb.append("\n");
+		}
+
+		return sb.toString();
+	}
+
+	/**
 	 * Speichert den Inhalt der Tabelle in einem Stream.
 	 * @param stream	Ausgabestream
 	 * @param saveMode	Gibt an, ob der Stream als CSV-Datei, mit Tabulatoren getrennt oder als Excel-Datei gespeichert werden soll.
@@ -2263,6 +2356,10 @@ public final class Table implements Cloneable {
 
 		if (saveMode==SaveMode.SAVEMODE_SYLK) {
 			return saveTextToFile(saveToSYLK(),file);
+		}
+
+		if (saveMode==SaveMode.SAVEMODE_MD) {
+			return saveTextToFile(saveToMD(),file);
 		}
 
 		return false;
@@ -2666,7 +2763,7 @@ public final class Table implements Cloneable {
 	public static File showLoadDialog(final Component parent, final String title, final File initialDirectory) {
 		final var fc=new PlugableFileChooser(initialDirectory,true);
 		fc.setDialogTitle(title);
-		fc.addChoosableFileFilter(FileTypeAll,"xlsx","xls","ods","txt","tsv","csv","csvr","sqlite3","sqlite","db","db3","s3db","dbf","dif");
+		fc.addChoosableFileFilter(FileTypeAll,"xlsx","xls","ods","txt","tsv","csv","csvr","sqlite3","sqlite","db","db3","s3db","dbf","dif","md");
 		fc.addChoosableFileFilter(FileTypeExcel+" (*.xlsx)","xlsx");
 		fc.addChoosableFileFilter(FileTypeExcelOld+" (*.xls)","xls");
 		fc.addChoosableFileFilter(FileTypeODS+" (*.ods)","ods");
@@ -2677,6 +2774,7 @@ public final class Table implements Cloneable {
 		fc.addChoosableFileFilter(FileTypeDBF+" (*.dbf)","dbf");
 		fc.addChoosableFileFilter(FileTypeDIF+" (*.dif)","dif");
 		fc.addChoosableFileFilter(FileTypeSYLK+" (*.slk, *.sylk)","slk","sylk");
+		fc.addChoosableFileFilter(FileTypeMD+" (*.md)","md");
 		fc.setFileFilter("xlsx");
 		return fc.showOpenDialogFileWithExtension(parent);
 	}
@@ -2737,6 +2835,7 @@ public final class Table implements Cloneable {
 		fc.addChoosableFileFilter(FileTypeHTML+" (*.html, *.htm)","html","htm");
 		fc.addChoosableFileFilter(Table.FileTypeTex+" (*.tex)","tex");
 		fc.addChoosableFileFilter(FileTypeTypst+" (*.typ)","typ");
+		fc.addChoosableFileFilter(FileTypeMD+" (*.md)","md");
 		if (customFilterName!=null) fc.addChoosableFileFilter(customFilterName,customFilterExt);
 		fc.setFileFilter("xlsx");
 		fc.setAcceptAllFileFilterUsed(false);

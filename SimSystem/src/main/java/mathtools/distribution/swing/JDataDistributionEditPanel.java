@@ -526,6 +526,7 @@ public class JDataDistributionEditPanel extends JPanel {
 		fc.addChoosableFileFilter(Table.FileTypeHTML+" (*.html)","html");
 		fc.addChoosableFileFilter(Table.FileTypeTex+" (*.tex)","tex");
 		fc.addChoosableFileFilter(Table.FileTypeTypst+" (*.typ)","typ");
+		fc.addChoosableFileFilter(Table.FileTypeMD+" (*.md)","md");
 		if (saveAsImageButtons) {
 			fc.addChoosableFileFilter(JDistributionPanel.FileTypeJPEG+" (*.jpg, *.jpeg)","jpg","jpeg");
 			fc.addChoosableFileFilter(JDistributionPanel.FileTypeGIF+" (*.gif)","gif");

@@ -388,6 +388,7 @@ public class LanguageStaticLoader {
 		Table.FileTypeHTML=Language.tr("FileType.HTMLTable");
 		Table.FileTypeTex=Language.tr("FileType.LaTeXTable");
 		Table.FileTypeTypst=Language.tr("FileType.TypstTable");
+		Table.FileTypeMD=Language.tr("FileType.MarkdownTable");
 
 		Table.LoadErrorFirstCellInvalid=Language.tr("Table.LoadErrorFirstCellInvalid");
 		Table.LoadErrorLastCellInvalid=Language.tr("Table.LoadErrorLastCellInvalid");

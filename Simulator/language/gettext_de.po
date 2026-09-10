@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 11:40+0200\n"
+"POT-Creation-Date: 2026-09-05 22:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10571,6 +10571,9 @@ msgstr "Javascript laden"
 
 msgid "FileType.Load.Java"
 msgstr "Java-Code laden"
+
+msgid "FileType.MarkdownTable"
+msgstr "Markdown-Dateien"
 
 msgid "FileType.PDF"
 msgstr "Portable Document Dateien"
