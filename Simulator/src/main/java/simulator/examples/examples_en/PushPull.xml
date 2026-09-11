@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModelVersion>2.4.1</ModelVersion>
+  <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModelVersion>6.0.0</ModelVersion>
   <ModelName>Push and pull production</ModelName>
   <ModelDescription>In the case of push production, incoming clients are immediately led
 into the operating process, resulting in a higher volume of clients.
@@ -19,6 +20,7 @@ of clients in the productive portion of the system.</ModelDescription>
       <ModelElementSize h="50" w="100" x="50" y="200"/>
       <ModelElementConnection Element="7" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds">Exponential distribution (60)</ModelElementDistribution>
+      <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementDuplicate id="2">
       <ModelElementSize h="50" w="100" x="300" y="200"/>
@@ -80,9 +82,9 @@ of clients in the productive portion of the system.</ModelDescription>
       <ModelElementConnection Element1="2" Element2="10" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="17">
-      <ModelElementSize h="23" w="217" x="45" y="50"/>
+      <ModelElementSize h="23" w="217" x="50" y="50"/>
       <ModelElementTextLine>Push and pull production</ModelElementTextLine>
-      <ModelElementFontSize bold="1">18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementProcessStation id="11">
@@ -121,7 +123,7 @@ of clients in the productive portion of the system.</ModelDescription>
       <ModelElementTextLine>clients are in the</ModelElementTextLine>
       <ModelElementTextLine>section, clients will</ModelElementTextLine>
       <ModelElementTextLine>be forwarded.</ModelElementTextLine>
-      <ModelElementFontSize italic="1">14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1" italic="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementDifferenceCounter id="28">
@@ -177,13 +179,13 @@ of clients in the productive portion of the system.</ModelDescription>
     <ModelElementText id="40">
       <ModelElementSize h="23" w="119" x="850" y="55"/>
       <ModelElementTextLine>Pull production</ModelElementTextLine>
-      <ModelElementFontSize>18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">18</ModelElementFontSize>
       <ModelElementColor>0,150,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="41">
       <ModelElementSize h="23" w="130" x="850" y="250"/>
       <ModelElementTextLine>Push production</ModelElementTextLine>
-      <ModelElementFontSize>18</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">18</ModelElementFontSize>
       <ModelElementColor>255,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationTrafficLights id="42">
@@ -195,14 +197,16 @@ of clients in the productive portion of the system.</ModelDescription>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
-      <ModelElementDiagramElement LineColor="0,180,0" LineWidth="2" Maximum="10" Minimum="0">Counter(28)</ModelElementDiagramElement>
-      <ModelElementDiagramElement LineColor="255,0,0" LineWidth="2" Maximum="10" Minimum="0">Counter(23)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="0,180,0" LineStyle="Line" LineWidth="2" Maximum="10" Minimum="0">Counter(28)</ModelElementDiagramElement>
+      <ModelElementDiagramElement LineColor="255,0,0" LineStyle="Line" LineWidth="2" Maximum="10" Minimum="0">Counter(23)</ModelElementDiagramElement>
       <ModelElementDiagramTimeRange>600</ModelElementDiagramTimeRange>
+      <ModelElementAxisLabelsTime>0</ModelElementAxisLabelsTime>
+      <ModelElementAxisLabels>0</ModelElementAxisLabels>
     </ModelElementAnimationLineDiagram>
     <ModelElementText id="44">
       <ModelElementSize h="19" w="209" x="850" y="430"/>
       <ModelElementTextLine>Clients in the push or pull section</ModelElementTextLine>
-      <ModelElementFontSize>14</ModelElementFontSize>
+      <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementEdge id="9">
@@ -282,4 +286,8 @@ of clients in the productive portion of the system.</ModelDescription>
     <ClientData Color="0,195,0" Icon="user_green" Name="Clients A"/>
     <ClientData Color="255,0,0" Icon="user_red" Name="Clients B"/>
   </ClientTypeData>
+  <ModelEdgesNormal Color="0,0,0" Type="0" Width="1"/>
+  <ModelEdgesSelected Type="0" Width="1"/>
+  <ModelElementConnectionDrawStyle>Angled around</ModelElementConnectionDrawStyle>
+  <ModelElementConnectionArrowStyle>Medium</ModelElementConnectionArrowStyle>
 </Model>

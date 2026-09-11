@@ -2,7 +2,7 @@
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModellVersion>5.5.0</ModellVersion>
+  <ModellVersion>6.0.0</ModellVersion>
   <ModellName>Histogramme verschiedener Wahrscheinlichkeitsverteilungen</ModellName>
   <ModellBeschreibung>In diesem Modell werden Kunden an mehreren Verzögerung-Stationen jeweils
 gemäß verschiedenen Wahrscheinlichkeitsverteilungen verzögert. Die Zeitdauern
@@ -19,78 +19,78 @@ Werten und den Histogrammwerten vorliegen.</ModellBeschreibung>
   <ModellElemente>
     <ModellElementQuelle id="1">
       <ModellElementName>Gleichv.</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="100" y="100"/>
+      <ModellElementGroesse h="50" w="100" x="50" y="100"/>
       <ModellElementVerbindung Element="13" Typ="Auslaufend"/>
       <ModellElementVerteilung Zeitbasis="Sekunden">Ein-Punkt-Verteilung (60)</ModellElementVerteilung>
       <ModellElementBatch Groesse="1"/>
     </ModellElementQuelle>
     <ModellElementQuelle id="2">
       <ModellElementName>Dreieck</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="100" y="200"/>
+      <ModellElementGroesse h="50" w="100" x="50" y="200"/>
       <ModellElementVerbindung Element="14" Typ="Auslaufend"/>
       <ModellElementVerteilung Zeitbasis="Sekunden">Ein-Punkt-Verteilung (60)</ModellElementVerteilung>
       <ModellElementBatch Groesse="1"/>
     </ModellElementQuelle>
     <ModellElementQuelle id="3">
       <ModellElementName>Lognormal</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="100" y="300"/>
+      <ModellElementGroesse h="50" w="100" x="50" y="300"/>
       <ModellElementVerbindung Element="15" Typ="Auslaufend"/>
       <ModellElementVerteilung Zeitbasis="Sekunden">Ein-Punkt-Verteilung (60)</ModellElementVerteilung>
       <ModellElementBatch Groesse="1"/>
     </ModellElementQuelle>
     <ModellElementQuelle id="4">
       <ModellElementName>Exp</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="100" y="400"/>
+      <ModellElementGroesse h="50" w="100" x="50" y="400"/>
       <ModellElementVerbindung Element="16" Typ="Auslaufend"/>
       <ModellElementVerteilung Zeitbasis="Sekunden">Ein-Punkt-Verteilung (60)</ModellElementVerteilung>
       <ModellElementBatch Groesse="1"/>
     </ModellElementQuelle>
     <ModellElementQuelle id="5">
       <ModellElementName>Gamma</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="100" y="500"/>
+      <ModellElementGroesse h="50" w="100" x="50" y="500"/>
       <ModellElementVerbindung Element="17" Typ="Auslaufend"/>
       <ModellElementVerteilung Zeitbasis="Sekunden">Ein-Punkt-Verteilung (60)</ModellElementVerteilung>
       <ModellElementBatch Groesse="1"/>
     </ModellElementQuelle>
     <ModellElementQuelle id="6">
       <ModellElementName>Weibull</ModellElementName>
-      <ModellElementGroesse h="50" w="100" x="100" y="600"/>
+      <ModellElementGroesse h="50" w="100" x="50" y="600"/>
       <ModellElementVerbindung Element="18" Typ="Auslaufend"/>
       <ModellElementVerteilung Zeitbasis="Sekunden">Ein-Punkt-Verteilung (60)</ModellElementVerteilung>
       <ModellElementBatch Groesse="1"/>
     </ModellElementQuelle>
     <ModellElementVerzoegerung id="7">
-      <ModellElementGroesse h="50" w="100" x="300" y="100"/>
+      <ModellElementGroesse h="50" w="100" x="250" y="100"/>
       <ModellElementVerbindung Element="13" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="25" Typ="Auslaufend"/>
       <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Gleichverteilung (20;80)</ModellElementVerteilung>
     </ModellElementVerzoegerung>
     <ModellElementVerzoegerung id="8">
-      <ModellElementGroesse h="50" w="100" x="300" y="200"/>
+      <ModellElementGroesse h="50" w="100" x="250" y="200"/>
       <ModellElementVerbindung Element="14" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="26" Typ="Auslaufend"/>
       <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Dreiecksverteilung (20;60;80)</ModellElementVerteilung>
     </ModellElementVerzoegerung>
     <ModellElementVerzoegerung id="9">
-      <ModellElementGroesse h="50" w="100" x="300" y="300"/>
+      <ModellElementGroesse h="50" w="100" x="250" y="300"/>
       <ModellElementVerbindung Element="15" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="27" Typ="Auslaufend"/>
       <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Lognormalverteilung (50;30)</ModellElementVerteilung>
     </ModellElementVerzoegerung>
     <ModellElementVerzoegerung id="10">
-      <ModellElementGroesse h="50" w="100" x="300" y="400"/>
+      <ModellElementGroesse h="50" w="100" x="250" y="400"/>
       <ModellElementVerbindung Element="16" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="28" Typ="Auslaufend"/>
       <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Exponentialverteilung (20)</ModellElementVerteilung>
     </ModellElementVerzoegerung>
     <ModellElementVerzoegerung id="11">
-      <ModellElementGroesse h="50" w="100" x="300" y="500"/>
+      <ModellElementGroesse h="50" w="100" x="250" y="500"/>
       <ModellElementVerbindung Element="17" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="29" Typ="Auslaufend"/>
       <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Gamma-Verteilung (2.77777777777778;18)</ModellElementVerteilung>
     </ModellElementVerzoegerung>
     <ModellElementVerzoegerung id="12">
-      <ModellElementGroesse h="50" w="100" x="300" y="600"/>
+      <ModellElementGroesse h="50" w="100" x="250" y="600"/>
       <ModellElementVerbindung Element="18" Typ="Einlaufend"/>
       <ModellElementVerbindung Element="30" Typ="Auslaufend"/>
       <ModellElementVerteilung Typ="Bedienzeit" Zeitbasis="Sekunden">Weibull-Verteilung (0.025;1.5)</ModellElementVerteilung>
@@ -120,27 +120,27 @@ Werten und den Histogrammwerten vorliegen.</ModellBeschreibung>
       <ModellElementVerbindung Element1="6" Element2="12" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementEnde id="19">
-      <ModellElementGroesse h="50" w="100" x="450" y="100"/>
+      <ModellElementGroesse h="50" w="100" x="400" y="100"/>
       <ModellElementVerbindung Element="25" Typ="Einlaufend"/>
     </ModellElementEnde>
     <ModellElementEnde id="20">
-      <ModellElementGroesse h="50" w="100" x="450" y="200"/>
+      <ModellElementGroesse h="50" w="100" x="400" y="200"/>
       <ModellElementVerbindung Element="26" Typ="Einlaufend"/>
     </ModellElementEnde>
     <ModellElementEnde id="21">
-      <ModellElementGroesse h="50" w="100" x="450" y="300"/>
+      <ModellElementGroesse h="50" w="100" x="400" y="300"/>
       <ModellElementVerbindung Element="27" Typ="Einlaufend"/>
     </ModellElementEnde>
     <ModellElementEnde id="22">
-      <ModellElementGroesse h="50" w="100" x="450" y="400"/>
+      <ModellElementGroesse h="50" w="100" x="400" y="400"/>
       <ModellElementVerbindung Element="28" Typ="Einlaufend"/>
     </ModellElementEnde>
     <ModellElementEnde id="23">
-      <ModellElementGroesse h="50" w="100" x="450" y="500"/>
+      <ModellElementGroesse h="50" w="100" x="400" y="500"/>
       <ModellElementVerbindung Element="29" Typ="Einlaufend"/>
     </ModellElementEnde>
     <ModellElementEnde id="24">
-      <ModellElementGroesse h="50" w="100" x="450" y="600"/>
+      <ModellElementGroesse h="50" w="100" x="400" y="600"/>
       <ModellElementVerbindung Element="30" Typ="Einlaufend"/>
     </ModellElementEnde>
     <ModellElementKante id="25">
@@ -162,19 +162,19 @@ Werten und den Histogrammwerten vorliegen.</ModellBeschreibung>
       <ModellElementVerbindung Element1="12" Element2="24" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="31">
-      <ModellElementGroesse h="23" w="542" x="100" y="50"/>
+      <ModellElementGroesse h="23" w="542" x="50" y="50"/>
       <ModellElementTextzeile>Histogramme verschiedener Wahrscheinlichkeitsverteilungen</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="34">
-      <ModellElementGroesse h="19" w="156" x="650" y="100"/>
+      <ModellElementGroesse h="19" w="156" x="600" y="100"/>
       <ModellElementTextzeile>Gleichverteilung (20..80)</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationBalkenDiagramm id="32">
-      <ModellElementGroesse h="230" w="550" x="650" y="120"/>
+      <ModellElementGroesse h="230" w="550" x="600" y="120"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
@@ -235,13 +235,13 @@ Werten und den Histogrammwerten vorliegen.</ModellBeschreibung>
       <ModellElementDiagrammElement Balkenfarbe="150,150,150">Bedienzeit_hist(1;99;9999999)</ModellElementDiagrammElement>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementText id="33">
-      <ModellElementGroesse h="19" w="187" x="1250" y="100"/>
+      <ModellElementGroesse h="19" w="187" x="1200" y="100"/>
       <ModellElementTextzeile>Dreiecksverteilung (20;60;80)</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationBalkenDiagramm id="35">
-      <ModellElementGroesse h="230" w="550" x="1250" y="120"/>
+      <ModellElementGroesse h="230" w="550" x="1200" y="120"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
@@ -302,13 +302,13 @@ Werten und den Histogrammwerten vorliegen.</ModellBeschreibung>
       <ModellElementDiagrammElement Balkenfarbe="150,150,150">Bedienzeit_hist(2;99;9999999)</ModellElementDiagrammElement>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementText id="36">
-      <ModellElementGroesse h="19" w="227" x="650" y="400"/>
+      <ModellElementGroesse h="19" w="227" x="600" y="400"/>
       <ModellElementTextzeile>Lognormalverteilung (E=50, SD=30)</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationBalkenDiagramm id="37">
-      <ModellElementGroesse h="230" w="550" x="650" y="420"/>
+      <ModellElementGroesse h="230" w="550" x="600" y="420"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
@@ -369,13 +369,13 @@ Werten und den Histogrammwerten vorliegen.</ModellBeschreibung>
       <ModellElementDiagrammElement Balkenfarbe="150,150,150">Bedienzeit_hist(3;99;9999999)</ModellElementDiagrammElement>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementText id="38">
-      <ModellElementGroesse h="19" w="182" x="1250" y="400"/>
+      <ModellElementGroesse h="19" w="182" x="1200" y="400"/>
       <ModellElementTextzeile>Exponentialverteilung (E=20)</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationBalkenDiagramm id="41">
-      <ModellElementGroesse h="230" w="550" x="1250" y="420"/>
+      <ModellElementGroesse h="230" w="550" x="1200" y="420"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
@@ -436,13 +436,13 @@ Werten und den Histogrammwerten vorliegen.</ModellBeschreibung>
       <ModellElementDiagrammElement Balkenfarbe="150,150,150">Bedienzeit_hist(4;99;9999999)</ModellElementDiagrammElement>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementText id="42">
-      <ModellElementGroesse h="19" w="216" x="650" y="700"/>
+      <ModellElementGroesse h="19" w="216" x="600" y="700"/>
       <ModellElementTextzeile>Gamma-Verteilung (E=50, SD=30)</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationBalkenDiagramm id="44">
-      <ModellElementGroesse h="230" w="550" x="650" y="720"/>
+      <ModellElementGroesse h="230" w="550" x="600" y="720"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
@@ -503,13 +503,13 @@ Werten und den Histogrammwerten vorliegen.</ModellBeschreibung>
       <ModellElementDiagrammElement Balkenfarbe="150,150,150">Bedienzeit_hist(5;99;9999999)</ModellElementDiagrammElement>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementText id="45">
-      <ModellElementGroesse h="19" w="302" x="1250" y="700"/>
+      <ModellElementGroesse h="19" w="302" x="1200" y="700"/>
       <ModellElementTextzeile>Weibullverteilung (Skalierung=0,025; Form=1,5)</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationBalkenDiagramm id="46">
-      <ModellElementGroesse h="230" w="550" x="1250" y="720"/>
+      <ModellElementGroesse h="230" w="550" x="1200" y="720"/>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
@@ -570,7 +570,7 @@ Werten und den Histogrammwerten vorliegen.</ModellBeschreibung>
       <ModellElementDiagrammElement Balkenfarbe="150,150,150">Bedienzeit_hist(6;99;9999999)</ModellElementDiagrammElement>
     </ModellElementAnimationBalkenDiagramm>
     <ModellElementText id="40">
-      <ModellElementGroesse h="160" w="502" x="100" y="835"/>
+      <ModellElementGroesse h="160" w="502" x="50" y="835"/>
       <ModellElementTextzeile>**Erkenntnis:**</ModellElementTextzeile>
       <ModellElementTextzeile>Auch nach mehreren Tausend Kundenankünften bzw. in diesem Fall nach mehreren</ModellElementTextzeile>
       <ModellElementTextzeile>Tausend erzeugten Zufallszahlen pro betrachteter Wahrscheinlichkeitsverteilung</ModellElementTextzeile>
@@ -585,32 +585,32 @@ Werten und den Histogrammwerten vorliegen.</ModellBeschreibung>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="43">
-      <ModellElementGroesse h="30" w="369" x="650" y="955"/>
+      <ModellElementGroesse h="30" w="369" x="600" y="955"/>
       <ModellElementTextzeile>Der x-Achsenbereich reicht in alle Diagrammen jeweils von 0 bis 100.</ModellElementTextzeile>
       <ModellElementTextzeile>Die grauen Histogrammbalken ganz rechts geben jeweils den Anteil &gt;100 an.</ModellElementTextzeile>
       <ModellElementSchriftgrosse Markdown="1" Symbole="1">11</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationLCD id="47">
-      <ModellElementGroesse h="70" w="100" x="100" y="720"/>
+      <ModellElementGroesse h="70" w="100" x="50" y="720"/>
       <ModellElementAnimationLCDAusdruck>NumberIn(1)/1000</ModellElementAnimationLCDAusdruck>
       <ModellElementAnimationLCDZiffern>3</ModellElementAnimationLCDZiffern>
       <ModellElementAnimationLCDFarbe>0,255,255</ModellElementAnimationLCDFarbe>
     </ModellElementAnimationLCD>
     <ModellElementText id="39">
-      <ModellElementGroesse h="19" w="337" x="100" y="700"/>
+      <ModellElementGroesse h="19" w="337" x="50" y="700"/>
       <ModellElementTextzeile>Bisher erzeugte Ankünfte pro Verteilung (in Tausend)</ModellElementTextzeile>
       <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="48">
-      <ModellElementGroesse h="16" w="350" x="650" y="1000"/>
+      <ModellElementGroesse h="16" w="350" x="600" y="1000"/>
       <ModellElementTextzeile>**Interaktive Ansicht weiterer Wahrscheinlichkeitsverteilungen:**</ModellElementTextzeile>
       <ModellElementSchriftgrosse Markdown="1" Symbole="1">12</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementLink id="49">
-      <ModellElementGroesse h="19" w="196" x="650" y="1020"/>
+      <ModellElementGroesse h="19" w="196" x="600" y="1020"/>
       <ModellElementLinkText>a-herzog.github.io/Distributions</ModellElementLinkText>
       <ModellElementLinkZiel>https://a-herzog.github.io/Distributions/</ModellElementLinkZiel>
       <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>

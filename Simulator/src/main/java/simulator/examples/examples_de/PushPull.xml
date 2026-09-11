@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE Modell SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Modell xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
-  <ModellVersion>2.4.1</ModellVersion>
+  <!-- Diese Datei wurde mit Warteschlangensimulator erstellt. Download-Adresse: https://github.com/A-Herzog/Warteschlangensimulator -->
+  <ModellVersion>6.0.0</ModellVersion>
   <ModellName>Push- und Pull-Produktion</ModellName>
   <ModellBeschreibung>Bei der Push-Produktion werden eintreffende Kunden sofort in den
 Bedienprozess geführt, was zu einem höheren Umlaufbestand an Kunden führt.
@@ -19,6 +20,7 @@ Anzahl an Kunden im produktiven Anteil des Systems.</ModellBeschreibung>
       <ModellElementGroesse h="50" w="100" x="50" y="200"/>
       <ModellElementVerbindung Element="7" Typ="Auslaufend"/>
       <ModellElementVerteilung Zeitbasis="Sekunden">Exponentialverteilung (60)</ModellElementVerteilung>
+      <ModellElementBatch Groesse="1"/>
     </ModellElementQuelle>
     <ModellElementDuplizieren id="2">
       <ModellElementGroesse h="50" w="100" x="300" y="200"/>
@@ -80,9 +82,9 @@ Anzahl an Kunden im produktiven Anteil des Systems.</ModellBeschreibung>
       <ModellElementVerbindung Element1="2" Element2="10" Typ="Kante"/>
     </ModellElementKante>
     <ModellElementText id="17">
-      <ModellElementGroesse h="23" w="227" x="45" y="50"/>
+      <ModellElementGroesse h="23" w="227" x="50" y="50"/>
       <ModellElementTextzeile>Push- und Pull-Produktion</ModellElementTextzeile>
-      <ModellElementSchriftgrosse fett="1">18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" fett="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementBedienstation id="11">
@@ -121,7 +123,7 @@ Anzahl an Kunden im produktiven Anteil des Systems.</ModellBeschreibung>
       <ModellElementTextzeile>zwei Kunden in dem</ModellElementTextzeile>
       <ModellElementTextzeile>Abschnitt sind, werden</ModellElementTextzeile>
       <ModellElementTextzeile>Kunden weitergeleitet.</ModellElementTextzeile>
-      <ModellElementSchriftgrosse kursiv="1">14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1" kursiv="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementDifferenzZaehler id="28">
@@ -177,13 +179,13 @@ Anzahl an Kunden im produktiven Anteil des Systems.</ModellBeschreibung>
     <ModellElementText id="40">
       <ModellElementGroesse h="23" w="122" x="850" y="55"/>
       <ModellElementTextzeile>Pull-Produktion</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,150,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementText id="41">
       <ModellElementGroesse h="23" w="133" x="850" y="250"/>
       <ModellElementTextzeile>Push-Produktion</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>18</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">18</ModellElementSchriftgrosse>
       <ModellElementFarbe>255,0,0</ModellElementFarbe>
     </ModellElementText>
     <ModellElementAnimationAmpel id="42">
@@ -195,14 +197,16 @@ Anzahl an Kunden im produktiven Anteil des Systems.</ModellBeschreibung>
       <ModellElementLinienBreite>1</ModellElementLinienBreite>
       <ModellElementLinienFarbe>0,0,0</ModellElementLinienFarbe>
       <ModellElementHintergrundfarbe>240,240,240</ModellElementHintergrundfarbe>
-      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,180,0" Maximum="10" Minimum="0">Counter(28)</ModellElementDiagrammElement>
-      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Maximum="10" Minimum="0">Counter(23)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="0,180,0" Linienstil="Linie" Maximum="10" Minimum="0">Counter(28)</ModellElementDiagrammElement>
+      <ModellElementDiagrammElement Linienbreite="2" Linienfarbe="255,0,0" Linienstil="Linie" Maximum="10" Minimum="0">Counter(23)</ModellElementDiagrammElement>
       <ModellElementDiagrammZeitbereich>600</ModellElementDiagrammZeitbereich>
+      <ModellElementAchsenbeschriftungZeit>0</ModellElementAchsenbeschriftungZeit>
+      <ModellElementAchsenbeschriftung>0</ModellElementAchsenbeschriftung>
     </ModellElementAnimationLinienDiagramm>
     <ModellElementText id="44">
       <ModellElementGroesse h="19" w="229" x="850" y="430"/>
       <ModellElementTextzeile>Kunden im Pull- bzw. Push-Abschnitt</ModellElementTextzeile>
-      <ModellElementSchriftgrosse>14</ModellElementSchriftgrosse>
+      <ModellElementSchriftgrosse Symbole="1">14</ModellElementSchriftgrosse>
       <ModellElementFarbe>0,0,255</ModellElementFarbe>
     </ModellElementText>
     <ModellElementKante id="9">
@@ -282,4 +286,8 @@ Anzahl an Kunden im produktiven Anteil des Systems.</ModellBeschreibung>
     <KundenDaten Farbe="0,195,0" Icon="user_green" Name="Kunden A"/>
     <KundenDaten Farbe="255,0,0" Icon="user_red" Name="Kunden B"/>
   </KundentypenDaten>
+  <ModellKantenNormal Breite="1" Farbe="0,0,0" Typ="0"/>
+  <ModellKantenSelektiert Breite="1" Typ="0"/>
+  <ModellElementVerbindungsdarstellungsart>Abgerundet abgewinkelt</ModellElementVerbindungsdarstellungsart>
+  <ModellElementVerbindungspfeil>Mittel</ModellElementVerbindungspfeil>
 </Modell>

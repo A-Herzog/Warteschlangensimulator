@@ -2,7 +2,7 @@
 <!DOCTYPE Model SYSTEM "https://a-herzog.github.io/Warteschlangensimulator/Simulator.dtd">
 <Model xmlns="https://a-herzog.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://a-herzog.github.io https://a-herzog.github.io/Warteschlangensimulator/Simulator.xsd">
   <!-- This file was created using Warteschlangensimulator. Download address: https://github.com/A-Herzog/Warteschlangensimulator -->
-  <ModelVersion>5.5.0</ModelVersion>
+  <ModelVersion>6.0.0</ModelVersion>
   <ModelName>Histograms of different probability distributions</ModelName>
   <ModelDescription>In this model, clients are delayed at several delay stations each according
 to different probability distributions. The durations are recorded and
@@ -19,78 +19,78 @@ histogram values.</ModelDescription>
   <ModelElements>
     <ModelElementSource id="1">
       <ModelElementName>Uniform</ModelElementName>
-      <ModelElementSize h="50" w="100" x="100" y="100"/>
+      <ModelElementSize h="50" w="100" x="50" y="100"/>
       <ModelElementConnection Element="13" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds">One point distribution (60)</ModelElementDistribution>
       <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementSource id="2">
       <ModelElementName>Triangular</ModelElementName>
-      <ModelElementSize h="50" w="100" x="100" y="200"/>
+      <ModelElementSize h="50" w="100" x="50" y="200"/>
       <ModelElementConnection Element="14" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds">One point distribution (60)</ModelElementDistribution>
       <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementSource id="3">
       <ModelElementName>Lognormal</ModelElementName>
-      <ModelElementSize h="50" w="100" x="100" y="300"/>
+      <ModelElementSize h="50" w="100" x="50" y="300"/>
       <ModelElementConnection Element="15" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds">One point distribution (60)</ModelElementDistribution>
       <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementSource id="4">
       <ModelElementName>Exp</ModelElementName>
-      <ModelElementSize h="50" w="100" x="100" y="400"/>
+      <ModelElementSize h="50" w="100" x="50" y="400"/>
       <ModelElementConnection Element="16" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds">One point distribution (60)</ModelElementDistribution>
       <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementSource id="5">
       <ModelElementName>Gamma</ModelElementName>
-      <ModelElementSize h="50" w="100" x="100" y="500"/>
+      <ModelElementSize h="50" w="100" x="50" y="500"/>
       <ModelElementConnection Element="17" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds">One point distribution (60)</ModelElementDistribution>
       <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementSource id="6">
       <ModelElementName>Weibull</ModelElementName>
-      <ModelElementSize h="50" w="100" x="100" y="600"/>
+      <ModelElementSize h="50" w="100" x="50" y="600"/>
       <ModelElementConnection Element="18" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds">One point distribution (60)</ModelElementDistribution>
       <ModelElementBatchData Size="1"/>
     </ModelElementSource>
     <ModelElementDelay id="7">
-      <ModelElementSize h="50" w="100" x="300" y="100"/>
+      <ModelElementSize h="50" w="100" x="250" y="100"/>
       <ModelElementConnection Element="13" Type="In"/>
       <ModelElementConnection Element="25" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Uniform distribution (20;80)</ModelElementDistribution>
     </ModelElementDelay>
     <ModelElementDelay id="8">
-      <ModelElementSize h="50" w="100" x="300" y="200"/>
+      <ModelElementSize h="50" w="100" x="250" y="200"/>
       <ModelElementConnection Element="14" Type="In"/>
       <ModelElementConnection Element="26" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Triangular distribution (20;60;80)</ModelElementDistribution>
     </ModelElementDelay>
     <ModelElementDelay id="9">
-      <ModelElementSize h="50" w="100" x="300" y="300"/>
+      <ModelElementSize h="50" w="100" x="250" y="300"/>
       <ModelElementConnection Element="15" Type="In"/>
       <ModelElementConnection Element="27" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Lognormal distribution (50;30)</ModelElementDistribution>
     </ModelElementDelay>
     <ModelElementDelay id="10">
-      <ModelElementSize h="50" w="100" x="300" y="400"/>
+      <ModelElementSize h="50" w="100" x="250" y="400"/>
       <ModelElementConnection Element="16" Type="In"/>
       <ModelElementConnection Element="28" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Exponential distribution (20)</ModelElementDistribution>
     </ModelElementDelay>
     <ModelElementDelay id="11">
-      <ModelElementSize h="50" w="100" x="300" y="500"/>
+      <ModelElementSize h="50" w="100" x="250" y="500"/>
       <ModelElementConnection Element="17" Type="In"/>
       <ModelElementConnection Element="29" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Gamma distribution (2.77777777777778;18)</ModelElementDistribution>
     </ModelElementDelay>
     <ModelElementDelay id="12">
-      <ModelElementSize h="50" w="100" x="300" y="600"/>
+      <ModelElementSize h="50" w="100" x="250" y="600"/>
       <ModelElementConnection Element="18" Type="In"/>
       <ModelElementConnection Element="30" Type="Out"/>
       <ModelElementDistribution TimeBase="Seconds" Type="ProcessTime">Weibull distribution (0.025;1.5)</ModelElementDistribution>
@@ -120,27 +120,27 @@ histogram values.</ModelDescription>
       <ModelElementConnection Element1="6" Element2="12" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementDispose id="19">
-      <ModelElementSize h="50" w="100" x="450" y="100"/>
+      <ModelElementSize h="50" w="100" x="400" y="100"/>
       <ModelElementConnection Element="25" Type="In"/>
     </ModelElementDispose>
     <ModelElementDispose id="20">
-      <ModelElementSize h="50" w="100" x="450" y="200"/>
+      <ModelElementSize h="50" w="100" x="400" y="200"/>
       <ModelElementConnection Element="26" Type="In"/>
     </ModelElementDispose>
     <ModelElementDispose id="21">
-      <ModelElementSize h="50" w="100" x="450" y="300"/>
+      <ModelElementSize h="50" w="100" x="400" y="300"/>
       <ModelElementConnection Element="27" Type="In"/>
     </ModelElementDispose>
     <ModelElementDispose id="22">
-      <ModelElementSize h="50" w="100" x="450" y="400"/>
+      <ModelElementSize h="50" w="100" x="400" y="400"/>
       <ModelElementConnection Element="28" Type="In"/>
     </ModelElementDispose>
     <ModelElementDispose id="23">
-      <ModelElementSize h="50" w="100" x="450" y="500"/>
+      <ModelElementSize h="50" w="100" x="400" y="500"/>
       <ModelElementConnection Element="29" Type="In"/>
     </ModelElementDispose>
     <ModelElementDispose id="24">
-      <ModelElementSize h="50" w="100" x="450" y="600"/>
+      <ModelElementSize h="50" w="100" x="400" y="600"/>
       <ModelElementConnection Element="30" Type="In"/>
     </ModelElementDispose>
     <ModelElementEdge id="25">
@@ -162,19 +162,19 @@ histogram values.</ModelDescription>
       <ModelElementConnection Element1="12" Element2="24" Type="Edge"/>
     </ModelElementEdge>
     <ModelElementText id="31">
-      <ModelElementSize h="23" w="413" x="100" y="50"/>
+      <ModelElementSize h="23" w="413" x="50" y="50"/>
       <ModelElementTextLine>Histograms of different probability distributions</ModelElementTextLine>
       <ModelElementFontSize Symbols="1" bold="1">18</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="34">
-      <ModelElementSize h="19" w="175" x="650" y="100"/>
+      <ModelElementSize h="19" w="175" x="600" y="100"/>
       <ModelElementTextLine>Uniform distribution (20..80)</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationBarDiagram id="32">
-      <ModelElementSize h="230" w="550" x="650" y="120"/>
+      <ModelElementSize h="230" w="550" x="600" y="120"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
@@ -235,13 +235,13 @@ histogram values.</ModelDescription>
       <ModelElementDiagramElement BarColor="150,150,150">Bedienzeit_hist(1;99;9999999)</ModelElementDiagramElement>
     </ModelElementAnimationBarDiagram>
     <ModelElementText id="33">
-      <ModelElementSize h="19" w="208" x="1250" y="100"/>
+      <ModelElementSize h="19" w="208" x="1200" y="100"/>
       <ModelElementTextLine>Triangular distribution (20;60;80)</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationBarDiagram id="35">
-      <ModelElementSize h="230" w="550" x="1250" y="120"/>
+      <ModelElementSize h="230" w="550" x="1200" y="120"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
@@ -302,13 +302,13 @@ histogram values.</ModelDescription>
       <ModelElementDiagramElement BarColor="150,150,150">Bedienzeit_hist(2;99;9999999)</ModelElementDiagramElement>
     </ModelElementAnimationBarDiagram>
     <ModelElementText id="36">
-      <ModelElementSize h="19" w="238" x="650" y="400"/>
+      <ModelElementSize h="19" w="238" x="600" y="400"/>
       <ModelElementTextLine>Lognormal distribution (E=50, SD=30)</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationBarDiagram id="37">
-      <ModelElementSize h="230" w="550" x="650" y="420"/>
+      <ModelElementSize h="230" w="550" x="600" y="420"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
@@ -369,13 +369,13 @@ histogram values.</ModelDescription>
       <ModelElementDiagramElement BarColor="150,150,150">Bedienzeit_hist(3;99;9999999)</ModelElementDiagramElement>
     </ModelElementAnimationBarDiagram>
     <ModelElementText id="38">
-      <ModelElementSize h="19" w="193" x="1250" y="400"/>
+      <ModelElementSize h="19" w="193" x="1200" y="400"/>
       <ModelElementTextLine>Exponential distribution (E=20)</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationBarDiagram id="41">
-      <ModelElementSize h="230" w="550" x="1250" y="420"/>
+      <ModelElementSize h="230" w="550" x="1200" y="420"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
@@ -436,13 +436,13 @@ histogram values.</ModelDescription>
       <ModelElementDiagramElement BarColor="150,150,150">Bedienzeit_hist(4;99;9999999)</ModelElementDiagramElement>
     </ModelElementAnimationBarDiagram>
     <ModelElementText id="42">
-      <ModelElementSize h="19" w="220" x="650" y="700"/>
+      <ModelElementSize h="19" w="220" x="600" y="700"/>
       <ModelElementTextLine>Gamma distribution (E=50, SD=30)</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationBarDiagram id="44">
-      <ModelElementSize h="230" w="550" x="650" y="720"/>
+      <ModelElementSize h="230" w="550" x="600" y="720"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
@@ -503,13 +503,13 @@ histogram values.</ModelDescription>
       <ModelElementDiagramElement BarColor="150,150,150">Bedienzeit_hist(5;99;9999999)</ModelElementDiagramElement>
     </ModelElementAnimationBarDiagram>
     <ModelElementText id="45">
-      <ModelElementSize h="19" w="274" x="1250" y="700"/>
+      <ModelElementSize h="19" w="274" x="1200" y="700"/>
       <ModelElementTextLine>Weibull distribution (scale=0.025; form=1.5)</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationBarDiagram id="46">
-      <ModelElementSize h="230" w="550" x="1250" y="720"/>
+      <ModelElementSize h="230" w="550" x="1200" y="720"/>
       <ModelElementLineWidth>1</ModelElementLineWidth>
       <ModelElementLineColor>0,0,0</ModelElementLineColor>
       <ModelElementBackgroundColor>240,240,240</ModelElementBackgroundColor>
@@ -570,7 +570,7 @@ histogram values.</ModelDescription>
       <ModelElementDiagramElement BarColor="150,150,150">Bedienzeit_hist(6;99;9999999)</ModelElementDiagramElement>
     </ModelElementAnimationBarDiagram>
     <ModelElementText id="40">
-      <ModelElementSize h="144" w="494" x="100" y="835"/>
+      <ModelElementSize h="144" w="494" x="50" y="835"/>
       <ModelElementTextLine>**Results:**</ModelElementTextLine>
       <ModelElementTextLine>Even after several thousand client arrivals or, in this case, after several thousand</ModelElementTextLine>
       <ModelElementTextLine>random numbers generated per probability distribution under consideration, the exact</ModelElementTextLine>
@@ -584,32 +584,32 @@ histogram values.</ModelDescription>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="43">
-      <ModelElementSize h="30" w="315" x="650" y="955"/>
+      <ModelElementSize h="30" w="315" x="600" y="955"/>
       <ModelElementTextLine>The x-axis range in all diagrams is from 0 to 100.</ModelElementTextLine>
       <ModelElementTextLine>The gray histogram bars on the right indicate the proportion &gt;100.</ModelElementTextLine>
       <ModelElementFontSize Markdown="1" Symbols="1">11</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementAnimationLCD id="47">
-      <ModelElementSize h="70" w="100" x="100" y="720"/>
+      <ModelElementSize h="70" w="100" x="50" y="720"/>
       <ModelElementAnimationLCDExpression>NumberIn(1)/1000</ModelElementAnimationLCDExpression>
       <ModelElementAnimationLCDDigits>3</ModelElementAnimationLCDDigits>
       <ModelElementAnimationLCDColor>0,255,255</ModelElementAnimationLCDColor>
     </ModelElementAnimationLCD>
     <ModelElementText id="39">
-      <ModelElementSize h="19" w="309" x="100" y="700"/>
+      <ModelElementSize h="19" w="309" x="50" y="700"/>
       <ModelElementTextLine>Arrivals generated per distribution (in thousands)</ModelElementTextLine>
       <ModelElementFontSize Symbols="1">14</ModelElementFontSize>
       <ModelElementColor>0,0,255</ModelElementColor>
     </ModelElementText>
     <ModelElementText id="48">
-      <ModelElementSize h="16" w="233" x="650" y="1002"/>
+      <ModelElementSize h="16" w="233" x="600" y="1002"/>
       <ModelElementTextLine>**Interactive probability distribution viewer:**</ModelElementTextLine>
       <ModelElementFontSize Markdown="1" Symbols="1">12</ModelElementFontSize>
       <ModelElementColor>0,0,0</ModelElementColor>
     </ModelElementText>
     <ModelElementLink id="49">
-      <ModelElementSize h="19" w="196" x="650" y="1022"/>
+      <ModelElementSize h="19" w="196" x="600" y="1022"/>
       <ModelElementLinkText>a-herzog.github.io/Distributions</ModelElementLinkText>
       <ModelElementLinkTarget>https://a-herzog.github.io/Distributions/</ModelElementLinkTarget>
       <ModelElementFontSize>14</ModelElementFontSize>
