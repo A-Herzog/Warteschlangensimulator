@@ -63,6 +63,7 @@ import ui.modeleditor.elements.ModelElementSet;
 import ui.modeleditor.elements.ModelElementSignal;
 import ui.modeleditor.elements.ModelElementSource;
 import ui.modeleditor.elements.ModelElementSourceRecord;
+import ui.modeleditor.elements.ModelElementSplit;
 import ui.modeleditor.elements.ModelElementText;
 import ui.modeleditor.elements.ModelElementThroughput;
 import ui.modeleditor.elements.ModelElementVertex;
@@ -840,6 +841,44 @@ public class MiniQSLoader {
 		}
 
 		/**
+		 * Erzeugt eine Split-Station aus dem json-Basisobjekt.
+		 * @param model	Übergeordnetes Modell für das neue Element
+		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
+		 */
+		private ModelElementPosition[] loadSplit(final EditModel model) {
+			final JSONObject setup=getSetup();
+			if (setup==null) return null;
+
+			final int[] b=loadOneOrTwoInt(setup,"b");
+			if (b==null) return null;
+
+			if (b.length==1) {
+				if (b[0]<1) return null;
+			}
+			if (b.length==2) {
+				if (b[0]<1 || b[1]<b[0]) return null;
+			}
+
+			final ModelElementSplit element=new ModelElementSplit(model,model.surface);
+
+			final ModelElementSourceRecord record=new ModelElementSourceRecord(true,false,false);
+			record.setName("Split");
+			if (b.length==1) {
+				record.setBatchSize(""+b);
+			}
+			if (b.length==2) {
+				final int bmin=b[0];
+				final int bmax=b[1];
+				final double[] batchSizes=new double[bmax];
+				for (int i=bmin-1;i<bmax;i++) batchSizes[i]=1;
+				record.setMultiBatchSize(batchSizes);
+			}
+			element.addRecord(record);
+
+			return new ModelElementPosition[]{element};
+		}
+
+		/**
 		 * Erzeugt ein Signal aus dem json-Basisobjekt.
 		 * @param model	Übergeordnetes Modell für das neue Element
 		 * @return	Liefert im Erfolgsfall das neue Element, sonst <code>null</code>
@@ -1019,6 +1058,7 @@ public class MiniQSLoader {
 			case "Batch": modelElements=loadBatch(model); break;
 			case "Separate": modelElements=loadSeparate(model); break;
 			case "Match": modelElements=loadMatch(model); break;
+			case "Split": modelElements=loadSplit(model); break;
 			case "Signal": modelElements=loadSignal(model); break;
 			case "Barrier": modelElements=loadBarrier(model); break;
 			case "Text": modelElements=loadText(model); break;
