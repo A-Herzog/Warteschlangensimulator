@@ -181,7 +181,7 @@ if exist "%~dp0tools\JavaDownloader.exe" (
 goto end
 
 :found_java
-"%qs_java_name%" -jar %~dp0Simulator.jar %1 %2 %3 %4 %5
+"%qs_java_name%" -jar "%~dp0Simulator.jar" %1 %2 %3 %4 %5
 set qs_java_name=
 
 :end
