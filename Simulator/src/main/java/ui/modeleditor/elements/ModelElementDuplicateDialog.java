@@ -67,6 +67,9 @@ public class ModelElementDuplicateDialog extends ModelElementBaseDialog {
 
 	@Override
 	protected void setDialogSizeLater() {
+		setSizeRespectingScreensize(600,200);
+		setMaxSizeRespectingScreensize(600,200);
+		pack();
 	}
 
 	@Override
