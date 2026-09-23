@@ -31,7 +31,8 @@ OutFile "..\..\Release\${SetupFileName}"
 
 ; Settings for NsisMultiUser
 !define PRODUCT_NAME "${PrgName}"
-!define PROGEXE "Simulator.exe"
+!define PROGEXEOLD "Simulator.exe"
+!define PROGEXE "Simulator.ico" ; Used as Icon in uninstall list
 !define PROGBAT "Simulator.bat"
 !define PROGBATCLI "SimulatorCLI.bat"
 !define APP_NAME "${RegKey}"
@@ -244,7 +245,6 @@ Section "Install" Inst
   
   SetOutPath "$INSTDIR" ; Otherwise the shortcut will have the dictionaries as working directory
   
-  ; CreateShortCut "$SMPROGRAMS\${PrgName}.lnk" "$INSTDIR\${PROGEXE}"
   CreateShortCut "$SMPROGRAMS\${PrgName}.lnk" "$INSTDIR\${PROGBAT}" "" "$INSTDIR\Simulator.ico" 0 SW_SHOWMINIMIZED
   
   !insertmacro MULTIUSER_RegistryAddInstallInfo
@@ -440,7 +440,8 @@ FunctionEnd
 
 Function stopSimulator
   ${nsProcess::KillProcess} "Javaw.exe" $R0
-  ${nsProcess::KillProcess} "${PROGEXE}" $R0  
+  ${nsProcess::KillProcess} "${PROGEXEOLD}" $R0
+  ${nsProcess::KillProcess} "${PROGBAT}" $R0
   Sleep 1000
 FunctionEnd
 
@@ -448,7 +449,8 @@ FunctionEnd
 
 Function un.stopSimulator
   ${nsProcess::KillProcess} "Javaw.exe" $R0
-  ${nsProcess::KillProcess} "${PROGEXE}" $R0  
+  ${nsProcess::KillProcess} "${PROGEXEOLD}" $R0
+  ${nsProcess::KillProcess} "${PROGBAT}" $R0
   ${nsProcess::KillProcess} "${SetupFileName}" $R0
   Sleep 1000
 FunctionEnd
