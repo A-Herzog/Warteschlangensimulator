@@ -38,6 +38,8 @@ import simulator.simparser.ExpressionCalcModelUserFunctions;
 import systemtools.MsgBox;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
+import ui.modeleditor.elements.BatchRecord.EarlyReleaseMode;
 
 /**
  * In diesem Panel können die Daten eines einzelnen Batch-Datensatzes bearbeitet werden.
@@ -72,6 +74,18 @@ public class BatchRecordPanel extends JPanel {
 	private final JTextField batchFieldMin;
 	/** Eingabefeld für die maximale Batch-Größe bei Verwendung einer variablen Batch-Größe */
 	private final JTextField batchFieldMax;
+
+	/** Option: Keine vorzeitige Freigabe */
+	private final JRadioButton optionEarlyReleaseOff;
+	/** Option: Freigabe nach Zeitdauer seit letzter Ankunft */
+	private final JRadioButton optionEarlyReleaseLastArrival;
+	/** Option: Freigabe nach längster Wartezeit */
+	private final JRadioButton optionEarlyReleaseLongestWaitingTime;
+	/** Eingabefeld für die Freigabezeit */
+	private final JTextField earlyReleaseTime;
+	/** Dropdown-Box für die Zeitbasis für die Freigabezeit */
+	private final JComboBox<String> earlyReleaseTimeBase;
+
 	/** Option: Kunden gemeinsam weiterleiten */
 	private final JRadioButton optionForward;
 	/** Option: Temporären Batch bilden */
@@ -80,6 +94,7 @@ public class BatchRecordPanel extends JPanel {
 	private final JTextField tempTypeField;
 	/** Option: Permanenten Batch bilden */
 	private final JRadioButton optionNewType;
+
 	/** Eingabefeld für den neuen Kundentyp für einen permanenten Batch */
 	private final JTextField newTypeField;
 
@@ -110,11 +125,15 @@ public class BatchRecordPanel extends JPanel {
 		ButtonGroup buttonGroup;
 		Object[] data;
 
+		/* Aktiv? */
+
 		if (useActiveCheckbox) {
 			add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(active=new JCheckBox("<html><body><b>"+Language.tr("Surface.Batch.Dialog.TypeActive")+"</b></body></html"));
 			active.addActionListener(e->checkData(false));
 		}
+
+		/* Batch-Größe */
 
 		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel("<html><body><b>"+Language.tr("Surface.Batch.Dialog.BatchSizeMode.Heading")+"</b></body></html>"));
@@ -175,6 +194,64 @@ public class BatchRecordPanel extends JPanel {
 		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel("<html><body>"+Language.tr("Surface.Batch.Dialog.BatchSizeInfo")+"</body></html>"));
 
+		/* Zeitgesteuerte Freigabe */
+
+		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(new JLabel("<html><body><b>"+Language.tr("Surface.Batch.Dialog.EarlyRelease.Heading")+"</b></body></html>"));
+
+		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(optionEarlyReleaseOff=new JRadioButton(Language.tr("Surface.Batch.Dialog.EarlyRelease.Off")));
+		optionEarlyReleaseOff.setEnabled(!readOnly);
+		optionEarlyReleaseOff.addActionListener(e->{setActive(); checkData(false);});
+
+		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(optionEarlyReleaseLastArrival=new JRadioButton(Language.tr("Surface.Batch.Dialog.EarlyRelease.LastArrival")));
+		optionEarlyReleaseLastArrival.setEnabled(!readOnly);
+		optionEarlyReleaseLastArrival.addActionListener(e->{setActive(); checkData(false);});
+
+		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(optionEarlyReleaseLongestWaitingTime=new JRadioButton(Language.tr("Surface.Batch.Dialog.EarlyRelease.LongestWaitingTime")));
+		optionEarlyReleaseLongestWaitingTime.setEnabled(!readOnly);
+		optionEarlyReleaseLongestWaitingTime.addActionListener(e->{setActive(); checkData(false);});
+
+		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel(Language.tr("Surface.Batch.Dialog.EarlyRelease.Time")+":"));
+		line.add(earlyReleaseTime=new JTextField(5));
+		ModelElementBaseDialog.addUndoFeature(earlyReleaseTime);
+		earlyReleaseTime.setEnabled(!readOnly);
+		earlyReleaseTime.setText(NumberTools.formatNumberMax(batchRecord.getEarlyReleaseTime()));
+		earlyReleaseTime.addKeyListener(new KeyListener() {
+			@Override public void keyTyped(KeyEvent e) {setActive(); if (optionEarlyReleaseOff.isSelected()) optionEarlyReleaseLastArrival.setSelected(true); checkData(false);}
+			@Override public void keyReleased(KeyEvent e) {setActive(); if (optionEarlyReleaseOff.isSelected()) optionEarlyReleaseLastArrival.setSelected(true); checkData(false);}
+			@Override public void keyPressed(KeyEvent e) {setActive(); if (optionEarlyReleaseOff.isSelected()) optionEarlyReleaseLastArrival.setSelected(true); checkData(false);}
+		});
+		line.add(earlyReleaseTimeBase=new JComboBox<>(ModelSurface.TimeBase.getNames()));
+		earlyReleaseTimeBase.setEnabled(!readOnly);
+		earlyReleaseTimeBase.setSelectedIndex(batchRecord.getEarlyReleaseTimeBase().id);
+		earlyReleaseTimeBase.addActionListener(e->{setActive(); if (optionEarlyReleaseOff.isSelected()) optionEarlyReleaseLastArrival.setSelected(true); checkData(false);});
+
+		buttonGroup=new ButtonGroup();
+		buttonGroup.add(optionEarlyReleaseOff);
+		buttonGroup.add(optionEarlyReleaseLastArrival);
+		buttonGroup.add(optionEarlyReleaseLongestWaitingTime);
+
+		switch (batchRecord.getEarlyRelease()) {
+		case OFF:
+			optionEarlyReleaseOff.setSelected(true);
+			break;
+		case BY_LAST_ARRIVAL:
+			optionEarlyReleaseLastArrival.setSelected(true);
+			break;
+		case BY_LONGEST_WAITING_TIME:
+			optionEarlyReleaseLongestWaitingTime.setSelected(true);
+			break;
+		default:
+			optionEarlyReleaseOff.setSelected(true);
+			break;
+		}
+
+		/* Batch-Bildung */
+
 		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel("<html><body><b>"+Language.tr("Surface.Batch.Dialog.SendMode.Heading")+"</b></body></html>"));
 
@@ -228,8 +305,11 @@ public class BatchRecordPanel extends JPanel {
 			break;
 		}
 
+		/* Bei Batch-Bildung */
+
 		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(new JLabel("<html><body><b>"+Language.tr("Surface.Batch.Dialog.TransferData")+"</b></body></html>"));
+
 		data=ModelElementBaseDialog.getComboBoxPanel(Language.tr("Surface.Batch.Dialog.TransferData.Times")+":",new String[] {
 				Language.tr("Surface.Batch.Dialog.TransferData.Mode.Off"),
 				Language.tr("Surface.Batch.Dialog.TransferData.Mode.Min"),
@@ -409,6 +489,22 @@ public class BatchRecordPanel extends JPanel {
 			batchFieldMax.setBackground(NumberTools.getTextFieldDefaultBackground());
 		}
 
+		/* Zeitgesteuerte Freigabe */
+
+		if (optionEarlyReleaseLastArrival.isSelected() || optionEarlyReleaseLongestWaitingTime.isSelected()) {
+			if (NumberTools.getPositiveDouble(earlyReleaseTime,true)==null) {
+				if (showErrorMessage) {
+					MsgBox.error(this,Language.tr("Surface.Batch.Dialog.EarlyRelease.Time.Error.Title"),Language.tr("Surface.Batch.Dialog.EarlyRelease.Time.Error.Info"));
+					return false;
+				}
+				ok=false;
+			}
+		} else {
+			earlyReleaseTime.setBackground(NumberTools.getTextFieldDefaultBackground());
+		}
+
+		/* Batch-Bildung */
+
 		if (optionNewType.isSelected() && newTypeField.getText().isEmpty()) {
 			if (showErrorMessage) {
 				MsgBox.error(this,Language.tr("Surface.Batch.Dialog.SendAsNewClient.Error.Title"),Language.tr("Surface.Batch.Dialog.SendAsNewClient.Error.Info"));
@@ -438,11 +534,24 @@ public class BatchRecordPanel extends JPanel {
 			batchRecord.setBatchSizeMode(BatchRecord.BatchSizeMode.FIXED);
 			batchRecord.setBatchSizeFixed(batchFieldFixed.getText().trim());
 		}
-
 		if (modeRange.isSelected()) {
 			batchRecord.setBatchSizeMode(BatchRecord.BatchSizeMode.RANGE);
 			batchRecord.setBatchSizeMin(batchFieldMin.getText().trim());
 			batchRecord.setBatchSizeMax(batchFieldMax.getText().trim());
+		}
+
+		if (optionEarlyReleaseOff.isSelected()) {
+			batchRecord.setEarlyRelease(EarlyReleaseMode.OFF);
+		}
+		if (optionEarlyReleaseLastArrival.isSelected()) {
+			batchRecord.setEarlyRelease(EarlyReleaseMode.BY_LAST_ARRIVAL);
+			batchRecord.setEarlyReleaseTime(NumberTools.getPositiveDouble(earlyReleaseTime,true));
+			batchRecord.setEarlyReleaseTimeBase(TimeBase.byId(earlyReleaseTimeBase.getSelectedIndex()));
+		}
+		if (optionEarlyReleaseLongestWaitingTime.isSelected()) {
+			batchRecord.setEarlyRelease(EarlyReleaseMode.BY_LONGEST_WAITING_TIME);
+			batchRecord.setEarlyReleaseTime(NumberTools.getPositiveDouble(earlyReleaseTime,true));
+			batchRecord.setEarlyReleaseTimeBase(TimeBase.byId(earlyReleaseTimeBase.getSelectedIndex()));
 		}
 
 		if (optionForward.isSelected()) batchRecord.setBatchMode(BatchRecord.BatchMode.BATCH_MODE_COLLECT);
@@ -454,6 +563,7 @@ public class BatchRecordPanel extends JPanel {
 			batchRecord.setBatchMode(BatchRecord.BatchMode.BATCH_MODE_PERMANENT);
 			batchRecord.setNewClientType(newTypeField.getText());
 		}
+
 		switch (transferTimes.getSelectedIndex()) {
 		case 0: batchRecord.setTransferTimes(BatchRecord.DataTransferMode.OFF); break;
 		case 1: batchRecord.setTransferTimes(BatchRecord.DataTransferMode.MIN); break;

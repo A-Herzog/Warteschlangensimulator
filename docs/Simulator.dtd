@@ -786,7 +786,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementBatch | ModellElementZusammenfassenUebertragenZeiten | ModellElementZusammenfassenUebertragenWerte)*>
+<!ELEMENT ModellElementZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementKundentyp | ModellElementBatchModus | ModellElementBatch | ModellElementZusammenfassenUebertragenZeiten | ModellElementZusammenfassenUebertragenWerte | ModellElementVorzeitigeBatchFreigabe)*>
 <!ATTLIST ModellElementZusammenfassen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -796,8 +796,14 @@
 <!ELEMENT ModellElementBatchModus (#PCDATA)>
 <!ELEMENT ModellElementZusammenfassenUebertragenZeiten (#PCDATA)>
 <!ELEMENT ModellElementZusammenfassenUebertragenWerte (#PCDATA)>
+<!ELEMENT ModellElementVorzeitigeBatchFreigabe EMPTY>
+<!ATTLIST ModellElementVorzeitigeBatchFreigabe
+  Modus			CDATA	#REQUIRED
+  Zeit			CDATA	#REQUIRED
+  Zeiteinheit	CDATA	#REQUIRED
+>
 
-<!ELEMENT ModellElementMehrfachZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZusammenfassenKundentyp | ModellElementZusammenfassenUebertragenZeiten | ModellElementZusammenfassenUebertragenWerte)*>
+<!ELEMENT ModellElementMehrfachZusammenfassen (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementZusammenfassenKundentyp)*>
 <!ATTLIST ModellElementMehrfachZusammenfassen
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -805,7 +811,7 @@
   SymbolSpiegeln	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModellElementZusammenfassenKundentyp (ModellElementKundentyp | ModellElementBatchModus | ModellElementBatch)*>
+<!ELEMENT ModellElementZusammenfassenKundentyp (ModellElementKundentyp | ModellElementBatchModus | ModellElementBatch | ModellElementZusammenfassenUebertragenZeiten | ModellElementZusammenfassenUebertragenWerte | ModellElementVorzeitigeBatchFreigabe)*>
 <!ATTLIST ModellElementZusammenfassenKundentyp
   name	CDATA	#REQUIRED
 >
@@ -3564,7 +3570,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementBatchData | ModelElementBatchTransferTimes | ModelElementBatchTransferNumbers)*>
+<!ELEMENT ModelElementBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementClientType | ModelElementBatchMode | ModelElementBatchData | ModelElementBatchTransferTimes | ModelElementBatchTransferNumbers | ModelElementEarlyBatchRelease)*>
 <!ATTLIST ModelElementBatch
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3574,8 +3580,14 @@
 <!ELEMENT ModelElementBatchMode (#PCDATA)>
 <!ELEMENT ModelElementBatchTransferTimes (#PCDATA)>
 <!ELEMENT ModelElementBatchTransferNumbers (#PCDATA)>
+<!ELEMENT ModelElementEarlyBatchRelease EMPTY>
+<!ATTLIST ModelElementEarlyBatchRelease
+  Mode		CDATA	#REQUIRED
+  Time		CDATA	#REQUIRED
+  TimeBase	CDATA	#REQUIRED
+>
 
-<!ELEMENT ModelElementMultiBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBatchClientType | ModelElementBatchTransferTimes | ModelElementBatchTransferNumbers)*>
+<!ELEMENT ModelElementMultiBatch (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementBatchClientType)*>
 <!ATTLIST ModelElementMultiBatch
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3583,7 +3595,7 @@
   MirrorSymbol	CDATA	#IMPLIED
 >
 
-<!ELEMENT ModelElementBatchClientType (ModelElementClientType | ModelElementBatchMode | ModelElementBatchData)*>
+<!ELEMENT ModelElementBatchClientType (ModelElementClientType | ModelElementBatchMode | ModelElementBatchData | ModelElementBatchTransferTimes | ModelElementBatchTransferNumbers | ModelElementEarlyBatchRelease)*>
 <!ATTLIST ModelElementBatchClientType
   name	CDATA	#REQUIRED
 >

@@ -35,6 +35,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -122,16 +123,22 @@ public final class ModelSurface {
 	 */
 	public enum TimeBase {
 		/** Zeitbasis: Sekunden */
-		TIMEBASE_SECONDS(0),
+		TIMEBASE_SECONDS(0,()->Language.trAll("Surface.XML.TimeBase.Seconds")),
 
 		/** Zeitbasis: Minuten */
-		TIMEBASE_MINUTES(1),
+		TIMEBASE_MINUTES(1,()->Language.trAll("Surface.XML.TimeBase.Minutes")),
 
 		/** Zeitbasis: Stunden */
-		TIMEBASE_HOURS(2),
+		TIMEBASE_HOURS(2,()->Language.trAll("Surface.XML.TimeBase.Hours")),
 
 		/** Zeitbasis: Tage */
-		TIMEBASE_DAYS(3);
+		TIMEBASE_DAYS(3,()->Language.trAll("Surface.XML.TimeBase.Days"));
+
+		/**
+		 * Vorgabezeitbasis, wenn ein unbekannter String geladen werden soll.
+		 * @see #byName(String)
+		 */
+		public static final TimeBase defaultTimeBase=TIMEBASE_SECONDS;
 
 		/**
 		 * Interne ID des Zeitbasis-Wertes
@@ -146,16 +153,41 @@ public final class ModelSurface {
 		public final int multiply;
 
 		/**
+		 * Alle Namen der Zeitbasis in allen Sprachen
+		 */
+		private final Supplier<String[]> nameGetter;
+
+		/**
 		 * Konstruktor des Enum
 		 * @param id	Interne ID des Zeitbasis-Wertes
+		 * @param nameGetter	Alle Namen der Zeitbasis in allen Sprachen
 		 */
-		TimeBase(final int id) {
+		TimeBase(final int id, final Supplier<String[]> nameGetter) {
 			this.id=id;
 			multiply=TIMEBASE_MULTIPLY[id];
+			this.nameGetter=nameGetter;
 		}
 
 		/**
-		 * Liefert eine Zeitbasis auf Basis einer ID
+		 * Liefert den Namen für die Zeitbasis in der aktuellen Sprache.
+		 * @return	Name für die Zeitbasis in der aktuellen Sprache
+		 */
+		public String getName() {
+			return nameGetter.get()[0];
+		}
+
+		/**
+		 * Prüft, ob ein angegebene Name ein Bezeichner für die Zeitbasis ist.
+		 * @param testName	Zu prüfender Name
+		 * @return	Liefert <code>true</code>, wenn der Name ein gültiger Bezeichner (in einer Sprache) für die Zeitbasis ist
+		 */
+		private boolean isName(final String testName) {
+			for (var name: nameGetter.get()) if (name.equalsIgnoreCase(testName)) return true;
+			return false;
+		}
+
+		/**
+		 * Liefert eine Zeitbasis auf Basis einer ID.
 		 * @param id	ID für die das Zeitbasis-Objekt ermittelt werden solle
 		 * @return	Zeitbasis-Objekt, das zu der ID passt. Es wird immer ein Objekt geliefert (Fallback: Sekunden), nie <code>null</code>.
 		 */
@@ -165,8 +197,26 @@ public final class ModelSurface {
 			case 1: return TIMEBASE_MINUTES;
 			case 2: return TIMEBASE_HOURS;
 			case 3: return TIMEBASE_DAYS;
-			default: return TimeBase.TIMEBASE_SECONDS;
+			default: return defaultTimeBase;
 			}
+		}
+
+		/**
+		 * Liefert eine Zeitbasis auf Basis eines Namens.
+		 * @param name	Name für die das Zeitbasis-Objekt ermittelt werden solle
+		 * @return	Zeitbasis-Objekt, das zu dem Namen passt. Es wird immer ein Objekt geliefert (Fallback: Sekunden), nie <code>null</code>.
+		 */
+		public static TimeBase byName(final String name) {
+			for (var timeBase: values()) if (timeBase.isName(name)) return timeBase;
+			return defaultTimeBase;
+		}
+
+		/**
+		 * Liefert eine zu {@link #values()} passende Liste mit den Namen der Zeitbasis-Objekte.
+		 * @return	Array mit den Namen der Zeitbasis-Objekte
+		 */
+		public static String[] getNames() {
+			return Stream.of(values()).map(TimeBase::getName).toArray(String[]::new);
 		}
 	}
 
@@ -345,7 +395,7 @@ public final class ModelSurface {
 	 * (für Comboboxen)
 	 * @return	Liste mit den Namen der Zeitbasis-Optionen
 	 */
-	public static String[] getTimeBaseStrings() {
+	public static String[] getTimeBaseStrings() { // TODO (9) Weg
 		return new String[] {
 				Language.trPrimary("Surface.XML.TimeBase.Seconds"),
 				Language.trPrimary("Surface.XML.TimeBase.Minutes"),
@@ -359,7 +409,7 @@ public final class ModelSurface {
 	 * @param timeBase	Zeitbasis-Wert (siehe {@link TimeBase})
 	 * @return	Name der Zeitbasis in der aktuellen Sprache
 	 */
-	public static String getTimeBaseString(final TimeBase timeBase) {
+	public static String getTimeBaseString(final TimeBase timeBase) { // TODO (9) Weg
 		switch (timeBase) {
 		case TIMEBASE_SECONDS: return Language.trPrimary("Surface.XML.TimeBase.Seconds");
 		case TIMEBASE_MINUTES: return Language.trPrimary("Surface.XML.TimeBase.Minutes");
@@ -390,7 +440,7 @@ public final class ModelSurface {
 	 * @param timeBaseName	Zeitbasis-Name
 	 * @return	Zeitbasis-Wert (siehe {@link TimeBase})
 	 */
-	public static TimeBase getTimeBaseInteger(final String timeBaseName) {
+	public static TimeBase getTimeBaseInteger(final String timeBaseName) { // TODO (9) Weg
 		if (timeBaseName==null || timeBaseName.isEmpty()) return TimeBase.TIMEBASE_SECONDS;
 		if (Language.trAll("Surface.XML.TimeBase.Seconds",timeBaseName)) return TimeBase.TIMEBASE_SECONDS;
 		if (Language.trAll("Surface.XML.TimeBase.Minutes",timeBaseName)) return TimeBase.TIMEBASE_MINUTES;

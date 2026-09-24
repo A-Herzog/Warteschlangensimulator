@@ -95,6 +95,9 @@ public class RunModelCreatorStatus {
 		/** Die maximale Batch-Größe an einer Batch-Station ist kleiner als die minimale Batch-Größe. */
 		MAX_BATCH_SIZE_LOWER_THAN_MIN((e,s)->RunModelFixerHelper.setBatchMaxError(e,s)),
 
+		/** Ungültige Zeit für eine vorzeitige Batch-Freigabe */
+		BATCH_INVALID_EARLY_RELEASE_TIME,
+
 		/** An einer Icon-Station wurde kein Icon angegeben. */
 		NO_ICON,
 

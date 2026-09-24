@@ -23,7 +23,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import language.Language;
+import mathtools.NumberTools;
+import mathtools.TimeTools;
 import simulator.editmodel.FullTextSearch;
+import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
@@ -148,6 +151,78 @@ public class BatchRecord implements Cloneable {
 	private DataTransferMode transferNumbers;
 
 	/**
+	 * Modus zur vorzeitigen Freigabe von zu kleinen Batches
+	 */
+	public enum EarlyReleaseMode {
+		/** Keine zeitgesteuerte Freigabe */
+		OFF(()->Language.trAll("Surface.Batch.XML.EarlyRelease.Mode.Off")),
+		/** Freigabe basierend auf der letzten Ankunftszeit */
+		BY_LAST_ARRIVAL(()->Language.trAll("Surface.Batch.XML.EarlyRelease.Mode.LastArrival")),
+		/** Freigabe basierend auf der Wartezeit der am längsten wartenden Kunden */
+		BY_LONGEST_WAITING_TIME(()->Language.trAll("Surface.Batch.XML.EarlyRelease.Mode.LongestWaitingTime"));
+
+		/**
+		 * Liefert die Namen für den Modus
+		 */
+		private final Supplier<String[]> nameGetter;
+
+		/**
+		 * Konstruktor
+		 * @param nameGetter Getter, der die Namen für den Modus zum Aufrufzeitpunkt liefert
+		 */
+		EarlyReleaseMode(Supplier<String[]> nameGetter) {
+			this.nameGetter=nameGetter;
+		}
+
+		/**
+		 * Liefert den Namen des Modus in der aktuellen Sprache.
+		 * @return	Name des Modus in der aktuellen Sprache
+		 */
+		public String getName() {
+			return nameGetter.get()[0];
+		}
+
+		/**
+		 * Prüft, ob eine Zeichenkette zu dem Modus passt.
+		 * @param modeString	Zu prüfende Zeichenkette
+		 * @return	Liefert <code>true</code>, wenn die Zeichenkette in einer Sprache den Namen für den Modus darstellt.
+		 */
+		private boolean matchesName(final String modeString) {
+			for (var test: nameGetter.get()) if (test.equalsIgnoreCase(modeString)) return true;
+			return false;
+		}
+
+		/**
+		 * Liefert den Modus basierend auf dem Namen.
+		 * @param modeString	Namen für den der zugehörige Modus geliefert werden soll
+		 * @return	Modus (Fallback zu {@link EarlyReleaseMode#OFF}
+		 */
+		public static EarlyReleaseMode fromString(final String modeString) {
+			for (var mode: values()) if (mode.matchesName(modeString)) return mode;
+			return EarlyReleaseMode.OFF;
+		}
+	}
+
+	/**
+	 * Modus zur vorzeitigen Freigabe von zu kleinen Batches
+	 * @see EarlyReleaseMode
+	 */
+	private EarlyReleaseMode earlyRelease;
+
+	/**
+	 * Zeitdauer für vorzeitige Freigabe von zu kleinen Batches
+	 * @see #earlyReleaseTimeBase
+	 * @see #earlyRelease
+	 */
+	private double earlyReleaseTime;
+
+	/**
+	 * Zeiteinheit für vorzeitige Freigabe von zu kleinen Batches
+	 * @see #earlyReleaseTime
+	 */
+	private TimeBase earlyReleaseTimeBase;
+
+	/**
 	 * Konstruktor der Klasse
 	 */
 	public BatchRecord() {
@@ -159,6 +234,9 @@ public class BatchRecord implements Cloneable {
 		newClientType="";
 		transferTimes=DataTransferMode.OFF;
 		transferNumbers=DataTransferMode.OFF;
+		earlyRelease=EarlyReleaseMode.OFF;
+		earlyReleaseTime=1;
+		earlyReleaseTimeBase=TimeBase.TIMEBASE_SECONDS;
 	}
 
 	/**
@@ -188,6 +266,12 @@ public class BatchRecord implements Cloneable {
 		if (transferTimes!=otherBatchRecord.transferTimes) return false;
 		if (transferNumbers!=otherBatchRecord.transferNumbers) return false;
 
+		if (earlyRelease!=otherBatchRecord.earlyRelease) return false;
+		if (earlyRelease!=EarlyReleaseMode.OFF) {
+			if (earlyReleaseTime!=otherBatchRecord.earlyReleaseTime) return false;
+			if (earlyReleaseTimeBase!=otherBatchRecord.earlyReleaseTimeBase) return false;
+		}
+
 		return true;
 	}
 
@@ -211,6 +295,10 @@ public class BatchRecord implements Cloneable {
 
 		transferTimes=copySource.transferTimes;
 		transferNumbers=copySource.transferNumbers;
+
+		earlyRelease=copySource.earlyRelease;
+		earlyReleaseTime=copySource.earlyReleaseTime;
+		earlyReleaseTimeBase=copySource.earlyReleaseTimeBase;
 	}
 
 	/**
@@ -380,6 +468,80 @@ public class BatchRecord implements Cloneable {
 	}
 
 	/**
+	 * Liefert den aktuellen Modus zur vorzeitigen Freigabe.
+	 * @return	Modus zur vorzeitigen Freigabe
+	 * @see #setEarlyRelease(EarlyReleaseMode)
+	 * @see #getEarlyReleaseTime()
+	 * @see #setEarlyReleaseTime(double)
+	 */
+	public EarlyReleaseMode getEarlyRelease() {
+		return (earlyRelease==null)?EarlyReleaseMode.OFF:earlyRelease;
+	}
+
+	/**
+	 * Stellt den Modus zur vorzeitigen Freigabe ein.
+	 * @param earlyRelease	Modus zur vorzeitigen Freigabe
+	 * @see #getEarlyRelease()
+	 * @see #getEarlyReleaseTime()
+	 * @see #setEarlyReleaseTime(double)
+	 */
+	public void setEarlyRelease(final EarlyReleaseMode earlyRelease) {
+		this.earlyRelease=(earlyRelease==null)?EarlyReleaseMode.OFF:earlyRelease;
+	}
+
+	/**
+	 * Liefert die Zeitdauer (bezogen auf den Modus) zu dem eine vorzeitige Freigabe eines Batches erfolgen soll.
+	 * @return	Zeitdauer (bezogen auf den Modus) zu dem eine vorzeitige Freigabe eines Batches erfolgen soll
+	 * @see #setEarlyRelease(EarlyReleaseMode)
+	 * @see #getEarlyRelease()
+	 * @see #setEarlyRelease(EarlyReleaseMode)
+	 * @see #getEarlyReleaseTimeBase()
+	 * @see #setEarlyReleaseTimeBase(TimeBase)
+	 */
+	public double getEarlyReleaseTime() {
+		return Math.max(0,earlyReleaseTime);
+	}
+
+	/**
+	 * Stellt die Zeitdauer (bezogen auf den Modus) zu dem eine vorzeitige Freigabe eines Batches erfolgen soll ein.
+	 * @param earlyReleaseTime	Zeitdauer (bezogen auf den Modus) zu dem eine vorzeitige Freigabe eines Batches erfolgen soll
+	 * @see #getEarlyReleaseTime()
+	 * @see #getEarlyRelease()
+	 * @see #setEarlyRelease(EarlyReleaseMode)
+	 * @see #getEarlyReleaseTimeBase()
+	 * @see #setEarlyReleaseTimeBase(TimeBase)
+	 */
+	public void setEarlyReleaseTime(final double earlyReleaseTime) {
+		this.earlyReleaseTime=Math.max(0,earlyReleaseTime);
+	}
+
+	/**
+	 * Liefert die Zeitbasis (bezogen auf den Modus) zu dem eine vorzeitige Freigabe eines Batches erfolgen soll.
+	 * @return	Zeitbasis (bezogen auf den Modus) zu dem eine vorzeitige Freigabe eines Batches erfolgen soll
+	 * @see #setEarlyReleaseTimeBase(TimeBase)
+	 * @see #getEarlyRelease()
+	 * @see #setEarlyRelease(EarlyReleaseMode)
+	 * @see #getEarlyReleaseTime()
+	 * @see #setEarlyReleaseTime(double)
+	 */
+	public TimeBase getEarlyReleaseTimeBase() {
+		return earlyReleaseTimeBase;
+	}
+
+	/**
+	 * Stellt die Zeitbasis (bezogen auf den Modus) zu dem eine vorzeitige Freigabe eines Batches erfolgen soll ein.
+	 * @param earlyReleaseTimeBase	Zeitbasis (bezogen auf den Modus) zu dem eine vorzeitige Freigabe eines Batches erfolgen soll
+	 * @see #getEarlyReleaseTimeBase()
+	 * @see #getEarlyRelease()
+	 * @see #setEarlyRelease(EarlyReleaseMode)
+	 * @see #getEarlyReleaseTime()
+	 * @see #setEarlyReleaseTime(double)
+	 */
+	public void setEarlyReleaseTimeBase(final TimeBase earlyReleaseTimeBase) {
+		this.earlyReleaseTimeBase=(earlyReleaseTimeBase==null)?TimeBase.defaultTimeBase:earlyReleaseTimeBase;
+	}
+
+	/**
 	 * Speichert die Einstellungen des Datensatzes als Untereinträge eines xml-Knotens.
 	 * @param doc	Übergeordnetes xml-Dokument
 	 * @param node	Übergeordneter xml-Knoten, in dessen Kindelementen die Daten des Objekts gespeichert werden sollen
@@ -437,6 +599,13 @@ public class BatchRecord implements Cloneable {
 		if (transferNumbers!=DataTransferMode.OFF) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Batch.XML.TransferNumbers")));
 			sub.setTextContent(transferNumbers.getName());
+		}
+
+		if (earlyRelease!=EarlyReleaseMode.OFF) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Batch.XML.EarlyRelease")));
+			sub.setAttribute(Language.trPrimary("Surface.Batch.XML.EarlyRelease.Mode"),earlyRelease.getName());
+			sub.setAttribute(Language.trPrimary("Surface.Batch.XML.EarlyRelease.Time"),NumberTools.formatSystemNumber(earlyReleaseTime));
+			sub.setAttribute(Language.trPrimary("Surface.Batch.XML.EarlyRelease.TimeBase"),earlyReleaseTimeBase.getName());
 		}
 	}
 
@@ -508,6 +677,17 @@ public class BatchRecord implements Cloneable {
 
 		if (Language.trAll("Surface.Batch.XML.TransferNumbers",name)) {
 			transferNumbers=DataTransferMode.byName(content);
+			return null;
+		}
+
+		if (Language.trAll("Surface.Batch.XML.EarlyRelease",name)) {
+			earlyRelease=EarlyReleaseMode.fromString(Language.trAllAttribute("Surface.Batch.XML.EarlyRelease.Mode",node));
+			if (earlyRelease!=EarlyReleaseMode.OFF) {
+				final Double D=NumberTools.getPositiveDouble(Language.trAllAttribute("Surface.Batch.XML.EarlyRelease.Time",node));
+				if (D==null) return String.format(Language.tr("Surface.XML.AttributeSubError"),Language.trPrimary("Surface.Batch.XML.EarlyRelease.Time"),name,node.getParentNode().getNodeName());
+				earlyReleaseTime=D;
+				earlyReleaseTimeBase=TimeBase.byName(Language.trAllAttribute("Surface.Batch.XML.EarlyRelease.TimeBase",node));
+			}
 			return null;
 		}
 
@@ -624,7 +804,25 @@ public class BatchRecord implements Cloneable {
 			case MULTIPLY: mode=Language.tr("Surface.Batch.Dialog.TransferData.Mode.Multiply"); break;
 			default: mode=null; break;
 			}
-			if (mode!=null) descriptionBuilder.addProperty(Language.tr("Surface.Batch.Dialog.TransferData.Numbers"),mode,level+3);
+			if (mode!=null) descriptionBuilder.addProperty(Language.tr("Surface.Batch.Dialog.TransferData.Numbers"),mode,level+4);
+		}
+
+		/* Vorzeitige Freigabe */
+		if (earlyRelease!=EarlyReleaseMode.OFF) {
+			switch (earlyRelease) {
+			case BY_LAST_ARRIVAL:
+				descriptionBuilder.addProperty(Language.tr("Surface.Batch.Dialog.EarlyRelease.ByLastArrival"),TimeTools.formatExactTime(earlyReleaseTime)+" "+earlyReleaseTimeBase.getName(),level+5);
+				break;
+			case BY_LONGEST_WAITING_TIME:
+				descriptionBuilder.addProperty(Language.tr("Surface.Batch.Dialog.EarlyRelease.ByLongestWaitingTime"),TimeTools.formatExactTime(earlyReleaseTime)+" "+earlyReleaseTimeBase.getName(),level+5);
+				break;
+			case OFF:
+				/* Keine Ausgabe */
+				break;
+			default:
+				/* Keine Ausgabe */
+				break;
+			}
 		}
 	}
 
@@ -654,6 +852,11 @@ public class BatchRecord implements Cloneable {
 		/* Neuer Kundentyp */
 		if (batchMode!=BatchMode.BATCH_MODE_COLLECT) {
 			searcher.testString(station,Language.tr("Editor.DialogBase.Search.NewClientType"),newClientType,newNewClientType->{newClientType=newNewClientType;});
+		}
+
+		/* Vorzeitige Freigabe */
+		if (earlyRelease!=EarlyReleaseMode.OFF) {
+			searcher.testDouble(station,Language.tr("Editor.DialogBase.Search.EarlyReleaseTime"),earlyReleaseTime,newEarlyReleaseTime->{earlyReleaseTime=Math.max(0,newEarlyReleaseTime);});
 		}
 	}
 }

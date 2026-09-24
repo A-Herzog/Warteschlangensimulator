@@ -1018,6 +1018,7 @@
 	<xs:element ref="ModellElementBatch"/>
 	<xs:element name="ModellElementZusammenfassenUebertragenZeiten" type="xs:string"/>
 	<xs:element name="ModellElementZusammenfassenUebertragenWerte" type="xs:string"/>
+	<xs:element ref="ModellElementVorzeitigeBatchFreigabe"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -1027,6 +1028,12 @@
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
+<xs:element name="ModellElementVorzeitigeBatchFreigabe"><xs:complexType>
+    <xs:attribute name="Modus" type="xs:string"/>
+    <xs:attribute name="Zeit" type="xs:string"/>
+    <xs:attribute name="Zeiteinheit" type="xs:string"/>
+</xs:complexType></xs:element>
+
 <xs:element name="ModellElementZusammenfassenKundentyp"><xs:complexType>
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
     <xs:element name="ModellElementKundentyp" type="xs:string"/>
@@ -1034,6 +1041,7 @@
 	<xs:element ref="ModellElementBatch"/>
 	<xs:element name="ModellElementZusammenfassenUebertragenZeiten" type="xs:string"/>
 	<xs:element name="ModellElementZusammenfassenUebertragenWerte" type="xs:string"/>
+	<xs:element ref="ModellElementVorzeitigeBatchFreigabe"/>
   </xs:choice></xs:sequence>
   <xs:attribute name="Name" type="xs:string" use="required"/>
 </xs:complexType></xs:element>
@@ -3613,14 +3621,19 @@
 	<xs:element ref="ModelElementBatchData"/>
 	<xs:element name="ModelElementBatchTransferTimes" type="xs:string"/>
 	<xs:element name="ModelElementBatchTransferNumbers" type="xs:string"/>
+	<xs:element ref="ModelElementEarlyBatchRelease"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementEarlyBatchRelease"><xs:complexType>
+    <xs:attribute name="Mode" type="xs:string"/>
+    <xs:attribute name="Time" type="xs:string"/>
+    <xs:attribute name="TimeBase" type="xs:string"/>
+</xs:complexType></xs:element>
 
 <xs:element name="ModelElementMultiBatch"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
   <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
 	<xs:element ref="ModelElementBatchClientType"/>
-	<xs:element name="ModelElementBatchTransferTimes" type="xs:string"/>
-	<xs:element name="ModelElementBatchTransferNumbers" type="xs:string"/>
   </xs:choice></xs:sequence>
 </xs:extension></xs:complexContent></xs:complexType></xs:element>
 
@@ -3629,6 +3642,9 @@
     <xs:element name="ModelElementClientType" type="xs:string"/>
     <xs:element name="ModelElementBatchMode" type="xs:string"/>
 	<xs:element ref="ModelElementBatchData"/>
+	<xs:element name="ModelElementBatchTransferTimes" type="xs:string"/>
+	<xs:element name="ModelElementBatchTransferNumbers" type="xs:string"/>
+	<xs:element ref="ModelElementEarlyBatchRelease"/>
   </xs:choice></xs:sequence>
   <xs:attribute name="Name" type="xs:string" use="required"/>
 </xs:complexType></xs:element>

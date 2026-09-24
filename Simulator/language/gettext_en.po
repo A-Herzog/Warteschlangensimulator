@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-05 22:38+0200\n"
+"POT-Creation-Date: 2026-09-22 09:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5207,6 +5207,9 @@ msgstr "Delay"
 
 msgid "Editor.DialogBase.Search.Description"
 msgstr "Station description"
+
+msgid "Editor.DialogBase.Search.EarlyReleaseTime"
+msgstr "Early batch release time"
 
 msgid "Editor.DialogBase.Search.Expression"
 msgstr "Expression"
@@ -20838,6 +20841,9 @@ msgstr "The number of transporters or the capacity for transporters of type \"%s
 msgid "Simulation.Creator.InvalidCounterExpression"
 msgstr "At station id=%d the counter condition %d \"%s\" is invalid at character %d."
 
+msgid "Simulation.Creator.InvalidEarlyBatchReleaseTime"
+msgstr "At station id=%d the early batch release time is invalid."
+
 msgid "Simulation.Creator.InvalidInitialVariableExpression"
 msgstr "The initial value for variable %s \"%s\" is invalid at character %d."
 
@@ -29857,6 +29863,33 @@ msgstr "Batch size"
 msgid "Surface.Batch.Dialog.BatchSizeMode.Range"
 msgstr "Variable batch size"
 
+msgid "Surface.Batch.Dialog.EarlyRelease.ByLastArrival"
+msgstr "Early batch release if the time since the last client arrival is exceeded"
+
+msgid "Surface.Batch.Dialog.EarlyRelease.ByLongestWaitingTime"
+msgstr "Early batch release if the maximum waiting time is exceeded"
+
+msgid "Surface.Batch.Dialog.EarlyRelease.Heading"
+msgstr "Time-controlled batch release"
+
+msgid "Surface.Batch.Dialog.EarlyRelease.LastArrival"
+msgstr "Release by last arrival time"
+
+msgid "Surface.Batch.Dialog.EarlyRelease.LongestWaitingTime"
+msgstr "Release by longest waiting time"
+
+msgid "Surface.Batch.Dialog.EarlyRelease.Off"
+msgstr "No time controled release"
+
+msgid "Surface.Batch.Dialog.EarlyRelease.Time"
+msgstr "Duration"
+
+msgid "Surface.Batch.Dialog.EarlyRelease.Time.Error.Info"
+msgstr "A positive numeric value must be entered for the early batch release time."
+
+msgid "Surface.Batch.Dialog.EarlyRelease.Time.Error.Title"
+msgstr "Invalid release time"
+
 msgid "Surface.Batch.Dialog.NewType"
 msgstr "New type"
 
@@ -29958,6 +29991,27 @@ msgstr "Temporary"
 
 msgid "Surface.Batch.XML.ClientType"
 msgstr "ModelElementClientType"
+
+msgid "Surface.Batch.XML.EarlyRelease"
+msgstr "ModelElementEarlyBatchRelease"
+
+msgid "Surface.Batch.XML.EarlyRelease.Mode"
+msgstr "Mode"
+
+msgid "Surface.Batch.XML.EarlyRelease.Mode.LastArrival"
+msgstr "ByLastArrival"
+
+msgid "Surface.Batch.XML.EarlyRelease.Mode.LongestWaitingTime"
+msgstr "ByLongestWaitingTime"
+
+msgid "Surface.Batch.XML.EarlyRelease.Mode.Off"
+msgstr "Off"
+
+msgid "Surface.Batch.XML.EarlyRelease.Time"
+msgstr "Time"
+
+msgid "Surface.Batch.XML.EarlyRelease.TimeBase"
+msgstr "TimeBase"
 
 msgid "Surface.Batch.XML.Record"
 msgstr "ModelElementBatchClientType"

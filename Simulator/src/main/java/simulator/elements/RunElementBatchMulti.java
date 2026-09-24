@@ -73,12 +73,23 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 	private BatchRecord.DataTransferMode[] transferNumbers;
 
 	/**
+	 * Modus zur vorzeitigen, zeitgesteuerten Batch-Freigabe
+	 */
+	private BatchRecord.EarlyReleaseMode[] earlyRelease;
+
+	/**
+	 * Zeitpunkt für die vorzeitige Batch-Freigabe
+	 */
+	private double[] earlyReleaseTimeSec;
+
+	/**
 	 * Konstruktor der Klasse
 	 * @param element	Zugehöriges Editor-Element
 	 */
 	public RunElementBatchMulti(final ModelElementBatchMulti element) {
 		super(element,buildName(element,Language.tr("Simulation.Element.BatchMulti.Name")));
 	}
+
 	@Override
 	public Object build(final EditModel editModel, final RunModel runModel, final ModelElement element, final ModelElementSub parent, final boolean testOnly) {
 		if (!(element instanceof ModelElementBatchMulti)) return null;
@@ -90,13 +101,14 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 		if (edgeError!=null) return edgeError;
 
 		/* Batch-Bildung */
-
 		batch.batchSizeMin=new String[runModel.clientTypes.length];
 		batch.batchSizeMax=new String[runModel.clientTypes.length];
 		batch.batchMode=new BatchRecord.BatchMode[runModel.clientTypes.length];
 		batch.newClientType=new int[runModel.clientTypes.length];
 		batch.transferTimes=new BatchRecord.DataTransferMode[runModel.clientTypes.length];
 		batch.transferNumbers=new BatchRecord.DataTransferMode[runModel.clientTypes.length];
+		batch.earlyRelease=new BatchRecord.EarlyReleaseMode[runModel.clientTypes.length];
+		batch.earlyReleaseTimeSec=new double[runModel.clientTypes.length];
 		for (Map.Entry<String,BatchRecord> entry: batchElement.getBatchRecords().entrySet()) {
 			final int index=runModel.getClientTypeNr(entry.getKey());
 			if (index<0) continue;
@@ -143,6 +155,10 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 
 			batch.transferTimes[index]=batchRecord.getTransferTimes();
 			batch.transferNumbers[index]=batchRecord.getTransferNumbers();
+
+			batch.earlyRelease[index]=batchRecord.getEarlyRelease();
+			batch.earlyReleaseTimeSec[index]=batchRecord.getEarlyReleaseTime()*batchRecord.getEarlyReleaseTimeBase().multiply;
+			if (batch.earlyRelease[index]!=BatchRecord.EarlyReleaseMode.OFF && batch.earlyReleaseTimeSec[index]<=0) return String.format(Language.tr("Simulation.Creator.InvalidEarlyBatchReleaseTime"),element.getId());
 		}
 
 		return batch;
@@ -177,6 +193,9 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 				if (min!=null && max!=null && Math.round(max)<Math.round(min)) return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidMaximumBatchSize"),element.getId()),RunModelCreatorStatus.Status.MAX_BATCH_SIZE_LOWER_THAN_MIN);
 				break;
 			}
+
+			if (batchRecord.getEarlyRelease()!=BatchRecord.EarlyReleaseMode.OFF && batchRecord.getEarlyReleaseTime()<=0)
+				return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.InvalidEarlyBatchReleaseTime"),element.getId()),RunModelCreatorStatus.Status.BATCH_INVALID_EARLY_RELEASE_TIME);
 		}
 
 		return RunModelCreatorStatus.ok;
@@ -187,7 +206,7 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 		RunElementBatchMultiData data;
 		data=(RunElementBatchMultiData)(simData.runData.getStationData(this));
 		if (data==null) {
-			data=new RunElementBatchMultiData(this,simData);
+			data=new RunElementBatchMultiData(this,earlyRelease,earlyReleaseTimeSec,simData);
 			simData.runData.setStationData(this,data);
 		}
 		return data;
@@ -377,7 +396,7 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 	 * @param newClient	Aktuell gerade eingetroffener Kunde (kann <code>null</code> sein)
 	 */
 	private void processSend(final SimulationData simData, final RunElementBatchMultiData data, final RunDataClient newClient) {
-		for (int i=0;i<batchMode.length;i++) if (batchMode[i]!=null && data.waiting[i]>=data.batchSizeMin[i]) {
+		for (int i=0;i<batchMode.length;i++) if (batchMode[i]!=null && (data.waiting[i]>=data.batchSizeMin[i] || data.earlyRelease(i,simData.currentTime))) {
 			switch (batchMode[i]) {
 			case BATCH_MODE_COLLECT:
 				processSendMultipleClients(simData,data,i,newClient);
@@ -404,12 +423,25 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 
 		if (client==null) {
 			/* Keine Kundenankunft, sondern Re-Check, ob noch weitere Kunden angekommen sind, die noch in den Batch passen. */
-			processSend(simData,data,null);
+			boolean send=false;
+			for (int i=0;i<batchMode.length;i++) if (batchMode[i]!=null && (data.waiting[i]>=data.batchSizeMin[i] || data.earlyRelease(i,simData.currentTime))) {
+				send=true;
+				break;
+			}
+			if (send) processSend(simData,data,null);
 			return;
 		}
 
 		/* Kunden an Station in Statistik */
 		simData.runData.logClientEntersStationQueue(simData,this,data,client);
+
+		/* Early-Release-Recheck-Event anlegen */
+		if (earlyRelease[client.type]==BatchRecord.EarlyReleaseMode.BY_LAST_ARRIVAL || earlyRelease[client.type]==BatchRecord.EarlyReleaseMode.BY_LONGEST_WAITING_TIME) {
+			final ProcessWaitingClientsEvent event=(ProcessWaitingClientsEvent)simData.getEvent(ProcessWaitingClientsEvent.class);
+			event.init(simData.currentTime+data.earlyReleaseTimeMS[client.type]);
+			event.station=this;
+			simData.eventManager.addEvent(event);
+		}
 
 		switch (data.addClient(client,simData.currentTime)) {
 		case -1:  /* Keine Batch-Regel für Kunde, sollte eigentlich schon oben ausgefiltert worden sein. */
@@ -422,7 +454,7 @@ public class RunElementBatchMulti extends RunElementPassThrough {
 			if (simData.loggingActive) log(simData,Language.tr("Simulation.Log.Batching"),String.format(Language.tr("Simulation.Log.Batching.Info"),client.logInfo(simData),name,data.waiting[client.type],data.clients[client.type].length));
 			break;
 		case 1: /* Minimale Batch-Größe erreicht, aber noch nicht maximale Batch-Größe */
-			ProcessWaitingClientsEvent event=(ProcessWaitingClientsEvent)simData.getEvent(ProcessWaitingClientsEvent.class);
+			final ProcessWaitingClientsEvent event=(ProcessWaitingClientsEvent)simData.getEvent(ProcessWaitingClientsEvent.class);
 			event.init(simData.currentTime+1);
 			event.station=this;
 			simData.eventManager.addEvent(event);

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-05 22:38+0200\n"
+"POT-Creation-Date: 2026-09-22 09:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5213,6 +5213,9 @@ msgstr "Verzögerung"
 
 msgid "Editor.DialogBase.Search.Description"
 msgstr "Beschreibung der Station"
+
+msgid "Editor.DialogBase.Search.EarlyReleaseTime"
+msgstr "Vorzeitige Batch-Freigabezeit"
 
 msgid "Editor.DialogBase.Search.Expression"
 msgstr "Ausdruck"
@@ -20880,6 +20883,9 @@ msgstr "Die Anzahl oder Kapazität für Transportertyp \"%s\" ist ungültig."
 msgid "Simulation.Creator.InvalidCounterExpression"
 msgstr "An Station id=%d ist die Zählerbedingung %d \"%s\" ab Zeichen %d ungültig."
 
+msgid "Simulation.Creator.InvalidEarlyBatchReleaseTime"
+msgstr "An Station id=%d ist die Zeitdauer für die vorzeige Freigabe von Batchen ungültig."
+
 msgid "Simulation.Creator.InvalidInitialVariableExpression"
 msgstr "Die initiale Belegegung für die Variable %s \"%s\" ist ab Zeichen %d ungültig."
 
@@ -29902,6 +29908,33 @@ msgstr "Batch-Größe"
 msgid "Surface.Batch.Dialog.BatchSizeMode.Range"
 msgstr "Variable Batch-Größe"
 
+msgid "Surface.Batch.Dialog.EarlyRelease.ByLastArrival"
+msgstr "Vorzeitige Batch-Freigabe beim Überschreiten der Zeitdauer seit der letzten Kundenankunft"
+
+msgid "Surface.Batch.Dialog.EarlyRelease.ByLongestWaitingTime"
+msgstr "Vorzeitige Batch-Freigabe beim Überschreiten der maximalen Wartezeit"
+
+msgid "Surface.Batch.Dialog.EarlyRelease.Heading"
+msgstr "Zeitgesteuerte Batch-Freigabe"
+
+msgid "Surface.Batch.Dialog.EarlyRelease.LastArrival"
+msgstr "Zeitgesteuerte Freigabe nach letzter Ankunftszeit"
+
+msgid "Surface.Batch.Dialog.EarlyRelease.LongestWaitingTime"
+msgstr "Zeitgesteuerte Freigabe nach längster Wartezeit"
+
+msgid "Surface.Batch.Dialog.EarlyRelease.Off"
+msgstr "Keine zeitgesteuerte Freigabe"
+
+msgid "Surface.Batch.Dialog.EarlyRelease.Time"
+msgstr "Zeitdauer"
+
+msgid "Surface.Batch.Dialog.EarlyRelease.Time.Error.Info"
+msgstr "Es muss ein positiver Zahlenwert für die vorzeitige Batch-Freigabezeit angegeben werden."
+
+msgid "Surface.Batch.Dialog.EarlyRelease.Time.Error.Title"
+msgstr "Ungültige Freigabezeit"
+
 msgid "Surface.Batch.Dialog.NewType"
 msgstr "Neuer Typ"
 
@@ -30003,6 +30036,27 @@ msgstr "Zeitweise"
 
 msgid "Surface.Batch.XML.ClientType"
 msgstr "ModellElementKundentyp"
+
+msgid "Surface.Batch.XML.EarlyRelease"
+msgstr "ModellElementVorzeitigeBatchFreigabe"
+
+msgid "Surface.Batch.XML.EarlyRelease.Mode"
+msgstr "Modus"
+
+msgid "Surface.Batch.XML.EarlyRelease.Mode.LastArrival"
+msgstr "NachLetzterAnkunft"
+
+msgid "Surface.Batch.XML.EarlyRelease.Mode.LongestWaitingTime"
+msgstr "NachLaengsterWartezeit"
+
+msgid "Surface.Batch.XML.EarlyRelease.Mode.Off"
+msgstr "Aus"
+
+msgid "Surface.Batch.XML.EarlyRelease.Time"
+msgstr "Zeit"
+
+msgid "Surface.Batch.XML.EarlyRelease.TimeBase"
+msgstr "Zeiteinheit"
 
 msgid "Surface.Batch.XML.Record"
 msgstr "ModellElementZusammenfassenKundentyp"

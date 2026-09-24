@@ -22,6 +22,7 @@ import simulator.coreelements.RunElementData;
 import simulator.runmodel.RunDataClient;
 import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionCalc;
+import ui.modeleditor.elements.BatchRecord;
 
 /**
  * Laufzeitdaten eines {@link RunElementBatch}-Laufzeit-Objekts
@@ -60,19 +61,34 @@ public class RunElementBatchData extends RunElementData {
 	public int waiting;
 
 	/**
+	 * Modus zur vorzeitigen, zeitgesteuerten Batch-Freigabe
+	 */
+	private final BatchRecord.EarlyReleaseMode earlyRelease;
+
+	/**
+	 * Zeitpunkt für die vorzeitige Batch-Freigabe
+	 */
+	public final long earlyReleaseTimeMS;
+
+	/**
 	 * Konstruktor der Klasse <code>RunElementBatchData</code>
 	 * @param station	Station zu diesem Datenelement
 	 * @param batchSizeMin	Minimale Batch-Größe
 	 * @param batchSizeMax	Maximale Batch-Größe
+	 * @param earlyRelease	Modus zur vorzeitigen, zeitgesteuerten Batch-Freigabe
+	 * @param earlyReleaseTime	Zeitpunkt für die vorzeitige Batch-Freigabe
 	 * @param simData	Simulationsdatenobjekt
 	 */
-	public RunElementBatchData(final RunElement station, final String batchSizeMin, final String batchSizeMax, final SimulationData simData) {
+	public RunElementBatchData(final RunElement station, final String batchSizeMin, final String batchSizeMax, final BatchRecord.EarlyReleaseMode earlyRelease, final double earlyReleaseTime, final SimulationData simData) {
 		super(station,simData);
 
 		waiting=0;
 
 		ExpressionCalc calc;
 		final Double min, max;
+
+		this.earlyRelease=earlyRelease;
+		this.earlyReleaseTimeMS=(long)(earlyReleaseTime*simData.runModel.scaleToSimTime+0.5);
 
 		calc=new ExpressionCalc(simData.runModel.variableNames,simData.runModel.modelUserFunctions);
 		calc.parse(batchSizeMin);
@@ -130,6 +146,26 @@ public class RunElementBatchData extends RunElementData {
 		waiting++;
 		if (waiting==clients.length) return 2; /* Maximale Batch-Größe erreicht */
 		if (waiting>=batchSizeMin) return 1; /* Minimale Batch-Größe erreicht */
+		if (earlyRelease(time)) return 1; /* Zeitbedingung erreicht */
 		return 0; /* Noch nicht genug Kunden eingetroffen */
+	}
+
+	/**
+	 * Prüft, ob eine vorzeitige, zeitgesteuerte Freigabe erfolgen soll.
+	 * @param now	Aktuelle Zeit
+	 * @return	Liefert <code>true</code>, wenn eine vorzeitige, zeitgesteuerte Freigabe erfolgen soll.
+	 */
+	public boolean earlyRelease(final long now) {
+		if (waiting==0 || earlyRelease==BatchRecord.EarlyReleaseMode.OFF) return false;
+
+		if (earlyRelease==BatchRecord.EarlyReleaseMode.BY_LAST_ARRIVAL) {
+			if (clientAddTime[waiting-1]<=now-earlyReleaseTimeMS) return true;
+		}
+
+		if (earlyRelease==BatchRecord.EarlyReleaseMode.BY_LONGEST_WAITING_TIME) {
+			if (clientAddTime[0]<=now-earlyReleaseTimeMS) return true;
+		}
+
+		return false;
 	}
 }
