@@ -95,9 +95,10 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 
 	@Override
 	protected void setDialogSize() {
-		setSizeRespectingScreensize(600,275);
+		setSizeRespectingScreensize(600,400);
+		setMinSizeRespectingScreensize(600,400);
 		pack();
-		setMaxSizeRespectingScreensize(600,768);
+		setMaxSizeRespectingScreensize(800,800);
 	}
 
 	@Override
@@ -149,16 +150,18 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 		clientTypes=element.getSurface().getClientTypes();
 		capacityNeeded=new ArrayList<>();
 		if (clientTypes.size()>0) {
-			tabOuter.add(new JScrollPane(tab=new JPanel()),BorderLayout.CENTER);
-			tab.setLayout(new BoxLayout(tab, BoxLayout.PAGE_AXIS));
-			tab.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+			tabOuter.add(new JScrollPane(tab=new JPanel(new BorderLayout())),BorderLayout.CENTER);
+			final JPanel tabInner=new JPanel(new BorderLayout());
+			tab.add(tabInner,BorderLayout.NORTH);
+			tabInner.setLayout(new BoxLayout(tabInner,BoxLayout.PAGE_AXIS));
+			tabInner.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			sub.add(new JLabel(Language.tr("Surface.Conveyor.Dialog.CapacityNeeded.Info")));
 			for (String clientType: clientTypes) {
 				String value=conveyor.getCapacityNeeded(clientType);
 				if (value==null) value="";
 				data=getInputPanel(String.format(Language.tr("Surface.Conveyor.Dialog.CapacityNeeded"),clientType)+":",value);
 				sub=(JPanel)data[0];
-				tab.add(sub);
+				tabInner.add(sub);
 				final JTextField field=(JTextField)data[1];
 				field.setEnabled(!readOnly);
 				capacityNeeded.add(field);
