@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64\SignTool.exe" sign /n Clausthal /fd SHA256 /tr http://timestamp.sectigo.com /td SHA256 ./JavaDownloader/JavaDownloader.exe

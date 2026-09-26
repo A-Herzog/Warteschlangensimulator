@@ -5,7 +5,7 @@ unit findjava;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, Forms;
 
 Type
 
@@ -15,7 +15,7 @@ Type
   private
     fOwnPath : String;
     fSimPath : String;
-    fSimExe : String;
+    fSimBat : String;
     fJavaPath : String;
     fIsSimFound : Boolean;
     fIsSimInProgramFolder : Boolean;
@@ -31,7 +31,7 @@ Type
     property OwnPath : String read fOwnPath;
     property SimPath : String read fSimPath;
     property JavaPath : String read fJavaPath;
-    property SimExe : String read fSimExe;
+    property SimBat : String read fSimBat;
     property IsSimFound : Boolean read fIsSimFound;
     property IsSimInProgramFolder : Boolean read fIsSimInProgramFolder;
     property IsSimInUserFolder : Boolean read fIsSimInUserFolder;
@@ -39,7 +39,7 @@ end;
 
 implementation
 
-uses Forms, Registry;
+uses Registry;
 
 constructor TFindJava.Create;
 begin
@@ -62,9 +62,9 @@ begin
   i:=fSimPath.LastIndexOf(PathDelim);
   fSimPath:=copy(fSimPath,1,i+1);
 
-  fSimExe:=fSimPath+'Simulator.exe';
+  fSimBat:=fSimPath+'Simulator.bat';
 
-  fIsSimFound:=FileExists(fSimExe);
+  fIsSimFound:=FileExists(fSimBat);
   fIsSimInProgramFolder:=LowerCase(fSimPath).StartsWith('c:\program files\');
   fIsSimInUserFolder:=not fIsSimInProgramFolder;
 end;

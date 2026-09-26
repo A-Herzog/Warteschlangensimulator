@@ -218,7 +218,7 @@ begin
   DeleteFile(fTempZipFile);
 
   if fExtractThread.Success then begin
-    ShellExecute(Handle,'open',PChar(fFindJava.SimExe),nil,PChar(fFindJava.SimPath),SW_SHOW);
+    ShellExecute(Handle,'open',PChar(fFindJava.SimBat),nil,PChar(fFindJava.SimPath),SW_SHOW);
     Close;
   end;
 end;

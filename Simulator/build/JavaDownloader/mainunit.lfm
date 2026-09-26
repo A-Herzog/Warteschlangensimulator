@@ -8,11 +8,11 @@ object MainForm: TMainForm
   ClientHeight = 360
   ClientWidth = 723
   DesignTimePPI = 144
+  Position = poScreenCenter
+  LCLVersion = '4.8.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
-  Position = poScreenCenter
-  LCLVersion = '2.0.6.0'
   object InfoLabel: TLabel
     Left = 20
     Height = 50
@@ -39,11 +39,11 @@ object MainForm: TMainForm
     Width = 158
     Caption = 'Manual'
     Kind = bkYes
-    OnClick = Fix1Click
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 1
+    OnClick = Fix1Click
   end
   object Fix2: TBitBtn
     Left = 20
@@ -61,11 +61,11 @@ object MainForm: TMainForm
     Font.Quality = fqDraft
     Font.Style = [fsBold]
     Kind = bkYes
-    OnClick = Fix2Click
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 0
+    OnClick = Fix2Click
   end
   object Label2: TLabel
     Left = 24
@@ -105,11 +105,11 @@ object MainForm: TMainForm
     Enabled = False
     Kind = bkCancel
     ModalResult = 2
-    OnClick = CancelClick
     ParentFont = False
     ParentShowHint = False
     ShowHint = True
     TabOrder = 4
+    OnClick = CancelClick
   end
   object Shape1: TShape
     Left = 0
