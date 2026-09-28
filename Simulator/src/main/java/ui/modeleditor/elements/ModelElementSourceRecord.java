@@ -1211,7 +1211,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 			case NEXT_DISTRIBUTION:
 				node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.Distribution")));
 				if (distribution!=null) sub.setTextContent(DistributionTools.distributionToString(distribution));
-				sub.setAttribute(Language.trPrimary("Surface.Source.XML.Distribution.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
+				sub.setAttribute(Language.trPrimary("Surface.Source.XML.Distribution.TimeBase"),timeBase.getName());
 				if (maxArrivalCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.Distribution.Count"),""+maxArrivalCount);
 				if (maxArrivalClientCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.Distribution.ClientCount"),""+maxArrivalClientCount);
 				if (firstArrivalAt0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.FirstArrivalAt0"),"1");
@@ -1219,7 +1219,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 			case NEXT_EXPRESSION:
 				node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.Expression")));
 				sub.setTextContent(expression);
-				sub.setAttribute(Language.trPrimary("Surface.Source.XML.Expression.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
+				sub.setAttribute(Language.trPrimary("Surface.Source.XML.Expression.TimeBase"),timeBase.getName());
 				if (maxArrivalCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.Expression.Count"),""+maxArrivalCount);
 				if (maxArrivalClientCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.Expression.ClientCount"),""+maxArrivalClientCount);
 				if (firstArrivalAt0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.FirstArrivalAt0"),"1");
@@ -1292,7 +1292,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 					sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.InterArrivalTimes"),"1");
 					if (dataStreamRepeat) sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.InterArrivalTimes.Repeat"),"1");
 				}
-				sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
+				sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.TimeBase"),timeBase.getName());
 				if (maxArrivalCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.Count"),""+maxArrivalCount);
 				if (maxArrivalClientCount>0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.DataStream.ClientCount"),""+maxArrivalClientCount);
 				if (firstArrivalAt0) sub.setAttribute(Language.trPrimary("Surface.Source.XML.FirstArrivalAt0"),"1");
@@ -1315,7 +1315,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 				node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Source.XML.Expression.ArrivalStart")));
 				sub.setTextContent(NumberTools.formatSystemNumber(arrivalsStart));
 				if (arrivalStartTimeBase!=null) {
-					sub.setAttribute(Language.trPrimary("Surface.Source.XML.Expression.ArrivalStart.TimeBase"),ModelSurface.getTimeBaseString(arrivalStartTimeBase));
+					sub.setAttribute(Language.trPrimary("Surface.Source.XML.Expression.ArrivalStart.TimeBase"),timeBase.getName());
 				}
 			}
 		}
@@ -1405,7 +1405,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 			if (distribution==null) return String.format(Language.tr("Surface.XML.ElementSubError"),name,node.getParentNode().getNodeName());
 			nextMode=NextMode.NEXT_DISTRIBUTION;
 			final String timeBaseName=Language.trAllAttribute("Surface.Source.XML.Distribution.TimeBase",node);
-			timeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
+			timeBase=TimeBase.byName(timeBaseName);
 			final String countString=Language.trAllAttribute("Surface.Source.XML.Distribution.Count",node);
 			final String clientCountString=Language.trAllAttribute("Surface.Source.XML.Distribution.ClientCount",node);
 			final String arrivalCountError=loadCountData(node,countString,clientCountString,Language.trPrimary("Surface.Source.XML.Distribution.Count"),Language.trPrimary("Surface.Source.XML.Distribution.ClientCount"));
@@ -1419,7 +1419,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 			expression=content;
 			nextMode=NextMode.NEXT_EXPRESSION;
 			final String timeBaseName=Language.trAllAttribute("Surface.Source.XML.Expression.TimeBase",node);
-			timeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
+			timeBase=TimeBase.byName(timeBaseName);
 			final String countString=Language.trAllAttribute("Surface.Source.XML.Expression.Count",node);
 			final String clientCountString=Language.trAllAttribute("Surface.Source.XML.Expression.ClientCount",node);
 			final String arrivalCountError=loadCountData(node,countString,clientCountString,Language.trPrimary("Surface.Source.XML.Expression.Count"),Language.trPrimary("Surface.Source.XML.Expression.ClientCount"));
@@ -1533,7 +1533,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 			dataStreamIsInterArrival=Language.trAllAttribute("Surface.Source.XML.DataStream.InterArrivalTimes",node).equals("1");
 			dataStreamRepeat=Language.trAllAttribute("Surface.Source.XML.DataStream.InterArrivalTimes.Repeat",node).equals("1");
 			final String timeBaseName=Language.trAllAttribute("Surface.Source.XML.DataStream.TimeBase",node);
-			timeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
+			timeBase=TimeBase.byName(timeBaseName);
 			final String countString=Language.trAllAttribute("Surface.Source.XML.DataStream.Count",node);
 			final String clientCountString=Language.trAllAttribute("Surface.Source.XML.DataStream.ClientCount",node);
 			final String arrivalCountError=loadCountData(node,countString,clientCountString,Language.trPrimary("Surface.Source.XML.DataStream.Count"),Language.trPrimary("Surface.Source.XML.DataStream.ClientCount"));
@@ -1558,7 +1558,7 @@ public final class ModelElementSourceRecord implements Cloneable {
 			if (arrivalStartTimeBaseString.isBlank()) {
 				arrivalStartTimeBase=null;
 			} else {
-				arrivalStartTimeBase=ModelSurface.getTimeBaseInteger(arrivalStartTimeBaseString);
+				arrivalStartTimeBase=TimeBase.byName(arrivalStartTimeBaseString);
 			}
 			return null;
 		}
@@ -1791,9 +1791,9 @@ public final class ModelElementSourceRecord implements Cloneable {
 				info.append(NumberTools.formatNumber(arrivalsStart));
 				info.append(" ");
 				if (arrivalStartTimeBase!=null) {
-					info.append(ModelSurface.getTimeBaseString(arrivalStartTimeBase));
+					info.append(arrivalStartTimeBase.getName());
 				} else {
-					info.append(ModelSurface.getTimeBaseString(timeBase));
+					info.append(timeBase.getName());
 				}
 				info.append("\n");
 			}

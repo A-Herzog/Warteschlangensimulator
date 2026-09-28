@@ -387,39 +387,6 @@ public final class ModelSurface {
 	}
 
 	/**
-	 * Namen (für die xml-Dateien und die Dialoge) für die Zeitbasis-Werte
-	 */
-
-	/**
-	 * Liefert eine Liste mit den Zeitbasis-Namen in der aktuellen Sprache
-	 * (für Comboboxen)
-	 * @return	Liste mit den Namen der Zeitbasis-Optionen
-	 */
-	public static String[] getTimeBaseStrings() { // TODO (9) Weg
-		return new String[] {
-				Language.trPrimary("Surface.XML.TimeBase.Seconds"),
-				Language.trPrimary("Surface.XML.TimeBase.Minutes"),
-				Language.trPrimary("Surface.XML.TimeBase.Hours"),
-				Language.trPrimary("Surface.XML.TimeBase.Days")
-		};
-	}
-
-	/**
-	 * Wandelt einen Zeitbasis-Wert (siehe {@link TimeBase}) in einen Namen in der aktuellen Sprache um
-	 * @param timeBase	Zeitbasis-Wert (siehe {@link TimeBase})
-	 * @return	Name der Zeitbasis in der aktuellen Sprache
-	 */
-	public static String getTimeBaseString(final TimeBase timeBase) { // TODO (9) Weg
-		switch (timeBase) {
-		case TIMEBASE_SECONDS: return Language.trPrimary("Surface.XML.TimeBase.Seconds");
-		case TIMEBASE_MINUTES: return Language.trPrimary("Surface.XML.TimeBase.Minutes");
-		case TIMEBASE_HOURS: return Language.trPrimary("Surface.XML.TimeBase.Hours");
-		case TIMEBASE_DAYS: return Language.trPrimary("Surface.XML.TimeBase.Days");
-		default: return Language.trPrimary("Surface.XML.TimeBase.Seconds");
-		}
-	}
-
-	/**
 	 * Wandelt einen Zeitbasis-Wert (siehe {@link TimeBase}) in einen Namen in der aktuellen Sprache um,
 	 * wobei die Formulierung für "Nach x Einheit" passt.
 	 * @param timeBase	Zeitbasis-Wert (siehe {@link TimeBase})
@@ -433,20 +400,6 @@ public final class ModelSurface {
 		case TIMEBASE_DAYS: return Language.trPrimary("Surface.XML.TimeBase.DaysTab");
 		default: return Language.trPrimary("Surface.XML.TimeBase.SecondsTab");
 		}
-	}
-
-	/**
-	 * Wandelt einen Zeitbasis-Namen (egal in welcher Sprache) in einen Zeitbasis-Wert (siehe {@link TimeBase}) um
-	 * @param timeBaseName	Zeitbasis-Name
-	 * @return	Zeitbasis-Wert (siehe {@link TimeBase})
-	 */
-	public static TimeBase getTimeBaseInteger(final String timeBaseName) { // TODO (9) Weg
-		if (timeBaseName==null || timeBaseName.isEmpty()) return TimeBase.TIMEBASE_SECONDS;
-		if (Language.trAll("Surface.XML.TimeBase.Seconds",timeBaseName)) return TimeBase.TIMEBASE_SECONDS;
-		if (Language.trAll("Surface.XML.TimeBase.Minutes",timeBaseName)) return TimeBase.TIMEBASE_MINUTES;
-		if (Language.trAll("Surface.XML.TimeBase.Hours",timeBaseName)) return TimeBase.TIMEBASE_HOURS;
-		if (Language.trAll("Surface.XML.TimeBase.Days",timeBaseName)) return TimeBase.TIMEBASE_DAYS;
-		return TimeBase.TIMEBASE_SECONDS;
 	}
 
 	/**

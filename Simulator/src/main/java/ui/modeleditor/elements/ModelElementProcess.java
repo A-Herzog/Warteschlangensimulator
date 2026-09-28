@@ -52,6 +52,7 @@ import ui.modeleditor.ModelDataResourceUsage;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -648,7 +649,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 		}
 
 		working.save(doc,node,element->{
-			element.setAttribute(Language.trPrimary("Surface.Process.XML.Distribution.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
+			element.setAttribute(Language.trPrimary("Surface.Process.XML.Distribution.TimeBase"),timeBase.getName());
 			switch (processTimeType) {
 			case PROCESS_TYPE_WAITING:
 				element.setAttribute(Language.trPrimary("Surface.Process.XML.TimeType"),Language.trPrimary("Surface.Process.XML.TimeType.WaitingTime"));
@@ -762,7 +763,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 			if (Language.trAll("Surface.Process.XML.Distribution.Type.ProcessingTime",modeString)) {
 				if (working.isGlobal(node)) {
 					final String timeBaseName=Language.trAllAttribute("Surface.Process.XML.Distribution.TimeBase",node);
-					timeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
+					timeBase=TimeBase.byName(timeBaseName);
 					final String type=Language.trAllAttribute("Surface.Process.XML.TimeType",node);
 					if (Language.trAll("Surface.Process.XML.TimeType.WaitingTime",type)) processTimeType=ProcessType.PROCESS_TYPE_WAITING;
 					if (Language.trAll("Surface.Process.XML.TimeType.TransferTime",type)) processTimeType=ProcessType.PROCESS_TYPE_TRANSFER;
@@ -785,7 +786,7 @@ public class ModelElementProcess extends ModelElementBox implements ModelDataRen
 			if (Language.trAll("Surface.Process.XML.Distribution.Type.ProcessingTime",modeString)) {
 				if (working.isGlobal(node)) {
 					final String timeBaseName=Language.trAllAttribute("Surface.Process.XML.Distribution.TimeBase",node);
-					timeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
+					timeBase=TimeBase.byName(timeBaseName);
 					final String type=Language.trAllAttribute("Surface.Process.XML.TimeType",node);
 					if (Language.trAll("Surface.Process.XML.TimeType.WaitingTime",type)) processTimeType=ProcessType.PROCESS_TYPE_WAITING;
 					if (Language.trAll("Surface.Process.XML.TimeType.TransferTime",type)) processTimeType=ProcessType.PROCESS_TYPE_TRANSFER;

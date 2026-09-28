@@ -21,6 +21,7 @@ import org.w3c.dom.Element;
 import language.Language;
 import simulator.editmodel.FullTextSearch;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
@@ -172,7 +173,7 @@ public final class TransportTimeRecord implements Cloneable {
 	 * @see #addPropertiesToXML(Document, Element)
 	 */
 	private void addAttributesToGlobalElement(final Element sub) {
-		sub.setAttribute(Language.trPrimary("Surface.TransportSource.XML.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
+		sub.setAttribute(Language.trPrimary("Surface.TransportSource.XML.TimeBase"),timeBase.getName());
 		switch (delayType) {
 		case DELAY_TYPE_WAITING:
 			sub.setAttribute(Language.trPrimary("Surface.TransportSource.XML.Type"),Language.trPrimary("Surface.TransportSource.XML.Type.WaitingTime"));
@@ -205,7 +206,7 @@ public final class TransportTimeRecord implements Cloneable {
 	 */
 	private void loadGlobalProperties(final Element node) {
 		final String timeBaseName=Language.trAllAttribute("Surface.TransportSource.XML.TimeBase",node);
-		timeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
+		timeBase=TimeBase.byName(timeBaseName);
 		final String type=Language.trAllAttribute("Surface.TransportSource.XML.Type",node);
 		if (Language.trAll("Surface.TransportSource.XML.Type.WaitingTime",type)) delayType=DelayType.DELAY_TYPE_WAITING;
 		if (Language.trAll("Surface.TransportSource.XML.Type.TransferTime",type)) delayType=DelayType.DELAY_TYPE_TRANSFER;

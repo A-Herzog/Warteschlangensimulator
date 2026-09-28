@@ -61,6 +61,7 @@ import ui.modeleditor.ModelDataResourceUsage;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.ModelSurfaceAnimatorBase;
 import ui.modeleditor.coreelements.ModelElement;
 
@@ -348,7 +349,7 @@ public class ResourceTableModelDialog extends BaseDialog {
 		}));
 		panel.add(timeBasePanel=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		timeBasePanel.add(label=new JLabel(Language.tr("Surface.Source.Dialog.TimeBase")+":"));
-		timeBasePanel.add(timeBaseCombo=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
+		timeBasePanel.add(timeBaseCombo=new JComboBox<>(TimeBase.getNames()));
 		timeBaseCombo.setSelectedIndex(resource.getMoveTimeBase().id);
 		moveTimesMode.addActionListener(e->{
 			final int cardIndex=moveTimesMode.getSelectedIndex();

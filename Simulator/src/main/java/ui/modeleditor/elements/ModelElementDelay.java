@@ -47,6 +47,7 @@ import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -611,7 +612,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	 * @see #addPropertiesDataToXML(Document, Element)
 	 */
 	private void addAttributesToGlobalElement(final Element sub) {
-		sub.setAttribute(Language.trPrimary("Surface.Delay.XML.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
+		sub.setAttribute(Language.trPrimary("Surface.Delay.XML.TimeBase"),timeBase.getName());
 		switch (delayType) {
 		case DELAY_TYPE_WAITING:
 			sub.setAttribute(Language.trPrimary("Surface.Delay.XML.Type"),Language.trPrimary("Surface.Delay.XML.Type.WaitingTime"));
@@ -681,7 +682,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	 */
 	private void loadGlobalProperties(final Element node) {
 		final String timeBaseName=Language.trAllAttribute("Surface.Delay.XML.TimeBase",node);
-		timeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
+		timeBase=TimeBase.byName(timeBaseName);
 		final String type=Language.trAllAttribute("Surface.Delay.XML.Type",node);
 		if (Language.trAll("Surface.Delay.XML.Type.WaitingTime",type)) delayType=DelayType.DELAY_TYPE_WAITING;
 		if (Language.trAll("Surface.Delay.XML.Type.TransferTime",type)) delayType=DelayType.DELAY_TYPE_TRANSFER;

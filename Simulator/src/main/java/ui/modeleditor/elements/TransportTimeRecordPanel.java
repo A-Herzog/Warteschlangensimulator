@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import language.Language;
 import simulator.editmodel.EditModel;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 
 /**
  * Diese Klasse kapselt die Dialogdaten für ein
@@ -70,7 +71,7 @@ public class TransportTimeRecordPanel extends JPanel {
 
 		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 		line.add(label=new JLabel(Language.tr("Surface.TransportSource.Dialog.TimeBase")+":"));
-		line.add(timeBase=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
+		line.add(timeBase=new JComboBox<>(TimeBase.getNames()));
 		timeBase.setEnabled(!readOnly);
 		timeBase.setSelectedIndex(data.getTimeBase().id);
 		label.setLabelFor(timeBase);

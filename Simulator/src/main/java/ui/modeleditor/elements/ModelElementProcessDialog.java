@@ -53,6 +53,7 @@ import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelResources;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 import ui.tools.FlatLaFHelper;
 
 /**
@@ -177,7 +178,7 @@ public class ModelElementProcessDialog extends ModelElementBaseDialog {
 		JPanel sub=new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel label;
 		sub.add(label=new JLabel(Language.tr("Surface.Process.Dialog.TimeBase")+":"));
-		sub.add(timeBase[index]=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
+		sub.add(timeBase[index]=new JComboBox<>(TimeBase.getNames()));
 		timeBase[index].setEnabled(!readOnly);
 		timeBase[index].setSelectedIndex(((ModelElementProcess)element).getTimeBase().id);
 		label.setLabelFor(timeBase[index]);

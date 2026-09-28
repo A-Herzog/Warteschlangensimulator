@@ -34,6 +34,7 @@ import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.coreelements.ModelElement;
 
 /**
@@ -117,7 +118,7 @@ public class ModelElementReleaseDialog extends ModelElementBaseDialog {
 
 		sub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(label=new JLabel(Language.tr("Surface.Release.Dialog.TimeBase")+":"));
-		line.add(timeBase=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
+		line.add(timeBase=new JComboBox<>(TimeBase.getNames()));
 		timeBase.setEnabled(!readOnly);
 		timeBase.setSelectedIndex(((ModelElementRelease)element).getTimeBase().id);
 		label.setLabelFor(timeBase);

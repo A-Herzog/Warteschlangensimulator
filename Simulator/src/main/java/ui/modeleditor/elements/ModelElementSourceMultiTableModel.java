@@ -174,7 +174,7 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 			sb.append(", ");
 			sb.append(Language.tr("Surface.Source.Dialog.TimeBase"));
 			sb.append(": ");
-			sb.append(ModelSurface.getTimeBaseString(record.getTimeBase()));
+			sb.append(record.getTimeBase().getName());
 			sb.append(")");
 			break;
 		case NEXT_EXPRESSION:
@@ -184,7 +184,7 @@ public class ModelElementSourceMultiTableModel extends JTableExtAbstractTableMod
 			sb.append(", ");
 			sb.append(Language.tr("Surface.Source.Dialog.TimeBase"));
 			sb.append(": ");
-			sb.append(ModelSurface.getTimeBaseString(record.getTimeBase()));
+			sb.append(record.getTimeBase().getName());
 			sb.append(")");
 			break;
 		case NEXT_SCHEDULE:

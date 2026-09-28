@@ -22,7 +22,6 @@ import mathtools.NumberTools;
 import mathtools.distribution.OnePointDistributionImpl;
 import mathtools.distribution.tools.DistributionTools;
 import simulator.simparser.ExpressionCalc;
-import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.elements.ModelElementSource;
 import ui.modeleditor.elements.ModelElementSourceRecord;
@@ -143,7 +142,7 @@ public class AnalyticSource {
 			result.append(Language.tr("Statistics.ErlangCompare.Distribution")+": "+Language.tr("Statistics.ErlangCompare.Distribution.Other")+"\n");
 		} else {
 			result.append(Language.tr("Statistics.ErlangCompare.Distribution")+": "+DistributionTools.getDistributionName(distribution)+"\n");
-			if (mean>=0) result.append("E[I]="+NumberTools.formatNumber(mean)+" "+ModelSurface.getTimeBaseString(timeBase)+"\n");
+			if (mean>=0) result.append("E[I]="+NumberTools.formatNumber(mean)+" "+timeBase.getName()+"\n");
 			if (cv>=0) result.append("CV[I]="+NumberTools.formatNumber(cv)+"\n");
 		}
 

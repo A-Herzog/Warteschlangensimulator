@@ -53,6 +53,7 @@ import systemtools.MsgBox;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.script.ScriptEditorPanel;
 import ui.tools.SoundSystemPanel;
@@ -553,7 +554,7 @@ public class ModelElementActionRecordTableModelDialog extends BaseDialog {
 		line.add(input);
 		label.setLabelFor(input);
 
-		final JComboBox<String> timeBase=new JComboBox<>(ModelSurface.getTimeBaseStrings());
+		final JComboBox<String> timeBase=new JComboBox<>(TimeBase.getNames());
 		line.add(timeBase);
 
 		if (value<0) {

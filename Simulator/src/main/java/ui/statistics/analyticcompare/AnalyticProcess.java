@@ -27,7 +27,6 @@ import simulator.simparser.ExpressionCalc;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelResource.Mode;
 import ui.modeleditor.ModelResources;
-import ui.modeleditor.ModelSurface;
 import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.elements.DistributionSystem;
 import ui.modeleditor.elements.ModelElementProcess;
@@ -283,7 +282,7 @@ public class AnalyticProcess {
 		} else {
 			result.append(Language.tr("Statistics.ErlangCompare.Distribution")+": "+DistributionTools.getDistributionName(distribution)+"\n");
 			if (!distributionIsExact) result.append(Language.tr("Statistics.ErlangCompare.Distribution.Other.Approx")+":\n");
-			if (mean>=0) result.append("E[S]="+NumberTools.formatNumber(mean)+" "+ModelSurface.getTimeBaseString(timeBase)+"\n");
+			if (mean>=0) result.append("E[S]="+NumberTools.formatNumber(mean)+" "+timeBase.getName()+"\n");
 			if (cv>=0) result.append("CV[S]="+NumberTools.formatNumber(cv)+"\n");
 		}
 
@@ -291,7 +290,7 @@ public class AnalyticProcess {
 		if (cancelDistribution!=null) {
 			result.append(Language.tr("Statistics.ErlangCompare.Distribution.WaitingTimeTolerance")+": "+DistributionTools.getDistributionName(cancelDistribution)+"\n");
 			if (!cancelDistributionIsExact) result.append(Language.tr("Statistics.ErlangCompare.Distribution.WaitingTimeTolerance.Approx")+":\n");
-			if (cancelMean>=0) result.append("E[WT]="+NumberTools.formatNumber(cancelMean)+" "+ModelSurface.getTimeBaseString(timeBase)+"\n");
+			if (cancelMean>=0) result.append("E[WT]="+NumberTools.formatNumber(cancelMean)+" "+timeBase.getName()+"\n");
 			if (cancelCv>=0) result.append("CV[WT]="+NumberTools.formatNumber(cancelCv)+"\n");
 		}
 

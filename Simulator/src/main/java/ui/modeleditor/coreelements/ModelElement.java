@@ -750,7 +750,7 @@ public class ModelElement {
 		panel.setBorder(BorderFactory.createEmptyBorder(10,5+32,10,5));
 		panel.setOpaque(false);
 
-		final String timeBaseName=(timeBase==null)?"":("<br>"+Language.tr("ModelDescription.TimeBase")+": "+ModelSurface.getTimeBaseString(timeBase));
+		final String timeBaseName=(timeBase==null)?"":("<br>"+Language.tr("ModelDescription.TimeBase")+": "+timeBase.getName());
 
 		panel.add(new JLabel("<html><body><b>"+title+"</b></body></html>"),BorderLayout.NORTH);
 		final int intValue=Math.max(1,(int)Math.round(value));
@@ -797,7 +797,7 @@ public class ModelElement {
 		panel.setBorder(BorderFactory.createEmptyBorder(10,5+32,10,5));
 		panel.setOpaque(false);
 
-		final String timeBaseName=(timeBase==null)?"":("<br> "+Language.tr("ModelDescription.TimeBase")+": "+ModelSurface.getTimeBaseString(timeBase));
+		final String timeBaseName=(timeBase==null)?"":("<br> "+Language.tr("ModelDescription.TimeBase")+": "+timeBase.getName());
 
 		panel.add(new JLabel("<html><body><b>"+title+"</b></body></html>"),BorderLayout.NORTH);
 		final int intValue=Math.max(1,(int)Math.round(DistributionTools.getMean(initialDistribution)));

@@ -31,6 +31,7 @@ import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.EditModel;
 import ui.modeleditor.ModelResource;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.elements.ModelElementEdge;
@@ -202,7 +203,7 @@ public abstract class ModelDescriptionBuilder {
 		final StringBuilder sb=new StringBuilder();
 		sb.append(Language.tr("ModelDescription.TimeBase"));
 		sb.append(": ");
-		sb.append(ModelSurface.getTimeBaseStrings()[timeBase.id]);
+		sb.append(TimeBase.byId(timeBase.id).getName());
 		return sb.toString();
 	}
 
@@ -273,7 +274,7 @@ public abstract class ModelDescriptionBuilder {
 	 * @param position	Position in der Reihenfolge der Eigenschaften
 	 */
 	public final void addTimeBaseProperty(final ModelSurface.TimeBase timeBase, final int position) {
-		addProperty(Language.tr("ModelDescription.TimeBase"),ModelSurface.getTimeBaseStrings()[timeBase.id],position);
+		addProperty(Language.tr("ModelDescription.TimeBase"),TimeBase.byId(timeBase.id).getName(),position);
 	}
 
 	/**

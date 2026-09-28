@@ -26,6 +26,7 @@ import language.Language;
 import mathtools.NumberTools;
 import simulator.editmodel.FullTextSearch;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 
@@ -211,7 +212,7 @@ public final class TransportResourceRecord implements Cloneable {
 
 		if (delayedRelease.hasData()) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.TransportSource.XML.ResourceDelayedRelease")));
-			sub.setAttribute(Language.trPrimary("Surface.ResourceDelayedRelease.XML.Resource.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
+			sub.setAttribute(Language.trPrimary("Surface.ResourceDelayedRelease.XML.Resource.TimeBase"),timeBase.getName());
 			delayedRelease.save(doc,sub,null);
 		}
 	}
@@ -240,7 +241,7 @@ public final class TransportResourceRecord implements Cloneable {
 		}
 
 		if (Language.trAll("Surface.TransportSource.XML.ResourceDelayedRelease",node.getNodeName())) {
-			timeBase=ModelSurface.getTimeBaseInteger(Language.trAllAttribute("Surface.ResourceDelayedRelease.XML.Resource.TimeBase",node));
+			timeBase=TimeBase.byName(Language.trAllAttribute("Surface.ResourceDelayedRelease.XML.Resource.TimeBase",node));
 
 			final NodeList l=node.getChildNodes();
 			for (int i=0; i<l.getLength();i++) {

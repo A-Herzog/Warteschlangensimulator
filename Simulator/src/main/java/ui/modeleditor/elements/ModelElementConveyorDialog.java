@@ -44,6 +44,7 @@ import ui.images.Images;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 
 /**
  * Dialog, der Einstellungen für ein {@link ModelElementConveyor}-Element anbietet
@@ -178,7 +179,7 @@ public final class ModelElementConveyorDialog extends ModelElementBaseDialog {
 		/* Zeit - Zeitbasis */
 		tab.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)),BorderLayout.NORTH);
 		sub.add(label=new JLabel(Language.tr("Surface.Conveyor.Dialog.TimeBase")+":"));
-		sub.add(timeBase=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
+		sub.add(timeBase=new JComboBox<>(TimeBase.getNames()));
 		timeBase.setEnabled(!readOnly);
 		timeBase.setSelectedIndex(conveyor.getTimeBase().id);
 		label.setLabelFor(timeBase);

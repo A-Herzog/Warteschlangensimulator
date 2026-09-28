@@ -35,6 +35,7 @@ import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -248,7 +249,7 @@ public class ModelElementRelease extends ModelElementMultiInSingleOutBox impleme
 		sub.setTextContent(seizeName);
 
 		releaseDelay.save(doc,node,e->{
-			e.setAttribute(Language.trPrimary("Surface.Release.XML.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
+			e.setAttribute(Language.trPrimary("Surface.Release.XML.TimeBase"),timeBase.getName());
 		});
 	}
 
@@ -269,11 +270,11 @@ public class ModelElementRelease extends ModelElementMultiInSingleOutBox impleme
 		}
 
 		if (DistributionSystem.isDistribution(node)) {
-			if (releaseDelay.isGlobal(node)) timeBase=ModelSurface.getTimeBaseInteger(Language.trAllAttribute("Surface.Release.XML.TimeBase",node));
+			if (releaseDelay.isGlobal(node)) timeBase=TimeBase.byName(Language.trAllAttribute("Surface.Release.XML.TimeBase",node));
 			return releaseDelay.loadDistribution(node);
 		}
 		if (DistributionSystem.isExpression(node)) {
-			if (releaseDelay.isGlobal(node)) timeBase=ModelSurface.getTimeBaseInteger(Language.trAllAttribute("Surface.Release.XML.TimeBase",node));
+			if (releaseDelay.isGlobal(node)) timeBase=TimeBase.byName(Language.trAllAttribute("Surface.Release.XML.TimeBase",node));
 			return releaseDelay.loadExpression(node);
 		}
 

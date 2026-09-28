@@ -30,6 +30,7 @@ import language.Language;
 import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 
 /**
  * Dialog zum Einstellen von verzögerten Ressourcenfreigaben.
@@ -88,7 +89,7 @@ public class TransportResourceRecordDelayDialog extends BaseDialog {
 		/* Zeitbasis */
 		sub.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 		line.add(label=new JLabel(Language.tr("Surface.TransportSource.Dialog.Ressource.DelayedRelease.Dialog.TimeBase")+":"));
-		line.add(this.timeBase=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
+		line.add(this.timeBase=new JComboBox<>(TimeBase.getNames()));
 		this.timeBase.setEnabled(!readOnly);
 		this.timeBase.setSelectedIndex(timeBase.id);
 		label.setLabelFor(this.timeBase);
@@ -126,6 +127,7 @@ public class TransportResourceRecordDelayDialog extends BaseDialog {
 	 * @see ui.modeleditor.ModelSurface.TimeBase#TIMEBASE_SECONDS
 	 * @see ui.modeleditor.ModelSurface.TimeBase#TIMEBASE_MINUTES
 	 * @see ui.modeleditor.ModelSurface.TimeBase#TIMEBASE_HOURS
+	 * @see ui.modeleditor.ModelSurface.TimeBase#TIMEBASE_DAYS
 	 */
 	public ModelSurface.TimeBase getTimeBase() {
 		return ModelSurface.TimeBase.byId(timeBase.getSelectedIndex());

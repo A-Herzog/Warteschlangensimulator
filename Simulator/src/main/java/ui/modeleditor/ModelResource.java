@@ -28,6 +28,7 @@ import language.Language;
 import mathtools.NumberTools;
 import mathtools.distribution.tools.DistributionTools;
 import simulator.editmodel.FullTextSearch;
+import ui.modeleditor.ModelSurface.TimeBase;
 
 /**
  * Daten zu einer einzelnen Ressource
@@ -474,13 +475,13 @@ public final class ModelResource implements Cloneable {
 		if (moveTimesDistribution!=null) {
 			node.setAttribute(Language.trPrimary("Surface.XML.Resource.SetupTime.Distribution"),DistributionTools.distributionToString(moveTimesDistribution));
 			if (moveTimeBase!=ModelSurface.TimeBase.TIMEBASE_SECONDS) {
-				node.setAttribute(Language.trPrimary("Surface.XML.Resource.SetupTime.TimeBase"),ModelSurface.getTimeBaseString(moveTimeBase));
+				node.setAttribute(Language.trPrimary("Surface.XML.Resource.SetupTime.TimeBase"),moveTimeBase.getName());
 			}
 		}
 		if (moveTimesExpression!=null && !moveTimesExpression.isBlank()) {
 			node.setAttribute(Language.trPrimary("Surface.XML.Resource.SetupTime.Expression"),moveTimesExpression.trim());
 			if (moveTimeBase!=ModelSurface.TimeBase.TIMEBASE_SECONDS) {
-				node.setAttribute(Language.trPrimary("Surface.XML.Resource.SetupTime.TimeBase"),ModelSurface.getTimeBaseString(moveTimeBase));
+				node.setAttribute(Language.trPrimary("Surface.XML.Resource.SetupTime.TimeBase"),moveTimeBase.getName());
 			}
 		}
 	}
@@ -585,12 +586,12 @@ public final class ModelResource implements Cloneable {
 			moveTimesDistribution=DistributionTools.distributionFromString(s,3600);
 			if (moveTimesDistribution==null) return String.format(Language.tr("Surface.Resource.ErrorMoveTimeDistribution"),s,name);
 			final String timeBaseName=Language.trAllAttribute("Surface.XML.Resource.SetupTime.TimeBase",node);
-			moveTimeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
+			moveTimeBase=TimeBase.byName(timeBaseName);
 		} else {
 			s=Language.trAllAttribute("Surface.XML.Resource.SetupTime.Expression",node);
 			if (!s.isBlank()) moveTimesExpression=s;
 			final String timeBaseName=Language.trAllAttribute("Surface.XML.Resource.SetupTime.TimeBase",node);
-			moveTimeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
+			moveTimeBase=TimeBase.byName(timeBaseName);
 		}
 
 		return null;

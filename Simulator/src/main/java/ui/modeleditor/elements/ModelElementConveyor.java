@@ -46,6 +46,7 @@ import ui.modeleditor.ModelClientData;
 import ui.modeleditor.ModelDataRenameListener;
 import ui.modeleditor.ModelSequences;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
@@ -465,7 +466,7 @@ public class ModelElementConveyor extends ModelElementMultiInSingleOutBox implem
 		if (timeBase==null) {
 			timeBaseText="";
 		} else {
-			timeBaseText=" "+ModelSurface.getTimeBaseString(timeBase);
+			timeBaseText=" "+timeBase.getName();
 		}
 
 		if (transportTime>0) {
@@ -603,7 +604,7 @@ public class ModelElementConveyor extends ModelElementMultiInSingleOutBox implem
 
 		node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Conveyor.XML.TransportTime")));
 		sub.setTextContent(NumberTools.formatSystemNumber(transportTime));
-		sub.setAttribute(Language.trPrimary("Surface.Conveyor.XML.TransportTime.TimeBase"),ModelSurface.getTimeBaseString(timeBase));
+		sub.setAttribute(Language.trPrimary("Surface.Conveyor.XML.TransportTime.TimeBase"),timeBase.getName());
 		switch (transportTimeType) {
 		case TRANSPORT_TYPE_WAITING:
 			sub.setAttribute(Language.trPrimary("Surface.Conveyor.XML.TransportTime.Type"),Language.trPrimary("Surface.Conveyor.XML.TransportTime.Type.WaitingTime"));
@@ -654,7 +655,7 @@ public class ModelElementConveyor extends ModelElementMultiInSingleOutBox implem
 			transportTime=D.doubleValue();
 
 			final String timeBaseName=Language.trAllAttribute("Surface.Conveyor.XML.TransportTime.TimeBase",node);
-			timeBase=ModelSurface.getTimeBaseInteger(timeBaseName);
+			timeBase=TimeBase.byName(timeBaseName);
 
 			final String timeType=Language.trAllAttribute("Surface.Conveyor.XML.TransportTime.Type",node);
 			if (Language.trAll("Surface.Conveyor.XML.TransportTime.Type.WaitingTime",timeType)) transportTimeType=TransportTimeType.TRANSPORT_TYPE_WAITING;

@@ -41,6 +41,7 @@ import tools.JTableExt;
 import ui.infopanel.InfoPanel;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
+import ui.modeleditor.ModelSurface.TimeBase;
 
 /**
  * Dialog, der Einstellungen für ein {@link ModelElementSeize}-Element anbietet
@@ -145,7 +146,7 @@ public class ModelElementSeizeDialog extends ModelElementBaseDialog {
 			@Override public void keyPressed(KeyEvent e) {hasTimeOut.setSelected(true); checkInput(false);}
 		});
 		timeOut.setEnabled(!readOnly);
-		sub.add(timeOutTimeBase=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
+		sub.add(timeOutTimeBase=new JComboBox<>(TimeBase.getNames()));
 		timeOutTimeBase.addActionListener(e->{hasTimeOut.setSelected(true); checkInput(false);});
 		timeOutTimeBase.setEnabled(!readOnly);
 		double timeOutValue=((ModelElementSeize)element).getTimeOut();

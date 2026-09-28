@@ -564,7 +564,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		intervalExpressionsIntervalTimeSpinner.addChangeListener(e->checkData(false));
 		line.add(intervalExpressionsIntervalTimeSpinner);
 		label.setLabelFor(intervalExpressionsIntervalTimeSpinner);
-		line.add(intervalExpressionsIntervalTimeTimeBase=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
+		line.add(intervalExpressionsIntervalTimeTimeBase=new JComboBox<>(TimeBase.getNames()));
 		intervalExpressionsIntervalTimeTimeBase.setEnabled(!readOnly);
 		intervalExpressionsIntervalTimeTimeBase.addActionListener(e->checkData(false));
 
@@ -607,7 +607,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		intervalDistributionsIntervalTimeSpinner.addChangeListener(e->checkData(false));
 		line.add(intervalDistributionsIntervalTimeSpinner);
 		label.setLabelFor(intervalDistributionsIntervalTimeSpinner);
-		line.add(intervalDistributionsIntervalTimeTimeBase=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
+		line.add(intervalDistributionsIntervalTimeTimeBase=new JComboBox<>(TimeBase.getNames()));
 		intervalDistributionsIntervalTimeTimeBase.setEnabled(!readOnly);
 		intervalDistributionsIntervalTimeTimeBase.addActionListener(e->checkData(false));
 
@@ -788,7 +788,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 		arrivalStartTimeUnitLocal.setEnabled(!readOnly);
 		arrivalStartTimeUnitLocal.addActionListener(e->checkData(false));
 		line.add(Box.createHorizontalStrut(5));
-		line.add(arrivalStartTimeUnit=new JComboBox<>(ModelSurface.getTimeBaseStrings()));
+		line.add(arrivalStartTimeUnit=new JComboBox<>(TimeBase.getNames()));
 		arrivalStartTimeUnit.setEnabled(!readOnly);
 		arrivalStartTimeUnit.setSelectedIndex(0);
 		arrivalStartTimeUnit.addActionListener(e->{arrivalStartTimeUnitLocal.setSelected(true); checkData(false);});
@@ -896,7 +896,7 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 	private JComboBox<String> buildSyncedTimeBaseComboBox(final JPanel parent) {
 		final JLabel label=new JLabel(Language.tr("Surface.Source.Dialog.TimeBase")+":");
 		parent.add(label);
-		final JComboBox<String> timeBase=new JComboBox<>(ModelSurface.getTimeBaseStrings());
+		final JComboBox<String> timeBase=new JComboBox<>(TimeBase.getNames());
 		parent.add(timeBase);
 		timeBase.setEnabled(!readOnly);
 		label.setLabelFor(timeBase);
@@ -1285,10 +1285,10 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 				final String unit;
 				final String unitTab;
 				if (arrivalStartTimeUnitGlobal.isSelected()) {
-					unit=ModelSurface.getTimeBaseString(TimeBase.byId(timeBase1.getSelectedIndex()));
+					unit=TimeBase.byId(timeBase1.getSelectedIndex()).getName();
 					unitTab=ModelSurface.getTimeBaseStringTab(TimeBase.byId(timeBase1.getSelectedIndex()));
 				} else {
-					unit=ModelSurface.getTimeBaseString(TimeBase.byId(arrivalStartTimeUnit.getSelectedIndex()));
+					unit=TimeBase.byId(arrivalStartTimeUnit.getSelectedIndex()).getName();
 					unitTab=ModelSurface.getTimeBaseStringTab(TimeBase.byId(arrivalStartTimeUnit.getSelectedIndex()));
 				}
 				arrivalStartTimeUnitLabel.setText(unit);
@@ -1568,10 +1568,10 @@ public final class ModelElementSourceRecordPanel extends JPanel {
 			final String unit;
 			final String unitTab;
 			if (arrivalStartTimeUnitGlobal.isSelected()) {
-				unit=ModelSurface.getTimeBaseString(TimeBase.byId(timeBase1.getSelectedIndex()));
+				unit=TimeBase.byId(timeBase1.getSelectedIndex()).getName();
 				unitTab=ModelSurface.getTimeBaseStringTab(TimeBase.byId(timeBase1.getSelectedIndex()));
 			} else {
-				unit=ModelSurface.getTimeBaseString(TimeBase.byId(arrivalStartTimeUnit.getSelectedIndex()));
+				unit=TimeBase.byId(arrivalStartTimeUnit.getSelectedIndex()).getName();
 				unitTab=ModelSurface.getTimeBaseStringTab(TimeBase.byId(arrivalStartTimeUnit.getSelectedIndex()));
 			}
 			arrivalStartTimeUnitLabel.setText(unit);
