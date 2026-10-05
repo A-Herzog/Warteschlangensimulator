@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-22 09:53+0200\n"
+"POT-Creation-Date: 2026-09-27 13:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14849,6 +14849,9 @@ msgstr "Initial value"
 
 msgid "ModelDescription.Tank.Valve"
 msgstr "Valve %d"
+
+msgid "ModelDescription.Tank.Valve.TimeBase.PerDay"
+msgstr "per day"
 
 msgid "ModelDescription.Tank.Valve.TimeBase.PerHour"
 msgstr "per hour"
@@ -38771,6 +38774,9 @@ msgstr "ModelElementTankValve"
 
 msgid "Surface.XML.Tank.Valve.TimeBase"
 msgstr "TimeBase"
+
+msgid "Surface.XML.Tank.Valve.TimeBase.PerDay"
+msgstr "PerDay"
 
 msgid "Surface.XML.Tank.Valve.TimeBase.PerHour"
 msgstr "PerHour"

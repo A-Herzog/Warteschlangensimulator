@@ -122,24 +122,11 @@ public class ModelElementTankTableModel extends JTableExtAbstractTableModel {
 		final JComboBox<String> combo=new JComboBox<>(new String[]{
 				Language.tr("Surface.Tank.Dialog.Unit.DeltaSeconds"),
 				Language.tr("Surface.Tank.Dialog.Unit.DeltaMinutes"),
-				Language.tr("Surface.Tank.Dialog.Unit.DeltaHours")
+				Language.tr("Surface.Tank.Dialog.Unit.DeltaHours"),
+				Language.tr("Surface.Tank.Dialog.Unit.DeltaDays")
 		});
-
-		switch (valve.getTimeBase()) {
-		case TIMEBASE_HOURS: combo.setSelectedIndex(2); break;
-		case TIMEBASE_MINUTES: combo.setSelectedIndex(1); break;
-		case TIMEBASE_SECONDS: combo.setSelectedIndex(0); break;
-		default: combo.setSelectedIndex(0); break;
-		}
-
-		combo.addActionListener(e->{
-			switch (combo.getSelectedIndex()) {
-			case 0: valve.setTimeBase(ModelSurface.TimeBase.TIMEBASE_SECONDS); break;
-			case 1: valve.setTimeBase(ModelSurface.TimeBase.TIMEBASE_MINUTES); break;
-			case 2: valve.setTimeBase(ModelSurface.TimeBase.TIMEBASE_HOURS); break;
-			}
-		});
-
+		combo.setSelectedIndex(valve.getTimeBase().id);
+		combo.addActionListener(e->valve.setTimeBase(ModelSurface.TimeBase.byId(combo.getSelectedIndex())));
 		return combo;
 	}
 

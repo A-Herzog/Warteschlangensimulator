@@ -526,6 +526,9 @@ public class ModelElementTank extends ModelElementBox {
 			final Valve valve=valves.get(i);
 			final String timeBaseString;
 			switch (valve.getTimeBase()) {
+			case TIMEBASE_DAYS:
+				timeBaseString=Language.tr("ModelDescription.Tank.Valve.TimeBase.PerDay");
+				break;
 			case TIMEBASE_HOURS:
 				timeBaseString=Language.tr("ModelDescription.Tank.Valve.TimeBase.PerHour");
 				break;
@@ -655,6 +658,9 @@ public class ModelElementTank extends ModelElementBox {
 			/* Zeitbasis */
 			final String timeBaseString;
 			switch (timeBase) {
+			case TIMEBASE_DAYS:
+				timeBaseString=Language.trPrimary("Surface.XML.Tank.Valve.TimeBase.PerDay");
+				break;
 			case TIMEBASE_HOURS:
 				timeBaseString=Language.trPrimary("Surface.XML.Tank.Valve.TimeBase.PerHour");
 				break;
@@ -684,6 +690,7 @@ public class ModelElementTank extends ModelElementBox {
 
 			/* Zeitbasis */
 			final String timeBaseString=Language.trAllAttribute("Surface.XML.Tank.Valve.TimeBase",node);
+			if (Language.trAll("Surface.XML.Tank.Valve.TimeBase.PerDay",timeBaseString)) timeBase=ModelSurface.TimeBase.TIMEBASE_DAYS;
 			if (Language.trAll("Surface.XML.Tank.Valve.TimeBase.PerHour",timeBaseString)) timeBase=ModelSurface.TimeBase.TIMEBASE_HOURS;
 			if (Language.trAll("Surface.XML.Tank.Valve.TimeBase.PerMinute",timeBaseString)) timeBase=ModelSurface.TimeBase.TIMEBASE_MINUTES;
 			if (Language.trAll("Surface.XML.Tank.Valve.TimeBase.PerSecond",timeBaseString)) timeBase=ModelSurface.TimeBase.TIMEBASE_SECONDS;

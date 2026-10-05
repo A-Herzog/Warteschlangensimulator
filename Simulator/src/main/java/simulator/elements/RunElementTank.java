@@ -72,12 +72,7 @@ public class RunElementTank extends RunElementAnalogProcessing implements Signal
 			final ModelElementTank.Valve valve=valves.get(i);
 			final double d=valve.getInitialValue();
 			if (d<0) return String.format(Language.tr("Simulation.Creator.AnalogInvalidValveValue"),element.getId(),i+1,NumberTools.formatNumber(d));
-			switch (valve.getTimeBase()) {
-			case TIMEBASE_HOURS: tank.valves[i]=d/3600; break;
-			case TIMEBASE_MINUTES: tank.valves[i]=d/60; break;
-			case TIMEBASE_SECONDS: tank.valves[i]=d; break;
-			default: tank.valves[i]=d; break;
-			}
+			tank.valves[i]=d/valve.getTimeBase().multiply;
 		}
 
 		final String analogNotifyError=tank.loadAnalogNotify(tankElement.getAnalogNotify(),runModel);
