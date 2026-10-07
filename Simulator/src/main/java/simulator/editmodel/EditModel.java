@@ -329,10 +329,20 @@ public final class EditModel extends EditModelBase implements Cloneable  {
 	 * Vorgabewerte für die Farben der Zeichenfläche
 	 * @see #surfaceColors
 	 */
-	private static final Color[] DEFAULT_COLORS=new Color[]{
+	public static final Color[] DEFAULT_COLORS=new Color[]{
 			ModelSurface.DEFAULT_BACKGROUND_COLOR,
 			ModelSurface.DEFAULT_RASTER_COLOR,
 			ModelSurface.DEFAULT_BACKGROUND_GRADIENT_COLOR
+	};
+
+	/**
+	 * Vorgabewerte für die Farben der Zeichenfläche im dunklen Modus
+	 * @see #surfaceColors
+	 */
+	public static final Color[] DEFAULT_DARK_COLORS=new Color[]{
+			ModelSurface.DEFAULT_DARK_BACKGROUND_COLOR,
+			ModelSurface.DEFAULT_DARK_RASTER_COLOR,
+			ModelSurface.DEFAULT_DARK_BACKGROUND_GRADIENT_COLOR
 	};
 
 	/**

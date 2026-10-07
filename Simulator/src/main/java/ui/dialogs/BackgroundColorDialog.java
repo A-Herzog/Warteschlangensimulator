@@ -24,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.util.Arrays;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -36,6 +37,7 @@ import javax.swing.JTextField;
 
 import language.Language;
 import mathtools.NumberTools;
+import simulator.editmodel.EditModel;
 import systemtools.BaseDialog;
 import systemtools.MsgBox;
 import systemtools.OptionalColorChooserButton;
@@ -44,6 +46,7 @@ import ui.help.Help;
 import ui.images.Images;
 import ui.modeleditor.ModelElementBaseDialog;
 import ui.modeleditor.ModelSurface;
+import ui.tools.FlatLaFHelper;
 import ui.tools.ImageChooser;
 
 /**
@@ -85,7 +88,7 @@ public class BackgroundColorDialog extends BaseDialog {
 	 * @param mode	Reihenfolge von Raster und Hintergrundbild
 	 * @param readOnly	Gibt an, ob die Einstellungen verändert werden dürfen
 	 */
-	public BackgroundColorDialog(final Component owner, final Color[] colors, final BufferedImage image, final double scale, final boolean useImageInSubModels, final ModelSurface.BackgroundImageMode mode, final boolean readOnly) {
+	public BackgroundColorDialog(final Component owner, Color[] colors, final BufferedImage image, final double scale, final boolean useImageInSubModels, final ModelSurface.BackgroundImageMode mode, final boolean readOnly) {
 		super(owner,Language.tr("Window.BackgroundColor.Title"),readOnly);
 
 		final JPanel content=createGUI(()->Help.topicModal(BackgroundColorDialog.this,"EditorColorDialog"));
@@ -103,20 +106,21 @@ public class BackgroundColorDialog extends BaseDialog {
 		tabOuter.add(tab=new JPanel(),BorderLayout.NORTH);
 		tab.setLayout(new BoxLayout(tab,BoxLayout.PAGE_AXIS));
 
-		final Color c1=(colors!=null && colors.length>=2 && !ModelSurface.DEFAULT_BACKGROUND_COLOR.equals(colors[0]))?colors[0]:null;
-		final Color c2=(colors!=null && colors.length>=2 && !ModelSurface.DEFAULT_RASTER_COLOR.equals(colors[1]))?colors[1]:null;
-		final Color c3=(colors!=null && colors.length>=3)?colors[2]:null;
+		if (colors==null) colors=new Color[3];
+		if (colors.length<3) colors=Arrays.copyOf(colors,3);
+		final Color[] defaultColors=(FlatLaFHelper.isDark())?EditModel.DEFAULT_DARK_COLORS:EditModel.DEFAULT_COLORS;
+		for (int i=0;i<colors.length;i++) if (colors[i]==null) colors[i]=defaultColors[i];
 
 		/* Hintergrundfarbe */
-		tab.add(backgroundColor=new OptionalColorChooserButton(Language.tr("Window.BackgroundColor.UserBackground")+":",c1,ModelSurface.DEFAULT_BACKGROUND_COLOR));
+		tab.add(backgroundColor=new OptionalColorChooserButton(Language.tr("Window.BackgroundColor.UserBackground")+":",(colors[0].equals(defaultColors[0]))?null:colors[0],defaultColors[0]));
 		backgroundColor.setEnabled(!readOnly);
 
 		/* Rasterfarbe */
-		tab.add(rasterColor=new OptionalColorChooserButton(Language.tr("Window.BackgroundColor.UserRaster")+":",c2,ModelSurface.DEFAULT_RASTER_COLOR));
+		tab.add(rasterColor=new OptionalColorChooserButton(Language.tr("Window.BackgroundColor.UserRaster")+":",(colors[1].equals(defaultColors[1]))?null:colors[1],defaultColors[1]));
 		rasterColor.setEnabled(!readOnly);
 
 		/* Farbverlauf */
-		tab.add(gradientColor=new OptionalColorChooserButton(Language.tr("Window.BackgroundColor.UseGradient")+":",c3,Color.WHITE));
+		tab.add(gradientColor=new OptionalColorChooserButton(Language.tr("Window.BackgroundColor.UseGradient")+":",(colors[2].equals(defaultColors[2]))?null:colors[2],defaultColors[2]));
 		gradientColor.setEnabled(!readOnly);
 
 		/* Tab "Hintergrundbild" */
