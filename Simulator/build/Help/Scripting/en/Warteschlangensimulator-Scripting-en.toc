@@ -11,7 +11,7 @@
 \contentsline {section}{\numberline {7.1}Elementary trigonometric functions}{15}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Hyperbolic trigonometric functions}{15}{section.7.2}%
 \contentsline {section}{\numberline {7.3}Inverse of the elementary trigonometric functions}{15}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Inverse of the hyperbolic trigonometric functions}{15}{section.7.4}%
+\contentsline {section}{\numberline {7.4}Inverse of the hyperbolic trigonometric functions}{16}{section.7.4}%
 \contentsline {chapter}{\numberline {8}Functions with multiple parameters}{17}{chapter.8}%
 \contentsline {chapter}{\numberline {9}Logic functions}{19}{chapter.9}%
 \contentsline {chapter}{\numberline {10}Probability distributions}{21}{chapter.10}%

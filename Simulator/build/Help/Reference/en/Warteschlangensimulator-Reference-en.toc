@@ -36,15 +36,16 @@
 \contentsline {section}{\numberline {5.2}Condition}{23}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Condition (Script)}{24}{section.5.3}%
 \contentsline {section}{\numberline {5.4}Multi condition}{24}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Pull barrier}{24}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Release resource}{25}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Seize resource}{25}{section.5.7}%
-\contentsline {section}{\numberline {5.8}Signal}{26}{section.5.8}%
+\contentsline {section}{\numberline {5.5}Multi signal}{24}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Pull barrier}{25}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Release resource}{25}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Seize resource}{26}{section.5.8}%
+\contentsline {section}{\numberline {5.9}Signal}{26}{section.5.9}%
 \contentsline {chapter}{\numberline {6}Batching}{27}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Batch}{27}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Match}{27}{section.6.2}%
 \contentsline {section}{\numberline {6.3}Multi batch}{28}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Pick up}{28}{section.6.4}%
+\contentsline {section}{\numberline {6.4}Pick up}{29}{section.6.4}%
 \contentsline {section}{\numberline {6.5}Separate}{29}{section.6.5}%
 \contentsline {section}{\numberline {6.6}Split}{29}{section.6.6}%
 \contentsline {chapter}{\numberline {7}Transport}{31}{chapter.7}%

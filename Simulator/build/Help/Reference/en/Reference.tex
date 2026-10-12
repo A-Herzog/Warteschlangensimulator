@@ -1271,6 +1271,28 @@ Additional time-based checks significantly slow down the simulation and should o
 if this is for the condition necessary.
 
 
+\section{Multi signal}
+\label{ref:ModelElementSignalMulti}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementSignalMulti.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+If a client passes a signal element, the one or more signals are triggered.
+Barrier elements (see page \pageref{ref:ModelElementBarrier}) can be notified by such signals and can release waiting clients.
+
+\subsection*{Settings}
+
+Each signal record needs to have a signal name.
+In addition, pro each record a time period can be set by which the triggering of the signal is to be delayed after a client arrival.
+If no delay time is set, the event is triggered as soon as a client arrives at the station.
+
+The optional condition allows a signal trigger to be made only under certain conditions,
+when a client passes the station.
+
+
 \section{Pull barrier}
 \label{ref:ModelElementBarrierPull}
 
@@ -1386,6 +1408,9 @@ The name of the signal element is also the name of the signal that is triggered 
 In addition, a time period can be set by which the triggering of the signal is to be delayed after a client arrival.
 If no delay time is set, the event is triggered as soon as a client arrives at the station.
 
+The optional condition allows a signal trigger to be made only under certain conditions,
+when a client passes the station.
+
 
 
 
@@ -1414,6 +1439,10 @@ can be dissolved by the Dissolve batch element (see page \pageref{ref:ModelEleme
 through the network ends for the clients ends at this point (because the two clients, for example, represent
 partial components that are combined into a larger element) and instead a new client object is created and
 started from this point.
+
+A time-based condition can also be set (time elapsed since the last client arrived or the wait time
+of the client who has been waiting the longest). If this time limit is exceeded, a batch release occurs,
+even if the set minimum size has not yet been reached.
 
 If the incoming clients are connected to a temporary or a permanent batch, it can be set whether and if so
 in which way the recorded time durations (waiting time, service time, ...) as well as the user-defined
@@ -1482,6 +1511,10 @@ through the network ends for the clients ends at this point (because the two cli
 partial components that are combined into a larger element) and instead a new client object is created and
 started from this point.
 Clients for whose type no batch formation rule is defined will pass the station without further delay.
+
+A time-based condition can also be set (time elapsed since the last client arrived or the wait time
+of the client who has been waiting the longest). If this time limit is exceeded, a batch release occurs,
+even if the set minimum size has not yet been reached.
 
 If the incoming clients are connected to a temporary or a permanent batch, it can be set whether and if so
 in which way the recorded time durations (waiting time, service time, ...) as well as the user-defined

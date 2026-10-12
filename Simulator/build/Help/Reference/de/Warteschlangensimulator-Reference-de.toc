@@ -35,18 +35,19 @@
 \contentsline {chapter}{\numberline {5}Schranken}{25}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Bedingung}{25}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Bedingung (Skript)}{25}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Multibedingung}{26}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Pull-Schranke}{26}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Ressource belegen}{27}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Ressource freigeben}{27}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Schranke}{28}{section.5.7}%
-\contentsline {section}{\numberline {5.8}Signal}{28}{section.5.8}%
+\contentsline {section}{\numberline {5.3}Mehrfachsignal}{26}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Multibedingung}{26}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Pull-Schranke}{27}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Ressource belegen}{27}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Ressource freigeben}{28}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Schranke}{28}{section.5.8}%
+\contentsline {section}{\numberline {5.9}Signal}{29}{section.5.9}%
 \contentsline {chapter}{\numberline {6}Kunden verbinden}{31}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Ausleiten}{31}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Multizusammenfassen}{31}{section.6.2}%
 \contentsline {section}{\numberline {6.3}Trennen}{32}{section.6.3}%
 \contentsline {section}{\numberline {6.4}Zerteilen}{32}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Zusammenfassen}{33}{section.6.5}%
+\contentsline {section}{\numberline {6.5}Zusammenfassen}{34}{section.6.5}%
 \contentsline {section}{\numberline {6.6}Zusammenführen}{34}{section.6.6}%
 \contentsline {chapter}{\numberline {7}Transport}{37}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Duplizieren und Teleportieren}{37}{section.7.1}%

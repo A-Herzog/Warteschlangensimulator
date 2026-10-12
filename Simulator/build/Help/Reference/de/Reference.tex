@@ -1261,6 +1261,29 @@ Only if this condition is met the script will be executed. If no condition is de
 is always be executed if clients are waiting at the station and the system state changes.
 
 
+\section{Mehrfachsignal}
+\label{ref:ModelElementSignalMulti}
+
+\begin{wrapfigure}{l}{2.5cm}
+\vspace{-22pt}
+\includegraphics[width=2cm]{imageModelElementSignalMulti.png}
+\vspace{-22pt}
+\end{wrapfigure}
+
+Passiert ein Kunde ein Mehrfachsignal-Element, so werden ein oder mehrere Signale ausgelöst.
+Schranken-Elemente (siehe Seite \pageref{ref:ModelElementBarrier}) können durch solche Signale benachrichtigt werden und
+wartende Kunden freigeben.
+
+\subsection*{Einstellungen}
+
+Pro Signaldatensatz muss ein Signalname angegeben werden.
+Zusätzlich kann jeweils eine Zeitdauer eingestellt werden, um die die Auslösung des Signals nach dem Eintreffen des Kunden verzögert werden soll.
+Ist keine Verzögerungszeit eingestellt, so wird das Ereignis ausgelöst, sobald ein Kunde an der Station eintrifft.
+
+Die optionale Bedingung ermöglicht es, dass nur unter bestimmten Voraussetzungen eine Signalauslösung erfolgt,
+wenn ein Kunde die Station passiert.
+
+
 \section{Multibedingung}
 \label{ref:ModelElementHoldMulti}
 
@@ -1439,6 +1462,9 @@ Der Name des Signal-Elements ist gleichzeitig der Name des Signal, das ausgelös
 Zusätzlich kann eine Zeitdauer eingestellt werden, um die die Auslösung des Signals nach dem Eintreffen des Kunden verzögert werden soll.
 Ist keine Verzögerungszeit eingestellt, so wird das Ereignis ausgelöst, sobald ein Kunde an der Station eintrifft.
 
+Die optionale Bedingung ermöglicht es, dass nur unter bestimmten Voraussetzungen eine Signalauslösung erfolgt,
+wenn ein Kunde die Station passiert.
+
 
 
 
@@ -1503,6 +1529,10 @@ wieder aufgelöst werden kann) oder ob für die Kunden der Weg durch
 das Netz an dieser Stelle endet (weil die beiden Kunden z.B. Teilkomponenten darstellen, die zu einem größeren Element
 zusammengesetzt werden) und statt dessen ein neues Kundenobjekt erzeugt und ab diesem Punkt gestartet wird.
 Kunden, für deren Typ keine Batch-Bildungsregel definiert ist, passieren die Station ohne weitere Verzögerung.
+
+Option kann auch eine Zeitbedingung eingestellt werden (Zeitdauer seit letzter Kundenankunft oder Wartezeit des am längesten
+wartenden Kunden). Wird diese Zeitdauer überschritten, so erfolgt eine Batch-Freigabe, auch wenn die eingestellte
+Mindestgröße noch nicht erreicht ist.
 
 Werden die eintreffenden Kunden zu einem temporären oder einem permanenten Batch verbunden, so kann eingestellt werden
 ob und wenn ja auf welche Weise die Zeitdauern (Wartezeit, Bedienzeit, ...) sowie die nutzerdefinierten Datenfelder
@@ -1632,6 +1662,10 @@ Batch zusammengefasst werden sollen (der später über das Batch auflösen (sieh
 wieder aufgelöst werden kann) oder ob für die Kunden der Weg durch
 das Netz an dieser Stelle endet (weil die beiden Kunden z.B. Teilkomponenten darstellen, die zu einem größeren Element
 zusammengesetzt werden) und statt dessen ein neues Kundenobjekt erzeugt und ab diesem Punkt gestartet wird.
+
+Option kann auch eine Zeitbedingung eingestellt werden (Zeitdauer seit letzter Kundenankunft oder Wartezeit des am längesten
+wartenden Kunden). Wird diese Zeitdauer überschritten, so erfolgt eine Batch-Freigabe, auch wenn die eingestellte
+Mindestgröße noch nicht erreicht ist.
 
 Werden die eintreffenden Kunden zu einem temporären oder einem permanenten Batch verbunden, so kann eingestellt werden
 ob und wenn ja auf welche Weise die Zeitdauern (Wartezeit, Bedienzeit, ...) sowie die nutzerdefinierten Datenfelder

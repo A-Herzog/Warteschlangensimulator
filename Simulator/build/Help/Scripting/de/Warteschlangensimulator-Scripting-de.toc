@@ -12,7 +12,7 @@
 \contentsline {section}{\numberline {7.1}Elementare Winkelfunktionen}{15}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Hyperbolische Winkelfunktionen}{15}{section.7.2}%
 \contentsline {section}{\numberline {7.3}Umkehrfunktionen der elementaren Winkelfunktionen}{15}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Umkehrfunktionen der hyperbolischen Winkelfunktionen}{15}{section.7.4}%
+\contentsline {section}{\numberline {7.4}Umkehrfunktionen der hyperbolischen Winkelfunktionen}{16}{section.7.4}%
 \contentsline {chapter}{\numberline {8}Funktionen mit mehreren Parametern}{17}{chapter.8}%
 \contentsline {chapter}{\numberline {9}Logik-Funktionen}{19}{chapter.9}%
 \contentsline {chapter}{\numberline {10}Wahrscheinlichkeitsverteilungen}{21}{chapter.10}%
