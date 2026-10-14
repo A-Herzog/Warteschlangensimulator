@@ -20,9 +20,10 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Basisklasse zur Bearbeitung von Kommandozeilen-Aufrufen
@@ -199,13 +200,26 @@ public class BaseCommandLineSystem {
 	}
 
 	/**
+	 * Entfernt passende Anführungszeichen am Anfang und am Ende eines Strings
+	 * @param arg	Zu prüfender String
+	 * @return	String ohne Anführungszeichen am Anfang und am Ende (bzw. derselbe String, wenn die Bedingung nicht zutrifft)
+	 */
+	private String removeQuotations(String arg) {
+		while ((arg.length()>3) && ((arg.charAt(0)=='\'' && arg.charAt(arg.length()-1)=='\'') || (arg.charAt(0)=='\"' && arg.charAt(arg.length()-1)=='\"'))) {
+			arg=arg.substring(1,arg.length()-1);
+		}
+		return arg;
+	}
+
+	/**
 	 * Prüft, ob der übergebene Parameter ein Dateiname ist.
 	 * @param args Kommandozeilenparameter, die an <code>main</code> übergeben wurden.
 	 * @return Gibt ein <code>File</code>-Objekt zurück, wenn es eine Datei gibt, die geladen werden soll, sonst <code>null</code>
 	 */
-	public File checkLoadFile(String[] args) {
+	public File checkLoadFile(final String[] args) {
 		if (args.length!=1) return null;
-		File file=new File(args[0]);
+		final String arg=removeQuotations(args[0]);
+		File file=new File(arg);
 		if (file.isFile()) return file; else return null;
 	}
 
@@ -230,7 +244,7 @@ public class BaseCommandLineSystem {
 			out.println(errorBig+": "+unknownCommand);
 			style.setNormalStyle();
 		} else {
-			List<String> argsAsList=new ArrayList<>(Arrays.asList(arguments));
+			final List<String> argsAsList=new ArrayList<>(Stream.of(arguments).map(arg->removeQuotations(arg)).collect(Collectors.toList()));
 			argsAsList.remove(0);
 			String s=command.prepare(argsAsList.toArray(String[]::new),in,out);
 			if (s!=null) {
