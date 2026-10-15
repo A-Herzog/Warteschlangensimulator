@@ -191,6 +191,7 @@ public class ExpressionBuilderBasics {
 		addTreeNodeConst(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalConstants.Pi"),"pi",String.format(Language.tr("ExpressionBuilder.MathematicalConstants.Pi.Info"),NumberTools.formatNumberMax(3.1415926535898)));
 		addTreeNodeConst(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalConstants.e"),"e",String.format(Language.tr("ExpressionBuilder.MathematicalConstants.e.Info"),NumberTools.formatNumberMax(2.718281828459)));
 		addTreeNodeConst(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalConstants.tau"),"tau",String.format(Language.tr("ExpressionBuilder.MathematicalConstants.tau.Info"),NumberTools.formatNumberMax(6.28318530717959)));
+		addTreeNodeConst(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalConstants.eulergamma"),"eulergamma",String.format(Language.tr("ExpressionBuilder.MathematicalConstants.eulergamma.Info"),NumberTools.formatNumberMax(0.577215664901532)));
 		if (group.getChildCount()>0) root.add(group);
 
 		/* Logik-Funktionen */

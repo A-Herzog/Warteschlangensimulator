@@ -396,6 +396,26 @@ class SimpleParserTest {
 		sp=new SimpleParser(new String[]{"a"});
 		assertEquals(-1,sp.parse("e+a"));
 		assertEquals(Math.E+1,sp.calcOrDefault(new double[]{1.0},17),0.0001);
+
+		/* Tau */
+
+		sp=new SimpleParser();
+		assertEquals(-1,sp.parse("tau"));
+		assertEquals(2*Math.PI,sp.calcOrDefault(new double[0],17),0.0001);
+
+		sp=new SimpleParser(new String[]{"a"});
+		assertEquals(-1,sp.parse("tau+a"));
+		assertEquals(2*Math.PI+1,sp.calcOrDefault(new double[]{1.0},17),0.0001);
+
+		/* Gamma */
+
+		sp=new SimpleParser();
+		assertEquals(-1,sp.parse("eulergamma"));
+		assertEquals(0.577215664901532d,sp.calcOrDefault(new double[0],17),0.0001);
+
+		sp=new SimpleParser(new String[]{"a"});
+		assertEquals(-1,sp.parse("eulergamma+a"));
+		assertEquals(0.577215664901532d+1,sp.calcOrDefault(new double[]{1.0},17),0.0001);
 	}
 
 	/**

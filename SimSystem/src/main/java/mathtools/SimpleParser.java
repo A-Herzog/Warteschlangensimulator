@@ -207,6 +207,8 @@ public class SimpleParser extends CalcSystemBase {
 	private int isVariable(final String symbol) {
 		if (symbol.equalsIgnoreCase("pi")) return -2;
 		if (symbol.equalsIgnoreCase("e")) return -3;
+		if (symbol.equalsIgnoreCase("tau")) return -4;
+		if (symbol.equalsIgnoreCase("eulergamma")) return -5;
 		for (int i=0;i<variables.length;i++) if (variables[i].equalsIgnoreCase(symbol)) return i;
 		return -1;
 	}
@@ -448,6 +450,8 @@ public class SimpleParser extends CalcSystemBase {
 		public double calc(final double[] variableValues) throws MathCalcError {
 			if (variableIndex==-2) return Math.PI;
 			if (variableIndex==-3) return Math.E;
+			if (variableIndex==-4) return 2*Math.PI;
+			if (variableIndex==-5) return 0.577215664901532d;
 			if (variableIndex<0 || variableIndex>=variableValues.length) throw error();
 			return variableValues[variableIndex];
 		}
@@ -456,6 +460,8 @@ public class SimpleParser extends CalcSystemBase {
 		public Symbol simplify() {
 			if (variableIndex==-2) return new NumberSymbol(Math.PI);
 			if (variableIndex==-3) return new NumberSymbol(Math.E);
+			if (variableIndex==-4) return new NumberSymbol(2*Math.PI);
+			if (variableIndex==-5) return new NumberSymbol(0.577215664901532d);
 			return this;
 		}
 	}
