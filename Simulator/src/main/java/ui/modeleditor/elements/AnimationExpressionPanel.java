@@ -378,6 +378,54 @@ public class AnimationExpressionPanel extends JPanel {
 	}
 
 	/**
+	 * Prüft, ob ein bestimmter Rechenausdruck für eine bestimmte Station bereits genutzt wird.
+	 * @param commands	Liste der gleichwertigen Rechenausdrücke, die geprüft werden sollen
+	 * @param box	Station auf die sich der Rechenausdruck beziehen soll (<code>null</code> für global)
+	 * @param nr	Zusätzliche Nummer für die abzufragende Eigenschaft innerhalb der Station (z.B. bei Multi-Zählern)
+	 * @param usedExpressionsLower	Bereits verwendete Ausdrücke (ohne den in Bearbeitung befindlichen) in Kleinbuchstaben - um im Vorlagenpopup keine bereits verwendeten Ausdrücke anzubieten
+	 * @return	Liefert <code>true</code>, wenn der Ausdruck in der Liste der bereits verwendeten Ausdrücke enthalten ist
+	 * @see #usedExpressionsLower
+	 */
+	private static boolean isInUse(final Set<String> commands, final ModelElementBox box, final int nr, final Set<String> usedExpressionsLower) {
+		final Set<String> commandsLower=commands.stream().map(String::toLowerCase).map(String::trim).collect(Collectors.toSet());
+
+		for (var inUse: usedExpressionsLower) {
+			final int index1=inUse.indexOf('(');
+			final int index2=inUse.indexOf(')');
+			if (index1<0 || index2<0 || index2<=index1) continue;
+
+			/* Name */
+			if (index1<1) continue;
+			final String name=inUse.substring(0,index1).toLowerCase().trim();
+			if (name.isBlank()) continue;
+
+			/* Name ist aktueller Befehl? */
+			if (!commandsLower.contains(name.toLowerCase().trim())) continue;
+
+			/* Parameter */
+			if (index2==index1+1) {
+				if (box==null) return true;
+			} else {
+				if (box==null) continue;
+				final String param=inUse.substring(index1,index2).trim();
+				final String[] params=param.split(";");
+				if (params.length!=2) continue;
+				final Integer id=NumberTools.getNotNegativeInteger(params[0]);
+				if (id==null) continue;
+				final Integer nrInBox=NumberTools.getNotNegativeInteger(params[1]);
+				if (nrInBox==null) continue;
+				/* ID der aktuellen Box? */
+				if (id.intValue()==box.getId()) return true;
+				if (nrInBox.intValue()==nr) return true;
+			}
+		}
+
+		return false;
+	}
+
+
+
+	/**
 	 * Prüft, ob ein bestimmter Rechenausdruck für einen bestimmten Kundentyp bereits genutzt wird.
 	 * @param commands	Liste der gleichwertigen Rechenausdrücke, die geprüft werden sollen
 	 * @param clientType	Kundentypen-ID auf den sich der Rechenausdruck beziehen soll (<code>null</code> für global)
@@ -508,6 +556,13 @@ public class AnimationExpressionPanel extends JPanel {
 			ModelElementThroughput.class);
 
 	/**
+	 * Stationstypen, bei denen mehrere Zählerwerte ausgelesen werden können
+	 * @see #commandTemplateExpression
+	 */
+	private static final Set<Class<? extends ModelElementBox>> BOXES_MULTI_COUNTER=Set.of(
+			ModelElementCounterMulti.class);
+
+	/**
 	 * Stationstypen, bei denen ein Zähleranteil ausgelesen werden kann
 	 * @see #commandTemplateExpression
 	 */
@@ -596,6 +651,7 @@ public class AnimationExpressionPanel extends JPanel {
 		final List<ModelElementBox> boxesWIP=getBoxes(BOXES_WIP,model);
 		final List<ModelElementBox> boxesNQ=getBoxes(BOXES_NQ,model);
 		final List<ModelElementBox> boxesCounter=getBoxes(BOXES_COUNTER,model);
+		final List<ModelElementBox> boxesCounterMulti=getBoxes(BOXES_MULTI_COUNTER,model);
 		final List<ModelElementBox> boxesCounterPart=getBoxes(BOXES_COUNTER_PART,model);
 		final Map<String,int[]> clientTypes=getClientTypes(model);
 
@@ -631,11 +687,31 @@ public class AnimationExpressionPanel extends JPanel {
 		/* Zählerwert */
 		addItemData.popupMenuSection=new JMenu(Language.tr("AnimationExpression.ExpressionTemplates.CounterValue"));
 		boxesCounter.stream().filter(box->!isInUse(COMMAND_COUNTER,box,usedExpressionsLower)).forEach(box->addItem(addItemData,stationName(box),"Counter("+box.getId()+")"));
+		for (var box: boxesCounterMulti) {
+			if (!(box instanceof ModelElementCounterMulti)) continue;
+			final ModelElementCounterMulti multiCounter=(ModelElementCounterMulti)box;
+			final var names=multiCounter.getCounterNames();
+			final int numberOfCounters=names.size();
+			for (int nr=1;nr<=numberOfCounters;nr++) {
+				if (isInUse(COMMAND_COUNTER,box,nr,usedExpressionsLower)) continue;
+				addItem(addItemData,stationName(box)+" - "+names.get(nr-1),"Counter("+box.getId()+";"+nr+")");
+			}
+		}
 		if (addItemData.popupMenuSection.getItemCount()>0) {popup.add(addItemData.popupMenuSection); needSeparator=true;}
 
 		/* Zähleranteil */
 		addItemData.popupMenuSection=new JMenu(Language.tr("AnimationExpression.ExpressionTemplates.CounterPart"));
 		boxesCounterPart.stream().filter(box->!isInUse(COMMAND_COUNTER_PART,box,usedExpressionsLower)).forEach(box->addItem(addItemData,stationName(box),"Part("+box.getId()+")"));
+		for (var box: boxesCounterMulti) {
+			if (!(box instanceof ModelElementCounterMulti)) continue;
+			final ModelElementCounterMulti multiCounter=(ModelElementCounterMulti)box;
+			final var names=multiCounter.getCounterNames();
+			final int numberOfCounters=names.size();
+			for (int nr=1;nr<=numberOfCounters;nr++) {
+				if (isInUse(COMMAND_COUNTER,box,nr,usedExpressionsLower)) continue;
+				addItem(addItemData,stationName(box)+" - "+names.get(nr-1),"Part("+box.getId()+";"+nr+")");
+			}
+		}
 		if (addItemData.popupMenuSection.getItemCount()>0) {popup.add(addItemData.popupMenuSection); needSeparator=true;}
 
 		if (needSeparator) {popup.addSeparator(); needSeparator=false;}
