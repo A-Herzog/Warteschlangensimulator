@@ -28,8 +28,8 @@ $e\approx 2,71828182845905$.
 $\pi\approx 3,14159265358979$.
 
 \item
-\cmd{pi}: Liefert den Durchmesser des Einheitskreises $\tau=2\cdot\pi$. Es gilt
-$\tau\approx 6,28318530717959$.
+\cmd{eulergamma}: Liefert den Wert der Euler-Mascheroni-Konstante. Es gilt
+$\eulergamma\approx 0,577215664901532$.
 
 \end{itemize}
 
@@ -69,6 +69,37 @@ Es werden die üblichen Grundrechenarten unterstützt:
 Die Regel \textbf{Punkt- vor Strichrechnung} wird dabei berücksichtigt.
 Um davon abweichende Auswertungen zu erzwingen, können \textbf{Klammern}
 gesetzt werden.
+
+
+
+\chapter{Bedingungen}
+
+\begin{itemize}
+\item
+\cmd{If(bedingungX;wertX;bedingungY;wertY;...;sonst)}:\\
+Liefert \cm{wertX}, wenn \cm{bedingungX}$>0$ ist. Ansonsten wird \cm{bedingungY} geprüft usw.
+(Es muss mindestens eine Bedinung vorhanden sein, d.h. die Funktion muss mindestens 3 Parameter besitzen.)
+Ist keine Bedingung erfüllt, wird \cm{sonst} zurückgeliefert.
+\item
+\cmd{IfZero(bedingungX;wertX;bedingungY;wertY;...;sonst)}:\\
+Liefert \cm{wertX}, wenn \cm{bedingungX}$=0$ ist. Ansonsten wird \cm{bedingungY} geprüft usw.
+(Es muss mindestens eine Bedinung vorhanden sein, d.h. die Funktion muss mindestens 3 Parameter besitzen.)
+Ist keine Bedingung erfüllt, wird \cm{sonst} zurückgeliefert.
+\item
+\cmd{IfNegative(bedingungX;wertX;bedingungY;wertY;...;sonst)}:\\
+Liefert \cm{wertX}, wenn \cm{bedingungX}$<0$ ist. Ansonsten wird \cm{bedingungY} geprüft usw.
+(Es muss mindestens eine Bedinung vorhanden sein, d.h. die Funktion muss mindestens 3 Parameter besitzen.)
+Ist keine Bedingung erfüllt, wird \cm{sonst} zurückgeliefert.
+\item
+\cmd{IfEven(bedingungX;wertX;bedingungY;wertY;...;sonst)}:\\
+Liefert \cm{wertX}, wenn \cm{bedingungX} eine gerade Ganzzahl ist. Ansonsten wird \cm{bedingungY} geprüft usw.
+(Es muss mindestens eine Bedinung vorhanden sein, d.h. die Funktion muss mindestens 3 Parameter besitzen.)
+Ist keine Bedingung erfüllt, wird \cm{sonst} zurückgeliefert.
+\cmd{IfOdd(bedingungX;wertX;bedingungY;wertY;...;sonst)}:\\
+Liefert \cm{wertX}, wenn \cm{bedingungX} eine ungerade Ganzzahl ist. Ansonsten wird \cm{bedingungY} geprüft usw.
+(Es muss mindestens eine Bedinung vorhanden sein, d.h. die Funktion muss mindestens 3 Parameter besitzen.)
+Ist keine Bedingung erfüllt, wird \cm{sonst} zurückgeliefert.
+\end{itemize}
 
 
 

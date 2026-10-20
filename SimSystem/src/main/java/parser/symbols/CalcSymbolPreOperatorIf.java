@@ -15,9 +15,6 @@
  */
 package parser.symbols;
 
-import parser.MathCalcError;
-import parser.coresymbols.CalcSymbolPreOperator;
-
 /**
  * Liefert verschiedene Werte in Abhängigkeit davon, ob bestimmte
  * andere Werte echt größer 0 sind.<br><br>
@@ -27,7 +24,7 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * Sonst wird ergebnisSonst geliefert.
  * @author Alexander Herzog
  */
-public class CalcSymbolPreOperatorIf extends CalcSymbolPreOperator {
+public class CalcSymbolPreOperatorIf extends CalcSymbolPreOperatorIfBase {
 	/**
 	 * Konstruktor der Klasse
 	 */
@@ -42,7 +39,7 @@ public class CalcSymbolPreOperatorIf extends CalcSymbolPreOperator {
 	 * Namen für das Symbol
 	 * @see #getNames()
 	 */
-	private static final String[] names=new String[]{"Wenn","If"};
+	private static final String[] names=new String[]{"Wenn","If","IfPositive"};
 
 	@Override
 	public String[] getNames() {
@@ -50,15 +47,7 @@ public class CalcSymbolPreOperatorIf extends CalcSymbolPreOperator {
 	}
 
 	@Override
-	protected double calc(double[] parameters) throws MathCalcError {
-		if (parameters.length%2!=1) throw error();
-
-		int index=0;
-		while (index<parameters.length-1) {
-			if (parameters[index]>0) return parameters[index+1];
-			index+=2;
-		}
-
-		return parameters[parameters.length-1];
+	protected boolean calcLogic(final double value) {
+		return value>0;
 	}
 }

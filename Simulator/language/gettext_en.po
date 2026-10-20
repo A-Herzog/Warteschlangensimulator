@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-13 08:17+0200\n"
+"POT-Creation-Date: 2026-10-17 23:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6210,6 +6210,42 @@ msgid "ExpressionBuilder.BasicArithmetics.If.Info"
 msgstr "<p>Returns valueX, if conditionX&gt;0. Is no condition fulfilled, valueElse will be returned.</p>"
 
 msgid "ExpressionBuilder.BasicArithmetics.If.Parameters"
+msgstr "condition1;value1;condition2;value2;valueElse"
+
+msgid "ExpressionBuilder.BasicArithmetics.IfEven"
+msgstr "If even"
+
+msgid "ExpressionBuilder.BasicArithmetics.IfEven.Info"
+msgstr "<p>Returns valueX, if conditionX is an even number. Is no condition fulfilled, valueElse will be returned.</p>"
+
+msgid "ExpressionBuilder.BasicArithmetics.IfEven.Parameters"
+msgstr "condition1;value1;condition2;value2;valueElse"
+
+msgid "ExpressionBuilder.BasicArithmetics.IfNegative"
+msgstr "If negative"
+
+msgid "ExpressionBuilder.BasicArithmetics.IfNegative.Info"
+msgstr "<p>Returns valueX, if conditionX&lt;0. Is no condition fulfilled, valueElse will be returned.</p>"
+
+msgid "ExpressionBuilder.BasicArithmetics.IfNegative.Parameters"
+msgstr "condition1;value1;condition2;value2;valueElse"
+
+msgid "ExpressionBuilder.BasicArithmetics.IfOdd"
+msgstr "If odd"
+
+msgid "ExpressionBuilder.BasicArithmetics.IfOdd.Info"
+msgstr "<p>Returns valueX, if conditionX is a odd number. Is no condition fulfilled, valueElse will be returned.</p>"
+
+msgid "ExpressionBuilder.BasicArithmetics.IfOdd.Parameters"
+msgstr "condition1;value1;condition2;value2;valueElse"
+
+msgid "ExpressionBuilder.BasicArithmetics.IfZero"
+msgstr "If zero"
+
+msgid "ExpressionBuilder.BasicArithmetics.IfZero.Info"
+msgstr "<p>Returns valueX, if conditionX=0. Is no condition fulfilled, valueElse will be returned.</p>"
+
+msgid "ExpressionBuilder.BasicArithmetics.IfZero.Parameters"
 msgstr "condition1;value1;condition2;value2;valueElse"
 
 msgid "ExpressionBuilder.BasicArithmetics.Minus"

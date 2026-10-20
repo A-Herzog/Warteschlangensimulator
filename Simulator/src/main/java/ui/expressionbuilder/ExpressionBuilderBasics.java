@@ -112,6 +112,10 @@ public class ExpressionBuilderBasics {
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.BasicArithmetics.Percent")+" (%)","%",String.format(Language.tr("ExpressionBuilder.BasicArithmetics.Percent.Info"),NumberTools.formatNumber(0.3)));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.BasicArithmetics.Modulo")+" (mod)","mod("+value+"A;"+value+"B)",Language.tr("ExpressionBuilder.BasicArithmetics.Modulo.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.BasicArithmetics.If")+" (if)","if("+Language.tr("ExpressionBuilder.BasicArithmetics.If.Parameters")+")",Language.tr("ExpressionBuilder.BasicArithmetics.If.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.BasicArithmetics.IfZero")+" (ifZero)","ifZero("+Language.tr("ExpressionBuilder.BasicArithmetics.IfZero.Parameters")+")",Language.tr("ExpressionBuilder.BasicArithmetics.IfZero.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.BasicArithmetics.IfNegative")+" (ifNegative)","ifNegative("+Language.tr("ExpressionBuilder.BasicArithmetics.IfNegative.Parameters")+")",Language.tr("ExpressionBuilder.BasicArithmetics.IfNegative.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.BasicArithmetics.IfEven")+" (ifEven)","ifEven("+Language.tr("ExpressionBuilder.BasicArithmetics.IfEven.Parameters")+")",Language.tr("ExpressionBuilder.BasicArithmetics.IfEven.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.BasicArithmetics.IfOdd")+" (ifOdd)","ifOdd("+Language.tr("ExpressionBuilder.BasicArithmetics.IfOdd.Parameters")+")",Language.tr("ExpressionBuilder.BasicArithmetics.IfOdd.Info"));
 		if (group.getChildCount()>0) root.add(group);
 
 		/* Runden */
