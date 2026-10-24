@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-17 23:22+0200\n"
+"POT-Creation-Date: 2026-10-20 08:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7010,10 +7010,16 @@ msgid "ExpressionBuilder.MathematicalConstants.e.Info"
 msgstr "<p>Liefert die eulersche Zahl<br>e&asymp;%s.</p>"
 
 msgid "ExpressionBuilder.MathematicalConstants.eulergamma"
-msgstr "Eulerkonstante Gamma"
+msgstr "Eulerkonstante gamma"
 
 msgid "ExpressionBuilder.MathematicalConstants.eulergamma.Info"
 msgstr "<p>Liefert die Euler-Mascheroni-Konstante<br>&gamma;&asymp;%s.</p>"
+
+msgid "ExpressionBuilder.MathematicalConstants.phi"
+msgstr "Goldener Schnitt Phi"
+
+msgid "ExpressionBuilder.MathematicalConstants.phi.Info"
+msgstr "<p>Liefert den Wert des goldenen Schnitts<br>&Phi;&asymp;%s.</p>"
 
 msgid "ExpressionBuilder.MathematicalConstants.tau"
 msgstr "Einheitskreisdurchmesser Tau"
