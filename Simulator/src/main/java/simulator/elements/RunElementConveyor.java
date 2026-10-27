@@ -93,13 +93,7 @@ public class RunElementConveyor extends RunElementPassThrough implements PickUpQ
 		/* Transportzeit */
 		if (conveyorElement.getTransportTime()<0) return String.format(Language.tr("Simulation.Creator.InvalidTransportTime"),element.getId());
 		double time=conveyorElement.getTransportTime();
-		final long timeMS;
-		switch (conveyorElement.getTimeBase()) {
-		case TIMEBASE_HOURS: timeMS=Math.round(time*3600*runModel.scaleToSimTime); break;
-		case TIMEBASE_MINUTES: timeMS=Math.round(time*60*runModel.scaleToSimTime); break;
-		case TIMEBASE_SECONDS: timeMS=Math.round(time*runModel.scaleToSimTime); break;
-		default: timeMS=Math.round(time*runModel.scaleToSimTime); break;
-		}
+		final long timeMS=Math.round(time*conveyorElement.getTimeBase().multiply*runModel.scaleToSimTime);
 		conveyor.transportTimeMS=timeMS;
 		conveyor.transportTimeType=conveyorElement.getTransportTimeType();
 
