@@ -112,7 +112,7 @@ class DistributionSwingTests {
 		assertEquals(home.toString(),chooser.getCurrentDirectory().toString());
 
 		CommonVariables.setInitialDirectoryFromFile(new File(""));
-		CommonVariables.setInitialDirectoryFromFile(new File(System.getProperty("user.home")+"\\file.txt"));
+		CommonVariables.setInitialDirectoryFromFile(new File(System.getProperty("user.home")+File.separator+"file.txt"));
 
 		chooser=new PlugableFileChooser();
 		CommonVariables.initialDirectoryToPlugableFileChooser(chooser);
