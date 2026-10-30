@@ -53,6 +53,7 @@ import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiIn;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
+import ui.modeleditor.coreelements.ModelElementMultiInDoubleOutBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.outputbuilder.HTMLOutputBuilder;
 import ui.modeleditor.outputbuilder.SpecialOutputBuilder;
@@ -1353,7 +1354,11 @@ public final class ModelElementEdge extends ModelElement {
 
 		if (connectionStart instanceof ModelElementEdgeOut) {
 			final ModelElementEdgeOut edgeOutElement=(ModelElementEdgeOut)connectionStart;
-			if (edgeOutElement.getEdgeOut()!=this) return false;
+			if (connectionStart instanceof ModelElementMultiInDoubleOutBox) {
+				if (edgeOutElement.getEdgeOut()!=this && ((ModelElementMultiInDoubleOutBox)connectionStart).getEdgeOut2()!=this) return false;
+			} else {
+				if (edgeOutElement.getEdgeOut()!=this) return false;
+			}
 		}
 
 		if (connectionStart instanceof ModelElementEdgeMultiOut) {

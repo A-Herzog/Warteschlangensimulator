@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-20 08:21+0200\n"
+"POT-Creation-Date: 2026-10-30 16:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21111,6 +21111,9 @@ msgstr "Die Simulation soll %d mal wiederholt werden. Allerdings kann dies aus f
 msgid "Simulation.Creator.NoScript"
 msgstr "Für Element id=%d ist kein Skript definiert."
 
+msgid "Simulation.Creator.NoSecondEdgeOut"
+msgstr "Element id=%d besitzt keine zweite Ausgangskante."
+
 msgid "Simulation.Creator.NoSectionName"
 msgstr "An Element id=%d wurde kein Name für den zu verlassenden Bereich angegeben."
 
@@ -21377,6 +21380,9 @@ msgstr "An Element id=%d wurde in einer Ventilkonfiguration der ungültige maxim
 
 msgid "Simulation.Creator.TankValveSetup.InvalidValve"
 msgstr "An Element id=%d wurde eine Ventilkonfiguration für Tank id=%d, Ventil %d angegeben. Diese Ventilnummer ist jedoch für diesen Tank nicht gültig. Für diesen Tank muss die Ventilnummer zwischen 1 und %d liegen."
+
+msgid "Simulation.Creator.TooManyEdgesOut"
+msgstr "Station id=%d besitzt zu viele auslaufende Kanten."
 
 msgid "Simulation.Creator.TransportSourceInternalError"
 msgstr "Interner Fehler: Keine Verzögerung zu Zielstation id=%d bei Quelle id=%d"
@@ -31219,6 +31225,27 @@ msgstr "Sprache"
 msgid "Surface.Delay.AverageDelayTime"
 msgstr "Mittlere Verzögerungszeit"
 
+msgid "Surface.Delay.Collision"
+msgstr "Kollision"
+
+msgid "Surface.Delay.Dialog.CollisionMode"
+msgstr "Mehrere Kunden gleichzeitig an der Station führen zu einer Kollision"
+
+msgid "Surface.Delay.Dialog.CollisionMode.Tooltip"
+msgstr "Befinden sich mehrere Kunden gleichzeitig an der Station, so werde diese alle über die \"Kollision\"-Kante ausgeleitet."
+
+msgid "Surface.Delay.Dialog.CollisionMode.Warning.OneEdge"
+msgstr "Station besitzt eine auslaufende Kante"
+
+msgid "Surface.Delay.Dialog.CollisionMode.Warning.OneEdge.Info"
+msgstr "Die Station besitzt nur eine auslaufende Kante. In diesem Fall kann der Kollisionsmodus nicht verwendet werden, da hier zwei auslaufende Kanten (eine für erfolgreiche Kunden und eine für Kollisionen) benötigt werden."
+
+msgid "Surface.Delay.Dialog.CollisionMode.Warning.TwoEdges"
+msgstr "Station besitzt zwei auslaufende Kanten"
+
+msgid "Surface.Delay.Dialog.CollisionMode.Warning.TwoEdges.Info"
+msgstr "Die Station besitzt zwei auslaufende Kanten. Ist der Kollisionsmodus nicht aktiv, so wird nur eine auslaufende Kante benötigt und die aktuelle Konfiguration ist ungültig."
+
 msgid "Surface.Delay.Dialog.CostsPerClient"
 msgstr "Kosten pro Kunde"
 
@@ -31272,6 +31299,9 @@ msgstr "Verzögert die Kunden, die dieses Element durchlaufen, gemäß einer vor
 
 msgid "Surface.Delay.XML.ClientsList"
 msgstr "ModellElementVerzoegerungKundenliste"
+
+msgid "Surface.Delay.XML.CollisionMode"
+msgstr "ModellElementVerzoegerungKollisionsmodus"
 
 msgid "Surface.Delay.XML.Costs"
 msgstr "ModellElementVerzoegerungKosten"

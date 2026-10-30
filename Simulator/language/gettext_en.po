@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-20 08:21+0200\n"
+"POT-Creation-Date: 2026-10-30 16:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21071,6 +21071,9 @@ msgstr "The simulation should be repeated %d times. By the following reason this
 msgid "Simulation.Creator.NoScript"
 msgstr "No script is defined for element id=%d."
 
+msgid "Simulation.Creator.NoSecondEdgeOut"
+msgstr "Element id=%d has no second outgoing edge."
+
 msgid "Simulation.Creator.NoSectionName"
 msgstr "At element id=%d no name for the section to leave was entered."
 
@@ -21337,6 +21340,9 @@ msgstr "At element id=%d in a valve setup the invalid maximum flow of \"%s\" was
 
 msgid "Simulation.Creator.TankValveSetup.InvalidValve"
 msgstr "At element id=%d a valve setup was specified for tank id=%d, valve %d. But this valve number is invalid for this tank. The valve number for this tank has to be an integer number between 1 and %d."
+
+msgid "Simulation.Creator.TooManyEdgesOut"
+msgstr "Station id=%d has too many outgoing edges."
 
 msgid "Simulation.Creator.TransportSourceInternalError"
 msgstr "Internal error: No delay data for destination station id=%d at origin id=%d"
@@ -31168,6 +31174,27 @@ msgstr "Language"
 msgid "Surface.Delay.AverageDelayTime"
 msgstr "Average delay time"
 
+msgid "Surface.Delay.Collision"
+msgstr "Collision"
+
+msgid "Surface.Delay.Dialog.CollisionMode"
+msgstr "Having multiple clients at the station at the same time leads to a collision"
+
+msgid "Surface.Delay.Dialog.CollisionMode.Tooltip"
+msgstr "If multiple clients are at the station at the same time, they are all directed out via the \"collision\" edge."
+
+msgid "Surface.Delay.Dialog.CollisionMode.Warning.OneEdge"
+msgstr "Station has one outgoing edge"
+
+msgid "Surface.Delay.Dialog.CollisionMode.Warning.OneEdge.Info"
+msgstr "The station has only one outgoing edge. In this case, collision mode cannot be used, since two outgoing edges are required (one for successful clients and one for collisions)."
+
+msgid "Surface.Delay.Dialog.CollisionMode.Warning.TwoEdges"
+msgstr "Station has two outgoing edges"
+
+msgid "Surface.Delay.Dialog.CollisionMode.Warning.TwoEdges.Info"
+msgstr "The station has two outgoing edges. If collision mode is not active, only one outgoing edge is required, and the current configuration is invalid."
+
 msgid "Surface.Delay.Dialog.CostsPerClient"
 msgstr "Costs per client"
 
@@ -31221,6 +31248,9 @@ msgstr "Delays client passing this element according to a given distribution."
 
 msgid "Surface.Delay.XML.ClientsList"
 msgstr "ModelElementDelayClientsList"
+
+msgid "Surface.Delay.XML.CollisionMode"
+msgstr "ModelElementDelayCollisionMode"
 
 msgid "Surface.Delay.XML.Costs"
 msgstr "ModelElementDelayCosts"

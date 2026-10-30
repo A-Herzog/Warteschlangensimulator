@@ -25,12 +25,14 @@ import java.io.Serializable;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
 
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 
@@ -72,6 +74,8 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 	private JTextField textCosts;
 	/** Soll eine Liste der Kunden an der Station geführt werden? */
 	private JCheckBox hasClientsList;
+	/** Führen mehrere Kunden an der Station zu einer Kollision? */
+	private JCheckBox collisionMode;
 
 	/**
 	 * Konstruktor der Klasse
@@ -193,6 +197,29 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 		hasClientsList.setToolTipText(Language.tr("Surface.Delay.Dialog.HasClientsList.Tooltip"));
 		hasClientsList.setEnabled(!readOnly);
 
+		/* Führen mehrere Kunden an der Station zu einer Kollision? */
+		bottom.add(sub=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		sub.add(collisionMode=new JCheckBox(Language.tr("Surface.Delay.Dialog.CollisionMode"),delayElement.isCollisionMode()));
+		collisionMode.setToolTipText(Language.tr("Surface.Delay.Dialog.CollisionMode.Tooltip"));
+		collisionMode.setEnabled(!readOnly);
+		final JToolBar toolbar=new JToolBar();
+		sub.add(toolbar);
+		toolbar.setFloatable(false);
+		final JButton button=new JButton();
+		toolbar.add(button);
+		button.setIcon(Images.GENERAL_WARNING_BUG.getIcon());
+		if (delayElement.getEdgeOut2()==null) {
+			button.setToolTipText(Language.tr("Surface.Delay.Dialog.CollisionMode.Warning.OneEdge"));
+			button.addActionListener(e->MsgBox.info(this,Language.tr("Surface.Delay.Dialog.CollisionMode.Warning.OneEdge"),Language.tr("Surface.Delay.Dialog.CollisionMode.Warning.OneEdge.Info")));
+		} else {
+			button.setToolTipText(Language.tr("Surface.Delay.Dialog.CollisionMode.Warning.TwoEdges"));
+			button.addActionListener(e->MsgBox.info(this,Language.tr("Surface.Delay.Dialog.CollisionMode.Warning.TwoEdges"),Language.tr("Surface.Delay.Dialog.CollisionMode.Warning.TwoEdges.Info")));
+		}
+		collisionMode.addActionListener(e->{
+			toolbar.setVisible(collisionMode.isSelected()==(delayElement.getEdgeOut2()==null));
+		});
+		toolbar.setVisible(collisionMode.isSelected()==(delayElement.getEdgeOut2()==null));
+
 		/* GUI aufbauen */
 		distributions.start();
 
@@ -262,5 +289,6 @@ public class ModelElementDelayDialog extends ModelElementBaseDialog {
 		for(Map.Entry<String,String> entry: distributions.getExpressions().entrySet()) delayElement.setDelayTime(entry.getKey(),null,entry.getValue());
 		delayElement.setCosts(textCosts.getText());
 		delayElement.setHasClientsList(hasClientsList.isSelected());
+		delayElement.setCollisionMode(collisionMode.isSelected());
 	}
 }

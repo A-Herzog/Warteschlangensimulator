@@ -24,6 +24,7 @@ import simulator.runmodel.SimulationData;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
+import ui.modeleditor.coreelements.ModelElementMultiInDoubleOutBox;
 import ui.modeleditor.elements.ModelElementEdge;
 
 /**
@@ -38,7 +39,14 @@ public abstract class RunElementPassThrough extends RunElement {
 	 * @see #buildEdgeOut(ModelElementEdge)
 	 * @see #buildEdgeOut(ModelElementEdgeOut)
 	 */
-	private int connectionId;
+	private int connectionId=-1;
+
+	/**
+	 * ID der zweiten auslaufenden Kante
+	 * @see #buildEdgeOut2(ModelElementEdge)
+	 * @see #buildEdgeOut2(ModelElementMultiInDoubleOutBox)
+	 */
+	private int connectionId2=-1;
 
 	/**
 	 * Auslaufende Kante
@@ -46,6 +54,13 @@ public abstract class RunElementPassThrough extends RunElement {
 	 * @see #prepareRun(RunModel)
 	 */
 	private RunElement connection;
+
+	/**
+	 * Zweite auslaufende Kante
+	 * @see #connectionId2
+	 * @see #prepareRun(RunModel)
+	 */
+	private RunElement connection2;
 
 	/**
 	 * Konstruktor der Klasse <code>RunElementPassThrough</code>
@@ -77,6 +92,26 @@ public abstract class RunElementPassThrough extends RunElement {
 	}
 
 	/**
+	 * Trägt die angegebene Modell-Kante als auslaufende Kante in das Laufzeitelement ein  (als zweite auslaufende Kante)
+	 * @param edge	Modell-Kante zum nächsten Element
+	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
+	 */
+	protected final String buildEdgeOut2(final ModelElementEdge edge) {
+		connectionId2=findNextId(edge);
+		if (connectionId2<0) return String.format(Language.tr("Simulation.Creator.NoSecondEdgeOut"),id);
+		return null;
+	}
+
+	/**
+	 * Trägt die angegebene Modell-Kante als auslaufende Kante in das Laufzeitelement ein (als zweite auslaufende Kante)
+	 * @param element	Element von dem die Kante ausgeht
+	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
+	 */
+	protected final String buildEdgeOut2(final ModelElementMultiInDoubleOutBox element) {
+		return buildEdgeOut2(element.getEdgeOut2());
+	}
+
+	/**
 	 * Trägt die angegebene Modell-Kante als auslaufende Kante in das Laufzeitelement ein
 	 * @param element	Element von dem die Kante ausgeht
 	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
@@ -97,6 +132,17 @@ public abstract class RunElementPassThrough extends RunElement {
 	 */
 	protected final RunModelCreatorStatus testEdgeOut(final ModelElementEdge edge, final ModelElementBox element) {
 		if (findNextId(edge)<0) return RunModelCreatorStatus.noEdgeOut(element);
+		return null;
+	}
+
+	/**
+	 * Prüft eine Modell-Kante zur Verwendung als auslaufende Kante für dieses Laufzeitelement (als zweite auslaufende Kante)
+	 * @param edge	Modell-Kante zum nächsten Element
+	 * @param element	Modell-Element welches zu diesem Laufzeit-Element gehört
+	 * @return	Gibt im Erfolgsfall <code>null</code> zurück, sonst eine Fehlermeldung.
+	 */
+	protected final RunModelCreatorStatus testEdge2Out(final ModelElementEdge edge, final ModelElementBox element) {
+		if (findNextId(edge)<0) return RunModelCreatorStatus.noSecondEdgeOut(element);
 		return null;
 	}
 
@@ -124,7 +170,8 @@ public abstract class RunElementPassThrough extends RunElement {
 
 	@Override
 	public void prepareRun(final RunModel runModel) {
-		connection=runModel.elements.get(connectionId);
+		if (connectionId>=0) connection=runModel.elements.get(connectionId);
+		if (connectionId2>=0) connection2=runModel.elements.get(connectionId2);
 	}
 
 	@Override
@@ -133,8 +180,26 @@ public abstract class RunElementPassThrough extends RunElement {
 		StationLeaveEvent.sendToStation(simData,client,this,connection,false); /* false = kein SystemChanged auslösen, da processLeave von StationLeaveEvent.run ausgelöst wird und dieses als nächstes ebenfalls SystemChanged auslöst. */
 	}
 
+	/**
+	 * Bearbeitung des Abgangs eines Kunden an einer Station (Ausgang zur zweiten auslaufenden Kante)
+	 * @param simData	Simulationsdaten
+	 * @param client	Kunde
+	 */
+	public void processLeaveCancel(SimulationData simData, RunDataClient client) {
+		StationLeaveEvent.unannounceClient(simData,client,connection2);
+		StationLeaveEvent.sendToStation(simData,client,this,connection2,false); /* false = kein SystemChanged auslösen, da processLeave von StationLeaveEvent.run ausgelöst wird und dieses als nächstes ebenfalls SystemChanged auslöst. */
+	}
+
 	@Override
 	public RunElement getNext() {
 		return connection;
+	}
+
+	/**
+	 * Liefert optional die zweite mögliche nächste Station (z.B. zum Auffinden von Pfaden)
+	 * @return	Zweite nächste Station (kann <code>null</code> sein)
+	 */
+	public RunElement getNextCancel() {
+		return connection2;
 	}
 }

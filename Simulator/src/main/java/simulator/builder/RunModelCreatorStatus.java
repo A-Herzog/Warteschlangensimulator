@@ -23,6 +23,7 @@ import language.Language;
 import simulator.coreelements.RunElement;
 import simulator.runmodel.RunModelFixer;
 import ui.modeleditor.coreelements.ModelElement;
+import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.coreelements.ModelElementEdgeMultiOut;
 import ui.modeleditor.coreelements.ModelElementEdgeOut;
 import ui.modeleditor.coreelements.ModelElementPosition;
@@ -52,6 +53,9 @@ public class RunModelCreatorStatus {
 
 		/** Eine auslaufende Kante führt zu keinem weiteren Element über das die Differenzierung der Kanten erfolgen könnte. */
 		EDGE_TO_NOWHERE,
+
+		/** Die Station besitzt zu viele auslaufende Kanten. */
+		TOO_MANY_EDGES_OUT,
 
 		/** Ein notwendige Elementenname fehlt. */
 		NO_NAME((e,s)->RunModelFixerHelper.setName(e,s)),
@@ -295,6 +299,16 @@ public class RunModelCreatorStatus {
 	}
 
 	/**
+	 * Liefert den Fehlerstatus "kein zweite auslaufende Kante"
+	 * @param element	Editor-Element auf den sich der Fehler bezieht
+	 * @return	Fehlerstatusobjekt
+	 * @see Status#NO_EDGE_OUT
+	 */
+	public static RunModelCreatorStatus noSecondEdgeOut(final ModelElement element) {
+		return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoSecondEdgeOut"),element.getId()),Status.NO_EDGE_OUT);
+	}
+
+	/**
 	 * Liefert den Fehlerstatus "kein auslaufende Kante"
 	 * @param element	Editor-Element auf den sich der Fehler bezieht
 	 * @return	Fehlerstatusobjekt
@@ -363,5 +377,15 @@ public class RunModelCreatorStatus {
 	 */
 	public static RunModelCreatorStatus noOutputFile(final ModelElement element) {
 		return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.NoOutputFile"),element.getId()),Status.NO_OUTPUT_FILE);
+	}
+
+	/**
+	 * Liefert den Fehlerstatus "zu viele auslaufende Kanten"
+	 * @param element	Editor-Element auf den sich der Fehler bezieht
+	 * @return	Fehlerstatusobjekt
+	 * @see Status#TOO_MANY_EDGES_OUT
+	 */
+	public static RunModelCreatorStatus tooManyEdgesOut(final ModelElementBox element) {
+		return new RunModelCreatorStatus(String.format(Language.tr("Simulation.Creator.TooManyEdgesOut"),element.getId()),Status.TOO_MANY_EDGES_OUT);
 	}
 }

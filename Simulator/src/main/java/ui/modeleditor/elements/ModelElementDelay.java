@@ -51,7 +51,7 @@ import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.ModelSurfacePanel;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.coreelements.ModelElementBox;
-import ui.modeleditor.coreelements.ModelElementMultiInSingleOutBox;
+import ui.modeleditor.coreelements.ModelElementMultiInDoubleOutBox;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.coreelements.QuickFixNextElements;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
@@ -64,7 +64,7 @@ import ui.parameterseries.ParameterCompareTemplatesDialog.TemplateRecord;
  * Verzögerung der Kunden
  * @author Alexander Herzog
  */
-public class ModelElementDelay extends ModelElementMultiInSingleOutBox implements ModelDataRenameListener, ModelElementAnimationForceMove {
+public class ModelElementDelay extends ModelElementMultiInDoubleOutBox implements ModelDataRenameListener, ModelElementAnimationForceMove {
 	/**
 	 * Art wie die Verzögerung für die Kundenstatistik gezählt werden soll
 	 * @author Alexander Herzog
@@ -142,6 +142,13 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	private boolean hasClientsList;
 
 	/**
+	 * Führen mehrere Kunden an der Station zu einer Kollision?
+	 * @see #isCollisionMode()
+	 * @see #setCollisionMode(boolean)
+	 */
+	private boolean collisionMode;
+
+	/**
 	 * Konstruktor der Klasse <code>ModelElementDelay</code>
 	 * @param model	Modell zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
 	 * @param surface	Zeichenfläche zu dem dieses Element gehören soll (kann später nicht mehr geändert werden)
@@ -156,6 +163,7 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 		expressionByType=new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
 		costs="";
 		hasClientsList=false;
+		collisionMode=false;
 	}
 
 	/**
@@ -174,6 +182,21 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	@Override
 	public String getToolTip() {
 		return Language.tr("Surface.Delay.Tooltip");
+	}
+
+	/**
+	 * Aktualisiert die Beschriftung der auslaufenden Kante
+	 * @see #fireChanged()
+	 */
+	@Override
+	protected void updateEdgeLabel() {
+		if (connectionOut==null) return; /* Wenn die Methode vom Eltern-Konstruktor aufgerufen wird. */
+		if (connectionOut[0]!=null) {
+			connectionOut[0].setName("");
+		}
+		if (connectionOut[1]!=null) {
+			connectionOut[1].setName(Language.tr("Surface.Delay.Collision"));
+		}
 	}
 
 	/**
@@ -318,6 +341,23 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 	}
 
 	/**
+	 * Führen mehrere Kunden an der Station zu einer Kollision?
+	 * @return	Führen mehrere Kunden an der Station zu einer Kollision?
+	 */
+	public boolean isCollisionMode() {
+		return collisionMode;
+	}
+
+	/**
+	 * Stellt ein, ob mehrere Kunden an der Station zu einer Kollision führen sollen
+	 * @param collisionMode	Führen mehrere Kunden an der Station zu einer Kollision?
+	 */
+	public void setCollisionMode(final boolean collisionMode) {
+		this.collisionMode=collisionMode;
+		fireChanged();
+	}
+
+	/**
 	 * Überprüft, ob das Element mit dem angegebenen Element inhaltlich identisch ist.
 	 * @param element	Element mit dem dieses Element verglichen werden soll.
 	 * @return	Gibt <code>true</code> zurück, wenn die beiden Elemente identisch sind.
@@ -379,6 +419,8 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 
 		if (hasClientsList!=otherDelay.hasClientsList) return false;
 
+		if (collisionMode!=otherDelay.collisionMode) return false;
+
 		return true;
 	}
 
@@ -415,6 +457,8 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 			costs=copySource.costs;
 
 			hasClientsList=copySource.hasClientsList;
+
+			collisionMode=copySource.collisionMode;
 		}
 	}
 
@@ -645,6 +689,11 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 			sub.setTextContent("1");
 		}
 
+		if (collisionMode) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Delay.XML.CollisionMode")));
+			sub.setTextContent("1");
+		}
+
 		if (distributionGlobal!=null) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Delay.XML.Distribution")));
 			sub.setTextContent(DistributionTools.distributionToString(distributionGlobal));
@@ -704,6 +753,11 @@ public class ModelElementDelay extends ModelElementMultiInSingleOutBox implement
 
 		if (Language.trAll("Surface.Delay.XML.ClientsList",name)) {
 			hasClientsList=content.trim().equals("1");
+			return null;
+		}
+
+		if (Language.trAll("Surface.Delay.XML.CollisionMode",name)) {
+			collisionMode=content.trim().equals("1");
 			return null;
 		}
 

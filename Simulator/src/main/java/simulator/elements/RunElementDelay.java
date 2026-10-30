@@ -55,6 +55,8 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 	private String costs;
 	/** Soll eine Liste der Kunden an der Station geführt werden? */
 	private boolean hasClientsList;
+	/** Alle Kunden verwerfen, wenn mehrere gleichzeitig da sind. */
+	private boolean collisionMode;
 
 	/**
 	 * Konstruktor der Klasse
@@ -70,9 +72,18 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 		final ModelElementDelay delayElement=(ModelElementDelay)element;
 		final RunElementDelay delay=new RunElementDelay(delayElement);
 
+		/* Führen mehrere Kunden an der Station zu einer Kollision? */
+		delay.collisionMode=delayElement.isCollisionMode();
+
 		/* Auslaufende Kante */
 		final String edgeError=delay.buildEdgeOut(delayElement);
 		if (edgeError!=null) return edgeError;
+		if (delay.collisionMode) {
+			final String edge2Error=delay.buildEdgeOut2(delayElement);
+			if (edge2Error!=null) return edge2Error;
+		} else {
+			if (delayElement.getEdgeOut2()!=null) return String.format(Language.tr("Simulation.Creator.TooManyEdgesOut"),delayElement.getId());
+		}
 
 		/* Zeitbasis */
 		delay.timeBaseMultiply=delayElement.getTimeBase().multiply;
@@ -138,6 +149,12 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 		/* Auslaufende Kante */
 		final RunModelCreatorStatus edgeError=testEdgeOut(delayElement);
 		if (edgeError!=null) return edgeError;
+		if (delayElement.isCollisionMode()) {
+			final RunModelCreatorStatus edge2Error=testEdge2Out(delayElement.getEdgeOut2(),delayElement);
+			if (edge2Error!=null) return edge2Error;
+		} else {
+			if (delayElement.getEdgeOut2()!=null) return RunModelCreatorStatus.tooManyEdgesOut(delayElement);
+		}
 
 		return RunModelCreatorStatus.ok;
 	}
@@ -155,6 +172,11 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 
 	@Override
 	public void processArrival(final SimulationData simData, final RunDataClient client) {
+		final RunElementDelayData data=getData(simData);
+
+		/* Befinden sich bereits Kunden an der Station und interessiert uns das (=Kollisionsmodus aktiv)? */
+		data.collisionState=collisionMode && (data.clientsAtStation>1); /* Der aktuell eintreffende Kunde wird hier bereits mitgezählt. */
+
 		/* Verzögerung bestimmen */
 		double value;
 		if (distribution[client.type]!=null) {
@@ -162,10 +184,10 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 		} else {
 			simData.runData.setClientVariableValues(client);
 			try {
-				value=getData(simData).expression[client.type].calc(simData.runData.variableValues,simData,client);
+				value=data.expression[client.type].calc(simData.runData.variableValues,simData,client);
 				if (value<0) value=0;
 			} catch (MathCalcError e) {
-				simData.calculationErrorStation(getData(simData).expression[client.type],this);
+				simData.calculationErrorStation(data.expression[client.type],this);
 				value=0;
 			}
 		}
@@ -189,9 +211,9 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 			simData.runData.setClientVariableValues(client);
 			double c=0;
 			try {
-				c=getData(simData).costs.calc(simData.runData.variableValues);
+				c=data.costs.calc(simData.runData.variableValues);
 			} catch (MathCalcError e) {
-				simData.calculationErrorStation(getData(simData).costs,this);
+				simData.calculationErrorStation(data.costs,this);
 				c=0;
 			}
 			simData.runData.logStationCosts(simData,this,c);
@@ -202,16 +224,18 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 
 		/* Kunden und Ereignis in Liste der Kunden speichern (sofern wir so eine Liste führen) */
 		if (hasClientsList) {
-			final Map<RunDataClient,StationLeaveEvent> clientsList=getData(simData).clientsList;
+			final Map<RunDataClient,StationLeaveEvent> clientsList=data.clientsList;
 			if (clientsList!=null) clientsList.put(client,event);
 		}
 	}
 
 	@Override
 	public void processLeave(SimulationData simData, RunDataClient client) {
+		final RunElementDelayData data=getData(simData);
+
 		/* Kunde aus der Liste der Kunden an der Station entfernen (sofern wir so eine Liste führen) */
 		if (hasClientsList) {
-			final Map<RunDataClient,StationLeaveEvent> clientsList=getData(simData).clientsList;
+			final Map<RunDataClient,StationLeaveEvent> clientsList=data.clientsList;
 			if (clientsList!=null) clientsList.remove(client);
 		}
 
@@ -224,7 +248,12 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 			simData.runData.logClientLeavesStationProcess(simData,this,null,client);
 		}
 
-		super.processLeave(simData,client);
+		/* Ist der Kollisionsstatus gesetzt, Kunden über zweiten Ausgang leiten */
+		if (data.collisionState) {
+			super.processLeaveCancel(simData,client);
+		} else {
+			super.processLeave(simData,client);
+		}
 	}
 
 	/**

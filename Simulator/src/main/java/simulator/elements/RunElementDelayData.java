@@ -33,7 +33,7 @@ import simulator.simparser.ExpressionCalc;
  */
 public class RunElementDelayData extends RunElementData {
 	/**
-	 * Verzögerungsausdrucke
+	 * Verzögerungsausdrücke
 	 */
 	public ExpressionCalc[] expression;
 
@@ -46,6 +46,11 @@ public class RunElementDelayData extends RunElementData {
 	 * Liste der Kunden an der Station (kann <code>null</code> sein)
 	 */
 	public final Map<RunDataClient,StationLeaveEvent> clientsList;
+
+	/**
+	 * Befinden sich momentan Kunden an der Station?
+	 */
+	public boolean collisionState=false;
 
 	/**
 	 * Konstruktor der Klasse <code>RunElementDelayData</code>

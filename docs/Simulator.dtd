@@ -760,7 +760,7 @@
 <!ELEMENT ModellElementKostenStation (#PCDATA)>
 <!ELEMENT ModellElementKostenBedingung (#PCDATA)>
 
-<!ELEMENT ModellElementVerzoegerung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementVerzoegerungKosten | ModellElementVerzoegerungKundenliste)*>
+<!ELEMENT ModellElementVerzoegerung (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementVerteilung | ModellElementAusdruck | ModellElementVerzoegerungKosten | ModellElementVerzoegerungKundenliste | ModellElementVerzoegerungKollisionsmodus)*>
 <!ATTLIST ModellElementVerzoegerung
   id			CDATA	#REQUIRED
   geschuetzt	CDATA	#IMPLIED
@@ -769,6 +769,7 @@
 >
 <!ELEMENT ModellElementVerzoegerungKosten (#PCDATA)>
 <!ELEMENT ModellElementVerzoegerungKundenliste (#PCDATA)>
+<!ELEMENT ModellElementVerzoegerungKollisionsmodus (#PCDATA)>
 
 <!ELEMENT ModellElementVerzoegerungSkript (ModellElementName | ModellElementBeschreibung | ModellElementGroesse | ModellElementBoxSchriftGross | ModellElementBoxSchriftKlein | ModellElementMaximalerDurchsatzSekunden | ModellElementWarteschlangeAnimationVollstaendig | ModellElementEbene | ModellElementHintergrundfarbe | ModellElementStationsbild | ModellElementVerbindung | ModellElementSkriptText | ModellElementVerzoegerungKosten | ModellElementVerzoegerungKundenliste)*>
 <!ATTLIST ModellElementVerzoegerungSkript
@@ -3544,7 +3545,7 @@
 <!ELEMENT ModelElementCostsStation (#PCDATA)>
 <!ELEMENT ModelElementCostsCondition (#PCDATA)>
 
-<!ELEMENT ModelElementDelay (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementDelayCosts | ModelElementDelayClientsList)*>
+<!ELEMENT ModelElementDelay (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementDistribution | ModelElementExpression | ModelElementDelayCosts | ModelElementDelayClientsList | ModelElementDelayCollisionMode)*>
 <!ATTLIST ModelElementDelay
   id		CDATA	#REQUIRED
   protected	CDATA	#IMPLIED
@@ -3553,6 +3554,7 @@
 >
 <!ELEMENT ModelElementDelayCosts (#PCDATA)>
 <!ELEMENT ModelElementDelayClientsList (#PCDATA)>
+<!ELEMENT ModelElementDelayCollisionMode (#PCDATA)>
 
 <!ELEMENT ModelElementDelayScript (ModelElementName | ModelElementDescription | ModelElementSize | ModelElementBoxFontLarge | ModelElementBoxFontSmall | ModelElementMaximumThroughputSeconds | ModelElementQueueAnimationComplete | ModelElementLayer | ModelElementBackgroundColor | ModelElementStationimage | ModelElementConnection | ModelElementScriptText | ModelElementDelayCosts | ModelElementDelayClientsList)*>
 <!ATTLIST ModelElementDelayScript
