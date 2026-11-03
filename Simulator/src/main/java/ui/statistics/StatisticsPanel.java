@@ -560,6 +560,42 @@ public class StatisticsPanel extends StatisticsBasePanel {
 	}
 
 	/**
+	 * Sind Zähler-Daten für normale Zähler in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Zähler-Daten enthalten sind
+	 */
+	private boolean testSimpleCounterAvailable(final Statistics[] statistics) {
+		for (Statistics statistic: statistics) {
+			if (statistic.counter.size()>0) return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Sind Zähler-Daten für Differenzzähler in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Zähler-Daten enthalten sind
+	 */
+	private boolean testDifferentialCounterAvailable(final Statistics[] statistics) {
+		for (Statistics statistic: statistics) {
+			if (statistic.differentialCounter.size()>0) return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Sind Zähler-Daten für Batch-Zähler in den Statistiken enthalten?
+	 * @param statistics	Zu prüfende Statistikdaten
+	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Zähler-Daten enthalten sind
+	 */
+	private boolean testBatchCounterAvailable(final Statistics[] statistics) {
+		for (Statistics statistic: statistics) {
+			if (statistic.counterBatch.size()>0) return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Sind Durchsatzzähler-Daten in den Statistiken enthalten?
 	 * @param statistics	Zu prüfende Statistikdaten
 	 * @return	Liefert <code>true</code>, wenn in mindestens einem Statistikobjekt Durchsatzzähler-Daten enthalten sind
@@ -2118,6 +2154,23 @@ public class StatisticsPanel extends StatisticsBasePanel {
 			for(Statistics statistic : statistics) viewer.add(new StatisticViewerOverviewText(statistic,StatisticViewerOverviewText.Mode.MODE_COUNTER,(m,s)->fastAccess.addXML(m,s)));
 			root.addChild(new StatisticNode(Language.tr("Statistics.Counter"),viewer));
 
+			if (testSimpleCounterAvailable(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_COUNTER));
+				root.addChild(new StatisticNode(Language.tr("Statistics.Counter"),viewer));
+			}
+
+			if (testDifferentialCounterAvailable(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_COUNTER_DIFFERENTIAL));
+				root.addChild(new StatisticNode(Language.tr("Statistics.DifferenceCounter"),viewer));
+			}
+
+			if (testBatchCounterAvailable(statistics)) {
+				viewer=new ArrayList<>();
+				for(Statistics statistic : statistics) viewer.add(new StatisticViewerTimeTable(statistic,StatisticViewerTimeTable.Mode.MODE_COUNTER_BATCH));
+				root.addChild(new StatisticNode(Language.tr("Statistics.CounterBatch"),viewer));
+			}
 		}
 
 		/* Durchsatz */

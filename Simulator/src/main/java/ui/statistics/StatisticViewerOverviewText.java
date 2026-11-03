@@ -3581,7 +3581,7 @@ public class StatisticViewerOverviewText extends StatisticViewerText {
 		}
 
 		/* Infotext  */
-		addDescription("Counter");
+		addDescription("CounterAll");
 	}
 
 	/**

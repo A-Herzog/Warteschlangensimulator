@@ -204,6 +204,13 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		/** Tabelle mit den an den Datenaufzeichnung-Stationen erfassten Werten */
 		MODE_VALUE_RECORDING,
 
+		/** Zähler */
+		MODE_COUNTER,
+		/** Differenzzähler */
+		MODE_COUNTER_DIFFERENTIAL,
+		/** Batch-Zähler */
+		MODE_COUNTER_BATCH,
+
 		/** Statistik über die globalen Variablen */
 		MODE_USER_VARIABLES,
 
@@ -1416,6 +1423,156 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 	}
 
 	/**
+	 * Ausgabe der Tabelle mit den Zählerwerten
+	 * @see Mode#MODE_COUNTER
+	 */
+	private void buildSimpleCounterTable() {
+		final Table table=new Table();
+		final String[] headers=new String[] {
+				Language.tr("Statistics.CounterName"),
+				Language.tr("Statistics.CounterGroup"),
+				Language.tr("Statistics.Number"),
+				Language.tr("Statistics.Part")
+		};
+
+		final List<String> groups=new ArrayList<>();
+		for (String fullName: statistics.counter.getNames()) {
+			final String[] parts=fullName.split("-",2);
+			if (parts.length==2) {
+				boolean inList=false;
+				for (String s: groups) if (s.equalsIgnoreCase(parts[0])) {inList=true; break;}
+				if (!inList) groups.add(parts[0]);
+			}
+		}
+
+		for (String group: groups) {
+			final List<String> counterName=new ArrayList<>();
+			final List<StatisticsSimpleCountPerformanceIndicator> counter=new ArrayList<>();
+			final List<Long> counterValue=new ArrayList<>();
+			long sum=0;
+
+			for (String fullName: statistics.counter.getNames()) {
+				final String[] parts=fullName.split("-",2);
+				if (parts.length==2 && parts[0].equalsIgnoreCase(group)) {
+					counterName.add(parts[1]);
+					final StatisticsSimpleCountPerformanceIndicator c=(StatisticsSimpleCountPerformanceIndicator)statistics.counter.get(fullName);
+					counter.add(c);
+					final long value=c.get();
+					counterValue.add(value);
+					sum+=value;
+				}
+			}
+
+			for (int i=0;i<counterName.size();i++) {
+				final long value=counterValue.get(i);
+				table.addLine(new String[] {
+						counterName.get(i),
+						group,
+						NumberTools.formatLong(value),
+						StatisticTools.formatPercentExt(((double)value)/sum,2,false)
+				});
+			}
+		}
+
+		setData(table,headers);
+
+		/* Infotext  */
+		addDescription("Counter");
+	}
+
+	/**
+	 * Ausgabe der Tabelle mit den Differenzzählerwerten
+	 * @see Mode#MODE_COUNTER_DIFFERENTIAL
+	 */
+	private void buildDifferentialCounterTable() {
+		final double[] confidenceLevels=StatisticViewerOverviewText.getConfidenceLevels();
+
+		final Table table=new Table();
+		final List<String> headers=new ArrayList<>();
+		headers.add(Language.tr("Statistics.CounterName"));
+		headers.add(Language.tr("Statistics.Average"));
+		headers.add(Language.tr("Statistics.StdDev"));
+		headers.add(Language.tr("Statistics.Variance"));
+		headers.add(Language.tr("Statistics.CV"));
+		headers.add(Language.tr("Statistics.Skewness"));
+		headers.add(Language.tr("Statistics.Kurt"));
+		headers.add(Language.tr("Statistics.MinimumNumber"));
+		headers.add(Language.tr("Statistics.MaximumNumber"));
+		if (statistics.simulationData.runRepeatCount>1) for (double level: confidenceLevels) {
+			headers.add(String.format(Language.tr("Statistics.ConfidenceLevel"),StatisticTools.formatPercent(1-level)));
+		}
+
+		for (String name: statistics.differentialCounter.getNames()) {
+			final StatisticsTimePerformanceIndicator indicator=(StatisticsTimePerformanceIndicator)statistics.differentialCounter.get(name);
+			final List<String> row=new ArrayList<>();
+			row.add(name);
+			row.add(StatisticTools.formatNumberExt(indicator.getTimeMean(),false));
+			row.add(StatisticTools.formatNumberExt(indicator.getTimeSD(),false));
+			row.add(StatisticTools.formatNumberExt(indicator.getTimeVar(),false));
+			row.add(StatisticTools.formatNumberExt(indicator.getTimeCV(),false));
+			row.add(StatisticTools.formatNumberExt(indicator.getTimeSk(),false));
+			row.add(StatisticTools.formatNumberExt(indicator.getTimeKurt(),false));
+			row.add(StatisticTools.formatNumberExt(indicator.getTimeMin(),false));
+			row.add(StatisticTools.formatNumberExt(indicator.getTimeMax(),false));
+			if (statistics.simulationData.runRepeatCount>1 && indicator.getRunCount()>1) {
+				final double m=indicator.getTimeMean();
+				for (double level: confidenceLevels) {
+					final double w=indicator.getRunConfidenceHalfWide(level);
+					row.add(String.format("[%s;%s]",StatisticTools.formatNumber(m-w),StatisticTools.formatNumber(m+w)));
+				}
+			}
+			table.addLine(row);
+		}
+
+		setData(table,headers);
+
+		/* Infotext  */
+		addDescription("CounterDifferential");
+	}
+
+	/**
+	 * Ausgabe der Tabelle mit den Batch-Zählerwerten
+	 * @see Mode#MODE_COUNTER_BATCH
+	 */
+	private void buildBatchCounterTable() {
+		final Table table=new Table();
+		final String[] headers=new String[] {
+				Language.tr("Statistics.CounterName"),
+				Language.tr("Statistics.AverageInterArrivalCount"),
+				Language.tr("Statistics.AverageInterArrivalTime")+" E[IB]",
+				Language.tr("Statistics.StdDevInterArrivalTime")+" Std[IB]",
+				Language.tr("Statistics.VarianceInterArrivalTime")+" Var[IB]",
+				Language.tr("Statistics.CVInterArrivalTime")+" CV[IB]",
+				Language.tr("Statistics.Skewness")+" Sk[IB]",
+				Language.tr("Statistics.Kurt")+" Kurt[IB]",
+				Language.tr("Statistics.MinimalInterArrivalTime")+" Min[IB]",
+				Language.tr("Statistics.MaximalInterArrivalTime")+" Max[IB]"
+		};
+
+		for (String name: statistics.counterBatch.getNames()) {
+			final StatisticsDataPerformanceIndicator indicator=(StatisticsDataPerformanceIndicator)statistics.counterBatch.get(name);
+			if (indicator.getCount()==0) continue;
+			table.addLine(new String[] {
+					name,
+					NumberTools.formatLong(indicator.getCount()),
+					StatisticTools.formatExactTime(indicator.getMean()),
+					StatisticTools.formatExactTime(indicator.getSD()),
+					StatisticTools.formatExactTime(indicator.getVar()),
+					StatisticTools.formatNumberExt(indicator.getCV(),false),
+					StatisticTools.formatNumberExt(indicator.getSk(),false),
+					StatisticTools.formatNumberExt(indicator.getKurt(),false),
+					StatisticTools.formatExactTime(indicator.getMin()),
+					StatisticTools.formatExactTime(indicator.getMax())
+			});
+		}
+
+		setData(table,headers);
+
+		/* Infotext  */
+		addDescription("CounterBatch");
+	}
+
+	/**
 	 * Ausgabe von
 	 * Statistik über die globalen Variablen
 	 * @see Mode#MODE_USER_VARIABLES
@@ -1550,6 +1707,9 @@ public class StatisticViewerTimeTable extends StatisticViewerBaseTable {
 		case MODE_CLIENT_DATA_DISTRIBUTION: buildClientDataDistributionTable(); break;
 		case MODE_CLIENT_TEXT_DATA: buildClientDataTextTable(); break;
 		case MODE_VALUE_RECORDING: buildValueRecordingTable(); break;
+		case MODE_COUNTER: buildSimpleCounterTable(); break;
+		case MODE_COUNTER_DIFFERENTIAL: buildDifferentialCounterTable(); break;
+		case MODE_COUNTER_BATCH: buildBatchCounterTable(); break;
 		case MODE_USER_VARIABLES: buildUserVariablesTable(); break;
 		case MODE_SYSTEM_INFO_THREAD_BALANCE: buildThreadBalanceInfoTable(); break;
 		}

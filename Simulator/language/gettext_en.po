@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-30 16:14+0100\n"
+"POT-Creation-Date: 2026-11-01 14:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24899,6 +24899,9 @@ msgstr "Batch counter"
 
 msgid "Statistics.CounterGroup"
 msgstr "Counter group"
+
+msgid "Statistics.CounterName"
+msgstr "Name"
 
 msgid "Statistics.Dashboard"
 msgstr "Dashboard"
