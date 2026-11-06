@@ -79,6 +79,9 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 	/** Eingabefeld für die Bedingung */
 	private JTextField condition;
 
+	/** Auswahlbox für die Art der Erfassung der Wartezeit */
+	private JComboBox<String> waitingTimeType;
+
 	/** Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden? */
 	private JComboBox<?> transferTimes;
 	/** Wie sollen die numerischen Datenfelder der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden? */
@@ -130,6 +133,20 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 		JPanel line;
 		ButtonGroup buttonGroup;
 		Object[] data;
+		JLabel label;
+
+		/* Typ der Wartezeit */
+
+		content.add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel(Language.tr("Surface.Match.Dialog.DelayTimeIs")));
+		line.add(waitingTimeType=new JComboBox<>(new String[]{
+				Language.tr("Surface.Match.Dialog.DelayTimeIs.WaitingTime"),
+				Language.tr("Surface.Match.Dialog.DelayTimeIs.TransferTime"),
+				Language.tr("Surface.Match.Dialog.DelayTimeIs.ProcessTime"),
+				Language.tr("Surface.Match.Dialog.DelayTimeIs.Nothing")
+		}));
+		waitingTimeType.setEnabled(!readOnly);
+		label.setLabelFor(waitingTimeType);
 
 		/* Batch-Bildungsoptionen */
 
@@ -262,6 +279,13 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 		/* Daten laden */
 
 		final ModelElementMatch match=(ModelElementMatch)element;
+
+		switch (match.getWaitingTimeType()) {
+		case DELAY_TYPE_WAITING: waitingTimeType.setSelectedIndex(0); break;
+		case DELAY_TYPE_TRANSFER: waitingTimeType.setSelectedIndex(1); break;
+		case DELAY_TYPE_PROCESS: waitingTimeType.setSelectedIndex(2); break;
+		case DELAY_TYPE_NOTHING: waitingTimeType.setSelectedIndex(3); break;
+		}
 
 		switch (match.getMatchMode()) {
 		case MATCH_MODE_COLLECT:
@@ -412,6 +436,13 @@ public class ModelElementMatchDialog extends ModelElementBaseDialog {
 	protected void storeData() {
 		super.storeData();
 		final ModelElementMatch match=(ModelElementMatch)element;
+
+		switch (waitingTimeType.getSelectedIndex()) {
+		case 0: match.setWaitingTimeType(ModelElementDelay.DelayType.DELAY_TYPE_WAITING); break;
+		case 1: match.setWaitingTimeType(ModelElementDelay.DelayType.DELAY_TYPE_TRANSFER); break;
+		case 2: match.setWaitingTimeType(ModelElementDelay.DelayType.DELAY_TYPE_PROCESS); break;
+		case 3: match.setWaitingTimeType(ModelElementDelay.DelayType.DELAY_TYPE_NOTHING); break;
+		}
 
 		if (optionForward.isSelected()) match.setMatchMode(ModelElementMatch.MatchMode.MATCH_MODE_COLLECT);
 		if (optionTemporary.isSelected()) {

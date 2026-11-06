@@ -29,6 +29,7 @@ import simulator.editmodel.FullTextSearch;
 import ui.modeleditor.ModelSurface.TimeBase;
 import ui.modeleditor.coreelements.ModelElementBox;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
+import ui.modeleditor.elements.ModelElementDelay.DelayType;
 
 /**
  * Diese Klasse kapselt einen einzelnen Batch-Bildungs-Datensatz.
@@ -66,6 +67,13 @@ public class BatchRecord implements Cloneable {
 		/** Variable Batch-Größe */
 		RANGE
 	}
+
+	/**
+	 * Art wie die Verzögerung für die Kundenstatistik gezählt werden soll
+	 * @see #getWaitingTimeType()
+	 * @see #setWaitingTimeType(ui.modeleditor.elements.ModelElementDelay.DelayType)
+	 */
+	private ModelElementDelay.DelayType waitingTimeType;
 
 	/** Feste Batch-Größe */
 	private String batchSizeFixed;
@@ -226,6 +234,7 @@ public class BatchRecord implements Cloneable {
 	 * Konstruktor der Klasse
 	 */
 	public BatchRecord() {
+		waitingTimeType=ModelElementDelay.DelayType.DELAY_TYPE_WAITING;
 		batchSizeMin="1";
 		batchSizeMax="1";
 		batchSizeFixed="1";
@@ -246,6 +255,8 @@ public class BatchRecord implements Cloneable {
 	 */
 	public boolean equalsBatchRecord(final BatchRecord otherBatchRecord) {
 		if (otherBatchRecord==null) return false;
+
+		if (waitingTimeType!=otherBatchRecord.waitingTimeType) return false;
 
 		if (batchMode!=otherBatchRecord.batchMode) return false;
 		if (batchMode==BatchMode.BATCH_MODE_TEMPORARY || batchMode==BatchMode.BATCH_MODE_PERMANENT) {
@@ -282,6 +293,8 @@ public class BatchRecord implements Cloneable {
 	public void copyDataFrom(final BatchRecord copySource) {
 		if (copySource==null) return;
 
+		waitingTimeType=copySource.waitingTimeType;
+
 		batchMode=copySource.batchMode;
 		if (batchMode==BatchMode.BATCH_MODE_TEMPORARY || batchMode==BatchMode.BATCH_MODE_PERMANENT) {
 			newClientType=copySource.newClientType;
@@ -310,6 +323,24 @@ public class BatchRecord implements Cloneable {
 		final BatchRecord batchRecord=new BatchRecord();
 		batchRecord.copyDataFrom(this);
 		return batchRecord;
+	}
+
+	/**
+	 * Liefert die Art wie die Verzögerung für die Kundenstatistik gezählt werden soll.
+	 * @return	Art wie die Verzögerung für die Kundenstatistik gezählt werden soll
+	 * @see #setWaitingTimeType(ui.modeleditor.elements.ModelElementDelay.DelayType)
+	 */
+	public ModelElementDelay.DelayType getWaitingTimeType() {
+		return waitingTimeType;
+	}
+
+	/**
+	 * Stellt die Art wie die Verzögerung für die Kundenstatistik gezählt werden soll ein.
+	 * @param waitingTimeType	Art wie die Verzögerung für die Kundenstatistik gezählt werden soll
+	 * @see #getWaitingTimeType()
+	 */
+	public void setWaitingTimeType(final ModelElementDelay.DelayType waitingTimeType) {
+		this.waitingTimeType=(waitingTimeType==null)?ModelElementDelay.DelayType.DELAY_TYPE_WAITING:waitingTimeType;
 	}
 
 	/**
@@ -550,6 +581,11 @@ public class BatchRecord implements Cloneable {
 	public void addDataToXML(final Document doc, final Element node) {
 		Element sub;
 
+		if (waitingTimeType!=ModelElementDelay.DelayType.DELAY_TYPE_WAITING) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Batch.XML.TimeType")));
+			sub.setTextContent(waitingTimeType.getName());
+		}
+
 		switch (batchMode) {
 		case BATCH_MODE_COLLECT:
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Batch.XML.BatchMode")));
@@ -657,6 +693,11 @@ public class BatchRecord implements Cloneable {
 			return null;
 		}
 
+		if (Language.trAll("Surface.Batch.XML.TimeType",name)) {
+			waitingTimeType=DelayType.byName(content);
+			return null;
+		}
+
 		if (Language.trAll("Surface.Batch.XML.BatchMode",name)) {
 			if (Language.trAll("Surface.Batch.XML.BatchMode.Collect",content)) batchMode=BatchMode.BATCH_MODE_COLLECT;
 			if (Language.trAll("Surface.Batch.XML.BatchMode.Temporary",content)) batchMode=BatchMode.BATCH_MODE_TEMPORARY;
@@ -746,6 +787,9 @@ public class BatchRecord implements Cloneable {
 		if (clientType!=null && !clientType.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Batch.SourceClientType"),clientType,level);
 		}
+
+		/* Art der Wartezeit */
+		waitingTimeType.addDescription(descriptionBuilder,level);
 
 		/* Batching Modus */
 		switch (batchMode) {

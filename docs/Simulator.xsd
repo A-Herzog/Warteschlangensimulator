@@ -1017,6 +1017,7 @@
     <xs:element name="ModellElementKundentyp" type="xs:string"/>
     <xs:element name="ModellElementBatchModus" type="xs:string"/>
 	<xs:element ref="ModellElementBatch"/>
+	<xs:element name="ModellElementZusammenfassenZeittyp" type="xs:string"/>
 	<xs:element name="ModellElementZusammenfassenUebertragenZeiten" type="xs:string"/>
 	<xs:element name="ModellElementZusammenfassenUebertragenWerte" type="xs:string"/>
 	<xs:element ref="ModellElementVorzeitigeBatchFreigabe"/>
@@ -1040,6 +1041,7 @@
     <xs:element name="ModellElementKundentyp" type="xs:string"/>
     <xs:element name="ModellElementBatchModus" type="xs:string"/>
 	<xs:element ref="ModellElementBatch"/>
+	<xs:element name="ModellElementZusammenfassenZeittyp" type="xs:string"/>
 	<xs:element name="ModellElementZusammenfassenUebertragenZeiten" type="xs:string"/>
 	<xs:element name="ModellElementZusammenfassenUebertragenWerte" type="xs:string"/>
 	<xs:element ref="ModellElementVorzeitigeBatchFreigabe"/>
@@ -1052,6 +1054,7 @@
     <xs:element name="ModellElementKundentyp" type="xs:string"/>
     <xs:element name="ModellElementBatchModus" type="xs:string"/>
     <xs:element ref="ModellElementMatchEigenschaft"/>
+	<xs:element name="ModellElementZusammenfuehrenZeittyp" type="xs:string"/>
 	<xs:element name="ModellElementZusammenfuehrenBedingungText" type="xs:string"/>
 	<xs:element name="ModellElementZusammenfuehrenUebertragenZeiten" type="xs:string"/>
 	<xs:element name="ModellElementZusammenfuehrenUebertragenWerte" type="xs:string"/>
@@ -3621,6 +3624,7 @@
     <xs:element name="ModelElementClientType" type="xs:string"/>
     <xs:element name="ModelElementBatchMode" type="xs:string"/>
 	<xs:element ref="ModelElementBatchData"/>
+	<xs:element name="ModelElementBatchTimeType" type="xs:string"/>
 	<xs:element name="ModelElementBatchTransferTimes" type="xs:string"/>
 	<xs:element name="ModelElementBatchTransferNumbers" type="xs:string"/>
 	<xs:element ref="ModelElementEarlyBatchRelease"/>
@@ -3644,6 +3648,7 @@
     <xs:element name="ModelElementClientType" type="xs:string"/>
     <xs:element name="ModelElementBatchMode" type="xs:string"/>
 	<xs:element ref="ModelElementBatchData"/>
+	<xs:element name="ModelElementBatchTimeType" type="xs:string"/>
 	<xs:element name="ModelElementBatchTransferTimes" type="xs:string"/>
 	<xs:element name="ModelElementBatchTransferNumbers" type="xs:string"/>
 	<xs:element ref="ModelElementEarlyBatchRelease"/>
@@ -3652,11 +3657,12 @@
 </xs:complexType></xs:element>
 
 <xs:element name="ModelElementMatch"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
-  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>    
     <xs:element name="ModelElementClientType" type="xs:string"/>
     <xs:element name="ModelElementBatchMode" type="xs:string"/>
     <xs:element ref="ModelElementMatchProperty"/>
 	<xs:element name="ModelElementMatchCondition" type="xs:string"/>
+	<xs:element name="ModelElementMatchTimeType" type="xs:string"/>
 	<xs:element name="ModelElementMatchTransferTimes" type="xs:string"/>
 	<xs:element name="ModelElementMatchTransferNumbers" type="xs:string"/>
   </xs:choice></xs:sequence>

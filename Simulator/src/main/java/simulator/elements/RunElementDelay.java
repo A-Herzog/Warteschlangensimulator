@@ -203,7 +203,7 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 
 		/* Anzahl an Kunden in Bedienung ändern */
 		if (delayType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
-			simData.runData.logClientEntersStationProcess(simData,this,null,client);
+			simData.runData.logClientEntersStationProcess(simData,this,data,client);
 		}
 
 		/* Kosten in Statistik erfassen */
@@ -245,7 +245,7 @@ public class RunElementDelay extends RunElementPassThrough implements DelayWithC
 
 		/* Anzahl an Kunden in Bedienung ändern */
 		if (delayType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
-			simData.runData.logClientLeavesStationProcess(simData,this,null,client);
+			simData.runData.logClientLeavesStationProcess(simData,this,data,client);
 		}
 
 		/* Ist der Kollisionsstatus gesetzt, Kunden über zweiten Ausgang leiten */

@@ -31,6 +31,7 @@ import simulator.simparser.ExpressionCalc;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.BatchRecord;
 import ui.modeleditor.elements.ModelElementBatch;
+import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementSub;
 
 /**
@@ -47,6 +48,9 @@ public class RunElementBatch extends RunElementPassThrough {
 	private BatchRecord.BatchMode batchMode;
 	/** Index des neuen Batch-Kundentyps (bei der temporären oder permanenten Batch-Bildung) */
 	private int newClientType;
+
+	/** Art wie die Verzögerung für die Kundenstatistik gezählt werden soll */
+	private ModelElementDelay.DelayType waitingType;
 
 	/** Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden? */
 	private BatchRecord.DataTransferMode transferTimes;
@@ -119,6 +123,9 @@ public class RunElementBatch extends RunElementPassThrough {
 			batch.newClientType=runModel.getClientTypeNr(batchRecord.getNewClientType());
 			if (batch.newClientType<0) return String.format(Language.tr("Simulation.Creator.InvalidBatchClientType"),element.getId(),batchRecord.getNewClientType());
 		}
+
+		/* Verzögerungstyp */
+		batch.waitingType=batchRecord.getWaitingTimeType();
 
 		/* Daten zusammenführen */
 		batch.transferTimes=batchRecord.getTransferTimes();
@@ -431,6 +438,33 @@ public class RunElementBatch extends RunElementPassThrough {
 	}
 
 	/**
+	 * Erfasst die Wartezeit in der Statistik.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param data	Thread-lokales Datenobjekt zu der Station
+	 * @param clientIndex	Index des aktuellen Kunde in der Liste der Kunden an der Station
+	 */
+	private void logWaitingTime(final SimulationData simData, final RunElementBatchData data, final int clientIndex) {
+		final long waitingTime=simData.currentTime-data.clientAddTime[clientIndex];
+		switch (waitingType) {
+		case DELAY_TYPE_WAITING:
+			simData.runData.logStationProcess(simData,this,data.clients[clientIndex],waitingTime,0,0,waitingTime);
+			data.clients[clientIndex].addStationTime(id,waitingTime,0,0,waitingTime);
+			break;
+		case DELAY_TYPE_TRANSFER:
+			simData.runData.logStationProcess(simData,this,data.clients[clientIndex],0,waitingTime,0,waitingTime);
+			data.clients[clientIndex].addStationTime(id,0,waitingTime,0,waitingTime);
+			break;
+		case DELAY_TYPE_PROCESS:
+			simData.runData.logStationProcess(simData,this,data.clients[clientIndex],0,0,waitingTime,waitingTime);
+			data.clients[clientIndex].addStationTime(id,0,0,waitingTime,waitingTime);
+			break;
+		case DELAY_TYPE_NOTHING:
+			/* nicht erfassen */
+			break;
+		}
+	}
+
+	/**
 	 * Die Batch-Größe wurde erreicht, Kunden werden weitergeleitet.<br>
 	 * Modus: Kunden einfach gemeinsam weiterleiten
 	 * @param simData	Simulationsdaten
@@ -454,12 +488,15 @@ public class RunElementBatch extends RunElementPassThrough {
 
 		for (int i=0;i<data.waiting;i++) {
 			/* Wartezeit in Statistik */
-			final long waitingTime=simData.currentTime-data.clientAddTime[i];
-			simData.runData.logStationProcess(simData,this,data.clients[i],waitingTime,0,0,waitingTime);
-			data.clients[i].addStationTime(id,waitingTime,0,0,waitingTime);
+			logWaitingTime(simData,data,i);
 
 			/* Kunden an Station in Statistik */
 			simData.runData.logClientLeavesStationQueue(simData,this,data,data.clients[i]);
+
+			/* Anzahl an Kunden in Bedienung ändern */
+			if (waitingType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
+				simData.runData.logClientLeavesStationProcess(simData,this,data,data.clients[i]);
+			}
 
 			/* Kunde zur nächsten Station leiten */
 			StationLeaveEvent.addLeaveEvent(simData,data.clients[i],this,0);
@@ -494,9 +531,7 @@ public class RunElementBatch extends RunElementPassThrough {
 
 		for (int i=0;i<data.waiting;i++) {
 			/* Wartezeit in Statistik */
-			final long waitingTime=simData.currentTime-data.clientAddTime[i];
-			simData.runData.logStationProcess(simData,this,data.clients[i],waitingTime,0,0,waitingTime);
-			data.clients[i].addStationTime(id,waitingTime,0,0,waitingTime);
+			logWaitingTime(simData,data,i);
 		}
 
 		/* Daten von den alten Kunden auf den neuen Batch-Kunden übertragen */
@@ -506,6 +541,11 @@ public class RunElementBatch extends RunElementPassThrough {
 		for (int i=0;i<data.waiting;i++) {
 			/* Kunden an Station in Statistik */
 			simData.runData.logClientLeavesStationQueue(simData,this,data,data.clients[i]);
+
+			/* Anzahl an Kunden in Bedienung ändern */
+			if (waitingType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
+				simData.runData.logClientLeavesStationProcess(simData,this,data,data.clients[i]);
+			}
 
 			/* Ist der Kunde als "letzter Kunde" markiert? */
 			if (data.clients[i].isLastClient) batchedClient.isLastClient=true;
@@ -560,9 +600,7 @@ public class RunElementBatch extends RunElementPassThrough {
 
 		for (int i=0;i<data.waiting;i++) {
 			/* Wartezeit in Statistik */
-			final long waitingTime=simData.currentTime-data.clientAddTime[i];
-			simData.runData.logStationProcess(simData,this,data.clients[i],waitingTime,0,0,waitingTime);
-			data.clients[i].addStationTime(id,waitingTime,0,0,waitingTime);
+			logWaitingTime(simData,data,i);
 		}
 
 		/* Daten von den alten Kunden auf den neuen Batch-Kunden übertragen */
@@ -573,6 +611,11 @@ public class RunElementBatch extends RunElementPassThrough {
 		for (int i=0;i<data.waiting;i++) {
 			/* Kunden an Station in Statistik */
 			simData.runData.logClientLeavesStationQueue(simData,this,data,data.clients[i]);
+
+			/* Anzahl an Kunden in Bedienung ändern */
+			if (waitingType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
+				simData.runData.logClientLeavesStationProcess(simData,this,data,data.clients[i]);
+			}
 
 			/* Ist der Kunde als "letzter Kunde" markiert? */
 			isLastClient=isLastClient || data.clients[i].isLastClient;
@@ -635,6 +678,11 @@ public class RunElementBatch extends RunElementPassThrough {
 
 		/* Kunden an Station in Statistik */
 		simData.runData.logClientEntersStationQueue(simData,this,data,client);
+
+		/* Anzahl an Kunden in Bedienung ändern */
+		if (waitingType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
+			simData.runData.logClientEntersStationProcess(simData,this,data,client);
+		}
 
 		/* Early-Release-Recheck-Event anlegen */
 		if (earlyRelease==BatchRecord.EarlyReleaseMode.BY_LAST_ARRIVAL || earlyRelease==BatchRecord.EarlyReleaseMode.BY_LONGEST_WAITING_TIME) {

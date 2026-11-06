@@ -29,6 +29,7 @@ import simulator.runmodel.SimulationData;
 import simulator.simparser.ExpressionMultiEval;
 import ui.modeleditor.coreelements.ModelElement;
 import ui.modeleditor.elements.BatchRecord;
+import ui.modeleditor.elements.ModelElementDelay;
 import ui.modeleditor.elements.ModelElementEdge;
 import ui.modeleditor.elements.ModelElementMatch;
 import ui.modeleditor.elements.ModelElementMatch.MatchPropertyMode;
@@ -72,6 +73,9 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 
 	/** Bedingung, die für eine Weitergabe der Kunden erfüllt sein muss */
 	private String condition;
+
+	/** Art wie die Verzögerung für die Kundenstatistik gezählt werden soll */
+	private ModelElementDelay.DelayType waitingType;
 
 	/** Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden? */
 	private BatchRecord.DataTransferMode transferTimes;
@@ -151,6 +155,9 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 			match.condition=condition;
 		}
 
+		/* Verzögerungstyp */
+		match.waitingType=matchElement.getWaitingTimeType();
+
 		/* Daten zusammenführen */
 		match.transferTimes=matchElement.getTransferTimes();
 		match.transferNumbers=matchElement.getTransferNumbers();
@@ -194,6 +201,32 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 	}
 
 	/**
+	 * Erfasst die Wartezeit in der Statistik.
+	 * @param simData	Simulationsdatenobjekt
+	 * @param waitingClient	Aktueller Kunde
+	 */
+	private void logWaitingTime(final SimulationData simData, final RunDataClient waitingClient) {
+		final long waitingTime=simData.currentTime-waitingClient.lastWaitingStart;
+		switch (waitingType) {
+		case DELAY_TYPE_WAITING:
+			simData.runData.logStationProcess(simData,this,waitingClient,waitingTime,0,0,waitingTime);
+			waitingClient.addStationTime(id,waitingTime,0,0,waitingTime);
+			break;
+		case DELAY_TYPE_TRANSFER:
+			simData.runData.logStationProcess(simData,this,waitingClient,0,waitingTime,0,waitingTime);
+			waitingClient.addStationTime(id,0,waitingTime,0,waitingTime);
+			break;
+		case DELAY_TYPE_PROCESS:
+			simData.runData.logStationProcess(simData,this,waitingClient,0,0,waitingTime,waitingTime);
+			waitingClient.addStationTime(id,0,0,waitingTime,waitingTime);
+			break;
+		case DELAY_TYPE_NOTHING:
+			/* nicht erfassen */
+			break;
+		}
+	}
+
+	/**
 	 * Löst die Freigabe von Kunden aus.
 	 * Modus: Kunden einfach gemeinsam weiterleiten
 	 * @param simData	Simulationsdaten
@@ -221,6 +254,10 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 			/* Ist notwendig, damit die Anzahl-Zählung für die Warteschlange stimmt; sonst kann es sein, dass für bestimmte Kundentypen überhaupt keine Daten hinterlegt sind, was beim Zusammenführen der Multi-Thread-Statistik zu Fehlern führen kann. */
 			simData.runData.logClientEntersStationQueue(simData,this,data,newClient);
 			simData.runData.logClientLeavesStationQueue(simData,this,data,newClient);
+			if (waitingType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
+				simData.runData.logClientEntersStationProcess(simData,this,data,newClient);
+				simData.runData.logClientLeavesStationProcess(simData,this,data,newClient);
+			}
 		}
 
 		/* Kunden weiterleiten */
@@ -234,12 +271,15 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 			data.moveClientsList[i]=waitingClient;
 
 			/* Wartezeit in Statistik */
-			final long waitingTime=simData.currentTime-waitingClient.lastWaitingStart;
-			simData.runData.logStationProcess(simData,this,waitingClient,waitingTime,0,0,waitingTime);
-			waitingClient.addStationTime(id,waitingTime,0,0,waitingTime);
+			logWaitingTime(simData,waitingClient);
 
 			/* Kunden an Station in Statistik */
 			simData.runData.logClientLeavesStationQueue(simData,this,data,waitingClient);
+
+			/* Anzahl an Kunden in Bedienung ändern */
+			if (waitingType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
+				simData.runData.logClientLeavesStationProcess(simData,this,data,waitingClient);
+			}
 
 			/* Logging */
 			if (simData.loggingActive && sb!=null) sb.append(", "+Language.tr("Simulation.Log.MatchWaitingClientID")+": "+waitingClient.logInfo(simData));
@@ -293,6 +333,10 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 			/* Ist notwendig, damit die Anzahl-Zählung für die Warteschlange stimmt; sonst kann es sein, dass für bestimmte Kundentypen überhaupt keine Daten hinterlegt sind, was beim Zusammenführen der Multi-Thread-Statistik zu Fehlern führen kann. */
 			simData.runData.logClientEntersStationQueue(simData,this,data,newClient);
 			simData.runData.logClientLeavesStationQueue(simData,this,data,newClient);
+			if (waitingType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
+				simData.runData.logClientEntersStationProcess(simData,this,data,newClient);
+				simData.runData.logClientLeavesStationProcess(simData,this,data,newClient);
+			}
 
 			/* Ist der Kunde als "letzter Kunde" markiert? */
 			if (newClient.isLastClient) batchedClient.isLastClient=true;
@@ -313,12 +357,15 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 				currentClient=waitingClient;
 
 				/* Wartezeit in Statistik */
-				final long waitingTime=simData.currentTime-waitingClient.lastWaitingStart;
-				simData.runData.logStationProcess(simData,this,waitingClient,waitingTime,0,0,waitingTime);
-				waitingClient.addStationTime(id,waitingTime,0,0,waitingTime);
+				logWaitingTime(simData,waitingClient);
 
 				/* Kunden an Station in Statistik */
 				simData.runData.logClientLeavesStationQueue(simData,this,data,waitingClient);
+
+				/* Anzahl an Kunden in Bedienung ändern */
+				if (waitingType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
+					simData.runData.logClientLeavesStationProcess(simData,this,data,waitingClient);
+				}
 
 				/* Ist der Kunde als "letzter Kunde" markiert? */
 				if (waitingClient.isLastClient) batchedClient.isLastClient=true;
@@ -396,6 +443,10 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 			/* Ist notwendig, damit die Anzahl-Zählung für die Warteschlange stimmt; sonst kann es sein, dass für bestimmte Kundentypen überhaupt keine Daten hinterlegt sind, was beim Zusammenführen der Multi-Thread-Statistik zu Fehlern führen kann. */
 			simData.runData.logClientEntersStationQueue(simData,this,data,newClient);
 			simData.runData.logClientLeavesStationQueue(simData,this,data,newClient);
+			if (waitingType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
+				simData.runData.logClientEntersStationProcess(simData,this,data,newClient);
+				simData.runData.logClientLeavesStationProcess(simData,this,data,newClient);
+			}
 
 			/* Ist der Kunde als "letzter Kunde" markiert? */
 			isLastClient=isLastClient || newClient.isLastClient;
@@ -411,12 +462,15 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 				currentClient=waitingClient;
 
 				/* Wartezeit in Statistik */
-				final long waitingTime=simData.currentTime-waitingClient.lastWaitingStart;
-				simData.runData.logStationProcess(simData,this,waitingClient,waitingTime,0,0,waitingTime);
-				waitingClient.addStationTime(id,waitingTime,0,0,waitingTime);
+				logWaitingTime(simData,waitingClient);
 
 				/* Kunden an Station in Statistik */
 				simData.runData.logClientLeavesStationQueue(simData,this,data,waitingClient);
+
+				/* Anzahl an Kunden in Bedienung ändern */
+				if (waitingType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
+					simData.runData.logClientLeavesStationProcess(simData,this,data,waitingClient);
+				}
 
 				/* Ist der Kunde als "letzter Kunde" markiert? */
 				isLastClient=isLastClient || waitingClient.isLastClient;
@@ -505,6 +559,11 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 
 		/* Kunden an Station in Statistik */
 		simData.runData.logClientEntersStationQueue(simData,this,data,newClient);
+
+		/* Anzahl an Kunden in Bedienung ändern */
+		if (waitingType==ModelElementDelay.DelayType.DELAY_TYPE_PROCESS) {
+			simData.runData.logClientEntersStationProcess(simData,this,data,newClient);
+		}
 
 		/* Logging */
 		if (simData.loggingActive) {

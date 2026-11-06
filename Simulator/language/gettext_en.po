@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-01 14:30+0100\n"
+"POT-Creation-Date: 2026-11-03 08:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29925,6 +29925,21 @@ msgstr "Batch size"
 msgid "Surface.Batch.Dialog.BatchSizeMode.Range"
 msgstr "Variable batch size"
 
+msgid "Surface.Batch.Dialog.DelayTimeIs"
+msgstr "Waiting time is"
+
+msgid "Surface.Batch.Dialog.DelayTimeIs.Nothing"
+msgstr "<do not record>"
+
+msgid "Surface.Batch.Dialog.DelayTimeIs.ProcessTime"
+msgstr "process time"
+
+msgid "Surface.Batch.Dialog.DelayTimeIs.TransferTime"
+msgstr "transfer time"
+
+msgid "Surface.Batch.Dialog.DelayTimeIs.WaitingTime"
+msgstr "waiting time"
+
 msgid "Surface.Batch.Dialog.EarlyRelease.ByLastArrival"
 msgstr "Early batch release if the time since the last client arrival is exceeded"
 
@@ -30083,6 +30098,9 @@ msgstr "Name"
 
 msgid "Surface.Batch.XML.Root"
 msgstr "ModelElementBatch"
+
+msgid "Surface.Batch.XML.TimeType"
+msgstr "ModelElementBatchTimeType"
 
 msgid "Surface.Batch.XML.TransferMode.Max"
 msgstr "Max"
@@ -32919,6 +32937,21 @@ msgstr "Invalid condition"
 msgid "Surface.Match.Dialog.ConditionEnabled"
 msgstr "Check additional condition before matching clients"
 
+msgid "Surface.Match.Dialog.DelayTimeIs"
+msgstr "Waiting time is"
+
+msgid "Surface.Match.Dialog.DelayTimeIs.Nothing"
+msgstr "<do not record>"
+
+msgid "Surface.Match.Dialog.DelayTimeIs.ProcessTime"
+msgstr "process time"
+
+msgid "Surface.Match.Dialog.DelayTimeIs.TransferTime"
+msgstr "transfer time"
+
+msgid "Surface.Match.Dialog.DelayTimeIs.WaitingTime"
+msgstr "waiting time"
+
 msgid "Surface.Match.Dialog.OptionBatch"
 msgstr "Forward marched clients as new client type; type"
 
@@ -33044,6 +33077,9 @@ msgstr "Text"
 
 msgid "Surface.Match.XML.Root"
 msgstr "ModelElementMatch"
+
+msgid "Surface.Match.XML.TimeType"
+msgstr "ModelElementMatchTimeType"
 
 msgid "Surface.Match.XML.TransferNumbers"
 msgstr "ModelElementMatchTransferNumbers"

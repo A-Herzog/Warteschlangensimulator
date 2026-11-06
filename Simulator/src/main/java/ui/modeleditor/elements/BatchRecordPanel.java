@@ -64,6 +64,9 @@ public class BatchRecordPanel extends JPanel {
 	/** Soll der Datensatz aktiv sein? */
 	private JCheckBox active;
 
+	/** Auswahlbox für die Art der Erfassung der Wartezeit */
+	private JComboBox<String> waitingTimeType;
+
 	/** Option: Feste Batch-Größe */
 	private JRadioButton modeFixed;
 	/** Option: Batch-Größe in einem bestimmten Bereich */
@@ -131,6 +134,25 @@ public class BatchRecordPanel extends JPanel {
 			add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
 			line.add(active=new JCheckBox("<html><body><b>"+Language.tr("Surface.Batch.Dialog.TypeActive")+"</b></body></html"));
 			active.addActionListener(e->checkData(false));
+		}
+
+		/* Typ der Wartezeit */
+
+		add(line=new JPanel(new FlowLayout(FlowLayout.LEFT)));
+		line.add(label=new JLabel(Language.tr("Surface.Batch.Dialog.DelayTimeIs")));
+		line.add(waitingTimeType=new JComboBox<>(new String[]{
+				Language.tr("Surface.Batch.Dialog.DelayTimeIs.WaitingTime"),
+				Language.tr("Surface.Batch.Dialog.DelayTimeIs.TransferTime"),
+				Language.tr("Surface.Batch.Dialog.DelayTimeIs.ProcessTime"),
+				Language.tr("Surface.Batch.Dialog.DelayTimeIs.Nothing")
+		}));
+		waitingTimeType.setEnabled(!readOnly);
+		label.setLabelFor(waitingTimeType);
+		switch (batchRecord.getWaitingTimeType()) {
+		case DELAY_TYPE_WAITING: waitingTimeType.setSelectedIndex(0); break;
+		case DELAY_TYPE_TRANSFER: waitingTimeType.setSelectedIndex(1); break;
+		case DELAY_TYPE_PROCESS: waitingTimeType.setSelectedIndex(2); break;
+		case DELAY_TYPE_NOTHING: waitingTimeType.setSelectedIndex(3); break;
 		}
 
 		/* Batch-Größe */
@@ -530,6 +552,13 @@ public class BatchRecordPanel extends JPanel {
 	 * @see #BatchRecordPanel(BatchRecord, boolean, boolean, EditModel, ModelSurface)
 	 */
 	public void storeData() {
+		switch (waitingTimeType.getSelectedIndex()) {
+		case 0: batchRecord.setWaitingTimeType(ModelElementDelay.DelayType.DELAY_TYPE_WAITING); break;
+		case 1: batchRecord.setWaitingTimeType(ModelElementDelay.DelayType.DELAY_TYPE_TRANSFER); break;
+		case 2: batchRecord.setWaitingTimeType(ModelElementDelay.DelayType.DELAY_TYPE_PROCESS); break;
+		case 3: batchRecord.setWaitingTimeType(ModelElementDelay.DelayType.DELAY_TYPE_NOTHING); break;
+		}
+
 		if (modeFixed.isSelected()) {
 			batchRecord.setBatchSizeMode(BatchRecord.BatchSizeMode.FIXED);
 			batchRecord.setBatchSizeFixed(batchFieldFixed.getText().trim());

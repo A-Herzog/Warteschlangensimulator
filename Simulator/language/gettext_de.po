@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-01 14:30+0100\n"
+"POT-Creation-Date: 2026-11-03 08:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29968,6 +29968,21 @@ msgstr "Batch-Größe"
 msgid "Surface.Batch.Dialog.BatchSizeMode.Range"
 msgstr "Variable Batch-Größe"
 
+msgid "Surface.Batch.Dialog.DelayTimeIs"
+msgstr "Wartezeit ist"
+
+msgid "Surface.Batch.Dialog.DelayTimeIs.Nothing"
+msgstr "<nicht erfassen>"
+
+msgid "Surface.Batch.Dialog.DelayTimeIs.ProcessTime"
+msgstr "Bedienzeit"
+
+msgid "Surface.Batch.Dialog.DelayTimeIs.TransferTime"
+msgstr "Transferzeit"
+
+msgid "Surface.Batch.Dialog.DelayTimeIs.WaitingTime"
+msgstr "Wartezeit"
+
 msgid "Surface.Batch.Dialog.EarlyRelease.ByLastArrival"
 msgstr "Vorzeitige Batch-Freigabe beim Überschreiten der Zeitdauer seit der letzten Kundenankunft"
 
@@ -30126,6 +30141,9 @@ msgstr "Name"
 
 msgid "Surface.Batch.XML.Root"
 msgstr "ModellElementZusammenfassen"
+
+msgid "Surface.Batch.XML.TimeType"
+msgstr "ModellElementZusammenfassenZeittyp"
 
 msgid "Surface.Batch.XML.TransferMode.Max"
 msgstr "Maximum"
@@ -32970,6 +32988,21 @@ msgstr "Bedingung fehlerhaft"
 msgid "Surface.Match.Dialog.ConditionEnabled"
 msgstr "Zusätzliche Bedingung vor dem Zusammenführen von Kunden prüfen"
 
+msgid "Surface.Match.Dialog.DelayTimeIs"
+msgstr "Wartezeit ist"
+
+msgid "Surface.Match.Dialog.DelayTimeIs.Nothing"
+msgstr "<nicht erfassen>"
+
+msgid "Surface.Match.Dialog.DelayTimeIs.ProcessTime"
+msgstr "Bedienzeit"
+
+msgid "Surface.Match.Dialog.DelayTimeIs.TransferTime"
+msgstr "Transferzeit"
+
+msgid "Surface.Match.Dialog.DelayTimeIs.WaitingTime"
+msgstr "Wartezeit"
+
 msgid "Surface.Match.Dialog.OptionBatch"
 msgstr "Zusammengeführte Kunden als einen neuen Kunden weiterleiten; Typ"
 
@@ -33095,6 +33128,9 @@ msgstr "Text"
 
 msgid "Surface.Match.XML.Root"
 msgstr "ModellElementZusammenfuehren"
+
+msgid "Surface.Match.XML.TimeType"
+msgstr "ModellElementZusammenfuehrenZeittyp"
 
 msgid "Surface.Match.XML.TransferNumbers"
 msgstr "ModellElementZusammenfuehrenUebertragenWerte"

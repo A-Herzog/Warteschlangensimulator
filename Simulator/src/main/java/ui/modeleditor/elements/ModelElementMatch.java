@@ -47,6 +47,7 @@ import ui.modeleditor.coreelements.ModelElementEdgeOut;
 import ui.modeleditor.coreelements.ModelElementPosition;
 import ui.modeleditor.descriptionbuilder.ModelDescriptionBuilder;
 import ui.modeleditor.elements.BatchRecord.DataTransferMode;
+import ui.modeleditor.elements.ModelElementDelay.DelayType;
 import ui.modeleditor.fastpaint.Shapes;
 
 /**
@@ -147,6 +148,13 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 	private String condition;
 
 	/**
+	 * Art wie die Verzögerung für die Kundenstatistik gezählt werden soll
+	 * @see #getWaitingTimeType()
+	 * @see #setWaitingTimeType(ui.modeleditor.elements.ModelElementDelay.DelayType)
+	 */
+	private ModelElementDelay.DelayType waitingTimeType;
+
+	/**
 	 * Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
 	 * @see #getTransferTimes()
 	 * @see #setTransferTimes(DataTransferMode)
@@ -182,6 +190,8 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 		newClientType="";
 
 		condition="";
+
+		waitingTimeType=ModelElementDelay.DelayType.DELAY_TYPE_WAITING;
 
 		transferTimes=DataTransferMode.OFF;
 		transferNumbers=DataTransferMode.OFF;
@@ -360,6 +370,24 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 	}
 
 	/**
+	 * Liefert die Art wie die Verzögerung für die Kundenstatistik gezählt werden soll.
+	 * @return	Art wie die Verzögerung für die Kundenstatistik gezählt werden soll
+	 * @see #setWaitingTimeType(ui.modeleditor.elements.ModelElementDelay.DelayType)
+	 */
+	public ModelElementDelay.DelayType getWaitingTimeType() {
+		return waitingTimeType;
+	}
+
+	/**
+	 * Stellt die Art wie die Verzögerung für die Kundenstatistik gezählt werden soll ein.
+	 * @param waitingTimeType	Art wie die Verzögerung für die Kundenstatistik gezählt werden soll
+	 * @see #getWaitingTimeType()
+	 */
+	public void setWaitingTimeType(final ModelElementDelay.DelayType waitingTimeType) {
+		this.waitingTimeType=(waitingTimeType==null)?ModelElementDelay.DelayType.DELAY_TYPE_WAITING:waitingTimeType;
+	}
+
+	/**
 	 * Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
 	 * @return	Wie sollen die Zeiten der Einzelkunden bei der Batch-Bildung auf den neuen Batch-Kunden übertragen werden?
 	 */
@@ -425,6 +453,8 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 
 		if (!otherMatch.condition.equalsIgnoreCase(condition)) return false;
 
+		if (otherMatch.waitingTimeType!=waitingTimeType) return false;
+
 		if (transferTimes!=otherMatch.transferTimes) return false;
 		if (transferNumbers!=otherMatch.transferNumbers) return false;
 
@@ -457,6 +487,8 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 			}
 
 			condition=source.condition;
+
+			waitingTimeType=source.waitingTimeType;
 
 			transferTimes=source.transferTimes;
 			transferNumbers=source.transferNumbers;
@@ -754,6 +786,11 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 			sub.setTextContent(condition);
 		}
 
+		if (waitingTimeType!=ModelElementDelay.DelayType.DELAY_TYPE_WAITING) {
+			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Match.XML.TimeType")));
+			sub.setTextContent(waitingTimeType.getName());
+		}
+
 		if (transferTimes!=DataTransferMode.OFF) {
 			node.appendChild(sub=doc.createElement(Language.trPrimary("Surface.Match.XML.TransferTimes")));
 			sub.setTextContent(transferTimes.getName());
@@ -822,6 +859,11 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 
 		if (Language.trAll("Surface.Match.XML.Condition",name)) {
 			condition=node.getTextContent();
+			return null;
+		}
+
+		if (Language.trAll("Surface.Match.XML.TimeType",name)) {
+			waitingTimeType=DelayType.byName(node.getTextContent());
 			return null;
 		}
 
@@ -993,6 +1035,9 @@ public class ModelElementMatch extends ModelElementBox implements ElementWithNew
 		if (!condition.isBlank()) {
 			descriptionBuilder.addProperty(Language.tr("ModelDescription.Match.Condition"),condition,4000);
 		}
+
+		/* Verzögerung erfassen als ... */
+		waitingTimeType.addDescription(descriptionBuilder,4500);
 
 		/* Übertragung von Kundendaten */
 		if (transferTimes!=DataTransferMode.OFF) {

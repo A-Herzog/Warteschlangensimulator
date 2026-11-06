@@ -24,6 +24,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import javax.swing.Icon;
 import javax.swing.JMenu;
@@ -73,16 +75,91 @@ public class ModelElementDelay extends ModelElementMultiInDoubleOutBox implement
 	 */
 	public enum DelayType {
 		/** Die Verzögerung soll als Wartezeit gezählt werden. */
-		DELAY_TYPE_WAITING,
+		DELAY_TYPE_WAITING(()->Language.tr("Surface.Delay.XML.Type.WaitingTime"),test->Language.trAll("Surface.Delay.XML.Type.WaitingTime",test),()->Language.tr("ModelDescription.Delay.Mode.Waiting")),
 
 		/** Die Verzögerung soll als Transferzeit gezählt werden. */
-		DELAY_TYPE_TRANSFER,
+		DELAY_TYPE_TRANSFER(()->Language.tr("Surface.Delay.XML.Type.TransferTime"),test->Language.trAll("Surface.Delay.XML.Type.TransferTime",test),()->Language.tr("ModelDescription.Delay.Mode.Transfer")),
 
 		/** Die Verzögerung soll als Bedienzeit gezählt werden. */
-		DELAY_TYPE_PROCESS,
+		DELAY_TYPE_PROCESS(()->Language.tr("Surface.Delay.XML.Type.ProcessTime"),test->Language.trAll("Surface.Delay.XML.Type.ProcessTime",test),()->Language.tr("ModelDescription.Delay.Mode.Process")),
 
 		/** Die Verzögerung soll nicht erfasst werden. */
-		DELAY_TYPE_NOTHING
+		DELAY_TYPE_NOTHING(()->Language.tr("Surface.Delay.XML.Type.Nothing"),test->Language.trAll("Surface.Delay.XML.Type.Nothing",test),()->Language.tr("ModelDescription.Delay.Mode.Nothing"));
+
+		/**
+		 * Beim Laden als Fallback-Wert zu verwendender Typ.
+		 * @see #byName(String)
+		 */
+		private static final DelayType DEFAULT_DELAY_TYPE=DELAY_TYPE_WAITING;
+
+		/**
+		 * Callback, welches den Namen des Typs liefert
+		 * @see #getName()
+		 */
+		private final Supplier<String> nameGetter;
+
+		/**
+		 * Callback, welches prüft, ob ein Text zu dem aktuellen Typ passer
+		 * @see #testName(String)
+		 */
+		private final Predicate<String> nameTester;
+
+		/**
+		 * Callback, welches eine Beschreibung für den aktuellen Typ liefert
+		 * @see #addDescription(ModelDescriptionBuilder, int)
+		 */
+		private final Supplier<String> descriptionGetter;
+
+		/**
+		 * Konstruktor des Enum
+		 * @param nameGetter	Callback, welches den Namen des Typs liefert
+		 * @param nameTester	Callback, welches prüft, ob ein Text zu dem aktuellen Typ passer
+		 * @param descriptionGetter	Callback, welches eine Beschreibung für den aktuellen Typ liefert
+		 */
+		DelayType(final Supplier<String> nameGetter, final Predicate<String> nameTester, final Supplier<String> descriptionGetter) {
+			this.nameGetter=nameGetter;
+			this.nameTester=nameTester;
+			this.descriptionGetter=descriptionGetter;
+		}
+
+		/**
+		 * Liefert den Namen des Typs in der aktuellen Sprache.
+		 * @return	Name des Typs in der aktuellen Sprache
+		 */
+		public String getName() {
+			return nameGetter.get();
+		}
+
+		/**
+		 * Prüft, ob ein Bezeichner zu dem aktuellen Typ passt.
+		 * @param test	Zu prüfender Text
+		 * @return	Liefert <code>true</code>, wenn der angegebene Bezeichner zu dem aktuellen Typ passt.
+		 * @see #byName(String)
+		 */
+		public boolean testName(final String test) {
+			return nameTester.test(test);
+		}
+
+		/**
+		 * Erstellt einen Modellbeschreibungseintrag für den Typ.
+		 * @param descriptionBuilder Modellbeschreibungsobjekt
+		 * @param position	Position in der Reihenfolge der Eigenschaften
+		 */
+		public void addDescription(final ModelDescriptionBuilder descriptionBuilder, final int position) {
+			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),descriptionGetter.get(),position);
+		}
+
+		/**
+		 * Liefert einen zu dem Bezeichner passenden Typ
+		 * (oder den Fallback-Wert, wenn der Bezeichner zu keinem Typ passt).
+		 * @param test	Zu prüfender Bezeichner
+		 * @return	Passender Typ oder Fallback-Wert
+		 * @see #DEFAULT_DELAY_TYPE
+		 */
+		public static DelayType byName(final String test) {
+			for (var value: values()) if (value.testName(test)) return value;
+			return DEFAULT_DELAY_TYPE;
+		}
 	}
 
 	/**
@@ -733,10 +810,7 @@ public class ModelElementDelay extends ModelElementMultiInDoubleOutBox implement
 		final String timeBaseName=Language.trAllAttribute("Surface.Delay.XML.TimeBase",node);
 		timeBase=TimeBase.byName(timeBaseName);
 		final String type=Language.trAllAttribute("Surface.Delay.XML.Type",node);
-		if (Language.trAll("Surface.Delay.XML.Type.WaitingTime",type)) delayType=DelayType.DELAY_TYPE_WAITING;
-		if (Language.trAll("Surface.Delay.XML.Type.TransferTime",type)) delayType=DelayType.DELAY_TYPE_TRANSFER;
-		if (Language.trAll("Surface.Delay.XML.Type.ProcessTime",type)) delayType=DelayType.DELAY_TYPE_PROCESS;
-		if (Language.trAll("Surface.Delay.XML.Type.Nothing",type)) delayType=DelayType.DELAY_TYPE_NOTHING;
+		delayType=DelayType.byName(type);
 	}
 
 	/**
@@ -840,20 +914,7 @@ public class ModelElementDelay extends ModelElementMultiInDoubleOutBox implement
 		super.buildDescription(descriptionBuilder);
 
 		/* Verzögerung erfassen als ... */
-		switch (delayType) {
-		case DELAY_TYPE_WAITING:
-			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Waiting"),1000);
-			break;
-		case DELAY_TYPE_TRANSFER:
-			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Transfer"),1000);
-			break;
-		case DELAY_TYPE_PROCESS:
-			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Process"),1000);
-			break;
-		case DELAY_TYPE_NOTHING:
-			descriptionBuilder.addProperty(Language.tr("ModelDescription.Delay.Mode"),Language.tr("ModelDescription.Delay.Mode.Nothing"),1000);
-			break;
-		}
+		delayType.addDescription(descriptionBuilder,1000);
 
 		/* Daten pro Kundentyp */
 		for (String clientType: descriptionBuilder.getClientTypes()) {
