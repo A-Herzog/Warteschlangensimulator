@@ -249,7 +249,6 @@ public class ModelElementAnimationTableDialog extends ModelElementBaseDialog {
 		colorChooser.setEnabled(!readOnly);
 
 		/* Icons */
-
 		tabs.setIconAt(0,Images.GENERAL_TABLE.getIcon());
 		tabs.setIconAt(1,Images.MODELEDITOR_ELEMENT_PROPERTIES_APPEARANCE.getIcon());
 

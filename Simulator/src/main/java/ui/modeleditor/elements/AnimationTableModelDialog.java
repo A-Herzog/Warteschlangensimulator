@@ -65,6 +65,11 @@ public class AnimationTableModelDialog extends BaseDialog {
 	private final JButton textEditExpressionButton;
 
 	/**
+	 * Expressions Vorlagen Schaltfläche für den Fall, dass es sich um einen Rechenausdruck handelt
+	 */
+	private final JButton textEditTemplateButton;
+
+	/**
 	 * Modus: Text oder Rechenausdruck
 	 */
 	private final JComboBox<?> modeSelect;
@@ -111,8 +116,12 @@ public class AnimationTableModelDialog extends BaseDialog {
 		data=ModelElementBaseDialog.getInputPanel(Language.tr("Surface.AnimationTable.DialogCell.TextExpression")+":",cell.text);
 		content.add(line=(JPanel)data[0]);
 		textEdit=(JTextField)data[1];
-		line.add(textEditExpressionButton=ModelElementBaseDialog.getExpressionEditButton(this,textEdit,false,false,model,model.surface),BorderLayout.EAST);
+		final JPanel buttonsArea=new JPanel(new FlowLayout(FlowLayout.LEFT));
+		line.add(buttonsArea,BorderLayout.EAST);
+		buttonsArea.add(textEditExpressionButton=ModelElementBaseDialog.getExpressionEditButton(this,textEdit,false,false,model,model.surface),BorderLayout.EAST);
 		textEditExpressionButton.setEnabled(cell.isExpression);
+		buttonsArea.add(textEditTemplateButton=AnimationExpressionPanel.getTemplatesButton(model,command->{textEdit.setText(command);}));
+		textEditTemplateButton.setEnabled(cell.isExpression);
 
 		/* Expression Builder */
 		data=ModelElementBaseDialog.getComboBoxPanel(Language.tr("Surface.AnimationTable.DialogCell.Mode")+":",new String[] {
@@ -165,6 +174,7 @@ public class AnimationTableModelDialog extends BaseDialog {
 		/* Auf Modusänderungen reagieren */
 		modeSelect.addActionListener(e->{
 			textEditExpressionButton.setEnabled(modeSelect.getSelectedIndex()==1);
+			textEditTemplateButton.setEnabled(modeSelect.getSelectedIndex()==1);
 			percentCheckBox.setEnabled(modeSelect.getSelectedIndex()==1);
 			if (modeSelect.getSelectedIndex()==0) percentCheckBox.setSelected(false);
 		});
