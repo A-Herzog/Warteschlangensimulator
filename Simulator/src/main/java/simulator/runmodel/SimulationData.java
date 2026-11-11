@@ -564,7 +564,7 @@ public class SimulationData extends SimData {
 	public boolean testMaxAllowedClientsInSystem() {
 		final int count=runData.clients.getClientsInSystem();
 		if (maxAllowed<=0)  {
-			maxAllowed=FastMath.min(RunDataClients.MAX_CLIENTS_IN_SYSTEM_MULTI_CORE,RunDataClients.MAX_CLIENTS_IN_SYSTEM_SINGLE_CORE/threadCount);
+			maxAllowed=FastMath.max(RunDataClients.MAX_CLIENTS_IN_SYSTEM_MULTI_CORE,RunDataClients.MAX_CLIENTS_IN_SYSTEM_SINGLE_CORE/threadCount);
 			if (logging instanceof CallbackLogger) {
 				maxAllowed=RunDataClients.MAX_CLIENTS_IN_SYSTEM_ANIMATION;
 			}

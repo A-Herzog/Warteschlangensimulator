@@ -48,7 +48,7 @@ public final class RunDataClients {
 	 * (im Fall einer Multi-Core-Simulation; pro Thread)
 	 * @see SimulationData#testMaxAllowedClientsInSystem()
 	 */
-	public static final int MAX_CLIENTS_IN_SYSTEM_MULTI_CORE=180_000;
+	public static final int MAX_CLIENTS_IN_SYSTEM_MULTI_CORE=250_000;
 
 	/**
 	 * Anzahl an Kunden im System, bei deren Überschreitung der Simulationsthread abgebrochen wird
