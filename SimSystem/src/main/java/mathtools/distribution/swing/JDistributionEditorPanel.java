@@ -411,7 +411,7 @@ public class JDistributionEditorPanel extends JPanel {
 			textFields[i].addKeyListener(new TextFieldsEvents());
 
 			if (spinButtons) {
-				for (int j=0;j<4;j++) shiftButtons[j].addActionListener(new ShiftButtonListener(j,textFields[i]));
+				for (int j=0;j<4;j++) shiftButtons[j].addActionListener(new ShiftButtonListener(j,textFields,i));
 			}
 
 			gbc=new GridBagConstraints();
@@ -708,24 +708,28 @@ public class JDistributionEditorPanel extends JPanel {
 	private final class ShiftButtonListener implements ActionListener {
 		/** Art des Buttons (0..3) */
 		private final int nr;
-		/** Zugehöriges Eingabefeld */
-		private final JTextField field;
+		/** Eingabefelder */
+		private final JTextField[] textFields;
+		/** Index des Textfeldes für das der Listener gedacht ist in der Liste der Textfelder */
+		private final int index;
 
 		/**
 		 * Konstruktor der Klasse
 		 * @param nr	Art des Buttons (0..3)
-		 * @param field	Zugehöriges Eingabefeld
+		 * @param textFields	Eingabefelder
+		 * @param index	Index des Textfeldes für das der Listener gedacht ist in der Liste der Textfelder
 		 */
-		public ShiftButtonListener(final int nr, final JTextField field) {
+		public ShiftButtonListener(final int nr, JTextField[] textFields, final int index) {
 			this.nr=nr;
-			this.field=field;
+			this.textFields=textFields;
+			this.index=index;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			final int BIG=10;
 			final int SMALL=1;
-			Double d=NumberTools.getDouble(field,false);
+			Double d=NumberTools.getDouble(textFields[index],false);
 			if (d==null) return;
 			switch (nr) {
 			case 0: d-=BIG; break;
@@ -733,7 +737,16 @@ public class JDistributionEditorPanel extends JPanel {
 			case 2: d+=SMALL; break;
 			case 3: d+=BIG; break;
 			}
-			field.setText(NumberTools.formatNumberMax(d));
+
+			final int distIndex=distributionType.getSelectedIndex();
+			if (distIndex>=0) {
+				final JTextField tempField=new JTextField(NumberTools.formatNumberMax(d));
+				final JTextField[] tempTextFields=Arrays.copyOf(textFields,textFields.length);
+				tempTextFields[index]=tempField;
+				if (records.get(distIndex).getDistribution(tempTextFields,maxXValue)==null) return;
+			}
+
+			textFields[index].setText(NumberTools.formatNumberMax(d));
 			makeDistributionFromData();
 		}
 	}
