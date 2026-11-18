@@ -5887,7 +5887,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[15092] = "Surface.HoldJS.Dialog.HoldTimeIs.WaitingTime";
     t[15093] = "waiting time";
     t[15094] = "Surface.DecideJS.Name.Short";
-    t[15095] = "Decide (Skript)";
+    t[15095] = "Decide (Script)";
     t[15112] = "Surface.ExpressionTableModel.DeleteAll.Confirmation.NoInfo";
     t[15113] = "Keep the data rows.";
     t[15120] = "GenerateArrivalDataStream.CalculationExpression.ErrorTitle";
@@ -20145,7 +20145,7 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52398] = "Surface.DistributionByClientTypeEditor.ByTypeStation";
     t[52399] = "Individual value for destination";
     t[52400] = "Simulation.Element.DelayJS.Name";
-    t[52401] = "Delay (Skript)";
+    t[52401] = "Delay (Script)";
     t[52406] = "Surface.Tank.Dialog.Valve.Delete";
     t[52407] = "Delete valve (Shift+Click=without confirmation dialog)";
     t[52408] = "Surface.AnimationBar.XML.DataArea";
