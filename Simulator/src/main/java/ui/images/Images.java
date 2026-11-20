@@ -1670,6 +1670,9 @@ public enum Images {
 	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Zurückschrecken'" */
 	MODELEDITOR_ELEMENT_BALKING("Decide.png"),
 
+	/** Symbol "Modelleditor - Gruppe 'Verzweigungen' - Element 'Duplikate ausleiten'" */
+	MODELEDITOR_ELEMENT_DROP_DUPLICATES("Decide.png"),
+
 	/* Modelleditor: Schranken */
 
 	/** Symbol "Modelleditor - Gruppe 'Schranken' - Element 'Bedingung'" */

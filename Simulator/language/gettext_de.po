@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-13 09:04+0100\n"
+"POT-Creation-Date: 2026-11-16 22:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14359,6 +14359,12 @@ msgstr "Modellbeschreibung"
 msgid "ModelDescription.DifferentialCounter.Change"
 msgstr "Veränderung des Zählerwertes"
 
+msgid "ModelDescription.DropDuplicates.ClientDataIndex"
+msgstr "Index des Kundendatenfeldes für den Abgleich"
+
+msgid "ModelDescription.DropDuplicates.StorageTime"
+msgstr "Speicherzeit für die Daten"
+
 msgid "ModelDescription.Expression"
 msgstr "Ausdruck"
 
@@ -21531,6 +21537,9 @@ msgstr "Ausgang"
 msgid "Simulation.Element.DisposeWithTable.Name"
 msgstr "Speichern+Ausgang"
 
+msgid "Simulation.Element.DropDuplicates.Name"
+msgstr "Duplikate ausleiten"
+
 msgid "Simulation.Element.Duplicate.Name"
 msgstr "Duplizieren"
 
@@ -22034,6 +22043,18 @@ msgstr "Systemausgang"
 
 msgid "Simulation.Log.Dispose.Info"
 msgstr "Kunde: %s, Station: %s"
+
+msgid "Simulation.Log.DropDuplicates.Duplicate"
+msgstr "Duplikat erkannt"
+
+msgid "Simulation.Log.DropDuplicates.DuplicateInfo"
+msgstr "Kunde: %s, Station: %s, ClientData(%d)=%s"
+
+msgid "Simulation.Log.DropDuplicates.First"
+msgstr "Kein Duplikat erkannt"
+
+msgid "Simulation.Log.DropDuplicates.FirstInfo"
+msgstr "Kunde: %s, Station: %s, ClientData(%d)=%s"
 
 msgid "Simulation.Log.Duplicate"
 msgstr "Duplizierung"
@@ -31587,6 +31608,45 @@ msgstr "Kundentyp1"
 
 msgid "Surface.DistributionSystemSetupTimes.XML.Type2"
 msgstr "Kundentyp2"
+
+msgid "Surface.DropDuplicates.Dialog.ClientDataIndex"
+msgstr "Index des Kundendatenfeldes für den Abgleich"
+
+msgid "Surface.DropDuplicates.Dialog.StorageTime"
+msgstr "Speicherzeit für die Daten"
+
+msgid "Surface.DropDuplicates.Dialog.StorageTime.ErrorInfo"
+msgstr "Als Speicherzeit muss eine positive Zahl angegeben werden."
+
+msgid "Surface.DropDuplicates.Dialog.StorageTime.ErrorTitle"
+msgstr "Ungültige Speicherzeit"
+
+msgid "Surface.DropDuplicates.Dialog.Title"
+msgstr "Duplikate ausleiten bearbeiten"
+
+msgid "Surface.DropDuplicates.DuplicatesEdge"
+msgstr "Duplikate"
+
+msgid "Surface.DropDuplicates.Infotext"
+msgstr "Passieren mehrere Kunden mit demselben Wert in dem eingestellten Kundendatenfeld die Station, so werden alle Kunden ab dem zweiten als Duplikate ausgeleitet."
+
+msgid "Surface.DropDuplicates.Name"
+msgstr "Duplikate ausleiten"
+
+msgid "Surface.DropDuplicates.Tooltip"
+msgstr "Wiederholte Kunden mit identischem Kundendaten ausleiten"
+
+msgid "Surface.DropDuplicates.XML.ClientsDataIndex"
+msgstr "ModellElementDuplikateAusleitenKundenDatenIndex"
+
+msgid "Surface.DropDuplicates.XML.Root"
+msgstr "ModellElementDuplikateAusleiten"
+
+msgid "Surface.DropDuplicates.XML.StorageTime"
+msgstr "ModellElementDuplikateAusleitenSpeicherzeit"
+
+msgid "Surface.DropDuplicates.XML.StorageTimeTimeBase"
+msgstr "Zeiteinheit"
 
 msgid "Surface.Duplicate.Copy"
 msgstr "Kopie"

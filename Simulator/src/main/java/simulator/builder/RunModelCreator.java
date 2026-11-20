@@ -78,6 +78,7 @@ public final class RunModelCreator {
 		templatesList.add(new RunElementDecideByScript(null));
 		templatesList.add(new RunElementDecideByKeyValue(null));
 		templatesList.add(new RunElementBalking(null));
+		templatesList.add(new RunElementDropDuplicates(null));
 		templatesList.add(new RunElementProcess(null));
 		templatesList.add(new RunElementHold(null));
 		templatesList.add(new RunElementHoldMulti(null));

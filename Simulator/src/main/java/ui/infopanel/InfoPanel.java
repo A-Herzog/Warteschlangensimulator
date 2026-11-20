@@ -308,6 +308,9 @@ public class InfoPanel {
 	/** Info-ID für den "Zurückschrecken"-Bearbeiten-Dialog (Gruppe "Verzweigungen") */
 	public static final String stationBalking=groupElement+"Balking";
 
+	/** Info-ID für den "Duplikate ausleiten"-Bearbeiten-Dialog (Gruppe "Verzweigungen") */
+	public static final String stationDropDuplicates=groupElement+"DropDuplicates";
+
 	/* Stationen - Schranken */
 
 	/** Info-ID für den "Bedingung"-Bearbeiten-Dialog (Gruppe "Schranken") */
@@ -984,6 +987,10 @@ public class InfoPanel {
 		register(stationBalking,
 				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_BRANCH+"|"+Language.tr("Surface.Balking.Name"),
 				()->Language.tr("Surface.Balking.Infotext"));
+
+		register(stationDropDuplicates,
+				()->Language.tr("HintsDialog.TreeNodeStations")+"|"+ModelElementCatalog.GROUP_BRANCH+"|"+Language.tr("Surface.DropDuplicates.Name"),
+				()->Language.tr("Surface.DropDuplicates.Infotext"));
 
 		/* Stationen - Schranken */
 

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-13 09:04+0100\n"
+"POT-Creation-Date: 2026-11-16 22:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14336,6 +14336,12 @@ msgstr "Model description"
 msgid "ModelDescription.DifferentialCounter.Change"
 msgstr "Modification of the counter value"
 
+msgid "ModelDescription.DropDuplicates.ClientDataIndex"
+msgstr "Index of the client data field for the check"
+
+msgid "ModelDescription.DropDuplicates.StorageTime"
+msgstr "Data retention period"
+
 msgid "ModelDescription.Expression"
 msgstr "Expression"
 
@@ -21491,6 +21497,9 @@ msgstr "Exit"
 msgid "Simulation.Element.DisposeWithTable.Name"
 msgstr "Save and exit"
 
+msgid "Simulation.Element.DropDuplicates.Name"
+msgstr "Drop duplicates"
+
 msgid "Simulation.Element.Duplicate.Name"
 msgstr "Duplicate"
 
@@ -21994,6 +22003,18 @@ msgstr "Clients exit"
 
 msgid "Simulation.Log.Dispose.Info"
 msgstr "Client: %s, station: %s"
+
+msgid "Simulation.Log.DropDuplicates.Duplicate"
+msgstr "Duplicate detected"
+
+msgid "Simulation.Log.DropDuplicates.DuplicateInfo"
+msgstr "Client: %s, Station: %s, ClientData(%d)=%s"
+
+msgid "Simulation.Log.DropDuplicates.First"
+msgstr "No duplicate detected"
+
+msgid "Simulation.Log.DropDuplicates.FirstInfo"
+msgstr "Client: %s, Station: %s, ClientData(%d)=%s"
 
 msgid "Simulation.Log.Duplicate"
 msgstr "Duplicate"
@@ -31536,6 +31557,45 @@ msgstr "ClientType1"
 
 msgid "Surface.DistributionSystemSetupTimes.XML.Type2"
 msgstr "ClientType2"
+
+msgid "Surface.DropDuplicates.Dialog.ClientDataIndex"
+msgstr "Index of the client data field for the check"
+
+msgid "Surface.DropDuplicates.Dialog.StorageTime"
+msgstr "Data retention period"
+
+msgid "Surface.DropDuplicates.Dialog.StorageTime.ErrorInfo"
+msgstr "A positive number has to be entered as storage time."
+
+msgid "Surface.DropDuplicates.Dialog.StorageTime.ErrorTitle"
+msgstr "Invalid storage time"
+
+msgid "Surface.DropDuplicates.Dialog.Title"
+msgstr "Edit drop duplicates"
+
+msgid "Surface.DropDuplicates.DuplicatesEdge"
+msgstr "Duplicates"
+
+msgid "Surface.DropDuplicates.Infotext"
+msgstr "If multiple clients with the same value in the specified client data field pass through the station, all clients starting with the second one are dropped as duplicates."
+
+msgid "Surface.DropDuplicates.Name"
+msgstr "Drop duplicates"
+
+msgid "Surface.DropDuplicates.Tooltip"
+msgstr "Drop repeated clients with identical customer data"
+
+msgid "Surface.DropDuplicates.XML.ClientsDataIndex"
+msgstr "ModelElementDropDuplicatesClientDataIndex"
+
+msgid "Surface.DropDuplicates.XML.Root"
+msgstr "ModelElementDropDuplicates"
+
+msgid "Surface.DropDuplicates.XML.StorageTime"
+msgstr "ModelElementDropDuplicatesStorageTime"
+
+msgid "Surface.DropDuplicates.XML.StorageTimeTimeBase"
+msgstr "TimeBase"
 
 msgid "Surface.Duplicate.Copy"
 msgstr "Copy"

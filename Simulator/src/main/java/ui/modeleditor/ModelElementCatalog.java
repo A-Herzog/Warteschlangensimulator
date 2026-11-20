@@ -202,6 +202,7 @@ public final class ModelElementCatalog {
 				addElement(new ModelElementDecide(null,null),null,GROUP_BRANCH);
 				addElement(new ModelElementDecideJS(null,null),null,GROUP_BRANCH);
 				addElement(new ModelElementBalking(null,null),null,GROUP_BRANCH);
+				addElement(new ModelElementDropDuplicates(null,null),null,GROUP_BRANCH);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

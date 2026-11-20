@@ -540,6 +540,7 @@
   <xs:element ref="ModellElementVerzweigen"/>
   <xs:element ref="ModellElementVerzweigenJS"/>
   <xs:element ref="ModellElementZurueckschrecken"/>
+  <xs:element ref="ModellElementDuplikateAusleiten"/>
   <xs:element ref="ModellElementBedienstation"/>
   <xs:element ref="ModellElementBedingung"/>
   <xs:element ref="ModellElementBedingungMehrfach"/>
@@ -1125,6 +1126,20 @@
   <xs:extension base="xs:string">
     <xs:attribute name="Kundentyp" type="xs:string"/>
     <xs:attribute name="Modus" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementDuplikateAusleiten"><xs:complexType><xs:complexContent><xs:extension base="ModellElementVerbundenBasis">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModelElementDropDuplicatesClientDataIndex" type="xs:string"/>
+	<xs:element ref="ModellElementDuplikateAusleitenSpeicherzeit"/>
+    <xs:element ref="ModellElementVerbindung"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModellElementDuplikateAusleitenSpeicherzeit"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="Zeiteinheit" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
@@ -3148,6 +3163,7 @@
   <xs:element ref="ModelElementDecide"/>
   <xs:element ref="ModelElementDecideJS"/>
   <xs:element ref="ModelElementBalking"/>
+  <xs:element ref="ModelElementDropDuplicates"/>
   <xs:element ref="ModelElementProcessStation"/>
   <xs:element ref="ModelElementHold"/>
   <xs:element ref="ModelElementHoldMulti"/>
@@ -3732,6 +3748,20 @@
   <xs:extension base="xs:string">
     <xs:attribute name="ClientType" type="xs:string"/>
     <xs:attribute name="Mode" type="xs:string"/>
+  </xs:extension>
+</xs:simpleContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementDropDuplicates"><xs:complexType><xs:complexContent><xs:extension base="ModelElementConnectedBase">
+  <xs:sequence minOccurs="0" maxOccurs="unbounded"><xs:choice>
+    <xs:element name="ModellElementDuplikateAusleitenKundenDatenIndex" type="xs:string"/>
+	<xs:element name="ModelElementDropDuplicatesStorageTime" type="xs:string"/>
+    <xs:element ref="ModelElementConnection"/>
+  </xs:choice></xs:sequence>
+</xs:extension></xs:complexContent></xs:complexType></xs:element>
+
+<xs:element name="ModelElementDropDuplicatesStorageTime"><xs:complexType><xs:simpleContent>
+  <xs:extension base="xs:string">
+    <xs:attribute name="TimeBase" type="xs:string"/>
   </xs:extension>
 </xs:simpleContent></xs:complexType></xs:element>
 
