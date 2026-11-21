@@ -649,7 +649,7 @@ public class MiniQSLoader {
 		}
 
 		/**
-		 * Vertaucht die auslaufenden Kanten für Erfolg und Warteabbruch bei einer Bedienstation.
+		 * Vertauscht die auslaufenden Kanten für Erfolg und Warteabbruch bei einer Bedienstation.
 		 * @param process	Bedienstation bei der die auslaufenden Kanten vertauscht werden sollen
 		 * @see #initProcess(List, List)
 		 */
@@ -1023,11 +1023,15 @@ public class MiniQSLoader {
 
 			final String text=loadString(setup,"text").replace("\\n","\n");
 			final int fontSize=loadInt(setup,"fontSize");
+			final boolean bold=loadBoolean(setup,"bold",false);
+			final boolean italic=loadBoolean(setup,"italic",false);
 			if (text==null || fontSize<=0) return null;
 
 			final ModelElementText element=new ModelElementText(model,model.surface);
 			element.setText(text);
 			element.setTextSize(fontSize);
+			element.setTextBold(bold);
+			element.setTextItalic(italic);
 
 			return new ModelElementPosition[]{element};
 		}
