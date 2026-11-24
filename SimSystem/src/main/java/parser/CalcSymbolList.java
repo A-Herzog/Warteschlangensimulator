@@ -71,6 +71,7 @@ import parser.symbols.CalcSymbolPreOperatorGamma;
 import parser.symbols.CalcSymbolPreOperatorGammaP;
 import parser.symbols.CalcSymbolPreOperatorGammaQ;
 import parser.symbols.CalcSymbolPreOperatorGcd;
+import parser.symbols.CalcSymbolPreOperatorHarmonic;
 import parser.symbols.CalcSymbolPreOperatorIf;
 import parser.symbols.CalcSymbolPreOperatorIfEven;
 import parser.symbols.CalcSymbolPreOperatorIfNegative;
@@ -506,6 +507,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolPreOperatorLogicEquals());
 			addSymbol(new CalcSymbolPreOperatorGcd());
 			addSymbol(new CalcSymbolPreOperatorLcm());
+			addSymbol(new CalcSymbolPreOperatorHarmonic());
 
 			addSymbol(new CalcSymbolMiddleOperatorPlus());
 			addSymbol(new CalcSymbolMiddleOperatorMinus());

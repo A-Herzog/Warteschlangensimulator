@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-16 22:58+0100\n"
+"POT-Creation-Date: 2026-11-19 00:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7089,6 +7089,14 @@ msgstr "Greatest common divisor"
 
 msgid "ExpressionBuilder.MathematicalFunctions.Gcd.Info"
 msgstr "<p>Calculates the greatest common divisor of the passed numbers.<br>The numbers are rounded to integers if necessary and negative signs are discarded.</p><p>Example: <tt>gcd(6;10)</tt> returns 2.</p>"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Harmonic"
+msgstr "Harmonic series"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Harmonic.Info"
+msgstr ""
+"<p>Calculates the value of the harmonischen series at n.</p>\n"
+"<p>Example: Harmonic(1)=1, Harmonic(2)=1.5</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart"
 msgstr "Integer part"

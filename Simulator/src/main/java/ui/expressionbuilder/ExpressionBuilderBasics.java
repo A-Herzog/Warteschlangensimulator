@@ -152,6 +152,7 @@ public class ExpressionBuilderBasics {
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Gcd")+" (gcd)","gcd("+value+";"+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.Gcd.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Lcm")+" (lcm)","lcm("+value+";"+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.Lcm.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.IsPrime")+" (isPrime)","isPrime("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.IsPrime.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Harmonic")+" (Harmonic)","Harmonic("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.Harmonic.Info"));
 
 		/* Mathematische Funktionen -> Exponential- und Logarithmus-Funktionen */
 

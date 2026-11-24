@@ -16200,8 +16200,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[41859] = "Es wurden w\u00e4hrend der Simulation keine Autokorrelationsdaten erfasst.";
     t[41862] = "Surface.AnimationClock.Tooltip";
     t[41863] = "Analoganzeige der Simulationszeit";
-    t[41866] = "UserTemplates.TemplatesDialog.Delete.ConfirmTitle";
-    t[41867] = "Vorlage l\u00f6schen";
+    t[41866] = "ExpressionBuilder.MathematicalFunctions.Harmonic";
+    t[41867] = "Harmonische Reihe";
     t[41868] = "Git.List.Tab.LocalFolder";
     t[41869] = "Lokaler Ordner";
     t[41872] = "FitDialogMultiModal.Title";
@@ -17818,6 +17818,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[45979] = "Kr\u00e4mer, Langenbach-Belz Korrekturfaktor";
     t[45980] = "Surface.Note.Dialog.Note";
     t[45981] = "Notiz";
+    t[45986] = "UserTemplates.TemplatesDialog.Delete.ConfirmTitle";
+    t[45987] = "Vorlage l\u00f6schen";
     t[45990] = "Statistics.SimulatedClients.Zero.Info2";
     t[45991] = "Die L\u00e4nge der Einschwingphase kann im Modelleigenschaften-Dialog auf der Seite \"Simulation\" eingestellt werden. Werden Ank\u00fcnfte aus externen Quellen geladen, so sollte die Einschwingphase auf 0 gesetzt werden.";
     t[45998] = "UserDefinedFunctions.Edit.NameErrorTitle";
@@ -18056,14 +18058,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[46681] = "Anzahl";
     t[46682] = "Examples.ResendOnCollision";
     t[46683] = "Resend on collision";
-    t[46696] = "CommandLine.SetNumberFormat.Changed";
-    t[46697] = "Der Dezimaltrennermodus wurde von \"%s\" zu \"%s\" ge\u00e4ndert.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[46696] = "CommandLine.SetNumberFormat.Changed";
+    t[46697] = "Der Dezimaltrennermodus wurde von \"%s\" zu \"%s\" ge\u00e4ndert.";
     t[46698] = "Simulation.Element.SectionEnd.Name";
     t[46699] = "Bereich verlassen";
     t[46710] = "Statistic.Viewer.DiagramSettings.Outline.Color";
@@ -20062,14 +20064,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[52121] = "Wert";
     t[52128] = "Surface.Popup.AddVisualization.AverageWaitingTime";
     t[52129] = "Mittlere Wartezeit";
-    t[52130] = "ParameterCompare.Table.DeleteModel.Confirm.Info";
-    t[52131] = "Soll das Simulationsmodell %s wirklich aus der Liste entfernt werden?";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[52130] = "ParameterCompare.Table.DeleteModel.Confirm.Info";
+    t[52131] = "Soll das Simulationsmodell %s wirklich aus der Liste entfernt werden?";
     t[52132] = "Main.Menu.Model.ExternalData.LoadOnStart.Mnemonic";
     t[52133] = "a";
     t[52134] = "Surface.Dispose.Dialog.Table";
@@ -22068,14 +22070,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[57315] = "Hellgrau";
     t[57320] = "CalculatorDialog.Tab.Skript";
     t[57321] = "Skript";
-    t[57342] = "Surface.InputDB.XML.EofMode.DefaultValue";
-    t[57343] = "Vorgabewert";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[57342] = "Surface.InputDB.XML.EofMode.DefaultValue";
+    t[57343] = "Vorgabewert";
     t[57356] = "LogAnalyzer.UseModel.ErrorInfo";
     t[57357] = "Die angegebene Modelldatei existiert nicht.";
     t[57358] = "PathEditor.NoStationsError.Title";
@@ -24074,14 +24076,14 @@ public class Messages_de extends java.util.ResourceBundle {
     t[62493] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der Weibull-Verteilung mit dem Skalierungs- und dem Form-Parameter gem\u00e4\u00df dem dritten und vierten Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
     t[62494] = "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberRangeInfo";
     t[62495] = "<p>Erzeugt eine Zufallszahl gem\u00e4\u00df der inversen Gau\u00df-Verteilung mit den Parametern gem\u00e4\u00df dem dritten (lambda) und viertem (mu; Mittelwert) Parameter.</p>\n<p>Der erste und zweite Parameter geben den Bereich an, in dem sich die Zufallszahl befinden soll.</p>";
-    t[62498] = "Surface.InputDDE.XML.EofMode.Terminate";
-    t[62499] = "Beenden";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[62498] = "Surface.InputDDE.XML.EofMode.Terminate";
+    t[62499] = "Beenden";
     t[62504] = "FileType.jpeg";
     t[62505] = "jpeg-Dateien";
     t[62512] = "Editor.Dialog.Tab.Simulation.MoreSimulationSettings";
@@ -25972,6 +25974,8 @@ public class Messages_de extends java.util.ResourceBundle {
     t[67365] = "Importieren des Zeitplan aus der Zwischenablage fehlgeschlagen";
     t[67376] = "Main.Menu.Model.JavaImports.Mnemonic";
     t[67377] = "J";
+    t[67382] = "ExpressionBuilder.MathematicalFunctions.Harmonic.Info";
+    t[67383] = "<p>Berechnet den Wert er harmonischen Reihe an der Stelle n.</p>\n<p>Beispiel: Harmonic(1)=1, Harmonic(2)=1,5</p>";
     t[67384] = "Simulation.Log.AssignString.Info";
     t[67385] = "Kunde: id=%d %s:=%s, Station: %s";
     t[67386] = "Main.Toolbar.Feedback.Hint";
@@ -26078,16 +26082,16 @@ public class Messages_de extends java.util.ResourceBundle {
     t[67647] = "Hyperbolische Sekanten-Verteilung";
     t[67656] = "Editor.ClientDialog.Tab.ColorAndIcon.Color.Automatic";
     t[67657] = "Farbe automatisch w\u00e4hlen";
-    t[67662] = "Statistic.Viewer.Report.Hint";
-    t[67663] = "Erstellt einen Bericht \u00fcber eine selbst zusammenstellbare Teilmenge der Ergebnisse";
-    t[67676] = "NotesDialog.NoNotes.ErrorInfo";
-    t[67677] = "In dem aktuellen Modell sind keine Notizen oder Elementbeschreibungen vorhanden.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_13 (java.lang.String[] t) {
+    t[67662] = "Statistic.Viewer.Report.Hint";
+    t[67663] = "Erstellt einen Bericht \u00fcber eine selbst zusammenstellbare Teilmenge der Ergebnisse";
+    t[67676] = "NotesDialog.NoNotes.ErrorInfo";
+    t[67677] = "In dem aktuellen Modell sind keine Notizen oder Elementbeschreibungen vorhanden.";
     t[67682] = "Examples.HoldJS";
     t[67683] = "Javascript-gesteuerte Freigabe von Kunden";
     t[67684] = "ModelGenerator.AddVisualization.MeanRho";

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-16 22:58+0100\n"
+"POT-Creation-Date: 2026-11-19 00:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7089,6 +7089,14 @@ msgstr "Größter gemeinsamer Teiler"
 
 msgid "ExpressionBuilder.MathematicalFunctions.Gcd.Info"
 msgstr "<p>Berechnet den größten gemeinsamen Teiler (ggT) der übergebenen Zahlen.<br>Die Zahlen werden dabei wenn nötig zu Ganzzahlen gerundet und negative Vorzeichen verworfen.</p><p>Beispiel: <tt>gcd(6;10)</tt> liefert 2.</p>"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Harmonic"
+msgstr "Harmonische Reihe"
+
+msgid "ExpressionBuilder.MathematicalFunctions.Harmonic.Info"
+msgstr ""
+"<p>Berechnet den Wert er harmonischen Reihe an der Stelle n.</p>\n"
+"<p>Beispiel: Harmonic(1)=1, Harmonic(2)=1,5</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.IntegerPart"
 msgstr "Ganzzahl-Anteil"

@@ -1661,6 +1661,15 @@ class SymbolsTests {
 		calc=new CalcSystem("int(a)",new String[]{"a"});
 		assertTrue(calc.parse()<0);
 		assertEquals(-5,calc.calcOrDefault(new double[]{-5.6},-1),0.0000001);
+
+		/* Harmonic */
+
+		calc=new CalcSystem("harmonic(n)",new String[]{"n"});
+		assertTrue(calc.parse()<0);
+		assertEquals(-1,calc.calcOrDefault(new double[]{-5},-1),0.0000001);
+		assertEquals(1,calc.calcOrDefault(new double[]{1},-1),0.0000001);
+		assertEquals(1+1.0/2.0,calc.calcOrDefault(new double[]{2},-1),0.0000001);
+		assertEquals(1+1.0/2.0+1.0/3.0,calc.calcOrDefault(new double[]{3},-1),0.0000001);
 	}
 
 	/**

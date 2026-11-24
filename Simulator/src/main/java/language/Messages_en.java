@@ -16200,8 +16200,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[41859] = "No autocorrelation data were recorded during the simulation.";
     t[41862] = "Surface.AnimationClock.Tooltip";
     t[41863] = "Analog clock for the simulation time";
-    t[41866] = "UserTemplates.TemplatesDialog.Delete.ConfirmTitle";
-    t[41867] = "Delete template";
+    t[41866] = "ExpressionBuilder.MathematicalFunctions.Harmonic";
+    t[41867] = "Harmonic series";
     t[41868] = "Git.List.Tab.LocalFolder";
     t[41869] = "Local folder";
     t[41872] = "FitDialogMultiModal.Title";
@@ -17818,6 +17818,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[45979] = "Kr\u00e4mer, Langenbach-Belz correction factor";
     t[45980] = "Surface.Note.Dialog.Note";
     t[45981] = "Note";
+    t[45986] = "UserTemplates.TemplatesDialog.Delete.ConfirmTitle";
+    t[45987] = "Delete template";
     t[45990] = "Statistics.SimulatedClients.Zero.Info2";
     t[45991] = "The length of the warm-up phase can be defined in the model properties dialog on the \"Simulation\" page. If arrivals from external sources are loaded, the warm-up phase should be set to 0.";
     t[45998] = "UserDefinedFunctions.Edit.NameErrorTitle";
@@ -18056,14 +18058,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[46681] = "Count";
     t[46682] = "Examples.ResendOnCollision";
     t[46683] = "Resend on collision";
-    t[46696] = "CommandLine.SetNumberFormat.Changed";
-    t[46697] = "The decimal separator mode was changed from \"%s\" to \"%s\".";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_9 (java.lang.String[] t) {
+    t[46696] = "CommandLine.SetNumberFormat.Changed";
+    t[46697] = "The decimal separator mode was changed from \"%s\" to \"%s\".";
     t[46698] = "Simulation.Element.SectionEnd.Name";
     t[46699] = "Leave section";
     t[46710] = "Statistic.Viewer.DiagramSettings.Outline.Color";
@@ -20062,14 +20064,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[52121] = "Value";
     t[52128] = "Surface.Popup.AddVisualization.AverageWaitingTime";
     t[52129] = "Average waiting time";
-    t[52130] = "ParameterCompare.Table.DeleteModel.Confirm.Info";
-    t[52131] = "Do you really want to remove the simulation model %s from list?";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_10 (java.lang.String[] t) {
+    t[52130] = "ParameterCompare.Table.DeleteModel.Confirm.Info";
+    t[52131] = "Do you really want to remove the simulation model %s from list?";
     t[52132] = "Main.Menu.Model.ExternalData.LoadOnStart.Mnemonic";
     t[52133] = "U";
     t[52134] = "Surface.Dispose.Dialog.Table";
@@ -22068,14 +22070,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[57315] = "Light gray";
     t[57320] = "CalculatorDialog.Tab.Skript";
     t[57321] = "Script";
-    t[57342] = "Surface.InputDB.XML.EofMode.DefaultValue";
-    t[57343] = "DefaultValue";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_11 (java.lang.String[] t) {
+    t[57342] = "Surface.InputDB.XML.EofMode.DefaultValue";
+    t[57343] = "DefaultValue";
     t[57356] = "LogAnalyzer.UseModel.ErrorInfo";
     t[57357] = "The specified model file does not exist.";
     t[57358] = "PathEditor.NoStationsError.Title";
@@ -24074,14 +24076,14 @@ public class Messages_en extends java.util.ResourceBundle {
     t[62493] = "<p>Generates a random number according to the Weibull distribution with the scaling and form parameters according to the third and fourth parameters.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
     t[62494] = "ExpressionBuilder.ProbabilityDistributions.InverseGaussianDistribution.RandomNumberRangeInfo";
     t[62495] = "<p>Generates a random number according to the inverse gaussian distribution with the parameters according to the third (lambda) and fourth (mu; mean) parameters.</p>\n<p>The first and second parameter specify the range in which the random number should be located.</p>";
-    t[62498] = "Surface.InputDDE.XML.EofMode.Terminate";
-    t[62499] = "Terminate";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_12 (java.lang.String[] t) {
+    t[62498] = "Surface.InputDDE.XML.EofMode.Terminate";
+    t[62499] = "Terminate";
     t[62504] = "FileType.jpeg";
     t[62505] = "jpeg files";
     t[62512] = "Editor.Dialog.Tab.Simulation.MoreSimulationSettings";
@@ -25972,6 +25974,8 @@ public class Messages_en extends java.util.ResourceBundle {
     t[67365] = "Importing schedule from clipboard failed";
     t[67376] = "Main.Menu.Model.JavaImports.Mnemonic";
     t[67377] = "J";
+    t[67382] = "ExpressionBuilder.MathematicalFunctions.Harmonic.Info";
+    t[67383] = "<p>Calculates the value of the harmonischen series at n.</p>\n<p>Example: Harmonic(1)=1, Harmonic(2)=1.5</p>";
     t[67384] = "Simulation.Log.AssignString.Info";
     t[67385] = "Client: id=%d: %s:=%s, station: %s";
     t[67386] = "Main.Toolbar.Feedback.Hint";
@@ -26078,16 +26082,16 @@ public class Messages_en extends java.util.ResourceBundle {
     t[67647] = "Hyperbolic secant distribution";
     t[67656] = "Editor.ClientDialog.Tab.ColorAndIcon.Color.Automatic";
     t[67657] = "Select color automatically";
-    t[67662] = "Statistic.Viewer.Report.Hint";
-    t[67663] = "Creates a report about a user-defined subset of the results";
-    t[67676] = "NotesDialog.NoNotes.ErrorInfo";
-    t[67677] = "The current model does not contain notes or element descriptions.";
   }
   /**
    * Part of the language array creation
    * @param t	Language data array
    */
   static void clinit_part_13 (java.lang.String[] t) {
+    t[67662] = "Statistic.Viewer.Report.Hint";
+    t[67663] = "Creates a report about a user-defined subset of the results";
+    t[67676] = "NotesDialog.NoNotes.ErrorInfo";
+    t[67677] = "The current model does not contain notes or element descriptions.";
     t[67682] = "Examples.HoldJS";
     t[67683] = "Releasing clients based on Javascript";
     t[67684] = "ModelGenerator.AddVisualization.MeanRho";
