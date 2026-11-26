@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-19 00:10+0100\n"
+"POT-Creation-Date: 2026-11-22 13:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7053,6 +7053,12 @@ msgstr "Kubikwurzel"
 
 msgid "ExpressionBuilder.MathematicalFunctions.Cuberoot.Info"
 msgstr "<p>Berechnet die Kubikwurzel aus dem als Parameter übergebenen Wert.</p><p>Beispiel: <tt>cbrt(27)</tt> liefert 3.</p>"
+
+msgid "ExpressionBuilder.MathematicalFunctions.DigammaFunction"
+msgstr "Digamma-Funktion"
+
+msgid "ExpressionBuilder.MathematicalFunctions.DigammaFunction.Info"
+msgstr "<p>Liefert den Wert des Digamma-Funktion für den als Parameter übergebenen Wert.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.Factorial"
 msgstr "Fakultät"

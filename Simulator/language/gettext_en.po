@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-19 00:10+0100\n"
+"POT-Creation-Date: 2026-11-22 13:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7054,6 +7054,12 @@ msgstr "Cube root"
 msgid "ExpressionBuilder.MathematicalFunctions.Cuberoot.Info"
 msgstr "<p>Calculates the cube root from the value passed as parameter.</p><p>Example: <tt>cbrt(27)</tt> returns 3.</p>"
 
+msgid "ExpressionBuilder.MathematicalFunctions.DigammaFunction"
+msgstr "Digamma function"
+
+msgid "ExpressionBuilder.MathematicalFunctions.DigammaFunction.Info"
+msgstr "<p>Returns the value of the Digamma function for the parameter passed as parameter.</p>"
+
 msgid "ExpressionBuilder.MathematicalFunctions.Factorial"
 msgstr "Factorial"
 
@@ -7070,7 +7076,9 @@ msgid "ExpressionBuilder.MathematicalFunctions.GammaFunction"
 msgstr "Gamma function"
 
 msgid "ExpressionBuilder.MathematicalFunctions.GammaFunction.Info"
-msgstr "<p>Returns the value of the Gamma function for the parameter passed as parameter.</p> <p>Example: <tt>gamma(7)</tt> returns 720.</p>"
+msgstr ""
+"<p>Returns the value of the Gamma function for the parameter passed as parameter.</p>\n"
+"<p>Example: <tt>gamma(7)</tt> returns 720.</p>"
 
 msgid "ExpressionBuilder.MathematicalFunctions.GammaPFunction"
 msgstr "Incomplete, regularized upper Gamma function"

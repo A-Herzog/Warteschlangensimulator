@@ -62,6 +62,7 @@ import parser.symbols.CalcSymbolPreOperatorCosh;
 import parser.symbols.CalcSymbolPreOperatorCot;
 import parser.symbols.CalcSymbolPreOperatorCoth;
 import parser.symbols.CalcSymbolPreOperatorCsch;
+import parser.symbols.CalcSymbolPreOperatorDigamma;
 import parser.symbols.CalcSymbolPreOperatorErlangC;
 import parser.symbols.CalcSymbolPreOperatorExp;
 import parser.symbols.CalcSymbolPreOperatorFactorial;
@@ -459,6 +460,7 @@ public class CalcSymbolList {
 			addSymbol(new CalcSymbolPreOperatorGamma());
 			addSymbol(new CalcSymbolPreOperatorGammaP());
 			addSymbol(new CalcSymbolPreOperatorGammaQ());
+			addSymbol(new CalcSymbolPreOperatorDigamma());
 			addSymbol(new CalcSymbolPreOperatorZeta());
 			addSymbol(new CalcSymbolPreOperatorInverse());
 			addSymbol(new CalcSymbolPreOperatorAbs());

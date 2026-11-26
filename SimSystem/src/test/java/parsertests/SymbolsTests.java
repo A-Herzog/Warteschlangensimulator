@@ -704,7 +704,7 @@ class SymbolsTests {
 	 * Test: Funktionen, Anfangsbuchstabe C
 	 */
 	@Test
-	void testPreOperatorsC() {
+	void testPreOperatorsCD() {
 		CalcSystem calc;
 		double d;
 
@@ -1046,6 +1046,63 @@ class SymbolsTests {
 		calc=new CalcSystem("cv(a;2;3;4;5)",new String[]{"a"}); /* E=3, Var=2,5, CV=Sqrt(Var)/E=0,527 */
 		assertTrue(calc.parse()<0);
 		assertEquals(0.527,calc.calcOrDefault(new double[]{1},-7),0.001);
+
+		/* Digamma */
+
+		calc=new CalcSystem("digamma(1)");
+		assertTrue(calc.parse()<0);
+		try {
+			d=calc.calc();
+			assertEquals(0.577215664901532d,d);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("digamma(2)");
+		assertTrue(calc.parse()<0);
+		try {
+			d=calc.calc();
+			assertEquals(0.42,d,0.01);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		calc=new CalcSystem("digamma(5.5)");
+		assertTrue(calc.parse()<0);
+		try {
+			d=calc.calc();
+			assertEquals(1.61,d,0.01);
+		} catch (MathCalcError e) {
+			assertTrue(false);
+		}
+
+		final CalcSystem calc1=new CalcSystem("digamma(0)");
+		assertTrue(calc1.parse()<0);
+		assertThrows(MathCalcError.class,()->calc1.calc());
+
+		final CalcSystem calc2=new CalcSystem("digamma(-1)");
+		assertTrue(calc2.parse()<0);
+		assertThrows(MathCalcError.class,()->calc2.calc());
+
+		calc=new CalcSystem("digamma(a)",new String[]{"a"});
+		assertTrue(calc.parse()<0);
+		assertEquals(0.577215664901532d,calc.calcOrDefault(new double[]{1},-1));
+
+		calc=new CalcSystem("digamma(a)",new String[]{"a"});
+		assertTrue(calc.parse()<0);
+		assertEquals(0.42,calc.calcOrDefault(new double[]{2},-1),0.01);
+
+		calc=new CalcSystem("digamma(a)",new String[]{"a"});
+		assertTrue(calc.parse()<0);
+		assertEquals(1.61,calc.calcOrDefault(new double[]{5.5},-1),0.01);
+
+		calc=new CalcSystem("digamma(a)",new String[]{"a"});
+		assertTrue(calc.parse()<0);
+		assertEquals(-1,calc.calcOrDefault(new double[]{0},-1));
+
+		calc=new CalcSystem("digamma(a)",new String[]{"a"});
+		assertTrue(calc.parse()<0);
+		assertEquals(-1,calc.calcOrDefault(new double[]{-1},-1));
 	}
 
 	/**

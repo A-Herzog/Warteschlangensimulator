@@ -145,6 +145,7 @@ public class ExpressionBuilderBasics {
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.GammaFunction")+" (gamma)","gamma("+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.GammaFunction.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.GammaPFunction")+" (gammaP)","gammaP(a;x)",Language.tr("ExpressionBuilder.MathematicalFunctions.GammaPFunction.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.GammaQFunction")+" (gammaQ)","gammaQ(a;x)",Language.tr("ExpressionBuilder.MathematicalFunctions.GammaQFunction.Info"));
+		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.DigammaFunction")+" (digamma)","digamma(x)",Language.tr("ExpressionBuilder.MathematicalFunctions.DigammaFunction.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.ZetaFunction")+" (zeta)","zeta("+value+")",String.format(Language.tr("ExpressionBuilder.MathematicalFunctions.ZetaFunction.Info"),NumberTools.formatNumberMax(1.64493)));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.Random")+" (random)","random()",Language.tr("ExpressionBuilder.MathematicalFunctions.Random.Info"));
 		addTreeNode(group,filterUpper,Language.tr("ExpressionBuilder.MathematicalFunctions.RandomRange")+" (randomRange)","randomRange("+value+";"+value+")",Language.tr("ExpressionBuilder.MathematicalFunctions.RandomRange.Info"));

@@ -22,7 +22,7 @@ import parser.coresymbols.CalcSymbolPreOperator;
  * Digamma-Funktion
  * @author Alexander Herzog
  */
-public class CalcSymbolPreOperatorDigamma extends CalcSymbolPreOperator { // TODO Einbauen
+public class CalcSymbolPreOperatorDigamma extends CalcSymbolPreOperator {
 	/**
 	 * Konstruktor der Klasse
 	 */
