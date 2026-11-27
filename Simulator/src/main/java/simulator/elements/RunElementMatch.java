@@ -618,11 +618,13 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 		final int[] selected=data.selectQueuedClients;
 		/* Abgleich eines Zahlenwertes */
 		final double newClientValue=newClient.getUserData(matchPropertyNumberIndex);
-		for (int i=0;i<data.waitingClients.length;i++) {
+		final int numberOfQueues=data.waitingClients.length;
+		for (int i=0;i<numberOfQueues;i++) {
 			if (i==newClientQueueNumber) continue;
 			final List<RunDataClient> queue=data.waitingClients[i];
 			boolean ok=false;
-			for (int j=0;j<queue.size();j++) {
+			final int queueLength=queue.size();
+			for (int j=0;j<queueLength;j++) {
 				final RunDataClient client=queue.get(j);
 				if (client.getUserData(matchPropertyNumberIndex)==newClientValue) {
 					selected[i]=j;
@@ -757,6 +759,9 @@ public class RunElementMatch extends RunElementPassThrough implements StateChang
 	 */
 	private int[] testReadyToSend(final SimulationData simData, final RunDataClient newClient, final int newClientQueueNumber) {
 		final RunElementMatchData data=getData(simData);
+
+		/* Sind weniger Kunden an der Station kann unmöglich in jeder Teilwarteschlange mindestens ein Kunde sein. */
+		if (data.clientsAtStation<data.waitingClients.length) return null;
 
 		switch (matchPropertyMode) {
 		case NONE:
